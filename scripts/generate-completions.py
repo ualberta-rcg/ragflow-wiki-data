@@ -55,6 +55,15 @@ def save_state(state):
     STATE_FILE.write_text(json.dumps(state, indent=2, ensure_ascii=False), encoding="utf-8")
 
 
+# --- Language instructions ---
+
+LANG_INSTRUCTIONS = {
+    "fr": "Write ALL questions and answers in Quebec French (français québécois). Use Canadian French terminology and phrasing.",
+    "en": "Write all questions and answers in Canadian English.",
+    "base": "Write all questions and answers in Canadian English.",
+}
+
+
 # --- Gemini helpers ---
 
 def gemini_call(prompt, retries=RETRY_ATTEMPTS):
@@ -68,22 +77,29 @@ def gemini_call(prompt, retries=RETRY_ATTEMPTS):
     return None
 
 
-def gen_qa_pairs(page_text, chunk_text):
+def parse_qa_json(raw):
+    raw = raw.strip()
+    if raw.startswith("```"):
+        raw = re.sub(r"^```[a-zA-Z]*\n", "", raw)
+        raw = re.sub(r"\n```$", "", raw)
+    qa_list = json.loads(raw)
+    if isinstance(qa_list, list) and all("question" in qa and "answer" in qa for qa in qa_list):
+        return qa_list
+    return None
+
+
+def gen_qa_pairs(page_text, chunk_text, lang="en"):
+    lang_instruction = LANG_INSTRUCTIONS.get(lang, LANG_INSTRUCTIONS["en"])
     prompt = f"""You are generating **question–answer pairs** from a technical document.
 
 Requirements:
+- {lang_instruction}
 - Output only valid JSON.
 - JSON must be a list of objects, each with keys "question" and "answer".
 - "question" must be a single string (natural user question).
 - "answer" must be a single string that can be answered from the chunk (with page context if needed).
 - Do not include any text outside of the JSON block.
 - Create as many questions and answers as you can with the given information.
-
-Example:
-[
-  {{"question": "How do you install ZFS on Ubuntu?", "answer": "Run 'sudo apt-get install zfsutils-linux' after updating packages."}},
-  {{"question": "How do you create a zpool in ZFS?", "answer": "Use 'sudo zpool create -f data /dev/vdb /dev/vdc' to create a new pool."}}
-]
 
 Document (context):
 {page_text}
@@ -95,14 +111,10 @@ Chunk (focus):
         raw = gemini_call(prompt, retries=1)
         if not raw:
             continue
-        raw = raw.strip()
-        if raw.startswith("```"):
-            raw = re.sub(r"^```[a-zA-Z]*\n", "", raw)
-            raw = re.sub(r"\n```$", "", raw)
         try:
-            qa_list = json.loads(raw)
-            if isinstance(qa_list, list) and all("question" in qa and "answer" in qa for qa in qa_list):
-                return qa_list
+            result = parse_qa_json(raw)
+            if result:
+                return result
         except json.JSONDecodeError as e:
             print(f"    Invalid JSON attempt {attempt}: {e}")
             time.sleep(RETRY_PAUSE)
@@ -139,10 +151,12 @@ def get_docs_needing_completions(state, limit=None):
     return docs
 
 
-def gen_page_qa(page_text):
+def gen_page_qa(page_text, lang="en"):
+    lang_instruction = LANG_INSTRUCTIONS.get(lang, LANG_INSTRUCTIONS["en"])
     prompt = f"""You are generating **question–answer pairs** that cover the entire document below.
 
 Requirements:
+- {lang_instruction}
 - Output only valid JSON.
 - JSON must be a list of objects, each with keys "question" and "answer".
 - "question" must be a single string (natural user question).
@@ -157,14 +171,10 @@ Document:
         raw = gemini_call(prompt, retries=1)
         if not raw:
             continue
-        raw = raw.strip()
-        if raw.startswith("```"):
-            raw = re.sub(r"^```[a-zA-Z]*\n", "", raw)
-            raw = re.sub(r"\n```$", "", raw)
         try:
-            qa_list = json.loads(raw)
-            if isinstance(qa_list, list) and all("question" in qa and "answer" in qa for qa in qa_list):
-                return qa_list
+            result = parse_qa_json(raw)
+            if result:
+                return result
         except json.JSONDecodeError as e:
             print(f"    Invalid JSON attempt {attempt}: {e}")
             time.sleep(RETRY_PAUSE)
@@ -186,10 +196,11 @@ def process_doc(dataset, doc_key, doc_state):
 
     doc = docs[0]
     page_text = doc.download().decode("utf-8", errors="ignore")
+    lang = doc_state.get("lang", "en")
 
     # Page-level Q&A
-    print(f"    Generating page-level Q&A...")
-    page_qa = gen_page_qa(page_text)
+    print(f"    Generating page-level Q&A ({lang})...")
+    page_qa = gen_page_qa(page_text, lang=lang)
     (out_dir / "page.json").write_text(json.dumps({
         "doc_key": doc_key,
         "level": "page",
@@ -211,8 +222,8 @@ def process_doc(dataset, doc_key, doc_state):
 
     chunk_qa_total = 0
     for i, chunk in enumerate(available_chunks, start=1):
-        print(f"    Chunk {i}/{len(available_chunks)}: generating Q&A...")
-        qa_pairs = gen_qa_pairs(page_text, chunk.content)
+        print(f"    Chunk {i}/{len(available_chunks)}: generating Q&A ({lang})...")
+        qa_pairs = gen_qa_pairs(page_text, chunk.content, lang=lang)
 
         (out_dir / f"chunk-{i}.json").write_text(json.dumps({
             "doc_key": doc_key,
