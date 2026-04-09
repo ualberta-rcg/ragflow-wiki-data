@@ -30,8 +30,8 @@ REPO_ROOT = Path(__file__).parent.parent
 CONFIG_DIR = REPO_ROOT / "config"
 STATE_FILE = CONFIG_DIR / "processing-state.json"
 
-RAGFLOW_API_KEY = os.environ.get("RAGFLOW_API_KEY", "ragflow-obaOcime25CrFMSZCwGtuiR-i17pxaqD8GI2-sla7EM")
-RAGFLOW_BASE_URL = os.environ.get("RAGFLOW_BASE_URL", "https://ragflow.vulcan.alliancecan.ca")
+RAGFLOW_API_KEY = os.environ.get("RAGFLOW_API_KEY", "")
+RAGFLOW_BASE_URL = os.environ.get("RAGFLOW_BASE_URL", "")
 
 BATCH_SIZE = int(os.environ.get("BATCH_SIZE", "5"))
 DRY_RUN = os.environ.get("DRY_RUN", "false").lower() == "true"
