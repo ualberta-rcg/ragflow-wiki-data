@@ -24,10 +24,16 @@ jobs:
           python-version: "3.11"
 
       - name: Install dependencies
-        run: pip install requests
+        run: pip install requests beautifulsoup4
 
       - name: Download wiki pages
         run: python scripts/download-wiki.py
+
+      - name: Download events
+        run: python scripts/download-events.py
+
+      - name: Download status page
+        run: python scripts/download-status.py
 
       - name: Configure Git
         run: |
@@ -43,12 +49,12 @@ jobs:
             exit 0
           fi
           
-          # Count changes from manifest
           NEW=$(grep -c '"change_status": "new"' manifest.json || echo 0)
           UPDATED=$(grep -c '"change_status": "updated"' manifest.json || echo 0)
           
           ts="$(date -u +"%Y-%m-%d %H:%M:%S UTC")"
-          git commit -m "Update wiki pages ($ts)
+          git commit -m "Download all sources ($ts)
 
-          New: $NEW, Updated: $UPDATED"
+          Wiki - New: $NEW, Updated: $UPDATED
+          Events and status pages also refreshed"
           git push origin HEAD:${{ github.ref_name }}
