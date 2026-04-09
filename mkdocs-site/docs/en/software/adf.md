@@ -1,40 +1,18 @@
 ---
-title: "ADF"
-slug: "adf"
-lang: "base"
-
-# Source tracking
-source_wiki_title: "ADF"
-source_hash: "7c3bad0d1269e07befaba90033b1910b"
-last_synced: "2026-04-09T05:35:44.590148+00:00"
-last_processed: ""
-
+title: "ADF/en"
 tags:
   - software
   - computationalchemistry
 
 keywords:
   []
-summary: ""
-
-status:
-  downloaded: true
-  converted: true
-  tagged: true
-  keywords_generated: false
-  ragflow_synced: false
-  qa_generated: false
 ---
 
-<translate>
-
-==Introduction== <!--T:2-->
+## Introduction
 **Important:** ADF has been renamed to AMS since the 2020 version. Significant changes such as the input and output formats have been made in the new AMS. Please refer to [AMS](ams.md) for more information.
 
-<!--T:46-->
 The [SCM (Software for Chemistry and Materials) Amsterdam Modeling Suite](https://www.scm.com/) originally the ADF (Amsterdam Density Functional) Modeling Suite, offers powerful computational chemistry tools for many research areas such as homogeneous and heterogeneous catalysis, inorganic chemistry, heavy element chemistry, various types of spectroscopy, and biochemistry.
 
-<!--T:4-->
 Compute Canada users have access to the following products:
 *ADF
 *ADF-GUI
@@ -46,23 +24,19 @@ Compute Canada users have access to the following products:
 *QE-GUI
 *NBO6
 
-==Running SCM on Graham== <!--T:6-->
+## Running SCM on Graham
 The `adf` module is installed only on [Graham](graham.md) due to license restrictions. To check what versions are available use the `module spider` command as follows:
 
-<!--T:8-->
  [name@server $] module spider adf
 
-<!--T:10-->
 For module commands, please see [Using modules](utiliser-des-modules-en.md).
 
-===Job submission=== <!--T:12-->
+### Job submission
 
-<!--T:14-->
 Graham uses the Slurm scheduler; for details about submitting jobs, see [Running jobs](running-jobs.md).
 
-====Single ADF or BAND run==== <!--T:16-->
+#### Single ADF or BAND run
 This mysub.sh script is for a whole-node job. The last two lines load version 2019.305 and call ADF directly.
-</translate>
 
 **`mysub.sh`**
 ```bash
@@ -77,11 +51,7 @@ module load adf/2019.305
 ADF adf_test.inp
 ```
 
-<translate>
-
-<!--T:18-->
 This is the input file used in the script:
-</translate>
 
 **`adf_test.inp`**
 ```text
@@ -106,13 +76,9 @@ Title WATER Geometry Optimization with Delocalized Coordinates
  End Input
 ```
 
-<translate>
+#### Multiple ADF or BAND runs
 
-====Multiple ADF or BAND runs==== <!--T:20-->
-
-<!--T:22-->
 Multiple calculations can be combined into a single job by creating a input file such as this:
-</translate>
 
 **`GO_H2O.run`**
 ```bash
@@ -250,11 +216,7 @@ eor
 mv TAPE21 H2O.t21
 ```
 
-<translate>
-
-<!--T:24-->
 The following slurm script is identical to the one used for a single run (mysub.sh), except the last line calls the GO_H2O.run script, instead of ADF.
-</translate>
 
 **`GO_H2O.sh`**
 ```bash
@@ -269,47 +231,37 @@ module load adf/2019.305
 bash GO_H2O.run                         # run the shell script
 ```
 
-<translate>
-
-===Examples=== <!--T:26-->
+### Examples
 Example input/output for ADF can be found on Graham under
  /home/jemmyhu/tests/test_ADF/2019.305/test_adf/
 
-<!--T:28-->
 The same procedure applies to BAND jobs, see band_test.inp and band_test.sh examples under
  /home/jemmyhu/tests/test_ADF/2019.305/test_band/
 
-==Running SCM-GUI== <!--T:30-->
+## Running SCM-GUI
 Rendering over an SSH connection with X11 forwarding is very slow for GUI applications such as ADF-GUI. We recommend you use [VNC](vnc.md) to connect if you will be running ADF-GUI.
 
-===Graham=== <!--T:32-->
+### Graham
 
-<!--T:34-->
 ADF can be run interactively in graphical mode on a Graham compute node (3hr time limit) over TigerVNC with these steps:
 
-<!--T:35-->
 # [Install a TigerVNC](vnc#setup.md) client on your desktop
 # [Connect](vnc#compute_nodes.md) to a compute node with vncviewer
 # `module load adf`
 # `adfinput`
 
-===Gra-vdi=== <!--T:36-->
+### Gra-vdi
 
-<!--T:38-->
 Adf can be run interactively in graphical mode on gra-vdi (no connection time limit) over TigerVNC with these steps:
 
-<!--T:40-->
 # [Install a TigerVNC](vnc#setup.md) client on your desktop
 # [Connect](vnc#vdi_nodes.md) to gra-vdi.computecanada.ca with vncviewer
 # `module load clumod`
 # `module load adf`
 # `adfinput`
 
-<!--T:42-->
 A tutorial pdf showing how to install, connect and run ADF-GUI using TigerVNC on gra-vdi can be found 
 [here](https://www.sharcnet.ca/~jemmyhu/TigerVNC-for-ADF-GUI.pdf).
 
-===Locally=== <!--T:44-->
-SCM has a separate license to run ADF-GUI on a local desktop machine. If you are interested contact [mailto:license@scm.com license@scm.com] to purchase your own license. 
-
-</translate>
+### Locally
+SCM has a separate license to run ADF-GUI on a local desktop machine. If you are interested contact [mailto:license@scm.com license@scm.com] to purchase your own license.

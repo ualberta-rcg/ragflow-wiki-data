@@ -127,6 +127,10 @@ def convert_wiki_to_markdown(content):
     # Clean up any remaining {{ }} templates we didn't handle
     content = re.sub(r'\{\{[^}]*\}\}', '', content)
     
+    # Remove <translate> tags and translation markers
+    content = re.sub(r'</?translate>', '', content)
+    content = re.sub(r'<!--T:\d+-->', '', content)
+    
     # Clean up blank lines
     content = re.sub(r'\n{3,}', '\n\n', content)
     
@@ -151,17 +155,6 @@ def create_frontmatter(doc_key, doc_state):
     
     lines = ["---"]
     lines.append(f'title: "{title}"')
-    lines.append(f'slug: "{slug}"')
-    lines.append(f'lang: "{lang}"')
-    lines.append("")
-    
-    # Source tracking
-    lines.append("# Source tracking")
-    lines.append(f'source_wiki_title: "{doc_state.get("wiki_title", "")}"')
-    lines.append(f'source_hash: "{doc_state.get("source_hash", "")}"')
-    lines.append(f'last_synced: "{doc_state.get("downloaded_at", "")}"')
-    lines.append(f'last_processed: "{doc_state.get("last_processed", "")}"')
-    lines.append("")
     
     # Tags
     lines.append("tags:")
@@ -182,18 +175,6 @@ def create_frontmatter(doc_key, doc_state):
     
     if summary:
         lines.append(f'summary: "{summary}"')
-    else:
-        lines.append('summary: ""')
-    lines.append("")
-    
-    # Processing status
-    lines.append("status:")
-    lines.append("  downloaded: true")
-    lines.append("  converted: true")
-    lines.append(f'  tagged: {str(bool(tags)).lower()}')
-    lines.append(f'  keywords_generated: {str(bool(keywords)).lower()}')
-    lines.append(f'  ragflow_synced: {str(not doc_state.get("needs_ragflow_sync", True)).lower()}')
-    lines.append(f'  qa_generated: {str(not doc_state.get("needs_qa", True)).lower()}')
     
     lines.append("---")
     return "\n".join(lines)
