@@ -1,0 +1,48 @@
+name: Download Wiki Pages
+
+on:
+  workflow_dispatch: {}
+  schedule:
+    - cron: "0 6 * * 5"  # Weekly on Friday at 6am UTC
+
+permissions:
+  contents: write
+
+jobs:
+  download-wiki:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Download wiki pages
+        run: python scripts/download-wiki.py
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Commit changes (if any)
+        run: |
+          git add -A docs/ manifest.json
+          
+          if git diff --staged --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+          
+          ts="$(date -u +"%Y-%m-%d %H:%M:%S UTC")"
+          git commit -m "Update wiki pages ($ts)"
+          git push origin HEAD:${{ github.ref_name }}

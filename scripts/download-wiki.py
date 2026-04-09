@@ -1,0 +1,173 @@
+#!/usr/bin/env python3
+"""
+Download wiki pages from Alliance MediaWiki and organize into directories.
+Organizes by language (en/fr/base) and category.
+"""
+
+import requests
+import re
+import os
+import json
+from pathlib import Path
+from collections import defaultdict
+
+API_ENDPOINT = "https://docs.alliancecan.ca/mediawiki/api.php"
+OUTPUT_DIR = Path("docs")
+
+# Category mapping - wiki category -> directory
+CATEGORY_MAP = {
+    "software": "software",
+    "computationalchemistry": "software/chemistry",
+    "biomolecularsimulation": "software/molecular-sim",
+    "ai and machine learning": "software/ai-ml",
+    "bioinformatics": "software/bioinformatics",
+    "cloud": "cloud",
+    "cc-cloud": "cloud",
+    "slurm": "scheduling",
+    "connecting": "getting-started",
+    "se connecter": "getting-started",
+    "cvmfs": "software/cvmfs",
+    "tutorials": "tutorials",
+    "policy": "policies",
+    "user installed software": "software/user-installed",
+}
+
+# Categories to skip (maintenance/meta)
+SKIP_CATEGORIES = [
+    "deprecated", "broken", "syntax", "template", "noindex", 
+    "outdated", "draft", "migration", "video", "pages using", "pages with"
+]
+
+
+def get_all_pages():
+    """Fetch list of all wiki pages."""
+    pages = []
+    params = {
+        "action": "query",
+        "list": "allpages",
+        "format": "json",
+        "aplimit": "max"
+    }
+    while True:
+        res = requests.get(API_ENDPOINT, params=params).json()
+        pages += res["query"]["allpages"]
+        if "continue" in res:
+            params.update(res["continue"])
+        else:
+            break
+    return [p["title"] for p in pages]
+
+
+def get_page_content(title):
+    """Fetch content of a single page."""
+    params = {
+        "action": "query",
+        "prop": "revisions",
+        "rvprop": "content",
+        "format": "json",
+        "titles": title
+    }
+    res = requests.get(API_ENDPOINT, params=params).json()
+    pages = res.get("query", {}).get("pages", {})
+    for page_id, data in pages.items():
+        if "revisions" in data:
+            rev = data["revisions"][0]
+            return rev.get("*") or rev.get("slots", {}).get("main", {}).get("*", "")
+    return ""
+
+
+def extract_categories(content):
+    """Extract categories from wiki content."""
+    cats = re.findall(r'\[\[Category:([^\]]+)\]\]', content, re.IGNORECASE)
+    return [c.strip() for c in cats 
+            if not any(skip in c.lower() for skip in SKIP_CATEGORIES)]
+
+
+def detect_language(title):
+    """Detect language from title suffix."""
+    if title.endswith("/en"):
+        return "en", title[:-3]
+    elif title.endswith("/fr"):
+        return "fr", title[:-3]
+    else:
+        return "base", title
+
+
+def slugify(title):
+    """Convert title to safe filename."""
+    return re.sub(r'[^\w\-]', '_', title.lower()).strip('_')
+
+
+def category_to_dir(cat):
+    """Map category to directory name."""
+    return CATEGORY_MAP.get(cat.lower(), "general")
+
+
+def main():
+    print("Fetching page list...")
+    titles = get_all_pages()
+    print(f"Found {len(titles)} pages\n")
+
+    stats = {
+        "total": 0,
+        "redirects": 0,
+        "by_category": defaultdict(int),
+        "by_lang": defaultdict(int),
+    }
+    manifest = []
+
+    for i, title in enumerate(titles):
+        if i % 50 == 0:
+            print(f"Processing {i}/{len(titles)}...")
+
+        content = get_page_content(title)
+
+        # Skip redirects
+        if content.strip().upper().startswith("#REDIRECT"):
+            stats["redirects"] += 1
+            continue
+
+        stats["total"] += 1
+        lang, base_title = detect_language(title)
+        stats["by_lang"][lang] += 1
+
+        # Get primary category
+        cats = extract_categories(content)
+        primary_cat = cats[0] if cats else "uncategorized"
+        stats["by_category"][primary_cat] += 1
+
+        # Build output path
+        cat_dir = category_to_dir(primary_cat)
+        slug = slugify(base_title)
+        out_dir = OUTPUT_DIR / lang / cat_dir
+        out_dir.mkdir(parents=True, exist_ok=True)
+
+        out_file = out_dir / f"{slug}.txt"
+        out_file.write_text(content, encoding="utf-8")
+
+        manifest.append({
+            "title": title,
+            "base_title": base_title,
+            "lang": lang,
+            "categories": cats,
+            "primary_category": primary_cat,
+            "path": str(out_file)
+        })
+
+    # Save manifest
+    Path("manifest.json").write_text(json.dumps(manifest, indent=2), encoding="utf-8")
+
+    print(f"\n=== Summary ===")
+    print(f"Total content pages: {stats['total']}")
+    print(f"Redirects skipped: {stats['redirects']}")
+    print(f"\nBy language:")
+    for lang, count in sorted(stats["by_lang"].items()):
+        print(f"  {lang}: {count}")
+    print(f"\nTop categories:")
+    for cat, count in sorted(stats["by_category"].items(), key=lambda x: -x[1])[:10]:
+        print(f"  {cat}: {count}")
+    print(f"\nDone. Files saved to {OUTPUT_DIR}/")
+
+
+if __name__ == "__main__":
+    main()
