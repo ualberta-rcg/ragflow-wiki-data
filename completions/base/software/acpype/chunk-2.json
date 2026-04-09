@@ -1,0 +1,104 @@
+{
+  "doc_key": "base/acpype",
+  "level": "chunk",
+  "chunk_index": 2,
+  "qa_pairs": [
+    {
+      "question": "Which quantum chemistry programs can be used for the AM1-BCC calculation by ACPYPE?",
+      "answer": "ACPYPE supports sqm (default), divcon, or mopac for the AM1-BCC calculation."
+    },
+    {
+      "question": "How do you provide keywords for Mopac or SQM programs in ACPYPE?",
+      "answer": "You can use the `-k` or `--keyword` option followed by the keyword enclosed in quotes."
+    },
+    {
+      "question": "What option should be used to force ACPYPE to recalculate topologies from scratch?",
+      "answer": "The `-f` or `--force` option will force topologies recalculation anew."
+    },
+    {
+      "question": "How can you instruct ACPYPE to retain all temporary files for debugging purposes?",
+      "answer": "You can use the `-d` or `--debug` option to keep any temporary files created. This option is not allowed with `-w`."
+    },
+    {
+      "question": "What option allows ACPYPE to run without printing any output?",
+      "answer": "The `-w` or `--verboseless` option will make ACPYPE print nothing. This option is not allowed with `-d`."
+    },
+    {
+      "question": "What are the possible output topology formats ACPYPE can generate?",
+      "answer": "ACPYPE can generate topologies for 'all' (default), GROMACS ('gmx'), CNS/XPLOR ('cns'), or CHARMM ('charmm')."
+    },
+    {
+      "question": "How do you specify a particular output topology format, for example, only GROMACS?",
+      "answer": "You use the `-o` or `--outtop` option followed by the desired format, like `-o gmx`."
+    },
+    {
+      "question": "What is the purpose of the `-z` option in ACPYPE?",
+      "answer": "The `-z` or `--gmx4` option tells ACPYPE to write RB dihedrals for old GROMACS 4.0."
+    },
+    {
+      "question": "How can you set a maximum time tolerance for SQM/MOPAC calculations in ACPYPE?",
+      "answer": "You can use the `-s` or `--max_time` option followed by the time in seconds. The default is 3 hours."
+    },
+    {
+      "question": "What is the default maximum time tolerance for SQM/MOPAC calculations?",
+      "answer": "The default maximum time tolerance for SQM/MOPAC is 3 hours."
+    },
+    {
+      "question": "How can you start an iPython interpreter using ACPYPE?",
+      "answer": "Use the `-y` or `--ipython` option to start the iPython interpreter."
+    },
+    {
+      "question": "What does the `-g` option do when generating GROMACS topology files?",
+      "answer": "The `-g` or `--merge` option merges lower and uppercase atomtypes in the GROMACS topology file if their parameters are identical."
+    },
+    {
+      "question": "How can ACPYPE sort atoms for GROMACS ordering?",
+      "answer": "The `-l` or `--sorted` option sorts atoms for GROMACS ordering."
+    },
+    {
+      "question": "What is the purpose of the `-v` option in ACPYPE?",
+      "answer": "The `-v` or `--version` option is used to show the Acpype version and exit."
+    },
+    {
+      "question": "How can ACPYPE be run as a non-interactive job?",
+      "answer": "ACPYPE can be run as a short job using a job script, similar to `job_acpype_ADP.sh`, which includes loading modules, activating a virtual environment, and executing the `acpype` command."
+    },
+    {
+      "question": "What SLURM resources are requested in the example `job_acpype_ADP.sh` script?",
+      "answer": "The example `job_acpype_ADP.sh` script requests 15 minutes of time (`--time=00:15:00`), 4 CPUs per task (`--cpus-per-task=4`), and 2000MB memory per CPU (`--mem-per-cpu=2000M`)."
+    },
+    {
+      "question": "How is an `adp.mol2` file generated from a SMILES string in the example job script?",
+      "answer": "The `obabel` command is used: `obabel -:\"c1nc...O)N\" -i smi -o mol2 -O adp.mol2 -h --gen3d`."
+    },
+    {
+      "question": "Why does ACPYPE perform a short QM calculation during topology generation?",
+      "answer": "ACPYPE performs a short QM calculation to optimize the structure and determine the partial charges of the molecule."
+    },
+    {
+      "question": "When is it appropriate to run ACPYPE on a login node?",
+      "answer": "For small molecules where the QM calculation takes less than two minutes, ACPYPE can be run on a login node."
+    },
+    {
+      "question": "How should ACPYPE be run on a login node to limit its thread usage?",
+      "answer": "You should run ACPYPE with `OMP_NUM_THREADS=2 acpype ...` to limit the number of threads used."
+    },
+    {
+      "question": "What are the steps to prepare and run ACPYPE on a login node for an ATP molecule downloaded from PubChem?",
+      "answer": "First, load the `python` and `openbabel` modules, then activate your virtual environment. Download the ATP structure file using `wget` (e.g., `wget \"https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/CID/5957/record/SDF?record_type=3d&response_type=save&response_basename=ATP\" -O atp.sdf`). Finally, run `OMP_NUM_THREADS=2 acpype -i atp.sdf`."
+    },
+    {
+      "question": "What happens if no charge value is provided to ACPYPE during execution?",
+      "answer": "ACPYPE will issue a warning and attempt to guess the charge, setting it, for example, to 0."
+    },
+    {
+      "question": "What is the typical output directory name created by ACPYPE for an input file like `atp.sdf`?",
+      "answer": "ACPYPE creates a directory named `atp.acpype` (based on the input file's basename)."
+    },
+    {
+      "question": "What kinds of files are found in the ACPYPE output directory after processing a molecule?",
+      "answer": "The output directory contains a variety of files, including a log file (`acpype.log`), AMBER files (`.prmtop`, `.inpcrd`, `.lib`, `.frcmod`), GROMACS files (`.gro`, `.top`, `.itp`), CHARMM files (`.rtf`, `.prm`, `.inp`), CNS/XPLOR files (`.top`, `.par`, `.inp`), a final PDB file (`_NEW.pdb`), mol2 files, and run parameter files (`em.mdp`, `md.mdp`)."
+    }
+  ],
+  "generated_at": "2026-04-09T22:53:14.478633+00:00"
+}

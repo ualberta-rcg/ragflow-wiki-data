@@ -1,0 +1,83 @@
+{
+  "doc_key": "fr/ai_and_machine_learning",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "Quel est le but principal de cette page concernant l'apprentissage machine sur les grappes?",
+      "answer": "Cette page décrit les bonnes pratiques dans l'utilisation des grappes pour l'apprentissage machine ainsi que des références à de l'information utile."
+    },
+    {
+      "question": "Pourquoi est-il important de prendre en compte la gestion des ensembles de données lors de l'utilisation des grappes pour l'apprentissage machine?",
+      "answer": "Les grappes ont des systèmes de fichiers distribués qui, malgré une impression d'accès similaire à un ordinateur local, ont des effets sur la performance bien différents, notamment pour les fichiers dans /project."
+    },
+    {
+      "question": "Où peut-on trouver un tutoriel de formation autonome sur l'introduction à l'apprentissage machine offert par SHARCNET?",
+      "answer": "Un tutoriel de formation autonome est accessible via le lien [https://training.sharcnet.ca/courses/enrol/index.php?id=180 Introduction to Machine Learning]."
+    },
+    {
+      "question": "Quelle est la ressource recommandée pour des renseignements importants sur l'utilisation de Python en apprentissage machine sur les grappes?",
+      "answer": "La page wiki [[Python/fr|Python ]] contient des renseignements importants sur les versions, les environnements virtuels, les nœuds de connexion et de calcul, le multiprocessing, Anaconda, Jupyter, etc."
+    },
+    {
+      "question": "Est-il recommandé d'utiliser Anaconda pour l'apprentissage machine sur les grappes?",
+      "answer": "Non, il est recommandé d'utiliser `virtualenv` pour éviter les problèmes causés par Anaconda."
+    },
+    {
+      "question": "Comment passer de l'utilisation d'Anaconda à `virtualenv` pour l'apprentissage machine?",
+      "answer": "Il suffit d'installer les mêmes paquets qu'avec Anaconda, à l'exception de CUDA, CuDNN et d'autres bibliothèques de bas niveau qui sont déjà présentes sur les grappes."
+    },
+    {
+      "question": "Quels sont quelques-uns des paquets logiciels d'apprentissage machine pour lesquels des pages wiki dédiées sont disponibles?",
+      "answer": "Des pages wiki sont disponibles pour TensorFlow, PyTorch, Keras, Torch, SpaCy, Scikit-Learn et SnapML."
+    },
+    {
+      "question": "Où peut-on trouver des informations détaillées sur les solutions de stockage et la gestion de fichiers sur les grappes?",
+      "answer": "Des informations supplémentaires sont disponibles sur la page [[Storage and file management/fr|Stockage et gestion de fichiers]]."
+    },
+    {
+      "question": "Quelle est la meilleure approche pour gérer un ensemble de données d'environ 100Go ou moins?",
+      "answer": "Il est recommandé de transférer l'ensemble de données dans l'espace de stockage local du nœud de calcul (disponible via $SLURM_TMPDIR) au début de la tâche, car il est plus rapide et fiable que les espaces partagés."
+    },
+    {
+      "question": "Comment les ensembles de données de plus de 100Go devraient-ils être gérés sur les grappes?",
+      "answer": "Ces ensembles de données devraient être laissés dans un espace partagé comme `/project` (pour le stockage permanent) ou `/scratch` (parfois plus rapide, mais non permanent), en privilégiant la lecture et le stockage de données à faible fréquence."
+    },
+    {
+      "question": "Quels problèmes peuvent survenir avec des ensembles de données composés de nombreux petits fichiers en apprentissage machine?",
+      "answer": "Le système de fichiers peut imposer un quota restreignant le nombre de fichiers, et l'application pourrait être considérablement ralentie par le transfert de ces petits fichiers."
+    },
+    {
+      "question": "Quelle est la solution recommandée pour gérer les ensembles de données composés de plusieurs petits fichiers?",
+      "answer": "Les données devraient être rassemblées dans un seul fichier d'archive."
+    },
+    {
+      "question": "Quelle technique est recommandée pour les calculs d'apprentissage machine de longue durée?",
+      "answer": "Il est recommandé d'utiliser des points de contrôle (checkpoints) pour sauvegarder la progression du travail."
+    },
+    {
+      "question": "Quels sont les avantages d'utiliser des points de contrôle pour les tâches de longue durée?",
+      "answer": "Cela permet de ne pas perdre le travail en cas de panne et de bénéficier d'une meilleure priorisation des tâches, car plus de nœuds sont réservés pour les tâches courtes."
+    },
+    {
+      "question": "Dans quels cas est-il conseillé de grouper plusieurs tâches similaires en une seule?",
+      "answer": "Il est conseillé de grouper des tâches pour la recherche d'hyperparamètres, l'entraînement de variantes d'une méthode ou l'exécution de plusieurs processus d'optimisation de même durée."
+    },
+    {
+      "question": "Quels outils sont mentionnés pour grouper plusieurs tâches similaires?",
+      "answer": "Des outils comme META, GLOST ou GNU Parallel peuvent être utilisés pour grouper des tâches."
+    },
+    {
+      "question": "Quels outils sont recommandés pour le suivi de l'expérimentation et l'optimisation des hyperparamètres?",
+      "answer": "Weights & Biases (wandb) et Comet.ml sont recommandés pour cela."
+    },
+    {
+      "question": "Quel problème de déterminisme peut survenir avec les réseaux de neurones récurrents (RNN) utilisant CUDA Toolkit versions 10.2 et plus?",
+      "answer": "Un comportement non déterministe peut être observé dans les RNN et les appels à l'API d'auto-attention multitêtes lorsque la bibliothèque cuDNN est présente."
+    },
+    {
+      "question": "Comment peut-on éviter le problème de non-déterminisme dans les RNN avec CUDA Toolkit 10.2 et plus?",
+      "answer": "Il faut configurer la variable d'environnement CUBLAS_WORKSPACE_CONFIG avec une seule taille pour la mémoire tampon, par exemple `:16:8` ou `:4096:2`."
+    }
+  ],
+  "generated_at": "2026-04-09T22:57:56.774594+00:00"
+}
