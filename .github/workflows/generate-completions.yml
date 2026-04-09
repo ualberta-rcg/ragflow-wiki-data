@@ -1,0 +1,63 @@
+name: Generate Prompt Completions
+
+on:
+  workflow_dispatch:
+    inputs:
+      batch_size:
+        description: 'Docs to process (0 = all synced)'
+        required: false
+        default: '10'
+  schedule:
+    - cron: "0 9 * * 5"  # Friday 9am UTC (after full pipeline)
+
+permissions:
+  contents: write
+
+jobs:
+  completions:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m venv venv
+          source venv/bin/activate
+          pip install -r requirements.txt
+          pip install google-generativeai
+
+      - name: Generate completions
+        env:
+          RAGFLOW_API_KEY: ${{ secrets.RAGFLOW_API_KEY }}
+          RAGFLOW_BASE_URL: ${{ secrets.RAGFLOW_BASE_URL }}
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+          BATCH_SIZE: ${{ github.event.inputs.batch_size || '10' }}
+        run: |
+          source venv/bin/activate
+          python scripts/generate-completions.py
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Commit and push
+        run: |
+          git add -A completions/ config/processing-state.json
+          
+          if git diff --staged --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+          
+          ts="$(date -u +"%Y-%m-%d %H:%M:%S UTC")"
+          git commit -m "Generate prompt completions ($ts)"
+          git push origin HEAD:${{ github.ref_name }}
