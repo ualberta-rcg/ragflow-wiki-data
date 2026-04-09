@@ -1,0 +1,85 @@
+<languages />
+<translate>
+<!--T:1-->
+To work on our clusters, most users will need to use [[SSH]] to connect to the cluster for job submission and monitoring, editing files and so forth. Keeping this SSH connection alive for a long period of time, ranging from hours to days, may be necessary for some users and this page proposes a variety of techniques for keeping such a terminal session alive. 
+
+=SSH configuration= <!--T:2-->
+
+<!--T:3-->
+One simple solution is to modify the configuration of your SSH client to prolong the connection. On MacOS and Linux the client configuration is found in <code>$HOME/.ssh/config</code> while in Windows it is located in <code>C:\Users\<username>\.ssh\config</code>. Note that the file may not exist initially, so you will need to create it; you should add the lines 
+</translate>
+<source>
+Host *
+    ServerAliveInterval 240
+</source>
+<translate>
+<!--T:4-->
+This addition will ensure the transmission of a sign-of-life signal over the SSH connection to any remote server (such as an Alliance cluster) every 240 seconds, i.e. four minutes, which should help to keep your SSH connection alive even if it is idle for several hours.
+
+=Terminal multiplexers= <!--T:5-->
+
+<!--T:6-->
+The programs <code>tmux</code> and <code>screen</code> are examples of a terminal multiplexer—a program which allows you to detach your terminal session entirely, where it will keep on running on its own until you choose to reattach to it. With such a program, you can log out from the cluster, turn off the workstation or hibernate the laptop you use to connect to the cluster and when you're ready to start working again the next day, reattach to your session and start from right where you left off. 
+{{box|<b>Login node dependency</b>
+<br>
+Each of our clusters has several login nodes and your <code>tmux</code> or <code>screen</code> session is specific to a login node. If you wish to reattach to a session, you must ensure you're connected to the right login node, which of course means remembering which login node you were using when you started <code>tmux</code> or <code>screen</code>. Login nodes may also occasionally be rebooted, which will kill any detached terminal sessions on that node.}}   
+
+==tmux== <!--T:7-->
+
+<!--T:8-->
+The [https://en.wikipedia.org/wiki/Tmux tmux] software is a terminal multiplexer, allowing multiple virtual sessions in a single terminal session. You can thus disconnect from an SSH session without interrupting its process(es).
+
+<!--T:9-->
+Here are some introductions to tmux:
+* [https://leanpub.com/the-tao-of-tmux/read "The Tao of tmux"], an online book 
+* [https://www.youtube.com/watch?v=252K9lrRdMU "Getting Started With TMUX"], a 24-minute video 
+* [https://www.youtube.com/watch?v=Y1Of3S5iVog "Turbo boost your interactive experience on the cluster with tmux"], a 58-minute video
+
+===Cheat sheet=== <!--T:10-->
+
+<!--T:11-->
+For a complete reference, see [http://hyperpolyglot.org/multiplexers this page].
+
+<!--T:12-->
+{| class="wikitable"
+|-
+! Command !! Description
+|-
+| <code>tmux</code> || Start a server
+|-
+| <code>Ctrl+B D</code> ||  Disconnect from server
+|-
+| <code>tmux a</code> || Reconnect to server
+|-
+| <code>Ctrl+B C</code> || Create a new window
+|-
+| <code>Ctrl+B N</code> || Go to next window
+|-
+| <code>Ctrl+B [</code> || Enable "copy" mode, allowing to scroll with the mouse and Page-Up Page-Down
+|-
+| <code>Esc</code> || Disable "copy" mode 
+|}
+
+===Launch tmux inside a job submitted through tmux=== <!--T:13--> 
+
+<!--T:14-->
+If you submit a job with tmux and try to start tmux within the same job, you will get the <code>lost server</code> error message. This happens because the <code>$TMUX</code> environment variable pointing to the tmux server is propagated to the job. The value of the variable is not valid and you can reset it with: {{Command|unset TMUX}}
+
+<!--T:15-->
+However, nested use of tmux is not recommended. To send commands to a nested tmux, one has to hit <code>Ctrl+B</code> twice; for example, to create a new window, one has to use <code>Ctrl+B Ctrl+B C</code>. Consider using [[#GNU Screen | GNU Screen]] inside your job (if you are using tmux on a login node).
+
+==GNU Screen== <!--T:16-->
+
+<!--T:17-->
+The [https://en.wikipedia.org/wiki/GNU_Screen GNU Screen] program is another widely used terminal multiplexer. To create a detached terminal session, you can use the following command
+{{Command|screen -S <session name>}}
+It's a good idea to give a descriptive name to your terminal sessions, making it easier to identify them later. You can use the command <code>screen -list</code> to see a list of your detached terminal sessions on this node,
+{{Command
+|screen -list
+|result=
+There is a screen on:
+        164133.foo      (Attached)
+1 Socket in /tmp/S-stubbsda.
+}}
+You can attach to one of your sessions using the command <code>screen -d -r <session name></code>.
+</translate>

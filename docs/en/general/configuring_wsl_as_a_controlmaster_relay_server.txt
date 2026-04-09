@@ -1,0 +1,129 @@
+<languages />
+
+
+{{Warning|title=Disclaimer |content=This is still an experimental procedure (work in progress).<br><br>
+If you have suggestions, please write to [[technical support]].}}
+
+With this procedure you can leverage ControlMaster under WSL so you may log into the clusters with several apps under native Windows for a certain period without having to use multifactor authentication for every session. 
+
+=== Install Linux on Windows with WSL ===
+Please follow this link for more detailed instructions:
+ https://docs.alliancecan.ca/wiki/Windows_Subsystem_for_Linux_(WSL)
+
+This setup assumes the following on the sample config files:
+* you selected Ubuntu as your distribution
+* the hostname for the WSL instance is <i>ubuntu</i>: <i>/etc/hostname</i> contains <i>ubuntu</i> and <i>/etc/hosts</i> contains <i>127.0.0.1 localhost ubuntu</i>
+* the Windows system is named <i>smart</i> and the login name is <i>jaime</i>
+* the user name on the Ubuntu VM is also <i>jaime</i>
+* the Alliance user name is <i>pinto</i> and we want to connect to Cedar
+
+=== Install additional packages ===
+<pre>
+ sudo apt update && sudo apt upgrade -y
+ sudo apt install openssh-server -y
+</pre>
+You may log in from Windows to Ubuntu with <code>ssh localhost</code>.
+
+=== General idea of the setup ===
+<pre>
+[ssh client] ----> [ssh relay server] ----> [ssh target server]
+your Windows     modified authorized_keys     using cedar for
+  machine          in your Ubuntu VM           this exercise
+ <i>smart</i>        <i>ubuntu</i>                 Cedar
+</pre>
+
+=== Log into the Ubuntu VM and create a <i>custom_ssh</i> folder ===
+<pre>
+jaime@ubuntu:~$ cat custom_ssh/sshd_config
+Port 2222
+HostKey /home/jaime/custom_ssh/ssh_host_ed25519_key
+HostKey /home/jaime/custom_ssh/ssh_host_rsa_key
+AuthorizedKeysFile /home/jaime/custom_ssh/authorized_keys
+ChallengeResponseAuthentication no
+UsePAM no
+Subsystem sftp /usr/lib/openssh/sftp-server
+PidFile /home/jaime/custom_ssh/sshd.pid
+</pre>
+You may copy the ''ssh_host'' keys from ''/etc/ssh'' with:
+<pre>sudo cp /etc/ssh/ssh_host_ed25519_key /home/jaime/custom_ssh/</pre>
+
+=== Customize <i>.ssh/config</i> on Ubuntu ===
+<pre>
+jaime@ubuntu:~$ cat ~/.ssh/config
+Host cedar
+    ControlPath ~/.ssh/cm-%r@%h:%p
+    ControlMaster auto
+    ControlPersist 10m
+    HostName cedar.alliancecan.ca
+    User pinto
+</pre>
+
+=== Customize the authorized keys ===
+<pre>
+jaime@ubuntu:~/custom_ssh$ cat /home/jaime/custom_ssh/authorized_keys
+ssh-ed25519 AAAZDINzaC1lZDI1NTE5AAC1lZDIvqzlffkzcjRAaMQoTBrPe5FxlSAjRAaMQyVzN+A+
+</pre>
+
+Use the same public SSH key that you uploaded to CCDB.
+
+=== Now start the sshd server on Ubuntu ===
+<pre>
+jaime@ubuntu:~/custom_ssh$ /usr/sbin/sshd -f ${HOME}/custom_ssh/sshd_config
+</pre>
+
+Make sure you start the server as yourself, not as root.
+You will also need to start the sshd server every time you restart your computer, or after closing or restarting WSL.
+
+=== Customize <i>.ssh/config</i> on <i>smart</i> with <code>RemoteCommand</code> ===
+<pre>
+jaime@smart ~/.ssh cat config
+Host ubuntu
+        Hostname localhost
+        RemoteCommand ssh cedar
+</pre>
+
+=== You are now ready to try to log into Cedar ===
+<pre>
+jaime@smart ~
+$ ssh -t ubuntu -p 2222
+Enter passphrase for key '/home/jaime/.ssh/id_ed25519':
+Last login: Fri Mar 22 10:50:12 2024 from 99.239.174.157
+================================================================================
+Welcome to Cedar! / Bienvenue sur Cedar!
+...
+...
+...
+[pinto@cedar1 ~]$
+</pre>
+
+=== Alternative setup ===
+There is another way in which you could customize the authorized keys on Ubuntu and the <i>~/.ssh/config</i> on Windows such that it may work better for some Windows GUI apps that don't let you explicitly set the <code>RemoteCommand</code> (such as WinSCP). In this case you set the <code>RemoteCommand</code> on the public key:
+<pre>
+jaime@ubuntu:~/custom_ssh$ cat /home/jaime/custom_ssh/authorized_keys
+command="ssh cedar" ssh-ed25519 AAAZDINzaC1lZDI1NTE5AAC1lZDIvqzlffkzcjRAaMQoTBrPe5FxlSAjRAaMQyVzN+A+
+
+jaime@smart ~/.ssh cat config
+Host ubuntu
+        Hostname localhost
+        #RemoteCommand ssh cedar
+</pre>
+
+You may still use <code>ssh ubuntu -p 2222</code> after that from a shell on Windows.
+
+=== Setup with MobaXterm ===
+
+[[File:MobaXterm-setup.jpg]]
+
+[[File:MobaXterm-VSL-localdriveC.jpg]]
+<!--
+=== Outstanding challenges ===
+With this setup you may be prompt for MFA duo authentication only on the first session. Subsequently multiple SSH sessions can be started on Cedar without MFA. This also works fine to get remote shells on Cedar from several apps running natively on Windows. We already tried for WinSCP, but we can assume it will work for other apps with some tweaks.
+
+However, what I'm realizing now is that on those very same Windows apps I'm not able to list/display the contents of the local Windows drives. Instead they all show the contents of the ubuntu relay server, which may not be what users want. I imagine in the most generic case they would like to transfer files directly between Windows and cedar, and not between Ubuntu and cedar. In any case, users may still see the contents of the Windows host mounted as the /mnt file system on Ubuntu [[Windows_Subsystem_for_Linux_(WSL)#File_access_between_Windows_and_Linux|as explained here]].
+
+I'm also trying to understand how to setup scp and sftp directly from Windows to cedar. To that effect, we might want explore the possibility of having a "generic command script", similar to the setup with automation under MFA, in which we could capture several commands with the pub key in the authorized_keys file.
+
+Ultimately we can conceive multiple stanzas in the .ssh/config, one for each site (cedar, graham, beluga, ...) on different ports (2222, 2223, 2224, ...) 
+
+Therefore, I probably need a hand from some of you to figure this out. Alliance staff members could post suggestions in the security-mfa channel. Users in general please send email to support with the subject "WSL, ControlMaster/MFA suggestion". Thanks
+-->

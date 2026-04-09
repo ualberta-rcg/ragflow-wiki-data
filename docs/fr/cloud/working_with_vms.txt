@@ -1,0 +1,25 @@
+<languages />
+''Page enfant de [[Cloud/fr|Service infonuagique]]''
+
+Une machine virtuelle (''VM'') est un serveur virtuel dans une infrastructure de nuage. OpenStack utilise le terme ''instance'' pour désigner une machine virtuelle active que vous pouvez gérer à partir du tableau de bord.
+
+= Instances=
+== Verrouiller une instance ==
+Il peut être utile de verrouiller une instance lorsque vous travaillez à un projet avec plusieurs autres personnes ou que vous voulez empêcher qu'une instance soit arrêtée ou supprimée accidentellement.
+
+
+Pour verrouiller une instance, cliquez sur ''Verrouiller l'instance'' dans le menu déroulant de la colonne ''Actions'' du tableau de bord. Une icône indique que le verrou est mis.<br/>
+La plupart des options du menu ''Actions'' ne pourront pas être exécutées tant que l'instance est verrouillée. 
+
+Pour déverrouiller une instance, cliquez sur ''Déverrouiller l'instance'' dans le menu déroulant de la colonne ''Actions'' du tableau de bord.
+
+==Modifier la taille d'une instance==
+Il est possible de modifier la taille d'une instance en changeant son gabarit. Il y a toutefois certains points à considérer selon que le gabarit est p ou c (voir [[Virtual machine flavors/fr|Gabarits d'instances]]). Le fait de supprimer une instance peut causer des problèmes car l'instance est en quelque sort supprimée puis recréée avec un nouveau gabarit; en cas de doute, demandez l'avis du [[Technical support/fr|soutien technique]].
+
+===Gabarits c===
+Les gabarits c ont des disques éphémères additionnels dont la taille peut être modifiée en sélectionnant un autre gabarit c. La taille de ces disques éphémères ne peut pas être diminuée et donc les instances de gabarit c ne peuvent être modifiées que par des gabarits avec des disques de taille égale ou supérieure. Une fois la taille modifiée, vous ne verrez pas un disque éphémère plus grand dans votre instance, c'est-à-dire que la commande [https://en.wikipedia.org/wiki/Df_(Unix) <code>df -h</code>] ne montrera pas l'augmentation. Pour voir l'espace ajouté, il faut modifier la taille du système de fichiers (voir la commande [https://linux.die.net/man/8/resize2fs <code>resize2fs</code>]). La modification d'un système de fichiers peut toutefois prendre beaucoup de temps si les partitions sont larges; faites une copie du système de fichiers avant de procéder (voir [[backing up your VM/fr| Sauvegarder une instance)]].
+
+===Gabarits p ===
+Les gabarits p n'ont typiquement pas de disques éphémères qui leur sont associés; leur taille peut donc être modifiée.
+
+[[Category:Cloud]]

@@ -1,0 +1,63 @@
+
+
+<languages />
+L’exécution d’un programme est parfois trop longue pour la durée permise par les systèmes de soumissions qui sont sur les grappes. L’exécution d’un long programme est également tributaire des aléas des systèmes. Un programme ayant une courte durée d’exécution peut aisément être redémarré. Par contre, lorsque l’exécution du programme devient très longue, il est préférable de faire des points de contrôle pour minimiser les chances de perdre plusieurs semaines de calcul. Ceux-ci permettront par la suite le redémarrage du programme.
+
+== Création et chargement d'un point de contrôle ==
+La création et le chargement d'un point de contrôle peuvent déjà être implémentés dans une application que vous utilisez. Il suffit alors d'utiliser cette fonctionnalité et de consulter la documentation à cet effet au besoin.
+
+Cependant, si vous avez accès au code source de l'application et/ou que vous en êtes l'auteur, vous pouvez implémenter la création et le chargement de points de contrôle. À la base:
+
+* La création d'un fichier de point de contrôle se fait de façon périodique. On suggère des périodes de 2 à 24 heures
+* Pendant l'écriture du fichier, il faut garder en tête que la tâche de calcul peut être interrompue à tout moment, et ce, pour toute sorte de raison technique. Par conséquent:
+** Il est préférable de ne pas écraser le précédent point de contrôle en créant le nouveau
+** On peut rendre l'écriture ''atomique'' en effectuant une opération qui vient confirmer la fin de l'écriture du point de contrôle. Par exemple, on peut initialement nommer le fichier en fonction de la date et l'heure et, finalement, créer un lien symbolique "derniere-version" vers le nouveau fichier de point de contrôle ayant un nom unique. Autre méthode plus avancée : on peut créer un second fichier contenant une somme de hachage du point de contrôle, permettant ainsi de valider l'intégrité du point de contrôle à son éventuel chargement
+** Une fois l'écriture atomique complétée, on peut décider de supprimer ou non des vieux points de contrôle
+
+<!--
+Afin de ne pas réinventer la roue, surtout si la modification du code source n'est pas une option, nous suggérons l'utilisation de [http://dmtcp.sourceforge.net/ DMTCP].
+
+=== DMTCP === 
+
+Le logiciel [http://dmtcp.sourceforge.net/ DMTCP] (Distributed Multithreaded CheckPointing) permet de faire des points de contrôles de programmes sans avoir à les recompiler.  La première exécution est effectuée avec le programme <tt>dmtcp_launch</tt> en spécifiant le temps entre les intervalles de sauvegarde. Le redémarrage se fait en exécutant le script <tt>dmtcp_restart_script.sh</tt>. Par défaut, ce script et les fichiers de redémarrage du programme sont écrits à l'endroit où le programme a été lancé. On peut changer l’emplacement des fichiers de sauvegarde  avec l’option <tt>--ckptdir <répertoire pour les sauvegardes></tt>. Vous pouvez faire <tt>dmtcp_launch --help</tt> pour obtenir toutes les options. Notez que DMTCP ne marche pas pour le moment avec les logiciels parallélisés par MPI. 
+
+
+Un exemple de script:
+-->
+<!--
+{{Fichier
+  |name=job_with_dmtcp.sh
+  |lang="sh"
+  |contents=
+#!/bin/bash
+# ---------------------------------------------------------------------
+# SLURM script for job resubmission on a Compute Canada cluster. 
+# ---------------------------------------------------------------------
+#SBATCH --job-name=job_chain
+#SBATCH --account=def-someuser
+#SBATCH --cpus-per-task=1
+#SBATCH --time=0-10:00
+#SBATCH --mem=100M
+# ---------------------------------------------------------------------
+echo "Current working directory: $(pwd)"
+echo "Starting run at: $(date)"
+# ---------------------------------------------------------------------
+# Run your simulation step here...
+
+if test -e "dmtcp_restart_script.sh"; then 
+     # There is a checkpoint file, restart;
+     ./dmtcp_restart_script.sh -h $(hostname)
+else
+     # There is no checkpoint file, start a new simulation.
+     dmtcp_launch --rm  -i 3600 -q <programme> <arg1> ... <argn>
+fi
+
+# ---------------------------------------------------------------------
+echo "Job finished with exit code $? at: $(date)"
+# ---------------------------------------------------------------------
+}}
+-->
+== Resoumettre une tâche pour un calcul de longue durée ==
+Si on prévoit qu'un long calcul sera morcelé en plusieurs tâches Slurm, les [[Running jobs/fr#Resoumettre_une_t.C3.A2che_pour_un_calcul_de_longue_dur.C3.A9e|deux méthodes recommandées]] sont:
+* [[Running_jobs/fr#Red.C3.A9marrage_avec_des_vecteurs_de_t.C3.A2ches|l'utilisation de vecteurs de tâches (''job arrays'') Slurm]];
+* [[Running_jobs/fr#Resoumettre_.C3.A0_partir_d.27un_script|la resoumission à partir de la fin du script]].

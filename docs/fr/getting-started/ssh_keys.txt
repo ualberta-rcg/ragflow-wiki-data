@@ -1,0 +1,187 @@
+<languages />
+
+<i>Page enfant de [[SSH/fr|SSH]]</i>
+
+<span id="What_are_SSH_keys?"></span>
+== Qu'est-ce qu'une clé SSH? ==
+
+SSH utilise [https://fr.wikipedia.org/wiki/Cryptographie_asym%C3%A9trique la cryptographie à clé publique (CP) ou ''cryptographie asymétrique''] pour sécuriser les connexions.
+
+Dans ce mode de chiffrement, la clé qui est privée reste secrète et l'autre clé peut être divulguée à d'autres utilisateurs. Tous peuvent utiliser la clé publique pour encoder un message, mais seul le propriétaire de la clé privée peut utiliser cette clé privée pour le décodage.
+
+La clé publique permet aussi de valider l'identité d'un utilisateur. Voyons un exemple : Robert veut communiquer avec Alice qui dit posséder une clé privée, mais il veut s'assurer qu'Alice est bien celle qui le prétend. Robert peut utiliser la clé publique d'Alice pour lui envoyer un message codé et si Alice peut prouver à Robert que son message est compris, nous pouvons au moins en conclure qu'Alice est effectivement propriétaire de la clé privée.
+
+Les systèmes à CP sont au cœur des protocoles SSL et TLS qui protègent la plupart de communications sur l'internet, dont les sites HTTPS.
+
+La CP a plusieurs usages sur nos grappes :
+* Quand vous vous connectez à une grappe, votre client SSH utilise habituellement la clé publique de cette grappe pour vérifier que la connexion se fait au bon serveur.
+* Une session cryptée peut être établie pour prévenir l'interception des messages échangés.
+* Le serveur distant peut utiliser votre clé publique pour vérifier votre identité et ainsi vous permettre de vous connecter. 
+
+<b>Nous vous recommandons fortement d'utiliser l'authentification par CP</b> qui est habituellement plus sécuritaire qu'un mot de passe. 
+
+==Générer une clé SSH==
+Ceci exige du travail de configuration de votre part, mais une fois en place, vous y gagnerez en sécurité et en praticabilité.
+
+Vous devez générer une paire de clés et installer la clé publique sur tous les systèmes auxquels vous voulez vous connecter.
+
+Vous devriez créer une paire de clés sur votre propre ordinateur ou sur un ordinateur que vous croyez sécuritaire. Comme c'est le cas pour les mots de passe, la clé privée de cette paire ne devrait pas être partagée ou copiée sur un autre ordinateur.  
+
+Quand une paire de clés est générée, vous devez entrer une phrase de passe; ceci est une chaîne de caractères qui sert à chiffrer votre clé privée. Choisissez une phrase de passe robuste, dont vous vous souviendrez facilement; nous recommandons un minimum de 15 caractères. La phrase de passe offre une protection si la clé privée est volée.
+
+La procédure pour générer une paire de clés SSH varie selon votre système d'exploitation. Pour les clients Windows PuTTY ou MobaXterm, voyez [[Generating SSH keys in Windows/fr|Générer des clés sous Windows]]. Pour les environnements Linux (Linux, Mac, Windows Subsystem for Linux ou Cygwin), voyez [[Using SSH keys in Linux/fr|Utiliser des clés SSH sous Linux]]. 
+De plus, si vous utilisez un nuage, OpenStack offre une méthode pour créer des paires de clés; voyez [[Cloud_Quick_Start/fr#Paires_de_clés_SSH|Paires de clés SSH]].
+
+<span id="Installing_your_key"></span>
+== Installer une clé ==
+
+<span id="Using_CCDB"></span>
+=== Via CCDB ===
+
+Pour installer la clé, le système cible (la destination) doit connaître la partie publique de votre clé. En date de mars 2021, nous avons ajouté un moyen simple pour faire cela. 
+
+Les étapes à suivre sont :
+
+<b>ÉTAPE 1</b> - Connectez-vous à CCDB avec 
+
+ https://ccdb.alliancecan.ca/ssh_authorized_keys
+<br>
+ou par le menu suivant dans CCDB
+<br>
+[[File:Ccdb-keys-fig1-FR.png|200px]]
+
+<b>ÉTAPE 2</b> - Copiez votre clé publique SSH
+
+Comme la clé publique est en format texte, vous pouvez la voir sous Windows en ouvrant le fichier avec Notepad et sous Linux/macOS en entrant <code>cat .ssh/id_rsa.pub</code> en ligne de commande.
+
+
+Dans les deux cas, vous devriez obtenir une longue suite de caractères comme
+ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC3qeojDkUShnPTq9pI3cCZe+jgD6RKA/6CPsJIWZ8MqbX6wkk6
+ hHgKqKd2/9d7cj8e03Cfv4JLoD++P9fUPE3UyYrP/uVi4zytp5rmIZI4Qo1LvD1Obs0e78y0Dp7pfG1EHTYdn0p8
+ zHa0lNLOrZMmzDP0UMVdf4WKuv3Th2K/35yQ7DVIei6X/33Dcmsqd8bTXq7aFlw2y4sa/CHs314G6WYuJ9cTXtsW
+ Dlc9oWJuOVqILJLeGQpl3BVEM9aKcYksqLMV1UlZF8bHbry0PKCnrJrNMzVulWfnmSOZ+lPcV32OsDRkFaKsdxPy
+ +PxywieC86mxy1v216jeOdHnhLfOJc/VYDqf4egxReSCb3WOucHBB5J1jtDt47GuamKs+F2T7obqCb0J6oTyzgVF
+ RIZryxwvh5fQF5jk3LsBGsbhe9GYwDAk54GV6I0rWnXp56mJZjO4JCRQGbwLAJVxH4a7UrBmba2pRcZxEZmbIcBB
+ Sjb9KPECtaxiY/aty39077DCmcLCmzeOgBdh0zIkdBYu+OJ65MFKMxzoJWPDbZIcbSRGHEVhDnBZMNj1OiJS+E2D
+ A+F0tPH7J+xox1vUoXGAI0cNv+s/nlVRuOZoZjhk6s7tLXeVcToc+Y9Wqx8fdL7D4FegWwB9lsVhpfC4NaA9R8Ao
+ OfJUwHSNqUc6SfIt7w== user@machine
+
+Prenez note que vous devez générer votre propre paire de clés (publique et privée); vous ne pouvez pas copier et utiliser l'exemple ci-dessus. Si le format est différent, ce qui est le cas par exemple quand la clé est générée avec PuTTY, vous pouvez ouvrir PuTTY Key Generator ou MobaxTerm SSH Key Generator et sous <i>File</i>, sélectionner <i>Load private key</i> puis copier le contenu sous <i>Public key for pasting into OpenSSH authorized_keys</i> comme [https://docs.alliancecan.ca/wiki/File:Puttygen2.png illustré ici].
+
+Voici l'exemple avec une clé publique en format PEM qui doit être convertie avant de passer à l'étape 3&nbsp;:
+ -----BEGIN RSA PUBLIC KEY-----
+ MIIBCgKCAQEAxFm+Fbs+szeV2Vg2T5ufg8az0jD9DD/A0iNLKef2/0gPULn1ebFQ
+ SvQwts5ZGcza9t6l7fSKObz8FiAwXn+mdmXrxx3fQIepWa2FeCNbTkiKTTpNmERw
+ H0v3RR3DpJd8cpg5jdJbINlqDUPdqXxZDPIyZuHbEYUiSrb1v5zscVdgVqhJYi9O
+ OiEj7dPOLp1ko6s7TSgY8ejGnbmUL/gl+/dfhMNKdhLXMXWByucF1577rfAz3qPn
+ 4JMWrG5TCH7Jj8NpIxFhkV9Qjy40Ml81yDqMlbuE9CUZzVhATe8MdIvcXUQej8yl
+ ddmNnAXmfTDwUd5cJ/VSMaKeq6Gjd/XDmwIDAQAB
+ -----END RSA PUBLIC KEY-----
+
+
+
+<b>ÉTAPE 3</b> - Téléversez votre clé publique SSH dans le formulaire de CCDB
+
+Vous pouvez ensuite coller la partie <b>publique</b> de votre clé dans le formulaire de CCDB. Il est préférable d'entrer une description de cette clé pour vous aider à la reconnaître.<br>
+[[File:Ccdb-keys-fig2-B-FRN.png|400px]]
+
+Après avoir cliqué sur <i>Ajouter la clé</i>, les informations suivantes seront affichées&nbsp;:<br>
+[[File:Ccdb-keys-fig3-FRN.png|400px]]
+
+Une fois que votre clé est enregistrée dans CCDB, elle peut être utilisée pour vous connecter à toutes nos grappes. Cependant, nos nuages OpenStack n'ont pas accès aux clés enregistrées dans CCDB.
+
+Les modifications aux clés publiques sont souvent propagées aux grappes en quelques minutes; par contre dans certains cas, il y a une attente d'environ 30 minutes.
+
+
+Remarque : Les clés publiques au format RFC4716 et PKCS8 ressemblent à celles en format PEM, mais présentent des différences dans l'en-tête et le bas de page.
+
+<span id="Using_the_authorized_keys_file"></span>
+=== Par le fichier authorized_keys ===
+
+{{Warning|title=AVERTISSEMENT
+|content=Le soutien pour cette méthode pourrait être cessé.}}
+
+Le fait d'enregistrer votre clé publique dans CCDB la rend disponible sur toutes nos grappes, ce qui est pratique et souvent souhaitable.
+
+Cependant, dans certains cas vous pourriez vouloir installer une clé sur juste une grappe particulière. Pour ce faire, ajoutez la clé dans un fichier de votre répertoire /home sur cette grappe. Par exemple, pour une clé qui fonctionne uniquement sur Fir, copiez votre clé publique dans le fichier <code>~/.ssh/authorized_keys</code> sur Fir.  
+Ceci vous permettra de vous connecter aux nœuds de connexion de Fir avec le CP.  
+Sur nos grappes (et toute autre grappe avec OpenSSH), la commande <code>ssh-copy-id</code> est la façon la plus pratique de procéder.
+   ssh-copy-id -i alliance-key username@fir.alliancecan.ca 
+
+Le mécanisme <code>authorized_keys</code> est standard et utilisé presque partout sur l'internet, mais il est quelque peu fragile. 
+En particulier, SSH est très sensible aux permissions pour le fichier <code>authorized_keys</code>, ainsi que pour votre répertoire /home et sous-répertoire  <code>.ssh</code>.
+Pour plus d'information, voyez [[Using_SSH_keys_in_Linux/fr|Utiliser des clés SSH sous Linux]].
+
+<span id="Using_a_key_agent"></span>
+== Agent d'authentification ==
+
+Il est important que votre clé privée soit protégée par l'emploi d'une phrase de passe, mais il est peu pratique d'avoir à entrer la phrase de passe à chaque fois que vous utilisez votre clé. Plutôt que de laisser votre clé non chiffrée, nous vous recommandons fortement d'employer un agent SSH. Vous entrez votre phrase de passe au lancement de l'agent et ce dernier fournit la clé privée pour vos nouvelles connexions. Ainsi, vous évitez de conserver une clé privée non chiffrée dans un espace de stockage permanent où elle peut facilement être copiée ou volée.
+
+== Options pour générer une clé ==
+{{Warning|title=Attention|content=Cette opération devrait être effectuée sur votre propre ordinateur et <b>non sur un ordinateur partagé</b> comme une grappe.}}
+
+Quand une clé est générée, les valeurs par défaut conviennent habituellement, mais certaines options sont à considérer. Dans les exemples suivants, nous utilisons <code>ssh-keygen</code> tel que décrit dans [[Using SSH keys in Linux/fr|Utiliser des clés SSH sous Linux]], mais les options s'appliquent également avec une interface graphique tel que décrit dans [[Generating SSH keys in Windows/fr|Générer des clés SSH sous Windows]].
+<br>
+* pour ajouter un commentaire servant à différencier une clé d'une autre
+ ssh-keygen -C 'Alliance systems'
+* pour sélectionner le fichier de la clé 
+ ssh-keygen -f alliance-key
+:Ceci produit le fichier <i>alliance-key</i> qui contient la partie privée de la clé et le fichier <i>alliance-key.pub</i> qui contient la partie publique. Dans ce cas, vous devrez peut-être utiliser l'option <code>-i</code> pour indiquer le nom de la clé quand vous connecterez; la commande serait <code>ssh -i alliance-key user@host</code>
+* pour utiliser un type de clé différent du type RSA par défaut
+ ssh-keygen -t ed25519
+* pour renforcer certains types de clés tels RSA avec une clé plus longue
+ ssh-keygen -t rsa-sha2-512 -b 4096
+
+==  Définir des contraintes ==
+Dans la syntaxe pour la clé publique, vous pouvez définir des contraintes qui limitent ce que la clé peut faire. Par défaut, une clé sans contrainte peut tout faire.
+Par exemple, la clé publique
+  restrict,command="squeue --me" ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGhczaUoV6SzR2VEf9Rp4/P9xHVU8S72CKHrwKU+Yntx
+ne peut effectuer qu'une seule opération (savoir si vous avez des tâches dans Slurm). Un exemple intéressant est
+  restrict,command="/usr/libexec/openssh/sftp-server" ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGhczaUoV6SzR2VEf9Rp4/P9xHVU8S72CKHrwKU+Yntx
+qui permet d'utiliser la clé seulement pour SFTP, (ce qui est la façon dont sshsf fonctionne).
+
+Une contrainte peut aussi limiter les hôtes pouvant se connecter avec la clé 
+  restrict,from="d24-141-114-17.home.cgocable.net" ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGhczaUoV6SzR2VEf9Rp4/P9xHVU8S72CKHrwKU+Yntx
+Le fait de limiter les hôtes est un excellent moyen de minimiser le risque que la clé soit compromise.  Le terme <code>restrict</code> désactive l'allocation pty qui crée un comportement insolite.  Pour définir un seul hôte pour une session interactive et permettre une allocation pty, 
+  restrict,from="d24-141-114-17.home.cgocable.net",pty ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGhczaUoV6SzR2VEf9Rp4/P9xHVU8S72CKHrwKU+Yntx
+
+Il existe plusieurs de ces contraintes qui sont décrites dans la page <i>sshd man</i> (<i>man sshd</i> sous Linux).
+
+== Meilleures pratiques==
+* Les clés doivent être uniques à un compte particulier et ne jamais être utilisées par plus d'une personne.
+* Si vous devez partager un ordinateur avec d'autres personnes, enregistrez votre clé privée dans un endroit sûr auquel vous seul avez accès; autrement, enregistrez la clé privée sur une clé USB.
+* Chiffrez toujours votre clé privée avec une phrase de passe; nous recommandons un minimum de 15 caractères.
+* Ne partagez votre clé privée avec personne.
+* Ne copiez jamais votre clé privée sur un ordinateur distant; elle ne devrait jamais quitter votre poste de travail.
+* Si vous avez plusieurs ordinateurs personnels, vous pouvez créer des paires de clés SSH dédiées pour chacun.
+* Si vous avez plusieurs paires de clés SSH, vous pourriez donner un nom aux clés, par exemple <code>Laptop_RSA4096</code>.
+** Si vous donnez un nom à une clé, vous devez utiliser l'option <code>-i</code>pour spécifier la clé quand vous vous connectez; la commande serait <code>ssh -i Laptop_RSA4096 username@host</code>.
+* Utilisez <code>ssh-agent</code> pour travailler avec vos clés plus facilement.
+* Si vous utilisez <code>agent-forwarding</code>, utilisez aussi <code>ssh-askpass</code>.
+* Définissez [[SSH_Keys/fr#Définir_des_constraintes| des contraintes]] pour votre clé publique pour en limiter la portée.
+
+Voyez aussi [https://www.youtube.com/watch?v=mRdqM1dgf3Q&feature=youtu.be ces courtes vidéos] sur comment configurer les clés SSH :
+* [https://www.youtube.com/watch?v=mRdqM1dgf3Q&feature=youtu.be Faster and more secure SSH]
+* [https://www.youtube.com/watch?v=q9YA5H53IHQ Using SSH Keys on Windows]
+* [https://www.youtube.com/watch?v=E8-CfvumJBo Using SSH Keys on Mac]
+* [https://www.youtube.com/watch?v=owt-tYEQOZ0 Using SSH Keys on Linux]
+
+[[Category:Connecting]]
+
+<span id="Revoked_SSH_Keys"></span>
+== Clés SSH révoquées ==
+
+Il y a plusieurs raisons pour lequelles une clé SSH est <b>révoquée</b>, par exemple si nous constatons qu'une clé est utilisée par plus d'une personne ou s'il est possible que la clé privée soit compromise.
+
+Ceci peut se produire dû à plusieurs causes dont une gestion déficiente des clés, un vol ou une brèche de sécurité.
+
+Il y a alors un risque important à la sécurité, car une personne malveillante peut utiliser la clé compromise pour avoir accès aux systèmes et à des données sensibles. Dans le but de limiter ce risque, l'Alliance a établi une liste de révocation. 
+
+Il s'agit d'un registre des clés SSH qui ne sont plus fiables ou sont autrement considérées comme étant non valides. Aucune des clés SSH dans cette liste ne peut être utilisée pour avoir accès aux services de l'Alliance.
+
+Si vous croyez qu'une de vos clés SSH a été révoquée, il est <b>très important d'agir au plus tôt</b>.
+* Remplacez la clé révoquée par une nouvelle clé qui vous permettra de vous connecter aux services de l'Alliance en toute sécurité.
+* Supprimez la clé révoquée de <i>tous les services</i> (de l'Alliance et autres) pour empêcher les accès non autorisés ou les brèches de sécurité.
+
+Si vous pensez qu'une de vos clés SSH se trouve par erreur dans notre liste de révocation ou si vous avez des questions à ce sujet, écrivez au [[Technical support/fr|soutien technique]].  
+La sécurité de notre infrastructure est de la plus haute importance et la vigilance de tous est essentielle à l'intégrité de la recherche numérique et de la collaboration.

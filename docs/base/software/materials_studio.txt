@@ -1,0 +1,135 @@
+<languages />
+[[Category:Software]]
+
+<translate>
+<!--T:1-->
+The Alliance does not have permission to install Materials Studio centrally on all clusters. If you have a license, follow these instructions to install the application in your account. Please note that the current instructions are only valid for older standard software environments, so before beginning you will need to use a command like <code>module load StdEnv/2016.4</code> if you are using the default 2020 [[Standard_software_environments|standard software environment]].
+
+
+<!--T:25-->
+= Installing Materials Studio 2020 = {{Panel|title=Note|panelstyle=SideCallout|content=These instructions have been tested with Materials Studio 2020. }}
+If you have access to Materials Studio 2020, you will need two things to proceed. First, you must have the archive file that contains the installer; this file should be named <code>BIOVIA_2020.MaterialsStudio2020.tar</code>. Second, you must have the IP address (or DNS name) and the port of an already configured license server to which you will connect.
+
+<!--T:26-->
+Once you have these, upload the <code>BIOVIA_2020.MaterialsStudio2020.tar</code> file to your /home folder on the cluster you intend to use. Then, run the commands 
+{{Command|export MS_LICENSE_SERVER{{=}}<port>@<server>}}
+and
+{{Command|eb MaterialsStudio-2020.eb --sourcepath{{=}}$HOME}}
+
+<!--T:27-->
+Once this command has completed, log out of the cluster and log back in. You should then be able to load the module with
+{{Command|module load materialsstudio/2020}}
+
+<!--T:28-->
+In order to be able to access the license server from the compute nodes, you will need to [[Technical support|contact technical support]] so that we can configure our firewall(s) to allow the software to connect to your licence server.
+
+
+<!--T:2-->
+= Installing Materials Studio 2018 = {{Panel|title=Note|panelstyle=SideCallout|content=These instructions have been tested with Materials Studio 2018. }}
+If you have access to Materials Studio 2018, you will need two things to proceed. First, you must have the archive file that contains the installer; this file should be named <code>MaterialsStudio2018.tgz</code>. Second, you must have the IP address (or DNS name) and the port of an already configured license server to which you will connect.
+
+<!--T:3-->
+Once you have these, upload the <code>MaterialsStudio2018.tgz</code> file to your /home folder on the cluster you intend to use. Then, run the commands 
+{{Command|export MS_LICENSE_SERVER{{=}}<port>@<server>}}
+and
+{{Command|eb /cvmfs/soft.computecanada.ca/easybuild/easyconfigs/m/MaterialsStudio/MaterialsStudio-2018.eb --disable-enforce-checksums --sourcepath{{=}}$HOME}}
+
+<!--T:4-->
+Once this command has completed, log out of the cluster and log back in. You should then be able to load the module with
+{{Command|module load materialsstudio/2018}}
+
+<!--T:5-->
+In order to be able to access the license server from the compute nodes, you will need to [[Technical support|contact technical support]] so that we can configure our firewall(s) to allow the software to connect to your licence server.
+
+== Team installation == <!--T:6-->
+If you are a PI holding the Materials Studio licence, you can install Materials Studio once for all your group members. Since normally team work is stored in the <code>/project</code> space, determine which project directory you want to use. Suppose it is <code>~/projects/A_DIRECTORY</code>, then you will need to know these two values:
+
+<!--T:7-->
+1. Determine the actual path of A_DIRECTORY as follows: {{Commands|PI_PROJECT_DIR{{=}}$(readlink -f ~/projects/A_DIRECTORY)|echo $PI_PROJECT_DIR}}
+2. Determine the group of A_DIRECTORY as follows: {{Commands|PI_GROUP{{=}}$(stat -c%G $PI_PROJECT_DIR)|echo $PI_GROUP}}
+
+<!--T:8-->
+With these values known, install Materials Studio.
+
+<!--T:9-->
+# Change the default group to your team's <code>def-</code> group, e.g., {{Command|newgrp $PI_GROUP}}
+# Open the permissions of your project directory so your team can access it, e.g., {{Command|chmod g+rsx $PI_PROJECT_DIR}}
+# Create an install directory within /project, e.g., {{Command|mkdir $PI_PROJECT_DIR/MatStudio2018}}
+# Install the software, e.g., {{Command|MS_LICENSE_SERVER{{=}}<port>@<server> eb MaterialsStudio-2018-dummy-dummy.eb --installpath{{=}}$PI_PROJECT_DIR/MatStudio2018 --sourcepath{{=}}$HOME}}
+
+<!--T:10-->
+Before the software can be run:
+
+<!--T:11-->
+# Run this command. {{Command|module use $PI_PROJECT_DIR/MatStudio2018/modules/2017/Core/}}
+#* Your team members may wish to add this to their <code>~/.bashrc</code> file.
+# Load the materialsstudio module, i.e., {{Command|module load materialsstudio}}
+
+
+<!--T:12-->
+<b>NOTE:</b> Be sure to always replace variables PI_GROUP and PI_PROJECT_DIR with their appropriate values.
+
+= Examples of Slurm job submission scripts = <!--T:13-->
+The following examples assume that you have installed Materials Studio 2018 according to the above instructions. 
+{{File|contents=
+
+<!--T:14-->
+#!/bin/bash
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=1
+#SBATCH --cpus-per-task=32
+#SBATCH --time=12:00:00
+
+<!--T:15-->
+module load materialsstudio/2018
+
+<!--T:16-->
+# Create a list of nodes to be used for the job
+DSD_MachineList="machines.LINUX"
+slurm_hl2hl.py --format HP-MPI > $DSD_MachineList
+export DSD_MachineList
+
+<!--T:17-->
+# Job to run
+RunDMol3.sh -np $SLURM_CPUS_PER_TASK Brucite001f
+}}
+Below is an example of a Slurm job script that relies on Materials Studio's RunCASTEP.sh command:
+{{File|contents=
+
+<!--T:18-->
+#!/bin/bash
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=2
+#SBATCH --mem-per-cpu=1M
+#SBATCH --time=0-12:00
+
+<!--T:19-->
+module load materialsstudio/2018
+
+<!--T:20-->
+DSD_MachineList="mpd.hosts"
+slurm_hl2hl.py --format MPIHOSTLIST >$DSD_MachineList
+export DSD_MachineList
+
+<!--T:21-->
+RunCASTEP.sh -np $SLURM_CPUS_PER_TASK castepjob
+
+<!--T:22-->
+if [ -f castepjob_NMR.param ]; then
+  cp castepjob.check castepjob_NMR.check
+  RunCASTEP.sh -np $SLURM_CPUS_PER_TASK castepjob_NMR
+fi
+}}
+
+= Installing earlier versions of Materials Studio = <!--T:23-->
+
+<!--T:24-->
+If you require an earlier version of Materials Studio than 2018, you will need to install in into an [[Apptainer]] container. This involves
+# creating an Apptainer container with a compatible distribution of Linux installed in it;
+# installing Materials Studio into that container;
+# uploading the Apptainer container to your account and using it there.
+#* NOTE: In order to be able to access the license server from the compute nodes, you will need to [[Technical support|contact technical support]] so that we can configure our firewall(s) to allow the software to connect to your license server.
+Please be aware that you might be restricted to whole-node (single-node) jobs as the version of MPI inside the container might not be able to be used across nodes.
+
+</translate>

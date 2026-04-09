@@ -1,0 +1,40 @@
+<languages />
+
+[https://github.com/facebookresearch/faiss/wiki Faiss] est une bibliothèque efficace pour la recherche de similarités et le regroupement de vecteurs denses. Elle contient des algorithmes qui recherchent dans des ensembles de vecteurs de n'importe quelle taille, même ceux qui sont trop grands pour la mémoire vive. Elle contient également du code pour l'évaluation et le réglage des paramètres. Faiss est écrite en C++ avec des scripts enveloppants complets pour Python (versions 2 et 3). Certains des algorithmes les plus utiles sont implémentés sur GPU. Faiss est développée principalement par [https://research.facebook.com/ Meta AI Research] avec l'aide de contributeurs externes.
+
+__TOC__
+
+== Liaisons Python ==
+Le module contient des liaisons pour plusieurs versions de Python. 
+Pour connaître les versions disponibles, lancez
+{{Command|module spider faiss/X.Y.Z}}
+ou allez directement à <i>faiss-cpu</i> avec
+{{Command|module spider faiss-cpu/X.Y.Z}}
+où <TT>X.Y.Z</TT> désigne la version voulue.
+
+=== Utilisation ===
+1. Chargez les modules requis.
+{{Command|module load StdEnv/2023 gcc cuda faiss/X.Y.Z python/3.11}}
+où <TT>X.Y.Z</TT> désigne la version choisie.
+
+2. Importez Faiss.
+{{Command|python -c "import faiss"}}
+
+Si la commande n'affiche rien, l'importation a réussi.
+
+==== Paquets Python disponibles  ====
+Certains paquets Python dépendent des liaisons <tt>faiss-cpu</tt> ou <tt>faiss-gpu</tt> pour être installés.
+Le module <code>faiss</code> fournit
+* <code>faiss</code>
+* <code>faiss-gpu</code>
+* <code>faiss-cpu</code>
+
+{{Command
+|pip list {{!}} fgrep faiss
+|result=
+faiss-gpu                          1.7.4
+faiss-cpu                          1.7.4
+faiss                              1.7.4
+}}
+
+Avec le module <code>faiss</code> chargé, les dépendances des extensions ci-dessus seront satisfaites.

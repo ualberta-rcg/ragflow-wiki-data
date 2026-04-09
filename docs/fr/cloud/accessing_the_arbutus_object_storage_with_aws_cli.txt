@@ -1,0 +1,56 @@
+<languages />
+
+Cette page contient les renseignements sur la configuration et l'accès au [[Arbutus object storage/fr|stockage objet sur Arbutus]] avec AWS CLI, l'un des [[Arbutus_object_storage_clients/fr | clients pour le stockage de ce type]].
+
+En comparaison des autres clients utilisés pour le stockage objet, AWS CLI offre un meilleur support pour les grands fichiers (>5Go) en plus de la commande <code>sync</code> qui est très utile. Notez cependant que nous n'avons pas testé toutes les fonctionnalités.
+
+<span id="Installing_AWS_CLI"></span>
+== Installation ==
+
+<pre>
+pip install awscli awscli-plugin-endpoint
+</pre>
+
+<span id="Configuring_AWS_CLI"></span>
+== Configuration  ==
+
+Générez l'ID de la clé d'accès et la clé secrète.
+
+<pre>
+openstack ec2 credentials create
+</pre>
+
+Modifiez ou créez <code>~/.aws/credentials</code> et ajoutez les renseignements qui viennent d'être générés.
+
+<pre>
+[default]
+aws_access_key_id = <access_key>
+aws_secret_access_key = <secret_key>
+</pre>
+
+Modifiez <code>~/.aws/config</code> et ajoutez la configuration suivante&nbsp;:
+
+<pre>
+[plugins]
+endpoint = awscli_plugin_endpoint
+
+[profile default]
+s3 =
+  endpoint_url = https://object-arbutus.alliancecan.ca
+  signature_version = s3v4
+s3api =
+  endpoint_url = https://object-arbutus.alliancecan.ca
+</pre>
+
+<span id="Using_AWS_CLI"></span>
+== Utilisation ==
+
+<pre>
+export AWS_PROFILE=default
+aws s3 ls <container-name>
+aws s3 sync local_directory s3://container-name/prefix
+</pre>
+
+Vous trouverez d'autres exemples d'utilisation de AWS CLI sur [https://docs.ovh.com/us/en/storage/getting_started_with_the_swift_S3_API/ ce site externe. ]
+
+[[Category:Cloud]]

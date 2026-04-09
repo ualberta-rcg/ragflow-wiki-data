@@ -1,0 +1,56 @@
+<languages />
+[https://github.com/SnowflurrySDK/Snowflurry.jl/ Snowflurry] is an open-source quantum computing library developed in  [[Julia]] by [https://anyonsys.com/ Anyon Systems] that allows you to build, simulate, and run quantum circuits. A related library called [https://github.com/SnowflurrySDK/SnowflurryPlots.jl/ SnowflurryPlots] allows you to visualize the simulation results in a bar chart. Useful to explore quantum computing, its features are described in the [https://snowflurrysdk.github.io/Snowflurry.jl/dev/index.html documentation] and the [https://github.com/SnowflurrySDK/Snowflurry.jl installation guide is available on the GitHub page]. Like the [[PennyLane/en|PennyLane]] library, Snowflurry can be used to run quantum circuits on the [[MonarQ/en|MonarQ]] quantum computer.
+
+== Installation ==
+The quantum computer simulator with [https://github.com/SnowflurrySDK/Snowflurry.jl Snowflurry] is available on all of our clusters. The [https://julialang.org/ Julia] programming language  must be loaded before accessing Snowflurry.
+<includeonly> <div class="floatright"> [[File:Question.png|40px|link=https://explainshell.com/explain?cmd={{urlencode:{{{1}}} }}]] </div> <div class="command">{{#tag:syntaxhighlight|{{{prompt|[username@narval ~]$}}} {{{1}}}{{{result|}}}|lang={{{lang|bash}}}}}</div></includeonly><noinclude>
+{{Command|module load julia
+|result=}} 
+</noinclude>
+The Julia programming interface is then called and the Snowflurry quantum library is loaded (in about 5-10 minutes) with the commands
+<includeonly> <div class="floatright"> [[File:Question.png|40px|link=https://explainshell.com/explain?cmd={{urlencode:{{{1}}} }}]] </div> <div class="command">{{#tag:syntaxhighlight|{{{prompt|[username@narval ~]$}}} {{{1}}}{{{result|}}}|lang={{{lang|bash}}}}}</div></includeonly><noinclude>
+{{Command|julia
+|result=julia> import Pkg
+julia> Pkg.add(url="https://github.com/SnowflurrySDK/Snowflurry.jl", rev="main")
+julia> Pkg.add(url="https://github.com/SnowflurrySDK/SnowflurryPlots.jl", rev="main")
+julia> using Snowflurry}} 
+</noinclude>
+Quantum logic gates and commands are described in the [https://snowflurrysdk.github.io/Snowflurry.jl/dev/ Snowflurry documentation].  <!--Le simulateur quantique de Snowflurry est appelé avec la commande [https://snowflurrysdk.github.io/Snowflurry.jl/dev/tutorials/basics.html#Circuit-Simulation simulate].-->
+
+== Use case: Bell states ==
+Bell states are maximally entangled two-qubit states. They are simple examples of two quantum phenomena: superposition and entanglement. The [https://github.com/SnowflurrySDK/Snowflurry.jl/ Snowflurry] library allows you to construct the first Bell state as follows:
+<noinclude>
+{{Command|julia
+|result=julia> using Snowflurry
+julia> circuit=QuantumCircuit(qubit_count=2);
+julia> push!(circuit,hadamard(1));
+julia> push!(circuit,control_x(1,2));
+julia> print(circuit)
+
+Quantum Circuit Object:
+   qubit_count: 2 
+q[1]:──H────*──
+            ¦ 
+q[2]:───────X──
+}}
+</noinclude>
+In the above code section, the Hadamard gate creates an equal superposition of |0⟩ and |1⟩ on the first qubit while the CNOT gate (controlled X gate) creates an entanglement between the two qubits. We find an equal superposition of states |00⟩ and |11⟩, which is the first Bell state. The <code>simulate</code> function allows us to simulate the exact state of the system.
+<noinclude>
+  julia> state = simulate(circuit)
+  julia> print(state)   
+  4-element Ket{ComplexF64}:
+  0.7071067811865475 + 0.0im
+  0.0 + 0.0im
+  0.0 + 0.0im
+  0.7071067811865475 + 0.0im
+</noinclude>
+
+The <code>readout</code> operation lets you specify which qubits will be measured. The <code>plot_histogram</code> function from the SnowflurryPlots library allows you to visualize the results.
+<noinclude>
+{{Command|julia
+|result=julia> using SnowflurryPlots
+julia> push!(circuit, readout(1,1), readout(2,2))
+julia> plot_histogram(circuit,1000)
+}}
+</noinclude>
+[[File:Bell Graph.png|thumb|alt=Résultats de 1000 simulations de l'état de Bell.]]

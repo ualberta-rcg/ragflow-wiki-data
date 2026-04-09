@@ -1,0 +1,184 @@
+<languages/>
+[[Category:Software]]
+{{Draft}}
+<translate>
+
+<!--T:1-->
+[https://qgis.org/en/site/ QGIS] is a free and open-source cross-platform desktop geographic information system (GIS) application that supports viewing, editing, and analysis of geospatial data.
+
+<!--T:2-->
+IMPORTANT
+
+<!--T:3-->
+Never make intense use of QGIS on the login nodes! Submit jobs using the command line whenever possible and if you must visualize your data using the GUI, please do so on an interactive node. Using parallel rendering on the shared login nodes will result in the termination of your session.
+
+== Loading QGIS == <!--T:4-->
+You will first need to load gcc
+{{Command
+|module load gcc/5.4.0
+}} 
+
+<!--T:5-->
+Then, you will need to load the QGIS module; there could potentially be several versions available and you can see a list of all of them using the command 
+{{Command
+|module spider qgis
+}}
+You can load a particular QGIS module using a command like 
+{{Command
+|module load qgis/2.18.24
+}} 
+
+<!--T:6-->
+You might also have to load various other modules depending on the packages you need to install. For example, "rgdal" will require that you load a module called "gdal", which itself requires that you load nixpkgs and gcc. Nixpkgs should already be loaded by default. You can ensure that it is by running
+
+<!--T:7-->
+{{Command
+|module list
+}} 
+
+<!--T:8-->
+If nixpkgs is not listed, you can load it by running
+
+<!--T:9-->
+{{Command
+|module load nixpkgs/16.09
+}} 
+
+<!--T:10-->
+If any package fails to install, be sure to read the error message carefully, as it might give you some details concerning some additional modules you need to load. You can also find out if a module is dependent on any other module by running
+{{Command
+|module spider gdal/2.2.1
+}} 
+
+
+== Command-line QGIS == <!--T:11-->
+You can execute QGIS by running a Python script:
+
+<!--T:12-->
+{{Command|python qgis_code.py}}
+
+<!--T:13-->
+1. Place your python code in a script file, in this case the [https://docs.qgis.org/testing/en/docs/pyqgis_developer_cookbook/intro.html file] is called ''qgis_code.py''.
+
+<!--T:14-->
+{{File
+  |name=qgis_code.py
+  |lang="python"
+  |contents=
+from qgis.core import *
+
+# supply path to qgis install location
+QgsApplication.setPrefixPath("/path/to/qgis/installation", True)
+
+# create a reference to the QgsApplication, setting the
+# second argument to False disables the GUI
+qgs = QgsApplication([], False)
+
+# load providers
+qgs.initQgis()
+
+# Write your code here to load some layers, use processing
+# algorithms, etc.
+
+# When your script is complete, call exitQgis() to remove the
+# provider and layer registries from memory
+
+qgs.exitQgis()
+}}
+
+<!--T:14-->
+2. Copy the following content in a job submission script called ''job.sh'':
+
+ <!--T:15-->
+{{File
+  |name=job.sh
+  |lang="bash"
+  |contents=
+#!/bin/bash
+#SBATCH --account=def-someacct   # replace this with your own account
+#SBATCH --ntasks=1               # number of MPI processes
+#SBATCH --mem-per-cpu=2048M      # memory; default unit is megabytes
+#SBATCH --time=0-00:15           # time (DD-HH:MM)
+module load gcc
+module load qgis
+
+export QT_QPA_PLATFORM=offscreen
+python qgis_code.py
+}}
+
+<!--T:16-->
+3. Submit the job with:
+
+ <!--T:17-->
+<source lang="bash">
+sbatch job.sh
+</source>
+
+<!--T:18-->
+For more on submitting jobs, see the [[Running jobs]] page.
+
+== Using the GUI == <!--T:19-->
+You may want to visualize large datasets without having to download them to your desktop. QGIS offers the possibility to use multiple cores to render the maps but you should not use this option on the login nodes which are shared with multiple users. Instead, you should use interactive nodes to do the visualization.
+
+<!--T:20-->
+Using the QGIS GUI requires X11 forwarding, which you should make sure is enabled.
+
+==== MobaXTerm (Windows) ====<!--T:21-->
+You can find information on how to connect with MobaXTerm and use X11 fowarding on the [[Connecting_with_MobaXTerm]] page.
+
+<!--T:22-->
+1. In the main window, click "Sessions" and a new window will pop up. Select "SSH".
+
+2. In "Remote host", write the name of the server you plan to use, for example "cedar.computecanada.ca". 
+
+3. You can choose to specify a username and write your Compute Canada username. Leave port 22 as it is. 
+[[File:Mobaxterm ssh2.png|720px|frame|left]]
+<br clear=all> <!-- This is to prevent the next section from filling to the right of the image. -->
+
+4. A terminal will open and you will be prompted to enter your password. You won't see anything appear as you input your password but it's nothing to worry about.
+
+5. Make sure that the X server logo is green and that X11 forwarding is therefore enabled.
+[[File:Mobaxterm x11.png|720px|frame|left]]
+<br clear=all>
+6. In the terminal, load gcc and the QGIS module as shown in the section "Loading QGIS".
+
+7. Start QGIS by typing
+{{Command|qgis}}
+
+8. QGIS should appear in a new window and you are ready to use it.
+[[File:Qgis window small.png|720px|frame|left]]
+<br clear=all> <!-- This is to prevent the next section from filling to the right of the image. -->
+
+9. To close QGIS, simply close the window like you usually would. 
+
+==== Terminal (Unix) ====<!--T:22-->
+More information to come.
+
+==== Use an interactive node ====<!--T:23-->
+Runtime is limited on the login nodes, so you will need to request a testing job to have more time for exploring and visualizing your data.
+Additionally, by doing so, you will have access to the 40 cores of each of the nodes requested.
+
+<!--T:24-->
+request an interactive job, ie.
+  [name@login ~]$ salloc --time=1:0:0 --ntasks=2 --x11 --account=def-someuser
+
+this will connect you to a node. Note the --x11 argument, which will enable X11 forwarding on the interactive node. 
+
+<!--T:25-->
+You can then load QGIS and run it on the interactive node.
+{{Command|module load gcc}}
+{{Command|module load qgis}}
+{{Command|qgis}}
+
+<!--T:26-->
+You can enable parallel rendering of the layers by clicking "Settings" and "Options" in the main window, then "Rendering" in the Options window. Check "Render layers in parallel using many CPU cores" and you can select a number of cores to use (optional).
+[[File:Parallel rendering2.png|720px|frame|left]]
+
+<br clear=all> <!-- This is to prevent the next section from filling to the right of the image. -->
+
+
+<!--T:27-->
+Once you are done and have closed QGIS, you can terminate the allocation
+{{Command|exit}}
+
+</translate>

@@ -1,0 +1,80 @@
+<languages />
+
+To include a command within the wiki, you should use the <nowiki>{{Command}}</nowiki> template. This template detects the '''bash''' syntax. For example, the code
+<syntaxhighlight lang=text>
+{{Command|cd src; make && make install; cd ..}}
+</syntaxhighlight>
+results in:
+{{Command|cd src; make && make install; cd ..}}
+
+== Special characters "{{=}}" and "{{!}}" ==
+Since <nowiki>{{Command}}</nowiki> is a template, the "=" and "|" signs are interpreted by the wiki.
+
+To include an equality sign, use the [[Template:=|meta-template <nowiki>{{=}}</nowiki>]]. For example, the code:
+<syntaxhighlight lang=text>
+{{Command|./configure --prefix{{=}}$HOME && make && make install}}
+</syntaxhighlight>
+results in:
+{{Command|./configure --prefix{{=}}$HOME && make && make install}}
+To include a pipe symbol, use <nowiki>{{!}}</nowiki>.
+
+== Including a set of commands ==
+You can use the <nowiki>{{Commands}}</nowiki> template to include a set of commands. You may then write each command on a separate line, and prepend the '''|''' character in front of each command. For example, the code
+<syntaxhighlight lang=text>
+{{Commands
+|cd src
+|make
+|make install
+|cd ..
+}}
+</syntaxhighlight>
+results in:
+{{Commands
+|cd src
+|make
+|make install
+|cd ..
+}}
+
+== Modifying the command prompt ==
+If you want to modify the command prompt, you may do it by including a ''prompt'' argument to the template. For example, 
+<syntaxhighlight lang=text>{{Command|prompt=[name@briaree ~]|cd src; make && make install; cd ..}}</syntaxhighlight>
+results in 
+{{Command|prompt=[name@briaree ~]|cd src; make && make install; cd ..}}
+
+In the same way, 
+<syntaxhighlight lang=text>
+{{Commands
+|prompt=[name@briaree $]
+|cd src
+|make
+|make install
+|cd ..
+}}
+</syntaxhighlight>
+results in
+{{Commands
+|prompt=[name@briaree $]
+|cd src
+|make
+|make install
+|cd ..
+}}
+
+== Displaying the result of a command ==
+You can display the result of a command (and only one) by adding the option <tt>result</tt>. For example, 
+<syntaxhighlight>
+{{Command
+|df -h .
+|result=
+Sys. de fich.         Tail. Occ. Disp. %Occ. Monté sur
+/lustre2/home         516T  340T  150T  70% /home
+}}
+</syntaxhighlight>
+results in : 
+{{Command
+|df -h .
+|result=
+Sys. de fich.         Tail. Occ. Disp. %Occ. Monté sur
+/lustre2/home         516T  340T  150T  70% /home
+}}

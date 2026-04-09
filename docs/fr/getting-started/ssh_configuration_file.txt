@@ -1,0 +1,37 @@
+<languages/> 
+
+''Page enfant de [[SSH/fr]]''
+
+Sous Linux et macOS, vous pouvez modifier votre fichier local de configuration SSH pour changer le comportement de <code>ssh</code> et simplifier la procédure de connexion. Par exemple, pour vous connecter à <code>narval.alliancecan.ca</code> comme <code>username</code> avec une [[Using SSH keys in Linux/fr|clé SSH]], vous pourriez devoir utiliser la commande
+{{Command|prompt=[name@yourLaptop ~]|ssh -i ~/.ssh/your_private_key username@narval.alliancecan.ca}}
+Pour ne pas avoir à entrer cette commande chaque fois que vous vous connectez à Narval, ajoutez <code>~/.ssh/config</code> sur votre ordinateur local.
+  Host narval
+    User username
+    HostName narval.alliancecan.ca
+    IdentityFile ~/.ssh/your_private_key
+
+Vous pouvez maintenant vous connecter à Narval en entrant
+{{Command|prompt=[name@yourLaptop ~]|ssh narval}}
+Ceci change aussi le comportement de <code>sftp</code>, <code>scp</code> et <code>rsync</code> et vous pouvez maintenant  [[Transferring data/fr | transférer des fichiers]] en entrant, par exemple
+{{Command|prompt=[name@yourLaptop ~]|scp local_file narval:work/}}
+Si vous vous connectez souvent à des grappes différentes, modifiez le bloc <code>Host</code> ci-dessus plutôt que d'ajouter une entrée pour chacune des grappes.
+  Host narval beluga graham cedar
+    [...]
+    HostName %h.alliancecan.ca
+    [...]
+Notez qu'il faut installer votre [[SSH Keys/fr | clé SSH publique]] sur chacune des grappes, ou utiliser plutôt [[SSH Keys/fr#Par_la_ CCDB | la CCDB]].
+
+D'autres options de la commande  <code>ssh</code> ont des paramètres correspondants qui peuvent être entrés dans le fichier <code>~/.ssh/config</code> de votre ordinateur. En particulier,
+* <code>-X</code> (redirection X11)
+* <code>-Y</code> (redirection X11 sans contrôles de sécurité)
+* <code>-A</code> (redirection de l'agent)
+peuvent être définies dans les sections correspondantes du fichier de configuration en ajoutant les lignes
+* <code>ForwardX11 yes</code>
+* <code>ForwardX11Trusted yes</code>
+* <code>ForwardAgent yes</code>
+Cependant, ceci n'est pas recommandé, car
+* activer la redirection X11 par défaut pour toutes vos connexions peut ralentir vos sessions, particulièrement si le client X11 de votre ordinateur est mal configuré;  
+* activer la redirection X11 sans les extensions de sécurité présente un risque et nous vous recommandons de l'utiliser quand vous n'avez aucune autre option; si le serveur auquel vous vous connectez est compromis, quelqu'un qui a les permissions <i>root</i> pourrait détecter l'activité du clavier de votre ordinateur;
+* malgré le fait que la redirection de l'agent est pratique et plus sécuritaire que d'entrer un mot de passe sur un ordinateur distant, elle comporte un risque. Dans le cas où le serveur auquel vous vous connectez est compromis, un utilisateur avec les privilèges  <code>root</code> pourrait utiliser votre agent pour se connecter à un autre hôte à votre insu. Nous recommandons d'utiliser la redirection de l'agent <i>uniquement lorsque nécessaire</i>. De plus, si vous utilisez cette fonctionnalité, combinez-la avec <code>ssh-askpass</code> pour que chaque utilisation de votre agent déclenche une invite sur votre ordinateur pour vous avertir que votre agent est utilisé. 
+
+[[Category:Connecting]]

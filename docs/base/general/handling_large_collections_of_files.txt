@@ -1,0 +1,102 @@
+<languages />
+
+<translate>
+
+<!--T:1-->
+In certain domains, notably [[AI and Machine Learning]], it is common to have to manage very large collections of files, meaning hundreds of thousands or more. The individual files may be fairly small, e.g. less than a few hundred kilobytes. In these cases, a problem arises due to [[Storage_and_file_management#Filesystem_quotas_and_policies|filesystem quotas]] on our clusters that limit the number of filesystem objects. Very large numbers of files, particularly small ones, create significant problems for the performance of these shared filesystems as well as the automated backup of the home and project spaces.  
+<p>
+So how can a user or group of users store these necessary datasets on the cluster?  In this page we will present a variety of different solutions, each with its own pros and cons, so you may judge for yourself which is appropriate for you. 
+
+=Finding folders with lots of files= <!--T:2-->
+
+<!--T:3-->
+As always in optimization, it is better to start looking for where some cleanup is worth doing. You may consider the following code which will recursively count all files in folders in the current directory:
+
+<!--T:4-->
+<pre>for FOLDER in $(find . -maxdepth 1 -type d | tail -n +2); do
+  echo -ne "$FOLDER:\t"
+  find $FOLDER -type f | wc -l
+done</pre>
+
+=Finding folders using the most disk space= <!--T:16-->
+The following code will output the 10 directories using the most disk space from your current directory.
+{{Command|du -sh  * {{!}} sort -hr {{!}} head -10}}
+
+=Solutions= <!--T:5-->
+
+==Local disk== <!--T:6-->
+Local disks attached to compute nodes are at least SATA SSD or better, and, in general, will have a performance that is considerably better than the project or scratch filesystems. Note that a local disk is shared by all running jobs on that node without being allocated by the scheduler. The actual amount of local disk space varies from one cluster to another (and might also vary within a given cluster). For example,
+
+<!--T:19-->
+* [[Béluga/en | Béluga]] offers roughly 370GB of local disk for the CPU nodes, the GPU nodes have a 1.6TB NVMe disk (to help with the AI image datasets with their millions of small files).
+* [[Niagara]] does not have local storage on the compute nodes (but see [[Data_management_at_Niagara#.24SLURM_TMPDIR_.28RAM.29| Data management at Niagara]])
+* For other clusters you can assume the available disk size to be at least 190GB
+
+<!--T:20-->
+You can access this local disk inside of a job using the environment variable <tt>$SLURM_TMPDIR</tt>. One approach therefore would be to keep your dataset archived as a single <tt>tar</tt> file in the project space and then copy it to the local disk at the beginning of your job, extract it and use the dataset during the job. If any changes were made, at the job's end you could again archive the contents to a <tt>tar</tt> file and copy it back to the project space.
+
+<!--T:21-->
+Here is an example of a submission script that allocates an entire node
+{{File
+|name=job_script.sh
+|lang="bash"
+|contents=
+#!/bin/bash
+#SBATCH --time=1-00:00        
+#SBATCH --nodes=1             
+#SBATCH --ntasks-per-node=1
+#SBATCH --cpus-per-task=32
+#SBATCH --mem=0               
+
+
+<!--T:15-->
+cd $SLURM_TMPDIR
+mkdir work
+cd work
+tar -xf ~/projects/def-foo/johndoe/my_data.tar
+# Now do my computations here on the local disk using the contents of the extracted archive...
+
+<!--T:7-->
+# The computations are done, so clean up the data set...
+cd $SLURM_TMPDIR
+tar -cf ~/projects/def-foo/johndoe/results.tar work
+}}
+
+== RAM disk == <!--T:22-->
+The <code>/tmp</code> file system can be used as a RAM disk on the compute nodes. It is implemented using [https://en.wikipedia.org/wiki/Tmpfs tmpfs]. Here is more information
+* <code>/tmp</code> is <code>tmpfs</code> on all clusters
+* <code>/tmp</code> is cleared at job end
+* like all of a job's other memory use, falls under the cgroup limit corresponding to the sbatch request
+* we set the tmpfs size via mount options at 100%, which could potentially confuse some scripts, since it means <code>/tmp</code>'s size is shown as the node's MemTotal. For example, <code>df</code> reports <code>/tmp</code> size as the physical RAM size, which does not correspond to the <code>sbatch</code> request
+
+==Archiving == <!--T:8-->
+
+===dar=== <!--T:9-->
+Disk archive utility, conceived of as a significant modernization of the venerable [[A tutorial on 'tar'|tar]] tool. For more information, see [[Dar]].
+
+===HDF5=== <!--T:10-->
+This is a high-performance binary file format that can be used to store a variety of different kinds of data, including extended objects such as matrices but also image data. There exist tools for manipulating HDF5 files in several common programming languages including Python (e.g. [https://www.h5py.org/ h5py]). For more information, see [[HDF5]].
+
+===SQLite=== <!--T:11-->
+
+<!--T:12-->
+The [https://www.sqlite.org SQLite software] allows for the use of a relational database which resides entirely in a single file stored on disk, without the need for a database server. The data located in the file can be accessed using standard [https://en.wikipedia.org/wiki/SQL SQL] (Structured Query Language) commands such as <tt>SELECT</tt> and there are APIs for several common programming languages. Using these APIs you can then interact with your SQLite database inside of a program written in C/C++, Python, R, Java and Perl. Modern relational databases contain datatypes for handling the storage of ''binary blobs'', such as the contents of an image file, so storing a collection of 5 or 10 million small PNG or JPEG images inside of a single SQLite file may be much more practical than storing them as individual files. There is the overhead of creating the SQLite database and this approach assumes that you are familiar with SQL and designing a simple relational database with a small number of tables. Note as well that the performance of SQLite can start to degrade for very large database files, several gigabytes or more, in which case you may need to contemplate the use of a more traditional  [[Database servers | database server]] using [https://www.mysql.com MySQL] or [https://www.postgresql.org PostgreSQL].
+
+<!--T:23-->
+The SQLite executable is called <code>sqlite3</code>.  It is available via the <code>nixpkgs</code> [[Utiliser_des_modules/en|module]], which is loaded by default on our systems.
+
+===Parallel compression=== <!--T:17-->
+When creating an archive from a significant number of files, it may be useful to use <tt>pigz</tt> instead of the traditional gzip to compress the archive.
+{{Command| tar -vc --use-compress-program{{=}}"pigz -p 4" -f dir.tar.gz dir_to_tar}}
+Here the archive will be compressed using 4 cores.
+
+===Partial extraction from an archive=== <!--T:18-->
+Sometimes, it is not necessary to extract all the content of an archive but only part of it. For example, if the current simulation or job only needs files from a specific folder, this particular folder can be extracted from the archive and saved on the local disk using:
+{{Command| tar -zxf /path/to/archive.tar.gz dir/subdir --directory $SLURM_TMPDIR}}
+
+==Cleaning up hidden files== <!--T:13-->
+
+==git== <!--T:14-->
+When working with Git, over time the number of files in the hidden <code>.git</code> repository subdirectory can grow significantly. Using <code>git repack</code> will pack many of the files together into a few large database files and greatly speed up Git's operations.
+
+</translate>

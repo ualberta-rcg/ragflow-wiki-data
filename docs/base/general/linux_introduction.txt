@@ -1,0 +1,148 @@
+<languages />
+<translate>
+<!--T:1-->
+This article is aimed at Windows and Mac users who do not have or have very little experience in UNIX environments. It should give you the necessary basics to access the compute servers and being quickly able to use them. 
+
+<!--T:2-->
+Connections to the servers use the [[SSH]] protocol, in text mode. You do not use a graphical interface (GUI) but a <b>console</b>. Note that Windows executables do not run on our servers without using an emulator.
+
+<!--T:27-->
+There is a self-paced course available on this topic from SHARCNET: [https://training.sharcnet.ca/courses/enrol/index.php?id=182 Introduction to the Shell]
+
+== Obtaining help == <!--T:3-->
+Generally, UNIX commands are documented in the reference manuals that are available on the servers. To access those from a terminal:
+{{Command|man command}}
+<code>man</code> uses <code>less</code> (see the section [[#Viewing and editing files|Viewing and editing files]]), and you must press <code>q</code> to exit this program.
+
+<!--T:4-->
+By convention, the executables themselves contain some help on how to use them.
+Generally, you invoke this help using the command line argument <code>-h</code> or <code>--help</code>, or in certain cases, <code>-help</code>.
+For example,
+{{Command|ls --help}}
+
+== Orienting yourself on a system == <!--T:6-->
+Following your connection, you are directed to your <code>$HOME</code> directory (the UNIX word for <i>folder</i>) for your user account.
+When your account is created, your <code>$HOME</code> only contains a few hidden configuration files that start with a period (.), and nothing else.
+
+<!--T:7-->
+On a Linux system, you are strongly discouraged to create files or directories that contain names with spaces or special characters, including accents.
+
+=== Listing directory contents === <!--T:8-->
+To list all files in a directory in a terminal, use the <code>ls</code> (list) command:
+{{Command|ls}}
+To include hidden files:
+{{Command|ls -a}}
+To sort results by date (from newest to oldest) instead of alphabetically:
+{{Command|ls -t}}
+And, to obtain detailed information on all files (permissions, owner, group, size and last modification date):
+{{Command|ls -l}}
+The option <code>-h</code> gives the file sizes in human readable format.
+
+<!--T:9-->
+You can combine options, for example:
+{{Command|ls -alth}}
+
+=== Navigating the filesystem === <!--T:10-->
+To move about in the filesystem, use the <code>cd</code> command (change directory).
+
+<!--T:11-->
+So, to change to <code>my_directory</code>, type:
+{{Command|cd my_directory}}
+To change to the parent folder, type:
+{{Command|cd ..}}
+And, to move back to your home directory (<code>$HOME</code>):
+{{Command|cd}}
+
+=== Creating and removing directories === <!--T:12-->
+To create (make) a directory, use the <code>mkdir</code> command:
+{{Command|mkdir my_directory}}
+To remove a directory, use the <code>rmdir</code> command:
+{{Command|rmdir my_directory}}
+Deleting a directory like this only works if it is empty.
+
+=== Deleting files === <!--T:13-->
+You can remove files using the <code>rm</code> command:
+{{Command|rm my_file}}
+You can also recursively remove a directory:
+{{Command|rm -r my_directory}}
+The (potentially dangerous!) <code>-f</code> option can be useful to bypass confirmation prompts and to continue the operation after an error.
+
+=== Copying and renaming files or directories === <!--T:14-->
+To copy a file use the <code>cp</code> command:
+{{Command|cp source_file destination_file}}
+To recursively copy a directory:
+{{Command|cp -R source_directory destination_directory}}
+To rename a file or a folder (directory), use the <code>mv</code> command (move):
+{{Command|mv source_file destination_file}}
+This command also applies to directories. You should then replace <code>source_file</code> with <code>source_directory</code> and <code>destination_file</code> with <code>destionation_directory</code>.
+
+== File permissions == <!--T:15-->
+UNIX systems support 3 types of permissions : read (<code>r</code>), write (<code>w</code>) and execute (<code>x</code>). For files, a file should be readable to be read, writable to be modified, and executable to be run (if it's a binary executable or a script). For a directory, read permissions are necessary to list its contents, write permissions enable modification (adding or removing a file) and execute permissions enable changing to it.
+
+<!--T:16-->
+Permissions apply to 3 different classes of users, the owner (<code>u</code>), the group (<code>g</code>), and all others or <i>the world</i> (<code>o</code>). To know which permissions are associated to files and subdirectories of the current directory, use the following command:
+{{Command|ls -la}}
+
+<!--T:17-->
+The 10 characters at the beginning of each line show the permissions.
+The first character indicates the file type :
+* <code>-</code>: a normal file
+* <code>d</code>: a directory
+* <code>l</code>: a symbolic link
+
+<!--T:18-->
+Then, from left to right, this command shows read, write and execute permissions of the owner, the group and other users. Here are some examples :
+* <code>drwxrwxrwx</code>: a world-readable and world-writable directory
+* <code>drwxr-xr-x</code>: a directory that can be listed by everybody, but only the owner can add or remove files
+* <code>-rwxr-xr-x</code>: a world-readable and world-executable file that can only be changed by its owner
+* <code>-rw-r--r--</code>: a world-readable file that can only be changed by its owner.
+* <code>-rw-rw----</code>: a file that can be read and changed by its owner and by its group
+* <code>-rw-------</code>: a file that can only be read and changed by its owner
+* <code>drwx--x--x</code>: a directory that can only be listed or modified by its owner, but all others can still pass it on their way to a deeper subdirectory
+* <code>drwx-wx-wx</code>: a directory that everybody can enter and modify but where only the owner can list its contents
+
+<!--T:19-->
+Important note: to be able to read or write in a directory, you need to have execute permissions (<code>x</code>) set in all parent directories, all the way up to the filesystem's root (<b><code>/</code></b>). So if your home directory has <code>drwx------</code> permissions and contains a subdirectory with <code>drwxr-xr-x</code> permissions, other users cannot read the contents of this subdirectory because they do not have access (by the executable bit) to its parent directory.
+
+<!--T:20-->
+After listing the permissions, <code>ls -la</code> command gives a number, followed by the file owner's name, the file group's name, its size, last modification date, and name.
+
+<!--T:21-->
+The <code>chmod</code> command allows you to change file permissions. The simple way to use it is to specify which permissions you wish to add or remove to which type of user. To do this, you specify the list of users (<code>u</code> for the owner, <code>g</code> for the group, <code>o</code> for other users, <code>a</code> for all three), followed by a <code>+</code> to add permissions or <code>-</code> to remove permissions, which is then followed by a list of permissions to modify (<code>r</code> for read, <code>w</code> for write, <code>x</code> for execute). Non-specified permissions are not affected. Here are a few examples:
+
+<!--T:22-->
+* Prevent group members and all others to read or modify the file <code>secret.txt</code>: {{Command|chmod go-rwx secret.txt}}
+* Allow everybody to read the file <code>public.txt</code>: {{Command|chmod a+r public.txt}}
+* Make the file <code>script.sh</code> executable: {{Command|chmod a+x script.sh}}
+* Allow group members to read and write in the directory <code>shared</code>: {{Command|chmod g+rwx shared}}
+* Prevent other users from reading or modifying your home directory: {{Command|chmod go-rw ~}}
+
+== Viewing and editing files == <!--T:23-->
+=== Viewing a file ===
+To view a file read-only, use the <code>less</code> command:
+{{Command|less file_to_view}}
+You can then use the arrow keys or the mouse wheel to navigate the document.
+You can search for something in the document by typing <code>/what_to_search_for</code>.
+You can quit <code>less</code> by pressing the <code>q</code> key.
+
+=== Comparing two files === <!--T:24-->
+The <code>diff</code> command allows you to compare two files:
+{{Command|diff file1 file2}}
+The <code>-y</code> option shows both files side by side.
+
+=== Searching within a file === <!--T:25-->
+The <code>grep</code> command allows you to look for a given expression in one file:
+{{Command|grep 'tata' file1}}
+... or in multiple files:
+{{Command|grep 'tata' fil*}}
+Note that, in Linux, the <code>*</code> wildcard matches zero or more characters. The <code>?</code> wildcard matches exactly one character.
+
+<!--T:26-->
+The text to be searched for can also be variable. For example, to look for
+the text <i>number 10</i> or <i>number 11</i>, etc. with any number between 10 and 29,
+the following command can be used:
+{{Command|grep 'number [1-2][0-9]' file
+}}
+A regular expression must be used for the search text. To learn more, [http://www.cyberciti.biz/faq/grep-regular-expressions/ see this guide to regular expressions].
+
+</translate>

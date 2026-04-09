@@ -1,0 +1,73 @@
+<languages />
+[[Category:Software]]
+Java est un langage de programmation de haut niveau orienté objet créé en 1995 par Sun Microsystems (rachetée en 2009 par Oracle). L'objectif central de Java est que les logiciels écrits dans ce langage obéissent au principe ''write once, run anywhere'' et sont très facilement portables sur plusieurs systèmes d’exploitation par le fait que le code source Java se compile en code octal (''bytecode'') pouvant être exécuté sur un environnement Java (JVM pour ''Java virtual machine''); différentes architectures et plateformes peuvent donc constituer un environnement uniforme. Cette caractéristique fait de Java un langage populaire dans certains contextes et notamment pour l'apprentissage de la programmation. Même si l'accent n'est pas sur la performance, il existe des moyens d'augmenter la vitesse d'exécution et le langage a connu une certaine popularité auprès des scientifiques dans des domaines comme les sciences de la vie, d'où sont issus par exemple les outils d'analyse génomique [https://software.broadinstitute.org/gatk/ GATK] du Broad Institute. Le but de cette page n'est pas d'enseigner le langage Java, mais de fournir des conseils et suggestions pour son utilisation sur les grappes de l'Alliance. 
+
+L'Alliance offre plusieurs environnements Java via la commande [[Utiliser_des_modules | module]]. En principe, vous aurez un seul module Java chargé à la fois. Les principales commandes associées aux modules Java sont&nbsp;:
+* <tt>java</tt> pour lancer un environnement Java;
+* <tt>javac</tt> pour appeler le compilateur Java qui convertit un fichier source Java en bytecode. 
+
+Les logiciels Java sont fréquemment distribués sous forme de fichiers JAR portant le suffixe <tt>jar</tt>. Pour utiliser un logiciel Java, utilisez la commande 
+{{Commande|java -jar file.jar}}   
+
+==Parallélisme==
+
+===Fils d'exécution=== 
+Java permet la programmation avec fils, éliminant ainsi le recours à des interfaces et librairies comme OpenMP, pthreads et Boost qui sont nécessaires avec d'autres langages. L'objet Java principal pour traiter la concurrence est la classe <tt>Thread</tt>; on peut l'employer en fournissant une méthode <tt>Runnable</tt> à la classe <tt>Thread</tt> standard ou encore en définissant la classe <tt>Thread</tt> comme sous-classe, comme démontré ici&nbsp;:    
+{{Fichier
+  |name=thread.java
+  |lang="Java"
+  |contents=
+public class HelloWorld extends Thread {
+        public void run() {
+            System.out.println("Hello World!");
+        }
+        public static void main(String args[]) {
+            (new HelloWorld()).start();
+        }
+}
+}}
+Cette approche est généralement la plus simple, mais présente cependant le désavantage de ne pas permettre l'héritage multiple; la classe qui implémente l'exécution concurrente ne peut donc pas avoir en sous-classe une autre classe potentiellement plus utile. 
+
+=== MPI === 
+On utilise souvent la librairie [http://mpj-express.org/ MPJ Express] pour obtenir un parallélisme de type MPI.
+
+== Pièges ==
+
+===Mémoire === 
+Une instance Java s'attend à avoir accès à toute la mémoire physique d'un nœud alors que l'ordonnanceur ou un interpréteur pourrait imposer ses limites (souvent différentes) dépendant des spécifications du script de soumission ou des limites du nœud de connexion. Dans un environnement de ressources partagées, ces limites font en sorte que des ressources à capacité finie comme la mémoire et les cœurs CPU ne sont pas épuisées par une tâche au détriment d'une autre.
+
+Quand une instance Java est lancée, elle fixe la valeur de deux paramètres selon la quantité de mémoire physique plutôt que la quantité de mémoire disponible comme suit ː
+* taille initiale du monceau (''heap''), 1/64 de la mémoire physique
+* taille maximale du monceau (''heap''), 1/4 de la mémoire physique
+
+En présence d'une grande quantité de mémoire physique, cette valeur de 1/4 peut aisément dépasser les limites imposées par l'ordonnanceur ou par un interpréteur et Java peut s'arrêter et produire des messages comme 
+  Could not reserve enough space for object heap
+  There is insufficient memory for the Java Runtime Environment to continue.
+
+Ces deux paramètres peuvent toutefois être explicitement contrôlés par l'un ou l'autre des énoncés suivants ː
+  java -Xms256m -Xmx4g -version
+ou
+  java -XX:InitialHeapSize=256m -XX:MaxHeapSize=4g -version
+
+Pour voir toutes les options en ligne de commande que l'instance exécutera, utilisez l'indicateur  <code>-XX:+PrintCommandLineFlags</code> comme suit :
+<pre>
+$ java -Xms256m -Xmx4g -XX:+PrintCommandLineFlags -version
+-XX:InitialHeapSize=268435456 -XX:MaxHeapSize=4294967296 -XX:ParallelGCThreads=4 -XX:+PrintCommandLineFlags -XX:+UseCompressedOops -XX:+UseParallelGC
+</pre>
+
+Vous pouvez utiliser la variable d'environnement <tt>JAVA_TOOL_OPTIONS</tt> pour configurer les options d'exécution plutôt que de les spécifier en ligne de commande. Ceci s'avère utile quand des appels multiples sont lancés ou qu'un programme est appelé par un autre programme Java. Voici un exemple : 
+{{Commande|export JAVA_TOOL_OPTIONS{{=}}"-Xms256m -Xmx2g"}}
+
+
+À l'exécution, le programme émet un message de diagnostic semblable à ''Picked up JAVA_TOOL_OPTIONS''; ceci indique que les options ont été prises en compte.
+
+N'oubliez pas que l'instance Java crée elle-même une réserve d'utilisation de la mémoire. Nous recommandons que la limite par tâche soit fixée à 1 ou 2Go de plus que la valeur de l'option <tt>-Xmx</tt>.
+
+===Garbage Collection (GC)=== 
+Java utilise le processus automatique de ''Garbage Collection'' pour identifier les variables avec des valeurs non valides et retourner la mémoire qui leur est associée au système d'exploitation. Par défaut, l'instance Java utilise un GC parallèle et détermine un nombre de fils GC égal au nombre de cœurs CPU du nœud, que la tâche Java soit ou non multifil. Chacun des fils GC consomme de la mémoire. De plus, la quantité de mémoire consommée par les fils GC est proportionnelle à la quantité de mémoire physique. Nous vous recommandons donc fortement d'avoir un nombre de fils GC égal au nombre de cœurs CPU que vous demandez à l'ordonnanceur dans le script de soumission avec par exemple <tt>-XX:ParallelGCThreads=12</tt>. Vous pouvez aussi utiliser le GC séquentiel avec l'option <tt>-XX:+UseSerialGC</tt>, que la tâche soit ou non parallèle.
+
+===Mot-clé <tt>volatile</tt> === 
+Le sens de ce mot-clé est très différent de celui du même terme utilisé en programmation C/C++. La valeur d'une variable Java ayant cet attribut est toujours lue directement de la mémoire principale et toujours écrite directement dans la mémoire principale; toute modification à la variable sera donc visible par tous les autres fils. Dans certains contextes cependant, <tt>volatile</tt> ne suffit pas à empêcher les situations de compétition (''race conditions'') et <tt>synchronized</tt> est nécessaire pour maintenir la cohérence du programme.
+
+==Références== 
+OAKS, Scott et Henry Wong, Java Threads: Understanding and Mastering Concurrent Programming, 3e édition, O'Reilly, 2012.

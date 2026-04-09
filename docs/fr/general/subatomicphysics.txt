@@ -1,0 +1,58 @@
+<languages />
+
+== Logiciels de physique subatomique et de physique des hautes énergies ==
+
+Cette page est préparée par l’équipe nationale de physique subatomique. Sa dernière mise à jour est en date de juillet 2021.
+
+Voyez aussi la page [[Astronomy and High Energy Physics Interactive Analysis Facility]].
+
+La plupart des groupes de physique subatomique expérimentale utilisent les dépôts CVMFS du CERN, du consortium Open Science Grid et des dépôts spécifiques pour chacune des expériences.
+
+La configuration CCenv qui est à la disposition des utilisateurs réguliers peut créer des conflits avec certaines configurations de ces dépôts parce que l'accès se fait avec Nix et EasyBuild à partir du dépôt CVMFS <tt>soft.computecanada.ca</tt> de Calcul Canada plutôt que par le logiciel installé sur le système d'exploitation de base des nœuds de calcul.
+
+Les utilisateurs ATLAS trouveront de l'information utile dans les pages du twiki TRIUMF.  '''NOTE : Utilisez les configurations recommandées pour Tier-3 plutôt que de réinventer les techniques décrites plus bas.'''
+* https://twiki.atlas-canada.ca/bin/view/AtlasCanada/ComputeCanadaTier3s
+* https://twiki.atlas-canada.ca/bin/view/AtlasCanada/Containers
+
+Plusieurs configurations présupposent que les nœuds de base sont configurés avec le paquet [https://gitlab.cern.ch/linuxsupport/rpms/HEP_OSlibs/blob/master/README.md HEP_OSLibs] [1], ce qui '''n'est pas le cas''' de nos nœuds de calcul. Il serait possible de fonctionner avec certaines configurations simples du dépôt <tt>sft.cern.ch</tt>, mais l'approche recommandée est plutôt d'utiliser des conteneurs Singularity où les RPM requis sont installés (voir ci-dessous), ce qui permet en plus d'utiliser plusieurs bases de systèmes d'exploitation (par exemple SL6) sur l'infrastructure CentOS-7 de Calcul Canada.
+
+Pour configurer une vue CentOS7 à partir de <tt>sft.cern.ch</tt> qui comprend les chemins nécessaires aux compilateurs geant4, ROOT, etc.&nbsp;:
+ source /cvmfs/sft.cern.ch/lcg/views/setupViews.sh LCG_95 x86_64-centos7-gcc8-opt
+
+Les configurations disponibles de <tt>arch-os-complier</tt> pour LCG_95 sont &nbsp;: 
+  x86_64-centos7-gcc7-dbg
+  x86_64-centos7-gcc7-opt
+  x86_64-centos7-gcc8-dbg
+  x86_64-centos7-gcc8-opt
+  x86_64-slc6-gcc62-opt
+  x86_64-slc6-gcc7-dbg
+  x86_64-slc6-gcc7-opt
+  x86_64-slc6-gcc8-dbg
+  x86_64-slc6-gcc8-opt
+  x86_64-ubuntu1804-gcc7-opt
+  x86_64-ubuntu1804-gcc8-dbg
+  x86_64-ubuntu1804-gcc8-opt
+
+[1] Une liste de tous les RPM installés via HEPOS_Libs pour CentOS7 se trouve sur 
+https://gitlab.cern.ch/linuxsupport/rpms/HEP_OSlibs/blob/7.2.11-3.el7/dependencies/HEP_OSlibs.x86_64.dependencies-recursive-flat.txt.
+
+
+=== Exécution dans un conteneur ===
+
+En date de mai 2020, nous connaissons deux dépôts principaux pour des images de conteneurs pour les logiciels de physique des hautes énergies; ils sont distribués via les dépôts CVMFS.
+* ATLAS : Les distributions des images Singularity sont bien documentées dans  https://twiki.cern.ch/twiki/bin/view/AtlasComputing/ADCContainersDeployment
+** Images contenues dans un fichier archive unique (''packed images'')&nbsp;:  /cvmfs/atlas.cern.ch/repo/containers/images/singularity/<br/>.
+** Images contenues dans un répertoire (''unpacked images'')&nbsp;: /cvmfs/atlas.cern.ch/repo/containers/fs/singularity/<br/>.
+
+* WLCG : dépôt (''unpacked repository''). Ce projet de développement utilise [https://cvmfs.readthedocs.io/en/stable/cpt-ducc.html DUCC] pour publier automatiquement dans CVMFS les images de conteneurs d'un registre Docker. Les images sont publiées dans CVMFS selon un format de structure de répertoire standard qui est utilisé par Singularity ainsi que selon le format en couches utilisé par Docker, ce qui permet d'instancier des images directement de CVMFS avec le  plugiciel [https://cvmfs.readthedocs.io/en/stable/cpt-graphdriver.html Graph Driver]. Vous trouverez plus de documentation sur ce projet sur https://github.com/cvmfs/ducc. La [https://gitlab.cern.ch/unpacked/sync/blob/master/recipe.yaml liste des images publiées automatiquement] inclut l'image <tt>atlas-grid-centos7</tt>. Vous pouvez demander de fusionner à cette liste une image additionnelle.
+** Les images sont sous <tt>/cvmfs/unpacked.cern.ch/</tt>.
+
+== Invoquer une image Singularity ==
+
+L'exécutable Singularity est quelque peu différent selon le site de Calcul Canada parce qu'il est démarré dans un environnement <tt>setuid</tt> par défaut et donc installé ailleurs qu'avec les logiciels CVMFS habituels de Calcul Canada. Plusieurs versions sont disponibles sur chacun des sites et les valeurs par défaut peuvent être modifiées; il est donc préférable d'invoquer la version nécessaire (présentement, ce sont possiblement 2.6.1, 3.2.0 et 3.3.0).
+
+   cedar - /opt/software/singularity-x.x.x
+   graham - /opt/software/singularity-x.x.x
+   niagara - module load singularity; /opt/singularity/2
+
+Pour invoquer un conteneur à partir d'un dépôt CVMFS vous pouvez soit le faire directement puisque l'image sera cachée, soit le télécharger localement ce qui peut améliorer la performance, dépendant du système.

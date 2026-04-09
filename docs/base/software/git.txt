@@ -1,0 +1,231 @@
+<languages />
+[[Category:Software]]
+<translate>
+<!--T:1-->
+[https://en.wikipedia.org/wiki/Git Git] is a distributed, fast and secure source code management tool. The official Git website is [https://git-scm.com/ git-scm.com]. Git was created by [http://en.wikipedia.org/wiki/Linus_Torvalds Linus Torvalds] for the Linux project and is currently maintained by Junio Hamano.
+
+<!--T:2-->
+== Operating principle ==
+Contrary to older source code management tools, Git works in a distributed way. This means that developers do not depend on a central repository to commit their changes. Each Git repository contains the full history of the project. Each Git object (changeset, file, directory) is the leaf of a tree with multiple branches. Developing a project with Git is based on a model in which one branch corresponds to one feature. Many revisions of the feature may be archived before the branch gets merged with the main trunk. For a detailed explanation of branch development, we recommend reading [http://nvie.com/posts/a-successful-git-branching-model/ this page].
+
+<!--T:3-->
+One especially interesting technique is ''cherry-picking'', which is essentially taking part of a branch and merging it with another one. 
+
+<!--T:4-->
+== Basic usage ==
+Generally, a project developer will:
+
+<!--T:5-->
+# configure the global Git environment;
+# clone or create a repository;
+# make changes;
+# commit changes;
+# push changes to another repository.
+
+<!--T:6-->
+Since Git is distributed, there may not be an authoritative repository.
+
+<!--T:7-->
+=== Summary of commands ===
+{| class="wikitable" 
+|+ Basic commands
+! Command
+! Description
+|-
+| <tt>git config</tt>
+| Configure git
+|-
+| <tt>git init</tt>
+| Create a new repository
+|-
+| <tt>git clone</tt>
+| Clone an existing repository
+|-
+| <tt>git add</tt>
+| Add a file or directory to a repository
+|-
+| <tt>git rm</tt>
+| Delete a file or directory from the repository
+|-
+| <tt>git commit</tt>
+| Commit changes to the repository
+|-
+| <tt>git push</tt>
+| Push changes to another repository
+|-
+| <tt>git pull</tt>
+| Pull changes from another repository and merge them with your own repository
+|-
+| <tt>git fetch</tt>
+| Fetch changes from another repository without merging them with yours
+|-
+| <tt>git merge</tt>
+| Merge changes to the repository
+|}
+
+
+<!--T:8-->
+{| class="wikitable" 
+|+ Commands to explore changes
+! Command
+! Description
+|-
+| <tt>git blame</tt>
+| Show which authors last modified a file
+|-
+| <tt>git log</tt>
+| Show the commit history
+|-
+| <tt>git diff</tt>
+| Compare two versions
+|-
+| <tt>git status</tt>
+| Display the status of the current files
+|-
+| <tt>git show</tt>
+| Display various git objects
+|-
+| <tt>git cat-file</tt>
+| Display the content, type or size of objects
+|}
+
+
+<!--T:9-->
+{| class="wikitable" 
+|+ Commands for branches, tags, remote repositories
+! Command
+! Description
+|-
+| <tt>git branch</tt>
+| Manage development branches
+|-
+| <tt>git tag</tt>
+| Manage version tags
+|-
+| <tt>git remote</tt>
+| Manage remote repositories
+|-
+| <tt>git checkout</tt>
+| Check out a branch or a path
+|-
+| <tt>git reset</tt>
+| Change the head of a branch
+|}
+
+
+<!--T:10-->
+{| class="wikitable" 
+|+ Commands for patches
+! Command
+! Description
+|-
+| <tt>git format-patch</tt>
+| Create a patch
+|-
+| <tt>git am</tt>
+| Apply a patch
+|-
+| <tt>git send-email</tt>
+| Send a patch by email
+|}
+
+
+<!--T:11-->
+{| class="wikitable" 
+|+ Other commands
+! Command
+! Description
+|-
+| <tt>git bisect</tt>
+| Used to diagnose problems
+|-
+| <tt>git gc</tt>
+| Collect garbage objects
+|-
+| <tt>git rebase</tt>
+| Rebase history of the repository
+|-
+| <tt>git grep</tt>
+| Search for content
+|}
+
+<!--T:23-->
+=== Configuring the global Git environment ===
+This section is based on the [https://swcarpentry.github.io/git-novice/02-setup.html Software Carpentry - ''Version Control with Git''] lesson. When you start developing on a new system, you want to configure:
+
+<!--T:24-->
+* Your name and email address, which will be associated with every commit. Note: this information will become <b>public</b> if you push your revisions to a public repository.
+{{Commands
+| git config --global user.name "First-name Last-name"
+| git config --global user.email "email@address.ca"
+}}
+* Limit yourself to only four threads, otherwise, your <code>git clone</code> commands may fail if they are using too many threads.
+{{Command|git config --global pack.threads 4}}
+* If you are not used to <code>vi</code>, you can set a different text editor for your commit messages.
+{{Command|git config --global core.editor "nano -w"}}
+* Finally, you may want to redefine the default name for the initial branch name. For example, <code>main</code>.
+{{Command|git config --global init.defaultBranch main}}
+
+<!--T:25-->
+To list all options set in the global environment, run the following command.
+{{Command|git config --list --global}}
+
+=== Creating or cloning a repository === <!--T:12-->
+
+<!--T:26-->
+The first step is usually to create your own repository, or to clone an existing one.
+
+<!--T:13-->
+To create a repository:
+{{Command|git init my-project}}
+
+<!--T:14-->
+To clone a repository:
+{{Command|git clone git://github.com/git/git.git}}
+
+<!--T:15-->
+=== Committing a change ===
+When the repository is ready, you change directory and edit the file.
+{{Commands
+| cd my-project
+| nano file.txt
+}}
+
+<!--T:16-->
+When work is done, you add the file
+{{Command|git add file.txt}}
+then commit the change
+{{Command|git commit }}
+
+<!--T:17-->
+If the repository was cloned, it is now possible to push your changes to the original repository with
+{{Command|git push origin main}}
+
+<!--T:18-->
+In the above command, ''origin'' is the remote repository and ''main'' is the current branch that will be pushed.
+
+<!--T:19-->
+You might have to use <tt>git push origin master</tt> for older git repositories. 
+== Hosting Git repositories ==
+[http://github.com GitHub] and [http://bitbucket.org Bitbucket] are two of the main Git repository hosting services. They are both available for commercial projects as well as free projects.
+
+
+== Troubleshooting == <!--T:20-->
+
+<!--T:21-->
+=== Unable to create thread ===
+If you see:
+
+</translate>
+ fatal: unable to create thread: Resource temporarily unavailable
+ fatal: fetch-pack: invalid index-pack output
+<translate>
+
+<!--T:22-->
+This is caused by resource limitations on the cluster login nodes. The solution is to limit the number of threads to 2. Use the following command on each cluster:
+
+</translate>
+{{Command|git config --global pack.threads "2"}}
+<translate>
+
+</translate>

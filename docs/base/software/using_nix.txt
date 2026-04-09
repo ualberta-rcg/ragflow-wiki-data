@@ -1,0 +1,232 @@
+= Overview =
+
+[https://nixos.org/nix/ Nix] is a software building and composition system that allows users to manage their own persistent software environments. It is only available on SHARCNET systems (i.e., graham and legacy).
+
+* Supports one-off, per-project, and per-user usage of compositions
+* Compositions can be built, installed, upgraded, downgraded, and removed as a user
+* Operations either succeed or fail leaving everything intact (operations are atomic).
+* Extremely easy to add and share compositions
+
+Currently nix is building software in a generic manner (e.g., without AVX2 or AVX512 vector instructions support), so module loaded software should be preferred for longer running simulations when it exists.
+
+'''NOTE:''' The message <code>failed to lock thread to CPU XX</code> is a harmless warning that can be ignored.
+
+== Enabling and disabling the nix environment ==
+
+The user’s current nix environment is enabled by loading the nix module. This creates some ''.nix*'' files and sets some environment variables.
+
+<source lang="bash">[name@cluster:~]$ module load nix</source>
+It is disabled by unloading the nix module. This unsets the environment variables but leaves the ''.nix*'' files alone.
+
+<source lang="bash">[name@cluster:~]$ module unload nix</source>
+== Completely resetting the nix environment ==
+
+Most per-user operations can be undone with the <code>--rollback</code> option (i.e., <code>nix-env --rollback</code> or <code>nix-channel --rollback</code>). Sometimes it is useful to entirely reset nix though. This is done by unloading the module, erasing all user related nix files, and then reloading the module file.
+
+<source lang="bash">[name@cluster:~]$ module unload nix
+[name@cluster:~]$ rm -fr ~/.nix-profile ~/.nix-defexpr ~/.nix-channels ~/.config/nixpkgs
+[name@cluster:~]$ rm -fr /nix/var/nix/profiles/per-user/$USER /nix/var/nix/gcroots/per-user/$USER
+[name@cluster:~]$ module load nix</source>
+= Existing compositions =
+
+The <code>nix search</code> command can be used to locate already available compositions
+
+<source lang="bash">[user@cluster:~]$ nix search git
+...
+* nixpkgs.git (git-minimal-2.19.3)
+  Distributed version control system
+...</source>
+Pro tips include
+
+* you need to specify <code>-u</code> after upgrading your channel (this will take awhile)
+* the search string is actually a regular expression and multiple ones are ANDed together
+
+Often our usage of a composition is either a one-off, a per-project, or an all the time situations. Nix supports all three of these cases.
+
+== One offs ==
+
+If you just want to use a composition once, the easiest was is to use the <code>nix run</code> command. This command will start a shell in which <code>PATH</code> has been extended to include the specified composition
+
+<source lang="bash">[user@cluster:~]$ nix run nixpkg.git
+[user@cluster:~]$ git
+[user@cluster:~]$ exit</source>
+Note that this does not protect the composition from being garbage collected overnight (e.g., the composition is only guaranteed to be around temporarily for your use until sometime in the wee-morning hours). Pro tips include
+
+* you can specify more than one composition in the same <code>nix run</code> command
+* you can specify a command instead of a shell with <code>-c &lt;cmd&gt; &lt;args&gt; ...</code>
+
+== Per-project ==
+
+If you want to use a program for a specific project, the easiest way is with the <code>nix build</code> command. This command will create a symbolic link (by default named <code>result</code>) from which you can access the programs ''bin'' directory to run it.
+
+<source lang="bash">[user@cluster:~]$ nix build nixpkgs.git
+[user@cluster:~]$ ./result/bin/git</source>
+Note that (currently) the composition will only be protected from overnight garbage collection if you output the symlink into your ''home'' directory and do not rename or move it. Pro tips include
+
+* you can specify the output symlink name with the <code>-o &lt;name&gt;</code> option
+* add the ''bin'' directory to your <code>PATH</code> to not have to type it in every time
+
+== Per-user ==
+
+Loading the <code>nix</code> module adds the per-user common ''~/.nix-profile/bin'' directory to your <code>PATH</code>. You can add and remove compositions from this directory with the <code>nix-env</code> command
+
+<source lang="bash">[user@cluster:~]$ nix-env --install --attr nixpkgs.git
+[user@cluster:~]$ nix-env --query
+git-minimal-2.19.3</source>
+<source lang="bash">[user@cluster:~]$ nix-env --uninstall git-minimal
+uninstalling 'git-minimal-2.19.3'
+[user@cluster:~]$ nix-env --query</source>
+Each command actually creates a new version, so all prior versions remain and can be used
+
+<source lang="bash">[user@cluster:~]$ nix-env --list-generations
+   1   2020-07-29 13:10:03
+   2   2020-07-29 13:11:52   (current)
+[user@cluster:~]$ nix-env --switch-generation 1
+[user@cluster:~]$ nix-env --query
+git-minimal-2.19.3
+[user@cluster:~]$ nix-env --switch-generation 2
+[user@cluster:~]$ nix-env --query</source>
+Pro tips include
+
+* <code>nix-env --rollback</code> moves up one generation
+* <code>nix-env --delete-generations &lt;time&gt;</code> deletes environments older than <code>&lt;time&gt;</code> (e.g., <code>30d</code>)
+* see our [[Using Nix: nix-env|nix-env page]] for a much more in-depth discussion of using <code>nix-env</code>
+
+= Creating compositions =
+
+Often we require our own unique composition. A basic example would be to bundle all the binaries from multiple existing compositions in a common ''bin'' directory (e.g., <code>make</code>, <code>gcc</code>, and <code>ld</code> to build a simple C program). A more complex example would be to bundle python with a set of python libraries by wrapping the python executables with shell scripts to set <code>PYTHON_PATH</code> for the python libraries before running the real python binaries.
+
+All of these have a common format. You write a nix expression in a <code>.nix</code> file that composes together existing compositions and then you tell the above commands to use that with the <code>-f &lt;nix file&gt;</code> option. For example, say the file <code>python.nix</code> has an expression for a python environment in it, you can create a per-project ''bin'' directory with
+
+<source lang="bash">[user@cluster:~]$ nix build -f python.nix -o python
+[user@cluster:~]$ ./python/bin/python</source>
+The nix expression you put in the file generally
+
+* does <code>with import &lt;nixpkgs&gt; {}</code> to bring the set of nixpkgs into scope
+* calls an existing composition functions with a list of space-separated components to include
+
+The template for doing the second these follows below as it differs slightly across the various eco-systems.
+
+A pro tip is
+
+* there are many [https://nixos.org/nixpkgs/manual/#chap-language-support languages and framework supported] but only a few described here, send us an email if you would like a missing supported one added here
+
+== Generic ==
+
+Nixpkgs provides a <code>buildEnv</code> function that does a basic composition of compositions (by combining their ''bin'', ''lib'', etc. directories). The list of packages are the same as used before minus the leading <code>nixpkgs</code> prefix as it was imported (e.g., <code>git</code> instead of <code>nixpkgs.git</code>).
+
+<source lang="nix">with import <nixpkgs> {};
+buildEnv {
+  name = "my environment";
+  paths = [
+    ... list of compositions ...
+  ];
+}</source>
+== Python ==
+
+Nixpkgs provides the following python related attributes
+
+* <code>python&lt;major&gt;&lt;minor&gt;</code> - a composition providing the given python
+* <code>python&lt;major&gt;&lt;minor&gt;.pkgs</code> - the set of python compositions using the given python
+* <code>python&lt;major&gt;&lt;minor&gt;.withPackages</code> - wraps python with <code>PYTHON_PATH</code> set to a given set of python packages
+
+We can use the former directly to use the programs provided by python compositions
+
+<source lang="bash">[user@cluster:~]$ nix run python36.pkgs.spambayes
+[user@cluster:~]$ sb_filter.py --help
+[user@cluster:~]$ exit</source>
+and the later in a <code>.nix</code> file to create a python composition that enables a given set of libraries (e.g., a <code>python</code> command we can run and access the given set of python packages from)
+
+<source lang="nix">with import <nixpkgs> { };
+python.withPackages (packages:
+  with packages; [
+    ... list of python packages ...
+  ]
+)</source>
+Some pro tips are
+
+* the aliases <code>python</code> and <code>python&lt;major&gt;</code> given default <code>python&lt;major&gt;&lt;minor&gt;</code> versions
+* the aliases <code>pythonPackages&lt;major&gt;&lt;minor&gt;</code> are short for <code>python&lt;major&gt;&lt;minor&gt;.pkgs</code> (including default version variants)
+* the function <code>python&lt;major&gt;&lt;minor&gt;.pkgs.buildPythonPackage</code> can be used to build your own python packages
+
+== R ==
+
+Nixpkgs provides the following R related attributes
+
+* <code>R</code> - a composition providing R
+* <code>rstudio</code> - a composition providing RStudio
+* <code>rPackages</code> - the set of R packages
+* <code>rWrapper</code> - a composition that wraps R with <code>R_LIBS</code> set to a minimal set of R packages
+* <code>rstudioWrapper</code> - a composition that wrapped RStudio with <code>R_LIBS</code> set to a minimal set of R packages
+
+We can use <code>rPackages</code> directly to examine the content of R packages
+
+<source lang="bash">[user@cluster:~]$ nix build rPackages.exams -o exams
+[user@cluster:~]$ cat exams/library/exams/NEWS
+[user@cluster:~]$ exit</source>
+and the latter two can be overridden in a <code>.nix</code> file to create R and RStudio wrappers to create a composition enabling a given set of R libraries (e.g., a <code>R</code> or <code>rstudio</code> command we can run and access the given set of R packages from)
+
+<source lang="nix">with import <nixpkgs> { };
+rWrapper.override {
+  packages = with rPackages; [
+    ... list of R packages ...
+  ];
+}</source>
+A pro tips is
+
+* the function <code>rPackages.buildRPackage</code> can be used to build your own R packages
+
+== Haskell ==
+
+Nixpkgs provides the following haskell related attributes
+
+* <code>haskell.compiler.ghc&lt;major&gt;&lt;minor&gt;&lt;patch&gt;</code> - composition providing the given ghc
+* <code>haskell.packages.ghc&lt;major&gt;&lt;minor&gt;&lt;patch&gt;</code> - the set of haskell packages compiled by the given ghc
+* <code>haskell.packages.ghc&lt;major&gt;&lt;minor&gt;&lt;patch&gt;.ghc.withPackages</code> - composition wrapping ghc to enable the given packages
+* <code>haskell.packages.ghc&lt;major&gt;&lt;minor&gt;&lt;patch&gt;.ghc.withHoogle</code> - composition wrapping ghc to enable the given packages with hoogle and documentation indices
+
+We can use the first directly to use programs provided by haskell packages
+
+<source lang="bash">[user@cluster:~]$ nix run haskell.packages.ghc864.pandoc
+[user@cluster:~]$ pandoc --help</source>
+and the last two in a <code>.nix</code> file create a ghc environment to enable a given set of haskell package (e.g., a <code>ghci</code> we can run and access the given set of packages from)
+
+<pre>with import &lt;nixpkgs&gt; { };
+haskell.packages.ghc864.ghc.withPackages (packages:
+  with packages; [
+    ... list of Haskell packages ...
+  ];
+}</pre>
+Some pro tips are
+
+* the alias <code>haskellPackages</code> gives a default <code>haskell.packages.ghc&lt;major&gt;&lt;minor&gt;&lt;patch&gt;</code>
+* the attributes in <code>haskell.lib</code> contains a variety of useful attributes for tweaking haskell packages (e.g., enabling profiling, etc.)
+* the upstream maintainer has a useful [https://www.youtube.com/watch?v=KLhkAEk8I20 youtube video] on how to fix broken haskell packages
+
+== Emacs ==
+
+Nixpkgs provides the following emacs related attributes (append a <code>Ng</code> suffix for older versions of nixpkgs, e.g., <code>emacs25Ng</code> and <code>emacs25PackagesNg</code>)
+
+* <code>emacs&lt;major&gt;&lt;minor&gt;</code> - a composition providing the given emacs editor
+* <code>emacs&lt;major&gt;&lt;minor&gt;Packages</code> - the set of emacs packages for the given emacs editor
+* <code>emacs&lt;major&gt;&lt;minor&gt;Packages.emacsWithPackages</code> - composition wrapping emacs to enable the given packages
+
+We can use the second directly examine the content of packages
+
+<source lang="bash">[user@cluster:~]$ nix build nixpkgs.emacs25Packages.magit -o magit
+[user@cluster:~]$ cat magit/share/emacs/site-lisp/elpa/magit*/AUTHORS.md
+[user@cluster:~]$ exit</source>
+and the last one in a <code>.nix</code> file create a composition giving emacs with the given set of packages enabled
+
+<pre>with import &lt;nixpkgs&gt; { };
+emacs25Packages.emacsWithPackages (packages:
+  with packages; [
+    ... list of emacs packages ...
+  ];
+}</pre>
+Some pro tips are
+
+* the aliases <code>emacs</code> and <code>emacsPackages</code> give a default <code>emacs&lt;major&gt;&lt;minor&gt;</code> and <code>emacsPackages&lt;major&gt;&lt;minor&gt;</code> version
+* the alias <code>emacs&lt;major&gt;&lt;minor&gt;WithPackages</code> are short for <code>emacs&lt;major&gt;&lt;minor&gt;Packages.emacsWithPackages</code> (including default version variants)
+
+[[Category:Software]]

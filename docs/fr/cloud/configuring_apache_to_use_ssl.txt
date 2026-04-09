@@ -1,0 +1,73 @@
+<languages/>
+<i>Page enfant de [[Creating a web server on a cloud/fr|Création d'un serveur web sur un nuage]]</i>
+[[Category:Cloud]]
+
+Le terme SSL réfère à la fois au protocole  <i>Transport Layer Security (TLS)</i> et à son prédécesseur <i>Secure Sockets Layer (SSL)</i>. Ils servent au chiffrement des données communiquées sur les réseaux. Le chiffrement protège les données critiques qui transitent sur l'Internet, par exemple les mots de passe. Cependant, même si le serveur web envoie au client de l'information qui n'est pas sensible, le chiffrement empêchera une tierce partie d'intercepter et de modifier les données avant qu'elles se rendent à destination. Dans la plupart des cas, les certificats SSL sont utiles pour chiffrer les données à provenance ou à destination d'un serveur web via l'internet.
+
+Il y a deux types de certificats&nbsp;: les certificats signés par une tierce partie et les certificats autosignés. Dans la plupart des cas, vous voudrez un certificat signé par une tierce partie, ce qui se fait très facilement avec Let's Encrypt, comme expliqué ci-dessous. Par contre, d'autres cas (comme les tests) se prêtent mieux aux certificats autosignés. De cette manière, les données en provenance et à destination de votre serveur sont cryptées; par contre, aucune tierce partie ne confirme la validité de votre serveur web et un avertissement sera affiché quand on voudra s'y connecter. Vous ne voudrez probablement pas utiliser un certificat autosigné si votre site est ouvert au public.
+
+Une fois que vous avez le certificat et que le serveur web est configuré, il est recommandé d'utiliser [https://www.ssllabs.com/ssltest/ l'outil ssltest] de ssllabs qui peut vous suggérer des modifications à votre configuration pour renforcer la sécurité.
+
+==Certificat signé==
+Un certificat signé par une [https://en.wikipedia.org/wiki/Certificate_authority Autorité de certification] (CA, pour <i>Certificate Authority</i>) permet aux utilisateurs d'un site web de s'assurer qu'un tiers (le CA) confirme l'identité du site et prévient ce qu'on appelle une [https://fr.wikipedia.org/wiki/Attaque_de_l%27homme_du_milieu attaque de l'homme du milieu].
+<br />
+Plusieurs CA exigent des frais annuels, contrairement à  [https://letsencrypt.org/ Let's Encrypt]. Un certificat SSL signé par ce CA peut être créé et renouvelé automatiquement par l'outil Certbot qui configure aussi votre serveur web pour l'utilisation de ce même certificat. Pour un démarrage rapide, consultez la [https://certbot.eff.org/ page principale de Certbot]. Les détails se trouvent dans la [https://certbot.eff.org/docs/ documentation Certbot].
+
+Si vous configurez Certbot via Apache, ouvrez le port 443 (TCP ingress) pour que Certbot puisse se connecter au site (ceci n'est pas couvert dans la documentation de Certbot).
+
+==Certificat autosigné==
+Cette section décrit la procédure de création d'un certificat SSL autosigné et la configuration d'Apache pour le chiffrement. Il n'est pas recommandé d'utiliser un certificat autosigné sur un site de production d'importance; ces certificats conviendront cependant à la production sur des sites restreints à usage local, ou encore dans un environnement de test.
+
+Les étapes suivantes décrivent la procédure sous Ubuntu. On trouvera certaines différences sous d'autres systèmes d'exploitation, notamment en ce qui a trait aux commandes, aux localisations ou aux noms des fichiers de configuration.
+
+<ol>
+<li><b>Activer le module SSL</b><br/>
+Installez Apache (voir [[Creating_a_web_server_on_a_cloud/fr#Installer_Apache | Installer Apache]]), puis activez le module SSL  ainsi : {{Commands|sudo a2enmod ssl|sudo service apache2 restart}}
+</li>
+<li><b>Créer un certificat SSL autosigné</b>{{Command| sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/server.key -out /etc/ssl/certs/server.crt}}
+Si on vous demande une phrase de passe, assurez-vous de relancer la commande avec la syntaxe correcte, y compris l'option <code>-node</code>. Vous devrez ensuite répondre aux questions qui suivent, pour lesquelles nous donnons des exemples de réponse.
+
+  Country Name (2 letter code) [AU]:CA
+  State or Province Name (full name) [Some-State]:Nova Scotia
+  Locality Name (eg, city) []:Halifax
+  Organization Name (eg, company) [Internet Widgits Pty Ltd]:Alliance
+  Organizational Unit Name (eg, section) []:ACENET
+  Common Name (e.g. server FQDN or YOUR name) []:XXX-XXX-XXX-XXX.cloud.computecanada.ca
+  Email Address []:<your email>
+
+La réponse à <i>Common Name</i> est la plus importante; il s'agit du nom de domaine de votre serveur. Pour une machine virtuelle sur un de nos nuages, remplacez les X dans l'exemple par l'adresse IP flottante associée à la machine virtuelle.
+</li>
+<li><b>Définir le propriétaire et les autorisations</b><br/>
+Pour définir le propriétaire et les autorisations associés à la clé privés, entrez les commandes  {{Commands|sudo chown root:ssl-cert /etc/ssl/private/server.key|sudo chmod 640 /etc/ssl/private/server.key}}
+</li>
+<li><b>Configurer Apache pour utiliser le certificat</b><br/>
+Modifiez le fichier de configuration SSL avec la commande 
+{{Command|sudo vim /etc/apache2/sites-available/default-ssl.conf}}
+et remplacez les deux lignes suivantes 
+ SSLCertificateFile      /etc/ssl/certs/ssl-cert-snakeoil.pem
+ SSLCertificateKeyFile /etc/ssl/private/ssl-cert-snakeoil.key
+par les trois lignes
+ SSLCertificateFile      /etc/ssl/certs/server.crt
+ SSLCertificateKeyFile /etc/ssl/private/server.key
+ SSLCertificateChainFile /etc/ssl/certs/server.crt
+</li>
+Vérifiez que le chemin pour  <code>DocumentRoot</code> correspond au chemin défini dans <code>/etc/apache2/sites-available/000-default.conf</code>, en autant que SSL s'applique à ce site.
+<li><b>Renforcer la sécurité</b><br/>
+Redirigez les requêtes http vers https; exigez des versions plus à jour de SSL; utilisez de meilleures options de chiffrement, d'abord en modifiant le fichier ainsi {{Command |sudo vim /etc/apache2/sites-available/default-ssl.conf}} et ensuite en ajoutant 
+<pre>
+ <nowiki>ServerName XXX-XXX-XXX-XXX.cloud.computecanada.ca</nowiki>
+  <nowiki>SSLProtocol all -SSLv2 -SSLv3</nowiki>
+ <nowiki>SSLCipherSuite HIGH:MEDIUM:!aNULL:!MD5:!SEED:!IDEA:!RC4</nowiki>
+ <nowiki>SSLHonorCipherOrder on</nowiki>
+</pre>
+dans le bas, à l'intérieur de la balise <code><VirtualHost></code>; remplacez les X aux deux endroits par l'IP de la machine virtuelle (notez qu'il faut utiliser des tirets dans l'IP plutôt que des points). Entrez une commande de redirection sur le serveur virtuel en modifiant le fichier de configuration du site web par défaut avec
+{{Command| sudo vim /etc/apache2/sites-available/000-default.conf }}et en ajoutant la ligne
+
+ <nowiki>Redirect permanent / https://XXX-XXX-XXX-XXX.cloud.computecanada.ca</nowiki>
+
+à l'intérieur de la balise <nowiki><VirtualHost></nowiki>.
+</li>
+<li><b>Activer le site sécurisé</b><br/>
+{{Commands|sudo a2ensite default-ssl.conf|sudo service apache2 restart}}
+</li>
+</ol>

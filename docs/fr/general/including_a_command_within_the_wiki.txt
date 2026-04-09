@@ -1,0 +1,81 @@
+<languages />
+
+Pour inclure une commande dans le wiki, il faut utiliser le gabarit <nowiki>{{Commande}}</nowiki>. Ce gabarit détecte la syntaxe '''bash'''. Par exemple, le code
+<syntaxhighlight lang=text>
+{{Commande|cd src; make && make install; cd ..}}
+</syntaxhighlight>
+produit le résultat :
+{{Commande|cd src; make && make install; cd ..}}
+
+== Caractères spéciaux "{{=}}" et "{{!}}" ==
+Puisque <nowiki>{{Commande}}</nowiki> est un gabarit, les signes "=" et "|" sont interprétés par le wiki.
+
+Pour inclure le signe "égal" utilisez <nowiki>{{=}}</nowiki>. 
+Par exemple, le code
+<syntaxhighlight lang=text>
+{{Commande|./configure --prefix{{=}}$HOME && make && make install}}
+</syntaxhighlight>
+produit le résultat :
+{{Commande|./configure --prefix{{=}}$HOME && make && make install}}
+Pour le trait vertical, utilisez <nowiki>{{!}}</nowiki>.
+
+== Inclure un ensemble de commandes ==
+Vous pouvez utiliser le gabarit <nowiki>{{Commands}}</nowiki> pour inclure un ensemble de commandes. Inscrivez alors chaque commande sur une seule ligne, précédée du caractère '''|'''. Par exemple,
+<syntaxhighlight lang=text>
+{{Commands
+|cd src
+|make
+|make install
+|cd ..
+}}
+</syntaxhighlight>
+produit le résultat :
+{{Commands
+|cd src
+|make
+|make install
+|cd ..
+}}
+
+== Modifier l'invite de commande ==
+Si vous voulez modifier l'invite de commande (''prompt''), vous pouvez le faire en ajoutant un paramètre '''prompt'''. Par exemple :
+<syntaxhighlight lang=text>{{Command|prompt=[nom@briaree $]|cd src; make && make install; cd ..}}</syntaxhighlight>
+produit le résultat :
+{{Command|prompt=[name@briaree $]|cd src; make && make install; cd ..}}
+
+De même, 
+<syntaxhighlight lang=text>
+{{Commands
+|prompt=[name@briaree $]
+|cd src
+|make
+|make install
+|cd ..
+}}
+</syntaxhighlight>
+produit le résultat :
+{{Commands
+|prompt=[name@briaree $]
+|cd src
+|make
+|make install
+|cd ..
+}}
+
+== Afficher le résultat d'une commande ==
+Vous pouvez afficher le résultat d'une commande (et d'une seule) en ajoutant l'option <tt>resultat</tt>. Par exemple, 
+<syntaxhighlight>
+{{Command
+|df -h .
+|resultat=
+Sys. de fich.         Tail. Occ. Disp. %Occ. Monté sur
+/lustre2/home         516T  340T  150T  70% /home
+}}
+</syntaxhighlight>
+produit le résultat : 
+{{Command
+|df -h .
+|resultat=
+Sys. de fich.         Tail. Occ. Disp. %Occ. Monté sur
+/lustre2/home         516T  340T  150T  70% /home
+}}

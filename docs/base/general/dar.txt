@@ -1,0 +1,225 @@
+<languages />
+
+<translate>
+<!--T:1-->
+''Parent page: [[Storage and file management]]''
+
+<!--T:2-->
+The [http://dar.linux.free.fr <code>dar</code>] (stands for Disk ARchive) utility was written from the ground up as a modern
+replacement to the classical Unix <code>tar</code> tool. First released in 2002, <code>dar</code> is open
+source, is actively maintained, and can be compiled on any Unix-like system.
+
+<!--T:3-->
+Similar to <code>tar</code>,
+<code>dar</code> supports full / differential / incremental backups. Unlike <code>tar</code>, each
+<code>dar</code> archive includes a file index for fast file access and restore -- this is especially useful for large
+archives! <code>dar</code> has built-in compression on a file-by-file basis, making it more resilient
+against data corruption, and you can optionally tell it not to compress already highly compressed files
+such as <code>mp4</code> and <code>gz</code>. <code>dar</code> supports strong encryption,
+can split archives at 1-byte resolution, supports extended file attributes, sparse files, hard and
+symbolic (soft) links, can detect data corruption in both headers and saved data and recover with minimal
+data loss, and has many other desirable features. On the [http://dar.linux.free.fr <code>dar</code> page] you can find a [http://dar.linux.free.fr/doc/FAQ.html#tar detailed feature-by-feature <code>tar</code>-to-<code>dar</code> comparison].
+
+== Where to find <code>dar</code> == <!--T:4-->
+
+<!--T:5-->
+On our clusters, <code>dar</code> is available on <code>/cvmfs</code>.
+With [[Standard software environments|StdEnv/2020]]:
+</translate>
+<source lang="console">
+[user_name@localhost]$ which dar
+/cvmfs/soft.computecanada.ca/gentoo/2020/usr/bin/dar
+[user_name@localhost]$ dar --version
+dar version 2.5.11, Copyright (C) 2002-2052 Denis Corbin
+...
+</source>
+<translate>
+
+== Using <code>dar</code> manually == <!--T:7-->
+
+=== Basic archiving and extracting === <!--T:8-->
+
+<!--T:9-->
+Let's say, in the current directory you have a subdirectory <code>test</code>. To pack it into an archive,
+you can type in the current directory:
+</translate>
+<source lang="console">
+[user_name@localhost]$ dar -w -c all -g test
+</source>
+<translate>
+<!--T:10-->
+This will create an archive file <code>all.1.dar</code>, where <code>all</code> is the base name and
+<code>1</code> is the slice number. You can break a single archive into multiple slices (below). You can
+include multiple directories and files into an archive, e.g.
+</translate>
+<source lang="console">
+[user_name@localhost]$ dar -w -c all -g testDir1 -g testDir2 -g file1 -g file2
+</source>
+<translate>
+<!--T:11-->
+Please note that all paths should be relative to the current directory.
+
+<!--T:12-->
+To list the archive's contents, use only the base name:
+
+<!--T:13-->
+<source lang="console">
+[user_name@localhost]$ dar -l all
+</source>
+
+<!--T:14-->
+To extract a single file into a subdirectory <code>restore</code>, use the base name and the file path:
+
+<!--T:15-->
+<source lang="console">
+[user_name@localhost]$ dar -R restore/ -O -w -x all -v -g test/filename
+</source>
+
+<!--T:16-->
+The flag <code>-O</code> will tell <code>dar</code> to ignore file ownership. Wrong ownership would be a
+problem if you are restoring someone else's files and you are not root. However, even if you are
+restoring your own files, <code>dar</code> will throw a message that you are doing this as non-root and
+will ask you to confirm. To disable this warning, use <code>-O</code>. The flag <code>-w</code> will
+disable a warning if <code>restore/test</code> already exists.
+
+<!--T:17-->
+To extract an entire directory, type:
+
+<!--T:18-->
+<source lang="console">
+[user_name@localhost]$ dar -R restore/ -O -w -x all -v -g test
+</source>
+
+<!--T:19-->
+Similar to creating an archive, you can pass multiple directories and files by using multiple
+<code>-g</code> flags. Note that <code>dar</code> does not accept Unix wild masks after <code>-g</code>.
+
+==== A note about the Lustre filesystem ==== <!--T:86-->
+
+<!--T:87-->
+If the archived files are coming from a [https://www.lustre.org/ Lustre filesystem]
+(typically in <code>/home</code>, <code>/project</code> or <code>/scratch</code>
+on [[National_systems|our ''general-purpose'' compute clusters]]),
+some <i>extended attributes</i> are saved automatically.
+To see which extended attributes are assigned to each archived file, use the <code>-alist-ea</code> flag:
+</translate>
+
+{{Command2
+|dar -l all -alist-ea
+}}
+
+<translate>
+<!--T:88-->
+We can see strings like: <code>Extended Attribute: [lustre.lov]</code>.
+With this attribute, any file extraction to a location formatted in Lustre will still work as usual.
+But if one tries to extract files to the [[Using_node-local_storage|node local storage]]
+(also known as <code>$SLURM_TMPDIR</code>),
+the extraction will show error messages like:
+<code>Error while adding EA lustre.lov : Operation not supported</code>.
+
+<!--T:89-->
+To avoid these error messages, the <code>-u</code> flag can be used to exclude a specific type of attribute,
+while the "affected" files are still extracted. For example:
+</translate>
+
+{{Command2
+|dar -R restore/ -O -w -x all -v -g test -u 'lustre*'
+}}
+
+<translate>
+<!--T:90-->
+Another solution is to get rid of the <code>lustre.lov</code> attribute
+while creating the archive with the same <code>-u</code> flag:
+</translate>
+
+{{Command2
+|dar -w -c all -g test -u 'lustre*'
+}}
+
+<translate>
+<!--T:91-->
+In conclusion, this is necessary only if you intend to extract files to a location not formatted in Lustre.
+
+=== Incremental backups === <!--T:20-->
+
+<!--T:21-->
+You can create differential and incremental backups with <code>dar</code>, by passing the base name of
+the reference archive with <code>-A</code>. For example, let's say on Monday you create a full backup
+named <code>monday</code>:
+
+<!--T:22-->
+<source lang="console">
+[user_name@localhost]$ dar -w -c monday -g test
+</source>
+
+<!--T:23-->
+On Tuesday you modify some of the files and then include only these files into a new, incremental backup
+named <code>tuesday</code>, using the <code>monday</code> archive as a reference:
+
+<!--T:24-->
+<source lang="console">
+[user_name@localhost]$ dar -w -A monday -c tuesday -g test
+</source>
+
+<!--T:25-->
+On Wednesday you modify more files, and at the end of the day you create a new backup named
+<code>wednesday</code>, now using the <code>tuesday</code> archive as a reference:
+
+<!--T:26-->
+<source lang="console">
+[user_name@localhost]$ dar -w -A tuesday -c wednesday -g test
+</source>
+
+<!--T:27-->
+Now you have three files:
+
+<!--T:28-->
+<source lang="console">
+[user_name@localhost]$ ls *.dar
+monday.1.dar     tuesday.1.dar    wednesday.1.dar
+</source>
+
+<!--T:29-->
+The file <code>wednesday.1.dar</code> contains only the files that you modified on Wednesday, but not the
+files from Monday or Tuesday. Therefore, the command
+
+<!--T:30-->
+<source lang="console">
+[user_name@localhost]$ dar -R restore -O -x wednesday
+</source>
+
+<!--T:31-->
+will only restore files that were modified on Wednesday. To restore everything, you have to go through
+all backups in the chronological order:
+
+<!--T:32-->
+<source lang="console">
+[user_name@localhost]$ dar -R restore -O -w -x monday      # restore the full backup
+[user_name@localhost]$ dar -R restore -O -w -x tuesday     # restore the first incremental backup
+[user_name@localhost]$ dar -R restore -O -w -x wednesday   # restore the second incremental backup
+</source>
+
+=== Limiting the size of each slice === <!--T:33-->
+
+<!--T:34-->
+To limit the maximum size of each slice in bytes, use the flag <code>-s</code> followed by a number and one of k/M/G/T. For example, for a 1340 MB archive, the command
+
+<!--T:35-->
+<source lang="console">
+[user_name@localhost]$ dar -s 100M -w -c monday -g test
+</source>
+
+<!--T:36-->
+will create 14 slices named <code>monday.{1..14}.dar</code>. To extract from all of these, use their base name:
+
+<!--T:37-->
+<source lang="console">
+[user_name@localhost]$ dar -O -x monday
+</source>
+
+== External scripts == <!--T:84-->
+
+<!--T:85-->
+One of our team members has written bash functions that can facilitate the use of <code>dar</code>. You can use these functions as inspiration to write your own scripts. See [https://github.com/razoumov/sharedSnippets here] for details.
+
+</translate>

@@ -1,0 +1,94 @@
+<languages />
+
+
+[https://easybuild.io/ EasyBuild] est un outil pour la construction, l’installation et la maintenance de logiciels sur les systèmes de calcul de haute performance. Nous l’utilisons pour construire presque tout le contenu de notre [[Accessing_CVMFS/fr|répertoire CVMFS]].
+
+= Génération de modules =
+Une des fonctionnalités principales d’EasyBuild est sa capacité de générer automatiquement des [[Utiliser_des_modules|modules]] d’environnement qui peuvent être utilisés pour rendre un logiciel disponible dans une session. En plus de définir les variables d’environnement standards de Linux telles que  PATH, CPATH et LIBRARY_PATH, EasyBuild définit aussi quelques variables d’environnement qui lui sont spécifiques dont certaines sont d’intérêt pour les utilisateurs&nbsp:
+* <code>EBROOT<name></code> qui contient le chemin complet du répertoire où se trouve le logiciel <code><name></code> 
+* <code>EBVERSION<name></code> qui contient la version complète du logiciel <code><name></code> chargé par le module
+
+Par exemple, le module <code>python/3.10.2</code> sur Narval définit
+* <code>EBROOTPYTHON</code>: <code>/cvmfs/soft.computecanada.ca/easybuild/software/2020/avx2/Core/python/3.10.2</code>
+* <code>EBVERSIONPYTHON</code>: <code>3.10.2</code>
+
+Pour connaître les variables d’environnement définies par le module <code>python/3.10.2</code>, utilisez 
+{{Command|module show python/3.10.2 {{!}} grep EB}}
+
+= Recettes d’installation et journalisation =
+EasyBuild conserve une copie de la recette utilisée pour installer chaque paquet logiciel et un journal détaillé dans le répertoire d’installation  <code>$EBROOT<name>/easybuild</code>. Par exemple, pour le module <code>python/3.10.2</code>, le répertoire d’installation contient, entre autres
+* <code>$EBROOTPYTHON/easybuild/Python-3.10.2.eb</code>
+* <code>$EBROOTPYTHON/easybuild/easybuild-Python-3.10.2-*.log</code>
+
+= Utilisation dans votre compte =
+Vous pouvez utiliser EasyBuild pour installer des paquets logiciels dans votre propre compte. Par contre, dans la plupart des cas, il est préférable de demander au [[Technical support/fr|soutien technique]] d’installer ces logiciels pour un usage généralisé, ce qui fait en sorte que le paquet logiciel sera disponible sur toutes nos grappes. Cela évitera aussi d’affecter votre quota et ne causera pas une charge indue sur le système de fichiers parallèle. 
+
+{{Warning|title=Quand utiliser EasyBuild pour installer un logiciel dans votre répertoire /home
+|content=Les cas suivants justifient l’utilisation d’EasyBuild&nbsp;:
+* vous avez besoin d’un logiciel modifié ou personnalisé
+* vous avez besoin d’installer un logiciel qui change chaque jour, ou qui n’a pas de numéro de version
+* il ne nous est pas possible d’installer le paquet pour utilisation généralisée pour des raisons de licence, en particulier dans le cas des logiciels commerciaux [[VASP/fr|VASP]] et [[Materials Studio/fr|Materials Studio]].
+
+Au contraire, <b>il ne faut pas</b> installer des paquets logiciels dans votre propre espace
+* si vous avez besoin d’une version différente
+* si vous avez besoin d’un paquet logiciel construit avec un compilateur différent, avec MPI ou avec une implémentation CUDA
+
+Si vous hésitez, contactez le [[Technical support/fr|soutien technique]]. }}
+
+== Qu’est-ce qu’une recette? ==
+{{Note|Nous n’abordons pas ici la création d’une recette de toutes pièces; au besoin, consultez la [https://docs.easybuild.io/en/latest/Writing_easyconfig_files.html documentation d'EasyBuild]. Il est plus facile de modifier une recette existante ou encore de trouver une recette que vous pourrez utiliser telle quelle.}}
+
+Une recette est un fichier EasyConfig au format texte qui contient l’information dont EasyBuild a besoin pour construire un logiciel donné dans un environnement donné. Les noms sont formés selon la convention  
+* <code><name>-<version>-<toolchain name>-<toolchain version>.eb</code>
+où <code><name></code> est le nom du paquet, <code><version></code> est la version du paquet, <code><toolchain name></code> est le nom de la chaîne de compilation et  <code><toolchain version></code> est la version de la chaîne de compilation.
+
+== Trouver une recette ==
+EasyBuild contient plusieurs recettes qui peuvent fonctionner ou non avec nos chaînes de compilation. La meilleure façon d’avoir une recette qui fonctionne est de commencer avec une des recettes que nous avons installées. Vous pouvez les trouver dans le répertoire d'installation, tel que décrit ci-haut, ou encore dans le répertoire <code>/cvmfs/soft.computecanada.ca/easybuild/ebfiles_repo/$EBVERSIONGENTOO</code> folder. 
+
+{{Callout|title=Chaîne de compilation (>i>toolchain</i>)
+|content=Une chaîne de compilation est un ensemble formé d’un compilateur, d’une implémentation MPI, d’une version de CUDA et de bibliothèques mathématiques; cet ensemble sert à compiler le paquet logiciel. Les noms des chaînes de compilation sont souvent étranges, par exemple <code>gofbc</code> qui est une combinaison de GCC, OpenMPI, FlexiBlas et CUDA. Il n’est pas nécessaire de se souvenir de la composition d’une chaîne parce qu'elles-mêmes ont des recettes qu’on trouve aussi dans le répertoire <code>/cvmfs/soft.computecanada.ca/easybuild/ebfiles_repo/$EBVERSIONGENTOO</code>. Par exemple, la chaîne <code>gofbc</code> version <code>2020.1.403.114</code> contient, comme décrit dans <code>/cvmfs/soft.computecanada.ca/easybuild/ebfiles_repo/$EBVERSIONGENTOO/gofbc/gofbc-2020.1.403.114.eb</code>: 
+<pre>
+local_gccver = '9.3.0'
+
+# specify subtoolchains as builddependencies
+# this way they will be considered as subtoolchains but
+# are not loaded in the modulefile or software compiled
+# with this toolchain
+builddependencies = [
+    ('gccflexiblascuda', '2020.1.114'),
+    ('gompic', version),
+]
+
+dependencies = [
+    ('GCC', local_gccver),  # part of gcccuda
+    ('CUDA', '11.4', '', ('GCC', local_gccver)),  # part of gcccuda
+    ('OpenMPI', '4.0.3', '', ('gcccuda', '2020.1.114')),
+    ('FlexiBLAS', '3.0.4'),
+]
+</pre>
+
+Ceci signifie que cette chaîne contient GCC 9.3.0, OpenMPI 4.0.3, CUDA 11.4 et FlexiBLAS 3.0.4. La section <code>builddependencies</code> indique que la chaîne <code>gofbc</code> est un surensemble des chaînes <code>gompic</code> et <code>gccflexiblascuda</code> .Quand une chaîne de compilation est un surensemble d’autres chaînes de compilation, les paquets logiciels construits avec le surensemble peuvent dépendre de paquets logiciels construits avec les sous-chaînes. Dans cet exemple, les paquets logiciels construits avec <code>gofbc</code> peuvent dépendre de paquets logiciels construits avec <code>gompic</code>, mais le contraire est impossible.
+}}
+
+== Installer un logiciel avec EasyBuild ==
+Une fois que vous avez trouvé une recette qui vous satisfait, copiez-la du répertoire <code>/cvmfs/soft.computecanada.ca/easybuild/ebfiles_repo/$EBVERSIONGENTOO</code> et modifiez-la au besoin. Lancez ensuite
+{{Command|eb <recipe.eb>}}
+Ceci installe le logiciel dans votre répertoire /home dans <code>$HOME/.local/easybuild</code>. Quand l’installation est terminée, fermez votre session et reconnectez-vous à la grappe. Le logiciel devrait alors pouvoir être chargé avec un module.
+
+=== Réinstaller une version existante ===
+Si vous réinstallez une version que nous avons  installée pour usage généralisé, mais que vous voulez en modifier les paramètres, vous devrez utiliser 
+{{Command|eb <recipe.eb> --force}}
+pour installer une version locale dans votre répertoire /home.
+
+=== Installer ailleurs que dans /home ===
+Pour installer un paquet logiciel dans votre espace /project par exemple, utilisez 
+{{Command|eb <recipe.eb> --installpath /path/to/your/project/easybuild}}
+Pour que ces modules soient disponibles dans vos sessions, utilisez
+{{Command|export RSNT_LOCAL_MODULEPATHS{{=}}/path/to/your/project/easybuild/modules}}
+Pour que ces modules soient disponibles par défaut dans vos sessions, ajoutez cette commande au fichier <code>.bashrc</code>  de votre répertoire /home.
+
+= Pour plus d'information =
+
+* [https://westgrid.github.io/trainingMaterials/getting-started/#building-software-with-easybuild <i>Building software on Compute Canada clusters using EasyBuild</i>], webinaire
+* [https://github.com/ComputeCanada/software-stack/blob/main/doc/easybuild.md Documentation pour notre équipe technique]
+* [https://easybuild.io/tutorial/ Tutoriels]

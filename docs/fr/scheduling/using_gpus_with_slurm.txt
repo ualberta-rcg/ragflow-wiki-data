@@ -1,0 +1,256 @@
+<languages />
+
+= Introduction =
+
+Pour demander un ou plusieurs GPU pour une tâche [[Running jobs/fr|Slurm]], utilisez
+  --gpus-per-node=<model_specifier>:<number>
+
+Par exemple
+  --gpus-per-node=a100:1
+
+Ceci est pour un seul GPU A100, à moins que vous ajoutiez <code>--nodes</code> pour demander plusieurs nœuds.
+Pour les modèles valides, voir la section <i>[[Using GPUs with Slurm/fr|GPU disponibles</i>]] ci-dessous.
+
+Vous pouvez aussi utiliser
+  --gres=gpu:<model_specifier>:<number>
+Cependant, il est possible que ce format ne soit plus pris en charge. Nous vous recommandons de le remplacer par  <code>--gpus-per-node</code>.
+
+Slurm prend en charge plusieurs autres directives que vous pouvez utiliser pour demander des GPU, par exemple <code>--gpus</code>, <code>--gpus-per-socket</code>, <code>--gpus-per-task</code>, <code>--mem-per-gpu</code> et <code>--ntasks-per-gpu</code>. Voyez la documentation de Slurm sur [https://slurm.schedmd.com/sbatch.html sbatch].  Notre équipe ne teste pas toutes les combinaisons; si vous n'obtenez pas le résultat voulu, contactez le [[Technical support/fr|soutien technique]].
+
+Pour l'information générale sur l'ordonnancement des tâches, consultez [[Running jobs/fr|Exécuter des tâches]].
+
+= GPU disponibles =
+
+{| class="wikitable"
+|-
+! Grappe !! Modèle 
+!Multi-instances<br>(MIG)!! Identifiant pour Slurm 
+!Synonyme pour Slurm
+|- 
+| rowspan=4|[[Fir/fr#Caractéristiques_des_nœuds|Fir]] || rowspan=4|H100-80gb 
+| || h100 
+|
+|-
+|1/8
+|   nvidia_h100_80gb_hbm3_1g.10gb 
+|
+|-
+|2/8
+|   nvidia_h100_80gb_hbm3_2g.20gb 
+|
+|-
+|3/8
+|   nvidia_h100_80gb_hbm3_3g.40gb 
+|
+|-
+| rowspan=5|[[Narval#Caractéristiques_des_nœuds| Narval]] || rowspan=5|A100-40gb 
+| || a100 
+|
+|-
+|1/8
+|  a100_1g.5gb  
+|
+|-
+|2/8
+|  a100_2g.10gb 
+|
+|-
+|2/8
+|  a100_3g.20gb 
+|
+|-
+|4/8
+|  a100_4g.20gb 
+|
+|- 
+| rowspan=5|[[Nibi/fr#Caractéristiques_des_nœuds|Nibi]] || rowspan=4|H100-80gb 
+| || h100 
+|
+|-
+|1/8
+|   nvidia_h100_80gb_hbm3_1g.10gb 
+|h100_1g.10gb h100_1.10 h100_10gb
+|-
+|2/8
+|   nvidia_h100_80gb_hbm3_2g.20gb 
+|h100_2g.20gb h100_2.20 h100_20gb
+|-
+|3/8
+|   nvidia_h100_80gb_hbm3_3g.40gb 
+|h100_3g.40gb h100_3.40 h100_40gb
+|-
+| MI300A-128gb  
+| || mi300a  
+|
+|- 
+| rowspan=4|[[Rorqual#Caractéristiques_des_nœuds|Rorqual]] || rowspan=4|H100-80gb 
+| || h100 
+|
+|-
+|1/8
+|   nvidia_h100_80gb_hbm3_1g.10gb 
+|h100_1g.10gb h100_1.10 h100_10gb
+|-
+|2/8
+|   nvidia_h100_80gb_hbm3_2g.20gb 
+|h100_2g.20gb h100_2.20 h100_20gb
+|-
+|3/8
+|   nvidia_h100_80gb_hbm3_3g.40gb 
+|h100_3g.40gb h100_3.40 h100_40gb
+|-
+| [[Trillium#Node_characteristics|Trillium]] || H100-80gb 
+| || h100 
+|
+|-
+| rowspan=2|[[Rorqual#Caractéristiques_des_nœuds|Rorqual]]  || H100-80gb 
+| || h100 
+|
+|-
+|  L40S-48gb 
+| || l40s 
+|
+|-
+| rowspan=2|[[TamIA#Caractéristiques_des_nœuds|tamIA]] || H100-80gb 
+| || h100 
+|
+|-
+|  H200 
+| || h200 
+|
+|-
+| rowspan=2|[[Vulcan/fr#Matériel|Vulcan]] || L40S-48gb 
+| || l40s 
+|
+|}
+
+La commande ci-dessous présente les identifiants de GPU (et MIG) disponibles sur chacune des grappes. Cette commande est utile si le tableau plus haut n'a pas été mis à jour récemment.
+
+{{Command|sinfo -o "%G"{{!}}grep gpu{{!}}sed 's/gpu://g'{{!}}sed 's/),/\n/g'{{!}}cut -d: -f1{{!}}sort{{!}}uniq}}
+
+Sur certaines grappes, il existe des identifiants courts pour quelques modèles de MIG; cette commande ne les fournit pas.
+
+De plus, la présence d'un modèle de GPU ne garantit pas que vous pouvez utiliser un identifiant de modèle correspondant; des restrictions supplémentaires peuvent s'appliquer, dépendant notamment de votre groupe de recherche.
+
+Pour plus d'information, cliquez sur le nom de la grappe dans le tableau ci-dessus, ou contactez [[Technical support/fr|le soutien technique]].
+
+Si vous ne spécifiez pas de modèle, votre tâche risque d'être rejetée ou acheminée vers une instance de GPU arbitraire.
+
+Très peu de programmes sont capables d'utiliser efficacement un modèle arbitraire, c'est pourquoi nous recommandons vivement de toujours spécifier un identifiant de modèle dans vos scripts de tâches. 
+
+Des GPU sont disponibles sur Arbutus, mais comme c'est le cas pour les autres ressources infonuagiques, il n'est pas possible de soumettre des tâches via Slurm.
+Pour plus d'information, voir [[Cloud resources/fr|Ressources infonuagiques]].
+
+== GPU multi-instances (MIG) ==
+La technologie MIG permet de partitionner un GPU en plusieurs instances. Vos tâches pourraient utiliser un MIG plutôt qu'un GPU entier. Pour plus d'information, voir [[Multi-Instance_GPU/fr|GPU multi-instances]].
+
+<span id="Requesting_CPU_cores_and_system_memory"></span>
+= Demander des cœurs CPU et la mémoire système =
+
+Avec chaque instance GPU, une tâche doit avoir un nombre de cœurs CPU (<code>1</code> par défaut) et une certaine quantité de mémoire système. Pour le maximum de cœurs CPU et de mémoire système, voir [[Allocations_and_compute_scheduling/fr#Ratios_dans_les_bundles|le tableau des ratios]].
+
+<span id="Examples"></span>
+= Exemples =
+
+== Tâches avec un seul cœur ==
+Pour une tâche qui nécessite un seul cœur CPU et un GPU,
+{{File
+  |name=gpu_serial_job.sh
+  |lang="sh"
+  |contents=
+#!/bin/bash
+#SBATCH --account=def-someuser
+#SBATCH --gpus-per-node=a100:1
+#SBATCH --mem=4000M               # mémoire par nœud
+#SBATCH --time=0-03:00
+./program                         # pour tester, utilisez nvidia-smi
+}}
+
+== Tâches multifils ==
+Pour une tâche GPU qui nécessite plusieurs CPU dans un seul nœud,
+{{File
+  |name=gpu_threaded_job.sh
+  |lang="sh"
+  |contents=
+#!/bin/bash
+#SBATCH --account=def-someuser
+#SBATCH --gpus-per-node=a100:1         # nombre de GPU par nœud
+#SBATCH --cpus-per-task=6         # cœurs ou fils CPU
+#SBATCH --mem=4000M               # mémoire par nœud
+#SBATCH --time=0-03:00
+export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
+./program
+}}
+
+Pour chaque GPU complet demandé, nous recommandons
+* sur Fir, un maximum de 12 cœurs CPU
+* sur Narval, un maximum de 12 cœurs CPU
+* sur Nibi, un maximum de 14 cœurs CPU
+* sur Rorqual, un maximum de 16 cœurs CPU
+
+== Tâches MPI ==
+{{File
+  |name=gpu_mpi_job.sh
+  |lang="sh"
+  |contents=
+#!/bin/bash
+#SBATCH --account=def-someuser
+#SBATCH --gpus=a100:8             # nombre total de GPU
+#SBATCH --ntasks-per-gpu=1        # 8 processus MPI au total
+#SBATCH --cpus-per-task=6         # cœurs CPU par processus MPI
+#SBATCH --mem-per-cpu=5G          # mémoire hôte par cœur CPU
+#SBATCH --time=0-03:00            # temps de calcul (JJ-HH:MM)
+export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
+srun --cpus-per-task=$SLURM_CPUS_PER_TASK ./program
+}}
+
+== Nœuds entiers  ==
+Si votre application peut utiliser efficacement un nœud entier et ses GPU associés, vous pouvez probablement réduire le temps d'attente si vous demandez un nœud entier. Utilisez les scripts suivants comme modèle. 
+
+<span id="Packing_single-GPU_jobs_within_one_SLURM_job"></span>
+===Regroupement de tâches pour un seul GPU===
+
+Pour exécuter pendant plus de 24 heures quatre programmes qui utilisent un seul GPU ou deux programmes qui utilisent deux GPU, nous recommandons [[GNU Parallel/fr|GNU Parallel]]. Voici un exemple simple&nbsp;:
+<pre>
+cat params.input | parallel -j4 'CUDA_VISIBLE_DEVICES=$(({%} - 1)) python {} &> {#}.out'
+</pre>
+L'identifiant du GPU est calculé en soustrayant 1 de l'identifiant de la fente (<i>slot</i>), représenté par {%}. L'identifiant de la tâche est représenté par {#}, avec des valeurs partant de 1.
+
+Le fichier <code>params.input</code> devrait contenir les paramètres sur des lignes distinctes, comme suit&nbsp;:
+<pre>
+code1.py
+code2.py
+code3.py
+code4.py
+...
+</pre>
+Vous pouvez ainsi soumettre plusieurs tâches. Le paramètre <code>-j4</code> fait en sorte que GNU Parallel exécutera quatre tâches concurremment en lançant une tâche aussitôt que la précédente est terminée. Pour éviter que deux tâches se disputent le même GPU, utilisez CUDA_VISIBLE_DEVICES.
+
+<span id="Profiling_GPU_tasks"></span>
+== Profilage des tâches avec GPU ==
+
+Sur [[Narval]] et [[Rorqual]] le profilage est possible, mais 
+[https://developer.nvidia.com/dcgm DCGM (NVIDIA Data Center GPU Manager)]
+doit être désactivé. Ceci doit se faire lorsque vous soumettez la tâche en configurant la variable d'environnement <code>DISABLE_DCGM</code>.
+
+{{Command|DISABLE_DCGM{{=}}1 salloc --account{{=}}def-someuser --gpus-per-node{{=}}a100:1 --mem{{=}}4000M --time{{=}}03:00}}
+
+Ensuite, dans votre tâche interactive, attendez que DCGM soit désactivé sur le nœud. 
+{{Command|while [ ! -z "$(dcgmi -v {{!}} grep 'Hostengine build info:')" ]; do  sleep 5; done}}
+
+Enfin, lancez le profileur (voir [[Debugging and profiling/fr|débogage et profilage]] pour les détails).
+
+Sur Fir et Nibi, le profilage de GPU décrit ci-dessus n'est pas encore disponible.
+
+= Voir aussi =
+[[CUDA/fr|CUDA]]<br>
+[[Multi-Instance GPU/fr|GPU multi-instances]]<br>
+[[Running jobs/fr|Exécuter des tâches]]
+
+[[Metrix|Portail Metrix sur l'utilisation des ressources]]
+
+[[NVTOP/fr|NVTOP pour le suivi de l'utilisation des GPU]]
+
+[[Hyper-Q_/_MPS/fr|Cuda Multi-Process Service (MPS)]]
+
+[[Category:SLURM]]

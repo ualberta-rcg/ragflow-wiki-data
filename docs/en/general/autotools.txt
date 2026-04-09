@@ -1,0 +1,76 @@
+<languages />
+== Description ==
+[https://en.wikipedia.org/wiki/Autoconf '''autoconf'''] is a tool that belongs to the [http://en.wikipedia.org/wiki/GNU_build_system autotools] suite, also known as the ''GNU build system''. The tool automates the process of generating the custom [[Make|Makefiles]] necessary to build a program on different systems, with (perhaps) different compilers. 
+When a program is built with the help of ''autoconf'', the first step is to call the ''configure'' script:
+
+{{Command|./configure}}
+
+This verifies that compilers and other relevant software are installed on the computer and that appropriate versions are available, and generates a Makefile customized for your system.
+
+After that, you call [[Make|make]] as usual:
+{{Command|make}}
+
+Finally, ''make install'' installs the files at the right places. If you don't want to install the software for all users of the server, but only for yourself, you normally need to specify where to install your software. You can (usually) do this in the following manner:
+
+{{Commands
+|mkdir $HOME/SOFTWARE
+|make install --prefix{{=}}$HOME/SOFTWARE
+}}
+In other cases you must supply the <tt>--prefix</tt> option to <tt>./configure</tt> instead of to <tt>make</tt>; see the documentation for the particular software you are trying to install. You may also wish to [[Créer un module/en|create a module]] to show the system the paths to your newly installed software.
+
+A basic compilation of a program using ''autoconf'' can thus be as simple as
+{{Command|./configure && make && make install --prefix{{=}}$HOME/SOFTWARE}}
+
+== Frequently used options for ''configure'' scripts ==
+''configure'' scripts generally accept a large number of options. They vary from project to project. Nevertheless certain options are very common and deserve mentioning. In all cases you can run
+{{Command|./configure --help}}
+to get a detailed list of all supported options. 
+
+=== Installation directory ===
+An option that is always available is <tt>--prefix</tt>. This option allows you to define the directory where the command <tt>make install</tt> installs the application or the library. For example, to install an application into the subdirectory <tt>programs</tt> within your home directory, you could use
+{{Command|./configure --prefix{{=}}$HOME/programs/}}
+
+=== Feature options ===
+Most configuration scripts allow you to enable or to disable certain features of the program or library that you compile. Those options are generally of the type <tt>--enable-feature</tt> or <tt>--disable-feature</tt>. Within advanced computing, those options often include for example parallelization using threads or using MPI. You could thus have 
+{{Command|./configure --enable-mpi}}
+or also
+{{Command|./configure --enable-threads}}
+
+Often there are also options like <tt>--with-...</tt> to configure some features specifically. '''It is generally recommended to not use such options and let autoconf find the parameters automatically.''' Nevertheless it is sometimes necessary to specify some parameters using <tt>--with-...</tt> options. For example, you could specify
+{{Command|./configure --enable-mpi --with-mpi-dir{{=}}$MPIDIR}}
+
+
+=== Options defined by variables ===
+You can generally specify the compiler that is used and the options that should be passed to it by declaring variables after the <tt>./configure</tt> command. For example, to define the C compiler and the options to give it, you could run
+{{Command|./configure CC{{=}}icc CFLAGS{{=}}"-O3 -xHost"}}
+The most commonly used variables include
+{|class="wikitable"
+! Option
+! Description
+|-
+! CFLAGS
+| Options to pass to the C compiler
+|-
+! CPPFLAGS
+| Options to pass to the preprocessor and to C, C++, Objective C, and Objective C++ compilers
+|-
+! CXXFLAGS
+| Options to pass to the C++ compiler
+|-
+! DEFS
+| Allows the definition of a preprocessor macro
+|-
+! FCFLAGS
+| Options to pass to the Fortran compiler
+|-
+! FFLAGS
+| Options to pass to the Fortran 77 compiler
+|-
+! LDFLAGS
+| Options to pass to the linker
+|- 
+! LIBS
+| Libraries to link
+|-
+|}
+A more exhaustive list of variables and typical options is available [http://www.gnu.org/software/autoconf/manual/autoconf.html in the autoconf documentation].

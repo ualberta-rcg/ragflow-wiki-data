@@ -1,0 +1,135 @@
+<languages/>
+[[Category:Software]]
+
+= Introduction =
+
+[http://slater.chemie.uni-mainz.de/cfour/index.php?n=Main.HomePage CFOUR] (pour <i>coupled-cluster techniques for computational chemistry</i>) est un paquet logiciel qui permet d’effectuer des calculs de chimie quantique de haut niveau sur les atomes et les molécules. Le principal intérêt de CFOUR réside en la quantité de méthodes <i>ab-initio</i> qu’il offre pour le calcul des propriétés atomiques et moléculaires. La plupart des approches basées sur la théorie des perturbations Møller-Plesset (MP) et sur l’approximation de clusters couplés (CC) sont disponibles et plusieurs de ces approches permettent la dérivation analytique.
+
+CFOUR n’est pas un programme commercial et son développement se fait par l’apport constant d’améliorations et de nouvelles techniques. Voir [http://slater.chemie.uni-mainz.de/cfour/index.php?n=Main.HomePage le site web] .
+
+= Limites de la licence  =
+
+L'Alliance a conclu un [http://slater.chemie.uni-mainz.de/cfour/index.php?n=Main.Download accord de licence] avec le [https://www.tc.uni-mainz.de/prof-dr-juergen-gauss/ professeur Jürgen Gauss] qui représente les développeurs de CFOUR. 
+
+Pour utiliser la version disponible sur nos grappes, vous devez faire parvenir les énoncés suivants au [[Technical support/fr| soutien technique]].
+
+# J’utiliserai CFOUR pour la recherche académique uniquement.
+# Je ne copierai pas le logiciel CFOUR, ni le rendrai disponible à une autre personne.
+# Je citerai correctement l'Alliance et les articles de CFOUR dans mes publications (voir la licence pour les détails).
+# J’accepte que l’entente d’utilisation de CFOUR puisse être en tout temps annulée par les développeurs de CFOUR ou par l'Alliance.
+# J’informerai l'Alliance de toute dérogation aux énoncés précédents.
+
+À la réception de cette déclaration, nous vous donnerons accès à l’application.
+
+= Module =
+
+Pour accéder la version MPI de CFOUR, [[Utiliser des modules|chargez le module]] ainsi  
+
+<source lang="bash">
+module load intel/2023.2.1  openmpi/4.1.5 cfour-mpi/2.1
+</source>
+
+Pour la version séquentielle, le module est chargé ainsi
+
+<source lang="bash">
+module load intel/2023.2.1 cfour/2.1
+</source>
+
+Les utilisateurs peuvent échanger de l’information dans un forum CFOUR. Voyez les renseignements pour vous inscrire à la [[http://slater.chemie.uni-mainz.de/cfour/index.php?n=Main.MailingList liste d’envoi]].
+
+== Exemples de scripts ==
+
+Vous devez avoir au moins le fichier [http://slater.chemie.uni-mainz.de/cfour/index.php?n=Main.InputFileZMAT ZMAT] contenant toute l'information sur la géométrie, la méthode à employer, les ensembles de données de base, etc. Le deuxième fichier est [http://slater.chemie.uni-mainz.de/cfour/index.php?n=Main.Basis-setFileGENBAS GENBAS]; il contient l'information sur les ensembles de données de base qui sont disponibles. Si GENBAS ne se trouve pas dans le répertoire à partir duquel la tâche est lancée, CFOUR crée un symlink et utilise le fichier existant qui se trouve dans le module. Ce fichier se trouve dans <code>$EBROOTCFOUR/basis/GENBAS</code>.
+
+<tabs>
+<tab name="fichier ZMAT">
+{{File
+  |name=ZMAT
+  |lang="txt"
+  |contents=
+Acetylene, CCSD/DZP excited-state geometry optimization
+C                                                                              
+C 1 RCC*
+H 1 RCH* 2 A*
+H 2 RCH* 1 A* 3 D180
+                                                                               
+RCC=1.36
+RCH=1.08
+A=124.
+D180=180.
+                                                                               
+*ACES2(CALC=CCSD,BASIS=DZP,EXCITE=EOMEE                                     
+ESTATE_CONV=10,CONV=10,SCF_CONV=10,CC_CONV=10,LINEQ_CONV=10,ZETA_CONV=10)                                      
+                                                                               
+%excite*                                                                       
+1                                                                              
+1                                                                              
+1 7 0 8 0 1.0                         
+
+}}
+</tab>
+
+<tab name="tâche séquentielle">
+{{File
+  |name=run_cfour_serial.sh
+  |lang="bash"
+  |contents=
+#!/bin/bash
+#SBATCH --account=def-someacct   # replace this with your own account
+#SBATCH --ntasks=1
+#SBATCH --mem-per-cpu=2500M      # memory; default unit is megabytes.
+#SBATCH --time=0-00:30           # time (DD-HH:MM).
+
+# Load the module:
+
+module load intel/2023.2.1 cfour/2.1
+
+echo "Starting run at: `date`"
+
+CFOUROUTPUT="cfour-output.txt"
+export CFOUR_NUM_CORES=1
+
+xcfour > ${CFOUROUTPUT} 
+
+# Clean the symlink:
+if [[ -L "GENBAS" ]]; then unlink GENBAS; fi
+
+echo "Program finished with exit code $? at: `date`"
+}}
+</tab>
+
+<tab name="tâche MPI">
+{{File
+  |name=run-cfour-mpi.sh
+  |lang="bash"
+  |contents=
+#!/bin/bash
+#SBATCH --account=def-someacct   # replace this with your own account
+#SBATCH --ntasks-per-node=4
+#SBATCH --mem-per-cpu=2500M      # memory; default unit is megabytes.
+#SBATCH --time=0-00:30           # time (DD-HH:MM).
+
+# Load the module:
+
+module load intel/2023.2.1  openmpi/4.1.5 cfour-mpi/2.1
+
+echo "Starting run at: `date`"
+
+CFOUROUTPUT="cfour-output.txt"
+export CFOUR_NUM_CORES=${SLURM_NTASKS}
+
+xcfour > ${CFOUROUTPUT} 
+
+# Clean the symlink:
+if [[ -L "GENBAS" ]]; then unlink GENBAS; fi
+
+echo "Program finished with exit code $? at: `date`"
+}}
+</tab>
+</tabs>
+
+
+= Références =
+
+* [http://slater.chemie.uni-mainz.de/cfour/index.php?n=Main.Manual Manual]
+* [http://slater.chemie.uni-mainz.de/cfour/index.php?n=Main. Features]

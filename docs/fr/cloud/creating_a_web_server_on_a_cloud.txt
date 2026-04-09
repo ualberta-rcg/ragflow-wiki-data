@@ -1,0 +1,54 @@
+<languages/>
+<i>Page enfant de [https://docs.computecanada.ca/wiki/CC-Cloud/fr Service infonuagique]</i>
+
+Nous décrivons ici une méthode très simple pour créer un serveur web dans notre environnement infonuagique en utilisant Ubuntu et Apache Web Server.
+
+=Sécurité=
+La sécurité est un aspect important pour tout ordinateur qui permet un accès public, ce qui peut prendre plusieurs formes, par exemple permettre les connexions SSH, afficher du code HTML via HTTP, ou offrir un service qui utilise le logiciel d'une tierce partie (comme WordPress). On appelle <i>[https://fr.wikipedia.org/wiki/Daemon_(informatique) daemons]</i> les programmes qui soutiennent des services tels SSH ou HTTP; ces programmes sont en constante activité et reçoivent les requêtes de l'extérieur via des [https://fr.wikipedia.org/wiki/Port_(logiciel) ports] spécifiques. [[Managing_your_cloud_resources_with_OpenStack/fr | OpenStack]] permet de gérer ces ports et d'en restreindre l'accès, par exemple en accordant l'accès à certaines [https://fr.wikipedia.org/wiki/Adresse_IP adresses IP en particulier] ou à un groupe d'adresses; voir la section [[Managing_your_cloud_resources_with_OpenStack/fr#Groupes_de_sécurité |Groupes de sécurité]]. La sécurité d'une instance peut être grandement améliorée par le contrôle de son accès, mais ceci n'élimine pas tous les risques&nbsp;: si les données que vous envoyez ne sont pas cryptées d'une quelconque manière (par exemple avec des mots de passe), une personne habile peut trouver le moyen de les consulter. Les données sont donc souvent cryptées selon le protocole [https://fr.wikipedia.org/wiki/Transport_Layer_Security Transport Layer Security] qui devrait être employé pour tous les sites web auxquels des personnes de l'extérieur peuvent se connecter (par exemple WordPress ou MediaWiki); à ce sujet, consultez [[Configuring Apache to use SSL/fr|Configuration du serveur Apache pour utiliser SSL]]. Il est aussi possible que des données transmises à partir de votre serveur web vers un client soient modifiées en route par un tiers, si elles ne sont pas cryptées. Ceci n'est pas un problème pour le serveur web comme tel, mais pourrait l'être pour les clients. Dans la plupart des cas, il est recommandé d'utiliser le cryptage sur votre serveur web. La sécurité de vos instances est votre responsabilité; nous vous rappelons de ne pas négliger cet aspect critique.
+
+=Installer Apache=
+
+# Suivez les directives dans la page [[Cloud Quick Start/fr|Cloud&nbsp;:&nbsp;Guide de démarrage]] pour créer une instance persistante sous Linux Ubuntu (voir [[Working with volumes/fr#Démarrer_depuis_un_volume|Démarrer depuis un volume]]).
+# Pour ouvrir le port 80 et permettre l'accès HTTP à votre instance, suivez [[Cloud_Quick_Start/fr#Connexion_.C3.A0_votre_instance_par_SSH|ces directives]]. À partir du menu déroulant, sélectionnez HTTP au lieu de SSH.  
+# Une fois connecté à votre instance,
+## Faites la mise à jour de vos répertoires apt-get avec {{Command|sudo apt-get update}}
+## Faites la mise à jour de la version d'Ubuntu avec {{Command|sudo apt-get upgrade}} La version la plus à jour comprendra les toutes dernières rustines de sécurité.
+## Installez le serveur web Apache avec {{Command|sudo apt-get install apache2}}
+# [[File:Apache2-test-page.png|400px|thumb| Page test Apache2 (cliquez pour agrandir)]] Faites afficher la nouvelle page Apache temporaire en entrant l'adresse IP flottante de votre instance dans la barre d'adresses de votre fureteur; il s'agit de la même adresse IP que vous utilisez pour vous connecter avec SSH.  Vous devriez voir une page test semblable à celle montrée à droite.
+# Modifiez le contenu des fichiers dans <code>/var/www/html</code> pour créer le site web et en particulier le fichier index.html qui en définit le point d'entrée.
+
+==Modifier le répertoire root du serveur web==
+Il est souvent plus facile de gérer un site web si celui ou celle qui se connecte à l'instance est propriétaire des fichiers. Dans l'image Ubuntu de notre exemple, le propriétaire est <tt>ubuntu</tt>. Les étapes qui suivent indiquent à Apache de présenter les fichiers à partir de <code>/home/ubuntu/public_html</code> (par exemple) plutôt que de <code>/var/www/html</code>.
+# Utilisez la commande {{Command|sudo vim /etc/apache2/apache2.conf}} (ou un autre éditeur) pour modifier la ligne <code><Directory /var/www/></code> en <code><Directory /home/ubuntu/public_html></code>.
+# Utilisez la commande  {{Command|sudo vim /etc/apache2/sites-available/000-default.conf}} pour modifier la ligne <code>DocumentRoot /var/www/html</code> en <code>DocumentRoot /home/ubuntu/public_html</code>.
+# Créez le répertoire dans le répertoire /home de l'utilisateur avec la commande {{Command|mkdir public_html}}
+# Copiez la page par défaut dans le répertoire que vous venez de créer, c'est-à-dire public_html dans votre /HOME, avec la commande {{Command|cp /var/www/html/index.html /home/ubuntu/public_html}}
+# Redémarrez le serveur Apache pour actualiser les modifications avec la commande {{Command|sudo service apache2 restart}}
+Vous devriez pouvoir modifier le fichier <code>/home/ubuntu/public_html/index.html</code>  sans utiliser <code>sudo</code>. Rafraîchissez la page chargée précédemment dans votre fureteur pour voir les modifications.
+
+=Limiter la bande passante=
+Si votre serveur web est très sollicité, il est possible qu'il occupe beaucoup des ressources de la bande passante. Une bonne manière de limiter l'utilisation de la bande passante est d'utiliser [https://github.com/IvnSoft/mod_bw le module Apache].
+== Installation ==
+{{Command|sudo apt install libapache2-mod-bw}}
+{{Command|sudo a2enmod bw}}
+== Configuration ==
+L'exemple de configuration suivant limite la bande passante pour tous les clients à 100Mbps.
+
+    BandWidthModule On
+    ForceBandWidthModule On
+    
+    #Exceptions to badwith of 100Mbps should go here above limit
+    #below in order to override it
+    
+    #limit all connections to 100Mbps
+    #100Mbps *1/8(B/b)*1e6=12,500,000 bytes/s
+    BandWidth all 12500000
+
+Ceci devrait être placé entre les balises <code><VirtualHost></VirtualHost></code> pour votre site. La configuration Apache par défaut se trouve dans le fichier <code>/etc/apache2/sites-enabled/000-default.conf</code>.
+
+=Pour plus d'information=
+* [[Configuring Apache to use SSL/fr|Configuration du serveur Apache pour utiliser SSL]]
+* [http://httpd.apache.org/docs/2.0/ Documentation Apache2] (en anglais)
+* [http://www.w3schools.com/html/ Tutoriel HTML w3schools] (en anglais)
+
+[[Category:Cloud]]

@@ -1,0 +1,319 @@
+<languages/>
+<translate>
+
+<!--T:1-->
+{{Warning
+  |title=Try [[JupyterLab]] first
+  |content=
+This page is for advanced usage of VNC. In many cases, it is much simpler and sufficient to use VNC through your browser, and [[JupyterLab#Desktop|Desktop]]. Please consider using this before you try the instructions below.
+}}
+[[File:Matlab-vnc.png|400px|thumb|MATLAB running via VNC.]]
+
+<!--T:2-->
+To remotely start the graphical user interface (gui) of a program, X11 forwarding over [[SSH]] is commonly used. However the  performance of this approach is often too slow to perform smooth complex graphics rotations.  A much better alternative is to use [https://en.wikipedia.org/wiki/Virtual_Network_Computing VNC] to connect to a remote desktop.
+
+= Setup = <!--T:4-->
+
+<!--T:6-->
+To begin a VNC client will need to be installed on your desktop.  A TigerVNC package is available for Windows, MacOS and most Linux distributions.  The following shows how to download, install and configure TigerVNC securely for each of these systems.
+
+== Windows == <!--T:8-->
+
+<!--T:10-->
+Download and run the latest stable vncviewer64-x.y.z.exe version package installer from [https://sourceforge.net/projects/tigervnc/files/stable/ the official download page] for example <code>vncviewer64-1.15.0.exe</code> (as of April 2025).  Make sure you download the viewer and not the server.  To create secure tunnels from your desktop to the vncserver as described in the sections below, you will need to open a terminal window and run the SSH command.  This may be done using PowerShell standard on Windows 10 since the 1809 update.
+
+== MacOS == <!--T:12-->
+
+<!--T:14-->
+Install the latest stable DMG package by going to [https://sourceforge.net/projects/tigervnc/files/stable/ the official download page] and click the green <b>Download Latest Version</b> button for <code>TigerVNC-1.15.0.dmg</code> (as of April 2025). Once the download is complete double click the DMG file to open it.  A TigerVNC Viewer icon should appear in a popup window along with a LICENSE.TXT and README.rst file.  To complete the installation, drag the tigervnc icon that appears into the Applications folder and/or the lower [https://support.apple.com/en-ca/guide/mac-help/mh35859/mac app dock].   To remove the popup you will need to unmount the DMG file.  To do this open a New Finder Window, verify <code>View->ShowSidebar</code> is selected, click the small up arrow beside <code>TigerVNC-1.15.0</code> in the left side menu and lastly close the finder window.  If you are running macOS Monterey 12.2 and [https://github.com/TigerVNC/tigervnc/issues/1423 TigerVNC crashes] then you must upgrade to this latest version.
+
+== Linux == <!--T:16-->
+
+<!--T:18-->
+First install TigerVNC viewer with the package manager for your Linux version:
+
+<!--T:20-->
+{| class="wikitable"
+! Linux Version
+! Install Command
+|-
+| Debian, Ubuntu
+| <code>sudo apt-get install tigervnc-viewer</code>
+|-
+| Fedora, CentOS, or RHEL
+| <code>sudo yum install tigervnc</code>
+|-
+| Gentoo
+| <code>emerge -av net-misc/tigervnc</code>
+|}
+
+<!--T:22-->
+Next, start TigerVNC by either finding it in the applications menu or running <code>vncviewer</code> on the command line of your laptop.  
+
+= Connect = <!--T:26-->
+
+<!--T:28-->
+Now you need a VNC server to connect to, such as a temporary vncserver started on a cluster login or compute node as shown below.
+
+== Login nodes == <!--T:41-->
+
+<!--T:42-->
+You may run lightweight applications (that do not require a gpu) within a remote VNC desktop on a cluster login node (memory and cputime limits apply).  To do this, you must first connect to a cluster login node.  Using the Nibi cluster to demonstrate :
+
+<!--T:163-->
+ [<b>laptop</b>:~] ssh nibi.alliancecan.ca
+
+<!--T:44-->
+Next run <code>vncserver -list</code> to check if you have an old unused vncserver(s) still running on whichever Nibi login node you get connected to.  If you do then kill them off by running the following pkill command on
+
+<!--T:43-->
+ [<b>l4</b>(login node):~] <code>pkill Xvnc -u $USER</code>
+
+<!--T:45-->
+1) Now you may start your vncserver on the login node as shown here:
+
+<!--T:164-->
+ [<b>l4</b>(login node):~] vncserver -idletimeout 86400<br>
+ Desktop 'TurboVNC: l4.nibi.sharcnet:1 (yourusername)' started on display <b>l4</b>.nibi.sharcnet:1<br>
+ Starting applications specified in /cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr/bin/xstartup.turbovnc
+ Log file is <span style="Color:green">/home/yourusername/.vnc/<b>l4</b>.nibi.sharcnet:1.log</span>
+
+<!--T:46-->
+Note that the vncserver command provided by StdEnv/2023 is based on [https://turbovnc.org turbovnc].  When starting a new vncserver on a login node <code>-idletimeout seconds</code> should be added as shown above.  Doing so will ensure your <code>vncserver</code> eventually terminates (once S seconds has elapsed with no VNC viewer connections) should you forget to terminate your vncviewer session by clicking <code>System -> Log out</code> in the vnc desktop.  The first time you start vncserver you will be required to set a password which can be [https://docs.alliancecan.ca/wiki/VNC#Vncserver_password changed] later.  The password will be required to remotely connect to your desktop with a vncclient (such as vncviewer). The same password will be required when making [https://docs.alliancecan.ca/wiki/VNC#Multiple_connections multiple connections] assuming you started your vncserver by appending the additional <code>-alwaysshared</code> option.
+
+<!--T:175-->
+2) Now determine which port your vncserver is listening on (5901 for this example) by running grep on the log file:
+
+<!--T:202-->
+ [<b>l4</b>(login node):~] grep -iE "\sport|kill" <span style="Color:green">/home/yourusername/.vnc/<b>l4</b>.nibi.sharcnet:1.log</span>
+ 25/08/2025 15:16:20 Listening for VNC connections on TCP port <span style="Color:blue">5901</span>
+
+<!--T:201-->
+Now you may exit the login node. The vncserver you started will continue running until the time limit you specified (with the -idletimeout option) is reached.
+
+<!--T:203-->
+ [<b><span style="Color:green">l4</span></b>(login node):~]  exit
+ [<b>laptop</b>:~]
+
+<!--T:47-->
+3) On your desktop start a SSH tunnel.  Doing this will forward an arbitrary port (5905 in this example) to the port your VNC server is listening on (5901 according to the above).
+
+ <!--T:204-->
+[<b>laptop</b>:~] ssh nibi.computecanada.ca -L <span style="Color:red">5905</span>:<b><span style="Color:green">l4</span></b>:<span style="Color:blue">5901</span>
+
+<!--T:48-->
+4) Next also your desktop, either click the <i>TigerVNC Viewer</i> application icon and enter '''localhost:<span style="Color:red">5905</span>''' in the <b>VNC viewer: Connection details</b> popup window dialogue box that appears ** OR ** open another terminal window and specify the following on the command line then hit enter.  With either approach you should next get a popup window requesting the VNC authentication password that you previously setup.  After successfully entering the password your remote Desktop should immediately appear.
+
+<!--T:169-->
+ [<b>laptop</b>:~] vncviewer localhost:<span style="Color:red">5905</span>
+
+<!--T:52-->
+Although there are no system time limits on the login nodes for processes, there are memory and cputime limits that any applications you run in your remote desktop will be subject to.  If you require more memory, cpu resources, or gpu access for applications you run in your desktop OR for graphics acceleration, then use the following procedure to start your VNC server on a cluster compute node instead and you may request them accordingly as explained with the salloc command.
+
+== Compute nodes == <!--T:54-->
+
+<!--T:56-->
+If your program requires memory and/or cputime limits greater than those provided on a cluster login node(s), then connect to a cluster compute node using the <code>salloc</code> command, start a VNC server, and then start a secure tunnel to it (with suitable port forwarding) and connect to it from your desktop with a vncviewer.  This approach will give you dedicated access to your vnc server on a compute node with full graphical desktop however by default it will not have hardware-accelerated OpenGL capabilities.
+
+<!--T:58-->
+<b>1) Start a VNC server</b>
+
+<!--T:60-->
+Before starting your VNC server, log into a cluster (such as Nibi) and create a compute node allocation using the <code>salloc</code> command (24hr time limit applies). For example, to request an [[Running_jobs#Interactive_jobs|interactive job]] using 4 CPUs and 16GB of memory you could use the command:
+
+<!--T:141-->
+ [<b>l4</b>(login node):~] salloc --time=1:00:00 --cpus-per-task=4 --mem=16000 --account=def-piusername
+ salloc: Pending job allocation 1149016
+ salloc: job 1149016 queued and waiting for resources
+ salloc: job 1149016 has been allocated resources
+ salloc: Granted job allocation 1149016
+ salloc: Waiting for resource configuration
+ salloc: Nodes <b>c48</b> are ready for job
+ [<b>c48</b>(compute node):~]
+
+<!--T:62-->
+Once your interactive job has started, set this environment variable to avoid any repetitive desktop errors:
+
+<!--T:142-->
+ [<b>c48</b>(compute node):~] export XDG_RUNTIME_DIR=${SLURM_TMPDIR}
+
+<!--T:64-->
+Then, start a VNC server with <code>vncserver</code> noting which compute node your job is running on (<b>c48</b> in this example).  If unsure use the <code>hostname</code> command to check. The first time you do this you will be prompted to set a password for your VNC server '''DO NOT LEAVE THIS BLANK''' otherwise anyone could connect to it and gain access to the files in your account.  You may change the password later using the <code>vncpasswd</code> command.  Continuing with the example:
+
+<!--T:143-->
+ [<b>c48</b>(compute node):~] vncserver<br>
+ Desktop 'TurboVNC: c48.nibi.sharcnet:1 (yourusername)' started on display <b>c48</b>.nibi.sharcnet:1<br>
+ Starting applications specified in /cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr/bin/xstartup.turbovnc
+ Log file is <span style="Color:green">/home/yourusername/.vnc/<b>c48</b>.nibi.sharcnet:1.log</span>
+
+<!--T:66-->
+Run the grep command on the log file to determine which port your VNC server is listening on:
+
+<!--T:144-->
+ [<b>c48</b>(compute node):~] grep -iE "\sport|kill" <span style="Color:green">/home/yourusername/.vnc/<b>c48</b>.nibi.sharcnet:1.log</span>
+ 26/08/2025 10:43:36 Listening for VNC connections on TCP port <span style="Color:blue">5901</span>
+
+<!--T:68-->
+<b>2) Set up a SSH tunnel to the VNC server</b>
+
+<!--T:70-->
+Once your VNC server has been started, you must create a secure "bridge" or "tunnel" from your laptop to the compute node where your vncserver is running (as determined in the previous step above).  There are two types of tunnel commands that maybe used depending on which cluster you are using.
+
+<!--T:212-->
+For all clusters (<b>except</b> Nibi) the previously recommended form of the tunnel command <code>ssh username@clustername -L localforwardedport:<span style="Color:orange">computenode</span>:remotelisteningport</code> may continue to be used.  As an  example, if a vncserver is started on <code>rorqual</code> compute node <b><span style="Color:orange">rc12509</span></b> and the local port on your laptop to be forwarded is again <span style="Color:red">5905</span> the appropriate tunnel command becomes:
+
+ <!--T:213-->
+[<b>laptop</b>:~] ssh username@rorqual.alliancecan.ca -L <span style="Color:red">5905</span>:<b><span style="Color:orange">rc12509</span></b>:<span style="Color:blue">5901</span>
+ Duo two-factor login for username
+ Enter a passcode or select one of the following options:
+ [rc12509(compute node):~] 
+
+<!--T:214-->
+For Nibi, a new form of the tunnel command <code>ssh -J username@clustername -L localforwardedport:<span style="Color:orange">localhost</span>:remotelisteningport computenode</code> must be used.  In addition a SSH key pair must created on your laptop with the contents of the pub key entered into your <code>~/.ssh/authorized_keys</code> file on <code>nibi</code>.  This approach will also work on any other cluster and so may eventually be preferred.  Continuing with the above example, where <b><span style="Color:green">c48</span></b> is the compute node that you started your vncserver on, and <span style="Color:red">5905</span> is the local port on your laptop being forwarded, the tunnel command would be:
+
+ <!--T:215-->
+[<b>laptop</b>:~] ssh -J username@nibi.alliancecan.ca -L <span style="Color:red">5905</span>:<span style="Color:orange">localhost</span>:<span style="Color:blue">5901</span> <b><span style="Color:green">c48<span></b>
+ Duo two-factor login for username
+ Enter a passcode or select one of the following options:
+ [c48(compute node):~]
+
+<!--T:74-->
+If you exit the node that your tunnel is connected to, you will no longer be able to connect to the VNC server with vncviewer.  However since your vncserver will continue running, so you may regain access to it by simply starting a new tunnel. For more information about tunnels see [[SSH tunnelling|SSH tunnel]].
+
+<!--T:76-->
+<b>3) Connect to the VNC server</b>
+
+<!--T:78-->
+If you have a Linux desktop, open a new local terminal window and tell your VNC client to connect to '''localhost:port'''. The following example uses the TigerVNC <code>vncviewer</code> command to connect to the running VNC server on cdr768. You will be prompted for the VNC password that you set up earlier in order to connect.
+
+<!--T:146-->
+ [<b>laptop</b>:~]$ vncviewer localhost:<span style="Color:red">5905</span><br>
+ TigerVNC viewer v1.15.0
+ Built on: 2025-02-16 03:59
+ Copyright (C) 1999-2025 TigerVNC team and many others (see README.rst)
+ See https://www.tigervnc.org for information on TigerVNC.<br>
+ Tue Aug 26 10:59:59 2025
+ DecodeManager: Detected 12 CPU core(s)
+ DecodeManager: Creating 4 decoder thread(s)
+ CConn:       Connected to host localhost port 5905
+ CConnection: Server supports RFB protocol version 3.8
+ CConnection: Using RFB protocol version 3.8
+ CConnection: Choosing security type VeNCrypt(19)
+ CVeNCrypt:   Choosing security type TLSVnc (258)<br>
+ Tue Aug 26 11:00:03 2025
+ CConn:       Using pixel format depth 24 (32bpp) little-endian rgb888
+ CConnection: Enabling continuous updates
+
+<!--T:80-->
+If you are on a Mac or Windows desktop (not a linux distro) then instead of running the <code>vncviewer</code> from the command line, you may click the <i>TigerVNC Viewer</i> application icon and enter your '''localhost:port''' information as shown here: [[File:VNCviewerConnect3.png|400px|thumb'''Mac Tiger VNC Viewer Connection Details Dialogue Box''']].   As a side note, the default VNC port assumed by <i>TigerVNC Viewer</I> is 5900, therefore if you specified 5900 as the local port to be forwarded when you started your SSH tunnel, then you could simply specify '''localhost'''.  Windows users however may find they cannot set up an SSH tunnel on local port 5900 in the first place.
+
+<!--T:216-->
+Once <code>vncviewer</code> connects you will be presented with a [https://mate-desktop.org/ Linux MATE desktop]. To launch a terminal, click on the top menu on "Applications -> System Tools -> MATE Terminal". You may also add a shortcut to the top menu by right-clicking on "MATE Terminal" and by clicking on "Add this launcher to panel". Finally, to launch a program, invoke the command as you would normally within a <code>bash</code> session, for example <code>xclock</code>. To start a more complicated program like MATLAB, load the module and then run the <code>matlab</code> command.
+
+= More information = <!--T:86-->
+
+== Vncserver password == <!--T:88-->
+
+<!--T:90-->
+To reset your VNC server password, use the <code>vncpasswd</code> command:
+
+<!--T:170-->
+<source lang="bash">
+[gra-login1:~] vncpasswd
+Password:
+Verify:
+Would you like to enter a view-only password (y/n)? n
+</source>
+
+<!--T:171-->
+Optionally you can completely remove your VNC configuration (including your password) by deleting your <code>~/.vnc</code> directory. The next time you run <code>vncserver</code> you will be prompted to set a new password.
+
+== Killing vncserver == <!--T:96-->
+
+<!--T:98-->
+If a running vncserver is no longer needed, terminate it with <code>vncserver -kill :DISPLAY#</code> for example:
+
+<!--T:172-->
+ [gra-login1:~] vncserver -list | grep -v ^$
+ TurboVNC sessions:
+ X DISPLAY #	PROCESS ID	NOVNC PROCESS ID
+ :<span style="color:red">44</span>	        27644<br>
+ [gra-login1:~] vncserver -kill :<span style="color:red">44</span>
+ Killing Xvnc process ID 27644
+
+<!--T:100-->
+If you have multiple vncservers running on a node, you may kill them ALL instantly by running:
+ [gra-login1:~] pkill Xvnc -u $USER
+
+== Multiple connections == <!--T:200-->
+
+<!--T:101-->
+All vncserver(s) running under your username (on a login or compute node) can be displayed with <code>vncserver -list</code>.  If a vncserver was started with the additional <code>-AlwaysShared</code> option then multiple connections to it can be made by establishing a new tunnel and vncviewer from any remote location.  For example:
+
+ <!--T:218-->
+[<b>l4</b>(login node):~] vncserver -idletimeout 86400 -alwaysshared | grep -v ^$
+ Desktop 'TurboVNC: l4.nibi.sharcnet:1 (yourusername)' started on display <b>l4</b>.nibi.sharcnet:1
+ Starting applications specified in /cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr/bin/xstartup.turbovnc
+ Log file is /home/yourusername/.vnc/<b>l4</b>.nibi.sharcnet:1.log
+
+<!--T:219-->
+Thus one could start a vncserver running while at the office and then go home, establish new tunnels to the login or compute node where the vncserver is still running, and re-connect again with vncviewer to access the same desktop and seamlessly continue working.  If however your vncserver was not started with <code>vncserver -AlwaysShared</code> then only one vncviewer connection will be possible and you would need to close down all applications running in the desktop then shut down your vncserver, all before going home.  Then later once home you would need to restart a whole new desktop from scratch and all applications just to finally continue working.
+
+== Failures to connect == <!--T:102-->
+
+<!--T:103-->
+Repeated failing attempts to establish a new vncserver/vncviewer connection may be due to an old SSH tunnel still running on your desktop tying up ports.  To identify and kill any such tunnels, open a terminal window on your desktop and run <code>ps ux | grep ssh</code> followed by <code>kill PID</code>.
+
+== Unlock screensaver == <!--T:104-->
+
+<!--T:105-->
+If your VNC screensaver times out and requests a password, enter your cluster account password to unlock it (not your vncserver password).  If you are running the MATE desktop and the screensaver will not unlock, try running <code>killall -9 .mate-screensaver</code>.  This should no longer be a problem on our clusters as the VNC screensaver has been disabled.
+
+== Cannot log in == <!--T:205--> 
+
+<!--T:206-->
+The procedure to log in to gra-vdi.alliancecan.ca is a two step process:
+
+<!--T:207-->
+1)
+ username
+ Enter your (ccdb) password
+2)
+ username
+ Enter your Duo two-factor MFA passcode
+
+<!--T:168-->
+If you enter the wrong username/password for 1) you will still be prompted by 2).  If you then send your username/passcode then you will receive a message that says <b>Success, Logging you in...</b> and be returned to the log in screen of 1).  The solution is to try again being sure to enter your correct username/password combination.  If you cannot recall your CCDB password, visit [https://ccdb.alliancecan.ca/security/forgot here] to reset it, assuming your account it not pending renewal by your PI.
+
+== OpenGL graphics == <!--T:106-->
+
+<!--T:108-->
+To run a graphics-based program that uses hardware-based accelerated OpenGL, a couple of changes will be required in the above <i>Compute nodes</i> section.
+
+<!--T:109-->
+First, the <code>salloc</code> command must be modified to request a GPU node.  If this is not done, the program will fall back to using software-based rendering on CPUs, which is relatively much slower.  To request the first GPU node that brcomes available (and in turn minimize your queue wait time if the cluster has multiple GPU node types) simply specify:
+
+<!--T:110-->
+ [<b>l4</b>(login node):~] salloc --time=1:00:00 --cpus-per-task=4 --gpus-per-node=1 --mem=16000 --account=def-piname
+
+<!--T:112-->
+If however the cluster you are using has multiple node types, where one is known to provide good graphics acceleration such as a node with a <b>t4</b> gpu, then specify :
+
+<!--T:114-->
+ [<b>l4</b>(login node):~] salloc --time=1:00:00 --cpus-per-task=4 --gpus-per-node=t4:1 --mem=16000 --account=def-piname
+
+<!--T:116-->
+Second, <code>vglrun</code> will probably need to be added just before the name of your <code>PROGRAM</code> on the command line of your VNC desktop terminal window.  For example :
+
+<!--T:118-->
+  [<b>c48</b>(compute node):~] vglrun -d egl PROGRAM
+
+<!--T:221-->
+Then <code>vglrun</code> sets some extra environment variables to ensure your program will use correct virtualgl libraries.  If however your <code>PROGRAM</code> has already been patched to use the current cvmfs standard environment doing so will not be required. 
+
+== Portal alternatives == <!--T:126-->
+
+<!--T:217-->
+If you experience graphics issues when using VNC as described above, try instead using [https://ondemand.sharcnet.ca/ OpenOnDemand] on the Nibi cluster or [https://jupyterhub.rorqual.alliancecan.ca JupyterHub] on the <b>Rorqual</b> cluster.  Both systems offer an automated modern desktop VDI web interface GUI experience that is designed for ease of use with improved hardware performance and software support.
+
+</translate>

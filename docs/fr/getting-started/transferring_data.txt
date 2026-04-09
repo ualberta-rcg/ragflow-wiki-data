@@ -1,0 +1,185 @@
+<languages />
+
+Pour transférer des données à partir ou en direction des grappes, veuillez utiliser les nœuds de copie plutôt que les nœuds de connexion. Pour connaître l'adresse URL d'un nœud de copie, consultez le tableau au haut des pages pour chacune des grappes (cliquez sur le nom de la grappe dans la barre de gauche de la fenêtre principale).
+
+[[Globus/fr|Globus]] utilise automatiquement les nœuds de copie.
+
+==Entre un ordinateur personnel et nos équipements==
+Pour télécharger ou téléverser des fichiers entre votre ordinateur et notre infrastructure, vous devez utiliser un logiciel offrant une fonctionnalité de transfert sécuritaire.
+*Dans un environnement ligne de commande sous Linux ou Mac OS X, utilisez les commandes <code>scp</code> et <code>sftp</code>.
+*Sous Windows, [[Connecting with MobaXTerm/fr|MobaXterm]] offre des fonctions de transfert de fichiers et une interface ligne de commande via  [[SSH/fr|SSH]]; un autre programme gratuit pour le transfert de données est [https://winscp.net/eng/docs/lang:fr WinSCP]. Pour configurer une connexion via clés SSH avec WinSCP, voyez [https://www.exavault.com/blog/import-ssh-keys-winscp ces directives].
+Les commandes <code>pscp</code> et <code>psftp</code> de [[Connecting with PuTTY/fr|PuTTY]] fonctionnent sensiblement comme les commandes sous Linux et Mac.
+
+S'il faut plus d'une minute pour transférer des fichiers entre votre ordinateur et nos serveurs, nous vous suggérons d'installer <i>Globus Connect Personal</i> et d'en faire l'essai; consultez la section [[Globus/fr#Ordinateurs_personnels|Ordinateurs personnels]]. Le transfert avec Globus peut être configuré et fonctionner en arrière-plan, sans intervention.
+
+==Entre nos systèmes ==
+[[Globus/fr|Globus]] est l'outil privilégié et devrait être utilisé autant que possible.
+
+D'autres outils de transfert connus peuvent être utilisés pour des transferts entre nos équipements et entre un autre ordinateur et nos équipements, soit
+* [[Transferring_data/fr#SFTP|SFTP]]
+* [[Transferring_data/fr#SCP|SCP]] ou Secure Copy Protocol
+* [[Transferring_data/fr#rsync|rsync]]
+
+Remarque : Pour transférer des fichiers entre une autre grappe et Trilloium, utilisez l'indicateur SSH <code>-A</code> en vous connectant à l'autre grappe. Par exemple, pour copier des fichiers de Fir à Trillium, la commande serait
+
+<pre>
+ssh -A USERNAME@fir.alliancecan.ca
+</pre>
+ensuite, effectuez la copie
+<pre>
+[USERNAME@fir2 ~]$ scp file USERNAME@trillium.alliancecan.ca:
+</pre>
+
+==À partir du web==
+Pour transférer des données à partir d'un site web, utilisez [https://fr.wikipedia.org/wiki/GNU_Wget wget]. Un autre outil bien connu est [https://curl.haxx.se/ curl]. Les deux outils sont comparés dans [https://unix.stackexchange.com/questions/47434/what-is-the-difference-between-curl-and-wget cet article de StackExchange] ou sur  [https://draculaservers.com/tutorials/wget-and-curl-for-files/ le site DraculaServers]. Même si notre sujet ici est le transfert entre les systèmes Linux de l'Alliance, nous voulons souligner [https://www.techtarget.com/searchnetworking/tutorial/Use-cURL-and-Wget-to-download-network-files-from-CLI ce tutoriel] qui discute aussi de Mac et Windows. Les téléchargements interrompus peuvent être repris avec [https://www.thegeekstuff.com/2009/09/the-ultimate-wget-download-guide-with-15-awesome-examples/ wget] et [https://www.thegeekstuff.com/2012/04/curl-examples/ curl] en les relançant de nouveau en ligne de commande avec  [https://www.cyberciti.biz/tips/wget-resume-broken-download.html -c] et [https://www.cyberciti.biz/faq/curl-command-resume-broken-download/ -C -] respectivement. Pour obtenir des données de services infonuagiques comme Google cloud, Google Drive et Google Photos, utilisez plutôt [https://rclone.org/ rclone].  Par défaut, nos grappes offrent wget, curl et rclone sans avoir à charger un  module. Pour les options en ligne de commande, voir la documentation officielle ou lancez l'outil avec les commandes <code>--help</code> ou <code>-h</code>.
+
+==Synchroniser les données==
+La synchronisation de données a pour but de faire correspondre le contenu de deux sources de données situées à différents endroits. Il y a plusieurs façons de procéder; les plus courantes sont décrites ici.
+
+===Transfert avec Globus===
+Globus est un outil performant et fiable.
+
+Lors d'un transfert avec Globus, les données provenant de la source écrasent habituellement les données dans la destination; toutes les données de la source sont donc transférées. Dans certains cas, les fichiers existent déjà à la destination; s'ils sont identiques à ceux de la source, il n'est pas nécessaire de les transférer. Sous <i>Transfer Settings</i>, le paramètre <code>sync</code> détermine comment Globus choisit les fichiers à transférer.
+
+[[File:Globus_Transfer_Sync_Options.png|280px|thumb|left|alt="Globus file transfer sync options"]]
+
+Les options de sélection des fichiers sont :
+{| class="wikitable"
+|-
+| <i>checksum is different</i>  || examine les sommes de contrôle (<i>checksum</i>) pour détecter un changement ou une erreur de contenu dans des fichiers de même taille. Cette option ralentit considérablement le transfert, mais offre la plus grande précision.
+|-
+| <i>file doesn't exist on destination</i> || transfère uniquement les fichiers créés depuis la dernière synchronisation. Cette option est utile si vos fichiers sont créés par incréments.
+|-
+| <i>file size is different</i> || transfère les fichiers dont la taille a été modifiée, assumant que le contenu aussi a été modifié. Cette option permet un test rapide.
+
+|-
+| <i>modification time is newer</i> || transfère uniquement les fichiers dont l'estampille temporelle (''timestamp'') de la source est postérieure à celle de la destination. Avec cette option, cochez ''preserve source file modification times''.
+|}
+
+Pour plus d'information, consultez la page [[Globus/fr|Globus]].
+
+<br clear="all"/>
+
+===rsync===
+L'utilitaire [https://fr.wikipedia.org/wiki/Rsync rsync] vérifie la similitude entre deux jeux de données; il nécessite toutefois un temps considérable lorsqu'il y a un grand nombre de fichiers, que les sites sont à grande distance l'un de l'autre, ou qu'ils se trouvent sur des réseaux différents.
+
+<code>rsync</code> compare les dates de modification et la taille des fichiers et fait le transfert uniquement si l'un des paramètres ne concorde pas.
+Si les dates de modification sont susceptibles de différer, l'option <code>-c</code> analyse les checksums à la source et à la destination et transfère uniquement les fichiers dont les valeurs ne concordent pas. 
+
+Quand vous transférez des données vers les systèmes de fichiers <code>/project</code>, n'utilisez pas les indicateurs <code>-p</code> et <code>-g</code>. Les quotas pour <code>/project</code> sont calculés selon la propriété de groupe et le fait de conserver la même propriété pourrait produire le message d'erreur [[Frequently_Asked_Questions/fr#Message_Disk_quota_exceeded| <i>Disk quota exceeded</i>]]. Puisque <code>-a</code> inclut par défaut à la fois <code>-p</code> et <code>-g</code>, il faut ajouter les options <code>--no-g --no-p</code> comme suit
+{{Command|rsync -avzh --no-g --no-p LOCALNAME someuser@nibi.alliancecan.ca:projects/def-professor/someuser/somedir/}}
+où LOCALNAME est un répertoire ou un fichier précédés par leur chemin et où somedir sera créé s'il n'existe pas déjà.  L'option <code>-z</code> compresse les fichiers (dont les suffixes ne sont pas dans la liste  pour l'option <code>--skip-compress</code>) et exige des ressources CPU additionnelles, alors que l'option <code>-h</code> permet de simplifier les chiffres qui représentent la taille des fichiers.  Si vous transférez de très gros fichiers, ajoutez l'option <code>--partial</code> pour que les transferts interrompus soient redémarrés. 
+{{Command|rsync -avzh --no-g --no-p --partial --progress LOCALNAME someuser@nibi.alliancecan.ca:projects/def-professor/someuser/somedir/}}
+L'option <code>--progress</code> affiche la progression du transfert de chaque fichier. Pour le transfert de plusieurs petits fichiers, il est préférable d'afficher la progression du transfert de l'ensemble des fichiers.
+{{Command|rsync -azh --no-g --no-p --info{{=}}progress2 LOCALNAME someuser@nibi.alliancecan.ca:projects/def-professor/someuser/somedir/}}
+Les exemples ci-dessus sont tous des transferts à partir d'un système local à destination d'un système à distance. Les transferts à partir d'un système à distance à destination du répertoire /project d'un système local fonctionnent de la même manière, par exemple
+{{Command|rsync -avzh --no-g --no-p someuser@nibi.alliancecan.ca:REMOTENAME ~/projects/def-professor/someuser/somedir/}}
+où REMOTENAME est un répertoire ou un fichier précédés par leur chemin et où somedir sera créé s'il n'existe pas déjà. 
+Plus simplement, pour transférer localement un répertoire ou un fichier (à partir de /home ou /scratch) à destination de /project dans le même système, n'indiquez pas le nom de la grappe.
+{{Command|rsync -avh --no-g --no-p LOCALNAME ~/projects/def-professor/someuser/somedir/}}
+où somedir sera créé s'il n'existe pas déjà, avant d'y copier le contenu de LOCALNAME.
+En comparaison, la commande de copie peut aussi être utilisée pour transférer  LOCALNAME de /home à /project comme suit
+{{Command|cp -rv --preserve{{=}}"mode,timestamps" LOCALNAME ~/projects/def-professor/someuser/somedir/}}
+Cependant, contrairement à ce qui se produit avec rsync, si LOCALNAME est un répertoire, il sera renommé somedir si somedir n'existe pas déjà.
+
+===Comparaison des sommes de contrôle (<i>checksums</i>)===
+Si vous ne pouvez p-as utiliser Globus pour synchroniser deux systèmes et si rsync est trop lent, les deux systèmes peuvent être comparés avec un utilitaire [https://fr.wikipedia.org/wiki/Somme_de_contr%C3%B4le checksum]. L'exemple suivant utilise <code>sha1sum</code>.
+
+{{Command
+|find /home/username/ -type f -print0 {{!}} xargs -0 sha1sum {{!}} tee checksum-result.log
+}}
+
+Cette commande crée dans le répertoire courant un nouveau fichier nommé ''checksum-result.log'' contenant toutes les sommes de contrôle des fichiers situés dans /home/username/; les sommes sont affichées pendant que le processus se déroule.
+Lorsqu'il y a un grand nombre de fichiers ou dans le cas de fichiers de très grande taille, rsync peut travailler en arrière-plan en mode [https://fr.wikipedia.org/wiki/GNU_Screen screen], [https://fr.wikipedia.org/wiki/Tmux tmux] ou tout autre moyen lui permettant d'opérer malgré un bris de la connexion [[SSH]].
+
+Une fois l'opération terminée, l'utilitaire <code>diff</code> trouvera les fichiers qui ne concordent pas.
+
+{{Command
+|diff checksum-result-silo.log checksum-dtn.log
+|result=69c69
+ < 017f14f6a1a194a5f791836d93d14beead0a5115  /home/username/file-0025048576-0000008
+ ---
+ > 8836913c2cc2272c017d0455f70cf0d698daadb3  /home/username/file-0025048576-0000008
+}}
+
+Il est possible que la commande <code>find</code> emprunte un ordre différent, détectant ainsi de fausses différences; pour contrer ceci, lancez la commande <code>sort</code> sur les deux fichiers avant de lancer <code>diff</code>, comme suit :
+
+{{Commands
+|sort -k2 checksum-result-silo.log -o checksum-result-silo.log
+|sort -k2 checksum-dtn.log -o checksum-dtn.log
+}}
+
+==SFTP== 
+Pour transférer des fichiers, [https://en.wikipedia.org/wiki/SSH_File_Transfer_Protocol SFTP] (pour ''Secure File Transfer Protocol'') utilise le protocole SSH qui chiffre les données transférées.
+
+Dans l'exemple suivant, l'utilisateur <code>USERNAME</code> transfère des fichiers à distance vers <code>ADDRESS</code>.
+
+<source lang="console">
+[name@server]$ sftp USERNAME@ADDRESS
+The authenticity of host 'ADDRESS (###.###.###.##)' can't be established.
+RSA key fingerprint is ##:##:##:##:##:##:##:##:##:##:##:##:##:##:##:##.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added 'ADDRESS,###.###.###.##' (RSA) to the list of known hosts.
+USERNAME@ADDRESS's password:
+Connected to ADDRESS.
+sftp>
+</source>
+L'authentification avec l'option  <code>-i</code> peut se faire en utilisant une [https://docs.computecanada.ca/wiki/SSH_Keys/fr clé SSH].
+<source lang="console">
+[name@server]$ sftp -i /home/name/.ssh/id_rsa USERNAME@ADDRESS
+Connected to ADDRESS.
+sftp>
+</source>
+
+À l'invite <code>sftp></code>, vous entrez les commandes de transfert; utilisez la commande <code>help</code> pour obtenir la liste des commandes disponibles.
+
+Des applications graphiques sont aussi disponibles : 
+*[https://winscp.net/eng/index.php WinSCP] et [http://mobaxterm.mobatek.net/ MobaXterm] sous Windows,
+*[https://filezilla-project.org filezilla] sous Windows, Mac et Linux,
+*[https://cyberduck.io/?l=en cyberduck], sous Mac et Windows.
+[[Category:Connecting]]
+
+==SCP== 
+
+SCP est l'abréviation de [https://fr.wikipedia.org/wiki/Secure_copy <i>secure copy protocol</i>]. Comme SFTP, SCP utilise le protocole SSH pour chiffrer les données qui sont transférées. Contrairement à [https://docs.alliancecan.ca/wiki/Globus/fr Globus] ou [https://docs.alliancecan.ca/wiki/Transferring_data/fr#rsync rsync], SCP ne gère pas la synchronisation. Les cas d'utilisation de SCP suivants sont parmi les plus fréquents :
+{{Command	
+|scp foo.txt username@rorqual.alliancecan.ca:work/
+}}	
+Cette commande transfère le fichier <code>foo.txt</code> qui se trouve dans le répertoire courant de mon ordinateur vers le répertoire <code>$HOME/work</code> de la grappe [[Rorqual]]. Pour transférer le fichier <code>output.dat</code> qui se trouve dans mon espace /project de la grappe [[Fir/fr|Fir]] vers mon ordinateur local, je pourrais utiliser une commande comme
+{{Command	
+|scp username@fir.alliancecan.ca:projects/def-jdoe/username/results/output.dat .	
+}}	
+[http://www.hypexr.org/linux_scp_help.php Voyez d'autres exemples]. Prenez note que vous lancez toujours la commande <code>scp</code> à partir de votre ordinateur et non à partir de la grappe&nbsp;: la connexion SCP doit toujours être initiée à partir de votre ordinateur, peu importe la direction dans laquelle vous transférez les données. 
+
+L'option <code>-r</code> permet de faire un transfert récursif d'un groupe de répertoires et fichiers. <b>Il n'est pas recommandé d'utiliser <code>scp -r</code></b> pour transférer des données vers <code>/project</code> parce que le bit <tt>setGID</tt> est désactivé dans les répertoires qui sont créés, ce qui peut générer des erreurs semblables à <code>Disk quota exceeded</code> lors de la création ultérieure de fichiers; voyez [[Frequently_Asked_Questions/fr#Message_Disk_quota_exceeded | Message <i>Disk quota exceeded</i>]].
+
+<b><big>***Attention :***</big></b> si vous utilisez un nom de clé SSH personnalisé, <i>c'est-à-dire</i> autre chose que les noms par défaut <code>id_dsa</code>, <code>id_ecdsa</code>, <code>id_ed25519</code> et <code>id_rsa</code>, vous devez utiliser l'option scp <code>-i</code>, suivie du chemin vers votre clé privée ainsi
+
+{{Command
+|scp -i /path/to/key foo.txt username@rorqual.alliancecan.ca:work/
+}}
+
+<span id="Prevention_and_Troubleshooting"></span>
+==Mesures préventives et dépannage==
+
+<span id="Unable_to_read_data"></span>
+===Problème de lecture===
+
+Assurez-vous que vous pouvez lire tout le contenu des répertoires <b><u>avant de les transférer</b></u>. Sous Linux, la commande suivante liste tous les éléments que vous n'avez pas en lecture.
+
+{{Command
+|find <directory_name> ! -readable -ls
+}}
+
+<span id="Unable_to_write_new_data"></span>
+===Problème d'écriture de nouvelles données===
+
+* Vérifiez encore <b>[[Storage_and_file_management/fr#Introduction|l'utilisation du stockage]]</b> pour vous assurer qu'assez d'espace et assez de fichiers sont disponibles.
+** Sur certaines grappes, le système de fichiers compresse les données automatiquement et indique l'espace disque utilisé par les données compressées. Sur d'autres grappes, l'espace disque utilisé représente la taille apparente des fichiers. Ceci explique pourquoi 1To de données compressées sur une grappe devient 2To de données sur une autre grappe.
+** Avant de transférer un ensemble de données, vous pouvez connaître sa taille apparente avec l'option <code>-b</code> de la commande <code>du</code>.
+{{Command|du dataset; du -b dataset
+|result=443087696       dataset  # Size of the compressed data
+1048576000      dataset  # Apparent size of the data}}
+* Vérifiez encore <b>[[Sharing_data/fr|les permissions des systèmes de fichiers]]</b> pour vous assurer que vous avez la permission d'écriture à l'endroit où vous transférez les nouveaux fichiers.
+
+[[Category:Se connecter]]
