@@ -31,8 +31,11 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Install dependencies
-        run: pip install -r requirements.txt
+      - name: Set up venv and install dependencies
+        run: |
+          python -m venv venv
+          source venv/bin/activate
+          pip install -r requirements.txt
 
       - name: Sync to RAGFlow
         env:
@@ -40,7 +43,9 @@ jobs:
           RAGFLOW_BASE_URL: ${{ secrets.RAGFLOW_BASE_URL }}
           BATCH_SIZE: ${{ github.event.inputs.batch_size || '5' }}
           DRY_RUN: ${{ github.event.inputs.dry_run || 'false' }}
-        run: python scripts/sync-ragflow.py
+        run: |
+          source venv/bin/activate
+          python scripts/sync-ragflow.py
 
       - name: Configure Git
         run: |
