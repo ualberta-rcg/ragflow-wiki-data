@@ -29,6 +29,24 @@ except ImportError:
 REPO_ROOT = Path(__file__).parent.parent
 CONFIG_DIR = REPO_ROOT / "config"
 STATE_FILE = CONFIG_DIR / "processing-state.json"
+ENV_FILE = REPO_ROOT.parent / "ragflow-wiki-data.env"
+
+
+def load_env_file(path):
+    """Load KEY=VALUE pairs from a file into os.environ (won't overwrite existing)."""
+    if not path.exists():
+        return
+    with open(path) as f:
+        for line in f:
+            line = line.strip()
+            if not line or line.startswith("#"):
+                continue
+            if "=" in line:
+                key, val = line.split("=", 1)
+                os.environ.setdefault(key.strip(), val.strip())
+
+
+load_env_file(ENV_FILE)
 
 RAGFLOW_API_KEY = os.environ.get("RAGFLOW_API_KEY", "")
 RAGFLOW_BASE_URL = os.environ.get("RAGFLOW_BASE_URL", "")
