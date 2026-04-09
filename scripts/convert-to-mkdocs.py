@@ -46,12 +46,22 @@ def convert_wiki_to_markdown(content):
     # Remove category tags
     content = re.sub(r'\[\[Category:[^\]]+\]\]', '', content)
     
-    # Convert wiki links [[Page|Text]] or [[Page]]
-    content = re.sub(r'\[\[([^\]|]+)\|([^\]]+)\]\]', r'[\2](\1.md)', content)
-    content = re.sub(r'\[\[([^\]]+)\]\]', r'[\1](\1.md)', content)
+    # Convert external links [url text] FIRST (before wiki links)
+    # Only match if it starts with http/https/ftp
+    content = re.sub(r'\[(https?://\S+)\s+([^\]]+)\]', r'[\2](\1)', content)
+    content = re.sub(r'\[(ftp://\S+)\s+([^\]]+)\]', r'[\2](\1)', content)
     
-    # Convert external links [url text]
-    content = re.sub(r'\[(\S+)\s+([^\]]+)\]', r'[\2](\1)', content)
+    # Convert wiki links [[Page|Text]] or [[Page]]
+    # Format: [[Target Page|Display Text]] -> [Display Text](target-page.md)
+    def convert_wiki_link(match):
+        target = match.group(1).strip()
+        display = match.group(2).strip() if match.lastindex >= 2 else target
+        # Convert target to slug (lowercase, spaces to hyphens)
+        slug = target.lower().replace(" ", "-").replace("/", "-")
+        return f'[{display}]({slug}.md)'
+    
+    content = re.sub(r'\[\[([^\]|]+)\|([^\]]+)\]\]', convert_wiki_link, content)
+    content = re.sub(r'\[\[([^\]|]+)\]\]', lambda m: f'[{m.group(1)}]({m.group(1).lower().replace(" ", "-")}.md)', content)
     
     # Convert <code>...</code> to backticks
     content = re.sub(r'<code>([^<]+)</code>', r'`\1`', content)
