@@ -1,0 +1,231 @@
+<languages />
+
+{{Objectives
+|title=Objectifs d'apprentissage
+|content=
+* comprendre les différents niveaux de parallélisme dans un GPU
+* comprendre les messages du compilateur au sujet de la parallélisation 
+* savoir obtenir des suggestions d'optimisation par le profileur visuel
+* savoir indiquer au compilateur les paramètres de parallélisation
+}}
+
+== Se montrer plus habile que le compilateur == 
+Jusqu'ici, le compilateur a fait du bon travail; dans les étapes précédentes, le gain en performance a triplé en comparaison de celle du CPU. Étudions maintenant comment le compilateur a parallélisé le code et donnons-lui si possible un  coup de main. Pour ce faire, il faut comprendre les différents niveaux de parallélisme possibles avec OpenACC, particulièrement avec un GPU NVIDIA. Examinons d'abord la rétroaction fournie par le compilateur pendant la compilation de la dernière version (dans steps2.kernels). 
+{{Command
+|pgc++ -fast -ta{{=}}tesla,lineinfo -Minfo{{=}}all,intensity,ccff   -c -o main.o main.cpp
+|result=
+...
+initialize_vector(vector &, double):
+...
+          42, Intensity = 0.0
+              Loop is parallelizable
+              Accelerator kernel generated
+              Generating Tesla code
+              42, #pragma acc loop gang, vector(128) /* blockIdx.x threadIdx.x */
+dot(const vector &, const vector &):
+...
+          29, Intensity = 1.00    
+              Loop is parallelizable
+              Accelerator kernel generated
+              Generating Tesla code
+              29, #pragma acc loop gang, vector(128) /* blockIdx.x threadIdx.x */
+              30, Sum reduction generated for sum
+waxpby(double, const vector &, double, const vector &, const vector &):
+...
+          44, Intensity = 1.00    
+              Loop is parallelizable
+              Accelerator kernel generated
+              Generating Tesla code
+              44, #pragma acc loop gang, vector(128) /* blockIdx.x threadIdx.x */
+}}
+Remarquez que chaque boucle est parallélisée avec <tt>vector(128)</tt>;  ceci signifie que le compilateur a généré des instructions pour un bloc de code de longueur 128. C'est ici que le programmeur possède un avantage. En fait, si vous examinez le contenu du fichier <tt>matrix.h</tt>, vous verrez que chaque rangée de la matrice possède 27 éléments; le compilateur a donc généré des instructions pour le calcul inutile de 101 éléments. Nous verrons plus loin comment traiter ce cas.
+
+==Niveaux de parallélisme OpenACC== 
+Les trois niveaux possibles de parallélisme avec OpenACC sont   <tt>vector</tt>, <tt>worker</tt> et <tt>gang</tt>. 
+
+* Les fils <tt>vector</tt> exécutent une seule opération sur plusieurs données (SIMD), en une seule étape.  S'il y a moins de données que la longueur du vecteur, l'opération est exécutée quand même sur des valeurs NULL et le résultat est rejeté. 
+* La clause <tt>worker</tt> calcule un <tt>vector</tt>.
+* Le niveau <tt>gang</tt> comprend un <tt>worker</tt> ou plus, qui partagent des ressources telles que la mémoire cache ou le processeur.
+Chaque <tt>gang</tt> travaille de manière complètement indépendante. 
+
+{{Callout
+|title=Correspondance entre OpenACC et CUDA
+|content=
+OpenACC étant conçu pour des accélérateurs génériques, il n'y a pas de correspondance directe avec les fils, blocs et warps CUDA. Dans la version 2.0 d'OpenACC, les niveaux sont imbriqués allant de l'extérieur avec <tt>gang</tt> vers l'intérieur avec <tt>vector</tt>. La correspondance OpenACC-CUDA est établie par le compilateur. Nous savons qu'il pourrait y avoir des exceptions, mais la correspondance suivante est généralement valide.
+*  <tt>vector</tt> OpenACC => fils CUDA
+* <tt>worker</tt> OpenACC  => warps CUDA 
+* <tt>gang</tt> OpenACC  => blocs de fils CUDA
+}}
+
+== Contrôle du parallélisme == 
+On peut utiliser <tt>loop</tt> avec certaines clauses pour contrôler le niveau de parallélisme que le compilateur doit produire pour la boucle. Ces clauses sont&nbsp;:
+* <tt>gang</tt>, qui produit le niveau de parallélisme <tt>gang</tt> 
+* <tt>worker</tt>, qui produit le niveau de parallélisme <tt>worker</tt>
+* <tt>vector</tt>, qui produit le niveau de parallélisme <tt>vector</tt> 
+* <tt>seq</tt>, qui exécute la boucle séquentiellement sans parallélisme
+Une boucle peut avoir plusieurs clauses de niveau, mais il faut les placer de l'extérieur vers l'intérieur (de <tt>gang</tt> à <tt>vector</tt>). 
+
+=== Spécifier le type d'accélérateur === 
+Dépendant de comment la parallélisation est appelée à se dérouler, les différents types d'accélérateurs n'auront pas la même performance. La clause OpenACC <tt>device_type</tt> permet de spécifier le type d'accélérateur auquel s'applique la clause qui la succède dans le libellé du code. Par exemple, <tt>device_type(nvidia) vector</tt> se réalise uniquement si le code est compilé pour un GPU NVIDIA. 
+
+=== Spécifier la taille de chaque niveau de parallélisme === 
+Un paramètre de taille peut être ajouté aux clauses <tt>vector</tt>, <tt>worker</tt> et <tt>gang</tt>. Par exemple,  <tt>worker(32) vector(32)</tt> crée 32 workers pour effectuer des calculs sur des vecteurs de  longueur 32. 
+
+{{Callout
+|title=Valeurs maximales
+|content=
+Certains accélérateurs peuvent avoir des nombres limite de <tt>vector</tt>, <tt>worker</tt> et <tt>gang</tt> pour paralléliser une boucle. Dans le cas des GPUs NVIDIA,
+* la longueur de <tt>vector</tt> est un multiple de 32 (1024 au plus);
+* la taille de <tt>gang</tt> est le produit du nombre de <tt>worker</tt> multiplié par la taille de <tt>vector</tt> (1204 au plus). 
+}}
+
+== Contrôler la longueur de <tt>vector</tt> ==
+Revenons à notre exemple; nous avions remarqué que le compilateur avait fixé à 128 la longueur de <tt>vector</tt>. Comme nous savons que les rangées contiennent 27 éléments, nous pouvons diminuer à 32 la longueur de <tt>vector</tt>. Avec la directive <tt>kernels</tt>, voici comment se présente le code&nbsp;:
+<syntaxhighlight lang="cpp" line highlight=7>
+#pragma acc kernels present(row_offsets,cols,Acoefs,xcoefs,ycoefs)
+  {
+    for(int i=0;i<num_rows;i++) {
+      double sum=0;
+      int row_start=row_offsets[i];
+      int row_end=row_offsets[i+1];
+#pragma acc loop device_type(nvidia) vector(32)
+      for(int j=row_start;j<row_end;j++) {
+        unsigned int Acol=cols[j];
+        double Acoef=Acoefs[j];
+        double xcoef=xcoefs[Acol];
+        sum+=Acoef*xcoef;
+      }
+      ycoefs[i]=sum;
+    }
+  }
+</syntaxhighlight>
+Si vous préférez la directive <tt>parallel loop</tt>, la longueur de <tt>vector</tt> est définie au niveau de la boucle la plus externe avec la clause <tt>vector_length</tt>. La clause vector est ensuite utilisée pour paralléliser une boucle interne via le niveau vector, ce qui donne&nbsp;:
+<syntaxhighlight lang="cpp" line highlight="2,8">
+#pragma acc parallel loop present(row_offsets,cols,Acoefs,xcoefs,ycoefs) \
+        device_type(nvidia) vector_length(32)
+  for(int i=0;i<num_rows;i++) {
+    double sum=0;
+    int row_start=row_offsets[i];
+    int row_end=row_offsets[i+1];
+#pragma acc loop reduction(+:sum) \
+        device_type(nvidia) vector
+    for(int j=row_start;j<row_end;j++) {
+      unsigned int Acol=cols[j];
+      double Acoef=Acoefs[j];
+      double xcoef=xcoefs[Acol];
+      sum+=Acoef*xcoef;
+    }
+    ycoefs[i]=sum;
+  }
+</syntaxhighlight>
+Si vous faites ce changement, vous verrez que sur un K20, le temps d'exécution passe de 10 à environ 15 secondes. Le compilateur démontre ici son habileté. 
+
+== Analyse guidée du NVIDIA Visual Profiler ==
+
+[[File:0-guided analysis.png|thumbnail|Analyse guidée, étape 1]]
+[[File:1-guided analysis.png|thumbnail|Analyse guidée, étape 2]]
+[[File:2-guided analysis.png|thumbnail|Analyse guidée, étape 3]]
+[[File:3-guided analysis.png|thumbnail|Analyse guidée, étape 4]]
+
+Comme nous avons fait dans la section ''Performance du code porté'' de la leçon [https://docs.computecanada.ca/wiki/OpenACC_Tutorial_-_Adding_directives/fr Ajouter des directives], ouvrez NVIDIA Visual Profiler et démarrez une nouvelle session avec le dernier exécutable que nous avons produit. Effectuez les étapes qui suivent (voir les images)&nbsp;:
+# Sous l'onglet ''Analysis'', cliquez sur ''Examine GPU Usage''. À la fin de l'analyse, le compilateur produit une série d'avertissements qui indiquent les améliorations possibles. 
+# Cliquez sur ''Examine Individual Kernels'' pour faire afficher la liste des noyaux. 
+# Sélectionnez le premier de la liste et cliquez sur ''Perform Kernel Analysis''. Le profileur présente une analyse détaillée du noyau et indique les goulots d'étranglement (''bottlenecks'') probables. Dans ce cas, la performance est limitée par la latence de la mémoire.
+# Cliquez sur ''Perform Latency Analysis''.
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+
+À la fin de la procédure, les renseignements suivants devraient être affichés&nbsp;:
+[[File:4-guided analysis.png|800px|Fifth step of guided analysis]]
+Nous avons ici plusieurs renseignements importants&nbsp;:
+* le texte indique clairement que la performance est limitée par la taille des blocs, ce qui correspond à la taille des gangs en OpenACC;
+* la ligne ''Active Threads'' nous informe que le GPU exécute 512 fils sur les 2048 possibles;
+* la ligne ''Occupancy'' montre que le GPU est utilisé à 25% de sa capacité; il s'agit du ratio de l'utilisation réelle sur l'utilisation possible du GPU. Remarquez qu'une occupation à 100% ne donne pas nécessairement la meilleure performance, mais 25% est plutôt bas; 
+
+* Les réponses les plus utiles se trouvent dans la table ''Warps''.
+**On y apprend que le GPU exécute 32 fils par bloc (en OpenACC, des fils vector par gang) alors qu'il pourrait en exécuter 1024.
+** On voit aussi que le GPU exécute 1 warp par bloc (en OpenACC, 1 worker par gang) alors qu'il pourrait en exécuter 32.
+** Sur la dernière ligne, on voit que pour que l'accélérateur fonctionne à son plein rendement, il faudrait exécuter 64 gangs, mais l'accélérateur peut seulement en traiter 16.
+La conclusion est que nous avons besoin de gangs plus grands, ce que nous ferons en ajoutant des workers tout en gardant la taille du vecteur à 32. 
+
+== Ajouter des <tt>worker</tt>s ==
+Puisque nous savons que pour un GPU NVIDIA la taille d'un  <tt>gang</tt> ne peut pas dépasser 1024 et que cette taille est le produit de la longueur de <tt>vector</tt> multipliée par la quantité de <tt>worker</tt>s, nous voulons avoir 32 <tt>worker</tt>s par gang. Avec la directive  <tt>kernels</tt>, le code se lit&nbsp;:
+<syntaxhighlight lang="cpp" line highlight=3>
+#pragma acc kernels present(row_offsets,cols,Acoefs,xcoefs,ycoefs)
+  {
+#pragma acc loop device_type(nvidia) gang worker(32)
+    for(int i=0;i<num_rows;i++) {
+      double sum=0;
+      int row_start=row_offsets[i];
+      int row_end=row_offsets[i+1];
+#pragma acc loop device_type(nvidia) vector(32)
+      for(int j=row_start;j<row_end;j++) {
+        unsigned int Acol=cols[j];
+        double Acoef=Acoefs[j];
+        double xcoef=xcoefs[Acol];
+        sum+=Acoef*xcoef;
+      }
+      ycoefs[i]=sum;
+    }
+  }
+</syntaxhighlight>
+Remarquez que nous parallélisons la boucle externe workers puisque la boucle interne est déjà au niveau de parallélisme <tt>vector</tt>. 
+
+Avec la directive <tt>parallel loop</tt> , le code se lit&nbsp;:
+<syntaxhighlight lang="cpp" line highlight="3">
+#pragma acc parallel loop present(row_offsets,cols,Acoefs,xcoefs,ycoefs) \
+        device_type(nvidia) vector_length(32) \
+        gang worker num_workers(32)
+  for(int i=0;i<num_rows;i++) {
+    double sum=0;
+    int row_start=row_offsets[i];
+    int row_end=row_offsets[i+1];
+#pragma acc loop reduction(+:sum) \
+        device_type(nvidia) vector
+    for(int j=row_start;j<row_end;j++) {
+      unsigned int Acol=cols[j];
+      double Acoef=Acoefs[j];
+      double xcoef=xcoefs[Acol];
+      sum+=Acoef*xcoef;
+    }
+    ycoefs[i]=sum;
+  }
+</syntaxhighlight>
+Cette étape supplémentaire résulte en une performance près du double de celle que compilateur peut faire de lui-même. Sur un K20, le code prenait 10 secondes à exécuter et la durée est maintenant de 6 secondes. 
+
+== Deux autres clauses d'optimisation ==
+Jusqu'ici nous n'avons pas mentionné deux clauses qui sont très utiles dans l'optimisation des boucles.
+* La clause '''<tt>collapse(N)</tt>''' est utilisée avec une directive de boucle pour replier les N prochaines boucles en une même boucle plate. Elle sert dans les cas de boucles imbriquées ou quand les boucles sont très courtes.
+* La clause '''<tt>tile(N,[M,...])</tt>''' répartit les boucles suivantes dans une structure en mosaïque avant de paralléliser. Elle est utile dans le cas d'un algorithme à forte localité parce que l'accélérateur peut utiliser les données de carreaux environnants. 
+
+== Exercice ==
+{{Challenge
+|title=Itérations de Jacobi
+|content=
+Mettez en pratique ce que vous avez appris sur OpenACC.<br />
+Dans le répertoire <tt>bonus</tt> se trouve du code qui résout l'[https://fr.wikipedia.org/wiki/%C3%89quation_de_Laplace équation de Laplace] avec la  [https://fr.wikipedia.org/wiki/M%C3%A9thode_de_Jacobi méthode de Jacobi]. Portez ce code sur un GPU et observez le gain en performance que vous obtenez.
+}}
+[https://docs.computecanada.ca/wiki/OpenACC_Tutorial/fr Retour au début du tutoriel]

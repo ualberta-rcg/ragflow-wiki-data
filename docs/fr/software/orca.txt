@@ -1,0 +1,176 @@
+<languages />
+[[Category:Software]][[Category:ComputationalChemistry]]
+
+
+==Introduction==
+ORCA est un logiciel d'utilisation générale en chimie quantique qui offre souplesse, efficacité et facilité d'utilisation;  l'outil est particulièrement utile pour la modélisation des propriétés spectroscopiques de molécules à couches de valence non remplie. ORCA permet d'employer un grand nombre de méthodes dont la théorie de la fonctionnelle de la densité (DFT) et autres méthodes semi-empiriques ainsi que des méthodes <i>ab initio</i> de corrélation simple ou multiple. L'outil traite également les effets environnementaux et relativistes.
+
+== Droit d'utilisation ==
+Pour utiliser les modules exécutables ORCA préconstruits&nbsp;:
+# Remplissez le formulaire d'inscription que vous trouverez sur https://orcaforum.kofo.mpg.de/.
+# Vous recevrez par courriel un premier message pour confirmer votre adresse de courriel et activer le compte; suivez les directives de ce courriel.
+# Quand votre inscription sera faite, vous recevrez <b>un deuxième courriel</b> avec la mention <i>registration for ORCA download and usage has been completed</i>.<br />
+# Faites parvenir une copie du <b>deuxième courriel</b> au [[Technical support/fr|soutien technique]].
+
+== Versions ==
+
+=== ORCA 6 ===
+
+Le module '''orca/6.0.1''' est disponible dans l'environnement '''StdEnv/2023'''; pour le charger, lancez
+
+<code>
+module load StdEnv/2023  gcc/12.3  openmpi/4.1.5 orca/6.0.1
+</code>
+
+Il y a aussi le module '''orca/6.0.0'''. Cependant, la plus récente version '''orca/6.0.1''' a corrigé des bogues de la version '''6.0.0'''.  
+
+'''Remarque :''' Cette version de ORCA inclut xtb 6.7.1.
+
+=== ORCA 5 ===
+
+Les versions 5.0.1 à 5.0.3 comportaient des bogues qui ont été éliminés dans la version 5.0.4, notamment [https://orcaforum.kofo.mpg.de/viewtopic.php?f=56&t=9985 un problème qui touchait les gradients de dispersion D4]. 
+Nous vous recommandons donc d'utiliser la version 5.0.4 plutôt que des versions 5.0.x moins récentes.  
+Les versions 5.0.1, 5.0.2 et 5.0.3 se trouvent dans notre pile logicielle, mais pourraient éventuellement être enlevées.
+
+Chargez la version 5.0.4 avec
+
+<code>
+module load StdEnv/2020  gcc/10.3.0  openmpi/4.1.1 orca/5.0.4
+</code>
+
+=== ORCA 4 ===
+
+Chargez la version 4.2.1 avec
+
+<code>
+module load StdEnv/2020  gcc/9.3.0  openmpi/4.0.3 orca/4.2.1
+</code>
+
+ou
+
+<code>
+module load nixpkgs/16.09  gcc/7.3.0  openmpi/3.1.4 orca/4.2.1
+</code>
+
+== Configuration des fichiers en entrée ==
+
+En plus des mots clés qui sont nécessaires à l'exécution d'une simulation, assurez-vous de configurer les paramètres suivants&nbsp;:
+
+* quantité de CPU
+
+* maxcore
+
+==Utilisation==
+Pour connaître les versions disponibles, lancez '''module spider orca'''.
+Pour les détails en rapport avec un module spécifique (incluant les directives pour l'ordre dans lequel charger les modules requis), utilisez le nom complet du module, par exemple <code>module spider orca/4.0.1.2</code>.
+
+Pour les directives générales, consultez [[Utiliser_des_modules|Utiliser des modules]].
+
+===Soumettre des tâches===
+Pour les directives générales, consultez [[Running_jobs/fr|Exécuter des tâches]].
+
+<b>NOTE</b> : Si certains exécutables ORCA présentent des problèmes avec MPI, vous pouvez essayer de définir les variables suivantes&nbsp;:
+
+ export OMPI_MCA_mtl='^mxm'
+ export OMPI_MCA_pml='^yalla'
+
+Le script suivant utilise [[MPI/fr|MPI]]. Veuillez noter que, contrairement à la plupart des programmes MPI, ORCA n'est pas démarré avec une commande parallèle telle que <code>mpirun</code> ou <code>srun</code>, mais nécessite le chemin complet vers le programme, qui est indiqué par <code>$EBROOTORCA</code>.
+
+{{File
+  |name=run_orca.sh
+  |lang="bash"
+  |contents=
+ #!/bin/bash
+#SBATCH --account=def-youPIs
+#SBATCH --ntasks=8                 # cpus, the nprocs defined in the input file
+#SBATCH --mem-per-cpu=3G           # memory per cpu
+#SBATCH --time=00-03:00            # time (DD-HH:MM)
+#SBATCH --output=benzene.log       # output .log file
+
+module load StdEnv/2020  gcc/9.3.0  openmpi/4.0.3
+module load orca/4.2.1
+$EBROOTORCA/orca benzene.inp
+}}
+Voici un exemple du fichier d’entrée benzene.inp&nbsp;:
+{{File
+  |name=benzene.inp
+  |lang="text"
+  |contents=
+# Benzene RHF Opt Calculation
+%pal nprocs 8 end
+! RHF TightSCF PModel
+! opt
+
+* xyz 0 1
+     C    0.000000000000     1.398696930758     0.000000000000
+     C    0.000000000000    -1.398696930758     0.000000000000
+     C    1.211265339156     0.699329968382     0.000000000000
+     C    1.211265339156    -0.699329968382     0.000000000000
+     C   -1.211265339156     0.699329968382     0.000000000000
+     C   -1.211265339156    -0.699329968382     0.000000000000
+     H    0.000000000000     2.491406946734     0.000000000000
+     H    0.000000000000    -2.491406946734     0.000000000000
+     H    2.157597486829     1.245660462400     0.000000000000
+     H    2.157597486829    -1.245660462400     0.000000000000
+     H   -2.157597486829     1.245660462400     0.000000000000
+     H   -2.157597486829    -1.245660462400     0.000000000000
+*
+}}
+
+===Notes===
+* Pour que le programme fonctionne efficacement et utilise toutes les ressources ou les cœurs requis par votre tâche, ajoutez la ligne <code>%pal nprocs <ncores> end</code> au fichier en sortie, comme dans l'exemple ci-dessus. Remplacez <code><ncores></code> par le nombre de cœurs que vous avez spécifié dans votre script.
+
+* Si vous voulez redémarrer un calcul, supprimez le fichier <code>*.hostnames</code> (par exemple <code>benzene.hostnames</code> dans l'exemple ci-dessus) avant de soumettre la tâche suivante; autrement, la tâche échouera probablement, ce qui produira le message d'erreur <code>All nodes which are allocated for this job are already filled.</code>
+
+===(2019-09-06) Correctif temporaire au sujet de l'incohérence des versions OpenMPI ===
+Lors de certains types de calculs (en particulier DLPNO-STEOM-CCSD), il est possible que des erreurs critiques surviennent. Ceci pourrait se produire si vous utilisez une version moins récente de OpenMPI (par exemple 3.1.2 comme suggéré par 'module' pour orca/4.1.0 et 4.2.0) que celle officiellement recommandée (soit 3.1.3 pour orca/4.1.0 et 3.1.4 pour orca/4.2.0). Pour résoudre ce problème, vous pouvez personnaliser la version de OpenMPI.
+
+Les deux commandes suivantes personnalisent openmpi/3.1.4 pour orca/4.2.0 :
+        module load gcc/7.3.0
+        eb OpenMPI-3.1.2-GCC-7.3.0.eb --try-software-version=3.1.4
+Une fois ceci terminé, chargez openmpi avec
+        module load openmpi/3.1.4
+Vous pouvez maintenant installer manuellement les binaires orca/4.2.0 à partir du forum officiel dans le répertoire /home, après avoir effectué l'enregistrement dans le forum ORCA officiel et avoir obtenu l'accès à l'application ORCA sur nos grappes.
+
+
+Autres notes de l'auteur&nbsp;:
+
+Ce correctif peut être appliqué dans l'attente de la mise à jour officielle de OpenMPI sur nos grappes. Une fois que cette mise à jour aura été faite, n'oubliez pas de supprimer les binaires installés manuellement.
+
+La commande de compilation ne semble pas s'appliquer à openmpi/2.1.x.
+
+== Utilisation de NBO ==
+
+Vous devez avoir accès à NBO pour pouvoir l'utiliser avec ORCA. NBO n'est pas un module distinct sur nos grappes, mais il est possible d'y avoir accès via les modules Gaussian qui sont installés sur [[Cedar/fr|Cedar]] et [[Graham/fr|Graham]]. Pour pouvoir utiliser NBO avec ORCA, vous devez donc avoir accès à ORCA et[[Gaussian/fr#Licence| aussi à Gaussian]]. 
+
+=== Exemple de script ===
+
+Le nom du fichier d'entrée (dans le prochain exemple <i>orca_input.inp</i>) doit contenir le mot-clé <b>NBO</b>.
+
+{{File
+  |name=run_orca-nbo.sh
+  |lang="bash"
+  |contents=
+#!/bin/bash
+#SBATCH --account=def-youPIs
+#SBATCH --nodes=1
+#SBATCH --ntasks=16
+#SBATCH --mem-per-cpu=4000
+#SBATCH --time=0-3:00:00
+
+# Load the modules:
+
+module load StdEnv/2020  gcc/10.3.0  openmpi/4.1.1 orca/5.0.4
+module load gaussian/g16.c01
+
+export GENEXE=`which gennbo.i4.exe`
+export NBOEXE=`which nbo7.i4.exe`
+
+${EBROOTORCA}/orca orca_input.inp > orca_output.out
+
+}}
+
+== Références ==
+
+* [https://www.orcasoftware.de/tutorials_orca/ ORCA tutorials]
+* [https://orcaforum.kofo.mpg.de/app.php/portal ORCA Forum]

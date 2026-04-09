@@ -1,0 +1,134 @@
+<languages />
+[[Category:SLURM]]
+
+<i>Page enfant de [[Running jobs/fr|Exécuter des tâches]]</i>
+
+Si vous avez plusieurs tâches dont un paramètre diffère, vous pouvez utiliser un vecteur de tâches (<i>job array</i>, <i>array job</i>, <i>task array</i>). La variable d’environnement <code>$SLURM_ARRAY_TASK_ID</code> différencie chacune des tâches et l’ordonnanceur leur attribue une valeur différente. Les valeurs sont définies par le paramètre <code>--array</code>.
+
+Pour plus d'information, voir [https://slurm.schedmd.com/job_array.html documentation de SchedMD].
+ 
+== Exemples du paramètre --array ==
+
+ sbatch --array=0-7       # $SLURM_ARRAY_TASK_ID utilise les valeurs de 0 à 7 inclusivement
+ sbatch --array=1,3,5,7   # $SLURM_ARRAY_TASK_ID utilise les valeurs de la liste
+ sbatch --array=1-7:2     # le pas est égal à 2 comme dans l'exemple précédent
+ sbatch --array=1-100%10  # limite à 10 le nombre de tâches exécutées simultanément
+
+== Exemple simple ==
+
+{{File
+|name=simple_array.sh
+|language=bash
+|contents=
+#!/bin/bash
+#SBATCH --array=1-10
+#SBATCH --time=3:00:00
+program_x <input.$SLURM_ARRAY_TASK_ID
+program_y $SLURM_ARRAY_TASK_ID some_arg another_arg
+}}
+
+Ce script crée 10 tâches indépendantes. Chacune a une durée maximum de 3 heures et chacune peut commencer à des moments différents sur des nœuds différents. 
+
+Le script utilise <code>$SLURM_ARRAY_TASK_ID</code> pour indiquer le fichier pour les données en entrée (dans notre exemple <i>program x</i>) ou utiliser en commande de ligne l'argument (avec par exemple <i>program y</i>).
+
+Le fait d’utiliser un vecteur de tâches plutôt que plusieurs tâches séquentielles est avantageux pour vous-même et pour les autres utilisateurs. Un vecteur de tâches en attente ne produit qu’une seule ligne dans squeue, ce qui vous permet de consulter son résultat plus facilement. De plus, l’ordonnanceur n’est pas appelé à analyser les besoins de chacune des tâches séparément, ce qui résulte en un gain de performance.
+
+En excluant le recours à sbatch comme étape initiale, l’ordonnanceur subit la même charge avec un vecteur de tâches qu’avec un nombre équivalent de tâches soumises séparément. Il n’est pas recommandé d’utiliser un vecteur pour soumettre des tâches qui ont une durée de beaucoup moins d’une heure. Les tâches d’une durée de quelques minutes seulement devraient être groupées avec [[META-Farm/fr|META]], [[GLOST/fr|GLOST]], [[GNU Parallel/fr|GNU Parallel]] ou dans une boucle de l’interpréteur à l'intérieur d'une tâche.
+
+== Exemple avec des répertoires multiples ==
+
+Supposons que vous voulez exécuter le même script dans des répertoires multiples ayant une structure identique;
+*si les noms des répertoires peuvent être des nombres séquentiels, il serait facile d’adapter l’exemple présenté plus haut;
+*autrement, créez un fichier avec les noms des répertoires comme suit
+
+ $ cat case_list
+ pacific2016
+ pacific2017
+ atlantic2016
+ atlantic2017
+
+Il y a plusieurs manières de sélectionner une ligne en particulier dans un fichier; dans le prochain exemple, nous utilisons <code>sed</code>.
+
+{{File
+|name=directories_array.sh
+|language=bash
+|contents=
+#!/bin/bash
+#SBATCH --time=3:00:00
+#SBATCH --array=1-4
+
+echo "Starting task $SLURM_ARRAY_TASK_ID"
+DIR=$(sed -n "${SLURM_ARRAY_TASK_ID}p" case_list)
+cd $DIR
+
+# entrez le code ici
+pwd
+ls
+}}
+
+
+ATTENTION
+*Le nombre de tâches que vous demandez doit être égal au nombre de lignes du fichier.
+*Le fichier <code>case_list</code> ne doit pas être modifié tant que toutes les tâches du vecteur ne sont pas exécutées puisque le fichier sera lu au commencement de chaque nouvelle tâche.
+
+
+== Exemple avec des paramètres multiples ==
+
+Supposons que vous avez un script Python qui effectue des calculs avec certains paramètres définis dans une liste Python ou un tableau NumPy tel que
+{{File
+|name=my_script.py
+|language=python
+|contents=
+import time
+import numpy as np
+
+def calculation(x, beta):
+    time.sleep(2) #simule une exécution de longue durée
+    return beta * np.linalg.norm(x**2)
+
+if __name__ == "__main__":
+    x = np.random.rand(100)
+    betas = np.linspace(10,36.5,100) #subdivise l'intervale [10,36.5] en 100 valeurs
+    for i in range(len(betas)): #iteration sur les valeurs du paramètre beta 
+        res = calculation(x,betas[i])
+        print(res) #affiche les résultats
+
+# à exécuter avec python my_script.py
+}}
+
+Le traitement de cette tâche peut se faire avec un vecteur de tâches pour que chaque valeur du paramètre beta soit traité en parallèle.
+Il faut passer <code>$SLURM_ARRAY_TASK_ID</code> au script Python et obtenir le paramètre beta selon sa valeur.
+Le script Python est maintenant
+{{File
+|name=my_script_parallel.py
+|language=python
+|contents=
+import time
+import numpy as np
+import sys
+
+def calculation(x, beta):
+    time.sleep(2) #simule une exécution de longue durée
+    return beta * np.linalg.norm(x**2)
+
+if __name__ == "__main__":
+    x = np.random.rand(100)
+    betas = np.linspace(10,36.5,100) #subdivise l'intervale [10,36.5] en 100 valeurs
+    
+    i = int(sys.argv[1]) #obtient la valeur de $SLURM_ARRAY_TASK_ID
+    res = calculation(x,betas[i])
+    print(res) #affiche les résultats
+
+# à exécuter avec python my_script_parallel.py $SLURM_ARRAY_TASK_ID
+}}
+Le script pour soumettre la tâche est le suivant (remarquez que les paramètres vont de 0 à 99 tout comme les index du vecteur NumPy).
+{{File
+|name=data_parallel_python.sh
+|language=bash
+|contents=
+#!/bin/bash
+#SBATCH --array=0-99
+#SBATCH --time=1:00:00
+module load scipy-stack
+python my_script_parallel.py $SLURM_ARRAY_TASK_ID
+}}

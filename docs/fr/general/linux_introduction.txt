@@ -1,0 +1,127 @@
+<languages />
+Cet article s'adresse aux utilisateurs de systèmes Windows ou Mac ayant peu ou pas d'expérience dans un environnement UNIX. Il devrait vous donner les bases nécessaires pour accéder aux serveurs de calcul et être rapidement capable de les utiliser. 
+
+La connexion aux serveurs utilise le protocole [[SSH/fr|SSH]] en mode texte. Vous ne disposez pas d'une interface graphique, mais d'une <b>console</b>.  Notez que les exécutables Windows ne fonctionnent pas sur nos serveurs sans l'utilisation d'un émulateur.
+
+SHARCNET offre un tutoriel de formation autonome; cliquez sur [https://training.sharcnet.ca/courses/enrol/index.php?id=182 Introduction to the Shell].
+
+== Obtenir de l'aide ==
+En général, les commandes sont documentées dans les manuels de référence disponibles sur les serveurs. Vous pouvez y accéder à partir du terminal avec
+{{Command|man command}}
+<tt>man</tt> utilise <code>less</code> (voir section [[#Visualiser et éditer des fichiers|Visualiser et éditer des fichiers]]); il faut appuyer sur <code>q</code> pour quitter le programme.
+
+Par convention, les exécutables contiennent eux-mêmes de l'aide sur la façon dont ils doivent être utilisés.
+De façon générale, vous obtenez l'information avec les arguments en ligne de commande <code>-h</code>, <code>--help</code> ou dans certains cas <code>-help</code>, par exemple
+{{Command|ls --help}}
+
+== S'orienter sur le système ==
+Au moment de la connexion, vous serez dirigé dans le répertoire <code>$HOME</code> (terme UNIX pour <i>dossier</i> ou <i>répertoire</i>) de votre compte utilisateur.
+Lors de la création d'un compte, le <code>$HOME</code> ne contient rien d'autre que des fichiers de configuration qui sont cachés, soit ceux qui sont préfixés par un point (.).
+
+Dans un système Linux, il est fortement déconseillé de créer des fichiers ou répertoires dont les noms contiennent des espaces ou des caractères spéciaux; ces caractères spéciaux incluent les accents.
+
+=== Lister le contenu d'un répertoire ===
+Pour lister les fichiers d'un répertoire dans un terminal, on utilise la commande <code>ls</code> (<i>list</i>)
+{{Command|ls}}
+Pour inclure les fichiers cachés
+{{Command|ls -a}}
+Pour trier les résultats par date (du plus récent au plus ancien) plutôt qu'en ordre alphabétique
+{{Command|ls -t}}
+Pour obtenir des informations détaillées sur les fichiers (permissions d'accès, propriétaire, groupe, taille et date de dernière modification) 
+{{Command|ls -l}}
+L'option <code>-h</code> donne la taille des fichiers dans un format aisément lisible par les humains.
+
+Les options peuvent être combinées, par exemple
+{{Command|ls -alth}}
+
+=== Naviguer dans le système de fichiers ===
+Pour se déplacer dans le système de fichiers, on utilise la commande <code>cd</code> (<i>change directory</i>).
+
+Ainsi, pour se déplacer dans <code>mon_répertoire</code>, entrez
+{{Command|cd mon_répertoire}}
+Pour revenir au dossier parent, entrez
+{{Command|cd ..}}
+Enfin, pour revenir à la racine de votre compte utilisateur (<code>$HOME</code>) entrez
+{{Command|cd}}
+
+=== Créer et supprimer des répertoires ===
+Pour créer un répertoire, on utilise la commande <code>mkdir</code> (<i>make directory</i>)
+{{Command|mkdir mon_répertoire}}
+Pour supprimer un répertoire, on utilise la commande <code>rmdir</code> (<i>remove directory</i>)
+{{Command|rmdir mon_répertoire}}
+La suppression d'un répertoire avec cette méthode ne fonctionnera que si celui-ci est vide.
+
+=== Supprimer des fichiers ===
+On efface des fichiers avec la commande <code>rm</code> (<i>remove</i>)
+{{Command|rm mon_fichier}}
+On peut effacer un répertoire récursivement
+{{Command|rm -r mon_répertoire}} 
+L'option (potentiellement dangereuse!) <code>-f</code> peut être utile pour passer outre les demandes de confirmation de suppression et poursuivre l'opération après une erreur.
+
+=== Copier et renommer des fichiers ou répertoires ===
+Pour copier un fichier on utilise la commande <code>cp</code> (<i>copy</i>)
+{{Command|cp fichier_source fichier_destination}}
+Pour copier récursivement un répertoire
+{{Command|cp -R dossier_source dossier_destination}}
+Pour renommer un fichier ou un dossier, on utilise la commande <code>mv</code> (<i>move</i>)
+{{Command|mv fichier_source fichier_destination}}
+Cette commande permet aussi de déplacer un dossier. Remplacez alors <code>fichier_source</code> par <code>dossier_source</code> et <code>fichier_destination</code> par <code>dossier_destination</code>.
+
+== Permissions associées aux fichiers == 
+Un système UNIX comporte trois niveaux de permissions&nbsp;: lecture (<code>r</code>), écriture (<code>w</code>) et exécution (<code>x</code>). Pour un fichier, il faut que le fichier soit accessible en lecture pour être lu, en écriture pour qu'on puisse le modifier et en exécution pour l'exécuter (si c'est un exécutable ou un script). Pour un répertoire, il faut la permission de lecture pour en lister le contenu, la permission d'écriture pour en modifier le contenu (ajouter ou supprimer un fichier) et la permission d'exécution pour modifier le répertoire.
+
+Les permissions s'appliquent à trois types d'utilisateurs&nbsp;: le propriétaire (<code>u</code>), le groupe (<code>g</code>) et toutes les autres personnes (<code>o</code>). Pour connaitre les permissions associées aux fichiers et sous-répertoires du répertoire courant, on utilise la commande
+{{Command|ls -la}}
+
+Les 10 caractères au début de chaque ligne indiquent les permissions.
+Le premier caractère indique le type de fichier&nbsp;:
+* <code>-</code> : un fichier normal
+* <code>d</code> : un répertoire
+* <code>l</code> : un lien symbolique
+
+Ensuite, de gauche à droite, on trouve les permissions en lecture, en écriture et en exécution du propriétaire, du groupe et des autres utilisateurs. Voici quelques exemples&nbsp;:
+* <code>drwxrwxrwx</code> : un répertoire accessible en lecture et en écriture par tous
+* <code>drwxr-xr-x</code> : un répertoire qui peut être listé par tous, mais où seul le propriétaire peut ajouter ou supprimer des fichiers
+* <code>-rwxr-xr-x</code> : un fichier exécutable par tous, mais qui ne peut être modifié que par son propriétaire
+* <code>-rw-r--r--</code> : un fichier lisible par tous, mais qui ne peut être modifié que par son propriétaire
+* <code>-rw-rw----</code> : un fichier qui peut être lu et modifié par son propriétaire ou par son groupe
+* <code>-rw-------</code> : un fichier qui ne peut être lu ou modifié que par son propriétaire
+* <code>drwx--x--x</code> : un répertoire qui ne peut être listé ou modifié que par son propriétaire, mais par lequel tous peuvent passer pour se rentre à un sous-répertoire plus profond
+* <code>drwx-wx-wx</code> : un répertoire dans lequel tous peuvent écrire, mais dont seul le propriétaire peut lister le contenu
+
+Il est important de noter que pour pouvoir lire ou écrire dans un répertoire, il est nécessaire d'avoir l'accès en exécution (<code>x</code>) dans tous les répertoires parents, jusqu'à la racine <b><code>/</code></b> du système de fichiers. Ainsi, si votre répertoire personnel a les permissions <code>drwx------</code> et qu'il contient un sous-répertoire avec les permissions <code>drwxr-xr-x</code>, les autres utilisateurs ne pourront pas lire le contenu de ce sous-répertoire, car ils n'ont pas l'accès en exécution au répertoire parent.
+
+La commande <code>ls -la</code> donne ensuite un nombre, suivi du nom du propriétaire du fichier, du nom du groupe du fichier, de la taille du fichier, de la date de sa dernière modification et de son nom.
+
+La commande <code>chmod</code> permet de modifier les permissions associées à un fichier. La manière simple de l'utiliser est de spécifier quelles permissions on veut ajouter ou enlever à quel type d'utilisateur. Ainsi, on spécifie la liste des utilisateurs (<code>u</code> pour le propriétaire, <code>g</code> pour le groupe, <code>o</code> pour les autres utilisateurs, <code>a</code> pour les trois options), suivie d'un <code>+</code> pour ajouter une permission ou d'un <code>-</code> pour retirer une permission, et suivie de la liste des permissions à modifier (<code>r</code> pour lecture, <code>w</code> pour écriture, <code>x</code> pour exécution). Les permissions non spécifiées ne sont pas affectées.  Voici quelques exemples&nbsp;:
+
+* Empêcher les membres du groupe et les autres utilisateurs de lire ou de modifier le fichier <code>secret.txt</code> {{Command|chmod go-rwx secret.txt}}
+* Permettre à tous de lire le fichier <code>public.txt</code> {{Command|chmod a+r publique.txt}}
+* Rendre le fichier <code>script.sh</code> exécutable {{Command|chmod a+x script.sh}}
+* Permettre aux membres du groupe de lire et d'écrire dans le répertoire <code>partage</code>{{Command|chmod g+rwx partage}}
+* Empêcher d'autres utilisateurs de lire le contenu de son répertoire personnel {{Command|chmod go-rw ~}}
+
+== Visualiser et éditer des fichiers == 
+=== Visualiser un fichier ===
+Pour visualiser un fichier en lecture seule, on utilise la commande <code>less</code> 
+{{Command|less fichier_a_visualiser}} 
+On utilise alors les flèches du clavier ou la molette de la souris pour se déplacer dans le document.
+On peut rechercher un terme dans le document en entrant <code>/terme_a_rechercher</code>.
+On quitte en appuyant sur <code>q</code>.
+
+=== Comparer deux fichiers === 
+La commande <code>diff</code> permet de voir les différences entre deux fichiers
+{{Command|diff fichier1 fichier2}}
+L'option <code>-y</code> permet d'afficher les fichiers côte à côte.
+
+=== Rechercher dans un fichier === 
+La commande <code>grep</code> permet de recherche une expression donnée dans un fichier
+{{Command|grep 'tata' fichier1}}
+ou plusieurs fichiers
+{{Command|grep 'tata' fich*}}.
+Notez que, sous Linux, le caractère <code>*</code> permet de remplacer aucun, un, ou une série de caractères. 
+Le caractère <code>?</code> remplace (exactement) un caractère.
+
+Le texte recherché peut également contenir des variables. Par exemple, pour rechercher le texte <i>No. 10</i> ou <i>No. 11</i>, etc. avec n'importe quel nombre entre 10 et 29, on peut utiliser la commande
+{{Command|grep 'No. [1-2][0-9]' fichier}}
+Le texte recherché doit être sous la forme d'une expression régulière. Pour en savoir plus sur les expressions régulières, consultez [http://www.cyberciti.biz/faq/grep-regular-expressions].

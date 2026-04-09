@@ -1,0 +1,101 @@
+<languages />
+[[Category:Software]]
+[https://www.gdal.org/ GDAL] est une bibliothèque de traduction <i>open source</i> pour les formats de données géospatiales raster. Elle peut être utilisée comme une bibliothèque, car elle présente un modèle de données abstrait unique à l'application qui l’appelle, pour tous les formats pris en charge. Elle est également livrée avec une variété d'utilitaires de ligne de commande pour la traduction et le traitement des données.
+
+GDAL est utilisée par une [https://gdal.org/software_using_gdal.html#software-using-gdal longue liste de progiciels]
+et ses fonctionnalités peuvent être utilisées dans des scripts écrits en [[Python/fr|Python]] ou [[R/fr|R]].
+
+== Utiliser GDAL avec Python ==
+La fonctionnalité GDAL peut être utilisée via le package [https://gdal.org/api/python/osgeo.html osgeo] que nous installons comme une extension du module GDAL. Pour l'utiliser, vous devez charger un module Python compatible avec le module GDAL.
+
+=== Utiliser osgeo avec StdEnv/2020 ===
+Pour connaître les modules Python qui sont compatibles avec par exemple <code>gdal/3.5.1</code>, utilisez le code suivant&nbsp;:
+{{Command| module whatis gdal/3.5.1
+|result=
+gdal/3.5.1          : Description: GDAL is a translator library for raster geospatial data formats...
+gdal/3.5.1          : Homepage: https://www.gdal.org/
+gdal/3.5.1          : URL: https://www.gdal.org/
+gdal/3.5.1          : Compatible modules: python/3.8, python/3.9, python/3.10
+}}
+
+Nous avons donc le choix entre 3.8, 3.9 et 3.10. Nous choisissons <code>python/3.10</code>. 
+{{Command| module load StdEnv/2020 gcc/9.3.0 python/3.10 gdal/3.5.1}}
+{{File
+  |name=osgeo_gdal.py
+  |lang="python"
+  |contents=
+#!/usr/bin/env python3
+from osgeo import gdal
+
+print("osgeo.gdal version:", gdal.__version__)
+# osgeo.gdal version: 3.5.1
+}}
+
+=== Utiliser osgeo avec StdEnv/2023 ===
+Pour connaître les modules Python qui sont compatibles avec par exemple <code>gdal/3.7.2</code>, utilisez le code suivant&nbsp;:
+{{Command| module whatis gdal/3.7.2 
+|result=
+gdal/3.7.2          : Description: GDAL is a translator library for raster geospatial data formats...
+ data translation and processing.
+gdal/3.7.2          : Homepage: https://www.gdal.org/
+gdal/3.7.2          : URL: https://www.gdal.org/
+gdal/3.7.2          : Compatible modules: python/3.10, python/3.11
+gdal/3.7.2          : Extensions: osgeo-3.7.2
+}}
+
+Nous avons donc le choix entre 3.10 et 3.11. Nous choisissons <code>python/3.11</code>. 
+{{Command| module load StdEnv/2023 gcc/12.3 python/3.11 gdal/3.7.2}}
+{{File
+  |name=osgeo_gdal.py
+  |lang="python"
+  |contents=
+#!/usr/bin/env python3
+from osgeo import gdal
+
+print("osgeo.gdal version:", gdal.__version__)
+# osgeo.gdal version: 3.7.2
+}}
+
+== Utiliser GDAL avec  R ==
+Plusieurs [https://cran.r-project.org/web/views/Spatial.html paquets R pour l’analyse des données spatiales] dépendent de GDAL pour leur fonctionnalités, par exemple
+* [https://CRAN.R-project.org/package=sf sf]: Simple Features for R
+* [https://CRAN.R-project.org/package=terra terra]: Spatial Data Analysis 
+
+L’ancien paquet [https://CRAN.R-project.org/package=rgdal rgdal] a été abandonné et remplacé par <code>sf</code> et <code>terra</code>.
+
+=== Installer <code>sf</code> et <code>terra</code> dans StdEnv/2020 ===
+L'installation de ces paquets nécessite non seulement le chargement d'un module <code>gdal</code>, mais également de <code>udunits</code> requis par le paquet [https://CRAN.R-project.org/package=units units].
+
+{{File
+  |name=install_sf_terra_StdEnv2020.sh
+  |lang="bash"
+  |contents=
+# load required modules:
+module load  StdEnv/2020  gcc/9.3.0  udunits/2.2.28  gdal/3.5.1  r/4.2.2
+
+# create a local R library in $HOME:
+mkdir -p $HOME/R/x86_64-pc-linux-gnu-library/4.2
+export R_LIBS="$HOME/R/x86_64-pc-linux-gnu-library/4.2:$R_LIBS"
+
+# install sf and terra from a Canadian CRAN mirror:
+R -e "install.packages(c('sf', 'terra'), repos='https://mirror.csclub.uwaterloo.ca/CRAN/', dep=TRUE)"
+}}
+
+=== Installer <code>sf</code> et <code>terra</code> dans StdEnv/2023 ===
+Notez qu’avec StdEnv/2023, en plus des modules <code>gdal</code> et <code>udunits</code>, <code>hdf/4.3.1</code> est également requis.
+
+
+{{File
+  |name=install_sf_terra_StdEnv2020.sh
+  |lang="bash"
+  |contents=
+# load required modules:
+module load  StdEnv/2023  gcc/12.3  udunits/2.2.28  hdf/4.2.16  gdal/3.7.2  r/4.4.0
+
+# create a local R library in $HOME:
+mkdir -p $HOME/R/x86_64-pc-linux-gnu-library/4.4
+export R_LIBS="$HOME/R/x86_64-pc-linux-gnu-library/4.4:$R_LIBS"
+
+# install sf and terra from a Canadian CRAN mirror:
+R -e "install.packages(c('sf', 'terra'), repos='https://mirror.csclub.uwaterloo.ca/CRAN/', dep=TRUE)"
+}}

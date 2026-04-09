@@ -1,0 +1,117 @@
+<languages />
+
+This page contains instructions on how to set up and access [[Arbutus object storage]] with s3cmd, one of the [[Arbutus_object_storage_clients | object storage clients ]] available for this storage type.
+
+== Installing s3cmd ==
+Depending on your Linux distribution, the <code>s3cmd</code> command can be installed using the appropriate <code>yum</code> (RHEL, CentOS) or <code>apt</code> (Debian, Ubuntu) command:
+
+
+<code>$ sudo yum install s3cmd</code><br/>
+<code>$ sudo apt install s3cmd </code>
+
+== Configuring s3cmd ==
+
+To configure the <code>s3cmd</code> tool, use the command:</br>
+<code>$ s3cmd --configure</code>
+
+And make the following configurations with the keys provided or created with the <code>openstack ec2 credentials create</code> command:
+<pre>
+Enter new values or accept defaults in brackets with Enter.
+Refer to user manual for detailed description of all options.
+
+Access key and Secret key are your identifiers for Amazon S3. Leave them empty for using the env variables.
+Access Key []: 20_DIGIT_ACCESS_KEY
+Secret Key []: 40_DIGIT_SECRET_KEY
+Default Region [US]:
+
+Use "s3.amazonaws.com" for S3 Endpoint and not modify it to the target Amazon S3.
+S3 Endpoint []: object-arbutus.alliancecan.ca
+
+Use "%(bucket)s.s3.amazonaws.com" to the target Amazon S3. "%(bucket)s" and "%(location)s" vars can be used
+if the target S3 system supports dns based buckets.
+DNS-style bucket+hostname:port template for accessing a bucket []: object-arbutus.alliancecan.ca
+
+Encryption password is used to protect your files from reading
+by unauthorized persons while in transfer to S3
+Encryption password []:
+Path to GPG program [/usr/bin/gpg]: 
+
+When using secure HTTPS protocol all communication with Amazon S3
+servers is protected from 3rd party eavesdropping. This method is
+slower than plain HTTP, and can only be proxied with Python 2.7 or newer
+Use HTTPS protocol []: Yes
+
+On some networks all internet access must go through a HTTP proxy.
+Try setting it here if you can't connect to S3 directly
+HTTP Proxy server name:
+</pre>
+
+This should produce a s3cmd configuration file as in the example below. You are also free to explore additional s3cmd configuration options to fit your use case. Note that in the example the keys are redacted and you will need to replace them with your provided key values:
+
+<pre>[default]
+access_key = <redacted>
+check_ssl_certificate = True
+check_ssl_hostname = True
+host_base = object-arbutus.alliancecan.ca
+host_bucket = object-arbutus.alliancecan.ca
+secret_key = <redacted>
+use_https = True
+</pre>
+
+== Create buckets ==
+The next task is to make a bucket.  Buckets contain files. Bucket names must be unique across the Arbutus object storage solution.  Therefore, you will need to create a uniquely named bucket which will not conflict with other users.  For example, buckets <code>s3://test/</code> and <code>s3://data/</code> are likely already taken.  Consider creating buckets reflective of your project, for example <code>s3://def-test-bucket1</code> or <code>s3://atlas_project_bucket</code>.  Valid bucket names may only use the upper case characters, lower case characters, digits, period, hyphen, and underscore (i.e. A-Z, a-z, 0-9, ., -, and _ ).
+
+To create a bucket, use the tool's <code>mb</code> (make bucket) command:
+
+<code>$ s3cmd mb s3://BUCKET_NAME/</code>
+
+To see the status of a bucket, use the <code>info</code> command:
+
+<code>$ s3cmd info s3://BUCKET_NAME/</code>
+
+The output will look something like this:
+
+<pre>
+s3://BUCKET_NAME/ (bucket):
+   Location:  default
+   Payer:     BucketOwner
+   Expiration Rule: none
+   Policy:    none
+   CORS:      none
+   ACL:       *anon*: READ
+   ACL:       USER: FULL_CONTROL
+   URL:       http://object-arbutus.alliancecan.ca/BUCKET_NAME/
+</pre>
+
+== Upload files ==
+To upload a file to the bucket, use the <code>put</code> command similar to this:
+
+<code>$ s3cmd put --guess-mime-type FILE_NAME.dat s3://BUCKET_NAME/FILE_NAME.dat</code>
+
+where the bucket name and the file name are specified.  Multipurpose Internet Mail Extensions (MIME) is a mechanism for handling files based on their type. The <code>--guess-mime-type</code> command parameter will guess the MIME type based on the file extension.  The default MIME type is <code>binary/octet-stream</code>.
+
+== Delete files ==
+To delete a file from the bucket, use the  <code>rm</code> command similar to this:<br/>
+<code>$ s3cmd rm s3://BUCKET_NAME/FILE_NAME.dat</code>
+
+== Access control lists (ACLs) and policies ==
+Buckets can have ACLs and policies which govern who can access what resources in the object store.  These features are quite sophisticated.  Here are two simple examples of using ACLs using the tool's <code>setacl</code> command.
+
+<code>$ s3cmd setacl --acl-public -r s3://BUCKET_NAME/</code>
+
+The result of this command is that the public can access the bucket and recursively (-r) every file in the bucket.  Files can be accessed via URLs such as<br/>
+<code><nowiki>https://object-arbutus.alliancecan.ca/PROJECT_ID:BUCKET_NAME/FILE_NAME.dat</nowiki></code>
+
+The second ACL example limits access to the bucket to only the owner:
+
+<code>$ s3cmd setacl --acl-private s3://BUCKET_NAME/</code>
+
+The current configuration of a bucket can be viewed via the command: 
+
+<code>$ s3cmd info s3://testbucket </code>
+
+Other more sophisticated examples can be found in the s3cmd [https://www.s3express.com/help/help.html help site] or s3cmd(1) man page.
+
+Instructions on [[Arbutus_object_storage#Managing_data_container_(bucket)_policies_for_your_Arbutus_Object_Store | managing bucket policies ]] for your object store, including examples using s3cmd are available on the main [[Arbutus_object_storage | object storage]] page.
+
+[[Category:Cloud]]

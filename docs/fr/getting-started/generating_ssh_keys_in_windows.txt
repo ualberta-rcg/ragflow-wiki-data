@@ -1,0 +1,49 @@
+<languages />
+
+''Page enfant de [[SSH/fr]]''
+
+[[File:Puttygen1.png|400px|thumb| Avant de générer la clé avec PuTTYgen (cliquez pour agrandir)]]
+[[File:Puttygen1.png|400px|thumb| Après avoir généré la clé avec PuTTYgen (cliquez pour agrandir)]]
+
+=Générer une paire de clés= 
+
+La génération de clés avec PuTTY et MobaXTerm ne comporte que de légères différences.
+* avec MobaXTerm, allez à l'option ''Tools->MobaKeyGen (SSH key generator)'';
+* avec PuTTY, lancez l'exécutable PuTTYGen.
+
+La fenêtre affichée est semblable dans les deux cas. Elle peut servir à générer une nouvelle clé ou à charger une clé existante.
+
+# Pour ''Type of key to generate'', sélectionnez ''Ed25519''; le type RSA est aussi acceptable, mais ''Number of bits'' doit être configuré à 2048 ou plus.
+# Cliquez sur le bouton ''Generate''. On vous demandera alors de déplacer au hasard la souris pour générer des données qui serviront à créer la clé.
+# Entrez une phrase de passe pour votre clé. Il est important de vous souvenir de cette phrase de passe parce que vous en aurez besoin chaque fois que vous chargerez PuTTY ou MobaXTerm pour utiliser cette paire de clés.
+# Cliquez sur ''Save private key''  et entrez un nom pour le fichier; l'extension <code>.ppk</code> est ajoutée au nom du fichier.
+# Dans ''Save public key'', le nom de la clé publique est par convention le même que celui pour la clé privée, mais dans ce cas, l'extension <code>.pub</code> est ajoutée au nom du fichier.
+
+=Installer la partie publique de la paire de clés=
+
+==Via la CCDB==
+
+Nous vous encourageons à enregistrer votre clé publique SSH dans la CCDB, ce qui vous permettra de l'utiliser pour vous connecter à toutes nos grappes. Copiez le contenu de la zone de texte ''Public key for pasting into OpenSSH ...'' et collez-la dans la zone de texte [https://ccdb.computecanada.ca/ssh_authorized_keys dans la CCDB, option ''Mon compte -> Gérer vos clés SSH'']. Pour plus d'information, voyez le paragraphe [[SSH_Keys/fr#Par_la_base_de_données_CCDB | ''Par la base de données CCDB'']].
+
+==Installation locale== 
+
+Si pour quelque raison que ce soit vous ne voulez pas utiliser la fonctionnalité de la CCDB, vous pouvez téléverser votre clé publique sur <em>chacune</em> des grappes comme suit :
+
+# Copiez le contenu de la zone de texte ''Public key for pasting into OpenSSH ...'' et collez-le sur une seule ligne à la fin de <code>/home/USERNAME/.ssh/authorized_keys</code> sur la grappe à laquelle vous voulez vous connecter.
+# Vérifiez que les permissions pour les répertoires et les fichiers sont correctes et que le propriétaire est correct, comme décrit dans [[Using SSH keys in Linux/fr#Installation_locale|ces directives]].
+
+Vous pouvez aussi utiliser l'outil <code>ssh-copy-id</code> s'il est disponible sur votre ordinateur personnel.
+
+=Se connecter avec une paire de clés= 
+
+Testez la nouvelle clé en vous connectant au serveur avec SSH; voyez comment [[Connecting with PuTTY/fr#Paire_de_clés_SSH| avec PuTTY]]; [[Connecting with MobaXTerm/fr#Paire_de_clés_SSH| avec MobaXTerm]]; ou [https://winscp.net/eng/docs/ui_login_authentication avec WinSCP].
+
+Pour une démonstration avec PuTTY, voyez la vidéo YouTube [https://www.youtube.com/watch?v=2nkAQ9M6ZF8 Easily setup PuTTY SSH keys for passwordless logins using Pageant].
+
+=Convertir une clé OpenStack= 
+
+Une clé [[Managing_your_cloud_resources_with_OpenStack/fr|OpenStack]] possède l'extension ''.pem''; elle peut être convertie en cliquant sur le bouton ''Load'' dans PuTTYGen. Avec le filtre ''All Files (*.*)'', sélectionnez le fichier ''.pem'' téléchargé de OpenStack, puis cliquez sur ''Open''. Vous pouvez au choix entrer une phrase de passe dans le champ ''Key passphrase'' pour accéder à votre clé privée. Cliquez sur ''Save private key''.
+
+Cette clé privée peut être utilisée avec PuTTY pour se connecter à une instance créée avec OpenStack. Pour plus d'information, consultez ''Lancer une instance'' dans la page [[Cloud Quick Start/fr| Cloud : Guide de démarrage]].
+
+[[Category:Connecting]] [[Category:Pages with video links]]

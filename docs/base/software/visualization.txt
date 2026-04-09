@@ -1,0 +1,206 @@
+<languages />
+[[Category:Software]]
+<translate>
+== Popular visualization packages == <!--T:1-->
+
+<!--T:2-->
+=== ParaView ===
+[http://www.paraview.org ParaView] is a general-purpose 3D scientific visualization tool. It is open-source and compiles on all popular platforms (Linux, Windows, Mac), understands a large number of input file formats, provides multiple rendering modes, supports Python scripting, and can scale up to tens of thousands of processors for rendering of very large datasets.
+
+<!--T:148-->
+* [[ParaView|Using ParaView on Alliance systems]]
+* [http://www.paraview.org/documentation ParaView official documentation]
+* [http://www.paraview.org/gallery ParaView gallery]
+* [http://www.paraview.org/Wiki/ParaView ParaView wiki]
+* [http://www.paraview.org/Wiki/ParaView/Python_Scripting ParaView Python scripting]
+
+<!--T:3-->
+=== VisIt ===
+Similar to ParaView, [https://wci.llnl.gov/simulation/computer-codes/visit/ VisIt] is an open-source, general-purpose 3D scientific data analysis and visualization tool that scales from interactive analysis on laptops to very large HPC projects on tens of thousands of processors.
+
+<!--T:149-->
+* [[VisIt|Using VisIt on Alliance systems]]
+* [https://visit-dav.github.io/visit-website VisIt website]
+* [https://visit-dav.github.io/visit-website/examples VisIt gallery]
+* [http://www.visitusers.org VisIt user community wiki]
+* [http://www.visitusers.org/index.php?title=VisIt_Tutorial VisIt tutorials] along with [http://www.visitusers.org/index.php?title=Tutorial_Data sample datasets]
+
+<!--T:4-->
+=== VMD ===
+[http://www.ks.uiuc.edu/Research/vmd VMD] is an open-source molecular visualization program for displaying, animating, and analyzing large biomolecular systems in 3D. It supports scripting in Tcl and Python and runs on a variety of platforms (MacOS X, Linux, Windows). It reads many molecular data formats using an extensible plugin system and supports a number of different molecular representations.
+
+<!--T:150-->
+* [[VMD|Using VMD on Alliance systems]]
+* [http://www.ks.uiuc.edu/Research/vmd/current/ug VMD User's Guide]
+
+<!--T:5-->
+=== VTK ===
+The Visualization Toolkit (VTK) is an open-source package for 3D computer graphics, image processing, and visualization. The toolkit includes a C++ class library as well as several interfaces for interpreted languages such as Tcl/Tk, Java, and Python. VTK was the basis for many excellent visualization packages including ParaView and VisIt.
+
+<!--T:151-->
+* [[VTK|Using VTK on Alliance systems]]
+* [https://itk.org/Wiki/VTK/Tutorials VTK tutorials]
+
+<!--T:152-->
+=== YT ===
+YT is a Python library for analyzing and visualizing volumetric, multi-resolution data. Initially developed for astrophysical simulation data, it can handle any uniform and multiple-resolution data on Cartesian, curvilinear, unstructured meshes and on particles.
+
+<!--T:153-->
+* [[yt|Using YT on Alliance systems]]
+
+== Visualization on Alliance systems == <!--T:6-->
+
+<!--T:154-->
+There are many options for remote visualization on our systems. In general, whenever possible, for interactive rendering we recommend '''client-server visualization''' on interactive or high-priority nodes, and for non-interactive visualization we recommend '''off-screen batch jobs''' on regular compute nodes.
+
+<!--T:155-->
+Other, ''less efficient'' options are X11-forwarding and VNC. For some packages these are the only available remote GUI options.
+
+=== Client-server interactive visualization === <!--T:156-->
+
+<!--T:157-->
+In the client-server mode, supported by both ParaView and VisIt, all data will be processed remotely on the cluster, using either CPU or GPU rendering, while you interact with your visualization through a familiar GUI client on your local computer. You can find the details of setting up client-server visualization in [[ParaView]] and [[VisIt]] pages.
+
+=== Remote windows with X11-forwarding === <!--T:158-->
+
+<!--T:159-->
+In general, X11-forwarding should be avoided for any heavy graphics, as it requires many round trips and is much slower than VNC (below). However, in some cases you can connect via ssh with X11. Below we show how you would do this on our clusters. We assume you have an X-server installed on your local computer.
+
+<!--T:160-->
+<tabs>
+<tab name="Rorqual, Fir, Nibi, Narval">
+
+<!--T:161-->
+Connect to the cluster with the <code>-X/-Y</code> flag for X11-forwarding. You can start your graphical application on the login node (small visualizations)
+
+   <!--T:162-->
+module load vmd
+   vmd
+
+<!--T:163-->
+or you can request interactive resources on a compute node (large visualizations)
+
+  <!--T:164-->
+salloc --time=1:00:0 --ntasks=1 --mem=3500 --account=def-someprof --x11
+
+<!--T:165-->
+: and, once the job is running, start your graphical application inside the job
+
+  <!--T:166-->
+module load vmd
+  vmd
+
+<!--T:167-->
+</tab>
+<tab name="Trillium">
+
+<!--T:168-->
+Since runtime is limited on the login nodes, you might want to request a testing job in order to have more time for exploring and visualizing your data. On the plus side, you will have access to 40 cores on each of the nodes requested. For performing an interactive visualization session in this way please follow these steps:
+
+<!--T:169-->
+<ol>
+<li> ssh into trillium.alliancecan.ca with the <code>-X/-Y</code> flag for X11-forwarding
+<li> Request an interactive job, ie.</li>
+   debugjob
+This will connect you to a node, let's say for the argument "niaXYZW".
+<li> Run your visualization program, eg. VMD </li>
+
+   <!--T:170-->
+module load vmd
+   vmd
+
+<!--T:171-->
+<li> Exit the debug session.
+</ol>
+
+<!--T:172-->
+</tab>
+</tabs>
+
+=== Remote off-screen windows via Xvfb === <!--T:176--> 
+
+<!--T:177-->
+Some applications insist on displaying graphical output, but you don't actually need to see them since the results are saved in a file.
+To work with offscreen rendering, the job can run as a regular batch job, using either the CPU or the GPU for 3D rendering. To enable this you can run
+the application you are calling with the X virtual frame buffer (Xvfb) in a job script as follows:
+
+  <!--T:178-->
+xvfb-run <name-of-application>
+
+<!--T:179-->
+if using the CPU for rendering or
+
+  <!--T:180-->
+xvfb-run vglrun -d egl <name-of-application>
+
+<!--T:181-->
+if using the GPU for rendering, in which case you need to reserve one GPU with Slurm, see [[Using_GPUs_with_Slurm|Using GPUs with Slurm]].
+Note that, depending on the workload the GPU may not necessarily be faster than the CPU, so it's important to benchmark before
+committing to using the more expensive GPU.
+
+=== Start a remote desktop via VNC === <!--T:92-->
+
+<!--T:93-->
+Frequently, it may be useful to start up graphical user interfaces for various software packages like Matlab. Doing so over X11-forwarding can result in a very slow connection to the server. Instead, we recommend using VNC to start and connect to a remote desktop. For more information, please see [[VNC|the article on VNC]].
+
+= Visualization training = <!--T:7-->
+
+<!--T:138-->
+Please [mailto:support@tech.alliancecan.ca let us know] if you would like to see a visualization workshop at your institution.
+
+<!--T:9-->
+=== Full- or half-day workshops ===
+* [https://docs.alliancecan.ca/mediawiki/images/5/5d/Visit201606.pdf VisIt workshop slides] from HPCS'2016 in Edmonton by <i>Marcelo Ponce</i> and <i>Alex Razoumov</i>
+* [https://docs.alliancecan.ca/mediawiki/images/6/6c/Paraview201707.pdf ParaView workshop slides] from July 2017 by <i>Alex Razoumov</i>
+* [https://support.scinet.utoronto.ca/~mponce/courses/ss2016/ss2016_visualization-I.pdf Gnuplot, xmgrace, remote visualization tools (X-forwarding and VNC), python's matplotlib] slides by <i>Marcelo Ponce</i> (SciNet/UofT) from Ontario HPC Summer School 2016
+* [https://support.scinet.utoronto.ca/~mponce/courses/ss2016/ss2016_visualization-II.pdf  Brief overview of ParaView & VisIt] slides by <i>Marcelo Ponce</i> (SciNet/UofT) from Ontario HPC Summer School 2016
+
+=== Webinars and other short presentations === <!--T:10-->
+
+<!--T:173-->
+[https://training.westdri.ca/tools/visualization Western Canada visualization training materials page] has video recordings and slides from many visualization webinars including:
+
+<!--T:174-->
+* YT series: “Using YT for analysis and visualization of volumetric data” (Part 1) and "Working with data objects in YT” (Part 2)
+* “Scientific visualization with Plotly”
+* “Novel Visualization Techniques from the 2017 Visualize This Challenge”
+* “Data Visualization on Compute Canada’s Supercomputers” contains recipes and demos of running client-server ParaView and batch ParaView scripts on both CPU and GPU partitions of our HPC clusters
+* “Using ParaViewWeb for 3D Visualization and Data Analysis in a Web Browser”
+* “Scripting and other advanced topics in VisIt visualization”
+* “CPU-based rendering with OSPRay”
+* “3D graphs with NetworkX, VTK, and ParaView”
+* “Graph visualization with Gephi”
+
+<!--T:175-->
+Other visualization presentations:
+
+<!--T:16-->
+* [https://oldwiki.scinet.utoronto.ca/wiki/images/5/51/Remoteviz.pdf Remote Graphics on SciNet's GPC system (Client-Server and VNC)] slides by <i>Ramses van Zon</i> (SciNet/UofT) from October 2015 SciNet User Group Meeting
+* [https://support.scinet.utoronto.ca/education/go.php/242/file_storage/index.php/download/1/files%5B%5D/6399/ VisIt Basics], slides by <i>Marcelo Ponce</i> (SciNet/UofT) from February 2016 SciNet User Group Meeting
+* [https://oldwiki.scinet.utoronto.ca/wiki/images/e/ea/8_ComplexNetworks.pdf Intro to Complex Networks Visualization, with Python], slides by <i>Marcelo Ponce</i> (SciNet/UofT)
+* [https://oldwiki.scinet.utoronto.ca/wiki/images/9/9c/Tkinter.pdf Introduction to GUI Programming with Tkinter], from Sept.2014 by <i>Erik Spence</i> (SciNet/UofT)
+
+== Tips and tricks == <!--T:11-->
+
+<!--T:19-->
+This section will describe visualization workflows not included into the workshop/webinar slides above. It is meant to be user-editable, so please feel free to add your cool visualization scripts and workflows here so that everyone can benefit from them.
+
+== Regional and other visualization pages == <!--T:12-->
+
+<!--T:182-->
+* [https://ccvis.netlify.app <b>National Visualization Team's page</b>] with many sci-vis examples
+* [https://training.westdri.ca/tools/visualization SFU's visualization webinars archive]
+
+<!--T:13-->
+=== [http://www.scinet.utoronto.ca SciNet HPC at the University of Toronto] ===
+* [https://docs.scinet.utoronto.ca/index.php/Visualization Visualization in Niagara]
+* [https://oldwiki.scinet.utoronto.ca/wiki/index.php/Software_and_Libraries#anchor_viz visualization software]
+* [https://oldwiki.scinet.utoronto.ca/wiki/index.php/VNC VNC]
+* [https://oldwiki.scinet.utoronto.ca/wiki/index.php/Visualization_Nodes visualization nodes]
+* [https://oldwiki.scinet.utoronto.ca/wiki/index.php/Knowledge_Base:_Tutorials_and_Manuals#Visualization further resources and viz-tech talks]
+* [https://oldwiki.scinet.utoronto.ca/wiki/index.php/Using_Paraview using ParaView]
+
+<!--T:15-->
+== How to get visualization help ==
+Please contact [[Technical support]].
+</translate>

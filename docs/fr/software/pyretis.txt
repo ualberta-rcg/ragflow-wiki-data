@@ -1,0 +1,49 @@
+<languages />
+[[Category:Software]][[Category:BiomolecularSimulation]]
+
+[http://www.pyretis.org/ PyRETIS] est une bibliothèque Python pour les simulations moléculaires d'événements rares avec des méthodes basées sur l'échantillonnage d'interfaces de transition (''TIS, transition interface sampling'') et l'échantillonnage d'interfaces de transition d'échange de répliques (''RETIS, replica exchange transition interface sampling'').
+
+== Installation ==
+
+Calcul Canada offre des wheels Python précompilés pour PyRETIS ([[Available_Python_wheels/fr|voir les wheels disponibles]]) qui sont compatibles avec certaines versions de Python et peuvent être installés dans un [[Python/fr#Créer_et_utiliser_un environnement_virtuel|environnement virtuel Python]].
+
+En date de juillet 2020, PyRETIS 2.5.0 est compatible avec les versions Python 3.6 et 3.7. Selon [http://www.pyretis.org/v2.5.0/user/install.html les directives d'installation], la dépendance  [http://mdtraj.org/ MDTraj] doit être installée '''après''' PyRETIS.
+
+Pour créer un virtualenv Python, lancez les commandes suivantes, où les lignes commençant par <tt>#</tt> sont des commentaires, celles commençant par <tt>$</tt> sont des invites et celles commençant par <tt>(env_PyRETIS) $</tt> sont des invites avec le virtualenv activé.
+
+ # load the Python module we want to use, e.g. python/3.7:
+ $ module load python/3.7
+ 
+ # create a virtualenv
+ $ virtualenv --no-download ~/env_PyRETIS
+ 
+ # activate the virtualenv
+ $ source ~/env_PyRETIS/bin/activate
+ 
+ # install PyRETIS and then mdtraj
+ (env_PyRETIS) $ pip install --no-index pyretis
+ (env_PyRETIS) $ pip install --no-index mdtraj
+ 
+ # run PyRETIS
+ (env_PyRETIS) $ pyretisrun --help
+
+
+Pour utiliser <code>pyretisrun</code> (dans les scripts par exemple) nous n'avons qu'à activer le module à nouveau avec
+
+ source ~/env_PyRETIS/bin/activate
+ pyretisrun --input INPUT.rst  --log_file LOG_FILE.log
+
+
+PyRETIS offre aussi l'outil d'analyse PyVisA dont l'interface utilisateur nécessite que PyQt5 soit exécuté. PyQt5 est inclus dans le module Qt.
+Pour que la version Python de virtualenv puisse trouver PyQt5, il est important de charger d'abord les modules pour Python et Qt avant d'activer le virtualenv Python ainsi
+
+ $ module load python/3.7 qt/5.11.3
+ $ source ~/env_PyRETIS/bin/activate
+ (env_PyRETIS) $ pyretisanalyse  -pyvisa  ...
+
+== Utilisation ==
+
+Consultez [http://www.pyretis.org/ la documentation sur le site web] et dans les articles suivants :
+
+# Lervik A, Riccardi E, van Erp TS. PyRETIS: A well-done, medium-sized python library for rare events. J Comput Chem. 2017;38: 2439–2451. [https://doi.org/10.1002/jcc.24900 doi:10.1002/jcc.24900]
+# Riccardi E, Lervik A, Roet S, Aarøen O, Erp TS. PyRETIS 2: An improbability drive for rare events. J Comput Chem. 2020;41: 370–377. [http://doi.org/10.1002/jcc.26112 doi:10.1002/jcc.26112]

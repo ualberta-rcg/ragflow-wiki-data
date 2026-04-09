@@ -1,0 +1,133 @@
+<noinclude><languages />
+
+<translate>
+<!--T:23-->
+</noinclude>
+{| class="wikitable"
+|-
+| Availability: <b>SERVICE ENDS 2025 SEPTEMBER 12</b>
+|-
+| Login node: <b>cedar.alliancecan.ca</b>
+|-
+| Globus collection: <b>computecanada#cedar-globus</b>
+|-
+| System Status Page: <b>https://status.alliancecan.ca/</b>
+|}
+
+<!--T:2-->
+Cedar is a heterogeneous cluster suitable for a variety of workloads; it is located at Simon Fraser University. It is named for the [https://en.wikipedia.org/wiki/Thuja_plicata Western Red Cedar], B.C.’s official tree, which is of great spiritual significance to the region's First Nations people.
+<br/>
+Cedar is sold and supported by Scalar Decisions, Inc. The node manufacturer is Dell, the high performance temporary storage /scratch filesystem is from DDN, and the interconnect is from Intel. It is entirely liquid-cooled, using rear-door heat exchangers.  
+<br/>
+<br/>
+NOTE: Globus version 4 endpoints are no longer supported. The endpoint <b>computecanada#cedar-dtn</b> has been retired. Please use version 5 endpoint <b>computecanada#cedar-globus</b>.
+
+<!--T:25-->
+[[Getting started|Getting started with Cedar]]<br>
+[[Running_jobs|How to run jobs]]<br>
+[[Transferring_data|Transferring data]]<br>
+
+==Storage== <!--T:4-->
+
+<!--T:5-->
+{| class="wikitable sortable"
+|-
+| <b>Home space</b><br /> 526TB total volume||
+* Location of /home directories.
+* Each /home directory has a small fixed [[Storage and file management#Filesystem_quotas_and_policies|quota]].
+* Not allocated via [https://alliancecan.ca/en/services/advanced-research-computing/accessing-resources/rapid-access-service RAS] or [https://alliancecan.ca/en/services/advanced-research-computing/accessing-resources/resource-allocation-competition RAC]. Larger requests go to the /project space.
+* Has daily backup
+|-
+| <b>Scratch space</b><br /> 5.4PB total volume<br />Parallel high-performance filesystem ||
+* For active or temporary (scratch) storage.
+* Not allocated.
+* Large fixed [[Storage and file management#Filesystem_quotas_and_policies|quota]] per user.
+* Inactive data will be [[Scratch purging policy|purged]].
+|-
+|<b>Project space</b><br />23PB total volume<br />External persistent storage
+||
+* Not designed for parallel I/O workloads. Use /scratch space instead.
+* Large adjustable [[Storage and file management#Filesystem_quotas_and_policies|quota]] per project.
+* Has daily backup.
+|}
+
+<!--T:18-->
+The /scratch storage space is a Lustre filesystem based on DDN model ES14K technology. It includes 640 8TB NL-SAS disk drives, and dual redundant metadata controllers with SSD-based storage.
+
+==High-performance interconnect== <!--T:19-->
+
+<!--T:20-->
+<i>Intel OmniPath (version 1) interconnect (100Gbit/s bandwidth).</i>
+
+<!--T:21-->
+A low-latency high-performance fabric connecting all nodes and temporary storage.
+
+<!--T:22-->
+By design, Cedar supports multiple simultaneous parallel jobs of up to 1024 Broadwell cores (32 nodes)  or 1536 Skylake cores (32 nodes) or 1536 Cascade Lake cores (32 nodes) in a fully non-blocking manner. For larger jobs the interconnect has a 2:1 blocking factor, i.e., even for jobs running on several thousand cores, Cedar provides a high-performance interconnect.
+
+==Node characteristics== <!--T:6-->
+
+<!--T:28-->
+Cedar has 100,400 CPU cores for computation, and 1352 GPU devices.  Turbo Boost is deactivated for all Cedar nodes.
+
+<!--T:7-->
+{| class="wikitable sortable"
+! nodes !! cores !! available memory !! CPU  !! storage !! GPU 
+|-
+| 256 || 32 || 125G or 128000M   || 2 x Intel E5-2683 v4 Broadwell @ 2.1GHz || 2 x 480G SSD || -
+|-
+| 256 || 32 || 250G or 257000M   || 2 x Intel E5-2683 v4 Broadwell @ 2.1GHz || 2 x 480G SSD || -
+|-
+| 40  || 32 || 502G or 515000M   || 2 x Intel E5-2683 v4 Broadwell @ 2.1GHz || 2 x 480G SSD || -
+|-
+| 16  || 32 || 1510G or 1547000M || 2 x Intel E5-2683 v4 Broadwell @ 2.1GHz || 2 x 480G SSD || -
+|-
+| 6   || 32 || 4000G or 4096000M || 2 x AMD EPYC 7302 @ 3.0GHz || 2 x 480G SSD || -
+|-
+| 2   || 40 || 6000G or 6144000M || 4 x Intel Gold 5215 Cascade Lake @ 2.5GHz || 2 x 480G SSD || -
+|-
+| 96  || 24 || 125G or 128000M   || 2 x Intel E5-2650 v4 Broadwell @ 2.2GHz || 1 x 800G SSD || 4 x NVIDIA P100 Pascal (12G HBM2 memory)
+|-
+| 32  || 24 || 250G or 257000M   || 2 x Intel E5-2650 v4 Broadwell @ 2.2GHz || 1 x 800G SSD || 4 x NVIDIA P100 Pascal (16G HBM2 memory)
+|-
+| 192 || 32 || 187G or 192000M   || 2 x Intel Silver 4216 Cascade Lake @ 2.1GHz || 1 x 480G SSD || 4 x NVIDIA V100 Volta (32G HBM2 memory)
+|-
+| 608 || 48 || 187G or 192000M   || 2 x Intel Platinum 8160F Skylake @ 2.1GHz || 2 x 480G SSD || -
+|-
+| 768 || 48 || 187G or 192000M   || 2 x Intel Platinum 8260 Cascade Lake @ 2.4GHz || 2 x 480G SSD || -
+|}
+
+<!--T:29-->
+Note that the amount of available memory is fewer than the <i>round number</i> suggested by the hardware configuration. For instance, <i>base</i> nodes do have 128 GiB of RAM, but some of it is permanently occupied by the kernel and OS. To avoid wasting time by swapping/paging, the scheduler will never allocate jobs whose memory requirements exceed the amount of <i>available</i> memory shown above.
+
+<!--T:10-->
+All nodes have local (on-node) temporary storage. Compute nodes (except GPU nodes) have two 480GB SSD drives, for a total raw capacity of 960GB. GPU nodes have either an 800GB or a 480GB SSD drive. Use node-local storage through the job-specific directory created by the scheduler, <code>$SLURM_TMPDIR</code>. See [[Using node-local storage]].
+
+<!--T:27-->
+===Choosing a node type===
+A number of 48-core nodes are reserved for jobs that require whole nodes. There are no 32-core nodes set aside for whole node processing. <b>Jobs that request less than 48 cores per node can end up sharing nodes with other jobs.</b><br>
+Most applications will run on either Broadwell or Skylake or Cascade Lake nodes, and performance differences are expected to be small compared to job waiting times. Therefore we recommend that you do not select a specific node type for your jobs. If it is necessary, use <code>--constraint=cascade</code>, <code>--constraint=skylake</code> or <code>--constraint=broadwell</code>.  If the requirement is for any AVX512 node, use <code>--constraint=[skylake|cascade]</code>.
+
+==Submitting and running jobs policy== <!--T:30-->
+
+<!--T:31-->
+As of <b>April 17, 2019</b>, jobs can no longer run in the <code>/home</code> filesystem. The policy was put in place to reduce the load on this filesystem and improve the responsiveness for interactive work. If you get the message <code>Submitting jobs from directories residing in /home is not permitted</code>, transfer the files either to your <code>/project</code> or <code>/scratch</code> directory and submit the job from there.
+
+<!--T:17-->
+==Performance==
+Theoretical peak double precision performance of Cedar is 6547 teraflops for CPUs, plus 7434 for GPUs, yielding almost 14 petaflops of theoretical peak double precision performance.
+
+<!--T:32-->
+Cedar's network topology is made up of <i>islands</i> with a 2:1 blocking factor between islands. Within an island the interconnect (Omni-Path fabric) is fully non-blocking.
+<br>
+Most islands contain 32 nodes:
+* 16 islands with 32 Broadwell nodes, each with 32 cores, i.e., 1024 cores per island;
+* 43 islands with 32 Skylake or Cascade Lake nodes, each with 48 cores, i.e., 1536 cores per island;
+* 4 islands with 32 P100 GPU nodes;
+* 6 islands with 32 V100 GPU nodes;
+* 2 islands each with 32 big memory nodes; of these 64 nodes, 40 are of 0.5TB, 16 are of 1.5TB, 6 are of 4TB and 2 are of 6TB.
+
+<!--T:16-->
+<noinclude>
+</translate>
+</noinclude>

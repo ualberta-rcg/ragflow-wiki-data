@@ -1,0 +1,182 @@
+{{Outdated}}
+
+<languages />
+
+La plupart du temps, vous devriez soumettre les tâches MPI parallèles à mémoire distribuée selon l'exemple présenté à section <i>Tâche MPI</i> de la page [[Running_jobs/fr#Tâche_MPI|Exécuter des tâches]]. Il suffit d'utiliser <code>- ntasks</code> ou <code>-n</code> pour spécifier le nombre de processus et de laisser l'ordonnanceur faire la meilleure allocation, compte tenu de l'efficacité de la grappe.
+
+Si par contre vous voulez plus de contrôle sur l'allocation, prenez connaissance de la page [https://slurm.schedmd.com/mc_support.html Support for Multi-core/Multi-thread Architectures] de SchedMD;  on y décrit comment plusieurs options de la commande [https://slurm.schedmd.com/sbatch.html <code>sbatch</code>] agissent sur l'ordonnancement des processus.
+
+Dans la foire aux questions Slurm, la réponse à [https://slurm.schedmd.com/faq.html#cpu_count What exactly is considered a CPU?] peut aussi s'avérer utile.
+
+<span id="Examples_of_common_MPI_scenarios"></span>
+=== Exemples de scénarios ===
+
+<span id="Few_cores,_any_number_of_nodes"></span>
+==== Peu de cœurs, nœuds indéterminés ====
+
+En plus de spécifier la durée de <i>toute tâche Slurm</i>, il faut aussi indiquer le nombre de processus MPI que Slurm doit démarrer. Le moyen le plus simple de ce faire est d'utiliser <code>--ntasks</code>. Puisque l'allocation par défaut de 256Mo de mémoire est souvent insuffisante, vous devriez aussi spécifier la quantité de mémoire nécessaire. Avec <code>--ntasks</code>, il est impossible de savoir combien de cœurs seront sur chaque nœud; vous voudrez alors utiliser <code>--mem-per-cpu</code> ainsi
+
+ {{File
+  |name=basic_mpi_job.sh
+  |lang="sh"
+  |contents=
+#!/bin/bash 
+#SBATCH --ntasks=15
+#SBATCH --mem-per-cpu=3G
+srun application.exe
+}}
+Nous avons ici 15 processus MPI. L'allocation des cœurs pourrait se faire sur 1 nœud, sur 15 nœuds, ou sur tout nombre de nœuds entre 1 et 15.
+
+<span id="Whole_nodes"></span>
+====Nœuds entiers ====
+
+Pour une tâche parallèle intensive qui peut utiliser efficacement 64 cœurs ou plus, vous devriez probablement demander des nœuds entiers; il est donc utile de savoir quels types de nœuds sont disponibles sur la grappe que vous utilisez.
+
+La plupart des nœuds de [[Fir/fr|Fir]], [[Narval]], [[Nibi/fr|Nibi]], [[Rorqual]] et |[[Trillium/fr|Trillium]] sont configurés comme suit&nbsp;ː
+
+{| class="wikitable"
+|-
+! grappe!! cœurs !! mémoire utilisable !! notes
+|-
+| [[Fir/fr|Fir]]                ||  192  ||    750 Gio    || certains sont réservés pour les tâches sur nœud entier
+|-
+| [[Narval]]   ||   64  ||    249 Gio    || certains sont réservés pour les tâches sur nœud entier
+|-
+| [[Nibi/fr|Nibi]]               ||  192  ||    748 Gio    || aucun n'est réservé pour les tâches sur nœud entier
+|-
+| [[Rorqual]] ||  192  ||    750 Gio    || certains sont réservés pour les tâches sur nœud entier
+|-
+| [[Trillium/fr|Trillium]]           ||  192  ||    749 Gio    || Trillium permet uniquement des tâches sur nœud entier
+|}
+
+Les tâches sur nœuds entiers peuvent être exécutées sur tous les nœuds. Dans le tableau ci-dessus, la note «&nbsp;Certains sont réservés pour les tâches sur nœuds entiers&nbsp;» signifie que les tâches par cœur sont interdites sur certains nœuds.
+
+Voici un exemple d'un script demandant des nœuds entiers.
+
+<tabs>
+<tab name="Fir">
+{{File
+  |name=whole_nodes_fir.sh
+  |lang="sh"
+  |contents=
+#!/bin/bash 
+#SBATCH --nodes=2
+#SBATCH --ntasks-per-node=192
+#SBATCH --mem=0
+srun application.exe
+}}</tab>
+<tab name="Narval">
+{{File
+  |name=whole_nodes_narval.sh
+  |lang="sh"
+  |contents=
+#!/bin/bash 
+#SBATCH --nodes=2
+#SBATCH --ntasks-per-node=64
+#SBATCH --mem=0
+srun application.exe
+}}</tab>
+<tab name="Nibi">
+{{File
+  |name=whole_nodes_nibi.sh
+  |lang="sh"
+  |contents=
+#!/bin/bash 
+#SBATCH --nodes=2
+#SBATCH --ntasks-per-node=192
+#SBATCH --mem=0
+srun application.exe
+}}</tab>
+<tab name="Rorqual">
+{{File
+  |name=whole_nodes_rorqual.sh
+  |lang="sh"
+  |contents=
+#!/bin/bash 
+#SBATCH --nodes=2
+#SBATCH --ntasks-per-node=192
+#SBATCH --mem=0
+srun application.exe
+}}</tab>
+<tab name="Trillium">
+{{File
+  |name=whole_nodes_trillium.sh
+  |lang="sh"
+  |contents=
+#!/bin/bash 
+#SBATCH --nodes=2
+#SBATCH --ntasks-per-node=192
+#SBATCH --mem=0
+srun application.exe
+}}</tab>
+</tabs>
+
+Le fait de demander <code>--mem=0</code> indique à Slurm qu'il doit <i>réserver toute la mémoire disponible de chacun des nœuds assignés à la tâche</i>. 
+
+Toutefois, si vous avez besoin de plus de mémoire par nœud que ce que le plus petit nœud peut offrir (par exemple plus de 748Gio sur Nibi), '''vous ne devriez pas utiliser''' <code>--mem=0</code>, mais demander une quantité explicite de mémoire. De plus, une partie de la mémoire de chaque nœud est réservée au système d'exploitation; dans la section <i>Caractéristiques des nœuds</i>, la colonne <i>Mémoire disponible</i> indique la plus grande quantité de mémoire qu'une tâche peut demander ː
+* [[Fir/fr#Caractéristiques_des_nœuds|Fir]]	
+* [[Narval#Caractéristiques_des_nœuds|Narval]]
+* [[Nibi/fr#Caractéristiques_des_nœuds|Nibi]]	
+* [[Rorqual#Caractéristiques_des_nœuds|Rorqual]]
+
+<span id="Few_cores,_single_node"></span>
+==== Peu de cœurs, nœud unique ====
+
+Si vous avez besoin de moins d'un nœud entier, mais que tous les cœurs doivent être du même nœud, vous pouvez demander par exemple  
+{{File
+  |name=less_than_whole_node.sh
+  |lang="sh"
+  |contents=
+#!/bin/bash 
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=15
+#SBATCH --mem=45G
+srun application.exe
+}}
+Vous pourriez aussi utiliser <code>--mem-per-cpu=3G</code>, mais la tâche serait annulée si un des processus dépasse 3Go. L'avantage avec <code>--mem=45G</code> est que la mémoire consommée par chaque processus n'importe pas, pourvu que dans l'ensemble ils ne dépassent pas 45Go.
+
+<span id="Large_parallel_job,_not_a_multiple_of_whole_nodes"></span>
+==== Tâche intensive en parallèle, sans multiples de nœuds entiers ====
+
+Ce ne sont pas toutes les tâches qui sont effectuées de façon optimale sur des cœurs en multiples de 32, 40 ou 48. Le fait d'indiquer ou non un nombre précis de cœurs peut influer sur le <i>temps d'exécution</i> (ou la bonne utilisation de la ressource) ou le <i>temps d'attente</i> (ou la bonne utilisation du temps qui vous est imparti). Pour de l'aide sur comment évaluer ces facteurs, communiquez avec le [[Technical support/fr|soutien technique]].
+
+<span id="Hybrid_jobs:_MPI_and_OpenMP,_or_MPI_and_threads"></span>
+=== Tâches hybrides : MPI avec OpenMP ou MPI avec fils ===
+
+Il est important de bien comprendre que le nombre de <i>tâches</i> Slurm demandées représente le nombre de <i>processus</i> qui seront démarrés avec <code>srun</code>. Dans le cas d'une tâche hybride qui utilise à la fois des processus MPI et des fils OpenMP ou Posix, vous voudrez indiquer le nombre de processus MPI avec <code>--ntasks</code> ou <code>-ntasks-per-node</code> et ;le nombre de fils avec <code>--cpus-per-task</code>.
+
+ --ntasks=16
+ --cpus-per-task=4
+ --mem-per-cpu=3G
+  srun --cpus-per-task=$SLURM_CPUS_PER_TASK application.exe
+Ici, 64 cœurs sont alloués, mais seulement 16 processus (tâches) MPI sont et seront initialisés. S'il s'agit en plus d'une application OpenMP, chacun des processus démarrera 4 fils, soit un par cœur. Chaque processus pourra utiliser 12Go. Avec 4 cœurs, les tâches pourraient être allouées sur 2 à 16 nœuds, peu importe lesquels. Vous devez aussi spécifier <code>--cpus-per-task=$SLURM_CPUS_PER_TASK</code> pour <code>srun</code>, puisque c'est exigé depuis Slurm 22.05 et ne nuit pas aux versions les moins récentes.
+
+ --nodes=2
+ --ntasks-per-node=8
+ --cpus-per-task=4
+ --mem=96G
+  srun --cpus-per-task=$SLURM_CPUS_PER_TASK application.exe
+La taille de cette tâche est identique à celle de la précédente, c'est-à-dire 16 tâches (soit 16 processus MPI) avec chacune 4 fils. La différence ici est que nous obtiendrons exactement 2 nœuds entiers. N'oubliez pas que <code>--mem</code> précise la quantité de mémoire <i>par nœud</i> et que nous l'utilisons de préférence à <code>--mem-per-cpu</code> pour la raison donnée plus haut.
+
+<span id="Why_srun_instead_of_mpiexec_or_mpirun?"></span>
+=== Pourquoi ''srun'' plutôt que ''mpiexec'' ou ''mpirun''? ===
+
+<code>mpirun</code> permet la communication entre processus exécutés sur des ordinateurs différents;  les ordonnanceurs récents possèdent cette même fonctionnalité. Avec Torque/Moab, il n'est pas nécessaire de fournir à <code>mpirun</code> la liste des nœuds ou le nombre de processus puisque l'ordonnanceur s'en charge. Avec Slurm, c'est l'ordonnanceur qui décide de l'affinité des tâches, ce qui évite d'avoir à préciser des paramètres comme 
+ mpirun --map-by node:pe=4 -n 16  application.exe
+
+Dans les exemples précédents, on comprend que <code>srun application.exe</code> distribue automatiquement les processus aux ressources précises allouées à la tâche. 
+
+En termes de niveaux d'abstraction, <code>srun</code> est au-dessus de <code>mpirun</code>; <code>srun</code> peut faire tout ce que fait <code>mpirun</code> et davantage. Avec Slurm, <code>srun</code> est l'outil de prédilection pour lancer tous les types de calcul; il est aussi plus polyvalent que le <code>pbsdsh</code> de Torque. On pourrait dire de <code>srun</code> que c'est l'outil Slurm universel pour la distribution des tâches en parallèle&nbsp; une fois les ressources allouées, la nature de l'application importe peu, qu'il s'agisse de MPI, OpenMP, hybride, distribution sérielle, pipeline, multiprogramme ou autre.
+
+Bien entendu, <code>srun</code> est parfaitement adapté à Slurm&nbsp;: il amorce la première étape de la tâche, initialise correctement les variables d'environnement <code>SLURM_STEP_ID</code> et <code>SLURM_PROCID</code> et fournit les renseignements de suivi appropriés.
+
+Pour des exemples de quelques différences entre <code>srun</code> et <code>mpiexec</code>, voyez [https://mail-archive.com/users@lists.open-mpi.org/msg31874.html le forum OpenMPI]. Dans certains cas, <code>mpiexec</code> offrira une meilleure performance que <code>srun</code>, mais <code>srun</code> diminue le risque de conflit entre les ressources allouées par Slurm et celles utilisées par OpenMPI.
+
+<span id="External_links"></span>
+=== Références ===
+
+* [https://slurm.schedmd.com/sbatch.html documentation sbatch]
+* [https://slurm.schedmd.com/srun.html documentation srun] 
+* [https://www.open-mpi.org/faq/?category=slurm Open MPI et Slurm]
+
+[[Category:SLURM]]

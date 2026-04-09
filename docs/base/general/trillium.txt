@@ -1,0 +1,104 @@
+<languages />
+<translate>
+<!--T:1-->
+{| class="wikitable"
+|-
+| Availability: Aug/07 2025
+|-
+| Login nodes:
+CPU sub-cluster Login node: '''trillium.alliancecan.ca''' 
+
+<!--T:24-->
+GPU sub-cluster Login node: '''trillium-gpu.alliancecan.ca'''
+|-
+|Globus collections: '''[https://app.globus.org/file-manager?origin_id=ad462f99-8436-42b4-adc6-3644e36c1b67 alliancecan#trillium]'''&nbsp;(file&nbsp;system)
+'''[https://app.globus.org/file-manager?origin_id=c55ce750-19d6-4a42-9c30-6a58f06bec7a alliancecan#hpss]''' (archive/nearline)
+|-
+|Data transfer node (rsync, scp, sftp,...): '''tri-dm{1,2,3,4}.scinet.utoronto.ca'''
+|-
+|Automation node: '''robot{1,2,3,4}.scinet.utoronto.ca'''
+|-
+|Open OnDemand: [https://ondemand.scinet.utoronto.ca ondemand.scinet.utoronto.ca] (includes JupyterLab)
+|-
+|Portal: [https://my.scinet.utoronto.ca my.scinet.utoronto.ca]
+|}
+
+<!--T:2-->
+Trillium is a large parallel cluster built by Lenovo Canada and hosted by SciNet at the University of Toronto.
+
+<!--T:4-->
+The [[Trillium Quickstart]] has specific instructions for Trillium, where the user experience is similar to that on the other national clusters, but still slightly different.
+
+<!--T:13-->
+Current users transitioning from Niagara are strongly encouraged to peruse the documentation on the [[Transition from Niagara to Trillium]].
+
+<!--T:11-->
+=Installation and transition=
+Due to limits on available power and cooling capacity there will be an interim period in which a significant portion of the old Niagara will be shut down in order to provide power for the new system's acceptance testing and transition. We'll update you when we have a better idea of Trillium's installation schedule.
+
+<!--T:12-->
+=Storage=
+Parallel storage: 29 petabytes, NVMe SSD based storage from VAST Data.
+
+<!--T:3-->
+=High-performance network= 
+*Nvidia “NDR” Infiniband network 
+** 400 Gbit/s network bandwidth for CPU nodes
+** 800 Gbit/s network bandwidth for GPU nodes
+**Fully non-blocking, meaning every node can talk to every other node at full bandwidth simultaneously.
+
+<!--T:5-->
+=Node characteristics=
+{| class="wikitable sortable"
+! Login Node 
+! nodes 
+! cores 
+! available memory
+! CPU
+! GPU 
+|-
+| trillium.alliancecan.ca 
+|1224 || 192 ||749G or 767000M || 2 x AMD EPYC 9655 (Zen 5) @ 2.6 GHz, 384MB cache L3 || |
+|- 
+| trillium&#8209;'''gpu'''.alliancecan.ca 
+| 63 || 96 || 749G or 767000M
+| 1 x AMD EPYC 9654 (Zen 4) @ 2.4 GHz, 384MB cache L3
+| 4 x NVidia H100 SXM (80 GB memory), connected via NVLink
+|}
+
+= Technical details = <!--T:14-->
+
+== Cooling and energy efficiency == <!--T:15-->
+
+<!--T:16-->
+Trillium is fully direct liquid cooled using warm water (35–40 °C input), resulting in:
+
+<!--T:17-->
+* PUE below 1.03 (high energy efficiency)
+* Use of closed-loop dry fluid coolers, avoiding evaporative towers and new water usage
+* Heat reuse: Trillium supplies excess heat to nearby facilities to minimize climate impact
+
+== Storage system == <!--T:18-->
+
+<!--T:19-->
+The VAST high-performance file system is comprised of a unified 29 PB NVMe-backed storage pool, with: 
+
+<!--T:20-->
+*29 PB effective capacity (deduplicated via VAST)
+*16.7 PB raw flash capacity
+*714 GB/s read bandwidth, 275 GB/s write bandwidth
+* 10 million read IOPS, 2 million write IOPS
+* POSIX and S3 access protocols under a unified namespace
+* 48 C-Boxes and 14 D-Boxes for data services
+
+== Backup and archive storage == <!--T:21-->
+
+<!--T:22-->
+An additional 114 PB HPSS tape-based archive is available for nearline storage:
+
+<!--T:23-->
+* Dual-copy archive across geographically separate libraries
+* Used for both backup and archival purposes
+* Backups are managed using Atempo backup software
+
+</translate>

@@ -1,0 +1,70 @@
+<languages />
+Pour soumettre et faire le suivi des tâches, modifier des fichiers et plusieurs autres opérations, vous aurez sans doute besoin de vous connecter à une grappe via [[SSH/fr|SSH]]. Il est parfois nécessaire de garder la connexion active pendant plusieurs heures, même plusieurs jours. Nous décrivons ici certaines techniques pour ce faire. 
+
+=Configuration de SSH=
+
+Une solution simple pour prolonger une connexion est de modifier la configuration de votre client SSH. Avec macOS et Linux, cette configuration se trouve dans <code>$HOME/.ssh/config</code> alors qu'avec Windows elle est dans <code>C:\Users\<username>\.ssh\config</code>. Si le fichier n'existe pas, vous devez le créer at ajouter les lignes 
+<source>
+Host *
+    ServerAliveInterval 240
+</source>
+Ceci transmet un signe de vie au serveur distant (comme une grappe de l'Alliance) à toutes les 240 secondes (4 minutes), ce qui devrait garder la connexion vivante même si elle est inactive pendant quelques heures.
+
+=Multiplexeur de terminal=
+
+Les programmes <code>tmux</code> et <code>screen</code> sont des exemples de multiplexeurs de terminal qui vous permettent de complètement détacher une session de terminal qui restera active jusqu'à ce que vous vous y rattachiez.  Vous pouvez donc vous déconnecter de la grappe, fermer le poste de travail ou le mettre en veille, puis reprendre le travail le lendemain en vous rattachant à la même session. 
+{{box|<b>Dépendance au nœud de connexion</b>
+<br>
+Chacune de nos grappes comprend plusieurs nœuds de connexion et votre session <code>tmux</code> ou <code>screen</code> est lancée sur un nœud particulier. Pour vous rattacher à une session, vous devez utiliser le même nœud de connexion que celui où vous avez lancé <code>tmux</code> ou <code>screen</code>. Il arrive qu'un nœud de connexion soit redémarré, ce qui élimine les sessions qui se trouvent sur ce nœud; dans un tel cas, vos sessions et tous les processus associés seront perdus.}}   
+
+==tmux==
+
+Le logiciel [https://en.wikipedia.org/wiki/Tmux tmux] est un multiplexeur de terminal qui permet plusieurs sessions virtuelles à l'intérieur d'une même session de terminal. Vous pouvez donc vous déconnecter d'une session SSH sans que les processus soient affectés.
+
+Pour une introduction à tmux (en anglais) :
+* [https://leanpub.com/the-tao-of-tmux/read <i>The Tao of tmux</i>] 
+* [https://www.youtube.com/watch?v=252K9lrRdMU <i>Getting Started With TMUX</i>], vidéo de 24 minutes
+* [https://www.youtube.com/watch?v=Y1Of3S5iVog <i>Turbo boost your interactive experience on the cluster with tmux</i>], vidéo de 58 minutes
+
+===Aide-mémoire===
+
+[http://hyperpolyglot.org/multiplexers Voyez la documentation complète (en anglais)].
+
+{| class="wikitable"
+|-
+! Commande !! Description
+|-
+| <code>tmux</code> || Démarrer le serveur
+|-
+| <code>Ctrl+B D</code> ||  Se déconnecter du serveur
+|-
+| <code>tmux a</code> || Se reconnecter au serveur
+|-
+| <code>Ctrl+B C</code> || Créer une nouvelle fenêtre
+|-
+| <code>Ctrl+B N</code> || Aller à la prochaine fenêtre
+|-
+| <code>Ctrl+B [</code> || Activer le mode copie pour défilement avec la souris et les touches page suivante et page précédente 
+|-
+| <code>Esc</code> || Désactiver le mode copie
+|}
+
+===Utiliser tmux dans une tâche soumise par tmux=== 
+
+Si vous utilisez tmux pour soumettre une tâche et que vous tentez de lancer tmux à l’intérieur de cette tâche, vous obtiendrez le message d'erreur <code>lost server</code>. Ceci est dû au fait que la variable d'environnement <code>$TMUX</code>, qui pointe vers le serveur tmux sur le nœud de connexion, est propagée à la tâche. La valeur de la variable n'est donc pas valide. Vous pouvez la réinitialiser avec {{Command|unset TMUX}}
+
+Cependant, l'usage de deux (ou plus) niveaux de tmux n'est pas recommandé. Pour envoyer des commandes à un tmux imbriqué, il faut taper deux fois les touches <code>Ctrl+B</code>; par exemple, pour créer une fenêtre, il faut taper <code>Ctrl+B Ctrl+B C</code>. Considérez plutôt d'utiliser GNU Screen (ci-dessous) à l'intérieur de vos tâches (si vous utilisez tmux sur un nœud de connexion).
+
+==GNU Screen==
+
+Le programme [https://en.wikipedia.org/wiki/GNU_Screen GNU Screen] est un autre multiplexeur de terminal souvent utilisé. Créez une session de terminal détachée avec
+{{Command|screen -S <session name>}}
+Donnez à vos sessions des noms faciles à retenir. Pour voir la liste des sessions détachées sur un nœud, utilisez la commande <code>screen -list</code>.
+{{Command
+|screen -list
+|result=
+There is a screen on:
+        164133.foo      (Attached)
+1 Socket in /tmp/S-stubbsda.
+}}
+Pour vous attacher à une de vos sessions, utilisez <code>screen -d -r <session name></code>.

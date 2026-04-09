@@ -1,0 +1,25 @@
+<languages />
+Linux est très utilisé pour les machines virtuelles. Les distributions souvent employées sont AlmaLunix, CentOS, Debian, Fedora et Ubuntu. Vous trouverez ici de l'assistance pour les tâches communes. Il est aussi possible d'utiliser [[Cloud_Quick_Start/fr#Windows |le système d'exploitation Windows]].
+
+=Gestion des utilisateurs sous Linux= 
+
+Il existe quelques méthodes pour permettre à plusieurs personnes d'avoir accès à une machine virtuelle. Notre recommandation est de créer de nouveaux comptes d'utilisateur et de leur associer des [[SSH Keys/fr|clés SSH]].
+
+==Créer un compte d'utilisateur et ses clés==
+Pour créer un compte d'utilisateur sur Ubuntu, utilisez la commande 
+{{Command|sudo adduser --disabled-password USERNAME}}
+Pour pouvoir se connecter, le nouvel utilisateur devra avoir une paire de clés; selon le système d'exploitation, voyez [[Generating_SSH_keys_in_Windows/fr|Générer des clés SSH sous Windows]]  ou [[Using_SSH_keys_in_Linux/fr#Créer_une_paire_de_clés|Créer une paire de clés]] sous Linux et Mac. Ajoutez ensuite la clé publique à <tt>/home/USERNAME/.ssh/authorized_keys</tt> pour la machine virtuelle et vérifiez que les permissions et le propriétaire sont corrects, comme indiqué aux étapes 2 et 3 de [[Using_SSH_keys_in_Linux/fr#Se_connecter_avec_une_paire_de_clés|Se connecter avec une paire de clés]].
+
+==Privilèges admin==
+Pour accorder les privilèges admin (<i>root</i>) à un utilisateur, utilisez la commande 
+{{Command|sudo visudo -f /etc/sudoers.d/90-cloud-init-users}}
+Ceci démarre un éditeur où vous pouvez ajouter une ligne comme
+ USERNAME ALL=(ALL) NOPASSWD:ALL
+Pour plus d'information sur la commande <code>visudo</code> et sur comment éditer le fichier, consultez le [https://www.digitalocean.com/community/tutorials/how-to-edit-the-sudoers-file-on-ubuntu-and-centos#what-is-visudo tutoriel de DigitalOcean].
+
+==Problèmes de système et de sécurité==
+Référez-vous à 
+* [[Recovering_data_from_a_compromised_VM/fr | Récupération des données d'une machine virtuelle compromise]]
+* [[VM_recovery_via_cloud_console/fr | Récupération d'une machine virtuelle via la console]]
+
+[[Category:Cloud]]

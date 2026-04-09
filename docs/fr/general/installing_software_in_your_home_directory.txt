@@ -1,0 +1,77 @@
+<languages />
+La plupart des logiciels utilisés en recherche sont disponibles gratuitement sur Internet. Vous pouvez nous demander d'installer des logiciels que vous pourrez ensuite utiliser avec la commande <code>module load</code> (voir [[Utiliser_des_modules|Utiliser les modules]]); pour ce faire, écrivez à [mailto:support@tech.alliancecan.ca support@tech.alliancecan.ca] en joignant l'adresse URL pour l'installation. Si les clauses de la licence et les exigences techniques le permettent, le logiciel sera rendu disponible le plus tôt possible.
+
+Vous avez le droit d'installer des logiciels dans votre propre espace /project ou dans votre espace /home, par exemple pour 
+* apporter vous-même des modifications au code,
+* évaluer le logiciel rapidement.
+
+<b>Prenez connaissance des directives pour l'installation du logiciel.</b> Il s'agit souvent des instructions décrites ci-après.
+
+== configure; make; make install ==
+{{Commands|./configure
+|make
+|make install}}
+Cette syntaxe de commande est fréquemment utilisée, avec des variantes telles <code>cmake .</code> au lieu de <code>./configure</code> et <code>sudo make install</code> au lieu de <code>make install</code>.
+
+Ces instructions fonctionnent comme prévu à l'occasion, mais <code>make install</code> créent quelquefois un obstacle, car le logiciel s'attend à pouvoir écrire dans <code>/usr/local</code> ou dans un autre espace partagé du système de fichiers. La commande <code>sudo make install</code> causera toujours l'arrêt de la procédure parce que <code>sudo</code> exige les permissions d'administrateur (<i>root</i>). La solution consiste à placer un indicateur <code>--prefix</code> à l'étape <code>configure</code> pour que l'installation soit dirigée vers le répertoire de votre choix, par exemple
+{{Command|./configure --prefix{{=}}/my/project/directory/some-package && make && make install}}
+
+Si d'autres erreurs surviennent, contactez [mailto:support@computecanada.ca support@calculcanada.ca]. Pour les détails, consultez les pages  [[Make/fr|Make]], [[Autotools/fr|Autotools]] et [[CMake/fr|CMake]].
+
+==Utiliser les bibliothèques==
+Le moyen le plus simple pour utiliser une bibliothèque est habituellement de charger d'abord le module correspondant avec
+{{Command|module load library_name/x.y.z}}
+
+Une fois le module chargé, vous pouvez modifier les liens établis au cours du processus de ''build'' pour inclure la bibliothèque, par exemple
+{{Command|gcc -o my_prog file1.o file2.o -lnetcdf}}
+pour lier avec la bibliothèque NetCDF.
+
+Sur la ligne pour le lien, le nom de la bibliothèque doit être préfixé par <tt>-l</tt>; il s'agit d'un fichier de type <tt>.a</tt> ou <tt>.so</tt>. Vous trouverez dans la documentation relative à la bibliothèque le nom de ce fichier et l'ordre dans lequel les liens doivent être établis dans les cas où vous avez plusieurs de ces fichiers. Le module pour la bibliothèque doit être chargé pour effectuer le ''build'', mais aussi pour exécuter l'application compilée à l'aide de la bibliothèque.
+
+Le module pour la bibliothèque doit être chargé pour effectuer le ''build'', mais aussi pour exécuter l'application compilée à l'aide de la bibliothèque.
+
+Le chargement du module d'une bibliothèque configure les variables d'environnement <tt>CPATH</tt> et <tt>LIBRARY_PATH</tt> pour qu'elles pointent sur la bibliothèque elle-même et ses fichiers d’en-tête (voir [[Utiliser des modules]]). La plupart des compilateurs, dont [https://software.intel.com/en-us/node/522775 Intel] et [https://gcc.gnu.org/onlinedocs/gcc/Environment-Variables.html GCC] peuvent traiter ces variables; aux étapes de compilation et de construction des liens, les compilateurs iront automatiquement aux bibliothèques indiquées par les variables d'environnement. 
+Ceci permet de facilement établir un lien avec une bibliothèque sans devoir en indiquer le chemin avec les options <tt>-I</tt> et <tt>-L</tt>. Si votre fichier ''make''- ou ''config-'' demande l'endroit spécifique où se trouve la bibliothèque avec <tt>-I</tt> et <tt>-L</tt>, vous pouvez habituellement omettre d’indiquer le chemin en laissant les lignes vides.
+
+Dans certains cas cependant, particulièrement avec <tt>cmake</tt>, il peut être nécessaire d'indiquer de manière explicite la localisation de la bibliothèque fournie par le module. La solution préférée et la plus robuste est d'utiliser la variable d'environnement EasyBuild <tt>EBROOT...</tt> plutôt que d'entrer manuellement le chemin. Ceci permet de facilement utiliser différentes chaînes de compilation (''toolchains'') sans modifier les instructions de compilation, en plus de minimiser le risque de lier une bibliothèque non apparentée. Par exemple, pour indiquer la localisation de la bibliothèque GSL, l'option pour <tt>cmake</tt> pourrait ressembler à <tt>-DGSL_DIR=$EBROOTGSL</tt>. Les variables d'environnement <tt>EBROOT...</tt> utilisent la même syntaxe, soit <tt>EBROOT</tt> suivi par le nom du paquet, par exemple <tt>EBROOTGCC</tt>.
+
+== BLAS/LAPACK et MKL ==
+Voyez notre page wiki [[BLAS and LAPACK/fr|BLAS et LAPACK]].
+
+== apt-get et yum  ==
+Si le logiciel fait appel à <code>apt-get</code> ou <code>yum</code>, il est peu probable que vous puissiez l'installer avec ces instructions. Repérez les instructions ''to build from source'' ou contactez le [mailto:support@computecanada.ca soutien technique].
+
+== Paquets Python, R et Perl ==
+Les langages Python, R, et Perl offrent d'importantes bibliothèques d'extensions; presque toutes peuvent être facilement installées dans votre répertoire /home. Consultez les pages [[Python/fr|Python]], [[R/fr|R]] et [[Perl/fr|Perl]] pour savoir si le paquet dont vous avez besoin est disponible; si ce n'est pas le cas, vous trouverez aussi dans cette documentation l'information nécessaire pour l’installer par vous-même.
+
+==Installer des paquets binaires==
+L'installation de binaires précompilés dans votre espace /home pourrait générer une erreur comme <code>/lib64/libc.so.6: version 'GLIBC_2.18' not found</code>. Le script <code>setrpaths.sh</code> peut souvent éliminer ce problème avec la syntaxe <code>setrpaths.sh --path path [--add_origin]</code> où ''path'' représente le répertoire dans lequel vous avez installé le logiciel. Le script fait en sorte que les binaires utilisent le bon interpréteur et trouvent les bibliothèques auxquelles ils sont dynamiquement liés, dans le bon répertoire. L'option <code>--add_origin</code> ajoute aussi $ORIGIN au RUNPATH, ce qui peut s'avérer utile si la bibliothèque est incapable de trouver d'autres bibliothèques dans le répertoire où elle est située.
+
+Note :
+* Certains fichiers d'archive comme <code>.jar</code> (Java) ou <code>.whl</code> ([https://pythonwheels.com/ Python wheels]) peuvent contenir des objets qui devront être corrigés. Le script <code>setrpaths.sh</code> extrait ces objets, les corrige et met à jour le fichier d'archive.
+
+== Environnement logiciel ==
+Le système de fichiers CVMFS (<i>shared software distribution system</i>) rend presque tous les logiciels disponibles sur les nouvelles grappes. Sous Linux, les logiciels seraient typiquement installés dans <code>/usr/bin</code>, <code>/usr/include</code> et ainsi de suite, alors que dans notre cas, ils sont installés de manière identique sur toutes les nouvelles grappes sous <code>/cvmfs/soft.computecanada.ca</code>.
+
+Le module <code>gentoo/2023</code> est chargé par défaut et agit comme cœur pour cette [[Standard software environments/fr|pile logicielle]] qui est gérée par le gestionnaire de paquets Gentoo situé sous <code>/cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr</code>. Pour référer à ce chemin, utilisez la variable d'environnement <code>$EBROOTGENTOO</code>.
+
+À cet endroit se trouvent tous les paquets usuels fournis dans un environnement Linux dont  <code>make</code>, <code>ls</code>, <code>cat</code>, <code>grep</code>. À la compilation d'un logiciel, le compilateur et l'éditeur de liens cherchent typiquement les fichiers d'en-tête et les bibliothèques à l'endroit approprié (avec les variables d'environnement <code>$CPATH</code> et <code>$LIBRARY_PATH</code> respectivement). 
+
+Cependant, dans le cas de certains logiciels, <code>/usr</code> est explicitement indiqué; si c'est le cas, la compilation s'arrête et vous devrez spécifier <code>$EBROOTGENTOO</code>. Il faudra quelquefois ajuster un Makefile, passer un indicateur <code>--with-</code> via le script de compilation ou éditer un fichier de configuration. Si vous ne savez pas comment procéder, contactez le [[Technical support/fr|soutien technique]].
+
+De la même manière, si un paquet dépend d'une bibliothèque provenant d'un module autre que <code>gentoo</code>, vous devrez peut-être spécifier où se trouvent les fichiers d'en-tête et les bibliothèques du module. Ces autres modules ont aussi une variable d'environnement commençant par EBROOT et se terminant par le nom du module en majuscules. Par exemple, après avoir exécuté la commande <code>module load hdf5</code>, son installation se trouvera dans <code>$EBROOTHDF5</code>, ses fichiers d'en-tête dans <code>$EBROOTHDF5/include</code>, ses fichiers de bibliothèque dans <code>$EBROOTHDF5/lib</code> et ainsi de suite.
+
+Si un fichier d'en-tête ou une bibliothèque habituellement offerts dans une distribution de type Linux par un RPM ou autre gestionnaire de paquets ne se trouvent ni par <code>gentoo</code>, ni par un autre module, veuillez nous en informer; nous pourrons très probablement l'ajouter.
+
+'''Notes'''
+
+* Tous les binaires sous <code>/cvmfs/soft.computecanada.ca</code> utilisent un RUNPATH; les répertoires des bibliothèques d'exécution desquels dépendent ces binaires sont placés dans le binaire. Il <b>n'est donc pas nécessaire</b> d'utiliser <code>$LD_LIBRARY_PATH</code>. En fait, <code>$LD_LIBRARY_PATH</code> a préséance sur le RUNPATH et cette variable d'environnement ne devrait pas se trouver dans des endroits comme <code>/usr/lib64</code> ou <code>$EBROOTGENTOO/lib</code>. Si vous procédez ainsi, plusieurs binaires ne fonctionneront pas.
+* En dernier recours, utilisez <code>module --force purge</code> pour éliminer l'environnement CVMFS. Vous obtiendrez ainsi une installation AlmaLinux-9 brute, sans modules. Ceci peut servir dans des cas spéciaux où vous compilez GCC par vous-même ou quand vous utilisez des chaînes d'outils de compilation comme [http://www.astro.wisc.edu/~townsend/static.php?ref=mesasdk MESA SDK]. Il ne serait nécessaire de purger des modules qu'à la compilation et ils peuvent être chargés à nouveau au lancement du logiciel.
+
+<span id="Compiling_on_compute_nodes"></span>
+== Compiler avec un nœud de calcul ==
+
+Dans la plupart des cas, vous pouvez compiler avec un nœud de connexion. Toutefois, si le code doit être développé à l'aide d'un nœud
+* avec un GPU, ou
+* avec un CPU Skylake,
+vous devriez démarrer une [[Running jobs/fr#Tâches_interactives|tâche interactive]] dans un serveur qui possède le matériel approprié et compiler de cet endroit.

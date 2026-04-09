@@ -1,0 +1,50 @@
+{{draft}}
+
+[https://www.classiq.io/ Classiq] is quantum computing software that lets you design, optimize and execute quantum programs and is free to use for academic researchers (sign up on [https://www.classiq.io/ classiq.io] with an institutional email). 
+
+The software can be used via their online platform, [https://platform.classiq.io/ platform.classiq.io]. Execution of quantum programs designed and optimized with Classiq can be run on multiple provider backends. Classiq also provides a [https://docs.classiq.io/latest/sdk-reference/ Python SDK] that can be used on other platforms.
+
+'''NOTE:''' While Classiq is largely hardware independent for execution, synthesizing (compiling) quantum programs with Classiq requires use of the Classiq platform via their API and requires authentication. Therefore, even if using local execution, synthesis can only be done on compute nodes with internet access. As such, [[Fir]] and [[Nibi]] are suitable choices for using Classiq.
+
+=Installation= 
+
+Installation on Alliance clusters is straightforward. Classiq will work with all versions of Python >= 3.11:
+<pre>
+module load python/3.11 scipy-stack/2025a
+virtualenv --no-download ~/ENV && source ~/ENV/bin/activate
+pip install --no-index --upgrade pip
+pip install --no-index classiq
+</pre>
+
+=Authentication on Alliance Clusters=
+
+Before using the Python SDK with Classiq, you will need to authenticate with Classiq on one of the login nodes. This requires first signing up for an account with Classiq at [https://platform.classiq.io/#sign-up platform.classiq.io]. In order to obtain the free academic use license, please sign up using your institutional email.
+
+1. Sign up for an account with Classiq at [https://platform.classiq.io/#sign-up platform.classiq.io]
+
+2. Proceed with installation of the [https://docs.classiq.io/latest/sdk-reference/ Python SDK] using the instructions above.
+
+3. Activate the virtual environment in which you installed Classiq and start a python terminal.
+<pre>
+(ENV) [user@server ~]$ python
+Python 3.11.5 (main, Sep 19 2023, 16:07:22) [GCC 12.3.1 20230526] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>>
+</pre>
+
+4. Import the authenticate module and run the authentication, this will open a browser window, press "q" and confirm with "Y" to exit the browser:
+<pre>
+>>> from classiq import authenticate
+>>> authenticate()
+</pre>
+
+[[File:Classiq terminal browser.png|800px|frameless|alt=Elinks terminal browser showing the Classiq authentication website|Elinks terminal browser showing the Classiq authentication website]]
+
+5. After quitting the browser, you will see a message, giving a URL to the authentication website. You can copy and paste this website into a browser on your own computer and sign into Classiq to verify:
+<pre>
+>>> authenticate()
+If a browser doesn't automatically open, please visit this URL from any trusted device to authenticate: <URL>
+Your user code: <XXXX-XXXX>
+</pre>
+
+6. Verify the user code given on the Classiq website matches that shown in the terminal on the cluster and proceed with authentication.

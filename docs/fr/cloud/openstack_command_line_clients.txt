@@ -1,0 +1,186 @@
+<languages/>
+
+''Page enfant de [[Managing your cloud resources with OpenStack]]''
+
+[http://docs.openstack.org/developer/python-openstackclient/ OpenStackClient] permet d'utiliser plusieurs fonctions du tableau de bord OpenStack, ainsi que d'autres fonctions qui ne sont pas disponibles par l'interface graphique. Pour l'utiliser sur tout genre de machine, virtuelle ou autre, il suffit d'installer le client et de disposer d'une connexion Internet. Les exemples de cette page sont sous Linux.
+
+==Installation==
+Les outils ligne de commande OpenStack sont pour Python et fonctionnent sur un ordinateur personnel ou sur une instance infonuagique. Les différentes distributions  de Linux peuvent offrir des paquets précompilés; pour les détails, consultez la [https://docs.openstack.org/user-guide/common/cli-install-openstack-command-line-clients.html documentation d'installation]. Si vous avez les permissions d'administrateur, vous pouvez rapidement installer Python et les outils ligne de commande OpenStack.
+
+; Ubuntu
+<pre>
+sudo apt-get install python python-dev python-pip
+sudo pip install python-openstackclient
+</pre>
+; CentOS 7
+Exécuter en tant que root.
+<pre>
+yum install epel-release
+yum install gcc python python-dev python2-pip
+pip install python-openstackclient
+</pre>
+; Fedora
+<pre>
+sudo dnf install python-openstackclient
+</pre>
+; Note: Si vous ne possédez pas les permissions d'administrateur, vous devez installer Python et [https://pip.pypa.io/en/latest/installing/ pip] autrement. Une fois l'installation complétée, vous pouvez installer les outils ligne de commande dans votre espace ''home'' comme suit&nbsp;:
+<pre>
+pip install --user python-openstackclient
+</pre>
+: La destination de l'installation est probablement incluse dans le <code>$PATH</code>; vous pouvez cependant vérifier si <code>~/.bashrc</code> ou <code>~/.bash_profile</code> inclut la ligne <code>PATH=$PATH:$HOME/.local/bin:$HOME/bin</code>.
+
+; SDK
+Pour explorer les [http://docs.openstack.org/user-guide/sdk.html APIs pour Python], ajoutez <code>export PYTHONPATH=${HOME}/.local/lib/python2.7/site-packages/:${PYTHONPATH}</code> et modifiez  <code>python2.7</code> en fonction de la version de Python installée.
+
+==Connecter le client ligne de commande à OpenStack==
+Vous devez indiquer au client où trouver le projet OpenStack dans notre environnement infonuagique. 
+Le moyen le plus simple est de télécharger un fichier de configuration via le tableau de bord OpenStack, ainsi&nbsp;: ''Projet -> Accès API -> Télécharger le fichier RC d’OpenStack''. 
+
+Exécutez ensuite la commande {{Commande |source <project name>-openrc.sh}}. Lorsque vous devez entrer le mot de passe OpenStack, entrez votre mot de passe pour notre base de données CCDB. Pour tester la configuration, entrez {{Commande |openstack image list}}.
+
+Si vous utilisez plusieurs fichiers RC, méfiez-vous des variables d'environnement qui subsisteraient du dernier fichier RC utilisé car elles pourraient empêcher l'exécution des commandes client OpenStack. Vous pouvez contourner ce problème de deux manières&nbsp;: en détruisant les variables avec <code>unset <variable-name></code> ou en démarrant une nouvelle session sans variables définies.
+
+==Exécuter les commandes==
+Le client ligne de commande peut être utilisé interactivement en entrant
+{{Commande|openstack}}
+
+Entrez ensuite les commandes à l'invite. Chaque commande peut être entrée individuellement en la faisant précéder de <code>openstack</code>, par exemple
+{{Commande|openstack server list}}
+En mode interactif, faites afficher la liste des commandes disponibles en entrant <code>help</code>  à l'invite OpenStack. Les commandes disponibles sont classées en groupes; les plus communes sont présentées plus loin. Pour obtenir la liste des commandes appartenant à un groupe particulier, entrez <code>help <command group></code>. Pour obtenir les options et arguments liés à une commande, entrez <code>help <command group> <command></code>. Sachez que plusieurs commandes ne sont disponibles qu'aux utilisateurs ayant les permissions d'administrateur et que dans le cas contraire, un message d'erreur sera affiché. Les commandes qui suivent sont disponibles pour tous les utilisateurs.
+
+==Groupes de commandes==
+===Commandes <code>server</code>===
+{|-
+|	<code>add security group</code>  ||	<code>migrate</code>	||	<code>resume</code>	||	<code>unlock</code>
+|-
+|	<code>add volume</code>	||	<code>pause</code>	||	<code>set</code>	||	<code>unpause</code>
+|-
+|	<code>create</code>	||	<code>reboot</code>	||	<code>shelve</code>	||	<code>unrescue</code>
+|-
+|	<code>delete</code>	||	<code>rebuild</code>	||	<code>show</code>	||	<code>unset</code>
+|-
+|	<code>dump create</code>	||	<code>remove security group</code>	||	<code>ssh</code>	||	<code>unshelve</code>
+|-
+|	<code>image create</code>	||	<code>remove volume</code>        	||	<code>start</code>	||	
+|-
+|	<code>list</code>	||	<code>rescue</code>  	||	<code>stop</code>		
+|-
+|	<code>lock</code>	||	<code>resize</code>	||	<code>suspend</code>		
+|}
+
+===Commandes <code>volume</code>===
+{|-
+|<code>create</code>||<code>set</code>
+|-
+|<code>delete</code>||<code>show</code>
+|-
+|<code>list</code>||<code>unset</code>
+|}
+
+===Commandes <code>console</code>===
+{|-
+|<code>log show</code>||<code>url show</code>
+|}
+===Commandes <code>flavor</code>===
+{|-
+|<code>list</code>||<code>show</code>
+|}
+===Commandes <code>image</code>===
+{|-
+|<code>create</code>
+|<code>save</code>
+|-
+|<code>delete</code>
+|<code>set</code>
+|-
+|<code>list</code>
+|<code>show</code>
+|}
+
+===Commandes <code>ip</code>===
+{|-
+|<code>fixed add</code>||<code>floating list</code>
+|-
+|<code>fixed remove</code>||<code>floating pool list</code>
+|-
+|<code>floating add</code>||<code>floating remove</code>
+|-
+|<code>floating create</code>||<code>floating show</code>
+|-
+|<code>floating delete</code>
+|}
+===Commandes <code>keypair</code>===
+{|-
+|<code>create</code>||<code>list</code>
+|-
+|<code>delete</code>||<code>show</code>
+|}
+
+===Commandes <code>network</code>===
+{|-
+|<code>create</code>||<code>set</code>
+|-
+|<code>delete</code>||<code>show</code>
+|-
+|<code>list</code>||
+|}
+
+===Commandes <code>snapshot</code>===
+{|-
+|<code>create</code>||<code>set</code>
+|-
+|<code>delete</code>||<code>show</code>
+|-
+|<code>list</code>||<code>unset</code>
+|}
+
+===Commandes <code>security group</code>===
+{|-
+|<code>create</code>||<code>rule list</code>
+|-
+|<code>delete</code>||<code>rule show</code>
+|-
+|<code>list</code>||<code>set</code>
+|-
+|<code>rule create</code>||<code>show</code>
+|-
+|<code>rule delete</code>||
+|}
+
+===Commandes <code>limits</code>===
+{|-
+|<code>show</code>||
+|}
+<!--These two (container and object) are not widely publicized
+===container===
+{|-
+|<code>create</code>||<code>set</code>
+|-
+|<code>delete</code>||<code>show</code>
+|-
+|<code>list</code>||<code>unset</code>
+|-
+|<code>save</code>
+|}
+===object===
+{|-
+|<code>create</code>||<code>show</code>
+|-
+|<code>delete</code>||<code>store account set</code>
+|-
+|<code>list</code>||<code>store account show</code>
+|-
+|<code>save</code>||<code>store account unset</code>
+|-
+|<code>set</code>||<code>unset</code>
+|}
+-->
+
+==Autres interfaces==
+En plus de la commande <code>openstack</code> (décrite ci-dessus) qui incorpore dans une même commande la plupart des fonctionnalités, il existe aussi des commandes distinctes pour les divers composants OpenStack qui ajoutent d'autres fonctionnalités. Ces commandes sont installées en même temps que la commande <code>openstack</code> et aucune autre installation n'est nécessaire. Ces commandes sont :
+* [https://docs.openstack.org/python-novaclient/latest/cli/nova.html <code>nova</code>] pour travailler avec des serveurs;
+* [https://docs.openstack.org/python-glanceclient/latest/cli/glance.html <code>glance</code>] pour travailler avec des images;
+* [https://docs.openstack.org/python-cinderclient/latest/user/shell.html <code>cinder</code>] pour travailler avec des volumes;
+* [https://docs.openstack.org/python-heatclient/latest/man/heat.html <code>heat</code>] pour travailler avec l'orchestration.
+
+[[Category: Cloud]]
