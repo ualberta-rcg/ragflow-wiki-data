@@ -36,13 +36,19 @@ jobs:
 
       - name: Commit changes (if any)
         run: |
-          git add -A docs/ manifest.json
+          git add -A docs/ manifest.json config/processing-state.json
           
           if git diff --staged --quiet; then
             echo "No changes to commit."
             exit 0
           fi
           
+          # Count changes from manifest
+          NEW=$(grep -c '"change_status": "new"' manifest.json || echo 0)
+          UPDATED=$(grep -c '"change_status": "updated"' manifest.json || echo 0)
+          
           ts="$(date -u +"%Y-%m-%d %H:%M:%S UTC")"
-          git commit -m "Update wiki pages ($ts)"
+          git commit -m "Update wiki pages ($ts)
+
+          New: $NEW, Updated: $UPDATED"
           git push origin HEAD:${{ github.ref_name }}

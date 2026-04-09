@@ -2,17 +2,22 @@
 """
 Download wiki pages from Alliance MediaWiki and organize into directories.
 Organizes by language (en/fr/base) and category.
+Tracks processing state with content hashes.
 """
 
 import requests
 import re
 import os
 import json
+import hashlib
 from pathlib import Path
 from collections import defaultdict
+from datetime import datetime, timezone
 
 API_ENDPOINT = "https://docs.alliancecan.ca/mediawiki/api.php"
 OUTPUT_DIR = Path("docs")
+CONFIG_DIR = Path("config")
+STATE_FILE = CONFIG_DIR / "processing-state.json"
 
 # Category mapping - wiki category -> directory
 CATEGORY_MAP = {
@@ -37,6 +42,29 @@ SKIP_CATEGORIES = [
     "deprecated", "broken", "syntax", "template", "noindex", 
     "outdated", "draft", "migration", "video", "pages using", "pages with"
 ]
+
+
+def md5_str(s: str) -> str:
+    """Compute MD5 hash of a string."""
+    return hashlib.md5(s.encode("utf-8")).hexdigest()
+
+
+def now_iso() -> str:
+    """Return current UTC timestamp in ISO format."""
+    return datetime.now(timezone.utc).isoformat()
+
+
+def load_state() -> dict:
+    """Load processing state from file."""
+    if STATE_FILE.exists():
+        return json.loads(STATE_FILE.read_text())
+    return {"_description": "Tracks processing state for each document", "documents": {}}
+
+
+def save_state(state: dict):
+    """Save processing state to file."""
+    CONFIG_DIR.mkdir(parents=True, exist_ok=True)
+    STATE_FILE.write_text(json.dumps(state, indent=2))
 
 
 def get_all_pages():
@@ -104,6 +132,10 @@ def category_to_dir(cat):
 
 
 def main():
+    print("Loading processing state...")
+    state = load_state()
+    docs_state = state.get("documents", {})
+    
     print("Fetching page list...")
     titles = get_all_pages()
     print(f"Found {len(titles)} pages\n")
@@ -111,10 +143,14 @@ def main():
     stats = {
         "total": 0,
         "redirects": 0,
+        "new": 0,
+        "updated": 0,
+        "unchanged": 0,
         "by_category": defaultdict(int),
         "by_lang": defaultdict(int),
     }
     manifest = []
+    timestamp = now_iso()
 
     for i, title in enumerate(titles):
         if i % 50 == 0:
@@ -141,25 +177,77 @@ def main():
         slug = slugify(base_title)
         out_dir = OUTPUT_DIR / lang / cat_dir
         out_dir.mkdir(parents=True, exist_ok=True)
-
         out_file = out_dir / f"{slug}.txt"
+        
+        # Compute content hash
+        content_hash = md5_str(content)
+        
+        # Check if content changed
+        doc_key = f"{lang}/{slug}"
+        prev_state = docs_state.get(doc_key, {})
+        prev_hash = prev_state.get("source_hash", "")
+        
+        if not prev_hash:
+            stats["new"] += 1
+            change_status = "new"
+        elif prev_hash != content_hash:
+            stats["updated"] += 1
+            change_status = "updated"
+        else:
+            stats["unchanged"] += 1
+            change_status = "unchanged"
+        
+        # Write file
         out_file.write_text(content, encoding="utf-8")
+        
+        # Update state
+        if doc_key not in docs_state:
+            docs_state[doc_key] = {}
+        
+        docs_state[doc_key].update({
+            "wiki_title": title,
+            "base_title": base_title,
+            "lang": lang,
+            "source_hash": content_hash,
+            "downloaded_at": timestamp,
+            "path": str(out_file),
+            "wiki_categories": cats,
+        })
+        
+        # Mark if content changed (needs reprocessing)
+        if change_status in ("new", "updated"):
+            docs_state[doc_key]["needs_tagging"] = True
+            docs_state[doc_key]["needs_keywords"] = True
+            docs_state[doc_key]["needs_ragflow_sync"] = True
 
         manifest.append({
             "title": title,
             "base_title": base_title,
             "lang": lang,
+            "slug": slug,
+            "doc_key": doc_key,
             "categories": cats,
             "primary_category": primary_cat,
-            "path": str(out_file)
+            "path": str(out_file),
+            "content_hash": content_hash,
+            "change_status": change_status,
         })
 
     # Save manifest
     Path("manifest.json").write_text(json.dumps(manifest, indent=2), encoding="utf-8")
+    
+    # Save updated state
+    state["documents"] = docs_state
+    state["last_download"] = timestamp
+    save_state(state)
 
     print(f"\n=== Summary ===")
     print(f"Total content pages: {stats['total']}")
     print(f"Redirects skipped: {stats['redirects']}")
+    print(f"\nChanges:")
+    print(f"  New: {stats['new']}")
+    print(f"  Updated: {stats['updated']}")
+    print(f"  Unchanged: {stats['unchanged']}")
     print(f"\nBy language:")
     for lang, count in sorted(stats["by_lang"].items()):
         print(f"  {lang}: {count}")
@@ -167,6 +255,7 @@ def main():
     for cat, count in sorted(stats["by_category"].items(), key=lambda x: -x[1])[:10]:
         print(f"  {cat}: {count}")
     print(f"\nDone. Files saved to {OUTPUT_DIR}/")
+    print(f"State saved to {STATE_FILE}")
 
 
 if __name__ == "__main__":
