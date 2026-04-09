@@ -1,0 +1,49 @@
+name: Download Status Page
+
+on:
+  workflow_dispatch: {}
+  schedule:
+    # 6 hours after wiki download (Friday 12:00 UTC)
+    - cron: "0 12 * * 5"
+
+permissions:
+  contents: write
+
+jobs:
+  download-status:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install requests beautifulsoup4
+
+      - name: Download status page
+        run: python scripts/download-status.py
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Commit changes (if any)
+        run: |
+          git add -A docs/status/ config/processing-state.json
+          
+          if git diff --staged --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+          
+          ts="$(date -u +"%Y-%m-%d %H:%M:%S UTC")"
+          git commit -m "Update status page ($ts)"
+          git push origin HEAD:${{ github.ref_name }}
