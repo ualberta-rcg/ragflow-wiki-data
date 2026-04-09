@@ -12,6 +12,9 @@ import re
 from pathlib import Path
 from datetime import datetime, timezone
 
+sys.path.insert(0, str(Path(__file__).parent))
+from shared import category_to_dir
+
 REPO_ROOT = Path(__file__).parent.parent
 DOCS_DIR = REPO_ROOT / "docs"
 CONFIG_DIR = REPO_ROOT / "config"
@@ -198,12 +201,9 @@ def process_doc(doc_key, doc_state):
     lang = doc_state.get("lang", "en")
     slug = doc_key.split("/")[-1] if "/" in doc_key else doc_key
     
-    # Use category for subdirectory
     categories = doc_state.get("wiki_categories", [])
-    if categories:
-        subdir = categories[0].lower().replace(" ", "-")
-    else:
-        subdir = "general"
+    primary_cat = categories[0] if categories else "uncategorized"
+    subdir = category_to_dir(primary_cat)
     
     out_dir = MKDOCS_OUTPUT_DIR / lang / subdir
     out_file = out_dir / f"{slug}.md"
@@ -229,8 +229,11 @@ def main():
     
     # Filter to docs needing conversion
     # Convert if: needs_mkdocs_convert=True OR source_hash changed since last conversion
+    SKIP_DOC_PREFIXES = ("events/", "status/")
     to_convert = []
     for k, v in docs.items():
+        if k.startswith(SKIP_DOC_PREFIXES):
+            continue
         needs_convert = v.get("needs_mkdocs_convert", True)
         
         # Also check if source changed since last conversion

@@ -86,15 +86,17 @@ def main():
     out_file = OUTPUT_DIR / "events.json"
     out_file.write_text(content, encoding="utf-8")
     
-    # Update state
-    docs_state[doc_key] = {
+    # Update state (merge, don't replace -- preserves ragflow_source_hash etc.)
+    if doc_key not in docs_state:
+        docs_state[doc_key] = {}
+    docs_state[doc_key].update({
         "source_url": URL,
         "source_hash": content_hash,
         "downloaded_at": timestamp,
         "path": str(out_file),
         "event_count": len(events),
         "change_status": change_status,
-    }
+    })
     
     if change_status in ("new", "updated"):
         docs_state[doc_key]["needs_ragflow_sync"] = True

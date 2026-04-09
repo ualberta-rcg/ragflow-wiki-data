@@ -15,6 +15,7 @@ import os
 import sys
 import json
 import time
+import argparse
 from pathlib import Path
 from datetime import datetime, timezone
 
@@ -58,10 +59,37 @@ def doc_key_to_filename(doc_key):
     return f"{doc_key.replace('/', '--')}.txt"
 
 
+def doc_exists_in_ragflow(dataset, doc_key, doc_state):
+    """Check if a doc actually exists in RAGFlow (by ID or name)."""
+    doc_id = doc_state.get("ragflow_doc_id")
+    if doc_id:
+        try:
+            results = dataset.list_documents(id=doc_id)
+            if results:
+                return True
+        except Exception:
+            pass
+
+    filename = doc_key_to_filename(doc_key)
+    try:
+        results = dataset.list_documents(name=filename)
+        if results:
+            return True
+    except Exception:
+        pass
+
+    return False
+
+
+SKIP_DOC_PREFIXES = ("events/", "status/")
+
+
 def get_docs_needing_sync(state, limit=None):
     """Get docs where source_hash != ragflow_source_hash (hash-driven)."""
     docs = []
     for doc_key, doc_state in state.get("documents", {}).items():
+        if doc_key.startswith(SKIP_DOC_PREFIXES):
+            continue
         current_hash = doc_state.get("source_hash", "")
         synced_hash = doc_state.get("ragflow_source_hash", "")
 
@@ -70,6 +98,22 @@ def get_docs_needing_sync(state, limit=None):
         if limit and len(docs) >= limit:
             break
     return docs
+
+
+def verify_synced_docs(state, dataset, limit=None):
+    """Find docs that claim to be synced but are missing from RAGFlow."""
+    missing = []
+    for doc_key, doc_state in state.get("documents", {}).items():
+        if doc_key.startswith(SKIP_DOC_PREFIXES):
+            continue
+        if not doc_state.get("ragflow_source_hash"):
+            continue
+        if not doc_exists_in_ragflow(dataset, doc_key, doc_state):
+            print(f"  Missing from RAGFlow: {doc_key}")
+            missing.append((doc_key, doc_state))
+            if limit and len(missing) >= limit:
+                break
+    return missing
 
 
 def delete_from_ragflow(dataset, doc_key, doc_state):
@@ -199,22 +243,36 @@ def process_doc(dataset, doc_key, doc_state):
 
 
 def main():
+    parser = argparse.ArgumentParser(description="Sync docs to RAGFlow")
+    parser.add_argument("--force", action="store_true",
+                        help="Clear all ragflow_source_hash values, forcing full re-sync")
+    parser.add_argument("--verify", action="store_true",
+                        help="Check RAGFlow for missing docs before syncing")
+    args = parser.parse_args()
+
     print("=" * 60)
     print("RAGFlow Sync Pipeline")
     print("=" * 60)
     print(f"RAGFlow URL: {RAGFLOW_BASE_URL}")
     print(f"Batch size: {BATCH_SIZE}")
     print(f"Dry run: {DRY_RUN}")
+    if args.force:
+        print("Mode: FORCE (re-sync everything)")
+    if args.verify:
+        print("Mode: VERIFY (check RAGFlow for missing docs)")
     print()
 
     state = load_state()
-    docs_to_sync = get_docs_needing_sync(state, limit=BATCH_SIZE if BATCH_SIZE > 0 else None)
 
-    if not docs_to_sync:
-        print("No documents need syncing (all hashes match).")
-        return 0
-
-    print(f"Found {len(docs_to_sync)} documents with changed hashes")
+    # --force: clear all ragflow hashes so every doc looks like it needs sync
+    if args.force:
+        cleared = 0
+        for doc_state in state.get("documents", {}).values():
+            if doc_state.get("ragflow_source_hash"):
+                doc_state["ragflow_source_hash"] = ""
+                cleared += 1
+        print(f"Force mode: cleared ragflow_source_hash on {cleared} docs")
+        save_state(state)
 
     # Connect to RAGFlow
     print(f"\nConnecting to RAGFlow...")
@@ -229,6 +287,27 @@ def main():
     except Exception as e:
         print(f"ERROR: Could not connect to RAGFlow: {e}")
         return 1
+
+    # --verify: find docs that claim synced but are missing from RAGFlow
+    if args.verify:
+        print(f"\nVerifying synced docs exist in RAGFlow...")
+        missing = verify_synced_docs(state, dataset)
+        if missing:
+            print(f"\n{len(missing)} docs missing from RAGFlow, clearing their hashes")
+            for doc_key, doc_state in missing:
+                doc_state["ragflow_source_hash"] = ""
+                doc_state["ragflow_doc_id"] = ""
+            save_state(state)
+        else:
+            print("All synced docs verified in RAGFlow")
+
+    docs_to_sync = get_docs_needing_sync(state, limit=BATCH_SIZE if BATCH_SIZE > 0 else None)
+
+    if not docs_to_sync:
+        print("\nNo documents need syncing (all hashes match).")
+        return 0
+
+    print(f"\nFound {len(docs_to_sync)} documents needing sync")
 
     processed = 0
     failed = 0

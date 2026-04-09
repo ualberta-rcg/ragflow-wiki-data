@@ -8,34 +8,20 @@ Tracks processing state with content hashes.
 import requests
 import re
 import os
+import sys
 import json
 import hashlib
 from pathlib import Path
 from collections import defaultdict
 from datetime import datetime, timezone
 
+sys.path.insert(0, str(Path(__file__).parent))
+from shared import category_to_dir
+
 API_ENDPOINT = "https://docs.alliancecan.ca/mediawiki/api.php"
 OUTPUT_DIR = Path("docs")
 CONFIG_DIR = Path("config")
 STATE_FILE = CONFIG_DIR / "processing-state.json"
-
-# Category mapping - wiki category -> directory
-CATEGORY_MAP = {
-    "software": "software",
-    "computationalchemistry": "software/chemistry",
-    "biomolecularsimulation": "software/molecular-sim",
-    "ai and machine learning": "software/ai-ml",
-    "bioinformatics": "software/bioinformatics",
-    "cloud": "cloud",
-    "cc-cloud": "cloud",
-    "slurm": "scheduling",
-    "connecting": "getting-started",
-    "se connecter": "getting-started",
-    "cvmfs": "software/cvmfs",
-    "tutorials": "tutorials",
-    "policy": "policies",
-    "user installed software": "software/user-installed",
-}
 
 # Categories to skip (maintenance/meta)
 SKIP_CATEGORIES = [
@@ -124,11 +110,6 @@ def detect_language(title):
 def slugify(title):
     """Convert title to safe filename."""
     return re.sub(r'[^\w\-]', '_', title.lower()).strip('_')
-
-
-def category_to_dir(cat):
-    """Map category to directory name."""
-    return CATEGORY_MAP.get(cat.lower(), "general")
 
 
 def main():
@@ -254,7 +235,8 @@ def main():
         lang = doc_info.get("lang", "en")
         slug = doc_key.split("/")[-1] if "/" in doc_key else doc_key
         cats = doc_info.get("wiki_categories", [])
-        subdir = cats[0].lower().replace(" ", "-") if cats else "general"
+        primary_cat = cats[0] if cats else "uncategorized"
+        subdir = category_to_dir(primary_cat)
         mkdocs_path = Path("mkdocs-site") / "docs" / lang / subdir / f"{slug}.md"
         if mkdocs_path.exists():
             mkdocs_path.unlink()
