@@ -219,6 +219,7 @@ def main():
             docs_state[doc_key]["needs_tagging"] = True
             docs_state[doc_key]["needs_keywords"] = True
             docs_state[doc_key]["needs_ragflow_sync"] = True
+            docs_state[doc_key]["needs_mkdocs_convert"] = True
 
         manifest.append({
             "title": title,
