@@ -1,0 +1,61 @@
+name: Sync RAGFlow
+
+on:
+  workflow_dispatch:
+    inputs:
+      batch_size:
+        description: 'Number of docs to sync (0 = all)'
+        required: false
+        default: '5'
+      dry_run:
+        description: 'Dry run (no uploads)'
+        required: false
+        default: 'false'
+        type: boolean
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Sync to RAGFlow
+        env:
+          RAGFLOW_API_KEY: ${{ secrets.RAGFLOW_API_KEY }}
+          RAGFLOW_BASE_URL: ${{ secrets.RAGFLOW_BASE_URL }}
+          BATCH_SIZE: ${{ github.event.inputs.batch_size || '5' }}
+          DRY_RUN: ${{ github.event.inputs.dry_run || 'false' }}
+        run: python scripts/sync-ragflow.py
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Commit changes (if any)
+        run: |
+          git add config/processing-state.json
+          
+          if git diff --staged --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+          
+          ts="$(date -u +"%Y-%m-%d %H:%M:%S UTC")"
+          git commit -m "Sync RAGFlow keywords ($ts)"
+          git push origin HEAD:${{ github.ref_name }}
