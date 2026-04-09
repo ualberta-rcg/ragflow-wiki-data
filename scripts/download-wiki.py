@@ -16,7 +16,7 @@ from collections import defaultdict
 from datetime import datetime, timezone
 
 sys.path.insert(0, str(Path(__file__).parent))
-from shared import category_to_dir
+from shared import categorize_doc
 
 API_ENDPOINT = "https://docs.alliancecan.ca/mediawiki/api.php"
 OUTPUT_DIR = Path("docs")
@@ -154,8 +154,9 @@ def main():
         stats["by_category"][primary_cat] += 1
 
         # Build output path
-        cat_dir = category_to_dir(primary_cat)
         slug = slugify(base_title)
+        doc_key = f"{lang}/{slug}"
+        cat_dir = categorize_doc(doc_key, cats)
         out_dir = OUTPUT_DIR / lang / cat_dir
         out_dir.mkdir(parents=True, exist_ok=True)
         out_file = out_dir / f"{slug}.txt"
@@ -235,8 +236,7 @@ def main():
         lang = doc_info.get("lang", "en")
         slug = doc_key.split("/")[-1] if "/" in doc_key else doc_key
         cats = doc_info.get("wiki_categories", [])
-        primary_cat = cats[0] if cats else "uncategorized"
-        subdir = category_to_dir(primary_cat)
+        subdir = categorize_doc(doc_key, cats)
         mkdocs_path = Path("mkdocs-site") / "docs" / lang / subdir / f"{slug}.md"
         if mkdocs_path.exists():
             mkdocs_path.unlink()

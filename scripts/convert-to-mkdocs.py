@@ -13,7 +13,7 @@ from pathlib import Path
 from datetime import datetime, timezone
 
 sys.path.insert(0, str(Path(__file__).parent))
-from shared import category_to_dir
+from shared import categorize_doc
 
 REPO_ROOT = Path(__file__).parent.parent
 DOCS_DIR = REPO_ROOT / "docs"
@@ -202,8 +202,7 @@ def process_doc(doc_key, doc_state):
     slug = doc_key.split("/")[-1] if "/" in doc_key else doc_key
     
     categories = doc_state.get("wiki_categories", [])
-    primary_cat = categories[0] if categories else "uncategorized"
-    subdir = category_to_dir(primary_cat)
+    subdir = categorize_doc(doc_key, categories)
     
     out_dir = MKDOCS_OUTPUT_DIR / lang / subdir
     out_file = out_dir / f"{slug}.md"
