@@ -74,10 +74,15 @@ Remarque : JupiterHub peut aussi être configuré pour afficher une interface sp
 
 La description de l'interface JupyterLab se trouve maintenant à la [[JupyterLab/fr|page JupyterLab]].
 
-<span id="Possible_error_messages"></span>
+<span id="Troubleshooting"></span>
+<div class="mw-translate-fuzzy">
 = Messages d'erreur =
+</div>
 
+<span id="&quot;Spawn_failed:_Timeout&quot;"></span>
+<div class="mw-translate-fuzzy">
 == Spawn failed: Timeout ==
+</div>
 
 Les erreurs avec JupyterHub sont généralement causées par l'ordonnanceur de tâches sous-jacent qui ne répond pas ou qui est incapable de trouver les ressources appropriées pour votre session, par exemple
 
@@ -87,12 +92,29 @@ Les erreurs avec JupyterHub sont généralement causées par l'ordonnanceur de t
 ** Si vous avez une autre tâche interactive sur la même grappe, votre session Jupyter sera placée en file d'attente avec les autres tâches en lots. Si c'est possible, arrêtez ou annulez les autres tâches interactives avant d'utiliser JupyterHub.
 ** Il est possible qu'aucune ressource ne soit disponible à ce moment. Vérifiez si un problème est rapporté dans la page de l'[https://status.alliancecan.ca/ État des systèmes] et essayez de nouveau plus tard.
 
-<span id="Authentication_error:_Error_403"></span>
+<span id="&quot;Authentication_error:_Error_403&quot;"></span>
+<div class="mw-translate-fuzzy">
 == Erreur d'authentification 403 ==
+</div>
 
 Cette erreur survient quand votre compte ou votre accès à la grappe n'est plus valide.
 # Vérifiez si votre [https://alliancecan.ca/fr/services/calcul-informatique-de-pointe/gestion-de-compte/renouvellements-de-compte <b>compte a été renouvelé et qu'il est actif</b>]
 # Assurez-vous  [https://ccdb.alliancecan.ca/me/access_services <b>d'avoir activé votre accès à la grappe.</b>]
+
+== Startup hangs ==
+
+If JupyterHub posts the message "Your server is starting up.  You will be redirected automatically when it's ready for you" and stays there indefinitely:
+* Check for the problems described above under "Spawn failed: Timeout".
+* If none of those seem to apply, log on to the cluster with an ordinary SSH client (since JH doesn't work).
+* Use <code>sq</code> to identify the Slurm job corresponding to your JupyterHub session.
+* Cancel the Slurm job with <code>scancel</code>.
+* Delete hidden Jupyter files with 
+<source>
+ cd ~
+ rm -r .local/share/jupyter
+ rm -r .jupyter
+</source>
+* Try again.  (Jupyter will recreate the hidden files.)
 
 <span id="References"></span>
 = Références =

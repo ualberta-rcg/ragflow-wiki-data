@@ -5,10 +5,10 @@ tags:
   - computationalchemistry
 
 keywords:
+  - Atomic data files
+  - Computational chemistry
   - ABINIT
   - Density functional theory
-  - Computational chemistry
-  - Atomic data files
   - Job script
 ---
 

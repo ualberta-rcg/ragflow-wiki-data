@@ -4,11 +4,13 @@
 <!--T:135-->
 <i>Parent page: [[Cloud]]</i>
 
-==Before you start== <!--T:48-->
+<!--T:48-->
+==Before you start==
 #<b>Have a cloud project</b> <br> <b>You cannot access a cloud without first having a cloud project.</b> If you don't already have a [[Managing_your_cloud_resources_with_OpenStack#Projects|cloud project]], see [[Cloud#Getting_a_cloud_project|Getting a cloud project]]. Once a cloud project is associated with your account, you will receive a confirmation email which will have important details you will need to access your project and get started with the cloud. Make sure you have this confirmation email ready. 
 #<b>Have a compatible browser</b> <br> The web interface for accessing your cloud project works well with both the [https://www.mozilla.org/en-US/firefox/new/ Firefox] and [https://www.google.com/chrome/ Chrome] web browsers. Other browsers may also work, however some have shown the error message <code>Danger: There was an error submitting the form. Please try again.</code> which suggests that your browser is not supported by our system. This error message was noticed with certain versions of the Safari web browser on Macs; upgrading Safari may help, but we recommend that you use [https://www.mozilla.org/en-US/firefox/new/ Firefox] or [https://www.google.com/chrome/ Chrome]. If you are still having issues, email [[technical support]].
 
-==Creating your first virtual machine== <!--T:26-->
+<!--T:26-->
+==Creating your first virtual machine==
 Your project will allow you to create virtual machines (also referred to as <i>instances</i> or <i>VMs</i>) stored on the cloud, which you can access from your personal computer using our web interface.
 
 <!--T:49-->
@@ -50,7 +52,8 @@ Instead, OpenStack creates your VM with one SSH (Secure Shell) public key instal
 <b>It is not advised to create key pairs in OpenStack because they are not created with a passphrase which creates security issues</b>
 <br /><br /><br /><br /><br /><br />
 
-===Launching a VM=== <!--T:9-->
+<!--T:9-->
+===Launching a VM===
 To create a virtual machine, select <i>Compute->Instances</i> on the left menu, then click on the <i>Launch Instance</i> button.
 
 <!--T:10-->
@@ -81,7 +84,8 @@ The <i>Launch Instance</i> window has the following options:
 #<i>Metadata:</i> Do not change this now.<br /><br />
 Once you have reviewed all the options and defined your virtual machine, click on the <i>Launch Instance</i> button and your virtual machine will be created. The list of instances will be displayed and the <i>Task</i>' field will show the current task for the VM; it will likely be <i>Spawning</i> initially. Once the VM has spawned, it will have the power state of <i>Running</i>; this may take a few minutes.
 
-===Network settings=== <!--T:13-->
+<!--T:13-->
+===Network settings===
 [[File:Manage-Floating-IP-Associations-Form.png|400px|thumb| Manage Floating IP (Click for larger image)]]
 [[File:Add-Rule-Form.png|400px|thumb| Add Rule (Click for larger image)]]
 On the <i>Instances</i> page is a list of VMs with their IP address(es) displayed in the <i>IP Address</i> column. Each VM will have at least one private IP address, but some may also have a second public IP assigned to it. When your OpenStack project is created, a local network is also created for you. This local network is used to connect VMs to each other and to an internet gateway within that project, allowing them to communicate with each other and the outside world. The private IP address provides inter VM networking but does not allow for connection to the outside world. Any VM created in your project will have a private IP address assigned to it from this network of the form <code>192.168.X.Y</code>. Public IPs allow outside services and tools to initiate contact with your VM, such as allowing you to connect to your VM via your personal computer to perform administrative tasks or serve up web content. Public IPs can also be pointed to by domain names.
@@ -107,10 +111,12 @@ On the <i>Instances</i> page is a list of VMs with their IP address(es) displaye
 #*If you do not have a static IP address for the network you are using, remember that it can sometimes change, so if you can no longer connect to your VM after a period of time sometimes it's worth checking to see if your IP address has changed. You can do this by putting [http://ipv4.icanhazip.com ipv4.icanhazip.com] in your browser and seeing if it matches what you have in your security rule. If your IP address changes frequently, but the left most numbers always stay the same, it could make more sense to add a range of IP addresses rather than frequently modifying your security rules. Use [https://www.ipaddressguide.com/cidr this tool] for determining a CIDR IP range from an IP range or learn more about CIDR notation [https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation here].
 #*It can be helpful to add a description about what a security rule is for (e.g. home or office). That way you will know which rule is no longer needed if you want to add a new rule while connecting, for example, from home.
 
-===Connecting to your VM with SSH=== <!--T:19-->
+<!--T:19-->
+===Connecting to your VM with SSH===
 In the first step of this quick guide you saved a private key to your computer. Make sure you remember where you saved it because you will need it to connect to your VM. You will also need to remember which type of image you used (Ubuntu, Fedora, etc.) and which public IP address is associated with your VM.
 
-===Connecting from a Linux or Mac machine=== <!--T:20-->
+<!--T:20-->
+===Connecting from a Linux or Mac machine===
 If the computer you are using to connect to your VM has a Linux or Mac operating system, use the following instructions to connect to your VM. Otherwise skip down to the next section to connect with a Windows computer.</br></br>
 Open a terminal and input the following command:
 {{Command| ssh -i /path/where/your/private/key/is/my_key.key <user name>@<public IP of your server>}}
@@ -139,7 +145,8 @@ where <code><user name></code> is the name of the user connecting and <code><pub
 |}
 These default users have full sudo privileges. Connecting directly to the root account via SSH is disabled.
 
-===Connecting from a Windows machine=== <!--T:22-->
+<!--T:22-->
+===Connecting from a Windows machine===
 [[File:MobaXterm basic.png|400px|thumb| Creating an SSH session (Click for larger image)]]
 If you want to use a Windows computer to connect to your VM, you will need to have an interface application to handle the SSH connection. We recommend <b>MobaXTerm</b>, and will show the instructions for connecting with MobaXTerm below. If you want to connect using PuTTY instead, see [[Connecting with PuTTY]].
 
@@ -157,7 +164,8 @@ To connect to your VM using MobaXterm follow these instructions:
 #Then click on OK. MobaXterm will then save that session information you just entered for future connections, and also open an SSH connection to your VM. It also opens an SFTP connection which allows you to transfer files to and from your VM using drag-and-drop via the left-hand panel.
 [[File:MobaXterm connected.png|400px|thumb| Connected to a remote host (Click for larger image)]] <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
 
-==Where to go from here== <!--T:23-->
+<!--T:23-->
+==Where to go from here==
 * Learn about using the [[Linux_introduction|Linux command line]] in your VM
 * Learn about [[security considerations when running a VM]]
 * See [[configuring a data or web server]]
@@ -172,13 +180,15 @@ To connect to your VM using MobaXterm follow these instructions:
 <!--T:138-->
 __TOC__
 
-==Request access to a Windows image== <!--T:139-->
+<!--T:139-->
+==Request access to a Windows image==
 To create a Windows VM on one of our clouds you must first request access to a Windows image by emailing [[technical support]].
 
 <!--T:51-->
 You will be provided access to a Windows Server 2012 Evaluation image and a username to use when connecting. The evaluation period is 180 days. It may be possible to apply a Windows license to a running VM created from this evaluation image, however we do not provide these licenses.
 
-==SSH key pair== <!--T:52-->
+<!--T:52-->
+==SSH key pair==
 [[File:Create-Key-Pair-Form.png|400px|thumb| Create key pair (Click for larger image)]]
 Windows VMs encrypt the administrative account password with a public key. The matching private key decrypts the password. 
 
@@ -194,7 +204,8 @@ We recommend creating a new key pair within the OpenStack dashboard rather than 
 <!--T:54-->
 If you would like to use an existing key pair with your Windows VM see the [[Creating a Windows VM#Comments on key pairs|comments on key pairs]] below.
 
-==Launching a VM== <!--T:55-->
+<!--T:55-->
+==Launching a VM==
 [[File:Windows-launch-instance.png|400px|thumb| Launch Instance (Click for larger image)]]
 To create a virtual machine, click on the ''Instances'' menu item on the left, then click on [[File:Launch-Instance-Button.png]]
 
@@ -222,7 +233,8 @@ A form is displayed where you define your virtual machine.
 <!--T:58-->
 Once you have reviewed all the tabs and defined your virtual machine, click on the Launch button and your virtual machine will be created. The Instances list will be displayed and the Task field will show the current task for the VM; it will likely be "Block Device Mapping" initially. Once the VM has spawned and beginning to boot, it will have the Power State of "Running". It will likely take 10+ minutes to finish creating the volume and coping the image to it before beginning to boot.
 
-==Locality settings and license agreement== <!--T:59-->
+<!--T:59-->
+==Locality settings and license agreement==
 [[File:Windows-VM-Settings.png|400px|thumb| Locality Settings (Click for larger image)]]
 
 <!--T:60-->
@@ -249,22 +261,26 @@ You will then be presented with a request to accept the terms and conditions of 
 <!--T:64-->
 At this point your VM will restart. Once it finishes restarting the ''Console'' will display a sign in screen with the current (UTC) time and date.
 
-==Network== <!--T:65-->
+<!--T:65-->
+==Network==
 [[File:Manage-Floating-IP-Associations-Form.png|400px|thumb| Manage Floating IP (Click for larger image)]]
 [[File:Add-Rule-Form-RDP.png|400px|thumb| Add RDP Rule (Click for larger image)]]
 On the ''Instances'' page is a list VMs with their IP address(es) displayed in the ''IP Address'' column. Each VM will have at least one private IP address, but some may also have a second public IP assigned to it.
 
-===Private IP=== <!--T:66-->
+<!--T:66-->
+===Private IP===
 When your OpenStack project is created a local network is also created for you. This local network is used to connect VMs within that project allowing them to communicate with each other and the outside world. Their private IP address does not allow the outside world to reference that VM. Any VM created in your project will have a private IP address assigned to it from this network of the form <code>192.168.X.Y</code>.
 
-===Public IP=== <!--T:67-->
+<!--T:67-->
+===Public IP===
 Public IPs allow outside services and tools to initiate contact with your VM, such as allowing you to connecting to it to perform administrative tasks or serve up web content. Public IPs can also be pointed to by domain names.
 
 <!--T:68-->
 To assign a public IP to a VM, you need to select ''Associate Floating IP'' from the drop-down menu button (indicated by &#x25BC;) of the ''Actions'' column in the ''Instances'' list. If this is your first time associating a floating IP, your project hasn't been assigned an external IP address yet. You need to click on the “+” sign to bring up the ''Allocate Floating IP'' dialog box. There is only one pool of public addresses, so the correct pool will already be selected; click on the ''Allocate IP'' button.
 The ''Manage Floating IP Associations'' screen is displayed again, indicating the IP address and the port (or VM) to which it will be associated (or more specifically [https://en.wikipedia.org/wiki/Network_address_translation NATted]); click on the ''Associate'' button.
 
-===Firewall, add rules to allow RDP=== <!--T:69-->
+<!--T:69-->
+===Firewall, add rules to allow RDP===
 To connect to your virtual machine using a remote desktop connection client, you will need to allow access for remote desktop protocol (RDP) to your VM.
 
 <!--T:70-->
@@ -274,7 +290,8 @@ To connect to your virtual machine using a remote desktop connection client, you
 #Replace the <code>0.0.0.0/0</code> in the CIDR text box with <code><your-ip>/32</code>. <p>If you don't know your current IP address you can see it by going to [http://ipv4.icanhazip.com ipv4.icanhazip.com] in your browser. Leaving <code>0.0.0.0/0</code> will allow anyone to attempt a connection with your VM. You should never allow completely open access with RDP as your VM will be susceptible to [https://en.wikipedia.org/wiki/Brute-force_attack brute force attacks]. This replacement will restrict RDP access to your VM only from this IP. If you want to allow access from other IPs you can add additional RDP rules with different IP address or you can specify a range of IP addresses by using [https://www.ipaddressguide.com/cidr this tool] to calculate your CIDR rule from a range of IP addresses.</p><p>'''If you leave RDP open to the world by leaving the <code>0.0.0.0/0</code> in the CIDR text box, a cloud administrator may revoke access to your VM until the security rule is fixed.'''</p>
 #Finally, click the ''Add'' button.
 
-==Remote desktop connection== <!--T:71-->
+<!--T:71-->
+==Remote desktop connection==
 [[File:Retrieve-instance-password.png|400px|thumb| Retrieving Windows instance password (Click for larger image)]]
 [[File:Remote-Desktop-Connection-windows.png|400px|thumb| Remote desktop client in Windows (Click for larger image)]]
 [[File:Remmina-Ubuntu.png|400px|thumb| Remmina remote desktop client in Ubuntu (Click for larger image)]]
@@ -282,7 +299,8 @@ To connect to your virtual machine using a remote desktop connection client, you
 <!--T:72-->
 To connect to a Windows VM we will use a Remote Desktop Connection client. To connect to your Windows VM you need to supply a floating IP, user name, and password.
 
-===Retrieving the password=== <!--T:73-->
+<!--T:73-->
+===Retrieving the password===
 Open the ''Retrieve Instance Password'' form: 
 # Go to ''Instances'' on the left menu.
 # In the drop down menu next the instance select ''Retrieve Password''.
@@ -296,7 +314,8 @@ The password has been encrypted using the public key you selected when creating 
 <!--T:75-->
 Keep this form open as we will use the password in the next step. This process can be repeated later to retrieve the password again.
 
-===From a Windows client=== <!--T:76-->
+<!--T:76-->
+===From a Windows client===
 Many Windows systems come with the remote desktop connection tool pre-installed. Try searching for "remote desktop connection" in your Windows system search. If you can not find it, you can go to [https://www.microsoft.com/en-ca/store/p/microsoft-remote-desktop/9wzdncrfj3ps the Microsoft store] and install it. It should be a free installation. 
 
 <!--T:77-->
@@ -313,7 +332,8 @@ You will likely be presented with an alert ''The identity of the remote computer
 <!--T:79-->
 '''TODO:''' The specific certificate error is "The certificate is not from a trusted certifying authority". Is seeing this alert really normal? Do we want to register the Windows image certificate with a signing authority? Could we use letsencrypt or should we just ignore this issue?
 
-===From a Linux client=== <!--T:41-->
+<!--T:41-->
+===From a Linux client===
 To connect via RDP from Linux you will need a remote desktop client. There are number of different clients out there but the [https://github.com/FreeRDP/Remmina/wiki Remmina client] appears to work well when tested with Ubuntu. The previous link provides instructions for installing it in Ubuntu, Debian, Fedora and a few other Linux operating systems. 
 
 <!--T:80-->
@@ -338,7 +358,8 @@ Once you have installed and launched Remmina to connect to your Windows VM:
 * How to apply my license to my existing cloud VM
 * How to apply it to a new VM (if that is different than above bullet item)
 
-==Comments on key pairs== <!--T:47-->
+<!--T:47-->
+==Comments on key pairs==
 There are a couple different formats for key files and you can also choose to protect your private keys with passphrases or not. In order to be able to decrypt the Windows VM password your private key must be in OpenSSH format and not have a passphrase. If you created your key pair with OpenStack and downloaded the <code>.pem</code> key file it will already be in the correct format. If you used the [[Using_SSH_keys_in_Linux|<code>ssh-keygen</code> command]] to create your key pair and didn't specify a passphrase it will also likely be in the correct format. For more general information about key pairs see the [[SSH Keys]] page.
  
 An example of an acceptable private key in the OpenSSH format without a passphrase:
@@ -378,7 +399,8 @@ ssh.com format without a passphrase
  QJX/qgGp0=
  ---- END SSH2 ENCRYPTED PRIVATE KEY ----
 
-==Where to go from here== <!--T:89-->
+<!--T:89-->
+==Where to go from here==
 * learn about [[security considerations when running a VM]]
 * learn about [[Creating a Linux VM|creating a Linux VM]]
 * learn more about working with [[Managing_your_cloud_resources_with_OpenStack|OpenStack]]

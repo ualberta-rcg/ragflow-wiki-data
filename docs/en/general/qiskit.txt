@@ -43,29 +43,18 @@ source ${SLURM_TMPDIR}/env/bin/activate
 pip install --no-index --upgrade pip                                                                                                                            
 pip install --no-index --requirement ~/qiskit_requirements.txt
 
-<div class="mw-translate-fuzzy">
 # Modify your Qiskit program.                                                                                                                                                                       
 python qiskit_example.py
 }}
 You can then [[Running jobs |submit your job to the scheduler]]. 
-== Using Qiskit with MonarQ (in preparation)==
-<!-- You can import a Qiskit project in Pennylane to run it on [[MonarQ/en}MonarQ]]. 
-1. Install PennyLane (if it is not yet installed).
-{{Command|pip install --no-index pennylane}}
-</div>
+== Using Qiskit with MonarQ ==
 
-<div lang="fr" dir="ltr" class="mw-content-ltr">
-Il est possible d’utiliser directement [[MonarQ]] avec Qiskit via le plugiciel qiskit-calculquebec. Ce plugiciel permet de développer et d'exécuter des circuits Qiskit sur l’infrastructure de Calcul Québec.
-</div>
+You can use [[MonarQ]] directly with Qiskit via the qiskit-calculquebec plugin. This plugin allows you to develop and run Qiskit circuits on the Calcul Québec infrastructure.
 
 <span id="Installation_des_dépendances"></span>
-<div class="mw-translate-fuzzy">
-2. Install the pennylane-qiskit plugin.
-{{Command|pip install --no-index pennylane-qiskit}}
-</div>
+=== Install the dependencies ===
 
-<div lang="fr" dir="ltr" class="mw-content-ltr">
-* Étape 1 : Installer les dépendances
+* Step 1: Install the dependencies
 {{Commands
  | module load python/3.11
  | virtualenv --no-download --clear ~/ENV && source ~/ENV/bin/activate
@@ -74,26 +63,17 @@ Il est possible d’utiliser directement [[MonarQ]] avec Qiskit via le plugiciel
  | pip install --no-index qiskit-ibm-runtime
  | python -c "import qiskit; import qiskit_calculquebec"
 }}
-</div>
 
-<div lang="fr" dir="ltr" class="mw-content-ltr">
-* Note : '''qiskit-calculquebec''' installe automatiquement Qiskit.
-</div>
+* Note: '''qiskit-calculquebec''' installs Qiskit automatically.
 
 <span id="Initialisation_du_backend_MonarQ"></span>
-<div class="mw-translate-fuzzy">
-3. Install the pennylane-snowflurry plugin.
-{{Command|pip install pennylane-snowflurry}}
-</div>
+=== MonarQ backend initialisation ===
 
-<div lang="fr" dir="ltr" class="mw-content-ltr">
-* Étape 2 : Configurer vos identifiants et le backend
-** Créez un client avec vos identifiants. Votre jeton est disponible via le portail Thunderhead.
-** Le <i>host</i> est '''<nowiki>https://monarq.calculquebec.ca</nowiki>.'''
-** Initialisez ensuite le backend MonarQ.
-</div>
+* Step 2: Set up your credentials and the backend
+** Create a client using your credentials. Your token is available via the Thunderhead portal.
+** The <i>host</i> is ‘’'<nowiki>https://monarq.calculquebec.ca</nowiki>.‘’'
+** Then initialize the MonarQ backend.
 
-<div lang="fr" dir="ltr" class="mw-content-ltr">
 {{Fichier
   |name=qiskit_example.py
   |lang="python"
@@ -102,83 +82,60 @@ import qiskit
 from qiskit import QuantumCircuit
 from qiskit_calculquebec.API.client import CalculQuebecClient
 from qiskit_calculquebec.backends import MonarQBackend
-</div>
 
-<div lang="fr" dir="ltr" class="mw-content-ltr">
-# Identifiants
+# Credentials
 user = "username"
 access_token = "token"
 host = "https://monarq.calculquebec.ca"
 project_id = "project_id"
-</div>
 
-<div lang="fr" dir="ltr" class="mw-content-ltr">
-# Création du client et du backend
+# Creating the client and the backend
 my_client = CalculQuebecClient(host, user, access_token, project_id=project_id)
 backend = MonarQBackend("monarq", my_client)
-</div>
 
-<div lang="fr" dir="ltr" class="mw-content-ltr">
-# Circuit simple
+# Simple circuit example
 qc = QuantumCircuit(2)
 qc.h(0)
 qc.cx(0, 1)
 qc.measure_all()
 }}
-</div>
 
-<div lang="fr" dir="ltr" class="mw-content-ltr">
-=== Exécution du circuit ===
-</div>
+<span id="Exécution_du_circuit"></span>
+=== Running the circuit ===
 
-<div lang="fr" dir="ltr" class="mw-content-ltr">
-* Étape 3 : Transpiler et exécuter le circuit
-</div>
+* Step 3: Transpile and run the circuit
 
-<div lang="fr" dir="ltr" class="mw-content-ltr">
 {{Fichier
   |name=qiskit_example.py
   |lang="python"
   |contents=
 from qiskit_ibm_runtime import SamplerV2 as Sampler
 from qiskit.transpiler.preset_passmanagers import generate_preset_pass_manager
-</div>
 
-<div lang="fr" dir="ltr" class="mw-content-ltr">
-# Transpilation adaptée au backend
+# Transpilation tailored to the backend
 pm = generate_preset_pass_manager(optimization_level=3, backend=backend)
 transpiled_qc = pm.run(qc)
-</div>
 
-<div lang="fr" dir="ltr" class="mw-content-ltr">
-# Exécution
+# Execution
 sampler = Sampler(mode=backend)
 job = sampler.run([transpiled_qc], shots=1000)
-</div>
 
-<div lang="fr" dir="ltr" class="mw-content-ltr">
 result = job.result()
 print(result[0].data.meas.get_counts())
 }}
-</div>
 
-<div lang="fr" dir="ltr" class="mw-content-ltr">
 === Notes ===
-</div>
 
-<div lang="fr" dir="ltr" class="mw-content-ltr">
-* La transpilation est nécessaire pour adapter le circuit à la connectivité et aux portes natives de MonarQ.
-* Le nombre de <i>shots</i> peut être ajusté selon les besoins (maximum : 1024).
-* L’utilisation de '''SamplerV2''' est recommandée pour l’exécution de circuits avec mesures.
-</div>
+* Transpilation is required to adapt the circuit to MonarQ's native connectivity and ports.
+* The number of <i>shots</i> can be adjusted as needed (maximum: 1024).
+* The use of ‘’'SamplerV2'‘’ is recommended for running circuits with measures.
 
-<div class="mw-translate-fuzzy">
+<!--
 == Use case: Bell states ==
 Before you create a simulation of the first Bell state on [[Narval/en|Narval]], the required modules need to be loaded. 
     from qiskit_aer import AerSimulator
     from qiskit import QuantumCircuit, transpile
     from qiskit.visualization import plot_histogram
-</div>
 
 Define the circuit. Apply an Hadamard gate to create a superposition state on the first qubit and a CNOT gate to intricate the first and second qubits.
     circuit = QuantumCircuit(2,2)

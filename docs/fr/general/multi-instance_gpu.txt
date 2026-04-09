@@ -9,10 +9,14 @@ Les tâches qui utilisent moins de la moitié de la puissance de calcul d'un GPU
 
 Voir [[Multi-Instance GPU/fr#Quand_migrer_une_tâche_sur_une_instance|Quand migrer une tâche sur une instance]] ci-dessous.
 
+<div class="mw-translate-fuzzy">
 = Limites de la technologie =
 [https://docs.nvidia.com/datacenter/tesla/mig-user-guide/index.html#application-considerations  La technologie MIG ne prend pas en charge] la [https://developer.nvidia.com/docs/drive/drive-os/6.0.8.1/public/drive-os-linux-sdk/common/topics/nvsci_nvsciipc/Inter-ProcessCommunication1.html communication interprocessus CUDA] qui optimise le transfert de données via NVLink et NVSwitch. Cette limite diminue aussi l'efficacité de la communication entre les instances. En conséquence, <b>le lancement d'un exécutable sur plusieurs MIG à la fois n'améliore pas la performance et doit être évité.</b>
+</div>
 
+<div class="mw-translate-fuzzy">
 Veuillez noter que les API graphiques ne sont pas prises en charge (par exemple OpenGL, Vulkan, etc.); voir [https://docs.nvidia.com/datacenter/tesla/mig-user-guide/index.html#application-considerations Application Considerations].
+</div>
 
 Les tâches avec GPU qui nécessitent de nombreux cœurs CPU par GPU peuvent également nécessiter un GPU entier au lieu d'une instance. Le nombre maximum de cœurs CPU par instance dépend du 
 [[Allocations_and_compute_scheduling/fr#Ratios_dans_les_bundles|nombre maximum de cœurs CPU par GPU entier]] et des [https://docs.nvidia.com/datacenter/tesla/mig-user-guide/index.html#a100-profiles profils MIG qui sont configurés]. Ces deux caractéristiques varient d'une grappe à l'autre et d'un nœud GPU à l'autre.
@@ -93,8 +97,3 @@ Il faut aussi tenir compte de la quantité maximale de mémoire GPU et de la qua
 La tâche a aussi été lancée en utilisant un seul cœur de processeur. En tenant compte de ces trois métriques, nous voyons que la tâche pourrait facilement s'exécuter sur une instance de 3&nbsp;g.20&nbsp;Go ou de 4&nbsp;g.20&nbsp;Go avec de la puissance et de la mémoire à revendre. 
 
 Un autre moyen de [[Running jobs/fr#Surveillance_d'une_tâche_en_cours |surveiller l'utilisation d'une tâche en cours d'exécution]] consiste à se connecter au nœud sur lequel la tâche se trouve et utiliser <code>nvidia-smi</code> pour lire les métriques du GPU en temps réel. Cela ne fournira pas de valeurs maximales et moyennes pour la mémoire et la puissance de toute la tâche, mais pourrait être utile pour identifier une sous-utilisation du GPU.
-
-<span id="Can_I_use_multiple_instances_on_the_same_GPU?"></span>
-= Puis-je utiliser plusieurs instances sur le même GPU? =
-
-Non. En principe, il est possible de le faire, mais nos systèmes ne prennent pas en charge cette fonctionnalité. Si vous voulez exécuter plusieurs tâches indépendantes sur un GPU, utilisez [[Hyper-Q_/_MPS/fr|MPS]] plutôt que MIG.

@@ -14,9 +14,15 @@ See section [[Multi-Instance GPU#Finding_which_of_your_jobs_should_use_an_instan
 =Limitations =
 [https://docs.nvidia.com/datacenter/tesla/mig-user-guide/index.html#application-considerations The MIG technology does not support] [https://developer.nvidia.com/docs/drive/drive-os/6.0.8.1/public/drive-os-linux-sdk/common/topics/nvsci_nvsciipc/Inter-ProcessCommunication1.html CUDA Inter-Process Communication (IPC)], which optimizes data transfers between GPUs over NVLink and NVSwitch.
 This limitation also reduces communication efficiency between instances.
-Consequently, launching an executable on more than one instance at a time <b>does not</b> improve performance and should be avoided.
+Consequently, <b>requesting more than one MIG instance in a job is not permitted</b>.
+Such a job will be rejected at submission time.
+If you feel you need more than one MIG instance, then either:
+* Request a larger instance (e.g. a 3g instead of three 1g instances).
+* Request an entire GPU or multiple GPUs.
+* Use [[Hyper-Q_/_MPS|MPS]] rather than MIG. 
+* [[Technical support|Contact Support]] explaining the reason you want to try running on multiple MIGs, and we can help you do the experiment.
 
-Please note that graphic APIs are not supported (for example, OpenGL, Vulkan, etc.); see [https://docs.nvidia.com/datacenter/tesla/mig-user-guide/index.html#application-considerations Application Considerations].
+Graphic APIs are not supported (for example, OpenGL, Vulkan, etc.); see [https://docs.nvidia.com/datacenter/tesla/mig-user-guide/index.html#application-considerations Application Considerations].
 
 GPU jobs requiring many CPU cores may also require a full GPU instead of an instance. The maximum number of CPU cores per instance depends on [[Allocations_and_compute_scheduling#Ratios_in_bundles|the number of cores per full GPU]] and on the configured [https://docs.nvidia.com/datacenter/tesla/mig-user-guide/index.html#a100-profiles MIG profiles]. Both vary between clusters and between GPU nodes in a cluster.
 
@@ -89,7 +95,3 @@ It was also launched using a single CPU core. When taking into account these thr
 
 Another way to monitor the usage of a running job is by [[Running jobs#Attaching_to_a_running_job |attaching to the node]] where the job is currently running and then by using <code>nvidia-smi</code> to read the GPU metrics in real time.
 This will not provide maximum and average values for memory and power usage of the entire job, but it may be helpful to identify and troubleshoot underperforming jobs.
-
-= Can I use multiple instances on the same GPU? =
-
-No.  While this is possible in principle, we don't support this.  If you want to run multiple independent tasks on a GPU, you should use [[Hyper-Q_/_MPS|MPS]] rather than MIG.
