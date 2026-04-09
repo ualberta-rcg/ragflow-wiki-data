@@ -234,6 +234,36 @@ def main():
             "change_status": change_status,
         })
 
+    # Detect deleted pages: wiki docs in state that weren't seen this run
+    seen_keys = {entry["doc_key"] for entry in manifest}
+    deleted = 0
+    for doc_key in list(docs_state.keys()):
+        if doc_key in seen_keys:
+            continue
+        # Only clean up wiki docs (have wiki_title), not events/status
+        if "wiki_title" not in docs_state[doc_key]:
+            continue
+
+        doc_info = docs_state[doc_key]
+        # Remove source file
+        old_path = Path(doc_info.get("path", ""))
+        if old_path.exists():
+            old_path.unlink()
+
+        # Remove MkDocs output
+        lang = doc_info.get("lang", "en")
+        slug = doc_key.split("/")[-1] if "/" in doc_key else doc_key
+        cats = doc_info.get("wiki_categories", [])
+        subdir = cats[0].lower().replace(" ", "-") if cats else "general"
+        mkdocs_path = Path("mkdocs-site") / "docs" / lang / subdir / f"{slug}.md"
+        if mkdocs_path.exists():
+            mkdocs_path.unlink()
+
+        del docs_state[doc_key]
+        deleted += 1
+
+    stats["deleted"] = deleted
+
     # Save manifest
     Path("manifest.json").write_text(json.dumps(manifest, indent=2), encoding="utf-8")
     
@@ -249,6 +279,7 @@ def main():
     print(f"  New: {stats['new']}")
     print(f"  Updated: {stats['updated']}")
     print(f"  Unchanged: {stats['unchanged']}")
+    print(f"  Deleted: {stats['deleted']}")
     print(f"\nBy language:")
     for lang, count in sorted(stats["by_lang"].items()):
         print(f"  {lang}: {count}")
