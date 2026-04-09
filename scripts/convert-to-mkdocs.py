@@ -247,10 +247,18 @@ def main():
     docs = state.get("documents", {})
     
     # Filter to docs needing conversion
-    to_convert = [
-        (k, v) for k, v in docs.items()
-        if v.get("needs_mkdocs_convert", True)
-    ]
+    # Convert if: needs_mkdocs_convert=True OR source_hash changed since last conversion
+    to_convert = []
+    for k, v in docs.items():
+        needs_convert = v.get("needs_mkdocs_convert", True)
+        
+        # Also check if source changed since last conversion
+        last_converted_hash = v.get("mkdocs_source_hash", "")
+        current_hash = v.get("source_hash", "")
+        source_changed = last_converted_hash != current_hash
+        
+        if needs_convert or source_changed:
+            to_convert.append((k, v))
     
     if BATCH_SIZE > 0:
         to_convert = to_convert[:BATCH_SIZE]
@@ -263,6 +271,7 @@ def main():
         if process_doc(doc_key, doc_state):
             doc_state["needs_mkdocs_convert"] = False
             doc_state["mkdocs_converted_at"] = datetime.now(timezone.utc).isoformat()
+            doc_state["mkdocs_source_hash"] = doc_state.get("source_hash", "")  # Track which hash we converted
             converted += 1
     
     save_state(state)
