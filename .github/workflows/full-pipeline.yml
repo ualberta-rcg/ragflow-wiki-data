@@ -1,0 +1,84 @@
+name: Full Pipeline
+
+on:
+  workflow_dispatch:
+    inputs:
+      batch_size:
+        description: 'Docs per step (0 = all)'
+        required: false
+        default: '0'
+  schedule:
+    - cron: "0 7 * * 5"  # Friday 7am UTC (1h after download-wiki)
+
+permissions:
+  contents: write
+
+jobs:
+  download:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Set up venv
+        run: |
+          python -m venv venv
+          source venv/bin/activate
+          pip install -r requirements.txt
+          pip install beautifulsoup4
+
+      - name: Download wiki pages
+        run: |
+          source venv/bin/activate
+          python scripts/download-wiki.py
+
+      - name: Download events
+        run: |
+          source venv/bin/activate
+          python scripts/download-events.py
+
+      - name: Download status
+        run: |
+          source venv/bin/activate
+          python scripts/download-status.py
+
+      - name: Sync to RAGFlow
+        env:
+          RAGFLOW_API_KEY: ${{ secrets.RAGFLOW_API_KEY }}
+          RAGFLOW_BASE_URL: ${{ secrets.RAGFLOW_BASE_URL }}
+          BATCH_SIZE: ${{ github.event.inputs.batch_size || '0' }}
+        run: |
+          source venv/bin/activate
+          python scripts/sync-ragflow.py
+
+      - name: Convert to MkDocs
+        env:
+          BATCH_SIZE: ${{ github.event.inputs.batch_size || '0' }}
+        run: |
+          source venv/bin/activate
+          python scripts/convert-to-mkdocs.py
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Commit and push changes
+        run: |
+          git add -A docs/ mkdocs-site/ config/processing-state.json manifest.json
+          
+          if git diff --staged --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+          
+          ts="$(date -u +"%Y-%m-%d %H:%M:%S UTC")"
+          git commit -m "Pipeline run ($ts)"
+          git push origin HEAD:${{ github.ref_name }}
