@@ -44,14 +44,14 @@ jobs:
 
       - name: Commit changes (if any)
         run: |
-          git add -A site/ config/processing-state.json
+          git add -A mkdocs-site/ config/processing-state.json
           
           if git diff --staged --quiet; then
             echo "No changes to commit."
             exit 0
           fi
           
-          COUNT=$(git diff --staged --name-only -- 'site/*.md' | wc -l)
+          COUNT=$(git diff --staged --name-only -- 'mkdocs-site/*.md' | wc -l)
           ts="$(date -u +"%Y-%m-%d %H:%M:%S UTC")"
           
           git commit -m "Convert $COUNT docs to MkDocs ($ts)"

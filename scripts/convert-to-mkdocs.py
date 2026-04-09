@@ -15,7 +15,7 @@ from datetime import datetime, timezone
 REPO_ROOT = Path(__file__).parent.parent
 DOCS_DIR = REPO_ROOT / "docs"
 CONFIG_DIR = REPO_ROOT / "config"
-MKDOCS_OUTPUT_DIR = REPO_ROOT / "site" / "docs"
+MKDOCS_OUTPUT_DIR = REPO_ROOT / "mkdocs-site" / "docs"
 
 STATE_FILE = CONFIG_DIR / "processing-state.json"
 
