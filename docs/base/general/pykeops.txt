@@ -1,0 +1,144 @@
+<languages />
+<translate>
+<!--T:1-->
+__FORCETOC__
+The [https://www.kernel-operations.io/keops/index.html KeOps] library lets you compute reductions of large arrays whose entries are given by a mathematical formula or a neural network. It combines efficient C++ routines with an automatic differentiation engine and can be used with [[Python]] ([https://numpy.org/doc/stable/ NumPy], [[PyTorch]]), [[MATLAB]] and [[R]].
+
+= Available versions = <!--T:2-->
+PyKeOps is available on our clusters as prebuilt Python packages (wheels). You can list available versions with <code>avail_wheels</code>.
+{{Command
+|avail_wheels pykeops
+|result=
+name     version    python    arch
+-------  ---------  --------  -------
+pykeops  2.2.3      py3       generic
+}}
+
+= Installing PyKeOps in a Python virtual environment = <!--T:3-->
+1. Load runtime dependencies.
+{{Command|module load StdEnv/2023 python/3.11}}
+
+
+<!--T:4-->
+2. Create and activate a [[Python#Creating_and_using_a_virtual_environment | Python virtual environment]].
+{{Commands
+|virtualenv --no-download ~/pykeops_env
+|source ~/pykeops_env/bin/activate
+}}
+
+
+<!--T:5-->
+3. Install a specific version of PyKeOps and its Python dependencies.
+{{Commands
+|prompt=(pykeops_env) [name@server ~]
+|pip install --no-index --upgrade pip
+|pip install --no-index pykeops{{=}}{{=}}X.Y.Z
+}}
+where <code>X.Y.Z</code> is the exact desired version, for instance <code>2.2.3</code>. 
+You can omit to specify the version in order to install the latest one available from the wheelhouse.
+
+
+<!--T:6-->
+4. Validate it.
+{{Commands
+|prompt=(pykeops_env) [name@server ~]
+|python -c 'import pykeops; pykeops.test_numpy_bindings()'
+}}
+
+
+<!--T:7-->
+5. Freeze the environment and requirements set.
+{{Command
+|prompt=(pykeops_env) [name@server ~]
+|pip freeze --local > ~/pykeops-2.2.3-requirements.txt
+}}
+
+
+<!--T:8-->
+6. Remove the local virtual environment.
+{{Command
+|prompt=(pykeops_env) [name@server ~]
+|deactivate && rm -r ~/pykeops_env
+}}
+
+= Running KeOps = <!--T:9-->
+You can run PyKeOps on CPU or GPU. 
+
+<!--T:10-->
+1. Write your job submission script.
+<tabs>
+<tab name="CPU">
+{{File
+|name=submit-pykeops-cpu.sh
+|lang="bash"
+|contents=
+#!/bin/bash
+
+<!--T:11-->
+#SBATCH --account=def-someprof    # adjust this to match the accounting group you are using to submit jobs
+#SBATCH --time=08:00:00           # adjust this to match the walltime of your job
+#SBATCH --cpus-per-task=4         # adjust this to match the number of cores to use
+#SBATCH --mem-per-cpu=4G          # adjust this according to the memory you need per cpu
+
+<!--T:12-->
+# Load modules dependencies.
+module load StdEnv/2023 python/3.11
+
+<!--T:13-->
+# create the virtual environment on the compute node: 
+virtualenv --no-download $SLURM_TMPDIR/env
+source $SLURM_TMPDIR/env/bin/activate
+
+<!--T:14-->
+pip install --no-index --upgrade pip
+pip install --no-index -r pykeops-2.2.3-requirements.txt
+
+<!--T:15-->
+# test that everything is OK
+python -c 'import pykeops; pykeops.test_numpy_bindings()'
+}}
+</tab>
+<tab name="GPU">
+{{File
+|name=submit-pykeops-gpu.sh
+|lang="bash"
+|contents=
+#!/bin/bash
+
+<!--T:16-->
+#SBATCH --account=def-someprof    # adjust this to match the accounting group you are using to submit jobs
+#SBATCH --time=08:00:00           # adjust this to match the walltime of your job
+#SBATCH --cpus-per-task=4         # adjust this to match the number of cores to use
+#SBATCH --mem-per-cpu=4G          # adjust this according to the memory you need per cpu
+#SBATCH --gpus=1
+
+<!--T:17-->
+# Load modules dependencies. The custom-ctypes is critical here.
+module load StdEnv/2023 python/3.11 cuda/12 custom-ctypes
+
+<!--T:18-->
+# create the virtual environment on the compute node: 
+virtualenv --no-download $SLURM_TMPDIR/env
+source $SLURM_TMPDIR/env/bin/activate
+
+<!--T:19-->
+pip install --no-index --upgrade pip
+pip install --no-index -r pykeops-2.2.3-requirements.txt
+
+<!--T:20-->
+# test that nvrtc binding are also found
+python -c 'import pykeops; pykeops.test_numpy_bindings()'
+}}
+</tab>
+</tabs>
+
+<!--T:21-->
+2. Before submitting your job, it is important to test that your submission script will start without errors.
+You can do a quick test in an [[Running_jobs#Interactive_jobs|interactive job]].
+
+<!--T:22-->
+3. Submit your job to the scheduler.
+{{Command
+|sbatch submit-keops.sh
+}} 
+</translate>

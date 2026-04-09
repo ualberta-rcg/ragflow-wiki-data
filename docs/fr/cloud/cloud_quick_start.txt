@@ -1,0 +1,362 @@
+<languages />
+
+<i>Page enfant de [[Cloud/fr|Service infonuagique]]</i>
+
+==Avant de commencer==
+
+#<b>Posséder un projet cloud</b> <br> <b>Vous devez posséder un projet cloud pour avoir accès à l'environnement infonuagique.</b> Si vous ne possédez pas de  [[Managing_your_cloud_resources_with_OpenStack/fr#Projets|projet cloud]], voyez [[Cloud/fr#Obtenir_un_projet_dans_l'environnement_infonuagique|Obtenir un projet dans l'environnement infonuagique]]. Une fois qu'un projet cloud est associé à votre compte, vous recevrez un courriel de confirmation qui contient les détails sur comment accéder à votre projet; assurez-vous de savoir où trouver ces renseignements. 
+#<b>Utiliser un navigateur compatible</b> <br> L'accès aux projets cloud se fait sans problème avec les navigateurs [https://www.mozilla.org/en-US/firefox/new/ Firefox] et [https://www.google.com/chrome/ Chrome]. D'autres navigateurs aussi peuvent bien fonctionner, mais certains ne sont pas pris en charge par notre interface web et affichent le message <code>Danger: There was an error submitting the form. Please try again.</code> C'est le cas notamment de Safari sous Mac; une mise à jour pourrait résoudre le problème, mais nous vous recommandons d'utiliser [https://www.mozilla.org/en-US/firefox/new/ Firefox] ou [https://www.google.com/chrome/ Chrome]. Si vous avez toujours des problèmes, écrivez au [[Technical support/fr|soutien technique]].
+
+==Créer votre première instance==
+Votre projet cloud vous permettra de créer des instances (aussi appelées <i>machines virtuelles</i> ou <i>VM</i>) auxquelles vous pourrez accéder à partir de votre ordinateur via notre interface web.
+
+# <b>Connectez-vous à l'interface cloud pour avoir accès à votre projet</b> <br> Le lien à cette interface se trouve dans le courriel de confirmation qui vous a été envoyé. Cliquez sur le lien pour ouvrir votre projet dans votre navigateur. Si votre navigateur n'est pas compatible, ouvrez un navigateur compatible et collez l'URL dans la barre d'adresse. Si vous connaissez le nom du nuage où se trouve votre projet mais n'avez pas son adresse URL, consultez la liste dans [[Cloud/fr#Ressources_infonuagiques|Ressources infonuagiques]]. Connectez-vous avec vos identifiants (nom d'utilisateur et mot de passe) et non avec votre adresse de courriel.
+#<b>Consultez le tableau de bord OpenStack</b> <br> OpenStack est la plateforme qui permet l'accès web aux nuages. Une fois la connexion établie, le tableau de bord OpenStack affiche les ressources de votre projet. Pour des renseignements sur le tableau de bord et la navigation OpenStack, consultez [https://docs.openstack.org/horizon/latest/user/index.html la documentation officielle de OpenStack].
+
+Vous trouverez ci-dessous les directives pour démarrer des instances Linux et Windows. <b>Le système d'exploitation est celui de l'instance et non celui de l'ordinateur que vous utilisez pour vous connecter.</b> Votre planification préalable devrait indiquer le système d'exploitation que vous utiliserez; en cas de doute, écrivez au [[Technical support/fr|soutien technique]].
+
+<!--TODO: need to sort out how to move over the translations for Linux (I left the translation units intact) and Windows (had to remove because they had duplicate numbers).
+The below links are left in as comments so that those pages can easily be referenced, but once the moving over of translations is complete they could be removed/redirected here.-->
+<!--To create a VM see instructions for creating a [[Creating a Linux VM|Linux]] or [[Creating a Windows VM| Windows]] VM.-->
+
+<tabs>
+<tab name="Linux">
+
+__TOC__
+
+===Paires de clés SSH===
+
+À la création d’une instance, l'authentification par mot de passe est désactivée pour des raisons de sécurité.
+
+OpenStack crée plutôt votre instance avec une clé SSH publique (<i>secure shell</i>) installée et pour vous connecter, vous devez utiliser cette paire de clés SSH. Si vous avez déjà utilisé des clés SSH, la clé publique peut provenir d'une paire de clés que vous avez déjà créée sur un autre nuage; si c'est le cas, voyez ci-dessous <i>Importer une paire de clés</i>. Si vous n'avez jamais utilisé une paire de clés SSH ou que vous ne voulez pas utiliser une paire existante, vous devez créer une paire de clés. Si vous travaillez sous Windows, voyez [[Generating SSH keys in Windows/fr|Générer des clés SSH sous Windows]], autrement, voyez [[Using SSH keys in Linux/fr| Utiliser des clés SSH sous Linux]]. Pour plus d'information sur la création et la gestion des clés, consultez [[SSH Keys/fr|Clés SSH]].
+[[File:Import key pair 3 fr.png|500px|thumb|Importer une clé publique (cliquez pour agrandir)]]
+
+====Importer une clé publique====
+
+#Dans le menu OpenStack de gauche, sélectionnez <i>Compute->Paires de clés</i>.
+#Cliquez sur le bouton <i>Importer une clé publique</i>.
+#Entrez un nom pour la paire de clés.
+#Collez votre clé publique (présentement, seules les clés SSH de type RSA sont valides).<br/>Assurez-vous que la clé publique que vous collez ne contient pas de caractère de fin de ligne ou d'espace.
+#Cliquez sur le bouton <i>Importer une clé publique</i>.
+<b>Il n'est pas recommandé de créer des paires de clés dans OpenStack parce qu'elles ne sont pas créées avec une phrase de passe, ce qui cause des problèmes pour la sécurité.</b>
+<br /><br /><br /><br /><br /><br />
+
+===Lancer une instance===
+Pour créer une instance, sélectionnez <i>Compute->Instances</i> dans le menu de gauche, puis cliquez sur le bouton <i>Lancer une instance</i>.
+[[File:Details tab fr.png|500px|thumb]]
+
+Le formulaire de création d'une instance est affiché. Vous pouvez utiliser les spécifications décrites à l'étape de votre préplanification ou reproduire l'exemple ci-dessous. 
+La fenêtre <i>Lancer Instance</i> présente plusieurs options&nbsp;:
+
+<b>Détails</b>
+*<i>Nom de l'instance </i>: Entrez le nom de l'instance, sans aucun caractère spécial ou espace; voir les [https://fr.wikipedia.org/wiki/Nom_de_domaine règles de nomenclature].
+*<i>Description </i>: Ce champ est optionnel.
+*<i>Zone de disponibilité </i>: Laissez <i>Toute zone de disponibilité</i>.
+*<i>Nombre </i>: Entrez le nombre d'instances à créer. Si vous n'avez pas besoin de plusieurs instances, laissez la valeur 1.<br />
+[[File:Source tab fr.png|500px|thumb]]
+<b>Source</b>
+*<i>Sélectionnez la source de démarrage </i>: Pour votre première instance, sélectionnez <i>Image</i>; voir l'information sur les autres options dans [[Working with volumes/fr#Démarrer_depuis_un_volume|Démarrer depuis un volume]].
+*<i>Créer un nouveau volume</i>: Cliquez sur <i>Oui</i>; les données de l'instance seront enregistrées dans le volume du nuage (stockage persistant). Pour plus d'information sur l'utilisation et la gestion des volumes, voir [[Working with volumes/fr|Travailler avec des volumes]].
+*:<i>Taille du volume (Go)</i> : Entrez la taille planifiée; autrement, 30 Go est une taille raisonnable pour le système d'exploitation et une quantité modeste de données. Pour plus d'information sur l'utilisation et la gestion des volumes, voir [[Working with volumes/fr|Travailler avec des volumes]].
+*:<i>Supprimer le volume après terminaison de l'instance</i> : Cliquez sur <i>Non</i> pour empêcher que le volume soit supprimé accidentellement. Cliquez sur <i>Oui</i> si vous voulez que le volume soit toujours supprimé avec l'instance.
+*<i>Alloué</i> et <i>Disponible </i>: La liste sous <i>Disponible</i> montre les images que votre instance peut démarrer. Pour les débutants Linux, nous recommandons la plus récente image <b>Ubuntu</b>, mais vous pouvez sélectionner un des autres systèmes d'exploitation Linux. Pour sélectionner une image, cliquez sur la flèche à la fin de sa ligne et l'image sera déplacée sous <i>Alloué</i>. Il est important de se souvenir de l'image que vous avez sélectionnée, par exemple Ubuntu, Fedora, etc. <br /><br />
+<b>Gabarit</b>
+[[File:Flavor tab fr.png|500px|thumb]]
+*<i>Alloué</i> et <i>Disponible </i>: Le gabarit identifie le matériel utilisé par votre instance et donc la capacité de la mémoire et du traitement. La liste sous <i>Disponible</i> montre les gabarits pour l'image source de démarrage. Cliquez sur l'icône > au début de la ligne pour savoir si ce gabarit est conforme à l'allocation pour votre projet. Si cette ressource n'est pas suffisante, une alerte sera affichée. Sélectionnez un autre gabarit et cliquez sur la flèche à la fin de la ligne pour le déplacer vers la liste <i>Alloué</i>. Pour plus d'information, voir [[Virtual machine flavors/fr|Gabarits d'instances]]. <br /><br /><br />
+<b>Réseaux</b> : Changez les valeurs uniquement si nécessaire. Sur Arbutus, sélectionnez le réseau par défaut qui commence habituellement par <i>def-project-name</i>.
+[[File:Security groups fr.png|500px|thumb]]
+<b>Ports réseaux </b>: Ne changez pas les valeurs pour l'instant.
+<b>Groupes de sécurité</b> :  Le groupe de sécurité par défaut devrait paraître dans la liste <i>Alloué</i>. Si ce n'est pas le cas, déplacez-le de la liste <i>Disponible</i> en cliquant sur la flèche à la fin de la ligne. Pour plus d'information, voir [[Managing_your_cloud_resources_with_OpenStack/fr#Groupes_de_sécurité|Groupes de sécurité]].
+[[File:Key pair tab fr.png|500px|thumb]]<br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+<b>Paires de clés </b> : Sous <i>Disponible</i>, sélectionnez la paire de clés SSH que vous avez créée plus tôt et déplacez-la vers la liste <i>Alloué</i> en cliquant sur la flèche à la fin de la ligne. Si vous n'avez pas de paire de clés, vous pouvez la créer ou l'importer en cliquant sur les boutons dans le haut de la fenêtre (voir [[Cloud Quick Start/fr#Paires_de_clés_SSH| Paires de clés SSH ci-dessus]]). Pour l'information sur la gestion et l'utilisation des paires de clés, voir [[SSH_Keys/fr|Clés SSH]].<br /><br />
+<b>Configuration</b> : Ne changez pas les valeurs pour l'instant; pour l'information sur la personnalisation des scripts, voir [[Automating VM creation/fr#Utilisation_de_cloud-init|Utilisation de cloud-init]].
+<br /><br />
+<b>Groupes de serveurs</b> : Ne changez pas les valeurs pour l'instant.
+<br /><br />
+<b>Scheduler Hints</b> : Ne changez pas les valeurs pour l'instant.
+<br /><br />
+<b>Métadonnées</b> : Ne changez pas les valeurs pour l'instant.<br /><br />
+<br /><br />
+Une fois que vous avez vérifié les options et défini votre instance, cliquez sur le bouton <i>Lancer Instance</i> pour créer votre instance. La liste de vos instances sera affichée. La colonne <i>Tâche</i> montre l'état de la tâche en cours qui sera probablement <i>Génération</i>. Une fois l'instance générée, l'état deviendra <i>En fonctionnement</i>, ce qui peut prendre quelques minutes.
+
+===Configuration du réseau===
+[[File:Manage-Floating-IP-Associations-Form-FR.png|400px|thumb| Gérer les associations d'IP flottantes (cliquez pour agrandir)]]
+
+[[File:Add-Rule-Form-FR.png|400px|thumb| Ajouter une règle (cliquez pour agrandir)]]
+La page <i>Instances</i> montre la liste des instances avec les adresses IP correspondantes dans la colonne <i>Adresse IP</i>. Chaque instance a au moins une adresse IP privée, mais certaines instances peuvent aussi avoir une deuxième adresse IP publique. Un réseau local est automatiquement créé quand vous créez votre projet OpenStack. Ce réseau local sert à connecter les instances entre elles et aussi à une passerelle internet à l'intérieur du projet pour que les instances communiquent avec l'externe. Chacune des instances créées dans votre projet possède une adresse IP privée qui lui est assignée par le réseau, selon le format <code>192.168.X.Y</code>; cette adresse privée empêche la communication en provenance de l'extérieur. Pour sa part, l'adresse IP publique permet à des services ou des outils externes de communiquer avec l'instance via votre ordinateur personnel, par exemple pour effectuer des tâches administratives ou pour recevoir du contenu web. Une adresse IP publique sert aussi aux accès par nom de domaine.
+
+<b>Assigner une adresse IP publique</b>
+#Faites afficher la page des instances avec <i>Compute->Instances</i>. Un menu déroulant se trouve à la fin de la ligne de votre instance.
+#Cliquez sur l'icône &#x25BC; à la fin de la ligne pour votre instance et sélectionnez  <i>Associer une adresse IP flottante</i> puis dans la fenêtre <i>Allouer une IP flottante</i>, cliquez sur le bouton <i>Allocation d'IP</i>. Si vous faites cette association pour la première fois, cliquez sur l'icône + de la fenêtre <i>Gérer les Associations d'IP flottantes</i>. Si plus tard vous devez allouer encore une adresse IP publique pour cette instance, vous pouvez en sélectionner une dans la liste déroulante du champ <i>Adresse IP</i>.
+*Cliquez sur le bouton <i>Associer</i>.
+*Vous devriez maintenant avoir deux adresses IP dans la colonne, une au format <code>192.168.X.Y</code> et l'autre, votre clé publique. La liste de vos adresses publiques et des projets associés se trouve aussi sous <i>Réseau->IP flottantes</i>. Vous aurez besoin de votre adresse IP publique pour vous connecter à votre instance. 
+<b>Configurer le pare-feu</b>
+*Faites afficher la page <i>Groupes de sécurité</i> avec <i>Réseau->Groupes de sécurité</i>. 
+*Sur la ligne pour le groupe par défaut, cliquez sur le bouton <i>Gérer les Règles</i> à la droite.
+*Sur la page de gestion des règles, cliquez sur le bouton <i>+Ajouter une règle</i>.
+*Dans le menu déroulant <i>Règles</i>, sélectionnez <i>SSH</i>. 
+*Laissez <i>CIDR</i> dans le champ <i>Distant</i>.
+*Remplacez le contenu du champ <i>CIDR</i> par <code>votre-ip/32</code>, ce qui est l'adresse IP de l'ordinateur physique que vous voulez utiliser pour vous connecter à votre instance. Pour connaître votre adresse IP courante, entrez [http://ipv4.icanhazip.com ipv4.icanhazip.com] dans votre navigateur. Pour avoir accès à votre instance à partir d'une autre adresse IP, vous pouvez ajouter d'autres règles pour chacune des adresses. Pour indiquer une série d'adresses IP, utilisez [https://www.ipaddressguide.com/cidr cet outil] pour calculer votre règle CIDR.
+*Cliquez sur le bouton <i>Ajouter</i> et la nouvelle règle sera affichée dans la liste des groupes de sécurité. 
+<b>Points importants</b>
+*<b>Ne supprimez pas les règles de sécurité par défaut</b>; le fonctionnement de votre instance  serait compromis (voir [[Managing_your_cloud_resources_with_OpenStack/fr#Groupes_de_sécurité|Groupes de sécurité]]).
+*<b>Ne modifiez pas les règles de sécurité</b>; pour ce faire, il faut les supprimer et les ajouter une fois modifiées. Si vous faites une erreur à la création d'une règle pour le groupe de sécurité,  supprimez la règle en cliquant sur le bouton à gauche de la rangée dans la fenêtre des groupes de sécurité et ajoutez une nouvelle règle modifiée en cli</i>.
+*Si vous changez l'endroit à partir duquel vous travaillez (et par le fait même votre adresse IP), vous devez ajouter la règle décrite ici pour la nouvelle adresse. Sachez que quand vous changez votre lieu de travail physique, par exemple pour travailler de la maison plutôt que du travail, vous changez aussi de réseau. 
+*Si vous n'avez pas d'adresse IP statique pour le réseau que vous utilisez, souvenez-vous que celle-ci peut changer. Si vous ne pouvez plus vous connecter à votre instance après un certain temps, vérifiez si votre adresse IP a changé en entrant [http://ipv4.icanhazip.com ipv4.icanhazip.com] dans votre navigateur et vérifiez si elle correspond à ce qui se trouve dans votre règle de sécurité. Si votre adresse IP change souvent mais que les chiffres à l'extrême gauche restent les mêmes, il pourrait être plus raisonnable d'ajouter une plage d'adresses IP plutôt que d'avoir à modifier fréquemment les règles de sécurité. Pour déterminer une plage CIDR, [https://www.ipaddressguide.com/cidr utilisez cet outil] ou consultez la [https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation notation CIDR].
+*Il pourrait être utile de fournir une description pour vos règles de sécurité, par exemple <i>bureau</i> ou <i>maison</i>. Vous pourrez ainsi savoir si une règle n'est plus nécessaire quand vous voulez ajouter une nouvelle règle pour vous connecter par exemple de la maison.
+
+===Connexion à votre instance par SSH===
+À la première étape de ce guide, vous avez sauvegardé une clé privée sur votre ordinateur; il est important de savoir où trouver cette clé parce que vous en avez besoin pour vous connecter à votre instance. Vous devez aussi vous souvenir du type d'image que vous avez sélectionnée (Ubuntu, Fedora, etc.) et de l'adresse IP publique associée à votre instance.
+
+===Connexion à partir de Linux ou Mac===
+Ouvrez un terminal et entrez la commande
+{{Command| ssh -i /path/where/your/private/key/is/my_key.key <user name>@<public IP of your server>}}
+où <code><user name></code> est le nom de l'utilisateur qui se connecte et <code><public IP of your VM></code> est l'IP publique que vous avez associée à votre instance à l'étape précédente. Le nom de l'utilisateur par défaut dépend de l'image.
+{| class="wikitable"
+!Distribution
+!Nom d'utilisateur
+|-
+|Debian
+|debian
+|-
+|Ubuntu
+|ubuntu
+|-
+|CentOS
+|centos
+|-
+|Fedora
+|fedora
+|-
+|AlmaLinux
+|almalinux
+|-
+|Rocky
+|rocky
+|}
+Ces utilisateurs par défaut possèdent tous les privilèges sudo. La connexion directe au compte racine via SSH est désactivé.
+
+===Connexion à partir de Windows===
+[[File:MobaXterm basic.png|400px|thumb| Créer une session SSH (cliquez pour agrandir)]]	
+La connexion SSH doit se faire par une application d'interface. Nous recommandons <b>MobaXTerm</b> (voir les directives ci-dessous); vous pouvez aussi vous connecter par PuTTY (voir [[Connecting with PuTTY/fr|Connexion à un serveur avec PuTTY]]).
+
+[[File:MobaXterm ssh key.png|400px|thumb| Spécifier une clé privée (cliquez pour agrandir)]]
+[http://mobaxterm.mobatek.net/ Téléchargez MobaXTerm].
+Pour vous connecter :
+#Lancez l'application MobaXterm.
+#Cliquez sur <i>Sessions</i> puis sur <i>New session</i>. </br></br></br></br>
+#Sélectionnez une session SSH.
+#Dans le champ <i>Remote host</i> entrez l'adresse IP publique de votre instance.
+#Assurez-vous que la case <i>Specify username</i> est cochée et entrez le type d'image pour votre instance en minuscules (bas de casse).
+#Cliquez sur l'onglet <i>Advanced SSH settings</i> et cliquez sur la case <i>Use private key</i>.
+#Cliquez sur l'icône de la page à la droite du champ <i>Use private key</i>. Dans la fenêtre qui s'affiche, sélectionnez la paire de clés (fichier .pem) que vous avez enregistrée sur votre ordinateur au début de ce guide.  
+#Cliquez sur OK. MobaXterm enregistre l'information que vous avez entrée pour vous connecter à d'autres moments et ouvre une connexion SSH pour votre instance. Une connexion SFTP est aussi ouverte pour vous permettre de glisser-déplacer des fichiers dans les deux sens, via le panneau de gauche.
+[[File:MobaXterm connected.png|400px|thumb| Connexion à un serveur hôte distant (cliquez pour agrandir)]] <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+
+==Pour plus d'information==
+* [[Linux_introduction/fr|Introduction à Linux]], sur comment travailler en ligne de commande sous Linux
+* [[Security considerations when_running a VM/fr|Sécurité des instances virtuelles]]
+* [[configuring a data or web server/fr|Configuration d'un serveur de données ou d'un serveur web]]
+* [[Managing your cloud resources with OpenStack/fr|Gestion des ressources infonuagiques avec OpenStack]]
+* [[Cloud_Technical_Glossary/fr|Glossaire technique de l'infonuagique]]
+* [[Automating VM creation/fr|Automatiser la création d'instances]]
+* [[Backing up your VM/fr|Sauvegarder une instance]]
+* [[Technical support/fr|Soutien technique]]
+</tab>
+<tab name="Windows">
+
+__TOC__
+
+==Demande d'accès à une image Windows==
+Pour créer une instance Windows sur un de nos nuages, vous devez d'abord demander l'accès à une image Windows en écrivant au [[Technical support/fr|soutien technique]].
+
+L'accès à une image Windows Server 2012 et un nom d'utilisateur vous seront fournis; cet accès est valide pour une période d'évaluation de 180 jours. Il pourrait être possible d'associer une licence Windows à une instance créée avec l'image d'évaluation, mais nous ne fournissont pas ces licences.
+
+==Paire de clés SSH==
+[[File:Create-Key-Pair-Form-FR.png|400px|thumb| Créer une paire de clés (cliquez pour agrandir)]]
+Les instances Windows cryptent les mots de passe des comptes administrateur avec une clé publique. La clé privée correspondante sert au décryptage. 
+
+Il est recommandé de créer une nouvelle paire de clés avec OpenStack plutôt que d'importer une paire de clés existante. Pour ce faire,
+#Dans le menu de gauche, cliquez sur ''Accès et Sécurité''.
+#Cliquez sur l'onglet ''Paires de clés''.
+#Cliquez sur ''+Créer une paire de clés''; ceci fait afficher la fenêtre de création.
+#Entrez le nom de la paire de clés.
+#Cliquez sur le bouton ''Créer une paire de clés''.
+#Sauvegardez le fichier .pem sur votre disque.
+
+Si vous voulez utiliser une paire de clés existante, consultez d'abord les [[Creating a Windows VM/fr#Remarques_sur_les_paires_de_clés|remarques ci-dessous]].
+
+==Lancer une instance==
+[[File:Windows-launch-instance FRN.png|400px|thumb| Création d'une instance (cliquez pour agrandir)]]
+Pour créer une instance, cliquez sur l'option <i>Instances</i> dans le menu de gauche, puis sur le bouton <i>Lancer une instance</i>.
+
+Le formulaire de création d'une instance est affiché.
+
+*Onglet ''Détails''
+**''Zone de disponibilité'' : Seule la zone ''nova'' est disponible; conservez ce nom.
+**''Nom de l'instance'' : Entrez le nom de votre instance en respectant les [https://fr.wikipedia.org/wiki/Nom_de_domaine conventions de nomenclature].
+**''Gabarit'': Le gabarit détermine les caractéristiques matérielles de l'instance; sélectionnez ''p2-3gb''.<p>L'image Windows est plutôt exigeante  et nécessite un lecteur amorçable de grande capacité. Les gabarits de type c ont des disques racines de seulement 20Go alors que les gabarits de type p offrent plus de capacité. La mémoire vive du  plus petit gabarit de type p est de 1.5Go, ce qui d'expérience n'est pas suffisant pour bien opérer Windows. La performance de l'instance sera meilleure si vous utilisez un gabarit un peu plus grand tel que ''p2-3gb''.</p>
+**''Nombre d'instances'' : Nombre d'instances à créer.
+**''Source de démarrage de l'instance'' : Source utilisée pour lancer l'instance; sélectionnez ''Démarrage depuis une image (crée un nouveau volume)''.
+**''Nom de l'image'' : Nom de l'image Windows qui vous est allouée.
+** ''Taille du périphérique'': Taille du disque racine; entrez 30Go ou plus. <p>À la fin, le système d'exploitation occupe environ 20Go, mais plus d'espace est requis pour les étapes préparatoires. </p>
+** ''Supprimer après Terminaison'': Si cette case est cochée, le volume créé avec l'instance est supprimé quand l'instance est terminée. <p>De façon générale, il n'est pas recommandé de cocher la case puisque le volume peut être supprimé manuellement et que l'instance peut être terminée sans la suppression du volume.</p>
+**''Limites du projet'' : Dans les barres de progression, la couleur verte montre la proportion des ressources utilisées par l'instance qui sera lancée. La couleur rouge indique que le gabarit utilise plus de ressources que celles allouées au projet. Le bleu montre les ressources utilisées par le projet.
+*Onglet ''Accès et Sécurité''
+**''Paires de clés'' : Sélectionnez votre paire de clés SSH.<p>S'il n'y a qu'une paire de clés, elle est affichée par défaut. Si vous n'avez pas de paire de clés, reportez-vous à la section  [[Creating a Windows VM/fr#Paire_de_clés_SSH|Paire de clés SSH]] plus haut.</p>
+:*''Groupes de sécurité'' : Assurez-vous que la case ''default'' est cochée.
+*Onglet ''Démarrage du réseau'' : Ne modifiez pas le contenu de ce champ. L'information relative aux réseaux sera présentée après le lancement de l'instance.
+*Onglet ''Post-Création'' : Ne modifiez pas le contenu de ce champ.
+*Onglet ''Options avancées'' : Ne modifiez pas l'option ''Automatique'' dans le champ ''Partitionnement du disque''.
+
+Après avoir vérifié le contenu de tous les champs, cliquez sur ''Démarrer'' pour lancer l'instance. La liste des instances est affichée et la colonne ''Tâche'' montre la tâche en cours de l'instance; au départ, la colonne ''Tâche'' montrera probablement ''Block Device Mapping''. Une fois l'instance créée et le démarrage amorcé, la colonne ''État de l'alimentation'' montre ''En fonctionnement''. Pour créer le volume, y copier l'image et amorcer le démarrage, il faudra au moins 10 minutes.
+
+==Localisation et licence==
+
+[[File:console.png|400px|thumb| Paramètres de localisation (cliquez pour agrandir)]]
+
+Le premier démarrage de l'instance ne sera pas complété tant que les paramètres de localisation, de langue et de clavier ne sont pas sélectionnés et que vous n'avez pas accepté les conditions de la licence via la console du tableau de bord OpenStack.
+
+Pour faire afficher la console :
+# Dans le menu de gauche, cliquez sur l'option ''Instances''.
+# Cliquez sur le nom de l'instance Windows.
+# Cliquez sur l'onglet ''Console'' et attendez que la console soit affichée.<br/>
+Si rien ne s'affiche sur la console, l'écran est peut-être en état de veille; cliquez dans l'écran ou appuyez sur une touche du clavier pour réactiver l'écran.
+
+Comme le curseur est souvent lent à réagir, utilisez plutôt les touches du clavier.
+* La touche de tabulation pour sélectionner les champs.
+* Les flèches ''haut'' et ''bas'' pour sélectionner les options. 
+* Entrez les premières lettres du pays ou de la région pour positionner le menu déroulant près de la sélection.
+* Pour terminer, appuyez sur la touche de tabulation jusqu'à ce que le champ ''next'' (suivant) soit sélectionné et appuyez sur la touche Entrée.
+
+On vous demandera d'accepter les conditions de la licence. 
+* Appuyez sur la touche de tabulation jusqu'à ce que le champ ''I accept'' soit sélectionné. 
+* Appuyez sur la touche Entrée. 
+
+L'instance redémarrera et la console affichera un écran de connexion avec la date et l'heure (UTC).
+
+==Réseau==
+[[File:Manage-Floating-IP-Associations-Form-FR.png|400px|thumb| Gérer les associations d'IP flottantes (cliquez pour agrandir)]]
+
+[[File:Add-Rule-Form-FR.png|400px|thumb| Ajouter une règle (cliquez pour agrandir)]]
+Sous l'onglet ''Instances'' se trouve la liste des instances avec les adresses IP correspondantes. Chaque instance a au moins une adresse IP privée, mais certaines instances peuvent aussi avoir une deuxième adresse IP publique.
+
+===Adresse IP privée===
+Lorsque vous créez un projet OpenStack, un réseau local est créé pour vous. Ce réseau sert à la communication des instances entre elles ainsi qu'à la communication des instances avec l'extérieur du projet. Une adresse IP privée ne permet pas l'accès à l'instance en provenance de l'extérieur. Pour chaque instance créée à l'intérieur d'un projet, le réseau lui associe une adresse privée qui lui est propre; cette adresse est selon le format <code>192.168.X.Y</code>.
+
+===Adresse IP publique===
+Les adresses IP publiques permettent aux outils et services externes d'entrer en contact avec l'instance, par exemple pour effectuer des tâches de gestion ou pour fournir du contenu web. Les noms de domaines peuvent aussi pointer sur une adresse IP publique.
+
+Pour assigner une adresse IP publique à une instance, cliquez sur l'icône ▼ pour dérouler le menu dans la colonne ''Actions'', puis sélectionnez ''Associer une adresse IP flottante''. Si vous faites cet exercice pour la première fois, votre projet n'a pas encore reçu une adresse IP externe. Vous devez appuyer sur le bouton +; ceci fait afficher la fenêtre ''Gérer les Associations d'IP flottantes''. Il n'y a qu'un groupe d'adresses publiques et le groupe approprié sera sélectionné par défaut; cliquez sur le bouton ''Associer''. La fenêtre ''Allouer une IP flottante'' est affichée et montre l'adresse IP et le port de son [https://en.wikipedia.org/wiki/Network_address_translation NAT]; cliquez sur le bouton ''Allocation d'IP''.
+
+===Pare-feu et règles autorisant le protocole RDP (''Remote Desktop Protocol'')===
+Pour vous connecter à votre instance avec un client à distance, vous devez d'abord autoriser le protocole RDP.
+
+#Dans le menu de gauche, sélectionnez ''Accès et Sécurité''. Sous l'onglet ''Groupes de sécurité'', sélectionnez le groupe ''default'' et cliquez sur le bouton ''Gérer les règles''.
+#Dans la fenêtre de gestion des règles, cliquez sur le bouton ''+Ajouter une règle''. 
+#Il existe une règle prédéfinie pour RDP; sélectionnez cette règle dans le menu déroulant du champ ''Règle''; dans le champ ''Distant'', laissez ''CIDR''.
+#Dans le champ ''CIDR'', remplacez <code>0.0.0.0/0</code> par votre adresse IP. <p>Si vous ne connaissez pas votre adresse IP courante, vous pouvez l'obtenir en entrant [http://ipv4.icanhazip.com ipv4.icanhazip.com] dans votre fureteur. Le fait de laisser <code>0.0.0.0/0</code> permet l'accès possible à votre instance par quiconque et la rend vulnérable aux [https://fr.wikipedia.org/wiki/Attaque_par_force_brute attaques par force brute]. Pour permettre l'accès pour d'autres adresses IP, ajoutez des règles pour ces adresses ou indiquez un groupe d'adresses avec [https://www.ipaddressguide.com/cidr cet outil].</p><p>'''Si vous laissez <code>0.0.0.0/0</code> dans le champ ''CIDR'', l'administrateur de la ressource peut bloquer tout accès à votre instance jusqu'à ce que les règles de sécurité soient adéquates.'''</p>
+#Enfin, cliquez sur le bouton ''Ajoutez''.
+
+==Connexion bureau à distance==
+[[File:Retrieve-instance-password-FR.png|400px|thumb| Récupérer le mot de passe de l'instance Windows (cliquez pour agrandir)]]
+[[File:Remote-Desktop-Connection-windows-FRN.png|400px|thumb| Client Windows (cliquez pour agrandir)]]
+[[File:Remmina-Ubuntu.png|400px|thumb| Client Remmina dans Ubuntu (cliquez pour agrandir)]]
+
+Pour se connecter à une instance Windows, nous utiliserons un client connecté à distance. Pour ce faire, nous devons fournir une adresse IP flottante, un nom d'utilisateur et un mot de passe.
+
+===Récupérer le mot de passe===
+Pour récupérer le mot de passe, 
+# Dans le menu de gauche, cliquez sur ''Instances''.
+# Dans le menu déroulant pour l'instance, sélectionnez ''Récupérer le mot de passe''.
+
+Le mot de passe a été crypté avec la clé publique que vous avez sélectionnée à la création de l'instance. Pour le décrypter, 
+# Faites afficher le fichier où se trouve votre clé privée. <p>Si vous avez suivi les directives pour les paires de clés SSH, une clé privée correspondant à la clé publique devrait être enregistrée sur votre ordinateur; le nom a le suffixe .pem.</p>
+# Sélectionnez la clé privée.
+# Cliquez sur ''Déchiffrer le mot de passe''.
+
+Ne fermez pas cette fenêtre puisque nous utiliserons le mot de passe dans la prochaine étape. Le mot de passe peut être récupéré à nouveau en répétant ce processus.
+
+===À partir d'un client Windows===
+Plusieurs versions de Windows offrent par défaut la connexion Bureau à distance; si vous ne trouvez pas cette fonctionnalité, vous pouvez l'installer à partir de [https://www.microsoft.com/fr-ca/store/p/bureau-a-distance-microsoft/9wzdncrfj3ps ce site de Microsoft] (l'installation est gratuite). 
+
+Lancez la connexion Bureau à distance et connectez-vous à votre instance Windows.
+# Dans le champ ''Ordinateur'', entrez l'adresse IP publique.
+# Entrez votre ''Nom d'utilisateur''. 
+# Cliquez sur le bouton ''Connexion'' dans le bas de la fenêtre. 
+# À l'invite, entrez le mot de passe récupéré à l'étape précédente. 
+# Cliquez sur ''OK''. 
+
+Vous recevrez probablement un message indiquant que l'identité de l'ordinateur  distant ne peut pas être vérifiée et vous demandant si vous voulez quand même poursuivre; ceci est normal, alors répondez ''Oui''. Votre instance Windows sera affichée dans la fenêtre du client de connexion au bureau à distance.
+
+[ À compléter ]
+'''TODO:''' The specific certificate error is "The certificate is not from a trusted certifying authority". Is seeing this alert really normal? Do we want to register the windows image certificate with a signing authority? Could we use letsencrypt or should we just ignore this issue?
+
+===À partir d'un client Linux===
+Sous Linux, vous devez avoir un client de connexion à distance. Plusieurs clients sont disponibles; nous recommandons cependant Remmina qui semble bien fonctionner lorsque testé avec Ubuntu. Les directives pour Remmina et d'autres systèmes Linux dont Ubuntu, Debian et Fedora se trouvent [https://github.com/FreeRDP/Remmina/wiki sur cette page web]. 
+
+Une fois la connexion établie avec votre instance Windows, 
+# Cliquez sur ''Create a new remote desktop file'' (fichier avec le symbole plus (+) vert). <p>Une fenêtre semblable à celle montrée à droite devrait paraître.</p>
+# Dans le champ ''Server'', entrez l'adresse IP publique de votre instance Windows.
+# Dans le champ ''User name'', entrez votre nom d'utilisateur.
+# Dans le champ ''Password'', entrez le mot de passe obtenu à l'étape précédente.
+# Cliquez sur ''Connect''.
+
+===À partir d'un client Mac===
+
+[ À compléter ]
+
+==Licence==
+
+[ À compléter ]
+'''TODO''': need to provide information which would be helpful for users to know what path to take to get a license. Should cover things like:
+* Where to go to get a license
+* What kind of license do I need/what licenses will work on the cloud
+* How to apply my license to my existing cloud VM
+* How to apply it to a new VM (if that is different than above bullet item)
+
+==Remarques à propos des paires de clés==
+Il existe différents formats pour les fichiers de clés et vous avez la possibilité de protéger ou non vos clés privées à l'aide de phrases de passe. Pour pouvoir décrypter le mot de passe pour votre instance Windows, votre clé privée doit être au format OpenSSH et ne pas être protégée avec une phrase de passe. Si votre paire de clés a été créée par OpenStack et que vous avez téléchargé le fichier de clés <code>.pem</code>, la clé privée sera déjà au format requis.  Si vous avez créé votre paire de clés avec la [[Using_SSH_keys_in_Linux/fr|commande <code>ssh-keygen</code>]] et que vous n'avez pas défini une phrase de passe, le format sera aussi fort probablement correct. Pour plus d'information sur les paires de clés, voyez la page [[SSH Keys/fr|Clés SSH]].
+ 
+Voici un exemple d'une clé privé appropriée au format OpenSSH, sans phrase de passe :
+
+-----BEGIN RSA PRIVATE KEY-----
+ MIIEowIBAAKCAQEAvMP5ziiOw9b5XMZUphATDZdnbFPCT0TKZwOI9qRNBJmfeLfe
+ ...
+ DrzXjRpzmTb4D1+wTG1u7ucpY04Q3KHmX11YJxXcykq4l5jRZTKj
+ -----END RSA PRIVATE KEY-----
+
+Au centre, <code>...</code> remplace plusieurs lignes de caractères semblables à celle qui précède et celle qui suit. Les deux exemples de clés privées ci-dessous ne fonctionneront pas pour des instances Windows avec OpenStack.
+
+Format OpenSSH avec phrase de passe ː
+
+-----BEGIN RSA PRIVATE KEY-----
+ Proc-Type: 4,ENCRYPTED
+ DEK-Info: DES-EDE3-CBC,CA51DBE454ACC89A
+ 
+ 0oXD+6j5aiWIwrNMiGYDqoD0OqlURfKeQhy//FwHuyuithOSI8uwjSUqV9BM9vi1
+ ...
+ 8XaBb/ALqh8zLQOXEUuTstlMWXnhzBWLvu7tob0QN7pI16g3CXuOag==
+ -----END RSA PRIVATE KEY-----
+
+Format ssh.com sans phrase de passe :
+
+---- BEGIN SSH2 ENCRYPTED PRIVATE KEY ----
+ Comment: "rsa-key-20171130"
+ P2/56wAAA+wAAAA3aWYtbW9kbntzaWdue3JzYS1wa2NzMS1zaGExfSxlbmNyeXB0e3JzYS
+ ...
+ QJX/qgGp0=
+ ---- END SSH2 ENCRYPTED PRIVATE KEY ----
+
+==Pour plus d'information= =
+* [[Security considerations when_running a VM/fr|Sécurité des instances virtuelles]]
+* [[Creating a Linux VM/fr|Création d'une instance sous Linux]]
+* [[Managing_your_cloud_resources_with_OpenStack/fr|Gestion des ressources infonuagiques avec OpenStack]]
+* [[Cloud_Technical_Glossary/fr|Glossaire technique de l'infonuagique]]
+* [[Automating VM creation/fr|Automatiser les instances]]
+* [[Backing up your VM/fr|Sauvegarder une instance]]
+* [[Technical support/fr|Soutien technique]]
+</tab>
+</tabs>
+
+[[Category:Cloud]]

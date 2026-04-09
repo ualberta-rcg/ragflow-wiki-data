@@ -1,0 +1,149 @@
+<languages />
+<translate>
+=Introduction= <!--T:1-->
+[https://surfer.nmr.mgh.harvard.edu/fswiki/FreeSurferWiki FreeSurfer] is a set of tools for the analysis and visualization of structural and functional brain imaging data. FreeSurfer contains a fully automatic structural imaging stream for processing cross sectional and longitudinal data.
+
+=FreeSurfer 5.3 as a global module= <!--T:2-->
+In our software stack, you may load the <code>freesurfer/5.3.0</code> module. 
+
+<!--T:3-->
+FreeSurfer comes up with a script <code>FreeSurferEnv.sh</code> that should be sourced to correctly set up environment variables such as PATH and PERL5LIB:
+</translate>
+{{Commands
+|module load freesurfer/5.3.0
+|source $EBROOTFREESURFER/FreeSurferEnv.sh
+}}
+<translate>
+=FreeSurfer 6.0 and newer versions= <!--T:4-->
+Due to a change in the [https://surfer.nmr.mgh.harvard.edu/fswiki/FreeSurferSoftwareLicense license terms], we '''no longer''' install the code as a central module. If needed, please install it in your /home directory or in your /project space with EasyBuild. Please follow the instructions below and if needed, contact the [[Technical Support|technical support]] for assistance. 
+
+==Download the software== <!--T:5-->
+Select a version (6.0.0 or newer) in the [https://surfer.nmr.mgh.harvard.edu/pub/dist/freesurfer/ download repository] and download the corresponding <code>freesurfer-Linux*vX.Y.Z.tar.gz</code> archive on your favorite cluster.
+
+==Installation in your /home directory with EasyBuild== <!--T:6-->
+The following procedure will install FreeSurfer 6.0.0 in <code>/home/$USER/.local/easybuild/software/2020/Core/freesurfer/6.0.0/</code>. The installation requires some memory and due to the restrictions of memory stack size on the login nodes on our clusters, the installation may fail because of the memory. To overcome this issue, you may need to use an [[Running_jobs#Interactive_jobs|interactive job]] by asking for enough memory (8 GB or so) to install the code. 
+
+<!--T:7-->
+# Go to the folder that contains the <code>freesurfer-Linux-centos6_x86_64-stable-pub-v6.0.0.tar.gz</code> archive.
+# Unload all modules with <code>module purge</code>.
+# Install with [[EasyBuild]] using <code>eb FreeSurfer-6.0.0-centos6_x86_64.eb --disable-enforce-checksums</code>.
+# Register for the FreeSurfer license key [https://surfer.nmr.mgh.harvard.edu/registration.html].
+# Your user license will have to go in
+{{Commands
+|module load freesurfer/6.0.0
+|cd $FREESURFER_HOME
+}}
+
+<!--T:8-->
+Use nano or any other text editor of your choice and create a file <code>/home/$USER/.license</code> and add the license text (example):
+</translate>
+<pre>
+name.name@university.ca
+12345
+*A1BCdEfGHiJK
+ABCd0EFgHijKl
+</pre>
+<translate>
+<!--T:9-->
+To load the private module: 
+<code>module load freesurfer/6.0.0</code>
+
+<!--T:10-->
+As of August 2020, we were supporting up to version 6.0.1. You can check for [https://github.com/ComputeCanada/easybuild-easyconfigs/tree/computecanada-master/easybuild/easyconfigs/f/FreeSurfer newer versions here].
+
+==EasyBuild recipes== <!--T:11-->
+You can check the EasyBuild recipes for FreeSurfer [https://github.com/ComputeCanada/easybuild-easyconfigs/tree/computecanada-master/easybuild/easyconfigs/f/FreeSurfer online] on GitHub or via a command line ,<code>eb -S FreeSurfer</code>, from any of our clusters. If the version you are looking for is not listed, you may try to install the program with the option <code>--try-software-version=<the new version></code>. If that did not work, please contact the [[Technical support/en|technical support]] for help.
+
+==Installation in a shared folder== <!--T:12-->
+Using EasyBuild, it is possible to install the program in a shared location (like /project) and make the code available for any other member of the group. The following will install FreeSurfer under the directory <code>/home/$USER/projects/def-someuser/$USER/software</code> and the module under the user's directory <code>/home/$USER/.local/easybuild/modules/2020/Core/freesurfer</code>. 
+
+
+</translate>
+<pre>
+newgrp def-someuser
+installdir=/home/$USER/projects/def-someuser/$USER
+moduledir=/home/$USER/.local/easybuild/modules/2020
+pathtosrc=/home/$USER/software
+eb FreeSurfer-6.0.1-centos6_x86_64.eb --installpath-modules=${moduledir} --prefix=${installdir} --sourcepath=${pathtosrc}
+</pre>
+<translate>
+<!--T:14-->
+If it complains about '''checksums''', add the option <code>--disable-enforce-checksums</code> to the <code>eb</code> command.
+
+<!--T:15-->
+To make the program accessible for all members of the group, two more steps are required:
+
+<!--T:16-->
+* You need to give all members of your group read and exec access to the installation directory <code>/home/$USER/projects/def-someuser/$USER</code>. To see how to give them access to this directory, please read [[Sharing_data#Changing_the_permissions_of_existing_files|Changing the permissions of existing files]].
+* Each member of the group will need to put the module file in their own /home directories. The module file <code>6.0.1.lua</code> is located under the directory: 
+<pre>
+/home/$USER/.local/easybuild/modules/2020/Core/freesurfer/</code>
+</pre>
+
+<!--T:17-->
+Each member of the group will need to create the directory <code>/home/$USER/.local/easybuild/modules/2020/Core/freesurfer</code> where they will put the file <code>6.0.1.lua</code>:
+</translate>
+{{Commands
+|mkdir -p /home/$USER/.local/easybuild/modules/2020/Core/freesurfer
+|cp 6.0.1.lua /home/$USER/.local/easybuild/modules/2020/Core/freesurfer/
+}}
+<translate>
+<!--T:18-->
+The above will set the module (only the module file that points to the installation directory under /project) in their own directory.
+
+<!--T:19-->
+The module can be loaded from their own accounts using:
+
+<!--T:20-->
+{{Commands
+|module load freesurfer/6.0.1
+}}
+
+==Hippocampus and brainstem processing== <!--T:21-->
+To perform processing of the hippocampus and brainstem, download and install MATLAB runtime 2012b from the FreeSurfer website:
+</translate>
+<pre>
+module load freesurfer/6.0.0
+cd $FREESURFER_HOME
+curl "http://surfer.nmr.mgh.harvard.edu/fswiki/MatlabRuntime?action=AttachFile&do=get&target=runtime2012bLinux.tar.gz" -o "matlab_runtime2012bLinux.tar.gz"
+tar xvf matlab_runtime2012bLinux.tar.gz 
+</pre>
+<translate>
+==Example of working batch script for FreeSurfer version >= 6.0.0== <!--T:22-->
+</translate>
+{{File
+|name=mysub.sh
+|lang="bash"
+|contents=
+#!/bin/bash
+
+#SBATCH --account=def-someuser
+#SBATCH --mem=16G
+#SBATCH --time=10:00:00
+
+# Load the module:
+
+module load freesurfer/6.0.0
+
+# set the variables:
+
+export SUBJECTS_DIR=<User_Defined_DIR>
+source $EBROOTFREESURFER/FreeSurferEnv.sh
+
+echo "Starting run at: `date`"
+
+recon-all command
+
+echo "Program finished with exit code $? at: `date`"
+}}
+<translate>
+==Examples of required walltimes== <!--T:23-->
+
+<!--T:24-->
+* recon-all -all : <code>#SBATCH --time=08:00:00</code>
+* recon-all -qcache : <code>#SBATCH --time=00:20:00</code>
+* recon-all -base -tp1 -tp2 : <code>#SBATCH --time=10:00:00</code>
+* recon-all -long subjid -base base : <code>#SBATCH --time=10:00:00</code>
+* recon-all -hippocampal-subfields-T1 : <code>#SBATCH --time=00:40:00</code>
+* recon-all -brainstem-structures: <code>#SBATCH --time=00:30:00</code>
+</translate>

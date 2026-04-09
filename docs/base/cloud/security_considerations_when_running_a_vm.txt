@@ -1,0 +1,78 @@
+<languages/>
+<translate>
+<!--T:6-->
+''Parent page: [[Cloud]]''
+
+<!--T:1-->
+On the [[CC-Cloud|cloud]], you are responsible for the security of your virtual machines.
+
+<!--T:2-->
+This document is not a complete guide, but will set out some things you need to consider when creating a VM on the cloud.
+
+==Basic security talk recording== <!--T:7-->
+There is a recording of an ~1.5 hr talk on some basic security considerations when working with VMs in the cloud available on youtube called [https://youtu.be/l3CcXzaVpTs Safety First!].
+
+<!--T:8-->
+Below is a list of links to different sections of the recording for easier video navigation.
+* [https://youtu.be/l3CcXzaVpTs?t=219 Talk overview]
+* [https://youtu.be/l3CcXzaVpTs?t=354 Cloud service levels]
+* [https://youtu.be/l3CcXzaVpTs?t=563 General security principles]
+* [https://youtu.be/l3CcXzaVpTs?t=789 Key topics]
+* [https://youtu.be/l3CcXzaVpTs?t=817 Creating a first VM (with some comments about security)]
+* [https://youtu.be/l3CcXzaVpTs?t=1530 OpenStack security groups]
+* [https://youtu.be/l3CcXzaVpTs?t=1964 SSH Security]
+* [https://youtu.be/l3CcXzaVpTs?t=3281 Logs]
+* [https://youtu.be/l3CcXzaVpTs?t=4180 Creating backups of VMs]
+
+==Keep the operating system secured== <!--T:3-->
+* Apply security updates on a regular basis (see [[Security considerations when running a VM#Updating your VM| updating your VM]]).
+* Avoid using packages from unknown sources.
+* Use a recent image; for example, don't use Ubuntu 14.04 when Ubuntu 18.04 is available.
+* Use [https://docs.computecanada.ca/wiki/SSH_Keys SSH key] authentication instead of passwords. Cloud instances use SSH key authentication by default, and enabling password-based authentication is significantly less secure.
+* Install [https://www.fail2ban.org fail2ban] to block [https://en.wikipedia.org/wiki/Brute-force_attack brute-force attacks].
+
+==Network security== <!--T:4-->
+* Limit who can access your service. Avoid using '''0.0.0.0''' in the CIDR field of the security group form - in particular, don't create rules for "0.0.0.0" in the default security group, which applies automatically to all project instances.
+** Be aware of the range you are opening with the netmask your are configuring. 
+* Do not bundle ranges of ports to allow access.
+* Think carefully about your security rules. Consider the following:
+** These services aren't meant to be publicly accessible:
+*** ssh (22) - this service allows interactive login to your instance and MUST NOT be made publicly accessible
+*** RDP (3389)  - this service allows interactive login to your instance and MUST NOT be made publicly accessible
+*** mysql (3306)
+*** VNC (5900-5906)  - this service allows interactive login to your instance and MUST NOT be made publicly accessible
+*** postgresql (5432)
+*** nosql
+*** tomcat
+*** ... many, many others
+** Some services are meant to be accessible from the internet:
+*** Apache (80, 443)
+*** Nginx (80, 443)
+*** ... others
+* Configure your web server to use HTTPS instead of HTTP.
+** In many case HTTP should only be used to redirect traffic to HTTPS.
+* Do NOT run a mail server.
+* Do NOT run a BitTorrent server.
+
+==Updating your VM== <!--T:5-->
+In order to keep a VM's operating system secure, it must be regularly updated - ideally weekly, or as often as new packages become available. To upgrade a Linux VM choose the commands below for your particular distribution. Note you will need to reconnect to your VM after rebooting.
+===Ubuntu/Debian===
+<source lang="console">
+$ sudo apt-get update
+$ sudo apt-get dist-upgrade
+$ sudo reboot
+</source>
+===CentOS===
+<source lang="console>
+$ sudo yum update
+$ sudo reboot
+</source>
+===Fedora===
+<source lang="console>
+$ sudo dnf update
+$ sudo reboot
+</source>
+==Further reading==
+An amazon article on securing instances: [https://aws.amazon.com/articles/1233/ https://aws.amazon.com/articles/1233/]
+</translate>
+[[Category:Cloud]]

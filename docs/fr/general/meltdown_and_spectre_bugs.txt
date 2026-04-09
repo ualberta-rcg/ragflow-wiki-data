@@ -1,0 +1,38 @@
+<languages />
+
+Les bogues Meltdown et Spectre sont reliés à l'exécution spéculative sous certaines architectures de processeurs des dix ou quinze dernières années, particulièrement ceux d'Intel et d'AMD; ces processeurs sont présents dans les grappes de Calcul Canada.  Une description détaillée de ces bogues se trouve sur [https://arstechnica.com/gadgets/2018/01/meltdown-and-spectre-every-modern-processor-has-unfixable-security-flaws/  cette page du site Ars Technica]. L'équipe technique de Calcul Canada a instauré les mesures appropriées pour les grappes vulnérables. 
+
+==Impacts== 
+=== Sur la disponibilité ===
+Les correctifs ont nécessité la mise à jour du système d'exploitation et le redémarrage des nœuds. Dans le cas des nœuds de calcul, le redémarrage s'est effectué un nœud à la fois, sans impact sur les utilisateurs.
+
+Les mises à jour pour [[Graham/fr|Graham]] ont été effectuées entre le 5 et le 31 janvier. La plupart des nœuds étaient à jour en date du 13 janvier 2018.
+
+===Sur la performance===
+À l'instar de plusieurs groupes de partout au monde, les experts de Calcul Canada ont effectué des tests d'évaluation des performances suite à l'application des correctifs. Alors que certaines estimations montrent une baisse de performance allant de 30 à 50%, d’autres ne signalent qu’un impact minimal.
+
+Les tâches qui semblent les plus affectées sont celles qui comportent beaucoup d'opérations de lecture et d'écriture, par exemple les tâches avec des bases de données ou les transferts de fichiers (avec ''rsync''). L'effet devrait être minime pour la plupart des tâches de calcul de haute performance puisque les opérations de lecture et d'écriture sont souvent limitées. On remarque aussi une diminution de la performance plus marquée chez les processeurs de générations antérieures.
+
+La section Références ci-dessous liste quelques résultats de test comparatifs mettant en cause des systèmes d'exploitation et du matériel qui peuvent différer de ce qu'on trouve sur les grappes de Calcul Canada.
+
+== Efforts déployés == 
+Les solutions appropriées ont été appliquées aux grappes vulnérables. Toute mise à jour subséquente livrée par les fournisseurs sera aussi effectuée.
+
+==Responsabilité des utilisateurs== 
+Soyez certains que nos équipes déploient tous les efforts possibles pour assurer la sécurité de vos données. Notez toutefois que les utilisateurs sont responsables de modifier le système d’exploitation pour '''les instances virtuelles opérant sur les ressources infonuagiques''' de Calcul Canada (voir ci-dessous). 
+
+Si vous éprouvez des problèmes de performance qui pourraient être dus aux présentes mises à jour, contactez le [[Technical support/fr|soutien technique]]. Nous apprécions recevoir les données que vous pouvez nous fournir sur les variations de performance avant et après l'application des correctifs.  Notez cependant que des modifications au code pourraient être requises pour contrer la baisse de performance, ce qui peut parfois être impossible.
+
+===Instances virtuelles===
+Notre recommandation est d'effectuer des mises à jour fréquentes du système d'exploitation. Pour les différentes distributions Linux, voyez [[Security_considerations_when_running_a_VM/fr#Mise_à_jour_d'une_instance_virtuelle|Mise à jour d'une instance virtuelle]].
+
+== Références == 
+* [https://www.us-cert.gov/ncas/alerts/TA18-004A Site web US-CERT], comprend des liens vers les sites des fournisseurs offrant des correctifs
+* [https://www.phoronix.com/scan.php?page=article&item=linux-415-x86pti&num=2 Initial Benchmarks Of The Performance Impact Resulting From Linux's x86 Security Changes]
+* [https://www.phoronix.com/scan.php?page=article&item=linux-more-x86pti&num=1 Further Analyzing The Intel CPU "x86 PTI Issue" On More Systems]
+* [https://medium.com/implodinggradients/meltdown-c24a9d5e254e The Meltdown bug and the KPTI patch: How does it impact ML performance?]
+* [https://www.ellexus.com/wp-content/uploads/2018/01/180107-Meltdown-and-Spectre-white-paper.pdf How the Meltdown and Spectre bugs work and what you can do to prevent a performance plummet], livre blanc Ellexus détaillant les problèmes de performance pour le calcul de haute performance
+* [https://security.web.cern.ch/security/advisories/spectre-meltdown/spectre-meltdown.shtml Alertes de sécurité du CERN Computer Security group]
+* [https://access.redhat.com/articles/3311301 Controlling the Performance Impact of Microcode and Security Patches for CVE-2017-5754 CVE-2017-5715 and CVE-2017-5753 using Red Hat Enterprise Linux Tunables]
+* [https://access.redhat.com/labs/speculativeexecution/ Outil de détection Red Hat]
+* [https://arxiv.org/pdf/1801.04329.pdf Effect of Meltdown and Spectre Patches on the Performance of HPC Applications]

@@ -1,0 +1,174 @@
+<languages />
+
+{| class="wikitable"
+|-
+| Disponibilité : 19 juin 2025
+|-
+| Nœud de connexion : '''rorqual.alliancecan.ca'''
+|-
+| Nœud de copie (rsync, scp, sftp ...) : '''rorqual.alliancecan.ca'''
+|-
+| [[Automation_in_the_context_of_multifactor_authentication/fr|Nœud d'automatisation]] : robot.rorqual.alliancecan.ca
+|-
+| Collection Globus : '''[https://app.globus.org/file-manager?origin_id=f19f13f5-5553-40e3-ba30-6c151b9d35d4 alliancecan#rorqual]'''
+|- 
+| JupyterHub: [https://jupyterhub.rorqual.alliancecan.ca/ jupyterhub.rorqual.alliancecan.ca]
+|-
+| Portail : [https://metrix.rorqual.alliancecan.ca/ metrix.rorqual.alliancecan.ca]
+|-
+| Webinaire : [https://docs.google.com/presentation/d/1SxqzNI9dtxnVCe8I2otJg6PJpLQwDjeDakNI7yMsuvU diapositives], [https://www.youtube.com/watch?v=hTM6XOvYjxw vidéo]
+|}
+
+Rorqual est une grappe hétérogène et polyvalente conçue pour une grande variété de calculs scientifiques. Construite par Dell Canada et CDW Canada, Rorqual est située à l'[http://www.etsmtl.ca/ École de technologie supérieure]. Son nom rappelle le  [https://fr.wikipedia.org/wiki/Rorqual rorqual], un mammifère marin dont plusieurs espèces, par exemple le [https://baleinesendirect.org/decouvrir/especes-baleines-saint-laurent/13-especes/petit-rorqual/ petit rorqual] et le [https://baleinesendirect.org/decouvrir/especes-baleines-saint-laurent/13-especes/rorqual-bleu/ rorqual bleu] ont été observées dans les eaux du fleuve Saint-Laurent.
+
+==Accès==
+Pour accéder à la grappe de calcul, chaque chercheuse ou chercheur doit [https://ccdb.alliancecan.ca/me/access_systems compléter une demande d'accès] dans le formulaire que l'on trouve  via <i>Ressources > Accès aux systèmes</i> de la barre de menus de CCDB. Dans ce formulaire :
+
+# Sélectionnez ''Rorqual'' dans la liste de gauche.
+# Dans le premier encadré à droite, sélectionnez la demande d'accès.
+# Acceptez ensuite toutes les ententes particulières avec Calcul Québec :
+## Consentement pour la collecte et l'utilisation de renseignements personnels,
+## Accord de niveau de service de Rorqual,
+## Conditions d’utilisation.
+
+L'accès effectif à la grappe peut prendre <b>jusqu'à une heure</b> après avoir complété la demande d'accès.
+
+==Particularités==
+
+Notre politique veut que les nœuds de calcul de Rorqual n'aient pas accès à l'internet. Pour y faire exception, veuillez joindre le [[Technical_support/fr|soutien technique]] en expliquant ce dont vous avez besoin et pourquoi. Notez que l'outil <code>crontab</code> n'est pas offert.
+
+Chaque tâche devrait être d'une durée d’au moins une heure (au moins cinq minutes pour les tâches de test) et vous ne pouvez pas avoir plus de 1000 tâches (en exécution et en attente) à la fois. La durée maximale d'une tâche est de 7 jours (168 heures).
+
+==Stockage==
+{| class="wikitable sortable"
+
+|-
+| HOME <br> Système de fichiers Lustre, 116 To d’espace au total || 
+
+* Cet espace est petit et ne peut pas être agrandi : vous devrez utiliser votre espace <code>project</code> pour les grands besoins en stockage.
+* Petits [[Storage and file management/fr#Quotas_et_politiques|quotas]] fixes par utilisateur
+* Il y a une sauvegarde automatique une fois par jour.
+
+|-
+| SCRATCH <br> Système de fichiers Lustre, 6.5 Po d’espace au total ||
+
+* Accessible via le lien symbolique <tt>$HOME/links/scratch</tt>
+* Grand espace pour stocker les fichiers temporaires pendant les calculs.
+* Pas de système de sauvegarde automatique
+* Grands [[Storage and file management/fr#Quotas_et_politiques|quotas]] fixes par utilisateur
+* Il y a une [[Scratch_purging_policy/fr | purge automatique]] des vieux fichiers dans cet espace.
+
+|-
+| PROJECT <br> Système de fichiers Lustre, 62 Po d’espace au total ||
+
+* Accessible via le lien symbolique <tt>$HOME/links/projects/nom-du-projet</tt>
+* Cet espace est conçu pour le partage de données entre membres d'un groupe et pour le stockage de beaucoup de données. 
+* Grands [[Storage and file management/fr#Quotas_et_politiques|quotas]] ajustables par projet
+* Il y a une sauvegarde automatique une fois par jour.
+|}
+
+Au tout début de la présente page, un tableau indique plusieurs adresses de connexion. Pour les transferts de données par [[Globus/fr|Globus]], il faut utiliser le '''Point de chute Globus'''. Par contre, pour les outils comme [[Transferring_data/fr#rsync|rsync]] et [[Transferring_data/fr#SCP|scp]], il faut utiliser l'adresse du '''Nœud de copie'''.
+
+==Réseautique haute performance==
+* Réseautique InfiniBand
+** HDR 200Gbit/s
+** Facteur de blocage maximum : 34:6 ou 5.667:1
+** Taille des îlots de nœuds CPU : jusqu'à 31 nœuds de 192 cœurs pouvant communiquer sans blocage.
+
+==Caractéristiques des nœuds==
+
+{| class="wikitable sortable"
+! nœuds !! cœurs !! mémoire disponible !! stockage !! CPU !! GPU
+|-
+| 670 || rowspan="3"| 192 || rowspan="2"| 750G ou 768000M || 1 x SSD SATA de 480Go (6Gbit/s) || rowspan="3"| 2 x [https://www.amd.com/en/support/downloads/drivers.html/processors/epyc/epyc-9004-series/amd-epyc-9654.html AMD EPYC 9654 (Zen 4)] @ 2.40 GHz, cache L3 de 384Mo || rowspan="3"|
+|-
+| 8 || 1 x SSD NVMe de 3.84To
+|-
+| 8 || 3013G ou 3086250M || 1 x SSD SATA de 480Go (6Gbit/s)
+|-
+| 93 || 64 || 498G ou 510000M || 1 x SSD NVMe de 3.84To || 2 x [https://ark.intel.com/content/www/us/en/ark/products/232384/intel-xeon-gold-6448y-processor-60m-cache-2-10-ghz.html Intel Xeon Gold 6448Y] @ 2.10 GHz, cache L3 de 60Mo  || 4 x NVidia H100 SXM5 (mémoire 80Go), connectés via NVLink
+|}
+
+* Pour obtenir un plus grand espace <code>$SLURM_TMPDIR</code>, il faut demander <code>--tmp=xG</code>, où <code>x</code> est une valeur entre 370 et 3360.
+
+===Topologie des nœuds CPU===
+Dans un nœud CPU, les 192 cœurs et les différents espaces mémoire ne sont pas équidistants, ce qui cause des délais variables (de l'ordre du nanoseconde) pour accéder aux données. Dans chaque nœud, on a :
+
+* Deux (2) prises CPU (''sockets'') ayant chacune 12 canaux de mémoire système.
+** Quatre (4) ''nœuds [https://fr.wikipedia.org/wiki/Non_uniform_memory_access NUMA]'' par prise CPU, chacun étant connecté à trois (3) canaux de mémoire système.
+*** Trois (3) ''chiplets'' par ''nœud NUMA'', chacun ayant sa propre [https://fr.wikipedia.org/wiki/Cache_de_processeur mémoire cache L3] de 32 Mio.
+**** Huit (8) cœurs par ''chiplet'', chacun ayant sa propre mémoire cache L2 de 1 Mio et L1 de 32+32 Kio.
+
+Autrement dit, on a :
+* Des groupes de 8 cœurs rapprochés qui se partagent une même mémoire cache L3, ce qui est idéal pour des [[Running_jobs/fr#Tâche_multifil_ou_tâche_OpenMP|programmes parallèles multifils]] (par exemple, avec l'option <code>--cpus-per-task=8</code>)
+* Des ''nœuds NUMA'' de 3×8 = 24 cœurs qui se partagent un trio de canaux de mémoire système. 
+* Un total de 2×4×3×8 = 192 cœurs par nœud.
+
+Pour profiter pleinement des avantages de cette topologie, il faut réserver des nœuds complets (par exemple, avec <code>--ntasks-per-node=24 --cpus-per-task=8</code>) et contrôler explicitement l'emplacement des processus et des fils d'exécution. Selon le programme parallèle et le nombre de cœurs utilisés, les gains peuvent être marginaux ou significatifs.
+
+===Topologie des nœuds GPU===
+Dans les nœuds GPU, l'architecture est moins hiérarchique. On a :
+
+* Deux (2) prises CPU (''sockets''). Pour chacune, on a :
+** Huit (8) canaux de mémoire système
+** 60 Mio de mémoire cache L3
+** 32 cœurs équidistants ayant chacun sa propre mémoire cache L2 de 2 Mio et L1 de 32+48 Kio.
+** Deux (2) accélérateurs NVidia H100
+
+Au total, les quatre (4) accélérateurs du nœud sont interconnectés par [https://en.wikipedia.org/wiki/SXM_(socket) SXM5].
+
+===Instances GPU===
+
+Les différents noms d'instances GPU disponibles sur Rorqual sont :
+
+{| class="wikitable"
+! colspan="2" | Modèle ou instance !! Nom court !! Sans unité !! Par sa mémoire !! Nom complet
+|-
+| <b>GPU</b>
+|| <b>H100-80gb</b>
+|| <code>h100</code>
+|| <code>h100</code>
+|| <code>h100_80gb</code>
+|| <code>nvidia_h100_80gb_hbm3</code>
+|-
+| rowspan="3" | <b>MIG</b>
+|| <b>H100-1g.10gb</b>
+|| <code>h100_1g.10gb</code>
+|| <code>h100_1.10</code>
+|| <code>h100_10gb</code>
+|| <code>nvidia_h100_80gb_hbm3_1g.10gb</code>
+|-
+| <b>H100-2g.20gb</b>
+|| <code>h100_2g.20gb</code>
+|| <code>h100_2.20</code>
+|| <code>h100_20gb</code>
+|| <code>nvidia_h100_80gb_hbm3_2g.20gb</code>
+|-
+| <b>H100-3g.40gb</b>
+|| <code>h100_3g.40gb</code>
+|| <code>h100_3.40</code>
+|| <code>h100_40gb</code>
+|| <code>nvidia_h100_80gb_hbm3_3g.40gb</code>
+|}
+
+Pour demander un ou plusieurs GPU H100 complets, il faut utiliser une des options Slurm suivantes :
+* <b>Un H100-80gb</b> : <code>--gpus=h100:1</code> ou <code>--gpus=h100_80gb:1</code>
+* <b>Plusieurs H100-80gb</b> par nœud :
+** <code>--gpus-per-node=h100:2</code>
+** <code>--gpus-per-node=h100:3</code>
+** <code>--gpus-per-node=h100:4</code>
+* <b>Plusieurs H100-80gb</b> éparpillés n'importe où : <code>--gpus=h100:n</code> (remplacer <code>n</code> par le nombre voulu)
+
+Environ la moitié des nœuds GPU de Rorqual sont configurés avec la [[Multi-Instance_GPU/fr|technologie MIG]] et seulement trois tailles d'instances GPU sont disponibles :
+
+* <b>H100-1g.10gb</b> : 1/8 de la puissance de calcul avec 10 Go de mémoire GPU.
+* <b>H100-2g.20gb</b> : 2/8 de la puissance de calcul avec 20 Go de mémoire GPU.
+* <b>H100-3g.40gb</b> : 3/8 de la puissance de calcul avec 40 Go de mémoire GPU.
+
+Pour demander <b>une et une seule</b> instance GPU pour votre tâche de calcul, voici les options correspondantes :
+
+* <b>H100-1g.10gb</b> : <code>--gpus=h100_1g.10gb:1</code>
+* <b>H100-2g.20gb</b> : <code>--gpus=h100_2g.20gb:1</code>
+* <b>H100-3g.40gb</b> : <code>--gpus=h100_3g.40gb:1</code>
+
+Les quantités maximales recommandées de <b>cœurs CPU et de mémoire système</b> par instance GPU sont listées dans la [[Allocations_and_compute_scheduling/fr#Ratios_dans_les_bundles|table des caractéristiques des <i>bundles</i>]].

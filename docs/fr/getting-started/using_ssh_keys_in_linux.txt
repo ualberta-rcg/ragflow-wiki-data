@@ -1,0 +1,147 @@
+<languages />
+ 
+''Page enfant de [[SSH/fr]]''
+
+=Créer une paire de clés=
+Vérifiez si vous avez déjà une paire de clés avant d'en créer une nouvelle. Si vous avez déjà une paire de clés mais ne vous souvenez pas où vous l'avez utilisée, il est préférable d'en créer une nouvelle, car vous ne devriez pas utiliser une clé sans connaître son degré de sécurité.
+
+Les paires de clés se trouvent habituellement dans le répertoire <code>.ssh/</code> de votre espace /home. Par défaut, le nom de la clé est composé du préfixe ''id_'' suivi de son type (''rsa, dsa, ed25519''); la clé publique possède le suffixe ''.pub''. Un exemple commun serait  <code>id_rsa</code> et <code>id_rsa.pub</code>. Il est de bonne pratique de nommer une clé de façon à suggérer où elle est utilisée.
+
+Si vous avez besoin d'une nouvelle paire de clés, vous pouvez la générer avec la commande <code>ssh-keygen</code> 
+
+<source lang="console">
+[name@yourLaptop]$  ssh-keygen -t ed25519
+</source>
+ou
+<source lang="console">
+[name@yourLaptop]$ ssh-keygen -b 4096 -t rsa
+</source>
+(Cet exemple crée explicitement une clé <tt>4-kbit RSA</tt>, un choix raisonnable).
+
+Le résultat sera semblable à ceci :
+
+<source lang="console">
+Generating public/private rsa key pair.
+Enter file in which to save the key (/home/username/.ssh/id_rsa):
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in /home/username/.ssh/id_rsa.
+Your public key has been saved in /home/username/.ssh/id_rsa.pub.
+The key fingerprint is:
+ef:87:b5:b1:4d:7e:69:95:3f:62:f5:0d:c0:7b:f1:5e username@hostname
+The key's randomart image is:
++--[ RSA 2048]----+
+|                 |
+|                 |
+|           .     |
+|            o .  |
+|        S    o o.|
+|         .  + +oE|
+|          .o O.oB|
+|         .. +oo+*|
+|          ... o..|
++-----------------+
+</source>
+
+À l'invite, entrez une phrase de passe. Si vous avez déjà sauvegardé une paire de clés avec leurs noms par défaut, vous devriez donner un nom différent au fichier pour éviter d'écraser les clés existantes. Voyez plus d'information sur les [[SSH_Keys/fr#Meilleures_pratiques| meilleures pratiques]].
+
+==Créer une paire de clés soutenue par une clé de sécurité matérielle==
+Certains sites prennent désormais en charge l'utilisation de clés SSH soutenues par une clé de sécurité matérielle (par exemple, YubiKey). Si vous avez besoin d'une de ces clés, vous pouvez la générer avec la commande <code>ssh-keygen</code>. 
+
+<source lang="console">
+[name@yourLaptop]$  ssh-keygen -t ecdsa-sk
+</source>
+
+Le résultat sera semblable à ceci :
+
+<source lang="console">
+
+Generating public/private ecdsa-sk key pair.
+You may need to touch your authenticator to authorize key generation.
+Enter file in which to save the key (/home/username/.ssh/id_ecdsa_sk):
+Enter passphrase (empty for no passphrase): 
+Enter same passphrase again: 
+Your identification has been saved in /home/username/.ssh/id_ecdsa_sk
+Your public key has been saved in /home/username/.ssh/id_ecdsa_sk.pub
+The key fingerprint is:
+SHA256:P051NAesYSxF7NruGLfnyAFMUBmGLwCaSRiXDwUY6Ts username@hostname
+The key's randomart image is:
++-[ECDSA-SK 256]--+
+|o*++o.  .o+Bo..  |
+|+oo+  . .oo = .. |
+|. +o   . ..+ oo .|
+| .  .   .o. o. o |
+|  .     S.oo. .  |
+| E       ..o..   |
+|  .       =.o    |
+|         o *.+.  |
+|          o.=o.  |
++----[SHA256]-----+
+</source>
+
+Une invite vous demande d'entrer une phrase de passe et d'activer la clé matérielle.
+
+
+=Installer la clé publique= 
+
+==Installation via la CCDB== 
+Nous vous encourageons à enregistrer votre clé publique SSH dans la CCDB, ce qui vous permettra de l'utiliser pour vous connecter à toutes nos grappes. 
+Copiez le contenu de la clé publique (dans notre exemple, ''id_rsa.pub'') et téléversez-la dans la CCDB tel que décrit à l'étape 3 de [[SSH_Keys#Using_CCDB|cette procédure]].
+ 
+Le moyen le plus simple et le plus sécuritaire d'installer une clé sur un système distant est d'utiliser la commande 
+<source lang="console">
+ssh-copy-id -i ~/.ssh/mynewkey.pub graham.computecanada.ca
+</source>
+Ici, ''mynewkey'' et ''mynewkey.pub'' sont les noms de la nouvelle paire de clés. Nous supposons que votre nom d'utilisateur sur la système distant est le même que celui que vous utilisez localement.
+
+La commande <code>ssh-copy-id</code> ne fait rien d'exceptionnel; elle se connecte au système distant et place la clé publique dans  <code>.ssh/authorized_keys</code> dans votre répertoire /home. Le principal avantage est que <code>ssh-copy-id</code> crée les fichiers et les répertoires nécessaires et ajuste les permissions automatiquement. À la place, vous pouvez installer votre clé manuellement. Pour ce faire, copiez le fichier de la clé publique dans le serveur distant, puis faites
+<source lang="bash">
+mkdir ~/.ssh
+cat id_rsa.pub >> ~/.ssh/authorized_keys
+chmod --recursive go-rwx ~/.ssh
+chmod go-w ~
+</source>
+SSH est pointilleux quant aux permissions, à la fois pour le client et pour le serveur. SSH échouera si les conditions suivantes ne sont pas remplies&nbsp;:
+<ul>
+<li>Le fichier de clé privée ne doit pas être accessible aux autres. <code> chmod go-rwx id_rsa </code>
+<li>Votre répertoire /home distant ne doit pas être accessible en écriture par d'autres.<code> chmod go-w ~ </code>
+<li>Il en est de même pour vos ~/.ssh et ~/.ssh/authorized_keys <code> chmod --recursive go-rwx ~/.ssh </code>.
+</ul>
+Notez que le débogage de ces conditions sur le système distant peut être difficile et même nécessiter l'intervention d’un administrateur système.
+
+=Se connecter avec une paire de clés=
+Enfin, testez la nouvelle clé en vous connectant au serveur à partir de votre poste local avec la commande	
+<source lang="console">[name@yourLaptop]$ ssh -i /path/to/your/privatekey USERNAME@ADDRESS</source>
+:où
+:*<code>/path/to/your/privatekey</code> indique le nom du fichier de la clé privée, par exemple <code>/home/ubuntu/.ssh/id_rsa</code>;
+:* <code>USERNAME</code> est le nom de l'utilisateur sur la grappe;
+:* <code>ADDRESS</code> est l'adresse du serveur distant.
+
+Si vous avez les privilèges admin sur le serveur et que vous avez créé un compte pour un autre utilisateur, ce dernier devrait lui-même tester la connexion pour ne pas avoir à divulguer sa clé privée.
+</li>
+</ol>
+
+=Agent d'authentification= 
+Une fois que votre paire de clés est créée et que la clé publique est installée sur la grappe, vous pouvez vous servir de la paire de clés pour vous connecter. Ceci est préférable à l’utilisation d’un mot de passe mais, chaque fois que vous voulez vous connecter à une grappe, vous devez entrer une phrase de passe pour déverrouiller la clé privée. Pour éviter ceci, le programme  <code>ssh-agent</code> met en mémoire votre clé privée sur votre ordinateur local et la fournit aux programmes qui en ont besoin. Vous n'avez donc qu'à déverrouiller la clé privée une seule fois et vous pouvez toujours vous connecter à une grappe distante sans avoir besoin d'une phrase de passe. 
+
+Vous pouvez démarrer <code>ssh-agent</code> avec la commande
+{{Command|eval `ssh-agent`
+}} 
+Après avoir démarré <code>ssh-agent</code>,  qui s'exécutera en arrière-plan dans votre session sur votre ordinateur local, vous pouvez ajouter votre paire de clés à l'agent avec la commande
+{{Command|ssh-add
+}}
+En supposant que vous ayez installé votre paire de clés dans l'un des emplacements habituels, la commande  <code>ssh-add</code> devrait la trouver mais, si nécessaire, vous pouvez explicitement ajouter le chemin complet de la clé privée en tant qu'argument à <code>ssh-add</code>. L'option <code>ssh-add -l</code> affiche les clés privées qui ont été ajoutées l'agent ssh. 
+
+Le programme <code>ssh-agent</code> permet de négocier automatiquement l'échange de clés entre votre ordinateur personnel et la grappe mais, si vous devez utiliser votre clé privée sur la grappe elle-même, par exemple lors de l'interaction avec un référentiel GitHub distant, vous devrez activer le transfert d’agent. Pour activer cette fonction sur une grappe  ([[Béluga]] dans l'exemple exemple), ,ajoutez les lignes suivantes à votre fichier <code>$HOME/.ssh/config</code> sur votre ordinateur local.
+{{File
+  |name=config
+  |lang="text"
+  |contents=
+Host beluga.computecanada.ca
+    ForwardAgent yes
+}}
+Notez que le fichier de configuration SSH ne doit jamais contenir  la ligne <code>Host *</code> <code>$HOME/.ssh/config</code>our le transfert de l'agent.
+
+==Installation locale==
+MacOS et plusieurs distributions récentes de Linux offrent des ''keychain managers'' graphiques faciles à configurer pour gérer votre paire de clés. En vous connectant à votre ordinateur local, la clé privée est enregistrée en mémoire et le système d'exploitation peut automatiquement fournir cette clé au client SSH quand vous vous connectez à distance sur une grappe. Vous n'aurez plus besoin d'entrer une phrase de passe pour vous connecter par la suite. 
+[[Category:Connecting]]

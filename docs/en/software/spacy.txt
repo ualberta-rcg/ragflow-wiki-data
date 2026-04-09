@@ -1,0 +1,31 @@
+<languages />
+[[Category:Software]][[Category:AI and Machine Learning]]
+
+[https://spacy.io/ spaCy] is a Python package that provides industrial-strength natural language processing.
+
+= Installation =
+
+==Latest available wheels==
+
+To see the latest version of <tt>spaCy</tt> that we have built:
+{{Command|avail_wheels spacy thinc thinc_gpu_ops}}
+For more information on listing wheels, see [[Python#Listing_available_wheels | listing available wheels]].
+
+==Pre-build==
+
+The preferred option is to install it using the python [https://pythonwheels.com/ wheel] that we compile, as follows: 
+:1. Load python 3.6 module: <tt>python/3.6</tt>
+:2. Create and activate a [[Python#Creating_and_using_a_virtual_environment|virtual environment]].
+:3. Install <tt>spaCy</tt> in the virtual environment with <code>pip install</code>. For both GPU and CPU support:
+:{{Command|prompt=(venv) [name@server ~]|pip install spacy[cuda] --no-index}}
+:If you only need CPU support:
+:{{Command|prompt=(venv) [name@server ~]|pip install spacy --no-index}}
+
+'''GPU version''': At the present time, in order to use the GPU version you need to add the CUDA libraries to <tt>LD_LIBRARY_PATH</tt>:
+{{Commands
+|prompt=(venv) [name@server ~]
+|module load gcc/5.4.0 cuda/9
+|export LD_LIBRARY_PATH{{=}}$CUDA_HOME/lib64:$LD_LIBRARY_PATH
+}}
+
+If you want to use the [https://docs.computecanada.ca/wiki/PyTorch Pytorch] wrapper with <tt>thinc</tt>, you'll also need to install the <tt>torch_cpu</tt> or  <tt>torch_gpu</tt> wheel.

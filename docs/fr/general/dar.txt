@@ -1,0 +1,145 @@
+<languages />
+
+''Page enfant de: [[Storage_and_file_management/fr|Stockage et gestion de fichiers]]''
+
+L’utilitaire open source  <code>dar</code> (pour ''Disk ARchive'') a été conçu pour remplacer l’outil Unix  <code>tar</code> et peut être compilé par tout système de type Unix. Il est activement maintenu depuis son lancement en 2002.
+
+Comme <code>tar</code>, il permet les types de sauvegarde complète, différentielle et incrémentale. Cependant, l’accès aux fichiers et la restauration des données se font plus rapidement qu’avec <code>tar</code> puisque chacune des archives contient un index des fichiers; ceci est un grand avantage pour les archives volumineuses. L’utilitaire <code>dar</code> compresse chacun des fichiers séparément, ce qui offre plus de résilience dans les cas de corruption de données; il est en outre possible d’éviter la compression de fichiers fortement compressés comme les <code>mp4</code> ou <code>gz</code>. Parmi ses nombreuses fonctionnalités utiles, on trouve le chiffrement robuste; le découpage d’une archive en tranches pouvant aller jusqu’à un octet; la gestion d’attributs étendus, de fichiers épars, de liens physiques et symboliques; la détection de corruption de données dans les deux fichiers d’en-tête et leur récupération avec un minimum de perte. Pour plus d’information, consultez la [http://dar.linux.free.fr page web] et la [http://dar.linux.free.fr/doc/FAQ.html#tar comparaison avec <code>tar</code>].
+
+== Où trouver l’utilitaire ==
+
+Sur nos grappes, <code>dar</code> est disponible sur <code>/cvmfs</code>.
+Avec [[Standard software environments/fr|StdEnv/2020]] :
+<source lang="console">
+[user_name@localhost]$ which dar
+/cvmfs/soft.computecanada.ca/gentoo/2020/usr/bin/dar
+[user_name@localhost]$ dar --version
+dar version 2.5.11, Copyright (C) 2002-2052 Denis Corbin
+...
+</source>
+
+== Utilisation manuelle ==
+
+=== Archivage de base et extraction ===
+
+Supposons le sous-répertoire <code>test</code> dans le répertoire courant. Pour en faire une archive, vous pouvez entrer la commande suivante dans le répertoire courant.
+<source lang="console">
+[user_name@localhost]$ dar -w -c all -g test
+</source>
+Le fichier archive <code>all.1.dar</code> est créé, où <code>all</code> est le nom de base et <code>1</code> est le numéro de la tranche. Une archive peut être divisée en plusieurs tranches. Plusieurs répertoires et fichiers peuvent être inclus dans une archive, par exemple
+<source lang="console">
+[user_name@localhost]$ dar -w -c all -g testDir1 -g testDir2 -g file1 -g file2
+</source>
+Notez que tous les chemins doivent être reliés au répertoire courant.
+
+Pour lister le contenu d’une archive, utilisez uniquement le nom de base.
+
+<source lang="console">
+[user_name@localhost]$ dar -l all
+</source>
+
+Pour extraire un fichier dans un sous-répertoire <code>restore</code>, utilisez le nom de base et le chemin du fichier.
+
+<source lang="console">
+[user_name@localhost]$ dar -R restore/ -O -w -x all -v -g test/filename
+</source>
+
+L’indicateur <code>-O</code> permet de faire abstraction de la propriété des fichiers. Si vous restaurez les fichiers d’une autre personne sans être administrateur (''root''), une mauvaise attribution de propriété pourrait causer un problème. Si vous restaurez vos propres fichiers, un message sera émis si vous n’êtes pas administrateur et vous demandera de confirmer l’opération. Pour ne pas recevoir ce message, utilisez l’indicateur <code>-O</code>. Si <code>restore/test</code> existe, l’indicateur <code>-w</code> désactive l’avertissement.
+
+Pour extraire un répertoire entier, utilisez
+
+<source lang="console">
+[user_name@localhost]$ dar -R restore/ -O -w -x all -v -g test
+</source>
+
+De la même manière qu’une archive est créée, vous pouvez passer plusieurs répertoires et fichiers avec plusieurs indicateurs <code>-g</code>. Remarquez que <code>dar</code> n’accepte pas les masques inverses (''wildcard masks'') Unix après <code>-g</code>.
+
+==== Travailler avec le système de fichiers Lustre ====
+
+Certains attributs étendus sont automatiquyement sauvegardés quand les fichiers archivés proviennent d'un [https://www.lustre.org/ système de fichiers Lustre]
+(habituellement dans <code>/home</code>, <code>/project</code> ou <code>/scratch</code> sur 
+[[National_systems/fr|une de nos grappes de calcul d'usage général]]).
+Pour connaître les attributs étendus assignés à chaque fichier archivé, utilisez l'indicateur <code>-alist-ea</code>.
+
+{{Command2
+|dar -l all -alist-ea
+}}
+
+Nous voyons des énoncés comme <code>Extended Attribute: [lustre.lov]</code>.
+Avec cet attribut, les extractions de fichiers vers un endroit au format Lustre fonctionneront comme à l'habitude.
+Par contre, si vous tentez d'extraire un fichier pour le stocker localement sur un [[Using_node-local_storage/fr|nœud de calcul]]
+(soit dans <code>$SLURM_TMPDIR</code>), vous obtiendrez des messages d'erreur comme 
+<code>Error while adding EA lustre.lov : Operation not supported</code>.
+
+Pour éviter ces erreurs, l'indicateur <code>-u</code> peut exclure un type particulier d'attribut et quand même extraire les fichiers touchés, par exemple
+
+{{Command2
+|dar -R restore/ -O -w -x all -v -g test -u 'lustre*'
+}}
+
+Une autre solution est de supprimer l'attribut <code>lustre.lov</code> à la création de l'archive avec le même indicateur  <code>-u</code>.
+
+{{Command2
+|dar -w -c all -g test -u 'lustre*'
+}}
+
+En conclusion, ceci est nécessaire uniquement si vous avez l'intention d'extraire des fichiers vers un endroit qui n'a pas le format Lustre.
+
+=== Sauvegarde incrémentale ===
+
+Pour créer une sauvegarde différentielle et incrémentale, joignez à <code>-A</code> le nom de base de l’archive référencée. Prenons l’exemple d’une sauvegarde complète nommée Monday que vous créez le lundi.
+
+<source lang="console">
+[user_name@localhost]$ dar -w -c monday -g test
+</source>
+
+Le mardi, certains des fichiers sont modifiés et seuls ceux-ci sont inclus dans une nouvelle sauvegarde incrémentale nommée <code>tuesday</code>, en utilisant l'archive <code>monday</code> en référence.
+
+<source lang="console">
+[user_name@localhost]$ dar -w -A monday -c tuesday -g test
+</source>
+
+Le mercredi, d’autres fichiers sont modifiés et une nouvelle sauvegarde est créée nommée <code>wednesday</code>, avec l'archive <code>tuesday</code> en référence.
+
+<source lang="console">
+[user_name@localhost]$ dar -w -A tuesday -c wednesday -g test
+</source>
+
+Il y a maintenant trois fichiers :
+
+<source lang="console">
+[user_name@localhost]$ ls *.dar
+monday.1.dar     tuesday.1.dar    wednesday.1.dar
+</source>
+
+Le fichier <code>wednesday.1.dar</code> contient uniquement les fichiers modifiés le mercredi, mais pas les fichiers de lundi ou mardi. La commande
+
+<source lang="console">
+[user_name@localhost]$ dar -R restore -O -x wednesday
+</source>
+
+ne restaurera que les fichiers modifiés le mercredi. Pour restaurer tous les fichiers, vous devrez passer par toutes les sauvegardes en ordre chronologique.
+
+<source lang="console">
+[user_name@localhost]$ dar -R restore -O -w -x monday      # restore the full backup
+[user_name@localhost]$ dar -R restore -O -w -x tuesday     # restore the first incremental backup
+[user_name@localhost]$ dar -R restore -O -w -x wednesday   # restore the second incremental backup
+</source>
+
+=== Limiter la taille des tranches ===
+
+Pour fixer la taille maximale en octets de chaque tranche, utilisez l’indicateur <code>-s</code> suivi d’un nombre et d’une unité de mesure (k, M, G ou T). Par exemple, pour une archive de 1340Mo, la commande
+
+<source lang="console">
+[user_name@localhost]$ dar -s 100M -w -c monday -g test
+</source>
+
+crée 14 tranches nommées <code>monday.{1..14}.dar</code>. Pour extraire de toutes ces tranches, utilisez le nom de base.
+
+<source lang="console">
+[user_name@localhost]$ dar -O -x monday
+</source>
+
+== Scripts externes ==
+
+Un membre de notre équipe a créé des fonctions bash pour rendre l'utilisation de <code>dar</code> plus facile. Nous vous invitons à vous en inspirer pour la préparation de vos propres scripts. Pour les détails, voyez [https://github.com/razoumov/sharedSnippets here].

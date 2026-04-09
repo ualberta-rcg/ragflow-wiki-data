@@ -1,0 +1,45 @@
+__NOTOC__
+<languages />
+
+Pour inclure du code source dans le wiki, nous utilisons l'extension [http://www.mediawiki.org/wiki/Extension:SyntaxHighlight_GeSHi SyntaxHighlight_GeSHi]. Vous pouvez facilement inclure un extrait de code source grâce à la balise '''<nowiki><syntaxhighlight> </syntaxhighlight></nowiki>'''. 
+
+== Options de la balise <nowiki><syntaxhighlight></nowiki> ==
+Pour la liste des options, veuillez vous référer à [http://www.mediawiki.org/wiki/Extension:SyntaxHighlight_GeSHi cette page].
+
+=== Option ''lang'' ===
+L'option '''lang''' permet de définir le langage utilisé pour la détection de la syntaxe. Le langage par défaut, si ce paramètre est omis, est le C++. La liste des langages supportés est disponible [http://www.mediawiki.org/wiki/Extension:SyntaxHighlight_GeSHi#Supported_languages ici]. 
+
+=== Option ''line'' ===
+L'option '''line''' permet d'afficher des numéros de ligne. 
+
+== Exemple ==
+Voici un exemple de code C++ créé avec la balise <nowiki><syntaxhighlight lang="cpp" line> ... </syntaxhighlight></nowiki>.
+
+<syntaxhighlight lang="cpp" line>
+#include <iostream>
+#include <fstream>
+#include <unistd.h>
+#include <sstream>
+using namespace std;
+
+void flushIfBig(ofstream & out, ostringstream & oss, int size, bool force=false) {
+	if (oss.tellp() >= size) {
+		out << oss.str();
+		oss.str(""); //reset buffer
+	}
+}
+int main() {
+	int buff_size = 50*1024*1024;
+
+ofstream out ("file.dat");
+	ostringstream oss (ostringstream::app);
+	oss.precision(5);
+	for (int i=0; i<100*buff_size; i++)
+	{
+		oss << i << endl;
+		flushIfBig(out,oss,buff_size);
+	}
+	flushIfBig(out,oss,buff_size,true);
+	out.close();
+}
+</syntaxhighlight>

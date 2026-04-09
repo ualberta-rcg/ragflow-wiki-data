@@ -1,0 +1,63 @@
+<languages />
+[[Category:Software]][[Category:ComputationalChemistry]]
+==  Description ==
+[https://openbabel.org/ Open Babel] est une boîte à outils conçue pour parler les nombreux langages des données chimiques. Il s'agit d'un projet ouvert et collaboratif permettant à quiconque de rechercher, convertir, analyser ou stocker les données provenant de la modélisation moléculaire, de la chimie, des matériaux solides, de la biochimie ou de domaines connexes.
+
+Consultez le [https://openbabel.org/docs/ Open Babel User Guide].
+
+Deux types de modules sont installés sur nos grappes&nbsp;:
+
+== <code>openbabel</code> ==
+Cette version séquentielle peut être utilisée en toute sécurité même sur les nœuds de connexion pour convertir les formats des fichiers de structure chimique. Dans la plupart des cas, c'est le bon module.
+
+==== Exemple ====
+{{Commands
+| prompt=[user@login1]$
+| module load openbabel
+| wget "https://www.chemspider.com/FilesHandler.ashx?type{{=}}str&3d{{=}}yes&id{{=}}171" -O acetic_acid.mol
+| obabel  -i mol  acetic_acid.mol  -o pdb  -O acetic_acid.pdb
+}}
+Remarques :
+* La commande <code>wget</code> télécharge le fichier <code>acetic_acid.mol</code>.
+* La commande <code>obabel</code> convertit la molécule décrite dans <code>acetic_acid.mol</code> du format <code>.mol</code> au format <code>.pdb</code>.
+
+
+== <code>openbabel-omp</code> ==
+Cette version offre la parallélisation avec OpenMP.
+
+{{box|<b>N'utilisez pas ce module sur les nœuds de connexion,</b><br>
+car même pour des tâches simples, il créera autant de fils qu'il détectera de CPU sur la machine, provoquant ainsi des pics de charge qui perturberont les autres utilisateurs.}}
+
+La version parallèle est utile pour convertir un très grand nombre de structures moléculaires ou calculer un grand nombre de descripteurs chimio-informatiques pour plusieurs molécules.
+
+Assurez-vous de définir la variable d'environnement <code>OMP_NUM_THREADS</code> afin d'indiquer à Open Babel combien de CPU il peut utiliser.
+
+==== Exemple ====
+La prochaine tâche utilise le [https://en.wikipedia.org/wiki/Chemical_table_file#SDF fichier SDF]   <code>many_molecules.sdf</code> qui devrait contenir une base de données de plusieurs  molécules et génère des représentations canoniques [https://en.wikipedia.org/wiki/Simplified_molecular-input_line-entry_system SMILES] pour chacune d'elles, en utilisant deux cœurs CPU.
+{{File
+  |name=parallel_openbabel_job.sh
+  |lang="sh"
+  |contents=
+#!/bin/bash
+#SBATCH --time=00:15:00
+#SBATCH --cpus-per-task=2
+#SBATCH --mem-per-cpu=1000M
+module load openbabel-omp
+export OMP_NUM_THREADS="${SLURM_CPUS_PER_TASK:-1}"
+
+obabel  -i sdf  many_molecules.sdf  -o can  -O many_canonical_smiles.txt
+}}
+
+== Python ==
+Les fonctionnalités d'Open Babel peuvent être utilisées à partir d'autres langages tels que Python. [https://openbabel.org/docs/UseTheLibrary/Python.html L'interface Python pour Open Babel] est ajoutée aux modules <code>openbabel</code> eg <code>openbabel-omp</code>  en tant qu'extensions. Par conséquent, les paquets <code>openbabel</code> et <code>pybel</code> peuvent être utilisés après avoir chargé <code>openbabel</code> et un module Python compatible.
+
+==== Exemple ====
+
+ $ module load python/3.11 openbabel/3.1.1
+ $ python
+ Python 3.11.5 (main, Sep 19 2023, 19:49:15) [GCC 11.3.0] on linux
+ >>> import openbabel
+ >>> print(openbabel.__version__)
+ 3.1.1.1
+ >>> from openbabel import pybel
+ >>>

@@ -1,0 +1,86 @@
+{{Draft}}
+
+This page details using the legacy <code>nix-env</code> command to manage a per-user environment. For an overview of Nix, start with our [[Using Nix|using nix page]].
+
+= Querying, installing and removing compositions =
+
+The <code>nix-env</code> command is used to manage your per-user Nix environment. It is actually a legacy command that has not yet been replaced by a newer <code>nix &lt;command&gt;</code> command.
+
+== What do I have installed and what can I install ==
+
+Lets first see what we currently have installed.
+
+<source lang="bash">[name@cluster:~]$ nix-env --query</source>
+Now let’s see what is available. We request the attribute paths (unambiguous way of specifying an existing composition) and the descriptions too (cursor to the right to see them). This takes a bit of time as it visits a lot of small files. Especially over NFS it can be a good idea to pipe it to a file and then grep that in the future.
+
+<source lang="bash">[name@cluster:~]$ nix-env --query --available --attr-path --description</source>
+The newer <code>nix search</code> command is often a better way to locate compositions as it saves a cache so subsequent invocations are quite fast.
+
+== Installing compositions ==
+
+Let’s say that we need a newer version of git than provided by default. First lets check what our OS comes with.
+
+<source lang="bash">[name@cluster:~]$ git --version
+[name@cluster:~]$ which git</source>
+Let’s tell Nix to install its version in our environment.
+
+<source lang="bash">[name@cluster:~]$ nix-env --install --attr nixpkgs.git
+[name@cluster:~]$ nix-env --query</source>
+Let’s checkout what we have now (it may be necessary to tell bash to to forget remembered executable locations with <code>hash -r</code> so it notices the new one).
+
+<source lang="bash">[name@cluster:~]$ git --version
+[name@cluster:~]$ which git</source>
+== Removing compositions ==
+
+For completeness, lets add in the other usual version-control suspects.
+
+<source lang="bash">[name@cluster:~]$ nix-env --install --attr nixpkgs.subversion nixpkgs.mercurial
+[name@cluster:~]$ nix-env --query</source>
+Actually, we probably don’t really want subversion any more. Let’s remove that.
+
+<source lang="bash">[name@cluster:~]$ nix-env --uninstall subversion
+[name@cluster:~]$ nix-env --query</source>
+= Environments =
+
+Nix keeps referring to user environments. Each time we install or remove compositions we create a new environment based off of the previous environment.
+
+== Switching between previous environments ==
+
+This means the previous environments still exist and we can switch back to them at any point. Let’s say we changed our mind and want subversion back. It’s trivial to restore the previous environment.
+
+<source lang="bash">[name@cluster:~]$ nix-env --rollback
+[name@cluster:~]$ nix-env --query</source>
+Of course we may want to do more than just move to the previous environment. We can get a list of all our environments so far and then jump directly to whatever one we want. Let’s undo the rollback.
+
+<source lang="bash">[name@cluster:~]$ nix-env --list-generations
+[name@cluster:~]$ nix-env --switch-generation 4
+[name@cluster:~]$ nix-env --query</source>
+== Operations are atomic ==
+
+Due to the atomic property of Nix environments, we can’t be left halfway through installing/updating compositions. They either succeed and create us a new environment or leave us with the previous one intact.
+
+Let’s go back to the start when we just had Nix itself and install the one true GNU distributed version control system tla. Don’t let it complete though. Hit it with <code>CTRL+c</code> partway through.
+
+<source lang="bash">[name@cluster:~]$ nix-env --switch-generation 1
+[name@cluster:~]$ nix-env --install --attr nixpkgs.tla
+CTRL+c</source>
+Nothing bad happens. The operation didn’t complete so it has no effect on the environment whatsoever.
+
+<source lang="bash">[name@cluster:~]$ nix-env --query
+[name@cluster:~]$ nix-env --list-generations</source>
+== Nix only does things once ==
+
+The install and remove commands take the current environment and create a new environment with the changes. This works regardless of which environment we are currently in. Let’s create a new environment from our original environment by just adding git and mercurial.
+
+<source lang="bash">[name@cluster:~]$ nix-env --list-generations
+[name@cluster:~]$ nix-env --install --attr nixpkgs.git nixpkgs.mercurial
+[name@cluster:~]$ nix-env --list-generations</source>
+Notice how much much faster it was to install git and mercurial the second time? That is because the software already existed in the local Nix store from the previous installs so Nix just reused it.
+
+== Garbage collection ==
+
+Nix periodically goes through and removes any software not accessible from any existing environments. This means we have to explicitly delete environments we don’t want anymore so Nix is able to reclaim the space. We can delete specific environments or any sufficiently old.
+
+<source lang="bash">[name@cluster:~]$ nix-env --delete-generations 30d</source>
+
+[[Category:Software]]

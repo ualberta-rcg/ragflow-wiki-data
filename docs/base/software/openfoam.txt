@@ -1,0 +1,178 @@
+<languages/>
+<translate>
+
+<!--T:1-->
+[[Category:Software]]
+The [https://www.openfoam.com/ OpenFOAM] (Open Field Operation and Manipulation) CFD Toolbox is a free, open source software package for computational fluid dynamics. OpenFOAM has an extensive range of features to solve anything from complex fluid flows involving chemical reactions, turbulence and heat transfer, to solid dynamics and electromagnetics.
+
+<!--T:2-->
+===Module files===
+To load the recent version, run
+{{Command|module load openfoam}}
+
+<!--T:3-->
+The OpenFOAM development community consists of:
+* The OpenFOAM Foundation Ltd., with web sites [https://openfoam.org/ openfoam.org] and [https://cfd.direct/ cfd.direct]
+* OpenCFD Ltd., with web site [https://www.openfoam.com/ openfoam.com]
+Up to version 2.3.1, released in December 2014, the release histories appear to be the same. On our clusters, module names after 2.3.1 which begin with "v" are derived from the .com branch (for example, <tt>openfoam/v1706</tt>); those beginning with a digit are derived from the .org branch (for example, <tt>openfoam/4.1</tt>).
+
+<!--T:4-->
+See [[Utiliser_des_modules/en| Using modules]] for more on module commands.
+
+<!--T:5-->
+===Documentation===
+[https://www.openfoam.com/documentation/ OpenFOAM.com documentation] and [https://cfd.direct/openfoam/user-guide/ CFD Direct user guide].
+
+<!--T:6-->
+===Usage===
+OpenFOAM requires substantial preparation of your environment. In order to run OpenFOAM commands (such as <code>paraFoam</code>, <code>blockMesh</code>, etc), you must load a [[Using modules| module file]].
+
+<!--T:7-->
+Here is an example of a serial submission script for OpenFOAM 5.0:
+{{File
+  |name=submit.sh
+  |lang="bash"
+  |contents=
+#!/bin/bash
+#SBATCH --time=00:01:00
+#SBATCH --account=def-someuser
+
+<!--T:8-->
+module purge
+module load openfoam/12
+
+<!--T:9-->
+blockMesh
+icoFoam
+}}
+
+<!--T:10-->
+Here is an example of a parallel submission script:
+{{File
+  |name=submit.sh
+  |lang="bash"
+  |contents=
+#!/bin/bash
+#SBATCH --account=def-someuser
+#SBATCH --ntasks=4               # number of MPI processes
+#SBATCH --mem-per-cpu=1024M      # memory; default unit is megabytes
+#SBATCH --time=0-00:10           # time (DD-HH:MM)
+
+<!--T:11-->
+module purge
+module load openfoam/12
+
+<!--T:12-->
+blockMesh
+setFields
+decomposePar
+srun interFoam -parallel
+}}
+
+<!--T:13-->
+Mesh preparation (<code>blockMesh</code>) may be fast enough to be done at the command line (see [[Running jobs]]).  The solver (<code>icoFoam</code> and others) is usually the most expensive step and should always be submitted as a Slurm job except in very small test cases or tutorials.
+
+<!--T:22-->
+=== petscFoam solver ===
+OpenFOAM can be compiled with the external petscFoam solver. 
+Our OpenFOAM modules don't include this solver but it can easily be compiled on any of our clusters.
+
+<!--T:23-->
+The versions of OpenFOAM and PETSc need to be compatible. Compatible combinations are e.g.:
+
+<!--T:24-->
+* <code>openfoam/v2412</code> and <code>petsc/3.21.6</code>
+* <code>openfoam/v2312</code> and <code>petsc/3.20.0</code>
+
+<!--T:25-->
+==== Determine compatible versions of OpenFOAM and PETSc ====
+To check which minor release of PETSc is compatible with a particular version of OpenFOAM, 
+load the desired module of OpenFOAM and run the following <code>grep</code> command:
+
+<!--T:26-->
+{{Command
+| module load openfoam/v2412 && grep "^petsc_version"  $EBROOTOPENFOAM/OpenFOAM*/etc/config.sh/petsc
+|result=
+petsc_version=petsc-3.21.2
+}}
+
+<!--T:27-->
+This tells us that when <code>openfoam/v2412</code> was released, it was tested with PETSc 3.21.2.
+
+<!--T:28-->
+We have a module for <code>petsc/3.21.6</code>, which is from the same 3.21 release branch and should 
+only contain bugfixes compared to 3.21.2.
+
+<!--T:29-->
+==== Compile petscFoam solver ====
+Next we need to download and extract the <code>external-solver-main.tar.gz</code> package.
+{{Commands
+| module load StdEnv/2023 gcc/12.3 openmpi/4.1.5 openfoam/v2412 petsc/3.21.6
+| wget https://develop.openfoam.com/modules/external-solver/-/archive/main/external-solver-main.tar.gz
+| tar xvfz external-solver-main.tar.gz
+| cd tar xvfz external-solver-main
+}}
+
+<!--T:30-->
+Running <code>./Allmake</code> will compile the petscFoam solver:
+{{Command
+| ./Allwmake
+|result=
+========================================
+2025-08-14 15:00:00 -0400
+Starting compile of external-solver (petsc) with OpenFOAM-v2412
+[...]
+========================================
+  Finished compile of external-solver (petsc) with OpenFOAM-v2412
+  Gcc system compiler
+  linux64GccDPInt32Opt, with EASYBUILDMPI eb-mpi
+}}
+
+<!--T:31-->
+==== Confirm that petscFoam solver is functional ====
+A few quick tests will confirm that petscFoam solver is working:
+
+<!--T:32-->
+Check whether OpenFOAM can load petscFoam:
+{{Command
+| foamHasLibrary -verbose petscFoam
+|result=
+Can load "petscFoam"
+}}
+
+<!--T:33-->
+Check whether the dynamic library is located in <code>$FOAM_USER_LIBBIN</code>:
+{{Command
+| ls $FOAM_USER_LIBBIN
+|result=
+libpetscFoam.so
+}}
+
+<!--T:34-->
+Check whether <code>libpetscFoam.so</code> can find its dependencies:
+{{Command
+| ldd $FOAM_USER_LIBBIN/libpetscFoam.so {{!}} grep petsc
+|result=
+ libpetsc.so.3.21 {{=}}> /cvmfs/soft.computecanada.ca/easybuild/software/2023/x86-64-v4/MPI/gcc12/openmpi4/petsc/3.21.6/lib/libpetsc.so.3.21 (0x00007f96fa800000)
+ libstrumpack.so.7.2 {{=}}> /cvmfs/soft.computecanada.ca/easybuild/software/2023/x86-64-v4/MPI/gcc12/openmpi4/petsc/3.21.6/lib/libstrumpack.so.7.2 (0x00007f96f8200000)
+ libml.so.13 {{=}}> /cvmfs/soft.computecanada.ca/easybuild/software/2023/x86-64-v4/MPI/gcc12/openmpi4/petsc/3.21.6/lib/libml.so.13 (0x00007f96fa281000)
+}}
+
+<!--T:14-->
+===Performance===
+OpenFOAM can emit a lot of debugging information in very frequent small writes (e.g. hundreds per second). This may lead to poor performance on our shared filesystems. If you are in stable production and don't need the debug output, you can reduce or disable it with:
+{{Commands
+|mkdir -p $HOME/.OpenFOAM/$WM_PROJECT_VERSION
+|cp $WM_PROJECT_DIR/etc/controlDict $HOME/.OpenFOAM/$WM_PROJECT_VERSION/
+}}
+There are a variety of other parameters which can be used to reduce the amount of output that OpenFOAM writes to disk as well as the frequency; these run-time parameters are documented for [https://cfd.direct/openfoam/user-guide/v6-controldict/ version 6] and [https://cfd.direct/openfoam/user-guide/v7-controldict/ version 7].
+
+<!--T:19-->
+For example, the <code>debugSwitches</code> dictionary in <code>$HOME/.OpenFOAM/$WM_PROJECT_VERSION/controlDict</code> can be altered to change the flags from values greater than zero to zero. Another solution would be to make use of the local scratch (<tt>$SLURM_TMPDIR</tt>), a disk attached directly to the compute node, discussed [[Handling_large_collections_of_files#Local_disk|here]].
+
+==== Node-local scratch ==== <!--T:35-->
+
+<!--T:36-->
+If your workflow involves the creation of many small files, you may benefit from making <code>$SLURM_TMPDIR</code> your working directory.  See [[Using node-local storage]] for more on this.
+
+</translate>

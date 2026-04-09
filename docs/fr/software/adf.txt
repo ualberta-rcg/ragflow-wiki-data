@@ -1,0 +1,263 @@
+<languages />
+
+[[Category:Software]][[Category:ComputationalChemistry]]
+==Introduction==
+'''Attention :''' La suite ADF a été renommée AMS depuis la version de 2020. Cette nouvelle version comporte des changements importants, notamment dans les formats d'entrée et de sortie. Pour plus d'information, voir [[AMS/fr|AMS]].
+
+La suite logicielle [https://www.scm.com/ SCM (''Software for Chemistry and Materials'')], à l'origine la suite ADF pour ''Amsterdam Density Functional'', offre des applications très performantes pour la recherche en chimie computationnelle, notamment dans les domaines de la catalyse (homogène et hétérogène), la chimie inorganique, la chimie des éléments lourds, la biochimie et différents types de spectroscopie.
+
+Les produits suivants sont disponibles&nbsp;:
+*ADF
+*ADF-GUI
+*BAND
+*BAND-GUI
+*DFTB
+*ReaxFF
+*COSMO-RS
+*QE-GUI
+*NBO6
+
+==Utiliser SCM sur Graham==
+Le module <code>adf</code> est seulement installé sur [[Graham/fr|Graham]] en raison de restrictions liées à l'octroi des licences. Pour connaître les versions disponibles, lancez la commande
+
+ [name@server $] module spider adf
+
+Pour les commandes en rapport avec les modules, voyez [[Utiliser des modules|Utiliser des modules]].
+
+===Soumettre une tâche===
+
+Les tâches soumises sur Graham sont ordonnancées par Slurm; pour les détails, consultez [[Running jobs/fr|Exécuter des tâches]].
+
+====Tâche unique====
+Le script suivant utilise un nœud entier; l'avant-dernière ligne charge la version 2019.305 et la dernière ligne appelle ADF directement.
+{{File
+  |name=mysub.sh
+  |lang="bash"
+  |contents=
+#!/bin/bash
+#SBATCH --nodes=1 --ntasks-per-node=32  # 1 node with 32 cpus, you can modify it
+#SBATCH --mem=0                         # request all memory on node
+#SBATCH --time=00-03:00                 # time (DD-HH:MM)
+#SBATCH --output=adf_test-%j.log        # output file
+
+module unload openmpi
+module load adf/2019.305
+ADF adf_test.inp  
+}}
+
+Le fichier en entrée ci-dessous est utilisé dans le script.
+{{File
+  |name=adf_test.inp
+  |lang="text"
+  |contents=
+ Title WATER Geometry Optimization with Delocalized Coordinates
+
+ Atoms
+    O             0.000000     0.000000     0.000000
+    H             0.000000    -0.689440    -0.578509
+    H             0.000000     0.689440    -0.578509
+ End
+
+ Basis
+ Type TZP
+ Core Small
+ End
+
+ Geometry
+  Optim Deloc
+  Converge 0.0000001
+ End
+
+ End Input
+}}
+
+==== Tâches multiples avec ADF ou BAND ====
+
+Plusieurs calculs peuvent être groupés dans une même tâche avec un script semblable à celui-ci&nbsp;:
+{{File
+  |name=GO_H2O.run
+  |lang="bash"
+  |contents=
+#!/bin/bash
+if test -z "$SCM_TESTOUTPUT" ; then SCM_TESTOUTPUT=GO_H2O.out; fi
+
+$ADFBIN/adf << eor > $SCM_TESTOUTPUT
+Title WATER Geometry Optimization with Delocalized Coordinates
+
+Atoms
+   O             0.000000     0.000000     0.000000
+   H             0.000000    -0.689440    -0.578509
+   H             0.000000     0.689440    -0.578509
+End
+
+Basis
+Type TZP
+Core Small
+End
+
+Geometry
+ Optim Deloc
+ Converge 0.0000001
+End
+
+End Input
+eor
+
+rm TAPE21 logfile
+$ADFBIN/adf << eor >> $SCM_TESTOUTPUT
+Title WATER Geometry Optimization in Cartesians with new optimizer
+
+Atoms
+    O             0.000000     0.000000     0.000000
+    H             0.000000    -0.689440    -0.578509
+    H             0.000000     0.689440    -0.578509
+End
+
+Basis
+ Type TZP
+ Core Small
+End
+
+Geometry
+  Optim Cartesian
+  Branch New
+  Converge 0.0000001
+End
+
+End Input
+eor
+
+rm TAPE21 logfile
+$ADFBIN/adf << eor >> $SCM_TESTOUTPUT
+Title WATER Geometry Optimization with Internal Coordinates
+
+Atoms    Z-Matrix
+ 1. O   0 0 0
+ 2. H   1 0 0   rOH
+ 3. H   1 2 0   rOH  theta
+End
+
+Basis
+ Type TZP
+ Core Small
+End
+
+GeoVar
+ rOH=0.9
+ theta=100
+End
+Geometry
+  Converge 0.0000001
+End
+
+End Input
+eor
+
+rm TAPE21 logfile
+$ADFBIN/adf << eor >> $SCM_TESTOUTPUT
+Title WATER   optimization with (partial) specification of Hessian
+
+Atoms    Z-Matrix
+ 1. O   0 0 0
+ 2. H   1 0 0   rOH
+ 3. H   1 2 0   rOH  theta
+End
+
+GeoVar
+ rOH=0.9
+ theta=100
+End
+HessDiag  rad=1.0  ang=0.1
+
+Fragments
+ H   t21.H
+ O   t21.O
+End
+
+Geometry
+  Converge 0.0000001
+End
+
+End Input
+eor
+
+rm TAPE21 logfile
+$ADFBIN/adf << eor >> $SCM_TESTOUTPUT
+Title WATER Geometry Optimization in Cartesians
+
+Geometry
+  Optim Cartesian
+  Converge 0.0000001
+End
+
+Define
+ rOH=0.9
+ theta=100
+End
+
+Atoms    Z-Matrix
+ 1. O   0 0 0
+ 2. H   1 0 0   rOH
+ 3. H   1 2 0   rOH theta
+End
+
+Fragments
+ H   t21.H
+ O   t21.O
+End
+
+End Input
+eor
+
+mv TAPE21 H2O.t21
+}}
+
+Le script suivant est identique à celui utilisé pour une tâche unique (mysub.sh), à l’exception de la dernière ligne qui appelle le script GO_H2O.run plutôt que d’appeler ADF directement.
+{{File
+  |name=GO_H2O.sh
+  |lang="bash"
+  |contents=
+#!/bin/bash
+#SBATCH --nodes=1 --ntasks-per-node=32  # 1 node with 32 cpus, you can modify it
+#SBATCH --mem=0                         # request all memory on node
+#SBATCH --time=00-03:00                 # time (DD-HH:MM)
+#SBATCH --output=GO_H2O_%j.log          # output file
+
+module unload openmpi
+module load adf/2019.305
+bash GO_H2O.run                         # run the shell script
+}}
+
+===Exemples===
+Pour des exemples d’entrée/sortie pour ADF, voyez sur Graham
+ /home/jemmyhu/tests/test_ADF/2019.305/test_adf/
+
+Pour des exemples de fichiers .inp et .sh avec BAND, voyez sur Graham 
+ /home/jemmyhu/tests/test_ADF/2019.305/test_band
+
+==Utiliser SCM-GUI==
+Avec des applications comme ADF-GUI, la redirection X11 via une connexion SSH exige beaucoup de temps pour produire les rendus. Nous recommandons de vous connecter avec [[VNC/fr|VNC]].
+
+===Graham===
+
+Sur un nœud de calcul de Graham, ADF peut être utilisé interactivement en mode graphique avec TigerVNC pour une durée maximale de 3 heures.
+
+# [[VNC/fr#Configuration|Installez un client TigerVNC]] sur votre ordinateur.
+# [[VNC/fr#N.C5.93uds_de_calcul|Connectez-vous à un nœud de calcul]] avec vncviewer.
+# <code>module load adf</code>
+# <code>adfinput</code>
+
+===Gra-vdi===
+
+Sur gra-vdi, ADF peut être utilisé interactivement en mode graphique, sans limite de durée.
+
+# [[VNC/fr#Configuration|Installez un client TigerVNC]] sur votre ordinateur.
+# [[VNC/fr#N.C5.93uds_VDI|Connectez-vous à gra-vdi.computecanada.ca]] avec vncviewer.
+# <code>module load clumod</code>
+# <code>module load adf</code>
+# <code>adfinput</code>
+
+Voyez [https://www.sharcnet.ca/~jemmyhu/TigerVNC-for-ADF-GUI.pdf ce tutoriel sur comment utiliser ADF-GUI avec TigerVNC sur gra-vdi] (en anglais).
+
+===Utiliser ADF-GUI localement===
+SCM offre une licence distincte pour utiliser ADF-GUI sur un ordinateur de bureau local; pour acquérir votre propre licence, contactez [mailto:license@scm.com license@scm.com].

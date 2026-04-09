@@ -1,0 +1,481 @@
+<languages />
+[[Category:Software]] [[Category:AI and Machine Learning]]
+[https://www.tensorflow.org/ TensorFlow] est une bibliothèque logicielle <i>open source</i> d'apprentissage machine.
+
+Si vous voulez porter un programme TensorFlow sur une de nos grappes, nous vous recommandons de prendre connaissance du [[Tutoriel Apprentissage machine|tutoriel sur l'apprentissage machine]].
+
+<span id="Installing_TensorFlow"></span>
+==Installation==
+
+Les directives suivantes servent à installer TensorFlow dans votre répertoire <i>home</i> à l'aide des ([http://pythonwheels.com/ <i>wheels</i> Python ]) qui se trouvent dans <code>/cvmfs/soft.computecanada.ca/custom/python/wheelhouse/</code>. 
+<br />
+Le wheel TensorFlow sera installé dans un [[Python/fr#Créer_et_utiliser_un_environnement_virtuel|environnement virtuel Python]] avec la commande <code>pip</code>.
+
+<tabs>
+<tab name="TF 2.x">
+
+Chargez les modules requis par TensorFlow; dans certains cas, d'autres modules pourraient être requis (par exemple CUDA).
+{{Command2|module load python/3}}
+
+Créez un nouvel environnement Python.
+{{Command2|virtualenv --no-download tensorflow}}
+
+Activez le nouvel environnement.
+{{Command2|source tensorflow/bin/activate}}
+
+Installez TensorFlow dans votre nouvel environnement virtuel en utilisant la commande suivante.
+{{Command2|prompt=(tensorflow) [name@server ~]$
+|pip install --no-index tensorflow}}
+</tab>
+<tab name="TF 1.x">
+
+Chargez les modules requis par TensorFlow. TF 1.x requiert StdEnv/2018.
+
+<b>Remarque : TF 1.x n'est pas disponible sur Narval, puisque cette grappe n'offre pas StdEnv/2018.</b>
+
+{{Command2|module load StdEnv/2018 python/3}}
+
+Créez un nouvel environnement Python.
+{{Command2|virtualenv --no-download tensorflow}}
+
+Activez le nouvel environnement.
+{{Command2|source tensorflow/bin/activate}}
+
+Installez TensorFlow dans votre nouvel environnement virtuel en utilisant une des commandes suivantes, dépendant de si vous avez besoin d'utiliser un GPU.
+
+<b>N'installez pas</b> le paquet <code>tensorflow</code> sans le suffixe <code>_cpu</code> ou <code>_gpu</code> car il existe des problèmes de compatibilité avec d'autres bibliothèques.
+
+<span id="CPU-only"></span>
+=== CPU seulement ===
+{{Command2|prompt=(tensorflow) [name@server ~]$
+|pip install --no-index tensorflow_cpu{{=}}{{=}}1.15.0}}
+
+=== GPU ===
+{{Command2|prompt=(tensorflow) [name@server ~]$
+|pip install --no-index tensorflow_gpu{{=}}{{=}}1.15.0}}
+</tab>
+</tabs>
+
+
+<span id="R_package"></span>
+=== Le paquet R  ===
+
+Pour utiliser TensorFlow en R, suivez les directives données ci-dessus pour créer un environnement virtuel et y installer TensorFlow. Suivez ensuite cette procédure ː
+
+Chargez les modules requis.
+{{Command2|module load gcc r}}
+Activez votre environnement virtuel Python.
+{{Command2|source tensorflow/bin/activate}}
+Lancez R.
+{{Command2|prompt=(tensorflow)_[name@server ~]$|R}}
+En R, installez le paquet devtools, puis TensorFlow. 
+<syntaxhighlight lang="r">
+install.packages('devtools', repos='https://cloud.r-project.org')
+devtools::install_github('rstudio/tensorflow')
+</syntaxhighlight>
+
+Vous pouvez maintenant procéder. N'appelez pas <code>install_tensorflow()</code> en R puisque TensorFlow est déjà installé dans votre environnement virtuel avec <code>pip</code>. Pour utiliser TensorFlow tel qu'installé dans votre environnement virtuel, entrez les commandes suivantes en R, après que l'environnement est activé.
+
+<syntaxhighlight lang="r">
+library(tensorflow)
+use_virtualenv(Sys.getenv('VIRTUAL_ENV'))
+</syntaxhighlight>
+
+==Soumettre une tâche TensorFlow avec un GPU==
+Soumettez une tâche TensorFlow ainsi 
+{{Command2|sbatch tensorflow-test.sh}}
+Le script contient
+{{File
+  |name=tensorflow-test.sh
+  |lang="bash"
+  |contents=
+#!/bin/bash
+#SBATCH --gres=gpu:1        # request GPU "generic resource"
+#SBATCH --cpus-per-task=6   # maximum CPU cores per GPU request. See https://docs.alliancecan.ca/wiki/Allocations_and_compute_scheduling#Ratios_in_bundles
+#SBATCH --mem=32000M        # memory per node
+#SBATCH --time=0-03:00      # time (DD-HH:MM)
+#SBATCH --output=%N-%j.out  # %N for node name, %j for jobID
+
+module load cuda cudnn 
+source tensorflow/bin/activate
+python ./tensorflow-test.py
+}}
+Le script Python se lit
+
+<tabs>
+<tab name="TF 2.x">
+{{File
+  |name=tensorflow-test.py
+  |lang="python"
+  |contents=
+import tensorflow as tf
+node1 = tf.constant(3.0)
+node2 = tf.constant(4.0)
+print(node1, node2)
+print(node1 + node2)
+}}
+</tab>
+<tab name="TF 1.x">
+{{File
+  |name=tensorflow-test.py
+  |lang="python"
+  |contents=
+import tensorflow as tf
+node1 = tf.constant(3.0)
+node2 = tf.constant(4.0)
+print(node1, node2)
+sess = tf.Session()
+print(sess.run(node1 + node2))
+}}
+</tab>
+</tabs>
+
+Une fois la tâche terminée, ce qui devrait nécessiter moins d'une minute, un fichier de sortie avec un nom semblable à <code>node_id-job_id.out</code> devrait être généré. Le contenu de ce fichier serait similaire à ce qui suit; il s'agit d'exemples de messages TensorFlow et il est possible que vous en ayez d'autres.
+
+<tabs>
+<tab name="TF 2.x">
+{{File
+  |name=node_id-job_id.out
+  |lang="text"
+  |contents=
+2017-07-10 12:35:19.491097: I tensorflow/core/common_runtime/gpu/gpu_device.cc:961] DMA: 0
+2017-07-10 12:35:19.491156: I tensorflow/core/common_runtime/gpu/gpu_device.cc:971] 0:   Y
+2017-07-10 12:35:19.520737: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1030] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla P100-PCIE-12GB, pci bus id: 0000:82:00.0)
+tf.Tensor(3.0, shape=(), dtype=float32) tf.Tensor(4.0, shape=(), dtype=float32)
+tf.Tensor(7.0, shape=(), dtype=float32)
+}}
+</tab>
+<tab name="TF 1.x">
+{{File
+  |name=node_id-job_id.out
+  |lang="text"
+  |contents=
+2017-07-10 12:35:19.491097: I tensorflow/core/common_runtime/gpu/gpu_device.cc:961] DMA: 0
+2017-07-10 12:35:19.491156: I tensorflow/core/common_runtime/gpu/gpu_device.cc:971] 0:   Y
+2017-07-10 12:35:19.520737: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1030] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla P100-PCIE-12GB, pci bus id: 0000:82:00.0)
+Tensor("Const:0", shape=(), dtype=float32) Tensor("Const_1:0", shape=(), dtype=float32)
+7.0
+}}
+</tab>
+</tabs>
+
+
+TensorFlow fonctionne sur tous les types de nœuds GPU. Pour plus d'information, voir [[Using GPUs with Slurm/fr|cette page]].
+
+<span id="Monitoring"></span>
+==Suivi==
+
+Il est possible de se connecter à un nœud sur lequel une tâche est en cours pour y exécuter des processus. On peut ainsi faire le suivi des ressources utilisées par TensorFlow et visualiser le déroulement de l'entraînement. Pour des exemples, consultez [[Running jobs/fr#Surveillance_d'une_tâche_en_cours|Surveillance d'une tâche en cours]].
+
+===TensorBoard===
+
+TensorFlow propose la suite d'outils de visualisation [https://www.tensorflow.org/programmers_guide/summaries_and_tensorboard TensorBoard] qui lit les événements TensorFlow et modélise les fichiers. Pour savoir comment créer ces fichiers, consultez [https://www.tensorflow.org/programmers_guide/summaries_and_tensorboard#serializing_the_data TensorBoard tutorial on summaries].
+
+Sachez toutefois que TensorBoard exige trop de puissance de calcul pour être exécuté sur un nœud de connexion. Nous vous recommandons de l'exécuter dans la même tâche que le processus TensorFlow. Pour ce faire, lancez TensorBoard en arrière-plan en l'appelant avant le script Python, en y ajoutant le caractère (<code>&</code>).
+
+ # Your SBATCH arguments here
+ 
+ tensorboard --logdir=/tmp/your_log_dir --host 0.0.0.0 --load_fast false &
+ python train.py  # example
+
+Pour accéder TensorBoard avec un fureteur une fois que la tâche est en cours, il faut créer un lien entre votre ordinateur et le nœud sur lequel TensorFlow et TensorBoard sont exécutés. Pour ce faire, vous avez besoin du <i>hostname</i> du nœud de calcul sur lequel le serveur TensorFlow se trouve. Pour le trouver, faites afficher la liste de vos tâches avec la commande <code>sq</code> et repérez la tâche; le <i>hostname</i> est la valeur qui se trouve dans la colonne NODELIST.
+
+Pour créer la connexion, lancez la commande sur votre ordinateur local.
+
+{{Command2|prompt=[name@my_computer ~]$
+|ssh -N -f -L localhost:6006:computenode:6006 userid@cluster.computecanada.ca}}
+
+Remplacez <code>computenode</code> par le <i>hostname</i> obtenu à l'étape précédente; <code>userid</code> par votre nom d'utilisateur de l'Alliance et; <code>cluster</code> par le <i>hostname</i> de la grappe, soit <code>rorqual</code>, <code>fir</code>, <code>nibi</code>, etc. Si le port 6006 était déjà utilisé, tensorboard va en utiliser un autre (p. ex. 6007, 6008...).
+
+Une fois que la connexion est établie, allez à [http://localhost:6006 http://localhost:6006].
+
+<span id="TensorFlow_with_multi-GPUs"></span>
+==Utiliser plusieurs GPU==
+
+TensorFlow offre des stratégies différentes pour utiliser plusieurs GPU avec l'API de haut niveau <code>tf.distribute</code>. Dans les sections qui suivent, nous montrons des exemples de code pour chacune des stratégies avec Keras. Pour plus d'information, consultez la [https://www.tensorflow.org/api_docs/python/tf/distribute documentation officielle de TensorFlow].
+
+<span id="Mirrored_strategy"></span>
+====Stratégie miroir====
+
+<span id="Single_node"></span>
+=====Nœud unique=====
+
+
+{{File
+  |name=tensorflow-singleworker.sh
+  |lang="bash"
+  |contents=
+#!/bin/bash
+#SBATCH --nodes 1
+#SBATCH --gres=gpu:4
+
+#SBATCH --mem=8G      
+#SBATCH --time=0-00:30
+#SBATCH --output=%N-%j.out
+
+module load python/3
+virtualenv --no-download $SLURM_TMPDIR/env
+source $SLURM_TMPDIR/env/bin/activate
+pip install --no-index tensorflow
+
+export NCCL_BLOCKING_WAIT=1  #Set this environment variable if you wish to use the NCCL backend for inter-GPU communication.
+
+python tensorflow-singleworker.py
+}}
+
+Le script Python <code>tensorflow-singleworker.py</code> a le format
+{{File
+  |name=tensorflow-singleworker.py
+  |lang="python"
+  |contents=
+
+import tensorflow as tf
+import numpy as np
+
+import argparse
+
+
+parser = argparse.ArgumentParser(description='cifar10 classification models, tensorflow MirroredStrategy test')
+parser.add_argument('--lr', default=0.001, help='')
+parser.add_argument('--batch_size', type=int, default=256, help='')
+
+args = parser.parse_args()
+
+strategy = tf.distribute.MirroredStrategy()
+
+with strategy.scope():
+
+    model = tf.keras.Sequential()
+
+    model.add(tf.keras.layers.Conv2D(32, (3, 3), padding='same',
+                 input_shape=(32,32,3)))
+    model.add(tf.keras.layers.Activation('relu'))
+    model.add(tf.keras.layers.Conv2D(32, (3, 3)))
+    model.add(tf.keras.layers.Activation('relu'))
+    model.add(tf.keras.layers.MaxPooling2D(pool_size=(2, 2)))
+    model.add(tf.keras.layers.Dropout(0.25))
+
+    model.add(tf.keras.layers.Conv2D(64, (3, 3), padding='same'))
+    model.add(tf.keras.layers.Activation('relu'))
+    model.add(tf.keras.layers.Conv2D(64, (3, 3)))
+    model.add(tf.keras.layers.Activation('relu'))
+    model.add(tf.keras.layers.MaxPooling2D(pool_size=(2, 2)))
+    model.add(tf.keras.layers.Dropout(0.25))
+
+    model.add(tf.keras.layers.Flatten())
+    model.add(tf.keras.layers.Dense(512))
+    model.add(tf.keras.layers.Activation('relu'))
+    model.add(tf.keras.layers.Dropout(0.5))
+    model.add(tf.keras.layers.Dense(10))
+
+    model.compile(loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
+         optimizer=tf.keras.optimizers.SGD(learning_rate=args.lr),metrics=['accuracy'])
+
+### This next line will attempt to download the CIFAR10 dataset from the internet if you don't already have it stored in ~/.keras/datasets. 
+### Run this line on a login node prior to submitting your job, or manually download the data from 
+### https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz, rename to "cifar-10-batches-py.tar.gz" and place it under ~/.keras/datasets
+
+(x_train, y_train),_ = tf.keras.datasets.cifar10.load_data()
+
+dataset = tf.data.Dataset.from_tensor_slices((x_train, y_train)).batch(args.batch_size)
+
+model.fit(dataset, epochs=2)
+
+}}
+
+<span id="Multiple_nodes"></span>
+=====Nœuds multiples=====
+
+La syntaxe pour utiliser des GPU distribués sur plusieurs nœuds ressemble beaucoup au cas du nœud simple; la différence principale est l'emploi de <code>MultiWorkerMirroredStrategy()</code>. Ici, nous utilisons <code>SlurmClusterResolver()</code> pour dire à TensorFlow d'obtenir par Slurm l'information sur la tâche plutôt que d'assigner manuellement un nœud principal et des nœuds secondaires (''workers''), par exemple. Nous devons aussi ajouter <code>CommunicationImplementation.NCCL</code> à la stratégie de distribution pour indiquer que nous voulons utiliser la bibliothèque NCCL de NVIDIA pour les communications entre les GPU. Ceci n'était pas nécessairement le cas pour un nœud simple puisque NCCL se trouve par défaut avec <code>MirroredStrategy()</code>.
+
+{{File
+  |name=tensorflow-multiworker.sh
+  |lang="bash"
+  |contents=
+#!/bin/bash
+#SBATCH --nodes 2              # Request 2 nodes so all resources are in two nodes.
+#SBATCH --gres=gpu:2          # Request 2 GPU "generic resources”. You will get 2 per node.
+
+#SBATCH --ntasks-per-node=2   # Request 1 process per GPU. You will get 1 CPU per process by default. Request more CPUs with the "cpus-per-task" parameter if your input pipeline can handle parallel data-loading/data-transforms
+
+#SBATCH --mem=8G      
+#SBATCH --time=0-00:30
+#SBATCH --output=%N-%j.out
+
+
+srun -N $SLURM_NNODES -n $SLURM_NNODES config_env.sh
+
+module load gcc/9.3.0 cuda/11.8
+export NCCL_BLOCKING_WAIT=1  #Set this environment variable if you wish to use the NCCL backend for inter-GPU communication.
+export XLA_FLAGS=--xla_gpu_cuda_data_dir=$CUDA_HOME
+
+srun launch_training.sh
+}}
+
+où <code>config_env.sh</code> a la forme
+{{File
+  |name=config_env.sh
+  |lang="bash"
+  |contents=
+#!/bin/bash
+
+module load python
+
+virtualenv --no-download $SLURM_TMPDIR/ENV
+
+source $SLURM_TMPDIR/ENV/bin/activate
+
+pip install --upgrade pip --no-index
+
+pip install --no-index tensorflow
+
+echo "Done installing virtualenv!"
+}}
+
+Le script <code>launch_training.sh</code> a la forme
+
+{{File
+  |name=launch_training.sh
+  |lang="bash"
+  |contents=
+#!/bin/bash
+
+source $SLURM_TMPDIR/ENV/bin/activate
+
+python tensorflow-multiworker.py
+}}
+
+Le script Python <code>tensorflow-multiworker.py</code> a la forme suivante&nbsp;:
+{{File
+  |name=tensorflow-multiworker.py
+  |lang="python"
+  |contents=
+
+import tensorflow as tf
+import numpy as np
+
+import argparse
+
+
+parser = argparse.ArgumentParser(description='cifar10 classification models, tensorflow MultiWorkerMirrored test')
+parser.add_argument('--lr', default=0.001, help='')
+parser.add_argument('--batch_size', type=int, default=256, help='')
+
+args = parser.parse_args()
+
+cluster_config = tf.distribute.cluster_resolver.SlurmClusterResolver()
+comm_options = tf.distribute.experimental.CommunicationOptions(implementation=tf.distribute.experimental.CommunicationImplementation.NCCL)
+
+strategy = tf.distribute.MultiWorkerMirroredStrategy(cluster_resolver=cluster_config, communication_options=comm_options)
+
+with strategy.scope():
+
+    model = tf.keras.Sequential()
+
+    model.add(tf.keras.layers.Conv2D(32, (3, 3), padding='same',
+                 input_shape=(32,32,3)))
+    model.add(tf.keras.layers.Activation('relu'))
+    model.add(tf.keras.layers.Conv2D(32, (3, 3)))
+    model.add(tf.keras.layers.Activation('relu'))
+    model.add(tf.keras.layers.MaxPooling2D(pool_size=(2, 2)))
+    model.add(tf.keras.layers.Dropout(0.25))
+
+    model.add(tf.keras.layers.Conv2D(64, (3, 3), padding='same'))
+    model.add(tf.keras.layers.Activation('relu'))
+    model.add(tf.keras.layers.Conv2D(64, (3, 3)))
+    model.add(tf.keras.layers.Activation('relu'))
+    model.add(tf.keras.layers.MaxPooling2D(pool_size=(2, 2)))
+    model.add(tf.keras.layers.Dropout(0.25))
+
+    model.add(tf.keras.layers.Flatten())
+    model.add(tf.keras.layers.Dense(512))
+    model.add(tf.keras.layers.Activation('relu'))
+    model.add(tf.keras.layers.Dropout(0.5))
+    model.add(tf.keras.layers.Dense(10))
+
+    model.compile(loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
+         optimizer=tf.keras.optimizers.SGD(learning_rate=args.lr),metrics=['accuracy'])
+
+### This next line will attempt to download the CIFAR10 dataset from the internet if you don't already have it stored in ~/.keras/datasets. 
+### Run this line on a login node prior to submitting your job, or manually download the data from 
+### https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz, rename to "cifar-10-batches-py.tar.gz" and place it under ~/.keras/datasets
+
+(x_train, y_train),_ = tf.keras.datasets.cifar10.load_data()
+
+dataset = tf.data.Dataset.from_tensor_slices((x_train, y_train)).batch(args.batch_size)
+
+model.fit(dataset, epochs=2)
+
+}}
+
+==Créer des points de contrôle==
+Peu importe le temps que dure l'exécution de votre code, une bonne habitude à prendre est de créer des points de contrôle pendant l'entraînement. Un point de contrôle vous donne le portrait de votre modèle à un moment précis du processus d'entraînement (après un certain nombre d'itérations ou d'époques); le portrait est enregistré sur disque et vous pourrez le récupérer par la suite. Ceci est pratique pour diviser en petites tâches une tâche qui doit avoir un long temps d'exécution, ce qui pourrait faire qu'elles soient être allouées plus rapidement à une grappe. C'est aussi un bon moyen d'éviter de perdre votre travail en cas d'erreurs inattendues ou de panne du matériel.
+
+<span id="With_Keras"></span>
+===Avec Keras===
+
+Pour créer un point de contrôle dans un entraînement avec <code>keras</code>, nous recommandons le paramètre <code>callbacks</code> de la méthode <code>model.fit()</code>. Dans l'exemple suivant, nous demandons à TensorFlow de créer un point de contrôle à la fin de chacune des époques d'entraînement.
+
+ callbacks = [tf.keras.callbacks.ModelCheckpoint(filepath="./ckpt",save_freq="epoch")] # Make sure the path where you want to create the checkpoint exists
+ 
+ model.fit(dataset, epochs=10 , callbacks=callbacks)
+
+Pour plus d'information, consultez la [https://www.tensorflow.org/api_docs/python/tf/keras/callbacks/ModelCheckpoint documentation officielle de TensorFlow].
+
+<span id="With_a_custom_training_loop"></span>
+===Avec une boucle d'entraînement personnalisée===
+
+Voyez la [https://www.tensorflow.org/guide/checkpoint#writing_checkpoints documentation officielle de TensorFlow].
+
+<span id="Troubleshooting"></span>
+==Dépannage==
+
+<span id="scikit_image"></span>
+===scikit-image===
+
+Si vous utilisez la bibliothèque scikit-image, vous pourriez recevoir l'erreur
+<code>OMP: Error #15: Initializing libiomp5.so, but found libiomp5.so already initialized. </code>
+
+Ceci se produit quand la bibliothèque TensorFlow essaie de charger une version de OMP incompatible avec la version du système. Pour contourner ceci&nbsp;:
+{{Commands|prompt=(tf_skimage_venv) name@server $
+|cd tf_skimage_venv
+|export LIBIOMP_PATH{{=}}$(strace python -c 'from skimage.transform import AffineTransform' 2>&1 {{!}} grep -v ENOENT {{!}} grep -ohP -e '(?<{{=}}")[^"]+libiomp5.so(?{{=}}")' {{!}} xargs realpath)
+|find -path '*_solib_local*' -name libiomp5.so -exec ln -sf $LIBIOMP_PATH {} \;
+}}
+L'installation de la bibliothèque TensorFlow pourra alors utiliser libiomp5.so.
+
+===libcupti.so===
+
+Certaines fonctions de suivi de TensorFlow utilisent la bibliothèque libcupti.so; si cette dernière n'est pas disponible, l'erreur suivante pourrait survenir :
+
+<code>I tensorflow/stream_executor/dso_loader.cc:142] Couldn't open CUDA library libcupti.so.9.0. LD_LIBRARY_PATH: /usr/local/cuda-9.0/lib64</code>
+
+La solution est d'exécuter les commandes suivantes avant l'exécution du script.
+{{Commands
+| module load cuda/9.0.xxx
+| export LD_LIBRARY_PATH{{=}}$LD_LIBRARY_PATH:$CUDA_HOME/extras/CUPTI/lib64/
+}}
+Remplacez xxx par la version appropriée de CUDA que vous pouvez trouver avec <code>module av cuda</code>.
+
+===libiomp5.so invalid ELF header===
+
+Le fichier objet partagé <code>libiomp5.so</code> est quelquefois par erreur installé en tant que fichier texte, ce qui peut produire des erreurs comme ceci :
+
+<code>/home/username/venv/lib/python3.6/site-packages/tensorflow/python/../../_solib_local/_U@mkl_Ulinux_S_S_Cmkl_Ulibs_Ulinux___Uexternal_Smkl_Ulinux_Slib/libiomp5.so: invalid ELF header</code>
+
+Pour solutionner ces erreurs, accédez au répertoire indiqué dans le message (soit <code>[...]/_U@mkl_Ulinux_S_S_Cmkl_Ulibs_Ulinux___Uexternal_Smkl_Ulinux_Slib</code>) et lancez la commande
+
+{{Command|prompt=[name@server ...Ulinux_Slib] $ |ln -sf $(cat libiomp5.so) libiomp5.so}}
+
+Le fichier texte sera remplacé par le bon lien symbolique.
+
+<span id="Controlling_the_number_of_CPUs_and_threads"></span>
+==Contrôle du nombre de CPU et de fils==
+
+Les paramètres de configuration <code>intra_op_parallelism_threads</code> et <code>inter_op_parallelism_threads</code> ont un effet sur le nombre de fils utilisés par TensorFlow; ces paramètres peuvent être définis comme suit&nbsp;:
+
+ tf.config.threading.set_inter_op_parallelism_threads(num_threads)
+ tf.config.threading.set_intra_op_parallelism_threads(num_threads)
+
+==Problèmes connus==
+Un bogue s'est introduit dans l'implémentation Keras de Tensorflow après la version 2.8.3. Il affecte la performance des layers d'augmentation des données <i>tf.keras.layers.Random</i> (comme <i>tf.keras.layers.RandomRotation</i>, <i>tf.keras.layers.RandomTranslation</i>, etc.). Le processus d'entraînement est ralenti d'un facteur de plus de 100. <b>Ce bogue a été corrigé dans la version 2.12.

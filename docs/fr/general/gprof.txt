@@ -1,0 +1,27 @@
+<languages />
+=Profileur GNU gprof =
+== Description ==
+[https://sourceware.org/binutils/docs/gprof/ gprof] est une application de profilage qui collecte de l’information et compile des statistiques sur votre code. De façon générale, gprof trouve les fonctions et les sous-routines dans le programme et y insère des temps de calcul pour chacune. Quand le programme est exécuté, un fichier de données brutes est créé et interprété par gprof qui en tire des statistiques de profilage.
+
+[https://sourceware.org/binutils/docs/gprof/ gprof] est fourni avec la suite GNU et est disponible via le module <tt>gcc</tt>.
+
+== Préparation du code ==
+=== Charger le compilateur ===
+Chargez le compilateur GNU approprié; par exemple pour GCC la commande est 
+
+{{Command|module load gcc/7.3.0}}
+
+=== Compiler le code ===
+Compilez d’abord votre code avec la fonction de débogage activée; pour les compilateurs GNU, ceci se fait en ajoutant l’option <tt>-pg.</tt> à la commande de compilation. Avec cette option, le compilateur génère du code pour enregistrer l’information qui sert à l’analyse de profilage. Sans cette option, les données pour composer un graphe d’appel ne sont pas collectées et vous pourriez voir le message d’erreur 
+<pre>
+gprof: gmon.out file is missing call-graph data
+</pre>
+=== Exécuter le code ===
+Pour exécuter le code, lancez
+{{Command|/path/to/your/executable arg1 arg2}}
+Faites exécuter le code de la même manière que vous le feriez sans profilage avec gprof; la commande pour l’exécution est la même. Une fois le binaire exécuté et complété sans erreur, le fichier <tt>gmon.out</tt> est créé dans le répertoire courant. Si par exemple votre code change le répertoire courant, <tt>gmon.out</tt> sera créé dans le nouveau répertoire courant, pourvu que le programme dispose des permissions pour ce faire. 
+
+=== Obtenir les données de profilage ===
+Dans la commande suivante, gprof est exécuté avec en arguments le nom du binaire et le fichier <tt>gmon.out</tt>; le fichier <tt>analysis.txt</tt> sera créé dans le répertoire courant pour contenir toute l’information de profilage.
+
+{{Command|gprof /path/to/your/executable gmon.out > analysis.txt}}

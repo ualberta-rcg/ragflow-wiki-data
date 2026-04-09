@@ -1,0 +1,517 @@
+<languages />
+<translate>
+
+<!--T:54-->
+This page is intended for the user who is already familiar with the concepts of job scheduling and job scripts, and who wants guidance on submitting jobs to our clusters.
+If you have not worked on a large shared computer cluster before, you should probably read [[What is a scheduler?]] first.
+
+<!--T:112-->
+{{box|<b>All jobs must be submitted via the scheduler!</b>
+<br>
+Exceptions are made for compilation and other tasks not expected to consume more than about 10 CPU-minutes and about 4 gigabytes of RAM. Such tasks may be run on a login node. In no case should you run processes on compute nodes except via the scheduler.}}
+
+<!--T:55-->
+On our clusters, the job scheduler is the 
+[https://en.wikipedia.org/wiki/Slurm_Workload_Manager Slurm Workload Manager].
+Comprehensive [https://slurm.schedmd.com/documentation.html documentation for Slurm] is maintained by SchedMD. If you are coming to Slurm from PBS/Torque, SGE, LSF, or LoadLeveler, you might find this table of [https://slurm.schedmd.com/rosetta.pdf corresponding commands] useful.
+
+<!--T:56-->
+==Use <code>sbatch</code> to submit jobs==
+The command to submit a job is [https://slurm.schedmd.com/sbatch.html <code>sbatch</code>]:
+<source lang="bash">
+$ sbatch simple_job.sh
+Submitted batch job 123456
+</source>
+
+<!--T:57-->
+A minimal Slurm job script looks like this:
+{{File
+  |name=simple_job.sh
+  |lang="sh"
+  |contents=
+#!/bin/bash
+#SBATCH --time=00:15:00
+#SBATCH --account=def-someuser
+echo 'Hello, world!'
+sleep 30  
+}}
+
+<!--T:58-->
+On general-purpose (GP) clusters, this job reserves 1 core and 256MB of memory for 15 minutes. On [[Trillium]], this job reserves the whole node with all its memory.
+Directives (or <i>options</i>) in the job script are prefixed with <code>#SBATCH</code> and must precede all executable commands. All available directives are described on the [https://slurm.schedmd.com/sbatch.html sbatch page]. Our policies require that you supply at least a time limit (<code>--time</code>) for each job. You may also need to supply an account name (<code>--account</code>). See [[#Accounts and projects|Accounts and projects]] below.
+
+<!--T:59-->
+You can also specify directives as command-line arguments to <code>sbatch</code>. So for example,
+ $ sbatch --time=00:30:00 simple_job.sh 
+will submit the above job script with a time limit of 30 minutes. The acceptable time formats include "minutes", "minutes:seconds", "hours:minutes:seconds", "days-hours", "days-hours:minutes" and "days-hours:minutes:seconds".  Please note that the time limit will strongly affect how quickly the job is started, since longer jobs are [[Job_scheduling_policies|eligible to run on fewer nodes]].
+
+<!--T:114-->
+Please be cautious if you use a script to submit multiple Slurm jobs in a short time. Submitting thousands of jobs at a time can cause Slurm to become [[Frequently_Asked_Questions#sbatch:_error:_Batch_job_submission_failed:_Socket_timed_out_on_send/recv_operation|unresponsive]] to other users. Consider using an [[Running jobs#Array job|array job]] instead, or use <code>sleep</code> to space out calls to <code>sbatch</code> by one second or more.
+
+=== Memory === <!--T:161-->
+
+<!--T:106-->
+Memory may be requested with <code>--mem-per-cpu</code> (memory per core) or <code>--mem</code> (memory per node).  On general-purpose (GP) clusters, a default memory amount of 256 MB per core will be allocated unless you make some other request.  On [[Trillium]], only whole nodes are allocated along with all available memory, so a memory specification is not required there.
+
+<!--T:162-->
+A common source of confusion comes from the fact that some memory on a node is not available to the job (reserved for the OS, etc.).  The effect of this is that each node type has a maximum amount available to jobs; for instance, nominally "128G" nodes are typically configured to permit 125G of memory to user jobs.  If you request more memory than a node-type provides, your job will be constrained to run on higher-memory nodes, which may be fewer in number.
+
+<!--T:163-->
+Adding to this confusion, Slurm interprets K, M, G, etc., as [https://en.wikipedia.org/wiki/Binary_prefix binary prefixes], so <code>--mem=125G</code> is equivalent to <code>--mem=128000M</code>.  See the <i>Available memory</i> column in the <i>Node characteristics</i> table for each GP cluster for the Slurm specification of the maximum memory you can request on each node: [[Fir#Node_characteristics|Fir]], [[Narval/en#Node_characteristics|Narval]], [[Nibi#Node_characteristics|Nibi]], [[Rorqual/en#Node_characteristics|Rorqual]].
+
+==Use <code>squeue</code> or <code>sq</code> to list jobs== <!--T:60-->
+
+<!--T:61-->
+The general command for checking the status of Slurm jobs is <code>squeue</code>, but by default it supplies information about <b>all</b> jobs in the system, not just your own.  You can use the shorter <code>sq</code> to list only your own jobs:
+
+<!--T:62-->
+<source lang="bash">
+$ sq
+   JOBID     USER      ACCOUNT      NAME  ST   TIME_LEFT NODES CPUS    GRES MIN_MEM NODELIST (REASON)
+  123456   smithj   def-smithj  simple_j   R        0:03     1    1  (null)      4G cdr234  (None)
+  123457   smithj   def-smithj  bigger_j  PD  2-00:00:00     1   16  (null)     16G (Priority)
+</source>
+
+<!--T:12-->
+The ST column of the output shows the status of each job. The two most common states are PD for <i>pending</i> or R for <i>running</i>. 
+
+<!--T:167-->
+If you want to know more about the output of <code>sq</code> or <code>squeue</code>, or learn how to change the output, see the  [https://slurm.schedmd.com/squeue.html online manual page for squeue].  <code>sq</code> is a local customization.
+
+<!--T:115-->
+<b>Do not</b> run <code>sq</code> or <code>squeue</code> from a script or program at high frequency (e.g. every few seconds). Responding to <code>squeue</code> adds load to Slurm, and may interfere with its performance or correct operation.  See [[Monitoring_jobs#Email_notification|Email notification]] for a much better way to learn when your job starts or ends.
+
+==Where does the output go?== <!--T:63-->
+
+<!--T:64-->
+By default the output is placed in a file named "slurm-", suffixed with the job ID number and ".out" (e.g. <code>slurm-123456.out</code>), in the directory from which the job was submitted.
+Having the job ID as part of the file name is convenient for troubleshooting.
+
+<!--T:176-->
+A different name or location can be specified if your workflow requires it by using the <code>--output</code> directive.
+Certain replacement symbols can be used in a filename specified this way, such as the job ID number, the job name, or the [[Job arrays|job array]] task ID.
+See the [https://slurm.schedmd.com/sbatch.html vendor documentation on sbatch] for a complete list of replacement symbols and some examples of their use.
+
+<!--T:16-->
+Error output will normally appear in the same file as standard output, just as it would if you were typing commands interactively. If you want to send the standard error channel (stderr) to a separate file, use <code>--error</code>.
+
+==Accounts and projects== <!--T:66-->
+
+<!--T:67-->
+Every job must have an associated account name corresponding to a [[Frequently_Asked_Questions_about_the_CCDB#What_is_a_RAP.3F|Resource Allocation Project]] (RAP). If you are a member of only one account, the scheduler will automatically associate your jobs with that account.
+
+<!--T:107-->
+If you receive one of the following messages when you submit a job, then you have access to more than one account:
+<pre>
+ You are associated with multiple _cpu allocations...
+ Please specify one of the following accounts to submit this job:
+</pre>
+
+<!--T:108-->
+<pre>
+ You are associated with multiple _gpu allocations...
+ Please specify one of the following accounts to submit this job:
+</pre> 
+
+<!--T:173-->
+In this case, use the <code>--account</code> directive to specify one of the accounts listed in the error message, e.g.:
+ #SBATCH --account=def-user-ab
+
+<!--T:68-->
+To find out which account name corresponds
+to a given Resource Allocation Project, log in to [https://ccdb.alliancecan.ca CCDB] 
+and click on <i>My Projects -> My Resources and Allocations</i>. You will see a list of all the projects 
+you are a member of. The string you should use with the <code>--account</code> for 
+a given project is under the column <i>Group Name</i>. Note that a Resource 
+Allocation Project may only apply to a specific cluster (or set of clusters) and therefore
+may not be transferable from one cluster to another. 
+
+<!--T:69-->
+In the illustration below, jobs submitted with <code>--account=def-fuenma</code> will be accounted against RAP zhf-914-aa
+
+<!--T:70-->
+[[File:Find-group-name-EN.png|750px|frame|left| Finding the group name for a Resource Allocation Project (RAP)]]
+<br clear=all> <!-- This is to prevent the next section from filling to the right of the image. -->
+
+<!--T:71-->
+If you plan to use one account consistently for all jobs, once you have determined the right account name you may find it convenient to set the following three environment variables in your <code>~/.bashrc</code> file:
+ export SLURM_ACCOUNT=def-someuser
+ export SBATCH_ACCOUNT=$SLURM_ACCOUNT
+ export SALLOC_ACCOUNT=$SLURM_ACCOUNT
+Slurm will use the value of <code>SBATCH_ACCOUNT</code> in place of the <code>--account</code> directive in the job script. Note that even if you supply an account name inside the job script, <i>the environment variable takes priority.</i> In order to override the environment variable, you must supply an account name as a command-line argument to <code>sbatch</code>.
+
+<!--T:72-->
+<code>SLURM_ACCOUNT</code> plays the same role as <code>SBATCH_ACCOUNT</code>, but for the <code>srun</code> command instead of <code>sbatch</code>.  The same idea holds for <code>SALLOC_ACCOUNT</code>.
+
+== Examples of job scripts == <!--T:17-->
+
+<!--T:146-->
+=== Serial job ===
+A serial job is a job which only requests a single core. It is the simplest type of job. The "simple_job.sh" which appears above in [[#Use_sbatch_to_submit_jobs|Use sbatch to submit jobs]] is an example.
+
+<!--T:27-->
+=== Array job ===
+Also known as a <i>task array</i>, an array job is a way to submit a whole set of jobs with one command. The individual jobs in the array are distinguished by an environment variable, <code>$SLURM_ARRAY_TASK_ID</code>, which is set to a different value for each instance of the job. The following example will create 10 tasks, with values of <code>$SLURM_ARRAY_TASK_ID</code> ranging from 1 to 10:
+
+<!--T:147-->
+{{File
+  |name=array_job.sh
+  |lang="sh"
+  |contents=
+#!/bin/bash
+#SBATCH --account=def-someuser
+#SBATCH --time=0-0:5
+#SBATCH --array=1-10
+./myapplication $SLURM_ARRAY_TASK_ID
+}}
+
+<!--T:142-->
+For more examples, see [[Job arrays]]. See [https://slurm.schedmd.com/job_array.html Job Array Support] for detailed documentation.
+
+<!--T:21-->
+=== Threaded or OpenMP job ===
+This example script launches a single process with eight CPU cores. Bear in mind that for an application to use OpenMP it must be compiled with the appropriate flag, e.g. <code>gcc -fopenmp ...</code> or <code>icc -openmp ...</code>
+
+<!--T:22-->
+{{File
+  |name=openmp_job.sh
+  |lang="sh"
+  |contents=
+#!/bin/bash
+#SBATCH --account=def-someuser
+#SBATCH --time=0-0:5
+#SBATCH --cpus-per-task=8
+export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
+./ompHello
+}}
+
+<!--T:23-->
+For more on writing and running parallel programs with OpenMP, see [[OpenMP]].
+
+=== MPI job === <!--T:18-->
+
+<!--T:51-->
+This example script launches four MPI processes, each with 1024 MB of memory. The run time is limited to 5 minutes. 
+
+<!--T:19-->
+{{File
+  |name=mpi_job.sh
+  |lang="sh"
+  |contents=
+#!/bin/bash
+#SBATCH --account=def-someuser
+#SBATCH --ntasks-per-node=4      # number of MPI processes
+#SBATCH --nodes=1
+#SBATCH --mem-per-cpu=1024M      # memory; default unit is megabytes
+#SBATCH --time=0-00:05           # time (DD-HH:MM)
+srun ./mpi_program               # mpirun or mpiexec also work
+}}
+
+<!--T:20-->
+Large MPI jobs may span more than one node. Hybrid MPI/threaded jobs are also possible. For more on these and other options relating to distributed parallel jobs, see [[Advanced MPI scheduling]].
+
+<!--T:24-->
+=== GPU job ===
+Please see [[Using GPUs with Slurm]] for a discussion and examples of how to request GPU resources.
+
+<!--T:184-->
+== Interactive jobs ==
+Though batch submission is the most common and most efficient way to take advantage of our clusters, interactive jobs are also supported. These can be useful for things like:
+* Data exploration at the command line
+* Interactive console tools like R and iPython
+* Significant software development, debugging, or compiling
+
+<!--T:29-->
+You can start an interactive session on a compute node with [https://slurm.schedmd.com/salloc.html salloc]. In the following example we request one task, which corresponds to one CPU cores and 3 GB of memory, for an hour:
+ $ salloc --time=1:0:0 --mem-per-cpu=3G --ntasks=1 --account=def-someuser
+ salloc: Granted job allocation 1234567
+ $ ...             # do some work
+ $ exit            # terminate the allocation
+ salloc: Relinquishing job allocation 1234567
+
+<!--T:129-->
+It is also possible to run graphical programs interactively on a compute node by adding the <b>--x11</b>  flag to your <code>salloc</code> command.  In order for this to work, you must first connect to the cluster with X11 forwarding enabled (see the [[SSH]] page for instructions on how to do that). Note that an interactive job with a duration of three hours or less will likely start very soon after submission as we have dedicated test nodes for jobs of this duration. Interactive jobs that request more than three hours run on the cluster's regular set of nodes and may wait for many hours or even days before starting, at an unpredictable (and possibly inconvenient) hour.
+
+== Monitoring jobs == <!--T:31-->
+
+<!--T:185-->
+See [[Monitoring jobs]].
+
+==Cancelling jobs== <!--T:37-->
+
+<!--T:38-->
+Use [https://slurm.schedmd.com/scancel.html scancel] with the job ID to cancel a job:
+
+<!--T:39-->
+ $ scancel <jobid>
+
+<!--T:40-->
+You can also use it to cancel all your jobs, or all your pending jobs:
+
+<!--T:41-->
+ $ scancel -u $USER
+ $ scancel -t PENDING -u $USER
+
+== Resubmitting jobs for long-running computations == <!--T:74-->
+
+<!--T:75-->
+When a computation is going to require a long time to complete, so long that it cannot be done within the time limits on the system, 
+the application you are running must support [[Points de contrôle/en|checkpointing]]. The application should be able to save its state to a file, called a <i>checkpoint file</i>, and
+then it should be able to restart and continue the computation from that saved state. 
+
+<!--T:76-->
+For many users restarting a calculation will be rare and may be done manually, 
+but some workflows require frequent restarts. 
+In this case some kind of automation technique may be employed. 
+
+<!--T:77-->
+Here are two recommended methods of automatic restarting:
+* Using SLURM <b>job arrays</b>.
+* Resubmitting from the end of the job script.
+
+<!--T:172-->
+Our [[Tutoriel Apprentissage machine/en|Machine Learning tutorial]] covers [[Tutoriel_Apprentissage_machine/en#Checkpointing_a_long-running_job|resubmitting for long machine learning jobs]].
+
+=== Restarting using job arrays === <!--T:90-->
+
+<!--T:91-->
+Using the <code>--array=1-100%10</code> syntax one can submit a collection of identical jobs with the condition that only one job of them will run at any given time.
+The script should be written to ensure that the last checkpoint is always used for the next job. The number of restarts is fixed by the <code>--array</code> argument.
+
+<!--T:78-->
+Consider, for example, a molecular dynamics simulations that has to be run for 1 000 000 steps, and such simulation does not fit into the time limit on the cluster. 
+We can split the simulation into 10 smaller jobs of 100 000 steps, one after another. 
+
+<!--T:79-->
+An example of using a job array to restart a simulation:
+{{File
+  |name=job_array_restart.sh
+  |lang="sh"
+  |contents=
+#!/bin/bash
+# ---------------------------------------------------------------------
+# SLURM script for a multi-step job on our clusters. 
+# ---------------------------------------------------------------------
+#SBATCH --account=def-someuser
+#SBATCH --cpus-per-task=1
+#SBATCH --time=0-10:00
+#SBATCH --mem=100M
+#SBATCH --array=1-10%1   # Run a 10-job array, one job at a time.
+# ---------------------------------------------------------------------
+echo "Current working directory: `pwd`"
+echo "Starting run at: `date`"
+# ---------------------------------------------------------------------
+echo ""
+echo "Job Array ID / Job ID: $SLURM_ARRAY_JOB_ID / $SLURM_JOB_ID"
+echo "This is job $SLURM_ARRAY_TASK_ID out of $SLURM_ARRAY_TASK_COUNT jobs."
+echo ""
+# ---------------------------------------------------------------------
+# Run your simulation step here...
+
+<!--T:92-->
+if test -e state.cpt; then 
+     # There is a checkpoint file, restart;
+     mdrun --restart state.cpt
+else
+     # There is no checkpoint file, start a new simulation.
+     mdrun
+fi
+
+<!--T:93-->
+# ---------------------------------------------------------------------
+echo "Job finished with exit code $? at: `date`"
+# ---------------------------------------------------------------------
+}}
+
+=== Resubmission from the job script === <!--T:94-->
+
+<!--T:95-->
+In this case one submits a job that runs the first chunk of the calculation and saves a checkpoint. 
+Once the chunk is done but before the allocated run-time of the job has elapsed,
+the script checks if the end of the calculation has been reached.
+If the calculation is not yet finished, the script submits a copy of itself to continue working.
+
+<!--T:96-->
+An example of a job script with resubmission:
+{{File
+  |name=job_resubmission.sh
+  |lang="sh"
+  |contents=
+#!/bin/bash
+# ---------------------------------------------------------------------
+# SLURM script for job resubmission on our clusters. 
+# ---------------------------------------------------------------------
+#SBATCH --job-name=job_chain
+#SBATCH --account=def-someuser
+#SBATCH --cpus-per-task=1
+#SBATCH --time=0-10:00
+#SBATCH --mem=100M
+# ---------------------------------------------------------------------
+echo "Current working directory: `pwd`"
+echo "Starting run at: `date`"
+# ---------------------------------------------------------------------
+# Run your simulation step here...
+
+<!--T:100-->
+if test -e state.cpt; then 
+     # There is a checkpoint file, restart;
+     mdrun --restart state.cpt
+else
+     # There is no checkpoint file, start a new simulation.
+     mdrun
+fi
+
+<!--T:101-->
+# Resubmit if not all work has been done yet.
+# You must define the function work_should_continue().
+if work_should_continue; then
+     sbatch ${BASH_SOURCE[0]}
+fi
+
+<!--T:102-->
+# ---------------------------------------------------------------------
+echo "Job finished with exit code $? at: `date`"
+# ---------------------------------------------------------------------
+}}
+
+<!--T:143-->
+<b>Please note:</b> The test to determine whether to submit a follow-up job, abbreviated as <code>work_should_continue</code> in the above example, should be a <i>positive test</i>. There may be a temptation to test for a stopping condition (e.g. is some convergence criterion met?) and submit a new job if the condition is <i>not</i> detected. But if some error arises that you didn't foresee, the stopping condition might never be met and your chain of jobs may continue indefinitely, doing nothing useful.
+
+<!--T:174-->
+== Automating job submission ==
+As described earlier, [[#Array job|array jobs]] can be used to automate job submission. We provide a few other (more advanced) tools designed to facilitate running a large number of related serial, parallel, or GPU calculations. This practice is sometimes called <i>farming</i>, <i>serial farming</i>, or <i>task farming</i>. In addition to automating the workflow, these tools can also improve computational efficiency by bundling up many short computations into fewer tasks of longer duration.
+
+<!--T:175-->
+The following tools are available on our clusters:
+* [[META-Farm]]
+* [[GNU Parallel]]
+* [[GLOST]]
+
+=== Do not specify a partition === <!--T:177-->
+
+<!--T:178-->
+Certain software packages such as [https://github.com/alekseyzimin/masurca Masurca] operate by submitting jobs to Slurm automatically, and expect a partition to be specified for each job.  This is in conflict with what we recommend, which is that you should allow the scheduler to assign a partition to your job based on the resources it requests.  If you are using such a piece of software, you may configure the software to use <code>--partition=default</code>, which the script treats the same as not specifying a partition.
+
+== Cluster particularities == <!--T:154-->
+
+<!--T:155-->
+There are certain differences in the job scheduling policies from one of our clusters to another and these are summarized by tab in the following section:
+
+<!--T:156-->
+<tabs>
+<tab name="Beluga, Fir, Narval, Nibi, Rorqual">
+On these clusters, no jobs are permitted longer than 168 hours (7 days) and there is a limit of 1000 jobs, queued and running, per user. Production jobs should have a duration of at least an hour. 
+</tab>
+
+<!--T:181-->
+<tab name="Trillium">
+See [[Trillium_Quickstart#Trillium_specific_restrictions|Trillium specific restrictions]].
+</tab>
+</translate>
+</tabs>
+<translate>
+
+== Troubleshooting == <!--T:42-->
+
+<!--T:43-->
+==== Avoid hidden characters in job scripts ====
+Preparing a job script with a word processor instead of a text editor is a common cause of trouble. Best practice is to prepare your job script on the cluster using an editor such as nano, vim, or emacs. If you prefer to prepare or alter the script off-line, then:
+* '''Windows users:''' 
+** Use a text editor such as Notepad or [https://notepad-plus-plus.org/ Notepad++].
+** After uploading the script, use <code>dos2unix</code> to change Windows end-of-line characters to Linux end-of-line characters. 
+* '''Mac users:'''
+** Open a terminal window and use an editor such as nano, vim, or emacs.
+
+<!--T:109-->
+==== Cancellation of jobs with dependency conditions which cannot be met ====
+A job submitted with <code>--dependency=afterok:<jobid></code> is a <i>dependent job</i>. A dependent job will wait for the parent job to be completed. If the parent job fails (that is, ends with a non-zero exit code) the dependent job can never be scheduled and so will be automatically cancelled. See [https://slurm.schedmd.com/sbatch.html#OPT_dependency sbatch] for more on dependency.
+
+<!--T:116-->
+==== Job cannot load a module ====
+It is possible to see an error such as:
+
+<!--T:117-->
+ Lmod has detected the following error: These module(s) exist but cannot be
+ loaded as requested: "<module-name>/<version>"
+    Try: "module spider <module-name>/<version>" to see how to load the module(s).
+
+<!--T:118-->
+This can occur if the particular module has an unsatisfied prerequisite. For example
+
+<!--T:119-->
+<source lang="console">
+$ module load gcc
+$ module load quantumespresso/6.1
+Lmod has detected the following error:  These module(s) exist but cannot be loaded as requested: "quantumespresso/6.1"
+   Try: "module spider quantumespresso/6.1" to see how to load the module(s).
+$ module spider quantumespresso/6.1
+
+<!--T:120-->
+-----------------------------------------
+  quantumespresso: quantumespresso/6.1
+------------------------------------------
+    Description:
+      Quantum ESPRESSO is an integrated suite of computer codes for electronic-structure calculations and materials modeling at the nanoscale. It is based on density-functional theory, plane waves, and pseudopotentials (both
+      norm-conserving and ultrasoft).
+
+    <!--T:121-->
+Properties:
+      Chemistry libraries/apps / Logiciels de chimie
+
+    <!--T:122-->
+You will need to load all module(s) on any one of the lines below before the "quantumespresso/6.1" module is available to load.
+
+      <!--T:123-->
+nixpkgs/16.09  intel/2016.4  openmpi/2.1.1
+
+    <!--T:124-->
+Help:
+
+      <!--T:125-->
+Description
+      ===========
+      Quantum ESPRESSO  is an integrated suite of computer codes
+       for electronic-structure calculations and materials modeling at the nanoscale.
+       It is based on density-functional theory, plane waves, and pseudopotentials
+        (both norm-conserving and ultrasoft).
+
+
+      <!--T:126-->
+More information
+      ================
+       - Homepage: http://www.pwscf.org/
+</source>
+
+<!--T:127-->
+In this case adding the line <code>module load nixpkgs/16.09 intel/2016.4 openmpi/2.1.1</code> to your job script before loading quantumespresso/6.1 will solve the problem.
+
+<!--T:128-->
+==== Jobs inherit environment variables ====
+By default a job will inherit the environment variables of the shell where the job was submitted. The [[Using modules|module]] command, which is used to make various software packages available, changes and sets environment variables. Changes will propagate to any job submitted from the shell and thus could affect the job's ability to load modules if there are missing prerequisites. It is best to include the line <code>module purge</code> in your job script before loading all the required modules to ensure a consistent state for each job submission and avoid changes made in your shell affecting your jobs.
+
+<!--T:152-->
+Inheriting environment settings from the submitting shell can sometimes lead to hard-to-diagnose problems. If you wish to suppress this inheritance, use the <code>--export=none</code> directive when submitting jobs.
+
+==== Job hangs / no output / incomplete output ==== <!--T:165-->
+
+<!--T:166-->
+Sometimes a submitted job writes no output to the log file for an extended period of time, looking like it is hanging. A common reason for this is the aggressive [[#Output_buffering|buffering]] performed by the Slurm scheduler, which will aggregate many output lines before flushing them to the log file. Often the output file will only be written after the job completes; and if the job is cancelled (or runs out of time), part of the output may be lost. If you wish to monitor the progress of your submitted job as it runs, consider running an [[#Interactive_jobs|interactive job]]. This is also a good way to find how much time your job needs.
+
+<!--T:103-->
+== Job status and priority ==
+* For a discussion of how job priority is determined and how things like time limits may affect the scheduling of your jobs, see [[Job scheduling policies]].
+* If jobs ''within your research group'' are competing with one another, please see [[Managing_Slurm_accounts|Managing Slurm accounts]].
+
+<!--T:44-->
+== Further reading ==
+* Comprehensive [https://slurm.schedmd.com/documentation.html documentation] is maintained by SchedMD, as well as some [https://slurm.schedmd.com/tutorials.html tutorials].
+** [https://slurm.schedmd.com/sbatch.html sbatch] command options
+* There is also a [https://slurm.schedmd.com/rosetta.pdf "Rosetta stone"] mapping commands and directives from PBS/Torque, SGE, LSF, and LoadLeveler, to SLURM.
+* Here is a text tutorial from [http://www.ceci-hpc.be/slurm_tutorial.html CÉCI], Belgium
+* Here is a rather minimal text tutorial from [http://www.brightcomputing.com/blog/bid/174099/slurm-101-basic-slurm-usage-for-linux-clusters Bright Computing]
+
+<!--T:48-->
+[[Category:SLURM]]
+
+
+</translate>

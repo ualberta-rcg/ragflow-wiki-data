@@ -1,0 +1,1056 @@
+<languages />
+[[Category:Software]]
+== Introduction à la programmation parallèle  ==
+{{quote|To pull a bigger wagon it is easier to add more oxen than to find (or build) a bigger ox. [traduction libre, ''Pour tirer une plus grosse charrette, il est plus facile d'ajouter des bœufs que de trouver un plus gros bœuf.'']|Gropp, Lusk & Skjellum|Using MPI}}
+Pour construire une maison le plus rapidement possible, on n'engage pas la personne qui peut faire tout le travail plus rapidement que les autres. On distribue plutôt le travail parmi autant de personnes qu'il faut pour que les tâches se fassent en même temps, d'une manière ''parallèle''.  Cette solution est valide aussi pour les problèmes numériques. Comme il y a une limite à vitesse d'exécution d'un processeur, la fragmentation du problème permet d'assigner des tâches à exécuter en parallèle par plusieurs processeurs. Cette approche sert autant la vitesse du calcul que les exigences élevées en mémoire.
+
+L'aspect le plus important dans la conception et le développement de programmes parallèles est la communication. Ce sont les exigences de la communication qui créent la complexité. Pour que plusieurs travailleurs accomplissent une tâche en parallèle, ils doivent pouvoir communiquer. De la même manière, plusieurs processus logiciels qui travaillent chacun sur une partie d'un problème ont besoin de valeurs qui sont ou seront calculées par d'autres processus.
+
+Il y a deux modèles principaux en programmation parallèle&nbsp;: les programmes à mémoire partagée et les programmes à mémoire distribuée.
+
+Dans le cas d'une parallélisation avec mémoire partagée (SMP pour ''shared memory parallelism''), les processeurs voient tous la même image mémoire, c'est-à-dire que la mémoire peut être adressée globalement et tous les processeurs y ont accès. Sur une machine SMP, les processeurs communiquent de façon implicite; chacun des processeurs peut lire et écrire en mémoire et les autres processeurs peuvent y accéder et les utiliser. Le défi ici est la cohérence des données puisqu'il faut veiller à ce que les données ne soient modifiées que par un seul processus à la fois.
+
+
+[[Image:Smp.png|frame|center|'''Figure 1''': ''Architecture à mémoire partagée'']]
+
+Pour sa part, la parallélisation avec mémoire distribuée s'apparente à une grappe, un ensemble d'ordinateurs reliés par un réseau de communication dédié.  Dans ce modèle, les processus possèdent chacun leur propre mémoire et ils peuvent être exécutés sur plusieurs ordinateurs distincts. Les processus communiquent par messages&nbsp;:  un processus utilise une fonction pour envoyer un message et l'autre processus utilise une autre fonction pour recevoir le message. Le principal défi ici est d'avoir le moins de communications possible.  Même les réseaux avec les connexions physiques les plus rapides transmettent les données beaucoup plus lentement qu'un simple ordinateur&nbsp;: l'accès mémoire se mesure habituellement en centièmes de nanosecondes alors que les réseaux y accèdent généralement en microsecondes.
+
+[[Image:Cluster.png|frame|center|'''Figure 2''': ''Architecture à grappes, mémoire distribuée'']]
+
+Nous discuterons ici uniquement de la programmation avec mémoire distribuée sur grappe, avec MPI.
+
+== Qu'est-ce que MPI? ==
+
+MPI (''message passing interface'') est en réalité une norme avec des sous-routines, fonctions, objets et autres éléments pour développer des programmes parallèles dans un environnement à mémoire distribuée. MPI est implémentée dans plusieurs bibliothèques, notamment Open MPI, Intel MPI, MPICH et MVAPICH. La norme décrit comment MPI est appelé par Fortran, C et C++, mais il existe aussi des interfaces pour plusieurs autres langages (Boost.MPI, mpi4py, Rmpi, etc.). La version MPI 3.0 ne prend plus en charge les interfaces C++, mais vous pouvez utiliser les interfaces C de C++ ou [https://www.boost.org/doc/libs/1_71_0/doc/html/mpi.html Boost MPI]. Les exemples avec Python utilisent le MPI du paquet Python [[MPI4py/fr|MPI4py]].
+
+Puisque MPI est une norme ouverte sans droits exclusifs, un programme MPI peut facilement être porté sur plusieurs ordinateurs différents. Les programmes MPI peuvent être exécutés concurremment sur plusieurs cœurs à la fois et offrent une parallélisation efficace, permettant une bonne [[Scalability/fr|scalabilité]]. Puisque chaque processus possède sa propre plage mémoire, certaines opérations de débogage s'en trouvent simplifié es; en ayant des plages mémoire distinctes, les processus n’auront aucun conflit d’accès à la mémoire comme c'est le cas en mémoire partagée. Aussi, en présence d'une erreur de segmentation, le fichier ''core'' résultant peut être traité par des outils standards de débogage série. Le besoin de gérer la communication et la synchronisation de façon explicite donne par contre l'impression qu'un programme MPI est plus complexe qu'un autre programme où la gestion de la communication serait implicite. Il est cependant recommandé de restreindre les communications entre processus pour favoriser la vitesse de calcul d'un programme MPI.
+
+Nous verrons plus loin quelques-uns de ces points et proposerons des stratégies de solution; les références mentionnées au bas de cette page sont aussi à consulter.
+
+== Principes de base ==
+Dans ce tutoriel, nous présenterons le développement d'un code MPI en C, C++, Fortran et Python, mais les différents principes de communication s'appliquent à tout langage qui possède une interface avec MPI. Notre but ici est de paralléliser le programme simple "Hello World" utilisé dans les exemples.
+<tabs>
+<tab name="C">
+{{File
+  |name=hello.c
+  |lang="c"
+  |contents=
+ #include <stdio.h>
+ 
+ int main()
+ {
+     printf("Hello, world!\n");
+ 
+     return(0);
+ }
+}}
+</tab>
+<tab name="C++">
+{{File
+  |name=hello.cpp
+  |lang="cpp"
+  |contents=
+#include <iostream>
+using namespace std;
+
+int main()
+{
+    cout << "Hello, world!" << endl;
+    return 0;
+}
+}}
+</tab>
+<tab name="Fortran">
+{{File
+  |name=hello.f90
+  |lang="fortran"
+  |contents=
+ program hello
+ 
+     print *, 'Hello, world!'
+ 
+ end program hello
+}}
+</tab>
+<tab name="Python">
+{{File
+  |name=hello.py
+  |lang="python"
+  |contents=
+ print('Hello, world!')
+}}
+</tab>
+</tabs>
+Pour compiler et exécuter le programme&nbsp;:
+
+ [~]$ vi hello.c
+ [~]$ cc -Wall hello.c -o hello
+ [~]$ ./hello 
+ Hello, world!
+
+=== Modèle SPMD === 
+La parallélisation MPI utilise le modèle d'exécution SPMD (''single program multiple data''), où plusieurs instances s'exécutent en même temps. Chacune des instances est un processus auquel est assigné un numéro unique qui représente son rang; l'instance peut obtenir son rang lorsqu'elle est lancée. Afin d'attribuer un comportement différent à chaque instance, on utilisera habituellement un énoncé conditionnel ''if''.
+
+[[Image:SPMD_model.png|frame|center|'''Figure 3''': ''Contrôle de comportements divergents'']]
+
+=== Cadre d'exécution === 
+Un programme MPI doit comprendre le fichier d'en-tête approprié ou utiliser le modèle approprié (<tt>mpi.h</tt> pour C/C++, <tt>mpif.h</tt>, <tt>use mpi</tt>, ou <tt>use mpi_f08</tt> pour Fortran, sachant que <tt>mpif.h</tt> est fortement déconseillé et <tt>mpi_f08</tt> recommandé pour Fortran 2008). Il peut donc être compilé puis relié à l'implémentation MPI de votre choix. Dans la plupart des cas, l'implémentation possède un script pratique qui enveloppe l'appel au compilateur (''compiler wrapper'') et qui configure adéquatement <code>include</code> et <code>lib</code>, entre autres pour relier les indicateurs. Nos exemples utilisent les scripts de compilation suivants&nbsp;: 
+* pour le C, <tt>mpicc</tt>
+* pour le Fortran, <tt>mpifort</tt> (recommandé) ou <tt>mpif90</tt>
+* pour le C++, <tt>mpiCC</tt> ou <tt>mpicxx</tt>
+
+Une fois les instances lancées, elles doivent se coordonner, ce qui se fait en tout premier lieu par l'appel d'une fonction d'initialisation&nbsp;:
+<tabs>
+<tab name="C">
+<source lang="c">
+ int MPI_Init(int *argc, char **argv[]);
+</source>
+</tab>
+<tab name="Boost (C++)">
+<source lang="cpp">
+boost::mpi::environment(int &, char **&, bool = true); 
+</source>
+</tab>
+<tab name="Fortran">
+<source lang="fortran">
+ MPI_INIT(IERR)
+ INTEGER :: IERR
+ </source>
+</tab>
+<tab name="Fortran 2008">
+<source lang="fortran">
+ MPI_Init(ierr)
+ INTEGER, OPTIONAL, INTENT(OUT) :: ierr
+ </source>
+</tab>
+<tab name="Python (mpi4py)">
+<source lang="Python">
+# importing automatically initializes MPI with mpi4py
+MPI.Init()
+ </source>
+</tab>
+</tabs>
+En C, les arguments de <code>MPI_Init</code>  pointent vers les variables  <code>argc</code> et <code>argv</code> qui sont les arguments en ligne de commande. Comme pour toutes les fonctions MPI en C, la valeur retournée représente l'erreur de la fonction. En Fortran, les routines MPI retournent l'erreur dans l'argument <code>IERR</code>, ce qui est optionnel avec  <tt>use mpi_f08</tt>.
+
+On doit aussi appeler la fonction <code>MPI_Finalize</code> pour faire un nettoyage avant la fin du programme, le cas échéant&nbsp;:
+<tabs>
+<tab name="C">
+<source lang="c">
+ int MPI_Finalize(void);
+</source>
+</tab>
+<tab name="Boost (C++)">
+Nothing needed
+</tab>
+<tab name="Fortran">
+<source lang="fortran">
+ MPI_FINALIZE(IERR)
+ INTEGER :: IERR
+</source>
+</tab>
+<tab name="Fortran 2008">
+<source lang="fortran">
+ MPI_Finalize(ierr)
+ INTEGER, OPTIONAL, INTENT(OUT) :: ierr
+</source>
+</tab>
+<tab name="Python (mpi4py)">
+<source lang="Python">
+# mpi4py installs a termination hook so there is no need to explicitly call MPI.Finalize.
+MPI.Finalize()
+ </source>
+</tab>
+</tabs>
+Règle générale, il est recommandé d'appeler <code>MPI_Init</code> au tout début du programme et <code>MPI_Finalize</code> à la toute fin.
+<tabs>
+<tab name="C">
+{{File
+  |name=phello0.c
+  |lang="c"
+  |contents=
+#include <stdio.h>
+#include <mpi.h>
+ 
+int main(int argc, char *argv[])
+{
+    MPI_Init(&argc, &argv);
+ 
+    printf("Hello, world!\n");
+ 
+    MPI_Finalize();
+    return(0);
+}
+}}
+</tab>
+<tab name="Boost (C++)">
+{{File
+  |name=phello0.cpp
+  |lang="cpp"
+  |contents=
+#include <iostream>
+#include <boost/mpi.hpp>
+using namespace std;
+using namespace boost;
+
+int main(int argc, char *argv[])
+{
+    mpi::environment env(argc, argv);
+    cout << "Hello, world!" << endl;
+    return 0;
+}
+}}
+</tab>
+<tab name="Fortran">
+{{File
+  |name=phello0.f90
+  |lang="fortran"
+  |contents=
+program phello0
+ 
+     use mpi
+     implicit none
+ 
+     integer :: ierror
+ 
+     call MPI_INIT(ierror)
+     print *, 'Hello, world!'
+     call MPI_FINALIZE(ierror)
+
+ end program phello0
+}}
+</tab>
+<tab name="Fortran 2008">
+{{File
+  |name=phello0.f90
+  |lang="fortran"
+  |contents=
+program phello0
+ 
+     use mpi_f08
+     implicit none
+ 
+     call MPI_Init()
+     print *, 'Hello, world!'
+     call MPI_Finalize()
+
+ end program phello0
+}}
+</tab>
+<tab name="Python (mpi4py)">
+{{File
+  |name=phello0.py
+  |lang="python"
+  |contents=
+from mpi4py import MPI
+print('Hello, world!')
+}}
+</tab>
+</tabs>
+=== Fonctions ''rank'' et ''size'' === 
+Le programme pourrait être exécuté tel quel, mais le résultat ne serait pas très convaincant puisque chacun des processus produirait le même message. Nous allons plutôt faire en sorte que chaque processus fasse afficher la valeur de son rang et le nombre total de processus en opération.
+<tabs>
+<tab name="C">
+<source lang="c">
+ int MPI_Comm_size(MPI_Comm comm, int *nproc);
+ int MPI_Comm_rank(MPI_Comm comm, int *myrank);
+</source>
+</tab>
+<tab name="Boost (C++)">
+<source lang="cpp">
+int mpi::communicator::size();
+int mpi::communicator::rank();
+</source>
+</tab>
+<tab name="Fortran">
+<source lang="fortran">
+ MPI_COMM_SIZE(COMM, NPROC, IERR)
+ INTEGER :: COMM, NPROC, IERR
+ 
+ MPI_COMM_RANK(COMM, RANK, IERR)
+ INTEGER :: COMM, RANK, IERR
+</source>
+</tab>
+<tab name="Fortran 2008">
+<source lang="fortran">
+ MPI_Comm_size(comm, size, ierr)
+ TYPE(MPI_Comm), INTENT(IN) :: comm
+ INTEGER, INTENT(OUT) :: size
+ INTEGER, OPTIONAL, INTENT(OUT) :: ierr
+
+ MPI_Comm_rank(comm, rank, ierr)
+ TYPE(MPI_Comm), INTENT(IN) :: comm
+ INTEGER, INTENT(OUT) :: rank
+ INTEGER, OPTIONAL, INTENT(OUT) :: ierr
+</source>
+</tab>
+<tab name="Python (mpi4py)">
+<source lang="python">
+ MPI.Intracomm.Get_rank(self)
+
+ MPI.Intracomm.Get_size(self)
+</source>
+</tab>
+</tabs>
+
+Le paramètre  de sortie <tt>nproc</tt> est donné à la fonction <tt>MPI_Comm_size</tt> afin d'obtenir le nombre de processus en opération. De même, le paramètre de sortie <tt>myrank</tt> est donné à la fonction <tt>MPI_Comm_rank</tt> afin d'obtenir la valeur du rang du processus actuel. Le rang du premier processus a la valeur de 0 au lieu de 1; pour N processus, les valeurs de rang vont donc de 0 à (N-1) inclusivement. L'argument  <tt>comm</tt> est un ''communicateur'', soit un ensemble de processus pouvant s'envoyer entre eux des messages. Dans nos exemples, nous utilisons la valeur de <tt>MPI_COMM_WORLD</tt>, soit un communicateur prédéfini par MPI et qui représente l'ensemble des processus lancés par la tâche. Nous n'abordons pas ici le sujet des communicateurs créés par programmation;  voyez plutôt la liste des autres sujets en bas de page.
+
+Utilisons maintenant ces fonctions pour que chaque processus produise le résultat voulu. Notez que, puisque les processus effectuent tous le même appel de fonction, il n'est pas nécessaire d'introduire des énoncés conditionnels.
+<tabs>
+<tab name="C">
+{{File
+  |name=phello1.c
+  |lang="C"
+  |contents=
+ #include <stdio.h>
+ #include <mpi.h>
+ 
+ int main(int argc, char *argv[])
+ {
+     int rank, size;
+ 
+     MPI_Init(&argc, &argv);
+     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+     MPI_Comm_size(MPI_COMM_WORLD, &size);
+ 
+     printf("Hello, world! "
+             "from process %d of %d\n", rank, size);
+ 
+     MPI_Finalize();
+     return(0);
+ }
+}}
+</tab>
+<tab name="Boost (C++)">
+{{File
+  |name=phello1.cpp
+  |lang="cpp"
+  |contents=
+#include <iostream>
+#include <boost/mpi.hpp>
+using namespace std;
+using namespace boost;
+
+int main(int argc, char *argv[])
+{
+    mpi::environment env(argc, argv);
+    mpi::communicator world;
+
+    cout << "Hello, world! from process " << world.rank() << " of " << world.size() << endl;
+    return 0;
+}
+}}
+</tab>
+<tab name="Fortran">
+{{File
+  |name=phello1.f90
+  |lang="fortran"
+  |contents=
+ program phello1
+ 
+    use mpi
+    implicit none
+
+    integer :: rank, size, ierror
+ 
+    call MPI_INIT(ierror)
+    call MPI_COMM_SIZE(MPI_COMM_WORLD, size, ierror)
+    call MPI_COMM_RANK(MPI_COMM_WORLD, rank, ierror)
+ 
+    print *, 'Hello from process ', rank, ' of ', size
+ 
+    call MPI_FINALIZE(ierror)
+ 
+ end program phello1
+}}
+</tab>
+<tab name="Fortran 2008">
+{{File
+  |name=phello1.f90
+  |lang="fortran"
+  |contents=
+ program phello1
+ 
+    use mpi_f08
+    implicit none
+ 
+    integer :: rank, size
+ 
+    call MPI_Init()
+    call MPI_Comm_size(MPI_COMM_WORLD, size)
+    call MPI_Comm_rank(MPI_COMM_WORLD, rank)
+ 
+    print *, 'Hello from process ', rank, ' of ', size
+ 
+    call MPI_Finalize(ierror)
+ 
+ end program phello1
+}}
+</tab>
+<tab name="Python (mpi4py)">
+{{File
+  |name=phello1.py
+  |lang="python"
+  |contents=
+from mpi4py import MPI
+ 
+comm = MPI.COMM_WORLD
+size = comm.Get_size()
+rank = comm.Get_rank() 
+
+print('Hello from process %d of %d'%(rank, size))
+}}
+</tab>
+</tabs>
+
+Compilez maintenant ce programme et faites-le exécuter avec 2, 4 et 8 processus. Vous remarquerez que le résultat produit par chacun des processus dépend de la valeur de ses variables locales et que le résultat final est la concaténation de la sortie standard (''stdout'') de tous les processus. Vous constaterez sans doute que les sorties produites par les processus ne sont pas nécessairement ordonnées selon leur rang&nbsp;: il n'est pas possible de prévoir l'ordre en sortie. 
+[~]$ vi phello1.c 
+[~]$ mpicc -Wall phello1.c -o phello1
+[~]$ mpirun -np 4 ./phello1
+Hello, world! from process 0 of 4
+Hello, world! from process 2 of 4
+Hello, world! from process 1 of 4
+Hello, world! from process 3 of 4
+
+
+Pour compiler avec Boost&nbsp;: 
+ [~]$ mpic++ --std=c++11 phello1.cpp -lboost_mpi-mt -lboost_serialization-mt -o phello1
+
+Avec la version Python, vous n'avez pas besoin de compiler, mais vous pouvez exécuter avec
+ [~]$ mpirun -np 4 python phello1.py
+
+=== Communication ===
+Nous avons maintenant une version parallèle de ''Hello World'', mais sans communication entre les processus. Voyons ensuite cet aspect.
+
+Nous demandons à chaque processus de transmettre au processus suivant le mot ''hello''. Le processus de rang <tt>i</tt> envoie son message au processus de rang <tt>i+1</tt> et le dernier processus de rang <tt>N-1</tt> envoie son message au processus de rang  <tt>0</tt> pour boucler la boucle. Exprimé concisément, ''le processus <tt>i</tt> envoie au processus <tt>(i+1)%N</tt>'' où il y a <tt>N</tt>  processus et où <tt>%</tt> est l'opérateur modulo.
+
+MPI offre plusieurs fonctions pour échanger des données dans un grand nombre de relations entre processus (1,1; 1,n; n,1; n,n). Les fonctions les plus simples sont cependant celles qui échangent une ou plusieurs instances de données du même type de base, soit les fonctions <tt>MPI_Send</tt> et <tt>MPI_Recv</tt>.
+
+Un processus envoie des données par la fonction <tt>MPI_Send</tt>. Examinons notre exemple&nbsp;: 
+*<tt>message</tt> est un pointeur vers un vecteur de données à envoyer;
+*<tt>count</tt> représente le nombre d'instances contiguës de type <tt>datatype</tt> est le type des données;
+*<tt>dest</tt> est le rang du processus cible;
+*<tt>tag</tt> est un identifiant entier défini par le programmeur et associé au type de message à envoyer, ce qui est utile pour distinguer les différentes communications entre les processus. Cependant, puisque cet identifiant n'est toujours pas utile à notre exemple, nous choisissons la valeur arbitraire 0;  
+* <tt>MPI_COMM_WORLD</tt>  est le communicateur représentant tous les processus lancés par <tt>mpirun</tt>.
+<tabs>
+<tab name="C">
+<source lang="c">
+ int MPI_Send
+ (
+     void *message,           /* reference to data to be sent */
+     int count,               /* number of items in message */
+     MPI_Datatype datatype,   /* type of item in message */
+     int dest,                /* rank of process to receive message */
+     int tag,                 /* programmer specified identifier */
+     MPI_Comm comm            /* communicator */
+ );
+</source>
+</tab>
+<tab name="Boost (C++)">
+<source lang="cpp">
+template<typename T> void mpi::communicator::send(
+  int dest,                  /* rank of process to receive message */ 
+  int tag,                          /* programmer specified identified */
+  const T & value              /* message */
+) const; 
+</source>
+</tab>
+<tab name="Fortran">
+<source lang="fortran">
+ MPI_SEND(MESSAGE, COUNT, DATATYPE, DEST, TAG, COMM, IERR)
+ <type> MESSAGE(*)
+ INTEGER :: COUNT, DATATYPE, DEST, TAG, COMM, IERR
+</source>
+</tab>
+<tab name="Fortran 2008">
+<source lang="fortran">
+ MPI_Send(message, count, datatype, dest, tag, comm, ierr)
+ TYPE(*), DIMENSION(..), INTENT(IN) :: message
+ INTEGER, INTENT(IN) :: count, dest, tag
+ TYPE(MPI_Datatype), INTENT(IN) :: datatype
+ TYPE(MPI_Comm), INTENT(IN) :: comm
+ INTEGER, OPTIONAL, INTENT(OUT) :: ierr
+</source>
+</tab>
+<tab name="Python (mpi4py)">
+<source lang="python">
+# For general Python objects (pickled)
+MPI.Intracomm.send(self, obj, int dest, int tag=0)
+
+# For numpy arrays (fast)
+MPI.Intracomm.Send(self, buf, int dest, int tag=0)
+</source>
+</tab>
+</tabs>
+Remarquez que l'argument <tt>datatype</tt> qui identifie le type des données contenues dans le ''buffer'' <tt>message</tt> est une variable définie par la norme MPI. Ceci assure une couche de compatibilité entre les processus opérant sur des architectures où le format natif des données serait différent. Il est possible d'utiliser de nouveaux types de données, mais nous nous limitons ici aux types définis nativement par MPI. En langage C&nbsp;: <tt>MPI_CHAR</tt>, <tt>MPI_FLOAT</tt>, <tt>MPI_SHORT</tt>, <tt>MPI_INT</tt>, etc.
+En Fortran&nbsp;:<tt>MPI_CHARACTER</tt>, <tt>MPI_INTEGER</tt>, <tt>MPI_REAL</tt>, etc. Pour la liste complète des types de données, consultez la section Références en bas de page.
+
+À la fonction de réception <tt>MPI_Recv</tt>, on ajoute l'argument  <tt>status</tt>&nbsp;:  en C, l'argument réfère à une structure allouée <tt>MPI_Status</tt> et en Fortran, l'argument contient une matrice <tt>MPI_STATUS_SIZE</tt> de nombres entiers ou, pour <tt>mpi_f08</tt>, une variable dérivée <tt>TYPE(MPI_Status)</tt>. À son retour, <tt>MPI_Recv</tt>  contiendra de l'information sur le message reçu. Nos exemples ne montrent pas cet argument, mais il doit faire partie des instructions.
+<tabs>
+<tab name="C">
+<source lang="c">
+ int MPI_Recv
+ (
+     void *message,           /* reference to buffer for received data */
+     int count,               /* number of items to be received */
+     MPI_Datatype datatype,   /* type of item to be received */
+     int source,              /* rank of process from which to receive */
+     int tag,                 /* programmer specified identifier */
+     MPI_Comm comm            /* communicator */
+     MPI_Status *status       /* stores info. about received message */
+ );
+</source>
+</tab>
+<tab name="Boost (C++)">
+<source lang="cpp">
+template<typename T> status mpi::communicator::recv(
+  int source,                  /* rank of process from which to receive */ 
+  int tag,                          /* programmer specified identified */
+  const T & value               /* message */
+) const; 
+</source>
+</tab>
+<tab name="Fortran">
+<source lang="fortran">
+ MPI_RECV(MESSAGE, COUNT, DATATYPE, SOURCE, TAG, COMM, STATUS, IERR)
+ <type> :: MESSAGE(*)
+ INTEGER :: COUNT, DATATYPE, SOURCE, TAG, COMM, STATUS(MPI_STATUS_SIZE), IERR
+</source>
+</tab>
+<tab name="Fortran 2008">
+<source lang="fortran">
+ MPI_Recv(message, count, datatype, source, tag, comm, status, ierr)
+ TYPE(*), DIMENSION(..) :: message
+ INTEGER, INTENT(IN) :: count, source, tag
+ TYPE(MPI_Datatype), INTENT(IN) :: datatype
+ TYPE(MPI_Comm), INTENT(IN) :: comm
+ TYPE(MPI_Status) :: status
+ INTEGER, OPTIONAL, INTENT(OUT) :: ierr
+</source>
+</tab>
+<tab name="Python (mpi4py)">
+<source lang="python">
+# For general Python objects (pickled)
+MPI.Intracomm.recv(self, buf=None, int source=ANY_SOURCE, int tag=ANY_TAG, Status status=None)
+
+# For numpy arrays (fast)
+MPI.Intracomm.Recv(self, buf, int source=ANY_SOURCE, int tag=ANY_TAG, Status status=None)
+</source>
+</tab>
+</tabs>
+Dans notre cas simple avec <tt>MPI_Send</tt> et <tt>MPI_Recv</tt>, le processus qui envoie doit connaitre le rang du processus qui reçoit et vice versa. Rappelons-nous des règles mathématiques suivantes&nbsp;:
+* <tt>(rank + 1) % size</tt> est le processus auquel on envoie
+* <tt>(rank + 1) % size</tt> est le processus duquel on reçoit
+Modifions maintenant notre programme parallèle. 
+<tabs>
+<tab name="C">
+{{File
+  |name=phello2.c
+  |lang="c"
+  |contents=
+#include <stdio.h>
+#include <mpi.h>
+ 
+#define BUFMAX 81
+ 
+int main(int argc, char *argv[])
+{
+     char outbuf[BUFMAX], inbuf[BUFMAX];
+     int rank, size;
+     int sendto, recvfrom;
+     MPI_Status status;
+ 
+     MPI_Init(&argc, &argv);
+     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+     MPI_Comm_size(MPI_COMM_WORLD, &size);
+ 
+     sprintf(outbuf, "Hello, world! from process %d of %d", rank, size);
+ 
+     sendto = (rank + 1) % size;
+     recvfrom = (rank + size - 1) % size;
+ 
+     MPI_Send(outbuf, BUFMAX, MPI_CHAR, sendto, 0, MPI_COMM_WORLD);
+     MPI_Recv(inbuf, BUFMAX, MPI_CHAR, recvfrom, 0, MPI_COMM_WORLD, &status);
+ 	
+     printf("[P_%d] process %d said: \"%s\"]\n", rank, recvfrom, inbuf);
+ 
+     MPI_Finalize();
+     return(0);
+}
+}}
+</tab>
+<tab name="Boost (C++)">
+{{File
+  |name=phello.cpp
+  |lang="cpp"
+  |contents=
+#include <iostream>
+#include <string>
+#include <boost/mpi.hpp>
+
+using namespace std;
+using namespace boost;
+
+int main(int argc, char *argv[])
+{
+    mpi::environment env(argc, argv);
+    mpi::communicator world;
+    int rank = world.rank();
+    int size = world.size();
+
+    string outmessage = "Hello, world! from process " + to_string(rank) + " of " + to_string(size);
+    string inmessage;
+    int sendto = (rank + 1) % size;
+    int recvfrom = (rank + size - 1) % size;
+
+    cout << outmessage << endl;
+
+    world.send(sendto,0,outmessage);
+    world.recv(recvfrom,0,inmessage);
+
+    cout << "[P_" << rank << "] process " << recvfrom << " said: \"" << inmessage << "\"" << endl;
+    return 0;
+}
+}}
+</tab>
+<tab name="Fortran">
+{{File
+  |name=phello2.f90
+  |lang="fortran"
+  |contents=
+program phello2
+
+     implicit none
+     use mpi
+     integer, parameter :: BUFMAX=81
+     character(len=BUFMAX) :: outbuf, inbuf, tmp
+     integer :: rank, num_procs, ierr
+     integer :: sendto, recvfrom
+     integer :: status(MPI_STATUS_SIZE)
+ 
+     call MPI_INIT(ierr)
+     call MPI_COMM_RANK(MPI_COMM_WORLD, rank, ierr)
+     call MPI_COMM_SIZE(MPI_COMM_WORLD, num_procs, ierr)
+ 
+     outbuf = 'Hello, world! from process ' 
+     write(tmp,'(i2)') rank
+     outbuf = outbuf(1:len_trim(outbuf)) // tmp(1:len_trim(tmp))
+     write(tmp,'(i2)') num_procs
+     outbuf = outbuf(1:len_trim(outbuf)) // ' of ' // tmp(1:len_trim(tmp))
+ 
+     sendto = mod((rank + 1), num_procs)
+     recvfrom = mod((rank + num_procs - 1), num_procs)
+ 
+     call MPI_SEND(outbuf, BUFMAX, MPI_CHARACTER, sendto, 0, MPI_COMM_WORLD, ierr)
+     call MPI_RECV(inbuf, BUFMAX, MPI_CHARACTER, recvfrom, 0, MPI_COMM_WORLD, status, ierr)
+ 
+     print *, 'Process', rank, ': Process', recvfrom, ' said:', inbuf
+ 
+     call MPI_FINALIZE(ierr)
+ 
+end program phello2
+}}
+</tab>
+<tab name="Fortran 2008">
+{{File
+  |name=phello2.f90
+  |lang="fortran"
+  |contents=
+program phello2
+
+     implicit none
+     use mpi_f08
+     integer, parameter :: BUFMAX=81
+     character(len=BUFMAX) :: outbuf, inbuf, tmp
+     integer :: rank, num_procs
+     integer :: sendto, recvfrom
+     type(MPI_Status) :: status
+ 
+     call MPI_Init()
+     call MPI_Comm_rank(MPI_COMM_WORLD, rank)
+     call MPI_Comm_size(MPI_COMM_WORLD, num_procs)
+ 
+     outbuf = 'Hello, world! from process ' 
+     write(tmp,'(i2)') rank
+     outbuf = outbuf(1:len_trim(outbuf)) // tmp(1:len_trim(tmp))
+     write(tmp,'(i2)') num_procs
+     outbuf = outbuf(1:len_trim(outbuf)) // ' of ' // tmp(1:len_trim(tmp))
+ 
+     sendto = mod((rank + 1), num_procs)
+     recvfrom = mod((rank + num_procs - 1), num_procs)
+ 
+     call MPI_Send(outbuf, BUFMAX, MPI_CHARACTER, sendto, 0, MPI_COMM_WORLD)
+     call MPI_Recv(inbuf, BUFMAX, MPI_CHARACTER, recvfrom, 0, MPI_COMM_WORLD, status)
+ 
+     print *, 'Process', rank, ': Process', recvfrom, ' said:', inbuf
+ 
+     call MPI_Finalize()
+ 
+end program phello2
+}}
+</tab>
+<tab name="Python (mpi4py)">
+{{File
+  |name=phello2.py
+  |lang="python"
+  |contents=
+from mpi4py import MPI
+
+comm = MPI.COMM_WORLD
+rank = comm.Get_rank()
+size = comm.Get_size()
+
+outbuf = "Hello, world! from process %d of %d" % (rank, size)
+ 
+sendto = (rank + 1) % size;
+recvfrom = (rank + size - 1) % size;
+ 
+comm.send(outbuf, dest=sendto, tag=0)
+inbuf = comm.recv(source=recvfrom, tag=0)
+ 	
+print('[P_%d] process %d said: "%s"]' % (rank, recvfrom, inbuf))
+}}
+</tab>
+</tabs>
+
+Compilez ce programme et faites-le exécuter avec 2, 4 et 8 processus. Le fonctionnement semble approprié, mais il y a cependant un problème caché. En effet, la norme MPI n'offre aucune garantie que <tt>MPI_Send</tt> retournera avant que le message ait été livré. Dans la plupart des implémentations, les données sont mises en mémoire temporaire par <tt>MPI_Send</tt> et retournent sans attendre d'être livrées. Par contre, si la mémoire tampon n'était pas utilisée, notre code bloquerait. Chaque processus appellerait <tt>MPI_Send</tt> et attendrait que le processus voisin appelle <tt>MPI_Recv</tt>. Puisque le processus voisin serait aussi en attente d'une réponse de <tt>MPI_Send</tt>, tous les processus seraient indéfiniment en attente. Les bibliothèques des systèmes de Calcul Canada utilisent les ''buffers'' puisque notre code n'a pas bloqué; ce modèle de conception n'est toutefois pas fiable. Sans mémoire tampon offerte par la bibliothèque, le programme pourrait faire défaut, et malgré la mémoire tampon, un appel pourrait être bloqué si celle-ci est saturée.
+
+ [~]$ mpicc -Wall phello2.c -o phello2
+ [~]$ mpirun -np 4 ./phello2
+ [P_0] process 3 said: "Hello, world! from process 3 of 4"]
+ [P_1] process 0 said: "Hello, world! from process 0 of 4"]
+ [P_2] process 1 said: "Hello, world! from process 1 of 4"]
+ [P_3] process 2 said: "Hello, world! from process 2 of 4"]
+
+=== Éviter les impasses ===
+
+Dans la norme MPI, les appels <tt>MPI_Send</tt> et <tt>MPI_Recv</tt>  sont des appels  bloquants. <tt>MPI_Send</tt> ne retourne pas tant qu'il n'est pas sécuritaire pour le module qui appelle de modifier le contenu de la mémoire tampon. De même, <tt>MPI_Recv</tt> ne retourne pas tant que tout le contenu du message ne se trouve pas dans la mémoire tampon.
+
+Le message est reçu, que la bibliothèque MPI offre ou non l’accès à une mémoire tampon. À la réception des données, le contenu du message est placé dans la mémoire tampon identifiée par l’appel et ce dernier est bloqué jusqu’à ce que <tt>MPI_Recv</tt> retourne. Par contre, <tt>MPI_Send</tt> n’a pas besoin d’être bloqué si la bibliothèque offre une mémoire tampon; dès que les données sont copiées de leur lieu d’origine, ce dernier peut être modifié et l’appel peut retourner. Ceci explique pourquoi notre exemple ne mène pas à une impasse malgré le fait que chacun des processus appelle <tt>MPI_Send</tt> en premier. Puisque la norme MPI ne requiert pas l'usage de la mémoire tampon et que notre code en dépend, nous considérons le programme comme étant à risque d'une impasse.
+
+Un programme qui ne serait pas à risque en serait un dont le bon fonctionnement ne requiert pas l’usage d’une mémoire tampon, comme illustré ici&nbsp;:
+
+==== Interblocage ====
+<source lang="c">
+ ...
+    if (rank == 0)
+    {
+        MPI_Recv(from 1);
+        MPI_Send(to 1);
+    }
+    else if (rank == 1)
+    {
+        MPI_Recv(from 0);
+        MPI_Send(to 0);
+    }
+...
+</source>
+Dans les deux cas, l'appel de réception est lancé avant l'appel d'envoi correspondant&nbsp;: il y a ainsi interblocage causé par <tt>MPI_Recv</tt>.
+
+==== Situation à risque ====
+<source lang="c">
+...
+    if (rank == 0)
+    {
+        MPI_Send(to 1);
+        MPI_Recv(from 1);
+    }
+    else if (rank == 1)
+    {
+        MPI_Send(to 0);
+        MPI_Recv(from 0);
+    }
+...
+</source>
+Dans cet exemple, le programme pourrait fonctionner adéquatement si la bibliothèque permet l'usage d'une mémoire tampon. Si ce n'est pas le cas, ou si le contenu des messages dépasse la capacité de la mémoire tampon, <tt>MPI_Send</tt> fera bloquer le code, créant ainsi une impasse. L'exemple suivant présente une solution.
+
+==== Code fiable ====
+<source lang="c">
+...
+    if (rank == 0)
+    {
+        MPI_Send(to 1);
+        MPI_Recv(from 1);
+    }
+    else if (rank == 1)
+    {
+        MPI_Recv(from 0);
+        MPI_Send(to 0);
+    }
+...
+</source>
+L’envoi est ici couplé avec la réception, sans usage d'une mémoire tampon. Le processus pourrait être arrêté momentanément en attente de l’appel correspondant, mais il n’y aura pas interblocage.
+
+Comment peut-on s’assurer que notre code est correct? Une solution commode est d'utiliser des couples pair-impair et de procéder en deux temps. Dans notre exemple, la communication se fait séquentiellement d'un incrément vers la droite; notre code devrait donc être juste si tous les processus pairs exécutent l'envoi suivi de la réception et que tous les processus impairs exécutent la réception suivie de l'envoi. Les couples envoi-réception sont bien définis et la possibilité d'interblocage est éliminée.
+<tabs>
+<tab name="C">
+{{File
+  |name=phello3.c
+  |lang="c"
+  |contents=
+#include <stdio.h>
+#include <mpi.h>
+
+#define BUFMAX 81
+
+int main(int argc, char *argv[])
+{
+    char outbuf[BUFMAX], inbuf[BUFMAX];
+    int rank, size;
+    int sendto, recvfrom;
+    MPI_Status status;
+
+
+    MPI_Init(&argc, &argv);
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+    MPI_Comm_size(MPI_COMM_WORLD, &size);
+
+    sprintf(outbuf, "Hello, world! from process %d of %d", rank, size);
+
+    sendto = (rank + 1) % size;
+    recvfrom = ((rank + size) - 1) % size;
+
+    if (!(rank % 2))
+    {
+        MPI_Send(outbuf, BUFMAX, MPI_CHAR, sendto, 0, MPI_COMM_WORLD);
+        MPI_Recv(inbuf, BUFMAX, MPI_CHAR, recvfrom, 0, MPI_COMM_WORLD, &status);
+    }
+    else
+    {
+        MPI_Recv(inbuf, BUFMAX, MPI_CHAR, recvfrom, 0, MPI_COMM_WORLD, &status);
+        MPI_Send(outbuf, BUFMAX, MPI_CHAR, sendto, 0, MPI_COMM_WORLD);
+    }
+
+    printf("[P_%d] process %d said: \"%s\"]\n", rank, recvfrom, inbuf);
+
+    MPI_Finalize();
+
+    return(0);
+}
+}}
+</tab>
+<tab name="Boost (C++)">
+{{File
+  |name=phello3.cpp
+  |lang="cpp"
+  |contents=
+#include <iostream>
+#include <string>
+#include <boost/mpi.hpp>
+
+using namespace std;
+using namespace boost;
+
+int main(int argc, char *argv[])
+{
+    mpi::environment env(argc, argv);
+    mpi::communicator world;
+    int rank = world.rank();
+    int size = world.size();
+
+    string outmessage = "Hello, world! from process " + to_string(rank) + " of " + to_string(size);
+    string inmessage;
+    int sendto = (rank + 1) % size;
+    int recvfrom = (rank + size - 1) % size;
+
+    cout << outmessage << endl;
+
+    if (!(rank % 2)) {
+        world.send(sendto,0,outmessage);
+        world.recv(recvfrom,0,inmessage);
+    }
+    else {
+        world.recv(recvfrom,0,inmessage);
+        world.send(sendto,0,outmessage);
+    }
+
+    cout << "[P_" << rank << "] process " << recvfrom << " said: \"" << inmessage << "\"" << endl;
+    return 0;
+}
+}}
+</tab>
+<tab name="Fortran">
+{{File
+  |name=phello3.f90
+  |lang="fortran"
+  |contents=
+program phello3
+
+
+    implicit none
+    use mpi
+
+    integer, parameter :: BUFMAX=81
+    character(len=BUFMAX) :: outbuf, inbuf, tmp
+    integer :: rank, num_procs, ierr
+    integer :: sendto, recvfrom
+    integer :: status(MPI_STATUS_SIZE)
+
+    call MPI_INIT(ierr)
+    call MPI_COMM_RANK(MPI_COMM_WORLD, rank, ierr)
+    call MPI_COMM_SIZE(MPI_COMM_WORLD, num_procs, ierr)
+
+    outbuf = 'Hello, world! from process '
+    write(tmp,'(i2)') rank
+    outbuf = outbuf(1:len_trim(outbuf)) // tmp(1:len_trim(tmp))
+    write(tmp,'(i2)') num_procs
+    outbuf = outbuf(1:len_trim(outbuf)) // ' of ' // tmp(1:len_trim(tmp))
+
+    sendto = mod((rank + 1), num_procs)
+    recvfrom = mod(((rank + num_procs) - 1), num_procs)
+
+    if (MOD(rank,2) == 0) then
+        call MPI_SEND(outbuf, BUFMAX, MPI_CHARACTER, sendto, 0, MPI_COMM_WORLD, ierr)
+        call MPI_RECV(inbuf, BUFMAX, MPI_CHARACTER, recvfrom, 0, MPI_COMM_WORLD, status, ierr)
+    else
+        call MPI_RECV(inbuf, BUFMAX, MPI_CHARACTER, recvfrom, 0, MPI_COMM_WORLD, status, ierr)
+        call MPI_SEND(outbuf, BUFMAX, MPI_CHARACTER, sendto, 0, MPI_COMM_WORLD, ierr)
+    endif
+
+    print *, 'Process', rank, ': Process', recvfrom, ' said:', inbuf
+
+    call MPI_FINALIZE(ierr)
+
+end program phello3
+}}
+</tab>
+<tab name="Fortran 2008">
+{{File
+  |name=phello3.f90
+  |lang="fortran"
+  |contents=
+program phello3
+
+
+    implicit none
+    use mpi_f08
+
+    integer, parameter :: BUFMAX=81
+    character(len=BUFMAX) :: outbuf, inbuf, tmp
+    integer :: rank, num_procs
+    integer :: sendto, recvfrom
+    type(MPI_Status) :: status
+
+    call MPI_Init()
+    call MPI_Comm_rank(MPI_COMM_WORLD, rank)
+    call MPI_Comm_size(MPI_COMM_WORLD, num_procs)
+
+    outbuf = 'Hello, world! from process '
+    write(tmp,'(i2)') rank
+    outbuf = outbuf(1:len_trim(outbuf)) // tmp(1:len_trim(tmp))
+    write(tmp,'(i2)') num_procs
+    outbuf = outbuf(1:len_trim(outbuf)) // ' of ' // tmp(1:len_trim(tmp))
+
+    sendto = mod((rank + 1), num_procs)
+    recvfrom = mod(((rank + num_procs) - 1), num_procs)
+
+    if (MOD(rank,2) == 0) then
+        call MPI_Send(outbuf, BUFMAX, MPI_CHARACTER, sendto, 0, MPI_COMM_WORLD)
+        call MPI_Recv(inbuf, BUFMAX, MPI_CHARACTER, recvfrom, 0, MPI_COMM_WORLD, status)
+    else
+        call MPI_RECV(inbuf, BUFMAX, MPI_CHARACTER, recvfrom, 0, MPI_COMM_WORLD, status)
+        call MPI_SEND(outbuf, BUFMAX, MPI_CHARACTER, sendto, 0, MPI_COMM_WORLD)
+    endif
+
+    print *, 'Process', rank, ': Process', recvfrom, ' said:', inbuf
+
+    call MPI_Finalize()
+
+end program phello3
+}}
+</tab>
+<tab name="Python (mpi4py)">
+{{File
+  |name=phello3.py
+  |lang="python"
+  |contents=
+from mpi4py import MPI
+
+comm = MPI.COMM_WORLD
+rank = comm.Get_rank()
+size = comm.Get_size()
+
+outbuf = "Hello, world! from process %d of %d" % (rank, size)
+
+sendto = (rank + 1) % size;
+recvfrom = ((rank + size) - 1) % size;
+
+if rank % 2 == 0:
+    comm.send(outbuf, dest=sendto, tag=0)
+    inbuf = comm.recv(source=recvfrom, tag=0)
+else:
+    inbuf = comm.recv(source=recvfrom, tag=0)
+    comm.send(outbuf, dest=sendto, tag=0)
+
+print('[P_%d] process %d said: "%s"]' % (rank, recvfrom, inbuf))
+}}
+</tab>
+</tabs>
+À première vue, il semblerait qu'un nombre impair de processus puisse poser un problème. En effet, le processus pair 0 lance un envoi alors que l'autre processus pair N-1 tente de lancer une réception. Cependant, l'envoi fait par le processus 0 est correctement apparié à la réception lancée par le processus 1; puisque le processus impair 1 commence par une réception, la transaction sera sûrement complétée. Sur ce, le processus 0 reçoit le message du processus 1; il pourrait y avoir un certain délai (minime), mais il n'y a pas de risque d'interblocage.
+ <!--T:49-->
+[~]$ mpicc -Wall phello3.c -o phello3
+ [~]$ mpirun -np 16 ./phello3
+ [P_1] process 0 said: "Hello, world! from process 0 of 16"]
+ [P_2] process 1 said: "Hello, world! from process 1 of 16"]
+ [P_5] process 4 said: "Hello, world! from process 4 of 16"]
+ [P_3] process 2 said: "Hello, world! from process 2 of 16"]
+ [P_9] process 8 said: "Hello, world! from process 8 of 16"]
+ [P_0] process 15 said: "Hello, world! from process 15 of 16"]
+ [P_12] process 11 said: "Hello, world! from process 11 of 16"]
+ [P_6] process 5 said: "Hello, world! from process 5 of 16"]
+ [P_13] process 12 said: "Hello, world! from process 12 of 16"]
+ [P_8] process 7 said: "Hello, world! from process 7 of 16"]
+ [P_7] process 6 said: "Hello, world! from process 6 of 16"]
+ [P_14] process 13 said: "Hello, world! from process 13 of 16"]
+ [P_10] process 9 said: "Hello, world! from process 9 of 16"]
+ [P_4] process 3 said: "Hello, world! from process 3 of 16"]
+ [P_15] process 14 said: "Hello, world! from process 14 of 16"]
+ [P_11] process 10 said: "Hello, world! from process 10 of 16"]
+Plusieurs modèles sont décrits dans la page Web [http://www.mcs.anl.gov/research/projects/mpi/mpi-standard/mpi-report-1.1/node64.htm#Node64 Introduction and Overview]. Nous vous recommandons d'utiliser la fonction de communication qui s'applique à votre situation, plutôt que de la créer par vous-même.
+
+== Enveloppes de compilateurs ==
+
+Les paquets des bibliothèques MPI offrent généralement des enveloppes (''wrappers'') pour les compilateurs. Ce ne sont pas des compilateurs, mais ces enveloppes appellent d'autres compilateurs tout en s'assurant que le compilateur reçoive les indicateurs spécifiques à MPI.
+
+Voici une liste partielle&nbsp;:
+
+* <code>mpicc</code> pour C
+* <code>mpicxx</code> pour C++
+* <code>mpifort</code> et/ou <code>mpif77</code> et/ou <code>mpif90</code> pour Fortran
+
+Avec Open&nbsp;MPI, ces enveloppes ont l'option <code>--showme</code> qui imprime le nom du compilateur qui sera appellé et les options qui y seront ajoutées.
+
+'''Remarque''' : Notre pile logicielle contient plusieurs modules du même paquet Open&nbsp;MPI (par exemple <code>openmpi/4.0.3</code>) qui ont été construits avec des compilateurs différents et qui prennent en charge ou non CUDA. Les enveloppes de compilateurs MPI utiliseront toujours le compilateur et la version du compilateur que vous avez chargés avec la commande code>module load</code>. 
+
+Par exemple, si vous avez chargé les modules <code>intel/2020.1.217</code> et <code>openmpi/4.0.3</code>&nbsp;:
+{{Command
+|mpicc -showme
+|result=
+icc -I/cvmfs/…/intel2020/openmpi/4.0.3/include -L/cvmfs/…/intel2020/openmpi/4.0.3/lib -lmpi
+}}
+
+Si vous avez chargé les modules <code>gcc/9.3.0</code> et <code>openmpi/4.0.3</code>&nbsp;:
+{{Command
+|mpicc -showme
+|result=
+gcc -I/…/gcc9/openmpi/4.0.3/include -L/cvmfs/…/gcc9/openmpi/4.0.3/lib -lmpi
+}}
+
+== Autres considérations ==
+Nous avons abordé la conception et la syntaxe de programmes MPI; il y a cependant beaucoup d'autres éléments à considérer dans le développement d'applications parallèles robustes avec MPI. Sans être exhaustive, la liste suivante en donne un aperçu.
+*[http://www.mcs.anl.gov/research/projects/mpi/mpi-standard/mpi-report-1.1/node40.htm#Node40 variantes de <tt>MPI_Send</tt>/<tt>MPI_Recv</tt>]
+* [http://www.mcs.anl.gov/research/projects/mpi/mpi-standard/mpi-report-1.1/node64.htm communication collective] 
+* [http://mpitutorial.com/tutorials/introduction-to-groups-and-communicators/ communicateurs] et topologies
+* [http://wgropp.cs.illinois.edu/courses/cs598-s16/lectures/lecture34.pdf communication unilatérale] et fonctionnalités de MPI-2
+* [http://www.mcs.anl.gov/research/projects/mpi/mpi-standard/mpi-report-1.1/node54.htm#Node54 types de données dérivés]
+* performance
+* débogage
+* [https://drive.google.com/file/d/0B4bveu7i2jOyeVR5VGlxV1g1MDQ/view tutoriel Boost MPI (en français)]
+
+== Lectures recommandées ==
+* GROPP, William, Ewing LUSK et Anthony SKJELLUM. ''Using MPI: Portable Parallel Programming with the Message-Passing Interface'', 2e éd, MIT Press, 1999.
+** information complète sur les interfaces avec Fortran, C et C++ 
+* PACHECO, Peter S., ''Parallel Programming with MPI'', Morgan Kaufmann, 1997.
+** tutoriel avec langage C
+* BARNEY, Blaise [https://computing.llnl.gov/tutorials/mpi/ ''Message Passing Interface (MPI)''], Lawrence Livermore National Labs.
+* KENDALL, Wes, et autres. [http://mpitutorial.com/tutorials/ ''mpitutorial.com'']
+* Institut du développement et des ressources en informatique scientifique,  [http://www.idris.fr/formations/mpi/ ''Formation "MPI"''] (en français).

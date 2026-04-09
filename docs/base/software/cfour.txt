@@ -1,0 +1,168 @@
+<languages/>
+[[Category:Software]]
+<translate>
+
+= Introduction = <!--T:1-->
+
+<!--T:2-->
+"<b>CFOUR</b> (Coupled-Cluster techniques for Computational Chemistry) is a program package for performing high-level quantum chemical calculations on atoms and molecules. The major strength of the program suite is its rather sophisticated arsenal of high-level <i>ab-initio</i> methods for the calculation of atomic and molecular properties. Virtually all approaches based on Møller-Plesset (MP) perturbation theory and the coupled-cluster approximation (CC) are available; most of these have complementary analytic derivative approaches within the package as well."
+
+<!--T:3-->
+"<b>CFOUR</b> is not a commercial code. It is rather a program that is undergoing development; new techniques and improvements are constantly being made." See [http://slater.chemie.uni-mainz.de/cfour/index.php?n=Main.HomePage the CFOUR web site] for more information.
+
+= License limitations = <!--T:4-->
+
+<!--T:5-->
+The Alliance has signed a [http://slater.chemie.uni-mainz.de/cfour/index.php?n=Main.Download license] agreement with [https://www.tc.uni-mainz.de/prof-dr-juergen-gauss/ Prof. Dr. J. Gauss] who acts for the developers of the CFOUR Software. 
+
+<!--T:6-->
+In order to use the current installed version on the Alliance systems, each user must agree to certain conditions. Please [[Technical_support | contact support]] with a copy of the following statement:
+
+<!--T:7-->
+# I will use CFOUR only for academic research.
+# I will not copy the CFOUR software, nor make it available to anyone else.
+# I will properly acknowledge original papers related to CFOUR and to the Alliance in my publications (see the license form for more details).
+# I understand that the agreement for using CFOUR can be terminated by one of the parties: CFOUR developers or the Alliance.
+# I will notify the Alliance of any change in the above acknowledgement.
+
+<!--T:8-->
+When your statement is received, we will allow you to access the program.
+
+= Module = <!--T:9-->
+
+<!--T:10-->
+You can access the MPI version of CFOUR by loading a [[Utiliser des modules/en|module]].  
+
+<!--T:11-->
+<source lang="bash">
+module load intel/2023.2.1  openmpi/4.1.5 cfour-mpi/2.1
+</source>
+
+<!--T:17-->
+For the serial version, use:
+
+<!--T:18-->
+<source lang="bash">
+module load intel/2023.2.1 cfour/2.1
+</source>
+
+<!--T:14-->
+There is a mailing list as a forum for user experiences with the CFOUR program system. For how to subscribe and other information, see [http://slater.chemie.uni-mainz.de/cfour/index.php?n=Main.MailingList this page].
+
+== Examples and job scripts == <!--T:33-->
+
+<!--T:34-->
+To run CFOUR, you need to have at least the input file [http://slater.chemie.uni-mainz.de/cfour/index.php?n=Main.InputFileZMAT ZMAT] with all information concerning geometry, requested quantum-chemical method, basis set, etc. The second file is [http://slater.chemie.uni-mainz.de/cfour/index.php?n=Main.Basis-setFileGENBAS GENBAS] that contains the required information for the basis sets available to the user. If GENBAS is not present in the directory from where you start your job, CFOUR will create a symlink and use the existing file provided by the module. The file is located at: <code>$EBROOTCFOUR/basis/GENBAS</code>.
+
+<!--T:35-->
+<tabs>
+<tab name="INPUT">
+{{File
+  |name=ZMAT
+  |lang="txt"
+  |contents=
+Acetylene, CCSD/DZP excited-state geometry optimization
+C                                                                              
+C 1 RCC*
+H 1 RCH* 2 A*
+H 2 RCH* 1 A* 3 D180
+                                                                               
+RCC=1.36
+RCH=1.08
+A=124.
+D180=180.
+                                                                               
+*ACES2(CALC=CCSD,BASIS=DZP,EXCITE=EOMEE                                     
+ESTATE_CONV=10,CONV=10,SCF_CONV=10,CC_CONV=10,LINEQ_CONV=10,ZETA_CONV=10)                                      
+                                                                               
+%excite*                                                                       
+1                                                                              
+1                                                                              
+1 7 0 8 0 1.0                         
+
+<!--T:36-->
+}}
+</tab>
+
+<!--T:37-->
+<tab name="Serial job">
+{{File
+  |name=run_cfour_serial.sh
+  |lang="bash"
+  |contents=
+#!/bin/bash
+#SBATCH --account=def-someacct   # replace this with your own account
+#SBATCH --ntasks=1
+#SBATCH --mem-per-cpu=2500M      # memory; default unit is megabytes.
+#SBATCH --time=0-00:30           # time (DD-HH:MM).
+
+<!--T:38-->
+# Load the module:
+
+<!--T:39-->
+module load intel/2023.2.1 cfour/2.1
+
+<!--T:40-->
+echo "Starting run at: `date`"
+
+<!--T:41-->
+CFOUROUTPUT="cfour-output.txt"
+export CFOUR_NUM_CORES=1
+
+<!--T:42-->
+xcfour > ${CFOUROUTPUT} 
+
+<!--T:43-->
+# Clean the symlink:
+if [[ -L "GENBAS" ]]; then unlink GENBAS; fi
+
+<!--T:44-->
+echo "Program finished with exit code $? at: `date`"
+}}
+</tab>
+
+<!--T:45-->
+<tab name="MPI job">
+{{File
+  |name=run-cfour-mpi.sh
+  |lang="bash"
+  |contents=
+#!/bin/bash
+#SBATCH --account=def-someacct   # replace this with your own account
+#SBATCH --ntasks-per-node=4
+#SBATCH --mem-per-cpu=2500M      # memory; default unit is megabytes.
+#SBATCH --time=0-00:30           # time (DD-HH:MM).
+
+<!--T:46-->
+# Load the module:
+
+<!--T:47-->
+module load intel/2023.2.1  openmpi/4.1.5 cfour-mpi/2.1
+
+<!--T:48-->
+echo "Starting run at: `date`"
+
+<!--T:49-->
+CFOUROUTPUT="cfour-output.txt"
+export CFOUR_NUM_CORES=${SLURM_NTASKS}
+
+<!--T:50-->
+xcfour > ${CFOUROUTPUT} 
+
+<!--T:51-->
+# Clean the symlink:
+if [[ -L "GENBAS" ]]; then unlink GENBAS; fi
+
+<!--T:52-->
+echo "Program finished with exit code $? at: `date`"
+}}
+</tab>
+</tabs>
+
+
+= Related links = <!--T:12-->
+
+<!--T:53-->
+* [http://slater.chemie.uni-mainz.de/cfour/index.php?n=Main.Manual Manual]
+* [http://slater.chemie.uni-mainz.de/cfour/index.php?n=Main.Features Features]
+</translate>

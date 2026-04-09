@@ -1,0 +1,57 @@
+<languages />
+[https://github.com/SnowflurrySDK/Snowflurry.jl/ Snowflurry] est une bibliothèque d'informatique quantique à code source ouvert développée en [[Julia/fr|Julia]] par [https://anyonsys.com/fr Anyon Systèmes] qui permet de construire, de simuler et d'exécuter des circuits quantiques.
+Une bibliothèque connexe nommée [https://github.com/SnowflurrySDK/SnowflurryPlots.jl/ SnowflurryPlots] permet de visualiser les résultats de la simulation dans un diagramme à bandes. Pratique pour explorer l'informatique quantique, les fonctionnalités sont disponibles dans la [https://snowflurrysdk.github.io/Snowflurry.jl/dev/index.html documentation] et le guide d'installation est disponible sur la page [https://github.com/SnowflurrySDK/Snowflurry.jl GitHub]. Tout comme la bibliothèque [[PennyLane]], Snowflurry peut être utilisée pour exécuter des circuits quantiques sur l'ordinateur quantique [[MonarQ]].
+
+== Installation ==
+Le simulateur d'ordinateur quantique avec [https://github.com/SnowflurrySDK/Snowflurry.jl Snowflurry] est disponible sur toutes nos grappes. Le langage de programmation [https://julialang.org/ Julia] doit être chargé avant d'avoir accès à Snowflurry avec la commande
+<includeonly> <div class="floatright"> [[File:Question.png|40px|link=https://explainshell.com/explain?cmd={{urlencode:{{{1}}} }}]] </div> <div class="command">{{#tag:syntaxhighlight|{{{prompt|[username@narval ~]$}}} {{{1}}}{{{result|}}}|lang={{{lang|bash}}}}}</div></includeonly><noinclude>
+{{Command|module load julia
+|result=}} 
+</noinclude>
+Ensuite, l'interface de programmation Julia est appelée et la bibliothèque quantique de Snowflurry chargée (environ 5-10 minutes) avec les commandes
+<includeonly> <div class="floatright"> [[File:Question.png|40px|link=https://explainshell.com/explain?cmd={{urlencode:{{{1}}} }}]] </div> <div class="command">{{#tag:syntaxhighlight|{{{prompt|[username@narval ~]$}}} {{{1}}}{{{result|}}}|lang={{{lang|bash}}}}}</div></includeonly><noinclude>
+{{Command|julia
+|result=julia> import Pkg
+julia> Pkg.add(url="https://github.com/SnowflurrySDK/Snowflurry.jl", rev="main")
+julia> Pkg.add(url="https://github.com/SnowflurrySDK/SnowflurryPlots.jl", rev="main")
+julia> using Snowflurry}} 
+</noinclude>
+Les portes logiques quantiques et les commandes sont décrites dans la [https://snowflurrysdk.github.io/Snowflurry.jl/dev/ documentation de Snowflurry]. <!--Le simulateur quantique de Snowflurry est appelé avec la commande [https://snowflurrysdk.github.io/Snowflurry.jl/dev/tutorials/basics.html#Circuit-Simulation simulate].-->
+
+== Exemple d'utilisation : États de Bell ==
+Les états de Bell sont des états à deux qubits maximalement intriqués. Deux exemples simples de  phénomènes quantiques sont la superposition et l'intrication. La bibliothèque [https://github.com/SnowflurrySDK/Snowflurry.jl/ Snowflurry] permet de construire le premier état de Bell comme suit.
+<noinclude>
+{{Command|julia
+|result=julia> using Snowflurry
+julia> circuit=QuantumCircuit(qubit_count=2);
+julia> push!(circuit,hadamard(1));
+julia> push!(circuit,control_x(1,2));
+julia> print(circuit)
+
+Quantum Circuit Object:
+   qubit_count: 2 
+q[1]:──H────*──
+            ¦ 
+q[2]:───────X──
+}}
+</noinclude>
+Dans la section de code ci-dessus, la porte de Hadamard crée une superposition égale de |0⟩ et |1⟩ sur le premier qubit tandis que la porte CNOT (porte X contrôllée) crée une intrication entre les deux qubits. On retrouve une superposition égale des états |00⟩ et |11⟩, soit le premier état de Bell. La fonction <code>simulate</code> permet de simuler l'état exact du système.
+<noinclude>
+  julia> state = simulate(circuit)
+  julia> print(state)   
+  4-element Ket{ComplexF64}:
+  0.7071067811865475 + 0.0im
+  0.0 + 0.0im
+  0.0 + 0.0im
+  0.7071067811865475 + 0.0im
+</noinclude>
+
+Pour prendre une mesure, l'opération <code>readout</code> permet de spécifier quels qubits seront mesurés. La fonction <code>plot_histogram</code> de la bibliothèque SnowflurryPlots permet de visualiser les résultats.
+<noinclude>
+{{Command|julia
+|result=julia> using SnowflurryPlots
+julia> push!(circuit, readout(1,1), readout(2,2))
+julia> plot_histogram(circuit,1000)
+}}
+</noinclude>
+[[File:Bell Graph.png|thumb|alt=Résultats de 1000 simulations de l'état de Bell.]]

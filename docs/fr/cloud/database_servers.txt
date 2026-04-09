@@ -1,0 +1,260 @@
+{{Outdated}}
+<languages />
+
+
+== Serveurs de bases de données pour la recherche ==
+Les serveurs de bases de données MySQL et Postgres sont disponibles sur Cedar et Graham.
+
+'''REMARQUE :''' À compter du 13 janvier 2025, la capacité de la grappe Graham sera réduite à 25% (voir  [[Graham/fr#Réduction_de_la_capacité | Réduction de la capacité]]) jusqu'à ce que le nouveau système [[Nibi/fr|Nibi]] soit disponible. Aucun serveur de bases de données ne sera offert pendant la transition.
+{| class="wikitable"
+|+ Serveurs de bases de données
+|-
+! Information !! Cedar, MySQL !! Cedar, Postgres !! Graham, MySQL
+|-
+| Description || serveur d’usage général pour configurer et traiter des tables SQL || serveur d’usage général pour configurer et traiter des tables SQL; comprend  l’extension PostGIS pour les données spatiales || serveur d’usage général pour configurer et traiter des tables SQL
+|-
+| Nom long || cedar-mysql-vm.int.cedar.computecanada.ca || cedar-pgsql-vm.int.cedar.computecanada.ca || cc-gra-dbaas1.sharcnet.ca <br> IP: 199.241.163.99
+|-
+| Nom court || cedar-mysql-vm || cedar-pgsql-vm || ---
+|-
+| Récente version || [https://mariadb.com/kb/en/mariadb-server-11-5/ MariaDB version 11.5] || [https://www.postgresql.org/docs/release/16.0/ PostgreSQL version 16], PostGIS version 3.3 (extension) || [https://mariadb.com/kb/en/mariadb-server-11-5/ MariaDB version 11.5]
+|-
+| Documentation || [https://www.mariadb.com site web MariaDB] || [https://www.postgresql.org site web Postgres], [https://postgis.net/documentation documentation PostGIS] || [https://www.mariadb.com site web MariaDB]
+|}
+
+<span id="Cedar_MySQL_server"></span>
+== Serveur MySQL sur Cedar ==
+
+Le serveur MySQL sur Cedar offre MariaDB 10.4 qui est compatible avec les autres versions MySQL. Pour l'information sur la compatibilité, consultez [https://mariadb.com/kb/en/library/mariadb-vs-mysql-compatibility/ MariaDB versus MySQL: Compatibility].
+
+Le serveur MariaDB est l'instance <code>cedar-mysql-vm</code> (nom long, cedar-mysql-vm.int.cedar.computecanada.ca). Si vous possédez un compte sur le serveur MySQL, vous pouvez y accéder uniquement par le nœud de connexion (cedar.computecanada.ca), les nœuds de calcul ou le [https://gateway.cedar.computecanada.ca portail Cedar].
+
+Pour des raisons de sécurité, vous ne pouvez pas vous connecter directement au serveur de base de données via SSH.
+
+<span id="MySQL_account_and_connection"></span>
+=== Compte et connexion ===
+
+Vous devez détenir un compte MySQL pour avoir le privilège requis pour créer une base de données. Pour obtenir un compte sur le serveur MySQL de Cedar, contactez le [[Technical support/fr|soutien technique]] en indiquant
+
+* le nom d'utilisateur pour votre compte avec l'Alliance et
+* l'espace nécessaire pour la base de données de votre projet.
+
+Nous créerons un compte MySQL pour lequel le nom d'utilisateur sera celui de votre compte avec l'Alliance ainsi qu'une chaîne de 16 nombres aléatoires comme mot de passe. Un fichier nommé <code>.my.cnf</code> sera enregistré dans votre répertoire /home contenant le nom d'utilisateur, le mot de passe, le nom du serveur de base de données et d'autres renseignements nécessaires pour vous connecter. Ce fichier est confidentiel. Son contenu ne peut pas être modifié, mais le fichier peut être lu ou supprimé. En supprimant ce fichier, vous perdrez l’accès à votre base de données.
+
+Lancez le client <code>mysql</code> pour vous connecter au serveur MySQL. Une version moins récente du client est disponible sans que vous ayez à [[Utiliser des modules|charger un module]], mais vous n'aurez pas les dernières fonctionnalités du serveur. Nous vous recommandons de charger une version plus récente du client avec
+ [name@server ~]$ module load mariadb
+ [name@server ~]$ mariadb --version
+
+Testez la configuration de votre compte MySQL avec
+{{Command|mysql
+MariaDB [(none)]> show databases;
+MariaDB [(none)]> quit}}
+
+N'utilisez pas les options <code>-p</code> ou <code>-h</code> en argument en lançant <code>mysql</code>. Le mot de passe et le nom du serveur proviendront automatiquement du fichier <code>.my.cnf</code>.
+
+Vous pouvez soumettre une commande SQL à partir du nœud de connexion puisque l'utilisation du CPU provient pour une grande part du côté du serveur de base de données. Toutefois, si votre script contient plusieurs commandes SQL et utilise beaucoup le CPU, il doit faire partie d'une tâche soumise à l'ordonnanceur; voyez [[Running jobs/fr|Exécuter des tâches]] pour plus d'information.
+
+<span id="Set_up_your_MySQL_database"></span>
+=== Configuration ===
+
+Pour créer des tables et faire des requêtes, vous devez créer votre propre base de données dont le nom doit commencer par <i>nom de l'utilisateur_</i>, soit votre nom d'utilisateur MySQL. Si votre nom d'utilisateur est <i>david</i>, le nom de la base de données doit commencer par <i>david_</i> et les commandes pour créer <i>david_db1</i> seraient
+
+{{Command|mysql
+ MariaDB [(none)]> CREATE DATABASE david_db1;
+ MariaDB [(none)]> quit
+}}
+
+Vous pouvez créer plusieurs bases de données, mais leurs noms doivent commencer par <i>nom d'utilisateur_</i>. Ces bases de données seront accessibles uniquement par vous à partir du nœud de connexion (cedar.computecanada.ca), des nœuds de calcul ou du [https://gateway.cedar.computecanada.ca portail Cedar] et vous aurez tous les privilèges pour la création d'objets, par exemple les tables et les vues.
+
+<span id="Work_with_your_MySQL_database"></span>
+=== Utilisation de votre base de données ===
+
+Supposons que votre compte est <i>david</i> et que vous avez créé la base de données <i>david_db1</i>. Pour l'utiliser, lancez
+
+{{Command|mysql
+ MariaDB [(none)]> -- List available databases. Confirm david_db1 is in the list
+ MariaDB [(none)]> SHOW DATABASES;
+ MariaDB [(none)]> -- Get into the database
+ MariaDB [(none)]> USE david_db1;
+ MariaDB [(none)]> ... Issue SQL commands. See below for information.
+ MariaDB [(none)]> quit
+}}
+
+Consultez les sites web suivants pour plus de renseignements sur MariaDB&nbsp;:
+* [https://mariadb.com/kb/en/ Knowledge Base]
+* [https://mariadb.com/kb/en/library/training-tutorials/ Training & Tutorials]
+* [https://mariadb.com/kb/en/library/sql-statements-structure/ SQL Statements & Structure]
+* [https://mariadb.com/kb/en/library/optimization-and-indexes/ Optimization and Indexes]
+
+<span id="Share_your_MySQL_data"></span>
+=== Partager vos données MySQL === 
+
+Si vous avez un compte MySQL sur Cedar, vous pouvez partager vos données. Pour partager une table&nbsp;:
+
+# Connectez-vous à MySQL avec <code>mysql</code>.
+# Lancez la commande <code>USE ''database'';</code>
+#* <i>database</i> est le nom de la base de données où se trouve la table que vous voulez partager
+# Lancez la commande <code>GRANT ''priv_type'' ON ''mytable'' TO &prime;''user''&prime;@'172.%';</code> 
+#* <i>priv_type</i> est le type de privilège que vous voulez accorder
+#* <i>mytable</i> est le nom de la table
+#* <i>user</i> est le nom d'utilisateur de la personne avec qui vous voulez partager la table
+
+<span id="MySQL_sharing_example"></span>
+==== Exemple de partage ====
+
+Ici, l'utilisateur <i>david</i> veut partager la table <i>mytable</i> de la base de données <i>david_db</i> avec <i>john</i> en lecture seulement.
+
+{{Command|mysql
+ MariaDB [(none)]> USE david_db;
+ MariaDB [(none)]> GRANT SELECT on mytable to 'john'@'172.%';
+ MariaDB [(none)]> quit;
+}}
+
+<span id="Cedar_PostgreSQL_server"></span>
+== Serveur PostgreSQL sur Cedar ==
+
+Le serveur Postgres sur Cedar offre [https://www.postgresql.org/ Postgres] et [https://postgis.net/ l'extension PostGIS]. 
+
+Le serveur PostgreSQL est l'instance <tt>cedar-pgsql-vm</tt> (nom long, cedar-pgsql-vm.int.cedar.computecanada.ca). Si vous possédez un compte sur le serveur PostgreSQL, vous pouvez y accéder uniquement par le nœud de connexion (cedar.computecanada.ca), les nœuds de calcul ou le [https://gateway.cedar.computecanada.ca portail Cedar].
+
+Pour des raisons de sécurité, vous ne pouvez pas vous connecter directement au serveur de base de données via SSH.
+
+Pour obtenir un compte sur le serveur PostgreSQL de Cedar, contactez le [[Technical support/fr|soutien technique]] en indiquant
+* votre nom d'utilisateur,
+* l'espace nécessaire pour la base de données de votre projet,
+* si vous avez besoin de l'extension PostGIS.
+
+<span id="PostgreSQL_account_and_connection"></span>
+=== Compte et connexion ===
+
+Nous créerons un compte PostgreSQL pour lequel le nom d'utilisateur sera celui de votre compte avec l'Alliance. Vous aurez accès à une base de données dont le nom sera <i><nom d'utilisateur>̠db</i>.  Vous ne pouvez pas créer une base de données, mais si vous en avez besoin de plus d'une, écrivez au [[Technical support/fr|soutien technique]]. 
+
+Vous n'avez pas besoin d'un mot de passe pour accéder à votre compte PostgreSQL sur Cedar. Pour des raisons de sécurité, le mot de passe pour votre compte avec l'Alliance ne doit JAMAIS être requis ou utilisé dans un script. Les utilisateurs n'ont ainsi pas d'accès direct aux bases de données des autres utilisateurs.
+
+Lancez le client <code>psql</code> pour vous connecter au serveur PostgreSQL. Une version moins récente du client est disponible sans que vous ayez à [[Utiliser des modules|charger un module]], mais vous n'aurez pas les dernières fonctionnalités de la version&nbsp;10. Nous vous recommandons le charger une version plus récente avec
+
+ [name@server ~]$ module load postgresql
+ [name@server ~]$ psql --version
+
+<span id="Work_with_your_PostgreSQL_database"></span>
+=== Utilisation de votre base de données ===
+
+Supposons que votre compte est <i>david</i> et qu'on vous a assigné la base de données <i>david_db</i>. Pour l'utiliser à partir d’un nœud de connexion, lancez
+
+{{Command|psql -h cedar-pgsql-vm -d david_db
+ david_db{{=}}> -- List names of tables in your database
+ david_db{{=}}> \dt
+ david_db{{=}}> ... Issue SQL commands. See below for more information.
+ david_db{{=}}> -- Quit
+ david_db{{=}}> \q
+}}
+
+Consultez les sites web suivants pour plus de renseignements sur PostgreSQL :
+* [https://www.postgresql.org/docs/current/static/tutorial.html tutoriel]
+* [https://www.postgresql.org/docs/ manuels]
+* [https://www.postgresql.org/docs/release/ notes de  mise à jour]
+
+=== Partager vos données PostgreSQL ===
+Pour partager les données de votre base de données PostgreSQL, 
+* la personne avec laquelle vous voulez partager vos données doit détenir un compte PostgreSQL sur la grappe (voir ci-dessus), 
+* donnez à cette personne un accès <code>connect</code> à votre base de données,
+* pour chaque table ou vue que vous voulez partager, donnez aussi un ou plusieurs des accès <code>select, update, insert</code> et <code>delete</code>,
+* l'accès à une table, une vue ou à la base de données peut être révoqué.
+
+Dans cet exemple, David partage une table avec Kim :
+{{Command|psql -h cedar-pgsql-vm -d david_db
+ david_db{{=}}> -- Give kim connect access to the database
+ david_db{{=}}> grant connect on database david_db to kim;
+ david_db{{=}}> -- Give kim select-only access to a table called mytable
+ david_db{{=}}> grant select on mytable to kim;
+ david_db{{=}}> -- Quit
+ david_db{{=}}> \q
+}}
+
+Ici, Kim accède à la table partagée :
+{{Command|psql -h cedar-pgsql-vm -d kim_db
+ kim_db{{=}}> -- Connect to the database containing the table to be accessed
+ kim_db{{=}}> \c david_db
+ david_db{{=}}> -- Display the rows in the shared table
+ david_db{{=}}> select * from mytable;
+ david_db{{=}}> -- Quit
+ david_db{{=}}> \q
+}}
+
+Ici, David révoque le droit d'accès de Kim :
+{{Command|psql -h cedar-pgsql-vm -d david_db
+ david_db{{=}}> -- Revoke kim's select-only access to a table called mytable
+ david_db{{=}}> revoke select on mytable from kim;
+ david_db{{=}}> -- Revoke kim's connect access to the database
+ david_db{{=}}> revoke connect on database david_db from kim;
+ david_db{{=}}> -- Quit
+ david_db{{=}}> \q
+}}
+
+== Serveur MySQL sur Graham ==
+Les étapes pour obtenir et utiliser un compte sur le serveur MySQL de Graham sont semblables à [[Database servers/fr#Serveur_MySQL_sur_Cedar|celles décrites ci-dessus pour Cedar]], sauf qu'il faut remplacer le module avec 
+ [name@server ~]$ module load mysql
+
+== Serveurs infonuagiques ==
+=== Bases de données à la demande (DBaaS) === 
+Si vous avez besoin de plus qu'une instance pour traiter votre base de données, vous pouvez utiliser MySQL/MariaDB ou Postgres sur un ordinateur physique.
+Les copies de sauvegarde se font chaque jour et sont conservées pour trois mois.
+Pour y accéder, contactez le [[Technical support/fr|soutien technique]].
+
+'''Dans votre demande, indiquez le réseau client ou l'adresse IP à partir de laquelle vous voulez accéder à la base de données.'''
+
+{| class="wikitable"
+|-
+! Type !! Nom de l'hôte !! Port TCP
+|-
+| mysql || dbaas101.arbutus.cloud.computecanada.ca || 3306
+|-
+| pgsql || dbaas101.arbutus.cloud.computecanada.ca || 5432
+|}
+
+[https://docs.computecanada.ca/mediawiki/images/5/58/Dbaas-ca.pem.zip Téléchargez le certificat de l'autorité d'authentification].
+
+=== PostgreSQL  ===
+Votre instance utilisera une connexion ssl pour se connecter à l'hôte DBaaS.
+Dans l'exemple suivant, la connexion se fait à l'hôte DBaaS par '''''user01''''' et utilise la base de données '''''dbinstance''''' via une connexion ssl.
+
+<pre>
+psql --set "sslmode=require" -h dbaas101.arbutus.cloud.computecanada.ca -U user01 -d dbinstance
+Password for user user01: 
+SSL connection (protocol: TLSv1.3, cipher: TLS_AES_256_GCM_SHA384, bits: 256, compression: off)
+dbinstance=> \l dbinstance
+                               List of databases
+    Name    | Owner  | Encoding |   Collate   |    Ctype    | Access privileges 
+------------+--------+----------+-------------+-------------+-------------------
+ dbinstance | user01 | UTF8     | en_US.UTF-8 | en_US.UTF-8 | user01=CTc/user01
+(1 row)
+</pre>
+
+La connexion ssl s'applique et les connexions en texte brut échoueront.
+
+=== MariaDB/MySQL ===
+Votre instance utilisera une connexion ssl pour se connecter à l'hôte DBaaS.
+Dans l'exemple suivant, la connexion se fait à l'hôte DBaaS par '''''user01''''' et utilise la base de données '''''dbinstance''''' via une connexion ssl.
+
+<pre>
+mysql --ssl -h dbaas101.arbutus.cloud.computecanada.ca -u user01 -p dbinstance
+Enter password: 
+MariaDB [dbinstance]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| dbinstance         |
+| information_schema |
++--------------------+
+2 rows in set (0.001 sec)
+</pre>
+
+Si vous essayez de vous connecter avec du texte brut, votre authentification échouera.
+
+<pre>
+mysql -h dbaas101.arbutus.cloud.computecanada.ca -u user01 -p dbinstance
+Enter password: 
+ERROR 1045 (28000): Access denied for user 'user01'@'client.arbutus' (using password: YES)
+</pre>
+
+[[Category:Cloud]]

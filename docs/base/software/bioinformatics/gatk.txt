@@ -1,0 +1,233 @@
+<languages />
+
+<translate>
+
+<!--T:1-->
+The [https://bio.tools/gatk Genome Analysis Toolkit (GATK)] is a set of bioinformatic tools for
+analyzing high-throughput sequencing (HTS) and variant call format (VCF)
+data. The toolkit is well established for germline short variant
+discovery from whole genome and exome sequencing data.
+It is a leading tool in variant discovery and [https://gatk.broadinstitute.org/hc/en-us/sections/360007226651-Best-Practices-Workflows best practices]
+for genomics research.
+
+==Availability and module loading == <!--T:2-->
+We provide several versions of GATK. To access the version information, use
+the [https://docs.computecanada.ca/wiki/Utiliser_des_modules/en <code>module</code> command]
+
+<!--T:3-->
+{{Commands
+|module spider gatk
+}}
+
+<!--T:4-->
+which gives you some information about GATK and versions
+<pre>
+gatk/3.7
+gatk/3.8
+gatk/4.0.0.0
+gatk/4.0.8.1
+gatk/4.0.12.0
+gatk/4.1.0.0
+gatk/4.1.2.0
+gatk/4.1.7.0
+gatk/4.1.8.0
+gatk/4.1.8.1
+gatk/4.2.2.0
+gatk/4.2.4.0
+gatk/4.2.5.0
+</pre>
+
+<!--T:5-->
+More specific information on any given version can be accessed with
+
+<!--T:6-->
+{{Commands
+|module spider gatk/4.1.8.1
+}}
+
+<!--T:7-->
+As you can see, this module only has the <code>StdEnv/2020</code> module as prerequisite
+so it can be loaded with
+
+<!--T:8-->
+{{Commands
+|module load StdEnv/2020 gatk/4.1.8.1
+}}
+
+<!--T:9-->
+or, given that <code>StdEnv/2020</code> is loaded by default, simply with
+
+<!--T:10-->
+{{Commands
+|module load gatk/4.1.8.1
+}}
+
+==General usage == <!--T:11-->
+The later versions of GATK (>=4.0.0.0) provide a wrapper over the Java executables (.jar). Loading the GATK modules will automatically set most of the environmental variables you will need to successfully run GATK.
+
+<!--T:12-->
+The <code>module spider</code> command also provides information on usage and some examples of the wrapper:
+<pre>
+      Usage
+      =====
+      gatk [--java-options "-Xmx4G"] ToolName [GATK args]
+      
+      
+      Examples
+      ========
+      gatk --java-options "-Xmx8G" HaplotypeCaller -R reference.fasta -I input.bam -O output.vcf
+</pre>
+
+<!--T:13-->
+As you probably notice, there are some arguments to be passed directly to Java through the <code>--java-options</code> such as the maximum heap memory (<code>-Xmx8G</code> in the example, reserving 8 Gb of memory for the virtual machine). We recommend that you <b>always</b> use <code>-DGATK_STACKTRACE_ON_USER_EXCEPTION=true</code> since it will give you more information in case the program fails. This information can help you or us (if you need support) to solve the issue.
+Note that all options passed to <code>--java-options</code> have to be within quotation marks.
+
+=== Considerations regarding our systems === <!--T:50-->
+ 
+To use GATK on our systems, we recommend that you use the <code>--tmp-dir</code> option and set it to <code>${SLURM_TMPDIR}</code> when in an <code>sbatch</code> job, so that the temporary files are redirected to the local storage.
+
+<!--T:51-->
+Also, when using <code>GenomicsDBImport</code>, make sure to have the option <code>--genomicsdb-shared-posixfs-optimizations</code> enabled as it will [https://gatk.broadinstitute.org/hc/en-us/articles/4414594350619-SelectVariants#--genomicsdb-shared-posixfs-optimizations Allow for optimizations to improve the usability and performance for shared Posix Filesystems(e.g. NFS, Lustre)]. If not possible or if you are using GNU parallel to run multiple intervals at the same time, please copy your database to <code>${SLURM_TMPDIR}</code> and run it from there as your IO operations might disrupt the filesystem. <code>${SLURM_TMPDIR}</code> is a local storage and therefore is not only faster, but the IO operations would not affect other users.
+
+===Earlier versions than GATK 4 === <!--T:14-->
+Earlier versions of GATK do not have the <code>gatk</code> command. Instead, you have to call the jar file:
+
+<!--T:15-->
+<pre>
+java -jar GenomeAnalysisTK.jar PROGRAM OPTIONS
+</pre>
+
+<!--T:16-->
+However, GenomeAnalysisTK.jar must be in PATH. On our systems, the environmental variables <code>$EBROOTPICARD</code> for Picard (included in GATK >= 4) and <code>$EBROOTGATK</code> for GATK contain the path to the jar file, so the appropriate way to call GATK <= 3 is
+
+<!--T:17-->
+<pre>
+module load nixpkgs/16.09 gatk/3.8
+java -jar "${EBROOTGATK}"/GenomeAnalysisTK.jar PROGRAM OPTIONS
+</pre>
+
+<!--T:18-->
+You can find the specific usage of GATK <= 3 in the [https://github.com/broadinstitute/gatk-docs/tree/master/gatk3-tooldocs GATK3 guide].
+
+===Multicore usage === <!--T:19-->
+Most  GATK (>=4) tools are not multicore by default. This means that you should request only one core when calling them. Some tools use threads in some of the computations (e.g. <code>Mutect2</code> has the <code>--native-pair-hmm-threads</code>) and therefore you can require more CPUs (most of them with up to 4 threads) for these computations. GATK4, however, does provide <b>some</b> Spark commands<ref> https://gatk.broadinstitute.org/hc/en-us/articles/360035890591-</ref>
+
+<!--T:46-->
+<blockquote>
+<b>Not all GATK tools use Spark</b>
+
+<!--T:47-->
+Tools that can use Spark generally have a note to that effect in their respective Tool Doc.
+
+<!--T:48-->
+* Some GATK tools exist in distinct Spark-capable and non-Spark-capable versions. The "sparkified" versions have the suffix "Spark" at the end of their names. Many of these are still experimental; down the road we plan to consolidate them so that there will be only one version per tool.
+
+<!--T:49-->
+* Some GATK tools only exist in a Spark-capable version. Those tools don't have the "Spark" suffix.
+</blockquote>
+
+<!--T:22-->
+For the commands that do use Spark, you can request multiple CPUs. <b>NOTE:</b> Please provide the exact number of CPUs to the <code>spark</code> command.  For example if you requested 10 CPUs, use <code>--spark-master local[10]</code> instead of <code>--spark-master local[*]</code>. If you want to use multiple nodes to scale the Spark cluster, you have to first [[Apache_Spark|deploy a SPARK cluster]] and then set the appropriate variables in the GATK command.
+
+==Running GATK via Apptainer== <!--T:36-->
+
+<!--T:37-->
+If you encounter errors like [https://gatk.broadinstitute.org/hc/en-us/community/posts/360067054832-GATK-4-1-7-0-error-java-lang-IllegalArgumentException-malformed-input-off-17635906-length-1 IllegalArgumentException] while using the installed modules on our clusters, we recommend that you try another workflow by using the program via [[Apptainer]].
+
+<!--T:38-->
+A Docker image of GATK can be found [https://hub.docker.com/r/broadinstitute/gatk here] and other versions are available on this [https://hub.docker.com/r/broadinstitute/gatk/tags page]. You will need first to build an Apptainer image from the Docker image; 
+to get the latest version for example, you can run the following commands on the cluster
+
+<!--T:40-->
+<pre>
+module load apptainer
+apptainer build gatk.sif docker://broadinstitute/gatk
+</pre>
+
+<!--T:41-->
+or to get a particular [https://hub.docker.com/r/broadinstitute/gatk/tags version]:
+
+<!--T:42-->
+<pre>
+module load apptainer
+apptainer build gatk_VERSION.sif docker://broadinstitute/gatk:VERSION
+</pre>
+
+<!--T:43-->
+In your [[Running jobs|SBATCH]] script, you should use something like this:
+
+<!--T:44-->
+<pre>
+module load apptainer
+apptainer exec -B /home -B /project -B /scratch -B /localscratch \
+    <path to the image>/gatk.sif gatk [--java-options "-Xmx4G"] ToolName [GATK args]</pre>
+
+<!--T:45-->
+For more information about Apptainer, watch the recorded [https://www.youtube.com/watch?v=bpmrfVqBowY Apptainer webinar].
+
+==Frequently asked questions == <!--T:23-->
+===How do I add a read group (RG) tag in my bam file? ===
+Assuming that you want to add a read group called <i>tag</i> to the file called <i>input.bam</i>, you can use the GATK/PICARD command [https://gatk.broadinstitute.org/hc/en-us/articles/360037226472-AddOrReplaceReadGroups-Picard- AddOrReplaceReadGroups]:
+<pre>
+gatk  AddOrReplaceReadGroups \
+    -I input.bam \
+    -O output.bam \
+    --RGLB tag \
+    --RGPL ILLUMINA 
+    --RGPU tag \
+    --RGSM tag \
+    --SORT_ORDER 'coordinate' \
+    --CREATE_INDEX true
+</pre>
+This assumes that your input file is sorted by coordinates and will generate an index along with the annotated output (<code>--CREATE_INDEX true</code>)
+
+===How do I deal with <code>java.lang.OutOfMemoryError: Java heap space</code> === <!--T:24-->
+Subprograms of GATK often require more memory to process your files. If you were not using the <code>-Xms</code> command, add it to the <code>--java-options</code>. For example, let's imagine that you run the following command:
+<pre>
+gatk MarkDuplicates \
+    -I input.bam \
+    -O marked_duplicates.bam \
+    -M marked_dup_metrics.txt 
+</pre>
+
+<!--T:25-->
+but it gives you the <code>java.lang.OutOfMemoryError: Java heap space</code> error. Try:
+
+<!--T:26-->
+<pre>
+gatk MarkDuplicates \
+    --java-options "-Xmx8G DGATK_STACKTRACE_ON_USER_EXCEPTION=true"
+    -I input.bam \
+    -O marked_duplicates.bam \
+    -M marked_dup_metrics.txt 
+</pre>
+
+<!--T:27-->
+If it fails again, keep increasing the memory until you find the required memory for your particular dataset. If you are using any of our systems, <b>remember to request enough memory for this</b>.
+
+<!--T:28-->
+If you are interested in knowing more about java heap space, you can start [https://plumbr.io/outofmemoryerror/java-heap-space here].
+
+===Increasing the heap memory does not fix <code>java.lang.OutOfMemoryError: Java heap space</code> === <!--T:29-->
+There are cases in which the memory issue cannot be fixed with increasing the heap memory. This often happens with non-model organisms, and you are using too many scaffolds in your reference. In this case it is recommended to remove small scaffolds and create subsets of your reference. This implies that you have to map multiple times and run the pipelines in each of the subsets. <b>This approach does not work for all pipelines</b> so review your results carefully. GATK is designed with the human genome in mind, and therefore other organisms will require adjustments in many parameters and pipelines.
+
+===Using more resources than asked for === <!--T:30-->
+Sometimes GATK/JAVA applications will use more memory or CPUs/threads than the numbers requested. This is often generated by the JAVA garbage collection. To control this, add <code>-XX:ConcGCThreads=1</code> to the <code>--java-options</code> argument. 
+
+===FAQ on GATK === <!--T:31-->
+You can find the [https://gatk.broadinstitute.org/hc/en-us/sections/360007226791-Troubleshooting-GATK4-Issues GATK FAQs on their website].
+
+=References = <!--T:32-->
+[https://gatk.broadinstitute.org/hc/en-us GATK Home]
+
+<!--T:33-->
+[https://gatk.broadinstitute.org/hc/en-us/articles/360035532012-Parallelism-Multithreading-Scatter-Gather GATK SPARK]
+
+<!--T:34-->
+[https://gatk.broadinstitute.org/hc/en-us/articles/360035889611-How-can-I-make-GATK-tools-run-faster- Make GATK tools run faster]
+
+<!--T:35-->
+[[Category:Bioinformatics]]
+[[Category:Software]]
+
+</translate>

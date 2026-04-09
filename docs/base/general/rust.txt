@@ -1,0 +1,66 @@
+<languages />
+<translate>
+
+<!--T:1-->
+[https://www.rust-lang.org/ Rust] is a multi-paradigm, high-level, general-purpose programming language. Rust emphasizes performance, type safety, and concurrency. Rust enforces memory safety — that is, that all references point to valid memory — without requiring the use of a garbage collector or reference counting present in other memory-safe languages.
+
+<!--T:2-->
+== Module ==
+The Rust compiler is available as a [[Utiliser_des_modules/en|module]].
+{{Command|module spider rust}}
+
+<!--T:3-->
+== Installing a crate ==
+A package written in Rust is called a [https://doc.rust-lang.org/book/ch07-01-packages-and-crates.html ''crate''].
+
+<!--T:4-->
+=== From Crates.io ===
+1. Load the required modules.
+{{Command|module load rust}}
+
+<!--T:5-->
+2. Build and install the crate locally. This must be done from a login node.
+{{Command|cargo install ungoliant}}
+
+<!--T:6-->
+3. Test the binary.
+{{Command|$HOME/.cargo/bin/ungoliant -h}}
+
+<!--T:7-->
+You can also add <code>.cargo/bin</code> to your <code>$PATH</code> with: <code>export PATH="$HOME/.cargo/bin:$PATH"</code>.
+
+<!--T:11-->
+=== From a Git repository ===
+1. Load the required modules.
+{{Command|module load rust}}
+
+<!--T:12-->
+2. Build and install the crate locally. This must be done from a login node.
+{{Command|cargo install --git https://github.com/username/repo-name}}
+
+<!--T:13-->
+3. Test the binary.
+{{Command|$HOME/.cargo/bin/<binname> -h}}
+
+<!--T:14-->
+You can also add <code>.cargo/bin</code> to your <code>$PATH</code> with: <code>export PATH="$HOME/.cargo/bin:$PATH"</code>.
+
+<!--T:8-->
+== Using the Rust nightly compiler ==
+Since some optimization features are not yet stable they are not part of the stable release, but nonetheless some crates make use of them.
+If you require the Rust nightly compiler, you can install it locally.
+
+<!--T:9-->
+1. Install the compiler as a local module.
+{{Command|eb Rust-1.53.0.eb --try-software-version{{=}}nightly --disable-enforce-checksums}}
+
+<!--T:10-->
+2. Load the local module.
+{{Command|module load rust/nightly}}
+
+<!--T:15-->
+== Clean up cache ==
+Cargo cache and registry can eat up a lot of space. You can reclaim space by removing the registry:
+{{Command|rm -r ~/.cargo/registry}}
+
+</translate>

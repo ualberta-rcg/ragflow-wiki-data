@@ -1,0 +1,194 @@
+<languages/>
+<translate>
+
+<!--T:20-->
+''Parent page: [[Managing your cloud resources with OpenStack]]''
+
+<!--T:21-->
+The [http://docs.openstack.org/developer/python-openstackclient/ OpenStack command line tool] allows you to perform many of the actions provided by the OpenStack dashboard GUI, as well as providing some functionality which the dashboard does not. The command line client can be used from any machine, virtual or otherwise, and only requires having an internet connection and the client installed. The discussion below assumes that it is being used on a Linux machine.
+
+==Installation== <!--T:22-->
+The OpenStack command lines tools are Python-based. You can install and run them on your personal computer or on a cloud VM. Different Linux distributions may have pre-built packages for the client, see the OpenStack [https://docs.openstack.org/user-guide/common/cli-install-openstack-command-line-clients.html installation documentation] for more details. You can quickly install both Python and the OpenStack command line tools, if you have administrative privileges on your machine.
+
+<!--T:38-->
+; Ubuntu
+<pre>
+sudo apt-get install python python-dev python-pip
+sudo pip install python-openstackclient
+</pre>
+; CentOS 7
+Run as root
+<pre>
+yum install epel-release
+yum install gcc python python-dev python2-pip
+pip install python-openstackclient
+</pre>
+; Fedora
+<pre>
+sudo dnf install python-openstackclient
+</pre>
+; Note: If you do not have administrative privileges and cannot use the OS package manager, then you will need to install Python and [https://pip.pypa.io/en/latest/installing/ pip] by other means. Once installed, you can get the command line tools installed into your home space like so:
+<pre>
+pip install --user python-openstackclient
+</pre>
+: The install location is probably already included in your <code>$PATH</code>, but you can double check whether <code>~/.bashrc</code> or <code>~/.bash_profile</code> contains the following line <code>PATH=$PATH:$HOME/.local/bin:$HOME/bin</code>
+
+<!--T:23-->
+; SDK
+If you wish to explore the [http://docs.openstack.org/user-guide/sdk.html OpenStack API for Python], add <code>export PYTHONPATH=${HOME}/.local/lib/python2.7/site-packages/:${PYTHONPATH}</code> to your <code>.bashrc</code> file. Adjust the <code>python2.7</code> phrase to match the Python version you have installed.
+
+==Connecting CLI to OpenStack== <!--T:25-->
+Your command line client must now be told how to find your OpenStack project on our clouds. 
+The most convenient way to do this is to download an OpenStack environment setup file. On the OpenStack dashboard go to Project-> API Access-> Download OpenStack RC File. 
+
+<!--T:27-->
+Then source the file with something like {{Command |source <project name>-openrc.sh}} It will ask you for your OpenStack password, which is simply your CCDB password. Test your setup by typing {{Command |openstack image list}}
+
+<!--T:28-->
+If you switch between different RC files you should be careful of environment variables which may still be set from the previous RC file, these may cause your OpenStack client commands to fail. Either ensure that all environment variables set in the RC file are unset with <code>unset <variable-name></code>, or start a fresh new session without any of the RC environment variables set.
+
+==Executing commands== <!--T:29-->
+The CLI tool can be used interactively by typing
+{{Command|openstack}}
+and then issuing commands at the prompt. Alternatively the commands can be issued as one-offs by preceding the command with <code>openstack</code>, for example
+{{Command|openstack server list}}
+When running in interactive mode a list of available commands can be seen by typing <code>help</code> at the OpenStack prompt. The available commands are categorized by groups; many of the most commonly used groups are listed below. A list of commands belonging to a command group can be obtained by typing <code>help <command group></code>. To get help on a particular command (e.g. options and arguments of the command) one can type <code>help <command group> <command></code>. Note that many commands are available only to OpenStack administrators and will return an error message if a non-administrator tries using it. For this reason a list of available commands grouped by command groups is provided below to allow one to easily identify commands available to the average user.
+
+==Command groups== <!--T:30-->
+===<code>server</code> command group===
+{|-
+|	<code>add security group</code>  ||	<code>migrate</code>	||	<code>resume</code>	||	<code>unlock</code>
+|-
+|	<code>add volume</code>	||	<code>pause</code>	||	<code>set</code>	||	<code>unpause</code>
+|-
+|	<code>create</code>	||	<code>reboot</code>	||	<code>shelve</code>	||	<code>unrescue</code>
+|-
+|	<code>delete</code>	||	<code>rebuild</code>	||	<code>show</code>	||	<code>unset</code>
+|-
+|	<code>dump create</code>	||	<code>remove security group</code>	||	<code>ssh</code>	||	<code>unshelve</code>
+|-
+|	<code>image create</code>	||	<code>remove volume</code>        	||	<code>start</code>	||	
+|-
+|	<code>list</code>	||	<code>rescue</code>  	||	<code>stop</code>		
+|-
+|	<code>lock</code>	||	<code>resize</code>	||	<code>suspend</code>		
+|}
+
+===<code>volume</code> command group=== <!--T:31-->
+{|-
+|<code>create</code>||<code>set</code>
+|-
+|<code>delete</code>||<code>show</code>
+|-
+|<code>list</code>||<code>unset</code>
+|}
+
+===<code>console</code> command group=== <!--T:32-->
+{|-
+|<code>log show</code>||<code>url show</code>
+|}
+===<code>flavor</code> command group===
+{|-
+|<code>list</code>||<code>show</code>
+|}
+===<code>image</code> command group===
+{|-
+|<code>create</code>
+|<code>save</code>
+|-
+|<code>delete</code>
+|<code>set</code>
+|-
+|<code>list</code>
+|<code>show</code>
+|}
+
+===<code>ip</code> command group=== <!--T:33-->
+{|-
+|<code>fixed add</code>||<code>floating list</code>
+|-
+|<code>fixed remove</code>||<code>floating pool list</code>
+|-
+|<code>floating add</code>||<code>floating remove</code>
+|-
+|<code>floating create</code>||<code>floating show</code>
+|-
+|<code>floating delete</code>
+|}
+===<code>keypair</code> command group===
+{|-
+|<code>create</code>||<code>list</code>
+|-
+|<code>delete</code>||<code>show</code>
+|}
+
+===<code>network</code> command group=== <!--T:34-->
+{|-
+|<code>create</code>||<code>set</code>
+|-
+|<code>delete</code>||<code>show</code>
+|-
+|<code>list</code>||
+|}
+
+===<code>snapshot</code> command group=== <!--T:35-->
+{|-
+|<code>create</code>||<code>set</code>
+|-
+|<code>delete</code>||<code>show</code>
+|-
+|<code>list</code>||<code>unset</code>
+|}
+
+===<code>security group</code> command group=== <!--T:36-->
+{|-
+|<code>create</code>||<code>rule list</code>
+|-
+|<code>delete</code>||<code>rule show</code>
+|-
+|<code>list</code>||<code>set</code>
+|-
+|<code>rule create</code>||<code>show</code>
+|-
+|<code>rule delete</code>||
+|}
+
+===<code>limits</code> command group=== <!--T:37-->
+{|-
+|<code>show </code>||
+|}
+<!--These two (container and object) are not widely publicized
+===container===
+{|-
+|<code>create</code>||<code>set</code>
+|-
+|<code>delete</code>||<code>show</code>
+|-
+|<code>list</code>||<code>unset</code>
+|-
+|<code>save</code>
+|}
+===object===
+{|-
+|<code>create</code>||<code>show</code>
+|-
+|<code>delete</code>||<code>store account set</code>
+|-
+|<code>list</code>||<code>store account show</code>
+|-
+|<code>save</code>||<code>store account unset</code>
+|-
+|<code>set</code>||<code>unset</code>
+|}
+-->
+
+==Separate Command-line interfaces== <!--T:40-->
+In addition to the <code>openstack</code> command described above which incorporates much of the total functionality available into one command there are also individual commands to work with the separate components of OpenStack which often have extra functionality. These separate commands are installed at the same time as the <code>openstack</code> command, as described above, so no further installation is required to use them. A list of the commands for working with common components of OpenStack are:
+* <code>nova</code>: for working with servers, see [https://docs.openstack.org/python-novaclient/latest/cli/nova.html OpenStack docs for nova command].
+* <code>glance</code>: for working with images, see [https://docs.openstack.org/python-glanceclient/latest/cli/glance.html OpenStack docs for glance command].
+* <code>cinder</code>: for working with volumes, see [https://docs.openstack.org/python-cinderclient/latest/user/shell.html OpenStack docs for cinder command].
+* <code>heat</code>: for working with orchestration, see [https://docs.openstack.org/python-heatclient/latest/man/heat.html OpenStack docs for heat command].
+
+<!--T:39-->
+[[Category: Cloud]]
+</translate>
