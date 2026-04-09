@@ -6,9 +6,9 @@ For each synced doc, downloads the page text from RAGFlow and generates:
   - Page-level Q&A pairs covering the whole document
   - Chunk-level Q&A pairs for each RAGFlow chunk (grounded in chunk + page context)
 
-Output:
-  completions/{doc_key}-page.json        Page-level Q&A pairs
-  completions/{doc_key}-chunk-{n}.json   Chunk-level Q&A pairs
+Output (mirrors docs/ directory layout):
+  completions/{lang}/{category}/{slug}/page.json        Page-level Q&A pairs
+  completions/{lang}/{category}/{slug}/chunk-{n}.json   Chunk-level Q&A pairs
 
 Tracks progress via completions_source_hash in processing-state.json.
 """
@@ -20,6 +20,9 @@ import re
 import time
 from pathlib import Path
 from datetime import datetime, timezone
+
+sys.path.insert(0, str(Path(__file__).parent))
+from shared import categorize_doc
 
 import google.generativeai as genai
 from ragflow_sdk import RAGFlow
@@ -106,8 +109,15 @@ Chunk (focus):
     return []
 
 
-def safe_filename(doc_key):
-    return doc_key.replace("/", "--")
+def get_output_dir(doc_key, doc_state):
+    """Mirror the docs/ directory layout: completions/{lang}/{category}/{slug}"""
+    cats = doc_state.get("wiki_categories", [])
+    subdir = categorize_doc(doc_key, cats)
+    lang = doc_state.get("lang", "base")
+    slug = doc_key.split("/")[-1] if "/" in doc_key else doc_key
+    out_dir = COMPLETIONS_DIR / lang / subdir / slug
+    out_dir.mkdir(parents=True, exist_ok=True)
+    return out_dir
 
 
 # --- Main ---
@@ -162,7 +172,7 @@ Document:
 
 
 def process_doc(dataset, doc_key, doc_state):
-    safe_name = safe_filename(doc_key)
+    out_dir = get_output_dir(doc_key, doc_state)
     ragflow_doc_id = doc_state.get("ragflow_doc_id", "")
 
     if not ragflow_doc_id:
@@ -180,8 +190,7 @@ def process_doc(dataset, doc_key, doc_state):
     # Page-level Q&A
     print(f"    Generating page-level Q&A...")
     page_qa = gen_page_qa(page_text)
-    page_qa_file = COMPLETIONS_DIR / f"{safe_name}-page.json"
-    page_qa_file.write_text(json.dumps({
+    (out_dir / "page.json").write_text(json.dumps({
         "doc_key": doc_key,
         "level": "page",
         "qa_pairs": page_qa,
@@ -205,8 +214,7 @@ def process_doc(dataset, doc_key, doc_state):
         print(f"    Chunk {i}/{len(available_chunks)}: generating Q&A...")
         qa_pairs = gen_qa_pairs(page_text, chunk.content)
 
-        qa_file = COMPLETIONS_DIR / f"{safe_name}-chunk-{i}.json"
-        qa_file.write_text(json.dumps({
+        (out_dir / f"chunk-{i}.json").write_text(json.dumps({
             "doc_key": doc_key,
             "level": "chunk",
             "chunk_index": i,
