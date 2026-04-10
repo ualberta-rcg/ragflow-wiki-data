@@ -1,0 +1,149 @@
+---
+title: "BLAST/fr"
+tags:
+  - software
+
+keywords:
+  []
+---
+
+BLAST (pour *Basic Local Alignment Search Tool*) permet de trouver les régions similaires entre deux ou plusieurs séquences de nucléotides ou d'acides aminés, et de réaliser un alignement de ces régions homologues.
+
+## Manuel de l'utilisateur 
+Vous trouverez plus d'information sur les arguments dans le  [manuel de l'utilisateur](https://www.ncbi.nlm.nih.gov/books/NBK279684/) ou en lançant la commande 
+
+```bash
+blastn -help
+```
+
+## Bases de données 
+Certaines bases de données de séquences fréquemment utilisées se trouvent sur nos grappes dans `/cvmfs/bio.data.computecanada.ca/content/databases/Core/blast_dbs/2022_03_23/`. 
+
+Les plus récentes versions des bases de données se trouvent
+
+* pour `nr` (*NCBI non-redundant protein*), dans `/cvmfs/bio.data.computecanada.ca/content/databases/Core/blast_dbs/2025_06_21/nr/nr`
+
+*pour `nt` (* non-redundant nucleotide *), dans  `/cvmfs/bio.data.computecanada.ca/content/databases/Core/blast_dbs/2025_06_21/nt/nt`
+
+## Accélérer la recherche 
+Dans les exemples qui suivent, le fichier <tt>ref.fa</tt> est utilisé comme base de référence au format FASTA et le fichier <tt>seq.fa</tt> pour les requêtes à faire.
+
+### <tt>makeblastdb</tt> 
+Avant d'exécuter une recherche, il faut préparer la base de données. Ceci peut se faire par une tâche de prétraitement, avec les autres tâches dépendantes du résultat de la tâche <tt>makeblastdb</tt>.
+Voici un exemple d'un script de soumission :
+
+**`makeblastdb.sh`**
+```bash
+#!/bin/bash
+
+#SBATCH --account=def-<user>  # The account to use
+#SBATCH --time=00:02:00       # The duration in HH:MM:SS format
+#SBATCH --cpus-per-task=1     # The number of cores
+#SBATCH --mem=512M            # Total memory for this task
+
+module load gcc/7.3.0 blast+/2.9.0
+
+# Create the nucleotide database based on `ref.fa`.
+makeblastdb -in ref.fa -title reference -dbtype nucl -out ref.fa
+```
+
+### Vecteur de tâches 
+Le parallélisme des données peut grandement améliorer la recherche; il s'agit de diviser le fichier de requêtes en plusieurs requêtes à la base de données.
+
+#### Prétraitement 
+Pour accélérer la recherche, le fichier <tt>seq.fa</tt> doit être divisé en plusieurs petites parts. Ces parts devraient être d'au moins <tt>1Mo</tt>; des parts plus petites pourraient nuire au système de fichiers parallèle.
+
+Avec l'utilitaire <tt>faSplit</tt>, 
+
+```bash
+module load kentutils/20180716
+```
+
+```bash
+faSplit sequence seqs.fa 10 seq
+```
+
+créent 10 fichiers nommés <tt>seqN.fa</tt> où <tt>N</tt> représente <tt>[0..9]</tt> pour 10 requêtes (séquences).
+
+#### Soumettre une tâche 
+Une fois que les requêtes sont séparées, vous pouvez créer une tâche pour chaque fichier <tt>seq.fa.N</tt> avec un vecteur de tâches. L'identifiant de la tâche contenu dans le vecteur correspondra au nom du fichier où se trouvent les requêtes à exécuter.
+
+Avec cette solution, l'ordonnanceur peut utiliser les ressources de la grappe qui sont disponibles pour exécuter les plus petites tâches. 
+{{File
+  |name=blastn_array.sh
+  |lang="bash"
+  |contents=
+#!/bin/bash
+
+#SBATCH --account=def-<user>  # The account to use
+#SBATCH --time=00:02:00       # The duration in HH:MM:SS format of each task in the array
+#SBATCH --cpus-per-task=1     # The number of cores for each task in the array
+#SBATCH --mem-per-cpu=512M    # The memory per core for each task in the array
+#SBATCH --array=0-9           # The number of tasks: 10
+
+module load gcc/7.3.0 blast+/2.9.0
+
+# Using the index of the current task, given by `$SLURM_ARRAY_TASK_ID`, run the corresponding query and write the result
+blastn -db ref.fa -query seq.fa.${SLURM_ARRAY_TASK_ID} > seq.ref.${SLURM_ARRAY_TASK_ID}
+}}
+
+Avec le script ci-dessus, vous pouvez soumettre votre requête BLAST et elle sera exécutée après que la base de données aura été créée. 
+
+```bash
+
+```
+afterok:$(sbatch makeblastdb.sh) blastn_array.sh}}
+
+Quand toutes les tâches du vecteur sont terminées, concaténez les résultats avec
+{{Command|cat seq.ref.{0..9} > seq.ref}}
+où les 10 fichiers sont concaténés dans <tt>seq.ref</tt>.
+Ceci peut s'effectuer à partir du nœud de connexion ou comme tâche indépendante une fois que toutes les tâches du vecteur sont terminées.
+
+### GNU Parallel 
+<tt>GNU Parallel</tt> est un bon outil pour grouper plusieurs petites tâches en une et la paralléliser. Cette solution réduit les problèmes qui se produisent avec plusieurs petits fichiers dans un système de fichiers parallèle avec des requêtes sur des blocs de taille fixe dans <tt>seq.fa</tt> avec un cœur et plusieurs nœuds.
+
+Par exemple, pour le fichier <tt>seq.fa</tt> de <tt>100Mo</tt>, vous pourriez lire des blocs de <tt>10Mo</tt> et GNU Parallel créerait 3 tâches, utilisant ainsi 3 cœurs; en demandant 10 cœurs, ce sont 7 cœurs qui auraient été gaspillés. **La taille des blocs est donc importante.** On peut aussi laisser GNU Parallel décider, comme dans l'exemple ci-dessous.
+
+Voir aussi [Travailler avec des fichiers volumineux](gnu-parallel-fr#travailler_avec_des_fichiers_volumineux.md) dans la page sur GNU Parallel.
+
+#### Utiliser plusieurs cœurs dans un nœud
+
+**`blastn_gnu.sh`**
+```bash
+#!/bin/bash
+
+#SBATCH --account=def-<user>  # The account to use
+#SBATCH --time=00:02:00       # The duration in HH:MM:SS format
+#SBATCH --cpus-per-task=4     # The number of cores
+#SBATCH --mem-per-cpu=512M    # The memory per core
+
+module load gcc/7.3.0 blast+/2.9.0
+
+cmd='blastn -db ref.fa -query - '
+
+# Using the `::::` notation, give the sequences file to GNU parallel
+# where
+#   --jobs number of core to use, equal $SLURM_CPUS_PER_TASK (the number of cores requested)
+#   --keep-order keep same order as given in input
+#   --block -1 let GNU Parallel evaluate the block size and adapt
+#   --recstart record start, here the sequence identifier `>`
+#   --pipepart pipe parts of $cmd together. 
+#              `--pipepart` is faster than `--pipe` (which is limited to 500MB/s) as `--pipepart` can easily go to 5GB/s according to Ole Tange.
+# and redirect results in `seq.ref`.
+parallel --jobs $SLURM_CPUS_PER_TASK --keep-order --block -1 --recstart '>' --pipepart $cmd :::: seq.fa > seq.ref
+```
+
+Note : Le fichier ne doit pas être compressé.
+
+===== Soumettre une tâche =====
+Avec le script ci-dessus, vous pouvez soumettre votre requête BLAST et elle sera exécutée après que la base de données aura été créée. 
+
+```bash
+
+```
+afterok:$(sbatch makeblastdb.sh) blastn_gnu.sh}}
+
+### Additional tips 
+* Si le stockage local du nœud le permet, copiez votre base de données FASTA dans l'espace local /scratch (<tt>$SLURM_TMPDIR</tt>).
+* Si votre recherche s'y prête, réduisez le nombre de réponses (`-max_target_seqs, -max_hsps`).
+* Si votre recherche s'y prête, limitez la liste des réponses avec des filtres `-evalue` pour ne conserver que les réponses quasi identiques.

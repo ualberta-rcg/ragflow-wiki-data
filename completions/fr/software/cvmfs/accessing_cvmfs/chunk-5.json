@@ -1,0 +1,112 @@
+{
+  "doc_key": "fr/accessing_cvmfs",
+  "level": "chunk",
+  "chunk_index": 5,
+  "qa_pairs": [
+    {
+      "question": "Comment faire pour tester la configuration de CVMFS?",
+      "answer": "Pour valider la configuration, il faut rouler la commande `sudo cvmfs_config chksetup`. N'oubliez pas de vous assurer que les répertoires à tester sont ben dans `CVMFS_REPOSITORIES` avant."
+    },
+    {
+      "question": "Que faire si j'ai des avertissements ou des erreurs après avoir testé la configuration CVMFS?",
+      "answer": "Il faut vous assurer de régler tous les avertissements ou erreurs qui pourraient surgir après la validation de la configuration."
+    },
+    {
+      "question": "Comment puis-je vérifier les répertoires CVMFS une fois la configuration faite?",
+      "answer": "Vous pouvez vérifier les répertoires en utilisant la commande `cvmfs_config probe`."
+    },
+    {
+      "question": "Où puis-je trouver de l'aide si j'ai des problèmes pendant le test de CVMFS?",
+      "answer": "En cas de problème, un guide de débogage est disponible pour vous aider."
+    },
+    {
+      "question": "Comment activer l'environnement logiciel une fois que le répertoire CVMFS est monté?",
+      "answer": "Pour activer l'environnement, vous devez utiliser le script `/cvmfs/soft.computecanada.ca/config/profile/bash.sh` dans votre session."
+    },
+    {
+      "question": "Qu'est-ce que le script d'activation `/cvmfs/soft.computecanada.ca/config/profile/bash.sh` fait par défaut?",
+      "answer": "Ce script va charger des modules par défaut pour vous."
+    },
+    {
+      "question": "Comment charger les modules par défaut d'une grappe de calcul spécifique?",
+      "answer": "Vous devez définir la variable `CC_CLUSTER` avec la valeur de la grappe désirée (comme `fir`, `nibi` ou `rorqual`) avant d'exécuter le script d'activation. Par exemple: `export CC_CLUSTER=rorqual` puis `source /cvmfs/soft.computecanada.ca/config/profile/bash.sh`."
+    },
+    {
+      "question": "Pourquoi la commande d'activation de l'environnement ne s'exécuterait-elle pas pour certains utilisateurs?",
+      "answer": "La commande ne s'exécute pas si votre identifiant d'utilisateur est en dessous de 1000. C'est une mesure de sécurité pour éviter de procurer des privilèges de fonctionnement indus."
+    },
+    {
+      "question": "Comment forcer l'activation de l'environnement si mon identifiant d'utilisateur est sous 1000?",
+      "answer": "Pour l'activer temporairement, vous pouvez définir la variable `FORCE_CC_CVMFS=1` avec la commande `export FORCE_CC_CVMFS=1`. Pour une activation permanente, créez le fichier `$HOME/.force_cc_cvmfs` dans votre répertoire `/home` avec `touch $HOME/.force_cc_cvmfs`."
+    },
+    {
+      "question": "Comment désactiver l'environnement logiciel si je ne veux pas qu'il soit actif?",
+      "answer": "Vous pouvez définir la variable `SKIP_CC_CVMFS=1` ou créer le fichier `$HOME/.skip_cc_cvmfs` pour empêcher l'activation de l'environnement."
+    },
+    {
+      "question": "Comment puis-je personnaliser mon environnement logiciel?",
+      "answer": "Par défaut, l'activation de l'environnement détecte automatiquement certaines fonctionnalités du système et charge les modules requis. Vous pouvez modifier ce comportement en définissant des variables d'environnement spécifiques avant l'activation."
+    },
+    {
+      "question": "À quoi sert la variable d'environnement `CC_CLUSTER`?",
+      "answer": "La variable `CC_CLUSTER` identifie la grappe, achemine des renseignements au journal du système et définit le comportement à adopter selon la licence du logiciel."
+    },
+    {
+      "question": "Quelle est la valeur par défaut de la variable `CC_CLUSTER`?",
+      "answer": "Sa valeur par défaut est `computecanada`."
+    },
+    {
+      "question": "Comment puis-je utiliser la variable `CC_CLUSTER` pour identifier les journaux de mon système?",
+      "answer": "Vous pouvez définir la valeur de `CC_CLUSTER` pour qu'elle corresponde au nom de votre système, ce qui identifiera les journaux en conséquence."
+    },
+    {
+      "question": "À quoi sert la variable d'environnement `RSNT_ARCH`?",
+      "answer": "Cette variable identifie le jeu d'instructions CPU pour le système."
+    },
+    {
+      "question": "Comment la variable `RSNT_ARCH` est-elle détectée par défaut?",
+      "answer": "Elle est détectée automatiquement selon les infos trouvées dans `/proc/cpuinfo`."
+    },
+    {
+      "question": "Quels sont les jeux d'instructions CPU possibles que je peux spécifier avec `RSNT_ARCH`?",
+      "answer": "Les jeux possibles sont `sse3`, `avx`, `avx2` ou `avx512`."
+    },
+    {
+      "question": "À quoi sert la variable d'environnement `RSNT_INTERCONNECT`?",
+      "answer": "Cette variable identifie le type d'interconnexion réseau du système."
+    },
+    {
+      "question": "Comment la variable `RSNT_INTERCONNECT` est-elle détectée automatiquement?",
+      "answer": "Elle est détectée automatiquement selon la présence de `/sys/module/opa_vnic` pour OmniPath ou de `/sys/module/ib_core` pour InfiniBand."
+    },
+    {
+      "question": "Quelle est la valeur de remplacement par défaut pour `RSNT_INTERCONNECT` si aucune interconnexion spécifique n'est détectée?",
+      "answer": "La valeur de remplacement par défaut est `ethernet`."
+    },
+    {
+      "question": "Quelles sont les valeurs possibles que je peux attribuer à la variable `RSNT_INTERCONNECT`?",
+      "answer": "Les valeurs possibles sont `omnipath`, `infiniband` ou `ethernet`."
+    },
+    {
+      "question": "Quel est l'impact de la valeur de la variable `RSNT_INTERCONNECT`?",
+      "answer": "La valeur de cette variable déclenche des options différentes du protocole de transport pour OpenMPI."
+    },
+    {
+      "question": "À quoi sert la variable d'environnement `RSNT_CUDA_DRIVER_VERSION`?",
+      "answer": "Cette variable est utilisée pour masquer ou afficher les versions de nos modules CUDA selon les versions requises pour les pilotes NVidia."
+    },
+    {
+      "question": "Que se passe-t-il si la variable `RSNT_CUDA_DRIVER_VERSION` n'est pas définie?",
+      "answer": "Si la variable n'est pas définie, ce sont les fichiers qui se trouvent dans `/usr/lib64/nvidia` qui déterminent quelles versions afficher ou cacher."
+    },
+    {
+      "question": "Quelle est l'hypothèse faite si aucune bibliothèque n'est trouvée dans `/usr/lib64/nvidia`?",
+      "answer": "Nous supposons que les versions du pilote sont suffisantes pour CUDA 10.2, afin d'assurer la compatibilité avec les versions antérieures puisque cette fonctionnalité a été ajoutée avec la sortie de CUDA 11.0."
+    },
+    {
+      "question": "Comment puis-je masquer toutes les versions de CUDA?",
+      "answer": "Vous pouvez masquer toutes les versions de CUDA en définissant la variable d'environnement `RSNT_CUDA_DRIVER_VERSION=0.0`."
+    }
+  ],
+  "generated_at": "2026-04-10T00:46:23.208237+00:00"
+}

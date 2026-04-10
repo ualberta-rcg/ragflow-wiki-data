@@ -1,0 +1,84 @@
+{
+  "doc_key": "fr/abaqus",
+  "level": "chunk",
+  "chunk_index": 3,
+  "qa_pairs": [
+    {
+      "question": "Quel type de script Abaqus devrait-on utiliser pour une tâche sur un nœud simple d'une durée de moins de 24 heures?",
+      "answer": "Pour une tâche Abaqus sur un nœud simple dont la durée est de moins de 24 heures, on devrait utiliser le script du répertoire /project qui se trouve sous le premier onglet."
+    },
+    {
+      "question": "Que doit-on utiliser pour une tâche Abaqus de plus longue durée?",
+      "answer": "Pour une tâche Abaqus de plus longue durée, il faut utiliser un script de redémarrage."
+    },
+    {
+      "question": "Où est-il préférable que les tâches Abaqus qui créent des fichiers de redémarrage volumineux écrivent leurs données?",
+      "answer": "Il est préférable que les tâches Abaqus qui génèrent des fichiers de redémarrage volumineux écrivent sur le disque local en utilisant la variable d'environnement SLURM_TMPDIR, disponible dans les scripts de répertoire temporaire."
+    },
+    {
+      "question": "Pourquoi les scripts de redémarrage sont-ils utiles pour les tâches Abaqus?",
+      "answer": "Les scripts de redémarrage permettent de poursuivre les tâches Abaqus qui ont été interrompues prématurément, que ce soit à cause de l'atteinte du temps d'exécution maximal ou d'une défaillance matérielle."
+    },
+    {
+      "question": "Quelles sont les causes possibles d'une interruption prématurée d'une tâche Abaqus?",
+      "answer": "Une tâche Abaqus peut être interrompue prématurément si elle atteint son temps d'exécution maximal demandé et est arrêtée par la file d'attente, ou si le nœud de calcul où la tâche s'exécutait plante en raison d'une défaillance matérielle inattendue."
+    },
+    {
+      "question": "Peut-on modifier le fichier d'entrée pour d'autres types de redémarrage d'une tâche Abaqus?",
+      "answer": "Oui, il est possible de modifier le fichier d'entrée pour continuer une tâche Abaqus avec des étapes supplémentaires ou pour modifier l'analyse, permettant ainsi d'autres types de redémarrage."
+    },
+    {
+      "question": "Quel type de scripts est recommandé pour les tâches Abaqus qui demandent beaucoup de mémoire ou de ressources de calcul au-delà d'un nœud simple?",
+      "answer": "Pour les tâches Abaqus qui exigent beaucoup de mémoire ou de ressources de calcul (plus que la capacité d'un nœud simple), on devrait utiliser les scripts MPI dans les sections pour nœuds multiples."
+    },
+    {
+      "question": "Que recommande-t-on de faire avant de lancer des tâches Abaqus de longue durée?",
+      "answer": "Avant de lancer des tâches Abaqus de longue durée, il est recommandé d'exécuter de courts tests de scalabilité pour déterminer la durée réelle d'exécution et les exigences en mémoire en fonction du nombre optimal de cœurs."
+    },
+    {
+      "question": "Quels sont les modes de parallélisation pris en charge par les solveurs d'Abaqus pour l'analyse standard?",
+      "answer": "Pour l'analyse standard, les solveurs d'Abaqus prennent en charge la parallélisation avec des fils (threads) et avec MPI."
+    },
+    {
+      "question": "Où sont présentés les scripts pour l'analyse standard avec un nœud simple et des nœuds multiples?",
+      "answer": "Les scripts pour l'analyse standard sont présentés sous les onglets dédiés à l'utilisation d'un nœud simple et à celle de nœuds multiples."
+    },
+    {
+      "question": "Est-ce qu'il existe des scripts de redémarrage pour les tâches Abaqus utilisant des nœuds multiples dans la documentation actuelle?",
+      "answer": "Non, des scripts pour redémarrer une tâche Abaqus qui utilise des nœuds multiples ne sont pas présentés pour l'instant."
+    },
+    {
+      "question": "Quel est le but du paramètre Slurm `--account=def-group` dans un script Abaqus?",
+      "answer": "Le paramètre Slurm `--account=def-group` sert à spécifier le compte associé à la tâche Abaqus."
+    },
+    {
+      "question": "Comment spécifie-t-on la limite de temps pour une tâche Abaqus dans un script Slurm?",
+      "answer": "La limite de temps pour une tâche Abaqus est spécifiée avec le paramètre Slurm `--time=JOURS-HEURES:MINUTES`, par exemple `--time=00-06:00`."
+    },
+    {
+      "question": "Comment le nombre de cœurs par tâche est-il spécifié dans le script Slurm pour Abaqus?",
+      "answer": "Le nombre de cœurs par tâche est spécifié à l'aide du paramètre Slurm `--cpus-per-task=X`, par exemple `--cpus-per-task=4`."
+    },
+    {
+      "question": "Quel paramètre Slurm est utilisé pour définir la mémoire totale requise par le nœud dans un script Abaqus?",
+      "answer": "Le paramètre Slurm `--mem=8G` (ou une autre valeur) est utilisé pour spécifier la mémoire totale requise par le nœud pour une tâche Abaqus."
+    },
+    {
+      "question": "Quel est le nombre de nœuds par défaut spécifié dans le script Abaqus pour un nœud simple?",
+      "answer": "Le nombre de nœuds par défaut spécifié dans le script Abaqus pour un nœud simple est de `1` (`#SBATCH --nodes=1`)."
+    },
+    {
+      "question": "Quelle est la version d'Abaqus chargée par défaut dans le script d'analyse standard pour un nœud simple?",
+      "answer": "La version d'Abaqus chargée par défaut dans le script d'analyse standard pour un nœud simple est `abaqus/2026`."
+    },
+    {
+      "question": "Quel est le mode de parallélisation utilisé dans le script Abaqus pour un nœud simple?",
+      "answer": "Dans le script Abaqus pour un nœud simple, le mode de parallélisation utilisé est `mp_mode=threads` (parallélisation avec des fils)."
+    },
+    {
+      "question": "Comment la mémoire est-elle calculée pour la commande Abaqus dans les scripts pour un nœud simple?",
+      "answer": "La mémoire pour la commande Abaqus est calculée en soustrayant 3072 Mo de la mémoire par nœud (`$((${SLURM_MEM_PER_NODE}-3072))MB`)."
+    }
+  ],
+  "generated_at": "2026-04-10T00:34:12.831937+00:00"
+}

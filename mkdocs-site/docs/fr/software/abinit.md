@@ -6,9 +6,9 @@ tags:
 
 keywords:
   - données atomiques
+  - théorie de la fonctionnelle de la densité
   - script de tâche
   - ABINIT
-  - théorie de la fonctionnelle de la densité
   - propriétés des matériaux
 ---
 

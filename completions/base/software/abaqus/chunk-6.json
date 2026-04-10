@@ -1,0 +1,80 @@
+{
+  "doc_key": "base/abaqus",
+  "level": "chunk",
+  "chunk_index": 6,
+  "qa_pairs": [
+    {
+      "question": "What is the purpose of the `scriptst2.txt` script?",
+      "answer": "The `scriptst2.txt` script is a template for restarting single-node Abaqus Standard Analysis jobs that utilize a temporary directory (`$SLURM_TMPDIR`) for data."
+    },
+    {
+      "question": "Which Abaqus module is loaded by default in the `scriptst2.txt` script?",
+      "answer": "The `abaqus/2026` module, which is the latest version, is loaded by default in the `scriptst2.txt` script."
+    },
+    {
+      "question": "What Slurm directives configure resource allocation in the `scriptst2.txt` script?",
+      "answer": "The script uses the following Slurm directives: `#SBATCH --account=def-group`, `#SBATCH --time=00-06:00`, `#SBATCH --cpus-per-task=4`, `#SBATCH --mem=8G`, and `#SBATCH --nodes=1`."
+    },
+    {
+      "question": "How are the Abaqus license file paths referenced in the `scriptst2.txt` script?",
+      "answer": "The script references the `LM_LICENSE_FILE` and `ABAQUSLM_LICENSE_FILE` environment variables by echoing their values."
+    },
+    {
+      "question": "What initial file management steps are performed by the `scriptst2.txt` script with respect to `$SLURM_TMPDIR`?",
+      "answer": "The script copies `testst1*` files to `$SLURM_TMPDIR`, creates a `scratch` subdirectory within `$SLURM_TMPDIR`, and then changes the current working directory to `$SLURM_TMPDIR`."
+    },
+    {
+      "question": "How does the `scriptst2.txt` script ensure data is saved periodically during a job run?",
+      "answer": "It includes a background loop (`while sleep 6h; do ... done &`) that periodically copies `testst2*` files from `$SLURM_TMPDIR` back to `$SLURM_SUBMIT_DIR`, with a message \"Saving data due to time limit ...\"."
+    },
+    {
+      "question": "What Abaqus command is executed in `scriptst2.txt` for jobs using Abaqus 2026 or newer?",
+      "answer": "For Abaqus 2026 or newer, the script executes: `abaqus job=testst2 oldjob=testst1 input=$SLURM_SUBMIT_DIR/mystd-sim-restart.inp scratch=$SLURM_TMPDIR/scratch cpus=$SLURM_CPUS_ON_NODE interactive mp_mode=threads memory=\"$((${SLURM_MEM_PER_NODE}-3072))MB\"`."
+    },
+    {
+      "question": "What specific content must the restart input file for Abaqus Standard Analysis contain when using `scriptst2.txt`?",
+      "answer": "The restart input file should contain `*HEADING` and `*RESTART, READ`."
+    },
+    {
+      "question": "What environment variables are explicitly displayed (echoed) at the beginning of the `scriptst2.txt` execution?",
+      "answer": "The environment variables `LM_LICENSE_FILE`, `ABAQUSLM_LICENSE_FILE`, `SLURM_SUBMIT_DIR`, and `SLURM_TMPDIR` are echoed to display their current values."
+    },
+    {
+      "question": "What is the purpose of `unset SLURM_GTIDS` and `export MPI_IC_ORDER='tcp'` in the `scriptst2.txt` script?",
+      "answer": "`unset SLURM_GTIDS` clears the `SLURM_GTIDS` environment variable, and `export MPI_IC_ORDER='tcp'` sets the MPI interconnect order to TCP."
+    },
+    {
+      "question": "For what types of users is the multiple node computing script intended?",
+      "answer": "The multiple node computing script is intended for users with large memory or compute needs and correspondingly access to large Abaqus licenses."
+    },
+    {
+      "question": "What kind of parallelization does the multiple node computing script use?",
+      "answer": "It performs MPI-based computing over an arbitrary range of nodes."
+    },
+    {
+      "question": "Why are restart scripts not provided for multi-node jobs?",
+      "answer": "Companion template scripts to perform restarts of multi-node jobs are not provided due to additional limitations when they can be used."
+    },
+    {
+      "question": "Which Abaqus versions can be used with the multiple node computing script?",
+      "answer": "Only Abaqus 2026 or newer may be used with the multiple node computing script."
+    },
+    {
+      "question": "What Slurm directives are specified in the `scriptsp1-mpi.txt` script for multiple node computing?",
+      "answer": "The script specifies `#SBATCH --account=def-group`, `#SBATCH --time=00-06:00`, `#SBATCH --ntasks=8`, `#SBATCH --mem-per-cpu=4G`, and `#SBATCH --cpus-per-task=1`. Optional directives include `--nodes=2` and `--tasks-per-node=4`."
+    },
+    {
+      "question": "How does the `scriptsp1-mpi.txt` script generate the `mp_host_list` for Abaqus?",
+      "answer": "The script uses `slurm_hl2hl.py` to obtain the node list, then processes it to create a formatted string of hostnames and core counts (e.g., `['hostname', count]`), which is assigned to `mp_host_list`, exported, and written to `abaqus_v6.env`."
+    },
+    {
+      "question": "What is the primary Abaqus command used for a multiple node MPI job within the `scriptsp1-mpi.txt` script?",
+      "answer": "The primary Abaqus command is `abaqus job=testsp1-mpi input=mystd-sim.inp scratch=$SLURM_TMPDIR cpus=$SLURM_NTASKS interactive mp_mode=mpi`."
+    },
+    {
+      "question": "Which Abaqus module is specified to be loaded in the `scriptsp1-mpi.txt` script?",
+      "answer": "The `abaqus/2026` module, referred to as the latest version, is loaded in the `scriptsp1-mpi.txt` script."
+    }
+  ],
+  "generated_at": "2026-04-10T00:25:20.738408+00:00"
+}

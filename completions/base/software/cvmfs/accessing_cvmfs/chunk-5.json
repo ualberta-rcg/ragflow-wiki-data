@@ -1,0 +1,84 @@
+{
+  "doc_key": "base/accessing_cvmfs",
+  "level": "chunk",
+  "chunk_index": 5,
+  "qa_pairs": [
+    {
+      "question": "How do I enable the software environment after mounting the CVMFS repository?",
+      "answer": "You can enable the software environment in your session by running the bash script `/cvmfs/soft.computecanada.ca/config/profile/bash.sh`. For example, `source /cvmfs/soft.computecanada.ca/config/profile/bash.sh`."
+    },
+    {
+      "question": "How can I configure the environment to mimic a specific cluster like 'rorqual'?",
+      "answer": "To mimic a specific cluster, such as 'rorqual', you should define the environment variable `CC_CLUSTER` to `rorqual` (e.g., `export CC_CLUSTER=rorqual`) before sourcing the bash script `/cvmfs/soft.computecanada.ca/config/profile/bash.sh`."
+    },
+    {
+      "question": "Why would the command to enable the environment not run for a specific user?",
+      "answer": "The command will not run if your user ID is below 1000. This is a safeguard to ensure you do not rely on the software environment for privileged operations."
+    },
+    {
+      "question": "What should I do if my user ID is below 1000 but I need to enable the environment anyway?",
+      "answer": "To enable the environment for a user ID below 1000, you can either define the environment variable `FORCE_CC_CVMFS=1` using `export FORCE_CC_CVMFS=1`, or create a file named `$HOME/.force_cc_cvmfs` in your home folder using `touch $HOME/.force_cc_cvmfs` to make it always active."
+    },
+    {
+      "question": "How can I prevent the software environment from being enabled in a particular account?",
+      "answer": "You can prevent the environment from being enabled by defining `SKIP_CC_CVMFS=1` or by creating the file `$HOME/.skip_cc_cvmfs` in your home folder."
+    },
+    {
+      "question": "How can I customize the default behaviour of the software environment?",
+      "answer": "You can customize the default behaviour of the software environment by defining specific environment variables prior to enabling the environment."
+    },
+    {
+      "question": "What is the purpose of the `CC_CLUSTER` environment variable?",
+      "answer": "The `CC_CLUSTER` environment variable is used to identify a cluster, send information to system logs, and define behaviour related to licensed software."
+    },
+    {
+      "question": "What is the default value of the `CC_CLUSTER` environment variable?",
+      "answer": "By default, the `CC_CLUSTER` environment variable's value is `computecanada`."
+    },
+    {
+      "question": "What does the `RSNT_ARCH` environment variable identify?",
+      "answer": "The `RSNT_ARCH` environment variable is used to identify the set of CPU instruction sets supported by the system."
+    },
+    {
+      "question": "How is the `RSNT_ARCH` variable typically detected, and what are the supported instruction sets?",
+      "answer": "By default, `RSNT_ARCH` is automatically detected based on `/proc/cpuinfo`. The supported instruction sets are `sse3`, `avx`, `avx2`, and `avx512`. You can force a specific one by defining it before enabling the environment."
+    },
+    {
+      "question": "What is the role of the `RSNT_INTERCONNECT` environment variable?",
+      "answer": "The `RSNT_INTERCONNECT` environment variable identifies the type of interconnect supported by the system. Its value triggers different options of transport protocol to be used in OpenMPI."
+    },
+    {
+      "question": "How is the `RSNT_INTERCONNECT` variable detected, and what are its supported values?",
+      "answer": "It is automatically detected based on the presence of `/sys/module/opa_vnic` (for Intel OmniPath) or `/sys/module/ib_core` (for InfiniBand). The fall-back value is `ethernet`. Supported values are `omnipath`, `infiniband`, and `ethernet`."
+    },
+    {
+      "question": "What is the function of the `RSNT_CUDA_DRIVER_VERSION` environment variable?",
+      "answer": "The `RSNT_CUDA_DRIVER_VERSION` environment variable is used to hide or show versions of CUDA modules according to the required version of NVIDIA drivers."
+    },
+    {
+      "question": "How is the `RSNT_CUDA_DRIVER_VERSION` detected if it's not explicitly defined?",
+      "answer": "If `RSNT_CUDA_DRIVER_VERSION` is not defined, it is detected based on the files found under `/usr/lib64/nvidia`."
+    },
+    {
+      "question": "What is assumed about CUDA driver versions if no library is found under `/usr/lib64/nvidia`?",
+      "answer": "For backward compatibility, if no library is found under `/usr/lib64/nvidia`, it is assumed that the driver versions are sufficient for CUDA 10.2."
+    },
+    {
+      "question": "How can I hide all versions of CUDA using an environment variable?",
+      "answer": "You can hide all versions of CUDA by defining `RSNT_CUDA_DRIVER_VERSION=0.0`."
+    },
+    {
+      "question": "What is the purpose of the `RSNT_LOCAL_MODULEPATHS` environment variable?",
+      "answer": "The `RSNT_LOCAL_MODULEPATHS` environment variable allows you to define locations for local hierarchical module trees, installed via EasyBuild, so they can be automatically integrated into the central module tree."
+    },
+    {
+      "question": "How do I use `RSNT_LOCAL_MODULEPATHS` to integrate local module trees?",
+      "answer": "To use it, define the variable (e.g., `export RSNT_LOCAL_MODULEPATHS=/opt/software/easybuild/modules`) and then install your EasyBuild recipe using `eb --installpath /opt/software/easybuild <your recipe>.eb`."
+    },
+    {
+      "question": "What is the recommended way to add a local path to a flat module tree if `RSNT_LOCAL_MODULEPATHS` is not appropriate?",
+      "answer": "If you want to add a local path to a flat module tree, add the command `module use --priority 1 /path/to/your/flat/module/tree` (for higher priority) or `module use --priority -1 /path/to/your/flat/module/tree` (for lower priority) *after* sourcing the main scripts."
+    }
+  ],
+  "generated_at": "2026-04-10T00:41:53.972762+00:00"
+}

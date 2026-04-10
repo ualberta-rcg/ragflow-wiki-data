@@ -1,0 +1,151 @@
+---
+title: "CUDA/fr"
+tags:
+  []
+
+keywords:
+  []
+---
+
+[[CUDA](https://developer.nvidia.com/cuda-toolkit)] <ref>Marque de commerce de NVIDIA.</ref>est une plateforme de calcul parallèle et un modèle de programmation développé par NVIDIA pour des calculs généraux utilisant le GPU.
+
+On peut voir CUDA comme étant un ensemble de bibliothèques et de compilateurs C, C++ et Fortran qui permettent de créer des programmes pour les GPU. Pour d'autres outils de programmation pour GPU, consultez le [Tutoriel OpenACC](openacc-tutorial-fr.md).
+
+<span id="Quick_start_guide"></span>
+## Un exemple simple 
+
+### Compilation
+Nous faisons exécuter ici du code créé avec le compilateur CUDA C/C++ `nvcc`. Ce même exemple plus détaillé se trouve à la page [Tutoriel CUDA](cuda-tutorial-fr.md).
+
+Chargez d'abord le [module](utiliser-des-modules.md) CUDA.
+<source lang="console">
+$ module purge
+$ module load cuda
+</source>
+
+Dans cet exemple, nous additionnons deux nombres. Sauvegardez le fichier sous `add.cu`; <i>le suffixe `cu` est important</i>. 
+
+{{File  
+  |name=add.cu
+  |lang="c++"
+  |contents=
+#include <iostream>
+
+__global__ void add (int *a, int *b, int *c){
+  *c = *a + *b;
+}
+
+int main(void){
+  int a, b, c;
+  int *dev_a, *dev_b, *dev_c;
+  int size = sizeof(int);
+  
+  //  allocate device copies of a,b, c
+  cudaMalloc ( (void**) &dev_a, size);
+  cudaMalloc ( (void**) &dev_b, size);
+  cudaMalloc ( (void**) &dev_c, size);
+  
+  a=2; b=7;
+  //  copy inputs to device
+  cudaMemcpy (dev_a, &a, size, cudaMemcpyHostToDevice);
+  cudaMemcpy (dev_b, &b, size, cudaMemcpyHostToDevice);
+  
+  // launch add() kernel on GPU, passing parameters
+  add <<< 1, 1 >>> (dev_a, dev_b, dev_c);
+  
+  // copy device result back to host
+  cudaMemcpy (&c, dev_c, size, cudaMemcpyDeviceToHost);
+  std::cout<<a<<"+"<<b<<"="<<c<<std::endl;
+  
+  cudaFree ( dev_a ); cudaFree ( dev_b ); cudaFree ( dev_c );
+}
+}}
+
+Compilez le programme avec `nvcc` pour créer l'exécutable `add`.
+<source lang="console">
+$ nvcc add.cu -o add
+</source>
+
+### Soumission de tâches
+Pour exécuter le programme, créez le script Slurm ci-dessous. Assurez-vous de remplacer `def-someuser` par votre nom de compte (voir [Comptes et projets](running_jobs-fr#comptes_et_projets.md)). Pour les détails sur l'ordonnancement, consultez [Ordonnancement Slurm des tâches avec GPU](using-gpus-with-slurm-fr.md). 
+
+**`gpu_job.sh`**
+```sh
+#!/bin/bash
+#SBATCH --account=def-someuser
+#SBATCH --gres=gpu:1              # Number of GPUs (per node)
+#SBATCH --mem=400M                # memory (per node)
+#SBATCH --time=0-00:10            # time (DD-HH:MM)
+./add #name of your program
+```
+
+Soumettez la tâche à l'ordonnanceur. 
+<source lang="console">
+$ sbatch gpu_job.sh
+Submitted batch job 3127733
+</source>
+Pour plus d'information sur la commande `sbatch`, l'exécution et le suivi des tâches, consultez [Exécuter des tâches](running-jobs-fr.md).
+
+Le fichier en sortie sera semblable à ceci&nbsp;ː
+<source lang="console">
+$ cat slurm-3127733.out
+2+7=9
+</source>
+Sans GPU, le résultat serait semblable à `2+7=0`. 
+
+### Lier des bibliothèques 
+Si votre programme doit établir des liens avec des bibliothèques incluses avec CUDA, par exemple [cuBLAS](https://developer.nvidia.com/cublas), compilez avec ces indicateurs&nbsp;:
+<source lang="console">
+nvcc -lcublas -Xlinker=-rpath,$CUDA_PATH/lib64
+</source>
+
+Voyez le [Tutoriel CUDA](cuda-tutorial-fr.md) pour plus de détails sur cet exemple et pour savoir comment utiliser le parallélisme avec les GPU.
+
+<span id="Troubleshooting"></span>
+## Dépannage 
+
+<span id="Compute_capability"></span>
+### Attribut <i>compute capability</i> 
+
+NVIDIA utilise le terme <i>compute capability</i> pour désigner un des attributs des dispositifs GPU.
+
+Nvidia a créé ce terme technique qui indique les fonctionnalités prises en charge par ce GPU et spécifie certains paramètres matériels de ce dernier.
+
+Pour plus de détails, consultez [Compute Capability and Streaming Multiprocessor Versions](https://docs.nvidia.com/cuda/cuda-programming-guide/01-introduction/cuda-platform.html#cuda-platform-compute-capability-sm-version).
+
+Les messages d’erreur suivants sont causés par un problème en rapport avec cet attribut.
+
+<pre>
+nvcc fatal : Unsupported gpu architecture 'compute_XX'
+</pre>
+
+<pre>
+no kernel image is available for execution on the device (209)
+</pre>
+
+L'ajout d'un indicateur dans l'appel `nvcc` pourrait résoudre ces problèmes.
+
+<pre>
+-gencode arch=compute_XX,code=[sm_XX,compute_XX]
+</pre>
+
+Si vous utilisez `cmake`, l'indicateur serait
+
+<pre>
+cmake .. -DCMAKE_CUDA_ARCHITECTURES=XX
+</pre>
+
+où XX est la valeur de <i>compute capability</i> pour le GPU NVIDIA qui sera utilisé pour exécuter votre application. Pour connaître ces valeurs, voir [CUDA GPU Compute Capability](https://developer.nvidia.com/cuda/gpus) et omettez le point décimal.
+
+<b>Par exemple</b>, si votre code sera exécuté sur un nœud A100 de Narval, le tableau de NVdia mentionne que sa <i>compute capability</i> a la valeur de *8.0*.
+L'indicateur à utiliser lors de la compilation avec `nvcc` est
+
+<pre>
+-gencode arch=compute_80,code=[sm_80,compute_80]
+</pre>
+
+L'indicateur pour `cmake` est
+
+<pre>
+cmake .. -DCMAKE_CUDA_ARCHITECTURES=80
+</pre>

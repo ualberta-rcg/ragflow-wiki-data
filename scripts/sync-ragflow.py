@@ -117,29 +117,44 @@ def verify_synced_docs(state, dataset, limit=None):
 
 
 def delete_from_ragflow(dataset, doc_key, doc_state):
-    """Delete old version of a doc from RAGFlow if it exists."""
-    # Try the current filename format
+    """Delete old version(s) of a doc from RAGFlow, including (1)/(2) duplicates."""
     filename = doc_key_to_filename(doc_key)
     old_doc_id = doc_state.get("ragflow_doc_id")
+    deleted = 0
 
-    # Try by doc ID first
+    # Delete by stored doc ID
     if old_doc_id:
         try:
             dataset.delete_documents([old_doc_id])
-            print(f"    Deleted old version (id: {old_doc_id[:12]}...)")
-            return
+            deleted += 1
         except Exception:
             pass
 
-    # Try by name
+    # Delete any exact name match
     try:
         existing = dataset.list_documents(name=filename)
-        if existing:
-            dataset.delete_documents([existing[0].id])
-            print(f"    Deleted old version ({filename})")
-            return
+        for doc in existing:
+            if doc.id != old_doc_id:
+                dataset.delete_documents([doc.id])
+                deleted += 1
     except Exception:
         pass
+
+    # Delete (1), (2), ... duplicates that RAGFlow auto-creates on name collision
+    base = filename.rsplit(".", 1)[0]
+    ext = filename.rsplit(".", 1)[1] if "." in filename else ""
+    for suffix_num in range(1, 10):
+        dup_name = f"{base}({suffix_num}).{ext}" if ext else f"{base}({suffix_num})"
+        try:
+            dups = dataset.list_documents(name=dup_name)
+            for d in dups:
+                dataset.delete_documents([d.id])
+                deleted += 1
+        except Exception:
+            break
+
+    if deleted:
+        print(f"    Deleted {deleted} old version(s)")
 
 
 def upload_doc(dataset, doc_path, doc_key):

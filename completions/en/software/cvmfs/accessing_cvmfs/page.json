@@ -1,0 +1,103 @@
+{
+  "doc_key": "en/accessing_cvmfs",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is CVMFS and its purpose on Alliance systems?",
+      "answer": "CVMFS (CERN Virtual Machine File System) is a file system that provides repositories of software and data. On Alliance systems, it's already set up, and the repositories are automatically available for use."
+    },
+    {
+      "question": "What is the main purpose of this document regarding CVMFS?",
+      "answer": "This document describes how users can install and configure CVMFS on their own computer or cluster to access the same repositories and software environment available on Alliance systems."
+    },
+    {
+      "question": "What important actions should users take before setting up CVMFS?",
+      "answer": "Users should subscribe to announcements, fill out the registration form, and acknowledge Alliance's advanced research computing if it contributes to their research, citing the PEARC 2019 paper."
+    },
+    {
+      "question": "How can users receive important notifications about CVMFS and the software environment?",
+      "answer": "Users can subscribe to the `cvmfs-announce@gw.alliancecan.ca` mailing list by emailing `cvmfs-announce+subscribe@gw.alliancecan.ca` and replying to the confirmation email."
+    },
+    {
+      "question": "Who provides the CVMFS client software and the CVMFS repositories, and what is the warranty status?",
+      "answer": "The CVMFS client software is provided by CERN, and the CVMFS repositories are provided by Alliance without any warranty."
+    },
+    {
+      "question": "What are the minimal requirements for installing CVMFS on a single system, such as a laptop or desktop?",
+      "answer": "A supported operating system (Linux Kernel 2.6.32+ for older environments, 3.2+ for 2020; Windows with WSL2; Mac OS via VM), FUSE support, approximately 50 GB of local storage for the cache (or 5-10 GB for light use), and outbound HTTP access to the internet or local proxy servers."
+    },
+    {
+      "question": "What additional considerations apply when deploying CVMFS on multiple systems, like a cluster?",
+      "answer": "It is recommended to deploy at least two forward caching HTTP proxy servers for performance and bandwidth, and to synchronize the `cvmfs` service account identity across all client nodes before installation."
+    },
+    {
+      "question": "What are the minimal operating system and CPU requirements for the Alliance CVMFS software environment?",
+      "answer": "Linux Kernel 2.6.32 or newer (or 3.2+ for 2020 environment), Windows with WSL2 (matching Linux kernel), or Mac OS via a virtual machine. An x86 CPU supporting at least one of SSE3, AVX, AVX2, or AVX512 instruction sets is also required."
+    },
+    {
+      "question": "What pre-installation step is recommended for the CVMFS cache?",
+      "answer": "It is recommended to provision a dedicated file system for the local CVMFS cache, which defaults to `/var/lib/cvmfs`, before installing CVMFS."
+    },
+    {
+      "question": "How can a user validate their CVMFS configuration and check the repositories?",
+      "answer": "First, ensure desired repositories are in `CVMFS_REPOSITORIES`. Then, validate the configuration using `sudo cvmfs_config chksetup` and check repositories with `cvmfs_config probe`."
+    },
+    {
+      "question": "How do users enable the Alliance software environment in their session after mounting the CVMFS repository?",
+      "answer": "Users enable the environment by running the bash script `/cvmfs/soft.computecanada.ca/config/profile/bash.sh`."
+    },
+    {
+      "question": "How can a user mimic a specific Alliance cluster's environment, such as 'rorqual'?",
+      "answer": "Define the `CC_CLUSTER` environment variable to `rorqual` (e.g., `export CC_CLUSTER=rorqual`) before sourcing the bash script to enable the environment."
+    },
+    {
+      "question": "Under what condition will the environment enabling script not run, and how can this safeguard be overridden?",
+      "answer": "The script will not run if the user ID is below 1000. It can be overridden by defining `export FORCE_CC_CVMFS=1` or by creating the file `$HOME/.force_cc_cvmfs`."
+    },
+    {
+      "question": "What is the purpose of the `CC_CLUSTER` environment variable when customizing the environment?",
+      "answer": "This variable identifies a cluster, used for system logs and to define behaviour related to licensed software; its default value is `computecanada`."
+    },
+    {
+      "question": "How can a user explicitly set the CPU instruction set for the environment instead of relying on auto-detection?",
+      "answer": "By defining the `RSNT_ARCH` environment variable with a supported value like `sse3`, `avx`, `avx2`, or `avx512` before enabling the environment."
+    },
+    {
+      "question": "What is the function of the `RSNT_INTERCONNECT` environment variable?",
+      "answer": "It identifies the type of interconnect (e.g., `omnipath`, `infiniband`, `ethernet`) to trigger different options for transport protocols used in OpenMPI applications."
+    },
+    {
+      "question": "How is the `RSNT_CUDA_DRIVER_VERSION` environment variable used, and how can all CUDA versions be hidden?",
+      "answer": "It hides or shows CUDA modules based on NVIDIA driver requirements. Defining `RSNT_CUDA_DRIVER_VERSION=0.0` will hide all CUDA versions."
+    },
+    {
+      "question": "What is the intended use of the `RSNT_LOCAL_MODULEPATHS` environment variable?",
+      "answer": "It allows defining locations for local, hierarchical EasyBuild module trees to be automatically integrated into the central module tree. For flat trees, `module use --priority` should be used instead."
+    },
+    {
+      "question": "How can local software be installed and discovered by the central CVMFS hierarchy?",
+      "answer": "Export `RSNT_LOCAL_MODULEPATHS` to a chosen path (e.g., `/opt/software/easybuild/modules`), ensure the folder exists, then install software packages using EasyBuild with `eb --installpath /opt/software/easybuild <some easyconfig recipe>`."
+    },
+    {
+      "question": "What caution is given to system administrators regarding the use of the software environment?",
+      "answer": "System administrators should ensure their session does not depend on the software environment when performing privileged operations (e.g., CVMFS updates) to avoid deadlocks or interference with CVMFS operations."
+    },
+    {
+      "question": "Are commercial software packages like Intel and PGI compilers available externally through this CVMFS setup?",
+      "answer": "No, while modules for these compilers may be available, only the redistributable parts (shared objects) are accessible for running software, not the full compilers for compiling new software."
+    },
+    {
+      "question": "What is the recommended solution for CUDA-enabled software when NVIDIA drivers install libraries in `/usr/lib64` instead of the expected `/usr/lib64/nvidia`?",
+      "answer": "It is recommended to create symbolic links in `/usr/lib64/nvidia` pointing to the installed NVIDIA libraries to ensure compatibility without adding `/usr/lib64` to `LD_LIBRARY_PATH`."
+    },
+    {
+      "question": "Why is defining `LD_LIBRARY_PATH` not recommended with this software environment?",
+      "answer": "The software environment is designed to use RUNPATH. Defining `LD_LIBRARY_PATH` can prevent the environment from working correctly and may pull in incompatible system libraries."
+    },
+    {
+      "question": "What should be done if `dbus` is required for some applications when using this CVMFS environment?",
+      "answer": "`dbus` needs to be installed locally on the host operating system."
+    }
+  ],
+  "generated_at": "2026-04-10T00:42:54.096248+00:00"
+}

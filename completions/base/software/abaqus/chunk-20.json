@@ -1,0 +1,68 @@
+{
+  "doc_key": "base/abaqus",
+  "level": "chunk",
+  "chunk_index": 20,
+  "qa_pairs": [
+    {
+      "question": "What issue can arise when a user submits multiple Abaqus jobs in quick succession with expensive Abaqus tokens?",
+      "answer": "If a user submits multiple jobs in quick succession and doesn't have enough Abaqus compute tokens, the first job might acquire available licenses and start running, while subsequent jobs will enter an idle 'queued' state, waiting for licenses. This wastes resources and negatively impacts the user's fair share level, as the jobs are in a running state from the scheduler's perspective but are stalled due to license unavailability."
+    },
+    {
+      "question": "How can users avoid Abaqus license shortage problems when submitting multiple jobs?",
+      "answer": "To prevent license shortage issues with Abaqus tokens, users can employ job dependencies, job arrays, or configure Slurm email notifications to be informed when a job completes, allowing them to manually submit the next job."
+    },
+    {
+      "question": "Why is it important to accurately specify memory and CPU resources in a Slurm script for Abaqus jobs?",
+      "answer": "It's important to carefully specify memory and CPU resources in your Slurm script to ensure optimal usage of both your Abaqus tokens and the cluster's resources."
+    },
+    {
+      "question": "How can I check the memory and CPU utilization for a completed Abaqus job?",
+      "answer": "For completed jobs, you can use the `seff JobNumber` command. This command will display the total 'Memory Utilized', 'Memory Efficiency', 'CPU (time) Utilized', and 'CPU Efficiency'."
+    },
+    {
+      "question": "What should I do if the memory efficiency of a completed Abaqus job is less than 90%?",
+      "answer": "If the memory efficiency is less than approximately 90%, you should decrease the value of the `#SBATCH --mem=` setting in your Slurm script accordingly."
+    },
+    {
+      "question": "What should I do if the CPU efficiency of a completed Abaqus job is less than 90%?",
+      "answer": "If the CPU efficiency is less than approximately 90%, you should perform scaling tests to determine the optimal number of CPUs for performance and then update the value of `#SBATCH --cpus-per-task=` in your Slurm script."
+    },
+    {
+      "question": "How can I monitor the resource usage of a running Abaqus job?",
+      "answer": "For running jobs, you can use the command `srun --overlap --jobid=29821580 --pty top -d 5 -u $USER` to observe the %CPU, %MEM, and RES (resident memory size) for each Abaqus parent process on the compute node."
+    },
+    {
+      "question": "What is the relationship between Abaqus tokens and CPU cores?",
+      "answer": "The relationship between Abaqus tokens and CPU cores is given by the formula: TOKENS = floor[5 X CORES^0.422]. For example, 1 core uses 5 tokens, 4 cores use 8 tokens, and 8 cores use 12 tokens."
+    },
+    {
+      "question": "Does using a GPU with Abaqus require additional tokens?",
+      "answer": "Yes, each GPU used requires 1 additional Abaqus token."
+    },
+    {
+      "question": "What is the current status of the Western Abaqus license?",
+      "answer": "The Western Abaqus license is currently non-functional because the license4 machine has been shut down and retired. All Abaqus license checkout requests on the Dusky cluster from the Western/Robarts Abaqus license server will fail. A replacement server is being worked on."
+    },
+    {
+      "question": "Which hardware can the Western Abaqus site license be used on?",
+      "answer": "The Western site license can only be used by Western researchers on hardware located at Western's campus. Currently, only the Dusky cluster meets this condition, while Nibi and the SHARCNET OOD system are excluded."
+    },
+    {
+      "question": "Who should Western researchers contact to inquire about using the Western Abaqus license?",
+      "answer": "Western researchers should contact the Western Abaqus license server administrator at `jmilner@robarts.ca` to inquire about using the license."
+    },
+    {
+      "question": "What information should be provided when inquiring about the Western Abaqus license?",
+      "answer": "You will need to provide your username and possibly make arrangements to purchase tokens."
+    },
+    {
+      "question": "What should a Western researcher's `abaqus.lic` file contain if they are granted access to the Western license server (assuming a new server replaces the old one)?",
+      "answer": "Historically, the `abaqus.lic` file contained `prepend_path(\"LM_LICENSE_FILE\",\"27000@license4.sharcnet.ca\")` and `prepend_path(\"ABAQUSLM_LICENSE_FILE\",\"27000@license4.sharcnet.ca\")`. However, the `license4` machine is decommissioned, so a new server name will be provided once available."
+    },
+    {
+      "question": "What should be done if problems occur when using the Abaqus Western license on Dusky?",
+      "answer": "If problems arise, submit a problem ticket to technical support. Be sure to specify that you are using the Abaqus Western license on Dusky and include the failed job number along with any relevant error messages."
+    }
+  ],
+  "generated_at": "2026-04-10T00:27:56.322550+00:00"
+}

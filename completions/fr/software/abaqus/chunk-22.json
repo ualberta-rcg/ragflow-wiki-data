@@ -1,0 +1,52 @@
+{
+  "doc_key": "fr/abaqus",
+  "level": "chunk",
+  "chunk_index": 22,
+  "qa_pairs": [
+    {
+      "question": "Qu'est-ce que ça veut dire si `lmstat` indique qu'une tâche Abaqus est en file d'attente, même si `squeue` la montre comme \"R (running)\"?",
+      "answer": "Si `lmstat` indique qu'une tâche associée à un nom d'utilisateur donné est en file d'attente, cela signifie que la tâche est passée à l'état ''R (running)'' pour `squeue -j jobid` ou `sacct -j jobid` et qu'elle est donc inactive sur un nœud de calcul, en attente d'une licence."
+    },
+    {
+      "question": "Comment une tâche Abaqus en attente de licence affecte-t-elle la priorité du compte de l'utilisateur?",
+      "answer": "Une tâche en file d'attente pour une licence aura le même impact sur la priorité de votre compte que si la tâche effectuait des calculs et consommait du temps CPU."
+    },
+    {
+      "question": "Quand est-ce qu'une tâche Abaqus qui est en file d'attente pour une licence va démarrer?",
+      "answer": "La tâche en file d'attente démarrera dès que suffisamment de licences seront disponibles."
+    },
+    {
+      "question": "Décrivez l'exemple présenté pour illustrer un problème de licences Abaqus.",
+      "answer": "L'exemple illustre la situation où un utilisateur soumet successivement deux tâches pour 6 cœurs, nécessitant chacune 12 jetons. L'ordonnanceur a ensuite lancé chaque tâche sur un nœud différent, dans l'ordre de leur soumission. L'utilisateur disposant de 10 jetons Abaqus, la première tâche (27527287) a pu obtenir exactement les 10 jetons nécessaires au démarrage du solveur. La seconde tâche (27527297), n'ayant plus accès à des jetons, est restée en attente."
+    },
+    {
+      "question": "Dans l'exemple fourni, combien de jetons de licence Abaqus la première tâche a-t-elle obtenue pour démarrer le solveur?",
+      "answer": "Dans l'exemple, la première tâche (27527287) a pu obtenir exactement les 10 jetons nécessaires au démarrage du solveur."
+    },
+    {
+      "question": "Pourquoi la deuxième tâche (27527297) dans l'exemple de pénurie de licences est-elle restée en attente?",
+      "answer": "La seconde tâche (27527297) est restée en attente parce qu'elle n'avait plus accès à des jetons, la première tâche ayant consommé ceux disponibles."
+    },
+    {
+      "question": "Quelles sont les conséquences négatives d'une tâche Abaqus qui reste en attente de licence, comme illustré dans l'exemple?",
+      "answer": "Le fait qu'une tâche reste en attente de licence gaspille les ressources disponibles et réduit la juste part de l'utilisateur."
+    },
+    {
+      "question": "Selon la sortie `lmstat` de l'exemple, quel est le nombre total de licences Abaqus émises et combien sont utilisées?",
+      "answer": "Selon la sortie `lmstat` de l'exemple, un total de 78 licences Abaqus ont été émises, et 53 licences sont actuellement en utilisation."
+    },
+    {
+      "question": "Quel est le `JOBID` de la première tâche mentionnée dans l'exemple et quel est son état?",
+      "answer": "Le `JOBID` de la première tâche est 27530366 et son état est 'R' (Running)."
+    },
+    {
+      "question": "Quel est le nom de la tâche (NAME) pour les deux jobs `27530366` et `27530407` affichés par `sq`?",
+      "answer": "Pour les deux jobs `27530366` et `27530407` affichés par `sq`, le nom de la tâche est `scriptsp2.txt`."
+    },
+    {
+      "question": "Quelle est la limite de temps spécifiée pour les tâches `27530366` et `27530407` dans la sortie `sq`?",
+      "answer": "La limite de temps spécifiée pour les tâches `27530366` et `27530407` est de 9 heures et 56 minutes et 9 heures et 59 minutes, respectivement, bien que le `TIME_LEFT` soit affiché comme `9:56:13` et `9:59:37`."
+    }
+  ],
+  "generated_at": "2026-04-10T00:38:34.665052+00:00"
+}

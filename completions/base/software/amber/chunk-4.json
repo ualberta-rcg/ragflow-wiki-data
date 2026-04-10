@@ -5,60 +5,52 @@
   "qa_pairs": [
     {
       "question": "What is a known issue with the `amber/20.12-20.15` module?",
-      "answer": "The `amber/20.12-20.15` module does not include the `MMPBSA.py.MPI` executable."
+      "answer": "The `amber/20.12-20.15` module is known to not include the `MMPBSA.py.MPI` executable."
     },
     {
-      "question": "Which AMBER modules have an issue with performing PB calculations using `MMPBSA.py`?",
-      "answer": "`MMPBSA.py` from `amber/18-10-18.11` and `amber/18.14-18.17` modules cannot perform PB calculations."
+      "question": "Which AMBER modules have issues performing PB calculations with `MMPBSA.py`?",
+      "answer": "`MMPBSA.py` from the `amber/18-10-18.11` and `amber/18.14-18.17` modules cannot perform PB calculations. For these calculations, it is recommended to use more recent `amber/20` modules."
     },
     {
-      "question": "What is the recommendation for performing PB calculations with `MMPBSA.py` if older AMBER modules have issues?",
-      "answer": "For `MMPBSA.py` PB calculations, it is recommended to use more recent `amber/20` modules."
+      "question": "What AMBER module and CUDA version are required for GPU-accelerated simulations on Narval using A100 GPUs?",
+      "answer": "For GPU-accelerated simulations on Narval using A100 GPUs, you should use `amber/20.12-20.15`. Modules compiled with CUDA versions earlier than 11.4 will not work on A100 GPUs."
     },
     {
-      "question": "Which AMBER module should be used for GPU-accelerated simulations on Narval, and what is the CUDA version requirement for A100 GPUs?",
-      "answer": "For GPU-accelerated simulations on Narval, `amber/20.12-20.15` should be used. Modules compiled with CUDA version less than 11.4 do not work on A100 GPUs."
+      "question": "Can you provide an example of a single-GPU job submission script for AMBER?",
+      "answer": "Yes, an example single-GPU job script is:\n```bash\n#!/bin/bash\n#SBATCH --ntasks=1 \n#SBATCH --gpus-per-node=1 \n#SBATCH --mem-per-cpu=2000 \n#SBATCH --time=10:00:00\n\nmodule purge\nmodule load StdEnv/2023 gcc/12.3 openmpi/4.1.5 cuda/12.6 amber-pmemd/24.3\n\npmemd.cuda -O -i input.in -p topol.parm7 -c coord.rst7 -o output.mdout -r restart.rst7\n```"
     },
     {
-      "question": "What are the SBATCH directives for the example single GPU job?",
-      "answer": "The example single GPU job uses `#SBATCH --ntasks=1`, `#SBATCH --gpus-per-node=1`, `#SBATCH --mem-per-cpu=2000`, and `#SBATCH --time=10:00:00`."
+      "question": "What modules are loaded for the example single-GPU AMBER job?",
+      "answer": "For the example single-GPU AMBER job, the following modules are loaded: `StdEnv/2023`, `gcc/12.3`, `openmpi/4.1.5`, `cuda/12.6`, and `amber-pmemd/24.3`."
     },
     {
-      "question": "What modules are loaded in the example script for a single GPU AMBER job?",
-      "answer": "The example script for a single GPU AMBER job loads `StdEnv/2023`, `gcc/12.3`, `openmpi/4.1.5`, `cuda/12.6`, and `amber-pmemd/24.3`."
+      "question": "Which executable is used for single-GPU AMBER simulations in the provided example?",
+      "answer": "The executable used for single-GPU AMBER simulations in the provided example is `pmemd.cuda`."
     },
     {
-      "question": "What command executes `pmemd.cuda` in the example single GPU job script?",
-      "answer": "The command is `pmemd.cuda -O -i input.in -p topol.parm7 -c coord.rst7 -o output.mdout -r restart.rst7`."
+      "question": "What is an example SLURM script for a CPU-only parallel MPI job for AMBER on Narval?",
+      "answer": "An example SLURM script for a CPU-only parallel MPI job on Narval is:\n```bash\n#!/bin/bash\n#SBATCH --nodes=4\n#SBATCH --ntasks-per-node=64\n#SBATCH --mem-per-cpu=2000\n#SBATCH --time=1:00:00\n\nmodule purge\nmodule load StdEnv/2023 gcc/12.3 openmpi/4.1.5 cuda/12.6 amber-pmemd/24.3\n\nsrun pmemd.MPI -O -i input.in -p topol.parm7 -c coord.rst7 -o output.mdout -r restart.rst7\n```"
     },
     {
-      "question": "What modules are loaded for a CPU-only parallel MPI job on clusters like Narval, Rorqual, Fir, Nibi, or Trillium, based on the provided examples?",
-      "answer": "The example scripts for CPU-only parallel MPI jobs on these clusters all load `StdEnv/2023`, `gcc/12.3`, `openmpi/4.1.5`, `cuda/12.6`, and `amber-pmemd/24.3`."
+      "question": "What are the required modules for a CPU-only parallel MPI AMBER job, as shown in the examples for Narval, Rorqual, Fir, Nibi, and Trillium?",
+      "answer": "The required modules for a CPU-only parallel MPI AMBER job, according to the examples, are `StdEnv/2023`, `gcc/12.3`, `openmpi/4.1.5`, `cuda/12.6`, and `amber-pmemd/24.3`."
     },
     {
-      "question": "What SBATCH directives are used for the CPU-only parallel MPI job example on Narval?",
-      "answer": "The Narval example for a CPU-only parallel MPI job uses `#SBATCH --nodes=4`, `#SBATCH --ntasks-per-node=64`, `#SBATCH --mem-per-cpu=2000`, and `#SBATCH --time=1:00:00`."
+      "question": "What AMBER executable is used for CPU-only parallel MPI jobs?",
+      "answer": "For CPU-only parallel MPI jobs, the `pmemd.MPI` executable is used with `srun`."
     },
     {
-      "question": "How is `pmemd.MPI` executed in the CPU-only parallel MPI job examples?",
-      "answer": "It is executed using `srun pmemd.MPI -O -i input.in -p topol.parm7 -c coord.rst7 -o output.mdout -r restart.rst7`."
+      "question": "How many GPUs are requested in the example QM/MM distributed multi-GPU job script?",
+      "answer": "The example QM/MM distributed multi-GPU job script requests eight GPUs (`#SBATCH --ntasks=8` and `#SBATCH --gpus-per-task=1`)."
     },
     {
-      "question": "How many GPUs are requested for the QM/MM distributed multi-GPU job example?",
-      "answer": "The QM/MM distributed multi-GPU job example requests eight GPUs."
+      "question": "What modules are used for the example QM/MM distributed multi-GPU AMBER job?",
+      "answer": "The example QM/MM distributed multi-GPU AMBER job uses the following modules: `StdEnv/2023`, `gcc/12.3`, `openmpi/4.1.5`, `cuda/12.6`, and `ambertools/25.0`."
     },
     {
-      "question": "What modules are loaded for the QM/MM distributed multi-GPU job using `ambertools/25.0`?",
-      "answer": "The modules loaded are `StdEnv/2023`, `gcc/12.3`, `openmpi/4.1.5`, `cuda/12.6`, and `ambertools/25.0`."
-    },
-    {
-      "question": "What are the SBATCH directives for the example QM/MM distributed multi-GPU job?",
-      "answer": "The SBATCH directives are `#SBATCH --ntasks=8`, `#SBATCH --gpus-per-task=1`, `#SBATCH --mem-per-cpu=4000`, and `#SBATCH --time=02:00:00`."
-    },
-    {
-      "question": "What command is used to run `sander.quick.cuda.MPI` for a QM/MM distributed multi-GPU job?",
-      "answer": "The command is `srun sander.quick.cuda.MPI -O -i input.in -p topol.parm7 -c coord.rst7 -o output.mdout -r restart.rst7`."
+      "question": "Which executable is used for a QM/MM distributed multi-GPU AMBER job?",
+      "answer": "The executable used for a QM/MM distributed multi-GPU AMBER job is `sander.quick.cuda.MPI`."
     }
   ],
-  "generated_at": "2026-04-09T23:00:20.826734+00:00"
+  "generated_at": "2026-04-09T23:56:44.889646+00:00"
 }

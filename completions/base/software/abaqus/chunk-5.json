@@ -1,0 +1,68 @@
+{
+  "doc_key": "base/abaqus",
+  "level": "chunk",
+  "chunk_index": 5,
+  "qa_pairs": [
+    {
+      "question": "How do I restart a Standard Analysis Abaqus job using the 'project directory restart script' for Abaqus version 2026 or newer?",
+      "answer": "For Abaqus version 2026 or newer, you can restart it using the command `abaqus job=testsp2 oldjob=testsp1 input=mystd-sim-restart.inp scratch=$SLURM_TMPDIR cpus=$SLURM_CPUS_ON_NODE interactive mp_mode=threads memory=\"$((${SLURM_MEM_PER_NODE}-3072))MB\"`."
+    },
+    {
+      "question": "What is the command to restart a Standard Analysis Abaqus job using the 'project directory restart script' for Abaqus version 2021?",
+      "answer": "For Abaqus version 2021, the command is `/cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr/bin/unshare --fork --pid --mount-proc --user --map-user $USER abaqus job=testsp2 oldjob=testsp1 input=mystd-sim-restart.inp scratch=$SLURM_TMPDIR cpus=$SLURM_CPUS_ON_NODE interactive mp_mode=threads memory=\"$((${SLURM_MEM_PER_NODE}-3072))MB\"`."
+    },
+    {
+      "question": "What content should a restart input file contain for a Standard Analysis job when using the 'project directory restart script'?",
+      "answer": "The restart input file should contain `*HEADING` and `*RESTART, READ`."
+    },
+    {
+      "question": "Which Abaqus module is loaded in the 'temporary directory script' for a Standard Analysis job?",
+      "answer": "The `abaqus/2026` module is loaded."
+    },
+    {
+      "question": "What are the common SLURM batch parameters specified in a 'temporary directory script' for a single node Standard Analysis job?",
+      "answer": "Common parameters include `--account=def-group`, `--time=00-06:00`, `--cpus-per-task=4`, `--mem=8G`, and `--nodes=1`."
+    },
+    {
+      "question": "How does the 'temporary directory script' handle saving data periodically due to a time limit?",
+      "answer": "It uses a background `while` loop that sleeps for 6 hours, then echoes 'Saving data due to time limit ...' and copies all files from `$SLURM_TMPDIR` to `$SLURM_SUBMIT_DIR`."
+    },
+    {
+      "question": "How can all output files be copied back to the submission directory after an Abaqus job finishes when using a 'temporary directory script'?",
+      "answer": "The script first kills and waits for the background copying process, then executes `cp -fv * $SLURM_SUBMIT_DIR` to copy all files to the submission directory."
+    },
+    {
+      "question": "How do you specify writing restart data every 12 time increments in the Abaqus input file?",
+      "answer": "You specify this by adding the line `*RESTART, WRITE, OVERLAY, FREQUENCY=12` to the input file."
+    },
+    {
+      "question": "How do you specify writing restart data for a total of 12 time increments, without time marks, in the Abaqus input file?",
+      "answer": "You specify this by adding the line `*RESTART, WRITE, OVERLAY, NUMBER INTERVAL=12, TIME MARKS=NO` to the input file."
+    },
+    {
+      "question": "What command can be used to check for completed restart information in a Standard Analysis job run with a 'temporary directory script'?",
+      "answer": "You can use `egrep -i \"step|start\" testst*.com testst*.msg testst*.sta` to check for completed restart information."
+    },
+    {
+      "question": "What environment variables are unset and exported at the beginning of the Abaqus scripts for Standard Analysis?",
+      "answer": "`SLURM_GTIDS` is unset, and `MPI_IC_ORDER` is exported with the value `'tcp'`."
+    },
+    {
+      "question": "How is the scratch directory prepared for Abaqus in the 'temporary directory script'?",
+      "answer": "A directory `$SLURM_TMPDIR/scratch` is created, and the script then changes the current directory to `$SLURM_TMPDIR` before running Abaqus with `scratch=$SLURM_TMPDIR/scratch`."
+    },
+    {
+      "question": "What is the memory offset value used when allocating memory to Abaqus in the provided Standard Analysis scripts?",
+      "answer": "A memory offset of `3072MB` is subtracted from `SLURM_MEM_PER_NODE` for the Abaqus `memory` parameter."
+    },
+    {
+      "question": "What files are removed at the start of the 'project directory restart script'?",
+      "answer": "The script removes `testsp2*` and `testsp1.lck` files."
+    },
+    {
+      "question": "What files are removed at the start of the 'temporary directory script'?",
+      "answer": "The script removes `testst1*` and `testst2*` files."
+    }
+  ],
+  "generated_at": "2026-04-10T00:24:51.983191+00:00"
+}

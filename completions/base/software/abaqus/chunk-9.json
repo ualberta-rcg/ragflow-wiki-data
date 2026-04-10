@@ -1,0 +1,68 @@
+{
+  "doc_key": "base/abaqus",
+  "level": "chunk",
+  "chunk_index": 9,
+  "qa_pairs": [
+    {
+      "question": "How is the `abaqus_v6.env` file configured for a multi-node standard analysis job?",
+      "answer": "The `abaqus_v6.env` file is configured by exporting the `mp_host_list` variable, which is generated from the Slurm hostlist, into it. The `mp_host_list` specifies the hostnames and core counts for the MPI processes."
+    },
+    {
+      "question": "What is the Abaqus command used to run a multi-node standard analysis simulation?",
+      "answer": "The command is `abaqus job=testsp1-mpi input=mystd-sim.inp scratch=$SLURM_TMPDIR cpus=$SLURM_NTASKS interactive mp_mode=mpi`."
+    },
+    {
+      "question": "What type of parallelization do Abaqus solvers support for explicit analysis?",
+      "answer": "Abaqus solvers support both thread-based and MPI-based parallelization for explicit analysis."
+    },
+    {
+      "question": "Are template scripts currently provided for performing multi-node explicit job restarts?",
+      "answer": "No, template scripts to perform multi-node explicit job restarts are not currently provided, pending further testing."
+    },
+    {
+      "question": "What Slurm account and time limits are specified in the prototype single-node explicit analysis project directory script?",
+      "answer": "The script specifies `--account=def-group` for the account and `--time=00-06:00` for a time limit of 6 hours."
+    },
+    {
+      "question": "What memory and CPU resources are requested for a single-node explicit analysis project directory job?",
+      "answer": "The script requests `--mem=8000M` (8GB) of node memory and `--cpus-per-task=4` (4 cores)."
+    },
+    {
+      "question": "Which Abaqus module is loaded by default in the single-node explicit analysis project directory script?",
+      "answer": "The `abaqus/2026` module, which is the latest version, is loaded by default."
+    },
+    {
+      "question": "How does the explicit analysis project directory script handle Abaqus versions 2021 and 2026 or newer?",
+      "answer": "It uses an `if` statement based on `$EBVERSIONABAQUS`. For version 2021, it uses `/cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr/bin/unshare` before the Abaqus command. For version 2026 or newer, it runs the Abaqus command directly."
+    },
+    {
+      "question": "What is the command to run an explicit analysis job using the project directory script for Abaqus version 2026 or newer?",
+      "answer": "The command is `abaqus job=testep1 input=myexp-sim.inp scratch=$SLURM_TMPDIR cpus=$SLURM_CPUS_ON_NODE interactive mp_mode=threads memory=\"$((${SLURM_MEM_PER_NODE}-3072))MB\"`."
+    },
+    {
+      "question": "How do you specify writing restart data for a total of 12 time increments in an explicit analysis input file?",
+      "answer": "You need to add `*RESTART, WRITE, OVERLAY, NUMBER INTERVAL=12, TIME MARKS=NO` to the input file."
+    },
+    {
+      "question": "How can you check for completed restart information in relevant output files for an explicit analysis?",
+      "answer": "You can use the command `egrep -i \"step|restart\" testep*.com testep*.msg testep*.sta`."
+    },
+    {
+      "question": "What is the purpose of the `rm -f testep2* testep1.lck` command in the explicit analysis project directory restart script?",
+      "answer": "This command is used to remove existing output files for the new job (`testep2*`) and the lock file from the previous job (`testep1.lck`) to ensure a clean restart."
+    },
+    {
+      "question": "How are files from the previous explicit analysis job (`testep1*`) prepared for a restart job (`testep2*`)?",
+      "answer": "The script uses a `for` loop: `for f in testep1*; do [[ -f ${f} ]] && cp -a \"$f\" \"testep2${f#testep1}\"; done` which copies all `testep1*` files and renames them to `testep2*`."
+    },
+    {
+      "question": "What Abaqus command is used to restart an explicit analysis job from a project directory for Abaqus 2026 or newer?",
+      "answer": "The command is `abaqus job=testep2 input=myexp-sim.inp recover scratch=$SLURM_TMPDIR cpus=$SLURM_CPUS_ON_NODE interactive mp_mode=threads memory=\"$((${SLURM_MEM_PER_NODE}-3072))MB\"`."
+    },
+    {
+      "question": "Are input file modifications required to restart an explicit analysis using the project directory restart script?",
+      "answer": "No input file modifications are required to restart an explicit analysis using this method."
+    }
+  ],
+  "generated_at": "2026-04-10T00:25:44.360383+00:00"
+}

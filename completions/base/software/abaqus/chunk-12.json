@@ -1,0 +1,64 @@
+{
+  "doc_key": "base/abaqus",
+  "level": "chunk",
+  "chunk_index": 12,
+  "qa_pairs": [
+    {
+      "question": "What is the primary purpose of the provided script snippet?",
+      "answer": "The script snippet is designed for restarting an Abaqus explicit analysis job using a temporary directory on a cluster compute node, handling periodic data saves and version-specific Abaqus commands."
+    },
+    {
+      "question": "Which environment variables are printed at the beginning of this script section?",
+      "answer": "The environment variables printed are `LM_LICENSE_FILE`, `ABAQUSLM_LICENSE_FILE`, `SLURM_SUBMIT_DIR`, and `SLURM_TMPDIR`."
+    },
+    {
+      "question": "What files are removed before the Abaqus simulation starts in this temporary directory restart script?",
+      "answer": "The script removes `testet2*` and `testet1.lck` files."
+    },
+    {
+      "question": "How does the script prepare files from a previous explicit analysis job (`testet1`) for a restart?",
+      "answer": "It copies all files named `testet1*` to the `$SLURM_TMPDIR` directory, renaming them to `testet2*`."
+    },
+    {
+      "question": "What is the working directory when the Abaqus simulation runs in this script?",
+      "answer": "The script changes the working directory to `$SLURM_TMPDIR` before executing the Abaqus command."
+    },
+    {
+      "question": "How often does the script save data from the temporary directory to the submit directory?",
+      "answer": "The script saves data by copying all files from `$SLURM_TMPDIR` to `$SLURM_SUBMIT_DIR` every 3 hours."
+    },
+    {
+      "question": "What is the general Abaqus command used to run the explicit analysis restart job in this script?",
+      "answer": "The Abaqus command used is `abaqus job=testet2 oldjob=testet1 input=$SLURM_SUBMIT_DIR/myexp-sim.inp recover scratch=$SLURM_TMPDIR cpus=$SLURM_CPUS_ON_NODE interactive mp_mode=threads memory=\"$((${SLURM_MEM_PER_NODE}-3072))MB\"`."
+    },
+    {
+      "question": "What Abaqus versions are explicitly checked for when running the simulation command?",
+      "answer": "The script includes conditional logic to handle Abaqus version 2021 (`EBVERSIONABAQUS -eq 2021`) and versions 2026 or newer (`EBVERSIONABAQUS -ge 2026`)."
+    },
+    {
+      "question": "Which command-line argument is used to specify the previous job for an Abaqus restart in this script?",
+      "answer": "The `oldjob=testet1` argument is used to specify the previous job for a restart."
+    },
+    {
+      "question": "What does the `recover` argument in the Abaqus command signify for this job?",
+      "answer": "The `recover` argument indicates that the job is an explicit analysis restart."
+    },
+    {
+      "question": "How is the scratch directory for the Abaqus job specified in this script?",
+      "answer": "The scratch directory is specified using `scratch=$SLURM_TMPDIR`."
+    },
+    {
+      "question": "What parallelization mode is configured for the Abaqus job in this script?",
+      "answer": "The parallelization mode is set to threads using `mp_mode=threads`."
+    },
+    {
+      "question": "How is the Abaqus job's memory allocated from the Slurm node's total memory in this script?",
+      "answer": "The memory is allocated using `memory=\"$((${SLURM_MEM_PER_NODE}-3072))MB\"`, which subtracts 3072MB from the total memory per node specified by Slurm."
+    },
+    {
+      "question": "What happens to the files in the temporary directory after the Abaqus simulation completes?",
+      "answer": "After the Abaqus simulation completes, all files from `$SLURM_TMPDIR` are copied back to `$SLURM_SUBMIT_DIR`."
+    }
+  ],
+  "generated_at": "2026-04-10T00:26:20.680166+00:00"
+}

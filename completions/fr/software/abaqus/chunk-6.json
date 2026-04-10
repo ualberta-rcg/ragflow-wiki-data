@@ -1,0 +1,44 @@
+{
+  "doc_key": "fr/abaqus",
+  "level": "chunk",
+  "chunk_index": 6,
+  "qa_pairs": [
+    {
+      "question": "Pourquoi est-ce qu'on devrait utiliser les scripts pour répertoire temporaire quand on soumet des tâches Abaqus?",
+      "answer": "C'est préférable d'utiliser ces scripts pour les tâches qui génèrent des fichiers de redémarrage assez gros. Ça permet d'écrire ces fichiers-là directement sur le disque local en se servant de la variable d'environnement `SLURM_TMPDIR`."
+    },
+    {
+      "question": "Comment on fait pour configurer le fichier d'entrée d'une simulation standard Abaqus pour qu'il écrive les données de redémarrage à chaque 12 incréments, en utilisant un script de répertoire temporaire?",
+      "answer": "Dans le fichier d'entrée, il faut inclure la ligne suivante : `*RESTART, WRITE, OVERLAY, FREQUENCY=12`."
+    },
+    {
+      "question": "Qu'est-ce qu'il faut écrire dans le fichier d'entrée d'une simulation standard Abaqus pour que les données de redémarrage soient écrites pour un total de 12 incréments, sans marqueurs de temps, quand on utilise un script de répertoire temporaire?",
+      "answer": "Pour ça, le fichier d'entrée doit contenir la ligne : `*RESTART, WRITE, OVERLAY, NUMBER INTERVAL=12, TIME MARKS=NO`."
+    },
+    {
+      "question": "Comment on peut vérifier les informations complètes sur le redémarrage d'une tâche Abaqus lancée avec un script de répertoire temporaire?",
+      "answer": "Il faut exécuter la commande `egrep -i \"step|start\" testst*.com testst*.msg testst*.sta`."
+    },
+    {
+      "question": "Quel est l'objectif principal d'un script de redémarrage pour le répertoire temporaire pour une analyse standard Abaqus?",
+      "answer": "Ces scripts-là sont faits pour reprendre des tâches qui ont été interrompues avant la fin, peu importe la raison, comme une interruption à cause de la limite de temps ou un crash de nœud de calcul."
+    },
+    {
+      "question": "Quel est le contenu minimal que le fichier d'entrée d'un job de redémarrage doit avoir lorsqu'on utilise un script de redémarrage pour le répertoire temporaire?",
+      "answer": "Le fichier d'entrée doit contenir au moins `*HEADING` et `*RESTART, READ`."
+    },
+    {
+      "question": "Dans le script pour répertoire temporaire (scriptst1.txt), quelle est la commande Abaqus utilisée pour lancer une tâche standard et comment la mémoire est-elle ajustée?",
+      "answer": "La commande est `abaqus job=testst1 input=$SLURM_SUBMIT_DIR/mystd-sim.inp scratch=$SLURM_TMPDIR/scratch cpus=$SLURM_CPUS_ON_NODE interactive mp_mode=threads memory=\"$((${SLURM_MEM_PER_NODE}-3072))MB\"`. La mémoire est ajustée en soustrayant 3072 Mo de la mémoire par nœud allouée par Slurm (`$SLURM_MEM_PER_NODE`)."
+    },
+    {
+      "question": "Si je veux redémarrer une tâche Abaqus standard en utilisant un script de répertoire temporaire (scriptst2.txt), quelle commande est utilisée pour le redémarrage et quels sont les paramètres clés?",
+      "answer": "La commande est `abaqus job=testst2 oldjob=testst1 input=$SLURM_SUBMIT_DIR/mystd-sim-restart.inp scratch=$SLURM_TMPDIR/scratch cpus=$SLURM_CPUS_ON_NODE interactive mp_mode=threads memory=\"$((${SLURM_MEM_PER_NODE}-3072))MB\"`. Les paramètres clés incluent `oldjob` pour spécifier la tâche précédente et `input` pour le fichier d'entrée du redémarrage."
+    },
+    {
+      "question": "Comment les fichiers sont-ils sauvegardés périodiquement dans le répertoire de soumission lorsqu'on utilise un script de répertoire temporaire pour une tâche Abaqus standard?",
+      "answer": "Le script contient une boucle `while sleep 6h; do ... done &` qui copie périodiquement (`cp -fv * $SLURM_SUBMIT_DIR`) les fichiers générés dans le répertoire temporaire vers le répertoire de soumission toutes les six heures, pour éviter la perte de données en cas d'interruption."
+    }
+  ],
+  "generated_at": "2026-04-10T00:34:49.615599+00:00"
+}

@@ -1,0 +1,92 @@
+{
+  "doc_key": "en/accessing_cvmfs",
+  "level": "chunk",
+  "chunk_index": 5,
+  "qa_pairs": [
+    {
+      "question": "How can I ensure the CVMFS software environment is always active for a user ID below 1000?",
+      "answer": "You can create a file named `.force_cc_cvmfs` in the user's home folder using the command `touch $HOME/.force_cc_cvmfs`."
+    },
+    {
+      "question": "How can I prevent the CVMFS software environment from being enabled for a specific account?",
+      "answer": "You can define the environment variable `SKIP_CC_CVMFS=1` or create a file named `.skip_cc_cvmfs` in the `$HOME` directory of that account."
+    },
+    {
+      "question": "How can I customize the CVMFS software environment's default behaviour?",
+      "answer": "You can control the default behaviour by defining specific environment variables before enabling the environment."
+    },
+    {
+      "question": "What is the purpose of the `CC_CLUSTER` environment variable?",
+      "answer": "The `CC_CLUSTER` variable identifies a cluster, sends information to system logs, and defines behaviour for licensed software."
+    },
+    {
+      "question": "What is the default value for the `CC_CLUSTER` environment variable?",
+      "answer": "By default, the `CC_CLUSTER` environment variable is set to `computecanada`."
+    },
+    {
+      "question": "Why might I want to change the default value of the `CC_CLUSTER` environment variable?",
+      "answer": "You might want to change it to tailor system logs to the specific name of your system."
+    },
+    {
+      "question": "What does the `RSNT_ARCH` environment variable do, and how is its value determined?",
+      "answer": "The `RSNT_ARCH` environment variable identifies the CPU instruction set supported by the system. By default, it's automatically detected from `/proc/cpuinfo`, but you can force a specific value by defining it before enabling the environment."
+    },
+    {
+      "question": "What are the supported CPU instruction sets for the software environment, as identified by `RSNT_ARCH`?",
+      "answer": "The supported CPU instruction sets are sse3, avx, avx2, and avx512."
+    },
+    {
+      "question": "What is the purpose of the `RSNT_INTERCONNECT` environment variable and how is it detected?",
+      "answer": "The `RSNT_INTERCONNECT` environment variable identifies the system's interconnect type. It's automatically detected by checking for `/sys/module/opa_vnic` (for Intel OmniPath) or `/sys/module/ib_core` (for InfiniBand), with `ethernet` as a fallback."
+    },
+    {
+      "question": "What are the supported values for the `RSNT_INTERCONNECT` environment variable?",
+      "answer": "The supported values are omnipath, infiniband, and ethernet."
+    },
+    {
+      "question": "How does the `RSNT_INTERCONNECT` variable influence OpenMPI?",
+      "answer": "The value of `RSNT_INTERCONNECT` determines which transport protocol options are used in OpenMPI."
+    },
+    {
+      "question": "What is the function of the `RSNT_CUDA_DRIVER_VERSION` environment variable?",
+      "answer": "The `RSNT_CUDA_DRIVER_VERSION` environment variable hides or shows CUDA modules based on required NVIDIA driver versions. If not defined, it's detected from files in `/usr/lib64/nvidia`."
+    },
+    {
+      "question": "What is the default assumption about CUDA driver versions if no libraries are found under `/usr/lib64/nvidia`?",
+      "answer": "For backward compatibility, it's assumed that the driver versions are sufficient for CUDA 10.2 if no libraries are found under `/usr/lib64/nvidia`."
+    },
+    {
+      "question": "How can I hide all versions of CUDA modules using an environment variable?",
+      "answer": "You can hide all CUDA versions by defining `RSNT_CUDA_DRIVER_VERSION=0.0`."
+    },
+    {
+      "question": "What is the primary intended use of the `RSNT_LOCAL_MODULEPATHS` environment variable?",
+      "answer": "The `RSNT_LOCAL_MODULEPATHS` environment variable is intended for use with hierarchical module trees installed via EasyBuild, so that they follow the same hierarchical structure as our modules."
+    },
+    {
+      "question": "How can I add a local flat module tree with higher priority than the central CVMFS modules?",
+      "answer": "After sourcing the CVMFS scripts, you can use the command `module use --priority 1 /path/to/your/flat/module/tree`."
+    },
+    {
+      "question": "How can I add a local flat module tree with lower priority than the central CVMFS modules?",
+      "answer": "After sourcing the CVMFS scripts, you can use the command `module use --priority -1 /path/to/your/flat/module/tree`."
+    },
+    {
+      "question": "How do I define `RSNT_LOCAL_MODULEPATHS` to integrate local EasyBuild modules into the central tree?",
+      "answer": "Define `export RSNT_LOCAL_MODULEPATHS=/opt/software/easybuild/modules` and then install your EasyBuild recipe using `eb --installpath /opt/software/easybuild <your recipe>.eb`."
+    },
+    {
+      "question": "What is the benefit of using `RSNT_LOCAL_MODULEPATHS` with EasyBuild for local software installations?",
+      "answer": "It allows local EasyBuild recipes to use the standard module naming scheme, be picked up by the module hierarchy, and become available after loading relevant compiler and MPI modules."
+    },
+    {
+      "question": "What is the purpose of the `LMOD_SYSTEM_DEFAULT_MODULES` environment variable, and what happens if it's not defined?",
+      "answer": "This variable defines which modules are loaded by default. If undefined, the environment loads the `StdEnv` module, which then loads a default Intel compiler and OpenMPI version."
+    },
+    {
+      "question": "What is the `MODULERCFILE` environment variable used for?",
+      "answer": "The `MODULERCFILE` environment variable is used by Lmod to define default module versions and aliases, and a custom `modulerc` file set here will take precedence over the environment's definitions."
+    }
+  ],
+  "generated_at": "2026-04-10T00:44:15.235156+00:00"
+}

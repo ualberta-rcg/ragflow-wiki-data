@@ -1,0 +1,10 @@
+---
+title: "TestPage"
+tags:
+  []
+
+keywords:
+  []
+---
+
+This just a test page to check the functionality after the MW upgrade

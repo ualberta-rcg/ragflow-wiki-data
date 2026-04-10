@@ -1,0 +1,275 @@
+---
+title: "AMBER/fr"
+tags:
+  - software
+  - biomolecularsimulation
+
+keywords:
+  - dynamique moléculaire
+  - cuda
+  - ambertools
+  - SBATCH
+  - GPU A100
+  - CPU
+  - Performance et étalonnage
+  - SANDER.QUICK
+  - Amber
+  - bibliothèques MKL
+  - MMPBSA parallèle
+  - AmberTools
+  - FlexiBLAS
+  - H100 pris en charge
+  - soumission de tâches
+  - Trillium
+  - PMEMD
+  - modules
+  - amber-pmemd
+  - Tâche QM/MM
+  - MPI
+  - CUDA
+  - pmemd
+  - Amber-PMEMD
+  - GPU
+  - StdEnv
+  - grappes
+  - MPI parallèle
+  - CUDA/11.4
+  - GPU H100
+  - openmpi
+---
+
+## Introduction
+[Amber](https://ambermd.org/) désigne un ensemble d'applications pour effectuer des simulations de dynamique moléculaire,  particulièrement avec les biomolécules. Chacune des applications porte un nom différent, mais l'ensemble fonctionne plutôt bien et constitue un outil puissant pour effectuer plusieurs calculs usuels.
+
+## Modules Amber 
+Nous fournissons les modules pour Amber, AmberTools et Amber-PMEMD dans notre [pile logicielle](available-software-fr.md).
+
+* **[Amber](https://ambermd.org/AmberMD.php)** (module `amber`) : comprend tout ce qui se trouve dans AmberTools, plus le programme avancé <i>pmemd</i> pour les simulations de dynamique moléculaire haute performance (`QUICK` pour les calculs de DFT avec GPU et `sander` pour la dynamique moléculaire). 
+* **Amber-PMEMD** (module `amber-pmemd`, Amber 24+) : Moteur `pmemd` haute performance optimisé pour CPU et GPU. 
+ Le moteur `pmemd` (optimized for CPU/GPU) est un module distinct depuis Amber24 parce que `pmemd` n'est plus compilé avec AmberTools. 
+ **Remarque :** Le module `amber-pmemd` n'inclut pas AmberTools. Pour utiliser les deux applications, chargez les deux modules.
+* Le module `ambertools` pour [AmberTools](https://ambermd.org/AmberTools.php) offre des outils pour préparer et analyser les simulations. L'application `sander` est utilisée pour les simulations de dynamique moléculaire. Tous ces outils sont gratuits et <i>open source</i>.
+
+Pour la liste des versions installées et de leurs modules dépendants, lancez [la sous-commande `module spider`](https://docs.alliancecan.ca/wiki/Utiliser_des_modules#Sous-commande_spider) ou consultez la page [Logiciels disponibles](available-software-fr.md).
+
+<span id="Using_AMBER_on_H100_GPU_Clusters"></span>
+## Utiliser AMBER sur les grappes de GPU H100 
+
+**ATTENTION :** Les anciens modules AMBER ne prennent pas en charge les GPU H100 de NVIDIA. Utilisez plutôt les modules listés dans le tableau ci-dessous.
+
+<span id="Module_Requirements:"></span>
+### Modules requis 
+
+`ambertools/25.0` ou `amber-pmemd/24.3`
+
+Ces modules offrent des noyaux (<i>kernels</i>) CUDA pour les H-100 (compilés avec CUDA 12+ pour l'architecture Hopper).
+
+**Important :** Pour les tâches avec GPU, n'utilisez pas les anciens modules AMBER; ils ne fonctionnent pas sur les nœuds H100.
+
+## Charger des modules 
+<tabs>
+<tab name="StdEnv/2023">
+{| class="wikitable sortable"
+|-
+! Version !! avec CPU !! avec GPU (CUDA) !! Notes
+|-
+| amber-pmemd/24.3 || ` StdEnv/2023 gcc/12.3 openmpi/4.1.5 cuda/12.6 amber-pmemd/24.3` || `StdEnv/2023 gcc/12.3 openmpi/4.1.5 cuda/12.6 amber-pmemd/24.3` || H100 pris en charge
+|-
+| amber/22.5-23.5 || ` StdEnv/2023 gcc/12.3 openmpi/4.1.5 amber/22.5-23.5` || `StdEnv/2023 gcc/12.3 openmpi/4.1.5 cuda/12.2 amber/22.5-23.5` ||  
+|-
+| ambertools/25.0 || ` StdEnv/2023 gcc/12.3 openmpi/4.1.5 ambertools/25.0` || `StdEnv/2023 gcc/12.3 openmpi/4.1.5 cuda/12.6 ambertools/25.0` || H100 pris en charge, avec PLUMED/2.9.0 
+|-
+|}</tab>
+<tab name="StdEnv/2020">
+{| class="wikitable sortable"
+|-
+! Version !! avec CPU !! avec GPU (CUDA) !! Notes
+|-
+| ambertools/21 || ` StdEnv/2020 gcc/9.3.0 openmpi/4.0.3 scipy-stack ambertools/21  ` || `StdEnv/2020  gcc/9.3.0 cuda/11.4 openmpi/4.0.3 scipy-stack ambertools/21` || GCC, FlexiBLAS & FFTW
+|-
+| amber/20.12-20.15 || ` StdEnv/2020 gcc/9.3.0 openmpi/4.0.3 amber/20.12-20.15 ` || `StdEnv/2020  gcc/9.3.0 cuda/11.4 openmpi/4.0.3 amber/20.12-20.15`  || GCC, FlexiBLAS & FFTW
+|-
+| amber/20.9-20.15 || ` StdEnv/2020 gcc/9.3.0 openmpi/4.0.3 amber/20.9-20.15 ` || `StdEnv/2020  gcc/9.3.0 cuda/11.0 openmpi/4.0.3 amber/20.9-20.15 ` || GCC, MKL & FFTW
+|-
+| amber/18.14-18.17 || ` StdEnv/2020 gcc/9.3.0 openmpi/4.0.3 amber/18.14-18.17 ` || `StdEnv/2020  gcc/8.4.0  cuda/10.2  openmpi/4.0.3 `  || GCC, MKL 
+|-
+|}</tab>
+<tab name="StdEnv/2016">
+{| class="wikitable sortable"
+|-
+! Version !! avec CPU !! avec GPU (CUDA) !! Notes
+|-
+| amber/18 || ` StdEnv/2016 gcc/5.4.0 openmpi/2.1.1 scipy-stack/2019a amber/18 ` || ` StdEnv/2016 gcc/5.4.0 openmpi/2.1.1 cuda/9.0.176 scipy-stack/2019a amber/18`  || GCC, MKL 
+|-
+| amber/18.10-18.11 || ` StdEnv/2016 gcc/5.4.0 openmpi/2.1.1 scipy-stack/2019a amber/18.10-18.11 ` || ` StdEnv/2016 gcc/5.4.0 openmpi/2.1.1 cuda/9.0.176 scipy-stack/2019a amber/18.10-18.11`  || GCC, MKL 
+|-
+| amber/18.10-18.11 || `StdEnv/2016 gcc/7.3.0 openmpi/3.1.2 scipy-stack/2019a amber/18.10-18.11 ` || ` StdEnv/2016 gcc/7.3.0  cuda/9.2.148 openmpi/3.1.2 scipy-stack/2019a amber/18.10-18.11 `  || GCC, MKL 
+|-
+| amber/16 || ` StdEnv/2016.4 amber/16 ` || ` `  || Disponible uniquement sur Graham. Certaines fonctionnalités Python ne sont pas prises en charge.
+|}</tab>
+
+</tabs>
+
+==Utilisation== 
+### AmberTools 21
+Le module AmberTools 21 est présentement disponible sur toutes les grappes et offre sander, sander.LES, sander.LES.MPI, sander.MPI, sander.OMP, sander.quick.cuda, et sander.quick.cuda.MPI. Après avoir chargé le module, configurez les variables d'environnement avec
+
+ source $EBROOTAMBERTOOLS/amber.sh
+
+### Amber 20
+Amber20 est présentement disponible sur toutes les grappes. Il y a deux modules, soit 20.9-20.15 et 20.12-20.15.
+* 20.9-20.15 utilise MKL et cuda/11.0; notez que les bibliothèques MKL ne fonctionnent pas bien avec des AMD et des CPU.
+* 20.12-20.15 utilise FlexiBLAS et cuda/11.4; FlexiBLAS détecte le type de CPU et utilise des bibliothèques optimisées pour le matériel. De plus, CUDA/11.4 est requis pour effectuer des simulations sur les GPU A100 (installés sur Narval). 
+
+Les modules pour utilisation avec CPU offrent les applications disponibles avec AmberTools/20 plus pmemd (séquentiel) et pmemd.MPI (parallèle). Les modules pour utilisation avec ajoutent pmemd.cuda (un seul GPU) et pmemd.cuda.MPI (plusieurs GPU).
+
+### Problèmes connus 
+1. Le module amber/20.12-20.15 n'offre pas l'exécutable MMPBSA.py.MPI.
+
+2. MMPBSA.py des modules amber/18-10-18.11 et amber/18.14-18.17 ne peut pas effectuer les calculs PB; utilisez plutôt les modules amber/20 plus récents.
+
+## Exemples de soumission de tâches
+### Avec un seul GPU 
+Pour les simulations avec un GPU sur Narval, utilisez amber/20.12-20.15. Les modules compilés avec une version CUDA < 11.4 ne fonctionnent pas sur un GPU A100. Voici un exemple de script pour une tâche de calcul utilisant un seul GPU.
+
+**`pmemd_cuda_job.sh`**
+```bash
+#!/bin/bash
+#SBATCH --ntasks=1 
+#SBATCH --gpus-per-node=1 
+#SBATCH --mem-per-cpu=2000 
+#SBATCH --time=10:00:00
+
+module purge
+module load StdEnv/2023 gcc/12.3 openmpi/4.1.5 cuda/12.6 amber-pmemd/24.3
+
+pmemd.cuda -O -i input.in -p topol.parm7 -c coord.rst7 -o output.mdout -r restart.rst7
+```
+
+<span id="CPU-only_parallel_MPI_job"></span>
+### Tâche MPI parallèle avec CPU 
+
+<tabs>
+<tab name="Narval">
+
+**`pmemd_MPI_job_narval.sh`**
+```sh
+#!/bin/bash
+#SBATCH --nodes=4
+#SBATCH --ntasks-per-node=64
+#SBATCH --mem-per-cpu=2000
+#SBATCH --time=1:00:00
+
+module purge
+module load StdEnv/2023 gcc/12.3 openmpi/4.1.5 cuda/12.6 amber-pmemd/24.3
+
+srun pmemd.MPI -O -i input.in -p topol.parm7 -c coord.rst7 -o output.mdout -r restart.rst7
+```
+</tab>
+<tab name="Rorqual">
+
+**`pmemd_MPI_job_rorqual.sh`**
+```sh
+#!/bin/bash
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=192
+#SBATCH --mem-per-cpu=2000
+#SBATCH --time=1:00:00
+
+module purge
+module load StdEnv/2023 gcc/12.3 openmpi/4.1.5 cuda/12.6 amber-pmemd/24.3
+
+srun pmemd.MPI -O -i input.in -p topol.parm7 -c coord.rst7 -o output.mdout -r restart.rst7
+```
+</tab>
+<tab name="Fir">
+
+**`pmemd_MPI_job_fir.sh`**
+```sh
+#!/bin/bash
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=192
+#SBATCH --mem-per-cpu=2000
+#SBATCH --time=1:00:00
+
+module purge
+module load StdEnv/2023 gcc/12.3 openmpi/4.1.5 cuda/12.6 amber-pmemd/24.3
+
+srun pmemd.MPI -O -i input.in -p topol.parm7 -c coord.rst7 -o output.mdout -r restart.rst7
+```
+</tab>
+<tab name="Nibi">
+
+**`pmemd_MPI_job_nibi.sh`**
+```sh
+#!/bin/bash
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=192
+#SBATCH --mem-per-cpu=2000
+#SBATCH --time=1:00:00
+
+module purge
+module load StdEnv/2023 gcc/12.3 openmpi/4.1.5 cuda/12.6 amber-pmemd/24.3
+
+srun pmemd.MPI -O -i input.in -p topol.parm7 -c coord.rst7 -o output.mdout -r restart.rst7
+```
+</tab>
+<tab name="Trillium">
+
+**`pmemd_MPI_job_trillium.sh`**
+```sh
+#!/bin/bash
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=192
+#SBATCH --mem-per-cpu=2000
+#SBATCH --time=1:00:00
+
+module purge
+module load StdEnv/2023 gcc/12.3 openmpi/4.1.5 cuda/12.6 amber-pmemd/24.3
+
+srun pmemd.MPI -O -i input.in -p topol.parm7 -c coord.rst7 -o output.mdout -r restart.rst7
+```
+</tab>
+</tabs>
+
+### Tâche QM/MM distribuée avec plusieurs GPU 
+Dans l'exemple suivant, huit GPU sont demandés.
+
+**`quick_MPI_job.sh`**
+```bash
+#!/bin/bash
+#SBATCH --ntasks=8
+#SBATCH --gpus-per-task=1 
+#SBATCH --mem-per-cpu=4000 
+#SBATCH --time=02:00:00
+
+module purge
+module load StdEnv/2023 gcc/12.3 openmpi/4.1.5 cuda/12.6 ambertools/25.0
+
+srun sander.quick.cuda.MPI -O -i input.in -p topol.parm7 -c coord.rst7 -o output.mdout -r restart.rst7
+```
+
+### Tâche MMPBSA parallèle 
+Dans l'exemple suivant, 32 processus MPI sont utilisés. La scalabilité de MMPBSA se fait de façon linéaire parce que chaque séquence de la trajectoire est traitée indépendamment. 
+
+**`mmpbsa_job.sh`**
+```bash
+#!/bin/bash
+#SBATCH --ntasks=32 
+#SBATCH --mem-per-cpu=4000 
+#SBATCH --time=1:00:00
+
+module purge
+module load StdEnv/2023 gcc/12.3 openmpi/4.1.5 cuda/12.6 ambertools/25.0
+
+srun MMPBSA.py.MPI -O -i mmpbsa.in -o mmpbsa.dat -sp solvated_complex.parm7 -cp complex.parm7 -rp receptor.parm7 -lp ligand.parm7 -y trajectory.nc
+```
+
+Pour les détails sur comment modifier vos scripts pour faire des simulations sur des ressources de calcul, voir [Exécuter des tâches](running-jobs-fr.md).
+
+<span id="Performance_and_benchmarking"></span>
+## Performance et étalonnage <i>benchmarking</i>
+
+Le guide <i>[Molecular Dynamics Performance Guide](https://mdbench.ace-net.ca/mdbench/)</i> a été créé par une équipe [d'ACENET](https://www.ace-net.ca/). Le guide décrit les conditions optimales pour exécuter aussi des tâches sur nos grappes avec GROMACS, NAMD et OpenMM.
+
+Étalonnage de simulations avec PMEMD[Étalonnage de simulations QM/MM avec SANDER.QUICK [http://mdbench.ace-net.ca/mdbench/bform/?software_contains=&software_id=&module_contains=&module_version=&site_contains=&gpu_model=&cpu_model=&arch=&dataset=4cg1](http://mdbench.ace-net.ca/mdbench/bform/?software_contains=PMEMD&software_id=&module_contains=&module_version=&site_contains=&gpu_model=&cpu_model=&arch=&dataset=6n4o]).

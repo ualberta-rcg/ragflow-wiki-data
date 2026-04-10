@@ -1,0 +1,76 @@
+{
+  "doc_key": "base/abaqus",
+  "level": "chunk",
+  "chunk_index": 14,
+  "qa_pairs": [
+    {
+      "question": "How can one completely satisfy the 'MEMORY TO OPERATIONS REQUIRED MINIMIZE I/O' (MRMIO) value for an Abaqus simulation?",
+      "answer": "To completely satisfy the recommended 'MEMORY TO OPERATIONS REQUIRED MINIMIZE I/O' (MRMIO) value, at least the same amount of non-swapped physical memory (RES) must be available to Abaqus."
+    },
+    {
+      "question": "Why is it necessary to slightly over-allocate the requested Slurm node memory for Abaqus simulations?",
+      "answer": "It is necessary to slightly over-allocate the requested Slurm node memory (`-mem=`) because the physical memory (RES) will generally be less than the virtual memory (VIRT) by a relatively constant amount for a given simulation."
+    },
+    {
+      "question": "What is the hardcoded over-allocation value for Slurm node memory in the sample script for the standard Abaqus solver?",
+      "answer": "The hardcoded over-allocation for Slurm node memory is a conservative value of 3072MB, based on initial testing of the standard Abaqus solver."
+    },
+    {
+      "question": "How can long queue wait times be avoided when dealing with large MRMIO values in Abaqus simulations?",
+      "answer": "To avoid long queue wait times associated with large MRMIO values, it may be beneficial to investigate the performance impact of reducing the RES memory available to Abaqus below the MRMIO. This is done by lowering the `-mem=` value in the Slurm script, which sets an artificially low `memory=` value in the Abaqus command."
+    },
+    {
+      "question": "What happens if the RES memory allocated to Abaqus dips below the MINIMUM MEMORY REQUIRED (MMR)?",
+      "answer": "If the RES memory dips below the MINIMUM MEMORY REQUIRED (MMR), Abaqus will exit due to an Out of Memory (OOM) error."
+    },
+    {
+      "question": "How can one test the performance impact of reducing RES memory for an Abaqus simulation with a large MRMIO?",
+      "answer": "If the MRMIO is, for example, 96GB, one can run a series of short test jobs with varying Slurm memory requests such as `#SBATCH --mem=8G, 16G, 32G, 64G` until an acceptable minimal performance impact is found. Smaller values will lead to increased scratch space usage."
+    },
+    {
+      "question": "Where can memory estimates for multi-node Abaqus scripts be found?",
+      "answer": "Memory estimates (per compute process) required to minimize I/O for multi-node Abaqus scripts are provided in the output `.dat` file of completed jobs."
+    },
+    {
+      "question": "How is the `mem-per-cpu` value roughly determined for multi-node Slurm scripts if `mp_host_split` is not specified or set to 1?",
+      "answer": "If `mp_host_split` is not specified or set to 1, the `mem-per-cpu` value can be roughly determined by multiplying the largest memory estimate by the number of nodes and then dividing by the number of tasks (`ntasks`)."
+    },
+    {
+      "question": "How is the `mem-per-cpu` value roughly determined for multi-node Slurm scripts if `mp_host_split` is specified and greater than 1?",
+      "answer": "If `mp_host_split` is specified and greater than 1, the `mem-per-cpu` value can be roughly determined by multiplying the largest memory estimate by the number of nodes, then by the `mp_host_split` value, and finally dividing by the total number of tasks."
+    },
+    {
+      "question": "What is the constraint for the `mp_host_split` value in multi-node Abaqus simulations?",
+      "answer": "The `mp_host_split` value must be less than or equal to the number of cores per node assigned by Slurm at runtime, otherwise Abaqus will terminate."
+    },
+    {
+      "question": "Where can users find more detailed information about the upper limit of memory that Abaqus can allocate?",
+      "answer": "More details regarding the upper limit of memory that Abaqus can allocate can be found in the 'Abaqus Analysis User's Manual'."
+    },
+    {
+      "question": "What factors determine the actual usage of memory and disk space for scratch data in Abaqus?",
+      "answer": "The actual usage of memory and disk space for scratch data depends on the upper limit of memory that Abaqus can allocate (set by the 'MEMORY' parameter) and the memory required to minimize I/O."
+    },
+    {
+      "question": "If Abaqus's memory upper limit is greater than the 'MEMORY TO MINIMIZE I/O' value, what will be the actual memory and scratch disk usage?",
+      "answer": "If the memory upper limit is greater than the 'MEMORY TO MINIMIZE I/O' value, the actual memory usage will be close to the estimated 'MEMORY TO MINIMIZE I/O' value, and the scratch disk usage will be close to zero."
+    },
+    {
+      "question": "If Abaqus's memory upper limit is less than the 'MEMORY TO MINIMIZE I/O' value, how will memory and scratch disk usage be affected?",
+      "answer": "If the memory upper limit is less than the 'MEMORY TO MINIMIZE I/O' value, the actual memory used will be close to the memory limit, and the scratch disk usage will be roughly proportional to the difference between the estimated 'MEMORY TO MINIMIZE I/O' and the memory upper limit."
+    },
+    {
+      "question": "Can an accurate estimate of scratch disk space be provided for Abaqus simulations?",
+      "answer": "No, an accurate estimate of the scratch disk space required for Abaqus simulations is not possible."
+    },
+    {
+      "question": "What platforms are recommended for running graphical Abaqus applications at the Alliance?",
+      "answer": "It is recommended to use OpenOnDemand or JupyterLab to run graphical applications at the Alliance."
+    },
+    {
+      "question": "What are the OpenOnDemand links for Nibi and TRILLIUM?",
+      "answer": "The OpenOnDemand link for Nibi is `https://ondemand.sharcnet.ca`, and for TRILLIUM, it is `https://ondemand.scinet.utoronto.ca`."
+    }
+  ],
+  "generated_at": "2026-04-10T00:26:55.069849+00:00"
+}

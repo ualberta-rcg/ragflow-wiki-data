@@ -1,0 +1,52 @@
+{
+  "doc_key": "fr/abaqus",
+  "level": "chunk",
+  "chunk_index": 13,
+  "qa_pairs": [
+    {
+      "question": "Comment écrire les données de redémarrage pour un total de 12 incréments dans le fichier d'entrée pour une analyse explicite via un script de répertoire temporaire?",
+      "answer": "Pour écrire les données de redémarrage pour un total de 12 incréments avec un script de répertoire temporaire pour l'analyse explicite, le fichier d'entrée doit contenir la ligne `*RESTART, WRITE, OVERLAY, NUMBER INTERVAL=12, TIME MARKS=NO`."
+    },
+    {
+      "question": "Comment puis-je vérifier l'information complète sur le redémarrage d'une analyse explicite en utilisant des scripts de répertoire temporaire?",
+      "answer": "Pour vérifier l'information complète sur le redémarrage d'une analyse explicite utilisant un script de répertoire temporaire, vous pouvez utiliser la commande `egrep -i \"step|restart\" testet*.com testet*.msg testet*.sta`."
+    },
+    {
+      "question": "Quels sont les paramètres SLURM importants spécifiés dans le script de redémarrage pour l'analyse explicite dans un répertoire temporaire (`scriptet2.txt`)?",
+      "answer": "Dans le script de redémarrage `scriptet2.txt` pour l'analyse explicite avec un répertoire temporaire, les paramètres SLURM principaux sont : `--account=def-group`, `--time=00-06:00`, `--mem=8000M` (pour la mémoire du nœud), `--cpus-per-task=4` et `--nodes=1`."
+    },
+    {
+      "question": "Quelle version du module Abaqus est chargée par défaut dans le script `scriptet2.txt` pour le redémarrage d'une analyse explicite?",
+      "answer": "Le script `scriptet2.txt` pour le redémarrage d'une analyse explicite charge la dernière version du module Abaqus, soit `abaqus/2026`."
+    },
+    {
+      "question": "À quoi sert la boucle `while sleep 3h` dans le script `scriptet2.txt` pour le redémarrage d'une analyse explicite?",
+      "answer": "La boucle `while sleep 3h` dans le script `scriptet2.txt` sert à copier périodiquement les fichiers de redémarrage (`testet2*`) du répertoire temporaire (`$SLURM_TMPDIR`) vers le répertoire de soumission (`$SLURM_SUBMIT_DIR`), afin de sauvegarder les données en cas de dépassement de la limite de temps."
+    },
+    {
+      "question": "La commande Abaqus pour le redémarrage d'une tâche d'analyse explicite dans `scriptet2.txt` nécessite-t-elle des modifications du fichier d'entrée?",
+      "answer": "Non, le fichier d'entrée ne requiert aucune modification pour le redémarrage de l'analyse explicite avec le script `scriptet2.txt`."
+    },
+    {
+      "question": "Quelles sont les conditions requises pour utiliser le script pour nœuds multiples (`scriptep1-mpi.txt`) pour une analyse explicite?",
+      "answer": "Pour utiliser le script pour nœuds multiples (`scriptep1-mpi.txt`) pour une analyse explicite, il faut disposer d'une licence permettant d'exécuter des tâches nécessitant beaucoup de mémoire et de calcul. De plus, il peut être utilisé uniquement avec Abaqus/2026 et les versions plus récentes."
+    },
+    {
+      "question": "Existe-t-il un script de redémarrage pour les tâches d'analyse explicite qui utilisent plusieurs nœuds?",
+      "answer": "Non, un script modèle pour redémarrer des tâches sur nœuds multiples pour l'analyse explicite n'est pas fourni actuellement, car son utilisation présente des limitations supplémentaires."
+    },
+    {
+      "question": "Quels sont les principaux paramètres SLURM configurés dans le `scriptep1-mpi.txt` pour l'analyse explicite sur plusieurs nœuds?",
+      "answer": "Les paramètres SLURM clés dans `scriptep1-mpi.txt` pour l'analyse explicite sur nœuds multiples sont : `--account=def-group`, `--time=00-06:00`, `--ntasks=8` (pour le nombre de cœurs), `--mem-per-cpu=16000M` et `--cpus-per-task=1`. Le paramètre `--nodes` est optionnel."
+    },
+    {
+      "question": "Comment la liste des hôtes pour MPI (`mp_host_list`) est-elle gérée et utilisée dans le script `scriptep1-mpi.txt` pour l'analyse explicite?",
+      "answer": "Dans `scriptep1-mpi.txt`, la variable `mp_host_list` est générée en utilisant `slurm_hl2hl.py` pour formater la liste des nœuds, puis est exportée et écrite dans le fichier `abaqus_v6.env`. Cela permet de spécifier les hôtes pour le mode MPI."
+    },
+    {
+      "question": "Quelle commande Abaqus est utilisée pour lancer une tâche d'analyse explicite en mode MPI sur plusieurs nœuds selon le script `scriptep1-mpi.txt`?",
+      "answer": "Pour lancer une tâche d'analyse explicite en mode MPI sur plusieurs nœuds, le script `scriptep1-mpi.txt` utilise la commande : `abaqus job=testep1-mpi input=myexp-sim.inp scratch=$SLURM_TMPDIR cpus=$SLURM_NTASKS interactive mp_mode=mpi`."
+    }
+  ],
+  "generated_at": "2026-04-10T00:36:33.878142+00:00"
+}

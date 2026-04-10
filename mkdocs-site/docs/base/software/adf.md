@@ -5,19 +5,19 @@ tags:
   - computationalchemistry
 
 keywords:
-  - Job submission
-  - ADF
-  - Slurm script
-  - Internal Coordinates
-  - WATER
-  - AMS
-  - ADF-GUI
   - SCM
-  - Z-Matrix
-  - Basis Type TZP
+  - AMS
+  - ADF
   - Geometry Optimization
-  - TigerVNC
+  - ADF-GUI
   - Computational Chemistry
+  - Slurm script
+  - WATER
+  - Z-Matrix
+  - TigerVNC
+  - Internal Coordinates
+  - Job submission
+  - Basis Type TZP
 ---
 
 ==Introduction== 

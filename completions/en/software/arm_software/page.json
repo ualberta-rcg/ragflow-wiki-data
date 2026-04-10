@@ -1,0 +1,99 @@
+{
+  "doc_key": "en/arm_software",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is Linaro DDT?",
+      "answer": "Linaro DDT is a powerful commercial parallel debugger with a graphical user interface, capable of debugging serial, MPI, multi-threaded, and CUDA programs written in C, C++, and FORTRAN."
+    },
+    {
+      "question": "What is Linaro MAP?",
+      "answer": "MAP is an efficient parallel profiler from Linaro, often used alongside DDT."
+    },
+    {
+      "question": "Which modules are available for Linaro DDT and MAP on Nibi and Trillium?",
+      "answer": "The available modules are `ddt-cpu` for CPU debugging and profiling, and `ddt-gpu` for GPU or mixed CPU/GPU debugging."
+    },
+    {
+      "question": "How should users log in to use DDT/MAP, which are GUI applications?",
+      "answer": "Users should log in using `ssh -Y` and an SSH client like MobaXTerm (Windows) or XQuartz (Mac) to ensure proper X11 tunnelling."
+    },
+    {
+      "question": "How are DDT and MAP typically used?",
+      "answer": "Both DDT and MAP are normally used interactively through their GUI, typically accomplished using the `salloc` command, though MAP can also be used non-interactively with `sbatch`."
+    },
+    {
+      "question": "What are the current license limitations for DDT/MAP?",
+      "answer": "The current license limits DDT/MAP to a maximum of 64 CPU cores across all users at any given time, and DDT-GPU is limited to 8 GPUs."
+    },
+    {
+      "question": "What is the first step to debug or profile CPU-only code?",
+      "answer": "The first step is to allocate the node or nodes for debugging/profiling using the `salloc` command, for example: `salloc --x11 --time=0-1:00 --mem-per-cpu=4G --ntasks=4`."
+    },
+    {
+      "question": "Which module should be loaded for CPU debugging?",
+      "answer": "The `ddt-cpu` module should be loaded, for example: `module load ddt-cpu`."
+    },
+    {
+      "question": "How do you run DDT or MAP for CPU-only code?",
+      "answer": "After allocating resources and loading the module, run `ddt path/to/code` or `map path/to/code`."
+    },
+    {
+      "question": "What is important to check regarding MPI implementation in the DDT/MAP application window?",
+      "answer": "Ensure the MPI implementation is the default OpenMPI; if not, change it and specify the desired number of CPU cores before pressing 'Run'."
+    },
+    {
+      "question": "What is the workaround for the OpenMPI compatibility issue with DDT's message queues?",
+      "answer": "Execute `export OMPI_MCA_pml=ob1` before running DDT."
+    },
+    {
+      "question": "What is the consequence of using the `OMPI_MCA_pml=ob1` workaround?",
+      "answer": "The workaround can make your MPI code run slower, so it should only be used when debugging."
+    },
+    {
+      "question": "How do you allocate resources for CUDA code debugging?",
+      "answer": "Allocate nodes using `salloc --x11 --time=0-1:00 --ntasks=1 --gres=gpu:1`."
+    },
+    {
+      "question": "Which module should be loaded for GPU debugging?",
+      "answer": "The `ddt-gpu` module should be loaded."
+    },
+    {
+      "question": "What should be done if loading `ddt-gpu` suggests loading an older OpenMPI version?",
+      "answer": "Reload the OpenMPI module with the suggested command (e.g., `module load openmpi/2.0.2`), then reload the `ddt-gpu` module."
+    },
+    {
+      "question": "What additional module is required for CUDA code debugging?",
+      "answer": "A CUDA module must be loaded, for example: `module load cuda`."
+    },
+    {
+      "question": "What command should be used if DDT complains about a CUDA driver and toolkit version mismatch?",
+      "answer": "Execute `export ALLINEA_FORCE_CUDA_VERSION=X.Y` (where X.Y is the correct version) and then run DDT again."
+    },
+    {
+      "question": "Why might a user choose to use VNC with DDT?",
+      "answer": "VNC can fix laggy performance of the DDT interface, especially when not on the same campus as the computer cluster, due to X11's sensitivity to packet latency."
+    },
+    {
+      "question": "Where can users find instructions for setting up a VNC session?",
+      "answer": "Instructions for setting up a VNC session can be found on the VNC page."
+    },
+    {
+      "question": "How do you manually launch a job from the ddt startup screen when using VNC from a login or VDI node?",
+      "answer": "Pick 'manually launch backend yourself', enter job info, press 'listen', then press 'help' to get the command to run on the cluster."
+    },
+    {
+      "question": "What is a common issue with X11 when using DDT and how can it be resolved?",
+      "answer": "X11 issues can occur if home directory permissions are too open; they can be resolved by changing permissions so only the user has access, using `chmod go-rx /home/$USER`."
+    },
+    {
+      "question": "How can current home directory permissions be checked?",
+      "answer": "Current permissions can be checked with `ls -ld /home/$USER`."
+    },
+    {
+      "question": "Can home directory permissions be restored after using DDT?",
+      "answer": "Yes, if the original permissions were recorded, they can be restored after use."
+    }
+  ],
+  "generated_at": "2026-04-10T00:05:30.763502+00:00"
+}

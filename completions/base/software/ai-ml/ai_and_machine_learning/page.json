@@ -3,53 +3,109 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is a key difference between a local machine and a cluster for machine learning applications, and what implication does it have?",
-      "answer": "A cluster uses a distributed filesystem, linking many storage devices seamlessly. This means accessing a file on `/project` may feel the same as local access, but has very different performance implications, requiring wise data placement."
+      "question": "What is the main purpose of this document regarding machine learning applications on clusters?",
+      "answer": "It provides guidelines and information for optimizing machine learning applications on clusters, emphasizing special care due to differences from local machines, such as distributed filesystems and IO performance implications."
     },
     {
-      "question": "Where can users find a self-paced course on machine learning for the clusters?",
-      "answer": "A self-paced course titled 'Introduction to Machine Learning' is available from SHARCNET at training.sharcnet.ca/courses/enrol/index.php?id=180."
+      "question": "Why is special care required when using clusters for machine learning compared to a local machine?",
+      "answer": "Clusters use a distributed filesystem, linking many storage devices, which means IO operations have very different performance implications than on a local machine."
     },
     {
-      "question": "What is the recommended practice for Python virtual environments on the clusters, and what should be avoided?",
-      "answer": "Users are asked to avoid using Anaconda and to use virtualenv instead, as reasons are explained on the Anaconda page."
+      "question": "What is a key consideration for data on a cluster?",
+      "answer": "Users need to choose wisely where to put their data."
     },
     {
-      "question": "Which machine learning software packages have dedicated documentation on the clusters?",
-      "answer": "Documentation is available for TensorFlow, PyTorch, Keras, Torch, SpaCy, Scikit-Learn, and SnapML."
+      "question": "Where can users find a self-paced course on machine learning for clusters?",
+      "answer": "A self-paced course titled \"Introduction to Machine Learning\" is available from SHARCNET."
     },
     {
-      "question": "What are the general recommendations for storing datasets based on their size when performing machine learning tasks on clusters?",
-      "answer": "Datasets 10 GB or less should fit in memory; 100 GB or less can fit in local storage ($SLURM_TMPDIR) of the compute node; larger datasets may need to stay in shared storage like project or scratch."
+      "question": "Is there a tutorial for porting programs to clusters for machine learning?",
+      "answer": "Yes, there is a specific tutorial available for porting programs to clusters."
     },
     {
-      "question": "What problem arises when handling datasets with hundreds of thousands of small files on a distributed filesystem?",
-      "answer": "Problems include filesystem quotas limiting the number of objects and significant slowdowns from streaming many small files from `/project` or `/scratch` to a compute node."
+      "question": "Where can users find a tutorial for setting up deep learning environments in Python locally and on Alliance environments?",
+      "answer": "A user-made tutorial showing all necessary steps for setting up local and Alliance environments for deep learning in Python is available via a provided GitLab link."
     },
     {
-      "question": "What is the recommended approach for storing datasets containing many small files on a distributed filesystem?",
+      "question": "What information is available in the Python documentation for cluster users?",
+      "answer": "The Python documentation provides important information about Python versions, virtual environments on login or compute nodes, multiprocessing, Anaconda, and Jupyter."
+    },
+    {
+      "question": "What is the recommended practice regarding Anaconda for machine learning on clusters?",
+      "answer": "Users are asked to avoid using Anaconda and use virtualenv instead."
+    },
+    {
+      "question": "What is the process for switching from Anaconda to virtualenv for machine learning tasks on clusters?",
+      "answer": "To switch, users should install all the same packages in virtualenv, excluding CUDA, CuDNN, and other low-level libraries already installed on the clusters."
+    },
+    {
+      "question": "Where can users find information about installing and common pitfalls for specific machine learning software packages?",
+      "answer": "Users should refer to the dedicated page for their machine learning package of choice."
+    },
+    {
+      "question": "Name some machine learning software packages for which useful information is provided.",
+      "answer": "TensorFlow, PyTorch, Keras, Torch, SpaCy, Scikit-Learn, and SnapML are some of the listed packages."
+    },
+    {
+      "question": "What variety of storage options do clusters offer for machine learning datasets?",
+      "answer": "Clusters offer a wide range of storage options, from high-speed temporary local storage to different kinds of long-term storage, allowing users to choose based on needs and usage patterns."
+    },
+    {
+      "question": "What is the recommended storage strategy for datasets of 10 GB or less?",
+      "answer": "Datasets of 10 GB or less can likely fit in memory, and users should avoid reading data from disk during machine learning tasks."
+    },
+    {
+      "question": "How should datasets around 100 GB or less be managed for optimal performance?",
+      "answer": "Datasets of 100 GB or less should be transferred to the local storage of the compute node at the beginning of the job, as this storage is significantly faster and more reliable than shared storage."
+    },
+    {
+      "question": "Where should larger datasets be stored permanently?",
+      "answer": "Larger datasets can be stored permanently in the project space, as shared storage like project and scratch is for storing and reading at low frequencies."
+    },
+    {
+      "question": "What problems can arise from managing datasets with many small files on a distributed filesystem?",
+      "answer": "Problems include filesystem quotas limiting the number of objects and significant slowdowns when streaming many small files from /project or /scratch to a compute node."
+    },
+    {
+      "question": "What is the recommended way to store data when dealing with large collections of small files on a distributed filesystem?",
       "answer": "Data should be stored in large single-file archives."
     },
     {
-      "question": "Why is checkpointing recommended for long-running machine learning computations?",
-      "answer": "Checkpointing prevents losing work in case of an outage and gives an edge in job priority (more nodes are available for short jobs)."
+      "question": "What is \"checkpointing\" and why is it recommended for long-running computations?",
+      "answer": "Checkpointing involves splitting long computations into shorter chunks (e.g., 24-hour segments) to prevent loss of work during outages and to gain priority for shorter jobs."
     },
     {
-      "question": "What tools are available to help users group many similar jobs, such as for hyperparameter search or training many variants?",
-      "answer": "META, GLOST, and GNU Parallel are available to help with grouping many jobs into one."
+      "question": "Do most machine learning libraries support checkpointing?",
+      "answer": "Yes, most machine learning libraries natively support checkpointing."
     },
     {
-      "question": "Which tools are mentioned for experiment tracking and hyperparameter optimization on the clusters?",
-      "answer": "Weights & Biases (wandb) and Comet.ml can help with tracking and analyzing training runs, and providing Bayesian hyperparameter search."
+      "question": "Where can users find examples of checkpointing for specific machine learning libraries?",
+      "answer": "Examples are provided for checkpointing with PyTorch and TensorFlow."
     },
     {
-      "question": "What guide is available for scaling classic machine learning models on very large datasets?",
-      "answer": "A guide titled 'Large Scale Machine Learning (Big Data)' contains ideas, practical options, and tutorials for tackling training classic ML models on very large datasets."
+      "question": "When should users consider grouping many similar jobs into one?",
+      "answer": "Users should consider grouping jobs for hyperparameter search, training many variants of the same method, or running many optimization processes of similar duration."
     },
     {
-      "question": "How can users address non-deterministic behavior in RNN and multi-head attention API calls when using cuDNN with CUDA Toolkit 10.2 or higher?",
-      "answer": "Users can eliminate non-deterministic behavior by setting the CUBLAS_WORKSPACE_CONFIG environmental variable, for example, to ':16:8' or ':4096:2', which instructs cuBLAS to allocate specific buffer sizes in GPU memory."
+      "question": "What tools are available to help group many similar jobs into one?",
+      "answer": "META, GLOST, and GNU Parallel are available tools to assist with grouping many jobs into one."
+    },
+    {
+      "question": "What benefits do Weights & Biases (wandb) and Comet.ml offer for machine learning practitioners?",
+      "answer": "They help with easier tracking and analysis of training runs and provide Bayesian hyperparameter search."
+    },
+    {
+      "question": "Where can users find guidance on scaling classic machine learning models on very large datasets?",
+      "answer": "A specific guide contains ideas, practical options, and tutorials for tackling training classic ML models on very large datasets, as this is often less discussed than scaling deep learning."
+    },
+    {
+      "question": "What can cause non-deterministic behaviour with RNN and multi-head attention API calls using CUDA Toolkit 10.2 or higher?",
+      "answer": "Non-deterministic behaviour can occur when the cuDNN library is built with CUDA Toolkit 10.2 or higher."
+    },
+    {
+      "question": "How can non-deterministic behaviour of cuDNN RNN and multi-head attention APIs be resolved?",
+      "answer": "Users can set a single buffer size in the `CUBLAS_WORKSPACE_CONFIG` environmental variable (e.g., `:16:8` or `:4096:2`) to instruct cuBLAS to allocate specific buffers in GPU memory."
     }
   ],
-  "generated_at": "2026-04-09T22:56:15.975039+00:00"
+  "generated_at": "2026-04-09T23:52:32.336159+00:00"
 }

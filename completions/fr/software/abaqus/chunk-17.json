@@ -1,0 +1,88 @@
+{
+  "doc_key": "fr/abaqus",
+  "level": "chunk",
+  "chunk_index": 17,
+  "qa_pairs": [
+    {
+      "question": "Comment estimer la mémoire Slurm requise pour les scripts multinœuds?",
+      "answer": "Pour déterminer la mémoire Slurm requise pour les scripts multinœuds, on se base sur les estimations de mémoire (par processus de calcul) nécessaires pour minimiser les entrées/sorties, lesquelles sont fournies dans le fichier de sortie '.dat' pour les tâches terminées."
+    },
+    {
+      "question": "Comment calculer la valeur de `mem-per-cpu` si `mp_host_split` n'est pas spécifié ou est égal à 1?",
+      "answer": "Si `mp_host_split` n'est pas spécifié ou est égal à 1, la valeur de `mem-per-cpu` peut être estimée en multipliant l'estimation de mémoire la plus élevée par le nombre de nœuds, puis en divisant le résultat par le nombre de tâches ('ntasks')."
+    },
+    {
+      "question": "Que faire si une valeur de `mp_host_split` supérieure à 1 est spécifiée? Comment estimer `mem-per-cpu` dans ce cas?",
+      "answer": "Si une valeur pour `mp_host_split` est spécifiée (supérieure à 1), la valeur de `mem-per-cpu` peut être estimée en multipliant l'estimation de mémoire la plus élevée par le nombre de nœuds, puis par la valeur de `mp_host_split`, et en divisant le résultat par le nombre de tâches."
+    },
+    {
+      "question": "Quelle est la contrainte pour la valeur de `mp_host_split` afin d'éviter qu'Abaqus ne ferme?",
+      "answer": "La valeur de `mp_host_split` doit être inférieure ou égale au nombre de cœurs par nœud attribués par Slurm lors de l'exécution, autrement Abaqus fermera."
+    },
+    {
+      "question": "Comment contrôler le scénario où `mp_host_split` pourrait causer un arrêt d'Abaqus?",
+      "answer": "Ce scénario peut être contrôlé en supprimant le commentaire pour la ligne qui permet de spécifier une valeur pour 'tasks-per-node'."
+    },
+    {
+      "question": "De quoi dépend le maximum de mémoire qu'Abaqus peut allouer?",
+      "answer": "Le maximum de mémoire pouvant être alloué par Abaqus dépend généralement de la valeur du paramètre `MÉMOIRE` et de la quantité de mémoire physique disponible sur la machine."
+    },
+    {
+      "question": "Où peut-on trouver plus de détails sur l'allocation de mémoire d'Abaqus?",
+      "answer": "Pour plus de détails sur l'allocation de mémoire d'Abaqus, il faut consulter le manuel d'utilisation d'Abaqus Analysis."
+    },
+    {
+      "question": "Dans quel cas l'utilisation du disque `/scratch` sera-t-elle quasi nulle?",
+      "answer": "Si la limite supérieure de mémoire est supérieure à la mémoire requise pour minimiser les entrées/sorties ('MEMORY TO MINIMIZE I/O'), l'utilisation réelle de la mémoire sera proche de la valeur estimée de 'MEMORY TO MINIMIZE I/O' et l'utilisation du disque de travail sera proche de zéro."
+    },
+    {
+      "question": "Comment l'utilisation du disque `/scratch` est-elle affectée si la limite supérieure de mémoire est inférieure à `MEMORY TO MINIMIZE I/O`?",
+      "answer": "Si la limite supérieure de mémoire est inférieure à 'MEMORY TO MINIMIZE I/O', la mémoire réelle utilisée sera proche de la limite de mémoire mentionnée, et l'utilisation du disque `/scratch` sera à peu près proportionnelle à la différence entre 'MEMORY TO MINIMIZE I/O' estimée et la limite supérieure de la mémoire."
+    },
+    {
+      "question": "Peut-on estimer précisément l'espace nécessaire sur le disque `/scratch`?",
+      "answer": "Non, il est impossible d'évaluer avec précision l'espace du disque `/scratch`."
+    },
+    {
+      "question": "Quelles sont les méthodes suggérées pour travailler avec des applications graphiques?",
+      "answer": "Nous recommandons d'utiliser Open OnDemand ou Jupyter pour travailler avec des applications graphiques."
+    },
+    {
+      "question": "Comment lancer une session Open OnDemand?",
+      "answer": "Pour lancer une session OnDemand, il faut cliquer sur le lien approprié sur votre bureau."
+    },
+    {
+      "question": "Quel est le lien Open OnDemand pour NIBI?",
+      "answer": "Le lien Open OnDemand pour NIBI est `https://ondemand.sharcnet.ca`."
+    },
+    {
+      "question": "Quel est le lien Open OnDemand pour TRILLIUM?",
+      "answer": "Le lien Open OnDemand pour TRILLIUM est `https://ondemand.scinet.utoronto.ca`."
+    },
+    {
+      "question": "Après avoir ouvert un terminal sur OnDemand, quelle est la commande pour charger le module Abaqus?",
+      "answer": "Il faut ouvrir une nouvelle fenêtre de terminal et charger le module avec la commande `module load abaqus/2026`."
+    },
+    {
+      "question": "Comment lancer Abaqus en mode graphique si le nœud n'a pas de GPU ou si VirtualGL n'est pas supporté?",
+      "answer": "Si vous êtes sur un nœud sans GPU ou sur un nœud avec GPU où VirtualGL n'est pas pris en charge, il faut lancer l'application avec l'option `mesa` : `abaqus cae -mesa`."
+    },
+    {
+      "question": "Comment lancer Abaqus en mode graphique pour une meilleure performance sur un nœud GPU supportant VirtualGL?",
+      "answer": "Si vous avez besoin d'une meilleure performance graphique et êtes sur un nœud avec GPU où VirtualGL est pris en charge, lancez Abaqus sans l'option `mesa` : `abaqus cae`."
+    },
+    {
+      "question": "Quelle sélection doit être faite dans Nibi Desktop pour une meilleure performance graphique?",
+      "answer": "Dans Nibi Desktop, il faut sélectionner `h100 (80GB)` dans le menu déroulant."
+    },
+    {
+      "question": "Qu'est-ce qui est requis en termes de licence pour lancer Abaqus en mode graphique?",
+      "answer": "Il faut au moins une licence de calcul non utilisée pour lancer Abaqus en mode graphique."
+    },
+    {
+      "question": "Quelle commande permet de vérifier le nombre de licences Abaqus CAE disponibles?",
+      "answer": "On peut utiliser la commande `abaqus licensing lmstat -c $ABAQUSLM_LICENSE_FILE -a | grep \"Users of cae\"` pour vérifier le nombre de licences CAE disponibles."
+    }
+  ],
+  "generated_at": "2026-04-10T00:37:32.099377+00:00"
+}

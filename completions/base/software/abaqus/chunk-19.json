@@ -1,0 +1,64 @@
+{
+  "doc_key": "base/abaqus",
+  "level": "chunk",
+  "chunk_index": 19,
+  "qa_pairs": [
+    {
+      "question": "What are the allowed purposes for using the SIMULIA Academic Software with tokens from the SHARCNET license server?",
+      "answer": "The SIMULIA Academic Software with SHARCNET license tokens may only be used on SHARCNET hardware where the software is installed, in affiliation with a Canadian degree-granting academic institution, for education, institutional, or instruction purposes (not commercial/contract-related where results aren't publishable), and for experimental, theoretical, and/or digital research work up to the point of proof-of-concept in a laboratory."
+    },
+    {
+      "question": "Which SHARCNET systems are compatible with the license file configuration?",
+      "answer": "The configured license file is only usable on SHARCNET systems such as nibi and dusky clusters, or the SHARCNET OOD desktop system."
+    },
+    {
+      "question": "What is the status of the old license3.sharcnet.ca server?",
+      "answer": "The old license3.sharcnet.ca server has been permanently shut down."
+    },
+    {
+      "question": "How do I configure my `abaqus.lic` file to use the free SHARCNET license?",
+      "answer": "You must update your `abaqus.lic` file to contain the line: `prepend_path(\"ABAQUSLM_LICENSE_FILE\",\"27050@license1.computecanada.ca\")`."
+    },
+    {
+      "question": "What should I do if my Abaqus job fails with a 'Segmentation fault' error when using abaqus/202X modules?",
+      "answer": "If your Abaqus job fails with the error message '[*** ABAQUS/eliT_CheckLicense rank 0 terminated by signal 11 (Segmentation fault)]', you should verify that your `abaqus.lic` file contains `ABAQUSLM_LICENSE_FILE`."
+    },
+    {
+      "question": "What action should I take if my Abaqus job (version 6.14.1) fails with a 'License server machine is down or not responding' error?",
+      "answer": "If your Abaqus job (version 6.14.1) fails with the error message '[License server machine is down or not responding, etc.]', you need to replace `ABAQUSLM_LICENSE_FILE` with `LM_LICENSE_FILE` in your `abaqus.lic` file."
+    },
+    {
+      "question": "How can I log into the nibi cluster to query the license server?",
+      "answer": "You can log into the nibi cluster by executing `ssh nibi.alliancecan.ca`."
+    },
+    {
+      "question": "Which modules should I load after logging into the nibi cluster to query the license server?",
+      "answer": "After logging in, you should load the modules `StdEnv/2020` and `abaqus`."
+    },
+    {
+      "question": "What command can I use to check the SHARCNET license server for started and queued jobs?",
+      "answer": "You can use the command `abaqus licensing lmstat -c $ABAQUSLM_LICENSE_FILE -a | egrep \"Users|start|queued\"`."
+    },
+    {
+      "question": "How can I check the SHARCNET license server for started and queued jobs, including reservations by purchasing groups?",
+      "answer": "To include reservations, use the command: `abaqus licensing lmstat -c $ABAQUSLM_LICENSE_FILE -a | egrep \"Users|start|queued|RESERVATION\"`."
+    },
+    {
+      "question": "Is there a command to check the availability of only cae, standard, and explicit Abaqus products on the SHARCNET license server?",
+      "answer": "Yes, you can use `abaqus licensing lmstat -c $ABAQUSLM_LICENSE_FILE -a | grep \"Users of\" | egrep \"cae|standard|explicit\"`."
+    },
+    {
+      "question": "What does it mean if a job is indicated as 'queued' by the `lmstat` output?",
+      "answer": "If `lmstat` indicates a job is 'queued', it means the job has entered the 'R'unning state from the perspective of `squeue -j jobid` or `sacct -j jobid` but is currently idle on a compute node, waiting for a license to become available."
+    },
+    {
+      "question": "How does a 'queued' Abaqus job affect my account priority?",
+      "answer": "A 'queued' Abaqus job has the same impact on your account priority as if the job were actively performing computations and consuming CPU time, potentially depreciating your fair share level."
+    },
+    {
+      "question": "What are some strategies to prevent license shortage problems when submitting multiple Abaqus jobs with expensive tokens?",
+      "answer": "To avoid license shortage problems, you can use a job dependency, a job array, or at the very least, set up a Slurm email notification to know when your job completes before manually submitting another one."
+    }
+  ],
+  "generated_at": "2026-04-10T00:27:47.433200+00:00"
+}

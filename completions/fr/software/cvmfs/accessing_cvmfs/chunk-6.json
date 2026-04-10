@@ -1,0 +1,88 @@
+{
+  "doc_key": "fr/accessing_cvmfs",
+  "level": "chunk",
+  "chunk_index": 6,
+  "qa_pairs": [
+    {
+      "question": "Qu'est-ce qui est présumé si aucune bibliothèque ne se trouve dans le répertoire `/usr/lib64/nvidia`?",
+      "answer": "Si aucune bibliothèque n'est présente dans `/usr/lib64/nvidia`, on suppose que les versions du pilote sont suffisantes pour CUDA 10.2."
+    },
+    {
+      "question": "Pourquoi la compatibilité avec CUDA 10.2 est-elle présumée en l'absence de bibliothèques NVidia dans `/usr/lib64/nvidia`?",
+      "answer": "Cette présomption vise à assurer la compatibilité avec les versions antérieures, étant donné que cette fonctionnalité a été rendue disponible à partir de CUDA 11.0."
+    },
+    {
+      "question": "Comment peut-on cacher toutes les versions de CUDA en utilisant une variable d'environnement?",
+      "answer": "Pour cacher toutes les versions de CUDA, il faut définir la variable d'environnement `RSNT_CUDA_DRIVER_VERSION` à `0.0`."
+    },
+    {
+      "question": "Dans quelles conditions spécifiques devrait-on utiliser la variable d'environnement `RSNT_LOCAL_MODULEPATHS`?",
+      "answer": "Cette variable d'environnement devrait être utilisée uniquement avec des arbres de modules hiérarchiques installés via EasyBuild, dont la structure est semblable à celle de nos modules."
+    },
+    {
+      "question": "Comment ajouter un chemin local à un arbre de modules plat en lui accordant la priorité sur l'arborescence centrale?",
+      "answer": "Pour ce faire, il faut placer la commande `module use --priority 1 /path/to/your/flat/module/tree` après l'appel du script, ce qui donnera la priorité à votre arbre de modules."
+    },
+    {
+      "question": "Comment ajouter un chemin local à un arbre de modules plat en donnant la priorité à l'arborescence centrale?",
+      "answer": "Pour donner la priorité à l'arborescence centrale, il faut utiliser la commande `module use --priority -1 /path/to/your/flat/module/tree` après l'appel du script."
+    },
+    {
+      "question": "Quel est le rôle principal de la variable d'environnement `RSNT_LOCAL_MODULEPATHS`?",
+      "answer": "La variable `RSNT_LOCAL_MODULEPATHS` sert à identifier les emplacements des arbres de modules locaux et à les intégrer à l'arborescence centrale."
+    },
+    {
+      "question": "Quelle est la première étape pour configurer l'intégration d'arbres de modules locaux avec `RSNT_LOCAL_MODULEPATHS`?",
+      "answer": "La première étape est de définir la variable d'environnement avec `export RSNT_LOCAL_MODULEPATHS=/opt/software/easybuild/modules`."
+    },
+    {
+      "question": "Comment installer une recette EasyBuild pour qu'elle soit reconnue et utilisée dans la hiérarchie des modules via `RSNT_LOCAL_MODULEPATHS`?",
+      "answer": "Après avoir défini `RSNT_LOCAL_MODULEPATHS`, il faut installer la recette EasyBuild avec la commande `eb --installpath /opt/software/easybuild <votre recette>.eb`."
+    },
+    {
+      "question": "Comment les modules installés localement via `RSNT_LOCAL_MODULEPATHS` s'intègrent-ils dans la hiérarchie des modules centrale?",
+      "answer": "La nomenclature de modules de l'environnement sera utilisée, et le module sera disponible après que les modules de la chaîne de compilation correspondante (par exemple, `intel/2018.3` et `openmpi/3.1.2` pour une recette `iompi,2018.3`) auront été chargés."
+    },
+    {
+      "question": "À quoi sert la variable `LMOD_SYSTEM_DEFAULT_MODULES`?",
+      "answer": "Cette variable sert à identifier les modules qui doivent être chargés par défaut."
+    },
+    {
+      "question": "Quels modules sont chargés par défaut si la variable `LMOD_SYSTEM_DEFAULT_MODULES` n'est pas définie?",
+      "answer": "Si elle n'est pas définie, l'environnement charge par défaut le module `StdEnv`, lequel charge à son tour une version par défaut du compilateur Intel et d'OpenMPI."
+    },
+    {
+      "question": "Quelle est l'utilité de la variable `MODULERCFILE`?",
+      "answer": "La variable `MODULERCFILE` est utilisée par Lmod pour définir la version par défaut des modules et les alias."
+    },
+    {
+      "question": "Comment puis-je faire en sorte que mes définitions de modules par défaut aient préséance sur celles de l'environnement?",
+      "answer": "Vous pouvez définir votre propre fichier `modulerc` et l'ajouter à la variable `MODULERCFILE`; ceci aura préséance sur ce qui est défini dans notre environnement."
+    },
+    {
+      "question": "Quel est l'impact de la présence du chemin `/opt/software/modulefiles` sur l'environnement logiciel?",
+      "answer": "S'il existe, ce chemin est automatiquement ajouté au `MODULEPATH` par défaut, ce qui permet d'utiliser notre environnement tout en conservant les modules installés localement."
+    },
+    {
+      "question": "Que se passe-t-il si le répertoire `$HOME/modulefiles` existe dans votre environnement?",
+      "answer": "S'il existe, `$HOME/modulefiles` est automatiquement ajouté au `MODULEPATH` par défaut, ce qui permet l'installation de modules dans les répertoires `/home`."
+    },
+    {
+      "question": "Quels sont les chemins automatiquement ajoutés au `PATH` par défaut et à quoi servent-ils?",
+      "answer": "Les chemins `/opt/software/slurm/bin`, `/opt/software/bin` et `/opt/slurm/bin` sont automatiquement ajoutés au `PATH` par défaut, permettant ainsi l'ajout de vos exécutables dans le chemin de recherche."
+    },
+    {
+      "question": "Depuis quand est-il possible d'installer des modules additionnels sur une grappe de calcul qui soient reconnus par la hiérarchie centrale?",
+      "answer": "C'est possible depuis juin 2020."
+    },
+    {
+      "question": "Quelles sont les étapes initiales pour installer des modules additionnels localement sur une grappe de calcul?",
+      "answer": "Il faut d'abord identifier un chemin pour installer les logiciels (par exemple, `/opt/software/easybuild`) et s'assurer que ce dossier existe. Ensuite, il faut exporter la variable d'environnement `RSNT_LOCAL_MODULEPATHS` avec la commande `export RSNT_LOCAL_MODULEPATHS=/opt/software/easybuild/modules`."
+    },
+    {
+      "question": "Pour que les utilisateurs d'une grappe puissent trouver une branche de modules installée localement, quelle est la recommandation?",
+      "answer": "Il est recommandé de définir la variable d'environnement `RSNT_LOCAL_MODULEPATHS` dans le profil commun de la grappe."
+    }
+  ],
+  "generated_at": "2026-04-10T00:46:50.581238+00:00"
+}

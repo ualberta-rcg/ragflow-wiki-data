@@ -1,0 +1,44 @@
+{
+  "doc_key": "base/abaqus",
+  "level": "chunk",
+  "chunk_index": 10,
+  "qa_pairs": [
+    {
+      "question": "What is the purpose of the provided script snippet?",
+      "answer": "The script snippet is designed for submitting an explicit analysis restart job within a project directory, specifically handling Abaqus versions 2021 or 2026 and newer."
+    },
+    {
+      "question": "How does the script prepare for an explicit analysis restart job?",
+      "answer": "It prepares by first removing any files matching `testep2*` and the lock file `testep1.lck`. Then, it copies all files starting with `testep1` to new files prefixed with `testep2`, preserving their attributes."
+    },
+    {
+      "question": "What Abaqus command is used to start the explicit analysis restart job for version 2026 or newer?",
+      "answer": "The command used is `abaqus job=testep2 input=myexp-sim.inp recover scratch=$SLURM_TMPDIR cpus=$SLURM_CPUS_ON_NODE interactive mp_mode=threads memory=\"$((${SLURM_MEM_PER_NODE}-3072))MB\"`."
+    },
+    {
+      "question": "What is the role of the `recover` option in the Abaqus command within this script?",
+      "answer": "The `recover` option is a crucial flag used to indicate that the Abaqus explicit analysis job should be restarted from previously saved data."
+    },
+    {
+      "question": "How are different Abaqus versions (2021 versus 2026+) handled in this script for running the job?",
+      "answer": "The script uses an `if/elif` conditional statement based on the `EBVERSIONABAQUS` environment variable. For version 2021, the `abaqus` command is executed with `unshare` to manage user, process, and mount namespace mapping. For versions 2026 or newer, the `abaqus` command is run directly."
+    },
+    {
+      "question": "What parallelization mode is specified for the Abaqus explicit analysis restart job in this script?",
+      "answer": "The `mp_mode=threads` option specifies that thread-based parallelization should be used for the job."
+    },
+    {
+      "question": "What is the specified job name and input file for the Abaqus explicit analysis restart job?",
+      "answer": "The specified job name is `testep2`, and the input file is `myexp-sim.inp`."
+    },
+    {
+      "question": "How is the scratch directory defined for the Abaqus job in the script?",
+      "answer": "The scratch directory is defined using `scratch=$SLURM_TMPDIR`, which points to a temporary directory allocated by Slurm."
+    },
+    {
+      "question": "How is the memory for the Abaqus explicit analysis job allocated in the script?",
+      "answer": "The memory is allocated using `memory=\"$((${SLURM_MEM_PER_NODE}-3072))MB\"`, which means the Abaqus job will use the total memory allocated per node by Slurm, minus a 3072 MB offset."
+    }
+  ],
+  "generated_at": "2026-04-10T00:25:55.637422+00:00"
+}

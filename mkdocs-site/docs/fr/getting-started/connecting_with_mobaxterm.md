@@ -1,0 +1,29 @@
+---
+title: "Connecting with MobaXTerm/fr"
+tags:
+  - se-connecter
+
+keywords:
+  []
+---
+
+[600px|thumb| Création de la session SSL (Cliquez pour agrandir)](file:mobaxterm-basic.png.md)
+[600px|thumb| Connexion à distance  (Cliquez pour agrandir)](file:mobaxterm-connected.png.md)
+[600px|thumb| Redirection  X11 (Cliquez pour agrandir)](file:mobaxterm-x11.png.md)
+[600px|thumb| Identification de la clé privée  (Cliquez pour agrandir)](file:mobaxterm-ssh-key.png.md)
+
+Si les outils de connexion  [MobaXterm](http://mobaxterm.mobatek.net/) et PutTTY  (voir [Connexion à un serveur avec PuTTY](connecting_with_putty-fr.md)) se ressemblent, MobaXTerm offre toutefois plus de fonctionnalités. Ce dernier comprend un client SFTP et un serveur X11 intégrés qui permettent d'opérer des programmes graphiques à distance, sans requérir un autre serveur. MobaXTerm peut utiliser les sessions PuTTY déjà enregistrées sans que vous deviez en définir à nouveau les paramètres.
+
+Pour vous connecter à un serveur auquel vous ne vous êtes pas au préalable connecté avec MobaXTerm ou PuTTY : sous *Sessions->New session*, sélectionnez *SSH* puis entrez l'adresse du serveur et votre nom d'utilisateur (s'il y a lieu, cochez *Specify username*). Cliquez sur *OK*. MobaXTerm enregistre ces renseignements pour les connexions ultérieures au serveur et établit la connexion SSH. Après avoir entré votre mot de passe, la fenêtre affichée présente deux panneaux :
+*le panneau de gauche est le terminal par lequel vous entrez des commandes
+* le panneau de droite montre la liste des fichiers enregistrés sur le serveur;  vous pouvez glisser-déplacer vos fichiers de votre ordinateur vers le serveur et inversement.
+
+=Redirection X11=
+
+Pour activer la redirection X11 et permettre l'utilisation d'applications graphiques à partir du serveur : 
+#Vérifiez que la redirection X11 est en fonction pour la session particulière. Pour ce faire, cliquez sur le nom de la session et sélectionnez *Edit session*. Dans la fenêtre *Session settings*, sélectionnez *Advanced SSH settings*; la case *X11-Forwarding*  doit être cochée.
+#Vérifiez que l'icône *X server* est vert (coin supérieur droit de la fenêtre principale). Si l'icône n'est pas vert, le serveur n'est pas activé. Pour commencer, cliquez sur l'icône de X en rouge.
+#Testez la redirection X11. Pour ce faire, démarrez la session en faisant un double-clic sur la session, dans le panneau de gauche et entrez votre mot de passe. Lancez ensuite une commande simple, par exemple `xclock`; l'affichage d'une fenêtre contextuelle montrant une horloge indique que la redirection X11 est probablement fonctionnelle.
+
+## Paire de clés SSH
+Dans le panneau de gauche, cliquez sur le nom de la session avec le bouton droit de la souris, puis sélectionnez *Edit session*; ceci fait afficher la fenêtre *Session settings*. Sélectionnez *Advanced SSH settings* et cochez *Use private key*. Pour sélectionner la clé privée que vous voulez utiliser, cliquez sur l'icône de moniteur dans la partie droite de la fenêtre; ceci fait afficher la liste des clés parmi lesquelles faire votre choix. Pour créer une paire de clés, voyez  [Generating SSH keys in Windows](generating-ssh-keys-in-windows.md).

@@ -1,0 +1,48 @@
+{
+  "doc_key": "fr/accessing_cvmfs",
+  "level": "chunk",
+  "chunk_index": 9,
+  "qa_pairs": [
+    {
+      "question": "Comment faire pour que les utilisateurs puissent trouver les modules installés localement sur une grappe?",
+      "answer": "Pour que vos utilisateurs trouvent les modules installés localement, il est recommandé de définir la variable d'environnement `RSNT_LOCAL_MODULEPATHS` dans le profil commun de la grappe, par exemple avec `export RSNT_LOCAL_MODULEPATHS=/opt/software/easybuild/modules`."
+    },
+    {
+      "question": "Quelle commande faut-il utiliser pour installer des paquets logiciels localement avec EasyBuild une fois que le chemin des modules locaux est défini?",
+      "answer": "Une fois que la variable `RSNT_LOCAL_MODULEPATHS` est configurée, vous pouvez installer les paquets logiciels avec EasyBuild en utilisant la commande `eb --installpath /opt/software/easybuild <votre_recette_easyconfig>`."
+    },
+    {
+      "question": "Comment les logiciels installés localement via EasyBuild sont-ils intégrés et présentés aux utilisateurs?",
+      "answer": "Les logiciels seront installés localement en suivant la nomenclature de notre hiérarchie de modules et seront automatiquement présentés aux utilisateurs lorsqu'ils chargeront notre compilateur, MPI et CUDA."
+    },
+    {
+      "question": "Quelle est la principale mise en garde pour un administrateur qui effectue des opérations de système ou liées à CVMFS?",
+      "answer": "Il est crucial que votre session d'administrateur ne dépende pas de l'environnement logiciel lorsque vous effectuez des opérations de système avec des privilèges ou des opérations en rapport avec CVMFS."
+    },
+    {
+      "question": "Pourquoi est-il risqué de faire la mise à jour de CVMFS si ma session d'administrateur utilise un module chargé de CVMFS?",
+      "answer": "Si votre session utilise un module Python chargé de CVMFS et que vous tentez une mise à jour de CVMFS avec YUM, par exemple, YUM pourrait utiliser ce même module et perdre l'accès en cours de mise à jour, ce qui bloquerait l'opération."
+    },
+    {
+      "question": "Est-ce que tous les logiciels du commerce disponibles avec les ressources sont accessibles si j'installe et configure CVMFS sur mon propre ordinateur?",
+      "answer": "Non, les logiciels du commerce sont offerts sous condition de licence et ne sont pas disponibles en dehors de nos ressources. Même en suivant les directives de CVMFS, vous n'aurez accès qu'aux parties redistribuables, comme les objets partagés."
+    },
+    {
+      "question": "Est-ce que je peux compiler de nouvelles applications avec les compilateurs d'Intel ou du Portland Group si j'accède aux modules via CVMFS sur ma machine?",
+      "answer": "Non, même si les modules pour ces compilateurs sont disponibles, vous n'aurez accès qu'aux parties redistribuables. Cela vous permettra d'exécuter des applications déjà compilées, mais pas de compiler de nouvelles applications."
+    },
+    {
+      "question": "Quel est le problème avec la localisation des bibliothèques CUDA sur certaines plateformes utilisant les récents pilotes NVidia?",
+      "answer": "Les récents pilotes NVidia peuvent installer les bibliothèques dans `/usr/lib64` au lieu de `/usr/lib64/nvidia`, et ce, sans emprunter toutes les bibliothèques du système, ce qui peut créer des incompatibilités avec notre environnement logiciel."
+    },
+    {
+      "question": "Comment résoudre les incompatibilités de localisation des bibliothèques CUDA causées par les pilotes NVidia?",
+      "answer": "Pour résoudre ces incompatibilités, il est recommandé de créer des liens symboliques dans `/usr/lib64/nvidia` qui redirigent vers les bibliothèques NVidia installées."
+    },
+    {
+      "question": "Où puis-je trouver des scripts pour aider à l'installation des pilotes NVidia et la création de liens symboliques pour CUDA sur RedHat ou Ubuntu?",
+      "answer": "Des scripts d'exemple sont fournis dans la documentation, sous les noms `script_for_redhat.sh` et `script_for_ubuntu.sh`, pour installer les pilotes et créer les liens symboliques nécessaires."
+    }
+  ],
+  "generated_at": "2026-04-10T00:47:17.331832+00:00"
+}

@@ -1,0 +1,12 @@
+---
+title: "Test-moderation"
+tags:
+  []
+
+keywords:
+  []
+---
+
+This is a test page to check the Moderation
+
+Another test of Moderation extension

@@ -1,0 +1,137 @@
+---
+title: "ARM software/fr"
+tags:
+  - software
+
+keywords:
+  - permissions
+  - ddt
+  - pilote CUDA
+  - profileur MAP
+  - CUDA
+  - problème de latence
+  - openmpi
+  - X11
+  - Linaro DDT
+  - ddt-gpu
+  - VNC
+  - code parallèle
+  - débogage
+  - DDT
+  - module CUDA
+---
+
+= Introduction =
+
+[Linaro DDT](https://www.linaroforge.com/linaro-ddt)  (auparavant *ARM DDT*) est un outil commercial puissant pour le débogage de code parallèle. Doté d'une interface utilisateur graphique, il sert au débogage en C, C++ et Fortran des applications en série, MPI, multifils, CUDA ou toute combinaison de ces types. Linaro offre également le profileur [MAP](https://www.linaroforge.com/linaro-map) pour le code parallèle.
+
+Les modules suivants sont disponibles sur Nibi et Trillium (quand le module StdEnv est chargé)&nbsp;ː
+* ddt-cpu pour déboguer et profiler le code sur CPU;
+* ddt-gpu pour déboguer le code sur GPUs ou sur CPU/GPU.
+
+Puisqu'il s'agit d'une application avec une interface graphique, connectez-vous avec `ssh -Y` et utilisez un [client SSH](ssh-fr.md) comme [MobaXTerm](connecting-with-mobaxterm-fr.md) (sous Windows) ou [XQuartz](https://www.xquartz.org/) (sous Mac) pour assurer la redirection X11.
+
+On utilise généralement DDT et MAP de façon interactive via l'interface utilisateur avec la commande `salloc`. Le profileur MAP peut aussi être utilisé de façon non interactive en soumettant des tâches à l'ordonnanceur avec la commande `sbatch`.
+
+Avec la licence actuelle, DDT/MAP peuvent utiliser concurremment jusqu'à 64 CPU pour tous les utilisateurs alors que DDT-GPU ne peut utiliser que 8 GPU.
+
+= Utilisation =
+## Avec CPU seulement (aucun GPU) 
+
+1. Allouez le ou les nœuds sur lesquels vous voulez déboguer ou profiler; ceci ouvre une session de l'interpréteur (*shell*) sur les nœuds en question.
+
+  salloc --x11 --time=0-1:00 --mem-per-cpu=4G --ntasks=4
+
+2. Chargez le module approprié, par exemple
+
+ module load ddt-cpu
+
+3. Lancez la commande ddt ou map.
+
+  ddt path/to/code
+  map path/to/code
+
+:: Avant de cliquer sur *Run*, assurez-vous que l'implémentation MPI est l'OpenMPI par défaut dans la fenêtre DDT/MAP. Si ce n'est pas le cas, cliquez sur le bouton *Change* (près de *Implementation*) et sélectionnez l'option correcte dans le menu déroulant. Spécifiez aussi le nombre de cœurs-CPU dans cette fenêtre.
+
+4. Quittez l'interpréteur pour terminer l'allocation.
+
+IMPORTANT ː Les versions courantes de DDT et OpenMPI ont un problème de compatibilité qui fait en sorte que DDT ne peut pas afficher les queues de messages (menu déroulant *Tools*). Pour contourner ce problème, lancez la commande
+
+ $ export OMPI_MCA_pml=ob1
+
+Comme ceci peut ralentir le code MPI, n'utilisez cette commande qu'en débogage.
+
+<span id="CUDA_code"></span>
+## CUDA 
+
+1. Allouez le ou les nœuds sur lesquels vous voulez déboguer ou profiler avec `salloc`; ceci ouvre une session de l'interpréteur (*shell*) sur les nœuds en question. 
+
+  salloc --x11 --time=0-1:00 --mem-per-cpu=4G --ntasks=1 --gres=gpu:1
+
+2. Chargez le module approprié, par exemple
+
+ module load ddt-gpu
+
+:: Il est possible qu'on vous demande de charger d'abord une version antérieure d'OpenMPI. Dans ce cas, chargez de nouveau le module OpenMPI en utilisant la commande proposée et chargez ensuite de nouveau le module ddt-gpu.
+
+  module load openmpi/2.0.2
+  module load ddt-gpu
+
+3. Assurez-vous qu'un module CUDA est chargé.
+
+  module load cuda
+
+4. Lancez la commande ddt.
+
+  ddt path/to/code
+
+Si DDT crée des difficultés en raison d'une incompatibilité entre le pilote CUDA et la version de la boîte d'outils, exécutez la commande suivante et lancez DDT de nouveau (utiliser la même version que dans la commande).
+
+ export ALLINEA_FORCE_CUDA_VERSION=10.1
+
+5. Quittez l'interpréteur pour terminer l'allocation.
+
+<span id="Using_VNC_to_fix_the_lag"></span>
+## Problème de latence 
+
+[400px|thumb|right|DDT sur **gra-vdi.computecanada.ca**](file:ddt-vnc-1.png.md)
+[400px|thumb|right|Programme sur **graham.computecanada.ca**](file:ddt-vnc-2.png.md)
+
+Les directives ci-dessus utilisent la redirection X-11 qui s'avère très sensible au problème de latence des paquets. Si vous n'êtes pas sur le même campus que la grappe, l'interface DDT sera probablement lente et occasionnera de la frustration. Pour remédier à ce problème, utilisez DDT sous VNC.
+
+Pour ce faire, [préparez une session VNC](vnc-fr.md). Si votre session VCN se trouve sur le nœud de calcul, vous pouvez démarrer votre programme ddt directement, comme décrit ci-dessus. Si votre session VCN se trouve sur le nœud de connexion ou si vous utilisez le nœud vdi de Graham, vous devez lancer la tâche à partir de l'écran de démarrage de DDT comme suit
+
+* sélectionnez l'option *manually launch backend yourself* pour le lancement de la tâche;
+* entrez les renseignements pour votre tâche et cliquez sur le bouton *listen*;
+* cliquez sur le bouton *help* à droite de *waiting for you to start the job...*.
+
+Ceci vous donnera la commande à utiliser pour lancer votre tâche. Allouez une tâche sur la grappe et démarrez votre programme tel qu'indiqué. Dans l'exemple suivant, $USER est votre nom d'utilisateur et $PROGAM est la commande pour démarrer votre programme.
+
+<source lang="bash">[name@cluster-login:~]$ salloc ...
+[name@cluster-node:~]$ /cvmfs/restricted.computecanada.ca/easybuild/software/2020/Core/allinea/20.2/bin/forge-client --ddtsessionfile /home/$USER/.allinea/session/gra-vdi3-1 $PROGRAM ...
+</source>
+
+<span id="Known_issues"></span>
+= Problèmes connus=
+
+Si vous avez des problèmes avec X11, modifiez les permissions de votre répertoire /home pour que l'accès soit possible uniquement par vous.
+
+D'abord, vérifiez (et notez au besoin) les permissions courantes avec
+
+  ls -ld /home/$USER
+
+Le résultat devrait commencer par
+
+  drwx------
+
+Si certains tirets sont remplacés par des lettres, votre groupe et les autres utilisateurs ont des permissions de lecture, écriture (peu probable) ou exécution pour votre répertoire.   
+
+La commande suivante supprimera les permissions de lecture et exécution pour le groupe et les autres utilisateurs.
+
+  chmod go-rx /home/$USER
+
+Quand vous avez terminé avec DDT, vous pourrez au choix revenir aux permissions antérieures (en supposant que vous les avez notées). Pour plus d'information, voyez [Partage de données](sharing-data-fr.md).
+
+= Pour plus d'information =
+* ["Debugging your code with DDT"](https://youtu.be/Q8HwLg22BpY) (vidéo d'une durée de 55 minutes)
+* [*Parallel debugging with DDT* (court tutoriel)](parallel-debugging-with-ddt.md)

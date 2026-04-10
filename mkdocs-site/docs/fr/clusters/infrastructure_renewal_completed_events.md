@@ -1,0 +1,144 @@
+---
+title: "Infrastructure renewal completed events/fr"
+tags:
+  []
+
+keywords:
+  []
+---
+
+Le tableau ci-dessous montre les travaux qui sont terminés. 
+
+{| class="wikitable"   
+|-
+| **Début** || **Fin** || **État** || **Système** || **Type** || **Description** 
+|-
+| Jan 6, 2025 || Sept 30, 2025 (268 days) || Complete || Niagara (50% → decommissioned), Mist (35% → decommissioned) || Reduction ||  
+Beginning January 6, 2025, the **Niagara** cluster operated at approximately **50%** capacity and **Mist** at approximately **35%** to support ongoing system improvements and the transition to the new [Trillium](trillium.md) system.  
+*Note: Mist required a brief temporary shutdown on January 6.*
+
+In September 2025, additional staged reductions were implemented ahead of system retirement:  
+* **Sept 4:** Niagara reduced to **863** compute nodes.  
+* **Sept 9:** **Niagara Open OnDemand** decommissioned; data-centre firewall upgrade caused a brief interruption; end-of-day capacity **647** nodes.  
+* **Sept 11:** **Trillium Open OnDemand** launched: https://ondemand.scinet.utoronto.ca.  
+* **Sept 16:** Full-day maintenance; Niagara reduced to **431** nodes; **Mist decommissioned**.  
+* **Sept 24:** Niagara reduced to **215** compute nodes.  
+* **Sept 30:** **Niagara decommissioned**.
+
+These reductions remained in effect until each system’s end of service.  
+|-
+| 2025-02-25 || 2025-09-01 (188 jours) || terminé|| Graham (25%) || baisse de service||  
+La grappe de calcul a fonctionné à environ 25% de sa capacité dû aux travaux de migration des données et de transition en vue de sa mise hors service.
+
+**Détails**  * Le début des travaux a été reporté de janvier à février afin de terminer la migration du stockage.
+* Pendant cette période, les comptes des utilisateurs sont restés disponibles et le stockage était accessible, bien que le stockage dans /project ait été temporairement en lecture seule pendant la migration.
+* Graham a fonctionné avec une configuration d'ordonnancement simplifiée avec des temps d'exécution limités et le soutien pour les tâches CPU et GPU (V100, T4, A100, A5000).
+* Les services auxiliaires tels que Globus et gra-vdi ont été rétablis quand les ressources sont devenues disponibles.
+* Le nuage Graham est resté pleinement opérationnel pendant toute la période des travaux.
+
+Fermeture définitive de Graham le 1 septembre 2025.  
+|-
+| 2025-07-15 || 2025-09-08 (55 jours) || terminé || Béluga, Narval, Juno || fermeture || 
+Le système de stockage sur ruban pour le service TSM, y compris les copies de sauvegarde et les données de /nearline migrées sur ruban, a été fermé pour sa migration à un nouveau centre de données.
+
+* '''Les services de sauvegarde et de restauration de fichiers n'étaient pas disponibles.'''
+** Nous avons demandé aux utilisateurs de conserver une copie de sauvegarde des données importantes sur un autre système et de bien vérifier les opérations de suppression.
+** La restauration des données créées avant le 15 juillet ont repris quand le système de sauvegarde sur ruban a été remis en service.
+** Les données créées ou modifiées entre le 15 juillet et le 11 août n'ont pas pu être récupérées.
+* Sur Béluga et Narval, les fichiers de /nearline qui avaient été migrés sur ruban n'étaient pas accessibles.
+** Pour identifier ces fichiers, consultez [Transférer des données à partir de /nearline](using-nearline-storage-fr#transférer_des_données_à_partir_de_-nearline.md).
+* '''Le service TSM n'était pas disponible.'''
+
+* Remarque : Les autres systèmes de stockage, les nœuds de calcul de toutes les grappes et les instances infonuagiques sur Juno n'ont pas été touchés. Le service de transfert de données via Globus n'était affecté que si vous tentiez d’accéder aux fichiers de /nearline exclusivement stockés sur ruban. Les autres fichiers sont restés accessibles.
+|-
+| 2025-08-25 || 2025-09-05 (12 jours) || terminé || Fir || baisse de service ||
+Certains nœuds de calcul n'étaient pas disponibles entre le 25 et le 28 août et offraientensuite une disponibilité réduite jusqu'au 5 septembre, afin de préparer le nouvel équipement de refroidissement.
+
+* Moins de tâches étaient exécutées simultanément sur Fir.
+* Les tâches commençaient plus lentement et restaient plus longtemps en file d'attente.
+|-
+| 2025-01-06 || 2025-01-16 (jours days) || terminé|| Niagara (50%), Mist (35%) || baisse de service||  
+Dans le cadre des préparatifs pour l'installation de la nouvelle grappe [Trillium](trillium-fr.md),  la capacité de calcul sera réduite à environ 50% pour Niagara et à environ 35% pour Mist, à compter du 6 janvier 2025.  
+
+*Remarque :* **Mist** a été fermée durant quelques heures je 6 janvier.
+
+|-
+| 2025-09-03 || 2025-09-03 (1 jour) || terminé|| Rorqual || arrêt de service ||  
+Le 3 septembre 2025 **entre 8h (HAE) et 17h (HAE)**, la grappe n'était pas disponible en raison de travaux de maintenance.
+
+* aucun nœud de calcul était disponible  
+* les tâches devant se terminer après 8h (HAE ) le 3 septembre sont restées en attente jusqu'à la remise en service  
+* le réseau et le stockage associés à Rorqual n'étaient pas disponibles.  
+
+Remarque : Ceci ne touchait pas la grappe Narval et les instances sur les nuages Béluga et Juno.
+|-
+| 2025-01-22 || 2025-08-11 || terminé || Cedar  || baisse de service (70%) || La capacité de la grappe sera réduite à environ 70% à partir du 22 janvier jusqu'à ce que la grappe Fir entre en service à l'été 2025.
+
+|-
+|-
+| 2025-06-16 || 2025-06-27 (reporté au 1er juillet 2025) || terminé || Cedar (100%) || fermeture || 
+Dans le cadre des derniers travaux de renouvellement de l’infrastructure, la grappe sera fermée du 16 au 27 juin 2025 afin de mettre à jour les systèmes d’alimentation et de refroidissement du centre de données.
+
+* Les nœuds de connexion ne seront pas disponibles en raison d’une synchronisation des données effectuée par le fournisseur.
+* Les systèmes de fichiers seront en lecture seule et accessibles uniquement via Globus :
+** la semaine du 16 juin pour tous les systèmes de fichiers;
+** la semaine du 23 juin, seulement l’ancien système de fichiers /project sera disponible; pour y accéder via Globus, utilisez le chemin absolu de votre espace /project (/project/<project name>).
+* Aucune nouvelle tâche ne peut être soumise. Les tâches qui ont été soumises avant la fermeture des nœuds seront exécutées à la remise en service.
+*Le service infonuagique de Cedar pourrait subir de brèves interruptions.
+
+La tour de refroidissement a subi une panne inattendue au cours de la fin de semaine; le systême a dû être réinitialisé pour la remise en service.
+
+Aucune action n'est requise de votre part; nous vous recommandons cependant de planifier vos tâches en conséquence.
+|-
+| 2025-06-13 || 2025-06-16 (3 jours) || terminé || Béluga, Narval, Juno (autres que zone HD) || arrêt de service || Une seconde maintenance électrique planifiée nous obligeait à éteindre les nœuds de calcul de Béluga et Narval et les instances infonuagiques du nuage Juno qui n'étaient pas dans la zone de haute disponibilité entre midi (HAE) le 13 juin et midi (HAE) le 16 juin 2025.
+Les tâches prévues pour se terminer après midi le 13 juin sont restées dans la queue jusqu'à ce que les grappes reviennent en service.
+Ces interruptions ne touchaient pas les instances infonuagiques de Béluga ni les instances infonuagiques de Juno de la zone de haute disponibilité.
+Le stockage sur Béluga et Narval sera accessible via Globus et les nœuds de connexion de chacune des grappes.
+L'arrêt de service entre le 6 et le 10 juin a eu lieu comme prévu. Un arrêt de service entre le 13 et le 16 juin etait aussi nécessaire.
+|-
+| 2025-06-03 9h (HAE) || 2025-06-10 12h (HAE) (4 jours) || terminé || Béluga, Narval, Juno (non-HA) || fermeture || Une maintenance électrique planifiée nous obligeait à éteindre les nœuds de calcul de Béluga et Narval à partir de 9h le 6 juin, jusqu’à 12h (midi) le 10 juin 2025 (HAE). Les instances infonuagiques du nuage Juno qui n'étaient pas dans la zone de haute disponibilité étaient aussi éteintes.
+Les tâches prévues pour se terminer après 9h le 6 juin sont restées dans la queue jusqu'à ce que les grappes reviennent en service.
+Courtes interruptions pour maintenance du réseau et du stockage&nbsp;:
+*Les travaux de maintenance du réseau pourraient causer de courtes interruptions d'accès aux instances infonuagiques de Béluga et aux instances infonuagiques de Juno qui ne sont pas dans la zone de haute disponibilité.
+*Les systèmes de stockage de Béluga et de Narval resteront accessibles via Globus et les nœuds de connexion; cependant, les travaux de maintenance du réseau et du stockage pourraient causer des interruptions d'accès intermittentes.
+|-
+| 2025-04-30 || 2025-05-01 (1 jour)|| terminé || Béluga, Narval, Juno (hors de la zone de haute disponibilité) || arrêt de services|| Des travaux de maintenance du système électrique exigent la fermeture des **nœuds de calcul de Béluga et Narval** entre 24h le 30 avril et 24h le 1er mai 2025.
+Les instances infonuagiques **hors de la zone de haute disponibilité de Juno** seront aussi fermées pendant ce temps.  
+
+Les tâches qui doivent se terminer après 24h le 30 avril resteront dans la queue jusqu'à ce que les grappes reviennent en service.  
+
+Ces interruptions '''n'ont pas touché** les instances infonuagiques de Béluga ni les instances infonuagiques de Juno de la **zone de haute disponibilité**.  
+
+**Le stockage sur Béluga et Narval est resté accessible''' via Globus et les nœuds de connexion de chacune des grappes.
+|-
+| 2025-03-31 || 2025-04-02 (2 jours) || terminé || Cedar (100%) || arrêt de service || En vue de la mise en service du nouvel équipement, des modifications au système d'alimentation étaient requises.
+
+La grappe Cedar était fermée au cours de cette période. Se connecter à la grappe ou y exécuter des tâches était impossible. Les tâches en cours au début de l'arrêt de service ont été terminées et ont dû être soumises à nouveau à la reprise du service.
+
+**Le  nuage Cedar est resté disponible au cours de cette période.**
+|-
+| 2025-03-31 || 2025-04-02 (2 jours) || terminé || Cedar (100%) || arrêt de service || En vue de la mise en service du nouvel équipement, des modifications au système d'alimentation étaient requises.
+
+La grappe Cedar était fermée au cours de cette période. Se connecter à la grappe ou y exécuter des tâches était impossible. Les tâches en cours au début de l'arrêt de service ont été terminées et ont dû être soumises à nouveau à la reprise du service.
+
+**Le  nuage Cedar est resté disponible au cours de cette période.**
+|-
+| 2024-12-07 || 2025-01-03 '''(extension jusqu'au 2025-02-24)**  || terminé || Graham (100%) || arrêt de service || Des rénovations en cours nécessitent la fermeture complète du centre de données, initialement prévue du 7 décembre 2024 au 3 janvier 2025. Durant cette période, tous les services de la grappe, le stockage et les services infonuagiques seront entièrement indisponibles.
+**MISE À JOUR DU 2025-01-28 : Cette interruption a été prolongée en raison de retards. Pour obtenir des informations à jour, veuillez consulter le site https://status.alliancecan.ca.'''
+|-
+| 2025-01-13 || 2025-02-14 || terminé || Béluga, Narval || baisse de service temporaire || Les tests de performance et de stabilité de Rorqual nous obligent à éteindre tous les nœuds de calcul de Béluga à partir de 8h le 13 janvier 2025 (HNE).  Les nœuds de connexion et l'accès aux données resteront opérationnels. Sur Narval, environ 50% des nœuds de chaque catégorie (CPU, GPU et grande mémoire) seront arrêtés. Pendant cette période, le stockage Béluga sera monté sur Narval (/lustre01, /lustre02, /lustre03, /lustre04 de Beluga). Les instances infonuagiques sur Béluga et Juno ne sont pas affectées. Les tâches sur Béluga devant se terminer après 8h le 13 janvier resteront en file d'attente jusqu'à la reprise de la grappe.
+'''MISE A JOUR DU 2025-01-30 : La capacité de calcul de Narval est à 100% jusqu'au 6 février, puis à 30% pendant les derniers tests sur Rorqual. Béluga et Narval devraient retrouver la totalité de leur capacité de calcul le 14 février. Pour des informations à jour, veuillez consulter https://status.alliancecan.ca.'''
+|-
+| 2025-01-22 || 2025-01-22 (1 jour) || terminé || Niagara, Mist || arrêt de service || Les nœuds de calcul seront fermés entre 8h et 17h (HNE) pour nous permettre d'apporter des améliorations et préparer la transition vers le nouveau système Trillium. 
+Par contre, les nœuds de connexion, les systèmes de fichiers et le système HPSS resteront disponibles. 
+L'ordonnanceur retiendra les tâches soumises jusqu'à la fin des travaux.
+|-
+|-
+| 2025-01-13 || 2025-01-21 (9 jours) || terminé || Cedar (100%) || arrêt complet des services ||  La grappe sera fermée en préparation du renouvellement de l'infrastructure. Les tâches seront mises en attente mais pourraient être exécutées si elles peuvent se terminer avant la fermeture. Les tâches qui ne pourront pas être exécutées resteront en attente jusqu'à ce que la grappe soit de nouveau disponible (le 21 janvier). Le système de fichiers /scratch sera migré vers un nouvel espace de stockage. <b>Veuillez immédiatement déplacer les données importantes vers vos répertoires /project, /nearline ou /home.</b> Le nuage Cedar n'est pas touché par les travaux.
+|-
+| 2024-11-25 || 2024-11-26 || terminé || Niagara || fermeture || Une coupure d'alimentation complète aura lieu pour les mises à niveau du panneau principal en vue de la configuration de la nouvelle grappe Trillium. Tous les services, y compris la grappe et l'ordonnanceur, seront suspendus pendant cette période. L'ordonnanceur conservera les tâches qui ne peuvent pas se terminer avant la fermeture. Nous vous encourageons à soumettre des tâches plus petites et de courte durée pour optimiser l'utilisation des nœuds inactifs avant le début des travaux.  
+|-
+| 2024-11-07 || 2024-11-08 || terminé || Niagara || fermeture || Tous les systèmes et le stockage du centre de données SciNet (Niagara, Mist, HPSS, Rouge, Teach, JupyterHub, Balam) seront fermés de 7h à 17h HE. Cette interruption est nécessaire pour installer un nouvel équipement électrique (onduleur) dans le cadre d'une mise à niveau des systèmes. L'ordonnanceur conservera les tâches qui ne peuvent pas se terminer avant la fermeture.  Nous vous suggérons de donner la priorité aux tâches courtes pour utiliser les nœuds autrement inactifs avant les travaux.  
+|-
+|2024-11-07, 6h HNP || 2024-11-08, 6h HNP  || terminé || Cedar || fermeture partielle|| Les nœuds de calcul ne seront pas disponibles. Cependant, les nœuds de connexion, le stockage et les services infonuagiques de Cedar resteront en fonction.  
+|}

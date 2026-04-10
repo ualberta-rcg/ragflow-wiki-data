@@ -1,0 +1,274 @@
+---
+title: "MATLAB/fr"
+tags:
+  - software
+
+keywords:
+  []
+---
+
+Il y a deux façons d'utiliser MATLAB sur nos grappes&nbsp;:
+
+<b>1. Exécuter directement MATLAB</b>, mais vous devez avoir accès à une licence, soit&nbsp;:
+* la licence fournie sur [Fir](fir-fr.md), [Narval](narval.md) ou [Trillium](trillium-fr.md) ou pour les étudiants, professeurs et chercheurs; </li>
+* une licence externe détenue par votre établissement, faculté, département ou laboratoire (voir la section <i>Utiliser une licence externe</i> ci-dessous).
+
+<b>2. Compiler votre code MATLAB</b> avec le compilateur `mcc` et utiliser le fichier exécutable généré sur une de nos grappes. Vous pouvez utiliser cet exécutable sans tenir compte de la licence.
+
+Vous trouverez ci-dessous les détails pour ces approches.
+
+=Utiliser une licence externe=
+Nous sommes fournisseurs d'hébergement pour MATLAB. Dans ce contexte, MATLAB est installé sur nos grappes et vous pouvez avoir accès à une licence externe pour utiliser notre infrastructure; dans le cas de certains établissements, ceci s'effectue de façon automatique. Pour savoir si vous avez accès à une licence, faites le test suivant :
+
+<pre>
+[name@cluster ~]$ module load matlab/2023b.2
+[name@cluster ~]$ matlab -nojvm -nodisplay -batch license
+
+987654
+[name@cluster ~]$
+</pre>
+
+Si tout est en ordre, un numéro de licence sera imprimé. Assurez-vous d'effectuer ce test sur chaque grappe avec laquelle vous voulez utiliser MATLAB puisque certaines licences ne sont pas disponibles partout.
+
+Si vous obtenez le message <i>This version is newer than the version of the license.dat file and/or network license manager on the server machine</i>, essayez d'entrer une version moins récente de MATLAB dans la ligne `module load`.
+
+Autrement, il se peut que votre établissement n'ait pas de licence, qu'il ne soit pas possible d'utiliser la licence de cette manière ou qu'aucune entente n'ait été conclue avec nous pour utiliser la licence. Pour savoir si vous pouvez utiliser une licence externe, contactez l'administrateur de la licence MATLAB de votre établissement ou votre gestionnaire de compte MATLAB.  
+
+Si vous pouvez utiliser une licence externe, certaines opérations de configuration sont requises. D'abord, vous devez créer un fichier semblable à 
+
+**`matlab.lic`**
+```bash
+# spécifications du serveur de licence
+SERVER <ip address> ANY <port>
+USE_SERVER
+```
+
+et placer ce fichier dans le répertoire `$HOME/.licenses/` où l'adresse IP et le numéro du port correspondent aux valeurs du serveur de licence de votre établissement. Notre équipe technique devra alors contacter le personnel technique qui gère votre licence pour que votre serveur puisse se connecter à nos nœuds de calcul. Pour organiser ceci, contactez le [soutien technique](technical-support-fr.md).
+
+Consultez la documentation technique http://www.mathworks.com/support et l'information sur le produit http://www.mathworks.com.
+
+= Préparer votre répertoire `.matlab` =
+Puisque le répertoire /home de certains nœuds de calcul n'est accessible qu'en lecture, vous devez créer un lien symbolique `.matlab` pour que le profil et des données des tâches soient plutôt consignés dans /scratch.
+
+<pre>
+[name@cluster ~]$ cd $HOME
+[name@cluster ~]$ if [ -d ".matlab" ]; then
+  mv .matlab scratch/
+else
+  mkdir -p scratch/.matlab
+fi && ln -sn scratch/.matlab .matlab
+</pre>
+
+= Boîtes à outils =
+Pour la liste des boîtes à outils disponibles avec la licence et la grappe sur laquelle vous travaillez, utilisez
+<pre>
+[name@cluster ~]$  module load matlab
+[name@cluster ~]$  matlab -nojvm -batch "ver"
+</pre>
+
+<span id="Running_a_serial_MATLAB_program"></span>
+= Exécuter un programme séquentiel MATLAB =
+
+<b>Important :</b> Pour tous les calculs d'envergure (durée de plus de cinq minutes ou mémoire d'un Go), la tâche doit être soumise à l'ordonnanceur comme démontré dans l'exemple suivant. Pour plus d'information, consultez [Exécuter des tâches](running_jobs-fr.md).
+
+Voici un exemple de code ː
+
+**`cosplot.m`**
+```Matlab
+function cosplot()
+% exemple pour approximer un signal en dents de scie 
+% par une série de Fourier tronquée
+nterms=5;
+fourbypi=4.0/pi;
+np=100;
+y(1:np)=pi/2.0;
+x(1:np)=linspace(-2.0*pi,2*pi,np);
+
+for k=1:nterms
+ twokm=2*k-1;
+ y=y-fourbypi*cos(twokm*x)/twokm^2;
+end
+
+plot(x,y)
+print -dpsc matlab_test_plot.ps
+quit
+end
+```
+
+Voici un script pour l'ordonnanceur Slurm qui exécute `cosplot.m` :
+
+**`matlab_slurm.sl`**
+```bash
+#!/bin/bash -l
+#SBATCH --job-name=matlab_test
+#SBATCH --account=def-someprof # nom du compte utilisé pour soumettre des tâches
+#SBATCH --time=0-03:00         # limite de temps (JJ-HH:MM)
+#SBATCH --nodes=1      
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=1      # à modifier si vous utilisez des commandes parallèles
+#SBATCH --mem=4000             # mémoire requise par nœud (en mégaoctets par défaut)
+
+# chargez le module pour la version voulue
+module load matlab/2024b.1
+matlab -singleCompThread -batch "cosplot"
+```
+
+Soumettez la tâche avec `sbatch`.
+
+```bash
+sbatch matlab_slurm.sl
+```
+
+Chaque fois que MATLAB est lancé, un fichier comme `java.log.12345` pourrait être créé. Pour économiser l'espace de stockage, ce fichier doit être supprimé une fois que MATLAB est fermé. La création de ce fichier peut cependant être évitée en utilisant l'option 
+`-nojvm`, mais ceci pourrait interférer avec certaines fonctions de traçage.  
+
+Pour plus d'information sur les options en ligne de commande dont `-nodisplay`, `-nojvm`, 
+`-singleCompThread`, `-batch` et autres, voir [MATLAB (Linux) le site de MathWorks](https://www.mathworks.com/help/matlab/ref/matlablinux.html).
+
+<span id="Parallel_execution_of_MATLAB"></span>
+= Exécuter en parallèle =
+
+MATLAB prend en charge [plusieurs mode d'exécution en parallèle](https://www.mathworks.com/help/parallel-computing/quick-start-parallel-computing-in-matlab.html).
+Pour la plupart d'entre vous, il suffira d'exécuter MATLAB dans un environnement parallèle `Threads` sur un nœud simple.
+Voici un exemple inspiré de  [la documentation de MathWorks au sujet de `parfor`](https://www.mathworks.com/help/parallel-computing/parfor.html).
+
+**`timeparfor.m`**
+```Matlab
+function timeparfor()
+   nthreads = str2num(getenv('SLURM_CPUS_PER_TASK'))
+   parpool("Threads",nthreads)
+   tic
+   n = 200;
+   A = 500;
+   a = zeros(1,n);
+   parfor i = 1:n
+       a(i) = max(abs(eig(rand(A))));
+   end
+   toc
+end
+```
+
+Sauvegardez le code ci-dessus dans un fichier nommé `timeparfor.m`. Créez ensuite le script suivant et soumettez-le avec `sbatch matlab_parallel.sh`
+pour exécuter la fonction en parallèle avec quatre cœurs.
+
+**`matlab_parallel.sh`**
+```bash
+#!/bin/bash -l
+#SBATCH --account=def-someprof
+#SBATCH --time=00:30:00   
+#SBATCH --cpus-per-task=4
+#SBATCH --mem=2000
+module load matlab/2024b.1
+matlab -nojvm -batch "timeparfor"
+```
+
+Vous pouvez expérimenter en donnant à `--cpus-per-task` des valeurs plus petites (par exemple 1, 2, 6, 8) pour voir l'effet sur la performance. 
+
+= Lancer en simultané plusieurs tâches parallèles =
+Si vous utilisez un environnement `Cluster` parallèle comme 
+[ce qui est décrit ici](https://www.mathworks.com/help/parallel-computing/quick-start-parallel-computing-in-matlab.html#mw_d4204011-7467-47d9-b765-33dc8a8f83cd), le problème suivant pourrait survenir. Quand deux ou plusieurs tâches parallèles initialisent `parpool` au même moment, chacune des tâches essait de lire et écrire dans le même fichier `.dat` du répertoire `$HOME/.matlab/local_cluster_jobs/R*`. Ceci corrompt le profil parallèle local utilisé par les autres tâches. Si ceci se produit, supprimez le répertoire `local_cluster_jobs` quand aucune tâche n’est en cours d’exécution.
+
+Pour éviter ce problème, nous recommandons que chaque tâche crée son propre profil parallèle dans un endroit unique en spécifiant la propriété de l'objet 
+[`parallel.Cluster`](https://www.mathworks.com/help/parallel-computing/parallel.cluster.html), 
+comme démontré ici.
+
+**`parallel_main.m`**
+```Matlab
+local_cluster = parcluster('local')
+local_cluster.JobStorageLocation = getenv('SLURM_TMPDIR')
+parpool(local_cluster);
+```
+
+Références :
+* FAS Research Computing, [Parallel Computing Toolbox simultaneous job problem</i>](https://www.rc.fas.harvard.edu/resources/documentation/software/matlab-pct-simultaneous-job-problem/<i>MATLAB)
+* MathWorks, [<i>Why am I unable to start a local MATLABPOOL from multiple MATLAB sessions that use a shared preference directory using Parallel Computing Toolbox 4.0 (R2008b)?</i>](https://www.mathworks.com/matlabcentral/answers/97141-why-am-i-unable-to-start-a-local-matlabpool-from-multiple-matlab-sessions-that-use-a-shared-preferen)
+
+<span id="Using_the_Compiler_and_Runtime_libraries"></span>
+= Utiliser les bibliothèques Compiler et Runtime = 
+
+<b>Important :</b> Comme pour toutes les tâches aux exigences élevées, le code MCR doit toujours être inclus dans une tâche soumise à l'ordonnanceur; consultez [Exécuter des tâches](running_jobs-fr.md).
+
+Vous pouvez aussi compiler votre code avec MATLAB Compiler, un des modules dont nous sommes fournisseurs d'hébergement.
+Consultez la [documentation MATLAB Compiler](https://www.mathworks.com/help/compiler/index.html).
+Pour l'instant, mcc est disponible pour les versions 2014a, 2018a et suivantes.
+
+Pour compiler l'exemple avec `cosplot.m` ci-dessus, vous utiliseriez la commande 
+
+```bash
+mcc -m -R -nodisplay cosplot.m
+```
+
+Ceci produit le binaire `cosplot` et le script enveloppant `run_cosplot.sh`. Pour exécuter le binaire sur nos serveurs, vous n'avez besoin que du binaire. Le script enveloppant ne fonctionnera pas tel quel sur nos serveurs puisque MATLAB s'attend à ce que certaines bibliothèques se trouvent à des endroits spécifiques. Utilisez plutôt le script enveloppant `run_mcr_binary.sh` qui définit les bons chemins. 
+
+[Chargez le module](utiliser-des-modules.md) MCR correspondant à la version de MATLAB que vous utilisez pour créer votre exécutable :
+
+```bash
+module load mcr/R2024b
+```
+
+Lancez la commande 
+
+```bash
+setrpaths.sh --path cosplot
+```
+
+ensuite, dans le script pour la tâche (<b>et non dans les nœuds de connexion</b>), utilisez le binaire comme suit :
+`run_mcr_binary.sh cosplot`
+
+La commande `setrpaths.sh` ne doit être exécutée qu'une seule fois pour chacun des binaires compilés; `run_mcr_binary.sh` vous demandera de l'exécuter si ce n'est pas fait.
+
+= Utilisation de MATLAB Parallel Server =
+MATLAB Parallel Server n’est utile que si votre tâche MATLAB parallèle possède plus de processus (appelés <i>workers</i>) que les cœurs CPU disponibles sur un nœud de calcul unique. L’installation régulière de MATLAB décrite ci-dessus permet d’exécuter des tâches parallèles avec un nœud (jusqu’à 64 <i>workers</i> par tâche selon la grappe et le nœud); pour utiliser plus d’un nœud.
+
+Cette solution permet habituellement de soumettre des tâches MATLAB parallèles à partir de l’interface MATLAB locale de votre ordinateur. <b>Certaines améliorations à la sécurité des nos grappes ont été apportées en mai 2023 et, étant donné que MATLAB utilise un mode SSH qui n'est plus autorisé, il n'est plus possible de soumettre une tâche à partir d'un ordinateur local aussi longtemps que MATLAB n'utilisera pas une nouvelle méthode pour se connecter. Il n'y a présentement aucune solution.</b>
+
+## Module d'extension pour Slurm 
+<b>La procédure suivante ne fonctionne pas en raison de l'extension Slurm qui n'est plus disponible et aussi du problème avec SSH qui est mentionné à la section précédente.</b> Toutefois, nous l'avons conservée pour lorsque la solution sera disponible.
+# Installez MATLAB R2022a (ou une version plus récente), incluant le <b>Parallel Computing Toolbox</b>.
+# De la page MathWorks Slurm Plugin, téléchargez et exécutez le fichier `*.mlpkginstall` (bouton <i>Download</i> à la droite de la page, sous l'onglet <i>Overview</i>).
+# Entrez vos identifiants MathWorks. Si la configuration ne démarre pas automatiquement, lancez dans MATLAB la commande
+#:`parallel.cluster.generic.runProfileWizard()`
+# Entrez les renseignements suivants :
+#* Sélectionnez <b>Unix</b> (habituellement la seule option offerte)
+#* Shared location: <b>No</b> 
+#* Cluster host:
+#** Pour Narval: <b>narval.alliancecan.ca</b>
+#** Pour Rorqual: <b>rorqual.alliancecan.ca</b>
+#* Username (optional):  (entrez votre nom d’utilisateur; au besoin, le fichier d’identité peut être défini plus tard)
+#* Remote job storage: <b>/scratch</b>
+#**Cochez <i>Use unique subfolders</i>.
+#* Maximum number of workers: <b>960</b>
+#* Matlab installation folder for workers: (les versions locale et distante doivent correspondre)
+#** Pour R2022a : <b>/cvmfs/restricted.computecanada.ca/easybuild/software/2020/Core/matlab/2022a</b>
+#* License type: <b>Network license manager</b>
+#* Profile Name: <b>narval</b> ou <b>rorqual</b>
+# Cliquez sur <i>Create</i> et <i>Finish</i> pour compléter le profil.
+
+## Modifier l'extension après son installation 
+Dans le terminal MATLAB, allez au répertoire `nonshared` en lançant la commande 
+ cd(fullfile(matlabshared.supportpkg.getSupportPackageRoot, 'parallel', 'slurm', 'nonshared'))
+
+# Ouvrez le fichier <b>independentSubmitFcn.m</b>; aux environs de la ligne 117, remplacez <p> `additionalSubmitArgs = sprintf('--ntasks=1 --cpus-per-task=%d', cluster.NumThreads);` </p><p> par </p><p> `additionalSubmitArgs = ccSBATCH().getSubmitArgs();`</p>
+# Ouvrez le fichier <b>communicatingSubmitFcn.m</b>; aux environs de la ligne 126, remplacez <p> `additionalSubmitArgs = sprintf('--ntasks=%d --cpus-per-task=%d', environmentProperties.NumberOfTasks, cluster.NumThreads);` </p><p> par </p><p> `additionalSubmitArgs = ccSBATCH().getSubmitArgs();`</p>
+# Ouvrez le fichier <b>communicatingJobWrapper.sh</b>; aux environs de la ligne 20 (après la déclaration du copyright), ajoutez la commande suivante et ajustez la version du module en fonction de la version de votre Matlab local:<p> `module load matlab/2022a`</p>
+
+Redémarrez MATLAB et retournez à votre répertoire /home avec
+ cd(getenv('HOME'))  # ou sous Windows, cd(getenv('HOMEPATH'))
+
+## Validation 
+<b>N'utilisez pas</b> l'outil de validation <i>Cluster Profile Manager</i>, mais exécutez l'exemple `TestParfor` avec un fichier de script `ccSBATCH.m` adéquatement configuré.
+# Téléchargez et extrayez des exemples de code à partir de https://github.com/ComputeCanada/matlab-parallel-server-samples.
+# Dans MATLAB, ouvrez le répertoire `TestParfor`  que vous venez d'extraire.
+# Suivez les directives données dans le fichier https://github.com/ComputeCanada/matlab-parallel-server-samples/blob/master/README.md.
+
+Note : Quand `ccSBATCH.m` se trouve dans votre répertoire courant, vous pouvez utiliser l’outil de validation <i>Cluster Profile Manager</i> pour les deux premiers tests car les autres ne sont pas encore pris en charge.
+
+<span id="External_resources"></span>
+= Ressources externes =
+
+Voyez aussi les ressources offertes par MathWorks.
+* Documentation : [https://www.mathworks.com/help/matlab/](https://www.mathworks.com/help/matlab/) (certaines pages sont en français)
+* Auto-apprentissage : [https://matlabacademy.mathworks.com/](https://matlabacademy.mathworks.com/) (aussi en versions EN, JP, ES, KR, CN)
+
+Certaines universités ont leur propre documentation, comme
+* pour des exemples de scripts : [https://rcs.ucalgary.ca/MATLAB](https://rcs.ucalgary.ca/MATLAB)

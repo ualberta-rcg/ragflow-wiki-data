@@ -1,0 +1,89 @@
+---
+title: "Vulcan/fr"
+tags:
+  []
+
+keywords:
+  []
+---
+
+{| class="wikitable"
+|-
+| Disponibilité : 15 avril 2025
+|-
+| Nœud de connexion : <b>vulcan.alliancecan.ca</b>
+|-
+| Collection Globus : [Vulcan Globus v5](https://app.globus.org/file-manager?origin_id=97bda3da-a723-4dc0-ba7e-728f35183b43)
+|-
+| État du système : https://status.alliancecan.ca/system/Vulcan
+|-
+| Portail : https://portal.vulcan.alliancecan.ca
+|}
+
+Vulcan est une grappe au service de la communauté scientifique canadienne en intelligence artificielle. Elle est située à l'Université de l'Alberta et est gérée par l'Université de l'Alberta et [Amii](https://fr.amii.ca/). La grappe porte le nom de la ville de Vulcan située dans le sud de l'Alberta.
+
+Vulcan fait partie de ECPIA, l'environnement de calcul pan-canadien pour l'intelligence artificielle.
+
+## Politiques spécifiques au site
+L'accès à Internet n'est généralement pas disponible à partir des nœuds de calcul. Un proxy Squid, disponible mondialement, est activé par défaut avec certains domaines sur la liste blanche. Contactez le [soutien technique](technical-support-fr.md) si vous ne parvenez pas à vous connecter à un domaine et nous évaluerons son ajout à la liste blanche.
+
+La durée maximale d'une tâche est de sept jours.
+
+Vulcan est présentement disponible à tous les chercheurs et chercheuses dont la recherche porte sur l'intelligence artificielle ou comporte des méthodes d'IA.
+
+## Accès
+Pour vous connecter à Vulcan, [demandez l'accès dans le portail CCDB](https://ccdb.alliancecan.ca/me/access_services).
+
+Pour pouvoir soumettre une tâche, vous devez être membre d'un projet RAP (*Resource Allocation Project*) préfixé `aip-`. Si vous êtes une chercheuse principale ou un  chercheur principal et que vous n'avez pas de projet,  [demandez l'accès à l'Environnement informatique pancanadien de l’IA (EIPIA)](https://ccdb.alliancecan.ca/paice/general_access_to_paice_systems).
+
+Si vous êtes chercheuse principale ou chercheur principal et que vous parrainez d'autres personnes, vous devrez les ajouter à votre RAPI. 
+* Sur la page d'accueil de CCDB (https://ccdb.alliancecan.ca), faites afficher le tableau <i>Projet d'allocation de ressources</i>.
+* Localisez votre projet AIP (préfixe `aip-`) et cliquez dessus pour faire afficher la page de gestion.
+* Au bas de la page, cliquez sur <i>Gérer l'appartenance au projet</i>.
+* Entrez le CCRI de la personne dans la section <i>Ajouter des membres</i>.
+
+<span id="Vulcan_hardware_specifications"></span>
+## Matériel
+
+{| class="wikitable sortable"
+! Nœuds !! Modèle || CPU !! Cœurs !! Mémoire système!! GPU par nœud || Total de GPU 
+|-
+|  252 || Dell R760xa || 2 x Intel Xeon Gold 6448Y || 64 || 512 GB || 4 x NVIDIA L40S 48GB || 1800
+|}
+
+<span id="Storage_system"></span>
+## Système de stockage
+
+Le système de stockage est une combinaison de flash NVMe et HDD sur la plateforme Dell PowerScale, avec une capacité utilisable de 5PB. Les espaces /home, /scratch et /project sont sur le même système PowerScale.
+
+{| class="wikitable sortable"
+|-
+| <b>/home</b>||
+* emplacement des répertoires /home
+* [quota fixe](storage-and-file-management-fr#quotas_et_politiques.md) pour chaque répertoire  
+* n'est pas alloué via [le service d'accès rapide](https://alliancecan.ca/fr/services/calcul-informatique-de-pointe/acces-aux-ressources/service-dacces-rapide) ou [le concours pour l'allocation de ressources](https://alliancecan.ca/fr/services/calcul-informatique-de-pointe/acces-aux-ressources/concours-pour-lallocation-de-ressources); les demandes pour plus d'espace sont dirigées vers /project
+* sauvegarde quotidienne
+|-
+| <b>/scratch</b> ||
+* stockage actif ou temporaire (/scratch)
+* n'est pas alloué
+* grand [quota](storage-and-file-management-fr#quotas_et_politiques.md) fixe par utilisateur
+* les données inactives sont [purgées](scratch-purging-policy-fr.md)
+|-
+|<b>/project</b>
+||
+* grand [quota](storage-and-file-management-fr#quotas_et_politiques.md) ajustable, par projet 
+* sauvegarde quotidienne
+|}
+
+<span id="Network_interconnects"></span>
+## Réseautique
+
+Les nœuds sont interconnectés via Ethernet 100Gbps avec le protocole RoCE (RDMA over Converged Ethernet) activé.
+
+## Ordonnancement
+L'ordonnanceur Slurm exécute les tâches soumises à Vulcan. Les commandes Slurm de base sont semblables à celles pour les autres systèmes nationaux.
+
+## Logiciel
+* Pile logicielle de modules.
+* Pile logicielle standard de l'Alliance et logiciels particuliers à la grappe.

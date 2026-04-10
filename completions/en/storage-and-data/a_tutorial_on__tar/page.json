@@ -1,0 +1,115 @@
+{
+  "doc_key": "en/a_tutorial_on__tar",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is the primary utility on Linux and Unix-like systems for archiving files and directories?",
+      "answer": "The primary utility is the `tar` command, which bundles several files or directories into a single file called an archive file, tar file, or tarball, typically with a `.tar` extension."
+    },
+    {
+      "question": "How do you create a tar archive of a directory named 'project1'?",
+      "answer": "You can create it using the command `tar --create --file project1.tar project1`. This will include all files and sub-directories within 'project1' by default."
+    },
+    {
+      "question": "What happens to the original directory after archiving it with `tar`?",
+      "answer": "The original directory remains unchanged, which may double the amount of disk space occupied."
+    },
+    {
+      "question": "How do you extract files from a tar archive named 'project1.tar'?",
+      "answer": "You can extract files using the command `tar --extract --file project1.tar`."
+    },
+    {
+      "question": "What are the recommended compression methods to use with `tar`?",
+      "answer": "The recommended compression methods are `xz` or `gzip`."
+    },
+    {
+      "question": "When would you choose `xz` compression over `gzip`?",
+      "answer": "`xz` typically produces a smaller compressed file with a better compression ratio but takes longer and uses more RAM. `gzip` is faster and uses less memory but results in a larger file."
+    },
+    {
+      "question": "Can you compress an archive file after it has been created without compression?",
+      "answer": "Yes, you can run `tar --create` first without compression and then use separate commands like `xz` or `gzip` to compress the resulting `.tar` file."
+    },
+    {
+      "question": "What are the common single-letter and whole-word options for creating, extracting, listing, and specifying the file name with `tar`?",
+      "answer": "For creating, use `-c` or `--create`. For extracting, use `-x` or `--extract`. For listing content, use `-t` or `--list`. To specify the archive file name, use `-f` or `--file=`."
+    },
+    {
+      "question": "How do you combine single-letter options when using the `tar` command?",
+      "answer": "Single-letter options can be combined with a single dash, for example, `tar -cJf project1.tar.xz project1` is equivalent to `tar --create --xz --file=project1.tar.xz project1`."
+    },
+    {
+      "question": "How can you create a tar archive of multiple directories, such as 'results', 'report', and 'documents', into 'full_results.tar'?",
+      "answer": "You can use the command `tar -cvf full_results.tar results report documents/`."
+    },
+    {
+      "question": "How do you add files or directories to an existing, uncompressed tar archive?",
+      "answer": "Use the `-r` option, for example, `tar -rf results.tar new.log.dat` to add a file, or `tar -rf results.tar report/` to add a directory."
+    },
+    {
+      "question": "Can files be added directly to compressed archives (e.g., `*.tar.gz` or `*.tar.bz2`)?",
+      "answer": "No, files cannot be added directly to compressed archives. You must decompress the archive first, add the files to the plain `.tar` archive, then recompress it."
+    },
+    {
+      "question": "How do you combine two existing tar archive files into one?",
+      "answer": "You can use the `-A` or `--concatenate` option, for example, `tar -A -f results.tar report.tar` to add `report.tar` to `results.tar`."
+    },
+    {
+      "question": "How can you create an archive of a directory but exclude specific files, like those with a `.dat` extension?",
+      "answer": "You can use the `--exclude` option: `tar -cvf results.tar --exclude=*.dat results/`."
+    },
+    {
+      "question": "What option is used to preserve symbolic links when creating a tar archive?",
+      "answer": "Use the `-h` option, for example, `tar -cvhf results.tar results/`."
+    },
+    {
+      "question": "How do you compress a standalone file or a plain tar archive using `gzip`?",
+      "answer": "You would use `gzip filename` or `gzip archive.tar`. This replaces the original file with its compressed version (`filename.gz` or `archive.tar.gz`)."
+    },
+    {
+      "question": "How do you create a compressed tar archive using `gzip` or `bzip2` in a single step?",
+      "answer": "For `gzip`, use `tar -cvzf results.tar.gz results/`. For `bzip2`, use `tar -cvjf results.tar.bz2 results/`."
+    },
+    {
+      "question": "How do you extract the entire content of a tar archive to a specified destination directory?",
+      "answer": "Use the `-xvf` options along with the `-C` option for the destination, for example, `tar -xvf results.tar -C new_results/`. Ensure the destination directory exists."
+    },
+    {
+      "question": "How do you decompress files with a `.gz` extension?",
+      "answer": "You use the `gunzip` command, for example, `gunzip new.log.dat.gz`."
+    },
+    {
+      "question": "How do you extract a compressed tar archive (e.g., `results.tar.gz`) to a different directory in a single command?",
+      "answer": "For `gzip` compressed archives, use `tar -xvzf results.tar.gz -C new_results/`. For `bzip2` compressed archives, use `tar -xvjf results.tar.bz2 -C new_results/`."
+    },
+    {
+      "question": "How do you extract a single file from an archive or a compressed archive to a specific directory?",
+      "answer": "Use `tar -C ./destination_dir/ --extract --file=your_archive.tar path/to/your/file`. For compressed files, add `-z` for `gzip` or `-j` for `bzip2`."
+    },
+    {
+      "question": "How can you list the contents of a tar file without extracting it?",
+      "answer": "You can list its content using `tar -tf results.tar`. To see metadata like permissions and dates, add the `-v` option: `tar -tvf results.tar`."
+    },
+    {
+      "question": "How do you search for a specific file within a tar archive without unpacking it?",
+      "answer": "You can pipe the output of the list command to `grep`, for example, `tar -tf results.tar | grep -a log.15Feb16.4`."
+    },
+    {
+      "question": "How do you determine the size of a file, directory, or archive from the terminal?",
+      "answer": "You can use the command `du -sh [your_file_or_directory...]`, for example, `du -sh results.tar work tests`."
+    },
+    {
+      "question": "How can a large file or tar file be split into smaller parts?",
+      "answer": "Use the `split` command with the `-b` option to specify the size, for example, `split -b 100MB results.tar small-res`. This will create files like `small-resaa`, `small-resab`, etc."
+    },
+    {
+      "question": "How do you recover the original file after it has been split into smaller parts using `split`?",
+      "answer": "You use the `cat` command to concatenate the parts back into a single file, for example, `cat small_res* > your_archive_name.tar`."
+    },
+    {
+      "question": "What should you be aware of regarding free space when using `gzip` or `bzip2` commands?",
+      "answer": "`gzip` or `bzip2` require free space to create the compressed file, similar to `tar`. The commands will fail if there isn't enough space or if you're out of quota."
+    }
+  ],
+  "generated_at": "2026-04-10T00:13:09.394160+00:00"
+}

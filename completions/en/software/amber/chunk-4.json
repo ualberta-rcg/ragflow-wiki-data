@@ -4,61 +4,85 @@
   "chunk_index": 4,
   "qa_pairs": [
     {
-      "question": "Which AMBER module and version should be used for GPU-accelerated simulations on Narval?",
-      "answer": "For GPU-accelerated simulations on Narval, use `amber/20.12-20.15`."
+      "question": "Which AMBER module should be used for GPU-accelerated simulations on Narval?",
+      "answer": "For GPU-accelerated simulations on Narval, you should use `amber/20.12-20.15`."
     },
     {
-      "question": "What is the minimum CUDA version required for AMBER modules to work on A100 GPUs?",
-      "answer": "Modules compiled with CUDA version less than 11.4 do not work on A100 GPUs, meaning CUDA 11.4 or higher is required."
+      "question": "What is the minimum CUDA version required for AMBER modules to function on A100 GPUs?",
+      "answer": "Modules compiled with a CUDA version less than 11.4 will not work on A100 GPUs."
     },
     {
-      "question": "How many tasks and GPUs per node are requested in the example single-GPU job script (`pmemd_cuda_job.sh`)?",
-      "answer": "The example single-GPU job script requests 1 task (`#SBATCH --ntasks=1`) and 1 GPU per node (`#SBATCH --gpus-per-node=1`)."
+      "question": "What are the SBATCH resource requests for the example single-GPU AMBER job?",
+      "answer": "The example single-GPU job script requests `--ntasks=1`, `--gpus-per-node=1`, `--mem-per-cpu=2000`, and `--time=10:00:00`."
     },
     {
-      "question": "What modules are loaded for the single-GPU AMBER job using `amber-pmemd/24.3`?",
-      "answer": "The following modules are loaded: `StdEnv/2023 gcc/12.3 openmpi/4.1.5 cuda/12.6 amber-pmemd/24.3`."
+      "question": "Which modules are loaded in the example submission script for a single-GPU AMBER job?",
+      "answer": "The modules loaded are `StdEnv/2023 gcc/12.3 openmpi/4.1.5 cuda/12.6 amber-pmemd/24.3`."
     },
     {
-      "question": "What is the requested memory per CPU and time limit for the example single-GPU AMBER job?",
-      "answer": "The requested memory per CPU is 2000 MB (`#SBATCH --mem-per-cpu=2000`) and the time limit is 10 hours (`#SBATCH --time=10:00:00`)."
-    },
-    {
-      "question": "What command executes the AMBER `pmemd.cuda` program in the single-GPU job script?",
+      "question": "What is the command to execute a single-GPU AMBER job using `pmemd.cuda`?",
       "answer": "The command is `pmemd.cuda -O -i input.in -p topol.parm7 -c coord.rst7 -o output.mdout -r restart.rst7`."
     },
     {
-      "question": "How many nodes and tasks per node are requested for a CPU-only parallel MPI job on Narval?",
-      "answer": "The CPU-only parallel MPI job on Narval requests 4 nodes (`#SBATCH --nodes=4`) and 64 tasks per node (`#SBATCH --ntasks-per-node=64`)."
+      "question": "What are the SBATCH resource requests for a CPU-only parallel MPI job on Narval?",
+      "answer": "For Narval, the example CPU-only parallel MPI job script requests `--nodes=4`, `--ntasks-per-node=64`, `--mem-per-cpu=2000`, and `--time=1:00:00`."
     },
     {
-      "question": "What modules are loaded for a CPU-only parallel MPI job on Narval, Rorqual, Fir, Nibi, or Trillium?",
-      "answer": "The same modules are loaded for all listed clusters: `StdEnv/2023 gcc/12.3 openmpi/4.1.5 cuda/12.6 amber-pmemd/24.3`."
+      "question": "Which modules are loaded for a CPU-only parallel MPI job on Narval?",
+      "answer": "The modules loaded are `StdEnv/2023 gcc/12.3 openmpi/4.1.5 cuda/12.6 amber-pmemd/24.3`."
     },
     {
-      "question": "What is the execution command for a CPU-only parallel MPI job with `pmemd.MPI`?",
+      "question": "What is the command to execute a CPU-only parallel MPI job on Narval?",
       "answer": "The command is `srun pmemd.MPI -O -i input.in -p topol.parm7 -c coord.rst7 -o output.mdout -r restart.rst7`."
     },
     {
-      "question": "How many tasks and GPUs per task are requested for the example QM/MM distributed multi-GPU job?",
-      "answer": "The QM/MM distributed multi-GPU job requests 8 tasks (`#SBATCH --ntasks=8`) and 1 GPU per task (`#SBATCH --gpus-per-task=1`), totaling 8 GPUs."
+      "question": "What are the SBATCH resource requests for a CPU-only parallel MPI job on Rorqual, Fir, Nibi, or Trillium?",
+      "answer": "For these clusters, the example CPU-only parallel MPI job script requests `--nodes=1`, `--ntasks-per-node=192`, `--mem-per-cpu=2000`, and `--time=1:00:00`."
     },
     {
-      "question": "What modules are loaded for the QM/MM distributed multi-GPU job using `ambertools/25.0`?",
-      "answer": "The following modules are loaded: `StdEnv/2023 gcc/12.3 openmpi/4.1.5 cuda/12.6 ambertools/25.0`."
+      "question": "How many GPUs does the example QM/MM distributed multi-GPU job request?",
+      "answer": "The example QM/MM distributed multi-GPU job requests eight GPUs."
     },
     {
-      "question": "What is the execution command for a QM/MM distributed multi-GPU job using `sander.quick.cuda.MPI`?",
+      "question": "What are the SBATCH resource requests for a QM/MM distributed multi-GPU job?",
+      "answer": "The example QM/MM distributed multi-GPU job script requests `--ntasks=8`, `--gpus-per-task=1`, `--mem-per-cpu=4000`, and `--time=02:00:00`."
+    },
+    {
+      "question": "Which modules are loaded for the example QM/MM distributed multi-GPU job?",
+      "answer": "The modules loaded are `StdEnv/2023 gcc/12.3 openmpi/4.1.5 cuda/12.6 ambertools/25.0`."
+    },
+    {
+      "question": "What is the command to execute a QM/MM distributed multi-GPU job?",
       "answer": "The command is `srun sander.quick.cuda.MPI -O -i input.in -p topol.parm7 -c coord.rst7 -o output.mdout -r restart.rst7`."
     },
     {
-      "question": "What are the requested memory per CPU and time limit for a CPU-only parallel MPI job on Narval?",
-      "answer": "The job requests 2000 MB per CPU (`#SBATCH --mem-per-cpu=2000`) and has a time limit of 1 hour (`#SBATCH --time=1:00:00`)."
+      "question": "How many MPI processes does the example parallel MMPBSA job utilize?",
+      "answer": "The example parallel MMPBSA job uses 32 MPI processes."
     },
     {
-      "question": "For Rorqual, Fir, Nibi, and Trillium clusters, how many nodes and tasks per node are requested for a CPU-only parallel MPI job?",
-      "answer": "For these clusters, the CPU-only parallel MPI job requests 1 node (`#SBATCH --nodes=1`) and 192 tasks per node (`#SBATCH --ntasks-per-node=192`)."
+      "question": "Why does MMPBSA scale linearly?",
+      "answer": "MMPBSA scales linearly because each trajectory frame is processed independently."
+    },
+    {
+      "question": "What are the SBATCH resource requests for a parallel MMPBSA job?",
+      "answer": "The example parallel MMPBSA job script requests `--ntasks=32`, `--mem-per-cpu=4000`, and `--time=1:00:00`."
+    },
+    {
+      "question": "Which modules are loaded for the example parallel MMPBSA job?",
+      "answer": "The modules loaded are `StdEnv/2023 gcc/12.3 openmpi/4.1.5 cuda/12.6 ambertools/25.0`."
+    },
+    {
+      "question": "What is the command to execute a parallel MMPBSA job?",
+      "answer": "The command is `srun MMPBSA.py.MPI -O -i mmpbsa.in -o mmpbsa.dat -sp solvated_complex.parm7 -cp complex.parm7 -rp receptor.parm7 -lp ligand.parm7 -y trajectory.nc`."
+    },
+    {
+      "question": "Can job submission scripts be customized?",
+      "answer": "Yes, you can modify scripts to fit your simulation requirements for computing resources."
+    },
+    {
+      "question": "Where can users find more detailed information about running jobs?",
+      "answer": "Users can find more details by referring to the 'Running jobs' documentation."
     }
   ],
-  "generated_at": "2026-04-09T23:02:14.461401+00:00"
+  "generated_at": "2026-04-09T23:58:35.021852+00:00"
 }

@@ -5,19 +5,19 @@ tags:
   - computationalchemistry
 
 keywords:
+  - SCM
+  - AMS
   - chimie computationnelle
   - ADF
-  - Internal Coordinates
   - SCM-GUI
-  - Graham
-  - WATER
-  - AMS
-  - Z-Matrix
-  - SCM
-  - Basis Type TZP
   - Geometry Optimization
   - nœud de calcul
+  - WATER
+  - Z-Matrix
+  - Graham
   - TigerVNC
+  - Internal Coordinates
+  - Basis Type TZP
 ---
 
 ## Introduction

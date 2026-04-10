@@ -1,0 +1,65 @@
+---
+title: "Cloud RAS Allocations/fr"
+tags:
+  - cloud
+
+keywords:
+  []
+---
+
+*Page enfant de [Service infonuagique](cloud-fr.md)*
+
+Votre compte vous donne accès à une petite quantité de ressources de calcul, de stockage et de ressources infonuagiques. Avec le service d'accès rapide, vous pouvez utiliser immédiatement ces ressources pour expérimenter ou pour travailler. Le service d'accès rapide convient à plusieurs groupes de recherche. Si vous avez besoin d'une plus grande quantité de ressources, vous pouvez présenter une demande au  [concours pour l'allocation de ressources](rac-application-guide-fr.md). Les chercheuses principales et chercheurs principaux à qui des ressources ont été allouées par suite du concours peuvent aussi demander des ressources par le service d'accès rapide.
+
+Les ressources infonuagiques vous permettent de créer des <b>instances</b> (aussi appelées <i>machines virtuelles</i> ou <i>VM</i> pour <i>virtual machine</i>). Il existe deux options&nbsp;:
+* <b>Instances de calcul</b> : celles-ci ont une durée de vie limitée dans le temps et font généralement un usage constant et intensif de CPU; elles sont parfois nommées <i>instances batch</i>. Dans certains cas, les activités de production exigent plusieurs instances de calcul. Ces dernières ont une durée de vie maximale d'<b>un mois</b>; une fois la limite atteinte, elles sont désactivées et vous devez faire le nettoyage de vos instances et télécharger les données qui doivent être conservées. Il est possible d'obtenir une prolongation de la durée de vie, dépendant de la disponibilité des ressources. 
+* <b>Instances persistantes</b> : ces instances n'ont pas une durée de vie finie et servent entre autres pour les serveurs web ou les serveurs de bases de données. Règle générale, elles offrent un service persistant et utilisent moins de capacité CPU que les instances de calcul.
+* <b>vGPU</b> : Arbutus a présentement des GPU H100 au gabarit <b>g1-8gb-c4-22gb</b> qui sont disponibles pour le service d'accès  rapide. Ils ont 12Go de mémoire GPU, 3 vCPUs et 125Go de stockage éphémère. D'autres gabarits sont disponibles pour les allocations vias concours et nous vous invitons à suggérer les combinaisons que vous jugez utiles. Pour plus d'information sur comment configurer une machine virtuelle pour utiliser des vGPU, voir [Utilisation de vGPU dans le cloud](using-cloud-vgpus-fr.md). 
+
+<span id="Cloud_RAS_resources_limits"></span>
+## Quantité maximale de ressources
+
+{| class="wikitable"
+|-
+! Attributs !! Instance de calcul<ref name="both-renewal">Vous pouvez demander une allocation de calcul et une allocation persistante pour partager un même projet. Les deux allocations se partagent le stockage qui est limité à 10TB par type de stockage. Il n'y a pas de limite au nombre de renouvellements annuels qu'une chercheuse principale ou un chercheur principal peut demander via le service d'accès rapide; toutefois, les allocations sont faites sur la base des ressources disponibles et ne sont pas garanties. Les demandes faites avant le 1er janvier se terminent en mars de l'année suivante; leur durée peut donc dépasser un an. La durée des demandes faites entre mai et décembre est de moins d'un an. Les renouvellements prennent effet en avril.</ref> !! Instance persistante<ref name="both-renewal"/>
+|-
+| Demande faite par || Chercheuse principale ou chercheur principal || Chercheuse principale ou chercheur principal 
+|-
+| vCPU (voir [Gabarits d'instances](virtual_machine_flavors-fr.md)) || 80 || 25
+|-
+| vGPUs<ref name="arbutusonly"/>
+|colspan="2" align="center" | 1
+|-
+| Instances<ref name="softquota">Ceci n'est pas une limite ferme mais plutôt un quota pour les métadonnées. Vous pouvez demander plus de ces ressources sans passer par les concours.</ref> || 20 || 10
+|-
+| Volumes<ref name="softquota"/> || 2 || 10
+|-
+| Instantanés de volume<ref name="softquota"/> || 2 || 10
+|-
+| Mémoire RAM (Go) || 300 || 50
+|-
+| Adresses IP flottantes || 2 || 2
+|-
+| Stockage persistant (TB) 
+|colspan="2" align="center" | 10
+|-
+| Stockage système de fichier partagé (TB)<ref name="arbutusonly"/> 
+|colspan="2" align="center" | 10
+|-
+| Stockage objet (TB)<ref name="arbutusonly">Uniquement sur Arbutus et sujet aux exigences pour les projets ayant des allocations par suite du concours d'allocation des ressources.</ref> 
+|colspan="2" align="center" | 10
+|-
+| Durée par défaut || 1  an<ref name="renwal">Pour correspondre à la période d'allocation des ressources d'avril à mars.</ref>, durée d'un mois || 1 an (renouvelable)<ref name="renwal"/>
+|-
+| Renouvellement par défaut || Avril<ref name="renwal"/> || Avril<ref name="renwal"/>
+|}
+
+## Demander une allocation de ressources par le service d'accès rapide 
+
+Veuillez [remplir ce formulaire](https://docs.google.com/forms/d/e/1FAIpQLSdLOro7wY__sFUBjRNu_ZQ7sgjUpTn7lvNuI2e015oAsFPWbQ/viewform?hl=fr).
+
+<small>
+
+## Notes
+<references/>
+</small>

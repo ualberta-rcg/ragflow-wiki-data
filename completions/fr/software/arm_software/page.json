@@ -1,0 +1,79 @@
+{
+  "doc_key": "fr/arm_software",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "À quoi sert l'outil Linaro DDT?",
+      "answer": "Linaro DDT est un outil commercial puissant avec une interface graphique qui sert à déboguer le code parallèle écrit en C, C++ pis Fortran pour des applications en série, MPI, multifils ou CUDA."
+    },
+    {
+      "question": "C'est quoi Linaro MAP?",
+      "answer": "Linaro MAP est un profileur pour le code parallèle, aussi offert par Linaro."
+    },
+    {
+      "question": "Quelles versions de modules DDT sont disponibles sur Nibi pis Trillium?",
+      "answer": "Sur Nibi pis Trillium, on peut trouver les modules \"ddt-cpu\" pour le débogage pis le profilage sur CPU, pis \"ddt-gpu\" pour le débogage sur GPU ou CPU/GPU."
+    },
+    {
+      "question": "Comment faut-il faire pour se connecter quand on veut utiliser l'interface graphique de DDT?",
+      "answer": "Il faut se connecter avec la commande <code>ssh -Y</code> pis utiliser un client SSH, comme MobaXTerm (Windows) ou XQuartz (Mac), pour assurer la redirection X11."
+    },
+    {
+      "question": "C'est quoi la limite de cœurs-CPU pis de GPU qu'on peut utiliser avec la licence actuelle de DDT/MAP?",
+      "answer": "La licence actuelle permet d'utiliser concurremment jusqu'à 64 cœurs-CPU pour DDT/MAP pis jusqu'à 8 GPU pour DDT-GPU."
+    },
+    {
+      "question": "Quelle commande utilise-t-on généralement pour allouer des ressources de manière interactive pour DDT ou MAP?",
+      "answer": "On utilise la commande <code>salloc</code>, souvent avec l'option <code>--x11</code> pour l'interface graphique."
+    },
+    {
+      "question": "Quelles sont les étapes de base pour utiliser DDT ou MAP avec du code CPU seulement?",
+      "answer": "Il faut d'abord allouer les nœuds avec <code>salloc</code>, puis charger le module <code>ddt-cpu</code> pis ensuite lancer la commande <code>ddt path/to/code</code> ou <code>map path/to/code</code>."
+    },
+    {
+      "question": "Avant de lancer le code dans l'interface de DDT/MAP, quelle information est importante à vérifier ou à spécifier?",
+      "answer": "Il faut s'assurer que l'implémentation MPI est bien OpenMPI par défaut pis spécifier le nombre de cœurs-CPU dans la fenêtre de DDT/MAP."
+    },
+    {
+      "question": "Y'a-t-il un problème de compatibilité connu entre DDT pis OpenMPI, pis comment le régler?",
+      "answer": "Oui, DDT ne peut pas afficher les queues de messages avec certaines versions d'OpenMPI. Pour contourner ça, on peut lancer la commande <code>export OMPI_MCA_pml=ob1</code> avant DDT."
+    },
+    {
+      "question": "Pourquoi la commande <code>export OMPI_MCA_pml=ob1</code> devrait être utilisée seulement en mode débogage?",
+      "answer": "Parce que cette commande peut potentiellement ralentir l'exécution du code MPI."
+    },
+    {
+      "question": "Quelle commande faut-il utiliser pour allouer des nœuds quand on veut déboguer du code CUDA?",
+      "answer": "On utilise <code>salloc</code> avec l'option <code>--gres=gpu:1</code> pour demander des GPU, par exemple <code>salloc --x11 --gres=gpu:1</code>."
+    },
+    {
+      "question": "Quel module est essentiel pour déboguer du code GPU, pis qu'est-ce qu'on doit vérifier aussi?",
+      "answer": "Il faut charger le module <code>ddt-gpu</code>. Il faut aussi s'assurer qu'un module CUDA est chargé, par exemple avec <code>module load cuda</code>."
+    },
+    {
+      "question": "Comment peut-on corriger un problème d'incompatibilité entre le pilote CUDA pis la version de la boîte à outils quand on utilise DDT?",
+      "answer": "On peut lancer la commande <code>export ALLINEA_FORCE_CUDA_VERSION=10.1</code> (en adaptant la version) avant de relancer DDT."
+    },
+    {
+      "question": "Pourquoi l'interface de DDT peut-elle être lente via la redirection X11, pis quelle est la solution recommandée?",
+      "answer": "La latence des paquets peut rendre l'interface lente, surtout si on n'est pas sur le même campus que la grappe. La solution recommandée est d'utiliser DDT sous une session VNC."
+    },
+    {
+      "question": "Si la session VNC n'est pas sur le nœud de calcul, comment démarre-t-on le programme DDT?",
+      "answer": "Il faut sélectionner l'option 'manually launch backend yourself' dans DDT, entrer les détails de la tâche, cliquer sur 'listen', pis ensuite sur 'help' pour obtenir la commande à lancer sur la grappe."
+    },
+    {
+      "question": "Quel est un problème connu qui peut arriver avec X11, pis comment vérifier les permissions de son répertoire <code>/home</code>?",
+      "answer": "Les problèmes X11 peuvent être causés par des permissions trop permissives sur le répertoire <code>/home</code>. On peut les vérifier avec <code>ls -ld /home/$USER</code>; le résultat devrait commencer par <code>drwx------</code>."
+    },
+    {
+      "question": "Comment corrige-t-on les permissions du répertoire <code>/home</code> si elles sont trop ouvertes pis causent des problèmes X11?",
+      "answer": "On utilise la commande <code>chmod go-rx /home/$USER</code> pour enlever les permissions de lecture pis d'exécution pour le groupe pis les autres utilisateurs."
+    },
+    {
+      "question": "Où peut-on trouver plus d'informations ou des tutoriels sur Linaro DDT?",
+      "answer": "On peut consulter la vidéo 'Debugging your code with DDT' ou le tutoriel court 'Parallel debugging with DDT'."
+    }
+  ],
+  "generated_at": "2026-04-10T00:06:30.759534+00:00"
+}

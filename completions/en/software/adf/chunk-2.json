@@ -4,44 +4,48 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "What is the name of the Slurm script used for multiple ADF or BAND runs?",
-      "answer": "The Slurm script for multiple ADF or BAND runs is named `GO_H2O.sh`."
+      "question": "What is the purpose of the `GO_H2O.sh` Slurm script?",
+      "answer": "The `GO_H2O.sh` Slurm script is used to submit a job that runs multiple ADF calculations combined into a single job, by executing the `GO_H2O.run` shell script."
     },
     {
-      "question": "How does the `GO_H2O.sh` Slurm script differ from the `mysub.sh` script for single runs?",
-      "answer": "The `GO_H2O.sh` Slurm script is identical to `mysub.sh` except its last line calls the `GO_H2O.run` script instead of calling ADF directly."
+      "question": "How many nodes and tasks per node does the `GO_H2O.sh` script request?",
+      "answer": "The `GO_H2O.sh` script requests 1 node with 32 tasks (CPUs) per node."
     },
     {
-      "question": "What resources does the `GO_H2O.sh` script request in its Slurm header?",
-      "answer": "The `GO_H2O.sh` script requests 1 node with 32 cpus (`--nodes=1 --ntasks-per-node=32`), all memory on the node (`--mem=0`), and a time limit of 3 hours (`--time=00-03:00`)."
+      "question": "What is the requested memory for the job submitted by `GO_H2O.sh`?",
+      "answer": "The `GO_H2O.sh` job requests all available memory on the node, specified by `#SBATCH --mem=0`."
     },
     {
-      "question": "What is the output file name specified in the `GO_H2O.sh` Slurm script?",
-      "answer": "The output file for the `GO_H2O.sh` script is `GO_H2O_%j.log`."
+      "question": "What is the time limit for the job submitted by `GO_H2O.sh`?",
+      "answer": "The time limit for the job submitted by `GO_H2O.sh` is 3 hours (`00-03:00`)."
     },
     {
-      "question": "Which modules are loaded by the `GO_H2O.sh` script before executing the run script?",
-      "answer": "The `GO_H2O.sh` script unloads `openmpi` and loads `adf/2019.305`."
+      "question": "What is the output file name format for the `GO_H2O.sh` script?",
+      "answer": "The output file name for the `GO_H2O.sh` script follows the format `GO_H2O_%j.log`, where `%j` is replaced by the job ID."
     },
     {
-      "question": "Where can users find example input/output files for ADF on Graham?",
-      "answer": "Example input/output for ADF can be found on Graham under `/home/jemmyhu/tests/test_ADF/2019.305/test_adf/`."
+      "question": "Which software module is loaded by the `GO_H2O.sh` script?",
+      "answer": "The `GO_H2O.sh` script loads the `adf/2019.305` module."
     },
     {
-      "question": "Where can users find example input files for BAND jobs on Graham?",
-      "answer": "Example input files for BAND jobs (e.g., `band_test.inp` and `band_test.sh`) can be found on Graham under `/home/jemmyhu/tests/test_ADF/2019.305/test_band/`."
+      "question": "Where can example input and output files for ADF be found on Graham?",
+      "answer": "Example input and output files for ADF can be found on Graham under `/home/jemmyhu/tests/test_ADF/2019.305/test_adf/`."
     },
     {
-      "question": "Why is X11 forwarding not recommended for SCM-GUI applications like ADF-GUI?",
-      "answer": "Rendering over an SSH connection with X11 forwarding is very slow for GUI applications such as ADF-GUI."
+      "question": "Where can examples for BAND jobs be found on Graham?",
+      "answer": "Examples for BAND jobs, specifically `band_test.inp` and `band_test.sh`, can be found under `/home/jemmyhu/tests/test_ADF/2019.305/test_band/`."
     },
     {
-      "question": "What is the recommended method for running ADF-GUI applications?",
-      "answer": "It is recommended to use VNC to connect if you will be running ADF-GUI."
+      "question": "Why is X11 forwarding not recommended for SCM-GUI applications?",
+      "answer": "X11 forwarding over an SSH connection is very slow for GUI applications such as ADF-GUI."
+    },
+    {
+      "question": "What is the recommended method for running ADF-GUI?",
+      "answer": "It is recommended to use VNC to connect when running ADF-GUI."
     },
     {
       "question": "How can ADF-GUI be run interactively on a Graham compute node?",
-      "answer": "To run ADF-GUI interactively on a Graham compute node, install a TigerVNC client, connect to a compute node with `vncviewer`, then load the `adf` module and run `adfinput`."
+      "answer": "ADF-GUI can be run interactively on a Graham compute node by installing a TigerVNC client, connecting to a compute node with `vncviewer`, loading the `adf` module, and then running `adfinput`."
     },
     {
       "question": "What is the time limit for running ADF-GUI interactively on a Graham compute node?",
@@ -49,24 +53,28 @@
     },
     {
       "question": "What are the steps to run ADF-GUI interactively on gra-vdi?",
-      "answer": "To run ADF-GUI interactively on gra-vdi, install a TigerVNC client, connect to `gra-vdi.computecanada.ca` with `vncviewer`, load the `clumod` and `adf` modules, and then run `adfinput`."
+      "answer": "To run ADF-GUI interactively on gra-vdi, you need to install a TigerVNC client, connect to `gra-vdi.computecanada.ca` with `vncviewer`, load the `clumod` module, load the `adf` module, and then run `adfinput`."
     },
     {
       "question": "Is there a connection time limit for running ADF-GUI on gra-vdi?",
-      "answer": "No, there is no connection time limit when running ADF-GUI interactively on gra-vdi."
+      "answer": "No, there is no connection time limit for running ADF-GUI on gra-vdi."
     },
     {
-      "question": "Where can a tutorial PDF for using TigerVNC with ADF-GUI on gra-vdi be found?",
-      "answer": "A tutorial PDF is available at `https://www.sharcnet.ca/~jemmyhu/TigerVNC-for-ADF-GUI.pdf`."
+      "question": "Where can a tutorial PDF for running ADF-GUI with TigerVNC on gra-vdi be found?",
+      "answer": "A tutorial PDF for installing, connecting, and running ADF-GUI using TigerVNC on gra-vdi can be found at `https://www.sharcnet.ca/~jemmyhu/TigerVNC-for-ADF-GUI.pdf`."
     },
     {
-      "question": "Do I need a separate license to run ADF-GUI on my local desktop machine?",
-      "answer": "Yes, SCM has a separate license to run ADF-GUI on a local desktop machine."
+      "question": "Can ADF-GUI be run on a local desktop machine?",
+      "answer": "Yes, ADF-GUI can be run on a local desktop machine, but it requires a separate license."
     },
     {
-      "question": "Who should be contacted to purchase a local license for ADF-GUI?",
-      "answer": "To purchase a local license for ADF-GUI, you should contact `license@scm.com`."
+      "question": "Whom should one contact to purchase a local license for ADF-GUI?",
+      "answer": "To purchase a local license for ADF-GUI, one should contact `license@scm.com`."
+    },
+    {
+      "question": "What is the final action taken on the `TAPE21` file in the `GO_H2O.run` script after all calculations are complete?",
+      "answer": "The `TAPE21` file is moved and renamed to `H2O.t21`."
     }
   ],
-  "generated_at": "2026-04-09T22:54:58.845840+00:00"
+  "generated_at": "2026-04-09T23:51:03.641587+00:00"
 }

@@ -1,0 +1,80 @@
+{
+  "doc_key": "en/accessing_cvmfs",
+  "level": "chunk",
+  "chunk_index": 6,
+  "qa_pairs": [
+    {
+      "question": "What happens if the `/opt/software/modulefiles` path exists on a system using this software environment?",
+      "answer": "If `/opt/software/modulefiles` exists, it is automatically added to the default `MODULEPATH`, which allows for the use of locally installed modules alongside the software environment's modules."
+    },
+    {
+      "question": "How does the software environment manage module files located in a user's home directory?",
+      "answer": "If the `$HOME/modulefiles` path exists, it will automatically be added to the default `MODULEPATH`, facilitating the installation and use of modules within home directories."
+    },
+    {
+      "question": "Which system paths are automatically incorporated into the default `PATH` by this software environment?",
+      "answer": "The paths `/opt/software/slurm/bin`, `/opt/software/bin`, and `/opt/slurm/bin` are all automatically added to the default `PATH`, allowing local executables to be found."
+    },
+    {
+      "question": "Since when has the software environment supported the installation of additional local modules that integrate with its central hierarchy?",
+      "answer": "The software environment has supported installing additional local modules that are discovered by its central hierarchy since June 2020."
+    },
+    {
+      "question": "What is the process for installing local software modules so they are discovered by the central hierarchy?",
+      "answer": "To install local software modules, one must first identify and create a path (e.g., `/opt/software/easybuild`), export the `RSNT_LOCAL_MODULEPATHS` environment variable to point to the module subdirectory (e.g., `/opt/software/easybuild/modules`), and then install software packages using EasyBuild with `eb --installpath /opt/software/easybuild <some easyconfig recipe>`."
+    },
+    {
+      "question": "How should the `RSNT_LOCAL_MODULEPATHS` environment variable be configured to ensure local software modules are found by users on a cluster?",
+      "answer": "It is recommended to define the `RSNT_LOCAL_MODULEPATHS` environment variable in the cluster's common profile so that the branch of the software hierarchy can be found by users."
+    },
+    {
+      "question": "How does the software environment ensure that locally installed software packages are automatically found?",
+      "answer": "When installed using the specified method (e.g., EasyBuild with `RSNT_LOCAL_MODULEPATHS` set), locally installed software packages will be automatically found when users load the compiler, MPI, and CUDA modules."
+    },
+    {
+      "question": "What critical precaution should system administrators take when performing privileged operations related to CVMFS?",
+      "answer": "System administrators must ensure that their session does *not* depend on the software environment when performing any privileged system operations or operations related to CVMFS."
+    },
+    {
+      "question": "Why is it important for a system administrator's session not to rely on the software environment during CVMFS updates or reconfigurations?",
+      "answer": "If an administrator's session relies on the software environment (e.g., a Python module loaded from CVMFS) during an update, the update may deadlock or the session might hang if access to CVMFS is temporarily interrupted, potentially interfering with operations."
+    },
+    {
+      "question": "Are all commercial software packages fully accessible externally through this CVMFS environment?",
+      "answer": "No, commercial software packages made available to authorized users on the systems are not available externally, and following the instructions on this page will not grant access to them."
+    },
+    {
+      "question": "Which commercial compilers are mentioned as examples of software packages not fully available externally?",
+      "answer": "The Intel and Portland Group (PGI) compilers are mentioned as examples of commercial software packages that are not fully available externally."
+    },
+    {
+      "question": "What parts of commercial software packages, such as the Intel and PGI compilers, are accessible externally?",
+      "answer": "Only the redistributable parts of these packages, typically the shared objects, are accessible externally."
+    },
+    {
+      "question": "What is the limitation of having access only to the redistributable parts of commercial compilers?",
+      "answer": "While these redistributable parts are sufficient to run software packages compiled with these compilers, they are not sufficient to compile new software."
+    },
+    {
+      "question": "Where does the software environment expect CUDA driver libraries to be installed?",
+      "answer": "For CUDA-enabled software packages, the environment relies on having driver libraries installed in the path `/usr/lib64/nvidia`."
+    },
+    {
+      "question": "Where might recent NVidia drivers install libraries instead of the expected path on some platforms?",
+      "answer": "On some platforms, recent NVidia drivers might install libraries in `/usr/lib64` instead of the expected `/usr/lib64/nvidia` path."
+    },
+    {
+      "question": "Why is adding `/usr/lib64` to the `LD_LIBRARY_PATH` not a recommended solution for CUDA library location issues?",
+      "answer": "Adding `/usr/lib64` to the `LD_LIBRARY_PATH` is not possible without also including all system libraries, which could lead to incompatibilities with the software environment."
+    },
+    {
+      "question": "What is the recommended solution if NVidia drivers install libraries in `/usr/lib64` instead of `/usr/lib64/nvidia`?",
+      "answer": "It is recommended to create symbolic links in `/usr/lib64/nvidia` that point to the installed NVidia libraries in `/usr/lib64`."
+    },
+    {
+      "question": "Is there a script available to help install NVidia drivers and create the necessary symbolic links for CUDA on Red Hat systems?",
+      "answer": "Yes, a script named `script_for_redhat.sh` is provided to assist with installing NVidia drivers and creating the required symbolic links for CUDA on Red Hat systems."
+    }
+  ],
+  "generated_at": "2026-04-10T00:44:32.871100+00:00"
+}

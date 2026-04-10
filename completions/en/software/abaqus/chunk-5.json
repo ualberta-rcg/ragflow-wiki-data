@@ -1,0 +1,104 @@
+{
+  "doc_key": "en/abaqus",
+  "level": "chunk",
+  "chunk_index": 5,
+  "qa_pairs": [
+    {
+      "question": "What is the recommended Abaqus module to load for standard analysis jobs?",
+      "answer": "The recommended module to load for standard analysis jobs is `abaqus/2026`."
+    },
+    {
+      "question": "Which Abaqus module should be discontinued for standard analysis jobs?",
+      "answer": "The `abaqus/2021` module should be discontinued for standard analysis jobs."
+    },
+    {
+      "question": "What environment variable should be unset before running Abaqus jobs on the cluster?",
+      "answer": "The `SLURM_GTIDS` environment variable should be unset."
+    },
+    {
+      "question": "What environment variable should be exported for MPI communication order?",
+      "answer": "The `MPI_IC_ORDER` environment variable should be exported with the value 'tcp'."
+    },
+    {
+      "question": "What is the Abaqus command for restarting a standard analysis job from a project directory?",
+      "answer": "The command is `abaqus job=testsp2 oldjob=testsp1 input=mystd-sim-restart.inp scratch=$SLURM_TMPDIR cpus=$SLURM_CPUS_ON_NODE interactive mp_mode=threads memory=\"$((${SLURM_MEM_PER_NODE}-3072))MB\"` for Abaqus 2026 or newer."
+    },
+    {
+      "question": "What content is required in the input file for an Abaqus standard analysis restart job from a project directory?",
+      "answer": "The restart input file should contain `*HEADING` and `*RESTART, READ`."
+    },
+    {
+      "question": "What is the Slurm command for specifying the account for a standard analysis job?",
+      "answer": "The Slurm command for specifying the account is `#SBATCH --account=def-group`."
+    },
+    {
+      "question": "How do you specify the runtime for a standard analysis job in a Slurm script?",
+      "answer": "You specify the runtime using `#SBATCH --time=00-06:00` (for days-hrs:mins)."
+    },
+    {
+      "question": "How many CPU cores per task are specified in the provided Slurm scripts for single node standard analysis?",
+      "answer": "Four CPU cores per task are specified using `#SBATCH --cpus-per-task=4`."
+    },
+    {
+      "question": "What is the default memory allocation specified in the Slurm scripts for single node standard analysis?",
+      "answer": "The default memory allocation is 8GB, specified by `#SBATCH --mem=8G`."
+    },
+    {
+      "question": "What is the Slurm setting to ensure the job runs on a single node for standard analysis?",
+      "answer": "The setting is `#SBATCH --nodes=1`, and it should not be changed."
+    },
+    {
+      "question": "How can one specify a node type for a standard analysis job using Slurm?",
+      "answer": "One can uncomment and use `#SBATCH --constraint=granite` to specify a node type."
+    },
+    {
+      "question": "How can one specify GPU usage for a standard analysis job in a Slurm script?",
+      "answer": "One can uncomment `#gpus=$SLURM_GPUS_ON_NODE` within the Abaqus command line to use a GPU."
+    },
+    {
+      "question": "What is the purpose of the `3072MB` value subtracted from `SLURM_MEM_PER_NODE` in the Abaqus command line?",
+      "answer": "This value (`3072MB`) is an offset to calculate the memory Abaqus will use, likely to account for system overhead and ensure the job runs fully in RAM."
+    },
+    {
+      "question": "When using a temporary directory script for standard analysis, what directory should be created within `$SLURM_TMPDIR` for scratch files?",
+      "answer": "A directory named `scratch` should be created within `$SLURM_TMPDIR`."
+    },
+    {
+      "question": "How often does the temporary directory script save data back to the submit directory during a run?",
+      "answer": "The temporary directory script saves data every 6 hours (`while sleep 6h`)."
+    },
+    {
+      "question": "What Abaqus command is used for an initial run in a temporary directory script for standard analysis?",
+      "answer": "The command is `abaqus job=testst1 input=$SLURM_SUBMIT_DIR/mystd-sim.inp scratch=$SLURM_TMPDIR/scratch cpus=$SLURM_CPUS_ON_NODE interactive mp_mode=threads memory=\"$((${SLURM_MEM_PER_NODE}-3072))MB\"`."
+    },
+    {
+      "question": "How can restart data be written every 12 time increments in an Abaqus input file?",
+      "answer": "To write restart data every 12 time increments, specify `*RESTART, WRITE, OVERLAY, FREQUENCY=12` in the input file."
+    },
+    {
+      "question": "How can restart data be written for a total of 12 time increments without time marks?",
+      "answer": "Specify `*RESTART, WRITE, OVERLAY, NUMBER INTERVAL=12, TIME MARKS=NO` in the input file."
+    },
+    {
+      "question": "How do you check for completed restart information for standard analysis jobs using temporary directory scripts?",
+      "answer": "You can check by running `egrep -i \"step|start\" testst*.com testst*.msg testst*.sta`."
+    },
+    {
+      "question": "What is the initial step when restarting a standard analysis job using a temporary directory script?",
+      "answer": "The initial step is to copy old restart files: `cp testst1* $SLURM_TMPDIR`."
+    },
+    {
+      "question": "How often does the temporary directory restart script for standard analysis save data during a run?",
+      "answer": "The temporary directory restart script saves data every 3 hours (`while sleep 3h`)."
+    },
+    {
+      "question": "What Abaqus command is used for restarting a run in a temporary directory script for standard analysis?",
+      "answer": "The command is `abaqus job=testst2 oldjob=testst1 input=$SLURM_SUBMIT_DIR/mystd-sim-restart.inp scratch=$SLURM_TMPDIR/scratch cpus=$SLURM_CPUS_ON_NODE interactive mp_mode=threads memory=\"$((${SLURM_MEM_PER_NODE}-3072))MB\"`."
+    },
+    {
+      "question": "What content is required in the input file for an Abaqus standard analysis restart job when using a temporary directory script?",
+      "answer": "The restart input file should contain `*HEADING` and `*RESTART, READ`."
+    }
+  ],
+  "generated_at": "2026-04-10T00:29:42.902804+00:00"
+}

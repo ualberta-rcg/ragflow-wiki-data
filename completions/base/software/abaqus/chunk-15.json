@@ -1,0 +1,32 @@
+{
+  "doc_key": "base/abaqus",
+  "level": "chunk",
+  "chunk_index": 15,
+  "qa_pairs": [
+    {
+      "question": "How can I estimate the total memory required for a single-node threaded Abaqus simulation?",
+      "answer": "You can estimate the total memory by running the simulation interactively on a compute node and monitoring its memory usage with the `top` or `ps` command."
+    },
+    {
+      "question": "What is the first step to interactively estimate memory for an Abaqus simulation?",
+      "answer": "First, you need to obtain an allocation on a compute node and start your Abaqus simulation running."
+    },
+    {
+      "question": "What commands are used to obtain an allocation and start an interactive Abaqus simulation for memory estimation?",
+      "answer": "You would use the following commands: `salloc --time=0:30:00 --cpus-per-task=8 --mem=64G --account=def-piname`, then `module load StdEnv/2020`, `module load abaqus/2021`, `unset SLURM_GTIDS`, and finally `abaqus job=test input=Sample.inp scratch=$SLURM_TMPDIR cpus=8 mp_mode=threads interactive`."
+    },
+    {
+      "question": "What Slurm parameters are specified in the salloc command for obtaining an interactive session to estimate memory?",
+      "answer": "The `salloc` command specifies a time limit of 30 minutes (`--time=0:30:00`), 8 CPUs per task (`--cpus-per-task=8`), 64GB of memory (`--mem=64G`), and an account (`--account=def-piname`)."
+    },
+    {
+      "question": "Which Abaqus module is loaded in the example for interactively estimating memory?",
+      "answer": "The `abaqus/2021` module is loaded in the example."
+    },
+    {
+      "question": "What mode is the Abaqus simulation run in for interactive memory estimation, and what are the key parameters?",
+      "answer": "The Abaqus simulation is run in `interactive` mode, with `cpus=8` and `mp_mode=threads`. It also uses `$SLURM_TMPDIR` for `scratch` space."
+    }
+  ],
+  "generated_at": "2026-04-10T00:27:00.927534+00:00"
+}

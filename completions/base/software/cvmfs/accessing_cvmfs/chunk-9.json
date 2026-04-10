@@ -1,0 +1,44 @@
+{
+  "doc_key": "base/accessing_cvmfs",
+  "level": "chunk",
+  "chunk_index": 9,
+  "qa_pairs": [
+    {
+      "question": "Where does the software environment expect CUDA driver libraries to be installed?",
+      "answer": "The software environment relies on CUDA driver libraries being installed in the `/usr/lib64/nvidia` path."
+    },
+    {
+      "question": "What is a common issue with recent NVidia drivers regarding CUDA library location?",
+      "answer": "Recent NVidia drivers may install libraries in `/usr/lib64` instead of the expected `/usr/lib64/nvidia` path."
+    },
+    {
+      "question": "How can I resolve the issue if NVidia drivers install CUDA libraries in `/usr/lib64` instead of `/usr/lib64/nvidia`?",
+      "answer": "You should create symbolic links in `/usr/lib64/nvidia` that point to the NVidia libraries installed in `/usr/lib64`. Scripts are provided for RedHat and Ubuntu to assist with this."
+    },
+    {
+      "question": "Why is adding `/usr/lib64` to `LD_LIBRARY_PATH` not recommended for resolving CUDA library location issues?",
+      "answer": "Adding `/usr/lib64` to `LD_LIBRARY_PATH` is not recommended because it can pull in all system libraries, some of which may have incompatibilities with our software environment."
+    },
+    {
+      "question": "What mechanism does the software environment use for library resolution instead of `LD_LIBRARY_PATH`?",
+      "answer": "The software environment is designed to use RUNPATH for library resolution."
+    },
+    {
+      "question": "Is it recommended to define `LD_LIBRARY_PATH` when using this software environment?",
+      "answer": "No, defining `LD_LIBRARY_PATH` is not recommended and can lead to the environment not working as intended."
+    },
+    {
+      "question": "Why might binary packages, such as Anaconda, sometimes not find expected libraries in this software environment?",
+      "answer": "Binary packages may not find expected libraries because `LD_LIBRARY_PATH` is not defined, and our libraries are not installed in default Linux locations."
+    },
+    {
+      "question": "Where can I find more information about installing binary packages within this software environment?",
+      "answer": "You can find documentation on installing binary packages in the 'Installing binary packages' section of our documentation, which is linked from 'Installing software in your home directory'."
+    },
+    {
+      "question": "What specific application dependency needs to be installed locally on the host operating system for some applications?",
+      "answer": "For some applications, `dbus` needs to be installed locally, on the host operating system."
+    }
+  ],
+  "generated_at": "2026-04-10T00:42:25.366427+00:00"
+}

@@ -1,0 +1,52 @@
+{
+  "doc_key": "fr/abaqus",
+  "level": "chunk",
+  "chunk_index": 20,
+  "qa_pairs": [
+    {
+      "question": "Dans quel contexte de recherche est-il permis d'utiliser le logiciel Abaqus avec la licence académique SHARCNET?",
+      "answer": "Il est permis de l'utiliser pour des travaux de recherche expérimentale, théorique et/ou numérique, entrepris principalement pour acquérir de nouvelles connaissances sur les fondements des phénomènes et des faits observables, jusqu'à la validation de principe en laboratoire."
+    },
+    {
+      "question": "Comment configurer le fichier de licence `abaqus.lic` pour utiliser la licence SHARCNET gratuite, étant donné que le serveur `license3.sharcnet.ca` est fermé?",
+      "answer": "Vous devez mettre à jour votre fichier `~/.licenses/abaqus.lic` en y ajoutant la ligne `prepend_path(\"ABAQUSLM_LICENSE_FILE\",\"27050@license1.computecanada.ca\")`. Cette configuration est valable uniquement sur les systèmes SHARCNET comme les grappes Nibi et Dusky ou le système de bureau OOD de SHARCNET."
+    },
+    {
+      "question": "Que faut-il vérifier si une tâche Abaqus se termine anormalement avec le message d'erreur \"*** ABAQUS/eliT_CheckLicense rank 0 terminated by signal 11 (Segmentation fault)\" pour Abaqus/202X?",
+      "answer": "Il faut vérifier si le fichier `abaqus.lic` contient bien la variable `ABAQUSLM_LICENSE_FILE` pour la version Abaqus/202X que vous utilisez."
+    },
+    {
+      "question": "Si j'utilise Abaqus/6.14.1 et que je reçois le message d'erreur \"License server machine is down or not responding etc.\", quelle modification dois-je faire?",
+      "answer": "Dans ce cas, vous devez remplacer `ABAQUSLM_LICENSE_FILE` par `LM_LICENSE_FILE` dans votre fichier de licence."
+    },
+    {
+      "question": "Quelles sont les premières étapes pour interroger le serveur de licences SHARCNET après s'être connecté à Nibi?",
+      "answer": "Après vous être connecté à Nibi via SSH (`ssh nibi.alliancecan.ca`), vous devez charger les modules `StdEnv/2020` et `abaqus`."
+    },
+    {
+      "question": "Quelle commande permet de vérifier les tâches Abaqus lancées et celles en file d'attente sur le serveur de licence SHARCNET?",
+      "answer": "La commande à utiliser est `abaqus licensing lmstat -c $ABAQUSLM_LICENSE_FILE -a | egrep \"Users|start|queued\"`."
+    },
+    {
+      "question": "Comment puis-je vérifier les réservations de produits par groupe d'acquisition sur le serveur de licence SHARCNET?",
+      "answer": "Vous pouvez utiliser la commande `abaqus licensing lmstat -c $ABAQUSLM_LICENSE_FILE -a | egrep \"Users|start|queued|RESERVATION\"`."
+    },
+    {
+      "question": "Quelle commande permet de s'assurer de la disponibilité explicite des produits Abaqus standard, explicite ou CAE sur le serveur de licences SHARCNET?",
+      "answer": "Il faut lancer la commande `abaqus licensing lmstat -c $ABAQUSLM_LICENSE_FILE -a | grep \"Users of\" | egrep \"cae|standard|explicit\"`."
+    },
+    {
+      "question": "Que signifie lorsqu'une tâche Abaqus apparaît comme \"queued\" dans le résultat de la commande `lmstat`?",
+      "answer": "Une tâche \"queued\" (en file d'attente) signifie qu'elle est passée à l'état \"R (running)\" pour `squeue -j jobid` ou `sacct -j jobid`, mais qu'elle est inactive sur un nœud de calcul en attente d'une licence. Cela a le même impact sur la priorité de votre compte que si elle consommait du temps CPU, et elle démarrera dès que des licences seront disponibles."
+    },
+    {
+      "question": "Pourquoi la deuxième tâche de roberpj est-elle restée en attente dans l'exemple fourni, malgré son lancement sur un nœud différent?",
+      "answer": "La deuxième tâche est restée en attente parce que roberpj ne disposait que de 10 jetons Abaqus, alors que chaque tâche en nécessitait 12. La première tâche a utilisé les 10 jetons disponibles, ne laissant aucun jeton pour la deuxième tâche, ce qui a entraîné une attente inutile des ressources et une réduction de la juste part de l'utilisateur."
+    },
+    {
+      "question": "Quelles stratégies sont recommandées pour éviter les problèmes de pénurie de licences Abaqus lors de la soumission de plusieurs tâches?",
+      "answer": "Pour éviter la pénurie de licences, il est recommandé d'utiliser des dépendances de tâches, des vecteurs de tâches (job arrays), ou de configurer des notifications par courriel Slurm pour être informé de la fin d'une tâche avant d'en soumettre une autre manuellement."
+    }
+  ],
+  "generated_at": "2026-04-10T00:38:14.931660+00:00"
+}

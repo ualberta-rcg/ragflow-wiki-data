@@ -3,69 +3,57 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is ACPYPE?",
-      "answer": "ACPYPE (AnteChamber PYthon Parser interfacE) is a Python tool designed to use Antechamber for generating topologies for chemical compounds."
+      "question": "What is the primary function of ACPYPE?",
+      "answer": "ACPYPE, which stands for AnteChamber PYthon Parser interfacE, is a Python tool designed to use Antechamber for generating topologies for chemical compounds and to interface with other Python applications like CCPN and ARIA."
     },
     {
       "question": "How is ACPYPE pronounced?",
-      "answer": "ACPYPE is pronounced as ace + pipe."
+      "answer": "ACPYPE is pronounced as 'ace + pipe'."
     },
     {
-      "question": "What is the primary function of ACPYPE?",
-      "answer": "Its primary function is to generate topologies for chemical compounds and interface with other Python applications like CCPN and ARIA."
+      "question": "Which molecular mechanics force fields does ACPYPE support for topology generation?",
+      "answer": "ACPYPE can generate topologies for CNS/XPLOR, GROMACS, CHARMM, and AMBER, based on the General Amber Force Field (GAFF), and should be used with compatible force fields like AMBER and its variants."
     },
     {
-      "question": "Which simulation packages and force fields does ACPYPE support for topology generation?",
-      "answer": "ACPYPE generates topologies for CNS/XPLOR, GROMACS, CHARMM, and AMBER, based on the General Amber Force Field (GAFF), and should be used with compatible forcefields like AMBER and its variants."
+      "question": "What module must be loaded before installing or using ACPYPE?",
+      "answer": "Users need to load the `openbabel` module before installing ACPYPE and anytime they want to use it."
     },
     {
-      "question": "How is ACPYPE distributed and installed in the provided environment?",
-      "answer": "Python wheels for ACPYPE are provided for StdEnv/2020 and StdEnv/2023 in a wheelhouse, and users should install it into a virtual environment."
+      "question": "What are the steps to create a virtual environment and install ACPYPE?",
+      "answer": "First, load the `python` and `openbabel` modules, then create a virtual environment using `virtualenv ~/venv_acpype`, activate it with `source ~/venv_acpype/bin/activate`, and finally install ACPYPE using `pip install --no-index acpype`."
     },
     {
-      "question": "What module needs to be loaded before installing and using ACPYPE?",
-      "answer": "The `openbabel` module needs to be loaded before installing ACPYPE and anytime it is used."
+      "question": "What types of topology-related output files does ACPYPE generate for GROMACS?",
+      "answer": "For GROMACS, ACPYPE generates `root_GMX.gro` (coordinate file), `root_GMX.top` (topology file), `root_GMX.itp` (molecule unit topology and parameter file), and optionally `root_GMX_OPLS.itp` and `em.mdp`, `md.mdp` (run parameters files)."
     },
     {
-      "question": "What are the steps to set up a virtual environment and install ACPYPE?",
-      "answer": "The steps are: `module load python openbabel`, `virtualenv ~/venv_acpype`, `source ~/venv_acpype/bin/activate`, and `pip install --no-index acpype`."
+      "question": "What types of topology-related output files does ACPYPE generate for AMBER?",
+      "answer": "For AMBER, ACPYPE generates `root_AC.inpcrd` (coordinate file), `root_AC.prmtop` (topology and parameter file), `root_AC.lib` (residue library file), and `root_AC.frcmod` (modified force field parameters)."
     },
     {
-      "question": "How can you check the available options for the `acpype` command?",
-      "answer": "You can check available options by running `acpype --help`."
+      "question": "How can users specify the input file type for ACPYPE?",
+      "answer": "Users can specify the input file using the `-i` or `--input` option, which accepts file types like '.pdb', '.mdl', '.mol2', or a SMILES string."
     },
     {
-      "question": "What types of input files can ACPYPE process?",
-      "answer": "ACPYPE can process input file types like '.pdb', '.mdl', '.mol2', or a SMILES string using the `-i` option, or Amber `.prmtop` and `.inpcrd` files using `-p` and `-x`."
+      "question": "What charge methods can be selected for calculations in ACPYPE?",
+      "answer": "ACPYPE supports 'gas', 'bcc' (default), and 'user' (user-provided charges in a mol2 file) as charge methods, specified with the `-c` or `--charge_method` option."
     },
     {
-      "question": "Name some of the output files ACPYPE generates for different force fields.",
-      "answer": "ACPYPE generates `root_AC.prmtop` for AMBER, `root_GMX.top` and `root_GMX.itp` for GROMACS, `root_CNS.top` for CNS/XPLOR, and `root_CHARMM.rtf` for CHARMM, along with coordinate and parameter files."
+      "question": "Under what conditions can ACPYPE be run directly on a login node, and what is a key consideration?",
+      "answer": "ACPYPE can be run on a login node for small molecules if the quantum mechanics calculation takes less than two minutes. However, the number of threads should be limited by running it with `OMP_NUM_THREADS=2 acpype ...`."
     },
     {
-      "question": "What charge methods can be specified when using ACPYPE?",
-      "answer": "The charge methods that can be specified are `gas`, `bcc` (default), or `user` for user-defined charges in a mol2 file, using the `-c` option."
+      "question": "What is the recommended approach for running ACPYPE for larger molecules or multiple molecules?",
+      "answer": "For larger molecules or when generating topologies for several molecules, it is recommended to submit ACPYPE as a non-interactive job using a job script."
     },
     {
-      "question": "Which atom types are supported by ACPYPE?",
-      "answer": "ACPYPE supports `gaff`, `gaff2` (default), `amber` (AMBER14SB), or `amber2` (AMBER14SB + GAFF2) atom types, specified with the `-a` option."
+      "question": "What directory is created to store output files after ACPYPE completes its processing?",
+      "answer": "After running ACPYPE, a directory named `basename.acpype` (e.g., `atp.acpype`) is created to store all generated output files."
     },
     {
-      "question": "How should ACPYPE be run for larger molecules or multiple molecules?",
-      "answer": "For larger or multiple molecules, ACPYPE should be submitted as a non-interactive job using a job script, rather than running on a login node."
-    },
-    {
-      "question": "What is a consideration when running ACPYPE on a login node for small molecules?",
-      "answer": "For small molecules on a login node, the number of threads should be limited by running ACPYPE with `OMP_NUM_THREADS=2 acpype ...` to account for the QM calculation it performs."
-    },
-    {
-      "question": "What is the typical output structure created by ACPYPE after successful execution?",
-      "answer": "After execution, ACPYPE typically creates a directory named `basename.acpype` (e.g., `atp.acpype`) containing all generated topology and coordinate files, log files, and temporary files."
-    },
-    {
-      "question": "Where can users find tutorials and frequently asked questions for ACPYPE?",
-      "answer": "Users can find tutorials and FAQs on the ACPYPE GitHub wiki, including specific guides for GROMACS and NAMD."
+      "question": "Where can users find additional resources like FAQs and tutorials for ACPYPE?",
+      "answer": "Users can find additional resources on the ACPYPE GitHub wiki, including a 'Frequent Asked Questions about ACPYPE' page and tutorials for GROMACS and NAMD."
     }
   ],
-  "generated_at": "2026-04-09T22:52:33.756790+00:00"
+  "generated_at": "2026-04-09T23:48:02.073774+00:00"
 }

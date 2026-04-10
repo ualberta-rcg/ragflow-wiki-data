@@ -1,0 +1,529 @@
+---
+title: "RAC application guide/fr"
+tags:
+  []
+
+keywords:
+  []
+---
+
+***Veuillez lire attentivement le présent document.***
+
+## Processus et dates 
+{| class="wikitable"
+|**Type de demande**
+|**Date de début**
+|**Date limite**
+|-
+|Ressources pour les groupes de recherche
+
+* * Y compris les demandes via le [processus de demande accélérée](rac-fast-track-application-guide-fr.md)
+
+* Y compris le dépôt des [rapports sur l’avancement des projets de plateformes et portails de recherche](rpp-annual-progress-report-guidelines-fr.md)
+|**23 septembre 2025**
+|**4 novembre 2025**, **23h59 HNE**
+
+*(la date limite ne peut pas être modifiée)*
+|}
+
+Le concours pour l’allocation de ressources offre aux membres du corps professoral et à leurs groupes de recherche l’accès à plus de ressources de calcul, ressources de stockage et ressources infonuagiques que ne le permet le [service d’accès rapide](rapid-access-service-fr.md). Le concours est supervisé par le comité d’administration du programme d’accès aux ressources, qui est composé de représentants de chacun des partenaires régionaux et des sites hôtes de l’infrastructure nationale. 
+
+**Important :** 
+
+* Si vous prévoyez demander des ressources GPU et/ou des ressources infonuagiques, veuillez assister aux [séances d’information](resource-allocation-competition-fr.md).
+* Si vous présentez une demande pour la première fois, nous vous encourageons fortement à demander une [consultation préalable](rac-application-guide-fr#consultation_avant_le_dépôt_des_demandes.md) avant le 31 octobre.
+* Vous devez utiliser le [modèle fourni dans le présent document](rac-application-guide-fr#document_de_justification_technique.md). Dans le cas contraire, votre demande ne sera pas reçue favorablement.
+* Les critères d'évaluation se trouvent dans [l'Annexe A](rac-application-guide-fr#annexe_a_:_critères_de_l'examen_scientifique_des_demandes-d'allocation_aux_groupes_de_recherche.md) et [l'Annexe B](rac-application-guide-fr#annexe_b_:_critères_de_l'examen_scientifique_des_demandes_d’allocation_pour_les_portails_et_plateformes_de_recherche.md).
+
+Vous pouvez aussi prendre connaissance de la [foire aux questions au sujet du concours](rac-faq-fr.md) et de la [terminologie](technical-glossary-for-the-resource-allocation-competitions-fr.md). 
+
+Si vous ne savez pas quel type de demande convient à votre projet, écrivez à allocations@tech.alliancecan.ca. 
+
+### Allocation de ressources aux groupes de recherche
+Le processus de demande d’une allocation de ressources aux groupes de recherche comporte un examen par vos pairs. Il convient aux projets qui nécessitent des ressources de calcul, de stockage et des ressources infonuagiques pour atteindre leur objectif principal. Si, par contre, votre projet requiert des instances infonuagiques persistantes pour offrir un service via une plateforme ou un portail, utilisez plutôt le processus de demande pour les plateformes et portails de recherche.
+
+Pour les détails, voir les annexes A et C à la fin du présent document.
+
+### Demande accélérée pour les groupes de recherche
+Si vous détenez une allocation de ressources pour les groupes de recherche et que vous êtes admissible, vous pouvez présenter un rapport d’avancement pour renouveler votre demande de ressources de calcul. Pour les détails, voir le [Guide de préparation des demandes accélérées](rac-fast-track-application-guide-fr.md) qui décrit les conditions particulières pour présenter une demande. 
+
+En septembre 2025, les chercheuses principales et chercheurs principaux admissibles recevront par courriel une invitation à présenter une demande accélérée. Les demandes peuvent être présentées à compter du 23 septembre et jusqu’au 4 novembre 2025, 23h59, heure normale de l’Est (*aucune extension n’est possible*).
+
+### Allocation de ressources pour les plateformes et portails de recherche
+Le processus de demande d'une allocation de ressources aux plateformes et portails de recherche comporte un examen par vos pairs. Il convient aux projets dont l’objectif principal est d’offrir une passerelle scientifique pour le partage d’ensembles de données, l’amélioration des sites et outils de recherche, ou la collaboration au niveau national ou international. Si par contre votre projet requiert principalement des ressources de calcul dans une grappe pour un projet de recherche, utilisez plutôt le processus de demande pour les groupes de recherche.
+
+Une plateforme ou un portail de recherche est un ensemble d’outils, données et applications développées par la communauté et qui sont intégrées dans une passerelle ou une suite d’applications généralement accessibles via une interface graphique. La plateforme ou le portail est adapté aux besoins d’un champ de recherche particulier. 
+
+Un projet comprend généralement des ressources infonuagiques pour la mise en place d’une passerelle frontale sur des instances virtuelles persistantes. Les opérations de calcul en arrière-plan peuvent s’effectuer avec des nœuds infonuagiques ou par des tâches soumises aux ordonnanceurs des grappes nationales. Dans plusieurs cas, les projets maintiennent aussi de grandes bases de données. 
+
+Pour être admissibles, les projets doivent : 
+
+# permettre à leur communauté de recherche élargie d’accéder aux ressources nationales par une même interface utilisateur et partager des outils, applications et données via un service infonuagique; 
+# offrir une plateforme ou un portail développé, exploité et géré avec l’intervention minimale de la Fédération.
+
+Pour les détails, voir les annexes A et B à la fin du présent document.
+
+**Important :** Vous devez présenter une nouvelle demande si vous détenez une allocation pluriannuelle qui se termine en  2026 et que vous aurez toujours besoin de ressources pour la période d’allocation 2026-2027.
+
+#### Rapport d'avancement annuel pour les projets de plateformes et portails de recherche 
+Les ressources peuvent être allouées pour une période maximale de trois (3) ans; le renouvellement est sujet à l’examen annuel des demandes et à la disponibilité des ressources.
+
+Il n’est pas nécessaire de soumettre une nouvelle demande chaque année, mais la chercheuse principale ou le chercheur principal doit obligatoirement présenter un rapport d’avancement annuel. Les directives pour soumettre le rapport d’avancement seront communiquées par courriel. Voir les détails dans le [Rapport annuel sur l’avancement des projets de plateformes et portails de recherche](rpp-annual-progress-report-guidelines-fr.md).
+
+Les rapports d’avancement annuels doivent être soumis entre le 23 septembre et le 4 novembre 2025.
+
+=Admissibilité=
+Pour présenter une demande au concours d’allocation de ressources, les chercheuses principales et chercheurs principaux, ainsi que les co-chercheuses et co-chercheurs doivent 
+
+* être membres du corps professoral dans un établissement d'enseignement canadien;
+* être titulaire d’un compte actif avec l'Alliance et détenir le rôle de chercheuse principale ou chercheur principal en milieu académique (professeure, professeur, professeure associée, professeur associé, bibliothécaire).
+
+Si vous êtes admissible,
+
+* vous ne pouvez présenter qu’une seule demande en tant que responsable d’un projet pour votre groupe de recherche, que ce soit au concours ou par une demande accélérée, mais pouvez participer à d’autres projets pour des groupes de recherche; 
+* vous ne pouvez présenter qu’une seule demande pour un projet de plateforme ou portail de recherche, mais pouvez participer à d’autres projets de plateforme ou portail comme co-chercheuse ou co-chercheur.
+
+Rappelez-vous que
+* si vous avez changé d’établissement et que vous n’avez pas encore indiqué votre nouveau rôle dans CCDB, veuillez le faire *avant* de soumettre votre demande puisqu’elle doit être soumise sous votre rôle principal le plus à jour;
+* si vous détenez *plusieurs rôles actif*s, assurez-vous que votre rôle le plus à jour est indiqué comme étant *votre rôle principal*. Pour voir le rôle qui est présentement indiqué comme étant votre rôle principal, connectez-vous à ' CCDB et cliquez sur *Accueil*. Pour changer votre rôle principal, cliquez sur *Sélectionner comme rôle principal* à côté de votre nouveau rôle principal.
+
+*Ne pas tenir compte de ces deux avis peut causer des problèmes si votre demande est acceptée.* 
+
+**Important :** *Nous refusons les demandes présentées au nom d’un groupe de chercheuses ou chercheurs principaux qui sont du même département*, mais qui ne collaborent pas à un projet commun ayant des objectifs et des résultats clairs. 
+
+### Co-chercheuses, co-chercheurs, collaboratrices et collaborateurs 
+Dans le cadre du concours, les co-chercheuses et co-chercheurs sont membres d’un corps professoral au Canada et titulaires d’un compte avec l'Alliance avec un rôle de chercheuse principale ou chercheur principal en milieu académique. Elles ou ils *participent activement au projet*. Un CVC à jour doit être téléchargé pour chaque chercheuse principale, chercheur principal, co-chercheuse et co-chercheur; voyez [CV commun canadien](rac-application-guide-fr#cv_commun_canadien_(cvc).md). *Le rôle et la participation d’une co-chercheuse et d’un co-chercheur mentionné dans la demande doivent être justifiés.* 
+
+Une collaboratrice ou un collaborateur est une personne qui participe *activement* au projet et qui n'est ni une co-chercheuse ou un co-chercheur selon la définition fournie ci-haut. Les chercheuses ou chercheurs étrangers ou les collègues qui ne sont pas titulaires d’un compte avec l'Alliance peuvent être inscrites ou inscrits à titre de collaboratrices ou collaborateurs dans la section sur la gestion des ressources dans le document de présentation de votre demande.
+### Quantité minimale de ressources admissible
+Ne présentez pas de demande au concours si vos besoins en ressources de calcul peuvent être satisfaits par ce qui sera disponible via le [service d'accès rapide](rapid-access-service-fr.md). 
+
+Les ressources de stockage /HOME et /SCRATCH ne sont pas allouées par voie de concours. Si certains termes ne vous sont pas familiers, référez-vous au [glossaire technique](technical-glossary-for-the-resource-allocation-competitions-fr.md).
+{| class="wikitable"
+|**Catégorie**
+|**Ressource**
+|**Minimum**
+|
+|-
+|HPC
+|CPU (cœurs-années ou équivalents-cœurs-années)                                                                                                                                                                                                      
+|200
+|Une demande de CPU doit être *égale ou supérieure à* 200 cœurs-année ou équivalents-cœurs-années *sur chacune des grappes où les ressources sont nécessaires.*
+Si vous demandez 200 cœurs-année ou moins, mais avec une forte densité en mémoire par cœur, la formule suivante vous permettra de calculer les équivalents-cœurs-années pour déterminer si vous devez présenter une demande. 
+
+*Équivalents-cœurs-années = Max(cœurs-année, mémoire demandée/ 4 Go par cœur)*
+
+*Mémoire demandée = cœurs-année * mémoire par cœur demandée*
+
+Le résultat doit être plus grand que 200 pour que la demande soit admissible au concours.
+
+Pour plus d’information sur les allocations de calcul, les équivalents-cœurs-années et l’ordre de priorisation de l’ordonnanceur, voir [Allocation et ordonnancement des tâches de calcul](allocations-and-compute-scheduling-fr.md).
+|-
+|HPC
+|GPU (UGR-années)
+|25
+|Une demande de GPU doit être *égale ou supérieure* à 25 UGR-années *sur chacune des grappes où vous demandez ces ressources.*
+Unité GPU de référence (UGR) : Unité de mesure de l’utilisation d’une ressource GPU. La valeur est employée pour déterminer le ''coût d'utilisation* d’un modèle particulier de GPU puisque leur performance varie. Par exemple, 
+
+1 GPU A100-40GB = 4.0 UGR
+
+1 GPU H100_2g.20GB = 3.5 UGR
+
+1 GPU H100-80GB = 12.2 UGR
+
+Dans le formulaire électronique, vous devrez spécifier le modèle de GPU que vous voulez utiliser. L’utilisation est *facturée'' différemment parce que la performance varie de beaucoup en fonction du modèle. Nos ressources sont fournies gratuitement pour les projets de recherche canadiens; cependant, afin d’ordonnancer les tâches, nous devons évaluer combien de ressources un groupe a utilisées en comparaison de leur part. Ceci nous permet de prioriser les groupes qui n’ont pas utilisé leur part. Pour plus d'information, voir [Unités GPU de référence (UGR)](allocations_and_compute_scheduling-fr#unités_gpu_de_référence_(ugr).md).
+|-
+|HPC
+|Stockage /project (To)
+|41
+|Cette limite s’applique aux grappes d’usage général Fir, Nibi, Rorqual et Narval.
+*Contrairement aux CPU et GPU où le minimum doit être demandé sur chaque grappe, 41To est la **somme** pour tout l’espace de stockage /project sur toutes les grappes.*
+Important : 
+
+* Vous pouvez demander à la fois du stockage /project et du stockage /nearline pourvu que pour un des types de stockage la capacité demandée soit égale ou plus grande que le minimum indiqué dans le présent tableau. * Les ressources des deux types de stockage doivent être indiquées sur le formulaire électronique.
+* Cette quantité minimale ne s’applique pas à la grappe Trillium où le stockage /project doit être demandé via le concours. 
+|-
+|HPC
+|Stockage /nearline (To)
+|101
+|Cette limite s’applique aux grappes d’usage général Fir, Nibi, Rorqual et Narval.
+*Contrairement aux CPU et GPU où le minimum doit être demandé sur chaque grappe, 101To est la **somme** pour tout l’espace de stockage /nearline sur toutes les grappes.* 
+
+* Vous pouvez demander à la fois du stockage /project et du stockage /nearline pourvu que pour un des types de stockage la capacité demandée soit égale ou plus grande que le minimum indiqué dans le présent tableau. Les ressources des deux types de stockage doivent être indiquées sur le formulaire électronique.
+* Cette quantité minimale ne s’applique pas à la grappe HPSS où tout le stockage project doit être demandé via le concours.
+|-
+|HPC
+|Stockage dCache (To)
+|0
+|Vous devez demander tout besoin de stockage dCache.
+|-
+|Cloud
+|vCPU pour instances de calcul (vCPU-années)
+|81
+| rowspan="6" |La demande est admissible pourvu qu’une des ressources demandées sur un site infonuagique particulier soit égale ou supérieure au minimum indiqué. Dans ce cas, le formulaire électronique doit indiquer **toutes** les ressources infonuagiques requises pour ce site, même si certaines ressources demandées n'atteignent pas le minimum requis.
+|-
+|Cloud
+|UGR pour instances de calcul avec vGPU
+(UGR-années)
+|3.6
+|-
+|Cloud
+|vCPU pour instances persistantes (vCPU-années)
+|26
+|-
+|Cloud
+|Stockage des volumes et des instantanés (To)    
+|11
+|-
+|Cloud
+|Stockage dans un système de fichiers partagé (To)
+|11
+|-
+|Cloud
+|Stockage objet (To)
+|11
+|}
+
+### Demander des ressources
+Sur le formulaire électronique, il est essentiel d'indiquer toutes les ressources dont vous avez besoin (CPU, GPU, stockage, infonuagique), sur chacune des grappes. '*Il ne doit y avoir AUCUNE DIFFÉRENCE entre la quantité de ressources demandées dans le document de justification que vous joignez et la quantité de ressources que vous demandez dans le formulaire électronique. *En cas de divergence entre le document et le formulaire électronique, ce dernier aura préséance*.*'
+
+Consultez la [liste des ressources disponibles](rac-available-resources-fr.md) pour savoir comment les demander dans le formulaire électronique. 
+
+Exemples de demandes acceptables
+
+* Si vous avez besoin de 180 cœurs-années (ou équivalents-cœurs-années) et 50To de stockage sur Fir, demandez uniquement 50To de stockage sur cette grappe. Ne demandez pas de CPU puisque vous devriez pouvoir obtenir les CPU sans présenter une demande.
+* Si vous avez besoin de 500 cœurs-années, de 20To de stockage /project et de 80To de stockage /nearline sur Narval, demandez uniquement 500 cœurs-années sur cette grappe puisque vous pourrez obtenir tout l'espace de stockage dont vous aurez besoin via le service d’accès rapide.
+* Si vous avez besoin de 100 cœurs-années, de 10To de stockage /project sur Trillium et de 50To de stockage /nearline sur HPSS, demandez uniquement l’espace de stockage sur cette grappe puisque vous devriez pouvoir obtenir les CPU sans présenter une demande.
+* Si vous avez besoin de 400 cœurs-années, de 30 UGR-années et de 200To de stockage /project sur Nibi, demandez toutes ces ressources puisqu’elles dépassent le minimum indiqué dans le tableau ci-dessus.
+* Si vous avez besoin de 150 cœurs-années sur Rorqual avec différentes capacités de mémoire, soit 100 cœurs-années de 16Go par cœur (400 équivalents-cœurs-années) et 50 cœurs-années de 4Go par cœur (50 équivalents-cœurs-années), faites deux demandes de CPU sur Rorqual pour signifier les différentes capacités de mémoire. Ceci est acceptable puisque le total des équivalents-cœurs-années sur une même grappe dépasse le minimum indiqué dans le tableau ci-dessus. Une option aussi acceptable serait de calculer la moyenne de la mémoire par cœur et de ne faire qu’une demande pour 150 cœurs-années de 12Go par cœur.
+* Si vous avez besoin de 45To de stockage /project réparti comme suit : 20To sur Rorqual et 25To sur Narval, votre demande est admissible puisque l’espace de stockage total dépasse 40To.
+* Sur Fir, si vous avez besoin de 100To répartis en stockage /project pour 50To et en stockage /nearline pour 50To, votre demande est admissible parce que la demande en stockage /project est admissible, même si le stockage /nearline est sous le minimum de 101To. Vous devez donc inclure les deux types de stockage dans votre demande.
+* Si vous avez besoin de 100 vCPU sur le nuage Arbutus, de 5To de stockage pour les volumes et instantanés et de 5To de stockage objet, demandez toutes ces ressources dans le formulaire électronique. Le nombre de vCPU excède le minimum requis et l’espace de stockage doit être inclus dans la même demande même s’il n’atteint pas le minimum de 11To.
+
+Exemples de demandes **inacceptables**
+
+* Si vous avez besoin d’un total de 250 cœurs-années avec 100 cœurs-années de 4Go sur Fir et 150 cœurs-années de 4 Go sur Nibi, votre demande sera rejetée puisque vous devriez pouvoir obtenir les CPU sans présenter une demande. De plus, si vous ne demandez pas de stockage, de GPU ou de ressources infonuagiques, votre demande sera disqualifiée. 
+* Si vous avez besoin d’un total de 20 UGR avec 10 UGR sur Narval et 10 UGR sur Rorqual, votre demande sera rejetée.
+* Si vous avez besoin de 25 vCPU persistants sur Arbutus et de 10To de stockage pour les volumes et instantanés, vous n’avez pas besoin de présenter une demande puisque ces ressources sont disponibles via le service d’accès rapide.
+
+= Document de justification technique =
+'*Vous *devez utiliser le modèle'' ci-dessous pour la procédure qui correspond à votre demande. Veuillez toujours télécharger la dernière version du ou des documents, car les directives peuvent changer d'une année à l'autre. Il est donc important que votre demande utilise la version la plus récente du modèle.** 
+
+**Important :** 
+
+* **Les demandes de plus de 10 pages (sans compter les références) ne seront pas acceptées.'**
+* Le cas échéant, les références doivent être soumises dans un document séparé. Si le nombre total de pages de la candidature, références comprises, est de 10 pages ou moins, il est alors acceptable de soumettre la demande en un seul document.
+* Ces documents doivent être soumis au format PDF.
+
+Téléchargez le modèle requis pour votre processus de demande
+{| class="wikitable"
+|+
+|**Demande**
+!Format du modèle
+|-
+|**Ressources pour les groupes de recherche**
+| - Word ou OpenDocument* ([en anglais](https://docs.google.com/document/d/1JsOQ1DVsGaM3DOrn49MSCTEFKw_gvJ8x3cJ1JmYb6h4/edit?tab=t.0), [en français](https://docs.google.com/document/d/1bKXSBQODiXs_OsfTDHbtNzd-ghVtcAvgYXDVwHuVu-c/edit?usp=drive_link))
+
+- LaTeX ([en anglais](https://drive.google.com/file/d/1SjMU5Of4rVyOzIN0a5ZhzuQetdazmzJj/view?usp=drive_link), [en français](https://drive.google.com/file/d/1rX_dQ5y79atIgSbPY_pwX0i4jIw8UtuF/view?usp=drive_link))
+|-
+|**Plateformes et portails de recherche'*
+| - Word ou OpenDocument* ([en anglais](https://docs.google.com/document/d/1tGMpMRnaLsso6U80vZiXbY7o1m9kVvvnEuXOUoUIKBo/edit?tab=t.0), [en français](https://docs.google.com/document/d/1vueNU31dsMhL3nbyUYzF7NAzYbIbhl52tPrbDZWGhJI/edit?usp=drive_link))
+
+- LaTeX ([en anglais](https://drive.google.com/file/d/18idQJtVZmASgGW-7hVl3uwQdoQ7XTuvO/view?usp=drive_link), [en français](https://drive.google.com/file/d/1TCzOu12LccRT0HuvpPK8gycv0kTAlRrc/view?usp=drive_link))
+|}
+**Ce lien ouvrira un document Google non modifiable (<u>veuillez ne pas demander l'autorisation de modifier ce document Google</u>). Une fois sur place, cliquez sur *Fichier → Télécharger* dans le menu principal et sélectionnez *Microsoft Word* ou *OpenDocument Format* pour télécharger le modèle; enregistrez-le et commencez à travailler dans le document téléchargé.'' 
+
+=Présentation des demandes et dates limites=
+Les demandes doivent être présentées par voie électronique via le [portal CCDB ](https://ccdb.alliancecan.ca/resource_allocation_competitions/applications) au plus tard le 4 novembre 2025 à 23h59, heure normale de l'Est. Vous devez vous assurer que la demande est complète, téléverser tous les documents requis et vérifier que les besoins décrits dans le formulaire électronique sont les mêmes que ceux décrits dans le document de justification technique.
+
+Une fois la procédure d’évaluation terminée, vous recevrez un avis par courriel au printemps 2026.
+
+### Consultation avant le dépôt des demandes
+S'il s'agit de votre première demande à ce concours, <u>nous vous recommandons fortement de consulter notre équipe technique avant le 31 octobre 2025</u> afin de laisser un temps de réponse suffisant. 
+
+Cette consultation vous permettra de :
+
+* déterminer si les ressources nécessaires à votre projet justifient la présentation d’une demande au concours;
+* savoir si le processus de demande pour les groupes de recherche ou celui pour les plateformes et portails convient le mieux à votre projet;
+* obtenir l’assistance technique requise pour bien calculer la quantité de ressources pour votre projet.
+
+Pour fixer un rendez-vous, écrivez à allocations@tech.alliancecan.ca ou contactez l’équipe de soutien technique de votre région.
+
+### Formulaire électronique 
+Le formulaire électronique se trouve [dans le portail CCDB](https://ccdb.alliancecan.ca/resource_allocation_competitions/applications). Connectez-vous avec votre compte existant ou créez un nouveau compte. 
+
+### CV commun canadien (CVC)
+Les chercheuses et chercheurs doivent fournir un CVC à jour; il est requis pour l'examen par les pairs. 
+
+La chercheuse principale, le chercheur principal et toutes les co-chercheuses et tous les co-chercheurs doivent
+
+* téléverser un CVC à jour avec chaque demande; 
+* lister les publications rendues possibles par leur utilisation des ressources de la Fédération.
+
+**Un CVC qui n’est pas à jour peut affecter à la baisse la note accordée à votre demande.**
+
+Sur le formulaire électronique, la chercheuse principale ou le chercheur principal responsable du projet peut voir la date de la dernière mise à jour de chaque CVC et les mesures à prendre seront affichées, le cas échéant. 
+
+Pour mettre à jour leur CVC, les co-chercheuses et co-chercheurs peuvent cliquer sur le bouton *Mettre à jour le CVC* sous l’onglet *Demandes de ressources* ou aller à la page *Mon compte → [Rapport](https://ccdb.alliancecan.ca/reporting)*.  Une fois le CVC à jour, le statut du CVC est mis à jour sur le formulaire électronique. Les chercheuses principales et chercheurs principaux peuvent aussi partager le lien https://ccdb.alliancecan.ca/reporting avec les co-chercheuses et co-chercheurs et leur demander de mettre leur CVC à jour.
+
+Assurez-vous de satisfaire cette exigence avant la date limite pour la présentation des demandes : **aucun retard ne sera accepté.**
+
+Pour plus d'information, voir le [Guide de rédaction du CV commun canadien pour l'Alliance](alliance-ccv-submission-guide-fr.md).
+
+<span id="Assessment_Process"></span>
+= Processus d'examen = 
+
+### Principes directeurs 
+Les principes directeurs du concours pour l’allocation des ressources sont :
+
+* toutes les demandes sont traitées équitablement et font l’objet d’un examen par les pairs et d’un examen technique;
+* les ressources sont allouées sur la base du mérite des projets et sur la probabilité que les ressources soient bien utilisées, plutôt que sur le mérite du programme de recherche; 
+* les difficultés posées par le manque de ressources et les autres contraintes liées aux systèmes sont partagées entre tous les projets.
+
+### Examen technique
+L’examen technique effectué par l'équipe technique de la Fédération vise les objectifs suivants :
+
+* veiller à ce que la chercheuse principale ou le chercheur principal indique un système approprié et vérifier la disponibilité des logiciels nécessaires;
+* évaluer l'efficacité et la scalabilité de la demande;
+* identifier les groupes qui pourraient avoir besoin d’aide pour optimiser le code et les processus;
+* relever les disparités entre les ressources demandées dans le formulaire électronique et celles demandées dans le document joint;
+* repérer les exigences logicielles particulières;
+* fournir une opinion technique sur le caractère raisonnable de la demande.
+
+Avant d’avoir accès aux demandes, le personnel technique doit signer une entente de confidentialité et de non-divulgation.
+
+'''Pour compléter son examen, l'équipe technique pourrait avoir besoin de plus d'information; nous communiquerons directement avec vous, le cas échéant. *Nous vous demandons de fournir cette information* dans les 48 heures suivantes pour ne pas retarder l'examen.'''
+
+### Examen par les pairs
+Toutes les demandes sont sujettes à un examen par les pairs et une note est attribuée à chacune. Avant d’avoir accès aux demandes, les pairs doivent accepter le document Entente de non-divulgation et politique de conflit d’intérêts pour l’examen par les pairs.
+
+La note accordée se base sur : 
+
+* la faisabilité du projet sur la base de quelle recherche sera effectuée et quels résultats seront livrées et non pourquoi le projet est important;
+* la pertinence des ressources demandées pour atteindre les objectifs du projet sur la base du document de justification technique fourni;
+* la probabilité que les ressources demandées seront utilisées de façon efficiente.
+
+Les demandes sont examinées par les comités listés ci-dessous. La chercheuse principale ou le chercheur principal peut choisir le comité qui évaluera sa demande, mais cette dernière pourrait être assignée à un autre comité après consultation avec les présidentes et présidents des comités. 
+
+* Astronomie, astrophysique et cosmologie
+* Bio-informatique
+* Chimie, biochimie et biophysique
+* Sciences informatiques et mathématiques
+* Génie
+* Sciences de la Terre et de l’environnement
+* Sciences humaines et sociales
+* Nanotechnologie, matériaux et matière condensée
+* Neurosciences, imagerie médicale et physique médicale
+* Physique des particules subatomiques et physique spatiale
+
+### Barème d’évaluation
+Puisque les ressources de la Fédération sont limitées, les demandes d’allocation sont ajustées chaque année en fonction de la note obtenue et de l’offre et de la demande. 
+
+Pour ce faire, une fonction est appliquée aux demandes pour guider la prise de décision dans un contexte de ressources limitées. Pour de l'information sur le barème et les statistiques, voir le [Rapport annuel sur l’avancement des projets de plateformes et portails de recherche](rac-annual-reports-fr.md).
+
+=Renseignements additionnels=
+Pour toute question au sujet du concours, écrivez à allocations@tech.alliancecan.ca. Vous trouverez un supplément d’information dans la foire aux questions et le [glossaire technique](technical-glossary-for-the-resource-allocation-competitions-fr.md).
+
+= Annexe A : Critères de l'examen scientifique des demandes d'allocation aux groupes de recherche =
+Les demandes de ressources pour les groupes de recherche sont évaluées selon deux critères : *Méthodologie de recherche* et *Gestion des ressources et expertise en calcul*.
+
+### Méthodologie de recherche, 70 % 
+Ce critère tient compte de la* méthodologie* proposée pour atteindre les objectifs du projet ainsi que de la *pertinence* des ressources de calcul demandées. L’attention est portée sur les **activités de recherche et sur la justification technique** plutôt que sur l’importance de la recherche.
+
+Ce critère tient compte des aspects suivants :
+
+***Plan de recherche***
+
+* *La problématique est présentée clairement.*
+
+* *Le but et les objectifs du projet sont clairs et bien définis; ils décrivent les résultats escomptés du projet de calcul.*
+
+***Résultats escomptés***
+
+* *La demande décrit* *les résultats escomptés et les moyens par lesquels les résultats seront mesurés.*
+* *Les résultats escomptés du projet et ses impacts sont décrits clairement, sont en lien avec les objectifs et sont pertinents, réalistes et accessibles.*
+* *Le projet de calcul contribuera probablement à l’avancement de la recherche dans le domaine.*
+
+***Progrès réalisés l’année dernière***
+
+* *La demande fait état de réalisations, de résultats et/ou de preuves d’avancement par suite de l’utilisation des ressources de la Fédération au cours de l’année dernière.*
+
+***Méthodes de calcul***
+
+* *La demande décrit les méthodes, approches et outils appropriés qui seront utilisés pour atteindre les objectifs; il peut s’agir de logiciels ou modèles produits par la communauté, de méthodes d’analyse de données, d’algorithmes sous forme de scripts ou d’outils ou encore d’essais ou de tests d’implémentation.*
+
+***Justification des ressources ***
+
+* *Le cas échéant, l’absence ou le peu d’utilisation des ressources allouées est justifié et jugé acceptable.*
+* *La quantité de ressources demandées semble appropriée pour atteindre les objectifs du projet et la justification technique est excellente.*
+* *L’expérimentation décrite est nécessaire et suffisante pour répondre aux questions posées.*
+
+### **Gestion des ressources et expertise en calcul, 30 %**
+Ce critère évalue la *capacité de l’équipe de recherche à bien gérer le projet de calcul et à utiliser efficacement les ressources demandées*. Il évalue aussi la *faisabilité* du projet sur la base de ''l'expertise* *en calcul et en recherche computationnelle* *de l’équipe.*
+
+L’équipe de projet comprend une chercheuse principale ou un chercheur principal et, le cas échéant, des co-chercheuses et/ou co-chercheurs et tout personnel hautement qualifié qui *participe activement* au projet.
+
+Le personnel hautement qualifié inclut le personnel de recherche participant au programme de recherche, qu’il provienne d’une université ou des secteurs public ou privé. Le nombre de personnes qui *utilisent directement* les ressources de la Fédération doit être approprié à la portée du projet.
+
+La nature, la portée et l’étendue de l’expérience et des contributions de la chercheuse principale ou du chercheur principal et s’il y a lieu des co-chercheuses et co-chercheurs, doivent tenir compte du stade de leur carrière. Les membres du comité d’examen par les pairs ne tiendront compte d’aucune information autre que celle contenue dans la demande et dans les CVC. Ils ne feront pas non plus référence à de telles informations ni ne les communiqueront aux autres membres du comité.
+
+Il n’est pas obligatoire que des co-chercheuses, des co-chercheurs et du personnel hautement qualifié fassent partie de la demande pour qu’elle reçoive la note maximale pour l’aspect de la gestion des ressources. Le projet doit cependant *'pouvoir être réalisé* par les personnes désignées dans la demande, *surtout s’il n’y a qu’une seule chercheuse principale ou un seul chercheur principal ou si le projet n’a obtenu aucun financement''. Les projets qui demandent une grande quantité de ressources doivent avoir le financement pour justifier leur requête. 
+
+Le niveau de détail pour l'obtention d'une note élevée dépend de la taille de l’équipe et de la quantité de ressources demandées. 
+
+Ce critère tient compte des aspects suivants :
+
+***Financement***
+
+* *Un financement conséquent aux ressources computationnelles demandées est disponible. Si aucun financement n’est disponible, une explication crédible est donnée permettant de comprendre comment les ressources seront utilisées.*
+
+***Expertise en recherche et en calcul***
+
+* *L’expertise en calcul ou un plan de formation démontrent que l’équipe peut utiliser efficacement les ressources de calcul de manière efficiente.*
+
+***Stratégie de gestion***
+
+* *L’information sur chacun des membres de l’équipe et sur les ressources de calcul demandées est clairement énoncée.*
+* *Les rôles et responsabilités de la chercheuse principale et du chercheur principal et s’il y a lieu des co-chercheuses et co-chercheurs sont décrits clairement en ce qui a trait à l’utilisation efficiente des ressources et sont en lien avec les objectifs du projet (les co-chercheuses et co-chercheurs contribuent au pointage selon l’importance de leur participation). *
+
+* *L’ensemble de l’équipe possède l’expertise et l’expérience nécessaires à l’exécution du projet, c’est-à-dire que l’équipe atteindra les résultats escomptés et apportera la ou les contributions proposées.*
+
+= Annexe B : Critères de l'examen scientifique des demandes d’allocation pour les portails et plateformes de recherche =
+Les demandes de ressources pour les portails et plateformes de recherche sont évaluées selon deux critères : *Justification du projet* et *Gestion des ressources et expertise en calcul*.
+
+### **Justification du projet (50 %)** 
+Ce critère tient compte des aspects suivants :
+
+***Description du projet, des objectifs et des buts***
+
+* *La problématique posée ou les besoins à combler sont clairement présentés.*
+* *Les objectifs et les buts sont clairement décrits.*
+
+***Utilisation de la plateforme ou du portail ***
+
+* *La valeur ajoutée pour la communauté de recherche est clairement présentée.*
+* ''S’il y a lieu, l'importance des échanges entre les plateformes et les groupes de recherche canadiens et étrangers est clairement décrite.*
+
+***Résultats escomptés***
+
+* *La demande présente clairement l’échéancier pour la livraison des résultats escomptés tout au long de son déroulement et indique comment les résultats seront mesurés.*
+
+***Progrès réalisés l’année dernière***
+
+* *La demande fait état de réalisations, de résultats et/ou de preuves d’avancement par suite de l’utilisation des ressources de la Fédération au cours de l’année dernière. *
+* *Le cas échéant, l’absence ou le peu d’utilisation des ressources allouées est justifié et jugé acceptable.*
+
+***Justification des ressources***
+
+* *La quantité de ressources demandées semble appropriée pour atteindre les objectifs du projet et la justification technique est excellente.''
+
+### Gestion des ressources et expertise en calcul (50 %)
+Ce critère évalue la capacité de l’équipe de recherche à bien gérer, développer et exploiter la plateforme ou le portail, et à utiliser efficacement les ressources demandées. Il évalue aussi la faisabilité du projet sur la base de l'expertise en calcul et en recherche de l’équipe de projet.
+
+L’équipe inclut la chercheuse principale ou le chercheur principal, les co-chercheuses et co-chercheurs s’il y a lieu et le personnel hautement qualifié qui **participe activement** au projet. 
+
+Le personnel hautement qualifié inclut le personnel de recherche participant au programme de recherche, qu’il provienne d’une université ou des secteurs public ou privé. Le nombre de personnes qui *utilisent directement* les ressources de la Fédération doit être approprié à la portée du projet.
+
+Nous supposons que les projets qui nécessitent beaucoup de ressources disposeront du financement pour justifier le développement, l’exploitation et la gestion de la plateforme ou du portail.
+
+Ce critère tient compte des aspects suivants&nbsp;:
+
+### Financement
+
+* *Un financement conséquent aux ressources computationnelles demandées est disponible au développement, à l’exploitation et à la gestion de la plateforme ou du portail et justifie les ressources demandées. Si aucun financement n’est disponible, une explication crédible est donnée permettant de comprendre comment la plateforme ou le portail sera développé, exploité et géré.*
+
+**Expertise de l’équipe**
+
+* *L’équipe assemblée pour développer, exploiter et gérer la plateforme ou le portail possède un ensemble de compétences approprié. S’il y a lieu, les postes à pourvoir sont décrits.*
+
+**Stratégie de gestion**
+
+* *La gestion de ressources est bien définie; l’accès est offert à toute la communauté de recherche.*
+* ''Le processus d’accès aux ressources est bien défini; un plan décrit les moyens de fidéliser et accroître le nombre d'utilisatrices et utilisateurs.*
+* *Les méthodes et technologies sont justifiées et appropriées à la prestation des services envisagés.*
+* *L’approche pour le partage des données est bien détaillée; les problèmes potentiels d’accès sont abordés.*
+
+= Annexe C : Critères d’attribution des notes =
+Les demandes sont notées selon une échelle de cinq points. **Une demande qui obtient une note de 2.0 ou moins sera rejetée.**
+{| class="wikitable"
+|**Descripteur**
+|**Note**
+|**Définition**
+|-
+|*Excellent*
+|de 4.1 à 5.0
+|La demande satisfait parfaitement **tous** les aspects des critères. Les lacunes sont minimes.
+|-
+|*Très bien*
+|de 3.1 à 4.0
+|La demande satisfait parfaitement **plusieurs** des aspects des critères et traite les autres aspects de manière acceptable. Il y a place pour certaines améliorations. 
+|-
+|*Bien*
+|de 2.1 à 3.0
+|La demande satisfait parfaitement **quelques-uns** des aspects des critères. Les aspects importants pourraient être mieux traités et/ou devraient être révisés ou améliorés.
+|-
+|*Faible*
+|de 1.1 à 2.0
+|La demande traite **de façon générale** des aspects importants des critères. Certains aspects importants sont absents, ne sont pas clairement expliqués ou nécessitent des améliorations ou une révision en profondeur.
+|-
+|*Insuffisant*
+|de 0.1 à 1.0
+|L’information présentée n’est pas convaincante. La demande comporte de graves lacunes et/ou omet des aspects importants des critères. Plusieurs correctifs sont requis.
+|}
+
+= Annexe D : Entente de non-divulgation et politique de conflit d’intérêts pour l’examen scientifique=
+**Définitions**
+
+* *'Comité d'examen par les pairs** : groupe d’experts de différents champs de recherche qui examinent bénévolement les demandes présentées au concours pour l’allocation des ressources.
+* **Personne qui fait une demande** : chercheuse principale ou chercheur principal et co-chercheuses principales et co-chercheurs principaux mentionnés dans une demande présentée au concours pour l’allocation de ressources.
+
+En signant la présente entente, vous acceptez de vous conformer à la politique décrite ci-dessous.
+
+La ou le soussigné convient de traiter de façon strictement confidentielle toute information reçue par l’Alliance devant servir aux examens scientifiques ainsi que tout le matériel non publié provenant des documents soumis par la Fédération, tous les commentaires, toutes les discussions et recommandations des comités d’examen scientifique.
+
+**Politique en matière de conflit d'intérêts**
+
+Les examinatrices et examinateurs doivent se conformer aux directives en matière de conflit d’intérêts qui sont énoncées ci-après.
+
+Les examinatrices et examinateurs qui ont un rapport direct ou indirect avec une demande présentée au concours pour l’allocation de ressources doivent divulguer au plus tôt tout conflit d’intérêts. Ces directives ne peuvent prévoir toutes les situations possibles et l’Alliance s’en remet donc au bon jugement des membres des comités en ce qui a trait à la divulgation d’un conflit d’intérêts. 
+
+Une examinatrice ou un examinateur est en **conflit d’intérêts direct** si elle ou il&nbsp;:
+
+* a soumis une demande qui sera examinée par le comité sur lequel elle ou il siège (dans ce cas-ci, elle ou il est en conflit d’intérêts avec sa propre demande seulement);
+* provient du même département universitaire que la ou les personnes qui font la demande;
+* a été directrice ou directeur de recherche, ou étudiante ou étudiant diplômé de la ou des personnes qui font la demande au cours des cinq (5) dernières années;
+* a collaboré ou publié avec la ou les personnes qui font la demande au cours des deux (2) dernières années ou prévoit collaborer ou publier avec cette ou ces personnes dans un avenir immédiat;
+* soutient directement ou indirectement la demande;
+* est une ou un ami proche ou est une ou un parent de la ou des personnes qui font la demande;
+* de notoriété publique, entretient un différend scientifique ou personnel avec la ou les personnes qui font la demande;
+* est susceptible d’obtenir un gain ou de subir une perte sur le plan financier par suite du résultat de la demande (par exemple en détenant des actions dans l’entreprise d’une ou d’un partenaire ou d’une entreprise concurrente) ou croit être dans l’impossibilité d’examiner objectivement la demande pour quelque raison que ce soit.
+
+Un membre du comité est en **conflit d’intérêts indirect''' si elle ou il&nbsp;:
+
+* provient du même établissement ou de la même entreprise que la ou les personnes qui font la demande* et interagit avec cette ou ces personnes dans le cadre de ses fonctions au sein de cet établissement ou de cette entreprise;
+* se trouve dans toute autre situation de conflit d'intérêts possible.
+
+** Il n’y a pas conflit si le membre du comité provient du même établissement, mais ne connaît ni n’interagit avec la ou les personnes qui font la demande.*
+
+Le cas échéant, les cas problématiques seront confiés aux administrateurs du processus d’allocation des ressources qui sont mandatés à cet effet.
+
+Avant de prendre connaissance des demandes d’allocation de ressources, les examinatrices et examinateurs doivent lire et accepter de se conformer à la présente politique en matière de conflit d’intérêts.
+
+=Annexe E : Politique en matière de confidentialité=
+L'Alliance s’engage à protéger les renseignements personnels des chercheuses et chercheurs qui présentent une demande d’allocation de ressources. Toutes les personnes qui ont accès aux demandes signent une entente de confidentialité et de non-divulgation (voir Annexe D) en plus d’accepter la politique en matière de conflits d’intérêts. Nous demandons à toutes et tous de respecter la confidentialité des renseignements contenus dans les demandes et de ne les utiliser qu'à des fins d'examen. Les personnes ayant accès aux demandes sont les pairs, l'équipe technique et les membres du comité d’administration du programme d’accès aux ressources. 
+
+**Utilisation des renseignements personnels**
+
+Les renseignements personnels recueillis par l’Alliance sont utilisés strictement pour l’examen des demandes. Ils peuvent toutefois être communiqués aux personnes responsables concernées du partenaire régional et/ou des établissements auxquels elles sont affiliées.
+
+**Information du domaine public**
+
+La liste des demandes approuvées sera publiée par l'Alliance, avec les renseignements suivants :
+
+* *Nom de la chercheuse principale ou du chercheur principal*
+* *Établissement*
+* *Département*
+* *Domaine de recherche*
+* *Titre du projet*
+* *Sommaire du projet*
+* *Sommaire des ressources allouées*
