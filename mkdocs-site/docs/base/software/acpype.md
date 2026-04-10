@@ -5,34 +5,34 @@ lang: "base"
 
 source_wiki_title: "ACPYPE"
 source_hash: "0ab92e55322535544788827b5ca720e8"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T01:19:59.802384+00:00"
+last_synced: "2026-04-10T14:10:18.226633+00:00"
+last_processed: "2026-04-10T14:18:54.345274+00:00"
 
 tags:
   - software
   - biomolecularsimulation
 
 keywords:
-  - "NAMD"
-  - "charge value"
-  - "AnteChamber"
-  - "Tutorial"
   - "net molecular charge"
-  - "General Amber Force Field"
-  - "Parmchk"
-  - "qprog"
   - "SLURM job script"
-  - "atp.acpype"
-  - "ACPYPE"
-  - "atom type"
-  - "Python virtual environment"
-  - "GROMACS"
   - "topology generation"
+  - "Tleap"
+  - "Python virtual environment"
+  - "charge value"
+  - "Parmchk"
+  - "General Amber Force Field"
+  - "atom type"
   - "Open Babel"
+  - "ACPYPE"
+  - "Tutorial"
   - "Antechamber"
   - "AMBER14SB"
-  - "Tleap"
+  - "GROMACS"
+  - "qprog"
+  - "NAMD"
+  - "atp.acpype"
   - "multiplicity"
+  - "AnteChamber"
 
 questions:
   - "What is the primary function of ACPYPE and which molecular dynamics software packages does it generate topologies for?"
@@ -45,6 +45,14 @@ questions:
   - "What are the available atom type options and which one is used by default?"
   - "Which quantum chemistry programs can be selected using the qprog argument?"
   - "What is the name and version of the software interface being executed in the log?"
+  - "How did the system handle the warning regarding the missing charge value?"
+  - "Which three specific programs were successfully executed before the temporary files were removed?"
+  - "What types of topology and parameter files are generated within the atp.acpype directory?"
+  - "How long did the execution process take to complete?"
+  - "Which molecular dynamics software packages have specific tutorials linked in the provided resources?"
+  - "What types of topology and parameter files are generated within the atp.acpype directory?"
+  - "How long did the execution process take to complete?"
+  - "Which molecular dynamics software packages have specific tutorials linked in the provided resources?"
 
 status:
   downloaded: true
@@ -52,7 +60,7 @@ status:
   tagged: true
   keywords_generated: true
   ragflow_synced: true
-  qa_generated: true
+  qa_generated: false
 ---
 
 ## General
@@ -60,7 +68,7 @@ status:
 
 It will generate topologies for CNS/XPLOR, [GROMACS](gromacs.md), CHARMM and [AMBER](amber.md), that are based on General Amber Force Field (GAFF) and should be used only with compatible force fields like AMBER and its variants.
 
-We provide [Python wheels](available-python-wheels.md) for ACPYPE for [StdEnv/2020 and StdEnv/2023](standard-software-environments.md) in our wheelhouse that you should install into a [virtual environment](python.md).
+We provide [Python wheels](available-python-wheels.md) for ACPYPE for [StdEnv/2020 and StdEnv/2023](standard-software-environments.md) in our wheelhouse that you should install into a [virtual environment](python.md#creating-and-using-a-virtual-environment).
 
 !!! note
     Please note that you need to load the `openbabel` module before installing ACPYPE and anytime you want to use it.
@@ -68,19 +76,17 @@ We provide [Python wheels](available-python-wheels.md) for ACPYPE for [StdEnv/20
 ## Creating a virtual environment for ACPYPE
 
 ```bash
-module load python openbabel
-virtualenv ~/venv_acpype
-source ~/venv_acpype/bin/activate
-pip install --no-index acpype
+[user@login1]$ module load python openbabel
+[user@login1]$ virtualenv ~/venv_acpype
+[user@login1]$ source ~/venv_acpype/bin/activate
+[user@login1]$ pip install --no-index acpype
 ```
 
 Now the `acpype` command can be used:
 
 ```bash
-acpype --help
-```
-```
-usage: 
+(venv_acpype) [user@login1]$ acpype --help
+usage:
     acpype -i _file_ | _SMILES_string_ [-c _string_] [-n _int_] [-m _int_] [-a _string_] [-f] etc. or
     acpype -p _prmtop_ -x _inpcrd_ [-d | -w]
 
@@ -149,9 +155,9 @@ options:
 
 You can run ACPYPE as a short job with a job script similar to the one shown below.
 
-If you already have a file with the 3D-coordinates of your molecule, you can delete the lines that use `obabel` to generate the file `adp.mol2` from the [SMILES](https://en.wikipedia.org/wiki/SMILES) string.
+If you have already a file with the 3D-coordinates of your molecule, you can delete the lines that use `obabel` to generate the file `adp.mol2` from the [SMILES](https://en.wikipedia.org/wiki/SMILES) string.
 
-```sh title="job_acpype_ADP.sh"
+```sh hl_lines="13-14" title="job_acpype_ADP.sh"
 #!/bin/bash
 #SBATCH --time=00:15:00
 #SBATCH --cpus-per-task=4
@@ -170,25 +176,24 @@ acpype -i adp.mol2
 ```
 
 ### Running on a login node
-As part of the topology generation, ACPYPE will run a short QM calculation to optimize the structure and determine the partial charges. For small molecules this should take less than two minutes and can therefore be done on a login node; however, in this case the number of threads should be limited by running ACPYPE with: `OMP_NUM_THREADS=2 acpype ...`.
+As part of the topology generation, ACPYPE will run a short QM calculation to optimize the structure and determine the partial charges. For small molecules this should take less than two minutes and can therefore be done on a login-node, however in this case the number of threads should be limited by running ACPYPE with: `OMP_NUM_THREADS=2 acpype ...`.
 
 For larger molecules or generating topologies for several molecules you should submit a job as shown above.
 
-First the [Python](python.md) and [Open Babel](open-babel.md) modules need to be loaded. We also download a structure file of Adenosine triphosphate (ATP) from [PubChem](https://pubchem.ncbi.nlm.nih.gov/):
+First the [Python](python.md) and [Open Babel](open-babel.md) need to be loaded.
+We also download a structure file of Adenosine triphosphate (ATP) from [PubChem](https://pubchem.ncbi.nlm.nih.gov/):
 
 ```bash
-module load python openbabel
-source ~/venv_acpype/bin/activate
-# download a test file for ATP:
-wget "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/CID/5957/record/SDF?record_type=3d&response_type=save&response_basename=ATP" -O atp.sdf
+[user@login1]$ module load python openbabel
+[user@login1]$ source ~/venv_acpype/bin/activate
+[user@login1]$ # download a test file for ATP:
+[user@login1]$ wget "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/CID/5957/record/SDF?record_type=3d&response_type=save&response_basename=ATP" -O atp.sdf
 ```
 
 We run ACPYPE, restricting it to using a maximum of two threads:
 
 ```bash
-OMP_NUM_THREADS=2 acpype -i atp.sdf
-```
-```
+(venv_acpype) [user@login1]$ OMP_NUM_THREADS=2 acpype -i atp.sdf
 ============================================================================
 | ACPYPE: AnteChamber PYthon Parser interfacE v. 2023.10.27 (c) 2025 AWSdS |
 ============================================================================
@@ -204,12 +209,10 @@ WARNING: no charge value given, trying to guess one...
 Total time of execution: 1m 32s
 ```
 
-The directory `atp.acpype` is created.
+The directory `atp.acpype` is created
 
 ```bash
-ls atp.acpype/
-```
-```
+(venv_acpype) [user@login1]$ ls atp.acpype/
 acpype.log                 ANTECHAMBER_PREP.AC0  atp_CHARMM.prm    atp_GMX_OPLS.top  posre_atp.itp
 ANTECHAMBER_AC.AC          ATOMTYPE.INF          atp_CHARMM.rtf    atp_GMX.top       rungmx.sh
 ANTECHAMBER_AC.AC0         atp_AC.frcmod         atp_CNS.inp       atp_NEW.pdb       sqm.in
@@ -222,6 +225,6 @@ ANTECHAMBER_PREP.AC        atp_CHARMM.inp        atp_GMX_OPLS.itp  md.mdp
 
 ## Useful Links
 
-* [Frequent Asked Questions about ACPYPE](https://github.com/alanwilter/acpype/wiki/Frequent-Asked-Questions-about-ACPYPE)
-* [Tutorial Using ACPYPE for GROMACS](https://github.com/alanwilter/acpype/wiki/Tutorial-Using-ACPYPE-for-GROMACS)
-* [Tutorial NAMD](https://github.com/alanwilter/acpype/wiki/Tutorial-NAMD)
+*   [Frequent Asked Questions about ACPYPE](https://github.com/alanwilter/acpype/wiki/Frequent-Asked-Questions-about-ACPYPE)
+*   [Tutorial Using ACPYPE for GROMACS](https://github.com/alanwilter/acpype/wiki/Tutorial-Using-ACPYPE-for-GROMACS)
+*   [Tutorial NAMD](https://github.com/alanwilter/acpype/wiki/Tutorial-NAMD)

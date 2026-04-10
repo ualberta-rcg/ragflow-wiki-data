@@ -5,8 +5,8 @@ lang: "fr"
 
 source_wiki_title: "ADF/fr"
 source_hash: "f3d2d5299c2ad6d173c24e6984ac61bd"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T01:21:16.678387+00:00"
+last_synced: "2026-04-10T14:10:18.226633+00:00"
+last_processed: "2026-04-10T14:20:21.829631+00:00"
 
 tags:
   - software
@@ -14,18 +14,18 @@ tags:
 
 keywords:
   - "SCM"
-  - "AMS"
-  - "chimie computationnelle"
+  - "WATER"
+  - "nœud de calcul"
   - "ADF"
   - "SCM-GUI"
-  - "Geometry Optimization"
-  - "nœud de calcul"
-  - "WATER"
+  - "Basis Type TZP"
   - "Z-Matrix"
   - "Graham"
   - "TigerVNC"
   - "Internal Coordinates"
-  - "Basis Type TZP"
+  - "Geometry Optimization"
+  - "chimie computationnelle"
+  - "AMS"
 
 questions:
   - "Quelles sont les principales applications de la suite logicielle SCM (anciennement ADF) en chimie computationnelle ?"
@@ -38,6 +38,8 @@ questions:
   - "Which basis set and core size are specified for the calculation?"
   - "How are the internal coordinates of the water molecule structured in the Z-Matrix section?"
   - "Comment doit-on configurer le script SLURM pour exécuter une tâche d'optimisation avec ADF sur une grappe de calcul ?"
+  - "Quelle est la méthode recommandée pour utiliser l'interface graphique ADF-GUI à distance (sur Graham ou gra-vdi) afin d'éviter les lenteurs de la redirection X11 ?"
+  - "Quelle est la procédure pour obtenir une licence permettant d'utiliser ADF-GUI localement sur un ordinateur de bureau ?"
 
 status:
   downloaded: true
@@ -45,7 +47,7 @@ status:
   tagged: true
   keywords_generated: true
   ragflow_synced: true
-  qa_generated: true
+  qa_generated: false
 ---
 
 ## Introduction
@@ -56,7 +58,6 @@ status:
 La suite logicielle [SCM (Software for Chemistry and Materials)](https://www.scm.com/), à l'origine la suite ADF pour *Amsterdam Density Functional*, offre des applications très performantes pour la recherche en chimie computationnelle, notamment dans les domaines de la catalyse (homogène et hétérogène), la chimie inorganique, la chimie des éléments lourds, la biochimie et différents types de spectroscopie.
 
 Les produits suivants sont disponibles :
-
 *   ADF
 *   ADF-GUI
 *   BAND
@@ -85,7 +86,7 @@ Les tâches soumises sur Graham sont ordonnancées par Slurm; pour les détails,
 
 Le script suivant utilise un nœud entier; l'avant-dernière ligne charge la version 2019.305 et la dernière ligne appelle ADF directement.
 
-```bash
+```bash title="mysub.sh"
 #!/bin/bash
 #SBATCH --nodes=1 --ntasks-per-node=32  # 1 node with 32 cpus, you can modify it
 #SBATCH --mem=0                         # request all memory on node
@@ -94,38 +95,38 @@ Le script suivant utilise un nœud entier; l'avant-dernière ligne charge la ver
 
 module unload openmpi
 module load adf/2019.305
-ADF adf_test.inp
+ADF adf_test.inp  
 ```
 
 Le fichier en entrée ci-dessous est utilisé dans le script.
 
-```text
-Title WATER Geometry Optimization with Delocalized Coordinates
+```text title="adf_test.inp"
+ Title WATER Geometry Optimization with Delocalized Coordinates
 
-Atoms
-   O             0.000000     0.000000     0.000000
-   H             0.000000    -0.689440    -0.578509
-   H             0.000000     0.689440    -0.578509
-End
+ Atoms
+    O             0.000000     0.000000     0.000000
+    H             0.000000    -0.689440    -0.578509
+    H             0.000000     0.689440    -0.578509
+ End
 
-Basis
-Type TZP
-Core Small
-End
+ Basis
+ Type TZP
+ Core Small
+ End
 
-Geometry
+ Geometry
   Optim Deloc
   Converge 0.0000001
-End
+ End
 
-End Input
+ End Input
 ```
 
 #### Tâches multiples avec ADF ou BAND
 
 Plusieurs calculs peuvent être groupés dans une même tâche avec un script semblable à celui-ci :
 
-```bash
+```bash title="GO_H2O.run"
 #!/bin/bash
 if test -z "$SCM_TESTOUTPUT" ; then SCM_TESTOUTPUT=GO_H2O.out; fi
 
@@ -260,9 +261,9 @@ eor
 mv TAPE21 H2O.t21
 ```
 
-Le script suivant est identique à celui utilisé pour une tâche unique (`mysub.sh`), à l’exception de la dernière ligne qui appelle le script `GO_H2O.run` plutôt que d’appeler ADF directement.
+Le script suivant est identique à celui utilisé pour une tâche unique (mysub.sh), à l’exception de la dernière ligne qui appelle le script `GO_H2O.run` plutôt que d’appeler ADF directement.
 
-```bash
+```bash title="GO_H2O.sh"
 #!/bin/bash
 #SBATCH --nodes=1 --ntasks-per-node=32  # 1 node with 32 cpus, you can modify it
 #SBATCH --mem=0                         # request all memory on node
@@ -276,12 +277,10 @@ bash GO_H2O.run                         # run the shell script
 
 ### Exemples
 
-Pour des exemples d’entrée/sortie pour ADF, voyez sur Graham
-
+Pour des exemples d’entrée/sortie pour ADF, voyez sur Graham :
 ` /home/jemmyhu/tests/test_ADF/2019.305/test_adf/`
 
-Pour des exemples de fichiers `.inp` et `.sh` avec BAND, voyez sur Graham
-
+Pour des exemples de fichiers `.inp` et `.sh` avec BAND, voyez sur Graham :
 ` /home/jemmyhu/tests/test_ADF/2019.305/test_band`
 
 ## Utiliser SCM-GUI

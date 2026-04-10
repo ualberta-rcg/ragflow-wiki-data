@@ -5,37 +5,37 @@ lang: "fr"
 
 source_wiki_title: "AI and Machine Learning/fr"
 source_hash: "fa0b451fbf57603820317535ead0fc6e"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T01:22:26.166145+00:00"
+last_synced: "2026-04-10T14:10:18.226633+00:00"
+last_processed: "2026-04-10T14:22:07.466561+00:00"
 
 tags:
   - ai-and-machine-learning
 
 keywords:
-  - "CUBLAS_WORKSPACE_CONFIG"
-  - "Points de contrôle"
-  - "nœud"
-  - "apprentissage à grande échelle"
-  - "Tutoriel Apprentissage machine"
-  - "réseaux de neurones récurrents"
-  - "Apprentissage machine"
-  - "Ensembles de données"
-  - "espace de stockage"
-  - "Optimisation des hyperparamètres"
-  - "cuDNN"
-  - "mégadonnées"
-  - "répertoire temporaire"
-  - "scalabilité"
-  - "TensorFlow"
-  - "comportement non déterministe"
-  - "grappes de calcul"
-  - "apprentissage machine"
-  - "CUDA"
-  - "stockage"
-  - "Python"
-  - "Mégadonnées"
-  - "$SLURM_TMPDIR"
   - "ensembles de données"
+  - "$SLURM_TMPDIR"
+  - "Mégadonnées"
+  - "Optimisation des hyperparamètres"
+  - "grappes de calcul"
+  - "Apprentissage machine"
+  - "TensorFlow"
+  - "Python"
+  - "mégadonnées"
+  - "CUDA"
+  - "nœud"
+  - "répertoire temporaire"
+  - "apprentissage à grande échelle"
+  - "stockage"
+  - "espace de stockage"
+  - "cuDNN"
+  - "comportement non déterministe"
+  - "Ensembles de données"
+  - "apprentissage machine"
+  - "Tutoriel Apprentissage machine"
+  - "Points de contrôle"
+  - "CUBLAS_WORKSPACE_CONFIG"
+  - "réseaux de neurones récurrents"
+  - "scalabilité"
 
 questions:
   - "Pourquoi est-il crucial d'adapter la gestion de ses ensembles de données et le choix du stockage (comme la mémoire ou $SLURM_TMPDIR) lors de l'utilisation des grappes de calcul ?"
@@ -48,6 +48,14 @@ questions:
   - "Quel problème d'espace de stockage peut être causé par l'exécution d'une tâche appartenant à un autre utilisateur ?"
   - "Quelle quantité maximale d'espace de stockage un utilisateur pourrait-il obtenir sur un nœud dans le meilleur des cas ?"
   - "Quels outils sont mentionnés comme offrant des utilitaires et de nombreux tutoriels pour l'apprentissage à grande échelle ?"
+  - "Quel sujet concernant l'apprentissage machine classique est considéré comme étant peu abordé ?"
+  - "Vers quelle ressource le texte renvoie-t-il pour obtenir plus d'informations sur l'apprentissage machine avec les mégadonnées ?"
+  - "Dans quelles conditions un comportement non déterministe peut-il apparaître dans les réseaux de neurones récurrents utilisant CUDA ?"
+  - "Quelle variable d'environnement permet de corriger ce problème et quelles valeurs peuvent lui être attribuées ?"
+  - "De quelle manière la configuration de cette variable modifie-t-elle l'allocation de la mémoire GPU par cuBLAS ?"
+  - "Dans quelles conditions un comportement non déterministe peut-il apparaître dans les réseaux de neurones récurrents utilisant CUDA ?"
+  - "Quelle variable d'environnement permet de corriger ce problème et quelles valeurs peuvent lui être attribuées ?"
+  - "De quelle manière la configuration de cette variable modifie-t-elle l'allocation de la mémoire GPU par cuBLAS ?"
 
 status:
   downloaded: true
@@ -55,10 +63,10 @@ status:
   tagged: true
   keywords_generated: true
   ragflow_synced: true
-  qa_generated: true
+  qa_generated: false
 ---
 
-Pour tirer le maximum de vos applications d'apprentissage machine, il faut connaître certains aspects particuliers de nos grappes. Ces machines sont beaucoup plus complexes que l'ordinateur local avec lequel vous faites du prototypage. Entre autres, une grappe possède des systèmes de fichiers distribués qui vont d'un type de stockage à un autre de façon transparente. Bien que l'accès à un fichier dans `/project` **peut donner l'impression de se faire de la même manière** que s'il était situé dans le nœud courant, sous le capot les effets sur la performance sont bien différents. Il est donc important de prendre connaissance de la section [Gérer vos ensembles de données](#gerer-vos-ensembles-de-donnees) ci-dessous.
+Pour tirer le maximum de vos applications d'apprentissage machine, il faut connaître certains aspects particuliers de nos grappes. Ces machines sont beaucoup plus complexes que l'ordinateur local avec lequel vous faites du prototypage. Entre autres, une grappe possède des systèmes de fichiers distribués qui vont d'un type de stockage à un autre de façon transparente. Bien que l'accès à un fichier dans `/project` **peut donner l'impression de se faire de la même manière** que s'il était situé dans le nœud courant, sous le capot les effets sur la performance sont bien différents. Il est donc important de prendre connaissance de la section [Gérer vos ensembles de données](ai-and-machine-learning.md#gérer-vos-ensembles-de-données) ci-dessous.
 
 Cette page décrit les bonnes pratiques dans l'utilisation des grappes ainsi que des références à de l'information utile.
 
@@ -76,9 +84,10 @@ Voyez aussi ce [tutoriel préparé par un utilisateur](https://prashp.gitlab.io/
 
 ### Éviter Anaconda
 
-Nous vous recommandons d'utiliser `virtualenv` pour éviter les problèmes suivants causés par Anaconda et évoqués sur [cette page](anaconda.md).
+!!! attention "Éviter Anaconda"
+    Nous vous recommandons d'utiliser `virtualenv` pour éviter les problèmes suivants causés par Anaconda et évoqués sur [cette page](anaconda.md).
 
-**Dans la plupart des cas, il est facile de passer à `virtualenv`. Vous n'avez qu'à installer les mêmes paquets, à l'exception de CUDA, CuDNN et d'autres bibliothèques de bas niveau qui sont déjà sur nos grappes.**
+    **Dans la plupart des cas, il est facile de passer à `virtualenv`. Vous n'avez qu'à installer les mêmes paquets, à l'exception de CUDA, CuDNN et d'autres bibliothèques de bas niveau qui sont déjà sur nos grappes.**
 
 ## Information sur les paquets logiciels disponibles
 
@@ -101,7 +110,7 @@ Les besoins pour la recherche sont diversifiés; nous offrons donc plusieurs sol
 ### Choisir le type de stockage selon la taille de votre ensemble de données
 
 *   Si votre ensemble de données est d'environ 10Go ou moins, il entre probablement dans la mémoire, dépendant de la quantité de mémoire de votre tâche. Vos tâches d'apprentissage machine ne devraient pas lire de données sur disque.
-*   Si votre ensemble de données est d'environ 100Go ou moins, il entre dans l'espace de stockage local du nœud de calcul; transférez-le dans cet espace au début de la tâche puisqu'il est beaucoup plus rapide et fiable que les espaces partagés que sont `/home`, `/project` et `/scratch`. Pour chaque tâche, un répertoire temporaire est disponible à $SLURM_TMPDIR; voyez l'exemple de [notre tutoriel](tutoriel-apprentissage-machine.md). Il faut toutefois savoir qu'une tâche d'un autre utilisateur peut occuper pleinement l'espace de stockage du nœud et ne vous laisser aucune place (nous cherchons une solution à ce problème); par contre, si c'est votre jour de chance, vous pourriez avoir un téraoctet juste pour vous.
+*   Si votre ensemble de données est d'environ 100Go ou moins, il entre dans l'espace de stockage local du nœud de calcul; transférez-le dans cet espace au début de la tâche puisqu'il est beaucoup plus rapide et fiable que les espaces partagés que sont `/home`, `/project` et `/scratch`. Pour chaque tâche, un répertoire temporaire est disponible à `$SLURM_TMPDIR`; voyez l'exemple de [notre tutoriel](tutoriel-apprentissage-machine.md). Il faut toutefois savoir qu'une tâche d'un autre utilisateur peut occuper pleinement l'espace de stockage du nœud et ne vous laisser aucune place (nous cherchons une solution à ce problème); par contre, si c'est votre jour de chance, vous pourriez avoir un téraoctet juste pour vous.
 *   Si votre ensemble de données est plus grand, vous pourriez devoir le laisser dans un espace partagé. Vous pouvez stocker des données de façon permanente dans votre espace `/project`; l'espace `/scratch` est parfois plus rapide, mais n'est pas conçu pour du stockage permanent. Tous les espaces de stockage partagés (`/home`, `/project` et `/scratch`) servent à lire et à stocker des données à faible fréquence (par exemple, 1 gros bloc par 10 secondes plutôt que 10 petits blocs par seconde).
 
 ### Ensembles de données composés de plusieurs petits fichiers
@@ -120,9 +129,9 @@ Votre bibliothèque préférée supporte probablement les *checkpoints*; voyez l
 
 Voir les autres exemples dans
 
-[Points de contrôle PyTorch](pytorch.md#creer-des-points-de-controle)
+[Points de contrôle PyTorch](pytorch.md#créer-des-points-de-contrôle)
 
-[Points de contrôle TensorFlow](tensorflow.md#creer-des-points-de-controle)
+[Points de contrôle TensorFlow](tensorflow.md#créer-des-points-de-contrôle)
 
 ## Exécution de plusieurs tâches similaires
 
@@ -136,7 +145,7 @@ vous devriez grouper plusieurs tâches pour n'en former qu'une avec un outil com
 
 ## Suivi de l'expérimentation et optimisation des hyperparamètres
 
-[Weights & Biases (wandb)](weights-and-biases-wandb.md) et [Comet.ml](comet-ml.md) peuvent vous aider à optimiser votre allocation de calcul en
+[Weights & Biases (wandb)](weights-and-biases-wandb.md) et [Comet.ml](comet.ml.md) peuvent vous aider à optimiser votre allocation de calcul en
 
 *   facilitant le suivi et l'analyse des processus d'apprentissage,
 *   permettant une optimisation bayésienne d'hyperparamètres.
@@ -149,5 +158,4 @@ Les paquets d'apprentissage profond modernes comme PyTorch et TensorFlow offrent
 
 ### Déterminisme dans les réseaux de neurones récurrents avec CUDA
 
-Quand la bibliothèque cuDNN est présente dans CUDA Toolkit versions 10.2 et plus, il est possible de voir un comportement non déterministe dans les réseaux de neurones récurrents (RNN) et les appels à l’API d’auto-attention multitêtes.
-Pour éviter ce problème, vous pouvez configurer la variable d’environnement CUBLAS_WORKSPACE_CONFIG avec une seule taille pour la mémoire tampon, par exemple `:16:8` ou `:4096:2`. Ainsi, cuBLAS fixe la mémoire GPU à 8 tampons de 16Ko chacun ou à 2 tampons de 4Mo chacun.
+Quand la bibliothèque cuDNN est présente dans CUDA Toolkit versions 10.2 et plus, il est possible de voir un comportement non déterministe dans les réseaux de neurones récurrents (RNN) et les appels à l’API d’auto-attention multitêtes. Pour éviter ce problème, vous pouvez configurer la variable d’environnement CUBLAS_WORKSPACE_CONFIG avec une seule taille pour la mémoire tampon, par exemple `:16:8` ou `:4096:2`. Ainsi, cuBLAS fixe la mémoire GPU à 8 tampons de 16Ko chacun ou à 2 tampons de 4Mo chacun.

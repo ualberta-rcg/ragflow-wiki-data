@@ -1,0 +1,241 @@
+<languages />
+
+{{Objectives
+|title=Objectifs d'apprentissage
+|content=
+*comprendre les principes de localité et de mouvement des données
+*connaitre la différence entre données structurées et données non structurées
+*savoir comment faire un transfert explicite
+*savoir compiler et exécuter du code OpenACC avec des directives de mouvement
+}}
+
+== Gestion explicite des données  ==
+
+[[File:Intro-DM.png|thumbnail|200px|Gestion des données avec Unified Memory|right]]
+
+Nous avons utilisé CUDA Unified Memory pour simplifier les premières étapes d'accélération de notre code.
+Si le processus est plus simple, le code n'est cependant pas portable&nbsp;:
+* pour PGI seulement, indicateur –ta=tesla:managed 
+* pour NVIDIA seulement, CUDA Unified Memory
+La gestion explicite des données rend le code portable et peut améliorer la performance.
+
+== Zones de données structurées ==
+La directive <tt>data</tt> délimite la zone du code où les tableaux GPU restent sur le GPU et sont partagés par tous les noyaux de la zone.
+Voici un exemple de comment se définit la zone de données structurées&nbsp;:
+
+<syntaxhighlight lang="cpp" line highlight="1,6">
+#pragma acc data
+{
+#pragma acc parallel loop ...
+#pragma acc parallel loop
+...
+}
+</syntaxhighlight> 
+Un autre exemple :
+<syntaxhighlight lang="cpp" line highlight="1,6">
+!$acc data
+!$acc parallel loop
+...
+!$acc parallel loop
+...
+!$acc end data
+</syntaxhighlight> 
+{{Callout
+|title=Localité des données
+|content=
+Les tableaux à l'intérieur de la zone de données restent sur le GPU jusqu'à la fin de la zone.
+}}
+
+==Données non structurées==
+Dans certains cas, la délimitation d'une zone ne permet pas l'utilisation de zones de données normales, par exemple quand on utilise des constructeurs ou des destructeurs. 
+=== Directives ===
+Dans ces cas, on utilise des directives de données non structurées.
+* '''enter data''', définit le début de la durée de vie des données non structurées
+** clauses : '''copyin(list)''', '''create(list)'''
+* '''exit data''', définit la fin de la durée de vie des données non structurées
+** clauses : '''copyout(list)'', '''delete(list)'''
+Voici un exemple&nbsp;:
+
+<syntaxhighlight lang="cpp" line highlight="1,3">
+#pragma acc enter data copyin(a)
+...
+#pragma acc exit data delete(a)
+</syntaxhighlight>
+
+=== Classes C++ ===
+Quel est l'avantage des clauses de données non structurées? Elles permettent l'utilisation d'OpenACC dans les classes C++.
+De plus, ces clauses peuvent être utilisées quand les données sont allouées et initialisées dans une portion du code différente de celle où les données sont libérées, par exemple dans les modules Fortran.
+<syntaxhighlight lang="cpp" line highlight="4,5,8,9">
+class Matrix { Matrix(int n) {
+len = n;
+v = new double[len];
+#pragma acc enter data
+                     create(v[0:len])
+}
+~Matrix() {
+#pragma acc exit data 
+                     delete(v[0:len])
+};
+</syntaxhighlight>
+
+===Clauses de la directive <tt>data</tt> ===
+
+* '''copyin(list )''', pour allouer de la mémoire du GPU et copier des données de la mémoire de départ vers le GPU, à l'entrée de la zone
+* '''copyout(list)''', pour allouer de la mémoire du GPU et copier des données vers la mémoire de départ, à la sortie de la zone
+* '''copy(list)''', pour allouer de la mémoire du GPU et copier des données de la mémoire de départ vers le GPU à l'entrée de la zone et copier des données vers la mémoire de départ, à la sortie de la zone (données structurées seulement)
+* '''create(list)''', pour allouer de la mémoire du GPU, sans copier
+* '''delete(list)''', pour désallouer de la mémoire du GPU, sans copier (données non structurées seulement)
+* '''present(list)''', le GPU contient déjà des données en provenance d'une autre région
+
+=== Format des tableaux ===
+Le compilateur ne peut pas toujours déterminer la taille d'un tableau; il faut donc en spécifier la taille et le format. 
+Voici un exemple en C
+<syntaxhighlight lang="cpp" line highlight="1">
+#pragma acc data copyin(a[0:nelem]) copyout(b[s/4:3*s/4])
+</syntaxhighlight>
+
+et un exemple en Fortran.
+<syntaxhighlight lang="cpp" line highlight="1">
+!$acc data copyin(a(1:end)) copyout(b(s/4:3*s/4))
+</syntaxhighlight>
+
+== Mouvement explicite des données ==
+=== Copier dans la matrice ===
+Dans cet exemple, nous commençons par allouer et initialiser la matrice. La matrice est ensuite copiée dans la mémoire. La copie se fait en deux étapes&nbsp;:
+# Copier la structure de la matrice.
+# Copier les membres de la matrice. 
+<syntaxhighlight lang="cpp" line highlight="10,11">
+void allocate_3d_poisson_matrix(matrix &A, int N) { 
+   int num_rows=(N+1)*(N+1)*(N+1);
+   int nnz=27*num_rows;
+   A.num_rows=num_rows;
+   A.row_offsets = (unsigned int*) \ malloc((num_rows+1)*sizeof(unsigned int));
+   A.cols = (unsigned int*)malloc(nnz*sizeof(unsigned int));
+   A.coefs = (double*)malloc(nnz*sizeof(double)); // Initialize Matrix
+   A.row_offsets[num_rows]=nnz;
+   A.nnz=nnz;
+   #pragma acc enter data copyin(A)
+   #pragma acc enter data copyin(A.row_offsets[:num_rows+1],A.cols[:nnz],A.coefs[:nnz])
+}
+</syntaxhighlight>
+
+
+=== Supprimer la matrice ===
+Pour libérer la mémoire, il faut d'abord sortir la matrice puis énoncer la commande <tt>free</tt>. Ceci se fait en deux étapes, mais en sens inverse&nbsp;:
+# Supprimer les membres.
+# Supprimer la structure.
+<syntaxhighlight lang="cpp" line highlight="5,6">
+void free_matrix(matrix &A) {
+   unsigned int *row_offsets=A.row_offsets; 
+   unsigned int * cols=A.cols;
+   double * coefs=A.coefs;
+   #pragma acc exit data delete(A.row_offsets,A.cols,A.coefs) 
+   #pragma acc exit data delete(A)
+   free(row_offsets); 
+   free(cols); 
+   free(coefs);
+}
+</syntaxhighlight>
+
+
+=== La clause <tt>present</tt> ===
+Pour une gestion de haut niveau, il faut dire au compilateur que les données se trouvent déjà en mémoire.
+La déclaration des variables locales devraient cependant se faire à l'intérieur de la fonction dans laquelle elles sont utilisées.
+<syntaxhighlight lang="cpp" line highlight="2,8">
+function main(int argc, char **argv) {
+#pragma acc data copy(A) {
+    laplace2D(A,n,m);
+}
+}
+...
+function laplace2D(double[N][M] A,n,m){
+   #pragma acc data present(A[n][m]) create(Anew)
+   while ( err > tol && iter < iter_max ) {
+      err=0.0;
+      ...
+   }
+}
+</syntaxhighlight>
+
+{{Callout
+|title=Utilisez <tt>present</tt> lorsque c'est possible
+|content=
+Les éléments critiques pour assurer une bonne performance sont une gestion de haut niveau et l'utilisation de la clause <tt>present</tt>.
+}}
+
+Dans le prochain exemple, la zone de calcul dans le code contient l'information qui indique au compilateur que les données sont déjà présentes.
+<syntaxhighlight lang="cpp" line highlight="1,2">
+#pragma acc kernels \
+present(row_offsets,cols,Acoefs,xcoefs,ycoefs)
+{
+   for(int i=0;i<num_rows;i++) {
+      double sum=0;
+      int row_start=row_offsets[i];
+      int row_end=row_offsets[i+1]; 
+      for(int j=row_start;j<row_end;j++) {
+         unsigned int Acol=cols[j]; 
+         double Acoef=Acoefs[j]; 
+         double xcoef=xcoefs[Acol]; 
+         sum+=Acoef*xcoef;
+      }
+   ycoefs[i]=sum; 
+   }
+}
+</syntaxhighlight>
+
+
+=== Compiler et exécuter avec une gestion explicite de la mémoire ===
+Pour faire un nouveau build sans mémoire autogérée, remplacez '''-ta=tesla:managed''' par '''-ta-tesla''' dans le Makefile.
+
+=== La directive <tt>update </tt> ===
+Cette directive permet d'actualiser un tableau ou une partie d'un tableau.
+<syntaxhighlight lang="cpp" line highlight="2,4">
+do_something_on_device()
+!$acc update self(a)   //  '''Copy "a" from GPU to CPU'''
+do_something_on_host()
+!$acc update device(a)  // '''Copy "a" from CPU to GPU'''
+</syntaxhighlight>
+
+Dans cet autre exemple,  nous modifions d'abord un vecteur dans la mémoire du CPU de départ, puis nous le copions dans la mémoire du GPU.
+
+<syntaxhighlight lang="cpp" line highlight="4,5">
+void initialize_vector(vector &v,double val) {
+   for(int i=0;i<v.n;i++) 
+      v.coefs[i]=val;   // '''Updating the vector on the CPU '''
+   #pragma acc update 
+      device(v.coefs[:v.n])    // '''Updating the vector on the GPU'''
+}
+</syntaxhighlight>
+
+=== Développer et exécuter sans mémoire autogérée ===
+Nous voyons ici la performance du code avec et sans mémoire autogérée.
+[[File:Benchmark-DM.png|thumbnail|300px|Banc d'essai avec et sans mémoire autogérée. |right  ]]
+Dans cet exemple, des essais ont été faits avec et sans l'option '''-ta=tesla:managed''' .
+[[File:Benchmark2-DM.png|thumbnail|300px|D'autres résultats. |right  ]]
+Les résultats démontrent que certains tests avec mémoire autogérée améliorent la vitesse; ceci est probablement dû à la mémoire immobilisée (''pinned memory''). De façon générale, il semble que la localité fonctionne&nbsp;: quand la plupart des opérations sont effectuées sur le GPU et que les données y demeurent longtemps, le mouvement des données n'a pas d'incidence majeure sur la performance.
+
+
+
+
+
+
+
+
+
+
+
+
+
+{{Challenge
+|title=
+Exercice : Ajouter des directives 
+|content=
+
+
+# Utiliser les directives <tt>kernels</tt> ou <tt>parallel loop</tt> pour obtenir la gestion explicite des données. Les répertoires [https://github.com/calculquebec/cq-formation-openacc step2.* de Github] contiennent la solution.
+# Modifiez les indicateurs du compilateur en <tt>-ta=tesla</tt> (non géré).
+# Vérifiez si les résultats et la performance sont les mêmes qu'avant.
+
+}}
+[https://docs.computecanada.ca/wiki/OpenACC_Tutorial_-_Optimizing_loops/fr Page suivante, Optimisation des boucles]<br>
+[https://docs.computecanada.ca/wiki/OpenACC_Tutorial/fr Retour au début du tutoriel]

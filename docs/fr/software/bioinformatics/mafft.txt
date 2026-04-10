@@ -1,0 +1,45 @@
+<languages />
+[https://mafft.cbrc.jp/alignment/software/ MAFFT] est un programme d'alignement de séquences multiples pour des systèmes d'exploitation comme Unix. Il offre plusieurs méthodes d'alignement dont (précis, pour l'alignement de <∼200 séquences), FFT-NS-2 (rapide, pour l'alignement de <∼30,000 séquences), etc.
+
+== Nœud unique ==
+MAFFT profite de cœurs multiples sur des nœuds uniques; voir https://mafft.cbrc.jp/alignment/software/multithreading.html.
+
+'''Note''' : Au chargement du module, la variable d'environnement <tt>MAFFT_TMPDIR</tt> est fixée à <tt>$SLURM_TMPDIR/maffttmp</tt>.
+
+{{File
+|name=mafft_submit.sh
+|lang="bash"
+|contents=
+#!/bin/bash
+
+#SBATCH --time=24:00:00
+#SBATCH --nodes=1
+#SBATCH --cpus-per-task=32
+#SBATCH --mem=0
+
+module load gcc/9.3.0 mafft
+
+mafft --globalpair --thread $SLURM_CPUS_PER_TASK input > output
+}}
+
+== Nœuds multiples (MPI) ==
+MAFFT peut utiliser MPI pour aligner un grand nombre de séquences; voir https://mafft.cbrc.jp/alignment/software/mpi.html.
+
+'''Note''' :  Au chargement du module, la variable d'environnement <tt>MAFFT_TMPDIR</tt> est fixée à <tt>$SLURM_TMPDIR/maffttmp</tt>. Si vous changez de répertoire temporaire, il devra être partagé par tous les hôtes.
+
+{{File
+|name=mafft_mpi_submit.sh
+|lang="bash"
+|contents=
+#!/bin/bash
+
+#SBATCH --time=04:00:00
+#SBATCH --nodes=2
+#SBATCH --ntasks-per-node=4
+#SBATCH --cpus-per-task=1
+#SBATCH --mem=12G
+
+module load gcc/9.3.0 mafft-mpi
+
+srun mafft --mpi --large --globalpair --thread $SLURM_CPUS_PER_TASK input > output
+}}

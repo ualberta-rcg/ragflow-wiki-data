@@ -5,18 +5,18 @@ lang: "base"
 
 source_wiki_title: "Accessing object storage with WinSCP"
 source_hash: "7765fb788f529489cc883837617ae204"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T01:48:51.607374+00:00"
+last_synced: "2026-04-10T14:10:18.226633+00:00"
+last_processed: "2026-04-10T14:38:52.989200+00:00"
 
 tags:
   - cloud
 
 keywords:
+  - "Arbutus object storage"
   - "File transfer"
-  - "Amazon S3"
   - "Access Control Lists"
   - "WinSCP"
-  - "Arbutus object storage"
+  - "Amazon S3"
 
 questions:
   - "What specific session settings and advanced protocol options must be configured in WinSCP to successfully connect to Arbutus object storage?"
@@ -32,7 +32,7 @@ status:
   tagged: true
   keywords_generated: true
   ragflow_synced: true
-  qa_generated: true
+  qa_generated: false
 ---
 
 This page contains instructions on how to set up and access [Arbutus object storage](arbutus-object-storage.md) with WinSCP, one of the [object storage clients](arbutus-object-storage-clients.md) available for this storage type.
@@ -52,7 +52,7 @@ and "Save" these settings.
 
 Next, click on the "Edit" button and then click on "Advanced..." and navigate to "Environment" to "S3" to "Protocol options" to "URL style:" which **must** be changed from "Virtual Host" to "Path".
 
-!!! warning "Important: URL Style"
+!!! warning
     This "Path" setting is important; otherwise, WinSCP will not work, and you will see hostname resolution errors.
 
 ## Using WinSCP

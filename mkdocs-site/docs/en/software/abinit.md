@@ -4,20 +4,20 @@ slug: "abinit"
 lang: "en"
 
 source_wiki_title: "ABINIT/en"
-source_hash: "797ef37b7c2d6746570aa5a1e29309f3"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T01:18:50.635530+00:00"
+source_hash: "aa8c939e599f7133f55450274833ebc6"
+last_synced: "2026-04-10T14:10:18.226633+00:00"
+last_processed: "2026-04-10T14:18:14.872356+00:00"
 
 tags:
   - software
   - computationalchemistry
 
 keywords:
-  - "Atomic data files"
-  - "Computational chemistry"
   - "Job script"
-  - "ABINIT"
   - "Density functional theory"
+  - "ABINIT"
+  - "Computational chemistry"
+  - "Atomic data files"
 
 questions:
   - "What is the primary purpose of the ABINIT software suite and what theoretical frameworks does it utilize?"
@@ -33,7 +33,7 @@ status:
   tagged: true
   keywords_generated: true
   ragflow_synced: true
-  qa_generated: true
+  qa_generated: false
 ---
 
 The [ABINIT](https://www.abinit.org) program is "a software suite to calculate the optical, mechanical, vibrational, and other observable properties of materials. Starting from the quantum equations of density functional theory, you can build up to advanced applications with perturbation theories based on DFT, and many-body Green's functions (GW and DMFT). ABINIT can calculate molecules, nanostructures and solids with any chemical composition, and comes with several complete and robust tables of atomic potential", according to its authors.
@@ -42,13 +42,15 @@ Run `module spider abinit` to see what versions of ABINIT are currently availabl
 
 ## Atomic data files
 
-!!! note
+!!! note "Atomic Data Files"
     We do not maintain a collection of atomic data files for ABINIT. You should obtain the atomic data files you need for your calculation by following the links from the [Atomic data files](https://www.abinit.org/downloads/atomic-data-files) page.
 
 These files rarely exceed 1 megabyte in size, so they may be downloaded directly to any login node using `wget` and the URL of the data file. For example,
+
 ```bash
 wget http://www.pseudo-dojo.org/pseudos/nc-sr-04_pbe_standard/H.psp8.gz
 ```
+
 to download the pseudopotential file for hydrogen.
 
 ## Example input
@@ -58,7 +60,11 @@ Input files mentioned in the [ABINIT tutorial](https://docs.abinit.org/tutorial/
 
 ## Example job script
 
-ABINIT calculations other than the most trivial tests or tutorial examples should be run via the job scheduler, [Slurm](running-jobs.md). Below is an example job script for running ABINIT, which uses 64 CPU cores on two nodes for 48 hours, requiring 1024 MB of memory per core. You should be able to adapt this to your own needs and the particular cluster you are using.
+ABINIT calculations other than the most trivial tests or tutorial examples should be run via the job scheduler, [Slurm](running-jobs.md). Below is an example job script for running ABINIT, which uses 64 CPU cores on two nodes for 48 hours, requiring 1024 MB of memory per core.
+
+!!! tip "Adapting the Job Script"
+    You should be able to adapt this script to your own needs and the particular cluster you are using.
+
 ```sh title="abinit_job.sh"
 #!/bin/bash
 #SBATCH --account=def-someuser

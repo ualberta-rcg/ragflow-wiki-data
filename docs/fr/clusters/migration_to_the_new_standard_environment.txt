@@ -1,0 +1,40 @@
+<languages />
+
+= Quelles sont les différences entre  <tt>StdEnv/2023</tt> et les autres environnements standards? =
+Référez-vous à la page [[Standard software environments/fr|Environnements logiciels standards]].
+
+= Puis-je changer mon environnement standard par défaut? =
+Après le 1er avril 2024, <b> <code>StdEnv/2023</code>  sera l'environnement par défaut pour toutes nos grappes</b>. Il reste toutefois possible de modifier le fichier <code>$HOME/.modulerc</code>. Par exemple, la commande suivante fera en sorte que votre environnement par défaut sera <code>StdEnv/2020</code>:
+{{Command|echo "module-version StdEnv/2020 default" >> $HOME/.modulerc}}
+
+Pour que ceci prenne effet, vous devez vous déconnecter et vous reconnecter à nouveau.
+
+= Faut-il réinstaller/recompiler le code quand l'environnement standard est modifié? =
+Oui. Si vous compilez votre propre code ou que vous avez installé des paquets R ou Python, vous devez recompiler ou réinstaller les paquets avec le nouvel environnement.
+
+= Comment puis-je utiliser un environnement moins récent? =
+Si vous avez des travaux en cours et que vous ne voulez pas changer les versions des logiciels que vous utilisez présentement, ajoutez à vos scripts de tâche la commande
+  module load StdEnv/2020
+avant de charger d’autres modules.  
+
+= Les versions moins récentes seront-elles effacées?=
+Les environnements moins récents resteront disponibles ainsi que les logiciels qui en dépendent. <b>Par contre, les versions 2016.4 et 2018.3 ne sont plus supportées</b> et nous vous recommandons de ne pas les utiliser. Notre équipe n'installera des logiciels que dans le nouvel environnement 2023.
+
+= Est-il possible d'utiliser ensemble des modules qui proviennent de différents environnements? =
+Non, vous obtiendrez des résultats imprévisibles et sans doute des erreurs. Dans chaque tâche, vous pouvez explicitement charger l’un ou l’autre des environnements, mais seulement un environnement par tâche. 
+
+= Quel environnement devrais-je utiliser? =
+Nous vous recommandons d'utiliser <tt>StdEnv/2023</tt> pour vos nouveaux projets ou si vous voulez utiliser une  version plus récente d'un logiciel. Pour ce faire, ajoutez à vos scripts de tâches la commande 
+  module load StdEnv/2023
+Il n’est pas nécessaire de supprimer cette commande pour utiliser <code>StdEnv/2023</code> après le 1er avril.
+
+= Puis-je conserver mon environnement actuel en chargeant des modules dans mon <code>.bashrc</code>? =
+Il n’est pas recommandé de charger des modules dans votre <code>.bashrc</code>. Chargez plutôt les modules via les scripts pour vos tâches.
+
+= J'utilise uniquement des ressources infonuagiques; est-ce que le changement d'environnement me concerne? =
+Non, ce changement ne touche que l'utilisation des [[Available software/fr| logiciels disponibles]] qui sont [[Utiliser des modules| chargés via les modules]].
+
+= Je ne peux plus charger un module que j’utilisais avant le changement =
+Le nouvel environnement contient des versions plus récentes de la plupart des applications. Pour connaître ces versions, lancez la commande <code>module avail</code>. Par exemple,   
+{{Command|module avail gcc}}
+montre plusieurs versions des compilateurs GCC, qui sont peut-être différentes de celles des environnements moins récents.

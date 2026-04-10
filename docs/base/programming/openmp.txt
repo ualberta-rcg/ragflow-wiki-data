@@ -1,0 +1,272 @@
+<languages />
+<translate>
+== Description == <!--T:1-->
+[http://openmp.org/wp/ OpenMP] (Open Multi-Processing) is an application programming interface (API) for shared memory parallel computing. It is supported on numerous platforms, including Linux and Windows, and is available for the C/C++ and Fortran programming languages. The API consists of a set of directives, a software library, and environment variables.
+
+<!--T:2-->
+OpenMP allows one to develop fine-grained parallel applications on a multicore machine while making it possible to preserve the structure of the serial code. Although there is only one program instance running, it can execute multiple subtasks in parallel. Directives inserted into the program control whether a section of the program executes in parallel, and if so, they also control the distribution of work among subtasks. The beauty of these directives is that they are usually non-intrusive. A compiler that does not support them can still compile the program and the user can run it serially.
+
+<!--T:3-->
+OpenMP relies on the notion of [https://en.wikipedia.org/wiki/Thread_(computing) threads]. A thread is a bit like a light weight process or a "virtual processor, operating serially", and can formally be defined as the smallest unit of work/processing that can be scheduled by an operating system. From a programmer's point of view, if there are five threads, then that corresponds virtually to five cores that can do a computation in parallel. It is important to understand that the number of threads is independent of the number of physical cores within the computer. Two cores can, for example, run a program with ten threads. The operating system decides how to share the cores' time between threads. 
+
+<!--T:4-->
+Conversely, one thread can ''not'' be executed by two processors at the same time, so if you have (e.g.) four cores available you must create at least four threads in order to take advantage of them all. In some cases it ''may'' be advantageous to use more threads than the number of available cores, but the usual practice is to match the number of threads to the number of cores.
+
+<!--T:5-->
+Another important point concerning threads is synchronization. When multiple threads in a program do computations at the same time, one must assume nothing about the order in which things happen. If the order matters for the correctness of the code, then the programmer must use OpenMP synchronization directives to achieve that. Also, the precise distribution of threads over cores is unknown to the programmer (although thread [https://en.wikipedia.org/wiki/Processor_affinity affinity] capabilities are available to control that).
+
+<!--T:24-->
+When parallelizing a program using OpenMP (or any other technique) it's important to also consider how well the program is able to run in parallel, known as the software's [[scalability]]. After you've parallelized your software and are satisfied about its correctness, we recommend that you perform a scaling analysis in order to understand its parallel performance.
+
+<!--T:6-->
+The following link points to a [http://www.admin-magazine.com/HPC/Articles/Programming-with-OpenMP tutorial for getting started with OpenMP under Linux].
+
+== Compilation == <!--T:7-->
+For most compilers, compiling an OpenMP program is done by simply adding a command-line option to the compilation flags. For the GNU compilers (GCC) it is <tt>-fopenmp</tt>, but for Intel [https://github.com/OpenMathLib/OpenBLAS/issues/1546 depending on the version] it may be <tt>-qopenmp</tt>, <tt>-fopenmp</tt>, or <tt>-openmp</tt>.  Please refer to your specific compiler's documentation.
+
+== Directives == <!--T:8-->
+
+<!--T:9-->
+OpenMP directives are inserted in Fortran programs using sentinels. A sentinel is a keyword placed immediately after a symbol that marks a comment. For example:
+</translate>
+<pre>
+!$OMP directive 
+c$OMP directive 
+C$OMP directive 
+*$OMP directive
+</pre>
+<translate>
+<!--T:10-->
+In C, directives are inserted using a pragma construct, as follows:
+</translate>
+<syntaxhighlight lang="c">
+#pragma omp directive
+</syntaxhighlight>
+
+<translate>
+===OpenMP directives=== <!--T:11-->
+</translate>
+{| class="wikitable" style="font-size: 88%; text-align: left;"
+! scope="col" width="260px" | Fortran
+! scope="col" width="260px" | C, C++
+|-
+|<nowiki>!</nowiki>$OMP PARALLEL [clause, clause,…] <br />
+block<br />
+<nowiki>!</nowiki>$OMP END PARALLEL	
+|#pragma omp parallel [clause, clause,…]<br />
+structured-block
+|-
+|<nowiki>!</nowiki>$OMP DO [ clause, clause,… ]<br />
+do_loop<br />
+<nowiki>!</nowiki>$OMP END DO	
+|#pragma omp for [ clause, clause,… ]<br />
+for-loop
+|-
+|<nowiki>!</nowiki>$OMP SECTIONS [clause, clause,…]<br />
+<nowiki>!</nowiki>$OMP SECTION<br />
+block<br />
+<nowiki>!</nowiki>$OMP SECTION<br />
+block<br />
+<nowiki>!</nowiki>$OMP END SECTIONS [NOWAIT]	
+|#pragma omp sections [clause, clause,…] {<br />
+[ #pragma omp section ]<br />
+structured-block<br />
+[ #pragma omp section ]<br />
+structured-block<br />
+}
+|-
+|<nowiki>!</nowiki>$OMP SINGLE [clause, clause,…]<br />
+block<br />
+<nowiki>!</nowiki>$OMP END SINGLE [NOWAIT]	
+|#pragma omp single [clause, clause,…]<br />
+structured-block
+|-
+|<nowiki>!</nowiki>$OMP PARALLEL DO [clause, clause,…]<br />
+DO_LOOP<br />
+[ <nowiki>!</nowiki>$OMP END PARALLEL DO ]	
+|#pragma omp parallel for [clause, clause,…]<br />
+for-loop
+|-
+|<nowiki>!</nowiki>$OMP PARALLEL SECTIONS [clause, clause,…]<br />
+<nowiki>!</nowiki>$OMP SECTION<br />
+block<br />
+<nowiki>!</nowiki>$OMP SECTION<br />
+block<br />
+<nowiki>!</nowiki>$OMP END PARALLEL SECTIONS	
+|#pragma omp parallel sections [clause, clause,…] {<br />
+[ #pragma omp section ]<br />
+structured-block<br />
+[ #pragma omp section ]<br />
+structured-block<br />
+}
+|-
+|<nowiki>!</nowiki>$OMP MASTER<br />
+block<br />
+<nowiki>!</nowiki>$OMP END MASTER	
+|#pragma omp master<br />
+structured-block
+|-
+|<nowiki>!</nowiki>$OMP CRITICAL [(name)]<br />
+block<br />
+<nowiki>!</nowiki>$OMP END CRITICAL [(name)]	
+|#pragma omp critical [(name)]<br />
+structured-block
+|-
+|<nowiki>!</nowiki>$OMP BARRIER	
+|#pragma omp barrier
+|-
+|<nowiki>!</nowiki>$OMP ATOMIC<br />
+expresion_statement	
+|#pragma omp atomic<br />
+expression-statement
+|-
+|<nowiki>!</nowiki>$OMP FLUSH [(list)]	
+|#pragma omp flush [(list)]
+|-
+|<nowiki>!</nowiki>$OMP ORDERED<br />
+block<br />
+<nowiki>!</nowiki>$OMP END ORDERED	
+|#pragma omp ordered<br />
+structured-block
+|-
+|<nowiki>!</nowiki>$OMP THREADPRIVATE( /cb/[, /cb/]…)	
+|#pragma omp threadprivate ( list )
+|-
+! colspan="2" style="font-size: 105%;"  |  Clauses
+|-
+|PRIVATE ( list )	
+|private ( list ) 
+|-
+|SHARED ( list )	
+|shared ( list ) 
+|-
+|DEFAULT ( PRIVATE | SHARED | NONE )	
+|default ( shared | none ) 
+|-
+|FIRSTPRIVATE ( list )	
+|firstprivate ( list ) 
+|-
+|LASTPRIVATE ( list )	
+|lastprivate ( list ) 
+|-
+|REDUCTION ( { operator | intrinsic } : list )	
+|reduction ( op : list ) 
+|-
+|IF ( scalar_logical_expression ) 	
+|if ( scalar-expression ) 
+|-
+|COPYIN ( list )	
+|copyin ( list ) 
+|-
+|NOWAIT	
+|nowait
+|}
+<translate>
+== Environment == <!--T:12-->
+There are a few environment variables that influence the execution of an OpenMP program:
+</translate>
+<pre>
+OMP_NUM_THREADS
+OMP_SCHEDULE
+OMP_DYNAMIC
+OMP_STACKSIZE
+OMP_NESTED
+
+</pre>
+<translate>
+<!--T:13-->
+They can be set and modified using a UNIX command such as
+{{Command|export OMP_NUM_THREADS{{=}}12}}
+
+<!--T:26-->
+In most cases, you want to set <tt>OMP_NUM_THREADS</tt> to the number of reserved cores per machine though this could be different for a hybrid OpenMP/MPI application. 
+
+<!--T:14-->
+The second most important environment variable is probably <tt>OMP_SCHEDULE</tt>. This one controls how loops (and, more generally, parallel sections) are distributed. The default value depends on the compiler, and can also be added into the source code. Possible values are ''static,n'', ''dynamic,n'', ''guided,n'' or ''auto''. For the first three cases, ''n'' corresponds to the number of iterations managed by each thread. For the ''static'' case, the number of iterations is fixed, and iterations are distributed at the beginning of the parallel section. For the ''dynamic'' case, the number of iterations is fixed, but they are distributed during execution, as a function of the time required by each thread to execute its iterations. For the ''guided'' case, ''n'' corresponds to the minimal number of iterations. The number of iterations is first chosen to be "large", but dynamically shrinks gradually as the remaining number of iterations diminishes. For the ''auto'' mode, the compiler and the library are free to choose what to do.
+
+<!--T:15-->
+The advantage of the cases ''dynamic'', ''guided'' and ''auto'', is that they theoretically allow a better load-balancing of the threads as they dynamically adjust the work assigned to each thread. Their disadvantage is that the programmer does not know in advance on which core a certain thread executes, and which memory it will need to access. Hence, with this kind of scheduling, it is impossible to predict the affinity between memory and the executing core. This can be particularly problematic in a
+[http://en.wikipedia.org/wiki/Non_Uniform_Memory_Access NUMA] architecture.
+
+<!--T:25-->
+The <code>OMP_STACKSIZE</code> environment variable specifies the size of the stack for each thread created by the OpenMP runtime. Note that the main OpenMP thread (executing the sequential part of the OpenMP program) gets its stack size from the execution shell, while <code>OMP_STACKSIZE</code> applies to each additional thread created at runtime. If <code>OMP_STACKSIZE</code> is not set, its implied value will be 4M. If your OpenMP code does not have enough stack memory, it might crash with a segmentation fault error message.
+
+<!--T:16-->
+Other environment variables are also available. Certain variables are specific to a compiler whereas others are more generic. For an exhaustive list for Intel compilers, please see [http://software.intel.com/sites/products/documentation/doclib/stdxe/2013/composerxe/compiler/cpp-lin/GUID-E1EC94AE-A13D-463E-B3C3-6D7A7205F5A1.htm the following web site], and for GNU compilers, see [http://gcc.gnu.org/onlinedocs/libgomp/Environment-Variables.html this one].
+
+<!--T:17-->
+Environment variables specific to the Intel compiler start with <tt>KMP_</tt> whereas those specific to Gnu start with <tt>GOMP_</tt>. For optimal performance regarding memory access, it is important to set the
+<tt>OMP_PROC_BIND</tt> variable as well as the affinity variables, <tt>KMP_AFFINITY</tt> for Intel, and <tt>GOMP_CPU_AFFINITY</tt> for GNU compilers. This prevents the movement of OpenMP threads between processors by the operating system. This is particularly important in a [http://en.wikipedia.org/wiki/Non_Uniform_Memory_Access NUMA] architecture found in most modern computers.
+
+== Example == <!--T:18-->
+Here is a ''Hello world'' example that shows the use of OpenMP.
+</translate>
+
+<tabs>
+<tab name="C">
+{{File
+  |name=hello.c
+  |lang="c"
+  |contents=
+#include <stdio.h>
+#include <omp.h>
+
+int main() {
+  #pragma omp parallel
+   {
+      printf("Hello world from thread %d out of %d\n",
+               omp_get_thread_num(),omp_get_num_threads());
+   }
+  return 0;
+}
+}}
+</tab>
+<tab name="Fortran">
+{{File
+  |name=hello.f90
+  |lang="fortran"
+  |contents=
+ program hello
+  implicit none
+  integer omp_get_thread_num,omp_get_num_threads
+  !$omp parallel
+   print *, 'Hello world from thread',omp_get_thread_num(), &
+            'out of',omp_get_num_threads()
+  !$omp end parallel
+
+end program hello
+}}
+</tab>
+</tabs>
+
+<translate>
+<!--T:19-->
+Compiling and running the C code goes as follows:
+ litai10:~$ gcc -O3 -fopenmp ompHello.c -o ompHello 
+ litai10:~$ export OMP_NUM_THREADS=4
+ litai10:~$ ./ompHello 
+ Hello world from thread 0 out of 4
+ Hello world from thread 2 out of 4
+ Hello world from thread 1 out of 4
+ Hello world from thread 3 out of 4
+
+<!--T:20-->
+Compiling and running the Fortran 90 code is as follows:
+ litai10:~$ gfortran -O3 -fopenmp ompHello.f90 -o fomphello 
+ litai10:~$ export OMP_NUM_THREADS=4
+ litai10:~$ ./fomphello 
+ Hello world from thread           0 out of           4
+ Hello world from thread           2 out of           4
+ Hello world from thread           1 out of           4
+ Hello world from thread           3 out of           4
+
+<!--T:23-->
+For an example of how to submit an OpenMP job, see [[Running jobs#Threaded or OpenMP job|Running jobs]].
+
+== References == <!--T:21-->
+Lawrence Livermore National Labs has a comprehensive [https://computing.llnl.gov/tutorials/openMP tutorial on OpenMP].
+
+<!--T:22-->
+[http://www.openmp.org/ OpenMP.org] publishes the formal [http://www.openmp.org/specifications/ specifications],
+handy reference cards for the [http://www.openmp.org/wp-content/uploads/OpenMP-4.0-C.pdf C/C++] and [http://www.openmp.org/wp-content/uploads/OpenMP-4.0-Fortran.pdf Fortran] interfaces, and [http://www.openmp.org/wp-content/uploads/openmp-examples-4.0.2.pdf examples].
+</translate>

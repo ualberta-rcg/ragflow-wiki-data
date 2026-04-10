@@ -5,27 +5,27 @@ lang: "en"
 
 source_wiki_title: "ARM software/en"
 source_hash: "342bdc8fd662690bc0787b6deb4024db"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T01:35:53.392225+00:00"
+last_synced: "2026-04-10T14:10:18.226633+00:00"
+last_processed: "2026-04-10T14:25:50.847521+00:00"
 
 tags:
   - software
 
 keywords:
-  - "Linaro MAP"
-  - "login node"
-  - "CUDA"
   - "ddt interface"
+  - "Linaro DDT"
+  - "MPI"
+  - "compute node"
   - "graham vdi node"
   - "parallel debugging"
-  - "cluster"
-  - "Linaro DDT"
-  - "compute node"
   - "manually launch backend"
-  - "VNC session"
-  - "X11 permissions"
+  - "cluster"
   - "DDT"
-  - "MPI"
+  - "CUDA"
+  - "Linaro MAP"
+  - "VNC session"
+  - "login node"
+  - "X11 permissions"
   - "forge-client"
 
 questions:
@@ -39,6 +39,8 @@ questions:
   - "Where can users find the instructions to set up the required VNC session?"
   - "How does the method for launching a job in ddt change depending on the type of node hosting the VNC session?"
   - "What are the specific steps and commands required to manually launch a backend job on the cluster?"
+  - "How can a user resolve X11 connection issues by modifying their home directory permissions?"
+  - "Where can users find additional video and written tutorials for debugging their code with DDT?"
 
 status:
   downloaded: true
@@ -46,16 +48,18 @@ status:
   tagged: true
   keywords_generated: true
   ragflow_synced: true
-  qa_generated: true
+  qa_generated: false
 ---
+
+# ARM software
 
 ## Introduction
 
 [Linaro DDT](https://www.linaroforge.com/linaro-ddt) (formerly known as ARM DDT) is a powerful commercial parallel debugger with a graphical user interface. It can be used to debug serial, MPI, multi-threaded, and CUDA programs, or any combination of the above, written in C, C++, and FORTRAN. [MAP](https://www.linaroforge.com/linaro-map)—an efficient parallel profiler—is another very useful tool from Linaro (formerly ARM).
 
 The following modules are available on Nibi and Trillium (requires StdEnv module loaded):
-*   `ddt-cpu`, for CPU debugging and profiling;
-*   `ddt-gpu`, for GPU or mixed CPU/GPU debugging.
+*   ddt-cpu, for CPU debugging and profiling;
+*   ddt-gpu, for GPU or mixed CPU/GPU debugging.
 
 As this is a GUI application, log in using `ssh -Y`, and use an [SSH client](ssh.md) like [MobaXTerm](connecting-with-mobaxterm.md) (Windows) or [XQuartz](https://www.xquartz.org/) (Mac) to ensure proper X11 tunnelling.
 
@@ -64,6 +68,7 @@ Both DDT and MAP are normally used interactively through their GUI, which is nor
 The current license limits the use of DDT/MAP to a maximum of 64 CPU cores across all users at any given time, while DDT-GPU is limited to 8 GPUs.
 
 ## Usage
+
 ### CPU-only code, no GPUs
 
 1.  Allocate the node or nodes on which to do the debugging or profiling. This will open a shell session on the allocated node.
@@ -85,19 +90,19 @@ The current license limits the use of DDT/MAP to a maximum of 64 CPU cores acros
     map path/to/code
     ```
 
-    !!! tip "MPI Implementation"
+    !!! note
         Make sure the MPI implementation is the default OpenMPI in the DDT/MAP application window, before pressing the *Run* button. If this is not the case, press the *Change* button next to the *Implementation:* string, and select the correct option from the drop-down menu. Also, specify the desired number of CPU cores in this window.
 
+    !!! warning
+        The current versions of DDT and OpenMPI have a compatibility issue which breaks the important feature of DDT - displaying message queues (available from the "Tools" drop down menu). There is a workaround: before running DDT, you have to execute the following command:
+
+        ```bash
+        export OMPI_MCA_pml=ob1
+        ```
+
+        Be aware that the above workaround can make your MPI code run slower, so only use this trick when debugging.
+
 4.  When done, exit the shell to terminate the allocation.
-
-!!! warning "DDT and OpenMPI Compatibility"
-    The current versions of DDT and OpenMPI have a compatibility issue which breaks the important feature of DDT - displaying message queues (available from the "Tools" drop-down menu). There is a workaround: before running DDT, you have to execute the following command:
-
-    ```bash
-    export OMPI_MCA_pml=ob1
-    ```
-
-    Be aware that the above workaround can make your MPI code run slower, so only use this trick when debugging.
 
 ### CUDA code
 
@@ -113,13 +118,13 @@ The current license limits the use of DDT/MAP to a maximum of 64 CPU cores acros
     module load ddt-gpu
     ```
 
-    !!! note "OpenMPI Version"
-        This may fail with a suggestion to load an older version of OpenMPI first. In this case, reload the OpenMPI module with the suggested command, and then reload the `ddt-gpu` module.
+    !!! note
+        This may fail with a suggestion to load an older version of OpenMPI first. In this case, reload the OpenMPI module with the suggested command, and then reload the ddt-gpu module.
 
-        ```bash
-        module load openmpi/2.0.2
-        module load ddt-gpu
-        ```
+    ```bash
+    module load openmpi/2.0.2
+    module load ddt-gpu
+    ```
 
 3.  Ensure a cuda module is loaded.
 
@@ -145,24 +150,24 @@ The current license limits the use of DDT/MAP to a maximum of 64 CPU cores acros
 
 The instructions above use X11 forwarding. X11 is very sensitive to packet latency. As a result, unless you happen to be on the same campus as the computer cluster, the ddt interface will likely be laggy and frustrating to use. This can be fixed by running ddt under VNC.
 
-To do this, follow the directions on our [VNC page](vnc.md) to set up a VNC session. If your VNC session is on the compute node, then you can directly start your program under ddt as above. If you VNC session is on the login node or you are using the **gra-vdi.computecanada.ca** node, then you need to manually launch the job as follows. From the ddt startup screen:
+To do this, follow the directions on our [VNC page](vnc.md) to set up a VNC session. If your VNC session is on the compute node, then you can directly start your program under ddt as above. If your VNC session is on the login node or you are using the graham vdi node, then you need to manually launch the job as follows. From the ddt startup screen:
 
 *   pick the *manually launch backend yourself* job start option,
 *   enter the appropriate information for your job and press the *listen* button, and
 *   press the *help* button to the right of *waiting for you to start the job...*.
 
-This will then give you the command you need to run to start your job. Allocate a job on the cluster and start your program as directed. An example of doing this would be (where `$USER` is your username and `$PROGRAM ...` is the command to start your program):
+This will then give you the command you need to run to start your job. Allocate a job on the cluster and start your program as directed. An example of doing this would be (where `$USER` is your username and `$PROGRAM ...` is the command to start your program)
 
 ```bash
-[name@cluster-login:~]$ salloc ...
-[name@cluster-node:~]$ /cvmfs/restricted.computecanada.ca/easybuild/software/2020/Core/allinea/20.2/bin/forge-client --ddtsessionfile /home/$USER/.allinea/session/gra-vdi3-1 $PROGRAM ...
+salloc ...
+/cvmfs/restricted.computecanada.ca/easybuild/software/2020/Core/allinea/20.2/bin/forge-client --ddtsessionfile /home/$USER/.allinea/session/gra-vdi3-1 $PROGRAM ...
 ```
 
 ## Known issues
 
 If you are experiencing issues with getting X11 to work, change permissions on your home directory so that only you have access.
 
-First, check (and record if needed) current permissions with:
+First, check (and record if needed) current permissions with
 
 ```bash
 ls -ld /home/$USER
@@ -170,7 +175,9 @@ ls -ld /home/$USER
 
 The output should begin with:
 
-`drwx------`
+```
+drwx------
+```
 
 If some of the dashes are replaced by letters, that means your group and other users have read, write (unlikely), or execute permissions on your directory.
 
@@ -183,5 +190,6 @@ chmod go-rx /home/$USER
 After you are done using DDT, you can if you like restore permissions to what they were (assuming you recorded them). More information on how to do this can be found on page [Sharing data](sharing-data.md).
 
 ## See also
+
 *   ["Debugging your code with DDT"](https://youtu.be/Q8HwLg22BpY), video, 55 minutes.
 *   [A short DDT tutorial.](parallel-debugging-with-ddt.md)

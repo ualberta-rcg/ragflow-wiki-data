@@ -5,50 +5,50 @@ lang: "base"
 
 source_wiki_title: "Accessing CVMFS"
 source_hash: "9c6a13aa98372cd3389c11368953e74e"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T01:47:03.323703+00:00"
+last_synced: "2026-04-10T14:10:18.226633+00:00"
+last_processed: "2026-04-10T14:36:56.760830+00:00"
 
 tags:
   - cvmfs
 
 keywords:
-  - "default modules"
-  - "redistributable parts"
-  - "CVMFS clients"
-  - "LD_LIBRARY_PATH"
-  - "EasyBuild"
-  - "symbolic links"
-  - "modulefiles"
-  - "installation and configuration"
-  - "software environment"
-  - "bash script"
-  - "CVMFS"
-  - "authorized users"
-  - "module tree"
-  - "installation requirements"
-  - "CERN Virtual Machine File System"
-  - "Intel and PGI compilers"
-  - "Compute Canada environment"
-  - "CVMFS repository"
-  - "commercial software packages"
-  - "NVIDIA drivers"
-  - "environment variables"
-  - "module trees"
   - "environment variable"
-  - "RSNT_LOCAL_MODULEPATHS"
-  - "multiple systems"
+  - "module tree"
   - "software environment requirements"
-  - "EasyBuild recipe"
-  - "FUSE support"
-  - "missing libraries"
-  - "priority"
-  - "CUDA"
-  - "HTTP proxy servers"
-  - "repositories"
-  - "CC_CLUSTER"
-  - "shared objects"
-  - "network connectivity"
+  - "modulefiles"
+  - "EasyBuild"
+  - "commercial software packages"
+  - "installation requirements"
   - "local proxy servers"
+  - "multiple systems"
+  - "environment variables"
+  - "NVIDIA drivers"
+  - "CUDA"
+  - "network connectivity"
+  - "HTTP proxy servers"
+  - "CC_CLUSTER"
+  - "missing libraries"
+  - "Compute Canada environment"
+  - "symbolic links"
+  - "EasyBuild recipe"
+  - "CVMFS clients"
+  - "module trees"
+  - "FUSE support"
+  - "installation and configuration"
+  - "default modules"
+  - "RSNT_LOCAL_MODULEPATHS"
+  - "shared objects"
+  - "CERN Virtual Machine File System"
+  - "priority"
+  - "Intel and PGI compilers"
+  - "software environment"
+  - "redistributable parts"
+  - "LD_LIBRARY_PATH"
+  - "repositories"
+  - "bash script"
+  - "authorized users"
+  - "CVMFS repository"
+  - "CVMFS"
 
 questions:
   - "What is the primary purpose of the CVMFS repositories and why would users need to install it on their own systems?"
@@ -61,6 +61,26 @@ questions:
   - "What are the minimal and optimal hardware and software requirements needed to support the CVMFS environment?"
   - "What are the steps to install, validate the configuration, and enable the CVMFS environment in a user session?"
   - "What prerequisite action must be completed before you can enable the environment in your session?"
+  - "What specific bash script needs to be executed to enable the environment and load the default modules?"
+  - "How can you configure the environment variables to exactly mimic a specific cluster such as fir, nibi, or rorqual?"
+  - "How can a user with a user ID below 1000 force the software environment to be enabled or disabled?"
+  - "Which environment variables control the hardware configuration settings for CPU instruction sets and interconnect types?"
+  - "What is the correct method for adding local module paths for hierarchical EasyBuild trees versus flat module trees?"
+  - "How do specific environment variables and system paths affect the default loading and discovery of modules?"
+  - "What is the process for installing software locally using EasyBuild so that it is automatically found by the central module hierarchy?"
+  - "What are the main caveats regarding the use of the software environment during privileged system operations and the availability of commercial software packages?"
+  - "How can a user configure their local module tree to have a lower priority than the central module tree?"
+  - "What is the purpose of the RSNT_LOCAL_MODULEPATHS environment variable?"
+  - "What commands are required to define a local module location and install an EasyBuild recipe?"
+  - "What determines the availability of commercial software packages to authorized versus external users?"
+  - "Which specific compiler packages are cited as examples of restricted commercial software?"
+  - "How does having access only to the redistributable parts of a compiler affect a user's ability to run and compile software?"
+  - "Why should users create symbolic links for NVidia libraries in `/usr/lib64/nvidia` instead of modifying the `LD_LIBRARY_PATH`?"
+  - "How does the environment's avoidance of `LD_LIBRARY_PATH` impact the functionality of binary packages like Anaconda?"
+  - "Where must the `dbus` package be installed for applications that require it?"
+  - "Why should users create symbolic links for NVidia libraries in `/usr/lib64/nvidia` instead of modifying the `LD_LIBRARY_PATH`?"
+  - "How does the environment's avoidance of `LD_LIBRARY_PATH` impact the functionality of binary packages like Anaconda?"
+  - "Where must the `dbus` package be installed for applications that require it?"
 
 status:
   downloaded: true
@@ -68,21 +88,21 @@ status:
   tagged: true
   keywords_generated: true
   ragflow_synced: true
-  qa_generated: true
+  qa_generated: false
 ---
 
-## Introduction
+# Introduction
 We provide repositories of software and data via a file system called the [CERN Virtual Machine File System](cvmfs.md) (CVMFS). On our systems, CVMFS is already set up for you, so the repositories are automatically available for your use. For more information on using our software environment, please refer to wiki pages [Available software](available-software.md), [Using modules](using-modules.md), [Python](python.md), [R](r.md) and [Installing software in your home directory](installing-software-in-your-home-directory.md).
 
 The purpose of this page is to describe how you can install and configure CVMFS on *your* computer or cluster, so that you can access the same repositories (and software environment) on your system that are available on ours.
 
 The software environment described on this page has been [presented](https://ssl.linklings.net/conferences/pearc/pearc19_program/views/includes/files/pap139s3-file1.pdf) at Practices and Experience in Advanced Research Computing 2019 (PEARC 2019).
 
-## Before you start
+# Before you start
 !!! note "Note to staff"
     See the [internal documentation](https://wiki.alliancecan.ca/wiki/CVMFS_client_setup).
 
-!!! important "Important"
+!!! important
     **Please [subscribe to announcements](#subscribe-to-announcements) to remain informed of important changes regarding our software environment and CVMFS, and fill out the [registration form](https://docs.google.com/forms/d/1eDJEeaMgooVoc4lTkxcZ9y65iR8hl4qeXMOEU9slEck/viewform). If use of our software environment contributes to your research, please acknowledge it according to [these guidelines](https://alliancecan.ca/en/services/advanced-research-computing/acknowledging-alliance).** (We would appreciate that you also cite our [paper](https://ssl.linklings.net/conferences/pearc/pearc19_program/views/includes/files/pap139s3-file1.pdf)).
 
 ## Subscribe to announcements
@@ -112,9 +132,9 @@ If multiple CVMFS clients are deployed, for example on a cluster, in a laborator
 ## Software environment requirements
 ### Minimal requirements
 *Supported operating systems:
-**   Linux: with a Kernel 2.6.32 or newer for our 2016 and 2018 environments, and 3.2 or newer for the 2020 environment.
-**   Windows: with Windows Subsystem for Linux version 2, with a distribution of Linux that matches the requirement above.
-**   Mac OS: only through a virtual machine.
+*   Linux: with a Kernel 2.6.32 or newer for our 2016 and 2018 environments, and 3.2 or newer for the 2020 environment.
+*   Windows: with Windows Subsystem for Linux version 2, with a distribution of Linux that matches the requirement above.
+*   Mac OS: only through a virtual machine.
 *   CPU: x86 CPU supporting at least one of SSE3, AVX, AVX2 or AVX512 instruction sets.
 
 ### Optimal requirements
@@ -123,7 +143,7 @@ If multiple CVMFS clients are deployed, for example on a cluster, in a laborator
 *   GPU: NVidia GPU with CUDA drivers (7.5 or newer) installed, for CUDA-enabled applications. (See below for caveats about CUDA.)
 *   As few Linux packages installed as possible (fewer packages reduce the odds of conflicts).
 
-## Installing CVMFS
+# Installing CVMFS
 If you wish to use [Ansible](https://docs.ansible.com/ansible/latest/index.html), a [CVMFS client role](https://github.com/cvmfs-contrib/ansible-cvmfs-client) is provided as-is, for basic configuration of a CVMFS client on an RPM-based system.
 Also, some [scripts](https://github.com/ComputeCanada/CVMFS/tree/main/cvmfs-cloud-scripts) may be used to facilitate installing CVMFS on cloud instances.
 Otherwise, use the following instructions.
@@ -141,39 +161,32 @@ The `soft.computecanada.ca` repository is provided by the default configuration,
 ## Testing
 *   First ensure that the repositories you want to test are listed in `CVMFS_REPOSITORIES`.
 *   Validate the configuration:
-
     ```bash
     sudo cvmfs_config chksetup
     ```
 *   Make sure to address any warnings or errors that are reported.
 *   Check that the repositories are OK:
-
     ```bash
     cvmfs_config probe
     ```
 
 If you encounter problems, [this debugging guide](https://cvmfs.readthedocs.io/en/stable/cpt-quickstart.html#troubleshooting) may help.
 
-## Enabling our environment in your session
+# Enabling our environment in your session
 Once you have mounted the CVMFS repository, enabling our environment in your sessions is as simple as running the bash script `/cvmfs/soft.computecanada.ca/config/profile/bash.sh`.
 This will load some default modules. If you want to mimic a specific cluster exactly, simply define the environment variable `CC_CLUSTER` to one of `fir`, `nibi` or `rorqual` before using the script, for example:
-
 ```bash
 export CC_CLUSTER=rorqual
 ```
-
 ```bash
 source /cvmfs/soft.computecanada.ca/config/profile/bash.sh
 ```
 
 The above command **will not run anything if your user ID is below 1000**. This is a safeguard, because you should not rely on our software environment for privileged operation. If you nevertheless want to enable our environment, you can first define the environment variable `FORCE_CC_CVMFS=1`, with the command
-
 ```bash
 export FORCE_CC_CVMFS=1
 ```
-
 or you can create a file `$HOME/.force_cc_cvmfs` in your home folder if you want it to always be active, with
-
 ```bash
 touch $HOME/.force_cc_cvmfs
 ```
@@ -214,27 +227,20 @@ Defining `RSNT_CUDA_DRIVER_VERSION=0.0` will hide all versions of CUDA.
     This environment variable is intended to be used only for hierarchical module trees which are installed via EasyBuild, so that they follow the same hierarchical structure as our modules.
 
     If you want to add a local path to a flat tree, instead add the command *after* sourcing our scripts
-
     ```bash
     module use --priority 1 /path/to/your/flat/module/tree
     ```
-
     if you want your module tree to have higher priority than ours, or
-
     ```bash
     module use --priority -1 /path/to/your/flat/module/tree
     ```
-
     if you want your module tree to have lower priority than ours.
 
 This environment variable allows to define locations for local module trees, which will be automatically mesh into our central tree. To use it, define
-
 ```bash
 export RSNT_LOCAL_MODULEPATHS=/opt/software/easybuild/modules
 ```
-
 and then install your [EasyBuild](easybuild.md) recipe using
-
 ```bash
 eb --installpath /opt/software/easybuild <your recipe>.eb
 ```
@@ -263,20 +269,18 @@ These paths are all automatically added to the default `PATH`. This allows your 
 Since June 2020, we support installing additional modules locally and have it discovered by our central hierarchy. This was discussed and implemented in [this issue](https://github.com/ComputeCanada/software-stack/issues/11).
 
 To do so, first identify a path where you want to install local software. For example `/opt/software/easybuild`. Make sure that folder exists. Then, export the environment variable `RSNT_LOCAL_MODULEPATHS`:
-
 ```bash
 export RSNT_LOCAL_MODULEPATHS=/opt/software/easybuild/modules
 ```
 
 If you want this branch of the software hierarchy to be found by your users, we recommend you define this environment variable in the cluster's common profile. Then, install the software packages you want using [EasyBuild](easybuild.md):
-
 ```bash
 eb --installpath /opt/software/easybuild <some easyconfig recipe>
 ```
 
 This will install the piece of software locally, using the hierarchical layout driven by our module naming scheme. It will also be automatically found when users load our compiler, MPI and Cuda modules.
 
-## Caveats
+# Caveats
 ## Use of software environment by system administrators
 If you perform privileged system operations, or operations related to CVMFS, [ensure](#enabling-our-environment-in-your-session) that your session does *not* depend on our software environment when performing any such operations. For example, if you attempt to update CVMFS using YUM while your session uses a Python module loaded from CVMFS, YUM may run using that module and lose access to it during the update, and the update may become deadlocked. Similarly, if your environment depends on CVMFS and you reconfigure CVMFS in a way that temporarily interrupts access to CVMFS, your session may interfere with CVMFS operations, or hang. (When these precautions are taken, in most cases CVMFS can be updated and reconfigured without interrupting access to CVMFS for users, because the update or reconfiguration itself will complete successfully without encountering a circular dependency.)
 
@@ -291,7 +295,7 @@ NVIDIA_DRV_VER="410.48"
 nv_pkg=( "nvidia-driver" "nvidia-driver-libs" "nvidia-driver-cuda" "nvidia-driver-cuda-libs" "nvidia-driver-NVML" "nvidia-driver-NvFBCOpenGL" "nvidia-modprobe" )
 yum -y install ${nv_pkg[@]/%/-${NVIDIA_DRV_VER}}
 for file in $(rpm -ql ${nv_pkg[@]}); do
-  [ "${file%/*}" = '/usr/lib64' ] && [ ! -d "${file}" ] && \ 
+  [ "${file%/*}" = '/usr/lib64' ] && [ ! -d "${file}" ] && \
   ln -snf "$file" "${file%/*}/nvidia/${file##*/}"
 done
 ```

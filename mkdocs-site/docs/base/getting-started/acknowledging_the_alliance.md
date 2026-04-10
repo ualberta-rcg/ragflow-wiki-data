@@ -5,18 +5,18 @@ lang: "base"
 
 source_wiki_title: "Acknowledging the Alliance"
 source_hash: "188c7124b09269d5d2133204179a1290"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T01:53:51.487345+00:00"
+last_synced: "2026-04-10T14:10:18.226633+00:00"
+last_processed: "2026-04-10T14:44:05.046351+00:00"
 
 tags:
   []
 
 keywords:
-  - "research resources"
-  - "acknowledgment"
-  - "regional partner organizations"
-  - "Digital Research Alliance of Canada"
   - "impact reports"
+  - "Digital Research Alliance of Canada"
+  - "acknowledgment"
+  - "research resources"
+  - "regional partner organizations"
 
 questions:
   - "Under what circumstances and for which specific resources are researchers expected to acknowledge the Alliance and its regional partners?"
@@ -32,7 +32,7 @@ status:
   tagged: false
   keywords_generated: true
   ragflow_synced: true
-  qa_generated: true
+  qa_generated: false
 ---
 
 ## Acknowledging the Alliance and our regional partner organizations
@@ -45,11 +45,13 @@ Researchers are requested to acknowledge the Alliance and our regional partner o
 *   staff expertise / consultation
 *   data sets
 
-The exact wording of the acknowledgment may vary, but please ensure both our regional partners and the Alliance are mentioned. The following can be used as a guideline:
+!!! tip "Acknowledgment Wording Guidelines"
+    The exact wording of the acknowledgment may vary, but please ensure both our regional partners and the Alliance are mentioned. The following can be used as a guideline:
 
-"This research was enabled in part by support provided by (name of the regional partner organization) ([Web address](Web address)) and the Digital Research Alliance of Canada ([alliancecan.ca](alliancecan.ca))."
+    "This research was enabled in part by support provided by (name of the regional partner organization) (website) and the Digital Research Alliance of Canada ([alliancecan.ca](https://alliancecan.ca))."
 
-If you are not an Alliance user but are using the publicly available Alliance software environment, the following can be used as a guideline: This research was enabled in part by software provided by the Digital Research Alliance of Canada ([alliancecan.ca](alliancecan.ca)).
+    If you are not an Alliance user but are using the publicly available Alliance software environment, the following can be used as a guideline:
+    "This research was enabled in part by software provided by the Digital Research Alliance of Canada ([alliancecan.ca](https://alliancecan.ca))."
 
 ## Notification of Acknowledgment
 

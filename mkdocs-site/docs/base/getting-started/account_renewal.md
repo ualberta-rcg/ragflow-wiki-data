@@ -5,8 +5,8 @@ lang: "base"
 
 source_wiki_title: "Account renewal"
 source_hash: "7d97823c4294afcfd51a45e5bd26749e"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T01:51:24.249151+00:00"
+last_synced: "2026-04-10T14:10:18.226633+00:00"
+last_processed: "2026-04-10T14:41:38.747059+00:00"
 
 tags:
   []
@@ -14,8 +14,8 @@ tags:
 keywords:
   - "Account renewal process"
   - "Principal Investigator"
-  - "CCDB account"
   - "Account renewal form"
+  - "CCDB account"
   - "Deactivation of accounts"
 
 questions:
@@ -32,13 +32,15 @@ status:
   tagged: false
   keywords_generated: true
   ragflow_synced: true
-  qa_generated: true
+  qa_generated: false
 ---
 
-An annual account renewal process takes place typically in the spring, as this is a critical process ensuring that:
+An annual account renewal process takes place typically in the spring.
 
-*   Accounts that are no longer needed are deactivated; and
-*   Information that funding agencies and partners require is collected for reporting purposes.
+!!! note "Critical Process"
+    This is a critical process ensuring that:
+    1.  Accounts that are no longer needed are deactivated; and
+    2.  Information that funding agencies and partners require is collected for reporting purposes.
 
 The information we collect about researchers and their results is important for reports to funding agencies and the digital research infrastructure (DRI) ecosystem.
 
@@ -48,12 +50,10 @@ If you have an active account, we will send you an email during the account rene
 
 !!! warning "Account Expiration Consequences"
     If users let their CCDB account expire, they will no longer be able to log in to any of our systems.
-
     If a Principal Investigator (PI) allows their account to expire, their account as well as the accounts of all users they sponsor will also be deactivated.
 
-Accounts can be reactivated at any time by logging into [CCDB](https://ccdb.alliancecan.ca/) and completing the account renewal form.
+Accounts can be reactivated at any time by logging in to [CCDB](https://ccdb.alliancecan.ca/) and completing the account renewal form.
 
-!!! note "Temporary Extension for File Recovery"
-    Users who do not want to renew their CCDB account but still want to recover their files can request a temporary extension by sending an email to support@tech.alliancecan.ca.
+Users that do not want to renew their CCDB account but still want to recover their files can request a temporary extension by sending an email to support@tech.alliancecan.ca.
 
 You can find more information about account renewals on our [Account Renewals FAQ page](account-renewal-faq.md) or by contacting renewals@tech.alliancecan.ca.

@@ -5,32 +5,32 @@ lang: "base"
 
 source_wiki_title: "Account renewal FAQ"
 source_hash: "e625425c5bd97f9f06c7ad67534c91a8"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T01:52:23.029579+00:00"
+last_synced: "2026-04-10T14:10:18.226633+00:00"
+last_processed: "2026-04-10T14:42:40.276184+00:00"
 
 tags:
   []
 
 keywords:
-  - "CCDB"
-  - "deactivated"
-  - "Sponsor confirmation"
-  - "sponsored role"
   - "Role activation"
-  - "Account renewal"
-  - "Account deactivation"
-  - "primary role"
+  - "Account reactivation"
+  - "deactivated"
+  - "FAQ"
+  - "Sponsor confirmation"
   - "sponsor"
-  - "Sponsor (PI) roles"
+  - "primary role"
+  - "Apply for a new role"
+  - "CCDB"
+  - "faculty member"
   - "account renewal"
   - "account deactivation"
-  - "FAQ"
-  - "deactivated account"
-  - "Apply for a new role"
-  - "Account reactivation"
-  - "Alliance account"
-  - "faculty member"
   - "sponsored users"
+  - "sponsored role"
+  - "Sponsor (PI) roles"
+  - "Account deactivation"
+  - "Account renewal"
+  - "Alliance account"
+  - "deactivated account"
 
 questions:
   - "Why is the annual renewal of Alliance accounts required, and what are the consequences of missing the renewal deadline?"
@@ -43,6 +43,14 @@ questions:
   - "What happens to a faculty member's account if it is not renewed between May 6 and June 9, 2026?"
   - "Is it possible to reactivate an account after it has been automatically deactivated due to a missed deadline?"
   - "What should a user do if their academic circumstances, such as their institution or position, change?"
+  - "Why would a sponsored role remain deactivated after a user completes their account renewal on CCDB?"
+  - "Whose account must be renewed first before a sponsored user's role can be successfully reactivated?"
+  - "What are the necessary conditions for a user's account and role to be fully activated?"
+  - "How can a user correct their account if they accidentally renewed it with the wrong role?"
+  - "What should a user do if they are trying to reactivate an old sponsored role but their sponsor cannot confirm it?"
+  - "What are the necessary conditions for a user's account and role to be fully activated?"
+  - "How can a user correct their account if they accidentally renewed it with the wrong role?"
+  - "What should a user do if they are trying to reactivate an old sponsored role but their sponsor cannot confirm it?"
 
 status:
   downloaded: true
@@ -50,7 +58,7 @@ status:
   tagged: false
   keywords_generated: true
   ragflow_synced: true
-  qa_generated: true
+  qa_generated: false
 ---
 
 ## General questions
@@ -80,7 +88,7 @@ Your primary role must correspond to your main position, generally the one you w
 !!! note
     If you do not renew your primary role during the annual renewal period, your account will be deactivated.
 
-When new roles are activated they are automatically set as the primary role by default, but users can change their primary role at any time (see [Question 1.6](#can-primary-roles-be-changed) for details).
+When new roles are activated they are automatically set as the primary role by default, but users can change their primary role at any time (see [Question 1.6](account-renewal-faq.md#can-primary-roles-be-changed) for details).
 
 Primary roles are important because it helps us to manage accounts with multiple roles, facilitates communication with those users and helps with reporting.
 
@@ -105,12 +113,12 @@ Please send an email to renewals@tech.alliancecan.ca so that we can assist you w
 ### I am a faculty member. What happens if I don’t renew my account by the deadline?
 Any active account that is not renewed between May 6 and June 9, 2026, will expire and be automatically deactivated after that date. Note, however, that accounts can be reactivated at any time, even after they have been deactivated.
 
-If you are a faculty member with sponsored users and you allow your account to expire, *your account as well as the account of all those users you sponsor will be deactivated*. Any job submitted by you or your sponsored users will be paused and your research group will lose access to their files until the sponsor account is reactivated.
+If you are a faculty member with sponsored users and you allow your account to expire, **your account as well as the account of all those users you sponsor will be deactivated**. Any job submitted by you or your sponsored users will be paused and your research group will lose access to their files until the sponsor account is reactivated.
 
 If your account or those of your sponsored users are no longer needed, you can let them expire. Otherwise, you must request that they be renewed or apply for a new role if your situation or that of your sponsored user(s) have changed.
 
 ### What do I have to do to renew my account?
-You will receive an email during the account renewal period with a link to the account renewal form on the CCDB. Please update your contact information and Field of Research, fill out a short User Satisfaction Survey and update the status of your sponsored roles (e.g. students, postdocs, and so on). Please refer to [Question 1.7](#my-situation-has-changed-e.g.-i-am-moving-to-a-new-faculty-position-at-another-canadian-academic-institution-or-i-have-moved-from-masters-to-phd-etc.-what-should-i-do) if the roles of any of your sponsored users have changed since last year.
+You will receive an email during the account renewal period with a link to the account renewal form on the CCDB. Please update your contact information and Field of Research, fill out a short User Satisfaction Survey and update the status of your sponsored roles (e.g. students, postdocs, and so on). Please refer to [Question 1.7](account-renewal-faq.md#my-situation-has-changed-eg-i-am-moving-to-a-new-faculty-position-at-another-canadian-academic-institution-or-i-have-moved-from-masters-to-phd-etc-what-should-i-do) if the roles of any of your sponsored users have changed since last year.
 
 University faculty who have sponsored other users will also be asked to update the status of these accounts (i.e. whether they are continuing or their work is done and the sponsorship has therefore ended).
 
@@ -131,7 +139,7 @@ You will receive an email during the account renewal period directing you to the
 
 If your sponsor has marked you as continuing, you may renew your account. You will receive an email during the account renewal period directing you to the account renewal form. Please update your contact information, complete the form and fill out a short user satisfaction survey. Once you have updated and confirmed all of the information, click on the **REQUEST ACCOUNT RENEWAL** button on the left side of the account renewals form to initiate the renewal request. Once done, your account will be renewed immediately or as soon as your sponsor renews their own account.
 
-If your sponsor has indicated that you have moved on, graduated, or changed positions, you will not be able to renew that particular role. Instead, you must apply for a new role that reflects your actual circumstances (new sponsor, institution, position, etc.). Read more [here](#my-situation-has-changed-e.g.-i-am-moving-to-a-new-faculty-position-at-another-canadian-academic-institution-or-i-have-moved-from-masters-to-phd-etc.-what-should-i-do).
+If your sponsor has indicated that you have moved on, graduated, or changed positions, you will not be able to renew that particular role. Instead, you must apply for a new role that reflects your actual circumstances (new sponsor, institution, position, etc.). Read more [here](account-renewal-faq.md#my-situation-has-changed-eg-i-am-moving-to-a-new-faculty-position-at-another-canadian-academic-institution-or-i-have-moved-from-masters-to-phd-etc-what-should-i-do).
 
 ### I completed the renewal of my account on CCDB but my sponsored role is still deactivated. How can I reactivate it?
 If you completed the renewal of your account on CCDB but your role(s) still show as deactivated, that's because your sponsor has not yet renewed / reactivated their account.
@@ -146,7 +154,7 @@ If you have any questions or need help, please email renewals@tech.alliancecan.c
 ### I made a mistake and renewed my account with the wrong role. What can I do to correct this mistake and renew my account with the right role?
 You should create a new role with your current information and update your account with the new role. Just log into CCDB and in the main menu, under *My Account*, go to *Apply for a new role*. Follow the instructions and select your new role. Your sponsor will receive an email with a link to a page where they can confirm this new role. Your old role will automatically expire and be deactivated on the morning of June 11, 2025 if it is not renewed.
 
-If you want to have several roles, add a new role by going to [and click on *disable old roles* on that page.](https://ccdb.alliancecan.ca/me/add_role) It is possible to submit several applications, but you can only set one of them as your primary role.
+If you want to have several roles, add a new role by going to <https://ccdb.alliancecan.ca/me/add_role> and click on “disable old roles” on that page. It is possible to submit several applications, but you can only set one of them as your primary role.
 
 ### I am trying to reactivate an old sponsored role but my sponsor cannot confirm it. What should I do?
 Please send an email to renewals@tech.alliancecan.ca so that we can assist you with your request.

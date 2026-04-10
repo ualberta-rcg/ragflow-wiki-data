@@ -5,27 +5,27 @@ lang: "en"
 
 source_wiki_title: "ADF/en"
 source_hash: "838b7d4167475ac62187b3363e41068c"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T01:20:54.403963+00:00"
+last_synced: "2026-04-10T14:10:18.226633+00:00"
+last_processed: "2026-04-10T14:19:51.806807+00:00"
 
 tags:
   - software
   - computationalchemistry
 
 keywords:
-  - "ADF"
-  - "Geometry Optimization"
-  - "ADF-GUI"
   - "Computational Chemistry"
-  - "Amsterdam Modeling Suite"
-  - "Hessian"
-  - "Slurm script"
   - "WATER"
-  - "Z-Matrix"
-  - "Graham"
-  - "TigerVNC"
-  - "Internal Coordinates"
   - "Job submission"
+  - "ADF"
+  - "Z-Matrix"
+  - "Hessian"
+  - "Graham"
+  - "Slurm script"
+  - "ADF-GUI"
+  - "TigerVNC"
+  - "Amsterdam Modeling Suite"
+  - "Internal Coordinates"
+  - "Geometry Optimization"
 
 questions:
   - "What research areas and specific software products are supported by the SCM Amsterdam Modeling Suite for Compute Canada users?"
@@ -38,6 +38,8 @@ questions:
   - "How is the spatial arrangement of the atoms defined and what are the initial values for the geometric variables?"
   - "What specific basis set, core type, and convergence criteria are specified for this geometry optimization?"
   - "How is the Slurm script configured to allocate resources and execute the geometry optimization job for water?"
+  - "Why is VNC recommended over an SSH connection with X11 forwarding when running GUI applications like ADF-GUI?"
+  - "What are the differences in time limits and connection steps when running ADF interactively on a Graham compute node versus a Gra-vdi node?"
 
 status:
   downloaded: true
@@ -45,11 +47,11 @@ status:
   tagged: true
   keywords_generated: true
   ragflow_synced: true
-  qa_generated: true
+  qa_generated: false
 ---
 
 ## Introduction
-!!! warning "Important"
+!!! important "Important"
     ADF has been renamed to AMS since the 2020 version. Significant changes such as the input and output formats have been made in the new AMS. Please refer to [AMS](ams.md) for more information.
 
 The [SCM (Software for Chemistry and Materials) Amsterdam Modeling Suite](https://www.scm.com/), originally the ADF (Amsterdam Density Functional) Modeling Suite, offers powerful computational chemistry tools for many research areas such as homogeneous and heterogeneous catalysis, inorganic chemistry, heavy element chemistry, various types of spectroscopy, and biochemistry.
@@ -66,10 +68,10 @@ Compute Canada users have access to the following products:
 *   NBO6
 
 ## Running SCM on Graham
-The `adf` module is installed only on [Graham](graham.md) due to license restrictions. To check what versions are available use the `module spider` command as follows:
+The `adf` module is installed only on [Graham](graham.md) due to license restrictions. To check what versions are available, use the `module spider` command as follows:
 
-```bash
-module spider adf
+```console
+[name@server $] module spider adf
 ```
 
 For module commands, please see [Using modules](utiliser-des-modules.md).
@@ -81,7 +83,8 @@ Graham uses the Slurm scheduler; for details about submitting jobs, see [Running
 #### Single ADF or BAND run
 This `mysub.sh` script is for a whole-node job. The last two lines load version 2019.305 and call ADF directly.
 
-```bash title="mysub.sh"
+`mysub.sh`
+```bash
 #!/bin/bash
 #SBATCH --nodes=1 --ntasks-per-node=32  # 1 node with 32 cpus, you can modify it
 #SBATCH --mem=0                         # request all memory on node
@@ -95,7 +98,8 @@ ADF adf_test.inp
 
 This is the input file used in the script:
 
-```text title="adf_test.inp"
+`adf_test.inp`
+```text
 Title WATER Geometry Optimization with Delocalized Coordinates
 
 Atoms
@@ -110,8 +114,8 @@ Core Small
 End
 
 Geometry
- Optim Deloc
- Converge 0.0000001
+  Optim Deloc
+  Converge 0.0000001
 End
 
 End Input
@@ -121,7 +125,8 @@ End Input
 
 Multiple calculations can be combined into a single job by creating an input file such as this:
 
-```bash title="GO_H2O.run"
+`GO_H2O.run`
+```bash
 #!/bin/bash
 if test -z "$SCM_TESTOUTPUT" ; then SCM_TESTOUTPUT=GO_H2O.out; fi
 
@@ -258,7 +263,8 @@ mv TAPE21 H2O.t21
 
 The following Slurm script is identical to the one used for a single run (`mysub.sh`), except the last line calls the `GO_H2O.run` script, instead of ADF.
 
-```bash title="GO_H2O.sh"
+`GO_H2O.sh`
+```bash
 #!/bin/bash
 #SBATCH --nodes=1 --ntasks-per-node=32  # 1 node with 32 cpus, you can modify it
 #SBATCH --mem=0                         # request all memory on node
@@ -273,7 +279,7 @@ bash GO_H2O.run                         # run the shell script
 ### Examples
 Example input/output for ADF can be found on Graham under `/home/jemmyhu/tests/test_ADF/2019.305/test_adf/`.
 
-The same procedure applies to BAND jobs, see `band_test.inp` and `band_test.sh` examples under `/home/jemmyhu/tests/test_ADF/2019.305/test_band/`.
+The same procedure applies to BAND jobs; see `band_test.inp` and `band_test.sh` examples under `/home/jemmyhu/tests/test_ADF/2019.305/test_band/`.
 
 ## Running SCM-GUI
 Rendering over an SSH connection with X11 forwarding is very slow for GUI applications such as ADF-GUI. We recommend you use [VNC](vnc.md) to connect if you will be running ADF-GUI.
@@ -282,8 +288,8 @@ Rendering over an SSH connection with X11 forwarding is very slow for GUI applic
 
 ADF can be run interactively in graphical mode on a Graham compute node (3hr time limit) over TigerVNC with these steps:
 
-1.  [Install a TigerVNC client on your desktop](vnc.md#setup)
-2.  [Connect to a compute node with vncviewer](vnc.md#compute-nodes)
+1.  [Install a TigerVNC](vnc.md#setup) client on your desktop
+2.  [Connect](vnc.md#compute-nodes) to a compute node with vncviewer
 3.  `module load adf`
 4.  `adfinput`
 
@@ -291,13 +297,13 @@ ADF can be run interactively in graphical mode on a Graham compute node (3hr tim
 
 ADF can be run interactively in graphical mode on gra-vdi (no connection time limit) over TigerVNC with these steps:
 
-1.  [Install a TigerVNC client on your desktop](vnc.md#setup)
-2.  [Connect to gra-vdi.computecanada.ca with vncviewer](vnc.md#vdi-nodes)
+1.  [Install a TigerVNC](vnc.md#setup) client on your desktop
+2.  [Connect](vnc.md#vdi-nodes) to `gra-vdi.computecanada.ca` with vncviewer
 3.  `module load clumod`
 4.  `module load adf`
 5.  `adfinput`
 
-A tutorial PDF showing how to install, connect and run ADF-GUI using TigerVNC on gra-vdi can be found [here](https://www.sharcnet.ca/~jemmyhu/TigerVNC-for-ADF-GUI.pdf).
+A tutorial PDF showing how to install, connect, and run ADF-GUI using TigerVNC on gra-vdi can be found [here](https://www.sharcnet.ca/~jemmyhu/TigerVNC-for-ADF-GUI.pdf).
 
 ### Locally
-SCM has a separate license to run ADF-GUI on a local desktop machine. If you are interested contact [license@scm.com](mailto:license@scm.com) to purchase your own license.
+SCM has a separate license to run ADF-GUI on a local desktop machine. If you are interested, contact [license@scm.com](mailto:license@scm.com) to purchase your own license.

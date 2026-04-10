@@ -5,35 +5,35 @@ lang: "en"
 
 source_wiki_title: "Account renewal FAQ/en"
 source_hash: "ab1d5ee2045a294215589c7cbf440b63"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T01:52:58.254657+00:00"
+last_synced: "2026-04-10T14:10:18.226633+00:00"
+last_processed: "2026-04-10T14:43:20.855013+00:00"
 
 tags:
   []
 
 keywords:
-  - "Principal Investigator"
-  - "CCDB"
-  - "disable old roles"
+  - "reactivate sponsored role"
+  - "renew account"
   - "deactivated"
   - "renewals@tech.alliancecan.ca"
-  - "Account renewal"
-  - "sponsor confirmation"
-  - "deactivated accounts"
+  - "disable old roles"
+  - "Principal Investigator"
   - "primary role"
-  - "Sponsored role"
+  - "deactivated accounts"
   - "create new role"
-  - "renew account"
   - "Account renewal form"
-  - "account renewal"
-  - "renewed"
-  - "lose access"
-  - "reactivate sponsored role"
-  - "wrong role"
-  - "Alliance account"
   - "add a new role"
-  - "sponsored users"
+  - "wrong role"
+  - "CCDB"
   - "account expiration"
+  - "account renewal"
+  - "Sponsored role"
+  - "sponsored users"
+  - "lose access"
+  - "renewed"
+  - "Account renewal"
+  - "Alliance account"
+  - "sponsor confirmation"
 
 questions:
   - "Why is the annual renewal of Alliance accounts necessary, and what happens if a user fails to renew by the deadline?"
@@ -46,6 +46,14 @@ questions:
   - "How can a research group restore their paused jobs and regain access to their files after an account deactivation?"
   - "What steps must be taken if the accounts are no longer needed, or if the situation of the sponsor or sponsored users changes?"
   - "What steps must a user take within the CCDB system to fix an account that was renewed with the wrong role?"
+  - "How does the sponsor participate in the confirmation process for the newly requested role?"
+  - "What will automatically happen to the old role on June 11, 2025, if it is left unrenewed?"
+  - "How do I add a new role to my account and disable old ones?"
+  - "Can I set more than one role as my primary role if I submit multiple applications?"
+  - "What steps should I take if I want to reactivate an old sponsored role but my sponsor cannot confirm it?"
+  - "How do I add a new role to my account and disable old ones?"
+  - "Can I set more than one role as my primary role if I submit multiple applications?"
+  - "What steps should I take if I want to reactivate an old sponsored role but my sponsor cannot confirm it?"
 
 status:
   downloaded: true
@@ -53,7 +61,7 @@ status:
   tagged: false
   keywords_generated: true
   ragflow_synced: true
-  qa_generated: true
+  qa_generated: false
 ---
 
 ## General questions
@@ -80,7 +88,7 @@ The policies are available on the Alliance [website](https://alliancecan.ca/en/p
 ### What is a primary role and what is it used for?
 Your primary role must correspond to your main position, generally the one you will hold for the longest. For example, if you have a full-time faculty appointment at one institution and adjunct appointments at other universities, your faculty appointment should be your primary role. If you are a student or a researcher, your primary role should be the one with your primary supervisor.
 
-!!! warning "Primary Role Renewal"
+!!! note
     If you do not renew your primary role during the annual renewal period, your account will be deactivated.
 
 When new roles are activated they are automatically set as the primary role by default, but users can change their primary role at any time (see [Question 1.6](#can-primary-roles-be-changed) for details).
@@ -90,7 +98,7 @@ Primary roles are important because it helps us to manage accounts with multiple
 ### Can primary roles be changed?
 Yes. Users with multiple active roles can change their primary role at any time on CCDB's *Home* page. Simply go to the role of your choosing and click on the *Make this role primary* checkbox located next to it.
 
-### My situation has changed (e.g., I am moving to a new faculty position at another Canadian academic institution or I have moved from Master's to PhD, etc.). What should I do?
+### My situation has changed (e.g. I am moving to a new faculty position at another Canadian academic institution or I have moved from Master's to PhD, etc.). What should I do?
 If your role has changed, you must apply for a new role, which you can do here (or log into CCDB and go to *My Account* → *Apply for a new role*).
 
 If you need several roles, please request one role at a time. Any new role approved is set as your primary role by default. If you do not wish to have a new role set as your primary role, just uncheck the *Make this role primary?* box.
@@ -100,12 +108,12 @@ If your current role(s) is no longer needed, please click on “disable old role
 ### My account has expired and has been deactivated. I will not renew it, but I still need to have access to my data to move it off the Alliance Federation clusters. What should I do?
 Please send an email to support@tech.alliancecan.ca so that we can assist you with your request.
 
-### I don't see the answer to my account renewal question in this FAQ. Who do I go to for help?
+### I don’t see the answer to my account renewal question in this FAQ. Who do I go to for help?
 Please send an email to renewals@tech.alliancecan.ca so that we can assist you with your request.
 
 ## Sponsor (PI) roles
 
-### I am a faculty member. What happens if I don't renew my account by the deadline?
+### I am a faculty member. What happens if I don’t renew my account by the deadline?
 Any active account that is not renewed between May 6 and June 9, 2026, will expire and be automatically deactivated after that date. Note, however, that accounts can be reactivated at any time, even after they have been deactivated.
 
 If you are a faculty member with sponsored users and you allow your account to expire, *your account as well as the account of all those users you sponsor will be deactivated*. Any job submitted by you or your sponsored users will be paused and your research group will lose access to their files until the sponsor account is reactivated.
@@ -124,12 +132,12 @@ No. Any user you want to sponsor with your new faculty role will have to apply f
 
 If you have a RAC allocation, this means that users sponsored with your old role will lose access to the Resource Allocation Project (RAP) where your resources are allocated. Once your sponsored users get their new roles activated, you may have to add them to your RAP. You can add to and remove RAP members by going to *My Projects* → *Manage Project Membership*
 
-### In my account renewal form I indicated that one of my sponsored users has moved on and will not continue under my sponsorship. Can I still access the files of that user?
+### In my account renewal form I indicated that one of my sponsored user has moved on and will not continue under my sponsorship. Can I still access the files of that user?
 Consent from that user may be required for you to access the files you want. If you need access to such files, it is important to make arrangements with your sponsored user as soon as possible, to mitigate the risk of a former sponsored user becoming incommunicado. For more information, please consult this [page](https://docs.alliancecan.ca/wiki/Access_to_files_of_users_leaving_a_project).
 
 ## Sponsored (non-PI) roles
 
-### I have a sponsored role (e.g., Doctoral, Master's, External Collaborator, etc.). What do I have to do to renew my account?
+### I have a sponsored role (e.g., Doctoral, Masters, External Collaborator, etc.). What do I have to do to renew my account?
 You will receive an email during the account renewal period directing you to the account renewal form. Please update your contact information, complete the form and fill out a short *User Satisfaction Survey*. Once you have updated and confirmed all information, you must click the **REQUEST ACCOUNT RENEWAL** button on the left side of the account renewals form to initiate the renewal request.
 
 If your sponsor has marked you as continuing, you may renew your account. You will receive an email during the account renewal period directing you to the account renewal form. Please update your contact information, complete the form and fill out a short user satisfaction survey. Once you have updated and confirmed all of the information, click on the **REQUEST ACCOUNT RENEWAL** button on the left side of the account renewals form to initiate the renewal request. Once done, your account will be renewed immediately or as soon as your sponsor renews their own account.
@@ -149,7 +157,7 @@ If you have any questions or need help, please email renewals@tech.alliancecan.c
 ### I made a mistake and renewed my account with the wrong role. What can I do to correct this mistake and renew my account with the right role?
 You should create a new role with your current information and update your account with the new role. Just log into CCDB and in the main menu, under *My Account*, go to *Apply for a new role*. Follow the instructions and select your new role. Your sponsor will receive an email with a link to a page where they can confirm this new role. Your old role will automatically expire and be deactivated on the morning of June 11, 2025 if it is not renewed.
 
-If you want to have several roles, add a new role by going to https://ccdb.alliancecan.ca/me/add_role and click on “disable old roles” on that page. It is possible to submit several applications, but you can only set one of them as your primary role.
+If you want to have several roles, add a new role by going to [https://ccdb.alliancecan.ca/me/add_role](https://ccdb.alliancecan.ca/me/add_role) and click on “disable old roles” on that page. It is possible to submit several applications, but you can only set one of them as your primary role.
 
 ### I am trying to reactivate an old sponsored role but my sponsor cannot confirm it. What should I do?
 Please send an email to renewals@tech.alliancecan.ca so that we can assist you with your request.

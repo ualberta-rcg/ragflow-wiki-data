@@ -1,0 +1,62 @@
+<languages />
+
+
+[https://www.rdkit.org/ RDKit] est un ensemble d'applications pour la chimie computationnelle et l'apprentissage machine qui sont écrites en C++ et en Python.
+
+__FORCETOC__
+
+= Versions disponibles =
+Les bibliothèques C++ et les interfaces Python sont disponibles via un module.
+
+Pour connaître les versions disponibles, utilisez
+{{Command|module spider rdkit}}
+
+Pour l'information sur une version particulière, utilisez
+{{Command|module spider rdkit/X.Y.Z}}
+où <code>X.Y.Z</code> est la version recherchée, par exemple <code>2024.03.5</code>.
+
+= Interfaces (<i>bindings</i>) Python  =
+Le module contient des interfaces pour plusieurs versions de Python. Pour connaître les versions disponibles, utilisez
+{{Command|module spider rdkit/X.Y.Z}}
+
+où <TT>X.Y.Z</TT> est la version que vous voulez.
+
+== Dépendance ==
+Quand un autre wheel dépend de <code>rdkit</code>, la dépendance doit être satisfaite.
+
+1. Désactivez tout environnement virtuel Python.
+{{Command|test $VIRTUAL_ENV && deactivate}}
+
+<b>Remarque</b> : Si un environnement virtuel est actif, il est important de le désactiver avant de charger le module. Une fois le module chargé, activez à nouveau votre environnement virtuel.
+
+2. Chargez le module.
+{{Command|module load rdkit/2024.03.5 python/3.12}}
+
+3. Vérifiez qu'il est visible par <code>pip</code> avec
+{{Command
+|pip list {{!}} grep rdkit
+|result=
+rdkit            2024.3.5
+}}
+et que le module Python que vous avez chargé lui a accès, avec
+{{Command|python -c 'import rdkit'}}
+Si aucune erreur ne survient, le problème devrait être réglé.
+
+{{Command|python -c 'import rdkit'}}
+Si aucune erreur ne survient, tout va bien.
+
+4. [[Python/fr#Créer_et_utiliser_un_environnement_virtuel|Créez un environnement virtuel]] et installez les paquets.
+
+= Dépannage =
+
+== Message <i>ModuleNotFoundError: No module named 'rdkit'</i> ==
+Ce message peut survenir si <code>rdkit</code> n’est pas disponible.
+<code>
+ModuleNotFoundError: No module named 'rdkit'
+</code>
+
+<b>Solutions possibles</b>
+* Vérifiez quelles versions de Python sont compatibles avec le module RDKit chargé avec <code>module spider rdkit/X.Y.Z</code>. Une fois qu'un module Python compatible est chargé, vérifiez que <code>python -c 'import rdkit'</code> fonctionne.
+* Chargez le module avant d'activer votre environnement virtuel; voir  [[RDKit/fr#Dépendance|Dépendance ci-dessus]].
+
+Voir aussi [[Python/fr#Message_ModuleNotFoundError:_No_module_named_'X'|ModuleNotFoundError: No module named 'X']].

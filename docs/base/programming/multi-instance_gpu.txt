@@ -1,0 +1,125 @@
+<languages />
+<translate> 
+<!--T:1-->
+Many programs are unable to fully use modern GPUs such as NVidia [https://www.nvidia.com/en-us/data-center/a100/ A100s] and [https://www.nvidia.com/en-us/data-center/h100/ H100s].
+[https://www.nvidia.com/en-us/technologies/multi-instance-gpu/ Multi-Instance GPU (MIG)] is a technology that allows partitioning a single GPU into multiple [https://docs.nvidia.com/datacenter/tesla/mig-user-guide/index.html#terminology instances], making each one a completely independent virtual GPU.
+Each of the GPU instances gets a portion of the original GPU's computational resources and memory, all detached from the other instances by on-chip protections.
+
+<!--T:2-->
+Using GPU instances is less wasteful, and usage is billed accordingly. Jobs submitted on such instances use less of your allocated priority compared to a full GPU; you will then be able to execute more jobs and have shorter wait time.
+
+<!--T:3-->
+= Choosing between a full GPU and a GPU instance =
+Jobs that use less than half of the computing power of a full GPU and less than half of the available memory should be evaluated and tested on an instance. In most cases, these jobs will run just as fast and consume less than half of the computing resource.
+
+<!--T:20-->
+See section [[Multi-Instance GPU#Finding_which_of_your_jobs_should_use_an_instance|Finding which of your jobs should use an instance]] for more details.
+
+<!--T:4-->
+=Limitations =
+[https://docs.nvidia.com/datacenter/tesla/mig-user-guide/index.html#application-considerations The MIG technology does not support] [https://developer.nvidia.com/docs/drive/drive-os/6.0.8.1/public/drive-os-linux-sdk/common/topics/nvsci_nvsciipc/Inter-ProcessCommunication1.html CUDA Inter-Process Communication (IPC)], which optimizes data transfers between GPUs over NVLink and NVSwitch.
+This limitation also reduces communication efficiency between instances.
+Consequently, <b>requesting more than one MIG instance in a job is not permitted</b>.
+Such a job will be rejected at submission time.
+If you feel you need more than one MIG instance, then either:
+* Request a larger instance (e.g. a 3g instead of three 1g instances).
+* Request an entire GPU or multiple GPUs.
+* Use [[Hyper-Q_/_MPS|MPS]] rather than MIG. 
+* [[Technical support|Contact Support]] explaining the reason you want to try running on multiple MIGs, and we can help you do the experiment.
+
+<!--T:24-->
+Graphic APIs are not supported (for example, OpenGL, Vulkan, etc.); see [https://docs.nvidia.com/datacenter/tesla/mig-user-guide/index.html#application-considerations Application Considerations].
+
+<!--T:5-->
+GPU jobs requiring many CPU cores may also require a full GPU instead of an instance. The maximum number of CPU cores per instance depends on [[Allocations_and_compute_scheduling#Ratios_in_bundles|the number of cores per full GPU]] and on the configured [https://docs.nvidia.com/datacenter/tesla/mig-user-guide/index.html#a100-profiles MIG profiles]. Both vary between clusters and between GPU nodes in a cluster.
+
+<!--T:6-->
+= Available configurations =
+While there are [https://docs.nvidia.com/datacenter/tesla/mig-user-guide/index.html#supported-mig-profiles many possible MIG configurations and profiles], the supported profiles are system dependent:
+* [[Narval/en#GPU_instances|Narval, with NVIDIA A100-40gb GPUs]]
+* [[Rorqual/en#GPU_instances|Rorqual, with NVIDIA H100-80gb GPUs]]
+* [[Nibi#GPU instances|Nibi, with NVIDIA H100-80gb GPUS]]
+* [[Fir#GPU instances|Fir, with NVIDIA H100-80gb GPUS]]
+
+<!--T:7-->
+The profile name describes the size of the instance.
+* <b>H100-1g.10gb</b>: 1/8th of the computing power with 10GB GPU memory
+* <b>H100-2g.20gb</b>: 2/8th of the computing power with 20GB GPU memory
+* <b>H100-3g.40gb</b>: 3/8th of the computing power with 40GB GPU memory
+
+<!--T:27-->
+Using less powerful profiles will have a lower impact on your allocation and priority.
+
+<!--T:25-->
+To list all the flavours of MIGs (plus the full size GPU names) available on a given cluster, one can run the following command:
+
+<!--T:26-->
+{{Command|sinfo -o "%G"{{!}}grep gpu{{!}}sed 's/gpu://g'{{!}}sed 's/),/\n/g'{{!}}cut -d: -f1{{!}}sort{{!}}uniq}}
+
+<!--T:8-->
+The recommended maximum number of CPU cores and amount of system memory per instance are listed in the [[Allocations_and_compute_scheduling#Ratios_in_bundles|table of ratios in bundles]].
+
+= Job examples = <!--T:10-->
+
+<!--T:11-->
+* Requesting an instance of power 3/8 and size 20GB for a 1-hour interactive job:
+
+</translate> 
+{{Command2
+|prompt=[name@narval ~]$
+|salloc --account{{=}}def-someuser --gpus{{=}}a100_3g.20gb:1 --cpus-per-task{{=}}2 --mem{{=}}40gb --time{{=}}1:0:0
+}}
+<translate>
+
+<!--T:12-->
+* Requesting an instance of power 4/8 and size 20GB for a 24-hour batch job using the maximum recommended number of cores and system memory:
+
+</translate>
+{{File
+  |name=a100_4g.20gb_mig_job.sh
+  |lang="sh"
+  |contents=
+#!/bin/bash
+#SBATCH --account=def-someuser
+#SBATCH --gpus=a100_4g.20gb:1 
+#SBATCH --cpus-per-task=6    # There are 6 CPU cores per 3g.20gb and 4g.20gb on Narval.
+#SBATCH --mem=62gb           # There are 62GB GPU RAM per 3g.20gb and 4g.20gb on Narval.
+#SBATCH --time=24:00:00
+
+hostname
+nvidia-smi
+}}
+<translate>
+
+= Finding which of your jobs should use an instance = <!--T:13-->
+
+<!--T:14-->
+You can find information on current and past jobs on the  [[Portail|Narval usage portal (writing in progress)]]. 
+
+<!--T:15-->
+Power consumption is a good indicator of the total computing power requested from the GPU. For example, the following job requested a full A100 GPU with a maximum TDP of 400W, but only used 100W on average, which is only 50W more than the idle electric consumption:
+ 
+[[File:ExampleGPUPower.png|400px|frame|left|Example GPU Power usage of a job on a full A100 GPU]] 
+<br clear=all> <!-- This is to prevent the next section from filling to the right of the image. -->
+
+<!--T:16-->
+GPU functionality utilization may also provide insights on the usage of the GPU in cases where the power consumption is not sufficient. For this example job, GPU utilization graph supports the conclusion of the GPU power consumption graph, in that the job uses less than 25% of the available computing power of a full A100 GPU:
+ 
+[[File:ExampleGPUUtilisation.png|400px|frame|left|Example GPU Utilization of a job on a full A100 GPU]]
+<br clear=all> <!-- This is to prevent the next section from filling to the right of the image. -->
+
+<!--T:17-->
+The final metrics to consider are the maximum amount of GPU memory and the average number of CPU cores required to run the job. For this example, the job uses a maximum of 3GB of GPU memory out of the 40GB of a full A100 GPU. 
+ 
+[[File:ExampleGPUMemory.png|400px|frame|left|Example GPU memory usage of a job on a full A100 GPU]]
+<br clear=all> <!-- This is to prevent the next section from filling to the right of the image. -->
+
+<!--T:18-->
+It was also launched using a single CPU core. When taking into account these three last metrics, we can confirm that the job should easily run on a 3g.20GB or 4g.20GB GPU instance with power and memory to spare. 
+
+<!--T:19-->
+Another way to monitor the usage of a running job is by [[Running jobs#Attaching_to_a_running_job |attaching to the node]] where the job is currently running and then by using <code>nvidia-smi</code> to read the GPU metrics in real time.
+This will not provide maximum and average values for memory and power usage of the entire job, but it may be helpful to identify and troubleshoot underperforming jobs.
+
+
+</translate>

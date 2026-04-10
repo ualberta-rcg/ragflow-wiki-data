@@ -1,0 +1,63 @@
+<noinclude>
+<languages />
+</noinclude>
+
+We will preface this tutorial on how to use Conda inside a container with the following '''important notes''':
+
+* Even inside a container, Conda should not be your preferred solution. Priority should always be given to using [[Modules|modules]] from our [[Available_software|software stack]], and [[Python|wheels]] from our [[Available_Python_wheels|Python wheelhouse]]. These are optimized for our systems and we are better equipped to provide support if you use them. Please [[Technical  support|contact us]] if you need a module or a Python package that is not currently available on our systems.
+* This tutorial will use the [https://mamba.readthedocs.io/en/latest/user_guide/micromamba.html micromamba] package manager instead of Conda. If you choose to use Conda instead, keep in mind that its use is subject to [https://legal.anaconda.com/policies/en?name=terms-of-service#terms-of-service Anaconda's Terms of Service] and might require a  [https://www.anaconda.com/pricing/terms-of-service-faqs commercial license].
+* This tutorial shows how to create a read-only image, i.e., a one-off <tt>.sif</tt> file containing a Conda environment that has everything you need to run your application. We strongly discourage installing software interactively with Conda inside a container and will not show how to do this here.
+
+Creating an Apptainer image and using Conda to install software inside it is a 3-step process. The first step is to create a <tt>.yml</tt> file describing the Conda environment we wish to create inside the container. In the example that follows, we create the file <tt>environment.yml</tt> . This file is where we give our environment a name, then give Conda a list of packages that must be installed and the channels where to look for them. For more information [https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#create-env-file-manually see here].
+
+{{File
+  |name=environment.yml
+  |lang="yaml"
+  |contents=
+name: base
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - python
+  - pip
+  - star
+  - bwa
+  - multiqc
+}}
+
+Second, we create an Apptainer [https://apptainer.org/docs/user/main/definition_files.html image definition file]. This file, here called <tt>image.def</tt>, describes what are the steps Apptainer should take to create our image. These steps are:
+#Pull a Docker image from DockerHub that has the micromamba package manager pre-installed.
+#Create a copy of the Conda environment definition file <tt>environment.yml</tt> inside the container
+#Call micromamba and have it configure the environment defined in <tt>environment.yml</tt>.
+
+{{File
+  |name=image.def
+  |lang="yaml"
+  |contents=
+Bootstrap: docker
+From: mambaorg/micromamba:latest
+
+%files
+    environment.yml /environment.yml
+
+%post
+    micromamba install -n base --file environment.yml && \
+        micromamba clean --all --yes
+}}
+
+The last step is to build the Apptainer image using the definition file above:
+   module load apptainer
+   APPTAINER_BIND=' ' apptainer build image.sif image.def
+
+You can test that your image provides <code>multiqc</code>, for example, like this:
+{{Command
+|apptainer run image.sif multiqc --help
+|result=
+ 
+ /// MultiQC 🎃 v1.25.1
+ 
+ Usage: multiqc [OPTIONS] [ANALYSIS DIRECTORY]
+...
+}}

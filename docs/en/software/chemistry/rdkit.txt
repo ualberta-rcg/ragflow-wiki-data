@@ -1,0 +1,59 @@
+<languages />
+
+
+[https://www.rdkit.org/ RDKit] is a collection of cheminformatics and machine-learning software written in C++ and Python.
+
+__FORCETOC__
+
+= Available versions =
+<code>rdkit</code> C++ libraries and Python bindings are available as a module.
+
+You can find available versions with:
+{{Command|module spider rdkit}}
+
+and look for more information on a specific version with:
+{{Command|module spider rdkit/X.Y.Z}}
+where <code>X.Y.Z</code> is the exact desired version, for instance <code>2024.03.5</code>.
+
+= Python bindings =
+The module contains bindings for multiple Python versions. To discover which are the compatible Python versions, run:
+{{Command|module spider rdkit/X.Y.Z}}
+
+where <TT>X.Y.Z</TT> represents the desired version.
+
+== rdkit as a Python package dependency ==
+When <code>rdkit</code> is a dependency of another package, the dependency needs to be fulfilled:
+
+1. Deactivate any Python virtual environment.
+{{Command|test $VIRTUAL_ENV && deactivate}}
+
+<b>Note:</b> If you had a virtual environment activated, it is important to deactivate it first, then load the module, before reactivating your virtual environment.
+
+2. Load the module.
+{{Command|module load rdkit/2024.03.5 python/3.12}}
+
+3. Check that it is visible by <code>pip</code>
+{{Command
+|pip list {{!}} grep rdkit
+|result=
+rdkit            2024.3.5
+}}
+
+{{Command|python -c 'import rdkit'}}
+If no errors are raised, then everything is OK!
+
+4. [[Python#Creating_and_using_a_virtual_environment|Create a virtual environment and install your packages]].
+
+= Troubleshooting =
+
+== ModuleNotFoundError: No module named 'rdkit' ==
+If <code>rdkit</code> is not accessible, you may get the following error when importing it:
+<code>
+ModuleNotFoundError: No module named 'rdkit'
+</code>
+
+Possible solutions:
+* check which Python versions are compatible with your loaded RDKit module using <code>module spider rdkit/X.Y.Z</code>. Once a compatible Python module is loaded, check that <code>python -c 'import rdkit'</code> works.
+* load the module before activating your virtual environment: please see the  [[RDKit#rdkit_as_a_Python_package_dependency|rdkit as a package dependency]] section above.
+
+See also [[Python#ModuleNotFoundError:_No_module_named_'X'|ModuleNotFoundError: No module named 'X']].

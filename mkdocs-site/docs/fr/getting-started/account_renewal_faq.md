@@ -5,34 +5,34 @@ lang: "fr"
 
 source_wiki_title: "Account renewal FAQ/fr"
 source_hash: "30839e8002e11282bcd2ecdb5b99146e"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T01:53:35.180191+00:00"
+last_synced: "2026-04-10T14:10:18.226633+00:00"
+last_processed: "2026-04-10T14:43:47.983034+00:00"
 
 tags:
   []
 
 keywords:
-  - "CCDB"
-  - "utilisateurs parrainés"
-  - "rôle principal"
-  - "Chercheurs principaux"
-  - "Désactivation de compte"
-  - "équipe de projet"
-  - "accéder à mes données"
-  - "transférer"
-  - "accès aux fichiers"
-  - "désactiver les anciens rôles"
-  - "membres qui quittent"
-  - "Renouvellement de compte"
-  - "désactivation de compte"
-  - "renouvellement de compte"
   - "Personnes parrainées"
-  - "chercheur principal"
-  - "politiques et consentements"
-  - "compte échu et désactivé"
+  - "Chercheurs principaux"
+  - "rôle principal"
+  - "Renouvellement de compte"
+  - "accès aux fichiers"
+  - "accéder à mes données"
   - "personne parrainée"
-  - "consentement formel"
+  - "équipe de projet"
+  - "Désactivation de compte"
+  - "politiques et consentements"
+  - "désactivation de compte"
+  - "membres qui quittent"
+  - "CCDB"
+  - "compte échu et désactivé"
+  - "renouvellement de compte"
+  - "transférer"
   - "rôle"
+  - "utilisateurs parrainés"
+  - "consentement formel"
+  - "désactiver les anciens rôles"
+  - "chercheur principal"
 
 questions:
   - "Pourquoi est-il obligatoire de renouveler son compte chaque année et quelles sont les conséquences si cela n'est pas fait dans les délais ?"
@@ -45,6 +45,14 @@ questions:
   - "Quelle est la marche à suivre pour désactiver les anciens rôles que l'on ne détient plus ?"
   - "Comment peut-on accéder à ses données pour les transférer lorsque son compte est échu et désactivé ?"
   - "Quelles sont les conditions requises pour accéder aux fichiers d'une personne parrainée ?"
+  - "Pourquoi est-il important d'anticiper les démarches avant le départ de la personne ?"
+  - "Où peut-on consulter la documentation détaillée concernant les membres qui quittent l'équipe de projet ?"
+  - "Quelles sont les étapes à suivre pour qu'un utilisateur parrainé puisse soumettre sa demande de renouvellement de compte ?"
+  - "Pourquoi un rôle peut-il demeurer désactivé même après que l'utilisateur a effectué son renouvellement dans le système ?"
+  - "Comment doit-on procéder pour corriger la situation si le compte a été renouvelé avec un rôle incorrect ?"
+  - "Quelles sont les étapes à suivre pour qu'un utilisateur parrainé puisse soumettre sa demande de renouvellement de compte ?"
+  - "Pourquoi un rôle peut-il demeurer désactivé même après que l'utilisateur a effectué son renouvellement dans le système ?"
+  - "Comment doit-on procéder pour corriger la situation si le compte a été renouvelé avec un rôle incorrect ?"
 
 status:
   downloaded: true
@@ -52,7 +60,7 @@ status:
   tagged: false
   keywords_generated: true
   ragflow_synced: true
-  qa_generated: true
+  qa_generated: false
 ---
 
 ## Sujets d'ordre général
@@ -67,7 +75,7 @@ Tous les comptes doivent être renouvelés entre le 6 mai et le 9 juin 2026. Si 
 Si votre compte a été créé après le 1er janvier, vous n’avez pas besoin d’en effectuer le renouvellement maintenant. Cependant, vous devez accepter les nouvelles politiques et consentements la première fois que vous vous connecterez à CCDB.
 
 ### Où puis-je consulter la politique de confidentialité et les autres ententes que j’ai acceptées?
-Les ententes et politiques que vous devez accepter ou pour lesquelles vous devez indiquer une préférence sont disponibles dans [CCDB sous l’onglet Mon compte, option Ententes](https://ccdb.alliancecan.ca/agreements/user_index). Vous y trouverez entre autres :
+Les ententes et politiques que vous devez accepter ou pour lesquelles vous devez indiquer une préférence sont disponibles dans [CCDB sous l’onglet Mon compte, option Ententes](https://ccdb.alliancecan.ca/agreements/user_index). Vous y trouverez entre autres:
 
 *   Politiques, normes, conditions et procédures
 *   Consentement à l’accès aux données de l'utilisatrice et de l’utilisateur
@@ -76,13 +84,13 @@ Les ententes et politiques que vous devez accepter ou pour lesquelles vous devez
 
 Les politiques sont aussi disponibles sur [cette page de notre site web](https://alliancecan.ca/fr/politiques).
 
-### Qu'est-ce qu'un rôle principal et à quoi sert-il?
-Votre rôle principal correspond à votre poste principal, typiquement celui que vous détiendrez à plus long terme. Par exemple, si vous faites partie du corps professoral d’un établissement et êtes professeur associé dans un autre, votre rôle principal serait votre poste permanent. Pour une étudiante, un étudiant, une chercheuse ou un chercheur, le rôle principal correspond au poste occupé avec votre superviseure ou superviseur principal.
+### Qu’est-ce qu’un rôle principal et à quoi sert-il?
+Votre rôle principal correspond à votre poste principal, typiquement celui que vous détiendrez à plus long terme. Par exemple, si vous faites partie du corps professoral d’un établissement et êtes professeur associé dans un autre, votre rôle principal serait votre poste permanent. Pour une étudiante, un étudiant, une chercheuse ou un chercheur, le rôle principal correspond au poste occupé avec votre superviseure ou superviseur principal. 
 
 !!! warning "Remarque"
     Si votre rôle principal n’est pas renouvelé pendant la période annuelle de renouvellement des comptes, votre compte sera désactivé.
 
-Lorsqu’un nouveau rôle est créé, celui-ci devient par défaut le rôle principal; pour modifier votre rôle principal, voyez [la question 1.6](#puis-je-modifier-mon-role-principal).
+Lorsqu’un nouveau rôle est créé, celui-ci devient par défaut le rôle principal; pour modifier votre rôle principal, voyez [la question 1.6](#Puis-je-modifier-mon-rôle-principal).
 
 Les rôles principaux sont importants pour faciliter la gestion des comptes où les rôles sont multiples, faciliter les communications et recueillir certains renseignements pour nos rapports.
 
@@ -90,11 +98,11 @@ Les rôles principaux sont importants pour faciliter la gestion des comptes où 
 Vous pouvez modifier votre rôle principal en tout temps dans CCDB sous l’onglet *Accueil*. Sélectionnez le rôle que vous voulez désigner comme rôle principal et cochez la case *Donner à ce rôle le statut de rôle principal*.
 
 ### Que dois-je faire si mon rôle a changé (par exemple, si je passe de la maîtrise au doctorat ou si j'occupe un nouveau poste dans une autre université canadienne)?
-Si votre rôle a changé, vous devez en demander un nouveau dans CCDB sous l’onglet *Mon compte*, option *Demander un nouveau rôle*.
+Si votre rôle a changé, vous devez en demander un nouveau dans CCDB sous l’onglet *Mon compte*, option *Demander un nouveau rôle*. 
 
-Si vous détenez plusieurs rôles, ils doivent être entrés un à la fois. Par défaut, le dernier rôle entré devient votre rôle principal; pour empêcher ceci, assurez-vous que la case à cocher *Donner à ce rôle le statut de rôle principal* soit vide.
+Si vous détenez plusieurs rôles, ils doivent être entrés un à la fois. Par défaut, le dernier rôle entré devient votre rôle principal; pour empêcher ceci, assurez-vous que la case à cocher *Donner à ce rôle le statut de rôle principal* soit vide. 
 
-Pour désactiver un ou des rôles que vous ne détenez plus, cliquez sur *Désactiver les anciens rôles*. Votre nouveau rôle sera alors considéré comme étant votre rôle principal.
+Pour désactiver un ou des rôles que vous ne détenez plus, cliquez sur *Désactiver les anciens rôles*. Votre nouveau rôle sera alors considéré comme étant votre rôle principal. 
 
 ### Mon compte est échu et désactivé et je ne le renouvellerai pas. Cependant, je veux accéder à mes données pour les transférer. Que dois-je faire?
 Écrivez à support@tech.alliancecan.ca pour de l’assistance.
@@ -107,19 +115,19 @@ Pour désactiver un ou des rôles que vous ne détenez plus, cliquez sur *Désac
 ### Je suis professeure. Que se passera-t-il si je ne renouvelle pas mon compte avant la date limite?
 Un compte actif qui n'est pas renouvelé entre le 6 mai et le 9 juin 2026 devient échu et est automatiquement désactivé. Sachez toutefois que votre compte peut être réactivé par la suite.
 
-Si vous parrainez des utilisatrices ou utilisateurs et que votre compte devient échu, ce sont **votre compte et ceux des personnes parrainées** qui seront désactivés. Les tâches soumises par vous-même et par ceux et celles que vous parrainez seront arrêtées et votre groupe de recherche n’aura plus accès aux fichiers tant que votre compte de chercheuse ou chercheur principal ne sera pas réactivé.
+Si vous parrainez des utilisatrices ou utilisateurs et que votre compte devient échu, ce sont *votre compte et ceux des personnes parrainées* qui seront désactivés. Les tâches soumises par vous-même et par ceux et celles que vous parrainez seront arrêtées et votre groupe de recherche n’aura plus accès aux fichiers tant que votre compte de chercheuse ou chercheur principal ne sera pas réactivé.
 
 Si votre compte et ceux des personnes que vous parrainez ne sont plus nécessaires et que vous ne les renouvelez pas, ils deviendront tous échus et seront désactivés. Autrement, vous devez demander qu’ils soient renouvelés ou, dans le cas où votre situation ou celle d’une personne parrainée a changé.
 
 ### Que dois-je faire pour renouveler mon compte?
-Pendant la période de renouvellement, vous recevrez un courriel avec un lien vers le formulaire de renouvellement dans CCDB. Veuillez mettre à jour les renseignements pour vous contacter et votre champ de recherche, remplir le court questionnaire et mettre à jour le statut des personnes que vous parrainez (par exemple étudiantes, stagiaire postdoctoral, etc.). Si le rôle d’une personne que vous parrainez a changé depuis l’an dernier, voyez [la question 1.7](#que-dois-je-faire-si-mon-role-a-change-par-exemple-si-je-passe-de-la-maitrise-au-doctorat-ou-si-j-occupe-un-nouveau-poste-dans-une-autre-universite-canadienne).
+Pendant la période de renouvellement, vous recevrez un courriel avec un lien vers le formulaire de renouvellement dans CCDB. Veuillez mettre à jour les renseignements pour vous contacter et votre champ de recherche, remplir le court questionnaire et mettre à jour le statut des personnes que vous parrainez (par exemple étudiantes, stagiaire postdoctoral, etc.). Si le rôle d’une personne que vous parrainez a changé depuis l’an dernier, voyez [la question 1.7](#Que-dois-je-faire-si-mon-rôle-a-changé-par-exemple-si-je-passe-de-la-maîtrise-au-doctorat-ou-si-j'occupe-un-nouveau-poste-dans-une-autre-université-canadienne).
 
-Les membres du corps professoral qui ont parrainé d’autres utilisatrices ou utilisateurs doivent aussi mettre à jour le statut de ces comptes (c’est-à-dire mentionner soit que leur travail se poursuit, soit que leur travail est terminé, mettant ainsi fin au parrainage).
+Les membres du corps professoral qui ont parrainé d’autres utilisatrices ou utilisateurs doivent aussi mettre à jour le statut de ces comptes (c’est-à-dire mentionner soit que leur travail se poursuit, soit que leur travail est terminé, mettant ainsi fin au parrainage). 
 
-Après avoir mis à jour et confirmé toute l’information et mis à jour le statut des personnes que vous parrainez, cliquez sur le bouton **Demander le renouvellement du compte** sur le côté gauche du formulaire.
+Après avoir mis à jour et confirmé toute l’information et mis à jour le statut des personnes que vous parrainez, cliquez sur le bouton **Demander le renouvellement du compte** sur le côté gauche du formulaire. 
 
 ### Je suis chercheur principal avec un rôle de professeur et je change d’établissement. Les comptes des personnes que je parrainais avec mon rôle précédent seront-ils automatiquement transférés à mon nouveau rôle?
-Non. Les utilisatrices et utilisateurs que vous voulez parrainer avec votre nouveau rôle devront demander un nouveau rôle sous le parrainage de votre nouveau poste.
+Non. Les utilisatrices et utilisateurs que vous voulez parrainer avec votre nouveau rôle devront demander un nouveau rôle sous le parrainage de votre nouveau poste. 
 
 Si des ressources vous ont été allouées par suite du concours pour l’allocation de ressources, les personnes que vous parrainiez avec votre rôle précédent n’auront plus accès aux ressources du projet RAP (Resource Allocation Project) relié à l’allocation. Une fois que leurs rôles auront été activés, vous pourriez devoir les ajouter à votre projet RAP. Vous pouvez ajouter ou supprimer un membre de votre projet RAP dans CCDB sous l’onglet *Mon compte*, option *Gérer l’appartenance aux projets*.
 
@@ -129,14 +137,16 @@ Le consentement formel de la personne qui était parrainée peut être requis po
 ## Utilisatrices et utilisateurs parrainés
 
 ### Je suis une utilisatrice parrainée (dont le rôle est par exemple, étudiante au doctorat, à la maîtrise, collaboratrice externe, etc.). Que dois-je faire pour renouveler mon compte?
-Pendant la période de renouvellement, vous recevrez un courriel avec un lien vers le formulaire de renouvellement. Veuillez mettre à jour votre information de contact, remplir le formulaire et répondre au court sondage. Quand tous les renseignements seront mis à jour et confirmés, cliquez sur le bouton *Demander le renouvellement du compte*. Votre compte sera immédiatement renouvelé ou le sera lorsque la personne qui vous parraine renouvellera son propre compte.
+Pendant la période de renouvellement, vous recevrez un courriel avec un lien vers le formulaire de renouvellement. Veuillez mettre à jour votre information de contact, remplir le formulaire et répondre au court sondage. Une fois que tous les renseignements seront mis à jour et confirmés, cliquez sur le bouton *Demander le renouvellement du compte*. 
 
-Si la chercheuse principale ou le chercheur principal qui vous parraine a déclaré que vous avez obtenu votre diplôme, obtenu un nouveau poste ou ne faites plus partie de l’équipe, ce rôle ne pourra pas être renouvelé. Vous devrez plutôt demander un rôle qui correspond à votre situation actuelle (nouveau parrainage, nouvel établissement, nouveau poste, etc.); voyez [cette réponse](#que-dois-je-faire-si-mon-role-a-change-par-exemple-si-je-passe-de-la-maitrise-au-doctorat-ou-si-j-occupe-un-nouveau-poste-dans-une-autre-universite-canadienne).
+Si la chercheuse principale ou le chercheur principal qui vous parraine atteste que vous conservez ce rôle, il peut être renouvelé. Pendant la période de renouvellement, vous recevrez un courriel avec un lien vers le formulaire de renouvellement. Veuillez mettre à jour votre information de contact, remplir le formulaire et répondre au court sondage. Quand tous les renseignements seront mis à jour et confirmés, cliquez sur le bouton *Demander le renouvellement du compte*. Votre compte sera immédiatement renouvelé ou le sera lorsque la personne qui vous parraine renouvellera son propre compte.
+
+Si la chercheuse principale ou le chercheur principal qui vous parraine a déclaré que vous avez obtenu votre diplôme, obtenu un nouveau poste ou ne faites plus partie de l’équipe, ce rôle ne pourra pas être renouvelé. Vous devrez plutôt demander un rôle qui correspond à votre situation actuelle (nouveau parrainage, nouvel établissement, nouveau poste, etc.); voyez [cette réponse](#que-dois-je-faire-si-mon-rôle-a-changé-par-exemple-si-je-passe-de-la-maîtrise-au-doctorat-ou-si-j'occupe-un-nouveau-poste-dans-une-autre-université-canadienne). 
 
 ### J’ai effectué le renouvellement de mon compte dans CCDB, mais mon rôle n’est toujours pas activé. Que dois-je faire pour le réactiver?
-Si vous avez renouvelé votre compte et que votre ou vos rôles sont toujours désactivés, c’est que la chercheuse principale ou le chercheur principal qui vous parraine n’a pas encore renouvelé ou réactivé son propre compte.
+Si vous avez renouvelé votre compte et que votre ou vos rôles sont toujours désactivés, c’est que la chercheuse principale ou le chercheur principal qui vous parraine n’a pas encore renouvelé ou réactivé son propre compte. 
 
-Votre rôle devrait être activé dès que la personne qui vous parraine aura renouvelé son compte et confirmé votre rôle.
+Votre rôle devrait être activé dès que la personne qui vous parraine aura renouvelé son compte et confirmé votre rôle. 
 
 Si vous avez des questions ou avez besoin d’assistance, écrivez à renouvellements@tech.alliancecan.ca.
 
@@ -144,7 +154,7 @@ Si vous avez des questions ou avez besoin d’assistance, écrivez à renouvelle
     Votre compte ne sera activé qu'une fois que la personne qui vous parraine aura confirmé que votre rôle se poursuit ET qu'elle ou il renouvellera son propre compte.
 
 ### Mon compte a été renouvelé avec un rôle incorrect. Comment puis-je corriger cette erreur?
-Vous devriez créer un nouveau rôle avec vos renseignements courants et mettre à jour votre compte en indiquant votre nouveau rôle. Connectez-vous à CCDB et sous l’onglet *Mon compte*, sélectionnez *Demander un nouveau rôle*. Suivez les directives et sélectionnez votre nouveau rôle. La chercheuse ou le chercheur qui vous parraine recevra alors un courriel contenant un lien vers une page où votre nouveau rôle pourra être confirmé. S’il n’est pas renouvelé, votre ancien rôle deviendra automatiquement échu et sera désactivé le 11 juin 2025.
+Vous devriez créer un nouveau rôle avec vos renseignements courants et mettre à jour votre compte en indiquant votre nouveau rôle. Connectez-vous à CCDB et sous l’onglet *Mon compte*, sélectionnez *Demander un nouveau rôle*. Suivez les directives et sélectionnez votre nouveau rôle. La chercheuse ou le chercheur qui vous parraine recevra alors un courriel contenant un lien vers une page où votre nouveau rôle pourra être confirmé. S’il n’est pas renouvelé, votre ancien rôle deviendra automatiquement échu et sera désactivé le 11 juin 2025. 
 
 Si vous voulez définir plusieurs rôles, faites afficher [*Ajouter un rôle*](https://ccdb.alliancecan.ca/me/add_role) et cochez la case *Désactiver les anciens rôles* au bas de la page. Vous pouvez définir plusieurs rôles, mais un seul doit être identifié comme étant votre rôle principal.
 

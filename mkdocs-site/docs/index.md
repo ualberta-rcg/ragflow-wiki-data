@@ -94,7 +94,7 @@ __   ___   _| | ___ __ _ _ __      Support:       support@tech.alliancecan.ca
 | **Lunaris** | :material-check-circle:{ style="color: green" } Operational |
 | **tamIA** | :material-check-circle:{ style="color: green" } Operational |
 
-<small>*Auto-generated from [status.alliancecan.ca](https://status.alliancecan.ca) &mdash; updated 2026-04-10 13:32 UTC. See that page for current incident details.*</small>
+<small>*Auto-generated from [status.alliancecan.ca](https://status.alliancecan.ca) &mdash; updated 2026-04-10 14:45 UTC. See that page for current incident details.*</small>
 
 ---
 
@@ -115,7 +115,7 @@ Events from the [Alliance training calendar](https://explora.alliancecan.ca/even
 | Apr 16 | GPU Python: Numba JIT compilation to CUDA kernels [course] | [Register](https://forms.gle/E6XyX4Q3H6hXDwUM7) |
 | Apr 17 | The Secret Life of Data | [Register](https://ualberta.libcal.com/event/4012303) |
 
-<small>*Auto-generated from [explora.alliancecan.ca/events](https://explora.alliancecan.ca/events) &mdash; updated 2026-04-10 13:32 UTC.*</small>
+<small>*Auto-generated from [explora.alliancecan.ca/events](https://explora.alliancecan.ca/events) &mdash; updated 2026-04-10 14:45 UTC.*</small>
 
 ---
 

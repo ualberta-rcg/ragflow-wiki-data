@@ -3,8 +3,12 @@ name: Full Pipeline
 on:
   workflow_dispatch:
     inputs:
-      batch_size:
-        description: 'Docs per step (0 = all)'
+      sync_batch_size:
+        description: 'Docs to sync to RAGFlow (0 = all)'
+        required: false
+        default: '0'
+      convert_batch_size:
+        description: 'Docs to convert to MkDocs (0 = all)'
         required: false
         default: '0'
 
@@ -53,7 +57,7 @@ jobs:
         env:
           RAGFLOW_API_KEY: ${{ secrets.RAGFLOW_API_KEY }}
           RAGFLOW_BASE_URL: ${{ secrets.RAGFLOW_BASE_URL }}
-          BATCH_SIZE: ${{ github.event.inputs.batch_size || '0' }}
+          BATCH_SIZE: ${{ github.event.inputs.sync_batch_size || '0' }}
         run: |
           source venv/bin/activate
           python scripts/sync-ragflow.py
@@ -61,7 +65,7 @@ jobs:
       - name: Convert to MkDocs
         env:
           GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
-          BATCH_SIZE: ${{ github.event.inputs.batch_size || '0' }}
+          BATCH_SIZE: ${{ github.event.inputs.convert_batch_size || '0' }}
         run: |
           source venv/bin/activate
           python scripts/convert-to-mkdocs.py

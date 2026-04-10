@@ -5,18 +5,18 @@ lang: "base"
 
 source_wiki_title: "Advanced Job Submission"
 source_hash: "4063fa787c8118b0aabdb8d7fbe39ed2"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T01:54:29.235139+00:00"
+last_synced: "2026-04-10T14:10:18.226633+00:00"
+last_processed: "2026-04-10T14:44:44.856564+00:00"
 
 tags:
   []
 
 keywords:
+  - "compute tasks"
+  - "Slurm scheduler"
   - "job arrays"
   - "heterogeneous jobs"
-  - "Slurm scheduler"
   - "inter-job dependencies"
-  - "compute tasks"
 
 questions:
   - "What are the recommended tools for managing and executing a large number of compute tasks or parameter sweeps?"
@@ -32,7 +32,7 @@ status:
   tagged: false
   keywords_generated: true
   ragflow_synced: true
-  qa_generated: true
+  qa_generated: false
 ---
 
 ## Managing numerous compute tasks
@@ -53,10 +53,10 @@ JOBID1=$(sbatch --parsable job1.sh)           # Save the first job ID
 sbatch --dependency=afterok:$JOBID1 job2.sh   # Depends on the first job
 ```
 
-!!! note
+!!! note "Notes"
     *   Multiple jobs can have the same dependency (multiple jobs waiting after one job).
     *   A job can have multiple dependencies (one job waiting after multiple jobs).
-    *   There are multiple types of dependencies: `after`, `afterany`, `afterok`, `afternotok`, etc. For more details, see the [official `sbatch` documentation page](https://slurm.schedmd.com/sbatch.html#OPT_dependency).
+    *   There are multiple types of dependencies: `after`, `afterany`, `afterok`, `afternotok`, etc. For more details, see the `--dependency` option on the [official `sbatch` documentation page](https://slurm.schedmd.com/sbatch.html#OPT_dependency).
 
 ## Heterogeneous jobs
 
@@ -76,4 +76,4 @@ srun --cpus-per-task=8 : --cpus-per-task=1 application.exe
 Or we can separate resource requests with a colon (`:`) on the `sbatch` command line:
 
 ```bash
-sbatch --ntasks=1 --cpus-per-task=8 --mem-per-cpu=4000M : --ntasks=15 --cpus-per-task=1 --mem-per-cpu=1000M mpi_job.sh
+sbatch --ntasks=1 --cpus-per-task=8 --mem-per-cpu=4000M : --ntasks=15 --cpus-per-task=1 --mem-per-cpu=1000M  mpi_job.sh

@@ -5,18 +5,18 @@ lang: "en"
 
 source_wiki_title: "Accessing the Arbutus object storage with AWS CLI/en"
 source_hash: "27f76ced28d13410a0696caf32d30134"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T01:51:00.770647+00:00"
+last_synced: "2026-04-10T14:10:18.226633+00:00"
+last_processed: "2026-04-10T14:41:13.781624+00:00"
 
 tags:
   - cloud
 
 keywords:
+  - "Arbutus object storage"
   - "configuration"
+  - "credentials"
   - "object storage clients"
   - "AWS CLI"
-  - "Arbutus object storage"
-  - "credentials"
 
 questions:
   - "What are the main advantages of using the AWS CLI over other clients for accessing Arbutus object storage?"
@@ -32,12 +32,12 @@ status:
   tagged: true
   keywords_generated: true
   ragflow_synced: true
-  qa_generated: true
+  qa_generated: false
 ---
 
 This page contains instructions on how to set up and access [Arbutus object storage](arbutus-object-storage.md) with the AWS Command Line Interface (CLI), one of the [object storage clients](arbutus-object-storage-clients.md) available for this storage type.
 
-!!! note "AWS CLI Advantages"
+!!! note
     Compared to other object storage clients, AWS CLI has better support for large (>5GB) files and the helpful `sync` command. However, not all features have been tested.
 
 ## Installing AWS CLI
@@ -56,27 +56,25 @@ openstack ec2 credentials create
 
 Edit or create `~/.aws/credentials` and add the credentials generated above
 
-!!! example "~/.aws/credentials"
-    ```ini
-    [default]
-    aws_access_key_id = <access_key>
-    aws_secret_access_key = <secret_key>
-    ```
+```ini
+[default]
+aws_access_key_id = <access_key>
+aws_secret_access_key = <secret_key>
+```
 
 Edit `~/.aws/config` and add the following configuration
 
-!!! example "~/.aws/config"
-    ```ini
-    [plugins]
-    endpoint = awscli_plugin_endpoint
+```ini
+[plugins]
+endpoint = awscli_plugin_endpoint
 
-    [profile default]
-    s3 =
-      endpoint_url = https://object-arbutus.alliancecan.ca
-      signature_version = s3v4
-    s3api =
-      endpoint_url = https://object-arbutus.alliancecan.ca
-    ```
+[profile default]
+s3 =
+  endpoint_url = https://object-arbutus.alliancecan.ca
+  signature_version = s3v4
+s3api =
+  endpoint_url = https://object-arbutus.alliancecan.ca
+```
 
 ## Using AWS CLI
 

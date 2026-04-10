@@ -1,0 +1,62 @@
+
+
+<languages />
+The execution time for a program is sometimes too long for the maximum duration of a job permitted by the job schedulers used on the clusters. Long-running jobs are also subject to all of the risks of system instability due to power outages, hardware defects and so forth. A program with a short execution time can easily be restarted with little concern but for long-running software it is preferable to use checkpoints to minimize the risk of losing several days' worth of computation. These checkpoints take the form of binary disk files from which the program can be restarted at the point in the computation where the checkpoint file was initially created.
+
+== Creating and Loading a Checkpoint  ==
+The creation and loading of a checkpoint may already be taken care of by the application you're using. In this case you simply need to read the relevant documentation about how to use this functionality.
+
+However, if you have access to the source code of the software and/or if you are the author, you can implement a checkpoint/restart functionality in the program yourself. The essential steps are:
+
+* The creation of a checkpoint file is done periodically, with a suggested frequency of every 2 to 24 hours
+* While writing the checkpoint file, it's important to remember that the program could be interrupted at any moment and this for a variety of reasons. As a consequence,
+** It is preferable to not delete the preceding checkpoint when creating the new one. 
+** The creation of the checkpoint file can be made ''atomic'' by performing an operation which confirms the end of the checkpoint process. For example, the checkpoint file can be initially named based on the date and time and, as the final step, a symbolic link ''latest-version'' is pointed at this new checkpoint file. Another more advanced method would be to create a second file which contains a hash of the checkpoint file's content by means of which the restart function can verify the integrity of the checkpoint when it is loaded. 
+** Once the atomic write has been completed, one can choose whether or not to delete any older checkpoints.
+
+<!-- So as not to re-invent the wheel, particularly in situations where modifying the source code isn't an option, an alternative solution is the use of the software 
+[http://dmtcp.sourceforge.net/ DMTCP]. -->
+
+<!-- === DMTCP === --> 
+
+<!-- The software  [http://dmtcp.sourceforge.net/ DMTCP] (Distributed Multithreaded CheckPointing) permits checkpointing of programs without having to recompile them. The initial execution is done with the program  <tt>dmtcp_launch</tt> and specifying the checkpoint intervals. The restart can then be carried out by running the script  <tt>dmtcp_restart_script.sh</tt>. By default, this script and the checkpoint files are written in the directory where the program was started. You can modify the location of these checkpoint files with the option  <tt>--ckptdir <checkpoint directory></tt>. You can run  <tt>dmtcp_launch --help</tt> to see all the options for DMTCP. Note that for the moment DMTCP does not work with software parallelized using MPI. --> 
+
+
+<!-- An example of a job script: -->
+<!--
+{{Fichier
+  |name=job_with_dmtcp.sh
+  |lang="sh"
+  |contents=
+#!/bin/bash
+# ---------------------------------------------------------------------
+# SLURM script for job resubmission on a Compute Canada cluster. 
+# ---------------------------------------------------------------------
+#SBATCH --job-name=job_chain
+#SBATCH --account=def-someuser
+#SBATCH --cpus-per-task=1
+#SBATCH --time=0-10:00
+#SBATCH --mem=100M
+# ---------------------------------------------------------------------
+echo "Current working directory: $(pwd)"
+echo "Starting run at: $(date)"
+# ---------------------------------------------------------------------
+# Run your simulation step here...
+
+if test -e "dmtcp_restart_script.sh"; then 
+     # There is a checkpoint file, restart;
+     ./dmtcp_restart_script.sh -h $(hostname)
+else
+     # There is no checkpoint file, start a new simulation.
+     dmtcp_launch --rm  -i 3600 -q <programme> <arg1> ... <argn>
+fi
+
+# ---------------------------------------------------------------------
+echo "Job finished with exit code $? at: $(date)"
+# ---------------------------------------------------------------------
+}}
+-->
+== Resubmitting a Job for Long-Running Computations ==
+If you plan on breaking up a lengthy computation into several Slurm jobs, there are [[Running_jobs#Resubmitting_jobs_for_long_running_computations|two recommended methods]]: 
+* [[Running_jobs#Restarting_using_job_arrays|using Slurm job arrays]];
+* [[Running_jobs#Resubmission_from_the_job_script|resubmission from the end of the job script]].

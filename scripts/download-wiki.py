@@ -6,6 +6,8 @@ Tracks processing state with content hashes.
 """
 
 import requests
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
 import re
 import os
 import sys
@@ -23,6 +25,13 @@ API_ENDPOINT = "https://docs.alliancecan.ca/mediawiki/api.php"
 OUTPUT_DIR = REPO_ROOT / "docs"
 CONFIG_DIR = REPO_ROOT / "config"
 STATE_FILE = CONFIG_DIR / "processing-state.json"
+
+REQUEST_TIMEOUT = 30  # seconds per request
+
+_retry = Retry(total=3, backoff_factor=1, status_forcelist=[429, 500, 502, 503, 504])
+session = requests.Session()
+session.mount("https://", HTTPAdapter(max_retries=_retry))
+session.mount("http://", HTTPAdapter(max_retries=_retry))
 
 # Categories to skip (maintenance/meta)
 SKIP_CATEGORIES = [
@@ -64,7 +73,7 @@ def get_all_pages():
         "aplimit": "max"
     }
     while True:
-        res = requests.get(API_ENDPOINT, params=params).json()
+        res = session.get(API_ENDPOINT, params=params, timeout=REQUEST_TIMEOUT).json()
         pages += res["query"]["allpages"]
         if "continue" in res:
             params.update(res["continue"])
@@ -82,7 +91,7 @@ def get_page_content(title):
         "format": "json",
         "titles": title
     }
-    res = requests.get(API_ENDPOINT, params=params).json()
+    res = session.get(API_ENDPOINT, params=params, timeout=REQUEST_TIMEOUT).json()
     pages = res.get("query", {}).get("pages", {})
     for page_id, data in pages.items():
         if "revisions" in data:

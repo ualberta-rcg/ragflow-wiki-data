@@ -5,19 +5,19 @@ lang: "base"
 
 source_wiki_title: "ABINIT"
 source_hash: "b5192b866d4d6dd9f6619d4be6051507"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T03:57:32.773420+00:00"
+last_synced: "2026-04-10T14:10:18.226633+00:00"
+last_processed: "2026-04-10T14:18:00.446791+00:00"
 
 tags:
   - software
   - computationalchemistry
 
 keywords:
-  - "computational chemistry"
   - "job script"
-  - "density functional theory"
   - "atomic data files"
   - "ABINIT"
+  - "density functional theory"
+  - "computational chemistry"
 
 questions:
   - "What is the primary purpose of the ABINIT software suite and what methods does it use to calculate material properties?"
@@ -33,7 +33,7 @@ status:
   tagged: true
   keywords_generated: true
   ragflow_synced: true
-  qa_generated: true
+  qa_generated: false
 ---
 
 The [ABINIT](https://www.abinit.org) program is "a software suite to calculate the optical, mechanical, vibrational, and other observable properties of materials. Starting from the quantum equations of density functional theory, you can build up to advanced applications with perturbation theories based on DFT, and many-body Green's functions (GW and DMFT). ABINIT can calculate molecules, nanostructures and solids with any chemical composition, and comes with several complete and robust tables of atomic potential", according to its authors.
@@ -50,24 +50,20 @@ These files rarely exceed 1 megabyte in size, so they may be downloaded directly
 wget http://www.pseudo-dojo.org/pseudos/nc-sr-04_pbe_standard/H.psp8.gz
 ```
 
-to download the pseudopotential file for hydrogen.
-
 ## Example input
 
 Data files for the tutorials and tests can be found at `$EBROOTABINIT/share/abinit-test/Psps_for_tests/`.
-
 Input files mentioned in the [ABINIT tutorial](https://docs.abinit.org/tutorial/) can be found at `$EBROOTABINIT/share/abinit-test/tutorial`.
 
 ## Example job script
 
 ABINIT calculations other than the most trivial tests or tutorial examples should be run via the job scheduler, [Slurm](running-jobs.md). Below is an example job script for running ABINIT, which uses 64 CPU cores on two nodes for 48 hours, requiring 1024 MB of memory per core. You should be able to adapt this to your own needs and the particular cluster you are using.
 
-abinit_job.sh:
-```bash
+```sh linenums="1" title="abinit_job.sh"
 #!/bin/bash
 #SBATCH --account=def-someuser
 #SBATCH --nodes=2                # number of nodes
-#SBATCH --ntasks=64              # number of MPI processes
+#SBATCH --ntasks=64               # number of MPI processes
 #SBATCH --mem-per-cpu=1024M      # memory use per MPI process; default unit is megabytes
 #SBATCH --time=2-00:00           # time (DD-HH:MM)
 
