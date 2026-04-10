@@ -195,7 +195,7 @@ def fetch_keywords(doc):
     questions = []
 
     try:
-        chunks = doc.list_chunks(page=1, page_size=100)
+        chunks = doc.list_chunks(page=1, page_size=50)
         for chunk in chunks:
             for kw in (getattr(chunk, 'important_keywords', []) or []):
                 if kw and kw.strip():
