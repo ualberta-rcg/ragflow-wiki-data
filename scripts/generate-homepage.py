@@ -209,7 +209,7 @@ __   ___   _| | ___ __ _ _ __      Support:       support@tech.alliancecan.ca
 
     Alliance documentation in English
 
-    [:octicons-arrow-right-24: Browse English docs](en/)
+    [:octicons-arrow-right-24: Browse English docs](en/index.md)
 
 -   :material-translate-variant:{{ .lg .middle }} **Francais**
 
@@ -217,15 +217,7 @@ __   ___   _| | ___ __ _ _ __      Support:       support@tech.alliancecan.ca
 
     Documentation de l'Alliance en francais
 
-    [:octicons-arrow-right-24: Parcourir les docs](fr/)
-
--   :material-file-document-multiple:{{ .lg .middle }} **Base**
-
-    ---
-
-    Bilingual and language-neutral pages
-
-    [:octicons-arrow-right-24: Browse base docs](base/)
+    [:octicons-arrow-right-24: Parcourir les docs](fr/index.md)
 
 </div>
 
