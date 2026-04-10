@@ -51,7 +51,7 @@ questions:
   - "Quelles versions spécifiques des modules doivent être utilisées pour assurer la compatibilité avec les grappes de GPU H100 ?"
   - "Quels sont les modules et versions requis pour charger Ambertools 25.0 avec et sans support GPU dans l'environnement StdEnv/2023 ?"
   - "Quel modèle de carte graphique et quelle version de PLUMED sont explicitement indiqués comme étant pris en charge dans les notes ?"
-  - "Quelles sont les catégories d'informations détaillées dans les en-têtes de colonnes du tableau de l'onglet "StdEnv/2020" ?"
+  - "Quelles sont les catégories d'informations détaillées dans les en-têtes de colonnes du tableau de l'onglet \"StdEnv/2020\" ?"
   - "Comment doit-on configurer les variables d'environnement après avoir chargé le module AmberTools 21 ?"
   - "Quelles sont les différences de compatibilité matérielle, notamment pour les processeurs AMD et les GPU A100, entre les modules 20.9-20.15 et 20.12-20.15 d'Amber 20 ?"
   - "Quelle version spécifique d'Amber est disponible uniquement sur la grappe Graham et présente des limitations avec certaines fonctionnalités Python ?"

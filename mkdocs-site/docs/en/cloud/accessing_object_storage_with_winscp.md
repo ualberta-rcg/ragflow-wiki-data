@@ -20,10 +20,10 @@ keywords:
 
 questions:
   - "What are the required session configurations to connect WinSCP to Arbutus object storage?"
-  - "Why must the URL style be changed from "Virtual Host" to "Path" in the advanced settings?"
+  - "Why must the URL style be changed from \"Virtual Host\" to \"Path\" in the advanced settings?"
   - "How do users create buckets, transfer files, and manage Access Control Lists (ACLs) using the WinSCP interface?"
   - "What are the required session configurations to connect WinSCP to Arbutus object storage?"
-  - "Why must the URL style be changed from "Virtual Host" to "Path" in the advanced settings?"
+  - "Why must the URL style be changed from \"Virtual Host\" to \"Path\" in the advanced settings?"
   - "How do users create buckets, transfer files, and manage Access Control Lists (ACLs) using the WinSCP interface?"
 
 status:

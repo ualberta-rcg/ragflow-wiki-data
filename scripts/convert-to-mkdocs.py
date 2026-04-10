@@ -164,9 +164,13 @@ SOURCE MEDIAWIKI CONTENT:
     return result
 
 
+def _yq(s):
+    """Escape a string for use inside YAML double quotes."""
+    return '"' + s.replace('\\', '\\\\').replace('"', '\\"') + '"'
+
+
 def build_frontmatter(doc_key, doc_state, canonical_tags):
     title = doc_state.get("wiki_title", doc_state.get("base_title", "Untitled"))
-    base_title = doc_state.get("base_title", title)
     lang = doc_state.get("lang", "en")
     slug = doc_key.split("/")[-1] if "/" in doc_key else doc_key
     source_hash = doc_state.get("source_hash", "")
@@ -179,14 +183,14 @@ def build_frontmatter(doc_key, doc_state, canonical_tags):
     tags = [c.lower().replace(" ", "-") for c in categories] if categories else []
 
     lines = ["---"]
-    lines.append(f'title: "{title}"')
-    lines.append(f'slug: "{slug}"')
-    lines.append(f'lang: "{lang}"')
+    lines.append(f"title: {_yq(title)}")
+    lines.append(f"slug: {_yq(slug)}")
+    lines.append(f"lang: {_yq(lang)}")
     lines.append("")
-    lines.append(f'source_wiki_title: "{title}"')
-    lines.append(f'source_hash: "{source_hash}"')
-    lines.append(f'last_synced: "{downloaded_at}"')
-    lines.append(f'last_processed: "{datetime.now(timezone.utc).isoformat()}"')
+    lines.append(f"source_wiki_title: {_yq(title)}")
+    lines.append(f"source_hash: {_yq(source_hash)}")
+    lines.append(f"last_synced: {_yq(downloaded_at)}")
+    lines.append(f"last_processed: {_yq(datetime.now(timezone.utc).isoformat())}")
     lines.append("")
 
     lines.append("tags:")
@@ -200,7 +204,7 @@ def build_frontmatter(doc_key, doc_state, canonical_tags):
     lines.append("keywords:")
     if keywords:
         for k in keywords:
-            lines.append(f"  - \"{k}\"")
+            lines.append(f"  - {_yq(k)}")
     else:
         lines.append("  []")
     lines.append("")
@@ -208,7 +212,7 @@ def build_frontmatter(doc_key, doc_state, canonical_tags):
     if questions:
         lines.append("questions:")
         for q in questions:
-            lines.append(f"  - \"{q}\"")
+            lines.append(f"  - {_yq(q)}")
         lines.append("")
 
     lines.append("status:")

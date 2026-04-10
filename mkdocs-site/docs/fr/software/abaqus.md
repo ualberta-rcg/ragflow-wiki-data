@@ -105,7 +105,7 @@ questions:
   - "Pourquoi est-il nécessaire de passer au nouveau module abaqus/2026 et quelles modifications cela implique-t-il pour les scripts des utilisateurs ?"
   - "Quelle est la procédure recommandée pour soumettre des simulations parallèles en lots à l'aide de scripts Slurm et comment ajuster la mémoire allouée ?"
   - "Quel répertoire contient les scripts à utiliser pour configurer un nœud simple ?"
-  - "Quelle est l'utilité de l'argument optionnel "memory=" et dans quels cas faut-il l'ajuster ?"
+  - "Quelle est l'utilité de l'argument optionnel \"memory=\" et dans quels cas faut-il l'ajuster ?"
   - "Quelle commande permet d'obtenir la liste des arguments en ligne de commande après avoir chargé un module Abaqus ?"
   - "Dans quelles situations spécifiques est-il recommandé d'utiliser un script de redémarrage pour une tâche ?"
   - "Comment doit-on configurer et gérer les tâches qui exigent des ressources dépassant la capacité d'un nœud simple ou qui créent des fichiers volumineux ?"

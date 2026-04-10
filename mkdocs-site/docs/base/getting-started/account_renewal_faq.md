@@ -34,7 +34,7 @@ keywords:
 
 questions:
   - "Why is the annual renewal of Alliance accounts required, and what are the consequences of missing the renewal deadline?"
-  - "What constitutes a "primary role" on an account, and how should users manage their roles if their academic position changes?"
+  - "What constitutes a \"primary role\" on an account, and how should users manage their roles if their academic position changes?"
   - "How can a user retrieve their data if their account has already been deactivated due to non-renewal?"
   - "What are the consequences for sponsored users, running jobs, and file access if a faculty member allows their account to expire?"
   - "What specific steps must Principal Investigators and sponsored users complete on the CCDB platform to successfully renew their accounts?"

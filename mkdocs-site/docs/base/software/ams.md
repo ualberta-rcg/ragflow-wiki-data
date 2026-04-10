@@ -36,7 +36,7 @@ questions:
   - "What are the main differences in input formats, output directories, and restart file names between the new AMS and previous ADF versions?"
   - "What is the step-by-step process for launching the AMS-GUI interactively on a Nibi compute node via OnDemand?"
   - "What are the specific usage policies and VirtualGL workarounds when using the OnDemand Nibi Desktop for AMS applications?"
-  - "What specific chemical system and atomic coordinates are being defined in the "Atoms" section of the text?"
+  - "What specific chemical system and atomic coordinates are being defined in the \"Atoms\" section of the text?"
   - "What computational parameters are specified for the engine, and why are the numerical quality and tails set to these specific values?"
   - "According to the text, what type of spectroscopy is this calculation useful for, and what specific physical properties are being evaluated at the nuclei?"
   - "What are the main differences in input formats, output directories, and restart file names between the new AMS and previous ADF versions?"
