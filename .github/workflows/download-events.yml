@@ -2,9 +2,6 @@ name: Download Events Page
 
 on:
   workflow_dispatch: {}
-  schedule:
-    # 7 hours after wiki download (Friday 13:00 UTC)
-    - cron: "0 13 * * 5"
 
 permissions:
   contents: write
@@ -25,7 +22,7 @@ jobs:
           python-version: "3.11"
 
       - name: Install dependencies
-        run: pip install requests beautifulsoup4
+        run: pip install -r requirements.txt
 
       - name: Download events
         run: python scripts/download-events.py

@@ -2,9 +2,6 @@ name: Download Status Page
 
 on:
   workflow_dispatch: {}
-  schedule:
-    # 6 hours after wiki download (Friday 12:00 UTC)
-    - cron: "0 12 * * 5"
 
 permissions:
   contents: write
@@ -25,7 +22,7 @@ jobs:
           python-version: "3.11"
 
       - name: Install dependencies
-        run: pip install requests beautifulsoup4
+        run: pip install -r requirements.txt
 
       - name: Download status page
         run: python scripts/download-status.py

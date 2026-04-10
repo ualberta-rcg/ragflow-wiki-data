@@ -7,8 +7,6 @@ on:
         description: 'Docs per step (0 = all)'
         required: false
         default: '0'
-  schedule:
-    - cron: "0 7 * * 5"  # Friday 7am UTC (1h after download-wiki)
 
 permissions:
   contents: write
@@ -32,7 +30,6 @@ jobs:
           python -m venv venv
           source venv/bin/activate
           pip install -r requirements.txt
-          pip install beautifulsoup4
 
       - name: Download wiki pages
         run: |
@@ -57,11 +54,6 @@ jobs:
         run: |
           source venv/bin/activate
           python scripts/sync-ragflow.py
-
-      - name: Install Gemini SDK
-        run: |
-          source venv/bin/activate
-          pip install google-generativeai
 
       - name: Convert to MkDocs
         env:
