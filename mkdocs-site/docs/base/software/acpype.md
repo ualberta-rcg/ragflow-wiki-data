@@ -1,47 +1,76 @@
 ---
 title: "ACPYPE"
+slug: "acpype"
+lang: "base"
+
+source_wiki_title: "ACPYPE"
+source_hash: "0ab92e55322535544788827b5ca720e8"
+last_synced: "2026-04-09T20:02:20.019957+00:00"
+last_processed: "2026-04-10T01:19:59.802384+00:00"
+
 tags:
   - software
   - biomolecularsimulation
 
 keywords:
-  - NAMD
-  - charge value
-  - AnteChamber
-  - Tutorial
-  - net molecular charge
-  - General Amber Force Field
-  - Parmchk
-  - qprog
-  - SLURM job script
-  - atp.acpype
-  - ACPYPE
-  - atom type
-  - Python virtual environment
-  - GROMACS
-  - topology generation
-  - Open Babel
-  - Antechamber
-  - AMBER14SB
-  - Tleap
-  - multiplicity
+  - "NAMD"
+  - "charge value"
+  - "AnteChamber"
+  - "Tutorial"
+  - "net molecular charge"
+  - "General Amber Force Field"
+  - "Parmchk"
+  - "qprog"
+  - "SLURM job script"
+  - "atp.acpype"
+  - "ACPYPE"
+  - "atom type"
+  - "Python virtual environment"
+  - "GROMACS"
+  - "topology generation"
+  - "Open Babel"
+  - "Antechamber"
+  - "AMBER14SB"
+  - "Tleap"
+  - "multiplicity"
+
+questions:
+  - "What is the primary function of ACPYPE and which molecular dynamics software packages does it generate topologies for?"
+  - "What are the required prerequisites and specific steps to properly install ACPYPE within a virtual environment?"
+  - "What types of input formats does the ACPYPE command-line tool accept, and what are the key output files it produces?"
+  - "What are the available output topology formats in ACPYPE and which command-line flag is used to specify them?"
+  - "How can a user set up a non-interactive SLURM job script to generate a 3D coordinate file from a SMILES string and process it with ACPYPE?"
+  - "What precautions must be taken regarding thread limits and resource usage when running ACPYPE's quantum mechanics calculations on a login node?"
+  - "How does the program handle the net molecular charge if it is not explicitly declared?"
+  - "What are the available atom type options and which one is used by default?"
+  - "Which quantum chemistry programs can be selected using the qprog argument?"
+  - "What is the name and version of the software interface being executed in the log?"
+
+status:
+  downloaded: true
+  converted: true
+  tagged: true
+  keywords_generated: true
+  ragflow_synced: true
+  qa_generated: true
 ---
 
-## General 
-[ACPYPE: AnteChamber PYthon Parser interfacE](https://alanwilter.github.io/acpype/) (pronounced as ace + pipe), is a tool written in Python 
-to use Antechamber to generate topologies for chemical compounds and to interface with others python applications like CCPN and ARIA.
+## General
+[ACPYPE: AnteChamber PYthon Parser interfacE](https://alanwilter.github.io/acpype/) (pronounced as ace + pipe), is a tool written in Python to use Antechamber to generate topologies for chemical compounds and to interface with other Python applications like CCPN and ARIA.
 
-It will generate topologies for CNS/XPLOR, [GROMACS](gromacs.md), CHARMM and [AMBER](amber.md), that are based on General Amber Force Field (GAFF)
-and should be used only with compatible forcefields like AMBER and its variants.
+It will generate topologies for CNS/XPLOR, [GROMACS](gromacs.md), CHARMM and [AMBER](amber.md), that are based on General Amber Force Field (GAFF) and should be used only with compatible force fields like AMBER and its variants.
 
-We provide [Python wheels](available_python_wheels.md) for ACPYPE for [StdEnv/2020 and StdEnv/2023](standard_software_environments.md)
-in our wheelhouse that you should install into a [virtual environment](python#creating_and_using_a_virtual_environment.md).
+We provide [Python wheels](available-python-wheels.md) for ACPYPE for [StdEnv/2020 and StdEnv/2023](standard-software-environments.md) in our wheelhouse that you should install into a [virtual environment](python.md).
 
-Please note that you need to load the `openbabel` module before installing ACPYPE and anytime you want to use it.
+!!! note
+    Please note that you need to load the `openbabel` module before installing ACPYPE and anytime you want to use it.
 
-## Creating a virtual environment for ACPYPE 
+## Creating a virtual environment for ACPYPE
 
 ```bash
+module load python openbabel
+virtualenv ~/venv_acpype
+source ~/venv_acpype/bin/activate
 pip install --no-index acpype
 ```
 
@@ -50,10 +79,10 @@ Now the `acpype` command can be used:
 ```bash
 acpype --help
 ```
-
 ```
 usage: 
-    acpype -i _file_  -w]
+    acpype -i _file_ | _SMILES_string_ [-c _string_] [-n _int_] [-m _int_] [-a _string_] [-f] etc. or
+    acpype -p _prmtop_ -x _inpcrd_ [-d | -w]
 
     output: assuming 'root' is the basename of either the top input file,
             the 3-letter residue name or user defined (-b option)
@@ -112,22 +141,17 @@ options:
   -l, --sorted          sort atoms for GMX ordering
   -j, --chiral          create improper dihedral parameters for chiral atoms in CNS
   -v, --version         Show the Acpype version and exit
-}}
+```
 
-## Using ACPYPE 
+## Using ACPYPE
 
-### Running as a non-interactive job 
+### Running as a non-interactive job
 
 You can run ACPYPE as a short job with a job script similar to the one shown below.
 
-If you have already a file with the 3D-coordinates of your molecule, 
-you can delete the lines that use `obabel` to generate the file `adp.mol2` 
-from the [SMILES](https://en.wikipedia.org/wiki/SMILES) string.
+If you already have a file with the 3D-coordinates of your molecule, you can delete the lines that use `obabel` to generate the file `adp.mol2` from the [SMILES](https://en.wikipedia.org/wiki/SMILES) string.
 
-{{File
-  |name=job_acpype_ADP.sh
-  |lang="sh"
-  |contents=
+```sh title="job_acpype_ADP.sh"
 #!/bin/bash
 #SBATCH --time=00:15:00
 #SBATCH --cpus-per-task=4
@@ -143,32 +167,30 @@ obabel  -:"c1nc(c2c(n1)n(cn2)[C@H]3[C@@H]([C@@H]([C@H](O3)COP(=O)(O)OP(=O)(O)O)O
     -i smi -o mol2 -O adp.mol2 -h  --gen3d
 
 acpype -i adp.mol2
-}}
+```
 
-### Running on a login node 
-As apart of the topology generation, ACPYPE will run a short QM calculation to optimize the structure and determine the partial charges. 
-For small molecules this should take less than two minutes and can therefore be done on a login-node, however in this case the number of threads should be limited by running ACPYPE with: `OMP_NUM_THREADS=2 acpype ...`.
+### Running on a login node
+As part of the topology generation, ACPYPE will run a short QM calculation to optimize the structure and determine the partial charges. For small molecules this should take less than two minutes and can therefore be done on a login node; however, in this case the number of threads should be limited by running ACPYPE with: `OMP_NUM_THREADS=2 acpype ...`.
 
 For larger molecules or generating topologies for several molecules you should submit a job as shown above.
 
-First the [python](python.md) and [openbabel](open-babel.md) need to be loaded.
-We also download a structure file of Adenosine triphosphate (ATP) from [PubChem](https://pubchem.ncbi.nlm.nih.gov/):
+First the [Python](python.md) and [Open Babel](open-babel.md) modules need to be loaded. We also download a structure file of Adenosine triphosphate (ATP) from [PubChem](https://pubchem.ncbi.nlm.nih.gov/):
 
 ```bash
-
+module load python openbabel
+source ~/venv_acpype/bin/activate
+# download a test file for ATP:
+wget "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/CID/5957/record/SDF?record_type=3d&response_type=save&response_basename=ATP" -O atp.sdf
 ```
-3d&response_typesave&response_basenameATP" -O atp.sdf
-}}
 
 We run ACPYPE, restricting it to using a maximum of two threads:
 
 ```bash
-
+OMP_NUM_THREADS=2 acpype -i atp.sdf
 ```
-2 acpype -i atp.sdf
-|result=
+```
 ============================================================================
- ACPYPE: AnteChamber PYthon Parser interfacE v. 2023.10.27 (c) 2025 AWSdS 
+| ACPYPE: AnteChamber PYthon Parser interfacE v. 2023.10.27 (c) 2025 AWSdS |
 ============================================================================
 WARNING: no charge value given, trying to guess one...
 ==> ... charge set to 0
@@ -180,14 +202,13 @@ WARNING: no charge value given, trying to guess one...
 [...]
 ==> Removing temporary files...
 Total time of execution: 1m 32s
-}}
+```
 
-The directory `atp.acpype` is created 
+The directory `atp.acpype` is created.
 
 ```bash
 ls atp.acpype/
 ```
-
 ```
 acpype.log                 ANTECHAMBER_PREP.AC0  atp_CHARMM.prm    atp_GMX_OPLS.top  posre_atp.itp
 ANTECHAMBER_AC.AC          ATOMTYPE.INF          atp_CHARMM.rtf    atp_GMX.top       rungmx.sh
@@ -199,7 +220,7 @@ ANTECHAMBER_BOND_TYPE.AC0  atp_bcc_gaff2.mol2    atp_GMX.itp       leap.log
 ANTECHAMBER_PREP.AC        atp_CHARMM.inp        atp_GMX_OPLS.itp  md.mdp
 ```
 
-## Useful Links 
+## Useful Links
 
 * [Frequent Asked Questions about ACPYPE](https://github.com/alanwilter/acpype/wiki/Frequent-Asked-Questions-about-ACPYPE)
 * [Tutorial Using ACPYPE for GROMACS](https://github.com/alanwilter/acpype/wiki/Tutorial-Using-ACPYPE-for-GROMACS)

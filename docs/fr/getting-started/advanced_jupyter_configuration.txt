@@ -1,0 +1,358 @@
+<languages />
+{{Warning
+|title=Contenu non recommandé
+|content=Cette page s'adresse aux utilisateurs d'expérience; l'information qu'elle présente est rarement testée et n'est donc pas recommandée. Utilisez plutôt [[JupyterLab/fr|JupyterLab]].
+}}
+
+= Introduction =
+
+{{Warning
+|title=Exécution de notebooks
+|content=Jupyter Lab et les notebooks conviennent à tes tâches interactives <b>brèves</b> pour tester, déboguer ou visualiser rapidement les données (quelques minutes). Pour des analyses plus longues, il faut utiliser Running longer analysis must be done in an [[Running_jobs/fr#Soumettre_des_tâches_avec_sbatch|une tâche non interactive  avec sbatch]].
+Voir aussi [[Advanced_Jupyter_configuration/fr#Exécution_de_notebooks_en_scripts_Python|Exécution de notebooks en scripts Python]] ci-dessous.
+}}
+
+* <b>Project Jupyter</b> est un projet open-source sans but lucratif issu en 2014 du IPython Project pour que tous les langages de programmation puissent être utilisés pour la science des données interactives et le calcul scientifique.<ref> Voir https://jupyter.org/about.html.</ref>
+* <b>JupyterLab</b> est un environnement de développement web interactif pour les notebooks, le code et les données. La souplesse de son interface permet la configuration et l'utilisation des flux de travail en science des données, en calcul scientifique, en journalisme computationnel et en apprentissage automatique. Sa conception modulaire permet l'ajout d'extensions qui enrichissent ses fonctionnalités.<ref>Voir https://jupyter.org/.</ref>
+
+Un serveur JupyterLab devrait toujours se trouver sur un nœud de calcul ou sur une instance infonuagique. Les nœuds de connexion ne sont pas un bon choix parce qu'ils imposent des limites qui peuvent interrompre une application qui consommerait trop de temps CPU ou de mémoire vive. Pour obtenir un nœud de calcul, vous pouvez réserver des ressources en [[Running_jobs/fr|soumettant une tâche]] qui demande un nombre prédéterminé de CPU ou de GPU, une certaine quantité de mémoire et un temps limite d'exécution. <b>Nous décrivons ici comment configurer et soumettre une tâche JupyterLab sur nos grappes nationales.</b>
+
+Si vous recherchez un environnement Jupyter préconfiguré, consultez la page [[Jupyter/fr|Jupyter]].
+
+<span id="Installing_JupyterLab"></span>
+= Installer JupyterLab =
+
+Ces directives installent JupyterLab avec la commande <code>pip</code> dans un
+[[Python/fr#Créer_et_utiliser_un_environnement_virtuel|environnement virtuel Python]].
+
+<ol>
+<li>Si vous n'avez pas déjà un environnement virtuel Python, créez-en un, puis activez-le.
+<ol>
+<li>Chargez le module Python par défaut (comme démontré ci-dessous) ou chargez une version spécifique (voir les versions disponibles avec <code>module avail python</code>).{{Command2
+|module load python
+}}
+<b>Si vous avez l'intention d'utiliser RStudio Server</b>, chargez d'abord <code>rstudio-server</code> avec{{Command2
+|module load rstudio-server python
+}}
+</li><li>Créez un nouvel environnement virtuel Python.{{Command2
+|virtualenv --no-download $HOME/jupyter_py3
+}}
+</li><li>Activez le nouvel environnement virtuel.{{Command2
+|source $HOME/jupyter_py3/bin/activate
+}}
+</li>
+</ol>
+</li><li>Installez JupyterLab dans votre nouvel environnement virtuel (ceci prendra quelques minutes).{{Commands2
+|prompt=(jupyter_py3) [name@server ~]$
+|pip install --no-index --upgrade pip
+|pip install --no-index jupyterlab
+}}
+</li><li>Dans l'environnement virtuel, créez un script enveloppeur (<i>wrapper</i>) pour le lancement automatique de JupyterLab.{{Command2
+|prompt=(jupyter_py3) [name@server ~]$
+|echo -e '#!/bin/bash\nunset XDG_RUNTIME_DIR\njupyter lab --ip $(hostname -f) --no-browser' > $VIRTUAL_ENV/bin/jupyterlab.sh
+}}
+</li><li>Enfin, rendez ce script exécutable.{{Command2
+|prompt=(jupyter_py3) [name@server ~]$
+|chmod u+x $VIRTUAL_ENV/bin/jupyterlab.sh
+}}
+</li>
+</ol>
+<span id="Installing_extensions"></span>
+= Installer des modules d'extension =
+
+Les modules d'extension ajoutent des fonctionnalités et peuvent modifier l'interface utilisateur de JupyterLab. 
+
+=== Jupyter Lmod ===
+
+[https://github.com/cmd-ntrf/jupyter-lmod Jupyter Lmod] est un module d'extension permettant d'interagir avec les modules d'environnement avant le lancement des noyaux (<i>kernels</i>). Il utilise l'interface Python de Lmod pour accomplir des tâches reliées aux modules comme le chargement, le déchargement, la sauvegarde des collections, etc.
+
+Les commandes suivantes installeront et activeront l'extension Jupyter Lmod dans votre environnement (la troisième commande prendra quelques minutes).
+{{Commands2
+|prompt=(jupyter_py3) [name@server ~]$
+|module load nodejs
+|pip install jupyterlmod
+|jupyter labextension install jupyterlab-lmod
+}}
+Vous trouverez dans la page [[JupyterHub/fr#JupyterLab|JupyterHub]] les directives pour gérer les <i>modules chargés</i> dans l'interface JupyterLab.
+
+=== RStudio Server ===
+
+RStudio Server vous permet de développer du code R dans un environnement RStudio, sous un onglet de votre navigateur. Il y a quelques différences avec [[Advanced Jupyter configuration/fr#Installer_JupyterLab|la procédure d'installation de JupyterLab]].
+
+<ol>
+<li><b>Avant de charger le module <code>python</code> et avant de créer un nouvel environnement virtuel</b>, chargez le module <code>rstudio-server</code>.{{Command2
+|module load rstudio-server python
+}}
+</li><li>Une fois que [[Advanced Jupyter configuration/fr#Installer_JupyterLab|JupyterLab est installé dans le nouvel environnement virtuel]], installez le serveur mandataire (<i>proxy</i>) Jupyter RSession.{{Commands2
+|prompt=(jupyter_py3) [name@server ~]$
+|pip install --no-index jupyter-rsession-proxy
+}}
+</li>
+</ol>
+Toutes les autres étapes de configuration et d'utilisation sont les mêmes. Vous devriez voir une application RStudio sous l'onglet <i>Launcher</i>.
+
+<span id="Using_your_installation"></span>
+= Utiliser votre installation =
+
+<span id="Activating_the_environment"></span>
+== Activer l'environnement ==
+
+Assurez-vous que l'environnement virtuel Python dans lequel vous avez installé JupyterLab est activé. Par exemple, quand vous vous connectez à la grappe, vous devez l'activer à nouveau avec{{Command2
+|source $HOME/jupyter_py3/bin/activate
+}}
+Pour vérifier que votre environnement est prêt, vous pouvez obtenir une liste des paquets <code>jupyter*</code> installés avec la commande{{Command2
+|prompt=(jupyter_py3) [name@server ~]$
+|pip freeze {{!}} grep jupyter
+|result=
+jupyter-client==7.1.0+computecanada
+jupyter-core==4.9.1+computecanada
+jupyter-server==1.9.0+computecanada
+jupyterlab==3.1.7+computecanada
+jupyterlab-pygments==0.1.2+computecanada
+jupyterlab-server==2.3.0+computecanada
+}}
+<span id="Starting_JupyterLab"></span>
+== Lancer JupyterLab ==
+
+Pour démarrer un serveur JupyterLab, soumettez une tâche interactive avec <code>salloc</code>. Ajustez les paramètres selon vos besoins. Pour plus d'information, voyez [[Running jobs/fr|Exécuter des tâches]].
+{{Command2
+|prompt=(jupyter_py3) [name@server ~]$
+|salloc --time{{=}}1:0:0 --ntasks{{=}}1 --cpus-per-task{{=}}2 --mem-per-cpu{{=}}1024M --account{{=}}def-yourpi srun $VIRTUAL_ENV/bin/jupyterlab.sh
+|result=
+...
+[I 2021-12-06 10:37:14.262 ServerApp] jupyterlab {{!}} extension was successfully linked.
+...
+[I 2021-12-06 10:37:39.259 ServerApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+[C 2021-12-06 10:37:39.356 ServerApp]
+
+    To access the server, open this file in a browser:
+        file:///home/name/.local/share/jupyter/runtime/jpserver-198146-open.html
+    Or copy and paste one of these URLs:
+        http://node_name.int.cluster.computecanada.ca:8888/lab?token=101c3688298e78ab554ef86d93a196deaf5bcd2728fad4eb
+     or http://127.0.0.1:8888/lab?token=101c3688298e78ab554ef86d93a196deaf5bcd2728fad4eb
+}}
+<span id="Connecting_to_JupyterLab"></span>
+== Se connecter à JupyterLab ==
+
+Pour avoir accès au serveur JupyterLab dans un nœud de calcul à partir de votre navigateur web, vous devez créer un [[SSH tunnelling/fr|tunnel SSH]] de votre ordinateur vers la grappe puisque les nœuds de calcul ne sont pas accessibles directement à partir de l'internet.
+
+<span id="From_Linux_or_macOS"></span>
+=== Sous Linux ou macOS ===
+
+Nous recommandons l'utilisation du paquet Python [https://sshuttle.readthedocs.io sshuttle].
+
+Sur votre ordinateur, ouvrez une nouvelle fenêtre de terminal et créez le tunnel SSH avec la commande <code>sshuttle</code> où vous remplacerez <code><username></code> par le nom d'utilisateur pour votre compte avec l'Alliance et <code><cluster></code> par la grappe sur laquelle vous avez lancé JupyterLab.
+{{Command2
+|prompt=[name@local ~]$
+|sshuttle --dns -Nr <username>@<cluster>.alliancecan.ca
+}}
+Copiez et collez la première adresse HTTP dans votre navigateur web; dans l'exemple <code>salloc</code> ci-dessus, ce serait
+<pre>
+http://node_name.int.cluster.alliancecan.ca:8888/lab?token=101c3688298e78ab554ef86d93a196deaf5bcd2728fad4eb
+</pre>
+<span id="From_Windows"></span>
+=== Sous Windows ===
+
+Pour créer un [[SSH tunnelling/fr|tunnel SSH]] à partir de Windows, utilisez [[Connecting_with_MobaXTerm/fr|MobaXTerm]] ou n’importe quel terminal qui supporte la commande <code>ssh</code>.
+
+<ol>
+<li>Une fois que JupyterLab est lancé sur un nœud de calcul (voir [[Advanced Jupyter configuration/fr#Lancer_JupyterLab|Lancer JupyterLab]]), vous pouvez extraire le <code>hostname:port</code> et le <code>token</code> de la première adresse HTTP fournie, par exemple<pre>
+http://node_name.int.cluster.alliancecan.ca:8888/lab?token=101c368829...2728fad4eb
+       └────────────────────┬────────────────────┘           └──────────┬──────────┘
+                      hostname:port                                   token
+</pre>
+</li><li>Ouvrez un nouvel onglet <i>Terminal</i> dans MobaXTerm. Dans la commande suivante, remplacez <code><hostname:port></code> par la valeur correspondante (voir l'image ci-dessus); remplacez <code><username></code> par le nom d'utilisateur pour votre compte avec l'Alliance; remplacez <code><cluster></code> par la grappe sur laquelle vous avez lancé JupyterLab.{{Command2
+|prompt=[name@local ~]$
+|ssh -L 8888:<hostname:port> <username>@<cluster>.alliancecan.ca
+}}
+</li><li>Ouvrez votre navigateur web et allez à l'adresse suivante, où <code><token></code> doit être remplacé par la valeur alphanumérique provenant de l'adresse illustrée ci-dessus.<pre>
+http://localhost:8888/?token=<token>
+</pre>
+</li>
+</ol>
+<span id="Shutting_down_JupyterLab"></span>
+== Fermer JupyterLab ==
+
+Pour arrêter le serveur JupyterLab avant la fin du temps d'exécution, appuyez deux fois sur <b>CTRL-C</b> dans le terminal où la tâche interactive a été lancée.
+
+Si vous avez utilisé MobaXterm pour créer un tunnel SSH, appuyez sur <b>Ctrl-D</b> pour fermer le tunnel.
+
+<span id="Adding_kernels"></span>
+= Ajouter des noyaux =
+
+Il est possible d'ajouter des noyaux pour d'autres langages de programmation, pour une version différente de Python ou pour un environnement virtuel persistant qui a tous les paquets et bibliothèques nécessaires à votre projet. Pour plus d'information, voyez [http://jupyter-client.readthedocs.io/en/latest/kernels.html Making kernels for Jupyter].
+
+L'installation d'un nouveau noyau se fait en deux étapes&nbsp;:
+# Installation des paquets qui permettent à l'interpréteur du langage de communiquer avec l'interface Jupyter. 
+# Création d'un fichier qui indique à JupyterLab comment amorcer un canal de communication avec l'interpréteur du langage. Ce fichier de configuration du noyau (<i>kernel spec file</i>) est sauvegardé dans un sous-répertoire de <code>~/.local/share/jupyter/kernels</code>.
+
+Les prochaines sections présentent des exemples de procédures d'installation d'un noyau.
+
+<span id="Julia_Kernel"></span>
+== Noyau Julia ==
+
+Prérequis :
+# La configuration d'un noyau Julia dépend d'un environnement virtuel Python et d'un répertoire <code>kernels</code>. Si vous n'avez pas ces dépendances, assurez-vous de suivre les quelques premières directives dans <b>la section <i>Noyau Python</i> ci-dessous</b> (un noyau Python n'est pas requis).
+# Puisque l'installation des paquets Julia nécessite un accès à l'internet, la configuration d'un noyau Julia doit se faire <b>[[SSH/fr|à l'invite de commande sur un nœud de connexion]]</b>.
+
+Une fois que l'environnement virtuel Python est disponible et activé, vous pouvez configurer le noyau Julia.
+
+<ol>
+<li>Chargez le module <b>[[Julia]]</b>.{{Command2
+|prompt=(jupyter_py3) [name@server ~]$
+|module load julia
+}}
+</li><li>Installez IJulia.{{Command2
+|prompt=(jupyter_py3) [name@server ~]$
+|echo -e 'using Pkg\nPkg.add("IJulia")' {{!}} julia
+}}
+</li><li><b>Important</b> : Avant d'utiliser le noyau Julia, démarrez ou redémarrez une nouvelle session JupyterLab.</li>
+</ol>
+
+Pour plus d'information, consultez la [https://github.com/JuliaLang/IJulia.jl documentation sur IJulia].
+
+<span id="Installing_more_Julia_packages"></span>
+=== Installer d'autres paquets Julia ===
+
+Comme pour la procédure d'installation ci-dessus, il faut installer les paquets Julia à partir d'un nœud de connexion, mais l'environnement virtuel Python peut rester désactivé.
+
+<ol>
+<li>Assurez-vous que le même module Julia est chargé.{{Command2
+|module load julia
+}}
+</li><li>Installez les paquets nécessaires, par exemple <code>Glob</code>.{{Command2
+|echo -e 'using Pkg\nPkg.add("Glob")' {{!}} julia
+}}
+</li><li>Les paquets Julia nouvellement installés devraient être utilisés dans un notebook exécuté par le noyau Julia.</li>
+</ol>
+
+<span id="Python_kernel"></span>
+== Noyau Python ==
+
+Dans un terminal avec une session active sur un serveur distant,
+vous pouvez configurer un  [[Python/fr#Créer_et_utiliser_un_environnement_virtuel|environnement virtuel Python]] avec tous les [[Available_Python_wheels/fr|modules Python ]] nécessaires et un noyau Python adapté à JupyterLab.
+La configuration la plus simple de Jupyter dans un nouvel environnement virtuel Python se fait comme suit&nbsp;:
+
+<ol>
+<li>Si vous n'avez pas déjà un environnement virtuel Python, créez-en un, puis activez-le.</li>
+<ol>
+<li>Commencez à partir d'un environnement Bash vierge (ceci n'est nécessaire que si vous utilisez le <i>Terminal</i> Jupyter via [[JupyterHub/fr|JupyterHub]] pour créer et configurer le noyau Python).{{Command2
+|env -i HOME{{=}}$HOME bash -l
+}}
+</li><li>Chargez un module Python.{{Command2
+|module load python
+}}
+</li><li>Créez un nouvel environnement virtuel Python.{{Command2
+|virtualenv --no-download $HOME/jupyter_py3
+}}
+</li><li>Activez le nouvel environnement virtuel.{{Command2
+|source $HOME/jupyter_py3/bin/activate
+}}
+</ol>
+</li><li>Créez le répertoire commun <code>kernels</code> qui est utilisé par tous les noyaux que vous voulez installer.{{Command2
+|prompt=(jupyter_py3) [name@server ~]$
+|mkdir -p ~/.local/share/jupyter/kernels
+}}
+</li><li>Enfin, installez le noyau Python.
+<ol>
+<li>Installez la bibliothèque <code>ipykernel</code>.{{Command2
+|prompt=(jupyter_py3) [name@server ~]$
+|pip install --no-index ipykernel
+}}
+</li><li>Générez le fichier des spécifications du noyau. Remplacez <code><unique_name></code> par un nom spécifique à votre noyau.{{Command2
+|prompt=(jupyter_py3) [name@server ~]$
+|python -m ipykernel install --user --name <unique_name> --display-name "Python 3.x Kernel"
+}}
+</li>
+</ol>
+</li><li><b>Important</b> : Avant d'utiliser le noyau Python, démarrez ou redémarrez une nouvelle session JupyterLab.</li>
+</ol>
+
+Pour plus d'information, consultez la [http://ipython.readthedocs.io/en/stable/install/kernel_install.html documentation IPython kernel].
+
+<span id="Installing_more_Python_libraries"></span>
+=== Installer d'autres bibliothèques Python ===
+
+Selon l'environnement virtuel Python configuré dans la section précédente&nbsp;:
+
+<ol><i>Terminal</i> Jupyter via [[JupyterHub/fr|JupyterHub]], assurez-vous que l'environnement virtuel Python est activé et se trouve dans un environnement Bash vierge. Voir la section ci-dessus pour les détails.</li>
+<li>Installez une bibliothèque qui serait requise, par exemple <code>numpy</code>.{{Command2
+|prompt=(jupyter_py3) [name@server ~]$
+|pip install --no-index numpy
+}}
+</li><li>Vous pouvez maintenant importer les bibliothèques Python dans un notebook exécuté par le <code>Python 3.x Kernel</code>.</li>
+</ol>
+
+<span id="R_Kernel"></span>
+==  Noyau R ==
+
+Prérequis :
+# La configuration d'un noyau R dépend d'un environnement virtuel Python et d'un répertoire <code>kernels</code>. Si vous n'avez pas ces dépendances, assurez-vous de suivre les quelques premières directives dans <b>la section <i>Noyau Python</i> ci-dessus</b> (un noyau Python n'est pas requis).
+# Puisque l'installation de paquets R nécessite un accès à <b>[https://cran.r-project.org/ CRAN]</b>, la configuration d'un noyau R doit se faire <b>[[SSH/fr|à l'invite de commande sur un nœud de connexion]]</b>.
+
+Une fois que l'environnement virtuel Python est disponible et activé, vous pouvez configurer le noyau R.
+
+<ol>
+<li>Chargez un module R.{{Command2
+|prompt=(jupyter_py3) [name@server ~]$
+|module load r/4.1
+}}
+</li><li>Installez les dépendances du noyau R, soit <code>crayon</code>, <code>pbdZMQ</code> et <code>devtools</code>; ceci pourrait prendre jusqu'à 10 minutes et les paquets devraient être installés dans un répertoire local tel que <code>~/R/x86_64-pc-linux-gnu-library/4.1</code>.{{Command2
+|prompt=(jupyter_py3) [name@server ~]$
+|R --no-save
+|result=> install.packages(c('crayon', 'pbdZMQ', 'devtools'), repos{{=}}'http://cran.us.r-project.org')
+}}
+</li><li>Installez le noyau R.{{Command2
+|prompt=> 
+|devtools::install_github(paste0('IRkernel/', c('repr', 'IRdisplay', 'IRkernel')))
+}}
+</li><li>Installez le fichier des spécifications du noyau R.{{Command2
+|prompt=> 
+|IRkernel::installspec()
+}}
+</li><li><b>Important</b> : Avant d'utiliser le noyau R, démarrez ou redémarrez une nouvelle session JupyterLab.</li>
+</ol>
+
+Pour plus d'information, consultez la [https://irkernel.github.io/docs/ documentation IRkernel].
+
+<span id="Installing_more_R_packages"></span>
+=== Installer d'autres paquets R ===
+
+L'installation de paquets R ne peut se faire à partir de notebooks parce qu'il n'y a pas d'accès à CRAN. Comme dans la procédure d'installation ci-dessus, il faut installer les paquets R dans un nœud de connexion, mais l'environnement virtuel Python peut rester désactivé.
+
+<ol>
+<li>Assurez-vous que le même module R module est chargé.{{Command2
+|module load r/4.1
+}}
+</li><li>Démarrez l'interpréteur R et installez les paquets requis. Voici un exemple avec <code>doParallel</code>&nbsp;:{{Command2
+|R --no-save
+|result=> install.packages('doParallel', repos{{=}}'http://cran.us.r-project.org')
+}}
+</li><li>Les paquets R nouvellement installés devraient déjà pouvoir être utilisés dans un notebook exécuté par le noyau R.</li>
+</ol>
+
+= Exécution de notebooks en scripts Python =
+Pour des tâches ou des analyses plus longues, soumettez [[Running_jobs/fr#Soumettre_des_tâches_avec_sbatch|une tâche interactive]]. Il faut alors convertir le notebook en un script Python, créer le script et le soumettre.
+
+1. Dans un nœud de connexion, créez et activez [[Python/fr#Créer_et_utiliser_un_environnement_virtuel|un environnement virtuel]], installez ensuite <tt>nbconvert</tt> si ce n'est pas déjà installé.
+{{Command
+|prompt=(venv) [name@server ~]$
+|pip install --no-index nbconvert
+}}
+
+2. Convertissez le ou les notebooks en scripts Python avec 
+{{Command
+|prompt=(venv) [name@server ~]$
+|jupyter nbconvert --to python mynotebook.ipynb
+}}
+
+3. Créez le script et soumettez la tâche.
+
+Dans le script de soumission, exécutez le notebook converti avec
+<syntaxhighlight lang="bash">python mynotebook.py</syntaxhighlight>
+
+Soumettez votre tâche non interactive avec
+{{Command
+|sbatch my-submit.sh
+}}
+= Références =

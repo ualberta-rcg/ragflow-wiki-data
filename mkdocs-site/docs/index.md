@@ -2,22 +2,126 @@
 title: Home
 ---
 
-# Alliance HPC Documentation
+<div class="hero" markdown>
 
-Technical documentation from the [Digital Research Alliance of Canada](https://alliancecan.ca/) wiki, converted for browsing.
+```
+            Welcome to Vulcan
+            | |
+__   ___   _| | ___ __ _ _ __      Support:       support@tech.alliancecan.ca
+\ \ / / | | | |/ __/ _` | '_ \     Documentation:         docs.alliancecan.ca
+ \ V /| |_| | | (_| (_| | | | |    Portal: portal.vulcan.alliancecan.ca
+  \_/  \__,_|_|\___\__,_|_| |_|    OOD:           vulcan.alliancecan.ca
+```
 
-## Browse by Language
+</div>
 
-- **[English](en/)** -- Documentation in English
-- **[Français](fr/)** -- Documentation en français
-- **[Base](base/)** -- Bilingual / language-neutral pages
+**Vulcan** is a high-performance computing cluster operated by the
+**University of Alberta Research Computing Group (RCG)** and the
+**Alberta Machine Intelligence Institute (AMII)**, as part of the
+**Digital Research Alliance of Canada** national HPC infrastructure.
 
-## About
+!!! warning "This is not the primary documentation"
 
-This site is automatically generated from the [Alliance wiki](https://docs.alliancecan.ca/) using a pipeline that:
+    The official Alliance documentation is at
+    [docs.alliancecan.ca](https://docs.alliancecan.ca/).
+    This site mirrors and enriches that content with AI-generated metadata,
+    search, and Q&A for the Vulcan cluster community.
 
-1. Downloads pages from the MediaWiki API
-2. Syncs content to [RAGFlow](https://ragflow.io/) for AI-powered search
-3. Converts MediaWiki markup to MkDocs Material markdown
+---
 
-Use the **search bar** above or the **tags** page to find what you need.
+## Quick Links
+
+| Resource | Link |
+|----------|------|
+| **Support** | [support@tech.alliancecan.ca](mailto:support@tech.alliancecan.ca) |
+| **Alliance Docs** | [docs.alliancecan.ca](https://docs.alliancecan.ca/) |
+| **Vulcan Portal** | [portal.vulcan.alliancecan.ca](https://portal.vulcan.alliancecan.ca) |
+| **Open OnDemand** | [vulcan.alliancecan.ca](https://vulcan.alliancecan.ca) |
+| **CCDB Account** | [ccdb.alliancecan.ca](https://ccdb.alliancecan.ca/) |
+
+---
+
+## Browse Documentation
+
+<div class="grid cards" markdown>
+
+-   :material-translate:{ .lg .middle } **English**
+
+    ---
+
+    Alliance documentation in English
+
+    [:octicons-arrow-right-24: Browse English docs](en/)
+
+-   :material-translate-variant:{ .lg .middle } **Francais**
+
+    ---
+
+    Documentation de l'Alliance en francais
+
+    [:octicons-arrow-right-24: Parcourir les docs](fr/)
+
+-   :material-file-document-multiple:{ .lg .middle } **Base**
+
+    ---
+
+    Bilingual and language-neutral pages
+
+    [:octicons-arrow-right-24: Browse base docs](base/)
+
+</div>
+
+---
+
+## Alliance Cluster Status
+
+!!! info "Live status from [status.alliancecan.ca](https://status.alliancecan.ca)"
+
+| Service | Status |
+|---------|--------|
+| **Vulcan** | :material-check-circle:{ style="color: green" } Operational |
+| **Beluga** | :material-alert:{ style="color: orange" } Decommissioning (2026) |
+| **Narval** | :material-check-circle:{ style="color: green" } Operational |
+| **Cedar** | :material-check-circle:{ style="color: green" } Operational |
+| **Graham Cloud** | :material-check-circle:{ style="color: green" } Operational |
+| **Arbutus** | :material-check-circle:{ style="color: green" } Operational |
+| **Trillium** | :material-check-circle:{ style="color: green" } Operational |
+| **Nibi** | :material-check-circle:{ style="color: green" } Operational |
+| **Fir** | :material-alert:{ style="color: orange" } Filesystem problem |
+| **Rorqual** | :material-alert:{ style="color: orange" } Partial services |
+
+*Last updated from [status.alliancecan.ca](https://status.alliancecan.ca) — see that page for current incident details.*
+
+---
+
+## Upcoming Events
+
+Events from the [Alliance training calendar](https://explora.alliancecan.ca/events):
+
+| Date | Event | Link |
+|------|-------|------|
+| Apr 10 | Introduction to the Unix Shell | [Register](https://libcal.library.ubc.ca/event/3999883) |
+| Apr 13 | Data Bites — Licensing Your Research Data | [Register](https://libcal.library.ubc.ca/event/3972469) |
+| Apr 14 | Neural Network Programming: Lecture 3 | [Details](https://scinet.courses/1400) |
+| Apr 14 | Introducing the National Data Space for Sensitive Data | [Details](https://crdcn.ca/events/introducing-the-national-data-space-for-sensitive-data-in-social-sciences/) |
+| Apr 15 | Open OnDemand on Trillium | [Details](https://scinet.courses/1401) |
+| Apr 15 | Introduction to Git and GitHub | [Register](https://libcal.library.ubc.ca/event/4000626) |
+| Apr 16 | GPU Python: Numba JIT to CUDA Kernels | [Register](https://forms.gle/E6XyX4Q3H6hXDwUM7) |
+| Apr 17 | The Secret Life of Data (UAlberta) | [Register](https://ualberta.libcal.com/event/4012303) |
+
+---
+
+## About This Site
+
+This documentation is automatically generated by a pipeline that:
+
+1. **Downloads** pages from the Alliance [MediaWiki API](https://docs.alliancecan.ca/)
+2. **Syncs** content to [RAGFlow](https://ragflow.io/) for AI-powered search and keyword extraction
+3. **Converts** MediaWiki markup to MkDocs Material using Google Gemini for accurate formatting
+4. **Generates** prompt completions (Q&A pairs) for enhanced discoverability
+
+Built and maintained by the **University of Alberta Research Computing Group**.
+
+<div style="text-align: center; margin-top: 2em; color: #888; font-size: 0.85em;">
+University of Alberta · Research Computing Group · AMII · Digital Research Alliance of Canada
+</div>

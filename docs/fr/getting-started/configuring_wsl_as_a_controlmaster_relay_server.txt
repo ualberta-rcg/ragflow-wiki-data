@@ -1,0 +1,127 @@
+<languages />
+
+
+{{Warning|title=Important  |content=Cette page est une ébauche; nous travaillons à sa version finale.<br><br>
+Si vous avez des suggestions, écrivez au [[Technical support/fr|soutien technique]].}}
+
+Cette procédure permet d'utiliser ControlMaster de WSL pour vous connecter aux grappes avec plusieurs applications Windows natives pour une certaine durée, sans avoir à vous authentifier pour chaque session. 
+
+=== Installer Linux sur Windows avec WSL ===
+Voir [[Windows Subsystem for Linux (WSL)/fr|Travailler avec Windows Subsystem for Linux (WSL)]]
+
+Dans les fichiers de configuration&nbsp;:
+* la distribution est Ubuntu
+* le nom de l'hôte pour l'instance WSL est <i>ubuntu</i>; <i>/etc/hostname</i> contient <i>ubuntu</i> et <i>/etc/hosts</i> contient <i>127.0.0.1 localhost ubuntu</i>
+* le  nom du système Windows est <i>smart</i> et la connexion est faite par l'utilisateur nommé <i>jaime</i>
+* le nom de l'utilisateur pour la VM Ubuntu est aussi <i>jaime</i>
+* le nom de l'utilisateur pour l'Alliance est <i>pinto</i> et nous voulons nous connecter à Cedar
+
+=== Installer d'autres logiciels ===
+<pre>
+ sudo apt update && sudo apt upgrade -y
+ sudo apt install openssh-server -y
+</pre>
+Vous pouvez vous connecter à Ubuntu à partir de Windows avec <code>ssh localhost</code>.
+
+=== La configuration ressemble à ===
+<pre>
+[ssh client] ----> [ssh relay server] ----> [ssh target server]
+your Windows     modified authorized_keys     using cedar for
+  machine          in your Ubuntu VM           this exercise
+ <i>smart</i>        <i>ubuntu</i>                 Cedar
+</pre>
+
+=== Se connecter à la VM Ubuntu et créer le répertoire <i>custom_ssh</i>===
+<pre>
+jaime@ubuntu:~$ cat custom_ssh/sshd_config
+Port 2222
+HostKey /home/jaime/custom_ssh/ssh_host_ed25519_key
+HostKey /home/jaime/custom_ssh/ssh_host_rsa_key
+AuthorizedKeysFile /home/jaime/custom_ssh/authorized_keys
+ChallengeResponseAuthentication no
+UsePAM no
+Subsystem sftp /usr/lib/openssh/sftp-server
+PidFile /home/jaime/custom_ssh/sshd.pid
+</pre>
+Pour copier les clés <i>ssh_host</i> de  <i>/etc/ssh</i>, utilisez
+<pre>sudo cp /etc/ssh/ssh_host_ed25519_key /home/jaime/custom_ssh/</pre>
+
+=== Modifier <i>.ssh/config</i> sur Ubuntu ===
+<pre>
+jaime@ubuntu:~$ cat ~/.ssh/config
+Host cedar
+    ControlPath ~/.ssh/cm-%r@%h:%p
+    ControlMaster auto
+    ControlPersist 10m
+    HostName cedar.alliancecan.ca
+    User pinto
+</pre>
+
+=== Modifier les clés permises ===
+<pre>
+jaime@ubuntu:~/custom_ssh$ cat /home/jaime/custom_ssh/authorized_keys
+ssh-ed25519 AAAZDINzaC1lZDI1NTE5AAC1lZDIvqzlffkzcjRAaMQoTBrPe5FxlSAjRAaMQyVzN+A+
+</pre>
+
+Utilisez la clé publique SSH que vous avez téléchargée dans CCDB.
+
+=== Lancer le serveur sshd server sur Ubuntu ===
+<pre>
+jaime@ubuntu:~/custom_ssh$ /usr/sbin/sshd -f ${HOME}/custom_ssh/sshd_config
+</pre>
+
+Assurez-vous que le serveur est lancé avec votre profil et non avec le profil racine (<i>root</i>). Vous devrez lancer le serveur sshd à chaque fois que vous redémarrez votre ordinateur ou que WSL est fermé ou lancé de nouveau.
+
+=== Modifier <i>.ssh/config</i> sur <i>smart</i> avec <code>RemoteCommand</code> ===
+<pre>
+jaime@smart ~/.ssh cat config
+Host ubuntu
+        Hostname localhost
+        RemoteCommand ssh cedar
+</pre>
+
+=== Se connecter à Cedar ===
+<pre>
+jaime@smart ~
+$ ssh -t ubuntu -p 2222
+Enter passphrase for key '/home/jaime/.ssh/id_ed25519':
+Last login: Fri Mar 22 10:50:12 2024 from 99.239.174.157
+================================================================================
+Welcome to Cedar! / Bienvenue sur Cedar!
+...
+...
+...
+[pinto@cedar1 ~]$
+</pre>
+
+=== Autre option de configuration ===
+Vous pouvez aussi personnaliser les clés permises pour Ubuntu et le fichier <i>~/.ssh/config</i> de Windows pour que certaines applications graphiques fonctionnent sans avoir à indiquer <code>RemoteCommand</code> (par exemple, WinSCP). Dans ce cas,  <code>RemoteCommand</code> est indiqué pour la clé publique.
+<pre>
+jaime@ubuntu:~/custom_ssh$ cat /home/jaime/custom_ssh/authorized_keys
+command="ssh cedar" ssh-ed25519 AAAZDINzaC1lZDI1NTE5AAC1lZDIvqzlffkzcjRAaMQoTBrPe5FxlSAjRAaMQyVzN+A+
+
+jaime@smart ~/.ssh cat config
+Host ubuntu
+        Hostname localhost
+        #RemoteCommand ssh cedar
+</pre>
+
+Par la suite, vous pouvez encore utiliser <code>ssh ubuntu -p 2222</code> à partir d'un interpréteur (<i>shell</i>) Windows.
+
+=== Configuration avec MobaXterm ===
+
+[[File:MobaXterm-setup.jpg]]
+
+[[File:MobaXterm-VSL-localdriveC.jpg]]
+<!--
+=== Outstanding challenges ===
+With this setup you may be prompt for MFA duo authentication only on the first session. Subsequently multiple SSH sessions can be started on Cedar without MFA. This also works fine to get remote shells on Cedar from several apps running natively on Windows. We already tried for WinSCP, but we can assume it will work for other apps with some tweaks.
+
+However, what I'm realizing now is that on those very same Windows apps I'm not able to list/display the contents of the local Windows drives. Instead they all show the contents of the ubuntu relay server, which may not be what users want. I imagine in the most generic case they would like to transfer files directly between Windows and cedar, and not between Ubuntu and cedar. In any case, users may still see the contents of the Windows host mounted as the /mnt file system on Ubuntu [[Windows_Subsystem_for_Linux_(WSL)#File_access_between_Windows_and_Linux|as explained here]].
+
+I'm also trying to understand how to setup scp and sftp directly from Windows to cedar. To that effect, we might want explore the possibility of having a "generic command script", similar to the setup with automation under MFA, in which we could capture several commands with the pub key in the authorized_keys file.
+
+Ultimately we can conceive multiple stanzas in the .ssh/config, one for each site (cedar, graham, beluga, ...) on different ports (2222, 2223, 2224, ...) 
+
+Therefore, I probably need a hand from some of you to figure this out. Alliance staff members could post suggestions in the security-mfa channel. Users in general please send email to support with the subject "WSL, ControlMaster/MFA suggestion". Thanks
+-->

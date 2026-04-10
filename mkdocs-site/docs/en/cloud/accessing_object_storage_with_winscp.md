@@ -1,45 +1,62 @@
 ---
 title: "Accessing object storage with WinSCP/en"
+slug: "accessing_object_storage_with_winscp"
+lang: "en"
+
+source_wiki_title: "Accessing object storage with WinSCP/en"
+source_hash: "75c3cc0d6e80ab8c241462ec52ac061f"
+last_synced: "2026-04-09T20:02:20.019957+00:00"
+last_processed: "2026-04-10T01:49:01.212814+00:00"
+
 tags:
   - cloud
 
 keywords:
-  - Amazon S3
-  - Access Control Lists
-  - WinSCP
-  - Arbutus object storage
-  - Configuration
+  - "Amazon S3"
+  - "Access Control Lists"
+  - "WinSCP"
+  - "Arbutus object storage"
+  - "Configuration"
+
+questions:
+  - "What are the required session configurations to connect WinSCP to Arbutus object storage?"
+  - "Why must the URL style be changed from "Virtual Host" to "Path" in the advanced settings?"
+  - "How do users create buckets, transfer files, and manage Access Control Lists (ACLs) using the WinSCP interface?"
+  - "What are the required session configurations to connect WinSCP to Arbutus object storage?"
+  - "Why must the URL style be changed from "Virtual Host" to "Path" in the advanced settings?"
+  - "How do users create buckets, transfer files, and manage Access Control Lists (ACLs) using the WinSCP interface?"
+
+status:
+  downloaded: true
+  converted: true
+  tagged: true
+  keywords_generated: true
+  ragflow_synced: true
+  qa_generated: true
 ---
 
-This page contains instructions on how to set up and access [Arbutus object storage](arbutus-object-storage.md) with WinSCP, one of the [object storage clients](arbutus_object_storage_clients.md) available for this storage type.
+This page contains instructions on how to set up and access [Arbutus object storage](arbutus-object-storage.md) with WinSCP, one of the [object storage clients](arbutus-object-storage-clients.md) available for this storage type.
 
-## Installing WinSCP 
-WinSCP can be installed from https://winscp.net/.
+## Installing WinSCP
+WinSCP can be installed from [https://winscp.net/](https://winscp.net/).
 
-## Configuring WinSCP 
+## Configuring WinSCP
 Under "New Session", make the following configurations:
-<ul>
-<li>File protocol: Amazon S3</li>
-<li>Host name: object-arbutus.alliancecan.ca</li>
-<li>Port number: 443</li>
-<li>Access key ID: 20_DIGIT_ACCESS_KEY</li>
-</ul>
-and "Save" these settings as shown below
 
-[600px|thumb|center|WinSCP configuration screen](file:winscp-configuration.png.md)
+*   File protocol: Amazon S3
+*   Host name: object-arbutus.alliancecan.ca
+*   Port number: 443
+*   Access key ID: 20_DIGIT_ACCESS_KEY
 
-Next, click on the "Edit" button and then click on "Advanced..." and navigate to "Environment" to "S3" to "Protocol options" to "URL style:" which <b>must</b> changed from "Virtual Host" to "Path" as shown below:
+and "Save" these settings.
 
-[600px|thumb|center|WinSCP Path Configuration](file:winscp-path-configuration.png.md)
+Next, click on the "Edit" button and then click on "Advanced..." and navigate to "Environment" to "S3" to "Protocol options" to "URL style:" which **must** be changed from "Virtual Host" to "Path".
 
-This "Path" setting is important, otherwise WinSCP will not work and you will see hostname resolution errors, like this:
-[400px|thumb|center|WinSCP resolve error](file:winscp-resolve-error.png.md)
+!!! warning
+    This "Path" setting is important; otherwise, WinSCP will not work, and you will see hostname resolution errors.
 
-## Using WinSCP 
-Click on the "Login" button and use the WinSCP GUI to create buckets and to transfer files:
+## Using WinSCP
+Click on the "Login" button and use the WinSCP GUI to create buckets and to transfer files.
 
-[800px|thumb|center|WinSCP file transfer screen](file:winscp-transfers.png.md)
-
-## Access Control Lists (ACLs) and Policies 
-Right-clicking on a file will allow you to set a file's ACL, like this:
-[400px|thumb|center|WinSCP ACL screen](file:winscp-acl.png.md)
+## Access Control Lists (ACLs) and Policies
+Right-clicking on a file will allow you to set a file's ACL.

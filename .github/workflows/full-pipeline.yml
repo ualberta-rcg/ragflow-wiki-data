@@ -58,8 +58,14 @@ jobs:
           source venv/bin/activate
           python scripts/sync-ragflow.py
 
+      - name: Install Gemini SDK
+        run: |
+          source venv/bin/activate
+          pip install google-generativeai
+
       - name: Convert to MkDocs
         env:
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
           BATCH_SIZE: ${{ github.event.inputs.batch_size || '0' }}
         run: |
           source venv/bin/activate

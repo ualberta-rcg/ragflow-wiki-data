@@ -1,0 +1,49 @@
+<languages/>
+
+Cette page traite des problèmes reliés au transfert de vos données entre nos équipements et ceux de nos partenaires régionaux. 
+
+Si vous avez besoin de conseils ou d'information supplémentaire, contactez le [[Technical support/fr|soutien technique]].
+
+==En préparation à la migration==
+Vérifiez si la migration de vos données doit être effectuée par vous-même ou par notre équipe technique. Pour toute question, contactez le [[Technical support/fr|soutien technique]].
+
+La migration des données se fait à l'aide de [[Globus]]; si vous ne connaissez pas encore ce service, informez-vous de son fonctionnement et assurez-vous qu'il est compatible avec votre système. Pour garantir l'intégrité de vos données, testez le fonctionnement des outils qui seront utilisés sur des données de test; ces outils sont, par exemple [http://www.howtogeek.com/248780/how-to-compress-and-extract-files-using-the-tar-command-on-linux/ tar], [https://www.gnu.org/software/gzip/manual/gzip.html gzip] ou [https://www.cyberciti.biz/faq/how-to-create-a-zip-file-in-unix/ zip]. 
+
+Commencez le processus de migration le plus tôt possible. Le temps de migration peut être augmenté en raison de la quantité de données à migrer et de la charge de traitement exigée des ordinateurs ou du réseau. Le transfert de centaines de gigaoctets prendra plusieurs heures, mais prévoyez une journée complète en cas de difficulté. Le transfert de téraoctets nécessitera quelques jours.
+
+=== Élagage de vos fichiers=== 
+Peu d'entre nous avons adopté comme pratique l'inspection régulière de nos données pour en supprimer les éléments superflus. À l'occasion d'une opération majeure de migration, il importe de procéder au nettoyage de vos répertoires et de vos fichiers. Le temps de transfert est diminué d'autant et l'espace de stockage, denrée en grande demande, est ainsi mieux utilisé.
+* Si vous conservez le code source lorsque vous compilez vos applications, supprimez les fichiers intermédiaires.
+L'une ou l'autre des commandes <code>make clean</code>, <code>make realclean</code>, ou <code>rm *.o</code> pourrait être utile, selon votre fichier [[Make|makefile]].
+* Si vous ignorez l'utilité de gros fichiers portant des noms comme <code>core.12345</code>, il s'agit probablement de fichiers de vidange [https://en.wikipedia.org/wiki/Core_dump (core dumps)] qui peuvent être supprimés.
+
+=== Archivage et compression === 
+La plupart des applications de transfert de données déplacent plus efficacement un seul gros fichier que plusieurs petits fichiers dont le total serait équivalent. Si vos répertoires ou arborescences de fichiers comprennent un grand nombre de petits fichiers, combinez-les pour archivage en utilisant [[Archiving and compressing files|tar]].
+
+Dans certains cas, il peut être avantageux de compresser les gros fichiers; c'est le cas par exemple de fichiers texte, dont la taille est souvent considérablement réduite par l'opération de compression. Il n'y a cependant pas toujours un gain de temps significatif à compresser un fichier qui sera décompressé à son arrivée. Il faut considérer les points suivants&nbsp;: l'espace gagné par la compression du fichier, la durée du temps de compression et la disponibilité de la bande passante. Ces points sont discutés dans la section <i>Data Compression and transfer discussion</i> de [https://bluewaters.ncsa.illinois.edu/data-transfer-doc cette page web] produite par le US National Center for Supercomputing Applications.
+
+Si vous estimez que la compression est avantageuse, utilisez [[Archiving and compressing files/fr|tar]]  ou [https://www.gnu.org/software/gzip/manual/gzip.html gzip].
+
+=== Élimination des doublons ===
+Évitez de transférer vers un nouveau système plusieurs fichiers contenant des données identiques. 
+
+Certains fichiers possédant le même nom peuvent contenir des données différentes. Assurez-vous de donner des noms uniques à vos fichiers pour éviter que des données différentes soient écrasées.
+
+== Processus de migration ==
+Autant que possible, utilisez [[Globus|Globus Online]] pour effectuer le transfert de vos données; c'est un outil efficace et convivial pour réaliser cette tâche. En cas d'interruption de réseau, Globus possède des fonctions de récupération automatique. Nous vous suggérons de sélectionner <i>preserve source file modification times</i> dans <i>Transfer & Timer Options</i>.
+* 
+* verify file integrity after transfer
+
+Il est d'autant plus important de compresser vos données et d'éviter les doublons si vous ne disposez pas de Globus. Si vous devez utiliser [https://fr.wikipedia.org/wiki/Secure_copy scp], [https://fr.wikipedia.org/wiki/SSH_File_Transfer_Protocol sftp], ou [https://fr.wikipedia.org/wiki/Rsync rsync];
+* Préparez des blocs de quelques centaines de gigaoctets que vous transférerez un bloc à la fois. S'il y a interruption, vous n'aurez qu'à reprendre l'opération de transfert sur le bloc affecté et les données transférées auparavant ne seront pas touchées. C'est ici qu'une liste de données à transférer s'avère utile.
+* Vérifiez régulièrement la progression du transfert. Une indication à surveiller est la taille des fichiers. S'il n'y a eu aucun changement depuis  un certain temps, il est possible qu'il faille intervenir. 
+S'il ne vous est pas possible de reprendre l'opération de transfert, contactez le [[Technical support/fr|soutien technique]].
+
+Armez-vous de patience. Même en utilisant Globus, le transfert de données est une opération qui exige du temps. Il est impossible de déterminer exactement le temps de transfert, mais il faut savoir que des centaines de gigaoctets prendront plusieurs heures et que des centaines de téraoctets prendront plusieurs jours.
+
+==Après la migration==
+Si vous n'avez pas utilisé Globus ou si vous n'avez pas sélectionné l'option <i>verify file integrity</i>, assurez-vous que les données transférées ne sont pas corrompues. Un moyen simple est de comparer la taille des fichiers de départ à la taille des fichiers à destination. Pour un examen plus poussé, utilisez  [http://man7.org/linux/man-pages/man1/cksum.1.html cksum] et [http://man7.org/linux/man-pages/man1/md5sum.1.html md5sum] pour comparer les fichiers. Ceux dont la taille ou le checksum ne concordent pas devraient être transférés à nouveau.
+
+== Soutien technique ==
+* Pour savoir comment utiliser les utilitaires d'archivage et de compression, utilisez la commande Linux  <code>man <command></code> or <code><command> --help</code>.
+* Contactez le [[Technical support/fr|soutien technique]].

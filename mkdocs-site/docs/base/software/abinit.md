@@ -1,24 +1,48 @@
 ---
 title: "ABINIT"
+slug: "abinit"
+lang: "base"
+
+source_wiki_title: "ABINIT"
+source_hash: "b5192b866d4d6dd9f6619d4be6051507"
+last_synced: "2026-04-09T20:02:20.019957+00:00"
+last_processed: "2026-04-10T01:18:36.877375+00:00"
+
 tags:
   - software
   - computationalchemistry
 
 keywords:
-  - computational chemistry
-  - job script
-  - density functional theory
-  - atomic data files
-  - ABINIT
+  - "computational chemistry"
+  - "job script"
+  - "density functional theory"
+  - "atomic data files"
+  - "ABINIT"
+
+questions:
+  - "What is the primary purpose of the ABINIT software suite and what methods does it use to calculate material properties?"
+  - "How do users obtain the necessary atomic data files for their ABINIT calculations?"
+  - "How should users configure and submit an ABINIT calculation to the cluster using a Slurm job script?"
+  - "What is the primary purpose of the ABINIT software suite and what methods does it use to calculate material properties?"
+  - "How do users obtain the necessary atomic data files for their ABINIT calculations?"
+  - "How should users configure and submit an ABINIT calculation to the cluster using a Slurm job script?"
+
+status:
+  downloaded: true
+  converted: true
+  tagged: true
+  keywords_generated: true
+  ragflow_synced: true
+  qa_generated: true
 ---
 
 The [ABINIT](https://www.abinit.org) program is "a software suite to calculate the optical, mechanical, vibrational, and other observable properties of materials. Starting from the quantum equations of density functional theory, you can build up to advanced applications with perturbation theories based on DFT, and many-body Green's functions (GW and DMFT). ABINIT can calculate molecules, nanostructures and solids with any chemical composition, and comes with several complete and robust tables of atomic potential", according to its authors.
 
-Run `module spider abinit` to see what versions of ABINIT are currently available. Run it again with a specific version number, e.g. `module spider abinit/8.4.4`, to see if there are other modules that must be loaded first. See [Using modules](utiliser-des-modules-en.md) for more on the `module` command.
+Run `module spider abinit` to see what versions of ABINIT are currently available. Run it again with a specific version number, e.g. `module spider abinit/8.4.4`, to see if there are other modules that must be loaded first. See [Using modules](using-modules.md) for more on the `module` command.
 
-== Atomic data files == 
+## Atomic data files
 
-We do not maintain a collection of atomic data files for ABINIT. You should obtain the atomic data files you need for your calculation by following the links from the [Atomic data files](https://www.abinit.org/downloads/atomic-data-files) page. 
+We do not maintain a collection of atomic data files for ABINIT. You should obtain the atomic data files you need for your calculation by following the links from the [Atomic data files](https://www.abinit.org/downloads/atomic-data-files) page.
 
 These files rarely exceed 1 megabyte in size, so they may be downloaded directly to any login node using `wget` and the URL of the data file. For example,
 
@@ -26,20 +50,17 @@ These files rarely exceed 1 megabyte in size, so they may be downloaded directly
 wget http://www.pseudo-dojo.org/pseudos/nc-sr-04_pbe_standard/H.psp8.gz
 ```
 
-to download the pseudopotential file for hydrogen.
-
-== Example input == 
+## Example input
 
 Data files for the tutorials and tests can be found at `$EBROOTABINIT/share/abinit-test/Psps_for_tests/`.
 
 Input files mentioned in the [ABINIT tutorial](https://docs.abinit.org/tutorial/) can be found at `$EBROOTABINIT/share/abinit-test/tutorial`.
 
-== Example job script == 
+## Example job script
 
 ABINIT calculations other than the most trivial tests or tutorial examples should be run via the job scheduler, [Slurm](running-jobs.md). Below is an example job script for running ABINIT, which uses 64 CPU cores on two nodes for 48 hours, requiring 1024 MB of memory per core. You should be able to adapt this to your own needs and the particular cluster you are using.
 
-**`abinit_job.sh`**
-```sh
+```sh title="abinit_job.sh"
 #!/bin/bash
 #SBATCH --account=def-someuser
 #SBATCH --nodes=2                # number of nodes
@@ -50,4 +71,3 @@ ABINIT calculations other than the most trivial tests or tutorial examples shoul
 module purge
 module load abinit/8.2.2
 srun abinit < parameters.txt >& output.log
-```

@@ -1,0 +1,287 @@
+<languages />
+= Introduction =
+
+
+[https://github.com/cea-hpc/glost GLOST] (pour <i>Greedy Launcher Of Small Tasks</i>) est un outil pour exécuter un grand nombre de tâches séquentielles de courte durée ou de durée variable, ou avec des jeux de paramètres (<i>parameter sweep</i>). Son fonctionnement est semblable à celui de [[GNU Parallel/fr|GNU parallel]] ou d’un [[Job arrays/fr|vecteur de tâches]], mais avec une syntaxe simplifiée. 
+
+
+GLOST utilise l’enveloppe (<i>wrapper</i>) <code>glost_launch</code>  et les commandes [[MPI/fr|MPI]]  <code>srun</code>, <code>mpiexec</code> et <code>mpirun</code>. Un fichier texte nommé <b>list_glost_tasks.txt</b> regroupe les tâches et est employé comme argument pour l’enveloppe <code>glost_launch</code>.
+
+GLOST est particulièrement utile dans les cas suivants&nbsp;:
+
+* plusieurs tâches séquentielles de durée comparable,
+* plusieurs tâches séquentielles de courte durée,
+* tâches séquentielles avec paramètres variables (<i>parameter sweep</i>).
+
+Le principe est de grouper plusieurs tâches séquentielles et de les faire exécuter dans une tâche MPI pouvant utiliser plusieurs cœurs (un ou plusieurs nœuds). Avec moins de tâches dans la queue,  [[Running jobs/fr |l’ordonnanceur]] sera moins sollicité.
+
+Vous pourriez considérer d'utiliser plutôt le paquet logiciel [[META-Farm/fr | META]] développé par une de nos équipes et qui comporte d'importants avantages par rapport à GLOST. Avec META, le temps d'attente total peut être beaucoup plus court; la surcharge imposée est moindre (moins de cycles CPU gaspillés); un mécanisme pratique permet de resoumettre les calculs qui ont échoué ou qui n'ont jamais été exécutés; et META peut traiter autant les tâches séquentielles que les tâches multifils, MPI, GPU et hybrides.
+
+
+<b>NOTE</b> : Lisez cette page au complet pour savoir si cet outil peut servir dans vos travaux. Si c’est le cas, vous pourrez demander l'assistance de [[Technical support/fr|l’équipe technique]] pour modifier vos processus.
+
+= Avantages = 
+
+Selon leur durée et leur nombre, plusieurs tâches séquentielles sont groupées dans une ou plusieurs tâches MPI. 
+
+Le fait de soumettre plusieurs tâches séquentielles en même temps peut ralentir l’ordonnanceur et causer de longs délais de réponse et des interruptions fréquentes dans l’exécution de <code>sbatch</code> ou <code>squeue</code>. La solution de GLOST est de grouper toutes les tâches séquentielles dans un même fichier nommé <b>list_glost_tasks.txt</b> et de soumettre une tâche MPI avec l’enveloppe <code>glost_launch</code>. Ceci diminue de beaucoup le nombre de tâches dans la queue et produit donc moins de demandes à traiter par l’ordonnanceur que si les tâches étaient soumises séparément. Pour soumettre plusieurs tâches séquentielles sans délai, GLOST atténue le fardeau de Slurm.
+
+Avec GLOST, l’utilisateur  soumet et traite quelques tâches MPI plutôt que des centaines ou des milliers de tâches séquentielles.
+
+= Modules =
+
+GLOST utilise OpenMPI pour grouper des tâches séquentielles dans une tâche MPI. Vous devez charger OpenMPI et le module GLOST correspondant. Pour plus d’information, consultez [[Utiliser des modules]]. Pour voir les modules GLOST disponibles, utilisez la commande <code>module spider glost</code>. Avant de soumettre une tâche, assurez-vous de pouvoir charger GLOST et les autres modules nécessaires à l’exécution de votre application.
+<source lang="bash">
+$  module spider glost/0.3.1
+
+--------------------------------------------------------------------------------------------------------------------------------------
+  glost: glost/0.3.1
+--------------------------------------------------------------------------------------------------------------------------------------
+    Description:
+      This is GLOST, the Greedy Launcher Of Small Tasks. 
+
+    Properties:
+      Tools for development / Outils de développement
+
+    You will need to load all module(s) on any one of the lines below before the "glost/0.3.1" module is available to load.
+
+      StdEnv/2023  gcc/12.3  openmpi/4.1.5
+      StdEnv/2023  intel/2023.2.1  openmpi/4.1.5
+ 
+    Help:
+      
+      Description
+      ===========
+      This is GLOST, the Greedy Launcher Of Small Tasks.
+      
+      
+      More information
+      ================
+       - Homepage: https://github.com/cea-hpc/glost
+
+</source>
+Si un module OpenMPI se trouve déjà dans votre environnement, ce qui est le cas pour l’environnement par défaut, ajouter  <code>module load glost</code> à la liste des modules dont vous avez besoin est suffisant pour activer GLOST. Pour vous assurer que GLOST et les autres modules sont présents, lancez la commande <code>module list</code>.
+
+= Utilisation =
+
+== Syntaxe ==
+
+Les formes suivantes sont possibles :
+
+<source lang="bash">
+srun glost_launch list_glost_tasks.txt
+
+mpiexec glost_launch list_glost_tasks.txt 
+
+mpirun glost_launch list_glost_tasks.txt
+</source>
+
+==Nombre de cœurs et nombre de tâches==
+
+Les tâches séquentielles sont attribuées aux cœurs disponibles par une distribution cyclique. L’enveloppe (<i>wrapper</i>) GLOST commence par la première tâche (ou ligne dans la liste) et lui assigne un processeur. Ceci est répété jusqu’à la fin de la liste ou jusqu’à ce que la durée de la tâche soit atteinte. Le nombre de cœurs ne correspond pas nécessairement au nombre de tâches listées. Cependant, pour optimiser les ressources, assurez-vous que les tâches ont une durée d’exécution similaire et qu’elles peuvent être distribuées également sur le nombre de cœurs demandés. Examinons les cas suivants&nbsp;:
+
+* Avec un grand nombre de tâches séquentielles très courtes (par exemple des centaines ou des milliers de tâches de quelques minutes chacune), soumettez une ou plusieurs tâches GLOST pour les exécuter en utilisant un nombre limité de cœurs. Vous pouvez soumettre les tâches avec une courte durée et par nœud afin de profiter du remplissage (<i>backfilling</i>) et de l’ordonnanceur.
+* Avec des dizaines à des centaines de tâches relativement courtes (environ une heure), vous pouvez les grouper dans une ou plusieurs tâches GLOST.
+* Avec plusieurs tâches de longue durée ayant des temps d’exécution similaires, vous pouvez aussi les regrouper dans une tâche GLOST. 
+
+== Estimation du temps d’exécution ==
+
+Avant de lancer une tâche, essayez d’estimer son temps d’exécution; ceci peut servir à estimer le temps d’exécution de la tâche GLOST.
+Supposons que votre tâche GLOST comprend un nombre <b>Njobs</b>  de tâches similaires où chacune utilise un temps <b>t0</b> sur un (1) processeur. La durée totale sera alors de <b>t0*Njobs</b>. 
+
+Pour utiliser maintenant un nombre de cœurs <b>Ncores</b>, la durée sera de <b>wt = t0*Njobs/Ncores</b>.
+
+<b>Note</b> : Une tâche MPI est souvent conçue pour que les processeurs puissent échanger de l'information entre eux, ce qui utilise souvent une grande part du temps pour communiquer plutôt que pour effectuer les calculs. Un grand nombre de petites communications dépendantes peut diminuer la performance du code, mais GLOST utilise MPI pour lancer des tâches séquentielles uniquement et donc, le surcoût en communication est relativement rare. Vous pouvez arriver au même résultat en utilisant directement MPI, mais GLOST est presque aussi efficace en plus de vous épargner l'écriture de code MPI.
+
+== Besoins en mémoire ==
+
+GLOST exécute des tâches séquentielles avec MPI et la mémoire par cœur devrait être la même que la mémoire utilisée par les tâches exécutées séparément. Dans le script Slurm, utilisez <code>--mem-per-cpu</code> plutôt que <code>--mem</code>.
+
+== Créer la liste des tâches ==
+
+Avant de soumettre une tâche, créez un fichier texte nommé <b>list_glost_tasks.txt</b> avec une tâche par ligne et les commandes pour chacune des tâches. Choisir des tâches ayant une durée d’exécution similaire permet d’optimiser les ressources utilisées. Les tâches peuvent être localisées dans un seul ou plusieurs répertoires. Si les tâches sont toutes dans le même répertoire, il faut éviter que les résultats utilisent les mêmes fichiers temporaires ou les mêmes fichiers en sortie; pour ce faire, les résultats peuvent être redirigés vers un fichier avec une variable qui indique l’option ou l’argument utilisé dans l’exécution de la tâche.  Dans le cas où les tâches utilisent les mêmes fichiers temporaires ou les mêmes fichiers en sortie, vous aurez peut-être besoin de créer un répertoire pour chaque tâche (un répertoire pour chaque option ou argument correspondant à une tâche particulière). 
+
+<b>Note</b> : Une tâche peut contenir une ou plusieurs commandes exécutées l’une à la suite de l’autre. Les commandes doivent être séparées par  <code>&&</code>.
+
+Le fichier suivant <b>list_glost_example.txt</b> contient huit tâches.
+<tabs>
+<tab name="Script">
+{{File
+  |name=run_glost_test.sh
+  |lang="bash"
+  |contents=
+#!/bin/bash
+
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=2
+#SBATCH --time=00-02:00
+#SBATCH --mem-per-cpu=4000M
+
+# charger le module GLOST
+
+module load intel/2023.2.1  openmpi/4.1.5 glost/0.3.1
+
+echo "Starting run at: `date`"
+
+# lancer GLOST avec l'argument list_glost_example.txt
+
+srun glost_launch list_glost_example.txt
+
+echo "Program glost_launch finished with exit code $? at: `date`"
+}}
+</tab>
+
+<tab name="Liste des tâches">
+{{File
+  |name=list_glost_example.txt
+  |lang="txt"
+  |contents=
+job01 and/or other commands related to job01 
+job02 and/or other commands related to job02
+job03 and/or other commands related to job03
+job04 and/or other commands related to job04
+job05 and/or other commands related to job05
+job06 and/or other commands related to job06
+job07 and/or other commands related to job07
+job08 and/or other commands related to job08
+}}
+</tab>
+
+</tabs>
+<b>Note</b> : Cet exemple de script ne contient pas de commandes et il ne peut pas être exécuté. Il montre seulement
+
+* la syntaxe de base pour la liste de tâches <b>list_glost_tasks.txt</b> qui servira d’argument pour <code>glost_launch</code>;
+* un script type pour la soumission de tâches.
+
+La liste des tâches et le script doivent être adaptés à votre contexte.
+
+==Liste de tâches situées dans le même répertoire ==
+
+GLOST peut être utilisé pour exécuter un ensemble ou une liste de tâches séquentielles dans un répertoire. Il faut éviter que les résultats utilisent les mêmes fichiers temporaires ou les mêmes fichiers en sortie en ajoutant des arguments pour différencier les tâches. Le prochain exemple contient 10 tâches dont chacune contient une ou plusieurs commandes qui seront exécutées l’une à la suite de l’autre.
+
+* La première commande définit <b>nargument</b> qui peut être une variable ou un paramètre pouvant par exemple être passé au programme;
+* la deuxième commande exécute le programme; pour les besoins du test, nous utilisons la commande <code>sleep 360</code> que vous remplacerez par la ligne de commande pour votre application, par exemple <code>./my_first_prog < first_input_file.txt > first_output_file.txt</code>;
+* la troisième commande et les suivantes sont optionnelles; pour les besoins du test, nous utilisons <code>echo ${nargument}.`hostname` > log_${nargument}.txt</code> qui imprime l’argument et hostname vers le fichier log_${nargument}.txt. Comme c’est le cas pour la deuxième commande, cette ligne sera remplacée selon votre application, par exemple par <code>./my_second_prog < second_input_file.txt > second_output_file.txt</code>.
+<tabs>
+<tab name="Script">
+{{File
+  |name=run_glost_test.sh
+  |lang="bash"
+  |contents=
+#!/bin/bash
+
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=2
+#SBATCH --time=00-02:00
+#SBATCH --mem-per-cpu=4000M
+
+# charger le module GLOST avec les autres modules nécessaires pour lancer votre application
+
+module load intel/2023.2.1  openmpi/4.1.5 glost/0.3.1
+
+echo "Starting run at: `date`"
+
+# lancer GLOST avec l'argument list_glost_tasks.txt
+
+srun glost_launch list_glost_tasks.txt
+
+echo "Program glost_launch finished with exit code $? at: `date`"
+}}
+</tab>
+
+<tab name="Liste des tâches">
+{{File
+  |name=list_glost_tasks.txt
+  |lang="txt"
+  |contents=
+nargument=20 && sleep 360 && echo ${nargument}.`hostname` > log_${nargument}.txt
+nargument=21 && sleep 360 && echo ${nargument}.`hostname` > log_${nargument}.txt
+nargument=22 && sleep 360 && echo ${nargument}.`hostname` > log_${nargument}.txt
+nargument=23 && sleep 360 && echo ${nargument}.`hostname` > log_${nargument}.txt
+nargument=24 && sleep 360 && echo ${nargument}.`hostname` > log_${nargument}.txt
+nargument=25 && sleep 360 && echo ${nargument}.`hostname` > log_${nargument}.txt
+nargument=26 && sleep 360 && echo ${nargument}.`hostname` > log_${nargument}.txt
+nargument=27 && sleep 360 && echo ${nargument}.`hostname` > log_${nargument}.txt
+nargument=28 && sleep 360 && echo ${nargument}.`hostname` > log_${nargument}.txt
+nargument=29 && sleep 360 && echo ${nargument}.`hostname` > log_${nargument}.txt
+}}
+</tab>
+
+</tabs>
+
+<b>Note</b> : Dans cet exemple, nous utilisons 2 cœurs et une liste de 10 tâches. Les deux premières tâches (correspondant aux deux premières lignes) seront assignées par GLOST aux processeurs disponibles. Quand le ou les processeurs auront terminé le traitement des deux premières tâches, ils passeront à la tâche suivante et ainsi de suite jusqu’à la fin de la liste.
+
+== Liste de tâches situées dans des répertoires différents ==
+
+Dans ce cas, plusieurs tâches séquentielles sont exécutées dans des répertoires distincts, ce qui peut être utile pour éviter que les tâches se terminent de façon anormale ou que les résultats se chevauchent quand un programme utilise des fichiers temporaires ou des fichiers d’entrée/sortie avec des noms identiques. Il faut s’assurer que chaque tâche à ses fichiers d’entrée et son répertoire. Il est aussi possible d’utiliser les commandes comme dans l’exemple suivant&nbsp;:
+<tabs>
+<tab name="Script">
+{{File
+  |name=run_glost_test.sh
+  |lang="bash"
+  |contents=
+#!/bin/bash
+
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=3
+#SBATCH --time=00-03:00
+#SBATCH --mem-per-cpu=4000M
+
+# charger le module GLOST avec les autres modules nécessaires pour lancer votre application
+
+module load intel/2023.2.1  openmpi/4.1.5 glost/0.3.1
+
+echo "Starting run at: `date`"
+
+# lancer GLOST avec l'argument list_glost_tasks.txt
+
+srun glost_launch list_glost_tasks.txt
+
+echo "Program glost_launch finished with exit code $? at: `date`"
+}}
+</tab>
+
+<tab name="Liste des tâches">
+{{File
+  |name=list_glost_tasks.txt
+  |lang="txt"
+  |contents=
+nargument=20 && mkdir -p RUN_${nargument} && cd RUN_${nargument} && sleep 360 && echo ${nargument}.`hostname` > log_run.txt
+nargument=21 && mkdir -p RUN_${nargument} && cd RUN_${nargument} && sleep 360 && echo ${nargument}.`hostname` > log_run.txt
+nargument=22 && mkdir -p RUN_${nargument} && cd RUN_${nargument} && sleep 360 && echo ${nargument}.`hostname` > log_run.txt
+nargument=23 && mkdir -p RUN_${nargument} && cd RUN_${nargument} && sleep 360 && echo ${nargument}.`hostname` > log_run.txt
+nargument=24 && mkdir -p RUN_${nargument} && cd RUN_${nargument} && sleep 360 && echo ${nargument}.`hostname` > log_run.txt
+nargument=25 && mkdir -p RUN_${nargument} && cd RUN_${nargument} && sleep 360 && echo ${nargument}.`hostname` > log_run.txt
+nargument=26 && mkdir -p RUN_${nargument} && cd RUN_${nargument} && sleep 360 && echo ${nargument}.`hostname` > log_run.txt
+nargument=27 && mkdir -p RUN_${nargument} && cd RUN_${nargument} && sleep 360 && echo ${nargument}.`hostname` > log_run.txt
+nargument=28 && mkdir -p RUN_${nargument} && cd RUN_${nargument} && sleep 360 && echo ${nargument}.`hostname` > log_run.txt
+nargument=29 && mkdir -p RUN_${nargument} && cd RUN_${nargument} && sleep 360 && echo ${nargument}.`hostname` > log_run.txt
+nargument=30 && mkdir -p RUN_${nargument} && cd RUN_${nargument} && sleep 360 && echo ${nargument}.`hostname` > log_run.txt
+nargument=31 && mkdir -p RUN_${nargument} && cd RUN_${nargument} && sleep 360 && echo ${nargument}.`hostname` > log_run.txt
+}}
+</tab>
+
+</tabs>
+== Redémarrer une tâche GLOST ==
+
+Si vous avez mal évalué la durée d’exécution de votre tâche GLOST, il est possible qu’elle doive être redémarrée pour traiter toutes les tâches. Identifiez d’abord les tâches qui ont été exécutées et supprimez les lignes correspondantes dans la liste ou créez une nouvelle liste avec les tâches non exécutées. Soumettez à nouveau le script avec la nouvelle liste comme argument à <code>glost_launch</code>.
+
+== Autres exemples ==
+
+Si vous avez l'habitude de préparer des scripts, utilisez les exemples qui suivent et modifiez-les selon votre contexte.
+
+Après avoir chargé le module GLOST, copiez les exemples dans votre répertoire avec la commande
+
+<source lang="bash">
+cp -r $EBROOTGLOST/examples Glost_Examples
+</source>
+
+Les exemples copiés seront enregistrés dans le répertoire Glost_Examples.
+
+= Références =
+
+* [[META-Farm/fr|META-Farm]]
+* [[GNU Parallel/fr|GNU parallel]]
+* [[Job arrays/fr|Vecteurs de tâches]]
+* [[MPI/fr|MPI]]
+* [[Running jobs/fr|Exécuter des tâches]]

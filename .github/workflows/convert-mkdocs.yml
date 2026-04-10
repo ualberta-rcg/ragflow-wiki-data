@@ -7,11 +7,6 @@ on:
         description: 'Number of docs to convert (0 = all)'
         required: false
         default: '0'
-      dry_run:
-        description: 'Dry run (no file writes)'
-        required: false
-        default: 'false'
-        type: boolean
 
 permissions:
   contents: write
@@ -36,11 +31,12 @@ jobs:
           python -m venv venv
           source venv/bin/activate
           pip install -r requirements.txt
+          pip install google-generativeai
 
       - name: Convert docs to MkDocs
         env:
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
           BATCH_SIZE: ${{ github.event.inputs.batch_size || '0' }}
-          DRY_RUN: ${{ github.event.inputs.dry_run || 'false' }}
         run: |
           source venv/bin/activate
           python scripts/convert-to-mkdocs.py
