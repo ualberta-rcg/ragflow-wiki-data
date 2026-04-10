@@ -1,0 +1,148 @@
+---
+title: "Frequently Asked Questions about the CCDB/fr"
+slug: "frequently_asked_questions_about_the_ccdb"
+lang: "fr"
+
+source_wiki_title: "Frequently Asked Questions about the CCDB/fr"
+source_hash: "cd883548cb6b7f7dec166b9ab95143f4"
+last_synced: "2026-04-09T20:02:20.019957+00:00"
+last_processed: "2026-04-10T06:28:19.562879+00:00"
+
+tags:
+  []
+
+keywords:
+  []
+
+status:
+  downloaded: true
+  converted: true
+  tagged: false
+  keywords_generated: false
+  ragflow_synced: false
+  qa_generated: false
+---
+
+# Généralités
+
+## Qu'est-ce que le portail CCDB?
+
+[CCDB est le portail pour votre compte avec l'Alliance](https://ccdb.alliancecan.ca). Vous y trouvez l'information sur les rôles qui vous sont désignés dans les projets auxquels vous participez, les ressources que vous pouvez utiliser et les statistiques sur votre utilisation de ces ressources.
+
+## Que puis-je faire via le portail?
+
+*   Vous inscrire,
+*   gérer vos informations personnelles et vos rôles,
+*   présenter une demande au [concours pour l'allocation des ressources](https://www.computecanada.ca/page-daccueil-du-portail-de-recherche/acces-aux-ressources/concours-dallocation-des-ressources/?lang=fr),
+*   gérer vos projets (RAP) ainsi que leurs membres.
+
+## Qu’est-ce qu’un CCI et pourquoi est-il nécessaire?
+
+Le CCI est un numéro d’identification personnel unique au niveau national. Il est créé pour vous lors de votre inscription sur https://ccdb.alliancecan.ca. Cet identifiant est composé de 3 lettres, un tiret, 3 chiffres (par exemple abc-123).
+
+## Qui peut demander un CCI?
+
+Pour vous inscrire, vous devez
+*   soit être membre du corps professoral d’un établissement canadien,
+*   soit être parrainé par un membre du corps professoral d’un établissement canadien inscrit dans CCDB.
+Parmi les personnes pouvant être parrainées, on trouve les étudiantes et étudiants des cycles supérieurs et le personnel de recherche qui relèvent d'un membre du corps professoral d’un établissement canadien.
+
+## Qu’est-ce qu’un rôle?
+
+Le rôle est un identifiant qui combine à la fois votre statut (par exemple professeur, postdoc ou chercheur), votre établissement et la personne qui vous parraine. L'accès à nos ressources de calcul est conditionnel à l'obtention d'un rôle valide et à jour. La plupart des gens n’ont qu’un rôle à la fois. Si vous changez d’établissement, de parrain ou de poste, vous devrez demander un nouveau rôle au lieu de modifier l’ancien. Il s’agit d’une façon pour nous de conserver des dossiers exacts pour justifier l’exploitation des ressources auprès des organismes de financement.
+
+Un CCRI est composé de  
+CCI, un tiret, 2 chiffres. Par exemple, l'identifiant de la personne dont le CCI est CCI abc-123, le CCRI du rôle principal serait abc-123-01 et celui du deuxième rôle serait abc-123-02.
+
+## Qu’est-ce qu’un CCRI?
+
+Le CCRI est un numéro unique qui identifie un rôle (voir *Qu’est-ce qu’un rôle?*). Une personne pouvant avoir plusieurs rôles au cours de sa carrière, un CCI peut être relié à plusieurs CCRI. Chaque activité effectuée sur une de nos grappes nationales est associée à un CCRI.
+
+# RAP (*Resource allocation project*)
+
+## Qu'est-ce qu'un RAP?
+
+L'accès aux ressources de calcul sont disponibles pour les chercheuses principales et chercheurs principaux pour des projets qui portent le nom de RAP. Un RAP est identifié par un RAPI (son identifiant) et le nom du groupe de recherche.
+
+Habituellement, les chercheuses et chercheurs travaillent à au moins un projet. Pour rendre compte de ses activités, l'Alliance doit fournir des statistiques sur l’usage des installations; le terme *projet* étant trop vague, nous utilisons plutôt l'expression plus précise *projet d’allocation scientifique*. En outre, les ressources de calcul ne sont pas allouées à des personnes, mais à des équipes de recherche. Le RAP correspond au groupe de recherche à qui les ressources ont été allouées.
+
+Il y a deux types de RAP :
+*   Le RAP par défaut est créé automatiquement à l'activation d'un rôle de chercheuse ou chercheur principal. Les quotas par défaut et les quotas reliés au service d'accès rapide et aux ressources infonuagiques s'appliquent à ce type de RAP. Les chercheuses et chercheurs principaux et les personnes qu'ils parrainent peuvent se prévaloir de l'usage opportuniste des ressources de calcul avec l'ordre de priorité par défaut, soit le niveau le plus bas. Dans CCDB, ces RAP sont identifiés `def-profuntel`.
+
+*   Le RAP par allocation est créé quand des ressources sont allouées à une chercheuse ou un chercheur principal dans le cadre du concours pour l'allocation de ressources. La syntaxe du RAPI est au format `abc-123-ab` et un nom de groupe y est associé. Le nom de groupe pour les ressources aux plateformes et portails est au format `rpp-profuntel`; pour les ressources aux groupes de recherche, `rrg-profuntel`; pour les ressources infonuagiques, `cpp-profuntel` (plateformes et portails) ou `crg-profuntel` (groupes de recherche).
+
+## Qu'est-ce que le nom de groupe?
+
+Le nom de groupe est un pseudonyme du RAPI (*Research Allocation Project Identifier*); la correspondance nom de groupe/RAPI est unique (un pour un). Il est souvent plus facile de se souvenir du nom de groupe.
+
+Les noms de groupe sont formés selon la convention suivante (où **xx** est une chaîne de chiffres et de lettres) :
+*   RAP par défaut: `def-[profuntel][-xx]`
+*   RAP de ressources de CHP pour les groupes de recherche : `rrg-[profuntel][-xx]`
+*   RAP de ressources de calcul haute performance pour les plateformes et portails: `rpp-[profname][-xx]`
+*   RAP de ressources infonuagiques pour les groupes de recherche: `crg-[profuntel][-xx]`
+*   RAP de ressources infonuagiques pour les plateformes et portails: `cpp-[profname][-xx]`
+
+Le nom de groupe est utilisé comme nom de groupe POSIX avec son identifiant de groupe POSIX; la propagation dans LDAP se fait par l'attribut `dn: cn=rpp-profname,ou=Group,dc=computecanada,dc=ca`.
+
+## Qui a accès à un RAP?
+
+**RAP par défaut :** Ceux et celles qui ont un rôle parrainé par une chercheuse ou un chercheur principal sont toujours membres de son RAP par défaut; le fait de confirmer le parrainage d’un utilisateur en fait par défaut un membre du RAP de la chercheuse ou du chercheur principal. Ceci ne peut pas être modifié, mais la personne qui parraine peut désactiver un rôle en tout temps.
+
+**RAC RAP :** Les membres sont définis différemment selon qu'il s'agit de ressources de calcul haute performance ou de ressources infonuagiques.
+*   Ressources de calcul haute performance: À la création du RAP (par exemple CPU, GPU, stockage /project ou /nearline), CCDB ajoute automatiquement comme membres: a. tous les rôles des personnes parrainées par la chercheuse ou le chercheur principal *et* b. tous les rôles de co-chercheuses et co-chercheurs associés *et* c. tous les rôles des personnes parrainées par toutes les co-chercheuses et co-chercheurs associés. Les rôles parrainés *après* la création du RAP sont aussi ajoutés aux membres.
+*   Ressources infonuagiques: À la création d'un RAP de ressources infonuagiques, seule la chercheuse ou le chercheur principal est ajouté comme membre.
+
+## Gestion des membres d'un RAP par allocation
+
+La chercheuse ou le chercheur principal peut en tout temps ajouter ou supprimer un membre de son RAP par allocation. Toute personne possédant un compte actif avec l'Alliance peut être ajoutée comme membre. Un chercheur principal pourrait par exemple donner accès à des rôles de personnes qu'il ne parraine pas (c'est-à-dire une co-chercheuse ou un co-chercheur principal) ou supprimer un ou plusieurs des rôles de personnes qu'il parraine de l'accès à son RAP par allocation pour les restreindre à son RAP par défaut.
+
+Les trois niveaux de permission sont :
+*   Propriétaire : La chercheuse principale ou le chercheur principal est seul propriétaire du RAP et des allocations qui y sont associées. Elle ou il peut ajouter ou supprimer des gestionnaires et des membres.
+
+*   Gestionnaire : Niveau supérieur de permission pour les fonctions du portail CCDB, mais pas pour les grappes. La ou le gestionnaire est désigné par le propriétaire ou par un autre gestionnaire. Elle ou il peut effectuer des modifications aux membres et utiliser l'allocation de la chercheuse ou du chercheur principal.
+
+*   Membre : Le membre peut utiliser l'allocation de la chercheuse ou du chercheur principal. Elle ou il ne peut pas effectuer des modifications aux membres.
+
+Les membres d'un RAP constituent un groupe pour LDAP. Il s'agit du groupe d'utilisatrices et utilisateurs qui peuvent soumettre des tâches dans le cadre du RAPI (l'identifiant du RAP) et qui peuvent partager des fichiers sous Unix.
+
+Pour savoir comment ajouter des membres, consultez les [caractéristiques des grappes](using-a-resource-allocation.md#caracteristiques-des-grappes).
+
+# Obtenir un compte
+
+## J’avais un compte, mais j’ai changé de poste ou de parrain, ou j’ai perdu mon mot de passe. Devrais-je me réinscrire pour en avoir un nouveau?
+
+L'Alliance a pour politique de n’attribuer qu’un compte (CCI) par personne. Les demandes concernant un second CCI sont donc automatiquement rejetées. Si vous avez déjà un CCI et avez changé de poste, demandez plutôt un nouveau rôle (CCRI). Pour cela, ouvrez votre compte et cliquez sur [Mon compte --> Demander un nouveau rôle](https://ccdb.alliancecan.ca/me/add_role). Si vous avez oublié votre mot de passe, vous pouvez le [réinitialiser](https://ccdb.alliancecan.ca/security/forgot). Si vous n'avez plus accès à l'adresse courriel utilisée lors de votre première inscription, écrivez-nous à [accounts@tech.alliancecan.ca](mailto:accounts@tech.alliancecan.ca) et nous pourrons la mettre à jour pour vous.
+
+## Comment puis-je m’inscrire?
+
+Cliquez [ici pour vous enregistrer](https://ccdb.alliancecan.ca/account_application). Vous devrez accepter de vous conformer à certaines politiques et ententes avant d'obtenir votre compte. Vous pouvez prendre connaissance de [ces documents sur notre site Web](https://alliancecan.ca/fr/politiques).
+
+Les ententes auxquelles vous avez accepté de vous conformer se trouvent dans le menu [Mon compte --> Ententes](https://ccdb.alliancecan.ca/agreements/user_index).
+
+## Quel statut devrais-je sélectionner?
+
+Il y a deux principaux types de rôles :
+*   les rôles de parrainage (c.-à-d. les chercheuses et chercheurs principaux) et
+*   les rôles parrainés.
+Pour les rôles de parrainage, il faut choisir le statut de professeure ou professeur. Les administratrices et administrateurs qui ne sont pas professeures ou professeurs, mais qui mènent des projets de recherche devraient nous contacter à [comptes@tech.alliancecan.ca](mailto:comptes@tech.alliancecan.ca) avant de postuler pour un rôle/compte afin que nous puissions faciliter leur demande, les rôles de professeure ou professeur n’étant accordés qu'à des membres canadiens du corps professoral de niveau postsecondaire admissibles au financement de la FCI.
+
+Les rôles parrainés se répartissent en deux groupes, internes ou externes, la distinction principale étant le fait que le demandeur fasse officiellement partie du groupe ou qu’il soit un collaborateur d'un établissement différent. Les rôles disponibles sont :
+
+*   étudiante ou étudiant de premier cycle, maîtrise, doctorat;
+*   chercheuse ou chercheur affilié au même établissement que celui de la chercheuse ou du chercheur principal, soit stagiaire postdoctoral, rémunéré par l'établissement de la chercheuse ou du chercheur principal;
+*   personnel administratif (par exemple les gestionnaires, secrétaires et toute personne qui n'utilise pas les ressources de calcul);
+*   collaboratrices ou collaborateurs externes affiliés à un autre établissement que celui de la chercheuse ou du chercheur principal.
+
+Un collaborateur externe est une personne qui travaille avec le groupe et que la chercheuse principale ou le chercheur principal a accepté de parrainer. Cette personne est affiliée à un autre établissement que celui de la personne qui la parraine.
+
+[Voyez la liste complète des rôles.](user-roles-to-access-resources-and-services-of-the-alliance-federation.md)
+
+## Que se passera-t-il une fois que j’aurai envoyé ma demande?
+
+Vous recevrez un courriel contenant un lien pour confirmer l’adresse courriel que vous avez fournie. Si vous êtes chercheuse principale ou chercheur principal (souvent, un membre du corps professoral), votre demande sera approuvée par le personnel de la Fédération. Autrement, votre demande devra être acceptée par la chercheuse principale ou le chercheur principal que vous avez identifié comme étant votre parrain avant d’être approuvée par le personnel de la Fédération.
+
+# Assistance
+
+## Où puis-je obtenir de l’aide sur quelque chose qui n’apparaît pas dans la FAQ?
+
+Si vous ne trouvez pas réponse à vos questions, écrivez à [comptes@tech.alliancecan.ca](mailto:accounts@tech.alliancecan.ca).

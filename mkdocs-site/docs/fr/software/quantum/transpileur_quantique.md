@@ -1,0 +1,51 @@
+---
+title: "Transpileur quantique/fr"
+slug: "transpileur_quantique"
+lang: "fr"
+
+source_wiki_title: "Transpileur quantique/fr"
+source_hash: "06f5fa43b6d3316e6ab9c159b148c061"
+last_synced: "2026-04-09T20:02:20.019957+00:00"
+last_processed: "2026-04-10T11:57:45.740513+00:00"
+
+tags:
+  []
+
+keywords:
+  []
+
+status:
+  downloaded: true
+  converted: true
+  tagged: false
+  keywords_generated: false
+  ragflow_synced: false
+  qa_generated: false
+---
+
+La transpilation classique décrit la traduction d’un code écrit dans un certain langage de programmation vers un code écrit dans un autre langage. C'est un processus analogue à la compilation.
+
+Dans le cadre de l'informatique quantique, la transpilation vise à s’assurer qu’un circuit quantique utilise uniquement les portes natives de la machine quantique sur laquelle il sera exécuté. La transpilation veille également à ce que les opérations avec plusieurs qubits soient assignées à des qubits physiquement connectés sur la puce quantique.
+
+## Étapes de transpilation
+
+### Décomposition des mesures
+Les mesures sont effectuées dans une base donnée, telles que les bases X, Y ou Z, entre autres. La plupart des ordinateurs quantiques mesurent dans la base Z (base de calcul). Si une autre base est requise, des rotations doivent être ajoutées en fin de circuit pour ajuster la base de mesure.
+
+### Décomposition intermédiaire
+Une première décomposition des opérations est nécessaire pour exécuter le circuit sur une machine quantique afin de limiter la quantité d’opérations différentes utilisées par le circuit. Par exemple, les opérations à plus de deux qubits doivent être décomposées en opérations à deux ou un qubits.
+
+### Placement
+L'idée consiste à établir une association entre les fils du circuit quantique créé et les qubits physiques de la machine. Cette étape peut être réduite à un problème d'[isomorphisme de sous-graphe](https://fr.wikipedia.org/wiki/Probl%C3%A8me_de_l%27isomorphisme_de_sous-graphes).
+
+### Routage
+Malgré l’étape de placement, il se peut que certaines opérations à deux qubits ne puissent pas être correctement assignées à des coupleurs physiques disponibles sur la machine. Dans ce cas, des opérations de [permutation](https://pennylane.ai/qml/glossary/what-is-a-swap-gate) sont utilisées pour rapprocher virtuellement les qubits concernés et permettre leur connexion. Ces opérations de permutations sont toutefois très coûteuses, rendant essentiel un placement initial optimal afin de minimiser leur utilisation.
+
+### Optimisation
+Les qubits accumulent des erreurs et perdent leur cohérence au fil du temps. Pour limiter ces effets, le processus d'optimisation diminue le nombre d'opérations appliquées sur chaque qubit à l'aide de différents algorithmes classiques. Par exemple, il supprime les opérations triviales et les opérations inverses; combine les rotations sur un même axe; et plus généralement, remplace des sections de circuits par des circuits équivalents, générant moins d’erreurs.
+
+### Décomposition en portes natives
+Chaque ordinateur quantique dispose d'un ensemble fini d'opérations de base (portes natives), à partir desquelles toutes les autres opérations peuvent être composées. Par exemple, MonarQ dispose d’un ensemble de 13 portes natives. La transpilation décompose ainsi toutes les opérations non natives d’un circuit en opérations natives.
+
+## Utiliser le transpileur de Calcul Québec avec MonarQ
+Calcul Québec a développé un transpileur qui permet d’envoyer des circuits sur MonarQ de manière transparente, en utilisant les étapes de transpilation mentionnées plus haut. Ce transpileur est intégré à un [appareil PennyLane](https://docs.pennylane.ai/en/stable/code/api/pennylane.device.html) et est donc conçu pour être spécifiquement utilisé avec [PennyLane](pennylane.md). Pour les détails, consultez [la documentation](https://github.com/calculquebec/pennylane-calculquebec/blob/main/doc/getting_started.ipynb).

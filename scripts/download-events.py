@@ -99,10 +99,6 @@ def main():
         "change_status": change_status,
     })
     
-    if change_status in ("new", "updated"):
-        docs_state[doc_key]["needs_ragflow_sync"] = True
-        docs_state[doc_key]["needs_mkdocs_convert"] = True
-    
     state["documents"] = docs_state
     state["last_events_download"] = timestamp
     save_state(state)

@@ -6,6 +6,9 @@ on:
 permissions:
   contents: write
 
+env:
+  PYTHONUNBUFFERED: "1"
+
 jobs:
   download-events:
     runs-on: ubuntu-22.04
@@ -27,6 +30,9 @@ jobs:
       - name: Download events
         run: python scripts/download-events.py
 
+      - name: Regenerate homepage
+        run: python scripts/generate-homepage.py
+
       - name: Configure Git
         run: |
           git config --global user.name "github-actions[bot]"
@@ -34,7 +40,7 @@ jobs:
 
       - name: Commit changes (if any)
         run: |
-          git add -A docs/events/ config/processing-state.json
+          git add -A docs/events/ config/processing-state.json mkdocs-site/docs/index.md
           
           if git diff --staged --quiet; then
             echo "No changes to commit."

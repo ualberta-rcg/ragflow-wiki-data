@@ -1,0 +1,128 @@
+---
+title: "HDF5/fr"
+slug: "hdf5"
+lang: "fr"
+
+source_wiki_title: "HDF5/fr"
+source_hash: "33dd8e74ff4595319cdb6ae410d8c1b6"
+last_synced: "2026-04-09T20:02:20.019957+00:00"
+last_processed: "2026-04-10T07:11:42.147399+00:00"
+
+tags:
+  - software
+
+keywords:
+  []
+
+status:
+  downloaded: true
+  converted: true
+  tagged: true
+  keywords_generated: false
+  ragflow_synced: false
+  qa_generated: false
+---
+
+# Généralités
+
+HDF5 (pour *Hierarchical Data Format*) est une bibliothèque de formatage des données scientifiques qui en facilite le stockage, la lecture, la visualisation, la manipulation et l'analyse. Elle traite tous les types de données et sa conception permet à la fois des entrées-sorties flexibles et efficaces, ainsi que la prise en charge de forts volumes de données. Elle est portable et extensible, et peut accompagner les applications dans leur évolution.
+La suite technologique HDF5 comprend des outils et des applications pour la gestion, la manipulation, la visualisation et l'analyse de données au format HDF5.
+HDF (aussi appelé HDF4) est une bibliothèque et un format de fichier multiformat pour le stockage et la gestion sur plusieurs ordinateurs. HDF4 est le format original et, même si elle est toujours supportée, la version HDF5 est recommandée.
+
+## Description
+HDF a été conçue pour :
+- de forts volumes de données et des données complexes, mais peut être utilisée pour de faibles volumes et des données simples;
+- toutes les tailles et tous les types de systèmes (portable);
+- le stockage et des entrées-sorties flexibles et efficients;
+- les applications peuvent évoluer et traiter de nouveaux modèles.
+
+HDF comprend :
+- un format de fichier pour le stockage de données HDF4/HDF5;
+- un modèle pour organiser et accéder à des données HDF4/HDF5 avec diverses applications;
+- plusieurs logiciels, dont des bibliothèques, des modules linguistiques et plusieurs outils spécifiques au format.
+
+Références :
+- [Site web du projet](https://www.hdfgroup.org/solutions/hdf5/)
+- [Documentation](https://support.hdfgroup.org/documentation/)
+- [Téléchargement](https://www.hdfgroup.org/downloads/hdf5)
+
+## Points forts
+- Les données sont indépendantes de l'architecture matérielle ([boutisme](https://fr.wikipedia.org/wiki/Boutisme)).
+- Les données structurées en unités physiques permettent le suivi de l'information pertinente.
+- Utilisable en parallèle (MPI-IO).
+- Les données peuvent être compressées à l'écriture (zlib ou szip).
+- Interfaces pour C, C++, Fortran 90, Java et Python.
+- Gère tous les types de données (plus que [NetCDF](netcdf.md)).
+- Lecture et écriture au format .mat de Matlab.
+- Gratuit pour la plupart des plateformes.
+
+## Points faibles
+- Interface plus compliquée que celle de [NetCDF](netcdf.md).
+- HDF5 n'exige pas UTF-8; ASCII est habituellement employé.
+- Les ensembles de données ne peuvent être libérés sans qu'une copie du fichier soit créée avec un autre outil.
+
+# Guide de démarrage
+Nous abordons ici les détails de configuration.
+
+## Modules d'environnement
+Les [modules](utiliser-des-modules.md) suivants sont disponibles sur nos grappes :
+- `hdf`
+  - version 4.1 et précédentes
+- `hdf5`
+  - la plus récente version de HDF5
+- `hdf5-mpi`
+  - pour utiliser MPI
+
+Exécutez `module avail hdf` pour connaître les versions disponibles pour le compilateur et les modules MPI que vous avez chargés. Pour la liste complète des modules HDF4/HDF5, exécutez `module -r spider '.*hdf.*'`.
+
+Utilisez `module load hdf/version` ou `module load hdf5/version` pour configurer l'environnement selon la version sélectionnée. Par exemple, pour charger HDF5 version 1.14.2, lancez :
+
+```bash
+module load hdf5/1.14.2
+```
+
+## Scripts de soumission de tâche
+
+Pour des exemples de scripts pour l'ordonnanceur Slurm, consultez [Exécuter des tâches](running-jobs.md). Nous vous recommandons d'utiliser la commande `module load ...` dans votre script.
+
+## Lier aux bibliothèques HDF
+Voici des exemples en mode séquentiel et en mode parallèle :
+
+### Mode séquentiel
+
+```bash
+module load hdf5/1.14.2
+gcc example.c -lhdf5
+```
+
+### Mode parallèle
+
+```bash
+module load hdf5-mpi/1.14.2
+mpicc example.c -lhdf5
+```
+
+### Exemple
+Consultez [un exemple](https://support.hdfgroup.org/ftp/HDF5/examples/examples-by-api/hdf5-examples/1_10/C/H5D/h5ex_d_rdwr.c) de lecture et écriture dans un ensemble de données. Des nombres entiers sont d'abord écrits avec des dimensions *data space* de DIM0xDIM1, puis le fichier est fermé. Le fichier est ensuite rouvert, les données sont lues et affichées.
+
+Pour compiler et exécuter, utilisez :
+
+```bash
+module load hdf5-mpi
+mpicc h5ex_d_rdwr.c -o h5ex_d_rdwr -lhdf5
+mpirun -n 2 ./h5ex_d_rdwr
+```
+
+## Utilitaires
+Vous trouverez [la liste complète](https://support.hdfgroup.org/products/hdf5_tools) sur le site web du HDF Group. Soulignons les utilitaires suivants :
+- HDF5 ODBC Connector : interface SQL pour les données HDF5 dans Excel, Tableau et autres.
+- HDFView : navigateur Java et ensemble d'objets pour HDF5-1.10 (identification d'objets 64 bits) et HDF 4.2.12 (et versions ultérieures).
+- quelques outils en ligne de commande :
+  - gif2h5/h52gif
+  - h5cc, h5fc, h5c++
+  - h5debug
+  - h5diff
+  - h5dump
+  - h5import
+- h5check : vérification de la validité d'un fichier HDF5.
+- h5edit : outils d'édition.

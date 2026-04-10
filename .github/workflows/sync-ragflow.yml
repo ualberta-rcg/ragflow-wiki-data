@@ -12,9 +12,22 @@ on:
         required: false
         default: 'false'
         type: boolean
+      force:
+        description: 'Force re-sync all docs (clears ragflow_source_hash)'
+        required: false
+        default: 'false'
+        type: boolean
+      verify:
+        description: 'Verify synced docs exist in RAGFlow before syncing'
+        required: false
+        default: 'false'
+        type: boolean
 
 permissions:
   contents: write
+
+env:
+  PYTHONUNBUFFERED: "1"
 
 jobs:
   sync:
@@ -45,7 +58,10 @@ jobs:
           DRY_RUN: ${{ github.event.inputs.dry_run || 'false' }}
         run: |
           source venv/bin/activate
-          python scripts/sync-ragflow.py
+          ARGS=""
+          if [ "${{ github.event.inputs.force }}" = "true" ]; then ARGS="$ARGS --force"; fi
+          if [ "${{ github.event.inputs.verify }}" = "true" ]; then ARGS="$ARGS --verify"; fi
+          python scripts/sync-ragflow.py $ARGS
 
       - name: Configure Git
         run: |
