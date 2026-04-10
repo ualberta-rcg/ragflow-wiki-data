@@ -24,7 +24,7 @@ from datetime import datetime, timezone
 sys.path.insert(0, str(Path(__file__).parent))
 from shared import categorize_doc
 
-import google.generativeai as genai
+from google import genai
 from ragflow_sdk import RAGFlow
 
 # --- Config ---
@@ -69,7 +69,7 @@ LANG_INSTRUCTIONS = {
 def gemini_call(prompt, retries=RETRY_ATTEMPTS):
     for attempt in range(1, retries + 1):
         try:
-            resp = model.generate_content(prompt)
+            resp = gemini_client.models.generate_content(model=GEMINI_MODEL, contents=prompt)
             return resp.text
         except Exception as e:
             print(f"    Gemini attempt {attempt} failed: {e}")
@@ -254,9 +254,8 @@ def main():
         print("ERROR: RAGFLOW_API_KEY not set")
         return 1
 
-    global model
-    genai.configure(api_key=GOOGLE_API_KEY)
-    model = genai.GenerativeModel(GEMINI_MODEL)
+    global gemini_client
+    gemini_client = genai.Client(api_key=GOOGLE_API_KEY)
     print(f"Gemini model: {GEMINI_MODEL}")
     print(f"Batch size: {BATCH_SIZE}")
 
