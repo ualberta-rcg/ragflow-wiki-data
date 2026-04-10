@@ -10,9 +10,10 @@ from pathlib import Path
 from datetime import datetime, timezone
 from bs4 import BeautifulSoup
 
+REPO_ROOT = Path(__file__).resolve().parent.parent
 URL = "https://explora.alliancecan.ca/events"
-OUTPUT_DIR = Path("docs/events")
-CONFIG_DIR = Path("config")
+OUTPUT_DIR = REPO_ROOT / "docs" / "events"
+CONFIG_DIR = REPO_ROOT / "config"
 STATE_FILE = CONFIG_DIR / "processing-state.json"
 
 
@@ -93,7 +94,7 @@ def main():
         "source_url": URL,
         "source_hash": content_hash,
         "downloaded_at": timestamp,
-        "path": str(out_file),
+        "path": str(out_file.relative_to(REPO_ROOT)),
         "event_count": len(events),
         "change_status": change_status,
     })

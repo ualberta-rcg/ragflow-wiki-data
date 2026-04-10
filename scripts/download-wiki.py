@@ -18,9 +18,10 @@ from datetime import datetime, timezone
 sys.path.insert(0, str(Path(__file__).parent))
 from shared import categorize_doc
 
+REPO_ROOT = Path(__file__).resolve().parent.parent
 API_ENDPOINT = "https://docs.alliancecan.ca/mediawiki/api.php"
-OUTPUT_DIR = Path("docs")
-CONFIG_DIR = Path("config")
+OUTPUT_DIR = REPO_ROOT / "docs"
+CONFIG_DIR = REPO_ROOT / "config"
 STATE_FILE = CONFIG_DIR / "processing-state.json"
 
 # Categories to skip (maintenance/meta)
@@ -192,7 +193,7 @@ def main():
             "lang": lang,
             "source_hash": content_hash,
             "downloaded_at": timestamp,
-            "path": str(out_file),
+            "path": str(out_file.relative_to(REPO_ROOT)),
             "wiki_categories": cats,
         })
         
@@ -211,7 +212,7 @@ def main():
             "doc_key": doc_key,
             "categories": cats,
             "primary_category": primary_cat,
-            "path": str(out_file),
+            "path": str(out_file.relative_to(REPO_ROOT)),
             "content_hash": content_hash,
             "change_status": change_status,
         })
@@ -228,7 +229,7 @@ def main():
 
         doc_info = docs_state[doc_key]
         # Remove source file
-        old_path = Path(doc_info.get("path", ""))
+        old_path = REPO_ROOT / doc_info.get("path", "")
         if old_path.exists():
             old_path.unlink()
 
@@ -237,7 +238,7 @@ def main():
         slug = doc_key.split("/")[-1] if "/" in doc_key else doc_key
         cats = doc_info.get("wiki_categories", [])
         subdir = categorize_doc(doc_key, cats)
-        mkdocs_path = Path("mkdocs-site") / "docs" / lang / subdir / f"{slug}.md"
+        mkdocs_path = REPO_ROOT / "mkdocs-site" / "docs" / lang / subdir / f"{slug}.md"
         if mkdocs_path.exists():
             mkdocs_path.unlink()
 
@@ -247,7 +248,7 @@ def main():
     stats["deleted"] = deleted
 
     # Save manifest
-    Path("manifest.json").write_text(json.dumps(manifest, indent=2), encoding="utf-8")
+    (REPO_ROOT / "manifest.json").write_text(json.dumps(manifest, indent=2), encoding="utf-8")
     
     # Save updated state
     state["documents"] = docs_state
