@@ -3,101 +3,73 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is R, according to the document?",
-      "answer": "R is a system for statistical computation and graphics, comprising a language and a runtime environment with graphics, a debugger, access to system functions, and the ability to run programs from script files."
+      "question": "What is R and why is it considered an essential tool on high-performance computing (HPC) installations dedicated to academic research?",
+      "answer": "R is a system for statistical computation and graphics, popular among scientists from various disciplines like engineering, mathematics, statistics, and bioinformatics. Its features such as C extensions, byte-compiled code, and parallelization allow for reasonable performance in single-node jobs, making it an essential tool on HPC installations."
     },
     {
-      "question": "Why is R considered an essential tool on HPC installations for academic research, despite not being developed for high-performance computing?",
-      "answer": "Its popularity among scientists from various disciplines like engineering, mathematics, statistics, and bioinformatics makes it essential. Features like C extensions, byte-compiled code, and parallelization allow for reasonable performance."
+      "question": "How do users begin using the R interpreter on an Alliance cluster?",
+      "answer": "Users must first load an R module. They can see available versions using `module spider r` and then load a specific version with a command like `module load r/4.5.0`."
     },
     {
-      "question": "How can users customize R functions available to them?",
-      "answer": "Users can customize R functions by installing packages from the Comprehensive R Archive Network (CRAN) into their home directories, thanks to R's modular nature."
+      "question": "What are the two primary ways to run R code on an Alliance cluster?",
+      "answer": "Users can start an interactive R interpreter by typing `R` after loading the module, or execute an R script non-interactively using `Rscript` followed by the script file name."
     },
     {
-      "question": "How does one typically begin using the R interpreter on a cluster?",
-      "answer": "You need to begin by loading an R module, which can be done using a command like `module load r/4.5.0` after listing available versions with `module spider r`."
+      "question": "Where should R calculations lasting more than a few minutes be run on an Alliance cluster?",
+      "answer": "Any R calculations lasting more than two or three minutes should not be run on the login node; they should be run via the job scheduler."
     },
     {
-      "question": "How do you start an interactive R session?",
-      "answer": "After loading an R module, you can start the R interpreter by simply typing `R` in the command line."
+      "question": "What is the recommended way to install R packages from CRAN using `install.packages()` on an Alliance cluster, especially regarding internet access for compute nodes?",
+      "answer": "Packages from CRAN should be installed using `install.packages()` within an interactive R session on a cluster login node, as compute nodes typically do not have internet access, making installation in batch or interactive jobs impossible."
     },
     {
-      "question": "What command is used to execute an R script non-interactively?",
-      "answer": "To execute an R script non-interactively, use `Rscript` with the file containing the R commands as an argument, for example, `Rscript computation.R`."
+      "question": "Which module should users load before attempting to install R packages on an Alliance cluster, and why?",
+      "answer": "Users should load a `gcc` module before installing R packages because many R packages are developed using the GNU family of compilers. It's recommended to use the same version of `gcc` for all packages installed."
     },
     {
-      "question": "What options does `Rscript` automatically pass to the R interpreter, and what do they prevent?",
-      "answer": "`Rscript` automatically passes `--slave` and `--no-restore` options, which also imply `--no-save`, preventing the creation of useless workspace files on exit."
+      "question": "How can a user install an R package from CRAN into a local directory for a specific R version on an Alliance cluster?",
+      "answer": "Users should create a directory like `~/.local/R/$EBVERSIONR/`, export `R_LIBS=~/.local/R/$EBVERSIONR/`, and then run `R -e 'install.packages(\"sp\", repos=\"https://cloud.r-project.org/\")'` to install the package."
     },
     {
-      "question": "Where should calculations lasting more than a few minutes be run on an HPC cluster?",
-      "answer": "Any calculations lasting more than two or three minutes should not be run on the login node; they should be run via the job scheduler."
+      "question": "What should users do if an R package they are trying to install on an Alliance cluster requires an external library?",
+      "answer": "If the required library is listed in the available software, users should load the appropriate module for that library before installing the R package that depends on it."
     },
     {
-      "question": "When installing packages from CRAN, on which node type should `install.packages()` be used?",
-      "answer": "`install.packages()` should be used in an interactive R session on a cluster login node, as compute nodes on most clusters do not have Internet access for installation."
+      "question": "How does a user install an R package that they have manually downloaded (i.e., not using `install.packages()`) on an Alliance cluster?",
+      "answer": "Users can install a downloaded package, for example `archive_package.tgz`, by running `R CMD INSTALL -l 'path for your local (home) R library' archive_package.tgz` in a shell."
     },
     {
-      "question": "What module is recommended to load before installing R packages, especially those developed using GNU compilers?",
-      "answer": "It is recommended to load a `gcc` module, such as `module load gcc/12.3.0 r/4.5.0`, before trying to install any R packages."
+      "question": "What issue can arise when using the `system()` command in R on Alliance clusters, and how can it be avoided?",
+      "answer": "Using the R `system()` command can lead to R giving an incorrect value to the environment variable `LD_LIBRARY_PATH`. This can be avoided by using the syntax `system(\"LD_LIBRARY_PATH=$RSNT_LD_LIBRARY_PATH <my system call>\")` in R system calls."
     },
     {
-      "question": "How can you specify a local installation directory for R packages to ensure they are available for a specific R version?",
-      "answer": "You can create a directory like `mkdir -p ~/.local/R/$EBVERSIONR/` and then set the environment variable `export R_LIBS=~/.local/R/$EBVERSIONR/` before installing."
+      "question": "Why is it useful to pass parameters as arguments to R scripts on an Alliance cluster, and how can this be done?",
+      "answer": "Passing parameters as arguments avoids changing the R script for every job or managing multiple copies of identical scripts, which is useful for specifying input/output file names or numerical parameters. This is done by running `Rscript myscript.R arg1 arg2` and accessing arguments via `commandArgs(trailingOnly=TRUE)` in the R script."
     },
     {
-      "question": "What should you do if an R package depends on an external library already installed on the clusters?",
-      "answer": "If the library you need is listed as available software, load the appropriate module for that library before installing the R package that requires it."
+      "question": "Before parallelizing R code on an Alliance cluster, what key optimization step should users prioritize, and what methods should they employ?",
+      "answer": "Before parallelizing, users should prioritize ensuring their serial implementation is as efficient as possible. They should use vectorized forms of R functions and functional elements like `apply` functions and `ifelse` to avoid loops, which are significant performance bottlenecks."
     },
     {
-      "question": "How do you install an R package that you have downloaded, rather than using `install.packages()`?",
-      "answer": "You can install a downloaded package, for example `archive_package.tgz`, using the command `R CMD INSTALL -l 'path for your local (home) R library' archive_package.tgz` in a shell."
+      "question": "In the context of R documentation for parallel computing, how does the term 'node' differ from its common usage in Alliance cluster documentation?",
+      "answer": "In Alliance cluster documentation, 'node' refers to an individual machine or host, while in R documentation for parallel computing, 'node' typically refers to a worker process within an R 'cluster' (a collection of such processes)."
     },
     {
-      "question": "What problem can arise when using the R `system()` command on HPC clusters, and how can it be avoided?",
-      "answer": "Using `system()` can cause R to give an incorrect value to `LD_LIBRARY_PATH`. This can be avoided by using the syntax `system(\"LD_LIBRARY_PATH=$RSNT_LD_LIBRARY_PATH <my system call>\")` in your R system calls."
+      "question": "How do users set up `doParallel` and `foreach` to run R code in parallel on a single node using a SLURM job script on an Alliance cluster?",
+      "answer": "Users load `doParallel`, define a function, and then register the backend with the number of available cores using `registerDoParallel(cores=ncores)`, where `ncores` is often obtained from `Sys.getenv(\"SLURM_CPUS_PER_TASK\")`. The `foreach()` call must be on the same line as the `%dopar%` operator."
     },
     {
-      "question": "Why is it useful to pass parameters as arguments to R scripts?",
-      "answer": "It helps avoid changing the R script for every job or managing multiple copies of identical scripts, allowing dynamic specification of input/output files or numerical parameters."
+      "question": "How can users set up `doParallel` and `makeCluster` to run R code in parallel across multiple processes, potentially on different nodes, using a SLURM job script on an Alliance cluster?",
+      "answer": "Users load `doParallel`, define a function, create a cluster using `makeCluster(nodeslist, type = \"PSOCK\")` where `nodeslist` is an array of hostnames (e.g., from `Sys.getenv(\"NODESLIST\")`), and then register it with `registerDoParallel(cl)`. Resources should be released with `stopCluster(cl)`."
     },
     {
-      "question": "What R function is used to read command-line arguments passed to an R script?",
-      "answer": "The `commandArgs(trailingOnly=TRUE)` function is used to read command-line arguments passed to an R script."
+      "question": "What are the required steps and modules to install the `Rmpi` package on an Alliance cluster?",
+      "answer": "To install `Rmpi`, users must load `gcc`, `openmpi`, and `r` modules (e.g., `module load gcc/12.3 openmpi/4.1.5 r/4.5.0`), download the `Rmpi` tarball, create a local R library directory (e.g., `~/local/R_libs/`) and set `R_LIBS`, then run `R CMD INSTALL` with specific `--configure-args` pointing to the OpenMPI include and lib paths."
     },
     {
-      "question": "What is recommended to ensure efficient serial R code before attempting parallelization?",
-      "answer": "Before parallelizing R code, ensure the serial implementation is as efficient as possible by using vectorized forms of R functions and functional elements like `apply` family functions and `ifelse` to eliminate loops."
-    },
-    {
-      "question": "How does the R documentation's use of 'node' and 'cluster' differ from general HPC documentation?",
-      "answer": "In R documentation, 'node' often refers to a worker process and a 'cluster' is a collection of such processes, whereas in general HPC documentation, 'node' refers to an individual machine (host) and a 'cluster' is a collection of such machines."
-    },
-    {
-      "question": "What is the purpose of `foreach` in parallel computing with R?",
-      "answer": "`foreach` is a unified interface for various parallel backends (like doMC, doMPI, doParallel), working on all platforms if the backend is compatible."
-    },
-    {
-      "question": "How do you make `foreach` execute iterations in parallel rather than serially?",
-      "answer": "You must register the backend by feeding it the number of available cores using functions like `registerDoParallel(cores=ncores)`."
-    },
-    {
-      "question": "Which environment variable is recommended for setting the number of cores for `doParallel` in a SLURM job script?",
-      "answer": "The `SLURM_CPUS_PER_TASK` environment variable is recommended to set the number of cores for `doParallel` in a SLURM job script."
-    },
-    {
-      "question": "What is `Rmpi`, and what does it allow R to do?",
-      "answer": "`Rmpi` is an interface (wrapper) to MPI routines, which allows R to run in parallel."
-    },
-    {
-      "question": "What modules are needed to install `Rmpi`?",
-      "answer": "To install `Rmpi`, you typically need to load `gcc`, `openmpi`, and an `r` module, for example `module load gcc/12.3 openmpi/4.1.5 r/4.5.0`."
-    },
-    {
-      "question": "How do you specify the MPI include and library paths when installing `Rmpi` using `R CMD INSTALL`?",
-      "answer": "You use configure arguments like `--with-Rmpi-include=$EBROOTOPENMPI/include --with-Rmpi-libpath=$EBROOTOPENMPI/lib --with-Rmpi-type='OPENMPI'` in the `R CMD INSTALL` command."
+      "question": "How is an `Rmpi` script typically executed within a SLURM job on an Alliance cluster?",
+      "answer": "An `Rmpi` script, like `test.R`, is typically executed using `mpirun` with a single process to start the R interpreter, which then spawns R slaves. For example: `mpirun -np 1 R CMD BATCH test.R test.txt` within a SLURM job script that loads the necessary `gcc`, `openmpi`, and `r` modules."
     }
   ],
-  "generated_at": "2026-04-12T06:13:48.210549+00:00"
+  "generated_at": "2026-04-12T20:49:58.368360+00:00"
 }

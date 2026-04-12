@@ -4,33 +4,17 @@
   "chunk_index": 7,
   "qa_pairs": [
     {
-      "question": "Dans quelles situations est-il utile de modifier la variable JULIA_THREAD_SLEEP_THRESHOLD?",
-      "answer": "Il peut être utile de modifier la variable JULIA_THREAD_SLEEP_THRESHOLD quand plusieurs fils se disputent fréquemment une ressource partagée, car cela permettrait d'éliminer plus rapidement des fils en rotation et d'éviter une charge excessive sur les CPU dans un contexte de forte concurrence."
+      "question": "Comment est-ce qu'on installe le paquet CUDA.jl pour pouvoir utiliser les GPU avec Julia sur les grappes de calcul ?",
+      "answer": "Pour installer CUDA.jl, il faut d'abord se connecter à un nœud de connexion, puis charger les modules cuda et julia (par exemple, module load cuda/12.9 julia/1.11.3). Ensuite, dans Julia, désactivez la précompilation automatique avec ENV[\"JULIA_PKG_PRECOMPILE_AUTO\"]=0 avant d'ajouter le paquet en utilisant import Pkg; Pkg.add(\"CUDA\")."
     },
     {
-      "question": "Quand est-ce qu'on devrait configurer les valeurs liées au comportement des fils Julia?",
-      "answer": "On ne devrait configurer ces valeurs qu'après avoir profilé les problèmes potentiels de concurrence."
+      "question": "Après avoir installé CUDA.jl, quelles sont les étapes importantes à suivre sur un nœud de calcul GPU pour s'assurer que Julia utilise correctement la boîte à outils CUDA locale, et comment vérifier cette configuration ?",
+      "answer": "Une fois sur un nœud de calcul GPU, il est crucial de configurer Julia pour qu'il utilise la boîte à outils CUDA locale afin d'éviter les incompatibilités avec les pilotes installés. Pour ce faire, dans Julia, utilisez using CUDA puis CUDA.set_runtime_version!(v\"version_de_cuda\", local_toolkit=true), en remplaçant \"version_de_cuda\" par la version du module CUDA chargé (par exemple, 12.2 si cuda/12.2 est chargé). Après avoir redémarré Julia, vous pouvez vérifier la version de CUDA en exécutant CUDA.versioninfo()."
     },
     {
-      "question": "Pourquoi est-il important de consulter la documentation de Julia avant de modifier la configuration par défaut des fils?",
-      "answer": "Il est important de consulter la documentation de Julia parce que Julia et particulièrement ses `Base.Threads` évoluent très rapidement. Ça permet de s'assurer que les modifications apportées auront le résultat désiré."
-    },
-    {
-      "question": "Quel paquet utilise-t-on habituellement pour travailler avec les GPU dans Julia?",
-      "answer": "Le paquet CUDA.jl est l'interface de programmation habituelle pour travailler avec les GPU."
-    },
-    {
-      "question": "Comment installer le paquet CUDA.jl pour les GPU?",
-      "answer": "On peut installer le paquet CUDA.jl avec le gestionnaire de paquets Julia."
-    },
-    {
-      "question": "Où doit-on télécharger le paquet CUDA.jl?",
-      "answer": "Il faut télécharger le paquet CUDA.jl sur un nœud de connexion."
-    },
-    {
-      "question": "Quelles sont les étapes initiales pour installer le paquet CUDA.jl sur un nœud de connexion?",
-      "answer": "Sur un nœud de connexion, il faut d'abord charger les modules `cuda/12.9` et `julia/1.11.3`, démarrer Julia, configurer la variable d'environnement `ENV[\"JULIA_PKG_PRECOMPILE_AUTO\"]=0`, puis utiliser `Pkg.add(\"CUDA\")`."
+      "question": "Quels sont les principaux paramètres d'environnement que l'on peut configurer dans Julia pour contrôler le comportement des fils (threads), et dans quelles situations est-il pertinent de les modifier ?",
+      "answer": "Pour contrôler le comportement des fils dans Julia, on peut configurer JULIA_NUM_THREADS pour limiter leur nombre (par exemple, k pour 12 CPU par tâche), JULIA_EXCLUSIVE pour attacher les fils à un cœur si la tâche a un accès exclusif aux nœuds et que tous les cœurs sont alloués, ce qui peut améliorer la performance. Enfin, JULIA_THREAD_SLEEP_THRESHOLD contrôle le délai avant qu'un fil en rotation ne se mette en veille; il peut être utile de l'ajuster en cas de forte concurrence ou de faible sollicitation d'une ressource partagée pour optimiser la charge CPU ou la latence. Il est recommandé de profiler les problèmes potentiels de concurrence avant toute modification."
     }
   ],
-  "generated_at": "2026-04-12T00:25:56.736037+00:00"
+  "generated_at": "2026-04-12T20:48:31.757207+00:00"
 }

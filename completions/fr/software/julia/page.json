@@ -3,85 +3,69 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "C'est quoi Julia et comment on peut l'utiliser sur vos grappes de calcul?",
-      "answer": "Julia est un langage de programmation conçu pour être performant, facile d'utilisation et portable. Sur nos grappes, on peut l'utiliser en installant un module."
+      "question": "Qu'est-ce que le langage de programmation Julia et à quoi sert-il sur les grappes d'Alliance?",
+      "answer": "Julia est un langage de programmation conçu pour être performant, facile d'utilisation et portable, que l'on peut utiliser sur les grappes d'Alliance en installant un module."
     },
     {
-      "question": "Comment se passe l'installation d'un paquet Julia la première fois et qu'est-ce qui arrive si on l'ajoute à plusieurs projets?",
-      "answer": "La première fois, le paquet est téléchargé, installé dans `~/.julia` et précompilé. Si le même paquet est ajouté à plusieurs projets, les données dans `~/.julia` sont réutilisées, et différentes versions peuvent coexister pour différents projets."
+      "question": "Comment fonctionne l'installation d'un paquet Julia, par exemple avec `Pkg.add`, sur les grappes d'Alliance?",
+      "answer": "La première fois qu'un paquet est ajouté à un projet Julia, il est téléchargé, installé dans `~/.julia` et précompilé. Le même paquet peut être réutilisé pour plusieurs projets, et différentes versions peuvent coexister."
     },
     {
-      "question": "Comment les projets Julia se comparent-ils aux environnements virtuels Python?",
-      "answer": "Les projets Julia remplacent les environnements virtuels en évitant la duplication de code."
+      "question": "Quelle est la particularité des paquets Julia à partir de la version 1.6 concernant leurs dépendances binaires?",
+      "answer": "À partir de Julia 1.6, les paquets Julia incluent leurs dépendances binaires, ce qui rend inutile et non recommandé de charger un module logiciel du système pour ces dépendances."
     },
     {
-      "question": "Quel est le changement important pour l'installation des paquets à partir de Julia 1.6 concernant les dépendances binaires?",
-      "answer": "À partir de Julia 1.6, les paquets Julia incluent leurs dépendances binaires, donc il n'est plus nécessaire de charger un module logiciel."
+      "question": "Comment résoudre les problèmes de dépendances binaires système (comme HDF5 pour JLD) pour les versions de Julia antérieures à 1.6 sur les grappes d'Alliance?",
+      "answer": "Il faut charger le module approprié (par exemple `hdf5`) et étendre `Libdl.DL_LOAD_PATH` en utilisant la variable d'environnement définie par le module (par exemple `HDF5_DIR`)."
     },
     {
-      "question": "Quel problème pouvait arriver avec Julia 1.5 quand un paquet dépendait de binaires fournis par le système et comment le régler sur les grappes?",
-      "answer": "Jusqu'à Julia 1.5, des problèmes pouvaient survenir si un paquet dépendait de binaires système (comme HDF5). Pour régler ça, il fallait charger le module approprié (ex: `hdf5`) et étendre `Libdl.DL_LOAD_PATH` avec la variable d'environnement du module (ex: `HDF5_DIR`)."
+      "question": "Quel problème peut survenir lors de l'installation de paquets Julia sur la grappe Narval et quelle est la recommandation pour l'éviter?",
+      "answer": "Sur Narval, Julia peut planter à l'étape de précompilation si un paquet est installé dans le répertoire `/home` en raison d'un bogue; il est recommandé d'utiliser le répertoire `/project` pour le dépôt Julia."
     },
     {
-      "question": "Quel est le paquet recommandé pour remplacer JLD en raison de sa meilleure portabilité?",
-      "answer": "Le paquet JLD a été remplacé par JLD2, qui ne nécessite plus une bibliothèque HDF5 installée sur le système, le rendant plus portable."
+      "question": "Pourquoi est-il conseillé de modifier le chemin du dépôt Julia par défaut (`~/.julia`) sur les grappes d'Alliance?",
+      "answer": "L'installation de plusieurs paquets Julia peut créer un grand nombre de fichiers dans `~/.julia`, ce qui risque de dépasser le quota maximal de fichiers permis dans le répertoire `/home` et d'affecter la performance."
     },
     {
-      "question": "Quel est un problème connu sur la grappe Narval quand on installe des paquets Julia et quelle est la solution suggérée?",
-      "answer": "Sur Narval, Julia peut planter lors de l'installation d'un paquet dans le répertoire `/home` à cause d'un bogue de gestion du système de fichiers. On recommande d'utiliser le répertoire `/project` pour le dépôt Julia."
+      "question": "Comment peut-on changer le chemin du dépôt Julia pour qu'il utilise un répertoire comme `/project`?",
+      "answer": "On peut ajouter la ligne `export JULIA_DEPOT_PATH=\"/project/def-bob/alice/julia:$JULIA_DEPOT_PATH\"` (en ajustant le chemin) à son fichier `~/.bashrc` et supprimer l'ancien dépôt `~/.julia` si nécessaire."
     },
     {
-      "question": "Pourquoi devrais-je modifier le chemin de mon dépôt Julia et comment faire?",
-      "answer": "On devrait modifier le chemin du dépôt pour éviter de dépasser son quota de fichiers, car l'installation de paquets peut créer beaucoup de petits fichiers dans `~/.julia`. Pour ce faire, on peut ajouter `export JULIA_DEPOT_PATH=\"/project/def-bob/alice/julia:$JULIA_DEPOT_PATH\"` à son fichier `~/.bashrc`."
+      "question": "Quels sont les avantages d'utiliser une image Apptainer pour Julia et ses paquets sur les grappes d'Alliance?",
+      "answer": "Les avantages incluent une performance potentiellement meilleure des entrées/sorties grâce à la consolidation des fichiers, une meilleure reproductibilité, et un contrôle total pour tester des versions spécifiques de Julia et leurs dépendances."
     },
     {
-      "question": "Est-ce qu'il y a d'autres options pour gérer les installations Julia et les paquets tout en améliorant la reproductibilité et potentiellement la performance d'E/S?",
-      "answer": "Oui, on peut créer une image Apptainer avec une version spécifique de Julia et ses paquets, en redirigeant `JULIA_DEPOT_PATH` dans le conteneur. Ça peut améliorer la performance des E/S et la reproductibilité."
+      "question": "Comment configurer le paquet PyCall.jl pour appeler Python à partir de Julia sur les grappes d'Alliance, et que faut-il éviter?",
+      "answer": "Il faut définir la variable d'environnement `ENV[\"PYTHON\"]` comme étant l'exécutable Python dans votre environnement virtuel. Il est fortement conseillé d'éviter d'utiliser une distribution Miniconda ou l'installation Python du système d'exploitation par défaut."
     },
     {
-      "question": "Comment utiliser PyCall.jl pour appeler du code Python depuis Julia sur les grappes de calcul?",
-      "answer": "Pour utiliser PyCall.jl, il faut activer un environnement virtuel Python, puis définir la variable d'environnement `ENV[\"PYTHON\"]` dans Julia pour qu'elle pointe vers l'exécutable Python de cet environnement, et ensuite reconstruire `PyCall`."
+      "question": "Comment lancer un programme Julia en parallèle avec plusieurs processus sur les nœuds d'une grappe en utilisant Slurm?",
+      "answer": "Il faut d'abord utiliser `srun hostname -s > hostfile` pour générer une liste des nœuds alloués, puis lancer Julia avec `julia --machine-file ./hostfile votre_programme.jl`."
     },
     {
-      "question": "Qu'est-ce qu'on déconseille fortement d'utiliser avec PyCall.jl sur les grappes et pourquoi?",
-      "answer": "On déconseille fortement d'utiliser le comportement par défaut de PyCall.jl qui est d'utiliser une distribution Miniconda à l'intérieur de l'environnement Julia, car ça peut causer des problèmes de quota, de performance et des incompatibilités."
+      "question": "Quelles sont les étapes pour configurer l'interface MPI de Julia afin qu'elle utilise les bibliothèques MPI des grappes d'Alliance?",
+      "answer": "Après avoir chargé les modules `StdEnv` et `julia`, il faut installer le paquet `MPIPreferences`, utiliser `MPIPreferences.use_system_binary()` en spécifiant le chemin de la bibliothèque MPI, puis installer le paquet `MPI`."
     },
     {
-      "question": "Comment lancer un programme Julia en parallèle sur une grappe en utilisant Slurm et plusieurs processus?",
-      "answer": "On utilise une tâche Slurm qui génère un fichier `hostfile` avec `srun hostname -s > hostfile`, puis on lance Julia avec `julia --machine-file ./hostfile ./votre_programme.jl` pour démarrer des processus sur les nœuds alloués."
+      "question": "Comment peut-on limiter le nombre de fils (threads) utilisés par Julia pour une tâche sur les grappes d'Alliance?",
+      "answer": "On peut limiter le nombre de fils en configurant la variable d'environnement `JULIA_NUM_THREADS` à la valeur souhaitée, par exemple, `k` pour `k` fils."
     },
     {
-      "question": "Comment configurer Julia pour qu'il utilise les bibliothèques MPI du système et non sa propre version?",
-      "answer": "Il faut charger les modules `StdEnv` et `julia`, puis dans Julia, utiliser `Pkg.add(\"MPIPreferences\")`, `MPIPreferences.use_system_binary()` avec le bon chemin, et enfin `Pkg.add(\"MPI\")`."
+      "question": "À quoi sert la variable d'environnement `JULIA_EXCLUSIVE` dans Julia et quand est-elle utile sur les grappes d'Alliance?",
+      "answer": "`JULIA_EXCLUSIVE` permet d'attacher les fils Julia à des cœurs CPU spécifiques, ce qui peut améliorer la performance en enlevant au système d'exploitation l'attribution des fils, surtout si votre tâche a un accès exclusif aux nœuds."
     },
     {
-      "question": "Comment exécuter un programme Julia utilisant MPI avec deux processus?",
-      "answer": "Après avoir configuré MPI, on lance `module load StdEnv julia` puis `mpirun -np 2 julia hello.jl`."
+      "question": "Quel est le rôle de `JULIA_THREAD_SLEEP_THRESHOLD` et quand est-il judicieux de la modifier?",
+      "answer": "Cette variable contrôle le nombre de nanosecondes après lesquelles un fil en rotation est programmé pour dormir. La modifier peut être utile en cas de forte concurrence pour une ressource partagée ou pour réduire la latence si une ressource est rarement sollicitée."
     },
     {
-      "question": "Comment limiter le nombre de fils utilisés par Julia et attacher les fils à des cœurs de processeur?",
-      "answer": "On peut limiter le nombre de fils avec `JULIA_NUM_THREADS=k` et attacher les fils aux cœurs en configurant `JULIA_EXCLUSIVE` à une valeur autre que zéro, ce qui enlève au système d'exploitation l'attribution des fils."
+      "question": "Quel paquet Julia est utilisé pour travailler avec les GPU et comment l'installer initialement sur les grappes d'Alliance?",
+      "answer": "Le paquet `CUDA.jl` est utilisé pour les GPU. On l'installe sur un nœud de connexion en chargeant les modules `cuda` et `julia`, puis en exécutant `ENV[\"JULIA_PKG_PRECOMPILE_AUTO\"]=0; import Pkg; Pkg.add(\"CUDA\")` dans Julia."
     },
     {
-      "question": "C'est quoi la variable JULIA_THREAD_SLEEP_THRESHOLD et quand serait-il utile de la modifier?",
-      "answer": "C'est une variable qui contrôle le nombre de nanosecondes après lesquelles un fil en rotation est programmé pour dormir. La modifier peut être utile quand plusieurs fils se disputent fréquemment une ressource partagée ou, inversement, pour une basse latence si une ressource est rarement sollicitée."
-    },
-    {
-      "question": "Quel est le paquet à utiliser pour travailler avec les GPU en Julia et comment l'installer?",
-      "answer": "Le paquet habituel est `CUDA.jl`. On l'installe sur un nœud de connexion après avoir chargé les modules `cuda` et `julia`, en définissant `ENV[\"JULIA_PKG_PRECOMPILE_AUTO\"]=0` puis `Pkg.add(\"CUDA\")`."
-    },
-    {
-      "question": "Comment s'assurer que CUDA.jl utilise la bonne version de la boîte à outils CUDA locale sur un nœud de calcul GPU?",
-      "answer": "Sur un nœud de calcul GPU, il faut lancer Julia, importer `CUDA`, puis utiliser `CUDA.set_runtime_version!(v\"version_de_cuda\", local_toolkit=true)` où `version_de_cuda` correspond à la version du module `cuda` chargé."
-    },
-    {
-      "question": "Comment vérifier la version de CUDA utilisée et tester l'installation de CUDA.jl après configuration?",
-      "answer": "On vérifie la version avec `CUDA.versioninfo()` et on peut tester l'installation en créant un tableau GPU `a = CuArray([1,2,3])` et en effectuant une opération comme `a.+=1`."
-    },
-    {
-      "question": "Où peut-on trouver plus d'information sur Julia, y compris le calcul parallèle?",
-      "answer": "On peut trouver plus d'information dans les webinaires produits par SHARCNET, comme 'Julia: A first perspective', 'Julia: A second perspective', et 'Julia: A third perspective - parallel computing explained'."
+      "question": "Comment s'assurer que `CUDA.jl` utilise la bonne version de la boîte à outils CUDA sur un nœud de calcul GPU des grappes d'Alliance?",
+      "answer": "Sur un nœud de calcul GPU, il faut utiliser `CUDA.set_runtime_version!(v\"version_of_cuda\", local_toolkit=true)` après avoir chargé le module CUDA approprié, puis vérifier la version avec `CUDA.versioninfo()`."
     }
   ],
-  "generated_at": "2026-04-12T00:24:32.338516+00:00"
+  "generated_at": "2026-04-12T20:47:23.385896+00:00"
 }

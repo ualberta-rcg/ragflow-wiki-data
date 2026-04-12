@@ -4,21 +4,13 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "What problem can occur when multiple parallel MATLAB jobs call `parpool` simultaneously?",
-      "answer": "When two or more parallel MATLAB jobs call `parpool` at the same time, they may attempt to read and write to the same `.dat` file within the `$HOME/.matlab/local_cluster_jobs/R*` folder, which can corrupt the local parallel profile used by other MATLAB jobs."
+      "question": "What issue can arise when multiple parallel MATLAB jobs are run simultaneously on a cluster?",
+      "answer": "When two or more parallel MATLAB jobs call `parpool` at the same time, they may attempt to read from and write to the same `.dat` file within the `$HOME/.matlab/local_cluster_jobs/R*` folder. This can corrupt the local parallel profile used by other MATLAB jobs."
     },
     {
-      "question": "How can users prevent the corruption of local parallel profiles when running simultaneous MATLAB jobs?",
-      "answer": "To avoid this problem, users should ensure that each job creates its own parallel profile in a unique location by setting the `JobStorageLocation` property of the `parallel.Cluster` object."
-    },
-    {
-      "question": "Can you provide a MATLAB code example for setting a unique `JobStorageLocation` to avoid parallel job conflicts?",
-      "answer": "Certainly, here is a MATLAB code fragment that demonstrates this:\n```matlab\nlocal_cluster = parcluster('local')\nlocal_cluster.JobStorageLocation = getenv('SLURM_TMPDIR')\nparpool(local_cluster);\n```"
-    },
-    {
-      "question": "Which external resource provides documentation on the 'MATLAB Parallel Computing Toolbox simultaneous job problem'?",
-      "answer": "FAS Research Computing provides documentation titled 'MATLAB Parallel Computing Toolbox simultaneous job problem' which offers further details."
+      "question": "How can users prevent simultaneous parallel MATLAB jobs from corrupting local parallel profiles?",
+      "answer": "To prevent corruption of local parallel profiles, users should ensure each job creates its own parallel profile in a unique location. This can be achieved by setting the `JobStorageLocation` property of the `parallel.Cluster` object, for example, to `getenv('SLURM_TMPDIR')`."
     }
   ],
-  "generated_at": "2026-04-12T01:14:36.135487+00:00"
+  "generated_at": "2026-04-12T20:49:21.023826+00:00"
 }

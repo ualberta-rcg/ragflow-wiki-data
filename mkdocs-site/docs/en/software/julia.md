@@ -5,56 +5,53 @@ lang: "en"
 
 source_wiki_title: "Julia/en"
 source_hash: "07670746b19b9c2ed260f6fbead12860"
-last_synced: "2026-04-10T15:28:10.183781+00:00"
-last_processed: "2026-04-11T08:14:16.228069+00:00"
+last_synced: "2026-04-12T20:37:21.366223+00:00"
+last_processed: "2026-04-12T20:42:11.919961+00:00"
 
 tags:
   - software
 
 keywords:
-  - "Installing packages"
   - "command history"
-  - "parallel computing"
-  - "Narval cluster"
-  - "pins threads to cores"
-  - "Alliance clusters"
-  - "JULIA_EXCLUSIVE"
-  - "JULIA_DEPOT_PATH"
-  - "JULIA_THREAD_SLEEP_THRESHOLD"
-  - "GPU computing"
-  - "performance improvement"
-  - "~/.julia"
-  - "PyCall.jl"
-  - "Depot path"
+  - "GPUs"
   - "SLURM"
-  - "CUDA.jl"
-  - "Threading"
-  - "CPU cores"
+  - "Threading behaviour"
   - "Julia"
-  - "MPI"
-  - "depot location"
+  - "Apptainer image"
+  - "CPU cores"
   - "~/.bashrc"
-  - "Apptainer"
+  - "module"
+  - "Parallel computing"
+  - "JULIA_DEPOT_PATH"
+  - "PyCall.jl"
+  - "pins threads"
+  - "performance improvement"
+  - "JULIA_THREAD_SLEEP_THRESHOLD"
+  - "MPI"
+  - "installing packages"
+  - "Alliance clusters"
+  - "depot path"
+  - "~/.julia"
+  - "CUDA.jl"
+  - "depot location"
+  - "JULIA_EXCLUSIVE"
 
 questions:
-  - "How does the package installation process differ between Julia versions 1.6+ and 1.5 or earlier on the clusters?"
-  - "Why does Julia sometimes crash during package installation on the Narval cluster, and how can this be avoided?"
+  - "How does the package installation process differ between Julia 1.6 and older versions on the clusters?"
+  - "Why does Julia sometimes crash during package installation on the Narval cluster, and what is the workaround?"
   - "How can users change their Julia depot path to prevent package installations from exceeding their home directory file quota?"
-  - "What is the recommended method for configuring PyCall.jl to interface with Python, and why should the default Miniconda distribution be avoided?"
-  - "How can users configure and execute parallel Julia jobs across multiple nodes using SLURM and MPI?"
-  - "What environment variables are used to control Julia's threading behavior, and under what conditions should threads be pinned to specific CPU cores?"
-  - "How do you configure the `JULIA_DEPOT_PATH` environment variable in the `~/.bashrc` file to prioritize a new directory?"
-  - "What role does the original `~/.julia` directory continue to play after a new depot path is specified?"
-  - "What is the recommended best practice for handling an existing `~/.julia` depot when moving to a different location?"
-  - "Under what specific conditions can pinning threads to cores improve computational performance compared to relying on the OS scheduler?"
-  - "What are the necessary requirements for the JULIA_EXCLUSIVE setting to function correctly?"
-  - "Why might asking Julia to re-pin threads fail to yield performance improvements when running jobs through SLURM?"
-  - "How does the JULIA_THREAD_SLEEP_THRESHOLD environment variable affect thread behavior in scenarios of high versus low resource contention?"
-  - "What are the necessary steps to properly install, configure, and test the CUDA.jl package for GPU usage on a compute node?"
-  - "What educational resources and video seminars are available from SHARCNET for learning about Julia and parallel computing?"
-  - "How does the JULIA_THREAD_SLEEP_THRESHOLD environment variable affect thread behavior in scenarios of high versus low resource contention?"
-  - "What are the necessary steps to properly install, configure, and test the CUDA.jl package for GPU usage on a compute node?"
-  - "What educational resources and video seminars are available from SHARCNET for learning about Julia and parallel computing?"
+  - "What are the advantages of using an Apptainer image to run Julia compared to a standard local installation?"
+  - "How should PyCall.jl be configured to properly interface Julia with Python, and why is its default Miniconda distribution strongly discouraged?"
+  - "What are the recommended procedures for executing parallel Julia jobs on a cluster using multiple processes, MPI, and specific threading configurations?"
+  - "How do you change the preferred Julia depot directory using the `~/.bashrc` file?"
+  - "Which files continue to use the default `~/.julia` directory after the depot path has been updated?"
+  - "What is the recommended step to take regarding your existing `~/.julia` depot before moving it to a new location?"
+  - "What is the concept of pinning threads to cores, and why is it sometimes referred to as using 'green' threads with affinity?"
+  - "Under what specific conditions can taking thread scheduling away from the operating system lead to improved computational performance?"
+  - "How does the JULIA_EXCLUSIVE setting work, and why might it fail to improve performance when used alongside job schedulers like SLURM?"
+  - "How does the JULIA_THREAD_SLEEP_THRESHOLD environment variable manage thread sleeping behavior under different levels of resource contention?"
+  - "What are the required steps to install the CUDA.jl package and configure it to use the local CUDA toolkit on a GPU compute node?"
+  - "What video seminars are provided by SHARCNET for users wanting to learn about Julia and parallel computing?"
 
 status:
   downloaded: true
@@ -77,27 +74,27 @@ The first time you add a package to a Julia project (using `Pkg.add` or the pack
 
 ```bash
 module load gcc/7.3.0 hdf5 julia/1.4.1
+julia
 ```
 
 ```julia
-julia> using Libdl
-julia> push!(Libdl.DL_LOAD_PATH, ENV["HDF5_DIR"] * "/lib")
-julia> using Pkg
-julia> Pkg.add("JLD")
-julia> using JLD
+using Libdl
+push!(Libdl.DL_LOAD_PATH, ENV["HDF5_DIR"] * "/lib")
+using Pkg
+Pkg.add("JLD")
+using JLD
 ```
 
 If we were to omit the `Libdl.DL_LOAD_PATH` line from the above example, it would happen to work on Graham because Graham has HDF5 installed system-wide. It would fail on Cedar because Cedar does not. The best practice on *any* of our systems, though, is that shown above: Load the appropriate [module](../programming/utiliser_des_modules.md) first, and use the environment variable defined by the module (`HDF5_DIR` in this example) to extend `Libdl.DL_LOAD_PATH`. This will work uniformly on all systems.
 
-!!! note
-    The example package we use here, JLD, has been superseded by [JLD2](https://juliapackages.com/p/jld2), which no longer relies on a system-installed HDF5 library, and is therefore more portable.
+Note that the example package we use here, JLD, has been superseded by [JLD2](https://juliapackages.com/p/jld2) which no longer relies on a system-installed HDF5 library, and is therefore more portable.
 
 ## The Narval cluster
 
-!!! warning "Warning"
+!!! warning
     On the Narval cluster, Julia sometimes crashes while installing packages in `/home` directories, due to a bug in the filesystem software. This happens during the precompilation step and causes Julia to exit with a segmentation fault.
 
-    Until this bug is resolved, you should use an alternate location, such as `/project`, for your Julia “depot” on Narval, as explained in the next section.
+Until this bug is resolved, you should use an alternate location, such as `/project`, for your Julia “depot” on Narval, as explained in the next section.
 
 ## Changing the depot path
 
@@ -115,23 +112,25 @@ This will use the `/project/def-bob/alice/julia` directory preferentially. Files
 rm -rf $HOME/.julia
 ```
 
-Alternatively, one can create an [Apptainer](containers/apptainer.md) image with a chosen version of Julia and a selection of packages, and JULIA_DEPOT_PATH redirected inside the container. This does mean that you lose the advantage of our optimized Julia modules. However, your container now contains the potentially very large set of small files inside 1 container file (`.sif`), potentially improving IO performance. Reproducibility is also improved, the container will run anywhere as-is. Another use case is if you want to test Julia nightly builds without altering your local Julia installation, or when you need to bundle your own specific dependencies, because the container creation gives you complete control at creation.
+Alternatively, one can create an [Apptainer](containers/apptainer.md) image with a chosen version of Julia and a selection of packages, and `JULIA_DEPOT_PATH` redirected inside the container. This does mean that you lose the advantage of our optimized Julia modules. However, your container now contains the potentially very large set of small files inside one container file (`.sif`), potentially improving I/O performance. Reproducibility is also improved; the container will run anywhere as-is. Another use case is if you want to test Julia nightly builds without altering your local Julia installation, or when you need to bundle your own specific dependencies, because the container creation gives you complete control at creation.
 
 ## Using PyCall.jl to call Python from Julia
 
-Julia can interface with Python code using PyCall.jl. When using PyCall.jl, set the `PYTHON` environment variable to the python executable in your virtual Python environment. On our clusters, we recommend using virtual Python environments as described in our [Python documentation](python.md#creating-and-using-a-virtual-environment). After activating a virtual Python environment, you can use it in PyCall.jl:
+Julia can interface with Python code using PyCall.jl. When using PyCall.jl, set the `PYTHON` environment variable to the Python executable in your virtual Python environment. On our clusters, we recommend using virtual Python environments as described in our [Python documentation](python.md#creating-and-using-a-virtual-environment). After activating a virtual Python environment, you can use it in PyCall.jl:
 
 ```bash
 source "$HOME/myenv/bin/activate"
 ```
 
 ```julia
-julia> using Pkg, PyCall
-julia> ENV["PYTHON"] = joinpath(ENV["VIRTUAL_ENV"], "bin", "python")
-julia> Pkg.build("PyCall")
+# (myenv) $ julia
+# [...]
+using Pkg, PyCall
+ENV["PYTHON"] = joinpath(ENV["VIRTUAL_ENV"], "bin", "python")
+Pkg.build("PyCall")
 ```
 
-We strongly advise against the default PyCall.jl behaviour, which is to use a Miniconda distribution inside your Julia environment. Anaconda and similar distributions [are not suitable on our clusters](anaconda.md).
+We strongly advise against the default PyCall.jl behaviour, which is to use a Miniconda distribution inside your Julia environment. [Anaconda and similar distributions are not suitable on our clusters](anaconda.md).
 
 Note that if you do not create a virtual environment as shown above, PyCall will default to the operating system Python installation, which is never what you want. It will invoke Conda.jl, but fail to recognize the correct path unless you rebuild with `ENV["PYTHON"]=""`. In addition, apart from incompatibilities with the software stack, the Miniconda installer creates a large number of files inside `JULIA_DEPOT_PATH`. If that is `~/.julia`, the default, you can run into performance and quota issues.
 
@@ -141,7 +140,7 @@ See the [PyCall.jl documentation](https://github.com/JuliaPy/PyCall.jl) for deta
 
 The following is an example of running a parallel Julia code computing pi using 100 cores across nodes on a cluster.
 
-```bash linenums="1" title="run_julia_pi.sh"
+```bash title="run_julia_pi.sh"
 #!/bin/bash
 #SBATCH --ntasks=100
 #SBATCH --cpus-per-task=1
@@ -182,7 +181,7 @@ mpirun -np 2 julia hello.jl
 
 The `hello.jl` code here is:
 
-```julia linenums="1" title="hello.jl"
+```julia title="hello.jl"
 using MPI
 MPI.Init()
 comm = MPI.COMM_WORLD
@@ -192,7 +191,7 @@ MPI.Barrier(comm)
 
 ## Configuring Julia's threading behaviour
 
-You can restrict the number of threads Julia can use by setting `JULIA_NUM_THREADS=k`, for example a single process on a 12 cpus-per-task job could use `k=12`. Setting the number of threads to the number of processors is a typical choice (although see [Scalability](../running-jobs/scalability.md) for a discussion). In addition, one can 'pin' threads to cores, by setting `JULIA_EXCLUSIVE` to anything non-zero. As per the [documentation](https://docs.julialang.org/en/v1/manual/environment-variables/#JULIA_EXCLUSIVE), this takes control of thread scheduling away from the OS, and pins threads to cores (sometimes referred to 'green' threads with affinity). Depending on the computation that threads execute, this can improve performance when one has precise information on cache access patterns or otherwise unwelcome scheduling patterns used by the OS. Setting `JULIA_EXCLUSIVE` works only if your job has exclusive access to the compute nodes (all available CPU cores were allocated to your job). Since SLURM already pins processes and threads to CPU cores, asking Julia to re-pin threads may not lead to any performance improvement.
+You can restrict the number of threads Julia can use by setting `JULIA_NUM_THREADS=k`, for example a single process on a 12 CPUs-per-task job could use `k=12`. Setting the number of threads to the number of processors is a typical choice (although see [Scalability](../running-jobs/scalability.md) for a discussion). In addition, one can 'pin' threads to cores, by setting `JULIA_EXCLUSIVE` to anything non-zero. As per the [documentation](https://docs.julialang.org/en/v1/manual/environment-variables/#JULIA_EXCLUSIVE), this takes control of thread scheduling away from the OS, and pins threads to cores (sometimes referred to 'green' threads with affinity). Depending on the computation that threads execute, this can improve performance when one has precise information on cache access patterns or otherwise unwelcome scheduling patterns used by the OS. Setting `JULIA_EXCLUSIVE` works only if your job has exclusive access to the compute nodes (all available CPU cores were allocated to your job). Since SLURM already pins processes and threads to CPU cores, asking Julia to re-pin threads may not lead to any performance improvement.
 
 Related is the variable [JULIA_THREAD_SLEEP_THRESHOLD](https://docs.julialang.org/en/v1/manual/environment-variables/#JULIA_THREAD_SLEEP_THRESHOLD), controlling the number of nanoseconds after which a spinning thread is scheduled to sleep. A value of infinite (as string) indicates no sleeping on spinning. Changing this variable can be of use if many threads are contending frequently for a shared resource, where it can be preferred to schedule out spinning threads more quickly. Under heavy contention, spinning would only increase CPU load. Conversely, in a situation where a resource is only very infrequently contended, lower latency can result from prohibiting threads to sleep, that is, setting the threshold to infinity.
 
@@ -200,7 +199,7 @@ It goes without saying that configuring these values should only be done when on
 
 ## Using GPUs with Julia
 
-Julia's primary programming interface for GPUs is the CUDA.jl package. The Julia package manager can be used to install it. First download the package on a login node:
+Julia's primary programming interface for GPUs is the `CUDA.jl` package. The Julia package manager can be used to install it. First download the package on a login node:
 
 ```bash
 # on a login node!
@@ -208,8 +207,8 @@ module load cuda/12.9 julia/1.11.3
 ```
 
 ```julia
-julia> ENV["JULIA_PKG_PRECOMPILE_AUTO"]=0
-julia> import Pkg; Pkg.add("CUDA")
+ENV["JULIA_PKG_PRECOMPILE_AUTO"]=0
+import Pkg; Pkg.add("CUDA")
 ```
 
 Everything that follows should be done on a GPU compute node. It is possible that the CUDA toolkit downloaded during installation will not work with the installed CUDA driver. This problem can be avoided by configuring Julia to use the local CUDA toolkit:
@@ -220,8 +219,8 @@ julia
 ```
 
 ```julia
-julia> using CUDA
-julia> CUDA.set_runtime_version!(v"version_of_cuda", local_toolkit=true)
+using CUDA
+CUDA.set_runtime_version!(v"version_of_cuda", local_toolkit=true)
 ```
 
 where `version_of_cuda` is 12.6 if `cuda/12.6` is loaded.
@@ -229,7 +228,10 @@ where `version_of_cuda` is 12.6 if `cuda/12.6` is loaded.
 After restarting Julia you can verify that it is using the correct CUDA version:
 
 ```julia
-julia> CUDA.versioninfo()
+CUDA.versioninfo()
+```
+
+```output
 CUDA runtime 12.6, local installation
 ...
 ```
@@ -237,13 +239,21 @@ CUDA runtime 12.6, local installation
 The following Julia code can be used to test the installation:
 
 ```julia
-julia> a = CuArray([1,2,3])
+a = CuArray([1,2,3])
+```
+
+```output
 3-element CuArray{Int64, 1, CUDA.Mem.DeviceBuffer}:
  1
  2
  3
+```
 
-julia> a.+=1
+```julia
+a.+=1
+```
+
+```output
 3-element CuArray{Int64, 1, CUDA.Mem.DeviceBuffer}:
  2
  3
@@ -253,8 +263,7 @@ julia> a.+=1
 ## Videos
 
 A series of online seminars produced by SHARCNET:
-
-*   [Julia: A first perspective](https://youtu.be/gKxs0L2Ac4I) (47 minutes)
-*   [Julia: A second perspective](https://youtu.be/-QuqSOUbY6Q) (57 minutes)
-*   [Julia: A third perspective - parallel computing explained](https://youtu.be/HWLV6oTmfO8) (65 minutes)
-*   Julia: Parallel computing revisited (available soon)
+* [Julia: A first perspective](https://youtu.be/gKxs0L2Ac4I) (47 minutes)
+* [Julia: A second perspective](https://youtu.be/-QuqSOUbY6Q) (57 minutes)
+* [Julia: A third perspective - parallel computing explained](https://youtu.be/HWLV6oTmfO8) (65 minutes)
+* Julia: Parallel computing revisited (available soon)

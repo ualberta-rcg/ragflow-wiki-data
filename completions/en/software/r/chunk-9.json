@@ -4,57 +4,17 @@
   "chunk_index": 9,
   "qa_pairs": [
     {
-      "question": "What is the name of the R script file used in the Rmpi running example?",
-      "answer": "The R code is placed in a script file named 'test.R'."
+      "question": "What are the essential steps to run an Rmpi script named `test.R` on a compute cluster using a job scheduler?",
+      "answer": "To run an Rmpi script, you must first place your R code into a script file (e.g., `test.R`). Next, create a job submission script (e.g., `job.sh`) that specifies resources and loads necessary modules, then uses `mpirun` to execute the R script. Finally, submit the job script to the scheduler using `sbatch job.sh`."
     },
     {
-      "question": "What is the name of the job submission script file for running the Rmpi example?",
-      "answer": "The job submission script is called 'job.sh'."
+      "question": "What command is used within a `job.sh` submission script to execute an Rmpi script, and what does it mean?",
+      "answer": "Within a `job.sh` submission script, the command `mpirun -np 1 R CMD BATCH test.R test.txt` is used to execute the Rmpi script. Here, `mpirun` initiates the MPI program, `-np 1` specifies that one MPI process will start the R batch job, `R CMD BATCH test.R` runs the R script `test.R` in batch mode, and `test.txt` is where the output from the R script will be directed."
     },
     {
-      "question": "Which R package is loaded and used in the 'test.R' script for Rmpi?",
-      "answer": "The 'Rmpi' package is loaded and utilized in the 'test.R' script."
-    },
-    {
-      "question": "How many MPI processes are requested in the provided 'job.sh' script example?",
-      "answer": "The 'job.sh' script requests 5 MPI processes, as indicated by `#SBATCH --ntasks=5`."
-    },
-    {
-      "question": "What is the allocated memory per CPU for the Rmpi job in 'job.sh'?",
-      "answer": "The job requests 2048M (megabytes) of memory per CPU, specified by `#SBATCH --mem-per-cpu=2048M`."
-    },
-    {
-      "question": "What is the maximum time limit set for the Rmpi job in the 'job.sh' script?",
-      "answer": "The job has a maximum time limit of 15 minutes, set as `#SBATCH --time=0-00:15`."
-    },
-    {
-      "question": "Which modules are loaded in the 'job.sh' script before running the Rmpi application?",
-      "answer": "The `StdEnv/2023`, `gcc/12.3`, `openmpi/4.1.5`, and `r/4.5.0` modules are loaded."
-    },
-    {
-      "question": "What environment variable is set in 'job.sh' to specify the R library path?",
-      "answer": "The `R_LIBS` environment variable is set to `~/local/R_libs/`."
-    },
-    {
-      "question": "How is the 'test.R' script executed within the 'job.sh' submission script?",
-      "answer": "The 'test.R' script is executed using the command `mpirun -np 1 R CMD BATCH test.R test.txt`."
-    },
-    {
-      "question": "How do you submit the 'job.sh' script to run the Rmpi example?",
-      "answer": "You submit the job using the command `sbatch job.sh`."
-    },
-    {
-      "question": "What does the `mpi.universe.size()` function do in the 'test.R' script?",
-      "answer": "The `mpi.universe.size()` function returns the size of the MPI universe, which is used to determine the number of slaves to spawn."
-    },
-    {
-      "question": "What is the purpose of `mpi.spawn.Rslaves(nslaves=ns)` in the 'test.R' script?",
-      "answer": "The `mpi.spawn.Rslaves(nslaves=ns)` function is used to spawn the specified number of R slave processes."
-    },
-    {
-      "question": "Where can a user find more information about submitting jobs?",
-      "answer": "Users can find more information about submitting jobs by referring to the 'Running jobs' documentation."
+      "question": "Which Rmpi functions are demonstrated in the example `test.R` script, and what is their general purpose?",
+      "answer": "The example `test.R` script demonstrates `mpi.universe.size()` to determine the total number of MPI processes, `mpi.spawn.Rslaves()` to create slave R processes, and `mpi.remote.exec()` to execute commands (like `rnorm`) remotely on these slaves. It also uses `mpi.comm.rank()`, `mpi.comm.size()`, and `mpi.comm.get.parent()` for process identification within the MPI communicator, and concludes with `mpi.close.Rslaves()` and `mpi.quit()` to shut down slaves and finalize the MPI environment, respectively."
     }
   ],
-  "generated_at": "2026-04-12T06:15:07.922976+00:00"
+  "generated_at": "2026-04-12T20:51:02.065386+00:00"
 }
