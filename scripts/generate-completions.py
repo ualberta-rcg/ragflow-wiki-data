@@ -100,6 +100,7 @@ Requirements:
 - "answer" must be a single string that can be answered from the chunk (with page context if needed).
 - Do not include any text outside of the JSON block.
 - Generate **2-3 high-quality Q&A pairs maximum** — focus on the most important concepts in the chunk.
+- IMPORTANT: Questions must be **self-contained with full context**. A reader should understand the question without knowing which page it came from. BAD: "What is this page about?" GOOD: "What is the Cedar cluster used for?" BAD: "How do you install it?" GOOD: "How do you install TensorFlow on Alliance clusters?"
 
 Document (context):
 {page_text}
@@ -164,6 +165,7 @@ Requirements:
 - Cover the document broadly: purpose, key concepts, prerequisites, common tasks.
 - Generate **10-20 Q&A pairs** that capture the most important aspects of the page.
 - Do not include any text outside of the JSON block.
+- IMPORTANT: Questions must be **self-contained with full context**. A reader should understand the question without knowing which page it came from. BAD: "What is this page about?" GOOD: "What is the Storage and File Management page about on Alliance clusters?" BAD: "What are the prerequisites?" GOOD: "What are the prerequisites for using Globus to transfer data?"
 
 Document:
 {page_text}"""
