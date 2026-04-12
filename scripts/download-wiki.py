@@ -195,7 +195,15 @@ def main():
         # Update state
         if doc_key not in docs_state:
             docs_state[doc_key] = {}
-        
+
+        # If source changed (or new doc), invalidate downstream stage checkpoints
+        # so sync/convert/linkfix/completions are guaranteed to re-run.
+        if change_status in ("new", "updated"):
+            docs_state[doc_key]["ragflow_source_hash"] = ""
+            docs_state[doc_key]["mkdocs_source_hash"] = ""
+            docs_state[doc_key]["mkdocs_linkfix_source_hash"] = ""
+            docs_state[doc_key]["completions_source_hash"] = ""
+
         docs_state[doc_key].update({
             "wiki_title": title,
             "base_title": base_title,
