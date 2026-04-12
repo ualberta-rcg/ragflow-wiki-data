@@ -133,6 +133,7 @@ INSTRUCTIONS:
    - <translate>, <!--T:N-->, <languages/>, [[Category:...]] tags are REMOVED entirely
    - {{{{draft}}}}, {{{{stub}}}} and similar templates are REMOVED
    - Image references like [[File:...]] or [[Image:...]] are REMOVED (we don't host images)
+   - IMPORTANT: This site has NO images. Remove all image markup AND adjust surrounding text that references images (e.g., "as shown in Figure 1", "see the diagram below", "the screenshot shows"). Rewrite such sentences to convey the information without relying on visuals.
 3. Preserve ALL technical content accurately. Do NOT summarize or omit sections.
 4. Use MkDocs Material features where appropriate:
    - Admonitions (!!!  note, !!! warning, !!! tip) for callouts
