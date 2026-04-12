@@ -199,6 +199,10 @@ def process_doc(dataset, doc_key, doc_state):
     page_text = doc.download().decode("utf-8", errors="ignore")
     lang = doc_state.get("lang", "en")
 
+    # Clean up old chunk files before regenerating
+    for old_chunk in out_dir.glob("chunk-*.json"):
+        old_chunk.unlink()
+
     # Page-level Q&A
     print(f"    Generating page-level Q&A ({lang})...")
     page_qa = gen_page_qa(page_text, lang=lang)
