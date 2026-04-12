@@ -4,77 +4,73 @@
   "chunk_index": 31,
   "qa_pairs": [
     {
-      "question": "What is the purpose of the `script-dmp-2023-cpu.sh` Slurm script for Ansys Mechanical?",
-      "answer": "The `script-dmp-2023-cpu.sh` Slurm script is used for running Distributed Memory Parallel (DMP) Ansys Mechanical jobs on CPUs."
+      "question": "What modules are required for an APDL Distributed Memory Parallel (CPU) job?",
+      "answer": "For an APDL Distributed Memory Parallel (CPU) job, you should load the `StdEnv/2023` and `ansys/2024R1.03` (or newer module versions)."
     },
     {
-      "question": "What are the recommended SBATCH directives for CPU allocation in the `script-dmp-2023-cpu.sh` script?",
-      "answer": "The script recommends `--ntasks=8` to specify the total number of cores and `--cpus-per-task=1` which should not be changed. Optionally, you can specify `--nodes=2` for the number of nodes and `--ntasks-per-node=4` for cores per node."
+      "question": "What Slurm `#SBATCH` directives are recommended for an APDL Distributed Memory Parallel (CPU) job?",
+      "answer": "The recommended Slurm `#SBATCH` directives for an APDL Distributed Memory Parallel (CPU) job include `--account=def-account`, `--time=00-03:00`, `--mem-per-cpu=4G`, `--ntasks=8`, and `--cpus-per-task=1`. You may optionally specify `--nodes=2` or `--ntasks-per-node=4`."
     },
     {
-      "question": "Which Ansys module version should be loaded for the `script-dmp-2023-cpu.sh` script?",
-      "answer": "The script specifies loading `module load StdEnv/2023` and `ansys/2024R1.03`."
+      "question": "How do you run an APDL Distributed Memory Parallel (CPU) job on the Beluga cluster?",
+      "answer": "On the Beluga cluster, you need to `export KMP_AFFINITY=none` and then execute `mapdl -dis -mpi intelmpi -b nolist -np $SLURM_NTASKS -dir outdir-$SLURM_JOBID -i YOURAPDLFILE.inp`."
     },
     {
-      "question": "How is the output directory for a job created in the `script-dmp-2023-cpu.sh` script?",
-      "answer": "The output directory is created using the command `mkdir outdir-$SLURM_JOBID`."
+      "question": "What specific setup is needed for an APDL Distributed Memory Parallel (CPU) job on the Cedar cluster?",
+      "answer": "For the Cedar cluster, you must create a symbolic link for `libstdc++.so.6.0.29` in the job's output directory and export the `LD_LIBRARY_PATH` to include this directory. The commands are: `ln -s $EBROOTGCC/../lib/gcc/libstdc++.so.6.0.29 $PWD/outdir-$SLURM_JOBID/libstdc++.so.6.0.29` and `export LD_LIBRARY_PATH=$PWD/outdir-$SLURM_JOBID`."
     },
     {
-      "question": "What specific library path configuration is required on the Cedar cluster for the `script-dmp-2023-cpu.sh` script?",
-      "answer": "On the Cedar cluster, a symbolic link to `libstdc++.so.6.0.29` is created in the output directory, and `LD_LIBRARY_PATH` is exported to include this directory."
+      "question": "What is the `mapdl` command for an APDL Distributed Memory Parallel (CPU) job on clusters other than Beluga?",
+      "answer": "For clusters other than Beluga, the `mapdl` command is `mapdl -dis -mpi openmpi -b nolist -np $SLURM_NTASKS -dir outdir-$SLURM_JOBID -i YOURAPDLFILE.inp`."
     },
     {
-      "question": "How does the `script-dmp-2023-cpu.sh` script handle MPI execution on the Beluga cluster?",
-      "answer": "On the Beluga cluster, the script exports `KMP_AFFINITY=none` and then uses `mapdl -dis -mpi intelmpi -b nolist -np $SLURM_NTASKS -dir outdir-$SLURM_JOBID -i YOURAPDLFILE.inp`."
+      "question": "Which modules should be loaded for an APDL Shared Memory Parallel (GPU) job?",
+      "answer": "The modules `StdEnv/2023` and `ansys/2024R1.03` (or newer module versions) are required for an APDL Shared Memory Parallel (GPU) job."
     },
     {
-      "question": "What is the command for executing a Distributed Memory Parallel (CPU) Ansys Mechanical job on clusters other than Beluga using `script-dmp-2023-cpu.sh`?",
-      "answer": "On clusters other than Beluga, the job is executed with `mapdl -dis -mpi openmpi -b nolist -np $SLURM_NTASKS -dir outdir-$SLURM_JOBID -i YOURAPDLFILE.inp`."
+      "question": "What Slurm directives are used for an APDL Shared Memory Parallel (GPU) job?",
+      "answer": "For an APDL Shared Memory Parallel (GPU) job, the Slurm directives include `--account=def-account`, `--time=00-03:00`, `--mem=32G`, `--nodes=1`, `--ntasks=8`, `--cpus-per-task=1`, and `--gpus-per-node=1` (specifying [gputype:]quantity)."
     },
     {
-      "question": "What is the purpose of the `script-smp-2023-gpu.sh` Slurm script for Ansys Mechanical?",
-      "answer": "The `script-smp-2023-gpu.sh` Slurm script is used for running Shared Memory Parallel (SMP) Ansys Mechanical jobs leveraging GPUs."
+      "question": "How do you enable GPU device printing for an APDL Shared Memory Parallel (GPU) job?",
+      "answer": "To enable GPU device printing for an APDL Shared Memory Parallel (GPU) job, you should export the environment variable `ANSGPU_PRINTDEVICES=1`."
     },
     {
-      "question": "What are the SBATCH directives for memory, nodes, tasks, and GPUs in the `script-smp-2023-gpu.sh` script?",
-      "answer": "The script uses `--mem=32G` for total memory, `--nodes=1` (which should not be changed), `--ntasks=8` for the number of cores, and `--gpus-per-node=1` to specify the GPU quantity."
+      "question": "What is the `mapdl` command for an APDL Shared Memory Parallel (GPU) job?",
+      "answer": "The `mapdl` command for an APDL Shared Memory Parallel (GPU) job is `mapdl -smp -acc nvidia -na $SLURM_GPUS_ON_NODE -b nolist -np $SLURM_NTASKS -dir outdir-$SLURM_JOBID -i YOURAPDLFILE.inp`."
     },
     {
-      "question": "Which Ansys module version is loaded for the `script-smp-2023-gpu.sh` script?",
-      "answer": "The script loads `module load StdEnv/2023` and `ansys/2024R1.03`."
+      "question": "Are there any Cedar-specific environment variables for APDL Shared Memory Parallel (GPU) jobs?",
+      "answer": "Yes, for the Cedar cluster, you need to set `export LD_LIBRARY_PATH=$EBROOTGCC/../lib/gcc`."
     },
     {
-      "question": "Is there any Cedar-specific configuration for `LD_LIBRARY_PATH` in the `script-smp-2023-gpu.sh` script?",
-      "answer": "Yes, if the cluster is Cedar, `export LD_LIBRARY_PATH=$EBROOTGCC/../lib/gcc` is set."
+      "question": "What modules should be loaded for an APDL Distributed Memory Parallel (GPU) job?",
+      "answer": "You should load `StdEnv/2023` and `ansys/2024R1.03` (or newer module versions) for an APDL Distributed Memory Parallel (GPU) job."
     },
     {
-      "question": "How is the Ansys Mechanical job executed with Shared Memory Parallel (GPU) in the `script-smp-2023-gpu.sh` script?",
-      "answer": "The job is executed with `export ANSGPU_PRINTDEVICES=1; mapdl -smp -acc nvidia -na $SLURM_GPUS_ON_NODE -b nolist -np $SLURM_NTASKS -dir outdir-$SLURM_JOBID -i YOURAPDLFILE.inp`."
+      "question": "What Slurm `#SBATCH` directives are used for an APDL Distributed Memory Parallel (GPU) job?",
+      "answer": "The Slurm `#SBATCH` directives for an APDL Distributed Memory Parallel (GPU) job include `--account=def-account`, `--time=00-03:00`, `--mem-per-cpu=4G`, `--nodes=1`, `--ntasks-per-node=8`, `--cpus-per-task=1`, and `--gpus-per-node=1` (specifying [gputype:]quantity)."
     },
     {
-      "question": "What is the `script-dmp-2023-gpu.sh` Slurm script designed for in Ansys Mechanical?",
-      "answer": "The `script-dmp-2023-gpu.sh` Slurm script is designed for running Distributed Memory Parallel (DMP) Ansys Mechanical jobs on GPUs."
+      "question": "How is `mapdl` executed for an APDL Distributed Memory Parallel (GPU) job on the Beluga cluster?",
+      "answer": "On the Beluga cluster, you need to `export KMP_AFFINITY=none` and then run `mapdl -dis -acc nvidia -na $SLURM_GPUS_ON_NODE -mpi intelmpi -b nolist -np $SLURM_NTASKS -dir outdir-$SLURM_JOBID -i YOURAPDLFILE.inp`."
     },
     {
-      "question": "What are the key SBATCH directives for configuring nodes, tasks per node, and GPUs in the `script-dmp-2023-gpu.sh` script?",
-      "answer": "Key SBATCH directives include `--nodes=1` for the number of nodes, `--ntasks-per-node=8` for cores per node, `--cpus-per-task=1` (do not change), and `--gpus-per-node=1` to specify the GPU quantity."
+      "question": "What environment variables are important for an APDL Distributed Memory Parallel (GPU) job?",
+      "answer": "The `ANSGPU_PRINTDEVICES=1` environment variable should be exported. If on Cedar, `LD_LIBRARY_PATH` also needs to be set."
     },
     {
-      "question": "Which Ansys module version should be loaded for the `script-dmp-2023-gpu.sh` script?",
-      "answer": "The script loads `module load StdEnv/2023` and `ansys/2024R1.03`."
+      "question": "What are the Cedar-specific setup steps for an APDL Distributed Memory Parallel (GPU) job?",
+      "answer": "For Cedar, you need to create a symbolic link for `libstdc++.so.6.0.29` in the job's output directory and export `LD_LIBRARY_PATH` to include this directory. The commands are: `ln -s $EBROOTGCC/../lib/gcc/libstdc++.so.6.0.29 $PWD/outdir-$SLURM_JOBID/libstdc++.so.6.0.29` and `export LD_LIBRARY_PATH=$PWD/outdir-$SLURM_JOBID`."
     },
     {
-      "question": "How does the `script-dmp-2023-gpu.sh` script handle library path configuration on the Cedar cluster?",
-      "answer": "If the cluster is Cedar, the script creates a symbolic link `ln -s $EBROOTGCC/../lib/gcc/libstdc++.so.6.0.29 $PWD/outdir-$SLURM_JOBID/libstdc++.so.6.0.29` and exports `LD_LIBRARY_PATH=$PWD/outdir-$SLURM_JOBID`."
+      "question": "How do you run the `mapdl` command for an APDL Distributed Memory Parallel (GPU) job on clusters other than Beluga?",
+      "answer": "For clusters other than Beluga, the `mapdl` command is `mapdl -dis -acc nvidia -na $SLURM_GPUS_ON_NODE -mpi openmpi -b nolist -np $SLURM_NTASKS -dir outdir-$SLURM_JOBID -i YOURAPDLFILE.inp`."
     },
     {
-      "question": "How is a Distributed Memory Parallel (GPU) Ansys Mechanical job executed on the Beluga cluster using `script-dmp-2023-gpu.sh`?",
-      "answer": "On the Beluga cluster, the job is executed with `export ANSGPU_PRINTDEVICES=1; export KMP_AFFINITY=none; mapdl -dis -acc nvidia -na $SLURM_GPUS_ON_NODE -mpi intelmpi -b nolist -np $SLURM_NTASKS -dir outdir-$SLURM_JOBID -i YOURAPDLFILE.inp`."
-    },
-    {
-      "question": "What is the command for executing a Distributed Memory Parallel (GPU) Ansys Mechanical job on clusters other than Beluga in the `script-dmp-2023-gpu.sh` script?",
-      "answer": "On clusters other than Beluga, the command is `export ANSGPU_PRINTDEVICES=1; mapdl -dis -acc nvidia -na $SLURM_GPUS_ON_NODE -mpi openmpi -b nolist -np $SLURM_NTASKS -dir outdir-$SLURM_JOBID -i YOURAPDLFILE.inp`."
+      "question": "What is the general command to create an output directory for Mechanical APDL jobs?",
+      "answer": "For all Mechanical APDL jobs described, an output directory should be created using `mkdir outdir-$SLURM_JOBID`."
     }
   ],
-  "generated_at": "2026-04-11T16:51:57.814382+00:00"
+  "generated_at": "2026-04-12T16:40:11.098729+00:00"
 }

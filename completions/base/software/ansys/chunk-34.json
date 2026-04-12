@@ -4,45 +4,53 @@
   "chunk_index": 34,
   "qa_pairs": [
     {
-      "question": "What is the recommended Slurm account to specify for an Ansys Rocky CPU-only simulation?",
-      "answer": "You should specify either `def-account` or `rrg-account` for your Slurm job."
+      "question": "What type of Ansys Rocky simulation does this Slurm script run?",
+      "answer": "This Slurm script is designed to run Ansys Rocky simulations exclusively with CPUs."
     },
     {
-      "question": "What is the example time limit set for the Ansys Rocky CPU-only job in the Slurm script?",
-      "answer": "The example time limit is `00-02:00`, which translates to 2 hours."
+      "question": "Which modules need to be loaded to use this Ansys Rocky script?",
+      "answer": "You need to load `StdEnv/2023` and `ansys/2025R1` modules, or newer versions, as specified in the script."
     },
     {
-      "question": "How much total memory is specified for cores in the example Slurm script for an Ansys Rocky CPU-only job?",
-      "answer": "The script specifies `24G` of total memory for cores."
+      "question": "What is the command used to start the Rocky simulation in this script?",
+      "answer": "The Rocky simulation is started with the command `Rocky --simulate “mysim.rocky” --resume=1 --ncpus=$SLURM_CPUS_PER_TASK --use-gpu=0`."
     },
     {
-      "question": "How many CPUs are requested per task for an Ansys Rocky CPU-only job in this example?",
-      "answer": "The example requests `6` CPUs per task."
+      "question": "How do you specify your account for a job using this Rocky CPU-only Slurm script?",
+      "answer": "Your account (e.g., `def` or `rrg`) should be specified using the `#SBATCH --account` directive at the beginning of the script."
     },
     {
-      "question": "How many compute nodes are requested for the Ansys Rocky CPU-only simulation?",
-      "answer": "The script requests `1` compute node."
+      "question": "What is the default time limit set for an Ansys Rocky CPU-only job in this script?",
+      "answer": "The script sets a default time limit of 2 hours (`00-02:00`) for the job."
     },
     {
-      "question": "Which modules need to be loaded to run Ansys Rocky CPU-only simulations?",
-      "answer": "You need to load `StdEnv/2023` and `ansys/2025R1` (or newer versions)."
+      "question": "What is the default memory allocation requested for a Rocky CPU-only job according to this script?",
+      "answer": "The script requests 24GB of total memory for the cores by default (`#SBATCH --mem=24G`)."
     },
     {
-      "question": "What command is used to set the path for the Rocky executable?",
-      "answer": "The command `export PATH=$EBROOTANSYS/v251/rocky:$PATH` is used to set the path for the Rocky executable."
+      "question": "How many CPU cores per task are requested by default in this Ansys Rocky CPU-only script?",
+      "answer": "By default, the script requests 6 CPU cores per task (`#SBATCH --cpus-per-task=6`)."
     },
     {
-      "question": "What is the full command used to run an Ansys Rocky CPU-only simulation from the Slurm script?",
-      "answer": "The command is `Rocky --simulate “mysim.rocky” --resume=1 --ncpus=$SLURM_CPUS_PER_TASK --use-gpu=0`."
+      "question": "How many nodes does this Rocky CPU-only Slurm script request for the job?",
+      "answer": "This script requests one compute node (`#SBATCH --nodes=1`)."
     },
     {
-      "question": "How do I specify that Ansys Rocky should not use a GPU in the simulation command?",
-      "answer": "You can specify that Ansys Rocky should not use a GPU by including `--use-gpu=0` in the command."
+      "question": "What is the function of the `export PATH=$EBROOTANSYS/v251/rocky:$PATH` line in the script?",
+      "answer": "This line adds the specific Rocky executable directory for version `v251` to the system's `PATH` environment variable, allowing the `Rocky` command to be found and executed."
     },
     {
-      "question": "How can I resume an Ansys Rocky simulation from a previous state using the command line?",
-      "answer": "You can resume a simulation by adding `--resume=1` to the `Rocky` command, for example: `Rocky --simulate “mysim.rocky” --resume=1 ...`."
+      "question": "What does the `--use-gpu=0` argument in the `Rocky` command indicate?",
+      "answer": "The `--use-gpu=0` argument specifies that the simulation should not utilize GPUs, confirming it's a CPU-only run."
+    },
+    {
+      "question": "How is the number of CPUs dynamically passed to the `Rocky` command in this Slurm script?",
+      "answer": "The number of CPUs is passed using `--ncpus=$SLURM_CPUS_PER_TASK`, which uses the value of the `SLURM_CPUS_PER_TASK` environment variable automatically set by Slurm based on the `#SBATCH` directive."
+    },
+    {
+      "question": "Can I use an Ansys module older than 2025R1 with this script?",
+      "answer": "The script specifically loads `ansys/2025R1` or newer versions, so an older module might not be compatible without modifications."
     }
   ],
-  "generated_at": "2026-04-11T16:52:23.685256+00:00"
+  "generated_at": "2026-04-12T16:40:48.536386+00:00"
 }

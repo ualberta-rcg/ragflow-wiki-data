@@ -19,7 +19,7 @@ from pathlib import Path
 from datetime import datetime, timezone
 
 sys.path.insert(0, str(Path(__file__).parent))
-from shared import categorize_doc
+from shared import categorize_doc, should_skip_doc
 
 from google import genai
 
@@ -36,8 +36,6 @@ GEMINI_MODEL = os.environ.get("GEMINI_MODEL", "gemini-2.5-flash")
 
 RETRY_ATTEMPTS = 2
 RETRY_PAUSE = 3
-
-SKIP_DOC_PREFIXES = ("events/", "status/")
 
 LANG_INSTRUCTIONS = {
     "fr": (
@@ -285,7 +283,7 @@ def main():
     to_convert = []
     skipped = 0
     for k, v in docs.items():
-        if k.startswith(SKIP_DOC_PREFIXES):
+        if should_skip_doc(k, v):
             continue
         current_hash = v.get("source_hash", "")
         if not current_hash:

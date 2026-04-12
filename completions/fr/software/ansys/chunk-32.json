@@ -4,81 +4,33 @@
   "chunk_index": 32,
   "qa_pairs": [
     {
-      "question": "Quelle est la quantité de mémoire par cœur spécifiée par défaut dans le script Slurm pour une tâche Mechanical en mémoire parallèle distribuée (DMP) avec CPU?",
-      "answer": "La quantité de mémoire par cœur spécifiée par défaut est de 4 Go (`#SBATCH --mem-per-cpu=4G`)."
+      "question": "Quel module Ansys est chargé dans ce bout de script?",
+      "answer": "Le script charge le module `ansys/2024R1.03`."
     },
     {
-      "question": "Quels modules sont chargés pour une tâche Ansys Mechanical en mémoire parallèle distribuée (DMP) avec CPU?",
-      "answer": "Les modules `StdEnv/2023` et `ansys/2024R1.03` sont chargés pour une tâche Ansys Mechanical en DMP avec CPU."
+      "question": "À quoi sert la commande `mkdir` dans ce segment de script?",
+      "answer": "La commande `mkdir` sert à créer un nouveau répertoire nommé `outdir-` suivi de l'identifiant de la tâche Slurm (`$SLURM_JOBID`), où les fichiers de sortie seront stockés."
     },
     {
-      "question": "Comment le `LD_LIBRARY_PATH` est-il configuré sur la grappe Cedar pour une tâche Mechanical en DMP avec CPU?",
-      "answer": "Sur la grappe Cedar, un lien symbolique est créé vers `libstdc++.so.6.0.29` et le `LD_LIBRARY_PATH` est exporté pour inclure le répertoire de sortie de la tâche (`$PWD/outdir-$SLURM_JOBID`)."
+      "question": "Dans quelles conditions la variable d'environnement `LD_LIBRARY_PATH` est-elle modifiée?",
+      "answer": "La variable d'environnement `LD_LIBRARY_PATH` est modifiée seulement si le grappe utilisé est `cedar`."
     },
     {
-      "question": "Quel MPI est utilisé pour une tâche Mechanical en DMP avec CPU sur la grappe Beluga?",
-      "answer": "Sur la grappe Beluga, Intel MPI (`-mpi intelmpi`) est utilisé pour une tâche Mechanical en DMP avec CPU."
+      "question": "Quelle commande est employée pour lancer le solveur APDL en mode parallèle à mémoire partagée?",
+      "answer": "La commande utilisée pour lancer le solveur APDL en mode parallèle à mémoire partagée (SMP) est `mapdl -smp`."
     },
     {
-      "question": "Quel MPI est utilisé pour une tâche Mechanical en DMP avec CPU sur les grappes autres que Beluga?",
-      "answer": "Sur les grappes autres que Beluga, Open MPI (`-mpi openmpi`) est utilisé pour une tâche Mechanical en DMP avec CPU."
+      "question": "Comment le script définit-il le nombre de cœurs à utiliser pour une simulation APDL?",
+      "answer": "Le script utilise l'option `-np $SLURM_NTASKS` pour spécifier le nombre de cœurs, en se basant sur la variable Slurm `$SLURM_NTASKS`."
     },
     {
-      "question": "Quelle est la quantité de mémoire totale allouée pour une tâche Mechanical en mémoire parallèle partagée (SMP) avec GPU?",
-      "answer": "Une tâche Mechanical en SMP avec GPU a 32 Go de mémoire totale allouée (`#SBATCH --mem=32G`)."
+      "question": "Quel est le nom du fichier d'entrée requis par la commande `mapdl`?",
+      "answer": "Le fichier d'entrée pour la simulation APDL est `YOURAPDLFILE.inp`."
     },
     {
-      "question": "Combien de cœurs et de GPU sont spécifiés par défaut pour une tâche Mechanical en SMP avec GPU?",
-      "answer": "Par défaut, 8 cœurs (`#SBATCH --ntasks=8`) et 1 GPU (`#SBATCH --gpus-per-node=1`) sont spécifiés pour une tâche Mechanical en SMP avec GPU."
-    },
-    {
-      "question": "À quoi sert la variable d'environnement `ANSGPU_PRINTDEVICES` dans un script SMP avec GPU?",
-      "answer": "La variable d'environnement `ANSGPU_PRINTDEVICES=1` est exportée pour potentiellement afficher des informations sur les périphériques GPU."
-    },
-    {
-      "question": "Quelle est la commande `mapdl` utilisée pour une tâche Mechanical en SMP avec GPU?",
-      "answer": "La commande `mapdl -smp -acc nvidia -na $SLURM_GPUS_ON_NODE -b nolist -np $SLURM_NTASKS -dir outdir-$SLURM_JOBID -i YOURAPDLFILE.inp` est utilisée."
-    },
-    {
-      "question": "Quelle est la quantité de mémoire par cœur spécifiée pour une tâche Mechanical en mémoire parallèle distribuée (DMP) avec GPU?",
-      "answer": "La quantité de mémoire par cœur spécifiée pour une tâche Mechanical en DMP avec GPU est de 4 Go (`#SBATCH --mem-per-cpu=4G`)."
-    },
-    {
-      "question": "Combien de cœurs par nœud et de GPU par nœud sont spécifiés par défaut pour une tâche Mechanical en DMP avec GPU?",
-      "answer": "Par défaut, 8 cœurs par nœud (`#SBATCH --ntasks-per-node=8`) et 1 GPU par nœud (`#SBATCH --gpus-per-node=1`) sont spécifiés pour une tâche Mechanical en DMP avec GPU."
-    },
-    {
-      "question": "Quel MPI est utilisé pour une tâche Mechanical en DMP avec GPU sur la grappe Beluga?",
-      "answer": "Sur la grappe Beluga, Intel MPI (`-mpi intelmpi`) est utilisé pour une tâche Mechanical en DMP avec GPU."
-    },
-    {
-      "question": "Quel MPI est utilisé pour une tâche Mechanical en DMP avec GPU sur les grappes autres que Beluga?",
-      "answer": "Sur les grappes autres que Beluga, Open MPI (`-mpi openmpi`) est utilisé pour une tâche Mechanical en DMP avec GPU."
-    },
-    {
-      "question": "Comment Ansys alloue-t-il la mémoire par défaut aux tâches APDL?",
-      "answer": "Par défaut, Ansys alloue 1024 Mo de mémoire totale et 1024 Mo de mémoire pour les bases de données aux tâches APDL."
-    },
-    {
-      "question": "Comment peut-on modifier manuellement les allocations de mémoire par défaut pour les tâches APDL?",
-      "answer": "On peut les modifier manuellement en ajoutant les arguments `-m` pour la mémoire totale et/ou `-db` pour la mémoire de la base de données (par exemple, `-m 1024` et `-db 1024`) sur la dernière ligne de commande `mapdl` des scripts."
-    },
-    {
-      "question": "Quels arguments pourraient être nécessaires si j'utilise un serveur de licence institutionnel avec plusieurs licences Ansys?",
-      "answer": "Il pourrait être nécessaire d'ajouter des arguments comme `-p aa_r` ou `-ppf anshpc`, selon le module utilisé."
-    },
-    {
-      "question": "Pourquoi est-il recommandé d'effectuer des tests de mise à l'échelle avant de lancer des tâches en production pour Ansys Mechanical?",
-      "answer": "Il est recommandé d'effectuer des tests de mise à l'échelle pour s'assurer que vous utilisez le nombre optimal de cœurs et la bonne quantité minimale de mémoire, garantissant ainsi une performance efficace."
-    },
-    {
-      "question": "Quel type de script (SMP ou DMP) offre une meilleure performance pour les tâches sur un nœud simple?",
-      "answer": "Les scripts pour nœud simple avec mémoire parallèle partagée (SMP) offrent une meilleure performance que les scripts pour plusieurs nœuds avec mémoire parallèle distribuée (DMP) et devraient être utilisés autant que possible."
-    },
-    {
-      "question": "Quelle est la recommandation pour la compatibilité du module Ansys avec le fichier d'entrée APDL?",
-      "answer": "Pour prévenir les problèmes de compatibilité, le module qui est chargé dans votre script devrait idéalement correspondre à la version employée pour générer le fichier en entrée."
+      "question": "Comment le script s'assure-t-il que le solveur APDL fonctionne en mode non interactif?",
+      "answer": "Le script utilise l'option `-b nolist` pour que le solveur APDL fonctionne en mode non interactif, sans liste."
     }
   ],
-  "generated_at": "2026-04-11T17:13:43.194815+00:00"
+  "generated_at": "2026-04-12T17:03:11.332670+00:00"
 }

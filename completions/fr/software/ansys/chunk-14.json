@@ -4,33 +4,49 @@
   "chunk_index": 14,
   "qa_pairs": [
     {
-      "question": "C'est quoi le rôle du paramètre `#SBATCH --cpus-per-task=1` dans ce script Slurm?",
-      "answer": "Ce paramètre est obligatoire pis faut pas le changer, c'est pour spécifier le nombre de cœurs par tâche."
+      "question": "Comment configurer les serveurs de licence Ansys pour une tâche sur la grappe Trillium, sans utiliser le fichier `~/.licenses/ansys.lic`?",
+      "answer": "Dans le script de soumission, on peut spécifier directement les variables `LICSERVER`, `FLEXPORT` et `VENDPORT`. Le script va ensuite configurer un transfert de port SSH local (`ssh tri-gw -fNL`) et exporter les variables d'environnement `ANSYSLMD_LICENSE_FILE` et `ANSYSLI_SERVERS` pour qu'elles pointent vers `localhost` avec les ports transférés, priorisant ainsi ces paramètres sur ceux du fichier `~/.licenses/ansys.lic`."
     },
     {
-      "question": "Quel module `StdEnv` devrait-on charger avec ce script?",
-      "answer": "Faut charger le module `StdEnv/2023`."
+      "question": "Quelles sont les valeurs par défaut ou suggérées pour `FLEXPORT` et `VENDPORT` dans le contexte du script de licence Trillium?",
+      "answer": "`FLEXPORT` est habituellement `1055` et `VENDPORT` est `1793`."
     },
     {
-      "question": "Quelle version du module Ansys est spécifiée dans ce script-là?",
-      "answer": "La version spécifiée est `ansys/2025R2.04`."
+      "question": "Que se passe-t-il si les liens symboliques `~/.ansys`, `~/.fluentconf` ou `~/.flrecent` n'existent pas ou ne sont pas configurés correctement avant de lancer une tâche Ansys sur Trillium?",
+      "answer": "Si un de ces liens symboliques n'existe pas ou n'est pas bon, le script affichera un message d'erreur et la tâche sera annulée. Il faut enlever le répertoire ou le fichier problématique s'il existe déjà, puis créer un lien symbolique vers un emplacement accessible en écriture dans `$SCRATCH` (par exemple, `ln -s $SCRATCH/.ansys ~/.ansys`)."
     },
     {
-      "question": "Y'a-t-il une restriction sur les versions d'Ansys qui fonctionnent sur Trillium?",
-      "answer": "Oui, seulement Ansys 2025R2 ou des versions plus récentes fonctionnent sur Trillium."
+      "question": "Quelles sont les commandes qui créent les répertoires et fichiers nécessaires dans `$SCRATCH` une fois que les vérifications des liens symboliques sont passées dans le script Trillium?",
+      "answer": "Les commandes sont `mkdir -pv $SCRATCH/.ansys`, `mkdir -pv $SCRATCH/.fluentconf` et `touch $SCRATCH/.flrecent`."
     },
     {
-      "question": "À quoi sert la variable `MYJOURNALFILE`?",
-      "answer": "La variable `MYJOURNALFILE` est là pour que tu spécifies le nom de ton fichier de journalisation, comme `sample.jou`."
+      "question": "Quand faut-il utiliser les scripts de 'remise en file d'attente pour obtenir la licence' pour les tâches Fluent?",
+      "answer": "Ces scripts doivent être utilisés uniquement pour les tâches Fluent qui sont censées se terminer normalement sans générer d'erreurs, mais qui nécessitent souvent plusieurs tentatives pour obtenir une licence."
     },
     {
-      "question": "Quelles sont les options possibles pour la variable `MYVERSION`?",
-      "answer": "Pour la variable `MYVERSION`, tu peux choisir entre `2d`, `2ddp`, `3d` ou `3ddp`."
+      "question": "Pour quels types de tâches Fluent les scripts de remise en file d'attente ne sont-ils pas recommandés?",
+      "answer": "Ils ne sont pas recommandés pour les tâches Fluent qui peuvent s'exécuter longtemps avant de planter ou qui se terminent avec des avertissements dans le journal, car la simulation serait répétée inutilement, gaspillant du temps de calcul."
     },
     {
-      "question": "Où sont gérées les configurations de licence avec ce script?",
-      "answer": "Les configurations de licence définies dans le script sont utilisées à la place de celles de ton fichier `~/.licenses/ansys.lic`."
+      "question": "Comment le nombre maximal de tentatives de remise en file d'attente est-il spécifié dans un script Slurm?",
+      "answer": "Le nombre maximal de tentatives est spécifié avec la directive `#SBATCH --array=1-5%1`, où `5` représente le nombre de tentatives souhaitées."
+    },
+    {
+      "question": "Quelles versions de l'environnement standard et d'Ansys sont chargées par le script de remise en file d'attente Fluent?",
+      "answer": "Le script charge `StdEnv/2023` et `ansys/2023R2` (ou une version plus récente)."
+    },
+    {
+      "question": "Comment le script de remise en file d'attente Fluent gère-t-il la fin réussie d'une tâche?",
+      "answer": "Si la tâche se termine avec succès (`$? -eq 0`), le script affiche un message de succès et annule l'ensemble du travail en file d'attente (`scancel $SLURM_ARRAY_JOB_ID`) pour éviter toute tentative de remise en file d'attente inutile."
+    },
+    {
+      "question": "Que se passe-t-il si une tâche Fluent échoue mais que d'autres tentatives de remise en file d'attente sont encore possibles?",
+      "answer": "Le script affichera un message indiquant l'échec de la tentative et que la tâche sera soumise de nouveau (`Resubmitting job now…`) si le nombre maximal de tentatives n'a pas encore été atteint."
+    },
+    {
+      "question": "Pourquoi le script de remise en file d'attente spécifie-t-il un comportement différent pour les clusters Narval et Nibi concernant les modules MPI et l'exportation de variables?",
+      "answer": "Si le cluster est Narval, le script charge `intel/2023 intelmpi` et exporte `INTELMPI_ROOT`. De plus, si la version d'Ansys est 2025 ou plus et que le cluster est Nibi ou Narval, `I_MPI_HYDRA_BOOTSTRAP` est exporté à `ssh`."
     }
   ],
-  "generated_at": "2026-04-11T17:08:23.930022+00:00"
+  "generated_at": "2026-04-12T16:58:50.760792+00:00"
 }

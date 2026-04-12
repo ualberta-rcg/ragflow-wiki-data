@@ -4,61 +4,61 @@
   "chunk_index": 47,
   "qa_pairs": [
     {
-      "question": "What commands are used to prepare and run a replay file for an Ansys Additive project on a cluster?",
-      "answer": "You can prepare and run a replay file by loading the Ansys module (`module load ansys/2019R3`), removing any lock files (`rm -f test_files/.lock`), and then executing the replay file (`runwb2 -R myreplay.wbjn`)."
+      "question": "How can I execute a replay file for an Ansys Additive project on a cluster?",
+      "answer": "To execute a replay file, you should first load the appropriate Ansys module (e.g., `module load ansys/2019R3`), then remove any lock files by running `rm -f test_files/.lock`, and finally run the replay file using `runwb2 -R myreplay.wbjn`."
     },
     {
-      "question": "How can I check the resource utilization of an active Ansys Additive job on a compute node?",
-      "answer": "You can obtain a snapshot of its resource utilization using the `srun` command: `srun --overlap --jobid=myjobid top -bn1 -u $USER | grep R | grep -v top`."
+      "question": "What command can I use to monitor the resource utilization of my Ansys Additive job on compute nodes?",
+      "answer": "You can obtain a snapshot of your additive job's resource utilization on the compute node(s) after it has been running for a few minutes using the `srun --overlap --jobid=myjobid top -bn1 -u $USER | grep R | grep -v top` command."
     },
     {
-      "question": "What kind of information does the sample output for resource utilization provide?",
-      "answer": "The sample output shows the PID, USER, CPU percentage, memory usage, cumulative CPU time, and the command (`ansys.e`) for running processes. It also indicates if multiple nodes were selected by the scheduler for the job."
+      "question": "If my eight-core Ansys Additive job is running, and I use the resource utilization command, what kind of information might the sample output show?",
+      "answer": "The sample output might show PID, USER, CPU, MEM, and COMMAND details for multiple `ansys.e` processes across different compute nodes, indicating that two nodes were selected by the scheduler for an eight-core job."
     },
     {
-      "question": "How can I find the \"Job Wall-clock time\" after an Ansys job has finished?",
-      "answer": "The \"Job Wall-clock time\" can be obtained using the command `seff myjobid` after a job completes."
+      "question": "How do I determine the \"Job Wall-clock time\" for an Ansys job after it finishes?",
+      "answer": "After an Ansys job completes, you can obtain its \"Job Wall-clock time\" using the `seff myjobid` command."
     },
     {
-      "question": "What is the process for performing scaling tests for Ansys jobs?",
-      "answer": "Scaling tests involve submitting short test jobs with an increasing number of cores. After each job completes, you obtain its \"Job Wall-clock time\" using `seff myjobid` to assess performance improvements."
+      "question": "When conducting scaling tests for an Ansys job, what performance improvement suggests that more cores could be beneficial?",
+      "answer": "If the \"Job Wall-clock time\" decreases by approximately 50% when the number of cores is doubled, it suggests that additional cores may be considered."
     },
     {
-      "question": "When should I consider increasing the number of cores for an Ansys job based on scaling tests?",
-      "answer": "If the \"Wall-clock time\" decreases by approximately 50% when the number of cores is doubled, then additional cores may be considered for the job."
+      "question": "Where can I find the official documentation for recent Ansys versions like 2024R1 or 2025R2?",
+      "answer": "The official full documentation for recent Ansys versions, such as 2024R1 or 2025R2, is available at [https://ansyshelp.ansys.com/public/account/secured?returnurl=/Views/Secured/main_page.html?lang=en here]."
     },
     {
-      "question": "Where can I access the official documentation for recent versions of Ansys, such as 2024R1/R2 or 2025R1/R2?",
-      "answer": "The official full documentation for recent versions like Ansys 2024R1/R2 and 2025R1/R2 is available at `https://ansyshelp.ansys.com/public/account/secured?returnurl=/Views/Secured/main_page.html?lang=en`."
+      "question": "Do I need to log in to access the documentation for older Ansys versions, like 2023R1 or 2023R2?",
+      "answer": "Yes, documentation for older versions such as Ansys 2023R1 or 2023R2 requires a login."
     },
     {
-      "question": "Do I need to log in to access the documentation for older Ansys versions, for example, 2023R1/R2?",
-      "answer": "Yes, documentation for older versions such as Ansys 2023R1/R2 requires a login."
-    },
-    {
-      "question": "Where can I find documentation specifically for Ansys developers?",
-      "answer": "Developer documentation can be found in the Ansys Developer Portal at `https://developer.ansys.com`."
-    },
-    {
-      "question": "What other learning resources are available for Ansys users?",
+      "question": "What are some available learning resources for Ansys users?",
       "answer": "Additional learning resources include the Ansys HowTo videos, the Ansys Educator Hub, and the Ansys Webinar series."
     },
     {
-      "question": "Is running Ansys programs graphically over SSH (XoverSSH) a recommended or supported method?",
-      "answer": "No, running Ansys programs by forwarding X over SSH to your local desktop is an untested and unsupported approach."
+      "question": "Where can Ansys developer-specific documentation be found?",
+      "answer": "Developer documentation can be found in the Ansys Developer Portal."
     },
     {
-      "question": "Why is X over SSH not recommended for running Ansys GUI programs?",
-      "answer": "X over SSH is not recommended because interactive response times are typically unacceptably slow for basic menu tasks and graphics rendering. GUI program startup times can also be very slow, taking up to 40 minutes in some tests, compared to 34 seconds with vncviewer."
+      "question": "Is X over SSH a recommended method for running Ansys programs with graphical interfaces on a cluster compute node?",
+      "answer": "No, X over SSH is an untested and unsupported approach for running Ansys programs remotely on a cluster compute node, and it is generally not recommended due to unacceptably slow interactive response times for graphical tasks."
     },
     {
-      "question": "In what scenarios might X over SSH still be useful for Ansys programs despite its performance issues?",
-      "answer": "Despite the potential slowness, using X over SSH might still be of interest if your only goal is to open a simulation, perform some basic menu operations, or run some calculations, and response delays can be tolerated."
+      "question": "What kind of performance issues might users experience when attempting to use X over SSH for Ansys GUI programs?",
+      "answer": "Users may experience unacceptably slow interactive response times for basic menu tasks, let alone complex graphics rendering, and GUI program startup times can be very slow, potentially taking 40 minutes compared to 34 seconds with vncviewer."
     },
     {
-      "question": "What are the basic steps to attempt to run an Ansys GUI program remotely on a cluster compute node using X over SSH?",
-      "answer": "The basic steps are: 1) `ssh -Y username@alliancecan.ca`, 2) `salloc --x11 --time=1:00:00 --mem=16G --cpus-per-task=4 [--gpus-per-node=1] --account=def-mygroup`, and 3) once connected to a compute node, try running `xclock`. If the clock appears, you can then load the desired Ansys module and attempt to run the program."
+      "question": "What are the fundamental requirements for attempting to run an Ansys program using X over SSH?",
+      "answer": "This method relies on a properly set up X display server for your operating system or the installation and configuration of a suitable X client emulator package such as MobaXterm."
+    },
+    {
+      "question": "Under what limited circumstances might using X over SSH for Ansys still be considered despite its performance drawbacks?",
+      "answer": "Despite its potential slowness, using this method may still be of interest if your only goal is to open a simulation and perform some basic menu operations or run some calculations, and response delays can be tolerated."
+    },
+    {
+      "question": "Could you outline the basic steps to connect to a compute node and attempt to run a graphical Ansys program via X over SSH?",
+      "answer": "The basic steps are to `ssh -Y username@alliancecan.ca`, then `salloc --x11 --time=1:00:00 --mem=16G --cpus-per-task=4 [--gpus-per-node=1] --account=def-mygroup`, and once connected, confirm X forwarding with `xclock` before loading the Ansys module and attempting to run the program."
     }
   ],
-  "generated_at": "2026-04-11T16:54:43.224865+00:00"
+  "generated_at": "2026-04-12T16:43:49.392064+00:00"
 }

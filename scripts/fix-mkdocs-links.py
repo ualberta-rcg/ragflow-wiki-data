@@ -24,10 +24,11 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 sys_path_added = False
+should_skip_doc = None
 try:
     import sys
     sys.path.insert(0, str(Path(__file__).parent))
-    from shared import categorize_doc
+    from shared import categorize_doc, should_skip_doc
     sys_path_added = True
 except Exception:
     # Keep script usable for ad-hoc troubleshooting even if imports fail.
@@ -36,7 +37,6 @@ except Exception:
 REPO_ROOT = Path(__file__).resolve().parent.parent
 DOCS_DIR = REPO_ROOT / "mkdocs-site" / "docs"
 STATE_FILE = REPO_ROOT / "config" / "processing-state.json"
-SKIP_DOC_PREFIXES = ("events/", "status/")
 
 BATCH_SIZE = int(os.environ.get("BATCH_SIZE", "0"))
 FORCE_ALL = os.environ.get("LINKFIX_FORCE_ALL", "false").lower() == "true"
@@ -254,7 +254,9 @@ def main() -> int:
 
     to_process: list[tuple[str, dict, Path]] = []
     for doc_key, doc_state in docs.items():
-        if doc_key.startswith(SKIP_DOC_PREFIXES):
+        if should_skip_doc and should_skip_doc(doc_key, doc_state):
+            continue
+        if doc_key.startswith(("events/", "status/")):
             continue
         source_hash = doc_state.get("source_hash", "")
         mkdocs_hash = doc_state.get("mkdocs_source_hash", "")

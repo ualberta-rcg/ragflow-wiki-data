@@ -4,29 +4,89 @@
   "chunk_index": 13,
   "qa_pairs": [
     {
-      "question": "How is the `machinefile` generated for ANSYS-FLUENT in this script?",
-      "answer": "The `slurm_hl2hl.py --format ANSYS-FLUENT` command is used, and its output is redirected to `/tmp/machinefile-$SLURM_JOB_ID`."
+      "question": "What are the Fluent requeue scripts used for?",
+      "answer": "Fluent requeue scripts are used for jobs that typically complete normally but frequently fail to acquire a licence, allowing them to be automatically resubmitted."
     },
     {
-      "question": "How is the `NCORES` variable populated in this script?",
-      "answer": "The `NCORES` variable is assigned the value of `$SLURM_NTASKS`, which represents the total number of tasks (cores) requested."
+      "question": "When should Fluent requeue scripts not be used?",
+      "answer": "Fluent requeue scripts are not recommended for Fluent jobs that may run for a long time before crashing, or those that run to completion but contain unresolved journal file warnings, as these simulations would be repeated from the beginning."
     },
     {
-      "question": "What command is used to launch Fluent when a job is running on a single compute node?",
-      "answer": "The command `fluent -g $MYVERSION -t $NCORES -mpi=intel -pshmem -i $MYJOURNALFILE` is used to launch Fluent when running on a single compute node."
+      "question": "How many requeue attempts can be specified in a Fluent requeue Slurm script?",
+      "answer": "The number of requeue attempts is specified by the `#SBATCH --array=1-5%1` line in the Slurm script, where '5' represents the maximum number of attempts."
     },
     {
-      "question": "Which MPI library and parallelism method are specified for Fluent when running on a single node?",
-      "answer": "For single-node execution, Fluent is configured to use `intel` MPI with shared memory parallelism (`-pshmem`)."
+      "question": "What happens if a Fluent job using a requeue script completes successfully?",
+      "answer": "If a Fluent job using a requeue script completes successfully, the script will print 'Job completed successfully! Exiting now.' and then cancel the entire job array using `scancel $SLURM_ARRAY_JOB_ID`."
     },
     {
-      "question": "What are the conditions for setting the `I_MPI_HYDRA_BOOTSTRAP` environment variable to `ssh`?",
-      "answer": "The `I_MPI_HYDRA_BOOTSTRAP` environment variable is set to `ssh` if the `EBVERSIONANSYS` is 2025 or newer and the cluster is `nibi`, or if the cluster is `narval`. In these cases, `I_MPI_HYDRA_BOOTSTRAP_EXEC_EXTRA_ARGS` is also unset."
+      "question": "What message is displayed if a Fluent job using a requeue script fails but more attempts are remaining?",
+      "answer": "If a Fluent job using a requeue script fails but more attempts are remaining, the message 'Job attempt $SLURM_ARRAY_TASK_ID of $SLURM_ARRAY_TASK_COUNT failed due to licence or simulation issue!' followed by 'Resubmitting job now …' will be displayed."
     },
     {
-      "question": "What happens to the `INTELMPI_ROOT` and `I_MPI_ROOT` variables in the provided script chunk?",
-      "answer": "The `INTELMPI_ROOT` variable is exported with the value of `$I_MPI_ROOT`, and then the `I_MPI_ROOT` variable is unset."
+      "question": "What is the purpose of the Fluent solution restart scripts?",
+      "answer": "The Fluent solution restart scripts are provided to automate restarting very large jobs that may require more than the typical seven-day maximum runtime window available on most clusters."
+    },
+    {
+      "question": "How do Fluent solution restart scripts continue a simulation?",
+      "answer": "Fluent solution restart scripts continue a simulation by restarting from the most recent saved time step files."
+    },
+    {
+      "question": "What is a fundamental requirement for the first time step when using Fluent solution restart scripts?",
+      "answer": "A fundamental requirement is that the first time step can be completed within the requested job array time limit (specified at the top of your Slurm script) when starting a simulation from an initialized solution field."
+    },
+    {
+      "question": "What files must be present to begin using Fluent solution restart scripts?",
+      "answer": "To begin, a working set of `sample.cas`, `sample.dat`, and `sample.jou` files must be present."
+    },
+    {
+      "question": "What modifications are needed in the original `sample.jou` file for solution restart?",
+      "answer": "The original `sample.jou` file needs to be edited to contain `/solve/dual-time-iterate 1` and `/file/auto-save/data-frequency 1`."
+    },
+    {
+      "question": "How do you create a restart journal file for Fluent solution restart?",
+      "answer": "A restart journal file can be created by copying `sample.jou` to `sample-restart.jou` and then editing `sample-restart.jou`."
+    },
+    {
+      "question": "What specific changes should be made to `sample-restart.jou`?",
+      "answer": "In `sample-restart.jou`, replace `/file/read-cas-data sample` with `/file/read-cas-data sample-restart` and comment out the initialization line with a semicolon (e.g., `;/solve/initialize/initialize-flow`)."
+    },
+    {
+      "question": "How can the number of iterations per time step be adjusted in `sample-restart.jou` if subsequent steps are faster?",
+      "answer": "If your second and subsequent time steps are known to run twice as fast, you can edit `sample-restart.jou` to specify `/solve/dual-time-iterate 2`."
+    },
+    {
+      "question": "Why is it recommended to minimize the number of solution restarts?",
+      "answer": "Solution restarts are computationally expensive, so minimizing their number helps to reduce the overall computational cost."
+    },
+    {
+      "question": "What is the maximum Slurm time window that can be specified for a Fluent restart job?",
+      "answer": "The Slurm time window for a Fluent restart job can be specified up to a maximum of `#SBATCH --time=07-00:00` days."
+    },
+    {
+      "question": "How do the Fluent restart scripts handle single-node versus multi-node execution?",
+      "answer": "For single-node execution (`SLURM_NNODES == 1`), Fluent uses `pshmem`. For multi-node, it uses `peth` on Nibi and `pib` on other clusters, along with a machinefile."
+    },
+    {
+      "question": "What specific command is used in the Fluent requeue and restart scripts to run Fluent on a single node with Intel MPI and shared memory?",
+      "answer": "On a single node, the command is `fluent -g $MYVERSION -t $NCORES -mpi=intel -pshmem -i $MYJOURNALFILE`."
+    },
+    {
+      "question": "What is the purpose of `scancel $SLURM_ARRAY_JOB_ID` in the requeue scripts?",
+      "answer": "`scancel $SLURM_ARRAY_JOB_ID` is used to cancel all remaining tasks in the job array once one task completes successfully, preventing unnecessary further attempts."
+    },
+    {
+      "question": "What is `NCORES` set to in the provided Fluent Slurm scripts?",
+      "answer": "`NCORES` is set to the value of `$SLURM_NTASKS`."
+    },
+    {
+      "question": "Which MPI implementation is specified for Fluent runs on multi-node clusters other than Nibi in the provided scripts?",
+      "answer": "For multi-node clusters other than Nibi, the scripts specify `-mpi=intel -pib`."
+    },
+    {
+      "question": "How are the latest case and data files linked for subsequent restarts in the solution restart scripts?",
+      "answer": "After a successful run, symbolic links are updated using `ln -sfv output/$(ls -ltr output {{!}} grep .cas {{!}} tail -n1 {{!}} awk '{print $9}') $MYCASFILERES` and `ln -sfv output/$(ls -ltr output {{!}} grep .dat {{!}} tail -n1 {{!}} awk '{print $9}') $MYDATFILERES`."
     }
   ],
-  "generated_at": "2026-04-11T16:58:53.687429+00:00"
+  "generated_at": "2026-04-12T16:49:08.349817+00:00"
 }

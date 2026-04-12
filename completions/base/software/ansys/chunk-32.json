@@ -5,72 +5,68 @@
   "qa_pairs": [
     {
       "question": "What are the default memory allocations for APDL jobs in Ansys?",
-      "answer": "Ansys allocates 1024 MB of total memory and 1024 MB of database memory by default for APDL jobs."
+      "answer": "Ansys allocates 1024 MB total memory and 1024 MB database memory by default for APDL jobs."
     },
     {
-      "question": "How can I manually adjust the total and database memory for Ansys APDL jobs?",
-      "answer": "You can manually specify or change the memory allocations by adding arguments `-m` for total memory and `-db` for database memory to the `mapdl` command line in your scripts (e.g., `-m 1024 -db 1024`)."
+      "question": "How can I manually adjust the default memory allocations for APDL jobs?",
+      "answer": "You can manually specify or change these values by adding arguments `-m 1024` and/or `-db 1024` to the `mapdl` command line in your scripts."
     },
     {
-      "question": "What license server arguments might be necessary when using a remote institutional Ansys license server with multiple licenses?",
-      "answer": "When using a remote institutional license server with multiple Ansys licenses, it may be necessary to add `-p aa_r` or `-ppf anshpc` to the `mapdl` command line, depending on the Ansys module you are using."
+      "question": "What additional arguments might be necessary for APDL jobs when using a remote institutional license server with multiple Ansys licenses?",
+      "answer": "When using a remote institutional license server with multiple Ansys licenses, it may be necessary to add `-p aa_r` or `-ppf anshpc` to your `mapdl` command, depending on the Ansys module you are using."
     },
     {
-      "question": "Why are scaling tests important before running Ansys production jobs?",
-      "answer": "Scaling tests should be performed before running production jobs to ensure that the optimal number of cores and minimum amount of memory are specified in your scripts, which leads to efficient use of licenses and hardware."
+      "question": "Which type of scripts are generally recommended for Ansys Mechanical (APDL) jobs for better performance?",
+      "answer": "The `single node` (SMP Shared Memory Parallel) scripts will typically perform better than the `multinode` (DIS Distributed Memory Parallel) scripts and should be used whenever possible."
     },
     {
-      "question": "Which type of scripts are generally recommended for Ansys Mechanical (APDL) jobs: single-node (SMP) or multi-node (DMP)?",
-      "answer": "The single-node (SMP Shared Memory Parallel) scripts will typically perform better than the multi-node (DMP Distributed Memory Parallel) scripts and should therefore be used whenever possible."
-    },
-    {
-      "question": "How can I check the version of Ansys Workbench that was used to generate an input file for Mechanical APDL?",
-      "answer": "You can check the Ansys Workbench version by using the `grep` command on your input file, for example: `cat YOURAPDLFILE.inp | grep version`."
-    },
-    {
-      "question": "What is the recommended approach for Ansys module compatibility when running Mechanical APDL jobs?",
+      "question": "Why is it important for the Ansys module version to match the input file's generation version for APDL jobs?",
       "answer": "To help avoid compatibility issues, the Ansys module loaded in your script should ideally match the version used to generate the input file."
     },
     {
-      "question": "What are the two main modes for running Ansys Rocky simulations?",
-      "answer": "Ansys Rocky can run simulations in both GUI (graphical user interface) mode and non-GUI mode."
+      "question": "How can I check which Workbench version was used to create an APDL input file?",
+      "answer": "You can check the Workbench version by running `cat YOURAPDLFILE.inp | grep version` on the input file, which will show a line like `! ANSYS input file written by Workbench version 2019 R3`."
     },
     {
-      "question": "What hardware configurations does Ansys Rocky support for simulations?",
-      "answer": "Ansys Rocky supports running simulations with CPUs only or with a combination of CPUs and GPUs."
+      "question": "In what modes can Ansys Rocky simulations be run?",
+      "answer": "Ansys Rocky can run simulations in either graphical user interface (GUI) mode or non-GUI mode."
     },
     {
-      "question": "Which Ansys Rocky module is no longer supported and will be removed?",
-      "answer": "The `ansysrocky/2024R2.0` module, which was locally installed only on nibi, should be discontinued and will be removed."
+      "question": "Does Ansys Rocky support GPU acceleration?",
+      "answer": "Yes, Ansys Rocky supports running simulations with CPUs only or with both CPUs and GPUs."
     },
     {
-      "question": "Which Ansys module should be used for Rocky simulations on Alliance clusters?",
-      "answer": "Instead of the deprecated module, you should use Rocky included within the `ansys/2025R1` module (and future versions that will be installed), which is available on all clusters."
+      "question": "Which Ansys Rocky module should no longer be used and why?",
+      "answer": "The `ansysrocky/2024R2.0` module should be discontinued as it is no longer supported and will be removed."
     },
     {
-      "question": "How can I view a full listing of command-line options for Ansys Rocky?",
-      "answer": "To get a full listing of command-line options, you can run `Rocky -h` on the command line after loading any Rocky module."
+      "question": "What is the recommended Ansys module for Rocky simulations on Alliance clusters?",
+      "answer": "It is recommended to use the `ansys/2025R1` module, and future versions that will be installed, as it includes Rocky and is available on all clusters."
     },
     {
-      "question": "Is it currently necessary to manually set the path for the Rocky command?",
-      "answer": "Yes, it is currently necessary to set your path to Rocky using `export PATH=$EBROOTANSYS/v251/rocky:$PATH` as the path will be included in future module versions and ansys/2025R1 when updated."
+      "question": "How can users view all available command-line options for Ansys Rocky?",
+      "answer": "To get a full listing of command-line options, users can run `Rocky -h` on the command line after loading the appropriate Rocky module."
     },
     {
-      "question": "How should the number of CPUs be adjusted when running Ansys Rocky with GPUs for coupled problems?",
-      "answer": "If Rocky is being run with GPUs to solve coupled problems, the number of CPUs you should request from Slurm (on the same node) should be increased to a maximum until the scalability limit of the coupled application is reached."
+      "question": "Is there any specific path configuration required to run the `Rocky` command currently?",
+      "answer": "Yes, it is currently necessary to set your path to Rocky using `export PATH=$EBROOTANSYS/v251/rocky:$PATH` for the `Rocky` command to be found, although this will be included in future module versions."
     },
     {
-      "question": "What is the recommended number of CPUs when running Ansys Rocky with GPUs for standalone uncoupled problems?",
-      "answer": "If Rocky is being run with GPUs to solve standalone uncoupled problems, only a minimal number of CPUs (for instance, 2 or possibly 3) should be requested that will still allow Rocky to run optimally."
+      "question": "When running Rocky with GPUs for coupled problems, how many CPUs should be requested from Slurm?",
+      "answer": "When Rocky is run with GPUs for solving coupled problems, the number of CPUs requested from Slurm (on the same node) should be increased to a maximum until the scalability limit of the coupled application is reached."
     },
     {
-      "question": "When are `rocky_hpc` licenses required for Ansys Rocky, and where are they provided?",
-      "answer": "`rocky_hpc` licenses will be required when Rocky is run with 4 or more CPUs, and these are provided by the SHARCNET license."
+      "question": "How many CPUs should be requested for Rocky when running standalone uncoupled problems with GPUs?",
+      "answer": "If Rocky is being run with GPUs to solve standalone uncoupled problems, only a minimal number of CPUs, such as 2 or possibly 3, should be requested to allow Rocky to run optimally."
     },
     {
-      "question": "What should users be aware of regarding the current Rocky Slurm scripts?",
-      "answer": "The Rocky Slurm scripts have not been tested since the clusters were updated across the Alliance in fall 2025, so some adjustments may be required."
+      "question": "What type of licenses are required if Ansys Rocky is run with four or more CPUs?",
+      "answer": "When Rocky is run with four or more CPUs (>= 4 cpus), `rocky_hpc` licenses will be required, which are provided by the SHARCNET license."
+    },
+    {
+      "question": "Are the provided Slurm scripts for Rocky currently guaranteed to work without adjustments?",
+      "answer": "No, the provided Slurm scripts for Rocky have not been tested since the clusters were updated in fall 2025, so some adjustments may be required."
     }
   ],
-  "generated_at": "2026-04-11T16:52:09.190290+00:00"
+  "generated_at": "2026-04-12T16:40:26.562362+00:00"
 }

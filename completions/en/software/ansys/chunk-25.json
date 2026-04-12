@@ -4,61 +4,49 @@
   "chunk_index": 25,
   "qa_pairs": [
     {
-      "question": "What is the prerequisite for submitting an Ansys Workbench job to the queue using a Slurm script?",
-      "answer": "Before submitting an Ansys Workbench job to the queue with a Slurm script, you must initialise it once."
+      "question": "What is the purpose of the provided Slurm script for CFX?",
+      "answer": "The script is designed for submitting multinode distributed parallel jobs for Ansys CFX."
     },
     {
-      "question": "How do I begin the initialisation process for an Ansys Workbench job on a cluster?",
-      "answer": "To begin, open an OnDemand desktop on the cluster where you plan to submit Workbench jobs, such as Nibi. Choosing either a Compute node (without a GPU) or a Basic Desktop resource will be sufficient."
+      "question": "Which environment modules are recommended for running a CFX multinode job?",
+      "answer": "You should load the `StdEnv/2023` and `ansys/2023R2` modules, or newer versions."
     },
     {
-      "question": "What should I do after opening the OnDemand desktop for Workbench initialisation?",
-      "answer": "After opening the OnDemand desktop, you should open a terminal window and navigate into the directory where your project directory is located that contains your `YOURPROJECT.wbpj` file."
+      "question": "Are there any deprecated modules mentioned for CFX multinode job submission?",
+      "answer": "Yes, `StdEnv/2020` and `2021R2` are mentioned as deprecated and should not be used."
     },
     {
-      "question": "What directory should be removed before initialising a Workbench project?",
-      "answer": "You should remove the old project cache directory by running `rm -rf _ProjectScratch`, as this can be very large from previous runs."
+      "question": "How is the number of nodes (`NNODES`) determined for a CFX multinode job?",
+      "answer": "The `NNODES` variable is determined by executing the `slurm_hl2hl.py --format ANSYS-CFX` command."
     },
     {
-      "question": "Which module version should be loaded in the terminal for Workbench initialisation?",
-      "answer": "You should open a terminal window and load the module version that you will be using in your Slurm script, for example, `module load ansys/2025R2.04`."
+      "question": "What is the command to start CFX in distributed parallel mode on `narval` or `fir` clusters?",
+      "answer": "On `narval` or `fir` clusters, the command is `cfx5solve -def YOURFILE.def -start-method \"Open MPI Distributed Parallel\" -par-dist $NNODES`."
     },
     {
-      "question": "How do I open the Ansys Workbench GUI with my project file during initialisation?",
-      "answer": "You can open the Workbench GUI with your project file by issuing `runwb2 -f YOURPROJECT.wbpj` directly from the command line. If a popup appears asking \"Do you want to recover the project before opening?\", answer \"No\"."
+      "question": "How do you start CFX in distributed parallel mode on clusters other than `narval` or `fir`?",
+      "answer": "For clusters other than `narval` or `fir`, you need to set `export I_MPI_HYDRA_BOOTSTRAP=ssh`, unset `I_MPI_HYDRA_BOOTSTRAP_EXEC_EXTRA_ARGS`, and then run `cfx5solve -def YOURFILE.def -start-method \"Intel MPI Distributed Parallel\" -par-dist $NNODES`."
     },
     {
-      "question": "What steps are involved in resetting the Model in Ansys Workbench during initialisation?",
-      "answer": "In the context menu popup that should appear in the centre Project Schematic window, right-click on `Model` and select `Reset`. When Ansys Workbench pops up a warning that \"This operation will delete the operations local and generated data\", click `Ok` to accept and proceed."
+      "question": "What Slurm parameters are specified for a multinode CFX job in the example script?",
+      "answer": "The script specifies `--account=def-group`, `--time=00-03:00`, `--nodes=2` (or more), `--ntasks-per-node=192`, `--mem=0`, and `--cpus-per-task=1`."
     },
     {
-      "question": "How should I save and exit Workbench after resetting the Model during initialisation?",
-      "answer": "In the top menu bar pulldown, select `File -> Save` then `File -> Exit` to shut down Workbench."
+      "question": "What does `#SBATCH --ntasks-per-node=192` signify in the CFX multinode script?",
+      "answer": "It signifies that all available cores per compute node should be used, and this value should not be changed."
     },
     {
-      "question": "What should I do if Ansys Workbench asks to save the modified project upon exiting the initialisation process?",
-      "answer": "In the Ansys Workbench popup, when asked \"The current project has been modified. Do you want to save it?\", click on the `No` button."
+      "question": "What is the implication of setting `#SBATCH --mem=0` in the CFX multinode Slurm script?",
+      "answer": "Setting `--mem=0` means that all available memory on each compute node will be used, and this parameter should not be altered."
     },
     {
-      "question": "After completing the initialisation steps, what is the next action for the Workbench job?",
-      "answer": "After quitting Workbench, you can submit your job using one of the Slurm scripts."
+      "question": "Which MPI implementation is used for CFX on `narval` and `fir` clusters?",
+      "answer": "On `narval` and `fir` clusters, \"Open MPI Distributed Parallel\" is used for CFX simulations."
     },
     {
-      "question": "Is there an alternative to submitting Workbench jobs via Slurm scripts, and why might it be preferred?",
-      "answer": "Yes, you can consider running your Workbench simulations directly from within the Workbench native GUI during an OnDemand desktop session. This might be a more intuitive option, especially since a Compute Node with up to 96 cores, 768GB memory, and 8 hours of runtime can now be reserved for such sessions."
-    },
-    {
-      "question": "How are Workbench project files submitted to the queue using Slurm scripts?",
-      "answer": "A project file can be submitted to the queue by customising one of the provided Slurm scripts and then running the `sbatch script-wbpj-202X.sh` command."
-    },
-    {
-      "question": "How can I prevent a Workbench Slurm job from overwriting the solution upon successful completion?",
-      "answer": "To avoid writing the solution when a running job successfully completes, change `Save(Overwrite=True)` to `Save(Overwrite=False)` in the last line of the Slurm script."
-    },
-    {
-      "question": "Why might I want to change `Save(Overwrite=True)` to `Save(Overwrite=False)` in a Workbench Slurm script?",
-      "answer": "Changing `Save(Overwrite=True)` to `Save(Overwrite=False)` will make it easier to determine how well the simulation scales when `#SBATCH --ntasks` is increased, as the initialised solution will not be overwritten by each test job."
+      "question": "Which MPI implementation is used for CFX on clusters other than `narval` and `fir`?",
+      "answer": "On clusters other than `narval` and `fir`, \"Intel MPI Distributed Parallel\" is used for CFX simulations."
     }
   ],
-  "generated_at": "2026-04-11T17:01:39.020121+00:00"
+  "generated_at": "2026-04-12T16:51:25.701088+00:00"
 }

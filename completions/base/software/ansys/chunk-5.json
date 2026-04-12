@@ -4,93 +4,85 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "What is Ansys?",
-      "answer": "Ansys is a software suite for engineering simulation and 3-D design, which includes packages such as Ansys Fluent and Ansys CFX."
-    },
-    {
-      "question": "How can I determine which version of Ansys Fluent was used to create a `.cas` or `.cas.h5` file?",
-      "answer": "You can use the command `grep -ia fluent <filename>` on the `.cas` or `.cas.h5` file, for example, `grep -ia fluent combustor.cas` or `grep -ia fluent cavity.cas.h5`."
-    },
-    {
-      "question": "What is the general compatibility rule for Ansys simulations?",
-      "answer": "Ansys simulations are typically forward compatible, meaning older versions can run with newer software, but they are not backwards compatible, meaning newer versions cannot reliably run with older software."
-    },
-    {
-      "question": "Can simulations created with a newer version of Ansys be run with an older version of the software?",
-      "answer": "No, Ansys simulations are generally not backwards compatible. While it may be possible to start such a simulation, random error messages or crashing will likely occur."
+      "question": "How can I determine the Ansys Fluent version used to create a .cas file?",
+      "answer": "You can use `grep -ia fluent` on the `.cas` or `.cas.h5` file. For instance, `grep -ia fluent combustor.cas` might display `fluent15.0.7 build-id: 596`, and `grep -ia fluent cavity.cas.h5` might show `ANSYS_FLUENT 24.1 Build 1018`."
     },
     {
       "question": "Where can I find detailed platform support information for Ansys software?",
-      "answer": "Detailed platform support information, describing software/hardware compatibility for current and previous releases, is available on the Ansys website."
+      "answer": "Detailed platform support information for current and previous Ansys releases is available on the Ansys website. The 'Platform Support by Application / Product' PDF is particularly useful as it indicates which packages are supported under Windows but not under Linux, and therefore not on the Alliance (e.g., Spaceclaim)."
     },
     {
-      "question": "Which Ansys packages are not supported on Alliance clusters?",
-      "answer": "Packages that are supported under Windows but not under Linux, such as Spaceclaim, are not supported on the Alliance clusters."
+      "question": "Are all Ansys packages supported on Alliance clusters?",
+      "answer": "No, not all Ansys packages are supported on Alliance clusters. The 'Platform Support by Application / Product' PDF shows packages like Spaceclaim that are supported under Windows but not Linux, meaning they are not available on the Alliance."
     },
     {
-      "question": "Where can I find information about the latest Ansys product releases and updates?",
-      "answer": "Ansys posts 'Product Release and Updates' for the latest releases on their website. You can also find information on their blog or by using the Press Release search bar."
+      "question": "How can I find out what's new in the latest Ansys releases?",
+      "answer": "Ansys posts 'Product Release and Updates' for the latest releases. You can also visit the Ansys blog page and use the FILTERS search bar (e.g., 'What’s New Fluent 2024 gpu') or search by version number on the 'Press Release' page."
     },
     {
-      "question": "How can I find GPU support information for Ansys Fluent in a specific release, such as 2024 R1?",
-      "answer": "You can search the Ansys blog using terms like 'What’s New Fluent 2024 gpu' to find relevant documents with the latest GPU support information."
+      "question": "Which Ansys module version was recently installed as the latest release?",
+      "answer": "A module for the latest Ansys release, `ansys/2025R1.02`, was recently installed."
     },
     {
-      "question": "Which Ansys module version has been recently installed but requires an updated license server?",
-      "answer": "The `ansys/2025R1.02` module has recently been installed, but its use requires a suitably updated license server, such as CMCs."
+      "question": "What are the licensing requirements for using the `ansys/2025R1.02` module?",
+      "answer": "To use the `ansys/2025R1.02` module, a suitably updated license server, such as CMCs, is required. The SHARCNET license server is currently being upgraded and will only support `ansys/2024R2.04` or older versions until the upgrade is complete."
     },
     {
-      "question": "Which Ansys module versions are currently supported by the SHARCNET license server?",
-      "answer": "Until the SHARCNET license server upgrade is complete, it will only support jobs run with `ansys/2024R2.04` or older versions."
-    },
-    {
-      "question": "What should I do if I need a new Ansys version installed or encounter an issue with an existing module?",
+      "question": "What should I do if I need a new Ansys version installed or encounter a problem with an existing module?",
       "answer": "You should submit a ticket to technical support to request a new version installation or report a problem with an existing module."
     },
     {
-      "question": "How are Ansys service packs handled for modules on the clusters starting with Ansys 2024?",
-      "answer": "Starting with Ansys 2024, a separate Ansys module will appear on the clusters with a decimal and two digits after the release number whenever a service pack has been installed, for example, `ansys/2024R1.03`."
+      "question": "How are Ansys service packs reflected in module naming conventions starting with Ansys 2024?",
+      "answer": "Starting with Ansys 2024, a separate Ansys module will appear on the clusters with a decimal and two digits after the release number when a service pack has been installed. For example, `module load ansys/2024R1` is for the initial release, while `module load ansys/2024R1.03` is for Service Pack 3."
     },
     {
-      "question": "How can I load the latest Ansys module version that includes the most recent service pack?",
-      "answer": "You can load the latest Ansys module version equipped with the latest installed service pack by simply running `module load ansys`."
+      "question": "What happens if a service pack is available when a new Ansys release is being installed?",
+      "answer": "If a service pack is already available when a new release is to be installed, most likely only a module for that service pack number will be installed, unless a request to install the initial release is also received."
+    },
+    {
+      "question": "How can users load the latest Ansys module version, including the most recent service pack?",
+      "answer": "Most users will likely want to load the latest module version equipped with the latest installed service pack, which can be achieved by simply running `module load ansys`."
+    },
+    {
+      "question": "Do Ansys service packs affect numerical results?",
+      "answer": "While service packs are not expected to impact numerical results, the changes they make are extensive. If computations have already been done with the initial release or an earlier service pack, some groups may prefer to continue using that specific version, which is made possible by having separate modules for each service pack."
     },
     {
       "question": "Where can I find detailed descriptions of Ansys service pack changes?",
-      "answer": "Starting with Ansys 2024R1, a detailed description of what each service pack does can be found by searching the provided Ansys static files link for 'Service Pack Details'."
+      "answer": "Starting with Ansys 2024R1, a detailed description of what each service pack does can be found by searching the Ansys static files link (e.g., `https://storage.ansys.com/staticfiles/cp/Readme/release2024R1/info_combined.pdf`) for 'Service Pack Details'. For future versions, you can modify the version number in the link."
     },
     {
-      "question": "Why are special instructions required for submitting parallel Ansys jobs on the clusters?",
-      "answer": "Special instructions are required because the Ansys software suite comes with multiple MPI implementations, none of which directly support the Slurm scheduler used on the clusters."
+      "question": "Does Ansys's MPI implementation directly support the Slurm scheduler?",
+      "answer": "No, the Ansys software suite comes with multiple MPI implementations, but none of them directly support the Slurm scheduler. Special instructions are required for each Ansys package to start a parallel job."
     },
     {
-      "question": "What is the first step in running a Fluent job on the clusters?",
-      "answer": "The first step is to prepare your Fluent job using Fluent from Ansys Workbench on your desktop machine up to the point where you would run the calculation."
+      "question": "Are there any specific considerations for Niagara users submitting Ansys jobs?",
+      "answer": "Yes, while the Slurm scripts should work on all clusters, Niagara users may need to make some additional changes, which are covered in their specific documentation [https://docs.scinet.utoronto.ca/index.php here]."
     },
     {
-      "question": "How do I export a Fluent case file from Ansys Workbench?",
-      "answer": "You can export the Fluent case file using 'File > Export > Case…' from Ansys Workbench or find it in your project's folder (often named `FFF-1.cas.gz`)."
+      "question": "What are the initial steps to prepare a Fluent job for submission on a cluster?",
+      "answer": "First, prepare your Fluent job using Fluent from Ansys Workbench on your desktop machine until it's ready for calculation. Then, export the \"case\" file (often named `FFF-1.cas.gz`) using 'File > Export > Case…' or locate it in your project's saved files."
     },
     {
-      "question": "Where should I transfer my Fluent case and data files on the cluster?",
-      "answer": "You should transfer your Fluent case file (and data file, if needed) to a directory on the `/project` or `/scratch` filesystem on the cluster."
+      "question": "How do I export or locate a Fluent data file for continuing a previous calculation?",
+      "answer": "If you need to continue a previous calculation, you should export a \"data\" file (e.g., `FFF-1.dat.gz`) using 'File > Export > Data…' or find it in the same project folder as your case file."
     },
     {
-      "question": "What is the function of a 'journal' file in a Fluent job submission?",
-      "answer": "A 'journal' file is used to automate loading the case file (and optionally the data file), running the solver, and finally writing the results."
+      "question": "Where should I transfer Fluent case and data files on the cluster?",
+      "answer": "You should transfer the case file (and data file if needed) to a directory on the `/project` or `/scratch` filesystem on the cluster. You can save them with more instructive names during export or rename them after uploading."
     },
     {
-      "question": "When should I consider using a script that requeues a Fluent job?",
-      "answer": "You should consider modifying your script to requeue your job if jobs frequently fail to start due to license shortages and manual resubmission of failed jobs is not convenient."
+      "question": "What is the purpose of a Fluent journal file?",
+      "answer": "The purpose of a Fluent journal file is to automate the process of loading the case file (and optionally the data file), running the solver, and finally writing the simulation results."
     },
     {
-      "question": "What is a potential risk of using a requeue script for Fluent jobs?",
-      "answer": "A potential risk is that requeue scripts will also requeue simulations that fail due to non-license related issues (such as divergence), which can result in lost compute time."
+      "question": "What should I do if my Fluent jobs frequently fail to start due to license shortages?",
+      "answer": "If Fluent jobs frequently fail due to license shortages, consider modifying your script to requeue your job (up to 4 times) as shown under the 'by node + requeue' tab. It's strongly recommended to monitor Slurm output files to confirm each requeue attempt is license-related, and if a simulation issue is found, manually kill the job with `scancel jobid`."
     },
     {
-      "question": "How can I import data from a completed Fluent job back into Ansys Workbench on my desktop?",
-      "answer": "After the job has run, you can download the data file from the cluster and import it back into Fluent on your desktop with 'File > Import > Data…'."
+      "question": "How can I import the results back into Fluent after running a job on the cluster?",
+      "answer": "After running the job on the cluster, you can download the data file and import it back into Fluent using 'File > Import > Data…'."
     }
   ],
-  "generated_at": "2026-04-11T16:46:51.134475+00:00"
+  "generated_at": "2026-04-12T16:34:57.635314+00:00"
 }

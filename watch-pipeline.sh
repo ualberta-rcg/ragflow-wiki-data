@@ -2,7 +2,7 @@
 # Append a progress snapshot every 30 minutes to pipeline-watch.log
 # (Chat assistants cannot message you on a timer; use this file or `tail -f`.)
 set -u
-ROOT="/opt/vulcan/ragflow-wiki-data"
+ROOT="$(cd "$(dirname "$0")" && pwd)"
 LOG="$ROOT/pipeline-run.log"
 OUT="$ROOT/pipeline-watch.log"
 

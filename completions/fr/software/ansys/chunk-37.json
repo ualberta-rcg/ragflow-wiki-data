@@ -4,85 +4,45 @@
   "chunk_index": 37,
   "qa_pairs": [
     {
-      "question": "Où est-ce qu'on peut trouver les scripts Slurm pour AnsysEDT?",
-      "answer": "Les scripts Slurm pour l'utilisation d'AnsysEDT sont fournis sur une page wiki séparée."
+      "question": "Où puis-je trouver les scripts Slurm pour utiliser AnsysEDT?",
+      "answer": "Les scripts Slurm pour utiliser AnsysEDT sont fournis sur une page wiki distincte, accessible via ce lien: [https://docs.alliancecan.ca/wiki/AnsysEDT here]."
     },
     {
-      "question": "C'est quoi l'adresse de la page wiki où se trouvent les scripts Slurm pour AnsysEDT?",
-      "answer": "L'adresse, c'est https://docs.alliancecan.ca/wiki/AnsysEDT."
+      "question": "Sur quels types de nœuds les programmes Ansys fonctionnent-ils en mode graphique?",
+      "answer": "Les programmes Ansys fonctionnent interactivement en mode graphique sur les nœuds de calcul des grappes ou sur les nœuds VDI de Graham."
     },
     {
-      "question": "Comment fonctionnent les programmes Ansys en mode graphique?",
-      "answer": "Les programmes Ansys fonctionnent de manière interactive en mode graphique sur les nœuds de calcul des grappes ou sur les nœuds VDI de Graham."
+      "question": "Quelles sont les adresses pour accéder aux bureaux On Demand ou Jupyter Lab pour diverses grappes?",
+      "answer": "Voici les adresses pour les grappes : NIBI: `https://ondemand.sharcnet.ca`, FIR: `https://jupyterhub.fir.alliancecan.ca`, RORQUAL: `https://jupyterhub.rorqual.alliancecan.ca`, NARVAL: `https://jupyterhub.narval.alliancecan.ca/`, TRILLIUM: `https://ondemand.scinet.utoronto.ca`."
     },
     {
-      "question": "C'est quoi l'adresse pour accéder à NIBI via Open OnDemand?",
-      "answer": "Pour NIBI, l'adresse est `https://ondemand.sharcnet.ca`."
+      "question": "Que dois-je faire si je veux utiliser des graphiques accélérés ou des calculs intensifs dans ma session de bureau interactive?",
+      "answer": "Assurez-vous de spécifier une ressource GPU lors de la configuration des ressources pour votre session de bureau interactive."
     },
     {
-      "question": "C'est quoi l'adresse pour accéder à FIR via JupyterHub?",
-      "answer": "Pour FIR, l'adresse est `https://jupyterhub.fir.alliancecan.ca`."
+      "question": "Comment charger un module Ansys après avoir démarré un bureau On Demand?",
+      "answer": "Si vous avez démarré un bureau propulsé par Jupyter Lab, vous pouvez le faire en cliquant sur le menu de gauche. Si vous avez démarré un bureau OnDemand, tapez manuellement `module load ansys/version` sur la ligne de commande."
     },
     {
-      "question": "C'est quoi l'adresse pour accéder à RORQUAL via JupyterHub?",
-      "answer": "Pour RORQUAL, l'adresse est `https://jupyterhub.rorqual.alliancecan.ca`."
+      "question": "Comment lancer Ansys Fluent depuis la ligne de commande d'un bureau On Demand?",
+      "answer": "Pour lancer Ansys Fluent, ouvrez une fenêtre de terminal et exécutez les commandes : `module load StdEnv/2023 ansys/2025R1`, puis `fluent`."
     },
     {
-      "question": "C'est quoi l'adresse pour accéder à NARVAL via JupyterHub?",
-      "answer": "Pour NARVAL, l'adresse est `https://jupyterhub.narval.alliancecan.ca/`."
+      "question": "Quels sont les paramètres d'environnement à utiliser dans le 'Fluent Launcher' pour un nœud de calcul sans GPU?",
+      "answer": "Dans le panneau contextuel 'Fluent Launcher', cliquez sur l'onglet 'Environment' et copiez/collez les paramètres suivants : `I_MPI_HYDRA_BOOTSTRAP=ssh` (requis sur Nibi), `HOOPS_PICTURE=opengl2-mesa` (pour la version 2025R1 ou plus récente) ou `HOOPS_PICTURE=null` (pour la version 2024R2 ou plus ancienne). Ensuite, cliquez sur le bouton 'Start'."
     },
     {
-      "question": "C'est quoi l'adresse pour accéder à TRILLIUM via Open OnDemand?",
-      "answer": "Pour TRILLIUM, l'adresse est `https://ondemand.scinet.utoronto.ca`."
+      "question": "Que faire si Fluent plante au démarrage sur Nibi lorsque `I_MPI_HYDRA_BOOTSTRAP=ssh` n'est pas correctement configuré?",
+      "answer": "Si `I_MPI_HYDRA_BOOTSTRAP=ssh` n'est pas correctement configuré sur Nibi et que Fluent est démarré à partir d'une session de bureau OOD avec Intel MPI, Fluent plantera. Il faut alors quitter complètement Fluent, fermer Workbench et recommencer."
     },
     {
-      "question": "Quelle est la première étape pour utiliser Ansys en mode graphique sur les grappes?",
-      "answer": "Il faut d'abord soumettre votre demande de ressources et attendre."
+      "question": "Comment démarrer CFX depuis un bureau On Demand sans avoir demandé de GPU?",
+      "answer": "Chargez d'abord le module `StdEnv/2023 ansys/2025R1` (ou une version plus ancienne), puis exécutez `cfx5 -graphics mesa` dans la fenêtre de terminal."
     },
     {
-      "question": "Comment je peux démarrer une application Ansys à partir d'une interface de lanceur Jupyter Lab?",
-      "answer": "Si vous avez démarré une interface de lanceur Jupyter Lab, vous pouvez simplement charger un module logiciel Ansys à partir du menu de gauche et ensuite cliquer sur une des icônes Ansys pour démarrer CFX, Fluent, MAPDL ou Workbench."
-    },
-    {
-      "question": "Si j'ai démarré un bureau Compute/Basic depuis le système Nibi OnDemand, comment je fais pour lancer une application Ansys?",
-      "answer": "Il faudra ouvrir une fenêtre de terminal, charger manuellement un module Ansys et ensuite taper le nom du programme sur la ligne de commande pour le démarrer."
-    },
-    {
-      "question": "Si une application Ansys en mode graphique a besoin de graphiques accélérés, quelle ressource devrait être demandée?",
-      "answer": "Il faudrait demander une ressource GPU complète, comme un H100 ou un T4 (au moment de la rédaction)."
-    },
-    {
-      "question": "Pourquoi est-ce que les recommandations pour les arguments de ligne de commande et les variables d'environnement varient pour les applications Ansys en mode graphique?",
-      "answer": "C'est parce que les différentes applications Ansys lancées en mode graphique se comportent différemment selon les versions de modules Ansys chargées, si un GPU a été demandé ou non, et si on utilise un bureau On Demand ou Jupyter Lab."
-    },
-    {
-      "question": "Comment on lance Ansys Fluent à partir de la ligne de commande d'un bureau On Demand?",
-      "answer": "Pour lancer Ansys Fluent, il faut ouvrir une fenêtre de terminal et exécuter les commandes `module load StdEnv/2023 ansys/2025R1` puis `fluent`."
-    },
-    {
-      "question": "Quelles étapes faut-il suivre pour configurer les variables d'environnement dans le panneau de sélection de Fluent Launcher?",
-      "answer": "Quand le panneau de sélection contextuel de Fluent Launcher apparaît, il faut cliquer sur l'onglet 'Environment' et copier-coller les paramètres de variables d'environnement. Il ne faut pas inclure le texte entre parenthèses ni mettre 'export' devant les noms de variables."
-    },
-    {
-      "question": "Quelles variables d'environnement doivent être définies pour Fluent si aucun GPU n'est demandé et que la version d'Ansys est 2025R1 ou plus récente?",
-      "answer": "Il faut définir `I_MPI_HYDRA_BOOTSTRAP=ssh` (obligatoire sur Nibi) et `HOOPS_PICTURE=opengl2-mesa`. Après ça, on clique sur le bouton 'Start'."
-    },
-    {
-      "question": "Quelles variables d'environnement doivent être définies pour Fluent si aucun GPU n'est demandé et que la version d'Ansys est 2024R2 ou plus ancienne?",
-      "answer": "Il faut définir `I_MPI_HYDRA_BOOTSTRAP=ssh` (obligatoire sur Nibi) et `HOOPS_PICTURE=null`. Après ça, on clique sur le bouton 'Start'."
-    },
-    {
-      "question": "Que se passe-t-il si la variable `I_MPI_HYDRA_BOOTSTRAP=ssh` n'est pas configurée correctement sur Nibi quand Fluent est lancé depuis une session OOD Compute Desktop avec Intel MPI?",
-      "answer": "Si `I_MPI_HYDRA_BOOTSTRAP=ssh` n'est pas configuré correctement sur Nibi et que Fluent est démarré avec Intel MPI dans une session OOD Compute Desktop, Fluent plantera au démarrage en affichant une erreur."
-    },
-    {
-      "question": "Que dois-je faire si Fluent plante au démarrage à cause d'une mauvaise configuration de `I_MPI_HYDRA_BOOTSTRAP=ssh`?",
-      "answer": "Il faut quitter complètement Fluent, fermer Workbench et tout recommencer."
-    },
-    {
-      "question": "Quel est un exemple de message d'erreur que Fluent peut afficher si `I_MPI_HYDRA_BOOTSTRAP=ssh` n'est pas bien configuré sur Nibi?",
-      "answer": "Un exemple est `[mpiexec@g4.nibi.sharcnet] Error: Unable to run bstrap_proxy on g4.nibi.sharcnet (pid 2251587, exit code 256)`."
+      "question": "Comment démarrer CFX depuis un bureau On Demand en ayant demandé un GPU?",
+      "answer": "Chargez d'abord le module `StdEnv/2023 ansys/2025R1` (ou une version plus ancienne), puis exécutez `cfx5 -graphics ogl` dans la fenêtre de terminal."
     }
   ],
-  "generated_at": "2026-04-11T17:14:45.872746+00:00"
+  "generated_at": "2026-04-12T17:04:27.349971+00:00"
 }

@@ -4,37 +4,29 @@
   "chunk_index": 48,
   "qa_pairs": [
     {
-      "question": "What are the general characteristics of running Ansys programs remotely using XoverSSH?",
-      "answer": "XoverSSH is an untested and unsupported method for remote Ansys programs. It typically results in unacceptably slow interactive response times, especially for graphics rendering, and slow startup times for GUI programs."
+      "question": "What is the initial step for running an Ansys program graphically via X over SSH?",
+      "answer": "The first step is to connect to `alliancecan.ca` using SSH with X forwarding enabled by running `ssh -Y username@alliancecan.ca`."
     },
     {
-      "question": "When might using XoverSSH to run Ansys programs remotely be considered acceptable?",
-      "answer": "Using XoverSSH might be considered if the only goal is to open a simulation and perform basic menu operations or run some calculations, and if response delays can be tolerated."
+      "question": "After an SSH connection, what command allocates compute resources with X11 forwarding for an interactive session?",
+      "answer": "You should use `salloc --x11 --time=1:00:00 --mem=16G --cpus-per-task=4 [--gpus-per-node=1] --account=def-mygroup` to allocate the necessary compute resources."
     },
     {
-      "question": "What are the initial steps to connect to a cluster using XoverSSH to run Ansys programs?",
-      "answer": "The initial steps involve: 1) SSHing with X forwarding (`ssh -Y username@alliancecan.ca`), and 2) allocating resources with X11 forwarding (`salloc --x11 --time=1:00:00 --mem=16G --cpus-per-task=4 [--gpus-per-node=1] --account=def-mygroup`)."
+      "question": "How can I test if X forwarding is functioning correctly once I am connected to a compute node?",
+      "answer": "To test X forwarding, you can try running the `xclock` command. If a clock appears on your desktop, it indicates that X forwarding is working."
     },
     {
-      "question": "How can a user verify if X forwarding is working after connecting to a compute node via XoverSSH?",
-      "answer": "Once connected to a compute node, a user can verify X forwarding by trying to run the `xclock` command. If the clock appears on their desktop, X forwarding is working."
+      "question": "What should I do if the `xclock` command successfully displays a clock on my local desktop?",
+      "answer": "If `xclock` appears, you should proceed to load the desired Ansys module and then attempt to run your Ansys program."
     },
     {
-      "question": "What should a user do after successfully testing X forwarding when using XoverSSH for Ansys programs?",
-      "answer": "After confirming X forwarding works with `xclock`, the user should proceed to load the desired Ansys module and then attempt to run the Ansys program."
+      "question": "Is it possible to request GPU resources when using `salloc` for an X over SSH session?",
+      "answer": "Yes, you can request GPU resources by adding `--gpus-per-node=1` to your `salloc` command."
     },
     {
-      "question": "Is XoverSSH a recommended or supported method for running Ansys programs on the cluster?",
-      "answer": "No, XoverSSH is an untested and unsupported method for running Ansys programs remotely on the cluster."
-    },
-    {
-      "question": "What is required on the user's local desktop to use XoverSSH for Ansys programs?",
-      "answer": "Using XoverSSH relies on a properly set up X display server for the user's operating system or the selection, installation, and configuration of a suitable X client emulator package such as MobaXterm."
-    },
-    {
-      "question": "How does the startup time for GUI programs compare between XoverSSH and VNC?",
-      "answer": "Startup times for GUI programs can be very slow with XoverSSH; for example, one test showed it took 40 minutes to start a GUI over SSH, compared to only 34 seconds with vncviewer."
+      "question": "What is the purpose of the `--x11` flag in the `salloc` command when using X over SSH?",
+      "answer": "The `--x11` flag in the `salloc` command enables X11 forwarding for the interactive session, allowing graphical applications to be displayed on your local desktop."
     }
   ],
-  "generated_at": "2026-04-11T16:54:51.490966+00:00"
+  "generated_at": "2026-04-12T16:43:56.439171+00:00"
 }

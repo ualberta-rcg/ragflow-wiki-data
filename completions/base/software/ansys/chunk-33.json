@@ -4,37 +4,21 @@
   "chunk_index": 33,
   "qa_pairs": [
     {
-      "question": "What specific library is symlinked on the Cedar cluster for Mechanical APDL GPU jobs?",
-      "answer": "On the Cedar cluster, the `libstdc++.so.6.0.29` library from `$EBROOTGCC/../lib/gcc` is symbolically linked to the job's output directory, and this directory is added to `LD_LIBRARY_PATH`."
+      "question": "What environment variable needs to be exported before running a GPU-accelerated Distributed Memory Parallel (DMP) Ansys Mechanical APDL job?",
+      "answer": "The `ANSGPU_PRINTDEVICES=1` environment variable needs to be exported."
     },
     {
-      "question": "Which environment variable is set to enable GPU device printing for Mechanical APDL jobs?",
-      "answer": "The `ANSGPU_PRINTDEVICES` environment variable is set to `1` to enable GPU device printing."
+      "question": "What specific steps are required for running a GPU-accelerated Distributed Memory Parallel (DMP) Ansys Mechanical APDL job on the Cedar cluster?",
+      "answer": "On the Cedar cluster, a symbolic link for `libstdc++.so.6.0.29` needs to be created in the job's output directory, and the `LD_LIBRARY_PATH` environment variable must be exported to include that directory. The `mapdl` command should then use `openmpi`."
     },
     {
-      "question": "Which MPI implementation is used for Mechanical APDL GPU jobs on the Beluga cluster?",
-      "answer": "On the Beluga cluster, Mechanical APDL GPU jobs use the `intelmpi` implementation."
+      "question": "How do you run a GPU-accelerated Distributed Memory Parallel (DMP) Ansys Mechanical APDL job on the Beluga cluster?",
+      "answer": "On the Beluga cluster, you need to export `KMP_AFFINITY=none` and then run the `mapdl` command using `intelmpi`, specifying the number of GPUs per node (`-na $SLURM_GPUS_ON_NODE`), no list output (`-b nolist`), the total number of tasks (`-np $SLURM_NTASKS`), the output directory (`-dir outdir-$SLURM_JOBID`), and the input file (`-i YOURAPDLFILE.inp`). The `-dis` and `-acc nvidia` flags are also used."
     },
     {
-      "question": "What environment variable is explicitly set to 'none' for Beluga cluster jobs running Mechanical APDL with GPUs?",
-      "answer": "The `KMP_AFFINITY` environment variable is set to `none` for Beluga cluster jobs running Mechanical APDL with GPUs."
-    },
-    {
-      "question": "Which MPI implementation is used for Mechanical APDL GPU jobs on clusters other than Beluga?",
-      "answer": "For clusters other than Beluga, Mechanical APDL GPU jobs use the `openmpi` implementation."
-    },
-    {
-      "question": "What is the command to initiate a Mechanical APDL job in distributed memory parallel mode with NVIDIA GPU acceleration?",
-      "answer": "The command is `mapdl -dis -acc nvidia -na $SLURM_GPUS_ON_NODE -mpi [intelmpi or openmpi] -b nolist -np $SLURM_NTASKS -dir outdir-$SLURM_JOBID -i YOURAPDLFILE.inp`, with the specific MPI implementation depending on the cluster."
-    },
-    {
-      "question": "How is the output directory named and specified for Mechanical APDL GPU jobs?",
-      "answer": "The output directory is named `outdir-$SLURM_JOBID` and is specified using the `-dir` option in the `mapdl` command."
-    },
-    {
-      "question": "What is the placeholder for the input file in the Mechanical APDL GPU job command?",
-      "answer": "The placeholder for the input file is `YOURAPDLFILE.inp`, specified using the `-i` option."
+      "question": "Which MPI implementation is used for GPU-accelerated Distributed Memory Parallel (DMP) Ansys Mechanical APDL jobs on clusters other than Beluga, according to the provided script snippet?",
+      "answer": "For clusters other than Beluga (e.g., Cedar, if the condition for Cedar is met, or other clusters that fall into the `else` block), `openmpi` is used for GPU-accelerated Distributed Memory Parallel (DMP) Ansys Mechanical APDL jobs."
     }
   ],
-  "generated_at": "2026-04-11T16:52:17.546866+00:00"
+  "generated_at": "2026-04-12T16:40:32.261077+00:00"
 }

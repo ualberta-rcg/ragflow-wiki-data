@@ -4,49 +4,53 @@
   "chunk_index": 15,
   "qa_pairs": [
     {
-      "question": "Quelles sont les informations de licence nécessaires pour configurer Ansys Fluent sur la grappe Trillium?",
-      "answer": "Pour configurer Ansys Fluent sur la grappe Trillium, il faut spécifier le nom d'hôte du serveur de licence (LICSERVER), le port flex du serveur (FLEXPORT, habituellement 1055), et le port fournisseur du serveur (VENDPORT, habituellement 1793)."
+      "question": "Quel est l'objectif principal du script `script-flu-bynode-intel-tri.sh`?",
+      "answer": "Ce script est conçu pour soumettre des tâches Ansys Fluent au système de gestion de tâches Slurm, en répartissant les ressources par nœud sur la grappe Trillium."
     },
     {
-      "question": "Comment la connexion au serveur de licence Ansys est-elle établie pour Trillium?",
-      "answer": "La connexion au serveur de licence Ansys est établie en créant des tunnels SSH via le nœud de passerelle de Trillium (`tri-gw`) pour les ports FLEXPORT et VENDPORT, redirigeant ainsi le trafic du serveur de licence vers `localhost`."
+      "question": "Sur quelle grappe ce script Ansys Fluent est-il spécifiquement conçu pour être exécuté et avec quelles versions d'Ansys?",
+      "answer": "Le script est fait pour la grappe Trillium et ne fonctionne qu'avec Ansys 2025R2 ou les versions plus récentes."
     },
     {
-      "question": "Quelles variables d'environnement sont utilisées pour spécifier le fichier de licence et les serveurs sur Trillium?",
-      "answer": "Les variables d'environnement `ANSYSLMD_LICENSE_FILE` est définie à `$FLEXPORT@localhost` et `ANSYSLI_SERVERS` à `$INTEPORT@localhost`. Il est à noter que la variable `INTEPORT` n'est pas explicitement définie dans cette section du script."
+      "question": "Comment puis-je indiquer le nom de mon fichier journal pour une tâche Fluent soumise via ce script?",
+      "answer": "Vous devez spécifier le nom de votre fichier journal en modifiant la ligne `MYJOURNALFILE=sample.jou` dans le script pour correspondre à votre fichier."
     },
     {
-      "question": "Que se passe-t-il si le répertoire `~/.ansys` n'existe pas ou n'est pas lié correctement sur Trillium?",
-      "answer": "Si le lien vers un répertoire `~/.ansys` accessible en écriture n'existe pas, une erreur sera affichée et la tâche sera avortée. Il faudra alors supprimer tout `~/.ansys` existant et créer un lien symbolique vers `$SCRATCH/.ansys`."
+      "question": "Comment le script gère-t-il la configuration des licences Ansys?",
+      "answer": "Le script établit des tunnels SSH via `tri-gw` pour les ports Flex (`FLEXPORT`) et Vendor (`VENDPORT`) du serveur de licence spécifié (`LICSERVER`), puis exporte les variables d'environnement `ANSYSLMD_LICENSE_FILE` et `ANSYSLI_SERVERS` pour utiliser ces tunnels localement."
     },
     {
-      "question": "Quelles sont les étapes pour corriger une erreur concernant un lien manquant pour `~/.fluentconf` sur Trillium?",
-      "answer": "Pour corriger cette erreur, il faut s'assurer qu'un lien vers un répertoire `~/.fluentconf` accessible en écriture existe. Si ce n'est pas le cas, il faut supprimer l'ancien lien s'il existe et exécuter `ln -s $SCRATCH/.fluentconf ~/.fluentconf`."
+      "question": "Quels modules sont nécessaires pour exécuter ce script Ansys Fluent?",
+      "answer": "Il faut charger les modules `StdEnv/2023` et `ansys/2025R2.04` (ou une version plus récente et compatible d'Ansys)."
     },
     {
-      "question": "Quelles mesures sont prises avant de lancer Fluent sur Trillium pour assurer la disponibilité des répertoires de configuration?",
-      "answer": "Avant de lancer Fluent, le script vérifie l'existence de liens symboliques pour `~/.ansys`, `~/.fluentconf` et `~/.flrecent`. Si ces liens sont corrects, il crée les répertoires `$SCRATCH/.ansys` et `$SCRATCH/.fluentconf` et touche le fichier `$SCRATCH/.flrecent` pour s'assurer qu'ils sont disponibles."
+      "question": "Comment la mémoire est-elle allouée par ce script sur les nœuds de calcul de Trillium?",
+      "answer": "Sur Trillium, il n'est pas nécessaire de spécifier la mémoire (`#SBATCH --mem=0` ne doit pas être décommenté), car la grappe alloue par défaut toute la mémoire disponible par nœud."
     },
     {
-      "question": "Quelle est la commande pour lancer Fluent en mode parallèle avec mémoire partagée sur un seul nœud de Trillium?",
-      "answer": "Pour lancer Fluent sur un seul nœud avec mémoire partagée, la commande est `fluent -g $MYVERSION -t $NCORES -mpi=intel -pshmem -i $MYJOURNALFILE`."
+      "question": "Est-ce que le script effectue des vérifications de répertoires avant de lancer Fluent, et si oui, lesquelles?",
+      "answer": "Oui, le script vérifie si les liens symboliques `~/.ansys`, `~/.fluentconf` et `~/.flrecent` existent et pointent vers un répertoire ou un fichier accessible en écriture dans `$SCRATCH`. Si ce n'est pas le cas, il tente de les créer, sinon il annule la tâche avec un message d'erreur."
     },
     {
-      "question": "Comment lancer Fluent en mode parallèle distribué sur plusieurs nœuds de Trillium?",
-      "answer": "Pour lancer Fluent sur plusieurs nœuds en mode parallèle distribué, la commande est `fluent -g $MYVERSION -t $NCORES -mpi=intel -pib -cnf=$SLURM_SUBMIT_DIR/machinefile-$SLURM_JOB_ID -i $MYJOURNALFILE`."
+      "question": "Quelle est la commande utilisée pour lancer Fluent lorsque la tâche est exécutée sur un seul nœud avec ce script?",
+      "answer": "Pour une tâche sur un seul nœud (`$SLURM_NNODES == 1`), Fluent est lancé avec la commande `fluent -g $MYVERSION -t $NCORES -mpi=intel -pshmem -i $MYJOURNALFILE`."
     },
     {
-      "question": "Quel est le but des scripts de 'Remise en file d'attente pour obtenir la licence' pour Fluent?",
-      "answer": "Ces scripts sont conçus pour relancer automatiquement des tâches Fluent qui échouent au démarrage spécifiquement en raison d'un manque de licences disponibles, permettant ainsi de réessayer la soumission plusieurs fois jusqu'à l'obtention d'une licence."
+      "question": "Comment lancer Fluent pour une tâche sur plusieurs nœuds en utilisant ce script?",
+      "answer": "Pour une tâche sur plusieurs nœuds, Fluent est démarré avec `fluent -g $MYVERSION -t $NCORES -mpi=intel -pib -cnf=$SLURM_SUBMIT_DIR/machinefile-$SLURM_JOB_ID -i $MYJOURNALFILE`, en utilisant un fichier de machinefile généré par le script."
     },
     {
-      "question": "Dans quelles situations les scripts de remise en file d'attente pour la licence ne sont-ils pas recommandés?",
-      "answer": "Ces scripts ne sont pas recommandés pour les tâches Fluent qui peuvent s'exécuter longtemps avant de planter ou qui se terminent avec des avertissements dans le journal, car cela entraînerait la répétition inutile de la simulation depuis le début, gaspillant ainsi du temps de calcul."
+      "question": "Combien de cœurs au maximum peuvent être demandés par nœud sur Trillium avec ce script?",
+      "answer": "Le script peut demander jusqu'à 192 cœurs par nœud sur la grappe Trillium."
     },
     {
-      "question": "Quel est l'inconvénient potentiel d'utiliser les scripts de remise en file d'attente si une simulation échoue pour d'autres raisons que la licence?",
-      "answer": "Si une simulation échoue pour des raisons autres qu'un problème de licence (par exemple, divergence), les scripts la remettront quand même en file d'attente, ce qui gaspillera du temps de calcul. Il est donc important de vérifier les fichiers de sortie pour identifier la cause réelle de l'échec."
+      "question": "Comment le type de simulation Fluent (par exemple, 2D, 3D, double précision) est-il configuré dans le script?",
+      "answer": "Le type de simulation est configuré en définissant la variable `MYVERSION` avec une valeur comme `3d`, `2d`, `2ddp`, ou `3ddp`."
+    },
+    {
+      "question": "À partir de quel répertoire le script d'ordonnancement s'attend-il à être soumis?",
+      "answer": "Le script doit être soumis à partir du répertoire `$SCRATCH/some/dir`, tel qu'indiqué par la ligne `cd $SLURM_SUBMIT_DIR`."
     }
   ],
-  "generated_at": "2026-04-11T17:08:43.122887+00:00"
+  "generated_at": "2026-04-12T16:59:05.784563+00:00"
 }

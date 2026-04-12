@@ -4,29 +4,45 @@
   "chunk_index": 26,
   "qa_pairs": [
     {
-      "question": "What is the purpose of the provided Slurm script snippet?",
-      "answer": "The provided Slurm script snippet is for running Ansys CFX in multinode distributed parallel mode."
+      "question": "Which modules should be loaded for running a CFX multinode job?",
+      "answer": "You should load `StdEnv/2023` and `ansys/2023R2` or newer versions for running a CFX multinode job."
     },
     {
-      "question": "How many compute nodes should be requested for a multinode CFX job according to the script?",
-      "answer": "For a multinode CFX job, you should request 2 or more compute nodes."
+      "question": "What is the recommended number of tasks per node for a CFX multinode job?",
+      "answer": "The recommended number of tasks per node is 192, which utilizes all cores per compute node, and this setting should not be changed."
     },
     {
-      "question": "What is the recommended number of tasks per node for a multinode CFX job?",
-      "answer": "The recommended number of tasks per node is 192, which means using all cores per compute node, and this value should not be changed."
+      "question": "How much memory should be requested for each compute node in a CFX multinode job?",
+      "answer": "You should request `0` memory, which allocates all available memory on each compute node, and this setting should not be changed."
     },
     {
-      "question": "How should memory be allocated per compute node for this CFX multinode script?",
-      "answer": "All available memory on each compute node should be used, specified by `--mem=0`."
+      "question": "What is the default time limit specified in the example Slurm script for a CFX multinode job?",
+      "answer": "The default time limit specified is `00-03:00`, which means 3 hours."
     },
     {
-      "question": "What value should be set for `cpus-per-task` in the CFX multinode Slurm script?",
-      "answer": "The `cpus-per-task` parameter should be set to 1 and should not be changed."
+      "question": "How is the `NNODES` variable determined in the multinode CFX Slurm script?",
+      "answer": "The `NNODES` variable is determined using the command `$(slurm_hl2hl.py --format ANSYS-CFX)`."
     },
     {
-      "question": "Which environment modules are required to run this CFX multinode job?",
-      "answer": "The `StdEnv/2023` and `ansys/2023R2` (or newer versions) modules are required."
+      "question": "What is the `start-method` for `cfx5solve` when running on Narval or Fir clusters in multinode mode?",
+      "answer": "For Narval or Fir clusters, the `start-method` should be \"Open MPI Distributed Parallel\"."
+    },
+    {
+      "question": "What `start-method` should be used for `cfx5solve` on clusters other than Narval or Fir in multinode mode?",
+      "answer": "On clusters other than Narval or Fir, the `start-method` should be \"Intel MPI Distributed Parallel\"."
+    },
+    {
+      "question": "What environment variables are exported for Intel MPI in the multinode CFX script for clusters other than Narval or Fir?",
+      "answer": "The environment variable `I_MPI_HYDRA_BOOTSTRAP=ssh` is exported, and `I_MPI_HYDRA_BOOTSTRAP_EXEC_EXTRA_ARGS` is unset."
+    },
+    {
+      "question": "Can older `StdEnv` modules like `StdEnv/2020` or `2021R2` be used for CFX multinode jobs?",
+      "answer": "The script indicates that `StdEnv/2020` is deprecated, and `2021R2` is for older versions. It recommends `StdEnv/2023`."
+    },
+    {
+      "question": "What is the minimum number of compute nodes specified for a CFX multinode job?",
+      "answer": "The script specifies a minimum of `2` compute nodes for a CFX multinode job."
     }
   ],
-  "generated_at": "2026-04-11T16:50:41.515366+00:00"
+  "generated_at": "2026-04-12T16:39:08.177179+00:00"
 }

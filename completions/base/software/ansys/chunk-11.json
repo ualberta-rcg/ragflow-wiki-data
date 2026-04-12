@@ -4,41 +4,65 @@
   "chunk_index": 11,
   "qa_pairs": [
     {
-      "question": "How can I run a multinode Fluent simulation using OpenMPI on Narval?",
-      "answer": "To run a multinode Fluent simulation on Narval using OpenMPI, you need to set the `FI_PROVIDER=verbs` environment variable and execute Fluent with the command: `fluent -g $MYVERSION -t $NCORES -mpi=openmpi -pib -cnf=/tmp/machinefile-$SLURM_JOB_ID -i $MYJOURNALFILE`."
+      "question": "What are the required module loads for the Fluent multinode (by core) OpenMPI script on Narval?",
+      "answer": "The Fluent multinode (by core) OpenMPI script for Narval requires loading `StdEnv/2023` and `ansys/2023R2` (or newer versions)."
     },
     {
-      "question": "What is the Fluent command for a single-node simulation on Narval using OpenMPI?",
-      "answer": "For a single-node Fluent simulation on Narval using OpenMPI, the command is: `fluent -g $MYVERSION -t $NCORES -mpi=openmpi -pshmem -i $MYJOURNALFILE`."
+      "question": "How is the `OPENMPI_ROOT` environment variable configured in the Fluent multinode (by core) script for Narval?",
+      "answer": "The `OPENMPI_ROOT` environment variable is configured by exporting `OPENMPI_ROOT=$EBROOTOPENMPI` in the Fluent multinode (by core) script for Narval."
     },
     {
-      "question": "What Slurm directives are commonly used for a 'Multinode (by core, narval)' Fluent job script with OpenMPI?",
-      "answer": "Common Slurm directives for a 'Multinode (by core, narval)' Fluent job script with OpenMPI include `#SBATCH --account=def-group`, `#SBATCH --time=00-03:00`, `#SBATCH --ntasks=16`, `#SBATCH --mem-per-cpu=4G`, and `#SBATCH --cpus-per-task=1`."
+      "question": "How is the `machinefile` generated for a Fluent multinode (by core) OpenMPI job on Narval?",
+      "answer": "For a Fluent multinode (by core) OpenMPI job on Narval, the `machinefile` is generated in two steps: first, `slurm_hl2hl.py --format ANSYS-FLUENT > /tmp/mf-$SLURM_JOB_ID` is run, and then `for i in `cat /tmp/mf-$SLURM_JOB_ID {{!}} uniq`; do echo \"${i}:$(cat /tmp/mf-$SLURM_JOB_ID {{!}} grep $i {{!}} wc -l)\" >> /tmp/machinefile-$SLURM_JOB_ID; done` processes the temporary file to create the final `machinefile`."
     },
     {
-      "question": "Which module versions should be loaded for a Fluent job on Narval using OpenMPI?",
-      "answer": "You should load `module load StdEnv/2023` and `module load ansys/2023R2` (or newer versions) for a Fluent job on Narval using OpenMPI."
+      "question": "What Fluent command is used for a single-node run in the Fluent multinode (by core) OpenMPI script on Narval?",
+      "answer": "For a single-node run in the Fluent multinode (by core) OpenMPI script on Narval, the command used is `fluent -g $MYVERSION -t $NCORES -mpi=openmpi -pshmem -i $MYJOURNALFILE`."
     },
     {
-      "question": "What environment variable must be exported for OpenMPI to function correctly in a Fluent job script on Narval?",
-      "answer": "The `OPENMPI_ROOT` environment variable must be exported as `export OPENMPI_ROOT=$EBROOTOPENMPI` for OpenMPI to function correctly in a Fluent job script on Narval."
+      "question": "What Fluent command is used for a multi-node run in the Fluent multinode (by core) OpenMPI script on Narval, and what environment variable is set?",
+      "answer": "For a multi-node run in the Fluent multinode (by core) OpenMPI script on Narval, `export FI_PROVIDER=verbs` is set, and the command used is `fluent -g $MYVERSION -t $NCORES -mpi=openmpi -pib -cnf=/tmp/machinefile-$SLURM_JOB_ID -i $MYJOURNALFILE`."
     },
     {
-      "question": "What are the key Slurm directives for a 'Multinode (by node, trillium)' Fluent job script?",
-      "answer": "Key Slurm directives for a 'Multinode (by node, trillium)' Fluent job script include `#SBATCH --account=def-group`, `#SBATCH --time=00-03:00`, `#SBATCH --nodes=1` (or more), `#SBATCH --ntasks-per-node=16` (max 192), `#SBATCH --cpus-per-task=1`, and `#SBATCH --output=slurm-%j.out`."
+      "question": "What is the recommended maximum number of cores per node for a Fluent multinode (by core) job on Narval?",
+      "answer": "The script specifies `#SBATCH --ntasks=16` as the total number of cores across all nodes, implying that Narval can handle a maximum of 64 cores per node."
     },
     {
-      "question": "What Ansys module version is required for running Fluent on Trillium?",
-      "answer": "Only Ansys module versions 2025R2 or newer, such as `ansys/2025R2.04`, work on Trillium."
+      "question": "What memory setting is suggested per CPU for a Fluent multinode (by core) job on Narval?",
+      "answer": "The script suggests `#SBATCH --mem-per-cpu=4G` to specify 4 gigabytes of memory per core."
     },
     {
-      "question": "How do I configure the license server for Fluent jobs on Trillium within a Slurm script?",
-      "answer": "You need to specify `LICSERVER=license1.computecanada.ca`, `FLEXPORT=1055`, and `VENDPORT=1793`. Then, use SSH tunnelling commands: `ssh tri-gw -fNL $FLEXPORT:$LICSERVER:$FLEXPORT` and `ssh tri-gw -fNL $VENDPORT:$LICSERVER:$VENDPORT`. Finally, export `ANSYSLMD_LICENSE_FILE=$FLEXPORT@localhost` and `ANSYSLI_SERVERS=$INTEPORT@localhost` (note: `INTEPORT` appears to be a typo and likely refers to `VENDPORT`)."
+      "question": "Which Ansys module versions are compatible with Fluent multinode (by node) jobs on Trillium?",
+      "answer": "For Fluent multinode (by node) jobs on Trillium, only `ansys/2025R2.04` or newer versions are compatible."
     },
     {
-      "question": "What is the maximum number of cores per node for Fluent jobs on Trillium?",
-      "answer": "The maximum number of cores per node that can be specified for Fluent jobs on Trillium is 192."
+      "question": "How can license server details be specified directly within a Slurm script for a Fluent multinode (by node) job on Trillium, instead of using the `~/.licenses/ansys.lic` file?",
+      "answer": "License server details can be specified directly in the Slurm script using variables such as `LICSERVER=license1.computecanada.ca`, `FLEXPORT=1055`, and `VENDPORT=1793`."
+    },
+    {
+      "question": "What SSH tunnelling commands are used to establish a connection to the license server from Trillium for a Fluent job?",
+      "answer": "The SSH tunnelling commands used are `ssh tri-gw -fNL $FLEXPORT:$LICSERVER:$FLEXPORT` and `ssh tri-gw -fNL $VENDPORT:$LICSERVER:$VENDPORT`."
+    },
+    {
+      "question": "How are the `ANSYSLMD_LICENSE_FILE` and `ANSYSLI_SERVERS` environment variables exported for a Fluent job on Trillium when using SSH tunnelling?",
+      "answer": "They are exported as `export ANSYSLMD_LICENSE_FILE=$FLEXPORT@localhost` and `export ANSYSLI_SERVERS=$INTEPORT@localhost`."
+    },
+    {
+      "question": "What is the maximum number of cores per node specified as a comment for a Fluent multinode (by node) job on Trillium?",
+      "answer": "The script comment indicates that Trillium supports a maximum of 192 cores per node, although the example `#SBATCH --ntasks-per-node` value is set to 16."
+    },
+    {
+      "question": "How should the current directory be managed when submitting a Fluent multinode (by node) job on Trillium?",
+      "answer": "The script includes `cd $SLURM_SUBMIT_DIR` to ensure the job runs from the directory where it was submitted."
+    },
+    {
+      "question": "What is the purpose of the `#SBATCH --output=slurm-%j.out` directive in the Trillium Fluent script?",
+      "answer": "This directive writes the job's standard output to a file named `slurm-$SLURM_JOB_ID.out`."
+    },
+    {
+      "question": "Should `#SBATCH --mem=0` be uncommented in the Fluent multinode (by node) script for Trillium?",
+      "answer": "No, it should not be uncommented because Trillium uses all memory per node by default."
     }
   ],
-  "generated_at": "2026-04-11T16:47:50.975811+00:00"
+  "generated_at": "2026-04-12T16:36:01.609593+00:00"
 }

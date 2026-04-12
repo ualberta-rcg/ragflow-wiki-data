@@ -4,45 +4,45 @@
   "chunk_index": 29,
   "qa_pairs": [
     {
-      "question": "C'est quoi le nom du script Slurm pour lancer des tâches CFX sur plusieurs nœuds?",
-      "answer": "Le script s'appelle `script-cfx-multiple.sh`."
+      "question": "Quels modules sont requis pour lancer une tâche CFX en parallèle distribué sur plusieurs nœuds?",
+      "answer": "Pour lancer une tâche CFX en parallèle distribué sur plusieurs nœuds, il faut charger les modules `StdEnv/2023` et `ansys/2023R2` (ou une version plus récente du module Ansys)."
     },
     {
-      "question": "Quel est le but du script `script-cfx-multiple.sh`?",
-      "answer": "Ce script est conçu pour soumettre des tâches Ansys CFX sur plusieurs nœuds de calcul via l'ordonnanceur Slurm."
+      "question": "Est-ce que je dois spécifier la mémoire pour une tâche CFX quand j'utilise plusieurs nœuds?",
+      "answer": "Non, pour une tâche CFX sur plusieurs nœuds, le script indique de ne pas modifier le paramètre `#SBATCH --mem=0`, ce qui alloue toute la mémoire par nœud de calcul par défaut."
     },
     {
-      "question": "Combien de nœuds de calcul faut-il spécifier pour les tâches CFX multi-nœuds avec ce script?",
-      "answer": "Il faut spécifier un minimum de 2 nœuds de calcul, comme indiqué par `--nodes=2`."
+      "question": "Quel `start-method` utiliser pour CFX en parallèle distribué sur la grappe Narval?",
+      "answer": "Sur la grappe Narval, il faut utiliser `\"Open MPI Distributed Parallel\"` comme `start-method` pour CFX en parallèle distribué."
     },
     {
-      "question": "Quelle est la limite de temps suggérée pour les tâches lancées avec `script-cfx-multiple.sh`?",
-      "answer": "La limite de temps suggérée est de 3 heures (`--time=00-03:00`)."
+      "question": "Quel `start-method` faut-il utiliser pour CFX en parallèle distribué sur les grappes autres que Narval?",
+      "answer": "Pour les grappes autres que Narval, il faut utiliser `\"Intel MPI Distributed Parallel\"` comme `start-method` pour CFX en parallèle distribué."
     },
     {
-      "question": "Combien de mémoire doit être allouée par nœud de calcul pour une tâche CFX multi-nœuds?",
-      "answer": "Le script suggère d'allouer toute la mémoire disponible par nœud de calcul (`--mem=0`)."
+      "question": "Comment initialiser un fichier de projet Workbench avant de le soumettre pour la première fois?",
+      "answer": "Pour initialiser un fichier de projet Workbench, connectez-vous à la grappe avec TigerVNC, lancez Workbench dans le répertoire du projet avec la même version d'Ansys, ouvrez le projet via `File -> Open`, faites un clic droit sur `Setup` dans la fenêtre principale et sélectionnez `Clear All Generated Data`. Ensuite, quittez Workbench en cliquant sur `File -> Exit` et répondez `No` à la question de sauvegarde. Finalement, quittez Workbench et soumettez la tâche."
     },
     {
-      "question": "Combien de cœurs par nœud peut-on spécifier pour une tâche CFX sur la grappe Narval avec ce script?",
-      "answer": "Sur Narval, on peut spécifier jusqu'à 64 cœurs par nœud (`--ntasks-per-node=64`)."
+      "question": "Est-il possible d'exécuter les simulations Workbench directement à partir de l'interface graphique plutôt que via un script Slurm?",
+      "answer": "Oui, il est désormais possible de réserver un nœud de calcul avec jusqu'à 96 cœurs, 768 Go de mémoire et 8 heures de temps d'exécution pour une session de bureau OnDemand. C'est une option plus intuitive pour exécuter directement vos simulations Workbench via l'interface graphique native."
     },
     {
-      "question": "Quel est le nombre maximal de cœurs par nœud pour une tâche CFX sur la grappe Beluga en utilisant ce script?",
-      "answer": "Pour Beluga, le nombre maximal de cœurs par nœud est de 40 (`--ntasks-per-node=40`)."
+      "question": "Comment soumettre un fichier de projet Workbench à la file d'attente Slurm?",
+      "answer": "Pour soumettre un fichier de projet Workbench à la file d'attente Slurm, vous devez personnaliser les scripts fournis pour l'ordonnanceur et lancer la commande `sbatch script-wbpj-202X.sh`."
     },
     {
-      "question": "Sur quelle valeur le paramètre `--cpus-per-task` doit-il être réglé dans ce script?",
-      "answer": "Le paramètre `--cpus-per-task` ne doit pas être changé et doit être réglé à 1 (`--cpus-per-task=1`)."
+      "question": "Quels modules Ansys charger pour une tâche Workbench sur un nœud simple avec `StdEnv/2023`?",
+      "answer": "Pour une tâche Workbench sur un nœud simple avec `StdEnv/2023`, il faut charger les modules `StdEnv/2023` et `ansys/2023R2` (ou une version plus récente d'Ansys)."
     },
     {
-      "question": "Comment spécifie-t-on le compte utilisateur dans le script Slurm pour CFX?",
-      "answer": "On spécifie le compte utilisateur avec le paramètre `--account=def-group`."
+      "question": "Comment le script Slurm pour Workbench configure-t-il les paramètres de parallélisme et le nombre de processeurs?",
+      "answer": "Le script modifie le fichier `SolveHandlers.xml` pour définir le type de parallélisme (`MEMPAR`, 0 pour SMP sur un nœud unique et 1 pour DMP sur plusieurs nœuds) et le nombre maximum de processeurs (`SLURM_NTASKS`). Il s'assure également que la configuration est identifiée comme `UserConfigured`."
     },
     {
-      "question": "Dans le script `script-cfx-multiple.sh`, quel est le nombre maximum de cœurs par nœud pour Graham?",
-      "answer": "Sur Graham, le nombre maximum de cœurs par nœud peut être de 44 ou 48, selon ce qui est disponible."
+      "question": "Quelle commande sert à lancer une simulation Workbench en mode batch?",
+      "answer": "La commande utilisée pour exécuter une simulation Workbench en mode batch est `runwb2 -B -E \"Update()\" -F YOURPROJECT.wbpj`."
     }
   ],
-  "generated_at": "2026-04-11T17:12:14.814771+00:00"
+  "generated_at": "2026-04-12T17:02:25.981615+00:00"
 }

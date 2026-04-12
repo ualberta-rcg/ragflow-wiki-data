@@ -4,65 +4,49 @@
   "chunk_index": 21,
   "qa_pairs": [
     {
-      "question": "À quoi sert le script Slurm sous l'onglet « Plusieurs nœuds (par cœur + redémarrage) » ?",
-      "answer": "Ce script est conçu pour automatiser le redémarrage de tâches intensives qui exigent plus que le maximum de sept jours d'exécution permis sur la plupart des grappes. Il redémarre la simulation à partir des fichiers de valeur de pas de temps les plus récemment sauvegardés."
+      "question": "C'est quoi l'objectif principal des scripts de redémarrage pour les simulations Ansys Fluent?",
+      "answer": "Les scripts de redémarrage permettent d'automatiser la reprise de tâches intensives qui nécessitent plus que la limite maximale de sept jours d'exécution permise sur la plupart des grappes de calcul, en redémarrant à partir des fichiers de pas de temps les plus récemment sauvegardés."
     },
     {
-      "question": "Quelles sont les requêtes de ressources Slurm configurées par défaut dans le script « Plusieurs nœuds (par cœur + redémarrage) » ?",
-      "answer": "Le script spécifie une limite de temps de 3 heures (`#SBATCH --time=00-03:00`), un nombre total de 16 cœurs (`#SBATCH --ntasks=16`), 4 Go de mémoire par cœur (`#SBATCH --mem-per-cpu=4G`), un nœud de calcul (`#SBATCH --nodes=1` est commenté mais le script est structuré pour le gérer), et un nombre de redémarrages (pas de temps) de 5 (`#SBATCH --array=1-5%1`)."
+      "question": "Quels fichiers initiaux sont nécessaires pour démarrer une simulation Ansys Fluent avec un script de redémarrage?",
+      "answer": "Pour commencer, vous avez besoin d'un groupe de fichiers `sample.cas`, `sample.dat` et `sample.jou`."
     },
     {
-      "question": "Quel module Ansys le script « Plusieurs nœuds (par cœur + redémarrage) » va-t-il charger ?",
-      "answer": "Le script est configuré pour charger le module `ansys/2023R2` (ou une version plus récente), après avoir chargé `StdEnv/2023`."
+      "question": "Comment on modifie le fichier de journalisation initial (`sample.jou`) pour l'utiliser avec un script de redémarrage Fluent?",
+      "answer": "Dans le fichier `sample.jou`, il faut s'assurer d'inclure les lignes `/solve/dual-time-iterate 1` et `/file/auto-save/data-frequency 1`."
     },
     {
-      "question": "Quelles sont les variables que l'utilisateur doit configurer dans le script de redémarrage Fluent ?",
-      "answer": "L'utilisateur doit spécifier le type de version Fluent (`MYVERSION`), le nom du fichier journal initial (`MYJOUFILE`), le nom du fichier journal de redémarrage (`MYJOUFILERES`), le nom du fichier cas de redémarrage (`MYCASFILERES`) et le nom du fichier dat de redémarrage (`MYDATFILERES`)."
+      "question": "Comment on prépare un fichier de journalisation spécifiquement pour le redémarrage d'une simulation Fluent?",
+      "answer": "Après avoir copié `sample.jou` en `sample-restart.jou`, il faut modifier `sample-restart.jou` pour qu'il contienne `/file/read-cas-data sample-restart` au lieu de `/file/read-cas-data sample`, et mettre en commentaire la ligne d'initialisation (par exemple, en la précédant d'un point-virgule comme `;/solve/initialize/initialize-flow`)."
     },
     {
-      "question": "Comment le script gère-t-il l'initialisation de l'environnement MPI spécifiquement pour la grappe Narval ou Nibi avec Ansys 2025 ou plus récent ?",
-      "answer": "Pour la grappe Narval, le script charge les modules `intel/2023 intelmpi` et configure `INTELMPI_ROOT`. Si la version d'Ansys est 2025 ou plus récente et que la grappe est Nibi, ou si la grappe est Narval, il configure `I_MPI_HYDRA_BOOTSTRAP=ssh` et annule `I_MPI_HYDRA_BOOTSTRAP_EXEC_EXTRA_ARGS`."
+      "question": "Si les pas de temps subséquents d'une simulation Fluent sont deux fois plus rapides que le pas initial, comment doit-on ajuster le fichier `sample-restart.jou`?",
+      "answer": "Dans ce cas, il faut modifier `sample-restart.jou` pour spécifier `/solve/dual-time-iterate 2`. Ça fait en sorte que la solution ne redémarre qu'après la fin de deux pas suivant le pas initial."
     },
     {
-      "question": "Comment le script détermine-t-il la commande Fluent à exécuter selon le nombre de nœuds ?",
-      "answer": "Le script utilise une condition `if [ \"$SLURM_NNODES\" == 1 ]` : si un seul nœud est utilisé, Fluent est lancé avec l'option `-pshmem` pour la mémoire partagée. Sinon (plusieurs nœuds), il utilise `-pib` (ou `-peth` pour Nibi) et un fichier de machine (`-cnf=/tmp/machinefile-$SLURM_JOB_ID`) pour le parallèle distribué."
+      "question": "Que signifie la valeur '2' dans `/solve/dual-time-iterate 2` quand on utilise les scripts de redémarrage Fluent?",
+      "answer": "La valeur '2' est arbitraire mais suggère que les deux pas de temps suivants devraient être exécutés dans la fenêtre de temps allouée pour le vecteur de tâches. Ça limite le nombre de redémarrages, qui peuvent être gourmands en ressources."
     },
     {
-      "question": "Quelle est la commande Fluent utilisée pour un seul nœud dans le script de redémarrage Fluent ?",
-      "answer": "Pour un seul nœud, la commande est `fluent -g $MYVERSION -t $NCORES -affinity=0 -mpi=intel -pshmem -I $MYFILEJOU` pour la première tâche, ou `-I $MYFILEJOURES` pour les redémarrages."
+      "question": "Comment le script de redémarrage gère-t-il les fichiers de sortie les plus récents pour la prochaine étape de la simulation?",
+      "answer": "Le script utilise les commandes `ln -sfv output/$(ls -ltr output | grep .cas | tail -n1 | awk '{print $9}') $MYCASFILERES` et `ln -sfv output/$(ls -ltr output | grep .dat | tail -n1 | awk '{print $9}') $MYDATFILERES` pour lier symboliquement les fichiers `.cas` et `.dat` les plus récents de la tâche précédente pour le redémarrage."
     },
     {
-      "question": "Quelle est la commande Fluent utilisée pour plusieurs nœuds dans le script de redémarrage Fluent ?",
-      "answer": "Pour plusieurs nœuds (et si ce n'est pas Nibi), la commande est `fluent -g $MYVERSION -t $NCORES -affinity=0 -mpi=intel -pib -cnf=/tmp/machinefile-$SLURM_JOB_ID -i $MYJOUFILE` pour la première tâche, ou `-i $MYJOUFILERES` pour les redémarrages. Pour Nibi, il utilise `-peth` au lieu de `-pib`."
+      "question": "Quel message apparaît dans la sortie du script de redémarrage si la simulation se termine avec succès?",
+      "answer": "Si la simulation se termine avec succès, le script affichera `Job completed successfully! Exiting now.` (La tâche s'est terminée avec succès! On quitte maintenant)."
     },
     {
-      "question": "Comment le script gère-t-il la logique de redémarrage de la simulation en fonction du `SLURM_ARRAY_TASK_ID` ?",
-      "answer": "Si la tâche courante n'est pas la dernière dans l'array (`$SLURM_ARRAY_TASK_ID -lt $SLURM_ARRAY_TASK_COUNT`) et que la simulation s'est terminée avec succès, le script crée des liens symboliques (`ln -sfv`) vers les fichiers `.cas` et `.dat` les plus récents dans le dossier `output` pour préparer le prochain redémarrage."
+      "question": "Quel message s'affiche si la simulation échoue lors d'un redémarrage?",
+      "answer": "Si la simulation échoue, le script affichera `Simulation failed. Exiting …` (La simulation a échoué. On quitte…)."
     },
     {
-      "question": "Que se passe-t-il si la simulation échoue d'après le script de redémarrage Fluent ?",
-      "answer": "Si la simulation échoue (lorsque la commande Fluent retourne un code d'erreur non nul), le script affichera le message « Simulation failed. Exiting now. » et le processus s'arrêtera."
+      "question": "Quelle est la principale différence entre le script `script-flu-bynode+restart.sh` et `script-flu-bycore+restart.sh`?",
+      "answer": "Le script `script-flu-bynode+restart.sh` est configuré pour demander des ressources par nœud de calcul (`--nodes`), tandis que `script-flu-bycore+restart.sh` demande des ressources par cœur de calcul (`--ntasks`). Les deux incluent la logique de redémarrage."
     },
     {
-      "question": "À quoi servent les fichiers de journalisation Fluent ?",
-      "answer": "Les fichiers de journalisation Fluent peuvent contenir toutes les commandes de l'interface TUI (Text User Interface) de Fluent. Ils peuvent être utilisés pour modifier des paramètres de simulation comme la température, la pression ou la vitesse du flux."
-    },
-    {
-      "question": "Comment peut-on modifier les paramètres de simulation avec les fichiers de journalisation Fluent ?",
-      "answer": "On peut effectuer une série de simulations sous différentes conditions simplement en modifiant les paramètres à l'intérieur du fichier de journalisation."
-    },
-    {
-      "question": "Quelle est la différence dans la configuration des formats de fichiers pour Fluent entre les modules Ansys jusqu'à 2019R3 et ceux à partir de 2020R1 ?",
-      "answer": "Pour les modules Ansys jusqu'à 2019R3, la configuration est `file/cff-file no` pour utiliser les formats .cas/.dat. À partir de 2020R1, il faut utiliser `file/cff-files yes` pour les formats plus efficaces .cas.h5/.dat.h5."
-    },
-    {
-      "question": "Quelle commande est utilisée dans un fichier de journalisation pour activer les formats de fichiers .cas.h5/.dat.h5 pour Fluent ?",
-      "answer": "La commande `/file/cff-files yes` est utilisée dans le fichier de journalisation pour activer les formats de fichiers .cas.h5/.dat.h5."
-    },
-    {
-      "question": "Quelle commande est utilisée dans un fichier de journalisation pour configurer Fluent à utiliser les formats de fichiers legacy .cas/.dat ?",
-      "answer": "La commande `/file/cff-files no` est utilisée dans le fichier de journalisation pour configurer Fluent à utiliser les formats de fichiers legacy .cas/.dat."
+      "question": "Quel est le temps maximal qu'on peut allouer à un job Slurm pour les scripts de redémarrage Fluent?",
+      "answer": "Le temps maximal qu'on peut allouer pour ces scripts peut aller jusqu'à `07-00:00` jours, tel qu'indiqué dans les options `--time` des scripts."
     }
   ],
-  "generated_at": "2026-04-11T17:10:47.524162+00:00"
+  "generated_at": "2026-04-12T17:00:39.823791+00:00"
 }

@@ -4,37 +4,93 @@
   "chunk_index": 30,
   "qa_pairs": [
     {
-      "question": "Que signifie l'acronyme « DMP » dans le contexte de ce script?",
-      "answer": "L'acronyme « DMP » représente « distributed memory parallel »."
+      "question": "Comment lancer une tâche Workbench sur un nœud simple avec un script Slurm?",
+      "answer": "Pour lancer une tâche Workbench sur un nœud simple avec un script Slurm, vous devez utiliser la commande `runwb2 -B -E \"Update()\" -F YOURPROJECT.wbpj`."
     },
     {
-      "question": "Quel type de fichiers sont ciblés pour être supprimés par la commande `rm -fv` mentionnée?",
-      "answer": "Les fichiers ciblés pour la suppression sont des fichiers de verrouillage (lock files) qui correspondent au modèle `*_files/.lock`."
+      "question": "Quelle commande doit être ajoutée au script Slurm pour enregistrer la solution du projet Workbench après la mise à jour?",
+      "answer": "Pour enregistrer la solution du projet après la mise à jour, il faut ajouter la commande `#runwb2 -B -E \"Update();Save(Overwrite=True)\" -F YOURPROJECT.wbpj` au script Slurm."
     },
     {
-      "question": "Quel est le nom du fichier de configuration dont le chemin est défini dans la variable `MWFILE`?",
-      "answer": "Le nom du fichier de configuration est `SolveHandlers.xml`."
+      "question": "Quel module d'environnement et quelle version d'Ansys devrais-je charger pour un script Slurm Workbench utilisant StdEnv/2020?",
+      "answer": "Vous devriez charger `module load StdEnv/2020 ansys/2021R2` ou des versions plus récentes des modules Ansys."
     },
     {
-      "question": "Comment le script détermine-t-il le chemin complet du fichier `SolveHandlers.xml`?",
-      "answer": "Le chemin est construit à partir de `~/.mw/Application Data/Ansys/`, suivi du nom de base du répertoire de version d'Ansys (trouvé via `$EBROOTANSYS`), puis `/SolveHandlers.xml`."
+      "question": "Dans les scripts Slurm pour Workbench, quelle valeur faut-il attribuer à la variable MEMPAR pour le calcul parallèle en mémoire partagée (SMP)?",
+      "answer": "Pour le calcul parallèle en mémoire partagée (SMP), la variable `MEMPAR` doit être réglée à `0`."
     },
     {
-      "question": "Quel paramètre est modifié dans le fichier `SolveHandlers.xml` pour définir le mode de distribution basé sur la variable `$MEMPAR`?",
-      "answer": "Le paramètre `Distribute` est modifié dans le fichier `SolveHandlers.xml`."
+      "question": "Dans les scripts Slurm pour Workbench, quelle est la distinction entre MEMPAR=0 et MEMPAR=1?",
+      "answer": "`MEMPAR=0` est pour le calcul parallèle en mémoire partagée (SMP), tandis que `MEMPAR=1` est pour le calcul parallèle en mémoire distribuée (DMP)."
     },
     {
-      "question": "Quel est le nom du paramètre ajusté dans `SolveHandlers.xml` pour spécifier le nombre maximal de processeurs, et quelle variable est utilisée pour cela?",
-      "answer": "Le paramètre ajusté est `MaxNumber` (de processeurs), et il est défini par la variable `$SLURM_NTASKS`."
+      "question": "Comment les scripts Slurm de Workbench configurent-ils le nombre maximal de processeurs à utiliser?",
+      "answer": "Les scripts modifient le fichier `SolveHandlers.xml` en utilisant `sed` pour définir le nombre maximal de processeurs (`MaxNumber.`) à la valeur de `$SLURM_NTASKS`."
     },
     {
-      "question": "Comment la configuration utilisateur est-elle marquée dans le fichier `SolveHandlers.xml`?",
-      "answer": "La valeur du paramètre `UserConfigured` est changée de `0` à `1`."
+      "question": "Quelles variables d'environnement sont exportées dans les scripts Slurm de Workbench pour la configuration de l'affinité de processeur et du démarrage MPI?",
+      "answer": "Les scripts exportent les variables d'environnement `KMP_AFFINITY=disabled` et `I_MPI_HYDRA_BOOTSTRAP=ssh`."
     },
     {
-      "question": "Quelle variable d'environnement est désactivée dans cette section du script?",
-      "answer": "La variable d'environnement `KMP_AFFINITY` est désactivée."
+      "question": "Comment éviter que la solution d'une simulation Workbench ne soit écrasée après chaque exécution de tâche de test?",
+      "answer": "Pour éviter que la solution ne soit écrasée, il faut changer `Save(Overwrite=True)` à `Save(Overwrite=False)` dans la dernière ligne du script Slurm de Workbench."
+    },
+    {
+      "question": "Pourquoi est-ce utile d'empêcher l'écrasement de la solution pour les tests de scalabilité dans Workbench?",
+      "answer": "Empêcher l'écrasement de la solution facilite la détermination de l'efficacité de la scalabilité de la simulation lorsque le nombre de tâches (`#SBATCH --ntasks`) est augmenté, puisque la solution initialisée ne sera pas écrasée par chaque tâche de test."
+    },
+    {
+      "question": "Comment puis-je générer un fichier d'entrée APDL pour Ansys Mechanical?",
+      "answer": "Vous pouvez générer un fichier d'entrée APDL dans votre session interactive Workbench Mechanical en allant dans *Solution -> Tools -> Write Input Files*, puis en spécifiant le `File name:` comme `YOURAPDLFILE.inp` et le `Save as type:` comme \"fichiers APDL en entrée (*.inp)\"."
+    },
+    {
+      "question": "Après avoir généré le fichier d'entrée APDL, comment soumettre une tâche APDL à la file d'attente?",
+      "answer": "Les tâches APDL peuvent être soumises à la file d'attente en utilisant la commande `sbatch script-name.sh` avec le script approprié."
+    },
+    {
+      "question": "Sur quelles grappes les scripts Slurm pour Ansys Mechanical ont-ils été testés?",
+      "answer": "Les scripts Slurm pour Ansys Mechanical ont été testés sur Graham, Narval, Cedar et Béluga."
+    },
+    {
+      "question": "Que signifient les lignes qui commencent par `##SBATCH` dans les scripts Slurm de Mechanical?",
+      "answer": "Les lignes qui commencent par `##SBATCH` dans les scripts Slurm de Mechanical sont des commentaires et ne sont pas actives."
+    },
+    {
+      "question": "Quels modules d'environnement et Ansys faut-il charger pour lancer une tâche Mechanical APDL en mémoire parallèle partagée (SMP) avec le script `script-smp-2023-cpu.sh`?",
+      "answer": "Il faut charger `module load StdEnv/2023` et `module load ansys/2024R1.03` (ou une version antérieure comme `ansys/2023R2`)."
+    },
+    {
+      "question": "Y a-t-il une configuration spéciale requise sur la grappe Cedar pour les tâches Mechanical SMP?",
+      "answer": "Oui, sur la grappe Cedar, il faut exporter la variable `LD_LIBRARY_PATH` vers `$EBROOTGCC/../lib/gcc` pour les tâches Mechanical SMP."
+    },
+    {
+      "question": "Quelle commande est utilisée pour exécuter Mechanical APDL en mode SMP dans le script `script-smp-2023-cpu.sh`?",
+      "answer": "La commande utilisée est `mapdl -smp -b nolist -np $SLURM_NTASKS -dir outdir-$SLURM_JOBID -i YOURAPDLFILE.inp`."
+    },
+    {
+      "question": "Comment le script SMP pour Mechanical APDL gère-t-il les répertoires de sortie?",
+      "answer": "Le script crée un répertoire de sortie unique pour chaque tâche nommé `outdir-$SLURM_JOBID` et spécifie ce répertoire avec l'option `-dir` dans la commande `mapdl`."
+    },
+    {
+      "question": "Quels modules d'environnement et Ansys faut-il charger pour lancer une tâche Mechanical APDL en mémoire parallèle distribuée (DMP) avec le script `script-dmp-2023-cpu.sh`?",
+      "answer": "Il faut charger `module load StdEnv/2023` et `module load ansys/2024R1.03` (ou une version antérieure comme `ansys/2023R2`)."
+    },
+    {
+      "question": "Quelle configuration de bibliothèque est nécessaire pour les tâches Mechanical DMP sur la grappe Cedar?",
+      "answer": "Sur la grappe Cedar, un lien symbolique est créé pour `libstdc++.so.6.0.29` dans le répertoire de sortie de la tâche, et `LD_LIBRARY_PATH` est exporté pour inclure ce répertoire."
+    },
+    {
+      "question": "Quel type de MPI est utilisé sur la grappe Beluga pour les tâches Mechanical APDL en mode DMP?",
+      "answer": "Sur la grappe Beluga, `intelmpi` est utilisé pour les tâches Mechanical APDL en mode DMP, et `KMP_AFFINITY` est exporté comme `none`."
+    },
+    {
+      "question": "Quel type de MPI est utilisé sur les autres grappes (non Beluga) pour les tâches Mechanical APDL en mode DMP?",
+      "answer": "Sur les autres grappes (non Beluga), `openmpi` est utilisé pour les tâches Mechanical APDL en mode DMP."
+    },
+    {
+      "question": "Quelle commande est utilisée pour exécuter Mechanical APDL en mode DMP dans le script `script-dmp-2023-cpu.sh`?",
+      "answer": "La commande utilisée est `mapdl -dis -mpi [intelmpi ou openmpi] -b nolist -np $SLURM_NTASKS -dir outdir-$SLURM_JOBID -i YOURAPDLFILE.inp`."
     }
   ],
-  "generated_at": "2026-04-11T17:12:32.872313+00:00"
+  "generated_at": "2026-04-12T17:02:52.991588+00:00"
 }

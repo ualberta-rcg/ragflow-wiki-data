@@ -4,69 +4,57 @@
   "chunk_index": 29,
   "qa_pairs": [
     {
-      "question": "How do you set the maximum number of processors in a Workbench Slurm script for StdEnv/2023?",
-      "answer": "In a Workbench Slurm script using StdEnv/2023, you set the maximum number of processors by modifying the `SolveHandlers.xml` file with `sed -re \"s/(.Processors>+)[a-zA-Z0-9]*(<\\/MaxNumber.)/\\1$SLURM_NTASKS\\2/\" -i \"$MWFILE\"`."
+      "question": "How do you configure the `SolveHandlers.xml` file for Ansys Workbench parallel processing within a Slurm script?",
+      "answer": "You configure the `SolveHandlers.xml` file by using `sed` commands to replace specific values. For example, `sed -re \"s/(.AnsysSolution>+)[a-zA-Z0-9]*(<\\/Distribute.)/\\1$MEMPAR\\2/\" -i \"$MWFILE\"` sets the distribution type, and `sed -re \"s/(.Processors>+)[a-zA-Z0-9]*(<\\/MaxNumber.)/\\1$SLURM_NTASKS\\2/\" -i \"$MWFILE\"` sets the number of processors. Additionally, `sed -i \"s!UserConfigured=\\\"0\\\"!UserConfigured=\\\"1\\\"!g\" \"$MWFILE\"` sets UserConfigured to \"1\"."
     },
     {
-      "question": "What command is used to run a Workbench project in batch mode and save its updates in a Slurm script for StdEnv/2023?",
-      "answer": "The command `runwb2 -B -E \"Update();Save(Overwrite=True)\" -F YOURPROJECT.wbpj` is used to run a Workbench project in batch mode, update it, and save the changes."
+      "question": "What environment variables should be set in an Ansys Workbench Slurm script to ensure proper MPI bootstrap and affinity?",
+      "answer": "You should set `export KMP_AFFINITY=disabled` and `export I_MPI_HYDRA_BOOTSTRAP=ssh` in your Ansys Workbench Slurm script."
     },
     {
-      "question": "What environment variables are typically exported for KMP_AFFINITY and I_MPI_HYDRA_BOOTSTRAP in a Workbench Slurm script using StdEnv/2023?",
-      "answer": "In a Workbench Slurm script using StdEnv/2023, `export KMP_AFFINITY=disabled` and `export I_MPI_HYDRA_BOOTSTRAP=ssh` are typically exported."
+      "question": "What command is used to run an Ansys Workbench job in batch mode from a Slurm script?",
+      "answer": "The command to run an Ansys Workbench job in batch mode is `runwb2 -B -E \"Update();Save(Overwrite=True)\" -F YOURPROJECT.wbpj`."
     },
     {
-      "question": "What Ansys module version is loaded with StdEnv/2020 for Workbench Slurm scripts?",
-      "answer": "For Workbench Slurm scripts using StdEnv/2020, the `ansys/2022R2` module or older Ansys module versions are loaded."
+      "question": "What modules should be loaded for Ansys Workbench jobs using `StdEnv/2023`?",
+      "answer": "For Ansys Workbench jobs with `StdEnv/2023`, you should load `StdEnv/2023` and `ansys/2023R2` (or newer Ansys module versions)."
     },
     {
-      "question": "How can I prevent a Workbench Slurm job from overwriting the solution during scaling tests?",
-      "answer": "To prevent overwriting the solution during scaling tests, change `Save(Overwrite=True)` to `Save(Overwrite=False)` in the last line of your Workbench Slurm script."
+      "question": "What modules should be loaded for Ansys Workbench jobs using `StdEnv/2020`?",
+      "answer": "For Ansys Workbench jobs with `StdEnv/2020`, you should load `StdEnv/2020` and `ansys/2022R2` (or older Ansys module versions)."
     },
     {
-      "question": "Why would I change `Save(Overwrite=True)` to `Save(Overwrite=False)` in a Workbench Slurm script?",
-      "answer": "Changing `Save(Overwrite=True)` to `Save(Overwrite=False)` makes it easier to determine how well the simulation scales when increasing `#SBATCH --ntasks`, as the initialized solution will not be overwritten by each test job."
+      "question": "How can you prevent the solution from being overwritten when running Ansys Workbench jobs for scaling tests?",
+      "answer": "To prevent the solution from being overwritten, change `Save(Overwrite=True)` to `Save(Overwrite=False)` in the last line of the Slurm script for your Workbench job."
     },
     {
-      "question": "How do you generate an input file for Ansys Mechanical (APDL) from an interactive Workbench Mechanical session?",
-      "answer": "From an interactive Workbench Mechanical session, you can generate an APDL input file by clicking 'Solution -> Tools -> Write Input Files' and specifying the file name (e.g., YOURAPDLFILE.inp) with 'Save as type: APDL Input Files (*.inp)'."
+      "question": "How do you generate an input file for Ansys Mechanical (APDL) from within an interactive Workbench session?",
+      "answer": "From within your interactive Workbench Mechanical session, click on `Solution -> Tools -> Write Input Files`, then specify a `File name:` (e.g., `YOURAPDLFILE.inp`) and `Save as type:` APDL Input Files (*.inp)."
     },
     {
-      "question": "What is the command to submit Ansys Mechanical (APDL) jobs to the queue?",
+      "question": "How are Ansys Mechanical (APDL) jobs submitted to the queue?",
       "answer": "APDL jobs can be submitted to the queue by running the `sbatch script-name.sh` command."
     },
     {
-      "question": "What do lines beginning with `##SBATCH` mean in Ansys Mechanical Slurm scripts?",
-      "answer": "In Ansys Mechanical Slurm scripts, lines beginning with `##SBATCH` are commented out, meaning they are not active by default but can be uncommented for specific configurations."
+      "question": "What do lines beginning with `##SBATCH` indicate in Ansys Mechanical Slurm scripts?",
+      "answer": "Lines beginning with `##SBATCH` are commented out in Ansys Mechanical Slurm scripts."
     },
     {
-      "question": "What are the common SBATCH directives for a Shared Memory Parallel (CPU) Ansys Mechanical job?",
-      "answer": "For a Shared Memory Parallel (CPU) Ansys Mechanical job, common SBATCH directives include `#SBATCH --account=def-account`, `#SBATCH --time=00-03:00`, `#SBATCH --mem=32G`, `#SBATCH --nodes=1`, `#SBATCH --tasks=8`, and `#SBATCH --cpus-per-task=1`."
+      "question": "What modules are typically loaded for Shared Memory Parallel (CPU) Ansys Mechanical jobs?",
+      "answer": "For Shared Memory Parallel (CPU) Ansys Mechanical jobs, you would typically load `StdEnv/2023` and `ansys/2024R1.03`."
     },
     {
-      "question": "Which Ansys module is recommended for a Shared Memory Parallel (CPU) Mechanical job using StdEnv/2023?",
-      "answer": "For a Shared Memory Parallel (CPU) Mechanical job using StdEnv/2023, `module load ansys/2024R1.03` is recommended, though `ansys/2023R2` is also an option."
+      "question": "How is an output directory created for an Ansys Mechanical (APDL) job within a Slurm script?",
+      "answer": "An output directory is created using the command `mkdir outdir-$SLURM_JOBID`."
     },
     {
-      "question": "How is the output directory created for an Ansys Mechanical Shared Memory Parallel (CPU) job?",
-      "answer": "The output directory for an Ansys Mechanical Shared Memory Parallel (CPU) job is created using `mkdir outdir-$SLURM_JOBID`."
+      "question": "What `LD_LIBRARY_PATH` setting might be required for Ansys Mechanical jobs on the `cedar` cluster?",
+      "answer": "On the `cedar` cluster, you might need `export LD_LIBRARY_PATH=$EBROOTGCC/../lib/gcc` for Ansys Mechanical jobs."
     },
     {
-      "question": "What command is used to execute an Ansys Mechanical Shared Memory Parallel (CPU) job?",
-      "answer": "The command `mapdl -smp -b nolist -np $SLURM_NTASKS -dir outdir-$SLURM_JOBID -i YOURAPDLFILE.inp` is used to execute an Ansys Mechanical Shared Memory Parallel (CPU) job."
-    },
-    {
-      "question": "For the Cedar cluster, what is the purpose of `export LD_LIBRARY_PATH=$EBROOTGCC/../lib/gcc` in the Shared Memory Parallel (CPU) Mechanical script?",
-      "answer": "For the Cedar cluster, `export LD_LIBRARY_PATH=$EBROOTGCC/../lib/gcc` is included to correctly set the library path for the GNU Compiler Collection (GCC) on that specific cluster, likely to resolve dependencies for the Ansys executable."
-    },
-    {
-      "question": "What is the purpose of the `sed -re \"s/(.AnsysSolution>+)[a-zA-Z0-9]*(<\\/Distribute.)/\\1$MEMPAR\\2/\" -i \"$MWFILE\"` command in a Workbench Slurm script?",
-      "answer": "This `sed` command modifies the `SolveHandlers.xml` file to configure the Ansys Solution distribution parameter, setting it to either 0 for Shared Memory Parallel (SMP) or 1 for Distributed Memory Parallel (DMP) based on the `MEMPAR` variable."
-    },
-    {
-      "question": "What is the purpose of `sed -i \"s!UserConfigured=\\\"0\\\"!UserConfigured=\\\"1\\\"!g\" \"$MWFILE\"` in a Workbench Slurm script?",
-      "answer": "This `sed` command modifies the `SolveHandlers.xml` file to set `UserConfigured=\"1\"`, indicating that the configuration has been manually overridden or set by the user."
+      "question": "What is the command to run a Shared Memory Parallel (SMP) Ansys Mechanical (APDL) job?",
+      "answer": "The command to run a Shared Memory Parallel (SMP) Ansys Mechanical (APDL) job is `mapdl -smp -b nolist -np $SLURM_NTASKS -dir outdir-$SLURM_JOBID -i YOURAPDLFILE.inp`."
     }
   ],
-  "generated_at": "2026-04-11T16:51:24.693320+00:00"
+  "generated_at": "2026-04-12T16:39:39.966770+00:00"
 }

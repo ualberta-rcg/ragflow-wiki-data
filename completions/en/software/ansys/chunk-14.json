@@ -4,25 +4,29 @@
   "chunk_index": 14,
   "qa_pairs": [
     {
-      "question": "What is the formula for the total simulation time when `/solve/dual-time-iterate` is set to 2?",
-      "answer": "If `/solve/dual-time-iterate` is set to 2, the total simulation time will be calculated as `1*Dt + 2*Nrestart*Dt`, where `Dt` is the time step and `Nrestart` is the number of solution restarts."
+      "question": "What is the formula for the total simulation time when utilizing solution restart scripts?",
+      "answer": "The total simulation time will be calculated as `1*Dt+2*Nrestart*Dt`, where `Dt` represents the time step size and `Nrestart` is the number of solution restarts specified in the script."
     },
     {
-      "question": "What does `Nrestart` represent in the context of the total simulation time formula?",
-      "answer": "`Nrestart` represents the number of solution restarts specified in the script."
+      "question": "How many total time steps are generated in a simulation using the solution restart scripts?",
+      "answer": "The total number of time steps generated will be `1+2*Nrestart`, where `Nrestart` is the number of solution restarts specified in the script."
     },
     {
-      "question": "When `/solve/dual-time-iterate` is chosen as 2, what will be the total number of time steps and output files generated?",
-      "answer": "The total number of time steps and output files generated will be `1 + 2*Nrestart`."
+      "question": "What is the recommended approach for setting the time resource request for solution restart jobs?",
+      "answer": "The value for the time resource request should be selected so that the initial time step and all subsequent time steps can complete comfortably within the Slurm time window, which has a maximum duration of \"07-00:00\" days."
     },
     {
-      "question": "How should the time resource request be chosen for a Slurm script that uses the solution restart feature?",
-      "answer": "The value for the time resource request should be chosen to ensure that the initial time step and subsequent time steps can complete comfortably within the Slurm time window."
+      "question": "Under what circumstances should `/solve/dual-time-iterate 1` be used in a restart journal file?",
+      "answer": "You should choose `1` if the first time step executed by `sample.jou` begins from a converged (previous) solution, as it's likely all time steps will require a similar amount of wall time to complete."
     },
     {
-      "question": "What is the maximum duration for the Slurm time window that can be specified for a job?",
-      "answer": "The maximum duration for the Slurm time window is \"#SBATCH --time=07-00:00\" days."
+      "question": "When is it appropriate to set `/solve/dual-time-iterate 2` in a restart journal file?",
+      "answer": "If your second and subsequent time steps are known to run twice as fast as the initial time step, you should choose `2`. This helps minimize the number of computationally expensive solution restarts."
+    },
+    {
+      "question": "What is the maximum time limit for a Slurm job using solution restart scripts?",
+      "answer": "The maximum time limit for a Slurm job is \"07-00:00\" days."
     }
   ],
-  "generated_at": "2026-04-11T16:58:59.044148+00:00"
+  "generated_at": "2026-04-12T16:49:14.479402+00:00"
 }

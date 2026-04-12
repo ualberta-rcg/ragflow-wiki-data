@@ -4,41 +4,69 @@
   "chunk_index": 35,
   "qa_pairs": [
     {
-      "question": "How do I submit an Ansys Rocky GPU-based simulation job using a Slurm script?",
-      "answer": "You can submit an Ansys Rocky GPU-based simulation job using a Slurm script that sets the account, time limit, total memory, number of CPUs per task, GPU type and quantity (e.g., `--gres=gpu:v100:2`), requests one node, loads the `StdEnv/2023` and `ansys/2025R1` modules, exports the Rocky path, and executes Rocky with `--simulate`, `--resume=1`, `--ncpus=$SLURM_CPUS_PER_TASK`, `--use-gpu=1`, and `--gpu-num=$SLURM_GPUS_ON_NODE` arguments."
+      "question": "What is the purpose of the `script-rocky-gpu.sh` script?",
+      "answer": "The `script-rocky-gpu.sh` script is used to submit Ansys Rocky simulations that leverage GPU acceleration in a non-GUI mode."
     },
     {
-      "question": "Where can I find the Slurm scripts for Ansys Electronics Desktop (AnsysEDT)?",
-      "answer": "Slurm scripts for using AnsysEDT are provided in a separate wiki page, which can be found at `https://docs.alliancecan.ca/wiki/AnsysEDT`."
+      "question": "What SBATCH directives are specified in the `script-rocky-gpu.sh` for a GPU-based Rocky simulation?",
+      "answer": "The SBATCH directives are:\n- `--account=account` (e.g., def or reg)\n- `--time=00-01:00` (time limit)\n- `--mem=24G` (total memory for cores)\n- `--cpus-per-task=6` (number of cores to use)\n- `--gres=gpu:v100:2` (GPU type and quantity)\n- `--nodes=1` (request one node)."
     },
     {
-      "question": "What are the general steps to run Ansys programs in graphical mode?",
-      "answer": "To run Ansys programs in graphical mode, you click on one of the provided OnDemand or Jupyterhub desktop links, configure the necessary resources (including a GPU if required for acceleration), launch the desktop, load an Ansys module, and then refer to the relevant section for specific environment variables and arguments for the Ansys program you wish to run."
+      "question": "Which modules need to be loaded for a GPU-based Ansys Rocky simulation?",
+      "answer": "You need to load `StdEnv/2023` and `ansys/2025R1` (or newer versions)."
     },
     {
-      "question": "Which desktop links are available for running Ansys programs graphically?",
-      "answer": "You can use the following OnDemand or Jupyterhub desktop links: NIBI (`https://ondemand.sharcnet.ca`), FIR (`https://jupyterhub.fir.alliancecan.ca`), RORQUAL (`https://jupyterhub.rorqual.alliancecan.ca`), NARVAL (`https://jupyterhub.narval.alliancecan.ca/`), and TRILLIUM (`https://ondemand.scinet.utoronto.ca`)."
+      "question": "How is the PATH set for Rocky in the GPU-based script?",
+      "answer": "The PATH is set by `export PATH=$EBROOTANSYS/v251/rocky:$PATH`."
     },
     {
-      "question": "How do I start Ansys Fluent from the command line on an On Demand Desktop?",
-      "answer": "To start Ansys Fluent from the command line of an On Demand Desktop, you should open a terminal window and run `module load StdEnv/2023 ansys/2025R1` followed by `fluent`."
+      "question": "What is the command to run a Rocky GPU-based simulation using the script?",
+      "answer": "The command is `Rocky --simulate “mysim.rocky” --resume=1 --ncpus=$SLURM_CPUS_PER_TASK --use-gpu=1 --gpu-num=$SLURM_GPUS_ON_NODE`."
     },
     {
-      "question": "What environment variables are recommended for Ansys Fluent on a compute node without a GPU?",
-      "answer": "When the Fluent Launcher appears, navigate to the Environment Tab and set `I_MPI_HYDRA_BOOTSTRAP=ssh` (required on Nibi) and `HOOPS_PICTURE=opengl2-mesa` for Ansys version 2025R1 or newer, or `HOOPS_PICTURE=null` for versions 2024R2 or older."
+      "question": "Where can I find Slurm scripts for Ansys Electronics Desktop (AnsysEDT)?",
+      "answer": "Slurm scripts for using AnsysEDT are provided in a separate wiki page available at `https://docs.alliancecan.ca/wiki/AnsysEDT`."
     },
     {
-      "question": "What environment variables are recommended for Ansys Fluent on a compute node with a GPU?",
-      "answer": "When starting an OnDemand Desktop on Nibi that requests a GPU, you must choose a full `h100 (80GB)` GPU. Then, in the Fluent Launcher's Environment Tab, set `I_MPI_HYDRA_BOOTSTRAP=ssh` (required on Nibi) and `HOOPS_PICTURE=opengl2` for Ansys version 2025R1 or newer, or `HOOPS_PICTURE=opengl` for versions 2024R2 or older."
+      "question": "How do I run Ansys programs in graphical mode?",
+      "answer": "You can run Ansys programs in graphical mode by clicking on one of the provided OnDemand or Jupyterhub desktop links for specific clusters."
     },
     {
-      "question": "Why might Ansys Fluent crash on startup on Nibi when launched from an OnDemand Compute Desktop session?",
-      "answer": "Ansys Fluent might crash on startup on Nibi if the `I_MPI_HYDRA_BOOTSTRAP=ssh` environment variable is not properly set when Fluent is started from within OOD Compute Desktop sessions and Intel MPI is used."
+      "question": "What are the OnDemand or Jupyterhub desktop links for NIBI, FIR, RORQUAL, NARVAL, and TRILLIUM?",
+      "answer": "The links are:\n- NIBI: `https://ondemand.sharcnet.ca`\n- FIR: `https://jupyterhub.fir.alliancecan.ca`\n- RORQUAL: `https://jupyterhub.rorqual.alliancecan.ca`\n- NARVAL: `https://jupyterhub.narval.alliancecan.ca/`\n- TRILLIUM: `https://ondemand.scinet.utoronto.ca`"
     },
     {
-      "question": "What GPU type should be selected on Nibi for accelerated graphics when starting an OnDemand Desktop session for Fluent?",
-      "answer": "When starting an OnDemand Desktop on Nibi that requests a GPU, you must currently choose a full `h100 (80GB)` GPU to ensure the required VirtualGL environment variables are automatically set up for OpenGL graphics acceleration."
+      "question": "What should I do after a desktop session loads to use Ansys programs graphically?",
+      "answer": "After the desktop loads, you should load an Ansys module. For a Jupyter Lab desktop, click the left-hand menu. For an OnDemand desktop, manually type `module load ansys/version` on the command line."
+    },
+    {
+      "question": "How do I start Ansys Fluent from the command line of an On Demand Desktop?",
+      "answer": "First, open a terminal window and run `module load StdEnv/2023 ansys/2025R1`, then execute the command `fluent`."
+    },
+    {
+      "question": "What environment variables are recommended for Ansys Fluent on a Compute Node without a GPU (version 2025R1 or newer)?",
+      "answer": "The recommended environment variables are `I_MPI_HYDRA_BOOTSTRAP=ssh` (required on NIBI) and `HOOPS_PICTURE=opengl2-mesa`."
+    },
+    {
+      "question": "What `HOOPS_PICTURE` setting should be used for Ansys Fluent 2024R2 or older on a Compute Node without a GPU?",
+      "answer": "For Fluent 2024R2 or older, the `HOOPS_PICTURE` setting should be `HOOPS_PICTURE=null`."
+    },
+    {
+      "question": "What environment variables are recommended for Ansys Fluent on a Compute Node with a GPU (version 2025R1 or newer)?",
+      "answer": "The recommended environment variables are `I_MPI_HYDRA_BOOTSTRAP=ssh` (required on NIBI) and `HOOPS_PICTURE=opengl2`."
+    },
+    {
+      "question": "What `HOOPS_PICTURE` setting should be used for Ansys Fluent 2024R2 or older on a Compute Node with a GPU?",
+      "answer": "For Fluent 2024R2 or older, the `HOOPS_PICTURE` setting should be `HOOPS_PICTURE=opengl`."
+    },
+    {
+      "question": "When starting an OnDemand Desktop on NIBI that requests a GPU for Fluent, what specific GPU must be chosen?",
+      "answer": "You must currently choose a full `h100 (80GB)` GPU to ensure the required VirtualGL environment variables are automatically set up for OpenGL graphics acceleration."
+    },
+    {
+      "question": "What is the purpose of setting `I_MPI_HYDRA_BOOTSTRAP=ssh` when starting Fluent on NIBI OnDemand Desktop sessions?",
+      "answer": "Setting `I_MPI_HYDRA_BOOTSTRAP=ssh` is required on NIBI to prevent Fluent from crashing on startup when Intel MPI is used."
     }
   ],
-  "generated_at": "2026-04-11T16:52:37.407448+00:00"
+  "generated_at": "2026-04-12T16:40:58.934046+00:00"
 }

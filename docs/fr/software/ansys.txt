@@ -374,12 +374,16 @@ fi
 |contents=
 #!/bin/bash
 
+<div class="mw-translate-fuzzy">
 #SBATCH --account=def-group      # Specify account name
 #SBATCH --time=00-03:00          # Specify time limit dd-hh:mm
 #SBATCH --nodes=1                # Specify number of compute nodes (1 or more)
 #SBATCH --ntasks-per-node=16     # Specify number cores per node (max 192 on trillium)
 ##SBATCH --mem=0                 # Do not uncomment (be default trillium uses all memory per node)
 #SBATCH --cpus-per-task=1        # Do not change (required parameter)
+</div>
+
+cd $SLURM_SUBMIT_DIR             # Submit from $SCRATCH/some/dir
 
 module load StdEnv/2023          # Do not change
 module load ansys/2025R2.04      # only 2025R2 or newer works on trillium
@@ -1292,7 +1296,7 @@ Slurm scripts for using AnsysEDT is provided in a separate wiki page [https://do
 
 <div class="mw-translate-fuzzy">
 Les programmes Ansys fonctionnent interactivement en mode graphique sur les nœuds de calcul des grappes ou sur les nœuds VDI de Graham.
-</div> 
+</div>
 
  [https://docs.alliancecan.ca/wiki/Nibi#Access_through_Open_OnDemand_(OOD) NIBI]: <code>https://ondemand.sharcnet.ca</code>
  [https://docs.alliancecan.ca/wiki/Fir FIR]: <code>https://jupyterhub.fir.alliancecan.ca</code>
@@ -1300,11 +1304,11 @@ Les programmes Ansys fonctionnent interactivement en mode graphique sur les nœu
  [https://docs.alliancecan.ca/wiki/Narval NARVAL]:  <code>https://jupyterhub.narval.alliancecan.ca/</code>
  [https://docs.scinet.utoronto.ca/index.php/Open_OnDemand_Quickstart TRILLIUM]: <code>https://ondemand.scinet.utoronto.ca</code>
 
-Submit your resource request and then wait.  If you started a Juypter Lab launcher interface then you can simply load an ansys software module from the left side menu and then click one of the ansys icons to start cfx, fluent mapdl or workbench.  Otherwise if you started a Compute/Basic Desktop from the Nibi OnDemand system then you will need to open a terminal window, manually load an ansys module and then type the program name to start it command line.  For this later case, if the application requires accelerated graphics to run properly (for instance for fluent to support 3d rendering) then either a whole GPU resource (H100 or T4 at the time of this writing) should be requested.  Since the various ansys applications launched in graphical mode behave differently when different ansys module versions are loaded, recommendations for adding command line argument and exporting environment variables for virtualgl or mesa environments are suggested below depending on whether a GPU has been requested or not and whether a On Demand or Juypter Lab desktop is being used.
+A job submission web page should appear in your browser.  Configure the resources required for your interactive desktop session and click Launch or Start.  If either accelerated graphics or computations will be conducted from within your desktop session then be sure to specify a GPU resource.  Once the desktop load an ansys module.  If you started a Juypter Lab powered desktop then this can be done by clicking the left hand menu, or if you started an OnDemand desktop manually type module load ansys/version on the command line.  To start one the common Ansys programs such as fluent, cfx, workbench and so forth refer to the following section which provides advice for setting environment variables and arguments required by virtualgl or mesa based graphical environments depending on whether a node with a GPU resource was specified or not.  
 
 === Fluent ===
 
-To start Ansys Fuent from the command line of an On Demand Desktop, open a terminal window and run the commands:
+To start Ansys Fluent from the command line of an On Demand Desktop, open a terminal window and run the commands:
 
 ::: <code>module load StdEnv/2023 ansys/2025R1</code>
 ::: <code>fluent</code>
@@ -1440,18 +1444,22 @@ This sections shows howto start workbench (and optionally fluent) on either an O
 ::: <code>ensight</code><br>
 </div>
 
+<div class="mw-translate-fuzzy">
 === Mapdl ===
 ::: <code>module load CcEnv StdEnv/2023</code>
 ::: <code>ansys/2024R2.04</code> (or older versions)
 ::: <code>mapdl -g</code> (to start the gui directly), or,
 ::: <code>unset SESSION_MANAGER; launcher -> click RUN button</code>
+</div>
 
+<div class="mw-translate-fuzzy">
 If <code>I_MPI_HYDRA_BOOTSTRAP=ssh</code> is not set properly on nibi when fluent is started from within OOD Compute Desktop sessions and  intelmpi is used then fluent will crash on startup produce the following error output.  If this occurs completely exit fluent, shutdown workbench then start again.
  [mpiexec@g4.nibi.sharcnet] Error: Unable to run bstrap_proxy on g4.nibi.sharcnet (pid 2251587, exit code 256)
  [mpiexec@g4.nibi.sharcnet] poll_for_event (../../../../../src/pm/i_hydra/libhydra/demux/hydra_demux_poll.c:157): check exit codes error
  [mpiexec@g4.nibi.sharcnet] HYD_dmx_poll_wait_for_proxy_event (../../../../../src/pm/i_hydra/libhydra/demux/hydra_demux_poll.c:206): poll for  event error
  [mpiexec@g4.nibi.sharcnet] HYD_bstrap_setup (../../../../../src/pm/i_hydra/libhydra/bstrap/src/intel/i_hydra_bstrap.c:1063): error waiting for event
  [mpiexec@g4.nibi.sharcnet] Error setting up the bootstrap proxies
+</div>
 
 <span id="Jupyter_Lab_Desktop"></span>
 <div class="mw-translate-fuzzy">
@@ -1506,20 +1514,15 @@ Information describing howto run AnsysEDT in graphical mode maybe found here [ht
 <span id="SHARCNET_license"></span>
 == Licence SHARCNET ==
 
+<div class="mw-translate-fuzzy">
 La licence Ansys de SHARCNET est gratuite pour une utilisation académique par les chercheurs et chercheuses de l'Alliance sur les systèmes de l'Alliance. Le logiciel installé n'a pas de limites de solveur ou de géométrie. La licence SHARCNET peut <b>uniquement</b> être utilisée à des fins de <b><i>recherche universitaire publiable</i></b>; la production de résultats à des fins commerciales privées est strictement interdite, comme stipulé par la licence. La licence Ansys a été mise à niveau selon la Multiphysics Campus Solution en mai 2020 et inclut les produits suivants&nbsp;: HF, EM, Electronics HPC, Mechanical et CFD  [https://www.ansys.com/academic/educator-tools/academic-product-portfolio comme décrit ici]. 
 Rocky et LS-DYNA sont aussi maintenant inclus dans la licence SHARCNET. Lumerical acquis par ANSYS en 2020 n'est pas disponible en ce moment, mais est installé avec les modules Ansys récents et peut donc être utilisé  avec d'autres serveurs Ansys configurés en conséquence.  SpaceClaim sous Linux n'est pas installé sur nos systèmes, mais peut techniquement être utilisé avec la licence SHARCNET. Un groupe de licences anshpc de 1986 est inclus dans la licence SHARCNET pour prendre en charge les grandes tâches parallèles avec la plupart des produits Ansys.  Avant d'exécuter de longues tâches, il est préférable d'effectuer des tests de scalabilité. Les tâches parallèles qui utilisent moins de 50% en CPU seront probablement signalées par le système et examinées par notre équipe technique.
+</div>  
+
+unset SLURM_GTIDS
 
 <div class="mw-translate-fuzzy">
 Depuis décembre 2022, chaque utilisateur peut exécuter 4 travaux en utilisant un total de 252 anshpc (plus 4 anshpc par tâche). Ainsi, les combinaisons de taille de tâches uniformes suivantes sont possibles : une tâche de 256 cœurs, deux tâches de 130 cœurs, trois tâches de 88 cœurs ou quatre tâches de 67 cœurs selon ( (252 + 4* nombre de tâches) / nombre de tâches). MISE À JOUR%nbsp;: En octobre 2024, la limite a été portée à 8 tâches et 512 cœurs HPC par utilisateur (collectivement sur toutes les grappes pour toutes les applications) pour une période de test afin de permettre plus de flexibilité pour l'exploration de paramètres et l'exécution de problèmes de plus grande envergure. Comme la licence sera beaucoup moins utilisée, certains cas d'échec de tâche au démarrage pourront rarement se produire, mais les tâches devront être soumises à nouveau. Néanmoins, en supposant que la plupart continuent à exécuter une ou deux tâches en utilisant 128 cœurs en moyenne au total, cela ne devrait pas poser de problème. Cela dit, il sera utile de fermer les applications Ansys immédiatement après l'achèvement de toute tâche liée à l'interface graphique afin de libérer toutes les licences qui peuvent être consommées pendant que l'application est inactive, pour que d'autres puissent les utiliser.
-</div>
-
-<div class="mw-translate-fuzzy">
-Vous pouvez aussi acheter votre propre licence Ansys auprès de [https://www.cmc.ca/subscriptions/ CMC] et utiliser leurs serveurs de licences distants. Ceci présente plusieurs avantages&nbsp;:
-* un serveur de licences institutionnel local n'est pas nécessaire,
-* une licence physique n'a pas besoin d'être obtenue à chaque renouvellement,
-* la licence peut être utilisée [https://www.cmc.ca/ansys- campus-solutions-cmc-00200-04847/ presque n'importe où], y compris à la maison, dans des établissements ou dans toutes les grappes de l'Alliance,
-* les directives de téléchargement et d'installation pour la version Windows d'Ansys sont fournies afin de permettre l'exécution de spaceclaim sur votre propre ordinateur (ceci n'est pas possible sur nos systèmes qui sont basés sur Linux).
-Il existe cependant une limitation potentiellement sérieuse à prendre en compte&nbsp;: selon [https://www.cmc.ca/qsg-ansys-cadpass-r20/ Ansys Quick Start Guides], il pourrait avoir une limite de 64 cœurs par utilisateur.
 </div>
 
 <span id="License_file"></span>
@@ -1537,7 +1540,9 @@ setenv("ANSYSLI_SERVERS", "2325@license3.sharcnet.ca")
 <span id="License_query"></span>
 ==== Licence  ====
 
+<div class="mw-translate-fuzzy">
 Pour connaître le nombre de licences utilisées qui sont associées à votre nom d'utilisateur et le nombre de licences utilisées par tous les utilisateurs, lancez
+</div>
 
 <div class="mw-translate-fuzzy">
 <source lang="bash">
@@ -1545,6 +1550,44 @@ ssh graham.computecanada.ca
 module load ansys
 lmutil lmstat -c $ANSYSLMD_LICENSE_FILE -a | grep "Users of\|$USER"
 </source>
+</div>
+
+<span id="Example"></span>
+#SBATCH --account=def-group   # Specify account
+#SBATCH --time=00-06:00       # Specify time limit dd-hh:mm
+#SBATCH --ntasks=16           # Specify total number cores
+#SBATCH --mem-per-cpu=4G      # Specify memory per core
+#SBATCH --cpus-per-task=1     # Do not change
+
+module load ansys/2020R1  
+
+<div style="font-size:75%; line-height: 1.2em;">
+ [l2(nibi):~] sq
+            JOBID     USER        ACCOUNT           NAME  ST  TIME_LEFT NODES CPUS MIN_MEM NODELIST (REASON) 
+         10161023  roberpj   cc-debug_cpu script-flu-int   R    2:57:19     4    8     N/A      4G c[630-633] (None) 
+         10161033  roberpj   cc-debug_cpu script-flu-int   R    2:58:25    16   32     N/A      4G c[627-628,630-633,637,642,645,655,657,662,665,667,669,682] (None) 
+ [l2(nibi):~]
+ [l2(nibi):~] module load ansys
+ [l2(nibi):~]
+ [l2(nibi):~] $EBROOTANSYS/v$(echo ${EBVERSIONANSYS:2:2}${EBVERSIONANSYS:5:1})/licensingclient/linx64/lmutil  \
+              lmstat -c $ANSYSLMD_LICENSE_FILE -a | grep "Users of\|$USER" | grep -v " Total of 0 licenses in use"
+ Users of anshpc:  (Total of 1986 licenses issued;  Total of 1600 licenses in use)
+    roberpj c630 c630.nibi.sharcnet 1238925 (v2025.0506) (license1.computecanada.ca/1055 2579), start Wed 3/11 16:46, 4 licenses, PID: 1239140 
+    roberpj c627 c627.nibi.sharcnet 509821 (v2025.0506) (license1.computecanada.ca/1055 5716), start Wed 3/11 16:48, 28 licenses, PID: 510058 
+ Users of cfd_base:  (Total of 275 licenses issued;  Total of 19 licenses in use)
+    roberpj c630 c630.nibi.sharcnet 1238925 (v2025.0506) (license1.computecanada.ca/1055 10327), start Wed 3/11 16:46, PID: 1239140 
+    roberpj c627 c627.nibi.sharcnet 509821 (v2025.0506) (license1.computecanada.ca/1055 7171), start Wed 3/11 16:47, PID: 510058 
+ Users of cfd_preppost:  (Total of 275 licenses issued;  Total of 1 license in use)
+ Users of cfd_preppost_pro:  (Total of 275 licenses issued;  Total of 1 license in use)
+ Users of cfd_solve_level1:  (Total of 275 licenses issued;  Total of 18 licenses in use)
+    roberpj c630 c630.nibi.sharcnet 1238925 (v2025.0506) (license1.computecanada.ca/1055 7994), start Wed 3/11 16:46, PID: 1239140 
+    roberpj c627 c627.nibi.sharcnet 509821 (v2025.0506) (license1.computecanada.ca/1055 6200), start Wed 3/11 16:47, PID: 510058 
+ Users of cfd_solve_level2:  (Total of 275 licenses issued;  Total of 18 licenses in use)
+    roberpj c630 c630.nibi.sharcnet 1238925 (v2025.0506) (license1.computecanada.ca/1055 10520), start Wed 3/11 16:46, PID: 1239140 
+    roberpj c627 c627.nibi.sharcnet 509821 (v2025.0506) (license1.computecanada.ca/1055 375), start Wed 3/11 16:47, PID: 510058 
+ Users of elec_solve_hfss:  (Total of 275 licenses issued;  Total of 1 license in use)
+ Users of elec_solve_level1:  (Total of 275 licenses issued;  Total of 1 license in use)
+ Users of elec_solve_level2:  (Total of 275 licenses issued;  Total of 1 license in use)
 </div>
 
 <div class="mw-translate-fuzzy">
@@ -1619,6 +1662,7 @@ Utilisation des ressources
 
 Après quelques minutes, vous pouvez obtenir un instantané de l'utilisation des ressources par la tâche en cours d'exécution sur le ou les nœuds de calcul avec la commande <tt>srun</tt>. Le script pour 8 cœurs ci-dessous produit le résultat suivant où on remarque que l'ordonnanceur a choisi 2 nœuds.
 
+<div class="mw-translate-fuzzy">
  [gra-login1:~] srun --jobid=myjobid top -bn1 -u $USER | grep R | grep -v top
    PID USER   PR  NI    VIRT    RES    SHR S  %CPU %MEM    TIME+  COMMAND
  22843 demo   20   0 2272124 256048  72796 R  88.0  0.2  1:06.24  ansys.e
@@ -1630,6 +1674,7 @@ Après quelques minutes, vous pouvez obtenir un instantané de l'utilisation des
   4304 demo   20   0 2729516 268824 100388 R 100.0  0.2  1:06.12  ansys.e
   4305 demo   20   0 2729436 263204 100932 R 100.0  0.2  1:06.88  ansys.e
   4306 demo   20   0 2734720 431532  95180 R 100.0  0.3  1:06.57  ansys.e
+</div>
 
 Tests de scalabilité
 

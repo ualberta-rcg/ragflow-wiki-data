@@ -4,96 +4,104 @@
   "qa_pairs": [
     {
       "question": "What is the main purpose of this document?",
-      "answer": "This document explains how to use AlphaFold v3.0 on our clusters."
+      "answer": "This document discusses how to use AlphaFold v3.0."
     },
     {
-      "question": "Where can I find the AlphaFold3 source code and documentation?",
-      "answer": "The AlphaFold3 source code and documentation are available on its GitHub page."
+      "question": "Where can I find the source code and documentation for AlphaFold3?",
+      "answer": "You can find the source code and documentation for AlphaFold3 on their GitHub page at [https://github.com/google-deepmind/alphafold3]."
     },
     {
-      "question": "How should I cite AlphaFold3 if I publish findings using it?",
-      "answer": "You should cite the AlphaFold3 paper using its DOI: 10.1038/s41586-024-07487-w."
+      "question": "How should I cite AlphaFold3 if I disclose findings from using its source code or model parameters?",
+      "answer": "You should cite the AlphaFold3 paper using the DOI [https://doi.org/10.1038/s41586-024-07487-w]."
     },
     {
-      "question": "How can I list the available AlphaFold3 versions on the clusters?",
-      "answer": "You can list available versions using the command `avail_wheels alphafold3`."
+      "question": "How can I list the available versions of AlphaFold3 on the clusters?",
+      "answer": "You can list available versions using the `avail_wheels alphafold3` command."
     },
     {
-      "question": "What are the necessary module dependencies to load for AlphaFold3?",
-      "answer": "You need to load `StdEnv/2023`, `hmmer/3.4`, `rdkit/2024.03.5`, and `python/3.12`."
+      "question": "What are the initial dependencies I need to load to create a requirements file for AlphaFold3?",
+      "answer": "You need to load `StdEnv/2023`, `hmmer-alphafold3/3.4`, `rdkit/2024.03.5`, and `python/3.12` modules."
     },
     {
       "question": "How do I download the `run_alphafold.py` script for AlphaFold3 version 3.0.1?",
       "answer": "You can download it using `wget https://raw.githubusercontent.com/google-deepmind/alphafold3/refs/tags/v3.0.1/run_alphafold.py`."
     },
     {
-      "question": "What is the command to create a Python virtual environment for AlphaFold3?",
-      "answer": "You can create a virtual environment using `virtualenv --no-download ~/alphafold3_env`."
+      "question": "What are the steps to create and activate a Python virtual environment for AlphaFold3?",
+      "answer": "First, run `virtualenv --no-download ~/alphafold3_env`, then activate it with `source ~/alphafold3_env/bin/activate`."
     },
     {
-      "question": "How do I install a specific version of AlphaFold3, such as 3.0.0, within a virtual environment?",
-      "answer": "Activate your virtual environment, then run `pip install --no-index alphafold3==3.0.0`."
+      "question": "How do I install a specific version of AlphaFold3, for example 3.0.0, within a virtual environment?",
+      "answer": "After activating the virtual environment, run `pip install --no-index --upgrade pip` followed by `pip install --no-index alphafold3==3.0.0`."
     },
     {
-      "question": "What command builds the necessary data files within the AlphaFold3 virtual environment?",
-      "answer": "The `build_data` command creates data files inside your virtual environment."
+      "question": "What command is used to build data files within the AlphaFold3 virtual environment?",
+      "answer": "The command `build_data` is used to create data files inside your virtual environment."
     },
     {
-      "question": "How do I freeze the environment and generate a requirements file for AlphaFold3?",
-      "answer": "After activating the environment, use `pip freeze > ~/alphafold3-requirements.txt`."
+      "question": "How do I validate the AlphaFold3 installation in the virtual environment?",
+      "answer": "You can validate it by running `python run_alphafold.py --help`."
     },
     {
-      "question": "Where will the AlphaFold3 virtual environment be created when running jobs?",
-      "answer": "The virtual environment will be created in your job's `$SLURM_TMPDIR`."
+      "question": "What is the purpose of freezing the environment and requirements set?",
+      "answer": "It allows you to record all installed Python packages and their versions to a file (`~/alphafold3-requirements.txt`) using `pip freeze`."
     },
     {
-      "question": "How can I obtain the AlphaFold3 model parameters?",
-      "answer": "You need to request the model parameters from Google, and they aim to respond within 2-3 business days."
+      "question": "How do I obtain the AlphaFold3 model parameters?",
+      "answer": "You must request the model from Google, who aim to respond within 2-3 business days, as detailed on their GitHub page."
     },
     {
-      "question": "Where must AlphaFold3's databases be stored?",
-      "answer": "The databases must be stored in the `$SCRATCH` directory."
+      "question": "Where must AlphaFold3 databases be stored?",
+      "answer": "The databases must live in the `$SCRATCH` directory."
     },
     {
-      "question": "How do I download the AlphaFold3 databases?",
-      "answer": "You first download `fetch_databases.sh` and then run `bash fetch_databases.sh $SCRATCH/alphafold/dbs`."
+      "question": "What are the steps to download AlphaFold3 databases?",
+      "answer": "First, download the fetch script: `wget https://raw.githubusercontent.com/google-deepmind/alphafold3/refs/heads/main/fetch_databases.sh`. Then, create a directory and run the script: `mkdir -p $SCRATCH/alphafold/dbs` and `bash fetch_databases.sh $SCRATCH/alphafold/dbs`."
     },
     {
       "question": "Why is AlphaFold3 recommended to be run in stages?",
-      "answer": "Running in stages optimises cost and resource usage by splitting CPU-only data processing from GPU-requiring model inference, and allows caching."
+      "answer": "It is recommended to run in stages to optimise cost and resource usage by splitting the CPU-only data pipeline from GPU-required model inference, and to cache and reuse MSA/template search results."
     },
     {
-      "question": "What is the primary purpose of the first stage of an AlphaFold3 job?",
-      "answer": "The first stage, the data pipeline, is CPU-only and handles data processing tasks like MSA/template search."
+      "question": "What are the resource requirements for the AlphaFold3 data pipeline (CPU stage)?",
+      "answer": "The data pipeline requires a maximum of 8 CPU cores and a recommended 64GB of memory, with 8 hours of walltime."
     },
     {
-      "question": "What is the purpose of the second stage of an AlphaFold3 job?",
-      "answer": "The second stage performs model inference, which requires a GPU."
+      "question": "Which specific modules are loaded for the AlphaFold3 data pipeline?",
+      "answer": "The data pipeline loads `StdEnv/2023`, `hmmer-alphafold3/3.4`, `rdkit/2024.03.5`, and `python/3.12`."
     },
     {
-      "question": "What is the maximum number of CPU cores recommended for the AlphaFold3 data pipeline stage?",
-      "answer": "A maximum of 8 CPU cores is recommended for the data pipeline, as AlphaFold has no benefit from more."
+      "question": "How is the AlphaFold3 data pipeline specifically run using `run_alphafold.py`?",
+      "answer": "It is run with the `--norun_inference` flag, ensuring only the data stage is executed."
     },
     {
-      "question": "Which specific GPU hardware is required for AlphaFold3 model inference?",
-      "answer": "AlphaFold3 inference only supports A100 GPUs or greater (compute capability 8.0 or greater)."
+      "question": "What is the GPU compatibility requirement for AlphaFold3 model inference?",
+      "answer": "AlphaFold3 inference only supports compute capability 8.0 or greater, specifically A100 GPUs or newer."
     },
     {
-      "question": "How many GPUs should be requested for AlphaFold3 model inference?",
-      "answer": "AlphaFold3 inference only runs on one A100 GPU or greater."
+      "question": "What are the resource requirements for the AlphaFold3 model inference stage?",
+      "answer": "The inference stage requires one A100 GPU, one CPU core, and 20GB of memory, with 8 hours of walltime."
     },
     {
-      "question": "How do you submit the data pipeline and model inference jobs independently?",
-      "answer": "First, submit the data job with `sbatch alphafold3-data.sh`, wait for it to complete, then submit the inference job with `sbatch alphafold3-inference.sh`."
+      "question": "Which modules are loaded for the AlphaFold3 model inference stage?",
+      "answer": "It loads `StdEnv/2023`, `hmmer-alphafold3/3.4`, `rdkit/2024.03.5`, `python/3.12`, `cuda/12.2`, and `cudnn/9.2`."
     },
     {
-      "question": "How can you set up the model inference job to run only after the data pipeline job successfully completes?",
-      "answer": "You can use dependent jobs by capturing the first job ID (`jid1=$(sbatch alphafold3-data.sh)`) and then submitting the second with `--dependency=afterok:$jid1`."
+      "question": "How is the AlphaFold3 model inference specifically run using `run_alphafold.py`?",
+      "answer": "It is run with the `--norun_data_pipeline` flag, ensuring only the inference stage is executed."
     },
     {
-      "question": "How can I address 'Out of memory (GPU)' errors for large AlphaFold3 inputs or GPUs with less memory?",
-      "answer": "You can enable unified memory by setting `XLA_PYTHON_CLIENT_PREALLOCATE=false`, `TF_FORCE_UNIFIED_MEMORY=true`, and `XLA_CLIENT_MEM_FRACTION=2.0` in your inference script, and adjusting the job's allocated memory."
+      "question": "How can I submit the data pipeline and model inference jobs as dependent jobs?",
+      "answer": "You can submit the data job: `jid1=$(sbatch alphafold3-data.sh)`, then submit the inference job with a dependency: `jid2=$(sbatch --dependency=afterok:$jid1 alphafold3-inference.sh)`."
+    },
+    {
+      "question": "What should I do if the first stage of a dependent job fails?",
+      "answer": "You will have to manually cancel the second stage using `scancel -u $USER -n alphafold3-inference`."
+    },
+    {
+      "question": "How can I address GPU out-of-memory issues when running AlphaFold3 on larger inputs or GPUs with less memory?",
+      "answer": "You can enable unified memory by adding `export XLA_PYTHON_CLIENT_PREALLOCATE=false`, `export TF_FORCE_UNIFIED_MEMORY=true`, and `export XLA_CLIENT_MEM_FRACTION=2.0` to your inference submission script, and adjust the `--mem` SBATCH parameter accordingly (e.g., `#SBATCH --mem=80G`)."
     }
   ],
-  "generated_at": "2026-04-11T16:39:36.926459+00:00"
+  "generated_at": "2026-04-12T16:30:58.358599+00:00"
 }

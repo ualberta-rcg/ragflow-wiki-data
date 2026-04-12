@@ -4,61 +4,77 @@
   "chunk_index": 45,
   "qa_pairs": [
     {
-      "question": "Est-ce que l'utilisation de Rocky est payante pour la recherche académique avec la licence SHARCNET?",
-      "answer": "Non, l'utilisation de Rocky est gratuite pour la recherche académique par les chercheurs et chercheuses de l'Alliance sur les systèmes de l'Alliance, grâce à la licence SHARCNET."
+      "question": "Est-ce que les versions de Rocky 2025R1 et plus récentes sont supportées par la licence SHARCNET?",
+      "answer": "Non, les versions 2025R1 et plus récentes de Rocky, bien que fournies dans le module Ansys sur toutes les grappes, ne sont pas encore prises en charge par le serveur de licence SHARCNET."
     },
     {
-      "question": "Est-ce que Rocky peut utiliser des GPU pour le calcul accéléré?",
-      "answer": "Oui, Rocky prend en charge le calcul accéléré avec des GPU, bien que cette fonctionnalité ne soit pas testée ni documentée."
+      "question": "Combien coûte l'utilisation de Rocky avec la licence SHARCNET pour la recherche?",
+      "answer": "L'utilisation de Rocky est gratuite pour la recherche, car le serveur de licence SHARCNET l'inclut."
     },
     {
-      "question": "Comment puis-je demander un nœud de calcul sur Graham pour utiliser Rocky de façon interactive avec 4 CPU et 1 GPU?",
-      "answer": "Pour demander un nœud de calcul sur Graham pour une utilisation interactive avec 4 CPU et 1 GPU pour un maximum de 8 heures et 32 Go de mémoire, vous devriez lancer la commande suivante: `salloc --time=08:00:00 --nodes=1 --cpus-per-task=4 --gres=gpu:v100:1 --mem=32G --account=someaccount`."
+      "question": "Est-ce que Rocky prend en charge le calcul accéléré avec GPU?",
+      "answer": "Oui, Rocky prend en charge le calcul accéléré avec GPU, mais cette fonctionnalité n'est pas encore testée ni documentée."
     },
     {
-      "question": "Comment faire pour démarrer Workbench en mode Mesa sur un nœud de calcul sans GPU dans un environnement Jupyter Lab?",
-      "answer": "Pour démarrer Workbench en mode Mesa sur un nœud de calcul sans GPU dans un environnement Jupyter Lab, vous devez d'abord charger le module `ansys/2025R1` (ou une version plus récente) via le menu de gauche, puis cliquer sur l'icône \"Workbench (VNC)\". Après être sorti de Workbench, ouvrez une fenêtre de terminal et exécutez `cd ~/Desktop`, copiez l'icône avec `cp -p $(realpath workbench.desktop) workbench-mesa.desktop`, modifiez `workbench-mesa.desktop` pour remplacer `runwb2` par `runwb2 -oglmesa`, sauvegardez, puis cliquez sur la nouvelle icône personnalisée."
+      "question": "Comment puis-je demander un nœud de calcul sur Graham pour une utilisation interactive de Rocky avec des GPU?",
+      "answer": "Pour demander un nœud de calcul sur Graham pour 4 CPU et 1 GPU pendant 8 heures, tu peux utiliser la commande suivante : `salloc --time=08:00:00 --nodes=1 --cpus-per-task=4 --gres=gpu:v100:1 --mem=32G --account=someaccount`."
     },
     {
-      "question": "Est-ce que l'icône Workbench personnalisée pour le mode Mesa persiste après la session?",
-      "answer": "Oui, l'icône Workbench que vous avez créée persistera pour les sessions futures jusqu'à ce qu'elle soit supprimée manuellement avec la commande `rm -f ~/Desktop/workbench-mesa.desktop`."
+      "question": "Comment lancer Workbench en mode Mesa à partir d'un bureau Jupyter Lab sur un nœud de calcul sans GPU?",
+      "answer": "Il faut d'abord charger le module `ansys/2025R1` (ou une version plus récente) via le menu de gauche du bureau Jupyter Lab. Ensuite, clique sur l'icône \"Workbench (VNC)\". Comme l'icône par défaut est pour un nœud avec GPU, tu devras la personnaliser pour redémarrer Workbench en mode Mesa. Pour ça, quitte le bureau Workbench, ouvre un terminal et exécute ces commandes : `cd ~/Desktop; cp -p $(realpath workbench.desktop) workbench-mesa.desktop`. Puis, modifie le fichier `workbench-mesa.desktop` pour changer `runwb2` en `runwb2 -oglmesa`. Sauvegarde le fichier, et clique sur ta nouvelle icône personnalisée pour lancer Workbench."
     },
     {
-      "question": "Quelle est la procédure pour démarrer Workbench sur un nœud de calcul avec un GPU dans Jupyter Lab?",
-      "answer": "Sur un nœud de calcul avec un GPU dans Jupyter Lab, chargez le module `ansys/2025R1` (ou une version plus récente) à partir du menu de gauche du bureau, puis cliquez simplement sur l'icône \"Workbench (VNC)\" située au centre de la fenêtre du bureau Jupyter Lab."
+      "question": "L'icône personnalisée pour Workbench en mode Mesa persiste-t-elle pour les sessions futures?",
+      "answer": "Oui, l'icône Workbench personnalisée que tu as créée restera pour les sessions futures jusqu'à ce que tu la supprimes manuellement avec la commande : `rm -f ~/Desktop/workbench-mesa.desktop`."
     },
     {
-      "question": "Comment lancer Ensight à partir de la ligne de commande?",
-      "answer": "Pour lancer Ensight, vous devez charger les modules `StdEnv/2023` et `ansys/2022R2`, puis exporter `LD_LIBRARY_PATH` comme suit: `export LD_LIBRARY_PATH=$EBROOTANSYS/v222/CEI/apex222/machines/linux_2.6_64/qt-5.12.6/lib` avant de taper `ensight -X`."
+      "question": "Comment lancer Workbench à partir d'un bureau Jupyter Lab sur un nœud de calcul avec GPU?",
+      "answer": "Tu dois d'abord charger le module `ansys/2025R1` (ou une version plus récente) via le menu de gauche du bureau. Ensuite, tu cliques sur l'icône \"Workbench (VNC)\" qui se trouve au centre de la fenêtre du bureau Jupyter Lab."
     },
     {
-      "question": "Quelles sont les limites de solveur ou de géométrie avec la licence Ansys de SHARCNET?",
-      "answer": "La licence Ansys de SHARCNET n'a pas de limites de solveur ou de géométrie."
+      "question": "Quelles commandes dois-je utiliser pour démarrer Ensight en mode graphique?",
+      "answer": "Tu dois charger les modules `StdEnv/2023` et `ansys/2022R2`, puis définir la variable d'environnement `LD_LIBRARY_PATH` avant de lancer `ensight -X`. Les commandes sont les suivantes : `module load StdEnv/2023 ansys/2022R2; A=222; B=5.12.6; export LD_LIBRARY_PATH=$EBROOTANSYS/v$A/CEI/apex$A/machines/linux_2.6_64/qt-$B/lib; ensight -X`."
     },
     {
-      "question": "À quelles fins la licence SHARCNET pour Ansys peut-elle être utilisée?",
-      "answer": "La licence SHARCNET peut uniquement être utilisée à des fins de recherche universitaire publiable. La production de résultats à des fins commerciales privées est strictement interdite."
+      "question": "Où puis-je trouver les instructions pour exécuter Ansys EDT en mode graphique?",
+      "answer": "Tu peux trouver l'information sur l'exécution d'Ansys EDT en mode graphique sur la page wiki dédiée, accessible ici : [https://docs.alliancecan.ca/wiki/AnsysEDT](https://docs.alliancecan.ca/wiki/AnsysEDT)."
     },
     {
-      "question": "Quels produits Ansys sont inclus dans la licence Multiphysics Campus Solution de SHARCNET?",
-      "answer": "La licence Multiphysics Campus Solution de SHARCNET, mise à niveau en mai 2020, inclut les produits HF, EM, Electronics HPC, Mechanical et CFD, ainsi que Rocky et LS-DYNA."
+      "question": "Qui peut utiliser la licence Ansys de SHARCNET et à quelles fins?",
+      "answer": "La licence Ansys de SHARCNET est gratuite pour une utilisation académique par les chercheurs et chercheuses de l'Alliance sur les systèmes de l'Alliance. Elle peut être utilisée uniquement pour de la recherche universitaire publiable; la production de résultats à des fins commerciales privées est strictement interdite."
     },
     {
-      "question": "Lumerical est-il disponible avec les modules Ansys récents via la licence SHARCNET?",
-      "answer": "Lumerical, acquis par ANSYS en 2020, n'est pas disponible en ce moment avec la licence SHARCNET, même s'il est installé avec les modules Ansys récents. Il peut être utilisé avec d'autres serveurs Ansys configurés en conséquence."
+      "question": "Quels produits Ansys sont inclus dans la licence SHARCNET?",
+      "answer": "La licence SHARCNET, mise à niveau en mai 2020, inclut les produits HF, EM, Electronics HPC, Mechanical, CFD, Rocky et LS-DYNA."
     },
     {
-      "question": "Y a-t-il un groupe de licences anshpc inclus dans la licence SHARCNET?",
-      "answer": "Oui, un groupe de licences `anshpc` de 1986 est inclus dans la licence SHARCNET pour prendre en charge les grandes tâches parallèles avec la plupart des produits Ansys."
+      "question": "Est-ce que Lumerical est disponible avec la licence SHARCNET?",
+      "answer": "Non, Lumerical, acquis par ANSYS en 2020, n'est pas disponible en ce moment avec la licence SHARCNET. Il est installé avec les modules Ansys récents, mais peut être utilisé avec d'autres serveurs Ansys configurés."
     },
     {
-      "question": "Quel est le nombre maximal de travaux et de cœurs HPC qu'un utilisateur peut utiliser avec la licence SHARCNET depuis octobre 2024?",
-      "answer": "Depuis octobre 2024, la limite a été portée à 8 tâches et 512 cœurs HPC par utilisateur (collectivement sur toutes les grappes pour toutes les applications) pour une période de test afin d'offrir plus de flexibilité."
+      "question": "Est-ce que SpaceClaim sous Linux est installé sur les systèmes de l'Alliance?",
+      "answer": "Non, SpaceClaim sous Linux n'est pas installé sur nos systèmes, mais il peut techniquement être utilisé avec la licence SHARCNET."
     },
     {
-      "question": "Que doit faire un utilisateur s'il constate que des licences Ansys sont utilisées avec son nom d'utilisateur sans justification?",
-      "answer": "Si un utilisateur remarque que des licences sont utilisées sans justification avec son nom d'utilisateur, il doit se connecter au nœud en cause (par exemple, gra-vdi3.sharcnet.ca ou gra-vdi4.sharcnet.ca) et utiliser la commande `pkill -9 -e -u $USER -f \"ansys\"` pour libérer les licences."
+      "question": "Quel est le nombre de licences anshpc incluses dans la licence SHARCNET pour les tâches parallèles?",
+      "answer": "Un groupe de 1986 licences anshpc est inclus dans la licence SHARCNET pour prendre en charge les grandes tâches parallèles avec la plupart des produits Ansys."
+    },
+    {
+      "question": "Que se passe-t-il si mes tâches parallèles Ansys utilisent moins de 50% des CPU?",
+      "answer": "Les tâches parallèles qui utilisent moins de 50% des CPU seront probablement signalées par le système et examinées par notre équipe technique."
+    },
+    {
+      "question": "Quelles étaient les limites de licences Ansys HPC par utilisateur avant octobre 2024?",
+      "answer": "Avant octobre 2024, chaque utilisateur pouvait exécuter 4 travaux en utilisant un total de 252 anshpc (plus 4 anshpc par tâche), permettant par exemple une tâche de 256 cœurs ou quatre tâches de 67 cœurs."
+    },
+    {
+      "question": "Quelles sont les nouvelles limites de licences Ansys HPC par utilisateur depuis octobre 2024?",
+      "answer": "Depuis octobre 2024, la limite a été portée à 8 tâches et 512 cœurs HPC par utilisateur, collectivement sur toutes les grappes et pour toutes les applications, pour une période de test."
+    },
+    {
+      "question": "Que devrais-je faire avec les applications Ansys graphiques après avoir terminé une tâche?",
+      "answer": "Il est utile de fermer les applications Ansys immédiatement après l'achèvement de toute tâche liée à l'interface graphique pour libérer les licences qui pourraient être consommées pendant que l'application est inactive, afin que d'autres puissent les utiliser."
     }
   ],
-  "generated_at": "2026-04-11T17:16:26.677650+00:00"
+  "generated_at": "2026-04-12T17:06:10.510268+00:00"
 }

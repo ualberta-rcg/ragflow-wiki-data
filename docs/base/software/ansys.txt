@@ -36,25 +36,25 @@ The following table provides established values for the CMC and SHARCNET license
 |fir
 |<code>172.26.0.101</code>
 |<code>6624</code>
-| <span style="Color:red">[https://www.cmc.ca/ansys-academic-research-software/ Discontinue use]</span> (to be shutdown)
+| <span style="Color:red">[https://www.cmc.ca/ansys-academic-research-software/ Discontinue use]</span> (to be shutdown May1/2026)
 |-
 | CMC
 | narval/rorqual
 | <code>10.100.64.10</code>
 | <code>6624</code>
-| <span style="Color:red">[https://www.cmc.ca/ansys-academic-research-software/ Discontinue use]</span> (to be shutdown)
+| <span style="Color:red">[https://www.cmc.ca/ansys-academic-research-software/ Discontinue use]</span> (to be shutdown May1/2026)
 |-
 | CMC
 | nibi
 | <code>10.25.1.56</code>
 | <code>6624</code>
-| <span style="Color:red">[https://www.cmc.ca/ansys-academic-research-software/ Discontinue use]</span> (to be shutdown)
+| <span style="Color:red">[https://www.cmc.ca/ansys-academic-research-software/ Discontinue use]</span> (to be shutdown May1/2026)
 |-
 | CMC
 | trillium
 | scinet-cmc
 | <code>6624</code>
-| <span style="Color:red">[https://www.cmc.ca/ansys-academic-research-software/ Discontinue use]</span> (to be shutdown)
+| <span style="Color:red">[https://www.cmc.ca/ansys-academic-research-software/ Discontinue use]</span> (to be shutdown May1/2026)
 |-
 | SHARCNET
 | nibi/fir/narval/rorqual
@@ -1525,8 +1525,8 @@ For this option to work on nibi for the purpose of accelerating graphics choose 
 :::: <code>HOOPS_PICTURE=null</code>                   (version 2024R2 or older)
 ::: Click the <code>Start</code> button
 
-<div style="background-color: #000000; color: #ffffff; padding: 20px;">
 <!--T:6853-->
+<div style="background-color: #000000; color: #ffffff; padding: 20px;">
 If <code>I_MPI_HYDRA_BOOTSTRAP=ssh</code> is not set on nibi when fluent is started from within an OOD Compute Desktop session and intelmpi is used, then fluent will crash on startup produce the following error output.  If this occurs completely exit fluent, cleanly shutdown workbench and start over.
  [mpiexec@g4.nibi.sharcnet] Error: Unable to run bstrap_proxy on g4.nibi.sharcnet (pid 2251587, exit code 256)
  [mpiexec@g4.nibi.sharcnet] poll_for_event (../../../../../src/pm/i_hydra/libhydra/demux/hydra_demux_poll.c:157): check exit codes error
@@ -1592,7 +1592,7 @@ The SHARCNET Ansys license is free for academic use by <b>any</b> Alliance resea
  <span style="font-size: 20px;">&#x2696;&#xFE0F;</span> Scaling tests should be run before launching long jobs to the determine optimal scalable job size so that the limited licenses and hardware is used as efficiently as possible and total job run and startup times are minimized.  Parallel jobs that do not achieve at least 50% CPU utilization will probably be flagged by the system, resulting in a followup by an Alliance team member.</div>
 
 <!--T:2852-->
-The SHARCNET Ansys license permits each researcher to run upto 8 simultaneous jobs with 768 hpc cores.   Thus the following maximum sized full node job combinations maybe run : 1jobx4nodes, 2jobsx2nodes/job, or 4jobsx192cores/job.   However since there are only 1986 anshpc in the SHARCNET Ansys license pool this means the license is heavily oversubscribed by a factor of approximately 768x12/1986=4.5x.  This estimate is based on the assumption there are a dozen active users running ansys jobs at any given time.   This oversubscription level requires most researchers use less than 1986/12=166cores so that just a few other researchers can run much larger jobs otherwise frequent license checkout failures will occur.  The best way to minimize the number of cores used is to perform detail scaling tests to ensure the job size is optimally chosen.   Should a job fail on startup due to a shortage of licenses then it will manually need to be resubmitted.  There is no need to submit a support ticket each time this happens since the SHARCNET license is monitored for such failures.  If too many license failures begin to occur then the total nunber of ansyshpc licenses that each user can checkout will be reduced from 768 to 384 and this wiki page section updated accordingly.  If your research requires you to use 768 hpc cores on a regular basis then consider using an ANSYS license server at your local institution (instead of the SHARCNET license) assuming there is one.  If there is not, then consider contributing towards the purchase of a larger SHARCNET license. If you do then your maximum checkout limit will be increased by the number of cores your contribution added to the SHARCNET license while all other non-contributing researchers will remain limited to 768.
+The SHARCNET Ansys license is made available on a first come first serve basis.  It currently permits each researcher to run a maximum of simultaneous 16 jobs using a total of upto 512 hpc cores across all clusters, therefore any of the following maximum job size combinations can be run simultaneously: 1x512, 2x256, 4x128, 8x64, 16x32 or more commonly one of these full node combinations: 1x384, 2x192 or 1x192 cores.  Note however the SHARCNET license is oversubscribed so there is potential for jobs to fail on startup if all (or nearly all) of the 1986 <code>anshpc</code> licenses in the SHARCNET license pool are in use.  Should this occur you will need to manually resubmit your job to the queue.   If over time there is an increasing number of license shortage instances then the total <code>anshpc</code> core limit per researcher maybe decreased from 512 to 384.  If you need more than 512 hpc cores for your research then consider using the local ANSYS License server at your institution if one is available OR open a ticket to request help purchasing additional licenses for the SHARCNET license in which case your maximum job size <code>anshpc</code> limit would be increased respectively.
 
 ==== License file ==== <!--T:92-->
 
@@ -1616,11 +1616,12 @@ $EBROOTANSYS/v$(echo ${EBVERSIONANSYS:2:2}${EBVERSIONANSYS:5:1})/licensingclient
 lmstat -c $ANSYSLMD_LICENSE_FILE -a | grep "Users of\|$USER" | grep -v " Total of 0 licenses in use"
 </source>
 
-==== Example  ==== <!--T:96-->
+==== Example  ==== <!--T:1639-->
 
-<!--T:1646-->
+<!--T:1640-->
 Consider the case where a user submits a 8core fluent job and 32core fluent job.  Once both jobs start running, the user runs the lmutil queuery command and the output shown below is generated.  Here it can be seen that a total of (8-4) + (32-4) = 32 <code>anshpc</code> licenses are used by the two jobs.  As a result the total number of <code>anshpc</code> licenses increases from 1568 to 1600 so that only (1986-1600) = 386 <code>anshpc</code> licenses remain available for additional jobs submitted by all users.  Therefore if a 400 core parallel job attempts to start at this moment, it will fail to start since (400-4) = 396 anshpc licenses would be required.   The user has two options, wait for a sufficient number of  <code>anshpc</code> licenses to come available OR reduce the job size to 390 cores or less and resubmit immediately.  This example focuses on the <code>anshpc</code> feature since it is most generously overcommitted to allow any user to submit the largest job possible, but it also shows that the actual number of <code>anshpc</code> licenses available per user may sometimes be far less than the 512 per user limit would suggest.  
 
+<!--T:6857-->
 <div style="font-size:75%; line-height: 1.2em;">
  [l2(nibi):~] sq
             JOBID     USER        ACCOUNT           NAME  ST  TIME_LEFT NODES CPUS MIN_MEM NODELIST (REASON) 

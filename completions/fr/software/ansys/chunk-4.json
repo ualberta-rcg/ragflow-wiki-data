@@ -4,29 +4,33 @@
   "chunk_index": 4,
   "qa_pairs": [
     {
-      "question": "Comment faire pour s'assurer que ma licence Ansys est bien configurée et qu'elle fonctionne correctement sur une grappe?",
-      "answer": "Pour vérifier si votre licence Ansys est configurée correctement, vous devez copier et coller une séquence de commandes sur la grappe où vous prévoyez soumettre des tâches. Cela inclut se rendre dans le répertoire `/tmp`, allouer des ressources avec `salloc`, charger les modules `StdEnv/2023` et `ansys/2025R2.04`, puis exécuter la commande `lmutil lmstat` pour vérifier l'état de la licence."
+      "question": "Comment faire pour vérifier si ma licence Ansys est bien configurée et qu'elle fonctionne correctement?",
+      "answer": "Pour vérifier si votre fichier `ansys.lic` est bien configuré et fonctionne comme il faut, vous devez copier et coller la séquence de commandes fournie sur la grappe où vous prévoyez soumettre vos tâches."
     },
     {
-      "question": "Quel est le jeu de commandes exact pour vérifier la licence Ansys sur un nœud de calcul interactif?",
-      "answer": "Les commandes à exécuter sont les suivantes :\n`cd /tmp`\n`salloc --time=1:0:0 --mem=1000M --account=def-YOURUSERID`\n`module load StdEnv/2023; module load ansys/2025R2.04`\n`$EBROOTANSYS/v$(echo ${EBVERSIONANSYS:2:2}${EBVERSIONANSYS:5:1})/licensingclient/linx64/lmutil lmstat -c $ANSYSLMD_LICENSE_FILE | grep \"ansyslmd: UP\" 1> /dev/null && echo Success || echo Fail`"
+      "question": "Quelles sont les commandes à exécuter pour tester la configuration de ma licence Ansys sur une grappe?",
+      "answer": "Vous devez d'abord vous rendre dans le répertoire `/tmp` (`cd /tmp`). Ensuite, allouez des ressources avec `salloc --time=1:0:0 --mem=1000M --account=def-VOTREIDUTILISATEUR`. Chargez les modules `StdEnv/2023` et `ansys/2025R2.04`. Finalement, exécutez la commande `$EBROOTANSYS/v$(echo ${EBVERSIONANSYS:2:2}${EBVERSIONANSYS:5:1})/licensingclient/linx64/lmutil lmstat -c $ANSYSLMD_LICENSE_FILE | grep \"ansyslmd: UP\" 1> /dev/null && echo Success || echo Fail`."
     },
     {
-      "question": "Quelles ressources sont demandées pour la session interactive utilisée pour vérifier la licence Ansys, selon l'exemple fourni?",
-      "answer": "Pour la session interactive de vérification de licence, l'exemple demande une heure (`--time=1:0:0`) et 1000 mégaoctets de mémoire (`--mem=1000M`)."
+      "question": "Si la commande de vérification de la licence Ansys affiche \"Success\", qu'est-ce que ça signifie?",
+      "answer": "Si la commande affiche `Success`, ça veut dire que l'extraction des licences devrait fonctionner lorsque vous soumettez vos tâches dans la file d'attente."
     },
     {
-      "question": "Quelle version du module Ansys est utilisée dans la séquence de commandes pour la vérification de licence?",
-      "answer": "La séquence de commandes utilise le module `ansys/2025R2.04`, après avoir chargé le module `StdEnv/2023`."
+      "question": "Si la commande de vérification de la licence Ansys affiche \"Fail\", qu'est-ce que ça signifie?",
+      "answer": "Si la commande affiche `Fail`, ça signale un problème avec la configuration de la licence quelque part, et vos tâches risquent de ne pas fonctionner."
     },
     {
-      "question": "Qu'indique un résultat 'Success' après avoir exécuté la commande de vérification de licence?",
-      "answer": "Un résultat de 'Success' indique que l'extraction des licences devrait fonctionner lorsque les tâches sont soumises à la file d'attente."
+      "question": "Est-ce que la version du module Ansys que je charge pour le test de licence a une importance?",
+      "answer": "Oui, pour que la licence fonctionne quand vous soumettez des tâches, il faut s'assurer d'utiliser la même version du module Ansys que celle chargée par votre script dans les commandes de vérification."
     },
     {
-      "question": "Que signifie la partie `grep \"ansyslmd: UP\"` de la commande de vérification de licence?",
-      "answer": "La partie `grep \"ansyslmd: UP\"` de la commande cherche la ligne indiquant que le démon de licence Ansys (`ansyslmd`) est en marche ('UP'), ce qui confirme que le serveur de licence est opérationnel."
+      "question": "Dans l'exemple de commande, quelle est la version de l'environnement standard et du module Ansys qui sont chargés pour la vérification de la licence?",
+      "answer": "L'exemple charge l'environnement `StdEnv/2023` et le module Ansys `ansys/2025R2.04`."
+    },
+    {
+      "question": "Que dois-je faire avec `def-YOURUSERID` dans la commande `salloc` lors de la vérification de la licence?",
+      "answer": "Vous devez remplacer `def-YOURUSERID` par votre véritable identifiant d'utilisateur ou celui de votre groupe (`def-VOTREIDUTILISATEUR`) dans la commande `salloc`."
     }
   ],
-  "generated_at": "2026-04-11T17:05:38.140300+00:00"
+  "generated_at": "2026-04-12T16:56:25.691624+00:00"
 }

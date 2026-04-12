@@ -4,133 +4,33 @@
   "chunk_index": 12,
   "qa_pairs": [
     {
-      "question": "Quel est le but du script `script-flu-bynode-openmpi.sh` pour Fluent sur la grappe Narval?",
-      "answer": "Le script `script-flu-bynode-openmpi.sh` est utilisé pour soumettre des tâches Fluent en mode parallèle sur plusieurs nœuds de calcul de la grappe Narval en employant Open MPI."
+      "question": "À quoi sert le bloc conditionnel `if [[ (\"${EBVERSIONANSYS//R*}\" -ge 2025 && \"${CC_CLUSTER}\" == nibi) || \"${CC_CLUSTER}\" == narval ]]; then` dans les scripts Ansys Fluent?",
+      "answer": "Ce bloc configure des variables d'environnement spécifiques pour Intel MPI, comme `I_MPI_HYDRA_BOOTSTRAP=ssh` et annule `I_MPI_HYDRA_BOOTSTRAP_EXEC_EXTRA_ARGS`, lorsque le cluster est Nibi (pour les versions Ansys 2025 et plus récentes) ou Narval."
     },
     {
-      "question": "Comment dois-je spécifier le nom de mon compte dans le script Slurm `script-flu-bynode-openmpi.sh`?",
-      "answer": "Vous devez spécifier le nom de votre compte en remplaçant `def-group` dans la directive `#SBATCH --account=def-group`."
+      "question": "Comment le fichier 'machinefile' est-il créé pour Ansys Fluent dans ces scripts?",
+      "answer": "Le fichier 'machinefile' temporaire est créé à l'aide de la commande `slurm_hl2hl.py --format ANSYS-FLUENT > /tmp/machinefile-$SLURM_JOB_ID`."
     },
     {
-      "question": "Quelle est la limite de temps par défaut configurée dans le script Fluent `script-flu-bynode-openmpi.sh`?",
-      "answer": "La limite de temps par défaut spécifiée est de 3 heures, indiquée par `#SBATCH --time=00-03:00`."
+      "question": "Comment le nombre de cœurs (`NCORES`) est-il déterminé dans le script?",
+      "answer": "Le nombre de cœurs (`NCORES`) est défini en prenant la valeur de `$SLURM_NTASKS`."
     },
     {
-      "question": "Combien de nœuds de calcul peuvent être demandés avec le script `script-flu-bynode-openmpi.sh`?",
-      "answer": "Le script permet de demander 1 nœud ou plus de calcul, la valeur par défaut étant 1 (`#SBATCH --nodes=1`)."
+      "question": "Quelle est la commande pour exécuter Fluent sur un seul nœud en parallèle avec mémoire partagée (SMP) en utilisant Intel MPI?",
+      "answer": "Pour une exécution sur un seul nœud, la commande est `fluent -g $MYVERSION -t $NCORES -mpi=intel -pshmem -i $MYJOURNALFILE`, où `-pshmem` indique le mode parallèle à mémoire partagée."
     },
     {
-      "question": "Quel est le nombre maximal de cœurs par nœud que l'on peut spécifier sur Narval pour ce script?",
-      "answer": "Vous pouvez spécifier jusqu'à 64 cœurs par nœud sur Narval avec la directive `#SBATCH --ntasks-per-node=64`."
+      "question": "Comment Ansys Fluent est-il exécuté sur plusieurs nœuds du cluster Nibi en utilisant Intel MPI?",
+      "answer": "Sur Nibi, pour plusieurs nœuds, Fluent est lancé avec `fluent -g $MYVERSION -t $NCORES -mpi=intel -peth -cnf=/tmp/machinefile-$SLURM_JOB_ID -i $MYJOURNALFILE`, en utilisant l'interconnexion `peth` (Ethernet)."
     },
     {
-      "question": "Que signifie la ligne `#SBATCH --mem=0` dans le script `script-flu-bynode-openmpi.sh`?",
-      "answer": "Cette ligne signifie que toute la mémoire disponible par nœud de calcul sera allouée, et elle ne doit pas être modifiée."
+      "question": "Quelle est la commande pour exécuter Fluent sur plusieurs nœuds des autres grappes (comme Beluga, Cedar ou Graham) en utilisant Intel MPI?",
+      "answer": "Sur les autres grappes pour plusieurs nœuds, Fluent est exécuté avec `fluent -g $MYVERSION -t $NCORES -mpi=intel -pib -cnf=/tmp/machinefile-$SLURM_JOB_ID -i $MYJOURNALFILE`, en utilisant l'interconnexion `pib` (InfiniBand ou similaire)."
     },
     {
-      "question": "Quelle version du module `StdEnv` doit être chargée pour que le script `script-flu-bynode-openmpi.sh` fonctionne?",
-      "answer": "Il faut charger le module `StdEnv/2023`."
-    },
-    {
-      "question": "Quelle version du module Ansys est recommandée pour le script `script-flu-bynode-openmpi.sh`?",
-      "answer": "Le script recommande d'utiliser `ansys/2023R2` ou des versions plus récentes."
-    },
-    {
-      "question": "Comment puis-je indiquer le nom de mon fichier de journalisation dans le script `script-flu-bynode-openmpi.sh`?",
-      "answer": "Vous devez remplacer `sample.jou` par le nom de votre fichier de journalisation dans la variable `MYJOURNALFILE=sample.jou`."
-    },
-    {
-      "question": "Comment choisir la version de Fluent (par exemple 2d, 2ddp, 3d, 3ddp) à lancer avec le script `script-flu-bynode-openmpi.sh`?",
-      "answer": "La version de Fluent est spécifiée par la variable `MYVERSION=3d`. Vous devez remplacer `3d` par la version souhaitée."
-    },
-    {
-      "question": "Quelle variable d'environnement est exportée concernant OpenMPI dans le script `script-flu-bynode-openmpi.sh`?",
-      "answer": "La variable d'environnement `OPENMPI_ROOT` est exportée avec la valeur `$EBROOTOPENMPI`."
-    },
-    {
-      "question": "Comment le script `script-flu-bynode-openmpi.sh` crée-t-il le fichier `machinefile` pour Fluent?",
-      "answer": "Le script utilise `slurm_hl2hl.py --format ANSYS-FLUENT` pour générer un fichier temporaire, puis le traite pour créer un `machinefile` qui liste les hôtes et le nombre de cœurs."
-    },
-    {
-      "question": "Quelle commande est utilisée pour lancer Fluent si la tâche s'exécute sur un seul nœud avec le script `script-flu-bynode-openmpi.sh`?",
-      "answer": "Si la tâche s'exécute sur un seul nœud, la commande utilisée est `fluent -g $MYVERSION -t $NCORES -mpi=openmpi -pshmem -i $MYJOURNALFILE`."
-    },
-    {
-      "question": "Quelle commande est utilisée pour lancer Fluent si la tâche s'exécute sur plusieurs nœuds avec le script `script-flu-bynode-openmpi.sh`?",
-      "answer": "Pour une tâche sur plusieurs nœuds, la commande est `export FI_PROVIDER=verbs; fluent -g $MYVERSION -t $NCORES -mpi=openmpi -pib -cnf=/tmp/machinefile-$SLURM_JOB_ID -i $MYJOURNALFILE`."
-    },
-    {
-      "question": "Quel fournisseur `FI_PROVIDER` est exporté pour les tâches Fluent sur plusieurs nœuds avec ce script `script-flu-bynode-openmpi.sh`?",
-      "answer": "La variable `FI_PROVIDER` est exportée avec la valeur `verbs`."
-    },
-    {
-      "question": "Quelle est la principale différence dans l'allocation de mémoire entre le script Fluent 'par nœud' et le script 'par cœur' pour Narval, tous deux utilisant OpenMPI?",
-      "answer": "Le script 'par nœud' (script-flu-bynode-openmpi.sh) alloue toute la mémoire par nœud (`#SBATCH --mem=0`), tandis que le script 'par cœur' (script-flu-bycore-openmpi.sh) alloue la mémoire par cœur (`#SBATCH --mem-per-cpu=4G`)."
-    },
-    {
-      "question": "Comment est spécifié le nombre total de cœurs à travers tous les nœuds dans le script `script-flu-bycore-openmpi.sh`?",
-      "answer": "Le nombre total de cœurs est spécifié par la directive `#SBATCH --ntasks=16`. Il faut ajuster la valeur `16` au besoin."
-    },
-    {
-      "question": "Comment la mémoire par cœur est-elle spécifiée dans le script `script-flu-bycore-openmpi.sh`?",
-      "answer": "La mémoire par cœur est spécifiée par `#SBATCH --mem-per-cpu=4G`. La valeur `4G` est un exemple et peut être ajustée."
-    },
-    {
-      "question": "Puis-je spécifier le nombre de nœuds de calcul dans le script `script-flu-bycore-openmpi.sh`?",
-      "answer": "Oui, vous pouvez décommenter la ligne `##SBATCH --nodes=1` et y indiquer le nombre de nœuds de calcul souhaité (1 ou plus)."
-    },
-    {
-      "question": "Quelle version du module Ansys est requise pour utiliser Fluent avec le script `script-flu-bynode-intel-tri.sh` sur Trillium?",
-      "answer": "Seule la version `ansys/2025R2.04` ou plus récente est compatible et fonctionne sur Trillium."
-    },
-    {
-      "question": "Comment les paramètres du serveur de licence sont-ils configurés dans le script Fluent pour Trillium, en dehors du fichier `~/.licenses/ansys.lic`?",
-      "answer": "Les paramètres `LICSERVER`, `FLEXPORT` et `VENDPORT` sont définis directement dans le script. Des commandes `ssh` sont ensuite utilisées pour la redirection de port, et les variables d'environnement `ANSYSLMD_LICENSE_FILE` et `ANSYSLI_SERVERS` sont exportées pour pointer vers `localhost`."
-    },
-    {
-      "question": "Quelles sont les valeurs par défaut pour `LICSERVER`, `FLEXPORT` et `VENDPORT` dans le script `script-flu-bynode-intel-tri.sh`?",
-      "answer": "Les valeurs par défaut sont `LICSERVER=license1.computecanada.ca`, `FLEXPORT=1055` et `VENDPORT=1793`."
-    },
-    {
-      "question": "Quelles commandes SSH sont employées pour mettre en place la redirection de licence dans le script Trillium?",
-      "answer": "Les commandes sont `ssh tri-gw -fNL $FLEXPORT:$LICSERVER:$FLEXPORT` et `ssh tri-gw -fNL $VENDPORT:$LICSERVER:$VENDPORT`."
-    },
-    {
-      "question": "Quelles conditions d'erreur sont vérifiées concernant les répertoires de configuration avant de lancer Fluent avec le script Trillium?",
-      "answer": "Le script vérifie si des liens symboliques vers les répertoires `.ansys` et `.fluentconf`, ainsi que le fichier `.flrecent` dans le répertoire `$HOME`, existent et sont accessibles en écriture."
-    },
-    {
-      "question": "Que doit-on faire si un message d'erreur indique qu'un lien vers un répertoire `.ansys` accessible en écriture n'existe pas lors de l'utilisation du script Trillium?",
-      "answer": "Il faut supprimer le répertoire `~/.ansys` s'il existe, puis exécuter `ln -s $SCRATCH/.ansys ~/.ansys` pour créer un lien symbolique vers un répertoire accessible en écriture dans `$SCRATCH`."
-    },
-    {
-      "question": "Quelle est la commande pour démarrer Fluent sur un seul nœud avec le script `script-flu-bynode-intel-tri.sh`?",
-      "answer": "La commande est `fluent -g $MYVERSION -t $NCORES -mpi=intel -pshmem -i $MYJOURNALFILE`."
-    },
-    {
-      "question": "Quelle est la commande pour démarrer Fluent sur plusieurs nœuds avec le script `script-flu-bynode-intel-tri.sh`?",
-      "answer": "La commande est `fluent -g $MYVERSION -t $NCORES -mpi=intel -pib -cnf=$SLURM_SUBMIT_DIR/machinefile-$SLURM_JOB_ID -i $MYJOURNALFILE`."
-    },
-    {
-      "question": "Pourquoi la directive `#SBATCH --mem=0` est-elle commentée dans le script Trillium?",
-      "answer": "Elle est commentée parce que Trillium alloue par défaut toute la mémoire par nœud, rendant cette spécification inutile."
-    },
-    {
-      "question": "Quel est le nombre maximal de cœurs par nœud qui peut être spécifié sur Trillium pour ce script Fluent?",
-      "answer": "Le nombre maximal de cœurs par nœud sur Trillium est de 192, même si l'exemple montre `#SBATCH --ntasks-per-node=16`."
-    },
-    {
-      "question": "Quel est le rôle du paramètre `#SBATCH --cpus-per-task=1` dans le script Trillium?",
-      "answer": "Ce paramètre est requis et ne doit pas être modifié."
-    },
-    {
-      "question": "Quelle implémentation MPI est utilisée pour lancer Fluent dans le script `script-flu-bynode-intel-tri.sh`?",
-      "answer": "Le script `script-flu-bynode-intel-tri.sh` utilise l'implémentation Intel MPI (`-mpi=intel`)."
-    },
-    {
-      "question": "Pourquoi les commandes `mkdir -pv $SCRATCH/.ansys`, `mkdir -pv $SCRATCH/.fluentconf`, et `touch $SCRATCH/.flrecent` sont-elles incluses dans le script Trillium?",
-      "answer": "Ces commandes créent les répertoires et le fichier nécessaires dans `$SCRATCH` et s'assurent qu'ils sont accessibles en écriture pour Fluent, notamment si les liens symboliques vers ces éléments dans `$HOME` sont manquants ou incorrects."
+      "question": "Quel est le nom du fichier de script pour exécuter Fluent sur plusieurs nœuds avec Open MPI sur Narval?",
+      "answer": "Le nom du fichier de script est `script-flu-bynode-openmpi.sh`."
     }
   ],
-  "generated_at": "2026-04-11T17:08:01.250231+00:00"
+  "generated_at": "2026-04-12T16:58:05.742342+00:00"
 }

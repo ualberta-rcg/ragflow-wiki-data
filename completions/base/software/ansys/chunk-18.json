@@ -4,25 +4,29 @@
   "chunk_index": 18,
   "qa_pairs": [
     {
-      "question": "What happens if a Fluent job, configured for solution restart, completes successfully but is not on its final restart attempt?",
-      "answer": "If a Fluent job configured for solution restart completes successfully and is not yet on its final restart attempt, the script will print 'Restarting job with the most recent output dat file'. It will then create symbolic links for the most recent .cas and .dat output files to the specified restart filenames ($MYCASFILERES and $MYDATFILERES), and list cavity* output/* files."
+      "question": "What happens after a Fluent job with solution restart completes successfully, if it's not the last task in the job array?",
+      "answer": "If a Fluent job with solution restart completes successfully and is not the last task in the job array, it will create symbolic links to the most recent output `.cas` and `.dat` files for restarting."
     },
     {
-      "question": "What command is used to create a symbolic link for the most recent case file when restarting a Fluent job?",
-      "answer": "The command used to create a symbolic link for the most recent case file is: `ln -sfv output/$(ls -ltr output {{!}} grep .cas {{!}} tail -n1 {{!}} awk '{print $9}') $MYCASFILERES`."
+      "question": "Which files are symbolically linked for restarting a Fluent job after a successful intermediate run?",
+      "answer": "The most recent output `.cas` (case) and `.dat` (data) files are symbolically linked for restarting a Fluent job."
     },
     {
-      "question": "What command is used to create a symbolic link for the most recent data file when restarting a Fluent job?",
-      "answer": "The command used to create a symbolic link for the most recent data file is: `ln -sfv output/$(ls -ltr output {{!}} grep .dat {{!}} tail -n1 {{!}} awk '{print $9}') $MYDATFILERES`."
+      "question": "What command is used to display the newly linked restart files and output directory contents?",
+      "answer": "The command `ls -lh cavity* output/*` is used to display the newly linked restart files and the contents of the output directory."
     },
     {
-      "question": "What message is displayed if a Fluent job configured for solution restart fails?",
-      "answer": "If a Fluent job configured for solution restart fails, the script will display the message 'Simulation failed. Exiting now.'."
+      "question": "What message is displayed if a Fluent job with solution restart finishes all its attempts successfully?",
+      "answer": "If a Fluent job with solution restart completes all its attempts successfully, the message \"Job completed successfully! Exiting now.\" is displayed."
     },
     {
-      "question": "How does the script handle a successfully completed Fluent job if it's the final or only restart attempt?",
-      "answer": "If a Fluent job completes successfully and it's either the final restart attempt or the only attempt specified, the script will print 'Job completed successfully! Exiting now.' and then cancel the entire Slurm job array using `scancel $SLURM_ARRAY_JOB_ID`."
+      "question": "What action is taken by the script if a Fluent job with solution restart finishes successfully and it's the final task in the array?",
+      "answer": "If a Fluent job with solution restart finishes successfully and it's the final task in the array, the script will cancel the entire job array using `scancel $SLURM_ARRAY_JOB_ID`."
+    },
+    {
+      "question": "What message appears in the event of a simulation failure within a Fluent solution restart job?",
+      "answer": "If the simulation fails within a Fluent solution restart job, the message \"Simulation failed. Exiting …\" will appear."
     }
   ],
-  "generated_at": "2026-04-11T16:49:29.132875+00:00"
+  "generated_at": "2026-04-12T16:37:33.060481+00:00"
 }

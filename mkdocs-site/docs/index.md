@@ -86,7 +86,7 @@ __   ___   _| | ___ __ _ _ __      Support:       support@tech.alliancecan.ca
 | **Lunaris** | :material-check-circle:{ style="color: green" } Operational |
 | **tamIA** | :material-check-circle:{ style="color: green" } Operational |
 
-<small>*Auto-generated from [status.alliancecan.ca](https://status.alliancecan.ca) &mdash; updated 2026-04-12 14:33 UTC. See that page for current incident details.*</small>
+<small>*Auto-generated from [status.alliancecan.ca](https://status.alliancecan.ca) &mdash; updated 2026-04-12 16:29 UTC. See that page for current incident details.*</small>
 
 ---
 
@@ -96,7 +96,7 @@ Events from the [Alliance training calendar](https://explora.alliancecan.ca/even
 
 | Date | Event | Link |
 |------|-------|------|
-| Apr 10 | Introduction to the Unix Shell | [Register](https://libcal.library.ubc.ca/event/3999883) |
+| Apr 13 | En savoir plus sur l'École de printemps 2026 [Séance d'information] | [Details](https://www.eventbrite.ca/e/1985944084216) |
 | Apr 13 | Data Bites - Licensing Your Research Data | [Register](https://libcal.library.ubc.ca/event/3972469) |
 | Apr 14 | Neural network programming: lecture 3 | [Details](https://scinet.courses/1400) |
 | Apr 14 | Introducing the National Data Space for Sensitive Data in Social Sciences | [Details](https://crdcn.ca/events/introducing-the-national-data-space-for-sensitive-data-in-social-sciences/) |
@@ -107,7 +107,7 @@ Events from the [Alliance training calendar](https://explora.alliancecan.ca/even
 | Apr 16 | GPU Python: Numba JIT compilation to CUDA kernels [course] | [Register](https://forms.gle/E6XyX4Q3H6hXDwUM7) |
 | Apr 17 | The Secret Life of Data | [Register](https://ualberta.libcal.com/event/4012303) |
 
-<small>*Auto-generated from [explora.alliancecan.ca/events](https://explora.alliancecan.ca/events) &mdash; updated 2026-04-12 14:33 UTC.*</small>
+<small>*Auto-generated from [explora.alliancecan.ca/events](https://explora.alliancecan.ca/events) &mdash; updated 2026-04-12 16:29 UTC.*</small>
 
 ---
 

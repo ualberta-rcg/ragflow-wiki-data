@@ -4,53 +4,57 @@
   "chunk_index": 39,
   "qa_pairs": [
     {
-      "question": "When starting Ansys Fluent graphically on an On Demand Desktop without a GPU, what environment variable settings are required for Ansys version 2025R1 or newer?",
-      "answer": "For Ansys Fluent version 2025R1 or newer, when starting on an On Demand Desktop without a GPU, you must set `I_MPI_HYDRA_BOOTSTRAP=ssh` (required on nibi) and `HOOPS_PICTURE=opengl2-mesa`."
+      "question": "What environment variables are required for Ansys Fluent when launched from an OnDemand Desktop with a GPU on Nibi, specifically for Ansys version 2025R1 or newer?",
+      "answer": "When launching Fluent from an OnDemand Desktop on Nibi with a GPU, for Ansys version 2025R1 or newer, you must set `I_MPI_HYDRA_BOOTSTRAP=ssh` and `HOOPS_PICTURE=opengl2` in the Fluent Launcher's Environment Tab before clicking the `Start` button."
     },
     {
-      "question": "What environment variable settings are needed for Ansys Fluent version 2024R2 or older when launched on an On Demand Desktop without a GPU?",
-      "answer": "If you're using Ansys Fluent version 2024R2 or older on an On Demand Desktop without a GPU, the environment variables should be `I_MPI_HYDRA_BOOTSTRAP=ssh` (required on nibi) and `HOOPS_PICTURE=null`."
+      "question": "What environment variables are required for Ansys Fluent when launched from an OnDemand Desktop with a GPU on Nibi, specifically for Ansys version 2024R2 or older?",
+      "answer": "When launching Fluent from an OnDemand Desktop on Nibi with a GPU, for Ansys version 2024R2 or older, you must set `I_MPI_HYDRA_BOOTSTRAP=ssh` and `HOOPS_PICTURE=opengl` in the Fluent Launcher's Environment Tab before clicking the `Start` button."
     },
     {
-      "question": "What are the required environment variable settings for Ansys Fluent version 2025R1 or newer when started graphically on an On Demand Desktop with a GPU?",
-      "answer": "When starting Ansys Fluent version 2025R1 or newer graphically on an On Demand Desktop with a GPU, the required environment variable settings are `I_MPI_HYDRA_BOOTSTRAP=ssh` (required on nibi) and `HOOPS_PICTURE=opengl2`."
+      "question": "What error occurs if `I_MPI_HYDRA_BOOTSTRAP=ssh` is not correctly configured on Nibi when launching Fluent from an OOD Compute Desktop session using Intel MPI?",
+      "answer": "If `I_MPI_HYDRA_BOOTSTRAP=ssh` is not properly set on Nibi when Fluent is started from within an OOD Compute Desktop session using Intel MPI, Fluent will crash on startup, producing an error message such as \"Error: Unable to run bstrap_proxy\" and \"Error setting up the bootstrap proxies.\""
     },
     {
-      "question": "Which GPU type should be selected on nibi for an OnDemand Desktop session to automatically set up VirtualGL environment variables for accelerated OpenGL graphics calls?",
-      "answer": "To automatically set up VirtualGL environment variables for accelerated OpenGL graphics calls on nibi, you must currently choose a full `h100 (80GB)` GPU when starting an OnDemand Desktop that requests a GPU."
+      "question": "How can a Fluent crash related to `I_MPI_HYDRA_BOOTSTRAP=ssh` on Nibi be resolved?",
+      "answer": "To resolve a Fluent crash related to `I_MPI_HYDRA_BOOTSTRAP=ssh` on Nibi, you must completely exit Fluent, cleanly shut down Workbench, and then start over, ensuring the `I_MPI_HYDRA_BOOTSTRAP=ssh` variable is correctly set."
     },
     {
-      "question": "What happens if `I_MPI_HYDRA_BOOTSTRAP=ssh` is not set correctly on nibi when starting Fluent from an OOD Compute Desktop session using Intel MPI?",
-      "answer": "If `I_MPI_HYDRA_BOOTSTRAP=ssh` is not set properly on nibi when Fluent is started from within an OOD Compute Desktop session using Intel MPI, Fluent will crash on startup, producing an error output related to bootstrap proxy failures."
+      "question": "How do I start Ansys Workbench in Mesa mode on a Jupyter Lab Desktop when no GPU is requested?",
+      "answer": "First, load the `ansys/2025R1` (or newer) module. Then, click the \"Workbench (VNC)\" icon. Since the default is configured for a GPU node, you must exit Workbench, open a terminal, copy the default `workbench.desktop` to `workbench-mesa.desktop` in `~/Desktop`, edit `workbench-mesa.desktop` to change `runwb2` to `runwb2 -oglmesa`, save, and then click the new icon."
     },
     {
-      "question": "How do you start Ansys CFX graphically on an On Demand Desktop without a GPU?",
-      "answer": "To start Ansys CFX from an On Demand Desktop without a GPU, first load the module `StdEnv/2023 ansys/2025R1` (or older), then run `cfx5 -graphics mesa` in a terminal window."
+      "question": "Will the customized Workbench icon created on a Jupyter Lab Desktop persist for future sessions?",
+      "answer": "Yes, the customized Workbench icon you create on a Jupyter Lab Desktop will persist for future sessions until it is manually deleted with `rm -f ~/Desktop/workbench-mesa.desktop`."
     },
     {
-      "question": "What command is used to start Ansys CFX graphically on an On Demand Desktop with a GPU?",
-      "answer": "To start Ansys CFX graphically on an On Demand Desktop with a GPU, load the module `StdEnv/2023 ansys/2025R1` (or older), then use the command `cfx5 -graphics ogl`."
+      "question": "How do I start Ansys Workbench on a Jupyter Lab Desktop when a GPU is requested?",
+      "answer": "To start Ansys Workbench on a Jupyter Lab Desktop with a GPU requested, you need to click to load `ansys/2025R1` (or newer) in the Desktop left-hand side menu, and then click the \"Workbench (VNC)\" icon located in the Jupyter Lab desktop centre window."
     },
     {
-      "question": "What steps are involved in starting Workbench in mesa mode on a Jupyter Lab Desktop when no GPU is requested?",
-      "answer": "To start Workbench in mesa mode on a Jupyter Lab Desktop without a GPU, first load `ansys/2025R1` (or newer) from the Desktop left-hand menu. Then, exit the default Workbench desktop, open a terminal, navigate to `~/Desktop`, copy the default workbench icon (`cp -p $(realpath workbench.desktop) workbench-mesa.desktop`), edit `workbench-mesa.desktop` to change `runwb2` to `runwb2 -oglmesa`, save the file, and then click the newly customized icon to start Workbench."
+      "question": "How do I launch Ansys Ensight graphically from the command line?",
+      "answer": "To launch Ansys Ensight graphically, first load `StdEnv/2023` and `ansys/2022R2`. Then, set the `LD_LIBRARY_PATH` environment variable: `export LD_LIBRARY_PATH=$EBROOTANSYS/v222/CEI/apex222/machines/linux_2.6_64/qt-5.12.6/lib`. Finally, run the command `ensight -X`."
     },
     {
-      "question": "How do you start Ensight in graphical mode?",
-      "answer": "To start Ensight, load the required modules using `module load StdEnv/2023 ansys/2022R2`, then set the `LD_LIBRARY_PATH` environment variable: `export LD_LIBRARY_PATH=$EBROOTANSYS/v222/CEI/apex222/machines/linux_2.6_64/qt-5.12.6/lib`, and finally run `ensight -X`."
+      "question": "How do I start Ansys Rocky in graphical mode?",
+      "answer": "To start Ansys Rocky in graphical mode, first load `StdEnv/2023` and `ansys/2025R1` (or newer versions). Then, export the path: `export PATH=$EBROOTANSYS/v251/rocky:$PATH`. After these steps, you can run the command `Rocky`."
     },
     {
-      "question": "How can one start Ansys Rocky in graphical mode?",
-      "answer": "To start Ansys Rocky graphically, load `StdEnv/2023 ansys/2025R1` (or newer versions), export the path with `export PATH=$EBROOTANSYS/v251/rocky:$PATH`, and then run `Rocky`."
+      "question": "Does the SHARCNET licence cover Ansys Rocky, and is it free for Alliance researchers?",
+      "answer": "Yes, the SHARCNET licence includes Rocky and is free for all Alliance researchers to use."
     },
     {
-      "question": "Is the SHARCNET license for Rocky available to all Alliance researchers?",
-      "answer": "Yes, the SHARCNET license includes Rocky and is free for all Alliance researchers to use for academic purposes."
+      "question": "Does Ansys Rocky support GPU-accelerated computing?",
+      "answer": "Yes, Ansys Rocky supports GPU-accelerated computing, but this capability has not yet been tested or documented."
     },
     {
-      "question": "Does Rocky support GPU-accelerated computing?",
-      "answer": "Yes, Rocky supports GPU-accelerated computing, though this capability has not yet been thoroughly tested or documented."
+      "question": "Are the `RockySolver` and `RockyScheduler` commands tested or documented for graphical use?",
+      "answer": "No, the `RockySolver` and `RockyScheduler` commands for running the solver or starting the scheduler GUI are currently untested."
+    },
+    {
+      "question": "Where can I find information on how to run Ansys Electronics Desktop (AnsysEDT) in graphical mode?",
+      "answer": "Information describing how to run AnsysEDT in graphical mode can be found on a separate wiki page, accessible via a provided link."
     }
   ],
-  "generated_at": "2026-04-11T16:53:13.475673+00:00"
+  "generated_at": "2026-04-12T16:41:43.262421+00:00"
 }

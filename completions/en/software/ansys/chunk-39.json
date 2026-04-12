@@ -4,85 +4,45 @@
   "chunk_index": 39,
   "qa_pairs": [
     {
-      "question": "What are the benefits of purchasing an Ansys license subscription from CMC?",
-      "answer": "Purchasing an Ansys license subscription from CMC offers several benefits, including not needing a local institutional license server, not having to obtain and reconfigure a physical license annually, the ability to use the license almost anywhere (at home, institutions, or any Alliance cluster across Canada), and access to installation instructions for Windows machines to run SpaceClaim."
+      "question": "What is the status of the license3.sharcnet.ca license server as of February 2026?",
+      "answer": "As of February 2026, the old license3.sharcnet.ca license server has been permanently shut down."
     },
     {
-      "question": "Where can a CMC Ansys license be used?",
-      "answer": "A CMC Ansys license can be used almost anywhere, including at home, at institutions, or on any Alliance cluster across Canada."
+      "question": "How should I configure my `ansys.lic` file to use the SHARCNET Ansys license on an Alliance cluster?",
+      "answer": "You should configure your `ansys.lic` file with the line `setenv(\"ANSYSLMD_LICENSE_FILE\", \"1055@license1.computecanada.ca\")`."
     },
     {
-      "question": "What is the core limit per user for Ansys simulations with a CMC license, according to their Quick Start Guides?",
-      "answer": "According to the CMC Ansys Quick Start Guides, there may be a 64 core limit per user."
+      "question": "What is the command to query SHARCNET Ansys license usage on an Alliance cluster?",
+      "answer": "To query SHARCNET Ansys license usage, you can run the command `ssh nibi.alliancecan.ca; module load ansys; $EBROOTANSYS/v$(echo ${EBVERSIONANSYS:2:2}${EBVERSIONANSYS:5:1})/licensingclient/linx64/lmutil lmstat -c $ANSYSLMD_LICENSE_FILE -a | grep \"Users of|$USER\" | grep -v \" Total of 0 licenses in use\"`."
     },
     {
-      "question": "How do I configure my `ansys.lic` file to use the SHARCNET Ansys license on an Alliance cluster?",
-      "answer": "To use the SHARCNET Ansys license, configure your `~/.licenses/ansys.lic` file to contain the line: `setenv(\"ANSYSLMD_LICENSE_FILE\", \"1055@license1.computecanada.ca\")`."
+      "question": "How can I check the number of Ansys licenses currently in use by my username and by all users?",
+      "answer": "You can check Ansys license usage by running the command: `ssh nibi.alliancecan.ca; module load ansys; $EBROOTANSYS/v$(echo ${EBVERSIONANSYS:2:2}${EBVERSIONANSYS:5:1})/licensingclient/linx64/lmutil lmstat -c $ANSYSLMD_LICENSE_FILE -a | grep \"Users of|$USER\" | grep -v \" Total of 0 licenses in use\"`."
     },
     {
-      "question": "What is the status of the old `license3.sharcnet.ca` license server?",
-      "answer": "As of February 2026, the old `license3.sharcnet.ca` license server has been permanently shut down."
+      "question": "In the provided example, how many `anshpc` licenses are used by an 8-core Fluent job and a 32-core Fluent job combined?",
+      "answer": "A total of 32 `anshpc` licenses are used by the two jobs, calculated as (8-4) + (32-4)."
     },
     {
-      "question": "How can I check the number of Ansys licenses in use by my username and by all users?",
-      "answer": "To check license usage, SSH into a cluster like `nibi.alliancecan.ca`, load the Ansys module, and run: `$EBROOTANSYS/v$(echo ${EBVERSIONANSYS:2:2}${EBVERSIONANSYS:5:1})/licensingclient/linx64/lmutil lmstat -c $ANSYSLMD_LICENSE_FILE -a | grep \"Users of|$USER\"`."
+      "question": "If the total `anshpc` licenses in use increase from 1568 to 1600 after a user submits two jobs, how many new `anshpc` licenses were consumed?",
+      "answer": "The total number of `anshpc` licenses in use increased by 32 (1600 - 1568)."
     },
     {
-      "question": "What should I do if I find Ansys licenses unexpectedly in use by my username?",
-      "answer": "If you find licenses unexpectedly in use, connect to the node where the rogue processes are running, open a terminal window, and run `pkill -9 -e -u $USER -f \"ansys\"` to terminate them."
+      "question": "Given a total of 1986 `anshpc` licenses issued and 1600 currently in use, how many `anshpc` licenses remain available for additional jobs?",
+      "answer": "There are 386 `anshpc` licenses remaining available (1986 - 1600)."
     },
     {
-      "question": "What is the first step to get started with Ansys Additive Manufacturing?",
-      "answer": "To get started with Ansys Additive Manufacturing, you must first configure your `~/.licenses/ansys.lic` file to point to a license server that has a valid Ansys Mechanical License. This needs to be done on all systems where you plan to run the software."
+      "question": "Why would a 400-core parallel job fail to start if only 386 `anshpc` licenses are available?",
+      "answer": "A 400-core parallel job would fail to start because it requires (400-4) = 396 `anshpc` licenses, but only 386 are currently available."
     },
     {
-      "question": "How do I make the Ansys Additive Manufacturing ACT extension available for my project?",
-      "answer": "You need to enable the extension by downloading `AdditiveWizard.wbex` from https://catalog.ansys.com/, uploading it to the cluster, starting Workbench, opening the Extension Manager, installing the extension, and then loading it in Workbench."
+      "question": "What options does a user have if their parallel job fails to start due to an `anshpc` license shortage?",
+      "answer": "The user can either wait for a sufficient number of `anshpc` licenses to become available or reduce the job size (e.g., to 390 cores or less in the example scenario) and resubmit immediately."
     },
     {
-      "question": "Where can I download the `AdditiveWizard.wbex` file?",
-      "answer": "You can download the `AdditiveWizard.wbex` file from https://catalog.ansys.com/."
-    },
-    {
-      "question": "What are the steps to install an extension in Ansys Workbench?",
-      "answer": "To install an extension, open the Extension Manager in Workbench, click the box with the large '+' sign under the search bar, and navigate to select and install your `.wbex` file."
-    },
-    {
-      "question": "How do I load an extension in Ansys Workbench for current and future sessions?",
-      "answer": "To load an extension for current and future sessions, click to highlight the extension's box, then click the lower right corner arrow in the box and select 'Load extension'."
-    },
-    {
-      "question": "How can I unload an Ansys Workbench extension?",
-      "answer": "To unload an extension for the current session, click to un-highlight its box. To prevent it from loading in future sessions, click the lower right corner arrow in the box and select 'Do not load as default'."
-    },
-    {
-      "question": "What should I do if I receive warnings about missing un-needed extensions when enabling Ansys Additive Manufacturing?",
-      "answer": "If you get warnings about missing un-needed extensions (such as ANSYSMotion), you should uninstall them from your project."
-    },
-    {
-      "question": "How can a user run a single Ansys Additive Manufacturing job on Gra-vdi?",
-      "answer": "To run a job on Gra-vdi, start Workbench as described in the 'Enable Additive' section, open your `test.wbpj` project file, reset the workspace if needed, start Mechanical, clear generated data, tick 'Distributed', specify cores, then click File -> Save Project -> Solve."
-    },
-    {
-      "question": "What is the maximum number of cores a user can utilize for an Ansys Additive Manufacturing job on Gra-vdi?",
-      "answer": "A user can run a single Ansys Additive Manufacturing job on Gra-vdi with up to 16 cores."
-    },
-    {
-      "question": "How can I check the resource utilization of an Ansys Additive Manufacturing job running on Gra-vdi?",
-      "answer": "After starting your job, open another terminal and run either `top -u $USER` or `ps u -u $USER | grep ansys` to check utilization."
-    },
-    {
-      "question": "How can I kill rogue Ansys processes on Gra-vdi?",
-      "answer": "You can kill rogue Ansys processes on Gra-vdi by running the command: `pkill -9 -e -u $USER -f \"ansys|mwrpcss|mwfwrapper|ENGINE\"`."
-    },
-    {
-      "question": "What problems can rogue Ansys processes cause on Gra-vdi?",
-      "answer": "Rogue processes can persistently tie up licenses between Gra-vdi login sessions or cause other unusual errors when trying to start GUI programs."
-    },
-    {
-      "question": "Under what circumstances might rogue Ansys processes not be killable?",
-      "answer": "Rogue processes might not be killable until normal disk access is restored if a hung filesystem is to blame for their persistence."
+      "question": "What does the provided example demonstrate about `anshpc` license availability compared to the per-user limit?",
+      "answer": "The example demonstrates that while the `anshpc` feature is designed to be generously overcommitted, the actual number of `anshpc` licenses available for a user may sometimes be far less than the 512 per-user limit due to overall usage."
     }
   ],
-  "generated_at": "2026-04-11T17:03:59.724472+00:00"
+  "generated_at": "2026-04-12T16:54:10.638835+00:00"
 }

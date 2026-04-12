@@ -4,37 +4,33 @@
   "chunk_index": 29,
   "qa_pairs": [
     {
-      "question": "What is the purpose of the provided Slurm script snippet?",
-      "answer": "The provided Slurm script snippet is for running Ansys Mechanical jobs in Distributed Memory Parallel (DMP) mode on a CPU, as indicated by the section title 'Distributed Memory Parallel (cpu)'."
+      "question": "What is the default memory allocation for total and database memory in Ansys Mechanical APDL jobs?",
+      "answer": "Ansys allocates 1024 MB total memory and 1024 MB database memory by default for APDL jobs."
     },
     {
-      "question": "Which Ansys module version is loaded in this Slurm script snippet?",
-      "answer": "The Slurm script snippet loads the `ansys/2024R1.03` module version. The `ansys/2023R2` module is commented out."
+      "question": "How can I manually adjust the total or database memory for Ansys Mechanical APDL jobs?",
+      "answer": "You can manually specify or change these values by adding arguments `-m <value>` for total memory and/or `-db <value>` for database memory to the `mapdl` command line in your scripts."
     },
     {
-      "question": "What `StdEnv` module is loaded in this script?",
-      "answer": "The script loads the `StdEnv/2023` module."
+      "question": "What command-line arguments might be required for Ansys Mechanical APDL jobs when using a remote institutional license server with multiple Ansys licenses?",
+      "answer": "Depending on the Ansys module you are using, it may be necessary to add `-p aa_r` or `-ppf anshpc` to the `mapdl` command line."
     },
     {
-      "question": "What is the purpose of the `mkdir outdir-$SLURM_JOBID` command in the script?",
-      "answer": "The `mkdir outdir-$SLURM_JOBID` command creates a new directory named `outdir-` followed by the job ID (`$SLURM_JOBID`) to store output files for the specific job."
+      "question": "Why are detailed scaling tests recommended before running Ansys Mechanical APDL production jobs?",
+      "answer": "Detailed scaling tests should be performed to ensure that the optimal number of cores and the minimum amount of memory are specified in your scripts for efficient production jobs."
     },
     {
-      "question": "Are there any cluster-specific configurations in this script snippet?",
-      "answer": "Yes, there's a specific configuration for the 'cedar' cluster. If `$CC_CLUSTER` is 'cedar', the script creates a symbolic link to `libstdc++.so.6.0.29` within the job's output directory and exports this directory to the `LD_LIBRARY_PATH`."
+      "question": "For Ansys Mechanical APDL scripts, do single-node (SMP) or multinode (DIS) scripts typically offer better performance?",
+      "answer": "Single-node (SMP Shared Memory Parallel) scripts will typically perform better than multinode (DIS Distributed Memory Parallel) scripts and should be used whenever possible."
     },
     {
-      "question": "What is the command to create a symbolic link for `libstdc++.so.6.0.29` on the Cedar cluster?",
-      "answer": "The command to create the symbolic link on the Cedar cluster is `ln -s $EBROOTGCC/../lib/gcc/libstdc++.so.6.0.29 $PWD/outdir-$SLURM_JOBID/libstdc++.so.6.0.29`."
+      "question": "How can I help avoid compatibility issues when running Ansys Mechanical APDL jobs?",
+      "answer": "To help avoid compatibility issues, the Ansys module loaded in your script should ideally match the version used to generate the input file."
     },
     {
-      "question": "What environment variable is set for the Cedar cluster in this script?",
-      "answer": "For the Cedar cluster, the `LD_LIBRARY_PATH` environment variable is set to `$PWD/outdir-$SLURM_JOBID`."
-    },
-    {
-      "question": "Is `ansys/2023R2` used in this specific Slurm script snippet?",
-      "answer": "No, `ansys/2023R2` is commented out (`#module load ansys/2023R2`) and `ansys/2024R1.03` is loaded instead."
+      "question": "How can I determine the Ansys Workbench version used to create an APDL input file?",
+      "answer": "You can determine the version by running `cat YOURAPDLFILE.inp | grep version` in the terminal, which will show a line indicating the Workbench version, such as `! ANSYS input file written by Workbench version 2019 R3`."
     }
   ],
-  "generated_at": "2026-04-11T17:02:22.365046+00:00"
+  "generated_at": "2026-04-12T16:52:14.881552+00:00"
 }

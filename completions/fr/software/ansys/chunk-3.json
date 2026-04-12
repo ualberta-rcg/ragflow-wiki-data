@@ -4,49 +4,65 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "Qu'est-ce qu'il faut faire pour pouvoir utiliser le serveur de licence Ansys de mon établissement sur les grappes?",
-      "answer": "Pour pouvoir utiliser le serveur de licence Ansys de votre établissement, il faut d'abord configurer les pare-feu des deux côtés. Si ce travail est déjà fait, suivez les directives de la section «Prêt à utiliser»; sinon, consultez la section «Configuration requise»."
+      "question": "C'est quoi la première étape pour pouvoir utiliser un serveur de licence local pour Ansys?",
+      "answer": "Avant qu'on puisse utiliser le serveur de licence de votre établissement, faut que les coupe-feu des deux côtés soient configurés."
     },
     {
-      "question": "Si mon serveur de licence Ansys est déjà configuré, quelles informations dois-je obtenir de mon administrateur pour l'utiliser sur la grappe?",
-      "answer": "Si votre serveur de licence Ansys est déjà configuré, vous devez obtenir trois informations de votre administrateur de serveur de licences Ansys : le nom d'hôte complet (LICSERVER) du serveur, le port flex (FLEXPORT) pour Ansys (habituellement 1055), et le port d'interconnexion (INTEPORT) (habituellement 2325)."
+      "question": "Quelles sont les démarches si la configuration du coupe-feu est déjà faite pour mon serveur de licence Ansys?",
+      "answer": "Faut juste suivre les directives dans la section « Prêt à utiliser » du document."
     },
     {
-      "question": "Comment puis-je configurer mon fichier de licence `ansys.lic` avec les informations obtenues pour un serveur de licence déjà configuré?",
-      "answer": "Une fois que vous avez collecté le LICSERVER, le FLEXPORT et l'INTEPORT, vous devez configurer votre fichier `~/.licenses/ansys.lic` en y entrant ces valeurs, en suivant le modèle `FILE: ansys.lic` qui contient `setenv(\"ANSYSLMD_LICENSE_FILE\", \"FLEXPORT@LICSERVER\")`."
+      "question": "Si la configuration du coupe-feu n'est pas encore faite pour mon serveur de licence Ansys, où dois-je me référer?",
+      "answer": "Faut se référer au paragraphe « Configuration requise » un peu plus bas."
     },
     {
-      "question": "Si mon serveur de licence Ansys n'a jamais été configuré pour les grappes, quelles informations supplémentaires sont nécessaires en plus de celles pour un serveur déjà configuré?",
-      "answer": "En plus des trois éléments (LICSERVER, FLEXPORT, INTEPORT), vous devrez obtenir le numéro de port statique du fournisseur (VENDPORT) et la confirmation que `<servername>` se résoudra à la même adresse IP que LICSERVER sur les grappes."
+      "question": "Pour utiliser un serveur de licence Ansys déjà configuré sur nos grappes, quelles informations je dois demander à mon administrateur de licence?",
+      "answer": "Faut obtenir trois infos : 1) le nom d'hôte complet du serveur (LICSERVER), 2) le port flex pour Ansys (FLEXPORT), habituellement 1055, et 3) le port d'interconnexion (INTEPORT), habituellement 2325."
     },
     {
-      "question": "Où puis-je trouver le `<servername>` mentionné pour la configuration de la licence?",
-      "answer": "Le `<servername>` peut être trouvé dans la première ligne du fichier de licence, sous le format `SERVER <servername> <host id> <lmgrd port>`."
+      "question": "Comment j'intègre les informations de mon serveur de licence dans mon environnement Ansys?",
+      "answer": "Une fois que t'as toutes les infos (LICSERVER, FLEXPORT, INTEPORT), faut configurer ton fichier `~/.licenses/ansys.lic` en y rentrant ces valeurs selon le modèle `FILE: ansys.lic`."
     },
     {
-      "question": "Pourquoi est-il obligatoire que le `<servername>` se résolve à la même adresse IP que le LICSERVER sur les grappes distantes?",
-      "answer": "C'est obligatoire, sinon les extractions de licences Ansys ne fonctionneront pas sur aucune grappe distante."
+      "question": "Si mon serveur de licence Ansys local n'a jamais été configuré pour nos grappes, quelles informations additionnelles dois-je demander à mon administrateur?",
+      "answer": "En plus des trois infos habituelles, faut demander : 4) le numéro de port statique du fournisseur (VENDPORT) et 5) la confirmation que `<servername>` se résout à la même adresse IP que LICSERVER sur nos grappes."
     },
     {
-      "question": "Que dois-je faire si le `<servername>` ne répond pas à l'exigence de résolution d'adresse IP?",
-      "answer": "Vous devez demander à votre administrateur de licence de remplacer le `<servername>` par le même nom d'hôte complet que LICSERVER, ou au moins par un nom d'hôte qui se résoudra à la même adresse IP que LICSERVER à distance."
+      "question": "Où puis-je trouver le `<servername>` mentionné dans la configuration de licence?",
+      "answer": "Le `<servername>` se trouve dans la première ligne du fichier de licence, avec le format `SERVER <servername> <host id> <lmgrd port>`."
     },
     {
-      "question": "Comment puis-je vérifier si mon fichier `ansys.lic` est bien configuré et fonctionne correctement?",
-      "answer": "Pour vérifier la configuration de `ansys.lic`, vous devez copier et coller la séquence de commandes suivante sur la grappe où vous voulez soumettre des tâches, en remplaçant `YOURUSERID` par votre identifiant : `cd /tmp`, `salloc --time=1:0:0 --mem=1000M --account=def-YOURUSERID`, `module load StdEnv/2023; module load ansys/2025R2.04`, puis `$EBROOTANSYS/v$(echo ${EBVERSIONANSYS:2:2}${EBVERSIONANSYS:5:1})/licensingclient/linx64/lmutil lmstat -c $ANSYSLMD_LICENSE_FILE | grep \"ansyslmd: UP\" 1> /dev/null && echo Success || echo Fail`."
+      "question": "Pourquoi est-il crucial que le `<servername>` se résolve à la même adresse IP que LICSERVER sur les grappes distantes?",
+      "answer": "C'est obligatoire, sinon les extractions de licences Ansys fonctionneront pas sur aucune grappe distante."
     },
     {
-      "question": "Que signifie un résultat 'Success' après avoir exécuté la commande de vérification de licence?",
-      "answer": "Un résultat 'Success' indique que l'extraction des licences devrait fonctionner lorsque les tâches sont soumises à la file d'attente."
+      "question": "Que faire si le `<servername>` ne répond pas à l'exigence de résolution d'adresse IP?",
+      "answer": "Faut demander à ton administrateur de licence de remplacer `<servername>` par le même nom d'hôte complet que LICSERVER, ou au moins par un nom d'hôte qui se résout à la même adresse IP à distance."
     },
     {
-      "question": "Que signifie un résultat 'Fail' après avoir exécuté la commande de vérification de licence?",
-      "answer": "Un résultat 'Fail' indique un problème avec la configuration de la licence et les tâches échoueront probablement."
+      "question": "Comment je peux vérifier si mon fichier `ansys.lic` est bien configuré et fonctionne correctement?",
+      "answer": "Tu dois copier et coller une série de commandes sur la grappe où tu veux soumettre tes tâches, en remplaçant `YOURUSERID` par ton identifiant."
     },
     {
-      "question": "Quelle version du module Ansys devrais-je utiliser pour les tests si le logiciel de licence distant n'est pas à jour?",
-      "answer": "Pour que la licence fonctionne quand des tâches sont soumises, assurez-vous que la même version du module Ansys qui est chargée par votre script est utilisée dans les commandes de test."
+      "question": "C'est quoi les étapes pour tester le bon fonctionnement de ma licence Ansys sur une grappe, en utilisant l'exemple de commande fourni?",
+      "answer": "1. `cd /tmp`\n2. `salloc --time=1:0:0 --mem=1000M --account=def-YOURUSERID`\n3. `module load StdEnv/2023; module load ansys/2025R2.04`\n4. `$EBROOTANSYS/v$(echo ${EBVERSIONANSYS:2:2}${EBVERSIONANSYS:5:1})/licensingclient/linx64/lmutil lmstat -c $ANSYSLMD_LICENSE_FILE | grep \"ansyslmd: UP\" 1> /dev/null && echo Success || echo Fail`"
+    },
+    {
+      "question": "Que signifie le résultat « Success » après avoir vérifié ma licence Ansys?",
+      "answer": "Ça indique que les extractions de licences devraient marcher quand tu soumettras tes tâches dans la file d'attente."
+    },
+    {
+      "question": "Si le test de licence Ansys donne un résultat « Fail », qu'est-ce que ça veut dire?",
+      "answer": "Ça indique qu'il y a un problème avec la configuration de ta licence quelque part et que tes tâches risquent de planter."
+    },
+    {
+      "question": "Est-ce qu'une version récente du module Ansys peut causer des problèmes si le serveur de licence distant n'est pas à jour?",
+      "answer": "Oui, si le logiciel est pas à jour sur le serveur de licence distant, ça peut poser un problème si tu charges la dernière version du module Ansys pour faire tes tests."
+    },
+    {
+      "question": "Pour assurer que la licence fonctionne avec les tâches soumises, quelle version du module Ansys doit être utilisée?",
+      "answer": "Faut t'assurer que c'est la même version du module Ansys qui est chargée par ton script qui est utilisée dans les commandes pour la licence."
     }
   ],
-  "generated_at": "2026-04-11T17:05:27.396792+00:00"
+  "generated_at": "2026-04-12T16:56:15.706689+00:00"
 }

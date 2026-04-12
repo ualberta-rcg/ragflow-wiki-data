@@ -4,49 +4,37 @@
   "chunk_index": 46,
   "qa_pairs": [
     {
-      "question": "Quels sont les avantages d'acheter une licence Ansys auprès de CMC?",
-      "answer": "L'achat d'une licence Ansys auprès de CMC présente plusieurs avantages, notamment qu'un serveur de licences institutionnel local n'est pas nécessaire, une licence physique n'a pas besoin d'être obtenue à chaque renouvellement, et la licence peut être utilisée presque n'importe où, y compris à la maison, dans des établissements ou dans toutes les grappes de l'Alliance."
+      "question": "Quelle était la limite de licences Ansys pour les utilisateurs SHARCNET avant octobre 2024?",
+      "answer": "Avant octobre 2024, chaque utilisateur pouvait exécuter 4 travaux en utilisant un total de 252 cœurs anshpc, plus 4 cœurs anshpc par tâche. Ça permettait, par exemple, une tâche de 256 cœurs ou quatre tâches de 67 cœurs."
     },
     {
-      "question": "Puis-je utiliser SpaceClaim sur mon ordinateur personnel si j'achète une licence Ansys de CMC?",
-      "answer": "Oui, les directives de téléchargement et d'installation pour la version Windows d'Ansys sont fournies afin de permettre l'exécution de SpaceClaim sur votre propre ordinateur. C'est pratique, car ce n'est pas possible sur nos systèmes qui sont basés sur Linux."
+      "question": "Quelles sont les nouvelles limites de licences Ansys pour les utilisateurs SHARCNET depuis octobre 2024?",
+      "answer": "Depuis octobre 2024, la limite a été portée à 8 tâches et 512 cœurs HPC par utilisateur (collectivement sur toutes les grappes pour toutes les applications) pour une période de test afin de permettre plus de flexibilité."
     },
     {
-      "question": "Y a-t-il une limite de cœurs par utilisateur avec une licence Ansys de CMC?",
-      "answer": "Oui, selon les guides de démarrage rapide d'Ansys, il pourrait y avoir une limite de 64 cœurs par utilisateur avec une licence CMC."
+      "question": "Est-ce que la mise à jour des licences Ansys en octobre 2024 a des implications pour le démarrage des tâches?",
+      "answer": "Oui, comme la licence sera moins sollicitée, il pourrait y avoir des échecs de tâches au démarrage, mais les tâches devront simplement être soumises à nouveau."
     },
     {
-      "question": "Comment configurer mon fichier ansys.lic pour utiliser la licence SHARCNET sur les grappes?",
-      "answer": "Pour utiliser la licence de SHARCNET sur nos grappes, vous devez configurer votre fichier `ansys.lic` en y ajoutant les lignes suivantes : `setenv(\"ANSYSLMD_LICENSE_FILE\", \"1055@license3.sharcnet.ca\")` et `setenv(\"ANSYSLI_SERVERS\", \"2325@license3.sharcnet.ca\")`."
+      "question": "Quelle est la meilleure pratique pour libérer les licences Ansys après avoir utilisé des applications graphiques?",
+      "answer": "Il est utile de fermer les applications Ansys immédiatement après l'achèvement de toute tâche liée à l'interface graphique pour libérer les licences consommées pendant que l'application est inactive, afin que d'autres puissent les utiliser."
     },
     {
-      "question": "Comment vérifier l'utilisation des licences Ansys associées à mon nom d'utilisateur ou par tous les utilisateurs sur les grappes?",
-      "answer": "Pour connaître le nombre de licences utilisées qui sont associées à votre nom d'utilisateur et le nombre de licences utilisées par tous les utilisateurs, connectez-vous à `graham.computecanada.ca`, chargez le module Ansys (`module load ansys`), puis lancez la commande `lmutil lmstat -c $ANSYSLMD_LICENSE_FILE -a | grep \"Users of\\|$USER\"`."
+      "question": "Comment configurer le fichier `ansys.lic` pour utiliser la licence SHARCNET sur nos grappes?",
+      "answer": "Pour utiliser la licence de SHARCNET, vous devez configurer votre fichier `~/.licenses/ansys.lic` avec les lignes suivantes : `setenv(\"ANSYSLMD_LICENSE_FILE\", \"1055@license3.sharcnet.ca\")` et `setenv(\"ANSYSLI_SERVERS\", \"2325@license3.sharcnet.ca\")`."
     },
     {
-      "question": "Que dois-je faire si mes licences Ansys sont utilisées sans justification avec mon nom d'utilisateur, par exemple après une fermeture incorrecte sur gra-vdi?",
-      "answer": "Si vous remarquez que des licences sont utilisées sans justification avec votre nom d'utilisateur (ce qui peut se produire si Ansys n'a pas été correctement fermé sur gra-vdi), connectez-vous au nœud en cause (soit `gra-vdi3.sharcnet.ca` ou `grav-vdi4.sharcnet.ca`) et ouvrez une fenêtre de terminal. Ensuite, mettez fin au processus avec la commande `pkill -9 -e -u $USER -f \"ansys\"` pour libérer vos licences."
+      "question": "Comment faire pour savoir le nombre de licences Ansys que j'utilise et le total des licences en usage sur SHARCNET?",
+      "answer": "Pour connaître le nombre de licences utilisées qui sont associées à votre nom d'utilisateur et le nombre de licences utilisées par tous les utilisateurs, lancez les commandes suivantes : `ssh graham.computecanada.ca`, `module load ansys`, puis `lmutil lmstat -c $ANSYSLMD_LICENSE_FILE -a | grep \"Users of\\\\|$USER\"`."
     },
     {
-      "question": "Quelle est la première étape pour configurer Ansys Additive Manufacturing?",
-      "answer": "La première étape est de configurer votre fichier `~/.licenses/ansys.lic` pour l'orienter vers le serveur de licence où se trouve une licence valide pour Ansys Mechanical. Vous devez faire ceci sur tous les systèmes où vous utiliserez le logiciel."
+      "question": "Comment puis-je libérer des licences Ansys qui semblent être bloquées ou utilisées sans justification?",
+      "answer": "Si vous remarquez que des licences sont utilisées sans justification avec votre nom d'utilisateur, connectez-vous au nœud en cause, ouvrez une fenêtre de terminal et mettez fin au processus avec la commande `pkill -9 -e -u $USER -f \"ansys\"` pour libérer vos licences."
     },
     {
-      "question": "Comment j'obtiens l'extension ACT de Ansys Additive Manufacturing?",
-      "answer": "Pour obtenir l'extension ACT de Ansys Additive Manufacturing, vous devez télécharger le fichier `AdditiveWizard.wbex` à partir de https://catalog.ansys.com/, puis le téléverser sur la grappe où vous allez l'utiliser."
-    },
-    {
-      "question": "Comment installer l'extension AdditiveWizard.wbex dans Ansys Workbench?",
-      "answer": "Après avoir lancé Workbench et ouvert le gestionnaire d'extensions, cliquez sur la boîte avec le signe '+' sous la barre de recherche. Ensuite, sélectionnez et installez votre fichier `AdditiveWizard.wbex`."
-    },
-    {
-      "question": "Comment charger l'extension AdditiveWizard pour qu'elle soit toujours active dans les sessions futures de Workbench?",
-      "answer": "Pour charger l'extension AdditiveWizard pour la session en cours et pour les sessions futures, vous devez cliquer sur la flèche dans le coin droit au bas de la boîte AdditiveWizard et sélectionner `Load extension`."
-    },
-    {
-      "question": "Comment désactiver une extension AdditiveWizard pour les sessions futures de Workbench?",
-      "answer": "Pour empêcher le chargement de l'extension AdditiveWizard pour les futures sessions, cliquez sur la flèche dans le coin droit au bas de la boîte AdditiveWizard et sélectionnez `Do not load as default`."
+      "question": "Y a-t-il une particularité à prendre en compte quand je libère des licences sur gra-vdi?",
+      "answer": "Oui, gra-vdi possède deux nœuds (gra-vdi3 et gra-vdi4) qui vous sont assignés au hasard. Avant de lancer `pkill`, il est nécessaire d'indiquer le nom complet de l'hôte (par exemple, `gra-vdi3.sharcnet.ca` ou `gra-vdi4.sharcnet.ca`) quand vous vous connectez."
     }
   ],
-  "generated_at": "2026-04-11T17:16:39.946147+00:00"
+  "generated_at": "2026-04-12T17:06:24.414107+00:00"
 }

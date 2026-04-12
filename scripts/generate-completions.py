@@ -22,7 +22,7 @@ from pathlib import Path
 from datetime import datetime, timezone
 
 sys.path.insert(0, str(Path(__file__).parent))
-from shared import categorize_doc
+from shared import categorize_doc, should_skip_doc
 
 from google import genai
 from ragflow_sdk import RAGFlow
@@ -138,7 +138,7 @@ def get_docs_needing_completions(state, limit=None):
     """Docs synced to RAGFlow but not yet processed for completions."""
     docs = []
     for doc_key, doc_state in state.get("documents", {}).items():
-        if doc_key.startswith(("events/", "status/")):
+        if should_skip_doc(doc_key, doc_state):
             continue
         ragflow_hash = doc_state.get("ragflow_source_hash", "")
         if not ragflow_hash:

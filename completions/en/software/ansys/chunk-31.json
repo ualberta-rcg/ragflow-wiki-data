@@ -4,65 +4,113 @@
   "chunk_index": 31,
   "qa_pairs": [
     {
-      "question": "What is Ansys Rocky used for?",
-      "answer": "Ansys Rocky is a software for engineering simulation, specifically for fluids, which can run simulations in both graphical user interface (GUI) and non-GUI modes."
+      "question": "How can I determine the Workbench version used to create an ANSYS input file?",
+      "answer": "You can determine the Workbench version used to create an ANSYS input file by using the command `cat YOURAPDLFILE.inp | grep version`."
     },
     {
-      "question": "What computing resources does Ansys Rocky support for running simulations?",
-      "answer": "Ansys Rocky supports running simulations with either CPUs only or with a combination of CPUs and GPUs."
+      "question": "Can Ansys Rocky simulations be run in both graphical and non-graphical modes?",
+      "answer": "Yes, Ansys Rocky supports running simulations in both graphical (GUI) and non-graphical modes."
     },
     {
-      "question": "Which Ansys module should be used for Rocky simulations on Alliance clusters?",
-      "answer": "Users should use Rocky included within the `ansys/2025R1` module or newer versions available on all clusters. The `ansysrocky/2024R2.0` module is deprecated and will be removed."
+      "question": "What hardware configurations does Ansys Rocky support for simulations?",
+      "answer": "Ansys Rocky simulations can be run using CPUs only, or a combination of CPUs and GPUs."
     },
     {
-      "question": "How can I view a complete list of command-line options for Ansys Rocky?",
-      "answer": "You can get a full listing of command-line options for Rocky by running `Rocky -h` on the command line after loading the appropriate Rocky module."
+      "question": "Which Ansys Rocky module should users discontinue using, and what should they use instead?",
+      "answer": "Users should discontinue using the `ansysrocky/2024R2.0` module. Instead, they should use Rocky included within the `ansys/2025R1` module or newer versions, which are available on all clusters."
     },
     {
-      "question": "Is it necessary to configure the PATH environment variable for Rocky to be found?",
-      "answer": "Yes, it is currently necessary to set your PATH to Rocky, as shown in the provided scripts, for the `Rocky` command to be found. This path will be included in future module version installs and ansys/2025R1 updates."
+      "question": "How can I view a full list of command-line options for Ansys Rocky?",
+      "answer": "To view a full list of command-line options for Ansys Rocky, run `Rocky -h` on the command line after loading the appropriate Rocky module."
     },
     {
-      "question": "How many CPUs should be requested for GPU-based coupled problems when running Rocky?",
-      "answer": "When Rocky is being run with GPUs to solve coupled problems, the number of CPUs requested from Slurm (on the same node) should be increased to a maximum until the scalability limit of the coupled application is reached."
+      "question": "Why might I need to manually set the path for the Rocky command?",
+      "answer": "It is currently necessary to manually set your path to Rocky for the command to be found, as shown in the provided scripts. This path will be included in future module versions, including `ansys/2025R1` when updated."
     },
     {
-      "question": "How many CPUs are recommended for GPU-based standalone uncoupled problems with Rocky?",
-      "answer": "If Rocky is being run with GPUs to solve standalone uncoupled problems, then only a minimal number of CPUs (e.g., 2 or possibly 3) should be requested that will allow Rocky to still run optimally."
+      "question": "When running Ansys Rocky with GPUs for coupled problems, how should I determine the number of CPUs to request from Slurm?",
+      "answer": "For coupled problems solved with Ansys Rocky using GPUs, you should increase the number of CPUs requested from Slurm (on the same node) to a maximum until the scalability limit of the coupled application is reached."
     },
     {
-      "question": "What type of licenses are required if Rocky is run with four or more CPUs?",
-      "answer": "When Rocky is run with four or more CPUs, `rocky_hpc` licenses will be required, which the SHARCNET license does provide."
+      "question": "What is the recommended number of CPUs to request when running Ansys Rocky with GPUs for standalone uncoupled problems?",
+      "answer": "For standalone uncoupled problems solved with Ansys Rocky using GPUs, only a minimal number of CPUs, such as 2 or possibly 3, should be requested to allow Rocky to run optimally."
     },
     {
-      "question": "Have the provided Slurm scripts for Rocky been recently tested?",
-      "answer": "The provided Slurm scripts for Rocky have not been tested since the clusters were updated across the Alliance in Fall 2025, so some adjustments may be required."
+      "question": "What type of licenses are required when running Ansys Rocky with 4 or more CPUs?",
+      "answer": "When Ansys Rocky is run with 4 or more CPUs, `rocky_hpc` licenses are required, which are provided by the SHARCNET license."
     },
     {
-      "question": "How do you run Ansys programs in graphical mode?",
-      "answer": "To run Ansys programs in graphical mode, you can click on one of the provided OnDemand or Jupyterhub links, which will open a job submission web page to configure resources for an interactive session in your browser."
+      "question": "Are the provided Ansys Rocky Slurm scripts fully tested?",
+      "answer": "No, the provided Ansys Rocky Slurm scripts have not been tested since the Alliance clusters were updated in fall 2025, so some adjustments may be required."
     },
     {
-      "question": "What are the web links for accessing Ansys in graphical mode on NIBI, FIR, RORQUAL, NARVAL, and TRILLIUM?",
-      "answer": "The web links are: NIBI: `https://ondemand.sharcnet.ca`, FIR: `https://jupyterhub.fir.alliancecan.ca`, RORQUAL: `https://jupyterhub.rorqual.alliancecan.ca`, NARVAL: `https://jupyterhub.narval.alliancecan.ca/`, and TRILLIUM: `https://ondemand.scinet.utoronto.ca`."
+      "question": "What is the recommended module load command for the Ansys Rocky CPU-only Slurm script?",
+      "answer": "The recommended module load command for the Ansys Rocky CPU-only Slurm script is `module load StdEnv/2023 ansys/2025R1`."
     },
     {
-      "question": "What happens after clicking an OnDemand or Jupyterhub link for graphical Ansys use?",
-      "answer": "After clicking one of these links, a job submission web page will appear in your browser, prompting you to configure the resources needed for an interactive session."
+      "question": "What is the command to run an Ansys Rocky simulation in CPU-only mode using a Slurm script?",
+      "answer": "The command to run an Ansys Rocky simulation in CPU-only mode is `Rocky --simulate “mysim.rocky” --resume=1 --ncpus=$SLURM_CPUS_PER_TASK --use-gpu=0`."
     },
     {
-      "question": "How do you start an Ansys application graphically if you've opened a Jupyter Lab launcher interface?",
-      "answer": "If you started a Jupyter Lab launcher interface, you can load an Ansys software module from the left-side menu, then click one of the Ansys icons (e.g., for CFX, Fluent, MAPDL, or Workbench) to start the application."
+      "question": "How can I specify the number of CPU cores to use in an Ansys Rocky CPU-only Slurm script?",
+      "answer": "You can specify the number of CPU cores to use with `#SBATCH --cpus-per-task=6` in the Slurm script."
     },
     {
-      "question": "How do you start an Ansys application graphically if you've started a Compute or Basic Desktop from the Nibi OnDemand system?",
-      "answer": "If you've started a Compute or Basic Desktop from the Nibi OnDemand system, you will need to open a terminal window, manually load an Ansys module, and then type the program name to start it from the command line."
+      "question": "What is the suggested total memory for an Ansys Rocky CPU-only job in a Slurm script?",
+      "answer": "The suggested total memory for an Ansys Rocky CPU-only job in a Slurm script is `#SBATCH --mem=24G`."
     },
     {
-      "question": "What type of GPU resource should be requested for Ansys applications that require accelerated graphics in an OnDemand Desktop session?",
-      "answer": "For applications like Fluent that require accelerated graphics for 3D rendering, a whole GPU resource (such as H100 or T4 at the time of writing) should be requested."
+      "question": "What is the recommended time limit for an Ansys Rocky CPU-only job in a Slurm script?",
+      "answer": "The recommended time limit for an Ansys Rocky CPU-only job in a Slurm script is `#SBATCH --time=00-02:00`."
+    },
+    {
+      "question": "What is the command to run an Ansys Rocky simulation in GPU-based mode using a Slurm script?",
+      "answer": "The command to run an Ansys Rocky simulation in GPU-based mode is `Rocky --simulate “mysim.rocky” --resume=1 --ncpus=$SLURM_CPUS_PER_TASK --use-gpu=1 --gpu-num=$SLURM_GPUS_ON_NODE`."
+    },
+    {
+      "question": "How do I specify GPU resources for an Ansys Rocky GPU-based job in a Slurm script?",
+      "answer": "You can specify GPU resources using `#SBATCH --gres=gpu:v100:2`, where `v100` is the GPU type and `2` is the quantity."
+    },
+    {
+      "question": "What is the recommended time limit for an Ansys Rocky GPU-based job in a Slurm script?",
+      "answer": "The recommended time limit for an Ansys Rocky GPU-based job in a Slurm script is `#SBATCH --time=00-01:00`."
+    },
+    {
+      "question": "Where can I find Slurm scripts for Ansys Electronics Desktop (AnsysEDT)?",
+      "answer": "Slurm scripts for AnsysEDT are provided in a separate wiki page, which can be accessed via the link in the documentation."
+    },
+    {
+      "question": "How can I run Ansys programs in graphical mode?",
+      "answer": "To run Ansys programs in graphical mode, you can click on one of the provided OnDemand or Jupyterhub desktop links for your cluster."
+    },
+    {
+      "question": "What is the OnDemand link for NIBI?",
+      "answer": "The OnDemand link for NIBI is `https://ondemand.sharcnet.ca`."
+    },
+    {
+      "question": "What is the Jupyterhub link for FIR?",
+      "answer": "The Jupyterhub link for FIR is `https://jupyterhub.fir.alliancecan.ca`."
+    },
+    {
+      "question": "What is the Jupyterhub link for RORQUAL?",
+      "answer": "The Jupyterhub link for RORQUAL is `https://jupyterhub.rorqual.alliancecan.ca`."
+    },
+    {
+      "question": "What is the Jupyterhub link for NARVAL?",
+      "answer": "The Jupyterhub link for NARVAL is `https://jupyterhub.narval.alliancecan.ca/`."
+    },
+    {
+      "question": "What is the OnDemand link for TRILLIUM?",
+      "answer": "The OnDemand link for TRILLIUM is `https://ondemand.scinet.utoronto.ca`."
+    },
+    {
+      "question": "What should I do after clicking an OnDemand or Jupyterhub desktop link?",
+      "answer": "After clicking a link, a job submission web page should appear in your browser where you need to configure the required resources for your interactive desktop session and then click 'Launch' or 'Start'."
+    },
+    {
+      "question": "Should I specify a GPU resource for my interactive desktop session when running Ansys programs graphically?",
+      "answer": "Yes, if you plan to conduct accelerated graphics or computations within your desktop session, you should specify a GPU resource."
     }
   ],
-  "generated_at": "2026-04-11T17:02:45.404528+00:00"
+  "generated_at": "2026-04-12T16:52:41.684091+00:00"
 }

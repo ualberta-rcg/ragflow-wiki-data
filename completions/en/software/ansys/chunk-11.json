@@ -4,65 +4,41 @@
   "chunk_index": 11,
   "qa_pairs": [
     {
-      "question": "What is the vendor port number for the Trillium license server as specified in the Fluent Slurm script?",
-      "answer": "The vendor port (VENDPORT) specified in the Fluent Slurm script for the Trillium license server is `1793`."
+      "question": "What is the purpose of the `#SBATCH --output=slurm-%j.out` line in the Slurm script?",
+      "answer": "This line specifies that the Slurm script's output will be written to a file named `slurm-%j.out`, where `%j` will be replaced by the job ID."
     },
     {
-      "question": "How are the `ANSYSLMD_LICENSE_FILE` and `ANSYSLI_SERVERS` environment variables configured for the Trillium cluster in the provided Fluent script?",
-      "answer": "The `ANSYSLMD_LICENSE_FILE` is set to `$FLEXPORT@localhost` and `ANSYSLI_SERVERS` is set to `$INTEPORT@localhost`."
+      "question": "What is the recommended working directory for submitting jobs with this script?",
+      "answer": "The script changes the working directory to `$SLURM_SUBMIT_DIR`, which is where the job should be submitted from."
     },
     {
-      "question": "What commands are used to establish SSH tunnels for the license server on the Trillium cluster in the Fluent Slurm script?",
-      "answer": "The commands `ssh tri-gw -fNL $FLEXPORT:$LICSERVER:$FLEXPORT` and `ssh tri-gw -fNL $VENDPORT:$LICSERVER:$VENDPORT` are used to set up SSH tunnels."
+      "question": "Which standard environment module should be loaded for this Ansys Fluent job?",
+      "answer": "The `StdEnv/2023` module should be loaded."
     },
     {
-      "question": "What error message is displayed if the `~/.ansys` symbolic link is missing when running a Fluent job on the Trillium cluster?",
-      "answer": "The error message displayed is: \"ERROR: A link to a writable .ansys directory does not exist.\" The suggested solution is to run: `ln -s $SCRATCH/.ansys ~/.ansys`."
+      "question": "Which Ansys module version is required for running on the Trillium cluster according to this script?",
+      "answer": "Only `ansys/2025R2.04` or newer versions of Ansys work on Trillium."
     },
     {
-      "question": "What error message appears if the `~/.fluentconf` symbolic link is missing for a Fluent job on Trillium?",
-      "answer": "The error message is: \"ERROR: A link to a writable .fluentconf directory does not exist.\" and advises running: `ln -s $SCRATCH/.fluentconf ~/.fluentconf`."
+      "question": "How is the journal file name specified in the script?",
+      "answer": "The journal file name is specified by setting the `MYJOURNALFILE` variable, for example, `MYJOURNALFILE=sample.jou`."
     },
     {
-      "question": "What error message is shown if the `~/.flrecent` symbolic link is not found when submitting a Fluent job on Trillium?",
-      "answer": "The error message is: \"ERROR: A link to a writable .flrecent file does not exist.\" and suggests running: `ln -s $SCRATCH/.flrecent ~/.flrecent`."
+      "question": "How is the Fluent version specified in the script?",
+      "answer": "The Fluent version (e.g., `2d`, `2ddp`, `3d`, `3ddp`) is specified by setting the `MYVERSION` variable, for example, `MYVERSION=3d`."
     },
     {
-      "question": "What directories and files are created in `$SCRATCH` if the required symbolic links are present when running a Fluent job on Trillium?",
-      "answer": "If the required symbolic links are present, the script will create `$SCRATCH/.ansys`, `$SCRATCH/.fluentconf` directories and an empty `$SCRATCH/.flrecent` file."
+      "question": "What is the maximum number of cores per node that can be specified on Trillium for this script?",
+      "answer": "The script allows specifying up to a maximum of 192 cores per node on Trillium (`#SBATCH --ntasks-per-node=16` is an example, but the comment clarifies the maximum)."
     },
     {
-      "question": "How is Fluent initiated for a single-node job on the Trillium cluster, according to the provided Slurm script?",
-      "answer": "Fluent is initiated using the command: `fluent -g $MYVERSION -t $NCORES -mpi=intel -pshmem -i $MYJOURNALFILE`."
+      "question": "What is the default memory allocation behaviour for jobs on Trillium, as indicated by the script?",
+      "answer": "By default, Trillium uses all available memory per node, so the `#SBATCH --mem=0` line is commented out and should not be uncommented."
     },
     {
-      "question": "How is Fluent launched for a multi-node job on the Trillium cluster, based on the provided Slurm script?",
-      "answer": "Fluent is launched using the command: `fluent -g $MYVERSION -t $NCORES -mpi=intel -pib -cnf=$SLURM_SUBMIT_DIR/machinefile-$SLURM_JOB_ID -i $MYJOURNALFILE`."
-    },
-    {
-      "question": "What is the primary purpose of the \"License requeue\" scripts for Fluent jobs?",
-      "answer": "The primary purpose of the \"License requeue\" scripts is to automate the resubmission of Fluent jobs that frequently fail to start due to license shortages."
-    },
-    {
-      "question": "Under what conditions are the \"License requeue\" scripts recommended for Fluent jobs?",
-      "answer": "They are recommended only for Fluent jobs that are known to complete normally without generating errors in the output, but typically require multiple requeue attempts to acquire licenses."
-    },
-    {
-      "question": "For which types of Fluent jobs are the \"License requeue\" scripts not recommended?",
-      "answer": "They are not recommended for Fluent jobs that may run for a long time before crashing, or for jobs that run to completion but contain unresolved journal file warnings."
-    },
-    {
-      "question": "What is the consequence of using \"License requeue\" scripts for Fluent simulations that fail due to issues other than license shortages?",
-      "answer": "If simulations fail due to non-license related issues (such as divergence), the \"License requeue\" scripts will still requeue them, leading to lost compute time as the simulations will be repeated from the beginning."
-    },
-    {
-      "question": "What Slurm `SBATCH` directive is used to specify the number of requeue attempts in the \"Multinode (by node + requeue)\" script?",
-      "answer": "The `SBATCH --array=1-5%1` directive is used to specify the number of requeue attempts."
-    },
-    {
-      "question": "How many requeue attempts are specified by default in the example \"Multinode (by node + requeue)\" Slurm script?",
-      "answer": "The example script shows `5` requeue attempts by default, as indicated by `--array=1-5%1`."
+      "question": "What is the required value for the `cpus-per-task` parameter in this Slurm script?",
+      "answer": "The `cpus-per-task` parameter must be set to `1` and should not be changed."
     }
   ],
-  "generated_at": "2026-04-11T16:58:21.630982+00:00"
+  "generated_at": "2026-04-12T16:48:35.580400+00:00"
 }

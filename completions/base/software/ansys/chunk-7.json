@@ -4,61 +4,77 @@
   "chunk_index": 7,
   "qa_pairs": [
     {
-      "question": "How do I export a data file if I want to continue a previous Fluent calculation?",
-      "answer": "If you have existing data from a previous calculation you wish to continue, you should export a \"data\" file using `File > Export > Data…` or locate it in your project folder (e.g., `FFF-1.dat.gz`)."
+      "question": "What should I do if I want to continue a Fluent calculation with existing data?",
+      "answer": "You should export a \"data\" file (File > Export > Data…) or locate it in your project folder (e.g., FFF-1.dat.gz)."
     },
     {
       "question": "Where should I transfer my Fluent case and data files on the cluster?",
-      "answer": "You should transfer your Fluent case file, and data file if needed, to a directory on either the `/project` or `/scratch` filesystem on the cluster."
+      "answer": "Transfer your case file (and data file, if needed) to a directory on the /project or /scratch filesystem on the cluster."
     },
     {
-      "question": "Can I rename my Fluent case and data files when transferring them to the cluster?",
-      "answer": "Yes, when exporting or uploading your files, you can save them under a more descriptive name instead of the default `FFF-1.*` format."
+      "question": "What is the purpose of a journal file in Fluent?",
+      "answer": "A journal file is used to load the case file (and optionally the data file), run the solver, and then write the results."
     },
     {
-      "question": "What is the purpose of a Fluent journal file?",
-      "answer": "A Fluent journal file is used to load the case file (and optionally the data file), run the solver, and then write the results."
+      "question": "What should I consider if my Fluent jobs frequently fail due to license shortages?",
+      "answer": "Consider modifying your script to requeue your job (up to 4 times) as shown under the 'by node + requeue' tab."
     },
     {
-      "question": "What should I do if my Fluent jobs often fail to start because of license shortages?",
-      "answer": "If your Fluent jobs frequently fail to start due to license shortages, you can consider modifying your script to automatically requeue the job up to 4 times, as demonstrated under the 'by node + requeue' tab."
+      "question": "What is the risk of using a job requeue script for Fluent simulations?",
+      "answer": "Job requeue scripts will also requeue simulations that fail due to non-license related issues (such as divergence), which can result in lost compute time."
     },
     {
-      "question": "What are the risks of using job requeuing for Fluent simulations?",
-      "answer": "Job requeuing can also restart simulations that fail due to non-license issues (like divergence), leading to wasted compute time. It's crucial to monitor Slurm output files to confirm failures are license-related. If a job requeues due to a simulation problem, you should immediately kill the job with `scancel jobid` and resolve the issue."
+      "question": "What is recommended to confirm if a job requeue attempt is license-related?",
+      "answer": "It is strongly recommended to monitor and inspect each Slurm output file to confirm if each requeue attempt is license related."
     },
     {
-      "question": "How do I import data back into Fluent after a job has finished running on the cluster?",
-      "answer": "After your job has completed, you can download the data file and import it back into Fluent by selecting `File > Import > Data…`."
+      "question": "What should I do if a Fluent job is requeued due to a simulation issue?",
+      "answer": "Immediately manually kill the job progression with `scancel jobid` and correct the problem."
     },
     {
-      "question": "Which Slurm script is generally recommended for most Fluent jobs to optimize performance?",
+      "question": "How do I import data back into Fluent after a job has run on the cluster?",
+      "answer": "You can download the data file and import it back into Fluent using 'File > Import > Data…'."
+    },
+    {
+      "question": "Which Slurm script is generally recommended for Fluent jobs to minimize solution latency and maximize performance?",
       "answer": "Most Fluent jobs should use the 'by node' script to minimize solution latency and maximize performance over as few nodes as possible."
     },
     {
-      "question": "Is there an alternative Fluent Slurm script for very large jobs that might reduce queue wait times?",
-      "answer": "Yes, very large Fluent jobs might experience shorter queue wait times if a 'by core' script is used."
+      "question": "When might a 'by core' script be preferable for Fluent jobs?",
+      "answer": "Very large Fluent jobs might wait less in the queue if they use a 'by core' script."
     },
     {
-      "question": "What are the potential disadvantages of using a 'by core' script for large Fluent jobs across many nodes?",
-      "answer": "Using a 'by core' script for large jobs across many nodes can lead to significantly longer startup times, negating some benefits. It also makes simulations more vulnerable to crashing if any compute nodes fail."
+      "question": "What is a potential drawback of using a 'by core' script for very large Fluent jobs over many nodes?",
+      "answer": "The startup time can be significantly longer, and the job will be more vulnerable to crashing if any compute nodes fail during the simulation."
     },
     {
-      "question": "How do the Fluent Slurm scripts manage communication for single-node versus multi-node runs?",
-      "answer": "The Fluent scripts ensure shared memory for communication when running on a single node and distributed memory (utilizing MPI and the appropriate HPC interconnect) when running across multiple nodes."
+      "question": "How do Fluent scripts handle communication on single versus multiple nodes?",
+      "answer": "The scripts ensure Fluent uses shared memory for communication on a single node and distributed memory (utilizing MPI and HPC interconnect) when run over multiple nodes."
     },
     {
-      "question": "What options are available if Fluent crashes during auto mesh partitioning on Narval using standard Intel-based scripts?",
-      "answer": "If Fluent crashes during the initial auto mesh partitioning phase on Narval with standard Intel-based scripts, the two Narval-specific tabs provide more robust alternatives."
+      "question": "What is an alternative if Fluent crashes during the initial auto mesh partitioning phase using standard Intel-based scripts?",
+      "answer": "You can use the two Narval tabs for a more robust alternative or manually perform mesh partitioning in the Fluent GUI."
     },
     {
-      "question": "What is another method to address Fluent crashing during mesh partitioning besides using Narval-specific scripts?",
-      "answer": "Another method is to manually perform mesh partitioning in the Fluent GUI, allowing you to inspect partition statistics and choose an optimal partitioning method, then re-run the job on the cluster with Intel scripts."
+      "question": "What is the recommendation for the number of mesh partitions for optimal efficiency in Fluent?",
+      "answer": "The number of mesh partitions should be an integral multiple of the number of cores, ensuring at least 10,000 cells per core for optimal efficiency."
     },
     {
-      "question": "What are the guidelines for ensuring optimal efficiency when configuring Fluent mesh partitions?",
-      "answer": "For optimal efficiency, the number of mesh partitions should be an integral multiple of the number of cores, and you should ensure there are at least 10,000 cells per core."
+      "question": "What Slurm parameter specifies the number of compute nodes in the 'Multinode (by node)' Fluent script?",
+      "answer": "The `#SBATCH --nodes=1` parameter specifies the number of compute nodes."
+    },
+    {
+      "question": "How is memory allocated per compute node in the 'Multinode (by node)' Fluent script?",
+      "answer": "The `#SBATCH --mem=0` parameter allocates all memory per compute node."
+    },
+    {
+      "question": "What is the function of `#SBATCH --ntasks=16` in the 'Multinode (by core)' Fluent script?",
+      "answer": "It specifies the total number of cores across all nodes."
+    },
+    {
+      "question": "How is memory allocated per CPU in the 'Multinode (by core)' Fluent script?",
+      "answer": "The `#SBATCH --mem-per-cpu=4G` parameter specifies memory per core."
     }
   ],
-  "generated_at": "2026-04-11T16:47:10.459329+00:00"
+  "generated_at": "2026-04-12T16:35:08.549410+00:00"
 }

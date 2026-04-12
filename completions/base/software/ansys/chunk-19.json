@@ -4,65 +4,41 @@
   "chunk_index": 19,
   "qa_pairs": [
     {
-      "question": "What is the purpose of the 'Multinode (by core + restart)' Slurm script for Fluent?",
-      "answer": "This script is designed to automate the restarting of very large Fluent jobs that may exceed the typical runtime limits available on clusters, by restarting from the most recent saved time step files."
+      "question": "What is the purpose of the 'Multinode (by core + restart)' Slurm script for Ansys Fluent?",
+      "answer": "The 'Multinode (by core + restart)' Slurm script is designed to automate the restarting of very large Fluent jobs that may exceed the typical seven-day maximum runtime, restarting them from the most recent saved time step files."
     },
     {
-      "question": "What are the key configurable SBATCH directives in the 'Multinode (by core + restart)' script?",
-      "answer": "The key configurable SBATCH directives include `--account` (for specifying the account), `--time` (for the job time limit), `--ntasks` (for total number of cores), `--mem-per-cpu` (for memory per core), and `--array` (for specifying the number of solution restarts or time steps)."
+      "question": "What Slurm directives are used to configure resources for the 'Multinode (by core + restart)' Fluent job?",
+      "answer": "The script uses `#SBATCH --account` for the account name, `#SBATCH --time` for the time limit, `#SBATCH --ntasks` for the total number of cores, `#SBATCH --mem-per-cpu` for memory per core, `#SBATCH --cpus-per-task=1`, and `#SBATCH --array` to specify the number of solution restarts (aka time steps)."
     },
     {
-      "question": "Which Ansys module version is typically loaded for the 'Multinode (by core + restart)' script?",
-      "answer": "The script typically loads `ansys/2023R2` or newer versions."
+      "question": "Which Ansys Fluent module version should be loaded for the 'Multinode (by core + restart)' script?",
+      "answer": "The script loads `StdEnv/2023` and `ansys/2023R2` or newer versions."
     },
     {
-      "question": "What user-defined variables need to be specified in the 'Multinode (by core + restart)' script?",
-      "answer": "Users need to specify `MYVERSION` (e.g., 2d, 2ddp, 3d, 3ddp), `MYJOUFILE` (the initial journal filename), `MYJOUFILERES` (the restart journal filename), `MYCASFILERES` (the restart case filename), and `MYDATFILERES` (the restart data filename)."
+      "question": "What user-defined variables are required for the 'Multinode (by core + restart)' Fluent script?",
+      "answer": "Users must specify `MYVERSION` (e.g., 2d, 2ddp, 3d, 3ddp), `MYJOUFILE` (original journal filename), `MYJOUFILERES` (journal restart filename), `MYCASFILERES` (case restart filename), and `MYDATFILERES` (data restart filename)."
     },
     {
-      "question": "How does the 'Multinode (by core + restart)' script handle different clusters like Narval and Nibi regarding MPI environment variables?",
-      "answer": "For the Narval cluster, it loads `intel/2023 intelmpi` and sets `INTELMPI_ROOT`. For Nibi (with Ansys 2025 or newer) or Narval, it exports `I_MPI_HYDRA_BOOTSTRAP=ssh`."
+      "question": "How does the 'Multinode (by core + restart)' script differentiate between the initial job run and subsequent restarts?",
+      "answer": "The script uses the `SLURM_ARRAY_TASK_ID` variable. If `SLURM_ARRAY_TASK_ID` is 1, it executes Fluent with `MYJOUFILE`. For subsequent tasks, it uses `MYJOUFILERES` for restarting."
     },
     {
-      "question": "How does the script generate the machinefile for Fluent?",
-      "answer": "The script uses `slurm_hl2hl.py --format ANSYS-FLUENT` to create a machinefile, which is then directed to `/tmp/machinefile-$SLURM_JOB_ID`."
+      "question": "What happens when an Ansys Fluent job configured with the 'Multinode (by core + restart)' script completes successfully and more restarts are scheduled?",
+      "answer": "If the job completes successfully and `SLURM_ARRAY_TASK_ID` is less than `SLURM_ARRAY_TASK_COUNT`, the script will link the most recent output case and data files to the specified restart files (`MYCASFILERES` and `MYDATFILERES`) to prepare for the next restart."
     },
     {
-      "question": "What is the maximum number of solution restarts that can be specified in the 'Multinode (by core + restart)' script using the `--array` directive?",
-      "answer": "The script shows an example `array=1-5%1`, indicating that up to 5 solution restarts (or time steps) can be specified."
+      "question": "What is the primary function of Fluent journal files?",
+      "answer": "Fluent journal files serve to include any command from Fluent's Text-User-Interface (TUI), allowing users to change simulation parameters like temperature, pressure, and flow speed, and to run series of simulations under different conditions with a single case file."
     },
     {
-      "question": "How does the script handle a job that completes successfully during a restart sequence?",
-      "answer": "If a job completes successfully, it prints \"Job completed successfully! Exiting now.\" and then uses `scancel $SLURM_ARRAY_JOB_ID` to terminate the entire job array."
+      "question": "How can users control the file format (legacy vs. efficient) for Fluent journal files?",
+      "answer": "Users can control the file format by setting `/file/cff-files no` for the legacy .cas/.dat format (default for module versions 2019R3 or older) or `/file/cff-files yes` for the more efficient .cas.h5/.dat.h5 file format (default for module versions 2020R1 or newer)."
     },
     {
-      "question": "What happens if a job attempt fails within the 'Multinode (by core + restart)' script?",
-      "answer": "If an attempt fails, it prints a message indicating the failure due to license or simulation issues. If it's not the last attempt in the array, it indicates that the job is being resubmitted by linking the most recent output case and data files for restart."
-    },
-    {
-      "question": "What are Fluent journal files used for?",
-      "answer": "Fluent journal files are used to automate commands from Fluent's Text-User-Interface (TUI), allowing users to change simulation parameters like temperature, pressure, and flow speed, and run a series of simulations under different conditions with a single case file."
-    },
-    {
-      "question": "How can users specify the file format for Fluent journal files?",
-      "answer": "Users can specify the file format by including `/file/cff-files no` for the legacy `.cas/.dat` format or `/file/cff-files yes` for the more efficient `.cas.h5/.dat.h5` format."
-    },
-    {
-      "question": "When did the default file format for Fluent module versions change?",
-      "answer": "The default file format changed for module versions 2020R1 or newer, which now use the `.cas.h5/.dat.h5` format, whereas 2019R3 or older versions used the legacy `.cas/.dat` format."
-    },
-    {
-      "question": "Where can users find more information about commands that can be used in Fluent journal files?",
-      "answer": "More information and a list of all commands can be found in the Fluent User's Guide."
-    },
-    {
-      "question": "What is the `--mem-per-cpu` setting for the 'Multinode (by core + restart)' script?",
-      "answer": "The script specifies `--mem-per-cpu=4G`, allocating 4 gigabytes of memory per CPU core."
-    },
-    {
-      "question": "How does the script differentiate between single-node and multi-node execution for Fluent commands?",
-      "answer": "If `SLURM_NNODES` is 1, it uses `fluent -g $MYVERSION -t $NCORES -mpi=intel -pshmem -I $MYFILEJOU` (or `MYFILEJOURES`). Otherwise, for multi-node, it checks if the cluster is Nibi to use `-peth` or uses `-pib` for other clusters, alongside `-cnf=/tmp/machinefile-$SLURM_JOB_ID`."
+      "question": "Where can users find more information and a complete list of commands for Fluent journal files?",
+      "answer": "Users should refer to the Fluent User's Guide for more information and a list of all commands that can be used in journal files."
     }
   ],
-  "generated_at": "2026-04-11T16:49:39.432501+00:00"
+  "generated_at": "2026-04-12T16:37:45.165573+00:00"
 }

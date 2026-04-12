@@ -4,113 +4,93 @@
   "chunk_index": 4,
   "qa_pairs": [
     {
-      "question": "How are Ansys modules versioned on clusters when service packs are installed?",
-      "answer": "Starting with Ansys 2024, a separate Ansys module will appear on the clusters with a decimal and two digits after the release number whenever a service pack is installed over the initial release."
+      "question": "How are Ansys module versions named when a service pack is installed, starting with Ansys 2024?",
+      "answer": "Starting with Ansys 2024, a separate Ansys module will appear on the clusters with a decimal and two digits after the release number whenever a service pack is installed. For example, 'module load ansys/2024R1' for the initial release and 'module load ansys/2024R1.03' for Service Pack 3."
     },
     {
-      "question": "How can I load the initial 2024 release of Ansys without any service packs?",
-      "answer": "You can load the initial 2024 release without service packs by using the command `module load ansys/2024R1`."
-    },
-    {
-      "question": "What is the command to load Ansys with Service Pack 3 for the 2024R1 release?",
-      "answer": "To load Ansys with Service Pack 3 for the 2024R1 release, you would use the command `module load ansys/2024R1.03`."
-    },
-    {
-      "question": "If a service pack is available when a new Ansys release is installed, which module will typically be installed?",
-      "answer": "If a service pack is already available when a new release is to be installed, most likely only a module for that service pack number will be installed, unless a request for the initial release is also received."
-    },
-    {
-      "question": "What is the recommended way to load the latest Ansys module version, including any installed service packs?",
-      "answer": "Most users will likely want to load the latest module version equipped with the latest installed service pack, which can be achieved by simply doing `module load ansys`."
+      "question": "How can users load the latest Ansys module version, including any installed service packs?",
+      "answer": "Most users can load the latest module version equipped with the latest installed service pack by simply doing 'module load ansys'."
     },
     {
       "question": "Are Ansys service packs expected to affect numerical results?",
-      "answer": "It is not expected that service packs will impact numerical results."
+      "answer": "It is not expected that service packs will impact numerical results, but the changes they make are extensive."
     },
     {
-      "question": "Why are separate modules available for each Ansys service pack?",
-      "answer": "Separate modules are available for each service pack to allow users to continue using an initial release or an earlier service pack if computations have already been done with that version, as the changes made by service packs can be extensive."
+      "question": "Where can I find a detailed description of what each Ansys service pack does, starting with Ansys 2024R1?",
+      "answer": "Starting with Ansys 2024R1, a detailed description of what each service pack does can be found by searching the link 'https://storage.ansys.com/staticfiles/cp/Readme/release2024R1/info_combined.pdf' for 'Service Pack Details'. Future versions will presumably be similarly searchable by manually modifying the version number in the link."
     },
     {
-      "question": "Where can I find a detailed description of Ansys 2024R1 service packs?",
-      "answer": "A detailed description of what each service pack for Ansys 2024R1 does can be found by searching the link `https://storage.ansys.com/staticfiles/cp/Readme/release2024R1/info_combined.pdf` for \"Service Pack Details\"."
+      "question": "Why do we need special instructions for each Ansys package when submitting batch jobs?",
+      "answer": "The Ansys software suite comes with multiple implementations of MPI to support parallel computation, but unfortunately, none of them support our Slurm scheduler."
     },
     {
-      "question": "Does the Ansys software suite's MPI implementations support the Slurm scheduler?",
-      "answer": "No, none of the Ansys software suite's implementations of MPI support the Slurm scheduler."
+      "question": "What is the typical first step to run a Fluent job on a cluster?",
+      "answer": "The typical first step is to prepare your Fluent job using Fluent from the Ansys Workbench on your desktop machine up to the point where you would run the calculation."
     },
     {
-      "question": "What is required to start a parallel Ansys job on the clusters?",
-      "answer": "Special instructions are required for each Ansys package on how to start a parallel job."
+      "question": "How do you export a case file from Ansys Workbench for use on a cluster?",
+      "answer": "You export the case file from Ansys Workbench by going to 'File > Export > Case…' or by finding it in your project's files, where it will often have a name like 'FFF-1.cas.gz'."
     },
     {
-      "question": "Are there specific instructions for Niagara users when submitting Ansys jobs?",
-      "answer": "Yes, Niagara users may need to make some additional changes to the Slurm scripts, which are covered at `https://docs.scinet.utoronto.ca/index.php`."
+      "question": "If you want to continue a previous Fluent calculation, how do you export the necessary data file?",
+      "answer": "If you already have data from a previous calculation that you want to continue, export a data file by going to 'File > Export > Data…' or by finding it in the same project folder, typically named 'FFF-1.dat.gz'."
     },
     {
-      "question": "What is the first step in running a Fluent job on one of the clusters?",
-      "answer": "The first step is to prepare your Fluent job using Fluent from the Ansys Workbench on your desktop machine up to the point where you would run the calculation."
+      "question": "To which directories on the cluster should case and data files be transferred?",
+      "answer": "The case file (and data file, if needed) should be transferred to a directory on the '/project' or '/scratch' filesystem on the cluster."
     },
     {
-      "question": "How do I export a Fluent case file from Ansys Workbench?",
-      "answer": "You can export a Fluent case file from Ansys Workbench by going to `File > Export > Case…` or by finding the file in the project's saved folder (often named `FFF-1.cas.gz`)."
+      "question": "What is the purpose of a 'journal' file in the Fluent job submission procedure?",
+      "answer": "A journal file's purpose is to load the case file (and optionally the data file), run the solver, and finally write the results."
     },
     {
-      "question": "How do I export a Fluent data file if I want to continue a previous calculation?",
-      "answer": "If you want to continue a previous calculation, you should export a data file by going to `File > Export > Data…` or finding it in the same project folder (e.g., `FFF-1.dat.gz`)."
+      "question": "What should be considered if Fluent jobs frequently fail due to license shortages?",
+      "answer": "If jobs frequently fail to start due to license shortages and manual resubmission is inconvenient, consider modifying your script to requeue your job (up to 4 times) as shown under the 'by node + requeue' tab."
     },
     {
-      "question": "Where should Fluent case and data files be transferred on the cluster?",
-      "answer": "The case file and, if needed, the data file should be transferred to a directory on the `/project` or `/scratch` filesystem on the cluster."
+      "question": "What is the risk of using a script that automatically requeues Fluent jobs?",
+      "answer": "Be aware that using a requeue script will also requeue simulations that fail due to non-license related issues (such as divergence), resulting in lost compute time."
     },
     {
-      "question": "What is the purpose of a journal file in Fluent job submission?",
-      "answer": "The purpose of a journal file in Fluent is to load the case file (and optionally the data file), run the solver, and finally write the results."
+      "question": "How should users monitor requeued Fluent jobs to avoid wasting compute time?",
+      "answer": "It is strongly recommended to monitor and inspect each Slurm output file to confirm each requeue attempt is license-related. If a job is requeued due to a simulation issue, immediately kill the job progression with 'scancel jobid' and correct the problem."
     },
     {
-      "question": "What action should I consider if my Fluent jobs frequently fail due to license shortages?",
-      "answer": "If jobs frequently fail to start due to license shortages, you should consider modifying your script to requeue your job (up to 4 times)."
+      "question": "How can you import the data file back into Fluent after a job has been run on a cluster?",
+      "answer": "After running the job, you can download the data file and import it back into Fluent with 'File > Import > Data…'."
     },
     {
-      "question": "What is the risk of automatically requeuing Fluent jobs that fail due to non-license related issues?",
-      "answer": "Automatically requeuing jobs that fail due to non-license related issues (such as divergence) will result in lost compute time as the simulations will be repeated from the beginning."
+      "question": "What types of Slurm scripts are generally available for Fluent jobs?",
+      "answer": "Generally, 'by node' and 'by core' scripts are available for Fluent jobs."
     },
     {
-      "question": "How should I handle a requeued Fluent job if it fails due to a simulation issue?",
-      "answer": "If a job is requeued due to a simulation issue, you should immediately manually kill the job progression with `scancel jobid` and correct the problem."
-    },
-    {
-      "question": "After running a Fluent job on the cluster, how can I import the results back into Fluent?",
-      "answer": "After running the job, you can download the data file and import it back into Fluent with `File > Import > Data…`."
-    },
-    {
-      "question": "Which type of Slurm script is generally recommended for Fluent jobs to minimize solution latency and maximize performance?",
+      "question": "When should a 'by node' script be used for Fluent jobs?",
       "answer": "Most Fluent jobs should use a 'by node' script to minimize solution latency and maximize performance over as few nodes as possible."
     },
     {
-      "question": "When might a 'by core' script be more suitable for Fluent jobs?",
+      "question": "When might a 'by core' script be more beneficial for very large Fluent jobs?",
       "answer": "Very large Fluent jobs might wait less in the queue if they use a 'by core' script."
     },
     {
-      "question": "What are the potential disadvantages of running large Fluent jobs using many nodes?",
-      "answer": "Running large jobs over many nodes can lead to significantly longer startup times, offsetting some benefits, and makes them more vulnerable to crashing if any compute nodes fail during the simulation."
+      "question": "What are the disadvantages of running very large Fluent jobs over an unspecified number of many nodes?",
+      "answer": "The startup time can be significantly longer, offsetting some benefits, and running large jobs over many nodes will make them far more vulnerable to crashing if any compute nodes fail during the simulation."
     },
     {
-      "question": "How do the provided Fluent scripts manage communication when running on a single node compared to multiple nodes?",
-      "answer": "The scripts ensure Fluent uses shared memory for communication when run on a single node and distributed memory (utilizing MPI and the appropriate HPC interconnect) when run over multiple nodes."
+      "question": "How do the Slurm scripts for Fluent handle communication on a single node versus multiple nodes?",
+      "answer": "The scripts ensure Fluent uses shared memory for communication when run on a single node or distributed memory (utilizing MPI and the appropriate HPC interconnect) when run over multiple nodes."
     },
     {
-      "question": "What options are available if Fluent crashes during the initial auto mesh partitioning phase using standard Intel-based scripts?",
-      "answer": "If Fluent crashes during initial auto mesh partitioning, you can use the Open MPI-based Narval tabs for a more robust alternative, or manually perform mesh partitioning in the Fluent GUI before rerunning the job with Intel scripts."
+      "question": "What is recommended for optimal efficiency when configuring mesh partitions for Fluent jobs?",
+      "answer": "For optimal efficiency, ensure at least 10000 cells per core, and the number of mesh partitions should be an integral multiple of the number of cores."
     },
     {
-      "question": "What is the optimal relationship between the number of mesh partitions and the number of cores for Fluent?",
-      "answer": "The number of mesh partitions should be an integral multiple of the number of cores."
+      "question": "What is an alternative if Fluent crashes during the initial auto mesh partitioning phase when using standard Intel-based scripts with the parallel solver?",
+      "answer": "The two Narval tabs may provide a more robust alternative, or you could manually perform the mesh partitioning in the Fluent GUI and then try running the job again on the cluster with the Intel scripts."
     },
     {
-      "question": "For optimal efficiency in Fluent, how many cells per core should be ensured?",
-      "answer": "For optimal efficiency, ensure at least 10,000 cells per core."
+      "question": "What are the benefits of manually performing mesh partitioning in the Fluent GUI?",
+      "answer": "Manually performing mesh partitioning in the Fluent GUI allows you to inspect the partition statistics and specify the partitioning method to obtain an optimal result."
     }
   ],
-  "generated_at": "2026-04-11T16:57:04.814326+00:00"
+  "generated_at": "2026-04-12T16:47:10.260457+00:00"
 }

@@ -4,101 +4,57 @@
   "chunk_index": 27,
   "qa_pairs": [
     {
-      "question": "What is the name of the Slurm script for running Ansys Workbench on a single node with `StdEnv/2020`?",
-      "answer": "The Slurm script for running Ansys Workbench on a single node with `StdEnv/2020` is named `script-wbpj-2020.sh`."
+      "question": "What is the purpose of the `script-wbpj-2020.sh` Slurm script?",
+      "answer": "The `script-wbpj-2020.sh` Slurm script is used to submit Ansys Workbench jobs to the queue, specifically configured for `StdEnv/2020` and `ansys/2022R2` or older versions."
     },
     {
-      "question": "What are the recommended SBATCH directives for the `script-wbpj-2020.sh` script?",
-      "answer": "The recommended SBATCH directives for the `script-wbpj-2020.sh` script are `--account=def-account`, `--time=00-03:00`, `--mem=16G`, `--ntasks=4`, `--nodes=1`, and optionally `--exclusive` or `--constraint=broadwell`."
+      "question": "What modules are loaded by the `script-wbpj-2020.sh` script?",
+      "answer": "The `script-wbpj-2020.sh` script loads the `StdEnv/2020` and `ansys/2022R2` modules."
     },
     {
-      "question": "Which Ansys module versions are loaded in the `script-wbpj-2020.sh` script?",
-      "answer": "The `script-wbpj-2020.sh` script loads `StdEnv/2020` and `ansys/2022R2`, or older Ansys module versions."
+      "question": "How many nodes are requested by default in the `script-wbpj-2020.sh`?",
+      "answer": "The `script-wbpj-2020.sh` requests one compute node by default (`#SBATCH --nodes=1`), and this setting should not be changed as multi-node is not supported."
     },
     {
-      "question": "How is the `MEMPAR` variable set in the `script-wbpj-2020.sh` script, and what does it signify?",
-      "answer": "In the `script-wbpj-2020.sh` script, `MEMPAR` is set to `0` for Shared Memory Parallel (SMP) if `SLURM_NNODES` is `1`, and `1` for Distributed Memory Parallel (DMP) otherwise."
+      "question": "What is the default time limit specified in the `script-wbpj-2020.sh`?",
+      "answer": "The default time limit specified in the `script-wbpj-2020.sh` is 3 hours (`00-03:00`)."
     },
     {
-      "question": "What files or directories are modified or removed by the `script-wbpj-2020.sh` script before `runwb2` is executed?",
-      "answer": "The `script-wbpj-2020.sh` script removes lock files (`*_files/.lock`) and modifies the `SolveHandlers.xml` file located in the Ansys application data directory (`~/.mw/Application\\ Data/Ansys/<ansys_version>/SolveHandlers.xml`) to configure parallel processing settings."
+      "question": "How much total memory is specified for a Workbench job using `script-wbpj-2020.sh`?",
+      "answer": "The `script-wbpj-2020.sh` specifies 16GB of total memory for a Workbench job."
     },
     {
-      "question": "What environment variables are exported in the `script-wbpj-2020.sh` script?",
-      "answer": "The `script-wbpj-2020.sh` script exports `KMP_AFFINITY=disabled` and `I_MPI_HYDRA_BOOTSTRAP=ssh`."
+      "question": "How many cores are specified for a Workbench job using `script-wbpj-2020.sh`?",
+      "answer": "The `script-wbpj-2020.sh` specifies 4 cores for a Workbench job."
     },
     {
-      "question": "What is the `runwb2` command used in the `script-wbpj-2020.sh` script?",
-      "answer": "The `runwb2` command used in the `script-wbpj-2020.sh` script is `runwb2 -B -E \"Update();Save(Overwrite=True)\" -F YOURPROJECT.wbpj`."
+      "question": "How can one enable shared memory parallel (SMP) for Ansys Workbench using this script?",
+      "answer": "Shared memory parallel (SMP) is enabled by setting `MEMPAR=0`, which happens automatically when `SLURM_NNODES` is 1, as configured in this script."
     },
     {
-      "question": "How can you modify the `script-wbpj-2020.sh` script to prevent the solution from being overwritten upon job completion?",
-      "answer": "To prevent the solution from being overwritten, change `Save(Overwrite=True)` to `Save(Overwrite=False)` in the last line of the `script-wbpj-2020.sh` script."
+      "question": "What environment variables are exported in the `script-wbpj-2020.sh`?",
+      "answer": "The `script-wbpj-2020.sh` exports `KMP_AFFINITY=disabled` and `I_MPI_HYDRA_BOOTSTRAP=ssh`."
     },
     {
-      "question": "Why would a user choose to modify the `script-wbpj-2020.sh` script to avoid overwriting the solution?",
-      "answer": "This modification helps in performing scaling tests by ensuring that the initialized solution is not overwritten by each test job, making it easier to assess performance as the number of cores (`#SBATCH --ntasks`) is increased."
+      "question": "How is the Ansys Workbench project updated and saved at the end of the script execution?",
+      "answer": "The Ansys Workbench project is updated and saved by the command `runwb2 -B -E \"Update();Save(Overwrite=True)\" -F YOURPROJECT.wbpj`."
     },
     {
-      "question": "How do you generate an APDL input file from an interactive Ansys Workbench Mechanical session?",
-      "answer": "From within your interactive Workbench Mechanical session, click `Solution -> Tools -> Write Input Files`, then specify `File name: YOURAPDLFILE.inp` and `Save as type: APDL Input Files (*.inp)`."
+      "question": "How can one prevent the Workbench solution from being overwritten for scaling tests?",
+      "answer": "To prevent the Workbench solution from being overwritten, change `Save(Overwrite=True)` to `Save(Overwrite=False)` in the last line of the Slurm script."
     },
     {
-      "question": "How are APDL jobs submitted to the queue after an input file has been generated?",
+      "question": "How are input files for Ansys Mechanical (APDL) jobs generated?",
+      "answer": "Ansys Mechanical (APDL) input files can be generated from an interactive Workbench Mechanical session by clicking 'Solution -> Tools -> Write Input Files', then specifying the file name as `YOURAPDLFILE.inp` and selecting 'APDL Input Files (*.inp)' as the save type."
+    },
+    {
+      "question": "How are APDL jobs submitted to the queue?",
       "answer": "APDL jobs can be submitted to the queue by running the `sbatch script-name.sh` command."
     },
     {
-      "question": "What do lines starting with `##SBATCH` mean in the Ansys Mechanical Slurm scripts?",
-      "answer": "In the Ansys Mechanical Slurm scripts, lines beginning with `##SBATCH` are commented out and are not active directives."
-    },
-    {
-      "question": "What is the name of the Slurm script for running Ansys Mechanical in Shared Memory Parallel (CPU) mode?",
-      "answer": "The Slurm script for running Ansys Mechanical in Shared Memory Parallel (CPU) mode is named `script-smp-2023-cpu.sh`."
-    },
-    {
-      "question": "What are the SBATCH directives for the `script-smp-2023-cpu.sh` script?",
-      "answer": "The SBATCH directives for the `script-smp-2023-cpu.sh` script are `--account=def-account`, `--time=00-03:00`, `--mem=32G`, `--nodes=1`, `--tasks=8`, and `--cpus-per-task=1`."
-    },
-    {
-      "question": "Which Ansys module is loaded by default in the `script-smp-2023-cpu.sh` script?",
-      "answer": "The `script-smp-2023-cpu.sh` script loads `StdEnv/2023` and `ansys/2024R1.03`."
-    },
-    {
-      "question": "What directory is created by the `script-smp-2023-cpu.sh` script?",
-      "answer": "The `script-smp-2023-cpu.sh` script creates a directory named `outdir-$SLURM_JOBID`."
-    },
-    {
-      "question": "What `LD_LIBRARY_PATH` adjustment is made for the `cedar` cluster in the `script-smp-2023-cpu.sh` script?",
-      "answer": "For the `cedar` cluster, the `script-smp-2023-cpu.sh` script exports `LD_LIBRARY_PATH=$EBROOTGCC/../lib/gcc`."
-    },
-    {
-      "question": "What is the `mapdl` command used in the `script-smp-2023-cpu.sh` script?",
-      "answer": "The `mapdl` command used in the `script-smp-2023-cpu.sh` script is `mapdl -smp -b nolist -np $SLURM_NTASKS -dir outdir-$SLURM_JOBID -i YOURAPDLFILE.inp`."
-    },
-    {
-      "question": "What is the name of the Slurm script for running Ansys Mechanical in Distributed Memory Parallel (CPU) mode?",
-      "answer": "The Slurm script for running Ansys Mechanical in Distributed Memory Parallel (CPU) mode is named `script-dmp-2023-cpu.sh`."
-    },
-    {
-      "question": "What are the SBATCH directives for the `script-dmp-2023-cpu.sh` script?",
-      "answer": "The SBATCH directives for the `script-dmp-2023-cpu.sh` script are `--account=def-account`, `--time=00-03:00`, `--mem-per-cpu=4G`, `--ntasks=8`, and `--cpus-per-task=1`. Optional directives include `--nodes=2` and `--ntasks-per-node=4`."
-    },
-    {
-      "question": "What `LD_LIBRARY_PATH` adjustment is made for the `cedar` cluster in the `script-dmp-2023-cpu.sh` script?",
-      "answer": "If the cluster is `cedar`, the `script-dmp-2023-cpu.sh` script creates a symbolic link to `libstdc++.so.6.0.29` in the `outdir-$SLURM_JOBID` directory and sets `LD_LIBRARY_PATH` to that directory."
-    },
-    {
-      "question": "What environment variable is exported for the `beluga` cluster in the `script-dmp-2023-cpu.sh` script?",
-      "answer": "For the `beluga` cluster, the `script-dmp-2023-cpu.sh` script exports `KMP_AFFINITY=none`."
-    },
-    {
-      "question": "What `mapdl` command is used for the `beluga` cluster in the `script-dmp-2023-cpu.sh` script?",
-      "answer": "For the `beluga` cluster, the `script-dmp-2023-cpu.sh` script uses the command `mapdl -dis -mpi intelmpi -b nolist -np $SLURM_NTASKS -dir outdir-$SLURM_JOBID -i YOURAPDLFILE.inp`."
-    },
-    {
-      "question": "What `mapdl` command is used for clusters other than `beluga` in the `script-dmp-2023-cpu.sh` script?",
-      "answer": "For clusters other than `beluga`, the `script-dmp-2023-cpu.sh` script uses the command `mapdl -dis -mpi openmpi -b nolist -np $SLURM_NTASKS -dir outdir-$SLURM_JOBID -i YOURAPDLFILE.inp`."
+      "question": "What do lines beginning with `##SBATCH` indicate in Slurm scripts?",
+      "answer": "Lines beginning with `##SBATCH` in Slurm scripts are commented out."
     }
   ],
-  "generated_at": "2026-04-11T17:02:08.800496+00:00"
+  "generated_at": "2026-04-12T16:51:48.973099+00:00"
 }

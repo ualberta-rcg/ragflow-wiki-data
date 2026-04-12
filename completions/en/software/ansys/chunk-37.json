@@ -4,37 +4,109 @@
   "chunk_index": 37,
   "qa_pairs": [
     {
-      "question": "What error might occur if `I_MPI_HYDRA_BOOTSTRAP=ssh` is not properly set when Fluent starts from an OnDemand Compute Desktop on Nibi with Intel MPI?",
-      "answer": "Fluent may crash on startup, producing error messages such as 'Error: Unable to run bstrap_proxy on g4.nibi.sharcnet' and 'Error setting up the bootstrap proxies'."
+      "question": "How can I launch Ansys Workbench in mesa mode from a Jupyter Lab desktop if a GPU was not requested?",
+      "answer": "First, load the 'ansys/2025R1' module (or a newer version) from the Desktop's left-hand menu. Then, click the 'Workbench (VNC)' icon in the Jupyter Lab desktop's centre window. Since this icon is configured for a GPU node by default, you'll need to exit the Workbench desktop, open a terminal, navigate to your Desktop directory (`cd ~/Desktop`), copy the existing icon (`cp -p $(realpath workbench.desktop) workbench-mesa.desktop`), edit the `workbench-mesa.desktop` file to change `runwb2` to `runwb2 -oglmesa`, save the file, and then click your newly customized icon."
     },
     {
-      "question": "If Fluent crashes on Nibi with an `mpiexec` error due to an `I_MPI_HYDRA_BOOTSTRAP=ssh` issue, what steps should be taken to resolve it?",
-      "answer": "You should completely exit Fluent, shut down Workbench, and then restart the process."
+      "question": "Will the custom Workbench icon I create for mesa mode persist across Jupyter Lab sessions?",
+      "answer": "Yes, the Workbench icon you create will persist for future sessions until you manually delete it with `rm -f ~/Desktop/workbench-mesa.desktop`."
     },
     {
-      "question": "How do I load an Ansys module in a Jupyter Lab Desktop environment without a GPU?",
-      "answer": "Click to load `ansys/2025R1` (or a newer version) from the Desktop's left-hand side menu."
+      "question": "How do I launch Ansys Workbench from a Jupyter Lab desktop when a GPU has been requested?",
+      "answer": "First, click to load the 'ansys/2025R1' module (or a newer version) from the Desktop's left-hand menu. Then, click the 'Workbench (VNC)' icon located in the Jupyter Lab desktop's centre window."
     },
     {
-      "question": "After loading the Ansys module, how do I open Workbench in a Jupyter Lab Desktop session without a GPU?",
-      "answer": "Click the 'Workbench (VNC)' icon located in the Jupyter Lab desktop's centre window."
+      "question": "What is the command to load the Ensight module and launch it graphically?",
+      "answer": "You can load the module using `module load StdEnv/2023 ansys/2022R2`, then set the `LD_LIBRARY_PATH` with `export LD_LIBRARY_PATH=$EBROOTANSYS/v$A/CEI/apex$A/machines/linux_2.6_64/qt-$B/lib` (where A and B are version numbers like 222 and 5.12.6, respectively), and finally run `ensight -X`."
     },
     {
-      "question": "Why might I need to customize the Workbench icon when running it from a Jupyter Lab Desktop without a GPU?",
-      "answer": "The default icon is configured for a GPU node, so it needs to be customized to restart Workbench in Mesa mode for non-GPU use."
+      "question": "How do I start Ansys Rocky in graphical mode from the command line?",
+      "answer": "Load the required modules with `module load StdEnv/2023 ansys/2025R1` (or newer versions), then export the `PATH` with `export PATH=$EBROOTANSYS/v251/rocky:$PATH`, and finally run `Rocky`."
     },
     {
-      "question": "What are the steps to customize the Workbench icon to run in Mesa mode on a Jupyter Lab Desktop?",
-      "answer": "First, exit the Workbench desktop. Then, open a terminal window and run `cd ~/Desktop; cp -p $(realpath workbench.desktop) workbench-mesa.desktop`. After that, edit `workbench-mesa.desktop` to change `runwb2` to `runwb2 -oglmesa`, save the file, and then click your newly customized icon."
+      "question": "How do I run the Rocky solver directly from the command line?",
+      "answer": "After loading the necessary modules and setting the PATH for Rocky, you can run `RockySolver`. Use `RockySolver -h` for help with command-line options."
     },
     {
-      "question": "Will a customized Workbench icon persist for future Jupyter Lab Desktop sessions?",
-      "answer": "Yes, the Workbench icon you create will persist for future sessions until it's manually deleted."
+      "question": "How do I start the Rocky scheduler GUI?",
+      "answer": "After loading the necessary modules and setting the PATH for Rocky, you can run `RockySchedular` to start the GUI and submit/run jobs on the current node (untested capability)."
     },
     {
-      "question": "How can I delete a customized Workbench icon from my Jupyter Lab Desktop?",
-      "answer": "You can delete it by running the command `rm -f ~/Desktop/workbench-mesa.desktop` in a terminal window."
+      "question": "Is the SHARCNET Ansys license free for academic use?",
+      "answer": "Yes, the SHARCNET Ansys license is free for academic use by any Alliance researcher on any Alliance system."
+    },
+    {
+      "question": "What are the allowed uses for the SHARCNET Ansys license?",
+      "answer": "The SHARCNET license may be used for Publishable Academic Research. Private or commercial purposes are strictly prohibited."
+    },
+    {
+      "question": "What products are included in the SHARCNET Ansys license?",
+      "answer": "The SHARCNET Ansys license includes products such as HF, EM, Electronics HPC, Mechanical, CFD, ROCKY, and LS-DYNA, based on the Multiphysics Campus Solution."
+    },
+    {
+      "question": "Which Ansys-related software is not covered by the SHARCNET license?",
+      "answer": "Lumerical software, although included in recent Ansys module versions, is not covered by the SHARCNET license."
+    },
+    {
+      "question": "Is SpaceClaim software available on Alliance clusters with the SHARCNET license?",
+      "answer": "SpaceClaim software is technically covered by the SHARCNET license but is not installed with any Ansys module on Alliance clusters because there is no Linux version available."
+    },
+    {
+      "question": "What is recommended before launching long Ansys jobs with the SHARCNET license?",
+      "answer": "Scaling tests should be run before launching long jobs to determine the optimal scalable job size, ensuring efficient use of licenses and hardware, and minimizing total job run and startup times."
+    },
+    {
+      "question": "What happens if a parallel job doesn't achieve at least 50% CPU utilization?",
+      "answer": "Parallel jobs that do not achieve at least 50% CPU utilization will probably be flagged by the system, leading to a follow-up by an Alliance team member."
+    },
+    {
+      "question": "What is the maximum number of simultaneous jobs and HPC cores a researcher can use with the SHARCNET Ansys license?",
+      "answer": "Each researcher is permitted to run a maximum of 16 simultaneous jobs using a total of up to 512 HPC cores across all clusters."
+    },
+    {
+      "question": "What are some example combinations of job sizes that can be run simultaneously with the SHARCNET license?",
+      "answer": "Researchers can run combinations such as 1x512, 2x256, 4x128, 8x64, 16x32, or commonly one of these full node combinations: 1x384, 2x192, or 1x192 cores."
+    },
+    {
+      "question": "Why might Ansys jobs fail on startup with the SHARCNET license, and what should I do?",
+      "answer": "Jobs might fail on startup if the SHARCNET license is oversubscribed, meaning nearly all of the 1986 `anshpc` licenses are in use. If this occurs, you will need to manually resubmit your job to the queue."
+    },
+    {
+      "question": "What happens if license shortages become more frequent for the SHARCNET Ansys license?",
+      "answer": "If license shortage instances increase over time, the total `anshpc` core limit per researcher may be decreased from 512 to 384."
+    },
+    {
+      "question": "What are the options if I need more than 512 HPC cores for my research with Ansys?",
+      "answer": "You can consider using a local institutional Ansys License server if one is available, or open a ticket to request help purchasing additional licenses for the SHARCNET license, which could increase your maximum job size `anshpc` limit."
+    },
+    {
+      "question": "How should I configure my `ansys.lic` file to use the SHARCNET Ansys license?",
+      "answer": "You should configure your `ansys.lic` file with the line `setenv(\"ANSYSLMD_LICENSE_FILE\", \"1055@license1.computecanada.ca\")`."
+    },
+    {
+      "question": "How can I check the number of Ansys licenses currently in use by my username and all users on SHARCNET?",
+      "answer": "You can SSH into a SHARCNET cluster (e.g., `ssh nibi.alliancecan.ca`), load the Ansys module, and then run the command `$EBROOTANSYS/v$(echo ${EBVERSIONANSYS:2:2}${EBVERSIONANSYS:5:1})/licensingclient/linx64/lmutil lmstat -c $ANSYSLMD_LICENSE_FILE -a | grep \"Users of|$USER\" | grep -v \" Total of 0 licenses in use\"`."
+    },
+    {
+      "question": "In the provided example, if a 400-core parallel job attempts to start when 1600 `anshpc` licenses are in use out of 1986 total, will it succeed?",
+      "answer": "No, it will fail to start. The example states that (400-4) = 396 `anshpc` licenses would be required, but only (1986-1600) = 386 `anshpc` licenses remain available."
+    },
+    {
+      "question": "What are the user's options if a 400-core parallel job fails to start due to insufficient `anshpc` licenses in the example?",
+      "answer": "The user has two options: wait for a sufficient number of `anshpc` licenses to become available, or reduce the job size to 390 cores or less and resubmit immediately."
+    },
+    {
+      "question": "What does it mean if the license query command shows Ansys licenses unexpectedly still in use by my username?",
+      "answer": "This rare situation indicates 'rogue' Ansys processes might still be running on a desktop or compute node, potentially tying up licenses, often due to an unclean shutdown of an Ansys GUI program or a crash within an interactive salloc session."
+    },
+    {
+      "question": "How can I terminate rogue Ansys processes that are tying up licenses?",
+      "answer": "You can kill all potentially responsible rogue Ansys processes by closing the desktop, cancelling the salloc session, or by opening a terminal window on the affected node and issuing the command `pkill -9 -e -u $USER -f \"ansys\"`."
+    },
+    {
+      "question": "Where can I find information on running Ansys EDT in graphical mode?",
+      "answer": "Information describing how to run AnsysEDT in graphical mode can be found on a separate wiki page [https://docs.alliancecan.ca/wiki/AnsysEDT here]."
     }
   ],
-  "generated_at": "2026-04-11T17:03:44.016999+00:00"
+  "generated_at": "2026-04-12T16:53:52.037585+00:00"
 }

@@ -4,69 +4,77 @@
   "chunk_index": 27,
   "qa_pairs": [
     {
-      "question": "Quelles sont les commandes à inclure dans un fichier de journalisation pour automatiser la configuration d'une injection de phase discrète (DPM) dans Fluent?",
-      "answer": "Pour configurer une injection DPM, on peut inclure les commandes suivantes dans le fichier de journalisation : /define/models/dpm/interaction/coupled-calculations yes, /define/models/dpm/injections/delete-injection injection-0:1, /define/models/dpm/injections/create injection-0:1 no yes file no zinjection01.inj no no no no, /define/models/dpm/injections/list-particles injection-0:1, et /define/models/dpm/injections/list-injection-properties injection-0:1."
+      "question": "Comment faire pour automatiser les commandes d'injection pour les modèles de phase discrète (DPM) dans Fluent via un fichier journalisation?",
+      "answer": "Vous pouvez automatiser les commandes d'injection DPM en ajoutant des lignes comme `/define/models/dpm/interaction/coupled-calculations yes`, `/define/models/dpm/injections/delete-injection injection-0:1` et `/define/models/dpm/injections/create injection-0:1 no yes file no zinjection01.inj no no no no` à votre fichier journalisation, après l'initialisation de la solution."
     },
     {
-      "question": "Comment serait formaté un fichier d'injection de base pour une simulation DPM, comme le fichier 'zinjection01.inj'?",
-      "answer": "Un fichier d'injection de base, comme 'zinjection01.inj', pourrait ressembler à ceci : $(z=4 12)( x y z u v w diamètre t débit massique fréquence massique temps nom )(( 2.90e-02 5.00e-03 0.0 -1,00e-03 0,0 0,0 1,00e-04 2,93e+02 1,00e-06 0,0 0,0 0,0 ) injection-0:1 )."
+      "question": "Quel est un exemple de format de base pour un fichier d'injection DPM créé manuellement?",
+      "answer": "Un fichier d'injection DPM de base créé manuellement pourrait ressembler à ceci :\n`$ cat zinjection01.inj\n(z=4 12)\n( x y z u v w diamètre t débit massique fréquence massique temps nom )\n(( 2.90e-02 5.00e-03 0.0 -1,00e-03 0,0 0,0 1,00e-04 2,93e+02 1,00e-06 0,0 0,0 0,0 ) injection-0:1 )`"
     },
     {
-      "question": "Où peut-on trouver plus de détails sur le format de fichier d'injection pour les simulations DPM stationnaires?",
-      "answer": "On peut trouver plus de détails sur le format de fichier d'injection pour les simulations DPM stationnaires dans le manuel '2024R2 Fluent Customization Manual, Part III: Solution Mode | Chapter 24: Modeling Discrete Phase | 24.3. Setting Initial Conditions for the Discrete Phase | 24.3.13 Point Properties for File Injections | 24.3.13.1 Steady File Format'."
+      "question": "Où puis-je trouver plus de détails sur le format de fichier d'injection stationnaire pour les simulations DPM dans Fluent?",
+      "answer": "Le format de fichier d'injection stationnaire est décrit en détail dans le `2024R2 Fluent Customization Manual, Part III: Solution Mode | Chapter 24: Modeling Discrete Phase | 24.3. Setting Initial Conditions for the Discrete Phase | 24.3.13 Point Properties for File Injections | 24.3.13.1 Steady File Format`."
     },
     {
-      "question": "Comment afficher les options de ligne de commande disponibles pour le solveur CFX?",
-      "answer": "On peut afficher le résumé des options de ligne de commande pour le solveur CFX en utilisant la commande 'cfx5solve -help'."
+      "question": "Comment puis-je afficher les options de ligne de commande pour cfx5solve?",
+      "answer": "Vous pouvez afficher le résumé des options de ligne de commande pour cfx5solve en exécutant la commande `cfx5solve -help`."
     },
     {
-      "question": "Quelle est la configuration par défaut pour la précision des calculs de cfx5solve, et comment la modifier pour utiliser la double précision?",
-      "answer": "Par défaut, cfx5solve s'exécute en simple précision ('-single'). Pour le faire fonctionner en double précision, il faut ajouter l'option '-double'."
+      "question": "Quelle est la précision par défaut de cfx5solve, et comment peut-on le faire fonctionner en double précision?",
+      "answer": "Par défaut, cfx5solve s'exécute en simple précision. Pour l'exécuter en double précision, il faut ajouter l'option `-double`."
     },
     {
-      "question": "Quelles sont les implications de l'utilisation de l'option '-double' avec cfx5solve?",
-      "answer": "L'utilisation de l'option '-double' doublera les besoins en mémoire de cfx5solve."
+      "question": "L'exécution de cfx5solve en double précision a-t-elle des implications sur les besoins en mémoire?",
+      "answer": "Oui, l'exécution de cfx5solve en double précision doublera également les besoins en mémoire."
     },
     {
-      "question": "Quelle est la capacité par défaut de cfx5solve en termes de maillage structuré et non structuré, et quelle option utiliser pour les maillages plus grands?",
-      "answer": "Par défaut, cfx5solve prend en charge les maillages jusqu'à 80 millions d'éléments structurés ou 200 millions d'éléments non structurés. Pour les maillages plus grands, jusqu'à 2 milliards d'éléments, il faut ajouter l'option '-large'."
+      "question": "Quelles sont les tailles maximales de maillage prises en charge par défaut par cfx5solve?",
+      "answer": "Par défaut, cfx5solve prend en charge les maillages jusqu'à 80 millions d'éléments structurés ou 200 millions d'éléments non structurés."
     },
     {
-      "question": "Les options de ligne de commande de cfx5solve peuvent-elles être appliquées à différents composants du solveur?",
-      "answer": "Oui, différentes combinaisons des options de ligne de commande peuvent être utilisées pour le partitionneur, l'interpolateur ou le solveur."
+      "question": "Comment puis-je utiliser cfx5solve pour des maillages plus grands, jusqu'à 2 milliards d'éléments?",
+      "answer": "Pour des maillages plus grands (jusqu'à 2 milliards d'éléments), vous devez ajouter l'option `-large` à la commande cfx5solve."
     },
     {
-      "question": "Où peut-on consulter un guide détaillé sur le gestionnaire de solveur CFX?",
-      "answer": "Il est recommandé de consulter le guide d'ANSYS CFX-Solver Manager pour obtenir plus de détails."
+      "question": "Où puis-je trouver des informations détaillées sur l'utilisation des options de cfx5solve pour le partitionneur, l'interpolateur ou le solveur?",
+      "answer": "Vous pouvez consulter le guide d'ANSYS CFX-Solver Manager pour obtenir plus de détails sur l'utilisation des différentes combinaisons d'options pour le partitionneur, l'interpolateur ou le solveur."
     },
     {
-      "question": "Quels modules doivent être chargés pour exécuter une tâche CFX sur un nœud simple avec Slurm?",
-      "answer": "Il faut charger les modules 'StdEnv/2023' et 'ansys/2023R2' (ou une version plus récente) avant d'exécuter une tâche CFX sur un nœud simple."
+      "question": "Quelles sont les directives Slurm minimales pour une tâche CFX sur un seul nœud?",
+      "answer": "Les directives Slurm minimales sont:\n`#SBATCH --account=def-group` (pour spécifier votre compte)\n`#SBATCH --time=00-03:00` (pour spécifier la limite de temps)\n`#SBATCH --nodes=1` (pour un seul nœud)\n`#SBATCH --ntasks-per-node=4` (pour spécifier le nombre de cœurs par nœud)\n`#SBATCH --mem=16G` (pour spécifier la mémoire par nœud)\n`#SBATCH --cpus-per-task=1` (ne pas modifier)."
     },
     {
-      "question": "Comment la commande 'cfx5solve' est-elle exécutée sur un nœud simple de la grappe Narval comparativement aux autres grappes?",
-      "answer": "Sur Narval, on utilise 'cfx5solve -def YOURFILE.def -start-method \"Open MPI Local Parallel\" -part $SLURM_CPUS_ON_NODE'. Sur les autres grappes, on utilise 'cfx5solve -def YOURFILE.def -start-method \"Intel MPI Local Parallel\" -part $SLURM_CPUS_ON_NODE'."
+      "question": "Quelle est la commande `cfx5solve` pour lancer une tâche CFX en parallèle local sur Narval?",
+      "answer": "Sur Narval, la commande est `cfx5solve -def YOURFILE.def -start-method \"Open MPI Local Parallel\" -part $SLURM_CPUS_ON_NODE`."
     },
     {
-      "question": "Quelles sont les options SBATCH typiques pour un script de soumission CFX sur un nœud simple?",
-      "answer": "Les options SBATCH typiques incluent: --account=def-group, --time=00-03:00, --nodes=1, --ntasks-per-node=4 (ou le maximum par nœud selon la grappe), --mem=16G (ou 0 pour toute la mémoire du nœud), et --cpus-per-task=1."
+      "question": "Comment lancer une tâche CFX en parallèle local sur un cluster autre que Narval?",
+      "answer": "Pour un cluster autre que Narval, la commande est `cfx5solve -def YOURFILE.def -start-method \"Intel MPI Local Parallel\" -part $SLURM_CPUS_ON_NODE`."
     },
     {
-      "question": "Quels modules sont requis pour lancer une tâche CFX sur plusieurs nœuds avec Slurm?",
-      "answer": "Les modules 'StdEnv/2023' et 'ansys/2023R2' (ou une version plus récente) sont requis."
+      "question": "Comment charger les modules nécessaires pour une tâche CFX sur un nœud simple?",
+      "answer": "Il faut charger les modules `StdEnv/2023` et `ansys/2023R2` (ou une version plus récente)."
     },
     {
-      "question": "Comment la commande 'cfx5solve' est-elle exécutée sur plusieurs nœuds de la grappe Narval pour une tâche parallèle distribuée?",
-      "answer": "Sur Narval, la commande est 'cfx5solve -def YOURFILE.def -start-method \"Open MPI Distributed Parallel\" -par-dist $NNODES', où '$NNODES' est déterminé par 'slurm_hl2hl.py --format ANSYS-CFX'."
+      "question": "Quelles sont les directives Slurm minimales pour soumettre une tâche CFX sur plusieurs nœuds?",
+      "answer": "Les directives Slurm minimales sont:\n`#SBATCH --account=def-group` (pour spécifier votre compte)\n`#SBATCH --time=00-03:00` (pour spécifier la limite de temps)\n`#SBATCH --nodes=2` (pour spécifier plusieurs nœuds)\n`#SBATCH --ntasks-per-node=64` (pour spécifier tous les cœurs par nœud)\n`#SBATCH --mem=0` (pour utiliser toute la mémoire par nœud)\n`#SBATCH --cpus-per-task=1` (ne pas modifier)."
     },
     {
-      "question": "Comment la commande 'cfx5solve' est-elle exécutée sur plusieurs nœuds des grappes autres que Narval pour une tâche parallèle distribuée?",
-      "answer": "Pour les grappes autres que Narval, il faut d'abord exporter 'I_MPI_HYDRA_BOOTSTRAP=ssh' et désactiver 'I_MPI_HYDRA_BOOTSTRAP_EXEC_EXTRA_ARGS'. Ensuite, la commande est 'cfx5solve -def YOURFILE.def -start-method \"Intel MPI Distributed Parallel\" -par-dist $NNODES'."
+      "question": "Comment le script Slurm pour plusieurs nœuds détermine-t-il la liste des nœuds pour cfx5solve?",
+      "answer": "Le script utilise `NNODES=$(slurm_hl2hl.py --format ANSYS-CFX)` pour obtenir la liste des nœuds."
     },
     {
-      "question": "Quelles options SBATCH sont généralement spécifiées pour un script de soumission CFX utilisant plusieurs nœuds?",
-      "answer": "Pour plusieurs nœuds, les options SBATCH incluent: --account=def-group, --time=00-03:00, --nodes=2 (ou plus), --ntasks-per-node=64 (ou le maximum par nœud selon la grappe), --mem=0 (pour toute la mémoire par nœud), et --cpus-per-task=1."
+      "question": "Quelle est la commande `cfx5solve` pour lancer une tâche CFX en parallèle distribué sur Narval?",
+      "answer": "Sur Narval, la commande est `cfx5solve -def YOURFILE.def -start-method \"Open MPI Distributed Parallel\" -par-dist $NNODES`."
+    },
+    {
+      "question": "Comment lancer une tâche CFX en parallèle distribué sur un cluster autre que Narval?",
+      "answer": "Pour un cluster autre que Narval, il faut d'abord configurer des variables d'environnement (`export I_MPI_HYDRA_BOOTSTRAP=ssh; unset I_MPI_HYDRA_BOOTSTRAP_EXEC_EXTRA_ARGS`) puis utiliser la commande `cfx5solve -def YOURFILE.def -start-method \"Intel MPI Distributed Parallel\" -par-dist $NNODES`."
+    },
+    {
+      "question": "Comment s'assurer que toute la mémoire par nœud est utilisée dans une tâche CFX à plusieurs nœuds?",
+      "answer": "Pour utiliser toute la mémoire par nœud, vous devez spécifier la directive Slurm `#SBATCH --mem=0`."
     }
   ],
-  "generated_at": "2026-04-11T17:11:52.861522+00:00"
+  "generated_at": "2026-04-12T17:01:59.316318+00:00"
 }

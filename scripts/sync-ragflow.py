@@ -19,6 +19,9 @@ import argparse
 from pathlib import Path
 from datetime import datetime, timezone
 
+sys.path.insert(0, str(Path(__file__).parent))
+from shared import should_skip_doc
+
 try:
     from ragflow_sdk import RAGFlow
 except ImportError:
@@ -82,14 +85,11 @@ def doc_exists_in_ragflow(dataset, doc_key, doc_state):
     return False
 
 
-SKIP_DOC_PREFIXES = ("events/", "status/")
-
-
 def get_docs_needing_sync(state, limit=None):
     """Get docs where source_hash != ragflow_source_hash (hash-driven)."""
     docs = []
     for doc_key, doc_state in state.get("documents", {}).items():
-        if doc_key.startswith(SKIP_DOC_PREFIXES):
+        if should_skip_doc(doc_key, doc_state):
             continue
         current_hash = doc_state.get("source_hash", "")
         synced_hash = doc_state.get("ragflow_source_hash", "")
@@ -105,7 +105,7 @@ def verify_synced_docs(state, dataset, limit=None):
     """Find docs that claim to be synced but are missing from RAGFlow."""
     missing = []
     for doc_key, doc_state in state.get("documents", {}).items():
-        if doc_key.startswith(SKIP_DOC_PREFIXES):
+        if should_skip_doc(doc_key, doc_state):
             continue
         if not doc_state.get("ragflow_source_hash"):
             continue
@@ -193,6 +193,7 @@ def wait_for_parse(dataset, doc, timeout=300):
 def fetch_keywords(doc):
     """Fetch keywords and questions from document chunks."""
     keywords = set()
+    questions_seen = set()
     questions = []
 
     try:
@@ -202,8 +203,10 @@ def fetch_keywords(doc):
                 if kw and kw.strip():
                     keywords.add(kw.strip())
             for q in (getattr(chunk, 'questions', []) or []):
-                if q and q.strip():
-                    questions.append(q.strip())
+                q = q.strip() if q else ""
+                if q and q not in questions_seen:
+                    questions_seen.add(q)
+                    questions.append(q)
     except Exception as e:
         print(f"    Warning: Could not fetch chunks: {e}")
 

@@ -1,32 +1,40 @@
 # RAGFlow Wiki Data
 
-Wiki page content and generated artifacts for RAGFlow knowledge base.
+Pipeline for syncing Alliance HPC documentation to RAGFlow and publishing as an MkDocs site.
 
 ## Structure
 
 ```
-wiki_pages/          # Source documents (.txt files from MediaWiki)
-keywords/            # Generated keyword files (per-chunk)
-prompt_completion/   # Generated Q&A pairs for fine-tuning
+docs/                # Source documents (.txt from MediaWiki API)
+completions/         # Generated Q&A pairs (page + chunk level)
+mkdocs-site/         # MkDocs Material site (docs/ subfolder has .md output)
+config/              # processing-state.json, tags.json
 scripts/             # Pipeline scripts
 ```
 
 ## Setup
 
-1. Create Python venv:
-   ```bash
-   python3 -m venv venv
-   source venv/bin/activate
-   pip install ragflow-sdk google-generativeai
-   ```
+```bash
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
 
-2. Copy `config.env.example` to `config.env` and fill in your API keys
+Set environment variables (or use GitHub Actions secrets):
+- `RAGFLOW_API_KEY`
+- `RAGFLOW_BASE_URL`
+- `GOOGLE_API_KEY`
 
-3. Run the update script:
-   ```bash
-   python scripts/update-ragflow.py
-   ```
+## Usage
 
-## Git Remote
+Run the full pipeline via GitHub Actions (`full-pipeline.yml`) or locally:
 
-Uses SSH alias `github.com-ragflow-wiki` for deploy key authentication.
+```bash
+source venv/bin/activate
+python scripts/download-wiki.py
+python scripts/sync-ragflow.py
+python scripts/convert-to-mkdocs.py
+python scripts/fix-mkdocs-links.py
+python scripts/generate-homepage.py
+python scripts/generate-completions.py
+```

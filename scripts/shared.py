@@ -1,6 +1,51 @@
 """Shared constants and utilities across pipeline scripts."""
 
 import re
+from pathlib import Path
+
+# Prefixes to always skip (non-wiki content)
+SKIP_DOC_PREFIXES = ("events/", "status/")
+
+# Slug patterns to skip during sync/convert (low-value auto-generated lists)
+# These are huge tables that waste tokens and don't provide conceptual docs
+SKIP_SLUG_PATTERNS = [
+    r"^modules_avx",      # modules_avx, modules_avx2, modules_avx512
+    r"^modules_sse",      # modules_sse3
+    r"^modules_specific", # modules_specific_to_niagara
+    r"^wheels",           # wheels3_6 through wheels3_14
+    r"^sidebar-",         # sidebar navigation fragments
+]
+_SKIP_SLUG_RE = [re.compile(p, re.IGNORECASE) for p in SKIP_SLUG_PATTERNS]
+
+
+def should_skip_doc(doc_key: str, doc_state: dict = None) -> bool:
+    """Check if a document should be skipped for sync/convert.
+    
+    Skips:
+    - events/ and status/ prefixes
+    - Auto-generated module/wheel list pages
+    - Empty files (0 bytes)
+    """
+    if doc_key.startswith(SKIP_DOC_PREFIXES):
+        return True
+    
+    slug = doc_key.split("/")[-1] if "/" in doc_key else doc_key
+    for pattern in _SKIP_SLUG_RE:
+        if pattern.match(slug):
+            return True
+    
+    # Skip empty files
+    if doc_state:
+        path = doc_state.get("path", "")
+        if path:
+            # Handle both absolute and relative paths
+            p = Path(path)
+            if not p.is_absolute():
+                p = Path(__file__).parent.parent / path
+            if p.exists() and p.stat().st_size == 0:
+                return True
+    
+    return False
 
 # Wiki category -> directory name
 # Only covers the 14 categories that the MediaWiki actually assigns.

@@ -4,33 +4,49 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "How do I submit the AlphaFold3 data pipeline and model inference stages as independent jobs?",
-      "answer": "First, submit the data pipeline job using `sbatch alphafold3-data.sh`. Once it completes, then submit the model inference stage with `sbatch alphafold3-inference.sh`."
+      "question": "How do I submit the AlphaFold3 data pipeline job independently?",
+      "answer": "You can submit the AlphaFold3 data pipeline job using the command `sbatch alphafold3-data.sh`."
     },
     {
-      "question": "How can I submit the AlphaFold3 data pipeline and model inference as dependent jobs?",
-      "answer": "You can submit them as dependent jobs by capturing the Job ID (JID) of the data pipeline and using it for the inference stage: `jid1=$(sbatch alphafold3-data.sh)` followed by `jid2=$(sbatch --dependency=afterok:$jid1 alphafold3-inference.sh)`."
+      "question": "When should I submit the AlphaFold3 model inference job if running jobs independently?",
+      "answer": "You should wait until the AlphaFold3 data pipeline job completes before submitting the model inference job."
+    },
+    {
+      "question": "What is the command to submit the AlphaFold3 model inference job independently?",
+      "answer": "The command to submit the AlphaFold3 model inference job independently is `sbatch alphafold3-inference.sh`."
+    },
+    {
+      "question": "How can I submit the AlphaFold3 data pipeline and model inference jobs as dependent jobs?",
+      "answer": "First, submit the data pipeline job and capture its ID with `jid1=$(sbatch alphafold3-data.sh)`. Then, submit the model inference job with a dependency on the first job: `jid2=$(sbatch --dependency=afterok:$jid1 alphafold3-inference.sh)`."
+    },
+    {
+      "question": "What command can I use to check the status of my jobs after submission?",
+      "answer": "You can check the status of your jobs using the `sq` command."
     },
     {
       "question": "What should I do if the first stage of a dependent AlphaFold3 job fails?",
-      "answer": "If the first stage (data pipeline) of a dependent AlphaFold3 job fails, you will need to manually cancel the second stage (inference) using the command `scancel -u $USER -n alphafold3-inference`."
+      "answer": "If the first stage fails, you will need to manually cancel the second stage using the command `scancel -u $USER -n alphafold3-inference`."
     },
     {
-      "question": "How can I resolve 'Out of memory (GPU)' errors when running AlphaFold3?",
-      "answer": "To resolve 'Out of memory (GPU)' errors, particularly for inputs larger than 5,120 tokens or on GPUs with less memory, you can enable unified memory by adding specific environment variables to your inference stage submission script and adjusting the allocated memory."
+      "question": "What is a common troubleshooting issue with AlphaFold3 related to GPUs?",
+      "answer": "A common issue is running out of GPU memory (Out of memory (GPU))."
     },
     {
-      "question": "Which environment variables should I add to enable unified memory for AlphaFold3 inference?",
-      "answer": "You should add the following environment variables to your inference stage submission script: `export XLA_PYTHON_CLIENT_PREALLOCATE=false`, `export TF_FORCE_UNIFIED_MEMORY=true`, and `export XLA_CLIENT_MEM_FRACTION=2.0` (adjusting the fraction as needed)."
+      "question": "Under what circumstances might AlphaFold3 encounter an 'Out of memory (GPU)' error?",
+      "answer": "This error might occur when running AlphaFold3 on inputs larger than 5,120 tokens or on a GPU with less memory, such as an A100 with 40 GB of memory."
     },
     {
-      "question": "When should I consider enabling unified memory for AlphaFold3?",
-      "answer": "You should consider enabling unified memory if you are running AlphaFold3 on inputs larger than 5,120 tokens or if you are using a GPU with less memory, such as an A100 with 40 GB of memory."
+      "question": "How can I enable unified memory to address GPU out-of-memory errors in AlphaFold3?",
+      "answer": "To enable unified memory, you need to add the following environment variables to your inference stage submission script: `export XLA_PYTHON_CLIENT_PREALLOCATE=false`, `export TF_FORCE_UNIFIED_MEMORY=true`, and `export XLA_CLIENT_MEM_FRACTION=2.0`."
     },
     {
-      "question": "How do I adjust the memory allocation when enabling unified memory for AlphaFold3?",
-      "answer": "When enabling unified memory, you must adjust the amount of memory allocated to your job accordingly. For example, if `XLA_CLIENT_MEM_FRACTION` is set to `2.0` for a 40 GB A100 GPU, you would typically set `#SBATCH --mem=80G` in your submission script."
+      "question": "What SBATCH directive should be adjusted when enabling unified memory for AlphaFold3?",
+      "answer": "You should adjust the `#SBATCH --mem` directive to allocate an appropriate amount of memory, for instance, `#SBATCH --mem=80G` if `XLA_CLIENT_MEM_FRACTION` is set to `2.0` for a 40GB GPU."
+    },
+    {
+      "question": "What does `XLA_CLIENT_MEM_FRACTION=2.0` mean for memory allocation when troubleshooting GPU memory issues?",
+      "answer": "For a GPU with 40GB of memory, `XLA_CLIENT_MEM_FRACTION=2.0` would imply allocating 80 GB of memory (2 multiplied by 40GB)."
     }
   ],
-  "generated_at": "2026-04-11T16:40:26.746357+00:00"
+  "generated_at": "2026-04-12T16:31:45.436543+00:00"
 }

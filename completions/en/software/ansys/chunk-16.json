@@ -4,93 +4,41 @@
   "chunk_index": 16,
   "qa_pairs": [
     {
-      "question": "What is the purpose of the Fluent solution restart scripts?",
-      "answer": "The Fluent solution restart scripts are provided to automate restarting very large jobs that require more than the typical seven-day maximum runtime window available on most clusters."
+      "question": "What is the purpose of the provided Slurm script named `script-flu-bycore+restart.sh`?",
+      "answer": "The script `script-flu-bycore+restart.sh` is designed for restarting Fluent simulations, configured to allocate resources on a per-core basis."
     },
     {
-      "question": "What are the fundamental requirements for using the Fluent solution restart scripts?",
-      "answer": "A fundamental requirement is that the first time step can be completed within the requested job array time limit, it is assumed that a standard fixed time step size is being used, and a working set of `sample.cas`, `sample.dat`, and `sample.jou` files must be present."
+      "question": "Which account should be specified for the `script-flu-bycore+restart.sh` Slurm job?",
+      "answer": "The account should be specified as `def-group` in the `#SBATCH --account` directive."
     },
     {
-      "question": "How should the `sample.jou` file be modified for solution restart functionality?",
-      "answer": "The `sample.jou` file should be edited to contain `/solve/dual-time-iterate 1` and `/file/auto-save/data-frequency 1`."
+      "question": "What is the default time limit set for the `script-flu-bycore+restart.sh` Slurm job?",
+      "answer": "The default time limit specified for the job is 3 hours (00-03:00)."
     },
     {
-      "question": "What specific modifications are needed for the `sample-restart.jou` file?",
-      "answer": "The `sample-restart.jou` file should be edited to contain `/file/read-cas-data sample-restart` instead of `/file/read-cas-data sample`, and the initialization line (e.g., `; /solve/initialize/initialize-flow`) should be commented out."
+      "question": "How many total cores are requested for the `script-flu-bycore+restart.sh` Slurm job?",
+      "answer": "The script requests a total of 16 cores (`#SBATCH --ntasks=16`)."
     },
     {
-      "question": "Why might `sample-restart.jou` specify `/solve/dual-time-iterate 2`?",
-      "answer": "If the second and subsequent time steps are known to run twice as fast as the initial time step, specifying `2` will minimize the number of computationally expensive solution restarts."
+      "question": "What is the memory per CPU requested in the `script-flu-bycore+restart.sh` Slurm script?",
+      "answer": "The script requests 4 gigabytes of memory per core (`#SBATCH --mem-per-cpu=4G`)."
     },
     {
-      "question": "How is the number of solution restarts (or time steps) specified in the Slurm script for solution restart?",
-      "answer": "The number of solution restarts is specified using the `#SBATCH --array=1-5%1` line, where `5` is an example value for the number of restart attempts."
+      "question": "What value should be set for `cpus-per-task` in the `script-flu-bycore+restart.sh` Slurm script?",
+      "answer": "The `cpus-per-task` value should not be changed from its specified value of 1."
     },
     {
-      "question": "What happens after a Fluent restart job completes successfully, regarding output files?",
-      "answer": "If a job attempt is successful and more restarts are specified, symbolic links for `MYCASFILERES` and `MYDATFILERES` are updated to point to the most recent output `.cas` and `.dat` files for the next restart."
+      "question": "How many solution restarts or time steps are configured for the `script-flu-bycore+restart.sh` Slurm job?",
+      "answer": "The script is configured for 5 solution restarts or time steps (`#SBATCH --array=1-5%1`), indicating that 2 or more are expected, with 5 being shown as an example."
     },
     {
-      "question": "Which module versions are specified for loading in the Fluent solution restart script?",
-      "answer": "The script specifies loading `StdEnv/2023` and `ansys/2023R2` (or newer versions)."
+      "question": "What type of shell is used for the `script-flu-bycore+restart.sh` Slurm script?",
+      "answer": "The script uses Bash as its shell, as indicated by `#!/bin/bash`."
     },
     {
-      "question": "What types of commands can be included in Fluent journal files?",
-      "answer": "Fluent journal files can include basically any command from Fluent's Text-User-Interface (TUI), allowing changes to simulation parameters like temperature, pressure, and flow speed."
-    },
-    {
-      "question": "What is the benefit of using journal files for Fluent simulations?",
-      "answer": "With journal files, you can run a series of simulations under different conditions with a single case file by only changing the parameters in the journal file."
-    },
-    {
-      "question": "Where can I find more information and a list of all commands for Fluent journal files?",
-      "answer": "You should refer to the Fluent User's Guide for more information and a list of all commands that can be used."
-    },
-    {
-      "question": "How do you configure Fluent to use the legacy `.cas/.dat` file format in a journal file?",
-      "answer": "To use the legacy `.cas/.dat` file format, you should set `/file/cff-files no` in your journal file."
-    },
-    {
-      "question": "What command is used in a journal file to read an input case and data file for a steady simulation, as shown in the examples?",
-      "answer": "The command `/file/read-case-data FFF-in` is used to read an input case and data file for a steady simulation."
-    },
-    {
-      "question": "How can you configure Fluent to auto-save data files every 100 iterations using a journal file?",
-      "answer": "You can configure Fluent to auto-save data files every 100 iterations by including the command `/file/auto-save/data-frequency 100` in your journal file."
-    },
-    {
-      "question": "What command is used to specify that Fluent should retain data files from the 5 most recent iterations in a journal file?",
-      "answer": "The command `/file/auto-save/retain-most-recent-files y` is used to specify that Fluent should retain the most recent data files."
-    },
-    {
-      "question": "How do you specify the root name for auto-saved output files in a journal file, saving them to an 'output' subdirectory?",
-      "answer": "You can specify the root name using `/file/auto-save/root-name output/FFF-out`, which will append iteration numbers and save to an 'output' subdirectory."
-    },
-    {
-      "question": "What command is used to run the Fluent solver for a specified number of iterations in a steady simulation journal file?",
-      "answer": "The command `/solve/iterate 1000` (where 1000 is the number of iterations) is used to run the solver."
-    },
-    {
-      "question": "How do you write the final output case and data files in a journal file?",
-      "answer": "You can write the final output case and data files using the command `/file/write-case-data FFF-out`."
-    },
-    {
-      "question": "What command would be used to perform hybrid initialization in a transient simulation journal file?",
-      "answer": "The command `/solve/initialize/hyb-initialization` would be used to perform hybrid initialization."
-    },
-    {
-      "question": "How do you specify the physical time step size in a transient simulation journal file?",
-      "answer": "You specify the physical time step size using the command `/solve/set/time-step 0.0001` (where 0.0001 is the desired time step size)."
-    },
-    {
-      "question": "What command is used to set the number of iterations for which convergence monitors are reported in a transient simulation journal file?",
-      "answer": "The command `/solve/set/reporting-interval 1` is used to set the reporting interval for convergence monitors."
-    },
-    {
-      "question": "How can a Fluent journal file ensure a clean shutdown of the Fluent solver?",
-      "answer": "A Fluent journal file can ensure a clean shutdown by including the `/exit` command at the end."
+      "question": "Is it possible to specify the number of nodes for the `script-flu-bycore+restart.sh` job?",
+      "answer": "Yes, although it's commented out in the provided snippet, the line `##SBATCH --nodes=1` suggests that the number of compute nodes can be specified, with a note that Narval clusters have a 1-node maximum."
     }
   ],
-  "generated_at": "2026-04-11T16:59:36.247415+00:00"
+  "generated_at": "2026-04-12T16:49:36.421957+00:00"
 }

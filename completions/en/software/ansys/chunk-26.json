@@ -4,41 +4,33 @@
   "chunk_index": 26,
   "qa_pairs": [
     {
-      "question": "What file is modified by the `sed` commands in the Workbench Slurm script?",
-      "answer": "The file `~/.mw/Application\\ Data/Ansys/`basename $(find $EBROOTANSYS/v* -maxdepth 0 -type d)`/SolveHandlers.xml` is modified by the `sed` commands."
+      "question": "What is the `SolveHandlers.xml` file's role in the Workbench Slurm script?",
+      "answer": "The `SolveHandlers.xml` file is modified by the Slurm script to configure settings such as distributed or shared memory parallelism, the maximum number of processors, and to mark the user configuration as active."
     },
     {
-      "question": "How does the Workbench script configure the distribution type for an Ansys solution?",
-      "answer": "The Workbench script configures the distribution type by using a `sed` command to replace a value in the `SolveHandlers.xml` file with the `$MEMPAR` variable, affecting the `.AnsysSolution` and `Distribute` settings."
+      "question": "How are the parallel processing settings configured for Ansys Workbench in the Slurm script?",
+      "answer": "The `SolveHandlers.xml` file is modified to set the distributed memory parallel (DMP) or shared memory parallel (SMP) mode based on the `$MEMPAR` variable, and to specify the maximum number of processors using the `$SLURM_NTASKS` variable."
     },
     {
-      "question": "How does the Workbench script set the maximum number of processors for an Ansys solution?",
-      "answer": "The script uses a `sed` command to modify the `SolveHandlers.xml` file, replacing a value in the `.Processors` and `MaxNumber` settings with the `$SLURM_NTASKS` variable to set the maximum number of processors."
+      "question": "What environment variables are set before launching Ansys Workbench in the Slurm script?",
+      "answer": "The environment variables `KMP_AFFINITY` is set to `disabled` and `I_MPI_HYDRA_BOOTSTRAP` is set to `ssh`."
     },
     {
-      "question": "What environment variables are exported before running Ansys Workbench in the script?",
-      "answer": "The environment variables `KMP_AFFINITY=disabled` and `I_MPI_HYDRA_BOOTSTRAP=ssh` are exported before running Ansys Workbench in the script."
+      "question": "What is the command used to run Ansys Workbench in batch mode from the Slurm script?",
+      "answer": "The command used is `runwb2 -B -E \"Update();Save(Overwrite=True)\" -F YOURPROJECT.wbpj`."
     },
     {
-      "question": "What command is used to run Ansys Workbench in batch mode according to the script?",
-      "answer": "The command `runwb2 -B -E \"Update();Save(Overwrite=True)\" -F YOURPROJECT.wbpj` is used to run Ansys Workbench in batch mode."
+      "question": "What actions does the `runwb2 -B -E \"Update();Save(Overwrite=True)\" -F YOURPROJECT.wbpj` command perform?",
+      "answer": "This command runs Ansys Workbench in batch mode (`-B`), updates the project, and then saves it (overwriting if it already exists) before specifying the project file (`-F YOURPROJECT.wbpj`)."
     },
     {
-      "question": "What actions does the `runwb2` command perform with the provided arguments in the script?",
-      "answer": "The `runwb2` command runs Workbench in batch mode (`-B`), updates the project, and saves it, overwriting any existing files (`-E \"Update();Save(Overwrite=True)\"`) for the specified project file (`-F YOURPROJECT.wbpj`)."
+      "question": "How does the Slurm script handle saving the Workbench project upon completion?",
+      "answer": "The script saves the Workbench project using `Save(Overwrite=True)`, which means any existing project file will be overwritten."
     },
     {
-      "question": "How is the 'UserConfigured' setting modified in the `SolveHandlers.xml` file by the script?",
-      "answer": "The `UserConfigured` setting is modified by a `sed` command that changes `UserConfigured=\"0\"` to `UserConfigured=\"1\"` in the `SolveHandlers.xml` file."
-    },
-    {
-      "question": "What is the purpose of setting `KMP_AFFINITY=disabled` in the Workbench Slurm script?",
-      "answer": "The purpose is to disable KMP affinity by exporting `KMP_AFFINITY=disabled`."
-    },
-    {
-      "question": "What is the purpose of setting `I_MPI_HYDRA_BOOTSTRAP=ssh` in the Workbench Slurm script?",
-      "answer": "The purpose is to export the `I_MPI_HYDRA_BOOTSTRAP` environment variable with the value `ssh`."
+      "question": "What modification can be made to the Slurm script to prevent overwriting the Workbench solution after a job completes?",
+      "answer": "To prevent overwriting the solution, the `Save(Overwrite=True)` portion of the `runwb2` command in the last line of the Slurm script should be changed to `Save(Overwrite=False)`."
     }
   ],
-  "generated_at": "2026-04-11T17:01:47.813957+00:00"
+  "generated_at": "2026-04-12T16:51:38.934358+00:00"
 }

@@ -4,117 +4,65 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "C'est quoi l'avantage de cacher les résultats de la recherche MSA/modèle?",
-      "answer": "Ça permet de réutiliser le JSON augmenté pour plusieurs inférences différentes ou pour des variations d'autres fonctionnalités, comme un ligand."
+      "question": "Pourquoi est-ce qu'on suggère d'exécuter AlphaFold3 par étapes?",
+      "answer": "On suggère d'exécuter AlphaFold3 par étapes pour deux raisons principales : séparer le pipeline de données (CPU) du modèle d'inférence (GPU) afin d'optimiser les coûts et l'utilisation des ressources, et cacher les résultats de la recherche de MSA/modèle pour ensuite réutiliser le JSON augmenté pour plusieurs inférences ou variations."
     },
     {
-      "question": "Où est-ce que je peux trouver des références pour les entrées, les sorties et la performance d'AlphaFold3?",
-      "answer": "Vous pouvez consulter les liens GitHub spécifiés pour les inputs, outputs et performance dans la documentation."
+      "question": "Quel est le nom du script d'exemple pour l'étape du pipeline de données CPU dans AlphaFold3?",
+      "answer": "Le nom du script d'exemple pour l'étape du pipeline de données CPU est `alphafold3-data.sh`."
     },
     {
-      "question": "Quelle est la première étape quand on exécute AlphaFold3 par étapes?",
-      "answer": "La première étape, c'est le pipeline de données qui s'exécute sur le CPU."
+      "question": "Quel est le nombre maximal de cœurs CPU recommandé pour l'étape du pipeline de données AlphaFold3?",
+      "answer": "Un maximum de 8 cœurs CPU sont recommandés pour l'étape du pipeline de données, car AlphaFold n'a pas d'avantage à utiliser plus de cœurs pour cette tâche."
     },
     {
-      "question": "Quel est le nom de la tâche Slurm pour le pipeline de données d'AlphaFold3?",
-      "answer": "Le nom de la tâche est `alphafold3-data`."
+      "question": "Quelle quantité de mémoire est suggérée pour la tâche du pipeline de données AlphaFold3 selon l'exemple?",
+      "answer": "La quantité de mémoire suggérée est de 64 Go (`#SBATCH --mem=64G`)."
     },
     {
-      "question": "Combien de temps est alloué par défaut pour la tâche du pipeline de données d'AlphaFold3?",
-      "answer": "Le temps alloué par défaut est de 8 heures (08:00:00)."
+      "question": "Quels modules doivent être chargés pour l'étape du pipeline de données AlphaFold3?",
+      "answer": "Les modules à charger sont `StdEnv/2023`, `hmmer/3.4`, `rdkit/2024.03.5` et `python/3.12`."
     },
     {
-      "question": "Combien de cœurs CPU sont recommandés pour la tâche du pipeline de données d'AlphaFold3?",
-      "answer": "Un maximum de 8 cœurs CPU est recommandé, car AlphaFold n'a pas d'avantage à en utiliser plus pour cette étape."
+      "question": "Où sont stockés les fichiers de sortie du pipeline de données AlphaFold3 pendant son exécution?",
+      "answer": "Les fichiers de sortie sont stockés temporairement dans le répertoire `$SLURM_TMPDIR/alphafold/output`."
     },
     {
-      "question": "Quelle quantité de mémoire est allouée pour la tâche du pipeline de données d'AlphaFold3?",
-      "answer": "64 Go de mémoire sont alloués pour cette tâche."
+      "question": "Quelle commande permet d'installer AlphaFold et ses dépendances dans un environnement virtuel pour l'exécution par étapes?",
+      "answer": "Il faut utiliser `pip install --no-index --upgrade pip` et `pip install --no-index --requirement ~/alphafold3-requirements.txt`."
     },
     {
-      "question": "Quels modules doivent être chargés pour l'étape du pipeline de données d'AlphaFold3?",
-      "answer": "Il faut charger les modules `StdEnv/2023`, `hmmer/3.4`, `rdkit/2024.03.5` et `python/3.12`."
+      "question": "Quel argument doit-on utiliser avec `run_alphafold.py` pour indiquer qu'on exécute seulement l'étape du pipeline de données?",
+      "answer": "Il faut utiliser l'argument `--norun_inference`."
     },
     {
-      "question": "Où est-ce que les bases de données téléchargées devraient être stockées pour l'étape du pipeline de données?",
-      "answer": "Elles devraient être stockées dans le répertoire `$SCRATCH/alphafold/dbs`."
+      "question": "Quel est le nom du script d'exemple pour l'étape d'inférence de modèle d'AlphaFold3?",
+      "answer": "Le nom du script d'exemple pour l'étape d'inférence de modèle est `alphafold3-inference.sh`."
     },
     {
-      "question": "Où est-ce que les données d'entrée devraient être placées pour la tâche du pipeline de données?",
-      "answer": "Les données d'entrée devraient être placées dans `$SCRATCH/alphafold/input`."
+      "question": "Quelles sont les exigences de compatibilité GPU pour l'inférence de modèle avec AlphaFold3?",
+      "answer": "AlphaFold3 prend en charge seulement les GPUs avec une capacité de calcul de version 8.0 et plus récentes, comme les cartes A100s et plus performantes."
     },
     {
-      "question": "Quel est le répertoire temporaire pour les fichiers de sortie du pipeline de données?",
-      "answer": "Le répertoire temporaire pour les fichiers de sortie est `$SLURM_TMPDIR/alphafold/output`."
+      "question": "Combien de GPUs et de cœurs CPU sont recommandés pour l'étape d'inférence de modèle AlphaFold3?",
+      "answer": "Un seul GPU A100 (ou plus performant) est requis (`#SBATCH --gpus=a100:1`), et un seul cœur CPU (`#SBATCH --cpus-per-task=1`) est suffisant, car AlphaFold n'a pas d'avantage à en utiliser plus pour cette étape."
     },
     {
-      "question": "Où est-ce que l'environnement virtuel est généré pour la tâche du pipeline de données?",
-      "answer": "L'environnement virtuel est généré dans `$SLURM_TMPDIR/env`."
+      "question": "Quels modules supplémentaires sont requis pour l'étape d'inférence de modèle par rapport au pipeline de données?",
+      "answer": "En plus des modules du pipeline de données, il faut charger `cuda/12.2` et `cudnn/9.2`."
     },
     {
-      "question": "Quelle commande est utilisée pour installer AlphaFold et ses dépendances Python dans l'environnement virtuel du pipeline de données?",
-      "answer": "On utilise la commande `pip install --no-index --requirement ~/alphafold3-requirements.txt`."
+      "question": "Quelles variables d'environnement sont définies pour optimiser la mémoire GPU durant l'étape d'inférence de modèle?",
+      "answer": "Les variables d'environnement `export XLA_PYTHON_CLIENT_PREALLOCATE=true` et `export XLA_CLIENT_MEM_FRACTION=0.95` sont définies pour l'optimisation de la mémoire GPU."
     },
     {
-      "question": "Comment s'appelle la commande pour compiler les données nécessaires dans l'environnement virtuel?",
-      "answer": "La commande est `build_data`."
+      "question": "Quel argument doit-on utiliser avec `run_alphafold.py` pour indiquer qu'on exécute seulement l'étape d'inférence du modèle?",
+      "answer": "Il faut utiliser l'argument `--norun_data_pipeline`."
     },
     {
-      "question": "Quelle variable d'environnement faut-il exporter pour contourner les problèmes de temps de compilation avec XLA pour le pipeline de données?",
-      "answer": "Il faut exporter `XLA_FLAGS=\"--xla_gpu_enable_triton_gemm=false\"`."
-    },
-    {
-      "question": "Quel argument est utilisé avec `run_alphafold.py` pour s'assurer que seule l'étape du pipeline de données s'exécute?",
-      "answer": "On utilise l'argument `--norun_inference`."
-    },
-    {
-      "question": "Où sont copiés les résultats finaux du pipeline de données après leur génération dans le répertoire temporaire?",
-      "answer": "Ils sont copiés dans `$SCRATCH/alphafold/output`."
-    },
-    {
-      "question": "Quelle est la deuxième étape de l'exécution d'AlphaFold3 par étapes?",
-      "answer": "La deuxième étape, c'est l'inférence de modèle."
-    },
-    {
-      "question": "Quels GPU sont compatibles avec AlphaFold3 pour l'inférence de modèle?",
-      "answer": "AlphaFold3 prend en charge seulement les GPU avec une capacité de calcul de version 8.0 et plus récentes, comme les A100s ou plus performants."
-    },
-    {
-      "question": "Quel est le nom de la tâche Slurm pour l'inférence de modèle d'AlphaFold3?",
-      "answer": "Le nom de la tâche est `alphafold3-inference`."
-    },
-    {
-      "question": "Combien de temps est alloué par défaut pour la tâche d'inférence de modèle d'AlphaFold3?",
-      "answer": "Le temps alloué par défaut est de 8 heures (08:00:00)."
-    },
-    {
-      "question": "Combien de cœurs CPU sont recommandés pour la tâche d'inférence de modèle d'AlphaFold3?",
-      "answer": "Un seul cœur CPU est recommandé pour l'étape d'inférence, AlphaFold n'a pas d'avantage à en utiliser plus."
-    },
-    {
-      "question": "Quel type et nombre de GPU sont requis pour l'étape d'inférence de modèle?",
-      "answer": "Un seul GPU A100 ou plus performant (`a100:1`) est requis."
-    },
-    {
-      "question": "Quelle quantité de mémoire est allouée pour la tâche d'inférence de modèle d'AlphaFold3?",
-      "answer": "20 Go de mémoire sont alloués pour cette tâche."
-    },
-    {
-      "question": "Quels modules supplémentaires sont nécessaires pour l'étape d'inférence de modèle par rapport au pipeline de données?",
-      "answer": "En plus des modules de base, il faut charger `cuda/12.2` et `cudnn/9.2`."
-    },
-    {
-      "question": "Où est-ce que les données d'entrée devraient être placées pour la tâche d'inférence de modèle?",
-      "answer": "Les données d'entrée devraient être placées dans `$SCRATCH/alphafold/input`, après l'étape de données."
-    },
-    {
-      "question": "Quel est le répertoire pour les fichiers de sortie de l'inférence de modèle?",
-      "answer": "Le répertoire pour les fichiers de sortie est `$SCRATCH/alphafold/output`."
-    },
-    {
-      "question": "Quel argument est utilisé avec `run_alphafold.py` pour s'assurer que seule l'étape d'inférence de modèle s'exécute?",
-      "answer": "On utilise l'argument `--norun_data_pipeline`."
+      "question": "Où est le répertoire des bases de données (`db_dir`) spécifié dans les scripts d'exécution par étapes?",
+      "answer": "Le répertoire des bases de données est spécifié par la variable `DOWNLOAD_DIR`, qui est réglée à `$SCRATCH/alphafold/dbs` dans les scripts."
     }
   ],
-  "generated_at": "2026-04-11T16:41:23.321762+00:00"
+  "generated_at": "2026-04-12T16:32:42.496113+00:00"
 }
