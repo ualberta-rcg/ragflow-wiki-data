@@ -11,6 +11,24 @@ on:
         description: 'Docs to convert to MkDocs (0 = all)'
         required: false
         default: '0'
+      linkfix_batch_size:
+        description: 'Docs to run link-fix on (0 = all eligible)'
+        required: false
+        default: '0'
+      completions_batch_size:
+        description: 'Docs to generate completions for (0 = all pending)'
+        required: false
+        default: '0'
+      sync_verify:
+        description: 'Verify synced docs exist in RAGFlow before syncing'
+        required: false
+        default: false
+        type: boolean
+      sync_force:
+        description: 'Force full re-sync by clearing ragflow_source_hash'
+        required: false
+        default: false
+        type: boolean
 
 permissions:
   contents: write
@@ -60,7 +78,10 @@ jobs:
           BATCH_SIZE: ${{ github.event.inputs.sync_batch_size || '0' }}
         run: |
           source venv/bin/activate
-          python scripts/sync-ragflow.py
+          ARGS="--allow-failures"
+          if [ "${{ github.event.inputs.sync_verify }}" = "true" ]; then ARGS="$ARGS --verify"; fi
+          if [ "${{ github.event.inputs.sync_force }}" = "true" ]; then ARGS="$ARGS --force"; fi
+          python scripts/sync-ragflow.py $ARGS
 
       - name: Convert to MkDocs
         env:
@@ -72,7 +93,7 @@ jobs:
 
       - name: Fix internal MkDocs links
         env:
-          BATCH_SIZE: ${{ github.event.inputs.convert_batch_size || '0' }}
+          BATCH_SIZE: ${{ github.event.inputs.linkfix_batch_size || '0' }}
         run: |
           source venv/bin/activate
           python scripts/fix-mkdocs-links.py
@@ -82,6 +103,16 @@ jobs:
           source venv/bin/activate
           python scripts/generate-homepage.py
 
+      - name: Generate prompt completions
+        env:
+          RAGFLOW_API_KEY: ${{ secrets.RAGFLOW_API_KEY }}
+          RAGFLOW_BASE_URL: ${{ secrets.RAGFLOW_BASE_URL }}
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+          BATCH_SIZE: ${{ github.event.inputs.completions_batch_size || '0' }}
+        run: |
+          source venv/bin/activate
+          python scripts/generate-completions.py
+
       - name: Configure Git
         run: |
           git config --global user.name "github-actions[bot]"
@@ -89,7 +120,7 @@ jobs:
 
       - name: Commit and push changes
         run: |
-          git add -A docs/ mkdocs-site/ config/processing-state.json manifest.json
+          git add -A docs/ mkdocs-site/ completions/ config/processing-state.json manifest.json
           
           if git diff --staged --quiet; then
             echo "No changes to commit."
@@ -97,5 +128,5 @@ jobs:
           fi
           
           ts="$(date -u +"%Y-%m-%d %H:%M:%S UTC")"
-          git commit -m "Pipeline run ($ts)"
+          git commit -m "Full pipeline run ($ts)"
           git push origin HEAD:${{ github.ref_name }}
