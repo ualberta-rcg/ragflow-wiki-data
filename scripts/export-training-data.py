@@ -54,10 +54,9 @@ def export_training_data():
                     continue
                 seen_questions.add(q_normalized)
                 
-                # OpenAI fine-tuning format
+                # OpenAI fine-tuning format (no system prompt - set at inference time)
                 record = {
                     "messages": [
-                        {"role": "system", "content": "You are a helpful assistant for the Digital Research Alliance of Canada high-performance computing documentation. Answer questions about HPC clusters, software, job submission, and research computing."},
                         {"role": "user", "content": question},
                         {"role": "assistant", "content": answer}
                     ]
