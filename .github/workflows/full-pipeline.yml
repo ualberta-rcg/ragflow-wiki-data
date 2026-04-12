@@ -121,6 +121,11 @@ jobs:
           source venv/bin/activate
           python scripts/generate-completions.py
 
+      - name: Export training data
+        run: |
+          source venv/bin/activate
+          python scripts/export-training-data.py
+
       - name: Configure Git
         run: |
           git config --global user.name "github-actions[bot]"
@@ -128,7 +133,7 @@ jobs:
 
       - name: Commit and push changes
         run: |
-          git add -A docs/ mkdocs-site/ completions/ config/processing-state.json manifest.json
+          git add -A docs/ mkdocs-site/ completions/ config/processing-state.json manifest.json training-data.jsonl
           
           if git diff --staged --quiet; then
             echo "No changes to commit."

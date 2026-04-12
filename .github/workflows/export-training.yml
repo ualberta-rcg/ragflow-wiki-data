@@ -1,0 +1,43 @@
+name: Export Training Data
+
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+env:
+  PYTHONUNBUFFERED: "1"
+
+jobs:
+  export:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Export training data
+        run: python scripts/export-training-data.py
+
+      - name: Check for changes
+        id: check
+        run: |
+          if git diff --quiet training-data.jsonl 2>/dev/null; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Commit and push
+        if: steps.check.outputs.changed == 'true'
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add training-data.jsonl
+          git commit -m "Update training data export $(date -u +'%Y-%m-%d %H:%M:%S UTC')"
+          git push
