@@ -1,0 +1,52 @@
+{
+  "doc_key": "fr/apptainer",
+  "level": "chunk",
+  "chunk_index": 8,
+  "qa_pairs": [
+    {
+      "question": "Quand est-ce qu'on devrait utiliser la commande `apptainer shell`?",
+      "answer": "On devrait utiliser `apptainer shell` quand on a besoin de travailler de façon interactive à l'intérieur d'un conteneur, ce qui est différent des commandes qui exécutent immédiatement les programmes comme `apptainer run` ou `apptainer exec`."
+    },
+    {
+      "question": "Quelle est la principale différence entre `apptainer shell` et d'autres commandes comme `apptainer run` ou `apptainer exec`?",
+      "answer": "Les commandes `apptainer run`, `apptainer exec` et `apptainer instance` exécutent les programmes immédiatement, tandis que `apptainer shell` permet une interactivité dans le conteneur."
+    },
+    {
+      "question": "Comment lance-t-on une session interactive avec `apptainer shell` pour un conteneur nommé `your-container-name.sif`?",
+      "answer": "Pour lancer une session interactive, il faut entrer la commande `apptainer shell your-container-name.sif`."
+    },
+    {
+      "question": "Quel indicateur visuel nous confirme qu'on est bien entré dans un conteneur en mode interactif via `apptainer shell`?",
+      "answer": "Quand le conteneur est prêt, l'invite `Apptainer>` (ou `Singularity>` pour les anciennes versions) s'affiche."
+    },
+    {
+      "question": "Comment fait-on pour quitter une session interactive lancée avec `apptainer shell`?",
+      "answer": "Pour quitter la session, il faut entrer la commande `exit` et appuyer sur la touche Enter ou Return."
+    },
+    {
+      "question": "Quelles options de ligne de commande sont importantes à inclure quand on utilise `apptainer shell` sur les grappes de calcul, surtout pour l'accès à l'espace disque?",
+      "answer": "Sur nos grappes, il faut ajouter des options comme `-C`, `-c`, `-e` et `-W $SLURM_TMPDIR`, en plus des options de bind mount comme `-B /home:/cluster_home -B /project -B /scratch` pour s'assurer que l'espace disque est disponible."
+    },
+    {
+      "question": "Si j'utilise un overlay persistant avec `apptainer shell` et que je veux sauvegarder mes modifications, quelle option dois-je ajouter?",
+      "answer": "Si vous utilisez un overlay persistant et que vous voulez que les modifications soient sauvegardées, vous devez ajouter l'option `-w` ou `--writable` au conteneur lors de la session `apptainer shell`."
+    },
+    {
+      "question": "Dans quel cas la commande `apptainer instance` est-elle particulièrement utile?",
+      "answer": "La commande `apptainer instance` est utile pour exécuter correctement des démons pour des tâches de calcul sur des grappes."
+    },
+    {
+      "question": "Pourquoi est-il recommandé d'utiliser `apptainer instance` pour les démons plutôt que de les exécuter manuellement?",
+      "answer": "C'est recommandé parce qu'Apptainer fonctionne bien avec des ordonnanceurs comme Slurm. Si une tâche est annulée, les démons lancés avec `apptainer instance` ne seront pas bloqués ni ne laisseront de processus défunts, et cette commande permet de contrôler les démons et programmes dans un même conteneur."
+    },
+    {
+      "question": "Est-ce que les démons lancés avec `apptainer instance` demeurent actifs après l'annulation ou la fin d'une tâche par l'ordonnanceur?",
+      "answer": "Non, les démons ne sont exécutés que lorsque la tâche est en marche. Si l'ordonnanceur annule la tâche, tous les démons qui lui sont rattachés seront aussi annulés."
+    },
+    {
+      "question": "Que dois-je faire si j'ai besoin de démons qui restent actifs au-delà de la durée d'une tâche de calcul sur les grappes?",
+      "answer": "Si vous avez besoin de démons qui restent actifs plus longtemps, vous pouvez les exécuter dans une machine virtuelle ou un nuage et contacter le soutien technique pour de l'aide."
+    }
+  ],
+  "generated_at": "2026-04-11T17:35:59.051442+00:00"
+}

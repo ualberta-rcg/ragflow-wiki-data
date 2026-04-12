@@ -5,21 +5,46 @@ lang: "fr"
 
 source_wiki_title: "SAIGE/fr"
 source_hash: "1fb4cd5b8d2354b1c8ac808e8b7d125c"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T11:00:37.020158+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T11:11:26.737990+00:00"
 
 tags:
   - software
 
 keywords:
-  []
+  - "remotes::install_version"
+  - "Makevars"
+  - "RSQLite"
+  - "SAIGE"
+  - "dplyr"
+  - "paquet R"
+  - "associations pangénomiques"
+  - "FlexiBLAS"
+  - "modèles mixtes généralisés"
+  - "hpcBLASctl"
+  - "compilation"
+  - "installation"
+
+questions:
+  - "Qu'est-ce que le paquet SAIGE et pour quel type d'étude est-il principalement utilisé ?"
+  - "Quelles sont les principales caractéristiques et méthodes analytiques offertes par SAIGE pour le traitement des données génétiques ?"
+  - "Quelles sont les étapes et les dépendances spécifiques requises pour installer la version 1.0.0 de SAIGE dans l'environnement StdEnv/2020 ?"
+  - "Pourquoi faut-il supprimer le fichier configure et modifier le fichier Makevars lors de l'installation ?"
+  - "Quelle commande permet de compiler et d'installer le paquet SAIGE ?"
+  - "Comment effectuer un test pour vérifier que la bibliothèque SAIGE est correctement installée ?"
+  - "Quels sont les paquets R spécifiques et leurs versions qui doivent être installés via la ligne de commande ?"
+  - "Quel dépôt et quelle fonction R sont utilisés pour installer ces paquets ?"
+  - "Quelle version du logiciel SAIGE est-il demandé de télécharger à la suite de ces installations ?"
+  - "Pourquoi faut-il supprimer le fichier configure et modifier le fichier Makevars lors de l'installation ?"
+  - "Quelle commande permet de compiler et d'installer le paquet SAIGE ?"
+  - "Comment effectuer un test pour vérifier que la bibliothèque SAIGE est correctement installée ?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -30,7 +55,7 @@ Cette méthode :
 *   tient compte de la parenté des échantillons sur la base des modèles mixtes généralisés;
 *   permet l'ajustement des modèles selon une matrice de relations génétiques complète ou clairsemée (GRM);
 *   fonctionne pour les traits quantitatifs et binaires;
-*   gère le déséquilibre des traits binaires dans les cas témoins;
+*   gère le déséquilibre des traits binaires dans les cas témoin;
 *   produit des calculs efficaces pour les grands ensembles de données;
 *   effectue des tests d'association à un seul variant;
 *   fournit une estimation de la taille de l'effet grâce à la régression logistique à biais réduit de Firth;
@@ -55,8 +80,8 @@ Cette page décrit l'installation du paquet 1.0.0 de SAIGE.
 
 3.  Installez les [dépendances de R](r.md#installation-des-paquets-r).
 
-    !!! warning "Important"
-        Il est important d'installer *exactement* ces versions. Si au cours de l'installation on vous demande d'installer la plus récente version d'une dépendance, appuyez sur Entrée pour refuser.
+    !!! attention "Précision sur les versions"
+        Il est important d'installer exactement ces versions. Si au cours de l'installation on vous demande d'installer la plus récente version d'une dépendance, appuyez sur Entrée pour refuser.
 
     ```bash
     R -e 'install.packages("remotes", repos="https://cloud.r-project.org/")'
@@ -90,8 +115,7 @@ Cette page décrit l'installation du paquet 1.0.0 de SAIGE.
     sed -i 's/llapack/lflexiblas/' src/Makevars
     ```
 
-    !!! note
-        Supprimez d'abord le fichier *configure* pour éviter d'installer des dépendances qui sont déjà disponibles. Ensuite, modifiez le nom de la bibliothèque pour qu'elle utilise le fichier *Makevars* et que les options utilisent FlexiBLAS. Vous évitez ainsi d'obtenir le message d'erreur *unable to find -llapack* à l'installation. Pour plus d'information, lisez [BLAS et LAPACK](blas-et-lapack.md).
+    Supprimez d'abord le fichier *configure* pour éviter d'installer des dépendances qui sont déjà disponibles. Ensuite, modifiez le nom de la bibliothèque pour qu'elle utilise le fichier *Makevars* et que les options utilisent FlexiBLAS. Vous évitez ainsi d'obtenir le message d'erreur *unable to find -llapack* à l'installation. Pour plus d'information, lisez [BLAS et LAPACK](blas-and-lapack.md).
 
 6.  Compilez et installez.
 

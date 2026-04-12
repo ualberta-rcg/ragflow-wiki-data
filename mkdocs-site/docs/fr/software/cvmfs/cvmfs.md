@@ -5,44 +5,70 @@ lang: "fr"
 
 source_wiki_title: "CVMFS/fr"
 source_hash: "ab278a91942391c1568a1cd76cf706ae"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T05:18:32.792987+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T06:08:52.942719+00:00"
 
 tags:
   - cvmfs
 
 keywords:
-  []
+  - "stockage"
+  - "distribution de logiciels"
+  - "CVMFS"
+  - "intégrité des fichiers"
+  - "stockage adressable par le contenu"
+  - "mise en cache"
+  - "référentiel"
+  - "système de fichiers"
+  - "arborescences Merkle"
+  - "immuables"
+  - "Calcul Canada"
+  - "métadonnées"
+  - "catalogues imbriqués"
+
+questions:
+  - "Qu'est-ce que le système CVMFS et dans quel but principal a-t-il été initialement développé au CERN ?"
+  - "Quels sont les avantages offerts par CVMFS en matière de gestion des versions logicielles et de découplage avec le système d'exploitation ?"
+  - "Comment l'architecture de mise en cache hiérarchique (strates, proxys, caches locaux) assure-t-elle l'évolutivité et la tolérance aux pannes du système ?"
+  - "Comment le système garantit-il l'intégrité et l'authenticité des fichiers pour éviter la falsification des données ?"
+  - "Quelles techniques sont mises en œuvre côté serveur et côté client pour minimiser l'utilisation de l'espace de stockage ?"
+  - "Comment les configurations peuvent-elles être adaptées pour interagir avec des fournisseurs externes d'autorisation ou de stockage ?"
+  - "Comment l'utilisation des arborescences Merkle et du stockage adressable par le contenu modifie-t-elle la nature et le traitement des métadonnées ?"
+  - "Pourquoi le fait de rendre les métadonnées immuables les rend-il particulièrement adaptées à la mise en cache ?"
+  - "Quel est le rôle des catalogues imbriqués dans l'évolution du système et la résolution locale des requêtes par le client ?"
+  - "Comment le système garantit-il l'intégrité et l'authenticité des fichiers pour éviter la falsification des données ?"
+  - "Quelles techniques sont mises en œuvre côté serveur et côté client pour minimiser l'utilisation de l'espace de stockage ?"
+  - "Comment les configurations peuvent-elles être adaptées pour interagir avec des fournisseurs externes d'autorisation ou de stockage ?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
-Nous utilisons CVMFS (CERN Virtual Machine File System) pour distribuer les logiciels, les données et d'autres contenus. Pour plus d'information, voir [le site web](https://cernvm.cern.ch/fs/) et [la section documentation](https://cvmfs.readthedocs.io/). Pour savoir comment configurer un client CVMFS, voir notre page wiki [Accès à CVMFS](accessing-cvmfs.md).
+Nous utilisons CVMFS (CERN Virtual Machine File System) pour distribuer les logiciels, les données et d'autres contenus. Pour plus d'information, voir [le site web](https://cernvm.cern.ch/fs/) et [la section documentation](https://cvmfs.readthedocs.io/). Pour savoir comment configurer un client CVMFS, voir notre page wiki [Accès à CVMFS](acces-a-cvmfs.md).
 
 ## Introduction
-CVMFS est un système de distribution de logiciels distribué en lecture seule, implémenté en tant que système de fichiers POSIX dans l'espace utilisateur (FUSE) à l'aide du transport HTTP. Il a été développé à l'origine pour les expériences du grand collisionneur de hadrons au CERN afin de fournir des logiciels aux machines virtuelles et de remplacer diverses zones d'installation de logiciels partagés et des systèmes de gestion de paquets sur de nombreux sites informatiques. Conçu pour fournir des logiciels de manière rapide, évoluable et fiable, son utilisation s'est rapidement développée ces dernières années pour inclure des dizaines de projets, ~10<sup>10</sup> fichiers et répertoires, ~10<sup>2</sup> sites de calcul et ~10<sup>5</sup> clients à travers le monde. Le [CernVM Monitor](https://cvmfs-monitor-frontend.web.cern.ch/) montre plusieurs groupes de recherche qui utilisent CVMFS et les sites des strates qui répliquent leurs référentiels.
+CVMFS est un système de distribution de logiciels distribué en lecture seule, implémenté en tant que système de fichiers POSIX dans l'espace utilisateur (FUSE) à l'aide du transport HTTP. Il a été développé à l'origine pour les expériences du Grand Collisionneur de Hadrons au CERN afin de fournir des logiciels aux machines virtuelles et de remplacer diverses zones d'installation de logiciels partagés et des systèmes de gestion de paquets sur de nombreux sites informatiques. Conçu pour fournir des logiciels de manière rapide, évolutive et fiable, son utilisation s'est rapidement développée ces dernières années pour inclure des dizaines de projets, ~10<sup>10</sup> fichiers et répertoires, ~10<sup>2</sup> sites de calcul et ~10<sup>5</sup> clients à travers le monde. Le [CernVM Monitor](https://cvmfs-monitor-frontend.web.cern.ch/) montre plusieurs groupes de recherche qui utilisent CVMFS et les sites des strates qui répliquent leurs référentiels.
 
 ### Description
 *   Une seule copie du logiciel doit être conservée et peut être propagée et utilisée sur plusieurs sites. Les logiciels couramment utilisés peuvent être installés sur CVMFS afin de minimiser la gestion des logiciels à distance.
 *   Les applications logicielles et leurs prérequis peuvent être exécutés à partir de CVMFS, éliminant ainsi toute exigence sur le type de distribution Linux ou le niveau de la version d'un nœud client.
-*   La pile logicielle du projet et le système d’exploitation peuvent être découplés. Dans le cas particulier du nuage (cloud), ceci permet d'accéder au logiciel dans une machine virtuelle sans être à l’intérieur de l'image de la machine virtuelle, ce qui permet aux images et aux logiciels d'être mis à jour et distribués séparément.
+*   La pile logicielle du projet et le système d’exploitation peuvent être découplés. Dans le cas particulier du *cloud*, ceci permet d'accéder au logiciel dans une machine virtuelle sans être à l’intérieur de l'image de la machine virtuelle, ce qui permet aux images et aux logiciels d'être mis à jour et distribués séparément.
 *   La gestion des versions du contenu se fait via les révisions du catalogue du référentiel. Les mises à jour sont validées dans des transactions et peuvent être restaurées à un état antérieur.
 *   Les mises à jour sont propagées aux clients de manière automatique et atomique.
 *   Les clients peuvent voir les versions historiques du contenu du référentiel.
 *   Les fichiers sont récupérés à l'aide du protocole HTTP standard. Les nœuds clients ne nécessitent pas l'ouverture de ports ou de pare-feu.
-*   La tolérance aux pannes et la fiabilité sont obtenues en utilisant plusieurs serveurs proxy et serveurs de strates redondants. Les clients basculent de manière transparente vers le prochain proxy ou serveur disponible.
-*   La mise en cache hiérarchique rend le modèle CVMFS hautement évoluable et robuste, et minimise le trafic réseau. Il peut y avoir plusieurs niveaux dans la hiérarchie de diffusion et de mise en cache du contenu :
+*   La tolérance aux pannes et la fiabilité sont obtenues en utilisant plusieurs serveurs proxys et serveurs de strates redondants. Les clients basculent de manière transparente vers le prochain proxy ou serveur disponible.
+*   La mise en cache hiérarchique rend le modèle CVMFS hautement évolutif et robuste, et minimise le trafic réseau. Il peut y avoir plusieurs niveaux dans la hiérarchie de diffusion et de mise en cache du contenu :
     *   La strate 0 contient la copie principale du référentiel.
     *   Plusieurs serveurs de strate 1 répliquent le contenu du référentiel à partir de la strate 0.
-    *   Les serveurs proxy HTTP mettent en cache les requêtes réseau des clients vers les serveurs de la strate 1.
+    *   Les serveurs proxys HTTP mettent en cache les requêtes réseau des clients vers les serveurs de la strate 1.
     *   Le client CVMFS télécharge les fichiers à la demande dans le ou les caches clients locaux.
-        *   Deux niveaux de cache local peuvent être utilisés, par exemple un cache SSD rapide et un grand cache HDD. Un système de fichiers d’une grappe peut également être utilisé comme cache partagé pour tous les nœuds.
+        *   Deux niveaux de cache locale peuvent être utilisés, par exemple un cache SSD rapide et un grand cache HDD. Un système de fichiers d’une grappe peut également être utilisé comme cache partagé pour tous les nœuds.
 *   Les clients CVMFS ont un accès en lecture au système de fichiers.
 *   En utilisant les arborescences Merkle et le stockage adressable par le contenu, et en codant les métadonnées dans les catalogues, toutes les métadonnées sont traitées comme des données, et sont pratiquement toutes immuables et se prêtent parfaitement à la mise en cache.
 *   Le stockage des métadonnées et les opérations évoluent à l'aide de catalogues imbriqués, permettant la résolution des requêtes de métadonnées à effectuer localement par le client.

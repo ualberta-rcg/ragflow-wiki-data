@@ -1,0 +1,68 @@
+{
+  "doc_key": "base/running_jobs",
+  "level": "chunk",
+  "chunk_index": 7,
+  "qa_pairs": [
+    {
+      "question": "What is the command to initiate an interactive session on a compute node?",
+      "answer": "You can start an interactive session on a compute node using `salloc`. An example command is `$ salloc --time=1:0:0 --mem-per-cpu=3G --ntasks=1 --account=def-someuser`."
+    },
+    {
+      "question": "How do you request specific resources, such as time and memory, for an interactive job using `salloc`?",
+      "answer": "You can request resources like time, memory per CPU, number of tasks, and an account using flags such as `--time`, `--mem-per-cpu`, `--ntasks`, and `--account` with the `salloc` command. For example, `$ salloc --time=1:0:0 --mem-per-cpu=3G --ntasks=1 --account=def-someuser` requests one hour, 3 GB per CPU, one task, and a specific account."
+    },
+    {
+      "question": "What is required to run graphical programs interactively on a compute node?",
+      "answer": "To run graphical programs interactively, you need to add the `--x11` flag to your `salloc` command. Additionally, you must first connect to the cluster with X11 forwarding enabled."
+    },
+    {
+      "question": "How does the duration requested for an interactive job impact its start time?",
+      "answer": "Interactive jobs requesting three hours or less are likely to start very soon after submission because dedicated test nodes are available for such durations. However, interactive jobs requesting more than three hours run on the cluster's regular nodes and may experience long, unpredictable wait times before starting."
+    },
+    {
+      "question": "What is the command to cancel a specific Slurm job?",
+      "answer": "You can cancel a specific Slurm job using the `scancel` command followed by the job ID, for example: `$ scancel <jobid>`."
+    },
+    {
+      "question": "How can a user cancel all their Slurm jobs?",
+      "answer": "To cancel all your Slurm jobs, use the command `$ scancel -u $USER`."
+    },
+    {
+      "question": "What command is used to cancel only the pending Slurm jobs for a user?",
+      "answer": "To cancel only your pending Slurm jobs, use the command `$ scancel -t PENDING -u $USER`."
+    },
+    {
+      "question": "What essential feature must an application support for computations that exceed system time limits?",
+      "answer": "For computations that exceed system time limits, the application must support checkpointing. This means it should be able to save its state to a checkpoint file and then restart and continue the computation from that saved state."
+    },
+    {
+      "question": "What are the two recommended methods for automatically restarting long-running jobs?",
+      "answer": "The two recommended methods for automatic restarting of long-running jobs are using Slurm job arrays or resubmitting from the end of the job script."
+    },
+    {
+      "question": "How can Slurm job arrays be used to manage the restarting of long-running simulations?",
+      "answer": "Slurm job arrays can be used with syntax like `--array=1-100%10` to submit a collection of identical jobs, while ensuring that only a specified number of jobs (e.g., 10% of the total) run at any given time. The script should be written to ensure that the last checkpoint is always used for the next job, and the number of restarts is fixed by the `--array` argument."
+    },
+    {
+      "question": "What is the general approach for restarting a simulation using a job array, as demonstrated with a molecular dynamics example?",
+      "answer": "For a molecular dynamics simulation that needs 1,000,000 steps but exceeds time limits, it can be split into 10 smaller jobs of 100,000 steps each. These jobs are submitted as a job array, running one after another, with each subsequent job restarting from the checkpoint file saved by the previous job."
+    },
+    {
+      "question": "How does an example job array script handle the initial start versus a restart from a checkpoint file?",
+      "answer": "An example job array script checks for the existence of a checkpoint file (e.g., `state.cpt`). If the file exists, it restarts the simulation using `mdrun --restart state.cpt`; otherwise, it starts a new simulation with `mdrun`."
+    },
+    {
+      "question": "What is the core principle behind resubmitting a job from its own script?",
+      "answer": "In this method, a job script runs a segment of the calculation and saves a checkpoint. Before the allocated run-time of the job expires, the script checks if the entire calculation is finished. If not, it submits a new copy of itself to continue the work."
+    },
+    {
+      "question": "Which Slurm directives are typically included in a job script designed for self-resubmission?",
+      "answer": "A job script designed for self-resubmission typically includes directives such as `#SBATCH --job-name`, `#SBATCH --account`, `#SBATCH --cpus-per-task`, `#SBATCH --time`, and `#SBATCH --mem`."
+    },
+    {
+      "question": "How does a job script determine whether to resubmit itself to continue a long-running calculation?",
+      "answer": "A job script determines whether to resubmit itself by including a conditional check, such as `if work_should_continue; then sbatch ${BASH_SOURCE[0]}; fi`. The `work_should_continue` function, which must be defined by the user, determines if further work is required."
+    }
+  ],
+  "generated_at": "2026-04-12T07:07:01.988570+00:00"
+}

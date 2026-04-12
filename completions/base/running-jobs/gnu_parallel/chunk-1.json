@@ -1,0 +1,112 @@
+{
+  "doc_key": "base/gnu_parallel",
+  "level": "chunk",
+  "chunk_index": 1,
+  "qa_pairs": [
+    {
+      "question": "What is GNU Parallel?",
+      "answer": "GNU Parallel is a tool designed for running many sequential tasks concurrently on one or more nodes."
+    },
+    {
+      "question": "When is GNU Parallel particularly useful?",
+      "answer": "It is useful for running a large number of sequential tasks, especially those that are short or have variable durations, and for performing parameter sweeps."
+    },
+    {
+      "question": "Where can users find more advanced documentation for GNU Parallel?",
+      "answer": "Users can refer to the official documentation on the GNU Parallel website for more advanced usage."
+    },
+    {
+      "question": "What is the default behaviour of GNU Parallel regarding the number of simultaneous tasks?",
+      "answer": "By default, GNU Parallel runs as many tasks as the number of cores allocated by the scheduler, thereby maximizing resource usage."
+    },
+    {
+      "question": "How can the number of simultaneous tasks be adjusted in GNU Parallel?",
+      "answer": "The number of simultaneous tasks can be changed using the `--jobs` option, followed by the desired number."
+    },
+    {
+      "question": "What happens when a task finishes while using GNU Parallel?",
+      "answer": "When one task finishes, a new task is automatically started by GNU Parallel in its stead, always keeping the maximum number of tasks running."
+    },
+    {
+      "question": "What syntax does GNU Parallel use to specify parameters for a command?",
+      "answer": "GNU Parallel uses curly brackets (`{}`) as parameters for the command to be executed."
+    },
+    {
+      "question": "How can you run `gzip` on all text files in a directory using GNU Parallel?",
+      "answer": "You can execute the command `ls *.txt | parallel gzip {}`."
+    },
+    {
+      "question": "What is an alternative syntax for passing argument lists to GNU Parallel?",
+      "answer": "An alternative syntax is to use `:::`, as shown in the example `parallel echo {} ::: $(seq 1 3)`."
+    },
+    {
+      "question": "What term does GNU Parallel use to refer to individual commands it executes?",
+      "answer": "GNU Parallel refers to each of the commands executed as 'jobs'."
+    },
+    {
+      "question": "Why can the term 'job' be confusing in the context of GNU Parallel on some systems?",
+      "answer": "On many systems, a 'job' is a batch script run by a scheduler, and GNU Parallel would be used inside that job. From that perspective, GNU Parallel's jobs are 'subjobs'."
+    },
+    {
+      "question": "How can multiple arguments be used in GNU Parallel?",
+      "answer": "Multiple arguments can be used by enumerating them, for example: `parallel echo {1} {2} ::: $(seq 1 3) ::: $(seq 2 3)`."
+    },
+    {
+      "question": "What syntax allows GNU Parallel to use the content of a file as a list of argument values?",
+      "answer": "The syntax `::::` takes the content of a file to generate the list of values for the arguments."
+    },
+    {
+      "question": "How can you display the content of a file named `mylist.txt` as arguments using GNU Parallel?",
+      "answer": "You may display its content with: `parallel echo {1} :::: mylist.txt`."
+    },
+    {
+      "question": "How can GNU Parallel be used to run commands listed in a file?",
+      "answer": "GNU Parallel can interpret the lines of a file as actual subjobs to be run in parallel by using redirection, such as `parallel < my_commands.txt`."
+    },
+    {
+      "question": "When is it particularly useful to feed commands to GNU Parallel via file redirection?",
+      "answer": "This usage mode is particularly useful if the subjobs contain symbols that are special to GNU Parallel, or if the subcommands are to contain a few commands (e.g. `cd dir1 && ./executable`)."
+    },
+    {
+      "question": "In the provided Slurm script example for running commands from `my_commands.txt`, how many CPUs are allocated for parallel execution?",
+      "answer": "The script specifies `#SBATCH --cpus-per-task=4`, meaning 4 CPUs are allocated, which GNU Parallel will use to run commands sequentially."
+    },
+    {
+      "question": "What command in the Slurm script example initiates GNU Parallel to run commands from `my_commands.txt` and log the process?",
+      "answer": "The command is `parallel --joblog parallel.log < ./my_commands.txt`."
+    },
+    {
+      "question": "Is it recommended to use GNU Parallel across multiple nodes?",
+      "answer": "No, it is not recommended, particularly in the context of many short jobs."
+    },
+    {
+      "question": "What are the reasons why using GNU Parallel across multiple nodes is not recommended?",
+      "answer": "It needs to start an SSH session on remote nodes, which often requires several seconds and may hang."
+    },
+    {
+      "question": "If one chooses to use GNU Parallel across multiple nodes, what is a crucial option to include?",
+      "answer": "If you choose to use it, make sure you add a delay between jobs of 30 seconds or more, using the option `--sshdelay 30`."
+    },
+    {
+      "question": "How can a file containing a list of nodes be created for use with GNU Parallel for multi-node execution?",
+      "answer": "A file containing the list of nodes can be created by executing `scontrol show hostname > ./node_list_${SLURM_JOB_ID}`."
+    },
+    {
+      "question": "Which GNU Parallel option allows for transferring a named environment variable to all nodes during multi-node execution?",
+      "answer": "The `--env` option allows us to transfer a named environment variable to all the nodes."
+    },
+    {
+      "question": "How can you ensure that GNU Parallel tasks start in the same directory as the main node when distributing a workload across multiple nodes?",
+      "answer": "The `--workdir $PWD` option ensures that the GNU Parallel tasks will start in the same directory as the main node."
+    },
+    {
+      "question": "In a multi-node Slurm job for OpenMP tasks, what environment variable needs to be set, and what GNU Parallel command would distribute the workload?",
+      "answer": "The `OMP_NUM_THREADS` environment variable should be exported. The command would be `parallel --jobs $SLURM_NTASKS_PER_NODE --sshloginfile ./node_list_${SLURM_JOB_ID} --workdir $PWD --env OMP_NUM_THREADS --sshdelay 30 ./my_program`."
+    },
+    {
+      "question": "For an OpenMP task setup with `--nodes=N`, `--ntasks-per-node=5`, and `--cpus-per-task=8`, how many OpenMP processes can run simultaneously and what is their maximum CPU usage?",
+      "answer": "Up to `5*N` OpenMP processes are running simultaneously with a CPU usage of up to 800% each."
+    }
+  ],
+  "generated_at": "2026-04-11T22:16:25.435548+00:00"
+}

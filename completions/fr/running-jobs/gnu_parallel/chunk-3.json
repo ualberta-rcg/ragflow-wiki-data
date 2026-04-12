@@ -1,0 +1,64 @@
+{
+  "doc_key": "fr/gnu_parallel",
+  "level": "chunk",
+  "chunk_index": 3,
+  "qa_pairs": [
+    {
+      "question": "Est-ce qu'il est recommandé d'utiliser GNU Parallel avec plusieurs nœuds d'une grappe?",
+      "answer": "Non, ce n'est pas recommandé parce que des problèmes pourraient survenir, surtout pour les tâches courtes, en raison du lancement de sessions SSH sur des nœuds distants qui peuvent être lentes ou bloquées."
+    },
+    {
+      "question": "Quelle option faut-il absolument utiliser si on décide de quand même employer GNU Parallel sur plusieurs nœuds?",
+      "answer": "Si vous choisissez de le faire, il faut utiliser l'option `--sshdelay 30` pour assurer un délai d'au moins 30 secondes entre chaque tâche."
+    },
+    {
+      "question": "Comment crée-t-on un fichier avec la liste des nœuds pour GNU Parallel quand on distribue du travail sur une grappe?",
+      "answer": "On peut utiliser une commande comme `scontrol show hostname > ./node_list_${SLURM_JOB_ID}` pour créer un fichier qui contient la liste des nœuds à utiliser."
+    },
+    {
+      "question": "À quoi sert l'option `--env` quand on utilise GNU Parallel avec plusieurs nœuds?",
+      "answer": "L'option `--env` permet de transférer une variable d'environnement spécifique à tous les nœuds sur lesquels les tâches seront exécutées."
+    },
+    {
+      "question": "Quelle est l'utilité de l'option `--workdir` pour GNU Parallel en mode multi-nœuds?",
+      "answer": "L'option `--workdir` s'assure que les tâches GNU Parallel sont lancées dans le même répertoire de travail que le nœud principal."
+    },
+    {
+      "question": "Comment configure-t-on le nombre de fils OpenMP pour des tâches distribuées sur plusieurs nœuds avec GNU Parallel?",
+      "answer": "Il faut exporter la variable d'environnement `OMP_NUM_THREADS` (par exemple, `export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK`) et ensuite la passer à GNU Parallel avec l'option `--env OMP_NUM_THREADS`."
+    },
+    {
+      "question": "Si on soumet des tâches OpenMP avec `--nodes=N`, `--ntasks-per-node=5` et `--cpus-per-task=8` via GNU Parallel, combien de processus OpenMP travaillent simultanément et quel est le taux d'utilisation maximal du CPU?",
+      "answer": "Dans ce cas, `5*N` processus OpenMP travaillent simultanément et l'utilisation de CPU peut monter jusqu'à 800%."
+    },
+    {
+      "question": "Quel argument de GNU Parallel permet de générer un journal des commandes exécutées?",
+      "answer": "L'argument `--joblog JOBLOGFILE` produit un journal des commandes exécutées."
+    },
+    {
+      "question": "Quelles informations contient le fichier généré par l'option `--joblog`?",
+      "answer": "Le fichier journal contient la liste des commandes complétées, leur heure de début, leur durée, le nom du nœud de calcul sur lequel elles ont tourné et leur code de sortie."
+    },
+    {
+      "question": "Comment reprendre une commande `parallel` qui a été interrompue?",
+      "answer": "Si la commande `parallel` a été interrompue, elle peut reprendre son cours en utilisant l'option `--resume` avec la même commande."
+    },
+    {
+      "question": "Quand on utilise l'option `--resume`, où sont ajoutées les nouvelles tâches dans le journal?",
+      "answer": "Les nouvelles tâches sont ajoutées à la fin du même journal."
+    },
+    {
+      "question": "Comment relancer spécifiquement les sous-commandes qui ont échoué avec GNU Parallel?",
+      "answer": "On peut utiliser l'option `--resume-failed` pour exécuter à nouveau les sous-commandes qui ont échoué (code de sortie différent de zéro)."
+    },
+    {
+      "question": "Est-ce que l'option `--resume-failed` ne relance que les sous-commandes échouées?",
+      "answer": "Non, en plus de relancer les sous-commandes qui ont échoué, cette option exécute également les sous-tâches qui n'avaient pas été prises en compte auparavant."
+    },
+    {
+      "question": "Quels arguments sont essentiels pour travailler efficacement avec des fichiers volumineux, comme un grand fichier FASTA, en parallèle avec GNU Parallel?",
+      "answer": "Pour gérer efficacement de grandes portions de fichiers volumineux, il faut utiliser les arguments `--pipepart` et `--block`."
+    }
+  ],
+  "generated_at": "2026-04-11T22:19:54.215421+00:00"
+}

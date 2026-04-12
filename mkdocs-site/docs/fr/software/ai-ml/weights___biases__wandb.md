@@ -5,21 +5,46 @@ lang: "fr"
 
 source_wiki_title: "Weights & Biases (wandb)/fr"
 source_hash: "ca208b0df558f35bfed050cebfa74a59"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T12:55:18.687023+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T12:53:07.369735+00:00"
 
 tags:
   - ai-and-machine-learning
 
 keywords:
-  []
+  - "Slurm"
+  - "journalisation des métriques"
+  - "httpproxy"
+  - "nœuds de calcul"
+  - "Weights & Biases"
+  - "grappes"
+  - "mode hors ligne"
+  - "synchronisation"
+  - "apprentissage machine"
+  - "Comet.ml"
+  - "suivi d'expériences"
+  - "wandb"
+
+questions:
+  - "Qu'est-ce que la plateforme Weights & Biases (wandb) et quelles sont ses principales fonctionnalités pour l'apprentissage machine ?"
+  - "Quelles sont les restrictions d'accès et de disponibilité de wandb sur les différentes grappes de calcul de l'Alliance ?"
+  - "Quelle méthode permet d'utiliser wandb sur les grappes bloquant l'accès à Google Cloud Storage (comme Narval, Rorqual et TamIA) sans provoquer de plantage ?"
+  - "Quelles sont les ressources matérielles (CPU, mémoire) recommandées dans le script Slurm pour exécuter un processus Weights & Biases ?"
+  - "Comment le script Python configure-t-il l'initialisation du projet et la journalisation des métriques avec la bibliothèque wandb ?"
+  - "Quelle commande doit-on utiliser pour synchroniser et envoyer les données au serveur une fois l'entraînement terminé en mode hors ligne ?"
+  - "Sur quelles grappes de calcul le produit Comet.ml peut-il être utilisé ?"
+  - "Quel outil l'exemple présenté utilise-t-il pour le suivi d'expériences en mode hors ligne ?"
+  - "Quel module doit être chargé sur les grappes pour permettre l'exécution de wandb en mode en ligne ?"
+  - "Quelles sont les ressources matérielles (CPU, mémoire) recommandées dans le script Slurm pour exécuter un processus Weights & Biases ?"
+  - "Comment le script Python configure-t-il l'initialisation du projet et la journalisation des métriques avec la bibliothèque wandb ?"
+  - "Quelle commande doit-on utiliser pour synchroniser et envoyer les données au serveur une fois l'entraînement terminé en mode hors ligne ?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -31,16 +56,16 @@ status:
 
 L'utilisation de toutes les fonctionnalités de `wandb` sur les nœuds de calcul nécessite un accès Internet ainsi qu'un accès à Google Cloud Storage, qui peuvent tous deux ne pas être disponibles selon la grappe :
 
-| Grappe    | Wandb disponible | Commentaire                                                                                  |
-| :-------- | :--------------- | :------------------------------------------------------------------------------------------- |
-| Narval    | limité ❌        | **réservées aux membres de Mila et autres groupes admissibles** via `httpproxy`             |
-| Rorqual   | limité ❌        | **réservées aux membres de Mila et autres groupes admissibles** via `httpproxy`             |
-| TamIA     | limité ❌        | **réservées aux membres de Mila et autres groupes admissibles** via `httpproxy`             |
-| Fir       | oui ✅           | `httpproxy` non requis                                                                      |
-| Nibi      | oui ✅           | `httpproxy` non requis                                                                      |
-| Trillium  | non ❌           | accès internet désactivé pour les nœuds de calcul                                            |
-| Vulcan    | oui ✅           | `httpproxy` non requis                                                                      |
-| Killarney | oui ✅           | `httpproxy` non requis                                                                      |
+| Grappe | Wandb disponible | Commentaire |
+| :----- | :--------------- | :---------- |
+| Narval | limité ❌        | **réservées aux membres de Mila et autres groupes admissibles** via `httpproxy` |
+| Rorqual | limité ❌        | **réservées aux membres de Mila et autres groupes admissibles** via `httpproxy` |
+| TamIA | limité ❌        | **réservées aux membres de Mila et autres groupes admissibles** via `httpproxy` |
+| Fir | oui ✅           | `httpproxy` non requis |
+| Nibi | oui ✅          | `httpproxy` non requis |
+| Trillium | non ❌           | accès internet désactivé pour les nœuds de calcul |
+| Vulcan | oui ✅           | `httpproxy` non requis |
+| Killarney | oui ✅           | `httpproxy` non requis |
 
 ## Membres de Mila et autres groupes admissibles
 
@@ -50,9 +75,9 @@ D'autres groupes ont pris des dispositions avec Weights & Biases pour contourner
 
 ## Narval, Rorqual et TamIA
 
-Bien qu'il soit possible de télécharger des métriques de base vers Weights&Biases lors d'une tâche sur Narval, Rorqual et TamIA, le package wandb tentera automatiquement de télécharger les informations relatives à votre environnement vers un bucket Google Cloud Storage, ce qui n'est pas autorisé sur les nœuds de calcul de ces grappes et qui causera un plantage pendant ou à la toute fin d'une tâche. Votre tâche peut également se bloquer jusqu'à ce qu'elle atteigne son temps mort, gaspillant ainsi des ressources. Il n'est actuellement pas possible de désactiver ce comportement. Notez que le téléchargement d'artefacts vers W&B avec `wandb.save()` nécessite également un accès à Google Cloud Storage et bloquera ou fera planter votre tâche.
+Bien qu'il soit possible de télécharger des métriques de base vers Weights&Biases lors d'une tâche sur Narval, Rorqual et TamIA, le paquet wandb tentera automatiquement de télécharger les informations relatives à votre environnement vers un *bucket* Google Cloud Storage, ce qui n'est pas autorisé sur les nœuds de calcul de ces grappes et qui causera un plantage pendant ou à la toute fin d'une tâche. Votre tâche peut également se bloquer jusqu'à ce qu'elle atteigne son temps mort, gaspillant ainsi des ressources. Il n'est actuellement pas possible de désactiver ce comportement. Notez que le téléchargement d'artéfacts vers W&B avec `wandb.save()` nécessite également un accès à Google Cloud Storage et bloquera ou fera planter votre tâche.
 
-Vous pouvez quand même utiliser wandb en activant les modes [`offline`](https://docs.wandb.ai/library/cli#wandb-offline) ou [`dryrun`](https://docs.wandb.ai/library/init#save-logs-offline). Avec ces modes, wandb écrit tous les métriques, journalisations et artefacts sur le disque local, sans synchronisation avec le service internet Weights&Biases. Une fois les tâches terminées, vous pouvez faire la synchronisation avec la commande [`wandb sync`](https://docs.wandb.ai/ref/cli#wandb-sync) sur le nœud de connexion.
+Vous pouvez quand même utiliser wandb en activant les modes [`offline`](https://docs.wandb.ai/library/cli#wandb-offline) ou [`dryrun`](https://docs.wandb.ai/library/init#save-logs-offline). Avec ces modes, wandb écrit toutes les métriques, journalisations et artéfacts sur le disque local, sans synchronisation avec le service Internet Weights&Biases. Une fois les tâches terminées, vous pouvez faire la synchronisation avec la commande [`wandb sync`](https://docs.wandb.ai/ref/cli#wandb-sync) sur le nœud de connexion.
 
 Remarquez que le produit [Comet.ml](comet.ml.md) est très semblable à Weights & Biases et qu'il fonctionne sur Narval, Rorqual et TamIA.
 

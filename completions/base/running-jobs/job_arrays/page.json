@@ -1,0 +1,47 @@
+{
+  "doc_key": "base/job_arrays",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is the primary purpose of a SLURM job array?",
+      "answer": "A SLURM job array allows you to conveniently submit a large number of tasks that differ only in some parameter, processing them as individual tasks within a single job submission."
+    },
+    {
+      "question": "How are individual tasks within a job array distinguished from each other?",
+      "answer": "Individual tasks are distinguished by the environment variable `$SLURM_ARRAY_TASK_ID`, which Slurm sets to a different value for each task."
+    },
+    {
+      "question": "How do you specify the range of values for `$SLURM_ARRAY_TASK_ID` when submitting a job array?",
+      "answer": "You specify the range of values using the `--array` parameter with `sbatch`, for example, `--array=0-7` for a range from 0 to 7."
+    },
+    {
+      "question": "Can you provide examples of how to use the `--array` parameter?",
+      "answer": "Examples include `--array=0-7` for a sequential range, `--array=1,3,5,7` for specific values, `--array=1-7:2` for a step size, and `--array=1-100%10` to limit concurrency."
+    },
+    {
+      "question": "Are tasks within a SLURM job array run dependently or independently?",
+      "answer": "Tasks within a job array are scheduled as independent tasks, each with its own time limit, and each may start at a different time on a different host."
+    },
+    {
+      "question": "What are the advantages of using a job array over submitting many separate serial jobs?",
+      "answer": "Job arrays produce a single line of output in `squeue`, making it easier to read, and the scheduler can run more efficiently as it doesn't have to analyze job requirements for each task separately at the initial submission step."
+    },
+    {
+      "question": "When should one avoid using a job array, and what alternatives are suggested for such cases?",
+      "answer": "You should avoid using job arrays for tasks with very short run times (much less than an hour) because the scheduler load for dispatching each task is the same as for a non-array job. Alternatives include grouping short tasks into longer jobs using tools like META, GLOST, GNU Parallel, or a shell loop."
+    },
+    {
+      "question": "How can a job array be used to run the same script in multiple directories with non-systematic names?",
+      "answer": "You can create a file (e.g., `case_list`) listing the directory names, and then use `sed -n \"${SLURM_ARRAY_TASK_ID}p\" case_list` within your script to select the correct directory for each task ID."
+    },
+    {
+      "question": "What cautions should be considered when using a job array with a file to select parameters or directories?",
+      "answer": "Ensure the number of tasks requested matches the number of entries in the file, and do not change the parameter/directory list file until all tasks in the array have completed, as it's read each time a new task starts."
+    },
+    {
+      "question": "How can `$SLURM_ARRAY_TASK_ID` be passed to a Python script for parallel processing of multiple parameters?",
+      "answer": "You can pass `$SLURM_ARRAY_TASK_ID` as a command-line argument to the Python script, and within the Python script, retrieve its value using `sys.argv[1]` to select the appropriate parameter (e.g., from a NumPy array)."
+    }
+  ],
+  "generated_at": "2026-04-12T00:13:09.880781+00:00"
+}

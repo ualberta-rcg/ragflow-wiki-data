@@ -5,33 +5,45 @@ lang: "en"
 
 source_wiki_title: "Data protection, privacy, and confidentiality/en"
 source_hash: "6488f67aa36f753b2725e275ef6b186b"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T06:03:37.224752+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T06:48:07.675114+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "shared infrastructure"
+  - "data protection"
+  - "hardware failure"
+  - "sensitive data"
+  - "unauthorized access"
+
+questions:
+  - "How is sensitive or personal data handled on the platform, and who holds the ultimate responsibility for its protection?"
+  - "What specific backup and duplication measures are implemented across different filesystems to protect data against hardware failures?"
+  - "What physical and software security protocols are used to prevent unauthorized access to data on the shared infrastructure?"
+  - "How is sensitive or personal data handled on the platform, and who holds the ultimate responsibility for its protection?"
+  - "What specific backup and duplication measures are implemented across different filesystems to protect data against hardware failures?"
+  - "What physical and software security protocols are used to prevent unauthorized access to data on the shared infrastructure?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
 ## Are there any resources dedicated to handling personal data, private data, or sensitive data, such as (for example) human clinical research data?
 
-!!! warning "Sensitive Data Disclaimer"
-    We don’t have resources specifically designated for sensitive data at this time. Our resources are all administered following best practices for academic research systems, and we devote considerable effort to ensuring data integrity, confidentiality, and availability. However, no resource is formally certified as meeting specific security or privacy assurance levels which may be required for certain datasets. For the most part, we provide shared resources, shared networks, shared nodes, shared memory, and data is not guaranteed to be encrypted at rest. We offer the standard Linux filesystem segregation and access control to files and directories, and our sysadmins do have access to all this material when necessary or when authorized by their owners.
+We don’t have resources specifically designated for sensitive data at this time.
+
+Our resources are all administered following best practices for academic research systems, and we devote considerable effort to ensuring data integrity, confidentiality, and availability. However, no resource is formally certified as meeting specific security or privacy assurance levels which may be required for certain datasets. For the most part, we provide shared resources, shared networks, shared nodes, shared memory, and data is not guaranteed to be encrypted at rest. We offer the standard Linux filesystem segregation and access control to files and directories, and our sysadmins do have access to all this material when necessary or when authorized by their owners.
 
 !!! note "Researcher Responsibility"
     Responsibility for data protection and data privacy rests ultimately with the researcher. Please see [our policies](https://alliancecan.ca/en/policies).
 
-!!! tip "Need Assistance?"
     Support staff can give guidance on handling of sensitive data, including advice on access control, encryption, storage, and transmission. Please contact [technical support](technical-support.md) for assistance.
 
 ## How do you protect my data against hardware failure?
@@ -48,12 +60,9 @@ There are two primary ways in which unauthorized access to data could happen: ha
 
 To protect against unauthorized access through hardware, only approved personnel can physically access the infrastructure. Storage devices which are removed due to hardware failure are either destroyed or already encrypted or erased before being returned to the vendor for replacement.
 
-To protect against unauthorized access through software, all of our clusters use standard POSIX and ACL permissions on their filesystems. Each file has an owner and a group. Default permissions are such that new files created are writable by the owner and readable by the group. The default group of a file may depend on the file’s location on the filesystem. The group of a file may correspond to the research project or to a single user.
-
-!!! note "File Permissions Responsibility"
-    Ultimately, the owner of a file is responsible for ensuring that it belongs to the desired group and has the appropriate permissions.
+To protect against unauthorized access through software, all of our clusters use standard POSIX and ACL permissions on their filesystems. Each file has an owner and a group. Default permissions are such that new files created are writable by the owner and readable by the group. The default group of a file may depend on the file’s location on the filesystem. The group of a file may correspond to the research project or to a single user. Ultimately, the owner of a file is responsible for ensuring that it belongs to the desired group and has the appropriate permissions.
 
 Assuming that the intended permissions are set on files, unauthorized access can only happen through privilege escalation (hacks). To protect against such issues, our team monitors for Common Vulnerabilities and Exposures (CVE mailing lists) and applies patches as needed. Our systems are also monitored to detect anomalous behaviour which could indicate intrusions, and privileged accounts - those of our employees - have stricter security requirements than regular users.
 
-!!! warning "Shared Infrastructure and Encryption"
+!!! warning "Shared Infrastructure and Data Encryption"
     Ultimately, our clusters remain shared infrastructure. While we take precautions to minimize the risk of unauthorized access, such a possibility does exist. If your data requires an additional level of protection, you should consider encrypting it using a tool like [GNU Privacy Guard](https://www.gnupg.org/) which is installed on our clusters as the binary `gpg`.

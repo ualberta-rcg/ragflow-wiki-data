@@ -1,0 +1,108 @@
+{
+  "doc_key": "en/openacc_tutorial_-_data_movement",
+  "level": "chunk",
+  "chunk_index": 1,
+  "qa_pairs": [
+    {
+      "question": "What is one of the learning objectives related to data understanding in this document?",
+      "answer": "One learning objective is to understand what data locality and data movement are."
+    },
+    {
+      "question": "What is a learning objective concerning data clauses?",
+      "answer": "A learning objective is to understand what structured and unstructured data clauses are."
+    },
+    {
+      "question": "What specific skill does this document aim to teach regarding data handling?",
+      "answer": "This document aims to teach how to move data explicitly."
+    },
+    {
+      "question": "What is a key learning objective about compiling and running OpenACC code?",
+      "answer": "A key learning objective is to learn how to compile and run OpenACC code with data movement directives."
+    },
+    {
+      "question": "What technology was initially used to simplify code acceleration steps?",
+      "answer": "CUDA Unified Memory was used to simplify the first steps in accelerating our code."
+    },
+    {
+      "question": "What limitation did CUDA Unified Memory introduce regarding code deployment?",
+      "answer": "CUDA Unified Memory made the code not portable, as it was PGI-only with the –ta=tesla:managed flag and NVIDIA-only."
+    },
+    {
+      "question": "How can one make code portable and potentially improve its performance?",
+      "answer": "Explicitly managing data will make the code portable and may improve performance."
+    },
+    {
+      "question": "What is the function of the `data` directive in OpenACC?",
+      "answer": "The `data` directive defines a region of code in which GPU arrays remain on the GPU and are shared among all kernels in that region."
+    },
+    {
+      "question": "According to the document, what does 'Data locality' mean within a structured data region?",
+      "answer": "Data locality means that arrays used within the data region will remain on the GPU until the end of the data region."
+    },
+    {
+      "question": "In what situations are unstructured data directives typically used?",
+      "answer": "Unstructured data directives are sometimes used when scoping does not allow the use of normal data regions, such as when using constructors or destructors."
+    },
+    {
+      "question": "Which directive signifies the beginning of an unstructured data lifetime?",
+      "answer": "The `enter data` directive defines the start of an unstructured data lifetime."
+    },
+    {
+      "question": "What clauses are available with the `enter data` directive?",
+      "answer": "The clauses available with the `enter data` directive are `copyin(list)` and `create(list)`."
+    },
+    {
+      "question": "Which directive signifies the conclusion of an unstructured data lifetime?",
+      "answer": "The `exit data` directive defines the end of an unstructured data lifetime."
+    },
+    {
+      "question": "What clauses are available with the `exit data` directive?",
+      "answer": "The clauses available with the `exit data` directive are `copyout(list)` and `delete(list)`."
+    },
+    {
+      "question": "What is a key advantage of utilizing unstructured data clauses in OpenACC?",
+      "answer": "Unstructured data clauses enable OpenACC to be used in C++ classes and whenever data is allocated and initialized in a different piece of code than where it is freed (e.g., Fortran modules)."
+    },
+    {
+      "question": "Describe the function of the `copyin(list)` data clause.",
+      "answer": "The `copyin(list)` clause allocates memory on the GPU and copies data from the host to the GPU when entering the region."
+    },
+    {
+      "question": "What does the `copyout(list)` data clause accomplish?",
+      "answer": "The `copyout(list)` clause allocates memory on the GPU and copies data to the host when exiting the region."
+    },
+    {
+      "question": "How does the `copy(list)` data clause work, and what is its limitation?",
+      "answer": "The `copy(list)` clause allocates memory on the GPU, copies data from the host to the GPU when entering the region, and copies data to the host when exiting the region. This clause is for structured regions only."
+    },
+    {
+      "question": "What is the behaviour of the `create(list)` data clause?",
+      "answer": "The `create(list)` clause allocates memory on the GPU but does not copy any data."
+    },
+    {
+      "question": "When is the `delete(list)` data clause used, and what is its effect?",
+      "answer": "The `delete(list)` clause is used only in unstructured data regions and deallocates memory on the GPU without copying."
+    },
+    {
+      "question": "What does the `present(list)` data clause signify to the compiler?",
+      "answer": "The `present(list)` clause signifies that data is already present on the GPU from another containing data region."
+    },
+    {
+      "question": "Why is it sometimes necessary to explicitly specify array size with data clauses and array 'shape'?",
+      "answer": "It is necessary because sometimes the compiler cannot determine the size of arrays on its own."
+    },
+    {
+      "question": "How would you specify an array shape for `copyin` in C using an OpenACC data clause?",
+      "answer": "In C, you would specify it as `#pragma acc data copyin(a[0:nelem])`."
+    },
+    {
+      "question": "How would you specify an array shape for `copyin` in Fortran using an OpenACC data clause?",
+      "answer": "In Fortran, you would specify it as `!$acc data copyin(a(1:end))`."
+    },
+    {
+      "question": "What are the two steps for copying a matrix to the device, as outlined in the example?",
+      "answer": "The two steps are to first copy the structure of the matrix, and then copy its members."
+    }
+  ],
+  "generated_at": "2026-04-12T04:11:56.665691+00:00"
+}

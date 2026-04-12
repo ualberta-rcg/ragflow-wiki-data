@@ -5,21 +5,33 @@ lang: "fr"
 
 source_wiki_title: "Faiss/fr"
 source_hash: "a7ad0f4be22ca0862b755ae38847f0f1"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T06:18:59.073312+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T07:02:26.825652+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "recherche de similarités"
+  - "GPU"
+  - "liaisons Python"
+  - "Faiss"
+  - "vecteurs denses"
+
+questions:
+  - "Qu'est-ce que la bibliothèque Faiss et à quoi sert-elle principalement ?"
+  - "Comment doit-on procéder pour charger et vérifier l'importation du module Faiss en Python ?"
+  - "Quels sont les différents paquets Python fournis par le module Faiss pour gérer les dépendances matérielles ?"
+  - "Qu'est-ce que la bibliothèque Faiss et à quoi sert-elle principalement ?"
+  - "Comment doit-on procéder pour charger et vérifier l'importation du module Faiss en Python ?"
+  - "Quels sont les différents paquets Python fournis par le module Faiss pour gérer les dépendances matérielles ?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -27,13 +39,13 @@ status:
 
 ## Liaisons Python
 Le module contient des liaisons pour plusieurs versions de Python.
-Pour connaître les versions disponibles, lancez
+Pour connaître les versions disponibles, lancez :
 
 ```bash
 module spider faiss/X.Y.Z
 ```
 
-ou allez directement à *faiss-cpu* avec
+ou allez directement à *faiss-cpu* avec :
 
 ```bash
 module spider faiss-cpu/X.Y.Z
@@ -42,32 +54,34 @@ module spider faiss-cpu/X.Y.Z
 où `X.Y.Z` désigne la version voulue.
 
 ### Utilisation
-1. Chargez les modules requis.
+1.  Chargez les modules requis.
 
-```bash
-module load StdEnv/2023 gcc cuda faiss/X.Y.Z python/3.11
-```
+    ```bash
+    module load StdEnv/2023 gcc cuda faiss/X.Y.Z python/3.11
+    ```
 
-où `X.Y.Z` désigne la version choisie.
+    où `X.Y.Z` désigne la version choisie.
 
-2. Importez Faiss.
+2.  Importez Faiss.
 
-```bash
-python -c "import faiss"
-```
+    ```bash
+    python -c "import faiss"
+    ```
 
-Si la commande n'affiche rien, l'importation a réussi.
+    !!! note "Vérification de l'importation"
+        Si la commande n'affiche rien, l'importation a réussi.
 
 #### Paquets Python disponibles
 Certains paquets Python dépendent des liaisons `faiss-cpu` ou `faiss-gpu` pour être installés.
-Le module `faiss` fournit
-* `faiss`
-* `faiss-gpu`
-* `faiss-cpu`
+Le module `faiss` fournit :
+*   `faiss`
+*   `faiss-gpu`
+*   `faiss-cpu`
 
 ```bash
 pip list | fgrep faiss
 ```
+
 ```text
 faiss-gpu                          1.7.4
 faiss-cpu                          1.7.4

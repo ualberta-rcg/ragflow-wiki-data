@@ -1,0 +1,32 @@
+{
+  "doc_key": "en/mpi",
+  "level": "chunk",
+  "chunk_index": 18,
+  "qa_pairs": [
+    {
+      "question": "In the Fortran 2008 safe MPI example, how is the total number of processes (`num_procs`) incorporated into a string variable?",
+      "answer": "The total number of processes (`num_procs`) is first written into a temporary string variable `tmp` using an integer-to-string conversion (`'(i2)'`), and then this `tmp` string is appended to the `outbuf` variable after the ' of ' phrase."
+    },
+    {
+      "question": "What is the formula used to determine the rank of the process to send a message to (`sendto`) in the provided Fortran 2008 MPI code snippet?",
+      "answer": "The rank of the process to send to (`sendto`) is calculated as `mod((rank + 1), num_procs)`."
+    },
+    {
+      "question": "How is the rank of the process from which to receive a message (`recvfrom`) determined in the Fortran 2008 safe MPI example?",
+      "answer": "The rank of the process from which to receive a message (`recvfrom`) is determined using the formula `mod(((rank + num_procs) - 1), num_procs)`."
+    },
+    {
+      "question": "Based on the Fortran 2008 code, what communication pattern is followed by a process if its rank is an even number?",
+      "answer": "If a process has an even rank (i.e., `MOD(rank,2) == 0`), it first calls `MPI_Send` to transmit its message and then calls `MPI_Recv` to receive a message."
+    },
+    {
+      "question": "What are the specific arguments passed to the `MPI_Send` function when a process has an even rank in the given Fortran 2008 example?",
+      "answer": "For an even-ranked process, `MPI_Send` is called with `outbuf` (message), `BUFMAX` (count), `MPI_CHARACTER` (datatype), `sendto` (destination rank), `0` (tag), and `MPI_COMM_WORLD` (communicator)."
+    },
+    {
+      "question": "Which arguments are used for the `MPI_Recv` function when an even-ranked process is receiving a message in the Fortran 2008 safe MPI program?",
+      "answer": "An even-ranked process calls `MPI_Recv` with `inbuf` (buffer for received data), `BUFMAX` (count), `MPI_CHARACTER` (datatype), `recvfrom` (source rank), `0` (tag), `MPI_COMM_WORLD` (communicator), and `status` (for message information)."
+    }
+  ],
+  "generated_at": "2026-04-12T01:54:25.296754+00:00"
+}

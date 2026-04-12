@@ -1,0 +1,79 @@
+{
+  "doc_key": "en/using_cloud_vgpus",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is the main purpose of this documentation?",
+      "answer": "This page describes how to allocate virtual GPU (vGPU) resources to a virtual machine (VM), install necessary drivers, and check whether the vGPU can be used."
+    },
+    {
+      "question": "Where are vGPU resources and repository access exclusively available?",
+      "answer": "Access to repositories and vGPUs is currently only available within the Arbutus cloud."
+    },
+    {
+      "question": "Does this documentation cover the installation of the CUDA toolkit?",
+      "answer": "No, this documentation only covers the vGPU driver installation; the CUDA toolkit is not pre-installed and needs to be installed separately."
+    },
+    {
+      "question": "What caution should be exercised if installing the CUDA toolkit directly from NVIDIA?",
+      "answer": "Users must ensure that the vGPU driver is not overwritten by the one from the CUDA package."
+    },
+    {
+      "question": "Which virtual machine (VM) flavours support vGPU usage?",
+      "answer": "The supported flavours are g1-12gb-c3-35gb-125 and g1-24gb-c6-70gb-250."
+    },
+    {
+      "question": "How does the operating system within a VM access the vGPU?",
+      "answer": "The vGPU is made available to the operating system via the PCI bus."
+    },
+    {
+      "question": "What is the initial step to prepare a VM for vGPU driver installation?",
+      "answer": "The OS must be updated to the latest available software, including the kernel."
+    },
+    {
+      "question": "Why is a VM reboot recommended after updating the OS and kernel?",
+      "answer": "A reboot is recommended to ensure the latest kernel is running."
+    },
+    {
+      "question": "What package is recommended for driver installation and is generally available in default repositories?",
+      "answer": "The DKMS package is recommended and available via default repositories for all major distributions."
+    },
+    {
+      "question": "What two files must be downloaded for the Nvidia vGPU driver installation?",
+      "answer": "The two files are NVIDIA-Linux-x86_64-580.105.08-grid.run and kalpa-prod.tok."
+    },
+    {
+      "question": "How do you install the Nvidia vGPU driver after downloading it?",
+      "answer": "You need to make the script executable and then run it: `chmod 755 NVIDIA-Linux-x86_64-580.105.08-grid.run && ./NVIDIA-Linux-x86_64-580.105.08-grid.run`."
+    },
+    {
+      "question": "Which installation options are recommended for the Nvidia vGPU driver?",
+      "answer": "The 'NVIDIA Proprietary' and 'DKMS' options are recommended."
+    },
+    {
+      "question": "What command is used to verify that the OS has proper access to the vGPU after driver installation and a reboot?",
+      "answer": "The `nvidia-smi` command is used for verification."
+    },
+    {
+      "question": "What is the next step to license the vGPU after verifying access with `nvidia-smi`?",
+      "answer": "The `kalpa-prod.tok` token needs to be copied to `/etc/nvidia/ClientConfigToken/`."
+    },
+    {
+      "question": "How is `nvidia-gridd` configured for licensing?",
+      "answer": "It's configured by running the command `echo \"FeatureType=4\" >/etc/nvidia/gridd.conf`."
+    },
+    {
+      "question": "How do you enable and check the status of the `nvidia-gridd` service?",
+      "answer": "You enable it with `systemctl enable --now nvidia-gridd`, and then check its status, which should show 'active (running)'."
+    },
+    {
+      "question": "What happens once `nvidia-gridd` successfully acquires a valid license?",
+      "answer": "All features of the vGPU become usable."
+    },
+    {
+      "question": "How are vGPU license renewals handled?",
+      "answer": "License renewals are handled automatically via `nvidia-gridd`."
+    }
+  ],
+  "generated_at": "2026-04-12T10:20:48.300455+00:00"
+}

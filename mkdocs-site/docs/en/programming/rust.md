@@ -5,21 +5,33 @@ lang: "en"
 
 source_wiki_title: "Rust/en"
 source_hash: "0b65441fc58726cd09a3bb49ab434be4"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T10:59:22.606241+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T11:10:25.978795+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "Rust"
+  - "compiler"
+  - "cargo"
+  - "module"
+  - "crate"
+
+questions:
+  - "What are the defining characteristics of the Rust programming language, particularly regarding memory safety?"
+  - "How do you build and install a Rust crate locally from Crates.io or a Git repository?"
+  - "How can a user install the Rust nightly compiler and clear the Cargo cache to reclaim disk space?"
+  - "What are the defining characteristics of the Rust programming language, particularly regarding memory safety?"
+  - "How do you build and install a Rust crate locally from Crates.io or a Git repository?"
+  - "How can a user install the Rust nightly compiler and clear the Cargo cache to reclaim disk space?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -33,7 +45,7 @@ module spider rust
 ```
 
 ## Installing a crate
-A package written in Rust is called a [*crate*](https://doc.rust-lang.org/book/ch07-01-packages-and-crates.html).
+A package written in Rust is called a [**crate**](https://doc.rust-lang.org/book/ch07-01-packages-and-crates.html).
 
 ### From Crates.io
 1. Load the required modules.
@@ -42,7 +54,10 @@ A package written in Rust is called a [*crate*](https://doc.rust-lang.org/book/c
 module load rust
 ```
 
-2. Build and install the crate locally. This must be done from a login node.
+2. Build and install the crate locally.
+
+!!! note
+    This must be done from a login node.
 
 ```bash
 cargo install ungoliant
@@ -54,7 +69,8 @@ cargo install ungoliant
 $HOME/.cargo/bin/ungoliant -h
 ```
 
-You can also add `.cargo/bin` to your `$PATH` with: `export PATH="$HOME/.cargo/bin:$PATH"`.
+!!! tip
+    You can also add `.cargo/bin` to your `$PATH` with: `export PATH="$HOME/.cargo/bin:$PATH"`.
 
 ### From a Git repository
 1. Load the required modules.
@@ -63,7 +79,10 @@ You can also add `.cargo/bin` to your `$PATH` with: `export PATH="$HOME/.cargo/b
 module load rust
 ```
 
-2. Build and install the crate locally. This must be done from a login node.
+2. Build and install the crate locally.
+
+!!! note
+    This must be done from a login node.
 
 ```bash
 cargo install --git https://github.com/username/repo-name
@@ -75,11 +94,11 @@ cargo install --git https://github.com/username/repo-name
 $HOME/.cargo/bin/<binname> -h
 ```
 
-You can also add `.cargo/bin` to your `$PATH` with: `export PATH="$HOME/.cargo/bin:$PATH"`.
+!!! tip
+    You can also add `.cargo/bin` to your `$PATH` with: `export PATH="$HOME/.cargo/bin:$PATH"`.
 
 ## Using the Rust nightly compiler
-Since some optimization features are not yet stable they are not part of the stable release, but nonetheless some crates make use of them.
-If you require the Rust nightly compiler, you can install it locally.
+Since some optimization features are not yet stable, they are not part of the stable release, but nonetheless some crates make use of them. If you require the Rust nightly compiler, you can install it locally.
 
 1. Install the compiler as a local module.
 

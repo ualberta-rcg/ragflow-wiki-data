@@ -5,21 +5,30 @@ lang: "en"
 
 source_wiki_title: "Cloud storage options/en"
 source_hash: "6b194ec24a498781fd4c0ab8b7efcc1b"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T05:40:45.041835+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T06:26:23.925332+00:00"
 
 tags:
   - cloud
 
 keywords:
-  []
+  - "Shared filesystem storage"
+  - "Ephemeral storage"
+  - "Object storage"
+  - "Cloud storage"
+  - "Volume storage"
+
+questions:
+  - "What are the four main types of cloud storage available, and what are their primary characteristics?"
+  - "How do the storage types differ in terms of being mounted on single versus multiple virtual machines simultaneously?"
+  - "Which storage options are suitable for long-term data retention, and what happens to them when a virtual machine is deleted?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -29,6 +38,8 @@ The existing storage types available in our clouds are:
 *   **Ephemeral/Disk storage**: Virtual local disk storage tied to the lifecycle of a single instance on a hypervisor's local disk ("c" flavour local disk can be lost)
 *   **[Object storage](arbutus-object-storage.md)**: Non-hierarchical storage where data is created or uploaded in whole-file form.
 *   **[Shared filesystem storage](arbutus-cephfs.md)**: Private network attached storage space (similar to NFS/SMB shares); must be configured on each instance where it is mounted.
+
+## Storage Type Attributes
 
 Attributes of each storage type are compared in the following table:
 

@@ -1,0 +1,55 @@
+{
+  "doc_key": "en/mxnet",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is Apache MXNet?",
+      "answer": "Apache MXNet is a deep learning framework designed for both efficiency and flexibility, allowing users to mix symbolic and imperative programming."
+    },
+    {
+      "question": "What are the core features of MXNet's architecture?",
+      "answer": "At its core, MXNet features a dynamic dependency scheduler for automatic parallelization of operations and a graph optimization layer for fast, memory-efficient symbolic execution. It is also portable, lightweight, and scalable."
+    },
+    {
+      "question": "How can one list the available MXNet wheels?",
+      "answer": "You can list available wheels by using the `avail_wheels mxnet` command."
+    },
+    {
+      "question": "What information does the `avail_wheels` command provide for MXNet packages?",
+      "answer": "It provides the name, version, compatible Python version, and architecture for each MXNet wheel."
+    },
+    {
+      "question": "What are the initial steps to set up a Python virtual environment for MXNet?",
+      "answer": "First, load the desired Python module (e.g., `module load python/3.10`), then create the virtual environment with `virtualenv --no-download ~/env`, and finally activate it using `source ~/env/bin/activate`."
+    },
+    {
+      "question": "How do you install MXNet and its Python dependencies within an activated virtual environment?",
+      "answer": "You install it using `pip install --no-index mxnet`."
+    },
+    {
+      "question": "How can you validate an MXNet installation?",
+      "answer": "You can validate it by running a Python command: `python -c \"import mxnet as mx;print((mx.nd.ones((2, 3))*2).asnumpy());\"` which should output a 2x3 array of twos."
+    },
+    {
+      "question": "What is the key difference in SLURM scripts for running an MXNet job on a CPU versus a GPU?",
+      "answer": "For GPU jobs, the SLURM script includes `#SBATCH --gres=gpu:1` to request a GPU and will use cuDNN, whereas the CPU script omits the GPU request and will use MKLDNN."
+    },
+    {
+      "question": "How does MXNet achieve high performance with multiple CPUs or a single GPU?",
+      "answer": "MXNet uses OpenMP and MKLDNN for CPU-based parallel implementations, automatically leveraging multi-threading. For GPUs, it uses CUDA and CUDNN for parallel operations."
+    },
+    {
+      "question": "What is the recommendation for using GPUs with small-scale MXNet models on shared HPC clusters?",
+      "answer": "For small-scale models, it's strongly recommended to use multiple CPUs instead of a GPU. GPUs should only be requested if the code can make reasonable use of their compute capacity to avoid blocking resources for others."
+    },
+    {
+      "question": "Why is it discouraged to use GPUs for very small MXNet models on HPC clusters?",
+      "answer": "Using GPUs for very small models on HPC clusters can lead to underutilization of the GPU's compute capabilities, unnecessarily blocking resources for other users who need them for large-scale computations, and impacting job priority."
+    },
+    {
+      "question": "How does the `mxnet-example.py` script determine whether to use a CPU or GPU for training?",
+      "answer": "The script dynamically determines the context by checking `ctx = gpu() if context.num_gpus() > 0 else cpu()`, using a GPU if available, otherwise defaulting to the CPU."
+    }
+  ],
+  "generated_at": "2026-04-12T02:06:19.855049+00:00"
+}

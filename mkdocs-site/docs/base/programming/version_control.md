@@ -5,31 +5,60 @@ lang: "base"
 
 source_wiki_title: "Version control"
 source_hash: "6fa6232908469867b7741830bffccbef"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T12:41:16.963972+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T12:39:38.898098+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "SVN"
+  - "Repository"
+  - "Source code management"
+  - "First and second-generation tools"
+  - "project"
+  - "Git"
+  - "Version control"
+  - "Revision control tools"
+  - "Local repository"
+  - "Branched development"
+  - "Repository hosting"
+  - "Mercurial"
+  - "contributors"
+  - "Online services"
+
+questions:
+  - "What are the primary advantages of using a revision control system for software development and academic research?"
+  - "How do source code management tools function to integrate local user modifications with the main project repository?"
+  - "What are the key differences between first-generation and second-generation revision control tools, and what factors should influence the choice between them?"
+  - "Under what circumstances is a local repository sufficient compared to needing an internet-accessible one?"
+  - "What are the main advantages of hosting a version control repository on the internet?"
+  - "What are the primary options available for setting up and hosting an internet-accessible repository?"
+  - "What is the primary factor that determines which version control tool should be chosen for a new project?"
+  - "Under what circumstances would a first-generation tool like SVN be considered sufficient?"
+  - "Which types of version control tools are recommended for larger projects that involve external collaborators?"
+  - "Under what circumstances is a local repository sufficient compared to needing an internet-accessible one?"
+  - "What are the main advantages of hosting a version control repository on the internet?"
+  - "What are the primary options available for setting up and hosting an internet-accessible repository?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
 ## Introduction
 Source code management is one of the cornerstones of application development. When the time comes to manage the source code of a project you're working on, there are two ways to proceed. You could make multiple backup copies, send the source code to your colleagues by email and waste time trying to remember who has or is using which version of the code and how to reconcile the modifications that each contributor has made. Alternatively, you could choose a much more rational approach by using a revision control system that has been specifically created to make this process as painless as possible.
 
-All significant applications and libraries are developed using such tools. For academic research, these tools are even more important because traceability is essential for ensuring that a given set of results can be reproduced. A good metaphor is that revision control management tools are the programmer's equivalent to the experimentalist's lab notebook.
+!!! tip "Traceability in Academic Research"
+    For academic research, these tools are even more important because traceability is essential for ensuring that a given set of results can be reproduced. A good metaphor is that revision control management tools are the programmer's equivalent to the experimentalist's lab notebook.
 
 ## Advantages
-Revision control tools offer you a great many advantages and these more than compensate for the occasional inconvenience. Firstly, they permit you to collaborate more easily. They eliminate the risk that a collaborator might delete your modifications or vice versa without leaving a trace. These tools save the history of all the modifications made to a project and in that way function somewhat like a time machine, allowing you to reinitialize your project to an earlier version, in order to reproduce your results for example. They also make it easier to document these changes, so that all of the users of a project are notified of the changes made and the reasons they were made.
+!!! info "Benefits of Revision Control Tools"
+    Revision control tools offer you a great many advantages and these more than compensate for the occasional inconvenience. Firstly, they permit you to collaborate more easily. They eliminate the risk that a collaborator might delete your modifications or vice versa without leaving a trace. These tools save the history of all the modifications made to a project and in that way function somewhat like a time machine, allowing you to reinitialize your project to an earlier version, in order to reproduce your results for example. They also make it easier to document these changes, so that all of the users of a project are notified of the changes made and the reasons they were made.
 
 ## Basic functionality
 Source code management tools function using a basic principle of separating local modifications made by a user, in his or her local directory, and what is called the repository. The repository contains, in a structured manner, the history of all of the modifications made by all of a project's contributors. The development of a software project using a source code management tool is thus modified in comparison to the development of a purely *local* project. Rather than simply saving your modifications to the local disk drive, you as a contributor have to submit (*commit*) your modifications to the repository in order to make them available to other developers. Inversely, developers need to make sure they are using the latest version of a file by retrieving it from the repository (*checkout*, *update*) before making their own modifications. If two programmers modify the same source code file at the same time, the source code management tool may report a conflict during the submission of the two rival modifications or automatically resolve the conflict if possible.
@@ -43,7 +72,8 @@ In exchange for this flexibility, with second-generation tools all modifications
 If you want to contribute to an existing project, you don't really have any choice; you will have to use the tool that has been chosen by the initial development team. If you are starting your own project, the choice will depend on the breadth of your project. If it's a project with only a few contributors, which will remain private and for which you would simply like to have a history of all the modifications, a first-generation tool like [SVN](https://en.wikipedia.org/wiki/Apache_Subversion) can be sufficient. If your project is larger, with external collaborators, you should consider a second-generation tool like [Git](https://en.wikipedia.org/wiki/Git_%28software%29) or [Mercurial](https://en.wikipedia.org/wiki/Mercurial).
 
 ### Repository hosting
-Another question to consider when choosing a version control tool is where you will host your repository. If you and your collaborators are always working on the same single machine then having a local repository only visible on that machine could be sufficient. However, if you are working across multiple machines, or working with collaborators working on different machines, a repository accessible via the internet will be helpful. This will allow you to easily synchronize your code between machines and also provide additional safety for your code by being distributed. There are a number of ways to accomplish this, from hosting and setting up the repository yourself on your own server (e.g. [svn](https://civicactions.com/blog/how-to-set-up-an-svn-repository-in-7-simple-steps/), [git](https://git-scm.com/book/en/v2/Git-on-the-Server-The-Protocols), [gitlab](https://about.gitlab.com/?utm_source=google&utm_medium=cpc&utm_campaign=Search%20-%20Brand&utm_content=GitLab%20-%20Open%20Source%20Git&utm_term=gitlab&gclid=CPWslub9vtACFZSEaQodwzoAew), [gitbucket](https://github.com/gitbucket/gitbucket)), to using one of the available online services (e.g. [bitbucket](https://bitbucket.org/product), [github](https://github.com/), [gitlab](https://about.gitlab.com/), [sourceforge](https://sourceforge.net/)) which is hosted on their servers and do not require you to have a server that is always accessible.
+!!! tip "Choosing a Repository Hosting Solution"
+    Another question to consider when choosing a version control tool is where you will host your repository. If you and your collaborators are always working on the same single machine then having a local repository only visible on that machine could be sufficient. However, if you are working across multiple machines, or working with collaborators working on different machines, a repository accessible via the internet will be helpful. This will allow you to easily synchronize your code between machines and also provide additional safety for your code by being distributed. There are a number of ways to accomplish this, from hosting and setting up the repository yourself on your own server (e.g. [svn](https://civicactions.com/blog/how-to-set-up-an-svn-repository-in-7-simple-steps/), [git](https://git-scm.com/book/en/v2/Git-on-the-Server-The-Protocols), [gitlab](https://about.gitlab.com/?utm_source=google&utm_medium=cpc&utm_campaign=Search%20-%20Brand&utm_content=GitLab%20-%20Open%20Source%20Git&utm_term=gitlab&gclid=CPWslub9vtACFZSEaQodwzoAew), [gitbucket](https://github.com/gitbucket/gitbucket)), to using one of the available online services (e.g. [bitbucket](https://bitbucket.org/product), [github](https://github.com/), [gitlab](https://about.gitlab.com/), [sourceforge](https://sourceforge.net/)) which is hosted on their servers and do not require you to have a server that is always accessible.
 
 ## See also
 See [here](https://www.youtube.com/watch?v=EmMNIMDl9hM) for a very short video demonstrating the basics of version control with Git.

@@ -1,0 +1,104 @@
+{
+  "doc_key": "base/r",
+  "level": "chunk",
+  "chunk_index": 6,
+  "qa_pairs": [
+    {
+      "question": "How do you register parallel workers in R when using `doParallel` with `foreach`?",
+      "answer": "You register parallel workers using `registerDoParallel(cores=ncores)`, where `ncores` represents the number of cores available."
+    },
+    {
+      "question": "What is a crucial syntax requirement when using `foreach()` with the `%dopar%` operator?",
+      "answer": "The `foreach()` function and the `%dopar%` operator must be on the same line."
+    },
+    {
+      "question": "What is the name of the job submission script provided for the `doParallel` and `foreach` example?",
+      "answer": "The job submission script is named `job_foreach.sh`."
+    },
+    {
+      "question": "What R command is used to execute the `test_foreach.R` script in a batch job?",
+      "answer": "The R command is `R CMD BATCH --no-save --no-restore test_foreach.R`."
+    },
+    {
+      "question": "How many nodes are requested in the `job_foreach.sh` script example?",
+      "answer": "The `job_foreach.sh` script requests exactly one node (`#SBATCH --nodes=1`)."
+    },
+    {
+      "question": "How many CPUs per task are specified in the `job_foreach.sh` script?",
+      "answer": "Four CPUs per task are specified using `#SBATCH --cpus-per-task=4`."
+    },
+    {
+      "question": "What is the command to submit the `job_foreach.sh` script?",
+      "answer": "The job is submitted using `sbatch job_foreach.sh`."
+    },
+    {
+      "question": "What is the purpose of registering the backend when using `doParallel` and `makeCluster`?",
+      "answer": "You must register the backend by providing it with the node name multiplied by the desired number of processes."
+    },
+    {
+      "question": "When using `makeCluster` with two nodes (node1 and node2) and two processes, how would the cluster hosts be composed?",
+      "answer": "The cluster would be composed of `node1 node1 node2 node2` hosts."
+    },
+    {
+      "question": "Which cluster type in `makeCluster` runs commands via SSH connections into the nodes?",
+      "answer": "The `PSOCK` cluster type runs commands through SSH connections into the nodes."
+    },
+    {
+      "question": "What is the name of the R script file used in the `doParallel` and `makeCluster` example?",
+      "answer": "The R script file is called `test_makecluster.R`."
+    },
+    {
+      "question": "How is the `nodeslist` variable populated within the `test_makecluster.R` script?",
+      "answer": "The `nodeslist` variable is populated by creating an array from the `NODESLIST` environment variable using `unlist(strsplit(Sys.getenv(\"NODESLIST\"), split=\" \"))`."
+    },
+    {
+      "question": "What R function is used to create the cluster in `test_makecluster.R`?",
+      "answer": "The `makeCluster()` function is used, for example: `cl = makeCluster(nodeslist, type = \"PSOCK\")`."
+    },
+    {
+      "question": "What is the purpose of calling `stopCluster(cl)` in the `test_makecluster.R` script?",
+      "answer": "`stopCluster(cl)` is used to release the resources allocated for the cluster."
+    },
+    {
+      "question": "What is the name of the job submission script for the `doParallel` and `makeCluster` example?",
+      "answer": "The job submission script is named `job_makecluster.sh`."
+    },
+    {
+      "question": "How many tasks are requested in the `job_makecluster.sh` script?",
+      "answer": "Four tasks are requested using `#SBATCH --ntasks=4`."
+    },
+    {
+      "question": "Which environment variable is exported in `job_makecluster.sh` to retrieve node names?",
+      "answer": "The `NODESLIST` environment variable is exported."
+    },
+    {
+      "question": "What command is used to export the `NODESLIST` environment variable in `job_makecluster.sh`?",
+      "answer": "The command `export NODESLIST=$(echo $(srun hostname | cut -f 1 -d '.'))` is used."
+    },
+    {
+      "question": "What R command runs the `test_makecluster.R` script in the `job_makecluster.sh` job?",
+      "answer": "The command is `R -f test_makecluster.R`."
+    },
+    {
+      "question": "How can you explicitly ensure that processes are distributed across different nodes when using `doParallel` and `makeCluster` with SLURM?",
+      "answer": "You can add the line `#SBATCH --ntasks-per-node=2` to your job script to encourage processes to be placed on different nodes."
+    },
+    {
+      "question": "What memory per CPU is allocated for the `job_makecluster.sh` script?",
+      "answer": "The `job_makecluster.sh` script allocates `512M` (megabytes) of memory per CPU."
+    },
+    {
+      "question": "What is the maximum time allocated for the `job_makecluster.sh` script?",
+      "answer": "The maximum time allocated for the `job_makecluster.sh` script is `00:05:00` (5 minutes)."
+    },
+    {
+      "question": "What modules are loaded in the `job_foreach.sh` script?",
+      "answer": "The `StdEnv/2023` and `r/4.5.0` modules are loaded in the `job_foreach.sh` script."
+    },
+    {
+      "question": "What modules are loaded in the `job_makecluster.sh` script?",
+      "answer": "The `StdEnv/2023` and `r/4.5.0` modules are loaded in the `job_makecluster.sh` script."
+    }
+  ],
+  "generated_at": "2026-04-12T06:10:48.794650+00:00"
+}

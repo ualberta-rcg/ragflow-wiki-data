@@ -5,31 +5,45 @@ lang: "en"
 
 source_wiki_title: "Mp2/en"
 source_hash: "54c531d9dce10c6e28c0033eba1efdb8"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T08:59:39.296376+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T09:31:56.903548+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "Mammouth-Mp2"
+  - "Université de Sherbrooke"
+  - "Lustre filesystem"
+  - "AMD Opteron Processor"
+  - "Globus Endpoint"
+
+questions:
+  - "What are the site-specific policies regarding job duration and user limits on the Mammouth-Mp2 cluster?"
+  - "How do the HOME, SCRATCH, and PROJECT storage filesystems differ in terms of capacity, intended use, and backup availability?"
+  - "What are the hardware specifications and interconnect details for the various compute nodes available in the cluster?"
+  - "What are the site-specific policies regarding job duration and user limits on the Mammouth-Mp2 cluster?"
+  - "How do the HOME, SCRATCH, and PROJECT storage filesystems differ in terms of capacity, intended use, and backup availability?"
+  - "What are the hardware specifications and interconnect details for the various compute nodes available in the cluster?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
-| Key | Value |
-|---|---|
-| Login Node | **mp2.calculcanada.ca** |
-| Globus Endpoint | **computecanada#mammouth** |
-| Data Transfer Node (rsync, scp, sftp,...) | **mp2.calculcanada.ca** |
+| Key                                       | Value                           |
+| :---------------------------------------- | :------------------------------ |
+| Availability                              | February 2012 - April 1, 2020   |
+| Login Node                                | **mp2.calculcanada.ca**         |
+| Globus Endpoint                           | **computecanada#mammouth**      |
+| Data Transfer Node (rsync, scp, sftp,...) | **mp2.calculcanada.ca**         |
 
-**Mp2 is now exclusive to researchers from the Université de Sherbrooke.**
+!!! important
+    Mp2 is now exclusive to researchers from the Université de Sherbrooke.
 
 Mammouth-Mp2 is a heterogeneous and polyvalent cluster designed for ordinary computations; it is located at the [Université de Sherbrooke](http://www.usherbrooke.ca/).
 
@@ -40,11 +54,23 @@ Mammouth-Mp2 is a heterogeneous and polyvalent cluster designed for ordinary com
 
 ## Storage
 
-| Storage | Details |
-|---|---|
-| HOME <br> Lustre filesystem <br> 79.6 TB of space in total | * This space is small and cannot be expanded; you should use your `project` space for substantial storage needs.<br>* 50 GB of space and 500K files per user.<br>* There is a daily backup. |
-| SCRATCH <br> Lustre filesystem <br> 358.3 TB of space in total | * Large space for storing temporary files during computations.<br>* 20 TB of space and 1M files per user.<br>* No backup system in place. |
-| PROJECT <br> Lustre filesystem <br> 716.6 TB of space in total | * This space is designed for sharing data among the members of a research group and for storing large amounts of data.<br>* 1 TB of space and 500K files per group.<br>* No backup system in place. |
+### HOME
+!!! info "Lustre filesystem, 79.6 TB of space in total"
+    *   This space is small and cannot be expanded; you should use your `project` space for substantial storage needs.
+    *   50 GB of space and 500K files per user.
+    *   There is a daily backup.
+
+### SCRATCH
+!!! info "Lustre filesystem, 358.3 TB of space in total"
+    *   Large space for storing temporary files during computations.
+    *   20 TB of space and 1M files per user.
+    *   No backup system in place.
+
+### PROJECT
+!!! info "Lustre filesystem, 716.6 TB of space in total"
+    *   This space is designed for sharing data among the members of a research group and for storing large amounts of data.
+    *   1 TB of space and 500K files per group.
+    *   No backup system in place.
 
 For transferring data by Globus, you should use the endpoint `computecanada#mammouth`, whereas tools like rsync and scp can simply use an ordinary login node.
 
@@ -54,8 +80,8 @@ The Mellanox QDR (40 Gb/s) Infiniband network links together all of the cluster'
 
 ## Node characteristics
 
-| Quantity | Cores | Available Memory | CPU Type | Storage | GPU Type |
-|---|---|---|---|---|---|
-| 1588 | 24 | 31 GB or 31744 MB | 12 cores/socket, 2 sockets/node. AMD Opteron Processor 6172 @ 2.1 GHz | 1TB SATA disk. | - |
-| 20 | 48 | 251 GB or 257024 MB | 12 cores/socket, 4 sockets/node. AMD Opteron Processor 6174 @ 2.2 GHz | 1TB SATA disk. | - |
-| 2 | 48 | 503 GB or 515072 MB | 12 cores/socket, 4 sockets/node. AMD Opteron Processor 6174 @ 2.2 GHz | 1TB SATA disk. | - |
+| Quantity | Cores | Available Memory    | CPU Type                                                      | Storage      | GPU Type |
+| :------- | :---- | :------------------ | :------------------------------------------------------------ | :----------- | :------- |
+| 1588     | 24    | 31 GB or 31744 MB   | 12 cores/socket, 2 sockets/node. AMD Opteron Processor 6172 @ 2.1 GHz | 1TB SATA disk. | -        |
+| 20       | 48    | 251 GB or 257024 MB | 12 cores/socket, 4 sockets/node. AMD Opteron Processor 6174 @ 2.2 GHz | 1TB SATA disk. | -        |
+| 2        | 48    | 503 GB or 515072 MB | 12 cores/socket, 4 sockets/node. AMD Opteron Processor 6174 @ 2.2 GHz | 1TB SATA disk. | -        |

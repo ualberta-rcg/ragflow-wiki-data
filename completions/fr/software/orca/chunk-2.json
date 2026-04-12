@@ -1,0 +1,84 @@
+{
+  "doc_key": "fr/orca",
+  "level": "chunk",
+  "chunk_index": 2,
+  "qa_pairs": [
+    {
+      "question": "Quel compte est spécifié dans l'exemple de script `run_orca.sh`?",
+      "answer": "Le compte spécifié dans le script d'exemple `run_orca.sh` est `def-youPIs`."
+    },
+    {
+      "question": "Combien de tâches (`ntasks`) sont demandées dans l'exemple de script `run_orca.sh`?",
+      "answer": "Huit tâches (`ntasks=8`) sont demandées, correspondant au nombre de processeurs définis dans le fichier d'entrée."
+    },
+    {
+      "question": "Quelle est la quantité de mémoire par CPU allouée dans le script d'exemple `run_orca.sh`?",
+      "answer": "La mémoire allouée par CPU est de 3 gigaoctets (`3G`)."
+    },
+    {
+      "question": "Quelle est la durée maximale d'exécution (`time`) spécifiée pour la tâche dans l'exemple de script `run_orca.sh`?",
+      "answer": "La durée maximale d'exécution est de 3 heures (`00-03:00`)."
+    },
+    {
+      "question": "Quel est le nom du fichier de sortie (`output`) pour la tâche définie dans le script `run_orca.sh`?",
+      "answer": "Le fichier de sortie sera nommé `benzene.log`."
+    },
+    {
+      "question": "Quels modules sont chargés dans l'exemple de script `run_orca.sh` avant l'exécution d'ORCA?",
+      "answer": "Les modules chargés sont `StdEnv/2020`, `gcc/9.3.0`, `openmpi/4.0.3` et `orca/4.2.1`."
+    },
+    {
+      "question": "Comment le programme ORCA est-il exécuté dans l'exemple de script `run_orca.sh`?",
+      "answer": "Le programme ORCA est exécuté en utilisant le chemin complet `$EBROOTORCA/orca` avec le fichier d'entrée `benzene.inp`."
+    },
+    {
+      "question": "Quel est le but du calcul décrit dans le fichier d'entrée `benzene.inp`?",
+      "answer": "Le but est une 'Benzene RHF Opt Calculation', soit une optimisation RHF pour le benzène."
+    },
+    {
+      "question": "Combien de processeurs sont spécifiés dans le fichier d'entrée `benzene.inp` via la directive `%pal nprocs`?",
+      "answer": "Le fichier d'entrée `benzene.inp` spécifie 8 processeurs (`%pal nprocs 8 end`)."
+    },
+    {
+      "question": "Quels mots-clés sont utilisés pour la configuration du calcul dans l'exemple de fichier `benzene.inp`?",
+      "answer": "Les mots-clés utilisés sont `RHF TightSCF PModel` et `opt`."
+    },
+    {
+      "question": "Comment s'assurer qu'ORCA utilise toutes les ressources ou les cœurs requis par une tâche pour qu'elle fonctionne efficacement?",
+      "answer": "Il faut ajouter la ligne `%pal nprocs <ncores> end` au fichier d'entrée, en remplaçant `<ncores>` par le nombre de cœurs spécifié dans le script."
+    },
+    {
+      "question": "Que doit-on faire si on veut redémarrer un calcul ORCA?",
+      "answer": "Il faut supprimer le fichier `*.hostnames` (par exemple `benzene.hostnames`) avant de soumettre la tâche suivante."
+    },
+    {
+      "question": "Quel message d'erreur risque de survenir si le fichier `*.hostnames` n'est pas supprimé avant de redémarrer une tâche?",
+      "answer": "Le message d'erreur `All nodes which are allocated for this job are already filled.` risque de survenir."
+    },
+    {
+      "question": "Lors de quels types de calculs peuvent survenir des erreurs critiques avec OpenMPI?",
+      "answer": "Des erreurs critiques peuvent survenir lors de certains types de calculs, en particulier les calculs DLPNO-STEOM-CCSD."
+    },
+    {
+      "question": "Pourquoi des erreurs critiques peuvent-elles survenir avec OpenMPI, spécifiquement pour les versions d'ORCA 4.1.0 et 4.2.0?",
+      "answer": "Ces erreurs peuvent survenir si une version moins récente de OpenMPI (par exemple 3.1.2) est utilisée que celle officiellement recommandée (3.1.3 pour orca/4.1.0 et 3.1.4 pour orca/4.2.0)."
+    },
+    {
+      "question": "Comment peut-on personnaliser la version d'OpenMPI pour `orca/4.2.0` afin de corriger temporairement les incohérences?",
+      "answer": "Il faut charger le module `gcc/7.3.0`, puis exécuter `eb OpenMPI-3.1.2-GCC-7.3.0.eb --try-software-version=3.1.4`, et enfin charger `module load openmpi/3.1.4`."
+    },
+    {
+      "question": "Après avoir personnalisé OpenMPI, quelle est la prochaine étape pour utiliser `orca/4.2.0` avec le correctif temporaire?",
+      "answer": "On peut installer manuellement les binaires `orca/4.2.0` depuis le forum officiel dans le répertoire `/home`, après s'être enregistré et avoir obtenu l'accès à l'application ORCA sur les grappes."
+    },
+    {
+      "question": "Que doit-on faire avec les binaires ORCA installés manuellement une fois que la mise à jour officielle d'OpenMPI est disponible sur les grappes?",
+      "answer": "Il faut supprimer les binaires installés manuellement une fois la mise à jour officielle d'OpenMPI effectuée."
+    },
+    {
+      "question": "La commande de compilation mentionnée pour le correctif OpenMPI s'applique-t-elle aux versions `openmpi/2.1.x`?",
+      "answer": "Non, la commande de compilation ne semble pas s'appliquer à `openmpi/2.1.x`."
+    }
+  ],
+  "generated_at": "2026-04-12T04:01:00.110580+00:00"
+}

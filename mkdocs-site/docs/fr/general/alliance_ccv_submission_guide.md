@@ -5,30 +5,99 @@ lang: "fr"
 
 source_wiki_title: "Alliance CCV submission guide/fr"
 source_hash: "a259b7d7ed4e443c87d974792826a19c"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T04:05:37.285087+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T04:58:16.436857+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "ressources de calcul"
+  - "Alliance"
+  - "chercheuse principale ou chercheur principal"
+  - "mot de passe"
+  - "CCDB"
+  - "utilisation de nos ressources"
+  - "l'Alliance"
+  - "CVC"
+  - "CVC à jour"
+  - "publications"
+  - "Mise à jour du CVC"
+  - "ordre chronologique"
+  - "encadrées en rouge"
+  - "CV commun canadien"
+  - "corps professoral"
+  - "allocation de ressources"
+  - "demande d'allocation de ressources"
+  - "Chercheur principal"
+  - "chercheur principal"
+  - "Enregistrer"
+  - "procédure de déclaration"
+  - "renouvellement de compte"
+  - "nouvelles publications"
+  - "soumission de la demande"
+  - "cliquer deux fois"
+  - "site Web du CVC"
+  - "formulaire électronique"
+  - "adresse de courriel"
+  - "professeurs émérites"
+  - "Soumission"
+  - "numéro de confirmation"
+  - "Numéro de confirmation"
+  - "courriel de confirmation"
+  - "Déclaration des publications"
+  - "membre du corps professoral"
+  - "Co-chercheuses et co-chercheurs"
+  - "CVC de l'Alliance"
+  - "Renouvellement de compte"
+
+questions:
+  - "Qu'est-ce que le CV commun canadien (CVC) et quel est son objectif principal auprès des organismes de financement ?"
+  - "Dans quelles situations précises est-il obligatoire pour les membres du corps professoral de soumettre un CVC à l'Alliance ?"
+  - "Comment doit-on procéder pour créer un compte dans le système du CVC et quelles sont les ressources d'assistance disponibles en cas de problème ?"
+  - "Quelle précaution particulière faut-il prendre concernant l'adresse de courriel lors de la saisie des renseignements ?"
+  - "Quels éléments de sécurité doivent être configurés avant de pouvoir cliquer sur le bouton « Soumettre » ?"
+  - "Quelle est la dernière étape à accomplir avec le courriel de confirmation pour accéder au site Web du CVC ?"
+  - "Quelles sont les étapes à suivre dans le système pour soumettre un CVC avec le modèle de l'Alliance et obtenir le numéro de confirmation requis ?"
+  - "Quelles sections de renseignements sont obligatoires et lesquelles sont facultatives dans le modèle de CVC de l'Alliance ?"
+  - "Quelles sont les règles et les exceptions concernant l'obligation de soumettre un CVC pour le renouvellement de compte des membres du corps professoral ?"
+  - "Quels sont les membres qui ont l'obligation de présenter un CVC pour renouveler leur compte avec l'Alliance ?"
+  - "Pour quelles catégories de personnel la soumission d'un CVC est-elle considérée comme facultative ?"
+  - "Quelle démarche doivent suivre les personnes exemptées si elles choisissent de ne pas soumettre de CVC ?"
+  - "Quelles sont les étapes et les conditions requises pour soumettre et mettre à jour son CV commun canadien (CVC) lors du renouvellement d'un compte ?"
+  - "Comment un chercheur principal doit-il procéder pour lier son numéro de confirmation CVC à une demande d'allocation de ressources ?"
+  - "Quel est le délai de validité exigé pour le CVC des co-chercheurs participant à un projet faisant l'objet d'une demande ?"
+  - "Quelles sont les deux méthodes permettant de mettre à jour un CVC dans le système ?"
+  - "Pourquoi est-il important de déclarer les publications qui ont été rendues possibles par l'utilisation des ressources ?"
+  - "Dans quel cas la mise à jour d'un CVC existant est-elle obligatoire et comment le système indique-t-il les nouvelles publications à vérifier ?"
+  - "Quel est le délai exigé pour la soumission des CVC à jour des co-chercheuses et co-chercheurs avant le dépôt de la demande ?"
+  - "Quelle est la conséquence pour la chercheuse principale ou le chercheur principal si les CVC des co-chercheurs ne respectent pas cette condition ?"
+  - "Où peut-on vérifier l'état des CVC des co-chercheurs et les actions requises associées à la demande ?"
+  - "Comment le système identifie-t-il les publications rendues possibles par les ressources de calcul dans le plus récent CVC soumis ?"
+  - "De quelle manière la plateforme CCDB signale-t-elle visuellement les nouvelles publications qui n'étaient pas encore inscrites au dossier ?"
+  - "Quelle action spécifique l'utilisateur doit-il accomplir pour traiter les nouvelles publications encadrées en rouge ?"
+  - "Pourquoi est-il nécessaire de faire défiler l'affichage vers le haut lors de la vérification des publications ?"
+  - "Quelle est la conséquence si toutes les nouvelles publications encadrées en rouge ne sont pas traitées ?"
+  - "Quelle manipulation précise permet d'indiquer qu'une publication n'a pas été rendue possible par l'utilisation des ressources ?"
+  - "Pourquoi est-il nécessaire de faire défiler l'affichage vers le haut lors de la vérification des publications ?"
+  - "Quelle est la conséquence si toutes les nouvelles publications encadrées en rouge ne sont pas traitées ?"
+  - "Quelle manipulation précise permet d'indiquer qu'une publication n'a pas été rendue possible par l'utilisation des ressources ?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
 ## Renseignements généraux
 
-### Qu'est-ce que le CV commun canadien?
+### Qu’est-ce que le CV commun canadien?
 Le CV commun canadien (CVC) est un logiciel subventionné par les Instituts de recherche en santé du Canada (IRSC) en vue de normaliser la présentation des CV aux organismes de financement dans le cadre des concours d’allocation de fonds. De nombreux organismes de financement l’utilisent, dont le CRSNG, le CRSH, les RCE et les IRSC eux-mêmes, ainsi que l'Alliance.
 
-### Pourquoi produire un CVC pour l'Alliance?
+### Pourquoi produire un CVC pour l’Alliance?
 Nous demandons aux utilisatrices et utilisateurs membres du corps professoral de soumettre un CVC pour :
 
 *   **renouveler leur compte avec l'Alliance.** Ceci est obligatoire pour tous ceux et celles qui ont un rôle de membre du corps professoral ou de membre auxiliaire du corps professoral, à l’exception des professeures et professeurs émérites, des membres du corps professoral à la retraite et des bibliothécaires, pour qui la soumission du CVC est facultative;
@@ -39,9 +108,9 @@ Nous demandons aux utilisatrices et utilisateurs membres du corps professoral de
 
     *   Les professeures et professeurs émérites, les membres du corps professoral à la retraite et les bibliothécaires peuvent choisir de ne pas présenter de CVC au renouvellement de leur compte. Toutefois, le CVC est **obligatoire** pour TOUS les chercheuses principales, chercheurs principaux, co-chercheuses et co-chercheurs qui font partie d’une demande d’allocation de ressources.
 
-Les chercheuses principales et chercheurs principaux peuvent mettre leur CVC à jour en tout temps dans CCDB avec l’option [*Rapport*](https://ccdb.computecanada.ca/reporting) du menu *Mon compte*.
+Les chercheuses principales et chercheurs principaux peuvent mettre leur CVC à jour en tout temps dans CCDB avec l’option [Rapport](https://ccdb.computecanada.ca/reporting) du menu *Mon compte*.
 
-### Avec qui puis-je communiquer pour obtenir de l'assistance?
+### Avec qui puis-je communiquer pour obtenir de l’assistance?
 Si vous avez oublié le nom d’usager ou le mot de passe pour votre CVC, ou si vous avez besoin d’aide pour avoir accès à https://ccv-cvc.ca/, contactez le service d’assistance par courriel à support@cihr-irsc.gc.ca ou par téléphone au 613-954-1968 ou sans frais au 1-888-603-4178.
 
 Pour des questions sur le modèle de CVC pour l'Alliance ou si vous éprouvez de la difficulté à soumettre votre CVC dans CCDB, écrivez à support@tech.alliancecan.ca.
@@ -51,7 +120,7 @@ Nous offrons notre aide **uniquement** aux titulaires de compte qui doivent soum
 ### Qui doit soumettre un CVC?
 Le CVC est obligatoire pour tous les membres du corps professoral qui souhaitent renouveler leur compte avec l'Alliance ou soumettre une demande à l’un des concours d’allocation de ressources de l’automne. Notez que vous ne pouvez présenter une demande si votre compte est inactif.
 
-## Ouverture d'un compte dans le système du CVC
+## Ouverture d’un compte dans le système du CVC
 *Si vous avez déjà votre compte CVC, passez à la prochaine étape.*
 
 1.  Allez à https://ccv-cvc.ca/.
@@ -62,7 +131,7 @@ Le CVC est obligatoire pour tous les membres du corps professoral qui souhaitent
 6.  Choisissez votre mot de passe et vos questions de sécurité, cliquez sur la case à côté de *Je ne suis pas un robot*, puis sur le bouton *Soumettre*.
 7.  Suivez les directives contenues dans le courriel de confirmation pour vous connecter au site Web du CVC.
 
-## Soumission d'un CVC pour l'Alliance
+## Soumission d’un CVC pour l’Alliance
 Vous devez mettre votre CV à jour, puis le soumettre avec le modèle spécifique de l'Alliance. Tous les ajouts et modifications que vous ferez à votre CVC pour l'Alliance s’inscriront aussi dans votre CVC générique que vous pouvez utiliser par exemple pour présenter des demandes de financement à d’autres organismes.
 
 *Avant de réaliser les étapes suivantes, vous devez ouvrir une session dans le système du CVC.*
@@ -85,18 +154,18 @@ Vous devez mettre votre CV à jour, puis le soumettre avec le modèle spécifiqu
 ### Renseignements obligatoires et facultatifs
 Le CVC modèle de l'Alliance comprend les renseignements suivants :
 
-| Section                                                    | Description                                                                                                                                              |
-| :--------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Renseignements personnels (*obligatoire*)                  | Identification, Langue de correspondance                                                                                                                 |
-| Formation (*obligatoire*)                                  | Diplômes, Titres de compétence                                                                                                                           |
-| Marques de reconnaissance (*facultatif*)                   | Prix et récompenses obtenues au cours des cinq dernières années                                                                                          |
-| Emploi (*obligatoire*)                                     | Expérience universitaire, Expérience non universitaire, Affiliations, Congés et incidence sur les activités de recherche                                  |
-| Historique du financement de la recherche (*facultatif*)   | Subventions de recherche obtenues au cours des **cinq dernières années**                                                                                 |
-| Activités (*facultatif*)                                   | Activités de supervision, Application des connaissances et de la technologie, Activités de collaboration internationale                                   |
-| Contributions (*facultatif*)                               | Présentations, Publications, Réalisations artistiques, Propriété intellectuelle                                                                          |
+| Section                                 | Description                                                                                                   |
+| :-------------------------------------- | :------------------------------------------------------------------------------------------------------------ |
+| Renseignements personnels *(obligatoire)* | Identification, Langue de correspondance                                                                      |
+| Formation *(obligatoire)*               | Diplômes, Titres de compétence                                                                                |
+| Marques de reconnaissance *(facultatif)* | Prix et récompenses obtenues au cours des cinq dernières années                                              |
+| Emploi *(obligatoire)*                  | Expérience universitaire, Expérience non universitaire, Affiliations, Congés et incidence sur les activités de recherche |
+| Historique du financement de la recherche *(facultatif)* | Subventions de recherche obtenues au cours des **cinq dernières années**                                       |
+| Activités *(facultatif)*                | Activités de supervision, Application des connaissances et de la technologie, Activités de collaboration internationale |
+| Contributions *(facultatif)*            | Présentations, Publications, Réalisations artistiques, Propriété intellectuelle                               |
 
 !!! note "Remarque"
-    Bien que cette section soit identifiée comme étant facultative, nous devons rapporter à nos bailleurs de fonds les contributions rendues possibles par nos ressources. Les chercheuses principales et chercheurs principaux peuvent mettre leur CVC à jour en tout temps dans CCDB avec l’option [*Rapport*](https://ccdb.computecanada.ca/reporting) du menu *Mon compte*.
+    Bien que cette section soit identifiée comme étant facultative, nous devons rapporter à nos bailleurs de fonds les contributions rendues possibles par nos ressources. Les chercheuses principales et chercheurs principaux peuvent mettre leur CVC à jour en tout temps dans CCDB avec l’option [Rapport](https://ccdb.computecanada.ca/reporting) du menu *Mon compte*.
 
 ## Renouvellement de compte pour les membres du corps professoral
 Les personnes ayant un rôle de membre du corps professoral ou de membre auxiliaire du corps professoral ont l’obligation de présenter un CVC pour renouveler leur compte avec l'Alliance.
@@ -106,7 +175,7 @@ Les personnes ayant un rôle de membre du corps professoral ou de membre auxilia
 
 Pour pouvoir renouveler votre compte, votre CVC doit avoir été soumis au cours des 300 derniers jours.
 
-1.  Cliquez sur https://ccdb.computecanada.ca/account_renewal.
+1.  Cliquez sur [https://ccdb.computecanada.ca/account_renewal](https://ccdb.computecanada.ca/account_renewal).
 2.  Ouvrez le formulaire de demande de renouvellement de compte et faites défiler l’affichage vers le haut jusqu’à la section *CV commun canadien*.
 3.  Entrez le numéro de confirmation de soumission que vous avez obtenu lorsque vous avez rempli votre CVC pour l'Alliance. Seuls les numéros de confirmation du **modèle de l'Alliance** sont acceptés.
 4.  Cliquez sur le bouton *Mettre à jour ce CVC*.
@@ -115,21 +184,21 @@ Pour pouvoir renouveler votre compte, votre CVC doit avoir été soumis au cours
     *   Si une erreur survient alors que vous avez réussi à soumettre votre CVC avec les bons paramètres, veuillez communiquer avec support@tech.alliancecan.ca pour obtenir de l’aide.
 5.  Déclarez vos contributions rendues possibles par nos ressources de calcul (voir les directives).
 
-Si vous avez d’autres questions sur la procédure de renouvellement, consultez notre [FAQ pour le renouvellement de compte](account-renewal-faq/fr.md).
+Si vous avez d’autres questions sur la procédure de renouvellement, consultez notre [FAQ pour le renouvellement de compte](account-renewal-faq.md).
 
-## Présentation d'une demande
+## Présentation d’une demande
 Les CVC à jour sont requis pour le chercheur principal, la chercheuse principale et TOUS les co-chercheuses et co-chercheurs qui participent à un projet faisant l’objet d’une demande d’allocation de ressources.
 
 !!! important "Important"
     Puisque les membres du corps professoral ont fourni un CVC à jour au renouvellement de leur compte au printemps, les CVC de la plupart des chercheuses principales et chercheurs principaux en milieu académique seront encore à jour au moment de présenter une demande d’allocation de ressources à l’automne. La soumission du CVC n’est alors pas obligatoire, même si de nouvelles informations ont été ajoutées depuis le printemps.
 
-Pour plus d’information, voir [FAQ pour le renouvellement de compte](account-renewal-faq/fr.md).
+Pour plus d’information, voir [FAQ pour le renouvellement de compte](account-renewal-faq.md).
 
 ### Chercheuse principale ou chercheur principal en milieu académique
 !!! note "Remarque"
     La procédure suivante doit aussi être suivie par un utilisateur ou une utilisatrice que vous parrainez.
 
-1.  Rendez-vous à la page [*Demande de ressources*](https://ccdb.computecanada.ca/allocation/resource_applications) dans CCDB.
+1.  Rendez-vous à la page [Demande de ressources](https://ccdb.computecanada.ca/allocation/resource_applications) dans CCDB.
 2.  Dans la section *Concours d’allocation des ressources*, cliquez sur l’onglet *Compétitions en cours* pour faire afficher la liste des concours. Pour commencer une nouvelle demande, cliquez sur le bouton *Faire la demande* pour le concours approprié. Pour modifier une demande déjà créée, cliquez sur *Modifier*.
 3.  Faites défiler l’affichage vers le haut jusqu’à la section *CV commun canadien*.
 4.  Entrez le numéro de confirmation obtenu avec la procédure décrite dans la section 3 du présent document. N’oubliez pas que seuls les numéros de confirmation obtenus par le modèle de l'Alliance seront acceptés.
@@ -149,7 +218,7 @@ Il y a deux façons de mettre un CVC à jour.
 **Dans la page Demandes de ressources**
 
 1.  Dans le menu *Demandes de ressources*, cliquez sur *Demandes de ressources*.
-2.  Sous l’onglet *Compétitions en cours*, localisez la demande où on vous présente *En tant que co-chercheur principal*.
+2.  Sous l’onglet *Compétitions en cours*, localisez la demande application où on vous présente *En tant que co-chercheur principal*.
 3.  Cliquez sur *Mettre à jour le CVC*.
 4.  Suivez les directives.
 

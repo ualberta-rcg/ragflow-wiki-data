@@ -5,21 +5,47 @@ lang: "base"
 
 source_wiki_title: "What is a scheduler?"
 source_hash: "4fe5269ec63cf82c4117174ec2b40de5"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T12:55:37.711883+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T12:53:29.619034+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "requesting resources"
+  - "sq output"
+  - "output file"
+  - "command line options"
+  - "job name"
+  - "account name"
+  - "job ID"
+  - "job submission"
+  - "job scheduler"
+  - "sbatch"
+  - "Slurm Workload Manager"
+  - "job script"
+  - "unique identification number"
+
+questions:
+  - "What is a job script and what role does the job scheduler play in executing it?"
+  - "Why is it crucial to accurately specify resource parameters like time and memory when submitting a job?"
+  - "How do you submit a basic Slurm job, monitor its status, and locate its output?"
+  - "How can you override `sbatch` script options directly from the command line?"
+  - "What methods can be used to customize the job's output file name and separate error logs from standard output?"
+  - "Why must every submitted job be associated with an account name, and what happens if one is not provided?"
+  - "What is a job ID and when is it assigned to a job?"
+  - "How can you distinguish between multiple jobs in the system that share the same name?"
+  - "Where is the output of a job saved by default if no specific location is specified?"
+  - "How can you override `sbatch` script options directly from the command line?"
+  - "What methods can be used to customize the job's output file name and separate error logs from standard output?"
+  - "Why must every submitted job be associated with an account name, and what happens if one is not provided?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -30,11 +56,11 @@ You prepare a small text file called a *job script* that basically says what pro
 
 Here's a very simple job script:
 
-```bash title="simple_job.sh"
+```sh title="simple_job.sh"
 #!/bin/bash
 #SBATCH --time=00:01:00
 echo 'Hello, world!'
-sleep 30
+sleep 30  
 ```
 It runs the programs `echo` and `sleep`, there is no input, and the output will go to a default location. Lines starting with `#SBATCH` are directives to the scheduler, providing information about what the job needs to run. This job, for example, only needs one minute of run time (00:01:00).
 
@@ -52,11 +78,12 @@ On our clusters, these responsibilities are handled by the [Slurm Workload Manag
 ## Requesting resources
 You use the job script to ask for the resources needed to run your calculation. Among the resources associated with a job are *time* and *number of processors*. In the example above, the time requested is one minute and there will be one processor allocated by default since no specific number is given. Please refer to [Examples of job scripts](running-jobs.md#examples-of-job-scripts) for other types of requests such as multiple processors, memory capacity and special processors such as [GPUs](https://en.wikipedia.org/wiki/General-purpose_computing_on_graphics_processing_units).
 
-It is important to specify those parameters well. If you ask for less than the calculation needs, the job will be killed for exceeding the requested time or memory limit. If you ask for more than it needs, the job may wait longer than necessary before it starts, and once running it will needlessly prevent others from using those resources.
+!!! warning
+    It is important to specify those parameters well. If you ask for less than the calculation needs, the job will be killed for exceeding the requested time or memory limit. If you ask for more than it needs, the job may wait longer than necessary before it starts, and once running it will needlessly prevent others from using those resources.
 
 ## A basic Slurm job
-
 We can submit the job script `simple_job.sh` shown above with [sbatch](https://slurm.schedmd.com/sbatch.html):
+
 ```bash
 [someuser@host ~]$ sbatch simple_job.sh
 Submitted batch job 1234
@@ -71,15 +98,18 @@ Look at the ST column in the output of [sq](running-jobs.md#monitoring-jobs) to 
 
 Notice that each job is assigned a *job ID*, a unique identification number printed when you submit the job --- 1234 in this example. You can have more than one job in the system at a time, and the ID number can be used to distinguish them even if they have the same name. And finally, because we didn't specify anywhere else to put it the output is placed in a file named with the same job ID number, `slurm-1234.out`.
 
-You can also specify options to `sbatch` on the command line. So for example,
+You can also specify options to `sbatch` on the command line. So for example:
+
+```bash
 [someuser@host ~]$ sbatch --time=00:30:00 simple_job.sh
+```
 will change the time limit of the job to 30 minutes. Any option can be overridden in this way.
 
 ## Choosing where the output goes
 If you want the output file to have a more distinctive name than `slurm-1234.out`, you can use `--output` to change it.
-The following script sets a *job name* which will appear in the `squeue` output, and sends the output to a file prefixed with the job name and containing the job ID number, for exemple *test-1234.out*.
+The following script sets a *job name* which will appear in the `squeue` output, and sends the output to a file prefixed with the job name and containing the job ID number, for example *test-1234.out*.
 
-```bash title="name_output.sh"
+```sh title="name_output.sh"
 #!/bin/bash
 #SBATCH --time=00:01:00
 #SBATCH --job-name=test

@@ -1,0 +1,128 @@
+{
+  "doc_key": "en/using_nearline_storage",
+  "level": "chunk",
+  "chunk_index": 2,
+  "qa_pairs": [
+    {
+      "question": "What are the advantages of using /nearline for storage compared to /project?",
+      "answer": "Using /nearline allows for much greater volumes of storage than /project. Additionally, keeping inactive data off /project reduces its load and improves its performance."
+    },
+    {
+      "question": "What is the initial state of a file when it's first copied or created on /nearline?",
+      "answer": "When a file is first copied to (or created on) /nearline, it exists only on disk, not tape."
+    },
+    {
+      "question": "How long does it typically take for a file on /nearline to be copied to tape after its initial creation or copy?",
+      "answer": "After a period on the order of a day, and if the file meets certain criteria, the system will copy the file to tape."
+    },
+    {
+      "question": "What happens to a file on /nearline once it has been copied to both disk and tape for a further period?",
+      "answer": "After a further period, the disk copy may be deleted, and the file will only exist on tape."
+    },
+    {
+      "question": "What does it mean when a file has been 'virtualized' on /nearline?",
+      "answer": "When a file has been moved entirely to tape, it is considered 'virtualized', meaning it only exists on tape and not on disk."
+    },
+    {
+      "question": "Will a virtualized file still appear in directory listings on /nearline?",
+      "answer": "Yes, even when a file has been virtualized (moved entirely to tape), it will still appear in the directory listing."
+    },
+    {
+      "question": "How long can it take to retrieve and copy a virtualized file from tape back to disk when it is read?",
+      "answer": "Retrieving and copying a virtualized file from tape back to disk may take from less than a minute to over an hour."
+    },
+    {
+      "question": "What factors determine how long it takes to read a virtualized file from /nearline?",
+      "answer": "The time it takes to read a virtualized file depends on the size of the file and the demand on the tape system."
+    },
+    {
+      "question": "What happens to tape-resident data when it is accessed or transferred from /nearline using tools like Globus?",
+      "answer": "When transferring data from /nearline, any data that was on tape gets automatically restored to disk upon reading it."
+    },
+    {
+      "question": "Why should users anticipate longer transfer times when moving data from /nearline?",
+      "answer": "Users should expect longer transfer times from /nearline because tape access is relatively slow, and each file restoration from tape can hang the transfer for a few minutes to a few hours."
+    },
+    {
+      "question": "Which command can provide an overview of the state of all files saved on /nearline for some clusters?",
+      "answer": "For an overview of the state of all files saved on /nearline, some clusters support the command `diskusage_report --nearline --per_user --all_users`."
+    },
+    {
+      "question": "What does the 'On disk and tape' location state mean for data on /nearline?",
+      "answer": "The 'On disk and tape' location state indicates that the data is available on disk."
+    },
+    {
+      "question": "What does the 'Modified, will be archived again' location state signify on /nearline?",
+      "answer": "The 'Modified, will be archived again' location state means that the newest version of the data is currently on disk."
+    },
+    {
+      "question": "What does 'Archiving in progress' indicate about data on /nearline?",
+      "answer": "'Archiving in progress' means that the data is currently being copied or moved to tape."
+    },
+    {
+      "question": "What does the 'On tape' location state imply for a file on /nearline?",
+      "answer": "The 'On tape' location state means that the data is only on tape."
+    },
+    {
+      "question": "How can one determine whether a specific file on /nearline has been moved to tape or is still on disk?",
+      "answer": "One can determine the state of a specific file using the `lfs hsm_state` command."
+    },
+    {
+      "question": "What is indicated by the `lfs hsm_state <FILE>` command returning `(0x00000000)`?",
+      "answer": "If `lfs hsm_state <FILE>` returns `(0x00000000)`, it indicates that the file is currently only on disk."
+    },
+    {
+      "question": "What does `lfs hsm_state <FILE>` output when a file is in the process of being copied to tape?",
+      "answer": "When a file is in progress of being copied to tape, `lfs hsm_state <FILE>` will output `[...]: exists, [...]`."
+    },
+    {
+      "question": "What does `lfs hsm_state <FILE>` output when a file exists on both disk and tape?",
+      "answer": "If a file is both on the disk and on tape, `lfs hsm_state <FILE>` will output `[...]: exists archived, [...]`."
+    },
+    {
+      "question": "How is a file's state indicated by `lfs hsm_state <FILE>` when it is only on tape and no longer on disk?",
+      "answer": "When a file is on tape but no longer on disk, `lfs hsm_state <FILE>` will output `[...]: released exists archived, [...]`."
+    },
+    {
+      "question": "What command can be used to explicitly recall a file from tape to disk without actually reading its contents?",
+      "answer": "You can explicitly force a file to be recalled from tape without actually reading it using the command `lfs hsm_restore <FILE>`."
+    },
+    {
+      "question": "On the Béluga cluster, where is /nearline accessible?",
+      "answer": "On the Béluga cluster, /nearline is only accessible as a directory on login nodes and on DTNs (Data Transfer Nodes)."
+    },
+    {
+      "question": "How do users store files on /nearline on the Béluga cluster?",
+      "answer": "To use /nearline on Béluga, users simply put files into their `~/nearline/PROJECT` directory."
+    },
+    {
+      "question": "On Béluga, what is the typical timeframe for a file to be copied onto tape after being placed in /nearline?",
+      "answer": "On Béluga, after a period of time, typically 24 hours as of February 2019, files placed in /nearline will be copied onto tape."
+    },
+    {
+      "question": "On Béluga, under what conditions is the disk copy of a file removed, making the file virtualized on tape?",
+      "answer": "On Béluga, if a file remains unchanged for another period (24 hours as of February 2019), the copy on disk will be removed, making the file virtualized on tape."
+    },
+    {
+      "question": "If a file is accidentally or deliberately deleted from `~/nearline` on Béluga, how long is the tape copy retained?",
+      "answer": "If a file is deleted from `~/nearline` on Béluga, the tape copy will be retained for up to 60 days."
+    },
+    {
+      "question": "How can a user restore a deleted file from /nearline on the Béluga cluster?",
+      "answer": "To restore a deleted file on Béluga, users need to contact technical support with the full path for the file(s) and the desired version by date."
+    },
+    {
+      "question": "What is recommended to ensure successful restoration of deleted files from /nearline on Béluga?",
+      "answer": "It is important for users to retain a copy of the complete directory structure of their /nearline space, for example, by running `ls -R > ~/nearline_contents.txt` from the `~/nearline/PROJECT` directory."
+    },
+    {
+      "question": "How does the Nibi cluster's /nearline service differ from Béluga's regarding the initial tape copy creation?",
+      "answer": "On Nibi, it may take longer than 24 hours for the first tape copy of the data to be created, unlike Béluga's typical 24-hour period."
+    },
+    {
+      "question": "What is the difference between Nibi and Béluga clusters concerning the deletion of the disk copy of a file on /nearline?",
+      "answer": "On Nibi, the disk copy will not be erased (leaving only the tape copies) until 60 days have passed, which is a longer retention period than Béluga's approximately 24 hours for unchanged files."
+    }
+  ],
+  "generated_at": "2026-04-12T10:27:13.096706+00:00"
+}

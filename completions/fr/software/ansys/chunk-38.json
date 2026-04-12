@@ -1,0 +1,48 @@
+{
+  "doc_key": "fr/ansys",
+  "level": "chunk",
+  "chunk_index": 38,
+  "qa_pairs": [
+    {
+      "question": "Comment lancer le logiciel CFX à partir d'un poste de travail On Demand?",
+      "answer": "Pour lancer CFX à partir d'un poste de travail On Demand, il faut d'abord charger le module `StdEnv/2023 ansys/2025R1` (ou une version plus ancienne), puis utiliser `cfx5 -graphics mesa` si aucune carte graphique n'a été demandée, ou `cfx5 -graphics ogl` si une carte graphique a été demandée."
+    },
+    {
+      "question": "Quelles sont les étapes pour démarrer l'interface graphique de Mechanical APDL (Mapdl) à partir de la ligne de commande sur un poste de travail On Demand?",
+      "answer": "Pour démarrer l'interface graphique de Mechanical APDL, vous devez d'abord charger le module `StdEnv/2023 ansys/2022R2` (ou une version plus récente), puis taper `mapdl -g` ou lancer `launcher` et cliquer sur le bouton `RUN`."
+    },
+    {
+      "question": "Comment démarrer Workbench en mode graphique à partir d'un poste de travail On Demand ou Jupyter Lab?",
+      "answer": "Pour démarrer Workbench en mode graphique, chargez le module `StdEnv/2023 ansys/2022R2` (ou une version plus récente), puis exécutez `runwb2`. Pour Ansys Mechanical, lancez aussi `xfwm4 --replace &`, et pour CFD-Post, exportez `QTWEBENGINE_DISABLE_SANDBOX=1`."
+    },
+    {
+      "question": "Si les menus déroulants d'Ansys Mechanical Workbench ne répondent pas, quelle est la solution?",
+      "answer": "Si les menus déroulants d'Ansys Mechanical Workbench ne répondent pas correctement, il faut lancer `xfwm4 --replace &` sur la ligne de commande avant de démarrer Workbench."
+    },
+    {
+      "question": "Comment configurer `xfwm4` pour qu'il soit utilisé par défaut avec Workbench?",
+      "answer": "Pour avoir `xfwm4` par défaut avec Workbench, vous devez modifier le fichier `$HOME/.vnc/xstartup` et remplacer `mate-session` par `xfce4-session`."
+    },
+    {
+      "question": "Quelles sont les recommandations pour l'exécution parallèle d'un programme d'analyse comme Mechanical ou Fluent sur un nœud simple dans Workbench?",
+      "answer": "Quand vous exécutez un programme d'analyse en parallèle sur un nœud simple dans Workbench, vous ne devez pas cocher la case \"Distributed\" et vous devez spécifier un nombre de cœurs égal à votre session `salloc` moins un."
+    },
+    {
+      "question": "Est-ce que la redirection X via SSH est une méthode supportée ou recommandée pour exécuter les programmes graphiques d'Ansys sur les grappes?",
+      "answer": "Non, la redirection X via SSH n'est ni testée ni supportée pour exécuter les programmes graphiques d'Ansys sur nos grappes, car elle dépend d'une configuration locale complexe et les temps de réponse interactifs sont généralement jugés inacceptables."
+    },
+    {
+      "question": "Pourquoi la redirection X via SSH n'est-elle pas recommandée pour les interfaces graphiques d'Ansys?",
+      "answer": "La redirection X via SSH n'est pas recommandée à cause des temps de réponse interactifs jugés inacceptables pour les tâches de base et les longs temps d'attente pour démarrer les programmes, en plus de ne pas être supportée."
+    },
+    {
+      "question": "Selon un test, quelle est la différence de temps de démarrage d'une interface graphique Ansys entre SSH et VNC?",
+      "answer": "Selon un test, il a fallu 40 minutes pour obtenir l'interface graphique via SSH, alors que VNC n'a pris que 34 secondes pour la même tâche."
+    },
+    {
+      "question": "Quelles sont les étapes de base pour tenter d'exécuter des programmes graphiques Ansys via SSH?",
+      "answer": "Les étapes de base sont : 1) `ssh -Y nom_utilisateur@graham.computecanada.ca`; 2) `salloc --x11 --time=1:00:00 --mem=16G --cpus-per-task=4 [--gpus-per-node=1] --account=def-mon_groupe`; 3) une fois connecté au nœud de calcul, essayez d'exécuter `xclock`. Si l'horloge apparaît sur votre bureau, chargez le module Ansys désiré et essayez de lancer le programme."
+    }
+  ],
+  "generated_at": "2026-04-11T17:14:58.785711+00:00"
+}

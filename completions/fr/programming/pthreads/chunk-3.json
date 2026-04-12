@@ -1,0 +1,64 @@
+{
+  "doc_key": "fr/pthreads",
+  "level": "chunk",
+  "chunk_index": 3,
+  "qa_pairs": [
+    {
+      "question": "Combien de fils exécutent la fonction `task` dans l'exemple de création et destruction de pthreads?",
+      "answer": "Dans l'exemple fourni, douze fils exécutent la fonction `task`."
+    },
+    {
+      "question": "Est-ce que la fonction `pthread_create` bloque le fil maître?",
+      "answer": "Non, la fonction `pthread_create` ne bloque pas le fil maître. Celui-ci continue d'exécuter la fonction `main` après la création de chaque fil."
+    },
+    {
+      "question": "À quoi sert la fonction `pthread_join` dans l'exemple de création et destruction de pthreads?",
+      "answer": "La fonction `pthread_join` est utilisée par le fil maître pour attendre que les douze fils esclaves terminent l'exécution de la fonction `task` et qu'ils réintègrent ensuite le fil maître."
+    },
+    {
+      "question": "Comment est illustré le fonctionnement de base d'un fil POSIX dans l'exemple?",
+      "answer": "L'exemple illustre que le fil maître crée un fil en lui assignant une fonction à exécuter, puis il attend que ce fil termine la fonction avant de le réintégrer."
+    },
+    {
+      "question": "Pourquoi l'ordre dans lequel les fils esclaves disent 'hello' peut-il varier à chaque exécution du code?",
+      "answer": "Il y a une variation prévisible dans l'ordre d'affichage parce que les fils esclaves s'exécutent en mode asynchrone. Chaque fois que le programme s'exécute, les 12 fils répondent en même temps à la fonction `printf` et ce n'est jamais le même fil qui remporte la course."
+    },
+    {
+      "question": "Pourquoi la synchronisation de l'accès aux données est-elle cruciale dans un programme où plusieurs fils accèdent aux mêmes informations?",
+      "answer": "Il est crucial de synchroniser l'accès aux données pour éviter les 'situations de compétition' (race conditions), où le résultat du programme dépend de l'ordre dans lequel les fils esclaves accèdent aux données partagées."
+    },
+    {
+      "question": "Qu'est-ce qu'une 'situation de compétition' (race condition) dans le contexte de la parallélisation?",
+      "answer": "Une situation de compétition se produit lorsque le résultat du programme dépend de l'ordre non contrôlé dans lequel les fils esclaves accèdent aux données partagées."
+    },
+    {
+      "question": "Quelle condition doit être respectée pour qu'un programme parallèle produise le même résultat que sa version séquentielle?",
+      "answer": "Les situations de compétition ne doivent absolument pas se produire pour qu'un programme parallèle donne le même résultat que sa version en série."
+    },
+    {
+      "question": "Quel est le moyen le plus simple et le plus courant pour contrôler l'accès concurrent dans pthreads?",
+      "answer": "Le moyen le plus simple et le plus utilisé pour contrôler l'accès concurrent est le verrou, et spécifiquement le mutex ('mutual exclusion') dans le contexte de pthreads."
+    },
+    {
+      "question": "Que signifie l'acronyme 'mutex' dans le contexte de pthreads?",
+      "answer": "'Mutex' est l'abréviation de 'mutual exclusion', qui désigne un mécanisme de verrouillage permettant l'accès exclusif à une ressource par un seul fil à la fois."
+    },
+    {
+      "question": "Comment un mutex contrôle-t-il l'accès exclusif à une variable?",
+      "answer": "Un mutex assigne la variable à un seul fil à la fois. Le fil exécute le code entre l'appel de la variable et le moment où elle est désactivée de manière exclusive, puis il désactive le verrou."
+    },
+    {
+      "question": "Comment doit-on déclarer et initialiser un mutex pour l'utiliser avec pthreads en C?",
+      "answer": "Pour utiliser un mutex, il faut déclarer une variable globale de type `pthread_mutex_t` et l'initialiser avec la fonction `pthread_mutex_init`."
+    },
+    {
+      "question": "Quelle fonction est utilisée pour 'déverrouiller' les ressources associées à un mutex à la fin d'un programme?",
+      "answer": "À la fin du programme, les ressources du mutex sont 'déverrouillées' par la fonction `pthread_mutex_destroy`."
+    },
+    {
+      "question": "Comment le fichier `thread_mutex.c` gère-t-il l'accès au canal de sortie standard?",
+      "answer": "Dans le fichier `thread_mutex.c`, l'accès au canal de sortie standard est sérialisé en utilisant un mutex. Le fil acquiert le verrou avec `pthread_mutex_lock(&mutex)` avant d'utiliser `printf`, puis le libère avec `pthread_mutex_unlock(&mutex)` après."
+    }
+  ],
+  "generated_at": "2026-04-12T05:31:59.039699+00:00"
+}

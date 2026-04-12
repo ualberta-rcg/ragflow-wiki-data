@@ -5,21 +5,63 @@ lang: "en"
 
 source_wiki_title: "Visualization/en"
 source_hash: "6113c9c0a49e56bcfd4356e4aa1e9f62"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T12:48:53.439518+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T12:46:41.015570+00:00"
 
 tags:
   - software
 
 keywords:
-  []
+  - "testing job"
+  - "VNC"
+  - "Client-Server and VNC"
+  - "visualization packages"
+  - "graphical application"
+  - "ParaView"
+  - "Visualization"
+  - "Remote visualization"
+  - "login nodes"
+  - "3D scientific visualization"
+  - "Complex Networks Visualization"
+  - "remote visualization"
+  - "salloc"
+  - "SciNet User Group Meeting"
+  - "VisIt Basics"
+  - "SciNet HPC"
+  - "Python"
+  - "Tkinter"
+  - "University of Toronto"
+  - "VisIt"
+  - "interactive visualization session"
+  - "Xvfb"
+  - "Alliance systems"
+
+questions:
+  - "What are the primary features and specific use cases of the different visualization packages, such as ParaView, VMD, and YT, described in the text?"
+  - "What are the recommended approaches for conducting interactive versus non-interactive remote visualization on Alliance systems?"
+  - "Why is X11-forwarding generally discouraged for heavy graphics, and how can a user configure it for interactive sessions on compute nodes?"
+  - "How can a user set up an interactive session with X11-forwarding to run visualization programs like VMD?"
+  - "What is the process for running off-screen rendering jobs using the X virtual frame buffer (Xvfb) on either a CPU or GPU?"
+  - "Why is VNC recommended over X11-forwarding for remote desktops, and what visualization training resources are available to users?"
+  - "How do you use the `salloc` command to properly allocate resources and launch a graphical application like VMD?"
+  - "Why is it recommended to request a testing job for data visualization instead of using the login nodes?"
+  - "What computational advantages, such as core count, do you gain by requesting a testing job on the Trillium system?"
+  - "What topics were covered in the October 2015 presentation by Ramses van Zon at the SciNet User Group Meeting?"
+  - "Who presented the slides on \"VisIt Basics\" and during which meeting did this presentation take place?"
+  - "Which programming language is featured in Marcelo Ponce's presentation on visualizing complex networks?"
+  - "How can users contribute their own visualization scripts and workflows to the page?"
+  - "What specific visualization resources and software are provided through the SciNet HPC links?"
+  - "Who should users contact if they need help with visualization?"
+  - "How can users contribute their own visualization scripts and workflows to the page?"
+  - "What specific visualization resources and software are provided through the SciNet HPC links?"
+  - "Who should users contact if they need help with visualization?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -62,19 +104,23 @@ YT is a Python library for analyzing and visualizing volumetric, multi-resolutio
 
 ## Visualization on Alliance systems
 
-There are many options for remote visualization on our systems. In general, whenever possible, for interactive rendering we recommend **client-server visualization** on interactive or high-priority nodes, and for non-interactive visualization we recommend **off-screen batch jobs** on regular compute nodes.
+!!! note "Recommendation for Visualization on Alliance Systems"
+    There are many options for remote visualization on our systems. In general, whenever possible:
+    *   For interactive rendering, we recommend **client-server visualization** on interactive or high-priority nodes.
+    *   For non-interactive visualization, we recommend **off-screen batch jobs** on regular compute nodes.
 
-Other, *less efficient* options are X11-forwarding and VNC. For some packages these are the only available remote GUI options.
+!!! warning "Less Efficient Options"
+    Other, *less efficient* options are X11-forwarding and VNC. For some packages these are the only available remote GUI options.
 
 ### Client-server interactive visualization
 
-In the client-server mode, supported by both ParaView and VisIt, all data will be processed remotely on the cluster, using either CPU or GPU rendering, while you interact with your visualization through a familiar GUI client on your local computer. You can find the details of setting up client-server visualization in [ParaView](paraview.md) and [VisIt](visit.md) pages.
+In the client-server mode, supported by both [ParaView](paraview.md) and [VisIt](visit.md), all data will be processed remotely on the cluster, using either CPU or GPU rendering, while you interact with your visualization through a familiar GUI client on your local computer. You can find the details of setting up client-server visualization in the [ParaView](paraview.md) and [VisIt](visit.md) pages.
 
 ### Remote windows with X11-forwarding
 
 In general, X11-forwarding should be avoided for any heavy graphics, as it requires many round trips and is much slower than VNC (below). However, in some cases you can connect via ssh with X11. Below we show how you would do this on our clusters. We assume you have an X-server installed on your local computer.
 
-=== "Rorqual, Fir, Nibi, Narval"
+#### Rorqual, Fir, Nibi, Narval
 
 Connect to the cluster with the `-X/-Y` flag for X11-forwarding. You can start your graphical application on the login node (small visualizations)
 
@@ -96,21 +142,25 @@ module load vmd
 vmd
 ```
 
-=== "Trillium"
+#### Trillium
 
 Since runtime is limited on the login nodes, you might want to request a testing job in order to have more time for exploring and visualizing your data. On the plus side, you will have access to 40 cores on each of the nodes requested. For performing an interactive visualization session in this way please follow these steps:
 
-1.  SSH into `trillium.alliancecan.ca` with the `-X/-Y` flag for X11-forwarding.
-2.  Request an interactive job, i.e.:
+1.  ssh into trillium.alliancecan.ca with the `-X/-Y` flag for X11-forwarding
+2.  Request an interactive job, ie.
+
     ```bash
     debugjob
     ```
+
     This will connect you to a node, let's say for the argument "niaXYZW".
-3.  Run your visualization program, e.g., VMD:
+3.  Run your visualization program, e.g., VMD
+
     ```bash
     module load vmd
     vmd
     ```
+
 4.  Exit the debug session.
 
 ### Remote off-screen windows via Xvfb
@@ -138,16 +188,17 @@ Frequently, it may be useful to start up graphical user interfaces for various s
 Please [let us know](mailto:support@tech.alliancecan.ca) if you would like to see a visualization workshop at your institution.
 
 ### Full- or half-day workshops
+
 *   [VisIt workshop slides](https://docs.alliancecan.ca/mediawiki/images/5/5d/Visit201606.pdf) from HPCS'2016 in Edmonton by *Marcelo Ponce* and *Alex Razoumov*
 *   [ParaView workshop slides](https://docs.alliancecan.ca/mediawiki/images/6/6c/Paraview201707.pdf) from July 2017 by *Alex Razoumov*
-*   [Gnuplot, xmgrace, remote visualization tools (X-forwarding and VNC), Python's matplotlib](https://support.scinet.utoronto.ca/~mponce/courses/ss2016/ss2016_visualization-I.pdf) slides by *Marcelo Ponce* (SciNet/UofT) from Ontario HPC Summer School 2016
+*   [Gnuplot, xmgrace, remote visualization tools (X-forwarding and VNC), python's matplotlib](https://support.scinet.utoronto.ca/~mponce/courses/ss2016/ss2016_visualization-I.pdf) slides by *Marcelo Ponce* (SciNet/UofT) from Ontario HPC Summer School 2016
 *   [Brief overview of ParaView & VisIt](https://support.scinet.utoronto.ca/~mponce/courses/ss2016/ss2016_visualization-II.pdf) slides by *Marcelo Ponce* (SciNet/UofT) from Ontario HPC Summer School 2016
 
 ### Webinars and other short presentations
 
 [Western Canada visualization training materials page](https://training.westdri.ca/tools/visualization) has video recordings and slides from many visualization webinars including:
 
-*   YT series: “Using YT for analysis and visualization of volumetric data” (Part 1) and "Working with data objects in YT” (Part 2)
+*   YT series: "Using YT for analysis and visualization of volumetric data" (Part 1) and "Working with data objects in YT” (Part 2)
 *   “Scientific visualization with Plotly”
 *   “Novel Visualization Techniques from the 2017 Visualize This Challenge”
 *   “Data Visualization on Compute Canada’s Supercomputers” contains recipes and demos of running client-server ParaView and batch ParaView scripts on both CPU and GPU partitions of our HPC clusters
@@ -160,9 +211,9 @@ Please [let us know](mailto:support@tech.alliancecan.ca) if you would like to se
 Other visualization presentations:
 
 *   [Remote Graphics on SciNet's GPC system (Client-Server and VNC)](https://oldwiki.scinet.utoronto.ca/wiki/images/5/51/Remoteviz.pdf) slides by *Ramses van Zon* (SciNet/UofT) from October 2015 SciNet User Group Meeting
-*   [VisIt Basics](https://support.scinet.utoronto.ca/education/go.php/242/file_storage/index.php/download/1/files%5B%5D/6399/) slides by *Marcelo Ponce* (SciNet/UofT) from February 2016 SciNet User Group Meeting
-*   [Intro to Complex Networks Visualization, with Python](https://oldwiki.scinet.utoronto.ca/wiki/images/e/ea/8_ComplexNetworks.pdf) slides by *Marcelo Ponce* (SciNet/UofT)
-*   [Introduction to GUI Programming with Tkinter](https://oldwiki.scinet.utoronto.ca/wiki/images/9/9c/Tkinter.pdf) from Sept.2014 by *Erik Spence* (SciNet/UofT)
+*   [VisIt Basics](https://support.scinet.utoronto.ca/education/go.php/242/file_storage/index.php/download/1/files%5B%5D/6399/), slides by *Marcelo Ponce* (SciNet/UofT) from February 2016 SciNet User Group Meeting
+*   [Intro to Complex Networks Visualization, with Python](https://oldwiki.scinet.utoronto.ca/wiki/images/e/ea/8_ComplexNetworks.pdf), slides by *Marcelo Ponce* (SciNet/UofT)
+*   [Introduction to GUI Programming with Tkinter](https://oldwiki.scinet.utoronto.ca/wiki/images/9/9c/Tkinter.pdf), from Sept.2014 by *Erik Spence* (SciNet/UofT)
 
 ## Tips and tricks
 
@@ -174,12 +225,14 @@ This section will describe visualization workflows not included into the worksho
 *   [SFU's visualization webinars archive](https://training.westdri.ca/tools/visualization)
 
 ### [SciNet HPC at the University of Toronto](http://www.scinet.utoronto.ca)
+
 *   [Visualization in Niagara](https://docs.scinet.utoronto.ca/index.php/Visualization)
-*   [visualization software](https://oldwiki.scinet.utoronto.ca/wiki/index.php/Software_and_Libraries#anchor_viz)
+*   [Visualization software](https://oldwiki.scinet.utoronto.ca/wiki/index.php/Software_and_Libraries#anchor_viz)
 *   [VNC](https://oldwiki.scinet.utoronto.ca/wiki/index.php/VNC)
-*   [visualization nodes](https://oldwiki.scinet.utoronto.ca/wiki/index.php/Visualization_Nodes)
-*   [further resources and viz-tech talks](https://oldwiki.scinet.utoronto.ca/wiki/index.php/Knowledge_Base:_Tutorials_and_Manuals#Visualization)
-*   [using ParaView](https://oldwiki.scinet.utoronto.ca/wiki/index.php/Using_Paraview)
+*   [Visualization nodes](https://oldwiki.scinet.utoronto.ca/wiki/index.php/Visualization_Nodes)
+*   [Further resources and viz-tech talks](https://oldwiki.scinet.utoronto.ca/wiki/index.php/Knowledge_Base:_Tutorials_and_Manuals#Visualization)
+*   [Using ParaView](https://oldwiki.scinet.utoronto.ca/wiki/index.php/Using_Paraview)
 
 ## How to get visualization help
+
 Please contact [Technical support](technical-support.md).

@@ -1,0 +1,60 @@
+{
+  "doc_key": "en/vnc",
+  "level": "chunk",
+  "chunk_index": 5,
+  "qa_pairs": [
+    {
+      "question": "What is the output of the `salloc` command indicating for job allocation 1149016?",
+      "answer": "The `salloc` command output indicates that job allocation 1149016 is pending, queued, has been allocated resources, granted, and that nodes like `c48` are ready for the job."
+    },
+    {
+      "question": "Which environment variable should be set after an interactive job starts on a compute node to avoid desktop errors?",
+      "answer": "After an interactive job starts on a compute node, the environment variable `XDG_RUNTIME_DIR` should be set to `${SLURM_TMPDIR}` to avoid repetitive desktop errors."
+    },
+    {
+      "question": "How do you start a VNC server on a compute node, and what should be noted?",
+      "answer": "You start a VNC server on a compute node by using the `vncserver` command. You should note which compute node your job is running on, which can be checked with the `hostname` command if unsure."
+    },
+    {
+      "question": "What is a critical security step when starting a VNC server for the first time?",
+      "answer": "The first time you start a VNC server, you will be prompted to set a password. It is critical not to leave this blank, as doing so would allow anyone to connect and access files in your account."
+    },
+    {
+      "question": "How can you change your VNC server password after it has been initially set?",
+      "answer": "You can change your VNC server password later using the `vncpasswd` command."
+    },
+    {
+      "question": "Where is the log file for a VNC server located after it starts on a compute node?",
+      "answer": "The log file for a VNC server started on a compute node, for example `c48`, is typically located at `/home/yourusername/.vnc/c48.nibi.sharcnet:1.log`."
+    },
+    {
+      "question": "How do you determine the TCP port your VNC server is listening on?",
+      "answer": "You can determine the TCP port your VNC server is listening on by running a `grep` command, such as `grep -iE \"\\sport|kill\" /home/yourusername/.vnc/c48.nibi.sharcnet:1.log`, on its log file."
+    },
+    {
+      "question": "What is the purpose of setting up an SSH tunnel to a VNC server?",
+      "answer": "The purpose of setting up an SSH tunnel is to create a secure \"bridge\" or \"tunnel\" from your laptop to the compute node where your VNC server is running."
+    },
+    {
+      "question": "What is the recommended SSH tunnel command format for clusters other than Nibi?",
+      "answer": "For all clusters except Nibi, the recommended SSH tunnel command format is `ssh username@clustername -L localforwardedport:computenode:remotelisteningport`."
+    },
+    {
+      "question": "Provide an example SSH tunnel command for the Rorqual cluster, connecting to compute node `rc12509`.",
+      "answer": "An example SSH tunnel command for the Rorqual cluster, forwarding local port 5905 to remote port 5901 on compute node `rc12509`, is `ssh username@rorqual.alliancecan.ca -L 5905:rc12509:5901`."
+    },
+    {
+      "question": "What is the specific SSH tunnel command format for the Nibi cluster, and what additional setup is required?",
+      "answer": "For the Nibi cluster, the command `ssh -J username@clustername -L localforwardedport:localhost:remotelisteningport computenode` must be used. Additionally, an SSH key pair must be created on your laptop with the public key entered into your `~/.ssh/authorized_keys` file on Nibi."
+    },
+    {
+      "question": "Does the new SSH tunnel command format for Nibi work on other clusters?",
+      "answer": "Yes, the new SSH tunnel command format for Nibi will also work on any other cluster and may eventually be preferred."
+    },
+    {
+      "question": "Provide an example SSH tunnel command for the Nibi cluster, connecting to compute node `c48`.",
+      "answer": "An example SSH tunnel command for the Nibi cluster, using compute node `c48` and forwarding local port 5905 to remote port 5901, is `ssh -J username@nibi.alliancecan.ca -L 5905:localhost:5901 c48`."
+    }
+  ],
+  "generated_at": "2026-04-12T10:52:38.038161+00:00"
+}

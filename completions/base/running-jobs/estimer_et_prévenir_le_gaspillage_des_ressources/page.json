@@ -1,0 +1,111 @@
+{
+  "doc_key": "base/estimer_et_prévenir_le_gaspillage_des_ressources",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is the main objective of this document?",
+      "answer": "The main objective is to help users minimize resource waste in high-performance computing clusters by identifying common errors in CPU, GPU, and memory requests, and providing corrective actions."
+    },
+    {
+      "question": "What defines a serial task?",
+      "answer": "A serial task executes on a single processor or compute core at a time, without parallelism, following a strictly sequential execution, and memory is shared by processes and threads."
+    },
+    {
+      "question": "How should CPU resources be requested for a serial task?",
+      "answer": "For a serial task, only one core should be requested using the `--cpus-per-task=1` option in the submission script."
+    },
+    {
+      "question": "How can you identify if you have requested too many cores for a serial task when viewing performance graphs?",
+      "answer": "The CPU graph will show activity only on one core even if more were requested, and the 'Processes and threads' graph will indicate only one active thread, signifying wasted cores."
+    },
+    {
+      "question": "How is memory requested and monitored for a serial task, and what margin is recommended?",
+      "answer": "Memory is requested using `--mem-per-cpu` or `--mem`, and the 'Memory' graph shows 'total allocated memory' and 'maximum used memory'. A margin of approximately 20% is recommended to avoid 'Out of memory' (OOM) errors."
+    },
+    {
+      "question": "What is a multithreaded task?",
+      "answer": "A multithreaded task can utilize multiple execution threads to perform operations in parallel, sharing allocated memory, and typically requiring only one node."
+    },
+    {
+      "question": "How can you tell if you've requested more cores than necessary for a multithreaded task by observing the portal graphs?",
+      "answer": "The CPU graph will display in red and show the maximum number of cores used is significantly lower than the requested cores, while the 'Processes and threads' graph will indicate the actual number of active threads."
+    },
+    {
+      "question": "What are the key characteristics of a multiprocessor task?",
+      "answer": "A multiprocessor task distributes its work across several independent processes, often using MPI, can run on multiple cores and nodes, and each process has its own dedicated memory."
+    },
+    {
+      "question": "When is it appropriate to use the `--mem=0` parameter in a multiprocessor task submission script?",
+      "answer": "The `--mem=0` parameter, which allocates all available node memory, is appropriate only if all cores on that node are also allocated and fully utilized by the task."
+    },
+    {
+      "question": "What happens if `--cpus-per-task=2` is used for a multiprocessor task that is not multithreaded?",
+      "answer": "If a multiprocessor task is not multithreaded, specifying `--cpus-per-task=2` means only one core per process will be utilized, leaving the additional allocated cores idle."
+    },
+    {
+      "question": "How can incorrect configuration of `OMP_NUM_THREADS` impact a GROMACS task?",
+      "answer": "If the `OMP_NUM_THREADS` environment variable does not match the `--cpus-per-task` value in the SBATCH script, it leads to underutilization where requested CPU cores remain idle."
+    },
+    {
+      "question": "What is the recommended way to ensure `OMP_NUM_THREADS` is correctly configured for a GROMACS task?",
+      "answer": "It is recommended to use the `SLURM_CPUS_PER_TASK` environment variable (e.g., `export OMP_NUM_THREADS=\"${SLURM_CPUS_PER_TASK:-1}\"`) to synchronize `OMP_NUM_THREADS` with `--cpus-per-task`."
+    },
+    {
+      "question": "What are the main recommendations to prevent CPU resource waste?",
+      "answer": "Identify your task type, conduct simple tests starting with one CPU, consult application documentation for parallelism, use interactive tasks for quick testing, monitor resources via visualization portals, and connect to active nodes for insights."
+    },
+    {
+      "question": "How do you determine if a requested GPU is not being utilized at all?",
+      "answer": "The 'GPU - Cycle de calcul GPU utilisé' graph will show no activity or recorded values for metrics like SM Active or SM Occupancy, indicating the GPU is idle."
+    },
+    {
+      "question": "What considerations should be made if a GPU is requested but not utilized?",
+      "answer": "One should evaluate if a GPU is truly necessary for the task by comparing execution times on CPU versus GPU, as GPU nodes are expensive and CPU performance might be sufficient or even faster."
+    },
+    {
+      "question": "How can you identify if you've requested multiple GPUs but are only using one?",
+      "answer": "The 'GPU Cycle de calcul', 'GPU Power', and 'GPU Mémoire' graphs will display activity for only one GPU (e.g., GPU 0), while other requested GPUs (e.g., GPU 1) will show no data or utilization."
+    },
+    {
+      "question": "What is the recommendation for CPU allocation when running a GPU task on a node with four GPUs?",
+      "answer": "It's advised not to request more than a quarter of the CPU cores per GPU to prevent CPUs from being allocated on the wrong NUMA node or socket, which can significantly slow down data transfers between the CPU and GPU."
+    },
+    {
+      "question": "When should Multi-Instance GPU (MIG) technology be considered for a task?",
+      "answer": "MIG should be considered if GPU utilization is between 10% and 40%, GPU memory usage is under 20 GB, and the task is running on A100 GPU instances."
+    },
+    {
+      "question": "What strategy should be adopted if a task uses the GPU only temporarily or irregularly?",
+      "answer": "Consider pausing the task after its GPU-intensive phase to resume it on a CPU node, or vice versa, to optimize resource utilization by separating CPU and GPU phases."
+    },
+    {
+      "question": "Under what scenarios is Multi-Process Service (MPS) a suitable solution for optimizing GPU utilization?",
+      "answer": "MPS is suitable for multiprocessor or multithreaded tasks where individual processes or threads do not fully utilize a GPU, or for grouping several similar serial tasks that individually do not fully utilize a GPU."
+    },
+    {
+      "question": "What are the main recommendations to avoid GPU resource waste?",
+      "answer": "Ensure your program is GPU-compatible, test with interactive tasks and MIGs, analyze GPU utilization via the portal, understand SBATCH options for GPU, MIG, and MPS, use MIG for tasks consuming less than 20 GiB of GPU memory, and consider MPS for multiple light tasks."
+    },
+    {
+      "question": "What is a common mistake related to memory allocation when submitting a job?",
+      "answer": "A common mistake is requesting significantly more memory than the task actually requires, such as asking for 752 GB when only 60 GB are ultimately used."
+    },
+    {
+      "question": "How can users effectively estimate memory requirements for tasks on Béluga/Narval clusters?",
+      "answer": "On Béluga/Narval, a general guideline is approximately 4 GB of memory per core. Users should calculate their needs based on this ratio and add up to a 20% margin to prevent OOM errors."
+    },
+    {
+      "question": "How should resources be requested for task arrays to avoid waste?",
+      "answer": "Resources must be requested for each individual task within the array (e.g., `--cpus-per-task=1`), as the specified resources apply to each task, not the array as a whole."
+    },
+    {
+      "question": "What is the primary purpose and recommended duration for interactive tasks?",
+      "answer": "Interactive tasks are primarily for quick testing or debugging, not full development, and should ideally last less than 6 hours while utilizing minimal resources."
+    },
+    {
+      "question": "What are typical resource recommendations for interactive CPU and GPU tasks?",
+      "answer": "For CPU, it's recommended to use `salloc --time=1:0:0 --mem-per-cpu=4G --cpus-per-task=1`. For GPU, use `salloc --time=1:0:0 --mem-per-cpu=4G --cpus-per-task=1 --gres=gpu:a100_1g.5gb:1`."
+    }
+  ],
+  "generated_at": "2026-04-11T21:18:44.760196+00:00"
+}

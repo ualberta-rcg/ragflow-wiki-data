@@ -1,0 +1,47 @@
+{
+  "doc_key": "fr/dask",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "C'est quoi, Dask, et à quoi ça sert?",
+      "answer": "Dask est une bibliothèque Python polyvalente qui offre des tableaux NumPy et des DataFrame Pandas pour le calcul distribué en Python pur, donnant accès à la pile PyData."
+    },
+    {
+      "question": "Quelle est la meilleure façon d'installer Dask?",
+      "answer": "La meilleure façon d'installer Dask est en utilisant les Python wheels."
+    },
+    {
+      "question": "Quelles sont les étapes pour installer Dask à l'aide de pip après avoir chargé un module Python?",
+      "answer": "Il faut d'abord charger un module Python avec `module load python`, créer et démarrer un environnement virtuel, puis utiliser `pip install dask` (et optionnellement `dask-distributed`) dans cet environnement."
+    },
+    {
+      "question": "Comment démarre-t-on une grappe Dask à nœud simple avec un script Slurm?",
+      "answer": "On utilise un script Slurm pour charger les modules nécessaires, créer un environnement virtuel, installer Dask, démarrer un ordonnanceur Dask, puis des processus de travail Dask, et enfin exécuter un script Python."
+    },
+    {
+      "question": "Que fait le script Python d'exemple `dask-example.py` pour un nœud simple?",
+      "answer": "Il se connecte au client Dask, crée un DataFrame Pandas qui est ensuite divisé en un Dask DataFrame avec un nombre de partitions correspondant au nombre de cœurs de la tâche, et calcule la moyenne d'une colonne."
+    },
+    {
+      "question": "Comment le script `dask-example.sh` pour nœud simple gère-t-il les processus de travail et les fils d'exécution?",
+      "answer": "Il démarre une grappe Dask avec autant de processus de travail que de cœurs dans la tâche, chaque processus créant au moins un fil d'exécution."
+    },
+    {
+      "question": "Quelles sont les principales étapes pour démarrer une grappe Dask sur plusieurs nœuds avec Slurm?",
+      "answer": "Il faut un script Slurm principal qui lance d'autres scripts pour configurer l'environnement virtuel sur chaque nœud, démarrer l'ordonnanceur Dask sur le nœud principal, puis lancer les processus de travail sur tous les nœuds avant d'exécuter le script Python principal."
+    },
+    {
+      "question": "À quoi sert le script `config_virtualenv.sh` dans un déploiement multi-nœuds?",
+      "answer": "Ce script est exécuté sur chaque nœud pour charger les modules nécessaires, créer un environnement virtuel et installer Dask avec ses dépendances (`dask[distributed,dataframe]`)."
+    },
+    {
+      "question": "Comment le script `launch_dask_workers.sh` gère-t-il les ressources des processus de travail sur plusieurs nœuds?",
+      "answer": "Sur le nœud de rang 0 (où l'ordonnanceur est lancé), le travailleur obtient 40% de la mémoire et un cœur de moins. Sur tous les autres nœuds, chaque travailleur obtient 50% de la mémoire allouée à la tâche et tous les cœurs."
+    },
+    {
+      "question": "Quel est l'objectif du script `test_dask.py` dans l'exemple multi-nœuds?",
+      "answer": "Il se connecte au client Dask, crée un DataFrame Pandas, le convertit en Dask DataFrame avec 6 partitions, puis calcule et affiche la moyenne d'une colonne."
+    }
+  ],
+  "generated_at": "2026-04-11T20:50:14.094651+00:00"
+}

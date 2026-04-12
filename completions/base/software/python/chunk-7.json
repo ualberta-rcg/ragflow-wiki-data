@@ -1,0 +1,56 @@
+{
+  "doc_key": "base/python",
+  "level": "chunk",
+  "chunk_index": 7,
+  "qa_pairs": [
+    {
+      "question": "How do I create a virtual environment on each node within a multi-node job?",
+      "answer": "In your submission script, you can create the virtual environment on each allocated node by including the following srun command block:\n```bash\nsrun --ntasks $SLURM_NNODES --tasks-per-node=1 bash << EOF\nvirtualenv --no-download $SLURM_TMPDIR/env\nsource $SLURM_TMPDIR/env/bin/activate\npip install --no-index --upgrade pip\npip install --no-index -r requirements.txt\nEOF\n```"
+    },
+    {
+      "question": "After creating virtual environments on multiple nodes, how do I activate the virtual environment on the main node?",
+      "answer": "You activate the virtual environment on the main node by running: `source $SLURM_TMPDIR/env/bin/activate;`"
+    },
+    {
+      "question": "How do I run my Python script across multiple nodes after activating the virtual environments?",
+      "answer": "After activating the virtual environment on the main node, use `srun` to run your script, for example: `srun python myscript.py;`"
+    },
+    {
+      "question": "Can you provide an example SLURM submission script for a multi-node Python job that sets up and activates virtual environments?",
+      "answer": "An example SLURM submission script (`submit-nnodes-venv.sh`) for a multi-node job that creates and activates virtual environments on each node, and then runs a Python script, is as follows:\n```bash\n#!/bin/bash\n#SBATCH --account=<your account>\n#SBATCH --time=00:30:00\n#SBATCH --nodes=2\n#SBATCH --ntasks=2\n#SBATCH --mem-per-cpu=2000M\n\nmodule load StdEnv/2023 python/3.11 mpi4py/4.0.3\n\n# create the virtual environment on each node: \nsrun --ntasks $SLURM_NNODES --tasks-per-node=1 bash << EOF\nvirtualenv --no-download $SLURM_TMPDIR/env\nsource $SLURM_TMPDIR/env/bin/activate\n\npip install --no-index --upgrade pip\npip install --no-index -r requirements.txt\nEOF\n\n# activate only on main node                                                               \nsource $SLURM_TMPDIR/env/bin/activate;\n# srun exports the current env, which contains $VIRTUAL_ENV and $PATH variables\nsrun python myscript-mpi.py; \n```"
+    },
+    {
+      "question": "What command can I use to list currently available Python wheels on the cluster?",
+      "answer": "You can run the command `avail_wheels` on the cluster. Currently available wheels are also listed on the [[Available Python wheels]] page."
+    },
+    {
+      "question": "What are the default filtering behaviours of the `avail_wheels` command?",
+      "answer": "By default, the `avail_wheels` command will:\n* only show you the latest version of a specific package (unless versions are given);\n* only show you versions that are compatible with the Python module (if one loaded) or virtual environment (if activated), otherwise all versions will be shown;\n* only show you versions that are compatible with the CPU architecture and software environment (StdEnv) that you are currently running on."
+    },
+    {
+      "question": "How do I list Python wheels containing 'cdf' (case insensitive) in their name using `avail_wheels`?",
+      "answer": "To list wheels containing 'cdf' (case insensitive) in their name, use the command: `avail_wheels \"*cdf*\"`"
+    },
+    {
+      "question": "How do I list a specific wheel by its exact name, such as 'numpy', using `avail_wheels`?",
+      "answer": "To list a wheel by its exact name, such as 'numpy', use the command: `avail_wheels numpy`"
+    },
+    {
+      "question": "How can I list a specific version of a wheel, like NumPy version 1.23, using `avail_wheels`?",
+      "answer": "You can list a specific version of a wheel using the pip format, such as `avail_wheels numpy==1.23`, or by using the long option: `avail_wheels numpy --version 1.23`."
+    },
+    {
+      "question": "What operators can be used with `avail_wheels` to filter packages by version?",
+      "answer": "You can use the following operators for version filtering with `avail_wheels` in pip format: `==`, `<`, `>`, `~=`, `<=`, `>=`, `!=`."
+    },
+    {
+      "question": "How do I list all available versions of a specific wheel, for example, all versions of 'numpy' older than 1.23?",
+      "answer": "To list versions of 'numpy' that are inferior to 1.23, use the command: `avail_wheels 'numpy<1.23'`"
+    },
+    {
+      "question": "How can I list all available versions of a wheel, such as those containing 'cdf', regardless of compatibility or latest version?",
+      "answer": "To list all available versions of a wheel, for instance, those containing 'cdf' in their name, use the `--all-version` option: `avail_wheels \"*cdf*\" --all-version`."
+    }
+  ],
+  "generated_at": "2026-04-12T05:51:07.675482+00:00"
+}

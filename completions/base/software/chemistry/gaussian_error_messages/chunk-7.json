@@ -1,0 +1,56 @@
+{
+  "doc_key": "base/gaussian_error_messages",
+  "level": "chunk",
+  "chunk_index": 7,
+  "qa_pairs": [
+    {
+      "question": "What does the \"Convergence failure -- run terminated\" error in Gaussian signify?",
+      "answer": "This error indicates that the SCF (self-consistent field) procedure has failed to converge."
+    },
+    {
+      "question": "How can an SCF convergence failure be addressed if a poor guess for the molecular orbitals is suspected?",
+      "answer": "You can try using a better guess (`guess=read`) by first carrying out an SCF calculation with the same starting structure, but at a lower level of theory like HF/STO-3G."
+    },
+    {
+      "question": "What are some alternative SCF convergers one can try if `guess=read` does not resolve a convergence failure?",
+      "answer": "If `guess=read` doesn't work, you can try using an alternate SCF converger such as `SCF=QC` or `SCF=XQC`."
+    },
+    {
+      "question": "Can a poor initial geometry cause an SCF convergence failure, and how is this fixed?",
+      "answer": "Yes, a poor initial geometry can lead to an unconverged SCF if a bond is excessively long or short. Fixing the initial geometry may resolve the problem."
+    },
+    {
+      "question": "What is the recommended action if an SCF convergence failure occurs because the optimizer took an incorrect step?",
+      "answer": "If the optimizer takes a bad step causing an SCF convergence failure, you should resubmit the job using the penultimate (or an earlier) geometry and a newly evaluated Hessian."
+    },
+    {
+      "question": "What does the error \"FOPT requested but NVar= XX while NDOF= YY\" mean in Gaussian?",
+      "answer": "This error means that a full optimization (FOpt) was requested, including a check to ensure the correct number of variables are present, and this check indicated an error."
+    },
+    {
+      "question": "How should the \"FOPT requested\" error be addressed if NDOF is less than NVar?",
+      "answer": "If NDOF is less than NVar, it suggests the molecule is being run in a lower symmetry than its actual symmetry, and you should consider running it with higher symmetry."
+    },
+    {
+      "question": "What typically causes the \"FOPT requested\" error when NVar is less than NDOF?",
+      "answer": "When NVar is less than NDOF, it usually means that your z-matrix has too many constraints, which are not appropriate for the actual symmetry of the molecule."
+    },
+    {
+      "question": "Is it advisable to bypass the check that triggers the \"FOPT requested but NVar= XX while NDOF= YY\" error?",
+      "answer": "You can bypass the check by using `Opt` instead of `FOpt`, but this is not recommended."
+    },
+    {
+      "question": "What does the error \"Unable to project read-in occupied orbitals\" indicate?",
+      "answer": "This error signifies that Gaussian is attempting to read a molecular-orbital guess from a checkpoint file, but the projection from the old to the new basis set has failed. This can occur when certain pseudopotential basis sets, such as CEP-121G*, are used with polarization functions that don't actually exist or have zero exponents."
+    },
+    {
+      "question": "How can the \"Unable to project read-in occupied orbitals\" error be fixed if it's related to the basis set?",
+      "answer": "To fix this error, avoid using CEP-121G* and instead use CEP-121G for the elements in question, as they are often the same."
+    },
+    {
+      "question": "What is a workaround for the \"Unable to project read-in occupied orbitals\" error?",
+      "answer": "A workaround for this error is simply not to use the molecular-orbital guess."
+    }
+  ],
+  "generated_at": "2026-04-11T22:54:23.082542+00:00"
+}

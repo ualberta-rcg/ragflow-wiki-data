@@ -1,0 +1,76 @@
+{
+  "doc_key": "en/jupyternotebook",
+  "level": "chunk",
+  "chunk_index": 2,
+  "qa_pairs": [
+    {
+      "question": "What are the final commands required to install the RStudio Launcher extension?",
+      "answer": "To complete the RStudio Launcher installation, you need to run: `pip install nbserverproxy`, `pip install https://github.com/jupyterhub/nbrsessionproxy/archive/v0.8.0.zip`, `jupyter serverextension enable --py nbserverproxy --sys-prefix`, `jupyter nbextension install --py nbrsessionproxy --sys-prefix`, `jupyter nbextension enable --py nbrsessionproxy --sys-prefix`, and `jupyter serverextension enable --py nbrsessionproxy --sys-prefix`."
+    },
+    {
+      "question": "How do I activate the Jupyter Notebook environment after it has been installed?",
+      "answer": "Once Jupyter Notebook is installed, you must first reload the Python module associated with your environment when you log into the cluster, then activate the virtual environment."
+    },
+    {
+      "question": "Which Python module should I load to activate my Jupyter Notebook environment?",
+      "answer": "You should load the Python module using the command: `module load python/3.7`."
+    },
+    {
+      "question": "What command is used to activate the Python virtual environment for Jupyter Notebook?",
+      "answer": "To activate your virtual environment, use the command: `source $HOME/jupyter_py3/bin/activate`."
+    },
+    {
+      "question": "If I want to use the RStudio Launcher, what additional module must I load?",
+      "answer": "To use the RStudio Launcher, you must load the RStudio Server module with the command: `module load rstudio-server`."
+    },
+    {
+      "question": "What is the general process to start the Jupyter Notebook application?",
+      "answer": "To start Jupyter Notebook, you need to submit an interactive job, adjusting parameters like CPU, memory, and runtime based on your specific needs."
+    },
+    {
+      "question": "Can you provide an example command for starting Jupyter Notebook with an interactive job?",
+      "answer": "An example command to start Jupyter Notebook as an interactive job is: `salloc --time=1:0:0 --ntasks=1 --cpus-per-task=2 --mem-per-cpu=1024M --account=def-yourpi srun $VIRTUAL_ENV/bin/notebook.sh`."
+    },
+    {
+      "question": "What information does Jupyter Notebook provide in the terminal once it's running?",
+      "answer": "Once running, Jupyter Notebook outputs information such as the local directory it's serving notebooks from, the number of active kernels, the URL where it's running, and a token for logging in."
+    },
+    {
+      "question": "How do I get the URL and token to connect to my Jupyter Notebook session?",
+      "answer": "The URL and token are printed in the terminal output when Jupyter Notebook starts, typically under a line indicating 'The Jupyter Notebook is running at:' and an instruction to 'Copy/paste this URL into your browser when you connect for the first time, to login with a token:'."
+    },
+    {
+      "question": "Why is an SSH tunnel necessary to access Jupyter Notebook on a compute node?",
+      "answer": "An SSH tunnel is necessary because compute nodes are not directly accessible from the Internet, so a tunnel provides a secure connection between the cluster and your local computer."
+    },
+    {
+      "question": "What is the recommended method for creating an SSH tunnel on Linux or MacOS X?",
+      "answer": "On Linux or MacOS X, it is recommended to use the `sshuttle` Python package to create an SSH tunnel."
+    },
+    {
+      "question": "What command should I use to create an SSH tunnel with `sshuttle` on Linux or MacOS X?",
+      "answer": "Open a new terminal window on your computer and run the command: `sshuttle --dns -Nr <username>@<cluster>.alliancecan.ca`."
+    },
+    {
+      "question": "What do the placeholders `<username>` and `<cluster>` represent in the `sshuttle` command?",
+      "answer": " `<username>` should be replaced with your actual username, and `<cluster>` should be replaced with the name of the cluster you used to launch Jupyter Notebook."
+    },
+    {
+      "question": "How can I establish an SSH tunnel from a Windows machine to connect to Jupyter Notebook?",
+      "answer": "From Windows, an SSH tunnel can be created using MobaXTerm by following a specific multi-step procedure involving two terminal tabs."
+    },
+    {
+      "question": "What are the initial steps in MobaXTerm (Session 1) when setting up an SSH tunnel from Windows?",
+      "answer": "In MobaXTerm, open a new Terminal tab (Session 1), connect to a cluster, and then follow the instructions for starting Jupyter Notebook to obtain its URL, hostname, port, and token."
+    },
+    {
+      "question": "What command do I execute in MobaXTerm Session 2 to create the SSH tunnel?",
+      "answer": "In a second MobaXTerm Terminal tab (Session 2), execute the command: `ssh -L 8888:<hostname:port> <username>@<cluster>.alliancecan.ca`, substituting the appropriate values from your Jupyter Notebook URL."
+    },
+    {
+      "question": "After configuring the SSH tunnel with MobaXTerm, what URL should I use in my web browser?",
+      "answer": "You should open your web browser and navigate to `http://localhost:8888/?token=<token>`, replacing `<token>` with the specific token value obtained from Jupyter Notebook's output in MobaXTerm Session 1."
+    }
+  ],
+  "generated_at": "2026-04-12T00:39:06.747193+00:00"
+}

@@ -4,73 +4,73 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "How should users handle Abaqus jobs requiring large memory or compute resources beyond a single compute node?",
-      "answer": "Users should utilize the MPI scripts provided in the multiple node sections to distribute computing across arbitrary node ranges, which will be automatically determined by the scheduler."
+      "question": "When should users consider using MPI scripts for Abaqus jobs?",
+      "answer": "Users should use MPI scripts in the multiple node sections when their jobs require large memory or larger compute resources that extend beyond what a single compute node can provide. These scripts help distribute computing over arbitrary node ranges determined automatically by the scheduler."
     },
     {
-      "question": "What is recommended before running long Abaqus jobs, especially for optimal performance and resource estimation?",
-      "answer": "Users should run short scaling test jobs to determine wall-clock times and memory requirements as a function of the number of cores (e.g., 2, 4, 8) before initiating any long jobs."
+      "question": "What is recommended to determine optimal core usage and memory requirements for long Abaqus jobs?",
+      "answer": "Before running any long jobs, short scaling test jobs should be run to determine wall-clock times and memory requirements as a function of the number of cores (e.g., 2, 4, 8) to find the optimal number."
     },
     {
-      "question": "What types of parallelization do Abaqus solvers support for Standard Analysis type jobs?",
-      "answer": "Abaqus solvers support both thread-based and MPI-based parallelization for Standard Analysis type jobs."
+      "question": "What types of parallelization do Abaqus solvers support for Standard Analysis?",
+      "answer": "Abaqus solvers support both thread-based and MPI-based parallelization for running Standard Analysis type jobs."
     },
     {
-      "question": "Are scripts available for Standard Analysis jobs to run on both single and multiple nodes?",
-      "answer": "Yes, scripts are provided for running Standard Analysis type jobs on both single and multiple nodes."
-    },
-    {
-      "question": "Are scripts to perform multiple node job restarts currently available for Standard Analysis?",
+      "question": "Are scripts currently available for performing multiple node job restarts in Standard Analysis?",
       "answer": "No, scripts to perform multiple node job restarts for Standard Analysis are not currently provided."
     },
     {
-      "question": "What is the purpose of the `#SBATCH --nodes=1` directive in the project directory script for single-node Standard Analysis?",
-      "answer": "The `#SBATCH --nodes=1` directive specifies that the job should run on a single compute node and should not be changed for this script type."
+      "question": "What is the purpose of the `project directory script` for single-node Standard Analysis?",
+      "answer": "The `project directory script` is a prototype Slurm script designed for submitting thread-based parallel simulations to a single compute node for Standard Analysis type jobs."
     },
     {
-      "question": "Which Abaqus module is loaded in the provided project directory script for single-node Standard Analysis?",
-      "answer": "The `abaqus/2026` module, which is the latest version, is loaded in the script."
+      "question": "How is the account specified in the `scriptsp1.txt` Slurm script?",
+      "answer": "The account is specified using `#SBATCH --account=def-group` in the `scriptsp1.txt` Slurm script."
     },
     {
-      "question": "How is the memory for the Abaqus job determined in the project directory script for single-node Standard Analysis?",
-      "answer": "The memory for the Abaqus job is determined by subtracting a 3072MB offset from the total memory available per node, using the calculation `$((${SLURM_MEM_PER_NODE}-3072))MB`."
+      "question": "What is the maximum wall-clock time requested in the `scriptsp1.txt` Slurm script?",
+      "answer": "The maximum wall-clock time requested is 6 hours, specified as `--time=00-06:00` (days-hours:minutes)."
     },
     {
-      "question": "How are CPU resources specified for Abaqus in the project directory script for single-node Standard Analysis?",
-      "answer": "CPU resources are specified using `cpus=$SLURM_CPUS_ON_NODE`, meaning the job will use all available CPUs on the allocated node."
+      "question": "How many CPUs are requested per task in the `scriptsp1.txt` Slurm script for single-node computing?",
+      "answer": "The script requests 4 CPUs per task, indicated by `#SBATCH --cpus-per-task=4`."
     },
     {
-      "question": "What `mp_mode` is used in the project directory script for single-node Standard Analysis?",
-      "answer": "The `mp_mode=threads` is used, indicating thread-based parallelization for the simulation."
+      "question": "What is the total memory requested for a single-node standard analysis job using `scriptsp1.txt`?",
+      "answer": "The `scriptsp1.txt` requests 8 GB of total memory, specified by `#SBATCH --mem=8G`."
     },
     {
-      "question": "How can an Abaqus simulation be configured to write restart data every 12 time increments?",
-      "answer": "To write restart data every 12 time increments, users should specify `*RESTART, WRITE, OVERLAY, FREQUENCY=12` in the input file."
+      "question": "Which Abaqus module is recommended to be loaded in the `scriptsp1.txt` for standard analysis?",
+      "answer": "The `abaqus/2026` module, representing the latest version, is recommended to be loaded."
     },
     {
-      "question": "What input file setting is used to write restart data for a total of 12 time increments, regardless of frequency?",
-      "answer": "To write restart data for a total of 12 time increments, users should specify `*RESTART, WRITE, OVERLAY, NUMBER INTERVAL=12, TIME MARKS=NO` in the input file."
+      "question": "What Abaqus command is used in `scriptsp1.txt` for versions 2026 and newer to run a standard analysis job?",
+      "answer": "For Abaqus versions 2026 and newer, the command `abaqus job=testsp1 input=mystd-sim.inp scratch=$SLURM_TMPDIR cpus=$SLURM_CPUS_ON_NODE interactive mp_mode=threads memory=\"$((${SLURM_MEM_PER_NODE}-3072))MB\"` is used."
     },
     {
-      "question": "How can completed restart information be checked for a Standard Analysis job?",
-      "answer": "Completed restart information can be checked by running the command `egrep -i \"step|start\" testsp*.com testsp*.msg testsp*.sta`."
+      "question": "How can you specify in the Abaqus input file to write restart data every 12 time increments?",
+      "answer": "To write restart data every N=12 time increments, you should specify `*RESTART, WRITE, OVERLAY, FREQUENCY=12` in the input file."
     },
     {
-      "question": "What Abaqus command option can be added to the bottom of a script to potentially benefit some simulations?",
-      "answer": "Adding `order_parallel=OFF` to the Abaqus command at the bottom of the script may benefit some simulations."
+      "question": "How can one check for completed restart information for a standard analysis job?",
+      "answer": "To check for completed restart information, you can run the command `egrep -i \"step|start\" testsp*.com testsp*.msg testsp*.sta`."
     },
     {
-      "question": "What is the primary purpose of the `scriptsp2.txt` script?",
-      "answer": "The `scriptsp2.txt` script is a project directory restart script designed for continuing Standard Analysis jobs."
+      "question": "What is the purpose of the `project directory restart script` (`scriptsp2.txt`)?",
+      "answer": "The `project directory restart script` (`scriptsp2.txt`) is used to continue standard analysis jobs that have been terminated early due to reaching maximum runtime or compute node crashes."
     },
     {
-      "question": "In an Abaqus command for a restart job, what does the `oldjob` parameter specify?",
-      "answer": "The `oldjob` parameter, such as `oldjob=testsp1`, specifies the name of the previous Abaqus job from which the current job should restart."
+      "question": "What files are removed at the start of the `scriptsp2.txt` restart script?",
+      "answer": "At the start of the `scriptsp2.txt` restart script, `testsp2*` and `testsp1.lck` are removed."
     },
     {
-      "question": "What minimal content should a restart input file contain for a Standard Analysis job using the project directory restart script?",
-      "answer": "A restart input file for a Standard Analysis job should minimally contain `*HEADING` and `*RESTART, READ`."
+      "question": "What Abaqus command is used in `scriptsp2.txt` to restart a job, assuming an existing job named `testsp1`?",
+      "answer": "The Abaqus command used to restart a job in `scriptsp2.txt` is `abaqus job=testsp2 oldjob=testsp1 input=mystd-sim-restart.inp ...`."
+    },
+    {
+      "question": "What specific lines should the restart input file contain for a standard analysis job using `scriptsp2.txt`?",
+      "answer": "The restart input file should contain `*HEADING` and `*RESTART, READ`."
     }
   ],
-  "generated_at": "2026-04-10T00:29:16.517480+00:00"
+  "generated_at": "2026-04-11T15:31:27.977819+00:00"
 }

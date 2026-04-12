@@ -1,0 +1,63 @@
+{
+  "doc_key": "en/mpi4py",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is `mpi4py` and what is its primary purpose?",
+      "answer": "`mpi4py` provides Python bindings for the Message Passing Interface (MPI) standard, allowing Python applications to utilize multiple processors on workstations, clusters, and supercomputers."
+    },
+    {
+      "question": "How can I find out which versions of `mpi4py` are available?",
+      "answer": "You can find available versions of `mpi4py` by running the command `module spider mpi4py`."
+    },
+    {
+      "question": "How do I get detailed information about a specific `mpi4py` version?",
+      "answer": "To get more information about a specific version, use the command `module spider mpi4py/X.Y.Z`, replacing `X.Y.Z` with the exact version number, such as `4.0.0`."
+    },
+    {
+      "question": "What are the essential steps to run a 'Hello World' test with `mpi4py`?",
+      "answer": "First, run a short interactive job, then load the `mpi4py` and Python modules, and finally, execute the command `srun python -m mpi4py.bench helloworld`."
+    },
+    {
+      "question": "What is the recommended procedure when `mpi4py` is a dependency of another package?",
+      "answer": "You should first deactivate any Python virtual environment, then load the `mpi4py` and Python modules, verify `mpi4py`'s visibility, and finally, create and install your packages within a new virtual environment."
+    },
+    {
+      "question": "Why is it important to deactivate a virtual environment before loading the `mpi4py` module when it's a dependency?",
+      "answer": "It is crucial to deactivate an active virtual environment, load the `mpi4py` module, and then reactivate the virtual environment to ensure `mpi4py` is properly accessible."
+    },
+    {
+      "question": "How do job submission scripts typically manage virtual environments for `mpi4py` CPU jobs?",
+      "answer": "Virtual environments are created without downloading (`--no-download`) in `$SLURM_TMPDIR/env` on each allocated node, activated, and then `pip install` commands are used to install necessary Python packages like NumPy."
+    },
+    {
+      "question": "What is the key difference in resource allocation between 'Distributed' and 'Whole nodes' submission scripts for `mpi4py` CPU jobs?",
+      "answer": "The 'Distributed' script uses `--ntasks` to run on cores spread across the system, while the 'Whole nodes' script specifies `--nodes` and `--ntasks-per-node` to dedicate entire nodes to the job."
+    },
+    {
+      "question": "What is the initial step to set up an `mpi4py` GPU job?",
+      "answer": "From a login node, you should download a demo example like `use_cupy.py` using `wget https://raw.githubusercontent.com/mpi4py/mpi4py/refs/heads/master/demo/cuda-aware-mpi/use_cupy.py`."
+    },
+    {
+      "question": "Which specific modules and Python packages are typically loaded/installed for `mpi4py` GPU jobs?",
+      "answer": "Modules such as `StdEnv/2023`, `gcc`, `cuda/12`, `mpi4py/4.0.0`, and `python/3.11` are loaded, and Python packages like `cupy` and `numba` are installed into the virtual environment."
+    },
+    {
+      "question": "How can you verify a submission script before submitting a `mpi4py` job to the scheduler?",
+      "answer": "You can perform a quick test by running the submission script within an interactive job to ensure it starts without errors."
+    },
+    {
+      "question": "What is the command to submit a `mpi4py` job to the scheduler?",
+      "answer": "You submit the job using the `sbatch` command, followed by the name of your submission script, for instance, `sbatch submit-mpi4py-distributed.sh`."
+    },
+    {
+      "question": "What is a common error message if `mpi4py` is not properly accessible in Python?",
+      "answer": "A common error message is `ModuleNotFoundError: No module named 'mpi4py'`."
+    },
+    {
+      "question": "What are the recommended solutions for a `ModuleNotFoundError: No module named 'mpi4py'`?",
+      "answer": "Possible solutions include checking for compatible Python versions using `module spider mpi4py/X.Y.Z` and loading a compatible Python module, and ensuring the `mpi4py` module is loaded before activating any virtual environment."
+    }
+  ],
+  "generated_at": "2026-04-12T02:01:16.327782+00:00"
+}

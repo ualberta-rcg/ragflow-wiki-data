@@ -1,0 +1,91 @@
+{
+  "doc_key": "base/ls-dyna",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is LS-DYNA and what types of problems does it solve on the clusters?",
+      "answer": "LS-DYNA is a multiphysics software available on Alliance clusters, used to solve problems in multiphysics, solid mechanics, heat transfer, and fluid dynamics, including coupled physics simulations."
+    },
+    {
+      "question": "Who recently acquired LSTC, the original developer of LS-DYNA?",
+      "answer": "Ansys recently purchased Livermore Software Technology Corporation (LSTC)."
+    },
+    {
+      "question": "Does the Alliance provide LS-DYNA licenses to users?",
+      "answer": "No, the Alliance is a hosting provider for the software but does not provide a generic license or license hosting services. Users must arrange for their own licenses."
+    },
+    {
+      "question": "Where can users obtain LS-DYNA licenses if they don't have one from their institution?",
+      "answer": "Users can contact CMC Microsystems for licenses that are hosted remotely, or Simutech or Ansys directly for locally managed licenses."
+    },
+    {
+      "question": "Are firewall changes required for a new or existing license server to be used on an Alliance cluster?",
+      "answer": "Yes, firewall changes are generally required on both the cluster and server sides, typically involving the Alliance technical team and the license software managers."
+    },
+    {
+      "question": "How can users test if their LS-DYNA license file is working on a cluster?",
+      "answer": "Load the `ls-dyna` module and run `ls-dyna_s` or `ls-dyna_d`. The output header should show a non-empty value for 'Licensed to:', unless it's a CMC license server."
+    },
+    {
+      "question": "What are the two main types of LS-DYNA license servers mentioned after the Ansys acquisition?",
+      "answer": "LS-DYNA licenses can use Ansys license servers (for licenses issued by Ansys) or LSTC license servers (for licenses issued by LSTC)."
+    },
+    {
+      "question": "What is the recommended method for specifying an LSTC license server?",
+      "answer": "Create a file named `ls-dyna.lic` in `$HOME/.licenses/` with `LICENSE_TYPE: network` and `LICENSE_SERVER:<port>@<server>`."
+    },
+    {
+      "question": "How can an LSTC license server be specified using environment variables in Slurm scripts?",
+      "answer": "Set `export LSTC_LICENSE=network` and `export LSTC_LICENSE_SERVER=<port>@<server>`. A `~/.licenses/ls-dyna.lic` file must still exist, even if empty."
+    },
+    {
+      "question": "How do you configure a job script to use an Ansys license server?",
+      "answer": "Set `export LSTC_LICENSE=ansys` and `export ANSYSLMD_LICENSE_FILE=<port>@<server>` in your Slurm scripts. A `~/.licenses/ls-dyna.lic` file must also exist."
+    },
+    {
+      "question": "Which LS-DYNA module versions are compatible with Ansys license servers?",
+      "answer": "Only module versions greater than or equal to 12.2.1 will work with Ansys license servers."
+    },
+    {
+      "question": "How can a user access the free SHARCNET Ansys license on the Nibi cluster?",
+      "answer": "By adding `export LSTC_LICENSE=ansys` and `export ANSYSLMD_LICENSE_FILE=1055@license1.computecanada.ca` to their Slurm script."
+    },
+    {
+      "question": "Are firewall changes required to use a CMC LS-DYNA license on Alliance clusters?",
+      "answer": "No, firewall changes are not required as they have already been completed for CMC licenses."
+    },
+    {
+      "question": "What are the two main types of LS-DYNA binaries available for cluster job submission?",
+      "answer": "LS-DYNA provides binaries for single compute node jobs (SMP - Shared Memory Parallel) and multiple compute node jobs (MPP - Message Passing Parallel)."
+    },
+    {
+      "question": "What are `ls-dyna_s` and `ls-dyna_d`?",
+      "answer": "`ls-dyna_s` is the single precision solver, and `ls-dyna_d` is the double precision solver, available for both SMP and MPP job types."
+    },
+    {
+      "question": "What does `LSTC_MEMORY=AUTO` do in LS-DYNA job scripts?",
+      "answer": "It is an optional setting primarily for explicit analyses that allows memory to be dynamically extended beyond the specified word setting if suitable, such as for metal forming simulations."
+    },
+    {
+      "question": "Why is performance testing recommended before submitting long LS-DYNA jobs?",
+      "answer": "To determine the maximum number of cores that can be efficiently used before performance degradation begins, as LS-DYNA may not always scale well with many cores."
+    },
+    {
+      "question": "How can users extract job statistics like Job Wall-clock time and CPU Efficiency for LS-DYNA tests?",
+      "answer": "Users can use the `seff jobnumber` command or a cluster job portal like the one for Nibi."
+    },
+    {
+      "question": "What tool is provided by LSTC for pre- and post-processing of LS-DYNA models?",
+      "answer": "LS-PrePost is provided for pre- and post-processing, and it is made available by a separate module."
+    },
+    {
+      "question": "Does LS-PrePost require a license to run?",
+      "answer": "No, LS-PrePost does not require a license."
+    },
+    {
+      "question": "What are the recommended methods for running LS-PrePost graphically?",
+      "answer": "The recommended method is via OnDemand, or alternatively, by connecting with a VncViewer client to a login or compute node."
+    }
+  ],
+  "generated_at": "2026-04-12T00:50:24.313054+00:00"
+}

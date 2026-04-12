@@ -5,21 +5,63 @@ lang: "base"
 
 source_wiki_title: "Cloud resources"
 source_hash: "9627546b8c3cfca4517ea7f76d16acbf"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T05:38:26.149868+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T06:24:28.803479+00:00"
 
 tags:
   - cloud
 
 keywords:
-  []
+  - "Cloud"
+  - "VMs"
+  - "images"
+  - "Arbutus cloud"
+  - "Ceph storage"
+  - "Linux distributions"
+  - "security updates"
+  - "OpenStack"
+  - "CPUs"
+  - "GPU"
+  - "Category Cloud"
+  - "working with images"
+  - "CPU"
+  - "University of Victoria"
+  - "GPUs"
+  - "details"
+  - "Hardware specifications"
+  - "Virtual Machines"
+  - "EOL Linux distribution"
+  - "older images"
+  - "Alliance cloud"
+  - "migrate systems"
+  - "Tesla K80"
+
+questions:
+  - "Where is the Arbutus cloud physically located and what is its total Ceph storage capacity?"
+  - "What specific models of GPUs are available in the Arbutus cloud and how many are there in total?"
+  - "Which different Intel Xeon CPU models are utilized across the various node configurations?"
+  - "What are the hardware specifications, total computing resources, and physical locations of the Cedar, Nibi, and Béluga clouds?"
+  - "Which versions of the OpenStack platform are utilized across the different Alliance cloud environments?"
+  - "What is the Alliance's policy regarding the lifecycle, updates, and end-of-life (EOL) management of Linux distribution images provided for virtual machines?"
+  - "Where is the computing facility described in the text located?"
+  - "What is the total processing capacity of the system in terms of CPUs, vCPUs, and GPUs?"
+  - "How much total RAM and Ceph storage does the data center have?"
+  - "Why is it recommended to migrate systems and platforms to newer releases?"
+  - "What will happen to the older images for Linux distributions that have reached their End-of-Life (EOL)?"
+  - "How does the removal of EOL Linux images affect existing virtual machines compared to the creation of new ones?"
+  - "Where can a user find more details about using images?"
+  - "What is the exact title of the linked page referenced in the text?"
+  - "Under which category is this content classified?"
+  - "Where can a user find more details about using images?"
+  - "What is the exact title of the linked page referenced in the text?"
+  - "Under which category is this content classified?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -29,18 +71,17 @@ status:
 ### Arbutus cloud
 Address: [arbutus.cloud.alliancecan.ca](https://arbutus.cloud.alliancecan.ca)
 
-| Node count | CPU                                                                                                                              | Memory (GB) | Local (ephemeral) storage                        | Interconnect | GPU                                                                    | Total CPUs | Total vCPUs |
-|:-----------|:---------------------------------------------------------------------------------------------------------------------------------|:------------|:-------------------------------------------------|:-------------|:-----------------------------------------------------------------------|:-----------|:------------|
-| 156        | 2 x [Gold 6248](https://ark.intel.com/content/www/us/en/ark/products/192446/intel-xeon-gold-6248-processor-27-5m-cache-2-50-ghz.html) | 384         | 2 x 1.92TB SSD in [RAID0](https://en.wikipedia.org/wiki/Standard_RAID_levels#RAID_0) | 1 x 25GbE    | N/A                                                                    | 6,240      | 12,480      |
-| 8          | 2 x [Gold 6248](https://ark.intel.com/content/www/us/en/ark/products/192446/intel-xeon-gold-6248-processor-27-5m-cache-2-50-ghz.html) | 1024        | 2 x 1.92TB SSD in [RAID1](https://en.wikipedia.org/wiki/Standard_RAID_levels#RAID_1) | 1 x 25GbE    | N/A                                                                    | 320        | 6,400       |
-| 26         | 2 x [Gold 6248](https://ark.intel.com/content/www/us/en/ark/products/192446/intel-xeon-gold-6248-processor-27-5m-cache-2-50-ghz.html) | 384         | 2 x 1.6TB SSD in [RAID0](https://en.wikipedia.org/wiki/Standard_RAID_levels#RAID_0) | 1 x 25GbE    | 4 x [V100 32GB](https://www.nvidia.com/en-us/data-center/v100/)         | 1,040      | 2,080       |
-| 32         | 2 x [Gold 6130](https://ark.intel.com/products/120492/Intel-Xeon-Gold-6130-Processor-22M-Cache-2_10-GHz)                             | 256         | 6 x 900GB 10k SAS in [RAID10](https://en.wikipedia.org/wiki/Standard_RAID_levels#Nested_RAID) | 1 x 10GbE    | N/A                                                                    | 1,024      | 2,048       |
-| 4          | 2 x [Gold 6130](https://ark.intel.com/products/120492/Intel-Xeon-Gold-6130-Processor-22M-Cache-2_10-GHz)                             | 768         | 6 x 900GB 10k SAS in [RAID10](https://en.wikipedia.org/wiki/Standard_RAID_levels#Nested_RAID) | 2 x 10GbE    | N/A                                                                    | 128        | 2,560       |
-| 8          | 2 x [Gold 6130](https://ark.intel.com/products/120492/Intel-Xeon-Gold-6130-Processor-22M-Cache-2_10-GHz)                             | 256         | 4 x 1.92TB SSD in [RAID5](https://en.wikipedia.org/wiki/Standard_RAID_levels#RAID_5) | 1 x 10GbE    | N/A                                                                    | 256        | 512         |
-| 240        | 2 x [E5-2680 v4](https://ark.intel.com/products/91754/Intel-Xeon-Processor-E5-2680-v4-35M-Cache-2_40-GHz)                           | 256         | 4 x 900GB 10k SAS in [RAID5](https://en.wikipedia.org/wiki/Standard_RAID_levels#RAID_5) | 1 x 10GbE    | N/A                                                                    | 6,720      | 13,440      |
-| 8          | 2 x E5-2680 v4                                                                                                                   | 512         | 4 x 900GB 10k SAS in RAID5                       | 2 x 10GbE    | N/A                                                                    | 224        | 4,480       |
-| 2          | 2 x E5-2680 v4                                                                                                                   | 128         | 4 x 900GB 10k SAS in RAID5                       | 1 x 10GbE    | 2 x [Tesla K80](https://www.nvidia.com/en-us/data-center/tesla-k80/)   | 56         | 112         |
-
+| Node count | CPU | Memory (GB) | Local (ephemeral) storage | Interconnect | GPU | Total CPUs | Total vCPUs |
+|---|---|---|---|---|---|---|---|
+| 156 | 2 x [Gold 6248](https://ark.intel.com/content/www/us/en/ark/products/192446/intel-xeon-gold-6248-processor-27-5m-cache-2-50-ghz.html) | 384 | 2 x 1.92TB SSD in [RAID0](https://en.wikipedia.org/wiki/Standard_RAID_levels#RAID_0) | 1 x 25GbE | N/A | 6,240 | 12,480 |
+| 8 | 2 x [Gold 6248](https://ark.intel.com/content/www/us/en/ark/products/192446/intel-xeon-gold-6248-processor-27-5m-cache-2-50-ghz.html) | 1024 | 2 x 1.92TB SSD in [RAID1](https://en.wikipedia.org/wiki/Standard_RAID_levels#RAID_1) | 1 x 25GbE | N/A | 320 | 6,400 |
+| 26 | 2 x [Gold 6248](https://ark.intel.com/content/www/us/en/ark/products/192446/intel-xeon-gold-6248-processor-27-5m-cache-2-50-ghz.html) | 384 | 2 x 1.6TB SSD in [RAID0](https://en.wikipedia.org/wiki/Standard_RAID_levels#RAID_0) | 1 x 25GbE | 4 x [V100 32GB](https://www.nvidia.com/en-us/data-center/v100/) | 1,040 | 2,080 |
+| 32 | 2 x [Gold 6130](https://ark.intel.com/products/120492/Intel-Xeon-Gold-6130-Processor-22M-Cache-2_10-GHz) | 256 | 6 x 900GB 10k SAS in [RAID10](https://en.wikipedia.org/wiki/Standard_RAID_levels#Nested_RAID) | 1 x 10GbE | N/A | 1,024 | 2,048 |
+| 4 | 2 x [Gold 6130](https://ark.intel.com/products/120492/Intel-Xeon-Gold-6130-Processor-22M-Cache-2_10-GHz) | 768 | 6 x 900GB 10k SAS in [RAID10](https://en.wikipedia.org/wiki/Standard_RAID_levels#Nested_RAID) | 2 x 10GbE | N/A | 128 | 2,560 |
+| 8 | 2 x [Gold 6130](https://ark.intel.com/products/120492/Intel-Xeon-Gold-6130-Processor-22M-Cache-2_10-GHz) | 256 | 4 x 1.92TB SSD in [RAID5](https://en.wikipedia.org/wiki/Standard_RAID_levels#RAID_5) | 1 x 10GbE | N/A | 256 | 512 |
+| 240 | 2 x [E5-2680 v4](https://ark.intel.com/products/91754/Intel-Xeon-Processor-E5-2680-v4-35M-Cache-2_40-GHz) | 256 | 4 x 900GB 10k SAS in [RAID5](https://en.wikipedia.org/wiki/Standard_RAID_levels#RAID_5) | 1 x 10GbE | N/A | 6,720 | 13,440 |
+| 8 | 2 x E5-2680 v4 | 512 | 4 x 900GB 10k SAS in RAID5 | 2 x 10GbE | N/A | 224 | 4,480 |
+| 2 | 2 x E5-2680 v4 | 128 | 4 x 900GB 10k SAS in RAID5 | 1 x 10GbE | 2 x [Tesla K80](https://www.nvidia.com/en-us/data-center/tesla-k80/) | 56 | 112 |
 Location: University of Victoria
 Total CPUs: 16,008 (484 nodes)
 Total vCPUs: 44,112
@@ -52,11 +93,10 @@ Total RAM: 157,184 GB
 ### Cedar cloud
 Address: [cedar.cloud.alliancecan.ca](http://cedar.cloud.alliancecan.ca)
 
-| Node count | CPU                                                                                                                              | Memory (GB) | Local (ephemeral) storage                        | Interconnect | GPU | Total CPUs | Total vCPUs |
-|:-----------|:---------------------------------------------------------------------------------------------------------------------------------|:------------|:-------------------------------------------------|:-------------|:----|:-----------|:------------|
-| 28         | 2 x [E5-2683 v4](https://ark.intel.com/content/www/us/en/ark/products/91766/intel-xeon-processor-e5-2683-v4-40m-cache-2-10-ghz.html) | 256         | 2 x 480GB SSD in [RAID1](https://en.wikipedia.org/wiki/Standard_RAID_levels#RAID_1) | 1 x 10GbE    | N/A | 896        | 1,792       |
-| 4          | 2 x [E5-2683 v4](https://ark.intel.com/content/www/us/en/ark/products/91766/intel-xeon-processor-e5-2683-v4-40m-cache-2-10-ghz.html) | 256         | 2 x 480GB SSD in [RAID1](https://en.wikipedia.org/wiki/Standard_RAID_levels#RAID_1) | 1 x 10GbE    | N/A | 128        | 256         |
-
+| Node count | CPU | Memory (GB) | Local (ephemeral) storage | Interconnect | GPU | Total CPUs | Total vCPUs |
+|---|---|---|---|---|---|---|---|
+| 28 | 2 x [E5-2683 v4](https://ark.intel.com/content/www/us/en/ark/products/91766/intel-xeon-processor-e5-2683-v4-40m-cache-2-10-ghz.html) | 256 | 2 x 480GB SSD in [RAID1](https://en.wikipedia.org/wiki/Standard_RAID_levels#RAID_1) | 1 x 10GbE | N/A | 896 | 1,792 |
+| 4 | 2 x [E5-2683 v4](https://ark.intel.com/content/www/us/en/ark/products/91766/intel-xeon-processor-e5-2683-v4-40m-cache-2-10-ghz.html) | 256 | 2 x 480GB SSD in [RAID1](https://en.wikipedia.org/wiki/Standard_RAID_levels#RAID_1) | 1 x 10GbE | N/A | 128 | 256 |
 Location: Simon Fraser University
 Total CPUs: 1,024
 Total vCPUs: 2,048
@@ -66,10 +106,9 @@ Total RAM: 7,680 GB
 ### Nibi cloud
 Address: [nibi.cloud.alliancecan.ca](https://nibi.cloud.alliancecan.ca)
 
-| Node count | CPU                          | Memory (GB) | Local (ephemeral) storage | Interconnect                 | GPU | Total CPUs | Total vCPUS |
-|:-----------|:-----------------------------|:------------|:--------------------------|:-----------------------------|:----|:-----------|:------------|
-| 18         | 2 X AMD EPYC 9474F 48-Core Processor | 1511        | 3.5 TB                    | 1 X 1GbE, 1 X 25GbE, 1 X 50GbE | N/A | 1728       | 3456        |
-
+| Node count | CPU | Memory (GB) | Local (ephemeral) storage | Interconnect | GPU | Total CPUs | Total vCPUs |
+|---|---|---|---|---|---|---|---|
+| 18 | 2 x AMD EPYC 9474F 48-Core Processor | 1511 | 3.5 TB | 1 x 1GbE, 1 x 25GbE, 1 x 50GbE | N/A | 1728 | 3456 |
 Location: University of Waterloo
 Total CPUs: 1728
 Total vCPUs: 3456
@@ -79,11 +118,10 @@ Total RAM: 26.57 TB (27202.94 GB | 27,860,544 MB)
 ### Béluga cloud
 Address: [beluga.cloud.alliancecan.ca](https://beluga.cloud.alliancecan.ca)
 
-| Node count | CPU                      | Memory (GB) | Local (ephemeral) storage    | Interconnect | GPU | Total CPUs | Total vCPUs |
-|:-----------|:-------------------------|:------------|:-----------------------------|:-------------|:----|:-----------|:------------|
-| 96         | 2 x Intel Xeon Gold 5218 | 256         | N/A, ephemeral storage in ceph | 1 x 25GbE    | N/A | 3,072      | 6,144       |
-| 16         | 2 x Intel Xeon Gold 5218 | 768         | N/A, ephemeral storage in ceph | 1 x 25GbE    | N/A | 512        | 1,024       |
-
+| Node count | CPU | Memory (GB) | Local (ephemeral) storage | Interconnect | GPU | Total CPUs | Total vCPUs |
+|---|---|---|---|---|---|---|---|
+| 96 | 2 x Intel Xeon Gold 5218 | 256 | N/A, ephemeral storage in ceph | 1 x 25GbE | N/A | 3,072 | 6,144 |
+| 16 | 2 x Intel Xeon Gold 5218 | 768 | N/A, ephemeral storage in ceph | 1 x 25GbE | N/A | 512 | 1,024 |
 Location: École de Technologie Supérieure
 Total CPUs: 3,584
 Total vCPUs: 7,168
@@ -93,14 +131,17 @@ Total RAM: 36,864 GiB
 
 ## Software
 Alliance cloud OpenStack platform versions as of February 23, 2026
-* Arbutus: Ussuri
-* Cedar: Train
-* Nibi: Flamingo
-* Béluga: Victoria
+*   Arbutus: Ussuri
+*   Cedar: Train
+*   Nibi: Flamingo
+*   Béluga: Victoria
 
 See the [OpenStack releases](http://releases.openstack.org/) for a list of all OpenStack versions.
 
 ## Images
-Images are provided by Alliance staff on the Alliance Clouds for common Linux distributions (Alma, Debian, Fedora, Rocky, and Ubuntu). New images for these distributions will be added periodically as new releases and updates become available. As releases have an end of life (EOL) after which support and updates are no longer provided, we encourage you to migrate systems and platforms to newer releases in order to continue receiving patches and security updates. Older images for Linux distributions past their EOL will be removed. This does not prevent you from continuing to run a VM with an EOL Linux distribution (though you shouldn't) but does mean that those images will no longer be available when creating new VMs.
+Images are provided by Alliance staff on the Alliance Clouds for common Linux distributions (Alma, Debian, Fedora, Rocky, and Ubuntu). New images for these distributions will be added periodically as new releases and updates become available. As releases have an end of life (EOL) after which support and updates are no longer provided, we encourage you to migrate systems and platforms to newer releases in order to continue receiving patches and security updates.
 
-For more details about using images see [working with images](working_with_images.md).
+!!! warning "End-of-life images"
+    Older images for Linux distributions past their EOL will be removed. This does not prevent you from continuing to run a VM with an EOL Linux distribution (though you shouldn't) but does mean that those images will no longer be available when creating new VMs.
+
+For more details about using images see [working with images](working-with-images.md).

@@ -1,0 +1,71 @@
+{
+  "doc_key": "base/project_layout",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "How is the project filesystem organized on the compute clusters?",
+      "answer": "The project filesystem on compute clusters is organized on the basis of groups."
+    },
+    {
+      "question": "How do users typically access their project space?",
+      "answer": "Users typically access their project space via symbolic links, which exist in their home directory, usually in the form of `$HOME/projects/group_name`."
+    },
+    {
+      "question": "Are the project space symbolic link paths the same across all clusters?",
+      "answer": "No, on Rorqual and Trillium clusters, the path takes the form `$HOME/links/projects/group_name`, while on other clusters it is `$HOME/projects/group_name`."
+    },
+    {
+      "question": "What are the default permissions for group project space and newly created files?",
+      "answer": "The project space is owned by the principal investigator (PI) for the group, with members having read and write permission. However, a newly created file is only readable by group members by default."
+    },
+    {
+      "question": "How can a group create a directory where newly created files are writeable by all group members?",
+      "answer": "A special directory can be created with `mkdir $HOME/projects/def-profname/group_writable` followed by `setfacl -d -m g::rwx $HOME/projects/def-profname/group_writable`."
+    },
+    {
+      "question": "What are the default storage quotas for a project group, and how can they be increased?",
+      "answer": "A project group has a default quota of 1 TB and 500,000 files, which can be increased up to 40 TB upon request to Technical Support."
+    },
+    {
+      "question": "How do Resource Allocation Competition (RAC) awards affect project quotas?",
+      "answer": "Groups awarded through the annual Resource Allocation Competition may receive significantly higher quotas, which are specific to a particular cluster and normally not transferable."
+    },
+    {
+      "question": "Which command is used to check current disk usage and available space?",
+      "answer": "The `diskusage_report` command is used to check current usage and available disk space."
+    },
+    {
+      "question": "What is the purpose of setting the `setgid` bit on a project directory?",
+      "answer": "Setting the `setgid` bit ensures that files copied or moved to the project space acquire the appropriate group membership, making them count against the expected quota, and that new files and subdirectories inherit the ambient directory's group."
+    },
+    {
+      "question": "How do you set the `setgid` bit on a directory and apply it to existing subdirectories?",
+      "answer": "You can set the `setgid` bit using `chmod g+s <directory name>`. To apply it to existing subdirectories, use `find <directory name> -type d -print0 | xargs -0 chmod g+s`."
+    },
+    {
+      "question": "How can a user temporarily change their default group during an interactive session?",
+      "answer": "The `newgrp` command, such as `newgrp rrg-profname-ab`, can be used to modify the default group for the current session."
+    },
+    {
+      "question": "What is a common cause for 'disk quota exceeded' errors on project filesystems?",
+      "answer": "A common cause is files being associated with the wrong group, often the user's personal group which has a small 2 MB quota, instead of the project group."
+    },
+    {
+      "question": "How can incorrect group membership for files be fixed to resolve disk quota errors?",
+      "answer": "To fix incorrect group membership, use `find <directory name> -group $USER -print0 | xargs -0 chgrp -h <group>` to change files to the correct project group."
+    },
+    {
+      "question": "Where should a PI and their sponsored user store and share data related to a RAC award?",
+      "answer": "They should use the specific directory created for the RAC award in their `projects` directory, such as `~/projects/rrg-sue-ab`."
+    },
+    {
+      "question": "What are the methods for sharing data with external researchers who don't have an Alliance account or a sponsored role?",
+      "answer": "Data can be shared by changing file permissions, typically using Access Control Lists (ACLs), or by setting up a Globus shared endpoint for researchers without an Alliance account."
+    },
+    {
+      "question": "What is the primary purpose of `scratch`, `home`, and `project` storage spaces?",
+      "answer": "`scratch` space is for private temporary files, `home` space is for small amounts of relatively private data, and `project` space is for shared, persistent, backed-up, and potentially large research group data."
+    }
+  ],
+  "generated_at": "2026-04-12T05:23:26.387034+00:00"
+}

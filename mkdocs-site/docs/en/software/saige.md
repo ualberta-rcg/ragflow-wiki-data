@@ -5,27 +5,54 @@ lang: "en"
 
 source_wiki_title: "SAIGE/en"
 source_hash: "ce3845d2d23be009719c302d8869b2b9"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T11:00:20.513210+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T11:11:09.331729+00:00"
 
 tags:
   - software
 
 keywords:
-  []
+  - "R CMD INSTALL"
+  - "genome-wide association tests"
+  - "Compile"
+  - "R package"
+  - "R dependencies"
+  - "SAIGE"
+  - "Test"
+  - "Makevars file"
+  - "install"
+  - "FlexiBLAS"
+  - "LAPACK"
+  - "configure file"
+  - "installation"
+  - "linking options"
+
+questions:
+  - "What is the SAIGE R package and what are its main capabilities in genome-wide association testing?"
+  - "What are the necessary steps to set up the environment and install the required R dependencies for SAIGE version 1.0.0?"
+  - "Why must the installation be patched by removing the configure file and altering the Makevars file to use FlexiBLAS?"
+  - "What command is used to compile and install the software package?"
+  - "How can a user verify that the SAIGE package is available after installation?"
+  - "Which specific R package is being referenced in the testing step?"
+  - "Why should the configure file be removed at the beginning of the process?"
+  - "How do you ensure that the linking options will correctly use FlexiBLAS?"
+  - "What specific installation error is prevented by modifying the library name to link to the Makevars file?"
+  - "What command is used to compile and install the software package?"
+  - "How can a user verify that the SAIGE package is available after installation?"
+  - "Which specific R package is being referenced in the testing step?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
 [SAIGE](https://saigegit.github.io/SAIGE-doc/) is an R package developed with Rcpp for genome-wide association tests in large-scale data sets and biobanks.
 
-The method
+The method:
 
 *   accounts for sample relatedness based on the generalized mixed models;
 *   allows for model fitting with either full or sparse genetic relationship matrix (GRM);
@@ -55,7 +82,7 @@ This page discusses how to install SAIGE package 1.0.0.
 
 3.  Install the [R dependencies](r.md#installing-r-packages).
 
-    !!! important "Important: exact versions"
+    !!! warning "Exact Versions Required"
         It is important to install these exact versions. During installation, if you are prompted to install the latest version of any dependency, simply press Enter to decline.
 
     ```bash
@@ -90,8 +117,7 @@ This page discusses how to install SAIGE package 1.0.0.
     sed -i 's/llapack/lflexiblas/' src/Makevars
     ```
 
-    !!! note "Patch explanation"
-        First, remove the *configure* file to avoid installing already available dependencies. Then, change the library name to correctly link to the *Makevars* file to make sure that the linking options will use FlexiBLAS. Doing so will prevent the *unable to find -llapack* error message displayed at installation. Read more information on [FlexiBLAS, BLAS and LAPACK](blas_and_lapack.md).
+    First, remove the *configure* file to avoid installing already available dependencies. Then, change the library name to correctly link to the *Makevars* file to make sure that the linking options will use FlexiBLAS. Doing so will prevent the *unable to find -llapack* error message displayed at installation. Read more information on [FlexiBLAS, BLAS and LAPACK](blas-and-lapack.md).
 
 6.  Compile and install.
 

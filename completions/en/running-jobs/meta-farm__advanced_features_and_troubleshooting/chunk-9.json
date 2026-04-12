@@ -1,0 +1,92 @@
+{
+  "doc_key": "en/meta-farm__advanced_features_and_troubleshooting",
+  "level": "chunk",
+  "chunk_index": 9,
+  "qa_pairs": [
+    {
+      "question": "How does the META package's algorithm help reduce wasted CPU cycles from jobs hitting run-time limits?",
+      "answer": "The algorithm reduces the amount of CPU cycles wasted due to jobs hitting the run-time limit by a factor of 8, on average."
+    },
+    {
+      "question": "Where are the individual run-times for all cases stored after a farm is run?",
+      "answer": "Individual run-times for all cases are stored in the file `/home/$USER/tmp/$NODE.$PID/times`."
+    },
+    {
+      "question": "For what purposes can the `times` file containing individual case run-times be used?",
+      "answer": "The `times` file, located in `/home/$USER/tmp/$NODE.$PID/`, can be analyzed to fine-tune your farm setup or for profiling your code."
+    },
+    {
+      "question": "What kind of information is covered in the troubleshooting section of the META package documentation?",
+      "answer": "The troubleshooting section explains typical error messages that users might encounter when using the META package."
+    },
+    {
+      "question": "What does the error message \"Non-farm directory, or no farm has been submitted; exiting\" indicate?",
+      "answer": "This error indicates that the current directory is not a farm directory, or that `submit.run` has not yet been executed for this farm."
+    },
+    {
+      "question": "What is the correct format for the first argument of the `submit.run` command to avoid the \"Wrong first argument\" error?",
+      "answer": "The first argument for `submit.run` must be either -1 for SIMPLE mode, or a positive integer N (representing the number of requested meta-jobs) for META mode."
+    },
+    {
+      "question": "Why is the `lockfile` utility considered critical for the META package?",
+      "answer": "The `lockfile` utility is critical because it ensures serialized access of meta-jobs to the `table.dat` file, preventing two different meta-jobs from reading the same line simultaneously."
+    },
+    {
+      "question": "What action should be taken if the error \"lockfile is not on path; exiting\" occurs?",
+      "answer": "You should ensure that the `lockfile` utility is properly included in your `$PATH` environment variable."
+    },
+    {
+      "question": "What does the error message \"Non-farm directory (config.h, job_script.sh, single_case.sh, and/or table.dat are missing); exiting\" signify?",
+      "answer": "This error means that the current directory is not a farm directory or that essential files like `config.h`, `job_script.sh`, `single_case.sh`, and/or `table.dat` are missing. You should change to the correct farm directory or create the missing files."
+    },
+    {
+      "question": "What causes the error \"-auto option requires resubmit_script.sh file in the root farm directory; exiting\"?",
+      "answer": "This error occurs when the `-auto` option is used with `submit.run` or `resubmit.run` but the `resubmit_script.sh` file is missing from the root farm directory. A sample `resubmit_script.sh` is automatically copied there when `farm_init.run` is executed."
+    },
+    {
+      "question": "What should be checked if the error \"File table.dat doesn't exist. Exiting\" is displayed?",
+      "answer": "You should check if `table.dat` has been created in the current directory, or if you are running `submit.run` from within one of your farm sub-directories."
+    },
+    {
+      "question": "What is the mandatory requirement for specifying job run-time in `job_script.sh`?",
+      "answer": "You must provide a run-time limit for all meta-jobs as an `#SBATCH` argument (e.g., `-t` or `--time`) inside your `job_script.sh` file, as it cannot be passed as an optional argument to `submit.run`."
+    },
+    {
+      "question": "What does the error \"Wrong job runtime in job_script.sh - nnn . Exiting\" indicate?",
+      "answer": "This error signifies that the run-time argument within your `job_script.sh` file is not formatted properly."
+    },
+    {
+      "question": "What should be done if `sbatch` submission errors such as \"Something wrong with sbatch farm submission; jobid=XXX; aborting\" occur?",
+      "answer": "These errors indicate an issue with submitting jobs via `sbatch`, possibly due to the cluster's scheduler misbehaving or being too busy. You should try submitting again a bit later."
+    },
+    {
+      "question": "What do errors like \"Couldn't create subdirectories inside the farm directory ; exiting\" or \"Couldn't create the temp directory XXX ; exiting\" suggest?",
+      "answer": "These messages indicate a problem with the file system, such as incorrect permissions or an exhausted storage quota. You need to fix the issue(s) and then try again."
+    },
+    {
+      "question": "Under what condition is `resubmit.run` prevented from being used?",
+      "answer": "`resubmit.run` cannot be used until all meta-jobs from the farm have finished running or are no longer queued."
+    },
+    {
+      "question": "How can you check the status of a farm to determine if `resubmit.run` can be used?",
+      "answer": "You can use the `list.run` or `queue.run` commands to check the status of the farm."
+    },
+    {
+      "question": "What does the message \"No failed/unfinished jobs; nothing to resubmit\" imply?",
+      "answer": "This message indicates that your farm was 100% processed and there are no remaining failed or un-run cases to compute."
+    },
+    {
+      "question": "What causes the \"Too many failed (very short) cases - exiting\" error?",
+      "answer": "This error occurs if the initial `$N_failed_max` cases are very short (less than `$dt_failed` seconds in duration), suggesting they failed quickly."
+    },
+    {
+      "question": "How can the \"Too many failed (very short) cases - exiting\" error be addressed?",
+      "answer": "To address this, you should determine what is causing the cases to fail and fix it, or adjust the `$N_failed_max` and `$dt_failed` values in your `config.h` file."
+    },
+    {
+      "question": "What does the error \"lockfile is not on path on node XXX\" imply, and how can it be investigated?",
+      "answer": "This error implies that the `lockfile` utility is somehow not on the `$PATH` on a specific compute node. You can use `which lockfile` to ensure it's in your `$PATH` on a login node, and investigate if a file system on the compute node might have failed to mount."
+    }
+  ],
+  "generated_at": "2026-04-12T01:31:37.488492+00:00"
+}

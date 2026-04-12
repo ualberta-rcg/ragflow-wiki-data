@@ -1,0 +1,56 @@
+{
+  "doc_key": "fr/arbutus_migration_guide",
+  "level": "chunk",
+  "chunk_index": 10,
+  "qa_pairs": [
+    {
+      "question": "Comment dois-je préparer un volume sur le nouveau nuage Arbutus pour la migration d'un grand volume avec la méthode 'dd'?",
+      "answer": "Pour préparer un volume sur le nouveau nuage Arbutus, vous devez créer un volume vide de la même taille que celui à migrer. S'il s'agit d'un volume amorçable (bootable), il faut l'identifier comme tel, puis l'attacher à l'instance temporaire que vous avez créée sur Arbutus."
+    },
+    {
+      "question": "Que faire avec le volume source du nuage Ouest avant de le copier en utilisant la méthode 'dd' pour les grands volumes?",
+      "answer": "Il faut attacher le volume que vous voulez copier du nuage Ouest à l'instance temporaire Ouest. Vous devrez peut-être supprimer l'instance à laquelle ce volume est actuellement attaché, mais il est crucial de NE PAS supprimer le volume lui-même."
+    },
+    {
+      "question": "Quelle est la commande recommandée pour copier un grand volume du nuage Ouest vers Arbutus via SSH en utilisant 'dd'?",
+      "answer": "La commande recommandée est `sudo dd bs=16M if=/dev/vdb | pv -s 96G | ssh -i key.pem centos@xxx.xx.xx.xx \"dd bs=16M of=/dev/vdb\"`. N'oubliez pas de remplacer `/dev/vdb` par le chemin du volume source, `96G` par la taille du volume, `key.pem` par votre clé SSH et `xxx.xx.xx.xx` par l'adresse IP de votre instance temporaire Arbutus."
+    },
+    {
+      "question": "Pourquoi la commande 'screen' est-elle utile lors de la migration de grands volumes avec 'dd' via SSH?",
+      "answer": "La commande `screen` est utilisée pour prévenir la perte de votre session SSH en cas de déconnexion. Cela permet à l'opération de copie du volume de continuer en arrière-plan sans interruption."
+    },
+    {
+      "question": "Qu'est-ce qu'on obtient une fois la migration d'un grand volume terminée avec la méthode 'dd'?",
+      "answer": "Une fois l'opération terminée, vous aurez sur Arbutus une copie identique du volume qui était sur le nuage Ouest. Ce nouveau volume pourra ensuite être utilisé pour lancer des instances sur Arbutus."
+    },
+    {
+      "question": "C'est quoi, au juste, une instance éphémère?",
+      "answer": "Une instance éphémère est une instance qui n'est associée à aucun volume de stockage persistant."
+    },
+    {
+      "question": "Quelles sont les approches suggérées pour migrer des instances éphémères?",
+      "answer": "Pour la migration d'instances éphémères, on peut utiliser des images et des instantanés de volume Glance, ou l'autre option avec l'utilitaire Linux 'dd'."
+    },
+    {
+      "question": "Quelles sont les premières étapes importantes avant de migrer une instance éphémère avec 'dd' sur le nuage Ouest?",
+      "answer": "Avant de migrer, connectez-vous à l'instance active sur le nuage Ouest via SSH. Il est crucial de fermer le plus de services possible (comme httpd, les bases de données) et de ne laisser que SSH actif."
+    },
+    {
+      "question": "Comment installer le CLI OpenStack sur une instance pour une migration 'dd' d'une instance éphémère?",
+      "answer": "En tant qu'administrateur ('root'), installez le CLI OpenStack en utilisant ces commandes: `yum install epel-release`, `yum install python-devel python-pip gcc`, et finalement `pip install python-openstackclient`. Vous pouvez ensuite vérifier l'installation avec `openstack`."
+    },
+    {
+      "question": "Comment puis-je créer une image d'une instance éphémère à partir de son disque racine avec 'dd' et le CLI OpenStack?",
+      "answer": "Pour créer l'image, utilisez la commande `dd if=/dev/vda | openstack image create --private --container-format bare --disk-format raw \"ephemeralmigrate\"`. N'oubliez pas de vérifier le chemin de votre disque racine (souvent `/dev/vda1` avec `df`) et de remplacer \"ephemeralmigrate\" par le nom que vous voulez donner à votre image."
+    },
+    {
+      "question": "Une fois que l'image d'une instance éphémère est créée et visible sur Arbutus, à quoi peut-elle servir?",
+      "answer": "Cette image peut être utilisée pour lancer de nouvelles instances sur le nuage Arbutus."
+    },
+    {
+      "question": "Quel est généralement le chemin du disque racine d'une instance sous Linux que l'on doit considérer pour la migration?",
+      "answer": "Le disque racine d'une instance est généralement `/dev/vda1`. Vous pouvez le vérifier en lançant la commande `df`."
+    }
+  ],
+  "generated_at": "2026-04-11T17:49:22.514734+00:00"
+}

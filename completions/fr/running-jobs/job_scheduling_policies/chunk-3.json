@@ -1,0 +1,72 @@
+{
+  "doc_key": "fr/job_scheduling_policies",
+  "level": "chunk",
+  "chunk_index": 3,
+  "qa_pairs": [
+    {
+      "question": "Comment est déterminée la priorité des tâches pour les utilisateurs individuels au sein d'un même projet?",
+      "answer": "La priorité des tâches pour chaque utilisateur est déterminée en comparant leurs valeurs de 'LevelFS' individuelles. Un 'LevelFS' plus élevé indique une priorité légèrement supérieure par rapport aux autres utilisateurs du même projet, mais la priorité est relative à celle des autres utilisateurs du même projet."
+    },
+    {
+      "question": "Est-ce que la priorité des tâches pour un groupe de recherche est influencée par la priorité individuelle de ses membres?",
+      "answer": "Non, le niveau de priorité pour les tâches d'un groupe de recherche, comme 'def-prof1', est uniquement déterminé par la valeur de 'LevelFS' pour le groupe lui-même, et non par les valeurs individuelles de 'LevelFS' des utilisateurs qui forment le groupe."
+    },
+    {
+      "question": "Que représente le terme 'association' dans la documentation Slurm?",
+      "answer": "La documentation Slurm nomme 'association' le projet par lui-même ou un utilisateur spécifique dans un projet."
+    },
+    {
+      "question": "Quelles informations contient la colonne 'Account' dans le tableau de la commande 'sshare'?",
+      "answer": "La colonne 'Account' contient le nom du projet auquel les tâches sont facturées, suivi du suffixe '_cpu' ou '_gpu'."
+    },
+    {
+      "question": "Pourquoi la première ligne de la colonne 'User' est-elle vide dans l'exemple du tableau 'sshare'?",
+      "answer": "La première ligne de la colonne 'User' est vide parce qu'elle décrit le statut du projet dans son ensemble, et non un utilisateur spécifique au sein de ce projet."
+    },
+    {
+      "question": "Comment le contenu de la colonne 'RawShares' est-il déterminé pour un projet ayant une allocation de ressources via un concours?",
+      "answer": "Pour un projet ayant une allocation de ressources via le concours d'allocation de ressources, le contenu de la colonne 'RawShares' est proportionnel au nombre de CPU-années ou de GPU-années de la grappe alloué au projet."
+    },
+    {
+      "question": "Quel est l'impact de l'inactivité d'un compte sur sa valeur 'RawShares' et sur la mise à jour de ses valeurs de priorisation?",
+      "answer": "Pour des raisons numériques, les comptes inactifs (ceux qui n'ont pas de tâche en cours ou en attente) reçoivent une seule part dans 'RawShares'. Si vous soumettez une tâche avec un compte inactif, il peut y avoir un délai allant jusqu'à 15 minutes avant que les valeurs de 'RawShares' et 'LevelFS' soient mises à jour."
+    },
+    {
+      "question": "Que nous indique le contenu de la colonne 'NormShares'?",
+      "answer": "Le contenu de la colonne 'NormShares' montre le nombre de parts assignées à l'utilisateur ou au compte, divisé par le nombre total des parts assignées pour ce niveau. Sur la première ligne, c'est la fraction des parts détenues par le projet par rapport à tous les projets, et sur les autres lignes, c'est la fraction des parts détenue par chaque membre du projet par rapport aux autres membres."
+    },
+    {
+      "question": "À quoi correspond la colonne 'RawUsage'?",
+      "answer": "La colonne 'RawUsage' représente une pondération du nombre total de secondes-ressources (temps CPU, temps GPU et mémoire) facturées au compte."
+    },
+    {
+      "question": "Comment l'utilisation passée des ressources affecte-t-elle la priorisation future des tâches?",
+      "answer": "L'usage passé est diminué d'une demi-vie d'une semaine, ce qui fait que l'utilisation datant de plus de quelques semaines n'aura qu'un effet minime sur la priorisation des tâches."
+    },
+    {
+      "question": "Que signifie la colonne 'EffectvUsage' dans le tableau 'sshare'?",
+      "answer": "La colonne 'EffectvUsage' montre l'utilisation de l'association par rapport à son parent, c'est-à-dire l'utilisation du projet par rapport aux autres projets et l'utilisation de chacun des utilisateurs par rapport à l'ensemble des utilisateurs du projet."
+    },
+    {
+      "question": "Comment est calculée la valeur de 'LevelFS' et qu'indique-t-elle?",
+      "answer": "La colonne 'LevelFS' est la valeur de la juste part (FS pour 'fair share') exprimée par 'NormShares / EffectvUsage'. Elle indique si une association reçoit de l'ordonnanceur plus ou moins de ressources que ce qu'elle mérite, avec une valeur entre 0 et 1 signifiant plus de ressources et une valeur plus grande que 1 signifiant moins de ressources."
+    },
+    {
+      "question": "Quel est l'impact sur la priorité des tâches si la valeur 'LevelFS' d'un projet est proche de 1.0?",
+      "answer": "Si la valeur 'LevelFS' d'un projet est proche de 1.0, cela signifie que la cible d'utilisation est rencontrée de façon régulière, et les tâches auront une priorité normale."
+    },
+    {
+      "question": "Que se passe-t-il pour les nouvelles tâches d'un projet si sa valeur 'LevelFS' est sous 1.0?",
+      "answer": "Si la valeur 'LevelFS' d'un projet est sous 1.0, cela indique que la cible d'utilisation a été dépassée, et les nouvelles tâches soumises pour ce projet recevront une basse priorité."
+    },
+    {
+      "question": "Comment la valeur 'LevelFS' d'un projet influence-t-elle la priorité de ses tâches si elle est plus grande que 1.0?",
+      "answer": "Si la valeur 'LevelFS' est plus grande que 1.0, cela signifie que l'utilisation du projet est inférieure à sa cible, et les nouvelles tâches soumises bénéficieront d'une priorité élevée."
+    },
+    {
+      "question": "Quelle est la valeur 'LevelFS' pour un compte inactif?",
+      "answer": "Pour un compte inactif, la valeur de 'LevelFS' est un nombre infime, près de 0.0001."
+    }
+  ],
+  "generated_at": "2026-04-12T00:20:34.779933+00:00"
+}

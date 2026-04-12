@@ -5,27 +5,52 @@ lang: "base"
 
 source_wiki_title: "Dask"
 source_hash: "2cf752ab25e3ee8108877bc7c06a42e1"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T05:59:02.790203+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T06:44:23.201217+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "virtualenv"
+  - "Dask cluster"
+  - "SBATCH"
+  - "SLURM"
+  - "parallel computing"
+  - "Dask"
+  - "job submission"
+  - "Dask workers"
+  - "dask worker"
+  - "Python"
+  - "srun"
+  - "Dask scheduler"
+
+questions:
+  - "What is Dask and what are its primary capabilities within the Python ecosystem?"
+  - "What are the recommended steps for installing Dask using a virtual environment and a Python wheel?"
+  - "How does the configuration and job submission process differ when setting up a Dask cluster on a single node versus multiple nodes?"
+  - "How does the `config_env.sh` script set up the virtual environment and install dependencies on the SLURM nodes?"
+  - "How does the `launch_dask_workers.sh` script differentiate resource allocation (memory and threads) between the scheduler node and the worker nodes?"
+  - "What specific distributed computation does the `test_dask.py` script execute to verify the functionality of the Dask cluster?"
+  - "What Slurm resources and configurations are requested in this batch script?"
+  - "How does the script set up the Python virtual environment across the allocated compute nodes?"
+  - "What specific steps are taken to initialize and connect the Dask scheduler and its workers?"
+  - "How does the `config_env.sh` script set up the virtual environment and install dependencies on the SLURM nodes?"
+  - "How does the `launch_dask_workers.sh` script differentiate resource allocation (memory and threads) between the scheduler node and the worker nodes?"
+  - "What specific distributed computation does the `test_dask.py` script execute to verify the functionality of the Dask cluster?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
 [Dask](https://docs.dask.org/en/stable/) is a flexible library for parallel computing in Python. It provides distributed NumPy array and Pandas DataFrame objects, as well as enabling distributed computing in pure Python with access to the PyData stack.
 
-## Installing our wheel
+# Installing our wheel
 
 The preferred option is to install it using our provided Python [wheel](https://pythonwheels.com/) as follows:
 1. Load a Python [module](utiliser-des-modules.md#sub-command-load), thus `module load python/3.11`.
@@ -36,17 +61,17 @@ The preferred option is to install it using our provided Python [wheel](https://
 pip install --no-index dask distributed
 ```
 
-## Job submission
+# Job submission
 
-### Single node
-Below is an example of a job that spawns a single-node Dask cluster with 6 cpus and computes the mean of a column of a parallelized dataframe.
+## Single node
+Below is an example of a job that spawns a single-node Dask cluster with 6 CPUs and computes the mean of a column of a parallelized dataframe.
 
-```bash
+````bash title="dask-example.sh"
 #!/bin/bash
 #SBATCH --account=<your account>
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=6  
-#SBATCH --mem=8000M       
+#SBATCH --cpus-per-task=6
+#SBATCH --mem=8000M
 #SBATCH --time=0-00:05
 #SBATCH --output=%N-%j.out
 
@@ -70,11 +95,11 @@ dask worker "tcp://$DASK_SCHEDULER_ADDR:$DASK_SCHEDULER_PORT" --no-dashboard --n
 sleep 10
 
 python dask-example.py
-```
+````
 
 In the script `dask-example.py`, we launch a Dask cluster with as many worker processes as there are cores in our job. This means each worker will spawn at most one CPU thread. For a complete discussion of how to reason about the number of worker processes and the number of threads per worker, see the [official Dask documentation](https://distributed.dask.org/en/stable/efficiency.html?highlight=workers%20threads#adjust-between-threads-and-processes). In this example, we split a pandas data frame into 6 chunks, so each worker will process a part of the data frame using one CPU:
 
-```python title="dask-example.py"
+````python title="dask-example.py"
 import pandas as pd
 
 from dask import dataframe as dd
@@ -94,12 +119,12 @@ ddf = dd.from_pandas(df, npartitions=n_workers) # split the pandas data frame in
 result = ddf.a.mean().compute()
 
 print(f"The mean is {result}")
-```
+````
 
-### Multiple nodes
+## Multiple nodes
 In the example that follows, we reproduce the single-node example, but this time with a two-node Dask cluster, with 6 CPUs on each node. This time we also spawn 2 workers per node, each with 3 cores.
 
-```bash title="dask-example.sh"
+````bash title="dask-example.sh"
 #!/bin/bash
 #SBATCH --nodes 2
 #SBATCH --tasks-per-node=2
@@ -128,11 +153,11 @@ sleep 10
 python test_dask.py
 
 kill $dask_cluster_pid # shut down Dask workers after the python process exits
-```
+````
 
 Where the script `config_virtualenv.sh` is:
 
-```bash title="config_env.sh"
+````bash title="config_env.sh"
 #!/bin/bash
 
 echo "From node ${SLURM_NODEID}: installing virtualenv..."
@@ -146,11 +171,11 @@ pip install --no-index dask[distributed,dataframe]
 echo "Done installing virtualenv!"
 
 deactivate
-```
+````
 
 And the script `launch_dask_workers.sh` is:
 
-```bash title="launch_dask_workers.sh"
+````bash title="launch_dask_workers.sh"
 #!/bin/bash
 
 source $SLURM_TMPDIR/env/bin/activate
@@ -174,11 +199,11 @@ dask worker "tcp://$DASK_SCHEDULER_ADDR:$DASK_SCHEDULER_PORT" --no-dashboard --n
 
 sleep 5
 echo "dask worker started!"
-```
+````
 
 And, finally, the script `test_dask.py` is:
 
-```python title="test_dask.py"
+````python title="test_dask.py"
 import pandas as pd
 import numpy as np
 
@@ -196,3 +221,4 @@ ddf = dd.from_pandas(df, npartitions=6)
 result = ddf.a.mean().compute()
 
 print(f"The mean is {result}")
+`

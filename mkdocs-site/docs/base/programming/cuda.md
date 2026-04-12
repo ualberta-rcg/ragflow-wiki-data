@@ -5,28 +5,49 @@ lang: "base"
 
 source_wiki_title: "CUDA"
 source_hash: "6a753e417973f9e79ff95f59020e3318"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T05:15:06.645587+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T06:05:27.918483+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "Slurm"
+  - "CUDA tutorial"
+  - "GPU"
+  - "GPU architecture"
+  - "GPU parallelism"
+  - "nvcc"
+  - "parallel computing"
+  - "Compute capability"
+  - "NVidia"
+  - "CUDA"
+  - "cmake"
+
+questions:
+  - "What is the CUDA platform and what is its primary purpose in GPU programming?"
+  - "How do you compile a CUDA C/C++ program and submit it to a scheduler using a Slurm job script?"
+  - "What is the proper method for linking additional CUDA libraries, such as cuBLAS, when compiling a program?"
+  - "What specific error messages indicate an issue with the CUDA compute capability?"
+  - "How can you resolve compute capability errors when compiling your code using nvcc or cmake?"
+  - "How do you determine the correct numerical value to use for the compute capability flag for a specific Nvidia GPU?"
+  - "What command is provided to compile the program and link the necessary CUDA libraries?"
+  - "Where can users find more information about utilizing GPU parallelism for their programs?"
+  - "How does NVidia define the technical term \"compute capability\"?"
+  - "What specific error messages indicate an issue with the CUDA compute capability?"
+  - "How can you resolve compute capability errors when compiling your code using nvcc or cmake?"
+  - "How do you determine the correct numerical value to use for the compute capability flag for a specific Nvidia GPU?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
-"CUDA® is a parallel computing platform and programming model developed by NVIDIA for general computing on graphical processing units (GPUs)."[NVIDIA CUDA Home Page](https://developer.nvidia.com/cuda-toolkit)
-
-!!! note
-    CUDA is a registered trademark of NVIDIA.
+"CUDA® is a parallel computing platform and programming model developed by NVIDIA for general computing on graphical processing units (GPUs)." [NVIDIA CUDA Home Page](https://developer.nvidia.com/cuda-toolkit). CUDA is a registered trademark of NVIDIA.
 
 It is reasonable to think of CUDA as a set of libraries and associated C, C++, and Fortran compilers that enable you to write code for GPUs. See [OpenACC Tutorial](openacc-tutorial.md) for another set of GPU programming tools.
 
@@ -35,7 +56,7 @@ It is reasonable to think of CUDA as a set of libraries and associated C, C++, a
 ### Compiling
 Here we show a simple example of how to use the CUDA C/C++ language compiler, `nvcc`, and run code created with it. For a longer tutorial in CUDA programming, see [CUDA tutorial](cuda-tutorial.md).
 
-First, load a CUDA [module](utiliser-des-modules-en.md).
+First, load a CUDA [module](utiliser-des-modules.md).
 ```bash
 $ module purge
 $ module load cuda
@@ -43,7 +64,7 @@ $ module load cuda
 
 The following program will add two numbers together on a GPU. Save the file as `add.cu`. *The `cu` file extension is important!*.
 
-```c++ title="add.cu"
+```cpp title="add.cu"
 #include <iostream>
 
 __global__ void add (int *a, int *b, int *c){
@@ -83,6 +104,7 @@ $ nvcc add.cu -o add
 
 ### Submitting jobs
 To run the program, create a Slurm job script as shown below. Be sure to replace `def-someuser` with your specific account (see [Accounts and projects](running-jobs.md#accounts-and-projects)). For options relating to scheduling jobs with GPUs see [Using GPUs with Slurm](using-gpus-with-slurm.md).
+
 ```sh title="gpu_job.sh"
 #!/bin/bash
 #SBATCH --account=def-someuser
@@ -104,8 +126,7 @@ Once your job has finished, you should see an output file similar to this:
 $ cat slurm-3127733.out
 2+7=9
 ```
-
-!!! warning
+!!! note
     If you run this without a GPU present, you might see output like `2+7=0`.
 
 ### Linking libraries
@@ -113,7 +134,6 @@ If you have a program that needs to link some libraries included with CUDA, for 
 ```bash
 nvcc -lcublas -Xlinker=-rpath,$CUDA_PATH/lib64
 ```
-
 To learn more about how the above program works and how to make the use of GPU parallelism, see [CUDA tutorial](cuda-tutorial.md).
 
 ## Troubleshooting
@@ -144,7 +164,7 @@ If you are using `cmake`, provide the following flag:
 cmake .. -DCMAKE_CUDA_ARCHITECTURES=XX
 ```
 
-where "XX" is the compute capability of the Nvidia GPU that you expect to run the application on. To find the value to replace "XX", see [CUDA GPU Compute Capability](https://developer.nvidia.com/cuda/gpus) and omit the decimal point.
+where “XX” is the compute capability of the Nvidia GPU that you expect to run the application on. To find the value to replace “XX“, see [CUDA GPU Compute Capability](https://developer.nvidia.com/cuda/gpus) and omit the decimal point.
 
 **For example,** if you will run your code on a Narval A100 node, the NVidia table gives its compute capability as "8.0". The correct flag to use when compiling with `nvcc` is then:
 

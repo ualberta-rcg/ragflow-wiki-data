@@ -5,21 +5,33 @@ lang: "base"
 
 source_wiki_title: "Infrastructure for Research Data Management"
 source_hash: "63371dd4e7c9fbd7f5f705547e183726"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T07:22:18.680861+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T08:01:34.983357+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "Research data management"
+  - "OpenID Hub"
+  - "Cloud environment"
+  - "Mattermost"
+  - "Nextcloud"
+
+questions:
+  - "What specific infrastructure and applications are provisioned for a research team's primary investigator in this cloud environment?"
+  - "How does the OpenID Hub manage user identity, authentication, and access control for the team's applications?"
+  - "What are the primary objectives of this guide regarding research data management, security, and collaboration?"
+  - "What specific infrastructure and applications are provisioned for a research team's primary investigator in this cloud environment?"
+  - "How does the OpenID Hub manage user identity, authentication, and access control for the team's applications?"
+  - "What are the primary objectives of this guide regarding research data management, security, and collaboration?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -29,11 +41,11 @@ Whether you're a researcher, scientist, student, or professional working with re
 
 Browse the different sections dedicated to data security, real-time collaboration, analytics integration, and much more. Whether you're using our platform for the first time, or are an experienced user looking to deepen your knowledge, this guide is designed to meet your needs, step by step.
 
-# Navigation and Configuration
+## Navigation and Configuration
 
 Before we dive into the details, let's take a moment to explore the fundamentals that will help you navigate and configure your cloud platform experience.
 
-## Environment Discovery
+### Environment discovery
 
 We supply one aggregate per research team's primary investigator.
 
@@ -54,36 +66,28 @@ Each application is accessible from a sub-domain dedicated to the research team:
 !!! note
     *research_team_name* must be replaced by the name of the research team selected during enrolment.
 
-# Identity and Authentication
+## Identity and Authentication
 
 This crucial part of our guide highlights the identity provider software, called [OpenID Hub](https://pypi.org/project/oidc-hub), an essential piece for inviting members to join your team while ensuring exclusive access to Nextcloud and Mattermost applications for authorized members only.
 
-## Identity Provider
+### Identity Provider
 
-The tool provides you with [KISS](https://en.wikipedia.org/wiki/KISS_principle) user management and [role-based access control](https://en.wikipedia.org/wiki/Role-based_access_control) that includes invitations for new members to join the team, secure password management, and recovery.
+The tool provides you with [KISS](https://en.wikipedia.org/wiki/KISS%20principle) user management and [role-based access control](https://en.wikipedia.org/wiki/Role-based%20access%20control) that includes invitations for new members to join the team, secure password management and recovery.
 
-## Authentication and Account Management
+### Authentication and Account Management
 
-# Instant Messaging
+## Instant Messaging
+### Introduction and Usage
 
-## Introduction and Usage
+## File Management
+### Introduction and Usage
+### Data Storage and Organization
+### Sharing and Collaborative Features
 
-# File Management
+## Troubleshooting
+### Technical problems
+### Support and Resources
 
-## Introduction and Usage
-
-## Data Storage and Organization
-
-## Sharing and Collaborative Features
-
-# Troubleshooting
-
-## Technical Problems
-
-## Support and Resources
-
-# Updates and New Features
-
-## Update Tracking
-
-## Discover New Features
+## Updates and New Features
+### Update Tracking
+### Discover New Features

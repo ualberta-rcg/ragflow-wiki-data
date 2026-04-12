@@ -1,0 +1,63 @@
+{
+  "doc_key": "base/nvprof",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is Nvprof and on which operating systems is it available?",
+      "answer": "Nvprof is a command-line, light-weight, GUI-less profiler available for Linux, Windows, and Mac OS."
+    },
+    {
+      "question": "What kind of data can Nvprof collect?",
+      "answer": "It can collect profiling data of CUDA-related activities on both the CPU and GPU, including kernel execution and memory transfers."
+    },
+    {
+      "question": "How are profiling options supplied to Nvprof?",
+      "answer": "Profiling options should be provided via command-line options."
+    },
+    {
+      "question": "What types of textual reports can Nvprof provide?",
+      "answer": "Nvprof is capable of providing a summary of GPU and CPU activity, a trace of GPU and CPU activity, and event collection."
+    },
+    {
+      "question": "How does Nvprof facilitate headless profile collection?",
+      "answer": "First, Nvprof is used on a headless node to collect data, then the timeline can be visualized with the Nvidia Visual Profiler."
+    },
+    {
+      "question": "What must be done before using Nvprof on Béluga and Narval?",
+      "answer": "The NVIDIA Data Center GPU Manager (DCGM) needs to be disabled during job submission."
+    },
+    {
+      "question": "How do you disable DCGM during a job submission on Béluga or Narval?",
+      "answer": "By including `DISABLE_DCGM=1` in your `salloc` command, for example: `DISABLE_DCGM=1 salloc --gres=gpu:1 ...`"
+    },
+    {
+      "question": "How can a user verify that the DCGM monitoring service has stopped?",
+      "answer": "A loop can be used to await its stop, checking `dcgmi -v | grep 'Hostengine build info:'` until it returns nothing."
+    },
+    {
+      "question": "What prerequisite module needs to be loaded before profiling with Nvprof?",
+      "answer": "The appropriate CUDA environment module must be loaded."
+    },
+    {
+      "question": "How can one find available CUDA module versions?",
+      "answer": "Users can run `module avail cuda` or `module -r spider '.*cuda.*'` for a comprehensive list."
+    },
+    {
+      "question": "What environment variable needs to be updated after loading the CUDA module for Nvprof to find CUDA libraries?",
+      "answer": "The `LD_LIBRARY_PATH` environment variable needs to be set to include `$EBROOTCUDA/lib64`."
+    },
+    {
+      "question": "What is necessary for your code to provide useful information when profiled by Nvprof?",
+      "answer": "Your code needs to be compiled with one of the CUDA compilers, such as `nvcc` for C."
+    },
+    {
+      "question": "What is Nvprof's default operating mode?",
+      "answer": "Summary mode is the default operating mode for Nvprof."
+    },
+    {
+      "question": "What kind of output does Nvprof's Summary mode provide?",
+      "answer": "It outputs a single result line for each instruction, such as a kernel function or CUDA memory copy/set, showing the total, average, minimum, and maximum times for all instances."
+    }
+  ],
+  "generated_at": "2026-04-12T03:57:48.658317+00:00"
+}

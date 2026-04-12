@@ -1,0 +1,84 @@
+{
+  "doc_key": "base/tensorflow",
+  "level": "chunk",
+  "chunk_index": 5,
+  "qa_pairs": [
+    {
+      "question": "How can I launch TensorBoard in the background within an SBATCH job?",
+      "answer": "You can launch TensorBoard in the background by calling it before your Python script and appending an ampersand (`&`) to the call. For example: `tensorboard --logdir=/tmp/your_log_dir --host 0.0.0.0 --load_fast false & python train.py`."
+    },
+    {
+      "question": "What is required to access TensorBoard with a web browser once a job is running?",
+      "answer": "You need to create a connection between your local computer and the compute node running TensorFlow and TensorBoard."
+    },
+    {
+      "question": "How do I find the hostname of the compute node running the TensorBoard server?",
+      "answer": "Use the `sq` command to list your jobs, then find your job and note the value in the 'NODELIST' column, which is the hostname."
+    },
+    {
+      "question": "What command should I use on my local computer to create a connection to access TensorBoard?",
+      "answer": "Use the following command on your local computer: `ssh -N -f -L localhost:6006:computenode:6006 userid@cluster.computecanada.ca`."
+    },
+    {
+      "question": "What values should I replace in the SSH connection command for TensorBoard access?",
+      "answer": "Replace `computenode` with the node hostname (from the `sq` command), `userid` with your Alliance username, and `cluster` with the cluster hostname (e.g., `rorqual`, `fir`, `nibi`)."
+    },
+    {
+      "question": "What happens if port 6006 is already in use when launching TensorBoard?",
+      "answer": "If port 6006 is already in use, TensorBoard will utilize another port, such as 6007 or 6008."
+    },
+    {
+      "question": "After creating the SSH connection, how do I access TensorBoard in my web browser?",
+      "answer": "Once the connection is created, go to `http://localhost:6006` in your web browser."
+    },
+    {
+      "question": "What high-level API does TensorFlow offer for using multiple GPUs?",
+      "answer": "TensorFlow offers the `tf.distribute` high-level API for utilizing multiple GPUs."
+    },
+    {
+      "question": "Where can I find more detailed information on TensorFlow's multi-GPU strategies?",
+      "answer": "For more details, please refer to the official TensorFlow documentation on `tf.distribute`."
+    },
+    {
+      "question": "What is an example of a multi-GPU strategy offered by TensorFlow?",
+      "answer": "One example of a multi-GPU strategy offered by TensorFlow is the Mirrored strategy."
+    },
+    {
+      "question": "What is the name of the example SLURM job script for a single-node Mirrored strategy?",
+      "answer": "The example SLURM job script for a single-node Mirrored strategy is named `tensorflow-singleworker.sh`."
+    },
+    {
+      "question": "How many GPUs are requested in the `tensorflow-singleworker.sh` SLURM script example?",
+      "answer": "The `tensorflow-singleworker.sh` script requests 4 GPUs using `#SBATCH --gres=gpu:4`."
+    },
+    {
+      "question": "What are the memory and time limits set in the `tensorflow-singleworker.sh` SLURM script example?",
+      "answer": "The memory limit is 8GB (`#SBATCH --mem=8G`), and the time limit is 30 minutes (`#SBATCH --time=0-00:30`)."
+    },
+    {
+      "question": "How is the Python environment set up in the `tensorflow-singleworker.sh` script?",
+      "answer": "The script loads the `python/3` module, creates a virtual environment in `$SLURM_TMPDIR/env`, activates it, and then installs TensorFlow using `pip install --no-index tensorflow`."
+    },
+    {
+      "question": "Which environment variable can be set to use the NCCL backend for inter-GPU communication?",
+      "answer": "You can set the environment variable `NCCL_BLOCKING_WAIT=1` to use the NCCL backend for inter-GPU communication."
+    },
+    {
+      "question": "What is the name of the Python script used in the single-node Mirrored strategy example?",
+      "answer": "The Python script used in the single-node Mirrored strategy example is `tensorflow-singleworker.py`."
+    },
+    {
+      "question": "What is the purpose of the `tensorflow-singleworker.py` script?",
+      "answer": "The `tensorflow-singleworker.py` script is a test for cifar10 classification models using TensorFlow's MirroredStrategy."
+    },
+    {
+      "question": "What type of Keras model is defined in the `tensorflow-singleworker.py` script?",
+      "answer": "The `tensorflow-singleworker.py` script defines a `tf.keras.Sequential` model."
+    },
+    {
+      "question": "How is the Keras model compiled in the `tensorflow-singleworker.py` script example?",
+      "answer": "The Keras model is compiled with `tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True)` as the loss, `tf.keras.optimizers.SGD` with a specified learning rate as the optimizer, and `accuracy` as the metric."
+    }
+  ],
+  "generated_at": "2026-04-12T08:59:03.093248+00:00"
+}

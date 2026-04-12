@@ -5,33 +5,46 @@ lang: "fr"
 
 source_wiki_title: "MAFFT/fr"
 source_hash: "5d10c9fa7d02fb0a497617c5c4659c90"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T07:59:10.737725+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T08:35:12.619218+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "nœuds multiples (MPI)"
+  - "alignement de séquences multiples"
+  - "SLURM"
+  - "MAFFT"
+  - "nœud unique"
+
+questions:
+  - "Quel est le but principal du programme MAFFT et comment ses méthodes d'alignement s'adaptent-elles au nombre de séquences à traiter ?"
+  - "Comment configurer et soumettre une tâche MAFFT sur un nœud unique en exploitant plusieurs cœurs via SLURM ?"
+  - "Quelle contrainte particulière s'applique au répertoire temporaire lors de l'exécution de MAFFT sur des nœuds multiples avec MPI ?"
+  - "Quel est le but principal du programme MAFFT et comment ses méthodes d'alignement s'adaptent-elles au nombre de séquences à traiter ?"
+  - "Comment configurer et soumettre une tâche MAFFT sur un nœud unique en exploitant plusieurs cœurs via SLURM ?"
+  - "Quelle contrainte particulière s'applique au répertoire temporaire lors de l'exécution de MAFFT sur des nœuds multiples avec MPI ?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
-[MAFFT](https://mafft.cbrc.jp/alignment/software/) est un programme d'alignement de séquences multiples pour des systèmes d'exploitation comme Unix. Il offre plusieurs méthodes d'alignement dont G-INS-i (précis, pour l'alignement de <∼200 séquences), FFT-NS-2 (rapide, pour l'alignement de <∼30,000 séquences), etc.
+[MAFFT](https://mafft.cbrc.jp/alignment/software/) est un programme d'alignement de séquences multiples pour des systèmes d'exploitation comme Unix. Il offre plusieurs méthodes d'alignement, incluant L-INS-i (précis, pour l'alignement de <∼200 séquences), FFT-NS-2 (rapide, pour l'alignement de <∼30,000 séquences), etc.
 
 ## Nœud unique
-MAFFT tire profit des cœurs multiples sur des nœuds uniques; consultez [https://mafft.cbrc.jp/alignment/software/multithreading.html](https://mafft.cbrc.jp/alignment/software/multithreading.html) pour plus de détails.
+MAFFT profite de cœurs multiples sur des nœuds uniques; voir https://mafft.cbrc.jp/alignment/software/multithreading.html.
 
-!!! note "Note"
+!!! note
     Au chargement du module, la variable d'environnement `MAFFT_TMPDIR` est fixée à `$SLURM_TMPDIR/maffttmp`.
 
-```bash title="mafft_submit.sh"
+```bash
+# mafft_submit.sh
 #!/bin/bash
 
 #SBATCH --time=24:00:00
@@ -45,12 +58,13 @@ mafft --globalpair --thread $SLURM_CPUS_PER_TASK input > output
 ```
 
 ## Nœuds multiples (MPI)
-MAFFT peut utiliser MPI pour aligner un grand nombre de séquences; consultez [https://mafft.cbrc.jp/alignment/software/mpi.html](https://mafft.cbrc.jp/alignment/software/mpi.html) pour plus de détails.
+MAFFT peut utiliser MPI pour aligner un grand nombre de séquences; voir https://mafft.cbrc.jp/alignment/software/mpi.html.
 
-!!! note "Note"
+!!! note
     Au chargement du module, la variable d'environnement `MAFFT_TMPDIR` est fixée à `$SLURM_TMPDIR/maffttmp`. Si vous changez de répertoire temporaire, il devra être partagé par tous les hôtes.
 
-```bash title="mafft_mpi_submit.sh"
+```bash
+# mafft_mpi_submit.sh
 #!/bin/bash
 
 #SBATCH --time=04:00:00

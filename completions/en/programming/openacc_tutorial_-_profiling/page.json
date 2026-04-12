@@ -1,0 +1,71 @@
+{
+  "doc_key": "en/openacc_tutorial_-_profiling",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What are the primary learning objectives for this tutorial on code profiling?",
+      "answer": "The learning objectives include understanding what a profiler is, how to use the NVPROF profiler, how to assess code performance, and where to focus efforts to rewrite time-consuming routines."
+    },
+    {
+      "question": "Why is code profiling considered essential?",
+      "answer": "Code profiling is essential because it is the only way to understand where time is being spent (hotspots), how the code is performing, and where to focus development time."
+    },
+    {
+      "question": "According to Amdahl's Law, what is the most impactful strategy for code optimization?",
+      "answer": "Amdahl's Law states that parallelizing the most time-consuming routines (i.e., the hotspots) will have the most impact on optimization."
+    },
+    {
+      "question": "Where can users find the sample code for this profiling example?",
+      "answer": "The sample code is available in the `calculquebec/cq-formation-openacc` Git repository, which users are invited to download and extract."
+    },
+    {
+      "question": "Which compilers are recommended for advanced OpenACC support, according to the document?",
+      "answer": "Cray and NVIDIA (through its HPC SDK) compilers offer the most advanced OpenACC support."
+    },
+    {
+      "question": "Which specific compiler and version are used for the purpose of this tutorial?",
+      "answer": "The NVIDIA HPC SDK, version 22.7, is used for this tutorial."
+    },
+    {
+      "question": "What are the minimum system requirements to run the `cg.x` executable for profiling?",
+      "answer": "The `cg.x` executable uses about 3GB of memory and one CPU core, so a proper test environment should have at least 4GB of available memory and at least two (2) CPU cores."
+    },
+    {
+      "question": "Which two profilers are utilized in this tutorial?",
+      "answer": "This tutorial uses the NVIDIA `nvprof` command-line text-based profiler and the NVIDIA Visual Profiler `nvvp` (a graphical tool)."
+    },
+    {
+      "question": "How do you enable CPU profiling with `nvprof` for a pure CPU executable?",
+      "answer": "To profile a pure CPU executable, you need to add the arguments `--cpu-profiling on` to the `nvprof` command line, for example: `nvprof --cpu-profiling on ./cg.x`."
+    },
+    {
+      "question": "Based on the `nvprof` output provided, which function consumed the most CPU time?",
+      "answer": "The `matvec()` function was responsible for 83.54% of the CPU execution time."
+    },
+    {
+      "question": "What types of questions should be asked to understand compiler feedback before working on a routine?",
+      "answer": "Questions to ask include what optimizations were applied automatically, what prevented further optimizations, and if minor code modifications can affect performance."
+    },
+    {
+      "question": "Which NVIDIA compiler flag provides detailed compilation information, including accelerator and loop optimization data?",
+      "answer": "The `-Minfo` flag, with options like `all` or `intensity`, provides detailed compilation information."
+    },
+    {
+      "question": "How is compiler feedback enabled in the `Makefile` for this tutorial?",
+      "answer": "Compiler feedback is enabled by editing the `Makefile` to set `CXXFLAGS=-fast -Minfo=all,intensity`."
+    },
+    {
+      "question": "What is the definition of 'Computational Intensity' in the context of compiler feedback?",
+      "answer": "Computational Intensity is defined as the ratio of compute operations to memory operations."
+    },
+    {
+      "question": "What does a Computational Intensity of 1.0 or greater suggest about a loop?",
+      "answer": "An Intensity of 1.0 or greater suggests that the loop might run well on a GPU."
+    },
+    {
+      "question": "Is the accumulation of values within a `sum` variable inside a loop considered a problematic data dependency for parallelization?",
+      "answer": "No, it is a reduction, and modern compilers are typically effective at optimizing such reductions."
+    }
+  ],
+  "generated_at": "2026-04-12T04:22:13.437005+00:00"
+}

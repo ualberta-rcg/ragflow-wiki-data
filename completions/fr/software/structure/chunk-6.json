@@ -1,0 +1,44 @@
+{
+  "doc_key": "fr/structure",
+  "level": "chunk",
+  "chunk_index": 6,
+  "qa_pairs": [
+    {
+      "question": "Que se passe-t-il si le fichier \"structureCommands\" n'est pas présent lorsque le script `create_strauto_slurm_scripts.py` est lancé?",
+      "answer": "Si le fichier \"structureCommands\" est introuvable, le script `create_strauto_slurm_scripts.py` affichera un message d'erreur et s'arrêtera immédiatement."
+    },
+    {
+      "question": "Quels répertoires le script `create_strauto_slurm_scripts.py` va-t-il créer durant son exécution?",
+      "answer": "Le script va créer les répertoires \"slurm_scripts\", \"results_f\", \"log\", \"harvester\", ainsi que des sous-répertoires spécifiques à chaque valeur de 'k' déterminée et leurs répertoires de journalisation ('log/k*')."
+    },
+    {
+      "question": "Comment le script `create_strauto_slurm_scripts.py` génère-t-il les scripts de tâches Slurm individuels?",
+      "answer": "Il lit les commandes Structure à partir du fichier \"structureCommands\", extrait les noms des tâches et les informations du jeu de données en utilisant une expression régulière, puis formate un modèle de script Slurm avec ces informations pour chaque tâche, qu'il sauvegarde dans le répertoire \"slurm_scripts\"."
+    },
+    {
+      "question": "Quels paramètres l'utilisateur peut-il configurer dans le script `create_strauto_slurm_scripts.py` pour ajuster son fonctionnement?",
+      "answer": "L'utilisateur peut ajuster `max_jobtime` pour définir la durée maximale d'une tâche Structure, `slurm_account` pour spécifier le compte Slurm à utiliser pour la soumission, et `submit_delay` pour contrôler le délai entre chaque soumission de tâche afin d'éviter de surcharger l'ordonnanceur."
+    },
+    {
+      "question": "Quelle est l'utilité du script d'aide \"submit_strauto_jobs.sh\" créé par `create_strauto_slurm_scripts.py`?",
+      "answer": "Le script \"submit_strauto_jobs.sh\" est conçu pour soumettre séquentiellement toutes les tâches Slurm générées. Il inclut un délai (par défaut 0,5 seconde) entre chaque soumission pour éviter de surcharger l'ordonnanceur Slurm."
+    },
+    {
+      "question": "Quel est le rôle du script \"post_strauto.sh\" et quand doit-il être exécuté?",
+      "answer": "Le script \"post_strauto.sh\" est un script de post-traitement. Il doit être exécuté une fois que toutes les tâches Structure sont terminées pour agréger les résultats, lancer `structureHarvester.py`, compresser les fichiers d'entrée de Harvester et nettoyer les fichiers intermédiaires."
+    },
+    {
+      "question": "Quelles actions spécifiques le script \"post_strauto.sh\" effectue-t-il après l'exécution des tâches Structure?",
+      "answer": "Il déplace les répertoires de résultats (k-listes) vers `results_f/`, crée le répertoire `harvester_input`, copie les fichiers de résultats `*_f` dans `harvester_input`, exécute `structureHarvester.py` avec les options `--dir harvester_input --out harvester --evanno --clumpp`, puis compresse les fichiers d'entrée de Harvester dans un fichier zip et supprime le répertoire `harvester_input`."
+    },
+    {
+      "question": "Le script `create_strauto_slurm_scripts.py` modifie-t-il les commandes Structure lues du fichier \"structureCommands\" avant de les inclure dans les scripts Slurm?",
+      "answer": "Oui, le script remplace l'appel `./structure` par `structure` dans chaque commande Structure lue du fichier \"structureCommands\"."
+    },
+    {
+      "question": "Quel est le format des noms des scripts de tâches Slurm individuels générés par `create_strauto_slurm_scripts.py`?",
+      "answer": "Les scripts de tâches Slurm sont nommés `slurm_job_{nom_de_la_tache}.sh`, où `{nom_de_la_tache}` est dérivé des commandes lues et peut inclure un préfixe optionnel si la variable `job_prefix` est définie."
+    }
+  ],
+  "generated_at": "2026-04-12T08:36:20.552006+00:00"
+}

@@ -1,0 +1,167 @@
+{
+  "doc_key": "base/parallel_i_o_introductory_tutorial",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is the main topic of this tutorial?",
+      "answer": "This tutorial discusses issues in handling large amounts of data in High-Performance Computing (HPC) and various parallel I/O strategies for large-scale input/output (I/O) with parallel jobs."
+    },
+    {
+      "question": "What are the primary parallel I/O strategies discussed for large-scale data handling in HPC?",
+      "answer": "The tutorial describes the use of MPI-IO and parallel I/O libraries such as NetCDF and HDF5."
+    },
+    {
+      "question": "What are the three important I/O activities in large parallel computations on distributed-memory machines?",
+      "answer": "The three activities are reading the initial dataset, checkpointing the application state for restarting, and storing results for follow-up runs or post-processing."
+    },
+    {
+      "question": "According to Amdahl's law, what limits the speedup of a parallel program?",
+      "answer": "Amdahl's law states that the speedup of a parallel program is limited by the time required for its sequential fraction."
+    },
+    {
+      "question": "Why is efficient I/O particularly challenging in HPC systems?",
+      "answer": "I/O-related systems are often slow compared to other parts of HPC systems, with storage speeds increasing at a much lower rate than supercomputer speeds, creating a significant data storage bottleneck."
+    },
+    {
+      "question": "How has the relative speed of storage systems compared to top supercomputers changed over time?",
+      "answer": "From 1956 to 2014, storage speed increased by a little over 4 orders of magnitude, while supercomputer speed increased by over 5 orders of magnitude in less than half that time (1993 to 2014)."
+    },
+    {
+      "question": "What does IOPs stand for, and what does it measure?",
+      "answer": "IOPs stands for I/O operations per second, measuring read/write operations and acting as an inverse of latency."
+    },
+    {
+      "question": "How is I/O Bandwidth defined?",
+      "answer": "I/O bandwidth is defined as the quantity of data read or written per unit of time."
+    },
+    {
+      "question": "Are parallel filesystems designed to provide 'supercomputing' performance in I/O for individual jobs?",
+      "answer": "No, parallel filesystems are optimized for efficient I/O by multiple users on multiple machines/nodes, not for 'supercomputing' performance from a single job."
+    },
+    {
+      "question": "What are the layers of abstraction in the I/O software and hardware stack for parallel I/O?",
+      "answer": "The layers are I/O Hardware, Parallel filesystem, I/O Middleware, High-end I/O library, and Application."
+    },
+    {
+      "question": "What is the role of a parallel filesystem like Lustre in this stack?",
+      "answer": "A parallel filesystem like Lustre maintains logical partitions and provides efficient access to data, often by striping files across multiple drives."
+    },
+    {
+      "question": "What is the purpose of high-end I/O libraries such as HDF5 and NetCDF?",
+      "answer": "These libraries map application abstractions to storage abstractions, efficiently storing data in terms of the code's data structures, often with built-in optimizations."
+    },
+    {
+      "question": "How do parallel filesystems improve performance by storing files?",
+      "answer": "For better performance, files can be striped across multiple drives, meaning a file resides on multiple drives, allowing for concurrent read/write operations."
+    },
+    {
+      "question": "How do parallel file systems manage concurrent file access from multiple client nodes?",
+      "answer": "Parallel file systems use locks, piecing files into 'lock' units scattered across drives, which client nodes obtain before I/O occurs."
+    },
+    {
+      "question": "For what kind of files are parallel filesystems optimized, and what kind of file usage results in poor performance?",
+      "answer": "They are optimized for storing large shared files but show very poor performance when storing many small size files."
+    },
+    {
+      "question": "How can a user's I/O activities affect other users on a shared cluster?",
+      "answer": "Heavy I/O activities, like generating many small files or frequently using `ls` in large directories, can slow down the filesystem and prevent processes from communicating effectively over the shared network."
+    },
+    {
+      "question": "What is the first recommended best practice for I/O?",
+      "answer": "It is recommended to make a plan for your data needs, including how much will be generated, how much to save, and where to keep it."
+    },
+    {
+      "question": "What specific commands should users minimize using in directories with many files?",
+      "answer": "Users should minimize the use of `ls` or `du` commands, especially in directories containing many files."
+    },
+    {
+      "question": "What are warning signs that should prompt careful consideration regarding file usage?",
+      "answer": "Warning signs include having more than 100,000 files in your space or an average data file size less than 100 MB for large output."
+    },
+    {
+      "question": "What 'housekeeping' commands are recommended for managing file count and quota?",
+      "answer": "Using `gzip` and `tar` commands to compress and group multiple files is recommended for housekeeping."
+    },
+    {
+      "question": "What are the pros and cons of using ASCII format for data storage?",
+      "answer": "Pros: human-readable, portable. Cons: inefficient storage (takes more bytes per value), expensive for read/write operations."
+    },
+    {
+      "question": "What are the pros and cons of using binary format for data storage?",
+      "answer": "Pros: efficient storage (fewer bytes per value), efficient read/write. Cons: requires knowing the format to read, portability issues (endians)."
+    },
+    {
+      "question": "What is metadata, and why is it useful?",
+      "answer": "Metadata encodes data about data, such as variable names, dimensions, sizes, endians, owner, and date, making binary files more understandable and portable for other programs or users."
+    },
+    {
+      "question": "What are the advantages of using database formats for data storage?",
+      "answer": "Database formats are powerful and flexible, simplify data organization and analysis, and can offer enhanced performance for seek/sort operations, especially for many small records."
+    },
+    {
+      "question": "What are the key features of standard scientific dataset libraries like HDF5 and NetCDF?",
+      "answer": "These libraries are open standards, provide data portability across platforms and languages, store data in binary with optional compression, and include data descriptions (metadata)."
+    },
+    {
+      "question": "What happens to the dataset in large parallel calculations?",
+      "answer": "In large parallel calculations, the dataset is distributed across many processors or nodes."
+    },
+    {
+      "question": "Describe the 'spokesperson' approach for serial I/O in a parallel job, including its pros and cons.",
+      "answer": "The 'spokesperson' approach involves one process collecting all data from other processes and writing it sequentially to a single file. Pros: trivially simple for small I/O. Cons: bandwidth and memory limited by one client, does not scale."
+    },
+    {
+      "question": "What are the characteristics of the serial I/O approach where each of N processors writes to N individual files?",
+      "answer": "In this approach, each process performs I/O to its own file. Pros: no interprocess communication, possibly better scaling than a single sequential I/O. Cons: results in many small files, requires post-processing, and uncoordinated I/O can swamp the filesystem."
+    },
+    {
+      "question": "Why is writing data collectively from N processes to a single file considered the best approach for parallel I/O?",
+      "answer": "It results in only one file (good for visualization and management), allows data to be stored canonically, and avoids post-processing, scaling efficiently if done correctly."
+    },
+    {
+      "question": "What is the difference between Independent I/O and Collective I/O?",
+      "answer": "Independent I/O operations specify only what a single process will do, whereas Collective I/O involves coordinated access to storage by a group of processes, allowing for more optimization in lower software layers and better performance."
+    },
+    {
+      "question": "What is MPI-IO, and what standard is it a part of?",
+      "answer": "MPI-IO is the parallel I/O part of the MPI-2 standard (1996), providing functionality for parallel read/write operations."
+    },
+    {
+      "question": "What common MPI-IO operations are available in C and Fortran 90?",
+      "answer": "Common operations include `MPI_File_open`, `MPI_File_seek`, `MPI_File_set_view`, `MPI_File_read`, `MPI_File_write`, and `MPI_File_close`."
+    },
+    {
+      "question": "What three components define a 'file view' in MPI-IO?",
+      "answer": "A file view is specified using a triplet: displacement (bytes to skip), etype (unit of data access), and filetype (portion of the file visible to the process)."
+    },
+    {
+      "question": "What are the limitations of MPI-IO when it comes to data portability and description?",
+      "answer": "MPI-IO writes raw data, making it not portable across platforms, hard to append new variables, and it doesn't include data descriptions."
+    },
+    {
+      "question": "What does NetCDF stand for, and what underlying I/O standard does it use?",
+      "answer": "NetCDF stands for Network Common Data Format, and it uses MPI-IO under the hood."
+    },
+    {
+      "question": "What are the key features of NetCDF that make it a popular data storage package?",
+      "answer": "NetCDF is self-describing (metadata in header), portable across architectures, stores data as binary with optional compression, and supports a variety of visualization packages."
+    },
+    {
+      "question": "How does NetCDF handle data storage compared to MPI-IO's need for explicit offset specification?",
+      "answer": "With NetCDF, users call the library and tell it what arrays to store, and NetCDF handles the storage in a contiguous fashion, unlike MPI-IO which requires explicit offset specification."
+    },
+    {
+      "question": "What does HDF5 stand for, and what underlying I/O standard does it use?",
+      "answer": "HDF5 stands for Hierarchical Data Format, and it also uses MPI-IO under the hood."
+    },
+    {
+      "question": "How does HDF5 compare to NetCDF in terms of generality?",
+      "answer": "HDF5 is more general than NetCDF, offering an object-oriented description of datasets, groups, attributes, types, data spaces, and property lists."
+    },
+    {
+      "question": "How is file content arranged within an HDF5 file?",
+      "answer": "File content can be arranged into a Unix-like filesystem structure, with datasets containing multidimensional images/tables/arrays and groups holding datasets and other groups."
+    }
+  ],
+  "generated_at": "2026-04-12T05:01:13.472418+00:00"
+}

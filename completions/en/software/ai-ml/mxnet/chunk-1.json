@@ -1,0 +1,84 @@
+{
+  "doc_key": "en/mxnet",
+  "level": "chunk",
+  "chunk_index": 1,
+  "qa_pairs": [
+    {
+      "question": "What is Apache MXNet?",
+      "answer": "Apache MXNet is a deep learning framework designed for both efficiency and flexibility. It allows users to mix symbolic and imperative programming to maximize efficiency and productivity."
+    },
+    {
+      "question": "What are the core components of MXNet's architecture?",
+      "answer": "At its core, MXNet contains a dynamic dependency scheduler that automatically parallelizes both symbolic and imperative operations. On top of that, a graph optimization layer makes symbolic execution fast and memory efficient."
+    },
+    {
+      "question": "What are the key characteristics of MXNet?",
+      "answer": "MXNet is portable and lightweight, and it is scalable to many GPUs and machines."
+    },
+    {
+      "question": "How can I list the available MXNet wheels?",
+      "answer": "You can list available wheels using the `avail_wheels mxnet` command."
+    },
+    {
+      "question": "What information does the `avail_wheels mxnet` command provide?",
+      "answer": "The command provides the name, version, Python version, and architecture for available MXNet wheels. For example, `mxnet 1.9.1 cp39 avx2`."
+    },
+    {
+      "question": "Which Python versions are supported for MXNet 1.9.1, according to the example output?",
+      "answer": "According to the example output, MXNet 1.9.1 is available for Python versions `cp39`, `cp38`, and `cp310`."
+    },
+    {
+      "question": "What is the first step to install MXNet in a Python virtual environment?",
+      "answer": "The first step is to create and activate a Python virtual environment."
+    },
+    {
+      "question": "Which commands are used to create and activate a Python virtual environment for MXNet installation?",
+      "answer": "You would typically use `module load python/3.10`, then `virtualenv --no-download ~/env`, and finally `source ~/env/bin/activate`."
+    },
+    {
+      "question": "How do you install MXNet and its Python dependencies within an activated virtual environment?",
+      "answer": "After activating the virtual environment, you can install MXNet using the command `pip install --no-index mxnet`."
+    },
+    {
+      "question": "How can I validate that MXNet has been successfully installed?",
+      "answer": "You can validate the installation by running `python -c \"import mxnet as mx;print((mx.nd.ones((2, 3))*2).asnumpy());\"` in your activated virtual environment."
+    },
+    {
+      "question": "What output confirms a successful MXNet installation using the validation command?",
+      "answer": "A successful installation is confirmed by the output `[[2. 2. 2.] [2. 2. 2.]]`."
+    },
+    {
+      "question": "What is the purpose of the `mxnet-conv-ex.py` script provided in the documentation?",
+      "answer": "The `mxnet-conv-ex.py` script demonstrates a single Convolution layer operation using MXNet, showcasing how to define variables, bind the operation to a device, and perform a forward pass."
+    },
+    {
+      "question": "How does `mxnet-conv-ex.py` determine whether to use a CPU or GPU?",
+      "answer": "The script uses `device = mx.gpu() if mx.context.num_gpus() > 0 else mx.cpu()` to automatically select a GPU if available, otherwise it defaults to the CPU."
+    },
+    {
+      "question": "Which acceleration libraries does MXNet use for convolution operations on CPU and GPU?",
+      "answer": "On CPU, MXNet will use MKLDNN, and on GPU, it will use cuDNN for convolution operations."
+    },
+    {
+      "question": "What is an example SLURM submission script for running an MXNet convolution job on a CPU?",
+      "answer": "A CPU submission script (`mxnet-conv.sh`) would include SBATCH directives like `--job-name=mxnet-conv`, `--account=def-someprof`, `--time=01:00:00`, `--cpus-per-task=2`, `--mem=20G`, and then load Python, create/activate a virtual environment in `$SLURM_TMPDIR`, install MXNet 1.9.1, and execute `python mxnet-conv-ex.py`."
+    },
+    {
+      "question": "What is an example SLURM submission script for running an MXNet convolution job on a GPU?",
+      "answer": "A GPU submission script (`mxnet-conv.sh`) would be similar to the CPU version but would also include the SBATCH directive `--gres=gpu:1` to request one GPU."
+    },
+    {
+      "question": "How is a Python virtual environment typically set up within a SLURM job script for MXNet?",
+      "answer": "Within a SLURM job script, you would load the Python module (`module load python/3.10`), generate the virtual environment in the temporary directory (`virtualenv --no-download ${SLURM_TMPDIR}/env`), and then activate it (`source ${SLURM_TMPDIR}/env/bin/activate`)."
+    },
+    {
+      "question": "How is MXNet installed inside the virtual environment within a SLURM job script?",
+      "answer": "MXNet is installed using `pip install --no-index mxnet==1.9.1` after the virtual environment has been activated."
+    },
+    {
+      "question": "How do you submit a job script to the scheduler?",
+      "answer": "You submit the job to the scheduler using the command `sbatch mxnet-conv.sh`."
+    }
+  ],
+  "generated_at": "2026-04-12T02:06:29.384076+00:00"
+}

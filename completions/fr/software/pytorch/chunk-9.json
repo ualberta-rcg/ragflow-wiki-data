@@ -1,0 +1,52 @@
+{
+  "doc_key": "fr/pytorch",
+  "level": "chunk",
+  "chunk_index": 9,
+  "qa_pairs": [
+    {
+      "question": "Dans un programme PyTorch qui roule sur un GPU, quelles sont les étapes clés pour entraîner le modèle à chaque itération sur un lot de données?",
+      "answer": "Pour chaque lot de données, on transfère les données (inputs et targets) au GPU, on effectue la passe avant pour obtenir les prédictions (outputs), on calcule la perte (loss), on remet les gradients à zéro (optimizer.zero_grad()), on fait la passe arrière (loss.backward()) et on met à jour les paramètres du modèle (optimizer.step())."
+    },
+    {
+      "question": "C'est quoi le parallélisme des données en PyTorch?",
+      "answer": "Le parallélisme des données, c'est quand on entraîne un modèle en utilisant plusieurs copies (des 'replicas') en parallèle. Chaque copie reçoit une partie différente des données d'entraînement à chaque itération. Ensuite, les gradients sont agrégés, et les paramètres de toutes les copies sont mis à jour, soit de manière synchrone, soit asynchrone."
+    },
+    {
+      "question": "Quels sont les avantages d'utiliser le parallélisme des données?",
+      "answer": "Cette approche peut accélérer pas mal l'entraînement en permettant de parcourir un grand ensemble de données environ N fois plus rapidement, où N est le nombre de copies du modèle."
+    },
+    {
+      "question": "Y a-t-il des désavantages au parallélisme des données?",
+      "answer": "Oui, un inconvénient important, c'est qu'il faut ajuster le taux d'apprentissage ou la taille des lots de données (batch size) selon le nombre de copies du modèle pour que l'entraînement soit équivalent à celui fait sans parallélisme."
+    },
+    {
+      "question": "Quelle est la contrainte principale pour un modèle quand on utilise le parallélisme des données avec plusieurs GPU?",
+      "answer": "Quand on utilise plusieurs GPU, le modèle doit être suffisamment petit pour occuper la mémoire d'un seul GPU, puisque chaque GPU héberge une copie du modèle."
+    },
+    {
+      "question": "Quelles sont les méthodes suggérées pour implémenter le parallélisme des données avec PyTorch?",
+      "answer": "On peut utiliser la classe `DistributedDataParallel` de PyTorch ou le paquet `PyTorch Lightning`."
+    },
+    {
+      "question": "Quelle classe est recommandée par les développeurs PyTorch pour le parallélisme des données avec plusieurs GPU?",
+      "answer": "La classe `DistributedDataParallel` est recommandée par les développeurs PyTorch pour le parallélisme des données, qu'on utilise un seul nœud ou plusieurs nœuds avec plusieurs GPU."
+    },
+    {
+      "question": "Dans le script `pytorch-ddp-test.sh`, comment l'environnement Python est-il préparé pour l'exécution?",
+      "answer": "Le script charge le module `python`, crée et active un environnement virtuel dans `$SLURM_TMPDIR/env`, puis installe `torch` et `torchvision` sans utiliser d'index (hors-ligne)."
+    },
+    {
+      "question": "Quelles variables d'environnement sont importantes dans le script `pytorch-ddp-test.sh` pour la communication distribuée?",
+      "answer": "Le script exporte `TORCH_NCCL_ASYNC_HANDLING=1` et `MASTER_ADDR=$(hostname)` pour stocker l'adresse IP du nœud maître, ce qui aide à initier les communications distribuées."
+    },
+    {
+      "question": "Comment le script shell `pytorch-ddp-test.sh` lance-t-il le script Python pour l'entraînement distribué?",
+      "answer": "Il utilise la commande `srun python pytorch-ddp-test.py` et lui passe des arguments comme `--init_method tcp://$MASTER_ADDR:3456`, `--world_size $((SLURM_NTASKS_PER_NODE * SLURM_JOB_NUM_NODES))` et `--batch_size 256` pour configurer le processus distribué."
+    },
+    {
+      "question": "Quel est le rôle du `DistributedSampler` dans le script `pytorch-ddp-test.py` quand on fait du parallélisme des données?",
+      "answer": "Le `DistributedSampler` sert à distribuer les données d'entraînement parmi les différents processus, s'assurant que chaque processus reçoit un sous-ensemble unique des données. Ça évite que plusieurs copies du modèle traitent les mêmes données en même temps."
+    }
+  ],
+  "generated_at": "2026-04-12T05:46:38.341706+00:00"
+}

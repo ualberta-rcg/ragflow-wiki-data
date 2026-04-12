@@ -5,67 +5,113 @@ lang: "base"
 
 source_wiki_title: "Job scheduling policies"
 source_hash: "5fa7859d1dc5a699f2f44eb9ee8c4234"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T07:32:29.921769+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T08:11:46.998637+00:00"
 
 tags:
   - slurm
 
 keywords:
-  []
+  - "serial processes"
+  - "partition-stats"
+  - "Job priority"
+  - "job submission"
+  - "Resource allocation"
+  - "job scheduling"
+  - "fairshare"
+  - "share allocated"
+  - "Slurm"
+  - "walltime"
+  - "priority"
+  - "whole-node scheduling"
+  - "Resource Allocation Project"
+  - "sshare command"
+  - "Priority"
+  - "Whole-node scheduling"
+  - "cluster partitions"
+  - "serial work"
+  - "resource partitions"
+  - "Fair-share"
+  - "resource use"
+  - "partition Type"
+  - "Regular"
+  - "GPU"
+  - "Idle nodes"
+  - "backfilling"
+  - "Large Mem"
+  - "compute nodes"
+  - "time limits"
+  - "Job scheduling"
+  - "Fairshare"
+  - "job run-time"
+
+questions:
+  - "How does the \"fair tree\" algorithm determine the scheduling priority of jobs submitted to the cluster?"
+  - "What are the differences between Resource Allocation Competition (RAC) projects and non-RAC projects regarding their account codes and target usage levels?"
+  - "How can the `sshare` command be used to interpret a research group's resource usage and predict job priority based on the LevelFS metric?"
+  - "How does grad2's allocated share compare to their recent resource usage within the group?"
+  - "What is the expected priority ranking of jobs submitted by grad2, postdoc3, and prof1?"
+  - "How does a user's recent resource usage relative to their allocated shares influence their overall fairshare level?"
+  - "How do metrics like NormShares and EffectvUsage influence a project's LevelFS and subsequently determine the priority of its new jobs?"
+  - "What are the guidelines and potential pitfalls for requesting whole-node scheduling versus individual cores for an application?"
+  - "What are the maximum permitted run-time limits for jobs submitted to the different clusters described in the text?"
+  - "How does the requested time limit of a job affect its scheduling opportunities and its ability to benefit from backfilling?"
+  - "What are the different hardware categories of nodes available on the general-purpose clusters, and how does a job's resource request determine its routing?"
+  - "What specific information about cluster partitions, jobs, and nodes can be monitored using the `partition-stats` utility?"
+  - "What is the correct number of cores to request when you need 4 cores?"
+  - "What tools or techniques can be used to efficiently pack serial processes onto a single node for whole-node scheduling?"
+  - "What are the specific maximum job run-time limits for the Trillium, Fir, Narval, Nibi, and Rorqual clusters?"
+  - "How do you interpret the job and node statistics provided by the partition-stats utility table?"
+  - "How does the \"Matryoshka doll\" structure apply to the scheduling partitions and their respective time limits?"
+  - "What are the specific restrictions regarding the automated use of the partition-stats utility and the maximum number of jobs a user can have in the system?"
+  - "What are the three specific partition types categorized in the resource table?"
+  - "What does the numerical format \"by node:by core\" represent in the context of this data?"
+  - "How does the availability of resources differ between the Regular, Large Mem, and GPU partitions?"
+  - "How do you interpret the job and node statistics provided by the partition-stats utility table?"
+  - "How does the \"Matryoshka doll\" structure apply to the scheduling partitions and their respective time limits?"
+  - "What are the specific restrictions regarding the automated use of the partition-stats utility and the maximum number of jobs a user can have in the system?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
 *Parent page: [Running jobs](running-jobs.md)*
 
-You can do much work on our clusters by [submitting jobs](running-jobs.md)
-that specify only the number of cores and a runtime limit.
-However if you submit large numbers of jobs, or jobs that require large
-amounts of resources, you may be able to improve your productivity
-by understanding the policies affecting job scheduling.
+You can do much work on our clusters by [submitting jobs](running-jobs.md) that specify only the number of cores and a runtime limit. However, if you submit large numbers of jobs, or jobs that require large amounts of resources, you may be able to improve your productivity by understanding the policies affecting job scheduling.
 
 ## Priority and fair-share
 
-The order in which jobs are considered for scheduling is determined by *priority*.
-Priority on our systems is determined using the "fair tree" algorithm, described [here](https://slurm.schedmd.com/fair_tree.html) and [here](https://slurm.schedmd.com/SC14/BYU_Fair_Tree.pdf).
+The order in which jobs are considered for scheduling is determined by **priority**. Priority on our systems is determined using the "fair tree" algorithm, described [here](https://slurm.schedmd.com/fair_tree.html) and [here](https://slurm.schedmd.com/SC14/BYU_Fair_Tree.pdf).
 
-Each job is charged to a Resource Allocation Project (RAP).
-You specify the project with the `--account` argument to `sbatch`.
-The project might hold a grant of CPU or GPU time from a [Resource Allocation Competition](https://www.computecanada.ca/research-portal/accessing-resources/resource-allocation-competitions/), in which case the account code will probably begin with `rrg-` or `rpp-`. Or it could be a non-RAC project, also known as a Rapid Access Service project, in which case the account code will probably begin with `def-`. See [Accounts and Projects](running-jobs.md#accounts-and-projects) for how to determine what account codes you can use.
+Each job is charged to a Resource Allocation Project (RAP). You specify the project with the `--account` argument to `sbatch`. The project might hold a grant of CPU or GPU time from a [Resource Allocation Competition](https://www.computecanada.ca/research-portal/accessing-resources/resource-allocation-competitions/), in which case the account code will probably begin with `rrg-` or `rpp-`. Or it could be a non-RAC project, also known as a Rapid Access Service project, in which case the account code will probably begin with `def-`. See [Accounts and Projects](running-jobs.md#accounts-and-projects) for how to determine what account codes you can use.
 
 Every project has a target usage level. RAC projects have target levels determined by the number of CPU-years or GPU-years granted with each RAC award. Non-RAC projects (i.e. `def-` accounts) all have equal target levels, and that equal value is adjusted every few minutes based on the number of projects that are active on the cluster.
 
 As an example let us imagine a research group with the account code `def-prof1`. Members of this imaginary group have user names `prof1, grad2` and `postdoc3`. We can examine the group's usage and share information with the `sshare` command as shown below. Note that we must append `_cpu` or `_gpu` to the end of the account code, as appropriate, since CPU and GPU use are tracked separately.
 
-```console
+```text
 [prof1@gra-login4 ~]$ sshare -l -A def-prof1_cpu -u prof1,grad2,postdoc3
         Account       User  RawShares  NormShares  RawUsage  ... EffectvUsage  ...    LevelFS  ...
  -------------- ---------- ---------- -----------  --------  ... ------------  ... ----------  ...
  def-prof1_cpu                 434086    0.001607   1512054  ...     0.000043  ...  37.357207  ...
-  def-prof1_cpu      prof1          1    0.100000         0  ...     0.000000  ...        inf  ...
+  def-prof1_cpu      prof1          1    0.100000         0  ...     0.000000  ...        inf  ...   
   def-prof1_cpu      grad2          1    0.100000     54618  ...     0.036122  ...   2.768390  ...
   def-prof1_cpu   postdoc3          1    0.100000    855517  ...     0.565798  ...   0.176741  ...
 ```
 
-The output shown above has been simplified by removing several fields which are not relevant to this discussion.
-Furthermore the line that is *most* important for scheduling is the first one, highlighted in red.
-This line describes the status of the project relative to all other projects using the cluster.
-In this example, the research group share is 0.1607% and they have used 0.0043% of the resources on the cluster, the group's LevelFS is 37 which is quite high as the group has used a small fraction of their allocated share of resources. We would expect that jobs submitted by this group to have a fairly high priority.
+The output shown above has been simplified by removing several fields which are not relevant to this discussion. Furthermore the line that is most important for scheduling is the first one. This line describes the status of the project relative to all other projects using the cluster. In this example, the research group share is 0.1607% and they have used 0.0043% of the resources on the cluster, the group's LevelFS is 37 which is quite high as the group has used a small fraction of their allocated share of resources. We would expect that jobs submitted by this group to have a fairly high priority.
 
-Successive lines describe the status of each user relative to other users *in this project*.
-Reading the 3rd line, grad2 has 1 share allocated within his group representing 10% of the group's allocation is responsible for only 3.6122% of the group's recent resource use and therefore has a higher than average level fairshare within the group. We would expect that jobs submitted by grad2 to have slightly more priority than jobs submitted by postdoc3 but less priority than jobs submitted by prof1.
-The priority of jobs belonging to def-prof1 group as compared to the priority of jobs belonging to other research groups is determined solely by the group’s fairshare and not the users fairshare within the group.
+Successive lines describe the status of each user relative to other users *in this project*. Reading the 3rd line, grad2 has 1 share allocated within his group representing 10% of the group's allocation is responsible for only 3.6122% of the group's recent resource use and therefore has a higher than average level fairshare within the group. We would expect that jobs submitted by grad2 to have slightly more priority than jobs submitted by postdoc3 but less priority than jobs submitted by prof1. The priority of jobs belonging to def-prof1 group as compared to the priority of jobs belonging to other research groups is determined solely by the group’s fairshare and not the users fairshare within the group.
 
 The project by itself, or the user within a project, is referred to as an "association" in the Slurm documentation.
+
 *   `Account`, obviously, is the project name with `_cpu` or `_gpu` appended.
-*   `User`: Notice that the first line of output, the highlighted line, does not include a user name.
+*   `User`: Notice that the first line of output, the project-level line, does not include a user name.
 *   `RawShares` is proportional to the number of CPU-years that was granted to the project for use on this cluster in the Resource Allocation Competition. All non-RAC accounts have small equal numbers of shares. For numeric reasons, inactive accounts (which do not have pending or running jobs) are given only one share. Activity is checked periodically, so if you submit a job with an inactive account, it may take up to 15 minutes before the account shows the expected `RawShares` and `LevelFS`.
 *   `NormShares` is the number of shares assigned to the user or account divided by the total number of assigned shares within the level. So for the first line, the NormShares of 0.001607 is the fraction of the shares held by the project, relative to all other projects. The NormShares of 0.10000 on the other three lines are the fraction of shares held by each member of the project relative to the other members. (This project has ten members, but we only asked for information about three.)
 *   `RawUsage` is calculated from the total number of resource-seconds (that is, CPU time, GPU time, and memory) that have been charged to this account. Past usage is discounted with a [half-life](https://en.wikipedia.org/wiki/Half-life) of one week, so usage more than a few weeks in the past will have only a small effect on priority.
@@ -81,16 +127,13 @@ A project which consistently uses its target amount will have a LevelFS near 1.0
 Applications which can efficiently use more cores than are found in a single node may benefit from being scheduled on **whole nodes**. Some clusters have nodes reserved for jobs which request one or more entire nodes. See [whole nodes](advanced-mpi-scheduling.md#whole-nodes) on the page [Advanced MPI scheduling](advanced-mpi-scheduling.md) for example scripts and further discussion.
 
 !!! warning
-    Note that requesting an inefficient number of processors for a calculation simply in order to take advantage of whole-node scheduling will be construed as abuse of the system. For example, a program which takes just as long to run on 192 cores as on 64 cores should request 64 cores, not 192.
+    Requesting an inefficient number of processors for a calculation simply in order to take advantage of whole-node scheduling will be construed as abuse of the system. For example, a program which takes just as long to run on 192 cores as on 64 cores should request 64 cores, not 192.
 
-If you have huge amounts of serial work and can efficiently use [META-Farm](meta-farm.md), [GNU Parallel](gnu-parallel.md), [GLOST](glost.md),
-or [other techniques](https://docs.scinet.utoronto.ca/index.php/Running_Serial_Jobs_on_Niagara) to pack
-serial processes onto a single node, you are also welcome to use whole-node scheduling.
+If you have huge amounts of serial work and can efficiently use [META-Farm](meta-farm.md), [GNU Parallel](gnu-parallel.md), [GLOST](glost.md), or [other techniques](https://docs.scinet.utoronto.ca/index.php/Running_Serial_Jobs_on_Niagara) to pack serial processes onto a single node, you are also welcome to use whole-node scheduling.
 
 ## Time limits
 
-[Trillium](trillium.md) accepts jobs of up to 24 hours run-time, [Fir](fir.md), [Narval](narval.md), [Nibi](nibi.md) and [Rorqual](rorqual.md) up to 7 days.
-These limits are subject to change at the discretion of each site's sysadmin team.
+[Trillium](trillium.md) accepts jobs of up to 24 hours run-time, [Fir](fir.md), [Narval](narval.md), [Nibi](nibi.md) and [Rorqual](rorqual.md) up to 7 days. These limits are subject to change at the discretion of each site's sysadmin team.
 
 On the general-purpose clusters, longer jobs are restricted to use only a fraction of the cluster by *partitions*. There are partitions for jobs of
 *   3 hours or less,
@@ -98,15 +141,14 @@ On the general-purpose clusters, longer jobs are restricted to use only a fracti
 *   24 hours (1 day) or less,
 *   72 hours (3 days) or less,
 *   7 days or less
+
 Because any job of 3 hours is also less than 12 hours, 24 hours, and so on, shorter jobs can always run in partitions with longer time-limits. A shorter job will have more scheduling opportunities than an otherwise-identical longer job.
 
 ## Backfilling
 
-The scheduler employs [backfilling](https://slurm.schedmd.com/sched_config.html) to improve
-overall system usage.
+The scheduler employs [backfilling](https://slurm.schedmd.com/sched_config.html) to improve overall system usage.
 
-!!! note
-    Without backfill scheduling, each partition is scheduled strictly in priority order, which typically results in significantly lower system utilization and responsiveness than otherwise possible. Backfill scheduling will start lower priority jobs if doing so does not delay the expected start time of any higher priority jobs. Since the expected start time of pending jobs depends upon the expected completion time of running jobs, reasonably accurate time limits are important for backfill scheduling to work well.
+> Without backfill scheduling, each partition is scheduled strictly in priority order, which typically results in significantly lower system utilization and responsiveness than otherwise possible. Backfill scheduling will start lower priority jobs if doing so does not delay the expected start time of any higher priority jobs. Since the expected start time of pending jobs depends upon the expected completion time of running jobs, reasonably accurate time limits are important for backfill scheduling to work well.
 
 Backfilling will primarily benefit jobs with short time limits, e.g. under 3 hours.
 
@@ -117,6 +159,7 @@ First, the nodes are partitioned into four different categories:
 *   Base nodes, which have 4 or 8 GB of memory per core
 *   Large memory nodes, which have 16 to 96 GB of memory per core
 *   GPU nodes
+
 Upon submission, your job will be routed to one of these categories based on what resources are requested.
 
 Second, within each of the above categories, some nodes are reserved for jobs which can make use of complete nodes (i.e. jobs which use all of the resources available on the allocated nodes). If your job only uses a few cores (or a single core) out of each node, it is only allowed to use a subset of the category. These are referred to as "by-node" and "by-core" partitions.
@@ -128,9 +171,10 @@ The utility `partition-stats` shows
 *   how many jobs are currently running,
 *   how many nodes are currently idle, and
 *   how many nodes are assigned to each partition.
+
 Here is some sample output from `partition-stats`:
 
-```console
+```text
 [user@login1 ~]$ partition-stats
 
 Node type |                     Max walltime
@@ -188,8 +232,7 @@ It may help to think of these partitions as being like [Matryoshka (Russian) dol
 
 The `partition-stats` utility does not give information about the number of cores represented by running or waiting jobs, nor the number of cores free in partly-assigned nodes in by-core partitions, nor about available memory associated with free cores in by-core partitions.
 
-!!! warning
-    Running `partition-stats` is somewhat costly to the scheduler. Please do not write a script which automatically calls `partition-stats` repeatedly. If you have a workflow which you believe would benefit from automatic parsing of the information from `partition-stats`, please contact [Technical support](technical-support.md) and ask for guidance.
+Running `partition-stats` is somewhat costly to the scheduler. Please do not write a script which automatically calls `partition-stats` repeatedly. If you have a workflow which you believe would benefit from automatic parsing of the information from `partition-stats`, please contact [Technical support](technical-support.md) and ask for guidance.
 
 ## Number of jobs
 

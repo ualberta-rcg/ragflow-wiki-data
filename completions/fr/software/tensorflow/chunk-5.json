@@ -1,0 +1,64 @@
+{
+  "doc_key": "fr/tensorflow",
+  "level": "chunk",
+  "chunk_index": 5,
+  "qa_pairs": [
+    {
+      "question": "Comment puis-je accéder à TensorBoard depuis mon ordinateur local pendant qu'une tâche TensorFlow roule sur une grappe?",
+      "answer": "Pour y arriver, il faut établir un lien SSH entre votre ordinateur et le nœud de calcul où TensorFlow et TensorBoard sont en marche."
+    },
+    {
+      "question": "De quelles informations ai-je besoin pour créer le lien de connexion à TensorBoard sur mon ordinateur local?",
+      "answer": "Vous avez besoin du nom d'hôte du nœud de calcul où le serveur TensorFlow tourne, de votre nom d'utilisateur de l'Alliance et du nom d'hôte de la grappe (par exemple, rorqual, fir, nibi)."
+    },
+    {
+      "question": "Comment puis-je trouver le nom d'hôte du nœud de calcul sur lequel ma tâche TensorFlow est en cours d'exécution?",
+      "answer": "Utilisez la commande `sq` pour lister vos tâches et repérez la valeur dans la colonne `NODELIST` pour trouver le nom d'hôte de la tâche."
+    },
+    {
+      "question": "Quelle est la commande à lancer sur mon ordinateur local pour établir la connexion SSH à TensorBoard?",
+      "answer": "La commande est `ssh -N -f -L localhost:6006:computenode:6006 userid@cluster.computecanada.ca`, en remplaçant `computenode`, `userid` et `cluster` par les informations appropriées."
+    },
+    {
+      "question": "Qu'arrive-t-il si le port 6006 est déjà pris lorsque TensorBoard essaie de l'utiliser?",
+      "answer": "Si le port 6006 est déjà utilisé, TensorBoard en utilisera un autre, comme 6007 ou 6008."
+    },
+    {
+      "question": "Une fois la connexion SSH établie, quelle adresse dois-je visiter dans mon fureteur pour voir TensorBoard?",
+      "answer": "Vous devez aller à `http://localhost:6006` dans votre fureteur."
+    },
+    {
+      "question": "Comment lancer TensorBoard en arrière-plan dans un script SBATCH avec mon script Python?",
+      "answer": "Il faut lancer TensorBoard en arrière-plan en l'appelant avant le script Python et en ajoutant le caractère `&`, comme ceci : `tensorboard --logdir=/tmp/your_log_dir --host 0.0.0.0 --load_fast false & python train.py`."
+    },
+    {
+      "question": "Quelle API de haut niveau TensorFlow est utilisée pour exploiter plusieurs GPU?",
+      "answer": "C'est l'API `tf.distribute` qui offre différentes stratégies pour utiliser plusieurs GPU."
+    },
+    {
+      "question": "Quelle stratégie est présentée pour utiliser plusieurs GPU sur un seul nœud avec Keras?",
+      "answer": "La stratégie miroir (`MirroredStrategy`) est présentée pour ce cas de figure."
+    },
+    {
+      "question": "Que fait le script `tensorflow-singleworker.sh` concernant l'environnement Python?",
+      "answer": "Il charge le module `python/3`, crée un nouvel environnement virtuel dans `$SLURM_TMPDIR/env`, l'active et installe TensorFlow en utilisant `pip install --no-index tensorflow`."
+    },
+    {
+      "question": "À quoi sert la variable d'environnement `NCCL_BLOCKING_WAIT=1` dans le script `tensorflow-singleworker.sh`?",
+      "answer": "Cette variable est à définir si vous souhaitez utiliser le backend NCCL pour la communication entre les GPU."
+    },
+    {
+      "question": "Quel ensemble de données est utilisé dans l'exemple Python `tensorflow-singleworker.py`?",
+      "answer": "Le script Python `tensorflow-singleworker.py` utilise l'ensemble de données CIFAR10."
+    },
+    {
+      "question": "Que se passe-t-il si l'ensemble de données CIFAR10 n'est pas déjà présent sur le système lorsque le script `tensorflow-singleworker.py` est exécuté?",
+      "answer": "Le script tentera de télécharger l'ensemble de données CIFAR10 depuis Internet s'il n'est pas déjà stocké dans `~/.keras/datasets`."
+    },
+    {
+      "question": "Existe-t-il une façon d'obtenir l'ensemble de données CIFAR10 sans le télécharger via le script Python?",
+      "answer": "Oui, vous pouvez le télécharger manuellement depuis `https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz`, le renommer en \"cifar-10-batches-py.tar.gz\" et le placer dans `~/.keras/datasets`."
+    }
+  ],
+  "generated_at": "2026-04-12T09:03:37.941629+00:00"
+}

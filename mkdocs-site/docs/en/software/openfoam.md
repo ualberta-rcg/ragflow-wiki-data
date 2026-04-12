@@ -5,39 +5,64 @@ lang: "en"
 
 source_wiki_title: "OpenFOAM/en"
 source_hash: "50786cd5bd80b798b83750737103ce6a"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T09:32:32.799145+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T10:01:07.823513+00:00"
 
 tags:
   - software
 
 keywords:
-  []
+  - "petscFoam solver"
+  - "compile"
+  - "submission scripts"
+  - "computational fluid dynamics"
+  - "node-local scratch"
+  - "module files"
+  - "OpenFOAM"
+  - "petsc"
+  - "external-solver-main.tar.gz"
+  - "dynamic library"
+  - "openfoam"
+  - "performance optimization"
+
+questions:
+  - "What is the OpenFOAM CFD Toolbox and what types of computational problems is it designed to solve?"
+  - "How should users prepare their environment and submit serial or parallel OpenFOAM jobs using Slurm?"
+  - "How can users determine version compatibility and compile the external petscFoam solver to work with OpenFOAM?"
+  - "How can a user verify that the petscFoam solver has been successfully compiled and is functional?"
+  - "What configuration changes can be made to reduce excessive debugging output and improve OpenFOAM's performance on shared filesystems?"
+  - "How does utilizing the node-local scratch space ($SLURM_TMPDIR) benefit workflows that generate many small files?"
+  - "What type of updates does the mentioned release branch contain compared to version 3.21.2?"
+  - "Which specific solver is the user instructed to compile in this guide?"
+  - "What software modules and commands are required to successfully download and extract the external solver package?"
+  - "How can a user verify that the petscFoam solver has been successfully compiled and is functional?"
+  - "What configuration changes can be made to reduce excessive debugging output and improve OpenFOAM's performance on shared filesystems?"
+  - "How does utilizing the node-local scratch space ($SLURM_TMPDIR) benefit workflows that generate many small files?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
-The [OpenFOAM](https://www.openfoam.com/) (Open Field Operation and Manipulation) CFD Toolbox is a free, open source software package for computational fluid dynamics. OpenFOAM has an extensive range of features to solve anything from complex fluid flows involving chemical reactions, turbulence and heat transfer, to solid dynamics and electromagnetics.
+The [OpenFOAM](https://www.openfoam.com/) (Open Field Operation and Manipulation) CFD Toolbox is a free, open source software package for computational fluid dynamics. OpenFOAM has an extensive range of features to solve anything from complex fluid flows involving chemical reactions, turbulence and heat transfer, to solid dynamics and electromagnetism.
 
 ## Module files
-To load the recent version, run
+To load the recent version, run:
 
 ```bash
 module load openfoam
 ```
 
 The OpenFOAM development community consists of:
-* The OpenFOAM Foundation Ltd., with web sites [openfoam.org](https://openfoam.org/) and [cfd.direct](https://cfd.direct/)
-* OpenCFD Ltd., with web site [openfoam.com](https://www.openfoam.com/)
+*   The OpenFOAM Foundation Ltd., with websites [openfoam.org](https://openfoam.org/) and [cfd.direct](https://cfd.direct/)
+*   OpenCFD Ltd., with website [openfoam.com](https://www.openfoam.com/)
 Up to version 2.3.1, released in December 2014, the release histories appear to be the same. On our clusters, module names after 2.3.1 which begin with "v" are derived from the .com branch (for example, `openfoam/v1706`); those beginning with a digit are derived from the .org branch (for example, `openfoam/4.1`).
 
-See [Using modules](utiliser-des-modules.md) for more on module commands.
+See [Using modules](using-modules.md) for more on module commands.
 
 ## Documentation
 [OpenFOAM.com documentation](https://www.openfoam.com/documentation/) and [CFD Direct user guide](https://cfd.direct/openfoam/user-guide/).
@@ -46,6 +71,7 @@ See [Using modules](utiliser-des-modules.md) for more on module commands.
 OpenFOAM requires substantial preparation of your environment. In order to run OpenFOAM commands (such as `paraFoam`, `blockMesh`, etc), you must load a [module file](using-modules.md).
 
 Here is an example of a serial submission script for OpenFOAM 5.0:
+
 ```bash title="submit.sh"
 #!/bin/bash
 #SBATCH --time=00:01:00
@@ -59,6 +85,7 @@ icoFoam
 ```
 
 Here is an example of a parallel submission script:
+
 ```bash title="submit.sh"
 #!/bin/bash
 #SBATCH --account=def-someuser
@@ -78,32 +105,31 @@ srun interFoam -parallel
 Mesh preparation (`blockMesh`) may be fast enough to be done at the command line (see [Running jobs](running-jobs.md)). The solver (`icoFoam` and others) is usually the most expensive step and should always be submitted as a Slurm job except in very small test cases or tutorials.
 
 ## petscFoam solver
-OpenFOAM can be compiled with the external petscFoam solver.
-Our OpenFOAM modules don't include this solver but it can easily be compiled on any of our clusters.
+OpenFOAM can be compiled with the external petscFoam solver. Our OpenFOAM modules don't include this solver but it can easily be compiled on any of our clusters.
 
-The versions of OpenFOAM and PETSc need to be compatible. Compatible combinations are e.g.:
+The versions of OpenFOAM and PETSc need to be compatible. Compatible combinations are, for example:
 
-* `openfoam/v2412` and `petsc/3.21.6`
-* `openfoam/v2312` and `petsc/3.20.0`
+*   `openfoam/v2412` and `petsc/3.21.6`
+*   `openfoam/v2312` and `petsc/3.20.0`
 
 ### Determine compatible versions of OpenFOAM and PETSc
-To check which minor release of PETSc is compatible with a particular version of OpenFOAM,
-load the desired module of OpenFOAM and run the following `grep` command:
+To check which minor release of PETSc is compatible with a particular version of OpenFOAM, load the desired module of OpenFOAM and run the following `grep` command:
 
 ```bash
 module load openfoam/v2412 && grep "^petsc_version"  $EBROOTOPENFOAM/OpenFOAM*/etc/config.sh/petsc
 ```
+
 ```text
 petsc_version=petsc-3.21.2
 ```
 
 This tells us that when `openfoam/v2412` was released, it was tested with PETSc 3.21.2.
 
-We have a module for `petsc/3.21.6`, which is from the same 3.21 release branch and should
-only contain bugfixes compared to 3.21.2.
+We have a module for `petsc/3.21.6`, which is from the same 3.21 release branch and should only contain bugfixes compared to 3.21.2.
 
 ### Compile petscFoam solver
 Next we need to download and extract the `external-solver-main.tar.gz` package.
+
 ```bash
 module load StdEnv/2023 gcc/12.3 openmpi/4.1.5 openfoam/v2412 petsc/3.21.6
 wget https://develop.openfoam.com/modules/external-solver/-/archive/main/external-solver-main.tar.gz
@@ -112,9 +138,11 @@ cd external-solver-main
 ```
 
 Running `./Allwmake` will compile the petscFoam solver:
+
 ```bash
 ./Allwmake
 ```
+
 ```text
 ========================================
 2025-08-14 15:00:00 -0400
@@ -130,42 +158,48 @@ Starting compile of external-solver (petsc) with OpenFOAM-v2412
 A few quick tests will confirm that petscFoam solver is working:
 
 Check whether OpenFOAM can load petscFoam:
+
 ```bash
 foamHasLibrary -verbose petscFoam
 ```
+
 ```text
 Can load "petscFoam"
 ```
 
 Check whether the dynamic library is located in `$FOAM_USER_LIBBIN`:
+
 ```bash
 ls $FOAM_USER_LIBBIN
 ```
+
 ```text
 libpetscFoam.so
 ```
 
 Check whether `libpetscFoam.so` can find its dependencies:
+
 ```bash
 ldd $FOAM_USER_LIBBIN/libpetscFoam.so | grep petsc
 ```
+
 ```text
- libpetsc.so.3.21 ==> /cvmfs/soft.computecanada.ca/easybuild/software/2023/x86-64-v4/MPI/gcc12/openmpi4/petsc/3.21.6/lib/libpetsc.so.3.21 (0x00007f96fa800000)
- libstrumpack.so.7.2 ==> /cvmfs/soft.computecanada.ca/easybuild/software/2023/x86-64-v4/MPI/gcc12/openmpi4/petsc/3.21.6/lib/libstrumpack.so.7.2 (0x00007f96f8200000)
- libml.so.13 ==> /cvmfs/soft.computecanada.ca/easybuild/software/2023/x86-64-v4/MPI/gcc12/openmpi4/petsc/3.21.6/lib/libml.so.13 (0x00007f96fa281000)
+ libpetsc.so.3.21 => /cvmfs/soft.computecanada.ca/easybuild/software/2023/x86-64-v4/MPI/gcc12/openmpi4/petsc/3.21.6/lib/libpetsc.so.3.21 (0x00007f96fa800000)
+ libstrumpack.so.7.2 => /cvmfs/soft.computecanada.ca/easybuild/software/2023/x86-64-v4/MPI/gcc12/openmpi4/petsc/3.21.6/lib/libstrumpack.so.7.2 (0x00007f96f8200000)
+ libml.so.13 => /cvmfs/soft.computecanada.ca/easybuild/software/2023/x86-64-v4/MPI/gcc12/openmpi4/petsc/3.21.6/lib/libml.so.13 (0x00007f96fa281000)
 ```
 
 ## Performance
 OpenFOAM can emit a lot of debugging information in very frequent small writes (e.g. hundreds per second). This may lead to poor performance on our shared filesystems. If you are in stable production and don't need the debug output, you can reduce or disable it with:
+
 ```bash
 mkdir -p $HOME/.OpenFOAM/$WM_PROJECT_VERSION
 cp $WM_PROJECT_DIR/etc/controlDict $HOME/.OpenFOAM/$WM_PROJECT_VERSION/
 ```
+
 There are a variety of other parameters which can be used to reduce the amount of output that OpenFOAM writes to disk as well as the frequency; these run-time parameters are documented for [version 6](https://cfd.direct/openfoam/user-guide/v6-controldict/) and [version 7](https://cfd.direct/openfoam/user-guide/v7-controldict/).
 
 For example, the `debugSwitches` dictionary in `$HOME/.OpenFOAM/$WM_PROJECT_VERSION/controlDict` can be altered to change the flags from values greater than zero to zero. Another solution would be to make use of the local scratch (`$SLURM_TMPDIR`), a disk attached directly to the compute node, discussed [here](handling-large-collections-of-files.md#local-disk).
 
 ### Node-local scratch
-
-!!! tip
-    If your workflow involves the creation of many small files, you may benefit from making `$SLURM_TMPDIR` your working directory. See [Using node-local storage](using-node-local-storage.md) for more on this.
+If your workflow involves the creation of many small files, you may benefit from making `$SLURM_TMPDIR` your working directory. See [Using node-local storage](using-node-local-storage.md) for more on this.

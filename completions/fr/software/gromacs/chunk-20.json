@@ -1,0 +1,28 @@
+{
+  "doc_key": "fr/gromacs",
+  "level": "chunk",
+  "chunk_index": 20,
+  "qa_pairs": [
+    {
+      "question": "Comment le script détermine-t-il si une simulation est terminée?",
+      "answer": "Le script vérifie si la ligne \"Writing checkpoint, step $nsteps at \" apparaît dans le fichier de journalisation de la simulation (`$simname.log`)."
+    },
+    {
+      "question": "Que fait le script une fois qu'une simulation est identifiée comme terminée?",
+      "answer": "Si la simulation est terminée, le script affiche le message \"Simulation finished, cancelling pending jobs\" et annule les tâches en attente (`scancel -t pending $SLURM_ARRAY_JOB_ID`)."
+    },
+    {
+      "question": "Quel est le nom du fichier de script pour une tâche GROMACS GPU avec point de contrôle?",
+      "answer": "Le nom du fichier de script est `gromacs_job_checkpoint.sh`."
+    },
+    {
+      "question": "Quelle est la première directive SLURM spécifiée dans le script pour une tâche GPU?",
+      "answer": "La première directive SLURM est `#SBATCH --gpus-per-node=1`, demandant 1 GPU par nœud."
+    },
+    {
+      "question": "Comment le script extrait-il le nombre d'étapes (`nsteps`) du fichier de journalisation?",
+      "answer": "Le script extrait le nombre d'étapes en utilisant `grep` avec l'expression régulière `'^[[:space:]]*nsteps[[:space:]]*=[[:space:]]*[[:digit:]]*$'` sur le fichier `$simname.log`, puis il utilise `awk` pour prendre le troisième champ."
+    }
+  ],
+  "generated_at": "2026-04-11T22:42:54.065849+00:00"
+}

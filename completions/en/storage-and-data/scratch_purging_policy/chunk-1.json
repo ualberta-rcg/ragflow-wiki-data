@@ -1,0 +1,152 @@
+{
+  "doc_key": "en/scratch_purging_policy",
+  "level": "chunk",
+  "chunk_index": 1,
+  "qa_pairs": [
+    {
+      "question": "What is the primary purpose of the /scratch filesystem on the clusters?",
+      "answer": "The /scratch filesystem is intended for temporary, fast storage for data being used during job execution."
+    },
+    {
+      "question": "Where should data be kept for long-term storage and reference?",
+      "answer": "Data needed for long-term storage and reference should be kept in either /project or other archival storage areas."
+    },
+    {
+      "question": "What is the general policy for deleting files on the /scratch filesystem?",
+      "answer": "Files older than 60 days are periodically deleted from the /scratch filesystem to ensure adequate space."
+    },
+    {
+      "question": "Is the purging of files on /scratch based on their location within the filesystem?",
+      "answer": "No, the purging of a file is based on its age, not its location within /scratch; simply moving a file from one directory in /scratch to another will not generally prevent it from being purged."
+    },
+    {
+      "question": "Is the purging method for the Nibi cluster the same as for other clusters?",
+      "answer": "No, the method for the Nibi cluster is different from that of the other clusters."
+    },
+    {
+      "question": "What is an advantage of the quota-based mechanism used for Nibi?",
+      "answer": "The quota-based mechanism has the advantage of being fully user-controlled and avoids the case where specific files in a collection disappear due to slightly different age."
+    },
+    {
+      "question": "When is the /scratch filesystem checked for files that are candidates for expiry on Fir, Narval, Rorqual, and Trillium clusters?",
+      "answer": "The /scratch filesystem is checked at the end of the month for files which will be candidates for expiry on the 15th of the following month."
+    },
+    {
+      "question": "What type of notifications do users receive on the first day of the month regarding purging candidates on Fir, Narval, Rorqual, and Trillium?",
+      "answer": "On the first day of the month, a login message is posted and a notification e-mail is sent to all users who have at least one file which is a candidate for purging; the notification also contains the location of a file where all the candidates for purging are listed."
+    },
+    {
+      "question": "How much time do users have to copy data if they receive a notification on the first day of the month on Fir, Narval, Rorqual, or Trillium?",
+      "answer": "Users will have two weeks to make arrangements to copy data to their /project space or some other location if they wish to save it."
+    },
+    {
+      "question": "When is the final notification e-mail sent for files scheduled for expiration on Fir, Narval, Rorqual, and Trillium clusters, and how much time does it provide?",
+      "answer": "On the 12th of the month, a final notification e-mail is sent with an updated assessment of candidate files for expiration on the 15th, giving users 72 hours to make arrangements to move them."
+    },
+    {
+      "question": "What criteria must files meet to be deleted on the 15th of the month on Fir, Narval, Rorqual, and Trillium clusters?",
+      "answer": "At the end of the day on the 15th, any remaining files on the /scratch filesystem for which both the `ctime` and the `atime` timestamps are older than 60 days are deleted."
+    },
+    {
+      "question": "Whose ultimate responsibility is it to manage files on /scratch, even with notifications?",
+      "answer": "It is the users' ultimate responsibility to keep files older than 60 days out of the /scratch space; the reminders and notifications are a courtesy."
+    },
+    {
+      "question": "What is recommended after moving data from /scratch to another location?",
+      "answer": "Once you have put the data in another location, please delete the original files and directories in /scratch instead of depending on automatic purging."
+    },
+    {
+      "question": "What is the current soft limit for /scratch usage on the Nibi cluster?",
+      "answer": "The current soft limit for /scratch usage on the Nibi cluster is 1TB."
+    },
+    {
+      "question": "What happens if a user's /scratch usage on Nibi remains under the soft limit?",
+      "answer": "If your usage remains under a soft limit (currently set at 1TB) on Nibi, you never have to do anything; there is no time limit, and nothing is automatically deleted."
+    },
+    {
+      "question": "What occurs when a user exceeds the soft limit on the Nibi cluster?",
+      "answer": "Exceeding this soft limit triggers an over-quota condition, which includes a 60-day grace period."
+    },
+    {
+      "question": "What happens when the 60-day grace period expires after exceeding the Nibi soft limit?",
+      "answer": "When the grace period expires, over-quota enforcement starts. Your files are still accessible, but adding files or increasing file sizes will fail with an error."
+    },
+    {
+      "question": "How can a user add files or increase their size after over-quota enforcement has begun on Nibi?",
+      "answer": "In order to add files or increase their size on Nibi, you must first bring your usage under the soft limit, which resets the 60-day counter."
+    },
+    {
+      "question": "What is the hard limit for data storage on the Nibi /scratch filesystem?",
+      "answer": "There is a hard limit of 20TB, which means that even within the 60-day grace period, you cannot store more than 20TB of data in /scratch on Nibi."
+    },
+    {
+      "question": "How can users check which files are scheduled for purging on Fir and Narval clusters?",
+      "answer": "On Fir and Narval clusters, users should go to the `/scratch/to_delete/` path and look for a file with their name."
+    },
+    {
+      "question": "How can users check which files are scheduled for purging on the Trillium cluster?",
+      "answer": "On Trillium, users should go to `/scratch/t/to_delete/` (which is a symlink to `/scratch/t/todelete/current`)."
+    },
+    {
+      "question": "What kind of information is contained in the file listing purging candidates?",
+      "answer": "The file will contain a list of filenames with their full path, and possibly other information about atime, ctime, size, etc."
+    },
+    {
+      "question": "How often is the purging candidate assessment file updated?",
+      "answer": "The purging candidate assessment file will be updated only on the 1st and the 12th of each month."
+    },
+    {
+      "question": "What does it mean if there is no file with a user's name in the `to_delete` path?",
+      "answer": "If a file with your name is not in the `to_delete` path, it means you have no candidates for purging that month."
+    },
+    {
+      "question": "If a user accesses, reads, moves, or deletes candidate files between the 1st and the 11th of the month, will the assessment file immediately reflect these changes?",
+      "answer": "If you access/read/move/delete some of the candidates between the 1st and the 11th, there won't be any changes in the assessment until the 12th."
+    },
+    {
+      "question": "What does it mean if an assessment file was present until the 11th but is no longer there on the 12th?",
+      "answer": "If there was an assessment file up until the 11th, but no longer on the 12th, it's because you don't have anything to be purged anymore."
+    },
+    {
+      "question": "If a user accesses, reads, moves, or deletes candidate files after the 12th of the month, how should they confirm the purging status?",
+      "answer": "If you access/read/move/delete some of the candidates after the 12th, then you have to check for yourself to confirm your files won't be purged on the 15th."
+    },
+    {
+      "question": "How is a file's age determined for the purpose of purging?",
+      "answer": "A file's age is determined by the younger of either the access time (`atime`) or the change time (`ctime`)."
+    },
+    {
+      "question": "Which command can be used to print a file's `atime` and `ctime` timestamps?",
+      "answer": "Both the `atime` and `ctime` timestamps are printed by the `stat <filename>` command."
+    },
+    {
+      "question": "Why is the `mtime` (latest modification time) not used to determine a file's age for purging?",
+      "answer": "The `mtime` is not used because it can be backdated to a distant time in the past by users or by programs such as version-control or build-system software like Git or Make."
+    },
+    {
+      "question": "What is an example of an abuse tactic users might employ to prevent files from being flagged for expiration?",
+      "answer": "Periodically running a recursive `touch` command on files is a method that allows for potential abuse to prevent them from being flagged for expiration."
+    },
+    {
+      "question": "What happens if staff detect users attempting to circumvent the purging policy?",
+      "answer": "Users who employ such techniques will be asked to move the offending data from /scratch to another location."
+    },
+    {
+      "question": "Which commands are generally sufficient for copying data from /scratch to /project?",
+      "answer": "In most cases, `cp` or `rsync` will be sufficient to copy data from /scratch to /project."
+    },
+    {
+      "question": "What problem can arise when copying directories with symbolic links from /scratch using `cp` or `rsync`?",
+      "answer": "If you have symbolic links in /scratch, copying them with `cp` or `rsync` will cause problems since they will still point to /scratch."
+    },
+    {
+      "question": "What method is recommended for safely copying a directory with symbolic links from /scratch to /project?",
+      "answer": "To avoid issues with symbolic links, you can use `tar` to make an archive of your files on /scratch and extract this archive in /project."
+    },
+    {
+      "question": "Provide the `tar` command sequence to safely copy data with symlinks from `/scratch/.../your_data` to `/project/.../your_data`.",
+      "answer": "The command sequence is: `cd /scratch/.../your_data; mkdir /project/.../your_data; tar -cf - ./* | tar -C /project/.../your_data -xf -`."
+    }
+  ],
+  "generated_at": "2026-04-12T07:45:03.153728+00:00"
+}

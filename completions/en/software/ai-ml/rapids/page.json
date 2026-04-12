@@ -1,0 +1,123 @@
+{
+  "doc_key": "en/rapids",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is RAPIDS?",
+      "answer": "RAPIDS is a suite of open-source software libraries from NVIDIA, primarily for executing data science and analytics pipelines in Python on GPUs, relying on NVIDIA CUDA primitives for low-level compute optimization."
+    },
+    {
+      "question": "What are the main software components of RAPIDS?",
+      "answer": "The main components include cuDF, cuML, cuGraph, Cyber Log Accelerators (CLX), cuxFilter, cuSpatial, cuSignal, cuCIM, and RAPIDS Memory Manager (RMM)."
+    },
+    {
+      "question": "What is cuDF used for?",
+      "answer": "cuDF is a Python GPU DataFrame library built on the Apache Arrow columnar memory format for tasks such as loading, joining, aggregating, filtering, and manipulating data."
+    },
+    {
+      "question": "What functionality does cuML provide?",
+      "answer": "cuML is a suite of libraries that implement machine learning algorithms and mathematical primitive functions with compatible APIs across RAPIDS projects."
+    },
+    {
+      "question": "What is cuGraph's role in the RAPIDS platform?",
+      "answer": "cuGraph is a GPU-accelerated graph analytics library offering functionality similar to NetworkX, seamlessly integrated into the RAPIDS data science platform."
+    },
+    {
+      "question": "What are Cyber Log Accelerators (CLX) for?",
+      "answer": "CLX is a collection of RAPIDS examples designed for security analysts, data scientists, and engineers to quickly apply GPU acceleration to cybersecurity use cases."
+    },
+    {
+      "question": "What is cuxFilter?",
+      "answer": "cuxFilter is a connector library that facilitates connections between different visualization libraries and a GPU dataframe, enabling interactive dashboards with charts from various libraries."
+    },
+    {
+      "question": "What types of workflows does cuSpatial accelerate?",
+      "answer": "cuSpatial accelerates GIS workflows with GPU-powered functions, including point-in-polygon, spatial join, coordinate systems, shape primitives, distances, and trajectory analysis."
+    },
+    {
+      "question": "What is cuSignal used for?",
+      "answer": "cuSignal leverages CuPy, Numba, and the RAPIDS ecosystem for GPU-accelerated signal processing, sometimes porting Scipy Signal functions to GPUs with additional Numba CUDA kernels."
+    },
+    {
+      "question": "What is cuCIM designed to do?",
+      "answer": "cuCIM is an extensible toolkit providing GPU-accelerated I/O, computer vision, and image processing primitives for N-Dimensional images, with a specific focus on biomedical imaging."
+    },
+    {
+      "question": "What is the function of the RAPIDS Memory Manager (RMM)?",
+      "answer": "RMM serves as a central manager for all device memory allocations in cuDF and other RAPIDS libraries, functioning as a replacement allocator for CUDA Device Memory and a pool allocator for faster, asynchronous allocations."
+    },
+    {
+      "question": "What is the initial step when building an Apptainer image for RAPIDS?",
+      "answer": "The first step is to locate and select a suitable Docker image provided by NVIDIA."
+    },
+    {
+      "question": "What two types of RAPIDS Docker images are available starting with the v23.08 release?",
+      "answer": "Since the v23.08 release, 'base' and 'notebooks' types of RAPIDS Docker images are available."
+    },
+    {
+      "question": "When should one use a RAPIDS Base Docker image?",
+      "answer": "A RAPIDS Base Docker image should be used if you plan to submit a job to the Slurm scheduler, as it contains a ready-to-use RAPIDS environment."
+    },
+    {
+      "question": "When is a RAPIDS Notebooks Docker image recommended?",
+      "answer": "A RAPIDS Notebooks Docker image is recommended if you wish to work interactively with RAPIDS through notebooks and examples, as it includes a Jupyter notebook server."
+    },
+    {
+      "question": "How can you find the image tag for a chosen RAPIDS Docker image?",
+      "answer": "The image tag for a selected image can be found under the 'Tags' tab on its respective NVIDIA GPU Cloud (NGC) catalogue page."
+    },
+    {
+      "question": "How do you build an Apptainer image from a Docker image tag?",
+      "answer": "You can build an Apptainer image, such as 'rapids.sif', using the command: `apptainer build rapids.sif docker://nvcr.io/nvidia/rapidsai/notebooks:25.04-cuda12.0-py3.12`."
+    },
+    {
+      "question": "What considerations are important when building a RAPIDS Apptainer image?",
+      "answer": "Building the image can take thirty to sixty minutes and requires sufficient memory and disk space due to its relatively large size."
+    },
+    {
+      "question": "What are the ways to use a RAPIDS Apptainer image on a cluster?",
+      "answer": "You can request an interactive session on a GPU node or submit a batch job to the Slurm scheduler."
+    },
+    {
+      "question": "How do you start a RAPIDS shell within an Apptainer container on a GPU node?",
+      "answer": "After loading the Apptainer module, use the command: `apptainer shell --nv rapids.sif`."
+    },
+    {
+      "question": "What is the purpose of the `--nv` option when starting the Apptainer shell for RAPIDS?",
+      "answer": "The `--nv` option binds the GPU driver from the host to the container, ensuring the GPU device is accessible from within the Apptainer container."
+    },
+    {
+      "question": "How can you verify GPU accessibility inside the Apptainer container?",
+      "answer": "You can check the GPU stats by executing `nvidia-smi` at the Apptainer prompt."
+    },
+    {
+      "question": "How do you launch a Jupyter Notebook server from within the RAPIDS Apptainer environment?",
+      "answer": "You can launch it using the command: `jupyter-lab --ip $(hostname -f) --no-browser`."
+    },
+    {
+      "question": "What is a key point about RAPIDS packages in containers from v23.08 onwards?",
+      "answer": "All RAPIDS packages are included and automatically activated within the base conda environment inside the container shell."
+    },
+    {
+      "question": "What is considered a good practice when handling data for a RAPIDS job submitted via Slurm with a container?",
+      "answer": "It is good practice to use the node-local disk (accessible via `$SLURM_TMPDIR`) on the compute node for the container image, code, and data."
+    },
+    {
+      "question": "How is a Python RAPIDS script executed within an Apptainer container as part of a Slurm batch job?",
+      "answer": "The script is executed using `apptainer exec --nv rapids.sif python ./my_rapids_code.py` within the Slurm submission script, after copying necessary files to local disk."
+    },
+    {
+      "question": "Where can users find comprehensive documentation for RAPIDS?",
+      "answer": "Users can find comprehensive documentation at the RAPIDS Docs website."
+    },
+    {
+      "question": "Where can users find example notebooks to help them get started with RAPIDS quickly?",
+      "answer": "A collection of example notebooks is available on GitHub under RAPIDS Notebooks."
+    },
+    {
+      "question": "Where can one find use cases and blogs for RAPIDS applications?",
+      "answer": "A collection of use cases and blogs is available on RAPIDS on Medium."
+    }
+  ],
+  "generated_at": "2026-04-12T06:45:04.566862+00:00"
+}

@@ -1,0 +1,63 @@
+{
+  "doc_key": "en/using_ssh_keys_in_linux",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is the primary purpose of this document regarding SSH?",
+      "answer": "This document provides instructions on how to create SSH key pairs, install the public part of a key, connect using a key pair, and use `ssh-agent` for key management."
+    },
+    {
+      "question": "What is the recommended first step before generating a new SSH key pair?",
+      "answer": "You should first check to see if you already have an existing key pair. If you do but can't remember its usage, it's better to create a new one for security reasons."
+    },
+    {
+      "question": "Where are SSH key pairs typically stored, and what is their default naming convention?",
+      "answer": "Key pairs are typically located in the `.ssh/` directory in your /home directory. By default, they are named with an \"id_\" prefix followed by the key type (e.g., `id_rsa`), with the public key having a \".pub\" suffix (e.g., `id_rsa.pub`)."
+    },
+    {
+      "question": "How do you generate a new SSH key pair using the `ssh-keygen` command, specifically for an ed25519 or a 4-kbit RSA key?",
+      "answer": "To generate an ed25519 key, use `ssh-keygen -t ed25519`. For a 4-kbit RSA key, use `ssh-keygen -b 4096 -t rsa`."
+    },
+    {
+      "question": "What should a user consider when prompted for a passphrase and file name during key generation?",
+      "answer": "A passphrase should be entered to secure the private key. If default names are used by existing keys, a different file name should be entered for the new keys to avoid overwriting them."
+    },
+    {
+      "question": "What command is used to generate an SSH key pair backed by a hardware security key?",
+      "answer": "To generate an SSH key pair backed by a hardware security key, use the command `ssh-keygen -t ecdsa-sk`."
+    },
+    {
+      "question": "What is the encouraged method for installing an SSH public key for use with Compute Canada clusters?",
+      "answer": "Users are encouraged to leverage the CCDB feature to upload their SSH public key, which will make the key available to all Compute Canada clusters."
+    },
+    {
+      "question": "What is the simplest and safest command to install a public key to a remote system?",
+      "answer": "The simplest and safest way is to use the `ssh-copy-id` command, such as `ssh-copy-id -i ~/.ssh/mynewkey.pub graham.computecanada.ca`."
+    },
+    {
+      "question": "What specific file and directory permissions are required for SSH to function correctly on the remote server?",
+      "answer": "The private key file must not be accessible to others (`chmod go-rwx id_rsa`). The remote /home directory (`chmod go-w ~`), and `~/.ssh` and `~/.ssh/authorized_keys` (`chmod --recursive go-rwx ~/.ssh`) must not be writable by others."
+    },
+    {
+      "question": "How do you connect to a remote machine using a specific private SSH key?",
+      "answer": "You connect using `ssh -i /path/to/your/privatekey USERNAME@ADDRESS`, specifying the private key file, the username on the remote machine, and the remote machine's address."
+    },
+    {
+      "question": "What is the main advantage of using `ssh-agent`?",
+      "answer": "`ssh-agent` stores your private key in memory on your local computer, allowing you to unlock it once with its passphrase and then log in to remote clusters multiple times without re-entering the passphrase."
+    },
+    {
+      "question": "How do you start the `ssh-agent` program and add a key pair to it?",
+      "answer": "You can start `ssh-agent` using `eval `ssh-agent`` and then add your key pair with `ssh-add`. If necessary, you can provide the full path to the private key as an argument to `ssh-add`."
+    },
+    {
+      "question": "When is 'agent forwarding' necessary, and how can it be enabled for a specific host like beluga.computecanada.ca?",
+      "answer": "Agent forwarding is necessary if you need to use your private key on the cluster itself (e.g., for GitHub). It can be enabled by adding `ForwardAgent yes` under the specific `Host` entry (e.g., `Host beluga.computecanada.ca`) in your `$HOME/.ssh/config` file."
+    },
+    {
+      "question": "What alternative key management solutions are available on modern Linux and macOS systems?",
+      "answer": "Many contemporary Linux distributions and macOS offer graphical \"keychain managers\" that can be configured to manage SSH key pairs, automatically providing them to the SSH client after a local login, thus eliminating the need for passphrases."
+    }
+  ],
+  "generated_at": "2026-04-12T10:10:04.775292+00:00"
+}

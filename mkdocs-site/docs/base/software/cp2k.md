@@ -5,22 +5,34 @@ lang: "base"
 
 source_wiki_title: "CP2K"
 source_hash: "2cbca3beb4e5650ca319818f5145c255"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T05:11:19.493750+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T06:02:06.707703+00:00"
 
 tags:
   - software
   - computationalchemistry
 
 keywords:
-  []
+  - "quantum chemistry"
+  - "job submission"
+  - "CP2K"
+  - "MPI processes"
+  - "OpenMP"
+
+questions:
+  - "What is the CP2K software package and what types of systems can it simulate?"
+  - "How do you set up and submit a basic MPI job for CP2K using a SLURM submission script?"
+  - "What are the differences between the cp2k.popt and cp2k.psmp executables regarding performance and threading?"
+  - "What is the CP2K software package and what types of systems can it simulate?"
+  - "How do you set up and submit a basic MPI job for CP2K using a SLURM submission script?"
+  - "What are the differences between the cp2k.popt and cp2k.psmp executables regarding performance and threading?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -34,7 +46,8 @@ The latest version installed is CP2K 8.2. You can load the module compiled with 
 module load StdEnv/2020 gcc/9.3.0 openmpi/4.0.3 cp2k/8.2
 ```
 
-You can also choose to use the version compiled with the Intel compiler if you prefer, but it seems less stable, as it sometimes crashes for unknown reasons.
+!!! warning "Intel Compiler Instability"
+    You can also choose to use the version compiled with the Intel compiler if you prefer, but it seems less stable, as it sometimes crashes for unknown reasons.
 
 ```bash
 module load StdEnv/2020 intel/2020.1.217 openmpi/4.0.3 cp2k/8.2
@@ -42,7 +55,7 @@ module load StdEnv/2020 intel/2020.1.217 openmpi/4.0.3 cp2k/8.2
 
 ## Example job
 
-Here we will use the static calculation example from the [CP2K website](https://www.cp2k.org/howto:static_calculation)
+Here we will use the static calculation example from the [CP2K website](https://www.cp2k.org/howto:static_calculation).
 
 First, log into one of our clusters and download the needed files with the following commands:
 
@@ -85,7 +98,10 @@ The output of CP2K will be located in the file `Si_bulk8.out`. There will also b
 
 The installation of CP2K version 8.2 and later includes both the MPI executable `cp2k.popt` and the OpenMP/MPI executable `cp2k.psmp`, which may give better performance for some calculations. Our test shows a 10% performance increase for `QS/H2O-512.inp` benchmark when using 2 threads per MPI process, compared to running MPI-only executable `cp2k.popt` (both runs used the same number of CPU cores in total).
 
-Below is an example OpenMP/MPI job submission file for the Beluga cluster. To use on other clusters, the number of tasks would have to be adjusted to match the number of cores available on the nodes of that cluster. The performance changes when threads are used is highly problem dependent, and running the `cp2k.psmp` executable may actually be slower for some cases, so you must benchmark your code and choose the right option for your particular case.
+Below is an example OpenMP/MPI job submission file for the Beluga cluster. To use on other clusters, the number of tasks would have to be adjusted to match the number of cores available on the nodes of that cluster.
+
+!!! tip "Performance Considerations for Threaded Jobs"
+    The performance changes when threads are used is highly problem dependent, and running the `cp2k.psmp` executable may actually be slower for some cases. You must benchmark your code and choose the right option for your particular case.
 
 ```sh title="openmp_mpi_job.sh"
 #!/bin/bash

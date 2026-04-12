@@ -1,0 +1,79 @@
+{
+  "doc_key": "fr/installing_software_in_your_home_directory",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "Comment puis-je demander l'installation d'un logiciel sur les systèmes?",
+      "answer": "Vous pouvez envoyer un courriel à support@tech.alliancecan.ca en joignant l'adresse URL pour l'installation du logiciel."
+    },
+    {
+      "question": "Est-ce que j'ai le droit d'installer des logiciels moi-même?",
+      "answer": "Oui, vous avez le droit d'installer des logiciels dans votre espace /project ou /home, par exemple pour modifier le code ou évaluer le logiciel rapidement."
+    },
+    {
+      "question": "Quelle est une méthode courante pour installer des logiciels à partir du code source?",
+      "answer": "Une méthode fréquemment utilisée est d'exécuter les commandes `./configure`, `make`, puis `make install`."
+    },
+    {
+      "question": "Quels problèmes peuvent survenir avec la commande `make install` et comment les résoudre?",
+      "answer": "La commande `make install` peut échouer si le logiciel tente d'écrire dans des espaces partagés comme `/usr/local`. La solution est d'utiliser l'indicateur `--prefix` avec `./configure` pour diriger l'installation vers un répertoire de votre choix."
+    },
+    {
+      "question": "Pourquoi la commande `sudo make install` ne fonctionnera-t-elle pas?",
+      "answer": "La commande `sudo make install` échouera toujours parce qu'elle exige des permissions d'administrateur (root), que vous n'avez pas sur ces systèmes."
+    },
+    {
+      "question": "Comment puis-je utiliser une bibliothèque existante après son installation?",
+      "answer": "Le plus simple est de charger le module correspondant avec la commande `module load library_name/x.y.z`."
+    },
+    {
+      "question": "Comment les modules de bibliothèque simplifient-ils la compilation?",
+      "answer": "Le chargement d'un module configure les variables d'environnement CPATH et LIBRARY_PATH, permettant aux compilateurs comme Intel et GCC de trouver automatiquement les fichiers d'en-tête et les bibliothèques."
+    },
+    {
+      "question": "Comment faire le lien avec une bibliothèque lors de la compilation d'un programme C avec `gcc`?",
+      "answer": "Après avoir chargé le module, vous pouvez utiliser l'option `-l` suivie du nom de la bibliothèque (par exemple, `gcc -o my_prog file1.o file2.o -lnetcdf`)."
+    },
+    {
+      "question": "Qu'est-ce que les variables d'environnement `EBROOT...` et quand les utiliser?",
+      "answer": "Les variables `EBROOT...` (ex. `EBROOTGSL`) indiquent le chemin d'installation d'un paquet fourni par EasyBuild. Elles sont utiles, surtout avec `cmake`, pour spécifier la localisation des bibliothèques de manière robuste."
+    },
+    {
+      "question": "Que dois-je faire si le logiciel requiert `apt-get` ou `yum`?",
+      "answer": "Il est peu probable que vous puissiez l'installer directement. Il faut plutôt chercher les instructions pour la compilation à partir du code source (build from source) ou contacter le soutien technique."
+    },
+    {
+      "question": "Où puis-je trouver de l'information sur l'installation de paquets Python, R ou Perl?",
+      "answer": "Vous pouvez consulter les pages dédiées à Python, R et Perl pour vérifier la disponibilité ou les instructions d'installation des paquets."
+    },
+    {
+      "question": "Comment résoudre les erreurs de version `GLIBC` lors de l'installation de paquets binaires dans mon espace /home?",
+      "answer": "Le script `setrpaths.sh` peut souvent régler ce problème en ajustant les chemins des bibliothèques d'exécution pour que les binaires trouvent les bonnes dépendances."
+    },
+    {
+      "question": "Qu'est-ce que le système de fichiers CVMFS et quel module est chargé par défaut?",
+      "answer": "CVMFS est un système de distribution de logiciels partagé qui rend la plupart des logiciels disponibles sur les grappes. Le module `gentoo/2023` est chargé par défaut et sert de cœur à cette pile logicielle."
+    },
+    {
+      "question": "Comment peut-on faire référence au chemin d'installation de Gentoo dans l'environnement CVMFS?",
+      "answer": "On utilise la variable d'environnement `$EBROOTGENTOO` pour référer au chemin `/cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr`."
+    },
+    {
+      "question": "Est-il nécessaire d'utiliser la variable `LD_LIBRARY_PATH` pour les binaires sous CVMFS?",
+      "answer": "Non, ce n'est pas nécessaire. Tous les binaires sous `/cvmfs/soft.computecanada.ca` utilisent un RUNPATH, ce qui signifie que les répertoires des bibliothèques d'exécution sont déjà intégrés au binaire."
+    },
+    {
+      "question": "Quand devrais-je compiler un code sur un nœud de calcul plutôt que sur un nœud de connexion?",
+      "answer": "Vous devriez compiler sur un nœud de calcul si le développement du code nécessite un GPU ou un CPU Skylake, en démarrant une tâche interactive sur un serveur avec le matériel approprié."
+    },
+    {
+      "question": "Que faire si je rencontre d'autres erreurs lors de l'installation ou de la compilation?",
+      "answer": "Vous pouvez contacter le soutien technique à support@computecanada.ca pour obtenir de l'aide."
+    },
+    {
+      "question": "Dans quel cas extrême peut-on utiliser `module --force purge`?",
+      "answer": "En dernier recours, `module --force purge` peut être utilisé pour éliminer l'environnement CVMFS et obtenir une installation AlmaLinux-9 brute, utile pour des cas spéciaux comme la compilation de GCC par soi-même ou l'utilisation de chaînes d'outils spécifiques."
+    }
+  ],
+  "generated_at": "2026-04-12T00:09:00.121949+00:00"
+}

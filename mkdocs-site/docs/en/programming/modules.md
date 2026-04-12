@@ -5,21 +5,33 @@ lang: "en"
 
 source_wiki_title: "Modules/en"
 source_hash: "fd870bc812957c7ffeb39f788e72b1ee"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T08:36:33.674975+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T09:09:52.325649+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "Lmod modules"
+  - "Virtual environment"
+  - "Python modules"
+  - "Module"
+  - "Standard software environments"
+
+questions:
+  - "What is the general definition of a software module in the context of computing?"
+  - "How do Lmod (or environment) modules function to manage software packages and compilers in a user's shell environment?"
+  - "What are the recommended methods for accessing, installing, and managing Python modules and wheels within this system?"
+  - "What is the general definition of a software module in the context of computing?"
+  - "How do Lmod (or environment) modules function to manage software packages and compilers in a user's shell environment?"
+  - "What are the recommended methods for accessing, installing, and managing Python modules and wheels within this system?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -54,4 +66,4 @@ The main [Available software](available-software.md) page is a good starting poi
 * [Standard software environments](standard-software-environments.md): as of April 1, 2021, `StdEnv/2020` is the default collection of Lmod modules
 * Lmod [modules specific to Niagara](modules-specific-to-niagara.md)
 * Tables of Lmod modules optimized for [AVX](modules-avx.md), **[AVX2](modules-avx2.md)** and **[AVX512](modules-avx512.md)** [CPU instructions](standard-software-environments.md#performance-improvements)
-* Pages on different software available in this wiki, including commercial or licensed software.
+* [Category 'Software'](category-software.md): a list of different software pages in this wiki, including commercial or licensed software

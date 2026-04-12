@@ -5,21 +5,74 @@ lang: "fr"
 
 source_wiki_title: "Julia/fr"
 source_hash: "7e48659cd92f310e19a5f5d4b8eae686"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T07:36:33.042587+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T08:14:47.656582+00:00"
 
 tags:
   - software
 
 keywords:
-  []
+  - "paquets"
+  - "Nœuds alloués"
+  - "code parallèle"
+  - "gestionnaire de paquets"
+  - "Configuration des fils"
+  - "SBATCH"
+  - "dépasser votre quota"
+  - "Interface MPI"
+  - "environnement virtuel Python"
+  - "grappes"
+  - "quantité maximale de fichiers"
+  - "répertoire /home"
+  - "grappe"
+  - "JULIA_DEPOT_PATH"
+  - "chemin du dépôt"
+  - "GPU"
+  - "Gadfly.jl"
+  - "CUDA"
+  - "calcul parallèle"
+  - "PyCall.jl"
+  - "Base.Threads"
+  - "nœud de calcul GPU"
+  - "boîte à outils CUDA"
+  - "CUDA.jl"
+  - "paquet Julia"
+  - "Julia"
+  - "modules"
+  - "Apptainer"
+
+questions:
+  - "Comment la gestion des dépendances binaires lors de l'installation de paquets diffère-t-elle entre les versions de Julia antérieures et postérieures à la version 1.6 ?"
+  - "Quel problème spécifique survient lors de l'installation de paquets sur la grappe Narval et quelle est la solution de contournement recommandée ?"
+  - "Pourquoi l'installation de multiples paquets Julia dans le répertoire personnel (/home) risque-t-elle de poser un problème de quota de fichiers ?"
+  - "Quel est l'impact en termes d'espace disque et de nombre de fichiers lors de l'installation du paquet Gadfly.jl ?"
+  - "Quelle proportion du quota maximal de fichiers est consommée par l'installation de ce seul paquet de traçage ?"
+  - "Quel risque principal l'utilisateur encourt-il s'il installe plusieurs paquets Julia dans son répertoire /home ?"
+  - "Pourquoi est-il recommandé de modifier l'emplacement du dépôt personnel Julia (JULIA_DEPOT_PATH) ou d'utiliser un conteneur Apptainer, et comment procéder ?"
+  - "Quelle est la procédure à suivre pour configurer correctement le paquet PyCall.jl avec un environnement virtuel Python tout en évitant l'utilisation de Miniconda ?"
+  - "Comment peut-on configurer un script de tâche (comme SBATCH) pour exécuter du code Julia en parallèle sur plusieurs processus au sein d'une grappe de calcul ?"
+  - "Comment configurer et lancer un programme Julia pour qu'il utilise l'interface MPI sur plusieurs processus ?"
+  - "Quelles variables d'environnement permettent de contrôler le comportement et l'affinité des fils d'exécution (threads) dans Julia, et dans quels cas est-il pertinent de les modifier ?"
+  - "Quel paquet est recommandé pour utiliser les GPU avec Julia et comment doit-il être installé ?"
+  - "Où peut-on trouver la documentation officielle pour le module PyCall.jl selon le texte ?"
+  - "Quel est l'objectif mathématique du code parallèle Julia exécuté sur les nœuds de la grappe dans l'exemple ?"
+  - "Quelles sont les configurations de ressources (tâches, cœurs, mémoire) spécifiées dans le script bash pour l'exécution sur la grappe ?"
+  - "Comment configurer Julia pour utiliser la boîte à outils CUDA locale afin d'éviter les problèmes de compatibilité avec le pilote ?"
+  - "Quelles commandes permettent de vérifier la version de CUDA et de tester le bon fonctionnement de l'installation sur un nœud de calcul GPU ?"
+  - "Quelles ressources vidéo sont proposées à la fin du document pour approfondir ses connaissances sur Julia et le calcul parallèle ?"
+  - "Pourquoi est-il important de consulter la documentation avant de modifier la configuration par défaut des threads dans Julia ?"
+  - "Quel paquet sert d'interface de programmation standard pour l'utilisation des GPU avec Julia ?"
+  - "Quelles sont les étapes à suivre pour installer correctement le paquet CUDA.jl sur le système ?"
+  - "Comment configurer Julia pour utiliser la boîte à outils CUDA locale afin d'éviter les problèmes de compatibilité avec le pilote ?"
+  - "Quelles commandes permettent de vérifier la version de CUDA et de tester le bon fonctionnement de l'installation sur un nœud de calcul GPU ?"
+  - "Quelles ressources vidéo sont proposées à la fin du document pour approfondir ses connaissances sur Julia et le calcul parallèle ?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -34,13 +87,16 @@ La première fois que vous ajoutez un paquet à un projet Julia (avec `Pkg.add` 
 **Jusqu'à Julia 1.5,** des problèmes pourraient survenir si un paquet dépend de binaires fournis par le système. Par exemple, [JLD](https://github.com/JuliaIO/JLD.jl) dépend d'une bibliothèque HDF5 fournie par le système. Sur un ordinateur personnel, Julia tentera d'installer une telle dépendance en utilisant [yum](https://en.wikipedia.org/wiki/Yum_(software)) ou [apt](https://en.wikipedia.org/wiki/APT_(Debian)) avec [sudo](https://en.wikipedia.org/wiki/Sudo). Ceci ne fonctionnera pas sur nos grappes; il faudra plutôt fournir des informations supplémentaires pour permettre au gestionnaire de paquet de Julia (Pkg) de trouver la bibliothèque HDF5.
 
 ```bash
-$ module load gcc/7.3.0 hdf5 julia/1.4.1
-$ julia
-julia> using Libdl
-julia> push!(Libdl.DL_LOAD_PATH, ENV["HDF5_DIR"] * "/lib")
-julia> using Pkg
-julia> Pkg.add("JLD")
-julia> using JLD
+module load gcc/7.3.0 hdf5 julia/1.4.1
+julia
+```
+
+```julia
+using Libdl
+push!(Libdl.DL_LOAD_PATH, ENV["HDF5_DIR"] * "/lib")
+using Pkg
+Pkg.add("JLD")
+using JLD
 ```
 
 En supprimant la ligne `Libdl.DL_LOAD_PATH` dans cet exemple, il n'y aurait pas de problème sur Graham parce que la bibliothèque HDF5 est installée pour tout le système, ce qui n'est pas le cas avec Cedar. La meilleure solution pour tous nos systèmes est donc d'utiliser le contenu de l'exemple. Chargez d'abord le [module](utiliser-des-modules.md) approprié et utilisez la variable d'environnement définie par le module (ici `HDF5_DIR`) pour étendre `Libdl.DL_LOAD_PATH`. Ceci fonctionne de la même manière sur tous les systèmes.
@@ -52,11 +108,11 @@ Notez que le paquet JLD que nous utilisons ici a été remplacé par [JLD2](http
 !!! warning "ATTENTION"
     Sur Narval, il arrive parfois que Julia plante quand un paquet est installé dans le répertoire /home en raison d'un bogue dans le logiciel de gestion du système de fichiers. À l'étape de la précompilation, Julia se termine à cause d'une erreur de segmentation.
 
-    Jusqu'à ce que ce problème soit résolu, nous vous recommandons d'utiliser le répertoire /project pour votre *dépôt* Julia.
+Jusqu'à ce que ce problème soit résolu, nous vous recommandons d'utiliser le répertoire /project pour votre *dépôt* Julia.
 
 ## Modifier le chemin du dépôt
 
-Un grand nombre de fichiers sont créés quand vous installez un paquet Julia dans votre répertoire /home. Par exemple, dans un répertoire `~/.julia` vide (sans paquet installé), le seul fait d'installer le paquet de traçage `Gadfly.jl` occupe environ 96 Mo avec près de 37000 fichiers, soit 7 % de la quantité maximale de fichiers permise par votre quota. Si vous installez plusieurs paquets Julia, vous pourriez donc dépasser votre quota.
+Un grand nombre de fichiers sont créés quand vous installez un paquet Julia dans votre répertoire /home. Par exemple, dans un répertoire `~/.julia` vide (sans paquet installé), le seul fait d'installer le paquet de traçage `Gadfly.jl` occupe environ 96Mo avec près de 37000 fichiers, soit 7 % de la quantité maximale de fichiers permise par votre quota. Si vous installez plusieurs paquets Julia, vous pourriez donc dépasser votre quota.
 
 Pour éviter ceci, vous pouvez enregistrer votre *dépôt* Julia personnel (avec les paquets, bases de registres, fichiers précompilés, etc.) dans un endroit différent, comme votre espace /project. Par exemple, `alice` qui est membre du projet `def-bob` pourrait ajouter ce qui suit à son fichier `~/.bashrc`:
 
@@ -67,27 +123,30 @@ export JULIA_DEPOT_PATH="/project/def-bob/alice/julia:$JULIA_DEPOT_PATH"
 Ceci utilisera de préférence le répertoire `/project/def-bob/alice/julia`. Les fichiers dans `~/.julia` seront toujours pris en compte et `~/.julia` sera toujours utilisé pour certains fichiers tels votre historique de commandes. Si vous déplacez votre dépôt dans un autre endroit, il est préférable de supprimer d'abord le dépôt `~/.julia` existant, s'il y a lieu:
 
 ```bash
-$ rm -rf $HOME/.julia
+rm -rf $HOME/.julia
 ```
 
-Vous pouvez aussi créer une image [Apptainer](apptainer.md) avec une version particulière de Julia et un choix de paquets, tout en redirigeant `JULIA_DEPOT_PATH` dans le conteneur. Vous perdez ainsi l’avantage offert par les modules Julia que nous avons optimisés, par contre la performance des entrées/sorties sera potentiellement meilleure puisque le fichier du conteneur (.sif) rassemble un très grand nombre de petits fichiers. La reproductibilité est aussi améliorée car le conteneur fonctionnera tel quel, n’importe où. De plus, puisque vous avez plein contrôle sur la création du conteneur, vous pourrez tester les versions construites chaque soir (*nightly builds*) sans devoir modifier votre installation locale de Julia ou encore rassembler vos propres dépendances.
+Vous pouvez aussi créer une image [Apptainer](apptainer.md) avec une version particulière de Julia et un choix de paquets, tout en redirigeant JULIA_DEPOT_PATH dans le conteneur. Vous perdez ainsi l’avantage offert par les modules Julia que nous avons optimisés, par contre la performance des entrées/sorties sera potentiellement meilleure puisque le fichier du conteneur (.sif) rassemble un très grand nombre de petits fichiers. La reproductibilité est aussi améliorée car le conteneur fonctionnera tel quel, n’importe où. De plus, puisque vous avez plein contrôle sur la création du conteneur, vous pourrez tester les versions construites chaque soir (*nightly builds*) sans devoir modifier votre installation locale de Julia ou encore rassembler vos propres dépendances.
 
 ## Appeler Python avec PyCall.jl
 
-Le paquet `PyCall.jl` peut servir d'interface entre Julia et Python; dans ce cas, la variable d'environnement `PYTHON` doit être définie comme étant l'exécutable Python dans votre environnement virtuel Python. Sur nos grappes, nous recommandons [l'utilisation d'environnements Python](python.md#creer-et-utiliser-un-environnement-virtuel). Une fois qu'un environnement est activé, vous pouvez l'utiliser dans `PyCall.jl`.
+Le paquet PyCall.jl peut servir d'interface entre Julia et Python; dans ce cas, la variable d'environnement `PYTHON` doit être définie comme étant l'exécutable Python dans votre environnement virtuel Python. Sur nos grappes, nous recommandons [l'utilisation d'environnements Python](python.md#creer-et-utiliser-un-environnement-virtuel). Une fois qu'un environnement est activé, vous pouvez l'utiliser dans PyCall.jl.
 
 ```bash
-$ source "$HOME/myenv/bin/activate"
+source "$HOME/myenv/bin/activate"
 (myenv) $ julia
 [...]
-julia> using Pkg, PyCall
-julia> ENV["PYTHON"] = joinpath(ENV["VIRTUAL_ENV"], "bin", "python")
-julia> Pkg.build("PyCall")
 ```
 
-Nous vous conseillons fortement d'éviter le comportement par défaut de `PyCall.jl` qui est d'utiliser une distribution Miniconda à l'intérieur de votre environnement Julia. [Anaconda et les autres distributions similaires](anaconda.md) ne conviennent pas sur nos grappes.
+```julia
+using Pkg, PyCall
+ENV["PYTHON"] = joinpath(ENV["VIRTUAL_ENV"], "bin", "python")
+Pkg.build("PyCall")
+```
 
-Prenez note que si vous ne créez pas un environnement virtuel comme décrit ci-dessus, `PyCall` utilisera par défaut l’installation Python du système d’exploitation, ce qu’il faut éviter. `PyCall` invoquera `Conda.jl` mais ne reconnaîtra pas le chemin correct à moins que vous ayez reconstruit avec `ENV["PYTHON"]=""`. De plus, sans compter les incompatibilités possibles avec la pile logicielle, l'installateur Miniconda créera plusieurs fichiers dans `JULIA_DEPOT_PATH` et vous pourriez voir des problèmes de quota et de performance si le chemin par défaut est `~/.julia`.
+Nous vous conseillons fortement d'éviter le comportement par défaut de PyCall.jl qui est d'utiliser une distribution Miniconda à l'intérieur de votre environnement Julia. [Anaconda et les autres distributions similaires](anaconda.md) ne conviennent pas sur nos grappes.
+
+Prenez note que si vous ne créez pas un environnement virtuel comme décrit ci-dessus, PyCall utilisera par défaut l’installation Python du système d’exploitation, ce qu’il faut éviter. PyCall invoquera Conda.jl mais ne reconnaîtra pas le chemin correct à moins que vous ayez reconstruit avec `ENV["PYTHON"]=""`. De plus, sans compter les incompatibilités possibles avec la pile logicielle, l'installateur Miniconda créera plusieurs fichiers dans JULIA_DEPOT_PATH et vous pourriez voir des problèmes de quota et de performance si le chemin par défaut est `~/.julia`.
 
 Pour plus d'information, voir [la documentation pour PyCall.jl](https://github.com/JuliaPy/PyCall.jl)
 
@@ -95,7 +154,7 @@ Pour plus d'information, voir [la documentation pour PyCall.jl](https://github.c
 
 Dans l'exemple suivant, du code parallèle Julia est utilisé pour calculer `pi` avec 100 cœurs sur les nœuds d'une grappe.
 
-````bash title="run_julia_pi.sh"
+```bash title="run_julia_pi.sh"
 #!/bin/bash
 #SBATCH --ntasks=100
 #SBATCH --cpus-per-task=1
@@ -105,7 +164,7 @@ Dans l'exemple suivant, du code parallèle Julia est utilisé pour calculer `pi`
 srun hostname -s > hostfile
 sleep 5
 julia --machine-file ./hostfile ./pi_p.jl 1000000000000
-````
+```
 
 Dans cet exemple, la commande
 `srun hostname -s > hostfile`
@@ -121,7 +180,7 @@ démarre un processus Julia principal et 100 processus de travail sur les nœuds
 Assurez-vous que la MPI de Julia est configurée pour utiliser nos bibliothèques MPI: lancez
 
 ```bash
-$ module load StdEnv julia
+module load StdEnv julia
 ```
 
 Lancez ensuite Julia puis, à partir de Julia, lancez
@@ -137,8 +196,8 @@ Pkg.add("MPI")
 Pour l'utiliser par la suite, lancez (pour deux processus)
 
 ```bash
-$ module load StdEnv julia
-$ mpirun -np 2 julia hello.jl
+module load StdEnv julia
+mpirun -np 2 julia hello.jl
 ```
 
 Le code `hello.jl` est
@@ -153,9 +212,10 @@ MPI.Barrier(comm)
 
 ## Configurer le comportement des fils
 
-Vous pouvez limiter le nombre de fils utilisés par Julia en configurant `JULIA_NUM_THREADS=k`; par exemple pour un processus unique pour une tâche de 12 CPU par tâche, `k` serait égal à 12.
+Vous pouvez limiter le nombre de fils utilisés par Julia en configurant JULIA_NUM_THREADS=k; par exemple pour un processus unique pour une tâche de 12 CPU par tâche, k serait égal à 12.
 Il est habituel que le nombre de fils soit égal au nombre de processeurs; ceci est toutefois abordé dans la page [Scalabilité](scalabilite.md).
-De plus, vous pouvez *attacher* des fils à un cœur en configurant `JULIA_EXCLUSIVE` à une valeur autre que zéro. Comme décrit dans la [documentation](https://docs.julialang.org/en/v1/manual/environment-variables/#JULIA_EXCLUSIVE), ceci enlève au système d'exploitation l'attribution des fils en les attachant aux cœurs en fonction de leur affinité. Dépendant des calculs effectués par les fils, ceci peut améliorer la performance quand il y a des informations précises sur les modes d'accès aux caches ou que le système d'exploitation attribue les fils de manière non voulue. La configuration de `JULIA_EXCLUSIVE` fonctionne uniquement si votre tâche a un accès exclusif aux nœuds et que tous les cœurs CPU ont été alloués à votre tâche. Puisque l'ordonnanceur Slurm attache les processus et les fils aux cœurs CPU, le fait de demander à Julia de *réattacher* les fils n'améliorera peut-être pas la performance.
+De plus, vous pouvez *attacher* des fils à un cœur en configurant
+`JULIA_EXCLUSIVE` à une valeur autre que zéro. Comme décrit dans la [documentation](https://docs.julialang.org/en/v1/manual/environment-variables/#JULIA_EXCLUSIVE), ceci enlève au système d'exploitation l'attribution des fils en les attachant aux cœurs en fonction de leur affinité. Dépendant des calculs effectués par les fils, ceci peut améliorer la performance quand il y a des informations précises sur les modes d'accès aux caches ou que le système d'exploitation attribue les fils de manière non voulue. La configuration de `JULIA_EXCLUSIVE` fonctionne uniquement si votre tâche a un accès exclusif aux nœuds et que tous les cœurs CPU ont été alloués à votre tâche. Puisque l'ordonnanceur Slurm attache les processus et les fils aux cœurs CPU, le fait de demander à Julia de *réattacher* les fils n'améliorera peut-être pas la performance.
 
 La variable [JULIA_THREAD_SLEEP_THRESHOLD](https://docs.julialang.org/en/v1/manual/environment-variables/#JULIA_THREAD_SLEEP_THRESHOLD) contrôle le nombre de nanosecondes après lesquelles un fil qui est en rotation (*spinning*) est programmé pour dormir. Une valeur infinie exprimée par une chaîne de caractères indique que le fil en rotation ne doit jamais dormir.
 Il peut être utile de modifier cette variable quand plusieurs fils se disputent fréquemment une ressource partagée; il serait alors peut-être préférable d'éliminer plus rapidement des fils en rotation. Dans un contexte de forte concurrence, les fils en rotation ne feraient qu'augmenter la charge sur les CPU. De la même manière, quand une ressource est rarement sollicitée, une basse latence peut se produire si on refuse aux fils de dormir, c'est-à-dire que le seuil est défini comme étant infini.
@@ -168,10 +228,13 @@ L'interface de programmation habituelle pour travailler avec les GPU est le paqu
 
 ```bash
 # on a login node!
-$ module load cuda/12.9 julia/1.11.3
-$ julia
-julia> ENV["JULIA_PKG_PRECOMPILE_AUTO"]=0
-julia> import Pkg; Pkg.add("CUDA")
+module load cuda/12.9 julia/1.11.3
+julia
+```
+
+```julia
+ENV["JULIA_PKG_PRECOMPILE_AUTO"]=0
+import Pkg; Pkg.add("CUDA")
 ```
 
 **Tout ce qui suit doit être fait sur un nœud de calcul GPU.** Il est possible que la boîte à outils CUDA téléchargée lors de l'installation ne fonctionne pas avec le pilote CUDA qui est installé. Pour éviter ce problème, configurez Julia pour utiliser la boîte à outils locale de CUDA avec
@@ -185,7 +248,10 @@ où `version_of_cuda` est `12.2`, si `cuda/12.2` est chargé.
 Après avoir redémarré Julia, vous pouvez vérifier si la version CUDA est la bonne avec
 
 ```julia
-julia> CUDA.versioninfo()
+CUDA.versioninfo()
+```
+
+```text
 CUDA runtime 12.6, local installation
 ...
 ```
@@ -193,13 +259,21 @@ CUDA runtime 12.6, local installation
 Pour tester l'installation, lancez
 
 ```julia
-julia> a = CuArray([1,2,3])
+a = CuArray([1,2,3])
+```
+
+```text
 3-element CuArray{Int64, 1, CUDA.Mem.DeviceBuffer}:
  1
  2
  3
+```
 
-julia> a.+=1
+```julia
+a.+=1
+```
+
+```text
 3-element CuArray{Int64, 1, CUDA.Mem.DeviceBuffer}:
  2
  3

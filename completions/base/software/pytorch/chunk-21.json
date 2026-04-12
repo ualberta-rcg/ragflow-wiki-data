@@ -1,0 +1,76 @@
+{
+  "doc_key": "base/pytorch",
+  "level": "chunk",
+  "chunk_index": 21,
+  "qa_pairs": [
+    {
+      "question": "What is the purpose of the `example.cpp` file in the LibTorch compilation example?",
+      "answer": "The `example.cpp` file demonstrates how to create a tensor and check for CUDA availability using LibTorch, printing whether a GPU is being used and the resulting tensor."
+    },
+    {
+      "question": "How does the `example.cpp` code determine if CUDA is available for use?",
+      "answer": "The `example.cpp` code uses the `torch::cuda::is_available()` function to check if CUDA is available. If it is, the device is set to `torch::kCUDA`."
+    },
+    {
+      "question": "What kind of tensor is created in the `example.cpp` program?",
+      "answer": "A 2x3 random tensor is created in the `example.cpp` program using `torch::rand({2, 3})`."
+    },
+    {
+      "question": "What is the role of the `CMakeLists.txt` file in the LibTorch example?",
+      "answer": "The `CMakeLists.txt` file is used to configure the build process for the `example.cpp` program, define the project, find the Torch package, and link the necessary libraries."
+    },
+    {
+      "question": "Which C++ standard is specified for the LibTorch example project in `CMakeLists.txt`?",
+      "answer": "The C++14 standard is specified for the LibTorch example project in `CMakeLists.txt` using `set_property(TARGET example PROPERTY CXX_STANDARD 14)`."
+    },
+    {
+      "question": "What are the general steps to compile and run the LibTorch C++ example after setting up the Python virtual environment?",
+      "answer": "To compile, you first configure the project using `cmake -B build -S .` with appropriate `CMAKE_PREFIX_PATH` and linker flags, then build with `cmake --build build`. To run, you execute `build/example`."
+    },
+    {
+      "question": "What specific `cmake` command is used to configure the LibTorch C++ example when using `StdEnv/2023`?",
+      "answer": "For `StdEnv/2023`, the `cmake` command is: `cmake -B build -S . -DCMAKE_PREFIX_PATH=$VIRTUAL_ENV/lib/python3.11/site-packages -DCMAKE_EXE_LINKER_FLAGS=-Wl,-rpath=$VIRTUAL_ENV/lib/python3.11/site-packages/torch/lib,-L$EBROOTCUDA/extras/CUPTI/lib64 -DCMAKE_SKIP_RPATH=ON -DTORCH_CUDA_ARCH_LIST=\"6.0;7.0;7.5;8.0;9.0\"`."
+    },
+    {
+      "question": "What specific `cmake` command is used to configure the LibTorch C++ example when using `StdEnv/2020`?",
+      "answer": "For `StdEnv/2020`, the `cmake` command is: `cmake -B build -S . -DCMAKE_PREFIX_PATH=$VIRTUAL_ENV/lib/python3.10/site-packages -DCMAKE_EXE_LINKER_FLAGS=-Wl,-rpath=$VIRTUAL_ENV/lib/python3.10/site-packages/torch/lib -DCMAKE_SKIP_RPATH=ON`."
+    },
+    {
+      "question": "What should be done to test a LibTorch application that uses CUDA?",
+      "answer": "To test a LibTorch application with CUDA, one should request an interactive job with a GPU."
+    },
+    {
+      "question": "What are the required modules to load before installing `rTorch`?",
+      "answer": "The required modules to load are `r/4.5 cuda/12.6 cudnn`."
+    },
+    {
+      "question": "How do you prepare the installation directory for `rTorch` packages?",
+      "answer": "You create the directory using `mkdir -p ~/.local/R/$EBVERSIONR/` and then export the `R_LIBS` environment variable with `export R_LIBS=~/.local/R/$EBVERSIONR/`."
+    },
+    {
+      "question": "How do you install the `torch` package for `rTorch` from R?",
+      "answer": "You install the `torch` package by running `R -e 'install.packages(\"torch\", repos=\"https://cloud.r-project.org/\")'`."
+    },
+    {
+      "question": "After installing the `torch` package, how do you install its dependencies for `rTorch`?",
+      "answer": "You install the dependencies by running `R -e 'torch::install_torch()'`."
+    },
+    {
+      "question": "Which shared library needs to be patched after `rTorch` installation, and what is the command?",
+      "answer": "The `liblantern.so` shared library needs to be patched using the command: `setrpaths.sh --path $R_LIBS/torch/lib/liblantern.so --add_path $EBROOTCUDACORE/lib --any_interpreter`."
+    },
+    {
+      "question": "How can you perform a quick CPU test to verify `rTorch` installation?",
+      "answer": "A quick CPU test can be performed by running `R -e 'torch::torch_tensor(1)'`."
+    },
+    {
+      "question": "How can you perform a quick GPU test to verify `rTorch` installation on a cluster?",
+      "answer": "A quick GPU test can be performed by running `srun --mem=3500M --gpus=h100_1g.10gb:1 -- R -e 'torch::torch_tensor(1)$cuda()'`."
+    },
+    {
+      "question": "Where can I find additional documentation for PyTorch C++?",
+      "answer": "Additional documentation for PyTorch C++ can be found at `https://pytorch.org/cppdocs/`."
+    }
+  ],
+  "generated_at": "2026-04-12T05:39:59.933803+00:00"
+}

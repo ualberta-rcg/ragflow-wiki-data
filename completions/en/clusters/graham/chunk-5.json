@@ -1,0 +1,72 @@
+{
+  "doc_key": "en/graham",
+  "level": "chunk",
+  "chunk_index": 5,
+  "qa_pairs": [
+    {
+      "question": "What is the recommended CPU to GPU ratio for 28-core Volta nodes on Graham?",
+      "answer": "You should scale the number of CPUs requested, keeping the ratio of CPUs to GPUs at 3.5 or less on 28 core nodes."
+    },
+    {
+      "question": "How many CPU cores should I request for a job using 4 GPUs on a 28-core Volta node?",
+      "answer": "For example, if you want to run a job using 4 GPUs, you should request at most 14 CPU cores."
+    },
+    {
+      "question": "What is the maximum number of CPU cores recommended for a single GPU job on a 28-core Volta node?",
+      "answer": "For a job with 1 GPU, you should request at most 3 CPU cores."
+    },
+    {
+      "question": "Are users allowed to run test jobs on Volta nodes that do not adhere to the recommended CPU to GPU ratio?",
+      "answer": "Users are allowed to run a few short test jobs (shorter than 1 hour) that break this rule to see how your code performs."
+    },
+    {
+      "question": "What CPU to GPU ratio should be used for the two newest 40-core Volta nodes?",
+      "answer": "The two newest Volta nodes have 40 cores so the number of cores requested per GPU should be adjusted upwards accordingly, i.e. you can use 5 CPU cores per GPU."
+    },
+    {
+      "question": "What is a key benefit of using the newest 40-core Volta nodes?",
+      "answer": "They also have NVLINK, which can provide huge benefits for situations where memory bandwidth between GPUs is the bottleneck."
+    },
+    {
+      "question": "How can I specifically request one of the NVLINK-enabled Volta nodes with 40 cores for my job?",
+      "answer": "If you want to use one of these NVLINK nodes, you should request it directly by adding the `--constraint=cascade,v100` parameter to the job submission script."
+    },
+    {
+      "question": "Can you provide an example of a job script for running a single V100 GPU job on Graham?",
+      "answer": "Single-GPU example:\n{{File\n  |name=gpu_single_GPU_job.sh\n  |lang=\"sh\"\n  |contents=\n#!/bin/bash\n#SBATCH --account=def-someuser\n#SBATCH --gres=gpu:v100:1\n#SBATCH --cpus-per-task=3\n#SBATCH --mem=12G\n#SBATCH --time=1-00:00\nmodule load arch/avx512 StdEnv/2018.3\nnvidia-smi\n}}"
+    },
+    {
+      "question": "Can you provide an example of a job script for running a full Volta node job (8 GPUs) on Graham?",
+      "answer": "Full-node example:\n{{File\n  |name=gpu_single_node_job.sh\n  |lang=\"sh\"\n  |contents=\n#!/bin/bash\n#SBATCH --account=def-someuser\n#SBATCH --nodes=1\n#SBATCH --gres=gpu:v100:8\n#SBATCH --exclusive\n#SBATCH --cpus-per-task=28\n#SBATCH --mem=150G\n#SBATCH --time=1-00:00\nmodule load StdEnv/2023\nnvidia-smi\n}}"
+    },
+    {
+      "question": "Where should I store temporary files for I/O intensive jobs on Volta nodes?",
+      "answer": "The Volta nodes have a fast local disk, which should be used for jobs if the amount of I/O performed by your job is significant. Inside the job, the location of the temporary directory on fast local disk is specified by the environment variable $SLURM_TMPDIR."
+    },
+    {
+      "question": "Are files stored in the $SLURM_TMPDIR on Volta nodes automatically cleaned up after a job finishes?",
+      "answer": "All the files in $SLURM_TMPDIR will be removed once the job ends, so you do not have to clean up that directory yourself."
+    },
+    {
+      "question": "Is it possible to create Python virtual environments within the temporary job space ($SLURM_TMPDIR) on Volta nodes?",
+      "answer": "You can even create Python virtual environments in this temporary space for greater efficiency."
+    },
+    {
+      "question": "How do I specify Turing GPU cards when submitting a job on Graham?",
+      "answer": "When requesting Turing GPU nodes, you should specify: `--gres=gpu:t4:2`."
+    },
+    {
+      "question": "How do I specify Ampere GPU cards when submitting a job on Graham?",
+      "answer": "When requesting Ampere GPU nodes, you should specify: `--gres=gpu:a100:2` or `--gres=gpu:a5000:2`."
+    },
+    {
+      "question": "When will the Graham cluster's operational capacity be reduced?",
+      "answer": "Starting January 13, 2025, the Graham cluster will operate at approximately 25% capacity until the new system Nibi comes online."
+    },
+    {
+      "question": "What will be Graham's operational capacity starting January 13, 2025?",
+      "answer": "Starting January 13, 2025, the Graham cluster will operate at approximately 25% capacity until the new system Nibi comes online."
+    }
+  ],
+  "generated_at": "2026-04-11T23:25:20.723596+00:00"
+}

@@ -5,54 +5,96 @@ lang: "en"
 
 source_wiki_title: "LAMMPS/en"
 source_hash: "aa3fc685668f6d2e5c45b01efb82431d"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T07:48:58.046311+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T08:25:56.979385+00:00"
 
 tags:
   - software
   - biomolecularsimulation
 
 keywords:
-  []
+  - "communication"
+  - "molecular dynamics simulations"
+  - "parallel simulation"
+  - "domain decomposition"
+  - "list-packages.txt"
+  - "LAMMPS"
+  - "system sizes"
+  - "molecular dynamics"
+  - "software packages"
+  - "simulation"
+  - "CPU use"
+  - "cores"
+  - "CPU efficiency"
+  - "enabled packages"
+  - "Performance"
+  - "MPI tasks"
+  - "pair interactions"
+  - "force fields"
+  - "atoms"
+  - "OpenMP threads"
+  - "timesteps/s"
+  - "LAMMPS modules"
+  - "official web page"
+
+questions:
+  - "What is LAMMPS, and what types of parallel computing technologies does it utilize?"
+  - "What are the primary areas of application and types of modeling supported by the various force fields in LAMMPS?"
+  - "How can users check for available LAMMPS versions, load specific modules (such as those with GPU support), and verify which packages are enabled?"
+  - "How can a user determine which LAMMPS packages are enabled if the list-packages.txt file is missing?"
+  - "What are the key differences in the setup of the serial and MPI job scripts provided for running the LAMMPS input file?"
+  - "Why does increasing the number of processors in a LAMMPS simulation eventually decrease CPU efficiency, and how can this be mitigated?"
+  - "Why might a LAMMPS simulation fail to work with a specific module?"
+  - "What information is contained within the `list-packages.txt` file?"
+  - "What command must be executed to view the list of enabled and disabled packages after loading a module?"
+  - "What is the overall simulation speed in terms of timesteps per second and tau per day for the 4000-atom system?"
+  - "According to the performance table, which specific computational sections account for the largest percentages of the total execution time?"
+  - "What is the CPU utilization percentage, and how is the parallel processing configured in terms of MPI tasks and OpenMP threads?"
+  - "What specific metrics are being compared across the different system sizes in the provided table?"
+  - "How does increasing the number of processing cores affect the time spent on communication versus computing pair interactions?"
+  - "How does the total number of atoms in the system influence the balance between computation and communication times?"
+  - "What specific metrics are being compared across the different system sizes in the provided table?"
+  - "How does increasing the number of processing cores affect the time spent on communication versus computing pair interactions?"
+  - "How does the total number of atoms in the system influence the balance between computation and communication times?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
-*Parent page: [Biomolecular simulation](biomolecular-simulation.md)*
+*Parent page: [biomolecular-simulation](biomolecular-simulation.md)*
 
 ## General
 
 **LAMMPS** is a classical molecular dynamics code. The name stands for **L**arge-scale **A**tomic / **M**olecular **M**assively **P**arallel **S**imulator. LAMMPS is distributed by [Sandia National Laboratories](http://www.sandia.gov/), a US Department of Energy laboratory.
 
-* Project website: http://lammps.sandia.gov/
-* Documentation: [Online Manual](http://lammps.sandia.gov/doc/Manual.html).
-* Mailing List: http://lammps.sandia.gov/mail.html
+*   Project web site: <http://lammps.sandia.gov/>
+*   Documentation: [Online Manual](http://lammps.sandia.gov/doc/Manual.html).
+*   Mailing List: <http://lammps.sandia.gov/mail.html>
 
 LAMMPS is parallelized with [MPI](mpi.md) and [OpenMP](openmp.md), and can run on [GPUs](using-gpus-with-slurm.md).
 
-## Force Fields
+## Force fields
 
-All supported force fields are listed on the [package website](https://lammps.sandia.gov/doc/Intro_features.html#ff), classified by functional form (e.g., pairwise potentials, many-body potentials, etc.). The large number of supported force fields makes LAMMPS suitable for many areas of application. Here are some types of modelling and force fields suitable for each:
+All supported force fields are listed on the [package web site](https://lammps.sandia.gov/doc/Intro_features.html#ff), classified by functional form (e.g. pairwise potentials, many-body potentials, etc.) The large number of supported force fields makes LAMMPS suitable for many areas of application. Here are some types of modelling and force fields suitable for each:
 
-* Biomolecules: CHARMM, AMBER, OPLS, COMPASS (class 2), long-range Coulombics via PPPM, point dipoles, ...
-* Polymers: all-atom, united-atom, coarse-grain (bead-spring FENE), bond-breaking, …
-* Materials: EAM and MEAM for metals, Buckingham, Morse, Yukawa, Stillinger-Weber, Tersoff, EDIP, COMB, SNAP, ...
-* Reactions: AI-REBO, REBO, ReaxFF, eFF
-* Mesoscale: granular, DPD, Gay-Berne, colloidal, peri-dynamics, DSMC...
+*   Biomolecules: CHARMM, AMBER, OPLS, COMPASS (class 2), long-range Coulombics via PPPM, point dipoles, ...
+*   Polymers: all-atom, united-atom, coarse-grain (bead-spring FENE), bond-breaking, …
+*   Materials: EAM and MEAM for metals, Buckingham, Morse, Yukawa, Stillinger-Weber, Tersoff, EDIP, COMB, SNAP, ...
+*   Reactions: AI-REBO, REBO, ReaxFF, eFF
+*   Mesoscale: granular, DPD, Gay-Berne, colloidal, peri-dynamics, DSMC...
 
-Combinations of potentials can be used for hybrid systems, e.g., water on metal, polymer/semiconductor interfaces, colloids in solution, ...
+Combinations of potentials can be used for hybrid systems, e.g. water on metal, polymer/semiconductor interfaces, colloids in solution, ...
 
-## Versions and Packages
+## Versions and packages
 
 To see which versions of LAMMPS are installed on our systems, run `module spider lammps`. See [Using modules](using-modules.md) for more about `module` subcommands.
 
-LAMMPS version numbers are based on their release dates and have the format YYYYMMDD. You should run:
+LAMMPS version numbers are based on their release dates, and have the format YYYYMMDD. You should run:
 
 ```bash
 module avail lammps
@@ -62,9 +104,9 @@ to see all the releases that are installed, so you can find the one which is mos
 
 For each release installed, one or more modules are available. For example, the release of 31 March 2017 has three modules:
 
-* Built with MPI: `lammps/20170331`
-* Built with USER-OMP support: `lammps-omp/20170331`
-* Built with USER-INTEL support: `lammps-user-intel/20170331`
+*   Built with MPI: `lammps/20170331`
+*   Built with USER-OMP support: `lammps-omp/20170331`
+*   Built with USER-INTEL support: `lammps-user-intel/20170331`
 
 These versions are also available with GPU support. In order to use the GPU-enabled version, load the [CUDA](cuda.md) module before loading the LAMMPS module:
 
@@ -81,23 +123,22 @@ If you wish to see the original name of the executable for a given module, list 
 module load lammps-omp/20170331
 ls ${EBROOTLAMMPS}/bin/
 ```
-```text
-lmp lmp_icc_openmpi
-```
 
 In this example the executable is `lmp_icc_openmpi`, and `lmp` is the symbolic link to it.
 
-The reason there are different modules for the same release is the difference in the *packages* included. Recent versions of LAMMPS contain about 60 different packages that can be enabled or disabled when compiling the program. Not all packages can be enabled in a single executable. All [packages](https://lammps.sandia.gov/doc/Packages.html) are documented on the official webpage. If your simulation does not work with one module, it may be related to the fact that a necessary package was not enabled.
+The reason there are different modules for the same release is the difference in the *packages* included. Recent versions of LAMMPS contain about 60 different packages that can be enabled or disabled when compiling the program. Not all packages can be enabled in a single executable. All [packages](https://lammps.sandia.gov/doc/Packages.html) are documented on the official web page. If your simulation does not work with one module, it may be related to the fact that a necessary package was not enabled.
 
 For some LAMMPS modules we provide a file `list-packages.txt` listing the enabled ("Supported") and disabled ("Not Supported") packages. Once you have loaded a particular module, run `cat ${EBROOTLAMMPS}/list-packages.txt` to see the contents.
 
-If `list-packages.txt` is not found, you may be able to determine which packages are available by examining the [EasyBuild](easybuild.md) recipe file, `$EBROOTLAMMPS/easybuild/LAMMPS*.eb`. The list of enabled packages will appear in the block labelled `general_packages`.
+!!! note
+    If `list-packages.txt` is not found, you may be able to determine which packages are available by examining the [EasyBuild](easybuild.md) recipe file, `$EBROOTLAMMPS/easybuild/LAMMPS*.eb`. The list of enabled packages will appear in the block labelled `general_packages`.
 
-## Example Input Files
+## Example of input file
 
 The input file below can be used with either of the example job scripts.
 
 === "lammps.in"
+
     ```txt
     # 3d Lennard-Jones melt
 
@@ -125,7 +166,8 @@ The input file below can be used with either of the example job scripts.
     # End of the Input file.
     ```
 
-=== "Serial Job"
+=== "run_lmp_serial.sh"
+
     ```bash
     #!/bin/bash
 
@@ -138,7 +180,8 @@ The input file below can be used with either of the example job scripts.
     lmp < lammps.in > lammps_output.txt
     ```
 
-=== "MPI Job"
+=== "run_lmp_mpi.sh"
+
     ```bash
     #!/bin/bash
 
@@ -153,31 +196,32 @@ The input file below can be used with either of the example job scripts.
 
 ## Performance
 
-Most of the CPU time for molecular dynamics simulations is spent in computing the pair interactions between particles. LAMMPS uses domain decomposition to split the work among the available processors by assigning a part of the simulation box to each processor. During the computation of the interactions between particles, communication between the processors is required. For a given number of particles, the more processors that are used, the more parts of the simulation box there are which must exchange data. Therefore, the communication time increases with an increasing number of processors, eventually leading to low CPU efficiency.
+Most of the CPU time for molecular dynamics simulations is spent in computing the pair interactions between particles. LAMMPS uses domain decomposition to split the work among the available processors by assigning a part of the simulation box to each processor. During the computation of the interactions between particles, communication between the processors is required. For a given number of particles, the more processors that are used, the more parts of the simulation box there are which must exchange data. Therefore, the communication time increases with increasing number of processors, eventually leading to low CPU efficiency.
 
-Before running extensive simulations for a given problem size or a size of the simulation box, you should run tests to see how the program's performance changes with the number of cores. Run short tests using different numbers of cores to find a suitable number of cores that will (approximately) maximize the efficiency of the simulation.
+!!! tip
+    Before running extensive simulations for a given problem size or a size of the simulation box, you should run tests to see how the program's performance changes with the number of cores. Run short tests using different numbers of cores to find a suitable number of cores that will (approximately) maximize the efficiency of the simulation.
 
-The following example shows the timing for a simulation of a system of 4000 particles using 12 MPI tasks. This is an example of very low efficiency: by using 12 cores, the system of 4000 atoms was divided into 12 small boxes. The code spent 46.45% of the time computing pair interactions and 44.5% in communications between the processors. The large number of small boxes for such a small system is responsible for the large fraction of time spent in communication.
+The following example shows the timing for a simulation of a system of 4000 particles using 12 MPI tasks. This is an example of a very low efficiency: by using 12 cores, the system of 4000 atoms was divided to 12 small boxes. The code spent 46.45% of the time computing pair interactions and 44.5% in communications between the processors. The large number of small boxes for such a small system is responsible for the large fraction of time spent in communication.
 
 Loop time of 15.4965 on 12 procs for 25000 steps with 4000 atoms.
 Performance: 696931.853 tau/day, 1613.268 timesteps/s.
 90.2% CPU use with 12 MPI tasks x 1 OpenMP threads.
 
 | Section | **min time** | **avg time** | **max time** | **%varavg** | **%total** |
-|---|---|---|---|---|---|
-| Pair | 6.6964 | 7.1974 | 7.9599 | 14.8 | **46.45** |
-| Neigh | 0.94857 | 1.0047 | 1.0788 | 4.3 | 6.48 |
-| Comm | 6.0595 | 6.8957 | 7.4611 | 17.1 | **44.50** |
-| Output | 0.01517 | 0.01589 | 0.019863 | 1.0 | 0.10 |
-| Modify | 0.14023 | 0.14968 | 0.16127 | 1.7 | 0.97 |
-| Other | -- | 0.2332 | -- | -- | 1.50 |
+| :------ | :----------: | :----------: | :----------: | :---------: | :--------: |
+| Pair    |    6.6964    |    7.1974    |    7.9599    |    14.8     |  **46.45** |
+| Neigh   |   0.94857    |    1.0047    |    1.0788    |     4.3     |    6.48    |
+| Comm    |    6.0595    |    6.8957    |    7.4611    |    17.1     |  **44.50** |
+| Output  |   0.01517    |   0.01589    |   0.019863   |     1.0     |    0.10    |
+| Modify  |   0.14023    |   0.14968    |   0.16127    |     1.7     |    0.97    |
+| Other   |      --      |    0.2332    |      --      |     --      |    1.50    |
 
 In the next example, we compare the time spent in communication and computing the pair interactions for different system sizes:
 
-| Cores | 2048 atoms (Pairs) | 2048 atoms (Comm) | 4000 atoms (Pairs) | 4000 atoms (Comm) | 6912 atoms (Pairs) | 6912 atoms (Comm) | 13500 atoms (Pairs) | 13500 atoms (Comm) |
-|---|---|---|---|---|---|---|---|---|
-| 1 | 73.68 | 1.36 | 73.70 | 1.28 | 73.66 | 1.27 | 73.72 | 1.29 |
-| 2 | 70.35 | 5.19 | 70.77 | 4.68 | 70.51 | 5.11 | 67.80 | 8.77 |
-| 4 | 62.77 | 13.98 | 64.93 | 12.19 | 67.52 | 8.99 | 67.74 | 8.71 |
-| 8 | 58.36 | 20.14 | 61.78 | 15.58 | 64.10 | 12.86 | 62.06 | 8.71 |
-| 16 | 56.69 | 20.18 | 56.70 | 20.18 | 56.97 | 19.80 | 56.41 | 20.38 |
+| Cores | Pairs (2048) | Comm (2048) | Pairs (4000) | Comm (4000) | Pairs (6912) | Comm (6912) | Pairs (13500) | Comm (13500) |
+| :---- | :----------: | :---------: | :----------: | :---------: | :----------: | :---------: | :-----------: | :----------: |
+| 1     | 73.68        | 1.36        | 73.70        | 1.28        | 73.66        | 1.27        | 73.72         | 1.29         |
+| 2     | 70.35        | 5.19        | 70.77        | 4.68        | 70.51        | 5.11        | 67.80         | 8.77         |
+| 4     | 62.77        | 13.98       | 64.93        | 12.19       | 67.52        | 8.99        | 67.74         | 8.71         |
+| 8     | 58.36        | 20.14       | 61.78        | 15.58       | 64.10        | 12.86       | 62.06         | 8.71         |
+| 16    | 56.69        | 20.18       | 56.70        | 20.18       | 56.97        | 19.80       | 56.41         | 20.38        |

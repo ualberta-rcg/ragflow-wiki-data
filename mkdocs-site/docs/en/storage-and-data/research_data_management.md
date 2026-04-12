@@ -5,29 +5,56 @@ lang: "en"
 
 source_wiki_title: "Research Data Management/en"
 source_hash: "b72860092bb456de165b3920b8367d4c"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T10:47:07.342376+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T11:02:36.385402+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "Research data repositories"
+  - "Sensitive data"
+  - "Research Data Management"
+  - "RDM Terminology"
+  - "Research data management"
+  - "Federated Research Data Repository"
+  - "Repositories"
+  - "re3data"
+  - "Data management planning"
+  - "Repository Options in Canada"
+  - "Data curation"
+  - "Borealis"
+  - "Tri-Agency RDM Policy"
+  - "Persistent identifiers"
+
+questions:
+  - "Why is research data management considered an essential component of the data lifecycle during and after a project?"
+  - "What are the primary responsibilities and goals of the Alliance in supporting Canadian academic researchers with their data assets?"
+  - "What specific categories of resources and tools are available to assist researchers with tasks such as data curation, management planning, and assigning persistent identifiers?"
+  - "What resource is recommended for finding research data repositories?"
+  - "Which organizations provide educational materials and toolkits for handling sensitive data?"
+  - "Where can one find glossaries and standardized terminology related to research data management?"
+  - "What are the specific requirements and guidelines outlined in the Tri-Agency Research Data Management Policy?"
+  - "What information does the Portage Guide provide regarding the various repository options available to researchers in Canada?"
+  - "How do the Federated Research Data Repository and Borealis function as platforms for managing and storing research data?"
+  - "What resource is recommended for finding research data repositories?"
+  - "Which organizations provide educational materials and toolkits for handling sensitive data?"
+  - "Where can one find glossaries and standardized terminology related to research data management?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
 Research data management is a crucial aspect of the data lifecycle and ensures that data is discoverable, accessible and reusable during and following the completion of a project. In Canada, [the Alliance](https://alliancecan.ca/) is tasked with:
 
-*   Developing a national research data culture
-*   Fostering a community of practice for research data
-*   Building national research data services and infrastructure
+* Developing a national research data culture
+* Fostering a community of practice for research data
+* Building national research data services and infrastructure
 
 ...to better support academic researchers and institutions in building capacities and managing their data assets. To learn more or receive support with your research data management [contact the Alliance directly](https://alliancecan.ca/en/contact-us), or speak to your local regional partner and they will get you connected.
 
@@ -35,64 +62,64 @@ Below is a list of resources for research data management.
 
 ## Resources for research data management
 
-*   K. Thompson, E. Hill, E. Carlisle-Johnston, D. Dennie, E. Fortin (Eds.) (2023). [Research Data Management in the Canadian Context: A Guide for Practitioners and Learners](https://ecampusontario.pressbooks.pub/canadardm)
+* K. Thompson, E. Hill, E. Carlisle-Johnston, D. Dennie, E. Fortin (Eds.) (2023). [Research Data Management in the Canadian Context: A Guide for Practitioners and Learners](https://ecampusontario.pressbooks.pub/canadardm)
 
 ### Best practices
 
-*   D.B. Deutz, M.C.H. Buss, J. S. Hansen, K. K. Hansen, K.G. Kjelmann, A.V. Larsen, E. Vlachos, K.F. Holmstrand (2020). [How to FAIR: a website to guide researchers on making research data more FAIR](https://doi.org/10.5281/zenodo.3712065)
-*   Woeber, C. A. (2017). Towards best practice in research data management in the humanities. Retrieved from [https://researcharchive.vuw.ac.nz/handle/10063/6620](https://researcharchive.vuw.ac.nz/handle/10063/6620)
+* D.B. Deutz, M.C.H. Buss, J. S. Hansen, K. K. Hansen, K.G. Kjelmann, A.V. Larsen, E. Vlachos, K.F. Holmstrand (2020). [How to FAIR: a website to guide researchers on making research data more FAIR](https://doi.org/10.5281/zenodo.3712065)
+* Woeber, C. A. (2017). Towards best practice in research data management in the humanities. Retrieved from [https://researcharchive.vuw.ac.nz/handle/10063/6620](https://researcharchive.vuw.ac.nz/handle/10063/6620)
 
 ### Data curation
 
-*   [DH Curation Guide: a community resource guide to data curation in the digital humanities](https://archive.mith.umd.edu/dhcuration-guide/guide.dhcuration.org/about/)
-*   [Handling and organizing research data : A primer for researchers](https://alliance-rdm-gdr.github.io/CUR_Res_OrganizeData/RDM_OrganizeData_en.html#/title-slide)
-*   [Sharing and depositing research data: A guide for researchers](https://alliance-rdm-gdr.github.io/CUR_Res_DepositingData/RDM_DepositingData_en.html#/title-slide)
+* [DH Curation Guide: a community resource guide to data curation in the digital humanities](https://archive.mith.umd.edu/dhcuration-guide/guide.dhcuration.org/about/)
+* [Handling and organizing research data : A primer for researchers](https://alliance-rdm-gdr.github.io/CUR_Res_OrganizeData/RDM_OrganizeData_en.html#/title-slide)
+* [Sharing and depositing research data: A guide for researchers](https://alliance-rdm-gdr.github.io/CUR_Res_DepositingData/RDM_DepositingData_en.html#/title-slide)
 
 ### Data licensing
 
-*   [Digital Curation Centre. How to License Research Data](https://www.dcc.ac.uk/guidance/how-guides/license-research-data)
+* [Digital Curation Centre. How to License Research Data](https://www.dcc.ac.uk/guidance/how-guides/license-research-data)
 
 ### Data management planning
 
-*   [Data Management Plan (DMP) Assistant](https://dmp-pgd.ca/)
-*   [ACENET. Presentation on data management planning](https://www.youtube.com/watch?v=hphNY4poXbE)
-*   Portage. Brief Guide - Create an Effective Data Management Plan ([English](https://doi.org/10.5281/zenodo.4004956)/[French](https://doi.org/10.5281/zenodo.4012727))
-*   A list of current [DMP Alliance templates](https://dmp-pgd.ca/public_templates) is available on the DMP Assistant site.
-*   [DMP Assistant Video Tutorial Series](https://youtube.com/playlist?list=PL2jE_DQZemnWs5Qb3mBrbYXAaylF5mTUv&feature=shared)
-*   [McMaster Data Management Plan Database](https://rdm.mcmaster.ca/dmps)
-*   Présentation donnée à l’INRS, à l’ENAP et à la TÉLUQ les 14, 17 et 23 février 2022 - [Rédiger un plan de gestion de données (PGD)](https://youtu.be/Jpd7bpnzgLw?feature=shared) (available in French only)
+* [Data Management Plan (DMP) Assistant](https://dmp-pgd.ca/)
+* [ACENET. Presentation on data management planning](https://www.youtube.com/watch?v=hphNY4poXbE)
+* Portage. Brief Guide - Create an Effective Data Management Plan ([English](https://doi.org/10.5281/zenodo.4004956)/[French](https://doi.org/10.5281/zenodo.4012727))
+* A list of current [DMP Alliance templates](https://dmp-pgd.ca/public_templates) is available on the DMP Assistant site.
+* [DMP Assistant Video Tutorial Series](https://youtube.com/playlist?list=PL2jE_DQZemnWs5Qb3mBrbYXAaylF5mTUv&feature=shared)
+* [McMaster Data Management Plan Database](https://rdm.mcmaster.ca/dmps)
+* Présentation donnée à l’INRS, à l’ENAP et à la TÉLUQ les 14, 17 et 23 février 2022 - [Rédiger un plan de gestion de données (PGD)](https://youtu.be/Jpd7bpnzgLw?feature=shared) (available in French only)
 
 ### Metadata
 
-*   [RDA Metadata Standards Catalog](https://rdamsc.bath.ac.uk/)
-*   [README files](readme-files.md)
+* [RDA Metadata Standards Catalog](https://rdamsc.bath.ac.uk/)
+* [README files](readme-files.md)
 
 ### Persistent identifiers
 
-*   For researchers: [ORCID](https://orcid.org/)
-*   For data: [DOI](https://www.doi.org/)
-*   For research organizations: [ROR](https://ror.org/)
-*   For research projects: [RAiD](https://www.raid.org.au/)
-*   For metadata and other situations where a DOI is not suitable: [UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier)
-*   For physical samples: [IGSN](https://www.igsn.org/)
+* For researchers: [ORCID](https://orcid.org/)
+* For data: [DOI](https://www.doi.org/)
+* For research organizations: [ROR](https://ror.org/)
+* For research projects: [RAiD](https://www.raid.org.au/)
+* For metadata and other situations where a DOI is not suitable: [UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier)
+* For physical samples: [IGSN](https://www.igsn.org/)
 
 ### Policy requirements
 
-*   [Tri-Agency RDM Policy](https://science.gc.ca/site/science/en/interagency-research-funding/policies-and-guidelines/research-data-management/tri-agency-research-data-management-policy)
+* [Tri-Agency RDM Policy](https://science.gc.ca/site/science/en/interagency-research-funding/policies-and-guidelines/research-data-management/tri-agency-research-data-management-policy)
 
 ### Repositories
 
-*   [Repository Options in Canada: A Portage Guide](https://doi.org/10.5281/zenodo.3966348)
-*   [Federated Research Data Repository](https://www.frdr-dfdr.ca/repo/?locale=en)
-*   [Borealis](https://borealisdata.ca/)
-*   [re3data](https://www.re3data.org/): A resource for finding research data repositories
+* [Repository Options in Canada: A Portage Guide](https://doi.org/10.5281/zenodo.3966348)
+* [Federated Research Data Repository](https://www.frdr-dfdr.ca/repo/?locale=en)
+* [Borealis](https://borealisdata.ca/)
+* [re3data](https://www.re3data.org/): A resource for finding research data repositories
 
 ### Sensitive data
 
-*   [Example of sensitive data RDM toolkit at Memorial University](https://guides.library.mun.ca/c.php?g=502039&p=5059458)
-*   [ACENET. Presentation on sensitive Data](https://www.youtube.com/watch?v=u9rv9L4ZRpY)
+* [Example of sensitive data RDM toolkit at Memorial University](https://guides.library.mun.ca/c.php?g=502039&p=5059458)
+* [ACENET. Presentation on sensitive Data](https://www.youtube.com/watch?v=u9rv9L4ZRpY)
 
 ### Terminology
 
-*   [Alliance. Bilingual RDM Glossary](https://alliancecan.ca/en/services/research-data-management/learning-and-training/glossaries)
-*   [Codata. Research Data Management Terminology](https://codata.org/initiatives/data-science-and-stewardship/rdm-terminology-wg/rdm-terminology/)
+* [Alliance. Bilingual RDM Glossary](https://alliancecan.ca/en/services/research-data-management/learning-and-training/glossaries)
+* [Codata. Research Data Management Terminology](https://codata.org/initiatives/data-science-and-stewardship/rdm-terminology-wg/rdm-terminology/)

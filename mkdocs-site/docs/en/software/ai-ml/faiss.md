@@ -5,21 +5,33 @@ lang: "en"
 
 source_wiki_title: "Faiss/en"
 source_hash: "e45ad6227b072fde2c735b37c2ca7c48"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T06:18:42.921618+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T07:02:14.454265+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "Meta AI Research"
+  - "Python bindings"
+  - "dense vectors"
+  - "similarity search"
+  - "Faiss"
+
+questions:
+  - "What is the Faiss library and what are its primary functions and features?"
+  - "How can a user discover compatible Python versions and load the Faiss module in their environment?"
+  - "Which specific Python packages are provided by the Faiss module to satisfy dependencies?"
+  - "What is the Faiss library and what are its primary functions and features?"
+  - "How can a user discover compatible Python versions and load the Faiss module in their environment?"
+  - "Which specific Python packages are provided by the Faiss module to satisfy dependencies?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -31,40 +43,39 @@ To discover which are the compatible Python versions, run
 ```bash
 module spider faiss/X.Y.Z
 ```
-Or search directly *faiss-cpu*, by running
+Or search directly ``faiss-cpu``, by running
 ```bash
 module spider faiss-cpu/X.Y.Z
 ```
-where `X.Y.Z` represent the desired version.
+where ``X.Y.Z`` represents the desired version.
 
 ### Usage
 1. Load the required modules.
 ```bash
 module load StdEnv/2023 gcc cuda faiss/X.Y.Z python/3.11
 ```
-where `X.Y.Z` represent the desired version.
+where ``X.Y.Z`` represents the desired version.
 
 2. Import Faiss.
 ```bash
 python -c "import faiss"
 ```
 
-If the command displays nothing, the import was successful.
+!!! tip
+    If the command displays nothing, the import was successful.
 
 #### Available Python packages
-Other Python packages depend on `faiss-cpu` or `faiss-gpu` bindings in order to be installed.
-The `faiss` module provides:
-* `faiss`
-* `faiss-gpu`
-* `faiss-cpu`
+Other Python packages depend on ``faiss-cpu`` or ``faiss-gpu`` bindings in order to be installed.
+The ``faiss`` module provides:
+* ``faiss``
+* ``faiss-gpu``
+* ``faiss-cpu``
 
 ```bash
 pip list | fgrep faiss
-```
-```text
 faiss-gpu                          1.7.4
 faiss-cpu                          1.7.4
 faiss                              1.7.4
 ```
 
-With the `faiss` module loaded, package dependency for the above extensions will be satisfied.
+With the ``faiss`` module loaded, package dependency for the above extensions will be satisfied.

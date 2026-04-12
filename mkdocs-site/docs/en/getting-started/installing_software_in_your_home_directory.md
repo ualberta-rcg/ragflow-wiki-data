@@ -5,29 +5,71 @@ lang: "en"
 
 source_wiki_title: "Installing software in your home directory/en"
 source_hash: "f7419ccd48e734d357eb8065dc36accb"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T07:28:41.239796+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T08:08:35.073021+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "binaries"
+  - "CVMFS environment"
+  - "BLAS/LAPACK"
+  - "cmake"
+  - "module --force purge"
+  - "make install"
+  - "environment variables"
+  - "module load"
+  - "software installation"
+  - "environment variable"
+  - "Alliance software stack"
+  - "AlmaLinux-9"
+  - "binary packages"
+  - "apt-get and yum"
+  - "runtime libraries"
+  - "$LD_LIBRARY_PATH"
+  - "Compiling on compute nodes"
+  - "setrpaths.sh"
+  - "RUNPATH"
+  - "GSL library"
+  - "EBROOT environment variables"
+  - "Interactive jobs"
+  - "linking libraries"
+
+questions:
+  - "How can users request global software installations from Alliance staff, and why might they choose to install software locally in their own space instead?"
+  - "What is the recommended workaround when a standard `make install` command fails due to restricted administrator or root privileges?"
+  - "How do environment variables like `CPATH`, `LIBRARY_PATH`, and `EBROOT...` facilitate the linking and compilation of libraries loaded via modules?"
+  - "How should users install software or language-specific packages if standard Linux package managers like `apt-get` or `yum` cannot be used?"
+  - "What is the purpose of the `setrpaths.sh` script, and how does it resolve errors when installing pre-compiled binary packages in a user's home directory?"
+  - "How is the Alliance software stack structured via the CVMFS file system, and why should users avoid setting the `$LD_LIBRARY_PATH` environment variable?"
+  - "How does specifying library locations with cmake help reduce the risk of linking errors?"
+  - "What is the construction pattern for the environment variables used to locate specific packages?"
+  - "Where should users look for detailed information regarding BLAS, LAPACK, and MKL?"
+  - "What is a RUNPATH and how is it utilized by the binaries located under `/cvmfs/soft.computecanada.ca`?"
+  - "Why is it generally unnecessary to use the `$LD_LIBRARY_PATH` environment variable for these specific binaries?"
+  - "What are the negative consequences of setting the `$LD_LIBRARY_PATH` environment variable to locations such as `/usr/lib64`?"
+  - "Under what circumstances should a user execute the `module --force purge` command, and what environment does it leave behind?"
+  - "Do modules need to remain purged when running custom-compiled software, or can they be reloaded?"
+  - "When is it necessary to use an interactive job to compile software on a compute node rather than a standard login node?"
+  - "Under what circumstances should a user execute the `module --force purge` command, and what environment does it leave behind?"
+  - "Do modules need to remain purged when running custom-compiled software, or can they be reloaded?"
+  - "When is it necessary to use an interactive job to compile software on a compute node rather than a standard login node?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
-Most academic software is freely available on the internet. You can email Alliance [support](mailto:support@tech.alliancecan.ca) staff, provide them with a URL, and ask them to install any such package so that you and other users will be able to access it via a [module load](using-modules.md) command. If the licence terms and technical requirements are met they will make it available, as soon as possible.
+Most academic software is freely available on the internet. You can email Alliance [support](mailto:support@tech.alliancecan.ca) staff, provide them with a URL, and ask them to install any such package so that you and other users will be able to access it via a [module load](using-modules.md) command. If the license terms and technical requirements are met, they will make it available as soon as possible.
 
 You are permitted to install software in your own home space or project space if you wish. You might choose to do this, for example:
-* if you plan to make your own modifications to the code, or
-* if you wish to evaluate it quickly.
+*   if you plan to make your own modifications to the code, or
+*   if you wish to evaluate it quickly.
 
 **Read the installation instructions that accompany the software.** These instructions often fall into one of the classes described below.
 
@@ -56,7 +98,7 @@ With the module loaded, you can now modify the link phase of your build process 
 ```bash
 gcc -o my_prog file1.o file2.o -lnetcdf
 ```
-if I wanted to link with the NetCDF library.
+if you wanted to link with the NetCDF library.
 
 The link line needs to contain `-l` prefixed to the library name, which will be a file that has the extension `.a` or `.so`. The documentation for the library will typically inform you of the name of this file and, if there is more than one such file, the order in which they should be linked.
 
@@ -76,10 +118,10 @@ If the software includes instructions to run `apt-get` or `yum`, it is unlikely 
 [Python](python.md), [R](r.md), and [Perl](perl.md) are languages with large libraries of extension packages, and package managers that can easily install almost any desired extension in your home directory. See the page for each language to find out if the package you're looking for is already available on our systems. If it is not, you should also find detailed guidance there on using that language's package manager to install it for yourself.
 
 ## Installing binary packages
-If you install pre-compiled binaries in your home directory they may fail using errors such as `/lib64/libc.so.6: version 'GLIBC_2.18' not found`. Often such binaries can be patched using our `setrpaths.sh` script, using the syntax `setrpaths.sh --path path [--add_origin]` where path refers to the directory where you installed that software. This script will make sure that the binaries use the correct interpreter, and search for the libraries they are dynamically linked to in the correct folder. The option `--add_origin` will also add $ORIGIN to the RUNPATH. This is sometimes helpful if the library cannot find other libraries in the same folder as itself.
+If you install pre-compiled binaries in your home directory they may fail using errors such as `/lib64/libc.so.6: version 'GLIBC_2.18' not found`. Often such binaries can be patched using our `setrpaths.sh` script, using the syntax `setrpaths.sh --path path [--add_origin]` where path refers to the directory where you installed that software. This script will make sure that the binaries use the correct interpreter, and search for the libraries they are dynamically linked to in the correct folder. The option `--add_origin` will also add `$ORIGIN` to the RUNPATH. This is sometimes helpful if the library cannot find other libraries in the same folder as itself.
 
 !!! note
-    Some archive file, such as Java (`.jar` files) or [python wheels](https://pythonwheels.com/) (`.whl` files) may contain shared objects that need to be patched. The `setrpaths.sh` script extracts and patches these objects and updates the archive.
+    *   Some archive files, such as Java (`.jar` files) or [Python wheels](https://pythonwheels.com/) (`.whl` files) may contain shared objects that need to be patched. The `setrpaths.sh` script extracts and patches these objects and updates the archive.
 
 ## The Alliance software stack
 Almost all software that is used on the new clusters is distributed centrally, using the CVMFS file system. What this means in practice is that this software is not installed under `/usr/bin`, `/usr/include`, and so on, as it would be in a typical Linux distribution, but instead somewhere under `/cvmfs/soft.computecanada.ca`, and is identical on all new clusters.
@@ -93,11 +135,12 @@ Similarly, if a package depends on a library that is provided by a module other 
 If a header file or library that would usually be provided by an RPM or other package manager in a typical Linux distribution is neither present via `gentoo` or via another module, please let us know. Most likely it can be easily added to the existing stack.
 
 !!! note
-    All binaries under `/cvmfs/soft.computecanada.ca` use what is called a RUNPATH, which means that the directories for the runtime libraries that these binaries depend on are put inside the binary. That means it is generally **not** necessary to use `$LD_LIBRARY_PATH`. In fact, `$LD_LIBRARY_PATH` overrides this runpath and you should **not** set that environment variable to locations such as `/usr/lib64` or `$EBROOTGENTOO/lib64`. Many binaries will no longer work if you attempt this.
-    If all else fails you can use `module --force purge` to remove the CVMFS environment. You are then left with a bare-bones AlmaLinux-9 installation without modules. This may help for special situations such as compiling GCC yourself or using custom toolchains such as the [MESA SDK](http://www.astro.wisc.edu/~townsend/static.php?ref=mesasdk). Purging modules would then **only** be necessary when you compile such software; the modules can be reloaded when running it.
+    *   All binaries under `/cvmfs/soft.computecanada.ca` use what is called a RUNPATH, which means that the directories for the runtime libraries that these binaries depend on are put inside the binary. That means it is generally **not** necessary to use `$LD_LIBRARY_PATH`. In fact, `$LD_LIBRARY_PATH` overrides this RUNPATH and you should **not** set that environment variable to locations such as `/usr/lib64` or `$EBROOTGENTOO/lib64`. Many binaries will no longer work if you attempt this.
+    *   If all else fails you can use `module --force purge` to remove the CVMFS environment. You are then left with a bare-bones AlmaLinux-9 installation without modules. This may help for special situations such as compiling GCC yourself or using custom toolchains such as the [MESA SDK](http://www.astro.wisc.edu/~townsend/static.php?ref=mesasdk). Purging modules would then **only** be necessary when you compile such software; the modules can be reloaded when running it.
 
 ## Compiling on compute nodes
-In most situations you can compile on the login nodes. However, if the code needs to be built on a node:
-* with a GPU, or
-* with a Skylake CPU,
+
+In most situations you can compile on the login nodes. However, if the code needs to be built on a node
+*   with a GPU, or
+*   with a Skylake CPU,
 then you should start an [interactive job](running-jobs.md#interactive-jobs) on a host with the hardware you need, and compile from there.

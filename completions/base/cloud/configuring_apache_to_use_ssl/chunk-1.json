@@ -1,0 +1,88 @@
+{
+  "doc_key": "base/configuring_apache_to_use_ssl",
+  "level": "chunk",
+  "chunk_index": 1,
+  "qa_pairs": [
+    {
+      "question": "What is Transport Layer Security (TLS) and Secure Sockets Layer (SSL) used for?",
+      "answer": "Transport Layer Security (TLS) and Secure Sockets Layer (SSL) are used to allow encrypted communications over computer networks. They are both often referred to as SSL."
+    },
+    {
+      "question": "Why is it important to use encryption when sending sensitive information over the internet?",
+      "answer": "It is important to use encryption when sending sensitive information, such as passwords, over the internet to protect it from interception by third parties."
+    },
+    {
+      "question": "Besides sensitive information, why is it a good idea to encrypt data sent from a web server?",
+      "answer": "Encrypting data sent from the web server to the client, even if not sensitive, prevents third parties from intercepting and modifying the data before it reaches the client."
+    },
+    {
+      "question": "What are the two main types of SSL certificates?",
+      "answer": "The two main types of certificates are those signed by a third-party signing authority and self-signed certificates."
+    },
+    {
+      "question": "Which type of SSL certificate is generally preferred for a public-facing site and why?",
+      "answer": "For a public-facing site, a certificate signed by a third party is generally preferred because it's easy to obtain using services like Let's Encrypt, and a third party vouches for the validity of your web server, avoiding security warnings for visitors."
+    },
+    {
+      "question": "When might someone consider using a self-signed certificate?",
+      "answer": "Self-signed certificates may be considered in some cases, such as for testing purposes or for small locally used sites, but they are not recommended for public-facing or production sites."
+    },
+    {
+      "question": "What is the main drawback of using a self-signed certificate for a web server?",
+      "answer": "The main drawback of using a self-signed certificate is that there is no third party vouching for the validity of your web server, which results in visitors receiving a warning about the security of your site."
+    },
+    {
+      "question": "What tool can be used to check security settings after configuring a web server with a certificate?",
+      "answer": "Once a certificate is installed and the web server is configured, it is a good idea to check the security settings using ssllabs' ssltest tool (https://www.ssllabs.com/ssltest/) to get suggestions for improvements."
+    },
+    {
+      "question": "What is the benefit of having a certificate signed by a Certificate Authority (CA)?",
+      "answer": "Having a certificate signed by a Certificate Authority (CA) allows visitors to ensure they are accessing the right website, which helps avoid man-in-the-middle attacks."
+    },
+    {
+      "question": "Which Certificate Authority (CA) offers certificates without a yearly fee?",
+      "answer": "Let's Encrypt CA is one Certificate Authority that does not require a yearly fee for certificates."
+    },
+    {
+      "question": "What is Certbot and what does it do?",
+      "answer": "Certbot is a tool that automatically creates or renews an SSL certificate signed by the Let's Encrypt CA and automatically configures your web server to use the SSL certificate."
+    },
+    {
+      "question": "Where can users find more information to get started with Certbot?",
+      "answer": "The main Certbot page (https://certbot.eff.org/) provides information to get started quickly, and additional details can be found in the Certbot docs (https://certbot.eff.org/docs/)."
+    },
+    {
+      "question": "What specific network port must be opened if configuring Certbot via Apache?",
+      "answer": "If configuring Certbot via Apache, port 443 (TCP ingress) must be opened for Certbot to connect to the site."
+    },
+    {
+      "question": "For which operating system are the steps for creating a self-signed SSL certificate provided?",
+      "answer": "The provided steps for creating a self-signed SSL certificate assume you are using the Ubuntu operating system."
+    },
+    {
+      "question": "What is the first step to activate the SSL module for Apache on Ubuntu?",
+      "answer": "After Apache has been installed, the SSL module must be enabled using the commands `sudo a2enmod ssl` and `sudo service apache2 restart`."
+    },
+    {
+      "question": "What command is used to create a self-signed SSL certificate on Ubuntu?",
+      "answer": "The command used to create a self-signed SSL certificate is: `sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/server.key -out /etc/ssl/certs/server.crt`."
+    },
+    {
+      "question": "What does being asked for a pass phrase indicate when creating a self-signed SSL certificate?",
+      "answer": "If you are asked for a pass phrase when creating a self-signed SSL certificate, it likely means that the `-nodes` option was missed in the command."
+    },
+    {
+      "question": "Which question is most important to answer correctly when creating a self-signed SSL certificate?",
+      "answer": "The most important question to answer correctly when creating a self-signed SSL certificate is the \"Common Name\" question."
+    },
+    {
+      "question": "What should the 'Common Name' be for a virtual machine on a cloud platform like Compute Canada?",
+      "answer": "For a virtual machine on 'our clouds' (e.g., Compute Canada), the \"Common Name\" should be the domain name of your server, appearing similar to `XXX-XXX-XXX-XXX.cloud.computecanada.ca`, where the Xs are replaced with the virtual machine's floating IP."
+    },
+    {
+      "question": "Can you provide example responses for creating a self-signed SSL certificate for a location in Canada?",
+      "answer": "Example responses for a self-signed SSL certificate in Canada include: Country Name (CA), State or Province Name (Nova Scotia), Locality Name (Halifax), Organization Name (Alliance), Organizational Unit Name (ACENET), Common Name (e.g., XXX-XXX-XXX-XXX.cloud.computecanada.ca), and Email Address (<your email>)."
+    }
+  ],
+  "generated_at": "2026-04-11T20:19:07.486895+00:00"
+}

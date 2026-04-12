@@ -1,0 +1,136 @@
+{
+  "doc_key": "en/trillium_quickstart",
+  "level": "chunk",
+  "chunk_index": 14,
+  "qa_pairs": [
+    {
+      "question": "What is the purpose of the example single-GPU job script?",
+      "answer": "The example single-GPU job script demonstrates how to request one node and one GPU for a maximum of 30 minutes, load necessary modules like `StdEnv/2023`, `cuda/12.6`, and `python/3.11.5`, and then run a Python workload after checking GPU allocation."
+    },
+    {
+      "question": "How do you specify the job name and output file for a single-GPU job?",
+      "answer": "For a single-GPU job, the job name is specified using `#SBATCH --job-name=single_gpu_job` and the output file using `#SBATCH --output=single_gpu_job_%j.out`, where `%j` will be replaced by the job ID."
+    },
+    {
+      "question": "What modules are loaded in the single-GPU job example?",
+      "answer": "The single-GPU job example loads `StdEnv/2023`, `cuda/12.6`, and `python/3.11.5`."
+    },
+    {
+      "question": "How can you check the GPU allocation within a single-GPU job script?",
+      "answer": "You can check GPU allocation within a single-GPU job script by executing `srun nvidia-smi`."
+    },
+    {
+      "question": "What does the example whole-node (4 GPUs) job script demonstrate?",
+      "answer": "The example whole-node (4 GPUs) job script shows how to request one node with four GPUs, set a maximum runtime of two hours, and load the `StdEnv/2023`, `cuda/12.6`, and `python/3.11.5` modules to run a distributed Python script."
+    },
+    {
+      "question": "What is the maximum runtime requested in the example whole-node (4 GPUs) job?",
+      "answer": "The maximum runtime requested in the example whole-node (4 GPUs) job is 02:00:00 (two hours)."
+    },
+    {
+      "question": "Which modules are loaded for the whole-node (4 GPUs) job example?",
+      "answer": "The whole-node (4 GPUs) job example loads `StdEnv/2023`, `cuda/12.6`, and `python/3.11.5`."
+    },
+    {
+      "question": "How does the example multi-node GPU job request resources?",
+      "answer": "The example multi-node GPU job requests two full nodes, with four GPUs per node, for a maximum runtime of four hours, specifying `--nodes=2` and `--gpus-per-node=4`."
+    },
+    {
+      "question": "What modules are loaded for the multi-node GPU job example?",
+      "answer": "The multi-node GPU job example loads `StdEnv/2023`, `cuda/12.6`, and `openmpi/4.1.5`."
+    },
+    {
+      "question": "How is a distributed training job with 8 GPUs run in the multi-node GPU example?",
+      "answer": "In the multi-node GPU example, a distributed training job with 8 GPUs (from 2 nodes × 4 GPUs) is run using `srun python train_distributed.py` after loading the necessary modules and activating the Python environment."
+    },
+    {
+      "question": "Should the `--mem` option be used for GPU jobs on Trillium?",
+      "answer": "No, the `--mem` option should not be used for GPU jobs on Trillium because memory is fixed per GPU (192 GB) or per node (768 GB)."
+    },
+    {
+      "question": "What should always be specified when requesting resources for whole-node or multi-node GPU jobs?",
+      "answer": "For whole-node or multi-node GPU jobs, you should always specify the node count and `--gpus-per-node=4`."
+    },
+    {
+      "question": "What is a best practice regarding loading modules for GPU jobs?",
+      "answer": "A best practice for GPU jobs is to load only the modules you need."
+    },
+    {
+      "question": "Why is it important to be explicit with software versions for GPU jobs?",
+      "answer": "It is important to be explicit with software versions (e.g., `cuda/12.6` rather than just `cuda`) for long-term reproducibility of GPU jobs."
+    },
+    {
+      "question": "What is the recommended testing strategy before scaling GPU jobs?",
+      "answer": "The recommended testing strategy is to test on a single GPU before scaling to multiple GPUs or nodes."
+    },
+    {
+      "question": "How can you monitor GPU usage to ensure full utilization?",
+      "answer": "You can monitor GPU usage with `nvidia-smi` to ensure GPUs are fully utilized."
+    },
+    {
+      "question": "Which command is used to view all jobs in the queue?",
+      "answer": "The `squeue` command is used to view all jobs in the queue."
+    },
+    {
+      "question": "How can a user view only their own jobs in the queue?",
+      "answer": "A user can view only their own jobs in the queue by using the command `squeue -u $USER`."
+    },
+    {
+      "question": "What command provides detailed information about a specific job, including allocated nodes and resources?",
+      "answer": "The `scontrol show job JOBID` command provides detailed information about a specific job."
+    },
+    {
+      "question": "How can you get a rough estimate of when a pending job is expected to start?",
+      "answer": "You can get a rough estimate of when a pending job is expected to start by using `squeue --start -j JOBID`."
+    },
+    {
+      "question": "Which command is used to cancel a submitted job?",
+      "answer": "The `scancel JOBID` command is used to cancel a job you submitted."
+    },
+    {
+      "question": "How can you get a live snapshot of a running job's CPU and memory usage?",
+      "answer": "The `jobperf JOBID` command gives a live snapshot of the CPU and memory usage of your job while it is running."
+    },
+    {
+      "question": "What command shows information about your past jobs, including start time and exit status?",
+      "answer": "The `sacct` command shows information about your past jobs, including start time, run time, node usage, and exit status."
+    },
+    {
+      "question": "Where can users inspect their past jobs and their resource usage after they have finished?",
+      "answer": "Users can inspect their past jobs and their resource usage through the my.SciNet portal, which saves information about all jobs, including performance data collected every two minutes."
+    },
+    {
+      "question": "What is the `sbatch` command used for?",
+      "answer": "The `sbatch <script>` command is used to submit a batch job script."
+    },
+    {
+      "question": "What is the `module load` command used for?",
+      "answer": "The `module load <module>` command is used to load a software module."
+    },
+    {
+      "question": "What is the `module list` command used for?",
+      "answer": "The `module list` command is used to list currently loaded modules."
+    },
+    {
+      "question": "What is the `module avail` command used for?",
+      "answer": "The `module avail` command is used to list available modules."
+    },
+    {
+      "question": "What is the `module spider` command used for?",
+      "answer": "The `module spider <module>` command is used to search for modules and their dependencies."
+    },
+    {
+      "question": "What is the `debugjob` command used for?",
+      "answer": "The `debugjob [N]` command is used to request a short debug job, optionally on N nodes."
+    },
+    {
+      "question": "What is the `diskusage_report` command used for?",
+      "answer": "The `diskusage_report` command is used to check storage quotas."
+    },
+    {
+      "question": "What is the `nvidia-smi` command used for?",
+      "answer": "The `nvidia-smi` command is used to check GPU status, typically on GPU nodes."
+    }
+  ],
+  "generated_at": "2026-04-12T09:47:01.763383+00:00"
+}

@@ -1,0 +1,68 @@
+{
+  "doc_key": "en/vm_recovery_via_cloud_console",
+  "level": "chunk",
+  "chunk_index": 2,
+  "qa_pairs": [
+    {
+      "question": "Which line should be navigated to in the CentOS7 GRUB menu when performing a recovery?",
+      "answer": "You should navigate to the line that starts with `linux16`."
+    },
+    {
+      "question": "What parameters typically need to be removed from the `linux16` line during CentOS7 recovery?",
+      "answer": "All console parameters typically need to be removed from the `linux16` line."
+    },
+    {
+      "question": "Why should serial console parameters be removed during CentOS7 recovery?",
+      "answer": "Serial console parameters should be removed because qemu uses the serial console (ttySX), and otherwise one would have to go onto the compute node directly to attach to a terminal."
+    },
+    {
+      "question": "Is it acceptable to leave any console parameters in the `linux16` line for CentOS7 recovery?",
+      "answer": "Yes, it is easier to leave `console=tty0` in the `linux16` line."
+    },
+    {
+      "question": "How can the filesystem be mounted read/write during CentOS7 recovery?",
+      "answer": "The filesystem can be mounted read/write by changing the `ro` parameter to `rw` in the `linux16` line, or by remounting it later using `mount -o remount,rw /sysroot`."
+    },
+    {
+      "question": "Why might leaving the filesystem mounted read-only (`r/o`) be beneficial during CentOS7 recovery?",
+      "answer": "Leaving the filesystem read-only (`r/o`) is a good option to leave timestamps intact on files if something needs to be investigated."
+    },
+    {
+      "question": "What parameter does CentOS use to interrupt the boot process at an early stage?",
+      "answer": "CentOS uses the `rd.break` parameter to interrupt the boot process at an early stage."
+    },
+    {
+      "question": "Does the order of parameters matter in the modified `linux16` line for CentOS7 recovery?",
+      "answer": "No, the order of the parameters does not matter in the modified `linux16` line."
+    },
+    {
+      "question": "How do you boot the kernel after making changes to the `linux16` line in CentOS7 GRUB?",
+      "answer": "To boot the kernel with the changes, you hit `Ctrl+x`."
+    },
+    {
+      "question": "Where can the read-only mounted filesystem from the image be found after booting with `rd.break` in CentOS7?",
+      "answer": "After booting with `rd.break` in CentOS7, the read-only mounted filesystem from the image will be found under `/sysroot`."
+    },
+    {
+      "question": "What actions can be performed with the filesystem located at `/sysroot` in CentOS7 recovery?",
+      "answer": "You can chroot into the filesystem at `/sysroot` or modify it directly."
+    },
+    {
+      "question": "What command is used to remount the `/sysroot` filesystem as read-write (`rw`) during CentOS7 recovery?",
+      "answer": "To remount the `/sysroot` filesystem as read-write (`rw`), you use the command `mount -o remount,rw /sysroot`."
+    },
+    {
+      "question": "Are the CentOS8 recovery steps significantly different from CentOS7 recovery?",
+      "answer": "No, the CentOS8 recovery steps are very similar compared to the CentOS7 recovery procedure."
+    },
+    {
+      "question": "What is the purpose of the `console` option in CentOS8 recovery?",
+      "answer": "In CentOS8 recovery, the `console` option needs to initialize a tty instead of a serial console."
+    },
+    {
+      "question": "What is the function of `rd.break` in CentOS8 recovery?",
+      "answer": "In CentOS8 recovery, `rd.break` will launch the recovery environment."
+    }
+  ],
+  "generated_at": "2026-04-12T10:47:51.458582+00:00"
+}

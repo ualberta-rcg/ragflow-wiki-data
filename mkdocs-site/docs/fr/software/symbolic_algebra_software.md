@@ -5,27 +5,34 @@ lang: "fr"
 
 source_wiki_title: "Symbolic algebra software/fr"
 source_hash: "eba41456320099e73ea2f528666be56b"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T11:33:27.696363+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T11:43:37.801085+00:00"
 
 tags:
   - software
 
 keywords:
-  []
+  - "expressions symboliques"
+  - "calcul numérique"
+  - "logiciel d'algèbre symbolique"
+  - "SageMath"
+  - "logiciels libres"
+
+questions:
+  - "Qu'est-ce qu'un logiciel d'algèbre symbolique et quelles sont ses principales fonctionnalités ?"
+  - "Comment peut-on utiliser des logiciels commerciaux comme Mathematica ou Maple sur les grappes de calcul ?"
+  - "Quelles sont les alternatives libres disponibles sur les grappes et comment démarrer une session avec SageMath ?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
-Un logiciel d’algèbre symbolique est une application qui fonctionne souvent comme un environnement interactif pouvant travailler directement avec des expressions symboliques (dérivées, intégrales, etc.) et permettant d’employer l’arithmétique exacte (par exemple `exp(-i*pi/2) = -i`) et autres opérations formelles dans des domaines comme la théorie des nombres, la théorie des groupes, la géométrie différentielle, l’algèbre commutative et ainsi de suite. La plupart de ces applications permettent aussi d’utiliser le calcul numérique approximatif avec des nombres à virgule flottante pour traiter des problèmes autrement insolubles.
-
-Les applications bien connues [Mathematica](http://www.wolfram.com/mathematica/) et [Maple](http://www.maplesoft.com/) ne sont pas disponibles sur nos grappes, mais peuvent être installées dans votre répertoire `/home` si votre licence le permet. Vous pouvez utiliser [SageMath](https://www.sagemath.org/) comme alternative, en chargeant le module comme suit :
+Un logiciel d’algèbre symbolique est une application qui fonctionne souvent comme un environnement interactif pouvant travailler directement avec des expressions symboliques (dérivées, intégrales, etc.) et permettant d’employer l’arithmétique exacte (par exemple `exp(-i*pi/2) = -i`) et d'autres opérations formelles dans des domaines comme la théorie des nombres, la théorie des groupes, la géométrie différentielle, l’algèbre commutative et ainsi de suite. La plupart de ces applications permettent aussi d’utiliser le calcul numérique approximatif avec des nombres à virgule flottante pour traiter des problèmes autrement insolubles. Les applications bien connues [Mathematica](http://www.wolfram.com/mathematica/) et [Maple](http://www.maplesoft.com/Maple) ne sont pas disponibles sur nos grappes, mais peuvent être installées dans votre répertoire `/home` si votre licence le permet. Vous pouvez utiliser [SageMath](https://www.sagemath.org/) comme alternative, en chargeant le module comme suit :
 
 ```bash
 module load sagemath/9.3
@@ -36,7 +43,6 @@ Vous pourrez exécuter l’application de façon interactive.
 ```bash
 sage
 ```
-
 ```
 ┌────────────────────────────────────────────────────────────────────┐
 │ SageMath version 9.3, Release Date: 2021-05-09                     │

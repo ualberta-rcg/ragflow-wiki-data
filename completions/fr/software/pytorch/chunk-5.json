@@ -1,0 +1,60 @@
+{
+  "doc_key": "fr/pytorch",
+  "level": "chunk",
+  "chunk_index": 5,
+  "qa_pairs": [
+    {
+      "question": "Comment le réseau neuronal `Net` est-il défini dans l'exemple de code Python pour l'entraînement sur CPU?",
+      "answer": "Le réseau `Net` est défini avec trois couches linéaires (`self.fc1`, `self.fc2`, `self.fc3`) et deux couches de convolution (`self.conv1`, `self.conv2`) suivies de couches de mise en commun (`self.pool`). La méthode `forward` décrit le flux de données à travers ces couches."
+    },
+    {
+      "question": "Quel est le critère de perte et l'optimiseur utilisés pour entraîner le modèle `Net` dans l'exemple de script Python?",
+      "answer": "Le critère de perte est `nn.CrossEntropyLoss()` et l'optimiseur utilisé est `optim.SGD` (Stochastic Gradient Descent) avec les paramètres du réseau et un taux d'apprentissage `lr` spécifié par les arguments."
+    },
+    {
+      "question": "Quelles transformations de données sont appliquées au jeu de données d'entraînement dans l'exemple de code?",
+      "answer": "Les données d'entraînement sont d'abord converties en tenseurs PyTorch (`transforms.ToTensor()`), puis normalisées avec une moyenne de (0.5, 0.5, 0.5) et un écart-type de (0.5, 0.5, 0.5) pour chaque canal de couleur (`transforms.Normalize`)."
+    },
+    {
+      "question": "Quel jeu de données est utilisé dans l'exemple de code Python pour le test de performance sur CPU?",
+      "answer": "L'exemple de code utilise le jeu de données CIFAR10 pour l'entraînement."
+    },
+    {
+      "question": "Comment dois-je procéder pour télécharger le jeu de données CIFAR10 nécessaire à l'exemple de code?",
+      "answer": "Vous devez d'abord créer un répertoire nommé `data` (`mkdir -p data && cd data`), ensuite télécharger le fichier `cifar-10-python.tar.gz` à partir de l'adresse fournie (`wget https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz`), puis décompresser l'archive (`tar zxf cifar-10-python.tar.gz`) et finalement retourner au répertoire parent (`cd ..`)."
+    },
+    {
+      "question": "Est-ce que le script Python télécharge automatiquement le jeu de données CIFAR10 lors de l'exécution sur une grappe?",
+      "answer": "Non, la ligne `download=False` dans le script indique qu'il ne tentera pas de le télécharger. Il faut soit télécharger manuellement les données sur un nœud de connexion avec `download=True`, soit les placer sous le répertoire `./data` avant de soumettre la tâche."
+    },
+    {
+      "question": "Quelle est la fonction principale du `DataLoader` dans le script `cifar10-cpu.py`?",
+      "answer": "Le `DataLoader` est utilisé pour charger efficacement les données d'entraînement (`dataset_train`) par lots (`batch_size`) et peut utiliser plusieurs processus (`num_workers`) pour préparer les données en parallèle."
+    },
+    {
+      "question": "Décrivez le processus d'entraînement pour un seul lot (batch) dans la boucle principale du script Python `cifar10-cpu.py`.",
+      "answer": "Pour chaque lot, les entrées sont passées au modèle (`outputs = net(inputs)`), la perte est calculée (`loss = criterion(outputs, targets)`), les gradients sont réinitialisés (`optimizer.zero_grad()`), la rétropropagation est effectuée (`loss.backward()`), et les poids du modèle sont mis à jour (`optimizer.step()`). La performance est ensuite mesurée."
+    },
+    {
+      "question": "Comment peut-on tester l'effet de l'augmentation du nombre de CPU sur la performance de l'entraînement avec le script `pytorch-multi-cpu.sh`?",
+      "answer": "Il faut modifier le paramètre `#SBATCH --cpus-per-task` dans le script `pytorch-multi-cpu.sh` à des valeurs comme 2, 4, 6, etc., et la variable d'environnement `OMP_NUM_THREADS` est automatiquement configurée en fonction de cette valeur pour observer l'effet sur la performance."
+    },
+    {
+      "question": "Est-il toujours préférable d'utiliser un GPU pour l'entraînement d'un modèle PyTorch sur les grappes, peu importe la taille du modèle?",
+      "answer": "Non, ce n'est pas toujours le cas sur nos grappes. Pour les très petits modèles, l'entraînement peut souvent être plus rapide avec un ou plusieurs CPU. Il est déconseillé de demander un GPU si le code ne peut pas utiliser raisonnablement sa capacité de calcul."
+    },
+    {
+      "question": "Quels sont les deux principaux facteurs qui rendent les GPU avantageux pour l'apprentissage profond?",
+      "answer": "Les GPU sont avantageux grâce à leur capacité à paralléliser l'exécution de certaines opérations clés (comme le multiplieur-accumulateur) sur des milliers de cœurs de calcul, et à leur bande passante de mémoire beaucoup plus grande que celle des CPU, ce qui permet de traiter de grandes quantités de données par cycle."
+    },
+    {
+      "question": "Quelles bibliothèques spécialisées PyTorch utilise-t-il pour tirer parti de la performance des GPU?",
+      "answer": "PyTorch utilise des bibliothèques spécialisées comme CUDNN pour les GPU Nvidia ou MIOpen, selon la plateforme matérielle, pour des implémentations parallèles d'opérateurs d'apprentissage profond."
+    },
+    {
+      "question": "Dans quelles situations est-il judicieux d'utiliser un GPU pour une tâche d'apprentissage avec PyTorch?",
+      "answer": "Il est judicieux d'utiliser un GPU lorsque la tâche implique un grand modèle avec beaucoup d'unités et de couches, ou une grande quantité de données en entrée, permettant ainsi une application massive du parallélisme et une utilisation efficace de la capacité de calcul du GPU."
+    }
+  ],
+  "generated_at": "2026-04-12T05:45:48.621114+00:00"
+}

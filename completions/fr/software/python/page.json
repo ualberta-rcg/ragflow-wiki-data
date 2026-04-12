@@ -1,0 +1,211 @@
+{
+  "doc_key": "fr/python",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "C'est quoi, Python, pis c'est quoi sa philosophie de conception?",
+      "answer": "Python est un langage de programmation interprété dont la philosophie de design est basée principalement sur la lisibilité du code. Sa syntaxe est simple pis expressive, pis sa bibliothèque de modules standards est très étendue."
+    },
+    {
+      "question": "Comment sont gérés les paquets développés par des tiers sur les grappes de calcul?",
+      "answer": "On n'installe pas les paquets de tiers directement dans le répertoire des logiciels disponibles pour simplifier les opérations. C'est aux utilisateurs de les installer, mais on fournit plusieurs versions de l'interpréteur Python pis les outils nécessaires pour ça."
+    },
+    {
+      "question": "Est-ce qu'il y a une version de Python disponible par défaut quand on se connecte aux grappes?",
+      "answer": "Oui, une version est disponible quand vous vous connectez, mais souvent vous aurez besoin d'une autre version, surtout si vous voulez installer des paquets."
+    },
+    {
+      "question": "Comment on fait pour voir les versions de Python disponibles sur les grappes?",
+      "answer": "Pour connaître les versions disponibles, utilisez la commande `module avail python`."
+    },
+    {
+      "question": "Comment on charge une version spécifique de Python, par exemple la version 3.13?",
+      "answer": "Vous pouvez charger une version avec la commande `module load python/X.Y`, par exemple `module load python/3.13`."
+    },
+    {
+      "question": "Quelles sont les versions de Python prises en charge pour les paquets préconstruits (wheels)?",
+      "answer": "On offre des paquets préconstruits (wheels Python) uniquement pour les trois versions les plus récentes de Python disponibles sur nos systèmes, car la transition vers des versions plus modernes s'accélère."
+    },
+    {
+      "question": "C'est quoi la pile logicielle SciPy et quels modules contient-elle?",
+      "answer": "La pile logicielle SciPy est un module d'environnement qui inclut des paquets comme NumPy, SciPy, Matplotlib, IPython, pandas, Sympy pis nose."
+    },
+    {
+      "question": "Comment on fait pour charger la pile logicielle SciPy?",
+      "answer": "Vous devez d'abord charger une version de Python, puis utiliser la commande `module load scipy-stack`."
+    },
+    {
+      "question": "Comment on vérifie les versions spécifiques des paquets inclus dans un module `scipy-stack`?",
+      "answer": "Pour la liste et les numéros de version des paquets, lancez `module spider scipy-stack/AAAAa`, en remplaçant AAAAa par la version que vous voulez, comme `2020a`."
+    },
+    {
+      "question": "Pourquoi devrais-je utiliser un environnement virtuel avec Python?",
+      "answer": "Un environnement virtuel, créé avec `virtualenv`, permet d'installer facilement vos paquets Python, de gérer plusieurs versions d'un même paquet pis de compartimenter les installations pour différents besoins ou expériences."
+    },
+    {
+      "question": "Où devrais-je créer mon environnement virtuel?",
+      "answer": "Vous devriez habituellement créer vos environnements virtuels dans votre répertoire `/home` ou dans un de vos répertoires `/project`. Surtout pas dans `$SCRATCH` à cause du risque de destruction partielle."
+    },
+    {
+      "question": "Comment on crée un environnement virtuel, après avoir chargé un module Python?",
+      "answer": "Après avoir chargé Python (pis SciPy stack si besoin), utilisez la commande `virtualenv --no-download ~/ENV`, où `ENV` est le nom de votre répertoire d'environnement."
+    },
+    {
+      "question": "Comment on active un environnement virtuel?",
+      "answer": "Pour activer un environnement virtuel, utilisez la commande `source ~/ENV/bin/activate`."
+    },
+    {
+      "question": "Qu'est-ce qu'on doit faire après avoir activé un environnement virtuel pour la première fois?",
+      "answer": "Vous devriez faire la mise à jour de `pip` dans l'environnement avec `pip install --no-index --upgrade pip`."
+    },
+    {
+      "question": "Comment on quitte un environnement virtuel?",
+      "answer": "Pour quitter un environnement virtuel, entrez simplement la commande `deactivate`."
+    },
+    {
+      "question": "Comment on réutilise un environnement virtuel qui a déjà été créé?",
+      "answer": "Pour réutiliser un environnement virtuel, chargez les mêmes modules d'environnement (par exemple `python` pis `scipy-stack`) que lors de sa création, puis activez-le avec `source ENV/bin/activate`."
+    },
+    {
+      "question": "Comment on installe des paquets Python une fois qu'un environnement virtuel est activé?",
+      "answer": "Une fois l'environnement virtuel activé, vous pouvez utiliser la commande `pip install <nom_du_paquet>`. `pip` gère la compilation pis l'installation des paquets pis de leurs dépendances."
+    },
+    {
+      "question": "Pourquoi est-ce recommandé d'utiliser l'option `--no-index` avec `pip install`?",
+      "answer": "L'option `--no-index` demande à `pip` d'installer les paquets uniquement à partir des sources locales, comme nos wheels précompilés. Ça évite les problèmes de dépendances manquantes ou conflictuelles pis c'est optimisé pour nos grappes."
+    },
+    {
+      "question": "Que se passe-t-il si on omet l'option `--no-index` lors de l'installation d'un paquet?",
+      "answer": "`pip` va chercher les paquets PyPI pis les paquets locaux, pis va installer la version la plus récente. Si c'est celle de PyPI, elle sera installée à la place de la nôtre, ce qui peut causer des problèmes."
+    },
+    {
+      "question": "Comment forcer `pip` à ne pas utiliser de paquets préconstruits (wheels) pis à compiler de la source?",
+      "answer": "Utilisez l'option `--no-binary` pour que `pip` ne considère aucun paquet préconstruit, forçant ainsi la compilation à partir de la source, même pour les wheels distribués via PyPI."
+    },
+    {
+      "question": "Pourquoi est-ce une bonne idée d'installer plusieurs paquets Python en une seule fois?",
+      "answer": "Installer plusieurs paquets en une seule étape permet à `pip` de mieux résoudre les dépendances croisées, réduisant ainsi les problèmes d'incompatibilité."
+    },
+    {
+      "question": "C'est quoi la recommandation pour créer un environnement virtuel dans une tâche sur Trillium?",
+      "answer": "Sur Trillium, il est recommandé de créer l'environnement virtuel sur un nœud de connexion dans `/home` pis de l'activer (avec `source`) dans le script de la tâche."
+    },
+    {
+      "question": "Pourquoi créer un environnement virtuel directement dans une tâche sur le disque local d'un nœud de calcul?",
+      "answer": "Les systèmes de fichiers parallèles peuvent être lents avec beaucoup de petits fichiers. Créer l'environnement virtuel sur le disque local du nœud de calcul (`$SLURM_TMPDIR`) est souvent plus rapide pis efficace, même si c'est recréé à chaque tâche."
+    },
+    {
+      "question": "Comment créer un fichier `requirements.txt` pour reproduire un environnement virtuel dans une tâche?",
+      "answer": "Créez un environnement de test, installez vos paquets, puis utilisez `pip freeze --local > requirements.txt` pour lister toutes les dépendances et leurs versions exactes."
+    },
+    {
+      "question": "Comment on gère les environnements virtuels dans des tâches qui utilisent plusieurs nœuds?",
+      "answer": "Pour les tâches multi-nœuds, vous devez créer l'environnement virtuel sur chaque nœud alloué avec `srun`, puis activer l'environnement seulement sur le nœud principal avant d'exécuter votre script."
+    },
+    {
+      "question": "Comment lister les wheels Python disponibles sur la grappe?",
+      "answer": "Vous pouvez lister les wheels disponibles sur la page [[Available Python wheels/fr|Wheels Python]] ou en utilisant la commande `avail_wheels` sur la grappe."
+    },
+    {
+      "question": "Comment lister les wheels pour un nom de paquet spécifique, comme NumPy?",
+      "answer": "Utilisez la commande `avail_wheels numpy`."
+    },
+    {
+      "question": "Comment on fait pour lister toutes les versions disponibles d'un paquet, par exemple `netCDF4`?",
+      "answer": "Lancez la commande `avail_wheels \"*cdf*\" --all-version`."
+    },
+    {
+      "question": "Comment je peux vérifier si les paquets listés dans mon `requirements.txt` sont disponibles comme wheels?",
+      "answer": "Utilisez la commande `avail_wheels -r requirements.txt` pour voir ceux qui sont disponibles, ou `avail_wheels -r requirements.txt --not-available` pour ceux qui ne le sont pas."
+    },
+    {
+      "question": "Comment on prétélécharge un paquet Python pour l'installer plus tard dans une tâche?",
+      "answer": "Utilisez `pip download --no-deps <nom_du_paquet>` sur un nœud de connexion. Le wheel sera téléchargé dans votre répertoire de travail pis vous pourrez l'installer avec son chemin de fichier."
+    },
+    {
+      "question": "Comment on installe un paquet Python directement à partir d'un dépôt Git distant?",
+      "answer": "Dans un environnement virtuel activé, utilisez la commande `pip install git+https://git.example.com/MyProject.git@<version_ou_commit_id>`."
+    },
+    {
+      "question": "Pourquoi est-ce important d'utiliser un tag ou un ID de validation quand on installe à partir d'un dépôt de contrôle de versions (VCS)?",
+      "answer": "C'est important pour avoir une installation qui peut être reproduite. Utiliser le `HEAD` du dépôt peut causer des problèmes si des modifications sont faites après votre installation."
+    },
+    {
+      "question": "Dans quels cas est-ce qu'on devrait créer un wheel Python local?",
+      "answer": "Vous devriez créer un wheel local si un paquet est seulement disponible à partir d'un dépôt distant sans version fixe, ou si vous avez besoin de modifier son code source."
+    },
+    {
+      "question": "Comment on crée un wheel local à partir d'un dépôt Git, après avoir fait des modifications?",
+      "answer": "Clonez le dépôt, accédez au répertoire du projet, faites vos modifications, puis exécutez `pip wheel --no-deps -w $HOME .` pour créer le wheel local."
+    },
+    {
+      "question": "C'est quoi le module `multiprocessing` en Python pis à quoi ça sert pour la programmation parallèle?",
+      "answer": "Le module `multiprocessing` est un moyen facile de faire de la programmation parallèle en Python, en utilisant la classe `Pool` pour contrôler le nombre de processus exécutés en parallèle pour un même calcul avec plusieurs données."
+    },
+    {
+      "question": "Pourquoi est-ce crucial de bien allouer les cœurs CPU avec `multiprocessing` sur une grappe?",
+      "answer": "Si le nombre de processus dépasse les cœurs alloués, les calculs seront ralentis pis le nœud surchargé. Si c'est moins, des cœurs seront inactifs. Votre code devrait utiliser autant de cœurs que demandé à l'ordonnanceur."
+    },
+    {
+      "question": "Comment un script Python peut-il récupérer le nombre de cœurs CPU alloués par l'ordonnanceur?",
+      "answer": "Le script peut récupérer le nombre de cœurs alloués via la variable d'environnement `SLURM_CPUS_PER_TASK`, en utilisant `os.environ.get('SLURM_CPUS_PER_TASK',default=1)`."
+    },
+    {
+      "question": "Quelles sont les alternatives au module `multiprocessing` pour le parallélisme sur plusieurs nœuds?",
+      "answer": "Si vous voulez dépasser la limite d'un seul nœud et utiliser plusieurs nœuds, vous pouvez considérer `mpi4py` ou `PySpark`."
+    },
+    {
+      "question": "Comment on débogue un code Python simple sur la grappe?",
+      "answer": "Ajoutez `import pdb; pdb.set_trace()` ou `breakpoint()` à votre code, puis exécutez-le dans une petite tâche interactive pour entrer dans le débogueur `pdb`."
+    },
+    {
+      "question": "Comment on peut s'attacher à un processus Python déjà en cours pour le déboguer (Python 3.14+)?",
+      "answer": "Dans un autre terminal, lancez `python -m pdb --pid <ID_du_processus>` pour attacher `pdb` à un processus Python en cours."
+    },
+    {
+      "question": "Comment on peut diagnostiquer un script Python qui reste suspendu?",
+      "answer": "Vous pouvez utiliser le module `faulthandler` pour obtenir une trace d'origine après un délai, ou `py-spy` pour inspecter le processus en direct (`py-spy top --pid PID`) ou obtenir une trace d'état (`py-spy dump --pid PID`)."
+    },
+    {
+      "question": "Que faire si un paquet Python me dit qu'il requiert une version de Python différente de celle que j'utilise?",
+      "answer": "Dans ce cas, utilisez une version de Python plus récente compatible avec le paquet, ou installez une version plus ancienne du paquet qui supporte votre version de Python actuelle."
+    },
+    {
+      "question": "J'ai une erreur `Package has requirement X, but you'll have Y which is incompatible`. Comment je règle ça?",
+      "answer": "Mettez à jour `pip` à la plus récente version (`pip install --no-index --upgrade pip`) pour utiliser le nouveau résolveur de dépendances, puis relancez l'installation du paquet."
+    },
+    {
+      "question": "Qu'est-ce que ça veut dire quand `pip` affiche `No matching distribution found for X`?",
+      "answer": "Ça signifie que `pip` n'a trouvé aucun paquet qui correspond aux exigences (nom, version ou tags). Vérifiez l'orthographe du nom du paquet pis sa version, pis assurez-vous qu'il est disponible comme wheel ou sur PyPI."
+    },
+    {
+      "question": "Pourquoi mon environnement virtuel ne fonctionne plus, même s'il marchait hier?",
+      "answer": "Les mises à jour fréquentes des paquets peuvent rendre un environnement virtuel instable. Aussi, un environnement créé dans `$SCRATCH` risque d'être détruit partiellement. Congelez les paquets (`pip freeze`) pis utilisez un fichier `requirements.txt` pour la reproduction."
+    },
+    {
+      "question": "Que signifie l'erreur `X is not a supported wheel on this platform` lors de l'installation d'un paquet?",
+      "answer": "Cette erreur indique que le paquet ou le wheel n'est pas compatible avec la plateforme ou la version de Python que vous utilisez (par exemple, un paquet `manylinux` non supporté ou un wheel pour une autre version de Python)."
+    },
+    {
+      "question": "Comment résoudre l'erreur `AttributeError: module ‘numpy’ has no attribute ‘X’`?",
+      "answer": "Plusieurs attributs de Numpy ont été dépréciés. Installez une version antérieure de Numpy, comme `pip install --no-index 'numpy<1.24'`, pour utiliser des attributs qui ne sont plus offerts dans les versions plus récentes."
+    },
+    {
+      "question": "Pourquoi j'ai l'erreur `ModuleNotFoundError: No module named 'X'`?",
+      "answer": "Les causes les plus fréquentes sont que le paquet n'est pas installé ou visible pour l'interpréteur Python, le nom du module est incorrect, ou l'environnement virtuel est défectueux. Vérifiez l'installation avec `pip list` pis le nom exact."
+    },
+    {
+      "question": "Que signifie le message `Defaulting to user installation because normal site-packages is not writeable`?",
+      "answer": "Ce message apparaît quand aucun environnement virtuel n'est activé et `pip` tente d'installer dans un répertoire où il n'a pas les permissions. Ça mène à une installation locale (--user), ce qui est déconseillé."
+    },
+    {
+      "question": "Pourquoi est-ce qu'on ne devrait pas faire d'installations locales (`pip install --user`)?",
+      "answer": "Les installations locales (`--user`) transfèrent les dépendances dans un espace partagé, ce qui peut créer des problèmes d'importation, d'exécution ou des conflits de versions. Il est préférable d'utiliser un environnement virtuel pour l'isolation pis la gestion."
+    },
+    {
+      "question": "Comment on supprime une installation locale de paquets Python?",
+      "answer": "Pour supprimer une installation locale, lancez `rm -vr ~/.local/bin ~/.local/lib/python*`. Après ça, il est conseillé de recommencer avec un nouvel environnement virtuel."
+    }
+  ],
+  "generated_at": "2026-04-12T05:56:46.241629+00:00"
+}

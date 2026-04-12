@@ -1,0 +1,132 @@
+{
+  "doc_key": "en/cvmfs",
+  "level": "chunk",
+  "chunk_index": 1,
+  "qa_pairs": [
+    {
+      "question": "What does CVMFS stand for?",
+      "answer": "CVMFS stands for CERN Virtual Machine File System."
+    },
+    {
+      "question": "What is the primary use of CVMFS?",
+      "answer": "CVMFS is used to distribute software, data, and other content."
+    },
+    {
+      "question": "Where can users find instructions for configuring a CVMFS client?",
+      "answer": "Users can refer to the [[accessing CVMFS]] page for instructions on configuring a CVMFS client to access content."
+    },
+    {
+      "question": "Where can I find additional information about CVMFS?",
+      "answer": "Additional information about CVMFS can be found in the official documentation at [https://cvmfs.readthedocs.io/] and on the webpage at [https://cernvm.cern.ch/fs/]."
+    },
+    {
+      "question": "How is CVMFS implemented?",
+      "answer": "CVMFS is implemented as a POSIX filesystem in user space (FUSE) using HTTP transport."
+    },
+    {
+      "question": "What was the original purpose of CVMFS?",
+      "answer": "CVMFS was originally developed for the LHC (Large Hadron Collider) experiments at CERN to deliver software to virtual machines and to replace diverse shared software installation areas and package management systems at numerous computing sites."
+    },
+    {
+      "question": "What is CVMFS designed to deliver?",
+      "answer": "CVMFS is designed to deliver software in a fast, scalable, and reliable fashion, and is now also used to distribute data."
+    },
+    {
+      "question": "What is the scale of CVMFS usage?",
+      "answer": "The scale of CVMFS usage across dozens of projects involves approximately 10^10 files and directories, 10^2 compute sites, and 10^5 clients around the world."
+    },
+    {
+      "question": "How can one monitor CVMFS usage and see which research groups use it?",
+      "answer": "The [https://cvmfs-monitor-frontend.web.cern.ch/ CernVM Monitor] shows many research groups which use CVMFS and the stratum sites which replicate their repositories."
+    },
+    {
+      "question": "What is a key benefit of CVMFS regarding software maintenance?",
+      "answer": "Only one copy of the software needs to be maintained, and it can be propagated to and used at multiple sites, which helps reduce remote software administration."
+    },
+    {
+      "question": "Does CVMFS have requirements for the Linux distribution type or release level on client nodes?",
+      "answer": "No, software applications and their prerequisites can be run from CVMFS, eliminating any requirement on the Linux distribution type or release level of a client node."
+    },
+    {
+      "question": "How does CVMFS benefit cloud use cases?",
+      "answer": "For cloud use cases, CVMFS decouples the project software stack and OS, allowing software to be accessed in a VM without being embedded in the VM image, enabling VM images and software to be updated and distributed separately."
+    },
+    {
+      "question": "How does CVMFS handle content versioning?",
+      "answer": "Content versioning is provided via repository catalog revisions. Updates are committed in transactions and can be rolled back to a previous state."
+    },
+    {
+      "question": "How are updates propagated to CVMFS clients?",
+      "answer": "Updates are propagated to clients automatically and atomically."
+    },
+    {
+      "question": "Can CVMFS clients access previous versions of content?",
+      "answer": "Yes, clients can view historical versions of repository content."
+    },
+    {
+      "question": "Which protocol is used for fetching files in CVMFS?",
+      "answer": "Files are fetched using the standard HTTP protocol."
+    },
+    {
+      "question": "Are specific ports or firewalls required for CVMFS client nodes?",
+      "answer": "No, client nodes do not require ports or firewalls to be opened."
+    },
+    {
+      "question": "How does CVMFS achieve fault tolerance and reliability?",
+      "answer": "Fault tolerance and reliability are achieved by using multiple redundant proxy and stratum servers. Clients transparently fail over to the next available proxy or server."
+    },
+    {
+      "question": "What is the purpose of hierarchical caching in CVMFS?",
+      "answer": "Hierarchical caching makes the CVMFS model highly scalable and robust and minimizes network traffic."
+    },
+    {
+      "question": "What are the levels in the CVMFS content delivery and caching hierarchy?",
+      "answer": "The content delivery and caching hierarchy consists of: stratum 0 (master copy), multiple stratum 1 servers (replicate from stratum 0), HTTP proxy servers (cache requests from clients to stratum 1), and CVMFS client local caches."
+    },
+    {
+      "question": "What is the function of stratum 0 in CVMFS?",
+      "answer": "The stratum 0 holds the master copy of the repository."
+    },
+    {
+      "question": "What do stratum 1 servers do in the CVMFS hierarchy?",
+      "answer": "Multiple stratum 1 servers replicate the repository contents from the stratum 0."
+    },
+    {
+      "question": "What is the role of HTTP proxy servers in CVMFS?",
+      "answer": "HTTP proxy servers cache requests from clients to stratum 1 servers."
+    },
+    {
+      "question": "How do CVMFS clients handle file downloads and caching?",
+      "answer": "The CVMFS client downloads files on demand into its local client cache(s)."
+    },
+    {
+      "question": "What types of local caches can be used by CVMFS clients?",
+      "answer": "Two tiers of local cache can be used, such as a fast SSD cache and a large HDD cache. A cluster filesystem can also be used as a shared cache for all nodes in a cluster."
+    },
+    {
+      "question": "What kind of access do CVMFS clients have to the filesystem?",
+      "answer": "CVMFS clients have read-only access to the filesystem."
+    },
+    {
+      "question": "How is metadata managed and optimized in CVMFS?",
+      "answer": "Metadata is treated as data, practically immutable and highly amenable to caching, by using Merkle trees and content-addressable storage, and encoding metadata in catalogs. Metadata storage and operations scale by using nested catalogs, allowing resolution of metadata queries to be performed locally by the client."
+    },
+    {
+      "question": "How does CVMFS ensure file integrity and authenticity?",
+      "answer": "File integrity and authenticity are verified using signed cryptographic hashes, avoiding data corruption or tampering."
+    },
+    {
+      "question": "How does CVMFS minimize storage usage on the server side?",
+      "answer": "Automatic de-duplication and compression minimize storage usage on the server side."
+    },
+    {
+      "question": "How does CVMFS minimize storage usage on the client side?",
+      "answer": "File chunking and on-demand access minimize storage usage on the client side."
+    },
+    {
+      "question": "Can CVMFS configurations be customized?",
+      "answer": "Yes, versatile configurations can be deployed by writing authorization helpers or cache plugins to interact with external authorization or storage providers."
+    }
+  ],
+  "generated_at": "2026-04-11T19:22:36.950023+00:00"
+}

@@ -1,0 +1,99 @@
+{
+  "doc_key": "fr/advanced_jupyter_configuration",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "Cette page est-elle recommandée pour tous les utilisateurs?",
+      "answer": "Non, cette page s'adresse aux utilisateurs d'expérience; l'information qu'elle présente est rarement testée et n'est donc pas recommandée pour un usage général. Il est préférable d'utiliser [[JupyterLab/fr|JupyterLab]]."
+    },
+    {
+      "question": "À quoi servent les notebooks JupyterLab?",
+      "answer": "Les notebooks JupyterLab sont faits pour tes tâches interactives brèves, comme tester, déboguer ou visualiser rapidement des données pendant quelques minutes."
+    },
+    {
+      "question": "Comment faire des analyses plus longues avec les notebooks?",
+      "answer": "Pour des analyses plus longues, il faut utiliser une tâche non interactive avec `sbatch`, plutôt que les notebooks JupyterLab interactifs."
+    },
+    {
+      "question": "Qu'est-ce que Project Jupyter?",
+      "answer": "C'est un projet open-source sans but lucratif issu en 2014 du IPython Project pour que tous les langages de programmation puissent être utilisés pour la science des données interactives et le calcul scientifique."
+    },
+    {
+      "question": "Où un serveur JupyterLab devrait-il rouler?",
+      "answer": "Un serveur JupyterLab devrait toujours se trouver sur un nœud de calcul ou sur une instance infonuagique, et jamais sur un nœud de connexion à cause de leurs limites."
+    },
+    {
+      "question": "Comment on fait pour obtenir un nœud de calcul pour JupyterLab?",
+      "answer": "Faut réserver des ressources en soumettant une tâche qui demande un nombre prédéterminé de CPU ou de GPU, une certaine quantité de mémoire et un temps limite d'exécution."
+    },
+    {
+      "question": "Comment on installe JupyterLab?",
+      "answer": "On installe JupyterLab avec la commande `pip` dans un environnement virtuel Python qu'on doit créer et activer au préalable."
+    },
+    {
+      "question": "Qu'est-ce qu'on doit faire si on compte utiliser RStudio Server *avant* d'installer JupyterLab?",
+      "answer": "Si tu as l'intention d'utiliser RStudio Server, il faut charger le module `rstudio-server` *avant* le module `python` et la création de ton environnement virtuel Python."
+    },
+    {
+      "question": "À quoi servent les modules d'extension dans JupyterLab?",
+      "answer": "Les modules d'extension ajoutent des fonctionnalités pis peuvent modifier l'interface utilisateur de JupyterLab."
+    },
+    {
+      "question": "À quoi sert l'extension Jupyter Lmod?",
+      "answer": "Jupyter Lmod est un module d'extension qui permet d'interagir avec les modules d'environnement avant de lancer les noyaux."
+    },
+    {
+      "question": "Comment on fait pour installer l'extension RStudio Server dans JupyterLab?",
+      "answer": "Une fois JupyterLab installé dans ton environnement virtuel, tu installes le serveur mandataire Jupyter RSession avec `pip install --no-index jupyter-rsession-proxy`."
+    },
+    {
+      "question": "Comment on active l'environnement virtuel Python où JupyterLab est installé?",
+      "answer": "Il faut l'activer avec la commande `source $HOME/jupyter_py3/bin/activate` chaque fois que tu te connectes à la grappe."
+    },
+    {
+      "question": "Comment on démarre un serveur JupyterLab?",
+      "answer": "Pour démarrer un serveur JupyterLab, tu dois soumettre une tâche interactive avec `salloc`, puis exécuter le script `$VIRTUAL_ENV/bin/jupyterlab.sh` avec `srun`."
+    },
+    {
+      "question": "Comment on se connecte à JupyterLab depuis mon ordinateur?",
+      "answer": "Pour avoir accès au serveur JupyterLab dans un nœud de calcul, tu dois créer un tunnel SSH de ton ordinateur vers la grappe, car les nœuds de calcul ne sont pas accessibles directement de l'internet."
+    },
+    {
+      "question": "Comment on ferme JupyterLab?",
+      "answer": "Pour arrêter le serveur JupyterLab avant la fin de ton temps d'exécution, appuie deux fois sur CTRL-C dans le terminal où la tâche interactive a été lancée. Pour le tunnel SSH, appuie sur CTRL-D."
+    },
+    {
+      "question": "Pourquoi ajouter des noyaux (kernels) à JupyterLab?",
+      "answer": "On peut ajouter des noyaux pour utiliser d'autres langages de programmation, une version différente de Python, ou un environnement virtuel persistant avec tous les paquets nécessaires à ton projet."
+    },
+    {
+      "question": "Quelles sont les deux étapes pour installer un nouveau noyau?",
+      "answer": "Les deux étapes sont d'installer les paquets qui permettent à l'interpréteur du langage de communiquer avec Jupyter, pis de créer un fichier de configuration du noyau."
+    },
+    {
+      "question": "Quels sont les prérequis pour configurer un noyau Julia?",
+      "answer": "Il faut un environnement virtuel Python, un répertoire `kernels`, pis l'installation doit se faire à l'invite de commande sur un nœud de connexion parce qu'elle requiert un accès à l'internet."
+    },
+    {
+      "question": "Comment on installe des paquets Julia additionnels?",
+      "answer": "Il faut installer les paquets Julia depuis un nœud de connexion, comme pour l'installation initiale, en utilisant l'interpréteur Julia (par exemple, `Pkg.add(\"Glob\")`)."
+    },
+    {
+      "question": "Où et comment installer des bibliothèques Python supplémentaires pour un noyau Python?",
+      "answer": "Dans ton environnement virtuel Python activé, tu utilises `pip install --no-index <nom_bibliothèque>`, par exemple `pip install --no-index numpy`."
+    },
+    {
+      "question": "Quels sont les prérequis pour configurer un noyau R?",
+      "answer": "Il faut un environnement virtuel Python et un répertoire `kernels`, pis l'installation doit se faire à l'invite de commande sur un nœud de connexion pour avoir accès à CRAN."
+    },
+    {
+      "question": "Comment on installe des paquets R additionnels?",
+      "answer": "Il faut installer les paquets R depuis un nœud de connexion en démarrant l'interpréteur R et en utilisant `install.packages('<nom_paquet>', repos='http://cran.us.r-project.org')`."
+    },
+    {
+      "question": "Comment on exécute des notebooks pour des tâches plus longues et non interactives?",
+      "answer": "Pour ça, faut convertir le notebook en script Python avec `jupyter nbconvert`, puis créer et soumettre une tâche `sbatch` qui exécutera ce script Python."
+    }
+  ],
+  "generated_at": "2026-04-11T16:07:49.742602+00:00"
+}

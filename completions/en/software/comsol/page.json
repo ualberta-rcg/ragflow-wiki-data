@@ -1,0 +1,123 @@
+{
+  "doc_key": "en/comsol",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is COMSOL?",
+      "answer": "COMSOL is a general-purpose software for modelling engineering applications hosted on clusters via a special agreement."
+    },
+    {
+      "question": "Where can users find documentation for COMSOL?",
+      "answer": "Documentation is included with the software under File > Help > Documentation, available on the COMSOL home page, and searchable online at https://doc.comsol.com/."
+    },
+    {
+      "question": "What is the role of the hosting provider regarding COMSOL licenses?",
+      "answer": "The hosting provider installs COMSOL software on its clusters but does not provide a generic license accessible to everyone."
+    },
+    {
+      "question": "Where can institutions or individuals obtain a COMSOL license for use on the clusters?",
+      "answer": "Many institutions, faculties, and departments already have licenses, or a license can be purchased from CMC for use anywhere in Canada."
+    },
+    {
+      "question": "What technical steps are required for a COMSOL license server to be reachable by the compute nodes?",
+      "answer": "The license server on the user's end must be reachable by the compute nodes, requiring the technical teams to coordinate firewall changes and other configurations."
+    },
+    {
+      "question": "What is the expected location for a COMSOL license file after setup?",
+      "answer": "The COMSOL module is designed to look for license information in the ~/.licenses/comsol.lic file."
+    },
+    {
+      "question": "How do I configure my own license file for a custom license server?",
+      "answer": "Create a text file at $HOME/.licenses/comsol.lic with the content 'SERVER <server> ANY <port>' and 'USE_SERVER', replacing <server> with your license server hostname and <port> with the flex port number."
+    },
+    {
+      "question": "What information should be provided to technical support for a new local institutional license server setup?",
+      "answer": "Email technical support with the COMSOL lmgrd TCP flex port number (typically 1718), the static LMCOMSOL TCP vendor port number (typically 1719), and the fully qualified hostname of your COMSOL license server."
+    },
+    {
+      "question": "What are the CMC license server settings for various clusters?",
+      "answer": "Fir: SERVER 172.26.0.101 ANY 6601; Nibi: SERVER 10.25.1.56 ANY 6601; Narval/Rorqual: SERVER 10.100.64.10 ANY 6601; Trillium: SERVER scinet-cmc ANY 6601."
+    },
+    {
+      "question": "What should I do if my CMC license checkout attempts fail?",
+      "answer": "Create a support case with CMC."
+    },
+    {
+      "question": "How can I check the number of COMSOL licenses currently in use on a cluster?",
+      "answer": "Run the specified one-liner command on any cluster login node using `lmutil` from the latest installed ANSYS module to query the license server defined in ~/.licenses/comsol.lic."
+    },
+    {
+      "question": "How do I check which COMSOL modules and products are available?",
+      "answer": "Start COMSOL in graphical mode, then click Options > Licensed and Used Products on the upper pull-down menu."
+    },
+    {
+      "question": "What should I do if a COMSOL module or product is missing or reports being unlicensed?",
+      "answer": "Contact technical support, as a reinstall of the CVMFS module may be required."
+    },
+    {
+      "question": "How can I determine the full version number of COMSOL?",
+      "answer": "Start COMSOL in GUI mode and check the lower right corner messages window, or run `comsol batch -version` after loading the module in batch mode."
+    },
+    {
+      "question": "How can I check which COMSOL versions are available in the currently loaded standard environment?",
+      "answer": "Run the `module avail comsol` command."
+    },
+    {
+      "question": "How can I check which COMSOL versions are available across all standard environments?",
+      "answer": "Use the `module spider comsol` command."
+    },
+    {
+      "question": "What is the recommended approach for loading COMSOL updates?",
+      "answer": "It is recommended to use the most recent update to take advantage of all the latest improvements, though any specific module version can be loaded."
+    },
+    {
+      "question": "What is the standard environment to load for COMSOL versions 6.2 and newer?",
+      "answer": "For COMSOL versions 6.2 and newer, `StdEnv/2023` should be loaded."
+    },
+    {
+      "question": "What is the purpose of the provided sample Slurm script for a single compute node?",
+      "answer": "It demonstrates how to run a COMSOL job with eight cores on a single compute node, specifying input and output files."
+    },
+    {
+      "question": "When should I consider running a COMSOL job over multiple compute nodes?",
+      "answer": "If near-linear speedup is obtained using all cores on a single compute node, and the simulation exceeds the capabilities of a single node, consider running over multiple full nodes."
+    },
+    {
+      "question": "How can I increase the Java heap memory for a multiple-node COMSOL job if it crashes on startup with a Java segmentation fault?",
+      "answer": "Add `sed -i 's/-Xmx2g/-Xmx4g/g' comsolbatch.ini` and `sed -i 's/-Xmx768m/-Xmx4g/g' java.opts` lines after the `cp -f` commands in the submission script, potentially increasing the 4g values to 8g if needed."
+    },
+    {
+      "question": "What is the recommended way to run COMSOL in graphical mode on the clusters?",
+      "answer": "Open a remote desktop on an OnDemand or JupyterLab system by clicking one of the provided links."
+    },
+    {
+      "question": "What should be configured before attempting to use COMSOL in graphical mode?",
+      "answer": "The ~/.licenses/comsol.lic file must first be configured."
+    },
+    {
+      "question": "What should I do if the upper menu items are greyed out and not clickable after starting COMSOL in GUI mode?",
+      "answer": "Try deleting your ~/.comsol directory as it may be corrupted."
+    },
+    {
+      "question": "How do I launch COMSOL 6.2 (or newer) graphically using an OnDemand desktop session?",
+      "answer": "Start an OnDemand desktop session, then in a new terminal, load `StdEnv/2023`, load `comsol/6.4` (or desired newer version), and run `comsol`."
+    },
+    {
+      "question": "How do I launch COMSOL graphically using a JupyterLab desktop session?",
+      "answer": "Start a JupyterHub desktop session, highlight a COMSOL module (e.g., `comsol/6.4`) in the 'Available Module' section, click 'Load', then click the 'Comsol (VNC)' icon that appears in the desktop."
+    },
+    {
+      "question": "How can parametric problems be solved interactively in the COMSOL GUI?",
+      "answer": "Parametric problems can be solved using the Batch Sweep approach, and multiple parameter sweeps can be carried out."
+    },
+    {
+      "question": "How do you run a parameter sweep on a cluster?",
+      "answer": "A job must be submitted to the scheduler from the command line using `sbatch slurmscript`, with additional required arguments for cluster sweeps."
+    },
+    {
+      "question": "Is the Cluster Sweep node in the graphical interface supported for submitting to the cluster queue?",
+      "answer": "No, support for submitting parametric simulations to the cluster queue from the graphical interface using a Cluster Sweep node is not available at this time."
+    }
+  ],
+  "generated_at": "2026-04-11T19:03:05.158438+00:00"
+}

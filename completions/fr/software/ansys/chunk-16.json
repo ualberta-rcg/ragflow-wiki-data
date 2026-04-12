@@ -1,0 +1,64 @@
+{
+  "doc_key": "fr/ansys",
+  "level": "chunk",
+  "chunk_index": 16,
+  "qa_pairs": [
+    {
+      "question": "Dans quel cas est-ce recommandé d'utiliser les scripts Slurm pour Ansys Fluent avec l'option de remise en file d'attente?",
+      "answer": "Ces scripts devraient être utilisés uniquement pour les tâches Fluent qui sont reconnues pour se terminer normalement sans erreurs, mais qui nécessitent souvent plusieurs tentatives de remise en file d'attente pour obtenir les licences."
+    },
+    {
+      "question": "Quand ne devrait-on PAS utiliser les scripts de remise en file d'attente pour Fluent?",
+      "answer": "Il n'est pas recommandé d'utiliser ces scripts pour les tâches Fluent qui peuvent s'exécuter pendant une longue période avant de planter ou qui se terminent avec des avertissements dans le journal, car la simulation serait répétée depuis le début à chaque tentative."
+    },
+    {
+      "question": "Quel est le risque d'utiliser les scripts de remise en file d'attente si la simulation échoue pour d'autres raisons qu'un problème de licence?",
+      "answer": "Si la remise en file d'attente n'est pas due à un problème de licence, elle relancera inutilement la simulation depuis le début jusqu'à ce que le nombre maximal de tentatives soit atteint, gaspillant ainsi du temps de calcul."
+    },
+    {
+      "question": "Que doit-on faire si on découvre que la remise en file d'attente est causée par un problème avec la simulation elle-même?",
+      "answer": "Si le problème est lié à la simulation, il faut annuler la tâche immédiatement avec la commande `scancel jobid` et corriger le problème."
+    },
+    {
+      "question": "Quel est le but des scripts de redémarrage de solution pour Ansys Fluent?",
+      "answer": "Ces scripts automatisent le redémarrage des tâches Fluent intensives qui nécessitent une durée d'exécution supérieure à la limite maximale de sept jours permise sur la plupart des grappes."
+    },
+    {
+      "question": "Comment le redémarrage de la simulation est-il effectué dans ces scripts?",
+      "answer": "Le redémarrage est effectué à partir des fichiers de valeur de pas de temps les plus récemment sauvegardés."
+    },
+    {
+      "question": "Quels fichiers initiaux sont requis pour une simulation Fluent avec l'option de redémarrage?",
+      "answer": "Il faut un ensemble de fichiers `sample.cas`, `sample.dat` et `sample.jou`."
+    },
+    {
+      "question": "Quelles modifications doivent être apportées au fichier `sample.jou` initial pour permettre le redémarrage?",
+      "answer": "Il faut ajouter les lignes `/solve/dual-time-iterate 1` et `/file/auto-save/data-frequency 1` au fichier `sample.jou`."
+    },
+    {
+      "question": "Comment créer le fichier de journalisation `sample-restart.jou` pour le redémarrage?",
+      "answer": "Il faut copier `sample.jou` vers `sample-restart.jou`, modifier la ligne `/file/read-cas-data sample` pour `sample-restart` et mettre en commentaire la ligne d'initialisation (par exemple, `; /solve/initialize/initialize-flow`)."
+    },
+    {
+      "question": "Comment la valeur `/solve/dual-time-iterate` devrait-elle être ajustée dans `sample-restart.jou` si les pas suivants sont deux fois plus rapides que le pas initial?",
+      "answer": "Dans ce cas, il faut modifier `sample-restart.jou` en spécifiant `/solve/dual-time-iterate 2`."
+    },
+    {
+      "question": "Que signifie la valeur `2` pour `/solve/dual-time-iterate` dans un contexte de redémarrage?",
+      "answer": "Cette valeur signifie que la solution sera redémarrée après que les deux pas suivant le pas initial soient terminés."
+    },
+    {
+      "question": "Comment la durée totale d'une simulation avec redémarrage est-elle calculée si `2` est choisi pour le pas?",
+      "answer": "La durée totale de la simulation sera `1*Dt + 2*Nrestart*Dt`, où `Dt` est la durée d'un pas et `Nrestart` est le nombre de redémarrages défini dans le script Slurm."
+    },
+    {
+      "question": "Quel est le nombre total de pas (et de fichiers de résultats) générés avec l'option de redémarrage et la valeur `2`?",
+      "answer": "Le nombre total de pas sera `1 + 2*Nrestart`."
+    },
+    {
+      "question": "Quelle est la durée maximale pour le paramètre `SBATCH --time` dans les scripts de redémarrage Slurm?",
+      "answer": "La durée maximale peut aller jusqu'à `07-00:00` jours."
+    }
+  ],
+  "generated_at": "2026-04-11T17:08:54.519191+00:00"
+}

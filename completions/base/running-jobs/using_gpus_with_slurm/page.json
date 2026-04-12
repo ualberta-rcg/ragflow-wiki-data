@@ -1,0 +1,79 @@
+{
+  "doc_key": "base/using_gpus_with_slurm",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "How do I request one or more GPUs for a Slurm job?",
+      "answer": "You can request GPUs using the form `--gpus-per-node=<model_specifier>:<number>`, for example, `--gpus-per-node=a100:1` for a single A100 GPU."
+    },
+    {
+      "question": "Is there an older command for requesting GPUs, and is it recommended?",
+      "answer": "Yes, `--gres=gpu:<model_specifier>:<number>` can also be used, but it may not be supported in the future. It is recommended to replace it with `--gpus-per-node` in your scripts."
+    },
+    {
+      "question": "What are some other Slurm directives available for requesting GPU resources?",
+      "answer": "Slurm supports directives such as `--gpus`, `--gpus-per-socket`, `--gpus-per-task`, `--mem-per-gpu`, and `--ntasks-per-gpu`."
+    },
+    {
+      "question": "How can I find a list of available GPU models and their specifiers?",
+      "answer": "A table in the document summarizes available GPU models and specifiers by cluster. You can also obtain model specifiers from Slurm using the command `sinfo -o \"%G\"|grep gpu|sed 's/gpu://g'|sed 's/),/\\n/g'|cut -d: -f1|sort|uniq`."
+    },
+    {
+      "question": "What GPU models are available on the Fir cluster?",
+      "answer": "The Fir cluster offers H100-80gb GPUs, including various Multi-Instance GPU (MIG) configurations."
+    },
+    {
+      "question": "What GPU models are available on the Narval cluster?",
+      "answer": "The Narval cluster offers A100-40gb GPUs, including various Multi-Instance GPU (MIG) configurations."
+    },
+    {
+      "question": "What GPU models are available on the Nibi cluster?",
+      "answer": "The Nibi cluster offers H100-80gb and MI300A-128gb GPUs, including various Multi-Instance GPU (MIG) configurations for H100s."
+    },
+    {
+      "question": "What happens if I don't provide a specific GPU model specifier in my job script?",
+      "answer": "Your job may be rejected or sent to an arbitrary GPU instance, which is generally inefficient. It is strongly recommended to always provide a specific GPU model specifier."
+    },
+    {
+      "question": "What are Multi-Instance GPUs (MIGs)?",
+      "answer": "MIG is a technology that partitions a GPU into multiple instances, allowing your jobs to potentially use a MIG instance instead of a whole GPU."
+    },
+    {
+      "question": "Should I request CPU cores and system memory when requesting a GPU?",
+      "answer": "Yes, along with each GPU instance, your job should have a number of CPU cores (default is 1) and some amount of system memory."
+    },
+    {
+      "question": "What are the recommended maximum CPU cores per full GPU on the Fir and Narval clusters?",
+      "answer": "On both Fir and Narval, it is recommended to use no more than 12 CPU cores per full GPU."
+    },
+    {
+      "question": "How do I request a single A100 GPU with one CPU core, 4000M memory, and a 3-hour time limit for a single-core job?",
+      "answer": "You would use a Slurm batch script specifying `--gpus-per-node=a100:1`, `--mem=4000M`, and `--time=0-03:00` for your program."
+    },
+    {
+      "question": "How can I run a multi-threaded GPU job on Slurm?",
+      "answer": "Request `--cpus-per-task` (e.g., `--cpus-per-task=6`) along with your GPU request, and set `export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK` in your script."
+    },
+    {
+      "question": "How can I run multiple single-GPU programs efficiently within one Slurm job?",
+      "answer": "GNU Parallel is recommended, especially for jobs longer than 24 hours, using `CUDA_VISIBLE_DEVICES` to assign GPUs to concurrent tasks."
+    },
+    {
+      "question": "How do I profile GPU tasks on Narval and Rorqual?",
+      "answer": "You must disable the NVIDIA Data Center GPU Manager (DCGM) during job submission by setting `DISABLE_DCGM=1` and then wait for DCGM to be disabled in your interactive job before launching your profiler."
+    },
+    {
+      "question": "Is GPU profiling available on Fir and Nibi using the DCGM disabling method?",
+      "answer": "No, GPU profiling using the described technique is not yet available on Fir and Nibi."
+    },
+    {
+      "question": "Can GPUs on Arbutus be scheduled via Slurm?",
+      "answer": "No, GPUs at Arbutus are cloud resources and cannot be scheduled via Slurm. Refer to 'Cloud resources' for more details."
+    },
+    {
+      "question": "What is the benefit of asking Slurm for a whole node if my application can use it efficiently?",
+      "answer": "If your application can efficiently use an entire node and its associated GPUs, you will probably experience shorter wait times."
+    }
+  ],
+  "generated_at": "2026-04-12T10:01:02.660099+00:00"
+}

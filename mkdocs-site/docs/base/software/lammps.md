@@ -5,22 +5,62 @@ lang: "base"
 
 source_wiki_title: "LAMMPS"
 source_hash: "6d42c8c26175247474a7556559fe2ffb"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T07:48:18.480382+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T08:25:14.274033+00:00"
 
 tags:
   - software
   - biomolecularsimulation
 
 keywords:
-  []
+  - "processors"
+  - "performance"
+  - "input file"
+  - "Communication"
+  - "executable"
+  - "domain decomposition"
+  - "LAMMPS"
+  - "loop time"
+  - "compiling"
+  - "molecular dynamics"
+  - "small boxes"
+  - "simulation"
+  - "communications"
+  - "packages"
+  - "Pair interactions"
+  - "Performance"
+  - "MPI tasks"
+  - "pair interactions"
+  - "MPI job"
+  - "System sizes"
+  - "force fields"
+
+questions:
+  - "What is LAMMPS and what types of parallelization technologies does it support?"
+  - "What categories of modeling and force fields can be simulated using LAMMPS?"
+  - "How do users check for, load, and execute specific versions and packages of LAMMPS on the cluster system?"
+  - "How can a user check which packages are enabled or disabled in a loaded LAMMPS module?"
+  - "What are the differences in the provided SLURM job scripts for running LAMMPS in serial versus MPI modes?"
+  - "Why does increasing the number of processors for a small simulation box in LAMMPS eventually lead to low CPU efficiency?"
+  - "How many packages are included in recent versions of LAMMPS and when are they enabled or disabled?"
+  - "Can all available packages be enabled simultaneously in a single LAMMPS executable?"
+  - "Where can users find official documentation for the packages, and how might a disabled package affect a simulation?"
+  - "What percentage of the total time was spent computing pair interactions compared to communications between processors?"
+  - "What is the primary reason given for the large fraction of time spent in communication?"
+  - "What were the specific parameters of the simulation, including the loop time, number of processors, steps, and atoms?"
+  - "What are the two most time-consuming sections of the simulation according to the initial performance breakdown?"
+  - "How does increasing the number of cores from 1 to 16 affect the proportion of time spent on communication versus pair interactions?"
+  - "What impact does increasing the system size from 2048 to 13500 atoms have on the communication time when using a fixed number of cores?"
+  - "What are the two most time-consuming sections of the simulation according to the initial performance breakdown?"
+  - "How does increasing the number of cores from 1 to 16 affect the proportion of time spent on communication versus pair interactions?"
+  - "What impact does increasing the system size from 2048 to 13500 atoms have on the communication time when using a fixed number of cores?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -30,15 +70,15 @@ status:
 
 **LAMMPS** is a classical molecular dynamics code. The name stands for **L**arge-scale **A**tomic / **M**olecular **M**assively **P**arallel **S**imulator. LAMMPS is distributed by [Sandia National Laboratories](http://www.sandia.gov/), a US Department of Energy laboratory.
 
-*   Project website: <http://lammps.sandia.gov/>
+*   Project web site: <http://lammps.sandia.gov/>
 *   Documentation: [Online Manual](http://lammps.sandia.gov/doc/Manual.html).
 *   Mailing List: <http://lammps.sandia.gov/mail.html>
 
-LAMMPS is parallelized with [MPI](mpi.md) and [OpenMP](openmp.md), and can run on [GPUs](using-gpus-with-slurm.md).
+LAMMPS is parallelized with [MPI](mpi.md) and [OpenMP](openmp.md), and can run on [GPU](using-gpus-with-slurm.md)s.
 
 ## Force fields
 
-All supported force fields are listed on the [package website](https://lammps.sandia.gov/doc/Intro_features.html#ff), classified by functional form (e.g., pairwise potentials, many-body potentials, etc.). The large number of supported force fields makes LAMMPS suitable for many areas of application. Here are some types of modelling and force fields suitable for each:
+All supported force fields are listed on the [package web site](https://lammps.sandia.gov/doc/Intro_features.html#ff), classified by functional form (e.g. pairwise potentials, many-body potentials, etc.) The large number of supported force fields makes LAMMPS suitable for many areas of application. Here are some types of modelling and force fields suitable for each:
 
 *   Biomolecules: CHARMM, AMBER, OPLS, COMPASS (class 2), long-range Coulombics via PPPM, point dipoles, ...
 *   Polymers: all-atom, united-atom, coarse-grain (bead-spring FENE), bond-breaking, …
@@ -46,7 +86,7 @@ All supported force fields are listed on the [package website](https://lammps.sa
 *   Reactions: AI-REBO, REBO, ReaxFF, eFF
 *   Mesoscale: granular, DPD, Gay-Berne, colloidal, peri-dynamics, DSMC...
 
-Combinations of potentials can be used for hybrid systems, e.g., water on metal, polymer/semiconductor interfaces, colloids in solution, ...
+Combinations of potentials can be used for hybrid systems, e.g. water on metal, polymer/semiconductor interfaces, colloids in solution, ...
 
 ## Versions and packages
 
@@ -80,9 +120,9 @@ If you wish to see the original name of the executable for a given module, list 
 ```bash
 module load lammps-omp/20170331
 ls ${EBROOTLAMMPS}/bin/
-# Expected output:
-# lmp lmp_icc_openmpi
 ```
+Output:
+`lmp lmp_icc_openmpi`
 
 In this example the executable is `lmp_icc_openmpi`, and `lmp` is the symbolic link to it.
 
@@ -98,7 +138,7 @@ The input file below can be used with either of the example job scripts.
 
 === "lammps.in"
 
-    ```txt title="lammps.in"
+    ```txt
     # 3d Lennard-Jones melt
 
     units           lj
@@ -127,7 +167,7 @@ The input file below can be used with either of the example job scripts.
 
 === "run_lmp_serial.sh"
 
-    ```bash title="run_lmp_serial.sh"
+    ```bash
     #!/bin/bash
 
     #SBATCH --ntasks=1
@@ -141,12 +181,12 @@ The input file below can be used with either of the example job scripts.
 
 === "run_lmp_mpi.sh"
 
-    ```bash title="run_lmp_mpi.sh"
+    ```bash
     #!/bin/bash
 
     #SBATCH --ntasks=4
     #SBATCH --mem-per-cpu=2500M
-    #SBATCH --time=0-00:30 
+    #SBATCH --time=0-00:30
 
     module load StdEnv/2020 intel/2020.1.217 openmpi/4.0.3 lammps-omp/20210929
 
@@ -159,12 +199,10 @@ Most of the CPU time for molecular dynamics simulations is spent in computing th
 
 Before running extensive simulations for a given problem size or a size of the simulation box, you should run tests to see how the program's performance changes with the number of cores. Run short tests using different numbers of cores to find a suitable number of cores that will (approximately) maximize the efficiency of the simulation.
 
-The following example shows the timing for a simulation of a system of 4000 particles using 12 MPI tasks. This is an example of a very low efficiency: by using 12 cores, the system of 4000 atoms was divided to 12 small boxes. The code spent 46.45% of the time computing pair interactions and 44.5% in communications between the processors. The large number of small boxes for such a small system is responsible for the large fraction of time spent in communication.
+!!! warning "Low Efficiency Example"
+    The following example shows the timing for a simulation of a system of 4000 particles using 12 MPI tasks. This is an example of a very low efficiency: by using 12 cores, the system of 4000 atoms was divided into 12 small boxes. The code spent 46.45% of the time computing pair interactions and 44.5% in communications between the processors. The large number of small boxes for such a small system is responsible for the large fraction of time spent in communication.
 
-!!! note "Simulation Performance Summary"
-    Loop time of 15.4965 on 12 procs for 25000 steps with 4000 atoms.
-    Performance: 696931.853 tau/day, 1613.268 timesteps/s.
-    90.2% CPU use with 12 MPI tasks x 1 OpenMP threads.
+The following table details the loop time and performance for the example simulation:
 
 | Section | **min time** | **avg time** | **max time** | **%varavg** | **%total** |
 | :------ | :----------: | :----------: | :----------: | :---------: | :--------: |
@@ -175,12 +213,14 @@ The following example shows the timing for a simulation of a system of 4000 part
 | Modify  | 0.14023      | 0.14968      | 0.16127      | 1.7         | 0.97       |
 | Other   | --           | 0.2332       | --           | --          | 1.50       |
 
+Loop time of 15.4965 on 12 procs for 25000 steps with 4000 atoms. Performance: 696931.853 tau/day, 1613.268 timesteps/s. 90.2% CPU use with 12 MPI tasks x 1 OpenMP threads.
+
 In the next example, we compare the time spent in communication and computing the pair interactions for different system sizes:
 
-| Cores | 2048 atoms - Pairs | 2048 atoms - Comm | 4000 atoms - Pairs | 4000 atoms - Comm | 6912 atoms - Pairs | 6912 atoms - Comm | 13500 atoms - Pairs | 13500 atoms - Comm |
-| :---: | :----------------: | :---------------: | :----------------: | :---------------: | :----------------: | :---------------: | :------------------: | :-----------------: |
-| 1     | 73.68              | 1.36              | 73.70              | 1.28              | 73.66              | 1.27              | 73.72                | 1.29                |
-| 2     | 70.35              | 5.19              | 70.77              | 4.68              | 70.51              | 5.11              | 67.80                | 8.77                |
-| 4     | 62.77              | 13.98             | 64.93              | 12.19             | 67.52              | 8.99              | 67.74                | 8.71                |
-| 8     | 58.36              | 20.14             | 61.78              | 15.58             | 64.10              | 12.86             | 62.06                | 8.71                |
-| 16    | 56.69              | 20.18             | 56.70              | 20.18             | 56.97              | 19.80             | 56.41                | 20.38               |
+| Cores | 2048 atoms (Pairs) | 2048 atoms (Comm) | 4000 atoms (Pairs) | 4000 atoms (Comm) | 6912 atoms (Pairs) | 6912 atoms (Comm) | 13500 atoms (Pairs) | 13500 atoms (Comm) |
+| :---- | :----------------- | :---------------- | :----------------- | :---------------- | :----------------- | :---------------- | :------------------ | :----------------- |
+| 1     | 73.68              | 1.36              | 73.70              | 1.28              | 73.66              | 1.27              | 73.72               | 1.29               |
+| 2     | 70.35              | 5.19              | 70.77              | 4.68              | 70.51              | 5.11              | 67.80               | 8.77               |
+| 4     | 62.77              | 13.98             | 64.93              | 12.19             | 67.52              | 8.99              | 67.74               | 8.71               |
+| 8     | 58.36              | 20.14             | 61.78              | 15.58             | 64.10              | 12.86             | 62.06               | 8.71               |
+| 16    | 56.69              | 20.18             | 56.70              | 20.18             | 56.97              | 19.80             | 56.41               | 20.38              |

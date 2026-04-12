@@ -1,0 +1,104 @@
+{
+  "doc_key": "fr/best_practices_for_job_submission",
+  "level": "chunk",
+  "chunk_index": 4,
+  "qa_pairs": [
+    {
+      "question": "Comment choisir le nombre optimal de cœurs CPU pour un logiciel?",
+      "answer": "Faut connaître la scalabilité du logiciel."
+    },
+    {
+      "question": "C'est quoi la condition essentielle pour qu'un logiciel puisse utiliser plusieurs nœuds?",
+      "answer": "Le logiciel doit être capable de gérer le parallélisme avec mémoire distribuée."
+    },
+    {
+      "question": "Comment savoir si un logiciel peut fonctionner sur plus d'un nœud?",
+      "answer": "La plupart des logiciels qui le peuvent se basent sur le standard MPI. Si la documentation mentionne pas MPI ou parle juste de fils d'exécution pis de parallélisme par fils, le programme est limité à un seul nœud."
+    },
+    {
+      "question": "Qu'est-ce qui indique qu'un programme est limité à un seul nœud pour le parallélisme?",
+      "answer": "Si sa documentation ne parle pas de MPI ou qu'elle mentionne des fils d'exécution et du parallélisme par fils."
+    },
+    {
+      "question": "Quelle commande faut utiliser pour lancer des programmes parallélisés sur plusieurs nœuds?",
+      "answer": "Faut les lancer avec `srun` au lieu de `mpirun`."
+    },
+    {
+      "question": "Pourquoi on devrait éviter d'éparpiller les processus parallèles sur trop de nœuds?",
+      "answer": "Parce qu'une distribution plus compacte de ces processus donne généralement une meilleure performance."
+    },
+    {
+      "question": "Comment on peut optimiser la soumission de tâches parallèles pour avoir une meilleure performance?",
+      "answer": "Faut essayer de soumettre des tâches où le nombre de processus parallèles est un multiple entier du nombre de cœurs par nœud, si le logiciel le permet."
+    },
+    {
+      "question": "Quels sont les désavantages des tâches parallèles trop fragmentées?",
+      "answer": "Souvent, elles ont une faible performance pis ça complique la job de l'ordonnanceur."
+    },
+    {
+      "question": "Donne un exemple de nombre de processus à demander pour une grappe avec 40 cœurs par nœud.",
+      "answer": "Des nombres comme 40, 80, 120, 160, 240, etc., sont recommandés."
+    },
+    {
+      "question": "Comment on assigne 120 processus MPI de manière compacte sur des nœuds de 40 cœurs?",
+      "answer": "On utilise trois nœuds entiers, comme dans cet exemple de script : `#SBATCH --nodes=3 #SBATCH --ntasks-per-node=40`."
+    },
+    {
+      "question": "C'est quoi l'objectif principal en matière d'efficacité des CPU pour les tâches?",
+      "answer": "L'objectif, c'est que l'efficacité du ou des CPU se rapproche le plus possible de 100 %."
+    },
+    {
+      "question": "Où peut-on vérifier l'efficacité des CPU?",
+      "answer": "Faut regarder le champ `CPU Efficiency` dans le résultat de la commande `seff`."
+    },
+    {
+      "question": "Ça indique quoi, une faible efficacité de CPU?",
+      "answer": "Une efficacité de CPU en dessous de 90 % est faible et ça veut dire que le ou les logiciels de votre tâche devraient être améliorés."
+    },
+    {
+      "question": "Pourquoi les tâches qui utilisent des GPU doivent souvent attendre longtemps?",
+      "answer": "Parce qu'il y a juste pas beaucoup de nœuds GPU."
+    },
+    {
+      "question": "Qu'est-ce qu'on doit s'assurer quand on utilise un GPU?",
+      "answer": "Faut s'assurer que le GPU est utilisé le plus efficacement possible pis qu'il augmente la performance de vos tâches."
+    },
+    {
+      "question": "Peux-tu me donner des exemples de logiciels qui offrent une option GPU?",
+      "answer": "NAMD pis GROMACS sont des exemples de logiciels qui ont une option GPU."
+    },
+    {
+      "question": "Comment vérifier l'impact d'un GPU sur la performance d'un logiciel?",
+      "answer": "C'est une bonne idée de faire de courts tests avec pis sans GPU pour voir l'effet sur la vitesse d'exécution, parce que pas toutes les fonctions d'un logiciel tirent avantage des GPU."
+    },
+    {
+      "question": "Dans quel cas on devrait privilégier un nœud CPU plutôt qu'un nœud GPU?",
+      "answer": "Si une tâche qui utilise un seul GPU ne s'exécute pas pas mal plus vite qu'avec un nœud CPU entier, c'est mieux d'utiliser un nœud CPU."
+    },
+    {
+      "question": "Quand est-ce qu'on ne devrait pas utiliser un nœud GPU?",
+      "answer": "Si la tâche se termine juste 5 à 10 % plus vite avec un nœud GPU, on devrait plutôt utiliser un nœud CPU, parce que le temps d'attente pas mal plus élevé pour un nœud GPU n'en vaut pas la peine."
+    },
+    {
+      "question": "Quels outils on peut utiliser pour surveiller l'efficacité des tâches sur GPU?",
+      "answer": "On peut utiliser `nvidia-smi`, `nvtop`, ou encore `TensorBoard` si on travaille avec TensorFlow."
+    },
+    {
+      "question": "Est-ce que la commande `sleep` devrait être dans un script de tâche?",
+      "answer": "Non, en règle générale, la commande `sleep` ne devrait pas se retrouver dans un script de tâche."
+    },
+    {
+      "question": "Quelles sont les solutions recommandées pour gérer les environnements sur nos grappes, au lieu de Conda?",
+      "answer": "On recommande fortement d'utiliser des solutions comme un environnement virtuel Python ou Apptainer."
+    },
+    {
+      "question": "Faut-il utiliser Conda sur les grappes?",
+      "answer": "Non, on recommande fortement d'éviter Conda et ses variantes sur nos grappes."
+    },
+    {
+      "question": "Comment optimiser les opérations de lecture et d'écriture sur les nœuds de calcul?",
+      "answer": "Faut les optimiser en utilisant le stockage local sur les nœuds de calcul."
+    }
+  ],
+  "generated_at": "2026-04-11T18:36:11.564120+00:00"
+}

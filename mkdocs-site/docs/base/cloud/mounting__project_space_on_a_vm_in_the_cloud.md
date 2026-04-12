@@ -5,21 +5,33 @@ lang: "base"
 
 source_wiki_title: "Mounting /project space on a VM in the cloud"
 source_hash: "d6db02a5e55fa76c4d4f4da9ce032516"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T08:58:38.286428+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T09:30:52.937698+00:00"
 
 tags:
   - cloud
 
 keywords:
-  []
+  - "Cloud"
+  - "/project filesystems"
+  - "Security requirements"
+  - "SSHFS"
+  - "Virtual machine"
+
+questions:
+  - "How can a virtual machine hosted on the Cloud access the /project filesystems on the national HPC clusters?"
+  - "What is SSHFS and how does it integrate the /project folder into the virtual machine's environment?"
+  - "What specific security requirements must be followed when mounting the /project directory inside a virtual machine?"
+  - "How can a virtual machine hosted on the Cloud access the /project filesystems on the national HPC clusters?"
+  - "What is SSHFS and how does it integrate the /project folder into the virtual machine's environment?"
+  - "What specific security requirements must be followed when mounting the /project directory inside a virtual machine?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -32,7 +44,7 @@ This document describes how to let a virtual machine (VM) access [/project](proj
 SSHFS enables mounting your /project folder inside your VM.
 SSHFS mounts appear like regular folders in your VM and can be accessed via regular Linux commands.
 
-A reference can be found at https://wiki.archlinux.org/index.php/SSHFS
+A reference can be found at [https://wiki.archlinux.org/index.php/SSHFS](https://wiki.archlinux.org/index.php/SSHFS)
 
 ## Requirements
 

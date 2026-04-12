@@ -5,21 +5,33 @@ lang: "base"
 
 source_wiki_title: "Firedrake"
 source_hash: "697e91a8ecd885353524420235547905"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T06:21:44.853177+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T07:04:38.357446+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "finite element method"
+  - "Firedrake"
+  - "PETSc"
+  - "Python virtualenv"
+  - "partial differential equations"
+
+questions:
+  - "What is Firedrake and what specific modules must be loaded before installing it in a Python virtual environment?"
+  - "How is a Slurm batch script configured to execute a Firedrake MPI job?"
+  - "Which optional dependencies are supported by Firedrake, and what is the current workaround for installing VTK?"
+  - "What is Firedrake and what specific modules must be loaded before installing it in a Python virtual environment?"
+  - "How is a Slurm batch script configured to execute a Firedrake MPI job?"
+  - "Which optional dependencies are supported by Firedrake, and what is the current workaround for installing VTK?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -30,7 +42,7 @@ status:
 
 ## Installation
 
-!!! note
+!!! note "Module Loading Order"
     All modules must be loaded before creating and/or activating the Python virtualenv.
 
 ### Firedrake 2025.4.2
@@ -81,4 +93,6 @@ Firedrake has a number of [optional dependencies](https://www.firedrakeproject.o
 *   **PyTorch**: since we provide [precompiled wheels](python.md#available-wheels) for `torch`.
 *   **Jax**: since we provide [precompiled wheels](python.md#available-wheels) for `jax`.
 *   **VTK**: currently we don't have a module for VTK that supports recent enough versions of Python for Firedrake (Python 3.12 and newer).
+
+!!! tip "VTK Workaround"
     As a temporary workaround VTK can be installed into the virtualenv with: `pip install --no-index --find-links ~stuekero/wheels/vtk vtk==9.4.2` until we install a new VTK module.

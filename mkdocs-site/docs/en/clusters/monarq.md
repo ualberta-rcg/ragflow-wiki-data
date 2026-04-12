@@ -5,31 +5,56 @@ lang: "en"
 
 source_wiki_title: "MonarQ/en"
 source_hash: "da7cdbd5bdea2c1304509d5978293cab"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T08:55:05.139841+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T09:28:00.277785+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "PennyLane"
+  - "Slurm"
+  - "Python virtual environment"
+  - "Narval"
+  - "MonarQ"
+  - "Calcul Québec cluster"
+  - "PennyLane-CalculQuébec plugin"
+  - "quantum computing software"
+  - "quantum computer"
+  - "Quantum circuit"
+  - "Calcul Québec"
+  - "qubits"
+
+questions:
+  - "What is the MonarQ quantum computer and what is its current operational status?"
+  - "What are the necessary steps and prerequisites for a researcher to gain access to and connect to MonarQ?"
+  - "What are the technical specifications of the MonarQ processor and which software libraries can be used to program it?"
+  - "How do you configure MonarQ as a quantum device using PennyLane and the CalculQuebecClient?"
+  - "What is the process for submitting and executing a quantum circuit job using the Slurm scheduler?"
+  - "What are the primary applications and research use cases suited for the MonarQ system?"
+  - "How do users access and connect to the Narval cluster?"
+  - "What version of Python is required when creating the virtual environment?"
+  - "Which specific software libraries and plugins are already pre-installed on Narval?"
+  - "How do you configure MonarQ as a quantum device using PennyLane and the CalculQuebecClient?"
+  - "What is the process for submitting and executing a quantum circuit job using the Slurm scheduler?"
+  - "What are the primary applications and research use cases suited for the MonarQ system?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
-!!! info "Login node"
+!!! note "Login node"
     `https://monarq.calculquebec.ca`
 
 !!! warning
-    MonarQ is currently undergoing maintenance and should be operational in February 2026. In the meantime, Calcul Québec can offer access to a similar but smaller machine, with 6 qubits.
+    **MonarQ is currently undergoing maintenance and should be operational in February 2026. In the meantime, Calcul Québec can offer access to a similar but smaller machine, with 6 qubits.**
 
-MonarQ is a 24-qubit superconducting quantum computer developed in Montreal by [Anyon Systems](https://anyonsys.com/) and located at the [École de technologie supérieure](http://www.etsmtl.ca/). See section [Technical specifications](monarq.md#technical-specifications) below.
+MonarQ is a 24-qubit superconducting quantum computer developed in Montreal by [Anyon Systems](https://anyonsys.com/) and located at the [École de technologie supérieure](http://www.etsmtl.ca/). See section [Technical specifications](#technical-specifications) below.
 
 Its name is inspired by the monarch butterfly, a symbol of evolution and migration. The capital Q denotes the quantum nature of the computer and its origins in Quebec. Acquisition of MonarQ was made possible with the support of the [Ministère de l'Économie, de l'Innovation et de l'Énergie du Québec (MEIE)](https://www.economie.gouv.qc.ca/) and [Canada Economic Development (CED)](https://ced.canada.ca/en/ced-home/).
 
@@ -39,7 +64,7 @@ Its name is inspired by the monarch butterfly, a symbol of evolution and migrati
 2.  You must have an [account with the Alliance](https://alliancecan.ca/en/services/advanced-research-computing/account-management/apply-account) in order to get access to MonarQ.
 3.  Meet with our team to discuss the specifics of your project.
 4.  Receive access to the MonarQ dashboard and generate your access token.
-5.  To get started using MonarQ, see [Getting started](monarq.md#getting-started) below.
+5.  To get started using MonarQ, see [Getting started](#getting-started) below.
 
 Contact our quantum team at [quantum@calculquebec.ca](mailto:quantum@calculquebec.ca) if you have any questions or if you want to have a more general discussion before requesting access to MonarQ.
 
@@ -48,6 +73,7 @@ Contact our quantum team at [quantum@calculquebec.ca](mailto:quantum@calculquebe
 Like quantum processors available today, MonarQ operates in an environment where noise remains a significant factor. Performance metrics, updated at each calibration, are accessible via the Thunderhead portal which you will be able to use after being approved for access to MonarQ.
 
 Among the metrics are:
+
 *   24-qubit quantum processor
 *   Single-qubit gate: 99.8% fidelity with gate duration of 15ns
 *   Two-qubit gate: 95.6% fidelity with gate duration of 35ns
@@ -60,17 +86,15 @@ There are several specialized software libraries for quantum computing and the d
 
 *   [PennyLane](pennylane.md), for Python commands
 *   [Snowflurry](snowflurry.md), for Julia commands
-*   [Qiskit](qiskit.md), for Python commands
+*   [Qiskit](qiskit-fr.md), for Python commands
 
-The quantum logic gates of the MonarQ processor are called through a [Snowflurry](snowflurry.md) software library written in [Julia](https://julialang.org/). Although MonarQ is natively compatible with Snowflurry, there is a [PennyLane-Snowflurry](https://github.com/calculquebec/pennylane-snowflurry) plugin developed by Calcul Québec that allows you to execute circuits on MonarQ while benefiting from the features and development environment offered by [PennyLane](pennylane.md).
+The quantum logic gates of the MonarQ processor are called through a [Snowflurry](snowflurry.md) software library written in Julia. Although MonarQ is natively compatible with Snowflurry, there is a [PennyLane-Snowflurry](https://github.com/calculquebec/pennylane-snowflurry) plugin developed by Calcul Québec that allows you to execute circuits on MonarQ while benefiting from the features and development environment offered by [PennyLane](pennylane.md).
 
 ## Getting started
-
-!!! note "Prerequisites"
-    Make sure you have access to MonarQ and that you have your login credentials (*username*, *API token*). If you have any questions, write to [quantum@calculquebec.ca](mailto:quantique@calculquebec.ca).
+**Prerequisites**: Make sure you have access to MonarQ and that you have your login credentials (*username*, *API token*). If you have any questions, write to [quantique@calculquebec.ca](mailto:quantique@calculquebec.ca).
 
 *   **Step 1: Connect to [Narval](narval.md)**
-    *   MonarQ is only accessible from Narval, a Calcul Québec cluster. Narval is accessed from the login node `narval.alliancecan.ca`.
+    *   MonarQ is only accessible from Narval, a Calcul Québec cluster. Narval is accessed from the login node **`narval.alliancecan.ca`**.
     *   For help connecting to Narval, see [SSH](ssh.md).
 
 *   **Step 2: Create the environment**
@@ -86,10 +110,10 @@ The quantum logic gates of the MonarQ processor are called through a [Snowflurry
 
 *   **Step 3: Configure your identifiers on MonarQ and define MonarQ as your device**
     *   Open a Python .py file and import the required dependencies (in the following example, PennyLane and MonarqClient).
-    *   Create a client with your identifiers. Your token is available through the Thunderhead portal. The *host* is `https://monarq.calculquebec.ca`.
+    *   Create a client with your identifiers. Your token is available through the Thunderhead portal. The *host* is **`https://monarq.calculquebec.ca`**.
     *   Create a PennyLane device with your client. You can also enter the number of qubits (*wires*) and the number of shots.
     *   For more information, see [pennylane_calculquebec](https://github.com/calculquebec/pennylane-calculquebec/blob/main/doc/getting_started.ipynb).
-    ```python title="my_circuit.py"
+    ```python linenums="1" title="my_circuit.py"
     import pennylane as qml
     from pennylane_calculquebec.API.client import CalculQuebecClient
 
@@ -100,7 +124,7 @@ The quantum logic gates of the MonarQ processor are called through a [Snowflurry
 
 *   **Step 4: Create your circuit**
     *   In the same Python file, you can now code your quantum circuit.
-    ```python title="my_circuit.py"
+    ```python linenums="1" title="my_circuit.py"
     @qml.set_shots(1000)
     @qml.qnode(dev)
 
@@ -122,15 +146,15 @@ The quantum logic gates of the MonarQ processor are called through a [Snowflurry
     Submitted batch job 123456
     ```
     The Slurm script is similar to
-    ```sh title="simple_job.sh"
+    ```bash linenums="1" title="simple_job.sh"
     #!/bin/bash
     #SBATCH --time=00:15:00
-    #SBATCH --account=def-someuser # Votre username
-    #SBATCH --cpus-per-task=1      # Modifiez s'il y a lieu
-    #SBATCH --mem-per-cpu=1G       # Modifiez s'il y a lieu
+    #SBATCH --account=def-someuser # Your username
+    #SBATCH --cpus-per-task=1      # Modify if applicable
+    #SBATCH --mem-per-cpu=1G 	  # Modify if applicable
     python my_circuit.py
     ```
-    *   The result is written to a file with a name starting with `slurm-`, followed by the task ID and the `.out` suffix, for example *slurm-123456.out*.
+    *   The result is written to a file with a name starting with slurm-, followed by the task ID and the .out suffix, for example *slurm-123456.out*.
     *   The file contains the result in dictionary `{'000': 496, '001': 0, '010': 0, '011': 0, '100': 0, '101': 0, '110': 0, '111': 504}`.
     *   For more information on submitting tasks on Narval, see [Running jobs](running-jobs.md).
 
@@ -138,11 +162,12 @@ The quantum logic gates of the MonarQ processor are called through a [Snowflurry
 *   [Foire aux questions (FAQ)](https://docs.google.com/document/d/13sfHwJTo5tcmzCZQqeDmAw005v8I5iFeKp3Xc_TdT3U/edit?tab=t.0)
 
 ## Other tools
-*   [Quantum transpilation](transpileur-quantique.md)
+*   [Quantum transpilation](quantum-transpilation.md)
 
 ## Applications
 MonarQ is suited for computations requiring small quantities of high-fidelity qubits, making it an ideal tool to develop and test quantum algorithms. Other possible applications include modelling small quantum systems; testing new methods and techniques for quantum programming and error correction; and more generally, fundamental research in quantum computing.
 
 ## Technical support
 For questions about our quantum services, write to [quantum@calculquebec.ca](mailto:quantum@calculquebec.ca).
+
 Sessions on quantum computing and programming with MonarQ are [listed here](https://www.eventbrite.com/o/calcul-quebec-8295332683).

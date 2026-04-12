@@ -5,35 +5,44 @@ lang: "fr"
 
 source_wiki_title: "VMD/fr"
 source_hash: "3d3b2ee0384e2597a54a0eff3d556f7a"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T12:34:13.050932+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T12:33:25.599162+00:00"
 
 tags:
   - software
   - biomolecularsimulation
 
 keywords:
-  []
+  - "VMD"
+  - "systèmes biomoléculaires"
+  - "visualisation moléculaire"
+  - "plugiciels"
+  - "installation"
+
+questions:
+  - "Qu'est-ce que le programme VMD et comment peut-on lancer sa version préinstallée sur une grappe de calcul ?"
+  - "Quelles sont les étapes requises pour télécharger, configurer et installer manuellement la version Alpha 1.9.4 de VMD dans son répertoire personnel ?"
+  - "Comment doit-on procéder pour installer un plugiciel supplémentaire, comme CaFE, et le rendre accessible via le fichier de configuration de VMD ?"
+  - "Qu'est-ce que le programme VMD et comment peut-on lancer sa version préinstallée sur une grappe de calcul ?"
+  - "Quelles sont les étapes requises pour télécharger, configurer et installer manuellement la version Alpha 1.9.4 de VMD dans son répertoire personnel ?"
+  - "Comment doit-on procéder pour installer un plugiciel supplémentaire, comme CaFE, et le rendre accessible via le fichier de configuration de VMD ?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
-VMD est un programme de visualisation moléculaire permettant d'afficher, d'animer et d'analyser de grands systèmes biomoléculaires à l'aide de graphiques 3D et de scripts intégrés. Voyez [le site Web de VMD](https://www.ks.uiuc.edu/Research/vmd/).
+VMD est un programme de visualisation moléculaire permettant d'afficher, d'animer et d'analyser de grands systèmes biomoléculaires à l'aide de graphiques 3D et de scripts intégrés. Voir [le site Web VMD](https://www.ks.uiuc.edu/Research/vmd/).
 
 ## Version préinstallée
 
-Pour activer les fonctionnalités graphiques, connectez-vous à un cluster avec [VNC](vnc.md) en utilisant `ssh -X` ou `ssh -Y`.
+Pour activer les fonctionnalités graphiques, connectez-vous à une grappe avec [VNC](vnc.md) en utilisant `ssh -X` ou `ssh -Y`. Nous recommandons VNC pour une meilleure performance.
 
-!!! tip "Recommandation"
-    Pour une meilleure performance graphique, nous recommandons de vous connecter via VNC.
-
-La version par défaut est actuellement `1.9.4a57`.
+La version par défaut est présentement `1.9.4a57`.
 Pour l'utiliser :
 
 ```bash
@@ -41,13 +50,13 @@ module load vmd
 vmd
 ```
 
-Pour plus d'information sur la commande `module`, voyez [Utiliser des modules](utiliser-des-modules.md), qui décrit aussi comment trouver et utiliser les autres versions préinstallées.
+Pour plus d'information sur la commande `module`, voir [Utiliser des modules](utiliser-des-modules.md), qui décrit aussi comment trouver et utiliser les autres versions préinstallées.
 
 ## Installation de la version Alpha 1.9.4
 
-1.  Téléchargez le plus récent fichier *tar* Alpha 1.9.4 à partir de [http://www.ks.uiuc.edu/](http://www.ks.uiuc.edu/Development/Download/download.cgi?PackageName=VMD) en sélectionnant LINUX_64 (vous devez vous inscrire).
+1.  Téléchargez le dernier fichier *tar* Alpha 1.9.4 de [http://www.ks.uiuc.edu/](http://www.ks.uiuc.edu/Development/Download/download.cgi?PackageName=VMD) en sélectionnant LINUX_64 (vous devez vous enregistrer).
 
-2.  Copiez le fichier dans le répertoire /home du cluster que vous voulez utiliser.
+2.  Copiez le fichier dans le répertoire `/home` de la grappe que vous voulez utiliser.
 
 3.  Décompactez le fichier.
 
@@ -68,17 +77,17 @@ Pour plus d'information sur la commande `module`, voyez [Utiliser des modules](u
     mkdir ~/vmd_library
     ```
 
-6.  Modifiez le fichier `configure` comme suit, en remplaçant chaque occurrence de `your_user_name` par votre propre nom d'utilisateur.
+6.  Modifiez le fichier `configure` comme suit, en remplaçant chaque occurrence de `your_user_name` avec votre propre nom d'utilisateur.
 
-    ```perl
+    ```text
     # Directory where VMD startup script is installed, should be in users' paths.
     $install_bin_dir="/home/your_user_name/vmd_install";
-
+    
     # Directory where VMD files and executables are installed
     $install_library_dir="/home/your_user_name/vmd_library";
     ```
 
-7.  Lancez `configure` et `make` :
+7.  Lancez `configure` et `make`:
 
     ```bash
     ./configure
@@ -86,29 +95,30 @@ Pour plus d'information sur la commande `module`, voyez [Utiliser des modules](u
     make install
     ```
 
-8.  Ajoutez l'exécutable créé au chemin (PATH).
+8.  Ajoutez l'exécutable créé au chemin.
 
     ```bash
     export PATH=~/vmd_install:$PATH
     ```
 
-9.  Utilisez `setrpaths.sh` pour modifier les exécutables de VMD afin qu'ils utilisent les bibliothèques de CVMFS.
+9.  Utilisez `setrpaths.sh` pour modifier les exécutables VMD afin qu'ils utilisent les bibliothèques de CVMFS.
 
     ```bash
     cd ~/vmd_library/
     setrpaths.sh --path .
     ```
 
-Sous Mac, si la fenêtre est vide, essayez d'exécuter la commande suivante :
+!!! tip "Dépannage pour macOS"
+    Sous Mac, si la fenêtre est vide, essayez de lancer :
 
-```bash
-defaults write org.macosforge.xquartz.X11 enable_iglx -bool true
-```
+    ```bash
+    defaults write org.macosforge.xquartz.X11 enable_iglx -bool true
+    ```
 
-## Installation de modules d'extension
+## Installation de plugiciels
 
-Plusieurs modules d'extension sont disponibles. Vous pouvez les installer dans votre propre espace.
-Dans l'exemple suivant, nous installons le [module d'extension CaFE](https://github.com/HuiLiuCode/CaFE_Plugin), avec les directives détaillées qui se trouvent dans [ce manuel (PDF)](https://github.com/HuiLiuCode/CaFE_Plugin/blob/master/doc/manual.pdf) :
+Plusieurs plugiciels sont disponibles. Vous pouvez les installer dans votre propre espace.
+Dans l'exemple suivant, nous installons le [plugiciel CaFE](https://github.com/HuiLiuCode/CaFE_Plugin), avec les directives détaillées qui se trouvent dans [cette page](https://github.com/HuiLiuCode/CaFE_Plugin/blob/master/doc/manual.pdf) :
 
 ```bash
 wget https://github.com/HuiLiuCode/CaFE_Plugin/archive/refs/heads/master.zip
@@ -119,16 +129,16 @@ mv cafe1.0 ~
 cd
 ```
 
-Modifiez le fichier `.vmdrc` avec votre éditeur préféré (`nano`, `vim`, `emacs`, etc.) et ajoutez la ligne suivante :
+Modifiez le fichier `.vmdrc` avec votre éditeur préféré (`nano, vim, emacs`, etc.) et ajoutez la ligne suivante :
 
 ```tcl
 set auto_path [linsert $auto_path 0 {~/cafe1.0}]
 ```
 
-Chargez ensuite le module `vmd` et tout autre module requis; le module d'extension CaFE devrait alors être disponible.
+Chargez ensuite le module `vmd` et tout autre module requis; le plugiciel CaFE devrait être disponible.
 
-## Liens utiles
+## Liens
 
-*   Webinaires de WestGrid (en anglais)
-    *   [Molecular visualization with VMD](https://www.youtube.com/watch?v=_skmrS6X4Ys)
-    *   [Advanced VMD: Trajectories, movies, scripting](https://www.youtube.com/watch?v=Jce5JN2fLuo)
+*   Webinaires WestGrid (en anglais)
+    *   [Visualisation moléculaire avec VMD](https://www.youtube.com/watch?v=_skmrS6X4Ys)
+    *   [VMD avancé : Trajectoires, films, scripts](https://www.youtube.com/watch?v=Jce5JN2fLuo)

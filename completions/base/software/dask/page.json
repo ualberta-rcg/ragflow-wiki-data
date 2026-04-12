@@ -1,0 +1,47 @@
+{
+  "doc_key": "base/dask",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is Dask and what capabilities does it offer?",
+      "answer": "Dask is a flexible Python library designed for parallel computing, providing distributed NumPy array and Pandas DataFrame objects, and enabling distributed computing within the PyData stack."
+    },
+    {
+      "question": "What is the preferred way to install Dask?",
+      "answer": "The preferred method for installing Dask is by utilizing its provided Python wheel."
+    },
+    {
+      "question": "What steps are required to install Dask using a virtual environment?",
+      "answer": "To install Dask using a virtual environment, one must first load a Python module, then create and start a virtual environment, and finally, install `dask` (and optionally `dask-distributed`) within that virtual environment using `pip install`."
+    },
+    {
+      "question": "What does the `dask-example.sh` script achieve in the single-node job submission example?",
+      "answer": "The `dask-example.sh` script in the single-node example spawns a single-node Dask cluster with 6 CPUs, configures a virtual environment, installs Dask, launches a scheduler and workers, and then executes a Python script to compute the mean of a DataFrame column."
+    },
+    {
+      "question": "How are Dask workers and threads configured in the single-node example's Python script?",
+      "answer": "In the single-node example, the Dask cluster launches as many worker processes as there are cores in the job (6 workers), with each worker spawning at most one CPU thread."
+    },
+    {
+      "question": "What is demonstrated by the `dask-example.py` script in the single-node setup?",
+      "answer": "The `dask-example.py` script demonstrates connecting to a Dask cluster, creating a Pandas DataFrame, converting it into a Dask DataFrame partitioned by the number of workers, and then computing the mean of a specific column."
+    },
+    {
+      "question": "What is the main difference between the multiple-node Dask cluster example and the single-node one?",
+      "answer": "The multiple-node Dask cluster example reproduces the single-node example but utilizes a two-node Dask cluster, with 6 CPUs on each node, and spawns 2 workers per node, each with 3 cores."
+    },
+    {
+      "question": "What is the function of the `config_virtualenv.sh` script in the multi-node setup?",
+      "answer": "The `config_virtualenv.sh` script is responsible for setting up the virtual environment on each node, including loading necessary modules (python, gcc, arrow), creating and activating the virtual environment, and installing `dask[distributed,dataframe]`."
+    },
+    {
+      "question": "How does `launch_dask_workers.sh` configure Dask workers differently based on their SLURM process ID?",
+      "answer": "On the SLURM task with Rank 0 (where the scheduler is), `launch_dask_workers.sh` launches a worker with 40% of the job's memory and one less core. On all other SLURM tasks, each worker receives 50% of the job's allocated memory and all the cores allocated to its task."
+    },
+    {
+      "question": "What purpose does the `test_dask.py` script serve in the multi-node example?",
+      "answer": "The `test_dask.py` script in the multi-node example connects to the Dask cluster, creates a Pandas DataFrame, converts it to a Dask DataFrame with 6 partitions, and computes the mean of a column, similar to the single-node Python script."
+    }
+  ],
+  "generated_at": "2026-04-11T20:47:35.611551+00:00"
+}

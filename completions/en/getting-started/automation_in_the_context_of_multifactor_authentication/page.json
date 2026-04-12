@@ -1,0 +1,87 @@
+{
+  "doc_key": "en/automation_in_the_context_of_multifactor_authentication",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is an automation node used for?",
+      "answer": "An automation node allows automated workflows from outside machines to connect to a cluster without human intervention, bypassing the need for a second authentication factor (MFA)."
+    },
+    {
+      "question": "How do automation nodes differ from regular login nodes?",
+      "answer": "Automation nodes do not require a second authentication factor but are more limited than regular login nodes in the types of authentication they accept and the actions they can perform."
+    },
+    {
+      "question": "How do I request access to an automation node?",
+      "answer": "You must contact technical support and explain in detail the type of automation you intend to use, including the commands, tools, and libraries."
+    },
+    {
+      "question": "What is the only accepted authentication method for automation nodes?",
+      "answer": "The only accepted authentication method is through SSH keys uploaded to the CCDB."
+    },
+    {
+      "question": "Are SSH keys in my `.ssh/authorized_keys` file accepted for automation nodes?",
+      "answer": "No, SSH keys written in your `.ssh/authorized_keys` file are not accepted; they must be uploaded to the CCDB."
+    },
+    {
+      "question": "What is the 'one SSH key per use' rule for automation nodes?",
+      "answer": "It means you should not reuse an SSH key for interactive login; instead, generate a new SSH key specifically for your automation workflow."
+    },
+    {
+      "question": "What are the three required constraints for SSH keys used with automation nodes?",
+      "answer": "The SSH keys must include the `restrict`, `from=\"pattern-list\"`, and `command=\"COMMAND\"` constraints."
+    },
+    {
+      "question": "What does the `restrict` constraint disable on an automation node?",
+      "answer": "The `restrict` constraint disables port forwarding, agent forwarding, X11 forwarding, and the pseudo teletype (PTY), blocking most interactive workloads."
+    },
+    {
+      "question": "What kind of IP addresses are valid for the `from=\"pattern-list\"` constraint?",
+      "answer": "The pattern list must include only public IP addresses that fully specify at least the network class, network, and subnet (e.g., `x.y.z.*`). Private IP addresses are not accepted."
+    },
+    {
+      "question": "How can I find my public IP address for the `from` constraint?",
+      "answer": "You can use a site like What Is My IP Address? or the shell command `curl ifconfig.me`."
+    },
+    {
+      "question": "What is the purpose of the `command=\"COMMAND\"` constraint?",
+      "answer": "This constraint forces a specific command to be executed when the connection is established, allowing you to restrict which commands can be used with the key."
+    },
+    {
+      "question": "Are there pre-made scripts available for the `command` constraint?",
+      "answer": "Yes, convenience wrapper scripts are provided, such as `transfer_commands.sh` for file transfers or `slurm_commands.sh` for Slurm commands."
+    },
+    {
+      "question": "Where should the constraints be placed when creating an SSH key for an automation node?",
+      "answer": "The constraints must be added directly as text in front of your key string before uploading the complete string to your CCDB account."
+    },
+    {
+      "question": "What is the hostname for the automation node on the Rorqual cluster?",
+      "answer": "The hostname for the automation node on the Rorqual cluster is `robot.rorqual.alliancecan.ca`."
+    },
+    {
+      "question": "How can I ensure the correct SSH key is used with `ssh` or `scp` commands?",
+      "answer": "You can specify the private key using the `-i` parameter, for example, `ssh -i .ssh/private_key_to_use ...`."
+    },
+    {
+      "question": "What common issue might arise with IPv4 and IPv6 when connecting to an automation node?",
+      "answer": "Your SSH client might use IPv6 addressing while the `from` constraint in your key specifies an IPv4 address mask, causing the key to be rejected."
+    },
+    {
+      "question": "How can I determine if my SSH client is using IPv4 or IPv6?",
+      "answer": "You can use the `ssh -i ~/.ssh/automation_key -vvv username@robot.rorqual.alliancecan.ca \"ls -l\"` command and look for the 'Connecting to...' message in the debug output."
+    },
+    {
+      "question": "What are some solutions if there is an IPv4 vs. IPv6 mismatch when connecting?",
+      "answer": "You can explicitly tell the SSH client to use IPv4 (`-4`) or IPv6 (`-6`), use an IP address instead of the hostname, or, as a last resort, disable IPv6 on your computer."
+    },
+    {
+      "question": "How do I configure Paramiko in Python to use an SSH key for an automation node?",
+      "answer": "You can load the private key using `paramiko.Ed25519Key.from_private_key_file(\"/home/username/.ssh/cc_allowed\")` and then pass it to `ssh.connect(hostname=host, username=user, pkey=key)`."
+    },
+    {
+      "question": "What is required to ensure Paramiko supports Ed25519 key types?",
+      "answer": "You need to install Paramiko with the command `pip install paramiko[all]` to ensure support for the Ed25519 key type."
+    }
+  ],
+  "generated_at": "2026-04-11T18:08:41.339431+00:00"
+}

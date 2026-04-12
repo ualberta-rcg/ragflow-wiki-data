@@ -1,0 +1,64 @@
+{
+  "doc_key": "base/sharing_data",
+  "level": "chunk",
+  "chunk_index": 6,
+  "qa_pairs": [
+    {
+      "question": "What does a `umask` value of `007` mean in terms of file permissions?",
+      "answer": "A `umask` value of `007` means that files are readable, writable, and executable by the owner and the group, but inaccessible to everyone else (`o=`)."
+    },
+    {
+      "question": "Could you explain the permissions granted by a `umask` value of `022`?",
+      "answer": "With a `umask` value of `022`, files are readable, writable, and executable by the owner (`u=rwx`), readable and executable by the group (`g=rx`), and also readable and executable by everyone else (`o=rx`), but writable only by the owner."
+    },
+    {
+      "question": "What file permissions are set for the owner, group, and others with a `umask` value of `002`?",
+      "answer": "A `umask` value of `002` sets files to be readable, writable, and executable by both the owner (`u=rwx`) and the group (`g=rwx`), and readable and executable by everyone else (`o=rx`), but writable only by the owner and the group."
+    },
+    {
+      "question": "Besides `umask`, what other factors determine who can access a file on our systems?",
+      "answer": "In addition to `umask`, a user must have execute permission on all directories in the path to the file. Also, the user trying to access a file based on its group permissions must be a member of that file's group. Permissions can also be explicitly changed using `chmod`, and Access Control Lists (ACLs) can further determine file access."
+    },
+    {
+      "question": "Why is it important to have execute permission on all directories in the path to a file for a user to access it?",
+      "answer": "A user must have execute permission on all directories leading to a file. For example, even if a file has `o=rx` permissions, an arbitrary user cannot read or execute it if a parent directory lacks `o=x` permission, preventing them from 'entering' the directory."
+    },
+    {
+      "question": "Have my files been exposed inappropriately in the past due to default access permissions?",
+      "answer": "No, this change does not mean your files have been inappropriately exposed. Restrictive access permissions have been set on your home, project, and scratch directories by default. Unless you specifically changed permissions to grant execute access to other users on these folders, they cannot be accessed by them."
+    },
+    {
+      "question": "How can I modify the permissions of existing files or an entire directory to align with new default permissions?",
+      "answer": "To change permissions for existing files, you can use `chmod g-w,o-rx <file>`. To do this for a whole directory recursively, use `chmod -R g-w,o-rx <directory>`."
+    },
+    {
+      "question": "What are Access Control Lists (ACLs), and how do they improve upon traditional Unix file permissions?",
+      "answer": "Access Control Lists (ACLs) are a mechanism offered by our national systems that enable permissions to be set on a user-by-user basis, offering finer-grained control than traditional Unix permissions. Traditional permissions are coarse-grained, dividing users into just three categories: owner, group, and everyone else."
+    },
+    {
+      "question": "Which commands are used to view and modify ACL permissions?",
+      "answer": "The two commands used to manipulate extended ACL permissions are `getfacl` to see the permissions and `setfacl` to alter them."
+    },
+    {
+      "question": "How do I grant read and execute permissions on a single file, `my_script.py`, to a specific user named `smithj` using ACLs?",
+      "answer": "To grant read and execute permission to `smithj` on `my_script.py`, you would use the command: `$ setfacl -m u:smithj:rx my_script.py`."
+    },
+    {
+      "question": "What commands are needed to grant read and write access to a single user, like `smithj`, for an entire subdirectory, including both new and existing files, using ACLs?",
+      "answer": "You would use two commands: `$ setfacl -d -m u:smithj:rwX /home/<user>/projects/def-<PI>/shared_data` for new data, and `$ setfacl -R -m u:smithj:rwX /home/<user>/projects/def-<PI>/shared_data` for existing data."
+    },
+    {
+      "question": "What is the purpose of the `X` attribute (uppercase X) in ACLs when granting permissions?",
+      "answer": "The `X` attribute sets the execute permission only when the item is already executable, meaning it applies to directories or files that already have execute permission. This is particularly useful for directories, as they require execute permission to be browsed."
+    },
+    {
+      "question": "When sharing a subdirectory using ACLs, which `setfacl` command applies to new data, and which applies to existing data?",
+      "answer": "The command `$ setfacl -d -m u:smithj:rwX /home/<user>/projects/def-<PI>/shared_data` sets default access rules for *new* files or directories created within the shared directory. The command `$ setfacl -R -m u:smithj:rwX /home/<user>/projects/def-<PI>/shared_data` sets ACL rules recursively for all *existing* content within the shared directory."
+    },
+    {
+      "question": "What are the essential requirements for sharing a subdirectory with a single user using ACLs to function correctly?",
+      "answer": "For this method to work, the directory you're sharing must be owned by you. Additionally, all parent directories in the path must allow execute permission to the user you're sharing with, which can be set via `setfacl -m u:smithj:X ...` or `chmod o+x ...`. Public read permission is not needed for parent directories. Specifically, you'll need to grant execute permission on the project directory (`/projects/def-<PI>`) for either everyone or individually to the users you're sharing with."
+    }
+  ],
+  "generated_at": "2026-04-12T07:56:57.584393+00:00"
+}

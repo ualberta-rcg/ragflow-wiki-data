@@ -1,0 +1,68 @@
+{
+  "doc_key": "fr/handling_large_collections_of_files",
+  "level": "chunk",
+  "chunk_index": 1,
+  "qa_pairs": [
+    {
+      "question": "Quels genres de défis rencontre-t-on souvent en intelligence artificielle et en apprentissage machine concernant la gestion des fichiers?",
+      "answer": "Dans ces domaines, on doit souvent composer avec des centaines de milliers de fichiers, parfois de plusieurs centaines de kilo-octets, ce qui pose des problèmes importants liés aux limites d’objets des quotas des systèmes de fichiers."
+    },
+    {
+      "question": "Quel est l'impact d'un grand nombre de petits fichiers sur la performance des systèmes de fichiers et la sauvegarde automatisée?",
+      "answer": "Un très grand nombre de fichiers, surtout s'ils sont de petite taille, cause d'importants problèmes à la performance des systèmes de fichiers et à la sauvegarde automatisée de /home et /project."
+    },
+    {
+      "question": "Comment peut-on identifier les répertoires où des améliorations de performance sont possibles?",
+      "answer": "Pour optimiser la performance, il est toujours préférable d’identifier d'abord les répertoires qui contiennent un grand nombre de fichiers afin de cibler les gains potentiels."
+    },
+    {
+      "question": "Quelle est la commande pour compter récursivement les fichiers dans les sous-répertoires du répertoire courant?",
+      "answer": "On peut utiliser le code suivant : `for FOLDER in $(find . -maxdepth 1 -type d | tail -n +2); do echo -ne \"$FOLDER:\\t\"; find $FOLDER -type f | wc -l; done`."
+    },
+    {
+      "question": "Comment lister les 10 répertoires qui occupent le plus d'espace disque dans le répertoire courant?",
+      "answer": "La commande `du -sh * | sort -hr | head -10` liste les 10 répertoires les plus volumineux dans le répertoire courant."
+    },
+    {
+      "question": "Quelle est la performance des disques locaux par rapport aux systèmes de fichiers /project et /scratch?",
+      "answer": "Les disques locaux reliés aux nœuds de calcul (SSD SATA ou plus) offrent une performance de loin supérieure à celle des systèmes de fichiers /project et /scratch."
+    },
+    {
+      "question": "Qui gère l'utilisation du disque local sur un nœud de calcul?",
+      "answer": "L’ordonnanceur ne gère pas l'utilisation du disque local, car celui-ci est partagé par toutes les tâches exécutées simultanément sur le même nœud."
+    },
+    {
+      "question": "Quelle est la capacité de disque local sur la grappe Béluga pour les nœuds CPU et GPU?",
+      "answer": "Béluga offre environ 370 Go de disque local pour les nœuds CPU, et les nœuds GPU ont un disque NVMe de 1,6 To."
+    },
+    {
+      "question": "La grappe Niagara offre-t-elle du stockage local sur ses nœuds de calcul?",
+      "answer": "Non, Niagara n'offre pas de stockage local sur ses nœuds de calcul."
+    },
+    {
+      "question": "Quelle capacité minimale de disque local peut-on s'attendre sur les autres grappes?",
+      "answer": "Dans le cas des autres grappes, on peut supposer que l'espace disque disponible est d'au moins 190 Go."
+    },
+    {
+      "question": "Comment accède-t-on au disque local depuis l'intérieur d'une tâche?",
+      "answer": "On peut accéder au disque local de l'intérieur d'une tâche en utilisant la variable d'environnement `$SLURM_TMPDIR`."
+    },
+    {
+      "question": "Décrivez une stratégie pour utiliser le disque local avec de grands ensembles de données.",
+      "answer": "Une approche consiste à conserver un ensemble de données dans un seul fichier archive tar dans l'espace /project, le copier sur le disque local au début de la tâche, l'extraire et utiliser les données. S'il y a eu des changements, on peut archiver le contenu et le recopier dans /project."
+    },
+    {
+      "question": "Comment fonctionne le système de fichiers /tmp comme disque RAM sur les nœuds de calcul?",
+      "answer": "Le système de fichiers /tmp peut être utilisé comme disque RAM sur les nœuds de calcul; il est implémenté avec tmpfs."
+    },
+    {
+      "question": "Quelles sont les caractéristiques principales de /tmp sur les grappes?",
+      "answer": "/tmp est tmpfs sur toutes les grappes, il est vidé à la fin de la tâche, compte dans la limite imposée pour le cgroup associé à la requête sbatch, et sa capacité est fixée à 100% via les options mount."
+    },
+    {
+      "question": "Quel est l'impact de la capacité de tmpfs fixée à 100% sur MemTotal?",
+      "answer": "La capacité de tmpfs étant fixée à 100% via les options mount peut nuire à certains scripts, car MemTotal représente alors la capacité du RAM physique, ce qui ne correspond pas à la requête sbatch."
+    }
+  ],
+  "generated_at": "2026-04-11T23:42:09.144152+00:00"
+}

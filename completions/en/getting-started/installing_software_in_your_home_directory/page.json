@@ -1,0 +1,79 @@
+{
+  "doc_key": "en/installing_software_in_your_home_directory",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "How can users request Alliance staff to install academic software?",
+      "answer": "Users can email Alliance staff at `support@tech.alliancecan.ca` with a URL for the software they wish to have installed."
+    },
+    {
+      "question": "What criteria must be met for Alliance staff to install software for users?",
+      "answer": "The software's license terms and technical requirements must be met for Alliance staff to make it available."
+    },
+    {
+      "question": "Why might a user choose to install software in their own home or project space instead of requesting Alliance staff installation?",
+      "answer": "Users might install software in their own space if they plan to make modifications to the code or wish to evaluate it quickly."
+    },
+    {
+      "question": "What is a frequently encountered instruction pattern for building software from source code?",
+      "answer": "The `configure; make; make install` instruction pattern is very common for building software from source."
+    },
+    {
+      "question": "Why does `make install` sometimes fail, and what is the typical solution?",
+      "answer": "`make install` can fail if the package attempts to write to shared file system areas like `/usr/local` without proper permissions. The usual solution is to use the `--prefix` flag during the `configure` step to direct the installation to a user-specified directory."
+    },
+    {
+      "question": "What should users do if installation instructions include `sudo make install`?",
+      "answer": "`sudo make install` will always fail because it requires 'root' or administrator privileges, which are not available to users. Users should look for alternative installation methods or contact support."
+    },
+    {
+      "question": "How do users typically access and utilize a library on an Alliance system?",
+      "answer": "The simplest way is to first load the corresponding module using the `module load library_name/x.y.z` command."
+    },
+    {
+      "question": "What environment variables are typically set when a library module is loaded, and how do compilers use them?",
+      "answer": "Loading a library module sets the `CPATH` and `LIBRARY_PATH` environment variables, which most compilers automatically use to locate header files and libraries during compilation and linking."
+    },
+    {
+      "question": "When using `cmake`, how is it recommended to explicitly specify the location of a library provided by a module?",
+      "answer": "It is recommended to use an EasyBuild environment variable, such as `EBROOTGSL` for the GSL library, following the pattern `EBROOT` concatenated with the capitalized package name (e.g., `-DGSL_DIR=$EBROOTGSL`)."
+    },
+    {
+      "question": "What advice is given if software installation instructions involve `apt-get` or `yum` commands?",
+      "answer": "If instructions involve `apt-get` or `yum`, users should look for alternative instructions to 'build from source' or contact `support@computecanada.ca` for assistance, as these commands are unlikely to work."
+    },
+    {
+      "question": "How can users install Python, R, or Perl packages that are not already available on Alliance systems?",
+      "answer": "Users should consult the specific language's page for detailed guidance on using its package manager to install extensions into their home directory."
+    },
+    {
+      "question": "What is a common error encountered when installing pre-compiled binary packages, and how can it be resolved?",
+      "answer": "Pre-compiled binaries may fail with errors like `/lib64/libc.so.6: version 'GLIBC_2.18' not found`. This can often be resolved by patching the binaries using the `setrpaths.sh --path path` script."
+    },
+    {
+      "question": "Where is the majority of software used on new Alliance clusters distributed from?",
+      "answer": "Most software is distributed centrally using the CVMFS file system, located under `/cvmfs/soft.computecanada.ca`, and is identical across all new clusters."
+    },
+    {
+      "question": "What is the core component of the Alliance software stack, and which environment variable points to its installation path?",
+      "answer": "The core of the software stack is provided by the `gentoo/2023` module, loaded by default. The environment variable `$EBROOTGENTOO` refers to its installation path at `/cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr`."
+    },
+    {
+      "question": "Why is it generally discouraged to set the `LD_LIBRARY_PATH` environment variable for software on Alliance systems?",
+      "answer": "CVMFS binaries use a RUNPATH, which embeds the directories for their runtime libraries. Setting `LD_LIBRARY_PATH` overrides this runpath and can prevent many binaries from functioning correctly."
+    },
+    {
+      "question": "In what specific scenarios should code be compiled on a compute node instead of a login node?",
+      "answer": "Code should be compiled on a compute node, typically within an interactive job, if it needs to be built on a node equipped with a GPU or a Skylake CPU."
+    },
+    {
+      "question": "What is the function of the `module --force purge` command?",
+      "answer": "The `module --force purge` command removes the CVMFS environment, leaving a bare AlmaLinux-9 installation without modules. This is useful for compiling custom toolchains or software like GCC."
+    },
+    {
+      "question": "How can users find the location of header and library files for a specific module loaded on the Alliance system?",
+      "answer": "After loading a module (e.g., `hdf5`), its installation path is referenced by an `EBROOT...` environment variable (e.g., `$EBROOTHDF5`), with header files in `$EBROOTHDF5/include` and library files in `$EBROOTHDF5/lib`."
+    }
+  ],
+  "generated_at": "2026-04-12T00:08:00.085359+00:00"
+}

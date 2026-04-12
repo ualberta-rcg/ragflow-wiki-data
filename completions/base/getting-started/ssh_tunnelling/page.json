@@ -1,0 +1,87 @@
+{
+  "doc_key": "base/ssh_tunnelling",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is SSH tunnelling?",
+      "answer": "SSH tunnelling is a method to use a gateway computer to connect two computers that cannot connect directly."
+    },
+    {
+      "question": "Why is SSH tunnelling necessary in the Alliance context?",
+      "answer": "Compute nodes on some clusters do not have direct access to the Internet, nor can they be contacted directly from the Internet."
+    },
+    {
+      "question": "What are some common use cases that require SSH tunnels?",
+      "answer": "Running commercial software needing a license server, running visualization software needing client contact, or connecting to a database hosted on a cluster from outside its head node."
+    },
+    {
+      "question": "What is a port in the context of computer communication?",
+      "answer": "A port is a number used to distinguish streams of communication, analogous to a radio frequency or channel, with many numbers reserved for specific types of traffic."
+    },
+    {
+      "question": "What information is required to set up an SSH tunnel to contact a license server from a compute node?",
+      "answer": "You need the IP address or name of the license server (LICSERVER) and the port number of the license service (LICPORT)."
+    },
+    {
+      "question": "What are the gateway servers for Trillium and nibi when setting up an SSH tunnel to a license server?",
+      "answer": "The gateway server for Trillium is `tri-gw`, while for nibi, you would pick one of the login nodes (e.g., `l1`, `l2`)."
+    },
+    {
+      "question": "What SSH command is used in a job script to set up a tunnel for a license server?",
+      "answer": "The command is `ssh GATEWAY -L COMPUTEPORT:LICSERVER:LICPORT -N -f`."
+    },
+    {
+      "question": "What do the `-N` and `-f` parameters do in the SSH tunnelling command?",
+      "answer": "`-N` tells SSH not to open a shell on the GATEWAY, and `-f` and `-N` together tell SSH to run in the background, allowing the job script to continue."
+    },
+    {
+      "question": "How should software typically be configured to use a license server via an SSH tunnel?",
+      "answer": "The software should be told that the license server is on port `COMPUTEPORT` on `localhost`, often by setting an environment variable like `export MLM_LICENSE_FILE=COMPUTEPORT@localhost`."
+    },
+    {
+      "question": "What is `localhost`?",
+      "answer": "`localhost` is the standard name by which a computer refers to itself and should be taken literally, not replaced with the computer's actual name."
+    },
+    {
+      "question": "What is the purpose of SSH tunnelling when connecting to a program running on a compute node?",
+      "answer": "It allows a user's computer to connect to a compute node through an encrypted tunnel via the login node, enabling graphical output or database connections to be accessed locally."
+    },
+    {
+      "question": "Are compute nodes on Nibi and Fir able to access the Internet directly?",
+      "answer": "Yes, there is Network Address Translation (NAT) on both Nibi and Fir, allowing users to access the Internet from the compute nodes."
+    },
+    {
+      "question": "What tool is recommended for SSH tunnelling on Linux or MacOS X to connect to a program on a compute node?",
+      "answer": "The `sshuttle` Python package is recommended."
+    },
+    {
+      "question": "How do you set up an SSH tunnel from Linux or MacOS X using `sshuttle`?",
+      "answer": "You run the command `sshuttle --dns -Nr userid@machine_name` in a new terminal window on your local computer."
+    },
+    {
+      "question": "How is an SSH tunnel created from Windows to connect to a program on a compute node?",
+      "answer": "Using MobaXTerm, open two sessions: one to start your job on the cluster, and a second local terminal to run `ssh -L local_port:remote_host:remote_port someuser@cluster.alliancecan.ca`."
+    },
+    {
+      "question": "When connecting to a program on a compute node from Windows, how do you modify the application's URL after setting up the tunnel?",
+      "answer": "You modify the URL by replacing the host name with `localhost` (e.g., `http://localhost:8888/?token=...`)."
+    },
+    {
+      "question": "How do you connect to a PostgreSQL database server on Fir from your desktop using an SSH tunnel?",
+      "answer": "First, create the tunnel with `ssh -L PORT:cedar-pgsql-vm.int.cedar.computecanada.ca:5432 someuser@fir.alliancecan.ca`, then connect with `psql -h 127.0.0.1 -p PORT -U <your username> -d <your database>`."
+    },
+    {
+      "question": "How do you connect to a MySQL database server on Fir from your desktop using an SSH tunnel?",
+      "answer": "First, create the tunnel with `ssh -L PORT:cedar-mysql-vm.int.cedar.computecanada.ca:3306 someuser@fir.alliancecan.ca`, then connect with `mysql -h 127.0.0.1 -P PORT -u <your username> --protocol=TCP -p`."
+    },
+    {
+      "question": "Where is the MySQL password stored for connecting to a database server on Fir?",
+      "answer": "The MySQL password is stored in your `.my.cnf` file located in your home directory on Fir."
+    },
+    {
+      "question": "How long does a database connection remain open when using an SSH tunnel?",
+      "answer": "The database connection remains open as long as the SSH connection remains open."
+    }
+  ],
+  "generated_at": "2026-04-12T07:33:12.043174+00:00"
+}

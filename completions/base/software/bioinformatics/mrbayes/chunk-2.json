@@ -1,0 +1,60 @@
+{
+  "doc_key": "base/mrbayes",
+  "level": "chunk",
+  "chunk_index": 2,
+  "qa_pairs": [
+    {
+      "question": "What is the key difference between the `mcmc` command in `job1.nex` and `job2.nex` for checkpointing?",
+      "answer": "The key difference is the presence of the `append=yes` keyword in the `mcmc` command within `job2.nex`, which allows the calculation to continue from a previous checkpoint."
+    },
+    {
+      "question": "What is the value of the `ngen` parameter in the `mcmc` command within `job2.nex`?",
+      "answer": "The `ngen` parameter in the `mcmc` command within `job2.nex` is set to `20000000`."
+    },
+    {
+      "question": "How many runs (`nruns`) are specified in the `mcmc` command for `job2.nex`?",
+      "answer": "The `mcmc` command for `job2.nex` specifies `nruns=2`."
+    },
+    {
+      "question": "What is the name of the job script designed for splitting a MrBayes calculation into two Slurm jobs for checkpointing?",
+      "answer": "The job script is named `submit-mrbayes-cp.sh`."
+    },
+    {
+      "question": "Which Slurm parameter is used in `submit-mrbayes-cp.sh` to create a job array?",
+      "answer": "The `--array=1-2%1` Slurm parameter is used in `submit-mrbayes-cp.sh` to create a job array."
+    },
+    {
+      "question": "What is the specified memory per CPU for the `submit-mrbayes-cp.sh` script?",
+      "answer": "The `submit-mrbayes-cp.sh` script specifies `--mem-per-cpu=3G`."
+    },
+    {
+      "question": "Which modules are loaded by the `submit-mrbayes-cp.sh` script?",
+      "answer": "The `submit-mrbayes-cp.sh` script loads the `gcc` and `mrbayes/3.2.7` modules."
+    },
+    {
+      "question": "How does the `submit-mrbayes-cp.sh` script make the `primates.nex` input file available?",
+      "answer": "The `submit-mrbayes-cp.sh` script copies the `primates.nex` input file to the `$SCRATCH` directory using `cp -v $EBROOTMRBAYES/share/examples/mrbayes/primates.nex .`."
+    },
+    {
+      "question": "What command is used within `submit-mrbayes-cp.sh` to execute MrBayes for each part of the calculation?",
+      "answer": "The command `srun mb job${SLURM_ARRAY_TASK_ID}.nex` is used to execute MrBayes, dynamically selecting `job1.nex` or `job2.nex` based on the array task ID."
+    },
+    {
+      "question": "How do you submit the `submit-mrbayes-cp.sh` job script?",
+      "answer": "The `submit-mrbayes-cp.sh` job script can be submitted using the command `sbatch submit-mrbayes-cp.sh`."
+    },
+    {
+      "question": "What is the purpose of using a job array in the context of MrBayes checkpointing?",
+      "answer": "Using a job array allows one script and one `sbatch` command to launch multiple Slurm jobs, thereby executing both parts of a split calculation (e.g., `job1.nex` and `job2.nex`) sequentially for checkpointing."
+    },
+    {
+      "question": "What is the `stopval` parameter set to in the `mcmc` commands for both `job1.nex` and `job2.nex`?",
+      "answer": "The `stopval` parameter is set to `0.005` in the `mcmc` commands for both `job1.nex` and `job2.nex`."
+    },
+    {
+      "question": "What is the value of `checkfreq` in the `mcmc` commands for the checkpointing example?",
+      "answer": "The `checkfreq` parameter is set to `1000` in the `mcmc` commands for the checkpointing example."
+    }
+  ],
+  "generated_at": "2026-04-12T03:20:01.520507+00:00"
+}

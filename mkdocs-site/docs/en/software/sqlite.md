@@ -5,50 +5,61 @@ lang: "en"
 
 source_wiki_title: "SQLite/en"
 source_hash: "449b334be9a061ea1b8a18a0ae0715d7"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T11:01:10.221968+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T11:12:01.085166+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "relational databases"
+  - "database management tool"
+  - "SQLite"
+  - "client-server architecture"
+  - "SQL queries"
+
+questions:
+  - "What is SQLite and how does its architecture differ from traditional client-server relational databases?"
+  - "What are the recommended best practices for running SQLite on a cluster, particularly regarding filesystems and concurrent writing?"
+  - "What are the primary limitations of SQLite, and when should a user consider migrating to a more sophisticated client-server database?"
+  - "What is SQLite and how does its architecture differ from traditional client-server relational databases?"
+  - "What are the recommended best practices for running SQLite on a cluster, particularly regarding filesystems and concurrent writing?"
+  - "What are the primary limitations of SQLite, and when should a user consider migrating to a more sophisticated client-server database?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
 [SQLite](https://www.sqlite.org) is a database management tool used to build commonly called *pocket databases* because they offer all the features of relational databases without the client-server architecture and with the added advantage of the data residing on a single disk file which can simply be copied to another computer. Software written in a wide variety of common languages can read from and write to the database file with standard [SQL](https://en.wikipedia.org/wiki/SQL) queries using the language's API for database interactions.
 
-Like any other database, an SQLite database should not be used on a shared filesystem such as home, scratch and project. Typically, you should copy your SQLite file to the local scratch `$SLURM_TMPDIR` space at the beginning of a job and you can then use the database without any issues and also enjoy the best possible performance.
+!!! warning "Filesystem Best Practices and Concurrency"
+    Like any other database, an SQLite database should not be used on a shared filesystem such as home, scratch, and project. Typically, you should copy your SQLite file to the local scratch `$SLURM_TMPDIR` space at the beginning of a job, and you can then use the database without any issues while also enjoying the best possible performance. Note that SQLite is not intended for use with multiple threads or processes writing concurrently to the database; for this, you should consider a [client-server solution](database-servers.md).
 
-!!! warning
-    SQLite is not intended for use with multiple threads or processes writing concurrently to the database; for this you should consider a [client-server solution](database-servers.md).
-
-## Using SQLite directly
+## Using SQLite Directly
 
 You can access an SQLite database directly using the native client:
 
 ```bash
 sqlite3 foo.sqlite
 ```
-If the file `foo.sqlite` does not already exist, SQLite will create it and the client will start in an empty database, otherwise you will be connected to the existing database. You may then execute whichever queries you wish on the database, such as `SELECT * FROM tablename;` to print to the screen the entire contents of the table `tablename`.
 
-## Accessing SQLite from software
+If the file `foo.sqlite` does not already exist, SQLite will create it and the client will start in an empty database; otherwise, you will be connected to the existing database. You may then execute whichever queries you wish on the database, such as `SELECT * FROM tablename;` to print to the screen the entire contents of the table `tablename`.
 
-The most common way to interact with an SQLite (or other) database is through function calls to open a connection to the database; execute queries that can read, insert or update existing data; and close the connection to the SQLite database so that any changes are flushed to the SQLite file. In the simple example below, we suppose that the database has already been created with a table called `employee` that has two columns: the string `name` and the integer `age`.
+## Accessing SQLite from Software
+
+The most common way to interact with an SQLite (or other) database is through function calls to open a connection to the database; execute queries that can read, insert, or update existing data; and close the connection to the SQLite database so that any changes are flushed to the SQLite file. In the simple example below, we suppose that the database has already been created with a table called `employee` that has two columns: the string `name` and the integer `age`.
 
 ### Python Example
 
 ```python
 #!/usr/bin/env python3
 
-# For Python we can use the module sqlite3, installed in a virtual environment,
+# For Python we can use the module sqlite3, installed in a virtual environment, 
 # to access an SQLite database
 import sqlite3
 
@@ -66,7 +77,7 @@ dbase.close()
 ### R Example
 
 ```r
-# Using R, the first step is to install the RSQLite package in your R environment,
+# Using R, the first step is to install the RSQLite package in your R environment, 
 # after which you can use code like the following to interact with the SQLite database
 library(DBI)
 
@@ -109,4 +120,5 @@ int main(int argc,char** argv)
 
 ## Limitations
 
-As its name suggests, SQLite is easy to use and intended for relatively simple databases which are neither excessively large (hundreds of gigabytes or more) nor too complicated in terms of their [entity-relationship diagram](https://en.wikipedia.org/wiki/Entity%E2%80%93relationship_model). As your SQLite database grows in size and complexity, the performance could start to degrade, in which case the time may have come to consider the use of more [sophisticated database software which uses a client-server model](database-servers.md). The SQLite web site includes an excellent page on [Appropriate Uses For SQLite](https://www.sqlite.org/whentouse.html), including a checklist for choosing between SQLite and client-server databases.
+!!! warning "When to Consider a Client-Server Database"
+    As its name suggests, SQLite is easy to use and intended for relatively simple databases which are neither excessively large (hundreds of gigabytes or more) nor too complicated in terms of their [entity-relationship diagram](https://en.wikipedia.org/wiki/Entity%E2%80%93relationship_model). As your SQLite database grows in size and complexity, the performance could start to degrade, in which case the time may have come to consider the use of more [sophisticated database software which uses a client-server model](database-servers.md). The SQLite website includes an excellent page on [Appropriate Uses For SQLite](https://www.sqlite.org/whentouse.html), including a checklist for choosing between SQLite and client-server databases.

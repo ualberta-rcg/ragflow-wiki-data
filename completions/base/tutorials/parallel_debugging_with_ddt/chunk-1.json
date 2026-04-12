@@ -1,0 +1,176 @@
+{
+  "doc_key": "base/parallel_debugging_with_ddt",
+  "level": "chunk",
+  "chunk_index": 1,
+  "qa_pairs": [
+    {
+      "question": "What is the Distributed Debugging Tool (DDT)?",
+      "answer": "The Distributed Debugging Tool (DDT) is a powerful commercial debugger equipped with a graphical user interface (GUI)."
+    },
+    {
+      "question": "What is the main intended use for DDT?",
+      "answer": "DDT's main intended use is for debugging parallel MPI codes."
+    },
+    {
+      "question": "What other types of programs can DDT debug?",
+      "answer": "DDT can also be used with serial, threaded (OpenMP / pthreads), and GPU (CUDA; including mixed MPI and CUDA) programs."
+    },
+    {
+      "question": "Who developed the DDT product?",
+      "answer": "DDT was developed by Allinea, a company based in the U.K."
+    },
+    {
+      "question": "On which cluster is DDT installed?",
+      "answer": "DDT is installed on the Graham cluster."
+    },
+    {
+      "question": "What programming languages does DDT support?",
+      "answer": "DDT supports C, C++, and Fortran 77 / 90 / 95 / 2003."
+    },
+    {
+      "question": "Where can users find detailed documentation for DDT on Graham?",
+      "answer": "Detailed documentation (the User Guide) is available as a PDF file on Graham, located in `${EBROOTALLINEA}/doc`."
+    },
+    {
+      "question": "What is required before accessing the DDT User Guide PDF?",
+      "answer": "One has to load the corresponding module first before accessing the DDT User Guide PDF."
+    },
+    {
+      "question": "What compiler switch is necessary when compiling code for debugging with DDT?",
+      "answer": "The code has to be compiled with the switch `-g`."
+    },
+    {
+      "question": "Why is the `-g` switch required for debugging with DDT?",
+      "answer": "The `-g` switch tells the compiler to generate symbolic information required by any debugger."
+    },
+    {
+      "question": "What general rule applies to optimization levels when preparing a program for DDT debugging?",
+      "answer": "Normally, all optimizations have to be turned off (e.g., using `-O0`)."
+    },
+    {
+      "question": "Provide an example command for compiling a Fortran program for DDT.",
+      "answer": "An example command is `f77 -g -O0 -o program program.f`."
+    },
+    {
+      "question": "Provide an example command for compiling a C program for DDT.",
+      "answer": "An example command is `mpicc -g -O0 -o code code.c`."
+    },
+    {
+      "question": "How do you compile the CUDA part of a CUDA program for DDT?",
+      "answer": "You can compile the CUDA part (*.cu files) using `nvcc -g -G -c cuda_code.cu`."
+    },
+    {
+      "question": "How do you link a serial non-CUDA program with a compiled CUDA object for DDT?",
+      "answer": "You link it using `cc -g main.c cuda_code.o -lcudart`."
+    },
+    {
+      "question": "How do you link a mixed MPI/CUDA program with a compiled CUDA object for DDT?",
+      "answer": "You link it using `mpicc -g main.c cuda_code.o -lcudart`."
+    },
+    {
+      "question": "What type of application is DDT, and what setup is required to run it on Graham?",
+      "answer": "DDT is a GUI application, so one has to set up the environment properly to run X-windows (graphical) applications on Graham."
+    },
+    {
+      "question": "What application should Microsoft Windows users use to set up their environment for X-windows on Graham?",
+      "answer": "Microsoft Windows users should use the free MobaXTerm app."
+    },
+    {
+      "question": "What do Linux/Unix users need to install to run X-windows applications on Graham?",
+      "answer": "Linux / Unix users need to install nothing; their systems are typically ready."
+    },
+    {
+      "question": "What application do Mac users need to install to run X-windows applications on Graham?",
+      "answer": "Mac users need to install a free app called XQuartz."
+    },
+    {
+      "question": "What argument must be added to all SSH commands for X11 tunnelling?",
+      "answer": "In all cases, add \"-Y\" to all your ssh commands, for X11 tunnelling."
+    },
+    {
+      "question": "What is the initial step before using DDT, given it's an interactive GUI application?",
+      "answer": "Before using DDT, one has to first allocate a compute node (or nodes) with `salloc`."
+    },
+    {
+      "question": "Provide an example of an `salloc` command for CPU codes when launching DDT.",
+      "answer": "An example `salloc` command for CPU codes is `salloc -A account_name --x11 --time=0-3:00 --mem-per-cpu=4G --ntasks=4`."
+    },
+    {
+      "question": "Provide an example of an `salloc` command for GPU codes when launching DDT.",
+      "answer": "An example `salloc` command for GPU codes is `salloc -A account_name --x11 --time=0-3:00 --mem-per-cpu=4G --ntasks=1 --gres=gpu:1`."
+    },
+    {
+      "question": "What command should be used to load the DDT module for CPU codes?",
+      "answer": "Once the resource becomes available, load the corresponding DDT module using `module load allinea-cpu`."
+    },
+    {
+      "question": "What command should be used to load the DDT module for GPU codes?",
+      "answer": "Once the resource becomes available, load the corresponding DDT module using `module load allinea-gpu`."
+    },
+    {
+      "question": "What extra command is required for MPI codes to ensure the Message queue display feature works with DDT?",
+      "answer": "For MPI codes, one also has to execute the command `export OMPI_MCA_pml=ob1`."
+    },
+    {
+      "question": "What happens if the `export OMPI_MCA_pml=ob1` command is not executed for MPI codes?",
+      "answer": "If `export OMPI_MCA_pml=ob1` is not executed, the Message queue display feature will not work."
+    },
+    {
+      "question": "How do you start debugging a code using DDT after setup?",
+      "answer": "To debug a code, simply type `ddt program [optional arguments]`."
+    },
+    {
+      "question": "What kind of interface does DDT use?",
+      "answer": "DDT uses a tabbed-document interface."
+    },
+    {
+      "question": "How can components (windows) within DDT's GUI be manipulated?",
+      "answer": "Each component is a dockable window that may be dragged around by a handle, double-clicked, or dragged outside of DDT to form a new window."
+    },
+    {
+      "question": "How are user-modified parameters and windows saved in DDT?",
+      "answer": "Some user-modified parameters and windows are saved by right-clicking and selecting a save option in the corresponding window (e.g., Groups, Evaluations, Breakpoints)."
+    },
+    {
+      "question": "What can DDT save and load concurrently to minimize inconvenience?",
+      "answer": "DDT has the ability to load and save entire sessions concurrently, which stores things like process groups and the contents of the Evaluate window."
+    },
+    {
+      "question": "How does DDT locate the source code when a debugging session begins?",
+      "answer": "When DDT begins a session, source code is automatically found from the information compiled into the executable."
+    },
+    {
+      "question": "Where are the 'Find' and 'Find In Files' dialogs located in DDT?",
+      "answer": "The 'Find' and 'Find In Files' dialogs are found from the 'Search' menu."
+    },
+    {
+      "question": "What is the difference between the 'Find' and 'Find In Files' dialogs in DDT?",
+      "answer": "The 'Find' dialog searches for occurrences of an expression in the currently visible source file, while the 'Find In Files' dialog searches all source and header files associated with your program."
+    },
+    {
+      "question": "How can a user navigate directly to a specific line of code in DDT?",
+      "answer": "DDT has a 'Goto line' function, available in the 'Search' menu or by using 'Ctrl-G', which enables the user to go directly to a line of code."
+    },
+    {
+      "question": "What capabilities does DDT offer for process control and process groups?",
+      "answer": "DDT offers the ability to group many processes together with one-click access, comes with predefined groups (All, Root, Workers, with newer versions having only 'All'), and allows users to create, delete, or modify groups at any time."
+    },
+    {
+      "question": "Which dialog is used for starting, stopping, and restarting a program in DDT?",
+      "answer": "The 'Session Control' dialog is used for starting, stopping, and restarting a program."
+    },
+    {
+      "question": "What options are available for stepping through a program in DDT?",
+      "answer": "Options for stepping through a program include Play/Continue, Pause, Step Into, Step Over, and Step Out."
+    },
+    {
+      "question": "Where are breakpoints listed in DDT?",
+      "answer": "All breakpoints are listed under the breakpoints tab."
+    },
+    {
+      "question": "What actions can be performed with breakpoints in DDT?",
+      "answer": "Users can suspend, jump to, delete, load, or save breakpoints, and they can easily be made conditional."
+    }
+  ],
+  "generated_at": "2026-04-12T05:00:04.705440+00:00"
+}

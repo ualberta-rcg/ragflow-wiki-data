@@ -1,0 +1,72 @@
+{
+  "doc_key": "base/multi-instance_gpu",
+  "level": "chunk",
+  "chunk_index": 2,
+  "qa_pairs": [
+    {
+      "question": "Where can I find information about the recommended maximum CPU cores and system memory for a GPU instance?",
+      "answer": "The recommended maximum number of CPU cores and amount of system memory per instance are listed in the table of ratios in bundles."
+    },
+    {
+      "question": "How do I request an instance with 3/8 power and 20GB size for a 1-hour interactive job?",
+      "answer": "You can request it using the command: `salloc --account=def-someuser --gpus=a100_3g.20gb:1 --cpus-per-task=2 --mem=40gb --time=1:0:0`"
+    },
+    {
+      "question": "How can I submit a 24-hour batch job requesting an instance of power 4/8 and size 20GB with the maximum recommended cores and system memory?",
+      "answer": "You can use a batch script similar to this: `#!/bin/bash #SBATCH --account=def-someuser #SBATCH --gpus=a100_4g.20gb:1 #SBATCH --cpus-per-task=6 #SBATCH --mem=62gb #SBATCH --time=24:00:00 hostname nvidia-smi`"
+    },
+    {
+      "question": "What are the CPU core and GPU RAM specifications for 3g.20gb and 4g.20gb instances on Narval?",
+      "answer": "On Narval, there are 6 CPU cores per 3g.20gb and 4g.20gb instance, and 62GB GPU RAM per 3g.20gb and 4g.20gb instance."
+    },
+    {
+      "question": "Where can I find information on current and past jobs to determine if they should use a GPU instance?",
+      "answer": "You can find information on current and past jobs on the Narval usage portal."
+    },
+    {
+      "question": "What is a good indicator of the total computing power requested from a GPU?",
+      "answer": "Power consumption is a good indicator of the total computing power requested from the GPU."
+    },
+    {
+      "question": "Can you provide an example of a job's GPU power consumption on a full A100 GPU?",
+      "answer": "An example job requested a full A100 GPU with a maximum TDP of 400W, but only used 100W on average, which was only 50W more than the idle electric consumption."
+    },
+    {
+      "question": "What other metric, besides power consumption, can provide insights into GPU usage?",
+      "answer": "GPU functionality utilization may also provide insights on the usage of the GPU in cases where the power consumption is not sufficient."
+    },
+    {
+      "question": "How does GPU utilization help evaluate a job's use of a full A100 GPU?",
+      "answer": "For an example job, the GPU utilization graph showed that the job used less than 25% of the available computing power of a full A100 GPU, which supports the conclusion from the GPU power consumption graph."
+    },
+    {
+      "question": "What are the final metrics to consider when determining if a job should use a GPU instance?",
+      "answer": "The final metrics to consider are the maximum amount of GPU memory and the average number of CPU cores required to run the job."
+    },
+    {
+      "question": "What was the maximum GPU memory usage in the provided example job that ran on a full A100 GPU?",
+      "answer": "For the example job, it used a maximum of 3GB of GPU memory out of the 40GB of a full A100 GPU."
+    },
+    {
+      "question": "How many CPU cores did the example job use?",
+      "answer": "The example job was launched using a single CPU core."
+    },
+    {
+      "question": "Based on the example job's metrics (power consumption, GPU utilization, memory, and CPU cores), which GPU instances would be suitable?",
+      "answer": "Based on these metrics, the job should easily run on a 3g.20GB or 4g.20GB GPU instance with power and memory to spare."
+    },
+    {
+      "question": "What is one way to monitor the usage of a running job in real time?",
+      "answer": "Another way to monitor the usage of a running job is by attaching to the node where the job is currently running and then by using `nvidia-smi` to read the GPU metrics in real time."
+    },
+    {
+      "question": "What are the limitations of using `nvidia-smi` for real-time job monitoring?",
+      "answer": "Using `nvidia-smi` for real-time monitoring will not provide maximum and average values for memory and power usage of the entire job."
+    },
+    {
+      "question": "What is the benefit of using `nvidia-smi` for real-time job monitoring despite its limitations?",
+      "answer": "Using `nvidia-smi` for real-time job monitoring can be helpful to identify and troubleshoot underperforming jobs."
+    }
+  ],
+  "generated_at": "2026-04-12T03:23:35.474648+00:00"
+}

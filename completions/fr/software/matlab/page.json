@@ -1,0 +1,79 @@
+{
+  "doc_key": "fr/matlab",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "C'est quoi les deux principales manières d'utiliser MATLAB sur nos grappes de calcul?",
+      "answer": "On peut soit exécuter MATLAB directement avec une licence, soit compiler son code avec le compilateur `mcc` pour générer un exécutable qui n'aura pas besoin de licence."
+    },
+    {
+      "question": "Quelles sont les options pour obtenir une licence MATLAB sur les grappes comme Fir, Narval ou Trillium?",
+      "answer": "Il y a la licence fournie directement pour les étudiants, professeurs et chercheurs, ou on peut utiliser une licence externe détenue par son établissement, sa faculté, son département ou son laboratoire."
+    },
+    {
+      "question": "Comment faire pour vérifier si j'ai accès à une licence externe sur une grappe?",
+      "answer": "Il faut charger le module MATLAB, puis exécuter `matlab -nojvm -nodisplay -batch license`. Si un numéro de licence s'affiche, c'est que tout est en ordre."
+    },
+    {
+      "question": "Si j'obtiens un message d'erreur indiquant que ma version de licence est trop vieille, qu'est-ce que je devrais essayer?",
+      "answer": "Il faudrait essayer de charger une version moins récente de MATLAB dans la ligne `module load`."
+    },
+    {
+      "question": "Comment configurer l'utilisation d'une licence externe pour MATLAB?",
+      "answer": "Il faut créer un fichier `matlab.lic` dans le répertoire `$HOME/.licenses/` avec l'adresse IP et le port du serveur de licence de votre établissement, puis contacter le soutien technique pour qu'on connecte votre serveur à nos nœuds."
+    },
+    {
+      "question": "Pourquoi est-ce qu'on doit préparer le répertoire `.matlab` et comment le faire?",
+      "answer": "C'est parce que le répertoire `/home` est souvent en lecture seule sur certains nœuds de calcul. Pour que le profil et les données des tâches soient stockées correctement, il faut créer un lien symbolique de `.matlab` vers `/scratch/.matlab` en utilisant la commande fournie dans la documentation."
+    },
+    {
+      "question": "Comment est-ce que je peux obtenir la liste des boîtes à outils MATLAB disponibles sur une grappe?",
+      "answer": "Il faut charger le module MATLAB, puis exécuter la commande `matlab -nojvm -batch \"ver\"`."
+    },
+    {
+      "question": "C'est quoi la règle importante pour les calculs MATLAB d'envergure sur les grappes?",
+      "answer": "Pour tout calcul d'une durée de plus de cinq minutes ou qui utilise plus d'un gigaoctet de mémoire, la tâche doit être soumise à l'ordonnanceur."
+    },
+    {
+      "question": "Quelles sont quelques options importantes en ligne de commande pour lancer MATLAB?",
+      "answer": "On peut utiliser `-nojvm` pour éviter la création de fichiers `java.log`, `-nodisplay`, `-singleCompThread` et `-batch`."
+    },
+    {
+      "question": "Comment éviter que le fichier `java.log` soit créé à chaque lancement de MATLAB?",
+      "answer": "Il faut utiliser l'option `-nojvm` lors du lancement de MATLAB."
+    },
+    {
+      "question": "Comment configurer un programme MATLAB pour qu'il s'exécute en parallèle sur un nœud simple avec plusieurs cœurs CPU?",
+      "answer": "Il faut utiliser l'environnement parallèle `Threads` et spécifier le nombre de fils d'exécution avec `parpool(\"Threads\", nthreads)` dans le code MATLAB, en récupérant `nthreads` via la variable d'environnement `SLURM_CPUS_PER_TASK`."
+    },
+    {
+      "question": "Quel est le problème quand plusieurs tâches parallèles MATLAB utilisent l'environnement `Cluster` et démarrent `parpool` en même temps?",
+      "answer": "Elles peuvent corrompre le fichier `.dat` du profil parallèle local partagé dans `$HOME/.matlab/local_cluster_jobs/R*`, ce qui affecte les autres tâches."
+    },
+    {
+      "question": "Comment éviter le problème de corruption des profils parallèles locaux quand on lance plusieurs tâches `Cluster` en simultané?",
+      "answer": "Il est recommandé que chaque tâche crée son propre profil parallèle dans un endroit unique en spécifiant la propriété `JobStorageLocation` de l'objet `parallel.Cluster` à `getenv('SLURM_TMPDIR')`."
+    },
+    {
+      "question": "Comment compiler un fichier MATLAB comme `cosplot.m` pour le faire exécuter sans licence?",
+      "answer": "On utilise la commande `mcc -m -R -nodisplay cosplot.m`."
+    },
+    {
+      "question": "Après avoir compilé un code MATLAB avec `mcc`, comment l'exécuter sur les grappes?",
+      "answer": "Il faut charger le module MCR correspondant à la version utilisée pour la compilation, exécuter `setrpaths.sh --path [binaire]` une seule fois, puis lancer le binaire avec `run_mcr_binary.sh [binaire]` dans un script d'ordonnanceur."
+    },
+    {
+      "question": "À quoi sert MATLAB Parallel Server?",
+      "answer": "Il est utile pour les tâches MATLAB parallèles qui nécessitent plus de processus (appelés workers) que les cœurs CPU disponibles sur un seul nœud de calcul."
+    },
+    {
+      "question": "Est-ce qu'on peut utiliser MATLAB Parallel Server pour soumettre des tâches à partir d'un ordinateur local en ce moment?",
+      "answer": "Non, à cause de modifications de sécurité sur nos grappes en mai 2023, la méthode SSH utilisée par MATLAB n'est plus autorisée, et il n'y a pas de solution actuellement."
+    },
+    {
+      "question": "Où peut-on trouver de la documentation officielle et de l'auto-apprentissage pour MATLAB?",
+      "answer": "Sur le site web de MathWorks, qui offre de la documentation et la plateforme d'auto-apprentissage MATLAB Academy."
+    }
+  ],
+  "generated_at": "2026-04-12T01:15:16.334176+00:00"
+}

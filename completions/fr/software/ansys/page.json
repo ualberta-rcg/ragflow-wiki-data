@@ -1,0 +1,127 @@
+{
+  "doc_key": "fr/ansys",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "C'est quoi Ansys?",
+      "answer": "Ansys est une suite logicielle pour la conception 3D et la simulation, incluant des applications comme Ansys Fluent et Ansys CFX."
+    },
+    {
+      "question": "Est-ce que l'Alliance a une licence générale pour Ansys sur ses grappes?",
+      "answer": "Non, l'accès généralisé n'est pas permis. Plusieurs établissements, facultés et départements possèdent leurs propres licences qui peuvent être utilisées sur nos grappes."
+    },
+    {
+      "question": "Que faut-il faire pour utiliser une licence Ansys détenue par un établissement sur les grappes de l'Alliance?",
+      "answer": "Les nœuds de calcul doivent pouvoir communiquer avec votre serveur de licence. L'équipe technique de l'Alliance coordonnera l'aspect technique avec votre gestionnaire de licence."
+    },
+    {
+      "question": "Comment puis-je configurer mon propre fichier de licence Ansys?",
+      "answer": "Il faut créer un fichier nommé `$HOME/.licenses/ansys.lic` dans votre répertoire /home, contenant les valeurs FLEXPORT, INTEPORT et LICSERVER de votre serveur de licence."
+    },
+    {
+      "question": "Où puis-je trouver les valeurs des serveurs de licence préconfigurés pour CMC et SHARCNET?",
+      "answer": "Les valeurs pour les serveurs de licence CMC et SHARCNET sont disponibles dans un tableau fourni, listant LICSERVER, FLEXPORT et INTEPORT pour diverses grappes."
+    },
+    {
+      "question": "Si j'ai une licence de CMC, y a-t-il une étape supplémentaire à suivre?",
+      "answer": "Oui, vous devez faire parvenir le nom d'utilisateur associé à votre compte de l'Alliance à cmcsupport@cmc.ca pour que la licence fonctionne."
+    },
+    {
+      "question": "Quelles informations sont nécessaires de l'administrateur de votre serveur de licence Ansys si ce dernier est déjà configuré pour les grappes?",
+      "answer": "Vous avez besoin du nom d'hôte complet (LICSERVER), du port flex (FLEXPORT, habituellement 1055) et du port d'interconnexion (INTEPORT, habituellement 2325)."
+    },
+    {
+      "question": "Comment puis-je vérifier si mon fichier `ansys.lic` est correctement configuré et fonctionne?",
+      "answer": "Copiez et collez une séquence de commandes `salloc`, `module load` et `lmutil lmstat` dans un terminal sur la grappe, en remplaçant YOURUSERID et en ajustant la version d'Ansys."
+    },
+    {
+      "question": "Qu'est-ce que la note 2 mentionne concernant Fluent avec Workbench et la version 2025R1?",
+      "answer": "Avant de démarrer Fluent, il faut ajouter `HOOPS_PICTURE=opengl` dans l'onglet 'Environment' du 'Fluent Launcher' ou le définir comme variable d'environnement pour éviter un avertissement lié au rastériseur logiciel."
+    },
+    {
+      "question": "Comment est gérée la compatibilité des versions des simulations Ansys?",
+      "answer": "Les simulations sont typiquement compatibles avec des versions postérieures (plus récentes), mais pas avec des versions antérieures (plus anciennes)."
+    },
+    {
+      "question": "Comment puis-je soumettre des tâches Ansys Fluent en lot sur les grappes de Calcul Canada?",
+      "answer": "Il faut d'abord préparer la tâche dans Fluent Workbench sur votre ordinateur, exporter les fichiers de cas et de données, les transférer sur la grappe, créer un fichier de journalisation, puis soumettre la tâche avec un script Slurm."
+    },
+    {
+      "question": "Pourquoi doit-on utiliser des directives particulières pour lancer des tâches parallèles Ansys sur les grappes?",
+      "answer": "Plusieurs implémentations MPI incluses dans Ansys ne sont pas compatibles avec l'ordonnanceur Slurm, ce qui nécessite des directives spécifiques à chaque paquet Ansys."
+    },
+    {
+      "question": "Quand est-il recommandé d'utiliser les scripts Slurm avec remise en file d'attente pour la licence Fluent?",
+      "answer": "Ces scripts sont utiles uniquement pour les tâches Fluent qui se terminent normalement mais qui nécessitent souvent plusieurs tentatives pour obtenir une licence, non pour celles qui plantent ou génèrent des avertissements."
+    },
+    {
+      "question": "Quel est le but d'un fichier de journalisation Fluent?",
+      "answer": "Un fichier de journalisation contient des commandes de l'interface TUI de Fluent pour charger des fichiers, lancer le solveur, enregistrer les résultats ou modifier des paramètres de simulation."
+    },
+    {
+      "question": "Comment utiliser un fichier de journalisation avec les formats .cas.h5/.dat.h5 plus récents de Fluent?",
+      "answer": "Il faut configurer la commande `/file/cff-files yes` dans votre fichier de journalisation pour les versions d'Ansys à partir de 2020R1."
+    },
+    {
+      "question": "Quelle est la première étape pour utiliser une fonction UDF (User-Defined Function) Ansys sur la grappe?",
+      "answer": "La première étape est de transférer votre fichier source UDF (ex: sampleudf.c) et ses dépendances vers la grappe, en s'assurant que le mode texte du client de transfert est utilisé."
+    },
+    {
+      "question": "Comment compiler une UDF pour Fluent sur les grappes de l'Alliance?",
+      "answer": "Vous devez compiler votre UDF au moins une fois sur l'une de nos grappes, ce qui créera une structure `libudf` contenant la bibliothèque partagée `libudf.so`. Vous pouvez ensuite la charger avec la commande `define/user-defined/compiled-functions load libudf` dans votre fichier de journalisation."
+    },
+    {
+      "question": "Que faut-il faire pour utiliser une UDF avec des tâches parallèles Fluent?",
+      "answer": "L'UDF doit être parallélisée en y ajoutant des directives de compilation, des prédicats et des macros de réduction pour contrôler l'exécution par les processus hôtes et de calcul."
+    },
+    {
+      "question": "Comment peut-on afficher les options de ligne de commande pour CFX?",
+      "answer": "On peut afficher les options de ligne de commande avec la commande `cfx5solve -help`."
+    },
+    {
+      "question": "Comment préparer un projet Workbench avant de le soumettre à la file d'attente?",
+      "answer": "Il faut se connecter à la grappe via TigerVNC, lancer Workbench, ouvrir le projet, faire un clic droit sur 'Setup' et sélectionner 'Clear All Generated Data', puis quitter Workbench sans sauvegarder les modifications."
+    },
+    {
+      "question": "Quel est le comportement par défaut d'Ansys Mechanical (APDL) en ce qui concerne l'allocation de mémoire?",
+      "answer": "Par défaut, Ansys alloue aux tâches APDL 1024Mo de mémoire totale et 1024Mo de mémoire pour les bases de données. Ces valeurs peuvent être ajustées avec les arguments `-m` et `-db`."
+    },
+    {
+      "question": "Comment démarrer Ansys Rocky en mode graphique?",
+      "answer": "Chargez un module Rocky (ex: `ansysrocky/2023R2`), puis lancez la commande `Rocky` ou `Rocky-gui` (qui offre la sélection des serveurs de licence)."
+    },
+    {
+      "question": "Comment accéder aux programmes Ansys en mode graphique sur les grappes?",
+      "answer": "Les programmes Ansys peuvent être exécutés interactivement en mode graphique sur les nœuds de calcul des grappes ou sur les nœuds VDI de Graham via des plateformes comme Open OnDemand ou Jupyter Lab."
+    },
+    {
+      "question": "Quelle est la politique d'utilisation de la licence Ansys de SHARCNET?",
+      "answer": "La licence SHARCNET est gratuite pour une utilisation académique publiable par les chercheurs de l'Alliance, mais la production de résultats à des fins commerciales est interdite. Elle inclut la Multiphysics Campus Solution et des produits comme Rocky et LS-DYNA."
+    },
+    {
+      "question": "Combien de cœurs HPC puis-je utiliser avec la licence SHARCNET Ansys?",
+      "answer": "Depuis octobre 2024, la limite est de 8 tâches et 512 cœurs HPC par utilisateur, collectivement sur toutes les grappes et pour toutes les applications, pour une période de test."
+    },
+    {
+      "question": "Comment configurer mon fichier `ansys.lic` pour utiliser la licence SHARCNET sur les grappes?",
+      "answer": "Il faut ajouter les lignes `setenv(\"ANSYSLMD_LICENSE_FILE\", \"1055@license3.sharcnet.ca\")` et `setenv(\"ANSYSLI_SERVERS\", \"2325@license3.sharcnet.ca\")` dans votre fichier `~/.licenses/ansys.lic`."
+    },
+    {
+      "question": "Comment puis-je vérifier le nombre de licences Ansys utilisées par mon nom d'utilisateur et par tous les utilisateurs?",
+      "answer": "Sur une grappe (ex: Graham), chargez le module Ansys puis exécutez `lmutil lmstat -c $ANSYSLMD_LICENSE_FILE -a | grep \"Users of|$USER\"`."
+    },
+    {
+      "question": "Que faire si des licences Ansys sont utilisées sans justification sous mon nom d'utilisateur (par exemple, après une déconnexion de gra-vdi)?",
+      "answer": "Connectez-vous au nœud concerné (ex: gra-vdi3.sharcnet.ca ou gra-vdi4.sharcnet.ca), ouvrez un terminal et mettez fin aux processus avec `pkill -9 -e -u $USER -f \"ansys\"`."
+    },
+    {
+      "question": "Comment activer l'extension Ansys Additive Manufacturing dans Workbench?",
+      "answer": "Après avoir téléchargé l'extension (ex: AdditiveWizard.wbex) et lancé Workbench, ouvrez le gestionnaire d'extensions, installez le fichier .wbex, puis cliquez pour sélectionner ou charger l'extension."
+    },
+    {
+      "question": "Où puis-je trouver la documentation officielle complète pour les versions récentes d'Ansys?",
+      "answer": "La documentation officielle est disponible sur le site ansyshelp.ansys.com, et pour les versions antérieures, une connexion est requise."
+    }
+  ],
+  "generated_at": "2026-04-11T17:04:51.829452+00:00"
+}

@@ -5,21 +5,48 @@ lang: "base"
 
 source_wiki_title: "Mii"
 source_hash: "4f009ede97314ce861bc25f58dfdff94"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T08:34:36.517760+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T09:08:02.793354+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "autoloading"
+  - "MODULEPATH"
+  - "search binaries"
+  - "openmpi/4.0.3"
+  - "blast+/2.12.0"
+  - "enable Mii"
+  - "Mii"
+  - "smart search engine"
+  - "Lmod"
+  - "ambiguous commands"
+  - "gcc/9.3.0"
+  - "disable Mii"
+  - "module environments"
+  - "modules"
+
+questions:
+  - "What are the primary features and supported environments of the Mii search engine?"
+  - "How does Mii handle the execution of ambiguous commands compared to unambiguous ones?"
+  - "What is the effect of Mii's autoloading feature on the persistence of the shell environment after a command is run?"
+  - "How can users utilize the Mii tool to search for specific binaries and how are the search results sorted?"
+  - "What command must be executed to disable the Mii tool?"
+  - "How can a user re-enable the Mii tool once it has been disabled?"
+  - "Why did Lmod automatically replace the \"intel/2020.1.217\" module with \"gcc/9.3.0\"?"
+  - "Which specific module was reloaded as a result of the MODULEPATH changes?"
+  - "What is the version and build date of the blast package loaded in the environment?"
+  - "How can users utilize the Mii tool to search for specific binaries and how are the search results sorted?"
+  - "What command must be executed to disable the Mii tool?"
+  - "How can a user re-enable the Mii tool once it has been disabled?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -31,22 +58,24 @@ Once Mii is loaded, modules will be quietly autoloaded for any unambiguous comma
 
 It features:
 *   Support for Lmod and Environment Modules installations
-*   bash and zsh shell integration
+*   Bash and zsh shell integration
 *   Module listing / individual information (via `mii list`, `mii show`)
 *   Searching for exact commands (via `mii exact`)
 *   Searching for similar commands (via `mii search`)
 *   Optional JSON export format
 
-!!! important "Important note"
+!!! note "Important note"
     A module that is autoloaded does not persist after the command. The shell environment will be the same as it was before mii autoloaded a module.
 
 ## Activating Mii
 To enable/load mii:
+
 ```bash
 module load mii
 ```
 
-Once Mii is loaded, it will start making suggestion. When a command is not found, for example:
+Once Mii is loaded, it will start making suggestions. When a command is not found, for example:
+
 ```bash
 cmd
 [mii] cmd not found! Similar commands: "xcmd", "vmd", "c2d"
@@ -54,6 +83,7 @@ cmd
 
 ## Unambiguous commands
 When a command or binary is known and unambiguous, it will be autoloaded:
+
 ```bash
 python3.9 --version
 [mii] loading StdEnv/2020 python/3.9.6 ...
@@ -96,10 +126,11 @@ Due to MODULEPATH changes, the following have been reloaded:
 blastn: 2.12.0+
  Package: blast 2.12.0, build Sep 27 2021 15:23:34
 ```
-As shown above, we selected one module (#1) out of the selection, and the command was then ran.
+As shown above, we selected one module (#1) out of the selection, and the command was then run.
 
 ## Search with Mii
-You can search for binaries to discover which modules provides it. The results are sorted by relevance:
+You can search for binaries to discover which modules provide them. The results are sorted by relevance:
+
 ```bash
 mii search pgc+
 Results for "pgc+": (total 16)
@@ -124,11 +155,13 @@ Results for "pgc+": (total 16)
 
 ## Disabling Mii
 To disable mii:
+
 ```bash
 mii disable
 ```
 
-### Re-enabling
+## Re-enabling
 To re-enable mii:
+
 ```bash
 mii enable

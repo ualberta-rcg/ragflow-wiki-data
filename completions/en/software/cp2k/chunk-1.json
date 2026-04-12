@@ -1,0 +1,140 @@
+{
+  "doc_key": "en/cp2k",
+  "level": "chunk",
+  "chunk_index": 1,
+  "qa_pairs": [
+    {
+      "question": "What is CP2K?",
+      "answer": "CP2K is a quantum chemistry and solid state physics software package."
+    },
+    {
+      "question": "What types of systems can CP2K perform atomistic simulations for?",
+      "answer": "CP2K can perform atomistic simulations of solid state, liquid, molecular, periodic, material, crystal, and biological systems."
+    },
+    {
+      "question": "What is the latest installed version of CP2K?",
+      "answer": "The latest installed version is CP2K 8.2."
+    },
+    {
+      "question": "How do I load the GCC-compiled version of CP2K 8.2?",
+      "answer": "You can load it using the command: `module load StdEnv/2020 gcc/9.3.0 openmpi/4.0.3 cp2k/8.2`."
+    },
+    {
+      "question": "Is there an alternative compiler option for CP2K 8.2, besides GCC?",
+      "answer": "Yes, you can also use the version compiled with the Intel compiler."
+    },
+    {
+      "question": "What are the potential issues with using the Intel-compiled version of CP2K 8.2?",
+      "answer": "The Intel-compiled version seems less stable and sometimes crashes for unknown reasons."
+    },
+    {
+      "question": "How do I load the Intel-compiled version of CP2K 8.2?",
+      "answer": "You can load it using the command: `module load StdEnv/2020 intel/2020.1.217 openmpi/4.0.3 cp2k/8.2`."
+    },
+    {
+      "question": "Where can I find an example for a static calculation using CP2K?",
+      "answer": "You can find an example on the CP2K website, specifically the static calculation how-to guide."
+    },
+    {
+      "question": "What are the initial steps to download and set up the static calculation example files?",
+      "answer": "First, log into a cluster, then use `wget https://www.cp2k.org/_media/static_calculation.tgz` to download, `tar xvfz static_calculation.tgz` to extract, and `cd static_calculation/sample_output_no_smearing` to navigate to the directory."
+    },
+    {
+      "question": "What is the name of the job submission script provided for the static calculation example?",
+      "answer": "The script is named `mpi_job.sh`."
+    },
+    {
+      "question": "What module is loaded in the `mpi_job.sh` script for the static calculation example?",
+      "answer": "The script loads `StdEnv/2020 gcc/9.3.0 openmpi/4.0.3 cp2k/8.2`."
+    },
+    {
+      "question": "How many MPI processes are requested in the `mpi_job.sh` script?",
+      "answer": "The script requests 4 MPI processes (`#SBATCH --ntasks=4`)."
+    },
+    {
+      "question": "What is the memory per CPU requested in the `mpi_job.sh` script?",
+      "answer": "The script requests 4 gigabytes (`#SBATCH --mem-per-cpu=4G`) of memory per CPU."
+    },
+    {
+      "question": "What is the time limit set for the job in `mpi_job.sh`?",
+      "answer": "The time limit is 0 days, 0 hours, and 15 minutes (`#SBATCH --time=0-00:15`)."
+    },
+    {
+      "question": "What command is used to run the CP2K calculation within the `mpi_job.sh` script?",
+      "answer": "The command is `srun cp2k.popt -o Si_bulk8.out Si_bulk8.inp`."
+    },
+    {
+      "question": "How do you submit the `mpi_job.sh` job script?",
+      "answer": "You submit the job by executing `sbatch mpi_job.sh`."
+    },
+    {
+      "question": "How can I check if my submitted job has completed?",
+      "answer": "You can run the command `sq`. If your job is no longer listed, it has completed."
+    },
+    {
+      "question": "Where can I find the main output file from a CP2K static calculation?",
+      "answer": "The main output will be in the file `Si_bulk8.out`."
+    },
+    {
+      "question": "What is the name of the Slurm output file, and what should it contain if the calculation completed successfully?",
+      "answer": "The file is named `slurm-*.out`, and it should be empty if the calculation completed without error."
+    },
+    {
+      "question": "What executables are included with CP2K version 8.2 and later installations?",
+      "answer": "CP2K version 8.2 and later include both the MPI executable `cp2k.popt` and the OpenMP/MPI executable `cp2k.psmp`."
+    },
+    {
+      "question": "Which CP2K executable might offer better performance for some calculations?",
+      "answer": "The `cp2k.psmp` executable, which is an OpenMP/MPI version, may give better performance for some calculations."
+    },
+    {
+      "question": "What performance increase was observed for the QS/H2O-512.inp benchmark when using `cp2k.psmp`?",
+      "answer": "A 10% performance increase was observed when using `cp2k.psmp` with 2 threads per MPI process, compared to `cp2k.popt`."
+    },
+    {
+      "question": "Is `cp2k.psmp` always faster than `cp2k.popt`?",
+      "answer": "No, the performance changes when threads are used are highly problem dependent, and `cp2k.psmp` may actually be slower for some cases."
+    },
+    {
+      "question": "What is recommended to determine the best CP2K executable option for a specific calculation?",
+      "answer": "You must benchmark your code and choose the right option for your particular case."
+    },
+    {
+      "question": "What cluster is the `openmp_mpi_job.sh` example script specifically for?",
+      "answer": "The `openmp_mpi_job.sh` example script is for the Beluga cluster."
+    },
+    {
+      "question": "How many nodes are requested in the `openmp_mpi_job.sh` script?",
+      "answer": "The script requests 2 nodes (`#SBATCH --nodes=2`)."
+    },
+    {
+      "question": "How many MPI processes are requested in the `openmp_mpi_job.sh` script?",
+      "answer": "The script requests 40 MPI processes (`#SBATCH --ntasks=40`)."
+    },
+    {
+      "question": "How many CPUs per task are requested in the `openmp_mpi_job.sh` script?",
+      "answer": "The script requests 2 CPUs per task (`#SBATCH --cpus-per-task=2`)."
+    },
+    {
+      "question": "What is the memory per CPU requested in the `openmp_mpi_job.sh` script?",
+      "answer": "The script requests 3 gigabytes (`#SBATCH --mem-per-cpu=3G`) of memory per CPU."
+    },
+    {
+      "question": "What is the time limit set for the job in `openmp_mpi_job.sh`?",
+      "answer": "The time limit is 0 days, 0 hours, and 59 minutes (`#SBATCH --time=0-00:59`)."
+    },
+    {
+      "question": "How is the `OMP_NUM_THREADS` environment variable set in the `openmp_mpi_job.sh` script?",
+      "answer": "It is set to the value of `$SLURM_CPUS_PER_TASK`, which is `export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK`."
+    },
+    {
+      "question": "What command executes CP2K in the `openmp_mpi_job.sh` script?",
+      "answer": "The command is `srun --cpus-per-task=$OMP_NUM_THREADS cp2k.psmp -o H2O-512.out H2O-512.inp`."
+    },
+    {
+      "question": "What adjustment might be necessary when using the `openmp_mpi_job.sh` script on clusters other than Beluga?",
+      "answer": "The number of tasks (`--ntasks`) would likely need to be adjusted to match the number of cores available on the nodes of that specific cluster."
+    }
+  ],
+  "generated_at": "2026-04-11T19:08:22.311893+00:00"
+}

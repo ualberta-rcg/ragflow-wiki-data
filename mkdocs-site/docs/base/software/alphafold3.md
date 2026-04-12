@@ -5,21 +5,63 @@ lang: "base"
 
 source_wiki_title: "AlphaFold3"
 source_hash: "d5f0f228b19105661359f646a5c46e39"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T04:11:24.408777+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T05:04:59.906749+00:00"
 
 tags:
   - software
 
 keywords:
-  []
+  - "Data pipeline"
+  - "Model parameters"
+  - "resource usage"
+  - "input data"
+  - "job submission"
+  - "sbatch"
+  - "pipeline stages"
+  - "dependencies"
+  - "caching MSA/template search"
+  - "virtual environment"
+  - "pip install"
+  - "XLA flags"
+  - "SLURM submission script"
+  - "Python virtual environment"
+  - "AlphaFold3"
+  - "Alphafold3"
+  - "data pipeline"
+  - "CPU-only data pipeline"
+  - "AlphaFold"
+  - "Databases"
+  - "A100 GPU"
+  - "GPU memory"
+  - "model inference"
+
+questions:
+  - "What are the step-by-step instructions for creating a Python virtual environment and installing AlphaFold3?"
+  - "How can users obtain the AlphaFold3 model parameters and where must the required databases be stored?"
+  - "Why is it recommended to run AlphaFold3 in stages, and how does separating the data pipeline from model inference optimize resources?"
+  - "What are the recommended SLURM resource allocations and specific command-line flags required to execute the Alphafold3 data pipeline stage?"
+  - "What are the strict hardware limitations and GPU compute capability requirements for running the Alphafold3 model inference stage?"
+  - "How do the provided submission scripts handle the installation of software dependencies and the setup of virtual environments?"
+  - "Why is the CPU-only data pipeline separated from the GPU-dependent model inference?"
+  - "What specific search results are cached during the pipeline execution?"
+  - "How can the augmented JSON be reused for multiple inferences across different features?"
+  - "What directory path is designated for storing the AlphaFold output data?"
+  - "How is the virtual environment created and activated within the SLURM temporary directory?"
+  - "Which specific command and requirements file are used to install the AlphaFold 3 dependencies?"
+  - "What environment variables and command-line arguments are required to configure and run the AlphaFold3 inference script?"
+  - "How can users submit independent and dependent AlphaFold3 jobs to the scheduler using Slurm commands?"
+  - "What steps should be taken to resolve GPU out-of-memory errors when processing large inputs or using GPUs with limited memory?"
+  - "What environment variables and command-line arguments are required to configure and run the AlphaFold3 inference script?"
+  - "How can users submit independent and dependent AlphaFold3 jobs to the scheduler using Slurm commands?"
+  - "What steps should be taken to resolve GPU out-of-memory errors when processing large inputs or using GPUs with limited memory?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -44,15 +86,17 @@ module load StdEnv/2023 hmmer/3.4 rdkit/2024.03.5 python/3.12
 ```
 
 2. Download run script.
-=== "3.0.1"
-    ```bash
-    wget https://raw.githubusercontent.com/google-deepmind/alphafold3/refs/tags/v3.0.1/run_alphafold.py
-    ```
+Choose your desired version:
 
-=== "3.0.0"
-    ```bash
-    wget https://raw.githubusercontent.com/google-deepmind/alphafold3/23e3d46d4ca126e8731e8c0cbb5673e9a848ceb5/run_alphafold.py
-    ```
+**v3.0.1**
+```bash
+wget https://raw.githubusercontent.com/google-deepmind/alphafold3/refs/tags/v3.0.1/run_alphafold.py
+```
+
+**v3.0.0**
+```bash
+wget https://raw.githubusercontent.com/google-deepmind/alphafold3/23e3d46d4ca126e8731e8c0cbb5673e9a848ceb5/run_alphafold.py
+```
 
 3. Create and activate a Python virtual environment.
 ```bash
@@ -62,31 +106,30 @@ source ~/alphafold3_env/bin/activate
 
 4. Install a specific version of AlphaFold3 and its Python dependencies.
 ```bash
-pip install --no-index --upgrade pip
-pip install --no-index alphafold3==X.Y.Z
+(alphafold3_env) [name@server ~] pip install --no-index --upgrade pip
+(alphafold3_env) [name@server ~] pip install --no-index alphafold3==X.Y.Z
 ```
-where `X.Y.Z` is the exact desired version, for instance `3.0.0`.
-You can omit to specify the version in order to install the latest one available from the wheelhouse.
+where `X.Y.Z` is the exact desired version, for instance `3.0.0`. You can omit to specify the version in order to install the latest one available from the wheelhouse.
 
 5. Build data.
 ```bash
-build_data
+(alphafold3_env) [name@server ~] build_data
 ```
 This will create data files inside your virtual environment.
 
 6. Validate it.
 ```bash
-python run_alphafold.py --help
+(alphafold3_env) [name@server ~] python run_alphafold.py --help
 ```
 
 7. Freeze the environment and requirements set.
 ```bash
-pip freeze > ~/alphafold3-requirements.txt
+(alphafold3_env) [name@server ~] pip freeze > ~/alphafold3-requirements.txt
 ```
 
 8. Deactivate the environment.
 ```bash
-deactivate
+(alphafold3_env) [name@server ~] deactivate
 ```
 
 9. Clean up and remove the virtual environment.
@@ -97,8 +140,7 @@ rm -r ~/alphafold3_env
 The virtual environment will be created in your job instead.
 
 ## Model
-You can obtain the model by requesting it from Google. They aim to respond to requests within 2-3 business days.
-Please see [Obtaining Model Parameters](https://github.com/google-deepmind/alphafold3?tab=readme-ov-file).
+You can obtain the model by requesting it from Google. They aim to respond to requests within 2-3 business days. Please see [Obtaining Model Parameters](https://github.com/google-deepmind/alphafold3?tab=readme-ov-file).
 
 ## Databases
 Note that AlphaFold3 requires a set of databases.
@@ -129,8 +171,7 @@ For reference on Alphafold3:
 
 ### 1. Data pipeline (CPU)
 Edit the following submission script according to your needs.
-/// tab | alphafold3-data.sh
-```bash
+```bash title="alphafold3-data.sh"
 #!/bin/bash
 
 #SBATCH --job-name=alphafold3-data
@@ -180,9 +221,8 @@ cp -vr $OUTPUT_DIR $SCRATCH/alphafold/output
 Edit the following submission script according to your needs.
 
 !!! warning "Compatibility"
-    Alphafold3 **only** supports compute capability 8.0 or greater, that is **A100s or greater**.
-/// tab | alphafold3-inference.sh
-```bash
+    Alphafold3 **only** support compute capability 8.0 or greater, that is **A100s or greater**.
+```bash title="alphafold3-inference.sh"
 #!/bin/bash
 
 #SBATCH --job-name=alphafold3-inference
@@ -254,7 +294,7 @@ scancel -u $USER -n alphafold3-inference
 
 ## Troubleshooting
 ### Out of memory (GPU)
-If you would like to run AlphaFold3 on inputs larger than 5,120 tokens, or on a GPU with less memory (an A100 with 40 GB of memory, for instance), you can enable [unified memory](https://github.com/google-deepmind/alphafold3/blob/main/docs/performance.md#unified-memory)
+If you would like to run AlphaFold3 on inputs larger than 5,120 tokens, or on a GPU with less memory (an A100 with 40 GB of memory, for instance), you can enable [unified memory](https://github.com/google-deepmind/alphafold3/blob/main/docs/performance.md#unified-memory).
 
 In your submission script for the inference stage, add these environment variables:
 ```bash
@@ -262,4 +302,5 @@ export XLA_PYTHON_CLIENT_PREALLOCATE=false
 export TF_FORCE_UNIFIED_MEMORY=true
 export XLA_CLIENT_MEM_FRACTION=2.0  # 2 x 40GB = 80 GB
 ```
+
 and adjust the amount of memory allocated to your job accordingly, for instance: `#SBATCH --mem=80G`

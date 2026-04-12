@@ -1,0 +1,67 @@
+{
+  "doc_key": "en/openacc_tutorial_-_optimizing_loops",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What are the main learning objectives outlined in this document?",
+      "answer": "The main learning objectives are to understand GPU parallelism levels, interpret compiler messages about parallelization, learn to get optimization advice from the visual profiler, and understand how to specify parallelization parameters to the compiler."
+    },
+    {
+      "question": "How did the compiler initially parallelize the loops, and what was a noted inefficiency?",
+      "answer": "The compiler initially parallelized each loop using `#pragma acc loop gang, vector(128)`. The inefficiency was that the `vector(128)` setting generated instructions for 128-element chunks, wasting computation on 101 elements when rows only had 27."
+    },
+    {
+      "question": "What are the three levels of parallelism in OpenACC?",
+      "answer": "The three levels of parallelism in OpenACC are `vector`, `worker`, and `gang`."
+    },
+    {
+      "question": "Describe the function of `vector` threads in OpenACC.",
+      "answer": "`vector` threads perform a single operation on multiple data (SIMD) in one step. If there are fewer data than the vector's length, operations are still performed on null values, and results are discarded."
+    },
+    {
+      "question": "What is the relationship between `worker` and `gang` levels of parallelism in OpenACC?",
+      "answer": "A `worker` computes one `vector`, and a `gang` consists of one or more `worker`s. `Worker`s within a `gang` can share resources like cache memory, while multiple `gang`s run independently."
+    },
+    {
+      "question": "How do OpenACC `vector`, `worker`, and `gang` generally correspond to CUDA concepts?",
+      "answer": "Generally, OpenACC `vector` corresponds to CUDA threads, `worker` to CUDA warps, and `gang` to CUDA thread blocks, although the exact mapping is compiler-dependent."
+    },
+    {
+      "question": "What OpenACC clauses can be used to control the level of parallelism for a loop?",
+      "answer": "The `loop` directive can use `gang`, `worker`, `vector`, and `seq` clauses to control parallelism. These must be specified in a top-down order from `gang` to `vector`."
+    },
+    {
+      "question": "How can you specify that an OpenACC clause should only apply to a specific type of accelerator?",
+      "answer": "You can use the `device_type` clause, for example, `device_type(nvidia) vector`, to apply vector parallelism only if the code is compiled for NVidia GPUs."
+    },
+    {
+      "question": "What are the size limitations for OpenACC `vector` and `gang` on NVidia GPUs?",
+      "answer": "On NVidia GPUs, `vector` length must be a multiple of 32 (up to 1024), and the `gang` size (number of workers multiplied by vector size) cannot be larger than 1024."
+    },
+    {
+      "question": "When trying to optimize vector length for 27-element rows by setting `vector(32)`, what was the unexpected outcome?",
+      "answer": "Unexpectedly, changing the `vector` length to 32 actually increased the run time from about 10 seconds to 15 seconds on a K20, indicating that the compiler had a clever optimization strategy."
+    },
+    {
+      "question": "What are the initial steps for performing guided analysis using the NVidia Visual Profiler?",
+      "answer": "First, go to the 'Analysis' tab and click 'Examine GPU Usage'. Then, click 'Examine Individual Kernels', select the top kernel, and click 'Perform Kernel Analysis'. Finally, click 'Perform Latency Analysis'."
+    },
+    {
+      "question": "What kind of information does the NVidia Visual Profiler provide regarding GPU utilization?",
+      "answer": "The profiler indicates if performance is limited by block size (gangs), shows the number of active threads versus potential threads, reports GPU occupancy (e.g., 25%), and details warps per block and threads per block, suggesting how to better fill the device."
+    },
+    {
+      "question": "Based on the visual profiler's analysis, what was the primary recommendation for optimization, and how was it implemented in the code?",
+      "answer": "The primary recommendation was to use bigger gangs. This was implemented by adding 32 `worker`s to the outer loop (e.g., `#pragma acc loop device_type(nvidia) gang worker(32)` or `num_workers(32)` with `parallel loop`), while keeping the inner loop's `vector` size at 32."
+    },
+    {
+      "question": "What performance gain was achieved by adding more workers based on the profiler's advice?",
+      "answer": "Adding more workers resulted in a performance gain of almost a factor of two, reducing the run time on a K20 from roughly 10 seconds to about 6 seconds."
+    },
+    {
+      "question": "Briefly describe two other optimization clauses mentioned in OpenACC.",
+      "answer": "The `collapse(N)` clause flattens the next N nested loops into a single loop, useful for many or short nested loops. The `tile(N,[M,...])` clause breaks loops into tiles before parallelizing, which can be useful for algorithms with high data locality."
+    }
+  ],
+  "generated_at": "2026-04-12T04:17:43.577712+00:00"
+}

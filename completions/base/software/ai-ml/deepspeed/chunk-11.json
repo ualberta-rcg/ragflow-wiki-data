@@ -1,0 +1,72 @@
+{
+  "doc_key": "base/deepspeed",
+  "level": "chunk",
+  "chunk_index": 11,
+  "qa_pairs": [
+    {
+      "question": "What layers are defined in the `ConvPart` module?",
+      "answer": "The `ConvPart` module defines `nn.Conv2d(3, 6, 5)`, `nn.MaxPool2d(2, 2)`, `nn.Conv2d(6, 16, 5)`, and `nn.ReLU()`."
+    },
+    {
+      "question": "How does the `forward` method of `ConvPart` process its input?",
+      "answer": "The `forward` method first applies `nn.Conv2d(3, 6, 5)` followed by `nn.ReLU()` and `nn.MaxPool2d(2, 2)`. It then applies `nn.Conv2d(6, 16, 5)` followed by `nn.ReLU()` and `nn.MaxPool2d(2, 2)`, and finally flattens the output to `x.view(-1, 16 * 5 * 5)`."
+    },
+    {
+      "question": "Which layers constitute the `MLPPart` module?",
+      "answer": "The `MLPPart` module consists of `nn.Linear(16 * 5 * 5, 120)`, `nn.Linear(120, 84)`, `nn.Linear(84, 10)`, and `nn.ReLU()`."
+    },
+    {
+      "question": "Describe the data flow through the `forward` method of `MLPPart`.",
+      "answer": "The `forward` method of `MLPPart` applies `nn.Linear(16 * 5 * 5, 120)` followed by `nn.ReLU()`, then `nn.Linear(120, 84)` followed by `nn.ReLU()`, and finally `nn.Linear(84, 10)`."
+    },
+    {
+      "question": "How are `ConvPart` and `MLPPart` integrated into the `Net` class?",
+      "answer": "In the `Net` class, `ConvPart` is assigned to `self.conv_part` and `MLPPart` to `self.mlp_part`. These are then combined sequentially into `self.block` within the `configure_sharded_model` method."
+    },
+    {
+      "question": "What is the purpose of the `configure_sharded_model` method in the `Net` class?",
+      "answer": "The `configure_sharded_model` method in `Net` combines the `conv_part` and `mlp_part` into a `nn.Sequential` block named `self.block`, which defines the overall model architecture."
+    },
+    {
+      "question": "How is the loss calculated in the `training_step` method of the `Net` class?",
+      "answer": "In the `training_step` method, the model predicts `y_hat` from input `x`, and the loss is calculated using `F.cross_entropy(y_hat, y)`."
+    },
+    {
+      "question": "Which optimizer is configured for the `Net` model?",
+      "answer": "The `Net` model is configured to use `DeepSpeedCPUAdam` as its optimizer within the `configure_optimizers` method."
+    },
+    {
+      "question": "What hardware configuration is specified for the `pl.Trainer` in this example?",
+      "answer": "The `pl.Trainer` is configured to use a 'gpu' accelerator with `2` devices (GPUs) on `1` node."
+    },
+    {
+      "question": "What DeepSpeed strategy is employed for the `pl.Trainer` and what are its parameters?",
+      "answer": "The `pl.Trainer` uses `DeepSpeedStrategy` with `stage=3`, `offload_optimizer=True`, `offload_parameters=True`, `remote_device='nvme'`, `offload_params_device='nvme'`, `offload_optimizer_device='nvme'`, and `nvme_path='local_scratch'`."
+    },
+    {
+      "question": "How are optimizer states and model parameters handled for offloading in this `DeepSpeedStrategy`?",
+      "answer": "Both optimizer states (`offload_optimizer=True`) and model parameters (`offload_parameters=True`) are configured to be offloaded to an NVMe device."
+    },
+    {
+      "question": "To what value is the `nvme_path` parameter set within the `DeepSpeedStrategy` for NVMe offloading?",
+      "answer": "The `nvme_path` parameter for the `DeepSpeedStrategy` is set to the string literal `'local_scratch'`, which corresponds to the `local_scratch` variable defined as the value of the `SLURM_TMPDIR` environment variable."
+    },
+    {
+      "question": "How is the `local_scratch` variable defined in the Python script?",
+      "answer": "The `local_scratch` variable is defined by retrieving the value of the `SLURM_TMPDIR` environment variable using `os.environ['SLURM_TMPDIR']`."
+    },
+    {
+      "question": "What dataset is used for training in this script?",
+      "answer": "The script uses the `CIFAR10` dataset for training."
+    },
+    {
+      "question": "What transformations are applied to the training data?",
+      "answer": "The training data undergoes `transforms.ToTensor()` and `transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))` transformations."
+    },
+    {
+      "question": "What are the configured settings for the `DataLoader` in this example?",
+      "answer": "The `DataLoader` is configured with `dataset_train`, a `batch_size` from `args.batch_size`, and `num_workers` from `args.num_workers`."
+    }
+  ],
+  "generated_at": "2026-04-11T21:11:53.111566+00:00"
+}

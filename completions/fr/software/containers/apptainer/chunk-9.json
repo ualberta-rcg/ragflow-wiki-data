@@ -1,0 +1,28 @@
+{
+  "doc_key": "fr/apptainer",
+  "level": "chunk",
+  "chunk_index": 9,
+  "qa_pairs": [
+    {
+      "question": "Comment faire pour compiler et exécuter un programme C++ comme `myprog.cpp` à l'intérieur d'un conteneur Apptainer sur nos grappes de calcul?",
+      "answer": "Pour compiler et ensuite exécuter un programme C++ comme `myprog.cpp` dans un conteneur Apptainer sur nos grappes, vous utiliseriez des commandes comme celles-ci :\n`apptainer run -C -W $SLURM_TMPDIR -B /project -B /scratch your-container-name.sif g++ -O2 -march=broadwell ./myprog.cpp`\n`apptainer run -C -W $SLURM_TMPDIR -B /project -B /scratch ./a.out`"
+    },
+    {
+      "question": "Quelles options est-ce que je devrais typiquement ajouter aux commandes `apptainer run` sur les grappes de calcul?",
+      "answer": "Sur nos grappes de calcul, vous devriez ajouter des options comme `-C`, `-c`, `-e`, et `-W` à votre commande `apptainer run`. Vous devrez aussi inclure des options de `bind mount` comme `-B /project` et `-B /scratch` pour rendre l'espace disque disponible à vos programmes dans le conteneur."
+    },
+    {
+      "question": "Pourquoi est-il important d'ajouter des options de `bind mount` comme `-B /project` et `-B /scratch` lorsque j'utilise `apptainer run` sur nos grappes?",
+      "answer": "Les options de `bind mount` comme `-B /project` et `-B /scratch` sont nécessaires pour que l'espace disque soit disponible aux programmes à l'intérieur du conteneur, étant donné que les options comme `-C` peuvent isoler le conteneur de ces systèmes de fichiers par défaut."
+    },
+    {
+      "question": "Où est-ce que je peux trouver plus de détails sur les options de ligne de commande d'Apptainer, l'utilisation des GPU ou les `bind mounts`?",
+      "answer": "Pour plus d'informations, vous pouvez consulter les sections suivantes : 'Options de ligne de commande à retenir', 'Utiliser des GPU', et 'Bind mounts et overlays persistants'. Vous pouvez aussi consulter la documentation officielle d'Apptainer."
+    },
+    {
+      "question": "Quelle est l'utilité de l'option `-W $SLURM_TMPDIR` quand on exécute Apptainer sur les grappes?",
+      "answer": "L'option `-W $SLURM_TMPDIR` est utilisée pour spécifier un répertoire de travail sur un disque physique (`${SLURM_TMPDIR}`) pour Apptainer. Ceci est important sur les grappes où les systèmes de fichiers comme `/tmp` utilisent la mémoire RAM, et les tâches peuvent être annulées si elles consomment trop de mémoire allouée."
+    }
+  ],
+  "generated_at": "2026-04-11T17:36:06.264003+00:00"
+}

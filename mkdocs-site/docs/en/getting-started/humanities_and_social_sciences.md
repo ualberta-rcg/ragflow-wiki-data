@@ -5,21 +5,49 @@ lang: "en"
 
 source_wiki_title: "Humanities and Social Sciences/en"
 source_hash: "501cbea108e840ab0c4cc27201bf1488"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T07:17:05.783838+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T07:56:46.825687+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "Platforms and Portals"
+  - "research computing"
+  - "research communities"
+  - "HSS researchers"
+  - "Storage"
+  - "file transfers"
+  - "Globus"
+  - "Humanities and Social Sciences"
+  - "Visualization Support"
+  - "Digital Research Alliance of Canada"
+  - "computational tools"
+  - "Training"
+  - "Digital Humanities"
+  - "Specialized Software"
+  - "Nextcloud"
+
+questions:
+  - "What are the three key elements driving the rapid growth of computational research in the Humanities and Social Sciences?"
+  - "How is the Digital Research Alliance of Canada's HSS support team structured across different regions and institutions?"
+  - "What specific national services and computational resources are available to support HSS researchers?"
+  - "What types of technical infrastructure and support services, such as software, storage, and cloud computing, are available to users?"
+  - "How can researchers access training opportunities, specifically those tailored to the Humanities and Social Sciences across different Canadian regions?"
+  - "What are some of the key external organizations and showcased projects available for Canadian Digital Humanities scholars?"
+  - "What are the main features and capabilities of the Globus file transfer service?"
+  - "How much storage capacity does Nextcloud offer, and how does it function across multiple devices?"
+  - "What kind of hosting services do Platforms and Portals provide for research communities?"
+  - "What types of technical infrastructure and support services, such as software, storage, and cloud computing, are available to users?"
+  - "How can researchers access training opportunities, specifically those tailored to the Humanities and Social Sciences across different Canadian regions?"
+  - "What are some of the key external organizations and showcased projects available for Canadian Digital Humanities scholars?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -33,7 +61,7 @@ There are three elements of the current landscape that place the HSS in a positi
 *   growing research computing competency among humanities researchers.
 
 To support researchers in the HSS, the [Digital Research Alliance of Canada](https://alliancecan.ca/en) has a dedicated team of professionals.
-For more information, please contact the HSS Team using the [support email address found on this page](technical-support.md#ask-support), adding ***(HSS)*** at the beginning of the subject.
+For more information, please contact the HSS Team using the [support email address found on this page](technical-support.md#ask-support), adding **(HSS)** at the beginning of the subject.
 Alternatively, you are welcome to request a specific staff member, consult the list of names below to find the appropriate person to contact.
 
 ## Who We Are
@@ -41,7 +69,7 @@ The lead team:
 *   **Maria Sigridur Finnsdottir**, *Humanities & Social Sciences Specialist, Digital Research Services* at University of Alberta (Prairie DRI Group)
 *   **Meghan Landry**, *Humanities & Social Sciences Research Specialist* at St. Francis Xavier University (ACENET)
 *   **Megan Meredith-Lobay**, *Associate Director, Research Computing Group* at Simon Fraser University (BC DRI Group)
-*   **Sarah Cameron-Pesant**, *Advanced Research Computing Analyst and Humanities & Social Sciences Specialist* at Université du Québec à Montréal (Calcul Québec)
+*   **Sarah Cameron-Pesant**, *Advanced Research Computing Analyst and Humanities & Social Sciences Specialist* at Université du Québec à Montréal (Calcul Québec) 
 
 Team members by region:
 
@@ -91,7 +119,7 @@ Regional partner: **ACENET**
 
 National services are available to all members of the research community with documentation in both official languages, trained support team and robust system architectures.
 
-*   **Advocacy and Outreach** - Members attend conferences, make presentations to academic and other groups, and actively participate in the scholarly community in order to better understand our user needs.
+*   **Advocacy and Outreach** - Members attend conferences, make presentations to academic and other groups, and actively participate in the scholarly community in order to better understand our user needs. 
 *   **Collaboration Services** – Sites located across Canada are capable of both delivering and viewing large video conferences.
 *   **[Cloud](cloud.md)** – Virtual-machine development space that includes an outward-facing IP address.
 *   **[Computation](getting-started.md)** – Expandable power ranging from the equivalent of a second desktop to supercomputers with thousands of cores, terabytes of RAM, and a variety of system architectures.

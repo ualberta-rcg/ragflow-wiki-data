@@ -1,0 +1,84 @@
+{
+  "doc_key": "fr/advanced_mpi_scheduling",
+  "level": "chunk",
+  "chunk_index": 4,
+  "qa_pairs": [
+    {
+      "question": "Combien de cœurs sont alloués et combien de processus MPI sont initialisés avec les paramètres `--ntasks=16` et `--cpus-per-task=4`?",
+      "answer": "Avec ces paramètres, 64 cœurs sont alloués, mais seulement 16 processus (tâches) MPI sont initialisés."
+    },
+    {
+      "question": "Dans le cas d'une application OpenMP, combien de fils chaque processus démarrera-t-il si 4 cœurs sont alloués par tâche?",
+      "answer": "Si c'est une application OpenMP, chaque processus démarrera 4 fils, soit un par cœur."
+    },
+    {
+      "question": "Quelle quantité de mémoire chaque processus pourra-t-il utiliser avec `--mem-per-cpu=3G` et 4 cœurs par tâche?",
+      "answer": "Chaque processus pourra utiliser 12 Go de mémoire."
+    },
+    {
+      "question": "Sur combien de nœuds les tâches pourraient-elles être allouées si 4 cœurs sont utilisés par tâche?",
+      "answer": "Les tâches pourraient être allouées sur 2 à 16 nœuds, peu importe lesquels."
+    },
+    {
+      "question": "Pourquoi est-il nécessaire de spécifier `--cpus-per-task=$SLURM_CPUS_PER_TASK` pour la commande `srun`?",
+      "answer": "Il faut spécifier `--cpus-per-task=$SLURM_CPUS_PER_TASK` pour la commande `srun` parce que c'est exigé depuis Slurm 22.05 et ça ne nuit pas aux versions moins récentes."
+    },
+    {
+      "question": "Quelle est la taille de la tâche définie par `--nodes=2 --ntasks-per-node=8 --cpus-per-task=4`?",
+      "answer": "La taille de cette tâche est identique à la précédente, soit 16 tâches (processus MPI), chacune avec 4 fils."
+    },
+    {
+      "question": "Quelle est la principale différence entre la première et la deuxième configuration de tâche hybride décrite dans le document?",
+      "answer": "La différence principale est qu'avec la deuxième configuration, on obtient exactement 2 nœuds entiers."
+    },
+    {
+      "question": "Pourquoi est-il préférable d'utiliser l'option `--mem` plutôt que `--mem-per-cpu` dans certains cas pour une tâche Slurm?",
+      "answer": "Il est préférable d'utiliser l'option `--mem` parce qu'elle spécifie la mémoire par nœud, ce qui signifie que la mémoire consommée par chaque processus n'importe pas, pourvu que la quantité totale sur le nœud ne dépasse pas ce qui est alloué. Si on utilise `--mem-per-cpu`, la tâche serait annulée si un seul processus dépasse sa limite individuelle."
+    },
+    {
+      "question": "À quoi sert la commande `mpirun` et comment les ordonnanceurs récents s'y comparent-ils?",
+      "answer": "La commande `mpirun` permet la communication entre des processus exécutés sur des ordinateurs différents; les ordonnanceurs récents possèdent aussi cette fonctionnalité."
+    },
+    {
+      "question": "Quel est l'avantage d'utiliser Slurm par rapport à `mpirun` concernant l'affinité des tâches?",
+      "answer": "Avec Slurm, c'est l'ordonnanceur qui décide de l'affinité des tâches, ce qui évite d'avoir à préciser des paramètres complexes pour `mpirun`."
+    },
+    {
+      "question": "Comment `srun application.exe` distribue-t-il les processus aux ressources allouées?",
+      "answer": "`srun application.exe` distribue automatiquement les processus aux ressources précises qui ont été allouées à la tâche."
+    },
+    {
+      "question": "Comment se positionne `srun` par rapport à `mpirun` en termes de niveaux d'abstraction et de capacités?",
+      "answer": "`srun` est un niveau d'abstraction plus élevé que `mpirun`; `srun` peut faire tout ce que fait `mpirun` et même davantage."
+    },
+    {
+      "question": "Pourquoi `srun` est-il l'outil de prédilection pour lancer les calculs avec Slurm?",
+      "answer": "`srun` est l'outil de prédilection avec Slurm pour lancer tous les types de calculs parce qu'il est très polyvalent, même plus que le `pbsdsh` de Torque."
+    },
+    {
+      "question": "Pour quels types d'applications `srun` est-il utile une fois les ressources allouées?",
+      "answer": "Une fois les ressources allouées, `srun` est l'outil Slurm universel pour la distribution de tâches en parallèle, peu importe la nature de l'application : MPI, OpenMP, hybride, distribution sérielle, pipeline, multiprogramme ou autre."
+    },
+    {
+      "question": "Quels sont les avantages spécifiques de `srun` dans l'environnement Slurm?",
+      "answer": "`srun` est parfaitement adapté à Slurm : il amorce la première étape de la tâche, initialise correctement les variables d'environnement `SLURM_STEP_ID` et `SLURM_PROCID`, et fournit les renseignements de suivi appropriés."
+    },
+    {
+      "question": "Est-ce que `mpiexec` offre toujours de moins bonnes performances que `srun`?",
+      "answer": "Non, dans certains cas, `mpiexec` peut offrir une meilleure performance que `srun`, mais `srun` diminue le risque de conflit entre les ressources allouées par Slurm et celles utilisées par OpenMPI."
+    },
+    {
+      "question": "Où peut-on trouver des exemples de différences entre `srun` et `mpiexec`?",
+      "answer": "On peut trouver des exemples de différences entre `srun` et `mpiexec` sur le forum OpenMPI."
+    },
+    {
+      "question": "Où peut-on trouver la documentation officielle pour `sbatch` et `srun`?",
+      "answer": "La documentation officielle pour `sbatch` est disponible sur slurm.schedmd.com/sbatch.html, et celle pour `srun` sur slurm.schedmd.com/srun.html."
+    },
+    {
+      "question": "Où peut-on trouver des informations sur l'intégration d'Open MPI avec Slurm?",
+      "answer": "Des informations sur Open MPI et Slurm sont disponibles via la FAQ d'Open MPI à open-mpi.org/faq/?category=slurm."
+    }
+  ],
+  "generated_at": "2026-04-11T16:14:18.720191+00:00"
+}

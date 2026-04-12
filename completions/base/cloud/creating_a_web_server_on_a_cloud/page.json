@@ -1,0 +1,63 @@
+{
+  "doc_key": "base/creating_a_web_server_on_a_cloud",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is the main goal of this document?",
+      "answer": "This document describes the simplest way to create a web server on our clouds using Ubuntu Linux and the Apache web server."
+    },
+    {
+      "question": "What are the primary security concerns when making a computer publicly accessible?",
+      "answer": "Security concerns include restricting access to specific ports and IP addresses using OpenStack security groups, and using encryption like Transport Layer Security (TLS) to prevent eavesdropping or data modification."
+    },
+    {
+      "question": "How can access to specific ports on a virtual machine be managed and restricted?",
+      "answer": "Access to specific ports can be managed and restricted using OpenStack's 'Security groups', allowing you to grant access only to a specific IP address or ranges of IP addresses."
+    },
+    {
+      "question": "Why is it important to use encryption on a web server, particularly for sites that involve logins?",
+      "answer": "Using encryption (e.g., Transport Layer Security) is important because it prevents eavesdroppers from reading sensitive information like passwords and ensures that data transmitted from your web server to a client isn't modified by a third party."
+    },
+    {
+      "question": "What are the initial prerequisites for installing the Apache web server on a cloud VM?",
+      "answer": "The initial prerequisites are creating a persistent virtual machine running Ubuntu Linux and opening port 80 to allow HTTP requests into your VM."
+    },
+    {
+      "question": "What command-line steps are involved in installing the Apache web server on Ubuntu?",
+      "answer": "First, update apt-get repositories with `sudo apt-get update`, then upgrade Ubuntu with `sudo apt-get upgrade`, and finally install Apache with `sudo apt-get install apache2`."
+    },
+    {
+      "question": "How can you confirm that Apache has been successfully installed and is serving web pages?",
+      "answer": "You can confirm by entering the floating IP address of your VM into your browser's address bar; you should see the Apache2 test page."
+    },
+    {
+      "question": "What is the default directory where Apache serves web content?",
+      "answer": "The default directory for web content is `/var/www/html`."
+    },
+    {
+      "question": "Why would someone want to change Apache's default web server root directory?",
+      "answer": "Changing the web server's root directory, for example to `/home/ubuntu/public_html`, often makes it easier to manage a website because the files can then be owned and edited by the user connecting to the VM without needing `sudo`."
+    },
+    {
+      "question": "Which Apache configuration files need to be modified to change the document root?",
+      "answer": "To change the document root, you need to modify `/etc/apache2/apache2.conf` and `/etc/apache2/sites-available/000-default.conf`."
+    },
+    {
+      "question": "What command is used to restart the Apache server after configuration changes?",
+      "answer": "The command to restart the Apache server is `sudo service apache2 restart`."
+    },
+    {
+      "question": "How can an Apache web server's overall bandwidth usage be limited?",
+      "answer": "The overall bandwidth usage of an Apache web server can be limited by installing and configuring the `mod_bw` Apache bandwidth module."
+    },
+    {
+      "question": "What commands are used to install and enable the Apache bandwidth module?",
+      "answer": "To install, use `sudo apt install libapache2-mod-bw`, and to enable, use `sudo a2enmod bw`."
+    },
+    {
+      "question": "Where should bandwidth limiting configurations be placed within Apache's setup?",
+      "answer": "Bandwidth limiting configurations should be placed between the `<VirtualHost></VirtualHost>` tags for your site, typically in the `/etc/apache2/sites-enabled/000-default.conf` file for the default site."
+    }
+  ],
+  "generated_at": "2026-04-11T20:26:54.210795+00:00"
+}

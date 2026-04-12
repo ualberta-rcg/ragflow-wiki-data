@@ -5,21 +5,30 @@ lang: "base"
 
 source_wiki_title: "Symbolic algebra software"
 source_hash: "86b4fbdab1de59aa01c8c095261c91e1"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T11:32:59.745011+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T11:43:07.460361+00:00"
 
 tags:
   - software
 
 keywords:
-  []
+  - "software packages"
+  - "open source software"
+  - "Symbolic algebra software"
+  - "SageMath"
+  - "exact arithmetic"
+
+questions:
+  - "What is symbolic algebra software and what types of mathematical operations is it designed to handle?"
+  - "How can users access and install commercial packages like Mathematica or Maple on the clusters?"
+  - "Which open-source symbolic algebra alternatives are available as modules and how can a user load them?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -31,11 +40,8 @@ module load sagemath/9.3
 
 Afterwards you can then run the software interactively, e.g.
 
-```bash
+```console
 sage
-```
-
-```text
 ┌────────────────────────────────────────────────────────────────────┐
 │ SageMath version 9.3, Release Date: 2021-05-09                     │
 │ Using Python 3.8.10. Type "help()" for help.                       │

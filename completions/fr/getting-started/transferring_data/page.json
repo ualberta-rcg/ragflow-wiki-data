@@ -1,0 +1,119 @@
+{
+  "doc_key": "fr/transferring_data",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "Pourquoi faut-il utiliser les nœuds de copie plutôt que les nœuds de connexion pour transférer des données?",
+      "answer": "Pour transférer des données vers ou à partir des grappes, il faut utiliser les nœuds de copie plutôt que les nœuds de connexion. L'adresse URL d'un nœud de copie se trouve dans le tableau au haut des pages de chaque grappe."
+    },
+    {
+      "question": "Quel outil utilise automatiquement les nœuds de copie?",
+      "answer": "Globus utilise automatiquement les nœuds de copie."
+    },
+    {
+      "question": "Quels sont les outils recommandés pour transférer des fichiers entre un ordinateur personnel et l'infrastructure sous Linux ou Mac OS X?",
+      "answer": "Sous Linux ou Mac OS X, les commandes `scp` et `sftp` sont recommandées dans un environnement ligne de commande."
+    },
+    {
+      "question": "Quels logiciels peuvent être utilisés sous Windows pour transférer des données vers ou depuis l'infrastructure?",
+      "answer": "Sous Windows, MobaXterm offre des fonctions de transfert et une interface ligne de commande via SSH. WinSCP est un autre programme gratuit pour le transfert de données, et les commandes `pscp` et `psftp` de PuTTY fonctionnent aussi."
+    },
+    {
+      "question": "Que faire si un transfert de fichiers entre un ordinateur personnel et les serveurs prend plus d'une minute?",
+      "answer": "Si un transfert prend plus d'une minute, il est suggéré d'installer et d'essayer Globus Connect Personal, qui peut fonctionner en arrière-plan sans intervention."
+    },
+    {
+      "question": "Quel est l'outil privilégié pour transférer des données entre les systèmes de l'infrastructure?",
+      "answer": "Globus est l'outil privilégié pour les transferts entre les systèmes de l'infrastructure et devrait être utilisé autant que possible."
+    },
+    {
+      "question": "Quels sont les autres outils de transfert qui peuvent être utilisés entre les équipements de l'Alliance et entre un ordinateur externe et ces équipements?",
+      "answer": "D'autres outils connus incluent SFTP, SCP (Secure Copy Protocol) et rsync."
+    },
+    {
+      "question": "Comment transférer des fichiers entre une autre grappe (comme Fir) et Trillium?",
+      "answer": "Il faut se connecter à l'autre grappe avec `ssh -A USERNAME@grappe.alliancecan.ca`, puis utiliser une commande `scp` comme `scp file USERNAME@trillium.alliancecan.ca:`."
+    },
+    {
+      "question": "Quels outils sont utilisés pour transférer des données à partir d'un site web?",
+      "answer": "Pour transférer des données à partir d'un site web, on peut utiliser `wget` ou `curl`."
+    },
+    {
+      "question": "Comment reprendre un téléchargement interrompu avec `wget` ou `curl`?",
+      "answer": "Les téléchargements interrompus peuvent être repris en relançant l'outil en ligne de commande avec l'option `-c` pour `wget` et `-C -` pour `curl`."
+    },
+    {
+      "question": "Quel outil est recommandé pour obtenir des données de services infonuagiques comme Google Cloud ou Google Drive?",
+      "answer": "Pour les données de services infonuagiques comme Google Cloud, Google Drive et Google Photos, il est recommandé d'utiliser `rclone`."
+    },
+    {
+      "question": "Quel est le but de la synchronisation des données?",
+      "answer": "La synchronisation des données a pour but de faire correspondre le contenu de deux sources de données situées à différents endroits."
+    },
+    {
+      "question": "Comment Globus gère-t-il la sélection des fichiers à transférer lors d'une synchronisation?",
+      "answer": "Sous 'Transfer Settings', le paramètre `sync` détermine comment Globus choisit les fichiers à transférer, avec des options comme 'checksum is different', 'file doesn't exist on destination', 'file size is different' ou 'modification time is newer'."
+    },
+    {
+      "question": "Quand est-il recommandé d'utiliser l'option 'checksum is different' pour la synchronisation Globus?",
+      "answer": "L'option 'checksum is different' est recommandée pour détecter un changement ou une erreur de contenu dans des fichiers de même taille, offrant la plus grande précision, même si elle ralentit considérablement le transfert."
+    },
+    {
+      "question": "Comment l'utilitaire `rsync` vérifie-t-il la similitude entre deux jeux de données par défaut?",
+      "answer": "`rsync` compare par défaut les dates de modification et la taille des fichiers et fait le transfert uniquement si l'un de ces paramètres ne concorde pas."
+    },
+    {
+      "question": "Pourquoi faut-il éviter les indicateurs `-p` et `-g` quand on utilise `rsync` pour transférer des données vers les systèmes de fichiers `/project`?",
+      "answer": "Il ne faut pas utiliser les indicateurs `-p` et `-g` car les quotas pour `/project` sont calculés selon la propriété de groupe, et les conserver pourrait produire un message d'erreur 'Disk quota exceeded'."
+    },
+    {
+      "question": "Comment transférer un répertoire avec `rsync` vers `/project` tout en évitant les problèmes de quotas?",
+      "answer": "Il faut ajouter les options `--no-g --no-p` à la commande `rsync`, par exemple: `rsync -avzh --no-g --no-p LOCALNAME someuser@nibi.alliancecan.ca:projects/def-professor/someuser/somedir/`."
+    },
+    {
+      "question": "Comment `rsync` peut-il gérer les transferts interrompus de très gros fichiers?",
+      "answer": "Pour les très gros fichiers, il faut ajouter l'option `--partial` pour que les transferts interrompus soient redémarrés."
+    },
+    {
+      "question": "Quelle est l'alternative pour synchroniser deux systèmes si Globus ou `rsync` sont trop lents?",
+      "answer": "Si Globus est inutilisable et `rsync` trop lent, on peut comparer les deux systèmes avec un utilitaire de sommes de contrôle (checksum), comme `sha1sum`, puis utiliser `diff` pour trouver les fichiers qui ne concordent pas."
+    },
+    {
+      "question": "Quel protocole utilise le chiffrement SSH pour transférer des données?",
+      "answer": "SFTP (Secure File Transfer Protocol) et SCP (Secure Copy Protocol) utilisent tous les deux le protocole SSH pour chiffrer les données transférées."
+    },
+    {
+      "question": "Comment un utilisateur se connecte-t-il via SFTP en ligne de commande?",
+      "answer": "Un utilisateur se connecte avec la commande `sftp USERNAME@ADDRESS`. Il peut aussi s'authentifier avec une clé SSH en utilisant l'option `-i`."
+    },
+    {
+      "question": "Quelles sont quelques applications graphiques pour SFTP?",
+      "answer": "Des applications graphiques comme WinSCP, MobaXterm (Windows), Filezilla (Windows, Mac, Linux) et Cyberduck (Mac, Windows) sont disponibles."
+    },
+    {
+      "question": "Quelle est une différence clé entre SCP et Globus ou rsync?",
+      "answer": "Contrairement à Globus ou rsync, SCP ne gère pas la synchronisation des fichiers."
+    },
+    {
+      "question": "Comment transférer un fichier local vers un répertoire de travail sur une grappe distante avec SCP?",
+      "answer": "Pour transférer un fichier local `foo.txt` vers le répertoire `$HOME/work` d'une grappe distante (ex: Rorqual), on utilise: `scp foo.txt username@rorqual.alliancecan.ca:work/`."
+    },
+    {
+      "question": "Est-il recommandé d'utiliser `scp -r` pour transférer des données vers `/project`, et pourquoi?",
+      "answer": "Non, il n'est pas recommandé d'utiliser `scp -r` pour transférer des données vers `/project` car le bit `setGID` est désactivé dans les répertoires créés, ce qui peut générer des erreurs de 'Disk quota exceeded' plus tard."
+    },
+    {
+      "question": "Que faut-il faire si on utilise un nom de clé SSH personnalisé avec SCP?",
+      "answer": "Si on utilise un nom de clé SSH personnalisé, il faut utiliser l'option `scp -i` suivie du chemin vers la clé privée, par exemple: `scp -i /path/to/key foo.txt username@rorqual.alliancecan.ca:work/`."
+    },
+    {
+      "question": "Comment vérifier les problèmes de lecture de répertoires avant un transfert?",
+      "answer": "Sous Linux, la commande `find <directory_name> ! -readable -ls` permet de lister tous les éléments du répertoire que l'on n'a pas la permission de lire."
+    },
+    {
+      "question": "Quelles vérifications faut-il faire en cas de problème d'écriture de nouvelles données?",
+      "answer": "Il faut vérifier l'utilisation du stockage pour s'assurer qu'il y a assez d'espace et de fichiers disponibles, et vérifier les permissions des systèmes de fichiers pour s'assurer d'avoir la permission d'écriture à la destination."
+    }
+  ],
+  "generated_at": "2026-04-12T09:22:43.463391+00:00"
+}

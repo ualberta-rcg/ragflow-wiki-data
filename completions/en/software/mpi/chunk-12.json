@@ -1,0 +1,48 @@
+{
+  "doc_key": "en/mpi",
+  "level": "chunk",
+  "chunk_index": 12,
+  "qa_pairs": [
+    {
+      "question": "What is the purpose of `MPI_Init` in the Fortran `phello2.f90` program?",
+      "answer": "In the Fortran `phello2.f90` program, `MPI_Init` (or `MPI_INIT` in older Fortran versions) is called as the first statement to initialize the MPI environment before any other MPI features are used."
+    },
+    {
+      "question": "How does a Fortran MPI program (like `phello2.f90`) obtain its unique process rank and the total number of processes?",
+      "answer": "A Fortran MPI program obtains its unique process rank by calling `MPI_COMM_RANK(MPI_COMM_WORLD, rank, ierr)` and the total number of processes by calling `MPI_COMM_SIZE(MPI_COMM_WORLD, num_procs, ierr)`."
+    },
+    {
+      "question": "In the `phello2.py` Python example, how is the target process for sending a message (`sendto`) calculated?",
+      "answer": "In the `phello2.py` Python example, the target process for sending a message (`sendto`) is calculated using the arithmetic `sendto = (rank + 1) % size`."
+    },
+    {
+      "question": "What arithmetic is used in the `phello2` programs (Fortran, Python) to determine which process to receive a message from?",
+      "answer": "The `phello2` programs use the arithmetic `mod((rank + num_procs - 1), num_procs)` in Fortran or `(rank + size - 1) % size` in Python to determine the process from which to receive a message."
+    },
+    {
+      "question": "What is the 'hidden problem' with the `phello2` programs (C, Fortran, Python) despite them seemingly working?",
+      "answer": "The hidden problem is that the MPI standard does not guarantee that `MPI_Send` returns before the message has been delivered. While most implementations buffer the data, relying on this buffering can lead to deadlocks if the implementation is unbuffered or the message is too large for the buffer."
+    },
+    {
+      "question": "Why might the `MPI_Send` function return before a message is actually delivered in `phello2` programs?",
+      "answer": "The `MPI_Send` function might return before a message is actually delivered because most MPI implementations buffer the data from `MPI_Send` internally and return without waiting for the message to reach its destination."
+    },
+    {
+      "question": "What would happen if the `phello2` programs were executed on an MPI implementation that did not buffer `MPI_Send` calls?",
+      "answer": "If `phello2` programs were executed on an MPI implementation that did not buffer `MPI_Send` calls, the code would deadlock. Each process would call `MPI_Send` and then wait for its neighbour to call `MPI_Recv`, but since all neighbours would also be stuck waiting at their `MPI_Send` stage, they would all wait indefinitely."
+    },
+    {
+      "question": "Why is it considered poor design to rely on the buffering behaviour of `MPI_Send`, as demonstrated by the `phello2` examples?",
+      "answer": "It's considered poor design to rely on `MPI_Send` buffering because the MPI standard doesn't require it. If a program's correctness depends on buffering, it becomes 'unsafe' and could fail if used on a system where such buffering isn't provided by the library, or if the message size exceeds the buffer capacity."
+    },
+    {
+      "question": "Which specific MPI functions are used for sending and receiving messages in the Fortran `phello2.f90` and Python `phello2.py` examples?",
+      "answer": "In the Fortran `phello2.f90` example, `MPI_SEND` and `MPI_RECV` are used. In the Python `phello2.py` example, `comm.send()` and `comm.recv()` are used."
+    },
+    {
+      "question": "What does `MPI_CHARACTER` signify in the `MPI_SEND` and `MPI_RECV` calls within the Fortran `phello2.f90` code?",
+      "answer": "In the Fortran `phello2.f90` code, `MPI_CHARACTER` signifies the data type of the items in the message buffer, indicating that the messages being sent and received are composed of characters."
+    }
+  ],
+  "generated_at": "2026-04-12T01:53:07.659470+00:00"
+}

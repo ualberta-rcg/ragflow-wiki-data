@@ -1,0 +1,32 @@
+{
+  "doc_key": "fr/openacc_tutorial_-_optimizing_loops",
+  "level": "chunk",
+  "chunk_index": 7,
+  "qa_pairs": [
+    {
+      "question": "Quelle directive OpenACC est utilisée pour ajouter 32 'worker's dans cet exemple de code avec la directive 'kernels'?",
+      "answer": "La directive utilisée est `#pragma acc loop device_type(nvidia) gang worker(32)`."
+    },
+    {
+      "question": "Pourquoi est-ce qu'on choisit 32 'worker's dans cet exemple de code OpenACC?",
+      "answer": "On choisit 32 'worker's parce que la taille d'un 'gang' pour un GPU NVIDIA ne peut pas dépasser 1024, et cette taille est le produit de la longueur de 'vector' (qui est fixée à 32) multipliée par la quantité de 'worker's."
+    },
+    {
+      "question": "Quelle boucle est parallélisée au niveau 'worker' dans l'extrait de code fourni avec la directive 'kernels'?",
+      "answer": "C'est la boucle externe (`for(int i=0;i<num_rows;i++)`) qui est parallélisée au niveau 'worker'."
+    },
+    {
+      "question": "Quelle boucle est parallélisée au niveau 'vector' dans l'extrait de code fourni avec la directive 'kernels'?",
+      "answer": "C'est la boucle interne (`for(int j=row_start;j<row_end;j++)`) qui est parallélisée au niveau 'vector' avec une longueur de 32."
+    },
+    {
+      "question": "Quel est le but de spécifier `device_type(nvidia)` dans les directives OpenACC de ce code?",
+      "answer": "La clause `device_type(nvidia)` sert à indiquer que le parallélisme spécifié (comme 'gang worker(32)' et 'vector(32)') doit s'appliquer uniquement si le code est compilé pour un GPU NVIDIA."
+    },
+    {
+      "question": "Quel gain de performance est observé sur un K20 suite à l'ajout des 'worker's comme montré dans l'exemple de code?",
+      "answer": "Sur un K20, l'ajout des 'worker's double presque la performance, réduisant le temps d'exécution de 10 secondes à 6 secondes."
+    }
+  ],
+  "generated_at": "2026-04-12T04:20:22.517355+00:00"
+}

@@ -1,0 +1,51 @@
+{
+  "doc_key": "base/flax",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is Flax?",
+      "answer": "Flax is a neural network library and ecosystem built for JAX, designed for flexibility, with a model-building API similar to PyTorch and Keras and a training API based on functional programming."
+    },
+    {
+      "question": "How can Flax be installed on Compute Canada?",
+      "answer": "To install Flax on Compute Canada, one should load a Python module, create and start a virtual environment, then use `pip install --no-index flax` within that virtual environment."
+    },
+    {
+      "question": "How does Flax achieve high performance with JAX?",
+      "answer": "Flax's high performance comes from the combination of JAX's functional paradigm, automatic differentiation, and TensorFlow's Accelerated Linear Algebra (XLA) compiler, which Just-In-Time (JIT) compiles frequently called code blocks for CPU or GPU execution."
+    },
+    {
+      "question": "When is it recommended to use multiple CPUs instead of a GPU for Flax training?",
+      "answer": "For training small-scale models and datasets, it is strongly recommended to use multiple CPUs instead of a GPU to avoid inefficient resource utilization on shared HPC clusters, which can block resources for other users and waste allocation."
+    },
+    {
+      "question": "What is Data Parallelism in the context of Flax with multiple GPUs?",
+      "answer": "Data Parallelism refers to training multiple replicas of a model in parallel, where each replica processes a different segment of training data. Gradients are then aggregated, and model parameters are updated synchronously or asynchronously across replicas."
+    },
+    {
+      "question": "What is a key consideration when using Data Parallelism with Flax?",
+      "answer": "A crucial caveat is that users must scale either the learning rate or the desired batch size according to the number of model replicas to achieve a trained model equivalent to one without Data Parallelism."
+    },
+    {
+      "question": "How is data loading typically handled in Flax and JAX examples?",
+      "answer": "Neither Flax nor JAX directly provide pre-processing or data loading code; examples often utilize PyTorch's `torchvision` for transforms and `DataLoader` for data loading, along with a custom helper to cast NumPy arrays to JAX arrays."
+    },
+    {
+      "question": "Which JAX features enable single-node multi-GPU training with Flax?",
+      "answer": "For single-node multi-GPU training, `jax_utils.replicate` is used to broadcast model replicas to all GPUs, and `jax.pmap` parallelizes inputs, function evaluation, and outputs over a given axis, which is typically the number of GPUs."
+    },
+    {
+      "question": "How are gradients and loss handled across multiple GPUs in a single-node data parallel setup?",
+      "answer": "In a single-node multi-GPU setup, `jax.lax.pmean` is used to compute the average of gradients and loss across all model replicas before updating the model weights."
+    },
+    {
+      "question": "What is necessary to enable multi-node distributed training with Flax and JAX?",
+      "answer": "To enable multi-node distributed training, `jax.distributed.initialize()` must be called to inform JAX about the multi-node job, specifying the coordinator address, total number of processes (nodes), and the current process's ID (node rank)."
+    },
+    {
+      "question": "How is data distributed across multiple nodes for training in the Flax examples?",
+      "answer": "In the multi-node example, PyTorch's `DistributedSampler` is integrated with the `DataLoader` to ensure that each node processes only a distinct portion of the dataset, coordinating distribution based on `num_replicas` (world size) and `rank`."
+    }
+  ],
+  "generated_at": "2026-04-11T21:37:43.977473+00:00"
+}

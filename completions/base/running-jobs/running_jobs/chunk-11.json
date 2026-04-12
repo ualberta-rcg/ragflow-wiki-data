@@ -1,0 +1,64 @@
+{
+  "doc_key": "base/running_jobs",
+  "level": "chunk",
+  "chunk_index": 11,
+  "qa_pairs": [
+    {
+      "question": "How should Mac users prepare job scripts for the clusters?",
+      "answer": "Mac users should open a terminal window and use an editor such as nano, vim, or emacs to prepare their job scripts."
+    },
+    {
+      "question": "What is a dependent job in Slurm?",
+      "answer": "A dependent job is submitted using the `--dependency=afterok:<jobid>` directive and is configured to wait for a specified parent job to complete successfully before it can be scheduled."
+    },
+    {
+      "question": "Why might a dependent job be automatically cancelled?",
+      "answer": "A dependent job will be automatically cancelled if its parent job fails (i.e., ends with a non-zero exit code), because the dependency condition can no longer be met for it to be scheduled."
+    },
+    {
+      "question": "What error message might indicate a module cannot be loaded due to an unsatisfied prerequisite?",
+      "answer": "An error message indicating a module loading issue due to an unsatisfied prerequisite typically states: \"Lmod has detected the following error: These module(s) exist but cannot be loaded as requested: \"<module-name>/<version>\" Try: \"module spider <module-name>/<version>\" to see how to load the module(s).\""
+    },
+    {
+      "question": "How can you diagnose the prerequisites for a module that fails to load?",
+      "answer": "You can use the command `module spider <module-name>/<version>` to view the module's description and identify any prerequisite modules that need to be loaded first."
+    },
+    {
+      "question": "How do you resolve a module loading error caused by an unsatisfied prerequisite in a job script?",
+      "answer": "To resolve this, you need to add `module load` commands for all the listed prerequisite modules to your job script before attempting to load the problematic module."
+    },
+    {
+      "question": "How do environment variables typically behave when a job is submitted?",
+      "answer": "By default, a job inherits all the environment variables from the shell in which it was submitted."
+    },
+    {
+      "question": "Why can inheriting environment variables from the submitting shell cause problems for jobs?",
+      "answer": "Inheriting environment variables can cause problems because changes made by the `module` command or other shell operations can propagate to the job, potentially affecting its ability to load modules due to missing prerequisites or creating hard-to-diagnose issues."
+    },
+    {
+      "question": "What is the recommended practice for managing module-related environment variables in a job script?",
+      "answer": "It is best to include the line `module purge` in your job script before loading any required modules. This ensures a consistent environment state for each job submission, preventing shell-specific changes from affecting your jobs."
+    },
+    {
+      "question": "What directive can be used to prevent a job from inheriting environment variables from the submitting shell?",
+      "answer": "You can use the `--export=none` directive when submitting jobs to suppress the inheritance of environment variables from the submitting shell."
+    },
+    {
+      "question": "What is a common reason for a submitted job to appear to hang or produce incomplete output?",
+      "answer": "A common reason is the aggressive output buffering performed by the Slurm scheduler, which aggregates many output lines before flushing them to the log file. The output file might only be fully written after the job completes, and some output may be lost if the job is cancelled or runs out of time."
+    },
+    {
+      "question": "How can users monitor the progress of a submitted job if output buffering is causing issues?",
+      "answer": "If output buffering is an issue, users should consider running an interactive job. This method allows real-time monitoring of job progress and can also help determine the actual time required for the job."
+    },
+    {
+      "question": "Where can I find information about how job priority is determined and how time limits affect job scheduling?",
+      "answer": "Information regarding job priority determination and the impact of time limits on job scheduling can be found in the \"Job scheduling policies\" documentation."
+    },
+    {
+      "question": "What should be done if jobs within a research group are competing with each other?",
+      "answer": "If jobs within your research group are competing, you should refer to the \"Managing Slurm accounts\" documentation for guidance."
+    }
+  ],
+  "generated_at": "2026-04-12T07:07:31.997633+00:00"
+}

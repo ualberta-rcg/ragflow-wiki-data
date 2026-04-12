@@ -1,0 +1,84 @@
+{
+  "doc_key": "base/gromacs",
+  "level": "chunk",
+  "chunk_index": 17,
+  "qa_pairs": [
+    {
+      "question": "What is a recommended walltime for GROMACS jobs to balance waiting and running time?",
+      "answer": "Requesting a walltime of 24 hours or 72 hours (three days) is often a good trade-off between waiting time and running time for GROMACS jobs."
+    },
+    {
+      "question": "What is the purpose of the `-maxh` parameter in `mdrun`?",
+      "answer": "The `mdrun` parameter `-maxh` is used to tell the program the requested walltime so it gracefully finishes the current timestep when reaching 99% of this walltime, creating a new checkpoint file and properly closing all output files (trajectories, energy- and log-files, etc.)."
+    },
+    {
+      "question": "What happens when `mdrun` reaches 99% of the walltime specified by `-maxh`?",
+      "answer": "When `mdrun` reaches 99% of the walltime specified by `-maxh`, it gracefully finishes the current timestep, creates a new checkpoint file, and properly closes all output files (trajectories, energy- and log-files, etc.)."
+    },
+    {
+      "question": "How can one specify a 24-hour walltime for a GROMACS job using both Slurm and `mdrun`?",
+      "answer": "To specify a 24-hour walltime for a GROMACS job, use `#SBATCH --time=24:00:00` in the job script and `gmx mdrun -maxh 24` for the `mdrun` command."
+    },
+    {
+      "question": "How can a GROMACS simulation be restarted?",
+      "answer": "A GROMACS simulation can be restarted by using the same `mdrun` command as the original simulation and adding the `-cpi state.cpt` parameter, where `state.cpt` is the filename of the most recent checkpoint file."
+    },
+    {
+      "question": "What does `mdrun` do with existing output files when a simulation is restarted using a checkpoint file?",
+      "answer": "When a simulation is restarted using a checkpoint file, `mdrun` will by default (since version 4.5) try to append to existing files (trajectories, energy- and log-files, etc.), and will check consistency, discarding timesteps newer than the checkpoint if necessary."
+    },
+    {
+      "question": "How does the `-maxh` parameter contribute to the consistency of output files during a simulation?",
+      "answer": "The `-maxh` parameter ensures that checkpoint and output files are written in a consistent state when the simulation reaches its time limit."
+    },
+    {
+      "question": "What command is used to restart a GROMACS simulation with `gmx_mpi mdrun` using a checkpoint file named `md.cpt` and a 24-hour max walltime?",
+      "answer": "The command to restart a GROMACS simulation with `gmx_mpi mdrun` using `md.cpt` and a 24-hour max walltime is `srun gmx_mpi mdrun -deffnm md -maxh 24.0 -cpi md.cpt`."
+    },
+    {
+      "question": "Why is it beneficial to split long GROMACS simulations into multiple short jobs using checkpointing?",
+      "answer": "Splitting long GROMACS simulations into multiple short jobs using checkpointing is beneficial because shorter jobs wait less in the queue, especially those requesting 3 hours or less which are eligible for backfill scheduling."
+    },
+    {
+      "question": "Which type of GROMACS jobs are eligible for backfill scheduling?",
+      "answer": "GROMACS jobs that request 3 hours or less are eligible for backfill scheduling."
+    },
+    {
+      "question": "Who can benefit from splitting GROMACS simulations into shorter, checkpointed jobs?",
+      "answer": "Both research groups with default resource allocations (e.g., `def-sponsor`) and those with competitive allocations (e.g., `rrg-sponsor`) can benefit from splitting GROMACS simulations into shorter, checkpointed jobs."
+    },
+    {
+      "question": "How can checkpointing in GROMACS be automated?",
+      "answer": "Checkpointing in GROMACS can be automated by using a job array."
+    },
+    {
+      "question": "How does a job array manage multiple short jobs for checkpointing a GROMACS simulation?",
+      "answer": "With a job array, a single `sbatch` call submits multiple short jobs, but only the first one is eligible to start. As soon as this job completes, the next one becomes eligible to start and resume the simulation. This process repeats until all jobs are complete or the simulation finishes, at which point any remaining pending jobs are automatically cancelled."
+    },
+    {
+      "question": "What is the purpose of the `#SBATCH --array=1-20%1` directive in a GROMACS job script?",
+      "answer": "The `#SBATCH --array=1-20%1` directive in a GROMACS job script is used to define a job array that submits 20 jobs but runs only 1 at a time."
+    },
+    {
+      "question": "How does a GROMACS checkpointing script handle a simulation that exits with an error?",
+      "answer": "If a simulation exits with an error, the checkpointing script prints an error message and cancels any pending jobs in the array using `scancel -t pending $SLURM_ARRAY_JOB_ID`."
+    },
+    {
+      "question": "How does a GROMACS checkpointing script determine if a simulation has finished?",
+      "answer": "A GROMACS checkpointing script determines if a simulation has finished by checking the log file for a line indicating 'Writing checkpoint, step N at ' where N matches the total number of steps (`nsteps`) for the simulation."
+    },
+    {
+      "question": "What Slurm environment variable is typically used to set the number of OpenMP threads in a GROMACS checkpointing job script?",
+      "answer": "The `SLURM_CPUS_PER_TASK` variable is typically used to set `OMP_NUM_THREADS` in a GROMACS checkpointing job script."
+    },
+    {
+      "question": "Which GROMACS executable is used in the example checkpointing script for GPU jobs?",
+      "answer": "The `gmx` executable is used in the example checkpointing script for GPU jobs."
+    },
+    {
+      "question": "What modules are loaded in the example GROMACS serial job script?",
+      "answer": "The example GROMACS serial job script loads `StdEnv/2023`, `gcc/12.3`, `openmpi/4.1.5`, and `gromacs/2025.4`."
+    }
+  ],
+  "generated_at": "2026-04-11T22:27:18.309247+00:00"
+}

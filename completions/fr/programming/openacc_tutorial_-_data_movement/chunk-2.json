@@ -1,0 +1,64 @@
+{
+  "doc_key": "fr/openacc_tutorial_-_data_movement",
+  "level": "chunk",
+  "chunk_index": 2,
+  "qa_pairs": [
+    {
+      "question": "Comment est-ce qu'on spécifie la taille et le format d'un tableau en Fortran avec une directive de données explicite?",
+      "answer": "Pour spécifier la taille et le format d'un tableau en Fortran, on utilise une directive comme `!$acc data copyin(a(1:end)) copyout(b(s/4:3*s/4))`."
+    },
+    {
+      "question": "Quelles sont les étapes à suivre pour copier une matrice dans la mémoire en utilisant le mouvement explicite des données?",
+      "answer": "Pour copier une matrice, il faut suivre deux étapes: d'abord copier la structure de la matrice, puis copier les membres de la matrice."
+    },
+    {
+      "question": "Dans l'exemple d'allocation de matrice, à quoi sert la directive `#pragma acc enter data copyin(A)`?",
+      "answer": "Dans cet exemple, `#pragma acc enter data copyin(A)` sert à copier la structure de la matrice `A` vers la mémoire du GPU."
+    },
+    {
+      "question": "Comment les membres d'une matrice sont-ils copiés vers le GPU avec un mouvement explicite des données?",
+      "answer": "Les membres d'une matrice sont copiés en utilisant une directive comme `#pragma acc enter data copyin(A.row_offsets[:num_rows+1],A.cols[:nnz],A.coefs[:nnz])`."
+    },
+    {
+      "question": "Quelles sont les étapes pour libérer la mémoire d'une matrice de façon explicite?",
+      "answer": "Pour libérer la mémoire, il faut d'abord supprimer les membres de la matrice, puis supprimer la structure de la matrice, et ensuite énoncer la commande `free`."
+    },
+    {
+      "question": "Quelle directive OpenACC utilise-t-on pour supprimer les membres d'une matrice du GPU?",
+      "answer": "On utilise la directive `#pragma acc exit data delete(A.row_offsets,A.cols,A.coefs)` pour supprimer les membres d'une matrice du GPU."
+    },
+    {
+      "question": "Pourquoi la clause `present` est-elle importante pour la performance d'un code OpenACC?",
+      "answer": "La clause `present` est un élément critique pour assurer une bonne performance, surtout quand il s'agit d'une gestion de haut niveau des données."
+    },
+    {
+      "question": "Quand est-ce qu'on doit utiliser la clause `present`?",
+      "answer": "On utilise la clause `present` pour indiquer au compilateur que les données sont déjà présentes en mémoire sur le GPU, ce qui est utile pour une gestion de haut niveau."
+    },
+    {
+      "question": "Comment les variables locales devraient-elles être déclarées quand on utilise la clause `present`?",
+      "answer": "Les déclarations de variables locales devraient se faire à l'intérieur de la fonction dans laquelle elles sont utilisées."
+    },
+    {
+      "question": "Comment faire pour compiler un code sans la mémoire autogérée (unified memory)?",
+      "answer": "Pour faire un nouveau build sans mémoire autogérée, il faut remplacer l'indicateur `-ta=tesla:managed` par `-ta-tesla` dans le Makefile."
+    },
+    {
+      "question": "À quoi sert la directive `update` en OpenACC?",
+      "answer": "La directive `update` permet d'actualiser un tableau ou une partie d'un tableau entre la mémoire du CPU et celle du GPU."
+    },
+    {
+      "question": "Comment on fait pour copier des données du GPU vers le CPU en utilisant la directive `update`?",
+      "answer": "Pour copier des données du GPU vers le CPU, on utilise la commande `!$acc update self(a)`."
+    },
+    {
+      "question": "Comment on fait pour copier des données du CPU vers le GPU en utilisant la directive `update`?",
+      "answer": "Pour copier des données du CPU vers le GPU, on utilise la commande `!$acc update device(a)`."
+    },
+    {
+      "question": "Si j'ai modifié un vecteur sur le CPU, quelle directive OpenACC dois-je utiliser pour que ces changements soient reflétés sur le GPU?",
+      "answer": "Après avoir modifié le vecteur sur le CPU, il faut utiliser `#pragma acc update device(v.coefs[:v.n])` pour actualiser le vecteur sur le GPU."
+    }
+  ],
+  "generated_at": "2026-04-12T04:13:22.188571+00:00"
+}

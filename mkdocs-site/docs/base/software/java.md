@@ -5,21 +5,48 @@ lang: "base"
 
 source_wiki_title: "Java"
 source_hash: "38b6ef14b55a3f44fb16a9d9cd6df494"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T07:29:58.079814+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T08:09:37.377351+00:00"
 
 tags:
   - software
 
 keywords:
-  []
+  - "run-time memory parameters"
+  - "High-performance computing"
+  - "Memory limits"
+  - "Garbage Collection"
+  - "Java virtual machine"
+  - "JAVA_TOOL_OPTIONS"
+  - "Parallelism"
+  - "PrintCommandLineFlags"
+  - "volatile keyword"
+  - "Java"
+  - "memory limit"
+  - "JVM"
+  - "Java Runtime Environment"
+  - "command line options"
+
+questions:
+  - "How is Java software typically accessed, compiled, and executed within the Alliance high-performance computing environment?"
+  - "What are the primary mechanisms and potential drawbacks for implementing multithreading and parallelism in a Java program?"
+  - "Why does the Java Virtual Machine often encounter memory limit issues in shared computing environments, and which command-line flags can be used to resolve them?"
+  - "How can the JAVA_TOOL_OPTIONS environment variable be used to manage Java run-time memory, and how should job memory limits account for JVM overhead?"
+  - "Why is it important to explicitly set the number of garbage collection threads or use the serial garbage collector when submitting Java jobs?"
+  - "What role does the volatile keyword play in Java thread synchronization, and why might the synchronized keyword still be necessary?"
+  - "What condition prompts the need to explicitly control the run-time memory parameters for the Java Runtime Environment?"
+  - "What are the two alternative command-line syntaxes used to set the initial and maximum heap sizes in Java?"
+  - "Which command-line flag allows you to see all the options the JVM is going to run with?"
+  - "How can the JAVA_TOOL_OPTIONS environment variable be used to manage Java run-time memory, and how should job memory limits account for JVM overhead?"
+  - "Why is it important to explicitly set the number of garbage collection threads or use the serial garbage collector when submitting Java jobs?"
+  - "What role does the volatile keyword play in Java thread synchronization, and why might the synchronized keyword still be necessary?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -32,7 +59,6 @@ Java software is frequently distributed in the form of a JAR file with the exten
 ```bash
 java -jar file.jar
 ```
-
 assuming the JAR file has been compiled to operate as an autonomous program (i.e. it possesses a `Main-class` manifest header).
 
 ## Parallelism in Java
@@ -40,7 +66,7 @@ assuming the JAR file has been compiled to operate as an autonomous program (i.e
 ### Threading
 Java includes built-in support for threading, obviating the need for separate interfaces and libraries like OpenMP, pthreads and Boost threads used in other languages. The principal Java object for handling concurrency is the `Thread` class which a programmer can use by either providing a `Runnable` method to the standard `Thread` class or by subclassing the `Thread` class. As an example of this second approach, consider the following toy program:
 
-```java title="thread.java"
+````java title="thread.java"
 public class HelloWorld extends Thread {
         public void run() {
             System.out.println("Hello World!");
@@ -49,8 +75,7 @@ public class HelloWorld extends Thread {
             (new HelloWorld()).start();
         }
 }
-```
-
+````
 This second approach is generally the simplest to use but suffers from the drawback that Java does not permit multiple inheritance, so the class which implements multithreading is unable to subclass any other - potentially more useful - class.
 
 ### MPI and Java
@@ -61,52 +86,45 @@ One common method for using MPI-style parallelism in a Java program is the [MPJ 
 ### Memory Issues
 The Java virtual machine expects to have access to all the physical memory on a given compute node, while the scheduler or a shell might impose its own memory limits (often different) according to the submission script specifications or limitations of the login node. In a shared computing environment, these limits ensure that finite resources, such as memory and CPU cores, do not get exhausted by one job at the expense of another.
 
-When the Java VM starts, it sets two memory parameters according to the amount of physical rather than available memory as follows:
-*   Initial heap size of 1/64 of physical memory
-*   Maximum heap size of 1/4 of physical memory
+!!! warning "JVM Memory Defaults Can Exceed Job Limits"
+    When the Java VM starts, it sets two memory parameters according to the amount of physical rather than available memory as follows:
+    *   Initial heap size of 1/64 of physical memory
+    *   Maximum heap size of 1/4 of physical memory
 
-On a system with a lot of physical memory, the 1/4 can easily exceed default the memory limits imposed by a shell or by the scheduler, and Java will fail with messages like these:
-
-!!! warning
-    ```
+    On a system with a lot of physical memory, the 1/4 can easily exceed default the memory limits imposed by a shell or by the scheduler, and Java will fail with messages like these:
+    ```text
     Could not reserve enough space for object heap
     There is insufficient memory for the Java Runtime Environment to continue.
     ```
 
 The two run-time memory parameters, however, can be explicitly controlled on the command line by following either syntax below:
-
 ```bash
 java -Xms256m -Xmx4g -version
 ```
-
 or
-
 ```bash
 java -XX:InitialHeapSize=256m -XX:MaxHeapSize=4g -version
 ```
 
 You can see all the command line options the JVM is going to run with by specifying the following flag `-XX:+PrintCommandLineFlags`, like so:
-
-```bash
+```console
 $ java -Xms256m -Xmx4g -XX:+PrintCommandLineFlags -version
 -XX:InitialHeapSize=268435456 -XX:MaxHeapSize=4294967296 -XX:ParallelGCThreads=4 -XX:+PrintCommandLineFlags -XX:+UseCompressedOops -XX:+UseParallelGC
 ```
 
 Alternatively, you can use the `JAVA_TOOL_OPTIONS` environment variable to set the run-time options rather that passing them on the command line. This is especially convenient if you launch multiple Java calls, or call a Java program from another Java program. Here is an example how to do it:
-
 ```bash
 export JAVA_TOOL_OPTIONS="-Xms256m -Xmx2g"
 ```
-
 When your Java program is run, it will produce a diagnostic message like this one "Picked up JAVA_TOOL_OPTIONS", verifying that the options have been picked up.
 
-!!! tip
-    Please remember that the Java virtual machine itself creates a memory usage overhead. We recommend specifying the memory limit for your job as 1-2GB more than your setting on the Java command line option `-Xmx`.
+!!! tip "Account for JVM Overhead"
+    Please remember that the Java virtual machine itself creates a memory usage overhead. We recommend specifying the memory limit for your job as 1-2GB more than your setting on the Java command line option -Xmx.
 
 ### Garbage Collection
 Java uses an automatic system called *garbage collection* to identify variables which are out of scope and return the memory associated with them to the operating system. By default, the Java VM uses a parallel garbage collector (GC) and sets a number of GC threads equal to the number of CPU cores on a given node, whether a Java job is threaded or not. Each GC thread consumes memory. Moreover, the amount of memory each GC thread consumes is proportional to the amount of physical memory.
 
-!!! tip
+!!! tip "Manage Garbage Collection Threads"
     We highly recommend matching the number of GC threads to the number of CPU cores you requested from the scheduler in your job submission script, like so `-XX:ParallelGCThreads=12` for example. You can also use the serial garbage collector by specifying the following option `-XX:+UseSerialGC`, whether your job is parallel or not.
 
 ### The `volatile` Keyword

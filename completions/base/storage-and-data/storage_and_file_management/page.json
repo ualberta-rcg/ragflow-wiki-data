@@ -1,0 +1,107 @@
+{
+  "doc_key": "base/storage_and_file_management",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is the primary goal of the storage options provided?",
+      "answer": "The primary goal is to offer a wide range of storage solutions, from high-speed temporary local storage to various kinds of long-term storage, to meet the diverse needs and usage patterns of users."
+    },
+    {
+      "question": "Why is it important to use the filesystems responsibly?",
+      "answer": "Filesystems are a shared resource, and irresponsible behaviour can negatively affect dozens or hundreds of other users."
+    },
+    {
+      "question": "What type of files should users generally avoid storing, especially in the same directory?",
+      "answer": "Users should avoid storing tens of thousands of small files (less than a few megabytes), particularly in the same directory."
+    },
+    {
+      "question": "What is the recommended approach for managing a directory containing many small files?",
+      "answer": "A better approach is to use commands like `tar` or `zip` to convert a directory containing many small files into a single, very large archive file."
+    },
+    {
+      "question": "What is the user's responsibility regarding the age of their stored data?",
+      "answer": "Users are responsible for managing the age of their stored data; files and directories no longer needed should be moved to more appropriate filesystems or personal workstations, as most filesystems are not for indefinite archiving."
+    },
+    {
+      "question": "What tool should be used for moving significant amounts of data between systems?",
+      "answer": "Globus should generally be used for moving significant amounts of data between a user's workstation and one of the systems, or between two of the systems."
+    },
+    {
+      "question": "Are the storage systems intended for personal use?",
+      "answer": "No, the storage systems are not for personal use and should only be used to store research data."
+    },
+    {
+      "question": "What does a user's home directory contain when an account is created on a cluster?",
+      "answer": "Upon account creation, a user's home directory contains symbolic links to their scratch and project spaces, allowing easy access to these other filesystems."
+    },
+    {
+      "question": "Who shares the project space on the systems?",
+      "answer": "The project space is shared by a research group, which may include individuals sponsored by a faculty member or members of a Resource Allocation Competition (RAC) allocation."
+    },
+    {
+      "question": "How can users check their available disk space and current disk utilization?",
+      "answer": "Users can check available disk space and utilization for project, home, and scratch filesystems using the command line utility `diskusage_report` after logging into the cluster via SSH."
+    },
+    {
+      "question": "What is the intended use of the HOME directory?",
+      "answer": "The HOME directory is best suited for source code, small parameter files, and job submission scripts due to its relatively small quota and lower performance for large data."
+    },
+    {
+      "question": "What is the primary use case for the PROJECT space?",
+      "answer": "PROJECT space has a larger quota and is well-adapted for sharing data among members of a research group, specifically for fairly static data that isn't changed many times in a month."
+    },
+    {
+      "question": "Why should frequently changing data be avoided in PROJECT space?",
+      "answer": "Frequently changing data, including moving and renaming directories, in project space can become a heavy burden on the tape-based backup system."
+    },
+    {
+      "question": "When is SCRATCH storage the best choice?",
+      "answer": "SCRATCH is the best choice for intensive read/write operations on large files (over 100 MB per file) and should be used for temporary files like checkpoint files and job output that can be easily recreated."
+    },
+    {
+      "question": "Are files stored in SCRATCH space backed up?",
+      "answer": "No, files stored in SCRATCH space are not backed up, and older files are subject to purging, so it should not be regarded as normal storage for important files."
+    },
+    {
+      "question": "What is NEARLINE storage intended for?",
+      "answer": "NEARLINE is a tape-based filesystem intended for inactive data or datasets that users do not expect to access for months."
+    },
+    {
+      "question": "What is the purpose and advantage of `$SLURM_TMPDIR`?",
+      "answer": "`$SLURM_TMPDIR` provides a unique path to a temporary folder on a fast, local filesystem on each compute node for the duration of a job, with its contents deleted upon job completion. Its advantage is increased performance for temporary files, especially large collections of small files, due to being local."
+    },
+    {
+      "question": "How can users estimate their space and file count usage within the entire project space?",
+      "answer": "Users can obtain an estimate of their space and file count use on the entire project space by running the command `lfs quota -u $USER /project`."
+    },
+    {
+      "question": "What is a recommended best practice for cleaning up data in scratch and project spaces?",
+      "answer": "Users should regularly clean up their data in the scratch and project spaces, as these filesystems are used for huge data collections, and for deletion, create a temporary `toDelete` directory, move files into it, verify, then recursively delete `toDelete`."
+    },
+    {
+      "question": "What should be done with files that are no longer actively used but must be kept?",
+      "answer": "Such files should be archived and compressed, and if possible, moved to an alternative location like nearline storage."
+    },
+    {
+      "question": "What are the general backup and purging policies for Home Space?",
+      "answer": "Home Space is typically backed up (e.g., nightly backups retained for 30 days) and is not subject to purging, with deleted files retained for a further 60 days."
+    },
+    {
+      "question": "What are the general backup and purging policies for Scratch Space?",
+      "answer": "Scratch Space is generally not backed up, and files older than a specified period (e.g., 60 days or 2 months, depending on the cluster) are purged."
+    },
+    {
+      "question": "How can users request an increase in project or scratch space?",
+      "answer": "Small increases are available through the Rapid Access Service (RAS), while larger increases for project spaces require an application to the annual Resource Allocation Competition (RAC)."
+    },
+    {
+      "question": "How can a user recover a previous version of a file or directory from home or project space?",
+      "answer": "To recover a previous version, users should contact technical support with the full path of the file(s) and the desired version date."
+    },
+    {
+      "question": "What is the default quota for Home Space on most clusters?",
+      "answer": "On most clusters like Fir, Nibi, Narval, Rorqual, and Vulcan, the default Home Space quota is 50 GB and 500K files per user."
+    }
+  ],
+  "generated_at": "2026-04-12T08:20:43.866451+00:00"
+}

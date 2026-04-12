@@ -1,0 +1,84 @@
+{
+  "doc_key": "base/matlab",
+  "level": "chunk",
+  "chunk_index": 3,
+  "qa_pairs": [
+    {
+      "question": "What is the purpose of the `cosplot.m` MATLAB example script?",
+      "answer": "The `cosplot.m` script is a MATLAB file example to approximate a sawtooth with a truncated Fourier expansion. It plots the result and prints it to a PostScript file named `matlab_test_plot.ps`."
+    },
+    {
+      "question": "What kind of output file does the `cosplot.m` script generate?",
+      "answer": "The `cosplot.m` script generates a PostScript file named `matlab_test_plot.ps` for the plot."
+    },
+    {
+      "question": "How can I run the `cosplot.m` MATLAB program using Slurm?",
+      "answer": "You can run `cosplot.m` using a Slurm script, for example, `matlab_slurm.sl`. This script would load the `matlab/2024b.1` module and then execute MATLAB in batch mode with `matlab -singleCompThread -batch \"cosplot\"`."
+    },
+    {
+      "question": "What Slurm directives are specified in the `matlab_slurm.sl` example script?",
+      "answer": "The example `matlab_slurm.sl` script specifies directives such as `--job-name=matlab_test`, `--account=def-someprof`, `--time=0-03:00`, `--nodes=1`, `--ntasks=1`, `--cpus-per-task=1`, and `--mem=4000`."
+    },
+    {
+      "question": "How do I submit the `matlab_slurm.sl` job to the scheduler?",
+      "answer": "You submit the job using the `sbatch` command: `sbatch matlab_slurm.sl`."
+    },
+    {
+      "question": "What types of files might MATLAB create that should be deleted to save storage space?",
+      "answer": "Each time you run MATLAB, it may create files like `java.log.12345`. These files should be deleted after MATLAB has run so as not to waste storage space."
+    },
+    {
+      "question": "How can I prevent MATLAB from creating `java.log.12345` files?",
+      "answer": "You can suppress the creation of such files by using the `-nojvm` option when running MATLAB."
+    },
+    {
+      "question": "What is a potential side effect of using the `-nojvm` option with MATLAB?",
+      "answer": "Using the `-nojvm` option may interfere with certain plotting functions."
+    },
+    {
+      "question": "Where can I find more details about MATLAB command line options?",
+      "answer": "Further information on command line options, including `-nodisplay`, `-nojvm`, `-singleCompThread`, and `-batch`, can be found on the MathWorks website under 'MATLAB (Linux)'."
+    },
+    {
+      "question": "What kind of parallel execution environment do most MATLAB users on our clusters typically find sufficient?",
+      "answer": "Most MATLAB users on our clusters will probably find it sufficient to run MATLAB using a `Threads` parallel environment on a single node."
+    },
+    {
+      "question": "What does the `timeparfor.m` MATLAB example demonstrate?",
+      "answer": "The `timeparfor.m` example demonstrates how to perform parallel execution in MATLAB using `parfor` with a `Threads` parallel environment, measuring the time taken for a computation involving eigenvalues."
+    },
+    {
+      "question": "How does the `timeparfor.m` script determine the number of threads for its `parpool`?",
+      "answer": "The `timeparfor.m` script retrieves the number of threads by reading the `SLURM_CPUS_PER_TASK` environment variable using `nthreads = str2num(getenv('SLURM_CPUS_PER_TASK'))`, and then uses this value to initialize the `parpool`."
+    },
+    {
+      "question": "How do I submit the `timeparfor.m` function to run in parallel using Slurm?",
+      "answer": "After saving the code as `timeparfor.m`, you would create a job script like `matlab_parallel.sh` and submit it with `sbatch matlab_parallel.sh` to execute the function in parallel."
+    },
+    {
+      "question": "What Slurm option in `matlab_parallel.sh` controls the number of cores for parallel execution?",
+      "answer": "The `--cpus-per-task=4` option in `matlab_parallel.sh` controls that the job will use 4 CPU cores for parallel execution."
+    },
+    {
+      "question": "Why might one experiment with changing the `--cpus-per-task` value in the `matlab_parallel.sh` script?",
+      "answer": "One may wish to experiment with changing `--cpus-per-task` to other small values (e.g., 1, 2, 6, 8) to observe the effect this has on performance."
+    },
+    {
+      "question": "What problem can arise when two or more parallel MATLAB jobs use a `Cluster` parallel environment and call `parpool` simultaneously?",
+      "answer": "When two or more parallel MATLAB jobs call `parpool` at the same time in a `Cluster` parallel environment, they may try to read and write to the same `.dat` file in the `$HOME/.matlab/local_cluster_jobs/R*` folder, which corrupts the local parallel profile used by other MATLAB jobs."
+    },
+    {
+      "question": "What should be done if the `local_cluster_jobs` folder gets corrupted by simultaneous MATLAB jobs?",
+      "answer": "If this corruption has occurred, you should delete the `local_cluster_jobs` folder when no job is running."
+    },
+    {
+      "question": "How can one avoid the problem of `local_cluster_jobs` folder corruption when running simultaneous parallel MATLAB jobs?",
+      "answer": "To avoid this problem, it is recommended to ensure each job creates its own parallel profile in a unique location by setting the `JobStorageLocation` property of the `parallel.Cluster` object."
+    },
+    {
+      "question": "What is an example of setting a unique `JobStorageLocation` in MATLAB for a parallel job?",
+      "answer": "An example is `local_cluster.JobStorageLocation = getenv('SLURM_TMPDIR')`, after initializing `local_cluster = parcluster('local')`, as shown in the `parallel_main.m` code fragment."
+    }
+  ],
+  "generated_at": "2026-04-12T01:12:36.607252+00:00"
+}

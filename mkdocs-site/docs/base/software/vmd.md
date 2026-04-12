@@ -5,22 +5,34 @@ lang: "base"
 
 source_wiki_title: "VMD"
 source_hash: "4946e266d9bf9f6b396e45240bef8ca8"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T12:33:29.179705+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T12:32:42.491802+00:00"
 
 tags:
   - software
   - biomolecularsimulation
 
 keywords:
-  []
+  - "biomolecular systems"
+  - "molecular visualization"
+  - "VMD"
+  - "installation"
+  - "plugins"
+
+questions:
+  - "What is VMD and what is the recommended method to connect to a cluster to run its pre-installed version?"
+  - "What are the step-by-step instructions for manually installing VMD version 1.9.4 Alpha in a user's local directory?"
+  - "How can a user install additional VMD plugins, such as CaFE, and configure the system to recognize them?"
+  - "What is VMD and what is the recommended method to connect to a cluster to run its pre-installed version?"
+  - "What are the step-by-step instructions for manually installing VMD version 1.9.4 Alpha in a user's local directory?"
+  - "How can a user install additional VMD plugins, such as CaFE, and configure the system to recognize them?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -31,7 +43,7 @@ The VMD web site is [here](https://www.ks.uiuc.edu/Research/vmd/).
 
 Connect to a cluster using [VNC](vnc.md), `ssh -X`, or `ssh -Y`, in order to enable graphics.
 
-!!! tip "Performance Recommendation"
+!!! tip
     We recommend using VNC for best performance.
 
 To run the default version of VMD, currently `1.9.4a57`, do:
@@ -48,7 +60,9 @@ See [Using modules](using-modules.md) for more on the `module` command, includin
 ## Installing version 1.9.4 Alpha
 
 1.  Download the 1.9.4 LATEST ALPHA tar file from [http://www.ks.uiuc.edu/](http://www.ks.uiuc.edu/Development/Download/download.cgi?PackageName=VMD), selecting the LINUX_64 version. Free registration is required.
+
 2.  Copy the file to the home directory of the cluster you wish to use.
+
 3.  Unpack the file:
 
 ```bash
@@ -70,7 +84,7 @@ mkdir ~/vmd_library
 
 5.  Edit the `configure` file to read as follows, replacing each instance of `your_user_name` with your actual user name:
 
-```sh
+```text title="configure"
 # Directory where VMD startup script is installed, should be in users' paths.
 $install_bin_dir="/home/your_user_name/vmd_install";
 
@@ -99,12 +113,12 @@ cd ~/vmd_library/
 setrpaths.sh --path .
 ```
 
-!!! note "Mac users"
+!!! note
     If you are using a Mac and getting a blank window, try running this:
 
-```bash
-defaults write org.macosforge.xquartz.X11 enable_iglx -bool true
-```
+    ```bash
+    defaults write org.macosforge.xquartz.X11 enable_iglx -bool true
+    ```
 
 ## Installing plugins
 
@@ -121,7 +135,7 @@ mv cafe1.0 ~
 cd
 ```
 
-Edit the `.vmdrc` file with your favourite editor (`nano`, `vim`, `emacs` etc.) and add this line:
+Edit the `.vmdrc` file with your favourite editor (`nano, vim, emacs` etc.) and add this line:
 
 ```tcl
 set auto_path [linsert $auto_path 0 {~/cafe1.0}]

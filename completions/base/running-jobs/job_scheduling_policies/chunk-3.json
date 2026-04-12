@@ -1,0 +1,108 @@
+{
+  "doc_key": "base/job_scheduling_policies",
+  "level": "chunk",
+  "chunk_index": 3,
+  "qa_pairs": [
+    {
+      "question": "What factor primarily determines the priority of jobs belonging to a specific research group compared to other research groups?",
+      "answer": "The priority of jobs belonging to a research group, when compared to other research groups, is determined solely by the group’s fairshare and not the fairshare of individual users within that group."
+    },
+    {
+      "question": "In Slurm documentation, what is an 'association'?",
+      "answer": "In the Slurm documentation, an 'association' refers to either the project by itself or a user within a project."
+    },
+    {
+      "question": "How is the `Account` field formatted in the `sshare` command output?",
+      "answer": "The `Account` field is the project name with either `_cpu` or `_gpu` appended, depending on whether CPU or GPU usage is being tracked."
+    },
+    {
+      "question": "Does the first line of the `sshare` output, which describes the project's overall status, include a user name?",
+      "answer": "No, the first line of output, which describes the status of the project relative to all other projects, does not include a user name."
+    },
+    {
+      "question": "What does `RawShares` represent for projects that received a Resource Allocation Competition (RAC) grant?",
+      "answer": "`RawShares` for RAC projects is proportional to the number of CPU-years granted to the project for use on the cluster."
+    },
+    {
+      "question": "How are `RawShares` assigned to non-RAC accounts?",
+      "answer": "All non-RAC accounts are assigned small, equal numbers of shares."
+    },
+    {
+      "question": "What happens to the `RawShares` value for inactive accounts?",
+      "answer": "For numeric reasons, inactive accounts (those without pending or running jobs) are given only one share."
+    },
+    {
+      "question": "How long does it typically take for an inactive account's `RawShares` and `LevelFS` to update after a job submission?",
+      "answer": "If you submit a job with an inactive account, it may take up to 15 minutes for the account to show the expected `RawShares` and `LevelFS`, as activity is checked periodically."
+    },
+    {
+      "question": "How is `NormShares` calculated?",
+      "answer": "`NormShares` is calculated by dividing the number of shares assigned to the user or account by the total number of assigned shares within the same level."
+    },
+    {
+      "question": "What does `NormShares` signify for a project, as seen in the first line of `sshare` output?",
+      "answer": "For a project (the first line of `sshare` output), `NormShares` signifies the fraction of shares held by that project relative to all other projects."
+    },
+    {
+      "question": "How is `RawUsage` determined?",
+      "answer": "`RawUsage` is calculated from the total number of resource-seconds (CPU time, GPU time, and memory) that have been charged to the account."
+    },
+    {
+      "question": "How does past resource usage affect current job priority?",
+      "answer": "Past usage is discounted with a half-life of one week, meaning usage more than a few weeks in the past will have only a small effect on priority."
+    },
+    {
+      "question": "What does `EffectvUsage` represent?",
+      "answer": "`EffectvUsage` is the association's usage normalized with its parent; this means it represents the project's usage relative to other projects, or a user's usage relative to other users in that project."
+    },
+    {
+      "question": "How is `LevelFS` calculated?",
+      "answer": "`LevelFS` is calculated as `NormShares` divided by `EffectvUsage`, representing an association's fairshare value compared to its siblings."
+    },
+    {
+      "question": "What does a `LevelFS` value between 0 and 1 indicate?",
+      "answer": "If an association's `LevelFS` value is between 0 and 1, it indicates that the association is over-served."
+    },
+    {
+      "question": "What does a `LevelFS` value greater than 1 suggest?",
+      "answer": "If an association's `LevelFS` value is greater than 1, it indicates that the association is under-served."
+    },
+    {
+      "question": "What is the `LevelFS` value for associations with no usage?",
+      "answer": "Associations with no usage receive the highest possible `LevelFS` value, which is infinity."
+    },
+    {
+      "question": "What `LevelFS` value indicates a project is consistently using its target amount?",
+      "answer": "A project which consistently uses its target amount will have a `LevelFS` near 1.0."
+    },
+    {
+      "question": "How does using more resources than its target affect a project's `LevelFS` and job priority?",
+      "answer": "If a project uses more than its target amount, its `LevelFS` will be below 1.0, and the priority of new jobs belonging to that project will also be low."
+    },
+    {
+      "question": "How does using fewer resources than its target affect a project's `LevelFS` and job priority?",
+      "answer": "If a project uses less than its target usage, its `LevelFS` will be greater than 1.0, and new jobs will enjoy high priority."
+    },
+    {
+      "question": "Which types of applications can benefit from whole-node scheduling?",
+      "answer": "Applications which can efficiently use more cores than are found in a single node may benefit from being scheduled on whole nodes."
+    },
+    {
+      "question": "What is the consequence of requesting an inefficient number of processors for a calculation, even to gain whole-node scheduling benefits?",
+      "answer": "Requesting an inefficient number of processors for a calculation simply to take advantage of whole-node scheduling will be construed as abuse of the system."
+    },
+    {
+      "question": "When is whole-node scheduling suitable for huge amounts of serial work?",
+      "answer": "Whole-node scheduling is suitable for huge amounts of serial work if techniques like META-Farm, GNU Parallel, GLOST, or other methods can efficiently pack serial processes onto a single node."
+    },
+    {
+      "question": "What is the maximum run-time for jobs accepted on the Trillium cluster?",
+      "answer": "Trillium accepts jobs of up to 24 hours run-time."
+    },
+    {
+      "question": "What is the maximum run-time for jobs accepted on the Fir, Narval, Nibi, and Rorqual clusters?",
+      "answer": "Fir, Narval, Nibi, and Rorqual accept jobs of up to 7 days run-time."
+    }
+  ],
+  "generated_at": "2026-04-12T00:16:41.818464+00:00"
+}

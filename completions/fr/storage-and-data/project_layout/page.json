@@ -1,0 +1,55 @@
+{
+  "doc_key": "fr/project_layout",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "À quoi servent les espaces /project sur les grappes de calcul de l'Alliance?",
+      "answer": "Les espaces /project sont organisés selon des groupes et servent habituellement à stocker des données partagées, persistant, sauvegardé et plutôt de grande taille."
+    },
+    {
+      "question": "Comment accède-t-on aux répertoires /project depuis son répertoire /home?",
+      "answer": "On y accède habituellement par des liens symboliques à partir de votre répertoire /home, sous le format `$HOME/projects/group_name`, sauf sur Rorqual et Trillium où le chemin est `$HOME/links/projects/group_name`."
+    },
+    {
+      "question": "Par défaut, quelles permissions les membres d'un groupe ont-ils pour les nouveaux fichiers enregistrés dans l'espace /project?",
+      "answer": "Pour tout nouveau fichier enregistré dans le répertoire d'un groupe, les membres ont par défaut un droit de lecture seulement."
+    },
+    {
+      "question": "Comment peut-on configurer un répertoire dans /project pour que les membres du groupe aient des droits d'écriture sur les nouveaux fichiers?",
+      "answer": "La meilleure approche est de créer un répertoire particulier avec `mkdir $HOME/projects/def-profname/group_writable` suivi de `setfacl -d -m g::rwx $HOME/projects/def-profname/group_writable`."
+    },
+    {
+      "question": "Quels sont les quotas par défaut pour un espace /project et comment peuvent-ils être augmentés?",
+      "answer": "Par défaut, un espace /project a un quota de 1To et 500 000 fichiers. L'espace peut être augmenté jusqu'à 40To sur demande auprès du soutien technique, ou plus si alloué suite au concours pour l’allocation de ressources."
+    },
+    {
+      "question": "Quelle commande faut-il utiliser pour connaître l'espace disque utilisé et disponible dans son espace /project?",
+      "answer": "Pour connaître les espaces utilisés et disponibles, il faut utiliser la commande `diskusage_report`."
+    },
+    {
+      "question": "À quoi sert le bit `setgid` dans un répertoire et comment l'attribuer?",
+      "answer": "Le bit `setgid` permet aux nouveaux fichiers et sous-répertoires ajoutés sous le répertoire d'hériter du même groupe que leur parent. On l'attribue avec `chmod g+s <directory name>`."
+    },
+    {
+      "question": "Comment attribuer le bit `setgid` aux sous-répertoires existants?",
+      "answer": "Pour attribuer `setgid` aux sous-répertoires existants, utilisez la commande `find <directory name> -type d -print0 | xargs -0 chmod g+s`."
+    },
+    {
+      "question": "Comment changer temporairement son groupe par défaut pendant une session interactive?",
+      "answer": "On utilise la commande `newgrp`, par exemple `newgrp rrg-profname-ab`. Ce changement est toutefois temporaire et dure seulement pour la session en cours."
+    },
+    {
+      "question": "Que faire si je reçois un message 'Disk quota exceeded' et que je pense que des fichiers sont associés au mauvais groupe?",
+      "answer": "Si des fichiers sont associés à votre groupe personnel (2Mo de quota), utilisez la commande `find <directory name> -group $USER -print0 | xargs -0 chgrp -h <group>` pour corriger l'appartenance au groupe."
+    },
+    {
+      "question": "Comment peut-on partager un fichier avec une personne qui n’est pas membre du groupe ni parrainée par la chercheuse principale?",
+      "answer": "Le plus simple est de configurer les permissions via une liste de contrôle d’accès (ACL) ou de créer un point de chute commun dans Globus si la personne n'a pas de compte Alliance."
+    },
+    {
+      "question": "Quels sont les usages recommandés pour les espaces `scratch`, `home` et `project`?",
+      "answer": "L'espace `scratch` est pour les fichiers privés et temporaires, `home` pour un petit nombre de fichiers relativement privés (comme des scripts), et `project` pour les données de groupe partagées, persistantes et sauvegardées."
+    }
+  ],
+  "generated_at": "2026-04-12T05:25:16.347775+00:00"
+}

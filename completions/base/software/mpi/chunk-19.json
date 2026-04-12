@@ -1,0 +1,48 @@
+{
+  "doc_key": "base/mpi",
+  "level": "chunk",
+  "chunk_index": 19,
+  "qa_pairs": [
+    {
+      "question": "In the Fortran 2008 example, which MPI module is used for programming the `phello3` application?",
+      "answer": "The Fortran 2008 example for the `phello3` application uses the `mpi_f08` module."
+    },
+    {
+      "question": "How is the target process for sending a message calculated in the Fortran 2008 `phello3` program?",
+      "answer": "The target process for sending a message, `sendto`, is calculated using the Fortran expression `mod((rank + 1), num_procs)`, where `rank` is the current process's rank and `num_procs` is the total number of processes."
+    },
+    {
+      "question": "How is the source process for receiving a message calculated in the Fortran 2008 `phello3` program?",
+      "answer": "The source process for receiving a message, `recvfrom`, is calculated using the Fortran expression `mod(((rank + num_procs) - 1), num_procs)`."
+    },
+    {
+      "question": "In the Fortran 2008 `phello3` program, what is the communication order for even-ranked processes?",
+      "answer": "For even-ranked processes (where `MOD(rank,2) == 0`), the Fortran 2008 `phello3` program first calls `MPI_Send` to transmit a message and then calls `MPI_Recv` to receive one."
+    },
+    {
+      "question": "In the Fortran 2008 `phello3` program, what is the communication order for odd-ranked processes?",
+      "answer": "For odd-ranked processes (where `MOD(rank,2) == 0` is false), the Fortran 2008 `phello3` program first calls `MPI_Recv` to receive a message and then calls `MPI_Send` to transmit one."
+    },
+    {
+      "question": "Which Python package is used for MPI functionality in the `phello3.py` example?",
+      "answer": "The `mpi4py` package is used for MPI functionality in the `phello3.py` example, as shown by `from mpi4py import MPI`."
+    },
+    {
+      "question": "How does the Python `phello3.py` program determine the rank of the process that should receive its message?",
+      "answer": "The Python `phello3.py` program determines the recipient rank (`sendto`) using the calculation `(rank + 1) % size`, where `rank` is the current process's rank and `size` is the total number of processes."
+    },
+    {
+      "question": "How does the Python `phello3.py` program determine the rank of the process it should receive a message from?",
+      "answer": "The Python `phello3.py` program determines the sender rank (`recvfrom`) using the calculation `((rank + size) - 1) % size`."
+    },
+    {
+      "question": "According to the document, does the odd-even pairing communication strategy guarantee deadlock avoidance even with an odd number of processors?",
+      "answer": "Yes, the document states that the odd-even pairing communication strategy guarantees deadlock avoidance even with an odd number of processors. It explains that process 0's send is correctly paired with process 1's receive, and since process 1 begins with a receive, that transaction is guaranteed to complete, leading to no chance of a deadlock, only a possible small delay."
+    },
+    {
+      "question": "What is the recommended approach for implementing frequently-occurring communication patterns in MPI?",
+      "answer": "For frequently-occurring communication patterns in MPI, it is recommended to use the collective communication functions provided by MPI instead of implementing them manually with `MPI_Send` and `MPI_Recv`."
+    }
+  ],
+  "generated_at": "2026-04-12T01:47:45.170669+00:00"
+}

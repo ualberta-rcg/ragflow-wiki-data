@@ -1,0 +1,39 @@
+{
+  "doc_key": "base/optuna",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is Optuna?",
+      "answer": "Optuna is an automatic hyperparameter optimization (HPO) software framework, particularly designed for machine learning."
+    },
+    {
+      "question": "Where can users find detailed information regarding Optuna's terms, tutorials, and API?",
+      "answer": "Users should refer to the official Optuna Documentation."
+    },
+    {
+      "question": "In an SBATCH script for Optuna on Compute Canada, what does the line `#SBATCH --array 1-N%M` accomplish?",
+      "answer": "This line launches N jobs, but only allows M of them to run in parallel."
+    },
+    {
+      "question": "Why is it important for the value of `M` to be much smaller than `N` when running Optuna on Compute Canada?",
+      "answer": "It allows the optimization process to benefit from 'past knowledge' by creating a sequence of generations, rather than acting as a random search where all trials execute simultaneously."
+    },
+    {
+      "question": "How should the Optuna study name and database path be defined in the SBATCH script?",
+      "answer": "The `OPTUNA_STUDY_NAME` variable must be set, and `OPTUNA_DB` should specify a path to the database file in the user's home or project directory."
+    },
+    {
+      "question": "What command-line arguments are passed to the Python script from the SBATCH script when using Optuna?",
+      "answer": "The Python script receives the database file path (`--optuna-db`) and the study name (`--optuna-study-name`) as arguments."
+    },
+    {
+      "question": "How is an Optuna study initialized or loaded in the Python script to ensure it can continue an existing study?",
+      "answer": "The study is created using `optuna.create_study()` with `storage='sqlite:///' + args.optuna_db`, `study_name=args.optuna_study_name`, and `load_if_exists=True`."
+    },
+    {
+      "question": "What is the crucial setting for `n_trials` when calling `study.optimize` in the Python script for Optuna on Compute Canada, and why?",
+      "answer": "The `n_trials` argument must be set to `1` (`n_trials=1`) because each trial is launched as a separate SBATCH job, preventing the job from being killed if it attempts to run subsequent trials."
+    }
+  ],
+  "generated_at": "2026-04-12T04:46:12.323574+00:00"
+}

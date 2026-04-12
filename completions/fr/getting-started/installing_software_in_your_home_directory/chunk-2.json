@@ -1,0 +1,92 @@
+{
+  "doc_key": "fr/installing_software_in_your_home_directory",
+  "level": "chunk",
+  "chunk_index": 2,
+  "qa_pairs": [
+    {
+      "question": "Dans quels cas est-il nécessaire d'indiquer la localisation exacte d'une bibliothèque fournie par un module?",
+      "answer": "Dans certains cas, surtout avec `cmake`, il peut être nécessaire d'indiquer de manière explicite la localisation de la bibliothèque fournie par le module."
+    },
+    {
+      "question": "Quelle est la meilleure façon de spécifier l'emplacement d'une bibliothèque fournie par un module, et pourquoi?",
+      "answer": "La solution préférée et la plus robuste est d'utiliser la variable d'environnement EasyBuild `EBROOT...` plutôt que d'entrer manuellement le chemin. Ça permet d'utiliser différentes chaînes de compilation sans modifier les instructions et ça minimise le risque de lier une bibliothèque non apparentée."
+    },
+    {
+      "question": "Donnez un exemple de comment on peut indiquer la localisation de la bibliothèque GSL avec l'option `cmake` en utilisant une variable d'environnement EasyBuild.",
+      "answer": "Par exemple, pour indiquer la localisation de la bibliothèque GSL, l'option pour `cmake` pourrait ressembler à `-DGSL_DIR=$EBROOTGSL`."
+    },
+    {
+      "question": "Comment sont formées les variables d'environnement EasyBuild `EBROOT...`?",
+      "answer": "Les variables d'environnement `EBROOT...` utilisent la même syntaxe, soit `EBROOT` suivi par le nom du paquet, par exemple `EBROOTGCC`."
+    },
+    {
+      "question": "Que dois-je faire si le logiciel que je veux installer fait appel à des commandes comme `apt-get` ou `yum`?",
+      "answer": "Si le logiciel fait appel à `apt-get` ou `yum`, il est peu probable que vous puissiez l'installer avec les instructions standards. Vous devriez chercher les instructions 'to build from source' ou contacter le soutien technique."
+    },
+    {
+      "question": "Les bibliothèques d'extensions pour Python, R et Perl peuvent-elles être installées facilement?",
+      "answer": "Oui, les langages Python, R, et Perl offrent d'importantes bibliothèques d'extensions; presque toutes peuvent être facilement installées dans votre répertoire /home."
+    },
+    {
+      "question": "Où puis-je trouver des informations pour l'installation de paquets Python, R et Perl?",
+      "answer": "Vous devriez consulter les pages [[Python/fr|Python]], [[R/fr|R]] et [[Perl/fr|Perl]] pour savoir si le paquet dont vous avez besoin est disponible. Si ce n'est pas le cas, vous y trouverez aussi les informations pour l'installer vous-même."
+    },
+    {
+      "question": "Quelle est une erreur courante qui peut arriver lors de l'installation de binaires précompilés dans mon espace /home?",
+      "answer": "L'installation de binaires précompilés dans votre espace /home pourrait générer une erreur comme `/lib64/libc.so.6: version 'GLIBC_2.18' not found`."
+    },
+    {
+      "question": "Quel script peut m'aider à résoudre les problèmes d'erreurs GLIBC avec les binaires précompilés?",
+      "answer": "Le script `setrpaths.sh` peut souvent éliminer ce problème."
+    },
+    {
+      "question": "Comment utilise-t-on le script `setrpaths.sh`?",
+      "answer": "La syntaxe est `setrpaths.sh --path path [--add_origin]` où 'path' représente le répertoire dans lequel vous avez installé le logiciel."
+    },
+    {
+      "question": "À quoi sert le script `setrpaths.sh`?",
+      "answer": "Le script `setrpaths.sh` fait en sorte que les binaires utilisent le bon interpréteur et trouvent les bibliothèques auxquelles ils sont dynamiquement liés, dans le bon répertoire."
+    },
+    {
+      "question": "Quand est-ce que l'option `--add_origin` du script `setrpaths.sh` peut être utile?",
+      "answer": "L'option `--add_origin` ajoute aussi $ORIGIN au RUNPATH, ce qui peut s'avérer utile si la bibliothèque est incapable de trouver d'autres bibliothèques dans le répertoire où elle est située."
+    },
+    {
+      "question": "Le script `setrpaths.sh` peut-il corriger des objets dans des fichiers d'archive?",
+      "answer": "Oui, certains fichiers d'archive comme `.jar` (Java) ou `.whl` (Python wheels) peuvent contenir des objets qui devront être corrigés. Le script `setrpaths.sh` extrait ces objets, les corrige et met à jour le fichier d'archive."
+    },
+    {
+      "question": "Qu'est-ce que le système de fichiers CVMFS?",
+      "answer": "Le système de fichiers CVMFS (shared software distribution system) rend presque tous les logiciels disponibles sur les nouvelles grappes."
+    },
+    {
+      "question": "Où sont installés les logiciels sur les nouvelles grappes via le système CVMFS?",
+      "answer": "Ils sont installés de manière identique sur toutes les nouvelles grappes sous `/cvmfs/soft.computecanada.ca`."
+    },
+    {
+      "question": "Quel est le module chargé par défaut qui sert de cœur à l'environnement logiciel?",
+      "answer": "Le module `gentoo/2023` est chargé par défaut et agit comme cœur pour la pile logicielle."
+    },
+    {
+      "question": "Où se situe le gestionnaire de paquets Gentoo sur les grappes?",
+      "answer": "Le gestionnaire de paquets Gentoo est situé sous `/cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr`."
+    },
+    {
+      "question": "Quelle variable d'environnement peut être utilisée pour faire référence au chemin du gestionnaire de paquets Gentoo?",
+      "answer": "Pour référer à ce chemin, on utilise la variable d'environnement `$EBROOTGENTOO`."
+    },
+    {
+      "question": "Quels types de paquets usuels sont fournis dans l'environnement Gentoo?",
+      "answer": "On y trouve tous les paquets usuels fournis dans un environnement Linux, comme `make`, `ls`, `cat` et `grep`."
+    },
+    {
+      "question": "Comment les compilateurs et les éditeurs de liens trouvent-ils les fichiers d'en-tête et les bibliothèques lors de la compilation d'un logiciel?",
+      "answer": "Ils cherchent typiquement les fichiers d'en-tête et les bibliothèques à l'endroit approprié en utilisant les variables d'environnement `$CPATH` et `$LIBRARY_PATH`."
+    },
+    {
+      "question": "Où puis-je trouver plus d'informations sur BLAS/LAPACK et MKL?",
+      "answer": "Vous pouvez consulter la page wiki [[BLAS and LAPACK/fr|BLAS et LAPACK]]."
+    }
+  ],
+  "generated_at": "2026-04-12T00:09:32.456442+00:00"
+}

@@ -1,0 +1,76 @@
+{
+  "doc_key": "base/ansysedt",
+  "level": "chunk",
+  "chunk_index": 2,
+  "qa_pairs": [
+    {
+      "question": "What is the filename for the single node batch script that uses an options file?",
+      "answer": "The script is named `script-local-opt.sh`."
+    },
+    {
+      "question": "What SLURM directives are included in the `script-local-opt.sh` batch script?",
+      "answer": "The `script-local-opt.sh` batch script includes SBATCH directives for `--account`, `--time`, `--mem`, `--ntasks`, and `--nodes`."
+    },
+    {
+      "question": "Which modules should be loaded before running AnsysEDT from the `script-local-opt.sh` batch script?",
+      "answer": "You should load `StdEnv/2023` and then `ansysedt/2024R2.1` (or `ansysedt/2023R2`)."
+    },
+    {
+      "question": "How is an example HFSS Antennas project copied in the `script-local-opt.sh` script?",
+      "answer": "An example HFSS Antennas project for 2024R2.1 is copied using the command: `cp -f $EBROOTANSYSEDT/v242/Linux64/Examples/HFSS/Antennas/TransientGeoRadar.aedt .`"
+    },
+    {
+      "question": "How do you specify the input AnsysEDT file in the `script-local-opt.sh` batch script?",
+      "answer": "The input file is specified by setting the `YOUR_AEDT_FILE` variable, for example: `YOUR_AEDT_FILE=\"TransientGeoRadar.aedt\"`."
+    },
+    {
+      "question": "How does the `script-local-opt.sh` script ensure that previous output is removed before a new run?",
+      "answer": "It uses the command `rm -rf $YOUR_AEDT_FILE.* ${YOUR_AEDT_FILE}results` to remove any previously generated output and results files."
+    },
+    {
+      "question": "How is a sample options file created for the `ansysedt` command in `script-local-opt.sh`?",
+      "answer": "A sample options file named `Options.txt` is created using a `cat` command with a here-document, defining `TempDirectory`, `HPCLicenseType`, and `HFSS/EnableGPU` settings within a `Config` block."
+    },
+    {
+      "question": "What environment variables are echoed for debugging purposes in the `script-local-opt.sh` script?",
+      "answer": "The script echoes `ANSYSLI_SERVERS`, `ANSYSLMD_LICENSE_FILE`, and `SLURM_TMPDIR`."
+    },
+    {
+      "question": "What is the full `ansysedt` command used for batch submission with an options file in `script-local-opt.sh`?",
+      "answer": "The command is: `ansysedt -monitor -UseElectronicsPPE -ng -distributed -machinelist list=localhost:1:$SLURM_NTASKS -batchoptions $OPTIONS_TXT -batchsolve \"$YOUR_AEDT_FILE\"`."
+    },
+    {
+      "question": "What systems can be used to run AnsysEDT in graphical mode?",
+      "answer": "AnsysEDT can be run in graphical mode using an OnDemand or JupyterLab system to start a remote desktop."
+    },
+    {
+      "question": "What are the URLs to connect to OnDemand systems for Alliance users?",
+      "answer": "You can connect to NIBI at `https://ondemand.sharcnet.ca`, FIR at `https://jupyterhub.fir.alliancecan.ca`, NARVAL at `https://portail.narval.calculquebec.ca/`, RORQUAL at `https://jupyterhub.rorqual.alliancecan.ca`, and TRILLIUM at `https://ondemand.scinet.utoronto.ca`."
+    },
+    {
+      "question": "What commands should be run in a terminal window on an OnDemand desktop to start AnsysEDT graphically?",
+      "answer": "First, run `module load StdEnv/2023`, then `module load ansysedt/2024R2.1` (or `ansysedt/2023R2`), and finally type `ansysedt`."
+    },
+    {
+      "question": "What AnsysEDT settings need to be verified in graphical mode after initial startup?",
+      "answer": "You need to go to `Tools -> Options -> HPC and Analysis Options -> Edit`, untick `Use Automatic Settings`, and ensure the `Machine` tab settings (like Tasks, Cores, GPUs, RAM) correspond to your requested desktop resources, then click OK to save changes."
+    },
+    {
+      "question": "How can one retrieve the 2024R2.1 Antennas examples for AnsysEDT in graphical mode?",
+      "answer": "First, load the module `ansysedt/2024R2.1`. Then, use the commands `mkdir -p ~/Ansoft/$EBVERSIONANSYSEDT; rm -rf ~/Ansoft/$EBVERSIONANSYSEDT/Antennas` and `cp -a $EBROOTANSYSEDT/v242/Linux64/Examples/HFSS/Antennas ~/Ansoft/$EBVERSIONANSYSEDT`."
+    },
+    {
+      "question": "What steps are involved in running an Antennas example in graphical mode?",
+      "answer": "Open one of the Antennas examples `.aedt` files, click `HFSS -> Validation Check`, then `simulation -> setup -> advanced -> Mesh/Solution options -> Use Defaults`, and finally `Simulation -> Analyze All`."
+    },
+    {
+      "question": "How do you quit AnsysEDT without saving a converged solution?",
+      "answer": "To quit without saving the converged solution, click `File -> Close -> No`."
+    },
+    {
+      "question": "What steps should be taken if AnsysEDT crashes and won't restart in graphical mode?",
+      "answer": "If AnsysEDT crashes, try running `pkill -9 -u $USER -f \"ansys*|mono|mwrpcss|apip-standalone-service\"` to kill related processes, and then `rm -rf ~/.mw` to remove configuration files, which will trigger a first-time configuration on next startup."
+    }
+  ],
+  "generated_at": "2026-04-11T17:18:08.772130+00:00"
+}

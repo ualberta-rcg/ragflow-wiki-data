@@ -1,0 +1,47 @@
+{
+  "doc_key": "fr/blas_and_lapack",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "C'est quoi BLAS pis LAPACK, pis à quoi qu'ça sert en calcul de pointe?",
+      "answer": "Ce sont des bibliothèques très utilisées en calcul de pointe pour les opérations sur les vecteurs pis les matrices, pis elles définissent une interface de programmation standard."
+    },
+    {
+      "question": "Est-ce que la performance des différentes implémentations de BLAS pis LAPACK est toujours pareille?",
+      "answer": "Non, la performance de ces implémentations peut varier de beaucoup selon le logiciel utilisé; par exemple, Intel MKL est meilleure avec les processeurs Intel, pis OpenBLAS ou BLIS sont plus performantes avec les processeurs AMD."
+    },
+    {
+      "question": "Quel est le principal problème que FlexiBLAS vient régler pour les implémentations de BLAS et LAPACK?",
+      "answer": "FlexiBLAS règle le problème de devoir recompiler un logiciel pour chaque configuration matérielle afin de trouver l'implémentation la plus performante, en permettant de changer l'implémentation à l'exécution."
+    },
+    {
+      "question": "Depuis la mise en service de Narval, quelle implémentation de BLAS et LAPACK est recommandée et pourquoi?",
+      "answer": "On recommande maintenant de compiler le code avec FlexiBLAS, qui est configuré pour utiliser BLIS en présence de processeurs AMD (comme ceux de Narval) pis Intel MKL pour les autres types de processeurs, offrant la performance optimale."
+    },
+    {
+      "question": "Comment on fait pour compiler un logiciel avec FlexiBLAS si le système le reconnaît pas par défaut?",
+      "answer": "Faut configurer les options d'édition pour utiliser `-lflexiblas` pour BLAS et LAPACK, soit dans le Makefile, soit en le passant à `configure` ou `cmake`."
+    },
+    {
+      "question": "Comment on fait pour changer l'implémentation de BLAS ou LAPACK avec FlexiBLAS au moment de l'exécution?",
+      "answer": "On peut changer l'implémentation en configurant la variable d'environnement `FLEXIBLAS` avec le nom de l'implémentation désirée, comme `netlib`, `blis`, `imkl` ou `openblas`."
+    },
+    {
+      "question": "Quelle commande on utilise pour voir la liste complète des implémentations disponibles avec FlexiBLAS?",
+      "answer": "On utilise la commande `flexiblas list` pour obtenir la liste complète des implémentations disponibles."
+    },
+    {
+      "question": "Quelle est l'implémentation de BLAS et LAPACK utilisée par défaut sur Narval comparativement aux autres grappes, quand FlexiBLAS est en place?",
+      "answer": "Sur Narval, `FLEXIBLAS=blis` est configuré par défaut. Sur les autres grappes, `FLEXIBLAS` n'est pas défini, pis Intel MKL est utilisé par défaut."
+    },
+    {
+      "question": "Comment on fait pour utiliser directement Intel MKL avec un compilateur Intel?",
+      "answer": "Il faut remplacer `-lblas` et `-llapack` dans les options du compilateur et de l'éditeur par `-mkl=sequential` (sans fils internes) ou `-mkl` (avec fils internes)."
+    },
+    {
+      "question": "C'est quoi l'outil qu'Intel offre pour aider à configurer les options de compilation et d'édition pour MKL avec des compilateurs autres qu'Intel, comme GCC?",
+      "answer": "Intel fournit l'outil MKL Link Advisor pour aider à déterminer les options de compilation et d'édition requises avec des compilateurs non-Intel."
+    }
+  ],
+  "generated_at": "2026-04-11T18:24:21.663707+00:00"
+}

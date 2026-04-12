@@ -1,0 +1,71 @@
+{
+  "doc_key": "fr/ssh_tunnelling",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "C'est quoi un tunnel SSH?",
+      "answer": "Un tunnel SSH permet d’utiliser un ordinateur passerelle pour connecter deux ordinateurs qui ne peuvent pas être connectés directement l’un à l’autre."
+    },
+    {
+      "question": "Dans quelles situations un tunnel SSH est-il requis?",
+      "answer": "Un tunnel SSH est requis pour utiliser une application du commerce qui doit contacter un serveur de licence, pour utiliser une application de visualisation sur un nœud de calcul avec lequel un client local doit entrer en contact, ou pour accéder à une base de données sur une grappe depuis un ordinateur personnel."
+    },
+    {
+      "question": "Est-ce que la connaissance des clés SSH est essentielle pour se servir des tunnels?",
+      "answer": "Non, les clés SSH ne sont pas essentielles à l'utilisation des tunnels, mais il peut être avantageux de s'y familiariser."
+    },
+    {
+      "question": "À quoi sert un port logiciel?",
+      "answer": "Un port logiciel, identifié par son numéro, permet de distinguer différents interlocuteurs ou types de communication, agissant comme une fréquence ou un canal."
+    },
+    {
+      "question": "Comment établit-on un tunnel pour qu'une application sur un nœud de calcul puisse communiquer avec un serveur de licence sur Internet?",
+      "answer": "On met en place un tunnel SSH, souvent avec une commande comme `ssh GATEWAY -L COMPUTEPORT:LICSERVER:LICPORT -N -f` dans le script de la tâche, pour effectuer une redirection de port (port forwarding)."
+    },
+    {
+      "question": "Quelles informations sont nécessaires pour configurer un tunnel vers un serveur de licence?",
+      "answer": "Il faut l’adresse IP ou le nom du serveur de licence (LICSERVER) et son numéro de port (LICPORT), qui peuvent être obtenus de la personne qui gère le serveur de licence."
+    },
+    {
+      "question": "Que signifient les options `-N` et `-f` dans la commande `ssh` pour la mise en place d'un tunnel de licence?",
+      "answer": "L'option `-N` fait en sorte que SSH n'ouvre pas d'interpréteur sur la passerelle, et `-f` exécute SSH en arrière-plan pour que les commandes qui suivent soient exécutées."
+    },
+    {
+      "question": "Comment une application est-elle informée que le serveur de licence est maintenant accessible via le tunnel local?",
+      "answer": "Il s'agit souvent de définir une variable d'environnement dans le script de la tâche, par exemple `export MLM_LICENSE_FILE=COMPUTEPORT@localhost`, où `localhost` représente l'ordinateur lui-même."
+    },
+    {
+      "question": "Comment un tunnel SSH peut-il aider à se connecter à une application de visualisation ou à un Jupyter Notebook qui roule sur un nœud de calcul?",
+      "answer": "Un tunnel crypté permet à l'ordinateur de l'utilisateur d'afficher de façon transparente les visualisations et les graphiques de Jupyter Notebook exécutés dans un nœud de calcul de la grappe."
+    },
+    {
+      "question": "Quel outil est conseillé pour établir un tunnel vers une application sur un nœud de calcul à partir d'un système Linux ou MacOS X?",
+      "answer": "Le paquet Python `sshuttle` est recommandé."
+    },
+    {
+      "question": "Comment créer un tunnel SSH vers une application sur un nœud de calcul depuis Windows en utilisant MobaXTerm?",
+      "answer": "Il faut lancer deux sessions MobaXterm. Dans une session locale, on exécute la commande `ssh -L 8888:nom_du_nœud:8888 someuser@grappe.alliancecan.ca`, en remplaçant le nom du nœud par celui fourni par l'application, puis on modifie l'URL de l'application en y mettant `localhost` à la place du nom du nœud."
+    },
+    {
+      "question": "Comment se connecter à un serveur PostgreSQL ou MySQL sur la grappe Fir à partir de son ordinateur de bureau?",
+      "answer": "On crée un tunnel SSH avec une commande comme `ssh -L PORT:serveur_bdd_distant:port_bdd_distant someuser@fir.alliancecan.ca`, en spécifiant le serveur et le port de la base de données (par exemple 5432 pour PostgreSQL ou 3306 pour MySQL)."
+    },
+    {
+      "question": "Quelle est la condition concernant le numéro de port local (`PORT`) lors de la connexion à une base de données via un tunnel?",
+      "answer": "La valeur du numéro de port local (`PORT`) doit être inférieure à 32768."
+    },
+    {
+      "question": "Une fois le tunnel SSH établi vers une base de données, comment se connecter à la base de données depuis l'ordinateur personnel?",
+      "answer": "Il faut lancer la commande usuelle de connexion à la base de données, comme `psql -h 127.0.0.1 -p PORT -U <votre nom d’utilisateur> -d <votre base de données>` pour PostgreSQL, en utilisant l'adresse `127.0.0.1` et le `PORT` spécifié."
+    },
+    {
+      "question": "Où peut-on trouver le mot de passe pour se connecter à MySQL via un tunnel SSH?",
+      "answer": "Le mot de passe pour MySQL se trouve dans le fichier `.my.cnf` situé dans votre répertoire `/home` de Fir."
+    },
+    {
+      "question": "Combien de temps dure la connexion à la base de données établie via un tunnel SSH?",
+      "answer": "La connexion à la base de données est maintenue tant que la connexion SSH qui a servi à créer le tunnel est active."
+    }
+  ],
+  "generated_at": "2026-04-12T07:35:24.188773+00:00"
+}

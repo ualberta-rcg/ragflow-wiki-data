@@ -1,0 +1,79 @@
+{
+  "doc_key": "fr/prolonging_terminal_sessions",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "Pourquoi est-il parfois nécessaire de garder une connexion SSH active sur une grappe, et ce, pendant une longue période?",
+      "answer": "C'est nécessaire pour soumettre et suivre des tâches, modifier des fichiers, et faire d'autres opérations sans que la connexion ne soit coupée, même après plusieurs heures ou jours d'inactivité."
+    },
+    {
+      "question": "Quelle est une solution simple pour prolonger une connexion SSH?",
+      "answer": "Une solution simple est de modifier la configuration de votre client SSH en ajoutant des lignes au fichier de configuration."
+    },
+    {
+      "question": "Où se trouve le fichier de configuration SSH sur macOS, Linux et Windows?",
+      "answer": "Sur macOS et Linux, le fichier est dans `$HOME/.ssh/config`, alors que sur Windows, il est dans `C:\\Users\\<username>\\.ssh\\config`."
+    },
+    {
+      "question": "Que doit-on ajouter au fichier de configuration SSH pour maintenir la connexion active?",
+      "answer": "Il faut ajouter les lignes `Host *` et `ServerAliveInterval 240` pour envoyer un signe de vie au serveur toutes les 240 secondes."
+    },
+    {
+      "question": "Qu'est-ce qu'un multiplexeur de terminal et à quoi ça sert?",
+      "answer": "Un multiplexeur de terminal, comme `tmux` ou `screen`, permet de complètement détacher une session de terminal qui restera active, même si vous vous déconnectez de la grappe, et de s'y rattacher plus tard."
+    },
+    {
+      "question": "Quels sont les exemples de programmes de multiplexeurs de terminal mentionnés?",
+      "answer": "Les programmes `tmux` et `screen` sont des exemples de multiplexeurs de terminal."
+    },
+    {
+      "question": "Quelle est la dépendance d'une session `tmux` ou `screen`?",
+      "answer": "La session dépend du nœud de connexion sur lequel elle a été lancée. Pour vous y rattacher, vous devez utiliser le même nœud. Si le nœud redémarre, la session et les processus associés sont perdus."
+    },
+    {
+      "question": "Comment démarrer un serveur `tmux`?",
+      "answer": "Pour démarrer le serveur `tmux`, il faut taper la commande `tmux`."
+    },
+    {
+      "question": "Comment se déconnecter d'une session `tmux` sans la fermer?",
+      "answer": "Pour se déconnecter du serveur `tmux`, utilisez la combinaison de touches `Ctrl+B D`."
+    },
+    {
+      "question": "Comment se reconnecter à une session `tmux` existante?",
+      "answer": "Pour se reconnecter au serveur `tmux`, utilisez la commande `tmux a`."
+    },
+    {
+      "question": "Comment créer une nouvelle fenêtre à l'intérieur de `tmux`?",
+      "answer": "Pour créer une nouvelle fenêtre dans `tmux`, utilisez la combinaison de touches `Ctrl+B C`."
+    },
+    {
+      "question": "Comment activer le mode copie dans `tmux`?",
+      "answer": "Pour activer le mode copie et défiler avec la souris et les touches page suivante/précédente, utilisez la combinaison de touches `Ctrl+B [`."
+    },
+    {
+      "question": "Quel problème survient si on tente de lancer `tmux` à l'intérieur d'une tâche soumise par `tmux`?",
+      "answer": "On obtient le message d'erreur `lost server` parce que la variable d'environnement `$TMUX` est propagée et n'est pas valide dans le contexte de la tâche."
+    },
+    {
+      "question": "Comment réinitialiser la variable `$TMUX` si on rencontre l'erreur `lost server`?",
+      "answer": "Vous pouvez réinitialiser la variable avec la commande `unset TMUX`."
+    },
+    {
+      "question": "Est-il recommandé d'utiliser plusieurs niveaux de `tmux`?",
+      "answer": "Non, l'usage de deux (ou plus) niveaux de `tmux` n'est pas recommandé car il faut taper deux fois `Ctrl+B` pour envoyer des commandes à un `tmux` imbriqué."
+    },
+    {
+      "question": "Comment créer une session de terminal détachée avec GNU Screen?",
+      "answer": "Vous pouvez créer une session Screen détachée avec la commande `screen -S <nom_de_session>`."
+    },
+    {
+      "question": "Comment voir la liste des sessions GNU Screen détachées sur un nœud?",
+      "answer": "Utilisez la commande `screen -list` pour afficher la liste des sessions détachées."
+    },
+    {
+      "question": "Comment s'attacher à une session GNU Screen existante?",
+      "answer": "Pour vous attacher à une session, utilisez la commande `screen -d -r <nom_de_session>`."
+    }
+  ],
+  "generated_at": "2026-04-12T05:27:58.037481+00:00"
+}

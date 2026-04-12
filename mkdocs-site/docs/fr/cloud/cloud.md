@@ -5,21 +5,48 @@ lang: "fr"
 
 source_wiki_title: "Cloud/fr"
 source_hash: "66ef40f8cf81cd3d90acf173d7b27d51"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T05:27:58.442721+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T06:17:58.861650+00:00"
 
 tags:
   - cloud
 
 keywords:
-  []
+  - "machine virtuelle"
+  - "OpenStack"
+  - "Infonuagique"
+  - "Projet infonuagique"
+  - "Allocation de ressources"
+  - "Environnements virtuels"
+  - "quota des ressources"
+  - "projet de calcul"
+  - "sécurité"
+  - "projet persistant"
+  - "chercheur principal"
+  - "ressources infonuagiques"
+  - "Infrastructure IaaS"
+  - "nom du projet"
+
+questions:
+  - "Quels sont les avantages et les inconvénients de l'utilisation des instances virtuelles par rapport aux ressources de traitement par lots sur un superordinateur ?"
+  - "Quelles sont les responsabilités en matière de sécurité et les compétences techniques requises pour gérer un projet dans cet environnement infonuagique ?"
+  - "Quelles sont les étapes à suivre et les informations nécessaires pour demander la création d'un projet ou accéder à une allocation de ressources existante ?"
+  - "Quelles informations et justifications doivent être fournies lors de la demande d'un nouveau projet infonuagique ou d'une augmentation de quota ?"
+  - "Quelles sont les responsabilités incombant aux utilisateurs pour la gestion, la sécurité et la sauvegarde de leurs machines virtuelles ?"
+  - "Quels sont les cas d'utilisation pris en charge par le service et quelles sont les infrastructures infonuagiques disponibles pour les héberger ?"
+  - "Quelles informations préalables sont requises pour accéder à un projet de calcul ou persistant ?"
+  - "Où peut-on trouver les instructions pour identifier le nom du projet et les ressources infonuagiques ?"
+  - "Qui est responsable de confirmer le droit d'accès au projet ?"
+  - "Quelles informations et justifications doivent être fournies lors de la demande d'un nouveau projet infonuagique ou d'une augmentation de quota ?"
+  - "Quelles sont les responsabilités incombant aux utilisateurs pour la gestion, la sécurité et la sauvegarde de leurs machines virtuelles ?"
+  - "Quels sont les cas d'utilisation pris en charge par le service et quelles sont les infrastructures infonuagiques disponibles pour les héberger ?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -38,16 +65,15 @@ Si Apptainer ou le traitement par lots ne satisfont pas vos exigences, optez pou
 *   Si vous ne possédez pas de compte, voyez [ces directives](https://docs.alliancecan.ca/wiki/Apply_for_a_CCDB_account/fr).
 *   Un [projet](managing-your-cloud-resources-with-openstack.md#projets) est une allocation de ressources qui vous permet de créer des instances infonuagiques.
 *   Si vous êtes chercheuse ou chercheur principal et possédez une allocation de ressources infonuagiques (voir la page [Concours pour l'allocation de ressources](https://alliancecan.ca/fr/services/calcul-informatique-de-pointe/portail-de-recherche/concours-pour-lallocation-de-ressources)), vous devriez déjà avoir un projet; voyez les renseignements ci-dessous. Si ce n'est pas le cas ou que vous avez des doutes, contactez le [soutien technique](technical-support.md).
-*   Autrement, remplissez le formulaire [Projets infonuagiques et allocations par le service d'accès rapide](https://docs.google.com/forms/d/e/1FAIpQLSdLOro7wY__sFUBjRNu_ZQ7sgjUpTn7lvNuI2e015oAsFPWbQ/viewform?hl=fr) pour
+*   Autrement, remplissez le formulaire [Projets infonuagiques et allocations par le service d'accès rapide](https://docs.google.com/forms/d/e/1FAIpQLSdLOro7wY__sFUBjRNu_ZQ7sgUpyTn7lvNuI2e015oAsFPWbQ/viewform?hl=fr) pour
     *   obtenir l'accès à un projet existant; pour connaître les renseignements que vous devrez fournir, voyez ci-dessous,
     *   dans le cas d'une chercheuse ou d'un chercheur principal,
         *   demander la création d'un nouveau projet et une allocation de ressources par le [service d'accès rapide](cloud-ras-allocations.md),
         *   demander une hausse du quota de ressources pour un projet existant.
-
 *   Les demandes sont généralement traitées dans les 48 heures ouvrables.
 
 ### Préparer votre demande
-*   Pour accéder à un projet de calcul ou à un projet persistant, vous devez connaître le nom du projet et le nuage où il se trouve; voyez [comment trouver le nom du projet](managing-your-cloud-resources-with-openstack.md#projets) et la [liste de nos ressources infonuagiques](#ressources-infonuagiques). La chercheuse ou le chercheur principal doit confirmer son droit d'accéder au projet.
+*   Pour accéder à un projet de calcul ou à un projet persistant, vous devez connaître le nom du projet et le nuage où il se trouve; voyez [comment trouver le nom du projet](managing-your-cloud-resources-with-openstack.md#projets) et la [liste de nos ressources infonuagiques](cloud.md#ressources-infonuagiques). La chercheuse ou le chercheur principal doit confirmer son droit d'accéder au projet.
 *   Si vous demandez la création d'un nouveau projet ou une augmentation du quota des ressources pour un projet existant, vous devez :
     *   expliquer pourquoi vous demandez des ressources infonuagiques,
     *   expliquer pourquoi les grappes de CHP ne conviennent pas à votre projet,
@@ -61,7 +87,7 @@ Si Apptainer ou le traitement par lots ne satisfont pas vos exigences, optez pou
 *   [Dépannage de problèmes communs](cloud-troubleshooting-guide.md)
 
 ## Vos responsabilités
-Pour chacun de vos projets, vous êtes responsable de :
+Pour chacun de vos projets, vous êtes responsable de
 *   [Créer et gérer vos instances](managing-your-cloud-resources-with-openstack.md)
 *   [Assurer la sécurité et la mise à jour des logiciels de vos instances](cloud-shared-security-responsibility-model.md)
 *   [Définir les groupes de sécurité pour l'accès à votre réseau](managing-your-cloud-resources-with-openstack.md#groupes-de-securite)
@@ -71,7 +97,7 @@ Pour chacun de vos projets, vous êtes responsable de :
 *   [Faire des copies de sécurité de vos instances](backing-up-your-vm.md)
 
 ## Sujets avancés
-Si vous avez plus d'expérience, vous pouvez :
+Si vous avez plus d'expérience, vous pouvez
 *   [Créer automatiquement vos instances](automating-vm-creation.md)
 *   Coder votre infrastructure avec [Terraform](terraform.md)
 
@@ -83,6 +109,7 @@ Si vous avez plus d'expérience, vous pouvez :
 *   [Utiliser IPv6 dans le nuage Arbutus](using-ipv6-in-cloud.md)
 
 ## Ressources infonuagiques
+
 *   [Nuage Béluga](https://beluga.cloud.computecanada.ca)
 *   [Nuage Arbutus](https://arbutus.cloud.computecanada.ca); [voir la documentation](arbutus-user-documentation.md)
 *   [Nibi](https://nibi.cloud.alliancecan.ca)

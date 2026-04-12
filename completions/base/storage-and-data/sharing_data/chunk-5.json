@@ -1,0 +1,84 @@
+{
+  "doc_key": "base/sharing_data",
+  "level": "chunk",
+  "chunk_index": 5,
+  "qa_pairs": [
+    {
+      "question": "What is the purpose of enabling the `setGID` permission on a parent directory?",
+      "answer": "Enabling the `setGID` permission on a parent directory ensures that newly created files and subdirectories within it inherit the group ownership of the parent directory, rather than the primary group of the user who created them. This is particularly useful in shared `project` environments."
+    },
+    {
+      "question": "How do you enable the `setGID` permission on a directory?",
+      "answer": "You can enable the `setGID` permission on a directory using the command `chmod g+s <directory_name>`, for example, `chmod g+s dirTest`."
+    },
+    {
+      "question": "How does enabling `setGID` affect new files created within that directory?",
+      "answer": "When `setGID` is enabled on a directory, any new files created inside it will automatically belong to the same group as the parent directory."
+    },
+    {
+      "question": "What happens when a new directory is created inside a directory with `setGID` enabled?",
+      "answer": "If a new directory is created inside a directory where `setGID` is enabled, the new directory will inherit the same group as its parent folder and also have its own `setGID` enabled."
+    },
+    {
+      "question": "How can you identify if the `setGID` permission is enabled for a directory using `ls -l` output?",
+      "answer": "When `setGID` is enabled for a directory, the `x` (execute) permission in the group permissions field of the `ls -l` output changes to an `s` (lowercase). For example, `drwxrwsr-x`."
+    },
+    {
+      "question": "What is the distinction between an uppercase 'S' and a lowercase 's' in the group permissions field when `setGID` is involved?",
+      "answer": "A lowercase 's' (e.g., `drwxrwsr-x`) indicates that `setGID` is enabled and the group also has execute permission. An uppercase 'S' (e.g., `drwxrS---`) indicates that `setGID` is enabled, but the group's execute permission has been removed."
+    },
+    {
+      "question": "What potential issue can arise if a directory displays an uppercase 'S' for its `setGID` permission?",
+      "answer": "An uppercase 'S' signifies that the group's execute permission has been removed, even though `setGID` is active. This can lead to unexpected problems, such as other members of the group being unable to access files within that directory."
+    },
+    {
+      "question": "Is the `setUID` bit functional on the described clusters?",
+      "answer": "No, the `setUID` bit will not work on these clusters. Its usual behaviour is completely disabled for security reasons."
+    },
+    {
+      "question": "What mechanism defines default filesystem permissions on Linux systems?",
+      "answer": "Default filesystem permissions are defined by something called the `umask`."
+    },
+    {
+      "question": "How can you check the current `umask` value in your session?",
+      "answer": "You can display the current `umask` value in your session by running the command `umask -S`."
+    },
+    {
+      "question": "What are the default `umask` permissions on the clusters, as indicated by `umask -S`?",
+      "answer": "On the clusters, the `umask -S` command typically returns `u=rwx,g=rx,o=`. This means that new files created by default can be read, written, and executed by the owner; read and executed by members of the file's group; and not accessed by other people."
+    },
+    {
+      "question": "Does changing the `umask` modify the permissions of existing files?",
+      "answer": "No, changing the `umask` only applies to new files created after the change and does not alter the access permissions of existing files."
+    },
+    {
+      "question": "Where can a user set their own `umask` preferences?",
+      "answer": "A user can set their own `umask` either temporarily within a current session or persistently by adding the `umask <value>` command to their `.bashrc` file."
+    },
+    {
+      "question": "What command is used to set the `umask`?",
+      "answer": "The command `umask <value>` is used to set the `umask`, where `<value>` is an octal number representing the desired permissions."
+    },
+    {
+      "question": "What `umask` value should be used to make files readable, writable, and executable only by the owner?",
+      "answer": "To make files readable, writable, and executable only by the owner, a `umask` value of `077` should be used (resulting in `u=rwx,g=,o=` permissions)."
+    },
+    {
+      "question": "Which `umask` value ensures files are readable and executable by the owner and group, but writable only by the owner?",
+      "answer": "A `umask` value of `027` will ensure files are readable and executable by the owner and the group, but writable only by the owner (`u=rwx,g=rx,o=`)."
+    },
+    {
+      "question": "How can you set a `umask` so that files are readable, writable, and executable by both the owner and their group?",
+      "answer": "To make files readable, writable, and executable by the owner and the group, use a `umask` value of `007` (`u=rwx,g=rwx,o=`)."
+    },
+    {
+      "question": "What `umask` value allows everyone to read and execute files, but limits writing to only the owner?",
+      "answer": "A `umask` value of `022` allows files to be readable and executable by everyone, but writable only by the owner (`u=rwx,g=rx,o=rx`)."
+    },
+    {
+      "question": "Which `umask` value makes files readable and executable by everyone, and writable by the owner and the group?",
+      "answer": "A `umask` value of `002` makes files readable and executable by everyone, and writable only by the owner and the group (`u=rwx,g=rwx,o=rx`)."
+    }
+  ],
+  "generated_at": "2026-04-12T07:56:43.945491+00:00"
+}

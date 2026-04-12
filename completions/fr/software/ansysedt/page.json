@@ -1,0 +1,59 @@
+{
+  "doc_key": "fr/ansysedt",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "Qu'est-ce qu'AnsysEDT et quels outils de simulation électromagnétique inclut-il?",
+      "answer": "AnsysEDT regroupe des solutions comme Ansys HFSS, Ansys Maxwell, Ansys Q3D Extractor, Ansys SIwave et Ansys Icepak, qui utilisent des flux de travail de CAO électriques et mécaniques. Il permet aussi l'analyse multiphysique."
+    },
+    {
+      "question": "Est-ce qu'une licence générale est disponible pour AnsysEDT sur les grappes de calcul?",
+      "answer": "Non, il n'y a pas de licence qui permet un accès généralisé. Par contre, plusieurs établissements, facultés et départements possèdent des serveurs de licences qui peuvent être utilisés."
+    },
+    {
+      "question": "Quel est le prérequis technique pour utiliser une licence AnsysEDT personnelle sur les nœuds de calcul?",
+      "answer": "Pour que la licence fonctionne, nos nœuds de calcul doivent pouvoir communiquer avec votre serveur de licence. Une fois cela en place, vous pourrez charger le module ansysEDT qui localisera la licence de lui-même."
+    },
+    {
+      "question": "Comment puis-je configurer mon propre fichier de licence pour AnsysEDT?",
+      "answer": "Il faut créer un fichier nommé `$HOME/.licenses/ansys.lic` qui contient deux lignes avec les détails de votre licence. Vous trouverez des précisions sur la page Ansys générale."
+    },
+    {
+      "question": "Comment puis-je lancer AnsysEDT en mode interactif sans interface graphique sur une grappe?",
+      "answer": "Il faut démarrer une session `salloc` en spécifiant le temps, les tâches, la mémoire et le compte (par exemple, `salloc --time=3:00:00 --tasks=8 --mem=16G --account=def- compte`), puis copier la commande `ansysedt` complète donnée dans le script `script-local-cmd.sh` en vous assurant de spécifier `$YOUR_AEDT_FILE`."
+    },
+    {
+      "question": "Comment soumettre une tâche AnsysEDT à la file d'attente d'une grappe en utilisant un script Slurm?",
+      "answer": "Vous pouvez soumettre une tâche avec la commande `sbatch script-name.sh` en utilisant un des scripts Slurm pour nœud simple. Avant de le faire, spécifiez le temps de simulation, la mémoire, le nombre de cœurs et remplacez `YOUR_AEDT_FILE` par le nom de votre fichier d'entrée."
+    },
+    {
+      "question": "Comment obtenir la liste complète des options de ligne de commande pour AnsysEDT?",
+      "answer": "En démarrant AnsysEDT en mode graphique, vous pouvez taper `ansysedt -help` ou `ansysedt -Batchoptionhelp` dans le terminal pour afficher des fenêtres contextuelles déroulantes avec les options."
+    },
+    {
+      "question": "Quels modules dois-je charger avant d'exécuter AnsysEDT?",
+      "answer": "Vous devez charger `module load StdEnv/2023` suivi de `module load ansysedt/2023R2` (ou une version plus récente comme `ansysedt/2024R2.1`)."
+    },
+    {
+      "question": "Comment accéder à AnsysEDT en mode graphique sur les nœuds VDI?",
+      "answer": "Connectez-vous à un système OnDemand via l'URL appropriée (par exemple, `https://portail.narval.calculquebec.ca/` pour Narval), ouvrez un terminal, chargez les modules (`StdEnv`, `ansysedt`), puis tapez `ansysedt` et attendez que l'interface graphique démarre."
+    },
+    {
+      "question": "Quelles sont les étapes de configuration initiale pour AnsysEDT en mode graphique sur les nœuds VDI?",
+      "answer": "Cliquez sur `Tools -> Options -> HPC and Analysis Options -> Edit`. Décochez `Use Automatic Settings` et assurez-vous que les paramètres de l'onglet `Machine` correspondent aux ressources de bureau demandées, puis sauvegardez les changements."
+    },
+    {
+      "question": "Comment récupérer les exemples Antennas pour AnsysEDT 2024R2.1 sur un système OnDemand?",
+      "answer": "Après avoir chargé le module `ansysedt/2024R2.1`, il faut créer le répertoire `~/Ansoft/$EBVERSIONANSYSEDT` puis copier le dossier `Antennas` à partir de `$EBROOTANSYSEDT/v242/Linux64/Examples/HFSS/Antennas` vers ce répertoire."
+    },
+    {
+      "question": "Que faire si AnsysEDT plante et ne redémarre plus sur un nœud VDI?",
+      "answer": "Essayez d'exécuter les commandes `pkill -9 -u $USER -f \"ansys*|mono|mwrpcss|apip-standalone-service\"` pour arrêter les processus, puis `rm -rf ~/.mw`. AnsysEDT relancera sa configuration initiale au redémarrage."
+    },
+    {
+      "question": "Comment configurer le fichier de licence `ansys.lic` pour utiliser la licence SHARCNET avec AnsysEDT?",
+      "answer": "Dans le fichier `~/.licenses/ansys.lic`, vous devez ajouter les lignes `setenv(\"ANSYSLMD_LICENSE_FILE\", \"1055@license3.sharcnet.ca\")` et `setenv(\"ANSYSLI_SERVERS\", \"2325@license3.sharcnet.ca\")`."
+    }
+  ],
+  "generated_at": "2026-04-11T17:20:23.882464+00:00"
+}

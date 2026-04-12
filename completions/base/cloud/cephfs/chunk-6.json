@@ -1,0 +1,68 @@
+{
+  "doc_key": "base/cephfs",
+  "level": "chunk",
+  "chunk_index": 6,
+  "qa_pairs": [
+    {
+      "question": "What is the `fstab` entry for mounting CephFS on SD4H/Juno?",
+      "answer": "For SD4H/Juno, the `fstab` entry is `:/volumes/_nogroup/f6cb8f06-f0a4-4b88-b261-f8bd6b03582c /cephfs/ ceph name=MyCephFS-RW,mds_namespace=cephfs_4_2,x-systemd.device-timeout=30,x-systemd.mount-timeout=30,noatime,_netdev,rw,nofail 0 2`."
+    },
+    {
+      "question": "Why is there a non-standard colon (`:`) before the device path in the CephFS mount configuration?",
+      "answer": "The colon (`:`) before the device path is not a typo; it is a non-standard syntax used for mounting CephFS."
+    },
+    {
+      "question": "What is the purpose of the `mds_namespace` option when mounting CephFS on SD4H/Juno?",
+      "answer": "The `mds_namespace` option is a required mount option specifically for SD4H/Juno."
+    },
+    {
+      "question": "What does the `nofail` option do in the CephFS mount configuration?",
+      "answer": "The `nofail` option ensures that the system will boot successfully even if the CephFS service is unavailable or unreachable."
+    },
+    {
+      "question": "Are there different mount options for CephFS on different systems?",
+      "answer": "Yes, the mount options for CephFS can vary on different systems. For example, `mds_namespace` is required for SD4H/Juno, and other options like `noatime` are performance tweaks."
+    },
+    {
+      "question": "How can I mount CephFS directly from the command line on Arbutus?",
+      "answer": "On Arbutus, you can mount CephFS from the command line using `sudo mount -t ceph :/volumes/_nogroup/f6cb8f06-f0a4-4b88-b261-f8bd6b03582c /cephfs/ -o name=MyCephFS-RW`."
+    },
+    {
+      "question": "How can I mount CephFS directly from the command line on SD4H/Juno?",
+      "answer": "On SD4H/Juno, you can mount CephFS from the command line using `sudo mount -t ceph :/volumes/_nogroup/f6cb8f06-f0a4-4b88-b261-f8bd6b03582c /cephfs/ -o name=MyCephFS-RW,mds_namespace=cephfs_4_2,x-systemd.device-timeout=30,x-systemd.mount-timeout=30,noatime,_netdev,rw`."
+    },
+    {
+      "question": "Is there an alternative method to mount CephFS in user space?",
+      "answer": "Yes, CephFS can be mounted directly in user space using `ceph-fuse`."
+    },
+    {
+      "question": "What package is required to use `ceph-fuse`?",
+      "answer": "You need to install the `ceph-fuse` package by running `sudo dnf install ceph-fuse`."
+    },
+    {
+      "question": "How do you make `ceph-fuse` mounts accessible in user space?",
+      "answer": "To make `ceph-fuse` mounts accessible in user space, you need to uncomment the `user_allow_other` line in the `/etc/fuse.conf` file."
+    },
+    {
+      "question": "What is the command to mount CephFS in a user's home directory using `ceph-fuse`?",
+      "answer": "You can mount CephFS in a user's home directory using `mkdir ~/my_cephfs` followed by `ceph-fuse my_cephfs/ --id=MyCephFS-RW --conf=~/ceph.conf --keyring=~/ceph.keyring --client-mountpoint=/volumes/_nogroup/f6cb8f06-f0a4-4b88-b261-f8bd6b03582c`."
+    },
+    {
+      "question": "How are the client name, `ceph.conf`, and `ceph.keyring` used when mounting with `ceph-fuse`?",
+      "answer": "When mounting with `ceph-fuse`, the client name is specified by the `--id` option, and the `ceph.conf` and `ceph.keyring` files are specified using the `--conf` and `--keyring` options, respectively. Their content is the same as for the Ceph kernel mount."
+    },
+    {
+      "question": "Can a CephFS share have multiple user keys provisioned?",
+      "answer": "Yes, a particular CephFS share can have more than one user key provisioned for it."
+    },
+    {
+      "question": "Why would someone provision multiple user keys for a CephFS share?",
+      "answer": "Provisioning multiple user keys allows for more granular access to the filesystem, such as enabling some hosts to have read-only access while others have read-write access."
+    },
+    {
+      "question": "Is the CephFS service available to hosts outside of the OpenStack cluster?",
+      "answer": "No, the CephFS service is not available to hosts outside of the OpenStack cluster."
+    }
+  ],
+  "generated_at": "2026-04-11T19:30:27.477015+00:00"
+}

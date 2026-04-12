@@ -1,0 +1,44 @@
+{
+  "doc_key": "en/transferring_data",
+  "level": "chunk",
+  "chunk_index": 6,
+  "qa_pairs": [
+    {
+      "question": "How do I copy a file from a remote cluster's project space to my local computer using SCP?",
+      "answer": "You can copy a file, such as `output.dat`, from your project space on a cluster like Fir to your local computer by using the command `scp username@fir.alliancecan.ca:projects/def-jdoe/username/results/output.dat .`."
+    },
+    {
+      "question": "On which computer should an SCP command always be executed?",
+      "answer": "The `scp` command should always be executed on your local computer, regardless of whether you are transferring data to or from the remote cluster."
+    },
+    {
+      "question": "Does SCP support recursively transferring directories and files?",
+      "answer": "Yes, SCP supports the option `-r` to recursively transfer a set of directories and files."
+    },
+    {
+      "question": "Is it recommended to use `scp -r` when transferring data into `/project` directories?",
+      "answer": "No, it is strongly recommended against using `scp -r` to transfer data into `/project` because it can turn off the `setgid` bit in the created directories, potentially leading to `Disk quota exceeded` or similar errors."
+    },
+    {
+      "question": "What is the procedure if I use a custom SSH key name with SCP?",
+      "answer": "If you've chosen a custom SSH key name (i.e., not a default name), you will need to use the `-i` option of `scp` and specify the path to your private key before the file paths, like so: `scp -i /path/to/key foo.txt username@rorqual.alliancecan.ca:work/`."
+    },
+    {
+      "question": "How can I check for unreadable files in a directory on a Linux system before initiating a data transfer?",
+      "answer": "To check for files you cannot read, you can use the command `find <directory_name> ! -readable -ls` on a Linux system."
+    },
+    {
+      "question": "What should I check if I am unable to write new data during a transfer?",
+      "answer": "If you're unable to write new data, you should double-check your storage usage to ensure there's enough space and files available. Also, ensure you have the necessary write permissions at the destination."
+    },
+    {
+      "question": "How can reported storage usage differ between clusters, and what impact might this have?",
+      "answer": "On some clusters, the filesystem compresses files and reports space usage based on the compressed data. On others, it reports the apparent size of files. This means 1 TB of compressed data on one cluster might appear as 2 TB on another, which could affect your available storage calculations."
+    },
+    {
+      "question": "How can I determine the apparent size of a dataset before transferring it?",
+      "answer": "You can get the apparent size of a dataset with the option `-b` of the `du` command, for example: `du -b dataset`."
+    }
+  ],
+  "generated_at": "2026-04-12T09:22:23.157955+00:00"
+}

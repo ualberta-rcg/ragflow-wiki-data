@@ -1,0 +1,92 @@
+{
+  "doc_key": "en/pytorch",
+  "level": "chunk",
+  "chunk_index": 19,
+  "qa_pairs": [
+    {
+      "question": "What does a \"CUDA error: no kernel image is available for execution on the device\" mean when using PyTorch?",
+      "answer": "This exception indicates that your current PyTorch installation does not support the compute architecture or the GPU device being used."
+    },
+    {
+      "question": "How can I resolve a \"CUDA error: no kernel image is available for execution on the device\"?",
+      "answer": "To resolve this error, you should either update your PyTorch (`torch`) installation to a more recent version or request a different GPU that is compatible with your current PyTorch version."
+    },
+    {
+      "question": "What is LibTorch?",
+      "answer": "LibTorch is a component that allows users to implement C++ extensions to PyTorch and create pure C++ machine learning applications. It includes all necessary headers, libraries, and CMake configuration files for depending on PyTorch."
+    },
+    {
+      "question": "Where can I find the official documentation for LibTorch?",
+      "answer": "You can find the official documentation for LibTorch at https://pytorch.org/cppdocs/installing.html and general resources at https://pytorch.org/cppdocs/."
+    },
+    {
+      "question": "What are the steps to set up the LibTorch environment using StdEnv/2023?",
+      "answer": "First, load the required modules: `module load StdEnv/2023 gcc cuda/12.2 cmake protobuf cudnn python/3.11 abseil cusparselt opencv/4.8.1`. Then, create and activate a Python virtual environment: `virtualenv --no-download --clear ~/ENV && source ~/ENV/bin/activate`. Finally, install PyTorch and NumPy: `pip install --no-index torch numpy`."
+    },
+    {
+      "question": "How can I determine the correct versions for abseil, cusparselt, and opencv modules when setting up LibTorch with StdEnv/2023?",
+      "answer": "You can find out which versions of these modules were used to compile the Python wheel for PyTorch by using the command: `ldd $VIRTUAL_ENV/lib/python3.11/site-packages/torch/lib/libtorch_cuda.so | sed -n 's&^.*/\\(\\(opencv\\|abseil\\|cusparselt\\)/[^/]*\\).*&\\1&p' | sort -u`."
+    },
+    {
+      "question": "What are the steps to set up the LibTorch environment using StdEnv/2020?",
+      "answer": "First, load the required modules: `module load gcc cuda/11.4 cmake protobuf cudnn python/3.10`. Then, create and activate a Python virtual environment: `virtualenv --no-download --clear ~/ENV && source ~/ENV/bin/activate`. Finally, install PyTorch and NumPy: `pip install --no-index torch numpy`."
+    },
+    {
+      "question": "Can you provide a minimal C++ example code for LibTorch?",
+      "answer": "A minimal C++ example (`example.cpp`) for LibTorch that checks for CUDA availability and creates a random tensor is:\n```cpp\n#include <torch/torch.h>\n#include <iostream>\n\nint main() \n{\n    torch::Device device(torch::kCPU);\n    if (torch::cuda::is_available()) \n    {\n        std::cout << \"CUDA is available! Using GPU.\" << std::endl;\n        device = torch::Device(torch::kCUDA);\n    }\n\n    torch::Tensor tensor = torch::rand({2, 3}).to(device);\n    std::cout << tensor << std::endl;\n}\n```"
+    },
+    {
+      "question": "What should the `CMakeLists.txt` file contain for compiling a minimal LibTorch example?",
+      "answer": "The `CMakeLists.txt` file for a minimal LibTorch example should contain:\n```txt\ncmake_minimum_required(VERSION 3.0 FATAL_ERROR)\nproject(example)\n\nfind_package(Torch REQUIRED)\n\nadd_executable(example example.cpp)\ntarget_link_libraries(example \"${TORCH_LIBRARIES}\")\nset_property(TARGET example PROPERTY CXX_STANDARD 14)\n```"
+    },
+    {
+      "question": "How do I compile a LibTorch program using CMake with StdEnv/2023 after activating the Python virtual environment?",
+      "answer": "To compile, first configure the project: `cmake -B build -S . -DCMAKE_PREFIX_PATH=$VIRTUAL_ENV/lib/python3.11/site-packages \\ -DCMAKE_EXE_LINKER_FLAGS=-Wl,-rpath=$VIRTUAL_ENV/lib/python3.11/site-packages/torch/lib,-L$EBROOTCUDA/extras/CUPTI/lib64 \\ -DCMAKE_SKIP_RPATH=ON -DTORCH_CUDA_ARCH_LIST=\"6.0;7.0;7.5;8.0;9.0\"`. Then, build the program: `cmake --build build`."
+    },
+    {
+      "question": "How do I compile a LibTorch program using CMake with StdEnv/2020 after activating the Python virtual environment?",
+      "answer": "To compile, first configure the project: `cmake -B build -S . -DCMAKE_PREFIX_PATH=$VIRTUAL_ENV/lib/python3.10/site-packages \\ -DCMAKE_EXE_LINKER_FLAGS=-Wl,-rpath=$VIRTUAL_ENV/lib/python3.10/site-packages/torch/lib \\ -DCMAKE_SKIP_RPATH=ON`. Then, build the program: `cmake --build build`."
+    },
+    {
+      "question": "After compiling, how do I run a LibTorch example program?",
+      "answer": "You can run the compiled program using the command: `build/example`."
+    },
+    {
+      "question": "How can I test a LibTorch application with CUDA support?",
+      "answer": "To test a LibTorch application with CUDA, you need to request an interactive job with a GPU."
+    },
+    {
+      "question": "What are the steps to install rTorch from a login node?",
+      "answer": "The steps are:\n1. Load required modules: `module load r/4.5 cuda/12.6 cudnn`.\n2. Create your installation directory: `mkdir -p ~/.local/R/$EBVERSIONR/` and `export R_LIBS=~/.local/R/$EBVERSIONR/`.\n3. Install the latest rtorch: `R -e 'install.packages(\"torch\", repos=\"https://cloud.r-project.org/\")'`.\n4. Install dependencies: `R -e 'torch::install_torch()'`.\n5. Patch the downloaded shared library (lantern): `setrpaths.sh --path $R_LIBS/torch/lib/liblantern.so --add_path $EBROOTCUDACORE/lib --any_interpreter`."
+    },
+    {
+      "question": "Which modules are necessary to install rTorch?",
+      "answer": "The required modules for installing rTorch are `r/4.5`, `cuda/12.6`, and `cudnn`."
+    },
+    {
+      "question": "How do I set up the installation directory for rTorch?",
+      "answer": "You need to create the directory using `mkdir -p ~/.local/R/$EBVERSIONR/` and then export the `R_LIBS` environment variable with `export R_LIBS=~/.local/R/$EBVERSIONR/`."
+    },
+    {
+      "question": "What command is used to install the latest rtorch package in R?",
+      "answer": "The command to install the latest rtorch package in R is: `R -e 'install.packages(\"torch\", repos=\"https://cloud.r-project.org/\")'`."
+    },
+    {
+      "question": "How do I install the dependencies for rTorch?",
+      "answer": "You can install rTorch dependencies with the R command: `R -e 'torch::install_torch()'`."
+    },
+    {
+      "question": "What is the command to patch the downloaded `liblantern.so` shared library for rTorch?",
+      "answer": "The command to patch the `liblantern.so` shared library is: `setrpaths.sh --path $R_LIBS/torch/lib/liblantern.so --add_path $EBROOTCUDACORE/lib --any_interpreter`."
+    },
+    {
+      "question": "How can I quickly test rTorch on a CPU?",
+      "answer": "You can run a quick CPU test using the R command: `R -e 'torch::torch_tensor(1)'`."
+    },
+    {
+      "question": "How can I quickly test rTorch on a GPU?",
+      "answer": "You can run a quick GPU test by submitting an interactive job with a GPU: `srun --mem=3500M --gpus=h100_1g.10gb:1 -- R -e 'torch::torch_tensor(1)$cuda()'`."
+    }
+  ],
+  "generated_at": "2026-04-12T05:44:04.527524+00:00"
+}

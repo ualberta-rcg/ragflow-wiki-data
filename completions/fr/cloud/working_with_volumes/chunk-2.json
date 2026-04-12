@@ -1,0 +1,80 @@
+{
+  "doc_key": "fr/working_with_volumes",
+  "level": "chunk",
+  "chunk_index": 2,
+  "qa_pairs": [
+    {
+      "question": "Quelle commande faut-il utiliser pour obtenir l'UUID d'un dispositif afin de le monter automatiquement au démarrage de l'instance?",
+      "answer": "Pour voir l'information et obtenir l'UUID, il faut lancer la commande `blkid`."
+    },
+    {
+      "question": "Comment faire pour qu'un volume soit monté automatiquement au démarrage d'une instance?",
+      "answer": "Il faut ajouter une ligne au fichier `/etc/fstab` qui contient les détails sur comment le monter, en remplaçant l'UUID générique par celui du dispositif que vous voulez monter automatiquement. Par exemple: `/dev/disk/by-uuid/anananan-anan-anana-anan-ananananana /mnt auto defaults,nofail 0 3`."
+    },
+    {
+      "question": "Pourquoi est-il recommandé de démarrer une instance depuis un volume pour créer un service persistant?",
+      "answer": "Il est recommandé de démarrer une instance depuis un volume pour un service persistant car cela assure une redondance qui protège l'instance des défaillances de matériel, contrairement à une instance démarrée depuis une image qui est stockée sur le disque local de la machine et pourrait être perdue."
+    },
+    {
+      "question": "Comment peut-on identifier les gabarits d'instances conçus pour démarrer depuis un volume?",
+      "answer": "De façon générale, les gabarits pour démarrer depuis un volume commencent par la lettre 'p'."
+    },
+    {
+      "question": "Quelles sont les différentes façons de démarrer une instance depuis un volume?",
+      "answer": "Démarrer une instance depuis un volume peut se faire à partir d'une image en créant un nouveau volume, à partir d'un volume existant ou à partir d'un instantané (snapshot) en créant un nouveau volume."
+    },
+    {
+      "question": "Si c'est la première fois qu'on démarre une instance depuis un volume, quelle option devrait-on choisir?",
+      "answer": "Si vous faites ceci pour la première fois, il faut utiliser l'option 'Démarrer depuis une image (crée un volume)'."
+    },
+    {
+      "question": "Comment s'assurer qu'un volume créé lors du lancement d'une instance persiste même si l'instance est supprimée?",
+      "answer": "Pour que le volume persiste après l'utilisation de l'instance, il ne faut pas cocher la case 'Supprimer le volume lors de la suppression de l'instance' au bas de la fenêtre. Il est préférable de ne jamais cocher cette case car le volume peut être supprimé manuellement plus tard."
+    },
+    {
+      "question": "À quoi sert de créer une image depuis un volume?",
+      "answer": "Créer une image depuis un volume permet de la télécharger pour servir de copie de sécurité ou pour créer une instance sur un autre nuage, par exemple avec VirtualBox."
+    },
+    {
+      "question": "Quelle est la méthode recommandée pour copier un volume vers un autre volume dans le même nuage?",
+      "answer": "Pour copier un volume vers un autre volume dans le même nuage, il est recommandé de procéder par clonage plutôt que de créer une image."
+    },
+    {
+      "question": "Quelle est la condition essentielle avant de créer une image à partir d'un volume?",
+      "answer": "Pour créer l'image d'un volume, elle doit d'abord être détachée de l'instance à laquelle elle est associée."
+    },
+    {
+      "question": "Quand un volume de démarrage peut-il être détaché pour créer une image?",
+      "answer": "Dans le cas d'un volume de démarrage ('boot volume'), l'image ne peut être détachée que si l'instance est supprimée."
+    },
+    {
+      "question": "Que doit-on vérifier lors de la création d'une instance avec un volume de démarrage pour s'assurer qu'on pourra en créer une image plus tard?",
+      "answer": "Il faut s'assurer que la case 'Supprimer le volume lors de la suppression de l'instance' n'a pas été cochée lors de la création de l'instance."
+    },
+    {
+      "question": "Quel est le problème avec les grandes images (plus de 10-20Go) et quelle solution est proposée?",
+      "answer": "Les grandes images peuvent prendre beaucoup de temps à créer, téléverser ou autres opérations. Une solution serait de séparer les données si possible."
+    },
+    {
+      "question": "Quelles sont les étapes pour créer une image à partir d'un volume en utilisant le tableau de bord OpenStack?",
+      "answer": "Il faut aller sous 'Projet->Volumes', sélectionner le volume, puis dans la colonne 'Actions', choisir 'Charger dans l'image'. Ensuite, entrez un nom pour la nouvelle image, sélectionnez le 'Format du disque' (QCOW2 pour OpenStack, vmdk ou vdi pour VirtualBox) et cliquez sur 'Charger'."
+    },
+    {
+      "question": "Quel format de disque est recommandé pour les images sur le nuage OpenStack et pourquoi?",
+      "answer": "QCOW2 est recommandé pour le nuage OpenStack parce que ce format est relativement plus compact que 'Raw' et plus efficace avec OpenStack."
+    },
+    {
+      "question": "Quel format de disque est préférable si on veut utiliser une image avec VirtualBox?",
+      "answer": "Si vous voulez utiliser l'image avec VirtualBox, il est préférable de sélectionner les formats 'vmdk' ou 'vdi'."
+    },
+    {
+      "question": "Quelle est la commande en ligne de commande pour créer une image à partir d'un volume?",
+      "answer": "La commande est `openstack image create --disk-format <format> --volume <volume_name> <image_name>`."
+    },
+    {
+      "question": "Quels sont les formats de disque supportés par la commande 'openstack image create'?",
+      "answer": "Les formats de disque supportés sont `qcow2` et `vmdk`."
+    }
+  ],
+  "generated_at": "2026-04-12T12:09:56.845883+00:00"
+}

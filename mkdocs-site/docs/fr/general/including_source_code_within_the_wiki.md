@@ -5,21 +5,33 @@ lang: "fr"
 
 source_wiki_title: "Including source code within the wiki/fr"
 source_hash: "baf5cf042ba3f3661f4527b93b1bc767"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T07:22:05.671571+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T08:01:18.355630+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "option lang"
+  - "balise syntaxhighlight"
+  - "code source"
+  - "option line"
+  - "SyntaxHighlight_GeSHi"
+
+questions:
+  - "Quelle extension et quelle balise sont utilisées pour inclure du code source dans le wiki ?"
+  - "À quoi sert l'option \"lang\" et quel est le langage appliqué par défaut si elle est omise ?"
+  - "Quelle option permet d'afficher les numéros de ligne à côté de l'extrait de code ?"
+  - "Quelle extension et quelle balise sont utilisées pour inclure du code source dans le wiki ?"
+  - "À quoi sert l'option \"lang\" et quel est le langage appliqué par défaut si elle est omise ?"
+  - "Quelle option permet d'afficher les numéros de ligne à côté de l'extrait de code ?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -37,7 +49,7 @@ L'option **line** permet d'afficher des numéros de ligne.
 ## Exemple
 Voici un exemple de code C++ créé avec la balise `<syntaxhighlight lang="cpp" line> ... </syntaxhighlight>`.
 
-```cpp linenums="true"
+```cpp linenums
 #include <iostream>
 #include <fstream>
 #include <unistd.h>

@@ -5,31 +5,43 @@ lang: "base"
 
 source_wiki_title: "Data protection, privacy, and confidentiality"
 source_hash: "9ad0c042fd97d024a6624b5cb172f32d"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T06:03:20.577537+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T06:47:55.419448+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "data protection"
+  - "filesystems"
+  - "hardware failure"
+  - "sensitive data"
+  - "unauthorized access"
+
+questions:
+  - "How does the platform handle sensitive or personal data, and who is ultimately responsible for its protection?"
+  - "What measures are in place to protect different types of filesystems against hardware failures?"
+  - "How is data protected from unauthorized access at both the hardware and software levels?"
+  - "How does the platform handle sensitive or personal data, and who is ultimately responsible for its protection?"
+  - "What measures are in place to protect different types of filesystems against hardware failures?"
+  - "How is data protected from unauthorized access at both the hardware and software levels?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
 ## Are there any resources dedicated to handling personal data, private data, or sensitive data, such as (for example) human clinical research data?
 
-We don't have resources specifically designated for sensitive data at this time.
+We don’t have resources specifically designated for sensitive data at this time.
 
 Our resources are all administered following best practices for academic research systems, and we devote considerable effort to ensuring data integrity, confidentiality, and availability. However, no resource is formally certified as meeting specific security or privacy assurance levels which may be required for certain datasets. For the most part, we provide shared resources, shared networks, shared nodes, shared memory, and data is not guaranteed to be encrypted at rest. We offer the standard Linux filesystem segregation and access control to files and directories, and our sysadmins do have access to all this material when necessary or when authorized by their owners.
 
-!!! warning
+!!! note
     Responsibility for data protection and data privacy rests ultimately with the researcher. Please see [our policies](https://alliancecan.ca/en/policies).
 
 !!! tip
@@ -38,10 +50,10 @@ Our resources are all administered following best practices for academic researc
 ## How do you protect my data against hardware failure?
 
 Our basic principle is to have some level of duplication for most filesystems. The level of duplication depends on the risk for a potential hardware failure. For example:
-* Local storage on compute nodes - where it exists - does not have any form of duplication.
-* Scratch filesystems have high reliability to protect against multiple simultaneous disk failures but do not have a backup.
-* Project and home filesystems have high reliability to protect against multiple simultaneous disk failures, and also have periodic backup copies.
-* Nearline storage provides copies of data on tape.
+*   Local storage on compute nodes - where it exists - does not have any form of duplication.
+*   Scratch filesystems have high reliability to protect against multiple simultaneous disk failures but do not have a backup.
+*   Project and home filesystems have high reliability to protect against multiple simultaneous disk failures, and also have periodic backup copies.
+*   Nearline storage provides copies of data on tape.
 
 ## How do you protect my data against unauthorized access?
 
@@ -53,5 +65,5 @@ To protect against unauthorized access through software, all of our clusters use
 
 Assuming that the intended permissions are set on files, unauthorized access can only happen through privilege escalation (hacks). To protect against such issues, our team monitors for Common Vulnerabilities and Exposures (CVE mailing lists) and applies patches as needed. Our systems are also monitored to detect anomalous behaviour which could indicate intrusions, and privileged accounts - those of our employees - have stricter security requirements than regular users.
 
-!!! warning "Shared Infrastructure and Data Encryption"
+!!! warning "Shared Infrastructure and Data Protection"
     Ultimately, our clusters remain shared infrastructure. While we take precautions to minimize the risk of unauthorized access, such a possibility does exist. If your data requires an additional level of protection, you should consider encrypting it using a tool like [GNU Privacy Guard](https://www.gnupg.org/) which is installed on our clusters as the binary `gpg`.

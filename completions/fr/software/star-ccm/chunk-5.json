@@ -1,0 +1,80 @@
+{
+  "doc_key": "fr/star-ccm",
+  "level": "chunk",
+  "chunk_index": 5,
+  "qa_pairs": [
+    {
+      "question": "Comment spécifier le fichier de simulation d'entrée dans un script Slurm pour STAR-CCM+ sur les grappes Fir, Narval ou Rorqual?",
+      "answer": "Pour spécifier le fichier de simulation d'entrée, il faut définir la variable `SIM_FILE` comme suit : `SIM_FILE='mysample.sim'`, en remplaçant `'mysample.sim'` par le nom de votre fichier de simulation."
+    },
+    {
+      "question": "Comment inclure un fichier Java d'entrée optionnel dans un script Slurm pour STAR-CCM+ sur les grappes Fir, Narval ou Rorqual?",
+      "answer": "Pour inclure un fichier Java d'entrée optionnel, il faut décommenter la ligne et définir la variable `JAVA_FILE` comme ceci : `JAVA_FILE='mymacros.java'`, en substituant `'mymacros.java'` par le nom de votre fichier Java."
+    },
+    {
+      "question": "Quel est le rôle de la variable `LM_PROJECT` dans les scripts Slurm pour STAR-CCM+ et quand devrait-elle être configurée sur les grappes Fir, Narval ou Rorqual?",
+      "answer": "La variable `LM_PROJECT` sert à spécifier la clé \"Power on Demand\" (PoD) de Siemens. Elle doit être configurée avec votre clé PoD de 22 chiffres (par exemple, `LM_PROJECT='my22digitpodkey'`) si vous utilisez un serveur de licences PoD de Siemens. Si vous utilisez un serveur de licences institutionnel, cette ligne doit être commentée."
+    },
+    {
+      "question": "Où sont redirigés les fichiers temporaires de STAR-CCM+ dans les scripts Slurm pour Fir, Narval ou Rorqual?",
+      "answer": "Les fichiers temporaires de STAR-CCM+ sont redirigés vers le répertoire `$SLURM_TMPDIR` en exportant la variable `STARCCM_TMP` avec la valeur `\"$SLURM_TMPDIR\"`."
+    },
+    {
+      "question": "Comment le fichier des machines (`machinefile`) est-il généré dans les scripts Slurm pour STAR-CCM+ sur les grappes Fir, Narval ou Rorqual?",
+      "answer": "Le fichier des machines est généré en utilisant la commande `slurm_hl2hl.py --format STAR-CCM+` et en redirigeant sa sortie vers `$SLURM_TMPDIR/machinefile`."
+    },
+    {
+      "question": "Comment le nombre total de cœurs (`NCORE`) est-il calculé pour une tâche STAR-CCM+ sur les grappes Fir, Narval ou Rorqual?",
+      "answer": "Le nombre total de cœurs est calculé en multipliant le nombre de nœuds (`SLURM_NNODES`), le nombre de cœurs par tâche (`SLURM_CPUS_PER_TASK`) et le nombre de tâches par nœud (`SLURM_NTASKS_PER_NODE`), soit `NCORE=$((SLURM_NNODES * SLURM_CPUS_PER_TASK * SLURM_NTASKS_PER_NODE))`."
+    },
+    {
+      "question": "Comment le script Slurm vérifie-t-il l'état du serveur de licences institutionnel sur Fir, Narval ou Rorqual?",
+      "answer": "Le script affiche un message \"Checking $CDLMD_LICENSE_FILE ...\", puis extrait l'adresse du serveur et le port du fichier de licence, et utilise la commande `nmap` pour vérifier l'accessibilité du serveur et du port."
+    },
+    {
+      "question": "Comment la variable `FLEXIBLAS` est-elle configurée en fonction du processeur (CPU) sur les grappes Fir, Narval ou Rorqual?",
+      "answer": "La variable `FLEXIBLAS` est définie à `NETLIB` par défaut. Si l'identifiant du fournisseur du CPU (`$RSNT_CPU_VENDOR_ID`) est `intel`, elle est configurée à `StarMKL`. Si c'est `amd`, elle est configurée à `StarAOCL`."
+    },
+    {
+      "question": "Quel est le type d'interface de passage de messages (MPI) utilisé par défaut pour STAR-CCM+ sur Fir, Narval ou Rorqual et comment peut-il varier?",
+      "answer": "Le type d'interface MPI par défaut est `openmpi`. Si le CPU est Intel, la variable `STAR_MPI` est configurée à `-mpi intel`."
+    },
+    {
+      "question": "Comment le script Slurm gère-t-il l'exécution d'une tâche STAR-CCM+ en fonction du type de licence (PoD ou institutionnelle) sur Fir, Narval ou Rorqual?",
+      "answer": "Si la variable `LM_PROJECT` est définie (indiquant une licence PoD Siemens), le script affiche \"Siemens PoD license server ...\" et utilise les options `-power -podkey $LM_PROJECT` lors de l'exécution de `starccm+`. Autrement (pour une licence institutionnelle), il affiche \"Institutional license server ...\" et inclut une vérification de l'état de la licence avec `lmutil`."
+    },
+    {
+      "question": "Quels sont les paramètres `SBATCH` maximaux pour le nombre de cœurs par tâche (`cpus-per-task`) et la mémoire (`mem`) sur la grappe Trillium pour STAR-CCM+?",
+      "answer": "Sur la grappe Trillium, le maximum pour `cpus-per-task` est 192 cœurs par nœud et pour `mem` c'est 0 (ce qui signifie généralement toute la mémoire disponible) par nœud."
+    },
+    {
+      "question": "Quelles variables spécifiques au serveur de licences doivent être configurées pour les tâches STAR-CCM+ sur Niagara, et comment ces paramètres sont-ils utilisés?",
+      "answer": "Sur Niagara, il faut configurer `FLEXPORT` (port statique Flex, 1999 par défaut), `VENDPORT` (port statique du fournisseur, 2099 par défaut) et `LICSERVER` (nom d'hôte du serveur de licences, `flex.cd-adapco.com` par défaut). Ces paramètres sont ensuite utilisés pour établir une connexion sécurisée via SSH."
+    },
+    {
+      "question": "Comment le script Slurm sur Niagara établit-il une connexion sécurisée au serveur de licences?",
+      "answer": "Le script établit une connexion sécurisée en utilisant `ssh tri-gw -L $FLEXPORT:$LICSERVER:$FLEXPORT -L $VENDPORT:$LICSERVER:$VENDPORT -N -f`. Cela crée un tunnel SSH pour les ports de licence spécifiés."
+    },
+    {
+      "question": "Quel est le comportement par défaut pour la variable `FLEXIBLAS` sur la grappe Niagara?",
+      "answer": "La variable `FLEXIBLAS` est définie à `StarAOCL` par défaut sur Niagara."
+    },
+    {
+      "question": "Quel est le comportement par défaut pour la variable `STAR_MPI` sur la grappe Niagara?",
+      "answer": "La variable `STAR_MPI` est définie à `-mpi openmpi` par défaut sur Niagara."
+    },
+    {
+      "question": "Comment le script Slurm sur Niagara gère-t-il les échecs de démarrage de la licence STAR-CCM+?",
+      "answer": "Le script inclut une boucle de réessai qui tente de démarrer `starccm+` jusqu'à 5 fois, avec un délai de 5 secondes entre les tentatives (après la première), jusqu'à ce que la commande réussisse (code de sortie 0)."
+    },
+    {
+      "question": "Sur Niagara, comment la commande `starccm+` est-elle exécutée si une clé PoD Siemens est utilisée?",
+      "answer": "Si la variable `LM_PROJECT` est définie, le script affiche \"Siemens PoD license server ...\" et exécute `starccm+` avec les options `-power -podkey $LM_PROJECT`, en plus des autres arguments habituels de la simulation."
+    },
+    {
+      "question": "Sur Niagara, comment la commande `starccm+` est-elle exécutée si un serveur de licences institutionnel est utilisé?",
+      "answer": "Si la variable `LM_PROJECT` n'est pas définie, le script affiche \"Institutional license server ...\" et exécute `starccm+` sans les options `-power` et `-podkey`, en utilisant les autres arguments standards de la simulation."
+    }
+  ],
+  "generated_at": "2026-04-12T08:18:58.138931+00:00"
+}

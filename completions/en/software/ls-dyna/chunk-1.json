@@ -1,0 +1,132 @@
+{
+  "doc_key": "en/ls-dyna",
+  "level": "chunk",
+  "chunk_index": 1,
+  "qa_pairs": [
+    {
+      "question": "What is LS-DYNA used for on the clusters?",
+      "answer": "LS-DYNA is used for many applications to solve problems in multiphysics, solid mechanics, heat transfer, and fluid dynamics. Analyses can be performed as separate phenomena or coupled physics simulations, such as thermal stress or fluid-structure interaction."
+    },
+    {
+      "question": "Is LS-DYNA available on all clusters?",
+      "answer": "Yes, LS-DYNA is available on all our clusters."
+    },
+    {
+      "question": "Who purchased LSTC, the developer of LS-DYNA?",
+      "answer": "LSTC was recently purchased by Ansys."
+    },
+    {
+      "question": "What is the current recommendation for using LS-DYNA software?",
+      "answer": "For now, we recommend using the LS-DYNA software traditionally provided by LSTC as documented in this wiki page."
+    },
+    {
+      "question": "What is the Alliance's role regarding LS-DYNA software?",
+      "answer": "The Alliance is a hosting provider for LS-DYNA, meaning the software is installed on their clusters."
+    },
+    {
+      "question": "Does the Alliance provide a generic LS-DYNA license accessible to everyone?",
+      "answer": "No, the Alliance does NOT provide a generic license accessible to everyone or provide license hosting services."
+    },
+    {
+      "question": "Who typically provides LS-DYNA licenses for use on Alliance clusters?",
+      "answer": "Many institutions, faculties, and departments already have licenses that can be used on our clusters."
+    },
+    {
+      "question": "What network changes are generally required for institutional licenses to be used on compute nodes?",
+      "answer": "Some cluster-specific network changes will generally need to be done so that such licenses can be reached from a cluster's compute nodes."
+    },
+    {
+      "question": "Who should users contact if they are unable to locate or arrange for a LS-DYNA license on campus?",
+      "answer": "Users unable to locate or arrange for a license on campus may contact CMC Microsystems."
+    },
+    {
+      "question": "What is a benefit of purchasing LS-DYNA licenses from CMC Microsystems?",
+      "answer": "Licenses purchased from CMC do not require the overhead of hosting a local license server as they are hosted on a remote server system managed by CMC, with the added benefit of being usable anywhere."
+    },
+    {
+      "question": "Who can be contacted for a quote on a locally managed LS-DYNA license?",
+      "answer": "If you have your own server and need a quote for a locally managed license, consider contacting Simutech or contact Ansys directly."
+    },
+    {
+      "question": "Does SHARCNET provide free LS-DYNA licenses or license hosting services?",
+      "answer": "No, SHARCNET does not provide any free LS-DYNA licenses or license hosting services at this time."
+    },
+    {
+      "question": "What is required if an LS-DYNA license server has never been used on a cluster before?",
+      "answer": "Firewall changes will first need to be done on both the cluster side and server side."
+    },
+    {
+      "question": "Who needs to be involved to arrange firewall changes for a new license server?",
+      "answer": "This will typically require involvement from both our technical team and the technical people managing your license software."
+    },
+    {
+      "question": "What information should be sent to technical support to arrange firewall changes for a floating license server?",
+      "answer": "Send an email containing the service port and IP address of your floating license server to technical support."
+    },
+    {
+      "question": "How can you check if your LS-DYNA license file is working?",
+      "answer": "To check if your license file is working, run the commands `module load ls-dyna` followed by `ls-dyna_s` or `ls-dyna_d`."
+    },
+    {
+      "question": "What indicates a working LS-DYNA license during the test, with the exception of CMC license servers?",
+      "answer": "The output header should contain a non-empty value for `Licensed to:`."
+    },
+    {
+      "question": "How do you quit the LS-DYNA test program?",
+      "answer": "Press ^C to quit the program and return to the command line."
+    },
+    {
+      "question": "When did Ansys purchase LSTC, the developer of LS-DYNA?",
+      "answer": "Ansys purchased the Livermore Software Technology Corporation (LSTC), developer of LS-DYNA, in 2019."
+    },
+    {
+      "question": "What kind of license servers do LS-DYNA licenses issued by Ansys use?",
+      "answer": "LS-DYNA licenses issued by Ansys since 2019 use Ansys license servers."
+    },
+    {
+      "question": "What kind of license servers do LS-DYNA licenses issued by LSTC use?",
+      "answer": "Licenses issued by LSTC may still use an LSTC license server."
+    },
+    {
+      "question": "Besides Ansys and LSTC, where else can one obtain an LS-DYNA license?",
+      "answer": "You can also obtain an LS-DYNA license through CMC Microsystems."
+    },
+    {
+      "question": "What are the two options for specifying an LSTC license server?",
+      "answer": "The two options are creating a small file named `ls-dyna.lic` in `$HOME/.licenses/` or setting two environment variables (`LSTC_LICENSE` and `LSTC_LICENSE_SERVER`) in your Slurm scripts."
+    },
+    {
+      "question": "How do you specify an LSTC license server using the `ls-dyna.lic` file?",
+      "answer": "Create a file named `ls-dyna.lic` with the contents `#LICENSE_TYPE: network` and `#LICENSE_SERVER:<port>@<server>`, and place it in the `$HOME/.licenses/` directory on each cluster where you plan to submit jobs."
+    },
+    {
+      "question": "Where should the `ls-dyna.lic` file be located for LSTC license configuration?",
+      "answer": "The `ls-dyna.lic` file should be placed in the `$HOME/.licenses/` directory on each cluster where you plan to submit jobs."
+    },
+    {
+      "question": "How does the LS-DYNA module system recognize the `ls-dyna.lic` file?",
+      "answer": "Our module system sets the `LSTC_FILE` variable to `LSTC_FILE=/home/$USER.licenses/ls-dyna.lic` whenever you load an `ls-dyna` or `ls-dyna-mpi` module, which allows LS-DYNA to pick up the values in the file."
+    },
+    {
+      "question": "Why is using the `ls-dyna.lic` file recommended for LSTC license users?",
+      "answer": "This approach is recommended because the identical settings will automatically be used by all jobs you submit on the cluster without needing to specify them in each individual Slurm script or setting them in your environment."
+    },
+    {
+      "question": "Which environment variables should be set in Slurm scripts to specify an LSTC license server using Option 2?",
+      "answer": "You should set `export LSTC_LICENSE=network` and `export LSTC_LICENSE_SERVER=<port>@<server>`."
+    },
+    {
+      "question": "Do environment variables take priority over the `~/.licenses/ls-dyna.lic` file for LSTC license configuration?",
+      "answer": "Yes, these environment variables will take priority over any values specified in your `~/.licenses/ls-dyna.lic` file."
+    },
+    {
+      "question": "What is required for any `ls-dyna` or `ls-dyna-mpi` module to successfully load when using environment variables for an LSTC license?",
+      "answer": "The `~/.licenses/ls-dyna.lic` file must exist (even if it's empty) for any `ls-dyna` or `ls-dyna-mpi` module to successfully load."
+    },
+    {
+      "question": "How can you ensure the `~/.licenses/ls-dyna.lic` file exists?",
+      "answer": "To ensure it exists, run `touch ~/.licenses/ls-dyna.lic` once on the command line on each cluster where you will submit jobs."
+    }
+  ],
+  "generated_at": "2026-04-12T00:52:47.805988+00:00"
+}

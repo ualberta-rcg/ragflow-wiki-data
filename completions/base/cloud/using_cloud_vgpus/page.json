@@ -1,0 +1,59 @@
+{
+  "doc_key": "base/using_cloud_vgpus",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is the primary objective of this documentation?",
+      "answer": "This documentation details how to allocate virtual GPU (vGPU) resources to a virtual machine (VM), install the necessary drivers, and confirm vGPU usability."
+    },
+    {
+      "question": "Where are vGPU resources and repositories currently accessible?",
+      "answer": "Currently, access to vGPU resources and repositories is only available within the Arbutus cloud."
+    },
+    {
+      "question": "Which VM flavours support vGPU usage?",
+      "answer": "To use a vGPU, the VM needs to be deployed on either the g1-12gb-c3-35gb-125 or g1-24gb-c6-70gb-250 flavour."
+    },
+    {
+      "question": "What initial steps should be taken to prepare a VM for vGPU driver installation?",
+      "answer": "The VM's operating system, including the kernel, should be updated to the latest available software, and then the VM must be rebooted."
+    },
+    {
+      "question": "Which package is recommended to install before the vGPU driver?",
+      "answer": "The DKMS (Dynamic Kernel Module Support) package is recommended. If it doesn't automatically install the `kernel-header` package, that must be installed manually."
+    },
+    {
+      "question": "What two files are essential for the vGPU setup process?",
+      "answer": "You need to download the vGPU driver file, `NVIDIA-Linux-x86_64-580.105.08-grid.run`, and the licensing token, `kalpa-prod.tok`."
+    },
+    {
+      "question": "How do you install the Nvidia vGPU driver?",
+      "answer": "First, make the driver executable using `chmod 755 NVIDIA-Linux-x86_64-580.105.08-grid.run`, then run it with `./NVIDIA-Linux-x86_64-580.105.08-grid.run`."
+    },
+    {
+      "question": "Which installation options are recommended when installing the vGPU driver?",
+      "answer": "The recommended options during the vGPU driver installation are 'NVIDIA Proprietary' and 'DKMS'."
+    },
+    {
+      "question": "How can you verify if the vGPU driver installation was successful?",
+      "answer": "After a successful installation and a system reboot, run the `nvidia-smi` command to confirm that the OS has proper access to the vGPU."
+    },
+    {
+      "question": "What are the steps to license the vGPU?",
+      "answer": "To license the vGPU, copy `kalpa-prod.tok` to `/etc/nvidia/ClientConfigToken/`, configure `nvidia-gridd` by running `echo \"FeatureType=4\" >/etc/nvidia/gridd.conf`, and then enable it with `systemctl enable --now nvidia-gridd`."
+    },
+    {
+      "question": "What happens once `nvidia-gridd` acquires a valid license?",
+      "answer": "Once `nvidia-gridd` acquires a valid license, all vGPU features become available, and the service automatically handles license renewals."
+    },
+    {
+      "question": "Does this documentation cover the installation of the CUDA toolkit?",
+      "answer": "No, this documentation specifically covers only the vGPU driver installation; the CUDA toolkit is not pre-installed but can be installed separately from NVIDIA or CVMFS."
+    },
+    {
+      "question": "What should users be mindful of when installing the CUDA toolkit directly from NVIDIA?",
+      "answer": "Users must ensure that the vGPU driver is not overwritten by the driver that might come with the CUDA package."
+    }
+  ],
+  "generated_at": "2026-04-12T10:19:53.263888+00:00"
+}

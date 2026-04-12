@@ -1,0 +1,92 @@
+{
+  "doc_key": "fr/working_with_images",
+  "level": "chunk",
+  "chunk_index": 1,
+  "qa_pairs": [
+    {
+      "question": "C'est quoi, une image dans le contexte d'un service infonuagique?",
+      "answer": "Une image, c'est un fichier dont le contenu est pareil à celui d'un disque virtuel."
+    },
+    {
+      "question": "Qu'est-ce qu'une image contient souvent comme information de base?",
+      "answer": "Une image contient souvent un système d'exploitation de base qui est utilisé pour créer un volume ou un disque éphémère à partir duquel une instance est lancée."
+    },
+    {
+      "question": "Comment décririez-vous un disque éphémère?",
+      "answer": "Un disque éphémère, c'est un disque virtuel qui se trouve sur l'hôte (l'hyperviseur) où l'instance tourne."
+    },
+    {
+      "question": "Qu'arrive-t-il aux fichiers d'un disque éphémère quand l'instance est supprimée?",
+      "answer": "Les fichiers d'un disque éphémère sont effacés lorsque l'instance est supprimée, contrairement aux fichiers d'un volume."
+    },
+    {
+      "question": "Qu'est-ce qui distingue une image d'un volume ou d'un disque éphémère en termes de portabilité?",
+      "answer": "La portabilité d'une image fait qu'elle peut être téléchargée d'un nuage, utilisée pour créer une instance sur votre ordi avec VirtualBox ou un outil similaire, ou téléversée sur un autre nuage pour créer une nouvelle instance. Un volume et un disque éphémère n'offrent pas ces options."
+    },
+    {
+      "question": "Pouvez-vous nommer quelques formats d'images populaires?",
+      "answer": "Oui, il existe plusieurs formats d'images, notamment raw, qcow2, vmdk et vdi."
+    },
+    {
+      "question": "Quand on partage des images, quelle information devrait-on s'assurer de retirer?",
+      "answer": "Quand vous partagez vos images, il faut s'assurer d'enlever l'information sensible comme les clés publiques et privées, ou les fichiers de configuration qui contiennent des mots de passe."
+    },
+    {
+      "question": "Qu'est-ce qui doit être installé et configuré correctement lorsqu'une image créée avec VirtualBox est téléchargée sur un de nos nuages?",
+      "answer": "Cloud-init doit avoir été installé et configuré correctement."
+    },
+    {
+      "question": "Est-ce que la procédure pour créer une image depuis une instance est toujours la même?",
+      "answer": "Non, la procédure est différente selon que l'instance démarre depuis un disque éphémère (souvent les gabarits de type c) ou un volume (souvent les gabarits de type p)."
+    },
+    {
+      "question": "Quelle commande OpenStack utilise-t-on pour créer une image depuis une instance qui démarre d'un disque éphémère?",
+      "answer": "Vous pouvez utiliser la commande `openstack server image create <server-name>` avec un client ligne de commande OpenStack."
+    },
+    {
+      "question": "Quand on crée une image avec la commande `openstack server image create`, qu'est-ce qui est inclus dans l'image?",
+      "answer": "Cette commande inclura uniquement le disque racine (par exemple /dev/vda) dans l'image."
+    },
+    {
+      "question": "Qu'est-ce qui n'est pas inclus automatiquement quand on crée une image à partir d'un disque éphémère?",
+      "answer": "Les disques éphémères et les volumes attachés non amorçables ne seront pas inclus dans l'image."
+    },
+    {
+      "question": "Quelle est la recommandation avant de créer une image à partir d'une instance pour éviter des problèmes de cohérence?",
+      "answer": "Nous vous recommandons d'éteindre l'instance (et non de la supprimer) avant de créer une image à partir de celle-ci pour éviter un état incohérent du système de fichiers."
+    },
+    {
+      "question": "Combien d'étapes y a-t-il pour partager une image avec un autre projet?",
+      "answer": "C'est un processus en deux étapes."
+    },
+    {
+      "question": "Quelles sont les deux étapes pour partager une image avec un autre projet?",
+      "answer": "Premièrement, un membre du projet qui est propriétaire de l'image doit la partager avec l'autre projet. Deuxièmement, un membre de l'autre projet doit accepter l'image partagée."
+    },
+    {
+      "question": "Quelle commande le membre du projet propriétaire utilise-t-il pour partager une image avec un autre projet?",
+      "answer": "Il utilise la commande OpenStack `glance member-create <IMAGE_ID> <MEMBER_ID>`."
+    },
+    {
+      "question": "Dans la commande `glance member-create`, à quoi correspondent `<IMAGE_ID>` et `<MEMBER_ID>`?",
+      "answer": "`<IMAGE_ID>` est l'identifiant de l'image à partager et `<MEMBER_ID>` est l'identifiant du projet avec lequel partager l'image."
+    },
+    {
+      "question": "Comment le membre du deuxième projet fait-il pour accepter une image partagée?",
+      "answer": "Le membre du deuxième projet utilise la commande OpenStack `glance member-update <IMAGE_ID> <MEMBER_ID> <MEMBER_STATUS>`."
+    },
+    {
+      "question": "Quelles sont les valeurs possibles pour l'état d'un membre (`<MEMBER_STATUS>`) lors de la mise à jour d'une image partagée?",
+      "answer": "Les valeurs possibles pour l'état sont `accepted`, `rejected` et `pending`."
+    },
+    {
+      "question": "Qu'arrive-t-il une fois que le processus de partage d'image est complété et que l'image est acceptée par l'autre projet?",
+      "answer": "Une fois le processus complété, l'image apparaît dans la liste des images du second projet."
+    },
+    {
+      "question": "Comment peut-on vérifier l'état de propriété d'une image partagée?",
+      "answer": "Pour vérifier l'état de propriété de l'image, on utilise la commande `glance member-list --image-id <IMAGE_ID>`."
+    }
+  ],
+  "generated_at": "2026-04-12T12:05:07.828424+00:00"
+}

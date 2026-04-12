@@ -1,0 +1,63 @@
+{
+  "doc_key": "en/ls-dyna",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is LS-DYNA and what types of problems can it solve?",
+      "answer": "LS-DYNA is a multiphysics software used for solving problems in solid mechanics, heat transfer, and fluid dynamics, including coupled physics simulations like thermal stress or fluid structure interaction."
+    },
+    {
+      "question": "Who provides LS-DYNA software on the clusters, and who provides the licenses?",
+      "answer": "The Alliance hosts LS-DYNA software on its clusters, but users must arrange for their own licenses through institutions, faculties, departments, CMC Microsystems, Simutech, or by contacting Ansys directly. The Alliance does not provide generic licenses or license hosting services."
+    },
+    {
+      "question": "What initial setup is required to use an existing license server on a cluster for the first time?",
+      "answer": "Firewall changes are required on both the cluster and the license server side. Users should email technical support with the service port and IP address of their floating license server to arrange this."
+    },
+    {
+      "question": "How can I test if my LS-DYNA license is working after initial setup?",
+      "answer": "Load the `ls-dyna` module and then run `ls-dyna_s` or `ls-dyna_d`. The output header should contain a non-empty value for `Licensed to:` (except for CMC license servers). Press `^C` to quit."
+    },
+    {
+      "question": "What are the two options for configuring an LSTC license server for LS-DYNA jobs?",
+      "answer": "Users can either create an `ls-dyna.lic` file in `$HOME/.licenses/` with the license server details or set the `LSTC_LICENSE` and `LSTC_LICENSE_SERVER` environment variables in their Slurm scripts."
+    },
+    {
+      "question": "How do I configure an Ansys license server for LS-DYNA jobs?",
+      "answer": "You must set the environment variables `export LSTC_LICENSE=ansys` and `export ANSYSLMD_LICENSE_FILE=<port>@<server>` in your Slurm scripts. Also, an empty `~/.licenses/ls-dyna.lic` file must exist."
+    },
+    {
+      "question": "Does SHARCNET provide any free LS-DYNA licenses?",
+      "answer": "Yes, the SHARCNET Ansys license supports running SMP and MPP LS-DYNA jobs and can be used for free on Nibi cluster (on a core and job limited basis) by setting specific environment variables."
+    },
+    {
+      "question": "How do I configure a CMC license for LS-DYNA, and are firewall changes needed?",
+      "answer": "Set `export LSTC_LICENSE=ansys` and `export ANSYSLMD_LICENSE_FILE=<port>@<server>` with the cluster-specific IP address for the CADpass server in your Slurm script. No firewall changes are required for CMC licenses."
+    },
+    {
+      "question": "What are the two main types of LS-DYNA binaries for cluster job submission?",
+      "answer": "LS-DYNA provides binaries for Single Memory Parallel (SMP) jobs, running on a single compute node using OpenMP, and Message Passing Parallel (MPP) jobs, running across multiple compute nodes using MPI."
+    },
+    {
+      "question": "How is memory calculated for single-node LS-DYNA jobs, especially for implicit analysis?",
+      "answer": "For implicit analysis, the `memory` parameter in the `ls-dyna_d` command sets the maximum memory before self-termination. It's recommended that the total solver memory (e.g., `1500M` words) remains within 75% of the reserved RAM for the job (e.g., 16GB)."
+    },
+    {
+      "question": "What is the importance of scaling test jobs for LS-DYNA simulations?",
+      "answer": "Scaling test jobs are crucial to determine the maximum number of cores LS-DYNA can efficiently use before performance degradation occurs, ensuring optimal resource utilization for long production runs."
+    },
+    {
+      "question": "What tool is available for graphical pre- and post-processing of LS-DYNA models, and does it require a license?",
+      "answer": "LS-PrePost (ls-prepost) is available for pre- and post-processing of LS-DYNA models. It is provided by a separate module and does not require an LS-DYNA license."
+    },
+    {
+      "question": "How can I access LS-PrePost graphically?",
+      "answer": "LS-PrePost can be accessed via an OnDemand system (recommended) by connecting to a cluster's URL and running `module load ls-prepost/4.9; lsprepost` in a terminal, or by connecting with a VncViewer client and running the same commands."
+    },
+    {
+      "question": "What is the purpose of the `~/.licenses/ls-dyna.lic` file when configuring Ansys or CMC licenses, even if it's empty?",
+      "answer": "Even if empty, the `~/.licenses/ls-dyna.lic` file must exist for any `ls-dyna` or `ls-dyna-mpi` module to successfully load when using Ansys or CMC licenses."
+    }
+  ],
+  "generated_at": "2026-04-12T00:52:35.170818+00:00"
+}

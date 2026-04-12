@@ -1,0 +1,52 @@
+{
+  "doc_key": "en/openacc_tutorial_-_data_movement",
+  "level": "chunk",
+  "chunk_index": 2,
+  "qa_pairs": [
+    {
+      "question": "How is a matrix and its members copied to the device for explicit data management using OpenACC?",
+      "answer": "The matrix structure is copied using `#pragma acc enter data copyin(A)`, followed by copying its members, such as `A.row_offsets`, `A.cols`, and `A.coefs`, using `#pragma acc enter data copyin(A.row_offsets[:num_rows+1],A.cols[:nnz],A.coefs[:nnz])`."
+    },
+    {
+      "question": "What are the two steps to free device memory for a matrix in OpenACC, in reverse order?",
+      "answer": "The two steps are to first delete the matrix members from the device using `#pragma acc exit data delete(A.row_offsets,A.cols,A.coefs)`, and then delete the matrix structure using `#pragma acc exit data delete(A)`."
+    },
+    {
+      "question": "What is the purpose of the `present` clause in OpenACC when managing memory?",
+      "answer": "The `present` clause is used to inform the compiler that data is already located on the device, which is necessary when implementing higher-level memory management."
+    },
+    {
+      "question": "Why is the use of the `present` clause considered important for performance in OpenACC?",
+      "answer": "High-level data management and the `present` clause are often critical to achieving good performance because they help maintain data locality and prevent redundant data transfers."
+    },
+    {
+      "question": "How can a developer specify that data is already present on the device within an OpenACC compute region?",
+      "answer": "A developer can specify that data is already present by including the `present` clause in directives such as `#pragma acc kernels`, for example: `#pragma acc kernels present(row_offsets,cols,Acoefs,xcoefs,ycoefs)`."
+    },
+    {
+      "question": "How can one rebuild OpenACC code to run without managed memory?",
+      "answer": "To rebuild OpenACC code without managed memory, the compiler flag `-ta=tesla:managed` in the Makefile should be changed to `-ta-tesla`."
+    },
+    {
+      "question": "What is the function of the `update` directive in OpenACC?",
+      "answer": "The `update` directive in OpenACC allows for specifying an array or part of an array that needs to be refreshed by copying data between the host (CPU) and the device (GPU) within a data region."
+    },
+    {
+      "question": "How do you copy data from the GPU to the CPU using the `update` directive?",
+      "answer": "To copy data from the GPU to the CPU, you use the `update` directive with the `self` clause, as demonstrated by `!$acc update self(a)`."
+    },
+    {
+      "question": "How do you copy data from the CPU to the GPU using the `update` directive?",
+      "answer": "To copy data from the CPU to the GPU, you use the `update` directive with the `device` clause, as demonstrated by `!$acc update device(a)`."
+    },
+    {
+      "question": "What is the OpenACC directive used to update a vector on the GPU after it has been modified on the CPU?",
+      "answer": "After modifying a vector on the CPU, it can be updated on the GPU using `#pragma acc update device(v.coefs[:v.n])`."
+    },
+    {
+      "question": "What do the benchmark results suggest about data locality and performance with explicit memory management in OpenACC?",
+      "answer": "The results suggest that data locality works effectively: when most operations are performed on the GPU and data remains on the GPU for a long time, data movement does not significantly impact performance. Some benchmarks showed speed improvements with managed memory, possibly due to the use of pinned memory."
+    }
+  ],
+  "generated_at": "2026-04-12T04:12:11.804866+00:00"
+}

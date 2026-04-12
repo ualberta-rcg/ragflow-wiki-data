@@ -1,0 +1,40 @@
+{
+  "doc_key": "base/ray",
+  "level": "chunk",
+  "chunk_index": 3,
+  "qa_pairs": [
+    {
+      "question": "What is the purpose of the `config_env.sh` script?",
+      "answer": "The `config_env.sh` script is used to load the Python module, create and activate a virtual environment, upgrade pip, and install Ray within that environment."
+    },
+    {
+      "question": "What commands are executed by the `config_env.sh` script?",
+      "answer": "The `config_env.sh` script executes commands to load the Python module, create a virtual environment without downloading packages (`virtualenv --no-download`), activate the virtual environment, upgrade pip without using the index (`pip install --no-index --upgrade pip`), and install Ray without using the index (`pip install --no-index ray`)."
+    },
+    {
+      "question": "What is the main objective of the `test_ray.py` script?",
+      "answer": "The main objective of the `test_ray.py` script is to connect to the Ray cluster launched in the job submission script and then verify that Ray sees the resources allocated to the job."
+    },
+    {
+      "question": "How does the `test_ray.py` script connect to the Ray cluster?",
+      "answer": "The `test_ray.py` script connects to the Ray cluster using `ray.init(address=f\"{os.environ['HEAD_NODE']}:{os.environ['RAY_PORT']}\",_node_ip_address=os.environ['HEAD_NODE'])`, leveraging environment variables for the head node's IP address and port."
+    },
+    {
+      "question": "What information does `test_ray.py` print about the Ray cluster?",
+      "answer": "The `test_ray.py` script prints the list of nodes in the Ray cluster using `ray.nodes()` and the available resources in the cluster using `ray.available_resources()`."
+    },
+    {
+      "question": "Which Python module is loaded at the beginning of `config_env.sh`?",
+      "answer": "The `python` module is loaded at the beginning of the `config_env.sh` script."
+    },
+    {
+      "question": "What specific arguments are used with `virtualenv` in `config_env.sh`?",
+      "answer": "The `virtualenv` command in `config_env.sh` uses `--no-download` to prevent downloading packages and specifies `$SLURM_TMPDIR/ENV` as the location for the virtual environment."
+    },
+    {
+      "question": "How does `config_env.sh` ensure that Ray is installed locally within the virtual environment?",
+      "answer": "It ensures Ray is installed locally within the virtual environment by using `pip install --no-index ray`, which tells pip to install from local packages and not to look for them in PyPI."
+    }
+  ],
+  "generated_at": "2026-04-12T06:54:46.822143+00:00"
+}

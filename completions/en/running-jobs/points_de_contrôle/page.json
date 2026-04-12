@@ -1,0 +1,39 @@
+{
+  "doc_key": "en/points_de_contrôle",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is the primary purpose of using checkpoints for long-running programs on clusters?",
+      "answer": "Checkpoints minimise the risk of losing significant computation time due to job scheduler limits, system instability from power outages, or hardware defects."
+    },
+    {
+      "question": "What form do checkpoints typically take?",
+      "answer": "Checkpoints are binary disk files from which a program can be restarted at the point in computation where the file was created."
+    },
+    {
+      "question": "What are the two main approaches for creating and loading checkpoints?",
+      "answer": "One can use functionality already provided by the application, or implement the checkpoint/restart functionality oneself if access to the source code is available."
+    },
+    {
+      "question": "What is the suggested frequency for creating a checkpoint file when implementing the functionality manually?",
+      "answer": "A checkpoint file should be created periodically, with a suggested frequency of every 2 to 24 hours."
+    },
+    {
+      "question": "What is a crucial consideration regarding older checkpoints when a new one is being written?",
+      "answer": "It is preferable not to delete the preceding checkpoint when creating a new one, in case the program is interrupted."
+    },
+    {
+      "question": "How can the creation of a checkpoint file be made 'atomic'?",
+      "answer": "One method is to initially name the checkpoint file based on date and time, and as a final step, point a symbolic link named 'latest-version' to this new file. Another method is to create a hash file to verify integrity upon loading."
+    },
+    {
+      "question": "When is it appropriate to delete older checkpoint files?",
+      "answer": "Older checkpoints can be deleted once the atomic write of the new checkpoint has been successfully completed."
+    },
+    {
+      "question": "What are the two recommended methods for resubmitting a job for long-running computations when breaking them into several Slurm jobs?",
+      "answer": "The two recommended methods are using Slurm job arrays or resubmission from the end of the job script."
+    }
+  ],
+  "generated_at": "2026-04-12T05:20:51.476019+00:00"
+}

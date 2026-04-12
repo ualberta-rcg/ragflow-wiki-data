@@ -5,21 +5,30 @@ lang: "en"
 
 source_wiki_title: "Build tools/en"
 source_hash: "0c46309b443c376b2feee298fa3db87f"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T04:59:49.513686+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T05:50:49.452380+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "CMake"
+  - "build process"
+  - "Autotools"
+  - "Make"
+  - "compilation"
+
+questions:
+  - "What is the primary purpose of the build process management tools mentioned in the text?"
+  - "What specific tasks are involved in the build process to create an executable file?"
+  - "Which three common build tools are provided on Linux and Compute Canada systems?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 

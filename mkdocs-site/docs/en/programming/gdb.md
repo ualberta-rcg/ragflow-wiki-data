@@ -5,26 +5,65 @@ lang: "en"
 
 source_wiki_title: "GDB/en"
 source_hash: "4aae9cec11cc01a188bccbe0f3b38662"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T06:36:39.366620+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T07:19:17.033278+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "debugger"
+  - "GDB commands"
+  - "analyse"
+  - "breakpoints"
+  - "execution"
+  - "backtrace"
+  - "debugging symbols"
+  - "core file"
+  - "running process"
+  - "attach process"
+  - "debugging commands"
+  - "gdb"
+  - "GDB"
+  - "break point"
+  - "variable"
+  - "compute nodes"
+  - "process ID"
+  - "STL structures"
+  - "segmentation fault"
+  - "program state"
+
+questions:
+  - "What is GDB and what kind of software problems is it typically used to investigate?"
+  - "Why is it necessary to use the `-g` option when compiling a program to be analyzed with GDB?"
+  - "How can a developer use a `core` file with GDB to find the cause of a segmentation fault after a program has crashed?"
+  - "How do you find the process ID of a running application and attach the GDB debugger to it?"
+  - "What is the purpose of the `backtrace` or `bt` command within a GDB session?"
+  - "What advanced interactive debugging techniques can be used to analyze a program's state when its execution is interrupted?"
+  - "What does the provided GDB backtrace output indicate about the execution state of the program?"
+  - "In what scenario might a developer need to attach a debugger to an already running process?"
+  - "What specific identifier is required first in order to attach a debugger to an active process?"
+  - "How can you analyze the state of a program when its execution is interrupted?"
+  - "What specific debugging tool is the subject of the provided command table?"
+  - "What categories of information are detailed for each command in the table?"
+  - "What are the basic GDB commands used to control program execution and inspect variables?"
+  - "How can a user configure GDB to properly display C++ STL structures?"
+  - "What external resources are recommended for further learning about debugging and profiling with GDB?"
+  - "What are the basic GDB commands used to control program execution and inspect variables?"
+  - "How can a user configure GDB to properly display C++ STL structures?"
+  - "What external resources are recommended for further learning about debugging and profiling with GDB?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
 [GDB](https://www.gnu.org/software/gdb/) is a debugger used to investigate software problems.
-GDB is an acronym saying *GDB: The **G**NU Project **D**e**b**ugger*
+GDB is an acronym saying *GDB: The GNU Project Debugger*
 
 ## Description
 With a debugger, it is possible to quickly find the cause of a problem in a piece of software.
@@ -35,13 +74,13 @@ If you desire to resolve a problem relating to memory (for example, a
 ## Use cases
 ### Finding a bug with the debugger
 In this section, the following program is used:
-```cpp hl_lines="15" title="program.cpp"
+````cpp title="program.cpp" linenums="true"
 #include <iostream>
 #include <vector>
 using namespace std;
 
 int main(int argc, char**argv) {
-
+	
 	vector<int> numbers;
 
 	int iterator = 1000;
@@ -54,27 +93,30 @@ int main(int argc, char**argv) {
 
 	return 0;
 }
-```
-This program generates a segmentation fault when it is ran.
+````
+This program generates a segmentation fault when it is run.
 ```bash
-g++ -g program.cpp  -o program
+g++ -g program.cpp -o program
 ./program
-Segmentation fault (core dumped)
+# Segmentation fault (core dumped)
 ```
 
-We may then run the program inside the debugger. Note that we compiled using the option `-g` to include debugging symbols within the binary and allow the debugger to provide more information on the bug. We run the program inside the debugger using
+!!! note
+    We compiled using the option `-g` to include debugging symbols within the binary and allow the debugger to provide more information on the bug.
+
+We run the program inside the debugger using:
 ```bash
 gdb ./program
-(gdb) run
-Starting program: /home/seb/program ./program
-
-Program received signal SIGSEGV, Segmentation fault.
-0x0000000000400c17 in main (argc=2, argv=0x7fffffffda88) at program.cpp:15
-15		cout << numbers[1000000] << endl;
-Missing separate debuginfos, use: debuginfo-install glibc-2.16-31.fc18.x86_64 libgcc-4.7.2-8.fc18.x86_64 libstdc++-4.7.2-8.fc18.x86_64
-
-(gdb) bt
-#0  0x0000000000400c17 in main (argc=2, argv=0x7fffffffda88) at program.cpp:15
+# (gdb) run
+# Starting program: /home/seb/program ./program
+#
+# Program received signal SIGSEGV, Segmentation fault.
+# 0x0000000000400c17 in main (argc=2, argv=0x7fffffffda88) at program.cpp:15
+# 15		cout << numbers[1000000] << endl;
+# Missing separate debuginfos, use: debuginfo-install glibc-2.16-31.fc18.x86_64 libgcc-4.7.2-8.fc18.x86_64 libstdc++-4.7.2-8.fc18.x86_64
+#
+# (gdb) bt
+# #0  0x0000000000400c17 in main (argc=2, argv=0x7fffffffda88) at program.cpp:15
 ```
 So, the above error is caused by line 15. The code tries to use index 1000000, but the array only contains 1000 elements.
 
@@ -85,35 +127,33 @@ To find the cause for this error, a `core` file must be generated. To do this, y
 ```bash
 ulimit -c unlimited
 ```
-
 Executing the same program again, a `core` file is written.
 ```bash
 ./program
-Segmentation fault (core dumped)
+# Segmentation fault (core dumped)
 file core.18158
-core.18158: ELF 64-bit LSB core file x86-64, version 1 (SYSV), SVR4-style, from './program'
+# core.18158: ELF 64-bit LSB core file x86-64, version 1 (SYSV), SVR4-style, from './program'
 ```
-
 Using the `program` binary executable and the `core` file, it is possible to trace its execution
 up to the error.
 ```bash
 gdb -q ./program
-Reading symbols from /home/seb/program...done.
-
-(gdb) core-file core.18246
-[New LWP 18246]
-Core was generated by './program'.
-Program terminated with signal 11, Segmentation fault.
-#0  0x0000000000400c17 in main (argc=1, argv=0x7fff2315c848) at
-program.cpp:15
-15              cout << numbers[1000000] << endl;
-Missing separate debuginfos, use: debuginfo-install
-glibc-2.16-31.fc18.x86_64 libgcc-4.7.2-8.fc18.x86_64
-libstdc++-4.7.2-8.fc18.x86_64
-
-(gdb) bt
-#0  0x0000000000400c17 in main (argc=1, argv=0x7fff2315c848) at
-program.cpp:15
+# Reading symbols from /home/seb/program...done.
+#
+# (gdb) core-file core.18246
+# [New LWP 18246]
+# Core was generated by './program'.
+# Program terminated with signal 11, Segmentation fault.
+# #0  0x0000000000400c17 in main (argc=1, argv=0x7fff2315c848) at
+# program.cpp:15
+# 15              cout << numbers[1000000] << endl;
+# Missing separate debuginfos, use: debuginfo-install
+# glibc-2.16-31.fc18.x86_64 libgcc-4.7.2-8.fc18.x86_64
+# libstdc++-4.7.2-8.fc18.x86_64
+#
+# (gdb) bt
+# #0  0x0000000000400c17 in main (argc=1, argv=0x7fff2315c848) at
+# program.cpp:15
 ```
 We here get the same result as if we had run it inside the debugger.
 
@@ -122,69 +162,62 @@ It is possible to debug a process that is already running, for example a job run
 
 ```bash
 ps aux | grep firefox | grep -v grep
-seb      12691  6.4  7.5 1539672 282656 ?      Sl   08:53   6:48 /usr/lib64/firefox/firefox http://www.google.ca/
+# seb      12691  6.4  7.5 1539672 282656 ?      Sl   08:53   6:48 /usr/lib64/firefox/firefox http://www.google.ca/
 ```
-
 After that, it is possible to attach the debugger directly.
 ```bash
 gdb attach 12691
 ```
-
 After having done this, a lot of information is displayed.
 
 There are many commands available within GDB. One of the most useful is `backtrace`, or `bt`.
 This command shows the current call stack.
-```console
+```bash
 (gdb) bt
-#0  0x00000033646e99ad in poll () from /lib64/libc.so.6
-#1  0x0000003db86849f3 in PollWrapper(_GPollFD*, unsigned int, int) () from /usr/lib64/firefox/xulrunner/libxul.so
-#2  0x0000003366e47d24 in g_main_context_iterate.isra.24 () from /lib64/libglib-2.0.so.0
-#3  0x0000003366e47e44 in g_main_context_iteration () from /lib64/libglib-2.0.so.0
-#4  0x0000003db86849a2 in nsAppShell::ProcessNextNativeEvent(bool) () from /usr/lib64/firefox/xulrunner/libxul.so
-#5  0x0000003db869a7d1 in nsBaseAppShell::DoProcessNextNativeEvent(bool, unsigned int) () from /usr/lib64/firefox/xulrunner/libxul.so
-#6  0x0000003db869a8ea in nsBaseAppShell::OnProcessNextEvent(nsIThreadInternal*, bool, unsigned int) () from /usr/lib64/firefox/xulrunner/libxul.so
-#7  0x0000003db89810c2 in nsThread::ProcessNextEvent(bool, bool*) () from /usr/lib64/firefox/xulrunner/libxul.so
-#8  0x0000003db89563eb in NS_ProcessNextEvent(nsIThread*, bool) () from /usr/lib64/firefox/xulrunner/libxul.so
-#9  0x0000003db873056f in mozilla::ipc::MessagePump::Run(base::MessagePump::Delegate*) () from /usr/lib64/firefox/xulrunner/libxul.so
-#10 0x0000003db89a4ab7 in MessageLoop::Run() () from /usr/lib64/firefox/xulrunner/libxul.so
-#11 0x0000003db869a1b3 in nsBaseAppShell::Run() () from /usr/lib64/firefox/xulrunner/libxul.so
-#12 0x0000003db857d92d in nsAppStartup::Run() () from /usr/lib64/firefox/xulrunner/libxul.so
-#13 0x0000003db7d18f4a in XREMain::XRE_mainRun() () from /usr/lib64/firefox/xulrunner/libxul.so
-#14 0x0000003db7d1b007 in XREMain::XRE_main(int, char**, nsXREAppData const*) () from /usr/lib64/firefox/xulrunner/libxul.so
-#15 0x0000003db7d1b259 in XRE_main () from /usr/lib64/firefox/xulrunner/libxul.so
-#16 0x0000000000402c23 in do_main(int, char**, nsIFile*) ()
-#17 0x0000000000402403 in main ()
-
+# #0  0x00000033646e99ad in poll () from /lib64/libc.so.6
+# #1  0x0000003db86849f3 in PollWrapper(_GPollFD*, unsigned int, int) () from /usr/lib64/firefox/xulrunner/libxul.so
+# #2  0x0000003366e47d24 in g_main_context_iterate.isra.24 () from /lib64/libglib-2.0.so.0
+# #3  0x0000003366e47e44 in g_main_context_iteration () from /lib64/libglib-2.0.so.0
+# #4  0x0000003db86849a2 in nsAppShell::ProcessNextNativeEvent(bool) () from /usr/lib64/firefox/xulrunner/libxul.so
+# #5  0x0000003db869a7d1 in nsBaseAppShell::DoProcessNextNativeEvent(bool, unsigned int) () from /usr/lib64/firefox/xulrunner/libxul.so
+# #6  0x0000003db869a8ea in nsBaseAppShell::OnProcessNextEvent(nsIThreadInternal*, bool, unsigned int) () from /usr/lib64/firefox/xulrunner/libxul.so
+# #7  0x0000003db89810c2 in nsThread::ProcessNextEvent(bool, bool*) () from /usr/lib64/firefox/xulrunner/libxul.so
+# #8  0x0000003db89563eb in NS_ProcessNextEvent(nsIThread*, bool) () from /usr/lib64/firefox/xulrunner/libxul.so
+# #9  0x0000003db873056f in mozilla::ipc::MessagePump::Run(base::MessagePump::Delegate*) () from /usr/lib64/firefox/xulrunner/libxul.so
+# #10 0x0000003db89a4ab7 in MessageLoop::Run() () from /usr/lib64/firefox/xulrunner/libxul.so
+# #11 0x0000003db869a1b3 in nsBaseAppShell::Run() () from /usr/lib64/firefox/xulrunner/libxul.so
+# #12 0x0000003db857d92d in nsAppStartup::Run() () from /usr/lib64/firefox/xulrunner/libxul.so
+# #13 0x0000003db7d18f4a in XREMain::XRE_mainRun() () from /usr/lib64/firefox/xulrunner/libxul.so
+# #14 0x0000003db7d1b007 in XREMain::XRE_main(int, char**, nsXREAppData const*) () from /usr/lib64/firefox/xulrunner/libxul.so
+# #15 0x0000003db7d1b259 in XRE_main () from /usr/lib64/firefox/xulrunner/libxul.so
+# #16 0x0000000000402c23 in do_main(int, char**, nsIFile*) ()
+# #17 0x0000000000402403 in main ()
 (gdb) quit
-A debugging session is active.
-
-Inferior 1 [process 12691] will be detached.
-
-Quit anyway? (y or n) y
-Detaching from program: /usr/lib64/firefox/firefox, process 12691
+# A debugging session is active.
+#
+# Inferior 1 [process 12691] will be detached.
+#
+# Quit anyway? (y or n) y
+# Detaching from program: /usr/lib64/firefox/firefox, process 12691
 ```
 
 ## Advanced usage
 In the previous sections, we used the `run` and `backtrace` commands. Many more commands are available to debug in an interactive way, by stopping the program. For example, you can set breakpoints on functions or lines of code, or whenever a given variable is modified. When execution is interrupted, you can analyse the state of the program by printing the value of variables. The following table contains a list of the main commands.
 
-**Main GDB commands**
-
-| Command           | Shortcut | Argument                     | Description                                                   |
-| :---------------: | :------: | :--------------------------: | :----------------------------------------------------------: |
-| run/kill          | r/k      | -                            | begin/stop execution                                          |
-| where / backtrace | bt       | -                            | displays the backtrace                                        |
-| break             | b        | src.c:line_number or function | sets a break point at the given line of code or function      |
-| watch             | -        | variable name                | interrupts the program when a variable is modified            |
-| continue          | c        | -                            | resume the program                                            |
-| step              | s        | -                            | execute the next operation                                    |
-| print             | p        | variable name                | displays the content of a variable                            |
-| list              | l        | src.c:number                 | displays the given line of code                               |
+#### Main GDB commands
+| Command         | Shortcut | Argument                      | Description                                                        |
+| :-------------- | :------- | :---------------------------- | :----------------------------------------------------------------- |
+| run/kill        | r/k      | -                             | begin/stop execution                                               |
+| where / backtrace | bt       | -                             | displays the backtrace                                             |
+| break           | b        | src.c:line_number or function | sets a breakpoint at the given line of code or function            |
+| watch           | -        | variable name                 | interrupts the program when a variable is modified                 |
+| continue        | c        | -                             | resume the program                                                 |
+| step            | s        | -                             | execute the next operation                                         |
+| print           | p        | variable name                 | displays the content of a variable                                 |
+| list            | l        | src.c:number                  | displays the given line of code                                    |
 
 ### Displaying STL structures
-!!! note
-    By default, GDB does not display C++ STL structures very well.
-
-Many solutions are given [here](https://sourceware.org/gdb/wiki/STLSupport). The simplest solution is probably [this one](http://www.yolinux.com/TUTORIALS/GDB-Commands.html#STLDEREF), which is to copy [this file](http://www.yolinux.com/TUTORIALS/src/dbinit_stl_views-1.03.txt) in your home folder, with the name `~/.gdbinit`.
+By default, GDB does not display C++ STL structures very well. Many solutions are given [here](https://sourceware.org/gdb/wiki/STLSupport). The simplest solution is probably [this one](http://www.yolinux.com/TUTORIALS/GDB-Commands.html#STLDEREF), which is to copy [this file](http://www.yolinux.com/TUTORIALS/src/dbinit_stl_views-1.03.txt) in your home folder, with the name `~/.gdbinit`.
 
 ## Other resources
 *   [GDB website](http://www.sourceware.org/gdb/)

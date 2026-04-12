@@ -1,0 +1,63 @@
+{
+  "doc_key": "en/large_scale_machine_learning__big_data",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is the primary challenge for traditional machine learning methods when dealing with very large datasets?",
+      "answer": "Many traditional machine learning packages, such as `scikit-learn`, often require the entire training set to be loaded into memory and may not leverage thread or process parallelism, making scaling to very large datasets challenging."
+    },
+    {
+      "question": "How do Deep Learning training tasks generally handle large quantities of data?",
+      "answer": "Deep Learning tasks are naturally scalable due to the widespread use of mini-batching strategies and first-order iterative solvers, allowing for data iteration, gradient computation, and model parameter updates as they go."
+    },
+    {
+      "question": "What are the main limitations of `scikit-learn` when processing massive datasets?",
+      "answer": "`scikit-learn` implementations often assume the entire training set can be loaded into memory and may use memory-intensive solvers by default, which can be a showstopper for massive datasets."
+    },
+    {
+      "question": "What is a common solution for Out-Of-Memory (OOM) errors in `scikit-learn` if the training set fits in memory but the solver is memory-intensive?",
+      "answer": "Replacing the default solver with a stochastic gradient descent (SGD)-based one is a straightforward solution to OOM errors in such cases."
+    },
+    {
+      "question": "Which `scikit-learn` class can perform Ridge Regression using vanilla stochastic gradient descent and is suitable for reducing memory usage?",
+      "answer": "The `SGDRegressor` class can perform Ridge Regression (by setting `penalty='l2'`) using a vanilla stochastic gradient descent solver, reducing memory usage, though it only works if the output is unidimensional."
+    },
+    {
+      "question": "What is 'out-of-core learning' in `scikit-learn` and when is it a viable option?",
+      "answer": "'Out-of-core learning' refers to leaving data on disk and loading it in batches during training. It is a viable option when an estimator has the `partial_fit` method available, typically used when datasets are too large for memory."
+    },
+    {
+      "question": "How can `scikit-learn` `SGDClassifier` be used for out-of-core learning with `numpy` arrays?",
+      "answer": "`SGDClassifier` can be used by memory-mapping `numpy` arrays, then iterating through small batches of rows from these arrays and calling `model.partial_fit(X,y)` for each batch."
+    },
+    {
+      "question": "How can `scikit-learn` `SGDRegressor` be used for out-of-core learning with data from CSV files?",
+      "answer": "`SGDRegressor` can be used by reading data in batches from a CSV file using the `pandas` package's `read_csv` function with `chunksize`, and then calling `model.partial_fit(X,y)` for each batch."
+    },
+    {
+      "question": "What is Snap ML and what are its key advantages for large-scale machine learning?",
+      "answer": "Snap ML is a closed-source IBM machine learning library that scales gracefully to datasets with billions of examples and/or features, offering distributed training, GPU acceleration, and support for sparse data structures."
+    },
+    {
+      "question": "How do you install Snap ML using a Python wheel?",
+      "answer": "To install Snap ML, you need to load a Python module, create and start a virtual environment, then use `pip install --no-index snapml` within the virtual environment."
+    },
+    {
+      "question": "How is thread parallelism controlled in Snap ML estimators?",
+      "answer": "Thread parallelism in Snap ML estimators is controlled via the `n_jobs` parameter, typically set to the number of available cores for good speedup."
+    },
+    {
+      "question": "How do you enable GPU acceleration for single GPU training in Snap ML estimators?",
+      "answer": "For single GPU training in Snap ML, simply set the parameter `use_gpu=True`."
+    },
+    {
+      "question": "How does Snap ML handle out-of-memory training with large datasets?",
+      "answer": "Snap ML estimators use first-order iterative solvers, allowing training in batches and directly accepting memory-mapped `numpy` arrays as inputs, similar to SGD."
+    },
+    {
+      "question": "What is Spark ML and what benefit does it provide for machine learning with massive amounts of data?",
+      "answer": "Spark ML is a machine learning library built on Apache Spark that allows users to scale many ML methods to massive amounts of data over multiple nodes without explicitly writing distributed or parallel code."
+    }
+  ],
+  "generated_at": "2026-04-12T00:58:24.320314+00:00"
+}

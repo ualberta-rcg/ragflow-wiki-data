@@ -1,0 +1,76 @@
+{
+  "doc_key": "fr/apptainer",
+  "level": "chunk",
+  "chunk_index": 7,
+  "qa_pairs": [
+    {
+      "question": "Que faut-il s'assurer pour une application qui utilise le GPU dans un conteneur Apptainer?",
+      "answer": "Pour une application qui utilise le GPU dans un conteneur Apptainer, il faut s'assurer qu'elle a été correctement compilée pour pouvoir utiliser le GPU et ses bibliothèques."
+    },
+    {
+      "question": "Comment faire pour utiliser OpenCL dans un conteneur Apptainer?",
+      "answer": "Pour utiliser OpenCL dans un conteneur, il faut utiliser les options précédentes pour les GPU et ajouter le bind mount `-B /etc/OpenCL`."
+    },
+    {
+      "question": "Est-ce qu'il y a des ajustements à faire dans l'environnement hôte pour lancer des programmes MPI dans un conteneur Apptainer?",
+      "answer": "Oui, pour lancer des programmes MPI dans un conteneur Apptainer, il faut ajuster certaines choses dans l'environnement hôte."
+    },
+    {
+      "question": "Comment puis-je afficher l'aide d'un conteneur Apptainer construit à partir d'un fichier de définition?",
+      "answer": "Pour afficher l'aide d'un conteneur Apptainer construit à partir d'un fichier de définition, vous pouvez utiliser la commande `apptainer run-help your-container-name.sif`."
+    },
+    {
+      "question": "Que représente `your-container-name.sif` dans la commande `apptainer run-help`?",
+      "answer": "Dans la commande `apptainer run-help`, `your-container-name.sif` représente le nom du conteneur."
+    },
+    {
+      "question": "Comment obtenir de l'aide pour une application spécifique qui se trouve dans un conteneur Apptainer?",
+      "answer": "Si votre conteneur a des applications, vous pouvez obtenir de l'aide pour une application spécifique en lançant la commande `apptainer run-help --app appname your-container-name.sif`."
+    },
+    {
+      "question": "Que représente `appname` dans la commande `apptainer run-help --app appname`?",
+      "answer": "Dans la commande `apptainer run-help --app appname your-container-name.sif`, `appname` est le nom de l'application."
+    },
+    {
+      "question": "Quelle commande permet de lister les applications disponibles dans un conteneur Apptainer?",
+      "answer": "Pour obtenir la liste des applications qui se trouvent dans un conteneur Apptainer, il faut lancer la commande `apptainer inspect --list-apps your-container-name.sif`."
+    },
+    {
+      "question": "Qu'est-ce que la commande `apptainer run` fait exactement?",
+      "answer": "La commande `apptainer run` lance le conteneur, exécute le script `%runscript` défini pour ce conteneur (s’il y en a un), puis lance la commande spécifiée."
+    },
+    {
+      "question": "Quelle est la différence entre `apptainer run` et `apptainer exec` concernant le script `%runscript`?",
+      "answer": "La commande `apptainer run` exécute le script `%runscript` s'il est défini, alors que la commande `apptainer exec` ne va pas exécuter ce script, même s’il est défini dans le conteneur."
+    },
+    {
+      "question": "Quelle commande est recommandée d'utiliser pour lancer un logiciel avec Apptainer?",
+      "answer": "Il est recommandé de toujours utiliser `apptainer run` pour lancer un logiciel avec Apptainer."
+    },
+    {
+      "question": "Comment peut-on compiler et lancer un programme C++ comme `myprog.cpp` à l'intérieur d'un conteneur Apptainer?",
+      "answer": "Pour compiler un programme C++ (`myprog.cpp`) et le lancer dans un conteneur, vous pouvez utiliser les commandes suivantes : `apptainer run your-container-name.sif g++ -O2 -march=broadwell ./myprog.cpp` puis `apptainer run your-container-name.sif ./a.out`."
+    },
+    {
+      "question": "Que représente `your-container-name.sif` dans l'exemple de compilation et d'exécution d'un programme C++?",
+      "answer": "Dans l'exemple de compilation et d'exécution d'un programme C++, `your-container-name.sif` est le nom du fichier .SIF du conteneur."
+    },
+    {
+      "question": "Quel rôle joue `g++ -O2 -march=broadwell ./myprog.cpp` dans la commande `apptainer run`?",
+      "answer": "Dans la commande `apptainer run your-container-name.sif g++ -O2 -march=broadwell ./myprog.cpp`, `g++ -O2 -march=broadwell ./myprog.cpp` est la commande à exécuter à l'intérieur du conteneur."
+    },
+    {
+      "question": "Quelles options faut-il ajouter quand on lance `apptainer run` sur les grappes de calcul?",
+      "answer": "Sur nos grappes, vous devrez ajouter des options comme `-C`, `-c`, `-e`, et `-W`, en plus de certaines options bind mount, après `run` mais avant `your-container-name.sif`, pour que l'espace disque soit disponible pour les programmes dans le conteneur."
+    },
+    {
+      "question": "Donnez un exemple de commande `apptainer run` complète pour compiler un programme C++ sur les grappes de calcul, incluant les options nécessaires.",
+      "answer": "Un exemple pour compiler un programme C++ sur les grappes est : `apptainer run -C -W $SLURM_TMPDIR -B /project -B /scratch your-container-name.sif g++ -O2 -march=broadwell ./myprog.cpp`."
+    },
+    {
+      "question": "Donnez un exemple de commande `apptainer run` complète pour exécuter un programme C++ compilé sur les grappes de calcul, incluant les options nécessaires.",
+      "answer": "Un exemple pour exécuter un programme C++ compilé sur les grappes est : `apptainer run -C -W $SLURM_TMPDIR -B /project -B /scratch ./a.out`."
+    }
+  ],
+  "generated_at": "2026-04-11T17:35:46.376162+00:00"
+}

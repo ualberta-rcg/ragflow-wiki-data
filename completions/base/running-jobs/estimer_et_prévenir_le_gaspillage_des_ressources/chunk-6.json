@@ -1,0 +1,24 @@
+{
+  "doc_key": "base/estimer_et_prévenir_le_gaspillage_des_ressources",
+  "level": "chunk",
+  "chunk_index": 6,
+  "qa_pairs": [
+    {
+      "question": "How can you identify if you are requesting more cores than necessary for a multiprocessor task?",
+      "answer": "You can identify this by observing the CPU usage graph; if it shows that only a portion of the requested cores are being actively utilized (e.g., 16 cores solicited out of 24 available), it indicates over-allocation. If all requested cores were utilized, the graph would be entirely coloured. Additionally, the 'Processes and threads' graph can reveal the number of active execution threads, which serves as a complementary method to estimate the truly needed cores."
+    },
+    {
+      "question": "What is the recommended correction if the CPU usage graph shows that too many cores were requested for a multiprocessor task?",
+      "answer": "If the CPU usage graph indicates that, for example, only 16 cores were used when 24 were requested, the corrective action would be to change the `#SBATCH --ntasks=24` parameter in your submission script to `#SBATCH --ntasks=16`."
+    },
+    {
+      "question": "How can memory allocation be optimized if a multiprocessor task is requesting an excessive amount?",
+      "answer": "By observing the memory usage graph, if the requested amount is excessive (e.g., 12 GB per CPU when less is used), it is advisable to test reducing the `--mem-per-cpu` value, for instance, to `#SBATCH --mem-per-cpu=1G`."
+    },
+    {
+      "question": "What role does the 'Processes and threads' graph play in identifying excessive core requests for a multiprocessor task?",
+      "answer": "The 'Processes and threads' graph indicates the number of active execution threads. Even if the curves overlap, by selecting individual threads, you can determine the total number of active threads (e.g., 16 active threads). This count serves as a complementary method to estimate the actual number of cores required for the multiprocessor task."
+    }
+  ],
+  "generated_at": "2026-04-11T21:19:53.289222+00:00"
+}

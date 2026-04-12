@@ -1,0 +1,56 @@
+{
+  "doc_key": "base/vm_recovery_via_cloud_console",
+  "level": "chunk",
+  "chunk_index": 2,
+  "qa_pairs": [
+    {
+      "question": "How do I initiate a CentOS7 recovery procedure?",
+      "answer": "To initiate a CentOS7 recovery, you should open the console via Horizon and reboot the VM. The `CtrlAltDel` button in the upper right corner can be used for this, unless you need to recover from a persistent kernel panic."
+    },
+    {
+      "question": "Which boot manager is commonly used for CentOS7 cloud images?",
+      "answer": "For all CentOS7 cloud images, the boot manager is currently GRUB or GRUB2."
+    },
+    {
+      "question": "What is the key sequence to enter edit mode in the GRUB menu for CentOS7 recovery?",
+      "answer": "Once the GRUB menu is visible, you need to hit `e` on your keyboard to get into edit mode."
+    },
+    {
+      "question": "Which specific line should I locate and modify in the GRUB edit mode for CentOS7 recovery?",
+      "answer": "You should navigate to the line which starts with `linux16`."
+    },
+    {
+      "question": "What parameters need to be adjusted on the `linux16` line for CentOS7 recovery?",
+      "answer": "All console parameters need to be removed, though leaving `console=tty0` is an easier option. You should also add `rd.break` to interrupt the boot process in an early stage. You can also change `ro` to `rw` if you want the filesystem mounted read-write immediately, but `ro` is good for initial investigation."
+    },
+    {
+      "question": "Why is it often recommended to keep `console=tty0` in the `linux16` line during CentOS7 recovery?",
+      "answer": "It is an easier option because qemu uses the serial console (ttySX), and otherwise, you would have to go onto the compute node directly and attach it there to a terminal."
+    },
+    {
+      "question": "What is the purpose of the `rd.break` parameter in CentOS7 recovery?",
+      "answer": "The `rd.break` parameter is used to interrupt the boot process at an early stage, which will launch the recovery environment."
+    },
+    {
+      "question": "How do I boot the CentOS7 kernel after making changes in the GRUB edit mode?",
+      "answer": "To boot the kernel with the changes, you need to hit `Ctrl+x`."
+    },
+    {
+      "question": "Where is the image's filesystem mounted by default after booting into CentOS7 recovery mode using `rd.break`?",
+      "answer": "Under `/sysroot`, you will find the read-only mounted filesystem from the image."
+    },
+    {
+      "question": "How can I remount the filesystem as read-write during CentOS7 recovery?",
+      "answer": "To make the filesystem read-write, it needs to be remounted using the command: `mount -o remount,rw /sysroot`."
+    },
+    {
+      "question": "Are the recovery steps for CentOS8 notably different from CentOS7?",
+      "answer": "No, the steps for CentOS8 recovery are very similar compared to the CentOS7 recovery procedure."
+    },
+    {
+      "question": "What modifications are necessary for the `console` and `rd.break` options in CentOS8 recovery?",
+      "answer": "For CentOS8 recovery, the `console` option needs to initialize a tty instead of a serial console, and `rd.break` will launch the recovery environment."
+    }
+  ],
+  "generated_at": "2026-04-12T10:47:07.123313+00:00"
+}

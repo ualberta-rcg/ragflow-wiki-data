@@ -1,0 +1,108 @@
+{
+  "doc_key": "en/beast",
+  "level": "chunk",
+  "chunk_index": 1,
+  "qa_pairs": [
+    {
+      "question": "What is BEAST?",
+      "answer": "BEAST is a cross-platform program designed for Bayesian MCMC analysis of molecular sequences."
+    },
+    {
+      "question": "What is the primary focus of BEAST?",
+      "answer": "BEAST is entirely orientated towards rooted, time-measured phylogenies, which are inferred using strict or relaxed molecular clock models."
+    },
+    {
+      "question": "What are the main applications of BEAST?",
+      "answer": "BEAST can be used for reconstructing phylogenies and as a framework for testing evolutionary hypotheses without being conditioned on a single tree topology."
+    },
+    {
+      "question": "How does BEAST handle tree space and probabilities?",
+      "answer": "BEAST utilizes MCMC (Markov Chain Monte Carlo) to average over tree space, ensuring that each tree is weighted proportionally to its posterior probability."
+    },
+    {
+      "question": "Which high-performance library can BEAST utilize for its calculations?",
+      "answer": "BEAST can use beagle-lib, a high-performance library that performs core calculations common to most Bayesian and Maximum Likelihood phylogenetics packages."
+    },
+    {
+      "question": "How do I load the BEAST module?",
+      "answer": "You can load the BEAST module by using the command: `module load beast`."
+    },
+    {
+      "question": "What dependencies are automatically loaded when the BEAST module is loaded?",
+      "answer": "Loading the BEAST module automatically loads its dependencies, specifically the `beagle-lib` and `java` modules."
+    },
+    {
+      "question": "Which environment variable is set when BEAST is loaded, and what does it point to?",
+      "answer": "The environment variable `EBROOTBEAST` is set, pointing to the directory where BEAST's program files are located."
+    },
+    {
+      "question": "Does BEAST come with packages (add-ons) pre-installed?",
+      "answer": "No, BEAST is installed without any packages or add-ons by default."
+    },
+    {
+      "question": "How do I install additional packages for BEAST versions 2.5.1 and newer?",
+      "answer": "For BEAST v2.5.1 and newer, you use the `packagemanager` command to install desired packages within your home directory."
+    },
+    {
+      "question": "What command is used to install packages for older BEAST versions (2.4.x and earlier)?",
+      "answer": "In older versions of BEAST (v2.4.x and earlier), the command to install packages is `addonmanager`."
+    },
+    {
+      "question": "Where are BEAST packages installed when using `packagemanager` or `addonmanager`?",
+      "answer": "BEAST packages are installed within your home directory."
+    },
+    {
+      "question": "How can I list available packages for BEAST version 2.5.1?",
+      "answer": "You can list packages for BEAST 2.5.1 by first loading the module (`module load beast/2.5.1`) and then running `packagemanager -list`."
+    },
+    {
+      "question": "What is the command to install the SNAPP package for BEAST 2.5.1?",
+      "answer": "After loading the module (`module load beast/2.5.1`), you can install the SNAPP package with the command: `packagemanager -add SNAPP`."
+    },
+    {
+      "question": "Where is the SNAPP package installed for BEAST 2.5.1?",
+      "answer": "The SNAPP package is installed in `~/.beast/2.5/SNAPP` for BEAST 2.5.1."
+    },
+    {
+      "question": "How do I list packages for BEAST version 2.4.0?",
+      "answer": "First, load the module (`module load beast/2.4.0`), then use the command `addonmanager -list` to see available packages."
+    },
+    {
+      "question": "What command would I use to add the SNAPP package to BEAST 2.4.0?",
+      "answer": "To add the SNAPP package for BEAST 2.4.0, you would use `addonmanager -add SNAPP` after loading the BEAST 2.4.0 module."
+    },
+    {
+      "question": "What is the installation path for the SNAPP package with BEAST 2.4.0?",
+      "answer": "The SNAPP package for BEAST 2.4.0 is installed in `~/.beast/2.4/SNAPP`."
+    },
+    {
+      "question": "Where can I find more information on managing BEAST packages?",
+      "answer": "More information on managing BEAST packages can be found in the 'Server machines' section at http://www.beast2.org/managing-packages/."
+    },
+    {
+      "question": "What is the basic command to run BEAST in a simple job script?",
+      "answer": "The basic command to run BEAST in a job script is `beast input_beast.xml`, assuming `input_beast.xml` is your input file."
+    },
+    {
+      "question": "How do I specify the memory per CPU for a BEAST job using SBATCH?",
+      "answer": "You specify the memory per CPU using the SBATCH directive `--mem-per-cpu=`, for example, `--mem-per-cpu=2000M`."
+    },
+    {
+      "question": "If I need more memory for a BEAST job, how should I set the `BEAST_MEM` variable in a job script?",
+      "answer": "The `BEAST_MEM` variable, formatted as `-Xmx<memory_value>M` (e.g., `-Xmx3750M`), should be set to 250M lower than the value specified in `--mem-per-cpu` in your SBATCH directive."
+    },
+    {
+      "question": "What variables define the paths for BEAST and BEAGLE-lib in a high-memory job script?",
+      "answer": "The paths are defined by `BEAST_LIB=\"${EBROOTBEAST}/lib\"` and `BEAST_EXTRA_LIBS=\"${BEAST_LIB}:${BEAGLE_LIB}\"`. Additionally, `LD_LIBRARY_PATH` needs to be exported with `BEAGLE_LIB`."
+    },
+    {
+      "question": "How is the Java command constructed to run BEAST with specific memory and library paths?",
+      "answer": "A typical Java command is constructed as: `java -Xms256m ${BEAST_MEM} -Djava.library.path=${BEAST_EXTRA_LIBS} -cp ${BEAST_LIB}/launcher.jar beast.app.beastapp.BeastLauncher`."
+    },
+    {
+      "question": "How do I ensure BEAST uses the Beagle library when running via the constructed Java command?",
+      "answer": "You add the `-beagle` flag to the end of the Java command, like so: `$CMD -beagle input_beast.xml`."
+    }
+  ],
+  "generated_at": "2026-04-11T18:18:47.036221+00:00"
+}

@@ -8,57 +8,77 @@
       "answer": "Depuis la version de 2020, la suite ADF a été renommée AMS."
     },
     {
-      "question": "Y'a-t-il des changements importants avec la nouvelle version AMS?",
-      "answer": "Oui, la nouvelle version AMS comporte des changements importants, surtout dans les formats d'entrée et de sortie."
+      "question": "Quels sont les principaux changements introduits avec la nouvelle version AMS?",
+      "answer": "La nouvelle version AMS comporte des changements importants, notamment dans les formats d'entrée et de sortie."
     },
     {
-      "question": "C'est quoi la suite logicielle SCM?",
-      "answer": "La suite logicielle SCM, qui veut dire 'Software for Chemistry and Materials', était à l'origine la suite ADF pour 'Amsterdam Density Functional'. Elle propose des applications super performantes pour la recherche en chimie computationnelle."
+      "question": "Que signifie l'acronyme SCM dans 'SCM (Software for Chemistry and Materials)'?",
+      "answer": "SCM signifie 'Software for Chemistry and Materials'."
     },
     {
-      "question": "Dans quels domaines la suite SCM est-elle utile pour la recherche en chimie computationnelle?",
-      "answer": "La suite SCM est utile dans plusieurs domaines comme la catalyse (homogène et hétérogène), la chimie inorganique, la chimie des éléments lourds, la biochimie et différents types de spectroscopie."
+      "question": "Quelle était la signification originale de l'acronyme ADF?",
+      "answer": "ADF, à l'origine, signifiait 'Amsterdam Density Functional'."
     },
     {
-      "question": "Quels sont les produits disponibles au sein de la suite SCM?",
-      "answer": "Les produits disponibles sont ADF, ADF-GUI, BAND, BAND-GUI, DFTB, ReaxFF, COSMO-RS, QE-GUI et NBO6."
+      "question": "Dans quels domaines de recherche en chimie computationnelle les applications SCM sont-elles performantes?",
+      "answer": "Les applications SCM sont très performantes pour la recherche en chimie computationnelle, notamment dans les domaines de la catalyse (homogène et hétérogène), la chimie inorganique, la chimie des éléments lourds, la biochimie et différents types de spectroscopie."
     },
     {
-      "question": "Où est-ce que le module `adf` est installé?",
-      "answer": "Le module `adf` est seulement installé sur Graham à cause de restrictions liées à l'octroi des licences."
+      "question": "Pouvez-vous nommer quelques produits disponibles dans la suite SCM?",
+      "answer": "Oui, les produits disponibles incluent ADF, ADF-GUI, BAND, BAND-GUI, DFTB, ReaxFF, COSMO-RS, QE-GUI et NBO6."
     },
     {
-      "question": "Comment je peux savoir quelles versions du module `adf` sont disponibles sur Graham?",
-      "answer": "Pour connaître les versions disponibles, vous pouvez lancer la commande `module spider adf`."
+      "question": "Où le module `adf` est-il seulement installé et pourquoi?",
+      "answer": "Le module `adf` est seulement installé sur Graham en raison de restrictions liées à l'octroi des licences."
     },
     {
-      "question": "Quel est l'ordonnanceur de tâches utilisé sur Graham?",
-      "answer": "Sur Graham, les tâches sont ordonnancées par Slurm."
+      "question": "Comment puis-je connaître les versions disponibles du module `adf` sur Graham?",
+      "answer": "Pour connaître les versions disponibles du module `adf`, vous devez lancer la commande `module spider adf`."
     },
     {
-      "question": "Peux-tu me donner un exemple de script Slurm pour soumettre une tâche unique avec ADF?",
-      "answer": "Bien sûr, voici un exemple de script Slurm pour une tâche unique avec ADF, nommé `mysub.sh`:\n```bash\n#!/bin/bash\n#SBATCH --nodes=1 --ntasks-per-node=32  # 1 node with 32 cpus, you can modify it\n#SBATCH --mem=0                         # request all memory on node\n#SBATCH --time=00-03:00                 # time (DD-HH:MM)\n#SBATCH --output=adf_test-%j.log        # output file\n\nmodule unload openmpi\nmodule load adf/2019.305\nADF adf_test.inp  \n```"
+      "question": "Quel système est utilisé pour ordonnancer les tâches soumises sur Graham?",
+      "answer": "Les tâches soumises sur Graham sont ordonnancées par Slurm."
     },
     {
-      "question": "Quel est le contenu du fichier d'entrée `adf_test.inp` utilisé dans l'exemple de tâche unique?",
-      "answer": "Le fichier `adf_test.inp` sert à une optimisation de géométrie de l'eau avec des coordonnées délocalisées. Le voici:\n```\n Title WATER Geometry Optimization with Delocalized Coordinates\n\n Atoms\n    O             0.000000     0.000000     0.000000\n    H             0.000000    -0.689440    -0.578509\n    H             0.000000     0.689440    -0.578509\n End\n\n Basis\n Type TZP\n Core Small\n End\n\n Geometry\n  Optim Deloc\n  Converge 0.0000001\n End\n\n End Input\n```"
+      "question": "Quel est le but du script `mysub.sh` fourni en exemple?",
+      "answer": "Le script `mysub.sh` est un exemple de script Slurm pour soumettre une tâche unique utilisant ADF sur Graham."
     },
     {
-      "question": "Est-ce possible de regrouper plusieurs calculs ADF ou BAND dans une seule tâche?",
-      "answer": "Oui, on peut regrouper plusieurs calculs dans une même tâche avec un script spécialisé."
+      "question": "Combien de nœuds et de cœurs par nœud le script `mysub.sh` demande-t-il?",
+      "answer": "Le script `mysub.sh` demande un nœud (`--nodes=1`) avec 32 cœurs par nœud (`--ntasks-per-node=32`)."
     },
     {
-      "question": "Quelle est la première optimisation géométrique réalisée dans le script `GO_H2O.run`?",
-      "answer": "La première optimisation géométrique dans le script `GO_H2O.run` est une optimisation de géométrie de l'eau avec des coordonnées délocalisées ('WATER Geometry Optimization with Delocalized Coordinates')."
+      "question": "Quelle quantité de mémoire est demandée par le script `mysub.sh`?",
+      "answer": "Le script `mysub.sh` demande toute la mémoire disponible sur le nœud (`--mem=0`)."
     },
     {
-      "question": "Quel type d'optimisation de géométrie est effectué en deuxième dans le script `GO_H2O.run`?",
-      "answer": "La deuxième optimisation géométrique faite dans le script `GO_H2O.run` est une optimisation de la géométrie de l'eau en coordonnées cartésiennes avec un nouvel optimiseur ('WATER Geometry Optimization in Cartesians with new optimizer')."
+      "question": "Quel est le temps maximal alloué pour la tâche dans le script `mysub.sh`?",
+      "answer": "Le temps maximal alloué pour la tâche dans `mysub.sh` est de 3 heures (`--time=00-03:00`)."
     },
     {
-      "question": "Et la troisième optimisation dans `GO_H2O.run`, c'est quoi comme optimisation de géométrie?",
-      "answer": "La troisième optimisation dans `GO_H2O.run` est une optimisation de géométrie de l'eau avec des coordonnées internes, en utilisant une Z-Matrix ('WATER Geometry Optimization with Internal Coordinates')."
+      "question": "Quelle version d'ADF est chargée par le script `mysub.sh`?",
+      "answer": "Le script `mysub.sh` charge la version 2019.305 du module `adf`."
+    },
+    {
+      "question": "Quel est le nom du fichier d'entrée utilisé par la commande ADF dans `mysub.sh`?",
+      "answer": "Le fichier d'entrée utilisé par la commande ADF dans `mysub.sh` est `adf_test.inp`."
+    },
+    {
+      "question": "Quel type de calcul est défini dans le fichier `adf_test.inp`?",
+      "answer": "Le fichier `adf_test.inp` définit une optimisation de géométrie de l'eau avec des coordonnées délocalisées (WATER Geometry Optimization with Delocalized Coordinates)."
+    },
+    {
+      "question": "Comment peut-on regrouper plusieurs calculs ADF ou BAND dans une seule tâche?",
+      "answer": "Plusieurs calculs peuvent être groupés dans une même tâche avec un script semblable à `GO_H2O.run`, qui exécute plusieurs appels à ADF séquentiellement."
+    },
+    {
+      "question": "Que fait le script `GO_H2O.sh` par rapport à `mysub.sh`?",
+      "answer": "Le script `GO_H2O.sh` est identique à `mysub.sh`, à l’exception de la dernière ligne qui appelle le script `GO_H2O.run` plutôt que d’appeler ADF directement."
+    },
+    {
+      "question": "Quels sont les différents types d'optimisations de géométrie illustrés dans le script `GO_H2O.run`?",
+      "answer": "Le script `GO_H2O.run` illustre des optimisations de géométrie avec des coordonnées délocalisées, des coordonnées cartésiennes avec un nouvel optimiseur et des coordonnées internes (Z-Matrix)."
     }
   ],
-  "generated_at": "2026-04-09T23:51:43.255002+00:00"
+  "generated_at": "2026-04-11T14:55:20.089274+00:00"
 }

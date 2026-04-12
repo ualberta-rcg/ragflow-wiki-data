@@ -1,0 +1,148 @@
+{
+  "doc_key": "en/creating_a_web_server_on_a_cloud",
+  "level": "chunk",
+  "chunk_index": 1,
+  "qa_pairs": [
+    {
+      "question": "What is the primary focus of this page?",
+      "answer": "This page describes the simplest case of creating a web server on our clouds using Ubuntu Linux and the Apache web server."
+    },
+    {
+      "question": "What kind of operating system and web server are used for the web server creation example?",
+      "answer": "The example uses Ubuntu Linux and the Apache web server."
+    },
+    {
+      "question": "When is it important to consider security for a computer?",
+      "answer": "Security must be considered any time you make a computer accessible to the public."
+    },
+    {
+      "question": "What does 'accessible to the public' mean in the context of this document?",
+      "answer": "'Accessible to the public' could mean allowing SSH connections, displaying HTML via HTTP, or using third-party software to provide a service (e.g., WordPress)."
+    },
+    {
+      "question": "What are 'daemons' in computing?",
+      "answer": "Daemons are programs that stay running all the time on a computer and respond to outside requests on specific ports, providing services like SSH or HTTP."
+    },
+    {
+      "question": "How can you manage and restrict access to ports with OpenStack?",
+      "answer": "With OpenStack, you can manage and restrict access to these ports, including granting access only to a specific IP address or to ranges of IP addresses, using Security groups."
+    },
+    {
+      "question": "What is the benefit of restricting access to your virtual machine (VM)?",
+      "answer": "Restricting access to your VM will improve its security."
+    },
+    {
+      "question": "Does restricting access to a VM eliminate all security vulnerabilities?",
+      "answer": "No, restricting access does not necessarily remove all security vulnerabilities."
+    },
+    {
+      "question": "What risk exists if encryption is not used when sending data like passwords?",
+      "answer": "If encryption is not used when sending data (e.g., passwords), an eavesdropper can read that information."
+    },
+    {
+      "question": "What is the common method for encrypting data during transmission, especially for websites with logins?",
+      "answer": "Transport Layer Security (TLS) is the common way to encrypt this data."
+    },
+    {
+      "question": "Which types of websites should use Transport Layer Security (TLS)?",
+      "answer": "Any website which uses logins (e.g., WordPress, MediaWiki) should use Transport Layer Security (TLS)."
+    },
+    {
+      "question": "What could happen if data transmitted from your web server to a client is not encrypted?",
+      "answer": "Data transmitted from your web server to a client could be modified on the way by a third party if you are not encrypting it, potentially causing issues for your clients."
+    },
+    {
+      "question": "Is it generally recommended to use encryption on your web server?",
+      "answer": "Yes, in most cases, it is recommended to use encryption on your web server."
+    },
+    {
+      "question": "Who is responsible for the security of your virtual machines?",
+      "answer": "You are responsible for the security of your virtual machines."
+    },
+    {
+      "question": "What is the first step in installing Apache on a cloud VM?",
+      "answer": "The first step is to create a persistent virtual machine running Ubuntu Linux by following the Cloud Quick Start instructions."
+    },
+    {
+      "question": "How do you enable HTTP requests to reach your VM?",
+      "answer": "You open port 80 to allow HTTP requests into your VM by following the Cloud Quick Start instructions for connecting to your VM with SSH, but selecting HTTP from the drop-down box instead of SSH."
+    },
+    {
+      "question": "What command updates apt-get repositories on an Ubuntu VM?",
+      "answer": "The command to update apt-get repositories is `sudo apt-get update`."
+    },
+    {
+      "question": "How do you upgrade Ubuntu to the latest version on a VM?",
+      "answer": "You upgrade Ubuntu to the latest version with the command `sudo apt-get upgrade`."
+    },
+    {
+      "question": "Why is it important to upgrade Ubuntu to the latest version?",
+      "answer": "Upgrading to the latest version of Ubuntu ensures your VM has the latest security patches."
+    },
+    {
+      "question": "What command installs the Apache web server on Ubuntu?",
+      "answer": "The command to install the Apache web server is `sudo apt-get install apache2`."
+    },
+    {
+      "question": "How can you verify that the Apache web server has been installed and is running?",
+      "answer": "You can verify by entering the floating IP address of your VM into your browser's address bar; you should see something similar to the Apache2 test page."
+    },
+    {
+      "question": "Where are the default content files for a newly created Apache website located?",
+      "answer": "The default content files are located in `/var/www/html`."
+    },
+    {
+      "question": "Which file serves as the entry point for a newly created Apache website?",
+      "answer": "The `index.html` file is the entry point for your newly created website."
+    },
+    {
+      "question": "Why would you change the web server's root directory?",
+      "answer": "It is often much easier to manage a website if the files are owned by the user who is connecting to the VM, such as the `ubuntu` user, instead of the default location."
+    },
+    {
+      "question": "What is the default user for the Ubuntu image in this example?",
+      "answer": "The default user for the Ubuntu image in this example is `ubuntu`."
+    },
+    {
+      "question": "Which two Apache configuration files need to be modified to change the web server's root directory from `/var/www/html` to `/home/ubuntu/public_html`?",
+      "answer": "You need to modify `/etc/apache2/apache2.conf` and `/etc/apache2/sites-available/000-default.conf`."
+    },
+    {
+      "question": "What command is used to change the `Directory` directive in `/etc/apache2/apache2.conf`?",
+      "answer": "You use the command `sudo vim /etc/apache2/apache2.conf` (or another editor) to change the line `<Directory /var/www/>` to `<Directory /home/ubuntu/public_html>`."
+    },
+    {
+      "question": "What command is used to change the `DocumentRoot` directive in `/etc/apache2/sites-available/000-default.conf`?",
+      "answer": "You use the command `sudo vim /etc/apache2/sites-available/000-default.conf` to edit the line `DocumentRoot /var/www/html` to become `DocumentRoot /home/ubuntu/public_html`."
+    },
+    {
+      "question": "How do you create the new public_html directory in the Ubuntu user's home directory?",
+      "answer": "You create the directory with the command `mkdir public_html`."
+    },
+    {
+      "question": "How do you copy the default Apache page to the new `public_html` directory?",
+      "answer": "You copy the default page with the command `cp /var/www/html/index.html /home/ubuntu/public_html`."
+    },
+    {
+      "question": "What command is used to restart the Apache server after configuration changes?",
+      "answer": "You restart the Apache server with the command `sudo service apache2 restart`."
+    },
+    {
+      "question": "After changing the web server's root directory, why is it easier to edit website files?",
+      "answer": "After changing the root directory to `/home/ubuntu/public_html`, you should be able to edit `index.html` without using `sudo`."
+    },
+    {
+      "question": "What is a potential issue for a web server in high demand?",
+      "answer": "If a web server is in high demand, it may use considerable bandwidth resources."
+    },
+    {
+      "question": "What is a recommended method for limiting the overall bandwidth usage of an Apache web server?",
+      "answer": "A good way to limit overall bandwidth usage of an Apache web server is to use the `mod_bw` Apache bandwidth module."
+    },
+    {
+      "question": "What is the name of the Apache module used for bandwidth limiting?",
+      "answer": "The Apache bandwidth module is called `mod_bw`."
+    }
+  ],
+  "generated_at": "2026-04-11T20:27:52.557383+00:00"
+}

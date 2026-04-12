@@ -1,0 +1,92 @@
+{
+  "doc_key": "en/arbutus_migration_guide",
+  "level": "chunk",
+  "chunk_index": 4,
+  "qa_pairs": [
+    {
+      "question": "What commands are used to set up a Python virtual environment for OpenStack and install the required client libraries?",
+      "answer": "You need to run `$ python3 -m venv openstack`, then `$ source openstack/bin/activate`, and finally `$ pip install python-openstackclient keystoneauth-websso python-manilaclient`."
+    },
+    {
+      "question": "What are the three general migration scenarios to consider when moving from Legacy Arbutus to New Arbutus?",
+      "answer": "The three general migration scenarios are manual or orchestrated migration, migrating volume-backed instances, and migrating ephemeral instances."
+    },
+    {
+      "question": "Can all migration scenarios be used when moving resources from Legacy Arbutus to New Arbutus?",
+      "answer": "Yes, depending on your current setup, you may use any or all of these scenarios to migrate from Legacy Arbutus to New Arbutus."
+    },
+    {
+      "question": "What is the definition of a 'manual or orchestrated migration' scenario?",
+      "answer": "In this scenario, new instances and volumes are created in New Arbutus with the same specifications as that on Legacy Arbutus, and any necessary files and data are copied over from the old instances and volumes."
+    },
+    {
+      "question": "What is the general approach for a manual or orchestrated cloud migration?",
+      "answer": "The general approach involves copying any Glance images from Legacy Arbutus to New Arbutus, installing and configuring services on the instance(s), copying data from the old instances to the new instances, assigning floating IP addresses and updating DNS, and decommissioning the old instances and deleting old volumes."
+    },
+    {
+      "question": "Which configuration management tools can be used for orchestrated migration?",
+      "answer": "Configuration management tools such as Ansible, Terraform, or Heat can be used for orchestrated migration."
+    },
+    {
+      "question": "Will existing orchestration tools like Ansible or Terraform work with New Arbutus if they were used on Legacy Arbutus?",
+      "answer": "Yes, if you were already using orchestration tools on Legacy Arbutus, they should work with New Arbutus as well."
+    },
+    {
+      "question": "What characterises a volume-backed instance?",
+      "answer": "Volume-backed instances have a persistent volume attached to them containing the operating system and any required data."
+    },
+    {
+      "question": "What is the recommended best practice for using volumes with volume-backed instances?",
+      "answer": "Best practice is to use separate volumes for the operating system and for data."
+    },
+    {
+      "question": "For what volume size is the 'Migration using Glance images' method recommended?",
+      "answer": "This method is recommended for volumes less than 150GB in size."
+    },
+    {
+      "question": "What is the preferred approach for migrating volumes larger than 150GB?",
+      "answer": "For volumes larger than 150GB, the 'Manual or orchestrated migration' approach is preferred."
+    },
+    {
+      "question": "How many SSH sessions are required to begin migrating a volume-backed instance using Glance images, and what should each session be configured for?",
+      "answer": "You need to open two SSH sessions to the volume-backed instance you plan to migrate; in one session, source the OpenStack RC file for Legacy Arbutus, and in the other session, source the OpenStack RC file for New Arbutus."
+    },
+    {
+      "question": "Why is the `screen` command recommended during Glance image migration, and how can it be installed?",
+      "answer": "Use of the `screen` command is recommended in case of SSH disconnections, and it can be installed by running `dnf install screen`."
+    },
+    {
+      "question": "What steps are involved in installing the OpenStack CLI on the Legacy Arbutus instance from a root shell during Glance image migration?",
+      "answer": "On the Legacy Arbutus instance, you need to install the OpenStack CLI in a root shell by running `dnf install epel-release`, then `dnf install python-devel python-pip gcc`, and finally `pip install python-openstackclient`."
+    },
+    {
+      "question": "How do you create an image from a desired volume using the Legacy Arbutus web user interface during migration?",
+      "answer": "In the Legacy Arbutus web user interface, you need to shut down the instance and detach the volume (or delete the instance but keep the volume if it's for booting), then navigate to Volumes -> Volumes and select 'Upload to Image' from the drop-down menu, making sure to select RAW as the disk format."
+    },
+    {
+      "question": "What command can be used via the command line to create an image from a volume in Legacy Arbutus?",
+      "answer": "The command line can be used to create an image with: `openstack image create –volume <volume name/id> <newimagename> --private`."
+    },
+    {
+      "question": "How can you monitor the status of an image creation process from the command line, and what status indicates completion?",
+      "answer": "You can monitor the status using `openstack image show <newimagename>`; the command line will eventually show the status switch from “saving” to “active”, which may take an hour or longer depending on the size of your volume."
+    },
+    {
+      "question": "What is the command to download an image from a Legacy Arbutus session?",
+      "answer": "In the Legacy Arbutus session, download the image using `openstack image save --file <filename> <image-id>`."
+    },
+    {
+      "question": "How do you upload an image to the New Arbutus Cloud session on the migration host?",
+      "answer": "In the New Arbutus Cloud session on the migration host, upload the image using `openstack --os-cloud <cloud> image create --private --file <file> <newImageName>`."
+    },
+    {
+      "question": "Once an image is uploaded to New Arbutus Cloud, how can a volume be created from it using the web UI?",
+      "answer": "In the New Arbutus Cloud web UI, navigate to Compute -> Images, locate the uploaded image, and select the 'Create Volume' option from its drop-down menu to create a volume from the image."
+    },
+    {
+      "question": "What are the final steps on the Legacy Arbutus Cloud after migrating and validating instances and volumes using Glance images?",
+      "answer": "Once you have migrated and validated your instances and volumes, and once all associated DNS records are updated, you should delete your old instances and volumes on the Legacy Arbutus Cloud."
+    }
+  ],
+  "generated_at": "2026-04-11T17:44:43.549890+00:00"
+}

@@ -1,0 +1,88 @@
+{
+  "doc_key": "base/cryosparc",
+  "level": "chunk",
+  "chunk_index": 5,
+  "qa_pairs": [
+    {
+      "question": "What is CryoSPARC used for?",
+      "answer": "CryoSPARC is a state-of-the-art scientific software platform for cryo-electron microscopy (cryo-EM) used in research and drug discovery pipelines."
+    },
+    {
+      "question": "On which type of node must CryoSPARC be installed and run?",
+      "answer": "CryoSPARC must be installed and run on a GPU node."
+    },
+    {
+      "question": "Why is CryoSPARC not supported on login nodes?",
+      "answer": "Running CryoSPARC on a login node can overload shared system resources and may lead to port conflicts when multiple instances are started simultaneously."
+    },
+    {
+      "question": "Which systems currently support CryoSPARC installation and execution on GPU nodes?",
+      "answer": "Currently, only Fir and Nibi support CryoSPARC installation and execution on GPU nodes."
+    },
+    {
+      "question": "What is the reason Fir and Nibi support CryoSPARC installation on GPU nodes?",
+      "answer": "These systems provide outbound HTTPS access from GPU nodes to the CryoSPARC download site."
+    },
+    {
+      "question": "What method does this tutorial describe for installing CryoSPARC?",
+      "answer": "This tutorial describes how to build a standalone CryoSPARC instance in an Apptainer container image on a GPU node."
+    },
+    {
+      "question": "What are the benefits of running CryoSPARC through a standalone Apptainer container on a GPU node?",
+      "answer": "It allows users to run CryoSPARC through GPU batch jobs while reducing filesystem load."
+    },
+    {
+      "question": "What is the first step to acquire a CryoSPARC license?",
+      "answer": "Complete the form at https://cryosparc.com/download to request a license."
+    },
+    {
+      "question": "What is the format of a CryoSPARC license key?",
+      "answer": "The license key is a string of letters and numbers in the following format: 1a23b4d5-67ef-89g0-hi1j-kl2m3n4o5p6q."
+    },
+    {
+      "question": "How do you set up the installation directory for CryoSPARC?",
+      "answer": "You create the directory by exporting HOST_PATH, and then use `mkdir -p $HOST_PATH && cd $HOST_PATH` to navigate to and create it, followed by `mkdir -p cryosparc_master cryosparc_worker`."
+    },
+    {
+      "question": "What command is used to download the CryoSPARC master installation package?",
+      "answer": "The command is `curl -sL https://get.cryosparc.com/download/master-latest/$LICENSE_ID > cryosparc2_master.tar.gz`."
+    },
+    {
+      "question": "What command is used to launch an interactive GPU job for installation?",
+      "answer": "The command is `salloc --account=def-account --time=3:00:00 --gpus=h100:1 --cpus-per-task=4 --mem=16000M`."
+    },
+    {
+      "question": "Which software module needs to be loaded before building the Apptainer container images?",
+      "answer": "The `apptainer` module needs to be loaded."
+    },
+    {
+      "question": "What information needs to be updated in the `cryosparc.def` file?",
+      "answer": "The `cryosparc.def` file requires updating `HOST_PATH`, `LICENSE_ID`, `MY_EMAIL`, `CRYOSPARC_PASSWD`, `FIRSTNAME`, `LASTNAME`, and `USER` (your CCDB username)."
+    },
+    {
+      "question": "What is the purpose of the `cryosparc.def` file during installation?",
+      "answer": "The `cryosparc.def` file configures the CryoSPARC installation within the container, setting paths, license information, user credentials, and executing the installation script."
+    },
+    {
+      "question": "How do you build the CryoSPARC container image?",
+      "answer": "You build the CryoSPARC container image using the command `apptainer build -B $HOST_PATH -B $SLURM_TMPDIR:/tmp --nv cryosparc.sif cryosparc.def`."
+    },
+    {
+      "question": "What steps are required to launch CryoSPARC in a batch GPU job?",
+      "answer": "You prepare a running job script (`run_cryosparc.sh`), replace the `HOST_PATH`, and then submit the job using `sbatch run_cryosparc.sh`."
+    },
+    {
+      "question": "How do users access the CryoSPARC graphical interface after a job starts?",
+      "answer": "Users follow instructions in the job log file (e.g., `slurm-123456.out`) to open the CryoSPARC graphical interface in their local browser using an SSH tunnel command like `ssh -N -L 61000:$HOSTNAME:61000 ${USER}@fir.alliancecan.ca`."
+    },
+    {
+      "question": "What credentials are used to log in to CryoSPARC's graphical interface?",
+      "answer": "Users log in using the email and password that were set up in the `cryosparc.def` file."
+    },
+    {
+      "question": "What should a user do after their CryoSPARC analysis is complete?",
+      "answer": "After the CryoSPARC job is complete and output files are checked, the user should cancel the Slurm job with `scancel ${SLURM_JOB_ID}` to prevent it from running until its walltime limit."
+    }
+  ],
+  "generated_at": "2026-04-11T20:30:40.268896+00:00"
+}

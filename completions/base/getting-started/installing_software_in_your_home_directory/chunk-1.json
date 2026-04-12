@@ -1,0 +1,84 @@
+{
+  "doc_key": "base/installing_software_in_your_home_directory",
+  "level": "chunk",
+  "chunk_index": 1,
+  "qa_pairs": [
+    {
+      "question": "How can I request Alliance staff to install academic software for me?",
+      "answer": "You can email Alliance support staff at support@tech.alliancecan.ca, provide them with a URL for the software, and ask them to install it. They will make it available via a `module load` command if license terms and technical requirements are met."
+    },
+    {
+      "question": "Am I allowed to install software in my own home or project space?",
+      "answer": "Yes, you are permitted to install software in your own home space or project space."
+    },
+    {
+      "question": "What are some reasons to install software in my personal space?",
+      "answer": "You might choose to install software in your personal space if you plan to make modifications to the code or if you wish to evaluate it quickly."
+    },
+    {
+      "question": "What is a common instruction pattern for installing software from source?",
+      "answer": "A very common instruction pattern is `configure; make; make install`."
+    },
+    {
+      "question": "Are there variations to the `configure; make; make install` command sequence?",
+      "answer": "Yes, variations include using `cmake .` instead of `./configure`, and `sudo make install` instead of `make install`."
+    },
+    {
+      "question": "Why might `make install` fail?",
+      "answer": "`make install` might fail if the package expects to write to shared areas like `/usr/local` in the file system."
+    },
+    {
+      "question": "Why will `sudo make install` always fail?",
+      "answer": "`sudo make install` will always fail because `sudo` requests root or administrator privileges, which are not available to regular users for software installation."
+    },
+    {
+      "question": "What is the usual solution when `make install` fails due to permissions?",
+      "answer": "The usual solution is to supply a `--prefix` flag at the `configure` step to direct the installation to a directory of your choice, for example: `./configure --prefix=/my/project/directory/some-package && make && make install`."
+    },
+    {
+      "question": "Who should I contact if I encounter other errors during software installation?",
+      "answer": "If other errors arise, you should contact support at support@computecanada.ca."
+    },
+    {
+      "question": "What is the simplest way to use a library on an Alliance system?",
+      "answer": "The simplest way to use a library on an Alliance system is to first load the corresponding module using the command `module load library_name/x.y.z`."
+    },
+    {
+      "question": "How do I include a loaded library in my build process?",
+      "answer": "With the module loaded, you can modify the link phase of your build process to include the library, for example, by adding `-l` prefixed to the library name in your compiler command, like `gcc -o my_prog file1.o file2.o -lnetcdf`."
+    },
+    {
+      "question": "What file extensions do library files typically have?",
+      "answer": "Library files typically have the extension `.a` or `.so`."
+    },
+    {
+      "question": "When should I load a library module besides during the build process?",
+      "answer": "You will also need to load the library module when you wish to run the software, not only during its building phase."
+    },
+    {
+      "question": "What environment variables are set when a library module is loaded?",
+      "answer": "Loading a library module will set the environment variables `CPATH` and `LIBRARY_PATH`, which point to the location of the library itself and its header files."
+    },
+    {
+      "question": "How do compilers use the `CPATH` and `LIBRARY_PATH` environment variables?",
+      "answer": "Most compilers (such as Intel and GCC) support `CPATH` and `LIBRARY_PATH` and will automatically try the directories listed in these variables during compilation and linking phases."
+    },
+    {
+      "question": "Can I link against a library without explicitly specifying its location when `CPATH` and `LIBRARY_PATH` are set?",
+      "answer": "Yes, you can easily link against the library without explicitly specifying its location by passing the `-I` and `-L` options to the compiler, or by leaving these lines blank in your make- or config- file if they call for an explicit location."
+    },
+    {
+      "question": "What is the recommended way to specify a library's location explicitly for `cmake`?",
+      "answer": "The preferred and most robust way to specify a library's location explicitly, especially with `cmake`, is to use an EasyBuild environment variable like `EBROOT...` (e.g., `-DGSL_DIR=$EBROOTGSL`), instead of manually typing a path."
+    },
+    {
+      "question": "What is the benefit of using `EBROOT...` environment variables for library locations?",
+      "answer": "Using `EBROOT...` environment variables allows you to easily switch between toolchains without modifying compilation instructions and reduces the risk of linking a mismatched library."
+    },
+    {
+      "question": "What is the construction pattern for `EBROOT...` environment variables?",
+      "answer": "The `EBROOT...` environment variables adhere to the pattern `EBROOT` followed by the name of the package, for example, `EBROOTGCC` for the GCC package."
+    }
+  ],
+  "generated_at": "2026-04-12T00:06:52.417942+00:00"
+}

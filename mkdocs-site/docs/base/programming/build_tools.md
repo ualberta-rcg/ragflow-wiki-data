@@ -5,21 +5,30 @@ lang: "base"
 
 source_wiki_title: "Build tools"
 source_hash: "75a44e1aa64373062e7f7dfaf34b0364"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T04:59:44.485936+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T05:50:44.609490+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "CMake"
+  - "build process"
+  - "Autotools"
+  - "Make"
+  - "compilation"
+
+questions:
+  - "What is the primary purpose of build management tools?"
+  - "What specific tasks and configuration issues are handled during the automated build process?"
+  - "Which common build automation tools are provided on Linux and Compute Canada systems?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 

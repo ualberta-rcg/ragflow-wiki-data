@@ -5,21 +5,48 @@ lang: "en"
 
 source_wiki_title: "Cloud/en"
 source_hash: "719a2aec1ec00339377b842dce7d9fd2"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T05:27:25.603338+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T06:17:31.294400+00:00"
 
 tags:
   - cloud
 
 keywords:
-  []
+  - "OpenStack"
+  - "virtual machine"
+  - "Cloud resources"
+  - "High Performance Computing"
+  - "Security"
+  - "Cloud computing"
+  - "Cloud project"
+  - "cloud infrastructure"
+  - "Cloud systems"
+  - "Virtual machines"
+  - "troubleshooting"
+  - "user responsibilities"
+  - "Infrastructure as a Service"
+  - "storage options"
+
+questions:
+  - "What are the main advantages and disadvantages of using a virtual machine in the cloud compared to an HPC environment?"
+  - "What steps and justifications are required to request access to a new or existing cloud project?"
+  - "What are the user's responsibilities and available resources for creating, securing, and troubleshooting a virtual machine?"
+  - "What are the fundamental steps and best practices for creating, securing, and backing up virtual machines?"
+  - "What advanced tools and specific use cases, such as GPU allocation or automation, are available for experienced users?"
+  - "Which specific cloud systems are available for hosting projects, and how can users access system status updates or technical support?"
+  - "How can a user manually create their first virtual machine on the cloud infrastructure?"
+  - "What resources are available for understanding cloud terminology, selecting storage options, and troubleshooting common issues?"
+  - "What are the specific responsibilities a user has when managing a cloud project?"
+  - "What are the fundamental steps and best practices for creating, securing, and backing up virtual machines?"
+  - "What advanced tools and specific use cases, such as GPU allocation or automation, are available for experienced users?"
+  - "Which specific cloud systems are available for hosting projects, and how can users access system status updates or technical support?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -33,67 +60,63 @@ If you can fit your work easily into the [HPC](https://en.wikipedia.org/wiki/Sup
 If your need isn't served by Apptainer or HPC batch, then the cloud is your solution.
 
 ## Getting a cloud project
+* Review and understand the [important role](cloud-shared-security-responsibility-model.md) you are about to take on to [safeguard your research](https://science.gc.ca/site/science/en/safeguarding-your-research) and the shared cloud infrastructure.
+* If you do not have an account with us, create one with [these instructions](https://docs.alliancecan.ca/wiki/Apply_for_a_CCDB_account).
+* A [project](managing-your-cloud-resources-with-openstack.md#projects) is an allocation of resources for creating VMs within a cloud.
+* If you are a primary investigator (PI) with an active cloud resource allocation (see [RAC](https://alliancecan.ca/en/services/advanced-research-computing/research-portal/accessing-resources/resource-allocation-competitions)) you should already have a project. See the sections below on using the cloud to get started. If not or if you are not sure please contact [technical support](technical-support.md).
+* Otherwise go to the [Alliance cloud project and RAS request form](https://docs.google.com/forms/d/e/1FAIpQLSeU_BoRk5cEz3AvVLf3e9yZJq-OvcFCQ-mg7p4AWXmUkd5rTw/viewform) to
+  * request access to an existing project (see the section below for information you will need to supply)
+  * and if you are a PI you may also
+    * request a new project with our Rapid Access Service ([RAS](cloud-ras-allocations.md)),
+    * or request an increase in quota of an existing project.
 
-!!! warning
-    Review and understand the [important role](cloud-shared-security-responsibility-model.md) you are about to take on to [safeguard your research](https://science.gc.ca/site/science/en/safeguarding-your-research) and the shared cloud infrastructure.
-
-*   If you do not have an account with us, create one with [these instructions](https://docs.alliancecan.ca/wiki/Apply_for_a_CCDB_account).
-*   A [project](managing-your-cloud-resources-with-openstack.md#projects) is an allocation of resources for creating VMs within a cloud.
-*   If you are a primary investigator (PI) with an active cloud resource allocation (see [RAC](https://alliancecan.ca/en/services/advanced-research-computing/research-portal/accessing-resources/resource-allocation-competitions)) you should already have a project. See the sections below on using the cloud to get started. If not or if you are not sure please contact [technical support](technical-support.md).
-*   Otherwise go to the [Alliance cloud project and RAS request form](https://docs.google.com/forms/d/e/1FAIpQLSeU_BoRk5cEz3AvVLf3e9yZJq-OvcFCQ-mg7p4AWXmUkd5rTw/viewform) to
-    *   request access to an existing project (see the section below for information you will need to supply)
-    *   and if you are a PI you may also
-        *   request a new project with our Rapid Access Service ([RAS](cloud-ras-allocations.md)),
-        *   or request an increase in quota of an existing project.
-
-*   Requests are typically processed within two business days.
+* Requests are typically processed within two business days.
 
 ### Preparing your request
-
-*   When requesting access to an existing project, you will need to know the project name and which cloud it is on. See the section on [projects](managing-your-cloud-resources-with-openstack.md#projects) for guidance on how to find the project name and the section about [cloud systems](cloud.md#cloud-systems) for a list of our clouds. Requests for access must be confirmed by the PI owning the project.
-*   When requesting either a new project or an increase in quota for an existing project some justification, in the form of a few sentences, is required:
-    *   why you need cloud resources,
-    *   why an HPC cluster is not suitable,
-    *   your plans for efficient usage of your resources,
-    *   your plans for maintenance and security ([refer to this page](security-considerations-when-running-a-vm.md)).
-*   A PI may own up to 3 projects, but the sum of all project quotas must be within the [RAS](cloud-ras-allocations.md) allocation limits. A PI may have both compute and persistent cloud RAS allocations.
+* When requesting access to an existing project, you will need to know the project name and which cloud it is on. See the section on [projects](managing-your-cloud-resources-with-openstack.md#projects) for guidance on how to find the project name and the section about [cloud systems](cloud.md#cloud-systems) for a list of our clouds. Requests for access must be confirmed by the PI owning the project.
+* When requesting either a new project or an increase in quota for an existing project, some justification, in the form of a few sentences, is required:
+  * why you need cloud resources,
+  * why an HPC cluster is not suitable,
+  * your plans for efficient usage of your resources,
+  * your plans for maintenance and security ([refer to this page](security-considerations-when-running-a-vm.md)).
+* A PI may own up to 3 projects, but the sum of all project quotas must be within the [RAS](cloud-ras-allocations.md) allocation limits. A PI may have both compute and persistent cloud RAS allocations.
 
 ## Creating a virtual machine on the cloud infrastructure
-*   The [cloud quick start guide](cloud-quick-start.md) describes how to manually create your first VM.
-*   Review the [glossary](cloud-technical-glossary.md) to learn definitions of common topics.
-*   Consider [storage options](cloud-storage-options.md) best suited to your use case.
-*   See the [troubleshooting guide](cloud-troubleshooting-guide.md) for steps to deal with common issues in cloud computing.
+* The [cloud quick start guide](cloud-quick-start.md) describes how to manually create your first VM.
+* Review the [glossary](cloud-technical-glossary.md) to learn definitions of common topics.
+* Consider [storage options](cloud-storage-options.md) best suited to your use case.
+* See the [troubleshooting guide](cloud-troubleshooting-guide.md) for steps to deal with common issues in cloud computing.
 
 ## User responsibilities
 For each cloud project, you are responsible for
-*   [Creating and managing your virtual machines](managing-your-cloud-resources-with-openstack.md)
-*   [Securing and patching software on your VM](cloud-shared-security-responsibility-model.md)
-*   [Defining security groups to allow access to your network](managing-your-cloud-resources-with-openstack.md#security-groups)
-*   [Creating user accounts](managing-your-linux-vm.md)
-*   [Following best practices](vm-best-practices.md)
-*   [Considering security issues](security-considerations-when-running-a-vm.md)
-*   [Backing up your VMs](backing-up-your-vm.md)
+* [Creating and managing your virtual machines](managing-your-cloud-resources-with-openstack.md)
+* [Securing and patching software on your VM](cloud-shared-security-responsibility-model.md)
+* [Defining security groups to allow access to your network](managing-your-cloud-resources-with-openstack.md#security-groups)
+* [Creating user accounts](managing-your-linux-vm.md)
+* [Following best practices](vm-best-practices.md)
+* [Considering security issues](security-considerations-when-running-a-vm.md)
+* [Backing up your VMs](backing-up-your-vm.md)
 
 ## Advanced topics
 More experienced users can
-*   [Automatically create VMs](automating-vm-creation.md),
-*   Describe your VM infrastructure as code using [Terraform](terraform.md).
+* [Automatically create VMs](automating-vm-creation.md),
+* Describe your VM infrastructure as code using [Terraform](terraform.md).
 
 ## Use cases
 More detailed instructions are available for some of the common cloud use cases, including
-*   [Configure a data or web server](configuring-a-data-or-web-server.md)
-*   [Using vGPUs (standard shared GPU allocation) in the cloud](using-cloud-vgpus.md)
-*   [Using PCI-e passthrough GPUs in the cloud](using-cloud-gpu.md)
-*   [Setting up GUI Desktop on a VM](setting-up-gui-desktop-on-a-vm.md)
-*   [Using IPv6 in Arbutus cloud](using-ipv6-in-cloud.md)
+* [Configure a data or web server](configuring-a-data-or-web-server.md)
+* [Using vGPUs (standard shared GPU allocation) in the cloud](using-cloud-vgpus.md)
+* [Using PCI-e passthrough GPUs in the cloud](using-cloud-gpu.md)
+* [Setting up GUI Desktop on a VM](setting-up-gui-desktop-on-a-vm.md)
+* [Using IPv6 in Arbutus cloud](using-ipv6-in-cloud.md)
 
 ## Cloud systems
 Your project will be on one of the following clouds:
-*   [Béluga](https://beluga.cloud.computecanada.ca)
-*   [Arbutus](https://arbutus.alliancecan.ca)
-*   [Legacy Arbutus](https://arbutus.cloud.computecanada.ca)
-*   [Nibi](https://nibi.cloud.alliancecan.ca)
-*   [Cedar](http://cedar.cloud.computecanada.ca)
+* [Béluga](https://beluga.cloud.computecanada.ca)
+* [Arbutus](https://arbutus.alliancecan.ca)
+* [Legacy Arbutus](https://arbutus.cloud.computecanada.ca)
+* [Nibi](https://nibi.cloud.alliancecan.ca)
+* [Cedar](http://cedar.cloud.computecanada.ca)
 The details of the underlying hardware and OpenStack versions are described on the [cloud resources](cloud-resources.md) page. The [System status](system-status.md) wiki page contains information about the current cloud status and future planned maintenance and upgrade activities.
 
 ## Support

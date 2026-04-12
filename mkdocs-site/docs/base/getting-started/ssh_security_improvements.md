@@ -5,21 +5,60 @@ lang: "base"
 
 source_wiki_title: "SSH security improvements"
 source_hash: "b20344e0c78839942cade747c17e41c8"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T11:06:54.151658+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T11:17:34.653937+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "PuTTY"
+  - "ssh-keyscan"
+  - "SSH host keys"
+  - "fingerprint"
+  - "Remote host identification"
+  - "Windows clients"
+  - "SSH host key"
+  - "WinSCP"
+  - "operating system"
+  - "SSH client software"
+  - "SSH security improvements"
+  - "SSH client"
+  - "Host keys"
+  - "ssh-keygen"
+  - "Technical support"
+  - "Encryption algorithms"
+  - "OS X clients"
+  - "Linux clients"
+  - "OpenSSH"
+  - "SSH host key fingerprints"
+
+questions:
+  - "Why are the SSH security changes being implemented on the computing clusters?"
+  - "What specific modifications were made to the SSH configurations on the clusters during September and October 2019?"
+  - "How should users respond when they encounter the \"REMOTE HOST IDENTIFICATION HAS CHANGED\" warning after the updates?"
+  - "How can users remove old SSH host keys and safely verify the new fingerprints when reconnecting to the clusters?"
+  - "Why might a user be prompted for a password despite previously using SSH keys, and how can this be resolved?"
+  - "What is the cause of \"no matching cipher\" or \"no matching key exchange\" errors, and how can users fix this connection issue?"
+  - "How do SSH clients like PuTTY or WinSCP display the new host key warning to Windows users?"
+  - "Under what specific condition is it safe to click \"Yes\" to accept the new host key?"
+  - "What actions should a user take if the displayed fingerprint does not match the approved list?"
+  - "What is the primary recommendation given regarding your operating system and SSH client?"
+  - "Which specific versions of OpenSSH and OpenSSL are listed as examples for Linux clients like CentOS and Ubuntu?"
+  - "What command can be used to determine the exact version of the SSH client on an OS X system?"
+  - "What SSH clients are listed for use on Windows and iOS platforms?"
+  - "What commands can be executed to remotely retrieve the SSH host key fingerprints?"
+  - "What steps should be taken if the retrieved SSH fingerprint does not match the provided list of cluster fingerprints?"
+  - "What SSH clients are listed for use on Windows and iOS platforms?"
+  - "What commands can be executed to remotely retrieve the SSH host key fingerprints?"
+  - "What steps should be taken if the retrieved SSH fingerprint does not match the provided list of cluster fingerprints?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -31,7 +70,7 @@ Email explaining these changes (with "IMPORTANT" in the subject line) was sent t
 
 ## What is changing?
 
-The following SSH security improvements have been implemented on September 24, 2019, on Graham, and one week later on Béluga and Cedar:
+The following SSH security improvements have been implemented on September 24, 2019 on Graham, and one week later on Béluga and Cedar:
 
 1.  Disable certain encryption algorithms.
 2.  Disable certain public key types.
@@ -47,7 +86,7 @@ There were earlier, less comprehensive updates made to both Niagara (on May 31, 
 
 The first time you login to one of our clusters after the changes, you will probably see a warning message like the following:
 
-```text
+```console
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -70,7 +109,10 @@ You may also get a warning regarding "DNS spoofing", which is related to the sam
 
 ### MobaXterm, PuTTY, or WinSCP
 
-If you are using [MobaXterm](connecting-with-mobaxterm.md), [PuTTY](connecting-with-putty.md), or [WinSCP](https://winscp.net/eng/download.php) as your ssh (or scp) client under Windows, the warning will appear in a pop-up window and will allow you to accept the new host key by clicking "Yes". **Only click yes if the fingerprint matches one listed in [SSH host key fingerprints](#ssh-host-key-fingerprints)** at the bottom of this page. If the fingerprint does not match any on the list, do not accept the connection, and contact [Technical support](technical-support.md) with the details.
+If you are using [MobaXterm](connecting-with-mobaxterm.md), [PuTTY](connecting-with-putty.md), or [WinSCP](https://winscp.net/eng/download.php) as your ssh (or scp) client under Windows, the warning will appear in a pop-up window and will allow you to accept the new host key by clicking "Yes".
+
+!!! warning
+    **Only click yes if the fingerprint matches one listed in [SSH host key fingerprints](#ssh-host-key-fingerprints)** at the bottom of this page. If the fingerprint does not match any on the list, do not accept the connection, and contact [Technical support](technical-support.md) with the details.
 
 ### macOS, Linux, GitBash or Cygwin
 
@@ -95,7 +137,7 @@ If you are using the command line `ssh` command on macOS, Linux, GitBash or Cygw
 
 Afterwards, the next time you ssh to the cluster you'll be asked to confirm the new host keys, e.g.:
 
-```text
+```console
  $ ssh graham.computecanada.ca
  The authenticity of host 'graham.computecanada.ca (142.150.188.70)' can't be established.
  ED25519 key fingerprint is SHA256:mf1jJ3ndpXhpo0k38xVxjH8Kjtq3o1+ZtTVbeM0xeCk.
@@ -103,7 +145,8 @@ Afterwards, the next time you ssh to the cluster you'll be asked to confirm the 
  Are you sure you want to continue connecting (yes/no)?
 ```
 
-**Only type yes if the fingerprint matches one listed in the [SSH host key fingerprints](#ssh-host-key-fingerprints)** at the bottom of this page. If the fingerprint does not match any on the list below, do not accept the connection, and contact [Technical support](technical-support.md) with the details.
+!!! warning
+    **Only type yes if the fingerprint matches one listed in the [SSH host key fingerprints](#ssh-host-key-fingerprints)** at the bottom of this page. If the fingerprint does not match any on the list below, do not accept the connection, and contact [Technical support](technical-support.md) with the details.
 
 ## Troubleshooting
 
@@ -119,7 +162,7 @@ You need to generate a new stronger key. The process for doing this depends on t
 
 If you see any of the following error messages:
 
-```text
+```console
  Unable to negotiate with 142.150.188.70 port 22: no matching cipher found.
  Unable to negotiate with 142.150.188.70 port 22: no matching key exchange method found.
  Unable to negotiate with 142.150.188.70 port 22: no matching mac found.
@@ -128,23 +171,18 @@ If you see any of the following error messages:
 you need to upgrade your SSH client to one of the compatible clients shown below.
 
 ### Which clients are compatible with the new configuration?
-
 **The list below is not exhaustive**, but we have tested the configuration with the following clients. Earlier versions of these clients may or may not work. We recommend that you update your operating system and SSH client to the latest version compatible with your hardware.
 
 #### Linux clients
-
 *   OpenSSH_7.4p1, OpenSSL 1.0.2k-fips (CentOS 7.5, 7.6)
 *   OpenSSH_6.6.1p1 Ubuntu-2ubuntu2.13, OpenSSL 1.0.1f (Ubuntu 14)
 
 #### OS X clients
-
 You can determine the exact version of your SSH client on OS X using the command `ssh -V`.
-
 *   OpenSSH 7.4p1, OpenSSL 1.0.2k (Homebrew)
 *   OpenSSH 7.9p1, LibreSSL 2.7.3 (OS X 10.14.5)
 
 #### Windows clients
-
 *   [MobaXterm Home Edition](connecting-with-mobaxterm.md) v11.1
 *   [PuTTY](connecting-with-putty.md) 0.72
 *   Windows Services for Linux (WSL) v1
@@ -152,11 +190,9 @@ You can determine the exact version of your SSH client on OS X using the command
     *   openSUSE Leap 15.1 (OpenSSH_7.9p1, OpenSSL 1.1.0i-fips)
 
 #### iOS clients
-
 *   Termius, 4.3.12
 
 ## SSH host key fingerprints
-
 To retrieve the host fingerprints remotely, one can use the following commands:
 
 ```bash
@@ -165,9 +201,3 @@ ssh-keyscan <hostname> | ssh-keygen -E sha256 -l -f -
 ```
 
 Listed below are the SSH fingerprints for our clusters. If the fingerprint you get does not match any on the list below, do not accept the connection, and contact [Technical support](technical-support.md) with the details.
-
-!!! warning "Missing Content: SSH Host Keys"
-
-    The original MediaWiki document includes a transclusion `{{:SSH_host_keys}}` here, which means the content of the `SSH_host_keys` page would be inserted. This content is not provided in the source for conversion.
-
-    Please manually add the SSH host key fingerprints for the clusters here. This typically includes a list or table of hostnames and their corresponding ED25519, RSA, and ECDSA key fingerprints (MD5 and SHA256).

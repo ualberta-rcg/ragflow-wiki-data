@@ -5,43 +5,58 @@ lang: "base"
 
 source_wiki_title: "Diskusage Explorer"
 source_hash: "699d3b5d18965f0bb761705e0835f0a5"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T06:09:43.302779+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T06:53:23.092424+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "ncurse user interface"
+  - "SQLite"
+  - "graphical user interface"
+  - "diskusage_explorer"
+  - "disk consumption"
+
+questions:
+  - "What is the primary purpose of the diskusage_explorer tool and on which specific system is it currently available?"
+  - "How do you navigate and toggle between viewing consumed disk space and file counts within the ncurse text-based interface?"
+  - "What are the necessary steps to download the database and run the graphical user interface smoothly on your local machine?"
+  - "What is the primary purpose of the diskusage_explorer tool and on which specific system is it currently available?"
+  - "How do you navigate and toggle between viewing consumed disk space and file counts within the ncurse text-based interface?"
+  - "What are the necessary steps to download the database and run the graphical user interface smoothly on your local machine?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
 ## Content of folders
 
-!!! warning
+!!! warning "Tool Availability"
     This tool is currently only available on [Narval](narval.md).
 
-You can get a breakdown by folder of how the disk space is being consumed in your /home, /scratch, and /project spaces. That information is currently updated once a day and is stored in an [SQLite](sqlite.md) format for fast access.
+You can get a breakdown by folder of how the disk space is being consumed in your /home, /scratch and /project spaces. That information is currently updated once a day and is stored in an [SQLite](sqlite.md) format for fast access.
 
-Here is how to explore your disk consumption, using the example of /project space `/def-professor` as the particular directory to investigate.
+Here is how to explore your disk consumption, using the example of /project space `def-professor` as the particular directory to investigate.
 
-### Ncurses user interface
-Choose a /project space you have access to and want to analyse; for the purpose of this discussion we will use `/def-professor`.
+### ncurse user interface
+Choose a /project space you have access to and want to analyze; for the purpose of this discussion we will use `def-professor`.
+
 ```bash
 diskusage_explorer /project/def-professor
 ```
+
 This command loads a browser that shows the resources consumed by all files under any directory tree.
 
-Type `c` to toggle between consumed disk space and the number of files, `q` or `<esc>` to quit, and `h` for help.
+Type `c` to toggle between consumed disk space and the number of files, `q` or `<esc>` to quit and `h` for help.
 
-If you are only interested in a subdirectory of this /project space and do not want to navigate the whole tree in the Ncurses user interface, use
+If you are only interested in a subdirectory of this /project space and do not want to navigate the whole tree in the ncurse user interface, use:
+
 ```bash
 diskusage_explorer /project/def-professor/subdirectory/
 ```
@@ -50,11 +65,14 @@ A complete manual page is available with the `man duc` command.
 
 ### Graphical user interface
 
-Note that when the login node is especially busy or if you have an especially large number of files in your /project space, the graphical interface mode can be slow and choppy. For a better experience, you can read the section below to run `diskusage_explorer` on your own machine.
+!!! note "Performance Considerations"
+    When the login node is especially busy or if you have an especially large number of files in your /project space, the graphical interface mode can be slow and choppy. For a better experience, you can read the section below to run `diskusage_explorer` on your own machine.
 
-Note that we recommend the use of the standard text-based Ncurses mode on our cluster login nodes but `diskusage_explorer` does also include a nice graphical user interface (GUI).
+!!! tip "Recommended Use"
+    We recommend the use of the standard text-based ncurse mode on our cluster login nodes, but `diskusage_explorer` does also include a nice graphical user interface (GUI).
 
 First, make sure that you are connected to the cluster in such a way that [SSH](ssh.md) is capable of correctly displaying GUI applications. You can then use a graphical interface by means of the command:
+
 ```bash
 duc gui -d /project/.duc_databases/def-professor.sqlite  /project/def-professor
 ```

@@ -1,0 +1,56 @@
+{
+  "doc_key": "fr/ls-dyna",
+  "level": "chunk",
+  "chunk_index": 6,
+  "qa_pairs": [
+    {
+      "question": "Comment est-ce qu'on soumet une tâche LS-DYNA MPP sur une grappe en spécifiant un nombre entier de nœuds de calcul?",
+      "answer": "Pour soumettre une tâche LS-DYNA MPP en spécifiant le nombre entier de nœuds, il faut utiliser un script comme `script-mpp-bynode.sh` avec la commande `sbatch`."
+    },
+    {
+      "question": "Quels sont les paramètres SLURM principaux pour un script de soumission de tâche MPP où l'on spécifie le nombre de nœuds?",
+      "answer": "Les paramètres SLURM principaux pour un script MPP par nombre de nœuds sont `--account`, `--time`, `--ntasks-per-node`, `--nodes` et `--mem=0`."
+    },
+    {
+      "question": "Pourquoi le paramètre `--mem=0` est-il spécifié dans le script `script-mpp-bynode.sh`?",
+      "answer": "Le paramètre `--mem=0` est configuré pour que le nœud de calcul utilise toute sa mémoire disponible, et il ne faut pas le modifier."
+    },
+    {
+      "question": "Combien de cœurs par nœud sont typiquement spécifiés pour les grappes comme Narval, Nibi, Fir et Trillium dans un script MPP par nœud?",
+      "answer": "Dans le script `script-mpp-bynode.sh`, on spécifie généralement 192 cœurs par nœud (`--ntasks-per-node=192`) pour les grappes comme Narval, Nibi, Fir et Trillium."
+    },
+    {
+      "question": "Quels modules faut-il charger pour exécuter une tâche LS-DYNA MPP avec les versions 2023 de l'environnement standard?",
+      "answer": "Il faut charger les modules `StdEnv/2023`, `intel/2023.2.1` et `ls-dyna-mpi/12.2.1`."
+    },
+    {
+      "question": "Quelle commande est utilisée pour lancer le solveur LS-DYNA MPP en double précision?",
+      "answer": "La commande `ls-dyna_d` est utilisée pour lancer le solveur LS-DYNA MPP en double précision."
+    },
+    {
+      "question": "Pourquoi est-ce qu'on choisirait de soumettre une tâche LS-DYNA MPP en spécifiant le nombre de cœurs plutôt que le nombre de nœuds?",
+      "answer": "On choisirait de soumettre une tâche MPP en spécifiant le nombre de cœurs pour permettre à l'ordonnanceur de déterminer le nombre optimal de nœuds de calcul, ce qui aide à minimiser le temps d'attente dans la queue."
+    },
+    {
+      "question": "Quel est le paramètre SLURM pour spécifier le nombre total de cœurs pour une tâche MPP?",
+      "answer": "Le paramètre SLURM pour spécifier le nombre total de cœurs est `--ntasks`, par exemple `--ntasks=64`."
+    },
+    {
+      "question": "Quelle est l'importance du paramètre `mem-per-cpu` dans un script MPP où le nombre de cœurs est spécifié?",
+      "answer": "La valeur de `mem-per-cpu` doit être assez élevée pour que le processeur principal puisse bien décomposer et gérer les calculs, étant donné que la limite de mémoire s'applique aux cœurs."
+    },
+    {
+      "question": "Pourquoi est-ce essentiel de faire des tests de scalabilité avant de lancer de longues tâches LS-DYNA?",
+      "answer": "Il est essentiel de faire des tests de scalabilité pour LS-DYNA afin de déterminer le nombre maximal de cœurs utilisables avant que la performance ne commence à se dégrader, surtout avant de soumettre des longues tâches."
+    },
+    {
+      "question": "Comment peut-on obtenir les statistiques de performance d'une tâche de test LS-DYNA?",
+      "answer": "Pour obtenir les statistiques de performance d'une tâche de test LS-DYNA, comme le temps d'exécution total ou l'efficacité CPU et mémoire, on peut utiliser la commande `seff jobnumber` ou un portail comme celui de Nibi (`https://portal.nibi.sharcnet.ca`)."
+    },
+    {
+      "question": "Quelle est la meilleure façon d'effectuer des tests de scalabilité fiables pour LS-DYNA?",
+      "answer": "La meilleure façon d'effectuer des tests de scalabilité fiables est de les réaliser en utilisant la simulation réelle et la grappe où les exécutions de production complètes sont prévues."
+    }
+  ],
+  "generated_at": "2026-04-12T00:55:56.173091+00:00"
+}

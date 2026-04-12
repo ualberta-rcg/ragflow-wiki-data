@@ -1,0 +1,40 @@
+{
+  "doc_key": "fr/meta-farm__advanced_features_and_troubleshooting",
+  "level": "chunk",
+  "chunk_index": 6,
+  "qa_pairs": [
+    {
+      "question": "Comment gérer les applications qui s'attendent à lire un fichier d'entrée avec un nom prescrit et inchangeable, comme `INPUT`?",
+      "answer": "Pour gérer cette situation, chaque cas doit s'exécuter dans son propre sous-répertoire. Vous devez ensuite copier le fichier d'entrée préparé pour chaque cas dans ce sous-répertoire avec le nom prescrit. Par exemple, vous pouvez ajouter la ligne `cp /path/to/data.$ID INPUT` à votre script `single_case.sh`."
+    },
+    {
+      "question": "Dans le cas le plus général, comment peut-on accéder individuellement à toutes les colonnes d'une ligne de la table des cas dans le script `single_case.sh`?",
+      "answer": "Vous pouvez modifier le script `single_case.sh`. La variable `$ID` contient l'identifiant du cas, et `$COMM` est la ligne correspondante dans la table originale sans le champ ID. En convertissant `$COMM` en un tableau (`COMM=( $COMM )`), vous pouvez ensuite accéder aux colonnes individuellement en utilisant `${COMM[i]}`, où `i` est l'indice de la colonne (à partir de 0)."
+    },
+    {
+      "question": "Comment peut-on accéder à une plage de colonnes spécifiques d'une ligne de la table des cas dans `single_case.sh`?",
+      "answer": "Pour accéder à une plage de colonnes, vous pouvez utiliser la syntaxe `${COMM[@]:i:n}`, où `i` est la première colonne à afficher et `n` est le nombre de colonnes à afficher. Pour afficher toutes les colonnes à partir de la `i`-ème colonne, utilisez `${COMM[@]:i}`."
+    },
+    {
+      "question": "Si mon code a besoin d'un fichier d'entrée standard ET d'un nombre variable d'arguments en ligne de commande, et que ma table des cas ressemble à `/path/to/IC.1 0.1`, comment dois-je implémenter l'appel au code dans `single_case.sh`?",
+      "answer": "Dans ce scénario, vous pouvez implémenter l'appel à votre code dans `single_case.sh` comme suit : `/path/to/code ${COMM[@]:1} < ${COMM[0]}`. Ici, `${COMM[0]}` fournit le fichier d'entrée standard, et `${COMM[@]:1}` passe tous les arguments de ligne de commande à partir de la deuxième colonne."
+    },
+    {
+      "question": "Quel problème peut survenir lorsque les méta-tâches atteignent leur limite de temps d'exécution, et comment META-Farm le résout-il?",
+      "answer": "Les méta-tâches qui atteignent leur limite de temps d'exécution peuvent s'arrêter en plein milieu du traitement d'un cas, ce qui entraîne des calculs interrompus et un gaspillage de cycles CPU. META-Farm intègre une intelligence dans le script `task.run` qui mesure le temps d'exécution de chaque cas et estime s'il reste suffisamment de temps pour compléter le prochain cas. Si ce n'est pas le cas, la méta-tâche se termine plus tôt pour minimiser le gaspillage."
+    },
+    {
+      "question": "Comment le script `task.run` détermine-t-il si une méta-tâche a le temps de terminer le cas qu'elle est sur le point de commencer?",
+      "answer": "Après que les huit premiers cas ont été traités, une méta-tâche calcule une estimation conservative du temps d'exécution des cas individuels (`dt_cutoff`) en utilisant le quantile de 12,5 % le plus élevé des temps d'exécution. Par la suite, chaque méta-tâche estime s'il reste suffisamment de temps (`t_finish - t_now > dt_cutoff`) avant sa limite d'exécution pour terminer le cas suivant."
+    },
+    {
+      "question": "À quelle fréquence l'estimation `dt_cutoff` est-elle mise à jour dans le script `task.run`?",
+      "answer": "L'estimation `dt_cutoff` est recalculée à chaque puissance de deux subséquente de cas traités (c'est-à-dire après 8, 16, 32 cas, et ainsi de suite). Cela permet de rendre l'estimation de plus en plus précise au fur et à mesure que les calculs progressent."
+    },
+    {
+      "question": "Quel est un avantage secondaire du mécanisme de réduction du gaspillage implémenté dans `task.run`?",
+      "answer": "Un avantage secondaire utile est que chaque fois qu'une ferme est exécutée, les temps d'exécution individuels pour tous les cas sont enregistrés dans le fichier `/home/$USER/tmp/$NODE.$PID/times`. Ce fichier peut être analysé pour affiner la configuration de la ferme, pour profiler votre code, ou à d'autres fins d'optimisation."
+    }
+  ],
+  "generated_at": "2026-04-12T01:33:48.132728+00:00"
+}

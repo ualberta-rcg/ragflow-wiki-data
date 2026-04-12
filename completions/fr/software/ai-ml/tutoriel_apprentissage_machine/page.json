@@ -1,0 +1,63 @@
+{
+  "doc_key": "fr/tutoriel_apprentissage_machine",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "Quel est l'objectif principal de ce guide?",
+      "answer": "Ce guide sert à vous montrer comment porter une tâche d'apprentissage automatique sur nos grappes de calcul."
+    },
+    {
+      "question": "Que faut-il faire avec l'affichage graphique de mon programme quand je l'exécute sur une grappe?",
+      "answer": "Vous devez modifier votre programme pour qu'il n'utilise pas d'affichage graphique. Les résultats graphiques doivent être écrits sur le disque et visualisés sur votre ordinateur personnel une fois la tâche terminée."
+    },
+    {
+      "question": "Pourquoi est-il important d'archiver un ensemble de données en un seul fichier (comme un fichier `tar`) pour l'entraînement sur la grappe?",
+      "answer": "Nos stockages partagés ne sont pas optimisés pour gérer un grand nombre de petits fichiers. Ne pas archiver risque de causer des lectures à haute fréquence et de nuire à la performance globale du système."
+    },
+    {
+      "question": "Comment puis-je archiver un dossier de données nommé `mydataset` sans le compresser?",
+      "answer": "Vous pouvez utiliser la commande `$ tar cf mydataset.tar mydataset/*`."
+    },
+    {
+      "question": "Où devrais-je créer mon environnement virtuel pour mon projet d'apprentissage automatique?",
+      "answer": "Vous devriez créer votre environnement virtuel dans votre espace `home`."
+    },
+    {
+      "question": "À quoi servent les tâches interactives (`salloc`) avant de soumettre ma tâche finale?",
+      "answer": "Les tâches interactives sont recommandées pour diagnostiquer rapidement les problèmes et préparer votre tâche avant de la soumettre avec un script `sbatch`."
+    },
+    {
+      "question": "Si des paquets sont manquants durant une tâche interactive, comment puis-je les installer, étant donné que les nœuds de calcul n'ont pas accès à Internet?",
+      "answer": "Vous devrez faire l'installation des paquets manquants à partir d'un nœud de connexion, pas sur le nœud de calcul."
+    },
+    {
+      "question": "Quelle est la vérification importante à faire concernant le stockage des fichiers pendant l'exécution d'une tâche sur un nœud de calcul?",
+      "answer": "Il est crucial de vérifier que votre tâche lit et écrit le plus possible dans le stockage local au nœud de calcul (`$SLURM_TMPDIR`), et le moins possible sur les systèmes de fichiers partagés."
+    },
+    {
+      "question": "Pourquoi est-il nécessaire de soumettre mes tâches à l'aide de scripts `sbatch`?",
+      "answer": "Vous devez soumettre vos tâches avec des scripts `sbatch` pour qu'elles soient entièrement automatisées et puissent être exécutées à grande échelle."
+    },
+    {
+      "question": "Quels sont les éléments essentiels à inclure dans un script `sbatch`?",
+      "answer": "Les éléments importants sont le compte de facturation, les ressources demandées (CPU, GPU, mémoire, durée) et les commandes `bash` pour la préparation de l'environnement, le transfert des données et le lancement de l'exécutable."
+    },
+    {
+      "question": "Combien de GPU devrais-je demander si je ne suis pas certain que mon programme en utilise plusieurs?",
+      "answer": "Vous devriez demander un (1) seul GPU, car TensorFlow et PyTorch utilisent un seul GPU par défaut."
+    },
+    {
+      "question": "Pourquoi est-il recommandé de morceler les tâches d'apprentissage automatique en blocs de 24 heures?",
+      "answer": "Morceler vos tâches en blocs plus courts améliore votre priorité dans la file d'attente et permet de dépasser la limite de durée maximale des tâches sur certaines grappes, comme 7 jours sur Béluga."
+    },
+    {
+      "question": "Comment puis-je configurer mon script `sbatch` pour chaîner des tâches morcelées?",
+      "answer": "Vous devez modifier votre script ou programme pour qu'il puisse être interrompu et continué via des 'checkpoints', puis utiliser l'argument `--array 1-<n_blocs>%1` dans votre script `sbatch`."
+    },
+    {
+      "question": "Comment un script gère-t-il la reprise d'une tâche morcelée à partir d'un point de contrôle (checkpoint) existant?",
+      "answer": "Le script devrait d'abord vérifier l'existence du checkpoint le plus récent. S'il y en a un, il le charge pour continuer l'entraînement; sinon, il démarre l'entraînement de zéro en spécifiant où écrire les nouveaux checkpoints."
+    }
+  ],
+  "generated_at": "2026-04-12T09:56:32.419574+00:00"
+}

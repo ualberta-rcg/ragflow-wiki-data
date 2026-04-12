@@ -1,0 +1,56 @@
+{
+  "doc_key": "base/python",
+  "level": "chunk",
+  "chunk_index": 16,
+  "qa_pairs": [
+    {
+      "question": "What is the recommended approach for installing multiple Python packages to help `pip` resolve dependencies?",
+      "answer": "It is best to install multiple Python packages in one command after upgrading `pip`. For example, first run `pip install --upgrade pip` and then `pip install package1 package2 package3 package4`."
+    },
+    {
+      "question": "What are the reasons a Python virtual environment might stop working unexpectedly?",
+      "answer": "A virtual environment might stop working because packages are frequently updated, leading to non-reproducible environments, or if it was created in the `$SCRATCH` directory and was partially deleted by the automatic filesystem purge."
+    },
+    {
+      "question": "How can I resolve issues with a non-reproducible Python virtual environment?",
+      "answer": "To fix a non-reproducible virtual environment, you should explicitly freeze the specific packages and their versions (e.g., `pip install --no-index 'package1==X.Y'`) and then create a `requirements` file to ensure those exact packages are installed in your job."
+    },
+    {
+      "question": "What are the common causes for the error 'X is not a supported wheel on this platform' during package installation?",
+      "answer": "This error commonly occurs when attempting to install a `manylinux` package or a Python package that was built for a different Python version than the one currently in use (e.g., installing a package built for Python 3.11 when Python 3.9 is active)."
+    },
+    {
+      "question": "How can `manylinux` packages be made available if they are not supported on the platform by default?",
+      "answer": "Some `manylinux` packages can be made available through the system's wheelhouse."
+    },
+    {
+      "question": "What is the cause of an `AttributeError: module ‘numpy’ has no attribute ‘X’`?",
+      "answer": "This `AttributeError` typically occurs when `numpy` is installed without specifying a version, leading to the latest version (e.g., v1.24 or higher) being installed. This version may have removed attributes that were deprecated in earlier versions like v1.20."
+    },
+    {
+      "question": "How can the `AttributeError: module ‘numpy’ has no attribute ‘X’` be resolved?",
+      "answer": "This error can be solved by installing a previous, compatible version of Numpy, for example, by running `pip install --no-index 'numpy<1.24'`."
+    },
+    {
+      "question": "What are the common causes for a `ModuleNotFoundError: No module named 'X'` when importing a Python module?",
+      "answer": "Common causes for this error include the package not being installed or not being visible to the Python interpreter, the module name differing from the package name, or a broken virtual environment."
+    },
+    {
+      "question": "What practices should be avoided to prevent `ModuleNotFoundError` issues with Python modules?",
+      "answer": "To prevent `ModuleNotFoundError` issues, you should avoid modifying the `PYTHONPATH` or `PATH` environment variables. Also, do not load a module while a virtual environment is activated; activate your virtual environment only after loading all required modules."
+    },
+    {
+      "question": "What steps should be taken to troubleshoot a `ModuleNotFoundError`?",
+      "answer": "First, ensure you have not modified `PYTHONPATH` or `PATH`, and that your virtual environment is activated only after loading necessary modules. Then, verify the package is installed using `pip list`, double-check the module name for case and underscores, and confirm it's imported at the correct level. If still in doubt, start over with a new virtual environment."
+    },
+    {
+      "question": "What causes the `ImportError: numpy.core.multiarray failed to import` and how can it be fixed?",
+      "answer": "This error is caused by an incompatible version of Numpy, particularly when a package built with Numpy 1.x is used with Numpy 2.x, which breaks the ABI. It can be fixed by installing a compatible lower version, such as `pip install --no-index 'numpy<2.0'`."
+    },
+    {
+      "question": "What does the message 'Defaulting to user installation because normal site-packages is not writeable' signify?",
+      "answer": "This message indicates `pip`'s default behaviour when no virtual environment is found or activated. It means `pip` tried to install packages in a location where it lacks write permissions for the normal site-packages directory."
+    }
+  ],
+  "generated_at": "2026-04-12T05:52:32.800388+00:00"
+}

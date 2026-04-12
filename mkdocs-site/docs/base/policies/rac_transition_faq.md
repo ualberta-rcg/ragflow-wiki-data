@@ -5,28 +5,38 @@ lang: "base"
 
 source_wiki_title: "RAC transition FAQ"
 source_hash: "fc93ffa5e03e904e2a409735245468cc"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T10:39:07.433625+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T10:55:35.651408+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "Storage allocations"
+  - "Quotas"
+  - "Job scheduling"
+  - "Resource Allocation Competition"
+  - "Transition period"
+
+questions:
+  - "How are storage quotas and data transfers managed during the 30-day transition period between the 2020 and 2021 allocations?"
+  - "What actions must users take regarding their data on original sites after the transition period ends to avoid potential data deletion?"
+  - "How will the transition to the 2021 allocations affect job scheduling, including job priorities and the status of currently running or waiting jobs?"
+  - "How are storage quotas and data transfers managed during the 30-day transition period between the 2020 and 2021 allocations?"
+  - "What actions must users take regarding their data on original sites after the transition period ends to avoid potential data deletion?"
+  - "How will the transition to the 2021 allocations affect job scheduling, including job priorities and the status of currently running or waiting jobs?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
 Allocations from the 2021 Resource Allocation Competition come into effect on April 1, 2021.
-
-!!! note
-    Here are some notes on how we expect the transition to go.
+Here are some notes on how we expect the transition to go.
 
 ## Storage
 * There will be 30 days of overlap between 2020 and 2021 storage allocations, starting on April 1, 2021.
@@ -34,12 +44,23 @@ Allocations from the 2021 Resource Allocation Competition come into effect on Ap
 * If an allocation has moved from one site to another, users are expected to transfer the data by themselves (via globus, scp, rsync, *etc.*; see [Transferring data](transferring-data.md)). For large amounts of data (*e.g.*, 200TB or more) please [contact support](technical-support.md) for advice or assistance on managing the transfer.
 * Contributed storage systems have different dates of activation and decommissioning. For these, we'll be doing the SUM(2020, 2021) for quotas during the 30-day transition period.
 * For every other PI, we will use default quotas.
-* After the transition period, the quotas on the original sites from which data has been migrated will also be set to default. Users are expected to delete data from those original sites if the usage levels are above the new (default) quota. If usage remains above the new quota after the overlap period, staff may choose to delete everything.
-* Reasonable requests for extension of the overlap period will be honoured, but such an extension may be impossible or severely constrained if the original cluster is being defunded.
+
+!!! warning "Data deletion after transition"
+    After the transition period, the quotas on the original sites from which data has been migrated will also be set to default. Users are expected to delete data from those original sites if the usage levels are above the new (default) quota. If usage remains above the new quota after the overlap period, staff may choose to delete everything.
+
+!!! note "Extension requests"
+    Reasonable requests for extension of the overlap period will be honoured, but such an extension may be impossible or severely constrained if the original cluster is being defunded.
 
 ## Job scheduling
-* The scheduler team is planning to archive and compact the Slurm database on March 31 before implementing the new allocations on April 1. We hope to schedule the archiving and compaction during off-peak hours. During this time the database may be unresponsive, specifically, `sacct` and `sacctmgr`.
+!!! warning "Slurm database unresponsiveness"
+    The scheduler team is planning to archive and compact the Slurm database on March 31 before implementing the new allocations on April 1. We hope to schedule the archiving and compaction during off-peak hours. During this time the database may be unresponsive, specifically, `sacct` and `sacctmgr`.
+
 * We expect to begin replacing 2020 allocations with 2021 allocations on April 1.
-* Job priority may be inconsistent during the allocation cutover. Specifically, default allocations may face decreased priority.
+
+!!! warning "Job priority inconsistency"
+    Job priority may be inconsistent during the allocation cutover. Specifically, default allocations may face decreased priority.
+
 * Jobs already in the system will be retained. Running jobs will not be stopped. Waiting jobs may be held.
-* Waiting jobs attributed to an allocation which has been moved or not renewed may not schedule after the cutover. Advice on how to detect and handle such jobs will be forthcoming.
+
+!!! warning "Waiting jobs and renewed allocations"
+    Waiting jobs attributed to an allocation which has been moved or not renewed may not schedule after the cutover. Advice on how to detect and handle such jobs will be forthcoming.

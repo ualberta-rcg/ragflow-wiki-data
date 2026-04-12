@@ -1,0 +1,63 @@
+{
+  "doc_key": "en/gamess-us",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is GAMESS?",
+      "answer": "GAMESS, the General Atomic and Molecular Electronic Structure System, is a general *ab initio* quantum chemistry package."
+    },
+    {
+      "question": "Which job scheduler do Compute Canada clusters use for GAMESS jobs?",
+      "answer": "Compute Canada clusters use the Slurm scheduler for submitting and monitoring jobs."
+    },
+    {
+      "question": "What two main files are required to run a GAMESS job?",
+      "answer": "You need a GAMESS input file, which specifies the molecular geometry and calculation, and a job script to define the compute resources for the job."
+    },
+    {
+      "question": "Where can I find detailed information about the GAMESS input file format and keywords?",
+      "answer": "Detailed information about the GAMESS input file format and keywords is available in the GAMESS Documentation, specifically Chapter 2 \"Input Description\"."
+    },
+    {
+      "question": "How do you submit a GAMESS job script to the scheduler?",
+      "answer": "You submit a GAMESS job to the scheduler using the command `sbatch gamess_job.sh`."
+    },
+    {
+      "question": "Where are GAMESS temporary binary files written by default, and what happens to them after the job finishes?",
+      "answer": "By default, GAMESS temporary binary files (`SCR`) are written to `$SLURM_TMPDIR` on the local disk of the compute node and are deleted after the job finishes."
+    },
+    {
+      "question": "How can I change the default location for GAMESS temporary binary files?",
+      "answer": "If local disk space is insufficient, you can change the location for temporary binary files to `/scratch` by uncommenting and setting the `SCR` environment variable in your job script."
+    },
+    {
+      "question": "Where are GAMESS supplementary output files stored by default?",
+      "answer": "GAMESS supplementary output files (`USERSCR`) are written by default to the user's `$SCRATCH` directory."
+    },
+    {
+      "question": "What is a key limitation of GAMESS when running on multiple CPUs?",
+      "answer": "GAMESS has been built using sockets for parallelization, meaning it can only use CPU cores that are located on the same compute node."
+    },
+    {
+      "question": "Why are scaling tests recommended when determining the number of CPUs for a GAMESS calculation?",
+      "answer": "Quantum chemistry calculations do not always scale well to large numbers of CPUs, so scaling tests help determine the most efficient number of CPUs to use for a particular job to avoid wasting resources."
+    },
+    {
+      "question": "What are the two steps to assign sufficient memory for a GAMESS job?",
+      "answer": "First, request memory for the job in the submission script using `--mem-per-cpu`. Second, define `MWORDS` and `MEMDDI` options within the `$SYSTEM` group of the GAMESS input file."
+    },
+    {
+      "question": "What do `MWORDS` and `MEMDDI` represent in the GAMESS input file?",
+      "answer": "`MWORDS` is the maximum replicated memory a job can use on every core, and `MEMDDI` is the grand total memory needed for the distributed data interface (DDI) storage."
+    },
+    {
+      "question": "What does the error message \"slurmstepd: error: Exceeded step/job memory limit at some point\" indicate?",
+      "answer": "This message indicates that Slurm terminated the job because it attempted to use more memory than was requested in the submission script."
+    },
+    {
+      "question": "Why should a safety margin be left between memory requested from the scheduler and memory allocated to GAMESS?",
+      "answer": "Leaving a few hundred MB as a safety margin helps prevent Slurm from terminating the job if GAMESS briefly exceeds the exact memory it was allowed to use, even if it's within the overall job request."
+    }
+  ],
+  "generated_at": "2026-04-11T21:52:29.233843+00:00"
+}

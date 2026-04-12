@@ -1,0 +1,107 @@
+{
+  "doc_key": "base/r",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is R primarily used for?",
+      "answer": "R is a system for statistical computation and graphics, consisting of a language and a runtime environment with graphics, a debugger, access to certain system functions, and the ability to run programs stored in script files."
+    },
+    {
+      "question": "Why is R considered an essential tool on HPC installations dedicated to academic research?",
+      "answer": "R's popularity with scientists from a variety of disciplines, combined with features like C extensions, byte-compiled code, and parallelization, makes it an essential tool for academic research on HPC, even though it wasn't developed for high-performance computing."
+    },
+    {
+      "question": "How can users customize the R functions available to them on an HPC installation?",
+      "answer": "Users can customize the R functions available to them by installing packages from the Comprehensive R Archive Network (CRAN) into their home directories."
+    },
+    {
+      "question": "How do you list the available R modules on an HPC cluster?",
+      "answer": "You can see a list of all available R modules using the command `module spider r`."
+    },
+    {
+      "question": "After loading an R module, how does one start the R interpreter interactively?",
+      "answer": "After loading an R module, you can start the R interpreter by typing `R` in the command line environment."
+    },
+    {
+      "question": "What command is used to execute an R script non-interactively?",
+      "answer": "To execute an R script non-interactively, use `Rscript` with the file containing the R commands as an argument, for example, `Rscript computation.R`."
+    },
+    {
+      "question": "Are there any restrictions on running R calculations directly on a login node?",
+      "answer": "Yes, any calculations lasting more than two or three minutes should not be run on the login node; they should be run via the job scheduler."
+    },
+    {
+      "question": "What is the recommended method for installing R packages from CRAN on a cluster?",
+      "answer": "It is recommended to use `install.packages()` in an interactive R session on a cluster login node, loading a `gcc` module beforehand."
+    },
+    {
+      "question": "Why is it generally not possible to install R packages in a batch or interactive job on compute nodes?",
+      "answer": "Many compute nodes on most clusters do not have access to the Internet, which prevents installing R packages in a batch or interactive job."
+    },
+    {
+      "question": "What should users do if an R package they want to install depends on external libraries already present on the clusters?",
+      "answer": "If the required external library is listed as available software, users should load the appropriate module for that library before installing the R package that requires it."
+    },
+    {
+      "question": "How can users install R packages for a specific R module version into their local directory?",
+      "answer": "Users can create a directory like `mkdir -p ~/.local/R/$EBVERSIONR/` and then set the environment variable `export R_LIBS=~/.local/R/$EBVERSIONR/` before installing the package."
+    },
+    {
+      "question": "How do you install a downloaded R package file, for instance, `archive_package.tgz`?",
+      "answer": "You can install a downloaded R package file by running `R CMD INSTALL -l 'path for your local (home) R library' archive_package.tgz` in a shell."
+    },
+    {
+      "question": "What problem can occur when using the R `system()` command on clusters, and what is the solution?",
+      "answer": "The R `system()` command can give an incorrect value to the `LD_LIBRARY_PATH` environment variable; this problem can be avoided by using the syntax `system(\"LD_LIBRARY_PATH=$RSNT_LD_LIBRARY_PATH <my system call>\")`."
+    },
+    {
+      "question": "How can parameters be passed as arguments to an R script from the command line?",
+      "answer": "Parameters can be passed by appending them after the script name when using `Rscript`, for example, `Rscript myscript.R input_1.csv 5`."
+    },
+    {
+      "question": "Within an R script, how are command-line arguments accessed?",
+      "answer": "Command-line arguments are accessed within an R script using `args = commandArgs(trailingOnly=TRUE)`."
+    },
+    {
+      "question": "Before attempting to parallelize R code, what steps are recommended to improve its efficiency?",
+      "answer": "Before parallelizing, it's recommended to ensure the serial implementation is as efficient as possible by using vectorized forms of R functions and functional elements like `apply` functions or `ifelse` to eliminate loops."
+    },
+    {
+      "question": "What is the distinction between the term 'node' as used in R documentation and in general cluster documentation?",
+      "answer": "In R documentation, 'node' often refers to a worker process, and a 'cluster' is a collection of such processes, whereas in general cluster documentation, 'node' refers to an individual machine or host."
+    },
+    {
+      "question": "What is the role of `foreach` in parallel computing with R, and what does `doParallel` do?",
+      "answer": "`foreach` serves as a unified interface for various parallel backends, and `doParallel` acts as an interface between `foreach` and the R `parallel` package."
+    },
+    {
+      "question": "What crucial step must be taken for `foreach` to execute tasks in parallel?",
+      "answer": "You must register the backend by providing it with the number of available cores; otherwise, `foreach` will default to serial execution."
+    },
+    {
+      "question": "In a `doParallel` and `foreach` R script on a SLURM system, how is the number of cores typically determined?",
+      "answer": "The number of cores is typically determined by reading the `SLURM_CPUS_PER_TASK` environment variable using `Sys.getenv(\"SLURM_CPUS_PER_TASK\")`."
+    },
+    {
+      "question": "What type of cluster is typically used when setting up `doParallel` with `makeCluster` on HPC clusters?",
+      "answer": "The `PSOCK` cluster type is typically used with `makeCluster`, which runs commands through SSH connections into the nodes."
+    },
+    {
+      "question": "What command is used to release resources after using `makeCluster` in an R script?",
+      "answer": "After using `makeCluster`, you must call `stopCluster(cl)` to release the resources."
+    },
+    {
+      "question": "What modules are specifically required to install `Rmpi`?",
+      "answer": "To install `Rmpi`, you need to load the `gcc`, `openmpi`, and `r` modules."
+    },
+    {
+      "question": "When installing `Rmpi`, what specific `configure-args` must be provided to `R CMD INSTALL`?",
+      "answer": "When installing `Rmpi`, you must provide `configure-args` specifying the `Rmpi` include path, library path, and type, such as `--with-Rmpi-include=$EBROOTOPENMPI/include --with-Rmpi-libpath=$EBROOTOPENMPI/lib --with-Rmpi-type='OPENMPI'`."
+    },
+    {
+      "question": "How are `Rmpi` scripts typically launched in a SLURM job submission script?",
+      "answer": "`Rmpi` scripts are typically launched using `mpirun -np 1 R CMD BATCH test.R test.txt` within a SLURM job submission script."
+    }
+  ],
+  "generated_at": "2026-04-12T06:09:21.870935+00:00"
+}

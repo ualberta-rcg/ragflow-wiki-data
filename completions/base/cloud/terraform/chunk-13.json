@@ -1,0 +1,48 @@
+{
+  "doc_key": "base/terraform",
+  "level": "chunk",
+  "chunk_index": 13,
+  "qa_pairs": [
+    {
+      "question": "What is the outcome after applying the `openstack_compute_floatingip_associate_v2` resource with Terraform?",
+      "answer": "After applying this resource, a floating IP is successfully associated with the VM, allowing for immediate SSH access to the new VM."
+    },
+    {
+      "question": "How can I verify SSH access to a newly created OpenStack VM with a floating IP?",
+      "answer": "You can verify SSH access by using the command `ssh centos@X.Y.Z.W hostname`, replacing `X.Y.Z.W` with your VM's floating IP address."
+    },
+    {
+      "question": "What troubleshooting step should I take if I cannot SSH into my new VM after associating a floating IP?",
+      "answer": "If SSH access fails, it might be necessary to add your workstation's IP address to the project's default security group."
+    },
+    {
+      "question": "What is the purpose of adding a `block_device` subblock to an `openstack_compute_instance_v2` resource in Terraform?",
+      "answer": "Adding a `block_device` subblock allows you to configure and attach a root volume to the VM, which replaces its default boot disk."
+    },
+    {
+      "question": "Why is adding a root volume to an OpenStack VM using Terraform considered a destructive operation?",
+      "answer": "Adding a root volume is a destructive operation because it replaces the VM's existing boot disk, which Terraform will interpret as a change requiring the VM to be rebuilt."
+    },
+    {
+      "question": "What are some key attributes to configure within the `block_device` subblock when adding a root volume to an OpenStack VM in Terraform?",
+      "answer": "Key attributes include `uuid` (for the image), `source_type` (e.g., \"image\"), `destination_type` (e.g., \"volume\"), `volume_size`, `boot_index`, and `delete_on_termination`."
+    },
+    {
+      "question": "What does setting `destination_type = \"volume\"` in a `block_device` configuration achieve?",
+      "answer": "Setting `destination_type = \"volume\"` ensures that the boot disk is stored using an OpenStack-provided volume rather than directly on the hypervisor's disk."
+    },
+    {
+      "question": "What is the recommended setting for `delete_on_termination` for a `block_device` in a production environment versus for testing?",
+      "answer": "For testing, `delete_on_termination = true` is useful for automatic cleanup. However, for real-world use, setting it to `false` is recommended to prevent accidental deletion of resources."
+    },
+    {
+      "question": "What happens if both `image_id` and a `block_device` subblock are defined in an `openstack_compute_instance_v2` resource?",
+      "answer": "If both are defined, Terraform will continuously detect a conflict between \"boot from volume\" and \"boot directly from image,\" leading to repeated attempts to rebuild the instance on every run."
+    },
+    {
+      "question": "How does Terraform's execution plan indicate that a resource will be destroyed and recreated?",
+      "answer": "The execution plan indicates this with the symbol `-/+ destroy and then create replacement` next to the resource, and the plan summary will show a non-zero number for resources to destroy and add."
+    }
+  ],
+  "generated_at": "2026-04-12T09:08:17.899699+00:00"
+}

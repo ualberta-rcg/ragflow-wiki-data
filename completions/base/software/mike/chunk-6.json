@@ -1,0 +1,72 @@
+{
+  "doc_key": "base/mike",
+  "level": "chunk",
+  "chunk_index": 6,
+  "qa_pairs": [
+    {
+      "question": "What kind of software is MIKE?",
+      "answer": "MIKE, developed by the DHI group, is a hydraulic and hydrological modelling software package."
+    },
+    {
+      "question": "What are the keywords associated with MIKE software modules?",
+      "answer": "The keywords for MIKE software modules are \"FEM\", \"Finite Elements\", and \"Simulation\"."
+    },
+    {
+      "question": "Where can I find the official website for MIKE software?",
+      "answer": "The official website for MIKE software is `https://www.mikepoweredbydhi.com/mike-` followed by the specific version number. For example, for MIKE 2025, it would be `https://www.mikepoweredbydhi.com/mike-2025`."
+    },
+    {
+      "question": "What is the typical installation path for MIKE software when creating a module?",
+      "answer": "The typical installation path, defined as `root` in the module, is `~/MIKE/` followed by the specific version number (e.g., `~/MIKE/2025`)."
+    },
+    {
+      "question": "How do I load the MIKE 2023 environment module?",
+      "answer": "To activate the MIKE 2023 module in each job or login session, use the command: `module load StdEnv/2020 mike/2023`."
+    },
+    {
+      "question": "What are the module dependencies for MIKE 2023?",
+      "answer": "For MIKE 2023, the module depends on `StdEnv/2020`, `intel/2021.2.0`, and `intelmpi/2021.2.0`."
+    },
+    {
+      "question": "What are the module dependencies for MIKE 2022?",
+      "answer": "For MIKE 2022, the module depends on `StdEnv/2020`, `intel/2020.1.217`, and `intelmpi/2019.7.217`."
+    },
+    {
+      "question": "Which environment variables are set by the MIKE module?",
+      "answer": "The MIKE module sets the following environment variables: `I_MPI_PMI_LIBRARY`, `SLURM_MPI_TYPE`, `MIKE_HOME`, and `MIKE_PROGRESS`."
+    },
+    {
+      "question": "How does the MIKE module modify the PATH environment variable?",
+      "answer": "The MIKE module prepends the `bin` directory within the `MIKE_HOME` path to the `PATH` environment variable."
+    },
+    {
+      "question": "How do I configure my MIKE license?",
+      "answer": "You need to use the `licconfig set` command, provided by MIKE Customer Care, typically like this: `licconfig set --type=internet --iuser=user@example.com --ipassword=my-password`."
+    },
+    {
+      "question": "Where is the MIKE license information stored after configuration?",
+      "answer": "The MIKE license information is stored in the file `~/.config/DHI/license/NetLmLcwConfig.xml`."
+    },
+    {
+      "question": "How often do I need to configure my MIKE license?",
+      "answer": "License configuration normally needs to be done only once whenever you acquire a new license or a new license code."
+    },
+    {
+      "question": "What are the typical SBATCH resource requests for a MIKE 2025 CPU job script?",
+      "answer": "For a MIKE 2025 CPU job, typical SBATCH requests include: `--nodes=1`, `--ntasks=8`, `--cpus-per-task=1`, `--mem-per-cpu=4000M`, and `--time=00:20:00`."
+    },
+    {
+      "question": "How is the number of OpenMP threads set in a MIKE job script?",
+      "answer": "The number of OpenMP threads is set by exporting the `OMP_NUM_THREADS` environment variable to the value of `${SLURM_CPUS_PER_TASK:-1}`."
+    },
+    {
+      "question": "How do I execute a MIKE model (like `my_model.m3fm`) for MIKE 2025, 2024, or 2023 within a job script?",
+      "answer": "For MIKE 2025, 2024, and 2023, you execute the model using `srun $engine $model`, where `engine` is typically `FemEngineHD` and `model` is your model file (e.g., `my_model.m3fm`)."
+    },
+    {
+      "question": "What is the difference in executing a MIKE 2022 model compared to newer versions (2023-2025) in a job script?",
+      "answer": "For MIKE 2022, you first create a machine file using `slurm_hl2hl.py --format MPIHOSTLIST > machinefile.$SLURM_JOBID` and then execute the model with `mpirun -machinefile machinefile.$SLURM_JOBID $engine $model`. Newer versions (2023-2025) use `srun` directly without a separate machine file."
+    }
+  ],
+  "generated_at": "2026-04-12T01:37:45.075770+00:00"
+}

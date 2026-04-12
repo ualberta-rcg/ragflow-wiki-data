@@ -1,0 +1,44 @@
+{
+  "doc_key": "fr/alphafold3",
+  "level": "chunk",
+  "chunk_index": 5,
+  "qa_pairs": [
+    {
+      "question": "Quelle commande doit-on rouler pour l'étape d'inférence du modèle AlphaFold3?",
+      "answer": "Pour l'étape d'inférence du modèle, vous devez utiliser la commande `python run_alphafold.py` en spécifiant le paramètre `--norun_data_pipeline`."
+    },
+    {
+      "question": "Quels arguments sont nécessaires pour la commande `run_alphafold.py` lors de l'étape d'inférence?",
+      "answer": "Les arguments essentiels sont `--db_dir`, `--input_dir`, `--output_dir`, `--jax_compilation_cache_dir` et le flag `--norun_data_pipeline` pour indiquer que c'est l'étape d'inférence."
+    },
+    {
+      "question": "Quelles variables d'environnement sont recommandées pour l'optimisation de la performance GPU pendant l'inférence avec AlphaFold3?",
+      "answer": "Pour l'optimisation, il est suggéré de définir `export XLA_FLAGS=\"--xla_gpu_enable_triton_gemm=false\"`, `export XLA_PYTHON_CLIENT_PREALLOCATE=true` et `export XLA_CLIENT_MEM_FRACTION=0.95`."
+    },
+    {
+      "question": "Comment puis-je soumettre les tâches de pipeline de données et d'inférence d'AlphaFold3 indépendamment à l'ordonnanceur?",
+      "answer": "Vous devez d'abord soumettre la tâche de données avec `sbatch alphafold3-data.sh`, attendre qu'elle soit finie, puis soumettre la tâche d'inférence avec `sbatch alphafold3-inference.sh`."
+    },
+    {
+      "question": "Comment faire pour que ma tâche d'inférence d'AlphaFold3 ne commence qu'après la complétion réussie de ma tâche de pipeline de données?",
+      "answer": "Vous pouvez créer une dépendance entre les tâches. D'abord, soumettez la tâche de données (`jid1=$(sbatch alphafold3-data.sh)`), puis soumettez la tâche d'inférence en la rendant dépendante de la première: `jid2=$(sbatch --dependency=afterok:$jid1 alphafold3-inference.sh)`."
+    },
+    {
+      "question": "Si la première étape (pipeline de données) échoue quand j'utilise des tâches dépendantes, comment j'annule la deuxième étape (inférence) qui est en attente?",
+      "answer": "Si la première étape échoue, vous devrez annuler manuellement la deuxième étape avec la commande `scancel -u $USER -n alphafold3-inference`."
+    },
+    {
+      "question": "Quand est-ce que je devrais envisager d'activer la fonctionnalité de mémoire unifiée pour AlphaFold3 sur GPU?",
+      "answer": "Vous devriez l'activer si vous comptez exécuter AlphaFold3 avec plus de 5120 jetons ou sur un GPU ayant moins de mémoire, comme un A100 de 40Go."
+    },
+    {
+      "question": "Quelles variables d'environnement faut-il ajouter au script de soumission pour activer la mémoire unifiée et résoudre les problèmes de mémoire insuffisante sur GPU?",
+      "answer": "Vous devez ajouter `export XLA_PYTHON_CLIENT_PREALLOCATE=false`, `export TF_FORCE_UNIFIED_MEMORY=true` et `export XLA_CLIENT_MEM_FRACTION=2.0` (en ajustant le facteur selon vos besoins)."
+    },
+    {
+      "question": "Outre les variables d'environnement, qu'est-ce qui doit être ajusté dans le script SLURM quand on active la mémoire unifiée pour AlphaFold3?",
+      "answer": "Vous devez ajuster la quantité de mémoire allouée à la tâche SLURM en conséquence, par exemple, en changeant `#SBATCH --mem=64G` à `#SBATCH --mem=80G` si vous utilisez `XLA_CLIENT_MEM_FRACTION=2.0` avec un GPU de 40Go."
+    }
+  ],
+  "generated_at": "2026-04-11T16:41:50.493519+00:00"
+}

@@ -1,0 +1,71 @@
+{
+  "doc_key": "en/configuring_wsl_as_a_controlmaster_relay_server",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is the primary goal of this procedure?",
+      "answer": "To allow logging into clusters from native Windows applications with ControlMaster under WSL, reducing the need for multifactor authentication for every session."
+    },
+    {
+      "question": "What is the current status of this procedure?",
+      "answer": "It is an experimental procedure and still a work in progress."
+    },
+    {
+      "question": "What is the initial step required to follow this procedure?",
+      "answer": "Installing Linux on Windows using the Windows Subsystem for Linux (WSL)."
+    },
+    {
+      "question": "What are the assumed configurations for the sample files in this setup?",
+      "answer": "Ubuntu is the chosen WSL distribution, the WSL instance hostname is `ubuntu`, the Windows system is `smart` with login `jaime`, the Ubuntu VM username is `jaime`, and the Alliance user is `pinto` connecting to Cedar."
+    },
+    {
+      "question": "Which additional packages must be installed on the Ubuntu VM?",
+      "answer": "After updating and upgrading apt, `openssh-server` must be installed."
+    },
+    {
+      "question": "Briefly describe the general architecture of the SSH setup.",
+      "answer": "Your Windows machine (SSH client) connects to an SSH relay server (your Ubuntu VM), which then connects to the SSH target server (e.g., Cedar)."
+    },
+    {
+      "question": "What steps are involved in setting up a custom SSH server environment on the Ubuntu VM?",
+      "answer": "Log into the Ubuntu VM, create a `custom_ssh` folder, define an `sshd_config` file within it specifying port (2222), host key paths, authorized keys file, and other settings, then copy `ssh_host` keys from `/etc/ssh` to the `custom_ssh` folder."
+    },
+    {
+      "question": "How is the `~/.ssh/config` file customized on the Ubuntu VM for connecting to Cedar?",
+      "answer": "It defines a `Host` named `cedar` with `ControlPath`, `ControlMaster auto`, `ControlPersist 10m`, `HostName cedar.alliancecan.ca`, and `User pinto`."
+    },
+    {
+      "question": "What public key should be used for the `authorized_keys` file in the Ubuntu VM's `custom_ssh` folder?",
+      "answer": "The same public SSH key that was uploaded to CCDB."
+    },
+    {
+      "question": "How do you start the custom `sshd` server on the Ubuntu VM, and who should start it?",
+      "answer": "Run `/usr/sbin/sshd -f ${HOME}/custom_ssh/sshd_config` and ensure it is started as yourself, not as root."
+    },
+    {
+      "question": "When does the custom `sshd` server on Ubuntu need to be restarted?",
+      "answer": "Every time the computer restarts, or after closing or restarting WSL."
+    },
+    {
+      "question": "How is the `~/.ssh/config` file customized on the Windows machine (`smart`)?",
+      "answer": "It defines a `Host` named `ubuntu` with `Hostname localhost` and includes `RemoteCommand ssh cedar`."
+    },
+    {
+      "question": "How do you attempt to log into Cedar from the Windows machine after configuring the setup?",
+      "answer": "By executing the command `ssh -t ubuntu -p 2222` from a Windows shell."
+    },
+    {
+      "question": "What is an alternative configuration for Windows GUI apps that do not allow explicit `RemoteCommand` settings?",
+      "answer": "The `RemoteCommand=\"ssh cedar\"` can be added directly to the public key entry within the `authorized_keys` file on the Ubuntu VM."
+    },
+    {
+      "question": "Which specific Windows GUI application is mentioned as benefiting from the alternative setup with `RemoteCommand` in `authorized_keys`?",
+      "answer": "WinSCP."
+    },
+    {
+      "question": "Is detailed setup information provided for MobaXterm?",
+      "answer": "MobaXterm is mentioned with images, but no detailed setup instructions are provided in the document's text."
+    }
+  ],
+  "generated_at": "2026-04-11T20:22:08.479193+00:00"
+}

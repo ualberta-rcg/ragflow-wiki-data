@@ -1,0 +1,52 @@
+{
+  "doc_key": "fr/ansys",
+  "level": "chunk",
+  "chunk_index": 15,
+  "qa_pairs": [
+    {
+      "question": "Quelles sont les informations de licence nécessaires pour configurer Ansys Fluent sur la grappe Trillium?",
+      "answer": "Pour configurer Ansys Fluent sur la grappe Trillium, il faut spécifier le nom d'hôte du serveur de licence (LICSERVER), le port flex du serveur (FLEXPORT, habituellement 1055), et le port fournisseur du serveur (VENDPORT, habituellement 1793)."
+    },
+    {
+      "question": "Comment la connexion au serveur de licence Ansys est-elle établie pour Trillium?",
+      "answer": "La connexion au serveur de licence Ansys est établie en créant des tunnels SSH via le nœud de passerelle de Trillium (`tri-gw`) pour les ports FLEXPORT et VENDPORT, redirigeant ainsi le trafic du serveur de licence vers `localhost`."
+    },
+    {
+      "question": "Quelles variables d'environnement sont utilisées pour spécifier le fichier de licence et les serveurs sur Trillium?",
+      "answer": "Les variables d'environnement `ANSYSLMD_LICENSE_FILE` est définie à `$FLEXPORT@localhost` et `ANSYSLI_SERVERS` à `$INTEPORT@localhost`. Il est à noter que la variable `INTEPORT` n'est pas explicitement définie dans cette section du script."
+    },
+    {
+      "question": "Que se passe-t-il si le répertoire `~/.ansys` n'existe pas ou n'est pas lié correctement sur Trillium?",
+      "answer": "Si le lien vers un répertoire `~/.ansys` accessible en écriture n'existe pas, une erreur sera affichée et la tâche sera avortée. Il faudra alors supprimer tout `~/.ansys` existant et créer un lien symbolique vers `$SCRATCH/.ansys`."
+    },
+    {
+      "question": "Quelles sont les étapes pour corriger une erreur concernant un lien manquant pour `~/.fluentconf` sur Trillium?",
+      "answer": "Pour corriger cette erreur, il faut s'assurer qu'un lien vers un répertoire `~/.fluentconf` accessible en écriture existe. Si ce n'est pas le cas, il faut supprimer l'ancien lien s'il existe et exécuter `ln -s $SCRATCH/.fluentconf ~/.fluentconf`."
+    },
+    {
+      "question": "Quelles mesures sont prises avant de lancer Fluent sur Trillium pour assurer la disponibilité des répertoires de configuration?",
+      "answer": "Avant de lancer Fluent, le script vérifie l'existence de liens symboliques pour `~/.ansys`, `~/.fluentconf` et `~/.flrecent`. Si ces liens sont corrects, il crée les répertoires `$SCRATCH/.ansys` et `$SCRATCH/.fluentconf` et touche le fichier `$SCRATCH/.flrecent` pour s'assurer qu'ils sont disponibles."
+    },
+    {
+      "question": "Quelle est la commande pour lancer Fluent en mode parallèle avec mémoire partagée sur un seul nœud de Trillium?",
+      "answer": "Pour lancer Fluent sur un seul nœud avec mémoire partagée, la commande est `fluent -g $MYVERSION -t $NCORES -mpi=intel -pshmem -i $MYJOURNALFILE`."
+    },
+    {
+      "question": "Comment lancer Fluent en mode parallèle distribué sur plusieurs nœuds de Trillium?",
+      "answer": "Pour lancer Fluent sur plusieurs nœuds en mode parallèle distribué, la commande est `fluent -g $MYVERSION -t $NCORES -mpi=intel -pib -cnf=$SLURM_SUBMIT_DIR/machinefile-$SLURM_JOB_ID -i $MYJOURNALFILE`."
+    },
+    {
+      "question": "Quel est le but des scripts de 'Remise en file d'attente pour obtenir la licence' pour Fluent?",
+      "answer": "Ces scripts sont conçus pour relancer automatiquement des tâches Fluent qui échouent au démarrage spécifiquement en raison d'un manque de licences disponibles, permettant ainsi de réessayer la soumission plusieurs fois jusqu'à l'obtention d'une licence."
+    },
+    {
+      "question": "Dans quelles situations les scripts de remise en file d'attente pour la licence ne sont-ils pas recommandés?",
+      "answer": "Ces scripts ne sont pas recommandés pour les tâches Fluent qui peuvent s'exécuter longtemps avant de planter ou qui se terminent avec des avertissements dans le journal, car cela entraînerait la répétition inutile de la simulation depuis le début, gaspillant ainsi du temps de calcul."
+    },
+    {
+      "question": "Quel est l'inconvénient potentiel d'utiliser les scripts de remise en file d'attente si une simulation échoue pour d'autres raisons que la licence?",
+      "answer": "Si une simulation échoue pour des raisons autres qu'un problème de licence (par exemple, divergence), les scripts la remettront quand même en file d'attente, ce qui gaspillera du temps de calcul. Il est donc important de vérifier les fichiers de sortie pour identifier la cause réelle de l'échec."
+    }
+  ],
+  "generated_at": "2026-04-11T17:08:43.122887+00:00"
+}

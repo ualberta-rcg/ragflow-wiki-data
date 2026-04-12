@@ -1,0 +1,56 @@
+{
+  "doc_key": "base/lumerical",
+  "level": "chunk",
+  "chunk_index": 6,
+  "qa_pairs": [
+    {
+      "question": "What is the main purpose of the `fdtd-process-template.sh` script?",
+      "answer": "The `fdtd-process-template.sh` script is designed to replace tags within a submission script template with actual values derived from an FDTD Solutions project file."
+    },
+    {
+      "question": "What arguments does the `fdtd-process-template.sh` script expect?",
+      "answer": "The script expects an FDTD Solutions project file, a template file, and the number of processes. It also accepts various optional parameters."
+    },
+    {
+      "question": "What are the valid optional arguments for the `fdtd-process-template.sh` script?",
+      "answer": "Valid options include `-r <rate>` for the simulation rate, `-tm <min_time>` for the minimum simulation time, `-ms <memory_safety>` for a memory estimate safety factor, and `-mm <memory_min>` for the minimum memory a process can use."
+    },
+    {
+      "question": "What is the default simulation rate used by `fdtd-process-template.sh` if no specific rate is provided?",
+      "answer": "If no specific rate is provided using the `-r` option, the default simulation rate used is 4 MNodes/s/process, which is considered a very conservative estimate."
+    },
+    {
+      "question": "What is the default minimum time set for simulations by `fdtd-process-template.sh`?",
+      "answer": "The default minimum time for a simulation, if not specified with the `-tm` option, is 600 seconds."
+    },
+    {
+      "question": "What is the default memory safety factor applied to memory estimates by `fdtd-process-template.sh`?",
+      "answer": "The default multiplicative factor applied to the memory estimate for safety is 110%."
+    },
+    {
+      "question": "What is the default minimum memory allocated per process by `fdtd-process-template.sh`?",
+      "answer": "The default minimum memory that a process can use, if not adjusted with the `-mm` option, is 20MB."
+    },
+    {
+      "question": "Which tokens does `fdtd-process-template.sh` replace in a submission script template?",
+      "answer": "The script replaces tokens such as `<total_memory>`, `<processor_memory>`, `<hours>`, `<minutes>`, `<seconds>`, `<n>` (number of processes), `<dir_fsp>` (path of the fsp file), and `<filename>` (name of the fsp file)."
+    },
+    {
+      "question": "How does `fdtd-run.sh` submit a job script after it's been generated?",
+      "answer": "The `fdtd-run.sh` script submits the job script using the `sbatch` command, specifying parameters like `--nodes`, `--ntasks`, `--cpus-per-task`, and `--mem` for the total memory required."
+    },
+    {
+      "question": "What does the command `sed -i -e '1,1d' $SHELLFILE` do within the `fdtd-run.sh` script?",
+      "answer": "This command deletes the first line of the generated job submission script (`$SHELLFILE`), which typically contains the total memory required that was previously extracted and stored in `TOTAL_MEM`."
+    },
+    {
+      "question": "How does `fdtd-process-template.sh` calculate the total memory required for a simulation?",
+      "answer": "It first obtains an estimated memory (`ESTMEM`) from the FDTD project file. Then, it calculates the `TOTALMEM` by multiplying `ESTMEM` by the `MEMORY_SAFETY` factor (default 110%) and dividing by 100."
+    },
+    {
+      "question": "How does `fdtd-process-template.sh` estimate the time needed for a simulation?",
+      "answer": "The script estimates time by first extracting the grid points (`GRIDPTS`) and time steps (`TIMESTEPS`) from the FDTD project file. It then calculates the time (`TIME`) using the formula `(( GRIDPTS * TIMESTEPS / PROCS / RATE / 10000000 ))`, ensuring the calculated time is not less than the `TIME_MIN` default (600 seconds)."
+    }
+  ],
+  "generated_at": "2026-04-12T01:06:02.805465+00:00"
+}

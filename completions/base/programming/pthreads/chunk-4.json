@@ -1,0 +1,68 @@
+{
+  "doc_key": "base/pthreads",
+  "level": "chunk",
+  "chunk_index": 4,
+  "qa_pairs": [
+    {
+      "question": "What is a condition variable used for in pthreads?",
+      "answer": "A condition variable is used to allow multiple threads to wait for a single condition, for example, waiting for work to become available for worker threads."
+    },
+    {
+      "question": "What is the datatype for a condition variable in pthreads?",
+      "answer": "The datatype for a condition variable is `pthread_cond_t`."
+    },
+    {
+      "question": "How should a condition variable be managed regarding its lifecycle?",
+      "answer": "Like a mutex or read/write lock, a condition variable must be initialized before its first use and destroyed when it is no longer needed."
+    },
+    {
+      "question": "Does a condition variable require other synchronization constructs?",
+      "answer": "Yes, the use of a condition variable requires a mutex to control access to the variable(s) that form the basis for the condition being tested."
+    },
+    {
+      "question": "Which function does a thread call to wait on a condition, and what arguments does it take?",
+      "answer": "A thread calls the function `pthread_cond_wait` with two arguments: the condition variable and the mutex."
+    },
+    {
+      "question": "What happens to the mutex when a thread calls `pthread_cond_wait`?",
+      "answer": "The mutex will be released atomically with the creation of the condition variable that the thread is now waiting upon."
+    },
+    {
+      "question": "Why is the mutex released atomically when a thread waits on a condition variable?",
+      "answer": "The mutex is released atomically so that other threads can lock it, either to wait on the same condition or to modify one or more variables, thereby changing the condition."
+    },
+    {
+      "question": "In the `thread_condition.c` example, how many worker threads are involved?",
+      "answer": "There are two worker threads in the `thread_condition.c` example."
+    },
+    {
+      "question": "What is the initial condition for the `workload` variable in the `thread_condition.c` example?",
+      "answer": "The initial value of the `workload` variable must be less than or equal to 25."
+    },
+    {
+      "question": "What actions does the first thread (Thread 0) perform in the `thread_condition.c` example's `task` function?",
+      "answer": "Thread 0 locks the mutex, then waits on the `ticker` condition variable if `workload <= 25`. Once woken up, it increments `workload` by 15 and then unlocks the mutex."
+    },
+    {
+      "question": "What actions does the second thread (Thread 1) perform in the `thread_condition.c` example's `task` function?",
+      "answer": "The second thread performs a loop where it locks the mutex, increments `workload` by 3, prints the current `workload`, and if `workload` becomes greater than 25, it calls `pthread_cond_signal` to alert the waiting thread before unlocking the mutex."
+    },
+    {
+      "question": "Which function is used to notify a single waiting thread that a condition is satisfied in the `thread_condition.c` example?",
+      "answer": "The `pthread_cond_signal` function is used to notify a single waiting thread that the condition is satisfied."
+    },
+    {
+      "question": "What is the difference between `pthread_cond_signal` and `pthread_cond_broadcast`?",
+      "answer": "`pthread_cond_signal` notifies a single waiting thread chosen at random that the condition is satisfied, while `pthread_cond_broadcast` notifies all waiting threads that the condition is satisfied."
+    },
+    {
+      "question": "What happens in the `thread_condition.c` example if the initial `workload` is set to a value greater than 25?",
+      "answer": "If the initial `workload` is greater than 25, the program prints the message 'Initial workload must be <= 25, exiting...' and exits without creating any threads."
+    },
+    {
+      "question": "After the worker threads are absorbed in `thread_condition.c`, what is the final action of the master thread?",
+      "answer": "The master thread prints out the final value of `workload` and then the program exits, after destroying the condition variable and mutex."
+    }
+  ],
+  "generated_at": "2026-04-12T05:29:32.468285+00:00"
+}

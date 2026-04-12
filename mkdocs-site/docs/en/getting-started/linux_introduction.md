@@ -5,25 +5,68 @@ lang: "en"
 
 source_wiki_title: "Linux introduction/en"
 source_hash: "42539041e8e26cd8c29d254e39f11ce6"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T07:55:22.601488+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T08:31:35.804028+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "directory"
+  - "classes of users"
+  - "grep command"
+  - "permissions"
+  - "searching within a file"
+  - "Linux"
+  - "chmod"
+  - "search text"
+  - "file permissions"
+  - "less"
+  - "command"
+  - "Console"
+  - "guide"
+  - "grep"
+  - "multiple files"
+  - "File permissions"
+  - "UNIX environments"
+  - "UNIX commands"
+  - "wildcard"
+  - "regular expressions"
+  - "ls -la"
+  - "Filesystem"
+  - "files"
+  - "read/write/execute"
+
+questions:
+  - "How can a user access the built-in documentation and help manuals for UNIX commands directly from the console?"
+  - "What are the primary commands used to navigate the filesystem, list directory contents, and manage files or folders?"
+  - "How do read, write, and execute permissions function differently when applied to files versus directories in a UNIX system?"
+  - "How do you interpret the 10-character permission string displayed by the `ls -la` command for files and directories?"
+  - "What is the syntax for using the `chmod` command to add or remove specific permissions for different types of users?"
+  - "Which commands can be used to view the contents of a file, compare two different files, and search for specific text patterns within them?"
+  - "What specific actions do read, write, and execute permissions allow a user to perform on a directory?"
+  - "What are the three distinct classes of users that file and directory permissions apply to?"
+  - "How can a user view the permissions associated with the files and subdirectories located in their current directory?"
+  - "How do you use the `grep` command to search for a specific expression across single or multiple files?"
+  - "What is the difference in functionality between the `*` and `?` wildcards in Linux?"
+  - "How can you search for variable text patterns, such as a specific range of numbers, within a file?"
+  - "What specific command is provided to search for a number pattern within a file?"
+  - "What type of format must be used for the search text in the given command?"
+  - "Where can a user find the recommended guide to learn more about regular expressions?"
+  - "What specific command is provided to search for a number pattern within a file?"
+  - "What type of format must be used for the search text in the given command?"
+  - "Where can a user find the recommended guide to learn more about regular expressions?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
-This article is aimed at Windows and Mac users who do not have or have very little experience in UNIX environments. It should give you the necessary basics to access the compute servers and being quickly able to use them.
+This article is aimed at Windows and Mac users who do not have or have very little experience in UNIX environments. It should give you the necessary basics to access the compute servers and be quickly able to use them.
 
 Connections to the servers use the [SSH](ssh.md) protocol, in text mode. You do not use a graphical interface (GUI) but a **console**. Note that Windows executables do not run on our servers without using an emulator.
 
@@ -47,7 +90,8 @@ ls --help
 Following your connection, you are directed to your `$HOME` directory (the UNIX word for *folder*) for your user account.
 When your account is created, your `$HOME` only contains a few hidden configuration files that start with a period (.), and nothing else.
 
-On a Linux system, you are strongly discouraged to create files or directories that contain names with spaces or special characters, including accents.
+!!! warning "Filenaming Conventions"
+    On a Linux system, you are strongly discouraged to create files or directories that contain names with spaces or special characters, including accents.
 
 ### Listing directory contents
 To list all files in a directory in a terminal, use the `ls` (list) command:
@@ -109,7 +153,8 @@ You can also recursively remove a directory:
 ```bash
 rm -r my_directory
 ```
-The (potentially dangerous!) `-f` option can be useful to bypass confirmation prompts and to continue the operation after an error.
+!!! warning "Dangerous Option"
+    The (potentially dangerous!) `-f` option can be useful to bypass confirmation prompts and to continue the operation after an error.
 
 ### Copying and renaming files or directories
 To copy a file use the `cp` command:
@@ -136,44 +181,44 @@ ls -la
 
 The 10 characters at the beginning of each line show the permissions.
 The first character indicates the file type :
-*   `-`: a normal file
-*   `d`: a directory
-*   `l`: a symbolic link
+* `-`: a normal file
+* `d`: a directory
+* `l`: a symbolic link
 
 Then, from left to right, this command shows read, write and execute permissions of the owner, the group and other users. Here are some examples :
-*   `drwxrwxrwx`: a world-readable and world-writable directory
-*   `drwxr-xr-x`: a directory that can be listed by everybody, but only the owner can add or remove files
-*   `-rwxr-xr-x`: a world-readable and world-executable file that can only be changed by its owner
-*   `-rw-r--r--`: a world-readable file that can only be changed by its owner.
-*   `-rw-rw----`: a file that can be read and changed by its owner and by its group
-*   `-rw-------`: a file that can only be read and changed by its owner
-*   `drwx--x--x`: a directory that can only be listed or modified by its owner, but all others can still pass it on their way to a deeper subdirectory
-*   `drwx-wx-wx`: a directory that everybody can enter and modify but where only the owner can list its contents
+* `drwxrwxrwx`: a world-readable and world-writable directory
+* `drwxr-xr-x`: a directory that can be listed by everybody, but only the owner can add or remove files
+* `-rwxr-xr-x`: a world-readable and world-executable file that can only be changed by its owner
+* `-rw-r--r--`: a world-readable file that can only be changed by its owner.
+* `-rw-rw----`: a file that can be read and changed by its owner and by its group
+* `-rw-------`: a file that can only be read and changed by its owner
+* `drwx--x--x`: a directory that can only be listed or modified by its owner, but all others can still pass it on their way to a deeper subdirectory
+* `drwx-wx-wx`: a directory that everybody can enter and modify but where only the owner can list its contents
 
-!!! note
-    Important note: to be able to read or write in a directory, you need to have execute permissions (`x`) set in all parent directories, all the way up to the filesystem's root (`/`). So if your home directory has `drwx------` permissions and contains a subdirectory with `drwxr-xr-x` permissions, other users cannot read the contents of this subdirectory because they do not have access (by the executable bit) to its parent directory.
+!!! note "Important Note: Directory Execute Permissions"
+    To be able to read or write in a directory, you need to have execute permissions (`x`) set in all parent directories, all the way up to the filesystem's root (**`/`**). So if your home directory has `drwx------` permissions and contains a subdirectory with `drwxr-xr-x` permissions, other users cannot read the contents of this subdirectory because they do not have access (by the executable bit) to its parent directory.
 
 After listing the permissions, `ls -la` command gives a number, followed by the file owner's name, the file group's name, its size, last modification date, and name.
 
 The `chmod` command allows you to change file permissions. The simple way to use it is to specify which permissions you wish to add or remove to which type of user. To do this, you specify the list of users (`u` for the owner, `g` for the group, `o` for other users, `a` for all three), followed by a `+` to add permissions or `-` to remove permissions, which is then followed by a list of permissions to modify (`r` for read, `w` for write, `x` for execute). Non-specified permissions are not affected. Here are a few examples:
 
-*   Prevent group members and all others to read or modify the file `secret.txt`:
+* Prevent group members and all others to read or modify the file `secret.txt`:
     ```bash
     chmod go-rwx secret.txt
     ```
-*   Allow everybody to read the file `public.txt`:
+* Allow everybody to read the file `public.txt`:
     ```bash
     chmod a+r public.txt
     ```
-*   Make the file `script.sh` executable:
+* Make the file `script.sh` executable:
     ```bash
     chmod a+x script.sh
     ```
-*   Allow group members to read and write in the directory `shared`:
+* Allow group members to read and write in the directory `shared`:
     ```bash
     chmod g+rwx shared
     ```
-*   Prevent other users from reading or modifying your home directory:
+* Prevent other users from reading or modifying your home directory:
     ```bash
     chmod go-rw ~
     ```

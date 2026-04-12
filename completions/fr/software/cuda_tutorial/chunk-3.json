@@ -1,0 +1,88 @@
+{
+  "doc_key": "fr/cuda_tutorial",
+  "level": "chunk",
+  "chunk_index": 3,
+  "qa_pairs": [
+    {
+      "question": "Comment les fils sont-ils organisés dans CUDA pour assurer un parallélisme intensif?",
+      "answer": "Pour obtenir un parallélisme intensif, on doit utiliser le plus de fils possible; avec CUDA, les fils sont groupés en blocs de fils, eux-mêmes formant une grille."
+    },
+    {
+      "question": "Comment les fils d'un même bloc interagissent-ils entre eux dans le modèle CUDA?",
+      "answer": "Les fils groupés coopèrent via la mémoire partagée et s'échangent les données. Ils travaillent sur le même groupe d'instructions, potentiellement avec des jeux de données différents."
+    },
+    {
+      "question": "Est-ce que les fils de différents blocs peuvent coopérer entre eux?",
+      "answer": "Non, les fils d'un bloc ne coopèrent pas avec les fils des autres blocs."
+    },
+    {
+      "question": "À quoi servent les identifiants (IDs) des fils dans CUDA?",
+      "answer": "Chaque fil utilise des identifiants (IDs) pour décider quelles données utiliser, ce qui simplifie l'adressage de la mémoire lors du traitement de données multidimensionnelles."
+    },
+    {
+      "question": "Quels sont les types d'identifiants utilisés pour les blocs et les fils dans CUDA?",
+      "answer": "Les IDs des blocs peuvent être 1D ou 2D (blockIdx.x, blockIdx.y), tandis que les IDs des fils peuvent être 1D, 2D ou 3D (threadIdx.x, threadIdx.y, threadIdx.z)."
+    },
+    {
+      "question": "Comment un processeur en continu (SM) exécute-t-il les blocs de fils?",
+      "answer": "Un processeur en continu (SM) exécute habituellement un bloc de fils à la fois, et le code est exécuté en groupes de 32 fils, appelés 'warps'."
+    },
+    {
+      "question": "Est-ce que l'exécution d'un bloc sur un SM est toujours ininterrompue?",
+      "answer": "Non, l'ordonnanceur peut retarder ou suspendre l'exécution de blocs selon certaines conditions, par exemple si les données ne sont plus disponibles."
+    },
+    {
+      "question": "Pourquoi l'ordonnanceur peut-il retarder l'exécution d'un bloc de fils?",
+      "answer": "L'ordonnanceur peut retarder l'exécution d'un bloc si les données ne sont plus disponibles, car la lecture de données à partir de la mémoire globale du GPU exige beaucoup de temps."
+    },
+    {
+      "question": "Qu'est-ce que l'ordonnancement 'zero-overhead'?",
+      "answer": "L'ordonnancement 'zero-overhead' se produit lorsque l'ordonnanceur exécute un autre bloc de fils prêt à être exécuté quand le bloc actuel est retardé, favorisant un flux d'exécution plus régulier afin que les SMs ne demeurent pas inactifs."
+    },
+    {
+      "question": "Quels sont les principaux types de mémoire GPU disponibles pour les opérations CUDA?",
+      "answer": "Les principaux types de mémoire GPU sont la mémoire globale, la mémoire partagée, les registres et mémoire locale, et la mémoire constante."
+    },
+    {
+      "question": "Décrivez les caractéristiques de la mémoire globale d'un GPU.",
+      "answer": "La mémoire globale est non sur la puce (off-chip), efficace pour les opérations I/O, mais relativement lente."
+    },
+    {
+      "question": "Quelles sont les caractéristiques de la mémoire partagée dans un GPU?",
+      "answer": "La mémoire partagée est sur la puce (on-chip), permet une bonne collaboration des fils et est très rapide."
+    },
+    {
+      "question": "Comment décririez-vous les registres et la mémoire locale dans un GPU?",
+      "answer": "Les registres et la mémoire locale sont l'espace de travail des fils et sont très rapides."
+    },
+    {
+      "question": "Comment allouer de la mémoire sur la carte graphique avec CUDA?",
+      "answer": "Pour allouer de la mémoire sur la carte graphique, on utilise la fonction `cudaMalloc((void**)&array, size)`, qui exige l'adresse d'un pointeur vers les données allouées et la taille."
+    },
+    {
+      "question": "Comment libérer de la mémoire précédemment allouée sur la carte graphique?",
+      "answer": "On libère la mémoire sur la carte graphique avec `cudaFree(array)`, qui exige uniquement le pointeur vers les données à désallouer."
+    },
+    {
+      "question": "Quelle fonction CUDA est utilisée pour transférer des données entre la carte graphique et l'hôte?",
+      "answer": "La fonction `cudaMemcpy(array_dest, array_orig, size, direction)` est utilisée pour copier les données de la carte graphique vers l'hôte ou inversement, ou même entre dispositifs (device to device)."
+    },
+    {
+      "question": "Quels paramètres sont requis par la fonction `cudaMemcpy`?",
+      "answer": "La fonction `cudaMemcpy` exige les pointeurs vers les données de destination et d'origine, la taille des données, et le type de direction (par exemple, `cudaMemcpyHostToDevice`, `cudaMemcpyDeviceToHost`)."
+    },
+    {
+      "question": "Quelle est la particularité de la fonction `cudaMemcpyAsync` par rapport à `cudaMemcpy`?",
+      "answer": "`cudaMemcpyAsync` est identique à `cudaMemcpy`, mais transfère les données de manière asynchrone, ce qui signifie que l'exécution des autres processus n'est pas bloquée."
+    },
+    {
+      "question": "Dans l'exemple de code CUDA C, quelles variables sont allouées sur le GPU?",
+      "answer": "Les variables `dev_a`, `dev_b` et `dev_c` sont allouées sur le GPU pour stocker des copies des entiers `a`, `b` et `c`."
+    },
+    {
+      "question": "Quelles sont les valeurs initiales des entiers `a` et `b` dans l'exemple de programme CUDA C simple?",
+      "answer": "Dans l'exemple, `a` est initialisé à 2 et `b` à 7."
+    }
+  ],
+  "generated_at": "2026-04-11T19:20:27.817716+00:00"
+}

@@ -1,0 +1,92 @@
+{
+  "doc_key": "fr/openacc_tutorial_-_adding_directives",
+  "level": "chunk",
+  "chunk_index": 8,
+  "qa_pairs": [
+    {
+      "question": "Combien de temps l'exécution du code original prend-elle sur un nœud GPU, avant d'être porté avec OpenACC?",
+      "answer": "L'exécution du code original prend 29.894881 secondes sur un nœud GPU."
+    },
+    {
+      "question": "Quel est le temps d'exécution de la version OpenACC du code pour le produit matrice-vecteur?",
+      "answer": "La version OpenACC du code prend 115.068931 secondes à s'exécuter."
+    },
+    {
+      "question": "Comment se compare la performance du code après avoir été porté avec OpenACC par rapport à sa version originale?",
+      "answer": "Après avoir été porté avec OpenACC, le code est près de quatre fois plus lent que la version originale."
+    },
+    {
+      "question": "Quel outil peut-on utiliser pour analyser la performance d'une application OpenACC et comprendre pourquoi elle est plus lente?",
+      "answer": "On peut utiliser le NVIDIA Visual Profiler (NVVP) pour analyser la performance et identifier les goulots d'étranglement."
+    },
+    {
+      "question": "Qu'est-ce que le NVIDIA Visual Profiler (NVVP)?",
+      "answer": "Le NVIDIA Visual Profiler (NVVP) est un profileur graphique conçu pour les applications utilisant les directives OpenACC et CUDA C/C++."
+    },
+    {
+      "question": "À quelle condition le NVIDIA Visual Profiler fournira-t-il des résultats?",
+      "answer": "Le NVIDIA Visual Profiler ne fournira des résultats que si l'exécutable utilise le GPU."
+    },
+    {
+      "question": "Quelles sont les prérequis pour lancer NVVP dans un environnement Linux?",
+      "answer": "Pour lancer NVVP, il faut que X11 soit redirigé vers un serveur X-Server ou utiliser un environnement de bureau Linux, par exemple via JupyterHub."
+    },
+    {
+      "question": "Quelles commandes faut-il exécuter pour charger les modules nécessaires avant de lancer NVVP?",
+      "answer": "Il faut exécuter les commandes `module load cuda/11.7 java/1.8` pour charger les modules requis."
+    },
+    {
+      "question": "Comment lance-t-on l'outil NVVP à partir d'un terminal?",
+      "answer": "On lance NVVP en tapant `nvvp` ou `nvvp &` (pour le lancer en arrière-plan) dans un terminal."
+    },
+    {
+      "question": "Quelle est la première étape pour configurer une nouvelle session de profilage dans NVVP?",
+      "answer": "La première étape est de sélectionner 'File > New Session' ou de cliquer sur le bouton correspondant dans la barre d'outils."
+    },
+    {
+      "question": "Lors de la configuration d'une session NVVP, que doit-on faire avec le répertoire 'Workspace'?",
+      "answer": "Il faut remplacer 'home' par 'scratch' dans le chemin suggéré pour le répertoire 'Workspace', puis cliquer sur 'OK'."
+    },
+    {
+      "question": "Quel est un constat fréquent après un profilage avec NVVP lorsqu'on porte du code d'un CPU vers un GPU?",
+      "answer": "Un constat fréquent est que le transfert de données entre le processeur hôte et le GPU occupe la plus grande partie du temps d'exécution."
+    },
+    {
+      "question": "Quelle est la nature de la directive OpenACC `parallel loop`?",
+      "answer": "La directive `parallel loop` est de nature 'prescriptive', ce qui signifie que le compilateur est forcé d'exécuter la boucle en parallèle."
+    },
+    {
+      "question": "Qu'est-ce que la directive `parallel loop` implique pour la clause `independent`?",
+      "answer": "Avec la directive `parallel loop`, la clause `independent` est implicite à l'intérieur de la zone parallèle."
+    },
+    {
+      "question": "Quelles clauses sont souvent nécessaires avec `parallel loop` pour gérer le flux de données dans une zone parallèle?",
+      "answer": "Les clauses `private` et `reduction` sont souvent nécessaires pour gérer le flux des données dans une zone parallèle avec `parallel loop`."
+    },
+    {
+      "question": "À quoi sert la clause `private` dans une directive OpenACC `parallel loop`?",
+      "answer": "Avec la clause `private`, une copie de la variable est faite pour chaque itération de la boucle, rendant la valeur indépendante des autres itérations."
+    },
+    {
+      "question": "Quel est le rôle de la clause `reduction` dans le contexte d'OpenACC et quelles opérations peut-elle gérer?",
+      "answer": "La clause `reduction` permet de 'réduire' les valeurs d'une variable de chaque itération à une valeur unique, en gérant des opérations comme l'addition (+), la multiplication (*), le maximum (max) et le minimum (min)."
+    },
+    {
+      "question": "Pourquoi les clauses `private` et `reduction` ne sont-elles pas nécessaires avec la directive `kernels`?",
+      "answer": "Ces clauses ne sont pas nécessaires avec la directive `kernels` car le compilateur s'en charge automatiquement."
+    },
+    {
+      "question": "Quelles sont les responsabilités du programmeur avec la directive `parallel loop`?",
+      "answer": "Avec `parallel loop`, l'intégrité du code parallélisé revient au programmeur, qui peut ainsi détecter la parallélisation que le compilateur aurait pu manquer."
+    },
+    {
+      "question": "Quelles sont les responsabilités du compilateur avec la directive `kernels`?",
+      "answer": "Avec `kernels`, la responsabilité d'analyser le code et de garantir son intégrité revient au compilateur, qui est libre d'optimiser le code et peut appliquer la directive à une grande portion de code."
+    },
+    {
+      "question": "La performance diffère-t-elle significativement entre les approches `parallel loop` et `kernels` en OpenACC?",
+      "answer": "Non, les deux approches sont valides et leur performance est comparable."
+    }
+  ],
+  "generated_at": "2026-04-12T04:09:51.363815+00:00"
+}

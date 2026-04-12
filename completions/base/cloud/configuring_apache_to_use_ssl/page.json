@@ -1,0 +1,63 @@
+{
+  "doc_key": "base/configuring_apache_to_use_ssl",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is the primary purpose of Transport Layer Security (TLS) and Secure Sockets Layer (SSL)?",
+      "answer": "TLS and SSL allow for encrypted communications over computer networks, which is important for sending sensitive information and prevents third parties from intercepting or modifying data."
+    },
+    {
+      "question": "Why is it generally recommended to use SSL certificates for web servers?",
+      "answer": "It encrypts data transmitted to and from a web server, protecting sensitive information and preventing third parties from intercepting and modifying data."
+    },
+    {
+      "question": "What are the two main types of SSL certificates mentioned in the document?",
+      "answer": "The two main types are certificates signed by a third-party signing authority and self-signed certificates."
+    },
+    {
+      "question": "When should you typically use a certificate signed by a third-party authority like Let's Encrypt?",
+      "answer": "You should use a third-party signed certificate for public-facing sites to ensure visitors are accessing the right website, avoid security warnings, and prevent man-in-the-middle attacks."
+    },
+    {
+      "question": "What is a key disadvantage of using a self-signed certificate for a public-facing website?",
+      "answer": "Visitors to a public-facing site will receive a warning about the site's security because no third party vouches for its validity."
+    },
+    {
+      "question": "For what specific situations might self-signed certificates be useful?",
+      "answer": "Self-signed certificates may be useful for testing purposes or for small, locally used sites."
+    },
+    {
+      "question": "Which tool is recommended for automatically creating and renewing SSL certificates signed by Let's Encrypt and configuring web servers?",
+      "answer": "Certbot is the recommended tool for automatically creating, renewing, and configuring SSL certificates signed by Let's Encrypt."
+    },
+    {
+      "question": "What specific port needs to be opened (TCP ingress) if configuring Certbot via Apache?",
+      "answer": "Port 443 (TCP ingress) must be opened for Certbot to connect to the site when configured via Apache."
+    },
+    {
+      "question": "What operating system is assumed for the self-signed certificate procedure described in the document?",
+      "answer": "The procedure for creating a self-signed certificate assumes the use of the Ubuntu operating system."
+    },
+    {
+      "question": "What is the initial step to enable SSL functionality for Apache on Ubuntu before creating a self-signed certificate?",
+      "answer": "The initial step is to activate the SSL module using `sudo a2enmod ssl` and then restart the Apache2 service."
+    },
+    {
+      "question": "When creating a self-signed SSL certificate using `openssl req`, what is the most important question to answer correctly?",
+      "answer": "The 'Common Name' question is the most important, and it should be the domain name of your server or the floating IP associated with your virtual machine."
+    },
+    {
+      "question": "How do you configure Apache to use a newly created self-signed SSL certificate?",
+      "answer": "You need to edit Apache's SSL configuration file (`default-ssl.conf`) to change `SSLCertificateFile` and `SSLCertificateKeyFile` to point to the new certificate and key, and add `SSLCertificateChainFile`."
+    },
+    {
+      "question": "What measure can be taken to force all HTTP traffic to HTTPS and require more modern SSL versions for an Apache server?",
+      "answer": "You can edit the `default-ssl.conf` file to add `ServerName`, `SSLProtocol all -SSLv2 -SSLv3`, `SSLCipherSuite`, and `SSLHonorCipherOrder on` directives, and add a permanent redirect in `000-default.conf`."
+    },
+    {
+      "question": "What are the final commands required to enable an SSL-enabled website after configuring it with a self-signed certificate?",
+      "answer": "The final commands are `sudo a2ensite default-ssl.conf` to enable the site and `sudo service apache2 restart` to restart Apache."
+    }
+  ],
+  "generated_at": "2026-04-11T20:18:55.122679+00:00"
+}

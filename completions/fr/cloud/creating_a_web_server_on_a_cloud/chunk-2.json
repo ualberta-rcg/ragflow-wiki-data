@@ -1,0 +1,68 @@
+{
+  "doc_key": "fr/creating_a_web_server_on_a_cloud",
+  "level": "chunk",
+  "chunk_index": 2,
+  "qa_pairs": [
+    {
+      "question": "Comment faire pour changer le répertoire root du serveur web Apache?",
+      "answer": "Pour changer le répertoire root du serveur web Apache, il faut modifier la ligne `<Directory /var/www/>` en `<Directory /home/ubuntu/public_html>` dans le fichier `/etc/apache2/apache2.conf`, puis modifier la ligne `DocumentRoot /var/www/html` en `DocumentRoot /home/ubuntu/public_html` dans le fichier `/etc/apache2/sites-available/000-default.conf`. Ensuite, il faut créer le répertoire `public_html` dans le répertoire /home de l'utilisateur, copier la page par défaut `index.html` vers ce nouveau répertoire et finalement redémarrer le serveur Apache."
+    },
+    {
+      "question": "Quelle commande faut-il utiliser pour modifier le fichier `apache2.conf`?",
+      "answer": "Vous devez utiliser la commande `sudo vim /etc/apache2/apache2.conf` ou un autre éditeur de texte de votre choix."
+    },
+    {
+      "question": "Quelle ligne doit-on modifier dans le fichier `apache2.conf` pour changer le répertoire root?",
+      "answer": "Il faut modifier la ligne `<Directory /var/www/>` pour la remplacer par `<Directory /home/ubuntu/public_html>`."
+    },
+    {
+      "question": "Quelle commande faut-il utiliser pour modifier le fichier `000-default.conf`?",
+      "answer": "Vous devez utiliser la commande `sudo vim /etc/apache2/sites-available/000-default.conf`."
+    },
+    {
+      "question": "Quelle ligne doit-on modifier dans le fichier `000-default.conf`?",
+      "answer": "Il faut modifier la ligne `DocumentRoot /var/www/html` pour la remplacer par `DocumentRoot /home/ubuntu/public_html`."
+    },
+    {
+      "question": "Comment créer le répertoire `public_html` dans le répertoire /home de l'utilisateur?",
+      "answer": "Vous pouvez créer le répertoire avec la commande `mkdir public_html`."
+    },
+    {
+      "question": "Quelle commande permet de copier la page par défaut `index.html` dans le nouveau répertoire `public_html`?",
+      "answer": "La commande à utiliser est `cp /var/www/html/index.html /home/ubuntu/public_html`."
+    },
+    {
+      "question": "Comment redémarrer le serveur Apache après avoir effectué des modifications?",
+      "answer": "Pour redémarrer le serveur Apache et actualiser les modifications, utilisez la commande `sudo service apache2 restart`."
+    },
+    {
+      "question": "Quel est l'avantage de modifier le répertoire root du serveur web?",
+      "answer": "Il est souvent plus facile de gérer un site web si la personne connectée à l'instance est propriétaire des fichiers, ce qui permet de modifier le fichier `index.html` sans utiliser `sudo`."
+    },
+    {
+      "question": "Pourquoi voudrait-on limiter la bande passante d'un serveur web?",
+      "answer": "Si votre serveur web est très sollicité, il est possible qu'il occupe beaucoup de ressources de la bande passante. Limiter son utilisation peut aider à gérer les ressources."
+    },
+    {
+      "question": "Comment peut-on limiter l'utilisation de la bande passante avec Apache?",
+      "answer": "Une bonne manière de limiter l'utilisation de la bande passante est d'utiliser le module Apache `mod_bw`."
+    },
+    {
+      "question": "Quelles sont les commandes pour installer et activer le module `mod_bw` d'Apache?",
+      "answer": "Pour l'installation, utilisez `sudo apt install libapache2-mod-bw`, puis pour l'activer, utilisez `sudo a2enmod bw`."
+    },
+    {
+      "question": "Quel est un exemple de configuration pour limiter la bande passante à 100 Mbps avec `mod_bw`?",
+      "answer": "L'exemple de configuration suivant limite la bande passante pour tous les clients à 100 Mbps:\n```\n    BandWidthModule On\n    ForceBandWidthModule On\n    BandWidth all 12500000\n```"
+    },
+    {
+      "question": "Où devrait être placée la configuration de `mod_bw` dans Apache?",
+      "answer": "Cette configuration devrait être placée entre les balises `<VirtualHost></VirtualHost>` pour votre site. La configuration Apache par défaut se trouve dans le fichier `/etc/apache2/sites-enabled/000-default.conf`."
+    },
+    {
+      "question": "Où puis-je trouver plus d'informations sur la configuration d'Apache pour utiliser SSL?",
+      "answer": "Vous pouvez consulter la page 'Configuration du serveur Apache pour utiliser SSL' pour plus d'informations."
+    }
+  ],
+  "generated_at": "2026-04-11T20:29:04.525504+00:00"
+}

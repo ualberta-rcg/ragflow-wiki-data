@@ -1,0 +1,55 @@
+{
+  "doc_key": "en/dar",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is the `dar` utility and what is its primary purpose?",
+      "answer": "`dar` (Disk ARchive) is an open-source utility designed as a modern replacement for the classical Unix `tar` tool, actively maintained since its first release in 2002."
+    },
+    {
+      "question": "What are some key advantages `dar` offers over `tar` for managing large archives?",
+      "answer": "`dar` includes a file index in each archive for fast file access and restore, supports built-in file-by-file compression for resilience against corruption, strong encryption, and the ability to split archives at 1-byte resolution."
+    },
+    {
+      "question": "Where can `dar` be accessed on compute clusters with `StdEnv/2020`?",
+      "answer": "On compute clusters, `dar` is available on `/cvmfs` when using `StdEnv/2020`, typically at `/cvmfs/soft.computecanada.ca/gentoo/2020/usr/bin/dar`."
+    },
+    {
+      "question": "How do you create a basic `dar` archive named 'all' from a subdirectory called 'test'?",
+      "answer": "To create a basic archive, you would use the command: `dar -w -c all -g test`."
+    },
+    {
+      "question": "What command is used to list the contents of a `dar` archive?",
+      "answer": "To list an archive's contents, use the `dar -l` command followed by the archive's base name, for example: `dar -l all`."
+    },
+    {
+      "question": "Which flags are recommended when extracting files with `dar` to ignore file ownership and disable warnings about existing directories?",
+      "answer": "The `-O` flag is used to ignore file ownership, and the `-w` flag disables warnings if the destination directory already exists."
+    },
+    {
+      "question": "How do `dar` archives handle extended attributes from Lustre filesystems, and what issues can arise during extraction?",
+      "answer": "`dar` automatically saves extended attributes, like `lustre.lov`, from Lustre filesystems. Extracting these files to non-Lustre locations (e.g., node local storage) can cause \"Operation not supported\" error messages because the attributes are incompatible."
+    },
+    {
+      "question": "What is the solution for preventing `lustre.lov` extended attribute errors when extracting files to a non-Lustre location?",
+      "answer": "To prevent these errors, you can use the `-u 'lustre*'` flag during extraction, or when creating the archive, to exclude Lustre-specific attributes."
+    },
+    {
+      "question": "How is an incremental backup created using `dar`, referencing a previous archive?",
+      "answer": "An incremental backup is created by passing the base name of the reference archive using the `-A` flag, for example: `dar -w -A monday -c tuesday -g test`."
+    },
+    {
+      "question": "In what order must a series of full and incremental `dar` backups be restored to recover all data?",
+      "answer": "To restore everything, all backups must be restored in chronological order, starting with the full backup, followed by each subsequent incremental backup."
+    },
+    {
+      "question": "How can you limit the maximum size of each slice when creating a `dar` archive?",
+      "answer": "You can limit the maximum size of each slice using the `-s` flag, followed by a number and a unit (e.g., `100M`), as in `dar -s 100M -w -c monday -g test`."
+    },
+    {
+      "question": "How do you extract files from a `dar` archive that has been split into multiple slices?",
+      "answer": "To extract from a sliced archive, you only need to specify the base name of the archive; `dar` will automatically handle all associated slices, e.g., `dar -O -x monday`."
+    }
+  ],
+  "generated_at": "2026-04-11T20:45:34.195655+00:00"
+}

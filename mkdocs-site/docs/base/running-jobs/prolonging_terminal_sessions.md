@@ -5,21 +5,45 @@ lang: "base"
 
 source_wiki_title: "Prolonging terminal sessions"
 source_hash: "5f09da03ed83cd792c7333fe651944eb"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T10:00:03.146878+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T10:28:14.112766+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "terminal multiplexer"
+  - "login node"
+  - "unset TMUX"
+  - "GNU Screen"
+  - "ServerAliveInterval"
+  - "tmux"
+  - "SSH connection"
+  - "nested tmux"
+  - "attach session"
+  - "detached terminal session"
+  - "screen -list"
+
+questions:
+  - "How can users modify their SSH client configuration to prevent their connection from dropping during long periods of inactivity?"
+  - "What is a terminal multiplexer, and how does it allow users to maintain their work sessions even after logging out or turning off their local machines?"
+  - "What are the potential issues or dependencies to keep in mind when using terminal multiplexers like tmux on cluster login nodes?"
+  - "How do you create a new detached terminal session with a specific name using GNU Screen?"
+  - "What command is used to view a list of all currently detached terminal sessions?"
+  - "How can you reattach to an existing GNU Screen session?"
+  - "How can a user reset the invalid TMUX variable that gets propagated to a job?"
+  - "What is the required key sequence to send commands, such as creating a new window, to a nested tmux session?"
+  - "What alternative software is recommended instead of using a nested tmux session inside a job?"
+  - "How do you create a new detached terminal session with a specific name using GNU Screen?"
+  - "What command is used to view a list of all currently detached terminal sessions?"
+  - "How can you reattach to an existing GNU Screen session?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -27,7 +51,7 @@ To work on our clusters, most users will need to use [SSH](ssh.md) to connect to
 
 ## SSH configuration
 
-One simple solution is to modify the configuration of your SSH client to prolong the connection. On MacOS and Linux the client configuration is found in `$HOME/.ssh/config` while in Windows it is located in `C:\Users\<username>\.ssh\config`. Note that the file may not exist initially, so you will need to create it; you should add the lines
+One simple solution is to modify the configuration of your SSH client to prolong the connection. On macOS and Linux the client configuration is found in `$HOME/.ssh/config` while in Windows it is located in `C:\Users\<username>\.ssh\config`. Note that the file may not exist initially, so you will need to create it; you should add the lines
 
 ```bash
 Host *
@@ -40,33 +64,33 @@ This addition will ensure the transmission of a sign-of-life signal over the SSH
 
 The programs `tmux` and `screen` are examples of a terminal multiplexer—a program which allows you to detach your terminal session entirely, where it will keep on running on its own until you choose to reattach to it. With such a program, you can log out from the cluster, turn off the workstation or hibernate the laptop you use to connect to the cluster and when you're ready to start working again the next day, reattach to your session and start from right where you left off.
 
-!!! note "Login node dependency"
+!!! warning "Login node dependency"
     Each of our clusters has several login nodes and your `tmux` or `screen` session is specific to a login node. If you wish to reattach to a session, you must ensure you're connected to the right login node, which of course means remembering which login node you were using when you started `tmux` or `screen`. Login nodes may also occasionally be rebooted, which will kill any detached terminal sessions on that node.
 
-### tmux
+## tmux
 
 The [tmux](https://en.wikipedia.org/wiki/Tmux) software is a terminal multiplexer, allowing multiple virtual sessions in a single terminal session. You can thus disconnect from an SSH session without interrupting its process(es).
 
 Here are some introductions to tmux:
-* ["The Tao of tmux"](https://leanpub.com/the-tao-of-tmux/read), an online book
-* ["Getting Started With TMUX"](https://www.youtube.com/watch?v=252K9lrRdMU), a 24-minute video
-* ["Turbo boost your interactive experience on the cluster with tmux"](https://www.youtube.com/watch?v=Y1Of3S5iVog), a 58-minute video
+*   ["The Tao of tmux"](https://leanpub.com/the-tao-of-tmux/read), an online book
+*   ["Getting Started With TMUX"](https://www.youtube.com/watch?v=252K9lrRdMU), a 24-minute video
+*   ["Turbo boost your interactive experience on the cluster with tmux"](https://www.youtube.com/watch?v=Y1Of3S5iVog), a 58-minute video
 
-#### Cheat sheet
+### Cheat sheet
 
 For a complete reference, see [this page](http://hyperpolyglot.org/multiplexers).
 
-| Command      | Description                                                                 |
-| :----------- | :-------------------------------------------------------------------------- |
-| `tmux`       | Start a server                                                              |
-| `Ctrl+B D`   | Disconnect from server                                                      |
-| `tmux a`     | Reconnect to server                                                         |
-| `Ctrl+B C`   | Create a new window                                                         |
-| `Ctrl+B N`   | Go to next window                                                           |
+| Command      | Description                                                    |
+| :----------- | :------------------------------------------------------------- |
+| `tmux`       | Start a server                                                 |
+| `Ctrl+B D`   | Disconnect from server                                         |
+| `tmux a`     | Reconnect to server                                            |
+| `Ctrl+B C`   | Create a new window                                            |
+| `Ctrl+B N`   | Go to next window                                              |
 | `Ctrl+B [`   | Enable "copy" mode, allowing to scroll with the mouse and Page-Up Page-Down |
-| `Esc`        | Disable "copy" mode                                                         |
+| `Esc`        | Disable "copy" mode                                            |
 
-#### Launch tmux inside a job submitted through tmux
+### Launch tmux inside a job submitted through tmux
 
 If you submit a job with tmux and try to start tmux within the same job, you will get the `lost server` error message. This happens because the `$TMUX` environment variable pointing to the tmux server is propagated to the job. The value of the variable is not valid and you can reset it with:
 
@@ -76,7 +100,7 @@ unset TMUX
 
 However, nested use of tmux is not recommended. To send commands to a nested tmux, one has to hit `Ctrl+B` twice; for example, to create a new window, one has to use `Ctrl+B Ctrl+B C`. Consider using [GNU Screen](#gnu-screen) inside your job (if you are using tmux on a login node).
 
-### GNU Screen
+## GNU Screen
 
 The [GNU Screen](https://en.wikipedia.org/wiki/GNU_Screen) program is another widely used terminal multiplexer. To create a detached terminal session, you can use the following command
 
@@ -88,10 +112,11 @@ It's a good idea to give a descriptive name to your terminal sessions, making it
 
 ```bash
 screen -list
-# Output:
-# There is a screen on:
-#         164133.foo      (Attached)
-# 1 Socket in /tmp/S-stubbsda.
+```
+```text
+There is a screen on:
+        164133.foo      (Attached)
+1 Socket in /tmp/S-stubbsda.
 ```
 
 You can attach to one of your sessions using the command `screen -d -r <session name>`.

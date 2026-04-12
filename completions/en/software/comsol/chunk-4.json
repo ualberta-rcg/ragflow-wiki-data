@@ -1,0 +1,112 @@
+{
+  "doc_key": "en/comsol",
+  "level": "chunk",
+  "chunk_index": 4,
+  "qa_pairs": [
+    {
+      "question": "How do you specify the Slurm account for a COMSOL job running on multiple compute nodes?",
+      "answer": "You specify the Slurm account using `#SBATCH --account=def-account` in the submission script."
+    },
+    {
+      "question": "What is the recommended memory allocation per node for a COMSOL job on multiple compute nodes, according to the sample script?",
+      "answer": "The recommended memory allocation is 16GB per node, specified by `#SBATCH --mem=16G`."
+    },
+    {
+      "question": "How many CPUs per task are typically specified for a COMSOL job running across multiple nodes in the provided example?",
+      "answer": "Four CPUs per task are specified using `#SBATCH --cpus-per-task=4`."
+    },
+    {
+      "question": "How many compute nodes are configured for the sample COMSOL job in the `script-dis.sh`?",
+      "answer": "The sample script is configured to use two compute nodes, specified by `#SBATCH --nodes=2`."
+    },
+    {
+      "question": "What is the fixed value for tasks per node in the multiple compute node script?",
+      "answer": "The value for tasks per node is fixed at 1, as indicated by `#SBATCH --ntasks-per-node=1`."
+    },
+    {
+      "question": "Which environment module should be loaded for COMSOL versions 6.2 or newer when running a job on multiple compute nodes?",
+      "answer": "For COMSOL versions 6.2 or newer, you should load `StdEnv/2023`."
+    },
+    {
+      "question": "Which specific COMSOL module is loaded in the example script for multiple compute node jobs?",
+      "answer": "The `comsol/6.4` module is loaded in the example script."
+    },
+    {
+      "question": "How do you prepare a recovery directory for a COMSOL job running on multiple nodes?",
+      "answer": "You set `RECOVERYDIR=$SCRATCH/comsol/recoverydir` and then create the directory using `mkdir -p $RECOVERYDIR`."
+    },
+    {
+      "question": "What files are copied to the job's working directory at the beginning of a multiple node COMSOL job?",
+      "answer": "The `comsolbatch.ini` and `java.opts` files are copied from the COMSOL installation directory."
+    },
+    {
+      "question": "How do you run the COMSOL batch command for a multiple node job, including options for input/output files and recovery?",
+      "answer": "You run `comsol batch -inputfile $INPUTFILE -outputfile $OUTPUTFILE -np $SLURM_CPUS_ON_NODE -nn $SLURM_NNODES -recoverydir $RECOVERYDIR -tmpdir $SLURM_TMPDIR -comsolinifile comsolbatch.ini -alivetime 15`."
+    },
+    {
+      "question": "How can an interrupted COMSOL job be restarted from its latest recovery files?",
+      "answer": "You can restart an interrupted job by uncommenting the line `# -recover -continue` in the submission script."
+    },
+    {
+      "question": "What should you do if a multiple node COMSOL job crashes on startup with a Java segmentation fault?",
+      "answer": "You should try increasing the Java heap by adding specific `sed` lines after the `cp -f` lines in the script."
+    },
+    {
+      "question": "What are the `sed` commands to increase the Java heap memory for `comsolbatch.ini` and `java.opts`?",
+      "answer": "The `sed` commands are `sed -i 's/-Xmx2g/-Xmx4g/g' comsolbatch.ini` and `sed -i 's/-Xmx768m/-Xmx4g/g' java.opts`."
+    },
+    {
+      "question": "If increasing Java heap memory to 4GB doesn't resolve a segmentation fault, what is the next step?",
+      "answer": "You should try further changing both 4g values to 8g."
+    },
+    {
+      "question": "Where can more information about 'Out of Memory' issues with COMSOL be found?",
+      "answer": "More information is available at `https://www.comsol.ch/support/knowledgebase/1243`."
+    },
+    {
+      "question": "What should be done if a COMSOL job runs slowly or hangs during startup when submitted to a single node using `script-smp.sh`?",
+      "answer": "You should try using the `script-dis.sh` (multiple node script) instead, configured with `#SBATCH --nodes=1`, and then open a ticket with technical support."
+    },
+    {
+      "question": "What is the recommended method to run COMSOL in graphical mode?",
+      "answer": "It is recommended to open a remote desktop on an OnDemand or JupyterLab system."
+    },
+    {
+      "question": "Is using a TigerVNC client/server pair for graphical COMSOL recommended?",
+      "answer": "No, it is no longer recommended or supported."
+    },
+    {
+      "question": "What file must be configured before attempting to use COMSOL in graphical mode?",
+      "answer": "The `~/.licenses/comsol.lic` file must first be configured."
+    },
+    {
+      "question": "How can you check which COMSOL versions are available within your currently loaded standard environment?",
+      "answer": "You can check by running the command `module avail comsol`."
+    },
+    {
+      "question": "What should you do if the upper menu items are greyed out and not clickable after starting COMSOL in GUI mode?",
+      "answer": "You should try deleting your `~/.comsol` directory, as it may be corrupted."
+    },
+    {
+      "question": "What are the URLs for starting an OnDemand desktop session on NIBI and TRILLIUM?",
+      "answer": "For NIBI, it's `https://ondemand.sharcnet.ca`, and for TRILLIUM, it's `https://ondemand.scinet.utoronto.ca`."
+    },
+    {
+      "question": "What commands are used to launch COMSOL version 6.2 or newer in graphical mode via OnDemand?",
+      "answer": "You need to run `module load StdEnv/2023`, then `module load comsol/6.4`, and finally `comsol`."
+    },
+    {
+      "question": "What commands are used to launch COMSOL version 6.1 or older in graphical mode via OnDemand?",
+      "answer": "You need to run `module load StdEnv/2020`, then `module load comsol/6.1`, and finally `comsol`."
+    },
+    {
+      "question": "What are the URLs for starting a JupyterHub desktop session on FIR, NARVAL, and RORQUAL?",
+      "answer": "For FIR, it's `https://jupyterhub.fir.alliancecan.ca`; for NARVAL, it's `https://portail.narval.calculquebec.ca/`; and for RORQUAL, it's `https://jupyterhub.rorqual.alliancecan.ca`."
+    },
+    {
+      "question": "How do you start COMSOL in a remote Jupyter desktop session?",
+      "answer": "You highlight a COMSOL module (e.g., `comsol/6.4`) in the Available Module section, click 'Load', and then click the 'Comsol (VNC)' icon that appears on the desktop."
+    }
+  ],
+  "generated_at": "2026-04-11T19:03:48.959362+00:00"
+}

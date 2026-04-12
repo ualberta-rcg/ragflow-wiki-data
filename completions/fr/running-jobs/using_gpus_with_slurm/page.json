@@ -1,0 +1,71 @@
+{
+  "doc_key": "fr/using_gpus_with_slurm",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "Quelle est la principale directive Slurm qu'on doit utiliser pour demander un ou plusieurs GPU pour une tâche?",
+      "answer": "On doit utiliser la directive `--gpus-per-node=<identifiant_modèle>:<nombre>`."
+    },
+    {
+      "question": "Quel est l'identifiant Slurm recommandé pour demander un GPU A100?",
+      "answer": "Pour demander un GPU A100, l'identifiant est `a100`."
+    },
+    {
+      "question": "Existe-t-il d'autres directives Slurm pour demander des GPU, et laquelle n'est plus recommandée?",
+      "answer": "Oui, il y a d'autres directives comme `--gpus`, `--gpus-per-socket`, `--gpus-per-task`, `--mem-per-gpu` et `--ntasks-per-gpu`. Cependant, la directive `--gres=gpu:<identifiant_modèle>:<nombre>` pourrait ne plus être prise en charge et il est recommandé de la remplacer par `--gpus-per-node`."
+    },
+    {
+      "question": "Que doit-on faire si on n'obtient pas le résultat voulu avec une combinaison de directives Slurm pour les GPU?",
+      "answer": "Il faut contacter le soutien technique."
+    },
+    {
+      "question": "Quels types de GPU sont disponibles sur les grappes Fir, Narval, Nibi et Rorqual?",
+      "answer": "Sur Fir, Nibi et Rorqual, des GPU H100-80gb sont disponibles. Sur Narval, des GPU A100-40gb sont disponibles. Nibi offre également des MI300A-128gb."
+    },
+    {
+      "question": "Comment puis-je obtenir une liste des identifiants de GPU (et MIG) disponibles sur chaque grappe en utilisant une commande?",
+      "answer": "On peut utiliser la commande `sinfo -o \"%G\" | grep gpu | sed 's/gpu://g' | sed 's/),/\\n/g' | cut -d: -f1 | sort | uniq`."
+    },
+    {
+      "question": "Qu'arrive-t-il si on ne spécifie pas un identifiant de modèle de GPU pour une tâche Slurm?",
+      "answer": "Si on ne spécifie pas de modèle, la tâche risque d'être rejetée ou acheminée vers une instance de GPU arbitraire, ce qui est rarement efficace."
+    },
+    {
+      "question": "Qu'est-ce que la technologie GPU multi-instances (MIG)?",
+      "answer": "La technologie MIG permet de partitionner un GPU en plusieurs instances, ce qui permet à des tâches d'utiliser une partie d'un GPU plutôt qu'un GPU entier."
+    },
+    {
+      "question": "Quel est le nombre par défaut de cœurs CPU et la quantité de mémoire système qu'une tâche reçoit avec chaque instance GPU?",
+      "answer": "Par défaut, une tâche reçoit un (1) cœur CPU et une certaine quantité de mémoire système avec chaque instance GPU."
+    },
+    {
+      "question": "Où peut-on trouver le maximum de cœurs CPU et de mémoire système qu'on peut demander avec un GPU?",
+      "answer": "Pour le maximum de cœurs CPU et de mémoire système, il faut consulter le tableau des ratios dans la section 'Allocations et ordonnancement de calcul'."
+    },
+    {
+      "question": "Quel est un exemple de script Slurm pour une tâche qui demande un seul GPU A100 et un seul cœur CPU?",
+      "answer": "```bash\n#!/bin/bash\n#SBATCH --account=def-someuser\n#SBATCH --gpus-per-node=a100:1\n#SBATCH --mem=4000M\n#SBATCH --time=0-03:00\n./program\n```"
+    },
+    {
+      "question": "Comment demande-t-on un GPU A100 avec plusieurs cœurs CPU pour une tâche multifils?",
+      "answer": "On ajoute `#SBATCH --cpus-per-task=<nombre_de_cœurs>` à son script Slurm, par exemple `#SBATCH --cpus-per-task=6` en plus de `#SBATCH --gpus-per-node=a100:1`."
+    },
+    {
+      "question": "Quel est le nombre maximal de cœurs CPU recommandé par GPU complet sur les grappes Fir, Narval, Nibi et Rorqual?",
+      "answer": "On recommande un maximum de 12 cœurs CPU sur Fir et Narval, 14 sur Nibi, et 16 sur Rorqual par GPU complet."
+    },
+    {
+      "question": "Comment peut-on exécuter plusieurs tâches utilisant un seul GPU concurremment dans un seul travail Slurm, par exemple avec GNU Parallel?",
+      "answer": "On peut utiliser `cat params.input | parallel -j<nombre_tâches> 'CUDA_VISIBLE_DEVICES=$(({%} - 1)) python {} &> {#}.out'`, où `params.input` contient les paramètres pour chaque tâche sur des lignes distinctes."
+    },
+    {
+      "question": "Comment peut-on activer le profilage des tâches GPU sur les grappes Narval et Rorqual?",
+      "answer": "Pour activer le profilage, il faut désactiver DCGM (NVIDIA Data Center GPU Manager) en configurant la variable d'environnement `DISABLE_DCGM=1` lors de la soumission de la tâche Slurm."
+    },
+    {
+      "question": "Sur quelles grappes le profilage de GPU décrit dans le document n'est-il pas encore disponible?",
+      "answer": "Le profilage de GPU n'est pas encore disponible sur Fir et Nibi."
+    }
+  ],
+  "generated_at": "2026-04-12T10:04:37.122504+00:00"
+}

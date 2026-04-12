@@ -1,0 +1,59 @@
+{
+  "doc_key": "en/using_node-local_storage",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is `SLURM_TMPDIR`?",
+      "answer": "When Slurm starts a job, it creates a temporary directory on each assigned node and sets its full path in the `SLURM_TMPDIR` environment variable."
+    },
+    {
+      "question": "What is the primary advantage of using `SLURM_TMPDIR` for job I/O?",
+      "answer": "I/O to `$SLURM_TMPDIR` is almost always faster than I/O to network storage because it resides on local disk, making it better for frequent small I/O transactions."
+    },
+    {
+      "question": "What is the main drawback of using `SLURM_TMPDIR`?",
+      "answer": "Its temporary nature means input data must be copied to it before use and output data must be copied back to network storage before the job ends to preserve it."
+    },
+    {
+      "question": "How do you copy input data from network storage to `$SLURM_TMPDIR` in a simple case?",
+      "answer": "You can use commands like `cp` or `rsync`, for example: `cp /project/def-someone/you/input.files.* $SLURM_TMPDIR/`."
+    },
+    {
+      "question": "Why is it recommended to create Python virtual environments inside your jobs using `$SLURM_TMPDIR`?",
+      "answer": "Running an application within a Python virtual environment can generate a large number of small I/O transactions, which perform better on the local disk provided by `$SLURM_TMPDIR`."
+    },
+    {
+      "question": "What happens to output data in `$SLURM_TMPDIR` if a job times out?",
+      "answer": "If a job times out, the last few lines of the job script (which might include copying output) might not be executed, leading to potential data loss."
+    },
+    {
+      "question": "What are three ways to address the issue of preserving output from `$SLURM_TMPDIR` if a job might time out?",
+      "answer": "You can request enough runtime, write checkpoints directly to network storage, or implement a signal trapping function."
+    },
+    {
+      "question": "When is using a signal trapping function for output preservation particularly useful?",
+      "answer": "It's useful if your runtime estimate is uncertain or if you're chaining several Slurm jobs together for a long calculation, as it allows output to be copied before runtime expires."
+    },
+    {
+      "question": "What is the command to copy a file to the `SLURM_TMPDIR` on every node allocated for a multinode job?",
+      "answer": "You can use `srun --ntasks=$SLURM_NNODES --ntasks-per-node=1 cp file [files...] $SLURM_TMPDIR`."
+    },
+    {
+      "question": "How do you extract a compressed archive (like a tarball) to `$SLURM_TMPDIR` on all nodes in a multinode job?",
+      "answer": "You can use `srun --ntasks=$SLURM_NNODES --ntasks-per-node=1 tar -xvf archive.tar.gz -C $SLURM_TMPDIR`."
+    },
+    {
+      "question": "How is the amount of space available in `$SLURM_TMPDIR` determined on the Trillium cluster?",
+      "answer": "At Trillium, `$SLURM_TMPDIR` is implemented as a RAMdisk, so the available space is limited by the node's memory, minus the RAM used by your application."
+    },
+    {
+      "question": "What is the typical space available in `$SLURM_TMPDIR` on a Narval cluster node?",
+      "answer": "The typical space available in `$SLURM_TMPDIR` on a Narval node is 800 gigabytes."
+    },
+    {
+      "question": "How does requesting less than a whole node affect the space available in `$SLURM_TMPDIR`?",
+      "answer": "If your job requests less than a whole node, other jobs may also write to the same filesystem (in a different directory), which can reduce the space available to your job."
+    }
+  ],
+  "generated_at": "2026-04-12T10:30:32.683463+00:00"
+}

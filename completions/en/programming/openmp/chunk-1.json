@@ -1,0 +1,140 @@
+{
+  "doc_key": "en/openmp",
+  "level": "chunk",
+  "chunk_index": 1,
+  "qa_pairs": [
+    {
+      "question": "What is OpenMP?",
+      "answer": "OpenMP, which stands for Open Multi-Processing, is an application programming interface (API) designed for shared memory parallel computing."
+    },
+    {
+      "question": "On which platforms is OpenMP supported?",
+      "answer": "OpenMP is supported on numerous platforms, including Linux and Windows."
+    },
+    {
+      "question": "Which programming languages can use OpenMP?",
+      "answer": "OpenMP is available for the C/C++ and Fortran programming languages."
+    },
+    {
+      "question": "What does the OpenMP API consist of?",
+      "answer": "The OpenMP API consists of a set of directives, a software library, and environment variables."
+    },
+    {
+      "question": "What does OpenMP allow developers to achieve?",
+      "answer": "OpenMP allows one to develop fine-grained parallel applications on a multicore machine while preserving the structure of the serial code."
+    },
+    {
+      "question": "How do OpenMP directives control program execution?",
+      "answer": "Directives inserted into the program control whether a section of the program executes in parallel and, if so, they also control the distribution of work among subtasks."
+    },
+    {
+      "question": "What is a key characteristic of OpenMP directives regarding code modification?",
+      "answer": "OpenMP directives are usually non-intrusive, meaning a compiler that doesn't support them can still compile the program, and the user can run it serially."
+    },
+    {
+      "question": "What fundamental concept does OpenMP rely on?",
+      "answer": "OpenMP relies on the notion of threads."
+    },
+    {
+      "question": "How is a thread formally defined?",
+      "answer": "A thread can formally be defined as the smallest unit of work or processing that can be scheduled by an operating system, akin to a lightweight process or a 'virtual processor, operating serially'."
+    },
+    {
+      "question": "From a programmer's perspective, what does having five threads represent?",
+      "answer": "From a programmer's point of view, if there are five threads, that virtually corresponds to five cores that can do a computation in parallel."
+    },
+    {
+      "question": "Is the number of threads dependent on the number of physical cores in a computer?",
+      "answer": "No, the number of threads is independent of the number of physical cores within the computer."
+    },
+    {
+      "question": "Can a computer with two physical cores run a program with ten threads?",
+      "answer": "Yes, two cores can run a program with ten threads, with the operating system deciding how to share the cores' time between threads."
+    },
+    {
+      "question": "Can a single thread be executed by two processors simultaneously?",
+      "answer": "No, one thread cannot be executed by two processors at the same time."
+    },
+    {
+      "question": "To take full advantage of four available cores, what is the minimum number of threads that must be created?",
+      "answer": "To take advantage of four available cores, at least four threads must be created."
+    },
+    {
+      "question": "Is it ever advantageous to use more threads than the number of available cores?",
+      "answer": "Yes, in some cases, it may be advantageous to use more threads than the number of available cores."
+    },
+    {
+      "question": "What is the usual practice for matching the number of threads to cores?",
+      "answer": "The usual practice is to match the number of threads to the number of cores."
+    },
+    {
+      "question": "What is an important consideration concerning threads when multiple computations happen simultaneously?",
+      "answer": "Synchronization is an important point; when multiple threads compute at the same time, one must assume nothing about the order in which things happen."
+    },
+    {
+      "question": "If the order of operations matters for the correctness of OpenMP code, what must the programmer use?",
+      "answer": "If the order matters for correctness, the programmer must use OpenMP synchronization directives."
+    },
+    {
+      "question": "Is the precise distribution of threads over cores known to the programmer?",
+      "answer": "No, the precise distribution of threads over cores is unknown to the programmer, although thread affinity capabilities are available to control that."
+    },
+    {
+      "question": "What is 'scalability' in the context of parallelizing a program?",
+      "answer": "Scalability is how well a program is able to run in parallel."
+    },
+    {
+      "question": "What is recommended after parallelizing software and confirming its correctness?",
+      "answer": "After parallelizing software and being satisfied about its correctness, it's recommended to perform a scaling analysis to understand its parallel performance."
+    },
+    {
+      "question": "How is an OpenMP program typically compiled?",
+      "answer": "For most compilers, compiling an OpenMP program is done by simply adding a command-line option to the compilation flags."
+    },
+    {
+      "question": "What is the command-line option for GNU compilers (GCC) to compile OpenMP programs?",
+      "answer": "For the GNU compilers (GCC), the command-line option is `<tt>-fopenmp</tt>."
+    },
+    {
+      "question": "What are the possible command-line options for Intel compilers when compiling OpenMP programs?",
+      "answer": "Depending on the version, Intel compilers may use `<tt>-qopenmp</tt>`, `<tt>-fopenmp</tt>`, or `<tt>-openmp</tt>`."
+    },
+    {
+      "question": "How are OpenMP directives inserted into Fortran programs?",
+      "answer": "OpenMP directives are inserted in Fortran programs using sentinels, which are keywords placed immediately after a symbol that marks a comment."
+    },
+    {
+      "question": "Provide an example of a sentinel used for an OpenMP directive in Fortran.",
+      "answer": "Examples include `!$OMP directive`, `c$OMP directive`, `C$OMP directive`, or `*$OMP directive`."
+    },
+    {
+      "question": "How are OpenMP directives inserted into C programs?",
+      "answer": "In C, directives are inserted using a pragma construct, such as `#pragma omp directive`."
+    },
+    {
+      "question": "What is the Fortran directive syntax for defining a parallel region?",
+      "answer": "The Fortran directive syntax for a parallel region is `!$OMP PARALLEL [clause, clause,…]` followed by the block and then `!$OMP END PARALLEL`."
+    },
+    {
+      "question": "What is the C/C++ directive syntax for defining a parallel region?",
+      "answer": "The C/C++ directive syntax for a parallel region is `#pragma omp parallel [clause, clause,…]` followed by the structured-block."
+    },
+    {
+      "question": "How do you specify a parallel DO loop in Fortran using OpenMP?",
+      "answer": "For a parallel DO loop in Fortran, you use `!$OMP DO [ clause, clause,…]` before the `do_loop` and `!$OMP END DO` after it."
+    },
+    {
+      "question": "What is the C/C++ directive for parallelizing a for-loop?",
+      "answer": "The C/C++ directive for parallelizing a for-loop is `#pragma omp for [ clause, clause,…]` followed by the `for-loop`."
+    },
+    {
+      "question": "What is the Fortran directive syntax for defining parallel sections?",
+      "answer": "The Fortran directive syntax for parallel sections is `!$OMP SECTIONS [clause, clause,…]`, followed by `!$OMP SECTION` for each block, and ending with `!$OMP END SECTIONS [NOWAIT]`."
+    },
+    {
+      "question": "What is the C/C++ directive syntax for defining parallel sections?",
+      "answer": "The C/C++ directive syntax for parallel sections is `#pragma omp sections [clause, clause,…] {` followed by `[ #pragma omp section ]` and a `structured-block` for each section, concluding with `}`."
+    }
+  ],
+  "generated_at": "2026-04-12T04:34:39.185314+00:00"
+}

@@ -1,0 +1,67 @@
+{
+  "doc_key": "fr/nextflow",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "C'est quoi Nextflow?",
+      "answer": "Nextflow est un logiciel qui permet d'exécuter des flux de travail scientifiques reproductibles. Le terme décrit aussi le langage spécifique au domaine (DSL) et le logiciel qui l'interprète."
+    },
+    {
+      "question": "Comment on fait pour charger le module Nextflow sur nos systèmes?",
+      "answer": "Pour charger le module Nextflow, il faut utiliser la commande `module load nextflow`."
+    },
+    {
+      "question": "C'est quoi les pipelines nf-core?",
+      "answer": "Les pipelines nf-core sont des flux de travail scientifiques déjà publiés qu'on peut utiliser avec Nextflow."
+    },
+    {
+      "question": "Comment on prépare le fichier de configuration spécifique à l'Alliance Canada pour Nextflow?",
+      "answer": "On télécharge le fichier de configuration de nf-core avec `curl -o ~/.nextflow/config https://raw.githubusercontent.com/nf-core/configs/refs/heads/master/conf/alliance_canada.config` et on le place dans `~/.nextflow/config`."
+    },
+    {
+      "question": "Quelle variable d'environnement faut configurer pour le compte Slurm pis où?",
+      "answer": "Il faut configurer la variable `SLURM_ACCOUNT` avec un nom de compte comme `def-pname` et l'ajouter dans le fichier `~/.bashrc`."
+    },
+    {
+      "question": "Est-ce que c'est une bonne idée de rouler des pipelines Nextflow génériques sur Trillium?",
+      "answer": "Non, il n'est pas recommandé d'exécuter des pipelines Nextflow génériques sur Trillium, à moins qu'ils aient été spécifiquement conçus pour cette grappe."
+    },
+    {
+      "question": "Pourquoi faut installer nf-core sur un nœud de connexion pis pas un nœud de calcul?",
+      "answer": "Il faut l'installer sur un nœud de connexion parce que certains nœuds de calcul n'ont pas accès à Internet, ce qui est nécessaire pour l'installation."
+    },
+    {
+      "question": "Quels modules faut charger pour installer nf-core dans un environnement virtuel Python?",
+      "answer": "Il faut charger les modules `python/3.11`, `rust` et `postgresql` avant de créer l'environnement virtuel et d'installer nf-core."
+    },
+    {
+      "question": "Où faut stocker les images de conteneurs Apptainer pour Nextflow pis pourquoi?",
+      "answer": "Il faut les stocker dans un répertoire sur `/project` (ex: `/project/<def-group>/NXF_SINGULARITY_CACHEDIR`) parce que les images sont souvent volumineuses pis que l'espace `$HOME` est limité."
+    },
+    {
+      "question": "Qu'est-ce qui est téléchargé quand on utilise la commande `nf-core download`?",
+      "answer": "La commande télécharge les fichiers des images du conteneur dans le répertoire de cache Apptainer et les fichiers de pipeline dans un sous-répertoire de votre répertoire de travail."
+    },
+    {
+      "question": "Quels types de fichiers sont nécessaires comme entrées pour les pipelines Nextflow comme rnaseq?",
+      "answer": "Les pipelines Nextflow utilisent des fichiers de séquences (ex: `.fastq.gz`) pis une feuille d'échantillons (`sample sheet`) comme données d'entrée."
+    },
+    {
+      "question": "Comment on lance un pipeline Nextflow via un script de tâche Slurm?",
+      "answer": "On crée un script Slurm qui charge les modules, active l'environnement Python, exporte les variables nécessaires pis appelle `nextflow run` avec les bons chemins pis profils, puis on le soumet avec `sbatch nom_du_script.sh`."
+    },
+    {
+      "question": "Comment on fait pour suivre la progression d'un pipeline Nextflow soumis à Slurm?",
+      "answer": "On peut suivre la progression en consultant le fichier journal `nextflow_test.<job_ID>.out` ou en utilisant les commandes `sq` ou `squeue -u $USER`."
+    },
+    {
+      "question": "C'est quoi la solution si on rencontre l'erreur Java 'unable to create native thread' avec Nextflow?",
+      "answer": "La solution est de rouler Nextflow avec la variable d'environnement `export NXF_OPTS='-XX:ActiveProcessorCount=1'` pour limiter le nombre de fils Java."
+    },
+    {
+      "question": "Comment on peut résoudre les erreurs `SIGBUS` du processus principal de Nextflow?",
+      "answer": "Pour résoudre les erreurs `SIGBUS`, on peut définir la variable d'environnement `NXF_OPTS=\"-Dleveldb.mmap=false\"` avant de lancer `nextflow`."
+    }
+  ],
+  "generated_at": "2026-04-12T03:51:35.736169+00:00"
+}

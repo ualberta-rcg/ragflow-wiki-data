@@ -1,0 +1,51 @@
+{
+  "doc_key": "fr/vm_recovery_via_cloud_console",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "C'est quoi l'objectif principal de ce document?",
+      "answer": "Ce document explique comment récupérer l'accès à une instance Linux lorsque l'accès via SSH ou un utilisateur local est impossible, en utilisant le mode utilisateur unique ou un noyau de récupération."
+    },
+    {
+      "question": "Quelle est la condition essentielle pour pouvoir utiliser les méthodes de récupération décrites?",
+      "answer": "La seule condition est que le gestionnaire de démarrage (comme GRUB ou GRUB2) soit accessible et modifiable."
+    },
+    {
+      "question": "Pourquoi le mode utilisateur unique ne suffit-il pas pour récupérer l'accès à la plupart des images Debian10?",
+      "answer": "Pour la plupart des images Debian10, le compte racine est verrouillé, rendant le démarrage en mode utilisateur unique inefficace pour la récupération directe."
+    },
+    {
+      "question": "Comment modifier le processus de démarrage GRUB sous Debian10 pour exécuter un interpréteur de commandes?",
+      "answer": "Il faut accéder au menu GRUB, appuyer sur `e` pour éditer l'entrée, supprimer les consoles à transmission série et ajouter `init=/bin/bash` à la fin de la ligne qui commence par `linux`."
+    },
+    {
+      "question": "Quelle est la première étape pour rendre le système de fichiers modifiable après avoir démarré en mode `init=/bin/bash` sous Debian10?",
+      "answer": "Il faut remonter le système de fichiers `initrd` en lecture-écriture avec la commande `mount -o remount,rw /`."
+    },
+    {
+      "question": "Comment accéder au système de fichiers de l'image du système d'exploitation sous Debian10 pour y apporter des modifications, comme changer un mot de passe?",
+      "answer": "Après avoir remonter `initrd` en lecture-écriture, il faut monter la partition racine (ex: `/dev/vda1`) sur `/mnt`, puis lier `/proc`, `/sys` et `/dev` à `/mnt` et enfin utiliser `chroot /mnt`."
+    },
+    {
+      "question": "Comment éteindre proprement l'instance après la récupération sous Debian10, étant donné que bash n'a pas de mécanisme de contrôle d'alimentation?",
+      "answer": "Il faut démonter proprement tous les points de montage, puis arrêter l'instance via le bouton `Ctrl+Alt+Del` de la console OpenStack ou simplement arrêter et relancer l'instance."
+    },
+    {
+      "question": "Comment procède-t-on pour récupérer un mot de passe sous CentOS7 après avoir redémarré l'instance et accédé au menu GRUB?",
+      "answer": "Il faut appuyer sur `e` pour éditer l'entrée de démarrage, naviguer à la ligne `linux16`, supprimer les paramètres de console (sauf `console=tty0`) et ajouter `rd.break`."
+    },
+    {
+      "question": "Quel est le rôle du paramètre `rd.break` dans la récupération sous CentOS7?",
+      "answer": "Le paramètre `rd.break` permet d'interrompre le processus de démarrage à ses débuts, offrant un accès à un environnement de récupération où le système de fichiers est monté en lecture seule sous `/sysroot`."
+    },
+    {
+      "question": "Comment rendre le système de fichiers `/sysroot` en lecture-écriture pour la récupération sous CentOS7?",
+      "answer": "Utilisez la commande `mount -o remount,rw /sysroot` après avoir démarré avec `rd.break`."
+    },
+    {
+      "question": "Les étapes de récupération sous CentOS8 sont-elles différentes de celles de CentOS7?",
+      "answer": "Non, les étapes sont semblables à celles de CentOS7; il faut s'assurer que l'option `console` initialise un tty et utiliser `rd.break` pour lancer l'environnement de récupération."
+    }
+  ],
+  "generated_at": "2026-04-12T10:48:14.719424+00:00"
+}

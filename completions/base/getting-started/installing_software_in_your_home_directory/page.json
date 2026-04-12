@@ -1,0 +1,95 @@
+{
+  "doc_key": "base/installing_software_in_your_home_directory",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "How can users request the installation of academic software on Alliance systems?",
+      "answer": "Users can email Alliance support staff, provide them with a URL, and ask them to install the package."
+    },
+    {
+      "question": "When are users permitted to install software in their own home or project space?",
+      "answer": "Users are permitted to install software in their own space if they plan to make modifications to the code or wish to evaluate it quickly."
+    },
+    {
+      "question": "What is the general first step users should take when installing software?",
+      "answer": "Users should read the installation instructions that accompany the software."
+    },
+    {
+      "question": "What is a very common instruction pattern for building software from source?",
+      "answer": "A very common instruction pattern is `configure; make; make install`."
+    },
+    {
+      "question": "How can a user resolve a `make install` failure due to permissions to shared file system areas?",
+      "answer": "The usual solution is to supply a `--prefix` flag at the `configure` step, directing the installation to a directory of the user's choice."
+    },
+    {
+      "question": "When should users contact support for assistance with software installation errors?",
+      "answer": "Users should contact support if errors arise that are not related to permission issues during `make install`."
+    },
+    {
+      "question": "What is the simplest way to use a library on an Alliance system?",
+      "answer": "The simplest way is to first load the corresponding module using a command like `module load library_name/x.y.z`."
+    },
+    {
+      "question": "How does loading a library module help compilers find necessary files?",
+      "answer": "Loading a library module sets `CPATH` and `LIBRARY_PATH` environment variables, which most compilers automatically use during compilation and linking."
+    },
+    {
+      "question": "When might it be necessary to explicitly specify a library's location, especially with `cmake`?",
+      "answer": "It may be necessary to explicitly specify the location of the library using an EasyBuild environment variable like `EBROOT...`."
+    },
+    {
+      "question": "What is the construction pattern for EasyBuild environment variables (`EBROOT...`)?",
+      "answer": "The construction pattern is `EBROOT` followed by the name of the package, such as `EBROOTGSL` or `EBROOTGCC`."
+    },
+    {
+      "question": "What should users do if software installation instructions include `apt-get` or `yum` commands?",
+      "answer": "Users should look for instructions to build from source or contact support for assistance, as these commands are unlikely to work."
+    },
+    {
+      "question": "Where can users find detailed guidance for installing extension packages for Python, R, and Perl?",
+      "answer": "Users can find detailed guidance on using each language's package manager for self-installation on their respective pages."
+    },
+    {
+      "question": "What common error can occur when installing pre-compiled binary packages, and what is the typical solution?",
+      "answer": "A common error is `/lib64/libc.so.6: version 'GLIBC_2.18' not found`, which can often be patched using the `setrpaths.sh` script."
+    },
+    {
+      "question": "What is the primary function of the `setrpaths.sh` script for installed binary packages?",
+      "answer": "The script ensures that binaries use the correct interpreter and search for dynamically linked libraries in the appropriate folder."
+    },
+    {
+      "question": "How is most software distributed centrally on the new Alliance clusters?",
+      "answer": "Most software is distributed centrally using the CVMFS file system."
+    },
+    {
+      "question": "What is the core module that provides the standard software stack on new Alliance clusters?",
+      "answer": "The `gentoo/2023` module, loaded by default, provides the core of the software stack."
+    },
+    {
+      "question": "What environment variable should be used to refer to the path of the `gentoo/2023` software stack?",
+      "answer": "The environment variable `$EBROOTGENTOO` should be used to refer to this path."
+    },
+    {
+      "question": "What should a user do if software they are compiling is hard-coded to look under `/usr` instead of the Alliance stack?",
+      "answer": "The user needs to explicitly tell the compilation process about `$EBROOTGENTOO`, possibly by adjusting a Makefile or specifying a `--with-` flag."
+    },
+    {
+      "question": "Why is it generally not necessary and discouraged to set the `$LD_LIBRARY_PATH` environment variable on Alliance systems?",
+      "answer": "Binaries on Alliance systems use a RUNPATH, and `$LD_LIBRARY_PATH` overrides this, which can cause many binaries to fail."
+    },
+    {
+      "question": "Under what specific conditions should a user compile software on a compute node instead of a login node?",
+      "answer": "A user should compile on a compute node if the code needs to be built on a node with a GPU or a Skylake CPU."
+    },
+    {
+      "question": "How does one compile on a compute node with specific hardware requirements?",
+      "answer": "One should start an interactive job on a host with the necessary hardware and then compile from there."
+    },
+    {
+      "question": "What command can be used to remove the CVMFS environment and revert to a bare-bones AlmaLinux-9 installation?",
+      "answer": "The `module --force purge` command can be used to remove the CVMFS environment."
+    }
+  ],
+  "generated_at": "2026-04-12T00:06:42.617734+00:00"
+}

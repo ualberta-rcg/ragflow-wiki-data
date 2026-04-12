@@ -1,0 +1,100 @@
+{
+  "doc_key": "fr/data_management_at_trillium",
+  "level": "chunk",
+  "chunk_index": 1,
+  "qa_pairs": [
+    {
+      "question": "Pourquoi est-il important de bien connaître les systèmes de fichiers sur SciNet?",
+      "answer": "Il est important de bien connaître les systèmes de fichiers pour travailler de façon optimale et faire bon usage des ressources."
+    },
+    {
+      "question": "Quel est le type de système de fichiers haute performance utilisé par SciNet, à l'exception de /archive?",
+      "answer": "À l'exception de /archive, les systèmes de fichiers haute performance de SciNet sont de type GPFS."
+    },
+    {
+      "question": "Quelles sont les capacités des systèmes de fichiers GPFS sur SciNet?",
+      "answer": "Les systèmes GPFS permettent des opérations parallèles de lecture et d'écriture rapides avec de grands ensembles de données, à partir de plusieurs nœuds."
+    },
+    {
+      "question": "Pour quel type d'opération la performance des systèmes GPFS est-elle moins bonne?",
+      "answer": "La performance des systèmes GPFS laisse beaucoup à désirer quand il s'agit d'accéder à des ensembles de données composés de plusieurs petits fichiers."
+    },
+    {
+      "question": "Est-il plus rapide de lire un fichier de 16 Mo ou 400 fichiers de 40 Ko sur les systèmes GPFS?",
+      "answer": "Il est beaucoup plus rapide de lire un fichier de 16 Mo."
+    },
+    {
+      "question": "Quelle est la capacité des blocs pour les systèmes de fichiers `scratch` et `project`?",
+      "answer": "La capacité des blocs est de 16 Mo pour les systèmes `scratch` et `project`."
+    },
+    {
+      "question": "Quelle est la problématique d'une tâche multiprocessus où chaque processus écrit dans son propre fichier?",
+      "answer": "Le fait que chaque processus écrive dans son propre fichier n'est pas une solution I/O flexible; le répertoire est bloqué par le premier processus qui l'accède et les suivants doivent attendre, ce qui rend le code moins parallèle et peut arrêter le système de fichiers."
+    },
+    {
+      "question": "Quelles sont les solutions I/O recommandées pour des tâches multiprocessus?",
+      "answer": "Il est recommandé d'utiliser MPI-IO (partie du standard MPI-2) qui permet à des processus différents d'ouvrir simultanément des fichiers, ou un processus I/O dédié qui écrit dans un seul fichier toutes les données envoyées par les autres processus."
+    },
+    {
+      "question": "Est-ce que tous les systèmes de fichiers de Trillium sont accessibles à tous les utilisateurs?",
+      "answer": "Non, Trillium donne accès à plusieurs systèmes de fichiers différents, mais ils ne sont pas tous disponibles à tous les utilisateurs."
+    },
+    {
+      "question": "À quoi sert principalement le système de fichiers /home ($HOME)?",
+      "answer": "Le système /home est utilisé d'abord pour les fichiers d'un utilisateur, les logiciels communs ou les petits ensembles de données partagés par le groupe d'utilisateurs."
+    },
+    {
+      "question": "Que doit-on faire si le quota de l'utilisateur est dépassé sur /home?",
+      "answer": "Dans ce cas, il faut utiliser /scratch ou /project."
+    },
+    {
+      "question": "Quel est le type d'accès pour /home sur les nœuds de calcul?",
+      "answer": "Sur les nœuds de calcul, le système /home est en lecture seulement."
+    },
+    {
+      "question": "Pour quelles utilisations le système de fichiers /scratch ($SCRATCH) est-il principalement conçu?",
+      "answer": "Il est utilisé d'abord pour les fichiers temporaires, les résultats de calcul et de simulations, et le matériel qui peut être obtenu ou recréé facilement."
+    },
+    {
+      "question": "Quand est-il conseillé d'utiliser /bb (burst buffer) pour une étape intermédiaire de travail plutôt que /scratch?",
+      "answer": "Il est conseillé d'utiliser /bb si l'étape intermédiaire cause trop d'opérations I/O ou génère trop de petits fichiers pour la solution de stockage sur disque /scratch."
+    },
+    {
+      "question": "Où doit-on transférer les résultats qu'on veut conserver à long terme après les avoir obtenus sur /scratch?",
+      "answer": "Les résultats à conserver à long terme peuvent être transférés à /project ou /archive."
+    },
+    {
+      "question": "Quelle est la politique de maintenance pour le système de fichiers /scratch?",
+      "answer": "Le système /scratch est purgé régulièrement et aucune copie de sauvegarde n'est faite."
+    },
+    {
+      "question": "À quoi est destiné le système de fichiers /project ($PROJECT)?",
+      "answer": "/project est destiné aux logiciels de groupe courants, aux grands ensembles de données statiques ou à tout contenu très coûteux à acquérir ou à régénérer par le groupe."
+    },
+    {
+      "question": "Quelle est la caractéristique importante concernant le contenu de /project?",
+      "answer": "Le contenu de /project est censé rester relativement immuable au fil du temps."
+    },
+    {
+      "question": "Où faut-il conserver les fichiers temporaires ou transitoires au lieu de les mettre sur /project?",
+      "answer": "Les fichiers temporaires ou transitoires doivent être conservés sur /scratch."
+    },
+    {
+      "question": "Pourquoi les mouvements fréquents de données sont-ils déconseillés sur /project?",
+      "answer": "Les mouvements fréquents de données engendrent une surcharge et une consommation inutile des bandes sur le système de sauvegarde TSM, longtemps après leur suppression, en raison des politiques de conservation des sauvegardes."
+    },
+    {
+      "question": "Quel est l'effet de renommer les répertoires principaux sur /project?",
+      "answer": "Le simple fait de renommer les répertoires principaux suffit à tromper le système et à lui faire croire qu'une arborescence de répertoires entièrement nouvelle a été créée et que l'ancienne a été supprimée, causant une surcharge inutile."
+    },
+    {
+      "question": "Que se passe-t-il si un utilisateur abuse du système de fichiers /project en l'utilisant comme /scratch?",
+      "answer": "Si vous abusez du système de fichiers /project et l'utilisez comme /scratch, l'équipe de SciNet vous demandera de procéder autrement."
+    },
+    {
+      "question": "Qui peut accéder à /project sur Trillium?",
+      "answer": "Sur Trillium, /project est uniquement accessible aux groupes disposant de ressources allouées par concours."
+    }
+  ],
+  "generated_at": "2026-04-11T20:57:10.274494+00:00"
+}

@@ -1,0 +1,88 @@
+{
+  "doc_key": "base/deepspeed",
+  "level": "chunk",
+  "chunk_index": 9,
+  "qa_pairs": [
+    {
+      "question": "In the `Net` class, what does the `configure_sharded_model` method do?",
+      "answer": "The `configure_sharded_model` method sets up the model's sequential block by combining `self.conv_part` and `self.mlp_part`."
+    },
+    {
+      "question": "How does the `forward` method process input `x` in the `Net` class?",
+      "answer": "The `forward` method processes input `x` by passing it through `self.block`."
+    },
+    {
+      "question": "How is the training step defined in the `Net` class for the CPU offload example?",
+      "answer": "The `training_step` unpacks the batch into `x` and `y`, performs a forward pass (`self(x)`) to get `y_hat`, calculates the cross-entropy loss between `y_hat` and `y`, and then returns the loss."
+    },
+    {
+      "question": "Which optimizer is configured for the `Net` class when using ZeRO with offload to CPU?",
+      "answer": "The `DeepSpeedCPUAdam` optimizer is configured for the `Net` class."
+    },
+    {
+      "question": "How is the PyTorch Lightning Trainer configured for ZeRO Stage 3 with offload to CPU?",
+      "answer": "The trainer is initialized with `accelerator=\"gpu\"`, `devices=2`, `num_nodes=1`, and a `DeepSpeedStrategy` with `stage=3`, `offload_optimizer=True`, and `offload_parameters=True`."
+    },
+    {
+      "question": "Why is `progress_bar_refresh_rate=0` recommended for the PyTorch Lightning Trainer?",
+      "answer": "It is recommended to set `progress_bar_refresh_rate=0` to avoid writing a progress bar to the logs too frequently, which can cause issues due to updating logs too frequently."
+    },
+    {
+      "question": "How can the number of GPUs and nodes be determined generically when configuring a PyTorch Lightning Trainer?",
+      "answer": "The number of GPUs can be set using `torch.cuda.device_count()`, and the number of nodes can be set using `int(os.environ.get(\"SLURM_JOB_NUM_NODES\"))`."
+    },
+    {
+      "question": "How are the training data transformations and DataLoader configured in the CPU offload example?",
+      "answer": "Training data is transformed using `transforms.Compose` with `ToTensor()` and `Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))`. The `CIFAR10` dataset is loaded with these transformations, and a `DataLoader` is created with a specified `batch_size` and `num_workers`."
+    },
+    {
+      "question": "What is the primary characteristic of ZeRO Stage 3 with offload to NVMe?",
+      "answer": "It enables offloading model parameters and optimizer states to the local disk."
+    },
+    {
+      "question": "Where are tensors stored when they are not required by GPU computations in ZeRO with NVMe offload?",
+      "answer": "Tensors are stored on the compute node's local disk storage when not required by GPU computations."
+    },
+    {
+      "question": "In ZeRO with NVMe offload, where are the optimizer steps computed?",
+      "answer": "The optimizer steps are computed on the CPU when using ZeRO with NVMe offload."
+    },
+    {
+      "question": "How does offloading to local disk affect GPU memory for practical purposes?",
+      "answer": "Practically, offloading to local disk can be thought of as extending GPU memory by the amount of storage available on the local disk."
+    },
+    {
+      "question": "What is the impact on performance when using ZeRO with offload to local disk?",
+      "answer": "Performance will significantly degrade when using ZeRO with offload to local disk."
+    },
+    {
+      "question": "Which type of drives are best for ZeRO with NVMe offload, and why?",
+      "answer": "NVMe-enabled drives are best for ZeRO with NVMe offload because they offer higher throughput and faster response times, which makes performance degradation least noticeable."
+    },
+    {
+      "question": "Can ZeRO with NVMe offload be used with any type of storage?",
+      "answer": "Yes, ZeRO with NVMe offload can be used with any type of storage, although it performs best on NVMe-enabled drives."
+    },
+    {
+      "question": "In the `deepspeed-stage3-offload-nvme.sh` SLURM script, how many GPUs are requested?",
+      "answer": "Two GPUs are requested in the SLURM script using `#SBATCH --gres=gpu:2`."
+    },
+    {
+      "question": "Why is the `cuda` module loaded in the `deepspeed-stage3-offload-nvme.sh` script?",
+      "answer": "The `cuda` module must be loaded if ZeRO offloading to CPU or NVMe is used, and its version must match the version used to build the PyTorch install."
+    },
+    {
+      "question": "What environment variable is exported in the `deepspeed-stage3-offload-nvme.sh` script?",
+      "answer": "The `TORCH_NCCL_ASYNC_HANDLING=1` environment variable is exported."
+    },
+    {
+      "question": "How is the PyTorch Lightning Trainer configured for ZeRO Stage 3 with offload to NVMe?",
+      "answer": "The trainer is initialized with `accelerator=\"gpu\"`, `devices=2`, `num_nodes=1`, and a `DeepSpeedStrategy` where `stage=3`, `offload_optimizer=True`, `offload_parameters=True`, `remote_device=\"nvme\"`, `offload_params_device=\"nvme\"`, `offload_optimizer_device=\"nvme\"`, and `nvme_path=\"local_scratch\"` are set."
+    },
+    {
+      "question": "How is the local scratch path for NVMe offloading determined in the `deepspeed-stage3-offload-nvme.py` script?",
+      "answer": "The local scratch path is retrieved from the `SLURM_TMPDIR` environment variable using `os.environ['SLURM_TMPDIR']`."
+    }
+  ],
+  "generated_at": "2026-04-11T21:11:30.875852+00:00"
+}

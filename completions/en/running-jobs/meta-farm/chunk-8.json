@@ -1,0 +1,52 @@
+{
+  "doc_key": "en/meta-farm",
+  "level": "chunk",
+  "chunk_index": 8,
+  "qa_pairs": [
+    {
+      "question": "What kind of problems can occur if a metajob is allocated to a defective node?",
+      "answer": "If a metajob is allocated to a defective node, the program might fail instantly, for example, if it needs a GPU but the assigned GPU is malfunctioning, or if the `/project` file system is not mounted."
+    },
+    {
+      "question": "What is the potential impact of a single bad metajob on an entire farm?",
+      "answer": "A single bad metajob can quickly churn through `table.dat`, causing the entire farm to fail."
+    },
+    {
+      "question": "How can users add tests to `job_script.sh` to prevent metajobs from failing due to defective nodes?",
+      "answer": "Users can add tests to `job_script.sh` before the `task.run` line. For instance, they can test for the presence of an NVidia GPU and force the metajob to exit if none is found."
+    },
+    {
+      "question": "Can you provide an example of a modification to `job_script.sh` that tests for an NVidia GPU?",
+      "answer": "Yes, a modification could be:\n```bash\nnvidia-smi >/dev/null\nretVal=$?\nif [ $retVal -ne 0 ]; then\n    exit 1\nfi\ntask.run\n```\nThis snippet checks if `nvidia-smi` runs successfully; if not, it exits the metajob."
+    },
+    {
+      "question": "What utility is available to perform a GPU test similar to `nvidia-smi`?",
+      "answer": "There is a utility called `gpu_test` which performs a similar job to `nvidia-smi`."
+    },
+    {
+      "question": "Where can the `gpu_test` utility be found and copied to on Nibi?",
+      "answer": "On Nibi, the `gpu_test` utility can be copied from `~syam/bin/gpu_test` to the user's `~/bin` directory."
+    },
+    {
+      "question": "Does the META package include a mechanism to detect metajobs that churn through cases too quickly?",
+      "answer": "Yes, the META package has a built-in mechanism designed to detect problems where a metajob processes cases too quickly, which might indicate an underlying issue."
+    },
+    {
+      "question": "What parameters in `config.h` are relevant to the META package's protective mechanism against fast-failing metajobs?",
+      "answer": "The two relevant parameters are `N_failed_max` and `dt_failed`, which are set in the `config.h` file."
+    },
+    {
+      "question": "When is the META package's protection mechanism triggered?",
+      "answer": "The protection mechanism is triggered when the first `N_failed_max` cases complete in a very short duration, specifically less than `dt_failed` seconds."
+    },
+    {
+      "question": "What are the default values for `N_failed_max` and `dt_failed` in the META package?",
+      "answer": "By default, both `N_failed_max` and `dt_failed` are set to 5. This means a metajob will stop if its first 5 cases all finish in under 5 seconds."
+    },
+    {
+      "question": "How can a user prevent false triggering of the protective mechanism if their normal cases have very short runtimes?",
+      "answer": "If normal cases have runtimes shorter than `dt_failed` causing false triggering of the protective mechanism, the user should reduce the value of `dt_failed` in `config.h`."
+    }
+  ],
+  "generated_at": "2026-04-12T01:21:35.556249+00:00"
+}

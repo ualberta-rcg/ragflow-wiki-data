@@ -1,0 +1,87 @@
+{
+  "doc_key": "fr/using_nearline_storage",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "À quoi sert le système de fichiers /nearline?",
+      "answer": "Il sert à conserver les données inactives, comme les ensembles de données que vous n'avez pas besoin d'utiliser pendant des mois, en utilisant de l'espace de stockage sur ruban."
+    },
+    {
+      "question": "Que devrais-je faire avec des fichiers de moins de 10 Go que je veux mettre sur /nearline?",
+      "answer": "Vous devriez les regrouper dans des fichiers archive (des tarballs) à l'aide de `tar` ou d'un outil semblable."
+    },
+    {
+      "question": "Comment gérer les fichiers de plus de 4 To destinés à /nearline?",
+      "answer": "Ces fichiers devraient être divisés en parts de 1 To avec un outil comme la commande `split`."
+    },
+    {
+      "question": "Est-il nécessaire de compresser mes données avant de les copier sur /nearline?",
+      "answer": "Non, ce n'est pas nécessaire, car le système d'archivage sur ruban effectue automatiquement la compression à l'aide de circuits spécialisés."
+    },
+    {
+      "question": "Quels outils sont recommandés pour créer des fichiers archive sur /nearline?",
+      "answer": "Il est recommandé d'utiliser `tar` ou `dar` pour créer des fichiers archive."
+    },
+    {
+      "question": "Où devrais-je créer l'archive pour plus d'efficacité?",
+      "answer": "Créez l'archive directement sur /nearline, ce qui est plus efficace que de la créer ailleurs et de la copier ensuite."
+    },
+    {
+      "question": "Pourquoi est-il utile de créer un index pour une collection de fichiers archivés?",
+      "answer": "Un index permet de repérer un fichier particulier sans devoir récupérer une grande collection enregistrée sur ruban, ce qui est plus efficace."
+    },
+    {
+      "question": "Comment puis-je créer un index pour une archive tar?",
+      "answer": "Vous pouvez le faire en utilisant `tar tvvf /nearline/def-sponsor/user/mycollection.tar > /nearline/def-sponsor/user/mycollection.index` si l'archive vient d'être créée."
+    },
+    {
+      "question": "Est-ce que les nœuds de calcul peuvent accéder au système de fichiers /nearline?",
+      "answer": "Non, les nœuds de calcul n'ont pas accès à /nearline parce que l'obtention de données peut prendre beaucoup de temps, ce qui bloquerait les tâches."
+    },
+    {
+      "question": "Quel type de nœud devrais-je utiliser pour créer des fichiers archive volumineux?",
+      "answer": "Il est préférable d'utiliser un nœud de copie (DTN) si disponible, sinon un nœud de connexion."
+    },
+    {
+      "question": "Comment m'assurer que mes sessions d'archivage volumineuses ne soient pas interrompues?",
+      "answer": "Exécutez `tar` ou `dar` dans un multiplexeur de terminal comme `tmux` pour gérer les sessions de longue durée."
+    },
+    {
+      "question": "Comment utiliser `dar` en mode non interactif?",
+      "answer": "Utilisez l'option `-Q` avec `dar` (`dar -Q`) pour désactiver explicitement l'interactivité."
+    },
+    {
+      "question": "Quels sont les avantages du stockage sur ruban avec /nearline?",
+      "answer": "Les avantages incluent un coût par unité de données stockée moindre, une capacité de stockage facile à augmenter et une consommation énergétique par unité de données stockée pratiquement nulle."
+    },
+    {
+      "question": "Décrivez le cycle de vie d'un fichier sur /nearline, de sa création à sa restauration.",
+      "answer": "Le fichier existe d'abord sur disque, puis il est copié sur ruban (disque et ruban), ensuite la copie sur disque peut être supprimée (ruban seulement), et finalement, il est copié du ruban au disque lors d'un rappel."
+    },
+    {
+      "question": "Combien de temps peut prendre le rappel d'un fichier de /nearline qui est uniquement sur ruban?",
+      "answer": "Le rappel peut prendre entre moins d'une minute et plus d'une heure, selon la taille du fichier et la charge du système."
+    },
+    {
+      "question": "À quoi dois-je m'attendre concernant la vitesse de transfert de données à partir de /nearline?",
+      "answer": "Les transferts à partir de /nearline prennent plus de temps, car chaque restauration de fichier sur ruban ralentira le processus de quelques minutes à plusieurs heures."
+    },
+    {
+      "question": "Comment puis-je vérifier l'état d'un fichier (sur disque, sur ruban) sur /nearline?",
+      "answer": "Utilisez la commande `lfs hsm_state <FILE>`. Par exemple, \"released exists archived\" signifie que le fichier est sur ruban et n'est plus sur disque."
+    },
+    {
+      "question": "Comment forcer la restauration d'un fichier du ruban vers le disque sans le lire?",
+      "answer": "Vous pouvez utiliser la commande `lfs hsm_restore <FILE>`."
+    },
+    {
+      "question": "Sur Béluga, comment restaurer un fichier supprimé de /nearline?",
+      "answer": "La copie sur ruban est conservée 60 jours. Vous devez contacter le soutien technique en mentionnant le chemin complet et la version (avec la date) du fichier."
+    },
+    {
+      "question": "Quelles sont les méthodes pour accéder au service /nearline (HPSS) sur Trillium?",
+      "answer": "Vous pouvez utiliser des tâches Slurm avec `htar` ou `hsi` dans une partition archive, le nœud VFS avec `salloc -pvfsshort`, ou Globus avec le point de chute `alliancecan#hpss`."
+    }
+  ],
+  "generated_at": "2026-04-12T10:27:56.021797+00:00"
+}

@@ -5,36 +5,61 @@ lang: "fr"
 
 source_wiki_title: "MPI-IO/fr"
 source_hash: "7e535f6e0c6a89dfe326f00f4d00e673"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T08:16:28.998190+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T08:49:52.070416+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "MPI_File_set_view"
+  - "entrées/sorties parallèles"
+  - "vues"
+  - "programme"
+  - "lecture et écriture"
+  - "MPI-IO"
+  - "déplacements"
+  - "systèmes de fichiers"
+  - "MPI_Datatype"
+  - "opérations parallèles"
+  - "MPI_File"
+  - "OpenMPI"
+  - "verrous sur les fichiers"
+
+questions:
+  - "Quel est le principal avantage de l'utilisation de MPI-IO pour la gestion des données réparties entre plusieurs processus ?"
+  - "Comment fonctionne la méthode des déplacements (offsets) pour coordonner la lecture et l'écriture en parallèle ?"
+  - "En quoi la définition de vues (views) simplifie-t-elle l'accès aux fichiers par rapport au calcul manuel des déplacements ?"
+  - "Comment le code MPI fourni gère-t-il l'écriture alternée et la lecture séquentielle des données entre les différents processus ?"
+  - "Quel est le rôle spécifique des fonctions `MPI_Type_contiguous` et `MPI_File_set_view` dans la structuration des accès au fichier partagé ?"
+  - "Quelle limitation liée aux systèmes de fichiers peut empêcher l'utilisation de vues sur des sections disjointes lors des opérations d'entrées/sorties parallèles ?"
+  - "Quel est le rôle principal de la fonction `MPI_File_set_view` mentionnée au début du texte ?"
+  - "En quoi le programme C fourni se différencie-t-il de l'exemple précédent selon l'introduction ?"
+  - "Quels sont les types de données MPI spécifiques (`MPI_Datatype`) déclarés dans le code pour configurer la vue du fichier ?"
+  - "Comment le code MPI fourni gère-t-il l'écriture alternée et la lecture séquentielle des données entre les différents processus ?"
+  - "Quel est le rôle spécifique des fonctions `MPI_Type_contiguous` et `MPI_File_set_view` dans la structuration des accès au fichier partagé ?"
+  - "Quelle limitation liée aux systèmes de fichiers peut empêcher l'utilisation de vues sur des sections disjointes lors des opérations d'entrées/sorties parallèles ?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
 ## Description
-Faisant partie du standard MPI-2, **MPI-IO** est un ensemble de routines [MPI](mpi.md) qui permet l'enregistrement d'opérations parallèles de lecture et d'écriture. Le principal avantage de MPI-IO est de pouvoir, de manière simple et efficace, lire et écrire des données réparties sur plusieurs processus dans un seul fichier commun à tous les processus. Ceci s'avère particulièrement utile lorsque les données manipulées sont des vecteurs ou des matrices découpés de manière structurée entre les différents processus. Vous trouverez ici quelques indications à propos de l'utilisation de MPI-IO et des références vers des documents plus complets.
+Partie du standard MPI-2, **MPI-IO** est une famille de routines [MPI](mpi.md) qui permet la consignation d'opérations de lecture et d'écriture parallèles. Le principal avantage de MPI-IO est de pouvoir, de manière simple et efficace, lire et écrire des données réparties sur plusieurs processus dans un seul fichier commun à tous les processus. Ceci s'avère particulièrement utile lorsque les données manipulées sont des vecteurs ou des matrices découpés de manière structurée entre les différents processus. Vous trouverez ici quelques indications à propos de l'utilisation de MPI-IO et des références vers des documents plus complets.
 
 ## Utilisation
 
 ### Opérations par déplacements
 
-La manière la plus simple de faire des opérations de lecture et écriture en parallèle est d'utiliser des *déplacements* (offsets). Chaque processus peut ainsi lire ou écrire dans le fichier avec un déplacement défini. Cela peut se faire en deux opérations ([MPI_File_seek](http://www.open-mpi.org/doc/current/man3/MPI_File_seek.3.php) suivie de [MPI_File_read](http://www.open-mpi.org/doc/current/man3/MPI_File_read.3.php) ou de [MPI_File_write](http://www.open-mpi.org/doc/current/man3/MPI_File_write.3.php)), ou bien en une seule opération ([MPI_File_read_at](http://www.open-mpi.org/doc/current/man3/MPI_File_read_at.3.php) ou [MPI_File_write_at](http://www.open-mpi.org/doc/current/man3/MPI_File_write_at.3.php)). On calcule habituellement le déplacement en fonction du rang du processus.
+La façon la plus simple d'effectuer des opérations de lecture et d'écriture en parallèle est d'utiliser des déplacements (*offsets*). Chaque processus peut ainsi lire ou écrire dans le fichier avec un déplacement défini. Cela peut se faire en deux opérations ([MPI_File_seek](http://www.open-mpi.org/doc/current/man3/MPI_File_seek.3.php) suivie de [MPI_File_read](http://www.open-mpi.org/doc/current/man3/MPI_File_read.3.php) ou de [MPI_File_write](http://www.open-mpi.org/doc/current/man3/MPI_File_write.3.php)), ou bien en une seule opération ([MPI_File_read_at](http://www.open-mpi.org/doc/current/man3/MPI_File_read_at.3.php) ou [MPI_File_write_at](http://www.open-mpi.org/doc/current/man3/MPI_File_write_at.3.php)). On calcule habituellement le déplacement en fonction du rang du processus.
 
 ```c title="mpi_rw_at.c"
 #include <mpi.h>
-#include <string.h>
 
 #define BLOCKSIZE  80
 #define NBRBLOCKS  32
@@ -43,7 +68,7 @@ int main(int argc, char** argv) {
 
     MPI_File f;
     char*    filename  = "testmpi.txt";
-    char     buffer[BLOCKSIZE];
+    char     buffer[TAILLEBLOC];
     int      rank, size;
     int      i;
 
@@ -89,7 +114,6 @@ En utilisant les vues, chaque processus peut *voir* une section du fichier, comm
 ```c title="mpi_view.c"
 #include <stdio.h>
 #include <mpi.h>
-#include <string.h>
 
 #define BLOCKSIZE  80
 #define NBRBLOCKS  32
@@ -149,10 +173,10 @@ int main(int argc, char** argv) {
 }
 ```
 
-!!! warning "Attention!"
-    Certains systèmes de fichiers ne supportent pas les *verrous sur les fichiers* (file locks). Par conséquent, certaines opérations ne sont pas possibles, notamment l'utilisation de vues sur des sections disjointes d'un fichier.
+!!! warning "Attention"
+    Certains systèmes de fichiers ne supportent pas les verrous sur les fichiers (*file locks*). Par conséquent, certaines opérations ne sont pas possibles, notamment l'utilisation de vues sur des sections disjointes d'un fichier.
 
 ## Références
 
 *   [Documentation OpenMPI](http://www.open-mpi.org/doc/current/)
-*   [Course on parallel I/O](https://scinet.courses/215)
+*   [Cours sur les E/S parallèles](https://scinet.courses/215)

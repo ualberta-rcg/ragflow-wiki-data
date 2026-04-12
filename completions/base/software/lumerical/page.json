@@ -1,0 +1,79 @@
+{
+  "doc_key": "base/lumerical",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is Lumerical, and what is its primary function?",
+      "answer": "Lumerical is a suite of applications for modelling nanophotonic devices, which includes FDTD Solutions."
+    },
+    {
+      "question": "Is Lumerical centrally installed on Compute Canada systems?",
+      "answer": "No, Compute Canada does not have a central installation of the Lumerical suite or FDTD Solutions, but users with a license can install it themselves."
+    },
+    {
+      "question": "How do I determine which installation instructions to follow for Lumerical software?",
+      "answer": "If you downloaded the whole Lumerical suite, follow the instructions in \"Installing Lumerical\"; if you downloaded FDTD Solutions on its own, follow the instructions in \"Installing FDTD Solutions.\""
+    },
+    {
+      "question": "How do I install the Lumerical suite if my installer release matches the available recipe (e.g., Lumerical-2020a-r1-d316eeda68.tar.gz for Lumerical-2020a-r1-d316eeda68.eb)?",
+      "answer": "Run the command `eb Lumerical-2020a-r1-d316eeda68.eb --sourcepath=<path> --disable-enforce-checksums`, replacing `<path>` with the directory containing your `.tar.gz` file."
+    },
+    {
+      "question": "What command should I use to install the Lumerical suite if the installer release differs from the recipe but is the same year and letter (e.g., 2020a-r6-aabbccdd with a 2020a-r1 recipe)?",
+      "answer": "Use `eb Lumerical-2020a-r1-d316eeda68.eb --try-software-version=<version> --sourcepath=<path> --disable-enforce-checksums`, substituting your specific version and source path."
+    },
+    {
+      "question": "What should I do if the Lumerical installer's year or letter changes (e.g., from 2020a to 2020b) and does not match available installation recipes?",
+      "answer": "You need to contact Technical support, and they will adapt an installation recipe for your version."
+    },
+    {
+      "question": "After installing the Lumerical suite, how do I load the module and configure my license file?",
+      "answer": "You need to log out and back into the server, then use `module load lumerical`. For licensing, create `$HOME/.licenses/lumerical.lic` and add `setenv(\"LUMERICAL_LICENSE_FILE\", \"27011@license01.example.com\")`, adjusting the port and hostname for your license server."
+    },
+    {
+      "question": "What is the general command to install FDTD Solutions?",
+      "answer": "Run `eb FDTD_Solutions-8.19.1438.eb --sourcepath=<path> --disable-enforce-checksums`, replacing `<path>` with the directory containing your `.tar.gz` file."
+    },
+    {
+      "question": "How do I install FDTD Solutions if my downloaded version differs from the version in the example command (e.g., 8.19.1466 instead of 8.19.1438)?",
+      "answer": "Use `eb FDTD_Solutions-8.19.1438.eb --try-software-version=<version> --sourcepath=<path> --disable-enforce-checksums`, substituting your specific version and source path."
+    },
+    {
+      "question": "After installing FDTD Solutions, how do I load the module and set up the license server?",
+      "answer": "After logging out and back in, load the module using `module load fdtd_solutions`. Then, start the software on a login node, and it will prompt you to set up your license server information."
+    },
+    {
+      "question": "What is the main difference between the `fdtd_solutions` and `lumerical` modules, aside from the Lumerical module having additional tools?",
+      "answer": "The primary difference is the environment variable for the installation location: `EBROOTFDTD_SOLUTIONS` for `fdtd_solutions` and `EBROOTLUMERICAL` for `lumerical`. Scripts need to be adjusted accordingly."
+    },
+    {
+      "question": "When submitting a job with either the Lumerical or FDTD Solutions module, what specific SLURM options should I use due to their MPI implementation?",
+      "answer": "You should use `--ntasks-per-node=1` and `--cpus-per-task=32` when submitting a job."
+    },
+    {
+      "question": "What is the purpose of the template submission scripts for FDTD Solutions?",
+      "answer": "They are designed to improve efficiency by allowing users to submit many simulations without repeatedly editing the job submission script for each one."
+    },
+    {
+      "question": "How do I set up the FDTD Solutions template system for job submission?",
+      "answer": "You should create `$HOME/bin` for the main `fdtd-run.sh` script and `$HOME/bin/templates` for the `fdtd-mpi-template.sh` and `fdtd-process-template.sh` template scripts."
+    },
+    {
+      "question": "How do I submit an FDTD Solutions job using the template system for a single node?",
+      "answer": "Run `fdtd-run.sh fsp1 [fsp2 ...]`. This command will use 32 cores on a single standard node."
+    },
+    {
+      "question": "How do I submit an FDTD Solutions job using the template system to request multiple nodes?",
+      "answer": "Use the command `fdtd-run.sh -nn <nodes> fsp1 [fsp2 ...]`, replacing `<nodes>` with the desired number of nodes."
+    },
+    {
+      "question": "What is the role of the `fdtd-process-template.sh` script?",
+      "answer": "It replaces specific tags in a submission script template with actual values, such as estimated memory and time, which are extracted from an FDTD Solutions project file."
+    },
+    {
+      "question": "What optional arguments can be used with `fdtd-process-template.sh` to fine-tune resource estimates?",
+      "answer": "Optional arguments include `-r <rate>` for simulation rate, `-tm <min_time>` for minimum simulation time, `-ms <memory_safety>` for a memory safety factor, and `-mm <memory_min>` for minimum process memory."
+    }
+  ],
+  "generated_at": "2026-04-12T01:04:49.992440+00:00"
+}

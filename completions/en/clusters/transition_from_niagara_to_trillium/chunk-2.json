@@ -1,0 +1,116 @@
+{
+  "doc_key": "en/transition_from_niagara_to_trillium",
+  "level": "chunk",
+  "chunk_index": 2,
+  "qa_pairs": [
+    {
+      "question": "What data from Niagara was automatically migrated to Trillium?",
+      "answer": "Any data present on home, scratch, and project directories on Niagara on July 31st, 2025, that was not changed after that date, was automatically copied over to Trillium."
+    },
+    {
+      "question": "What should a user do if their data on Niagara was modified after July 31st, 2025?",
+      "answer": "Any data added or modified on Niagara after July 31st, 2025, may need to be copied over by the user manually."
+    },
+    {
+      "question": "How can a user manually copy data from Niagara to Trillium?",
+      "answer": "A user can SSH to `nia-datamover1.scinet.utoronto.ca` and then use a `cp` command to copy files locally between the mounted Niagara and Trillium file systems, for example: `cp /home/G/GROUP/USERNAME/file.txt /trillium_home/USERNAME/file.txt`."
+    },
+    {
+      "question": "What are the default quotas for home and scratch directories on Trillium as of November 4, 2025?",
+      "answer": "As of November 4, 2025, the default quota for home directories is 100 GB, and for scratch directories, it is 25 TB."
+    },
+    {
+      "question": "How has the directory layout for home and scratch changed on Trillium compared to Niagara?",
+      "answer": "On Trillium, home and scratch directories are no longer nested under a group. They are directly located at `/home/USERNAME` and `/scratch/USERNAME`."
+    },
+    {
+      "question": "Where can users find their group's project directory on Trillium?",
+      "answer": "If a group had a project directory on Niagara, it will now be found at `/project/RRG-NAME` on Trillium, where RRG-NAME is the name of their RRG allocation."
+    },
+    {
+      "question": "What is the new project directory available to all groups on Trillium, and what is its quota?",
+      "answer": "All groups now have an additional project directory at `/project/def-PINAME` with a quota of 1 TB."
+    },
+    {
+      "question": "Which Trillium directories are backed up?",
+      "answer": "The home and project directories on Trillium are backed up, but the scratch directory is not."
+    },
+    {
+      "question": "How can a user create symbolic links to their scratch and project directories within their home directory on Trillium?",
+      "answer": "To create a `links` directory inside your `$HOME` with links to your scratch and project directories, you should run the command `trisetup` once after logging in."
+    },
+    {
+      "question": "What other actions does the `trisetup` command perform?",
+      "answer": "The `trisetup` command also updates your `.bashrc` and other startup files, and it will show exactly what it did and where it saves any earlier versions of those files."
+    },
+    {
+      "question": "How are the links in `$HOME/links/project` maintained if a user's group affiliations change?",
+      "answer": "Once set up, the links in `$HOME/links/project` will be automatically updated if you join, leave, or move groups."
+    },
+    {
+      "question": "How do file and directory group-ownerships in the home directory on Trillium differ from Niagara?",
+      "answer": "On Trillium, your files and directories in the home directory have the group-ownership of your own private group, unlike Niagara where the PI's group was the group-ownership."
+    },
+    {
+      "question": "What is required to share files in the home directory with other group members on Trillium?",
+      "answer": "Sharing files in the home directory with other group members on Trillium requires setting permissions using ACLs or changing the group ownership of the files."
+    },
+    {
+      "question": "What is the default group-ownership for scratch directories for new users on Trillium?",
+      "answer": "For new users, their scratch directory on Trillium will be private, with its group-ownership set to their private group."
+    },
+    {
+      "question": "How does group-ownership for scratch directories differ for users whose files were transferred from Niagara?",
+      "answer": "Users whose files were transferred from Niagara will see those files having the group-ownership of the research group under which their scratch was originally nested."
+    },
+    {
+      "question": "How are project directories on Trillium set up for sharing?",
+      "answer": "Project directories on Trillium are set up for sharing and have group-membership corresponding to their `def` or `rrg` allocation."
+    },
+    {
+      "question": "Which Trillium file systems are read-only on compute nodes?",
+      "answer": "The home and project file systems are read-only on compute nodes on Trillium."
+    },
+    {
+      "question": "Where must compute jobs write their output on Trillium?",
+      "answer": "Compute jobs on Trillium must write their output to the scratch directory."
+    },
+    {
+      "question": "When should data be copied from scratch to project or home directories?",
+      "answer": "Copying data from scratch to project or home should be restricted to data that truly needs to be conserved and backed up."
+    },
+    {
+      "question": "What methods can be used to transfer data from scratch to project or home after a job on Trillium?",
+      "answer": "You can use `scp` or `rsync` commands to a datamover or login node at the end of your job, or log into the datamover node and perform the transfer there."
+    },
+    {
+      "question": "Will the NiaEnv or MistEnv software stacks be available on Trillium?",
+      "answer": "No, the default NiaEnv software stack from Niagara and the MistEnv software stack from Mist will be retired and will not be available on Trillium or Trillium-gpu."
+    },
+    {
+      "question": "Which software stack will Trillium use?",
+      "answer": "Trillium will use the CVMFS software stack, which is also available on other national clusters."
+    },
+    {
+      "question": "Which modules are loaded by default on Trillium?",
+      "answer": "Only the `gentoo/2023` and `CCconfig` modules will be loaded by default on Trillium."
+    },
+    {
+      "question": "How can users load the same set of default modules as on other national clusters on Trillium?",
+      "answer": "Users should load the `StdEnv/2023` module by running `$ module load StdEnv/2023`."
+    },
+    {
+      "question": "What does loading the `StdEnv/2023` module accomplish?",
+      "answer": "Loading the `StdEnv/2023` module will load the `gcc` compiler as the default, as well as many other modules."
+    },
+    {
+      "question": "What module is required to compile GPU code with CUDA on Trillium?",
+      "answer": "To compile GPU code with CUDA on Trillium, you also need to load the `cuda` module, for example, `$ module load StdEnv/2023 cuda/12.6`."
+    },
+    {
+      "question": "Where is the `cuda` module available on Trillium?",
+      "answer": "The `cuda` module is only available on Trillium's GPU login node and GPU compute nodes; it does not work on the Trillium CPU nodes."
+    }
+  ],
+  "generated_at": "2026-04-12T09:28:07.058081+00:00"
+}

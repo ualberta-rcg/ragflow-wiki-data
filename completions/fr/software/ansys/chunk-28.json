@@ -1,0 +1,40 @@
+{
+  "doc_key": "fr/ansys",
+  "level": "chunk",
+  "chunk_index": 28,
+  "qa_pairs": [
+    {
+      "question": "Comment j'initialise un fichier de projet Workbench avant de le soumettre pour la première fois?",
+      "answer": "Pour initialiser un fichier de projet Workbench, vous devez d'abord vous connecter à la grappe avec TigerVNC. Ensuite, dans le même répertoire que votre fichier `YOURPROJECT.wbpj`, lancez Workbench avec la même version du module Ansys qui a servi à créer le projet. Ouvrez le projet via `File -> Open`, puis faites un clic droit sur `Setup` dans la fenêtre principale et sélectionnez `Clear All Generated Data`. Finalement, quittez Workbench en cliquant sur `File -> Exit`, et lorsque la fenêtre contextuelle apparaît demandant si vous voulez sauvegarder, cliquez sur `No`."
+    },
+    {
+      "question": "Est-ce que je peux exécuter mes simulations Workbench directement dans l'interface graphique native au lieu de soumettre une tâche Slurm?",
+      "answer": "Oui, il est possible et même recommandé d'exécuter vos simulations Workbench directement à partir de l'interface graphique native. Vous pouvez réserver un nœud de calcul avec jusqu'à 96 cœurs, 768 Go de mémoire et 8 heures de temps d'exécution pour une session de bureau OnDemand, ce qui est souvent plus intuitif que de passer par un script Slurm."
+    },
+    {
+      "question": "Quelle est la commande pour soumettre un fichier de projet Workbench à la queue avec l'ordonnanceur Slurm?",
+      "answer": "Pour soumettre un fichier de projet Workbench à la queue avec Slurm, vous devez personnaliser les scripts fournis pour Workbench et ensuite lancer la commande `sbatch script-wbpj-202X.sh`, où `202X` correspond à la version du module Ansys."
+    },
+    {
+      "question": "Quelles sont les options Slurm typiques configurées dans un script pour une tâche Workbench sur un nœud simple avec StdEnv/2023?",
+      "answer": "Dans un script pour une tâche Workbench sur un nœud simple avec StdEnv/2023, les options Slurm typiques incluent `--account` (spécifier le compte), `--time` (limite de temps, par exemple 00-03:00 pour 3 heures), `--mem` (mémoire totale, par exemple 16G ou 0 pour toute la mémoire du nœud), `--ntasks` (nombre de cœurs, par exemple 4), et `--nodes=1` (ne pas changer, car le multi-nœuds n'est pas pris en charge)."
+    },
+    {
+      "question": "Comment le script Workbench `script-wbpj-2023.sh` détermine-t-il s'il doit utiliser le parallélisme à mémoire partagée (SMP) ou à mémoire distribuée (DMP)?",
+      "answer": "Le script `script-wbpj-2023.sh` utilise une condition `if [ \"$SLURM_NNODES\" == 1 ]; then` pour vérifier le nombre de nœuds. Si c'est un seul nœud (`SLURM_NNODES == 1`), `MEMPAR` est mis à 0 pour le parallélisme à mémoire partagée (SMP). Sinon, `MEMPAR` est mis à 1 pour le parallélisme à mémoire distribuée (DMP)."
+    },
+    {
+      "question": "Quel est le rôle du fichier `SolveHandlers.xml` dans l'exécution de Workbench via un script Slurm?",
+      "answer": "Le fichier `SolveHandlers.xml`, situé dans `~/.mw/Application Data/Ansys/[version]/SolveHandlers.xml`, est un fichier de configuration que le script Workbench modifie. Il ajuste des paramètres comme la distribution de la mémoire (SMP/DMP) et le nombre maximal de processeurs pour la solution Ansys, en fonction des ressources demandées via Slurm."
+    },
+    {
+      "question": "Quelles variables d'environnement sont exportées par le script `script-wbpj-2023.sh` pour l'exécution de Workbench?",
+      "answer": "Le script `script-wbpj-2023.sh` exporte les variables d'environnement `KMP_AFFINITY=disabled` et `I_MPI_HYDRA_BOOTSTRAP=ssh` avant de lancer Workbench."
+    },
+    {
+      "question": "Comment le script Slurm lance-t-il une mise à jour d'un projet Workbench en mode batch?",
+      "answer": "Le script Slurm lance une mise à jour d'un projet Workbench en mode batch en utilisant la commande `runwb2 -B -E \"Update()\" -F YOURPROJECT.wbpj`. Il est aussi possible d'inclure la sauvegarde avec `runwb2 -B -E \"Update();Save(Overwrite=True)\" -F YOURPROJECT.wbpj`."
+    }
+  ],
+  "generated_at": "2026-04-11T17:12:07.149838+00:00"
+}

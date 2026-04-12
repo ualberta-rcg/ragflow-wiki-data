@@ -1,0 +1,48 @@
+{
+  "doc_key": "fr/openacc_tutorial_-_profiling",
+  "level": "chunk",
+  "chunk_index": 4,
+  "qa_pairs": [
+    {
+      "question": "D'après les résultats du compilateur, qu'est-ce qui peut empêcher la vectorisation de certaines boucles?",
+      "answer": "Les résultats du compilateur indiquent que certaines boucles ne sont pas vectorisées à cause d'une «data dependency» (dépendance de données) ou parce que le «loop count too small» (nombre d'itérations de la boucle est trop petit), comme on peut le voir aux lignes 59 et 44."
+    },
+    {
+      "question": "Pour quelle fonction le compilateur génère-t-il du code SIMD vectorisé pour des boucles contenant des réductions?",
+      "answer": "Le compilateur génère du «vector simd code for the loop containing reductions» pour la fonction `matvec` (à la ligne 33) et la fonction `dot` (à la ligne 27, lorsqu'elle est intégrée)."
+    },
+    {
+      "question": "Quelle optimisation le compilateur applique-t-il lorsque l'intensité d'une boucle est de 0.0 pour `initialize_vector`?",
+      "answer": "Pour `initialize_vector` quand l'intensité est de 0.0 (ligne 36), le compilateur utilise un «Memory set idiom» et remplace la boucle par un appel à `__c_mset8`."
+    },
+    {
+      "question": "Que signifie le message «FMA (fused multiply-add) instruction(s) generated» dans les résultats du compilateur?",
+      "answer": "Ce message indique que le compilateur a optimisé le code en générant des instructions de multiplication-addition fusionnées (FMA), qui combinent une multiplication et une addition en une seule opération, ce qui peut améliorer la performance. On le voit pour `matvec` (ligne 37) et `waxpby` (lignes 27, 36, 39)."
+    },
+    {
+      "question": "Selon le compilateur, pourquoi une boucle pourrait-elle ne pas être fusionnée (not fused)?",
+      "answer": "Le compilateur signale qu'une boucle pourrait ne pas être fusionnée à cause d'un «different loop trip count» (nombre d'itérations de boucle différent), d'un «function call before adjacent loop» (appel de fonction avant une boucle adjacente) ou de «different controlling conditions» (conditions de contrôle différentes), comme aux lignes 43, 57 et 27 (pour dot)."
+    },
+    {
+      "question": "Quand la fonction `waxpby` est intégrée (inlined), quelle est la valeur de son intensité et quelles sont les raisons données par le compilateur pour son état d'optimisation à la ligne 39?",
+      "answer": "Quand `waxpby` est intégrée, à la ligne 39, l'intensité est de 0.67. Le compilateur indique que la boucle n'est «not fused» (non fusionnée) à cause d'un «different loop trip count» et «not vectorized» (non vectorisée) à cause d'une «data dependency», mais il a tout de même «Generated vector simd code for the loop» (généré du code SIMD vectorisé pour la boucle) et l'a «Loop unrolled 4 times» (déroulée 4 fois)."
+    },
+    {
+      "question": "L'intensité de la fonction `matvec` peut-elle toujours être affichée directement d'après les résultats du compilateur?",
+      "answer": "Non, pour la fonction `matvec` quand elle est intégrée (ligne 29), l'intensité est «[symbolic], and not printable» (symbolique et non affichable). Le compilateur suggère d'essayer les options `-Mpfi -Mpfo` pour obtenir cette information."
+    },
+    {
+      "question": "Quel type d'idiome est utilisé quand la fonction `initialize_vector` a une intensité de 0.0?",
+      "answer": "Quand la fonction `initialize_vector` a une intensité de 0.0 (ligne 36), le compilateur utilise un «Memory set idiom» pour remplacer la boucle par un appel à `__c_mset8`."
+    },
+    {
+      "question": "Quelle optimisation est appliquée à la fonction `allocate_3d_poisson_matrix` lorsque l'intensité est de 0.0 à la ligne 45?",
+      "answer": "Pour la fonction `allocate_3d_poisson_matrix`, quand l'intensité est de 0.0 à la ligne 45, la boucle est «unrolled 3 times (completely unrolled)» (déroulée 3 fois, complètement déroulée)."
+    },
+    {
+      "question": "Pour quelle fonction intégrée (inlined) le compilateur utilise-t-il un «Memory copy idiom» quand son intensité est de 0.0?",
+      "answer": "Le compilateur utilise un «Memory copy idiom» pour la fonction `waxpby` intégrée (à la ligne 39) quand son intensité est de 0.0, remplaçant la boucle par un appel à `__c_mcopy8`."
+    }
+  ],
+  "generated_at": "2026-04-12T04:24:56.212475+00:00"
+}

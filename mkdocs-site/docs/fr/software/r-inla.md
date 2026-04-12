@@ -5,21 +5,48 @@ lang: "fr"
 
 source_wiki_title: "R-INLA/fr"
 source_hash: "86e7056ea0d93a8ef88744a894515da8"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T10:21:33.751678+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T10:45:13.278756+00:00"
 
 tags:
   - software
 
 keywords:
-  []
+  - "exécutables précompilés"
+  - "installation"
+  - "INLA"
+  - "paquet R"
+  - "paquet R-INLA"
+  - "charger les modules"
+  - "installer"
+  - "environnements logiciels standards"
+  - "setrpaths.sh"
+  - "script pour la tâche"
+  - "dépendances"
+  - "R-INLA"
+  - "LD_LIBRARY_PATH"
+  - "inférence bayésienne"
+
+questions:
+  - "Qu'est-ce que le paquet R-INLA et quelle méthodologie statistique utilise-t-il ?"
+  - "Pourquoi l'installation de R-INLA est-elle plus complexe que celle des autres paquets R ?"
+  - "Quelles sont les étapes de configuration et les modules requis pour installer R-INLA dans un environnement logiciel standard ?"
+  - "Comment installer le paquet R-INLA ainsi que ses dépendances ?"
+  - "Quels exécutables précompilés sont requis par R-INLA lors de l'installation ?"
+  - "Pourquoi faut-il corriger les exécutables précompilés pour les environnements logiciels standards ?"
+  - "Quel est l'objectif de la modification des chemins de bibliothèques (LD_LIBRARY_PATH) pour le package R INLA dans ce script ?"
+  - "Pourquoi est-il indispensable de charger les mêmes modules dans le script de la tâche que ceux indiqués dans les commentaires ?"
+  - "Comment ce script gère-t-il les dépendances et les chemins d'exécution (rpaths) dans l'environnement Linux 64 bits ?"
+  - "Comment installer le paquet R-INLA ainsi que ses dépendances ?"
+  - "Quels exécutables précompilés sont requis par R-INLA lors de l'installation ?"
+  - "Pourquoi faut-il corriger les exécutables précompilés pour les environnements logiciels standards ?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -27,13 +54,11 @@ status:
 
 ## Installation
 
-L'installation est un peu plus compliquée que celle des autres paquets [R](r.md) parce que d'autres exécutables précompilés doivent être téléchargés pour assurer la compatibilité avec nos [environnements logiciels standards](standard-software-environments.md).
+L'installation est un peu plus compliquée que celle pour les autres paquets [R](r.md) parce que d'autres exécutables précompilés doivent être téléchargés pour assurer la compatibilité avec nos [environnements logiciels standards](standard-software-environments.md).
 
 Les scripts ci-dessous ont été testés avec les versions qu'ils utilisent. Puisque R installe toujours la dernière version des paquets, les versions des modules devront être ajustées au besoin.
 
-### Pour StdEnv/2023 r/4.4
-
-```bash title="install_INLA_StdEnv2023.sh"
+```bash tab="install_INLA_StdEnv2023.sh"
 #!/bin/bash
 
 # (1)
@@ -46,7 +71,7 @@ export R_LIBS="$HOME/R/x86_64-pc-linux-gnu-library/${EBVERSIONR:0:3}"
 echo  "R_LIBS is $R_LIBS"
 mkdir -p $R_LIBS
 R -e 'install.packages("remotes", repos=c("https://mirror.csclub.uwaterloo.ca/CRAN/"))'
-R -e 'install.packages("INLA", version="25.06.07", repos=c("https://mirror.csclub.uwaterloo.ca/CRAN/", INLA="https://inla.r-inla-download.org/R/stable"), dep=TRUE, Ncpus=2)' \
+R -e 'install.packages("INLA", version="25.06.07", repos=c("https://mirror.csclub.uwater Waterloo.ca/CRAN/", INLA="https://inla.r-inla-download.org/R/stable"), dep=TRUE, Ncpus=2)' \
     |& tee  $LOGFILE
 
 # (3)
@@ -59,9 +84,7 @@ setrpaths.sh --path $R_LIBS/INLA/bin/linux/64bit/malloc --add_path "\$ORIGIN:$EB
 setrpaths.sh --path $R_LIBS/INLA/bin/linux/64bit --add_path '$ORIGIN/first:$ORIGIN:$ORIGIN/malloc'
 ```
 
-### Pour StdEnv/2020 r/4.2.1
-
-```bash title="install_INLA_StdEnv2020.sh"
+```bash tab="install_INLA_StdEnv2020.sh"
 #!/bin/bash
 
 # (1)
@@ -85,9 +108,9 @@ sed -i  's/\(^.*export LD_LIBRARY_PATH\)/echo "Skipping LD_LIBRARY_PATH." #\1/g'
 setrpaths.sh --path $R_LIBS/INLA/bin/linux --add_path '$ORIGIN/first:$ORIGIN'
 ```
 
-### Commentaires sur le script
+Commentaires sur le script
 
 *   (1) Pour charger les modules requis. Il faut aussi charger les mêmes modules dans le script pour la tâche.
 *   (2) Pour installer le paquet R-INLA et ses dépendances.
 *   (3) Pour installer les exécutables précompilés requis par R-INLA.
-*   (4) Pour corriger les exécutables précompilés afin qu'ils soient compatibles avec nos [environnements logiciels standards](standard-software-environments.md).
+*   (4) Pour corriger les exécutables précompilés pour qu'ils soient compatibles avec nos [environnements logiciels standards](standard-software-environments.md).

@@ -5,31 +5,57 @@ lang: "en"
 
 source_wiki_title: "Apache Spark/en"
 source_hash: "1d8b929dd8731686e2bc685040bc1d34"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T04:25:40.742166+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T05:17:45.245542+00:00"
 
 tags:
   - software
 
 keywords:
-  []
+  - "Web application"
+  - "event log"
+  - "Visualization"
+  - "HistoryServer"
+  - "Spark"
+  - "directory"
+  - "SLURM"
+  - "distributed computation"
+  - "Apache Spark"
+  - "spark-defaults.conf"
+  - "event logs"
+  - "Configuration"
+  - "PySpark"
+
+questions:
+  - "What is Apache Spark and how does its in-memory computation compare to Hadoop's MapReduce?"
+  - "How are SLURM batch scripts utilized to configure and submit PySpark and Java Jar jobs in a cluster environment?"
+  - "What are the initial steps required to configure and save event logs for monitoring a Spark application?"
+  - "What specific settings must be added to the spark-defaults.conf file to enable and configure Spark event logging?"
+  - "What command is used to start the Spark history server for visualizing the event logs?"
+  - "How do you access the visualization web application in your browser and how do you stop it when finished?"
+  - "What is the primary purpose of the instructions provided for the Spark Web application?"
+  - "What command must be executed to create the directory that will contain the application's event log?"
+  - "What additional directory needs to be created during the configuration process if it does not already exist?"
+  - "What specific settings must be added to the spark-defaults.conf file to enable and configure Spark event logging?"
+  - "What command is used to start the Spark history server for visualizing the event logs?"
+  - "How do you access the visualization web application in your browser and how do you stop it when finished?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
-# Introduction
+# Apache Spark
 
-Apache Spark is an open source framework for distributed computation initially developed by the AMPLab at Berkeley University and is now a project sponsored by the Apache foundation. Unlike the MapReduce algorithm implemented by Hadoop that uses disk storage, Spark makes use of primitives which are stored in memory, thereby achieving up to 100x the performance of Hadoop in certain applications. Loading data in memory allows them to be queried frequently, making Spark a framework especially appropriate for automated learning and interactive data analysis.
+Apache Spark is an open-source framework for distributed computation initially developed by the AMPLab at Berkeley University and is now a project sponsored by the Apache Foundation. Unlike the MapReduce algorithm implemented by Hadoop that uses disk storage, Spark makes use of primitives which are stored in memory, thereby achieving up to 100x the performance of Hadoop in certain applications. Loading data in memory allows them to be queried frequently, making Spark a framework especially appropriate for automated learning and interactive data analysis.
 
-# Usage
+## Usage
 
-## PySpark
+### PySpark
 
 ```sh title="pyspark_submit.sh"
 #!/bin/bash
@@ -44,7 +70,7 @@ module load spark/2.3.0
 module load python/3.7
 
 # Recommended settings for calling Intel MKL routines from multi-threaded applications
-# https://software.intel.com/en-us/articles/recommended-settings-for-calling-intel-mkl-routines-from-multi-threaded-applications
+# https://software.intel.com/en-us/articles/recommended-settings-for-calling-intel-mkl-routines-from-multi-threaded-applications 
 export MKL_NUM_THREADS=1
 export SPARK_IDENT_STRING=$SLURM_JOBID
 export SPARK_WORKER_DIR=$SLURM_TMPDIR
@@ -66,7 +92,7 @@ kill $slaves_pid
 stop-master.sh
 ```
 
-## Java Jars
+### Java Jars
 
 ```sh title="pyspark_java_submit.sh"
 #!/bin/bash
@@ -80,7 +106,7 @@ stop-master.sh
 module load spark/2.3.0
 
 # Recommended settings for calling Intel MKL routines from multi-threaded applications
-# https://software.intel.com/en-us/articles/recommended-settings-for-calling-intel-mkl-routines-from-multi-threaded-applications
+# https://software.intel.com/en-us/articles/recommended-settings-for-calling-intel-mkl-routines-from-multi-threaded-applications 
 export MKL_NUM_THREADS=1
 export SPARK_IDENT_STRING=$SLURM_JOBID
 export SPARK_WORKER_DIR=$SLURM_TMPDIR
@@ -143,7 +169,8 @@ Start the Web application for visualizing the event log:
 ```bash
 SPARK_NO_DAEMONIZE=1 start-history-server.sh
 ```
-```text
+
+```
 starting org.apache.spark.deploy.history.HistoryServer, logging to /home/<userid>/.spark/<spark version>/log/spark-<userid>-org.apache.spark.deploy.history.HistoryServer-1-<server>.computecanada.ca.out
 Spark Command: /cvmfs/soft.computecanada.ca/easybuild/software/2017/Core/java/1.8.0_121/bin/java -cp /home/<userid>/.spark/<spark version>/conf/:/cvmfs/soft.computecanada.ca/easybuild/software/2017/Core/spark/2.2.0/jars/* -Xmx1g org.apache.spark.deploy.history.HistoryServer
 ========================================
@@ -163,6 +190,7 @@ Using Spark's default log4j profile: org/apache/spark/log4j-defaults.properties
 17/10/13 04:29:02 INFO Utils: Successfully started service on port 18080.
 17/10/13 04:29:02 INFO HistoryServer: Bound HistoryServer to 0.0.0.0, and started at http://<server ip address>:18080
 ```
+
 Copy the URL which is shown in the terminal and paste it in your Web browser.
 
 To stop the visualization application, type the combination Ctrl-C in the terminal used to launch the application.

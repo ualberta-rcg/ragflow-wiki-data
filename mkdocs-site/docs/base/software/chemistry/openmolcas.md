@@ -5,46 +5,73 @@ lang: "base"
 
 source_wiki_title: "OpenMolcas"
 source_hash: "f0ca6f64faef6245f954250c984f523a"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T09:36:23.518585+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T10:04:49.903640+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "g-values"
+  - "SINGLE_ANISO"
+  - "Slurm scheduler"
+  - "active space"
+  - "Magnetisation fields"
+  - "magnetic properties"
+  - "OpenMolcas"
+  - "orbital angular momentum"
+  - "state interaction calculation"
+  - "orbital file"
+  - "quantum chemistry software"
+  - "SOC"
+  - "multiconfigurational approach"
+  - "CASSCF states"
+  - "serial job"
+
+questions:
+  - "What is OpenMolcas, and how does it differ from the original Molcas software in terms of its codebase and licensing?"
+  - "Why are users currently restricted to running only serial OpenMolcas jobs on the national clusters?"
+  - "What are the primary functions of the specific modules (such as &GATEWAY, &SEWARD, &RASSCF, and &RASSI) demonstrated in the example input file?"
+  - "How many input files are specified in the configuration, and how many states are defined for each file?"
+  - "What is the purpose of the SINGLE_ANISO module, and why was it included in this script despite no longer being actively used?"
+  - "Which specific parameters are used to define the temperatures and fields for calculating magnetic susceptibility and magnetisation?"
+  - "What are the specific spin, charge, and active electron parameters defined for the system?"
+  - "How does the script handle input and output files, specifically regarding the orbital and JobIph files?"
+  - "What is the primary function of the RASSI module in the context of this calculation?"
+  - "How many input files are specified in the configuration, and how many states are defined for each file?"
+  - "What is the purpose of the SINGLE_ANISO module, and why was it included in this script despite no longer being actively used?"
+  - "Which specific parameters are used to define the temperatures and fields for calculating magnetic susceptibility and magnetisation?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
 ## Introduction
-[OpenMolcas](https://github.com/Molcas/OpenMolcas) is a quantum chemistry software package. It includes programs to apply many different electronic structure methods to chemical systems, but its key feature is the multiconfigurational approach, with methods like CASSCF and CASPT2.
+[OpenMolcas](https://github.com/Molcas/OpenMolcas) is a quantum chemistry software package. It includes programs to apply many different electronic structure methods to chemical systems, but its key feature is the **multiconfigurational approach**, with methods like CASSCF and CASPT2.
 
-OpenMolcas is not a fork or reimplementation of Molcas, it is a large part of the Molcas codebase that has been released as free and open-source software (FOSS) under the Lesser General Public License (LGPL). Some parts of Molcas remain under a different license by decision of their authors (or impossibility to reach them), and are therefore not included in OpenMolcas.
+**OpenMolcas** is not a fork or reimplementation of Molcas; it is a large part of the Molcas codebase that has been released as *free and open-source software (FOSS)* under the *Lesser General Public License (LGPL)*. Some parts of Molcas remain under a different license by decision of their authors (or impossibility to reach them) and are therefore not included in OpenMolcas.
 
 ## Running OpenMolcas on national clusters
-The `OpenMolcas` module is installed on national clusters. To check what versions are available use the `module spider` command as follows:
+The `OpenMolcas` module is installed on national clusters. To check what versions are available, use the `module spider` command as follows:
 
 ```bash
-[name@server $] module spider openmolcas
+module spider openmolcas
 ```
 
-For module commands, please see [Using modules](using-modules.md).
+For module commands, please see [Using modules](utiliser-des-modules.md).
 
 ### Job submission
 The national clusters use the Slurm scheduler; for details about submitting jobs, see [Running jobs](running-jobs.md).
 
 #### Example script for serial OpenMolcas job
-!!! warning
-    Currently, only serial jobs work for OpenMolcas. OpenMolcas's parallel implementation uses Global Array, which does not work on the clusters.
+**Currently only serial job works for OpenMolcas.** OpenMolcas's parallel implementation uses Global Array which does not work on the clusters.
 
-```bash title="PrO2_serial.sh"
+```bash linenums="1" title="PrO2_serial.sh"
 #!/bin/bash
 #SBATCH --account=def-pi          # change this to your own account
 #SBATCH --ntasks=1                # 1 process/cpu
@@ -65,7 +92,7 @@ pymolcas PrO2.inp            # PrO2.inp is the input file
 ```
 
 #### Example input file for PrO2.inp
-```text title="PrO2.inp"
+```text linenums="1" title="PrO2.inp"
 // This module sets up the structure and basis sets etc.
 &GATEWAY
   AMFI    // Requests Atomic Mean Field Integrals for SOC

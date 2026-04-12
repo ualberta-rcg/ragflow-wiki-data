@@ -1,0 +1,48 @@
+{
+  "doc_key": "fr/pytorch",
+  "level": "chunk",
+  "chunk_index": 14,
+  "qa_pairs": [
+    {
+      "question": "Pourquoi ne devrait-on pas entraîner le modèle d'exemple, qui utilise un lot de 512 images et occupe environ 1 Go de mémoire GPU, sur un seul GPU de nos grappes?",
+      "answer": "Ce modèle ne devrait pas être entraîné sur un seul GPU parce qu'il n'utilise qu'environ 6% de la capacité de calcul du GPU, ce qui n'est pas une utilisation optimale des ressources."
+    },
+    {
+      "question": "Comment peut-on optimiser l'utilisation des ressources et accélérer l'entraînement d'un petit modèle sur un seul GPU, selon le document?",
+      "answer": "Pour optimiser l'utilisation des ressources et obtenir un gain de vitesse appréciable, on peut exécuter plusieurs copies (replicas) du modèle sur un seul GPU en utilisant le parallélisme des données."
+    },
+    {
+      "question": "Quels services sont utilisés pour déployer efficacement plusieurs copies d'un modèle sur un seul GPU?",
+      "answer": "Le service Multi-Process (MPS) de Nvidia et MPI sont utilisés pour déployer efficacement plusieurs copies du modèle sur un seul GPU."
+    },
+    {
+      "question": "Quel est le rôle du paramètre `--tasks-per-node` dans le script `pytorch-gpu-mps.sh` pour l'entraînement sur un seul GPU?",
+      "answer": "Le paramètre `--tasks-per-node` indique le nombre de copies (replicas) du modèle qui seront placées sur le GPU."
+    },
+    {
+      "question": "Comment le service Nvidia Multi-Process (MPS) est-il activé dans le script `pytorch-gpu-mps.sh`?",
+      "answer": "Nvidia MPS est activé en exportant les variables `CUDA_MPS_PIPE_DIRECTORY` et `CUDA_MPS_LOG_DIRECTORY`, puis en exécutant la commande `nvidia-cuda-mps-control -d`."
+    },
+    {
+      "question": "Quels sont les paquets Python qui sont installés dans l'environnement virtuel pour l'exemple d'entraînement avec MPS sur un seul GPU?",
+      "answer": "Les paquets Python `torch` et `torchvision` sont installés dans l'environnement virtuel."
+    },
+    {
+      "question": "Quel backend est spécifié pour `dist.init_process_group` dans le script Python `cifar10-gpu-mps.py` pour le parallélisme des données sur un seul GPU?",
+      "answer": "Le backend spécifié est `mpi` (`backend=\"mpi\"`)."
+    },
+    {
+      "question": "Pourquoi NCCL n'est-il pas compatible comme backend pour `dist.init_process_group` lors de l'utilisation d'un seul GPU?",
+      "answer": "NCCL ne fonctionne pas sur un seul GPU à cause d'une vérification de topologie multi-GPU codée en dur. Il faut utiliser MPI ou Gloo."
+    },
+    {
+      "question": "Comment le modèle `Net` est-il configuré pour le parallélisme des données distribuées dans le script Python `cifar10-gpu-mps.py`?",
+      "answer": "Le modèle `Net` est enveloppé avec `torch.nn.parallel.DistributedDataParallel(net, device_ids=[current_device])`."
+    },
+    {
+      "question": "Quel type de chargeur de données (DataLoader) est utilisé pour l'entraînement distribué dans `cifar10-gpu-mps.py`?",
+      "answer": "Un `DataLoader` est utilisé avec un `torch.utils.data.distributed.DistributedSampler`."
+    }
+  ],
+  "generated_at": "2026-04-12T05:47:33.427953+00:00"
+}

@@ -5,21 +5,33 @@ lang: "base"
 
 source_wiki_title: "Securing your account"
 source_hash: "3da7b474ce56877c90462af6bd8ed7e5"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T11:13:44.817225+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T11:24:05.296515+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "Multifactor authentication"
+  - "Authentication"
+  - "Passwords"
+  - "SSH keys"
+  - "Security best practices"
+
+questions:
+  - "What are the primary best practices for securely managing passwords and SSH keys when authenticating to the cluster?"
+  - "How does multifactor authentication (MFA) provide an additional layer of protection for user accounts?"
+  - "What general security measures should users follow regarding data sharing and maintaining the security of both their local and remote systems?"
+  - "What are the primary best practices for securely managing passwords and SSH keys when authenticating to the cluster?"
+  - "How does multifactor authentication (MFA) provide an additional layer of protection for user accounts?"
+  - "What general security measures should users follow regarding data sharing and maintaining the security of both their local and remote systems?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -38,21 +50,24 @@ If you think that your password may have been compromised, you can reset it thro
 ## SSH keys best practices
 SSH keys can be a good way to authenticate to your account without typing your password every time. However, to be secure, it is **imperative that SSH keys use a strong passphrase** that is treated like a password.
 
-!!! warning
+!!! warning "Private Key Security"
     Treat the private key as a security token, even when encrypted with a passphrase. Avoid putting a private key on any shared machine. Placing an unencrypted private key on the clusters is a huge security hole.
 
 For technical details on implementing SSH keys for your account, please see [this page](ssh-keys.md).
 
 ## Multifactor authentication
-Multifactor authentication (MFA) allows you to protect your account with more than a password or an SSH key. Once your account is configured to use MFA, you will need to enter your username and password or SSH key as usual, and then perform a second action (the second factor) to access most of our services. It is highly recommended to activate MFA on your account. Please see the [Multifactor authentication](multifactor-authentication.md) page for more details.
+Multifactor authentication (MFA) allows you to protect your account with more than a password or an SSH key. Once your account is configured to use MFA, you will need to enter your username and password or SSH key as usual, and then perform a second action (the second factor) to access most of our services.
+
+!!! tip "Activate MFA"
+    It is highly recommended to activate MFA on your account. Please see the [Multifactor authentication](multifactor-authentication.md) page for more details.
 
 # General best practices
 
 ## Sharing data
-!!! warning
-    When sharing data among collaborators, it may seem convenient to change filesystem permissions to allow everyone to read or write some files. This can compromise your account if not done properly. Please see our [Sharing data](sharing-data.md) page.
+When sharing data among collaborators, it may seem convenient to change filesystem permissions to allow everyone to read or write some files. This can compromise your account if not done properly. Please see our [Sharing data](sharing-data.md) page.
 
 ## For the system you log in from
+
 Security issues often start on the outside, by a third party getting access to a user's password or (passwordless) SSH key. To help prevent this, please:
 *   Log in from trusted computers only;
 *   On Windows computers, make sure to regularly run a virus scanner and malware scanner;
@@ -62,5 +77,7 @@ Security issues often start on the outside, by a third party getting access to a
 
 ## For the system you log in to
 One important advantage of using SSH keys is that the remote system only needs your public key. This value is not sensitive, so there is no risk of it being disclosed. If someone gets your public key, all they can do is give you additional access.
-*   Avoid placing any private keys on remote machines, even encrypted ones. An unencrypted key is equivalent to a password, and may be stolen or exposed inadvertently. An encrypted key is, by itself, not sensitive - except if you ever use it on that machine (at which point you are effectively trusting the machine.)
+
+!!! warning "Private Key Location"
+    Avoid placing any private keys on remote machines, even encrypted ones. An unencrypted key is equivalent to a password, and may be stolen or exposed inadvertently. An encrypted key is, by itself, not sensitive - except if you ever use it on that machine (at which point you are effectively trusting the machine.)
 *   If you use ssh-agent, avoid forwarding it to remote machines which you do not trust.

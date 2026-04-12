@@ -248,7 +248,6 @@ def process_doc(dataset, doc_key, doc_state):
     # Update state - hash is the key tracking field
     doc_state["keywords"] = keywords
     doc_state["questions"] = questions
-    doc_state["needs_ragflow_sync"] = False
     doc_state["ragflow_source_hash"] = doc_state.get("source_hash", "")
     doc_state["ragflow_synced_at"] = datetime.now(timezone.utc).isoformat()
     doc_state["ragflow_doc_id"] = doc.id

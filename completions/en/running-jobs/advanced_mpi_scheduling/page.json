@@ -1,0 +1,71 @@
+{
+  "doc_key": "en/advanced_mpi_scheduling",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is the main purpose of this document concerning job submission?",
+      "answer": "This document provides guidance on submitting MPI or distributed memory parallel jobs using Slurm, with a focus on controlling resource allocation."
+    },
+    {
+      "question": "How should most users submit basic MPI or distributed memory parallel jobs?",
+      "answer": "Most users should submit jobs by requesting a number of processes with `--ntasks` or `-n`, allowing the scheduler to balance efficiency."
+    },
+    {
+      "question": "Where can users find more control over how their job is allocated?",
+      "answer": "Users can refer to SchedMD's page on multicore support and the `sbatch` command documentation for more control over allocation."
+    },
+    {
+      "question": "What is the default memory allocation per core in Slurm?",
+      "answer": "The default memory allocation in Slurm is 256MB per core."
+    },
+    {
+      "question": "How should memory be specified for an MPI job using `--ntasks` when the number of cores per node is unknown?",
+      "answer": "When using `--ntasks` and the number of cores per node is unknown, memory should be requested with `--mem-per-cpu`."
+    },
+    {
+      "question": "For what size of parallel job is it generally recommended to request whole nodes?",
+      "answer": "It is generally recommended to request whole nodes for large parallel jobs that can efficiently use 64 cores or more."
+    },
+    {
+      "question": "What information about a cluster's nodes is helpful when requesting whole nodes?",
+      "answer": "It helps to know the CPU and usable memory configuration of the node types available at the cluster."
+    },
+    {
+      "question": "How does Slurm interpret the `--mem=0` option in a job script?",
+      "answer": "Slurm interprets `--mem=0` as a request to reserve all the available memory on each node assigned to the job."
+    },
+    {
+      "question": "When should `--mem=0` be avoided when requesting whole nodes?",
+      "answer": "Users should avoid `--mem=0` if they require more memory per node than the smallest node provides, and should explicitly request the amount instead."
+    },
+    {
+      "question": "How can a user request a job with few cores, but ensure all cores reside on a single node?",
+      "answer": "A user can request this by specifying `#SBATCH --nodes=1` along with `--ntasks-per-node` and `--mem` (or `--mem-per-cpu`)."
+    },
+    {
+      "question": "What is the advantage of using `--mem=AMOUNT` over `--mem-per-cpu=AMOUNT` for jobs running on a single node?",
+      "answer": "Using `--mem=AMOUNT` on a single node means the job won't be cancelled if an individual process exceeds a per-CPU limit, as long as the total memory usage is within the specified node limit."
+    },
+    {
+      "question": "How are the number of MPI processes and threads configured for a hybrid MPI and OpenMP job?",
+      "answer": "The MPI process count is set with `--ntasks` or `--ntasks-per-node`, and the thread count is set with `--cpus-per-task`."
+    },
+    {
+      "question": "What specific argument is required for `srun` when using `--cpus-per-task` in Slurm 22.05 and newer?",
+      "answer": "Since Slurm 22.05, `--cpus-per-task=$SLURM_CPUS_PER_TASK` must be specified for the `srun` command itself."
+    },
+    {
+      "question": "Why is `srun` generally preferred over `mpirun` or `mpiexec` in a Slurm environment?",
+      "answer": "`srun` is preferred because it automatically distributes processes to allocated resources, handles task affinity, and integrates fully with Slurm for job steps and accounting, operating at a higher level of abstraction."
+    },
+    {
+      "question": "What is the typical CPU and usable memory configuration for a Narval node?",
+      "answer": "Narval nodes typically have 64 cores and 249 GiB of usable memory, with some nodes reserved for whole-node jobs."
+    },
+    {
+      "question": "What is a unique characteristic of job submissions to the Trillium cluster?",
+      "answer": "Only whole-node jobs are possible at Trillium."
+    }
+  ],
+  "generated_at": "2026-04-11T16:11:54.613552+00:00"
+}

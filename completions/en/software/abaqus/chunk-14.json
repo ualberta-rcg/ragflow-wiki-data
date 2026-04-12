@@ -4,25 +4,17 @@
   "chunk_index": 14,
   "qa_pairs": [
     {
-      "question": "What happens if the Resident Set Size (RES) memory allocated to an Abaqus simulation drops below the Minimum Memory Required (MMR)?",
-      "answer": "If the RES memory dips below the Minimum Memory Required (MMR), Abaqus will exit due to an Out of Memory (OOM) error."
+      "question": "What happens if the resident memory (RES) available to Abaqus drops below the Minimum Memory Required (MMR)?",
+      "answer": "If the resident memory (RES) dips below the Minimum Memory Required (MMR), Abaqus will exit due to an Out of Memory (OOM) error."
     },
     {
-      "question": "How can users influence the amount of memory made available to Abaqus for a simulation?",
-      "answer": "Users can influence the memory made available to Abaqus by adjusting the `--mem=` value in their Slurm script. This action sets an artificially low value for the `memory=` parameter in the Abaqus command, affecting the Resident Set Size (RES)."
+      "question": "How can one investigate the performance impact of reducing the requested memory for an Abaqus simulation, especially when the Memory Required to Minimize I/O (MRMIO) is large?",
+      "answer": "To investigate the performance impact, you can lower the `#SBATCH --mem=` value in your Slurm script, which in turn sets an artificially low value for the `memory=` parameter in the Abaqus command. For example, if your MRMIO is 96GB, you could try running a series of short test jobs with `#SBATCH --mem=8G, 16G, 32G, 64G` until an acceptable minimal performance impact is found."
     },
     {
-      "question": "What is the consequence of reducing the RES memory available to Abaqus significantly below the MRMIO?",
-      "answer": "Reducing the RES memory significantly below the Memory Required to Minimize I/O (MRMIO) will lead to increasingly larger scratch space being used by temporary files, although it can help avoid long queue wait times."
-    },
-    {
-      "question": "How can I find an acceptable `--mem=` value for an Abaqus simulation if its MRMIO is 96GB?",
-      "answer": "If your simulation's Memory Required to Minimize I/O (MRMIO) is 96GB, you should run a series of short test jobs with varying `--mem=` values, such as 8G, 16G, 32G, or 64G, until you identify an acceptable minimal performance impact."
-    },
-    {
-      "question": "What is the purpose of the 3072MB offset value hardcoded in the sample Slurm scripts for Abaqus memory allocation?",
-      "answer": "The 3072MB offset value is a conservative over-allocation hardcoded into the sample Slurm scripts, based on initial testing, to ensure sufficient non-swapped physical memory (RES) is available to Abaqus, as RES is generally less than virtual memory (VIRT)."
+      "question": "What is the relationship between reduced resident memory (RES) and scratch space usage in Abaqus simulations?",
+      "answer": "When the resident memory (RES) available to Abaqus is significantly reduced below the Memory Required to Minimize I/O (MRMIO), smaller RES values will result in increasingly larger scratch space being used by temporary files."
     }
   ],
-  "generated_at": "2026-04-10T00:31:48.286370+00:00"
+  "generated_at": "2026-04-11T15:34:03.179068+00:00"
 }

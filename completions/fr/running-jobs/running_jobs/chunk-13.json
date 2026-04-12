@@ -1,0 +1,64 @@
+{
+  "doc_key": "fr/running_jobs",
+  "level": "chunk",
+  "chunk_index": 13,
+  "qa_pairs": [
+    {
+      "question": "Comment on fait pour préparer des scripts de tâches sur Windows sans créer de problèmes?",
+      "answer": "Sur Windows, on devrait toujours utiliser un éditeur de texte simple comme Notepad ou Notepad++. Après avoir téléversé le script, il faut absolument utiliser la commande `dos2unix` pour convertir les codes de fin de ligne Windows en codes compatibles avec Linux."
+    },
+    {
+      "question": "Quel type d'éditeur de texte on devrait utiliser sur un Mac quand on prépare des scripts pour les grappes?",
+      "answer": "Sur un Mac, il est recommandé d'utiliser un éditeur de texte directement dans une fenêtre de terminal, comme nano, vim ou emacs."
+    },
+    {
+      "question": "Pourquoi est-ce qu'il ne faut pas utiliser un logiciel de traitement de texte pour écrire des scripts?",
+      "answer": "Utiliser un logiciel de traitement de texte plutôt qu'un éditeur de texte simple peut causer des problèmes dans vos scripts à cause des caractères cachés qu'il pourrait insérer."
+    },
+    {
+      "question": "Qu'est-ce qui arrive à une tâche dépendante si sa tâche parente ne se termine pas correctement?",
+      "answer": "Si une tâche parente (soumise avec `--dependency=afterok:<jobid>`) s'arrête avant sa fin ou produit un code de sortie non nul, la tâche dépendante ne sera jamais exécutée et sera automatiquement annulée."
+    },
+    {
+      "question": "C'est quoi la commande à utiliser pour spécifier une dépendance entre des tâches Slurm?",
+      "answer": "Pour spécifier une dépendance, on utilise la directive `sbatch --dependency=afterok:<jobid>`."
+    },
+    {
+      "question": "Quel message d'erreur indique qu'un module n'a pas pu être chargé?",
+      "answer": "Si un module ne peut pas être chargé, vous verrez un message comme : \"Lmod has detected the following error: These module(s) exist but cannot be loaded as requested: \"<module-name>/<version>\" Try: \"module spider <module-name>/<version>\" to see how to load the module(s).\""
+    },
+    {
+      "question": "Comment on fait pour déboguer un problème de chargement de module quand on a une erreur 'Lmod'?",
+      "answer": "Pour déboguer un problème de chargement de module, utilisez la commande `module spider <module-name>/<version>`. Ça va vous montrer les modules préalables qu'il faut charger pour que le module désiré soit disponible."
+    },
+    {
+      "question": "D'après l'exemple, comment on fait pour charger le module `quantumespresso/6.1` si on a une erreur?",
+      "answer": "Pour charger `quantumespresso/6.1` et éviter l'erreur, il faut ajouter la ligne `module load nixpkgs/16.09 intel/2016.4 openmpi/2.1.1` dans votre script avant de tenter de charger `quantumespresso/6.1`."
+    },
+    {
+      "question": "Comment les variables d'environnement sont-elles transmises par défaut à une tâche Slurm?",
+      "answer": "Par défaut, une tâche Slurm hérite des variables d'environnement de l'interpréteur (le 'shell') duquel elle a été lancée."
+    },
+    {
+      "question": "Pourquoi est-ce une bonne pratique d'ajouter `module purge` dans un script Slurm?",
+      "answer": "C'est une bonne pratique d'ajouter `module purge` au script avant de charger les modules. Ça assure que les tâches sont soumises de manière uniforme et ne sont pas affectées par les modifications faites dans l'interpréteur, ce qui aide à éviter des problèmes de modules non chargés."
+    },
+    {
+      "question": "Comment on peut empêcher une tâche d'hériter des variables d'environnement de l'interpréteur?",
+      "answer": "Pour empêcher une tâche d'hériter des variables d'environnement de l'interpréteur, on peut utiliser la directive `--export=none`."
+    },
+    {
+      "question": "Pourquoi ma tâche semble geler ou que le fichier de sortie est incomplet?",
+      "answer": "Ceci arrive souvent parce que l'ordonnanceur Slurm regroupe les résultats de manière agressive (mise en mémoire tampon) avant de les écrire dans le fichier `.out`, et ce fichier n'est souvent produit qu'à la fin de la tâche."
+    },
+    {
+      "question": "Est-ce que je peux perdre des résultats si ma tâche est annulée ou manque de temps?",
+      "answer": "Oui, si une tâche est annulée ou manque de temps, une partie des résultats peut être perdue, car ils n'ont pas encore été acheminés de la mémoire tampon vers le fichier `.out`."
+    },
+    {
+      "question": "Comment on peut surveiller le progrès d'une tâche Slurm en temps réel?",
+      "answer": "Pour suivre le progrès d'une tâche en cours d'exécution au fur et à mesure, vous pouvez utiliser une tâche interactive. C'est aussi une bonne façon d'estimer combien de temps la tâche a besoin."
+    }
+  ],
+  "generated_at": "2026-04-12T07:12:27.334685+00:00"
+}

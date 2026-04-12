@@ -1,0 +1,123 @@
+{
+  "doc_key": "fr/transition_from_niagara_to_trillium",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "Comment faire pour obtenir l'accès à la grappe Trillium?",
+      "answer": "Pour accéder à Trillium, vous devez soumettre une demande sur la nouvelle page CCDB, à l'adresse https://ccdb.alliancecan.ca/me/access_systems."
+    },
+    {
+      "question": "Est-ce que tous les utilisateurs doivent faire une nouvelle demande pour Trillium?",
+      "answer": "Non, si vous aviez déjà accès à Niagara ou Mist avant le 5 août 2025, vous avez automatiquement accès à Trillium."
+    },
+    {
+      "question": "À quelles sous-grappes a-t-on accès sur Trillium?",
+      "answer": "Sur Trillium, vous avez accès aux sous-grappes de CPU et de GPU."
+    },
+    {
+      "question": "Comment puis-je obtenir l'accès à HPSS sur Trillium?",
+      "answer": "Vous devez en faire la demande sur la page CCDB (https://ccdb.alliancecan.ca/me/access_systems). Par contre, si vous aviez accès à Niagara avant le 5 août, vous avez automatiquement accès à HPSS."
+    },
+    {
+      "question": "Quelle est la commande pour se connecter à la sous-grappe de CPU de Trillium via SSH?",
+      "answer": "Pour vous connecter à la sous-grappe de CPU, utilisez `ssh USERNAME@trillium.alliancecan.ca`."
+    },
+    {
+      "question": "Quelle est la commande pour se connecter à la sous-grappe de GPU de Trillium via SSH?",
+      "answer": "Pour vous connecter à la sous-grappe de GPU, utilisez `ssh USERNAME@trillium-gpu.alliancecan.ca`."
+    },
+    {
+      "question": "Quelles sont les exigences d'authentification pour se connecter à Trillium via SSH?",
+      "answer": "Vous devez avoir activé l'authentification multifacteur et utiliser une clé SSH enregistrée pour votre compte."
+    },
+    {
+      "question": "Que faut-il faire lors de la première connexion à Trillium?",
+      "answer": "À votre première connexion, il est fortement recommandé de lancer la commande `trisetup` pour configurer vos fichiers d'initialisation et créer des répertoires importants."
+    },
+    {
+      "question": "Que fait la commande `trisetup`?",
+      "answer": "La commande `trisetup` place des fichiers comme .bashrc, .bash_profile, .chsrc et .Xauthority dans votre répertoire /home, et crée les répertoires .licenses, .local, .ssh et links, incluant des liens symboliques vers vos répertoires /home et /project."
+    },
+    {
+      "question": "Le site web SciNet OnDemand permet-il de se connecter à Trillium?",
+      "answer": "Pour le moment, le site web SciNet OnDemand est toujours connecté à Niagara, mais il est prévu qu'il offre un accès à Trillium pour des applications web à l'avenir."
+    },
+    {
+      "question": "Quelles sont les principales caractéristiques des nœuds de calcul CPU sur Trillium?",
+      "answer": "Chaque nœud de calcul CPU de Trillium possède 192 cœurs AMD Zen 5 (Turin) et 755 Go de mémoire. La sous-grappe compte 1224 nœuds pour un total de 235 008 cœurs."
+    },
+    {
+      "question": "Quelles sont les principales caractéristiques des nœuds de calcul GPU sur Trillium?",
+      "answer": "Chaque nœud de calcul GPU de Trillium dispose de 4 GPU NVIDIA H100, 96 cœurs AMD Zen 4 (Genoa) et 755 Go de mémoire. Il y a 61 nœuds de calcul GPU et un total de 244 GPU."
+    },
+    {
+      "question": "Que doit-on considérer pour les routines mathématiques sur la sous-grappe CPU de Trillium?",
+      "answer": "Il est suggéré de passer à Flexiblas ou d'utiliser directement les bibliothèques AOCL d'AMD (`aocl-blas` et `aocl-lapack`) plutôt qu'Intel MKL."
+    },
+    {
+      "question": "Comment les données de Niagara ont-elles été migrées vers Trillium?",
+      "answer": "Toutes les données dans les répertoires /home, /scratch et /project sur Niagara au 31 juillet 2025, non modifiées par la suite, ont été automatiquement copiées vers Trillium."
+    },
+    {
+      "question": "Comment transférer manuellement des fichiers de Niagara vers Trillium après la migration automatique?",
+      "answer": "Vous pouvez vous connecter au nœud de copie `nia-datamover1.scinet.utoronto.ca` via SSH et utiliser la commande `cp` pour copier les fichiers entre les systèmes de fichiers montés."
+    },
+    {
+      "question": "Quels sont les quotas par défaut pour /home et /scratch sur Trillium?",
+      "answer": "Les quotas par défaut restent les mêmes que sur Niagara, soit 100 Go pour /home et 25 To pour /scratch."
+    },
+    {
+      "question": "Quelle est la nouvelle structure des répertoires /home, /scratch et /project sur Trillium?",
+      "answer": "Les répertoires /home et /scratch se trouvent directement dans `/home/USERNAME` et `/scratch/USERNAME`. Les répertoires /project pour les allocations de recherche sont dans `/project/RRG-NAME` et chaque groupe a aussi un `/project/def-PINAME` de 1 To."
+    },
+    {
+      "question": "Les répertoires /home, /scratch et /project sont-ils sauvegardés sur Trillium?",
+      "answer": "Comme sur Niagara, /home et /project sont sauvegardés, mais /scratch ne l'est pas."
+    },
+    {
+      "question": "Comment les permissions de fichiers et de répertoires sont-elles gérées sur Trillium, notamment pour /home et /scratch?",
+      "answer": "Sur Trillium, les fichiers et répertoires dans /home et /scratch appartiennent par défaut au groupe privé de l'utilisateur. Pour partager des fichiers, il faut utiliser les listes de contrôle d'accès (ACL) ou changer le groupe propriétaire."
+    },
+    {
+      "question": "Où doivent écrire les tâches de calcul sur Trillium?",
+      "answer": "Les systèmes de fichiers /home et /project étant en lecture seule sur les nœuds de calcul, vos tâches doivent écrire dans le répertoire /scratch."
+    },
+    {
+      "question": "Quelle pile logicielle est disponible sur Trillium?",
+      "answer": "La pile logicielle CVMFS est disponible sur Trillium. Les piles NiaEnv et MistEnv de Niagara/Mist ne sont pas disponibles."
+    },
+    {
+      "question": "Quels modules sont chargés par défaut sur Trillium?",
+      "answer": "Seuls les modules `gentoo/2023` et `CCconfig` sont chargés par défaut. Il faut charger explicitement les autres modules."
+    },
+    {
+      "question": "Comment charger l'environnement standard `StdEnv/2023` sur Trillium?",
+      "answer": "Utilisez la commande `module load StdEnv/2023` pour charger l'environnement standard, incluant le compilateur gcc par défaut."
+    },
+    {
+      "question": "Comment charger le module CUDA pour la compilation de code GPU sur Trillium?",
+      "answer": "Sur le nœud de connexion GPU ou un nœud de calcul GPU, utilisez `module load StdEnv/2023 cuda/12.6`."
+    },
+    {
+      "question": "Faut-il recompiler le code transféré de Niagara vers Trillium?",
+      "answer": "Oui, même si les fichiers ont été copiés, il est recommandé de recompiler tout votre code, surtout s'il n'utilisait pas la pile logicielle CVMFS ou utilisait des chemins absolus."
+    },
+    {
+      "question": "Les environnements virtuels Python de Niagara sont-ils fonctionnels sur Trillium?",
+      "answer": "Non, vos environnements virtuels Python ne fonctionneront pas et devront être recréés en raison du changement de l'emplacement des répertoires des utilisateurs."
+    },
+    {
+      "question": "Y a-t-il un module Anaconda sur Trillium?",
+      "answer": "Non, le module anaconda n'est plus disponible sur Trillium; vous devrez utiliser des environnements virtuels à la place."
+    },
+    {
+      "question": "Où peut-on trouver un guide de démarrage rapide pour Trillium?",
+      "answer": "Vous pouvez consulter le `Trillium : Guide de démarrage` à l'adresse [[Trillium Quickstart/fr]]."
+    },
+    {
+      "question": "Quelle est l'adresse courriel pour le soutien technique de Trillium?",
+      "answer": "L'adresse courriel pour le soutien technique est trillium@tech.alliancecan.ca."
+    }
+  ],
+  "generated_at": "2026-04-12T09:28:44.718843+00:00"
+}

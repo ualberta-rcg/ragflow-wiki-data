@@ -1,0 +1,108 @@
+{
+  "doc_key": "en/monitoring_jobs",
+  "level": "chunk",
+  "chunk_index": 1,
+  "qa_pairs": [
+    {
+      "question": "Why is it important to efficiently use resources assigned to jobs?",
+      "answer": "Ensuring that your jobs make efficient use of the resources assigned to them is an important part of being a responsible user, especially when using a new program or after making substantial changes to a job's work."
+    },
+    {
+      "question": "What does the `squeue` command show by default?",
+      "answer": "By default, `squeue` will show all the jobs the scheduler is managing at the moment."
+    },
+    {
+      "question": "How can I make the `squeue` command run faster when checking my own jobs?",
+      "answer": "You can make `squeue` run much faster by asking only about your own jobs with the command `squeue -u $USER`."
+    },
+    {
+      "question": "Is there a shorter way to list my own jobs compared to `squeue -u $USER`?",
+      "answer": "Yes, you can use the utility `sq` to do the same thing with less typing."
+    },
+    {
+      "question": "How can I display only running jobs for a specific user?",
+      "answer": "You can display only running jobs for a specific user using the command `squeue -u <username> -t RUNNING`."
+    },
+    {
+      "question": "What command allows me to view only pending jobs for a particular user?",
+      "answer": "To view only pending jobs for a particular user, you can use the command `squeue -u <username> -t PENDING`."
+    },
+    {
+      "question": "How do I show detailed information for a specific job?",
+      "answer": "You can show detailed information for a specific job using the `scontrol` command: `scontrol show job -dd <jobid>`."
+    },
+    {
+      "question": "Why should I avoid running `squeue` from a script at high frequency?",
+      "answer": "You should not run `squeue` from a script or program at high frequency (e.g., every few seconds) because responding to `squeue` adds load to Slurm and may interfere with its performance or correct operation."
+    },
+    {
+      "question": "How can I set up email notifications for my job's conditions?",
+      "answer": "You can ask to be notified by email of certain job conditions by supplying options to `sbatch`, such as `#SBATCH --mail-user=your.email@example.com` and `#SBATCH --mail-type=ALL`."
+    },
+    {
+      "question": "Where can I find a complete list of `sbatch` options for email notifications?",
+      "answer": "For a complete list of the options, you can refer to SchedMD's documentation for `sbatch`, specifically the section on `--mail-type`."
+    },
+    {
+      "question": "What is output buffering in the context of non-interactive Slurm jobs?",
+      "answer": "Output buffering for a non-interactive Slurm job means there is usually a delay between when data is written by the job and when you can see the output on a login node."
+    },
+    {
+      "question": "How long can the delay from output buffering be?",
+      "answer": "Depending on the application and filesystem load, this delay can range from less than a second to many minutes, or until the job completes."
+    },
+    {
+      "question": "What is the recommended approach if I need to monitor a job's output in real time?",
+      "answer": "If you need to monitor the output from a job in real time, it is recommended to run an interactive job."
+    },
+    {
+      "question": "Why are methods to reduce or eliminate output buffering not recommended?",
+      "answer": "Methods to reduce or eliminate buffering are not recommended because buffering is vital to preserving the overall performance of the filesystem."
+    },
+    {
+      "question": "Which command provides a short summary of CPU and memory efficiency for a completed job?",
+      "answer": "The `seff` command provides a short summary of the CPU and memory efficiency of a completed job."
+    },
+    {
+      "question": "What kind of information does the `seff` command typically show?",
+      "answer": "The `seff` command typically shows Job ID, Cluster, User/Group, State, Cores, CPU Utilized, CPU Efficiency, Job Wall-clock time, Memory Utilized, and Memory Efficiency."
+    },
+    {
+      "question": "How can I get more detailed information about a completed job?",
+      "answer": "You can find more detailed information about a completed job using the `sacct` command."
+    },
+    {
+      "question": "Can I customize the output fields of the `sacct` command?",
+      "answer": "Yes, you can control what `sacct` prints using the `--format` option, for example: `sacct -j <jobid> --format=JobID,JobName,MaxRSS,Elapsed`."
+    },
+    {
+      "question": "What do the `.bat+` and `.ext+` labels mean in `sacct` output?",
+      "answer": "The `.bat+` (batch step) represents your submission script, where most work and resource consumption often occur. The `.ext+` (extern step) is for prologue and epilogue and usually doesn't consume significant resources."
+    },
+    {
+      "question": "What does a `.0` step indicate in `sacct` output if `srun` is used?",
+      "answer": "If you use `srun` in your submission script, it would create a `.0` step that would consume most of the resources."
+    },
+    {
+      "question": "How can I view all records for a job, including those from restarts after a node failure?",
+      "answer": "If a node fails and a job is restarted, `sacct` normally shows only the last successful run. To see all related records, add the `--duplicates` option to your `sacct` command."
+    },
+    {
+      "question": "Which accounting field helps determine the maximum memory a job needed?",
+      "answer": "You can use the `MaxRSS` accounting field to determine how much memory a job needed."
+    },
+    {
+      "question": "What value does `MaxRSS` represent in `sacct` output?",
+      "answer": "The `MaxRSS` value returned will be the largest resident set size for any of the tasks within the job."
+    },
+    {
+      "question": "How can I identify the specific task and node where the `MaxRSS` occurred?",
+      "answer": "To know which task and node had the largest `MaxRSS`, you should print the `MaxRSSTask` and `MaxRSSNode` fields along with `MaxRSS`."
+    },
+    {
+      "question": "Which command works on a running job similarly to how `sacct` works on a completed job?",
+      "answer": "The `sstat` command works on a running job much the same way that `sacct` works on a completed job."
+    }
+  ],
+  "generated_at": "2026-04-12T03:14:14.037809+00:00"
+}

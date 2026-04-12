@@ -1,0 +1,72 @@
+{
+  "doc_key": "base/mpi",
+  "level": "chunk",
+  "chunk_index": 11,
+  "qa_pairs": [
+    {
+      "question": "What is the primary function of `MPI_Recv`?",
+      "answer": "`MPI_Recv` is a function used to receive a message from another process in a Message Passing Interface (MPI) program."
+    },
+    {
+      "question": "What information must a process know to successfully use `MPI_Recv`?",
+      "answer": "For a simple use of `MPI_Recv`, the receiving process must know the rank of the sending process."
+    },
+    {
+      "question": "What are the parameters for the `MPI_Recv` function in C?",
+      "answer": "In C, `MPI_Recv` takes the following parameters: `void *message` (reference to buffer), `int count` (number of items), `MPI_Datatype datatype` (type of item), `int source` (rank of process from which to receive), `int tag` (programmer specified identifier), `MPI_Comm comm` (communicator), and `MPI_Status *status` (stores info about the received message)."
+    },
+    {
+      "question": "What is the `message` parameter in `MPI_Recv` used for?",
+      "answer": "The `message` parameter in `MPI_Recv` is a pointer to an allocated buffer of sufficient size where the received data will be stored."
+    },
+    {
+      "question": "What does the `count` parameter specify in an `MPI_Recv` call?",
+      "answer": "The `count` parameter in `MPI_Recv` specifies the maximum number of items of the specified datatype that are expected to be received."
+    },
+    {
+      "question": "What is the purpose of the `datatype` parameter in `MPI_Recv`?",
+      "answer": "The `datatype` parameter in `MPI_Recv` specifies the type of item to be received, ensuring compatibility between processes running on different architectures."
+    },
+    {
+      "question": "What does the `source` parameter indicate in `MPI_Recv`?",
+      "answer": "The `source` parameter in `MPI_Recv` indicates the rank of the process from which the message is expected to be received."
+    },
+    {
+      "question": "What is the role of the `tag` parameter in `MPI_Recv`?",
+      "answer": "The `tag` parameter in `MPI_Recv` is a programmer-specified identifier associated with the message, which can be used to organize communication streams."
+    },
+    {
+      "question": "What does the `comm` parameter represent in `MPI_Recv`?",
+      "answer": "The `comm` parameter in `MPI_Recv` represents the communicator, which is a set of processes capable of sending messages to one another. `MPI_COMM_WORLD` is commonly used for all processes in a job."
+    },
+    {
+      "question": "How is the `status` argument handled in `MPI_Recv` for different programming languages?",
+      "answer": "In C, the `status` argument should be a reference to an allocated `MPI_Status` structure. In Fortran, it should be an array of `MPI_STATUS_SIZE` integers, or for `mpi_f08`, a derived `TYPE(MPI_Status)` variable."
+    },
+    {
+      "question": "Is `MPI_Recv` considered a blocking or non-blocking call?",
+      "answer": "`MPI_Recv` is defined as a blocking call, meaning it will not return until the entire contents of the message are available in the provided message buffer."
+    },
+    {
+      "question": "In the 'Hello, world!' communication ring example, how is the rank of the process to receive from calculated?",
+      "answer": "In the 'Hello, world!' communication ring example, the rank of the process to receive from (`recvfrom`) is calculated using the arithmetic `(rank + size - 1) % size`, where `rank` is the current process's rank and `size` is the total number of processes."
+    },
+    {
+      "question": "What is the Boost.MPI C++ function signature for receiving a message?",
+      "answer": "The Boost.MPI C++ function signature for receiving a message is `template<typename T> status mpi::communicator::recv(int source, int tag, const T & value) const;`."
+    },
+    {
+      "question": "What is the Fortran 2008 function signature for `MPI_Recv`?",
+      "answer": "The Fortran 2008 function signature for `MPI_Recv` is `MPI_Recv(message, count, datatype, source, tag, comm, status, ierr)`, where `message` is `TYPE(*), DIMENSION(..)`, `count`, `source`, `tag` are `INTEGER, INTENT(IN)`, `datatype` is `TYPE(MPI_Datatype), INTENT(IN)`, `comm` is `TYPE(MPI_Comm), INTENT(IN)`, `status` is `TYPE(MPI_Status)`, and `ierr` is `INTEGER, OPTIONAL, INTENT(OUT)`."
+    },
+    {
+      "question": "How do you receive a general Python object using mpi4py's `MPI.Intracomm.recv`?",
+      "answer": "You can receive a general Python object using `MPI.Intracomm.recv(self, buf=None, int source=ANY_SOURCE, int tag=ANY_TAG, Status status=None)`."
+    },
+    {
+      "question": "How do you receive a NumPy array using mpi4py's `MPI.Intracomm.Recv`?",
+      "answer": "You can receive a NumPy array using `MPI.Intracomm.Recv(self, buf, int source=ANY_SOURCE, int tag=ANY_TAG, Status status=None)`."
+    }
+  ],
+  "generated_at": "2026-04-12T01:46:29.420013+00:00"
+}

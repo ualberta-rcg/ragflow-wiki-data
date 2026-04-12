@@ -5,30 +5,71 @@ lang: "fr"
 
 source_wiki_title: "GDB/fr"
 source_hash: "57fb6a872a699b0f381fdd7a14625dad"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T06:37:08.505897+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T07:20:07.791956+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "firefox"
+  - "structures de la STL"
+  - "fichier core"
+  - "backtrace"
+  - "libxul.so"
+  - "XRE_main"
+  - "pile d'appels"
+  - "debugging session"
+  - "core-file"
+  - "points d'arrêt"
+  - "gdb"
+  - "GDB"
+  - "logiciel"
+  - "débogueur"
+  - "commandes"
+  - "débogage"
+  - "xulrunner"
+  - "program.cpp"
+  - "processus existant"
+  - "erreur de segmentation"
+  - "Segmentation fault"
+  - "signal 11"
+
+questions:
+  - "Quel est le rôle principal du débogueur GDB et pour quel type de problème est-il recommandé d'utiliser Valgrind à la place ?"
+  - "Quelle option de compilation doit-on utiliser pour que GDB puisse décoder les symboles et fournir des informations précises sur la source du bogue ?"
+  - "Comment doit-on procéder pour analyser une erreur de segmentation à l'aide d'un fichier \"core\" lorsque le bogue survient tardivement dans l'exécution du programme ?"
+  - "Comment peut-on trouver le numéro d'un processus en cours d'exécution afin de le déboguer ?"
+  - "Quelle est la commande à utiliser pour attacher le débogueur GDB à un processus existant ?"
+  - "Quelle commande permet d'afficher la pile d'appels en cours une fois le débogueur attaché ?"
+  - "What specific signal and error caused the program to terminate?"
+  - "On which line of code and within which function did the crash occur?"
+  - "What missing debug information packages does the debugger suggest installing?"
+  - "What specific application and process ID are being debugged in this session?"
+  - "Which sequence of function calls is shown in the provided stack trace snippet?"
+  - "What action does the user confirm at the end of the debugging prompt?"
+  - "Quelles sont les principales commandes de GDB permettant de contrôler l'exécution d'un programme et d'inspecter ses variables ?"
+  - "Comment peut-on configurer GDB pour afficher correctement le contenu des structures de la librairie standard du C++ (STL) ?"
+  - "Quelles ressources supplémentaires sont recommandées dans le texte pour approfondir l'apprentissage et l'utilisation de GDB ?"
+  - "Quelles sont les principales commandes de GDB permettant de contrôler l'exécution d'un programme et d'inspecter ses variables ?"
+  - "Comment peut-on configurer GDB pour afficher correctement le contenu des structures de la librairie standard du C++ (STL) ?"
+  - "Quelles ressources supplémentaires sont recommandées dans le texte pour approfondir l'apprentissage et l'utilisation de GDB ?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
-[GDB](https://www.gnu.org/software/gdb/) (pour **GNU Project Debugger**) est un débogueur pour investiguer des problèmes présents dans les logiciels.
+[GDB](https://www.gnu.org/software/gdb/) (pour *GNU Project Debugger*) est un débogueur pour dépister les problèmes dans les logiciels.
 
 ## Description
 Avec un débogueur, il est possible de trouver rapidement la cause d'un problème dans un logiciel.
-Le cas type d'utilisation est pour trouver [les erreurs de segmentation](https://fr.wikipedia.org/wiki/Erreur_de_segmentation).
-Si vous désirez trouver un problème de mémoire (par exemple, une [fuite de mémoire](https://fr.wikipedia.org/wiki/Fuite_de_m%C3%A9moire)), il est conseillé d'utiliser [Valgrind](valgrind.md).
+Le cas d'utilisation typique est de trouver les [erreurs de segmentation](https://fr.wikipedia.org/wiki/Erreur_de_segmentation).
+Si vous désirez trouver un problème de mémoire (par exemple, une [fuite de mémoire](https://fr.wikipedia.org/wiki/Fuite_de_m%C3%A9moire)), il est recommandé d'utiliser [Valgrind](valgrind.md).
 
 ## Cas d'utilisation
 ### Trouver la cause d'une erreur de segmentation directement avec le débogueur
@@ -59,6 +100,9 @@ Ce programme génère une erreur de segmentation lorsqu'on l'exécute.
 
 ```bash
 g++ -g program.cpp -o program
+```
+
+```bash
 ./program
 ```
 
@@ -66,13 +110,15 @@ g++ -g program.cpp -o program
 Segmentation fault (core dumped)
 ```
 
-On peut alors l'exécuter à l'intérieur du débogueur. Notez qu'on a compilé avec l'option `-g` pour permettre au débogueur de décoder les symboles et fournir davantage d'information sur la source du bogue. On exécute l'application à l'intérieur du débogueur comme suit :
+On peut alors l'exécuter à l'intérieur du débogueur.
+
+!!! tip "Conseil de compilation"
+    On a compilé avec l'option `-g` pour permettre au débogueur de décoder les symboles et fournir davantage d'information sur la source du bogue.
+
+On exécute l'application à l'intérieur du débogueur comme suit :
 
 ```bash
 gdb ./program
-```
-
-```text
 (gdb) run
 Starting program: /home/seb/program ./program
 
@@ -114,13 +160,10 @@ file core.18158
 core.18158: ELF 64-bit LSB core file x86-64, version 1 (SYSV), SVR4-style, from './program'
 ```
 
-En utilisant l'exécutable `programme` et le fichier `core`, il est possible de tracer l'exécution jusqu'à l'erreur.
+En utilisant l'exécutable `program` et le fichier `core`, il est possible de tracer l'exécution jusqu'à l'erreur.
 
 ```bash
 gdb -q ./program
-```
-
-```text
 Reading symbols from /home/seb/program...done.
 
 (gdb) core-file core.18246
@@ -163,7 +206,7 @@ Après avoir fait cette commande, beaucoup d'information sera imprimée.
 Plusieurs commandes de débogage sont disponibles. L'une des commandes utiles est `backtrace`, ou `bt`.
 Cette commande permet d'afficher la pile d'appels en cours.
 
-```text
+```bash
 (gdb) bt
 #0  0x00000033646e99ad in poll () from /lib64/libc.so.6
 #1  0x0000003db86849f3 in PollWrapper(_GPollFD*, unsigned int, int) () from /usr/lib64/firefox/xulrunner/libxul.so
@@ -183,7 +226,6 @@ Cette commande permet d'afficher la pile d'appels en cours.
 #15 0x0000003db7d1b259 in XRE_main () from /usr/lib64/firefox/xulrunner/libxul.so
 #16 0x0000000000402c23 in do_main(int, char**, nsIFile*) ()
 #17 0x0000000000402403 in main ()
-
 (gdb) quit
 A debugging session is active.
 
@@ -193,26 +235,26 @@ Quit anyway? (y or n) y
 Detaching from program: /usr/lib64/firefox/firefox, process 12691
 ```
 
-## Utilisation plus avancée
-Dans les sections précédentes, nous avons utilisé les commandes `run` et `backtrace`. Plusieurs autres commandes sont disponibles pour déboguer en mode interactif, soit en contrôlant l'exécution du programme. Il est par exemple possible de fixer des points d'arrêt sur des fonctions ou des lignes de code ou encore lors d'une modification d'une variable. Lorsque l'exécution est interrompue, il est possible d'analyser l'état du programme en affichant la valeur de certaines variables. Le tableau ci-dessous contient une liste des principales commandes.
+## Utilisation plus poussée
+Dans les sections précédentes, nous avons utilisé les commandes `run` et `backtrace`. Plusieurs autres commandes sont disponibles pour déboguer en mode interactif, soit en contrôlant l'exécution du programme. Il est par exemple possible d'établir des points d'arrêt sur des fonctions ou des lignes de code ou encore lors d'une modification d'une variable. Lorsque l'exécution est interrompue, il est possible d'analyser l'état du programme en affichant la valeur de certaines variables. Le tableau qui suit présente les principales commandes.
 
-**Principales commandes de GDB**
+*Principales commandes de GDB*
 
-| Commande          | Raccourci | Argument               | Description                                                                 |
-| :---------------- | :-------- | :--------------------- | :-------------------------------------------------------------------------- |
-| run/kill          | r/k       | -                      | débute/arrête l'exécution du programme                                      |
-| where / backtrace | bt        | -                      | affiche la pile d'appel                                                     |
-| break             | b         | `src.c:numero_de_ligne` ou `fonction` | crée un point d'arrêt à la ligne de code ou à la fonction spécifiée       |
-| watch             | -         | `nom de variable`      | arrête l'exécution lorsque la variable est modifiée                         |
-| continue          | c         | -                      | continue l'exécution après un point d'arrêt                                 |
-| step              | s         | -                      | exécute l'opération suivante                                                |
-| print             | p         | `nom de variable`      | affiche le contenu d'une variable                                           |
-| list              | l         | `src.c:numero`         | affiche la ligne de code spécifiée                                          |
+| Commande            | Raccourci | Argument                 | Description                                                  |
+| :------------------ | :-------- | :----------------------- | :----------------------------------------------------------- |
+| `run` / `kill`      | `r` / `k` | -                        | Démarre/arrête l'exécution du programme                      |
+| `where` / `backtrace` | `bt`      | -                        | Affiche la pile d'appels                                     |
+| `break`             | `b`       | `src.c:numéro_de_ligne` ou `fonction` | Crée un point d'arrêt à la ligne de code ou à la fonction spécifiée |
+| `watch`             | -         | `nom_de_variable`        | Arrête l'exécution lorsque la variable est modifiée          |
+| `continue`          | `c`       | -                        | Continue l'exécution après un point d'arrêt                  |
+| `step`              | `s`       | -                        | Exécute l'opération suivante                                 |
+| `print`             | `p`       | `nom_de_variable`        | Affiche le contenu d'une variable                            |
+| `list`              | `l`       | `src.c:numéro`           | Affiche la ligne de code spécifiée                           |
 
 ### Afficher les structures de la STL
-Par défaut, GDB n'affiche pas très bien le contenu des structures de la librairie standard du C++ (STL). Plusieurs solutions sont documentées [ici](https://sourceware.org/gdb/wiki/STLSupport). La solution la plus simple est probablement [celle-ci](http://www.yolinux.com/TUTORIALS/GDB-Commands.html#STLDEREF), qui consiste à copier [ce fichier](http://www.yolinux.com/TUTORIALS/src/dbinit_stl_views-1.03.txt) dans votre répertoire d'accueil, sous le nom `~/.gdbinit`.
+Par défaut, GDB n'affiche pas très bien le contenu des structures de la bibliothèque standard du C++ (STL). Plusieurs solutions sont documentées [ici](https://sourceware.org/gdb/wiki/STLSupport). La solution la plus simple est probablement [celle-ci](http://www.yolinux.com/TUTORIALS/GDB-Commands.html#STLDEREF), qui consiste à copier [ce fichier](http://www.yolinux.com/TUTORIALS/src/dbinit_stl_views-1.03.txt) dans votre répertoire personnel, sous le nom `~/.gdbinit`.
 
-## Autres ressources
+## Ressources complémentaires
 * [Site web GDB](http://www.sourceware.org/gdb/)
 * [Tutoriel GDB](http://oucsace.cs.ohiou.edu/~bhumphre/gdb.html)
 * [Document du TACC sur le débogage et le profilage](http://goo.gl/rLPvR0)

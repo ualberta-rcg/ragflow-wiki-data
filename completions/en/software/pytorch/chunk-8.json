@@ -1,0 +1,68 @@
+{
+  "doc_key": "en/pytorch",
+  "level": "chunk",
+  "chunk_index": 8,
+  "qa_pairs": [
+    {
+      "question": "What is a key requirement for a model when performing Data Parallelism in a multi-GPU setup?",
+      "answer": "The model must be small enough to fit inside the memory of a single GPU, as each GPU hosts a replica of the model."
+    },
+    {
+      "question": "What are two methods for performing Data Parallelism using PyTorch, as mentioned in the document?",
+      "answer": "Two methods are using the `DistributedDataParallel` class directly with one or multiple GPUs, and using the PyTorch Lightning package."
+    },
+    {
+      "question": "Which PyTorch class is recommended by PyTorch maintainers for using multiple GPUs for Data Parallelism?",
+      "answer": "The `DistributedDataParallel` class is recommended by PyTorch maintainers for using multiple GPUs."
+    },
+    {
+      "question": "What does the `pytorch-ddp-test.sh` script request in terms of GPUs for a job?",
+      "answer": "The script requests 2 GPUs using `#SBATCH --gres=gpu:2`."
+    },
+    {
+      "question": "How many tasks per node does the `pytorch-ddp-test.sh` script specify?",
+      "answer": "It specifies 2 tasks per node using `#SBATCH --tasks-per-node=2`, requesting 1 process per GPU."
+    },
+    {
+      "question": "What environment variable is set in `pytorch-ddp-test.sh` to store the master node’s IP address?",
+      "answer": "The `MASTER_ADDR` environment variable is set to `$(hostname)`."
+    },
+    {
+      "question": "What PyTorch-related packages are installed in the virtual environment within the `pytorch-ddp-test.sh` script?",
+      "answer": "`torch` and `torchvision` are installed using `pip install --no-index`."
+    },
+    {
+      "question": "How is the `world_size` parameter determined for the `pytorch-ddp-test.py` script execution in the example job submission script?",
+      "answer": "The `world_size` is calculated as `((SLURM_NTASKS_PER_NODE * SLURM_JOB_NUM_NODES))`."
+    },
+    {
+      "question": "What is the default batch size used when running the `pytorch-ddp-test.py` script via `srun` in the example?",
+      "answer": "The default batch size used is 256."
+    },
+    {
+      "question": "Which environment variables does `pytorch-ddp-test.py` use to get the `local_rank` and `rank` for a process?",
+      "answer": "It uses `SLURM_LOCALID` for `local_rank` and `SLURM_PROCID` for `rank`."
+    },
+    {
+      "question": "How does `pytorch-ddp-test.py` initialize the process group for distributed communication?",
+      "answer": "It uses `dist.init_process_group` with `backend=args.dist_backend`, `init_method=args.init_method`, `world_size=args.world_size`, and `rank=rank`."
+    },
+    {
+      "question": "How is the neural network model wrapped to enable DistributedDataParallelism in `pytorch-ddp-test.py`?",
+      "answer": "The model is wrapped using `net = torch.nn.parallel.DistributedDataParallel(net, device_ids=[current_device])`."
+    },
+    {
+      "question": "What type of data sampler is used with the `DataLoader` in `pytorch-ddp-test.py` to support distributed training?",
+      "answer": "A `torch.utils.data.distributed.DistributedSampler` is used."
+    },
+    {
+      "question": "What is the default distributed backend specified in the `pytorch-ddp-test.py` script?",
+      "answer": "The default distributed backend is `nccl`."
+    },
+    {
+      "question": "How are input and target tensors moved to the GPU within the training loop of `pytorch-ddp-test.py`?",
+      "answer": "They are moved to the GPU by calling `.cuda()` on `inputs` and `targets` within the training loop."
+    }
+  ],
+  "generated_at": "2026-04-12T05:41:37.768856+00:00"
+}

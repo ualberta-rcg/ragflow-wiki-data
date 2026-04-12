@@ -5,29 +5,55 @@ lang: "base"
 
 source_wiki_title: "Vtune"
 source_hash: "26b0da698c3c048c86021b2dd6aee6ba"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T12:50:10.613551+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T12:47:59.318684+00:00"
 
 tags:
   - software
 
 keywords:
-  []
+  - "graphical mode"
+  - "hotspots analysis"
+  - "MPI program"
+  - "VTune"
+  - "TigerVNC"
+  - "command line reports"
+  - "vtune-gui"
+  - "Intel VTune Profiler"
+  - "VDI nodes"
+  - "aps-report"
+  - "Performance Analysis"
+  - "performance profiling"
+  - "Cluster nodes"
+
+questions:
+  - "What is the primary purpose of Intel VTune, and how do you load its software module on an Alliance cluster?"
+  - "What is the recommended command-line syntax and compilation setup for collecting performance analysis data and generating reports for an executable?"
+  - "How have the tool's name and command terminology evolved in recent versions, and how can users access its graphical interface?"
+  - "How do you load the necessary modules and launch the VTune graphical interface on the VDI node?"
+  - "What command is used to run and profile an MPI program with the Application Performance Snapshot (aps) tool?"
+  - "How do you generate and view the HTML summary report from the profiling data directory created by aps?"
+  - "How can users generate a command-line configuration for VTune from the graphical user interface?"
+  - "What tool is recommended for connecting to a cluster compute or login node?"
+  - "What specific terminal commands must be executed to load the environment and launch the VTune GUI?"
+  - "How do you load the necessary modules and launch the VTune graphical interface on the VDI node?"
+  - "What command is used to run and profile an MPI program with the Application Performance Snapshot (aps) tool?"
+  - "How do you generate and view the HTML summary report from the profiling data directory created by aps?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
 ## Introduction
 
-[VTune](https://software.intel.com/content/www/us/en/develop/tools/oneapi/components/vtune-profiler.html) is Intel's Performance Analysis tool for applications and systems. It is capable of [analyzing both OpenMP and MPI](https://software.intel.com/content/www/us/en/develop/documentation/itac-vtune-mpi-openmp-tutorial-lin/top.html) based applications.
+[VTune](https://software.intel.com/content/www/us/en/develop/tools/oneapi/components/vtune-profiler.html) is Intel's Performance Analysis tool for applications and systems. It is capable of [Analyzing both OpenMP and MPI](https://software.intel.com/content/www/us/en/develop/documentation/itac-vtune-mpi-openmp-tutorial-lin/top.html) based applications.
 
-## Software module
+## Software Module
 
 To load the module on any Alliance cluster run:
 
@@ -35,12 +61,11 @@ To load the module on any Alliance cluster run:
 module load vtune
 ```
 
-## Tool renaming
+## Tool Renaming
 
-!!! important "Intel VTune Naming Changes"
-    The content of this page is largely concerned with the legacy version named Intel® VTune™ Amplifier. Please note this tool has been renamed throughout Intel's documentation in latest versions (newer than the latest `vtune` module versions presently available on Alliance clusters) from Intel® VTune™ Amplifier to Intel® VTune™ Profiler. Likewise, the application commands `amplxe-cl` and `amplxe-gui` have been renamed to `vtune` and `vtune-gui` for both the command line and graphical tools respectively. Further information can be found [here](https://software.intel.com/content/www/us/en/develop/documentation/vtune-help/top/launch.html).
+The content of this page is largely concerned with the legacy version named Intel® VTune™ Amplifier. Please note this tool has been renamed throughout Intel's documentation in latest versions (newer than the latest `vtune` module versions presently available on Alliance clusters) from Intel® VTune™ Amplifier to Intel® VTune™ Profiler. Likewise the application commands `amplxe-cl` and `amplxe-gui` have been renamed to `vtune` and `vtune-gui` for both the command line and graphical tools respectively. Further information can be found [here](https://software.intel.com/content/www/us/en/develop/documentation/vtune-help/top/launch.html).
 
-## Analysis types
+## Analysis Types
 
 To collect analysis information run:
 
@@ -48,14 +73,9 @@ To collect analysis information run:
 vtune -collect <analysis-type> <target_exe> <exe_arguments>
 ```
 
-where `<analysis-type>` should be replaced by one of the available analysis, e.g., hotspots, and `<target_exe>` is the path to the executable you would like to analyze.
+where `<analysis-type>` should be replaced by one of the available analysis, e.g. `hotspots`, and `<target_exe>` is the path to the executable you would like to analyze. It is recommended to compile your executable with the "-g" option and to use the same optimization level as normal so as to obtain accurate results. A listing of version specific argument options and several usage examples may be displayed on the command line by running `vtune -help`, after loading the vtune module. Complete downloadable documentation for Parallel Studio XE (including VTune) for all recent versions can be found [here](https://software.intel.com/content/www/us/en/develop/articles/download-documentation-intel-parallel-studio-xe-current-previous.html). The latest version of the Intel VTune Profiler User Guide may be found [here](https://software.intel.com/content/www/us/en/develop/documentation/vtune-help/top.html).
 
-!!! tip "Compilation Recommendations for Accurate Results"
-    It is recommended to compile your executable with the "` -g`" option and to use the same optimization level as normal so as to obtain accurate results.
-
-A listing of version specific argument options and several usage examples may be displayed on the command line by running `vtune -help`, after loading the vtune module. Complete downloadable documentation for Parallel Studio XE (including VTune) for all recent versions can be found [here](https://software.intel.com/content/www/us/en/develop/articles/download-documentation-intel-parallel-studio-xe-current-previous.html). The latest version of the Intel VTune Profiler User Guide may be found [here](https://software.intel.com/content/www/us/en/develop/documentation/vtune-help/top.html).
-
-## Create reports
+## Create Reports
 
 To create a report run this command:
 
@@ -63,11 +83,10 @@ To create a report run this command:
 vtune -report <report-type>
 ```
 
-where `<report-type>` is the type of the report to generate, e.g., hotspots. See also:
+where `<report-type>` is the type of the report to generate, e.g. `hotspots`. See also:
+* [https://software.intel.com/en-us/vtune-amplifier-help-generating-command-line-reports](https://software.intel.com/en-us/vtune-amplifier-help-generating-command-line-reports)
 
-*   [generating command-line reports](https://software.intel.com/en-us/vtune-amplifier-help-generating-command-line-reports)
-
-## Matrix example
+## Matrix Example
 
 Analyze and generate a summary report for the Intel Matrix Sample Project run from the command line with 4 cores:
 
@@ -81,25 +100,25 @@ vtune -collect hotspots ../matrix
 vtune -report summary
 ```
 
-The latest version of `matrix_multiply` (which uses cmake to build) can be found [here](https://github.com/oneapi-src/oneAPI-samples/tree/master/Tools/VTuneProfiler).
+The latest version of matrix_multiply (uses cmake to build) can be found [here](https://github.com/oneapi-src/oneAPI-samples/tree/master/Tools/VTuneProfiler).
 
-## Graphical mode
+## Graphical Mode
 
-The Intel Matrix Sample Project can also be run using Vtune in GUI mode as explored [here](https://software.intel.com/content/www/us/en/develop/documentation/vtune-hotspots-tutorial-linux-c/top/run-hotspots-analysis.html). To run VTune over VNC follow the below directions depending on which system you wish to use. Running VTune graphically can be useful to generate [command line configurations from the GUI](https://software.intel.com/content/www/us/en/develop/documentation/vtune-help/top/analyze-performance/control-data-collection/generating-command-line-configuration-from-gui.html).
+The Intel Matrix Sample Project can also be run using Vtune in GUI mode as explored [here](https://software.intel.com/content/www/us/en/develop/documentation/vtune-hotspots-tutorial-linux-c/top/run-hotspots-analysis.html). To run VTune over VNC follow the below directions depending on which system you wish to use. Running VTune graphically can be useful to generate [command-line configuration from GUI](https://software.intel.com/content/www/us/en/develop/documentation/vtune-help/top/analyze-performance/control-data-collection/generating-command-line-configuration-from-gui.html).
 
-### Cluster nodes
+### Cluster Nodes
 
-1.  Connect to a cluster compute or login node with [TigerVNC](https://docs.alliancecan.ca/wiki/VNC#Connect)
-2.  `module load StdEnv/2020 vtune`
-3.  `vtune-gui`
+1. Connect to a cluster compute or login node with [TigerVNC](https://docs.alliancecan.ca/wiki/VNC#Connect)
+2. `module load StdEnv/2020 vtune`
+3. `vtune-gui`
 
-### VDI nodes
+### VDI Nodes
 
-1.  Connect to gra-vdi.alliancecan.ca with [TigerVNC](https://docs.alliancecan.ca/wiki/VNC#VDI_Nodes)
-2.  `module load CcEnv StdEnv/2020 vtune`
-3.  `vtune-gui`
+1. Connect to gra-vdi.alliancecan.ca with [TigerVNC](https://docs.alliancecan.ca/wiki/VNC#VDI_Nodes)
+2. `module load CcEnv StdEnv/2020 vtune`
+3. `vtune-gui`
 
-## MPI example
+## MPI Example
 
 First, load the latest VTune module.
 
@@ -108,13 +127,13 @@ module load StdEnv/2020
 module load vtune
 ```
 
-Then compile your MPI program as you usually would and run it inside a job or in an interactive session started by an `salloc` command using:
+Then compile your MPI program as you usually would and run it inside a job or in an interactive session started by a `salloc` command using:
 
 ```bash
 srun aps your_mpi_program.x
 ```
 
-After the program finishes, the profiling data will be stored in a directory called `aps_result_YYYYMMDD` where YYYYMMDD is the current date.
+After the program finishes, the profiling data will be stored in a directory called `aps_result_YYYYMMDD` where `YYYYMMDD` is the current date.
 
 There is a lot of information you can extract from that data. To get the basic summary report of your program's performance, run:
 

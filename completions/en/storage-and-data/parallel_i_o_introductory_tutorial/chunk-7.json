@@ -1,0 +1,80 @@
+{
+  "doc_key": "en/parallel_i_o_introductory_tutorial",
+  "level": "chunk",
+  "chunk_index": 7,
+  "qa_pairs": [
+    {
+      "question": "What are the advantages of using a serial I/O approach with a single CPU?",
+      "answer": "For small I/O operations, it's trivially simple, and some I/O libraries are not parallel."
+    },
+    {
+      "question": "What are the disadvantages of a serial I/O approach with a single CPU?",
+      "answer": "The bandwidth is limited by the rate one client can sustain, there may not be enough memory on a node to hold all data, and it won't scale due to a built-in bottleneck."
+    },
+    {
+      "question": "Describe the serial I/O approach where N processors are involved.",
+      "answer": "In this approach, each participating process performs serial I/O, writing data to individual files."
+    },
+    {
+      "question": "What are the pros of using a serial I/O approach with N processors?",
+      "answer": "There is no interprocess communication or coordination necessary, and it can offer possibly better scaling than single sequential I/O."
+    },
+    {
+      "question": "What are the cons of using a serial I/O approach with N processors?",
+      "answer": "As process counts increase, it leads to many small files which won't scale, data often requires post-processing into one file, and uncoordinated I/O can swamp the filesystem due to file locks."
+    },
+    {
+      "question": "What is considered the best approach for parallel I/O?",
+      "answer": "The best approach is to perform appropriate parallel I/O where each participating process writes data simultaneously into a single file, ideally in a coordinated fashion."
+    },
+    {
+      "question": "What are the advantages of using parallel I/O where N processes write to a single file?",
+      "answer": "It results in only one file, which is good for visualization, data management, and storage. Data can be stored canonically, and avoiding post-processing will scale if done correctly."
+    },
+    {
+      "question": "What are the disadvantages of using parallel I/O where N processes write to a single file?",
+      "answer": "Uncoordinated I/O will swamp the filesystem due to file locks, and it requires more design and thought."
+    },
+    {
+      "question": "What is Independent I/O in the context of parallel I/O middleware?",
+      "answer": "Independent I/O operations specify only what a single process will do."
+    },
+    {
+      "question": "What is Collective I/O?",
+      "answer": "Collective I/O is a coordinated access to storage by a group of processes, where functions are called by all processes participating in the I/O."
+    },
+    {
+      "question": "How does Collective I/O benefit performance?",
+      "answer": "Collective I/O allows the filesystem to know more about the overall access pattern, enabling more optimization in lower software layers and leading to better performance."
+    },
+    {
+      "question": "What widely used parallel I/O libraries are built on top of MPI-IO?",
+      "answer": "High-end libraries such as HDF5 (Hierarchical Data Format) and Parallel NetCDF (Network Common Data Format) are built on top of MPI-IO."
+    },
+    {
+      "question": "What is MPI-IO?",
+      "answer": "MPI-IO is the parallel I/O component of the MPI-2 standard, introduced in 1996, and is suitable for writing raw binary files."
+    },
+    {
+      "question": "How does MPI-IO relate to standard MPI practices?",
+      "answer": "MPI-IO exploits analogies with MPI, treating writing like sending a message and reading like receiving a message. File access is grouped via a communicator, and user-defined MPI datatypes are available."
+    },
+    {
+      "question": "What is the implementation of MPI-IO typically found in OpenMPI?",
+      "answer": "ROMIO is the implementation of MPI-IO used in OpenMPI, which is often the default on many systems, as well as in MPICH2."
+    },
+    {
+      "question": "Name some basic MPI-IO operations available in C.",
+      "answer": "Basic MPI-IO operations in C include MPI_File_open, MPI_File_seek, MPI_File_set_view, MPI_File_read, MPI_File_write, and MPI_File_close."
+    },
+    {
+      "question": "What is the purpose of MPI_File_seek in MPI-IO?",
+      "answer": "MPI_File_seek is used to update an individual file pointer in MPI-IO."
+    },
+    {
+      "question": "What is the function of MPI_File_set_view in MPI-IO?",
+      "answer": "MPI_File_set_view changes a process’s view of data in a file, assigning regions of the file to separate processes using a triplet of displacement, etype, and filetype."
+    }
+  ],
+  "generated_at": "2026-04-12T05:05:12.415315+00:00"
+}

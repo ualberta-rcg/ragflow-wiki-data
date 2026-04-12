@@ -1,0 +1,68 @@
+{
+  "doc_key": "base/job_scheduling_policies",
+  "level": "chunk",
+  "chunk_index": 4,
+  "qa_pairs": [
+    {
+      "question": "How are longer jobs managed on general-purpose clusters?",
+      "answer": "On general-purpose clusters, longer jobs are restricted to use only a fraction of the cluster through partitions that are based on their run-time limits."
+    },
+    {
+      "question": "What are the common job run-time partitions available on general-purpose clusters?",
+      "answer": "There are partitions for jobs with maximum run-times of 3 hours or less, 12 hours or less, 24 hours (1 day) or less, 72 hours (3 days) or less, and 7 days or less."
+    },
+    {
+      "question": "Do shorter jobs have an advantage in scheduling opportunities?",
+      "answer": "Yes, shorter jobs have more scheduling opportunities because they can run in partitions with longer time-limits. For example, a 3-hour job can also run in a 12-hour partition."
+    },
+    {
+      "question": "What is the purpose of backfilling in job scheduling?",
+      "answer": "Backfilling is a scheduling technique employed by the scheduler to improve overall system usage."
+    },
+    {
+      "question": "How does backfill scheduling work to improve system utilization?",
+      "answer": "Backfill scheduling will start lower priority jobs if doing so does not delay the expected start time of any higher priority jobs, which helps increase system utilization and responsiveness."
+    },
+    {
+      "question": "Why are accurate time limits crucial for backfill scheduling to function effectively?",
+      "answer": "Reasonably accurate time limits are important for backfill scheduling to work well because the expected start time of pending jobs depends upon the expected completion time of running jobs."
+    },
+    {
+      "question": "Which types of jobs are primarily targeted to benefit from backfilling?",
+      "answer": "Backfilling will primarily benefit jobs with short time limits, for example, those under 3 hours."
+    },
+    {
+      "question": "How are nodes on general-purpose clusters like Fir, Narval, Nibi, and Rorqual categorized?",
+      "answer": "The nodes are partitioned into three main categories: Base nodes (4 or 8 GB of memory per core), Large memory nodes (16 to 96 GB of memory per core), and GPU nodes."
+    },
+    {
+      "question": "How is a job routed to a specific node category?",
+      "answer": "Upon submission, your job will be routed to one of the node categories based on the resources it requests."
+    },
+    {
+      "question": "What is the difference between 'by-node' and 'by-core' partitions?",
+      "answer": "'By-node' partitions are reserved for jobs that utilize all resources on an entire node. If a job uses only a few cores (or a single core) per node, it is restricted to 'by-core' partitions, which represent a subset of the node category."
+    },
+    {
+      "question": "How does the requested walltime impact a job's access to resources?",
+      "answer": "The nodes are partitioned based on the requested walltime, meaning shorter jobs have access to more resources. For example, a job with less than 3 hours of walltime can run on any node that permits 12-hour jobs, but some nodes only accept 3-hour jobs and not 12-hour jobs."
+    },
+    {
+      "question": "What information does the `partition-stats` utility display?",
+      "answer": "The `partition-stats` utility shows the number of jobs waiting to run (queued), the number of jobs currently running, the number of currently idle nodes, and the total number of nodes assigned to each partition."
+    },
+    {
+      "question": "According to the sample `partition-stats` output, how many 'by-node' jobs requesting 3 hours or less run-time were waiting in the Regular node type?",
+      "answer": "The sample `partition-stats` output shows that 12 'by-node' jobs requesting 3 hours or less run-time were waiting in the Regular node type."
+    },
+    {
+      "question": "Based on the `partition-stats` sample, how many 'by-core' GPU jobs with a maximum walltime of 3 hours were queued?",
+      "answer": "The `partition-stats` sample indicates that 14 'by-core' GPU jobs with a maximum walltime of 3 hours were queued."
+    },
+    {
+      "question": "Are the job run-time limits on clusters subject to change?",
+      "answer": "Yes, these limits are subject to change at the discretion of each site's sysadmin team."
+    }
+  ],
+  "generated_at": "2026-04-12T00:16:56.546313+00:00"
+}

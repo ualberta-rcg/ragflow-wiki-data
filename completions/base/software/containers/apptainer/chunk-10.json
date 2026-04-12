@@ -1,0 +1,60 @@
+{
+  "doc_key": "base/apptainer",
+  "level": "chunk",
+  "chunk_index": 10,
+  "qa_pairs": [
+    {
+      "question": "How do I bind mount the current directory in Apptainer?",
+      "answer": "You can bind mount the current directory using the `-B .` option in your Apptainer command. For example, `apptainer run -C -B . -W $SLURM_TMPDIR a-container.sif wc -l ./my_data_file.txt` will bind mount the current directory, allowing access to `my_data_file.txt`."
+    },
+    {
+      "question": "How can I bind mount multiple top-level filesystems like /project and /scratch in Apptainer on Alliance clusters?",
+      "answer": "To bind mount multiple top-level filesystems such as `/project` and `/scratch` in Apptainer on Alliance clusters, you can use commands like `apptainer run -C -B /project -B /scratch -W $SLURM_TMPDIR a-container.sif wc -l ./my_data_file.txt`. The `-B /project` option mounts the project filesystem, and `-B /scratch` mounts the scratch filesystem."
+    },
+    {
+      "question": "What are the benefits of binding top-level directories like /project and /scratch in Apptainer?",
+      "answer": "Binding top-level directories like `/project` and `/scratch` in Apptainer is especially useful for accessing files belonging to other members of your research team located in different places, and for correctly resolving symlinks that might otherwise be broken if the entire filesystem isn't mounted."
+    },
+    {
+      "question": "What script can I run to determine the necessary bind mount options for /home, /project, and /scratch on my current cluster if default options aren't working?",
+      "answer": "If default bind mounts for `/home`, `/project`, and `/scratch` do not work on your cluster, you can run the script `/home/preney/public/apptainer-scripts/get-apptainer-options.sh` to obtain the specific bind mount options you need to pass to Apptainer."
+    },
+    {
+      "question": "Is it possible to bind mount a file or directory to a different path inside an Apptainer container?",
+      "answer": "Yes, you can bind mount a file or directory to a different location inside an Apptainer container. For example, the option `-B ./my_data_file.txt:/special/input.dat` maps the host file `./my_data_file.txt` to `/special/input.dat` inside the container. This feature is useful when programs or scripts within the container have hard-coded paths."
+    },
+    {
+      "question": "Why should I use an alternate destination directory when bind-mounting the /home filesystem in an Apptainer container, and what is the recommended option?",
+      "answer": "You should use an alternate destination directory like `-B /home:/cluster_home` when bind-mounting the `/home` filesystem to ensure that configuration files and programs in your host's home directory (e.g., `$HOME/bin` or Python packages in `$HOME/.local/lib/python3.x`) do not interfere with the software within your container."
+    },
+    {
+      "question": "Why is it advised not to mount CVMFS paths inside Apptainer containers?",
+      "answer": "It is strongly advised not to mount CVMFS paths inside Apptainer containers because it is fraught with perils, defeats many reasons for using a container, and introduces unnecessary programs that don't need to be there. Programs intended to run inside a container should be completely contained within it."
+    },
+    {
+      "question": "Where can I find more information about persistent overlays in Apptainer?",
+      "answer": "You can find more information about persistent overlays by referring to the official Apptainer documentation page about persistent overlays."
+    },
+    {
+      "question": "What are the two primary formats in which Apptainer images can be created?",
+      "answer": "Apptainer images can be created in two primary formats: as an `SIF` file or as a sandbox directory."
+    },
+    {
+      "question": "What are the characteristics and advantages of Apptainer SIF files?",
+      "answer": "Apptainer `SIF` files typically contain multiple `squashfs` filesystems, which are read-only and compressed. The `apptainer build` command usually produces a `SIF` file with a read-only `squashfs` filesystem. This is the preferred option because the resulting image is read-only, much smaller due to compression, and offers very quick disk reads."
+    },
+    {
+      "question": "What is a sandbox directory in Apptainer and when might it be used?",
+      "answer": "A sandbox directory in Apptainer is a normal directory in the filesystem that begins empty and is populated with files and directories as Apptainer builds the image. Its contents should only be accessed or updated using Apptainer. It might be used when read-write access to the image itself is needed to update the container image."
+    },
+    {
+      "question": "What is the recommended workflow for making infrequent updates to an Apptainer SIF file using a sandbox directory?",
+      "answer": "For infrequent updates, the recommended workflow is to build a sandbox image from the existing `SIF` file, make the required changes within the writable sandbox, then build a new `SIF` file from the updated sandbox, and finally remove the temporary sandbox directory."
+    },
+    {
+      "question": "What are the main differences between an Apptainer SIF file and a sandbox directory in terms of disk performance and resource usage?",
+      "answer": "An `SIF` file offers faster disk performance and consumes a quota file count of 1. In contrast, a sandbox directory will consume significant amounts of both disk space and file count quotas, potentially thousands of files, and generally has slower disk access speeds for its content. For these reasons, `SIF` files are generally recommended unless read-write access to the underlying image is consistently required."
+    }
+  ],
+  "generated_at": "2026-04-11T17:29:11.004765+00:00"
+}

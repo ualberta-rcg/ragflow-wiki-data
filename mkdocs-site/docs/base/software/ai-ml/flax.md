@@ -5,21 +5,84 @@ lang: "base"
 
 source_wiki_title: "Flax"
 source_hash: "10fb1372521a3726c6112b533a79c5e1"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T06:22:21.107856+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T07:05:34.437156+00:00"
 
 tags:
   - ai-and-machine-learning
 
 keywords:
-  []
+  - "jax.lax.pmean"
+  - "SBATCH"
+  - "DistributedDataParallel"
+  - "collate_jax"
+  - "train_step"
+  - "nn.Module"
+  - "flax-example-multigpu.sh"
+  - "transforms"
+  - "batch_size"
+  - "Flax"
+  - "JIT Compile"
+  - "jax.value_and_grad"
+  - "Data Parallelism"
+  - "Single Node"
+  - "High Performance"
+  - "JAX"
+  - "Multiple GPUs"
+  - "distributed training"
+  - "neural network library"
+  - "GPUs"
+  - "jax"
+  - "CIFAR10"
+  - "DataLoader"
+  - "GPU replica"
+  - "average of gradients"
+  - "classification models"
+  - "XLA compiler"
+  - "Multi-GPU training"
+  - "jax.pmap"
+  - "SLURM"
+  - "DistributedSampler"
+  - "cpu performance test"
+
+questions:
+  - "What is the Flax library and how does its approach to model training differ from frameworks like PyTorch and Keras?"
+  - "What are the specific steps required to install Flax using a Compute Canada wheel within a Python virtual environment?"
+  - "Why does the documentation strongly recommend using multiple CPUs rather than a GPU when training small-scale models on a shared HPC cluster?"
+  - "What is the primary objective of the script according to the parser description?"
+  - "What default values are set for the learning rate, batch size, and number of workers in the command-line arguments?"
+  - "What is the sequence of neural network operations defined in the `Net` class?"
+  - "How does the provided implementation utilize PyTorch alongside JAX and Flax to handle data loading and preprocessing?"
+  - "What role does the `@jax.jit` decorator play in optimizing the forward pass, backward pass, and weight updates during the training loop?"
+  - "According to the text, what is data parallelism across multiple GPUs, and what crucial adjustments must be made to the learning rate or batch size when using it?"
+  - "What is the primary memory constraint for the model when using this multi-GPU setup?"
+  - "How is the model distributed across the GPUs in the provided examples?"
+  - "How should the Slurm script be modified if you need to load data in parallel using multiple workers?"
+  - "How does the SLURM script prepare the environment and dependencies required to run the Flax multi-GPU training job?"
+  - "Why does the script use PyTorch's DataLoader for the CIFAR10 dataset, and how are the input batches reshaped to accommodate multiple devices?"
+  - "How does the script utilize `jax.pmap` and `jax.lax.pmean` within the training step to parallelize execution and synchronize gradients across all available GPUs?"
+  - "How is the SLURM environment configured in the bash script to support multi-node distributed training?"
+  - "What mechanism does the Python script use to initialize the JAX distributed environment and broadcast the model to all GPUs?"
+  - "Why is PyTorch's DistributedSampler utilized alongside the data loader in this JAX/Flax training example?"
+  - "How does the `train_step` function utilize `jax.pmap` and `jax.lax.pmean` to handle distributed training and synchronize gradients across multiple GPUs?"
+  - "What specific operations and functions are used within the `compute_loss` function to calculate the loss between the model outputs and the targets?"
+  - "Which JAX mechanism is employed to simultaneously evaluate the loss value and compute its gradients with respect to the model parameters?"
+  - "What specific transformations are applied to the training data in the composition pipeline?"
+  - "Which dataset is being utilized, and what parameters are passed during its initialization?"
+  - "How is the data loader configured to support distributed training and JAX compatibility?"
+  - "How does the training loop reshape and distribute the input batches across the available GPUs within a node?"
+  - "What roles do `jax.pmap` and `jax.lax.pmean` play in parallelizing the `train_step` function across multiple devices and nodes?"
+  - "How does the script calculate and report the overall training performance in terms of images processed per second?"
+  - "How does the training loop reshape and distribute the input batches across the available GPUs within a node?"
+  - "What roles do `jax.pmap` and `jax.lax.pmean` play in parallelizing the `train_step` function across multiple devices and nodes?"
+  - "How does the script calculate and report the overall training performance in terms of images processed per second?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -37,13 +100,13 @@ For more information, see [Available wheels](python.md#available-wheels).
 ### Installing the Compute Canada wheel
 
 The preferred option is to install it using the Python [wheel](https://pythonwheels.com/) as follows:
-1. Load a Python [module](utiliser-des-modules.md#sub-command-load), thus `module load python`
+1. Load a Python [module](utiliser-des-modules.md#sub-command-load), thus `module load python`.
 2. Create and start a [virtual environment](python.md#creating-and-using-a-virtual-environment).
 3. Install Flax in the virtual environment with `pip install`.
 
-    ```bash
-    (venv) [name@server ~]$ pip install --no-index flax
-    ```
+```bash
+pip install --no-index flax
+```
 
 ## High Performance with Flax
 
@@ -51,7 +114,7 @@ The preferred option is to install it using the Python [wheel](https://pythonwhe
 
 As a framework based on JAX, Flax derives its high-performance from the combination of a functional paradigm, automatic differentiation and TensorFlow's [Accelerated Linear Algebra (XLA)](https://github.com/tensorflow/tensorflow/blob/master/tensorflow/compiler/xla/g3doc/index.md) compiler. Concretely, one can use JAX's Just-In-Time compiler to leverage XLA on code blocks (often compositions of functions) that are called repeatedly during a training loop, like loss computation, backpropagation and gradient updates. Another advantage this provides is that XLA handles compiling code blocks into CPU or GPU code transparently, so your Python code is exactly the same regardless of the device where it will be executed.
 
-!!! warning
+!!! warning "GPU Usage Guidelines"
     With the above being said, when training small scale models we strongly recommend using **multiple CPUs instead of using a GPU**. While training will almost certainly run faster on a GPU (except in cases where the model is very small), if your model and your dataset are not large enough, the speed up relative to CPU will likely not be very significant and your job will end up using only a small portion of the GPU's compute capabilities. This might not be an issue on your own workstation, but in a shared environment like our HPC clusters this means you are unnecessarily blocking a resource that another user may need to run actual large scale computations! Furthermore, you would be unnecessarily using up your group's allocation and affecting the priority of your colleagues' jobs.
 
     Simply put, **you should not ask for a GPU** if your code is not capable of making a reasonable use of its compute capacity. The following example illustrates how to submit a Flax job with or without a GPU:
@@ -59,11 +122,11 @@ As a framework based on JAX, Flax derives its high-performance from the combinat
 ```bash title="flax-example.sh"
 #!/bin/bash
 #SBATCH --nodes 1
-#SBATCH --tasks-per-node=1 
+#SBATCH --tasks-per-node=1
 #SBATCH --cpus-per-task=1 # change this parameter to 2,4,6,... to see the effect on performance
-#SBATCH --gres=gpu:1 # Remove this line to run using CPU only 
+#SBATCH --gres=gpu:1 # Remove this line to run using CPU only
 
-#SBATCH --mem=8G      
+#SBATCH --mem=8G
 #SBATCH --time=0:05:00
 #SBATCH --output=%N-%j.out
 #SBATCH --account=<your account>
@@ -126,7 +189,7 @@ def main():
          x = nn.Dense(features=10)(x)
 
          return x
-   
+
    # Helper class to cast numpy arrays to JAX arrays
    class CastToJnp(object):
       def __call__(self, image):
@@ -197,16 +260,16 @@ if __name__=='__main__':
 
 ### Data Parallelism with Multiple GPUs
 Data Parallelism, in this context, refers to methods to perform training over multiple replicas of a model in parallel, where each replica receives a different chunk of training data at each iteration. Gradients are then aggregated at the end of an iteration and the parameters of all replicas are updated in a synchronous or asynchronous fashion, depending on the method. Using this approach may provide a significant speed-up by iterating through all examples in a large dataset approximately N times faster, where N is the number of model replicas. An important caveat of this approach, is that in order to get a trained model that is equivalent to the same model trained without Data Parallelism, the user must scale either the learning rate or the desired batch size in function of the number of replicas. See [this discussion](https://discuss.pytorch.org/t/should-we-split-batch-size-according-to-ngpu-per-node-when-distributeddataparallel/72769/13) for more information. In the examples that follow, each GPU hosts a replica of your model. Consequently, the model must be small enough to fit inside the memory of a single GPU.
- 
+
 #### Single Node
 ```bash title="flax-example-multigpu.sh"
 #!/bin/bash
 #SBATCH --nodes 1
-#SBATCH --tasks-per-node=1 
+#SBATCH --tasks-per-node=1
 #SBATCH --cpus-per-task=1 # increase this if using num_workers > 0 to load data in parallel
-#SBATCH --gres=gpu:2 
+#SBATCH --gres=gpu:2
 
-#SBATCH --mem=8G      
+#SBATCH --mem=8G
 #SBATCH --time=0:05:00
 #SBATCH --output=%N-%j.out
 #SBATCH --account=<your account>
@@ -297,9 +360,9 @@ def main():
    perf = []
 
    for batch_idx, (inputs, targets) in enumerate(train_loader):
-       
+
       # Split a batch into "n_devices" sub-batches
-      inputs = inputs.reshape(n_devices, inputs.shape[0] // n_devices, *inputs.shape[1:]) 
+      inputs = inputs.reshape(n_devices, inputs.shape[0] // n_devices, *inputs.shape[1:])
       targets = targets.reshape(n_devices, targets.shape[0] // n_devices, *targets.shape[1:])
 
       start = time.time()
@@ -314,9 +377,9 @@ def main():
 
    print(f"Images processed per second: {np.mean(perf)}")
 
-# "jax.pmap" parallelizes inputs, function evaluation and outputs over a given axis. 
+# "jax.pmap" parallelizes inputs, function evaluation and outputs over a given axis.
 # This axis is first dimension of the inputs by default - it is the number of GPUs in this case.
-# jax.map also JIT compiles the function, just like @jax.jit in the single GPU case. 
+# jax.map also JIT compiles the function, just like @jax.jit in the single GPU case.
 
 @functools.partial(jax.pmap, axis_name='gpus')
 def train_step(state, inputs, targets):
@@ -356,17 +419,17 @@ if __name__=='__main__':
 #!/bin/bash
 #SBATCH --nodes 2
 #SBATCH --tasks-per-node=1
-#SBATCH --cpus-per-task=1 # increase this if using num_workers > 0 to load data in parallel 
+#SBATCH --cpus-per-task=1 # increase this if using num_workers > 0 to load data in parallel
 #SBATCH --gres=gpu:2
 
-#SBATCH --mem=8G      
+#SBATCH --mem=8G
 #SBATCH --time=0:30:00
 #SBATCH --output=%N-%j.out
 #SBATCH --account=<your account>
 
 module load cuda
 
-source env/bin/activate # virtualenv with flax pre-installed 
+source env/bin/activate # virtualenv with flax pre-installed
 
 echo "starting training..."
 
@@ -459,9 +522,9 @@ def main():
    perf = []
 
    for batch_idx, (inputs, targets) in enumerate(train_loader):
- 
+
       # Split a batch into "n_devices" sub-batches. "n_devices" is the number of GPUs per node, not total GPUs!
-      inputs = inputs.reshape(n_devices, inputs.shape[0] // n_devices, *inputs.shape[1:]) # 
+      inputs = inputs.reshape(n_devices, inputs.shape[0] // n_devices, *inputs.shape[1:]) #
       targets = targets.reshape(n_devices, targets.shape[0] // n_devices, *targets.shape[1:])
 
       start = time.time()
@@ -482,7 +545,7 @@ def main():
       print(f"Images processed per second: {np.mean(perf)}")
 
 
-# "jax.pmap" parallelizes inputs, function evaluation and outputs over a given axis. 
+# "jax.pmap" parallelizes inputs, function evaluation and outputs over a given axis.
 # This axis is the first dimension of the inputs by default - it is the number of local GPUs in this case.
 # But because we called jax.distributed.initialize, computations will also be parallelized over nodes!
 # jax.map also JIT compiles the function, just like @jax.jit in the single GPU case.

@@ -1,0 +1,83 @@
+{
+  "doc_key": "fr/using_node-local_storage",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "Qu'est-ce que le répertoire temporaire SLURM_TMPDIR?",
+      "answer": "C'est un répertoire temporaire créé sur chacun des nœuds assignés à une tâche par l'ordonnanceur Slurm."
+    },
+    {
+      "question": "Comment le chemin vers SLURM_TMPDIR est-il configuré?",
+      "answer": "Slurm configure le chemin complet vers ce répertoire temporaire via la variable d'environnement SLURM_TMPDIR."
+    },
+    {
+      "question": "Pourquoi privilégier SLURM_TMPDIR par rapport au stockage sur le réseau?",
+      "answer": "Les opérations d'entrée et de sortie (I/O) sont presque toujours plus rapides avec SLURM_TMPDIR parce qu'il se trouve sur un disque local, contrairement au stockage sur le réseau (/project, /scratch et /home)."
+    },
+    {
+      "question": "Quand le stockage sur disque local est-il particulièrement recommandé?",
+      "answer": "Il est à privilégier pour les transactions fréquentes de petites quantités de données."
+    },
+    {
+      "question": "Pourquoi SLURM_TMPDIR est-il plus compliqué à utiliser que le stockage sur le réseau?",
+      "answer": "En raison de sa nature temporaire, les données en entrée doivent être copiées vers SLURM_TMPDIR avant utilisation, et les données en sortie doivent être copiées vers le réseau avant la fin de la tâche pour être conservées."
+    },
+    {
+      "question": "Comment copier des données en entrée vers SLURM_TMPDIR pour une tâche simple?",
+      "answer": "Dans les cas les plus simples, on peut utiliser les commandes `cp` ou `rsync` pour copier les données du réseau vers $SLURM_TMPDIR/."
+    },
+    {
+      "question": "Dans quels cas `cp` ou `rsync` pourraient-ils ne pas être suffisants pour les données en entrée?",
+      "answer": "Ceci pourrait ne pas fonctionner avec une grande quantité de données ou si les données doivent être lues par des processus exécutés sur des nœuds différents."
+    },
+    {
+      "question": "Pourquoi est-il recommandé de créer des environnements virtuels Python dans $SLURM_TMPDIR?",
+      "answer": "Les applications exécutées dans un environnement virtuel Python génèrent un très grand nombre de transactions I/O, ce qui est mieux géré par la rapidité de $SLURM_TMPDIR."
+    },
+    {
+      "question": "Que doit-on faire avec les données en sortie de SLURM_TMPDIR?",
+      "answer": "Les données en sortie doivent être copiées de $SLURM_TMPDIR vers un espace de stockage permanent avant que la tâche ne se termine."
+    },
+    {
+      "question": "Quelles sont les solutions pour assurer la conservation des données en sortie si une tâche s'arrête prématurément?",
+      "answer": "On peut demander plus de temps pour la tâche, placer des points de contrôle dans l'espace de stockage sur le réseau, ou écrire une fonction pour intercepter un signal."
+    },
+    {
+      "question": "À quoi sert la méthode d'interception de signal avec Slurm?",
+      "answer": "Elle permet à Slurm d'envoyer un signal à la tâche peu avant la limite de temps, afin qu'elle copie les résultats de $SLURM_TMPDIR vers le stockage réseau et les conserve."
+    },
+    {
+      "question": "Quel est un inconvénient de la méthode d'interception de signal pour la conservation des données?",
+      "answer": "Le contenu de $SLURM_TMPDIR ne sera pas conservé si un nœud tombe en panne ou si le système de fichiers réseau connaît un problème."
+    },
+    {
+      "question": "Comment copier des fichiers vers $SLURM_TMPDIR sur plusieurs nœuds alloués pour une tâche distribuée?",
+      "answer": "Il faut utiliser la commande `srun --ntasks=$SLURM_NNODES --ntasks-per-node=1 cp file [files...] $SLURM_TMPDIR`."
+    },
+    {
+      "question": "Quelle est la commande pour extraire une archive ZIP vers $SLURM_TMPDIR sur plusieurs nœuds?",
+      "answer": "Il faut utiliser `srun --ntasks=$SLURM_NNODES --ntasks-per-node=1 unzip archive.zip -d $SLURM_TMPDIR`."
+    },
+    {
+      "question": "Quelle est la commande pour extraire une archive Tarball vers $SLURM_TMPDIR sur plusieurs nœuds?",
+      "answer": "Il faut utiliser `srun --ntasks=$SLURM_NNODES --ntasks-per-node=1 tar -xvf archive.tar.gz -C $SLURM_TMPDIR`."
+    },
+    {
+      "question": "Comment est implémenté $SLURM_TMPDIR sur la grappe Trillium et quelle est sa limite d'espace?",
+      "answer": "Sur Trillium, $SLURM_TMPDIR est implémenté comme un RAMdisk, et l'espace disponible est limité par la mémoire du nœud, moins la RAM utilisée par l'application."
+    },
+    {
+      "question": "Quelle est la capacité typique de $SLURM_TMPDIR pour les grappes Fir, Narval, Nibi et Rorqual?",
+      "answer": "Fir offre 7 T, Narval 800 G, Nibi 3 T et Rorqual 375 G."
+    },
+    {
+      "question": "Comment la réservation de nœuds entiers influence-t-elle l'espace disponible dans $SLURM_TMPDIR?",
+      "answer": "Si une tâche réserve des nœuds entiers, il est raisonnable de penser qu'autant d'espace $SLURM_TMPDIR sera disponible sur chaque nœud."
+    },
+    {
+      "question": "Que se passe-t-il si une tâche demande moins qu'un nœud entier en termes d'espace $SLURM_TMPDIR?",
+      "answer": "Les autres tâches pourront aussi écrire dans le même système de fichiers (mais pas dans le même répertoire), ce qui pourrait limiter l'espace disponible pour votre tâche."
+    }
+  ],
+  "generated_at": "2026-04-12T10:31:19.058236+00:00"
+}

@@ -1,0 +1,52 @@
+{
+  "doc_key": "fr/gurobi",
+  "level": "chunk",
+  "chunk_index": 6,
+  "qa_pairs": [
+    {
+      "question": "Quelles versions de Python sont supportées par Gurobi 10.0.3 lorsqu'on utilise StdEnv/2023?",
+      "answer": "Avec StdEnv/2023 et Gurobi 10.0.3, les versions de Python supportées sont python3.10_utf32, python3.11_utf32, python3.7, python3.7_utf32, python3.8_utf32 et python3.9_utf32."
+    },
+    {
+      "question": "Quelle version de Python est supportée par Gurobi 11.0.1 lorsqu'on utilise StdEnv/2023?",
+      "answer": "Avec StdEnv/2023 et Gurobi 11.0.1, seule la version python3.11 est supportée."
+    },
+    {
+      "question": "La méthode d'installation de Gurobi pour Python utilisant `setup.py` est-elle toujours valide ou recommandée?",
+      "answer": "Non, la méthode d'installation de Gurobi pour Python utilisant `setup.py` est désormais obsolète et ne peut être utilisée qu'avec les versions de Gurobi 10 (et plus anciennes)."
+    },
+    {
+      "question": "Comment installer `gurobipy` dans un environnement virtuel pour les versions Gurobi 10.0.3 et moins récentes avec StdEnv/2023?",
+      "answer": "Il faut d'abord charger les modules `gurobi/10.0.3` et `python`, créer et activer l'environnement virtuel, installer les paquets désirés (comme `pandas`), puis copier les fichiers `lib` et `setup.py` de `$EBROOTGUROBI` vers un répertoire temporaire (par exemple `/tmp/$USER`) et y exécuter `python setup.py install`."
+    },
+    {
+      "question": "Pourquoi ne peut-on pas installer `gurobipy` directement dans `$EBROOTGUROBI` à partir de StdEnv/2023 pour Gurobi 10.0.3 et moins récent?",
+      "answer": "Il n'est plus possible d'installer `gurobipy` directement dans `$EBROOTGUROBI` car cela causerait une erreur fatale due au système de fichiers en lecture seule, avec un message comme 'error: could not create 'gurobipy.egg-info': Read-only file system'."
+    },
+    {
+      "question": "Est-ce que la version 11.0.0 de Gurobi est recommandée pour l'installation dans un environnement virtuel?",
+      "answer": "Non, la version 11.0.0 est ignorée car il a été observé qu'elle produit une erreur de segmentation dans au moins un exemple, comparativement à la version 11.0.1 qui fonctionne sans problème."
+    },
+    {
+      "question": "Quelles sont les premières étapes pour installer Gurobi 11.0.1 (et plus récentes) dans un environnement virtuel sur un système StdEnv/2023 ou plus ancien?",
+      "answer": "Il faut d'abord charger les modules `gurobi/11.0.1` et `python`, puis créer et activer l'environnement virtuel avec les commandes `virtualenv --no-download ~/env_gurobi` et `source ~/env_gurobi/bin/activate`."
+    },
+    {
+      "question": "Comment installer des paquets Python additionnels comme `pandas` dans un environnement virtuel Gurobi 11.0.1?",
+      "answer": "Une fois l'environnement virtuel activé, on peut utiliser la commande `pip install --no-index pandas`."
+    },
+    {
+      "question": "Quelle est la méthode recommandée pour installer `gurobipy` pour Gurobi 11.0.0 et plus récentes sur nos systèmes, et pourquoi les commandes `pip install` habituelles ne fonctionnent-elles pas?",
+      "answer": "La méthode recommandée utilise `pip`, mais les commandes habituelles comme `pip install gurobipy==11.0.1` ou l'installation hors ligne avec `--find-links` ne fonctionnent pas parce que nos systèmes Linux sont configurés avec le préfixe Gentoo, nécessitant l'utilisation d'un script spécial."
+    },
+    {
+      "question": "Quel script est nécessaire pour installer `gurobipy` pour Gurobi 11.0.1 et plus récentes sur les systèmes Linux configurés avec le préfixe Gentoo, et quelles sont les étapes principales pour l'utiliser?",
+      "answer": "Le script `unmanylinuxize.sh` est nécessaire. Les étapes comprennent son téléchargement (`wget`), l'octroi des permissions d'exécution (`chmod u+rx`), son exécution avec les arguments `--package`, `--version` et `--url` (l'URL du fichier wheel de PyPI), puis l'installation du paquet converti avec `python -m pip install --find-links $PWD --no-index gurobipy`."
+    },
+    {
+      "question": "Comment obtenir l'URL du fichier wheel (`.whl`) pour l'installation de `gurobipy` via `unmanylinuxize.sh` pour une nouvelle version de Gurobi?",
+      "answer": "Pour chaque nouvelle version, il faut aller sur la page d'historique de `gurobipy` sur pypi.org (par exemple `https://pypi.org/project/gurobipy/11.0.1/#history`), cliquer sur la version désirée, puis sur le bouton 'Download files' dans le menu de gauche pour copier le lien HTTPS du fichier wheel."
+    }
+  ],
+  "generated_at": "2026-04-11T23:34:21.364130+00:00"
+}

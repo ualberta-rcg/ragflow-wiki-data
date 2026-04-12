@@ -5,26 +5,68 @@ lang: "en"
 
 source_wiki_title: "NAMD/en"
 source_hash: "32165f419bec4710c31d715dc9566107"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T09:06:31.446048+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T09:38:26.979367+00:00"
 
 tags:
   - software
   - biomolecularsimulation
 
 keywords:
-  []
+  - "node"
+  - "performance"
+  - "GPU jobs"
+  - "GPU nodes"
+  - "Simulation"
+  - "submission scripts"
+  - "threads"
+  - "Molecular Dynamics"
+  - "NAMD 3"
+  - "NAMD jobs"
+  - "molecular dynamics"
+  - "multicore"
+  - "NAMD"
+  - "Narval"
+  - "UCX jobs"
+  - "GPUs"
+  - "Wall time per step"
+  - "Graham"
+  - "benchmarking"
+  - "verbs-smp module"
+  - "GPUresident"
+  - "full nodes"
+
+questions:
+  - "What is NAMD and how are its different versions managed and accessed within the cluster environment?"
+  - "What are the recommended SLURM configurations and specific NAMD input flags for running threaded GPU jobs efficiently?"
+  - "When is it appropriate to use the UCX version of NAMD for multi-node jobs, and how should the nodes be allocated for optimal performance?"
+  - "What hardware limitations and script adjustments must be considered when running the provided NAMD job script on different clusters?"
+  - "Why is it important to conduct system-specific benchmarking for NAMD simulations, and what are the best practices for setting up a reliable benchmark run?"
+  - "How does NAMD's performance scale across multiple CPU cores and GPUs according to the provided apoa1 benchmark data, and how does requesting more resources impact overall job throughput?"
+  - "What node configuration is recommended to achieve the best performance for NAMD jobs on the Narval cluster?"
+  - "How are the tasks, threads, and GPUs distributed across the nodes to fully utilize the hardware in this example?"
+  - "Why does NAMD report that only 88 cores are being used despite the two nodes having a combined total of 96 cores?"
+  - "Under what conditions is the NAMD verbs-smp module used instead of the single-node multicore setup?"
+  - "How does the wall time per step scale when increasing the number of cores and GPUs within a single node?"
+  - "What is the observed impact on performance when transitioning from a 32-core single-node configuration to a 64-core two-node configuration?"
+  - "What is the most efficient node and core/GPU configuration for running this system, and why is scaling beyond one node not recommended?"
+  - "Why is it more cost-effective to run this simulation on GPU nodes rather than non-GPU nodes, and what practical factor might still require using non-GPU nodes?"
+  - "How can users manually run a newer version of NAMD 3 on Alliance systems, and what configuration setting is highly recommended for optimal GPU performance?"
+  - "What is the most efficient node and core/GPU configuration for running this system, and why is scaling beyond one node not recommended?"
+  - "Why is it more cost-effective to run this simulation on GPU nodes rather than non-GPU nodes, and what practical factor might still require using non-GPU nodes?"
+  - "How can users manually run a newer version of NAMD 3 on Alliance systems, and what configuration setting is highly recommended for optimal GPU performance?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
-[NAMD](http://www.ks.uiuc.edu/Research/namd/) is a parallel, object-oriented molecular dynamics code designed for high-performance simulation of large biomolecular systems. Simulation preparation and analysis is integrated into the [VMD](vmd.md) visualization package.
+[NAMD](http://www.ks.uiuc.edu/Research/namd/) is a parallel, object-oriented molecular dynamics code designed for high-performance simulation of large biomolecular systems.
+Simulation preparation and analysis is integrated into the [VMD](vmd.md) visualization package.
 
 ## Installation
 NAMD is installed by our software team and is available as a module. If a new version is required or if for some reason you need to do your own installation, please contact [Technical support](technical-support.md). You can also ask for details of how our NAMD modules were compiled.
@@ -77,7 +119,7 @@ srun --mpi=pmi2 namd3 stmv.namd
 ### Threaded GPU jobs
 This example uses 16 CPU cores and 1 H100 GPU on a single node. You can increase the number of GPUs and CPU cores up to the maximum available on the node.
 
-!!! important
+!!! important "Important"
     NAMD 3 added an input flag, which shifts more calculations to the GPU. This can improve performance considerably.
 
 To use it, add this line to your NAMD input file:
@@ -107,7 +149,7 @@ This example is for Narval and it assumes that full nodes are used, which gives 
 
 To use this script on other clusters, please look up the specifications of their available nodes and adjust `--cpus-per-task` and `--gpus-per-node` options accordingly.
 
-!!! note
+!!! note "Note"
     NAMD 2.14 in this example should not be used on clusters with H100 GPUs. UCX version of NAMD 3.0.1 able to run on H100 is not yet installed on Alliance clusters.
 
 ```bash title="ucx_namd_job.sh"
@@ -128,7 +170,8 @@ srun --cpus-per-task=$SLURM_CPUS_PER_TASK --mpi=pmi2 namd2 ++ppn $NUM_PES stmv.n
 
 ## Performance and benchmarking
 
-A team at [ACENET](https://www.ace-net.ca/) has created a [Molecular Dynamics Performance Guide](https://mdbench.ace-net.ca/mdbench/) for Alliance clusters. It can help you determine optimal conditions for AMBER, GROMACS, NAMD, and OpenMM jobs. The present section focuses on NAMD performance.
+A team at [ACENET](https://www.ace-net.ca/) has created a [Molecular Dynamics Performance Guide](https://mdbench.ace-net.ca/mdbench/) for Alliance clusters.
+It can help you determine optimal conditions for AMBER, GROMACS, NAMD, and OpenMM jobs. The present section focuses on NAMD performance.
 
 Here is an example of how you should conduct benchmarking of NAMD. Performance of NAMD will be different for different systems you are simulating, depending especially on the number of atoms in the simulation. Therefore, if you plan to spend a significant amount of time simulating a particular system, it would be very useful to conduct the kind of benchmarking shown below. Collecting and providing this kind of data is also very useful if you are applying for a RAC award.
 
@@ -177,10 +220,11 @@ Sometimes a newer version of NAMD will become available on the NAMD website, but
 ```bash
 tar xvfz NAMD_3.0alpha11_Linux-x86_64-multicore-CUDA-SingleNode.tar.gz 
 cd NAMD_3.0alpha11_Linux-x86_64-multicore-CUDA
-setrpaths.sh  --path .
+setrpaths.sh --path .
 ```
 
-After this the `namd3` executable located in that directory will be linked to the correct libraries on our systems. You can then submit a job that uses that executable.
+After this the `namd3` executable located in that directory will be linked to the correct libraries on our systems.
+You can then submit a job that uses that executable.
 
 For best performance of NAMD 3 on GPUs, we highly recommend adding the following keyword to the configuration file, if the input configuration you are running supports it.
 
@@ -191,9 +235,9 @@ GPUresident on;
 Please see the [NAMD 3.0 Alpha web page](https://www.ks.uiuc.edu/Research/namd/alpha/3.0alpha/) for more on this parameter and related changes in NAMD 3.
 
 ## References
-*   Downloads: [http://www.ks.uiuc.edu/Development/Download/download.cgi?PackageName=NAMD](http://www.ks.uiuc.edu/Development/Download/download.cgi?PackageName=NAMD) -- Registration is required to download the software.
-*   [NAMD User's guide for version 3.0.1](https://www.ks.uiuc.edu/Research/namd/3.0.1/ug/)
-*   [NAMD User's guide for version 2.14](https://www.ks.uiuc.edu/Research/namd/2.14/ug/)
-*   [NAMD version 3.0.1 release notes](http://www.ks.uiuc.edu/Research/namd/3.0.1/notes.html)
-*   [NAMD version 2.14 release notes](http://www.ks.uiuc.edu/Research/namd/2.14/notes.html)
-*   Tutorials: [http://www.ks.uiuc.edu/Training/Tutorials/](http://www.ks.uiuc.edu/Training/Tutorials/)
+* Downloads: [http://www.ks.uiuc.edu/Development/Download/download.cgi?PackageName=NAMD](http://www.ks.uiuc.edu/Development/Download/download.cgi?PackageName=NAMD) -- Registration is required to download the software.
+* [NAMD User's guide for version 3.0.1](https://www.ks.uiuc.edu/Research/namd/3.0.1/ug/)
+* [NAMD User's guide for version 2.14](https://www.ks.uiuc.edu/Research/namd/2.14/ug/)
+* [NAMD version 3.0.1 release notes](http://www.ks.uiuc.edu/Research/namd/3.0.1/notes.html)
+* [NAMD version 2.14 release notes](http://www.ks.uiuc.edu/Research/namd/2.14/notes.html)
+* Tutorials: [http://www.ks.uiuc.edu/Training/Tutorials/](http://www.ks.uiuc.edu/Training/Tutorials/)

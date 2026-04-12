@@ -5,21 +5,58 @@ lang: "en"
 
 source_wiki_title: "CMake/en"
 source_hash: "1754dae636897083387385b47eb1c3b6"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T05:07:18.976118+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T05:58:26.127121+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "CMake"
+  - "compilation tool"
+  - "advanced mode"
+  - "GSL"
+  - "GSL_CONFIG"
+  - "CMAKE_INSTALL_PREFIX"
+  - "Autotools"
+  - "Xcode"
+  - "ccmake"
+  - "Doxygen"
+  - "CMAKE_BUILD_TYPE"
+  - "configuration"
+  - "ARPACK_LIBRARIES-NOTFOUND"
+  - "GTest"
+  - "compiler flags"
+  - "CMAKE_OSX_SYSROOT"
+  - "command line options"
+  - "Makefile"
+
+questions:
+  - "What are the main advantages of using CMake over traditional compilation tools like Autotools?"
+  - "What is the standard sequence of commands required to configure, build, and install an application using CMake?"
+  - "How can users resolve library path conflicts and locate dependencies when running CMake on a cluster with non-standard installation directories?"
+  - "Which keyboard commands are used to edit values, test configurations, and generate a Makefile in the interface?"
+  - "How can a user activate advanced mode, and what is the benefit of doing so?"
+  - "What types of system paths, compiler flags, and library locations are exposed in the advanced configuration list?"
+  - "Which library is currently marked as not found in the build configuration?"
+  - "What is the designated installation directory path specified by the CMAKE_INSTALL_PREFIX?"
+  - "What path is configured for the macOS system root (CMAKE_OSX_SYSROOT) in this environment?"
+  - "What is the configured state of the verbose makefile option and the Xcode selection path?"
+  - "Where are the Doxygen application and its associated Dot tool executables located according to the configuration?"
+  - "What are the specified include directories and linker flags for external libraries like GSL and GTest?"
+  - "What information does `ccmake` display in advanced mode regarding system libraries and compiler flags?"
+  - "How can users modify specific CMake configuration variables, such as the install location or compiler choice, directly from the command line?"
+  - "What are the available values for the `CMAKE_BUILD_TYPE` option and how do they affect the debugging and optimization of the compilation process?"
+  - "What information does `ccmake` display in advanced mode regarding system libraries and compiler flags?"
+  - "How can users modify specific CMake configuration variables, such as the install location or compiler choice, directly from the command line?"
+  - "What are the available values for the `CMAKE_BUILD_TYPE` option and how do they affect the debugging and optimization of the compilation process?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -28,47 +65,54 @@ status:
 
 ## Basic usage
 CMake works in the same way as that Autotools requires to run a `configure` script, followed by a build with `make`. However, instead of calling `./configure`, you call `cmake *directory*`. For example, if you are inside the directory where you would like to build the application, you run
+
 ```bash
 cmake .
 ```
+
 Hence, to configure, build and install an application or a library, the simplest way to do this is with
+
 ```bash
 cmake . && make && make install
 ```
 
 ## Useful options on our clusters
-Our clusters are configured such that compilation of a new software package will automatically add information to the resulting binary to ensure that it finds the libraries that it depends on. This is done through a mechanism called `RUNPATH` or `RPATH`. Some packages using CMake also do the same, through a feature provided by CMake. When both of these are used at the same time, it sometimes creates conflicts. In order to avoid errors related to this, you can add the option 
+Our clusters are configured such that compilation of a new software package will automatically add information to the resulting binary to ensure that it finds the libraries that it depends on. This is done through a mechanism called `RUNPATH` or `RPATH`. Some packages using CMake also do the same, through a feature provided by CMake. When both of these are used at the same time, it sometimes creates conflicts. In order to avoid errors related to this, you can add the option
 
-* `-DCMAKE_SKIP_INSTALL_RPATH=ON`
+*   `-DCMAKE_SKIP_INSTALL_RPATH=ON`
 
-to your command line. Moreover, our clusters have libraries installed in non-standard locations. This sometimes causes CMake not to find them easily. It can be useful to the following option to your `cmake` command invocation: 
+to your command line. Moreover, our clusters have libraries installed in non-standard locations. This sometimes causes CMake not to find them easily. It can be useful to the following option to your `cmake` command invocation:
 
-* `-DCMAKE_SYSTEM_PREFIX_PATH=$EBROOTGENTOO`
+*   `-DCMAKE_SYSTEM_PREFIX_PATH=$EBROOTGENTOO`
 
-Sometimes, even this is not sufficient, and you may have to add more specific options for libraries that are used by your software package. For example: 
-* `-DCURL_LIBRARY=$EBROOTGENTOO/lib/libcurl.so -DCURL_INCLUDE_DIR=$EBROOTGENTOO/include`
-* `-DPYTHON_EXECUTABLE=$EBROOTPYTHON/bin/python`
-* `-DPNG_PNG_INCLUDE_DIR=$EBROOTGENTOO/include -DPNG_LIBRARY=$EBROOTGENTOO/lib/libpng.so`
-* `-DJPEG_INCLUDE_DIR=$EBROOTGENTOO/include -DJPEG_LIBRARY=$EBROOTGENTOO/lib/libjpeg.so`
-* `-DOPENGL_INCLUDE_DIR=$EBROOTGENTOO/include -DOPENGL_gl_LIBRARY=$EBROOTGENTOO/lib/libGL.so -DOPENGL_glu_LIBRARY=$EBROOTGENTOO/lib/libGLU.so`
-* `-DZLIB_ROOT=$EBROOTGENTOO`
+Sometimes, even this is not sufficient, and you may have to add more specific options for libraries that are used by your software package. For example:
+*   `-DCURL_LIBRARY=$EBROOTGENTOO/lib/libcurl.so -DCURL_INCLUDE_DIR=$EBROOTGENTOO/include`
+*   `-DPYTHON_EXECUTABLE=$EBROOTPYTHON/bin/python`
+*   `-DPNG_PNG_INCLUDE_DIR=$EBROOTGENTOO/include -DPNG_LIBRARY=$EBROOTGENTOO/lib/libpng.so`
+*   `-DJPEG_INCLUDE_DIR=$EBROOTGENTOO/include -DJPEG_LIBRARY=$EBROOTGENTOO/lib/libjpeg.so`
+*   `-DOPENGL_INCLUDE_DIR=$EBROOTGENTOO/include -DOPENGL_gl_LIBRARY=$EBROOTGENTOO/lib/libGL.so -DOPENGL_glu_LIBRARY=$EBROOTGENTOO/lib/libGLU.so`
+*   `-DZLIB_ROOT=$EBROOTGENTOO`
 
 ## Customizing the configuration
 Just like with `autotools`, it is possible to customize the configuration of an application or a library. This can be done by different command line options, but also using a command line interface with the `ccmake` command.
 
 ### `ccmake`
 You call `ccmake` in the same way as you call `cmake`, by giving the directory to build from. So if this is the current directory, you should call
+
 ```bash
 ccmake .
 ```
 
 You should run `ccmake` *after* having ran `cmake`. So, generally you would do
+
 ```bash
 cmake . && ccmake .
 ```
 
 `ccmake` gives you then a list of options that are defined by the project. You will then see a relatively short list like this:
-```text title="ccmake output"
+
+```console
+cmake . && ccmake .
                                                      Page 1 of 1
  ARPACK_LIBRARIES                 ARPACK_LIBRARIES-NOTFOUND
  CMAKE_BUILD_TYPE
@@ -90,7 +134,8 @@ Press [h] for help           Press [q] to quit without generating
 Press [t] to toggle advanced mode (Currently Off)
 ```
 As is written at the bottom of this display, you can edit a value by pressing the `enter` key. If you modify a value, you will want to press the `c` key to try out the configuration with this new value. If this new configuration succeeds with that new value, you will then have the option `g` to generate the `Makefile` with the new configuration, or you can quit using the `q` key. Lastly, you can activate advanced mode using the `t` key. You will then have a much longer list of variables which allows you to precisely configure the application. Here is a list of options
-```text title="ccmake_output.txt"
+
+```text
  ARPACK_LIBRARIES                 ARPACK_LIBRARIES-NOTFOUND
  BLAS_Accelerate_LIBRARY          /System/Library/Frameworks/Accelerate.framework
  BLAS_acml_LIBRARY                BLAS_acml_LIBRARY-NOTFOUND
@@ -172,44 +217,46 @@ As is written at the bottom of this display, you can edit a value by pressing th
  USE_GSL_OMP                      OFF
  USE_OMP                          OFF
 ```
-As you can see, `ccmake` in advanced mode displays equally well the libraries that were found as those that were not found. If you would like to use a specific version of [BLAS](blas-and-lapack.md) for example, you will immediately know which one was found by CMake, and modify this if necessary. `ccmake` also displays the list of flags that are passed to the C, C++, and other compilers, to the linker, depending on the build type. 
+As you can see, `ccmake` in advanced mode displays equally well the libraries that were found as those that were not found. If you would like to use a specific version of [BLAS](blas-and-lapack.md) for example, you will immediately know which one was found by CMake, and modify this if necessary. `ccmake` also displays the list of flags that are passed to the C, C++, and other compilers, to the linker, depending on the build type.
 
 ### Command line options
 All command line options that are displayed by `ccmake` can be modified on the command line, using the following syntax:
+
 ```bash
 cmake . -DVARIABLE=VALUE
 ```
 
 For example, to specify the install location:
+
 ```bash
 cmake . -DCMAKE_INSTALL_PREFIX=/home/user/my_directory
 ```
 
 To configure the compilation, you might want to change the following values:
 
-| Option | Description |
-|---|---|
-| `CMAKE_C_COMPILER` | Change the C compiler |
-| `CMAKE_CXX_COMPILER` | Change the C++ compiler |
-| `CMAKE_LINKER` | Change the linker |
-| `CMAKE_C_FLAGS` | Change the flags passed to the C compiler |
-| `CMAKE_CXX_FLAGS` | Change the flags passed to the C++ compiler |
-| `CMAKE_SHARED_LINKER_FLAGS` | Change the flags passed to the linker |
+| Option                          | Description                           |
+| :------------------------------ | :------------------------------------ |
+| `CMAKE_C_COMPILER`              | Change the C compiler                 |
+| `CMAKE_CXX_COMPILER`            | Change the C++ compiler               |
+| `CMAKE_LINKER`                  | Change the linker                     |
+| `CMAKE_C_FLAGS`                 | Change the flags passed to the C compiler |
+| `CMAKE_CXX_FLAGS`               | Change the flags passed to the C++ compiler |
+| `CMAKE_SHARED_LINKER_FLAGS`     | Change the flags passed to the linker |
 
-A more exhaustive list option is available [on the official CMake page](http://www.cmake.org/Wiki/CMake_Useful_Variables). 
+A more exhaustive list option is available [on the official CMake page](http://www.cmake.org/Wiki/CMake_Useful_Variables).
 
 If you do not want to get into adventures with these specific options, CMake also provides a simpler option, called `CMAKE_BUILD_TYPE`. This option defines which compilation type must be used. Possible values are
 
-| Option | Description |
-|---|---|
-| - | No value |
-| Debug | Activate debugging options, deactivate optimization options |
-| Release | Deactivate debugging options, activate usual optimizations |
-| MinSizeRel | Deactivate debugging options, activate optimization options that minimize the binary's size |
-| RelWithDebInfo | Activate debugging options and usual optimizations |
+| Option       | Description                                                |
+| :----------- | :--------------------------------------------------------- |
+| -            | No value                                                   |
+| Debug        | Activate debugging options, deactivate optimization options |
+| Release      | Deactivate debugging options, activate usual optimizations  |
+| MinSizeRel   | Deactivate debugging options, activate optimization options that minimize the binary's size |
+| RelWithDebInfo | Activate debugging options and usual optimizations         |
 
 These different compilation types define compiler options that vary from compiler to compiler. So you do not need to check which exact compiler flags have to be used.
 
 ## References
-* [A simple example](http://www.cmake.org/cmake/help/examples.html) on the official site.
-* [A tutorial](http://www.cmake.org/cmake/help/cmake_tutorial.html) that is more complete on the official site.
+*   [A simple example](http://www.cmake.org/cmake/help/examples.html) on the official site.
+*   [A tutorial](http://www.cmake.org/cmake/help/cmake_tutorial.html) that is more complete on the official site.

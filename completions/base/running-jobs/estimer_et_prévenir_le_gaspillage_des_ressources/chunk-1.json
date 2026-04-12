@@ -1,0 +1,68 @@
+{
+  "doc_key": "base/estimer_et_prévenir_le_gaspillage_des_ressources",
+  "level": "chunk",
+  "chunk_index": 1,
+  "qa_pairs": [
+    {
+      "question": "What is the primary goal of this document?",
+      "answer": "The primary goal of this document is to minimize resource waste in our clusters by highlighting common user errors and providing corresponding solutions."
+    },
+    {
+      "question": "Into which main categories are the resource waste examples divided?",
+      "answer": "The examples of resource waste are divided into three main categories: CPU, GPU, and memory."
+    },
+    {
+      "question": "Where do the graphs used in this document come from?",
+      "answer": "The graphs used in this document are sourced from the Narval and Béluga portals."
+    },
+    {
+      "question": "What is a serial task?",
+      "answer": "A serial task is a task that executes on a single processor or compute core at a time, without parallelism. It follows a strictly sequential execution, and memory is shared by processes and execution threads."
+    },
+    {
+      "question": "How do serial tasks differ from parallel tasks?",
+      "answer": "Unlike parallel tasks, which can utilize multiple processors or cores simultaneously for faster processing, serial tasks follow a strictly sequential execution on a single processor or core."
+    },
+    {
+      "question": "How is a single core typically requested in a submission script for a serial task?",
+      "answer": "A single core is typically requested using the option `--cpus-per-task=1` in the submission script for a serial task."
+    },
+    {
+      "question": "What are the common SBATCH options used in an example script for a serial task?",
+      "answer": "Common SBATCH options used in an example script for a serial task include `--cpus-per-task=1`, `--mem-per-cpu=4G`, `--time=02:00:00`, and `--account=def-someuser`."
+    },
+    {
+      "question": "How does a serial task appear on the CPU graph in the portal interface?",
+      "answer": "On the CPU graph for a serial task, the vertical scale is fixed at 1 (corresponding to one requested core). The utilization is shown in blue and completely fills the graph, indicating usage close to 100%."
+    },
+    {
+      "question": "Which memory parameters should be monitored in the memory graph?",
+      "answer": "The memory parameters to monitor in the memory graph are the 'total allocated' memory and the 'maximum used' memory."
+    },
+    {
+      "question": "What is the recommended memory margin to prevent 'Out of memory' errors?",
+      "answer": "It is recommended to allocate an approximate 20% memory margin to prevent 'Out of memory' (OOM) errors."
+    },
+    {
+      "question": "What does the 'Processes and threads' graph indicate for a serial task?",
+      "answer": "For a serial task, the 'Processes and threads' graph indicates that one execution thread is active ('Running threads'), which is represented by the orange line."
+    },
+    {
+      "question": "What happens if a user requests multiple cores (e.g., 8) for a serial task?",
+      "answer": "If a user requests multiple cores for a serial task, only one core will be active in the CPU graph despite the higher request, resulting in wasted cores (e.g., 7 cores wasted if 8 were requested)."
+    },
+    {
+      "question": "What is the corrective action if 8 cores are requested for a serial task, but only one is active?",
+      "answer": "The corrective action is to request only 1 core instead of 8 using `--cpus-per-task=1`."
+    },
+    {
+      "question": "How does requesting too many cores for a serial task affect memory allocation?",
+      "answer": "When too many cores (e.g., 8) are requested for a serial task with a high `--mem-per-cpu` value (e.g., 32 GB), the total memory requested becomes excessively high (e.g., 256 GB), even if only a small amount (e.g., 4 GB) is actually utilized."
+    },
+    {
+      "question": "What memory correction is recommended if 256 GB were requested for a serial task but only 4 GB were actually used?",
+      "answer": "The recommended memory correction would be to request `--mem-per-cpu=6G`."
+    }
+  ],
+  "generated_at": "2026-04-11T21:18:57.982330+00:00"
+}

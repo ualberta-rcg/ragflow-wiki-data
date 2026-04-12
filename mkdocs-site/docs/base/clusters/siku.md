@@ -5,21 +5,30 @@ lang: "base"
 
 source_wiki_title: "Siku"
 source_hash: "ecd1877f546fae9104067861bda1f6cc"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T11:20:23.756274+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T11:30:52.157420+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "Siku"
+  - "documentation"
+  - "high-performance computing cluster"
+  - "general-purpose"
+  - "ACENET"
+
+questions:
+  - "What type of computing system is Siku?"
+  - "Which organization is responsible for operating the Siku cluster?"
+  - "Where can users access the official documentation for Siku?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 

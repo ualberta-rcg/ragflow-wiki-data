@@ -1,0 +1,87 @@
+{
+  "doc_key": "fr/working_with_volumes",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "C'est quoi un volume dans le contexte de nos nuages?",
+      "answer": "Un volume est un espace de stockage qui n'est pas détruit quand on termine l'instance à laquelle il est attaché."
+    },
+    {
+      "question": "Comment le stockage des volumes est-il protégé contre les défaillances de matériel dans nos nuages?",
+      "answer": "Le stockage est assuré par Ceph, soit avec une triple réplication, soit avec des codes d'effacement comme protection."
+    },
+    {
+      "question": "Dans Arbutus, quelle est la différence entre les types de volume 'Default' et 'OS or Database'?",
+      "answer": "Le type 'Default' utilise des codes d'effacement pour réduire les coûts, tandis que 'OS or Database' utilise la triple réplication."
+    },
+    {
+      "question": "Comment faire pour créer un volume à partir du tableau de bord?",
+      "answer": "Il faut cliquer sur '+ Créer un volume', remplir les champs comme le nom, choisir 'Aucune source, volume vide' comme source, définir la taille et sélectionner 'nova' pour la zone de disponibilité."
+    },
+    {
+      "question": "Qu'est-ce que ça veut dire 'attacher un volume' à une instance?",
+      "answer": "Attacher un volume, c'est l'associer à une instance, un peu comme insérer une clé USB ou ajouter un disque externe à un ordinateur."
+    },
+    {
+      "question": "Comment attacher un volume existant à une instance via le tableau de bord?",
+      "answer": "Sur la page 'Volume', dans la colonne 'Actions', sélectionnez 'Gérer les attachements' du menu déroulant, choisissez l'instance, puis cliquez sur 'Attacher le volume'."
+    },
+    {
+      "question": "Quel est le but de formater un nouveau volume?",
+      "answer": "Formater un volume, c'est le préparer pour y enregistrer des fichiers et des répertoires. C'est essentiel avant de pouvoir l'utiliser pour la première fois."
+    },
+    {
+      "question": "Y a-t-il des mises en garde importantes à savoir avant de formater un volume?",
+      "answer": "Oui, il ne faut PAS formater un volume si on l'a déjà utilisé et qu'il contient des données, car le formatage efface toute l'information qui s'y trouve."
+    },
+    {
+      "question": "Qu'est-ce que ça signifie 'monter un volume' sur une instance?",
+      "answer": "Monter un volume, c'est créer une association logique entre le système de fichiers du volume et les répertoires et la structure des fichiers de l'instance."
+    },
+    {
+      "question": "Comment monter un volume sur une instance Linux avec une commande?",
+      "answer": "On utilise une commande semblable à `[name@server ~]$ sudo mount /dev/vdb1 /mnt`, en s'adaptant au nom du dispositif et au point de montage souhaité."
+    },
+    {
+      "question": "Est-ce qu'un volume reste monté automatiquement après le redémarrage d'une instance?",
+      "answer": "Non, un volume doit être monté de nouveau après chaque redémarrage, à moins d'ajouter une ligne de configuration dans le fichier `/etc/fstab`."
+    },
+    {
+      "question": "Pourquoi est-il recommandé de démarrer l'instance depuis un volume plutôt qu'une image sur le disque local?",
+      "answer": "Démarrer depuis un volume procure une redondance et protège l'instance des défaillances de matériel, assurant ainsi un service persistant, ce qui n'est pas le cas pour les images sur disque local."
+    },
+    {
+      "question": "Comment faire en sorte qu'un volume créé au lancement d'une instance persiste?",
+      "answer": "Il est préférable de ne jamais cocher la case 'Supprimer le volume lors de la suppression de l'instance' lors de la création de l'instance, car le volume pourra être supprimé manuellement plus tard."
+    },
+    {
+      "question": "Dans quel but peut-on créer une image à partir d'un volume?",
+      "answer": "Ça permet de télécharger l'image pour l'utiliser comme copie de sécurité ou pour créer une instance sur un autre nuage ou avec un logiciel comme VirtualBox."
+    },
+    {
+      "question": "Quelle est la condition préalable pour pouvoir créer une image à partir d'un volume?",
+      "answer": "Le volume doit d'abord être détaché de l'instance. Si c'est un volume de démarrage ('boot volume'), l'instance doit être supprimée avant de pouvoir détacher le volume."
+    },
+    {
+      "question": "Quel format de disque est recommandé pour les images OpenStack et quel autre pour VirtualBox?",
+      "answer": "QCOW2 est recommandé pour OpenStack pour son efficacité et sa compacité. Pour VirtualBox, il est préférable de sélectionner VMDK ou VDI."
+    },
+    {
+      "question": "Comment cloner un volume et pourquoi est-ce la méthode recommandée pour copier des volumes?",
+      "answer": "Le clonage se fait avec la commande `openstack volume create --source <id_volume_source> --size <taille_nouveau_volume> <nom_nouveau_volume>`. C'est plus rapide et demande moins d'échange de données que la création d'image."
+    },
+    {
+      "question": "Quelle précaution faut-il prendre avant de cloner un volume?",
+      "answer": "Il est fortement recommandé de terminer (arrêter) l'instance avant de cloner un volume pour éviter que l'état du volume cloné soit incohérent par rapport au volume source si des modifications surviennent pendant le clonage."
+    },
+    {
+      "question": "Quelles sont les vérifications importantes à faire avant de détacher un volume?",
+      "answer": "Il est crucial de vérifier si des fichiers du volume sont utilisés par le système d'exploitation ou des applications actives, et si oui, de démonter le volume ou de fermer l'instance pour éviter la corruption des données."
+    },
+    {
+      "question": "Quelle est la procédure pour détacher un volume de démarrage ('/dev/vda') par rapport à un volume de données ('/dev/vdb', etc.)?",
+      "answer": "Pour un volume de démarrage, il faut d'abord détacher (supprimer) l'instance. Pour un volume de données, on peut le détacher directement via 'Gérer les attachements' dans le tableau de bord."
+    }
+  ],
+  "generated_at": "2026-04-12T12:09:23.611499+00:00"
+}

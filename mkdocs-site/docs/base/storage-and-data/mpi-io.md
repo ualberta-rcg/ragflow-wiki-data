@@ -5,21 +5,48 @@ lang: "base"
 
 source_wiki_title: "MPI-IO"
 source_hash: "61ffff25eddb4070e4daef8125c08889"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T08:15:49.505859+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T08:48:54.724956+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "MPI_File_set_view"
+  - "OpenMPI"
+  - "offsets"
+  - "file locks"
+  - "MPI-IO"
+  - "parallel I/O"
+  - "MPI_Comm_rank"
+  - "MPI routines"
+  - "MPI_Datatype"
+  - "mpi_view.c"
+  - "parallel read and write"
+  - "MPI"
+  - "MPI_File"
+  - "views"
+
+questions:
+  - "What is MPI-IO and what is its main advantage when handling data partitioned across multiple processes?"
+  - "How do parallel read and write operations function when using file offsets?"
+  - "How does using views simplify file operations compared to manually computing offsets?"
+  - "How does the provided MPI code achieve the alternating write pattern across different processes?"
+  - "What MPI functions and parameters are used to read the previously written data in a serial, contiguous fashion for each process?"
+  - "Why might using views on disjoint file sections fail on certain file systems according to the provided warning?"
+  - "What is the primary purpose of the MPI program defined in the `mpi_view.c` file?"
+  - "How are the `BLOCKSIZE` and `NBRBLOCKS` constants intended to be used in conjunction with the character buffer?"
+  - "What role do the custom MPI datatypes, `type_intercomp` and `type_contiguous`, play in this program's file operations?"
+  - "How does the provided MPI code achieve the alternating write pattern across different processes?"
+  - "What MPI functions and parameters are used to read the previously written data in a serial, contiguous fashion for each process?"
+  - "Why might using views on disjoint file sections fail on certain file systems according to the provided warning?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -34,6 +61,7 @@ The simplest way to perform parallel read and write operations is to use offsets
 
 ```c title="mpi_rw_at.c"
 #include <mpi.h>
+#include <string.h> // Required for memset
 
 #define BLOCKSIZE  80
 #define NBRBLOCKS  32
@@ -42,11 +70,11 @@ int main(int argc, char** argv) {
 
     MPI_File f;
     char*    filename  = "testmpi.txt";
-    char     buffer[TAILLEBLOC];
+    char     buffer[BLOCKSIZE]; // Corrected from TAILLEBLOC
     int      rank, size;
     int      i;
 
-    /* MPI Initialization */ 
+    /* MPI Initialization */
     MPI_Init(&argc, &argv);
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     MPI_Comm_size(MPI_COMM_WORLD, &size);
@@ -88,6 +116,7 @@ Using views, each process can *see* a section of the file as if it were the enti
 ```c title="mpi_view.c"
 #include <stdio.h>
 #include <mpi.h>
+#include <string.h> // Required for memset
 
 #define BLOCKSIZE  80
 #define NBRBLOCKS  32
@@ -147,7 +176,7 @@ int main(int argc, char** argv) {
 }
 ```
 
-!!! warning
+!!! warning "Warning!"
     Some file systems do not support file locks. Consequently some operations are not possible, in particular using views on disjoint file sections.
 
 ## References

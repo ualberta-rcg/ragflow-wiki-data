@@ -1,0 +1,51 @@
+{
+  "doc_key": "fr/blast",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "C'est quoi, BLAST, pis à quoi ça sert?",
+      "answer": "BLAST, ou « Basic Local Alignment Search Tool », ça sert à trouver des régions similaires entre des séquences de nucléotides ou d'acides aminés, pis à faire un alignement de ces régions-là."
+    },
+    {
+      "question": "Où est-ce que je peux trouver plus de détails sur les arguments de BLAST?",
+      "answer": "Tu peux consulter le manuel de l'utilisateur du NCBI en ligne ou lancer la commande `blastn -help`."
+    },
+    {
+      "question": "Où sont stockées les bases de données de séquences fréquemment utilisées sur les grappes de Compute Canada?",
+      "answer": "Les bases de données se trouvent dans `/cvmfs/bio.data.computecanada.ca/content/databases/Core/blast_dbs/2022_03_23/` pour les versions plus anciennes, pis pour les plus récentes (`nr` et `nt`), dans `/cvmfs/bio.data.computecanada.ca/content/databases/Core/blast_dbs/2025_06_21/`."
+    },
+    {
+      "question": "Quelle est la première étape à faire avant de lancer une recherche BLAST?",
+      "answer": "Il faut préparer la base de données de référence avec l'outil `makeblastdb` en tant que tâche de prétraitement."
+    },
+    {
+      "question": "Comment on fait pour accélérer une recherche BLAST quand on a beaucoup de requêtes?",
+      "answer": "On peut accélérer ça en utilisant le parallélisme des données, c'est-à-dire en divisant le fichier de requêtes en plusieurs petites parts à interroger sur la base de données."
+    },
+    {
+      "question": "Si j'utilise un vecteur de tâches pour accélérer ma recherche, comment je devrais préparer mes requêtes?",
+      "answer": "Tu devrais diviser ton fichier de requêtes (`seq.fa`) en plusieurs petites parts d'au moins 1 Mo chacune avec l'utilitaire `faSplit`, comme `faSplit sequence seqs.fa 10 seq`."
+    },
+    {
+      "question": "Comment on soumet un vecteur de tâches BLAST après avoir créé la base de données?",
+      "answer": "Tu peux soumettre le script du vecteur de tâches avec une dépendance sur la création de la base de données, comme ça: `sbatch --dependency=afterok:$(sbatch makeblastdb.sh) blastn_array.sh`."
+    },
+    {
+      "question": "Une fois que toutes les tâches d'un vecteur sont finies, comment on rassemble les résultats?",
+      "answer": "Tu peux concaténer les fichiers de résultats avec la commande `cat seq.ref.{0..9} > seq.ref` à partir du nœud de connexion ou comme tâche indépendante."
+    },
+    {
+      "question": "Pourquoi j'utiliserais GNU Parallel pour mes recherches BLAST au lieu des vecteurs de tâches?",
+      "answer": "GNU Parallel est bon pour grouper plusieurs petites tâches pis les paralléliser, ce qui réduit les problèmes liés aux nombreux petits fichiers dans un système de fichiers parallèle."
+    },
+    {
+      "question": "Est-ce que la taille des blocs est importante quand on utilise GNU Parallel, pis comment on la gère?",
+      "answer": "Oui, la taille des blocs est très importante pour pas gaspiller des cœurs. Tu peux laisser GNU Parallel la décider en utilisant l'option `--block -1`."
+    },
+    {
+      "question": "Quels sont les trucs pour optimiser mes recherches BLAST?",
+      "answer": "Tu peux copier ta base de données FASTA dans l'espace local du nœud (`$SLURM_TMPDIR`), réduire le nombre de réponses (`-max_target_seqs`, `-max_hsps`), pis limiter la liste des réponses avec des filtres `evalue`."
+    }
+  ],
+  "generated_at": "2026-04-11T18:22:00.437786+00:00"
+}

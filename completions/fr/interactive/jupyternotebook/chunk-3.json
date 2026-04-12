@@ -1,0 +1,64 @@
+{
+  "doc_key": "fr/jupyternotebook",
+  "level": "chunk",
+  "chunk_index": 3,
+  "qa_pairs": [
+    {
+      "question": "C'est quoi nbserverproxy et à quoi ça sert?",
+      "answer": "nbserverproxy est un module d'extension qui permet d'accéder à des services web mandataires démarrés dans un serveur Jupyter. C'est pratique pour des services qui écoutent juste sur un port du serveur local, comme TensorBoard."
+    },
+    {
+      "question": "Comment j'installe nbserverproxy dans mon environnement Jupyter virtuel?",
+      "answer": "Pour installer nbserverproxy, tu dois rouler les commandes `pip install nbserverproxy` et `jupyter serverextension enable --py nbserverproxy --sys-prefix` dans ton environnement virtuel Python activé."
+    },
+    {
+      "question": "Donne-moi un exemple de commande pour démarrer un service web comme TensorBoard via le terminal de Jupyter, et comment j'y accède.",
+      "answer": "Pour démarrer TensorBoard, tu peux utiliser `tensorboard --port=8008` dans le 'Terminal' de Jupyter. Le service est ensuite accessible via `/proxy/` sur l'adresse URL de ton serveur Jupyter, par exemple `https://address.of.notebook.server/user/theuser/proxy/8008`."
+    },
+    {
+      "question": "Qu'est-ce que RStudio Launcher fait pour Jupyter Notebook?",
+      "answer": "RStudio Launcher permet à Jupyter Notebook de démarrer une session RStudio. Il utilise le système d'authentification par jeton de Jupyter Notebook et ajoute l'option 'RStudio Session' dans le menu déroulant 'New' de Jupyter Notebook."
+    },
+    {
+      "question": "Est-ce que RStudio Launcher marche avec tous les environnements logiciels?",
+      "answer": "Non, la procédure pour RStudio Launcher fonctionne seulement avec les environnements logiciels `StdEnv/2016.4` et `StdEnv/2018.3`."
+    },
+    {
+      "question": "Comment j'installe RStudio Launcher?",
+      "answer": "Ça prend plusieurs étapes dans ton environnement virtuel Python: d'abord `pip install nbserverproxy`, puis `pip install https://github.com/jupyterhub/nbrsessionproxy/archive/v0.8.0.zip`, et ensuite tu actives les extensions avec différentes commandes `jupyter serverextension enable` et `jupyter nbextension enable` pour `nbserverproxy` et `nbrsessionproxy`."
+    },
+    {
+      "question": "Après l'installation de Jupyter Notebook, comment j'active mon environnement?",
+      "answer": "Pour activer ton environnement, tu dois d'abord charger le module Python associé à ton environnement avec `module load python/3.7`, puis activer l'environnement virtuel avec `source $HOME/jupyter_py3/bin/activate`."
+    },
+    {
+      "question": "Si je veux utiliser RStudio Launcher, quel module je dois charger en plus?",
+      "answer": "Si tu veux utiliser RStudio Launcher, tu dois charger le module RStudio Server en utilisant la commande `module load rstudio-server`."
+    },
+    {
+      "question": "Comment je lance l'application Jupyter Notebook?",
+      "answer": "Pour lancer Jupyter Notebook, tu dois soumettre une tâche interactive. Tu peux ajuster les paramètres selon tes besoins, par exemple, en utilisant la commande `salloc --time=1:0:0 --ntasks=1 --cpus-per-task=2 --mem-per-cpu=1024M --account=def-yourpi srun $VIRTUAL_ENV/bin/notebook.sh`."
+    },
+    {
+      "question": "Où puis-je trouver plus de détails pour soumettre des tâches si j'ai besoin d'ajuster les paramètres de lancement de Jupyter Notebook?",
+      "answer": "Tu peux consulter la page [[Running_jobs/fr|Exécuter des tâches]] pour plus d'informations sur l'exécution des tâches et l'ajustement des paramètres."
+    },
+    {
+      "question": "Pourquoi c'est nécessaire de créer un tunnel SSH pour me connecter à Jupyter Notebook sur les nœuds de calcul?",
+      "answer": "Ça prend un tunnel SSH parce que les nœuds de calcul ne sont pas directement accessibles par Internet. Le tunnel permet à ton fureteur web d'accéder à Jupyter Notebook qui roule sur un nœud de calcul."
+    },
+    {
+      "question": "Quel outil est recommandé pour créer un tunnel SSH sous Linux ou macOS X?",
+      "answer": "Le paquet Python `sshuttle` est recommandé pour créer un tunnel SSH sous Linux ou macOS X."
+    },
+    {
+      "question": "Comment je crée un tunnel SSH avec sshuttle sous Linux ou macOS X?",
+      "answer": "Sur ton poste de travail, ouvre une nouvelle fenêtre de terminal et lance la commande `sshuttle --dns -Nr <username>@<cluster>.alliancecan.ca`. N'oublie pas de remplacer `<username>` par ton nom d'utilisateur et `<cluster>` par le nom de la grappe."
+    },
+    {
+      "question": "Après avoir lancé Jupyter Notebook et créé un tunnel SSH, comment je me connecte à l'interface web?",
+      "answer": "Tu dois copier-coller l'adresse URL que Jupyter Notebook t'affiche (celle qui contient le jeton, comme `http://cdr544.int.cedar.computecanada.ca:8888/?token=7ed7059fad64446f837567e3`) directement dans ton fureteur web."
+    }
+  ],
+  "generated_at": "2026-04-12T00:40:44.049922+00:00"
+}

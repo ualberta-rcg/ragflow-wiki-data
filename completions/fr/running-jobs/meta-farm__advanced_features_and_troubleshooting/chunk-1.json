@@ -1,0 +1,140 @@
+{
+  "doc_key": "fr/meta-farm__advanced_features_and_troubleshooting",
+  "level": "chunk",
+  "chunk_index": 1,
+  "qa_pairs": [
+    {
+      "question": "C'est quoi l'objectif de la fonctionnalité de resoumission automatique des cas qui ont échoué?",
+      "answer": "La fonctionnalité de resoumission automatique est utile pour les fermes de tâches particulièrement grandes, nécessitant potentiellement plusieurs exécutions de la commande `resubmit.run`."
+    },
+    {
+      "question": "Comment j'active la resoumission automatique des cas avec le paquet META-Farm?",
+      "answer": "Pour activer la resoumission automatique, vous devez ajouter l'option `-auto` à votre commande `submit.run` ou `resubmit.run`. Par exemple : `$ submit.run N -auto`."
+    },
+    {
+      "question": "Est-ce que l'option `-auto` pour la resoumission automatique fonctionne en mode SIMPLE et META?",
+      "answer": "Oui, l'option `-auto` peut être utilisée autant en mode SIMPLE qu'en mode META."
+    },
+    {
+      "question": "Si j'ai pas mis l'option `-auto` à ma commande `submit.run` originale, est-ce que je peux l'ajouter après?",
+      "answer": "Oui, si votre commande `submit.run` originale n'avait pas l'option `-auto`, vous pouvez l'ajouter à `resubmit.run` après la fin de la ferme initiale pour avoir le même effet."
+    },
+    {
+      "question": "Qu'est-ce qui se passe quand j'ajoute l'option `-auto` à `(re)submit.run`?",
+      "answer": "Quand vous ajoutez `-auto`, `(re)submit.run` soumet une tâche sérielle additionnelle, en plus des tâches de la ferme. Cette tâche additionnelle exécute automatiquement la commande `resubmit.run` dès que la ferme actuelle a terminé."
+    },
+    {
+      "question": "Quel est le nom du script utilisé pour la tâche additionnelle de resoumission automatique?",
+      "answer": "Le script pour cette tâche additionnelle est `resubmit_script.sh`."
+    },
+    {
+      "question": "Où est-ce que le script `resubmit_script.sh` doit être situé?",
+      "answer": "Le script `resubmit_script.sh` doit être présent dans le répertoire de la ferme."
+    },
+    {
+      "question": "Comment le fichier `resubmit_script.sh` est-il créé?",
+      "answer": "Un fichier d'exemple `resubmit_script.sh` est copié automatiquement dans le répertoire de la ferme quand vous exécutez `farm_init.run`."
+    },
+    {
+      "question": "Quelle est la seule personnalisation que je dois faire au fichier `resubmit_script.sh`?",
+      "answer": "La seule personnalisation à faire au fichier `resubmit_script.sh` est de corriger le nom de compte dans la ligne `#SBATCH -A`."
+    },
+    {
+      "question": "Comment dois-je ajuster le paramètre `NJOBS_MAX` dans `config.h` si j'utilise l'option `-auto`?",
+      "answer": "Si vous utilisez l'option `-auto`, la valeur du paramètre `NJOBS_MAX` définie dans le fichier `config.h` devrait être au moins un de moins que le nombre maximum de tâches que vous pouvez soumettre sur la grappe."
+    },
+    {
+      "question": "Si la limite de tâches sur une grappe est 999 et que j'utilise `-auto`, quelle valeur devrais-je donner à `NJOBS_MAX`?",
+      "answer": "Vous devriez régler `NJOBS_MAX` à 998."
+    },
+    {
+      "question": "Comment je peux connaître la limite maximale de tâches soumises (MaxSubmit) pour mon compte sur une grappe spécifique?",
+      "answer": "Vous pouvez trouver la limite maximale en exécutant la commande : `$ sacctmgr list user $USER withassoc`."
+    },
+    {
+      "question": "Quand est-ce que la resoumission automatique s'arrête si j'utilise l'option `-auto`?",
+      "answer": "La resoumission automatique s'arrête et les calculs de la ferme se terminent si, à un certain point, les seuls cas restants à traiter sont ceux qui ont échoué précédemment."
+    },
+    {
+      "question": "Pourquoi la resoumission automatique s'arrête-t-elle quand il ne reste que des cas échoués?",
+      "answer": "Elle s'arrête pour éviter une boucle infinie avec des cas mal formés qui échoueraient constamment."
+    },
+    {
+      "question": "Que dois-je faire si la resoumission automatique s'arrête parce qu'il ne reste que des cas échoués?",
+      "answer": "Vous devrez régler les raisons de ces échecs avant de tenter de resoumettre la ferme."
+    },
+    {
+      "question": "Où est-ce que je peux voir les messages pertinents concernant les échecs de cas dans une ferme avec resoumission automatique?",
+      "answer": "Vous pouvez voir les messages pertinents dans le fichier `farm.log`, créé dans le répertoire de la ferme."
+    },
+    {
+      "question": "Qu'est-ce que la fonctionnalité d'exécution automatique d'une tâche de post-traitement?",
+      "answer": "C'est une fonctionnalité avancée qui permet d'exécuter automatiquement une tâche de post-traitement une fois que tous les cas du fichier `table.dat` ont été traités avec succès."
+    },
+    {
+      "question": "Est-ce que la tâche de post-traitement automatique s'exécutera si certains cas ont échoué?",
+      "answer": "Non, si des cas ont échoué (c'est-à-dire, ont eu un statut de sortie non nul), la tâche de post-traitement ne s'exécutera pas."
+    },
+    {
+      "question": "Comment j'active la fonctionnalité de post-traitement automatique?",
+      "answer": "Pour activer cette fonctionnalité, vous devez simplement créer un script pour la tâche de post-traitement nommé `final.sh` à l'intérieur du répertoire de la ferme."
+    },
+    {
+      "question": "Quel type de tâche peut être le script `final.sh` pour le post-traitement automatique?",
+      "answer": "Ce script peut être n'importe quel type de tâche : sérielle, parallèle ou une tâche tableau (array job)."
+    },
+    {
+      "question": "Quel script est utilisé pour la fonctionnalité de post-traitement automatique?",
+      "answer": "Cette fonctionnalité utilise le même script, `resubmit_script.sh`, que celui décrit pour la resoumission automatique avec l'option `-auto`."
+    },
+    {
+      "question": "Que dois-je m'assurer concernant `resubmit_script.sh` lors de l'utilisation du post-traitement automatique?",
+      "answer": "Vous devez vous assurer que `resubmit_script.sh` a le bon nom de compte dans la ligne `#SBATCH -A`."
+    },
+    {
+      "question": "Comment le paramètre `NJOBS_MAX` dans `config.h` doit-il être ajusté pour le post-traitement automatique?",
+      "answer": "La fonctionnalité de post-traitement automatique soumet aussi des tâches sérielles additionnelles. Vous devez ajuster le paramètre `NJOBS_MAX` dans `config.h` en conséquence, par exemple, si la limite de tâches de la grappe est 999, réglez-le à 998."
+    },
+    {
+      "question": "Si j'utilise à la fois la resoumission automatique et le post-traitement automatique, combien de tâches additionnelles seront soumises, et comment ajuster `NJOBS_MAX`?",
+      "answer": "Si vous utilisez les deux fonctionnalités, elles ne soumettront ensemble qu'une seule tâche additionnelle. Vous n'avez pas besoin de soustraire 2 de `NJOBS_MAX`, seulement 1."
+    },
+    {
+      "question": "Où sont consignés les messages système de la fonctionnalité de resoumission automatique?",
+      "answer": "Les messages système de la fonctionnalité de resoumission automatique sont consignés dans `farm.log`, dans le répertoire racine de la ferme."
+    },
+    {
+      "question": "C'est quoi le mode WHOLE_NODE de meta-farm?",
+      "answer": "Le mode WHOLE_NODE, introduit à partir de la version 1.0.3, permet d'empaqueter des tâches individuelles de ferme sérielle en des tâches utilisant des nœuds entiers (whole node jobs)."
+    },
+    {
+      "question": "Sur quelles grappes le mode WHOLE_NODE a-t-il permis d'utiliser le paquet META-Farm?",
+      "answer": "Ce mode a rendu possible l'utilisation du paquet sur les grappes Niagara et Trillium."
+    },
+    {
+      "question": "Est-ce que le mode WHOLE_NODE est activé par défaut?",
+      "answer": "Non, ce mode est désactivé par défaut."
+    },
+    {
+      "question": "Comment j'active le mode WHOLE_NODE?",
+      "answer": "Pour l'activer, vous devez éditer le fichier `config.h` dans votre répertoire de ferme. Spécifiquement, vous devez régler `WHOLE_NODE=1` et la variable `NWHOLE` au nombre de cœurs de CPU par nœud."
+    },
+    {
+      "question": "Quel est le nombre de cœurs de CPU par nœud pour Niagara et Trillium quand on configure `NWHOLE`?",
+      "answer": "Pour Niagara, `NWHOLE` doit être réglé à 40; pour Trillium, à 192."
+    },
+    {
+      "question": "Dans le mode WHOLE_NODE, comment l'argument entier positif de la commande `submit.run` change-t-il de signification?",
+      "answer": "Au lieu d'être le nombre de méta-tâches, il représente maintenant le nombre de nœuds entiers à utiliser en mode META."
+    },
+    {
+      "question": "Si le mode WHOLE_NODE est activé, que ferait la commande `$ submit.run 2`?",
+      "answer": "La commande allouerait deux nœuds entiers, qui seraient utilisés pour exécuter jusqu'à 384 tâches sérielles concurrentes (192 tâches par nœud) en utilisant le mode META (équilibrage dynamique de la charge de travail)."
+    },
+    {
+      "question": "Quel est le comportement de l'argument `-1` pour `submit.run` en mode WHOLE_NODE?",
+      "answer": "L'argument `-1` conserve sa signification originale : exécuter la ferme en mode SIMPLE. Le nombre réel de tâches (nœuds entiers) est calculé comme `Nombre_de_cas / NWHOLE`."
+    }
+  ],
+  "generated_at": "2026-04-12T01:32:36.807497+00:00"
+}

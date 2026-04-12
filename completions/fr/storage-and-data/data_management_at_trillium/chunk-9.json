@@ -1,0 +1,64 @@
+{
+  "doc_key": "fr/data_management_at_trillium",
+  "level": "chunk",
+  "chunk_index": 9,
+  "qa_pairs": [
+    {
+      "question": "Quelles commandes GPFS est-ce qu'on peut utiliser pour gérer les permissions et les listes de contrôle d'accès (ACL) sur Trillium?",
+      "answer": "On peut utiliser les commandes GPFS comme `mmputacl`, `mmgetacl`, `mmdelacl` et `mmeditacl` pour configurer le contrôle des permissions et les ACL POSIX ou NFS v4."
+    },
+    {
+      "question": "C'est quoi la première chose à faire avant d'utiliser les commandes d'ACL?",
+      "answer": "Avant d'utiliser les commandes d'ACL, il faut d'abord créer un fichier d'ACL, par exemple `/tmp/supervisor.acl`, avec le contenu des permissions désirées."
+    },
+    {
+      "question": "Pourriez-vous me donner un exemple de contenu pour un fichier ACL qu'on peut créer?",
+      "answer": "Oui, un exemple de contenu pour un fichier ACL pourrait être :\n```\nuser::rwxc\ngroup::----\nother::----\nmask::rwxc\nuser:[owner]:rwxc\nuser:[supervisor]:rwxc\ngroup:[othegroup]:r-xc\n```"
+    },
+    {
+      "question": "À quoi sert la commande `mmputacl` et comment on l'utilise?",
+      "answer": "La commande `mmputacl` permet d'appliquer un fichier ACL à un répertoire. Par exemple, `$ mmputacl -i /tmp/supervisor.acl /project/g/group/[owner]` applique l'ACL définie dans le fichier `/tmp/supervisor.acl` au répertoire spécifié."
+    },
+    {
+      "question": "Comment on fait pour s'assurer que les nouveaux fichiers ou répertoires héritent des permissions ACL par défaut?",
+      "answer": "Pour que les nouveaux fichiers ou répertoires créés dans un dossier héritent des permissions ACL par défaut, il faut utiliser l'option `-d` avec `mmputacl`. Par exemple, `$ mmputacl -d -i /tmp/supervisor.acl /project/g/group/[owner]`."
+    },
+    {
+      "question": "Comment on fait pour voir les attributs ACL actuels d'un répertoire?",
+      "answer": "Pour voir les attributs ACL actuels d'un répertoire, on utilise la commande `mmgetacl`, comme `$ mmgetacl /project/g/group/[owner]`."
+    },
+    {
+      "question": "Quelle commande faut-il utiliser pour enlever une ACL qu'on avait mise sur un répertoire?",
+      "answer": "Pour enlever une ACL précédemment définie sur un répertoire, il faut utiliser la commande `mmdelacl` avec l'option `-d`, par exemple `$ mmdelacl -d /project/g/group/[owner]`."
+    },
+    {
+      "question": "Comment on peut créer ou changer une liste de contrôle d'accès GPFS?",
+      "answer": "On peut utiliser la commande `mmeditacl` pour créer ou modifier une liste de contrôle d'accès GPFS. Il faut aussi s'assurer que la variable d'environnement `EDITOR` est configurée avant d'utiliser la commande, par exemple en exécutant `export EDITOR=/usr/bin/vi`."
+    },
+    {
+      "question": "Est-ce qu'on peut ajouter ou supprimer récursivement des attributs ACL à des fichiers existants avec une seule commande GPFS?",
+      "answer": "Non, il n'est pas possible d'ajouter ou de supprimer récursivement des attributs ACL à des fichiers existants avec une commande GPFS intégrée. Il faut utiliser l'option `-i` pour chaque fichier ou répertoire individuellement, ou utiliser un script bash pour automatiser la tâche."
+    },
+    {
+      "question": "Est-ce que `mmputacl` va écraser les permissions de groupe Linux originales d'un répertoire?",
+      "answer": "Non, `mmputacl` ne va pas écraser les permissions de groupe Linux originales d'un répertoire. Si vous voulez donner des permissions `rwx` à tout le monde dans votre groupe, il faut simplement utiliser la commande Unix `chmod g+rwx`."
+    },
+    {
+      "question": "Qui doit définir les ACL pour des répertoires sous `/project` si on veut que d'autres groupes y aient accès?",
+      "answer": "Dans le cas de `/project`, la personne responsable de votre groupe devra définir l'ACL appropriée au niveau `/project/G/GROUP` pour permettre aux utilisateurs d'autres groupes d'accéder à vos fichiers."
+    },
+    {
+      "question": "Est-ce que les ACL me permettent de donner des permissions pour des fichiers qui ne m'appartiennent pas?",
+      "answer": "Non, les ACL ne permettent pas d'accorder des permissions pour des fichiers ou des répertoires qui ne vous appartiennent pas."
+    },
+    {
+      "question": "Est-ce une bonne pratique de donner des autorisations d'écriture à d'autres personnes au niveau supérieur de mon répertoire personnel (`/home`)?",
+      "answer": "Non, il est fortement recommandé de ne jamais accorder d'autorisation d'écriture à d'autres personnes au niveau supérieur de votre répertoire personnel (`/home/G/GROUP/[owner]`), car ça pourrait compromettre sérieusement votre confidentialité. Il vaut mieux créer des sous-répertoires spécifiques sous votre répertoire personnel si c'est nécessaire pour le partage."
+    },
+    {
+      "question": "Où est-ce que je peux trouver un exemple de script pour gérer les ACL de façon récursive?",
+      "answer": "Vous pouvez trouver un exemple de script bash sur la page wiki de SciNet, à l'adresse 'https://docs.scinet.utoronto.ca/index.php/Recursive_ACL_script', que vous pouvez adapter pour ajouter ou supprimer récursivement des attributs ACL."
+    }
+  ],
+  "generated_at": "2026-04-11T20:59:01.057883+00:00"
+}

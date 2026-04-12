@@ -1,0 +1,84 @@
+{
+  "doc_key": "en/handling_large_collections_of_files",
+  "level": "chunk",
+  "chunk_index": 1,
+  "qa_pairs": [
+    {
+      "question": "What common problem arises when managing very large collections of small files, especially in domains like AI and Machine Learning?",
+      "answer": "A problem arises due to filesystem quotas on clusters that limit the number of filesystem objects. Very large numbers of files, particularly small ones, create significant issues for the performance of shared filesystems as well as the automated backup of home and project spaces."
+    },
+    {
+      "question": "How can a user recursively count all files in folders within the current directory?",
+      "answer": "A user can use the following shell script: `for FOLDER in $(find . -maxdepth 1 -type d | tail -n +2); do echo -ne \"$FOLDER:\\t\"; find $FOLDER -type f | wc -l; done`."
+    },
+    {
+      "question": "What command can identify the 10 directories using the most disk space from the current directory?",
+      "answer": "The command `du -sh * | sort -hr | head -10` will output the 10 directories using the most disk space."
+    },
+    {
+      "question": "How does the performance of local disks attached to compute nodes compare to project or scratch filesystems?",
+      "answer": "Local disks attached to compute nodes are at least SATA SSD or better and generally have considerably better performance than the project or scratch filesystems."
+    },
+    {
+      "question": "Is local disk space on compute nodes allocated by the scheduler?",
+      "answer": "No, a local disk is shared by all running jobs on that node without being allocated by the scheduler."
+    },
+    {
+      "question": "Does the available local disk space vary across clusters?",
+      "answer": "Yes, the actual amount of local disk space varies from one cluster to another and might also vary within a given cluster."
+    },
+    {
+      "question": "How much local disk space is available on Béluga's CPU and GPU nodes?",
+      "answer": "Béluga offers roughly 370GB of local disk for the CPU nodes, and the GPU nodes have a 1.6TB NVMe disk."
+    },
+    {
+      "question": "Does the Niagara cluster provide local storage on its compute nodes?",
+      "answer": "No, Niagara does not have local storage on its compute nodes."
+    },
+    {
+      "question": "What is the minimum assumed local disk size for other clusters?",
+      "answer": "For other clusters, the available disk size can be assumed to be at least 190GB."
+    },
+    {
+      "question": "Which environment variable allows access to the local disk within a job?",
+      "answer": "You can access the local disk inside of a job using the environment variable `$SLURM_TMPDIR`."
+    },
+    {
+      "question": "What is a recommended workflow for using local disk with large datasets during a job?",
+      "answer": "One approach is to keep the dataset archived as a single `tar` file in project space, copy it to the local disk at the beginning of your job, extract and use the dataset, and then re-archive any changes back to a `tar` file and copy it to the project space at the job's end."
+    },
+    {
+      "question": "What filesystem can be used as a RAM disk on compute nodes?",
+      "answer": "The `/tmp` filesystem can be used as a RAM disk on the compute nodes."
+    },
+    {
+      "question": "How is the `/tmp` RAM disk implemented?",
+      "answer": "It is implemented using `tmpfs`."
+    },
+    {
+      "question": "When is the data stored in the `/tmp` RAM disk cleared?",
+      "answer": "The `/tmp` RAM disk is cleared at job end."
+    },
+    {
+      "question": "What determines the memory limit for a job's `/tmp` RAM disk usage?",
+      "answer": "Like all of a job's other memory use, it falls under the cgroup limit corresponding to the sbatch request."
+    },
+    {
+      "question": "Why might the reported size of `/tmp` be confusing when using `df`?",
+      "answer": "The `tmpfs` size is set via mount options at 100%, meaning `df` reports `/tmp`'s size as the node's `MemTotal`, which does not correspond to the `sbatch` request."
+    },
+    {
+      "question": "What is `dar`?",
+      "answer": "`dar` is a Disk Archive utility, conceived of as a significant modernization of the `tar` tool."
+    },
+    {
+      "question": "What is HDF5 used for?",
+      "answer": "HDF5 is a high-performance binary file format that can be used to store a variety of different kinds of data, including extended objects such as matrices and image data."
+    },
+    {
+      "question": "Are there tools available for manipulating HDF5 files in common programming languages?",
+      "answer": "Yes, tools exist for manipulating HDF5 files in several common programming languages, including Python (e.g., `h5py`)."
+    }
+  ],
+  "generated_at": "2026-04-11T23:41:23.757264+00:00"
+}

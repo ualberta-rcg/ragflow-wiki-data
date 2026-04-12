@@ -1,0 +1,88 @@
+{
+  "doc_key": "base/vllm",
+  "level": "chunk",
+  "chunk_index": 2,
+  "qa_pairs": [
+    {
+      "question": "What is required for vLLM to manage splitting models across multiple nodes?",
+      "answer": "Currently, vLLM relies on Ray to manage splitting models over multiple nodes."
+    },
+    {
+      "question": "What is the purpose of the `vllm-multinode-example.sh` script?",
+      "answer": "The `vllm-multinode-example.sh` script contains the necessary steps to start a multi-node Ray cluster and run vLLM on top of it, splitting a model across multiple nodes."
+    },
+    {
+      "question": "How many nodes are requested in the `vllm-multinode-example.sh` Slurm script?",
+      "answer": "The `vllm-multinode-example.sh` Slurm script requests 2 nodes, as indicated by `#SBATCH --nodes 2`."
+    },
+    {
+      "question": "How many GPUs are allocated per task in the multi-node Slurm job?",
+      "answer": "The multi-node Slurm job allocates 2 GPUs per task, specified by `#SBATCH --gpus-per-task=2`."
+    },
+    {
+      "question": "What is the memory allocation for each node in the `vllm-multinode-example.sh` script?",
+      "answer": "The memory allocated for each node in the `vllm-multinode-example.sh` script is 32000M, specified by `#SBATCH --mem=32000M`."
+    },
+    {
+      "question": "What modules are loaded at the beginning of the `vllm-multinode-example.sh` script?",
+      "answer": "The `vllm-multinode-example.sh` script loads `gcc`, `python/3.12`, `arrow/19`, and `opencv/4.11` modules."
+    },
+    {
+      "question": "What script is run on all nodes to configure the environment in the multi-node example?",
+      "answer": "The `config_env.sh` script is run on all nodes using `srun -N $SLURM_NNODES -n $SLURM_NNODES config_env.sh` to configure the environment."
+    },
+    {
+      "question": "How is the head node's IP address stored in the `vllm-multinode-example.sh` script?",
+      "answer": "The head node's IP address is stored in the `HEAD_NODE` environment variable using `export HEAD_NODE=$(hostname --ip-address)`."
+    },
+    {
+      "question": "What is the default port chosen to start Ray on the head node in the multi-node example?",
+      "answer": "The default port chosen to start Ray on the head node is 34567, set by `export RAY_PORT=34567`."
+    },
+    {
+      "question": "How are Hugging Face libraries set to OFFLINE mode in the multi-node example?",
+      "answer": "Hugging Face libraries are set to OFFLINE mode by exporting `HF_HUB_OFFLINE=1` and `TRANSFORMERS_OFFLINE=1`."
+    },
+    {
+      "question": "What command starts the Ray cluster head node?",
+      "answer": "The Ray cluster head node is started with `ray start --head --node-ip-address=$HEAD_NODE --port=$RAY_PORT --num-cpus=$SLURM_CPUS_PER_TASK --num-gpus=2 --block &`."
+    },
+    {
+      "question": "Which script is used to launch Ray worker nodes in the multi-node example?",
+      "answer": "The `launch_ray.sh` script is used to launch Ray worker nodes, executed by `srun launch_ray.sh &`."
+    },
+    {
+      "question": "How is the Ray cluster shut down after the Python script exits?",
+      "answer": "The Ray cluster worker nodes are shut down by killing the Ray cluster process ID, using `kill $ray_cluster_pid`."
+    },
+    {
+      "question": "What is the purpose of the `config_env.sh` script?",
+      "answer": "The `config_env.sh` script loads necessary modules, creates and activates a virtual environment, upgrades pip, and installs `ray` and other `vllm-requirements.txt` dependencies without an index."
+    },
+    {
+      "question": "What modules are loaded within the `config_env.sh` script?",
+      "answer": "The `config_env.sh` script loads `python/3.12`, `gcc`, `opencv/4.11`, and `arrow/19` modules."
+    },
+    {
+      "question": "What happens if `SLURM_PROCID` is 0 in `launch_ray.sh`?",
+      "answer": "If `SLURM_PROCID` is 0 in `launch_ray.sh`, it echoes \"Ray head node already started...\" and then sleeps for 10 seconds, as this indicates the head node."
+    },
+    {
+      "question": "How do Ray worker nodes connect to the head node in `launch_ray.sh`?",
+      "answer": "Ray worker nodes connect to the head node using `ray start --address \"${HEAD_NODE}:${RAY_PORT}\" --num-cpus=\"${SLURM_CPUS_PER_TASK}\" --num-gpus=2 --block`."
+    },
+    {
+      "question": "What is the name of the Python script used for vLLM inference in the multi-node example?",
+      "answer": "The Python script used for vLLM inference in the multi-node example is named `vllm_example.py`."
+    },
+    {
+      "question": "What model is used for inference in the `vllm_example.py` script?",
+      "answer": "The `vllm_example.py` script uses the `facebook/opt-125m` model for inference."
+    },
+    {
+      "question": "What is the value of `tensor_parallel_size` when initializing the LLM in the multi-node `vllm_example.py` script?",
+      "answer": "In the multi-node `vllm_example.py` script, `tensor_parallel_size` is set to 4, which represents the total number of GPUs across all nodes."
+    }
+  ],
+  "generated_at": "2026-04-12T10:43:47.429891+00:00"
+}

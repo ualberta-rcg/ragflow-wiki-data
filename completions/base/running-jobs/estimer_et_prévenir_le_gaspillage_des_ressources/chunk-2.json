@@ -1,0 +1,60 @@
+{
+  "doc_key": "base/estimer_et_prévenir_le_gaspillage_des_ressources",
+  "level": "chunk",
+  "chunk_index": 2,
+  "qa_pairs": [
+    {
+      "question": "How can the `Processes and threads` graph help determine if a submitted task is serial or parallel?",
+      "answer": "The `Processes and threads` graph indicates whether a task is serial or parallel by showing the number of active execution threads. If only one thread is active, even if multiple cores were requested, the task is serial."
+    },
+    {
+      "question": "What does the memory graph indicate if a serial task requested 8 cores with `--mem-per-cpu=32G`?",
+      "answer": "The memory graph indicates that the memory request is too high, showing only 4 GB are actually used despite a total demand of 256 GB (8 cores x 32 GB)."
+    },
+    {
+      "question": "What is the recommended correction for an excessive memory request in a serial task that requested 256 GB but only used 4 GB?",
+      "answer": "The recommended correction is to request `--mem-per-cpu=6G` instead of `--mem-per-cpu=32G`."
+    },
+    {
+      "question": "What is a multithreaded task?",
+      "answer": "A multithreaded task, also referred to as a `multifil` task, is capable of using multiple execution threads to perform operations in parallel."
+    },
+    {
+      "question": "Which parameter in a Slurm submission script specifies the number of cores per task for a multithreaded job?",
+      "answer": "The `--cpus-per-task` parameter is used in a Slurm submission script to specify the number of cores per task for a multithreaded job."
+    },
+    {
+      "question": "How can the number of requested cores be represented within a multithreaded program?",
+      "answer": "The number of requested cores can be represented within a multithreaded program using the `$SLURM_CPUS_PER_TASK` environment variable."
+    },
+    {
+      "question": "How much total memory is allocated for a multithreaded task that requests 16 cores with `4G` memory per CPU?",
+      "answer": "A total of 64 GB of memory is allocated for a multithreaded task that requests 16 cores with 4 GB of memory per CPU (16 cores x 4 GB)."
+    },
+    {
+      "question": "How many nodes are typically required for a multithreaded task?",
+      "answer": "Typically, only a single node is required for a multithreaded task, as only distributed tasks can utilize multiple nodes."
+    },
+    {
+      "question": "How does an efficiently running multithreaded task appear on the CPU graph in the portal?",
+      "answer": "On the CPU graph, the vertical scale is set to the number of requested cores (e.g., 16), and the utilisation of each core is represented by a different colour. The sum of all utilisations completely fills the graph, indicating 100% usage per core."
+    },
+    {
+      "question": "What is the approximate memory-per-core ratio on common Narval cluster nodes?",
+      "answer": "On the most common Narval cluster nodes, which have 64 cores and 249 GB of memory, the approximate memory-per-core ratio is 4 GB per core (249 GB ÷ 64 cores ≈ 4 GB)."
+    },
+    {
+      "question": "How can optimizing memory requests for a multithreaded task improve job submission times?",
+      "answer": "If the requested memory is not fully utilized, reducing the memory request to a more accurate amount means less memory is demanded, which can result in the task being submitted more quickly."
+    },
+    {
+      "question": "What should the `Processes and threads` graph show for an efficiently executing multithreaded task?",
+      "answer": "For an efficiently executing multithreaded task, the `Processes and threads` graph should show a number of active execution threads similar to the number of requested cores."
+    },
+    {
+      "question": "How can one identify if more cores than necessary have been requested for a multithreaded task?",
+      "answer": "One can identify if too many cores have been requested for a multithreaded task by observing the CPU graph. If the graph displays significantly fewer active cores than requested (e.g., 10 active out of 32 requested), it indicates an over-request. The `Processes and threads` graph can also be used as a reference."
+    }
+  ],
+  "generated_at": "2026-04-11T21:19:18.895318+00:00"
+}

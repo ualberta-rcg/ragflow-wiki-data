@@ -1,0 +1,72 @@
+{
+  "doc_key": "fr/running_jobs",
+  "level": "chunk",
+  "chunk_index": 7,
+  "qa_pairs": [
+    {
+      "question": "C'est quoi, un lot de tâches (task array) dans le contexte Slurm?",
+      "answer": "Un lot de tâches, c'est une manière de soumettre plusieurs tâches similaires avec une seule commande. Chaque tâche est identifiée par une valeur distincte de la variable d'environnement `$SLURM_ARRAY_TASK_ID`."
+    },
+    {
+      "question": "Comment est-ce qu'on peut lancer un lot de tâches avec Slurm?",
+      "answer": "Pour lancer un lot de tâches, on utilise la directive `#SBATCH --array=début-fin` dans son script. Par exemple, `#SBATCH --array=1-10` va créer 10 tâches où `$SLURM_ARRAY_TASK_ID` ira de 1 à 10."
+    },
+    {
+      "question": "Où est-ce que je peux trouver d'autres exemples pis la documentation détaillée pour les lots de tâches?",
+      "answer": "Tu peux trouver d'autres exemples sur la page [[Job arrays/fr|Vecteurs de tâches]] pis la documentation détaillée Slurm de SchedMD.com."
+    },
+    {
+      "question": "C'est quoi, une tâche multifil (ou OpenMP)?",
+      "answer": "Une tâche multifil, aussi appelée tâche OpenMP, c'est une tâche qui roule avec un seul processus mais utilise plusieurs cœurs CPU, par exemple, huit cœurs."
+    },
+    {
+      "question": "Qu'est-ce qu'il faut faire avant de pouvoir utiliser OpenMP dans mon application?",
+      "answer": "Pour pouvoir utiliser OpenMP, ton application doit avoir été compilée avec les bons indicateurs (flags), comme `gcc -fopenmp ...` ou `icc -openmp ...`."
+    },
+    {
+      "question": "Comment je configure un script Slurm pour une tâche OpenMP qui demande huit cœurs?",
+      "answer": "Dans ton script Slurm, tu dois ajouter `#SBATCH --cpus-per-task=8` et exporter la variable d'environnement `OMP_NUM_THREADS` avec la valeur `$SLURM_CPUS_PER_TASK`. Par exemple: `export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK`."
+    },
+    {
+      "question": "Où je peux trouver plus de détails sur OpenMP?",
+      "answer": "Pour plus d'infos, tu peux consulter la page [[OpenMP/fr|OpenMP]]."
+    },
+    {
+      "question": "Comment je fais pour lancer une tâche MPI?",
+      "answer": "Pour lancer une tâche MPI, tu dois utiliser des directives `sbatch` comme `--ntasks-per-node` pour le nombre de processus MPI, `--nodes` pour le nombre de nœuds, `--mem-per-cpu` pour la mémoire par cœur, et `--time` pour la durée. Ensuite, tu lances ton programme avec `srun ./mpi_program`."
+    },
+    {
+      "question": "Un script MPI peut-il utiliser plusieurs nœuds?",
+      "answer": "Oui, les tâches intensives avec MPI peuvent utiliser plus d'un nœud. C'est même possible de faire des tâches hybrides qui sont à la fois MPI et multifils."
+    },
+    {
+      "question": "Où je peux trouver plus d'information sur les tâches MPI distribuées en parallèle?",
+      "answer": "Tu peux consulter la page [[Advanced_MPI_scheduling/fr|Contrôle de l'ordonnancement avec MPI]] pour plus d'infos sur les tâches distribuées en parallèle."
+    },
+    {
+      "question": "Où je peux trouver les informations pis les exemples pour demander des ressources GPU avec Slurm?",
+      "answer": "Pour les infos et les exemples sur comment demander des ressources GPU, tu dois aller voir la page [[Using GPUs with Slurm/fr|Ordonnancement Slurm des tâches avec GPU]]."
+    },
+    {
+      "question": "C'est quoi les avantages de soumettre des tâches en mode interactif?",
+      "answer": "Soumettre des tâches en mode interactif, ça peut être utile pour l'exploration de données en ligne de commande, l'utilisation d'outils de console comme R et iPython, pis pour des projets de développement, de débogage ou de compilation intensifs."
+    },
+    {
+      "question": "Comment on démarre une session interactive sur un nœud de calcul?",
+      "answer": "On démarre une session interactive sur un nœud de calcul en utilisant la commande `salloc`. Par exemple, `salloc --time=1:0:0 --mem-per-cpu=3G --ntasks=1 --account=def-someuser`."
+    },
+    {
+      "question": "Comment on arrête une session interactive démarrée avec salloc?",
+      "answer": "Pour arrêter une session interactive pis libérer l'allocation, tu tapes `exit`."
+    },
+    {
+      "question": "Est-ce que je peux rouler des applications graphiques en mode interactif sur un nœud de calcul?",
+      "answer": "Oui, tu peux rouler des applications graphiques en mode interactif sur un nœud de calcul en ajoutant l'indicateur `--x11` à la commande `salloc`. Par contre, il faut d'abord activer la redirection X11, tel qu'expliqué sur la page [[SSH/fr|SSH]]."
+    },
+    {
+      "question": "C'est quoi la différence dans le temps d'attente pour une tâche interactive selon sa durée?",
+      "answer": "Une tâche interactive qui dure moins de trois heures a de bonnes chances d'être lancée rapidement parce qu'on a des nœuds de test dédiés pour ça. Par contre, si ta tâche dure plus de trois heures, elle va rouler sur les nœuds réguliers pis elle peut attendre plusieurs heures ou même plusieurs jours."
+    }
+  ],
+  "generated_at": "2026-04-12T07:11:32.824744+00:00"
+}

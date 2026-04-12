@@ -1,0 +1,87 @@
+{
+  "doc_key": "base/huggingface",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is the primary purpose of this article regarding Hugging Face?",
+      "answer": "This article provides information and tutorials on how to use packages from the Hugging Face ecosystem on our clusters."
+    },
+    {
+      "question": "What is the Hugging Face organization?",
+      "answer": "Hugging Face is an organization that builds and maintains popular open-source software packages widely used in Artificial Intelligence research."
+    },
+    {
+      "question": "What is the Transformers package used for?",
+      "answer": "Transformers is a Python package that provides APIs and tools to easily download and train state-of-the-art models, pre-trained on various tasks in multiple domains."
+    },
+    {
+      "question": "What are the recommended steps to install the Transformers package?",
+      "answer": "To install Transformers, first load a Python module, then create and start a virtual environment, and finally install it using `pip install --no-index transformers`."
+    },
+    {
+      "question": "On which node should pre-trained models from the Hugging Face model hub be downloaded?",
+      "answer": "Pre-trained models must be downloaded on a login node to avoid idle compute resources while waiting for downloads."
+    },
+    {
+      "question": "How can one download pre-trained models using `git lfs`?",
+      "answer": "To download models using `git lfs`, load the `git-lfs` module and then clone the desired model repository from the Hugging Face model hub."
+    },
+    {
+      "question": "When loading a model from local files in a Python script, what option should be used to prevent internet download attempts?",
+      "answer": "You should use the `local_files_only=True` option when calling `AutoModel.from_pretrained()` or `AutoTokenizer.from_pretrained()`."
+    },
+    {
+      "question": "What environment variable should be set when downloading models with the `huggingface_hub` CLI to prevent failures on the systems?",
+      "answer": "The `HF_HUB_DISABLE_XET` variable should be set to `1` (e.g., `HF_HUB_DISABLE_XET=1`) to avoid using the `hf_xet` package, which currently causes failures."
+    },
+    {
+      "question": "Where are pre-trained models downloaded via Python stored by default, and how can this be changed?",
+      "answer": "Models are stored by default in `$HOME/.cache/huggingface/hub`. You can change this by setting the `TRANSFORMERS_CACHE` environment variable before importing from `transformers`."
+    },
+    {
+      "question": "What is the Datasets package primarily used for?",
+      "answer": "Datasets is a Python package for easily accessing and sharing datasets for Audio, Computer Vision, and Natural Language Processing (NLP) tasks."
+    },
+    {
+      "question": "What module needs to be loaded when installing or using the Datasets package?",
+      "answer": "The Arrow module needs to be loaded to make the `pyarrow` package, a dependency of Datasets, available inside your virtual environment."
+    },
+    {
+      "question": "How can a dataset be loaded in a job environment without an internet connection?",
+      "answer": "Set the environment variable `HF_DATASETS_OFFLINE=1` and specify the cache directory location when calling `load_dataset()`."
+    },
+    {
+      "question": "What is the Evaluate library designed to do?",
+      "answer": "Evaluate is a library for easily evaluating machine learning models and datasets, providing access to dozens of evaluation methods across different domains."
+    },
+    {
+      "question": "How are evaluators downloaded for the Evaluate package, and where should this occur?",
+      "answer": "Evaluators are downloaded by calling the `evaluate.load()` method on a login node, before submitting a job."
+    },
+    {
+      "question": "What is the Accelerate package's main benefit for PyTorch code?",
+      "answer": "Accelerate enables any PyTorch code to run across any distributed configuration by adding just four lines of code, making training and inference at scale simple, efficient, and adaptable."
+    },
+    {
+      "question": "What is the primary goal of the Large Language Model (LLM) training tutorial?",
+      "answer": "The goal is to illustrate best practices for training LLMs using Hugging Face libraries on the clusters, maximizing infrastructure use and avoiding common pitfalls."
+    },
+    {
+      "question": "What two main factors might hinder LLM training performance, and what strategies are employed to overcome them?",
+      "answer": "Factors include models too large for a single GPU and datasets with many small examples. Strategies involve sharding the LLM across multiple GPUs using Accelerate (FSDP) and reading the dataset from the compute node's local storage."
+    },
+    {
+      "question": "How is the `ultrachat_200k` dataset prepared for LLM training in the provided tutorial's Python script?",
+      "answer": "The dataset's `messages` are preprocessed by converting them into a chat-templated string using the tokenizer's `apply_chat_template` method."
+    },
+    {
+      "question": "Which Accelerate configuration strategy is used for sharding the LLM across multiple GPUs in the tutorial?",
+      "answer": "The tutorial uses a Fully Sharded Data Parallel (FSDP) strategy, configured via the `fsdp.yaml` file."
+    },
+    {
+      "question": "What is the recommended approach for accessing the `ultrachat_200k` dataset during LLM training jobs to improve performance?",
+      "answer": "The dataset should be copied to `$SLURM_TMPDIR` (the compute node's local storage) and then loaded from there, and stored in the node's memory afterwards."
+    }
+  ],
+  "generated_at": "2026-04-11T23:43:38.029978+00:00"
+}

@@ -5,28 +5,57 @@ lang: "fr"
 
 source_wiki_title: "BLAST/fr"
 source_hash: "eb29decbf13044525113969823adf2d5"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T04:51:45.462935+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T05:42:31.235991+00:00"
 
 tags:
   - software
 
 keywords:
-  []
+  - "Slurm"
+  - "cpus-per-task"
+  - "module load"
+  - "base de données FASTA"
+  - "SBATCH"
+  - "mem-per-cpu"
+  - "requête BLAST"
+  - "task array"
+  - "BLAST"
+  - "bases de données"
+  - "vecteur de tâches"
+  - "alignement de séquences"
+  - "paralléliser"
+  - "GNU Parallel"
+  - "makeblastdb"
+
+questions:
+  - "À quoi sert l'outil BLAST et quels types de séquences permet-il d'aligner ?"
+  - "Comment doit-on préparer une base de données de référence avec la commande makeblastdb avant d'exécuter une recherche ?"
+  - "Quelle méthode est recommandée pour accélérer la recherche BLAST en utilisant la division de fichiers et les vecteurs de tâches ?"
+  - "Comment soumettre une tâche BLAST avec SLURM pour qu'elle s'exécute automatiquement après la création de la base de données ?"
+  - "Quel est l'avantage d'utiliser GNU Parallel pour traiter des requêtes BLAST et comment gère-t-il la taille des blocs de données ?"
+  - "Quelles sont les astuces supplémentaires recommandées pour optimiser l'exécution de BLAST, notamment concernant le stockage local et le filtrage des résultats ?"
+  - "What are the specific hardware and time resource limits allocated for each task in this script?"
+  - "How many total tasks are configured to run in this job array, and what is their index range?"
+  - "Which specific software modules and versions are loaded to set up the environment for this job?"
+  - "Comment soumettre une tâche BLAST avec SLURM pour qu'elle s'exécute automatiquement après la création de la base de données ?"
+  - "Quel est l'avantage d'utiliser GNU Parallel pour traiter des requêtes BLAST et comment gère-t-il la taille des blocs de données ?"
+  - "Quelles sont les astuces supplémentaires recommandées pour optimiser l'exécution de BLAST, notamment concernant le stockage local et le filtrage des résultats ?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
 BLAST (pour *Basic Local Alignment Search Tool*) permet de trouver les régions similaires entre deux ou plusieurs séquences de nucléotides ou d'acides aminés, et de réaliser un alignement de ces régions homologues.
 
 ## Manuel de l'utilisateur
-Vous trouverez plus d'information sur les arguments dans le [manuel de l'utilisateur](https://www.ncbi.nlm.nih.gov/books/NBK279684/) ou en lançant la commande
+Vous trouverez plus d'information sur les arguments dans le [manuel de l'utilisateur](https://www.ncbi.nlm.nih.gov/books/NBK279684/) ou en lançant la commande :
+
 ```bash
 blastn -help
 ```
@@ -34,11 +63,10 @@ blastn -help
 ## Bases de données
 Certaines bases de données de séquences fréquemment utilisées se trouvent sur nos grappes dans `/cvmfs/bio.data.computecanada.ca/content/databases/Core/blast_dbs/2022_03_23/`.
 
-Les plus récentes versions des bases de données se trouvent
+Les plus récentes versions des bases de données se trouvent :
 
-*   pour `nr` (*NCBI non-redundant protein*), dans `/cvmfs/bio.data.computecanada.ca/content/databases/Core/blast_dbs/2025_06_21/nr/nr`
-
-*   pour `nt` (*non-redundant nucleotide*), dans `/cvmfs/bio.data.computecanada.ca/content/databases/Core/blast_dbs/2025_06_21/nt/nt`
+*   pour `nr` (*protéines non redondantes du NCBI*), dans `/cvmfs/bio.data.computecanada.ca/content/databases/Core/blast_dbs/2025_06_21/nr/nr`
+*   pour `nt` (*nucléotides non redondants*), dans `/cvmfs/bio.data.computecanada.ca/content/databases/Core/blast_dbs/2025_06_21/nt/nt`
 
 ## Accélérer la recherche
 Dans les exemples qui suivent, le fichier `ref.fa` est utilisé comme base de référence au format FASTA et le fichier `seq.fa` pour les requêtes à faire.
@@ -46,17 +74,18 @@ Dans les exemples qui suivent, le fichier `ref.fa` est utilisé comme base de r�
 ### `makeblastdb`
 Avant d'exécuter une recherche, il faut préparer la base de données. Ceci peut se faire par une tâche de prétraitement, avec les autres tâches dépendantes du résultat de la tâche `makeblastdb`.
 Voici un exemple d'un script de soumission :
+
 ```bash title="makeblastdb.sh"
 #!/bin/bash
 
-#SBATCH --account=def-<user>  # The account to use
-#SBATCH --time=00:02:00       # The duration in HH:MM:SS format
-#SBATCH --cpus-per-task=1     # The number of cores
-#SBATCH --mem=512M            # Total memory for this task
+#SBATCH --account=def-<utilisateur>  # Le compte à utiliser
+#SBATCH --time=00:02:00       # La durée au format HH:MM:SS
+#SBATCH --cpus-per-task=1     # Le nombre de cœurs
+#SBATCH --mem=512M            # Mémoire totale pour cette tâche
 
 module load gcc/7.3.0 blast+/2.9.0
 
-# Create the nucleotide database based on `ref.fa`.
+# Création de la base de données de nucléotides à partir de `ref.fa`.
 makeblastdb -in ref.fa -title reference -dbtype nucl -out ref.fa
 ```
 
@@ -79,18 +108,19 @@ créent 10 fichiers nommés `seqN.fa` où `N` représente `[0..9]` pour 10 requ�
 Une fois que les requêtes sont séparées, vous pouvez créer une tâche pour chaque fichier `seq.fa.N` avec un vecteur de tâches. L'identifiant de la tâche contenu dans le vecteur correspondra au nom du fichier où se trouvent les requêtes à exécuter.
 
 Avec cette solution, l'ordonnanceur peut utiliser les ressources de la grappe qui sont disponibles pour exécuter les plus petites tâches.
+
 ```bash title="blastn_array.sh"
 #!/bin/bash
 
-#SBATCH --account=def-<user>  # The account to use
-#SBATCH --time=00:02:00       # The duration in HH:MM:SS format of each task in the array
-#SBATCH --cpus-per-task=1     # The number of cores for each task in the array
-#SBATCH --mem-per-cpu=512M    # The memory per core for each task in the array
-#SBATCH --array=0-9           # The number of tasks: 10
+#SBATCH --account=def-<utilisateur>  # Le compte à utiliser
+#SBATCH --time=00:02:00       # La durée au format HH:MM:SS pour chaque tâche du vecteur
+#SBATCH --cpus-per-task=1     # Le nombre de cœurs pour chaque tâche du vecteur
+#SBATCH --mem-per-cpu=512M    # La mémoire par cœur pour chaque tâche du vecteur
+#SBATCH --array=0-9           # Le nombre de tâches : 10
 
 module load gcc/7.3.0 blast+/2.9.0
 
-# Using the index of the current task, given by `$SLURM_ARRAY_TASK_ID`, run the corresponding query and write the result
+# En utilisant l'index de la tâche actuelle, fourni par `$SLURM_ARRAY_TASK_ID`, exécuter la requête correspondante et écrire le résultat.
 blastn -db ref.fa -query seq.fa.${SLURM_ARRAY_TASK_ID} > seq.ref.${SLURM_ARRAY_TASK_ID}
 ```
 
@@ -99,7 +129,7 @@ Avec le script ci-dessus, vous pouvez soumettre votre requête BLAST et elle ser
 sbatch --dependency=afterok:$(sbatch makeblastdb.sh) blastn_array.sh
 ```
 
-Quand toutes les tâches du vecteur sont terminées, concaténez les résultats avec
+Quand toutes les tâches du vecteur sont terminées, concaténez les résultats avec :
 ```bash
 cat seq.ref.{0..9} > seq.ref
 ```
@@ -109,7 +139,10 @@ Ceci peut s'effectuer à partir du nœud de connexion ou comme tâche indépenda
 ### GNU Parallel
 `GNU Parallel` est un bon outil pour grouper plusieurs petites tâches en une et la paralléliser. Cette solution réduit les problèmes qui se produisent avec plusieurs petits fichiers dans un système de fichiers parallèle avec des requêtes sur des blocs de taille fixe dans `seq.fa` avec un cœur et plusieurs nœuds.
 
-Par exemple, pour le fichier `seq.fa` de `100Mo`, vous pourriez lire des blocs de `10Mo` et GNU Parallel créerait 3 tâches, utilisant ainsi 3 cœurs; en demandant 10 cœurs, ce sont 7 cœurs qui auraient été gaspillés. **La taille des blocs est donc importante.** On peut aussi laisser GNU Parallel décider, comme dans l'exemple ci-dessous.
+Par exemple, pour le fichier `seq.fa` de `100Mo`, vous pourriez lire des blocs de `10Mo` et GNU Parallel créerait 3 tâches, utilisant ainsi 3 cœurs; en demandant 10 cœurs, ce sont 7 cœurs qui auraient été gaspillés.
+
+!!! warning "La taille des blocs est donc importante."
+    On peut aussi laisser GNU Parallel décider, comme dans l'exemple ci-dessous.
 
 Voir aussi [Travailler avec des fichiers volumineux](gnu-parallel.md#travailler-avec-des-fichiers-volumineux) dans la page sur GNU Parallel.
 
@@ -117,28 +150,28 @@ Voir aussi [Travailler avec des fichiers volumineux](gnu-parallel.md#travailler-
 ```bash title="blastn_gnu.sh"
 #!/bin/bash
 
-#SBATCH --account=def-<user>  # The account to use
-#SBATCH --time=00:02:00       # The duration in HH:MM:SS format
-#SBATCH --cpus-per-task=4     # The number of cores
-#SBATCH --mem-per-cpu=512M    # The memory per core
+#SBATCH --account=def-<utilisateur>  # Le compte à utiliser
+#SBATCH --time=00:02:00       # La durée au format HH:MM:SS
+#SBATCH --cpus-per-task=4     # Le nombre de cœurs
+#SBATCH --mem-per-cpu=512M    # La mémoire par cœur
 
 module load gcc/7.3.0 blast+/2.9.0
 
 cmd='blastn -db ref.fa -query - '
 
-# Using the `::::` notation, give the sequences file to GNU parallel
-# where
-#   --jobs number of core to use, equal $SLURM_CPUS_PER_TASK (the number of cores requested)
-#   --keep-order keep same order as given in input
-#   --block -1 let GNU Parallel evaluate the block size and adapt
-#   --recstart record start, here the sequence identifier `>`
-#   --pipepart pipe parts of $cmd together.
-#              `--pipepart` is faster than `--pipe` (which is limited to 500MB/s) as `--pipepart` can easily go to 5GB/s according to Ole Tange.
-# and redirect results in `seq.ref`.
+# En utilisant la notation `::::`, fournir le fichier de séquences à GNU Parallel.
+# où :
+#   --jobs nombre de cœurs à utiliser, égal à $SLURM_CPUS_PER_TASK (le nombre de cœurs demandé)
+#   --keep-order conserver le même ordre que celui donné en entrée
+#   --block -1 laisser GNU Parallel évaluer la taille du bloc et s'adapter
+#   --recstart début de l'enregistrement, ici l'identifiant de la séquence `>`
+#   --pipepart assembler les parties de $cmd.
+#              `--pipepart` est plus rapide que `--pipe` (qui est limité à 500Mo/s) car `--pipepart` peut facilement atteindre 5Go/s selon Ole Tange.
+# et rediriger les résultats vers `seq.ref`.
 parallel --jobs $SLURM_CPUS_PER_TASK --keep-order --block -1 --recstart '>' --pipepart $cmd :::: seq.fa > seq.ref
 ```
-!!! warning "Remarque"
-    Le fichier ne doit pas être compressé.
+
+!!! note "Attention : Le fichier ne doit pas être compressé."
 
 ##### Soumettre une tâche
 Avec le script ci-dessus, vous pouvez soumettre votre requête BLAST et elle sera exécutée après que la base de données aura été créée.

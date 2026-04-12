@@ -1,0 +1,88 @@
+{
+  "doc_key": "fr/ssh_keys",
+  "level": "chunk",
+  "chunk_index": 6,
+  "qa_pairs": [
+    {
+      "question": "Comment faire pour générer une clé SSH d'un type différent du type RSA par défaut?",
+      "answer": "Pour générer une clé SSH d'un type différent du type RSA par défaut, vous pouvez utiliser la commande `ssh-keygen -t ed25519`."
+    },
+    {
+      "question": "Quelle commande utiliseriez-vous pour renforcer un type de clé comme RSA en utilisant une clé plus longue?",
+      "answer": "Pour renforcer un type de clé comme RSA avec une clé plus longue, vous utiliseriez la commande `ssh-keygen -t rsa-sha2-512 -b 4096`."
+    },
+    {
+      "question": "À quoi servent les contraintes qu'on peut définir dans la syntaxe d'une clé publique SSH?",
+      "answer": "Les contraintes servent à limiter ce que la clé publique SSH peut faire. Par défaut, une clé sans contrainte peut tout faire."
+    },
+    {
+      "question": "Donnez un exemple de contrainte pour une clé publique qui ne permet qu'une seule opération, comme vérifier les tâches Slurm.",
+      "answer": "Voici un exemple de contrainte qui limite une clé à une seule opération (`squeue --me` pour vérifier les tâches Slurm) : `restrict,command=\"squeue --me\" ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGhczaUoV6SzR2VEf9Rp4/P9xHVU8S72CKHrwKU+Yntx`."
+    },
+    {
+      "question": "Comment configurer une clé publique SSH pour qu'elle puisse être utilisée seulement pour le protocole SFTP?",
+      "answer": "Pour configurer une clé publique SSH afin qu'elle puisse être utilisée seulement pour SFTP, vous utiliseriez une contrainte comme : `restrict,command=\"/usr/libexec/openssh/sftp-server\" ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGhczaUoV6SzR2VEf9Rp4/P9xHVU8S72CKHrwKU+Yntx`."
+    },
+    {
+      "question": "Est-il possible de limiter les hôtes qui peuvent se connecter avec une clé SSH?",
+      "answer": "Oui, une contrainte peut limiter les hôtes pouvant se connecter avec la clé. C'est un excellent moyen de minimiser le risque que la clé soit compromise."
+    },
+    {
+      "question": "Quel est l'effet du terme `restrict` sans l'option `pty` dans une contrainte de clé publique SSH?",
+      "answer": "Le terme `restrict` désactive l'allocation pty, ce qui crée un comportement insolite pour une session interactive."
+    },
+    {
+      "question": "Comment peut-on définir une contrainte pour une clé publique SSH qui permet une session interactive et l'allocation pty, tout en limitant l'accès à un seul hôte?",
+      "answer": "Pour définir une contrainte permettant une session interactive et l'allocation pty avec un seul hôte, on peut utiliser : `restrict,from=\"d24-141-114-17.home.cgocable.net\",pty ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGhczaUoV6SzR2VEf9Rp4/P9xHVU8S72CKHrwKU+Yntx`."
+    },
+    {
+      "question": "Où peut-on trouver plus d'informations sur les contraintes des clés SSH?",
+      "answer": "Plusieurs de ces contraintes sont décrites dans la page `sshd man` (on peut y accéder avec la commande `man sshd` sous Linux)."
+    },
+    {
+      "question": "Quelle est la meilleure pratique concernant l'unicité des clés SSH pour les comptes d'utilisateurs?",
+      "answer": "Les clés SSH doivent être uniques à un compte particulier et ne jamais être utilisées par plus d'une personne."
+    },
+    {
+      "question": "Si je dois partager un ordinateur avec d'autres personnes, où devrais-je enregistrer ma clé privée?",
+      "answer": "Si vous devez partager un ordinateur, enregistrez votre clé privée dans un endroit sûr auquel vous seul avez accès, ou enregistrez-la sur une clé USB."
+    },
+    {
+      "question": "Est-ce qu'il est important de chiffrer sa clé privée avec une phrase de passe?",
+      "answer": "Oui, il est très important de toujours chiffrer votre clé privée avec une phrase de passe. On recommande un minimum de 15 caractères."
+    },
+    {
+      "question": "Est-il sécuritaire de partager ma clé privée SSH avec d'autres personnes?",
+      "answer": "Non, il ne faut jamais partager votre clé privée avec personne."
+    },
+    {
+      "question": "Devrais-je copier ma clé privée SSH sur un ordinateur distant?",
+      "answer": "Non, vous ne devriez jamais copier votre clé privée sur un ordinateur distant; elle ne devrait jamais quitter votre poste de travail."
+    },
+    {
+      "question": "Si j'ai plusieurs ordinateurs personnels, est-ce que je peux créer des paires de clés SSH dédiées pour chacun?",
+      "answer": "Oui, si vous avez plusieurs ordinateurs personnels, vous pouvez créer des paires de clés SSH dédiées pour chacun."
+    },
+    {
+      "question": "Comment devrais-je nommer mes paires de clés SSH si j'en ai plusieurs?",
+      "answer": "Si vous avez plusieurs paires de clés SSH, vous pourriez leur donner un nom descriptif, par exemple `Laptop_RSA4096`."
+    },
+    {
+      "question": "Si j'ai donné un nom spécifique à ma clé SSH, comment faire pour l'utiliser quand je me connecte?",
+      "answer": "Si vous donnez un nom à une clé, vous devez utiliser l'option `-i` pour spécifier la clé quand vous vous connectez. La commande serait `ssh -i Laptop_RSA4096 username@host`."
+    },
+    {
+      "question": "Quel outil est recommandé pour faciliter le travail avec les clés SSH?",
+      "answer": "Il est recommandé d'utiliser `ssh-agent` pour travailler plus facilement avec vos clés."
+    },
+    {
+      "question": "Si j'utilise `agent-forwarding`, quel autre outil devrais-je aussi utiliser?",
+      "answer": "Si vous utilisez `agent-forwarding`, vous devriez aussi utiliser `ssh-askpass`."
+    },
+    {
+      "question": "Quelle est une bonne pratique pour limiter ce qu'une clé publique SSH peut faire?",
+      "answer": "C'est une bonne pratique de définir des contraintes pour votre clé publique afin d'en limiter la portée."
+    }
+  ],
+  "generated_at": "2026-04-12T07:24:46.250746+00:00"
+}

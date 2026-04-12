@@ -1,0 +1,87 @@
+{
+  "doc_key": "base/cephfs",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is the primary function of CephFS in the OpenStack environment?",
+      "answer": "CephFS provides a common filesystem that can be shared amongst multiple OpenStack VM hosts."
+    },
+    {
+      "question": "What is the initial step to gain access to the CephFS service?",
+      "answer": "Access to the service is granted via requests to cloud@tech.alliancecan.ca."
+    },
+    {
+      "question": "What basic technical skills are assumed for setting up CephFS?",
+      "answer": "Basic Linux skills for creating/editing files, setting permissions, and creating mount points are assumed."
+    },
+    {
+      "question": "What information must be provided when requesting a CephFS quota?",
+      "answer": "You must provide your OpenStack project name, the amount of quota required (in GB), and the number of shares required."
+    },
+    {
+      "question": "What are the key parameters to specify when creating a new CephFS share in OpenStack?",
+      "answer": "You need to specify a Share Name, Share Protocol (CephFS), Size, Share Type (cephfs or cephfs-ec42), and Availability Zone (nova). Do not check 'Make visible for all'."
+    },
+    {
+      "question": "How do you generate an access key for a CephFS share?",
+      "answer": "In Project --> Share --> Shares, select 'Manage Rules' from the Actions column, then click '+Add Rule'. Set Access Type to 'cephx' and choose an Access Level and Access To name."
+    },
+    {
+      "question": "What three pieces of information from the share details are essential for VM client configuration?",
+      "answer": "You need to note the Path (for the mount command), the Access to (client name), and the Access Key."
+    },
+    {
+      "question": "How do you attach the CephFS network to a VM on SD4H/Juno using the Web GUI?",
+      "answer": "For each VM, select Instance --> Action --> Attach interface, choose the CephFS-Network, and leave the Fixed IP Address box empty."
+    },
+    {
+      "question": "Which command-line client is used to attach the CephFS network to a VM on SD4H/Juno?",
+      "answer": "The 'openstack server add network' command is used, specifying the VM's ID and 'CephFS-Network'."
+    },
+    {
+      "question": "What needs to be done on Arbutus regarding the CephFS network attachment?",
+      "answer": "On Arbutus, the CephFS network is already exposed to your VM, so no explicit attachment is needed."
+    },
+    {
+      "question": "What are the required CephFS client packages for Red Hat family distributions (RHEL, CentOS, Fedora, Rocky, Alma)?",
+      "answer": "You need to install 'libcephfs2', 'python3-cephfs', 'ceph-common', and 'python3-ceph-argparse' after setting up the Ceph and EPEL repositories."
+    },
+    {
+      "question": "What are the required CephFS client packages for Debian family distributions (Debian, Ubuntu, Mint)?",
+      "answer": "You need to install 'libcephfs2', 'python3-cephfs', 'ceph-common', and 'python3-ceph-argparse' after adding the Ceph repository for your distribution's codename."
+    },
+    {
+      "question": "What file needs to be configured with the Ceph monitor hosts for client connection?",
+      "answer": "The '/etc/ceph/ceph.conf' file needs to be configured with the correct 'mon host' entries specific to either Arbutus or SD4H/Juno."
+    },
+    {
+      "question": "What information is stored in the '/etc/ceph/ceph.keyring' file?",
+      "answer": "The client name (e.g., MyCephFS-RW) and its corresponding Access Key are stored in this file."
+    },
+    {
+      "question": "How is the CephFS filesystem mounted permanently on a VM?",
+      "answer": "It can be mounted permanently by adding an entry to the '/etc/fstab' file, specifying the share path (with a leading ':'), mount point, filesystem type (ceph), client name, and appropriate options like 'nofail'."
+    },
+    {
+      "question": "What is the purpose of the 'nofail' option in the fstab entry for CephFS?",
+      "answer": "The 'nofail' option ensures that the system will boot even if the CephFS service is down or unreachable."
+    },
+    {
+      "question": "What command is used to mount CephFS directly from the command line on Arbutus?",
+      "answer": "sudo mount -t ceph :/volumes/_nogroup/f6cb8f06-f0a4-4b88-b261-f8bd6b03582c /cephfs/ -o name=MyCephFS-RW"
+    },
+    {
+      "question": "How can CephFS be mounted in user space?",
+      "answer": "CephFS can be mounted in user space using 'ceph-fuse' after installing the 'ceph-fuse' package and uncommenting 'user_allow_other' in '/etc/fuse.conf'."
+    },
+    {
+      "question": "Can a CephFS share have more than one user key?",
+      "answer": "Yes, a particular share can have more than one user key provisioned, allowing for more granular access, such as read-only capacity for some hosts."
+    },
+    {
+      "question": "Can hosts outside the OpenStack cluster access the CephFS service?",
+      "answer": "No, this service is not available to hosts outside of the OpenStack cluster."
+    }
+  ],
+  "generated_at": "2026-04-11T19:29:12.881081+00:00"
+}

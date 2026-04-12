@@ -1,0 +1,76 @@
+{
+  "doc_key": "base/gatk",
+  "level": "chunk",
+  "chunk_index": 2,
+  "qa_pairs": [
+    {
+      "question": "How are earlier versions of GATK, specifically those before GATK 4, invoked?",
+      "answer": "Earlier versions of GATK do not have the `gatk` command; instead, you have to call the jar file using `java -jar GenomeAnalysisTK.jar PROGRAM OPTIONS`."
+    },
+    {
+      "question": "What is the appropriate way to call GATK versions 3 or earlier on our systems?",
+      "answer": "On our systems, you should load the `nixpkgs/16.09` and `gatk/3.8` modules, then use `java -jar \"${EBROOTGATK}\"/GenomeAnalysisTK.jar PROGRAM OPTIONS`."
+    },
+    {
+      "question": "Where can users find specific usage information for GATK versions 3 or earlier?",
+      "answer": "Users can find the specific usage of GATK versions 3 or earlier in the GATK3 guide."
+    },
+    {
+      "question": "Are most GATK tools, version 4 and later, designed for multicore usage by default?",
+      "answer": "No, most GATK (>=4) tools are not multicore by default, meaning you should request only one core when calling them."
+    },
+    {
+      "question": "Do some GATK tools utilize threads for specific computations?",
+      "answer": "Yes, some GATK tools use threads in some of the computations, such as `Mutect2` with its `--native-pair-hmm-threads` option, allowing for more CPUs (most with up to 4 threads)."
+    },
+    {
+      "question": "Does GATK4 offer any Spark commands?",
+      "answer": "Yes, GATK4 does provide some Spark commands."
+    },
+    {
+      "question": "How can one determine if a GATK tool is Spark-capable?",
+      "answer": "Tools that can use Spark generally have a note to that effect in their respective Tool Doc."
+    },
+    {
+      "question": "How are Spark-capable versions of GATK tools typically named?",
+      "answer": "Some GATK tools exist in distinct Spark-capable and non-Spark-capable versions; the \"sparkified\" versions have the suffix \"Spark\" at the end of their names."
+    },
+    {
+      "question": "What should users do regarding CPU requests when using GATK commands that employ Spark?",
+      "answer": "Users should provide the exact number of CPUs to the `spark` command when using GATK commands that employ Spark."
+    },
+    {
+      "question": "If I requested 10 CPUs for a Spark command, what would be the correct `spark` command argument?",
+      "answer": "If you requested 10 CPUs, you should use `--spark-master local[10]` instead of `--spark-master local[*]`. "
+    },
+    {
+      "question": "What steps are necessary if a user wants to use multiple nodes to scale a Spark cluster with GATK?",
+      "answer": "If a user wants to use multiple nodes to scale the Spark cluster, they must first deploy a Spark cluster and then set the appropriate variables in the GATK command."
+    },
+    {
+      "question": "What is recommended if users encounter `IllegalArgumentException` errors with GATK modules on the clusters?",
+      "answer": "If users encounter errors like `IllegalArgumentException` while using the installed GATK modules on our clusters, it is recommended to try another workflow by using the program via Apptainer."
+    },
+    {
+      "question": "Where can I find Docker images for GATK?",
+      "answer": "A Docker image of GATK can be found on `https://hub.docker.com/r/broadinstitute/gatk`, with other versions available on its tags page."
+    },
+    {
+      "question": "What commands are used to build an Apptainer image for the latest GATK version on the cluster?",
+      "answer": "To build an Apptainer image for the latest GATK version on the cluster, run `module load apptainer` followed by `apptainer build gatk.sif docker://broadinstitute/gatk`."
+    },
+    {
+      "question": "How can I build an Apptainer image for a specific version of GATK?",
+      "answer": "To build an Apptainer image for a specific version of GATK, you can run `module load apptainer` and then `apptainer build gatk_VERSION.sif docker://broadinstitute/gatk:VERSION`, replacing `VERSION` with the desired version."
+    },
+    {
+      "question": "How should GATK be executed via Apptainer within an SBATCH script?",
+      "answer": "In an SBATCH script, GATK should be executed via Apptainer using `module load apptainer` and then `apptainer exec -B /home -B /project -B /scratch -B /localscratch <path to the image>/gatk.sif gatk [--java-options \"-Xmx4G\"] ToolName [GATK args]`."
+    },
+    {
+      "question": "Where can I find more information about Apptainer?",
+      "answer": "More information about Apptainer can be found by watching the recorded Apptainer webinar."
+    }
+  ],
+  "generated_at": "2026-04-11T21:55:06.126840+00:00"
+}

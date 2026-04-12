@@ -1,0 +1,63 @@
+{
+  "doc_key": "fr/lumerical",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "C'est quoi Lumerical?",
+      "answer": "Lumerical est une suite logicielle qui sert à la modélisation d'appareils nanophotoniques, incluant des applications comme FDTD Solutions."
+    },
+    {
+      "question": "Est-ce que Lumerical est installé de façon centralisée sur l'infrastructure nationale?",
+      "answer": "Non, il n'y a pas d'installation centrale de Lumerical ou FDTD Solutions, mais vous pouvez les installer si vous disposez d'une licence."
+    },
+    {
+      "question": "Que faut-il faire pour installer la suite Lumerical si la version de l'installateur correspond à celle de la recette?",
+      "answer": "Il faut lancer la commande `eb Lumerical-2020a-r1-d316eeda68.eb --sourcepath=<chemin> --disable-enforce-checksums`, en ajustant le chemin d'accès au fichier .tar.gz."
+    },
+    {
+      "question": "Comment faire si la version de l'installateur Lumerical ne correspond pas exactement à celle de la recette?",
+      "answer": "Utilisez la commande `eb Lumerical-2020a-r1-d316eeda68.eb --try-software-version=<version> --sourcepath=<chemin> --disable-enforce-checksums`, en spécifiant la version de votre installateur et le chemin."
+    },
+    {
+      "question": "Que dois-je faire si l'année ou la lettre de la recette diffère de celle de l'installateur (ex: recette 2020a et installateur 2020b)?",
+      "answer": "Dans ce cas, il faut contacter le soutien technique pour qu'il adapte un script d'installation pour votre version."
+    },
+    {
+      "question": "Comment configurer le fichier de licence pour Lumerical après l'installation?",
+      "answer": "Créez le fichier `$HOME/.licenses/lumerical.lic` avec le contenu `setenv(\"LUMERICAL_LICENSE_FILE\", \"27011@license01.example.com\")`, en remplaçant le port et le hostname de votre serveur de licence."
+    },
+    {
+      "question": "Comment installer FDTD Solutions si la version correspond à la recette?",
+      "answer": "Lancez la commande `eb FDTD_Solutions-8.19.1438.eb --sourcepath=<chemin> --disable-enforce-checksums`, en indiquant le chemin de votre fichier .tar.gz."
+    },
+    {
+      "question": "Comment configurer FDTD Solutions pour utiliser un serveur de licence?",
+      "answer": "Après l'installation, démarrez l'application sur un nœud de connexion; elle vous demandera les informations sur votre serveur de licence, et cette étape n'aura pas besoin d'être répétée."
+    },
+    {
+      "question": "Quelle est la principale différence entre le module `lumerical` et le module `fdtd_solutions` pour l'écriture de scripts?",
+      "answer": "La principale différence est la variable d'environnement qui contient l'emplacement d'installation : `EBROOTLUMERICAL` pour le module `lumerical` et `EBROOTFDTD_SOLUTIONS` pour le module `fdtd_solutions`."
+    },
+    {
+      "question": "Quelles options `sbatch` sont recommandées pour les tâches MPI avec Lumerical ou FDTD Solutions sur l'ordonnanceur?",
+      "answer": "Il est recommandé d'utiliser les options `--ntasks-per-node=1` et `--cpus-per-task=32` parce que l'implémentation MPI fournie ne fonctionne pas étroitement avec l'ordonnanceur."
+    },
+    {
+      "question": "Pour quelle raison les gabarits de scripts sont-ils utiles avec FDTD Solutions?",
+      "answer": "Les gabarits de scripts sont utiles pour soumettre plusieurs simulations de manière efficace sans devoir modifier le script pour chaque simulation."
+    },
+    {
+      "question": "Comment soumettre une tâche FDTD Solutions en utilisant le script `fdtd-run.sh` et les gabarits?",
+      "answer": "Après avoir configuré les répertoires, vous utilisez `fdtd-run.sh fsp1 [fsp2 ...]` pour soumettre des tâches avec un seul nœud, ou `fdtd-run.sh -nn <nœuds> fsp1 [fsp2 ...]` pour utiliser plusieurs nœuds."
+    },
+    {
+      "question": "Quel est le rôle du script `fdtd-process-template.sh`?",
+      "answer": "Ce script remplace les marqueurs dans un gabarit de script de soumission Slurm par des valeurs réelles (comme la mémoire et le temps estimés) extraites du fichier de projet FDTD Solutions."
+    },
+    {
+      "question": "Quelles options peuvent être ajustées avec `fdtd-process-template.sh` pour affiner les estimations?",
+      "answer": "On peut ajuster le taux de simulation (`-r`), le temps minimum (`-tm`), le facteur multiplicatif de sécurité pour la mémoire (`-ms`), et la mémoire minimale par processus (`-mm`)."
+    }
+  ],
+  "generated_at": "2026-04-12T01:08:36.849234+00:00"
+}

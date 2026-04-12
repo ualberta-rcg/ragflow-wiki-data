@@ -1,0 +1,119 @@
+{
+  "doc_key": "en/checkv",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is CheckV and what is its primary function?",
+      "answer": "CheckV is a fully automated command-line pipeline designed to assess the quality of single-contig viral genomes, including identifying host contamination for integrated proviruses, estimating completeness for genome fragments, and identifying closed genomes."
+    },
+    {
+      "question": "How can one find information about available software modules on the clusters?",
+      "answer": "Information about available software modules can be found by typing `module spider nameOfYourSoftware` in the command line."
+    },
+    {
+      "question": "How do you search for a software module using a partial name or a specific version?",
+      "answer": "To search with a partial name, enclose the name in double quotes (e.g., `module spider \"nameOfYourSoftware\"`). To search for a specific version and its dependencies, add the version number after the name (e.g., `module spider nameOfYourSoftware/10.2`)."
+    },
+    {
+      "question": "How can available Python packages (wheels) be found on the clusters?",
+      "answer": "Python packages, or wheels, can be found by typing `avail_wheels CheckV`. The search is case-insensitive and supports double quotes for partial names."
+    },
+    {
+      "question": "How do you list all available versions of a Python wheel using `avail_wheels`?",
+      "answer": "You can list all available versions by adding the `--all-version` parameter, like so: `avail_wheels CheckV --all-version`."
+    },
+    {
+      "question": "What should be the first steps if a desired software is not available on the clusters?",
+      "answer": "The first steps should be to consult the software's documentation, usually found on its development page (often a GitHub repository), and follow the installation steps."
+    },
+    {
+      "question": "Are Conda environments usable on the clusters?",
+      "answer": "No, Conda environments cannot be used on the clusters."
+    },
+    {
+      "question": "How can Python wheels from the PyPI website be installed into a virtual environment?",
+      "answer": "They can be installed using `pip install nameOfTheWheel` within your virtual environment."
+    },
+    {
+      "question": "What is the preferred method for installing a Python wheel for CheckV from the cluster's wheelhouse?",
+      "answer": "The preferred method is to use `pip install --no-index checkv` to install the wheel from the wheelhouse."
+    },
+    {
+      "question": "What modules are typically loaded before installing CheckV in a virtual environment?",
+      "answer": "Modules such as `gcc`, `hmmer/3.3.2`, `prodigal-gv/2.6.3`, `diamond/2.0.4`, and `python/3.10` are typically loaded."
+    },
+    {
+      "question": "How do you create and activate a virtual environment for CheckV?",
+      "answer": "You create it with `virtualenv ~/CheckV_env` and activate it with `source ~/CheckV_env/bin/activate`."
+    },
+    {
+      "question": "Why is upgrading `pip` important when setting up a Python virtual environment?",
+      "answer": "Upgrading `pip` is important, especially if you are using a Python version older than 3.10.2."
+    },
+    {
+      "question": "How do you validate a CheckV installation after setting it up?",
+      "answer": "You can validate it by running `python -c 'import checkv'` to ensure the module can be imported and `checkv --help` to check its command-line interface."
+    },
+    {
+      "question": "Where is it recommended to download large databases like CheckV's?",
+      "answer": "It is usually recommended to download large databases in your scratch storage space for intensive read/write operations."
+    },
+    {
+      "question": "How do you download the CheckV database to your scratch directory?",
+      "answer": "You download it using the command `checkv download_database $SCRATCH/`."
+    },
+    {
+      "question": "How can a user update the CheckV database with their own complete genomes?",
+      "answer": "Users can update the database using `checkv update_database /path/to/checkv-db /path/to/updated-checkv-db genomes.fna`."
+    },
+    {
+      "question": "How can one download an archived CheckV database version and manually build its DIAMOND database?",
+      "answer": "You can download it with `wget https://portal.nersc.gov/CheckV/checkv-db-archived-version.tar.gz`, extract it with `tar -zxvf checkv-db-archived-version.tar.gz`, navigate to the genome database directory, and then build the DIAMOND database with `diamond makedb --in checkv_reps.faa --db checkv_reps`."
+    },
+    {
+      "question": "How can test sequences for CheckV be downloaded from the provided Bitbucket link?",
+      "answer": "Test sequences can be downloaded using `wget https://bitbucket.org/berkeleylab/checkv/raw/3f185b5841e8c109848cd0b001df7117fe795c50/test/test_sequences.fna`."
+    },
+    {
+      "question": "What is the purpose of using an interactive session for running jobs?",
+      "answer": "An interactive session is primarily used to explore command lines, debug, or compile software, not for running long scripts."
+    },
+    {
+      "question": "What is the command line for a full CheckV pipeline analysis, and what does the `-t` parameter signify?",
+      "answer": "The command line is `checkv end_to_end input_file.fna output_directory -t 16`. The `-t` parameter specifies the number of threads to use for Prodigal and DIAMOND, which are multithreaded programs CheckV utilizes."
+    },
+    {
+      "question": "What `salloc` command is suggested for a first trial with CheckV, including recommended time, memory, and CPU settings?",
+      "answer": "A suggested command is `salloc --time=1:0:0 --mem=2G --cpus-per-task=16 --account=def-someuser`, starting with low resource requests and adjusting as needed."
+    },
+    {
+      "question": "How is the CheckV `end_to_end` command executed in an interactive session using downloaded test data and a specified database path?",
+      "answer": "It is executed as `checkv end_to_end test_sequences.fna $SCRATCH/checkv_output -t ${SLURM_CPUS_PER_TASK:-1} -d $SCRATCH/checkv-db-v1.5`."
+    },
+    {
+      "question": "What information should be gathered after an interactive CheckV run?",
+      "answer": "Information such as the execution time and peak memory usage should be gathered to inform resource parameters for future batch job submissions."
+    },
+    {
+      "question": "How do you submit a bash script for a CheckV job to a compute node?",
+      "answer": "You submit it using the command `sbatch run_CheckV.sh`."
+    },
+    {
+      "question": "What are the key SBATCH parameters specified in the example `run_CheckV.sh` script for a compute node job?",
+      "answer": "The key parameters are `--job-name` (e.g., CheckV_run), `--account` (e.g., def-someprof), `--time` (e.g., 00:20:00), `--cpus-per-task` (e.g., 16), and `--mem` (e.g., 2G)."
+    },
+    {
+      "question": "How is the virtual environment created and activated within a compute node submission script?",
+      "answer": "It is created in the `$SLURM_TMPDIR` with `virtualenv --no-download ${SLURM_TMPDIR}/env` and activated with `source ${SLURM_TMPDIR}/env/bin/activate`."
+    },
+    {
+      "question": "What command helps assess job efficiency (time, CPU, memory) after a job has completed?",
+      "answer": "The `seff` command, followed by the Slurm job number (e.g., `seff 42760046`), provides post-run efficiency metrics."
+    },
+    {
+      "question": "Where can users find useful information about a job run, in addition to the `seff` command?",
+      "answer": "Users can examine the Slurm output file, named `slurm-[job_number].out`, using commands like `less slurm-[job_number].out`."
+    }
+  ],
+  "generated_at": "2026-04-11T19:38:04.091896+00:00"
+}

@@ -5,21 +5,92 @@ lang: "base"
 
 source_wiki_title: "SSH Keys"
 source_hash: "b428c9ea717d6ffbecbbf36149b5ddf1"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T11:03:35.434267+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T11:14:22.079231+00:00"
 
 tags:
   - connecting
 
 keywords:
-  []
+  - "id_rsa.pub"
+  - "code"
+  - "markup"
+  - "CCDB"
+  - "plain text"
+  - "Key pair"
+  - "ssh-rsa"
+  - "PuTTY Key Generator"
+  - "Best practices"
+  - "SSH public key"
+  - "SFTP"
+  - "ed25519"
+  - "Slurm"
+  - "Public key"
+  - "public keys"
+  - "Security"
+  - "translate"
+  - "key constraint"
+  - "Compromised keys"
+  - "Notepad"
+  - "closing tag"
+  - "clusters"
+  - "OpenStack cloud systems"
+  - "propagate"
+  - "Public key cryptography"
+  - "revoked SSH key"
+  - "PEM format"
+  - "XML"
+  - "sshfs"
+  - "Alliance services"
+  - "Passphrase"
+  - "Key Revocation List"
+  - "SSH key agent"
+  - "authorized_keys"
+  - "ssh-keygen"
+  - "Technical support"
+  - "SSH keys"
+  - "Key constraints"
+  - "command line"
+  - "SSH key constraints"
+
+questions:
+  - "How does public key cryptography work in the context of SSH to secure connections and verify user identities?"
+  - "What are the recommended security practices when generating a new SSH key pair on your local system?"
+  - "How do you retrieve and install your SSH public key onto a destination system using the CCDB interface?"
+  - "What type of file format is the SSH public key, and what does its content visually look like when opened?"
+  - "How can a user examine the contents of the `.ssh/id_rsa.pub` file on a Windows operating system?"
+  - "What specific command line instruction is used to view the SSH public key on Linux or MacOS?"
+  - "What steps are required to convert an SSH public key if it is generated in a non-OpenSSH format like PuTTY or PEM?"
+  - "How do you upload your public SSH key into the CCDB form and what additional detail should be included?"
+  - "Which systems can be accessed once the key is uploaded to CCDB, and how long does the key propagation process take?"
+  - "What is the primary use of a key once it is loaded into the CCDB?"
+  - "Which specific systems are unable to access the keys stored in the CCDB?"
+  - "How much time is required for changes made to public keys to propagate to the clusters?"
+  - "How can a user configure an SSH key for a specific system using the authorized_keys file, and what permission issues should they be aware of?"
+  - "What are the recommended options and best practices for generating a new SSH key and managing its passphrase with a key agent?"
+  - "How can SSH key constraints be applied to restrict a public key to specific commands or connecting hosts?"
+  - "How can SSH key constraints, such as host restrictions and pty allocation, be used to minimize security risks?"
+  - "What are the recommended best practices for managing and securing SSH key pairs across different devices?"
+  - "Why might an SSH key be added to the Key Revocation List (KRL), and what immediate actions should a user take if their key is revoked?"
+  - "How can an SSH key be configured to execute only a specific command, such as an SFTP server?"
+  - "What are some practical examples of operations mentioned that a restricted SSH key can be limited to?"
+  - "How can key constraints be utilized to restrict the specific hosts that are allowed to connect?"
+  - "Who should be contacted if an SSH key is mistakenly added to the Key Revocation List?"
+  - "How does the technical support team assist users in resolving issues related to key revocation?"
+  - "Why is it essential to take swift action in response to a revoked SSH key?"
+  - "What is the primary function of the `</translate>` closing tag within a markup or programming context?"
+  - "How do parsers or translation systems process the content that immediately precedes this specific tag?"
+  - "In which specific software frameworks or document formats is this tag typically implemented?"
+  - "What is the primary function of the `</translate>` closing tag within a markup or programming context?"
+  - "How do parsers or translation systems process the content that immediately precedes this specific tag?"
+  - "In which specific software frameworks or document formats is this tag typically implemented?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -29,17 +100,16 @@ status:
 
 SSH relies on [public key cryptography](https://en.wikipedia.org/wiki/Public-key_cryptography) (PK) for its security.
 
-PK is based on a *key pair,* which consists of a private part, to be kept secret, and a public part, which can be distributed freely.
-Anyone can use the public key to encode a message, but the message can only be decoded with the private part. This is why PK is sometimes described as *asymmetric encryption.*
+PK is based on a *key pair,* which consists of a private part, to be kept secret, and a public part, which can be distributed freely. Anyone can use the public key to encode a message, but the message can only be decoded with the private part. This is why PK is sometimes described as *asymmetric encryption.*
 
 PK can also be used to verify identities: if someone is claiming to be Alice, then a second party, Bob, can send Alice a message encoded with Alice's public key. If the person claiming to be Alice can tell Bob what is in the message, then that person has access to Alice's private key. In this sense, possession of a private key establishes identity.
 
 PK systems are the basis for the SSL and TLS protocols that protect most internet traffic, such as HTTPS websites.
 
 On our systems, PK is used in SSH several ways:
-* When connecting to our systems, your SSH client normally uses our system's public key to ensure that it has connected to the real (authentic) server.
-* PK is used to establish an encrypted session so that all following traffic is secure from eavesdropping.
-* The remote server can use your public key to verify your identity, that is, to allow you to log in.
+*   When connecting to our systems, your SSH client normally uses our system's public key to ensure that it has connected to the real (authentic) server.
+*   PK is used to establish an encrypted session so that all following traffic is secure from eavesdropping.
+*   The remote server can use your public key to verify your identity, that is, to allow you to log in.
 
 **We strongly recommend using PK to connect to our systems.** Using PK is almost always more secure than using a password.
 
@@ -100,7 +170,7 @@ SvQwts5ZGcza9t6l7fSKObz8FiAwXn+mdmXrxx3fQIepWa2FeCNbTkiKTTpNmERw
 H0v3RR3DpJd8cpg5jdJbINlqDUPdqXxZDPIyZuHbEYUiSrb1v5zscVdgVqhJYi9O
 OiEj7dPOLp1ko6s7TSgY8ejGnbmUL/gl+/dfhMNKdhLXMXWByucF1577rfAz3qPn
 4JMWrG5TCH7Jj8NpIxFhkV9Qjy40Ml81yDqMlbuE9CUZzVhATe8MdIvcXUQej8yl
-ddmNnAXmfTDwUd3cJ/VSMaKeq6Gjd/XDmwIDAQAB
+ddmNnAXmfTDwUd5cJ/VSMaKeq6Gjd/XDmwIDAQAB
 -----END RSA PUBLIC KEY-----
 ```
 
@@ -148,23 +218,23 @@ This avoids storing the unencrypted private key on permanent storage, where it i
     Note that this operation should be performed on your own computer, *not* on a shared computer, such as a cluster.
 
 When you generate a key, the default settings are usually sufficient. However, here are a few options which may be of interest. We demonstrate these options here using `ssh-keygen` as described in [Using SSH keys in Linux](using-ssh-keys-in-linux.md), but the same options are available if you are using a graphical interface as described in [Generating SSH keys in Windows](generating-ssh-keys-in-windows.md).
-* You can specify a comment for the key, which may be helpful if you have multiple keys.
-```bash
-ssh-keygen -C 'Alliance systems'
-```
-* You can also choose the name of the key file.
-```bash
-ssh-keygen -f alliance-key
-```
-This produces a file `alliance-key` containing the private part, and `alliance-key.pub` for the public part. If you do this, though, you may have to use the `-i` option to specify the name of the key when logging in, like this: `ssh -i alliance-key user@host`
-* There are sometimes reasons to choose a different key type (rather than the RSA default).
-```bash
-ssh-keygen -t ed25519
-```
-* You can strengthen certain key types, such as RSA, by setting a longer key length.
-```bash
-ssh-keygen -t rsa-sha2-512 -b 4096
-```
+*   You can specify a comment for the key, which may be helpful if you have multiple keys.
+    ```bash
+    ssh-keygen -C 'Alliance systems'
+    ```
+*   You can also choose the name of the key file.
+    ```bash
+    ssh-keygen -f alliance-key
+    ```
+    This produces a file `alliance-key` containing the private part, and `alliance-key.pub` for the public part. If you do this, though, you may have to use the `-i` option to specify the name of the key when logging in, like this: `ssh -i alliance-key user@host`
+*   There are sometimes reasons to choose a different key type (rather than the RSA default).
+    ```bash
+    ssh-keygen -t ed25519
+    ```
+*   You can strengthen certain key types, such as RSA, by setting a longer key length.
+    ```bash
+    ssh-keygen -t rsa-sha2-512 -b 4096
+    ```
 
 ## SSH key constraints
 The public key syntax permits you to provide a number of very useful constraints that limit what the key is allowed to do.
@@ -190,26 +260,26 @@ restrict,from="d24-141-114-17.home.cgocable.net",pty ssh-ed25519 AAAAC3NzaC1lZDI
 ```
 allows pty allocation.
 
-There are a large number of these key constraints, which are documented in the *sshd man* page (*man sshd* on a Linux system).
+There are a large number of these key constraints, which are documented in the *sshd man* page (`man sshd` on a Linux system).
 
 ## Best practices for key pairs
-* Keys should be unique to a given user account. They should not be used by multiple people.
-* If you have to use a shared computer, store your private key where only you are allowed access. If such secure storage area is not available, use an external storage such as a USB key.
-* Always encrypt your private key with a passphrase. We recommend 15 characters or more for the passphrase.
-* Do not share your private key.
-* Do not copy your private key to a remote system. Your private key should not leave your workstation!
-* If you have several laptops, you can create dedicated SSH key pairs for each of them.
-* If you have several pairs, you may wish to name the keys. For example, `Laptop_RSA4096`.
-    * If you name a key you must use the `-i` option to specify the key name when logging in, like this: `ssh -i Laptop_RSA4096 username@host`
-* Use `ssh-agent` to make encrypted keys convenient.
-* If you use agent forwarding, use `ssh-askpass` too.
-* Apply [constraints](#ssh-key-constraints) to your public key to limit its scope.
+*   Keys should be unique to a given user account. They should not be used by multiple people.
+*   If you have to use a shared computer, store your private key where only you are allowed access. If such secure storage area is not available, use an external storage such as a USB key.
+*   Always encrypt your private key with a passphrase. We recommend 15 characters or more for the passphrase.
+*   Do not share your private key.
+*   Do not copy your private key to a remote system. Your private key should not leave your workstation!
+*   If you have several laptops, you can create dedicated SSH key pairs for each of them.
+*   If you have several pairs, you may wish to name the keys. For example, `Laptop_RSA4096`.
+    *   If you name a key you must use the `-i` option to specify the key name when logging in, like this: `ssh -i Laptop_RSA4096 username@host`
+*   Use `ssh-agent` to make encrypted keys convenient.
+*   If you use agent forwarding, use `ssh-askpass` too.
+*   Apply [constraints](ssh-keys.md#ssh-key-constraints) to your public key to limit its scope.
 
 Here are some links to short videos on setting up SSH keys:
-* [Faster and more secure SSH](https://www.youtube.com/watch?v=mRdqM1dgf3Q&feature=youtu.be)
-* [Using SSH Keys on Windows](https://www.youtube.com/watch?v=q9YA5H53IHQ)
-* [Using SSH Keys on Mac](https://www.youtube.com/watch?v=E8-CfvumJBo)
-* [Using SSH Keys on Linux](https://www.youtube.com/watch?v=owt-tYEQOZ0)
+*   [Faster and more secure SSH](https://www.youtube.com/watch?v=mRdqM1dgf3Q&feature=youtu.be)
+*   [Using SSH Keys on Windows](https://www.youtube.com/watch?v=q9YA5H53IHQ)
+*   [Using SSH Keys on Mac](https://www.youtube.com/watch?v=E8-CfvumJBo)
+*   [Using SSH Keys on Linux](https://www.youtube.com/watch?v=owt-tYEQOZ0)
 
 ## Revoked SSH Keys
 
@@ -220,12 +290,12 @@ This can occur through various means, such as *improper key management, theft*, 
 This poses a significant security risk, as a malicious actor may use the key to gain unauthorized access to systems and sensitive data.
 To mitigate the risk associated with compromised SSH keys, the Digital Research Alliance of Canada maintains a **Key Revocation List (KRL)**.
 
-The **Key Revocation List** is a registry of SSH keys that are no longer trusted, or are otherwise considered invalid.
+The Key Revocation List is a registry of SSH keys that are no longer trusted, or are otherwise considered invalid.
 No SSH key on the list can be used to access Alliance services.
 
 If you discover that your SSH key has been revoked it is *imperative* that you take immediate action.
-* Replace the revoked key with a new one to ensure that you can connect securely to Alliance services.
-* Remove the revoked key from *all* services (Alliance or other) to prevent unauthorized access or data breaches.
+*   Replace the revoked key with a new one to ensure that you can connect securely to Alliance services.
+*   Remove the revoked key from *all* services (Alliance or other) to prevent unauthorized access or data breaches.
 
 If you believe that your SSH key has been listed on the Key Revocation List in error, or if you have concerns or questions related to key revocation and access to Alliance services, contact our [Technical support](technical-support.md) for assistance. They will be able to guide you through the resolution process and help ensure the continued security of your digital interactions with our services.
 Security is of paramount importance, and swift action in response to a revoked SSH key is essential to maintain the integrity of digital research and collaboration.

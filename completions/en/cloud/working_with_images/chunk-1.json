@@ -1,0 +1,96 @@
+{
+  "doc_key": "en/working_with_images",
+  "level": "chunk",
+  "chunk_index": 1,
+  "qa_pairs": [
+    {
+      "question": "What are images in the context of virtual disks?",
+      "answer": "Images are files which contain the contents of a virtual disk."
+    },
+    {
+      "question": "What do images often contain?",
+      "answer": "Images often contain a base operating system used to create a volume or an ephemeral disk from which a virtual machine boots."
+    },
+    {
+      "question": "What is an ephemeral disk?",
+      "answer": "An ephemeral disk is a virtual disk file which resides on the host (or hypervisor) where the virtual machine runs."
+    },
+    {
+      "question": "When are ephemeral disk files destroyed?",
+      "answer": "Ephemeral disk files are destroyed when a VM is destroyed."
+    },
+    {
+      "question": "How do images differ from volumes or ephemeral disks in terms of portability?",
+      "answer": "Images are portable, meaning they can be downloaded from the cloud, used to create a virtual machine using VirtualBox or similar on your laptop, and uploaded to another cloud to create a new virtual machine. This is not the case with volumes or ephemeral disks."
+    },
+    {
+      "question": "What are some common formats for images?",
+      "answer": "Some commonly encountered image formats are raw, qcow2, vmdk, and vdi."
+    },
+    {
+      "question": "What sensitive information should be removed from virtual machine images before sharing them?",
+      "answer": "Before sharing your virtual machine images, be sure to remove sensitive information such as public/private keys and configuration files containing passwords."
+    },
+    {
+      "question": "What must be installed and configured correctly for an image created from a VirtualBox VM to be uploaded to the clouds?",
+      "answer": "If uploading an image created from a VirtualBox virtual machine to our clouds, it must have cloud-init installed and configured correctly."
+    },
+    {
+      "question": "Where can users find a list of images provided by staff?",
+      "answer": "For a list of images provided by our staff, see [[Cloud resources#Images| images]]."
+    },
+    {
+      "question": "What factors determine the procedure for creating an image from a VM?",
+      "answer": "The procedure for creating an image from a VM depends on whether it is booting from a volume (typically \"p\" flavours) or from an ephemeral disk (typically \"c\" flavours)."
+    },
+    {
+      "question": "How do you create an image from a VM that is booting from an ephemeral disk?",
+      "answer": "The OpenStack command line clients can be used with the command: `openstack server image create <server-name>`, where `<server-name>` is replaced with the name of your server."
+    },
+    {
+      "question": "What part of a VM is included in an image created from a VM booting from an ephemeral disk?",
+      "answer": "This action will only include the VM's root drive (e.g., /dev/vda) in the image."
+    },
+    {
+      "question": "What data is not included when creating an image from a VM booting from an ephemeral disk?",
+      "answer": "Ephemeral drives and non-boot attached volumes will not be included in the image, so additional measures should be taken to preserve this data."
+    },
+    {
+      "question": "What is recommended before creating an image from a VM to ensure filesystem consistency?",
+      "answer": "We recommend the VM be shut off (not deleted) before an image is created from it, to prevent capturing the filesystem in an inconsistent state if the VM is writing to disk."
+    },
+    {
+      "question": "Where can I find information on creating an image from a VM that is booting from a volume?",
+      "answer": "See [[Working_with_volumes#Creating_an_image_from_a_volume|Creating an image from a volume]]."
+    },
+    {
+      "question": "What is the two-step process for sharing an image with another project?",
+      "answer": "First, a member of the project owning the image must share it with a second project. Second, a member of the second project must accept the newly shared image."
+    },
+    {
+      "question": "How does a member of the project owning the image share it with a second project?",
+      "answer": "A member in the project owning the image uses the OpenStack command `glance member-create <IMAGE_ID> <MEMBER_ID>`, replacing `<IMAGE_ID>` with the image's ID and `<MEMBER_ID>` with the project's ID to share it with."
+    },
+    {
+      "question": "How does a member of the second project accept a shared image?",
+      "answer": "A member in the second project uses the OpenStack command `glance member-update <IMAGE_ID> <MEMBER_ID> <MEMBER_STATUS>`, where `<IMAGE_ID>` is the image ID, `<MEMBER_ID>` is the second project's ID, and `<MEMBER_STATUS>` is the new status of the image, typically `accepted`."
+    },
+    {
+      "question": "What are the valid values for `<MEMBER_STATUS>` when updating an image membership?",
+      "answer": "Valid values for `MEMBER_STATUS` are `accepted`, `rejected`, and `pending`."
+    },
+    {
+      "question": "How can you check the status of an image membership?",
+      "answer": "To check the status of image membership, use the command `glance member-list --image-id <IMAGE_ID>`."
+    },
+    {
+      "question": "What happens after an image is accepted by the second project?",
+      "answer": "The image will then be available for use and appear in the OpenStack dashboard's list of images in the second project."
+    },
+    {
+      "question": "What is the first step to downloading an image using the OpenStack client?",
+      "answer": "The first step is to install the OpenStack client and then download and source the OpenStack RC file."
+    }
+  ],
+  "generated_at": "2026-04-12T12:04:04.078167+00:00"
+}

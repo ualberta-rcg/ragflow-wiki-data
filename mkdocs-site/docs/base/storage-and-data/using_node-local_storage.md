@@ -5,21 +5,46 @@ lang: "base"
 
 source_wiki_title: "Using node-local storage"
 source_hash: "2163ee38c5685850647c7a53153ec7bd"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T12:27:24.063936+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T12:27:03.586397+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "available space"
+  - "Input and output"
+  - "network file system"
+  - "Slurm jobs"
+  - "Copy files"
+  - "network storage"
+  - "cluster nodes"
+  - "Multinode jobs"
+  - "compressed archives"
+  - "local disk"
+  - "srun"
+  - "SLURM_TMPDIR"
+
+questions:
+  - "Why is it recommended to use the $SLURM_TMPDIR environment variable instead of network storage for job input and output?"
+  - "How can users ensure their output data is safely copied from $SLURM_TMPDIR back to permanent storage before a job times out?"
+  - "What method must be used to copy necessary input files to the temporary directory on every node during a multinode job?"
+  - "What commands are used to extract ZIP and Tarball archives into the $SLURM_TMPDIR directory?"
+  - "How is the storage space for $SLURM_TMPDIR implemented on the Trillium cluster, and what determines its capacity limit?"
+  - "How does reserving a whole node versus a partial node affect the amount of space available in $SLURM_TMPDIR on general-purpose clusters?"
+  - "Why are standard commands like `cp` or `tar -x` insufficient for jobs that span multiple nodes?"
+  - "Which specific directory should files be copied to on every allocated node during a multinode job?"
+  - "What is the exact command used to distribute files across all allocated nodes in a multinode job?"
+  - "What commands are used to extract ZIP and Tarball archives into the $SLURM_TMPDIR directory?"
+  - "How is the storage space for $SLURM_TMPDIR implemented on the Trillium cluster, and what determines its capacity limit?"
+  - "How does reserving a whole node versus a partial node affect the amount of space available in $SLURM_TMPDIR on general-purpose clusters?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -27,8 +52,7 @@ When [Slurm](running-jobs.md) starts a job, it creates a temporary directory on 
 
 Because this directory resides on local disk, input and output (I/O) to it is almost always faster than I/O to [network storage](storage-and-file-management.md) (/project, /scratch, or /home). Specifically, local disk is better for frequent small I/O transactions than network storage. Any job doing a lot of input and output (which is most jobs!) may expect to run more quickly if it uses `$SLURM_TMPDIR` instead of network storage.
 
-!!! note
-    The temporary character of `$SLURM_TMPDIR` makes it more trouble to use than network storage. Input must be copied from network storage to `$SLURM_TMPDIR` before it can be read, and output must be copied from `$SLURM_TMPDIR` back to network storage before the job ends to preserve it for later use.
+The temporary character of `$SLURM_TMPDIR` makes it more trouble to use than network storage. Input must be copied from network storage to `$SLURM_TMPDIR` before it can be read, and output must be copied from `$SLURM_TMPDIR` back to network storage before the job ends to preserve it for later use.
 
 ## Input
 
@@ -38,7 +62,7 @@ In order to *read* data from `$SLURM_TMPDIR`, you must first copy the data there
 cp /project/def-someone/you/input.files.* $SLURM_TMPDIR/
 ```
 
-This may not work if the input is too large, or if it must be read by processes on different nodes. See [Multinode jobs](using-node-local-storage.md#multinode-jobs) and [Amount of space](using-node-local-storage.md#amount-of-space) below for more.
+This may not work if the input is too large, or if it must be read by processes on different nodes. See [Multinode jobs](#multinode-jobs) and [Amount of space](#amount-of-space) below for more.
 
 ### Executable files and libraries
 
@@ -49,6 +73,7 @@ We particularly find that using an application in a [Python](python.md) virtual 
 ## Output
 
 Output data must be copied from `$SLURM_TMPDIR` back to some permanent storage before the job ends. If a job times out, then the last few lines of the job script might not be executed. This can be addressed three ways:
+
 *   request enough runtime to let the application finish, although we understand that this isn't always possible;
 *   write [checkpoints](checkpoints.md) to network storage, not to `$SLURM_TMPDIR`;
 *   write a signal trapping function.
@@ -68,7 +93,7 @@ If a job spans multiple nodes and some data is needed on every node, then a simp
 
 ### Copy files
 
-Copy one or more files to the `$SLURM_TMPDIR` directory on every node allocated like this:
+Copy one or more files to the `SLURM_TMPDIR` directory on every node allocated like this:
 
 ```bash
 srun --ntasks=$SLURM_NNODES --ntasks-per-node=1 cp file [files...] $SLURM_TMPDIR
@@ -85,6 +110,7 @@ srun --ntasks=$SLURM_NNODES --ntasks-per-node=1 unzip archive.zip -d $SLURM_TMPD
 ```
 
 #### Tarball
+
 Extract to the `$SLURM_TMPDIR`:
 
 ```bash
@@ -97,8 +123,8 @@ At [Trillium](trillium.md), `$SLURM_TMPDIR` is implemented as *RAMdisk*, so the 
 
 At the general-purpose clusters, the amount of space available depends on the cluster and the node to which your job is assigned.
 
-| cluster | space in $SLURM_TMPDIR | size of disks |
-| :------ | :--------------------- | :------------ |
+| cluster | space in `$SLURM_TMPDIR` | size of disks |
+| :------ | :----------------------- | :------------ |
 | [Fir](fir.md) | 7T | 7.84T |
 | [Narval](narval.md) | 800G | 960G, 3.84T |
 | [Nibi](nibi.md) | 3T | 3T, 11T |

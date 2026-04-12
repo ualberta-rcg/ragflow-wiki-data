@@ -1,0 +1,76 @@
+{
+  "doc_key": "fr/pytorch",
+  "level": "chunk",
+  "chunk_index": 19,
+  "qa_pairs": [
+    {
+      "question": "Pourquoi est-il recommandé de créer des points de contrôle pendant l'entraînement d'un modèle avec PyTorch?",
+      "answer": "Il est recommandé de créer des points de contrôle pour découper les tâches de longue durée en plusieurs tâches plus courtes, qui peuvent être allouées plus rapidement sur la grappe, et pour éviter de perdre le progrès en cas d'erreurs inattendues ou de panne du nœud."
+    },
+    {
+      "question": "C'est quoi un point de contrôle dans le contexte de l'entraînement d'un modèle PyTorch?",
+      "answer": "Un point de contrôle, c'est un instantané du modèle à un moment précis du processus d'entraînement, enregistré sur le disque pour pouvoir être chargé plus tard."
+    },
+    {
+      "question": "Comment peut-on créer des points de contrôle avec PyTorch Lightning?",
+      "answer": "On recommande d'utiliser le paramètre de rappels (callbacks) de la classe `Trainer()`, comme dans l'exemple: `callbacks = [pl.callbacks.ModelCheckpoint(dirpath=\"./ckpt\",every_n_epochs=1)]`."
+    },
+    {
+      "question": "À quelle fréquence l'exemple fourni crée-t-il des points de contrôle avec PyTorch Lightning?",
+      "answer": "L'exemple montre comment créer un point de contrôle à la fin de chacune des époques d'entraînement."
+    },
+    {
+      "question": "Qu'est-ce qu'on doit s'assurer de vérifier quand on crée des points de contrôle avec PyTorch Lightning?",
+      "answer": "Il faut s'assurer que le chemin où créer le point de contrôle existe bel et bien."
+    },
+    {
+      "question": "Comment un programme PyTorch Lightning charge-t-il un point de contrôle existant?",
+      "answer": "Le bout de code `trainer.fit(model)` va automatiquement charger un point de contrôle de `./ckpt` s'il y en a un, puis il poursuivra l'entraînement à partir de là."
+    },
+    {
+      "question": "Où est-ce qu'on peut trouver des exemples pour créer des points de contrôle avec des boucles d'entraînement personnalisées?",
+      "answer": "Pour des exemples, on peut consulter la documentation PyTorch."
+    },
+    {
+      "question": "Est-ce que les points de contrôle sont compatibles avec l'entraînement distribué?",
+      "answer": "Oui, les points de contrôle peuvent être utilisés pendant l'exécution d'un programme d'entraînement distribué."
+    },
+    {
+      "question": "Quel code supplémentaire est requis pour gérer les points de contrôle avec PyTorch Lightning lors d'un entraînement distribué?",
+      "answer": "Avec PyTorch Lightning, aucun code supplémentaire n'est requis; il suffit d'insérer le paramètre de rappels comme pour l'entraînement non distribué."
+    },
+    {
+      "question": "Quand on utilise DistributedDataParallel ou Horovod, comment doit-on gérer la création des points de contrôle?",
+      "answer": "Les points de contrôle doivent être créés par un seul processus (rank) du programme, étant donné que tous les processus auront le même état après chaque itération."
+    },
+    {
+      "question": "Quel est un exemple de code pour qu'un seul processus enregistre un point de contrôle?",
+      "answer": "Un exemple est `if global_rank == 0: torch.save(ddp_model.state_dict(), \"./checkpoint_path\")`, où le premier processus (`rank 0`) crée le point de contrôle."
+    },
+    {
+      "question": "Quels problèmes peuvent survenir si on ne gère pas attentivement le chargement des points de contrôle en entraînement distribué?",
+      "answer": "Si un processus tente de charger un point de contrôle qui n'a pas encore été sauvegardé par un autre, ça peut causer des erreurs ou des résultats qui ne sont pas bons."
+    },
+    {
+      "question": "Comment peut-on éviter les problèmes de chargement de points de contrôle dans un environnement distribué?",
+      "answer": "On peut ajouter une barrière (`torch.distributed.barrier()`) au code pour s'assurer que le processus qui a créé le point de contrôle a fini de l'écrire sur le disque avant que les autres processus essaient de le charger."
+    },
+    {
+      "question": "Quel est le comportement par défaut de `torch.load` quand il charge des tenseurs?",
+      "answer": "Par défaut, `torch.load` essaie de charger les tenseurs sur le GPU où ils ont été initialement sauvegardés (par exemple, `cuda:0`)."
+    },
+    {
+      "question": "Comment peut-on s'assurer que les tenseurs sont chargés sur le bon GPU pour chaque processus dans un entraînement distribué?",
+      "answer": "Pour éviter les problèmes, on doit passer le paramètre `map_location` à `torch.load` pour charger les tenseurs sur le GPU identifié par chaque processus, par exemple: `map_location = f\"cuda:{local_rank}\"`."
+    },
+    {
+      "question": "Qu'est-ce que l'erreur \"CUDA error: no kernel image is available for execution on the device\" veut dire?",
+      "answer": "Cette exception signifie que la version de Torch que vous avez installée ne supporte pas l'architecture de calcul ou le GPU que vous utilisez."
+    },
+    {
+      "question": "Quelles sont les solutions possibles si on rencontre l'erreur \"CUDA error: no kernel image is available for execution on the device\"?",
+      "answer": "Pour corriger cette erreur, vous pouvez installer une version plus récente de `torch` ou demander un GPU qui est compatible avec la version de Torch que vous utilisez."
+    }
+  ],
+  "generated_at": "2026-04-12T05:48:32.113882+00:00"
+}

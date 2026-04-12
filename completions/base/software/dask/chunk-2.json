@@ -1,0 +1,80 @@
+{
+  "doc_key": "base/dask",
+  "level": "chunk",
+  "chunk_index": 2,
+  "qa_pairs": [
+    {
+      "question": "What command is used to shut down Dask workers after the Python process exits in the multiple-node `dask-example.sh` script?",
+      "answer": "The `kill $dask_cluster_pid` command is used to shut down Dask workers after the Python process finishes executing `test_dask.py`."
+    },
+    {
+      "question": "What is the primary function of the `config_virtualenv.sh` script?",
+      "answer": "The `config_virtualenv.sh` script is responsible for setting up a virtual environment, loading necessary modules (python, gcc, arrow), and installing Dask with its distributed and dataframe components using `pip install --no-index dask[distributed,dataframe]`."
+    },
+    {
+      "question": "Which modules are loaded by the `config_virtualenv.sh` script before creating the virtual environment?",
+      "answer": "The `config_virtualenv.sh` script loads the `python`, `gcc`, and `arrow` modules."
+    },
+    {
+      "question": "How does `config_virtualenv.sh` create a virtual environment without downloading packages?",
+      "answer": "It creates a virtual environment using the command `virtualenv --no-download $SLURM_TMPDIR/env`."
+    },
+    {
+      "question": "What Dask-related packages are installed within the virtual environment by `config_virtualenv.sh`?",
+      "answer": "It installs `dask[distributed,dataframe]` using `pip install --no-index` within the virtual environment."
+    },
+    {
+      "question": "What message does `config_virtualenv.sh` print upon successfully installing the virtual environment?",
+      "answer": "Upon successful installation, it prints the message \"Done installing virtualenv!\"."
+    },
+    {
+      "question": "What is the purpose of the `launch_dask_workers.sh` script?",
+      "answer": "The `launch_dask_workers.sh` script activates the virtual environment and then launches a Dask worker, dynamically configuring its memory limit and number of threads based on the SLURM task rank."
+    },
+    {
+      "question": "How is the Dask scheduler's connection string formed in `launch_dask_workers.sh`?",
+      "answer": "The scheduler's connection string is formed as `tcp://$DASK_SCHEDULER_ADDR:$DASK_SCHEDULER_PORT`, using environment variables for the address and port."
+    },
+    {
+      "question": "How is the Dask worker configured on the SLURM task with Rank 0 in `launch_dask_workers.sh`?",
+      "answer": "On the SLURM task with Rank 0, the worker is configured to use 40% of the job's memory (`DASK_WORKER_MEM=0.4`) and one less CPU core than allocated to the task (`DASK_WORKER_THREADS=$(($SLURM_CPUS_PER_TASK-1))`) to leave a core for the scheduler."
+    },
+    {
+      "question": "How are Dask workers configured on SLURM tasks other than Rank 0 in `launch_dask_workers.sh`?",
+      "answer": "On all other SLURM tasks, each worker is configured to use 50% of the job's allocated memory (`DASK_WORKER_MEM=0.5`) and all the CPU cores allocated to its task (`DASK_WORKER_THREADS=$SLURM_CPUS_PER_TASK`)."
+    },
+    {
+      "question": "What command initiates a Dask worker within the `launch_dask_workers.sh` script?",
+      "answer": "A Dask worker is initiated using the `dask worker` command, followed by the scheduler connection string and various options like `--no-dashboard`, `--nworkers=1`, `--nthreads`, `--memory-limit`, and `--local-directory`."
+    },
+    {
+      "question": "What message is printed by `launch_dask_workers.sh` after a Dask worker has started?",
+      "answer": "After starting a Dask worker, the script prints the message \"dask worker started!\"."
+    },
+    {
+      "question": "What is the main function of the `test_dask.py` script?",
+      "answer": "The `test_dask.py` script connects to a Dask cluster, creates a pandas DataFrame, converts it into a Dask DataFrame with 6 partitions, computes the mean of column 'a', and prints the result."
+    },
+    {
+      "question": "How does `test_dask.py` establish a connection to the Dask scheduler?",
+      "answer": "It establishes a connection using `Client(f\"tcp://{os.environ['DASK_SCHEDULER_ADDR']}:{os.environ['DASK_SCHEDULER_PORT']}\")`, retrieving the scheduler's address and port from environment variables."
+    },
+    {
+      "question": "How many partitions is the Dask DataFrame split into within `test_dask.py`?",
+      "answer": "The pandas DataFrame is converted into a Dask DataFrame with 6 partitions (`npartitions=6`)."
+    },
+    {
+      "question": "What specific calculation does `test_dask.py` perform on the Dask DataFrame?",
+      "answer": "The script calculates the mean of column 'a' from the Dask DataFrame using `ddf.a.mean().compute()`."
+    },
+    {
+      "question": "What output does `test_dask.py` produce?",
+      "answer": "It prints the calculated mean value to the console in the format \"The mean is {result}\"."
+    },
+    {
+      "question": "Which Python libraries are imported at the beginning of the `test_dask.py` script?",
+      "answer": "The `test_dask.py` script imports `pandas`, `numpy`, `dask.dataframe` (as `dd`), `dask.distributed.Client`, and `os`."
+    }
+  ],
+  "generated_at": "2026-04-11T20:48:04.848683+00:00"
+}

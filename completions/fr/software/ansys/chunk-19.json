@@ -1,0 +1,84 @@
+{
+  "doc_key": "fr/ansys",
+  "level": "chunk",
+  "chunk_index": 19,
+  "qa_pairs": [
+    {
+      "question": "C'est quoi le but des scripts de redémarrage pour Ansys Fluent?",
+      "answer": "Les scripts de redémarrage d'Ansys Fluent sont là pour automatiser le redémarrage des tâches intensives qui dépassent le temps d'exécution maximum permis sur les grappes."
+    },
+    {
+      "question": "Comment ces scripts gèrent-ils les tâches Fluent qui durent plus longtemps que le maximum alloué?",
+      "answer": "Ces scripts automatisent le redémarrage des tâches à partir des fichiers de valeur de pas de temps les plus récents, permettant aux simulations de continuer même si elles dépassent la durée maximale autorisée pour une seule exécution."
+    },
+    {
+      "question": "Quelle est la condition de base pour pouvoir utiliser les scripts de redémarrage Fluent?",
+      "answer": "Une condition de base est que le premier pas de la simulation doit pouvoir se terminer avant la fin du temps demandé dans le vecteur de tâches alloué par le script, si la simulation est lancée à partir d'un champ initialisé."
+    },
+    {
+      "question": "Quels fichiers initiaux sont nécessaires pour commencer une simulation avec les scripts de redémarrage Fluent?",
+      "answer": "Pour commencer, il faut un groupe de fichiers `sample.cas`, `sample.dat` et `sample.jou`."
+    },
+    {
+      "question": "Comment devrais-je modifier le fichier `sample.jou` pour une utilisation avec les scripts de redémarrage?",
+      "answer": "Vous devriez modifier le fichier `sample.jou` pour qu'il contienne les lignes `/solve/dual-time-iterate 1` et `/file/auto-save/data-frequency 1`."
+    },
+    {
+      "question": "Comment je crée et modifie le fichier `sample-restart.jou` pour un redémarrage?",
+      "answer": "Vous devez d'abord créer `sample-restart.jou` en copiant `sample.jou` (`cp sample.jou sample-restart.jou`). Ensuite, modifiez-le pour qu'il contienne `/file/read-cas-data sample-restart` au lieu de `/file/read-cas-data sample` et mettez en commentaire la ligne d'initialisation (par exemple, `; /solve/initialize/initialize-flow`)."
+    },
+    {
+      "question": "Quelle valeur devrais-je spécifier pour `/solve/dual-time-iterate` dans `sample-restart.jou` si les pas suivants sont deux fois plus rapides?",
+      "answer": "Si vos deuxième pas et les pas qui suivent sont exécutés deux fois plus vite que le pas initial, vous devriez spécifier `/solve/dual-time-iterate 2` dans `sample-restart.jou`."
+    },
+    {
+      "question": "Où les résultats de chaque pas de simulation sont-ils sauvegardés quand j'utilise les scripts de redémarrage?",
+      "answer": "Un fichier de résultats pour chaque pas est enregistré dans le sous-répertoire `output`."
+    },
+    {
+      "question": "Quel est le temps limite maximum que je peux spécifier dans le script Slurm pour une tâche de redémarrage?",
+      "answer": "Le temps demandé dans le script Slurm peut aller jusqu'à `--time=07-00:00` jours."
+    },
+    {
+      "question": "Quels sont les principaux paramètres Slurm utilisés dans le script 'Plusieurs nœuds (par nœud + redémarrage)'?",
+      "answer": "Les paramètres Slurm principaux sont: `--account=def-group`, `--time=07-00:00`, `--nodes=1`, `--ntasks-per-node=32`, `--mem=0`, `--cpus-per-task=1` et `--array=1-5%1`."
+    },
+    {
+      "question": "Quels modules sont requis pour exécuter les scripts de redémarrage Ansys Fluent?",
+      "answer": "Vous devez charger les modules `StdEnv/2023` et `ansys/2023R2` (ou une version plus récente)."
+    },
+    {
+      "question": "Comment le script gère-t-il la réussite d'une tâche de redémarrage Fluent?",
+      "answer": "Si la tâche se termine avec succès (code de sortie `0`), le script affiche un message de succès et utilise `scancel $SLURM_ARRAY_JOB_ID` pour annuler le reste du vecteur de tâches."
+    },
+    {
+      "question": "Que se passe-t-il si une tâche échoue avant d'atteindre le nombre maximal de tentatives de redémarrage?",
+      "answer": "Si une tâche échoue et que le nombre maximal de tentatives n'est pas atteint (`$SLURM_ARRAY_TASK_ID -lt $SLURM_ARRAY_TASK_COUNT`), le script affiche un message 'Resubmitting job now…' pour relancer la tâche."
+    },
+    {
+      "question": "Comment le script s'assure-t-il que le prochain redémarrage utilise les données les plus récentes?",
+      "answer": "Après un redémarrage, le script utilise des liens symboliques (`ln -sfv`) pour pointer les fichiers de redémarrage (`MYCASFILERES`, `MYDATFILERES`) vers les fichiers `.cas` et `.dat` les plus récents trouvés dans le sous-répertoire `output`."
+    },
+    {
+      "question": "Comment la durée totale d'une simulation est-elle calculée si j'ai défini `/solve/dual-time-iterate 2` et un nombre N de redémarrages?",
+      "answer": "La durée totale de la simulation sera `1*Dt + 2*Nrestart*Dt`, où `Dt` est la durée du pas initial et `Nrestart` est le nombre de redémarrages définis dans le script Slurm."
+    },
+    {
+      "question": "Quelle commande utilise-t-on pour lancer Fluent sur un seul nœud pour la première tâche de redémarrage?",
+      "answer": "Pour lancer Fluent sur un seul nœud pour la première tâche, la commande est `fluent -g 2ddp -t $NCORES -mpi=intel -pshmem -i $MYJOUFILE`."
+    },
+    {
+      "question": "Comment lancer Fluent sur plusieurs nœuds Nibi pour les tâches de redémarrage subséquentes?",
+      "answer": "Pour les tâches subséquentes sur plusieurs nœuds Nibi, la commande est `fluent -g $MYVERSION -t $NCORES -mpi=intel -peth -cnf=/tmp/machinefile-$SLURM_JOB_ID -ssh -i $MYJOUFILERES`."
+    },
+    {
+      "question": "Pourquoi le script utilise-t-il `/solve/dual-time-iterate 2` pour les redémarrages, et pourquoi pas une autre valeur?",
+      "answer": "La valeur `2` est arbitraire, mais elle est utilisée pour s'assurer que la durée de deux pas soit moindre que la durée allouée au vecteur de tâches, ce qui aide à limiter le nombre de redémarrages coûteux en ressources. Si le premier pas est basé sur une solution précédente, il serait préférable de choisir `1`."
+    },
+    {
+      "question": "Quel est le nombre total de pas et de fichiers de résultats générés si `/solve/dual-time-iterate 2` est choisi et que `Nrestart` est le nombre de redémarrages?",
+      "answer": "Le nombre total de pas et de fichiers de résultats générés sera `1 + 2*Nrestart`."
+    }
+  ],
+  "generated_at": "2026-04-11T17:09:30.595550+00:00"
+}

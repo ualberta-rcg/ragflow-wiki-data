@@ -1,0 +1,56 @@
+{
+  "doc_key": "base/estimer_et_prévenir_le_gaspillage_des_ressources",
+  "level": "chunk",
+  "chunk_index": 9,
+  "qa_pairs": [
+    {
+      "question": "How should submission parameters be configured for a GROMACS task to ensure optimal execution?",
+      "answer": "To ensure optimal execution for a GROMACS task, the `OMP_NUM_THREADS` variable must represent the number of requested cores. It's recommended to use the `SLURM_CPUS_PER_TASK` environment variable to ensure that the value for `--cpus-per-task` is equivalent to `OMP_NUM_THREADS`."
+    },
+    {
+      "question": "What happens if the OMP_NUM_THREADS variable is not correctly configured in a GROMACS submission script?",
+      "answer": "If `OMP_NUM_THREADS` is not correctly configured (e.g., set to 4 when `--cpus-per-task` is 8), it means only half of the requested cores will be utilized (e.g., 16 out of 32 demanded cores will be used), leading to wasted resources."
+    },
+    {
+      "question": "How can the `OMP_NUM_THREADS` setting be corrected in a GROMACS submission script to avoid CPU waste?",
+      "answer": "To correct the `OMP_NUM_THREADS` setting, use the `SLURM_CPUS_PER_TASK` environment variable. This ensures that the value for `--cpus-per-task` directly matches `OMP_NUM_THREADS`, preventing underutilization of cores."
+    },
+    {
+      "question": "What are the key recommendations to avoid wasting CPU resources?",
+      "answer": "To avoid wasting CPU resources, you should identify the task type, start with simple tests (1 CPU, then 2 to check efficiency), consult application documentation for parallelism parameters, perform tests in an interactive task, use visualization portals to monitor resource usage, connect to an active node for insights, and contact support if needed."
+    },
+    {
+      "question": "What is the recommended approach for testing a program if its CPU behaviour is unknown?",
+      "answer": "If a program's CPU behaviour is unknown, start with a simple test by launching it with 1 CPU. Subsequently, try with 2 CPUs and observe if both are used efficiently."
+    },
+    {
+      "question": "How can application documentation help optimize CPU usage?",
+      "answer": "Consulting application documentation for parameters like `--threads` or `--cores` can indicate if the application can benefit from parallelism, helping users test and find the optimal number of cores."
+    },
+    {
+      "question": "Why should tests be performed in an interactive task when optimizing CPU usage?",
+      "answer": "Performing tests in an interactive task allows for quickly testing different configurations without waiting in the queue, which helps in optimizing CPU usage."
+    },
+    {
+      "question": "What role do visualization portals play in preventing CPU waste?",
+      "answer": "Visualization portals are essential for monitoring resource usage (CPU, memory, GPU) and identifying inefficiencies, which helps prevent CPU waste."
+    },
+    {
+      "question": "How can connecting to an active node assist in understanding task behaviour and optimizing CPU use?",
+      "answer": "Connecting to an active node during task execution can provide valuable insights into its behaviour, aiding in optimizing CPU use."
+    },
+    {
+      "question": "What should be done if a GPU is requested but not used at all by a task?",
+      "answer": "If a GPU is requested but not used, it's important to question whether a GPU is necessary for the task. It is recommended to perform a comparative test between running the task on a CPU and on a GPU."
+    },
+    {
+      "question": "Why might a task run faster on a GPU node even if the GPU itself isn't being used?",
+      "answer": "A task might run faster on a GPU node, even without utilizing the GPU, because the CPUs on these nodes are often more powerful."
+    },
+    {
+      "question": "How can you tell if a requested GPU is not providing any benefit to a task?",
+      "answer": "The GPU usage graph will show that the GPU remains unused, indicating it's not contributing any gain to the task."
+    }
+  ],
+  "generated_at": "2026-04-11T21:20:27.205141+00:00"
+}

@@ -1,0 +1,103 @@
+{
+  "doc_key": "base/working_with_volumes",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is the primary purpose of a volume in an OpenStack cloud environment?",
+      "answer": "A volume provides persistent storage that is not destroyed when a virtual machine (VM) is terminated."
+    },
+    {
+      "question": "How do volumes on OpenStack clouds ensure data safety against hardware failure?",
+      "answer": "Volumes use Ceph storage with either a 3-fold replication factor or erasure codes to provide safety against hardware failure."
+    },
+    {
+      "question": "On Arbutus, what are the two main volume types and their storage characteristics?",
+      "answer": "The `rbd1` volume type uses spinning disk hard drives and erasure codes, while the `high_performance` type uses solid-state NVMe drives and 3-fold replication for higher performance."
+    },
+    {
+      "question": "What are the required fields to fill when creating a new volume through the dashboard?",
+      "answer": "You must fill in 'Volume Name', set 'Volume Source' to `No source, empty volume`, set 'Type' to `No volume type`, specify 'Size (GiB)', and set 'Availability Zone' to `nova`."
+    },
+    {
+      "question": "What is the process of associating a volume with a VM called?",
+      "answer": "Associating a volume with a VM is called attaching."
+    },
+    {
+      "question": "How do you attach a volume to an instance using the OpenStack dashboard?",
+      "answer": "From the 'Volumes' page, select 'Manage Attachments' from the 'Actions' drop-down menu for the desired volume, then select a VM from 'Attach to Instance' and click 'Attach Volume'."
+    },
+    {
+      "question": "When is it necessary to format a volume?",
+      "answer": "A newly created and attached volume must be formatted before it can be used to store directories and files."
+    },
+    {
+      "question": "What is the main caution to observe when formatting a volume?",
+      "answer": "Formatting erases all existing information on a volume, so it should be done with care, and never on an existing volume that already contains data."
+    },
+    {
+      "question": "What is mounting a volume, and what is the typical command used for it on a Linux VM?",
+      "answer": "Mounting is the process of mapping the volume's directory and file structure logically within the VM's directory and file structure. A typical command is `sudo mount /dev/vdb1 /mnt`."
+    },
+    {
+      "question": "How can a volume be automatically mounted on a Linux VM upon boot?",
+      "answer": "To automatically mount a volume, you need to edit the `/etc/fstab` file to include a new line with the volume's UUID and desired mount point."
+    },
+    {
+      "question": "What command helps in viewing mounting information, including UUIDs, on a Linux VM?",
+      "answer": "The `blkid` command can be used to view mounting information, including UUIDs, for devices."
+    },
+    {
+      "question": "Why is it safer to boot a VM from a volume compared to booting from an image directly?",
+      "answer": "Booting from a volume is safer because volume storage has redundancy, protecting the VM from hardware failure, unlike VMs stored on the local disk of the actual machine running the VM."
+    },
+    {
+      "question": "What are the three ways to boot a VM from a volume?",
+      "answer": "You can boot from an image (creating a new volume), boot from a pre-existing volume, or boot from a volume snapshot (creating a new volume)."
+    },
+    {
+      "question": "What should you consider regarding the 'Delete on Terminate' option when booting a VM from a volume?",
+      "answer": "If you want the volume to persist longer than the VM, ensure the 'Delete on Terminate' box is unchecked. If unsure, it is better to leave it unchecked and delete the volume manually later."
+    },
+    {
+      "question": "What is the main purpose of creating an image from a volume?",
+      "answer": "Creating an image from a volume allows you to download it for backup or to spin up a VM on a different cloud or with software like VirtualBox."
+    },
+    {
+      "question": "What is a prerequisite for creating an image from a volume, especially if it's a boot volume?",
+      "answer": "The volume must first be detached from a VM. If it's a boot (root) volume, the VM must be terminated/deleted, ensuring 'Delete Volume on Instance Delete' was not checked during VM creation."
+    },
+    {
+      "question": "Which disk formats are recommended for images within OpenStack and for VirtualBox, respectively?",
+      "answer": "QCOW2 is recommended for OpenStack due to its compactness, while `vmdk` or `vdi` formats are better suited for VirtualBox."
+    },
+    {
+      "question": "How do you create an image from a volume using the OpenStack dashboard?",
+      "answer": "Click on 'Volumes', then for the desired volume, select 'Upload to Image' from the 'Actions' menu, choose a name, disk format, and click 'Upload'."
+    },
+    {
+      "question": "What is the recommended method for copying volumes, and why is it preferred?",
+      "answer": "Cloning is the recommended method because it is much faster and requires less data movement behind the scenes compared to creating an image and then a new volume."
+    },
+    {
+      "question": "What important step should be taken before cloning a volume to ensure data consistency?",
+      "answer": "It is highly recommended to shut down the VM before creating a clone of its volume to prevent the newly created volume from being in an inconsistent state if data was being written during the clone process."
+    },
+    {
+      "question": "How do you clone a volume using the OpenStack command line client?",
+      "answer": "Use the command: `openstack volume create --source <source-volume-id> --size <size-of-new-volume> <name-of-new-volume>`."
+    },
+    {
+      "question": "What crucial step should be taken before detaching a volume to prevent corruption?",
+      "answer": "You must ensure that the operating system and other programs running on your VM are not accessing files on the volume, either by shutting down the VM or unmounting the volume."
+    },
+    {
+      "question": "How do you detach a non-boot volume (e.g., `/dev/vdb`) from a VM using the dashboard?",
+      "answer": "Navigate to 'Volumes -> Volumes', find the volume, select 'Manage Attachments' from the 'Actions' column drop-down list, and then click 'Detach Volume' twice to confirm."
+    },
+    {
+      "question": "What special consideration applies when detaching a boot volume (attached as `/dev/vda`)?",
+      "answer": "If a volume is attached as `/dev/vda`, it is a boot volume, and you must delete the attached VM before the volume can be detached."
+    }
+  ],
+  "generated_at": "2026-04-12T12:06:47.161072+00:00"
+}

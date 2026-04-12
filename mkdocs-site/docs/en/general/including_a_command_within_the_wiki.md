@@ -5,21 +5,33 @@ lang: "en"
 
 source_wiki_title: "Including a command within the wiki/en"
 source_hash: "f2d9a42cf87f0849d0c6a7f98710f1d7"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T07:20:07.233480+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T07:59:29.966860+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "Command template"
+  - "command prompt"
+  - "Commands template"
+  - "command result"
+  - "special characters"
+
+questions:
+  - "How do you format a single command in the wiki and properly escape special characters like equality signs and pipe symbols?"
+  - "What is the correct template and syntax for including a set of multiple commands on separate lines?"
+  - "How can you modify the command prompt and display the execution result within the command templates?"
+  - "How do you format a single command in the wiki and properly escape special characters like equality signs and pipe symbols?"
+  - "What is the correct template and syntax for including a set of multiple commands on separate lines?"
+  - "How can you modify the command prompt and display the execution result within the command templates?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -32,10 +44,10 @@ results in:
 cd src; make && make install; cd ..
 ```
 
-## Special characters "{{=}}" and "{{!}}"
+## Special characters `{{=}}` and `{{!}}`
 Since `{{Command}}` is a template, the "=" and "|" signs are interpreted by the wiki.
 
-To include an equality sign, use the [meta-template {{=}}](template-=.md). For example, the code:
+To include an equality sign, use the [meta-template `{{=}}`](template-equals.md). For example, the code:
 ```text
 {{Command|./configure --prefix{{=}}$HOME && make && make install}}
 ```
@@ -70,7 +82,7 @@ If you want to modify the command prompt, you may do it by including a *prompt* 
 ```
 results in
 ```bash
-+ [name@briaree ~] cd src; make && make install; cd ..
+[name@briaree ~] cd src; make && make install; cd ..
 ```
 
 In the same way,
@@ -85,10 +97,10 @@ In the same way,
 ```
 results in
 ```bash
-+ [name@briaree $] cd src
-+ [name@briaree $] make
-+ [name@briaree $] make install
-+ [name@briaree $] cd ..
+[name@briaree $] cd src
+[name@briaree $] make
+[name@briaree $] make install
+[name@briaree $] cd ..
 ```
 
 ## Displaying the result of a command
@@ -104,5 +116,7 @@ Sys. de fich.         Tail. Occ. Disp. %Occ. Monté sur
 results in :
 ```bash
 df -h .
+```
+```output
 Sys. de fich.         Tail. Occ. Disp. %Occ. Monté sur
 /lustre2/home         516T  340T  150T  70% /home

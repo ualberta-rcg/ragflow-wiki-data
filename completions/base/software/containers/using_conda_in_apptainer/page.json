@@ -1,0 +1,55 @@
+{
+  "doc_key": "base/using_conda_in_apptainer",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is the primary recommendation for installing software on the systems, rather than using Conda?",
+      "answer": "Priority should always be given to using modules from the software stack and wheels from the Python wheelhouse, as they are optimized for the systems."
+    },
+    {
+      "question": "Which package manager does this tutorial use instead of Conda, and why?",
+      "answer": "This tutorial uses micromamba, because using Conda directly might be subject to Anaconda's Terms of Service and require a commercial license."
+    },
+    {
+      "question": "What kind of Apptainer image does this tutorial demonstrate creating?",
+      "answer": "It shows how to create a read-only image, specifically a one-off .sif file containing a Conda environment."
+    },
+    {
+      "question": "What is the first step in creating an Apptainer image with Conda?",
+      "answer": "The first step is to create a .yml file describing the Conda environment to be created inside the container."
+    },
+    {
+      "question": "What information does the `environment.yml` file specify?",
+      "answer": "It specifies the environment's name, a list of packages to install, and the channels where to look for them."
+    },
+    {
+      "question": "What is the second step in the process of creating the Apptainer image?",
+      "answer": "The second step is to create an Apptainer image definition file (e.g., `image.def`)."
+    },
+    {
+      "question": "What are the key actions described in the Apptainer image definition file (`image.def`)?",
+      "answer": "It describes pulling a Docker image with micromamba, copying the `environment.yml` file, and then calling micromamba to configure the environment."
+    },
+    {
+      "question": "What is the base image pulled from DockerHub in the example `image.def`?",
+      "answer": "The base image pulled is `mambaorg/micromamba:latest`."
+    },
+    {
+      "question": "What is the command used within the `%post` section of the `image.def` to install packages?",
+      "answer": "The command is `micromamba install -n base --file environment.yml && \\ micromamba clean --all --yes`."
+    },
+    {
+      "question": "What is the final step after creating the `environment.yml` and `image.def` files?",
+      "answer": "The final step is to build the Apptainer image using the definition file."
+    },
+    {
+      "question": "What command is used to build the Apptainer image?",
+      "answer": "`APPTAINER_BIND=' ' apptainer build image.sif image.def` is used after loading the Apptainer module."
+    },
+    {
+      "question": "How can you test if a package, like `multiqc`, is available and functional within the built Apptainer image?",
+      "answer": "You can test it by running a command such as `apptainer run image.sif multiqc --help`."
+    }
+  ],
+  "generated_at": "2026-04-12T09:59:16.873893+00:00"
+}

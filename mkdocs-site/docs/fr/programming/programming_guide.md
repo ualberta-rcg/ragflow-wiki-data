@@ -5,21 +5,30 @@ lang: "fr"
 
 source_wiki_title: "Programming guide/fr"
 source_hash: "eb380632629777259bdf8027a08fcbf6"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T09:58:13.817083+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T10:26:45.719767+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "Gestion de code source"
+  - "Parallélisation"
+  - "Accélérateurs"
+  - "Langages"
+  - "Outils de développement"
+
+questions:
+  - "Quels sont les principaux langages de programmation, compilateurs et interpréteurs listés dans ce document ?"
+  - "Quelles technologies et bibliothèques sont répertoriées pour gérer l'accélération matérielle et la parallélisation des calculs ?"
+  - "Quels types d'outils de développement sont mentionnés pour accompagner le cycle de vie du logiciel, comme la gestion de code, le débogage et la compilation ?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 

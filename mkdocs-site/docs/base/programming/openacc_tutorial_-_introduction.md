@@ -5,26 +5,53 @@ lang: "base"
 
 source_wiki_title: "OpenACC Tutorial - Introduction"
 source_hash: "8a5fa95e4c45bce5cbfaddc7fe93513b"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T09:25:00.331156+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T09:55:28.139591+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "next unit"
+  - "OpenACC Tutorial"
+  - "OpenACC"
+  - "optimize loops"
+  - "express parallelism"
+  - "throughput"
+  - "porting code"
+  - "achieved performance"
+  - "compiler"
+  - "CPU"
+  - "parallel computing"
+  - "Profiling"
+  - "lesson plan"
+  - "express data movement"
+  - "accelerators"
+
+questions:
+  - "What are the primary architectural differences, strengths, and weaknesses between CPUs and accelerators?"
+  - "How does the concept of computing speed differ from throughput, and what types of tasks are best suited for each?"
+  - "What are the essential steps and considerations involved in porting existing code to an accelerator using a language like OpenACC?"
+  - "What is the main subject of the tutorial mentioned in the text?"
+  - "Where does the backward navigation link direct the user?"
+  - "What is the specific topic of the next unit in the learning sequence?"
+  - "How does a programmer express parallelism in the code according to the text?"
+  - "Why is the \"express data movement\" phase necessary even when using the best compilers?"
+  - "What advantage does the programmer have over the compiler during the \"optimize loops\" step?"
+  - "What is the main subject of the tutorial mentioned in the text?"
+  - "Where does the backward navigation link direct the user?"
+  - "What is the specific topic of the next unit in the learning sequence?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
-!!! info "Learning objectives"
-
+!!! abstract "Learning objectives"
 *   Understand the difference between a CPU and an accelerator.
 *   Understand the difference between speed and throughput.
 *   Understand the steps to take to port an existing code to an accelerator.
@@ -43,7 +70,7 @@ But CPUs also have some weaknesses:
 
 Typical accelerators, such as GPU or coprocessors, are highly parallel chipsets. They are made out of hundreds or thousands of relatively simple and low frequency compute cores. Simply said, they are optimized for parallel computing. High-end GPUs usually have a few thousand compute cores. They also have a high bandwidth to access their own device memory. They present significantly more compute resources than high-end CPUs, and provide a much **higher throughput**, and much **better performance per watt**. However, they embed a relatively low amount of memory, and have a low per-thread performance.
 
-!!! note "Speed vs throughput, which is best ?"
+!!! info "Speed vs throughput, which is best ?"
 Depending on what kind of task you are trying to accomplish, you may want to use a high speed device such as CPU, or a high throughput device such as an accelerator.
 
 A **high speed** device will accomplish a single task within a very short amount of time. This is probably what you want if you are trying to do a single sequential computation, such as the resolution of a one dimensional differential equation. In real life, we could compare a high speed device to a racing motorcycle or a racing car. It will bring a single passenger from point A to point B very quickly.

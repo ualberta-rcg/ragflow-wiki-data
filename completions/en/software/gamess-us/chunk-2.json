@@ -1,0 +1,60 @@
+{
+  "doc_key": "en/gamess-us",
+  "level": "chunk",
+  "chunk_index": 2,
+  "qa_pairs": [
+    {
+      "question": "Why are quantum chemistry calculations often referred to as 'memory bound'?",
+      "answer": "Quantum chemistry calculations are often 'memory bound' because larger molecules at a high level of theory typically require a significant amount of memory (RAM), often more than is available in a typical computer."
+    },
+    {
+      "question": "How does GAMESS manage memory when calculations require more RAM than available?",
+      "answer": "GAMESS uses disk storage, specifically SCRATCH, to store intermediate results, thereby freeing up main memory and reading the necessary data back from disk later in the calculation."
+    },
+    {
+      "question": "What is the performance difference between SCRATCH storage and system memory for GAMESS calculations?",
+      "answer": "Even the fastest SCRATCH storage is several orders of magnitude slower than system memory, which is why it's crucial to assign sufficient memory directly to GAMESS."
+    },
+    {
+      "question": "What is the two-step process for assigning sufficient memory to a GAMESS job?",
+      "answer": "The two-step process involves: 1. Requesting memory for the job in the submission script, and 2. Defining the `MWORDS` and `MEMDDI` options within the `$SYSTEM` group of the GAMESS input file."
+    },
+    {
+      "question": "What is a recommended value for `--mem-per-cpu` in the job submission script for GAMESS?",
+      "answer": "Using `--mem-per-cpu=4000M` is a reasonable value, as it matches the memory-to-CPU ratio on the base nodes."
+    },
+    {
+      "question": "What could happen if a user requests more memory than `--mem-per-cpu=4000M` in their GAMESS job script?",
+      "answer": "Requesting more memory than `--mem-per-cpu=4000M` may cause the job to wait longer to be scheduled on a large-memory node."
+    },
+    {
+      "question": "What is the function of the `MWORDS` option in the `$SYSTEM` group of a GAMESS input file?",
+      "answer": "`MWORDS` specifies the maximum replicated memory that a GAMESS job can use on every core, given in units of 1,000,000 words."
+    },
+    {
+      "question": "How is a 'word' defined in the context of `MWORDS` and `MEMDDI` for GAMESS memory allocation?",
+      "answer": "A word is defined as 64 bits, which is equivalent to 8 bytes."
+    },
+    {
+      "question": "What does the `MEMDDI` option control in the `$SYSTEM` group of a GAMESS input file?",
+      "answer": "`MEMDDI` controls the grand total memory needed for the distributed data interface (DDI) storage, also given in units of 1,000,000 words."
+    },
+    {
+      "question": "How do you calculate the memory required on each processor core for a GAMESS run using `MWORDS` and `MEMDDI`?",
+      "answer": "The memory required on each processor core for a run using `p` CPU-cores is calculated as `MEMDDI/p + MWORDS`."
+    },
+    {
+      "question": "Why should a safety margin of memory be left between the scheduler's requested memory and GAMESS's allowed memory?",
+      "answer": "It is important to leave a few hundred MB of memory as a safety margin to prevent Slurm from terminating the job if it attempts to use slightly more memory than explicitly requested by the scheduler."
+    },
+    {
+      "question": "What does the message 'slurmstepd: error: Exceeded step/job memory limit at some point' in a `slurm-{JOBID}.out` file indicate?",
+      "answer": "This message indicates that Slurm has terminated the job because it tried to use more memory than was requested in the submission script."
+    },
+    {
+      "question": "What actions should be taken if a GAMESS job fails with a 'Exceeded step/job memory limit' error?",
+      "answer": "If a GAMESS job fails with this error, one should either reduce the `MWORDS` or `MEMDDI` values in the input file or increase the `--mem-per-cpu` setting in the submission script."
+    }
+  ],
+  "generated_at": "2026-04-11T21:52:59.454270+00:00"
+}

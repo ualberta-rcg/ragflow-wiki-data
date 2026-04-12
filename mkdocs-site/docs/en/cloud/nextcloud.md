@@ -5,21 +5,46 @@ lang: "en"
 
 source_wiki_title: "Nextcloud/en"
 source_hash: "74b462a6b4801dfd626f14c7b328fbcf"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T09:13:08.014889+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T09:45:01.640441+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "offline synchronization"
+  - "Alliance"
+  - "rclone"
+  - "WebDAV"
+  - "Synchronization Client"
+  - "curl"
+  - "copy files"
+  - "cloud storage"
+  - "file sharing"
+  - "UNIX command line tools"
+  - "WebDAV clients"
+  - "Nextcloud"
+
+questions:
+  - "What are the primary features and limitations of the Alliance Nextcloud service, such as its storage quota and backup policy?"
+  - "What are the various methods and applications users can utilize to access and manage their files on Nextcloud?"
+  - "How does accessing files via a WebDAV client differ from using a Desktop Synchronization Client?"
+  - "What are the specific command-line structures required to upload and download files using curl?"
+  - "How do you configure a new remote storage profile in rclone to avoid entering service details and passwords repeatedly?"
+  - "What are the different methods for sharing files in Nextcloud with registered users, groups, and people without an Alliance account?"
+  - "What is the primary benefit of working on files offline according to the text?"
+  - "Which specific UNIX command line clients are mentioned for copying files to Nextcloud?"
+  - "In what scenario are command line tools considered particularly useful for managing data?"
+  - "What are the specific command-line structures required to upload and download files using curl?"
+  - "How do you configure a new remote storage profile in rclone to avoid entering service details and passwords repeatedly?"
+  - "What are the different methods for sharing files in Nextcloud with registered users, groups, and people without an Alliance account?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -30,11 +55,11 @@ The Nextcloud service is aimed at users with relatively small datasets (up to 10
 If you are not familiar with the concept of Nextcloud, you may try the [demo on the Nextcloud website](https://try.nextcloud.com/).
 
 !!! tip
-    We recommend taking this opportunity to take a look at your data and do some clean-up: remove data you no longer need, check with whom you share your data, etc.
+    We recommend taking this opportunity to take a look at your data and do some cleanup: remove data you no longer need, check with whom you share your data, etc.
 
 ## Alliance Nextcloud service description
 
-*   **Server URL:** https://nextcloud.computecanada.ca
+*   **Server URL:** `https://nextcloud.computecanada.ca`
 *   **Server Location:** Simon Fraser University, Burnaby, BC
 *   **Fixed Quota:** 100 GB per user
 *   **Backup Policy:** Daily backup without offsite copy
@@ -95,7 +120,7 @@ First, [install rclone on your computer if it has a Unix-like environment](https
 
 If used from our clusters, please note that it is not necessary to install rclone as it is already available:
 
-```bash
+```text
 $ [name@server ~] $ which rclone
 $ /cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr/bin/rclone
 ```
@@ -103,12 +128,12 @@ $ /cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr/bin/rclone
 Next, configure a remote storage device profile with
 
 ```bash
-$ rclone config
+rclone config
 ```
 
 You now have the option to edit an existing remote device, create a new remote device, delete a remote device, and so on. Let's say we want to create a new remote service profile called *nextcloud*:
 
-```bash
+```console
 choose "n"  for "New remote"
 Enter name for new remote --> nextcloud
 Type of storage to configure --> 52 / WebDAV
@@ -126,28 +151,27 @@ choose "q" to quit config
 You should now be able to see your new remote service profile in the list of configured ones with
 
 ```bash
-$ rclone listremotes
+rclone listremotes
 ```
 
 You can probe available disk space with
 
 ```bash
-$ rclone about nextcloud:
+rclone about nextcloud:
 ```
 
 To upload a file, run
 
 ```bash
-$ rclone copy /path/to/local/file nextcloud:remote/path
+rclone copy /path/to/local/file nextcloud:remote/path
 ```
 
 To download a file, run
 
 ```bash
-$ rclone copy nextcloud:remote/path/file .
+rclone copy nextcloud:remote/path/file .
 ```
 
 ## Sharing files using Nextcloud
 
-When you select a file or directory to share, type the user’s first name, last name, or username and the list of matched users registered in CCDB will be displayed in “Firstname Lastname (username)” format. Please review the name carefully as some are very similar; in doubt, enter the username which is unique. You can also share files with a group using their CCDB group name (default, RPP, RRG, or other shared groups).
-To share a file with people who don’t have an Alliance account, use the *Share link* option and provide their email address. Nextcloud will send an email notification with a link to access the file.
+When you select a file or directory to share, type the user’s first name, last name, or username and the list of matched users registered in CCDB will be displayed in “Firstname Lastname (username)” format. Please review the name carefully as some are very similar; in doubt, enter the username which is unique. You can also share files with a group using their CCDB group name (default, RPP, RRG, or other shared groups). To share a file with people who don’t have an Alliance account, use the *Share link* option and provide their email address. Nextcloud will send an email notification with a link to access the file.

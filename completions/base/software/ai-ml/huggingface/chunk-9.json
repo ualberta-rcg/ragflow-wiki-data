@@ -1,0 +1,184 @@
+{
+  "doc_key": "base/huggingface",
+  "level": "chunk",
+  "chunk_index": 9,
+  "qa_pairs": [
+    {
+      "question": "What resources are reserved for the LLM training example?",
+      "answer": "For this example, a whole node with 4 GPUs and 48 CPUs is reserved, similar to GPU nodes available on Narval."
+    },
+    {
+      "question": "What is the name of the job submission script used for training LLMs?",
+      "answer": "The job submission script is named `accelerate-example.sh`."
+    },
+    {
+      "question": "Which SLURM directive specifies the number of nodes for the LLM training job?",
+      "answer": "The SLURM directive `--nodes 1` specifies that one node is requested."
+    },
+    {
+      "question": "How many tasks per node are requested in the `accelerate-example.sh` script?",
+      "answer": "The script requests `--ntasks-per-node=1`."
+    },
+    {
+      "question": "How many GPUs are requested for the LLM training job?",
+      "answer": "The script requests `--gres=gpu:4`, meaning 4 GPUs are requested."
+    },
+    {
+      "question": "How many CPUs per task are allocated for the LLM training job?",
+      "answer": "The script specifies `--cpus-per-task=48`."
+    },
+    {
+      "question": "What is the memory allocation specified in the `accelerate-example.sh` script for the LLM training job?",
+      "answer": "The script sets `--mem=0`, indicating no specific memory limit is imposed via SLURM for the node."
+    },
+    {
+      "question": "What is the maximum time allocated for the LLM training job?",
+      "answer": "The maximum time allocated for the job is `--time=0-00:30:00`, which is 30 minutes."
+    },
+    {
+      "question": "What is the output file format for the LLM training job?",
+      "answer": "The output will be saved to a file named `%N-%j.out`."
+    },
+    {
+      "question": "What Python version is loaded within the `accelerate-example.sh` script?",
+      "answer": "Python version `3.11` is loaded (`module load python/3.11`)."
+    },
+    {
+      "question": "Besides Python, what other modules are loaded in the LLM training job script?",
+      "answer": "The `gcc` and `arrow` modules are loaded in the script."
+    },
+    {
+      "question": "How is the virtual environment created in the `accelerate-example.sh` script?",
+      "answer": "A virtual environment is created using `virtualenv --no-download $SLURM_TMPDIR/ENV`."
+    },
+    {
+      "question": "What command activates the virtual environment in the job script?",
+      "answer": "The virtual environment is activated using `source $SLURM_TMPDIR/ENV/bin/activate`."
+    },
+    {
+      "question": "What packages are installed in the virtual environment for LLM training?",
+      "answer": "The packages `transformers`, `datasets`, `trl`, and `accelerate` are installed."
+    },
+    {
+      "question": "How is the `ultrachat_dataset` handled to improve training performance?",
+      "answer": "The `ultrachat_dataset` is copied to the compute node's local storage (`$SLURM_TMPDIR/`) to avoid reading from the cluster's parallel filesystem."
+    },
+    {
+      "question": "What environment variable is set to specify the cache directory for datasets?",
+      "answer": "The environment variable `HF_DATASETS_CACHE` is set to `$SLURM_TMPDIR/ultrachat_dataset`."
+    },
+    {
+      "question": "What environment variable controls the cache directory for Transformers models?",
+      "answer": "The `TRANSFORMERS_CACHE` environment variable is set to `./zephyr-7b-beta`."
+    },
+    {
+      "question": "Which environment variable ensures Hugging Face datasets are loaded offline?",
+      "answer": "The environment variable `HF_DATASETS_OFFLINE=1` is set to ensure offline loading of datasets."
+    },
+    {
+      "question": "Which environment variable ensures Hugging Face Transformers models are loaded offline?",
+      "answer": "The environment variable `TRANSFORMERS_OFFLINE=1` is set to ensure offline loading of Transformer models."
+    },
+    {
+      "question": "What is the purpose of setting `TORCH_NCCL_ASYNC_ERROR_HANDLING=1`?",
+      "answer": "Setting `TORCH_NCCL_ASYNC_ERROR_HANDLING=1` is related to handling asynchronous errors in PyTorch's NCCL communication."
+    },
+    {
+      "question": "What command initiates the LLM training process using Accelerate?",
+      "answer": "The command `accelerate launch` is used to initiate the training process."
+    },
+    {
+      "question": "What configuration file is used with `accelerate launch` for LLM training?",
+      "answer": "The `fsdp.yaml` configuration file is used with `accelerate launch`."
+    },
+    {
+      "question": "What mixed precision mode is enabled for LLM training?",
+      "answer": "Mixed precision training with `fp16` is enabled."
+    },
+    {
+      "question": "How many processes are configured for the `accelerate launch` command?",
+      "answer": "The `accelerate launch` command is configured with `--num_processes=4`."
+    },
+    {
+      "question": "What is the name of the Python script executed by `accelerate launch`?",
+      "answer": "The Python script `train_llm.py` is executed by `accelerate launch`."
+    },
+    {
+      "question": "What is the `distributed_type` specified in the `fsdp.yaml` configuration file?",
+      "answer": "The `distributed_type` is set to `FSDP` (Fully Sharded Data Parallel)."
+    },
+    {
+      "question": "What is the `fsdp_sharding_strategy` in the `fsdp.yaml` file?",
+      "answer": "The `fsdp_sharding_strategy` is set to `FULL_SHARD`."
+    },
+    {
+      "question": "What is the `fsdp_auto_wrap_policy` used in the FSDP configuration?",
+      "answer": "The `fsdp_auto_wrap_policy` is `TRANSFORMER_BASED_WRAP`."
+    },
+    {
+      "question": "Does the FSDP configuration enable CPU RAM efficient loading?",
+      "answer": "Yes, `fsdp_cpu_ram_efficient_loading` is set to `true`."
+    },
+    {
+      "question": "What dataset is loaded by the `train_llm.py` script?",
+      "answer": "The `HuggingFaceH4/ultrachat_200k` dataset is loaded with the `train_gen` split."
+    },
+    {
+      "question": "How is the tokenizer initialized in `train_llm.py`?",
+      "answer": "The tokenizer is initialized from `./zephyr-7b-beta` with `local_files_only=True`."
+    },
+    {
+      "question": "How is the padding token set for the tokenizer in `train_llm.py`?",
+      "answer": "The padding token is set to the end-of-sequence token: `tokenizer.pad_token = tokenizer.eos_token`."
+    },
+    {
+      "question": "What type of model is loaded in `train_llm.py`?",
+      "answer": "A `MistralForCausalLM` model is loaded from `./zephyr-7b-beta` with `local_files_only=True`."
+    },
+    {
+      "question": "What does the `preprocess` function do in `train_llm.py`?",
+      "answer": "The `preprocess` function takes samples, iterates through conversations in messages, and applies the tokenizer's chat template to convert them into a 'content' batch without tokenizing."
+    },
+    {
+      "question": "Which class is used to train the model in `train_llm.py`?",
+      "answer": "The `SFTTrainer` class from the `trl` library is used for training."
+    },
+    {
+      "question": "What is the `max_seq_length` configured for the `SFTTrainer`?",
+      "answer": "The `max_seq_length` for the `SFTTrainer` is set to `2048`."
+    },
+    {
+      "question": "What is the `per_device_train_batch_size` specified in the training arguments?",
+      "answer": "The `per_device_train_batch_size` is set to `8`."
+    },
+    {
+      "question": "How many `gradient_accumulation_steps` are used in the training?",
+      "answer": "One `gradient_accumulation_step` is used (`gradient_accumulation_steps=1`)."
+    },
+    {
+      "question": "Is `gradient_checkpointing` enabled for LLM training?",
+      "answer": "Yes, `gradient_checkpointing` is set to `True`."
+    },
+    {
+      "question": "What is the maximum number of training steps for the LLM?",
+      "answer": "The maximum number of training steps is `15`."
+    },
+    {
+      "question": "What is the initial `learning_rate` for training the LLM?",
+      "answer": "The initial `learning_rate` is `2.5e-5`."
+    },
+    {
+      "question": "Which optimizer is used for training the LLM?",
+      "answer": "The `adamw_torch` optimizer is used."
+    },
+    {
+      "question": "Where are the training logs stored?",
+      "answer": "The training logs are stored in the `./logs` directory."
+    },
+    {
+      "question": "What does `accelerator.wait_for_everyone()` ensure at the end of the `train_llm.py` script?",
+      "answer": "`accelerator.wait_for_everyone()` ensures that all processes in a distributed training job synchronize and wait for each other to complete before proceeding."
+    }
+  ],
+  "generated_at": "2026-04-11T23:45:02.430499+00:00"
+}

@@ -1,0 +1,96 @@
+{
+  "doc_key": "en/r",
+  "level": "chunk",
+  "chunk_index": 6,
+  "qa_pairs": [
+    {
+      "question": "How do you register the backend when using `doParallel` with `makeCluster`?",
+      "answer": "You must register the backend by feeding it the node names multiplied by the desired number of processes. For example, if you have two nodes (node1 and node2) and two processes, you would create a cluster composed of `node1 node1 node2 node2` hosts."
+    },
+    {
+      "question": "What type of cluster does `makeCluster` create?",
+      "answer": "`makeCluster` creates a `PSOCK` cluster type."
+    },
+    {
+      "question": "What is the function of the `PSOCK` cluster type in `doParallel`?",
+      "answer": "The `PSOCK` cluster type will run commands through SSH connections into the nodes."
+    },
+    {
+      "question": "What is the recommended filename for the R code when using `doParallel` with `makeCluster`?",
+      "answer": "The R code should be placed in a script file, typically named `test_makecluster.R`."
+    },
+    {
+      "question": "What is the recommended filename for the job submission script when using `doParallel` with `makeCluster`?",
+      "answer": "The job submission script should be named `job_makecluster.sh`."
+    },
+    {
+      "question": "What SLURM directive specifies the number of processes in the `job_makecluster.sh` script?",
+      "answer": "The `#SBATCH --ntasks=4` directive specifies the number of processes."
+    },
+    {
+      "question": "How is the `NODESLIST` environment variable exported in the `job_makecluster.sh` script?",
+      "answer": "The `NODESLIST` environment variable is exported using the command `export NODESLIST=$(echo $(srun hostname | cut -f 1 -d '.'))`."
+    },
+    {
+      "question": "How do you submit a job that uses `doParallel` with `makeCluster`?",
+      "answer": "You submit the job with the command `sbatch job_makecluster.sh`."
+    },
+    {
+      "question": "How can you ensure that processes for a `doParallel` with `makeCluster` job are placed on different nodes?",
+      "answer": "To ensure processes are placed on different nodes, you can add the line `#SBATCH --ntasks-per-node=2` to your job submission script."
+    },
+    {
+      "question": "What is `Rmpi`?",
+      "answer": "`Rmpi` is an interface (wrapper) to MPI routines which allow R to run in parallel."
+    },
+    {
+      "question": "How can you see available R modules before installing `Rmpi`?",
+      "answer": "You can see the available R modules by running the command `module spider r`."
+    },
+    {
+      "question": "Which modules should be loaded before installing `Rmpi`?",
+      "answer": "You should load `gcc/12.3`, `openmpi/4.1.5`, and `r/4.5.0` (adjusting versions as needed)."
+    },
+    {
+      "question": "How do you download the `Rmpi` package?",
+      "answer": "You can download the `Rmpi` package using `wget https://cran.r-project.org/src/contrib/Rmpi_0.7-3.3.tar.gz`, changing the version number to whatever is desired."
+    },
+    {
+      "question": "How do you specify the local installation directory for `Rmpi`?",
+      "answer": "You specify the local installation directory by creating it, for example, `mkdir -p ~/local/R_libs/`, and then exporting the `R_LIBS` environment variable: `export R_LIBS=~/local/R_libs/`."
+    },
+    {
+      "question": "What command is used to install `Rmpi` after downloading and setting the library path?",
+      "answer": "The install command is `R CMD INSTALL --configure-args=\"--with-Rmpi-include=$EBROOTOPENMPI/include --with-Rmpi-libpath=$EBROOTOPENMPI/lib --with-Rmpi-type='OPENMPI' \" Rmpi_0.7-3.3.tar.gz`."
+    },
+    {
+      "question": "What should you do if packages fail to install when installing `Rmpi`?",
+      "answer": "You should carefully read any error message that comes up when packages fail to install, as it might provide details concerning additional modules you need to load to ensure successful installation."
+    },
+    {
+      "question": "What is the recommended filename for the R code when using `Rmpi`?",
+      "answer": "The R code should be placed in a script file, typically named `test.R`."
+    },
+    {
+      "question": "What is the recommended filename for the job submission script when running `Rmpi`?",
+      "answer": "The job submission script should be named `job.sh`."
+    },
+    {
+      "question": "What SLURM directive specifies the number of MPI processes in the `job.sh` script for `Rmpi`?",
+      "answer": "The `#SBATCH --ntasks=5` directive specifies the number of MPI processes."
+    },
+    {
+      "question": "Which modules should be loaded in the job script to run `Rmpi`?",
+      "answer": "You should load `StdEnv/2023`, `gcc/12.3`, `openmpi/4.1.5`, and `r/4.5.0`."
+    },
+    {
+      "question": "What command is used to execute the `Rmpi` R script within the job submission script?",
+      "answer": "The command `mpirun -np 1 R CMD BATCH test.R test.txt` is used to execute the `Rmpi` R script."
+    },
+    {
+      "question": "How do you submit an `Rmpi` job?",
+      "answer": "You submit the job with the command `sbatch job.sh`."
+    }
+  ],
+  "generated_at": "2026-04-12T06:14:50.218689+00:00"
+}

@@ -1,0 +1,139 @@
+{
+  "doc_key": "fr/running_jobs",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "À qui s'adresse cette page sur la soumission de tâches sur les grappes de calcul?",
+      "answer": "Cette page s'adresse à ceux et celles qui connaissent les concepts de préparation de scripts et d'ordonnancement des tâches."
+    },
+    {
+      "question": "Que devrait faire quelqu'un qui n'a jamais travaillé sur une grappe partagée de grande taille avant de soumettre des tâches?",
+      "answer": "Il est recommandé de lire d'abord « Qu'est-ce qu'un ordonnanceur? »."
+    },
+    {
+      "question": "Comment toutes les tâches doivent-elles être soumises sur les grappes, et quelles sont les exceptions?",
+      "answer": "Toutes les tâches doivent être soumises via l'ordonnanceur Slurm. Les exceptions sont les tâches de compilation et autres qui utilisent moins de 10 minutes de temps CPU et moins de 4Go de mémoire vive, et qui peuvent être exécutées sur un nœud de connexion."
+    },
+    {
+      "question": "Quel outil est utilisé pour l'ordonnancement des tâches sur les grappes?",
+      "answer": "L'ordonnancement des tâches se fait à l'aide de Slurm Workload Manager."
+    },
+    {
+      "question": "Quelle commande est utilisée pour soumettre une tâche à l'ordonnanceur Slurm?",
+      "answer": "La commande `sbatch` est utilisée pour soumettre une tâche."
+    },
+    {
+      "question": "Quelles sont les directives (options) minimales requises dans un script Slurm selon la politique?",
+      "answer": "Pour chaque tâche, il faut fournir au moins une durée (`--time`) et un nom de compte (`--account`)."
+    },
+    {
+      "question": "Comment la durée d'une tâche influence-t-elle son temps d'attente?",
+      "answer": "La durée a une incidence importante sur le temps d'attente, car les tâches de longue durée sont susceptibles d'être exécutées sur moins de nœuds."
+    },
+    {
+      "question": "Quelle est la mise en garde concernant l'exécution répétée de la commande `sbatch` dans un script?",
+      "answer": "L'exécution d'un script qui soumet plusieurs tâches à de courts intervalles risque d'affecter la disponibilité de l'ordonnanceur. Il faut plutôt utiliser un vecteur de tâches ou espacer les appels à `sbatch`."
+    },
+    {
+      "question": "Comment peut-on demander la quantité de mémoire pour une tâche?",
+      "answer": "La mémoire peut être demandée avec `--mem-per-cpu` (mémoire par cœur) ou `--mem` (mémoire par nœud)."
+    },
+    {
+      "question": "Comment Slurm interprète-t-il les préfixes K, M, G, etc., lors de la demande de mémoire?",
+      "answer": "Ces préfixes sont interprétés par Slurm comme étant des préfixes binaires."
+    },
+    {
+      "question": "Quelle commande est utilisée pour vérifier le statut de ses tâches Slurm?",
+      "answer": "La commande `squeue` fournit l'information sur toutes les tâches, tandis que `sq` ne listera que vos propres tâches."
+    },
+    {
+      "question": "Quels sont les états de tâche les plus communs affichés par `sq` ou `squeue`?",
+      "answer": "Les états les plus communs sont PD (pending) pour en attente, et R (running) pour en cours."
+    },
+    {
+      "question": "Est-il recommandé d'exécuter `squeue` ou `sq` à plusieurs reprises dans un script?",
+      "answer": "Non, ceci surcharge Slurm et risque fort de nuire à sa performance. Il faut plutôt utiliser les notifications par courriel."
+    },
+    {
+      "question": "Où est enregistré le résultat d'une tâche Slurm par défaut?",
+      "answer": "Le résultat est écrit dans un fichier dont le nom commence par `slurm-`, suivi de l'ID de la tâche et du suffixe `.out`, dans le répertoire à partir duquel la tâche a été soumise."
+    },
+    {
+      "question": "Comment peut-on spécifier un endroit ou un nom différent pour le fichier de résultat et le fichier d'erreurs?",
+      "answer": "On utilise la commande `--output` pour le résultat standard et `--error` pour le canal standard d'erreurs (stderr)."
+    },
+    {
+      "question": "À quoi chaque tâche doit-elle être associée en ce qui concerne la facturation?",
+      "answer": "Chaque tâche doit être associée à un nom de compte correspondant à un RAP (Resource Allocation Project)."
+    },
+    {
+      "question": "Comment spécifier le nom de compte si l'on est membre de plusieurs comptes?",
+      "answer": "Il faut utiliser la directive `--account` pour spécifier un des comptes listés dans le message d'erreur ou trouvé dans CCDB."
+    },
+    {
+      "question": "Comment trouver le nom du groupe (à utiliser avec `--account`) pour un projet dans CCDB?",
+      "answer": "Il faut se connecter à CCDB, aller à 'Mes projets --> Mes ressources et allocations' et le 'Nom du groupe' contient la chaîne de caractères à utiliser."
+    },
+    {
+      "question": "Quelle est la priorité entre la variable d'environnement `SBATCH_ACCOUNT` et la directive `--account` spécifiée dans un script?",
+      "answer": "La variable d'environnement a priorité sur la directive `--account` du script. Pour la remplacer, il faut fournir un nom de compte comme argument en ligne de commande avec `sbatch`."
+    },
+    {
+      "question": "Qu'est-ce qu'un lot de tâches (task array ou array job) et à quoi sert la variable `$SLURM_ARRAY_TASK_ID`?",
+      "answer": "Un lot de tâches sert à soumettre un ensemble de tâches à l'aide d'une seule commande. La variable `$SLURM_ARRAY_TASK_ID` comporte une valeur distincte pour chaque instance de la tâche."
+    },
+    {
+      "question": "Comment demander plusieurs cœurs CPU pour une tâche multifil (OpenMP)?",
+      "answer": "On utilise la directive `#SBATCH --cpus-per-task=X` et on définit `export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK`."
+    },
+    {
+      "question": "Dans quelles situations les tâches interactives sont-elles utiles?",
+      "answer": "Elles sont utiles pour l'exploration de données en mode ligne de commande, l'utilisation d'outils de console interactifs de R et iPython, et les projets intensifs de développement, de débogage ou de compilation."
+    },
+    {
+      "question": "Quelle commande est utilisée pour démarrer une session interactive sur un nœud de calcul?",
+      "answer": "La commande `salloc` est utilisée pour démarrer une session interactive."
+    },
+    {
+      "question": "Comment annuler une tâche Slurm, ou toutes les tâches d'un utilisateur, ou seulement celles en attente?",
+      "answer": "On annule une tâche avec `scancel <jobid>`. Pour annuler toutes ses tâches : `scancel -u $USER`. Pour annuler celles en attente : `scancel -t PENDING -u $USER`."
+    },
+    {
+      "question": "Que doit supporter une application pour les calculs nécessitant une durée plus longue que la limite de temps du système?",
+      "answer": "L'application doit pouvoir gérer des points de contrôle (checkpointing) pour sauvegarder et redémarrer le calcul à partir du dernier état."
+    },
+    {
+      "question": "Quelles sont les deux méthodes recommandées pour la resoumission de tâches pour un calcul de longue durée?",
+      "answer": "Les deux méthodes recommandées sont l'utilisation de vecteurs de tâches (job arrays) Slurm et la resoumission à partir de la fin du script."
+    },
+    {
+      "question": "Quelle est la mise en garde concernant le test logique pour la resoumission d'un script de tâche?",
+      "answer": "Le test doit être un test positif (déterminer s'il FAUT soumettre une autre tâche), et non un test négatif (vérifier si une condition d'arrêt N'EST PAS détectée), pour éviter les séquences de tâches indéfinies en cas d'erreur."
+    },
+    {
+      "question": "Quels outils sont disponibles sur les grappes pour automatiser la soumission d'un grand nombre de tâches via la technique de 'farming'?",
+      "answer": "Les outils disponibles sont META-Farm, GNU Parallel et GLOST."
+    },
+    {
+      "question": "Quel type de logiciel ne devrait pas être utilisé pour préparer des scripts et pourquoi?",
+      "answer": "Il ne faut pas utiliser un logiciel de traitement de texte plutôt qu'un éditeur de texte, car cela peut causer des problèmes avec les caractères cachés. Il est préférable d'utiliser nano, vim ou emacs."
+    },
+    {
+      "question": "Que se passe-t-il si une tâche dépendante (avec `--dependency=afterok:<jobid>`) voit sa tâche parent s'arrêter avant sa fin normale?",
+      "answer": "Si la tâche parent produit un code de sortie non nul, la tâche dépendante ne sera jamais exécutée et elle est automatiquement annulée."
+    },
+    {
+      "question": "Pourquoi est-il recommandé d'ajouter `module purge` au début d'un script Slurm?",
+      "answer": "Pour faire en sorte que les tâches soient soumises de manière uniforme et qu'elles ne soient pas affectées par les modifications de l'environnement faites dans l'interpréteur."
+    },
+    {
+      "question": "Pourquoi une tâche peut-elle sembler gelée ou n'avoir aucun résultat dans le fichier `.out`?",
+      "answer": "Ceci se produit à cause de la mise en mémoire tampon agressive de l'ordonnanceur Slurm, qui regroupe les résultats avant de les écrire. Le fichier n'est souvent produit qu'à la fin de la tâche, et une partie des résultats peut être perdue si la tâche est annulée ou manque de temps."
+    },
+    {
+      "question": "Quelles sont les restrictions de durée maximale et de nombre de tâches pour les grappes Béluga, Fir, Narval, Nibi et Rorqual?",
+      "answer": "La durée maximale d'une tâche est de 168 heures (7 jours) et le nombre maximum de tâches en exécution ou en attente dans la queue est de 1000 par utilisateur."
+    }
+  ],
+  "generated_at": "2026-04-12T07:10:19.470686+00:00"
+}

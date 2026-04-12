@@ -1,0 +1,67 @@
+{
+  "doc_key": "fr/ls-dyna",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "C'est quoi, LS-DYNA, et à quoi ça sert sur les grappes de calcul?",
+      "answer": "LS-DYNA est un logiciel de simulation multiphysique utilisé pour la mécanique des fluides, le transfert thermique et la dynamique des fluides. Il permet d'analyser des phénomènes distincts ou combinés comme le stress thermique ou l'interaction fluide-structure."
+    },
+    {
+      "question": "Est-ce que le fournisseur des grappes offre une licence LS-DYNA à tous les utilisateurs?",
+      "answer": "Non, le fournisseur n'a pas de licence générique LS-DYNA. Il fournit l'hébergement du logiciel, mais les utilisateurs doivent se procurer leur propre licence via leur établissement, faculté ou département."
+    },
+    {
+      "question": "Qu'est-ce qui est nécessaire pour qu'une licence existante soit accessible sur les nœuds de calcul?",
+      "answer": "Il peut être nécessaire d'effectuer des modifications de réseau. Si c'est la première fois que votre serveur de licences est utilisé sur une grappe, vous devez faire parvenir le numéro du port et l'adresse IP de votre serveur de licence flottante au soutien technique."
+    },
+    {
+      "question": "Où est-ce qu'on peut se procurer une licence LS-DYNA si notre campus n'en fournit pas?",
+      "answer": "Vous pouvez contacter CMC Microsystems. Les licences achetées chez CMC sont hébergées sur un serveur distant, ce qui évite les frais d'hébergement local et les rend utilisables n'importe où."
+    },
+    {
+      "question": "Comment vérifier si le fichier de licence LS-DYNA fonctionne correctement?",
+      "answer": "Chargez le module `ls-dyna`, puis exécutez `ls-dyna_s` ou `ls-dyna_d`. L'en-tête de sortie doit afficher une valeur non vide pour « Licensed to: », sauf pour les serveurs de licences CMC. Appuyez sur ^C pour quitter."
+    },
+    {
+      "question": "Quelles sont les deux principales sources de licences LS-DYNA mentionnées, et comment configurer chacune?",
+      "answer": "Les licences peuvent provenir de LSTC (serveurs LSTC) ou d'Ansys (serveurs Ansys). Pour les licences LSTC, créez un fichier `ls-dyna.lic` dans `~/.licenses/` ou définissez les variables d'environnement `LSTC_LICENSE` et `LSTC_LICENSE_SERVER`. Pour les licences Ansys, définissez `LSTC_LICENSE=ansys` et `ANSYSLMD_LICENSE_FILE=<port>@<server>` dans vos scripts."
+    },
+    {
+      "question": "Comment utiliser la licence Ansys de SHARCNET sur la grappe Nibi?",
+      "answer": "Ajoutez les lignes `export LSTC_LICENSE=ansys` et `export ANSYSLMD_LICENSE_FILE=1055@license1.computecanada.ca` à votre script de tâche. Cette licence prend en charge les tâches SMP et MPP sur Nibi."
+    },
+    {
+      "question": "Y a-t-il des modifications de pare-feu requises pour les licences CMC sur les grappes, et comment les configurer?",
+      "answer": "Non, aucune modification du pare-feu n'est requise. Pour les configurer, définissez `export LSTC_LICENSE=ansys` et `export ANSYSLMD_LICENSE_FILE` avec l'adresse IP spécifique du serveur CADpass de la grappe utilisée (ex: `6624@172.26.0.101` pour Fir)."
+    },
+    {
+      "question": "Quelles versions de modules LS-DYNA sont compatibles avec les serveurs de licences Ansys ou CMC?",
+      "answer": "Seules les versions de module `ls-dyna` égales ou supérieures à 12.2.1 fonctionneront avec les serveurs de licences Ansys, et égales ou supérieures à 13.1.1 pour les serveurs de licences CMC."
+    },
+    {
+      "question": "Quels sont les deux modes d'exécution de tâches offerts par LS-DYNA sur les grappes?",
+      "answer": "LS-DYNA offre des binaires pour les tâches sur nœuds uniques (SMP, Shared Memory Parallel avec OpenMP) et pour les tâches sur plusieurs nœuds (MPP, Message Passing Parallel avec MPI)."
+    },
+    {
+      "question": "Comment soumettre une tâche LS-DYNA sur un seul nœud (SMP)?",
+      "answer": "Après avoir chargé le module `ls-dyna`, utilisez la commande `sbatch script-smp.sh`. Le script doit spécifier le nombre de cœurs par tâche et la mémoire totale (`--cpus-per-task`, `--mem`), puis appeler le solveur comme `ls-dyna_d ncpu=$SLURM_CPUS_ON_NODE i=airbag.deploy.k memory=1500M`."
+    },
+    {
+      "question": "À quoi sert la variable d'environnement `LSTC_MEMORY=AUTO` pour les tâches SMP?",
+      "answer": "Cette option est facultative et uniquement pour les analyses explicites. Elle permet d'étendre dynamiquement la mémoire au-delà du paramètre spécifié par `memory=` si l'analyse l'exige, jusqu'à 25% de la mémoire réservée."
+    },
+    {
+      "question": "Comment soumettre une tâche LS-DYNA sur plusieurs nœuds (MPP) en spécifiant le nombre de nœuds ou de cœurs?",
+      "answer": "Chargez le module `ls-dyna-mpi`. Pour spécifier le nombre de nœuds, utilisez `sbatch script-mpp-bynode.sh`. Pour spécifier le nombre total de cœurs, utilisez `sbatch script-mpp-bycore.sh`. Il est important de configurer correctement la mémoire."
+    },
+    {
+      "question": "Pourquoi est-il conseillé de faire des tests de scalabilité pour LS-DYNA avant de soumettre de longues tâches?",
+      "answer": "LS-DYNA peut ne pas utiliser efficacement un très grand nombre de cœurs en parallèle. Les tests de scalabilité aident à déterminer le nombre maximal de cœurs avant que la performance ne commence à se dégrader, assurant ainsi une utilisation optimale des ressources."
+    },
+    {
+      "question": "Comment peut-on accéder à LS-PrePost pour le prétraitement et le post-traitement des modèles LS-DYNA?",
+      "answer": "LS-PrePost est accessible via les nœuds VDI (en utilisant OnDemand) ou via VncViewer. Il faut charger le module `StdEnv/2020` puis `ls-prepost/4.9`, et lancer `lsprepost` ou `lspp49`."
+    }
+  ],
+  "generated_at": "2026-04-12T00:54:14.690605+00:00"
+}

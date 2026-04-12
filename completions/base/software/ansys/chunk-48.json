@@ -1,0 +1,40 @@
+{
+  "doc_key": "base/ansys",
+  "level": "chunk",
+  "chunk_index": 48,
+  "qa_pairs": [
+    {
+      "question": "What are the general characteristics of running Ansys programs remotely using XoverSSH?",
+      "answer": "XoverSSH is an untested and unsupported method for remote Ansys programs. It typically results in unacceptably slow interactive response times, especially for graphics rendering, and slow startup times for GUI programs."
+    },
+    {
+      "question": "When might using XoverSSH to run Ansys programs remotely be considered acceptable?",
+      "answer": "Using XoverSSH might be considered if the only goal is to open a simulation and perform basic menu operations or run some calculations, and if response delays can be tolerated."
+    },
+    {
+      "question": "What are the initial steps to connect to a cluster using XoverSSH to run Ansys programs?",
+      "answer": "The initial steps involve: 1) SSHing with X forwarding (`ssh -Y username@alliancecan.ca`), and 2) allocating resources with X11 forwarding (`salloc --x11 --time=1:00:00 --mem=16G --cpus-per-task=4 [--gpus-per-node=1] --account=def-mygroup`)."
+    },
+    {
+      "question": "How can a user verify if X forwarding is working after connecting to a compute node via XoverSSH?",
+      "answer": "Once connected to a compute node, a user can verify X forwarding by trying to run the `xclock` command. If the clock appears on their desktop, X forwarding is working."
+    },
+    {
+      "question": "What should a user do after successfully testing X forwarding when using XoverSSH for Ansys programs?",
+      "answer": "After confirming X forwarding works with `xclock`, the user should proceed to load the desired Ansys module and then attempt to run the Ansys program."
+    },
+    {
+      "question": "Is XoverSSH a recommended or supported method for running Ansys programs on the cluster?",
+      "answer": "No, XoverSSH is an untested and unsupported method for running Ansys programs remotely on the cluster."
+    },
+    {
+      "question": "What is required on the user's local desktop to use XoverSSH for Ansys programs?",
+      "answer": "Using XoverSSH relies on a properly set up X display server for the user's operating system or the selection, installation, and configuration of a suitable X client emulator package such as MobaXterm."
+    },
+    {
+      "question": "How does the startup time for GUI programs compare between XoverSSH and VNC?",
+      "answer": "Startup times for GUI programs can be very slow with XoverSSH; for example, one test showed it took 40 minutes to start a GUI over SSH, compared to only 34 seconds with vncviewer."
+    }
+  ],
+  "generated_at": "2026-04-11T16:54:51.490966+00:00"
+}

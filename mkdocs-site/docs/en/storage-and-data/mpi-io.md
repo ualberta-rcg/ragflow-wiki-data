@@ -5,21 +5,48 @@ lang: "en"
 
 source_wiki_title: "MPI-IO/en"
 source_hash: "e324f86934c3b531ea6bfe64e5d77d57"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T08:16:05.856399+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T08:49:21.604224+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "MPI_File_set_view"
+  - "MPI_Type_contiguous"
+  - "offsets"
+  - "file locks"
+  - "MPI-2 standard"
+  - "MPI-IO"
+  - "parallel I/O"
+  - "MPI_Comm_rank"
+  - "MPI_File_open"
+  - "buffer initialization"
+  - "parallel read and write"
+  - "MPI_COMM_WORLD"
+  - "MPI"
+  - "views"
+
+questions:
+  - "What is MPI-IO and what is its primary advantage when handling data across multiple processes?"
+  - "How do processes perform parallel read and write operations using offsets in MPI-IO?"
+  - "What is the purpose of using views in MPI-IO, and how does it simplify file operations compared to using offsets?"
+  - "How does the provided MPI code achieve writing data in an alternating pattern between processes?"
+  - "What MPI functions and data types are used to read the previously interleaved data in a serial fashion for each process?"
+  - "Why might using views on disjoint file sections fail on certain file systems according to the warning?"
+  - "What is the purpose of the MPI_Init, MPI_Comm_rank, and MPI_Comm_size functions in this code snippet?"
+  - "How does the code initialize the buffer for each individual process based on its rank?"
+  - "What are the specific modes and parameters used when opening the file with the MPI_File_open function?"
+  - "How does the provided MPI code achieve writing data in an alternating pattern between processes?"
+  - "What MPI functions and data types are used to read the previously interleaved data in a serial fashion for each process?"
+  - "Why might using views on disjoint file sections fail on certain file systems according to the warning?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -42,7 +69,7 @@ int main(int argc, char** argv) {
 
     MPI_File f;
     char*    filename  = "testmpi.txt";
-    char     buffer[TAILLEBLOC];
+    char     buffer[TAILLEBLOC]; // NOTE: 'TAILLEBLOC' appears to be a typo in the original source; 'BLOCKSIZE' was likely intended.
     int      rank, size;
     int      i;
 
@@ -152,5 +179,5 @@ int main(int argc, char** argv) {
 
 ## References
 
-* [OpenMPI documentation](http://www.open-mpi.org/doc/current/)
-* [Course on parallel I/O](https://scinet.courses/215)
+*   [OpenMPI documentation](http://www.open-mpi.org/doc/current/)
+*   [Course on parallel I/O](https://scinet.courses/215)

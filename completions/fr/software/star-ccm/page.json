@@ -1,0 +1,71 @@
+{
+  "doc_key": "fr/star-ccm",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "C'est quoi STAR-CCM+?",
+      "answer": "STAR-CCM+ est une suite logicielle de simulation utilisée dans plusieurs spécialités de génie pour la modélisation."
+    },
+    {
+      "question": "Quels domaines de génie peuvent être modélisés avec STAR-CCM+?",
+      "answer": "Elle permet la modélisation en acoustique, dynamique des fluides, transfert thermique, rhéologie, écoulement polyphasique, flux de particules, mécanique des solides, fluides réactifs, électrochimie et électromagnétisme."
+    },
+    {
+      "question": "L'Alliance fournit-elle une licence pour STAR-CCM+?",
+      "answer": "Non, les binaires STAR-CCM+ sont installés sur les serveurs, mais il faut posséder sa propre licence pour l'utiliser."
+    },
+    {
+      "question": "Comment peut-on obtenir une licence pour STAR-CCM+?",
+      "answer": "On peut acheter une licence POD (Power On Demand) directement de Siemens ou utiliser une licence locale hébergée par son établissement si le pare-feu le permet."
+    },
+    {
+      "question": "Quel fichier doit-on créer pour configurer l'accès à un serveur de licence STAR-CCM+?",
+      "answer": "Il faut créer le fichier `$HOME/.licenses/starccm.lic`."
+    },
+    {
+      "question": "Que doit contenir le fichier `$HOME/.licenses/starccm.lic` pour une licence institutionnelle?",
+      "answer": "Il doit contenir `SERVER <server> ANY <port>\nUSE_SERVER`, où `<server>` est le nom d'hôte ou l'adresse IP, et `<port>` est le port statique du serveur."
+    },
+    {
+      "question": "Est-il nécessaire de définir manuellement la variable d'environnement `CDLMD_LICENSE_FILE`?",
+      "answer": "Non, cette variable est automatiquement spécifiée à partir du fichier `$HOME/.licenses/starccm.lic` lorsqu'un module Star-CCM+ est chargé."
+    },
+    {
+      "question": "Comment configure-t-on une licence POD (Power On Demand) pour STAR-CCM+?",
+      "answer": "Il faut manuellement configurer la variable d'environnement `LM_PROJECT` à son ID de projet CD-ADAPCO dans le script Slurm, et le fichier `~/.licenses/starccm.lic` doit contenir `SERVER flex.cd-adapco.com ANY 1999\nUSE_SERVER`."
+    },
+    {
+      "question": "Que doit-on faire si on utilise un serveur de licence institutionnel pour la première fois sur une grappe?",
+      "answer": "Il faut créer le fichier `~/.licenses/starccm.lic` et soumettre une demande au soutien technique pour coordonner les modifications du pare-feu réseau."
+    },
+    {
+      "question": "Comment dépanner les problèmes de licence avec STAR-CCM+?",
+      "answer": "On peut essayer de supprimer ou de renommer le fichier `~/.flexlmrc` si des problèmes persistent, car il pourrait contenir d'anciens chemins ou paramètres de licence."
+    },
+    {
+      "question": "Comment gérer les fichiers de sortie accumulés par STAR-CCM+?",
+      "answer": "Les fichiers de sortie peuvent s'accumuler dans des répertoires cachés nommés `.star-version_number`. On peut les supprimer périodiquement en exécutant `rm -ri ~/.starccm*`."
+    },
+    {
+      "question": "Quelles sont les options recommandées pour utiliser STAR-CCM+ en mode graphique?",
+      "answer": "Il est recommandé d'utiliser un système OnDemand ou JupyterLab pour démarrer un bureau distant."
+    },
+    {
+      "question": "Comment lancer STAR-CCM+ en mode graphique sur un système OnDemand pour les versions récentes (18.04.008 et plus)?",
+      "answer": "Il faut charger `StdEnv/2023`, puis `starccm-mixed/20.04.007` (ou `starccm/20.04.007-R8`), et enfin exécuter `starccm+ -rr server`."
+    },
+    {
+      "question": "Comment vérifier les versions disponibles du module STAR-CCM+?",
+      "answer": "Pour l'environnement standard chargé, utilisez `module avail starccm-mixed`. Pour toutes les versions disponibles, utilisez `module spider starccm-mixed`."
+    },
+    {
+      "question": "Qu'est-ce que `LM_PROJECT` représente dans les scripts Slurm?",
+      "answer": "`LM_PROJECT` représente la clé Power on Demand (PoD) de Siemens, un identifiant de projet."
+    },
+    {
+      "question": "Comment les scripts Slurm déterminent-ils s'il faut utiliser une licence PoD ou institutionnelle?",
+      "answer": "Les scripts vérifient si la variable `LM_PROJECT` est définie; si oui, ils utilisent le serveur de licence PoD de Siemens, sinon, ils optent pour le serveur de licence institutionnel."
+    }
+  ],
+  "generated_at": "2026-04-12T08:16:57.604420+00:00"
+}

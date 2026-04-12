@@ -206,13 +206,6 @@ def main():
             "wiki_categories": cats,
         })
         
-        # Mark if content changed (needs reprocessing)
-        if change_status in ("new", "updated"):
-            docs_state[doc_key]["needs_tagging"] = True
-            docs_state[doc_key]["needs_keywords"] = True
-            docs_state[doc_key]["needs_ragflow_sync"] = True
-            docs_state[doc_key]["needs_mkdocs_convert"] = True
-
         manifest.append({
             "title": title,
             "base_title": base_title,

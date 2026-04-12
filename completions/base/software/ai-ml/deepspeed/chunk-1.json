@@ -1,0 +1,96 @@
+{
+  "doc_key": "base/deepspeed",
+  "level": "chunk",
+  "chunk_index": 1,
+  "qa_pairs": [
+    {
+      "question": "What is DeepSpeed?",
+      "answer": "DeepSpeed is a deep learning training optimization library designed to train massive billion-parameter models at scale."
+    },
+    {
+      "question": "Which deep learning framework is DeepSpeed compatible with?",
+      "answer": "DeepSpeed is fully compatible with PyTorch."
+    },
+    {
+      "question": "What is the core concept behind DeepSpeed's memory-efficient distributed training methods?",
+      "answer": "DeepSpeed's memory-efficient distributed training methods are based on the Zero Redundancy Optimizer (ZeRO) concept."
+    },
+    {
+      "question": "What elements of a training task can DeepSpeed distribute using ZeRO?",
+      "answer": "Through ZeRO, DeepSpeed enables distributed storage and computing of optimizer states, model weights, model gradients, and model activations."
+    },
+    {
+      "question": "What types of devices can DeepSpeed utilize for distributed storage and computing?",
+      "answer": "DeepSpeed can distribute elements across multiple devices, including GPU, CPU, local hard disk, and/or combinations of these devices."
+    },
+    {
+      "question": "What is a benefit of DeepSpeed's resource pooling for training models?",
+      "answer": "This pooling of resources, particularly for storage, allows models with massive amounts of parameters to be trained efficiently across multiple nodes without explicitly handling Model, Pipeline, or Data Parallelism in your code."
+    },
+    {
+      "question": "How is DeepSpeed recommended to be installed?",
+      "answer": "The recommendation is to install DeepSpeed using the provided Python wheel."
+    },
+    {
+      "question": "What are the first two steps to install DeepSpeed?",
+      "answer": "The first two steps are to load a Python module (e.g., `module load python`) and then create and start a virtual environment."
+    },
+    {
+      "question": "How do you install PyTorch and DeepSpeed within a virtual environment?",
+      "answer": "You install both PyTorch and DeepSpeed in the virtual environment using `pip install --no-index torch deepspeed`."
+    },
+    {
+      "question": "What are the key differences when using DeepSpeed for multi-GPU and multi-node jobs compared to a standard PyTorch tutorial?",
+      "answer": "When using DeepSpeed, common elements of the training task (like optimizer, learning rate scheduler, batch size) and DeepSpeed-specific configurations (like ZeRO modality) are defined and configured in a config file, rather than directly in the main Python script."
+    },
+    {
+      "question": "What is the purpose of the `deepspeed-example.sh` script?",
+      "answer": "The `deepspeed-example.sh` script is an example SLURM batch script for running a multi-GPU and multi-node DeepSpeed job."
+    },
+    {
+      "question": "How many nodes, GPUs per task, and CPUs per task are requested in `deepspeed-example.sh`?",
+      "answer": "The `deepspeed-example.sh` script requests 2 nodes, 2 GPUs per task, and 4 CPUs per task."
+    },
+    {
+      "question": "What is the role of `config_env.sh` in the `deepspeed-example.sh` workflow?",
+      "answer": "The `config_env.sh` script is used to create a virtual environment and install DeepSpeed and its dependencies on all nodes for the job."
+    },
+    {
+      "question": "What command is used to install torchvision and deepspeed in the `config_env.sh` script?",
+      "answer": "The command `pip install --no-index torchvision deepspeed` is used to install these packages in the virtual environment."
+    },
+    {
+      "question": "Which launcher is used for the Python script in `launch_training_deepspeed.sh`?",
+      "answer": "`torchrun` is used to launch the Python script `pytorch-deepspeed.py`."
+    },
+    {
+      "question": "Is DeepSpeed's own launcher recommended at this time?",
+      "answer": "No, DeepSpeed's own launcher is not recommended at this time according to the document."
+    },
+    {
+      "question": "What DeepSpeed configuration file is used when launching the `pytorch-deepspeed.py` script?",
+      "answer": "The `pytorch-deepspeed.py` script uses `./ds_config.json` for DeepSpeed configuration."
+    },
+    {
+      "question": "What ZeRO stage is configured in `ds_config.json` and what does it imply?",
+      "answer": "ZeRO stage 0 is configured in `ds_config.json`, which means ZeRO is disabled, resulting in no model parallelism and a purely data parallel job."
+    },
+    {
+      "question": "What type of mixed-precision training is enabled in `ds_config.json`?",
+      "answer": "Mixed-precision training with half-precision (fp16) tensors is enabled to accelerate computations and reduce memory usage."
+    },
+    {
+      "question": "What is the `train_batch_size` specified in the `ds_config.json` configuration?",
+      "answer": "The `train_batch_size` is set to 16 in `ds_config.json`."
+    },
+    {
+      "question": "Which optimizer type is configured in the `ds_config.json` file?",
+      "answer": "The `ds_config.json` file configures an Adam optimizer."
+    },
+    {
+      "question": "What is the initial learning rate set for the Adam optimizer in `ds_config.json`?",
+      "answer": "The initial learning rate for the Adam optimizer is 0.001."
+    }
+  ],
+  "generated_at": "2026-04-11T21:09:54.027272+00:00"
+}

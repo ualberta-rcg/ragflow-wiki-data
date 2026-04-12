@@ -5,95 +5,112 @@ lang: "en"
 
 source_wiki_title: "Setting up GUI Desktop on a VM/en"
 source_hash: "fdb2571dc171271507795442cbf95c13"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T11:17:35.761985+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T11:28:34.282789+00:00"
 
 tags:
   - cloud
 
 keywords:
-  []
+  - "SSH tunnel"
+  - "Remote desktop"
+  - "GUI desktop"
+  - "VNC server"
+  - "Virtual machine"
+
+questions:
+  - "What are the necessary software components that must be installed on a Ubuntu virtual machine to set up a remote desktop environment?"
+  - "How can a user establish a secure connection to their remote VNC server using an SSH tunnel?"
+  - "What are the specific commands required to start the VNC server initially and to terminate the session when finished?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
+# Setting up a GUI Desktop on a VM
+
 Some software that you can install on your virtual machine (VM, or instance) are only, or best accessed, through their graphical user interface (GUI). It is possible to use a GUI through SSH + X11 forwarding. However, you may observe better performance when using VNC to connect to a remote desktop running on your VM.
 
-Below, we outline steps for setting a remote desktop with VNC. Please note that these instructions are for a VM running a Ubuntu operating system.
+Below, we outline steps for setting up a remote desktop with VNC.
 
-1.  Install a GUI Desktop on your VM.
-    There are lots of different Desktop packages available. For example, some common Desktop packages available for the Ubuntu operating system are:
-    *   [ubuntu-unity-desktop](https://ubuntuunity.org/)
-    *   [ubuntu-mate-desktop](https://ubuntu-mate.org/)
-    *   [lubuntu-desktop](https://lubuntu.net/)
-    *   [xubuntu-desktop](https://xubuntu.org/screenshots/)
-    *   [xfce4](https://www.xfce.org/)
-    *   ubuntu-desktop
-    *   [kde-plasma-desktop](https://kde.org/plasma-desktop/)
-    *   ubuntu-desktop-minimal
-    *   [cinnamon](https://en.wikipedia.org/wiki/Cinnamon_(desktop_environment))
-    *   [icewm](https://ice-wm.org/)
+!!! note
+    These instructions are for a VM running a Ubuntu operating system.
 
-    [This article](https://cloudinfrastructureservices.co.uk/best-ubuntu-desktop-environments) shows a few of these different desktops. Below are the commands to install the MATE desktop.
+## 1. Install a GUI Desktop on Your VM
 
-    ```bash
-    sudo apt update
-    sudo apt upgrade -y
-    sudo apt install ubuntu-mate-desktop
-    ```
+There are lots of different Desktop packages available. For example, some common Desktop packages available for the Ubuntu operating system are:
+* [ubuntu-unity-desktop](https://ubuntuunity.org/)
+* [ubuntu-mate-desktop](https://ubuntu-mate.org/)
+* [lubuntu-desktop](https://lubuntu.net/)
+* [xubuntu-desktop](https://xubuntu.org/screenshots/)
+* [xfce4](https://www.xfce.org/)
+* ubuntu-desktop
+* [kde-plasma-desktop](https://kde.org/plasma-desktop/)
+* ubuntu-desktop-minimal
+* [cinnamon](https://en.wikipedia.org/wiki/Cinnamon_(desktop_environment))
+* [icewm](https://ice-wm.org/)
 
-    During the installation of the `ubuntu-mate-desktop` package it will ask you to choose the default display manager; a good option is [`lightdm`](https://en.wikipedia.org/wiki/LightDM). Installing the `ubuntu-mate-desktop` package can take a fair amount of time (something like 15-30 mins).
+[This article](https://cloudinfrastructureservices.co.uk/best-ubuntu-desktop-environments) shows a few of these different desktops. Below are the commands to install the MATE desktop.
 
-2.  Install TigerVNC server.
-    This software runs on your VM and allows you to use the GUI desktop you installed in step 1 remotely using client software.
+```bash
+sudo apt update
+sudo apt upgrade -y
+sudo apt install ubuntu-mate-desktop
+```
 
-    ```bash
-    sudo apt install -y tigervnc-common tigervnc-standalone-server
-    ```
+During the installation of the `ubuntu-mate-desktop` package, it will ask you to choose the default display manager; a good option is [lightdm](https://en.wikipedia.org/wiki/LightDM). Installing the `ubuntu-mate-desktop` package can take a fair amount of time (something like 15-30 minutes).
 
-    This command will install the TigerVNC server and some supporting software. For details about using VNC servers and clients, see our docs on [VNC](vnc.md).
+## 2. Install TigerVNC Server
 
-3.  Start the VNC server.
+This software runs on your VM and allows you to use the GUI desktop you installed in step 1 remotely using client software.
 
-    ```bash
-    vncserver
-    ```
+```bash
+sudo apt install -y tigervnc-common tigervnc-standalone-server
+```
 
-    The first time you start a VNC server it will ask you to set a password:
-    `-> enter a password`
-    `-> enter "n" for view-only password`
+This command will install the TigerVNC server and some supporting software. For details about using VNC servers and clients, see our documentation on [VNC](vnc.md).
 
-    This password is used later when connecting to the VNC desktop. You don't need a view-only password. The `vncpasswd` command can later be used to change your password.
+## 3. Start the VNC Server
 
-4.  Test your connection by opening port `5901` (see [security groups](managing-your-cloud-resources-with-openstack.md#security-groups) for more information about opening ports to your VMs with OpenStack) and connecting using a VNC viewer, for example [TigerVNC](https://tigervnc.org/).
+```bash
+vncserver
+```
+When you run `vncserver` for the first time, you will be prompted to set a password. This password is used later when connecting to the VNC desktop. You do not need a view-only password. The `vncpasswd` command can later be used to change your password.
 
-    !!! warning
-        This is not a secure connection; data sent to and from your VM will not be encrypted. This is only meant to test your server-client connection before connecting securely with an SSH tunnel (the next step).
+## 4. Test Your Connection
 
-    !!! note
-        If you are confident in your ability to set up an SSH tunnel, you may skip this step.
+To test your connection, you can open port `5901` (see [security groups](managing-your-cloud-resources-with-openstack.md#security-groups) for more information about opening ports to your VMs with OpenStack) and connect using a VNC viewer, for example [TigerVNC](https://tigervnc.org/).
 
-5.  Connect using an SSH tunnel (see [SSH tunnelling](ssh-tunnelling.md)). There is [an example of creating an SSH tunnel to a VNC server running on a compute node of one of our clusters](vnc.md#compute-nodes).
+!!! warning "Insecure Connection"
+    This is not a secure connection; data sent to and from your VM will not be encrypted. This step is only meant to test your server-client connection before connecting securely with an SSH tunnel (the next step). If you are confident in your ability to set up an SSH tunnel, you may skip this step.
 
-    Below are instructions for connecting using an SSH tunnel for Linux or Mac:
-    *   Open your terminal.
-    *   Type the following in your local terminal:
-        ```bash
-        SSH -i filepathtoyoursshkey/sshprivatekeyfile.key -L5901:localhost:5901 ubuntu@ipaddressofyourVM
-        ```
-    *   Start your VNC viewer.
-    *   In the VNC server field, enter: `localhost:5901`.
-    *   Your GUI desktop for your remote session should now open.
+## 5. Connect Using an SSH Tunnel
 
-6.  Close port `5901`. Once you are connected to your VNC server using an SSH tunnel, you no longer require port `5901` to be open, so it is recommended that you remove this rule from your security groups. (See [security groups](managing-your-cloud-resources-with-openstack.md#security-groups) for more information).
+See [SSH tunnelling](ssh-tunnelling.md) for general information. There is [an example of creating an SSH tunnel to a VNC server running on a compute node of one of our clusters](vnc.md#compute-nodes).
 
-7.  Once you are finished using the remote desktop, you may stop the VNC server with:
+Below are instructions for connecting using an SSH tunnel for Linux or macOS:
+1. Open your terminal.
+2. Type the following in your local terminal:
+   ```bash
+   SSH -i filepathtoyoursshkey/sshprivatekeyfile.key -L5901:localhost:5901 ubuntu@ipaddressofyourVM
+   ```
+3. Start your VNC viewer.
+4. In the VNC server field, enter: `localhost:5901`.
+5. Your GUI desktop for your remote session should now open.
 
-    ```bash
-    vncserver -kill :1
+## 6. Close Port 5901
+
+!!! warning "Security Recommendation"
+    Once you are connected to your VNC server using an SSH tunnel, you no longer require port `5901` to be open. It is recommended that you remove this rule from your security groups (see [security groups](managing-your-cloud-resources-with-openstack.md#security-groups) for more information).
+
+## 7. Stop the VNC Server
+
+Once you are finished using the remote desktop, you may stop the VNC server with:
+
+```bash
+vncserver -kill :1

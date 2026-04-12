@@ -1,0 +1,48 @@
+{
+  "doc_key": "base/openacc_tutorial_-_profiling",
+  "level": "chunk",
+  "chunk_index": 4,
+  "qa_pairs": [
+    {
+      "question": "What was the reported computational intensity for the `matvec` function, and what optimization was applied to its loop containing reductions?",
+      "answer": "The computational intensity for `matvec` was 1.00, and vector SIMD code was generated for the loop containing reductions."
+    },
+    {
+      "question": "Did the compiler generate Fused Multiply-Add (FMA) instructions for the `matvec` function?",
+      "answer": "Yes, Fused Multiply-Add (FMA) instructions were generated for the `matvec` function."
+    },
+    {
+      "question": "When `allocate_3d_poisson_matrix` was inlined into `main`, what was its reported intensity, and why were some loops not fused or vectorized/parallelized?",
+      "answer": "The inlined `allocate_3d_poisson_matrix` had a reported intensity of 0.0 at multiple points. Loops were not fused due to different loop trip counts or a function call before an adjacent loop. They were not vectorized or parallelized because the loop count was too small or due to data dependency."
+    },
+    {
+      "question": "How many times was a loop in the inlined `allocate_3d_poisson_matrix` function unrolled?",
+      "answer": "A loop in the inlined `allocate_3d_poisson_matrix` function was completely unrolled 3 times."
+    },
+    {
+      "question": "What was the computational intensity for the `initialize_vector` function when inlined, and what specific optimization did the compiler apply to its loop?",
+      "answer": "The inlined `initialize_vector` had a computational intensity of 0.0. The compiler replaced its loop with a call to `__c_mset8` after identifying a memory set idiom."
+    },
+    {
+      "question": "For the `waxpby` function inlined at line 52 of `main.cpp`, what was its computational intensity, and what idiom was identified?",
+      "answer": "The `waxpby` function inlined at line 52 had a computational intensity of 0.0, and a memory copy idiom was identified, leading to the loop being replaced by a call to `__c_mcopy8`."
+    },
+    {
+      "question": "What was the computational intensity reported for the `matvec` function inlined at line 53, and why was one of its loops not fused?",
+      "answer": "The intensity for the `matvec` function inlined at line 53 was reported as `[symbolic]` (not printable). One of its loops was not fused due to a different loop trip count, while vector SIMD code was generated for the loop containing reductions."
+    },
+    {
+      "question": "Describe the compiler feedback for the `waxpby` function inlined at line 54, including its intensity and loop optimizations or hindrances.",
+      "answer": "The `waxpby` function inlined at line 54 had an intensity of 0.67. Fused Multiply-Add (FMA) instructions were generated, and a loop was unrolled 4 times. It was also noted that a loop was not fused due to a different loop trip count and not vectorized due to data dependency, although vector SIMD code was generated for the loop."
+    },
+    {
+      "question": "For the `dot` function inlined at line 56, what was its computational intensity, and what prevented a loop from being fused?",
+      "answer": "The `dot` function inlined at line 56 had a computational intensity of 1.00. A loop was not fused due to a function call occurring before an adjacent loop, though vector SIMD code was generated for the loop containing reductions."
+    },
+    {
+      "question": "For the `dot` function inlined at line 65, what was its computational intensity, and what was the reason given for a loop not being fused?",
+      "answer": "The `dot` function inlined at line 65 had a computational intensity of 1.00. A loop was not fused due to different controlling conditions, though vector SIMD code was generated for the loop containing reductions."
+    }
+  ],
+  "generated_at": "2026-04-12T04:21:35.989008+00:00"
+}

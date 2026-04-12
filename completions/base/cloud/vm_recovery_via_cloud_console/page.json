@@ -1,0 +1,67 @@
+{
+  "doc_key": "base/vm_recovery_via_cloud_console",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is the main purpose of this document regarding VM access?",
+      "answer": "The document provides procedures to boot a VM into single user mode or launch a recovery kernel to gain privileged access when SSH or local user access is no longer possible."
+    },
+    {
+      "question": "What is the key prerequisite for performing an OS recovery on a VM?",
+      "answer": "The only requirement is that the boot manager is accessible and can be modified."
+    },
+    {
+      "question": "How do you initiate the GRUB menu editing process for a Debian 10 VM recovery?",
+      "answer": "Boot or reboot the system until the GRUB menu appears, then hit 'e' for edit."
+    },
+    {
+      "question": "What specific modification is made to the Debian 10 GRUB 'linux' line to change the 'init' process to a shell?",
+      "answer": "Remove the serial consoles and add `init=/bin/bash` to the 'linux' line."
+    },
+    {
+      "question": "After booting a Debian 10 VM into the bash shell during recovery, how do you remount the initrd filesystem as read-write?",
+      "answer": "Use the command `mount -o remount,rw /`."
+    },
+    {
+      "question": "In Debian 10 recovery, how do you mount the primary OS image disk (e.g., /dev/vda1) to a temporary location?",
+      "answer": "Mount `/dev/vda1` to `/mnt` using `mount /dev/vda1 /mnt`."
+    },
+    {
+      "question": "What additional filesystems must be bind-mounted into `/mnt` before chrooting for full functionality in Debian 10 recovery?",
+      "answer": "`/proc`, `/sys`, and `/dev` must be bind-mounted into `/mnt`."
+    },
+    {
+      "question": "What utility is used to reset the root password after successfully chrooting into the Debian 10 OS image?",
+      "answer": "The `passwd` utility."
+    },
+    {
+      "question": "How should a Debian 10 VM be restarted after completing recovery steps, given that bash has no power control mechanism?",
+      "answer": "Exit the chroot, unmount all previously mounted mount points, then restart the system using the `Ctrl+Alt+Del` submit button on the OpenStack console page, or by stopping and starting the VM."
+    },
+    {
+      "question": "What security measure should be taken after successfully logging in as root to a recovered Debian 10 VM?",
+      "answer": "Remove the root password again, or disable direct root logins via SSH."
+    },
+    {
+      "question": "How do you access edit mode in the GRUB menu for CentOS 7 recovery?",
+      "answer": "Once the GRUB menu is visible, hit 'e' on your keyboard to get into edit mode."
+    },
+    {
+      "question": "What parameter is added to the `linux16` line in CentOS 7 GRUB edit mode to interrupt the boot process early and launch the recovery environment?",
+      "answer": "`rd.break`."
+    },
+    {
+      "question": "What key combination is used to boot the CentOS 7 kernel with the modified GRUB parameters?",
+      "answer": "Hit `Ctrl+x`."
+    },
+    {
+      "question": "Where is the mounted filesystem from the CentOS 7 image located in recovery mode, and what command makes it read-write?",
+      "answer": "It is found under `/sysroot`, and it needs to be remounted using `mount -o remount,rw /sysroot` to make it read-write."
+    },
+    {
+      "question": "What are the primary GRUB parameters used for CentOS 8 recovery that are similar in function to CentOS 7's method?",
+      "answer": "`console=tty` needs to initialize a tty instead of a serial console, and `rd.break` will launch the recovery environment."
+    }
+  ],
+  "generated_at": "2026-04-12T10:46:36.144572+00:00"
+}

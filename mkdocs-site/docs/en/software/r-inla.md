@@ -5,25 +5,37 @@ lang: "en"
 
 source_wiki_title: "R-INLA/en"
 source_hash: "9e6e2d0705868914ef77f23038e8d92d"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T10:21:06.912459+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T10:44:54.719437+00:00"
 
 tags:
   - software
 
 keywords:
-  []
+  - "R package"
+  - "Installation"
+  - "Standard software environment"
+  - "Pre-compiled executables"
+  - "R-INLA"
+
+questions:
+  - "What is the primary purpose of the R-INLA package?"
+  - "Why is the installation process for R-INLA more complicated than that of most standard R packages?"
+  - "What are the four key steps outlined in the provided bash scripts to successfully install and configure R-INLA?"
+  - "What is the primary purpose of the R-INLA package?"
+  - "Why is the installation process for R-INLA more complicated than that of most standard R packages?"
+  - "What are the four key steps outlined in the provided bash scripts to successfully install and configure R-INLA?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
-[R-INLA](https://www.r-inla.org/) is a package in [R](r.md) that performs approximate Bayesian inference for Latent Gaussian Models.
+[R-INLA](https://www.r-inla.org/) is a package in [R](r.md) that do approximate Bayesian inference for Latent Gaussian Models.
 
 ## Installation
 
@@ -31,10 +43,9 @@ The installation of the R-INLA package is a bit more complicated than most [R](r
 
 The scripts below have been tested with the versions mentioned therein. Because R will always install the latest versions of packages, the versions of the modules will likely have to be adjusted in the future.
 
-### For StdEnv/2023 r/4.4
+=== "StdEnv/2023 r/4.4"
 
-!!! info "File: install_INLA_StdEnv2023.sh"
-    ```bash
+    ````bash title="install_INLA_StdEnv2023.sh"
     #!/bin/bash
 
     # (1)
@@ -58,12 +69,11 @@ The scripts below have been tested with the versions mentioned therein. Because 
     sed -i  's/\(^.*export LD_LIBRARY_PATH\)/echo "Skipping LD_LIBRARY_PATH." #\1/g' $R_LIBS/INLA/bin/linux/64bit/*.run
     setrpaths.sh --path $R_LIBS/INLA/bin/linux/64bit/malloc --add_path "\$ORIGIN:$EBROOTGENTOO/lib/gcc/x86_64-pc-linux-gnu/${EBVERSIONGCC::2}"
     setrpaths.sh --path $R_LIBS/INLA/bin/linux/64bit --add_path '$ORIGIN/first:$ORIGIN:$ORIGIN/malloc'
-    ```
+    ````
 
-### For StdEnv/2020 r/4.2.1
+=== "StdEnv/2020 r/4.2.1"
 
-!!! info "File: install_INLA_StdEnv2020.sh"
-    ```bash
+    ````bash title="install_INLA_StdEnv2020.sh"
     #!/bin/bash
 
     # (1)
@@ -85,11 +95,10 @@ The scripts below have been tested with the versions mentioned therein. Because 
     chmod u+x $R_LIBS/INLA/bin/linux/64bit/{*.so.*,*.so,first/*.so}
     sed -i  's/\(^.*export LD_LIBRARY_PATH\)/echo "Skipping LD_LIBRARY_PATH." #\1/g' $R_LIBS/INLA/bin/linux/64bit/*.run
     setrpaths.sh --path $R_LIBS/INLA/bin/linux --add_path '$ORIGIN/first:$ORIGIN'
-    ```
+    ````
 
-Comments in the script:
-
-*   (1) Load required modules. The same modules have to be loaded in the job script as well.
-*   (2) Install the R-INLA package and its dependencies.
-*   (3) Install the pre-compiled executables that R-INLA needs.
-*   (4) Patch the pre-compiled executables so that they are compatible with our [Standard software environment](standard-software-environments.md).
+!!! info "Script Comments"
+    *   **(1)** Load required modules. The same modules have to be loaded in the job script as well.
+    *   **(2)** Install the R-INLA package and its dependencies.
+    *   **(3)** Install the pre-compiled executables that R-INLA needs.
+    *   **(4)** Patch the pre-compiled executables so that they are compatible with our [Standard software environment](standard-software-environments.md).

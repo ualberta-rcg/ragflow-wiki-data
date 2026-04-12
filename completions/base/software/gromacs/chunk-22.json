@@ -1,0 +1,60 @@
+{
+  "doc_key": "base/gromacs",
+  "level": "chunk",
+  "chunk_index": 22,
+  "qa_pairs": [
+    {
+      "question": "When should OpenMP threads be used to improve GROMACS performance?",
+      "answer": "OpenMP threads can be used to improve GROMACS performance once Domain Decomposition with MPI processes reaches its scaling limit, meaning parallel scaling starts to drop. This helps spread the work of an MPI process over multiple CPU cores."
+    },
+    {
+      "question": "How can I configure OpenMP threads in a Slurm job script for GROMACS?",
+      "answer": "You can configure OpenMP threads using Slurm's `--cpus-per-task` parameter in the job script (for both `#SBATCH` and `srun`). Additionally, you should set the `OMP_NUM_THREADS` variable using `export OMP_NUM_THREADS=\"${SLURM_CPUS_PER_TASK:-1}\"` (which is recommended) or use the `mdrun` parameter `-ntomp ${SLURM_CPUS_PER_TASK:-1}`."
+    },
+    {
+      "question": "What is the optimal range for OpenMP threads per MPI process, according to GROMACS developers?",
+      "answer": "According to GROMACS developers, the optimal number of OpenMP threads per MPI process (or `cpus-per-task`) is usually between 2 and 6. However, for jobs running on a very large number of nodes, trying even larger numbers of `cpus-per-task` might be beneficial."
+    },
+    {
+      "question": "For systems that do not use PME, how should `ntasks-per-node` and `cpus-per-task` be chosen?",
+      "answer": "For systems that do not use PME, you can choose 2 or 4 `ntasks-per-node` and then set `cpus-per-task` so that the product of `ntasks-per-node * cpus-per-task` matches the total number of CPU cores available in a compute node."
+    },
+    {
+      "question": "How does GROMACS handle CPU architecture optimizations for non-bonded interactions?",
+      "answer": "GROMACS utilizes optimized kernel functions for calculating the real-space portion of short-range, non-bonded interactions. These kernel functions are available for various SIMD instruction sets, such as AVX, AVX2, and AVX512, and are chosen during compilation to match the CPU capabilities of the cluster."
+    },
+    {
+      "question": "What happens when a GROMACS module is loaded into an environment regarding CPU architecture?",
+      "answer": "When a GROMACS module is loaded into your environment, the team ensures that an appropriate AVX/AVX2/AVX512 version is selected based on the architecture of the cluster. GROMACS will report the supported SIMD instruction set in its log file and warn you if a suboptimal kernel function is chosen."
+    },
+    {
+      "question": "What kind of tools does GROMACS provide for post-processing and analysis of simulations?",
+      "answer": "GROMACS offers a wide array of tools for common post-processing and analysis tasks. The GROMACS manual lists these commands, organized by topic and by name, with descriptions and links to their references."
+    },
+    {
+      "question": "What file formats do GROMACS analysis commands typically read and write?",
+      "answer": "GROMACS analysis commands typically read trajectory files in `XTC`, `TNG`, or `TRR` format, as well as coordinate files such as `GRO`, `PDB`, or `TPR`. They commonly write plots in the `XVG` format."
+    },
+    {
+      "question": "What is the XVG format and how is it used with GROMACS?",
+      "answer": "The `XVG` format is a simple text file format used by GROMACS analysis tools for plotting. These files can be used as input for the Grace plotting tool (via the `xmgrace` command), processed with scripts, or imported into other spreadsheet programs."
+    },
+    {
+      "question": "What is VMD and what are its main functionalities for molecular simulations?",
+      "answer": "VMD (Visual Molecular Dynamics) is a molecular visualization program that allows for displaying, animating, and analyzing large biomolecular systems using 3-D graphics and built-in scripting. It can be used to visually inspect GROMACS trajectories and offers numerous built-in and external plugins for analysis, including a command-line mode."
+    },
+    {
+      "question": "Which Python packages are available for analyzing GROMACS trajectory files?",
+      "answer": "MDAnalysis and MDTraj are two Python packages provided as precompiled Python wheels that can read and write GROMACS trajectory (`TRR` and `XTC`) and coordinate files."
+    },
+    {
+      "question": "What is a limitation of MDAnalysis regarding GROMACS TPR files?",
+      "answer": "MDAnalysis can read topology information from GROMACS `TPR` files, though it often cannot read those created by the latest versions of GROMACS."
+    },
+    {
+      "question": "What advantages do Python packages like MDAnalysis and MDTraj offer for GROMACS analysis?",
+      "answer": "These Python packages provide a versatile atom-selection language, expose trajectory coordinates, and include many commonly used analysis functions. This makes it easy to write custom analysis tools tailored to specific problems and integrate well with Python's data-science packages such (like NumPy, SciPy, Pandas) and plotting libraries (like Matplotlib/Pyplot and Seaborn)."
+    }
+  ],
+  "generated_at": "2026-04-11T22:28:01.219185+00:00"
+}

@@ -1,0 +1,60 @@
+{
+  "doc_key": "fr/using_ipv6_in_cloud",
+  "level": "chunk",
+  "chunk_index": 2,
+  "qa_pairs": [
+    {
+      "question": "Comment faire pour vérifier si l'IPv6 est désactivée sur un système Linux?",
+      "answer": "Pour vérifier l'état de l'IPv6, on doit exécuter la commande `sudo sysctl -a | grep ipv6.*disable`."
+    },
+    {
+      "question": "Qu'est-ce que les résultats de la commande `sudo sysctl -a | grep ipv6.*disable` devraient afficher pour que l'IPv6 soit activée?",
+      "answer": "Pour que l'IPv6 soit activée, tous les résultats de la commande `sudo sysctl -a | grep ipv6.*disable` devraient se terminer par des zéros."
+    },
+    {
+      "question": "Est-ce que l'IPv6 est activée par défaut sur les images récentes de système?",
+      "answer": "Oui, l'IPv6 est activée par défaut et représente l'interface par défaut pour toutes les images récentes."
+    },
+    {
+      "question": "Si des paramètres liés à l'IPv6 ne sont pas à zéro, où faut-il les ajouter pour les corriger?",
+      "answer": "Si certains paramètres d'IPv6 doivent être modifiés pour afficher des zéros, il faut les ajouter au fichier `/etc/sysctl.conf`."
+    },
+    {
+      "question": "Quels paramètres de noyau doit-on ajouter au fichier `/etc/sysctl.conf` pour configurer l'IPv6 sur l'interface eth1?",
+      "answer": "Il faut ajouter les paramètres de noyau suivants au fichier `/etc/sysctl.conf`: `net.ipv6.conf.eth1.forwarding=0` et `net.ipv6.conf.eth1.accept_ra=1`."
+    },
+    {
+      "question": "Que doit-on faire après avoir ajouté les paramètres de noyau dans `/etc/sysctl.conf`?",
+      "answer": "Après avoir ajouté les paramètres de noyau à `/etc/sysctl.conf`, il faut redémarrer le système et s'assurer que l'IPv6 est bien activée et que l'interface `/dev/eth1` existe."
+    },
+    {
+      "question": "Quelles configurations doivent être incluses dans le fichier `/etc/sysconfig/network-scripts/ifcfg-eth1`?",
+      "answer": "Il faut ajouter les configurations suivantes au fichier `/etc/sysconfig/network-scripts/ifcfg-eth1`: `IPV6INIT=yes`, `IPV6_AUTOCONF=yes`, `IPV6_DEFROUTE=yes` et `IPV6_FAILURE_FATAL=no`."
+    },
+    {
+      "question": "Que devrait-on remarquer après le deuxième redémarrage du système, une fois toutes les configurations appliquées?",
+      "answer": "Après le deuxième redémarrage du système, l'interface `/dev/eth1` devrait être configurée et prête à être utilisée."
+    },
+    {
+      "question": "Quelle commande permet de confirmer la configuration IPv6?",
+      "answer": "Pour confirmer la configuration IPv6, on peut utiliser la commande `$ ip -6 address`."
+    },
+    {
+      "question": "Comment vérifier si l'IPv6 fonctionne correctement sur le système?",
+      "answer": "On peut confirmer le bon fonctionnement de l'IPv6 en utilisant la commande `$ ping6 -c 1 www.google.com`."
+    },
+    {
+      "question": "Une fois toutes les étapes de configuration complétées, quel est l'état du système par rapport à l'IPv6?",
+      "answer": "Une fois toutes ces étapes complétées, le système est configuré pour utiliser l'IPv6."
+    },
+    {
+      "question": "Où peut-on trouver plus de détails sur l'IPv6 spécifiquement de la part de RedHat?",
+      "answer": "On peut trouver plus de détails sur l'IPv6 chez RedHat avec les articles \"What you need to know about IPv6\" et \"Configuring an IPv6 address in Red Hat Enterprise Linux 7 and 8\"."
+    },
+    {
+      "question": "Est-ce qu'OpenStack fournit aussi des informations supplémentaires sur l'IPv6?",
+      "answer": "Oui, OpenStack propose également de la documentation et des informations additionnelles sur l'IPv6."
+    }
+  ],
+  "generated_at": "2026-04-12T10:24:53.800126+00:00"
+}

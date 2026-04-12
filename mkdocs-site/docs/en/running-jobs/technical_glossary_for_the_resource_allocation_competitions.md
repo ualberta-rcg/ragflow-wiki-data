@@ -5,26 +5,69 @@ lang: "en"
 
 source_wiki_title: "Technical glossary for the resource allocation competitions/en"
 source_hash: "9fcbf0f2eadfc2831072401dfe075e5a"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T11:41:22.141113+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T11:50:49.518319+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "high-energy physics"
+  - "Batch computing"
+  - "Advanced research computing"
+  - "Storage"
+  - "compute resources"
+  - "large datasets"
+  - "total allocation"
+  - "constant workload"
+  - "Resource allocations"
+  - "Compute node"
+  - "Filesystems"
+  - "Job"
+  - "idle compute resources"
+  - "Cloud storage"
+  - "Virtual Machine"
+  - "Local storage"
+  - "storage filesystem"
+  - "Memory"
+  - "Compute instances"
+  - "dCache"
+  - "RAC process"
+  - "Fair share allocation"
+  - "Compute nodes"
+  - "full system usage"
+  - "Computational resources"
+
+questions:
+  - "What are the primary differences between physical and virtual computational resources like CPUs, GPUs, VCPUs, and VGPUs?"
+  - "How does the allocation methodology for storage and cloud resources differ from that of CPU and GPU resources?"
+  - "How does the fair-share algorithm manage batch processing priorities and resource consumption in a cluster environment?"
+  - "What is the difference between a serial job and a parallel job within a batch execution system?"
+  - "How are memory resources calculated and defined per core, per node, and per GPU?"
+  - "What are the distinct characteristics and intended use cases for the different types of filesystems, such as Scratch, Home, Project, and Nearline?"
+  - "How does the system treat a user's past overuse of compute resources after a period of reduced activity?"
+  - "What does the \"total allocation\" actually represent if it is not a strict limit on resource consumption?"
+  - "What action should users take after they have consumed their entire allocation, and why?"
+  - "What is the dCache storage filesystem and what are its core technical features?"
+  - "What types of research projects and dataset sizes is dCache best suited for?"
+  - "How is dCache capacity allocated and who must be contacted to request access?"
+  - "What are the differences in persistence and use cases among local storage, ephemeral local disks, and persistent cloud storage options?"
+  - "How do compute instances differ from persistent instances regarding their lifecycle, CPU usage, and resource quotas?"
+  - "What is the function of a floating IP, and how does it facilitate the operation of service portals for the research community?"
+  - "What are the differences in persistence and use cases among local storage, ephemeral local disks, and persistent cloud storage options?"
+  - "How do compute instances differ from persistent instances regarding their lifecycle, CPU usage, and resource quotas?"
+  - "What is the function of a floating IP, and how does it facilitate the operation of service portals for the research community?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
 ## Computational resources
-
 **CPU**: Is the abbreviation for central processing unit. Sometimes referred to simply as the central processor, but more commonly called processor, the CPU is the brains of the computer where most calculations take place.
 
 **GPU**: GPU computing is the use of a graphics processing unit (GPU) to accelerate deep learning, analytics, and engineering applications, for example. GPU accelerators now power energy-efficient data centres in government labs, universities, enterprises, and small-and-medium businesses around the world. They play a huge role in accelerating applications in platforms ranging from artificial intelligence to cars, drones, and robots.
@@ -36,14 +79,12 @@ status:
 **Reference GPU Unit (RGU):** RGU is a unit measuring the amount of GPU resources that are used. It represents the "cost" of utilizing a particular GPU model, whose RGU value varies based on performance. For example: 1 GPU A100-40GB = 4.0 RGU; 1 GPU V100-16GB = 2.2 RGU; 1 GPU P100-12GB = 1.0 RGU.
 
 ## Resource allocations
-
 Allocations of storage space and cloud resources are handled differently from allocations of CPUs and GPUs.
 
 *   Storage allocations are straightforward: A research group will get a maximum amount of storage that they can use exclusively throughout the allocation period. Likewise, a cloud resource allocation is a maximum number of VCPUs, amount of storage, etc., which cannot be exceeded during the allocation period.
 *   CPU and GPU allocations are not maxima but targets for average usage, which are then translated into scheduling priorities. An allocation of N CPUs means the group may expect to have access to N CPUs throughout the allocation period. Periods of greater usage may be possible as competing demand allows, but are not guaranteed; periods of lesser usage will not be compensated, whether due to the group’s actions or resource unavailability. To learn more about compute allocations, click [here](allocations-and-resource-scheduling.md).
 
 ## Batch computing
-
 **Cluster:** A group of interconnected compute nodes managed as a unit by a scheduling program.
 
 **Compute node:** A computational unit of a cluster, one or more of which can be allocated to a job. A node has its own operating system image, one or more CPU cores and some memory (RAM). Nodes can be used by the jobs in either exclusive or shared manner depending on the cluster.
@@ -69,7 +110,6 @@ Allocations of storage space and cloud resources are handled differently from al
 **Uneven usage:** Most schedulers are tuned to deliver a certain number of core-years over a fixed period of time, assuming relatively consistent usage of the system. Users may have very inconsistent workloads, with significant peaks and valleys in their usage. They therefore may need a “burst” of compute resources in order to use their RAC allocation effectively. Normally we expect allocations to be used in a relatively even way throughout the award period. If you anticipate having bursty workloads or variable usage, please indicate that in your RAC application. If you are having problems running jobs, contact [Technical support](technical-support.md).
 
 ## Memory
-
 **Memory per core:** The amount of memory (RAM) per CPU core. If a compute node has 2 CPUs, each having 6 cores and 24GB (gigabytes) of installed RAM, then this compute node will have 2GB of memory per core.
 
 **Memory per node:** The total amount of installed RAM in a compute node.
@@ -79,7 +119,6 @@ Allocations of storage space and cloud resources are handled differently from al
 **System memory per GPU:** Amount of system memory requested by a job in GB divided by the number of GPUs requested by the job.
 
 ## Storage
-
 **Disk:** A disk, hard drive or solid-state drive is permanent storage (compared to a computer’s main memory or RAM) that holds programs, input files, output results, etc.
 
 **Filesystems:** A directory structure made available for use by systems in a cluster. Each filesystem may have different performance characteristics, space available, and intended use. Some filesystems may be available to only head nodes in a cluster, while others may be shared with compute nodes for working storage during job execution. Filesystems typically available on clustered systems include:
@@ -87,10 +126,9 @@ Allocations of storage space and cloud resources are handled differently from al
 **Scratch:** This filesystem, available on compute nodes, is composed of high-performance storage used during computational jobs. Intended primarily for temporary or transient files, bulk results of your computations and simulations, or any material that can be easily recreated or reacquired. Data may be copied to scratch, then removed from scratch once job execution is complete. Scratch storage is subject to periodic “cleaning” (or purging) according to local system policies, and is not formally allocated, however limited by generous quotas.
 
 **Home:** The home filesystem is commonly used for storage of user’s personal files, executable programs, job execution scripts, and relatively small input datasets. Each user has a folder in the home filesystem called a “home directory”. The home directory is persistent, smaller than scratch and, in most systems, backed up regularly. The home directory is visible to all nodes in a given cluster.
-
 **Project:** The project filesystem is of medium to high performance disk and also available on compute nodes. This filesystem is larger in available storage than home, and in most systems is backed up regularly. This filesystem is generally used to store frequently-used project data, however with minimum data churning, and is allocated through the RAC process.
 
-**Nearline:** The nearline filesystem is a disk-tape hybrid storage system, in which data with size above a certain threshold is automatically migrated from disk to tape, and then back again upon read operations. Access to this storage resource requires deliberate actions by users (i.e., via the Linux command line: cp, mv, rsync, etc …) of placing files into this designated nearline location, or by file transfers from another filesystem (scratch, project, home, etc). The tape subsystem has very high capacity, but adds latency when files need to be accessed again. This storage system should be used for datasets that are infrequently accessed, and needs to be retained for long periods of time. This is not true “archival” storage in that the datasets must be part of an “active” project. Nearline capacity is managed by quotas, and allocations are via the RAC process.
+**Nearline:** The nearline filesystem is a disk-tape hybrid storage system, in which data with size above a certain threshold is automatically migrated from disk to tape, and then back again upon read operations. Access to this storage resource requires deliberate actions by users (i.e., via the Linux command line: `cp`, `mv`, `rsync`, etc …) of placing files into this designated nearline location, or by file transfers from another filesystem (scratch, project, home, etc). The tape subsystem has very high capacity, but adds latency when files need to be accessed again. This storage system should be used for datasets that are infrequently accessed, and needs to be retained for long periods of time. This is not true “archival” storage in that the datasets must be part of an “active” project. Nearline capacity is managed by quotas, and allocations are via the RAC process.
 
 **dCache:** dCache is a storage filesystem developed originally for high-energy physics projects for very large datasets (petabytes). dCache storage is essentially an object file storage layer on top of classical storage providing a single namespace and various authorized access and transfer protocols to the underlying immutable data. Allocations here tend to be for large projects with many Principal Investigators and researchers. dCache capacity is allocated via the RAC process. If you wish to use this storage, contact the Subatomic Physics National Team by writing to our [Technical support](technical-support.md).
 
@@ -103,7 +141,6 @@ Allocations of storage space and cloud resources are handled differently from al
 **Terabytes (TB):** Terabytes are most often used to measure the storage capacity of large storage devices. One terabyte (abbreviated “TB”) is equal to 1,000 gigabytes and precedes the petabyte unit of measurement.
 
 ## Cloud
-
 **Alliance Cloud:** is a pool of hardware supporting virtualization. This can be thought of as Infrastructure as a Service (IaaS).
 
 **VCPU year:** same as CPU year, but for cloud.

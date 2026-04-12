@@ -1,0 +1,80 @@
+{
+  "doc_key": "base/huggingface",
+  "level": "chunk",
+  "chunk_index": 3,
+  "qa_pairs": [
+    {
+      "question": "How do you use a Hugging Face `pipeline` to load a pre-trained model when you have an internet connection?",
+      "answer": "On a login node, you can simply pass a model name or a type of task as an argument to the `pipeline` function. For example: `from transformers import pipeline; pipe = pipeline(\"text-classification\")`."
+    },
+    {
+      "question": "How do you use a Hugging Face `pipeline` to load a pre-trained model in an environment without an internet connection, such as inside a job?",
+      "answer": "In an environment without an internet connection, you must specify the location of both the model and its tokenizer when calling `pipeline`. You first load the model and tokenizer using `AutoModel.from_pretrained` and `AutoTokenizer.from_pretrained` with `local_files_only=True`, then pass them to `pipeline`: `pipe = pipeline(task = \"text-classification\", model = model, tokenizer = tokenizer)`."
+    },
+    {
+      "question": "What happens if a `pipeline` attempts to download models from the internet during a job in an environment without a connection?",
+      "answer": "If `pipeline` attempts to download models from the internet in an environment without a connection, it will result in a connection timeout error during the job."
+    },
+    {
+      "question": "What is the Datasets package used for?",
+      "answer": "Datasets is a Python package designed for easily accessing and sharing datasets for Audio, Computer Vision, and Natural Language Processing (NLP) tasks."
+    },
+    {
+      "question": "What are the recommended steps for installing the Datasets package?",
+      "answer": "The recommended installation steps are: 1. Load a Python module (e.g., `module load python`). 2. Create and start a virtual environment. 3. Load the Arrow module (e.g., `module load gcc/9.3.0 arrow/11.0.0`). 4. Install Datasets in the virtual environment using `pip install --no-index datasets`."
+    },
+    {
+      "question": "Which module needs to be loaded to make the `pyarrow` package available for Datasets?",
+      "answer": "You need to load the Arrow module (e.g., `module load gcc/9.3.0 arrow/11.0.0`) to make the `pyarrow` package, a dependency of Datasets, available in your virtual environment."
+    },
+    {
+      "question": "Do I need to load the Arrow module every time I want to use the Datasets package?",
+      "answer": "Yes, you will need to load the Arrow module every time you intend to import the Datasets package in your Python script."
+    },
+    {
+      "question": "Where must datasets be downloaded from the Hugging Face hub?",
+      "answer": "Any dataset download must be performed on a login node."
+    },
+    {
+      "question": "What is the default cache directory for downloaded Hugging Face datasets?",
+      "answer": "The default cache directory for downloaded Hugging Face datasets is `$HOME/.cache/huggingface/datasets`."
+    },
+    {
+      "question": "How can you change the default cache directory for Hugging Face datasets?",
+      "answer": "You can change the default cache location by setting the environment variable `HF_DATASETS_CACHE` before importing anything from the Datasets package in your Python script."
+    },
+    {
+      "question": "How do you load a dataset in a job where there is no internet connection?",
+      "answer": "To load a dataset in a job without an internet connection, you must set the environment variable `HF_DATASETS_OFFLINE=1` and specify the location of the cache directory where the dataset is stored when calling `load_dataset()`."
+    },
+    {
+      "question": "What is the Evaluate library used for?",
+      "answer": "Evaluate is a library for easily evaluating machine learning models and datasets, providing access to dozens of evaluation methods for various domains with a single line of code."
+    },
+    {
+      "question": "What are the recommended steps for installing the Evaluate library?",
+      "answer": "The recommended installation steps are: 1. Load a Python module (e.g., `module load python`). 2. Create and start a virtual environment. 3. Load the Arrow module (e.g., `module load gcc arrow`). 4. Install Evaluate in the virtual environment using `pip install --no-index evaluate`."
+    },
+    {
+      "question": "Which module is a dependency for the Evaluate package?",
+      "answer": "The `pyarrow` package, made available by loading the Arrow module, is a dependency of Evaluate."
+    },
+    {
+      "question": "Do I need to load the Arrow module every time I want to use the Evaluate package?",
+      "answer": "Yes, you will need to load the Arrow module every time you intend to import the Evaluate package in your Python script."
+    },
+    {
+      "question": "Where should evaluators for the Evaluate library be downloaded?",
+      "answer": "You must download any evaluators you wish to use in your code on a login node, before submitting a job."
+    },
+    {
+      "question": "How do you download an evaluator using the Evaluate library?",
+      "answer": "To download an evaluator, simply call the `evaluate.load()` method. For example, to download an accuracy evaluator, run `import evaluate; evaluate.load(\"accuracy\")` on a login node."
+    },
+    {
+      "question": "How can you prevent the Evaluate library from attempting to download evaluators from the web inside a job on compute nodes without internet connection?",
+      "answer": "Inside a job on compute nodes without internet connection, you must set the environment variable `HF_EVALUATE_OFFLINE=1` to prevent Evaluate from attempting to download evaluators from the web."
+    }
+  ],
+  "generated_at": "2026-04-11T23:44:01.574819+00:00"
+}

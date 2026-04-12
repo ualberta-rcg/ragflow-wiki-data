@@ -5,21 +5,62 @@ lang: "base"
 
 source_wiki_title: "GNU Parallel"
 source_hash: "13219d777e6bd8557ed8ba3a68c49ba5"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T06:40:13.262424+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T07:22:49.999388+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "SSH session"
+  - "text-align"
+  - "Joblog"
+  - "GNU parallel"
+  - "arguments list"
+  - "multiple nodes"
+  - "Time counting chars"
+  - "subjobs"
+  - "Handling large files"
+  - "sequential tasks"
+  - "GNU Parallel"
+  - "OpenMP tasks"
+  - "simulations"
+  - "short jobs"
+  - "--sshdelay"
+  - "MB"
+  - "SLURM cluster"
+  - "GNU parallel jobs"
+  - "Cores used"
+  - "command list"
+  - "block size"
+  - "SLURM"
+
+questions:
+  - "What is GNU Parallel and how does it manage resource allocation by default?"
+  - "How can users provide arguments or a list of commands to GNU Parallel using files?"
+  - "Why is running GNU Parallel across multiple nodes not recommended, and what precaution should be taken if attempted?"
+  - "How can GNU Parallel be configured to distribute a workload across multiple nodes in a cluster?"
+  - "What options does GNU Parallel provide for tracking job execution and resuming interrupted or failed commands?"
+  - "How does GNU Parallel efficiently process large files using block and pipepart arguments?"
+  - "Why is it not recommended to use GNU parallel across multiple nodes for a large number of short jobs?"
+  - "What specific technical issue with SSH sessions causes problems when running GNU parallel on remote nodes?"
+  - "What command option and delay time should be implemented to mitigate issues if you choose to use GNU parallel across multiple nodes?"
+  - "How does the number of GNU parallel jobs affect the execution time for counting characters?"
+  - "What is the constant number of cores utilized across the different job configurations in the table?"
+  - "How do the data size parameters vary between the first and second job configurations?"
+  - "How does the choice of block size impact the efficiency and core utilization when running jobs?"
+  - "What steps should be taken to estimate the total resources required before submitting a job with hundreds or thousands of simulations?"
+  - "What are the three different methods described for providing parameters or commands to GNU Parallel within a submission script?"
+  - "How does the choice of block size impact the efficiency and core utilization when running jobs?"
+  - "What steps should be taken to estimate the total resources required before submitting a job with hundreds or thousands of simulations?"
+  - "What are the three different methods described for providing parameters or commands to GNU Parallel within a submission script?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -40,6 +81,11 @@ An alternative syntax is to use `:::`, such as in this example:
 ```bash
 parallel echo {} ::: $(seq 1 3)
 ```
+```text
+1
+2
+3
+```
 
 Note that GNU Parallel refers to each of the commands executed as *jobs*. This can be confusing because on many of our systems, a job is a batch script run by a scheduler, and GNU Parallel would be used inside that job. From that perspective, GNU Parallel's jobs are *subjobs*.
 
@@ -48,6 +94,14 @@ You can also use multiple arguments by enumerating them, for example:
 
 ```bash
 parallel echo {1} {2} ::: $(seq 1 3) ::: $(seq 2 3)
+```
+```text
+1 2
+1 3
+2 2
+2 3
+3 2
+3 3
 ```
 
 ## File Content as Argument List
@@ -69,35 +123,32 @@ Note that there are no commands or arguments given to Parallel. This usage mode 
 Here is an example how to run a Slurm job using GNU Parallel. The list of commands in `my_commands.txt` will be run sequentially using 4 CPUs. As soon as one command completes, a new one will be started to maintain the total of 4 commands running at the same time, until the list is exhausted.
 
 === "Script"
+    ```bash
+    #!/bin/bash
+    #SBATCH --account=def-someuser
+    #SBATCH --cpus-per-task=4
+    #SBATCH --time=00-02:00
+    #SBATCH --mem=4000M     # Total memory for all tasks
 
-```bash title="run_gnuparallel_test.sh"
-#!/bin/bash
-#SBATCH --account=def-someuser
-#SBATCH --cpus-per-task=4
-#SBATCH --time=00-02:00
-#SBATCH --mem=4000M     # Total memory for all tasks
-
-parallel --joblog parallel.log < ./my_commands.txt
-```
+    parallel --joblog parallel.log < ./my_commands.txt
+    ```
 
 === "List of Tasks"
-
-```text title="my_commands.txt"
-command1
-command2
-command3
-command4
-command5
-command6
-command7
-command8
-command9
-```
+    ```txt
+    command1
+    command2
+    command3
+    command4
+    command5
+    command6
+    command7
+    command8
+    command9
+    ```
 
 ## Running on Multiple Nodes
-
-!!! warning "Not recommended"
-    While GNU Parallel can be used across multiple nodes, it can have problems doing so, and it is not recommended, in particular in the context of a lot of short jobs. That is because it needs to start an SSH session on remote nodes, an operation which often requires several seconds and may hang. If you choose to use it, make sure you add a delay between jobs of 30 seconds or more, using the option `--sshdelay 30`
+!!! warning "Not Recommended"
+    While GNU Parallel can be used across multiple nodes, it can have problems doing so, and it is not recommended, in particular in the context of a lot of short jobs. That is because it needs to start an SSH session on remote nodes, an operation which often requires several seconds and may hang. If you choose to use it, make sure you add a delay between jobs of 30 seconds or more, using the option `--sshdelay 30`.
 
 You can also use GNU Parallel to distribute a workload across multiple nodes in a cluster, such as in the context of a job on our servers. An example of this use is the following:
 
@@ -142,8 +193,8 @@ ls *.txt | parallel --resume-failed --joblog gzip.log gzip {}
 ```
 Note that this will also start subjobs that were not considered before.
 
-## Handling Large Files
-Let's say we want to count the characters in parallel from a big [FASTA](https://en.wikipedia.org/wiki/FASTA_format) file (`database.fa`) in a task with 8 cores. We will have to use the GNU Parallel `--pipepart` and `--block` arguments to efficiently handle chunks of the file. 
+## Handling large files
+Let's say we want to count the characters in parallel from a big [FASTA](https://en.wikipedia.org/wiki/FASTA_format) file (`database.fa`) in a task with 8 cores. We will have to use the GNU Parallel `--pipepart` and `--block` arguments to efficiently handle chunks of the file.
 
 ```bash
 parallel --jobs $SLURM_CPUS_PER_TASK --keep-order --block -1 --recstart '>' --pipepart wc :::: database.fa
@@ -152,81 +203,76 @@ parallel --jobs $SLURM_CPUS_PER_TASK --keep-order --block -1 --recstart '>' --pi
 By varying the `block` size we get:
 
 |   | # Cores in task | Ref. database size | Block read size | # GNU parallel jobs | # Cores used | Time counting chars |
-|---|----------------:|-------------------:|----------------:|--------------------:|-------------:|--------------------:|
-| 1 |               8 |              827MB |            10MB |                  83 |            8 |            0m2.633s |
-| 2 |               8 |              827MB |           100MB |                   9 |            8 |            0m2.042s |
-| 3 |               8 |              827MB |           827MB |                   1 |            1 |           0m10.877s |
-| 4 |               8 |              827MB |              -1 |                   8 |            8 |            0m1.734s |
-
+|:--|-----------------:|-------------------:|----------------:|--------------------:|-------------:|--------------------:|
+| 1 |                 8 |              827MB |            10MB |                  83 |            8 |            0m2.633s |
+| 2 |                 8 |              827MB |           100MB |                   9 |            8 |            0m2.042s |
+| 3 |                 8 |              827MB |           827MB |                   1 |            1 |           0m10.877s |
+| 4 |                 8 |              827MB |              -1 |                   8 |            8 |            0m1.734s |
 This table shows that choosing the right block size has a real impact on the efficiency and the number of cores actually used.
-The first line shows that the block size is too small, resulting in many jobs dispatched over the available cores. 
-The second line is a better block size, since it results in a number of jobs close to the number of available cores. 
-The third line shows that the block size is too big and that we are only using 1 core out of 8, therefore inefficiently processing chunks. 
+The first line shows that the block size is too small, resulting in many jobs dispatched over the available cores.
+The second line is a better block size, since it results in a number of jobs close to the number of available cores.
+The third line shows that the block size is too big and that we are only using 1 core out of 8, therefore inefficiently processing chunks.
 Finally, the last line shows that in many cases, letting GNU Parallel adapt and decide on the block size is often faster.
 
-## Running Hundreds or Thousands of Simulations
+## Running hundreds or thousands of simulations
 First, you must determine how many resources are required by one simulation, then you can estimate the total resources required in your job.
 
 The submission scripts given in the examples below are based on: 1 serial simulation requiring 2 GB of memory, 1 core and 5 minutes, and 1000 simulations. It would take 83.3 hours or 3.472 days to run with 1 core.
 
 On one node, using 32 cores, it can be completed in 2.6 hours.
-One could also use more than one node (see [#Running on Multiple Nodes](#running-on-multiple-nodes)).
+One could also use more than one node (see [#running-on-multiple-nodes](#running-on-multiple-nodes)).
 
 ### Arguments List
-As shown in section [#File Content as Argument List](#file-content-as-argument-list), you can use a file containing all the parameters. In this case, parameters are delimited by a tab character (`\t`) and each line corresponds to one simulation.
+As shown in section [#file-content-as-argument-list](#file-content-as-argument-list), you can use a file containing all the parameters. In this case, parameters are delimited by a tab character (`\t`) and each line corresponds to one simulation.
 
 === "Parameters"
-
-```text title="my_parameters.txt"
-1   1
-1   2
-1   3
-...
-```
+    ```txt
+    1   1
+    1   2
+    1   3
+    ...
+    ```
 
 === "Script"
+    ```bash
+    #!/bin/bash
+    #SBATCH --account=def-someuser
+    #SBATCH --nodes=1
+    #SBATCH --cpus-per-task=32
+    #SBATCH --time=03:00:00
+    #SBATCH --mem-per-cpu=2G
 
-```bash title="sim_submit.sh"
-#!/bin/bash
-#SBATCH --account=def-someuser
-#SBATCH --nodes=1
-#SBATCH --cpus-per-task=32
-#SBATCH --time=03:00:00
-#SBATCH --mem-per-cpu=2G
-
-# Read the parameters, placing each column to their respective argument
-parallel -j $SLURM_CPUS_PER_TASK --colsep '\t' my_simulator --alpha {1} --beta {2} :::: ./my_parameters.txt
-```
+    # Read the parameters, placing each column to their respective argument
+    parallel -j $SLURM_CPUS_PER_TASK --colsep '\t' my_simulator --alpha {1} --beta {2} :::: ./my_parameters.txt
+    ```
 
 ### Commands List
-As shown in the section [#File Content as Command List](#file-content-as-command-list), you can use a file containing all the commands and their parameters.
+As shown in the section [#file-content-as-command-list](#file-content-as-command-list), you can use a file containing all the commands and their parameters.
 
 === "Commands"
-
-```text title="my_commands.txt"
-my_simulator --alpha 1 --beta 1
-my_simulator --alpha 1 --beta 2
-my_simulator --alpha 1 --beta 3
-...
-```
+    ```txt
+    my_simulator --alpha 1 --beta 1
+    my_simulator --alpha 1 --beta 2
+    my_simulator --alpha 1 --beta 3
+    ...
+    ```
 
 === "Script"
+    ```bash
+    #!/bin/bash
+    #SBATCH --account=def-someuser
+    #SBATCH --nodes=1
+    #SBATCH --cpus-per-task=32
+    #SBATCH --time=03:00:00
+    #SBATCH --mem-per-cpu=2G
 
-```bash title="sim_submit.sh"
-#!/bin/bash
-#SBATCH --account=def-someuser
-#SBATCH --nodes=1
-#SBATCH --cpus-per-task=32
-#SBATCH --time=03:00:00
-#SBATCH --mem-per-cpu=2G
-
-parallel -j $SLURM_CPUS_PER_TASK < ./my_commands.txt
-```
+    parallel -j $SLURM_CPUS_PER_TASK < ./my_commands.txt
+    ```
 
 ### Multiple Arguments
 You can use GNU Parallel to generate the parameters and feed them to the command.
 
-```bash title="sim_submit.sh"
+```bash
 #!/bin/bash
 #SBATCH --account=def-someuser
 #SBATCH --nodes=1
@@ -239,7 +285,7 @@ You can use GNU Parallel to generate the parameters and feed them to the command
 parallel -j $SLURM_CPUS_PER_TASK my_simulator --alpha {1} --beta {2} ::: {1..10} ::: {1..100}
 ```
 
-## Related Topics
+## Related topics
 * [META](meta-a-package-for-job-farming.md)
 * [GLOST](glost.md)
 * [Job arrays](job-arrays.md)

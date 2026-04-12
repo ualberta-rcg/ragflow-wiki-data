@@ -5,53 +5,77 @@ lang: "en"
 
 source_wiki_title: "OpenMM/en"
 source_hash: "8ab55d415e0b3aed95508fa4d130a6f7"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T09:33:54.661671+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T10:02:39.067481+00:00"
 
 tags:
   - software
   - biomolecularsimulation
 
 keywords:
-  []
+  - "Machine-learning potentials"
+  - "Python interface"
+  - "GPU"
+  - "StateDataReporter"
+  - "Benchmarking"
+  - "Molecular Dynamics"
+  - "Molecular dynamics"
+  - "positions"
+  - "CUDA"
+  - "simulation object"
+  - "amber_sys"
+  - "CUDA platform"
+  - "GPU simulation"
+  - "OpenMM"
+
+questions:
+  - "What is OpenMM and what types of biomolecular formats and machine-learning potentials does it natively support?"
+  - "What are the primary strengths and weaknesses of using OpenMM compared to highly optimized classical molecular dynamics engines like GROMACS or AMBER?"
+  - "How do you configure the environment and write the necessary bash and Python scripts to submit an OpenMM simulation job on an HPC system?"
+  - "How does the provided script calculate the benchmark performance of the simulation in nanoseconds per day?"
+  - "Why does OpenMM running on the CUDA platform only require a single CPU per GPU?"
+  - "How does the presence of NvLink impact the efficiency of running OpenMM simulations across multiple GPUs?"
+  - "What specific properties and configurations are defined for the CUDA platform in this setup?"
+  - "What components and initial states are used to create and initialize the simulation object?"
+  - "How is the simulation configured to report its state data and progress during the run?"
+  - "How does the provided script calculate the benchmark performance of the simulation in nanoseconds per day?"
+  - "Why does OpenMM running on the CUDA platform only require a single CPU per GPU?"
+  - "How does the presence of NvLink impact the efficiency of running OpenMM simulations across multiple GPUs?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
-## Introduction
-[OpenMM](https://openmm.org/) is an open-source molecular dynamics toolkit designed for flexibility and programmability. It is used via Python, offering both application-level classes for running simulations and a lower-level API that allows users to integrate OpenMM directly into their own code for custom workflows. OpenMM can natively read and simulate systems prepared with AMBER, GROMACS, and CHARMM, enabling seamless reuse of existing biomolecular setups. Its plugin architecture supports integration with machine-learning potentials, including TorchMD-Net, MACE, TorchANI, AIMNet2, and DeepMD for general-purpose or hybrid ML/MM simulations.
+# Introduction
+OpenMM[OpenMM home page](https://openmm.org/) is an open-source molecular dynamics toolkit designed for flexibility and programmability. It is used via Python, offering both application-level classes for running simulations and a lower-level API that allows users to integrate OpenMM directly into their own code for custom workflows. OpenMM can natively read and simulate systems prepared with AMBER, GROMACS, and CHARMM, enabling seamless reuse of existing biomolecular setups. Its plugin architecture supports integration with machine-learning potentials, including TorchMD-Net, MACE, TorchANI, AIMNet2, and DeepMD for general-purpose or hybrid ML/MM simulations.
 
-### Strengths
+## Strengths
 *   Flexible Python interface with both high-level classes and low-level API access for custom workflows.
 *   High-level plugin framework for ML-driven potentials and hybrid simulations.
 *   Efficient execution on CPUs and GPUs, suitable for HPC platforms.
 *   Native support for major biomolecular formats (AMBER, GROMACS, CHARMM).
 *   Open-source with an active ecosystem of plugins for ML and advanced force fields.
 
-### Weak points
+## Weak points
 *   Slower than highly optimized classical MM engines (GROMACS, AMBER) for large-scale production runs.
 *   Flexibility can add complexity for hybrid ML/MM simulations.
 *   Specialized trajectory analysis may require external tools.
 
-## Environment modules
+# Environment modules
 
-```bash
-module load StdEnv/2023 gcc/12.3 openmpi/4.1.5 cuda/12.6 openmm/8.4.0 ambertools/25.0
-```
+`$ module load StdEnv/2023 gcc/12.3 openmpi/4.1.5 cuda/12.6 openmm/8.4.0 ambertools/25.0`
 
-!!! note "AmberTools Module"
-    The ambertools module is optional and required only if you plan to simulate AMBER-prepared systems.
+!!! note
+    The `ambertools` module is optional and required only if you plan to simulate AMBER-prepared systems.
 
-!!! tip "Python Virtual Environment"
-    Optionally, create a Python virtual environment if you want to install extra packages (e.g., ML potentials).
+Optionally, create a Python virtual environment if you want to install extra packages (e.g., ML potentials).
 
-## Preparing Input Files
+# Preparing Input Files
 
 OpenMM can directly read Amber topology and coordinate/restart files if simulating AMBER systems.
 
@@ -59,12 +83,12 @@ Ensure your system is equilibrated and minimized in Amber or another package bef
 
 For GROMACS or CHARMM systems, OpenMM can read their respective formats without AmberTools.
 
-## Job submission
+# Job submission
 Below is a job script for a simulation using one GPU.
 
 ```sh title="submit_openmm.cuda.sh"
 #!/bin/bash
-#SBATCH --cpus-per-task=1
+#SBATCH --cpus-per-task=1 
 #SBATCH --gpus=h100:1
 #SBATCH --mem-per-cpu=4000
 #SBATCH --time=0-01:00:00
@@ -75,7 +99,7 @@ module load StdEnv/2023 gcc/12.3 openmpi/4.1.5 cuda/12.6 openmm/8.4.0 ambertools
 python openmm_input.py
 ```
 
-## Python simulation script
+# Python simulation script
 The example Python script below loads Amber parameter and restart files, builds the OpenMM simulation system, sets up the integrator, and runs the dynamics.
 
 ```python title="openmm_input.py"
@@ -120,7 +144,7 @@ prop = dict(
     UseCpuPme='false',
     DeterministicForces="false",
     DeviceIndex=os.environ["CUDA_VISIBLE_DEVICES"],
-   )
+)
 
 # Create simulation object
 sim = app.Simulation(amber_sys.topology, system, integrator, platform, prop)
@@ -154,9 +178,8 @@ ns_per_day = simulated_ns / (elapsed / 86400)
 print(f"Elapsed time: {elapsed} sec\nBenchmark time: {ns_per_day} ns/day ")
 ```
 
-## Performance and benchmarking
+# Performance and benchmarking
 
-A team at [ACENET](https://www.ace-net.ca/) has created a [Molecular Dynamics Performance Guide](https://mdbench.ace-net.ca/mdbench/) for Alliance clusters.
-It can help you determine optimal conditions for AMBER, GROMACS, NAMD, and OpenMM jobs. The present section focuses on OpenMM performance.
+A team at [ACENET](https://www.ace-net.ca/) has created a [Molecular Dynamics Performance Guide](https://mdbench.ace-net.ca/mdbench/) for Alliance clusters. It can help you determine optimal conditions for AMBER, GROMACS, NAMD, and OpenMM jobs. The present section focuses on OpenMM performance.
 
-OpenMM on the CUDA platform requires only one CPU per GPU because it does not use CPUs for calculations. While OpenMM can use several GPUs in one node, the most efficient way to run simulations is to use a single GPU. As you can see from [Narval benchmarks](https://mdbench.ace-net.ca/mdbench/bform/?software_contains=OPENMM.cuda&software_id=&module_contains=&module_version=&site_contains=Narval&gpu_model=&cpu_model=&arch=&dataset=6n4o) and [Cedar benchmarks](https://mdbench.ace-net.ca/mdbench/bform/?software_contains=OPENMM.cuda&software_id=&module_contains=&module_version=&site_contains=Cedar&gpu_model=V100-SXM2&cpu_model=&arch=&dataset=6n4o), on nodes with NvLink (where GPUs are connected directly), OpenMM runs slightly faster on multiple GPUs. Without NvLink there is very little speedup of simulations on P100 GPUs ([Cedar benchmarks](https://mdbench.ace-net.ca/mdbench/bform/?software_contains=OPENMM.cuda&software_id=&module_contains=&module_version=&site_contains=Cedar&gpu_model=P100-PCIE&cpu_model=&arch=&dataset=6n4o)).
+OpenMM on the CUDA platform requires only one CPU per GPU because it does not use CPUs for calculations. While OpenMM can use several GPUs in one node, the most efficient way to run simulations is to use a single GPU. As you can see from [Narval benchmarks](https://mdbench.ace-net.ca/mdbench/bform/?software_contains=OPENMM.cuda&software_id=&module_contains=&module_version=&site_contains=Narval&gpu_model=&cpu_model=&arch=&dataset=6n4o) and [Cedar benchmarks](https://mdbench.ace-net.ca/mdbench/bform/?software_contains=OPENMM.cuda&software_id=&module_contains=&module_version=&site_contains=Cedar&gpu_model=V100-SXM2&cpu_model=&arch=&dataset=6n4o), on nodes with NvLink (where GPUs are connected directly), OpenMM runs slightly faster on multiple GPUs. Without NvLink there is a very little speedup of simulations on P100 GPUs ([Cedar benchmarks](https://mdbench.ace-net.ca/mdbench/bform/?software_contains=OPENMM.cuda&software_id=&module_contains=&module_version=&site_contains=Cedar&gpu_model=P100-PCIE&cpu_model=&arch=&dataset=6n4o)).

@@ -1,0 +1,91 @@
+{
+  "doc_key": "fr/vnc",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "C'est quoi l'avantage d'utiliser VNC plutôt que le protocole X11 via SSH pour démarrer l'interface graphique d'un programme à distance?",
+      "answer": "VNC offre de meilleures performances, surtout pour les rotations graphiques complexes et fluides, comparativement au protocole X11 via SSH qui est souvent insuffisant."
+    },
+    {
+      "question": "Avant d'utiliser les fonctions avancées de VNC décrites dans ce document, quelle méthode est-il recommandé d'essayer en premier?",
+      "answer": "Il est recommandé d'utiliser VNC directement dans le navigateur avec JupyterLab, puisque c'est une méthode plus simple."
+    },
+    {
+      "question": "Quel client VNC est recommandé pour se connecter à un serveur VNC, et pour quels systèmes d'exploitation est-il disponible?",
+      "answer": "Le paquet TigerVNC est recommandé et est disponible pour Windows, macOS et la plupart des distributions Linux."
+    },
+    {
+      "question": "Comment on installe TigerVNC Viewer sur un système Windows?",
+      "answer": "Sur Windows, on télécharge et exécute la plus récente version stable de l'installateur vncviewer64-x.y.z.exe depuis la page officielle de TigerVNC."
+    },
+    {
+      "question": "Comment on installe TigerVNC Viewer sur un système macOS?",
+      "answer": "Sur macOS, on télécharge le paquet DMG stable, on le double-clique, puis on glisse l'icône TigerVNC dans le dossier Applications et/ou dans le Dock."
+    },
+    {
+      "question": "Quelles sont les commandes pour installer TigerVNC Viewer sur différentes distributions Linux?",
+      "answer": "Sur Debian/Ubuntu, c'est `sudo apt-get install tigervnc-viewer`. Sur Fedora/CentOS/RHEL, c'est `sudo yum install tigervnc`. Sur Gentoo, c'est `emerge -av net-misc/tigervnc`."
+    },
+    {
+      "question": "Comment on démarre un vncserver sur un nœud de connexion?",
+      "answer": "Après s'être connecté au nœud de connexion via SSH, on utilise la commande `vncserver -idletimeout seconds`, par exemple `vncserver -idletimeout 86400`."
+    },
+    {
+      "question": "Comment on détermine le port sur lequel un vncserver écoute après l'avoir démarré?",
+      "answer": "On utilise la commande `grep -iE \"\\sport|kill\"` sur le fichier de journalisation du vncserver (par exemple, `/home/yourusername/.vnc/l4.nibi.sharcnet:1.log`)."
+    },
+    {
+      "question": "Comment on établit un tunnel SSH sécurisé de l'ordinateur local vers un vncserver sur un nœud de connexion?",
+      "answer": "On utilise la commande `ssh nibi.computecanada.ca -L local_port:nom_du_nœud_de_connexion:port_vnc`, par exemple `ssh nibi.computecanada.ca -L 5905:l4:5901`."
+    },
+    {
+      "question": "Comment on se connecte au serveur VNC avec TigerVNC Viewer une fois le tunnel SSH établi?",
+      "answer": "On peut lancer l'application TigerVNC Viewer et entrer `localhost:port_local_du_tunnel` (ex: `localhost:5905`) dans la boîte de dialogue, ou taper `vncviewer localhost:port_local_du_tunnel` dans un terminal."
+    },
+    {
+      "question": "Pourquoi est-ce qu'on utiliserait un nœud de calcul plutôt qu'un nœud de connexion pour VNC?",
+      "answer": "On utilise un nœud de calcul si le programme requiert plus de mémoire, de ressources CPU, ou d'accès GPU que ce qui est offert par les nœuds de connexion, ou pour l'accélération graphique."
+    },
+    {
+      "question": "Comment on demande une tâche interactive sur un nœud de calcul pour utiliser VNC?",
+      "answer": "On utilise la commande `salloc` pour allouer les ressources nécessaires, par exemple `salloc --time=1:00:00 --cpus-per-task=4 --mem=16000 --account=def-piusername`."
+    },
+    {
+      "question": "Comment la commande SSH pour établir un tunnel vers un nœud de calcul diffère-t-elle pour la grappe Nibi comparativement aux autres grappes?",
+      "answer": "Pour Nibi, on utilise `ssh -J username@nibi.alliancecan.ca -L localforwardedport:localhost:remotelisteningport computenode`. Pour les autres grappes, on utilise `ssh username@clustername -L localforwardedport:computenode:remotelisteningport`."
+    },
+    {
+      "question": "Comment on lance un terminal ou un programme comme MATLAB sur le bureau MATE VNC?",
+      "answer": "Pour un terminal, on clique sur 'Applications -> System Tools -> MATE Terminal'. Pour un programme comme MATLAB, on charge le module, puis on exécute la commande (ex: `matlab`) dans le terminal."
+    },
+    {
+      "question": "Comment on réinitialise le mot de passe du vncserver?",
+      "answer": "On utilise la commande `vncpasswd` dans un terminal sur le nœud où le vncserver est actif."
+    },
+    {
+      "question": "Comment on tue un vncserver qui n'est plus nécessaire?",
+      "answer": "On utilise la commande `vncserver -kill :DISPLAY#` (ex: `vncserver -kill :44`) ou `pkill Xvnc -u $USER` pour tuer tous les vncservers actifs de l'utilisateur."
+    },
+    {
+      "question": "Comment peut-on établir plusieurs connexions au même vncserver?",
+      "answer": "On doit démarrer le vncserver avec l'option `-alwaysshared`, par exemple `vncserver -idletimeout 86400 -alwaysshared`."
+    },
+    {
+      "question": "Si des échecs de connexion VNC surviennent, quelle pourrait en être la cause et comment y remédier?",
+      "answer": "Des échecs répétés peuvent être causés par un tunnel SSH existant qui bloque les ports. Pour y remédier, on peut utiliser `ps ux | grep ssh` dans un terminal local pour identifier les tunnels actifs, puis `kill PID` pour les fermer."
+    },
+    {
+      "question": "Comment on configure `salloc` pour demander un nœud GPU afin d'utiliser OpenGL avec VNC?",
+      "answer": "On ajoute l'option `--gpus-per-node=1` (ou `--gpus-per-node=type_de_gpu:1`) à la commande `salloc`, par exemple `salloc --time=1:00:00 --cpus-per-task=4 --gpus-per-node=1 --mem=16000 --account=def-piname`."
+    },
+    {
+      "question": "Quelle commande faut-il généralement ajouter avant le nom du programme dans un terminal VNC pour l'accélération OpenGL?",
+      "answer": "Il faut ajouter `vglrun` juste avant le nom du programme, par exemple `vglrun -d egl PROGRAM`."
+    },
+    {
+      "question": "Quelles sont les alternatives à VNC pour l'accès graphique à distance mentionnées dans le document?",
+      "answer": "Les alternatives sont OpenOnDemand sur Nibi et JupyterHub sur Rorqual, qui offrent une interface web VDI automatisée avec un bureau moderne."
+    }
+  ],
+  "generated_at": "2026-04-12T10:53:51.808396+00:00"
+}

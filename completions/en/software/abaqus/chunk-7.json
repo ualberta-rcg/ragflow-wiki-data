@@ -4,65 +4,81 @@
   "chunk_index": 7,
   "qa_pairs": [
     {
-      "question": "What is the primary function of the temporary directory restart script for Abaqus Standard Analysis?",
-      "answer": "The temporary directory restart script for Abaqus Standard Analysis allows users to continue jobs that were terminated early, potentially due to reaching maximum requested runtime or unexpected hardware failures. It's particularly useful for jobs that generate large restart files, as it leverages the `SLURM_TMPDIR` environment variable to write data to local disk."
+      "question": "What is the purpose of the temporary directory restart script for Abaqus Standard Analysis?",
+      "answer": "This script is used to restart Abaqus Standard Analysis jobs on a single node, utilizing a temporary directory for scratch files."
     },
     {
-      "question": "What are the default Slurm resource requests specified in the temporary directory restart script for Abaqus Standard Analysis?",
-      "answer": "The script requests `--account=def-group`, `--time=00-06:00` (6 hours), `--cpus-per-task=4`, `--mem=8G`, and `--nodes=1`."
+      "question": "Which Abaqus versions are supported by the temporary directory restart script for Standard Analysis?",
+      "answer": "The script supports Abaqus version 2026 and newer, as well as legacy version 2021, though Abaqus 2021 is recommended for discontinuation."
     },
     {
-      "question": "Which Abaqus module version is recommended for use with the temporary directory restart script for Standard Analysis?",
-      "answer": "The `abaqus/2026` module is the latest version recommended. `abaqus/2021` is noted for discontinuation."
+      "question": "What are the default Slurm resource requests for the temporary directory restart script for Standard Analysis?",
+      "answer": "The default Slurm resource requests are for `--account=def-group`, `--time=00-06:00` (6 hours), `--cpus-per-task=4`, `--mem=8G`, and `--nodes=1`."
     },
     {
-      "question": "How does the temporary directory restart script prepare the environment for a restarted Abaqus Standard Analysis job?",
-      "answer": "It unsets `SLURM_GTIDS`, exports `MPI_IC_ORDER='tcp'`, echoes license file paths and Slurm directory variables, removes previous `testst2*` and `testst1.lck` files, copies `testst1*` files to `$SLURM_TMPDIR`, creates a `scratch` directory within `$SLURM_TMPDIR`, and changes the current working directory to `$SLURM_TMPDIR`."
+      "question": "How does the temporary directory restart script for Standard Analysis save data during long jobs?",
+      "answer": "It includes a `while sleep 6h` loop that periodically saves `testst2*` files from the temporary directory to the Slurm submission directory every 6 hours to prevent data loss due to time limits."
     },
     {
-      "question": "How does the temporary directory restart script ensure data is saved periodically during a long-running Abaqus Standard Analysis?",
-      "answer": "The script includes a background `while` loop that sleeps for 6 hours, then copies any `testst2*` files from `$SLURM_TMPDIR` back to the `$SLURM_SUBMIT_DIR` to save data in case of time limits or other interruptions."
+      "question": "What Abaqus command line arguments are used in the temporary directory restart script for Standard Analysis?",
+      "answer": "The Abaqus command uses `job=testst2`, `oldjob=testst1`, `input=$SLURM_SUBMIT_DIR/mystd-sim-restart.inp`, `scratch=$SLURM_TMPDIR/scratch`, `cpus=$SLURM_CPUS_ON_NODE`, `interactive`, `mp_mode=threads`, and `memory=\"$((${SLURM_MEM_PER_NODE}-3072))MB\"`."
     },
     {
-      "question": "What is the Abaqus command used to restart a Standard Analysis job with Abaqus version 2026 or newer, as shown in the temporary directory restart script?",
-      "answer": "For Abaqus version 2026 or newer, the command is `abaqus job=testst2 oldjob=testst1 input=$SLURM_SUBMIT_DIR/mystd-sim-restart.inp scratch=$SLURM_TMPDIR/scratch cpus=$SLURM_CPUS_ON_NODE interactive mp_mode=threads memory=\"$((${SLURM_MEM_PER_NODE}-3072))MB\"`."
-    },
-    {
-      "question": "What specific lines should be included in the restart input file for a Standard Analysis job using this script?",
+      "question": "What should the input file contain for restarting a Standard Analysis job using the temporary directory restart script?",
       "answer": "The restart input file should contain `*HEADING` and `*RESTART, READ`."
     },
     {
-      "question": "Who should use the multiple node computing scripts for Abaqus Standard Analysis?",
-      "answer": "These scripts are intended for users with large memory or compute needs who also have access to large Abaqus licenses."
+      "question": "What temporary directory operations does the temporary directory restart script for Standard Analysis perform?",
+      "answer": "The script copies `testst1*` files to `$SLURM_TMPDIR`, creates a `scratch` subdirectory within `$SLURM_TMPDIR`, and changes the current working directory to `$SLURM_TMPDIR`."
     },
     {
-      "question": "What type of parallelization do the multiple node computing scripts for Abaqus Standard Analysis utilize?",
-      "answer": "They use MPI-based computing."
+      "question": "What kind of computing is supported for multiple node Abaqus Standard Analysis jobs?",
+      "answer": "Multiple node Standard Analysis jobs support MPI-based computing."
     },
     {
-      "question": "Which Abaqus versions are supported by the multiple node computing scripts for Standard Analysis?",
-      "answer": "Only Abaqus/2026 or newer versions may be used with these scripts."
+      "question": "Is it possible to restart multiple node Standard Analysis jobs using a provided script?",
+      "answer": "No, a companion template script for restarting multi-node Standard Analysis jobs is not provided due to additional limitations."
     },
     {
-      "question": "Why are restart scripts for multinode Abaqus Standard Analysis jobs not currently provided?",
-      "answer": "A companion template script to perform restarts of multinode jobs is not provided due to additional limitations on their usage."
+      "question": "Which Abaqus versions are compatible with the multiple node Standard Analysis script?",
+      "answer": "Only Abaqus version 2026 or newer can be used with the multiple node Standard Analysis script."
     },
     {
-      "question": "How does the multiple node computing script for Standard Analysis determine the host list for MPI processes?",
-      "answer": "The script uses `slurm_hl2hl.py --format MPIHOSTLIST` to get the list of nodes, then processes this list to construct the `mp_host_list` variable, which is then exported and written to `abaqus_v6.env`."
+      "question": "What are the default Slurm resource requests for the multiple node Standard Analysis MPI script?",
+      "answer": "The default Slurm resource requests are `--account=def-group`, `--time=00-06:00` (6 hours), `--ntasks=8`, `--mem-per-cpu=4G`, and `--cpus-per-task=1`."
     },
     {
-      "question": "What are the key Slurm parameters specified in the multiple node computing script for Abaqus Standard Analysis?",
-      "answer": "The script includes `#SBATCH --account=def-group`, `#SBATCH --time=00-06:00`, `#SBATCH --ntasks=8`, `#SBATCH --mem-per-cpu=4G`, and `#SBATCH --cpus-per-task=1`. The `#SBATCH --nodes` and `#SBATCH --tasks-per-node` directives are optional and commented out."
+      "question": "How does the multiple node Standard Analysis MPI script configure the host list for Abaqus?",
+      "answer": "The script uses `slurm_hl2hl.py` to get the host list, processes it to create an `mp_host_list` array, exports this array, and writes it to `abaqus_v6.env`."
     },
     {
-      "question": "What types of parallelization do Abaqus solvers support for Explicit Analysis?",
+      "question": "What Abaqus command line arguments are used in the multiple node Standard Analysis MPI script?",
+      "answer": "The Abaqus command uses `job=testsp1-mpi`, `input=mystd-sim.inp`, `scratch=$SLURM_TMPDIR`, `cpus=$SLURM_NTASKS`, `interactive`, and `mp_mode=mpi`."
+    },
+    {
+      "question": "What parallelization methods do Abaqus solvers support for Explicit Analysis?",
       "answer": "Abaqus solvers support both thread-based and MPI-based parallelization for Explicit Analysis."
     },
     {
-      "question": "Are there currently template scripts available for restarting multinode Explicit Analysis jobs?",
-      "answer": "No, template scripts to perform multinode job restarts for Explicit Analysis are not currently provided, as they are pending further testing."
+      "question": "Are there provided scripts for restarting multi-node Explicit Analysis jobs?",
+      "answer": "No, template scripts to perform multinode job restarts for Explicit Analysis are not currently provided, pending further testing."
+    },
+    {
+      "question": "What are the Slurm resource requests for a single node Explicit Analysis job using the project directory script?",
+      "answer": "The Slurm resource requests are `--account=def-group`, `--time=00-06:00` (6 hours), `--mem=8000M`, `--cpus-per-task=4`, and `--nodes=1`."
+    },
+    {
+      "question": "How can you specify writing restart data for a total of 12 time increments in an Explicit Analysis input file?",
+      "answer": "You can specify this in the input file by adding the line `*RESTART, WRITE, OVERLAY, NUMBER INTERVAL=12, TIME MARKS=NO`."
+    },
+    {
+      "question": "How do you check for completed restart information in Explicit Analysis output files?",
+      "answer": "You can check for completed restart information by using the command `egrep -i \"step|restart\" testep*.com testep*.msg testep*.sta`."
+    },
+    {
+      "question": "What Abaqus command is used in the single node project directory script for Explicit Analysis?",
+      "answer": "The Abaqus command used is `abaqus job=testep1 input=myexp-sim.inp scratch=$SLURM_TMPDIR cpus=$SLURM_CPUS_ON_NODE interactive mp_mode=threads memory=\"$((${SLURM_MEM_PER_NODE}-3072))MB\"`."
     }
   ],
-  "generated_at": "2026-04-10T00:30:12.283826+00:00"
+  "generated_at": "2026-04-11T15:32:37.328128+00:00"
 }

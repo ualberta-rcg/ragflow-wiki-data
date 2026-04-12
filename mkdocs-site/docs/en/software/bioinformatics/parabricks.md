@@ -5,8 +5,8 @@ lang: "en"
 
 source_wiki_title: "Parabricks/en"
 source_hash: "f12221898a0cc71bc5a49e9b9efe17f1"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T09:47:12.100127+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T10:14:35.806504+00:00"
 
 tags:
   - bioinformatics
@@ -14,14 +14,26 @@ tags:
   - covid19_related_requests
 
 keywords:
-  []
+  - "Compute Canada Clusters"
+  - "Slurm"
+  - "Parabricks"
+  - "NGS DNA data"
+  - "GPUs"
+
+questions:
+  - "What is Parabricks and how does its GPU integration benefit the analysis of next-generation sequencing DNA data?"
+  - "What are the current licensing requirements for users who want to run Parabricks on Compute Canada clusters?"
+  - "What are the recommended resource allocations and troubleshooting steps to resolve common job failures when using Parabricks?"
+  - "What is Parabricks and how does its GPU integration benefit the analysis of next-generation sequencing DNA data?"
+  - "What are the current licensing requirements for users who want to run Parabricks on Compute Canada clusters?"
+  - "What are the recommended resource allocations and troubleshooting steps to resolve common job failures when using Parabricks?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -31,11 +43,9 @@ You can learn more at [www.nvidia.com/parabricks](http://www.nvidia.com/parabric
 
 ## Usage in Compute Canada Clusters
 
-**This software was provided freely by NVidia to help with research on COVID19 until Sunday, 17 May 2020.**
-Since this free period has expired, you must have your own license arrangement with NVidia in order
-to use Parabricks on Compute Canada equipment.
+**This software was provided freely by NVidia to help with research on COVID19 until Sunday, 17 May 2020.** Since this free period has expired, you must have your own license arrangement with NVidia in order to use Parabricks on Compute Canada equipment.
 
-### Finding and loading Parabricks
+## Finding and loading Parabricks
 
 Parabricks can be looked for as a regular module through module spider:
 
@@ -49,7 +59,7 @@ Likewise, it can be loaded through LMOD modules:
 module load parabricks/2.5.0
 ```
 
-### Example of use
+## Example of use
 
 Before you use Parabricks, make sure you have gone through the [Parabricks documentation](https://www.nvidia.com/en-us/docs/parabricks/), including their standalone tools and pipelines. Also make sure you know [how to request GPUs in Compute Canada clusters](https://docs.computecanada.ca/wiki/Using_GPUs_with_Slurm). Once you understand the above, you can submit a job like:
 
@@ -79,9 +89,9 @@ pbrun germline \
 !!! note
     Make the path to the files absolute real paths (i.e. with the command `realpath .`)
 
-### Common issues
+## Common issues
 
-#### Almost immediate failure
+### Almost immediate failure
 
 If your first test fails right away, there might be a missing module or some environmental variable clash. To solve this try:
 
@@ -93,13 +103,13 @@ module --force purge
 module load StdEnv/2016.4 nixpkgs/16.09 parabricks/2.5.0
 ```
 
-#### Later failure
+### Later failure
 
 Often Parabricks may not give you a clear traceback of the failure. This usually means that that you did not request enough memory. If you are reserving a full node already through `--nodes=1`, we suggest you also use all the memory in the node with `--mem=0`. Otherwise, make sure that your pipeline has enough memory to process your data.
 
-### Hybrid usage
+## Hybrid usage
 
-Parabricks uses both CPU and GPUs. During our tests, Parabricks used at least 10 CPUs, so we recommend to ask for at least that amount through `--cpus-per-task=10`.
+Parabricks uses both CPU and GPUs. During our tests, Parabricks used at least 10 CPUs, so we recommend to ask for at least that amount through `--cpus-per-task=10`
 
 ## References
 [Parabricks Home](http://www.nvidia.com/parabricks)

@@ -1,0 +1,76 @@
+{
+  "doc_key": "fr/fenics",
+  "level": "chunk",
+  "chunk_index": 3,
+  "qa_pairs": [
+    {
+      "question": "Comment est-ce qu'on installe les paquets Python de FEniCS?",
+      "answer": "Pour installer les paquets Python, on doit d'abord créer un environnement virtuel sans téléchargement en utilisant `virtualenv --no-download $FENICS_INSTALL`. Ensuite, on l'active avec `source $FENICS_INSTALL/bin/activate` et on installe `ply`, `numpy`, `fiat`, `dijitso`, `ufl` et `ffc` avec `pip3 install .`."
+    },
+    {
+      "question": "Quels sont les paquets Python installés via `pip3` lors de la fabrication des paquets Python pour FEniCS?",
+      "answer": "Les paquets Python installés sont `ply`, `numpy`, ainsi que `fiat`, `dijitso`, `ufl` et `ffc`."
+    },
+    {
+      "question": "Comment procède-t-on pour installer DOLFIN?",
+      "answer": "Pour installer DOLFIN, on doit aller dans le répertoire `$FENICS_INSTALL/dolfin/build`, activer l'environnement virtuel, puis utiliser `cmake` avec plusieurs options de configuration et finalement exécuter `make -j 8 install`. Après, on installe le paquet Python de DOLFIN avec `pip3 install .`."
+    },
+    {
+      "question": "Où est-ce que DOLFIN est installé par défaut d'après les directives du script?",
+      "answer": "DOLFIN est installé dans le répertoire `$HOME/fenics` tel que spécifié par l'option `-DCMAKE_INSTALL_PREFIX=$HOME/fenics` dans la commande `cmake`."
+    },
+    {
+      "question": "La section sur les plugiciels (add-ons) est-elle à jour pour StdEnv/2020?",
+      "answer": "Non, cette section n'est pas à jour pour StdEnv/2020."
+    },
+    {
+      "question": "Quelle est la première étape avant d'installer des plugiciels comme mshr?",
+      "answer": "Il faut d'abord installer FEniCS en suivant les directives d'installation principales."
+    },
+    {
+      "question": "Comment doit-on installer mshr?",
+      "answer": "Pour installer mshr, il faut charger certains modules comme `hdf5-mpi/1.8.18`, `boost`, `eigen`, `python/3.5`, `scipy-stack/2017b`, `petsc/3.7.5` et `fftw-mpi/3.3.6`. Après, on clone le dépôt `mshr`, on crée et on va dans le répertoire `build`, puis on utilise `cmake` avec `-DCMAKE_INSTALL_PREFIX=$HOME/software/mshr` et d'autres options, pour finir avec `make` et `make install`."
+    },
+    {
+      "question": "Quels modules sont requis pour l'installation de mshr?",
+      "answer": "Les modules requis pour l'installation de mshr sont `hdf5-mpi/1.8.18`, `boost`, `eigen`, `python/3.5`, `scipy-stack/2017b`, `petsc/3.7.5` et `fftw-mpi/3.3.6`."
+    },
+    {
+      "question": "Quelles sont les étapes pour exécuter mshr une fois installé?",
+      "answer": "Pour exécuter mshr, il faut charger les modules `hdf5-mpi/1.8.18`, `boost`, `eigen`, `python/3.5`, `scipy-stack/2017b`, `petsc/3.7.5` et `fftw-mpi/3.3.6`. Ensuite, on doit sourcer les fichiers `~/software/dolfin/share/dolfin/dolfin.conf` et `~/fenics/bin/activate`, puis exporter les variables d'environnement `PYTHONPATH` et `LD_LIBRARY_PATH` pour inclure les chemins de mshr."
+    },
+    {
+      "question": "C'est quoi l'utilité du pilote Singularity Recipe pour FEniCS?",
+      "answer": "Le pilote Singularity Recipe sert à télécharger l'image FEniCS Docker, à l'installer, puis à télécharger des paquets additionnels comme Python, par exemple."
+    },
+    {
+      "question": "Où est-ce qu'on doit exécuter le pilote Singularity Recipe?",
+      "answer": "Il faut exécuter le pilote sur votre ordinateur où Singularity est installé sous Linux et où vous avez toutes les permissions nécessaires."
+    },
+    {
+      "question": "Quelle commande utilise-t-on pour bâtir une image Singularity avec le fichier de recette fourni?",
+      "answer": "On utilise la commande `sudo singularity build FEniCS.simg FEniCS-ComputeCanada-Singularity-Recipe`."
+    },
+    {
+      "question": "Une fois l'image Singularity construite, comment s'appelle le fichier image?",
+      "answer": "Le fichier image s'appelle `FEniCS.simg`."
+    },
+    {
+      "question": "Dans le conteneur Singularity, où l'image FEniCS Docker place-t-elle généralement ses fichiers?",
+      "answer": "L'image FEniCS Docker place plusieurs fichiers dans `/home/fenics`."
+    },
+    {
+      "question": "Quel est le point de départ (Bootstrap) de l'image Singularity décrite dans le fichier FEniCS-ComputeCanada-Singularity-Recipe?",
+      "answer": "Le point de départ est l'image Docker `quay.io/fenicsproject/stable:latest`."
+    },
+    {
+      "question": "Nommez quelques paquets Python qui sont installés dans le conteneur Singularity FEniCS-ComputeCanada-Singularity-Recipe.",
+      "answer": "Parmi les paquets Python installés, on retrouve `python-bitstring`, `python-certifi`, `python-cryptography`, `cython`, `python-dateutil`, `ipython`, `python-jinja2`, `python-matplotlib`, `python-numpy`, et `python-scipy`."
+    },
+    {
+      "question": "Quelles sont les commandes de nettoyage qui sont exécutées après l'installation des paquets dans le conteneur Singularity?",
+      "answer": "Après l'installation, les commandes de nettoyage sont `sudo apt-get clean` et `sudo rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*`."
+    }
+  ],
+  "generated_at": "2026-04-11T21:26:14.017425+00:00"
+}

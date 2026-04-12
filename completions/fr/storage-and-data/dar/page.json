@@ -1,0 +1,59 @@
+{
+  "doc_key": "fr/dar",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "C'est quoi, l'utilitaire `dar` et à quoi ça sert?",
+      "answer": "L'utilitaire `dar` (pour ''Disk ARchive'') est un outil open source conçu pour remplacer `tar`. Il permet de créer des sauvegardes complètes, différentielles et incrémentales sur les systèmes de type Unix."
+    },
+    {
+      "question": "Quels sont les avantages principaux de `dar` par rapport à `tar`?",
+      "answer": "`dar` offre un accès et une restauration plus rapides grâce à un index intégré dans chaque archive, une meilleure résilience aux corruptions de données en compressant chaque fichier séparément, et des fonctionnalités comme le chiffrement robuste et la gestion des attributs étendus."
+    },
+    {
+      "question": "Où est-ce qu'on peut trouver l'utilitaire `dar` sur les grappes de calcul?",
+      "answer": "Sur nos grappes, `dar` est disponible sous `/cvmfs` et accessible via l'environnement `StdEnv/2020`."
+    },
+    {
+      "question": "Comment créer une archive de base pour un sous-répertoire nommé `test` avec `dar`?",
+      "answer": "Pour archiver un sous-répertoire `test`, la commande est `dar -w -c all -g test`. Ça crée un fichier d'archive nommé `all.1.dar`."
+    },
+    {
+      "question": "Quelle commande faut utiliser pour lister le contenu d'une archive `dar`?",
+      "answer": "Pour lister le contenu d'une archive, on utilise la commande `dar -l all`, où `all` est le nom de base de l'archive."
+    },
+    {
+      "question": "Comment extraire un fichier spécifique d'une archive `all` vers un sous-répertoire `restore`?",
+      "answer": "Pour extraire un fichier comme `test/filename`, utilisez la commande `dar -R restore/ -O -w -x all -v -g test/filename`."
+    },
+    {
+      "question": "À quoi sert l'indicateur `-O` lors de l'extraction de fichiers avec `dar`?",
+      "answer": "L'indicateur `-O` permet d'ignorer la propriété des fichiers, ce qui est utile pour restaurer des fichiers d'une autre personne sans être administrateur ou pour éviter les messages de confirmation si vous restaurez vos propres fichiers."
+    },
+    {
+      "question": "Quel problème peut arriver quand on extrait des fichiers d'un système Lustre vers un emplacement qui n'est pas Lustre?",
+      "answer": "Des erreurs comme ''Operation not supported'' peuvent survenir lors de l'extraction vers un emplacement non-Lustre (comme `$SLURM_TMPDIR`) à cause de l'attribut étendu `lustre.lov` sauvegardé automatiquement."
+    },
+    {
+      "question": "Comment éviter les erreurs liées aux attributs Lustre lors de l'extraction ou de la création d'archives?",
+      "answer": "Pour éviter ces erreurs, on peut utiliser l'indicateur `-u 'lustre*'` pour exclure l'attribut `lustre.lov` soit au moment de l'extraction, soit au moment de la création de l'archive."
+    },
+    {
+      "question": "Comment créer une sauvegarde incrémentale avec `dar` en se basant sur une sauvegarde antérieure?",
+      "answer": "Pour créer une sauvegarde incrémentale, on utilise l'indicateur `-A` suivi du nom de base de l'archive de référence, par exemple `dar -w -A monday -c tuesday -g test` pour une sauvegarde du mardi basée sur celle du lundi."
+    },
+    {
+      "question": "Quelle est la procédure pour restaurer complètement un ensemble de sauvegardes incrémentales faites avec `dar`?",
+      "answer": "Il faut restaurer toutes les sauvegardes dans l'ordre chronologique: d'abord la sauvegarde complète, puis chaque sauvegarde incrémentale subséquente."
+    },
+    {
+      "question": "Comment peut-on limiter la taille des tranches d'une archive `dar`?",
+      "answer": "On utilise l'indicateur `-s` suivi d'une taille et d'une unité (k, M, G ou T), par exemple `dar -s 100M -w -c monday -g test` pour des tranches de 100 mégaoctets."
+    },
+    {
+      "question": "Est-ce qu'il y a des ressources pour aider à l'automatisation de `dar` avec des scripts?",
+      "answer": "Oui, il existe des fonctions bash créées par un membre de l'équipe pour faciliter l'utilisation de `dar`, disponibles sur GitHub pour vous inspirer dans la préparation de vos propres scripts."
+    }
+  ],
+  "generated_at": "2026-04-11T20:46:25.950697+00:00"
+}

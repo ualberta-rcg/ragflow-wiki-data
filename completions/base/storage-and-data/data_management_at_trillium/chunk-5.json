@@ -1,0 +1,128 @@
+{
+  "doc_key": "base/data_management_at_trillium",
+  "level": "chunk",
+  "chunk_index": 5,
+  "qa_pairs": [
+    {
+      "question": "Do compute nodes on Trillium have local storage?",
+      "answer": "No, compute nodes do not have local storage."
+    },
+    {
+      "question": "Where is the archive space located on Trillium?",
+      "answer": "Archive space is located on HPSS."
+    },
+    {
+      "question": "Is archive space accessible from Trillium login, compute, or datamover nodes?",
+      "answer": "No, archive space is not accessible on the Trillium login, compute, or datamover nodes."
+    },
+    {
+      "question": "What does 'backup' refer to in this context?",
+      "answer": "Backup refers to a recent snapshot, not an archive of all data that ever was."
+    },
+    {
+      "question": "What does `$BBUFFER` stand for?",
+      "answer": "`$BBUFFER` stands for Burst Buffer."
+    },
+    {
+      "question": "What is the purpose of the Burst Buffer ($BBUFFER)?",
+      "answer": "The Burst Buffer is a faster parallel storage tier used for temporary data."
+    },
+    {
+      "question": "Which command is used to check disk space usage on Trillium?",
+      "answer": "The `diskUsage` command is used to check disk space usage."
+    },
+    {
+      "question": "On which filesystems can the `diskUsage` command provide information?",
+      "answer": "The `diskUsage` command provides information on the home, scratch, project, and archive filesystems."
+    },
+    {
+      "question": "Where is the `diskUsage` command available?",
+      "answer": "The `diskUsage` command is available on the login nodes and datamovers."
+    },
+    {
+      "question": "How can I list the disk usage of all members in my group using the `diskUsage` command?",
+      "answer": "You can list the disk usage of all members in your group by using the `-a` option with the `diskUsage` command."
+    },
+    {
+      "question": "What option should I use with `diskUsage` to get help?",
+      "answer": "You should use the `-h` or `-?` option with `diskUsage` to get help."
+    },
+    {
+      "question": "How can I check disk usage as another user in my group?",
+      "answer": "You can check disk usage as another user in your group by using the `-u <user>` option with the `diskUsage` command."
+    },
+    {
+      "question": "What command can I use to find directories with more than 1000 files?",
+      "answer": "You can use the `/scinet/niagara/bin/topUserDirOver1000list` command to find directories with more than 1000 files."
+    },
+    {
+      "question": "What command helps identify directories containing more than 1GB of material?",
+      "answer": "The `/scinet/niagara/bin/topUserDirOver1GBlist` command helps identify directories containing more than 1GB of material."
+    },
+    {
+      "question": "How often is information on usage and quota updated?",
+      "answer": "Information on usage and quota is only updated every 3 hours."
+    },
+    {
+      "question": "What is the automatic purging policy for files in `/scratch`?",
+      "answer": "Files in `/scratch` that have not been accessed or modified for more than 2 months are automatically deleted on the 15th of each month."
+    },
+    {
+      "question": "When are files in `/scratch` automatically deleted if they meet the purging criteria?",
+      "answer": "Files in `/scratch` are automatically deleted on the 15th of each month if they have not been accessed or modified for more than 2 months."
+    },
+    {
+      "question": "What is the current reference for determining the 'cut out' time for purging `/scratch` files?",
+      "answer": "The current cut out reference for purging `/scratch` files is the `MostRecentOf(atime,ctime)`."
+    },
+    {
+      "question": "Where should users move files scheduled for deletion from `/scratch`?",
+      "answer": "Users should move files scheduled for deletion to more permanent locations such as their departmental server, `/project` space, or HPSS (for PIs with RAC allocation)."
+    },
+    {
+      "question": "When do users first receive a notification about files scheduled for purging from `/scratch`?",
+      "answer": "On the first of each month, users receive an email notification and a shell notification upon login to Trillium about files scheduled for purging."
+    },
+    {
+      "question": "When is the second notification regarding `/scratch` file purging sent?",
+      "answer": "A second email notification is sent around the 12th of each month after a more current assessment of files scheduled for purging."
+    },
+    {
+      "question": "What is the final deadline for files to be accessed or relocated before they are deleted from `/scratch`?",
+      "answer": "Files will be automatically deleted on the 15th of the same month unless they have been accessed or relocated in the interim."
+    },
+    {
+      "question": "Where can a user find a list of their files scheduled for deletion from `/scratch`?",
+      "answer": "Files scheduled for deletion are listed in a file located at `/scratch/t/todelete/current`, with the user's userid and groupid in the filename."
+    },
+    {
+      "question": "How can a user named 'xxyz' check if they have files scheduled for deletion?",
+      "answer": "User 'xxyz' can check by issuing the command `ls -1 /scratch/t/todelete/current |grep xxyz` on a system that mounts `/scratch`."
+    },
+    {
+      "question": "How can I view the contents of the file that lists my files scheduled for deletion?",
+      "answer": "You can view the contents of the file listing files scheduled for deletion using standard commands like `more`, `less`, or `cat`."
+    },
+    {
+      "question": "How can I check for files scheduled for deletion for other users in my group?",
+      "answer": "You can check for files scheduled for deletion for other users in your group by using the `ls` command with `grep` on your group ID, for example: `ls -1 /scratch/t/todelete/current |grep <groupid>`."
+    },
+    {
+      "question": "Do members of the same group have access to each other's contents in the `/scratch/t/todelete/current` directory?",
+      "answer": "Yes, members of the same group have access to each other's contents listed in `/scratch/t/todelete/current`."
+    },
+    {
+      "question": "If I change a file's access or modification time after it's been listed for purging, when will this be detected by the system?",
+      "answer": "If you change the access or modification time of a file in the interim, it will not be detected until the next purging cycle."
+    },
+    {
+      "question": "How can I get immediate feedback on a file's ctime or mtime?",
+      "answer": "You can get immediate feedback on a file's ctime using `ls -lu` and its mtime using `ls -lc`."
+    },
+    {
+      "question": "Will a file still be deleted on the 15th if its atime/ctime has been updated after being scheduled for purging?",
+      "answer": "No, if the file's atime/ctime has been updated in the meantime, it will no longer be deleted on the purging date of the 15th."
+    }
+  ],
+  "generated_at": "2026-04-11T20:53:12.125521+00:00"
+}

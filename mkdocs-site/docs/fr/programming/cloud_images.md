@@ -5,24 +5,33 @@ lang: "fr"
 
 source_wiki_title: "Cloud Images/fr"
 source_hash: "846fc7d58f1223632376cf2b2b51645a"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T05:28:16.256465+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T06:18:14.818312+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "REDIRECT"
+  - "Cloud resources"
+  - "languages"
+  - "Images"
+
+questions:
+  - "What is the target destination of this redirect directive?"
+  - "Which specific section within the Cloud resources page does this redirect point to?"
+  - "What is the purpose of the languages tag at the beginning of the text?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
-!!! note "Redirection"
+# Images Infonuagiques
 
-    Le contenu de cette page a été déplacé. Veuillez consulter la section « Images » sur la page [Ressources infonuagiques](cloud-resources.md#images).
+!!! info "Redirection"
+    Cette page a été déplacée. Veuillez consulter la [section sur les images des ressources infonuagiques](cloud-resources.md#images).

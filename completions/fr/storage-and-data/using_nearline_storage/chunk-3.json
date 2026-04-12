@@ -1,0 +1,48 @@
+{
+  "doc_key": "fr/using_nearline_storage",
+  "level": "chunk",
+  "chunk_index": 3,
+  "qa_pairs": [
+    {
+      "question": "Pourquoi est-il recommandé d'utiliser un multiplexeur de terminal comme `tmux` lors de l'archivage de gros volumes de fichiers avec `tar` ou `dar`?",
+      "answer": "Il est recommandé d'utiliser un multiplexeur de terminal pour l'archivage de collections volumineuses de fichiers, car ces opérations peuvent durer des heures ou des jours, et cela permet d'éviter l'interruption de la session SSH ou de laisser le programme s'exécuter en arrière-plan et d'y revenir plus tard."
+    },
+    {
+      "question": "Comment s'assurer que l'outil `dar` fonctionne en mode non interactif, surtout lorsqu'il est exécuté sans surveillance?",
+      "answer": "Pour désactiver explicitement l'interactivité de `dar` et qu'il suppose une réponse négative à toutes les questions, il faut utiliser l'option `-Q` (`dar -Q`). C'est très utile quand `dar` s'exécute dans un multiplexeur de terminal sans surveillance."
+    },
+    {
+      "question": "Quels sont les principaux avantages du stockage sur ruban (/nearline) par rapport aux disques et aux SSD?",
+      "answer": "Les avantages du stockage sur ruban sont un coût par unité de données stockée moindre, une capacité de stockage qui peut être facilement augmentée par l'achat de rubans additionnels, et une consommation énergétique par unité de données stockée qui est effectivement nulle."
+    },
+    {
+      "question": "Comment le système /nearline contribue-t-il à la capacité de stockage et à la performance générale du système?",
+      "answer": "Le système /nearline permet d'offrir beaucoup plus de capacité de stockage que sur /project à cause de ses avantages. De plus, le fait de ne pas stocker de données inactives sur /project allège la charge et améliore la performance."
+    },
+    {
+      "question": "Décrivez les différentes étapes du cycle de vie d'un fichier sur le système /nearline, de sa création à son rappel.",
+      "answer": "Initialement, un fichier copié sur /nearline existe uniquement sur disque. Après un certain temps (environ une journée) et si le fichier remplit certains critères, il est copié sur ruban et se trouve alors sur disque et sur ruban. Plus tard, la copie sur disque peut être supprimée, et le fichier est sur ruban seulement. Quand un tel fichier est rappelé, il est copié du ruban au disque et revient au deuxième état."
+    },
+    {
+      "question": "Combien de temps ça peut prendre pour accéder à un fichier 'virtualisé' qui se trouve uniquement sur ruban?",
+      "answer": "Quand un fichier virtualisé, c'est-à-dire seulement sur ruban, est lu, le ruban doit être trouvé et le fichier copié sur le disque, ce qui peut nécessiter entre moins d'une minute et plus d'une heure, selon la taille du fichier et la demande sur le système de stockage."
+    },
+    {
+      "question": "Que se passe-t-il quand on transfère des données à partir de /nearline qui se trouvent exclusivement sur ruban?",
+      "answer": "Pendant le transfert de données à partir de /nearline, les données exclusivement sur ruban sont automatiquement restaurées sur disque à leur simple lecture."
+    },
+    {
+      "question": "Pourquoi les transferts de données à partir de /nearline peuvent-ils prendre plus de temps?",
+      "answer": "Les transferts de données à partir de /nearline peuvent prendre plus de temps parce que l'accès aux données sur ruban est relativement lent, et chaque restauration de fichier à partir du ruban ralentit le transfert de quelques minutes à quelques heures."
+    },
+    {
+      "question": "Quelle commande peut être utilisée sur certaines grappes pour obtenir un sommaire de l'état des fichiers dans les espaces /nearline?",
+      "answer": "Sur certaines grappes, la commande `diskusage_report --nearline --per_user --all_users` peut être utilisée pour obtenir un aperçu de l'état des fichiers dans les espaces /nearline."
+    },
+    {
+      "question": "Quelles sont les significations des différentes valeurs que peut prendre la colonne `Location` dans le rapport d'état des fichiers sur /nearline?",
+      "answer": "Les différentes valeurs de `Location` sont: `On disk and tape` (les données sont disponibles sur disque), `Modified, will be archived again` (la dernière version des données est sur disque), `Archiving in progress` (les données sont en train d'être copiées ou déplacées sur ruban), et `On tape` (les données sont seulement sur ruban)."
+    }
+  ],
+  "generated_at": "2026-04-12T10:28:39.577689+00:00"
+}

@@ -1,0 +1,115 @@
+{
+  "doc_key": "base/meta-farm__advanced_features_and_troubleshooting",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "How can I automate the resubmission of failed META-Farm cases?",
+      "answer": "You can automate resubmission by adding the `-auto` switch to your `submit.run` or `resubmit.run` command."
+    },
+    {
+      "question": "What is the purpose of the additional serial job submitted when using the `-auto` switch for automatic resubmission?",
+      "answer": "The additional serial job automatically runs the `resubmit.run` command right after the current farm finishes running."
+    },
+    {
+      "question": "What customization is needed for the `resubmit_script.sh` file when enabling automatic resubmission?",
+      "answer": "You need to correct the account name in the `#SBATCH -A` line within the `resubmit_script.sh` file."
+    },
+    {
+      "question": "How should the `NJOBS_MAX` parameter be adjusted in `config.h` when using the `-auto` feature?",
+      "answer": "`NJOBS_MAX` should be at least one smaller than the largest number of jobs you can submit on the cluster."
+    },
+    {
+      "question": "When does automatic resubmission stop?",
+      "answer": "Auto-resubmission stops if, at some point, the only cases left to be processed are those that failed earlier, to avoid an infinite loop on badly-formed cases."
+    },
+    {
+      "question": "Where can I find messages related to the auto-resubmit feature?",
+      "answer": "System messages from the auto-resubmit feature are logged in `farm.log` in the root farm directory."
+    },
+    {
+      "question": "How do I enable an automatic post-processing job in META-Farm?",
+      "answer": "To enable this feature, create a script named `final.sh` inside your farm directory."
+    },
+    {
+      "question": "Under what condition will the automatic post-processing job execute?",
+      "answer": "The post-processing job will only run if all cases from `table.dat` have been successfully processed, meaning none had a non-zero exit status."
+    },
+    {
+      "question": "If both automatic resubmission and automatic post-processing features are used, how many additional jobs are submitted, and what is the `NJOBS_MAX` adjustment?",
+      "answer": "Together, they submit only one additional job, so `NJOBS_MAX` in `config.h` still only needs to be decreased by one."
+    },
+    {
+      "question": "How is WHOLE_NODE mode enabled in META-Farm, and what variables need to be set?",
+      "answer": "WHOLE_NODE mode is enabled by editing `config.h` to set `WHOLE_NODE=1` and `NWHOLE` to the number of CPU cores per node."
+    },
+    {
+      "question": "What does the positive integer argument for the `submit.run` command represent when WHOLE_NODE mode is enabled?",
+      "answer": "It represents the number of whole nodes to be used in META mode, rather than the number of meta-jobs."
+    },
+    {
+      "question": "What type of farming is WHOLE_NODE mode exclusively used for?",
+      "answer": "WHOLE_NODE mode can only be used for serial farming, not for multi-threaded, MPI, or GPU farming."
+    },
+    {
+      "question": "What is required for the automatic job resubmission and post-processing features to work on Trillium when using WHOLE_NODE mode?",
+      "answer": "You must place the line `module load StdEnv` at the end of your `~/.bashrc` file."
+    },
+    {
+      "question": "How can I use META-Farm on a cluster where it's not installed as a module?",
+      "answer": "You can clone the package from its git repository and then modify your `$PATH` variable to include its `bin` subdirectory."
+    },
+    {
+      "question": "What are two ways to pass additional `sbatch` arguments to META-Farm jobs?",
+      "answer": "You can add them as separate `#SBATCH` lines to `job_script.sh` or append them to the `submit.run` or `resubmit.run` command."
+    },
+    {
+      "question": "What lines should be added to `job_script.sh` for multi-threaded applications using OpenMP?",
+      "answer": "Add `#SBATCH --cpus-per-task=N`, `#SBATCH --mem=M`, and `export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK`."
+    },
+    {
+      "question": "What command needs to be added before your code's path in `single_case.sh` for MPI applications?",
+      "answer": "You need to add `srun` before the path to your code, for example, `srun $COMM`."
+    },
+    {
+      "question": "How do you specify GPU usage for an application within META-Farm?",
+      "answer": "You modify `job_script.sh` by adding the line `#SBATCH --gres=gpu[[:type]:number]`."
+    },
+    {
+      "question": "What critical consideration should be made when using the `--export` switch with META-Farm jobs?",
+      "answer": "If `--export` is used, ensure `ALL` is included in its arguments (e.g., `--export=ALL,X=1,Y=2`) to prevent breaking default environment inheritance."
+    },
+    {
+      "question": "How can custom environment variables be passed to all farm jobs, including auto-resubmitted and post-processing jobs?",
+      "answer": "Set the variables on the command line when executing `submit.run`, for example: `VAR1=1 VAR2=5 submit.run ...`."
+    },
+    {
+      "question": "How can one handle an application that expects input from a file with a prescribed, unchangeable name?",
+      "answer": "Each case must run in its own subdirectory, and `single_case.sh` needs a line to copy the specific input file into that subdirectory with the prescribed name."
+    },
+    {
+      "question": "How does META-Farm reduce CPU waste from jobs hitting run-time limits?",
+      "answer": "The `task.run` script estimates the run-time required for the next case and will exit early if insufficient time remains before the job's limit."
+    },
+    {
+      "question": "Where are individual run-times for all cases stored after a farm run?",
+      "answer": "Individual run-times are stored in the `times` file located in `/home/$USER/tmp/$NODE.$PID/`."
+    },
+    {
+      "question": "What does the error message \"Non-farm directory, or no farm has been submitted; exiting\" indicate?",
+      "answer": "It indicates that either the current directory is not a farm directory, or `submit.run` has not yet been executed for this farm."
+    },
+    {
+      "question": "What problem does the error \"lockfile is not on path; exiting\" signify?",
+      "answer": "This means the critical `lockfile` utility, which ensures serialized access to `table.dat`, is not found in your `$PATH`."
+    },
+    {
+      "question": "What does the message \"Jobs are still running/queued; cannot resubmit\" imply when attempting to use `resubmit.run`?",
+      "answer": "It means you cannot use `resubmit.run` until all meta-jobs for that farm have completed running or are no longer queued."
+    },
+    {
+      "question": "What is the meaning of the message \"Only failed cases left; cannot auto-resubmit; exiting\"?",
+      "answer": "This message indicates that auto-resubmission has stopped because only previously failed cases remain, requiring you to fix the underlying issues before attempting resubmission."
+    }
+  ],
+  "generated_at": "2026-04-12T01:27:09.027349+00:00"
+}

@@ -1,0 +1,76 @@
+{
+  "doc_key": "fr/transferring_data",
+  "level": "chunk",
+  "chunk_index": 3,
+  "qa_pairs": [
+    {
+      "question": "C'est quoi, la synchronisation de données?",
+      "answer": "La synchronisation de données, c'est pour faire en sorte que le contenu de deux sources de données, qui sont à des endroits différents, soit pareil."
+    },
+    {
+      "question": "Quel outil est fiable et performant pour transférer des données?",
+      "answer": "Globus est un outil de transfert de données performant et super fiable."
+    },
+    {
+      "question": "Qu'est-ce qui arrive d'habitude quand on fait un transfert avec Globus?",
+      "answer": "D'habitude, les données de la source écrasent celles qui sont à la destination. Par contre, si des fichiers existent déjà à destination et qu'ils sont identiques à la source, y'a pas besoin de les transférer."
+    },
+    {
+      "question": "Comment Globus choisit les fichiers à transférer lors d'une synchronisation?",
+      "answer": "Le paramètre `sync` sous 'Transfer Settings' détermine comment Globus choisit les fichiers à transférer."
+    },
+    {
+      "question": "Expliquez l'option de synchronisation 'checksum is different' de Globus.",
+      "answer": "L'option 'checksum is different' examine les sommes de contrôle pour trouver un changement ou une erreur dans le contenu des fichiers de même taille. Ça ralentit pas mal le transfert, mais c'est l'option la plus précise."
+    },
+    {
+      "question": "Quand est-ce qu'on utilise l'option 'file doesn't exist on destination' avec Globus?",
+      "answer": "L'option 'file doesn't exist on destination' transfère juste les fichiers qui ont été créés depuis la dernière synchronisation. C'est pratique si vos fichiers sont créés par incréments."
+    },
+    {
+      "question": "Que fait l'option 'file size is different' de Globus?",
+      "answer": "L'option 'file size is different' transfère les fichiers dont la taille a été changée, en assumant que le contenu aussi a été modifié. Ça permet de faire un test rapide."
+    },
+    {
+      "question": "Décrivez l'option 'modification time is newer' pour un transfert Globus.",
+      "answer": "L'option 'modification time is newer' transfère juste les fichiers dont l'estampille temporelle de la source est plus récente que celle de la destination. Avec cette option, il faut cocher 'preserve source file modification times'."
+    },
+    {
+      "question": "C'est quoi le but de l'utilitaire `rsync`?",
+      "answer": "L'utilitaire `rsync` est là pour vérifier si deux jeux de données sont pareils."
+    },
+    {
+      "question": "Quels sont les inconvénients de `rsync`?",
+      "answer": "`rsync` peut prendre pas mal de temps quand y'a beaucoup de fichiers, quand les sites sont loin l'un de l'autre ou quand ils sont sur des réseaux différents."
+    },
+    {
+      "question": "Comment `rsync` compare-t-il les fichiers par défaut?",
+      "answer": "`rsync` compare les dates de modification et la taille des fichiers, et il fait le transfert juste si l'un de ces paramètres est différent."
+    },
+    {
+      "question": "Comment faire pour que `rsync` utilise les sommes de contrôle pour comparer les fichiers?",
+      "answer": "Si les dates de modification peuvent être différentes, on peut utiliser l'option `-c` pour que `rsync` analyse les checksums à la source et à la destination et transfère seulement les fichiers dont les valeurs ne concordent pas."
+    },
+    {
+      "question": "Pourquoi est-ce qu'on devrait pas utiliser les indicateurs `-p` et `-g` avec `rsync` quand on transfère des données vers un système de fichiers `/project`?",
+      "answer": "On ne devrait pas utiliser les indicateurs `-p` et `-g` pour `/project` parce que les quotas sont calculés selon la propriété de groupe, et garder la même propriété pourrait causer une erreur de type 'Disk quota exceeded'."
+    },
+    {
+      "question": "Comment éviter les problèmes de propriété de groupe lors d'un transfert `rsync` vers `/project`?",
+      "answer": "Puisque l'option `-a` inclut par défaut `-p` et `-g`, il faut ajouter les options `--no-g --no-p` à la commande `rsync`."
+    },
+    {
+      "question": "Que signifient les options `-z` et `-h` dans une commande `rsync`?",
+      "answer": "L'option `-z` compresse les fichiers (sauf ceux qui sont exclus) et demande plus de ressources CPU, tandis que l'option `-h` sert à afficher la taille des fichiers de manière plus simple."
+    },
+    {
+      "question": "Comment reprendre un transfert `rsync` qui a été interrompu pour de très gros fichiers?",
+      "answer": "Pour reprendre des transferts interrompus de très gros fichiers avec `rsync`, on doit ajouter l'option `--partial` à la commande."
+    },
+    {
+      "question": "Comment afficher la progression du transfert de chaque fichier avec `rsync`?",
+      "answer": "Pour voir la progression du transfert de chaque fichier individuellement, on ajoute l'option `--progress` à la commande `rsync`."
+    }
+  ],
+  "generated_at": "2026-04-12T09:23:17.834701+00:00"
+}

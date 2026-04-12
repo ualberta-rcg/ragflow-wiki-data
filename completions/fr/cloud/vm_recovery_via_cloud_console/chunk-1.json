@@ -1,0 +1,80 @@
+{
+  "doc_key": "fr/vm_recovery_via_cloud_console",
+  "level": "chunk",
+  "chunk_index": 1,
+  "qa_pairs": [
+    {
+      "question": "Dans quelles situations est-il nécessaire d'accéder à une instance en utilisant un mode de récupération?",
+      "answer": "Il faut accéder à une instance en utilisant un mode de récupération s'il est impossible de s'y connecter via SSH ou avec un utilisateur local."
+    },
+    {
+      "question": "Quelles sont les méthodes pour obtenir un accès privilégié à une image de système d'exploitation si l'accès normal est bloqué?",
+      "answer": "Vous pouvez démarrer le système d'exploitation en mode utilisateur unique ou lancer un noyau de récupération."
+    },
+    {
+      "question": "Quelle est la condition essentielle pour pouvoir utiliser un mode de récupération?",
+      "answer": "La seule condition est que le gestionnaire de démarrage soit accessible et modifiable."
+    },
+    {
+      "question": "Est-ce que le démarrage en mode utilisateur unique est efficace pour la récupération sur la plupart des images Debian10?",
+      "answer": "Non, pour la plupart des images Debian10, le compte racine est verrouillé, donc le démarrage en mode utilisateur unique ne sera pas utile."
+    },
+    {
+      "question": "Comment le noyau d'un système Linux procède-t-il après l'initialisation du matériel?",
+      "answer": "Après l'initialisation du matériel, le noyau abandonne le contrôle à l'espace utilisateur et exécute un binaire nommé le processus `init`, qui a toujours le PID1."
+    },
+    {
+      "question": "Quels sont des exemples de processus `init` utilisés dans les distributions Linux récentes?",
+      "answer": "Dans les distributions les plus récentes, le processus `init` peut être `systemd`, `systemV` ou `upstart`."
+    },
+    {
+      "question": "Comment peut-on modifier le comportement du noyau lors du démarrage pour effectuer des opérations de récupération?",
+      "answer": "On peut utiliser le gestionnaire de démarrage pour indiquer au noyau d'exécuter un interpréteur (shell) plutôt que le processus `init` habituel, ce qui permet de monter manuellement le système de fichiers image et de faire les récupérations."
+    },
+    {
+      "question": "Quel gestionnaire de démarrage est livré avec l'image Debian10 et comment y accéder?",
+      "answer": "L'image Debian10 vient avec GRUB2. Pour y accéder, il faut démarrer ou redémarrer le système jusqu'à ce que le menu GRUB s'affiche, puis appuyer sur la touche `e` (pour 'edit')."
+    },
+    {
+      "question": "Quelles modifications faut-il apporter dans le menu GRUB de Debian10 pour que le noyau exécute `/bin/bash` comme nouveau processus `init`?",
+      "answer": "Il faut supprimer les consoles à transmission série et ajouter `init=/bin/bash`."
+    },
+    {
+      "question": "Comment doit être modifiée la ligne qui commence par `linux` dans le menu GRUB pour Debian10 afin d'exécuter `/bin/bash`?",
+      "answer": "La ligne `linux` devrait être modifiée comme suit : `linux /boot/vmlinuz-4.19.0-6-cloud-amd64 root=UUID=d187d85e-8a80-4664-8b5a-dce4d7ceca9e ro biosdevname=0 net.ifnames=0 console=tty0 init=/bin/bash`."
+    },
+    {
+      "question": "Que se passe-t-il après avoir modifié la ligne `linux` avec `init=/bin/bash` et démarré le système?",
+      "answer": "Ceci démarre le noyau, initialise `initrd` et exécute `/bin/bash` comme processus `init`."
+    },
+    {
+      "question": "Dans quel état le système de fichiers est-il monté après avoir démarré avec `init=/bin/bash`, et pourquoi?",
+      "answer": "Le système de fichiers est monté en lecture seule (r/o) parce que le processus `init` est censé prendre en charge le système de fichiers racine, et le noyau doit simplement savoir où le trouver avant d'abandonner le contrôle."
+    },
+    {
+      "question": "Quelles sont les prochaines étapes de récupération une fois que le système de fichiers est monté en lecture seule?",
+      "answer": "Les prochaines étapes sont de remonter le système de fichiers `initrd` en lecture-écriture, monter le disque image du système d'exploitation, entrer avec `chroot`, définir un mot de passe pour la racine et redémarrer l'instance."
+    },
+    {
+      "question": "Comment remonter le système de fichiers en lecture-écriture (r/w) dans l'environnement `initrd`?",
+      "answer": "Il faut utiliser la commande `mount -o remount,rw /`."
+    },
+    {
+      "question": "Comment monter la première partition primaire (`/dev/vda1`) sur le répertoire `/mnt`?",
+      "answer": "Il faut utiliser la commande `mount /dev/vda1 /mnt`."
+    },
+    {
+      "question": "Après avoir monté `/dev/vda1` sur `/mnt`, quel est l'état du système de fichiers de l'image de la racine?",
+      "answer": "Le système de fichiers de l'image de la racine est maintenant monté en lecture-écriture sur `/mnt`."
+    },
+    {
+      "question": "Pour utiliser des outils via `chroot` dans `/mnt`, quels répertoires doivent être montés avec l'option `bind` et pourquoi?",
+      "answer": "Pour avoir un accès tty, `/dev` doit être monté. Pour avoir accès au réseau, `/proc` et `/sys` doivent être montés."
+    },
+    {
+      "question": "Quelles commandes sont utilisées pour monter `/proc`, `/sys` et `/dev` avec l'option `bind` dans le contexte de `chroot`?",
+      "answer": "Les commandes sont : `mount -o bind /proc /mnt/proc`, `mount -o bind /sys /mnt/sys`, et `mount -o bind /dev /mnt/dev`."
+    }
+  ],
+  "generated_at": "2026-04-12T10:48:31.443217+00:00"
+}

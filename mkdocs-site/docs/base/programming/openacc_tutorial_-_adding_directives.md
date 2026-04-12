@@ -5,21 +5,105 @@ lang: "base"
 
 source_wiki_title: "OpenACC Tutorial - Adding directives"
 source_hash: "48d1d6c3f160c850811f9689bd57aed8"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T09:21:48.923360+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T09:52:34.574849+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "independent clause"
+  - "OpenACC"
+  - "kernels directive"
+  - "loops"
+  - "loop directive"
+  - "restrict keyword"
+  - "parallel"
+  - "data movement"
+  - "compute kernel"
+  - "parallel loop"
+  - "compiler analysis"
+  - "Iteration"
+  - "__restrict keyword"
+  - "Tolerance"
+  - "C++ code"
+  - "parallel region"
+  - "nnz"
+  - "GPU offloading"
+  - "accelerator"
+  - "GPU porting"
+  - "C/C++ programming"
+  - "restrict"
+  - "compiler optimizations"
+  - "GPU profiling"
+  - "kernels"
+  - "directives"
+  - "matvec"
+  - "GPU"
+  - "NVIDIA Visual Profiler"
+  - "row_offsets"
+  - "pointers"
+  - "pointer aliasing"
+  - "Acoefs"
+  - "OpenACC directives"
+  - "prescriptive directive"
+  - "code refactoring"
+  - "reduction clause"
+  - "parallelization"
+  - "loop dependencies"
+  - "matrix.F90"
+  - "compiler"
+  - "aliased"
+  - "descriptive vs prescriptive"
+  - "Total Time"
+  - "parallel loop directive"
+  - "matrix-vector product"
+  - "OpenMP"
+
+questions:
+  - "What is \"offloading\" in the context of GPU computing, and why is managing data transfers between the host and the GPU critical?"
+  - "What are the primary advantages of using OpenACC directives to accelerate a program?"
+  - "How does the OpenACC `kernels` directive identify and process code sections to enable parallel execution on an accelerator?"
+  - "What is the primary function of the `kernels` directive and what steps does the compiler typically take when encountering it?"
+  - "How does the descriptive nature of OpenACC directives differ from the prescriptive nature of OpenMP directives in terms of compiler behavior and performance optimization?"
+  - "What is the fundamental difference in how calculations are performed between a sequential loop and a compute kernel?"
+  - "What is a \"kernel\" in the context of this compiler process, and how is it created from a loop?"
+  - "Why is it necessary for the internal code refactoring to ensure that each call to the kernel is independent?"
+  - "How does the accelerator utilize its hundreds of cores to execute the compiled kernel in parallel?"
+  - "What is the purpose of the `matvec` function referenced in the `matrix.F90` file?"
+  - "How does the provided C++ code snippet execute the matrix-vector multiplication?"
+  - "What type of sparse matrix data structure is being represented by the arrays in the C++ loop?"
+  - "What compiler options are used to enable OpenACC compilation and simplify data transfer with managed memory?"
+  - "Why might the compiler fail to parallelize a loop in C/C++ even when it seems obvious to the programmer?"
+  - "How does the `restrict` or `__restrict` keyword help resolve false loop dependencies caused by pointer aliasing?"
+  - "What is the formal meaning of the `restrict` keyword, and what are the consequences if a programmer violates its guarantee?"
+  - "How does the `#pragma acc loop independent` directive influence compiler behavior regarding loop iterations?"
+  - "How is false aliasing resolved in the matrix-vector product example, and why is it important to evaluate the performance of the ported OpenACC code?"
+  - "What document is referenced to explain the lack of a standard method for handling pointer aliasing in C++?"
+  - "Why is guaranteeing that pointers are not aliased important for compiler optimizations in C/C++ programming?"
+  - "What is the correct syntax and placement for the `__restrict` keyword when declaring a pointer?"
+  - "What was the total execution time and number of iterations recorded for the initial run?"
+  - "How many rows and non-zero elements (nnz) are processed when running the OpenACC version of the program?"
+  - "How does the tolerance value change as the iterations progress during the execution of the challenge?"
+  - "Why did the initial OpenACC implementation result in a slowdown rather than a speedup according to the profiling timeline?"
+  - "What is the NVIDIA Visual Profiler (NVVP) and what types of code is it designed to analyze?"
+  - "How does the prescriptive `parallel loop` directive differ from the descriptive `kernels` directive in OpenACC?"
+  - "How is the parallel loop directive structured in code to execute a loop in parallel?"
+  - "What does it mean for the parallel loop directive to be considered \"prescriptive\"?"
+  - "Why is the independent clause implicit when using the parallel loop directive?"
+  - "What is the purpose of the `private` and `reduction` clauses when using the `parallel loop` directive?"
+  - "What are the key differences in programmer responsibility and compiler optimization between the `parallel loop` and `kernels` directives?"
+  - "How does the provided compiler feedback demonstrate the successful generation of parallel loops and reduction operations?"
+  - "What is the purpose of the `private` and `reduction` clauses when using the `parallel loop` directive?"
+  - "What are the key differences in programmer responsibility and compiler optimization between the `parallel loop` and `kernels` directives?"
+  - "How does the provided compiler feedback demonstrate the successful generation of parallel loops and reduction operations?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -49,9 +133,9 @@ There are several advantages to using directives:
 In the following example, we take a code comprised of two loops.
 The first one initializes two vectors, and the second performs a [SAXPY](https://en.wikipedia.org/wiki/Basic_Linear_Algebra_Subprograms#Level_1), a basic vector addition operation.
 
-| C/C++ | FORTRAN |
-| :---- | :------ |
-| ```cpp {1,2,13}
+| C/C++           | FORTRAN           |
+| :-------------- | :---------------- |
+| ```cpp hl_lines="1 2 13"
 #pragma acc kernels
 {
   for (int i=0; i<N; i++)
@@ -65,7 +149,7 @@ The first one initializes two vectors, and the second performs a [SAXPY](https:/
     y[i] = a * x[i] + y[i];
   }
 }
-``` | ```fortran {1,7}
+``` | ```fortran hl_lines="1 7"
 !$acc kernels
   do i=1,N
     x(i) = 1.0
@@ -87,13 +171,13 @@ while in Fortran, the same comment needs to be repeated, with the `end` keyword 
 
 When the compiler reaches an OpenACC `kernels` directive, it will analyze the code in order to identify sections that can be parallelized.
 This often corresponds to the body of a loop that has independent iterations.
-When such a case is identified, the compiler will first wrap the body of the loop into a special function called a [kernel](https://en.wikipedia.org/wiki/Compute_kernel).
+When such a case is identified, the compiler will first wrap the body of the loop into a special function called a [*kernel*](https://en.wikipedia.org/wiki/Compute_kernel).
 This internal code refactoring makes sure that each call to the kernel is independent from any other call.
 The kernel is then compiled to enable it to run on an accelerator.
 Since each call is independent, each one of the hundreds of cores of the accelerator can run the function for one specific index in parallel.
 
-| LOOP | KERNEL |
-| :--- | :----- |
+| LOOP           | KERNEL           |
+| :------------- | :--------------- |
 | ```cpp
 for (int i=0; i<N; i++)
 {
@@ -119,7 +203,8 @@ Typically, it will:
 4.  Offload the kernel to the GPU
 
 One example of this directive is the following code:
-```cpp {1,2,7}
+
+```cpp hl_lines="1 2 7"
 #pragma acc kernels
 {
   for (int i=0; i<N; i++)
@@ -133,7 +218,7 @@ The above example is very simple. However, code is often not that simple,
 and we then need to rely on [compiler feedback](openacc-tutorial-profiling.md#compiler-feedback)
 in order to identify regions it failed to parallelize.
 
-!!! info "Descriptive vs prescriptive"
+!!! note "Descriptive vs prescriptive"
     Those who have used [OpenMP](openmp.md) before will be familiar with the directive based nature of OpenACC.
     There is however one major difference between OpenMP and OpenACC directives:
     *   OpenMP directives are by design *prescriptive* in nature. This means that the compiler is required to perform the requested parallelization, no matter whether this is good from a performance stand point or not. This yields very reproducible results from one compiler to the next. This also means that parallelization will be performed the same way, whatever the hardware the code runs on. However, not every architecture performs best with code written the same way. Sometimes, it may be beneficial to switch the order of loops for example. If one were to parallelize a code with OpenMP and wanted it to perform optimally on multiple different architectures, they would have to write different sets of directives for different architectures.
@@ -144,7 +229,7 @@ For this example, we use the code from the [exercises repository](https://github
 More precisely, we will use a portion of the code from the [`cpp/matrix_functions.h` file](https://github.com/calculquebec/cq-formation-openacc/blob/main/cpp/matrix_functions.h#L20).
 The equivalent Fortran code can be found in the subroutine [`matvec` contained in the `matrix.F90` file](https://github.com/calculquebec/cq-formation-openacc/blob/main/f90/matrix.F90#L101).
 The C++ code is the following:
-```cpp
+```cpp linenums="29"
   for(int i=0;i<num_rows;i++) {
     double sum=0;
     int row_start=row_offsets[i];
@@ -162,7 +247,7 @@ The C++ code is the following:
 The [first change](https://github.com/calculquebec/cq-formation-openacc/blob/main/cpp/step1.kernels/matrix_functions.h#L29) we make to this code in order to try to run it on the GPU is to add the `kernels` directive.
 At this stage, we don't worry about data transfer, or about giving more information to the compiler.
 
-```cpp {1,2,15}
+```cpp linenums="29" hl_lines="1 2 15"
 #pragma acc kernels
   {
     for(int i=0;i<num_rows;i++) {
@@ -213,17 +298,17 @@ As we can see in the compiler output, the compiler could not parallelize the out
 We will see in the following sections how to deal with those dependencies.
 
 ## Fixing false loop dependencies
-Sometimes, the compiler believes that loops cannot be parallelized despite being obvious to the programmer. One common case, in C and C++, is what is called [pointer aliasing](https://en.wikipedia.org/wiki/Pointer_aliasing). Contrary to Fortran arrays, C and C++ do not formally have arrays. They have what is called pointers. Two pointers are said to be *aliased* if they point to the same memory. If the compiler does not know that pointers are not aliased, it must assume that they are. Going back to the previous example, it becomes obvious why the compiler could not parallelize the loop. If we assume that each pointer is the same, then there is an obvious dependence between loop iterations.
+Sometimes, the compiler believes that loops cannot be parallelized despite being obvious to the programmer. One common case, in C and C++, is what is called [*pointer aliasing*](https://en.wikipedia.org/wiki/Pointer_aliasing). Contrary to Fortran arrays, C and C++ do not formally have arrays. They have what is called pointers. Two pointers are said to be *aliased* if they point to the same memory. If the compiler does not know that pointers are not aliased, it must assume that they are. Going back to the previous example, it becomes obvious why the compiler could not parallelize the loop. If we assume that each pointer is the same, then there is an obvious dependence between loop iterations.
 
 ### `restrict` keyword
 One way to tell the compiler that pointers are **not** going to be aliased, is by using a special keyword. In C, the keyword `restrict` was introduced in C99 for this purpose. In C++, there is no standard way yet, but each compiler typically has its own keyword. Either `__restrict` or `__restrict__` can be used depending on the compiler. For Portland Group and NVidia compilers, the keyword is `__restrict`. For an explanation as to why there is no standard way to do this in C++, you can read [this paper](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2014/n3988.pdf). This concept is important not only for OpenACC, but for any C/C++ programming, since many more optimizations can be done by compilers when pointers are guaranteed not to be aliased. Note that the keyword goes *after* the pointer, since it refers to the pointer, and not to the type. In other words, you would declare `float * __restrict A;` rather than `float __restrict * A;`.
 
-!!! info "What does `restrict` really mean?"
+!!! note "What does `restrict` really mean ?"
     Declaring a pointer as restricted formally means that for "the lifetime of the pointer, only it or a value derived from it (such as `ptr +1`) will be used to access the object to which it points". This is a guarantee that the *programmer* gives to the *compiler*. If the programmer violates this guarantee, behaviour is undefined. For more information on this concept, see this [Wikipedia article](https://en.wikipedia.org/wiki/Restrict).
 
 ### Loop directive with independent clause
 Another way to tell the compiler that loops iterations are independent is to specify it explicitly by using a different directive: `loop`, with the clause `independent`. This is a *prescriptive* directive. Like any prescriptive directive, this tells the compiler what to do, and overrides any compiler analysis. The initial example above would become:
-```cpp {3}
+```cpp hl_lines="3"
 #pragma acc kernels
 {
 #pragma acc loop independent
@@ -265,7 +350,7 @@ matvec(const matrix &, const vector &, const vector &):
           34, Loop is parallelizable
 ```
 
-## How is ported code performing?
+## How is ported code performing ?
 Since we have completed a first step to porting the code to GPU, we need to analyze how the code is performing, and whether it gives the correct results. Running the original version of the code yields the following (performed on one GPU node):
 ```bash
 ./cg.x
@@ -305,7 +390,6 @@ Iteration: 80, Tolerance: 1.3515e-03
 Iteration: 90, Tolerance: 4.6209e-05
 Total Iterations: 100 Total Time: 115.068931s
 ```
-
 The results are correct. However, not only do we not get any speed up, but we rather get a slow down by a factor of almost 4! Let's profile the code again using NVidia's visual profiler (`nvvp`).
 
 ### NVIDIA Visual Profiler
@@ -324,14 +408,14 @@ module load cuda/11.7 java/1.8
 nvvp
 ```
 
-1.  After the NVVP startup window, you get prompted for a *Workspace* directory, which will be used for temporary files. Replace `home` with `scratch` in the suggested path. Then click *OK*.
-2.  Select *File > New Session*, or click on the corresponding button in the toolbar.
-3.  Click on the *Browse* button at the right of the *File* path editor.
+1.  After the NVVP startup window, you get prompted for a *Workspace* directory, which will be used for temporary files. Replace `home` with `scratch` in the suggested path. Then click `OK`.
+2.  Select `File > New Session`, or click on the corresponding button in the toolbar.
+3.  Click on the `Browse` button at the right of the `File` path editor.
     *   Change directory if needed.
     *   Select an executable built from codes written with OpenACC and CUDA C/C++ instructions.
-4.  Below the *Arguments* editor, select the profiling option *Profile current process only*.
-5.  Click *Next >* to review additional profiling options.
-6.  Click *Finish* to start profiling the executable.
+4.  Below the `Arguments` editor, select the profiling option `Profile current process only`.
+5.  Click `Next >` to review additional profiling options.
+6.  Click `Finish` to start profiling the executable.
 
 This can be done with the following steps:
 1.  Start `nvvp` with the command `nvvp &` (the `&` sign is to start it in the background)
@@ -343,14 +427,13 @@ This will run the program and generate a timeline of the execution. The resultin
 
 ## The `parallel loop` directive
 With the `kernels` directive, we let the compiler do all of the analysis. This is the *descriptive* approach to porting a code. OpenACC supports a *prescriptive* approach through a different directive, called the `parallel` directive. This can be combined with the `loop` directive, to form the `parallel loop` directive. An example would be the following code:
-```cpp {1}
+```cpp hl_lines="1"
 #pragma acc parallel loop
 for (int i=0; i<N; i++)
 {
   C[i] = A[i] + B[i];
 }
 ```
-
 Since `parallel loop` is a *prescriptive* directive, it forces the compiler to perform the loop in parallel. This means that the `independent` clause introduced above is implicit within a parallel region.
 
 For reasons that we explain below, in order to use this directive in the matrix-vector product example, we need to introduce additional clauses used to manage the scope of data. The `private` and `reduction` clauses control how the data flows through a parallel region.
@@ -359,7 +442,7 @@ For reasons that we explain below, in order to use this directive in the matrix-
 These clauses were not required with the `kernels` directive, because the `kernels` directive handles this for you.
 
 Going back to the matrix-vector multiplication example, the corresponding code with the `parallel loop` directive would look like this:
-```cpp {6}
+```cpp hl_lines="6"
 #pragma acc parallel loop
   for(int i=0;i<num_rows;i++) {
     double sum=0;

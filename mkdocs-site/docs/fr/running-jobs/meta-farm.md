@@ -5,21 +5,140 @@ lang: "fr"
 
 source_wiki_title: "META-Farm/fr"
 source_hash: "f4dce0a4c2c7c47b37b62155d3c8930f"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T08:06:22.343477+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T08:40:47.029369+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "temps CPU"
+  - "#SBATCH -t"
+  - "option -f"
+  - "assistance supplémentaire"
+  - "GLOST"
+  - "métatâches"
+  - "job_script.sh"
+  - "sortie du code"
+  - "dépannage"
+  - "traitement"
+  - "post-traitement"
+  - "GPU NVidia"
+  - "Status.run"
+  - "resubmit.run"
+  - "file d'attente"
+  - "table.dat"
+  - "groupe de cas"
+  - "métatâche"
+  - "fichiers de sortie"
+  - "programme"
+  - "équilibrage dynamique de la charge de travail"
+  - "équilibrage dynamique"
+  - "numéro de cas"
+  - "mécanisme de protection"
+  - "single_case.sh"
+  - "META"
+  - "cas échouent"
+  - "META-Farm"
+  - "resoumettre automatiquement"
+  - "argument $ID"
+  - "mode META"
+  - "outil META"
+  - "Commandes"
+  - "meta-farm"
+  - "cas qui ont échoué"
+  - "cas individuel"
+  - "automatisation de calculs"
+  - "cœurs CPU"
+  - "état de la sortie"
+  - "farm_init.run"
+  - "ordonnanceur"
+  - "tâche MPI"
+  - "resoumettre les cas"
+  - "ordonnanceur Slurm"
+  - "option -auto"
+  - "mode SIMPLE"
+  - "optimisation"
+  - "submit.run"
+  - "équipe de soutien technique"
+  - "Mode META"
+  - "fonctions avancées"
+  - "temps d'exécution"
+  - "nœud"
+  - "STATUS"
+  - "script de tâche"
+  - "méthode Monte-Carlo"
+  - "soumission de tâches"
+  - "temps en file d'attente"
+
+questions:
+  - "Quelles sont les principales fonctionnalités de la suite de scripts META et comment distingue-t-elle les concepts de « cas » et de « tâche » ?"
+  - "Comment le mode META utilise-t-il le fichier table.dat et le mécanisme lockfile pour assurer un équilibrage dynamique de la charge de travail ?"
+  - "Quels avantages META offre-t-il par rapport à l'approche GLOST en matière de temps d'attente dans la file de l'ordonnanceur ?"
+  - "Quels sont les principaux avantages de l'outil META par rapport à GLOST en termes d'efficacité et de gestion des erreurs ?"
+  - "Quelles sont les étapes de configuration initiales pour créer et préparer un répertoire de groupe de cas avec META ?"
+  - "Comment s'effectue la soumission des tâches et quelle est la différence entre le mode SIMPLE et le mode META avec la commande submit.run ?"
+  - "Pourquoi le temps en file d'attente est-il plus court avec META qu'avec GLOST ?"
+  - "Quel est l'impact de l'utilisation de GLOST sur le délai d'obtention du premier résultat pour une tâche nécessitant 10 000 cœurs CPU ?"
+  - "Quelle capacité spécifique concernant le démarrage des métatâches individuelles est offerte par le système META ?"
+  - "Comment doit-on configurer la commande `farm_init.run` pour initialiser un nouveau groupe de cas ?"
+  - "Quels sont les fichiers qui nécessitent d'être personnalisés, créés ou copiés dans le répertoire avant de lancer le calcul ?"
+  - "Quelle commande finale doit être exécutée pour soumettre le deuxième groupe de cas et dans quel répertoire ?"
+  - "Quelles sont les principales commandes disponibles pour gérer ou surveiller un groupe de cas, et dans quel répertoire doivent-elles être exécutées ?"
+  - "Dans quelles conditions spécifiques de quantité et de durée est-il recommandé d'utiliser le mode SIMPLE plutôt que le mode META ?"
+  - "Comment la valeur attribuée à l'argument N dans la commande submit.run détermine-t-elle le mode d'exécution (SIMPLE ou META) des tâches ?"
+  - "Quelle est la conséquence si une valeur non autorisée est attribuée à la variable N ?"
+  - "Quel est le rôle exact de l'option \"-auto\" lors du processus de soumission ?"
+  - "Quelle condition liée au fichier table.dat permet d'arrêter définitivement les resoumissions automatiques ?"
+  - "Quel est le rôle du fichier final.sh et à quel moment est-il exécuté par rapport aux cas du fichier table.dat ?"
+  - "Comment le script single_case.sh traite-t-il par défaut chaque ligne du fichier table.dat et dans quel répertoire exécute-t-il ces commandes ?"
+  - "De quelle manière peut-on modifier single_case.sh pour éviter d'avoir à répéter la même commande sur chaque ligne du fichier table.dat ?"
+  - "Quel est le rôle du fichier table.dat et comment doit-il être formaté si le code ne nécessite pas d'arguments spécifiques ?"
+  - "Comment la variable STATUS permet-elle de gérer les erreurs dans single_case.sh et de quelle manière peut-on la personnaliser pour vérifier la réussite d'un cas ?"
+  - "Quelles configurations doivent obligatoirement figurer dans job_script.sh et pourquoi est-il conseillé d'y ajouter des tests préalables sur les nœuds alloués ?"
+  - "Quel est le rôle spécifique de l'argument `$ID` dans le script `single_case.sh` ?"
+  - "Quelle méthode de traitement est appliquée lors de l'exécution du code dans cet exemple ?"
+  - "Comment le script capture-t-il le statut de réussite ou d'échec de la commande principale ?"
+  - "À qui doit-on signaler les problèmes rencontrés avec un nœud ?"
+  - "Quel impact une seule métatâche incorrecte peut-elle avoir sur le fichier `table.dat` et le groupe de cas ?"
+  - "Quelles modifications ou tests doit-on ajouter au fichier `job_script.sh` pour prévenir l'échec des cas ?"
+  - "Comment fonctionne le mécanisme intégré à META pour détecter et interrompre les métatâches qui se terminent trop rapidement ?"
+  - "Quels sont les principaux fichiers et répertoires de sortie générés lors de l'exécution d'une ou plusieurs métatâches ?"
+  - "Quelle est la procédure pour identifier, analyser et resoumettre les cas qui ont échoué ou qui n'ont pas été exécutés ?"
+  - "Que signifie le fait que certains cas échouent à plusieurs reprises lors de l'exécution ?"
+  - "À quoi sert la commande `Status.run` dans le contexte du traitement des cas ?"
+  - "Quel est l'effet de l'option `-f` lorsqu'elle est utilisée avec la commande `Status.run` ?"
+  - "Pourquoi est-il préférable d'utiliser le mode META plutôt que le mode SIMPLE pour traiter un grand nombre de cas ?"
+  - "Comment le mode META implémente-t-il l'équilibrage dynamique de la charge de travail entre les différentes métatâches ?"
+  - "Quelles sont les conséquences de l'interruption d'une métatâche en cours de calcul et comment y remédier ?"
+  - "Quel est l'impact du nombre de métatâches exécutées sur l'obtention des résultats finaux en mode META ?"
+  - "Dans quelle situation spécifique est-il nécessaire d'utiliser la commande resubmit.run ?"
+  - "Comment évaluer et définir le temps d'exécution ainsi que le nombre optimal de métatâches pour le fichier job_script.sh ?"
+  - "Comment doit-on procéder pour estimer le temps d'exécution moyen d'un cas individuel ?"
+  - "Quels critères faut-il respecter pour choisir la durée d'exécution optimale d'une métatâche ?"
+  - "Comment calcule-t-on le nombre total de métatâches requises pour traiter l'ensemble des cas ?"
+  - "Comment doit-on procéder pour soumettre un groupe de cas contenant plus de 1000 métatâches sur les systèmes Nibi et Rorqual ?"
+  - "Quelle est la méthode recommandée pour tester des cas individuels avant de lancer l'exécution d'un grand groupe de cas ?"
+  - "Quelles stratégies d'optimisation concernant la gestion des fichiers et des répertoires doivent être appliquées lorsque l'on traite plus de 10 000 cas ?"
+  - "Quelle modification doit-être apportée au fichier `job_script.sh` pour obtenir un temps d'attente acceptable ?"
+  - "Comment est calculé le nombre total de métatâches nécessaires pour traiter l'ensemble des cas ?"
+  - "Quelle commande finale doit-on exécuter pour lancer le groupe de cas une fois l'estimation terminée ?"
+  - "Comment le script capture-t-il l'état à la sortie du code exécuté ?"
+  - "Quelle variable est utilisée pour nommer le fichier de sortie généré par le code ?"
+  - "Où l'utilisateur peut-il trouver des informations sur les fonctions avancées et le dépannage de META-Farm ?"
+  - "Qui doit-on mentionner lors d'une demande d'assistance au soutien technique pour l'outil META ?"
+  - "Comment la terminologie définit-elle un « cas » et dans quel fichier spécifique est-il enregistré ?"
+  - "Quelle est la différence fondamentale entre le mode d'opération META et le mode SIMPLE ?"
+  - "Qui doit-on mentionner lors d'une demande d'assistance au soutien technique pour l'outil META ?"
+  - "Comment la terminologie définit-elle un « cas » et dans quel fichier spécifique est-il enregistré ?"
+  - "Quelle est la différence fondamentale entre le mode d'opération META et le mode SIMPLE ?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -31,8 +150,8 @@ status:
 
 META (pour META-Farm) est une suite de scripts conçus par l’équipe SHARCNET pour automatiser l’exécution d’un grand nombre de calculs connexes. En anglais, cette pratique est parfois nommée *farming*, *serial farming* ou *task farming*. META fonctionne sur tous les systèmes nationaux de l'Alliance et peut également être utilisée sur d'autres grappes qui possèdent la même configuration et qui font usage de [l’ordonnanceur Slurm](https://slurm.schedmd.com/documentation.html).
 
-Nous employons ici le terme **cas** (*case* en anglais) pour désigner un calcul distinct; il peut être l'exécution d'un programme en série, d'un programme parallèle ou d'un programme utilisant un GPU.
-Le terme **tâche** (*job* en anglais) est employé pour désigner une invocation à l’ordonnanceur de tâches; une tâche peut regrouper plusieurs cas.
+Nous employons ici le terme **cas** (*case*) pour désigner un calcul distinct; il peut être l'exécution d'un programme en série, d'un programme parallèle ou d'un programme utilisant un GPU.
+Le terme **tâche** (*job*) est employé pour désigner une invocation à l’ordonnanceur de tâches; une tâche peut regrouper plusieurs cas.
 
 META possède les fonctionnalités suivantes :
 
@@ -52,7 +171,7 @@ En mode META, le nombre de tâches (ou *métatâches*) effectivement soumises es
 
 En mode META, toutes les métatâches n'ont pas besoin d'exécuter des cas. La première métatâche commencera à traiter les lignes de `table.dat` et si la deuxième tâche démarre, elle rejoint la première, et ainsi de suite. Si le temps d'exécution d'une métatâche individuelle est suffisamment long, tous les cas peuvent être traités avec une seule métatâche.
 
-## META vs GLOST
+### META vs GLOST
 
 META possède des avantages importants par rapport à d'autres approches telles que [GLOST](glost.md) où le traitement de chaque groupe de cas est effectué dans une seule grande tâche parallèle (MPI).
 *   Comme l'ordonnanceur dispose de toute la souplesse pour démarrer les métatâches individuelles quand il le souhaite, le temps en file d'attente peut être beaucoup plus court avec META qu'avec GLOST. Par exemple, dans un contexte où 10 000 cœurs CPU doivent être utilisés pendant 3 jours
@@ -63,7 +182,7 @@ META possède des avantages importants par rapport à d'autres approches telles 
     *   avec META, il n'y a pas de telle perte à la fin du traitement; les métatâches individuelles sortent plus tôt si elles n'ont plus de charge de travail à traiter.
 *   GLOST et d'autres outils similaires ne prennent pas en charge la resoumission automatisée des cas qui ont échoué ou qui n'ont jamais été exécutés. META possède cette fonctionnalité qui de plus est très facile à utiliser.
 
-## Webinaire META
+### Webinaire META
 
 Voyez le [webinaire enregistré le 6 octobre 2021](https://youtu.be/GcYbaPClwGE).
 
@@ -77,48 +196,51 @@ Si vous débutez avec META, suivez les étapes ci-dessous. Il est toutefois fort
     ```bash
     module load meta-farm
     ```
+
 *   Choisissez un nom pour le répertoire du groupe de cas, par exemple `Farm_name` et créez-le avec
 
     ```bash
-    farm_init.run Farm_name
+    farm_init.run  Farm_name
     ```
+
 *   Cette commande créera également quelques fichiers importants dans le répertoire, dont certains devront être personnalisés.
 *   Copiez vos fichiers exécutables et vos fichiers d'entrée dans le répertoire du groupe de cas. (Vous pouvez ignorer cette étape si vous prévoyez utiliser des chemins complets partout.)
 *   Modifiez le fichier `table.dat` dans le répertoire. Il s'agit d'un fichier texte décrivant un cas (un calcul distinct) par ligne. Voyez des exemples dans les sections suivantes :
-    *   [single_case.sh](#single-case.sh)
-    *   [Exemple : fichiers d'entrée numérotés](meta-farm-advanced-features-and-troubleshooting.md#exemple--fichiers-d-entree-numerotes) (avancé)
-    *   [Exemple : fichier d'entrée doit avoir le même nom](meta-farm-advanced-features-and-troubleshooting.md#exemple--fichier-d-entree-doit-avoir-le-meme-nom) (avancé)
-    *   [Accéder à chaque paramètre d'un cas](meta-farm-advanced-features-and-troubleshooting.md#acceder-a-chaque-parametre-d-un-cas) (avancé)
+    *   [single_case.sh](#single_case.sh)
+    *   [Exemple : fichiers d'entrée numérotés](meta-farm-advanced-features-and-troubleshooting.md#exemple-fichiers-dentree-numerotes) (avancé)
+    *   [Exemple : fichier d'entrée doit avoir le même nom](meta-farm-advanced-features-and-troubleshooting.md#exemple-fichier-dentree-doit-avoir-le-meme-nom) (avancé)
+    *   [Accéder à chaque paramètre d'un cas](meta-farm-advanced-features-and-troubleshooting.md#acceder-a-chaque-parametre-dun-cas) (avancé)
 *   Modifiez le script `single_case.sh` au besoin. Souvent, aucune modification n'est requise; voir les sections suivantes :
-    *   [single_case.sh](#single-case.sh)
+    *   [single_case.sh](#single_case.sh)
     *   [STATUS et traitement des erreurs](#status-et-traitement-des-erreurs)
-    *   [Exemple : fichier d'entrée doit avoir le même nom](meta-farm-advanced-features-and-troubleshooting.md#exemple--fichier-d-entree-doit-avoir-le-meme-nom) (avancé)
-    *   [Accéder à chaque paramètre d'un cas](meta-farm-advanced-features-and-troubleshooting.md#acceder-a-chaque-parametre-d-un-cas) (avancé)
-*   Modifiez le fichier `job_script.sh` selon vos besoins, tel que décrit dans [job_script.sh, ci-dessous](#job-script.sh). En particulier, utilisez un nom de compte de calcul valide et indiquez une durée d’exécution appropriée. Pour plus d'information sur le temps d’exécution, voir [Estimation du temps d'exécution et du nombre de métatâches](#estimation-du-temps-d-execution-et-du-nombre-de-metataches).
+    *   [Exemple : fichier d'entrée doit avoir le même nom](meta-farm-advanced-features-and-troubleshooting.md#exemple-fichier-dentree-doit-avoir-le-meme-nom) (avancé)
+    *   [Accéder à chaque paramètre d'un cas](meta-farm-advanced-features-and-troubleshooting.md#acceder-a-chaque-parametre-dun-cas) (avancé)
+*   Modifiez le fichier `job_script.sh` selon vos besoins, tel que décrit dans [job_script.sh, ci-dessous](#job_script.sh). En particulier, utilisez un nom de compte de calcul valide et indiquez une durée d’exécution appropriée. Pour plus d'information sur le temps d’exécution, voir [Estimation du temps d'exécution et du nombre de métatâches](#estimation-du-temps-dexectution-et-du-nombre-de-metataches).
 *   Dans le répertoire des cas, lancez
 
     ```bash
     submit.run -1
     ```
+
     pour le mode SIMPLE (un cas par tâche) ou
 
     ```bash
     submit.run N
     ```
+
     pour le mode META, où N est le nombre de métatâches à utiliser. La valeur de N doit être de beaucoup inférieure au nombre total de cas.
 
 Pour faire exécuter un autre groupe de cas en même temps que le premier, lancez de nouveau `farm_init.run` avec un nom de groupe différent et personnalisez les fichiers `single_case.sh` et `job_script.sh` à l’intérieur du répertoire; créez ensuite un nouveau fichier `table.dat` au même endroit. Copiez l’exécutable et tous les fichiers d’entrée nécessaires. Vous pouvez maintenant lancer la commande `submit.run` dans le deuxième répertoire de cas pour soumettre le deuxième groupe de cas.
 
 ## Liste des commandes
-
 *   **farm_init.run** : initialise un groupe de cas; voir [Démarrage rapide, ci-dessus](#demarrage-rapide).
 *   **submit.run** : soumet le groupe de cas à l’ordonnanceur; voir [submit.run, ci-dessous](#submit.run).
 *   **resubmit.run** : soumettre comme nouveau groupe de cas tous les traitements qui ont échoué ou qui n’ont jamais été exécutés; voir [Resoumettre les cas qui ont échoué, ci-dessous](#resoumettre-les-cas-qui-ont-echoue).
 *   **list.run** : liste toutes les tâches et leur état actuel.
-*   **query.run** : fournit un sommaire de l’état du groupe de cas avec le nombre de tâches dans la queue, en cours d’exécution et terminées. Cette commande est plus pratique que `list.run` quand il y a un grand nombre de tâches. La commande fournit aussi de l’information sur la progression générale et celle de l’exécution en cours, c’est-à-dire le nombre de cas traités par rapport au nombre total de cas.
+*   **query.run** : fournit un sommaire de l’état du groupe de cas avec le nombre de tâches dans la file d'attente, en cours d’exécution et terminées. Cette commande est plus pratique que `list.run` quand il y a un grand nombre de tâches. La commande fournit aussi de l’information sur la progression générale et celle de l’exécution en cours, c’est-à-dire le nombre de cas traités par rapport au nombre total de cas.
 *   **kill.run** : interrompt toutes les tâches en cours et annule celles dans la file d’attente.
 *   **prune.run** : annule uniquement les tâches dans la file d’attente.
-*   **Status.run** (le S au début est en majuscule) : liste les états de tous les cas traités. L’option `-f`, fait afficher à la toute fin les lignes d’état non nulles, le cas échéant.
+*   **Status.run (le S au début est en majuscule)** : liste les états de tous les cas traités. L’option `-f`, fait afficher à la toute fin les lignes d’état non nulles, le cas échéant.
 *   **clean.run** : supprime tous les fichiers dans le répertoire du groupe de cas ainsi que les sous-répertoires s’il y a lieu, à l’exception des fichiers `job_script.sh`, `single_case.sh`, `final.sh`, `resubmit_script.sh`, `config.h` et `table.dat`. Tous les fichiers dans le répertoire `/home/$USER/tmp` qui sont associés au groupe de cas sont aussi supprimés. Utilisez ce script avec beaucoup de prudence.
 
 Toutes ces commandes (à l'exception de `farm_init.run` elle-même) doivent être exécutées dans un répertoire de groupe de cas créé par `farm_init.run`.
@@ -134,7 +256,7 @@ Les trois scripts essentiels sont la commande `submit.run` et deux scripts perso
 
 ### submit.run
 
-!!! note
+!!! note "Remarque"
     La présente section est valide pour les deux modes.
 
 Un argument de cette commande doit être spécifié, soit *N* qui représente le nombre de tâches à soumettre.
@@ -153,7 +275,7 @@ Si vous fournissez d'autres arguments, ils seront transmis à la commande `sbatc
 
 ### single_case.sh
 
-!!! note
+!!! note "Remarque"
     La présente section est valide pour les deux modes.
 
 Le script `single_case.sh` lit une ligne du fichier `table.dat`, l’analyse, puis utilise le contenu de la ligne pour lancer votre code pour un des cas. Vous pouvez adapter `single_case.sh` à vos besoins.
@@ -161,6 +283,7 @@ Le script `single_case.sh` lit une ligne du fichier `table.dat`, l’analyse, pu
 La version de `single_case.sh` fournie par `farm_init.run` traite chaque ligne de `table.dat` comme étant une commande littérale et l’exécute dans son propre répertoire `RUNyyy` où *yyy* représente le numéro du cas. Voici la partie pertinente de `single_case.sh` :
 
 ```bash
+...
 # ++++++++++++++++++++++  Modifiez le code selon vos besoins.  ++++++++++++++++++++++++
 #  Dans cet exemple,
 #  $ID est l'identifiant du cas dans la table d'origine (peut fournir une source unique pour le code, etc.),
@@ -181,48 +304,51 @@ STATUS=$?
 
 cd ..
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+...
 ```
 
 Par conséquent, si `single_case.sh` n’est pas modifié, chaque ligne de `table.dat` doit contenir une commande complète; il peut s'agir d'une commande composée, c'est-à-dire plusieurs commandes séparées par des points-virgules (;).
 
 En règle générale, le fichier `table.dat` contiendra une liste de commandes identiques différenciées uniquement par leurs arguments, mais ce n'est pas obligatoire. Tout énoncé exécutable peut se trouver dans `table.dat` qui pourrait ressembler à ceci
 
-```text
-/home/user/bin/code1  1.0  10  2.1
-cp -f ~/input_dir/input1 .; ~/code_dir/code
-./code2 < IC.2
+```
+  /home/user/bin/code1  1.0  10  2.1
+  cp -f ~/input_dir/input1 .; ~/code_dir/code 
+  ./code2 < IC.2
 ```
 
 Si vous voulez exécuter la même commande pour chacun des cas et ne voulez pas avoir à la répéter à chacune des lignes de `table.dat`, vous pouvez modifier `single_case.sh` pour inclure la commande commune, puis modifier `table.dat` pour qu’il contienne uniquement les arguments ou/et des redirections pour chaque cas.
 
 Dans l’exemple suivant, `single_case.sh` a été modifié. La commande `/path/to/your/code` est ajoutée, le contenu de `table.dat` sert d’arguments à la commande et l’argument `$ID` est ajouté pour le numéro de cas.
 
-*   single_case.sh
-
-    ```bash title="single_case.sh"
+*   `single_case.sh`
+    ```bash
+    ...
     # ++++++++++++++++++++++  Modifiez le code selon vos besoins.  ++++++++++++++++++++++++
     # Dans cet exemple, $ID (numéro du cas) est utilisé comme source pour le traitement selon la méthode Monte-Carlo.
     /path/to/your/code -par $COMM  -seed $ID
     STATUS=$?
     # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    ```
-*   table.dat
-
-    ```text title="table.dat"
-    12.56
-    21.35
     ...
+    ```
+*   `table.dat`
+    ```bash
+     12.56
+     21.35
+     ...
     ```
 
 !!! note "Remarque 1"
     Si votre code n’a pas besoin de lire d’arguments dans le fichier `table.dat`, il faut quand même générer ce fichier avec le nombre de lignes égal au nombre de cas à traiter. Tout ce qui importe dans le contenu de `table.dat` est le nombre total de lignes. Dans notre exemple, la commande simplifiée serait alors
 
-    `/path/to/your/code -seed $ID`
+    ```
+     /path/to/your/code -seed $ID
+    ```
 
 !!! note "Remarque 2"
     Il n’est pas nécessaire d’inclure les numéros de ligne au début de chaque ligne de `table.dat`. Si le script `submit.run` ne les trouve pas, il modifiera `table.dat` pour y ajouter les numéros de lignes.
 
-### STATUS et traitement des erreurs
+#### STATUS et traitement des erreurs
 
 À quoi sert `STATUS` dans `single_case.sh`? La valeur de cette variable devrait être de 0 si votre cas a été traité correctement, autrement sa valeur sera positive (plus grande que 0). Ceci est très important, car `resubmit.run` l’utilise pour identifier les cas qui ont échoué et qui doivent être traités de nouveau. Dans la version de `single_case.sh` que nous fournissons, `STATUS` est le code de sortie de votre programme. Ceci ne résout pas tous les problèmes parce que certains programmes produisent un code de sortie de 0 même si tout ne s’est pas bien déroulé. Vous pouvez changer la définition de `STATUS` en modifiant `single_case.sh`.
 
@@ -238,12 +364,12 @@ if test ! -s out.dat
 
 ### job_script.sh
 
-!!! note
+!!! note "Remarque"
     La présente section est valide pour les deux modes.
 
 Ce fichier est le script qui sera soumis à l’ordonnanceur pour toutes les métatâches du groupe de cas. La version crée par défaut par `farm_init.run` est
 
-```bash title="job_script.sh"
+```bash
 #!/bin/bash
 # Indiquez les arguments sbatch pour toutes les tâches du groupe de cas.
 # Doit contenir l'option pour la durée d'exécution (soit -t ou --time).
@@ -257,7 +383,8 @@ task.run
 
 Vous devez configurer le nom du compte (option `-A`) et la durée d’exécution (option `-t`) de la métatâche. En mode SIMPLE, indiquez une durée d’exécution un peu plus longue que celle prévue pour le cas individuel qui est de plus longue durée.
 
-**Important :** Le script `job_script.sh` doit contenir une option pour la durée d’exécution, soit `-t` ou `--time`. Ceci ne peut pas être passé à `sbatch` comme argument optionnel pour `submit.run`.
+!!! warning "Important"
+    Le script `job_script.sh` doit contenir une option pour la durée d’exécution, soit `-t` ou `--time`. Ceci ne peut pas être passé à `sbatch` comme argument optionnel pour `submit.run`.
 
 Le problème suivant peut se produire : Une métatâche peut avoir été allouée à un nœud défectueux, ce qui fait immédiatement échouer le programme. Par exemple, votre programme pourrait nécessiter un GPU, mais celui qui vous est assigné fonctionne mal ou encore le système de fichiers `/project` n’est pas disponible. Tout problème avec un nœud devrait être signalé à l’équipe de soutien technique. Si ceci se produit, une seule métatâche incorrecte peut rapidement parcourir `table.dat` et faire échouer tout le groupe de cas. Pour prévenir ce problème, ajoutez des tests à `job_script.sh` avant la ligne `task.run`. Par exemple, la modification suivante teste la présence d’un GPU NVidia et force la fin d’une métatâche avant que des cas échouent
 
@@ -280,7 +407,7 @@ Un mécanisme intégré à META tente de détecter de tels problèmes pour inter
 
 ### Fichiers de sortie
 
-!!! note
+!!! note "Remarque"
     La présente section est valide pour les deux modes.
 
 Une fois qu'une ou plusieurs métatâches sont en cours d'exécution, les fichiers suivants sont créés dans le répertoire du groupe de cas :
@@ -298,7 +425,7 @@ Ce sous-répertoire peut être supprimé une fois que le traitement complet du g
 
 ### Resoumettre les cas qui ont échoué
 
-!!! note
+!!! note "Remarque"
     La présente section est valide pour les deux modes.
 
 La commande `resubmit.run` utilise les mêmes arguments que `submit.run`.
@@ -329,14 +456,18 @@ Le mode SIMPLE (un cas par tâche) fonctionne bien lorsque le nombre de cas est 
 Le mode META est la solution à ces problèmes. Au lieu de soumettre une tâche distincte pour chaque cas, un plus petit nombre de métatâches sont soumises, chacune traitant plusieurs cas. Pour activer le mode META, le premier argument de `submit.run` doit être le nombre souhaité de métatâches, qui doit être un nombre assez petit, soit beaucoup plus petit que le nombre de cas à traiter, par exemple
 
 ```bash
-submit.run 32
+submit.run  32
 ```
 
 Étant donné que chaque cas peut prendre un temps de traitement différent, le mode META utilise un schéma d'équilibrage dynamique de la charge de travail. Voici comment le mode META est implémenté :
 
-Chaque tâche exécute le même script `task.run`. À l'intérieur de ce script, il y a une boucle `while` pour les cas. Chaque itération de la boucle doit passer par une zone critique (c'est-à-dire qu'une seule tâche à la fois peut effectuer certaines opérations), où elle obtient le cas suivant à traiter dans `table.dat`. Ensuite, le script `single_case.sh` (voir [single_case.sh](#single-case.sh)) est exécuté une fois pour ce nouveau cas, ce qui appelle ensuite votre code.
+![](assets/images/meta1.png)
+
+Chaque tâche exécute le même script `task.run`. À l'intérieur de ce script, il y a une boucle `while` pour les cas. Chaque itération de la boucle doit passer par une zone critique (c'est-à-dire qu'une seule tâche à la fois peut effectuer certaines opérations), où elle obtient le cas suivant à traiter dans `table.dat`. Ensuite, le script `single_case.sh` (voir [single_case.sh](#single_case.sh)) est exécuté une fois pour ce nouveau cas, ce qui appelle ensuite votre code.
 
 Cette approche crée un équilibrage dynamique de la charge de travail réalisé par toutes les métatâches actives d’un même groupe de cas. L'algorithme est illustré par le schéma ci-dessous :
+
+![](assets/images/DWB_META.png)
 
 [Cette animation tirée du webinaire META](https://www.youtube.com/watch?v=GcYbaPClwGE&t=423s) en illustre le fonctionnement.
 
@@ -376,7 +507,7 @@ Si le nombre de métatâches dans l'analyse est supérieur à 1000, vous dispose
 submit.run 1000
 resubmit.run 1000
 resubmit.run 1000
-...
+...   
 ```
 
 Si cela semble plutôt fastidieux, envisagez plutôt d'utiliser la fonctionnalité avancée pour [resoumettre automatiquement les cas qui ont échoué](meta-farm-advanced-features-and-troubleshooting.md#resoumettre-automatiquement-les-cas-qui-ont-echoue).
@@ -396,6 +527,7 @@ L'exemple suivant est optimisé pour un très grand nombre de cas. Il suppose, p
 Avec cette configuration, même les très grands groupes de cas (des centaines de milliers, voire des millions) devraient être efficacement exécutés, car relativement peu de fichiers seront créés.
 
 ```bash
+...
 # ++++++++++++++++++++++  Modifiez le code selon vos besoins.  ++++++++++++++++++++++++
 #  Here:
 #  $ID est l'identifiant du cas dans la table d'origine (peut fournir une source unique pour le code, etc.),
@@ -408,6 +540,7 @@ Avec cette configuration, même les très grands groupes de cas (des centaines d
 # État à la sortie du code.
 STATUS=$?
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+...
 ```
 
 ## Assistance supplémentaire
@@ -417,9 +550,8 @@ Pour des détails sur certaines fonctionnalités et des suggestions de dépannag
 Si vous avez besoin de plus d’assistance, contactez le [soutien technique](technical-support.md) et mentionnez le nom de l’outil META et celui de son développeur, Sergey Mashchenko.
 
 ### Terminologie
-
-*   **cas** (*case* en anglais) : Un calcul distinct. Le fichier `table.dat` contient un cas par ligne.
-*   **groupe de cas** (*farm* en anglais) : Répertoire et fichiers utilisés par une instance de META-Farm. En anglais, le *farming* est la pratique d’exécuter sur une grappe plusieurs tâches distinctes qui effectuent des calculs de même nature.
-*   **métatâche** (*metajob* en anglais) : Tâche pouvant traiter séparément plusieurs cas en provenance de `table.dat`.
+*   **cas** (*case*) : Un calcul distinct. Le fichier `table.dat` contient un cas par ligne.
+*   **groupe de cas** (*farm*) : Répertoire et fichiers utilisés par une instance de META-Farm. En anglais, le *farming* est la pratique d’exécuter sur une grappe plusieurs tâches distinctes qui effectuent des calculs de même nature.
+*   **métatâche** (*metajob*) : Tâche pouvant traiter séparément plusieurs cas en provenance de `table.dat`.
 *   **mode META** : Mode d’opération où chaque tâche peut traiter plusieurs cas en provenance de `table.dat`.
 *   **mode SIMPLE** : Mode d’opération où chaque tâche peut traiter un seul cas en provenance de `table.dat`.

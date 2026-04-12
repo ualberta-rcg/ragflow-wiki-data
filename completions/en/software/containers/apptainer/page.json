@@ -1,0 +1,135 @@
+{
+  "doc_key": "en/apptainer",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is the primary purpose of this documentation regarding Apptainer on Alliance systems?",
+      "answer": "This documentation summarizes basic Apptainer use, details its application on Alliance systems, and provides relevant examples, supplementing the official Apptainer documentation."
+    },
+    {
+      "question": "What is recommended for users currently using Singularity?",
+      "answer": "Users currently using Singularity are strongly recommended to switch to Apptainer, as Apptainer is the renamed SingularityCE (v3.9.5 and newer) with specific changes."
+    },
+    {
+      "question": "What are some key changes when migrating from Singularity to Apptainer?",
+      "answer": "Key changes include added support for DMTCP checkpointing, removal of `--nvccli` and `apptainer build --remote`, replacement of SylabsCloud endpoint, and renaming of all `singularity` related executables, paths, and environment variables to `apptainer`."
+    },
+    {
+      "question": "Is Apptainer version 1 backwards compatible with Singularity?",
+      "answer": "Yes, Apptainer version 1 is backwards compatible with Singularity, allowing for incremental script porting."
+    },
+    {
+      "question": "Why is Docker not available on Alliance HPC clusters?",
+      "answer": "Using Docker on a multi-user cluster creates security risks, so it is not made available on Alliance HPC clusters."
+    },
+    {
+      "question": "Can an Apptainer image be created from a Docker image?",
+      "answer": "Yes, in many cases, an Apptainer image can be built from a Docker image, or you can use Docker on your own computer to create an Apptainer image for upload to an HPC cluster."
+    },
+    {
+      "question": "What is required to use Apptainer?",
+      "answer": "To use Apptainer, you must have a container image, such as a `.sif` file or a sandbox directory, and you will need to install or build any necessary software within your container."
+    },
+    {
+      "question": "Is `sudo` access available on Alliance clusters?",
+      "answer": "No, the ability to use `sudo` for superuser/root permissions is not available on Alliance clusters."
+    },
+    {
+      "question": "What are the options if `sudo` is required to build an Apptainer image?",
+      "answer": "Options include installing Apptainer and `sudo` in a virtual machine on your own system, submitting a ticket to Alliance staff for assistance, or using `apptainer --fakeroot` (especially with Apptainer version 1.1.x and newer)."
+    },
+    {
+      "question": "What considerations should be made when building container images or overlays on Alliance systems?",
+      "answer": "Avoid building sandbox images with `--fakeroot` on networked filesystems, explicitly set `APPTAINER_CACHEDIR` to a non-networked location, set `APPTAINER_TMPDIR` to a non-Lustre/GPFS location, and avoid using Lustre/GPFS filesystems for building."
+    },
+    {
+      "question": "How do I load the default version of Apptainer?",
+      "answer": "You can load the default version of Apptainer by running the command: `$ module load apptainer`."
+    },
+    {
+      "question": "Why is it important to use specific command line options when running Apptainer programs?",
+      "answer": "It is important to use specific command line options to isolate the container from the host's shell environment and filesystems, preventing potential issues with differing libraries and tools."
+    },
+    {
+      "question": "What does the `-C` option do when running an Apptainer container?",
+      "answer": "The `-C` option isolates the running container from all filesystems, the parent PID, IPC, and environment, requiring bind mounts if external filesystem access is needed."
+    },
+    {
+      "question": "What does the `-W` or `--workdir` option achieve in Apptainer?",
+      "answer": "The `-W` or `--workdir` option tells Apptainer to use a specified disk location for its working directory, which helps prevent jobs from being killed due to excessive RAM consumption when `/tmp` uses RAM."
+    },
+    {
+      "question": "How should the working directory be set in Apptainer jobs on Alliance clusters?",
+      "answer": "For jobs using `salloc`, `sbatch`, or JupyterHub, use `${SLURM_TMPDIR}` as the working directory location, for example, `-W ${SLURM_TMPDIR}`."
+    },
+    {
+      "question": "What Apptainer options are necessary when using NVIDIA or AMD GPUs?",
+      "answer": "When using NVIDIA hardware, pass `--nv`, and for AMD hardware, pass `--rocm` to Apptainer commands, ensuring proper `/dev` entries and library binding."
+    },
+    {
+      "question": "How can I view help documentation for a specific Apptainer container?",
+      "answer": "You can view container-specific help by running `apptainer run-help your-container-name.sif`, or `apptainer run-help --app appname your-container-name.sif` for a specific app."
+    },
+    {
+      "question": "What is the difference between `apptainer run` and `apptainer exec`?",
+      "answer": "The `apptainer run` command executes the container's `%runscript` first, then your specified command, while `apptainer exec` only runs your specified command without the `%runscript`."
+    },
+    {
+      "question": "When should I use `apptainer shell`?",
+      "answer": "You should use `apptainer shell` when you need to interactively run commands and work inside a container."
+    },
+    {
+      "question": "What option is crucial for saving changes to a persistent overlay image during an `apptainer shell` session?",
+      "answer": "It is crucial to pass the `-w` or `--writable` option to your container to ensure any changes made to the image in the `apptainer shell` session are saved."
+    },
+    {
+      "question": "How are daemons meant to be run in Apptainer on clusters?",
+      "answer": "Daemons are meant to be run using `apptainer instance` commands, which ensures proper integration with schedulers like Slurm and prevents hanging or defunct processes if the job is terminated."
+    },
+    {
+      "question": "Why are bind mounts used in Apptainer?",
+      "answer": "Bind mounts are used in Apptainer to access disk space originating outside of the container, especially when using isolation options like `-C` or `-c`."
+    },
+    {
+      "question": "How can I bind mount my current directory into an Apptainer container?",
+      "answer": "You can bind mount your current directory using the `-B .` option, for example: `apptainer run -C -B . -W $SLURM_TMPDIR a-container.sif myprogram`."
+    },
+    {
+      "question": "Why should `/home` be bind-mounted to an alternate destination directory like `/cluster_home`?",
+      "answer": "Using an alternate destination like `-B /home:/cluster_home` prevents configuration files and programs in your host home directory from interfering with software inside your container."
+    },
+    {
+      "question": "What are the two main formats for Apptainer images?",
+      "answer": "Apptainer images can be created as an `SIF` file or as a sandbox directory."
+    },
+    {
+      "question": "What are the advantages of using an `SIF` file for an Apptainer image?",
+      "answer": "`SIF` files are preferred because they are compressed, read-only (which ensures consistency), smaller in size, and offer faster disk reads than sandbox directories."
+    },
+    {
+      "question": "What are the characteristics of a sandbox directory image?",
+      "answer": "A sandbox directory image is a normal directory, uncompressed, can be read-write, but consumes significant disk space and file count quotas, and has slower disk access speeds compared to `SIF` files."
+    },
+    {
+      "question": "How can you build an Apptainer SIF file image from a Docker image?",
+      "answer": "You can build an Apptainer SIF file image from a Docker image using the `apptainer build` command, for example: `apptainer build bb.sif docker://busybox`."
+    },
+    {
+      "question": "How do you build a sandbox image instead of an SIF file?",
+      "answer": "To build a sandbox image, you use the `--sandbox DIR_NAME` or `-s DIR_NAME` option with the `apptainer build` command, replacing the SIF filename with a directory name, e.g., `apptainer build --sandbox bb.dir docker://busybox`."
+    },
+    {
+      "question": "How can you convert a Dockerfile into an Apptainer SIF container (on a system with Docker and Apptainer privileges)?",
+      "answer": "On a system with Docker and Apptainer, you can `docker build`, `docker save` the image to a tarball, then use `apptainer build --fakeroot your-sif-name.sif docker-archive://your-tarball-name.tar` to create the SIF file."
+    },
+    {
+      "question": "How can you clean Apptainer's cache directory?",
+      "answer": "You can list cached files with `apptainer cache list` and remove them with `apptainer cache clean`."
+    },
+    {
+      "question": "Which environment variables can be set to override Apptainer's default temporary and cache directories?",
+      "answer": "You can set `APPTAINER_CACHEDIR` for the cache directory and `APPTAINER_TMPDIR` for temporary files before running Apptainer commands."
+    }
+  ],
+  "generated_at": "2026-04-11T17:30:38.185030+00:00"
+}

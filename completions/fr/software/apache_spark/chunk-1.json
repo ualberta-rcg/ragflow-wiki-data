@@ -1,0 +1,68 @@
+{
+  "doc_key": "fr/apache_spark",
+  "level": "chunk",
+  "chunk_index": 1,
+  "qa_pairs": [
+    {
+      "question": "C'est quoi, Apache Spark?",
+      "answer": "Apache Spark est une framework de calcul distribuée open source."
+    },
+    {
+      "question": "Par qui Apache Spark a-t-il été développé à la base?",
+      "answer": "Apache Spark a été développé initialement par l'AMPLab de l'Université Berkeley."
+    },
+    {
+      "question": "Qui gère le projet Apache Spark maintenant?",
+      "answer": "C'est maintenant un projet de la fondation Apache."
+    },
+    {
+      "question": "Quelle est la principale différence entre Apache Spark et l'algorithme MapReduce de Hadoop en termes de stockage?",
+      "answer": "Contrairement à l'algorithme MapReduce implémenté par Hadoop qui utilise le stockage sur disque, Spark utilise des primitives conservées en mémoire."
+    },
+    {
+      "question": "À quelle vitesse Spark peut-il être plus performant que Hadoop pour certaines applications?",
+      "answer": "Spark peut atteindre des performances jusqu'à 100 fois plus rapides pour certaines applications."
+    },
+    {
+      "question": "Pourquoi Spark est-il particulièrement approprié pour l'apprentissage automatique et l'analyse de données interactive?",
+      "answer": "Le chargement des données en mémoire permet de les interroger fréquemment, ce qui fait de Spark une framework particulièrement approprié pour l'apprentissage automatique et l'analyse de données interactive."
+    },
+    {
+      "question": "Quels modules sont requis pour exécuter une application PySpark selon le script d'exemple `pyspark_submit.sh`?",
+      "answer": "Les modules requis sont `spark/2.3.0` et `python/3.7`."
+    },
+    {
+      "question": "Quelle est la valeur recommandée pour la variable d'environnement `MKL_NUM_THREADS` lors de l'appel des routines Intel MKL dans les scripts Spark?",
+      "answer": "La valeur recommandée est `MKL_NUM_THREADS=1`."
+    },
+    {
+      "question": "Comment le script `pyspark_submit.sh` détermine-t-il l'URL du maître Spark?",
+      "answer": "L'URL du maître Spark est trouvée en utilisant `grep -Po '(?=spark://).*' $SPARK_LOG_DIR/spark-${SPARK_IDENT_STRING}-org.apache.spark.deploy.master*.out`."
+    },
+    {
+      "question": "Quelle commande est utilisée pour démarrer les processus esclaves (workers) de Spark dans le script PySpark?",
+      "answer": "La commande utilisée est `srun -n ${NWORKERS} -N ${NWORKERS} --label --output=$SPARK_LOG_DIR/spark-%j-workers.out start-slave.sh -m ${SLURM_SPARK_MEM}M -c ${SLURM_CPUS_PER_TASK} ${MASTER_URL} &`."
+    },
+    {
+      "question": "Comment soumet-on une application PySpark à la grappe Spark dans le script d'exemple `pyspark_submit.sh`?",
+      "answer": "On utilise la commande `srun -n 1 -N 1 spark-submit --master ${MASTER_URL} --executor-memory ${SLURM_SPARK_MEM}M $SPARK_HOME/examples/src/main/python/pi.py`."
+    },
+    {
+      "question": "Comment les processus maître et esclave de Spark sont-ils arrêtés à la fin du script `pyspark_submit.sh`?",
+      "answer": "Ils sont arrêtés en exécutant `kill $slaves_pid` suivi de `stop-master.sh`."
+    },
+    {
+      "question": "Quel module est chargé pour les applications Spark utilisant des fichiers JAR Java, tel que démontré dans `pyspark_java_submit.sh`?",
+      "answer": "Le module `spark/2.3.0` est chargé."
+    },
+    {
+      "question": "Nommez une des classes d'application Java JAR d'exemple qui sont soumises dans le script `pyspark_java_submit.sh`.",
+      "answer": "Les classes d'application incluent `org.apache.spark.examples.SparkPi` et `org.apache.spark.examples.SparkLR`."
+    },
+    {
+      "question": "Comment les journaux d'activités des applications Spark peuvent-ils être consultés après leur exécution?",
+      "answer": "Les journaux d'activités peuvent être sauvegardés et consultés par la suite à l'aide d'une application web fournie avec Spark."
+    }
+  ],
+  "generated_at": "2026-04-11T17:24:11.661880+00:00"
+}

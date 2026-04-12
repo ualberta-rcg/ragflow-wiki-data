@@ -1,0 +1,64 @@
+{
+  "doc_key": "fr/alphafold2",
+  "level": "chunk",
+  "chunk_index": 5,
+  "qa_pairs": [
+    {
+      "question": "Quelles sont les dépendances de modules à charger pour lancer AlphaFold 2.3, selon les scripts d'exécution?",
+      "answer": "Il faut charger les modules suivants : `StdEnv/2020`, `gcc/9.3.0`, `openmpi/4.0.3`, `cuda/11.4`, `cudnn/8.2.0`, `kalign/2.03`, `hmmer/3.2.1`, `openmm-alphafold/7.5.1`, `hh-suite/3.3.0` et `python/3.8`."
+    },
+    {
+      "question": "Comment crée-t-on et active-t-on un environnement virtuel Python temporaire pour AlphaFold 2.3 dans les scripts de soumission?",
+      "answer": "On crée l'environnement virtuel avec la commande `virtualenv --no-download ${SLURM_TMPDIR}/env` et on l'active avec `source ${SLURM_TMPDIR}/env/bin/activate`."
+    },
+    {
+      "question": "Une fois l'environnement virtuel activé, quelles commandes `pip` sont utilisées pour installer AlphaFold 2.3 et ses dépendances?",
+      "answer": "Les commandes sont `pip install --no-index --upgrade pip` puis `pip install --no-index --requirement ~/alphafold-requirements.txt`."
+    },
+    {
+      "question": "Quels sont les chemins par défaut configurés pour les répertoires de données (`DOWNLOAD_DIR`), d'entrée (`INPUT_DIR`) et de sortie (`OUTPUT_DIR`) dans les scripts AlphaFold 2.3?",
+      "answer": "Les chemins par défaut sont `DOWNLOAD_DIR=$SCRATCH/alphafold/data`, `INPUT_DIR=$SCRATCH/alphafold/input` et `OUTPUT_DIR=${SCRATCH}/alphafold/output`."
+    },
+    {
+      "question": "Quels sont les paramètres `SBATCH` définis pour une tâche AlphaFold 2.3 qui utilise uniquement le CPU, comme dans le script `alphafold-2.3-cpu.sh`?",
+      "answer": "Les paramètres `SBATCH` incluent `--job-name=alphafold_run`, `--account=def-someprof`, `--time=08:00:00`, `--cpus-per-task=8` et `--mem=20G`."
+    },
+    {
+      "question": "Quels paramètres `SBATCH` sont spécifiés pour une tâche AlphaFold 2.3 utilisant un GPU, tel que montré dans le script `alphafold-2.3-gpu.sh`?",
+      "answer": "En plus des paramètres pour CPU, le script GPU inclut `--gres=gpu:1` pour demander un GPU."
+    },
+    {
+      "question": "Combien de cœurs CPU AlphaFold 2.3 est-il configuré pour utiliser au maximum, et quel est l'impact sur la performance?",
+      "answer": "AlphaFold est codé en dur pour utiliser un maximum de 8 cœurs CPU (`--cpus-per-task=8`), car il ne tire pas avantage d'en utiliser davantage."
+    },
+    {
+      "question": "Comment un GPU contribue-t-il à l'exécution d'AlphaFold 2.3?",
+      "answer": "Un GPU aide à accélérer la partie d'inférence de l'exécution d'AlphaFold seulement."
+    },
+    {
+      "question": "Quels sont les préréglages pour la base de données (`--db_preset`) et le modèle (`--model_preset`) utilisés dans les scripts d'exécution d'AlphaFold 2.3?",
+      "answer": "Les scripts utilisent `--db_preset=full_dbs` et `--model_preset=multimer`."
+    },
+    {
+      "question": "Quelle est la date limite pour les gabarits de protéines (`--max_template_date`) dans les scripts d'exécution d'AlphaFold 2.3?",
+      "answer": "La date limite pour les gabarits est fixée au 1er janvier 2022 (`--max_template_date=2022-01-01`)."
+    },
+    {
+      "question": "Quel argument dans la commande `run_alphafold.py` permet de spécifier les fichiers de séquences d'entrée?",
+      "answer": "L'argument `--fasta_paths` est utilisé pour spécifier les chemins vers les fichiers FASTA, comme `--fasta_paths=${INPUT_DIR}/YourSequence.fasta,${INPUT_DIR}/AnotherSequence.fasta`."
+    },
+    {
+      "question": "Comment l'option `--use_gpu_relax` est-elle définie différemment entre les scripts AlphaFold 2.3 CPU et GPU?",
+      "answer": "Dans le script CPU, `--use_gpu_relax` est réglé à `False`, tandis que dans le script GPU, il est réglé à `True`."
+    },
+    {
+      "question": "Nommez deux exemples de chemins vers des bases de données spécifiques qui sont configurés dans la commande `run_alphafold.py` pour AlphaFold 2.3.",
+      "answer": "On retrouve `--bfd_database_path=${DOWNLOAD_DIR}/bfd/bfd_metaclust_clu_complete_id30_c90_final_seq.sorted_opt` et `--mgnify_database_path=${DOWNLOAD_DIR}/mgnify/mgy_clusters_2022_05.fa`, entre autres."
+    },
+    {
+      "question": "Quels sont les chemins binaires pour les outils externes comme `hhblits` et `kalign` spécifiés dans les scripts d'exécution d'AlphaFold 2.3?",
+      "answer": "Les chemins sont `--hhblits_binary_path=${EBROOTHHMINSUITE}/bin/hhblits` et `--kalign_binary_path=${EBROOTKALIGN}/bin/kalign`."
+    }
+  ],
+  "generated_at": "2026-04-11T16:37:00.084886+00:00"
+}

@@ -1,0 +1,88 @@
+{
+  "doc_key": "base/r",
+  "level": "chunk",
+  "chunk_index": 3,
+  "qa_pairs": [
+    {
+      "question": "How do you install the `sp` package, which provides classes and methods for spatial data, on a login node?",
+      "answer": "To install the `sp` package, you can use the command `install.packages('sp', repos='https://cloud.r-project.org/')` on a login node."
+    },
+    {
+      "question": "What happens if the `repos` argument is not specified when installing an R package?",
+      "answer": "If the `repos` argument is not specified, you will be prompted to select an appropriate mirror for download, ideally one geographically close to your cluster."
+    },
+    {
+      "question": "Which environment variable might some R packages require to be defined before installation?",
+      "answer": "Some R packages require defining the environment variable `TMPDIR` before installing."
+    },
+    {
+      "question": "How do you set up a local installation directory for R packages that is specific to the currently loaded R module version?",
+      "answer": "You can set up a local installation directory by first creating it with `mkdir -p ~/.local/R/$EBVERSIONR/` and then exporting `export R_LIBS=~/.local/R/$EBVERSIONR/`."
+    },
+    {
+      "question": "What command can be used to install an R package like 'sp' into a locally defined library for a specific R version?",
+      "answer": "After setting the local library directory, you can install the package using `R -e 'install.packages(\"sp\", repos=\"https://cloud.r-project.org/\")'`."
+    },
+    {
+      "question": "What must be included in your submission script when using R packages installed in a local library directory for a specific R module version?",
+      "answer": "In your submission script, you must load the desired R module and set the local library directory with `export R_LIBS=~/.local/R/$EBVERSIONR/`."
+    },
+    {
+      "question": "What should be done if an R package depends on external libraries already installed on the clusters?",
+      "answer": "If the external library you need is listed at 'Available software', then you should load the appropriate module for that library before installing the R package that requires it."
+    },
+    {
+      "question": "Which external library is required by the `rgdal` R package?",
+      "answer": "The `rgdal` package requires a library called `gdal`."
+    },
+    {
+      "question": "How can you determine how to load a specific module, such as `gdal/3.9.1`?",
+      "answer": "You can determine how to load a specific module by running `module spider gdal/3.9.1`."
+    },
+    {
+      "question": "What action should you take if an R package fails to install?",
+      "answer": "If any R package fails to install, be sure to read the error message carefully as it might provide details concerning additional modules you need to load."
+    },
+    {
+      "question": "How do you install an R package that has been downloaded manually, rather than using `install.packages()`?",
+      "answer": "To install a manually downloaded package (e.g., `archive_package.tgz`), run `R CMD INSTALL -l 'path for your local (home) R library' archive_package.tgz` in a shell."
+    },
+    {
+      "question": "What is the function of the `system()` command in R?",
+      "answer": "The `system()` command in R allows you to execute commands in the ambient environment from inside R."
+    },
+    {
+      "question": "What issue can arise when using the `system()` command in R on clusters?",
+      "answer": "When using the `system()` command in R on clusters, R can give an incorrect value to the environment variable `LD_LIBRARY_PATH`, leading to problems."
+    },
+    {
+      "question": "How can you avoid issues with the `LD_LIBRARY_PATH` environment variable when using `system()` calls in R on clusters?",
+      "answer": "You can avoid `LD_LIBRARY_PATH` issues by using the syntax `system(\"LD_LIBRARY_PATH=$RSNT_LD_LIBRARY_PATH <my system call>\")` in your R system calls."
+    },
+    {
+      "question": "What are the benefits of passing arguments to R scripts?",
+      "answer": "Passing arguments to R scripts can be useful for specifying input or output filenames and numerical parameters, avoiding the need to change the R script for every job or manage multiple identical scripts."
+    },
+    {
+      "question": "How can parameters be passed to an R script when it is executed?",
+      "answer": "Parameters can be passed to an R script by including them after the script name in the `Rscript` command, such as `Rscript myscript.R input_1.csv 5`."
+    },
+    {
+      "question": "How do you access command-line arguments within an R script?",
+      "answer": "You can access command-line arguments within an R script using `args = commandArgs(trailingOnly=TRUE)`."
+    },
+    {
+      "question": "How can an R script verify that a minimum number of command-line arguments have been provided?",
+      "answer": "An R script can verify the number of arguments using a conditional statement like `if (length(args)<2)` and then `stop()` to report an error if insufficient arguments are supplied."
+    },
+    {
+      "question": "How is a command-line argument converted to an integer within an R script?",
+      "answer": "A command-line argument can be converted to an integer within an R script using `as.integer( args[index] )`."
+    },
+    {
+      "question": "What is the command to run the example script `arguments_test.R` with \"Hello\" as a string and 42 as an integer?",
+      "answer": "The script can be used with the command `Rscript arguments_test.R Hello 42`."
+    }
+  ],
+  "generated_at": "2026-04-12T06:10:01.752989+00:00"
+}

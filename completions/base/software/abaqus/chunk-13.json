@@ -4,81 +4,73 @@
   "chunk_index": 13,
   "qa_pairs": [
     {
-      "question": "What `abaqus` command is used to restart an explicit analysis job with Abaqus version 2021 when using the temporary directory restart script?",
-      "answer": "For Abaqus version 2021, the command is: `/cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr/bin/unshare --fork --pid --mount-proc --user --map-user $USER abaqus job=testet2 input=$SLURM_SUBMIT_DIR/myexp-sim.inp recover scratch=$SLURM_TMPDIR cpus=$SLURM_CPUS_ON_NODE interactive mp_mode=threads memory=\"$((${SLURM_MEM_PER_NODE}-3072))MB\"`."
+      "question": "Are input file modifications necessary to restart an explicit analysis using the temporary directory restart script?",
+      "answer": "No, input file modifications are not required to restart an explicit analysis when using the temporary directory restart script."
     },
     {
-      "question": "Are any input file modifications needed to restart an explicit analysis using the temporary directory restart script?",
-      "answer": "No, input file modifications are not required to restart the analysis when using the temporary directory restart script for explicit analysis."
+      "question": "For which types of users is the multiple node computing script for explicit analysis intended?",
+      "answer": "The multiple node computing script for explicit analysis is intended for users with large memory or compute needs, and who have access to large licenses."
     },
     {
-      "question": "How is data periodically saved to the submit directory from the temporary directory when using the explicit analysis temporary directory restart script?",
-      "answer": "Data is saved by a background process that runs `cp -f * $SLURM_SUBMIT_DIR 2>/dev/null` every 3 hours from within the `$SLURM_TMPDIR`."
+      "question": "Why is a template script for restarting multi-node explicit analysis jobs not provided?",
+      "answer": "A template script for restarting multi-node explicit analysis jobs is not provided due to additional limitations on how they can be used."
     },
     {
-      "question": "What Abaqus module version is specified as the latest for the explicit analysis temporary directory restart script?",
-      "answer": "The script specifies `module load abaqus/2026` as the latest version, but also lists `abaqus/2021` as an alternative."
+      "question": "Which Abaqus versions are compatible with the multiple node computing script for explicit analysis?",
+      "answer": "Only Abaqus/2026 or newer versions may be used with this script."
     },
     {
-      "question": "Who can use the multiple node computing script for explicit analysis jobs?",
-      "answer": "Users with large memory or compute needs, and corresponding access to large licenses, can use the multiple node computing script for explicit analysis jobs to perform MPI-based computing over an arbitrary range of nodes."
+      "question": "What is the purpose of the `scriptep1-mpi.txt` script?",
+      "answer": "The `scriptep1-mpi.txt` script is used to perform MPI-based computing for explicit analysis over an arbitrary range of nodes, which the scheduler automatically determines."
     },
     {
-      "question": "Which Abaqus versions are supported for multiple node computing in explicit analysis?",
-      "answer": "Only Abaqus/2026 or newer may be used with the multiple node computing script for explicit analysis."
+      "question": "How can I obtain an estimate for the total Slurm node memory required for a simulation to run fully in RAM?",
+      "answer": "An estimate for the total Slurm node memory (--mem=) required for a simulation to run fully in RAM can be obtained by examining the Abaqus output `test.dat` file."
     },
     {
-      "question": "Is a template script for restarting multinode explicit analysis jobs provided?",
-      "answer": "No, a companion template script to perform restarts of multinode explicit analysis jobs is not provided due to additional limitations on how they can be used."
+      "question": "What information does the `MEMORY ESTIMATE` section in the Abaqus `test.dat` file provide?",
+      "answer": "The `MEMORY ESTIMATE` section in the Abaqus `test.dat` file provides the 'MINIMUM MEMORY REQUIRED (MB)' and 'MEMORY TO MINIMIZE I/O (MB)' for a process."
     },
     {
-      "question": "What are the recommended Slurm directives for the `scriptep1-mpi.txt` script for explicit analysis multiple node computing?",
-      "answer": "The recommended Slurm directives are: `--account=def-group`, `--time=00-06:00`, `--ntasks=8`, `--mem-per-cpu=16000M`, and `--cpus-per-task=1`. The `--nodes` directive is optional."
+      "question": "How can one alternatively estimate total memory for a single node threaded Abaqus process?",
+      "answer": "Alternatively, a total memory estimate for a single node threaded process can be obtained by running the simulation interactively on a compute node and monitoring memory use with the `top` or `ps` command."
     },
     {
-      "question": "How is the `mp_host_list` environment variable configured in the `scriptep1-mpi.txt` script for multiple node explicit analysis?",
-      "answer": "The `mp_host_list` is generated by using `slurm_hl2hl.py` to get the MPI host list, which is then processed to create a Python-like list of hostnames and core counts. This list is then exported as `mp_host_list` and written to `abaqus_v6.env`."
+      "question": "What are the initial steps to interactively monitor memory usage for an Abaqus simulation?",
+      "answer": "First, obtain an allocation on a compute node using `salloc`, load the `StdEnv/2020` and `abaqus/2021` modules, unset `SLURM_GTIDS`, and then start your Abaqus simulation with the specified command, including `interactive` mode."
     },
     {
-      "question": "What are the two main methods for estimating memory requirements for Abaqus simulations?",
-      "answer": "Memory requirements can be estimated by examining the Abaqus output `test.dat` file or by running the simulation interactively on a compute node and monitoring memory usage with the `top` (or `ps`) command."
+      "question": "After starting an interactive Abaqus simulation, how do I monitor its memory usage on the compute node?",
+      "answer": "After starting the simulation, SSH into the compute node (e.g., `ssh c50`) and then run `top -u $USER`."
     },
     {
-      "question": "How can one obtain an estimate for the total Slurm node memory required for an Abaqus simulation to run entirely in RAM?",
-      "answer": "An estimate for the total Slurm node memory (`--mem=`) required for a simulation to run fully in RAM can be obtained by examining the Abaqus output `test.dat` file."
+      "question": "Which `top` command columns should be watched to observe steady peak memory values?",
+      "answer": "You should watch the `VIRT` and `RES` columns in the `top` command output until steady peak memory values are observed."
     },
     {
-      "question": "What memory values are typically provided in the `test.dat` file's \"MEMORY ESTIMATE\" section for a single process?",
-      "answer": "The \"MEMORY ESTIMATE\" section typically provides values for \"MINIMUM MEMORY REQUIRED (MB)\" and \"MEMORY TO MINIMIZE I/O (MB)\"."
+      "question": "What is required to fully satisfy the 'MEMORY TO MINIMIZE I/O' (MRMIO) value in Abaqus?",
+      "answer": "To completely satisfy the recommended 'MEMORY TO MINIMIZE I/O' (MRMIO) value, at least the same amount of non-swapped physical memory (RES) must be available to Abaqus."
     },
     {
-      "question": "Describe the interactive method to estimate memory for a single node threaded Abaqus process.",
-      "answer": "First, obtain a compute node allocation using `salloc`, then load the necessary modules (`StdEnv/2020`, `abaqus/2021`), unset `SLURM_GTIDS`, and start the Abaqus simulation. Next, SSH into the compute node and run `top -u $USER` to monitor the VIRT and RES columns until steady peak memory values are observed."
+      "question": "Why is it necessary to slightly over-allocate the requested Slurm node memory (`--mem=`) for Abaqus simulations?",
+      "answer": "It is necessary to slightly over-allocate the requested Slurm node memory (`--mem=`) because the Resident Set Size (RES) will generally be less than the Virtual Memory (VIRT) by a relatively constant amount for a given simulation."
     },
     {
-      "question": "What is the relationship between \"MEMORY TO MINIMIZE I/O\" (MRMIO) and physical memory (RES) for Abaqus simulations?",
-      "answer": "To completely satisfy the recommended MRMIO value, at least the same amount of non-swapped physical memory (RES) must be available to Abaqus."
+      "question": "What is the conservative memory over-allocation value hardcoded in the sample Slurm scripts for Abaqus?",
+      "answer": "The conservative memory over-allocation value hardcoded in the sample Slurm scripts is 3072MB, based on initial testing of the standard Abaqus solver."
     },
     {
-      "question": "Why is it generally necessary to slightly over-allocate the requested Slurm node memory (`--mem=`) for Abaqus simulations?",
-      "answer": "It's necessary because the RES (resident memory) will generally be less than the VIRT (virtual memory) by some relatively constant amount for a given simulation. A conservative over-allocation of 3072MB is typically hardcoded based on initial testing of the standard Abaqus solver."
+      "question": "How can one investigate the performance impact of reducing RES memory below MRMIO to avoid long queue wait times?",
+      "answer": "You can investigate this by lowering the `--mem=` value in your Slurm script, which will set an artificially low `memory=` value in the Abaqus command."
     },
     {
-      "question": "How can a researcher investigate the simulation performance impact associated with reducing the RES memory available to Abaqus significantly below the MRMIO?",
-      "answer": "This can be done by lowering the `--mem=` value in the Slurm script, which in turn sets an artificially low `memory=` value in the Abaqus command. Researchers can run a series of short test jobs with different `--mem=` values (e.g., 8G, 16G, 32G, 64G) until an acceptable minimal performance impact is found."
+      "question": "What happens if the RES memory dips below the 'MINIMUM MEMORY REQUIRED' (MMR) during an Abaqus simulation?",
+      "answer": "If the RES memory dips below the 'MINIMUM MEMORY REQUIRED' (MMR), Abaqus will exit due to an Out of Memory (OOM) error."
     },
     {
-      "question": "What is the \"MINIMUM MEMORY REQUIRED\" (MMR) for Abaqus, and what happens if the RES dips below it?",
-      "answer": "The MMR is the absolute minimum memory required for Abaqus to run. If the RES dips below the MMR, Abaqus will exit due to an Out of Memory (OOM) error."
-    },
-    {
-      "question": "What is a consequence of providing significantly less RES memory to Abaqus than the MRMIO value?",
-      "answer": "If less RES memory is provided than the MRMIO value, smaller values will result in increasingly larger scratch space used by temporary files."
-    },
-    {
-      "question": "What is an example `salloc` command to obtain a compute node allocation for interactive memory monitoring?",
-      "answer": "An example `salloc` command is: `salloc --time=0:30:00 --cpus-per-task=8 --mem=64G --account=def-piname`."
+      "question": "If my MRMIO is 96GB, how should I test for an acceptable minimal performance impact by adjusting memory?",
+      "answer": "You should try running a series of short test jobs with `#SBATCH --mem=8G, 16G, 32G, 64G` until an acceptable minimal performance impact is found."
     }
   ],
-  "generated_at": "2026-04-10T00:26:40.712934+00:00"
+  "generated_at": "2026-04-11T15:28:57.441579+00:00"
 }

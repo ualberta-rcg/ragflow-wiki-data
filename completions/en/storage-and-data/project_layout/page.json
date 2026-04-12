@@ -1,0 +1,67 @@
+{
+  "doc_key": "en/project_layout",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "How are project filesystems organized on the compute clusters?",
+      "answer": "Project filesystems on the compute clusters are organized on the basis of groups."
+    },
+    {
+      "question": "What is the usual way to access project space, and what is the typical path?",
+      "answer": "The normal method to access project space is via symbolic links in your home directory, usually found at `$HOME/projects/group_name`. On Rorqual and Trillium clusters, the path is `$HOME/links/projects/group_name`."
+    },
+    {
+      "question": "What are the default permissions for files in group project space?",
+      "answer": "The project space is owned by the principal investigator (PI) for the group, with members having read and write permissions on the directory. By default, newly created files are only readable by group members."
+    },
+    {
+      "question": "How can a group create a directory where new files are writeable by all group members?",
+      "answer": "To create a group-writable directory, first make the directory (e.g., `mkdir $HOME/projects/def-profname/group_writable`), then apply an ACL with `setfacl -d -m g::rwx $HOME/projects/def-profname/group_writable`."
+    },
+    {
+      "question": "What is the default disk quota for a group's project space?",
+      "answer": "The default quota for a group's project space is 1 TB and 500,000 files."
+    },
+    {
+      "question": "Can a group's project space quota be increased, and how?",
+      "answer": "Yes, the quota can be increased up to 40 TB upon request to Technical Support. Significantly higher quotas may also be awarded through the annual Resource Allocation Competition."
+    },
+    {
+      "question": "How can I check the current usage and available disk space for my project?",
+      "answer": "You can check current usage and available disk space using the `diskusage_report` command."
+    },
+    {
+      "question": "What is the purpose of setting the `setgid` bit on a project directory?",
+      "answer": "Setting the `setgid` bit on a directory ensures that every new file and subdirectory created within it inherits the same group as the ambient directory, helping files count against the expected quota."
+    },
+    {
+      "question": "What command is used to set the `setgid` bit on a directory?",
+      "answer": "You can set the `setgid` bit on a directory using the command `chmod g+s <directory name>`."
+    },
+    {
+      "question": "How can I temporarily change my default group during an interactive session?",
+      "answer": "You can temporarily change your default group for an interactive session using the `newgrp` command, for example, `newgrp rrg-profname-ab`."
+    },
+    {
+      "question": "What is a common reason for a 'disk quota exceeded' error in project filesystems?",
+      "answer": "A common reason for a 'disk quota exceeded' error is that files are associated with the wrong group, typically your personal group, which has a very small quota of only 2 MB."
+    },
+    {
+      "question": "How can I fix files that are associated with the wrong group, causing quota issues?",
+      "answer": "To fix files associated with the wrong group, use the command `find <directory name> -group $USER -print0 | xargs -0 chgrp -h <group>`, replacing `<group>` with your actual project group (e.g., `def-profname`)."
+    },
+    {
+      "question": "For a PI and a sponsored user, where is the best place to share data?",
+      "answer": "The best place for a PI and a sponsored user to share data is in their shared project directory, such as `~/projects/def-sue` for a default group, or `~/projects/rrg-sue-ab` if a RAC award is involved."
+    },
+    {
+      "question": "How can data be shared with a researcher who doesn't have an Alliance account?",
+      "answer": "Data can be shared with researchers who don't have an Alliance account using a Globus shared endpoint."
+    },
+    {
+      "question": "What are the recommended uses for `scratch`, `home`, and `project` space?",
+      "answer": "`scratch` space is for private temporary files, `home` space is for small amounts of relatively private data (like job scripts), and `project` space is for shared, persistent, backed-up research group data."
+    }
+  ],
+  "generated_at": "2026-04-12T05:24:22.402507+00:00"
+}

@@ -1,0 +1,152 @@
+{
+  "doc_key": "base/prolonging_terminal_sessions",
+  "level": "chunk",
+  "chunk_index": 1,
+  "qa_pairs": [
+    {
+      "question": "Why do users typically need to use SSH to connect to our clusters?",
+      "answer": "Most users need to use SSH to connect to the clusters for purposes such as job submission, monitoring, and editing files."
+    },
+    {
+      "question": "What is a common requirement for SSH connections when working on clusters?",
+      "answer": "It may be necessary to keep an SSH connection alive for a long period, ranging from hours to days."
+    },
+    {
+      "question": "What is one simple technique to prolong an SSH connection?",
+      "answer": "One simple solution is to modify the configuration of your SSH client to prolong the connection."
+    },
+    {
+      "question": "Where is the SSH client configuration file located on MacOS and Linux?",
+      "answer": "On MacOS and Linux, the SSH client configuration file is found in `$HOME/.ssh/config`."
+    },
+    {
+      "question": "What is the location of the SSH client configuration file on Windows?",
+      "answer": "On Windows, the SSH client configuration file is located in `C:\\Users\\<username>\\.ssh\\config`."
+    },
+    {
+      "question": "What should you do if the SSH client configuration file doesn't exist initially?",
+      "answer": "If the SSH client configuration file doesn't exist initially, you will need to create it."
+    },
+    {
+      "question": "What lines should be added to the SSH client configuration file to help maintain a connection?",
+      "answer": "You should add the lines `Host *` and `ServerAliveInterval 240` to the SSH client configuration file."
+    },
+    {
+      "question": "How often will a sign-of-life signal be transmitted over an SSH connection after setting `ServerAliveInterval 240`?",
+      "answer": "A sign-of-life signal will be transmitted every 240 seconds, or four minutes, over the SSH connection."
+    },
+    {
+      "question": "What is the benefit of transmitting a sign-of-life signal over an SSH connection?",
+      "answer": "This helps to keep your SSH connection alive even if it is idle for several hours."
+    },
+    {
+      "question": "What are `tmux` and `screen` examples of?",
+      "answer": "`tmux` and `screen` are examples of terminal multiplexers."
+    },
+    {
+      "question": "What functionality does a terminal multiplexer provide?",
+      "answer": "A terminal multiplexer allows you to detach your terminal session entirely, where it will keep running on its own until you choose to reattach to it."
+    },
+    {
+      "question": "What are some practical advantages of using a terminal multiplexer like `tmux` or `screen`?",
+      "answer": "With a terminal multiplexer, you can log out from the cluster, turn off your workstation or hibernate your laptop, and then reattach to your session later to resume working from where you left off."
+    },
+    {
+      "question": "What is an important dependency to remember about `tmux` or `screen` sessions on our clusters?",
+      "answer": "Each cluster has several login nodes, and your `tmux` or `screen` session is specific to a login node, so you must connect to the right login node to reattach."
+    },
+    {
+      "question": "What happens to detached terminal sessions if a login node is rebooted?",
+      "answer": "If a login node is occasionally rebooted, any detached terminal sessions on that node will be killed."
+    },
+    {
+      "question": "What is `tmux` software?",
+      "answer": "`tmux` software is a terminal multiplexer that allows multiple virtual sessions in a single terminal session."
+    },
+    {
+      "question": "How does `tmux` help with SSH sessions?",
+      "answer": "Using `tmux` allows you to disconnect from an SSH session without interrupting its running processes."
+    },
+    {
+      "question": "Where can users find a complete reference for `tmux`?",
+      "answer": "A complete reference for `tmux` can be found on this page: http://hyperpolyglot.org/multiplexers."
+    },
+    {
+      "question": "What command is used to start a `tmux` server?",
+      "answer": "To start a `tmux` server, you use the command `tmux`."
+    },
+    {
+      "question": "How do you disconnect from a `tmux` server?",
+      "answer": "You disconnect from a `tmux` server using the key combination `Ctrl+B D`."
+    },
+    {
+      "question": "What command allows you to reconnect to an existing `tmux` server?",
+      "answer": "To reconnect to a `tmux` server, you use the command `tmux a`."
+    },
+    {
+      "question": "What is the key combination to create a new window in `tmux`?",
+      "answer": "To create a new window in `tmux`, you press `Ctrl+B C`."
+    },
+    {
+      "question": "How do you go to the next window in `tmux`?",
+      "answer": "You can go to the next window in `tmux` by pressing `Ctrl+B N`."
+    },
+    {
+      "question": "What `tmux` command enables 'copy' mode?",
+      "answer": "`Ctrl+B [` enables 'copy' mode in `tmux`."
+    },
+    {
+      "question": "What functionality does 'copy' mode provide in `tmux`?",
+      "answer": "'Copy' mode in `tmux` allows you to scroll with the mouse and use Page-Up and Page-Down."
+    },
+    {
+      "question": "How do you disable 'copy' mode in `tmux`?",
+      "answer": "You disable 'copy' mode in `tmux` by pressing `Esc`."
+    },
+    {
+      "question": "What error might occur if you try to start `tmux` within a job that was already submitted through `tmux`?",
+      "answer": "You might get a `lost server` error message if you try to start `tmux` within a job submitted through `tmux`."
+    },
+    {
+      "question": "Why does the `lost server` error happen when attempting nested `tmux` use?",
+      "answer": "This happens because the `$TMUX` environment variable, which points to the `tmux` server, is propagated to the job, and its value is invalid."
+    },
+    {
+      "question": "How can you resolve the `lost server` error if you encounter it during nested `tmux` use?",
+      "answer": "You can reset the `TMUX` environment variable by using the command `unset TMUX`."
+    },
+    {
+      "question": "Is nested use of `tmux` recommended?",
+      "answer": "No, nested use of `tmux` is not recommended."
+    },
+    {
+      "question": "What makes sending commands to a nested `tmux` session more cumbersome?",
+      "answer": "To send commands to a nested `tmux` session, one has to hit `Ctrl+B` twice, for example, `Ctrl+B Ctrl+B C` to create a new window."
+    },
+    {
+      "question": "What alternative is suggested if you need a terminal multiplexer inside a job while already using `tmux` on a login node?",
+      "answer": "`GNU Screen` is suggested for use inside your job if you are already using `tmux` on a login node."
+    },
+    {
+      "question": "What is `GNU Screen`?",
+      "answer": "`GNU Screen` is another widely used terminal multiplexer."
+    },
+    {
+      "question": "What command is used to create a detached `GNU Screen` session?",
+      "answer": "To create a detached `GNU Screen` session, you can use the command `screen -S <session name>`."
+    },
+    {
+      "question": "What is a good practice when naming `GNU Screen` terminal sessions?",
+      "answer": "It's a good idea to give a descriptive name to your `GNU Screen` terminal sessions to make them easier to identify later."
+    },
+    {
+      "question": "How can you view a list of your detached `GNU Screen` sessions?",
+      "answer": "You can see a list of your detached `GNU Screen` sessions on a node by using the command `screen -list`."
+    },
+    {
+      "question": "What command is used to attach to an existing `GNU Screen` session?",
+      "answer": "You can attach to one of your `GNU Screen` sessions using the command `screen -d -r <session name>`."
+    }
+  ],
+  "generated_at": "2026-04-12T05:26:49.833337+00:00"
+}

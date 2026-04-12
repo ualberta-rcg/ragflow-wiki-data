@@ -1,0 +1,52 @@
+{
+  "doc_key": "en/ansys",
+  "level": "chunk",
+  "chunk_index": 41,
+  "qa_pairs": [
+    {
+      "question": "How do I terminate rogue Ansys processes on a gra-vdi system?",
+      "answer": "You can terminate rogue Ansys processes by running the command: `pkill -9 -e -u $USER -f \"ansys|mwrpcss|mwfwrapper|ENGINE\"`."
+    },
+    {
+      "question": "What are rogue processes and why are they problematic for Ansys GUI programs?",
+      "answer": "Rogue processes are Ansys processes that can persistently tie up licenses between gra-vdi login sessions or cause other unusual errors when trying to start GUI programs. They typically occur if an Ansys GUI session (like Fluent or Workbench) is not cleanly terminated by the user before `vncviewer` is terminated either manually or unexpectedly."
+    },
+    {
+      "question": "When might rogue Ansys processes be difficult or impossible to terminate?",
+      "answer": "Rogue processes may not be killable if a hung filesystem is causing the issue, in which case they might remain active until normal disk access is restored."
+    },
+    {
+      "question": "What preparations are required before submitting a newly uploaded Ansys Additive project to a cluster queue?",
+      "answer": "Before submitting, you must open your simulation with the Workbench GUI (as described in the 'Enable Additive' section) in the same directory where your job will be submitted, and then save it again. Ensure you use the same Ansys module version as planned for the job."
+    },
+    {
+      "question": "How can I perform parametric studies with an Ansys Additive project on a cluster?",
+      "answer": "To perform parametric studies, you need to change `Update()` to `UpdateAllDesignPoints()` in your Slurm script."
+    },
+    {
+      "question": "What strategies can be used to avoid manually clearing the solution and recreating design points for Additive project test runs on a cluster?",
+      "answer": "To avoid needing to manually clear the solution and recreate all design points in Workbench between each test run, you can either: 1) change `Save(Overwrite=True)` to `Save(Overwrite=False)` in your Slurm script, or 2) save a copy of the original `YOURPROJECT.wbpj` file and its corresponding `YOURPROJECT_files` directory."
+    },
+    {
+      "question": "Can replay files be used for Ansys Additive projects on a cluster, and how are they managed?",
+      "answer": "Yes, replay files can be created and then manually run on the cluster in the respective test case directory between runs. A single replay file can be used in different directories by opening it in a text editor and changing the internal `FilePath` setting. An example command for running a replay file is `runwb2 -R myreplay.wbjn` after loading the Ansys module."
+    },
+    {
+      "question": "How can I check the resource utilization of an Ansys Additive job that is running on a cluster?",
+      "answer": "Once your additive job has been running for a few minutes, you can obtain a snapshot of its resource utilization on the compute node(s) with the `srun` command: `srun --jobid=myjobid top -bn1 -u $USER | grep R | grep -v top`."
+    },
+    {
+      "question": "What does the sample `srun` output for an eight-core Additive job indicate about resource allocation and utilization?",
+      "answer": "The sample output for an eight-core submission script indicates that two nodes were selected by the scheduler, with several `ansys.e` processes running on each node, showing high CPU utilization (ranging from 88.0% to 101.0%) and low memory utilization (around 0.2% to 0.3%)."
+    },
+    {
+      "question": "How are scaling tests performed for Ansys Additive jobs on a cluster?",
+      "answer": "After a job completes, its \"Job Wall-clock time\" can be obtained from `seff myjobid`. Scaling tests are then performed by submitting short test jobs with an increasing number of cores."
+    },
+    {
+      "question": "When should additional cores be considered for an Ansys Additive job based on scaling test results?",
+      "answer": "If the \"Job Wall-clock time\" decreases by approximately 50% when the number of cores is doubled, then additional cores may be considered."
+    }
+  ],
+  "generated_at": "2026-04-11T17:04:17.874001+00:00"
+}

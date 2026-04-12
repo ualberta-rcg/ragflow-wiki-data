@@ -1,0 +1,75 @@
+{
+  "doc_key": "base/dedalus",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is Dedalus used for?",
+      "answer": "Dedalus is a flexible framework for solving partial differential equations using modern spectral methods."
+    },
+    {
+      "question": "How can users list the available versions of Dedalus on the clusters?",
+      "answer": "Users can list available versions of Dedalus on the clusters by using the `avail_wheels dedalus` command."
+    },
+    {
+      "question": "What are the runtime dependencies that need to be loaded before installing Dedalus?",
+      "answer": "The runtime dependencies are `StdEnv/2023`, `gcc`, `openmpi`, `mpi4py/3.1.4`, `fftw-mpi/3.3.10`, `hdf5-mpi/1.14.2`, and `python/3.11`."
+    },
+    {
+      "question": "How does one create and activate a Python virtual environment for Dedalus?",
+      "answer": "A Python virtual environment can be created using `virtualenv --no-download ~/dedalus_env` and then activated with `source ~/dedalus_env/bin/activate`."
+    },
+    {
+      "question": "How do you install a specific version of Dedalus within an activated virtual environment?",
+      "answer": "You install a specific version using `pip install --no-index dedalus==X.Y.Z`, replacing `X.Y.Z` with the desired version."
+    },
+    {
+      "question": "Is it necessary to specify an exact Dedalus version during installation?",
+      "answer": "No, you can omit specifying the version to install the latest one available from the wheelhouse."
+    },
+    {
+      "question": "How can a user validate the Dedalus installation?",
+      "answer": "The installation can be validated by running `python -c 'import dedalus'` in the activated virtual environment."
+    },
+    {
+      "question": "Why would a user freeze the environment and requirements set?",
+      "answer": "Freezing the environment and requirements set (e.g., `pip freeze --local > ~/dedalus-3.0.2-requirements.txt`) helps to document and replicate the exact package versions used."
+    },
+    {
+      "question": "What is the command to remove the local virtual environment after installation and freezing requirements?",
+      "answer": "The command to remove the local virtual environment is `deactivate && rm -r ~/dedalus_env`."
+    },
+    {
+      "question": "How can Dedalus jobs be run on the clusters?",
+      "answer": "Dedalus jobs can be run distributed across multiple nodes or cores."
+    },
+    {
+      "question": "Where can users find information on efficient MPI scheduling for Dedalus jobs?",
+      "answer": "Users can find information on efficient MPI scheduling in the `Running jobs#MPI_job` and `Advanced MPI scheduling` documentation."
+    },
+    {
+      "question": "What are some essential Slurm directives to include in a Dedalus job submission script?",
+      "answer": "Essential Slurm directives include specifying the account (`--account`), walltime (`--time`), number of tasks or nodes (`--ntasks` or `--nodes` and `--ntasks-per-node`), and memory per CPU (`--mem-per-cpu`)."
+    },
+    {
+      "question": "How is the Python virtual environment set up for Dedalus within a Slurm job script for distributed execution?",
+      "answer": "The virtual environment is created on each allocated node using an `srun` block which includes `virtualenv` and `pip install` commands based on a requirements file."
+    },
+    {
+      "question": "What is the purpose of the `export OMP_NUM_THREADS=1` line in the job submission script?",
+      "answer": "The `export OMP_NUM_THREADS=1` line sets the number of OpenMP threads to one for the job."
+    },
+    {
+      "question": "How is the Dedalus Python script executed within a Slurm job?",
+      "answer": "The Dedalus Python script is executed using `srun python $SCRATCH/myscript.py;` after activating the virtual environment."
+    },
+    {
+      "question": "What is recommended before submitting a Dedalus job to the scheduler?",
+      "answer": "It is recommended to test the submission script in an interactive job to ensure it starts without errors."
+    },
+    {
+      "question": "What command is used to submit a Dedalus job script to the Slurm scheduler?",
+      "answer": "The command used to submit a Dedalus job script to the Slurm scheduler is `sbatch submit-dedalus.sh`."
+    }
+  ],
+  "generated_at": "2026-04-11T21:06:46.645157+00:00"
+}

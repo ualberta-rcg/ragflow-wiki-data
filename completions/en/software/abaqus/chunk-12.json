@@ -4,77 +4,77 @@
   "chunk_index": 12,
   "qa_pairs": [
     {
-      "question": "What is the purpose of the provided Slurm script for explicit analysis in the multiple node computing section?",
-      "answer": "The script is designed for users with large memory or compute needs who have access to substantial licenses, allowing them to perform MPI-based computing over an arbitrary range of nodes, which the scheduler automatically determines."
+      "question": "What is the purpose of the provided Slurm script for explicit analysis in a multiple node computing environment?",
+      "answer": "This script is designed for users with large memory or compute requirements who need to perform MPI-based computing by distributing jobs over an arbitrary range of nodes, which the scheduler automatically determines."
     },
     {
-      "question": "Which version of Abaqus is compatible with the multiple node explicit analysis script?",
-      "answer": "Only Abaqus/2026 or newer versions may be used with this script."
+      "question": "Which Abaqus module version is required for the explicit analysis multi-node computing script?",
+      "answer": "Only `abaqus/2026` or newer versions can be used with this script."
     },
     {
-      "question": "Are companion template scripts provided for restarting multi-node explicit analysis jobs?",
-      "answer": "No, companion template scripts to perform restarts of multi-node explicit analysis jobs are not currently provided due to additional limitations on how they can be used."
+      "question": "Can multi-node explicit analysis jobs be restarted using a companion template script?",
+      "answer": "No, a companion template script to perform restarts of multi-node jobs is not currently provided due to additional limitations on how they can be used."
     },
     {
-      "question": "How can one estimate the total SLURM node memory required for a single process Abaqus simulation?",
-      "answer": "An estimate can be obtained by examining the Abaqus output `test.dat` file, which includes details like 'MINIMUM MEMORY REQUIRED' and 'MEMORY TO MINIMIZE I/O'."
+      "question": "How can one estimate the total SLURM node memory required for a single Abaqus simulation to run entirely in RAM?",
+      "answer": "An estimate can be obtained by examining the Abaqus output `test.dat` file or by running the simulation interactively on a compute node and monitoring memory usage with the `top` or `ps` command."
     },
     {
-      "question": "What does 'MEMORY TO MINIMIZE I/O' (MRMIO) represent in the Abaqus memory estimate?",
-      "answer": "MRMIO represents the amount of non-swapped physical memory (RES) that must be available to Abaqus to run fully in RAM without being virtualized to scratch disk, thus minimizing I/O operations."
+      "question": "What kind of memory estimates are provided in the Abaqus `test.dat` file for a simulation?",
+      "answer": "The `test.dat` file provides estimates for 'FLOATING PT OPERATIONS PER ITERATION', 'MINIMUM MEMORY REQUIRED (MB)', and 'MEMORY TO MINIMIZE I/O (MB)'."
     },
     {
-      "question": "Why is it recommended to slightly over-allocate the requested Slurm node memory (`--mem=`)?",
-      "answer": "It is necessary to slightly over-allocate because the Resident Set Size (RES) is generally less than the Virtual Memory (VIRT) by a relatively constant amount. A conservative over-allocation of 3072MB is typically hardcoded based on initial testing of the standard Abaqus solver."
+      "question": "What is the meaning of 'MEMORY TO MINIMIZE I/O' (MRMIO) in Abaqus memory estimates?",
+      "answer": "'MEMORY TO MINIMIZE I/O' (MRMIO) is the estimated memory required for the simulation to run fully in RAM, thereby minimizing data virtualization to the scratch disk."
     },
     {
-      "question": "What happens if the Resident Set Size (RES) memory drops below the 'MINIMUM MEMORY REQUIRED' (MMR) for an Abaqus simulation?",
-      "answer": "If the RES dips below the MINIMUM MEMORY REQUIRED (MMR), Abaqus will exit due to an Out of Memory (OOM) error."
+      "question": "How can a user monitor memory usage interactively for a single node threaded Abaqus process?",
+      "answer": "First, obtain an allocation on a compute node using `salloc`, load the necessary Abaqus modules, and start the simulation. Then, SSH into the compute node and run `top -u $USER`, observing the VIRT and RES columns for steady peak memory values."
     },
     {
-      "question": "How can researchers investigate the performance impact of reducing available RES memory to Abaqus?",
-      "answer": "Researchers can lower the `--mem=` value in the Slurm script, which in turn sets an artificially low `memory=` value in the Abaqus command. They can then run a series of short test jobs with varying `--mem=` values (e.g., 8G, 16G, 32G, 64G) until an acceptable minimal performance impact is found."
+      "question": "Why is it recommended to slightly over-allocate the requested Slurm node memory (`--mem=`) for Abaqus simulations?",
+      "answer": "This is necessary because the Resident Set Size (RES) memory is generally less than the virtual memory (VIRT). A slight over-allocation, such as a conservative 3072MB based on initial testing, helps ensure enough non-swapped physical memory is available to Abaqus to satisfy the 'MEMORY TO MINIMIZE I/O' (MRMIO) value."
     },
     {
-      "question": "What is the consequence of providing less memory to Abaqus than the 'MEMORY TO MINIMIZE I/O' (MRMIO) value?",
-      "answer": "Providing less memory than MRMIO will result in increasingly larger scratch space being used by temporary files."
+      "question": "What happens if the Resident Set Size (RES) memory available to Abaqus drops below the Minimum Memory Required (MMR)?",
+      "answer": "If the RES memory dips below the Minimum Memory Required (MMR), Abaqus will exit due to an Out of Memory (OOM) error."
     },
     {
-      "question": "How can I interactively monitor the memory usage of a single node threaded Abaqus process?",
-      "answer": "First, obtain an allocation on a compute node using `salloc` and start your simulation. Then, SSH into the compute node and run `top -u $USER` to watch the VIRT and RES columns until steady peak memory values are observed."
+      "question": "How can users investigate the performance impact of reducing RES memory below the MRMIO to potentially avoid long queue wait times?",
+      "answer": "Users can lower the `--mem=` value in their Slurm script, which sets an artificially low `memory=` value in the Abaqus command, and then run a series of short test jobs (e.g., with `--mem=8G, 16G, 32G, 64G`) to find an acceptable minimal performance impact."
     },
     {
-      "question": "How do you determine the required Slurm memory for multi-node Abaqus scripts?",
-      "answer": "Memory estimates (per compute process) needed to minimize I/O are found in the output `.dat` file of completed jobs. The `mem-per-cpu` value is then determined based on these estimates and other parameters like `mp_host_split`."
+      "question": "What is a consequence of providing Abaqus with significantly less RES memory than the 'MEMORY TO MINIMIZE I/O' (MRMIO) value?",
+      "answer": "Providing less RES memory than MRMIO will result in increasingly larger scratch space being used by temporary files, as the simulation will virtualize more data to disk."
     },
     {
-      "question": "If `mp_host_split` is not specified or set to 1, how is the `mem-per-cpu` value roughly determined for a multi-node Abaqus job?",
-      "answer": "The `mem-per-cpu` value can be roughly determined by multiplying the largest memory estimate from the `.dat` file by the number of nodes, and then dividing by the number of tasks (`ntasks`)."
+      "question": "How do you determine the required `mem-per-cpu` value for multi-node Slurm scripts if `mp_host_split` is not specified or is set to 1?",
+      "answer": "The `mem-per-cpu` value can be roughly determined by multiplying the largest memory estimate (per compute process from the `.dat` file) by the number of nodes, and then dividing that by the number of `ntasks`."
     },
     {
-      "question": "If `mp_host_split` is specified and greater than 1, how is the `mem-per-cpu` value roughly determined for a multi-node Abaqus job?",
-      "answer": "The `mem-per-cpu` value can be roughly determined by multiplying the largest memory estimate from the `.dat` file by the number of nodes, then by the value of `mp_host_split`, and finally dividing by the number of tasks."
+      "question": "How do you determine the required `mem-per-cpu` value for multi-node Slurm scripts if `mp_host_split` is specified and is greater than 1?",
+      "answer": "The `mem-per-cpu` value can be roughly determined by multiplying the largest memory estimate (per compute process from the `.dat` file) by the number of nodes, then by the value of `mp_host_split`, and finally dividing that by the number of tasks."
     },
     {
-      "question": "What is the constraint on the `mp_host_split` parameter in multi-node Abaqus jobs?",
-      "answer": "`mp_host_split` must be less than or equal to the number of cores per node assigned by Slurm at runtime, otherwise Abaqus will terminate."
+      "question": "What is the constraint on the `mp_host_split` value when configuring multi-node Abaqus jobs?",
+      "answer": "The `mp_host_split` value must be less than or equal to the number of cores per node assigned by Slurm at runtime, otherwise Abaqus will terminate."
     },
     {
-      "question": "Where can users find more detailed information about Abaqus memory allocation?",
-      "answer": "More details can be found in the 'Abaqus Analysis User's Manual'."
+      "question": "How can a user control the scenario where `mp_host_split` might exceed the number of cores per node assigned by Slurm?",
+      "answer": "This scenario can be controlled by uncommenting and specifying a value for `tasks-per-node` in the Slurm script."
     },
     {
-      "question": "What does it imply if the memory upper limit for Abaqus is greater than the memory required to minimize I/O?",
-      "answer": "In this scenario, the actual memory usage will be close to the estimated 'MEMORY TO MINIMIZE I/O' value, and the scratch disk usage will be close to zero."
+      "question": "According to the Abaqus documentation, what determines the upper limit of memory that can be allocated by Abaqus?",
+      "answer": "The upper limit of memory that can be allocated by Abaqus generally depends on the value of the 'MEMORY' parameter and the amount of physical memory available on the machine."
     },
     {
-      "question": "What happens if the memory upper limit for Abaqus is less than the memory required to minimize I/O?",
-      "answer": "If the memory upper limit is less, the actual memory used will be close to the set memory limit, and the scratch disk usage will be roughly proportional to the difference between the estimated 'MEMORY TO MINIMIZE I/O' and the memory upper limit."
+      "question": "When will Abaqus' actual memory usage be close to the 'MEMORY TO MINIMIZE I/O' value and scratch disk usage close to zero?",
+      "answer": "This occurs if the 'MEMORY' parameter's upper limit is greater than the memory required to minimize I/O (MRMIO)."
     },
     {
-      "question": "Is it possible to accurately estimate the scratch disk space usage for Abaqus simulations?",
-      "answer": "No, an accurate estimate of the scratch disk space is not possible."
+      "question": "When will Abaqus' actual memory usage be close to the specified memory limit, and scratch disk usage be roughly proportional to the difference between MRMIO and the memory limit?",
+      "answer": "This happens when the 'MEMORY' parameter's upper limit is less than the memory required to minimize I/O (MRMIO)."
     }
   ],
-  "generated_at": "2026-04-10T00:31:36.665442+00:00"
+  "generated_at": "2026-04-11T15:33:54.297802+00:00"
 }

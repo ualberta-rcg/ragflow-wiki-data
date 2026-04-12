@@ -4,89 +4,73 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "C'est quoi, Abaqus FEA?",
-      "answer": "Abaqus FEA est un progiciel commercial pour l'analyse d'éléments finis et l'ingénierie assistée par ordinateur."
+      "question": "C'est quoi Abaqus FEA?",
+      "answer": "Abaqus FEA, c'est un progiciel commercial qui sert à faire de l'analyse par éléments finis et de l'ingénierie assistée par ordinateur."
     },
     {
-      "question": "Est-ce que les modules Abaqus sont disponibles sur vos grappes de calcul?",
-      "answer": "Oui, les modules Abaqus sont disponibles sur nos grappes, mais vous devez posséder votre propre licence pour les utiliser."
+      "question": "Comment on fait pour configurer notre licence Abaqus sur les grappes?",
+      "answer": "Faut se connecter à chaque grappe qu'on veut utiliser, puis créer un fichier `$HOME/.licenses/abaqus.lic` qui contient la ligne `prepend_path(\"ABAQUSLM_LICENSE_FILE\",\"port@server\")`. Après, on remplace `port@server` par le numéro du port FlexLM et l'adresse IP (ou le nom complet du domaine) de votre serveur de licence Abaqus."
     },
     {
-      "question": "Comment faire pour configurer ma licence Abaqus sur les grappes?",
-      "answer": "Pour configurer votre compte sur les grappes, vous devez vous connecter et créer un fichier nommé `$HOME/.licenses/abaqus.lic` qui contient la ligne `prepend_path(\"ABAQUSLM_LICENSE_FILE\",\"port@server\")`, en remplaçant `port@server` par le numéro du port FlexLM et l'adresse IP de votre serveur de licence Abaqus."
+      "question": "Quelle est la différence de configuration de licence pour Abaqus version 6.14.1?",
+      "answer": "Si vous voulez utiliser la version 6.14.1, faut remplacer `ABAQUSLM_LICENSE_FILE` par `LM_LICENSE_FILE` dans votre fichier de licence."
     },
     {
-      "question": "Si j'utilise la version 6.14.1 d'Abaqus, y a-t-il une particularité pour la configuration de la licence?",
-      "answer": "Oui, si vous utilisez la version 6.14.1, vous devez remplacer `ABAQUSLM_LICENSE_FILE` par `LM_LICENSE_FILE` dans le fichier de licence."
+      "question": "Qu'est-ce qui arrive si ma licence Abaqus n'est pas configurée pour une grappe en particulier?",
+      "answer": "Si la licence n'est pas configurée pour une grappe en particulier, les administrateurs de systèmes des deux côtés (les vôtres et les nôtres) devront faire des modifications. C'est pour s'assurer que les ports FlexLM et TCP de votre serveur Abaqus soient accessibles par tous les nœuds de calcul quand vos tâches seront exécutées."
     },
     {
-      "question": "Que doit-on faire si notre licence Abaqus n'est pas configurée pour une grappe en particulier?",
-      "answer": "Si votre licence n'est pas configurée, les administrateurs de systèmes des deux parties devront faire des modifications pour que les ports FlexLM et TCP de votre serveur Abaqus soient accessibles par les nœuds de calcul."
+      "question": "Quelles informations faut-il fournir au soutien technique pour configurer une licence Abaqus non configurée sur une grappe?",
+      "answer": "Pour qu'on puisse vous aider, il faut écrire au soutien technique en indiquant le numéro du port FlexLM, le numéro du port statique et l'adresse IP de votre serveur de licence Abaqus."
     },
     {
-      "question": "À qui dois-je écrire pour obtenir de l'aide avec une licence Abaqus non configurée pour une grappe?",
-      "answer": "Vous devez écrire au soutien technique pour obtenir de l'aide."
+      "question": "Est-ce qu'il y a une condition spéciale pour utiliser une licence Abaqus à distance avec le matériel de la grappe?",
+      "answer": "Oui, une entente spéciale doit habituellement être négociée et signée avec SIMULIA pour qu'une telle licence puisse être utilisée à distance avec notre matériel."
     },
     {
-      "question": "Quelles informations faut-il fournir au soutien technique pour configurer une licence Abaqus à distance?",
-      "answer": "Vous devez indiquer le numéro du port FlexLM, le numéro du port statique et l'adresse IP de votre serveur de licence Abaqus."
+      "question": "Quel est le serveur de licence par défaut pour le module `abaqus/2026`?",
+      "answer": "Par défaut, le module `abaqus/2026` est configuré pour fonctionner avec le serveur de licence Simulia `FLEXnet`, tout comme le serveur de licence gratuit de SHARCNET."
     },
     {
-      "question": "Est-ce qu'une entente spéciale est nécessaire pour utiliser une licence Abaqus à distance avec votre matériel?",
-      "answer": "Oui, une entente spéciale doit habituellement être négociée et signée avec SIMULIA pour qu'une telle licence puisse être utilisée à distance."
+      "question": "Comment je fais pour utiliser un serveur de licence DSLS de mon établissement avec Abaqus?",
+      "answer": "Pour utiliser un serveur de licence `DSLS` de votre établissement, vous devez créer les fichiers texte `abaqus_v6.env` et `DSLicSrv.txt` dans le répertoire utilisé pour soumettre votre simulation."
     },
     {
-      "question": "Avec quel serveur de licence Abaqus est-ce que `abaqus/2026` est configuré par défaut?",
-      "answer": "Le module `abaqus/2026` est configuré pour fonctionner avec le serveur de licence Simulia `FLEXnet` par défaut, ainsi qu'avec le serveur de licence gratuit de SHARCNET."
+      "question": "Quel est le contenu du fichier `abaqus_v6.env` pour utiliser un serveur DSLS?",
+      "answer": "Le fichier `abaqus_v6.env` doit contenir les lignes `license_server_type=DSLS` et `dsls_license_config=\"DSLicSrv.txt\"`."
     },
     {
-      "question": "Comment faire pour utiliser un serveur de licence DSLS de mon établissement avec Abaqus?",
-      "answer": "Pour utiliser un serveur de licence DSLS, vous devez créer les fichiers texte `abaqus_v6.env` et `DSLicSrv.txt` dans le répertoire où vous soumettez votre simulation."
+      "question": "Quel est le contenu du fichier `DSLicSrv.txt` pour un serveur DSLS?",
+      "answer": "Le fichier `DSLicSrv.txt` doit contenir le nom d'hôte et le numéro de port de votre serveur, sous le format `YOUR-SERVER-HOSTNAME:PORT-NUMBER`."
     },
     {
-      "question": "Quel module Abaqus est installé dans l'environnement par défaut `StdEnv/2023`?",
-      "answer": "Un nouveau module pour `abaqus/2026` est installé dans l'environnement par défaut `StdEnv/2023`."
+      "question": "Quel est le nouveau module Abaqus installé dans l'environnement par défaut StdEnv/2023?",
+      "answer": "C'est un nouveau module pour `abaqus/2026` qui est installé dans l'environnement par défaut `StdEnv/2023`."
     },
     {
-      "question": "Quel problème est résolu par la nouvelle version `abaqus/2026`?",
-      "answer": "La nouvelle version résout l'erreur `*** buffer overflow detected ***` qui survenait sur les récentes grappes avec `abaqus/2021`."
+      "question": "Quelle erreur la nouvelle version d'Abaqus (abaqus/2026) règle-t-elle?",
+      "answer": "La nouvelle version d'Abaqus (`abaqus/2026`) résout la source de l'erreur `*** buffer overflow detected ***` qui survenait sur toutes les récentes grappes avec `abaqus/2021`."
     },
     {
-      "question": "Que dois-je faire avec mes scripts Slurm existants suite à l'installation du nouveau module `abaqus/2026`?",
-      "answer": "Vous devez modifier tous les scripts Slurm que vous utilisez, car ils ont été adaptés pour fonctionner avec `abaqus/2026` et `abaqus/2021`."
+      "question": "Est-ce que les scripts Slurm existants pour Abaqus doivent être mis à jour avec le nouveau module `abaqus/2026`?",
+      "answer": "Oui, tous les scripts Slurm que vous utilisez doivent être modifiés, car ceux présentés dans la page ont été adaptés pour fonctionner avec `abaqus/2026` et `abaqus/2021` lorsque possible."
     },
     {
-      "question": "Quelle version d'Abaqus est contenue dans le module `abaqus/2026`?",
-      "answer": "Le module `abaqus/2026` contient la version initiale, `Abaqus 2026 Golden`."
+      "question": "Quelles versions du module `abaqus/2026` sont mentionnées?",
+      "answer": "Le module `abaqus/2026` contient la version initiale `Abaqus 2026 Golden`. Un autre module, `abaqus/2026.2606`, qui contient les mises à niveau `Abaqus 2026 FP.CFA.2606`, sera installé prochainement."
     },
     {
-      "question": "Est-ce qu'une version mise à jour d'Abaqus 2026 est prévue?",
-      "answer": "Oui, un autre module nommé `abaqus/2026.2606` qui contient les mises à niveau `Abaqus 2026 FP.CFA.2606` sera installé prochainement."
+      "question": "À quoi servent les scripts Slurm prototypes fournis dans la documentation?",
+      "answer": "Les scripts Slurm prototypes servent à soumettre des simulations parallèles sur un ou plusieurs nœuds de calcul en utilisant des fils (threads) et MPI."
     },
     {
-      "question": "À quoi servent les scripts Slurm pour Abaqus?",
-      "answer": "Les scripts Slurm servent à soumettre des simulations parallèles sur un ou plusieurs nœuds de calcul en utilisant des fils et MPI."
+      "question": "Dans les scripts Slurm, l'argument `memory=` est-il obligatoire?",
+      "answer": "Non, l'argument `memory=` est optionnel. Il sert aux tâches qui demandent beaucoup de mémoire ou qui posent problème; la valeur de déplacement de 3072Mo pourrait nécessiter un ajustement."
     },
     {
-      "question": "Quel type de script est recommandé pour les tâches sur un nœud simple de moins de 24 heures?",
-      "answer": "Pour une tâche sur un nœud simple d'une durée de moins de 24 heures, le script du répertoire `/project` devrait suffire."
-    },
-    {
-      "question": "Quel est l'objectif des scripts de redémarrage pour les tâches Abaqus?",
-      "answer": "Les scripts de redémarrage permettent de poursuivre les tâches qui ont été interrompues prématurément, par exemple si une tâche atteint son temps d'exécution maximal ou si le nœud de calcul plante."
-    },
-    {
-      "question": "Où devraient être écrits les fichiers de redémarrage volumineux pour les tâches Abaqus?",
-      "answer": "Il est préférable que les tâches qui créent des fichiers de redémarrage volumineux écrivent sur le disque local en utilisant la variable d'environnement `SLURM_TMPDIR`."
-    },
-    {
-      "question": "Pour quels types de tâches devrais-je utiliser les scripts MPI dans les sections pour nœuds multiples?",
-      "answer": "Les tâches qui exigent beaucoup de mémoire ou beaucoup de ressources de calcul (plus que la capacité d'un nœud simple) devraient utiliser les scripts MPI pour distribuer le calcul sur un ensemble de nœuds."
-    },
-    {
-      "question": "Qu'est-il recommandé de faire avant de lancer des tâches de longue durée qui nécessitent beaucoup de ressources?",
-      "answer": "Il est recommandé d'exécuter de courts tests présentant peu de scalabilité pour déterminer la durée réelle d'exécution (et les exigences en mémoire) en fonction du nombre optimal de cœurs."
+      "question": "Comment on peut voir la liste des arguments en ligne de commande pour Abaqus?",
+      "answer": "Pour obtenir la liste des arguments en ligne de commande, il faut charger un module Abaqus et lancer la commande `abaqus -help | less`."
     }
   ],
-  "generated_at": "2026-04-10T00:33:48.140645+00:00"
+  "generated_at": "2026-04-11T15:35:57.364473+00:00"
 }

@@ -5,32 +5,54 @@ lang: "en"
 
 source_wiki_title: "CVMFS/en"
 source_hash: "9b29a26f90ba6b858aa20462da996294"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T05:18:02.104374+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T06:08:23.854093+00:00"
 
 tags:
   - cvmfs
 
 keywords:
-  []
+  - "Kubernetes"
+  - "Compute Canada"
+  - "CVMFS"
+  - "scientific software stack"
+  - "hierarchical caching"
+  - "stratum servers"
+  - "software distribution"
+  - "EESSI"
+  - "Distributing software"
+  - "Advanced Research Computing"
+  - "read-only filesystem"
+  - "Unified Software Environment"
+  - "Canada's National Advanced Computing Centers"
+
+questions:
+  - "What is the CERN Virtual Machine File System (CVMFS) and what was its original purpose?"
+  - "How does the hierarchical caching model of CVMFS ensure high scalability and minimize network traffic?"
+  - "What specific mechanisms does CVMFS employ to guarantee file integrity, optimize storage usage, and manage content versioning?"
+  - "How does the EESSI project extend the original Compute Canada approach to distributing scientific software?"
+  - "What storage technology was used as an alternative to CVMFS in the Kubernetes demo cluster described in the 2021 Towards Data Science article?"
+  - "What major workshops and user meetings featured presentations or tutorials on CVMFS between January 2021 and September 2022?"
+  - "What methods were detailed in the 2019 PEARC proceedings for providing a unified software environment across Canada's National Advanced Computing Centers?"
+  - "How is CVMFS utilized to distribute software across university campuses and globally, as presented at BCNET Connect 2020?"
+  - "Where can researchers access the digital copies and proceedings of these publications regarding advanced computing software distribution?"
+  - "How does the EESSI project extend the original Compute Canada approach to distributing scientific software?"
+  - "What storage technology was used as an alternative to CVMFS in the Kubernetes demo cluster described in the 2021 Towards Data Science article?"
+  - "What major workshops and user meetings featured presentations or tutorials on CVMFS between January 2021 and September 2022?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
-This page describes the CERN Virtual Machine File System (CVMFS). We use CVMFS to distribute software, data and other content.
-
-!!! note
-    For instructions on configuring a CVMFS client to access content, see [accessing CVMFS](accessing-cvmfs.md).
-    Further information can be found in the official [documentation](https://cvmfs.readthedocs.io/) and on the [webpage](https://cernvm.cern.ch/fs/).
+This page describes the CERN Virtual Machine File System (CVMFS). We use CVMFS to distribute software, data and other content. Refer to [accessing CVMFS](accessing-cvmfs.md) for instructions on configuring a CVMFS client to access content, and to the official [documentation](https://cvmfs.readthedocs.io/) and [webpage](https://cernvm.cern.ch/fs/) for further information.
 
 ## Introduction
-CVMFS is a distributed read-only content distribution system, implemented as a POSIX filesystem in user space (FUSE) using HTTP transport. It was originally developed for the LHC (Large Hadron Collider) experiments at CERN to deliver software to virtual machines and to replace diverse shared software installation areas and package management systems at numerous computing sites. It is designed to deliver software in a fast, scalable and reliable fashion, and is now also used to distribute data. The scale of usage across dozens of projects involves ~10^10^ files and directories, ~10^2^ compute sites, and ~10^5^ clients around the world. The [CernVM Monitor](https://cvmfs-monitor-frontend.web.cern.ch/) shows many research groups which use CVMFS and the stratum sites which replicate their repositories.
+CVMFS is a distributed read-only content distribution system, implemented as a POSIX filesystem in user space (FUSE) using HTTP transport. It was originally developed for the LHC (Large Hadron Collider) experiments at CERN to deliver software to virtual machines and to replace diverse shared software installation areas and package management systems at numerous computing sites. It is designed to deliver software in a fast, scalable and reliable fashion, and is now also used to distribute data. The scale of usage across dozens of projects involves ~10<sup>10</sup> files and directories, ~10<sup>2</sup> compute sites, and ~10<sup>5</sup> clients around the world. The [CernVM Monitor](https://cvmfs-monitor-frontend.web.cern.ch/) shows many research groups which use CVMFS and the stratum sites which replicate their repositories.
 
 ### Features
 *   Only one copy of the software needs to be maintained, and can be propagated to and used at multiple sites. Commonly used software can be installed on CVMFS in order to reduce remote software administration.

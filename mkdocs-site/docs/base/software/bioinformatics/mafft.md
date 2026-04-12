@@ -5,21 +5,33 @@ lang: "base"
 
 source_wiki_title: "MAFFT"
 source_hash: "63d265041b3bddeb67ba54bfc42808d6"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T07:58:46.604708+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T08:34:50.432025+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "SLURM"
+  - "single node"
+  - "MAFFT"
+  - "MPI"
+  - "multiple sequence alignment"
+
+questions:
+  - "What is MAFFT and how do its alignment methods, such as L-INS-i and FFT-NS-2, differ in terms of speed and sequence capacity?"
+  - "How is the temporary directory configured differently when running MAFFT on a single node versus multiple nodes?"
+  - "What are the necessary SLURM script configurations and command-line flags for executing MAFFT across multiple nodes using MPI?"
+  - "What is MAFFT and how do its alignment methods, such as L-INS-i and FFT-NS-2, differ in terms of speed and sequence capacity?"
+  - "How is the temporary directory configured differently when running MAFFT on a single node versus multiple nodes?"
+  - "What are the necessary SLURM script configurations and command-line flags for executing MAFFT across multiple nodes using MPI?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -31,8 +43,7 @@ MAFFT can benefit from multiple cores on a single node. For more information: ht
 !!! note
     The `MAFFT_TMPDIR` is set to `$SLURM_TMPDIR/maffttmp` when you load the module.
 
-```bash
-# mafft_submit.sh
+```bash title="mafft_submit.sh"
 #!/bin/bash
 
 #SBATCH --time=24:00:00
@@ -49,11 +60,10 @@ mafft --globalpair --thread $SLURM_CPUS_PER_TASK input > output
 MAFFT can use MPI to align a large number of sequences: https://mafft.cbrc.jp/alignment/software/mpi.html
 
 !!! note
-    The `MAFFT_TMPDIR` is set to `$SCRATCH/maffttmp` when you load the module.
+    `MAFFT_TMPDIR` is set to `$SCRATCH/maffttmp` when you load the module.
     If you change this temporary directory, it must be shared by all hosts.
 
-```bash
-# mafft_mpi_submit.sh
+```bash title="mafft_mpi_submit.sh"
 #!/bin/bash
 
 #SBATCH --time=04:00:00

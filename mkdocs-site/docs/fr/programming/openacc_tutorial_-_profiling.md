@@ -5,40 +5,93 @@ lang: "fr"
 
 source_wiki_title: "OpenACC Tutorial - Profiling/fr"
 source_hash: "67965d34e961eb7f951012fd17debad2"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T09:30:20.035082+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T09:59:00.632689+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "data dependency"
+  - "OpenACC"
+  - "points critiques"
+  - "allocate_3d_poisson_matrix"
+  - "Generated vector simd code"
+  - "nvprof"
+  - "Loop not fused"
+  - "main.cpp"
+  - "FMA (fused multiply-add)"
+  - "dépendances de données"
+  - "outil d'analyse"
+  - "indicateur -Minfo"
+  - "intensité computationnelle"
+  - "réduction"
+  - "profileur"
+  - "NVIDIA Visual Profiler"
+  - "boucle"
+  - "compilateur NVIDIA"
+  - "Loop unrolled"
+  - "inlined"
+  - "CUDA"
+  - "profilage CPU"
+  - "profileur nvprof"
+  - "optimisation"
+  - "vector simd code"
+  - "Loop not vectorized/parallelized"
+  - "performance du code"
+  - "Intensity"
+
+questions:
+  - "Pourquoi est-il essentiel de profiler son code et d'identifier les points critiques selon la loi d'Amdahl ?"
+  - "Quels sont les compilateurs mentionnés offrant le support le plus avancé pour OpenACC lors de la préparation du code ?"
+  - "Quelles sont les différences entre les profileurs nvprof et nvvp, et pourquoi le tutoriel débute-t-il avec nvprof ?"
+  - "Qu'est-ce que l'outil NVIDIA Visual Profiler (nvvp) et pour quels types de programmes est-il conçu ?"
+  - "Pourquoi l'analyse du programme cg.x débute-t-elle spécifiquement avec le profileur nvprof ?"
+  - "Quelle est la principale caractéristique de l'outil nvprof par rapport à son interface d'utilisation ?"
+  - "Quelle commande et quels arguments faut-il utiliser pour profiler un exécutable CPU pur avec l'outil nvprof ?"
+  - "À quoi sert l'indicateur -Minfo du compilateur NVIDIA et quelles sont ses principales options d'analyse ?"
+  - "Quelles optimisations spécifiques (comme la vectorisation ou le déroulement de boucles) le compilateur indique-t-il avoir appliquées lors de la recompilation du code ?"
+  - "What specific data dependencies and loop conditions prevented the compiler from vectorizing or fusing certain loops in the code?"
+  - "Which functions were successfully inlined into the main function during the compilation process?"
+  - "How did the compiler optimize memory operations and arithmetic calculations, such as through memory copy idioms and FMA (fused multiply-add) instructions?"
+  - "How many FMA (fused multiply-add) instructions were generated according to the report?"
+  - "Why were the loops at lines 43 and 44 prevented from being fused or vectorized?"
+  - "What specific optimization was successfully applied to the loop at line 45?"
+  - "Comment définit-on l'intensité computationnelle d'une boucle et quelle valeur indique qu'elle est adaptée à une exécution sur un processeur graphique (GPU) ?"
+  - "Pourquoi la génération d'une suite de Fibonacci est-elle utilisée dans le texte pour illustrer les problèmes de dépendance de données en parallélisme ?"
+  - "Comment les compilateurs modernes traitent-ils l'accumulation de valeurs (comme la variable `sum`) lors de l'analyse des dépendances d'une boucle ?"
+  - "Why were the loops at lines 27 and 39 prevented from being fused?"
+  - "What caused the loop at line 39 to fail vectorization?"
+  - "Which specific function was successfully inlined into main.cpp, and at what line number did this occur?"
+  - "Comment définit-on l'intensité computationnelle d'une boucle et quelle valeur indique qu'elle est adaptée à une exécution sur un processeur graphique (GPU) ?"
+  - "Pourquoi la génération d'une suite de Fibonacci est-elle utilisée dans le texte pour illustrer les problèmes de dépendance de données en parallélisme ?"
+  - "Comment les compilateurs modernes traitent-ils l'accumulation de valeurs (comme la variable `sum`) lors de l'analyse des dépendances d'une boucle ?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
-!!! note "Objectifs d'apprentissage"
-    * comprendre ce qu'est un profileur
-    * savoir utiliser le profileur NVPROF
-    * comprendre la performance du code
-    * savoir concentrer vos efforts et réécrire les routines qui exigent beaucoup de temps
+!!! abstract "Objectifs d'apprentissage"
+
+*   comprendre ce qu'est un profileur
+*   savoir utiliser le profileur NVPROF
+*   comprendre la performance du code
+*   savoir concentrer vos efforts et réécrire les routines qui exigent beaucoup de temps
 
 ## Profiler du code
 
-Pourquoi auriez-vous besoin de profiler du code? Parce que c'est la seule façon de comprendre :
+Pourquoi auriez-vous besoin de profiler du code? Parce que c'est la seule façon de comprendre
+*   comment le temps est employé aux **points critiques** (hotspots),
+*   comprendre la performance du code,
+*   savoir comment mieux employer votre temps de développement.
 
-*   comment le temps est employé aux points critiques (*hotspots*)
-*   comprendre la performance du code
-*   savoir comment mieux employer votre temps de développement
-
-Pourquoi est-ce important de connaître les points critiques dans le code?
-Selon [la loi d'Amdahl](https://fr.wikipedia.org/wiki/Loi_d%27Amdahl), paralléliser les routines qui exigent le plus de temps d'exécution (les points critiques) produit le plus d'impact.
+Pourquoi est-ce important de connaitre les points critiques dans le code?
+D'après [la loi d'Amdahl](https://en.wikipedia.org/wiki/Amdahl%27s_law), paralléliser les routines qui exigent le plus de temps d'exécution (les points critiques) produit le plus d'impact.
 
 ## Préparer le code pour l'exercice
 
@@ -46,6 +99,7 @@ Pour l'exemple suivant, nous utilisons du code provenant de [ce dépôt de donn�
 [Téléchargez et faites l'extraction du paquet](https://github.com/calculquebec/cq-formation-openacc/archive/refs/heads/main.zip) et positionnez-vous dans le répertoire `cpp` ou `f90`. Le but de cet exemple est de compiler et lier le code pour obtenir un exécutable pour en profiler le code source avec un profileur.
 
 !!! note "Choix du compilateur"
+
     Mis de l'avant par [Cray](https://www.cray.com/) et par [NVIDIA](https://www.nvidia.com) via sa division
     [Portland Group](https://www.pgroup.com/support/release_archive.php) jusqu'en 2020 puis via [sa trousse HPC SDK](https://developer.nvidia.com/hpc-sdk), ces deux types de compilateurs offrent le support le plus avancé pour OpenACC.
 
@@ -79,22 +133,21 @@ Une fois l'exécutable `cg.x` créé, nous allons profiler son code source. Le p
 **Important :** Cet exécutable utilise environ 3Go de mémoire et un cœur CPU presque à 100 %. **L'environnement de test devrait donc avoir 4Go de mémoire disponible et au moins deux (2) cœurs CPU**.
 
 !!! note "Choix du profileur"
+
     Dans ce tutoriel, nous utilisons deux profileurs :
 
     *   **[`nvprof` de NVIDIA](https://docs.nvidia.com/cuda/profiler-users-guide/)**, un profileur en ligne de commande capable d'analyser des codes non GPU
-    *   [`nvvp` (NVIDIA Visual Profiler)](openacc-tutorial-adding-directives.md#nvidia-visual-profiler), un outil d'analyse multiplateforme pour des programmes écrits avec OpenACC et CUDA C/C++.
+    *   **[`nvvp` (NVIDIA Visual Profiler)](openacc-tutorial-adding-directives.md#nvidia-visual-profiler)**, un outil d'analyse multiplateforme pour des programmes écrits avec OpenACC et CUDA C/C++.
     Puisque `cg.x` que nous avons construit n'utilise pas encore le GPU, nous allons commencer l'analyse avec le profileur `nvprof`.
 
-### Profileur en ligne de commande NVIDIA `nvprof`
+### Profileur en ligne de commande NVIDIA nvprof
 
 Dans sa trousse de développement pour le calcul de haute performance, NVIDIA fournit habituellement `nvprof`, mais la version qu'il faut utiliser sur nos grappes est incluse dans un module CUDA.
-
 ```bash
 module load cuda/11.7
 ```
 
-Pour profiler un exécutable CPU pur, nous devons ajouter l'argument `--cpu-profiling on` à la ligne de commande.
-
+Pour profiler un exécutable CPU pur, nous devons ajouter les arguments `--cpu-profiling on` à la ligne de commande.
 ```bash
 nvprof --cpu-profiling on ./cg.x
 ```
@@ -106,18 +159,19 @@ nvprof --cpu-profiling on ./cg.x
 ======== CPU profiling result (bottom up):
 Time(%)      Time  Name
  83.54%  90.6757s  matvec(matrix const &, vector const &, vector const &)
- 83.54%  90.6757s  {{!}} main
+ 83.54%  90.6757s  main
   7.94%  8.62146s  waxpby(double, vector const &, double, vector const &, vector const &)
-  7.94%  8.62146s  {{!}} main
+  7.94%  8.62146s  main
   5.86%  6.36584s  dot(vector const &, vector const &)
-  5.86%  6.36584s  {{!}} main
+  5.86%  6.36584s  main
   2.47%  2.67666s  allocate_3d_poisson_matrix(matrix&, int)
-  2.47%  2.67666s  {{!}} main
+  2.47%  2.67666s  main
   0.13%  140.35ms  initialize_vector(vector&, double)
-  0.13%  140.35ms  {{!}} main
+  0.13%  140.35ms  main
 ...
 ======== Data collected at 100Hz frequency
 ```
+
 Dans le résultat, la fonction `matvec()` utilise 83.5 % du temps d'exécution; son appel se trouve dans la fonction `main()`.
 
 ## Renseignements sur le compilateur
@@ -129,24 +183,22 @@ Avant de travailler sur la routine, nous devons comprendre ce que fait le compil
 
 Le compilateur NVIDIA offre l'indicateur `-Minfo` avec les options suivantes :
 *   `all`, pour imprimer presque tous les types d'information, incluant
-    *   `accel` pour les opérations du compilateur en rapport avec l'accélérateur
-    *   `inline` pour l'information sur les fonctions extraites et alignées
-    *   `loop,mp,par,stdpar,vect` pour les renseignements sur l'optimisation et la vectorisation des boucles
+    *   **`accel`** pour les opérations du compilateur en rapport avec l'accélérateur
+    *   **`inline`** pour l'information sur les fonctions extraites et alignées
+    *   **`loop,mp,par,stdpar,vect`** pour les renseignements sur l'optimisation et la vectorisation des boucles
 *   `intensity`, pour imprimer l'information sur l'intensité des boucles
 *   (aucune option) produit le même résultat que l'option `all`, mais sans l'information fournie par `inline`.
 
 ## Obtenir les renseignements sur le compilateur
 
 *   Modifiez le `Makefile`.
-
     ```makefile
     CXX=nvc++
     CXXFLAGS=-fast -Minfo=all,intensity
     LDFLAGS=${CXXFLAGS}
     ```
 
-*   Recompilez le code.
-
+*   Effectuez un nouveau build.
 ```bash
 make clean; make
 ```
@@ -276,18 +328,15 @@ main:
 
 ## Interpréter le résultat
 
-**L'intensité computationnelle** d'une boucle représente la quantité de travail accompli par la boucle en fonction des opérations effectuées en mémoire, soit
+L'**intensité computationnelle** d'une boucle représente la quantité de travail accompli par la boucle en fonction des opérations effectuées en mémoire, soit
 
-$$
-\mbox{intensité computationnelle} = \frac{\mbox{opérations de calcul}}{\mbox{opérations en mémoire}}
-$$
+$$\mbox{intensité computationnelle} = \frac{\mbox{opérations de calcul}}{\mbox{opérations en mémoire}}$$
 
 Dans le résultat, une valeur supérieure à 1 pour `Intensity` indique que la boucle serait bien exécutée sur un processeur graphique (GPU).
 
 ## Comprendre le code
 
 Regardons attentivement la boucle principale de [la fonction `matvec()` implémentée dans `matrix_functions.h`](https://github.com/calculquebec/cq-formation-openacc/blob/main/cpp/matrix_functions.h#L29) :
-
 ```cpp
   for(int i=0;i<num_rows;i++) {
     double sum=0;
@@ -302,6 +351,7 @@ Regardons attentivement la boucle principale de [la fonction `matvec()` impléme
     ycoefs[i]=sum;
   }
 ```
+
 On trouvera les dépendances de données en se posant les questions suivantes :
 *   Une itération en affecte-t-elle d'autres?
     *   par exemple, quand une **[suite de Fibonacci](https://fr.wikipedia.org/wiki/Suite_de_Fibonacci)** est générée, chaque nouvelle valeur dépend des deux valeurs qui la précèdent. Il est donc très difficile, sinon impossible, d'implémenter un parallélisme efficace.

@@ -1,0 +1,72 @@
+{
+  "doc_key": "fr/pytorch",
+  "level": "chunk",
+  "chunk_index": 17,
+  "qa_pairs": [
+    {
+      "question": "C'est quoi, le parallélisme de données entièrement fragmentées (FSDP) en PyTorch?",
+      "answer": "Le parallélisme de données entièrement fragmentées (FSDP) permet de distribuer le stockage et le calcul de divers éléments d'une tâche d'entraînement, comme les états de l'optimiseur, les poids du modèle, les gradients et les activations, sur plusieurs dispositifs, incluant le GPU, le CPU ou le disque dur local, ou même des combinaisons de ceux-ci."
+    },
+    {
+      "question": "Quel est l'avantage du FSDP pour l'entraînement de modèles?",
+      "answer": "Le FSDP permet d'entraîner efficacement des modèles ayant un nombre massif de paramètres en mettant en commun les ressources de stockage et de calcul sur plusieurs nœuds."
+    },
+    {
+      "question": "Quand est-ce qu'on ne devrait pas utiliser le FSDP?",
+      "answer": "On ne devrait pas utiliser le FSDP si des couches de votre modèle ne rentrent pas entièrement dans la mémoire d'un seul GPU, étant donné qu'une couche fragmentée peut être regroupée sur un seul dispositif pendant un passage avant ou arrière."
+    },
+    {
+      "question": "Si une couche de mon modèle est trop grosse pour la mémoire d'un seul GPU, quelle option devrais-je regarder si le FSDP ne convient pas?",
+      "answer": "Si une couche de votre modèle ne rentre pas entièrement dans la mémoire d'un seul GPU, il faudrait regarder la section sur le parallélisme tensoriel."
+    },
+    {
+      "question": "C'est quoi, le parallélisme tensoriel (TP)?",
+      "answer": "Le parallélisme tensoriel (TP) est une approche de fragmentation de modèle où le calcul d'un passage avant ou arrière à travers une couche du modèle est divisé, en même temps que les poids de la couche, sur plusieurs dispositifs."
+    },
+    {
+      "question": "Quelle est la principale différence entre le parallélisme tensoriel (TP) et le FSDP?",
+      "answer": "Contrairement au FSDP, qui doit parfois regrouper les fragments sur un même dispositif pendant certaines étapes de calcul, le TP effectue les étapes de calcul localement sur le dispositif où un fragment du modèle est placé, ce qui évite les frais généraux liés au déplacement des fragments."
+    },
+    {
+      "question": "Qu'est-ce que le parallélisme de pipeline (PP) en PyTorch?",
+      "answer": "Le parallélisme de pipeline (PP) est une approche de fragmentation de modèle où les fragments sont des groupes de couches consécutives d'un modèle, et chaque bloc de couches séquentielles est placé sur un dispositif différent."
+    },
+    {
+      "question": "Comment le parallélisme de pipeline gère-t-il le calcul à travers plusieurs dispositifs?",
+      "answer": "Avec le parallélisme de pipeline, un passage avant ou arrière à travers le modèle implique d'effectuer les calculs sur chaque dispositif en séquence."
+    },
+    {
+      "question": "Comment peut-on réduire les temps d'inactivité des dispositifs dans le parallélisme de pipeline?",
+      "answer": "Pour réduire les temps d'inactivité, chaque lot d'entrée est divisé en \"micro-lots\", qui sont ensuite alimentés séquentiellement au modèle. Ça fait en sorte que tous les dispositifs restent occupés quand le premier micro-lot atteint le dernier bloc du modèle."
+    },
+    {
+      "question": "Est-ce qu'il est recommandé de créer des points de contrôle pendant l'entraînement d'un code PyTorch?",
+      "answer": "Oui, il est fortement recommandé de créer des points de contrôle pendant l'entraînement, peu importe si votre code s'exécute longtemps ou non."
+    },
+    {
+      "question": "Qu'est-ce qu'un point de contrôle dans le contexte de l'entraînement de modèles?",
+      "answer": "Un point de contrôle, c'est un instantané de votre modèle à un moment donné du processus d'entraînement (après un certain nombre d'itérations ou d'époques), qui est enregistré sur le disque et peut être chargé plus tard."
+    },
+    {
+      "question": "Pourquoi les points de contrôle sont-ils utiles pour les tâches de longue durée sur une grappe?",
+      "answer": "Les points de contrôle sont un moyen pratique de découper les tâches de longue durée en plusieurs tâches plus courtes, ce qui permet des allocations plus rapides sur la grappe."
+    },
+    {
+      "question": "Quels sont les autres avantages des points de contrôle?",
+      "answer": "Les points de contrôle sont aussi un bon moyen d'éviter de perdre le déroulement en cas d'erreurs inattendues dans votre code ou de panne du nœud."
+    },
+    {
+      "question": "Comment on crée des points de contrôle avec PyTorch Lightning?",
+      "answer": "Avec PyTorch Lightning, on recommande d'utiliser le paramètre de rappels (''callbacks parameter'') de la classe `Trainer()`, comme dans cet exemple : `callbacks = [pl.callbacks.ModelCheckpoint(dirpath=\"./ckpt\",every_n_epochs=1)]`."
+    },
+    {
+      "question": "Quand on utilise `pl.callbacks.ModelCheckpoint`, qu'est-ce qu'il faut s'assurer de faire?",
+      "answer": "Quand on utilise `pl.callbacks.ModelCheckpoint`, il faut vérifier que le chemin où créer le point de contrôle existe."
+    },
+    {
+      "question": "Comment est-ce que le script `cifar10-gpu-mps.py` prépare les données d'entraînement?",
+      "answer": "Le script `cifar10-gpu-mps.py` prépare les données en utilisant `transforms.Compose` pour appliquer la transformation `ToTensor()` et la normalisation, puis il crée un `CIFAR10` dataset et utilise un `DistributedSampler` avec un `DataLoader` pour charger les données par lots."
+    }
+  ],
+  "generated_at": "2026-04-12T05:48:07.713526+00:00"
+}

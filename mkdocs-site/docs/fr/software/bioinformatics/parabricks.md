@@ -5,37 +5,48 @@ lang: "fr"
 
 source_wiki_title: "Parabricks/fr"
 source_hash: "adbf67f48e78fc2754ba6f7d7e2f539a"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T09:47:30.538004+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T10:14:51.151025+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "analyse de l'ADN"
+  - "Parabricks"
+  - "GPU"
+  - "séquençage haut débit"
+  - "Calcul Canada"
+
+questions:
+  - "Qu'est-ce que la suite logicielle Parabricks et quel est son principal avantage en matière de vitesse d'analyse de l'ADN ?"
+  - "Comment doit-on procéder pour obtenir une licence et charger le module Parabricks sur les grappes de Calcul Canada ?"
+  - "Quelles sont les causes fréquentes d'échec lors de l'exécution d'une tâche Parabricks et quelles solutions sont recommandées pour y remédier ?"
+  - "Qu'est-ce que la suite logicielle Parabricks et quel est son principal avantage en matière de vitesse d'analyse de l'ADN ?"
+  - "Comment doit-on procéder pour obtenir une licence et charger le module Parabricks sur les grappes de Calcul Canada ?"
+  - "Quelles sont les causes fréquentes d'échec lors de l'exécution d'une tâche Parabricks et quelles solutions sont recommandées pour y remédier ?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
-Parabricks est une suite logicielle servant à l'analyse de l'ADN par séquençage à haut débit (NGS pour *next-generation sequencing*). Le traitement s'effectue très rapidement; selon la documentation du produit, Parabricks peut analyser le séquençage entier du génome humain (WGS pour *whole genome sequencing*) à une résolution de 30x en quelques heures, comparativement à quelques jours avec les autres techniques.
+Parabricks est une suite logicielle qui sert à l'analyse de l'ADN par séquençage haut débit (NGS pour *next-generation sequencing*). Le traitement se fait très rapidement; dans la documentation du produit, il est dit que Parabricks peut analyser le séquençage entier du génome humain (WGS pour *whole genome sequencing*) d'une résolution de 30x en quelques heures, contrairement à quelques jours avec les autres techniques.
 
 Pour plus d'information, allez à [www.nvidia.com/parabricks](http://www.nvidia.com/parabricks).
 
 ## Utilisation sur les grappes de Calcul Canada
 
-**NVIDIA offrait le logiciel gratuitement jusqu'au 17 mai 2020 pour soutenir la recherche sur la COVID-19.**
+**NVidia offrait le logiciel gratuitement jusqu'au 17 mai 2020 pour soutenir la recherche sur la COVID-19.**
 Vous devez maintenant vous entendre avec NVIDIA pour obtenir votre licence.
 
 ## Trouver et charger Parabricks
 
 Vous pouvez trouver Parabricks avec la commande `spider`.
-
 ```bash
 module spider parabricks
 ```
@@ -48,7 +59,7 @@ module load parabricks/2.5.0
 
 ## Exemple d'utilisation
 
-Avant d'utiliser Parabricks, consultez la [documentation](https://www.nvidia.com/en-us/docs/parabricks/), incluant les pipelines et les outils autonomes. Pour savoir comment demander des GPU, lisez [Ordonnancement Slurm avec des tâches exécutées avec GPU](using-gpus-with-slurm.md). Une fois ces informations assimilées, vous pourrez soumettre une tâche comme celle-ci :
+Avant d'utiliser Parabricks, prenez connaissance de la [documentation](https://www.nvidia.com/en-us/docs/parabricks/), incluant les pipelines et les outils autonomes. Pour savoir comment demander des GPU, lisez [Ordonnancement Slurm avec des tâches exécutées avec GPU](using-gpus-with-slurm.md). Quand vous aurez compris cette information, vous pourrez soumettre une tâche comme celle-ci :
 
 ```bash
 #!/bin/bash
@@ -80,24 +91,22 @@ pbrun germline \
 
 ### Échec à court terme
 
-Si un échec se produit lors de votre premier test, cela pourrait être dû à un module manquant ou à un conflit avec une variable d'environnement. Pour résoudre le problème, essayez :
+Si un échec se produit à votre premier test, ce peut être en raison d'un module manquant ou d'un conflit avec une variable d'environnement. Pour résoudre le problème, essayez
 
 ```bash
 module --force purge
 ```
-
 ```bash
 module load StdEnv/2016.4 nixpkgs/16.09 parabricks/2.5.0
 ```
 
 ### Échec à plus long terme
 
-Parabricks ne fournit pas toujours une trace claire des échecs. Cela signifie généralement que vous n'avez pas demandé assez de mémoire vive. Si vous avez réservé un nœud complet avec `--nodes=1`, nous vous suggérons d'utiliser toute la mémoire vive disponible avec `--mem=0`. Autrement, assurez-vous que votre pipeline dispose de suffisamment de mémoire vive pour traiter vos données.
+Parabricks ne fournit pas toujours une trace claire des échecs. Ceci signifie habituellement que vous n'avez pas demandé assez de mémoire. Si vous avez réservé un nœud complet avec `--nodes=1`, nous vous suggérons d'utiliser toute la mémoire avec `--mem=0`. Autrement, assurez-vous que votre pipeline a suffisamment de mémoire pour traiter vos données.
 
 ## Utilisation hybride
 
 Parabricks peut utiliser les CPU et les GPU. Nos tests ont été effectués avec un minimum de 10 CPU; nous vous recommandons de demander au moins cette quantité avec `--cpus-per-task=10`.
 
 ## Références
-
 [Site web Parabricks](http://www.nvidia.com/parabricks)

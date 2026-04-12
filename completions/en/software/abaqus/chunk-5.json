@@ -4,101 +4,145 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "What is the recommended Abaqus module to load for standard analysis jobs?",
-      "answer": "The recommended module to load for standard analysis jobs is `abaqus/2026`."
+      "question": "What is the purpose of `#SBATCH --account=def-group` in the provided Slurm scripts for Abaqus?",
+      "answer": "The `#SBATCH --account=def-group` line specifies the account to which the job's resources will be charged."
     },
     {
-      "question": "Which Abaqus module should be discontinued for standard analysis jobs?",
-      "answer": "The `abaqus/2021` module should be discontinued for standard analysis jobs."
+      "question": "What is the default time allocation specified for a standard analysis job in the `scriptst1.txt` Slurm script?",
+      "answer": "The default time allocation specified is `00-06:00`, which means 6 hours."
     },
     {
-      "question": "What environment variable should be unset before running Abaqus jobs on the cluster?",
-      "answer": "The `SLURM_GTIDS` environment variable should be unset."
+      "question": "How many CPUs per task are allocated by default in the single-node Abaqus Slurm scripts?",
+      "answer": "By default, 4 CPUs per task are allocated using `#SBATCH --cpus-per-task=4`."
     },
     {
-      "question": "What environment variable should be exported for MPI communication order?",
-      "answer": "The `MPI_IC_ORDER` environment variable should be exported with the value 'tcp'."
+      "question": "What is the specified memory allocation for a single-node Abaqus job in the `scriptst1.txt` Slurm script?",
+      "answer": "The specified memory allocation is `8G` using `#SBATCH --mem=8G`."
     },
     {
-      "question": "What is the Abaqus command for restarting a standard analysis job from a project directory?",
-      "answer": "The command is `abaqus job=testsp2 oldjob=testsp1 input=mystd-sim-restart.inp scratch=$SLURM_TMPDIR cpus=$SLURM_CPUS_ON_NODE interactive mp_mode=threads memory=\"$((${SLURM_MEM_PER_NODE}-3072))MB\"` for Abaqus 2026 or newer."
+      "question": "What value is set for `#SBATCH --nodes` in the single-node Slurm scripts, and should it be changed?",
+      "answer": "The `#SBATCH --nodes` value is set to `1` and users are instructed not to change it (`# Do not change !`)."
     },
     {
-      "question": "What content is required in the input file for an Abaqus standard analysis restart job from a project directory?",
+      "question": "How can a specific node type, like 'granite', be requested in the Slurm script?",
+      "answer": "A specific node type can be requested by uncommenting and specifying `#SBATCH --constraint=granite`."
+    },
+    {
+      "question": "How can GPUs, such as an h100, be requested for an Abaqus job via Slurm?",
+      "answer": "GPUs can be requested by uncommenting and specifying `#SBATCH --gpus-per-node=h100:1` in the Slurm script."
+    },
+    {
+      "question": "Which Abaqus module is loaded for the latest version in the provided Slurm scripts?",
+      "answer": "The `abaqus/2026` module is loaded for the latest version."
+    },
+    {
+      "question": "Which Abaqus module is mentioned as a legacy version that can be loaded in the provided Slurm scripts?",
+      "answer": "The `StdEnv/2020` module is mentioned as a legacy version that can be loaded."
+    },
+    {
+      "question": "Which Abaqus module is recommended to discontinue use in the provided Slurm scripts?",
+      "answer": "The `abaqus/2021` module is recommended to discontinue use."
+    },
+    {
+      "question": "Which environment variable is explicitly unset in the provided Abaqus Slurm scripts?",
+      "answer": "The `SLURM_GTIDS` environment variable is explicitly unset (`unset SLURM_GTIDS`)."
+    },
+    {
+      "question": "What value is `MPI_IC_ORDER` exported to in the Abaqus Slurm scripts?",
+      "answer": "`MPI_IC_ORDER` is exported to `'tcp'` (`export MPI_IC_ORDER='tcp'`)."
+    },
+    {
+      "question": "How do the Slurm scripts display the values of `LM_LICENSE_FILE` and `ABAQUSLM_LICENSE_FILE`?",
+      "answer": "The scripts use `echo \"LM_LICENSE_FILE=$LM_LICENSE_FILE\"` and `echo \"ABAQUSLM_LICENSE_FILE=$ABAQUSLM_LICENSE_FILE\"` to display their values."
+    },
+    {
+      "question": "How are the `SLURM_SUBMIT_DIR` and `SLURM_TMPDIR` environment variables displayed in the temporary directory scripts?",
+      "answer": "The scripts display them using `echo \"SLURM_SUBMIT_DIR =\" $SLURM_SUBMIT_DIR` and `echo \"SLURM_TMPDIR = \" $SLURM_TMPDIR`."
+    },
+    {
+      "question": "What is the base Abaqus command used for running a job in the provided scripts for Abaqus 2026 and newer?",
+      "answer": "The base Abaqus command is `abaqus job=testst1 input=$SLURM_SUBMIT_DIR/mystd-sim.inp [...]`."
+    },
+    {
+      "question": "How is the Abaqus job name specified in the command line within the Slurm script?",
+      "answer": "The job name is specified using the `job=` argument, for example, `job=testst1` or `job=testsp2`."
+    },
+    {
+      "question": "How is the input file for the simulation specified in the Abaqus command line within the temporary directory Slurm script?",
+      "answer": "The input file is specified using the `input=` argument, for example, `input=$SLURM_SUBMIT_DIR/mystd-sim.inp`."
+    },
+    {
+      "question": "How is the scratch directory for Abaqus specified in the command line for the temporary directory scripts?",
+      "answer": "The scratch directory is specified using `scratch=$SLURM_TMPDIR/scratch`."
+    },
+    {
+      "question": "How are the number of CPUs passed to the Abaqus command?",
+      "answer": "The number of CPUs are passed using `cpus=$SLURM_CPUS_ON_NODE`."
+    },
+    {
+      "question": "What parallelization mode is specified for single-node Abaqus jobs in the provided scripts?",
+      "answer": "The parallelization mode is specified as `mp_mode=threads`."
+    },
+    {
+      "question": "How is the memory for the Abaqus process calculated and passed in the command line?",
+      "answer": "The memory is calculated as `\"$((${SLURM_MEM_PER_NODE}-3072))MB\"` and passed using the `memory=` argument."
+    },
+    {
+      "question": "What specific command is used for Abaqus version 2021 to run a job, and how does it differ from 2026+?",
+      "answer": "For Abaqus 2021, the command `/cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr/bin/unshare --fork --pid --mount-proc --user --map-user $USER abaqus [...]` is used. For Abaqus 2026 and newer, the `unshare` command wrapper is omitted, and `abaqus [...]` is called directly."
+    },
+    {
+      "question": "What is the name of the script provided for a temporary directory restart of a standard analysis job?",
+      "answer": "The script is named `scriptst2.txt`."
+    },
+    {
+      "question": "How are existing job files from the previous run handled when starting a new restart job in the `temporary directory restart script`?",
+      "answer": "The `temporary directory restart script` first removes any `testst2*` and `testst1.lck` files, then copies all `testst1*` files to `$SLURM_TMPDIR`."
+    },
+    {
+      "question": "What Abaqus command line options are used for a restart job in `scriptst2.txt`?",
+      "answer": "The command uses `job=testst2 oldjob=testst1 input=$SLURM_SUBMIT_DIR/mystd-sim-restart.inp`."
+    },
+    {
+      "question": "How is data periodically saved from the temporary directory to the submit directory in the `temporary directory restart script`?",
+      "answer": "A background loop `while sleep 3h; do cp -fv testst2* $SLURM_SUBMIT_DIR 2>/dev/null; done &` is used to copy `testst2*` files every 3 hours."
+    },
+    {
+      "question": "What does the `{ kill $WPID && wait $WPID; } 2>/dev/null` command do in the temporary directory scripts?",
+      "answer": "This command kills the background process (WPID) responsible for periodic data saving and then waits for it to finish gracefully."
+    },
+    {
+      "question": "How are final files copied from `$SLURM_TMPDIR` to `$SLURM_SUBMIT_DIR` at the end of the `scriptst2.txt`?",
+      "answer": "The command `cp -fv testst2* $SLURM_SUBMIT_DIR` is used to copy the final `testst2*` files back."
+    },
+    {
+      "question": "What must the restart input file contain for a standard analysis job restart?",
       "answer": "The restart input file should contain `*HEADING` and `*RESTART, READ`."
     },
     {
-      "question": "What is the Slurm command for specifying the account for a standard analysis job?",
-      "answer": "The Slurm command for specifying the account is `#SBATCH --account=def-group`."
-    },
-    {
-      "question": "How do you specify the runtime for a standard analysis job in a Slurm script?",
-      "answer": "You specify the runtime using `#SBATCH --time=00-06:00` (for days-hrs:mins)."
-    },
-    {
-      "question": "How many CPU cores per task are specified in the provided Slurm scripts for single node standard analysis?",
-      "answer": "Four CPU cores per task are specified using `#SBATCH --cpus-per-task=4`."
-    },
-    {
-      "question": "What is the default memory allocation specified in the Slurm scripts for single node standard analysis?",
-      "answer": "The default memory allocation is 8GB, specified by `#SBATCH --mem=8G`."
-    },
-    {
-      "question": "What is the Slurm setting to ensure the job runs on a single node for standard analysis?",
-      "answer": "The setting is `#SBATCH --nodes=1`, and it should not be changed."
-    },
-    {
-      "question": "How can one specify a node type for a standard analysis job using Slurm?",
-      "answer": "One can uncomment and use `#SBATCH --constraint=granite` to specify a node type."
-    },
-    {
-      "question": "How can one specify GPU usage for a standard analysis job in a Slurm script?",
-      "answer": "One can uncomment `#gpus=$SLURM_GPUS_ON_NODE` within the Abaqus command line to use a GPU."
-    },
-    {
-      "question": "What is the purpose of the `3072MB` value subtracted from `SLURM_MEM_PER_NODE` in the Abaqus command line?",
-      "answer": "This value (`3072MB`) is an offset to calculate the memory Abaqus will use, likely to account for system overhead and ensure the job runs fully in RAM."
-    },
-    {
-      "question": "When using a temporary directory script for standard analysis, what directory should be created within `$SLURM_TMPDIR` for scratch files?",
-      "answer": "A directory named `scratch` should be created within `$SLURM_TMPDIR`."
-    },
-    {
-      "question": "How often does the temporary directory script save data back to the submit directory during a run?",
-      "answer": "The temporary directory script saves data every 6 hours (`while sleep 6h`)."
-    },
-    {
-      "question": "What Abaqus command is used for an initial run in a temporary directory script for standard analysis?",
-      "answer": "The command is `abaqus job=testst1 input=$SLURM_SUBMIT_DIR/mystd-sim.inp scratch=$SLURM_TMPDIR/scratch cpus=$SLURM_CPUS_ON_NODE interactive mp_mode=threads memory=\"$((${SLURM_MEM_PER_NODE}-3072))MB\"`."
-    },
-    {
-      "question": "How can restart data be written every 12 time increments in an Abaqus input file?",
+      "question": "How do you specify writing restart data every 12 time increments in an Abaqus input file for a standard analysis?",
       "answer": "To write restart data every 12 time increments, specify `*RESTART, WRITE, OVERLAY, FREQUENCY=12` in the input file."
     },
     {
-      "question": "How can restart data be written for a total of 12 time increments without time marks?",
-      "answer": "Specify `*RESTART, WRITE, OVERLAY, NUMBER INTERVAL=12, TIME MARKS=NO` in the input file."
+      "question": "How do you specify writing restart data for a total of 12 time increments without time marks in an Abaqus input file for a standard analysis?",
+      "answer": "To write restart data for a total of 12 time increments without time marks, specify `*RESTART, WRITE, OVERLAY, NUMBER INTERVAL=12, TIME MARKS=NO` in the input file."
     },
     {
-      "question": "How do you check for completed restart information for standard analysis jobs using temporary directory scripts?",
-      "answer": "You can check by running `egrep -i \"step|start\" testst*.com testst*.msg testst*.sta`."
+      "question": "What command is used to check for completed restart information for `testst` jobs?",
+      "answer": "The command `egrep -i \"step|start\" testst*.com testst*.msg testst*.sta` is used to check for completed restart information."
     },
     {
-      "question": "What is the initial step when restarting a standard analysis job using a temporary directory script?",
-      "answer": "The initial step is to copy old restart files: `cp testst1* $SLURM_TMPDIR`."
+      "question": "What is the purpose of `mkdir $SLURM_TMPDIR/scratch` in the temporary directory script?",
+      "answer": "The purpose is to create a subdirectory named `scratch` within the `$SLURM_TMPDIR` for Abaqus to use as its scratch space."
     },
     {
-      "question": "How often does the temporary directory restart script for standard analysis save data during a run?",
-      "answer": "The temporary directory restart script saves data every 3 hours (`while sleep 3h`)."
+      "question": "What is the initial action taken by the `temporary directory script` regarding job output files?",
+      "answer": "The script removes any existing `testst1*` and `testst2*` files before starting the job."
     },
     {
-      "question": "What Abaqus command is used for restarting a run in a temporary directory script for standard analysis?",
-      "answer": "The command is `abaqus job=testst2 oldjob=testst1 input=$SLURM_SUBMIT_DIR/mystd-sim-restart.inp scratch=$SLURM_TMPDIR/scratch cpus=$SLURM_CPUS_ON_NODE interactive mp_mode=threads memory=\"$((${SLURM_MEM_PER_NODE}-3072))MB\"`."
-    },
-    {
-      "question": "What content is required in the input file for an Abaqus standard analysis restart job when using a temporary directory script?",
-      "answer": "The restart input file should contain `*HEADING` and `*RESTART, READ`."
+      "question": "What is the difference in periodic saving frequency between the `temporary directory script` and the `temporary directory restart script` for standard analysis?",
+      "answer": "The `temporary directory script` saves data every 6 hours (`while sleep 6h`), while the `temporary directory restart script` saves data every 3 hours (`while sleep 3h`)."
     }
   ],
-  "generated_at": "2026-04-10T00:29:42.902804+00:00"
+  "generated_at": "2026-04-11T15:32:10.422243+00:00"
 }

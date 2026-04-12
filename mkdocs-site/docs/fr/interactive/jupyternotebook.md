@@ -5,26 +5,77 @@ lang: "fr"
 
 source_wiki_title: "JupyterNotebook/fr"
 source_hash: "ecef32c1cb1e16a7affc4d08c5b2bf07"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T07:44:50.303897+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T08:22:29.903077+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "sshuttle"
+  - "Jupyter"
+  - "IJulia"
+  - "nbserverproxy"
+  - "Environnement virtuel Python"
+  - "TensorBoard"
+  - "Jupyter Notebook"
+  - "MobaXTerm"
+  - "ipykernel"
+  - "nœud de calcul"
+  - "Installation"
+  - "tunnel SSH"
+  - "services web mandataires"
+  - "noyau Jupyter"
+  - "serveur local"
+  - "R"
+  - "environnement virtuel"
+  - "tâche interactive"
+  - "installation d'un noyau"
+  - "Python"
+  - "RStudio Launcher"
+  - "Modules d'extension"
+  - "poste de travail"
+  - "Nœud de calcul"
+  - "noyaux"
+  - "Julia"
+
+questions:
+  - "Pourquoi est-il recommandé d'exécuter Jupyter Notebook sur un nœud de calcul plutôt que sur un nœud de connexion ?"
+  - "Quelles sont les étapes à suivre pour installer Jupyter Notebook dans un environnement virtuel Python ?"
+  - "Quelles fonctionnalités supplémentaires les modules d'extension comme Jupyter Lmod et nbserverproxy apportent-ils à l'application ?"
+  - "Quel est le rôle principal de l'extension nbserverproxy au sein d'un serveur Jupyter ?"
+  - "Dans quelle situation spécifique l'utilisation de services web mandataires s'avère-t-elle utile ?"
+  - "Quel exemple de service web local est cité pour illustrer l'utilité de ce système ?"
+  - "Comment configurer Jupyter Notebook pour qu'il puisse démarrer une session RStudio ?"
+  - "Quelle est la procédure pour lancer l'application Jupyter Notebook sur un nœud de calcul à l'aide d'une tâche interactive ?"
+  - "Pourquoi est-il nécessaire de créer un tunnel SSH pour accéder à l'interface web de Jupyter, et quel outil est recommandé sous Linux ou macOS ?"
+  - "Comment configurer un tunnel SSH sous Windows avec MobaXTerm pour accéder à l'interface de Jupyter Notebook ?"
+  - "Quelle est la procédure pour fermer correctement le serveur Jupyter Notebook et le tunnel SSH associé ?"
+  - "Quelles sont les étapes nécessaires pour ajouter un nouveau noyau de langage de programmation, comme Julia, à Jupyter Notebook ?"
+  - "Quel est l'objectif principal de la création d'un tunnel SSH entre la grappe et le poste de travail ?"
+  - "Quel paquet Python est spécifiquement recommandé pour configurer ce tunnel sous Linux ou macOS X ?"
+  - "Quelle commande doit-on exécuter dans le terminal du poste local pour établir la connexion ?"
+  - "Quelles sont les étapes requises pour créer un environnement virtuel et configurer un noyau Python pour Jupyter ?"
+  - "Comment procéder à l'installation des dépendances et du noyau R (IRkernel) dans l'environnement Jupyter ?"
+  - "Où l'utilisateur peut-il consulter la documentation officielle pour obtenir plus d'informations sur les noyaux IJulia, Python et R ?"
+  - "Quelle commande doit-on utiliser pour créer le répertoire destiné à stocker les noyaux Jupyter ?"
+  - "Quelles sont les étapes préalables requises pour préparer l'environnement avant l'installation du noyau Julia ?"
+  - "Quelle commande spécifique permet d'installer le paquet IJulia une fois l'environnement virtuel activé ?"
+  - "Quelles sont les étapes requises pour créer un environnement virtuel et configurer un noyau Python pour Jupyter ?"
+  - "Comment procéder à l'installation des dépendances et du noyau R (IRkernel) dans l'environnement Jupyter ?"
+  - "Où l'utilisateur peut-il consulter la documentation officielle pour obtenir plus d'informations sur les noyaux IJulia, Python et R ?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
-!!! attention "Contenu avancé"
-Cette page s'adresse aux utilisateurs avancés. Veuillez consulter la page [JupyterHub](jupyterhub.md) à la place.
+!!! warning "Matériel avancé"
+Cette page est destinée aux utilisateurs avancés. Veuillez plutôt consulter [JupyterHub](jupyterhub.md).
 
 ## Introduction
 
@@ -59,7 +110,7 @@ Ces directives permettent d'installer Jupyter Notebook avec la commande `pip` da
    (jupyter_py3)_[name@server ~]$ pip install --no-index --upgrade pip
    (jupyter_py3)_[name@server ~]$ pip install --no-index jupyter
    ```
-5. Dans votre nouvel environnement virtuel, créez un script (wrapper) pour lancer Jupyter Notebook.
+5. Dans votre nouvel environnement virtuel, créez un script (*wrapper*) pour lancer Jupyter Notebook.
    ```bash
    (jupyter_py3)_[name@server ~]$ echo -e '#!/bin/bash\nexport JUPYTER_RUNTIME_DIR=$SLURM_TMPDIR/jupyter\njupyter notebook --ip $(hostname -f) --no-browser' > $VIRTUAL_ENV/bin/notebook.sh
    ```
@@ -94,20 +145,19 @@ Les modules d'extension ajoutent des fonctionnalités et peuvent modifier l'inte
 
 #### Exemple
 
-Avec Jupyter, un service web est démarré via *Terminal* dans la liste déroulante *Nouveau*.
+Avec Jupyter, un service web est démarré via *Terminal* dans la liste déroulante *New*.
 
 ```bash
 tensorboard --port=8008
 ```
 
-Le service est disponible via `/proxy/` sur `https://address.of.notebook.server/user/theuser/proxy/8008`.
+Le service est disponible via /proxy/ sur https://address.of.notebook.server/user/theuser/proxy/8008.
 
 ### RStudio Launcher
 
-Jupyter Notebook peut démarrer une session RStudio qui utilise le système d'authentification par jeton de Jupyter Notebook. RStudio Launcher crée l'option *Session RStudio* dans la liste déroulante *Nouveau* de Jupyter Notebook.
+Jupyter Notebook peut démarrer une session RStudio qui utilise le système d'authentification par jeton de Jupyter Notebook. RStudio Launcher crée l'option *RStudio Session* dans la liste déroulante *New* de Jupyter Notebook.
 
-!!! note "Remarque"
-    La procédure suivante fonctionne uniquement avec les environnements logiciels `StdEnv/2016.4` et `StdEnv/2018.3`.
+**Remarque :** la procédure suivante fonctionne uniquement avec les environnements logiciels `StdEnv/2016.4` et `StdEnv/2018.3`.
 
 ```bash
 (jupyter_py3)_[name@server ~]$ pip install nbserverproxy
@@ -146,6 +196,9 @@ Pour lancer l'application, soumettez une tâche interactive. Ajustez les paramè
 
 ```bash
 (jupyter_py3)_[name@server ~]$ salloc --time=1:0:0 --ntasks=1 --cpus-per-task=2 --mem-per-cpu=1024M --account=def-yourpi srun $VIRTUAL_ENV/bin/notebook.sh
+```
+
+```text
 salloc: Granted job allocation 1422754
 salloc: Waiting for resource configuration
 salloc: Nodes cdr544 are ready for job

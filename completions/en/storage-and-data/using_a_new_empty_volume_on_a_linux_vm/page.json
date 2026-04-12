@@ -1,0 +1,55 @@
+{
+  "doc_key": "en/using_a_new_empty_volume_on_a_linux_vm",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is the main purpose of the provided steps for Linux distributions?",
+      "answer": "The main purpose is to partition, format, and mount a newly created volume."
+    },
+    {
+      "question": "What important precaution should be taken if the volume is not newly created?",
+      "answer": "The partition and format steps should be skipped as they will result in data loss on an existing volume; only the mounting steps should be followed."
+    },
+    {
+      "question": "Which command is used to create a partition on a volume?",
+      "answer": "`sudo fdisk /dev/vdb` is used to create a partition on a volume."
+    },
+    {
+      "question": "What sequence of single-character commands is used within `fdisk` to create a new primary partition and save changes?",
+      "answer": "The sequence is `n` (new partition), `p` (primary), `1` (partition number), `<return>` (first sector default), `<return>` (last sector default), and `w` (write partition table to disk and exit)."
+    },
+    {
+      "question": "How do you format a newly created partition with the ext4 filesystem?",
+      "answer": "You format it using the command `sudo mkfs -t ext4 /dev/vdb1`."
+    },
+    {
+      "question": "What command is used to create a directory where the device will be mounted?",
+      "answer": "`sudo mkdir /media/data` is used to create a mount point for the device."
+    },
+    {
+      "question": "How do you initially mount the formatted partition to its designated directory?",
+      "answer": "You mount it with the command `sudo mount /dev/vdb1 /media/data`."
+    },
+    {
+      "question": "How can a volume be configured to mount automatically every time the VM reboots?",
+      "answer": "To cause the VM to mount the volume automatically at boot time, edit `/etc/fstab` and add a line like `/dev/vdb1 /media/data ext4 defaults 0 2`."
+    },
+    {
+      "question": "If you modify `/etc/fstab` but are not rebooting the VM, how can you mount the newly added device?",
+      "answer": "You can mount the device just added to `/etc/fstab` with the command `sudo mount -a`."
+    },
+    {
+      "question": "Why is it recommended to unmount a volume before detaching it from a VM?",
+      "answer": "Unmounting a volume before detaching it helps prevent data corruption."
+    },
+    {
+      "question": "What command is used to unmount a mounted volume?",
+      "answer": "`sudo umount /media/data` is the command used to unmount a volume."
+    },
+    {
+      "question": "What happens if you try to unmount a volume while files on it are being accessed?",
+      "answer": "If files are being accessed, you will receive a message indicating that the volume is still busy and it will not be unmounted."
+    }
+  ],
+  "generated_at": "2026-04-12T10:13:14.386633+00:00"
+}

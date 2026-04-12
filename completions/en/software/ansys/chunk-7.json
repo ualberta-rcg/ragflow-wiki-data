@@ -1,0 +1,88 @@
+{
+  "doc_key": "en/ansys",
+  "level": "chunk",
+  "chunk_index": 7,
+  "qa_pairs": [
+    {
+      "question": "What is the recommended Slurm script for running Fluent jobs on multiple nodes using Intel MPI, optimizing for solution latency and performance?",
+      "answer": "The `script-flu-bynode-intel.sh` script is recommended for running Fluent jobs on multiple nodes to minimize solution latency and maximize performance over as few nodes as possible."
+    },
+    {
+      "question": "How do you specify the account name in the `script-flu-bynode-intel.sh` Slurm script for Fluent?",
+      "answer": "You specify the account name using `#SBATCH --account=def-group` in the `script-flu-bynode-intel.sh` Slurm script, replacing `def-group` with your actual account."
+    },
+    {
+      "question": "What is the default time limit specified in the `script-flu-bynode-intel.sh` Slurm script?",
+      "answer": "The default time limit specified is 3 hours (`#SBATCH --time=00-03:00`) in the `script-flu-bynode-intel.sh` Slurm script."
+    },
+    {
+      "question": "How many compute nodes are requested by default in the `script-flu-bynode-intel.sh` Slurm script?",
+      "answer": "One compute node (`#SBATCH --nodes=1`) is requested by default in the `script-flu-bynode-intel.sh` Slurm script, with a maximum of 1 node for Narval."
+    },
+    {
+      "question": "What is the maximum number of cores per compute node that can be specified in the `script-flu-bynode-intel.sh` Slurm script?",
+      "answer": "Up to a maximum of 32 cores per compute node can be specified using `#SBATCH --ntasks-per-node=32` in the `script-flu-bynode-intel.sh` Slurm script."
+    },
+    {
+      "question": "How much memory is allocated per compute node by default in the `script-flu-bynode-intel.sh` Slurm script?",
+      "answer": "The script allocates all available memory per compute node by specifying `#SBATCH --mem=0`."
+    },
+    {
+      "question": "What modules need to be loaded for the `script-flu-bynode-intel.sh` Fluent job?",
+      "answer": "The `StdEnv/2023` and `ansys/2023R2` (or newer versions) modules need to be loaded for the `script-flu-bynode-intel.sh` Fluent job."
+    },
+    {
+      "question": "What variables should a user modify in the `script-flu-bynode-intel.sh` for Fluent?",
+      "answer": "Users should specify their journal file name (`MYJOURNALFILE=sample.jou`) and the Fluent version (e.g., `MYVERSION=3d`) in the `script-flu-bynode-intel.sh`."
+    },
+    {
+      "question": "How does the `script-flu-bynode-intel.sh` handle MPI configuration specifically for the Narval cluster?",
+      "answer": "For the Narval cluster, the script loads `intel/2023` and `intelmpi`, exports `INTELMPI_ROOT=$I_MPI_ROOT`, and unsets `I_MPI_ROOT`. Additionally, for Ansys versions 2025 or newer on Nibi, or on Narval, it sets `I_MPI_HYDRA_BOOTSTRAP=ssh` and unsets `I_MPI_HYDRA_BOOTSTRAP_EXEC_EXTRA_ARGS`."
+    },
+    {
+      "question": "What command is used to run Fluent for a single node in the `script-flu-bynode-intel.sh`?",
+      "answer": "For a single node, Fluent is run using `fluent -g $MYVERSION -t $NCORES -mpi=intel -pshmem -i $MYJOURNALFILE`."
+    },
+    {
+      "question": "What command is used to run Fluent for multiple nodes on the Nibi cluster using the `script-flu-bynode-intel.sh`?",
+      "answer": "For multiple nodes on the Nibi cluster, Fluent is run using `fluent -g $MYVERSION -t $NCORES -mpi=intel -peth -cnf=/tmp/machinefile-$SLURM_JOB_ID -i $MYJOURNALFILE`."
+    },
+    {
+      "question": "What is the purpose of the `slurm_hl2hl.py --format ANSYS-FLUENT` command in the Fluent Slurm scripts?",
+      "answer": "The `slurm_hl2hl.py --format ANSYS-FLUENT` command generates a machine file (`/tmp/machinefile-$SLURM_JOB_ID`) that Fluent uses for distributed parallel execution."
+    },
+    {
+      "question": "When would you use the `script-flu-bycore-intel.sh` Slurm script for Fluent?",
+      "answer": "The `script-flu-bycore-intel.sh` script is typically used for very large Fluent jobs, which might experience less queue waiting time, although startup time for many nodes can be longer."
+    },
+    {
+      "question": "How is memory specified in the `script-flu-bycore-intel.sh` Slurm script?",
+      "answer": "Memory is specified per core using `#SBATCH --mem-per-cpu=4G` in the `script-flu-bycore-intel.sh` Slurm script."
+    },
+    {
+      "question": "What is the default total number of cores requested in the `script-flu-bycore-intel.sh` Slurm script?",
+      "answer": "The default total number of cores across all nodes is 16, specified by `#SBATCH --ntasks=16` in the `script-flu-bycore-intel.sh` Slurm script."
+    },
+    {
+      "question": "What are the specific `SBATCH` directives for a Fluent multinode job on Narval using OpenMPI, as shown in the `script-flu-bynode-openmpi.sh`?",
+      "answer": "The `SBATCH` directives are `--account=def-group`, `--time=00-03:00`, `--nodes=1` (or more), `--ntasks-per-node=64` (or less), `--mem=0`, and `--cpus-per-task=1`."
+    },
+    {
+      "question": "Which modules are loaded in the `script-flu-bynode-openmpi.sh` for Fluent on Narval?",
+      "answer": "The `StdEnv/2023` and `ansys/2023R2` (or newer versions) modules are loaded in the `script-flu-bynode-openmpi.sh`."
+    },
+    {
+      "question": "How is the machine file prepared for Fluent with OpenMPI in the `script-flu-bynode-openmpi.sh`?",
+      "answer": "The `slurm_hl2hl.py --format ANSYS-FLUENT` command first creates an intermediate file (`/tmp/mf-$SLURM_JOB_ID`), which is then processed to create the final machine file (`/tmp/machinefile-$SLURM_JOB_ID`) in the format `hostname:cores`."
+    },
+    {
+      "question": "What Fluent command is used for a multinode OpenMPI job on Narval in the `script-flu-bynode-openmpi.sh`?",
+      "answer": "For multinode jobs, Fluent is run using `fluent -g $MYVERSION -t $NCORES -mpi=openmpi -pib -cnf=/tmp/machinefile-$SLURM_JOB_ID -i $MYJOURNALFILE`, with `export FI_PROVIDER=verbs` set beforehand."
+    },
+    {
+      "question": "What does `--cpus-per-task=1` mean in the Fluent Slurm scripts?",
+      "answer": "The line `--cpus-per-task=1` in the Fluent Slurm scripts should not be changed, as it's a required parameter for how tasks are allocated."
+    }
+  ],
+  "generated_at": "2026-04-11T16:57:26.141440+00:00"
+}

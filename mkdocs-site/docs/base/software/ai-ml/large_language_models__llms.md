@@ -5,21 +5,33 @@ lang: "base"
 
 source_wiki_title: "Large Language Models (LLMs)"
 source_hash: "029ca2850a42f1dbbf2489740a0eb6d9"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T07:52:27.309524+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T08:28:43.603286+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "Large Language Models"
+  - "huggingface_hub"
+  - "Inference"
+  - "Hugging Face Hub"
+  - "Training"
+
+questions:
+  - "What are Large Language Models (LLMs) and what types of workloads does this guide help users set up?"
+  - "Which repository and Python package are recommended for downloading models?"
+  - "Why is it necessary to set the HF_HUB_DISABLE_XET variable when downloading models on this system?"
+  - "What are Large Language Models (LLMs) and what types of workloads does this guide help users set up?"
+  - "Which repository and Python package are recommended for downloading models?"
+  - "Why is it necessary to set the HF_HUB_DISABLE_XET variable when downloading models on this system?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -29,7 +41,7 @@ Large Language Models (LLMs) are generative models capable of generating sophist
 
 At the time of this writing, [The Hugging Face Hub](https://huggingface.co/models) is the most common repository for LLMs.
 
-The `huggingface_hub` Python package contains a command line interface (CLI) which can be used to download models. For example, to download the model `Zephyr-7b-beta`, first install `huggingface_hub` in a [virtual environment](virtualenv.md), then **on a login node** run:
+The `huggingface_hub` Python package contains a command-line interface (CLI) which can be used to download models. For example, to download the model `Zephyr-7b-beta`, first install `huggingface_hub` in a [virtual environment](virtualenv.md), then **on a login node** run:
 
 ```bash
 HF_HUB_DISABLE_XET=1 hf download --max-workers=1 HuggingFaceH4/zephyr-7b-beta

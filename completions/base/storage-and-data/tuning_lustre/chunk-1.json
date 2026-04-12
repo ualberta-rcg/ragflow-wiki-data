@@ -1,0 +1,72 @@
+{
+  "doc_key": "base/tuning_lustre",
+  "level": "chunk",
+  "chunk_index": 1,
+  "qa_pairs": [
+    {
+      "question": "What is Lustre?",
+      "answer": "Lustre is a high performance distributed filesystem which allows users to reach high bandwidth for input/output operations."
+    },
+    {
+      "question": "Who is the advice provided regarding Lustre performance intended for?",
+      "answer": "The advice offered here is for advanced users and should be used with caution."
+    },
+    {
+      "question": "What should users do to ensure performance improvements and scientific validity when making changes to Lustre settings?",
+      "answer": "Users should be sure to carry out tests both to verify the scientific validity of their output and to ensure the changes lead to real performance improvements."
+    },
+    {
+      "question": "What two parameters can be modified for a file or directory in Lustre?",
+      "answer": "For each file or directory, it is possible to change the stripe size and stripe count parameters."
+    },
+    {
+      "question": "What does 'stripe size' mean in the context of a Lustre filesystem?",
+      "answer": "Stripe size is the size of the smallest block of data that is allocated on the filesystem."
+    },
+    {
+      "question": "What does 'stripe count' signify in the Lustre filesystem?",
+      "answer": "Stripe count is the number of disks on which the data are spread."
+    },
+    {
+      "question": "How can you determine the stripe parameters for a given file or directory?",
+      "answer": "It is possible to get the value of those parameters for a given file or directory using the command `lfs getstripe /path/to/file`."
+    },
+    {
+      "question": "What command is used to modify the stripe parameters for a directory?",
+      "answer": "It is possible to change those parameters for a given directory using the command `lfs setstripe -c count /path/to/dir`."
+    },
+    {
+      "question": "What happens if you set the stripe count to 8 for a directory?",
+      "answer": "If 'count'=8, then the files will be spread on 8 targets (RAIDs), and each MB will be written in a round-robin fashion on up to 8 different servers."
+    },
+    {
+      "question": "Will changing the stripe count of a directory affect existing files within that directory?",
+      "answer": "No, changing the stripe count will not modify an existing file."
+    },
+    {
+      "question": "What methods can be used to change the stripe parameters of an existing file?",
+      "answer": "To change those parameters, the file must be copied (not moved) to a directory with different parameters or the file needs to be migrated."
+    },
+    {
+      "question": "How can an empty file be created with specific stripe parameters without altering the directory's default parameters?",
+      "answer": "To create an empty file with a given value of those parameters without changing the parameters of the directory, you may run `lfs setstripe` on the name of the file to be created."
+    },
+    {
+      "question": "What command can be used to restripe an existing file?",
+      "answer": "You can restripe an old file using `lfs migrate`."
+    },
+    {
+      "question": "What does the `lfs getstripe` output for a non-striped directory called 'striping_example' show for its stripe count?",
+      "answer": "For 'striping_example/', the `lfs getstripe` output shows `stripe_count: 1`."
+    },
+    {
+      "question": "When a directory's striping is changed and a new file is created, will the new file adopt the new stripe count?",
+      "answer": "Yes, only the new_file will use the new default of the specified count (e.g., `lmm_stripe_count: 2`) and new objects will be allocated."
+    },
+    {
+      "question": "After migrating a file using `lfs migrate -c 2`, what changes are observed in its `lmm_stripe_count` and object allocation?",
+      "answer": "After migration, the file now has an `lmm_stripe_count` of 2 and 2 objects are allocated."
+    }
+  ],
+  "generated_at": "2026-04-12T09:52:34.397653+00:00"
+}

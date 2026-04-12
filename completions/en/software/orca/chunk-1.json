@@ -1,0 +1,108 @@
+{
+  "doc_key": "en/orca",
+  "level": "chunk",
+  "chunk_index": 1,
+  "qa_pairs": [
+    {
+      "question": "What is ORCA?",
+      "answer": "ORCA is a flexible, efficient, and easy-to-use general-purpose tool for quantum chemistry, specifically emphasizing spectroscopic properties of open-shell molecules."
+    },
+    {
+      "question": "What types of quantum chemical methods does ORCA support?",
+      "answer": "ORCA supports a wide variety of standard quantum chemical methods, including semiempirical methods, DFT, and single- and multireference correlated ab initio methods."
+    },
+    {
+      "question": "Can ORCA account for environmental and relativistic effects?",
+      "answer": "Yes, ORCA can treat both environmental and relativistic effects."
+    },
+    {
+      "question": "What are the steps to gain access to prebuilt ORCA executables?",
+      "answer": "To use prebuilt ORCA executables, you must first register at https://orcaforum.kofo.mpg.de/. You will then receive a first email to verify your address and activate your account. After completing registration, you will receive a second email confirming \"registration for ORCA download and usage has been completed\". Finally, you must contact support, requesting access to ORCA and including a copy of this second email."
+    },
+    {
+      "question": "Where should I register to use ORCA?",
+      "answer": "You need to register at https://orcaforum.kofo.mpg.de/ to use prebuilt ORCA executables."
+    },
+    {
+      "question": "Which version of ORCA 6 is recommended for users?",
+      "answer": "Users should use ORCA 6.0.1, as it addresses some bugs present in the initial 6.0.0 release."
+    },
+    {
+      "question": "How do I load the ORCA 6.0.1 module?",
+      "answer": "To load ORCA 6.0.1, use the command: `module load StdEnv/2023 gcc/12.3 openmpi/4.1.5 orca/6.0.1`."
+    },
+    {
+      "question": "What is included with ORCA version 6.0.1?",
+      "answer": "ORCA version 6.0.1 includes xtb 6.7.1."
+    },
+    {
+      "question": "Which ORCA 5 version is recommended and why?",
+      "answer": "ORCA 5.0.4 is recommended because it fixes bugs present in versions 5.0.1 through 5.0.3, most notably a bug involving D4 dispersion gradients."
+    },
+    {
+      "question": "Will older ORCA 5.0.x versions (5.0.1, 5.0.2, 5.0.3) remain available?",
+      "answer": "Versions 5.0.1, 5.0.2, and 5.0.3 are currently in the software stack but might be removed in the future."
+    },
+    {
+      "question": "How do I load the ORCA 5.0.4 module?",
+      "answer": "To load ORCA 5.0.4, use the command: `module load StdEnv/2020 gcc/10.3.0 openmpi/4.1.1 orca/5.0.4`."
+    },
+    {
+      "question": "How can I load ORCA 4.2.1 using the StdEnv/2020 environment?",
+      "answer": "To load ORCA 4.2.1 with StdEnv/2020, use the command: `module load StdEnv/2020 gcc/9.3.0 openmpi/4.0.3 orca/4.2.1`."
+    },
+    {
+      "question": "How can I load ORCA 4.2.1 using the nixpkgs/16.09 environment?",
+      "answer": "To load ORCA 4.2.1 with nixpkgs/16.09, use the command: `module load nixpkgs/16.09 gcc/7.3.0 openmpi/3.1.4 orca/4.2.1`."
+    },
+    {
+      "question": "What two additional parameters should be set in ORCA input files?",
+      "answer": "In addition to keywords for a simulation, you should set the number of CPUs and maxcore in ORCA input files."
+    },
+    {
+      "question": "How can I check which versions of ORCA are available?",
+      "answer": "To see which versions of ORCA are currently available, type `module spider orca`."
+    },
+    {
+      "question": "How can I get detailed information about a specific ORCA version?",
+      "answer": "To get detailed information about a specific ORCA version, including other required modules, use the module's full name, for example: `module spider orca/4.0.1.2`."
+    },
+    {
+      "question": "Where can I find general guidance on using modules?",
+      "answer": "You can find general guidance on using modules by referring to the 'Using modules' page."
+    },
+    {
+      "question": "What should I do if I encounter MPI errors with ORCA executables?",
+      "answer": "If you experience MPI errors with some ORCA executables, you can try defining the following variables: `export OMPI_MCA_mtl='^mxm'` and `export OMPI_MCA_pml='^yalla'`."
+    },
+    {
+      "question": "How is ORCA started in a job script compared to most MPI programs?",
+      "answer": "Unlike most MPI programs that use parallel launch commands like `mpirun` or `srun`, ORCA requires the full path to the program, which is given by `$EBROOTORCA`."
+    },
+    {
+      "question": "What does `$EBROOTORCA` refer to in an ORCA job script?",
+      "answer": "`$EBROOTORCA` refers to the full path to the ORCA program in a job script."
+    },
+    {
+      "question": "Could you provide an example of a job script for running ORCA 4.2.1?",
+      "answer": "```bash\n#!/bin/bash\n#SBATCH --account=def-youPIs\n#SBATCH --ntasks=8                 # cpus, the nprocs defined in the input file\n#SBATCH --mem-per-cpu=3G           # memory per cpu\n#SBATCH --time=00-03:00            # time (DD-HH:MM)\n#SBATCH --output=benzene.log       # output .log file\n\nmodule load StdEnv/2020  gcc/9.3.0  openmpi/4.0.3\nmodule load orca/4.2.1\n$EBROOTORCA/orca benzene.inp\n```"
+    },
+    {
+      "question": "What is the memory per CPU requested in the example ORCA job script?",
+      "answer": "The example ORCA job script requests 3G of memory per CPU (`#SBATCH --mem-per-cpu=3G`)."
+    },
+    {
+      "question": "How many tasks are requested in the example ORCA job script?",
+      "answer": "The example ORCA job script requests 8 tasks (`#SBATCH --ntasks=8`)."
+    },
+    {
+      "question": "What is the time limit specified in the example ORCA job script?",
+      "answer": "The time limit specified in the example ORCA job script is 3 hours (`#SBATCH --time=00-03:00`)."
+    },
+    {
+      "question": "Which modules are loaded for ORCA 4.2.1 in the example job script?",
+      "answer": "The example job script loads `StdEnv/2020`, `gcc/9.3.0`, `openmpi/4.0.3`, and `orca/4.2.1`."
+    }
+  ],
+  "generated_at": "2026-04-12T03:59:31.927960+00:00"
+}

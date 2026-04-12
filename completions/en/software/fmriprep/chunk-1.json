@@ -1,0 +1,84 @@
+{
+  "doc_key": "en/fmriprep",
+  "level": "chunk",
+  "chunk_index": 1,
+  "qa_pairs": [
+    {
+      "question": "What is fMRIPrep?",
+      "answer": "fMRIPrep is a NiPreps app designed for preprocessing MRI data in BIDS format."
+    },
+    {
+      "question": "What format does fMRIPrep preprocess MRI data in?",
+      "answer": "fMRIPrep preprocesses MRI data in BIDS format."
+    },
+    {
+      "question": "How do I load fMRIPrep on Alliance resources?",
+      "answer": "To load fMRIPrep on Alliance resources, you should use the command: `module load apptainer fmriprep`."
+    },
+    {
+      "question": "How does fMRIPrep operate on the command line?",
+      "answer": "When fMRIPrep is used on the command line, it utilizes Apptainer under the hood to invoke a container where fMRIPrep is set up."
+    },
+    {
+      "question": "How can I influence the Apptainer context when using fMRIPrep?",
+      "answer": "To affect the Apptainer context when using fMRIPrep, you will need to use Apptainer environment variables."
+    },
+    {
+      "question": "Why does fMRIPrep fail to download TemplateFlow templates by itself?",
+      "answer": "fMRIPrep within the container will attempt to download TemplateFlow templates but will fail, so users must download this data in advance."
+    },
+    {
+      "question": "What are the initial steps to set up and download TemplateFlow templates?",
+      "answer": "The initial steps involve loading Python and git-annex, installing DataLad, and then installing the TemplateFlow metadataset using the commands: `module load python git-annex`, `pip3 install datalad`, and `datalad install -r ///templateflow`."
+    },
+    {
+      "question": "What is the command to install DataLad?",
+      "answer": "You can install DataLad using the command: `pip3 install datalad`."
+    },
+    {
+      "question": "Where are TemplateFlow templates downloaded by default?",
+      "answer": "TemplateFlow templates are downloaded into a shared directory of the default project you are a part of, typically looking something like `/lustre03/project/GROUPNAME/shared/templateflow`."
+    },
+    {
+      "question": "How do I download specific TemplateFlow template subsets?",
+      "answer": "After changing into the TemplateFlow directory (e.g., `cd /lustre03/project/GROUPNAME/shared/templateflow`), you can download specific subsets using commands like `datalad get -r tpl-MNI152NLin2009cAsym tpl-OASIS30ANTs`."
+    },
+    {
+      "question": "How often do I need to perform the DataLad steps for TemplateFlow templates?",
+      "answer": "You only have to perform the DataLad steps for TemplateFlow templates once, and they will remain available to you and your project group until deleted."
+    },
+    {
+      "question": "What Apptainer and fMRIPrep environment variables need to be set?",
+      "answer": "You need to set `APPTAINERENV_TEMPLATEFLOW_HOME` to tell fMRIPrep where to find templates, and `APPTAINER_BIND` to tell Apptainer which directories to mount, such as input, output, logs, and the TemplateFlow home."
+    },
+    {
+      "question": "How do I specify the location of TemplateFlow templates to the fMRIPrep app?",
+      "answer": "You specify the location of TemplateFlow templates to the fMRIPrep app by setting the `APPTAINERENV_TEMPLATEFLOW_HOME` environment variable, for example: `export APPTAINERENV_TEMPLATEFLOW_HOME=/lustre03/project/GROUPNAME/shared/templateflow`."
+    },
+    {
+      "question": "What is the purpose of the `APPTAINER_BIND` environment variable?",
+      "answer": "The `APPTAINER_BIND` environment variable tells Apptainer which directories (like input, output, and logs) to mount, making them accessible to the fMRIPrep app within the container."
+    },
+    {
+      "question": "Is there a restriction on path length for fMRIPrep?",
+      "answer": "Yes, fMRIPrep does not accept very long paths, so it's important to keep directory and filenames short."
+    },
+    {
+      "question": "How do I run fMRIPrep once everything is set up?",
+      "answer": "You can run fMRIPrep using a command similar to: `fmriprep /path/to/input /path/to/output participant --work-dir /path/to/output`."
+    },
+    {
+      "question": "What additional steps are required if I want to run fMRIPrep with FreeSurfer?",
+      "answer": "To run fMRIPrep with FreeSurfer, you'll need to register with FreeSurfer, download its license file, copy it to one of the directories specified in `APPTAINER_BIND`, and then use the `--fs-license-file` option when running fMRIPrep."
+    },
+    {
+      "question": "What option should I use to specify the FreeSurfer license file for fMRIPrep?",
+      "answer": "You should use the `--fs-license-file` option to specify the FreeSurfer license file for fMRIPrep."
+    },
+    {
+      "question": "Who contributed to the instructions on this page?",
+      "answer": "Pierre Rioux is thanked for his voluminous input on the instructions provided on this page."
+    }
+  ],
+  "generated_at": "2026-04-11T21:27:57.158804+00:00"
+}

@@ -5,21 +5,81 @@ lang: "base"
 
 source_wiki_title: "Technical glossary for the resource allocation competitions"
 source_hash: "6e0210314e255b76978852db12781ac6"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T11:40:29.681369+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T11:50:27.924316+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "Batch computing"
+  - "Storage"
+  - "system usage"
+  - "Volume Snapshot"
+  - "total allocation"
+  - "constant workload"
+  - "persistent storage"
+  - "priority"
+  - "Resource allocations"
+  - "active project"
+  - "Compute node"
+  - "Filesystems"
+  - "Job"
+  - "idle compute resources"
+  - "Cloud storage"
+  - "Virtual Machine"
+  - "Volume and Snapshot Storage"
+  - "tape subsystem"
+  - "OpenStack"
+  - "Virtual Machine (VM)"
+  - "Local storage"
+  - "public IP address"
+  - "Memory"
+  - "Compute instances"
+  - "dCache"
+  - "Compute cores"
+  - "RAC process"
+  - "Service portal"
+  - "Fair share allocation"
+  - "nearline storage"
+  - "Object Storage"
+  - "computing or storage resources"
+  - "Shared Filesystem Storage"
+  - "infrequently accessed datasets"
+  - "Computational resources"
+
+questions:
+  - "What are the differences between physical and virtual computational resources, such as CPUs, GPUs, VCPUs, and VGPUs?"
+  - "How does the allocation of storage space and cloud resources differ from the allocation of CPU and GPU resources?"
+  - "How does the fair share allocation algorithm determine a user's batch processing priority on a cluster?"
+  - "How does the system adjust a user's priority after a period of reduced usage?"
+  - "What does a user's \"total allocation\" actually represent in this system?"
+  - "Why should users continue to submit workloads even after their total allocation has been fully consumed?"
+  - "What is a job in a batch system, and how do serial jobs differ from parallel jobs?"
+  - "How are memory metrics, such as memory per core and memory per node, defined within a compute node?"
+  - "What are the distinct characteristics and intended use cases for the different filesystems, such as Scratch, Home, Project, and Nearline?"
+  - "What are the distinct characteristics and use cases of the various storage options mentioned, such as dCache, local storage, and tape?"
+  - "How do compute instances differ from persistent instances in terms of their expected lifespans and resource quotas within the cloud environment?"
+  - "What role do floating IPs and ephemeral local disks play in managing virtual machines and their data in cloud infrastructure?"
+  - "How do users transfer files into the designated nearline storage location?"
+  - "What are the performance characteristics of the tape subsystem, and what type of datasets is it best suited for?"
+  - "Why is this system not considered true \"archival\" storage, and how are its capacity and allocations managed?"
+  - "What is a Volume Snapshot and what are its primary use cases?"
+  - "What are the key characteristics and supported protocols of Object Storage?"
+  - "How does Shared Filesystem Storage function and what drivers are required to access it?"
+  - "What are the typical computing, storage, and support requirements for groups applying for a service portal?"
+  - "How does the text define a Virtual Machine (VM) in relation to other system components?"
+  - "What does \"Volume and Snapshot Storage\" represent and in what unit is it measured?"
+  - "What is a Volume Snapshot and what are its primary use cases?"
+  - "What are the key characteristics and supported protocols of Object Storage?"
+  - "How does Shared Filesystem Storage function and what drivers are required to access it?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -37,8 +97,8 @@ status:
 ## Resource allocations
 Allocations of storage space and cloud resources are handled differently from allocations of CPUs and GPUs.
 
-*   Storage allocations are straightforward: A research group will get a maximum amount of storage that they can use exclusively throughout the allocation period. Likewise, a cloud resource allocation is a maximum number of VCPUs, amount of storage, etc., which cannot be exceeded during the allocation period.
-*   CPU and GPU allocations are not maxima but targets for average usage, which are then translated into scheduling priorities. An allocation of N CPUs means the group may expect to have access to N CPUs throughout the allocation period. Periods of greater usage may be possible as competing demand allows, but are not guaranteed; periods of lesser usage will not be compensated, whether due to the group’s actions or resource unavailability. To learn more about compute allocations, click [here](allocations-and-resource-scheduling.md).
+* Storage allocations are straightforward: A research group will get a maximum amount of storage that they can use exclusively throughout the allocation period. Likewise, a cloud resource allocation is a maximum number of VCPUs, amount of storage, etc., which cannot be exceeded during the allocation period.
+* CPU and GPU allocations are not maxima but targets for average usage, which are then translated into scheduling priorities. An allocation of N CPUs means the group may expect to have access to N CPUs throughout the allocation period. Periods of greater usage may be possible as competing demand allows, but are not guaranteed; periods of lesser usage will not be compensated, whether due to the group’s actions or resource unavailability. To learn more about compute allocations, click [here](allocations-and-resource-scheduling.md).
 
 ## Batch computing
 **Cluster:** A group of interconnected compute nodes managed as a unit by a scheduling program.
@@ -55,7 +115,7 @@ Allocations of storage space and cloud resources are handled differently from al
 
 **Head or Login node:** Typically when you access a cluster you are accessing a head node, or gateway/login node. A head node is configured to be the launching point for jobs running on the cluster. When you are told or asked to login or access a cluster, invariably you are being directed to log into the head node, often nothing more than a node configured to act as a middle point between the actual cluster and the outside network.
 
-**Fair share allocation:** Generally speaking, batch processing priority is allocated based on a fair-share algorithm. Each user is allocated a share of the total system resources, which effectively translates into priority access to the system. If you have used a large fraction of the system recently (ie. larger than your fair-share), your priority drops. However, the scheduling system has a limited time window over which it calculates priority. After some time (e.g., weeks) of reduced usage, it gradually “ forgets” that you overused in the past. This is designed to ensure full system usage and not to penalize users who take advantage of idle compute resources. A consequence is that your total allocation is not a limit on how many compute resources you can consume. Rather, your total allocation represents what you should be able to get over the course of the year if you submit a constant workload to the system and it is fully busy. In other words, once your “total allocation” is used, just keep working.
+**Fair share allocation:** Generally speaking, batch processing priority is allocated based on a fair-share algorithm. Each user is allocated a share of the total system resources, which effectively translates into priority access to the system. If you have used a large fraction of the system recently (i.e. larger than your fair-share), your priority drops. However, the scheduling system has a limited time window over which it calculates priority. After some time (e.g., weeks) of reduced usage, it gradually “forgets” that you overused in the past. This is designed to ensure full system usage and not to penalize users who take advantage of idle compute resources. A consequence is that your total allocation is not a limit on how many compute resources you can consume. Rather, your total allocation represents what you should be able to get over the course of the year if you submit a constant workload to the system and it is fully busy. In other words, once your “total allocation” is used, just keep working.
 
 **Job:** A job is the basic execution object managed by the batch system. It is a collection of one or more related computing processes that is managed as a whole. Users define resource requirements for the job when they submit it to the batch system. A job description includes a resource request, such as the amount of required memory, the duration of the job, and how many compute cores this job will require. Jobs can be either serial (running on one compute core) or parallel (running on multiple compute cores).
 
@@ -63,9 +123,7 @@ Allocations of storage space and cloud resources are handled differently from al
 
 **Serial job:** A job that requires one compute CPU core to run.
 
-**Uneven usage:** Most schedulers are tuned to deliver a certain number of core-years over a fixed period of time, assuming relatively consistent usage of the system. Users may have very inconsistent workloads, with significant peaks and valleys in their usage. They therefore may need a “burst” of compute resources in order to use their RAC allocation effectively.
-!!! note "Planning for Variable Usage"
-    Normally we expect allocations to be used in a relatively even way throughout the award period. If you anticipate having bursty workloads or variable usage, please indicate that in your RAC application. If you are having problems running jobs, contact [Technical support](technical-support.md).
+**Uneven usage:** Most schedulers are tuned to deliver a certain number of core-years over a fixed period of time, assuming relatively consistent usage of the system. Users may have very inconsistent workloads, with significant peaks and valleys in their usage. They therefore may need a “burst” of compute resources in order to use their RAC allocation effectively. Normally we expect allocations to be used in a relatively even way throughout the award period. If you anticipate having bursty workloads or variable usage, please indicate that in your RAC application. If you are having problems running jobs, contact [Technical support](technical-support.md).
 
 ## Memory
 **Memory per core:** The amount of memory (RAM) per CPU core. If a compute node has 2 CPUs, each having 6 cores and 24GB (gigabytes) of installed RAM, then this compute node will have 2GB of memory per core.
@@ -87,15 +145,11 @@ Allocations of storage space and cloud resources are handled differently from al
 
 **Project:** The project filesystem is of medium to high performance disk and also available on compute nodes. This filesystem is larger in available storage than home, and in most systems is backed up regularly. This filesystem is generally used to store frequently-used project data, however with minimum data churning, and is allocated through the RAC process.
 
-**Nearline:** The nearline filesystem is a disk-tape hybrid storage system, in which data with size above a certain threshold is automatically migrated from disk to tape, and then back again upon read operations. Access to this storage resource requires deliberate actions by users (i.e., via the Linux command line: cp, mv, rsync, etc. …) of placing files into this designated nearline location, or by file transfers from another filesystem (scratch, project, home, etc.). The tape subsystem has very high capacity, but adds latency when files need to be accessed again. This storage system should be used for datasets that are infrequently accessed, and needs to be retained for long periods of time. This is not true “archival” storage in that the datasets must be part of an “active” project. Nearline capacity is managed by quotas, and allocations are via the RAC process.
+**Nearline:** The nearline filesystem is a disk-tape hybrid storage system, in which data with size above a certain threshold is automatically migrated from disk to tape, and then back again upon read operations. Access to this storage resource requires deliberate actions by users (i.e., via the Linux command line: `cp`, `mv`, `rsync`, etc.) of placing files into this designated nearline location, or by file transfers from another filesystem (scratch, project, home, etc). The tape subsystem has very high capacity, but adds latency when files need to be accessed again. This storage system should be used for datasets that are infrequently accessed, and needs to be retained for long periods of time. This is not true “archival” storage in that the datasets must be part of an “active” project. Nearline capacity is managed by quotas, and allocations are via the RAC process.
 
-**dCache:** dCache is a storage filesystem developed originally for high-energy physics projects for very large datasets (petabytes). dCache storage is essentially an object file storage layer on top of classical storage providing a single namespace and various authorized access and transfer protocols to the underlying immutable data. Allocations here tend to be for large projects with many Principal Investigators and researchers. dCache capacity is allocated via the RAC process.
-!!! tip "Requesting dCache Storage"
-    If you wish to use this storage, contact the Subatomic Physics National Team by writing to our [Technical support](technical-support.md).
+**dCache:** dCache is a storage filesystem developed originally for high-energy physics projects for very large datasets (petabytes). dCache storage is essentially an object file storage layer on top of classical storage providing a single namespace and various authorized access and transfer protocols to the underlying immutable data. Allocations here tend to be for large projects with many Principal Investigators and researchers. dCache capacity is allocated via the RAC process. If you wish to use this storage, contact the Subatomic Physics National Team by writing to our [Technical support](technical-support.md).
 
-**Local storage:** This refers to the hard drive or solid-state drive in a compute node that can be used to temporarily store programs, input files, or their results. Files in local storage on one node can not be accessed on any other node.
-!!! warning "Data Loss Risk"
-    The local storage may not be persistent, so the files created on the local storage should be moved to non-local storage to avoid data loss.
+**Local storage:** This refers to the hard drive or solid-state drive in a compute node that can be used to temporarily store programs, input files, or their results. Files in local storage on one node can not be accessed on any other node. The local storage may not be persistent, so the files created on the local storage should be moved to non-local storage to avoid data loss.
 
 **Site:** A member of one of the Alliance's partners providing advanced research computing (ARC) resources (such as high-performance computing clusters, Clouds, storage, and/or technical support).
 

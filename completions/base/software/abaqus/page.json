@@ -7,117 +7,109 @@
       "answer": "Abaqus FEA is a software suite for finite element analysis and computer-aided engineering."
     },
     {
-      "question": "How do I configure my account to use a personal Abaqus license on an Alliance cluster?",
-      "answer": "You need to log in and create a file named `$HOME/.licenses/abaqus.lic` containing the line `prepend_path(\"ABAQUSLM_LICENSE_FILE\",\"port@server\")`, replacing `port@server` with your license server's flexlm port and IP address or hostname. For legacy version 6.14.1, use `LM_LICENSE_FILE` instead."
+      "question": "What is required to use Abaqus software modules on Alliance clusters?",
+      "answer": "You must provide your own license and configure your account on the cluster."
     },
     {
-      "question": "What information should I provide to technical support if my Abaqus license requires additional configuration for an Alliance cluster?",
-      "answer": "You should provide the flexlm port number, the static vendor port number, and the IP address of your Abaqus license server."
+      "question": "How do I configure my Abaqus license file on an Alliance cluster?",
+      "answer": "Log in and create a file named `$HOME/.licenses/abaqus.lic` containing `prepend_path(\"ABAQUSLM_LICENSE_FILE\",\"port@server\")`, replacing `port@server` with your license server's details. For legacy version 6.14.1, use `LM_LICENSE_FILE`."
     },
     {
-      "question": "Is a special agreement needed to use a local Abaqus license remotely on Alliance hardware?",
-      "answer": "Yes, a special license agreement must generally be negotiated and signed by SIMULIA and your institution."
+      "question": "What information should I provide to technical support if my Abaqus license isn't set up for an Alliance cluster?",
+      "answer": "You should include the flexlm port number, static vendor port number, and the IP address of your Abaqus license server."
     },
     {
-      "question": "How do I configure Abaqus to use a local DSLS-based institutional license server?",
-      "answer": "In your simulation submit directory, create `abaqus_v6.env` with `license_server_type=DSLS` and `dsls_license_config=\"DSLicSrv.txt\"`, and `DSLicSrv.txt` with `YOUR-SERVER-HOSTNAME:PORT-NUMBER`."
+      "question": "What additional step is generally required for remote use of a local Abaqus license on Alliance hardware?",
+      "answer": "A special license agreement must generally be negotiated and signed by SIMULIA and your institution."
     },
     {
-      "question": "Which new Abaqus module is recommended and what issue does it resolve?",
-      "answer": "The `abaqus/2026` module is now installed and resolves the \"buffer overflow detected\" error encountered with `abaqus/2021` on recent clusters."
+      "question": "How do I configure Abaqus to use a local DSLS-based institutional license server instead of the default FLEXnet server?",
+      "answer": "Create `abaqus_v6.env` and `DSLicSrv.txt` files in your simulation submit directory, specifying `license_server_type=DSLS`, `dsls_license_config=\"DSLicSrv.txt\"`, and your server's hostname and port in `DSLicSrv.txt`."
     },
     {
-      "question": "What action should researchers take regarding their personal Slurm scripts after the Abaqus module update?",
-      "answer": "Researchers should update their personal Slurm scripts to work with both `abaqus/2026` and `abaqus/2021` where possible."
+      "question": "What is the latest Abaqus module installed into the default StdEnv/2023 environment?",
+      "answer": "The abaqus/2026 module is the latest version, which resolves a buffer overflow error found in abaqus/2021."
     },
     {
-      "question": "What types of parallel simulations do Abaqus solvers support on clusters?",
-      "answer": "Abaqus solvers support thread-based and MPI-based parallel simulations on single or multiple compute nodes."
+      "question": "What types of parallel simulations do the provided Slurm scripts support for Abaqus?",
+      "answer": "The scripts support thread-based and MPI-based parallel simulations on single or multiple compute nodes."
     },
     {
-      "question": "For single-node jobs running longer than one day, what type of Slurm scripts should be used?",
-      "answer": "Single-node jobs that run for more than a day should use one of the restart scripts."
+      "question": "When should I use 'temporary directory scripts' for single-node Abaqus jobs?",
+      "answer": "Temporary directory scripts should be used for single-node jobs that create large restart files to benefit from writing to local disk via the SLURM_TMPDIR environment variable."
     },
     {
-      "question": "How can jobs that create large restart files benefit from writing to local disk?",
-      "answer": "They can benefit by using the `SLURM_TMPDIR` environment variable, which is utilized in the temporary directory scripts."
+      "question": "What is the purpose of restart scripts for Abaqus jobs?",
+      "answer": "Restart scripts are used to continue jobs that have been terminated early, for instance, due to reaching maximum runtime or a compute node crash."
     },
     {
-      "question": "When should MPI scripts be used for Abaqus jobs on multiple nodes?",
-      "answer": "MPI scripts should be used for jobs requiring large memory or compute resources beyond a single node, to distribute computing over arbitrary node ranges."
+      "question": "How can I determine the optimal number of cores for long Abaqus jobs that require large memory?",
+      "answer": "Run short scaling test jobs to determine wall-clock times and memory requirements as a function of the number of cores (2, 4, 8, etc.)."
     },
     {
-      "question": "What input file modifications are required to enable restart data writing for a standard analysis job?",
-      "answer": "In the input file, you can specify `*RESTART, WRITE, OVERLAY, FREQUENCY=N` for periodic restarts or `*RESTART, WRITE, OVERLAY, NUMBER INTERVAL=N, TIME MARKS=NO` for a total number of increments."
+      "question": "How can I specify in the Abaqus input file to write restart data every 12 time increments?",
+      "answer": "Add `*RESTART, WRITE, OVERLAY, FREQUENCY=12` to the input file."
     },
     {
-      "question": "Are input file modifications required to restart an explicit analysis using the project directory restart script?",
-      "answer": "No input file modifications are required to restart an explicit analysis."
+      "question": "How can I estimate the total Slurm node memory required for an Abaqus simulation?",
+      "answer": "Examine the `test.dat` output file for the \"MEMORY TO MINIMIZE I/O\" (MRMIO) estimate, or monitor memory usage interactively with `top` on a compute node."
     },
     {
-      "question": "How can a user estimate the total Slurm node memory required for a single Abaqus simulation?",
-      "answer": "One way is to examine the `test.dat` output file for the \"MEMORY TO MINIMIZE I/O\" estimate, or by monitoring memory use with `top` (or `ps`) while running the simulation interactively on a compute node."
-    },
-    {
-      "question": "What is the recommended approach if the \"MEMORY TO MINIMIZE I/O\" (MRMIO) value is very large, leading to long queue wait times?",
-      "answer": "It is recommended to investigate the performance impact of reducing the `--mem=` value in the Slurm script through short test jobs, ensuring the resident memory (RES) does not drop below the MINIMUM MEMORY REQUIRED (MMR)."
-    },
-    {
-      "question": "How can `mem-per-cpu` be estimated for multi-node Slurm scripts with Abaqus?",
-      "answer": "Multiply the largest memory estimate (from the output `.dat` file) by the number of nodes, then divide by the number of `ntasks`. If `mp_host_split` is specified and greater than 1, multiply by `mp_host_split` before dividing by `ntasks`."
+      "question": "What is the recommended approach if the \"MEMORY TO MINIMIZE I/O\" (MRMIO) value is large, and I want to avoid long queue wait times?",
+      "answer": "Try lowering the `#SBATCH --mem=` value in the Slurm script, which will set an artificially low `memory=` value in the Abaqus command, while ensuring it doesn't dip below the \"MINIMUM MEMORY REQUIRED\" (MMR)."
     },
     {
       "question": "What are the recommended methods for running Abaqus graphical applications at the Alliance?",
       "answer": "It is recommended to use OpenOnDemand or JupyterLab."
     },
     {
-      "question": "How do you start Abaqus CAE in graphical mode using OpenOnDemand?",
-      "answer": "Start an OnDemand desktop session, open a terminal, load the Abaqus module (e.g., `module load abaqus/2026`), and then run `abaqus cae` for GPU nodes with VirtualGL or `abaqus cae -mesa` for non-GPU or non-VirtualGL nodes."
+      "question": "How do I start Abaqus CAE in graphical mode on OpenOnDemand if the node lacks GPU support or VirtualGL?",
+      "answer": "Load the Abaqus module and then use `abaqus cae -mesa`."
     },
     {
-      "question": "What are the steps to start Abaqus in graphical mode via JupyterLab?",
-      "answer": "Start a JupyterHub desktop session, highlight an Abaqus module (e.g., `abaqus/2026`) in the 'Available Module' section, click 'Load', and then click the 'Abaqus (VNC)' icon that appears."
+      "question": "What should I check before starting Abaqus in GUI mode?",
+      "answer": "Ensure there is at least one unused CAE license by checking `abaqus licensing lmstat -c $ABAQUSLM_LICENSE_FILE -a | grep \"Users of cae\"`."
     },
     {
-      "question": "How can a user check for available Abaqus CAE licenses before starting the application graphically?",
-      "answer": "Run the command `abaqus licensing lmstat -c $ABAQUSLM_LICENSE_FILE -a | grep \"Users of cae\"`."
+      "question": "What is the current status of the VncViewer approach for Abaqus graphical use?",
+      "answer": "The VncViewer approach is considered obsolete; OpenOnDemand/JupyterHub desktop is recommended instead."
     },
     {
-      "question": "What kind of Abaqus license is provided by SHARCNET, and what are its general usage limits?",
-      "answer": "SHARCNET provides a small shared free pool consisting of 3 CAE and 54 execute tokens, with current maximum usage limits of 1 CAE/user, 10 tokens/user, and 15 tokens/group."
+      "question": "What is the maximum usage limit for the free SHARCNET Abaqus license?",
+      "answer": "Maximum usage limits are currently set at 1 CAE license per user, 10 tokens per user, and 15 tokens per group."
     },
     {
-      "question": "How does a registered Alliance researcher request access to the free SHARCNET Abaqus license?",
-      "answer": "They must contact technical support, mention it's for SHARCNET systems, and include a copy/paste of the Academic License User Agreement with their full name and username."
+      "question": "What steps are required to gain access to the free SHARCNET Abaqus license?",
+      "answer": "You must contact technical support, mention it's for SHARCNET systems, and include a copy/paste of the Academic License User Agreement with your full name and username."
     },
     {
-      "question": "What line should be in the `~/.licenses/abaqus.lic` file to use the free SHARCNET license?",
+      "question": "How do I configure my `abaqus.lic` file to use the free SHARCNET license?",
       "answer": "The file should contain `prepend_path(\"ABAQUSLM_LICENSE_FILE\",\"27050@license1.computecanada.ca\")`."
     },
     {
-      "question": "What does it mean if an Abaqus job is reported as 'queued' by `lmstat` on the SHARCNET license server?",
-      "answer": "It means the job has entered the 'Running' state from the scheduler's perspective, is idle on a compute node, and is waiting for a license, which consumes account priority."
+      "question": "What does it mean if `abaqus licensing lmstat` shows a job as 'queued' for licenses?",
+      "answer": "It means the job has entered the \"Running\" state from the perspective of `squeue` but is idle on a compute node, waiting for available licenses."
     },
     {
-      "question": "How can users avoid license shortage problems when submitting multiple jobs with expensive Abaqus tokens?",
-      "answer": "Users can use job dependencies, job arrays, or set up Slurm email notifications to know when a job completes before manually submitting another."
+      "question": "How can I avoid license shortage problems when submitting multiple Abaqus jobs with expensive tokens?",
+      "answer": "Use a job dependency, a job array, or set up Slurm email notifications to know when a job completes before manually submitting another."
     },
     {
-      "question": "How many Abaqus tokens are typically required for a 6-core job according to the SHARCNET mapping?",
-      "answer": "A 6-core job typically requires 10 Abaqus tokens, based on the formula TOKENS = floor[5 X CORES^0.422]."
+      "question": "How can I check the utilization of a completed Abaqus job to optimize Slurm memory and CPU settings?",
+      "answer": "Use `seff JobNumber` to show total \"Memory Utilized,\" \"Memory Efficiency,\" \"CPU (time) Utilized,\" and \"CPU Efficiency.\""
     },
     {
-      "question": "Does using a GPU with Abaqus require additional tokens on SHARCNET?",
-      "answer": "Yes, each GPU used requires 1 additional token."
+      "question": "How are Abaqus tokens mapped to cores for parallel computations?",
+      "answer": "TOKENS = floor[5 X CORES^0.422]."
     },
     {
-      "question": "What is the current status of the Western Abaqus license server?",
-      "answer": "The previous server (`license4`) has been shut down and retired, and a replacement server is currently being worked on, so license checkouts are failing."
+      "question": "How many additional tokens are required for each GPU used in an Abaqus simulation?",
+      "answer": "Each GPU used requires 1 additional TOKEN."
     },
     {
-      "question": "Which hardware can Western researchers use their site license on?",
-      "answer": "The Western site license may only be used by Western researchers on hardware located at Western's campus, specifically the Dusky cluster."
+      "question": "What is the current status of the Western Abaqus license on the Dusky cluster?",
+      "answer": "The Western license server (`license4.sharcnet.ca`) has been shut down, and a replacement is being worked on, so Abaqus license checkouts from Western/Robarts will currently fail on Dusky."
     }
   ],
-  "generated_at": "2026-04-10T00:23:54.780469+00:00"
+  "generated_at": "2026-04-11T15:26:01.729842+00:00"
 }

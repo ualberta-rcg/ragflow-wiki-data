@@ -1,0 +1,163 @@
+{
+  "doc_key": "base/best_practices_for_job_submission",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "Why is it important to choose appropriate parameters when submitting a job on a cluster?",
+      "answer": "Choosing appropriate parameters ensures jobs don't waste resources, avoid problems for other users, start more quickly, and finish correctly, producing needed output for research."
+    },
+    {
+      "question": "What challenge do users face when submitting their first jobs on a cluster?",
+      "answer": "It can be difficult to estimate the required time or memory for a job's simulation or analysis."
+    },
+    {
+      "question": "What happens if a job requests too many resources like time, memory, CPU cores, or GPUs?",
+      "answer": "The job will wait longer in the queue because it's more difficult for the scheduler to find the requested resources."
+    },
+    {
+      "question": "What is the consequence if a job doesn't request enough resources?",
+      "answer": "The job can be stopped if it exceeds its time or memory limits."
+    },
+    {
+      "question": "Why can estimating required resources based on a local computer be misleading?",
+      "answer": "Processor type and speed can differ significantly between a local computer and the cluster."
+    },
+    {
+      "question": "What are some common ways compute tasks in a job script can waste resources?",
+      "answer": "Waste can occur if a program doesn't scale well with CPU cores, isn't designed for multiple nodes, or processors wait during read-write operations."
+    },
+    {
+      "question": "What is the best approach for submitting initial jobs to a cluster?",
+      "answer": "Begin by submitting a few relatively small test jobs, requesting standard memory (e.g., `#SBATCH --mem-per-cpu=2G`) and a short duration (e.g., one or two hours)."
+    },
+    {
+      "question": "What should ideally be known about the test jobs submitted?",
+      "answer": "Users should ideally know the expected answer to verify that the software is running correctly on the cluster."
+    },
+    {
+      "question": "How should users adjust the job duration if a test job finishes prematurely?",
+      "answer": "Users should increase the duration by doubling it until it's sufficient for the computation."
+    },
+    {
+      "question": "What action should be taken if a job ends with an 'OOM event' message?",
+      "answer": "An 'OOM event' means the job ran out of memory, so users should try doubling the requested memory."
+    },
+    {
+      "question": "What is the recommended minimum duration for non-test jobs?",
+      "answer": "Non-test jobs should have a duration of at least one hour."
+    },
+    {
+      "question": "What should be done if a computation requires less than an hour?",
+      "answer": "Users should consider using tools like GLOST, META, or GNU Parallel to regroup several short computations into a single Slurm job lasting at least an hour."
+    },
+    {
+      "question": "Why is it important for job duration estimates to be relatively accurate?",
+      "answer": "An inaccurate, overly long estimate can cause a job to wait much longer in the queue than necessary."
+    },
+    {
+      "question": "How can users determine how long completed jobs took?",
+      "answer": "Users can use monitoring tools like the `seff` command and check the `Job Wall-clock time` field in its output."
+    },
+    {
+      "question": "How much should the estimated job duration be increased as a buffer?",
+      "answer": "The estimated duration should be increased by 5% or 10% to account for potential errors."
+    },
+    {
+      "question": "For longer jobs (over 48 hours), what feature should be considered if the software allows it?",
+      "answer": "Users should consider using checkpoints, which allow a program to save its state and restart from a specific point, preventing significant work loss due to interruptions."
+    },
+    {
+      "question": "What is the target memory efficiency for jobs, as shown by the `seff` command?",
+      "answer": "The `Memory Efficiency` in the `seff` command output should ideally be at least 80% to 85% in most cases."
+    },
+    {
+      "question": "How can a user request to use all available memory on a whole node?",
+      "answer": "Users can express this by including `#SBATCH --mem=0` in their job submission script."
+    },
+    {
+      "question": "What is a potential consequence of requesting all available memory on a node using `#SBATCH --mem=0`?",
+      "answer": "This approach may lead to the job being assigned a node with less memory, as most clusters offer nodes with variable memory amounts."
+    },
+    {
+      "question": "What is the impact of requesting a large memory node (e.g., `--mem=1500G`)?",
+      "answer": "There are relatively few large memory nodes, so jobs requesting them will wait much longer to run."
+    },
+    {
+      "question": "By default, how many cores does a job get on a cluster, and why is this sensible?",
+      "answer": "By default, a job gets one core on one node, which is sensible because most software is serial and can only use a single core."
+    },
+    {
+      "question": "Will asking for more cores or nodes make a serial program run faster?",
+      "answer": "No, it will not make a serial program run faster; the program's source code needs to be modified for parallel execution."
+    },
+    {
+      "question": "How can a user determine if their software can run in parallel?",
+      "answer": "The best approach is to check the software's documentation for a section on parallel execution or contact the development team."
+    },
+    {
+      "question": "What is a 'shared memory environment' in the context of parallel programming techniques?",
+      "answer": "It means multiple cores can be used, but they must all be located on the same node."
+    },
+    {
+      "question": "Why isn't requesting 'as many cores as possible' always the best approach for parallel programs?",
+      "answer": "Adding an excessive number of CPU cores can slow down a program due to coordination overhead."
+    },
+    {
+      "question": "What should users study to choose the optimal number of CPU cores for a parallel program?",
+      "answer": "Users need to study the software's scalability."
+    },
+    {
+      "question": "What specific type of parallelism must software support to run across multiple nodes?",
+      "answer": "The software must support distributed memory parallelism."
+    },
+    {
+      "question": "What standard is commonly used by software capable of running over more than one node?",
+      "answer": "Most software able to run over more than one node uses the MPI standard."
+    },
+    {
+      "question": "Which command should be used to start programs parallelized across multiple nodes?",
+      "answer": "Programs parallelized to run across multiple nodes should be started using `srun` rather than `mpirun`."
+    },
+    {
+      "question": "Why should users avoid scattering parallel processes across more nodes than necessary?",
+      "answer": "A more compact distribution typically improves job performance, as highly fragmented jobs often exhibit poor performance and complicate the scheduler's job."
+    },
+    {
+      "question": "How should parallel jobs be submitted on a cluster with 40 cores/node to ensure compact distribution?",
+      "answer": "Submit jobs where the number of parallel processes is an integral multiple of the number of cores per node (e.g., 40, 80, 120 processes)."
+    },
+    {
+      "question": "What is the ultimate goal for CPU efficiency in jobs, as measured by `seff`?",
+      "answer": "The goal is for the CPU efficiency to be very close to 100%, with any value less than 90% considered poor."
+    },
+    {
+      "question": "What is a key consideration regarding queue times for jobs requesting GPUs?",
+      "answer": "GPU nodes are relatively uncommon, so jobs requesting GPUs will typically wait significantly longer."
+    },
+    {
+      "question": "How can users determine if a GPU is contributing to improved performance in their jobs?",
+      "answer": "It's wise to first test a small sample calculation both with and without a GPU to compare the speed-up obtained."
+    },
+    {
+      "question": "At what point might it not be worth using a GPU despite the wait time?",
+      "answer": "If a job only finishes 5% or 10% more quickly with a GPU, it's likely not worth the effort, as the GPU will be idle for much of the execution."
+    },
+    {
+      "question": "What tools are available for monitoring the efficiency of GPU-based jobs?",
+      "answer": "Tools include `nvidia-smi`, `nvtop`, and `TensorBoard` (for TensorFlow-based software)."
+    },
+    {
+      "question": "What command should never be included in jobs?",
+      "answer": "The `sleep` command should never be contained in jobs."
+    },
+    {
+      "question": "What is recommended instead of using Conda and its variants on the clusters?",
+      "answer": "Solutions like a Python virtual environment or Apptainer are strongly recommended over Conda."
+    },
+    {
+      "question": "How should read and write operations be optimized to avoid wasting resources?",
+      "answer": "Read and write operations should be optimized by using node-local storage."
+    }
+  ],
+  "generated_at": "2026-04-11T18:32:52.062578+00:00"
+}

@@ -5,35 +5,47 @@ lang: "en"
 
 source_wiki_title: "Anaconda/en"
 source_hash: "9b4e9f2c8f0207d7b401d92609f9db39"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T04:13:48.913346+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T05:07:23.201980+00:00"
 
 tags:
   - software
 
 keywords:
-  []
+  - "cluster"
+  - "virtual environment"
+  - "Anaconda"
+  - "Python"
+  - "Apptainer"
+
+questions:
+  - "Why is the use of Anaconda discouraged on the computing clusters?"
+  - "How can a user transition their workflow from Conda to a Python virtual environment?"
+  - "When is Apptainer recommended as an alternative to Anaconda, and what is its primary disadvantage?"
+  - "Why is the use of Anaconda discouraged on the computing clusters?"
+  - "How can a user transition their workflow from Conda to a Python virtual environment?"
+  - "When is Apptainer recommended as an alternative to Anaconda, and what is its primary disadvantage?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
 Anaconda is a Python distribution.
 
 !!! warning "Before using Anaconda"
-    We are aware of the fact that Anaconda is widely used in several domains, such as data science, AI, bioinformatics etc. Anaconda is a useful solution for simplifying the management of Python and scientific libraries on a personal computer. However, on a cluster like those supported by the Alliance, the management of these libraries and dependencies should be done by our staff, in order to ensure compatibility and optimal performance. Moreover, using Anaconda on a cluster may lead to multiple problems.
+    We are aware of the fact that Anaconda is widely used in several domains, such as data science, AI, bioinformatics, etc. Anaconda is a useful solution for simplifying the management of Python and scientific libraries on a personal computer. However, on a cluster like those supported by the Alliance, the management of these libraries and dependencies should be done by our staff, in order to ensure compatibility and optimal performance. Moreover, using Anaconda on a cluster may lead to multiple problems.
     Before using Anaconda, we ask that you contact our [Technical support](technical-support.md), so that our experts can investigate alternatives with you. If you choose to use Anaconda regardless, note that our team may not be able to support you if you encounter issues.
 
 ## Why is Anaconda not recommended on a cluster?
 
 Anaconda may cause issues on a cluster for multiple reasons:
 
-*   Anaconda very often installs software (compilers, scientific libraries etc.) which already exist on our clusters as modules, with a configuration that is not optimal, and which may cause conflicts.
+*   Anaconda very often installs software (compilers, scientific libraries, etc.) which already exist on our clusters as modules, with a configuration that is not optimal, and which may cause conflicts.
 *   It installs binaries which are not optimized for the processor architecture on our clusters. Your jobs may be slower because of it.
 *   It makes incorrect assumptions about the location of various system libraries. Your jobs may encounter errors when running.
 *   Anaconda uses the `$HOME` directory for its installation, where it writes an enormous number of files. A single Anaconda installation can easily absorb almost half of your quota for the number of files in your home directory.
@@ -60,5 +72,3 @@ Your software should run - if it doesn't, don't hesitate to [contact us](technic
 ### Using Apptainer
 
 In some situations, the complexity of the dependencies of a program requires the use of a solution where you can control the entire software environment. In these situations, we recommend the tool [Apptainer](apptainer.md#using-conda-in-apptainer); note that a Docker image can be converted into an Apptainer image. The only disadvantage of Apptainer is its consumption of disk space. If your research group plans on using several images, it would be wise to collect all of them together in a single directory of the group's project space to avoid duplication.
-
-[Using Conda in Apptainer](using-conda-in-apptainer.md)

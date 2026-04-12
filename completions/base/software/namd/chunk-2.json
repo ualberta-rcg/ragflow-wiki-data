@@ -1,0 +1,40 @@
+{
+  "doc_key": "base/namd",
+  "level": "chunk",
+  "chunk_index": 2,
+  "qa_pairs": [
+    {
+      "question": "What new feature did NAMD 3 introduce to enhance GPU performance?",
+      "answer": "NAMD 3 introduced an input flag that shifts more calculations to the GPU, significantly improving performance."
+    },
+    {
+      "question": "How do you enable the GPU optimization feature in NAMD 3?",
+      "answer": "To enable the GPU optimization feature, you must add the line `GPUresident on;` to your NAMD input file."
+    },
+    {
+      "question": "What is the purpose of the `GPUresident on;` flag in NAMD 3?",
+      "answer": "The `GPUresident on;` flag shifts more calculations to the GPU, which can considerably improve the performance of NAMD 3."
+    },
+    {
+      "question": "Can you provide an example of a SLURM job script for a threaded GPU job with NAMD 3.0.2?",
+      "answer": "A job script for a threaded GPU job could look like this:\n```bash\n#!/bin/bash\n#SBATCH --cpus-per-task=16 \n#SBATCH --mem=10g    \n#SBATCH --time=0:15:00\n#SBATCH --gpus-per-node=h100:1\n#SBATCH --account=def-specifyaccount\n\nmodule load StdEnv/2023  gcc/12.3  cuda/12.6 namd-multicore/3.0.2\nnamd3 +p$SLURM_CPUS_PER_TASK  +idlepoll stmv.namd\n```"
+    },
+    {
+      "question": "What modules are loaded for the example threaded GPU job script using NAMD 3.0.2?",
+      "answer": "The modules loaded for the example threaded GPU job script are `StdEnv/2023`, `gcc/12.3`, `cuda/12.6`, and `namd-multicore/3.0.2`."
+    },
+    {
+      "question": "How many CPUs and GPUs are requested per node in the example threaded GPU job script?",
+      "answer": "The example threaded GPU job script requests 16 CPU cores (`--cpus-per-task=16`) and 1 H100 GPU (`--gpus-per-node=h100:1`) per node."
+    },
+    {
+      "question": "What is the memory requested for the example threaded GPU NAMD job?",
+      "answer": "The example threaded GPU NAMD job requests 10 GB of memory (`--mem=10g`)."
+    },
+    {
+      "question": "What is the maximum time allocated for the example threaded GPU NAMD job?",
+      "answer": "The maximum time allocated for the example threaded GPU NAMD job is 15 minutes (`--time=0:15:00`)."
+    }
+  ],
+  "generated_at": "2026-04-12T03:30:26.028524+00:00"
+}

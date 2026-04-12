@@ -5,21 +5,47 @@ lang: "fr"
 
 source_wiki_title: "Meltdown and Spectre bugs/fr"
 source_hash: "3ffd1b9c2a8da65ad52a61f03e7c7ff5"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T08:29:19.450956+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T09:03:04.169334+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "problèmes de performance"
+  - "instances virtuelles"
+  - "calcul de haute performance"
+  - "Alertes de sécurité"
+  - "Calcul Canada"
+  - "Meltdown et Spectre"
+  - "Meltdown"
+  - "Red Hat"
+  - "baisse de performance"
+  - "KPTI patch"
+  - "correctifs"
+  - "Performance"
+  - "Spectre"
+
+questions:
+  - "Quels ont été les impacts des correctifs des bogues Meltdown et Spectre sur la disponibilité et la performance des systèmes de Calcul Canada ?"
+  - "Quels types de tâches informatiques sont les plus affectés par la baisse de performance causée par ces mises à jour ?"
+  - "Quelle est la responsabilité des utilisateurs concernant la sécurité de leurs instances virtuelles sur les ressources infonuagiques ?"
+  - "Quelles sont les alertes de sécurité spécifiques émises par le CERN concernant les vulnérabilités Spectre et Meltdown ?"
+  - "Comment les outils et paramètres proposés par Red Hat permettent-ils de détecter et de contrôler ces failles d'exécution spéculative ?"
+  - "Quel est l'impact mesuré des correctifs de sécurité de Spectre et Meltdown sur les performances des applications à haute performance (HPC) ?"
+  - "Comment fonctionnent les failles de sécurité Meltdown et Spectre mentionnées dans les documents ?"
+  - "Quel est l'impact spécifique du bug Meltdown et du correctif KPTI sur les performances du Machine Learning ?"
+  - "Quelles mesures préventives le livre blanc d'Ellexus propose-t-il pour éviter la chute de performance dans le calcul de haute performance ?"
+  - "Quelles sont les alertes de sécurité spécifiques émises par le CERN concernant les vulnérabilités Spectre et Meltdown ?"
+  - "Comment les outils et paramètres proposés par Red Hat permettent-ils de détecter et de contrôler ces failles d'exécution spéculative ?"
+  - "Quel est l'impact mesuré des correctifs de sécurité de Spectre et Meltdown sur les performances des applications à haute performance (HPC) ?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -44,15 +70,13 @@ Les solutions appropriées ont été appliquées aux grappes vulnérables. Toute
 ## Responsabilité des utilisateurs
 Soyez certains que nos équipes déploient tous les efforts possibles pour assurer la sécurité de vos données.
 
-!!! warning "Instances virtuelles"
+!!! warning "Responsabilité de l'utilisateur"
     Notez toutefois que les utilisateurs sont responsables de modifier le système d’exploitation pour **les instances virtuelles opérant sur les ressources infonuagiques** de Calcul Canada (voir ci-dessous).
 
-!!! note "Problèmes de performance"
-    Si vous éprouvez des problèmes de performance qui pourraient être dus aux présentes mises à jour, contactez le [soutien technique](technical_support.md). Nous apprécions recevoir les données que vous pouvez nous fournir sur les variations de performance avant et après l'application des correctifs. Notez cependant que des modifications au code pourraient être requises pour contrer la baisse de performance, ce qui peut parfois être impossible.
+Si vous éprouvez des problèmes de performance qui pourraient être dus aux présentes mises à jour, contactez le [soutien technique](technical-support.md). Nous apprécions recevoir les données que vous pouvez nous fournir sur les variations de performance avant et après l'application des correctifs. Notez cependant que des modifications au code pourraient être requises pour contrer la baisse de performance, ce qui peut parfois être impossible.
 
 ### Instances virtuelles
-!!! tip
-    Notre recommandation est d'effectuer des mises à jour fréquentes du système d'exploitation. Pour les différentes distributions Linux, voyez [Mise à jour d'une instance virtuelle](security_considerations_when_running_a_vm.md#mise-à-jour-dune-instance-virtuelle).
+Notre recommandation est d'effectuer des mises à jour fréquentes du système d'exploitation. Pour les différentes distributions Linux, voyez [Mise à jour d'une instance virtuelle](security-considerations-when-running-a-vm.md#mise-a-jour-dune-instance-virtuelle).
 
 ## Références
 *   [Site web US-CERT](https://www.us-cert.gov/ncas/alerts/TA18-004A), comprend des liens vers les sites des fournisseurs offrant des correctifs

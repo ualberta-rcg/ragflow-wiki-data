@@ -1,0 +1,75 @@
+{
+  "doc_key": "en/pthreads",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What are pthreads and what kind of memory environment do they assume?",
+      "answer": "Pthreads, usually short for POSIX threads, are an early parallelization technique that relies on the assumption of a shared memory environment."
+    },
+    {
+      "question": "Which programming language is the primary target for pthreads in practice?",
+      "answer": "In practice, the main target language for pthreads is C."
+    },
+    {
+      "question": "How do pthreads compare to higher-level parallelization APIs like OpenMP?",
+      "answer": "Pthreads offer the most general and low-level parallelization as a toolkit of threading primitives, sacrificing much of the simplicity and ease of use found in high-level APIs like OpenMP."
+    },
+    {
+      "question": "Describe the essential model for pthreads.",
+      "answer": "The essential model for pthreads is the dynamic spawning of lightweight sub-processes (threads) that asynchronously carry out operations and then are extinguished by rejoining the program's master process."
+    },
+    {
+      "question": "What is 'scalability' in the context of parallelizing software?",
+      "answer": "Scalability refers to how well a program is able to run in parallel."
+    },
+    {
+      "question": "What are the compilation requirements for a C program using pthreads?",
+      "answer": "To use pthreads in a C program, you need to include the header file `<pthread.h>` and compile your program with the special flag `-pthread` to link with the pthread library."
+    },
+    {
+      "question": "What are some ways to specify the number of threads to be used in a pthreads program?",
+      "answer": "The number of threads can be set via a command-line argument, an environment variable, or by hard-coding it into the source file."
+    },
+    {
+      "question": "Which function is used to create new threads in pthreads, and what are its main arguments?",
+      "answer": "New threads are created with the `pthread_create` function, which requires the unique identifier for the new thread, its attributes, the C function the thread will execute, and an argument for that function."
+    },
+    {
+      "question": "What is the purpose of the `pthread_join` function?",
+      "answer": "The `pthread_join` function is a blocking function where the master thread waits for worker threads to finish executing their tasks and rejoin the master thread."
+    },
+    {
+      "question": "Why is data synchronization necessary in pthreads, and what is a race condition?",
+      "answer": "Data synchronization is necessary to avoid race conditions, which are situations where the program's output depends on the random order in which asynchronous threads access and modify shared data."
+    },
+    {
+      "question": "What is a mutex and how does it work to control shared data access?",
+      "answer": "A mutex, derived from 'mutual exclusion', is a type of variable that can be locked or owned by only one thread at a time, ensuring that the code between locking and unlocking is executed by a single thread serially."
+    },
+    {
+      "question": "What are the common functions used for initializing, locking, unlocking, and destroying a mutex in pthreads?",
+      "answer": "Common functions include `pthread_mutex_init` for initialization, `pthread_mutex_lock` to lock, `pthread_mutex_unlock` to unlock, and `pthread_mutex_destroy` to release resources."
+    },
+    {
+      "question": "What is a potential issue with `pthread_mutex_lock` and what should be avoided?",
+      "answer": "The `pthread_mutex_lock` call is blocking, meaning a thread waits indefinitely, so care must be taken to ensure no deadlock occurs where the mutex is never released."
+    },
+    {
+      "question": "How does a read/write lock (`pthread_rwlock_t`) differ from a standard mutex?",
+      "answer": "A read/write lock allows multiple threads to simultaneously read a variable, but for write access, it behaves like a standard mutex, permitting only one writer and no other access (read or write)."
+    },
+    {
+      "question": "What is a condition variable (`pthread_cond_t`) used for in pthreads?",
+      "answer": "A condition variable is used to allow multiple threads to wait for a single condition, such as work becoming available for worker threads."
+    },
+    {
+      "question": "Why is a mutex required when using a condition variable?",
+      "answer": "The use of a condition variable requires a mutex to control access to the variable(s) that form the basis for the condition being tested."
+    },
+    {
+      "question": "What is the difference between `pthread_cond_signal` and `pthread_cond_broadcast`?",
+      "answer": "`pthread_cond_signal` notifies a single waiting thread (chosen at random) that the condition is satisfied, while `pthread_cond_broadcast` notifies all waiting threads."
+    }
+  ],
+  "generated_at": "2026-04-12T05:30:06.743638+00:00"
+}

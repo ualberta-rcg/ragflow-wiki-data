@@ -5,21 +5,62 @@ lang: "base"
 
 source_wiki_title: "Cryosparc"
 source_hash: "361c09b104a0b5fced17f44aa37966a3"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T05:51:59.061623+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T06:37:17.875345+00:00"
 
 tags:
   - software
 
 keywords:
-  []
+  - "graphical interface"
+  - "Apptainer container"
+  - "code"
+  - "markup"
+  - "LASTNAME"
+  - "cryo-electron microscopy"
+  - "sbatch"
+  - "GPU job"
+  - "Container image"
+  - "scancel"
+  - "Installation"
+  - "Slurm job"
+  - "GPU node"
+  - "translate"
+  - "password"
+  - "closing tag"
+  - "CCDB username"
+  - "XML"
+  - "FIRSTNAME"
+  - "CryoSPARC"
+  - "Slurm batch job"
+  - "Apptainer"
+
+questions:
+  - "What is CryoSPARC and what is its primary application in scientific research?"
+  - "Why must CryoSPARC be installed specifically on GPU nodes like Fir and Nibi instead of standard login nodes?"
+  - "What are the key steps and requirements for building a standalone CryoSPARC instance using an Apptainer container image?"
+  - "What are the key environment variables and commands required to install CryoSPARC and build its container image?"
+  - "How is the CryoSPARC instance launched and managed within a Slurm batch GPU job?"
+  - "What steps must a user take to access the CryoSPARC graphical interface locally and properly terminate the session when finished?"
+  - "What software application is the password in this script intended to log into?"
+  - "Which environment variables must be updated with the user's personal name?"
+  - "What specific type of username is required for the \"USER\" export variable?"
+  - "How can a user access the CryoSPARC graphical interface after submitting the initial batch script?"
+  - "What actions need to be performed using the CryoSPARC graphical interface once it is open?"
+  - "Why must the Slurm job be manually canceled with the `scancel` command after the CryoSPARC job finishes?"
+  - "What is the primary function of the `</translate>` closing tag within a markup or programming context?"
+  - "How do parsers or translation systems process the content that immediately precedes this specific tag?"
+  - "In which specific software frameworks or document formats is this tag typically implemented?"
+  - "What is the primary function of the `</translate>` closing tag within a markup or programming context?"
+  - "How do parsers or translation systems process the content that immediately precedes this specific tag?"
+  - "In which specific software frameworks or document formats is this tag typically implemented?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -27,25 +68,26 @@ status:
 
 ## Installation
 
-!!! warning "Do Not Run on Login Nodes"
+!!! warning
     CryoSPARC is **not supported** on login nodes and must be installed and run on a GPU node. Running CryoSPARC on a login node can overload shared system resources and may lead to port conflicts when multiple instances are started at the same time.
 
-!!! note
-    Currently, only **Fir** and **Nibi** support CryoSPARC installation and execution on GPU nodes, as these systems provide outbound HTTPS access from GPU nodes to the CryoSPARC download site.
+Currently, only **Fir** and **Nibi** support CryoSPARC installation and execution on GPU nodes, as these systems provide outbound HTTPS access from GPU nodes to the CryoSPARC download site.
 
 This tutorial describes how to build a standalone CryoSPARC instance in an Apptainer container image on a GPU node, allowing users to run CryoSPARC through GPU batch jobs while reducing filesystem load.
 
-### Step 1. Acquire the license
-Complete the form at [https://cryosparc.com/download](https://cryosparc.com/download) to request a license. The license key is a string of letters and numbers in the following format:
+### Step 1. Acquire the licence
+
+Complete the form at [https://cryosparc.com/download](https://cryosparc.com/download) to request a licence. The licence key is a string of letters and numbers in the following format:
 
 `1a23b4d5-67ef-89g0-hi1j-kl2m3n4o5p6q`
 
 ### Step 2. Set up the installation directory
+
 Create the directory where you would like to install CryoSPARC.
 ```bash
 export HOST_PATH=/path/to/cryosparc
 ```
-Set up the `LICENSE_ID` by replacing `1a23b4d5-67ef-89g0-hi1j-kl2m3n4o5p6q` with the license key you obtained from [https://cryosparc.com/download](https://cryosparc.com/download) in **Step 1**.
+Set up the `LICENSE_ID` by replacing `1a23b4d5-67ef-89g0-hi1j-kl2m3n4o5p6q` with the licence key you obtained from [https://cryosparc.com/download](https://cryosparc.com/download) in **Step 1**.
 ```bash
 export LICENSE_ID="1a23b4d5-67ef-89g0-hi1j-kl2m3n4o5p6q"
 mkdir -p $HOST_PATH && cd $HOST_PATH
@@ -53,12 +95,14 @@ mkdir -p cryosparc_master cryosparc_worker
 ```
 
 ### Step 3. Download the installation package
+
 ```bash
 curl -sL https://get.cryosparc.com/download/master-latest/$LICENSE_ID > cryosparc2_master.tar.gz
 curl -sL https://get.cryosparc.com/download/worker-latest/$LICENSE_ID > cryosparc2_worker.tar.gz
 ```
 
 ### Step 4. Submit a GPU job for installation
+
 Launch an interactive job:
 ```bash
 salloc --account=def-account --time=3:00:00 --gpus=h100:1 --cpus-per-task=4 --mem=16000M
@@ -66,7 +110,7 @@ salloc --account=def-account --time=3:00:00 --gpus=h100:1 --cpus-per-task=4 --me
 
 Prepare the first definition file. Change the value of `$HOST_PATH` to match the path you set in **Step 2**.
 
-```bash title="ubuntu.def"
+```bash linenums="1" hl_lines="10" title="ubuntu.def"
 Bootstrap: docker
 From: ubuntu
 Stage: build
@@ -94,7 +138,7 @@ apptainer build ubuntu.sif ubuntu.def
 
 Prepare the second definition file. Update the values according to the comments below.
 
-```bash title="cryosparc.def"
+```bash linenums="1" hl_lines="10-16" title="cryosparc.def"
 Bootstrap: localimage
 From: ubuntu.sif
 Stage: build
@@ -106,7 +150,7 @@ Stage: build
 %post
     export HOST_PATH="/path/to/cryosparc"                                # Change this path to match the one specified in Step 2 and in ubuntu.def.
     export LICENSE_ID="1a23b4d5-67ef-89g0-hi1j-kl2m3n4o5p6q"             # Replace this with your license ID.
-    export MY_EMAIL="user@email.com"                                     # Replace this with your email address. This email is what you used to obtain the license, and will be used as the login email for CryoSPARC.
+    export MY_EMAIL="user@email.com"                                     # Replace this with your email address. This email is what you used to obtain the licence, and will be used as the login email for CryoSPARC.
     export CRYOSPARC_PASSWD="Password123"                                # Replace this with your password. This will be used to log in to CryoSPARC.
     export FIRSTNAME="FirstName"                                         # Replace this with your first name.
     export LASTNAME="LastName"	                                         # Replace this with your last name.
@@ -155,8 +199,10 @@ apptainer build -B $HOST_PATH -B $SLURM_TMPDIR:/tmp --nv cryosparc.sif cryosparc
 ```
 
 ### Step 5. Launch CryoSPARC in a batch GPU job
+
 Prepare the running job script. Replace `export HOST_PATH=/path/to/cryosparc` with the path you set in **Step 2**.
-```bash title="run_cryosparc.sh"
+
+```bash linenums="1" hl_lines="13" title="run_cryosparc.sh"
 #!/bin/bash
 #SBATCH --account=def-account
 #SBATCH --time=3:00:00
@@ -203,4 +249,5 @@ Submit the job:
 sbatch run_cryosparc.sh
 ```
 
-After the job starts, follow the instructions in the job log file (for example, `slurm-123456.out`) to open the CryoSPARC graphical interface in your local browser. Use the interface to set up your CryoSPARC job and launch the worker. Once the CryoSPARC job is complete, check the output files and cancel the Slurm job with `scancel`; otherwise, the job will continue running until it reaches the walltime limit.
+!!! note
+    After the job starts, follow the instructions in the job log file (for example, `slurm-123456.out`) to open the CryoSPARC graphical interface in your local browser. Use the interface to set up your CryoSPARC job and launch the worker. Once the CryoSPARC job is complete, check the output files and cancel the Slurm job with `scancel`; otherwise, the job will continue running until it reaches the walltime limit.

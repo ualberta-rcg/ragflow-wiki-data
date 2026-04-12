@@ -1,0 +1,96 @@
+{
+  "doc_key": "en/nextflow",
+  "level": "chunk",
+  "chunk_index": 1,
+  "qa_pairs": [
+    {
+      "question": "What is Nextflow?",
+      "answer": "Nextflow is software used for running reproducible scientific workflows. The term 'Nextflow' describes both the domain-specific language (DSL) in which pipelines are written and the software used to interpret those workflows."
+    },
+    {
+      "question": "How can I load Nextflow on your systems?",
+      "answer": "You can load Nextflow on our systems by using the command `module load nextflow`."
+    },
+    {
+      "question": "Can users build their own workflows with Nextflow, or must they rely on pre-published ones?",
+      "answer": "Users can build their own workflows, but they can also rely on the published nf-core pipelines."
+    },
+    {
+      "question": "What are the five steps outlined for running an `nf-core/rnaseq` pipeline?",
+      "answer": "The five steps are: 1. Set up the configuration file. 2. Install nf-core. 3. Download the container image and pipeline. 4. Prepare the inputs. 5. Create a job script."
+    },
+    {
+      "question": "How do I obtain and place the configuration file for Alliance clusters?",
+      "answer": "You can obtain the configuration file for Alliance clusters from nf-core's GitHub repository and place it in `~/.nextflow/config` using the command: `curl -o ~/.nextflow/config https://raw.githubusercontent.com/nf-core/configs/refs/heads/master/conf/alliance_canada.config`."
+    },
+    {
+      "question": "Which environment variable needs to be set for the Slurm account, and what should it look like?",
+      "answer": "The `$SLURM_ACCOUNT` environment variable needs to be set to an account name, which should look like '`def-pname`'. You can set it using `export SLURM_ACCOUNT=def-pname`, and for convenience, you may add this to your `~/.bashrc` file."
+    },
+    {
+      "question": "For which clusters does the Alliance configuration file provide profiles?",
+      "answer": "The Alliance configuration file provides profiles for Fir, Narval, Nibi, Rorqual, and Trillium."
+    },
+    {
+      "question": "How do I specify the profile when running Nextflow on the Fir cluster?",
+      "answer": "If you are using the configuration file at Fir, you must load the profile using the `-profile fir` flag to the `nextflow` command."
+    },
+    {
+      "question": "Is manual profile selection required for all clusters when using the Alliance configuration file?",
+      "answer": "No, at sites other than Fir, the appropriate profile is automatically selected based on the host name."
+    },
+    {
+      "question": "What limits does the configuration enforce for the Slurm queue?",
+      "answer": "The configuration ensures that there are no more than 100 jobs in the Slurm queue and that no more than 60 jobs are submitted per minute."
+    },
+    {
+      "question": "What are the specified resources for Rorqual machines in the configuration?",
+      "answer": "Rorqual machines have 192 cores and 750 GB of RAM, with a maximum time limit of one week (168 hours)."
+    },
+    {
+      "question": "Is it recommended to run generic Nextflow pipelines, including nf-core pipelines, on Trillium?",
+      "answer": "No, it is discouraged to run nf-core pipelines or any other generic Nextflow pipeline on Trillium. It is recommended to run a pipeline on Trillium only if it was designed specifically for Trillium."
+    },
+    {
+      "question": "What is the default CPU value for the `rnaseq` example, and how are non-default configurations handled?",
+      "answer": "In the `rnaseq` example, `cpu = 1` is the default value. Labels in the `nf-core-rnaseq_3.21.0/3_21_0/conf/base.config` file are used by the pipeline to identify steps with non-default configurations."
+    },
+    {
+      "question": "Why must nf-core pipelines be downloaded on a login node when using an Alliance cluster?",
+      "answer": "To use nf-core pipelines on an Alliance cluster, they must be downloaded on a login node because some clusters do not allow internet access from the compute nodes."
+    },
+    {
+      "question": "What are the required module loads and Python commands to install `nf-core` on a login node?",
+      "answer": "On a login node, you must run: `module purge`, `module load python/3.11`, `module load rust`, `module load postgresql`, then `python -m venv nf-core-env`, `source nf-core-env/bin/activate`, and finally `python -m pip install nf_core==2.13`."
+    },
+    {
+      "question": "Why is `rust` loaded during the `nf-core` installation process?",
+      "answer": "New `nf-core` installations will error out if `rust` hasn't been loaded, so it is loaded as part of the installation process."
+    },
+    {
+      "question": "What is the purpose of loading `postgresql` during `nf-core` installation?",
+      "answer": "Python modules which list `psycopg2` as a dependency may crash without `postgresql` loaded, so it is included in the installation steps."
+    },
+    {
+      "question": "Which container utility integrates well with Nextflow?",
+      "answer": "Apptainer integrates well with Nextflow."
+    },
+    {
+      "question": "What commands are used to set up environment variables and load modules for downloading container images and the pipeline?",
+      "answer": "The commands are `export NFCORE_PL=rnaseq`, `export PL_VERSION=3.21.0`, `module load nextflow`, and `module load apptainer`."
+    },
+    {
+      "question": "How do I create and set the environment variable for the Apptainer cache directory?",
+      "answer": "You create the directory with `mkdir /project/<def-group>/NXF_SINGULARITY_CACHEDIR` and then set the environment variable with `export NXF_SINGULARITY_CACHEDIR=/project/<def-group>/NXF_SINGULARITY_CACHEDIR`."
+    },
+    {
+      "question": "Where should Nextflow container images be stored, and why?",
+      "answer": "Nextflow container images should be stored in the directory pointed to by `$NXF_SINGULARITY_CACHEDIR`, ideally in `/project` space. This is because workflow images tend to be large, and `$HOME` space has a small quota."
+    },
+    {
+      "question": "Why is the cache directory variable still named `NXF_SINGULARITY_CACHEDIR` if Apptainer is being used?",
+      "answer": "The variable name still reflects 'Singularity' because Singularity was a predecessor to 'Apptainer'."
+    }
+  ],
+  "generated_at": "2026-04-12T03:50:06.251722+00:00"
+}

@@ -1,0 +1,111 @@
+{
+  "doc_key": "en/vnc",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is the recommended first step before attempting advanced VNC usage?",
+      "answer": "It's recommended to first try VNC through your browser using JupyterLab Desktop, as it's often simpler and sufficient."
+    },
+    {
+      "question": "Why is VNC considered a better alternative to X11 forwarding for remote graphical user interfaces?",
+      "answer": "VNC offers much better performance for smooth complex graphics rotations, whereas X11 forwarding is often too slow."
+    },
+    {
+      "question": "What is the initial requirement on a user's desktop to begin using VNC?",
+      "answer": "A VNC client, such as TigerVNC, needs to be installed on your desktop."
+    },
+    {
+      "question": "How do Windows users install the TigerVNC viewer?",
+      "answer": "Download and run the latest stable `vncviewer64-x.y.z.exe` package installer from the official download page, ensuring it's the viewer and not the server."
+    },
+    {
+      "question": "What steps are involved in installing TigerVNC viewer on macOS?",
+      "answer": "Download the latest stable DMG package, double-click it to open, then drag the TigerVNC icon into the Applications folder and/or app dock, and finally unmount the DMG file."
+    },
+    {
+      "question": "What is the command to install TigerVNC viewer on Debian or Ubuntu Linux distributions?",
+      "answer": "The command is `sudo apt-get install tigervnc-viewer`."
+    },
+    {
+      "question": "What must be running for a user to connect to with their VNC client?",
+      "answer": "A VNC server must be running, typically on a cluster login or compute node."
+    },
+    {
+      "question": "What command is used to start a VNC server on a cluster login node with an idle timeout of 86400 seconds?",
+      "answer": "`vncserver -idletimeout 86400`"
+    },
+    {
+      "question": "How can a user determine the TCP port their VNC server is listening on after starting it?",
+      "answer": "By running `grep -iE \"\\sport|kill\"` on the VNC server's log file."
+    },
+    {
+      "question": "What is the command to establish an SSH tunnel from a laptop to a Nibi cluster login node ('l4'), forwarding local port 5905 to remote port 5901?",
+      "answer": "`ssh nibi.computecanada.ca -L 5905:l4:5901`"
+    },
+    {
+      "question": "How does a user connect to the VNC server from their laptop once the SSH tunnel is established?",
+      "answer": "They can either click the TigerVNC Viewer application icon and enter `localhost:5905` or open a terminal and run `vncviewer localhost:5905`."
+    },
+    {
+      "question": "What limits apply to applications run within a remote VNC desktop on cluster login nodes?",
+      "answer": "Memory and cputime limits apply to applications run on login nodes."
+    },
+    {
+      "question": "Why would a user choose to start a VNC server on a compute node instead of a login node?",
+      "answer": "To access more memory, CPU resources, GPU access for applications, or for graphics acceleration."
+    },
+    {
+      "question": "What `salloc` command can be used to request an interactive job for an hour with 4 CPUs and 16GB of memory on a compute node?",
+      "answer": "`salloc --time=1:00:00 --cpus-per-task=4 --mem=16000 --account=def-piusername`"
+    },
+    {
+      "question": "Which environment variable should be set on a compute node after an interactive job starts to help avoid repetitive desktop errors?",
+      "answer": "`export XDG_RUNTIME_DIR=${SLURM_TMPDIR}`"
+    },
+    {
+      "question": "What is the new SSH tunnel command form required for Nibi when connecting to a compute node, using a local forwarded port and requiring an SSH key pair?",
+      "answer": "`ssh -J username@nibi.alliancecan.ca -L localforwardedport:localhost:remotelisteningport computenode`"
+    },
+    {
+      "question": "What desktop environment is presented to the user when `vncviewer` successfully connects?",
+      "answer": "A Linux MATE desktop."
+    },
+    {
+      "question": "How can a user launch a program like MATLAB from the VNC desktop terminal?",
+      "answer": "They would load the MATLAB module and then run the `matlab` command."
+    },
+    {
+      "question": "How can a user reset their VNC server password?",
+      "answer": "By using the `vncpasswd` command, or by deleting their `~/.vnc` directory which will prompt for a new password the next time `vncserver` is run."
+    },
+    {
+      "question": "What command can be used to terminate a specific running VNC server instance?",
+      "answer": "`vncserver -kill :DISPLAY#`, where `#` is the display number shown in `vncserver -list`."
+    },
+    {
+      "question": "How can multiple users connect to the same VNC server session simultaneously?",
+      "answer": "The VNC server must have been started with the additional `-AlwaysShared` option."
+    },
+    {
+      "question": "What should a user do if they experience repeated failures to connect due to an old SSH tunnel still running on their desktop?",
+      "answer": "Open a terminal, run `ps ux | grep ssh` to identify old tunnels, then use `kill PID` to terminate them."
+    },
+    {
+      "question": "What password is required to unlock the VNC screensaver if it times out?",
+      "answer": "The cluster account password (not the VNC server password)."
+    },
+    {
+      "question": "How can a user request a GPU node for hardware-accelerated OpenGL graphics using the `salloc` command?",
+      "answer": "By adding `--gpus-per-node=1` (or a specific GPU type like `--gpus-per-node=t4:1`) to the `salloc` command."
+    },
+    {
+      "question": "What command might be needed to run a graphics-based program that uses hardware-based accelerated OpenGL within a VNC desktop terminal?",
+      "answer": "`vglrun -d egl PROGRAM` might be needed just before the program name."
+    },
+    {
+      "question": "What are two portal alternatives for an automated modern desktop VDI web interface experience on clusters?",
+      "answer": "OpenOnDemand on the Nibi cluster or JupyterHub on the Rorqual cluster."
+    }
+  ],
+  "generated_at": "2026-04-12T10:51:28.233741+00:00"
+}

@@ -1,0 +1,80 @@
+{
+  "doc_key": "base/tensorflow",
+  "level": "chunk",
+  "chunk_index": 9,
+  "qa_pairs": [
+    {
+      "question": "What type of Keras model is constructed in the multi-worker GPU example?",
+      "answer": "A `tf.keras.Sequential` model is constructed in the multi-worker GPU example."
+    },
+    {
+      "question": "What layers are included in the initial convolutional block of the Keras model described?",
+      "answer": "The initial convolutional block includes `tf.keras.layers.Conv2D` (32 filters), `tf.keras.layers.Activation('relu')`, another `tf.keras.layers.Conv2D` (32 filters), `tf.keras.layers.Activation('relu')`, `tf.keras.layers.MaxPooling2D`, and `tf.keras.layers.Dropout`."
+    },
+    {
+      "question": "What input shape is specified for the first `Conv2D` layer in the Keras model?",
+      "answer": "The input shape specified for the first `Conv2D` layer is `(32, 32, 3)`."
+    },
+    {
+      "question": "How is the Keras model compiled in the multi-worker example?",
+      "answer": "The model is compiled with `tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True)` as the loss, `tf.keras.optimizers.SGD(learning_rate=args.lr)` as the optimizer, and `accuracy` as a metric."
+    },
+    {
+      "question": "What dataset is used for model training in the TensorFlow multi-worker example?",
+      "answer": "The CIFAR10 dataset is used for model training."
+    },
+    {
+      "question": "What is the recommended approach for downloading the CIFAR10 dataset to avoid issues during job submission?",
+      "answer": "It is recommended to download the CIFAR10 dataset on a login node prior to submitting your job, or manually download the data from `https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz`, rename it to 'cifar-10-batches-py.tar.gz', and place it under `~/.keras/datasets`."
+    },
+    {
+      "question": "How is the training dataset prepared before the model is fitted?",
+      "answer": "The training dataset is prepared by creating `tf.data.Dataset` from tensor slices of `x_train` and `y_train`, and then batching it with `args.batch_size`."
+    },
+    {
+      "question": "For how many epochs is the model trained in the provided example?",
+      "answer": "The model is trained for 2 epochs in the example."
+    },
+    {
+      "question": "What is the purpose of creating model checkpoints during training?",
+      "answer": "Creating model checkpoints during training saves a snapshot of your model at a given point, which can be loaded later. This helps in breaking long jobs into shorter ones, potentially leading to faster cluster allocation, and prevents losing progress due to unexpected errors or node failures."
+    },
+    {
+      "question": "What is a model checkpoint?",
+      "answer": "A checkpoint is a snapshot of your model at a given point during the training process (after a certain number of iterations or after a number of epochs) that is saved to disk and can be loaded at a later time."
+    },
+    {
+      "question": "How can you create a checkpoint at the end of every training epoch when using Keras?",
+      "answer": "You can create a checkpoint at the end of every training epoch using the `callbacks` parameter of the `model.fit()` method, by providing `tf.keras.callbacks.ModelCheckpoint(filepath=\"./ckpt\", save_freq=\"epoch\")`. You must ensure the specified `filepath` exists."
+    },
+    {
+      "question": "Where can users find more information about creating checkpoints with custom TensorFlow training loops?",
+      "answer": "Users can refer to the official TensorFlow documentation on writing checkpoints for more information about creating checkpoints with custom training loops."
+    },
+    {
+      "question": "What error might occur when using the scikit-image library with TensorFlow, and what is its cause?",
+      "answer": "An error like `OMP: Error #15: Initializing libiomp5.so, but found libiomp5.so already initialized.` might occur because the TensorFlow library tries to load a bundled version of OMP that conflicts with the system version."
+    },
+    {
+      "question": "How can the `OMP: Error #15` related to `libiomp5.so` be resolved when using scikit-image?",
+      "answer": "The workaround involves navigating to your virtual environment directory (e.g., `tf_skimage_venv`), exporting `LIBIOMP_PATH` by tracing python to find the system-wide `libiomp5.so`, and then creating a symbolic link (`find -path '*_solib_local*' -name libiomp5.so -exec ln -sf $LIBIOMP_PATH {} \\;`) to patch the TensorFlow library."
+    },
+    {
+      "question": "What causes the `Couldn't open CUDA library libcupti.so` error in TensorFlow?",
+      "answer": "This error occurs because some tracing features of TensorFlow require `libcupti.so` to be available, and it is not found in the `LD_LIBRARY_PATH`."
+    },
+    {
+      "question": "What is the solution for the `Couldn't open CUDA library libcupti.so` error?",
+      "answer": "The solution is to load the appropriate CUDA module (e.g., `module load cuda/9.0.xxx`) and then export `LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CUDA_HOME/extras/CUPTI/lib64/` before executing your script."
+    },
+    {
+      "question": "What does the error `libiomp5.so: invalid ELF header` signify?",
+      "answer": "This error signifies that the `libiomp5.so` shared object file has been erroneously installed as a text file instead of a proper executable and linkable format (ELF) shared library."
+    },
+    {
+      "question": "How can the `libiomp5.so: invalid ELF header` error be corrected?",
+      "answer": "To correct this error, access the directory mentioned in the error message (e.g., `[...]/_U@mkl_Ulinux_S_S_Cmkl_Ulibs_Ulinux___Uexternal_Smkl_Ulinux_Slib`) and execute the command `ln -sf $(cat libiomp5.so) libiomp5.so`. This replaces the incorrect text file with the correct symbolic link."
+    }
+  ],
+  "generated_at": "2026-04-12T08:59:47.699247+00:00"
+}

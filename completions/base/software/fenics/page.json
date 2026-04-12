@@ -1,0 +1,87 @@
+{
+  "doc_key": "base/fenics",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is FEniCS?",
+      "answer": "FEniCS is a popular open-source computing platform designed for solving partial differential equations (PDEs)."
+    },
+    {
+      "question": "What are the two main installation options for FEniCS mentioned in the document?",
+      "answer": "The two main installation options are installing FEniCS in a virtual environment or using a Singularity container."
+    },
+    {
+      "question": "Which version of FEniCS is covered by the virtual environment installation instructions?",
+      "answer": "The instructions cover FEniCS version 2019.1.0."
+    },
+    {
+      "question": "What software environment and compiler are prerequisites for the virtual environment installation?",
+      "answer": "The virtual environment installation requires StdEnv/2020 with OpenMPI and GCC 9.3.0."
+    },
+    {
+      "question": "How do you execute the FEniCS virtual environment installation script?",
+      "answer": "You can run the script by copying it to the cluster and executing 'bash fenics-install.sh'."
+    },
+    {
+      "question": "What is the default installation directory for FEniCS when using the virtual environment script?",
+      "answer": "The default installation directory is '$HOME/fenics'."
+    },
+    {
+      "question": "What warning does the virtual environment installation script give before proceeding?",
+      "answer": "The script warns that it will wipe out and recreate the '$HOME/fenics' application directory."
+    },
+    {
+      "question": "What are the essential steps to activate and use FEniCS after a successful virtual environment installation?",
+      "answer": "You need to load necessary modules, then 'source $FENICS_INSTALL/bin/activate' and 'source $FENICS_INSTALL/share/dolfin/dolfin.conf'."
+    },
+    {
+      "question": "Are the instructions for FEniCS add-ons compatible with StdEnv/2020?",
+      "answer": "No, the section on FEniCS add-ons has not been updated to work with StdEnv/2020."
+    },
+    {
+      "question": "What is a prerequisite for installing FEniCS add-ons like 'mshr'?",
+      "answer": "You must first install FEniCS by following the provided instructions."
+    },
+    {
+      "question": "What is required on your machine to build a FEniCS Singularity container?",
+      "answer": "You need a Linux machine with Singularity installed where you have root access."
+    },
+    {
+      "question": "How do you build the FEniCS Singularity image using the provided recipe?",
+      "answer": "You run 'sudo singularity build FEniCS.simg FEniCS-ComputeCanada-Singularity-Recipe'."
+    },
+    {
+      "question": "What is the first step to install FEniCS Legacy (2019) on Trillium?",
+      "answer": "The first step is to download the Docker image as an Apptainer SIF file using 'apptainer pull fenics-legacy.sif docker://ghcr.io/scientificcomputing/fenics-gmsh:2024-05-30'."
+    },
+    {
+      "question": "Why would you create a writable sandbox directory for FEniCS Legacy on Trillium?",
+      "answer": "A writable sandbox directory allows you to modify the image or install extra packages."
+    },
+    {
+      "question": "How do you fix the 'pip' certificate bundle path inside the FEniCS Legacy sandbox?",
+      "answer": "You execute 'apptainer exec --writable fenics-legacy.sandbox sh -c \"mkdir -p /etc/pki/tls/certs && ln -s /etc/ssl/certs/ca-certificates.crt /etc/pki/tls/certs/ca-bundle.crt\"' to create a certs folder and symlink the CA bundle."
+    },
+    {
+      "question": "What is the purpose of aliasing 'ufl_legacy' as 'ufl' for FEniCS Legacy?",
+      "answer": "Aliasing 'ufl_legacy' as 'ufl' provides a shim package, which allows downstream packages that expect 'import ufl' to function without modification."
+    },
+    {
+      "question": "How do you test the 'ufl_legacy' aliasing within the FEniCS Legacy container?",
+      "answer": "You prepend the shim path to PYTHONPATH when launching the container, for example, 'APPTAINERENV_PYTHONPATH=<path_to_shim>:$PYTHONPATH apptainer exec ... python3 -c \"from ufl.tensors import ListTensor; ...\"'."
+    },
+    {
+      "question": "What Python modules are installed during the 'make_py_packages' step in the virtual environment installation?",
+      "answer": "The 'make_py_packages' step installs ply, numpy, fiat, dijitso, ufl, and ffc using pip3 within the virtual environment."
+    },
+    {
+      "question": "What are the common tasks outlined in the FEniCS Legacy section for managing SIF files?",
+      "answer": "The common tasks include downloading a SIF, creating a writable sandbox from a SIF, modifying the sandbox (like fixing certs), and creating a new read-only SIF from the sandbox."
+    },
+    {
+      "question": "What is the expected behaviour when trying to import 'ufl' versus 'ufl_legacy' in FEniCS Legacy (2019.1.x)?",
+      "answer": "A plain 'import ufl' should fail, while 'import ufl_legacy' should succeed, as the Python package for FEniCS Legacy is named 'ufl_legacy'."
+    }
+  ],
+  "generated_at": "2026-04-11T21:22:00.408976+00:00"
+}

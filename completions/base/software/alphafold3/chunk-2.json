@@ -1,0 +1,92 @@
+{
+  "doc_key": "base/alphafold3",
+  "level": "chunk",
+  "chunk_index": 2,
+  "qa_pairs": [
+    {
+      "question": "What documentation is available for AlphaFold3 regarding its inputs?",
+      "answer": "For reference on AlphaFold3 inputs, you can see the documentation at https://github.com/google-deepmind/alphafold3/blob/main/docs/input.md."
+    },
+    {
+      "question": "Where can I find documentation about AlphaFold3's outputs?",
+      "answer": "Documentation on AlphaFold3's outputs is available at https://github.com/google-deepmind/alphafold3/blob/main/docs/output.md."
+    },
+    {
+      "question": "Is there a reference for AlphaFold3's performance?",
+      "answer": "Yes, you can find performance reference for AlphaFold3 at https://github.com/google-deepmind/alphafold3/blob/main/docs/performance.md."
+    },
+    {
+      "question": "Which submission script is used for the AlphaFold3 data pipeline, also known as the CPU stage?",
+      "answer": "The `alphafold3-data.sh` submission script is used for the AlphaFold3 data pipeline (CPU)."
+    },
+    {
+      "question": "What is the recommended maximum number of CPU cores for the AlphaFold3 data pipeline job?",
+      "answer": "A maximum of 8 CPU cores is recommended for the AlphaFold3 data pipeline, as AlphaFold has no benefit from using more."
+    },
+    {
+      "question": "What is an example of the memory requirement for an AlphaFold3 data pipeline job?",
+      "answer": "An example memory requirement for an AlphaFold3 data pipeline job is 64G, which should be adjusted according to your needs."
+    },
+    {
+      "question": "What modules need to be loaded for the AlphaFold3 data pipeline script?",
+      "answer": "The modules `StdEnv/2023`, `hmmer/3.4`, `rdkit/2024.03.5`, and `python/3.12` need to be loaded for the AlphaFold3 data pipeline script."
+    },
+    {
+      "question": "Where should the virtual environment for the AlphaFold3 data pipeline be generated?",
+      "answer": "The virtual environment for the AlphaFold3 data pipeline should be generated in `$SLURM_TMPDIR`."
+    },
+    {
+      "question": "How are AlphaFold and its dependencies installed within the `alphafold3-data.sh` script?",
+      "answer": "AlphaFold and its dependencies are installed using `pip install --no-index --upgrade pip` and `pip install --no-index --requirement ~/alphafold3-requirements.txt`."
+    },
+    {
+      "question": "What is the purpose of the `build_data` command in the AlphaFold3 data pipeline script?",
+      "answer": "The `build_data` command is used to build data within the virtual environment (`$VIRTUAL_ENV`)."
+    },
+    {
+      "question": "What environment variable is set in the data pipeline script as a workaround for compilation time with XLA flags?",
+      "answer": "The environment variable `XLA_FLAGS=\"--xla_gpu_enable_triton_gemm=false\"` is set as a workaround for compilation time with XLA flags."
+    },
+    {
+      "question": "What command line arguments are used for `run_alphafold.py` in the AlphaFold3 data pipeline?",
+      "answer": "The `run_alphafold.py` command in the AlphaFold3 data pipeline uses `--db_dir`, `--input_dir`, `--output_dir`, `--jax_compilation_cache_dir`, `--nhmmer_n_cpu`, `--jackhmmer_n_cpu`, and `--norun_inference`."
+    },
+    {
+      "question": "How does the AlphaFold3 data pipeline script handle output files?",
+      "answer": "The script creates a directory `$SCRATCH/alphafold/output` and then copies the output files from `$SLURM_TMPDIR/alphafold/output` to this `$SCRATCH` location."
+    },
+    {
+      "question": "What GPUs are compatible with AlphaFold3 model inference?",
+      "answer": "AlphaFold3 model inference only supports compute capability 8.0 or greater, meaning A100s or greater GPUs are required."
+    },
+    {
+      "question": "Which submission script is used for the AlphaFold3 model inference stage?",
+      "answer": "The `alphafold3-inference.sh` submission script is used for the AlphaFold3 model inference stage."
+    },
+    {
+      "question": "How many CPUs per task are recommended for the AlphaFold3 model inference stage?",
+      "answer": "One CPU per task is recommended for the AlphaFold3 model inference stage, as AlphaFold has no benefit from using more during inference."
+    },
+    {
+      "question": "How many GPUs are allocated for the AlphaFold3 model inference job in the example script?",
+      "answer": "The example script allocates one A100 GPU (`--gpus=a100:1`), as AlphaFold3 inference only runs on one A100 or greater GPU."
+    },
+    {
+      "question": "What is an example of the memory requirement for an AlphaFold3 model inference job?",
+      "answer": "An example memory requirement for an AlphaFold3 model inference job is 20G, which should be adjusted according to your needs."
+    },
+    {
+      "question": "What modules must be loaded for the AlphaFold3 model inference script?",
+      "answer": "The modules `StdEnv/2023`, `hmmer/3.4`, `rdkit/2024.03.5`, `python/3.12`, `cuda/12.2`, and `cudnn/9.2` must be loaded for the AlphaFold3 model inference script."
+    },
+    {
+      "question": "What environment variables are set in the AlphaFold3 inference script to manage GPU memory?",
+      "answer": "The environment variables `export XLA_PYTHON_CLIENT_PREALLOCATE=true` and `export XLA_CLIENT_MEM_FRACTION=0.95` are set in the AlphaFold3 inference script to manage GPU memory."
+    },
+    {
+      "question": "What is the purpose of the `--norun_data_pipeline` argument in the `run_alphafold.py` command for model inference?",
+      "answer": "The `--norun_data_pipeline` argument ensures that only the inference stage is run, skipping the data pipeline stage."
+    }
+  ],
+  "generated_at": "2026-04-11T16:38:53.492669+00:00"
+}

@@ -1,0 +1,92 @@
+{
+  "doc_key": "en/best_practices_for_job_submission",
+  "level": "chunk",
+  "chunk_index": 2,
+  "qa_pairs": [
+    {
+      "question": "What is the primary goal when requesting memory for your job?",
+      "answer": "The goal when requesting memory is to ensure that the amount is sufficient, with a certain margin of error."
+    },
+    {
+      "question": "How can you request all available memory on a whole node for your job?",
+      "answer": "You can express this using the line `#SBATCH --mem=0` in your job submission script."
+    },
+    {
+      "question": "What is a potential consequence of using `#SBATCH --mem=0` to request all available memory?",
+      "answer": "Most clusters offer nodes with variable amounts of memory, so this approach means your job will likely be assigned a node with less memory."
+    },
+    {
+      "question": "How do you request a large memory node for a job?",
+      "answer": "You can use a line like `#SBATCH --mem=1500G` in your job script to request a node with 1500 GB (or 1.46 TB) of memory, for example."
+    },
+    {
+      "question": "What should you consider before requesting a large memory node?",
+      "answer": "There are relatively few large memory nodes, so your job will wait much longer to run. You should ensure your job truly needs all this extra memory."
+    },
+    {
+      "question": "How many cores does a job typically get by default?",
+      "answer": "By default, your job will get one core on one node, as most software is serial and can only use a single core."
+    },
+    {
+      "question": "Will asking for more cores make a serial program run faster?",
+      "answer": "No, asking for more cores or nodes will not make a serial program run any faster because its source code needs to be modified to run in parallel."
+    },
+    {
+      "question": "What is the best way to determine if software can run in parallel?",
+      "answer": "The best approach is to look in the software's documentation for a section on parallel execution. If you can't find anything, it's usually a sign the program is serial."
+    },
+    {
+      "question": "What is another way to check for parallel execution capabilities if not found in documentation?",
+      "answer": "You can contact the development team to ask if the software can be run in parallel, and to request the feature if not."
+    },
+    {
+      "question": "What does a 'shared memory environment' imply for parallel programs?",
+      "answer": "In a shared memory environment, multiple cores can be used, but they must all be located on the same node. The maximum number of cores available on a single node then acts as a ceiling for the number of cores you can use."
+    },
+    {
+      "question": "Why is requesting 'as many cores as possible' not always the best approach for parallel programs?",
+      "answer": "Adding an excessive number of CPU cores can have the perverse effect of slowing down a program, similar to having too many cooks in a small kitchen."
+    },
+    {
+      "question": "How should one choose the optimal number of CPU cores for a parallel program?",
+      "answer": "To choose the optimal number of CPU cores, you need to study the software's scalability."
+    },
+    {
+      "question": "What must software support to run across multiple nodes?",
+      "answer": "The software must support distributed memory parallelism."
+    },
+    {
+      "question": "Which standard is commonly used by software that can run over more than one node?",
+      "answer": "Most software able to run over more than one node uses the MPI standard."
+    },
+    {
+      "question": "What should you do if software documentation doesn't mention MPI but refers to threading for parallelism?",
+      "answer": "If the documentation doesn't mention MPI or consistently refers to threading and thread-based parallelism, you will likely need to restrict yourself to a single node."
+    },
+    {
+      "question": "How should programs parallelized to run across multiple nodes be started?",
+      "answer": "Programs parallelized to run across multiple nodes should be started using `srun` rather than `mpirun`."
+    },
+    {
+      "question": "What is a goal regarding the distribution of parallel processes?",
+      "answer": "A goal should be to avoid scattering parallel processes across more nodes than necessary, as a more compact distribution usually helps job performance."
+    },
+    {
+      "question": "Why should you avoid highly fragmented parallel jobs?",
+      "answer": "Highly fragmented parallel jobs often exhibit poor performance and make the scheduler's job more complicated."
+    },
+    {
+      "question": "What is a recommended practice for submitting parallel jobs on a cluster with multiple cores per node?",
+      "answer": "You should try to submit jobs where the number of parallel processes is equal to an integral multiple of the number of cores per node, assuming this is compatible with the parallel software."
+    },
+    {
+      "question": "What is the ultimate goal for CPU efficiency of your jobs?",
+      "answer": "The ultimate goal should be to ensure that the CPU efficiency of your jobs is very close to 100%, as measured by the `CPU Efficiency` field in the output from the `seff` command."
+    },
+    {
+      "question": "What does a CPU efficiency value of less than 90% indicate?",
+      "answer": "Any CPU efficiency value less than 90% is poor and means that your use of the software needs to be improved."
+    }
+  ],
+  "generated_at": "2026-04-11T18:34:27.872787+00:00"
+}

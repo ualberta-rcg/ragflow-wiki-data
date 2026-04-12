@@ -1,0 +1,140 @@
+{
+  "doc_key": "fr/data_management_at_trillium",
+  "level": "chunk",
+  "chunk_index": 3,
+  "qa_pairs": [
+    {
+      "question": "C'est quoi, le système de fichiers /bb (Burst Buffer)?",
+      "answer": "Le système /bb, ou Burst Buffer, c'est une alternative rapide et performante à /scratch, pis ça roule sur un disque SSD."
+    },
+    {
+      "question": "Dans quelles situations devrait-on utiliser /bb?",
+      "answer": "Vous devriez utiliser /bb si vous anticipez beaucoup d'opérations d'entrée-sortie (I/O) ou si vous remarquez qu'une tâche a une performance poche sur /scratch ou /project à cause d'un goulot d'étranglement avec les I/O."
+    },
+    {
+      "question": "Où est-ce qu'on peut trouver plus d'information sur le Burst Buffer?",
+      "answer": "Vous pouvez consulter la page wiki de SciNet dédiée au Burst Buffer pour avoir plus de détails."
+    },
+    {
+      "question": "À quoi sert le système de fichiers /archive ($ARCHIVE)?",
+      "answer": "Le système /archive, c'est un espace de stockage 'nearline' qui sert à conserver une copie temporaire de matériel semi-actif provenant des autres systèmes de fichiers."
+    },
+    {
+      "question": "Quand est-ce que les utilisateurs ont recours à /archive?",
+      "answer": "En pratique, les utilisateurs s'en servent pour décharger ou rappeler du matériel pendant qu'ils travaillent, ou quand ils atteignent les quotas sur /scratch ou /project."
+    },
+    {
+      "question": "Combien de temps le matériel peut-il rester sur HPSS via /archive?",
+      "answer": "Le matériel peut rester sur HPSS de quelques mois à quelques années."
+    },
+    {
+      "question": "Qui a le droit d'utiliser /archive?",
+      "answer": "Seuls les groupes qui ont obtenu une allocation suite à des concours ont accès à /archive."
+    },
+    {
+      "question": "Qu'est-ce que /dev/shm (RAM) représente?",
+      "answer": "/dev/shm, c'est un ramdisk disponible sur les nœuds, pis c'est plus rapide qu'un vrai disque et qu'un 'burst buffer'."
+    },
+    {
+      "question": "Quelle quantité de mémoire RAM peut être allouée pour /dev/shm?",
+      "answer": "Jusqu'à 70% de la RAM d'un nœud, soit 202 Go, peut être utilisée comme système de fichiers temporaire local via /dev/shm."
+    },
+    {
+      "question": "Quand est-ce que l'utilisation de /dev/shm est particulièrement avantageuse?",
+      "answer": "C'est très utile durant les premières étapes de la migration de programmes d'un ordinateur personnel vers une plateforme de calcul haute performance (CHP) comme Trillium, surtout si le code fait beaucoup d'opérations d'entrée-sortie (I/O), pour éviter les goulots d'étranglement."
+    },
+    {
+      "question": "Sur Trillium, à quoi fait référence la variable d'environnement $SLURM_TMPDIR?",
+      "answer": "Sur Trillium, la variable d'environnement $SLURM_TMPDIR pointe vers un RAMdisk, pis non pas vers les disques durs locaux, pour les tâches de calcul."
+    },
+    {
+      "question": "Que se passe-t-il avec le répertoire $SLURM_TMPDIR au début et à la fin d'une tâche?",
+      "answer": "Le répertoire $SLURM_TMPDIR est vide quand la tâche commence, pis son contenu est effacé après que la tâche est finie."
+    },
+    {
+      "question": "C'est quoi la différence entre $SLURM_TMPDIR sur Trillium et sur d'autres grappes comme Fir ou Nibi?",
+      "answer": "Sur Trillium, $SLURM_TMPDIR est en mémoire (ramdisk), tandis que sur des grappes généralistes comme Fir et Nibi, cette variable pointe vers un répertoire sur le SSD d'un nœud local."
+    },
+    {
+      "question": "Qu'est-ce que $BB_JOB_DIR?",
+      "answer": "$BB_JOB_DIR, c'est un répertoire temporaire que l'ordonnanceur crée pour chaque tâche sur Trillium."
+    },
+    {
+      "question": "Est-ce que le contenu de $BB_JOB_DIR est accessible de partout?",
+      "answer": "Oui, le répertoire $BB_JOB_DIR est accessible à partir de tous les nœuds de la tâche."
+    },
+    {
+      "question": "Pour quel type d'applications $BB_JOB_DIR est-il conçu?",
+      "answer": "$BB_JOB_DIR est fait pour les applications qui génèrent plein de petits fichiers temporaires ou des fichiers qui sont souvent utilisés (avec un IOPS élevé), mais qui ne peuvent pas être contenus sur un disque virtuel."
+    },
+    {
+      "question": "Entre le ramdisk et le 'burst buffer', lequel est généralement le meilleur endroit pour les fichiers temporaires et pourquoi?",
+      "answer": "Si le ramdisk peut contenir les fichiers temporaires, c'est généralement un meilleur endroit que le 'burst buffer' parce qu'il offre une bande passante pis un IOPS beaucoup plus grands."
+    },
+    {
+      "question": "Comment peut-on utiliser le ramdisk?",
+      "answer": "Pour utiliser le ramdisk, vous pouvez soit accéder directement à /dev/shm, soit utiliser la variable d'environnement $SLURM_TMPDIR."
+    },
+    {
+      "question": "Est-ce que les nœuds de calcul de Trillium ont des disques locaux?",
+      "answer": "Non, les nœuds de calcul de Trillium n'ont pas de disques locaux; $SLURM_TMPDIR est en mémoire (ramdisk)."
+    },
+    {
+      "question": "Quel est le quota pour le système de fichiers $HOME?",
+      "answer": "Le quota pour $HOME est de 100 Go par utilisateur."
+    },
+    {
+      "question": "Quelle est la taille des blocs pour le système de fichiers $HOME?",
+      "answer": "La taille des blocs pour $HOME est de 1 Mo."
+    },
+    {
+      "question": "Le système $HOME est-il sauvegardé?",
+      "answer": "Oui, le système $HOME est sauvegardé."
+    },
+    {
+      "question": "Peut-on accéder à $HOME depuis les nœuds de connexion et de calcul?",
+      "answer": "Oui, on peut y accéder depuis les nœuds de connexion (lecture/écriture) et en lecture seule sur les nœuds de calcul."
+    },
+    {
+      "question": "Quel est le quota par utilisateur pour le système de fichiers $SCRATCH?",
+      "answer": "Le quota par utilisateur pour $SCRATCH est de 25 To, à condition que le quota du groupe ne soit pas atteint."
+    },
+    {
+      "question": "Quelle est la taille des blocs pour le système de fichiers $SCRATCH?",
+      "answer": "La taille des blocs pour $SCRATCH est de 16 Mo."
+    },
+    {
+      "question": "Combien de temps les fichiers peuvent-ils rester sur $SCRATCH?",
+      "answer": "Les fichiers peuvent rester sur $SCRATCH pendant 2 mois."
+    },
+    {
+      "question": "Le système $SCRATCH est-il sauvegardé?",
+      "answer": "Non, le système $SCRATCH n'est pas sauvegardé."
+    },
+    {
+      "question": "Peut-on accéder à $SCRATCH depuis les nœuds de connexion et de calcul?",
+      "answer": "Oui, on peut y accéder depuis les nœuds de connexion et les nœuds de calcul."
+    },
+    {
+      "question": "Quel est le quota de groupe sur $SCRATCH pour un groupe de 4 utilisateurs ou moins?",
+      "answer": "Pour un groupe de 4 utilisateurs ou moins, le quota sur $SCRATCH est de 50 To."
+    },
+    {
+      "question": "Quel est le quota de groupe sur $SCRATCH pour un groupe de 11 utilisateurs ou moins?",
+      "answer": "Pour un groupe de 11 utilisateurs ou moins, le quota sur $SCRATCH est de 125 To."
+    },
+    {
+      "question": "Quel est le quota de groupe sur $SCRATCH pour un groupe de 28 utilisateurs ou moins?",
+      "answer": "Pour un groupe de 28 utilisateurs ou moins, le quota sur $SCRATCH est de 250 To."
+    },
+    {
+      "question": "Quel est le quota de groupe sur $SCRATCH pour un groupe de 60 utilisateurs ou moins?",
+      "answer": "Pour un groupe de 60 utilisateurs ou moins, le quota sur $SCRATCH est de 400 To."
+    },
+    {
+      "question": "Quel est le quota de groupe sur $SCRATCH pour un groupe de plus de 60 utilisateurs?",
+      "answer": "Pour un groupe de plus de 60 utilisateurs, le quota sur $SCRATCH est de 500 To."
+    }
+  ],
+  "generated_at": "2026-04-11T20:57:39.949974+00:00"
+}

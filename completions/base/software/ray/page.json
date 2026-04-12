@@ -1,0 +1,75 @@
+{
+  "doc_key": "base/ray",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is Ray and what is its primary purpose?",
+      "answer": "Ray is a unified framework for scaling AI and Python applications, comprising a core distributed runtime and a toolkit of libraries to simplify parallel/distributed workloads, particularly Machine Learning jobs."
+    },
+    {
+      "question": "How can one check the latest available version of a Ray wheel?",
+      "answer": "One can check the latest version of a Ray wheel by using the command `avail_wheels \"ray\"`."
+    },
+    {
+      "question": "What are the three main steps to install Ray using a Python wheel?",
+      "answer": "The three main steps are: 1. Load a Python module; 2. Create and start a virtual environment; 3. Install Ray in the virtual environment using `pip install --no-index ray`."
+    },
+    {
+      "question": "What resources are allocated to the single-node Ray cluster in the provided job submission example script?",
+      "answer": "The example script allocates 200GB RAM, 48 CPU cores, and 4 H100 GPUs per node for a single-node Ray cluster."
+    },
+    {
+      "question": "How can the `ray-example.sh` script be modified to run a multi-node Ray cluster?",
+      "answer": "The `ray-example.sh` script can be modified for multi-node clusters by changing the default value of `#SBATCH --nodes=1` or by overriding it with the `sbatch --nodes=` command-line argument."
+    },
+    {
+      "question": "What is the function of the `config_env.sh` script in the Ray job submission example?",
+      "answer": "The `config_env.sh` script loads the Python module, creates a virtual environment in `$SLURM_TMPDIR/ENV`, activates it, and then upgrades pip and installs Ray within that environment."
+    },
+    {
+      "question": "How does the `ray-example.sh` script determine and export the Ray head node address and port?",
+      "answer": "The script sets `HEAD_NODE` to the current hostname and `RAY_PORT` to an available free port found by a Python script using `socket`."
+    },
+    {
+      "question": "What is `ray-multiprog.conf` used for in the job submission script?",
+      "answer": "`ray-multiprog.conf` is used to configure `srun --multi-prog` to launch the Ray head node on node 0 and Ray worker nodes on all other allocated nodes."
+    },
+    {
+      "question": "What is the purpose of the `test_ray.py` script?",
+      "answer": "The `test_ray.py` script connects to the launched Ray cluster and verifies that Ray sees the allocated nodes and their status, as well as the available CPU and GPU resources."
+    },
+    {
+      "question": "What is Ray Tune used for?",
+      "answer": "Ray Tune is a Ray module used for experiment execution and hyperparameter tuning at any scale."
+    },
+    {
+      "question": "What machine learning frameworks does Ray Tune support for hyperparameter search?",
+      "answer": "Ray Tune supports a wide range of frameworks, including PyTorch, TensorFlow, and Scikit-Learn."
+    },
+    {
+      "question": "How are the resource requirements for a Ray Tune job typically determined?",
+      "answer": "Resource requirements are mainly determined by the number of samples to draw from the search space and the model's memory size, which helps estimate the number of parallel trials and necessary resources."
+    },
+    {
+      "question": "In the Ray Tune example, how many trials run in parallel on a single GPU, and what CPU resources are allocated to each trial?",
+      "answer": "In the example, 10 trials run in parallel on a single GPU, with one CPU allocated to each trial to be used as a `DataLoader` worker."
+    },
+    {
+      "question": "What specific `pip install` commands are needed for the Ray Tune example?",
+      "answer": "For the Ray Tune example, `pip install ray[tune]` and `pip install torchvision` are needed in the virtual environment."
+    },
+    {
+      "question": "What hyperparameters are being tuned in the `ray-tune-example.py` script, and what are their respective search spaces?",
+      "answer": "The hyperparameters being tuned are `lr` (learning rate), sampled from a log-uniform distribution between 1e-4 and 1e-1, and `batch_size`, sampled randomly from the list [2, 4, 8, 16]."
+    },
+    {
+      "question": "What is the role of `ASHAScheduler` in the Ray Tune example?",
+      "answer": "`ASHAScheduler` can prematurely terminate trials that do not appear promising, especially when a training loop runs for many epochs, to save computational resources."
+    },
+    {
+      "question": "What metric does the `tune.Tuner` use to determine the best result in the Ray Tune example?",
+      "answer": "The `tune.Tuner` uses \"accuracy\" as the metric and seeks to maximize it to find the best result."
+    }
+  ],
+  "generated_at": "2026-04-12T06:54:00.887034+00:00"
+}

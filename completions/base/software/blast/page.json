@@ -1,0 +1,83 @@
+{
+  "doc_key": "base/blast",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What does BLAST stand for and what is its primary function?",
+      "answer": "BLAST stands for \"Basic Local Alignment Search Tool\" and its primary function is to find regions of similarity between biological sequences."
+    },
+    {
+      "question": "How does BLAST determine the significance of sequence similarities?",
+      "answer": "BLAST compares nucleotide or protein sequences to sequence databases and calculates the statistical significance of the similarities found."
+    },
+    {
+      "question": "Where can users find detailed information on BLAST's arguments?",
+      "answer": "Users can find detailed information on BLAST's arguments in the NCBI user manual or by running `blastn -help`."
+    },
+    {
+      "question": "Which NCBI databases are pre-installed for BLAST on the clusters?",
+      "answer": "The NCBI non-redundant protein (`nr`) and non-redundant nucleotide (`nt`) databases are pre-installed on the clusters."
+    },
+    {
+      "question": "What is the general location of the pre-installed BLAST databases on the clusters?",
+      "answer": "The pre-installed BLAST databases are generally located in `/cvmfs/bio.data.computecanada.ca/content/databases/Core/blast_dbs`."
+    },
+    {
+      "question": "What command is used to build a custom BLAST database from a FASTA file?",
+      "answer": "The `makeblastdb` command is used to build a custom BLAST database from a FASTA file."
+    },
+    {
+      "question": "What modules must be loaded to use BLAST+ tools like `makeblastdb` and `blastn`?",
+      "answer": "The `gcc/7.3.0` and `blast+/2.9.0` modules must be loaded."
+    },
+    {
+      "question": "How can a BLAST search be significantly accelerated using data parallelism?",
+      "answer": "A BLAST search can be significantly accelerated by splitting the query file into multiple smaller queries and running these concurrently against the database."
+    },
+    {
+      "question": "What is the recommended minimum size for query file chunks when splitting them for parallel processing, and why is this important?",
+      "answer": "The recommended minimum size for query file chunks is at least 1MB or greater; chunks smaller than 1MB may negatively impact the parallel filesystem."
+    },
+    {
+      "question": "What utility is used to split a FASTA query file into multiple smaller files for parallel processing?",
+      "answer": "The `faSplit` utility from `kentutils` is used to split a FASTA query file."
+    },
+    {
+      "question": "How are individual BLAST search tasks submitted for split queries when using the task array method?",
+      "answer": "Individual BLAST search tasks for split queries are submitted using a job array, where each task ID maps to a specific query file."
+    },
+    {
+      "question": "What is the command to submit a BLAST job array that depends on the successful completion of a database creation job?",
+      "answer": "The command is `sbatch --dependency=afterok:$(sbatch makeblastdb.sh) blastn_array.sh`."
+    },
+    {
+      "question": "How are the results from a BLAST job array combined after all tasks are completed?",
+      "answer": "The results from a BLAST job array can be combined by concatenating the individual output files, for example, using `cat seq.ref.{0..9} > seq.ref`."
+    },
+    {
+      "question": "What is GNU Parallel used for in the context of BLAST searches, and how does it help alleviate issues with parallel filesystems?",
+      "answer": "GNU Parallel is used to pack many small BLAST jobs into a single job, running them on one node with multiple cores. It helps alleviate parallel filesystem issues by querying fixed-size chunks from the query file rather than creating many small files."
+    },
+    {
+      "question": "What is the purpose of the `--block -1` option when using GNU Parallel for BLAST?",
+      "answer": "The `--block -1` option tells GNU Parallel to automatically evaluate and adapt the block size for processing the query file."
+    },
+    {
+      "question": "What is a key requirement for the input query file when using GNU Parallel for BLAST?",
+      "answer": "The input query file must not be compressed when using GNU Parallel for BLAST."
+    },
+    {
+      "question": "What is an optimization tip related to database storage for faster BLAST searches?",
+      "answer": "If it fits, copying the FASTA database to the node's local scratch space (`$SLURM_TMPDIR`) can optimize BLAST searches."
+    },
+    {
+      "question": "How can users reduce the number of hits returned by a BLAST search?",
+      "answer": "Users can reduce the number of hits by using options like `-max_target_seqs` and `-max_hsps`."
+    },
+    {
+      "question": "How can users limit their BLAST hit list to nearly identical sequences?",
+      "answer": "Users can limit their BLAST hit list to nearly identical sequences by applying `-evalue` filters."
+    }
+  ],
+  "generated_at": "2026-04-11T18:20:21.198540+00:00"
+}

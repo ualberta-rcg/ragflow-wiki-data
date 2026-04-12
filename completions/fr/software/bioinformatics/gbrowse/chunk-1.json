@@ -1,0 +1,96 @@
+{
+  "doc_key": "fr/gbrowse",
+  "level": "chunk",
+  "chunk_index": 1,
+  "qa_pairs": [
+    {
+      "question": "Qu'est-ce que GBrowse exactement?",
+      "answer": "GBrowse, c'est un outil web pour manipuler et visualiser des données génomiques. Il est composé d'une base de données et de pages web interactives."
+    },
+    {
+      "question": "Où est-ce qu'on peut trouver GBrowse?",
+      "answer": "GBrowse est disponible sur Cedar."
+    },
+    {
+      "question": "Comment faire pour installer GBrowse?",
+      "answer": "On peut installer GBrowse à partir de l'adresse https://gateway.cedar.computecanada.ca."
+    },
+    {
+      "question": "Est-ce que l'installation de GBrowse sur Cedar est pareille à celle décrite sur la page officielle?",
+      "answer": "Non, notre installation diffère de celle décrite sur la page web GBrowse officielle, surtout en ce qui concerne l'autorisation et l'authentification."
+    },
+    {
+      "question": "Comment est-ce qu'un groupe de recherche peut obtenir l'accès à GBrowse?",
+      "answer": "Notre équipe technique va créer un compte partagé pour chaque groupe de recherche qui en fait la demande."
+    },
+    {
+      "question": "Quels sont les avantages d'un compte partagé pour GBrowse?",
+      "answer": "Les données et les fichiers de configuration seront lisibles par tous les membres du groupe."
+    },
+    {
+      "question": "Qui doit faire la demande d'accès à GBrowse pour un groupe?",
+      "answer": "Le chercheur principal ou la chercheuse principale doit écrire au soutien technique."
+    },
+    {
+      "question": "Quelles informations faut-il fournir quand on demande un accès à GBrowse?",
+      "answer": "Il faut indiquer le nom de la base de données utilisée sur Cedar."
+    },
+    {
+      "question": "Que doit faire le chercheur principal ou la chercheuse principale lors de la demande de compte partagé?",
+      "answer": "Il ou elle doit écrire au soutien technique pour demander la création du compte partagé et attester qu'il ou elle comprend les conditions d'utilisation d'un compte partagé."
+    },
+    {
+      "question": "Si on n'a pas de compte de base de données, où doit-on consulter?",
+      "answer": "Il faut consulter la page 'Serveurs de bases de données'."
+    },
+    {
+      "question": "Où est-ce qu'on doit placer les fichiers de configuration pour qu'ils soient visibles par tout le groupe?",
+      "answer": "Les fichiers de configuration doivent être placés dans le répertoire `/project/GROUPID/gbrowse/USERNAME/conf`."
+    },
+    {
+      "question": "À quoi correspondent 'GROUPID' et 'USERNAME' dans le chemin de configuration?",
+      "answer": "`GROUPID` est l'identifiant du groupe et `USERNAME` est votre nom d'utilisateur."
+    },
+    {
+      "question": "Est-ce qu'un lien symbolique est créé pour le répertoire des fichiers de configuration?",
+      "answer": "Oui, un lien symbolique de `${HOME}/gbrowse-config/` est créé vers ce répertoire."
+    },
+    {
+      "question": "Quelles permissions sont nécessaires pour les fichiers de configuration?",
+      "answer": "Il faut s'assurer que les permissions de lecture du groupe pour ces fichiers sont activées."
+    },
+    {
+      "question": "Comment se configure une connexion à une base de données MySQL dans les fichiers de configuration GBrowse?",
+      "answer": "Il faut inclure `db_adaptor = Bio::DB::SeqFeature::Store` et `db_args = -adaptor DBI::mysql -dsn DATABASE;mysql_read_default_file=/home/SHARED/.my.cnf`."
+    },
+    {
+      "question": "Que contient le fichier `.my.cnf` et qui le crée?",
+      "answer": "Le fichier `.my.cnf` contient les renseignements nécessaires pour se connecter à MySQL et il est créé par notre équipe technique."
+    },
+    {
+      "question": "Que représentent 'DATABASE' et 'SHARED' dans la configuration MySQL?",
+      "answer": "`DATABASE` est le nom de la base de données et `SHARED` est le compte partagé."
+    },
+    {
+      "question": "Comment se configure une connexion à une base de données Postgres dans les fichiers de configuration GBrowse?",
+      "answer": "Il faut inclure `db_adaptor = Bio::DB::SeqFeature::Store` et `db_args = -adaptor DBI::Pg -dsn = dbi:Pg:dbname=DATABASE`."
+    },
+    {
+      "question": "Faut-il téléverser les fichiers .bam pour les visualiser avec GBrowse?",
+      "answer": "Non, il n'est pas nécessaire de téléverser les fichiers .bam pour les visualiser."
+    },
+    {
+      "question": "Quelles sont les conditions pour que GBrowse puisse lire directement les fichiers .bam?",
+      "answer": "Les fichiers doivent être copiés dans votre répertoire `/project` et être lisibles par le groupe; le répertoire des fichiers .bam doit avoir le `setgid` et la permission `group-execute` activés; la propriété de groupe du fichier .bam doit être le nom du groupe, pas de l'utilisateur; et le chemin vers le fichier .bam doit être modifié dans le fichier de configuration."
+    },
+    {
+      "question": "Comment la propriété de groupe d'un fichier .bam devrait-elle être pour GBrowse?",
+      "answer": "La propriété de groupe du fichier .bam doit indiquer le nom du groupe, comme `jsmith:def-kjones`, et non le nom de l'utilisateur seul."
+    },
+    {
+      "question": "Comment configurer le chemin d'un fichier .bam dans un fichier de configuration GBrowse?",
+      "answer": "Le chemin doit être modifié dans le fichier de configuration, par exemple, en ajoutant: `db_args = -bam /project/GROUPID/USERNAME/gbrowse_bam_files/example_file.bam` sous une entrée `[example_bam:database]`."
+    }
+  ],
+  "generated_at": "2026-04-11T21:59:23.118467+00:00"
+}

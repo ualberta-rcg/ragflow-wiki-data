@@ -5,33 +5,77 @@ lang: "base"
 
 source_wiki_title: "PGPROF"
 source_hash: "dbdbe193eb8cac1acacd1631f0a79b35"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T09:41:27.105726+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T10:09:28.045031+00:00"
 
 tags:
   - software
 
 keywords:
-  []
+  - "PGI"
+  - "profiling"
+  - "cudbgGetAPIVersion"
+  - "User's Guide"
+  - "timeline"
+  - "PGI compiler"
+  - "performance data"
+  - "Properties"
+  - "CPU profiling result"
+  - "GPU Details"
+  - "swim-acc-data.f"
+  - "start_thread"
+  - "PGPROF"
+  - "Call tree"
+  - "parallel programs"
+  - "performance details"
+  - "CPU Details"
+  - "NVIDIA Corporation"
+  - "Graphical mode"
+  - "Quick Start Guide"
+  - "Performance data"
+  - "acc_wait"
+  - "CPU profiling"
+
+questions:
+  - "What is PGPROF and what types of parallel programs is it designed to analyze?"
+  - "What are the two primary steps required to use PGPROF, and what does each step entail?"
+  - "How must the environment be configured and the code compiled before collecting performance data with PGPROF?"
+  - "How do the top-down and bottom-up CPU profiling modes differ when analyzing performance data with PGPROF?"
+  - "Why must the PGPROF graphical interface be executed on a compute node in an interactive session rather than on a login node?"
+  - "What specific information is displayed in the four panes of the PGPROF visualization window during graphical analysis?"
+  - "What performance metrics are recorded for the `acc_wait` operations in the `swim-acc-data.f` source file?"
+  - "Which functions are identified as consuming the most time in the CPU profiling results?"
+  - "How many times were the different `acc_wait` directives called during the profiled execution?"
+  - "What information is displayed in the timeline pane located on the upper right?"
+  - "What specific performance details are shown in the GPU Details and CPU Details panes?"
+  - "How does the Properties pane interact with the selections made in the timeline window?"
+  - "What company is the direct creator of the PGPROF product?"
+  - "Which larger corporation owns PGI as a subsidiary?"
+  - "What types of documentation and guides are provided for PGPROF users?"
+  - "What company is the direct creator of the PGPROF product?"
+  - "Which larger corporation owns PGI as a subsidiary?"
+  - "What types of documentation and guides are provided for PGPROF users?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
-PGPROF is a powerful and simple tool for analyzing the performance of parallel programs written with OpenMP, MPI, OpenACC, or CUDA. There are two profiling modes: Command-line mode and graphical mode.
+PGPROF is a powerful and simple tool for analyzing the performance of parallel programs written with OpenMP, MPI, OpenACC, or CUDA.
+There are two profiling modes: Command-line mode and graphical mode.
 
-## Quickstart guide
+# Quickstart guide
 Using PGPROF usually consists of two steps:
 1.  **Data collection**: Run the application with profiling enabled.
 2.  **Analysis**: Visualize the data produced in the first step.
+
 Both steps can be accomplished in either command-line mode or graphical mode.
 
-### Environment modules
+## Environment modules
 Before you start profiling with PGPROF, the appropriate [module](utiliser-des-modules.md) needs to be loaded.
 
 PGPROF is part of the PGI compiler package, so run `module avail pgi` to see what versions are currently available with the compiler, MPI, and CUDA modules you have loaded. For a comprehensive list of PGI modules, run `module -r spider '.*pgi.*'`.
@@ -40,18 +84,16 @@ As of December 2018, these were:
 *   pgi/17.3
 
 Use `module load pgi/version` to select a version; for example, to load the PGI compiler version 17.3, use
-
 ```bash
 module load pgi/17.3
 ```
 
-### Compiling your code
-To get useful information from PGPROF, you first need to compile your code with one of the PGI compilers (`pgcc` for C, `pgc++` for C++ , `pgfortran` for Fortran). A source in Fortran may need to be compiled with the `-g` flag.
+## Compiling your code
+To get useful information from PGPROF, you first need to compile your code with one of the PGI compilers (`pgcc` for C, `pgc++` for C++, `pgfortran` for Fortran). A source in Fortran may need to be compiled with the `-g` flag.
 
-### Command-line mode
+## Command-line mode
 
 **Data collection**: Use PGPROF to run the application and save the performance data in a file. In this example, the application is `a.out` and we choose to save the data in `a.prof`.
-
 ```bash
 pgprof -o a.prof ./a.out
 ```
@@ -59,11 +101,9 @@ pgprof -o a.prof ./a.out
 The data file can be analyzed in graphical mode with the *File | Import* command (see below) or in command-line mode as follows.
 
 **Analysis**: To visualize the performance data in command-line mode:
-
 ```bash
 pgprof -i a.prof
 ```
-
 The results are usually divided into several categories, for example:
 *   GPU kernel execution profile
 *   CUDA API execution profile
@@ -99,16 +139,12 @@ Time(%)      Time  Name
  10.38%  1.50269s       swim_mod_calc2_
 ```
 
-#### Options
+### Options
 *   The output can be cropped to show one of the categories. For example, the option `--cpu-profiling` will show only the CPU results.
 
 *   The option `--cpu-profiling-mode top-down` will make PGPROF show the main subroutine at the top and the rest of functions it called below:
-
 ```bash
 pgprof --cpu-profiling-mode top-down -i a.prof
-```
-
-```text
 ======== CPU profiling result (top down):
 Time(%)      Time  Name
  97.36%  35.2596s  main
@@ -120,13 +156,9 @@ Time(%)      Time  Name
   1.76%  637.36ms   __fvd_sin_vex_256
 ```
 
-*   To find out what part of your application takes the longest time to run you can use the option `--cpu-profiling-mode bottom-up` which orients the call tree to show each function followed by functions that called it and working backwards to the main function.
-
+*   To find out what part of your application takes the longest time to run, you can use the option `--cpu-profiling-mode bottom-up`, which orients the call tree to show each function followed by functions that called it and working backwards to the main function.
 ```bash
 pgprof --cpu-profiling-mode bottom-up -i a.prof
-```
-
-```text
 ======== CPU profiling result (bottom up):
 Time(%)      Time  Name
  32.02%  11.5976s  swim_mod_calc3_
@@ -141,15 +173,14 @@ Time(%)      Time  Name
   3.43%  1.24057s  swim_mod_inital_
 ```
 
-### Graphical mode
+## Graphical mode
 
-In graphical mode, both data collection and analysis can be accomplished in the same session most of the time. However, it is also possible to do the analysis from the pre-saved performance data file (e.g. collected in the command-line mode).
+In graphical mode, both data collection and analysis can be accomplished in the same session most of the time. However, it is also possible to do the analysis from the pre-saved performance data file (e.g., collected in the command-line mode).
 There are several steps that need to be done to collect and visualize performance data in this mode.
 
 **Data collection**
 *   Launch the PGI profiler.
-    !!! warning
-        Since the Pgrof's GUI is based on Java, it should be executed on the compute node in the interactive session rather than on the login node, as the latter does not have enough memory (see [Java](java.md#pitfalls) for more details). An interactive session can be started with `salloc --x11 ...` to enable X11 forwarding (see [Interactive jobs](running-jobs.md#interactive-jobs) for more details).
+    *   Since PGPROF's GUI is based on Java, it should be executed on the compute node in the interactive session rather than on the login node, as the latter does not have enough memory (see [Java](java.md#pitfalls) for more details). An interactive session can be started with `salloc --x11 ...` to enable X11 forwarding (see [Interactive jobs](running-jobs.md#interactive-jobs) for more details).
 *   In order to start a new session, open the *File* menu and click on *New Session*.
 *   Select the executable file you want to profile and then add any arguments appropriate for your profiling.
 *   Click *Next*, then *Finish*.
@@ -163,7 +194,7 @@ The visualization window is comprised of four panes:
 *   **CPU Details**: shows performance details for the CPU functions.
 *   **Properties**: shows all the details for a selected function in the timeline window.
 
-## References
-PGPROF is a product of [PGI](https://www.pgroup.com/), which is a subsidiary of [NVIDIA Corporation.](https://www.nvidia.com)
+# References
+PGPROF is a product of [PGI](https://www.pgroup.com/), which is a subsidiary of [NVIDIA Corporation](https://www.nvidia.com/).
 *   [Quick Start Guide](https://www.pgroup.com/resources/pgprof-quickstart.htm)
 *   [User's Guide](https://www.pgroup.com/doc/pgi17profug.pdf)

@@ -1,0 +1,28 @@
+{
+  "doc_key": "base/ansys",
+  "level": "chunk",
+  "chunk_index": 18,
+  "qa_pairs": [
+    {
+      "question": "What happens if a Fluent job, configured for solution restart, completes successfully but is not on its final restart attempt?",
+      "answer": "If a Fluent job configured for solution restart completes successfully and is not yet on its final restart attempt, the script will print 'Restarting job with the most recent output dat file'. It will then create symbolic links for the most recent .cas and .dat output files to the specified restart filenames ($MYCASFILERES and $MYDATFILERES), and list cavity* output/* files."
+    },
+    {
+      "question": "What command is used to create a symbolic link for the most recent case file when restarting a Fluent job?",
+      "answer": "The command used to create a symbolic link for the most recent case file is: `ln -sfv output/$(ls -ltr output {{!}} grep .cas {{!}} tail -n1 {{!}} awk '{print $9}') $MYCASFILERES`."
+    },
+    {
+      "question": "What command is used to create a symbolic link for the most recent data file when restarting a Fluent job?",
+      "answer": "The command used to create a symbolic link for the most recent data file is: `ln -sfv output/$(ls -ltr output {{!}} grep .dat {{!}} tail -n1 {{!}} awk '{print $9}') $MYDATFILERES`."
+    },
+    {
+      "question": "What message is displayed if a Fluent job configured for solution restart fails?",
+      "answer": "If a Fluent job configured for solution restart fails, the script will display the message 'Simulation failed. Exiting now.'."
+    },
+    {
+      "question": "How does the script handle a successfully completed Fluent job if it's the final or only restart attempt?",
+      "answer": "If a Fluent job completes successfully and it's either the final restart attempt or the only attempt specified, the script will print 'Job completed successfully! Exiting now.' and then cancel the entire Slurm job array using `scancel $SLURM_ARRAY_JOB_ID`."
+    }
+  ],
+  "generated_at": "2026-04-11T16:49:29.132875+00:00"
+}

@@ -5,21 +5,30 @@ lang: "fr"
 
 source_wiki_title: "Moose/fr"
 source_hash: "0966364ae4146b3c390fb69c0f561ec4"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T08:58:27.798388+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T09:30:42.335627+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "MOOSE"
+  - "environnement de développement C++"
+  - "solveurs multiphysiques"
+  - "simulation par éléments finis"
+  - "compilation"
+
+questions:
+  - "Qu'est-ce que l'environnement MOOSE et par quelle organisation est-il développé ?"
+  - "Pourquoi les utilisateurs doivent-ils compiler eux-mêmes le logiciel MOOSE sur les grappes de calcul ?"
+  - "Quelles sont les étapes et les modules requis pour compiler et tester MOOSE sous l'environnement StdEnv/2023 ?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -38,5 +47,4 @@ make -j6
 ./run_tests -j6
 ```
 
-!!! help "Soutien"
-    Si vous éprouvez des difficultés, écrivez au [soutien technique](technical-support.md).
+Si vous éprouvez des difficultés, écrivez au [soutien technique](technical-support.md).

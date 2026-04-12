@@ -1,0 +1,64 @@
+{
+  "doc_key": "fr/fenics",
+  "level": "chunk",
+  "chunk_index": 6,
+  "qa_pairs": [
+    {
+      "question": "Qu'est-ce qu'il faut faire à l'intérieur du bac à sable pour que pip/SSL fasse confiance à HTTPS?",
+      "answer": "À l'intérieur du bac à sable, il faut créer un dossier pour les certificats (certs) et faire un lien symbolique vers le paquet de CA (CA bundle) pour que pip/SSL fasse confiance à HTTPS. La commande est `apptainer exec --writable fenics-legacy.sandbox sh -c \"mkdir -p /etc/pki/tls/certs && ln -s /etc/ssl/certs/ca-certificates.crt /etc/pki/tls/certs/ca-bundle.crt\"`."
+    },
+    {
+      "question": "Comment puis-je créer une nouvelle image SIF en lecture seule une fois que j'ai terminé les modifications dans le bac à sable?",
+      "answer": "Une fois que vous avez fini de modifier le bac à sable, vous pouvez l'utiliser pour créer une nouvelle image en lecture seulement avec la commande `apptainer build fenics-legacy-updated.sif fenics-legacy.sandbox`."
+    },
+    {
+      "question": "Quels sont les avantages d'une nouvelle image SIF créée à partir du bac à sable?",
+      "answer": "Cette nouvelle image est portable et permet des calculs reproductibles."
+    },
+    {
+      "question": "Quelle est la commande pour effectuer des tests avec l'image `fenics-legacy-updated.sif` et `ufl_legacy`?",
+      "answer": "La commande pour effectuer ces tests est `apptainer exec --bind $PWD:/root/shared --pwd /root/shared fenics-legacy-updated.sif python3 -c \"import ufl_legacy; print('ufl_legacy ok. version:', ufl_legacy.__version__)\"`."
+    },
+    {
+      "question": "À quoi sert l'option `--bind $PWD:/root/shared` dans la commande de test de l'image Apptainer?",
+      "answer": "L'option `--bind $PWD:/root/shared` sert à monter le répertoire hôte actif (`$PWD`) dans le conteneur au chemin `/root/shared`."
+    },
+    {
+      "question": "Quel est le rôle de l'option `--pwd` dans la commande de test de l'image Apptainer?",
+      "answer": "L'option `--pwd` permet de définir le répertoire de travail à l'intérieur du conteneur."
+    },
+    {
+      "question": "FEniCS Legacy (version 2019.1.x) nécessite quelle version d'UFL?",
+      "answer": "FEniCS Legacy (version 2019.1.x) nécessite UFL Legacy, qui est déjà inclus."
+    },
+    {
+      "question": "Quel est le nom du paquet Python à utiliser pour UFL avec FEniCS Legacy?",
+      "answer": "Le paquet Python se nomme `ufl_legacy`, et non `ufl`. Une instruction `import ufl` devrait échouer, alors qu'un `import ufl_legacy` ne le devrait pas."
+    },
+    {
+      "question": "Quelle version d'UFL est compatible et fournie par `ufl_legacy`?",
+      "answer": "La version UFL compatible est la 2022.3.0, qui est fournie par `ufl_legacy`."
+    },
+    {
+      "question": "Pourquoi devrais-je créer un alias pour `ufl_legacy` sous le nom `ufl`?",
+      "answer": "Certains logiciels, comme Oasis, s'attendent à ce que le nom du module à charger soit `ufl`. Créer un alias (ou un 'shim') permet de réexporter `ufl_legacy` sous le nom `ufl` sans avoir à modifier ces logiciels."
+    },
+    {
+      "question": "Où dois-je créer le fichier pour l'alias `ufl`?",
+      "answer": "Vous devez créer le fichier à l'emplacement `/pyshims/ufl/__init__.py`."
+    },
+    {
+      "question": "Quel est le contenu du fichier `__init__.py` nécessaire pour créer l'alias `ufl`?",
+      "answer": "Le fichier `/pyshims/ufl/__init__.py` doit contenir le code Python suivant: `import sys import ufl_legacy as ufl api = [k for k in ufl.__dict__.keys() if not k.startswith('__') and not k.endswith('__')] for key in api: sys.modules['ufl.{}'.format(key)] = getattr(ufl, key) del api`."
+    },
+    {
+      "question": "Comment puis-je tester l'alias `ufl` une fois qu'il est créé?",
+      "answer": "Pour tester l'alias, il faut ajouter le chemin de l'alias ('shim') à la variable `PYTHONPATH` lors de l'utilisation du conteneur."
+    },
+    {
+      "question": "Quelle commande utilise-t-on pour tester l'alias `ufl` en incluant son chemin dans `PYTHONPATH`?",
+      "answer": "La commande est: `APPTAINERENV_PYTHONPATH=<path_to_shim>:$PYTHONPATH apptainer exec --bind /scratch:/scratch ~/fenics-legacy-updated.sif python3 -c \"from ufl.tensors import ListTensor; print('UFL tensors ok')\"`."
+    }
+  ],
+  "generated_at": "2026-04-11T21:26:59.497259+00:00"
+}

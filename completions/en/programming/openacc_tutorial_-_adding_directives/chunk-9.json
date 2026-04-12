@@ -1,0 +1,64 @@
+{
+  "doc_key": "en/openacc_tutorial_-_adding_directives",
+  "level": "chunk",
+  "chunk_index": 9,
+  "qa_pairs": [
+    {
+      "question": "What is the purpose of the NVIDIA Visual Profiler (NVVP) in OpenACC applications?",
+      "answer": "The NVIDIA Visual Profiler (NVVP) is a cross-platform analyzing tool for codes written with OpenACC and CUDA C/C++ instructions. It's used to profile OpenACC applications and generate a timeline of their execution."
+    },
+    {
+      "question": "Under what condition will the NVIDIA Visual Profiler not produce any results?",
+      "answer": "If the executable being profiled is not using the GPU, the NVIDIA Visual Profiler will not yield any results."
+    },
+    {
+      "question": "What are the prerequisites for launching the NVIDIA Visual Profiler from a terminal?",
+      "answer": "To launch NVVP, one typically needs X11 forwarded to an X-Server, or a Linux desktop environment (possibly via JupyterHub). Specific modules, such as `cuda/11.7` and `java/1.8`, must also be loaded."
+    },
+    {
+      "question": "How do you launch the NVIDIA Visual Profiler (NVVP) from a terminal?",
+      "answer": "After loading the necessary modules (e.g., `module load cuda/11.7 java/1.8`), you can launch NVVP by typing `nvvp` in the terminal. To run it in the background, use `nvvp &`."
+    },
+    {
+      "question": "What is the first step when setting up a new session in the NVIDIA Visual Profiler?",
+      "answer": "After the NVVP startup window appears, you are prompted for a 'Workspace' directory. It's recommended to replace 'home' with 'scratch' in the suggested path and then click 'OK'."
+    },
+    {
+      "question": "Which type of executable should be selected when configuring a new session in NVVP?",
+      "answer": "You should select an executable that was built from codes containing OpenACC and CUDA C/C++ instructions."
+    },
+    {
+      "question": "What profiling option should be chosen in NVVP, below the 'Arguments' editor?",
+      "answer": "The profiling option 'Profile current process only' should be selected."
+    },
+    {
+      "question": "What is a common bottleneck observed in the NVVP timeline when porting CPU code to a GPU?",
+      "answer": "Almost all of the runtime is often spent transferring data between the host and the device, as illustrated by the NVVP timeline."
+    },
+    {
+      "question": "What is the primary difference in approach between the OpenACC `kernels` directive and the `parallel loop` directive?",
+      "answer": "The `kernels` directive is 'descriptive', letting the compiler analyze the code and determine what is safe to parallelize. In contrast, the `parallel loop` directive is 'prescriptive', explicitly forcing the compiler to perform the loop in parallel, making it the programmer's responsibility to ensure parallelism is safe."
+    },
+    {
+      "question": "What is the OpenACC `parallel loop` directive?",
+      "answer": "The `parallel loop` directive is a prescriptive OpenACC directive formed by combining the `parallel` directive with the `loop` directive. It instructs the compiler to perform the specified loop in parallel."
+    },
+    {
+      "question": "Why is the `independent` clause implicitly included when using a `parallel loop` directive?",
+      "answer": "Since `parallel loop` is a prescriptive directive, it forces the compiler to perform the loop in parallel, which means the `independent` clause is implicit within a parallel region because the programmer is asserting the independence of iterations."
+    },
+    {
+      "question": "What additional clauses are often required for data management when using the `parallel loop` directive, and why were they not needed with the `kernels` directive?",
+      "answer": "Additional clauses like `private` and `reduction` are often needed to manage the scope of data with `parallel loop`. These clauses were not required with the `kernels` directive because the `kernels` directive automatically handles such data management for you."
+    },
+    {
+      "question": "Explain the function of the OpenACC `private` clause.",
+      "answer": "With the `private` clause, a copy of the specified variable is created for each loop iteration, ensuring that the variable's value is independent of other iterations."
+    },
+    {
+      "question": "What is the purpose of the OpenACC `reduction` clause, and what operations does it support?",
+      "answer": "The `reduction` clause is used to combine the values of a variable from each loop iteration into a single value. It supports various operations, including addition (+), multiplication (*), maximum (max), and minimum (min)."
+    }
+  ],
+  "generated_at": "2026-04-12T04:07:32.038304+00:00"
+}

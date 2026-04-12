@@ -1,0 +1,32 @@
+{
+  "doc_key": "en/blast",
+  "level": "chunk",
+  "chunk_index": 3,
+  "qa_pairs": [
+    {
+      "question": "How do you submit the BLAST array job after the database has been created?",
+      "answer": "You submit the BLAST array job using the command `sbatch --dependency=afterok:$(sbatch makeblastdb.sh) blastn_array.sh`."
+    },
+    {
+      "question": "What is the purpose of the `--dependency=afterok:$(sbatch makeblastdb.sh)` option when submitting the `blastn_array.sh` script?",
+      "answer": "This option ensures that the `blastn_array.sh` job only starts after the `makeblastdb.sh` job has successfully completed. The `$(sbatch makeblastdb.sh)` part submits the database creation job and passes its job ID as the dependency."
+    },
+    {
+      "question": "After all tasks in a BLAST array job are finished, how are their results combined?",
+      "answer": "Once all tasks are done, the results can be concatenated using the `cat` command."
+    },
+    {
+      "question": "What command concatenates the 10 result files (e.g., `seq.ref.0` to `seq.ref.9`) into a single file named `seq.ref`?",
+      "answer": "The command used is `cat seq.ref.{0..9} > seq.ref`."
+    },
+    {
+      "question": "What is the name of the final concatenated file when using the `cat seq.ref.{0..9} > seq.ref` command?",
+      "answer": "The final concatenated file will be named `seq.ref`."
+    },
+    {
+      "question": "When can the concatenation of results from a task array be performed?",
+      "answer": "The concatenation can be done from the login node or as a dependent job that runs upon the completion of all tasks from the array."
+    }
+  ],
+  "generated_at": "2026-04-11T18:21:44.398534+00:00"
+}

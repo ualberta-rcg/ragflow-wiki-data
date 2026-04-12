@@ -1,0 +1,67 @@
+{
+  "doc_key": "base/prolonging_terminal_sessions",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is the main purpose of this document?",
+      "answer": "This document proposes various techniques for keeping an SSH terminal session alive for long periods when working on clusters."
+    },
+    {
+      "question": "What are the two primary methods suggested for maintaining an SSH connection?",
+      "answer": "The two primary methods discussed are modifying your SSH client configuration and using terminal multiplexers like `tmux` or `screen`."
+    },
+    {
+      "question": "How can I configure my SSH client to help keep the connection alive?",
+      "answer": "You can add the lines `Host *` and `ServerAliveInterval 240` to your SSH client configuration file, typically found at `$HOME/.ssh/config` on MacOS/Linux or `C:\\Users\\<username>\\.ssh\\config` on Windows."
+    },
+    {
+      "question": "What is the function of the `ServerAliveInterval 240` setting in the SSH configuration?",
+      "answer": "This setting ensures the transmission of a sign-of-life signal over the SSH connection to the remote server every 240 seconds (four minutes), helping to keep the connection alive even when idle for several hours."
+    },
+    {
+      "question": "What is a terminal multiplexer, and what are its key benefits?",
+      "answer": "A terminal multiplexer, such as `tmux` or `screen`, is a program that allows you to detach your terminal session entirely, letting it run on its own. You can then log out, turn off your workstation, and reattach to your session later from where you left off."
+    },
+    {
+      "question": "What crucial dependency should users remember when using `tmux` or `screen` on Alliance clusters?",
+      "answer": "Your `tmux` or `screen` session is specific to a login node, so you must connect to the right login node to reattach to it. Login nodes may also occasionally reboot, which will terminate any detached terminal sessions on that node."
+    },
+    {
+      "question": "How do I start a new `tmux` server session?",
+      "answer": "You can start a new `tmux` server session by simply typing `tmux`."
+    },
+    {
+      "question": "What is the key combination to disconnect from a `tmux` server without stopping its processes?",
+      "answer": "To disconnect from a `tmux` server, use `Ctrl+B D`."
+    },
+    {
+      "question": "How do I reconnect to an existing, detached `tmux` session?",
+      "answer": "You can reconnect to a detached `tmux` session by using the command `tmux a`."
+    },
+    {
+      "question": "What common error can occur if you try to launch `tmux` within a job already submitted through another `tmux` session?",
+      "answer": "You might get a `lost server` error message because the `$TMUX` environment variable pointing to the original `tmux` server is propagated to the job, and its value is invalid for the nested session."
+    },
+    {
+      "question": "How can the `lost server` error be addressed when attempting to use `tmux` inside another `tmux` session?",
+      "answer": "You can reset the `$TMUX` environment variable with `unset TMUX`, although nested use of `tmux` is generally not recommended."
+    },
+    {
+      "question": "What alternative is suggested for managing sessions inside a job if you are already using `tmux` on a login node?",
+      "answer": "If you are using `tmux` on a login node, it's recommended to use `GNU Screen` inside your job instead of nested `tmux`."
+    },
+    {
+      "question": "How do you create a new detached terminal session using `GNU Screen`?",
+      "answer": "You can create a new detached terminal session using the command `screen -S <session name>`, giving it a descriptive name for easier identification."
+    },
+    {
+      "question": "What command allows you to view a list of your detached `GNU Screen` sessions on the current node?",
+      "answer": "You can see a list of your detached `GNU Screen` sessions using the command `screen -list`."
+    },
+    {
+      "question": "What is the command to attach to an existing `GNU Screen` session?",
+      "answer": "You can attach to one of your `GNU Screen` sessions using the command `screen -d -r <session name>`."
+    }
+  ],
+  "generated_at": "2026-04-12T05:26:29.752890+00:00"
+}

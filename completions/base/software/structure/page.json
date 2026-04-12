@@ -1,0 +1,67 @@
+{
+  "doc_key": "base/structure",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is Structure software used for?",
+      "answer": "Structure is a free software package used for investigating population structure with multilocus genotype data, including inferring distinct populations, assigning individuals, studying hybrid zones, identifying migrants, and estimating population allele frequencies."
+    },
+    {
+      "question": "Which genetic markers can Structure be applied to?",
+      "answer": "Structure can be applied to most common genetic markers, such as SNPs, microsatellites, RFLPs, and AFLPs."
+    },
+    {
+      "question": "What version of Structure is currently installed?",
+      "answer": "Structure v2.3.4 is installed (module: `structure/2.3.4`). Users can check the \"Available software\" page for the most current list of installed versions."
+    },
+    {
+      "question": "What files does Structure expect in the current working directory when started without command-line options?",
+      "answer": "Structure expects `mainparams`, `extraparams`, and a data file in the current working directory."
+    },
+    {
+      "question": "How can one specify the data file for Structure?",
+      "answer": "The data file name can be set using the `INFILE` parameter in `mainparams` or supplied via the command line with the `-i` option."
+    },
+    {
+      "question": "Where can users find detailed documentation on Structure's parameters and file formats?",
+      "answer": "Users can refer to Section 7, \"Running Structure from the command line,\" in the Structure Documentation for version 2.3.4."
+    },
+    {
+      "question": "Can Structure run in parallel on its own?",
+      "answer": "No, Structure itself is not able to run in parallel."
+    },
+    {
+      "question": "What tools are used to automate and parallelize Structure runs, especially for the Evanno-method?",
+      "answer": "StrAuto is used for automation and parallelization of runs, and StructureHarvester is used for aggregating results and implementing the Evanno method."
+    },
+    {
+      "question": "What is a practical consideration for running StrAuto jobs on HPC clusters to avoid wasting computing resources?",
+      "answer": "To avoid idle CPUs and wasted resources, the total number of Structure runs should ideally be a multiple of the number of requested tasks."
+    },
+    {
+      "question": "What is the recommended approach for Structure runs that take more than a few hours to complete on HPC clusters?",
+      "answer": "For individual Structure runs that take more than just a few hours, it's recommended to submit each run as an individual job to Slurm to avoid long wait times due to job scheduling policies."
+    },
+    {
+      "question": "What Python script helps run individual Structure jobs on Compute Canada HPC clusters for StrAuto workflows?",
+      "answer": "The `create_strauto_slurm_scripts.py` script helps run Structure jobs on Compute Canada HPC clusters using the Slurm Workload manager."
+    },
+    {
+      "question": "What prerequisite files are needed in the directory alongside `create_strauto_slurm_scripts.py`?",
+      "answer": "The directory needs `strauto_1.py`, `input.py` from StrAuto, `structureHarvester.py`, `harvesterCore.py` from StructureHarvester, and the Structure dataset file (e.g., `my_dataset.str`)."
+    },
+    {
+      "question": "What option must be set in `input.py` when preparing for parallel Structure runs with StrAuto?",
+      "answer": "The `parallel` option must be set to `True` (question 23) in `input.py`."
+    },
+    {
+      "question": "After creating SLURM job scripts with `create_strauto_slurm_scripts.py`, how are the jobs submitted?",
+      "answer": "The jobs are submitted by running the `submit_strauto_jobs.sh` helper script (e.g., `bash submit_strauto_jobs.sh`)."
+    },
+    {
+      "question": "What is the final step after all parallel Structure jobs have completed when using `create_strauto_slurm_scripts.py`?",
+      "answer": "After all jobs are done, run `bash post_strauto.sh` to aggregate results and run StructureHarvester."
+    }
+  ],
+  "generated_at": "2026-04-12T08:30:25.398575+00:00"
+}

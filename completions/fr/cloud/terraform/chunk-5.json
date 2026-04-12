@@ -1,0 +1,72 @@
+{
+  "doc_key": "fr/terraform",
+  "level": "chunk",
+  "chunk_index": 5,
+  "qa_pairs": [
+    {
+      "question": "Comment on s'assure que le fournisseur Terraform est bien configuré?",
+      "answer": "Pour s'en assurer, on doit initialiser Terraform pis vérifier la configuration actuelle."
+    },
+    {
+      "question": "Quelle commande faut exécuter pour initialiser Terraform?",
+      "answer": "Faut exécuter la commande `terraform init`."
+    },
+    {
+      "question": "Dans quel type de fichier la définition du fournisseur Terraform est-elle habituellement stockée?",
+      "answer": "La définition du fournisseur Terraform est habituellement stockée dans un fichier qui se nomme, par exemple, `nodes.tf`."
+    },
+    {
+      "question": "Qu'est-ce que l'initialisation réussie de Terraform indique?",
+      "answer": "Ça montre que l'initialisation de Terraform pis le téléchargement du plugiciel du fournisseur ont marché, donc que le code OpenStack est géré comme il faut."
+    },
+    {
+      "question": "L'initialisation de Terraform teste-t-elle les informations d'identification pour se connecter à OpenStack?",
+      "answer": "Non, l'initialisation ne teste pas les informations d'identification, parce que cette opération n'essaie pas de se connecter au fournisseur défini."
+    },
+    {
+      "question": "Est-ce recommandé de spécifier les gabarits pis les images avec leurs noms quand on définit une VM dans Terraform?",
+      "answer": "Non, il est recommandé de toujours spécifier les gabarits pis les images avec leurs identifiants (UUID), même si Terraform supporte l'utilisation du nom."
+    },
+    {
+      "question": "Pourquoi est-ce mieux d'utiliser les identifiants plutôt que les noms pour les gabarits pis les images dans Terraform?",
+      "answer": "C'est mieux parce que l'identifiant définit vraiment l'état de la ressource pis ne changera jamais, tandis que le nom peut changer. Si le nom change, Terraform pourrait vouloir reconstruire ou redimensionner la ressource associée, ce qui est une opération de destruction."
+    },
+    {
+      "question": "Qu'est-ce qui arrive si un gabarit ou une image est retirée pis remplacée par une autre du même nom, pis qu'on exécute Terraform à nouveau?",
+      "answer": "Terraform va détecter l'identifiant mis à jour pis va déterminer qu'on veut reconstruire ou redimensionner la ressource associée. C'est une opération pour détruire pis reconstruire la VM."
+    },
+    {
+      "question": "Comment on définit une machine virtuelle OpenStack minimale avec Terraform?",
+      "answer": "On la définit avec un bloc `resource \"openstack_compute_instance_v2\"` qui comprend le nom (`name`), l'identifiant de l'image (`image_id`), l'identifiant du gabarit (`flavor_id`), la paire de clés (`key_pair`) pis les groupes de sécurité (`security_groups`)."
+    },
+    {
+      "question": "Quels sont les éléments clés pour la définition d'une VM minimale dans Terraform?",
+      "answer": "Les éléments clés sont le nom, l'identifiant de l'image (`image_id`), l'identifiant du gabarit (`flavor_id`), la paire de clés (`key_pair`) pis les groupes de sécurité (`security_groups`)."
+    },
+    {
+      "question": "Qu'est-ce qui peut arriver si on n'utilise pas nos propres valeurs pour `image_id`, `flavor_id` pis `key_pair` quand on définit une VM?",
+      "answer": "Si on n'utilise pas nos propres valeurs, la création de la VM va probablement échouer."
+    },
+    {
+      "question": "Comment on peut trouver les identifiants d'image (`image_id`) pis de gabarit (`flavor_id`) pour OpenStack?",
+      "answer": "On peut utiliser les commandes `flavor list` ou `image list` dans une session de terminal qui exécute l'interface de ligne de commande OpenStack, connectée au nuage ciblé par Terraform."
+    },
+    {
+      "question": "Peut-on trouver les identifiants d'image pis de gabarit via l'interface web d'OpenStack (Horizon)?",
+      "answer": "Oui, c'est en partie possible via l'interface web d'OpenStack, aussi appelée Horizon. Il y a une annexe qui explique comment faire."
+    },
+    {
+      "question": "Est-ce qu'une définition de VM minimale dans Terraform inclut un volume par défaut?",
+      "answer": "Non, la définition de VM minimale dans Terraform n'inclut pas de volume. Par contre, une instance de calcul sur nos nuages va déjà avoir un volume associé."
+    },
+    {
+      "question": "Que se passe-t-il si on tente de créer une instance persistante sans volume de démarrage explicite?",
+      "answer": "Une instance persistante va probablement échouer si on ne lui fournit pas de volume, à moins qu'il n'y ait assez d'espace vide dans l'image elle-même."
+    },
+    {
+      "question": "Quelle est la recommandation pour les machines virtuelles OpenStack qui utilisent des versions persistantes?",
+      "answer": "Il est recommandé de créer un volume de démarrage pour les machines virtuelles qui utilisent des versions persistantes."
+    }
+  ],
+  "generated_at": "2026-04-12T09:13:44.626251+00:00"
+}

@@ -5,29 +5,40 @@ lang: "en"
 
 source_wiki_title: "Killarney/en"
 source_hash: "0284c6a33a239e26cb2e140d219bb978"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T07:46:55.989836+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T08:24:17.332630+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "Artificial Intelligence"
+  - "storage system"
+  - "hardware specifications"
+  - "Killarney cluster"
+  - "Pan-Canadian AI Compute Environment"
+
+questions:
+  - "What is the primary purpose of the Killarney cluster and who is eligible to use it?"
+  - "What specific steps and security protocols must researchers and Principal Investigators follow to be granted access to the system?"
+  - "What are the hardware, storage, and network specifications that make up Killarney's computing infrastructure?"
+  - "What is the primary purpose of the Killarney cluster and who is eligible to use it?"
+  - "What specific steps and security protocols must researchers and Principal Investigators follow to be granted access to the system?"
+  - "What are the hardware, storage, and network specifications that make up Killarney's computing infrastructure?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
-!!! info "Killarney Cluster Information"
-    *   **Availability:** June 9, 2025
-    *   **Login node:** `killarney.alliancecan.ca`
-    *   **Globus collection:** TBA
-    *   **System Status Page:** [System Status Page](https://status.alliancecan.ca/system/Killarney)
+- Availability: June 9, 2025
+- Login node: **killarney.alliancecan.ca**
+- Globus collection: TBA
+- System Status Page: [https://status.alliancecan.ca/system/Killarney](https://status.alliancecan.ca/system/Killarney)
 
 **Killarney** is a cluster dedicated to the needs of the Canadian scientific Artificial Intelligence community. **Killarney** is located at the [University of Toronto](https://www.utoronto.ca/) and is managed by the [Vector Institute](https://vectorinstitute.ai/) and [SciNet](https://www.scinethpc.ca/). It is named after the [Killarney Ontario Provincial Park](https://www.ontarioparks.ca/park/killarney), located near Georgian Bay.
 
@@ -43,35 +54,44 @@ Principal Investigators must be granted an AIP-type RAP (prefix `aip-`) by their
 
 For the PI to sponsor researchers in their AIP RAP, the PI must:
 * Go to the "Resource Allocation Projects" table on the CCDB Home page.
-* Locate the RAPI of your AIP project (with the aip- prefix) and click on it to reach the RAP management page.
+* Locate the RAPI of your AIP project (with the `aip-` prefix) and click on it to reach the RAP management page.
 * At the bottom of the RAP management page, click on "Manage RAP memberships."
 * Enter the CCRI of the user you want to add in the "Add Members" section.
 
-To ensure the integrity and security of this resource, Vector enforces geo-blocking on Killarney as one of its cyber-security controls. Vector restricts access to and from countries identified in the [Government of Canada's Cyber Threat Assessment](https://www.cyber.gc.ca/en/guidance/national-cyber-threat-assessment-2025-2026).
+!!! warning
+    To ensure the integrity and security of this resource, Vector enforces geo-blocking on Killarney as one of its cyber-security controls. Vector restricts access to and from countries identified in the [Government of Canada's Cyber Threat Assessment](https://www.cyber.gc.ca/en/guidance/national-cyber-threat-assessment-2025-2026).
 
 ## Killarney hardware specifications
 
-| Performance Tier    | Nodes | Model        | CPU                            | Cores | System Memory | GPUs per node             | Total GPUs |
-| :------------------ | :---- | :----------- | :----------------------------- | :---- | :------------ | :------------------------ | :--------- |
-| Standard Compute    | 168   | Dell 750xa   | 2 x Intel Xeon Gold 6338       | 64    | 512 GB        | 4 x NVIDIA L40S 48GB      | 672        |
-| Performance Compute | 10    | Dell XE9680  | 2 x Intel Xeon Gold 6442Y      | 48    | 2048 GB       | 8 x NVIDIA H100 SXM 80GB  | 80         |
+| Performance Tier | Nodes | Model | CPU | Cores | System Memory | GPUs per node | Total GPUs |
+|:-----------------|:------|:------|:----|:------|:--------------|:--------------|:-----------|
+| Standard Compute | 168   | Dell 750xa | 2 x Intel Xeon Gold 6338 | 64 | 512 GB | 4 x NVIDIA L40S 48GB | 672 |
+| Performance Compute | 10 | Dell XE9680 | 2 x Intel Xeon Gold 6442Y | 48 | 2048 GB | 8 x NVIDIA H100 SXM 80GB | 80 |
 
 ## Storage system
 
 **Killarney**'s storage system is an all-NVME VastData platform with a total usable capacity of 1.7PB.
 
-| Storage Type      | Description                                                                                                                                                                                                                                  |
-| :---------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Home space**    | * Location of `/home` directories.<br/>* Each `/home` directory has a small fixed [quota](storage-and-file-management.md#filesystem-quotas-and-policies).<br/>* Larger requests go to the `/project` space.<br/>* Has daily backup         |
-| **Scratch space** | * For active or temporary (scratch) storage.<br/>* Large fixed [quota](storage-and-file-management.md#filesystem-quotas-and-policies) per user.<br/>* Inactive data will be [purged](scratch-purging-policy.md).                                   |
-| **Project space** | * Large adjustable [quota](storage-and-file-management.md#filesystem-quotas-and-policies) per project.<br/>* Has daily backup.                                                                                                            |
+### Home space
+* Location of /home directories.
+* Each /home directory has a small fixed [quota](storage-and-file-management.md#filesystem-quotas-and-policies).
+* Larger requests go to the /project space.
+* Has daily backup
+
+### Scratch space
+* For active or temporary (scratch) storage.
+* Large fixed [quota](storage-and-file-management.md#filesystem-quotas-and-policies) per user.
+* Inactive data will be [purged](scratch-purging-policy.md).
+
+### Project space
+* Large adjustable [quota](storage-and-file-management.md#filesystem-quotas-and-policies) per project.
+* Has daily backup.
 
 ## Network interconnects
 
 Standard Compute nodes are interconnected with Infiniband HDR100 for 100Gbps throughput, while Performance Compute nodes are connected with 2 x HDR 200 for 400Gbps aggregate throughput.
 
 ## Scheduling
-
 The **Killarney** cluster uses the Slurm scheduler to run user workloads. The basic scheduling commands are similar to the other national systems.
 
 ## Software

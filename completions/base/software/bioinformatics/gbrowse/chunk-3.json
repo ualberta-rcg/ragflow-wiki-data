@@ -1,0 +1,28 @@
+{
+  "doc_key": "base/gbrowse",
+  "level": "chunk",
+  "chunk_index": 3,
+  "qa_pairs": [
+    {
+      "question": "What are the required directory permissions for directories containing .bam files for GBrowse?",
+      "answer": "The directory that contains the .bam files must have the `setgid` and `group-execute` bits turned on. This means the output of `ls –l` should display a small \"s\" in the group-execute field."
+    },
+    {
+      "question": "How should the group ownership of .bam files be configured for use with GBrowse?",
+      "answer": "The .bam file's group ownership must be set to your research group, not to your username. For instance, `jsmith:jsmith` is incorrect, while `jsmith:def-kjones` is correct."
+    },
+    {
+      "question": "How do I specify the path to a .bam file in my GBrowse configuration?",
+      "answer": "You need to edit your GBrowse config file. Under a database section (e.g., `[example_bam:database]`), set `db_adaptor = Bio::DB::Sam` and `db_args = -bam /project/''GROUPID''/''USERNAME''/gbrowse_bam_files/example_file.bam`, replacing `''GROUPID''` and `''USERNAME''` with your actual group ID and username."
+    },
+    {
+      "question": "What `db_adaptor` value should be used in the GBrowse config file for .bam files?",
+      "answer": "For .bam files, the `db_adaptor` should be `Bio::DB::Sam`."
+    },
+    {
+      "question": "What is an example of a GBrowse config entry for a .bam file?",
+      "answer": "An example config entry is:\n```\n[example_bam:database]\n db_adaptor        = Bio::DB::Sam\n db_args           = -bam /project/''GROUPID''/''USERNAME''/gbrowse_bam_files/example_file.bam\n```"
+    }
+  ],
+  "generated_at": "2026-04-11T21:58:14.988451+00:00"
+}

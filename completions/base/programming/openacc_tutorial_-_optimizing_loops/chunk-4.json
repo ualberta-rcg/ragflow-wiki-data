@@ -1,0 +1,76 @@
+{
+  "doc_key": "base/openacc_tutorial_-_optimizing_loops",
+  "level": "chunk",
+  "chunk_index": 4,
+  "qa_pairs": [
+    {
+      "question": "What is the initial step for performing a guided analysis using the NVidia Visual Profiler?",
+      "answer": "The first step is to open the NVidia Visual Profiler, go to the \"Analysis\" tab, and click on \"Examine GPU Usage\" to receive warnings and indications for potential improvements."
+    },
+    {
+      "question": "After examining GPU usage, what is the subsequent action within the NVidia Visual Profiler for guided analysis?",
+      "answer": "After examining GPU usage and receiving initial warnings, the next step is to click on \"Examine Individual Kernels\" to display a list of kernels."
+    },
+    {
+      "question": "How does one obtain a detailed analysis of a specific kernel in the NVidia Visual Profiler?",
+      "answer": "To get a detailed analysis, select the top kernel from the displayed list and click on \"Perform Kernel Analysis\", which will highlight the most likely bottleneck, such as memory latency."
+    },
+    {
+      "question": "What action should be taken in the profiler if the kernel's performance is limited by memory latency?",
+      "answer": "If the performance is limited by memory latency, the next step is to click on \"Perform Latency Analysis\"."
+    },
+    {
+      "question": "Based on the NVidia Visual Profiler's analysis, what is a common cause of performance limitation in OpenACC programs?",
+      "answer": "The NVidia Visual Profiler often indicates that performance in OpenACC programs is limited by the size of the blocks, which correspond to the size of the gangs."
+    },
+    {
+      "question": "What information does the \"Active Threads\" line in the NVidia Visual Profiler typically convey?",
+      "answer": "The \"Active Threads\" line shows that the GPU might be running 512 threads when it has the capacity to run 2048, indicating underutilization."
+    },
+    {
+      "question": "How is GPU occupancy defined, and what does a 25% occupancy suggest about GPU utilization?",
+      "answer": "Occupancy is defined as the ratio of how much the GPU is utilized over how much it could be utilized. A 25% occupancy suggests that the GPU is operating at only a quarter of its potential capacity, which is quite low."
+    },
+    {
+      "question": "Does achieving 100% occupancy always guarantee the best performance for a GPU?",
+      "answer": "No, 100% occupancy does not necessarily yield the best performance, although a very low occupancy like 25% is generally suboptimal."
+    },
+    {
+      "question": "According to the \"Warps\" table in the profiler, what is the typical number of OpenACC vector threads running per gang versus the ideal maximum?",
+      "answer": "The \"Warps\" table typically shows the GPU running 32 threads per block (OpenACC: vector threads per gang), while it could potentially run 1024."
+    },
+    {
+      "question": "What insights does the \"Warps\" table provide regarding the number of OpenACC workers per gang?",
+      "answer": "The \"Warps\" table often reveals that the GPU is running 1 warp per block (OpenACC: worker per gang), when it could be running 32."
+    },
+    {
+      "question": "How many gangs are generally required to fully utilize an NVidia device, and what is the device's typical capacity?",
+      "answer": "To fully utilize the device, 64 gangs are typically needed, but the device can often only hold 16."
+    },
+    {
+      "question": "What is the primary conclusion drawn from the NVidia Visual Profiler's \"Warps\" table for OpenACC optimization?",
+      "answer": "The primary conclusion is that bigger gangs are needed, which can be achieved by adding more workers while keeping the vector size to 32."
+    },
+    {
+      "question": "How can the number of workers per gang be increased using the OpenACC `kernels` directive for NVidia GPUs?",
+      "answer": "With the `kernels` directive, the `#pragma acc loop device_type(nvidia) gang worker(32)` clause is added to the outer loop to specify 32 workers per gang."
+    },
+    {
+      "question": "When parallelizing with more workers, which loop level should be targeted if the inner loop already uses vector parallelism?",
+      "answer": "If the inner loop is already using the `vector` level of parallelism, the outer loop should be parallelized on workers."
+    },
+    {
+      "question": "How is the `parallel loop` directive used to specify 32 workers for an NVidia GPU?",
+      "answer": "The `parallel loop` directive specifies 32 workers using the `gang worker num_workers(32)` clause, typically alongside `device_type(nvidia) vector_length(32)`."
+    },
+    {
+      "question": "What performance gain was observed on a K20 GPU after explicitly adding more workers to the OpenACC code?",
+      "answer": "An additional step of adding more workers resulted in a performance gain of almost a factor of two on a K20, reducing the runtime from approximately 10 seconds to about 6 seconds."
+    },
+    {
+      "question": "What is the maximum permissible size for a `gang` on NVidia GPUs, and how is it determined?",
+      "answer": "On NVidia GPUs, the maximum size of a `gang` is 1024, which is determined by multiplying the size of the `vector` by the number of `worker`s."
+    }
+  ],
+  "generated_at": "2026-04-12T04:17:05.235707+00:00"
+}

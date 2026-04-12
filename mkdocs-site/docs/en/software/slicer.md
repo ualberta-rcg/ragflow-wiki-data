@@ -5,21 +5,33 @@ lang: "en"
 
 source_wiki_title: "Slicer/en"
 source_hash: "50239608fe7d75329c10f574e6af954b"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T11:20:48.737544+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T11:31:16.849477+00:00"
 
 tags:
   - software
 
 keywords:
-  []
+  - "X11 forwarding"
+  - "batch processing"
+  - "interactive node"
+  - "3D Slicer"
+  - "medical image informatics"
+
+questions:
+  - "What is 3D Slicer and what is the critical restriction regarding its use on login nodes?"
+  - "What are the necessary steps and requirements to properly run the 3D Slicer GUI on an interactive node?"
+  - "Under what circumstances is it recommended to use 3D Slicer's command-line interface rather than the graphical user interface?"
+  - "What is 3D Slicer and what is the critical restriction regarding its use on login nodes?"
+  - "What are the necessary steps and requirements to properly run the 3D Slicer GUI on an interactive node?"
+  - "Under what circumstances is it recommended to use 3D Slicer's command-line interface rather than the graphical user interface?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -31,16 +43,17 @@ status:
 ## Using the GUI
 Using the Slicer GUI requires X11 forwarding, which you should make sure is enabled.
 
-You can find information on how to connect with MobaXTerm and use X11 forwarding at [Connecting with MobaXTerm](connecting-with-mobaxterm.md).
+You can find information on how to connect with MobaXTerm and use X11 fowarding at [Connecting with MobaXTerm](connecting-with-mobaxterm.md).
 
-### Use an interactive node
+#### Use an interactive node
 
 Runtime is limited on the login nodes, so you should request an [interactive job](running-jobs.md#interactive-jobs) to have more time for exploring and visualizing your data. Additionally, by doing so, you will be able to use more cores for faster processing.
 
-Request an interactive job, i.e.
+Request an interactive job, ie.
 ```bash
-salloc --time=1:0:0 --ntasks=2 --x11 --account=def-someuser
+[name@server ~]$ salloc --time=1:0:0 --ntasks=2 --x11 --account=def-someuser
 ```
+
 This will connect you to a compute node. Note the `--x11` argument.
 
 You can then load Slicer and run it on the interactive node.
@@ -62,5 +75,5 @@ If you have to perform the same task on a large number of images,
 or if you don't need to see the processed images as they are created,
 you should use the command line interface and batch processing.
 For examples see
-* <https://discourse.slicer.org/t/rtstruct-to-label-map/2437>
-* <https://discourse.slicer.org/t/slicer-batch-processing-question-no-main-window-python-script/1863>
+* https://discourse.slicer.org/t/rtstruct-to-label-map/2437
+* https://discourse.slicer.org/t/slicer-batch-processing-question-no-main-window-python-script/1863

@@ -5,21 +5,33 @@ lang: "en"
 
 source_wiki_title: "Transpileur quantique/en"
 source_hash: "48efa85a8efa38de104d6d1c7c00df19"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T11:57:31.823861+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T12:04:40.152280+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "quantum computing"
+  - "Transpilation"
+  - "native gates"
+  - "qubits"
+  - "quantum circuit"
+
+questions:
+  - "What is the primary purpose of transpilation in quantum computing compared to classical transpilation?"
+  - "What are the key steps involved in the quantum transpilation process to adapt a circuit for a physical quantum machine?"
+  - "How does the Calcul Québec transpiler facilitate the execution of quantum circuits on the MonarQ system using PennyLane?"
+  - "What is the primary purpose of transpilation in quantum computing compared to classical transpilation?"
+  - "What are the key steps involved in the quantum transpilation process to adapt a circuit for a physical quantum machine?"
+  - "How does the Calcul Québec transpiler facilitate the execution of quantum circuits on the MonarQ system using PennyLane?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 

@@ -1,0 +1,47 @@
+{
+  "doc_key": "fr/tuning_lustre",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "C'est quoi, le système de fichiers Lustre?",
+      "answer": "Lustre est un système de fichiers distribué de haute performance qui permet de faire des opérations d'entrée-sortie en parallèle avec un fort débit."
+    },
+    {
+      "question": "À qui s'adressent les conseils d'utilisation de Lustre pis pourquoi faut-il être prudent?",
+      "answer": "Les conseils s'adressent aux utilisateurs expérimentés pis il faut faire preuve de prudence, en testant les modifications, pour s'assurer qu'elles améliorent réellement la performance."
+    },
+    {
+      "question": "Quels sont les paramètres importants qu'on peut modifier pour chaque fichier ou répertoire dans Lustre?",
+      "answer": "Les paramètres sont `stripe_count` (le nombre de disques où les données sont réparties) pis `stripe_size` (la taille du plus petit bloc de données alloué)."
+    },
+    {
+      "question": "Comment on fait pour savoir la valeur des paramètres `stripe_count` pis `stripe_size` pour un fichier ou un répertoire?",
+      "answer": "On utilise la commande `lfs getstripe /chemin/vers/fichier`."
+    },
+    {
+      "question": "Comment on peut changer les paramètres de segmentation pour un répertoire pis pour un nouveau fichier?",
+      "answer": "Pour un répertoire, on utilise `lfs setstripe -c nombre /chemin/vers/répertoire`. Pour un nouveau fichier, on exécute `lfs setstripe` sur le nom du fichier que l'on veut créer, avant qu'il existe."
+    },
+    {
+      "question": "Qu'est-ce qu'il faut faire si on veut changer les paramètres de segmentation pour un fichier qui existe déjà?",
+      "answer": "Il faut migrer le fichier avec la commande `lfs migrate` ou le copier (et non le déplacer) vers un répertoire qui a des paramètres différents."
+    },
+    {
+      "question": "C'est quoi l'impact d'augmenter le nombre de disques pour la segmentation (`stripe_count`)?",
+      "answer": "Augmenter le nombre de disques peut améliorer les performances, mais ça rend aussi le fichier plus vulnérable aux défaillances matérielles."
+    },
+    {
+      "question": "Quelle est la stratégie suggérée pour manipuler des petits fichiers (moins d'un mégaoctet) dans un programme parallèle?",
+      "answer": "Il est plus efficace de placer le fichier sur un seul disque (`stripe count=1`), de le faire lire par le processus maître, pis de l'envoyer aux autres processus avec `MPI_Broadcast` ou `MPI_Scatter`."
+    },
+    {
+      "question": "Quelles sont les recommandations pour la segmentation des gros fichiers de données, notamment concernant `stripe_count` pis `stripe_size`?",
+      "answer": "Il est préférable d'utiliser `stripe_count` égal au nombre de processus MPI. La `stripe_size` devrait correspondre à la taille du tampon de données (par ex. 1 Mo) pis doit être un multiple entier de 1 Mo, bien que la valeur par défaut soit souvent optimale pour les gros fichiers."
+    },
+    {
+      "question": "C'est quoi les conseils généraux pour optimiser la manipulation des fichiers dans Lustre?",
+      "answer": "Il faut réduire au maximum les ouvertures et fermetures de fichiers, agglomérer toutes les données dans un seul fichier, pis ouvrir le fichier une seule fois au début de l'exécution et le fermer à la fin."
+    }
+  ],
+  "generated_at": "2026-04-12T09:53:43.201490+00:00"
+}

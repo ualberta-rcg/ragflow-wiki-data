@@ -5,45 +5,59 @@ lang: "base"
 
 source_wiki_title: "Trillium"
 source_hash: "70ac9639cdf2c0c35d9bb3cd84eb8d42"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T11:58:10.130983+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T12:05:20.144472+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "SciNet"
+  - "Trillium cluster"
+  - "Node characteristics"
+  - "Parallel storage"
+  - "High-performance network"
+
+questions:
+  - "What is the Trillium cluster, and how will its installation process affect the existing Niagara system?"
+  - "What are the specific hardware characteristics and network capabilities of Trillium's CPU and GPU nodes?"
+  - "How does the Trillium system address energy efficiency and cooling, and what are the details of its primary and archival storage solutions?"
+  - "What is the Trillium cluster, and how will its installation process affect the existing Niagara system?"
+  - "What are the specific hardware characteristics and network capabilities of Trillium's CPU and GPU nodes?"
+  - "How does the Trillium system address energy efficiency and cooling, and what are the details of its primary and archival storage solutions?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
--   **Availability:** Aug/07 2025
--   **Login nodes:**
-    -   CPU sub-cluster Login node: `trillium.alliancecan.ca`
-    -   GPU sub-cluster Login node: `trillium-gpu.alliancecan.ca`
--   **Globus collections:**
-    -   [alliancecan#trillium](https://app.globus.org/file-manager?origin_id=ad462f99-8436-42b4-adc6-3644e36c1b67) (file system)
-    -   [alliancecan#hpss](https://app.globus.org/file-manager?origin_id=c55ce750-19d6-4a42-9c30-6a58f03bec7a) (archive/nearline)
--   **Data transfer node (rsync, scp, sftp,...):** `tri-dm{1,2,3,4}.scinet.utoronto.ca`
--   **Automation node:** `robot{1,2,3,4}.scinet.utoronto.ca`
--   **Open OnDemand:** [ondemand.scinet.utoronto.ca](https://ondemand.scinet.utoronto.ca) (includes JupyterLab)
--   **Portal:** [my.scinet.utoronto.ca](https://my.scinet.utoronto.ca)
+!!! info "Trillium Cluster Overview"
+
+    **Availability**: Aug/07 2025
+    **Login nodes**:
+    *   CPU sub-cluster Login node: `trillium.alliancecan.ca`
+    *   GPU sub-cluster Login node: `trillium-gpu.alliancecan.ca`
+    **Globus collections**:
+    *   [alliancecan#trillium](https://app.globus.org/file-manager?origin_id=ad462f99-8436-42b4-adc6-3644e36c1b67) (file system)
+    *   [alliancecan#hpss](https://app.globus.org/file-manager?origin_id=c55ce750-19d6-4a42-9c30-6a58f06bec7a) (archive/nearline)
+    **Data transfer node (rsync, scp, sftp,...)**: `tri-dm{1,2,3,4}.scinet.utoronto.ca`
+    **Automation node**: `robot{1,2,3,4}.scinet.utoronto.ca`
+    **Open OnDemand**: [ondemand.scinet.utoronto.ca](https://ondemand.scinet.utoronto.ca) (includes JupyterLab)
+    **Portal**: [my.scinet.utoronto.ca](https://my.scinet.utoronto.ca)
 
 Trillium is a large parallel cluster built by Lenovo Canada and hosted by SciNet at the University of Toronto.
 
 The [Trillium Quickstart](trillium-quickstart.md) has specific instructions for Trillium, where the user experience is similar to that on the other national clusters, but still slightly different.
 
-Current users transitioning from Niagara are strongly encouraged to peruse the documentation on the [Transition from Niagara to Trillium](transition-from-niagara-to-trillium.md).
+!!! tip
+    Current users transitioning from Niagara are strongly encouraged to peruse the documentation on the [Transition from Niagara to Trillium](transition-from-niagara-to-trillium.md).
 
 ## Installation and transition
-!!! note
-    Due to limits on available power and cooling capacity there will be an interim period in which a significant portion of the old Niagara will be shut down in order to provide power for the new system's acceptance testing and transition. We'll update you when we have a better idea of Trillium's installation schedule.
+Due to limits on available power and cooling capacity there will be an interim period in which a significant portion of the old Niagara will be shut down in order to provide power for the new system's acceptance testing and transition. We'll update you when we have a better idea of Trillium's installation schedule.
 
 ## Storage
 Parallel storage: 29 petabytes, NVMe SSD based storage from VAST Data.
@@ -55,16 +69,17 @@ Parallel storage: 29 petabytes, NVMe SSD based storage from VAST Data.
     *   Fully non-blocking, meaning every node can talk to every other node at full bandwidth simultaneously.
 
 ## Node characteristics
+
 | Login Node | nodes | cores | available memory | CPU | GPU |
-| :------------------------------ | :---- | :---- | :--------------- | :------------------------------------------------------ | :------------------------------------------------ |
-| `trillium.alliancecan.ca`       | 1224  | 192   | 749G or 767000M  | 2 x AMD EPYC 9655 (Zen 5) @ 2.6 GHz, 384MB cache L3     |                                                     |
-| `trillium-**gpu**.alliancecan.ca` | 63    | 96    | 749G or 767000M  | 1 x AMD EPYC 9654 (Zen 4) @ 2.4 GHz, 384MB cache L3     | 4 x NVidia H100 SXM (80 GB memory), connected via NVLink |
+|---|---|---|---|---|---|
+| trillium.alliancecan.ca | 1224 | 192 | 749G or 767000M | 2 x AMD EPYC 9655 (Zen 5) @ 2.6 GHz, 384MB cache L3 | |
+| trillium-**gpu**.alliancecan.ca | 63 | 96 | 749G or 767000M | 1 x AMD EPYC 9654 (Zen 4) @ 2.4 GHz, 384MB cache L3 | 4 x NVidia H100 SXM (80 GB memory), connected via NVLink |
 
 ## Technical details
 
 ### Cooling and energy efficiency
 
-Trillium is fully direct liquid cooled using warm water (35–40 °C input), resulting in:
+Trillium is fully direct liquid cooled using warm water (35–40 °C input), resulting in:
 
 *   PUE below 1.03 (high energy efficiency)
 *   Use of closed-loop dry fluid coolers, avoiding evaporative towers and new water usage

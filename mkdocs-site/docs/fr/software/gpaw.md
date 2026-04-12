@@ -5,30 +5,59 @@ lang: "fr"
 
 source_wiki_title: "GPAW/fr"
 source_hash: "5ce867f729432c54db57cd5141f06f9d"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T06:42:46.419975+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T07:25:09.250486+00:00"
 
 tags:
   - software
   - computationalchemistry
 
 keywords:
-  []
+  - "PAW-datasets"
+  - "parallel calculation"
+  - "théorie de la fonctionnelle de la densité"
+  - "virtualenv"
+  - "libvdwxc"
+  - "environnement virtuel"
+  - "rangs MPI"
+  - "gpaw"
+  - "Python"
+  - "OpenMP et MPI"
+  - "parallélisation hybride"
+  - "installation"
+  - "GPAW"
+  - "test calculation"
+
+questions:
+  - "Qu'est-ce que le code GPAW et sur quelles méthodes de simulation repose-t-il ?"
+  - "Comment créer un environnement virtuel Python et y installer GPAW à partir des wheels précompilés ?"
+  - "Quelle est la procédure pour télécharger les données nécessaires, configurer leur chemin d'accès et tester l'installation de GPAW ?"
+  - "Où le fichier contenant les résultats du test de calcul GPAW est-il sauvegardé ?"
+  - "Comment le script d'exemple configure-t-il la parallélisation hybride MPI et OpenMP via SLURM ?"
+  - "Pourquoi est-il important de charger les modules spécifiques gcc/9.3.0 et openmpi/4.0.3 avant d'exécuter la tâche ?"
+  - "What is the configuration status of the libvdwxc library?"
+  - "Where is the directory path for the PAW-datasets located?"
+  - "What command is suggested to run a parallel test calculation?"
+  - "Où le fichier contenant les résultats du test de calcul GPAW est-il sauvegardé ?"
+  - "Comment le script d'exemple configure-t-il la parallélisation hybride MPI et OpenMP via SLURM ?"
+  - "Pourquoi est-il important de charger les modules spécifiques gcc/9.3.0 et openmpi/4.0.3 avant d'exécuter la tâche ?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
 ## Description
+
 [GPAW](https://wiki.fysik.dtu.dk/gpaw/) est un code de théorie de la fonctionnelle de la densité (DFT) [Python](python.md) basé sur la méthode des ondes augmentées par projecteur (PAW) et l'environnement de simulation atomique (ASE).
 
 ## Créer un environnement virtuel GPAW
-Nous offrons des [wheels Python disponibles](available-python-wheels.md) précompilés pour GPAW qui peuvent être installés dans un [environnement virtuel Python](python.md#creer-et-utiliser-un-environnement-virtuel-python).
+
+Nous offrons des [wheels Python](available-python-wheels.md) précompilés pour GPAW qui peuvent être installés dans un [environnement virtuel Python](python.md#creer-et-utiliser-un-environnement-virtuel-python).
 
 1.  Vérifiez quelles versions sont disponibles.
     ```bash
@@ -66,7 +95,7 @@ Nous offrons des [wheels Python disponibles](available-python-wheels.md) précom
 
 6.  Téléchargez les données et installez-les dans le système de fichiers SCRATCH.
     ```bash
-    (venv_gpaw) [name@server ~]$ gpaw install-data $SCRATCH 
+    (venv_gpaw) [name@server ~]$ gpaw install-data $SCRATCH
     Available setups and pseudopotentials
       [*] https://wiki.fysik.dtu.dk/gpaw-files/gpaw-setups-0.9.20000.tar.gz
     [...]
@@ -129,7 +158,9 @@ Nous offrons des [wheels Python disponibles](available-python-wheels.md) précom
 Les résultats du dernier test se trouvent dans le fichier `test.txt` qui se trouvera dans le répertoire courant.
 
 ## Exemple de script
-Le script suivant est un exemple de parallélisation hybride OpenMP et MPI. Ici, virtualenv se trouve dans votre répertoire $HOME et les ensembles de données sont dans $SCRATCH comme ci-dessus.
+
+Le script suivant est un exemple de parallélisation hybride OpenMP et MPI.
+Ici, virtualenv se trouve dans votre répertoire `$HOME` et les ensembles de données sont dans `$SCRATCH` comme ci-dessus.
 
 ```bash title="job_gpaw.sh"
 #!/bin/bash
@@ -145,6 +176,9 @@ export GPAW_SETUP_PATH=/scratch/$USER/gpaw-setups-0.9.20000
 
 srun --cpus-per-task=$OMP_NUM_THREADS gpaw python my_gpaw_script.py
 ```
-Le script utilise un nœud simple avec 8 rangs MPI (ntasks) et 4 fils OpenMP par rang MPI pour un total de 32 CPU. Vous voudrez probablement modifier ces valeurs pour que le produit corresponde au nombre de cœurs d'un nœud entier (soit 32 sur [Graham](graham.md), 40 sur [Béluga](beluga.md) et [Niagara](niagara.md), 48 sur [Cedar](cedar.md) ou 64 sur [Narval](narval.md)).
 
-Le fait de configurer `OMP_NUM_THREADS` comme expliqué ci-dessus fait en sorte qu'il a toujours la même valeur que cpus-per-task ou 1 quand cpus-per-task n'est pas défini. Le chargement des modules `gcc/9.3.0` et `openmpi/4.0.3` fait en sorte que la bonne bibliothèque MPI est utilisée pour la tâche, la même qui a été utilisée pour construire les wheels.
+Le script utilise un nœud unique avec 8 rangs MPI (`ntasks`) et 4 fils OpenMP par rang MPI pour un total de 32 CPU.
+Vous voudrez probablement modifier ces valeurs pour que le produit corresponde au nombre de cœurs d'un nœud entier (soit 32 sur [Graham](graham.md), 40 sur [Béluga](beluga.md) et [Niagara](niagara.md), 48 sur [Cedar](cedar.md) ou 64 sur [Narval](narval.md)).
+
+Le fait de configurer `OMP_NUM_THREADS` comme expliqué ci-dessus fait en sorte qu'il ait toujours la même valeur que `cpus-per-task` ou 1 lorsque `cpus-per-task` n'est pas défini.
+Le chargement des modules `gcc/9.3.0` et `openmpi/4.0.3` fait en sorte que la bonne bibliothèque MPI est utilisée pour la tâche, la même qui a été utilisée pour construire les wheels.

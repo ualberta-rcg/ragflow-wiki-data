@@ -1,0 +1,80 @@
+{
+  "doc_key": "en/meta-farm",
+  "level": "chunk",
+  "chunk_index": 13,
+  "qa_pairs": [
+    {
+      "question": "When setting the runtime for metajobs, how much longer should it be compared to the average runtime of an individual case?",
+      "answer": "The chosen runtime for metajobs should be significantly larger than the average runtime of an individual case, ideally by a factor of 100 or more."
+    },
+    {
+      "question": "What is the maximum recommended runtime for a metajob?",
+      "answer": "A metajob's runtime should ideally not exceed 3 days."
+    },
+    {
+      "question": "Why is it important not to choose an excessively long runtime for a job?",
+      "answer": "The longer a job's runtime is, the longer it will typically wait to be scheduled in the queue."
+    },
+    {
+      "question": "What are good runtime choices for metajobs on Alliance general-purpose clusters?",
+      "answer": "On Alliance general-purpose clusters, good runtime choices for metajobs are usually 12 hours or 24 hours, due to scheduling policies."
+    },
+    {
+      "question": "How do you calculate the required number of metajobs once a runtime has been chosen?",
+      "answer": "To calculate the required number of metajobs, divide the total number of CPU-hours by the chosen runtime (in hours), and then round the result up to the next integer."
+    },
+    {
+      "question": "What are the benefits of choosing an appropriate metajob runtime and number?",
+      "answer": "With appropriate choices, the queue wait time should be fairly small, and the throughput and efficiency of the farm should be fairly high."
+    },
+    {
+      "question": "In a given example, if the average time for an individual case is 95 seconds and there are 1000 cases, what is the estimated total CPU time required without a safety margin?",
+      "answer": "The total CPU time required would be 95 seconds/case * 1000 cases = 95,000 CPU-seconds, which equals 26.4 CPU-hours."
+    },
+    {
+      "question": "Following the example, if 26.4 CPU-hours are needed and a 1.2 safety factor is applied, what is the adjusted total CPU-hours?",
+      "answer": "With a 1.2 safety factor, the adjusted total CPU-hours would be 26.4 * 1.2 = 31.7 CPU-hours."
+    },
+    {
+      "question": "If the total adjusted CPU-hours are 31.7 and each metajob runs for 3 hours, how many metajobs are needed?",
+      "answer": "You would need 31.7 core-hours / 3 hours/metajob = 10.6 metajobs, which rounds up to 11 metajobs."
+    },
+    {
+      "question": "How would you launch a farm with 11 metajobs?",
+      "answer": "You would launch the farm by executing the command `submit.run 11`."
+    },
+    {
+      "question": "What is the maximum number of jobs that can be submitted on Nibi and Rorqual clusters at one time?",
+      "answer": "The maximum number of jobs which can be submitted on Nibi and Rorqual clusters is 1000."
+    },
+    {
+      "question": "How can one work around the 1000-job limit on Nibi and Rorqual for very large farms?",
+      "answer": "For very large farms exceeding the 1000-job limit, you can use a sequence of `submit.run 1000` followed by `resubmit.run 1000` commands repeatedly, ensuring each command is executed only after the previous farm has finished."
+    },
+    {
+      "question": "What advanced feature can automate the resubmission steps for particularly large farms?",
+      "answer": "The advanced feature `Resubmitting failed cases automatically` from the META package can fully automate the farm resubmission steps for very large farms."
+    },
+    {
+      "question": "What is a crucial first step before submitting a large production run with META?",
+      "answer": "Always start with a small test run to ensure everything works correctly before submitting a large production run."
+    },
+    {
+      "question": "How can individual cases be tested with META?",
+      "answer": "Individual cases can be tested by reserving an interactive node with `salloc`, navigating to the farm directory, and executing commands such as `./single_case.sh table.dat 1` or `./single_case.sh table.dat 2`."
+    },
+    {
+      "question": "For very large farms (e.g., >10,000 cases), what efficiency recommendations should be followed?",
+      "answer": "For very large farms, minimize the number of files and/or directories created during execution, instruct code to append to existing files (one per metajob, not shared) instead of creating separate files for each case, and avoid creating separate subdirectories for each case."
+    },
+    {
+      "question": "Why is creating a separate subdirectory for each case not efficient for very large farms?",
+      "answer": "While creating a separate subdirectory for each case is the default setup for safety, it is not efficient for very large farms, as it leads to a high number of files and directories."
+    },
+    {
+      "question": "What are the assumptions for the optimized `single_case.sh` example for very large farms?",
+      "answer": "The example assumes the code accepts the output filename via a `-o` switch, opens the output file in append mode, `table.dat` provides the remaining command-line arguments, and multiple instances of the code can safely run concurrently in the same directory without creating per-case subdirectories."
+    }
+  ],
+  "generated_at": "2026-04-12T01:22:26.525229+00:00"
+}

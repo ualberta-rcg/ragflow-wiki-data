@@ -1,0 +1,88 @@
+{
+  "doc_key": "en/best_practices_for_job_submission",
+  "level": "chunk",
+  "chunk_index": 1,
+  "qa_pairs": [
+    {
+      "question": "Why is it important to choose appropriate values for job submission parameters on a cluster?",
+      "answer": "Choosing appropriate parameter values ensures that your job doesn't waste resources, doesn't create problems for other users or yourself, starts more quickly, and is likely to finish correctly, producing the required output for your research."
+    },
+    {
+      "question": "What is difficult to estimate for first jobs on a cluster?",
+      "answer": "For first jobs, it's difficult to estimate how much time or memory may be needed for a particular simulation or analysis."
+    },
+    {
+      "question": "What happens if a job asks for too many resources?",
+      "answer": "If a job asks for more resources (time, memory, CPU cores, GPUs), it becomes more difficult for the scheduler to find them, leading to a longer wait time in the queue."
+    },
+    {
+      "question": "What happens if a job does not request enough resources?",
+      "answer": "If not enough resources are requested, the job can be stopped if it exceeds its time limit or memory limit."
+    },
+    {
+      "question": "Why might estimating required resources based on a local computer be misleading?",
+      "answer": "Estimating required resources based on a local computer could be misleading because the processor type and speed on a cluster can differ significantly."
+    },
+    {
+      "question": "What are some reasons compute tasks in a job script might waste resources?",
+      "answer": "Compute tasks in a job script might waste resources if the program doesn't scale well with the number of CPU cores, if it's not made for multiple node usage, or if the processors are waiting after read-write operations."
+    },
+    {
+      "question": "What is the best approach when submitting your first jobs?",
+      "answer": "The best approach is to begin by submitting a few relatively small test jobs, asking for a fairly standard amount of memory (e.g., `#SBATCH --mem-per-cpu=2G`) and time, such as one or two hours."
+    },
+    {
+      "question": "What should ideally be known for these initial test jobs?",
+      "answer": "Ideally, you should already know what the answer will be in these test jobs to verify that the software is running correctly on the cluster."
+    },
+    {
+      "question": "How should you adjust the duration if a test job ends before computation is finished?",
+      "answer": "If a test job ends before the computation finished, you can increase the duration by doubling it until the job's duration is sufficient."
+    },
+    {
+      "question": "What does an 'OOM event' message indicate and how should it be addressed?",
+      "answer": "An 'OOM event' message means the job ran out of memory (Out Of Memory). You should try doubling the memory you've requested."
+    },
+    {
+      "question": "What is the benefit of running test jobs?",
+      "answer": "By running test jobs, you gain familiarity with how long certain analyses require on the cluster and how much memory is needed, allowing for intelligent estimates for more realistic jobs."
+    },
+    {
+      "question": "What should be the minimum duration for jobs that are not tests?",
+      "answer": "For jobs which are not tests, the duration should be at least one hour."
+    },
+    {
+      "question": "What should you do if your computation requires less than an hour?",
+      "answer": "If your computation requires less than an hour, you should consider using tools like GLOST, META, or GNU Parallel to regroup several computations into a single Slurm job with a duration of at least one hour to avoid stressing the scheduler with many short jobs."
+    },
+    {
+      "question": "Why is it important for the job duration estimate to be relatively accurate?",
+      "answer": "It is important for the job duration estimate to be relatively accurate because overestimating, such as asking for five days when it takes sixteen hours, leads to the job spending much more time waiting to start than it would with an accurate estimate."
+    },
+    {
+      "question": "How can users determine how long completed jobs took?",
+      "answer": "Users can determine how long completed jobs took by using monitoring tools, such as checking the `Job Wall-clock time` field in the output of the `seff` command."
+    },
+    {
+      "question": "By what percentage should the estimated job duration be increased as a precaution?",
+      "answer": "The estimated duration should be increased by 5% or 10%, just in case, to allow for a certain amount of room for error."
+    },
+    {
+      "question": "What should be considered for longer jobs, such as those exceeding 48 hours?",
+      "answer": "Longer jobs, such as those with a duration exceeding 48 hours, should consider using checkpoints if the software permits it."
+    },
+    {
+      "question": "What is a checkpoint in the context of job execution?",
+      "answer": "With a checkpoint, a program writes a snapshot of its state to a diskfile and can then be restarted from that precise point in the calculation."
+    },
+    {
+      "question": "How do checkpoints help prevent work loss?",
+      "answer": "Checkpoints help prevent work loss by allowing a program to restart from a saved state, so even if there is a power outage or other interruption, you won't necessarily lose much work if checkpoint files are written every six or eight hours."
+    },
+    {
+      "question": "What should the Memory Efficiency in the `seff` command output generally be?",
+      "answer": "Your `Memory Efficiency` in the output from the `seff` command should be at least 80% to 85% in most cases."
+    }
+  ],
+  "generated_at": "2026-04-11T18:34:14.325092+00:00"
+}

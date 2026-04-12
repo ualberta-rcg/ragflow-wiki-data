@@ -1,0 +1,48 @@
+{
+  "doc_key": "fr/arbutus_migration_guide",
+  "level": "chunk",
+  "chunk_index": 8,
+  "qa_pairs": [
+    {
+      "question": "Quelle est la première étape pour migrer une instance associée à un volume en utilisant l'option Linux 'dd'?",
+      "answer": "La première étape est de lancer une instance sur le nuage Ouest avec le plus petit gabarit possible (par exemple p1-1.5gb), qui servira de serveur de migration temporaire. On recommande CentOS 7, mais d'autres distributions Linux avec Python et Pip devraient fonctionner."
+    },
+    {
+      "question": "Comment installe-t-on le CLI OpenStack sur un serveur de migration temporaire sous Linux?",
+      "answer": "Pour installer le CLI OpenStack, il faut se connecter à l'instance avec SSH en tant qu'administrateur ('root') et exécuter les commandes suivantes : `yum install epel-release`, `yum install python-devel python-pip gcc`, puis `pip install python-openstackclient`."
+    },
+    {
+      "question": "Que doit-on faire avec le fichier RC d'Arbutus une fois que le CLI OpenStack est installé sur l'instance temporaire?",
+      "answer": "Il faut copier le fichier RC d'Arbutus vers le serveur de migration temporaire et en faire un 'source'."
+    },
+    {
+      "question": "Comment peut-on vérifier si la connexion à l'API OpenStack sur Arbutus fonctionne après avoir sourcé le fichier RC?",
+      "answer": "Pour vérifier la connexion à l'API OpenStack sur Arbutus, on peut lancer la commande `openstack image list`."
+    },
+    {
+      "question": "Que doit-on faire de l'instance originale et de son volume associé avant de le migrer avec la méthode 'dd'?",
+      "answer": "Il faut supprimer l'instance à déplacer, mais il est crucial de *ne pas supprimer* le volume qui y est associé."
+    },
+    {
+      "question": "Après avoir supprimé l'instance originale, comment attacher son volume au serveur de migration temporaire sur le nuage Ouest?",
+      "answer": "Dans l'interface utilisateur du nuage Ouest, il faut aller à 'Compute -> Volumes', sélectionner 'Gérer les pièces jointes' dans le menu déroulant et attacher le volume au serveur de migration temporaire."
+    },
+    {
+      "question": "Quelle commande Linux 'dd' permet de créer une image à partir d'un volume attaché à l'instance temporaire et de la téléverser vers Arbutus?",
+      "answer": "On utilise la commande `dd if=/dev/vdb | openstack image create --private --container-format bare --disk-format raw \"volumemigrate\"`, en remplaçant `/dev/vdb` par l'accélérateur du volume."
+    },
+    {
+      "question": "Où l'image créée avec la commande 'dd' sera-t-elle visible dans l'interface Arbutus?",
+      "answer": "L'image sera visible dans l'interface Arbutus en allant à 'Compute -> Images'."
+    },
+    {
+      "question": "Comment utiliser l'image migrée via 'dd' pour lancer une instance sur Arbutus et s'assurer que les données soient persistantes?",
+      "answer": "Cette image peut être utilisée pour lancer des instances sur Arbutus. Pour la persistance des données, il faut s'assurer de créer un nouveau volume au moment du lancement de l'instance."
+    },
+    {
+      "question": "Quelle est la dernière étape à effectuer sur le nuage Ouest une fois que la migration des instances et des volumes est complétée, testée et que les enregistrements DNS sont mis à jour?",
+      "answer": "Une fois la migration terminée et testée, il faut supprimer les anciens volumes et instances sur le nuage Ouest."
+    }
+  ],
+  "generated_at": "2026-04-11T17:48:52.433125+00:00"
+}

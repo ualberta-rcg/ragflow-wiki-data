@@ -1,0 +1,56 @@
+{
+  "doc_key": "base/openacc_tutorial_-_adding_directives",
+  "level": "chunk",
+  "chunk_index": 11,
+  "qa_pairs": [
+    {
+      "question": "What is the purpose of the `private` clause when using OpenACC `parallel loop` directives?",
+      "answer": "With the `private` clause, a copy of the variable is made for each loop iteration, making the value of the variable independent from other iterations."
+    },
+    {
+      "question": "What is the function of the `reduction` clause in OpenACC `parallel loop` directives?",
+      "answer": "With the `reduction` clause, the values of a variable in each iteration will be 'reduced' to a single value. It supports operations such as addition (+), multiplication (*), maximum (max), and minimum (min), among others."
+    },
+    {
+      "question": "Why are `private` and `reduction` clauses necessary for the OpenACC `parallel loop` directive in certain situations?",
+      "answer": "These clauses are required to manage the scope of data and ensure that parallelism is safe, as it is the programmer's responsibility to ensure safety with the `parallel loop` directive."
+    },
+    {
+      "question": "Why were `private` and `reduction` clauses not required when using the OpenACC `kernels` directive in previous examples?",
+      "answer": "These clauses were not required with the `kernels` directive because the `kernels` directive automatically handles data scope and parallelism safety for the programmer."
+    },
+    {
+      "question": "How is the `parallel loop` directive applied to the matrix-vector multiplication example, specifically for the `sum` variable?",
+      "answer": "The `parallel loop` directive is applied to the outer loop, and a nested `#pragma acc loop reduction(+:sum)` is used for the inner loop that calculates the `sum`."
+    },
+    {
+      "question": "What kind of compiler feedback is provided after compiling the matrix-vector product example with the `parallel loop` directive and `reduction` clause?",
+      "answer": "The compiler feedback indicates that an accelerator kernel was generated, showing an outer `gang` loop and an inner `vector` loop with a `sum` reduction. It also confirms that the loops are parallelizable and notes the generation of `copyout` and `copyin` directives for data transfer."
+    },
+    {
+      "question": "What is the programmer's responsibility when using the OpenACC `parallel loop` directive compared to the `kernels` directive?",
+      "answer": "With the `parallel loop` directive, it is the programmer's responsibility to ensure that parallelism is safe. In contrast, with `kernels`, it is the compiler's responsibility to analyze the code and determine what is safe to parallelize."
+    },
+    {
+      "question": "How does the compiler's role differ between the OpenACC `parallel loop` and `kernels` directives?",
+      "answer": "With `kernels`, the compiler is responsible for analyzing the code and determining what is safe to parallelize, giving it more room to optimize. With `parallel loop`, the programmer explicitly tells the compiler what to parallelize, which overrides compiler analysis."
+    },
+    {
+      "question": "What are the advantages of using the OpenACC `parallel loop` directive?",
+      "answer": "The `parallel loop` directive enables the parallelization of sections that the compiler might miss with `kernels`, and it offers a straightforward path for programmers familiar with OpenMP."
+    },
+    {
+      "question": "What are the benefits of using the OpenACC `kernels` directive?",
+      "answer": "With the `kernels` directive, a single directive can cover a large area of code, and the compiler has more room to optimize as it determines what is safe to parallelize."
+    },
+    {
+      "question": "Which OpenACC directives are suggested for use in the challenge to modify the functions `matvec`, `waxpby`, and `dot`?",
+      "answer": "The challenge suggests using either the `<tt>kernels</tt>` or the `<tt>parallel loop</tt>` directives."
+    },
+    {
+      "question": "What modifications are required for the Makefile in the challenge to enable OpenACC compilation?",
+      "answer": "For the Makefile, the compiler flags should be modified to add `-acc -gpu=managed` and `-Minfo=accel`."
+    }
+  ],
+  "generated_at": "2026-04-12T04:05:56.804097+00:00"
+}

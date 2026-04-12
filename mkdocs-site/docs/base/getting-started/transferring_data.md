@@ -5,22 +5,78 @@ lang: "base"
 
 source_wiki_title: "Transferring data"
 source_hash: "97cb706555d63e557dfa5659dd2e5177"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T11:53:07.548180+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T12:00:25.858723+00:00"
 
 tags:
   - connecting
   - connecting
 
 keywords:
-  []
+  - "sftp"
+  - "scp"
+  - "file synchronization"
+  - "FileZilla"
+  - "Globus"
+  - "SFTP"
+  - "Rsync"
+  - "storage usage"
+  - "sync files"
+  - "filesystem permissions"
+  - "Globus transfer"
+  - "rclone"
+  - "transfer options"
+  - "project directory"
+  - "Synchronizing files"
+  - "SCP"
+  - "Alliance cluster"
+  - "command line options"
+  - "WinSCP"
+  - "SSH"
+  - "rsync"
+  - "graphical programs"
+  - "checksums"
+  - "wget"
+  - "data transfer nodes"
+  - "SSH protocol"
+  - "remote system"
+  - "data transfer"
+  - "local system"
+  - "file transfer"
+  - "checksum"
+
+questions:
+  - "What type of nodes should be used instead of login nodes when transferring data, and which tool automatically utilizes them?"
+  - "What software applications and command-line tools are recommended for securely transferring files between a personal computer and the clusters?"
+  - "Which default command-line tools should be used to download data directly from the World Wide Web or cloud services?"
+  - "Are users required to load a module to use tools like rclone on an Alliance cluster?"
+  - "How can a user find detailed command line options for the available tools?"
+  - "What is the definition of synchronizing files or directories according to the text?"
+  - "What are the different criteria Globus can use to determine which files to transfer during a sync operation?"
+  - "Why is it necessary to exclude the `-p` and `-g` flags when using Rsync to transfer files into `/project` file systems?"
+  - "Which Rsync command-line options should be utilized to compress files, resume interrupted transfers, and monitor overall transfer progress?"
+  - "How does the behavior of local directory transfers differ between the rsync and cp commands when the destination directory does not exist?"
+  - "What steps should be taken to generate, sort, and compare file checksums across two systems to verify data integrity?"
+  - "How can users securely connect and transfer files using SFTP via the command line or graphical client programs?"
+  - "What rsync command options are used to display the overall transfer progress for all files?"
+  - "How does the syntax differ when transferring files from a remote system to a local directory compared to a local-to-remote transfer?"
+  - "Which specific flags are included in the examples to prevent the transfer of group and permission attributes?"
+  - "What is the Secure Copy Protocol (SCP) and from where should the transfer command always be initiated?"
+  - "Why is the use of the recursive transfer option (`scp -r`) discouraged when moving data into the `/project` directory?"
+  - "How can a user troubleshoot read and write errors, such as checking file permissions and storage quotas, before initiating a transfer?"
+  - "What is the primary purpose of the sftp prompt?"
+  - "How can a user view the list of available commands while using the sftp prompt?"
+  - "What are some examples of graphical programs available for file transfers across different operating systems?"
+  - "What is the Secure Copy Protocol (SCP) and from where should the transfer command always be initiated?"
+  - "Why is the use of the recursive transfer option (`scp -r`) discouraged when moving data into the `/project` directory?"
+  - "How can a user troubleshoot read and write errors, such as checking file permissions and storage quotas, before initiating a transfer?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -37,9 +93,9 @@ If it takes more than one minute to move your files to or from our servers, we r
 [Globus](globus.md) is the preferred tool for transferring data between systems, and if it can be used, it should.
 
 However, other common tools can also be found for transferring data both inside and outside of our systems, including
-* [SFTP](#sftp)
-* [SCP](#scp) or Secure Copy Protocol
-* [rsync](#rsync)
+* [SFTP](transferring-data.md#sftp)
+* [SCP](transferring-data.md#scp) or Secure Copy Protocol
+* [rsync](transferring-data.md#rsync)
 
 !!! note
     If you want to transfer files between another of our clusters and Trillium use the SSH agent forwarding flag `-A` when logging into another cluster. For example, to copy files to Trillium from Fir, use:
@@ -53,7 +109,7 @@ then perform the copy:
 ```
 
 ## From the World Wide Web
-The standard tool for downloading data from websites is [wget](https://en.wikipedia.org/wiki/Wget). Another often used is [curl](https://curl.haxx.se/). Their similarities and differences are compared in several places such as this StackExchange [article](https://unix.stackexchange.com/questions/47434/what-is-the-difference-between-curl-and-wget) or [here](https://draculaservers.com/tutorials/wget-and-curl-for-files/). While the focus here is transferring data on Alliance Linux systems this [tutorial](https://www.techtarget.com/searchnetworking/tutorial/Use-cURL-and-Wget-to-download-network-files-from-CLI) also addresses Mac and Windows machines. Both [wget](https://www.thegeekstuff.com/2009/09/the-ultimate-wget-download-guide-with-15-awesome-examples/) and [curl](https://www.thegeekstuff.com/2012/04/curl-examples/) can resume interrupted downloads by rerunning them with the [`-c`](https://www.cyberciti.biz/tips/wget-resume-broken-download.html) and [`-C -`](https://www.cyberciti.biz/faq/curl-command-resume-broken-download/) command line options respectively. When getting data from various cloud services such as Google cloud storage, Google Drive and Google Photos, consider using the [rclone](https://rclone.org/) tool instead. All of these tools (wget, curl, rclone) are available on every Alliance cluster by default (without loading a module). For a detailed listing of command line options check the man page for each tool or run them with `--help` or simply `-h` on the cluster.
+The standard tool for downloading data from websites is [wget](https://en.wikipedia.org/wiki/Wget). Another often used is [curl](https://curl.haxx.se/). Their similarities and differences are compared in several places such as this StackExchange [article](https://unix.stackexchange.com/questions/47434/what-is-the-difference-between-curl-and-wget) or [here](https://draculaservers.com/tutorials/wget-and-curl-for-files/). While the focus here is transferring data on Alliance Linux systems this [tutorial](https://www.techtarget.com/searchnetworking/tutorial/Use-cURL-and-Wget-to-download-network-files-from-CLI) also addresses Mac and Windows machines. Both [wget](https://www.thegeekstuff.com/2009/09/the-ultimate-wget-download-guide-with-15-awesome-examples/) and [curl](https://www.thegeekstuff.com/2012/04/curl-examples/) can resume interrupted downloads by rerunning them with the [-c](https://www.cyberciti.biz/tips/wget-resume-broken-download.html) and [-C -](https://www.cyberciti.biz/faq/curl-command-resume-broken-download/) command line options respectively. When getting data from various cloud services such as Google cloud storage, Google Drive and Google Photos, consider using the [rclone](https://rclone.org/) tool instead. All of these tools (`wget`, `curl`, `rclone`) are available on every Alliance cluster by default (without loading a module). For a detailed listing of command line options check the man page for each tool or run them with `--help` or simply `-h` on the cluster.
 
 ## Synchronizing files
 To synchronize or *sync* files (or directories) stored in two different locations means to ensure that the two copies are the same. Here are several different ways to do this.
@@ -61,31 +117,33 @@ To synchronize or *sync* files (or directories) stored in two different location
 ### Globus transfer
 We find Globus usually gives the best performance and reliability.
 
-Normally when a Globus transfer is initiated it will overwrite the files on the destination with the files from the source, which means all of the files on the source will be transferred. If some of the files may already exist on the destination and need not be transferred if they match, you should go to the *Transfer & Timer Options* shown in the screenshot and choose to *sync* instead.
+!!! note
+    Normally when a Globus transfer is initiated it will overwrite the files on the destination with the files from the source, which means all of the files on the source will be transferred. If some of the files may already exist on the destination and need not be transferred if they match, you should go to the *Transfer & Timer Options* shown in the screenshot and choose to *sync* instead.
 
 You may choose how Globus decides which files to transfer:
 
-| Option                          | Description                                                                                                                                                                                                                                                                                                      |
-| :------------------------------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Their checksums are different   | This is the slowest option but most accurate. This will catch changes or errors that result in the same size of file, but with different contents.                                                                                                                                                                  |
-| File doesn't exist on destination | This will only transfer files that have been created since the last sync. Useful if you are incrementally creating files.                                                                                                                                                                                       |
-| File size is different          | A quick test. If the file size has changed then its contents must have changed, and it will be re-transferred.                                                                                                                                                                                                   |
-| Modification time is newer      | This will check the file's recorded modification time and only transfer the file if it is newer on the source than the destination. If you want to depend on this, it is important to check the *preserve source file modification times* option when initiating a Globus transfer. |
+| | |
+| :-------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Their checksums are different     | This is the slowest option but most accurate. This will catch changes or errors that result in the same size of file, but with different contents.                                                                                                                              |
+| File doesn't exist on destination | This will only transfer files that have been created since the last sync. Useful if you are incrementally creating files.                                                                                                                                                           |
+| File size is different            | A quick test. If the file size has changed then its contents must have changed, and it will be re-transferred.                                                                                                                                                                      |
+| Modification time is newer        | This will check the file's recorded modification time and only transfer the file if it is newer on the source than the destination. If you want to depend on this, it is important to check the *preserve source file modification times* option when initiating a Globus transfer. |
 
 For more information about Globus please see [Globus](globus.md).
 
 ### Rsync
-[Rsync](https://en.wikipedia.org/wiki/Rsync) is a popular tool for ensuring that two separate datasets are the same but can be quite slow if there are a lot of files or there is a lot of latency between the two sites, i.e. they are geographically apart or on different networks. Running `rsync` will check the modification time and size of each file, and will only transfer the file if one or the other does not match. If you expect modification times not to match on the two systems, you can use the `-c` option, which will compute checksums at the source and destination, and transfer only if the checksums do not match.
+[Rsync](https://en.wikipedia.org/wiki/Rsync) is a popular tool for ensuring that two separate datasets are the same but can be quite slow if there are a lot of files or there is a lot of latency between the two sites, i.e. they are geographically apart or on different networks. Running `rsync` will check the modification time and size of each file, and will only transfer the file if one or the other does not match. If you expect modification times not to match on the two systems, you can use the `-c` option, which will compute checksums at the source and destination, and transfer only if the checksums do not match. 
 
-When transferring files into the `/project` file systems, do not use `-p` and `-g` flags since the quotas in `/project` are enforced based on group ownership, and thus preserving the group ownership will lead to the [Disk quota exceeded error on /project file systems](frequently-asked-questions.md#disk-quota-exceeded-error-on-project-filesystems) error message. Since `-a` includes `-p` and `-g` by default, the `--no-g --no-p` options should be added, like so
+!!! note
+    When transferring files into the `/project` file systems, do not use `-p` and `-g` flags since the quotas in `/project` are enforced based on group ownership, and thus preserving the group ownership will lead to the [Disk quota exceeded](frequently-asked-questions.md#disk-quota-exceeded-error-on-project-filesystems) error message. Since `-a` includes `-p` and `-g` by default, the `--no-g --no-p` options should be added, like so
 ```bash
 rsync -avzh --no-g --no-p LOCALNAME someuser@nibi.alliancecan.ca:projects/def-professor/someuser/somedir/
 ```
-where LOCALNAME can be a directory or file preceded by its path location and somedir will be created if it doesn't exist. The `-z` option compresses files (not in the default file suffixes `--skip-compress` list) and requires additional CPU resources while the `-h` option makes transferred file sizes human readable. If you are transferring very large files add the `--partial` option so interrupted transfers may be restarted:
+where LOCALNAME can be a directory or file preceded by its path location and somedir will be created if it doesn't exist. The `-z` option compresses files (not in the default file suffixes `--skip-compress` list) and requires additional CPU resources while the `-h` option makes transferred file sizes human readable. If you are transferring very large files add the `--partial` option so interrupted transfers maybe restarted:
 ```bash
 rsync -avzh --no-g --no-p --partial --progress LOCALNAME someuser@nibi.alliancecan.ca:projects/def-professor/someuser/somedir/
 ```
-The `--progress` option will display the percent progress of each file as its transferred. If you are transferring very many smaller files, then it may be more desirable to display a single progress bar that represents the transfer progress of all files:
+The `--progress` option will display the percent progress of each file as its transferred. If you are transferring very many smaller files, then it maybe more desirable to display a single progress bar that represents the transfer progress of all files:
 ```bash
 rsync -azh --no-g --no-p --info=progress2 LOCALNAME someuser@nibi.alliancecan.ca:projects/def-professor/someuser/somedir/
 ```
@@ -119,15 +177,17 @@ diff checksum-result-silo.log checksum-dtn.log
 ```
 ```text
 69c69
-< 017f14f6a1a194a5f791836d93d14beead0a5115  /home/username/file-0025048576-0000008
----
-> 8836913c2cc2272c017d0455f70cf0d698daadb3  /home/username/file-0025048576-0000008
+ < 017f14f6a1a194a5f791836d93d14beead0a5115  /home/username/file-0025048576-0000008
+ ---
+ > 8836913c2cc2272c017d0455f70cf0d698daadb3  /home/username/file-0025048576-0000008
 ```
 
 It is possible that the `find` command will crawl through the directories in a different order, resulting in a lot of false differences so you may need to run `sort` on both files before running diff such as:
 
 ```bash
 sort -k2 checksum-result-silo.log -o checksum-result-silo.log
+```
+```bash
 sort -k2 checksum-dtn.log -o checksum-dtn.log
 ```
 
@@ -158,7 +218,8 @@ which returns the `sftp>` prompt where commands to transfer files can be issued.
 There are also a number of graphical programs available for Windows, Linux and Mac OS, such as [WinSCP](https://winscp.net/eng/index.php) and [MobaXterm](http://mobaxterm.mobatek.net/) (Windows), [filezilla](https://filezilla-project.org) (Windows, Mac, and Linux), and [cyberduck](https://cyberduck.io/?l=en) (Mac and Windows).
 
 ## SCP
-SCP stands for [Secure Copy Protocol](https://en.wikipedia.org/wiki/Secure_copy). Like SFTP it uses the SSH protocol to encrypt data being transferred. It does not support synchronization like [Globus](globus.md) or [rsync](#rsync). Some examples of the most common use of SCP include
+
+SCP stands for [**Secure Copy Protocol**](https://en.wikipedia.org/wiki/Secure_copy). Like SFTP it uses the SSH protocol to encrypt data being transferred. It does not support synchronization like [Globus](globus.md) or [rsync](transferring-data.md#rsync). Some examples of the most common use of SCP include 
 ```bash
 scp foo.txt username@rorqual.alliancecan.ca:work/
 ```
@@ -166,12 +227,14 @@ which will copy the file `foo.txt` from the current directory on my local comput
 ```bash
 scp username@fir.alliancecan.ca:projects/def-jdoe/username/results/output.dat .
 ```
-Many other examples of the use of SCP are shown [here](http://www.hypexr.org/linux_scp_help.php). Note that you always execute this `scp` command on your local computer, not the remote cluster - the SCP connection, regardless of whether you are transferring data to or from the remote cluster, should always be initiated from your local computer.
+Many other examples of the use of SCP are shown [here](http://www.hypexr.org/linux_scp_help.php). Note that you always execute this `scp` command on your local computer, not the remote cluster - the SCP connection, regardless of whether you are transferring data to or from the remote cluster, should always be initiated from your local computer. 
 
-SCP supports the option `-r` to recursively transfer a set of directories and files. We **recommend against using `scp -r`** to transfer data into `/project` because the setgid bit is turned off in the created directories, which may lead to `Disk quota exceeded` or similar errors if files are later created there (see [Disk quota exceeded error on /project file systems](frequently-asked-questions.md#disk-quota-exceeded-error-on-project-filesystems)).
+SCP supports the option `-r` to recursively transfer a set of directories and files.
+!!! warning "Important Note"
+    We **recommend against using `scp -r`** to transfer data into `/project` because the setgid bit is turned off in the created directories, which may lead to [Disk quota exceeded error on /project filesystems](frequently-asked-questions.md#disk-quota-exceeded-error-on-project-filesystems) or similar errors if files are later created there.
 
 !!! note
-    If you chose a custom SSH key name, *i.e.* something other than the default names: `id_dsa`, `id_ecdsa`, `id_ed25519` and `id_rsa`, you will need to use the `-i` option of scp and specify the path to your private key before the file paths via
+    If you chose a custom SSH key name, _i.e._ something other than the default names: `id_dsa`, `id_ecdsa`, `id_ed25519` and `id_rsa`, you will need to use the `-i` option of scp and specify the path to your private key before the file paths via
 
 ```bash
 scp -i /path/to/key foo.txt username@rorqual.alliancecan.ca:work/
@@ -180,6 +243,7 @@ scp -i /path/to/key foo.txt username@rorqual.alliancecan.ca:work/
 ## Prevention and Troubleshooting
 
 ### Unable to read data
+
 Before initiating any transfer, make sure you can read all the contents of the directories you would like to transfer. On a Linux system, the following command lists all items not readable to you:
 
 ```bash
@@ -187,14 +251,15 @@ find <directory_name> ! -readable -ls
 ```
 
 ### Unable to write new data
-* Double-check the **[storage usage](storage-and-file-management.md#overview)** and make sure enough space and enough files are available.
-    * On some clusters, the file system automatically compresses your files and reports the space usage by the disk usage of the compressed data. On other clusters, the space usage is reported by the apparent size of your files. Therefore, 1 TB of compressed data on one cluster may become 2 TB of data on the next cluster.
+
+* Double-check the [storage usage](storage-and-file-management.md#overview) and make sure enough space and enough files are available.
+    * On some clusters, the filesystem automatically compresses your files and reports the space usage by the disk usage of the compressed data. On other clusters, the space usage is reported by the apparent size of your files. Therefore, 1 TB of compressed data on one cluster may become 2 TB of data on the next cluster.
     * Before transferring a dataset, it is possible to get its apparent size with the option `-b` of the `du` command:
-    ```bash
-    du dataset; du -b dataset
-    ```
-    ```text
-    443087696       dataset  # Size of the compressed data
-    1048576000      dataset  # Apparent size of the data
-    ```
-* Double-check the **[file system permissions](sharing-data.md)** and make sure you have the write permission at the location where you are trying to transfer new files.
+```bash
+du dataset; du -b dataset
+```
+```text
+443087696       dataset  # Size of the compressed data
+1048576000      dataset  # Apparent size of the data
+```
+* Double-check the [filesystem permissions](sharing-data.md) and make sure you have the write permission at the location where you are trying to transfer new files.

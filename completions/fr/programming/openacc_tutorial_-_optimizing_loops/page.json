@@ -1,0 +1,83 @@
+{
+  "doc_key": "fr/openacc_tutorial_-_optimizing_loops",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "Quels sont les principaux objectifs d'apprentissage couverts par ce document?",
+      "answer": "Les objectifs sont de comprendre les différents niveaux de parallélisme dans un GPU, les messages du compilateur concernant la parallélisation, comment obtenir des suggestions d'optimisation du profileur visuel, et comment indiquer les paramètres de parallélisation au compilateur."
+    },
+    {
+      "question": "Comment le compilateur a-t-il initialement parallélisé les boucles dans l'exemple `steps2.kernels`?",
+      "answer": "Le compilateur a parallélisé chaque boucle avec un `vector(128)`, ce qui signifie qu'il a généré des instructions pour un bloc de code de longueur 128."
+    },
+    {
+      "question": "Quel problème le choix automatique de `vector(128)` par le compilateur a-t-il créé dans l'exemple où les rangées de la matrice ont 27 éléments?",
+      "answer": "Puisque chaque rangée de la matrice possède 27 éléments, le compilateur a généré des instructions pour le calcul inutile de 101 éléments (128 - 27)."
+    },
+    {
+      "question": "Quels sont les trois niveaux de parallélisme possibles avec OpenACC?",
+      "answer": "Les trois niveaux de parallélisme avec OpenACC sont `vector`, `worker` et `gang`."
+    },
+    {
+      "question": "Comment les niveaux de parallélisme OpenACC se traduisent-ils généralement en concepts CUDA pour les GPU NVIDIA?",
+      "answer": "Généralement, `vector` OpenACC correspond aux fils CUDA, `worker` OpenACC aux warps CUDA, et `gang` OpenACC aux blocs de fils CUDA."
+    },
+    {
+      "question": "Quelles clauses peut-on utiliser avec la directive `loop` pour contrôler le niveau de parallélisme généré par le compilateur?",
+      "answer": "On peut utiliser les clauses `gang`, `worker`, `vector` pour paralléliser, ou `seq` pour exécuter la boucle séquentiellement."
+    },
+    {
+      "question": "Comment peut-on spécifier le type d'accélérateur pour lequel une clause OpenACC doit s'appliquer?",
+      "answer": "On utilise la clause `device_type`, par exemple, `device_type(nvidia) vector`, pour que la clause s'applique uniquement si le code est compilé pour un GPU NVIDIA."
+    },
+    {
+      "question": "Comment peut-on spécifier la taille de chaque niveau de parallélisme OpenACC (vector, worker, gang)?",
+      "answer": "Un paramètre de taille numérique peut être ajouté aux clauses `vector`, `worker` et `gang`, par exemple, `worker(32) vector(32)`."
+    },
+    {
+      "question": "Quelles sont les valeurs maximales pour la longueur de `vector` et la taille de `gang` sur les GPUs NVIDIA, selon le document?",
+      "answer": "Sur les GPUs NVIDIA, la longueur de `vector` est un multiple de 32 (1024 au plus), et la taille de `gang` (produit de `worker` par `vector`) est de 1204 au plus."
+    },
+    {
+      "question": "Comment la longueur de `vector` a-t-elle été ajustée de 128 à 32 dans l'exemple de code pour la directive `kernels`?",
+      "answer": "En ajoutant la directive `#pragma acc loop device_type(nvidia) vector(32)` juste avant la boucle interne."
+    },
+    {
+      "question": "Quel a été l'impact sur la performance sur un GPU K20 quand la longueur de `vector` a été diminuée de 128 à 32?",
+      "answer": "Le temps d'exécution est passé de 10 à environ 15 secondes sur un K20, montrant que l'ajustement ne s'est pas avéré bénéfique dans ce cas précis."
+    },
+    {
+      "question": "Quel outil est utilisé pour obtenir des suggestions d'optimisation après la compilation du code OpenACC?",
+      "answer": "Le NVIDIA Visual Profiler est utilisé pour analyser la performance et obtenir des suggestions d'optimisation."
+    },
+    {
+      "question": "Quelles sont les étapes initiales pour effectuer une analyse guidée avec le NVIDIA Visual Profiler?",
+      "answer": "Il faut cliquer sur 'Examine GPU Usage', puis sur 'Examine Individual Kernels', sélectionner un noyau et cliquer sur 'Perform Kernel Analysis', et finalement cliquer sur 'Perform Latency Analysis'."
+    },
+    {
+      "question": "Quels types de renseignements importants le NVIDIA Visual Profiler fournit-il sur la performance d'un noyau?",
+      "answer": "Il peut indiquer si la performance est limitée par la taille des blocs (gangs), le nombre de fils actifs, le taux d'occupation du GPU, le nombre de fils vector par gang, de workers par gang, et le nombre de gangs idéaux."
+    },
+    {
+      "question": "Quelle conclusion le NVIDIA Visual Profiler a-t-il tirée concernant l'optimisation dans l'exemple analysé?",
+      "answer": "Le profileur a conclu qu'il fallait des gangs plus grands, ce qui serait réalisé en ajoutant des `worker`s tout en gardant la taille du vecteur à 32."
+    },
+    {
+      "question": "Comment des `worker`s ont-ils été ajoutés au code OpenACC en utilisant la directive `kernels` pour améliorer la performance?",
+      "answer": "En ajoutant `#pragma acc loop device_type(nvidia) gang worker(32)` juste avant la boucle externe principale."
+    },
+    {
+      "question": "Quel gain de performance a été observé sur un GPU K20 après l'ajout de 32 `worker`s par `gang`?",
+      "answer": "Le temps d'exécution est passé de 10 secondes à 6 secondes, ce qui représente une performance presque double."
+    },
+    {
+      "question": "À quoi sert la clause OpenACC `collapse(N)`?",
+      "answer": "La clause `collapse(N)` est utilisée avec une directive de boucle pour replier les N prochaines boucles imbriquées en une seule boucle plate, particulièrement utile pour les boucles courtes."
+    },
+    {
+      "question": "Dans quel contexte la clause OpenACC `tile(N,[M,...])` est-elle utile?",
+      "answer": "La clause `tile` est utile pour les algorithmes à forte localité, car elle répartit les boucles en une structure en mosaïque, permettant à l'accélérateur d'utiliser les données des carreaux environnants."
+    }
+  ],
+  "generated_at": "2026-04-12T04:18:57.607885+00:00"
+}

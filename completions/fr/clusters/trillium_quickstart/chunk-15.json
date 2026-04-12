@@ -1,0 +1,92 @@
+{
+  "doc_key": "fr/trillium_quickstart",
+  "level": "chunk",
+  "chunk_index": 15,
+  "qa_pairs": [
+    {
+      "question": "Comment s'appelle le script d'exemple pour une tâche MPI et comment est-il identifié dans l'ordonnanceur?",
+      "answer": "Le script d'exemple s'appelle `mpi_job.sh` et la tâche est nommée `mpi_job` par l'ordonnanceur, tel qu'indiqué par la directive `#SBATCH --job-name=mpi_job`."
+    },
+    {
+      "question": "Combien de nœuds et de tâches par nœud sont demandés pour l'exemple de tâche MPI?",
+      "answer": "Pour l'exemple de tâche MPI, deux (2) nœuds sont demandés, avec 192 tâches par nœud (`#SBATCH --nodes=2` et `#SBATCH --ntasks-per-node=192`)."
+    },
+    {
+      "question": "Quelle est la durée maximale d'exécution pour la tâche MPI de l'exemple?",
+      "answer": "La durée maximale d'exécution est fixée à une (1) heure (`#SBATCH --time=01:00:00`)."
+    },
+    {
+      "question": "Quel est le nom du fichier de sortie pour les résultats de la tâche MPI?",
+      "answer": "Le fichier de sortie sera nommé `mpi_output_%j.txt`, où `%j` sera remplacé par l'identifiant de la tâche."
+    },
+    {
+      "question": "Dans le script MPI, quand un courriel est-il envoyé à l'utilisateur?",
+      "answer": "Un courriel est envoyé uniquement en cas d'échec de la tâche (`#SBATCH --mail-type=FAIL`)."
+    },
+    {
+      "question": "Quels modules sont chargés avant l'exécution de l'application dans l'exemple de tâche MPI?",
+      "answer": "Les modules `StdEnv/2023`, `gcc/12.3` et `openmpi/4.1.5` sont chargés."
+    },
+    {
+      "question": "Quel est le rôle de la commande `source /scinet/vast/etc/vastpreload-openmpi.bash` dans le script MPI?",
+      "answer": "Cette commande précharge une bibliothèque pour optimiser le MPI-IO (entrées/sorties MPI) avec le système de fichiers VAST. Il est crucial d'utiliser `mpirun` et non `srun` pour que ce préchargement fonctionne."
+    },
+    {
+      "question": "Comment soumet-on le script d'exemple pour une tâche MPI depuis un nœud de connexion?",
+      "answer": "Depuis un nœud de connexion et à partir du répertoire `$SCRATCH`, on soumet le script avec la commande `$ sbatch mpi_job.sh`."
+    },
+    {
+      "question": "Après l'allocation des nœuds, quelles sont les premières actions effectuées par le script MPI?",
+      "answer": "Le script commence par accéder au répertoire de soumission (`cd $SLURM_SUBMIT_DIR`), puis il charge les modules requis et précharge la bibliothèque d'optimisation MPI-IO pour VAST."
+    },
+    {
+      "question": "Quelle application est exécutée à la fin du script MPI d'exemple?",
+      "answer": "L'application `mpi_example` est exécutée par `mpirun`."
+    },
+    {
+      "question": "Comment s'appelle l'exemple de script pour une tâche OpenMP?",
+      "answer": "L'exemple de script pour une tâche OpenMP est nommé `openmp_job.sh` et la tâche est identifiée comme `openmp_job`."
+    },
+    {
+      "question": "Combien de nœuds et de CPU par tâche sont demandés pour la tâche OpenMP?",
+      "answer": "Le script demande un (1) nœud (`#SBATCH --nodes=1`) et 192 CPU par tâche (`#SBATCH --cpus-per-task=192`), avec une seule tâche (`#SBATCH --ntasks=1`)."
+    },
+    {
+      "question": "Quelle est la durée maximale d'exécution pour la tâche OpenMP de l'exemple?",
+      "answer": "La tâche OpenMP est configurée pour une durée maximale d'une (1) heure (`#SBATCH --time=01:00:00`)."
+    },
+    {
+      "question": "Quand un courriel est-il envoyé pour la tâche OpenMP?",
+      "answer": "Un courriel est envoyé si la tâche échoue (`#SBATCH --mail-type=FAIL`)."
+    },
+    {
+      "question": "Quels modules sont chargés pour l'exemple de tâche OpenMP?",
+      "answer": "Les modules `StdEnv/2023` et `gcc/12.3` sont chargés."
+    },
+    {
+      "question": "Comment le nombre de fils OpenMP est-il configuré dans le script?",
+      "answer": "La variable d'environnement `OMP_NUM_THREADS` est exportée et configurée avec la valeur de `$SLURM_CPUS_PER_TASK`, qui correspond au nombre de CPU demandés par tâche (`export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK`)."
+    },
+    {
+      "question": "Comment soumet-on le script d'exemple pour une tâche OpenMP?",
+      "answer": "On soumet le script depuis un nœud de connexion CPU, à partir du répertoire `$SCRATCH`, en utilisant la commande `$ sbatch openmp_job.sh`."
+    },
+    {
+      "question": "Quelle est l'application exécutée à la fin du script OpenMP?",
+      "answer": "L'application `openmp_example` est exécutée (`./openmp_example` ou `srun ./openmp_example`)."
+    },
+    {
+      "question": "Quel est le nom de la tâche pour l'exemple de tâche hybride MPI/OpenMP?",
+      "answer": "Le nom de la tâche est `hybrid_job`."
+    },
+    {
+      "question": "Combien de nœuds, de tâches par nœud et de CPU par tâche sont demandés pour la tâche hybride?",
+      "answer": "La tâche hybride demande deux (2) nœuds (`#SBATCH --nodes=2`), 48 tâches par nœud (`#SBATCH --ntasks-per-node=48`) et 4 CPU par tâche (`#SBATCH --cpus-per-task=4`)."
+    },
+    {
+      "question": "Quelle est la durée d'exécution demandée pour l'exemple de tâche hybride MPI/OpenMP?",
+      "answer": "La tâche hybride demande une durée d'exécution d'une (1) heure (`#SBATCH --time=01:00:00`)."
+    }
+  ],
+  "generated_at": "2026-04-12T09:50:50.046280+00:00"
+}

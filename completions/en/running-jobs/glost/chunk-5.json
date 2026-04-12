@@ -1,0 +1,64 @@
+{
+  "doc_key": "en/glost",
+  "level": "chunk",
+  "chunk_index": 5,
+  "qa_pairs": [
+    {
+      "question": "What command is used to launch GLOST with a list of tasks in the initial example provided?",
+      "answer": "The command used to launch GLOST in the initial example is `srun glost_launch list_glost_example.txt`."
+    },
+    {
+      "question": "What is the purpose of the `list_glost_example.txt` file in the first GLOST example?",
+      "answer": "The `list_glost_example.txt` file serves as an argument for the `glost_launch` wrapper and contains a simple syntax for a list of serial jobs, with one job per line."
+    },
+    {
+      "question": "Why is the first GLOST example, which includes `list_glost_example.txt`, not executable as is?",
+      "answer": "The first GLOST example cannot be executed because the commands (`job01`, `job02`, etc.) within `list_glost_example.txt` are not defined; they are merely placeholders."
+    },
+    {
+      "question": "What key aspects does the first GLOST example illustrate?",
+      "answer": "It illustrates a simple syntax for a list of jobs, such as `list_glost_tasks.txt`, which acts as an argument for the `glost_launch` wrapper, and a typical script structure for submitting a GLOST job."
+    },
+    {
+      "question": "How should users approach the example list of jobs and submission script provided?",
+      "answer": "Users should adapt both the example list of jobs and the script to align with their specific workflow and application requirements."
+    },
+    {
+      "question": "How can GLOST be utilized to run multiple serial jobs within a single directory?",
+      "answer": "GLOST can be used to run a set or list of serial jobs in one directory, provided that measures are taken to ensure the different jobs do not use overlapping temporary or output files."
+    },
+    {
+      "question": "What is essential to prevent when running GLOST jobs in one directory, and how can it be achieved?",
+      "answer": "It is essential to prevent the overlap of results from different jobs or the use of the same temporary or output files. This can be achieved by adding arguments to differentiate the various jobs."
+    },
+    {
+      "question": "How are multiple commands within a single job line in a GLOST task list file separated?",
+      "answer": "Multiple commands within a single job line are separated by `&&`."
+    },
+    {
+      "question": "In the example demonstrating running jobs in one directory, what role does the `nargument` variable play?",
+      "answer": "The `nargument` variable in this example is used to fix a parameter or a variable to pass to the program, helping to differentiate between the jobs."
+    },
+    {
+      "question": "What command is used as a placeholder for the actual application in the one-directory example, and what should it be replaced with?",
+      "answer": "The command `sleep 360` is used for testing in the example. It should be replaced by the actual command line that runs the user's application, such as `./my_first_prog < first_input_file.txt > first_output_file.txt`."
+    },
+    {
+      "question": "What is the function of the `echo ${nargument}.`hostname` > log_${nargument}.txt` command in the example for running jobs in a single directory?",
+      "answer": "This command prints the value of `nargument` and the hostname to a file named `log_${nargument}.txt`, serving as an example for additional commands to be executed after the main program."
+    },
+    {
+      "question": "Which Slurm parameters are configured in the `run_glost_test.sh` script for the example involving jobs in one directory?",
+      "answer": "The `run_glost_test.sh` script configures Slurm with `--nodes=1`, `--ntasks-per-node=2`, `--time=00-02:00`, and `--mem-per-cpu=4000M`."
+    },
+    {
+      "question": "What modules must be loaded in the example script for running GLOST jobs in a single directory?",
+      "answer": "The example script requires and loads `intel/2023.2.1`, `openmpi/4.1.5`, and `glost/0.3.1` modules."
+    },
+    {
+      "question": "How does GLOST distribute the 10 serial jobs among the 2 available cores in the one-directory example?",
+      "answer": "GLOST uses a cyclic distribution; it assigns the first two jobs to the available processors. As processors complete these tasks, they are then assigned the subsequent jobs from the list until all 10 jobs are processed or the job's allocated time runs out."
+    }
+  ],
+  "generated_at": "2026-04-11T22:13:00.164497+00:00"
+}

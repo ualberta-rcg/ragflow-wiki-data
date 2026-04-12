@@ -1,0 +1,71 @@
+{
+  "doc_key": "en/matlab",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What are the two primary ways to use MATLAB on our clusters?",
+      "answer": "You can either run MATLAB directly, which requires a license, or compile your MATLAB code using `mcc` and run the generated executable without license considerations."
+    },
+    {
+      "question": "Which clusters provide MATLAB licenses for students, professors, and academic researchers?",
+      "answer": "Fir, Narval, Rorqual, and Trillium all have MATLAB licenses available for any student, professor, or academic researcher."
+    },
+    {
+      "question": "How can I check if I have access to an external MATLAB license on a cluster?",
+      "answer": "You can check by loading a MATLAB module (e.g., `module load matlab/2023b.2`) and then running `matlab -nojvm -nodisplay -batch license`. If a license number is printed, you have access."
+    },
+    {
+      "question": "What should I do if the MATLAB license test indicates the version is too new for the license server?",
+      "answer": "If you get a 'This version is newer...' message, try loading an older version of MATLAB in the `module load` line."
+    },
+    {
+      "question": "What is the process for configuring an external MATLAB license if arrangements haven't been made?",
+      "answer": "You need to contact your institution's MATLAB administrator or Mathworks account manager. If allowed, create a `matlab.lic` file in `$HOME/.licenses/` with your campus license server's IP address and port, then contact technical support to ensure the server is reachable by our compute nodes."
+    },
+    {
+      "question": "Why do I need to prepare my `.matlab` folder, and how do I do it?",
+      "answer": "The `/home` directory is read-only on some compute nodes, so you need to create a symbolic link for `.matlab` to the `/scratch` space. You can do this by running a specific command that moves or creates the `.matlab` folder in `scratch` and then links it."
+    },
+    {
+      "question": "How can I view the MATLAB toolboxes available with the license and cluster I'm using?",
+      "answer": "Load the MATLAB module (`module load matlab`) and then run `matlab -nojvm -batch \"ver\"` to see a list of available toolboxes."
+    },
+    {
+      "question": "When should a MATLAB calculation be submitted to the scheduler?",
+      "answer": "Any significant MATLAB calculation that takes more than about 5 minutes or uses over a gigabyte of memory must be submitted to the scheduler."
+    },
+    {
+      "question": "How do I submit a serial MATLAB program to the scheduler using a Slurm script?",
+      "answer": "You'll create a Slurm script (e.g., `matlab_slurm.sl`) that loads the MATLAB module and executes your MATLAB function in batch mode, then submit it using `sbatch matlab_slurm.sl`."
+    },
+    {
+      "question": "What is the purpose of the `-nojvm` option when running MATLAB, and what are its potential drawbacks?",
+      "answer": "The `-nojvm` option can suppress the creation of `java.log` files, but using it may interfere with certain plotting functions."
+    },
+    {
+      "question": "What is a recommended approach for parallel execution of MATLAB on our clusters?",
+      "answer": "Most users will find it sufficient to run MATLAB using a `Threads` parallel environment on a single node."
+    },
+    {
+      "question": "What issue can arise when running simultaneous parallel MATLAB jobs using a `Cluster` parallel environment, and how can it be prevented?",
+      "answer": "Multiple jobs trying to read/write to the same `.dat` file in the `local_cluster_jobs` folder can corrupt the local parallel profile. To prevent this, ensure each job creates its own parallel profile in a unique location by setting the `JobStorageLocation` property of the `parallel.Cluster` object to `getenv('SLURM_TMPDIR')`."
+    },
+    {
+      "question": "How can I compile a MATLAB code like `cosplot.m` for license-free execution?",
+      "answer": "Use the `mcc` compiler with the command: `mcc -m -R -nodisplay cosplot.m`. This will produce a binary executable."
+    },
+    {
+      "question": "What steps are required to run a compiled MATLAB binary on the servers using the MATLAB Runtime libraries?",
+      "answer": "Load the corresponding MCR module (e.g., `module load mcr/R2024b`), run `setrpaths.sh --path <binary_name>` once per binary, and then in your submission script (not login nodes), use `run_mcr_binary.sh <binary_name>`."
+    },
+    {
+      "question": "When is MATLAB Parallel Server useful, and what is its current status on our clusters?",
+      "answer": "MATLAB Parallel Server is only worthwhile if you need more workers than available CPU cores on a single compute node (i.e., for multi-node jobs). However, job submission from a local computer is currently not possible due to recent security improvements and SSH mode limitations, with no workaround available."
+    },
+    {
+      "question": "Where can I find additional documentation and online courses for MATLAB?",
+      "answer": "You can find documentation at mathworks.com/help/matlab/ and self-paced online courses at matlabacademy.mathworks.com/."
+    }
+  ],
+  "generated_at": "2026-04-12T01:13:34.739177+00:00"
+}

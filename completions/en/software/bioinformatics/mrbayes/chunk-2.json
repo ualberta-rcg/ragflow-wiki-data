@@ -1,0 +1,44 @@
+{
+  "doc_key": "en/mrbayes",
+  "level": "chunk",
+  "chunk_index": 2,
+  "qa_pairs": [
+    {
+      "question": "What is the purpose of the `append=yes` keyword in the `job2.nex` file when performing checkpointing with MrBayes?",
+      "answer": "The `append=yes` keyword is a key difference that allows the second part of a split MrBayes calculation to continue from a previously saved state, facilitating checkpointing."
+    },
+    {
+      "question": "What type of Slurm job is used to launch both parts of a checkpointed MrBayes calculation from a single script?",
+      "answer": "A job array is used, which means one script and one `sbatch` command are sufficient to launch two Slurm jobs for both parts of the calculation."
+    },
+    {
+      "question": "What is the name of the job script provided for submitting the checkpointed MrBayes calculation?",
+      "answer": "The job script is named `submit-mrbayes-cp.sh`."
+    },
+    {
+      "question": "How many Slurm sub-jobs are configured to run simultaneously in the `submit-mrbayes-cp.sh` script, according to the `--array` parameter?",
+      "answer": "The `--array=1-2%1` parameter in the `submit-mrbayes-cp.sh` script configures it to run two sub-jobs, but only one at a time (`%1`)."
+    },
+    {
+      "question": "What is the `sbatch` command used to submit the `submit-mrbayes-cp.sh` job script?",
+      "answer": "The example can be submitted with the command `sbatch submit-mrbayes-cp.sh`."
+    },
+    {
+      "question": "Which specific MrBayes input files does the `submit-mrbayes-cp.sh` job array process?",
+      "answer": "The script processes `job1.nex` and `job2.nex`, using the `${SLURM_ARRAY_TASK_ID}` variable to select the correct file."
+    },
+    {
+      "question": "What version of MrBayes is loaded by the `submit-mrbayes-cp.sh` script?",
+      "answer": "MrBayes version `3.2.7` is loaded in the script, along with the `gcc` module."
+    },
+    {
+      "question": "What are the Slurm resource requests specified in the `submit-mrbayes-cp.sh` script?",
+      "answer": "The script requests `--account=def-someuser`, `--ntasks=8`, `--mem-per-cpu=3G`, `--time=1:00:00`, and `--array=1-2%1`."
+    },
+    {
+      "question": "Where can one find more details about the `--array` parameter and the `$SLURM_ARRAY_TASK_ID` variable used in Slurm job arrays?",
+      "answer": "More information about the `--array` parameter and the `$SLURM_ARRAY_TASK_ID` variable can be found by referring to the 'Job arrays' documentation."
+    }
+  ],
+  "generated_at": "2026-04-12T03:20:45.991675+00:00"
+}

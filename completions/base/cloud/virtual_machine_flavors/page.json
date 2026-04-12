@@ -1,0 +1,39 @@
+{
+  "doc_key": "base/virtual_machine_flavors",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What are OpenStack 'flavors'?",
+      "answer": "Flavors are virtual hardware templates in OpenStack that define sizes for RAM, disk, number of cores, and other parameters for virtual machines, allowing users to choose the type of virtual machine they want to run."
+    },
+    {
+      "question": "What is the naming convention for virtual machine flavors?",
+      "answer": "Flavor names use prefixes: 'c' for compute, 'p' for persistent, and 'g' for vGPU. This is followed by the number of vCPUs/vGPUs, the amount of RAM, and optionally the size of a secondary ephemeral disk in gigabytes."
+    },
+    {
+      "question": "How can researchers view the flavors allocated to their project?",
+      "answer": "Researchers can view their allocated flavors in the Horizon Dashboard or via the OpenStack command line client using the command: `openstack flavor list --sort-column RAM`."
+    },
+    {
+      "question": "What should a user do if they require a flavor not currently allocated to their project?",
+      "answer": "Users should email cloud@tech.alliancecan.ca to request a new flavor."
+    },
+    {
+      "question": "What is the purpose and typical configuration for a 'c' flavor virtual machine?",
+      "answer": "A 'c' flavor VM is for jobs of finite lifetime, development, and testing. It starts from a qcow2-format image, has local disks with no redundancy (RAID0), a typical 20GB root disk, and a secondary ephemeral data disk, all created and destroyed with the instance."
+    },
+    {
+      "question": "How does the Arbutus cloud manage CPU allocation for 'c' flavors?",
+      "answer": "The Arbutus cloud treats 'c' flavors with no CPU over-commit, targeting them specifically for CPU-intensive tasks."
+    },
+    {
+      "question": "What is the intended use and key features of a 'p' flavor virtual machine?",
+      "answer": "A 'p' flavor VM is intended to run for an indeterminate length of time and should be booted from a volume. These instances are backed by the Ceph storage system, providing greater redundancy and resistance to failure than 'c' instances, with a recommended volume size of at least 20GB for the root disk."
+    },
+    {
+      "question": "How does the Arbutus cloud handle 'p' flavors in terms of redundancy and CPU over-commitment?",
+      "answer": "The Arbutus cloud places 'p' flavors on compute nodes with higher disk and network redundancy and does over-commit the CPU, making them suitable for web servers, database servers, and instances with lower or bursty CPU usage profiles."
+    }
+  ],
+  "generated_at": "2026-04-12T11:04:21.615343+00:00"
+}

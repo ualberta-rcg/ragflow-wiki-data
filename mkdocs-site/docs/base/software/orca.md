@@ -5,42 +5,82 @@ lang: "base"
 
 source_wiki_title: "ORCA"
 source_hash: "456f6995fcabeb9125c9d9c91af45047"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T09:18:49.182746+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T09:49:50.910062+00:00"
 
 tags:
   - software
   - computationalchemistry
 
 keywords:
-  []
+  - "parallel launch command"
+  - "input file"
+  - "job submission"
+  - "ORCA program"
+  - "ORCA versions"
+  - "temporary fix"
+  - "computational chemistry"
+  - "$EBROOTORCA"
+  - "OpenMPI upgrade"
+  - "clusters"
+  - "nprocs"
+  - "quantum chemistry"
+  - "ORCA"
+  - "OpenMPI"
+  - "SLURM script"
+  - "manually installed binaries"
+  - "computing clusters"
+  - "NBO"
+  - "Gaussian"
+  - "MPI"
+  - "job script"
+
+questions:
+  - "What is the primary purpose of the ORCA software and what types of chemical methods does it support?"
+  - "What is the step-by-step process required to obtain the necessary licensing and access to prebuilt ORCA executables?"
+  - "How should users configure their ORCA input files and properly submit parallel jobs using MPI?"
+  - "How must the ORCA input file be configured to ensure it efficiently utilizes all the CPU cores requested in the job script?"
+  - "What specific file needs to be deleted before restarting a calculation to prevent the job from failing with an allocation error?"
+  - "What steps should be taken to temporarily resolve fatal errors caused by OpenMPI version inconsistencies during certain calculations?"
+  - "What specific environment variables must be exported when setting up the job script?"
+  - "How does the execution command for ORCA differ from standard MPI programs that use `mpirun` or `srun`?"
+  - "Which variable is used to specify the required full path to the ORCA program?"
+  - "What steps must a user complete to be granted access to the ORCA program on the clusters?"
+  - "Why is this specific installation of the ORCA binaries considered a temporary fix?"
+  - "What action must the user take once the official openmpi upgrade is completed on the clusters?"
+  - "How can a user access the NBO software to run it with ORCA on the Cedar and Graham clusters?"
+  - "What specific keyword must be included in the input file when running NBO with ORCA?"
+  - "Which environment variables must be exported in the submission script to properly link the NBO executables?"
+  - "How can a user access the NBO software to run it with ORCA on the Cedar and Graham clusters?"
+  - "What specific keyword must be included in the input file when running NBO with ORCA?"
+  - "Which environment variables must be exported in the submission script to properly link the NBO executables?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
 ## Introduction
-ORCA is a flexible, efficient, and easy-to-use general-purpose tool for quantum chemistry with a specific emphasis on spectroscopic properties of open-shell molecules. It features a wide variety of standard quantum chemical methods ranging from semiempirical methods to DFT to single- and multireference correlated *ab initio* methods. It can also treat environmental and relativistic effects.
+ORCA is a flexible, efficient, and easy-to-use general-purpose tool for quantum chemistry with specific emphasis on spectroscopic properties of open-shell molecules. It features a wide variety of standard quantum chemical methods ranging from semiempirical methods to DFT to single- and multireference correlated *ab initio* methods. It can also treat environmental and relativistic effects.
 
 ## Licensing
 If you wish to use prebuilt ORCA executables:
-1. You have to register at [https://orcaforum.kofo.mpg.de/](https://orcaforum.kofo.mpg.de/).
+1. You have to register at https://orcaforum.kofo.mpg.de/.
 2. You will receive a first email to verify the email address and activate the account. Follow the instructions in that email.
-3. Once the registration is complete, you will get a **second email** stating that the "*registration for ORCA download and usage has been completed*".
+3. Once the registration is complete, you will get a **second email** stating that the "registration for ORCA download and usage has been completed".
 4. [Contact us](technical-support.md) requesting access to ORCA with a copy of the **second email**.
 
-## ORCA versions
+## ORCA Versions
 
 ### ORCA 6
 A module **orca/6.0.1** is available under the environment **StdEnv/2023**. To load this module, use:
 
 ```bash
-module load StdEnv/2023  gcc/12.3  openmpi/4.1.5 orca/6.0.1
+module load StdEnv/2023 gcc/12.3 openmpi/4.1.5 orca/6.0.1
 ```
 
 There is another module **orca/6.0.0**. However, ORCA users should use the latest version **orca/6.0.1** as it addresses some bugs of the first release **6.0.0**.
@@ -49,39 +89,39 @@ There is another module **orca/6.0.0**. However, ORCA users should use the lates
     This version of ORCA includes xtb 6.7.1.
 
 ### ORCA 5
-Versions 5.0.1 through 5.0.3 have some bugs that were fixed in version 5.0.4, most notably a [bug involving D4 dispersion gradients](https://orcaforum.kofo.mpg.de/viewtopic.php?f=56&t=9985). We therefore recommend that you use version 5.0.4 instead of any earlier 5.0.x version. Versions 5.0.1, 5.0.2, and 5.0.3 are in our software stack but might be removed in the future.
+Versions 5.0.1 through 5.0.3 have some bugs that were fixed in version 5.0.4, most notably a [bug involving D4 dispersion gradients](https://orcaforum.kofo.mpg.de/viewtopic.php?f=56&t=9985). We therefore recommend that you use the version 5.0.4 instead of any earlier 5.0.x version. Versions 5.0.1, 5.0.2 and 5.0.3 are in our software stack but might be removed in the future.
 
 To load version 5.0.4, use
 
 ```bash
-module load StdEnv/2020  gcc/10.3.0  openmpi/4.1.1 orca/5.0.4
+module load StdEnv/2020 gcc/10.3.0 openmpi/4.1.1 orca/5.0.4
 ```
 
 ### ORCA 4
 To load version 4.2.1, use
 
 ```bash
-module load StdEnv/2020  gcc/9.3.0  openmpi/4.0.3 orca/4.2.1
+module load StdEnv/2020 gcc/9.3.0 openmpi/4.0.3 orca/4.2.1
 ```
 
 or
 
 ```bash
-module load nixpkgs/16.09  gcc/7.3.0  openmpi/3.1.4 orca/4.2.1
+module load nixpkgs/16.09 gcc/7.3.0 openmpi/3.1.4 orca/4.2.1
 ```
 
-## Setting ORCA input files
+## Setting ORCA Input Files
 In addition to the different keywords required to run a given simulation, you should make sure to set two additional parameters:
 
-* number of CPUs
-* maxcore
+*   number of CPUs
+*   maxcore
 
-## Using the software
+## Using the Software
 To see which versions of ORCA are currently available, type `module spider orca`. For detailed information about a specific version, including the other modules that must be loaded first, use the module's full name. For example, `module spider orca/4.0.1.2`.
 
 See [Using modules](using-modules.md) for general guidance.
 
-### Job submission
+### Job Submission
 For a general discussion about submitting jobs, see [Running jobs](running-jobs.md).
 
 !!! note
@@ -132,35 +172,38 @@ Example of the input file, benzene.inp:
 ```
 
 ### Notes
-* To make sure that the program runs efficiently and makes use of all the resources or the cores asked for in your job script, please add this line `%pal nprocs <ncores> end` to your input file as shown in the above example. Replace `<ncores>` by the number of cores you used in your script.
+!!! tip
+    To make sure that the program runs efficiently and makes use of all the resources or the cores asked for in your job script, please add this line `%pal nprocs <ncores> end` to your input file as shown in the above example. Replace `<ncores>` by the number of cores you used in your script.
 
-* If you want to restart a calculation, delete the file `*.hostnames` (e.g. `benzene.hostnames` in the above example) before you submit the follow-up job. If you do not, the job is likely to fail with the error message `All nodes which are allocated for this job are already filled.`
+!!! warning
+    If you want to restart a calculation, delete the file `*.hostnames` (e.g., `benzene.hostnames` in the above example) before you submit the follow-up job. If you do not, the job is likely to fail with the error message `All nodes which are allocated for this job are already filled.`
 
-### (Sep. 6 2019) Temporary fix to OpenMPI version inconsistency issue
+### (September 6, 2019) Temporary Fix to OpenMPI Version Inconsistency Issue
 For some types of calculations (DLPNO-STEOM-CCSD in particular), you could receive unknown OpenMPI-related fatal errors. This could be due to using an older version of OpenMPI (*i.e.* 3.1.2 as suggested by 'module' for both orca/4.1.0 and 4.2.0) than recommended officially (3.1.3 for orca/4.1.0 and 3.1.4 for orca/4.2.0). To temporarily fix this issue, one can build a custom version of OpenMPI.
 
-The following two commands prepare a custom openmpi/3.1.4 for orca/4.2.0:
+The following two commands prepare a custom OpenMPI/3.1.4 for orca/4.2.0:
+
 ```bash
 module load gcc/7.3.0
 eb OpenMPI-3.1.2-GCC-7.3.0.eb --try-software-version=3.1.4
 ```
-When the building is finished, you can load the custom openmpi using module
+When the building is finished, you can load the custom OpenMPI using module:
+
 ```bash
 module load openmpi/3.1.4
 ```
 At this step, one can manually install orca/4.2.0 binaries from the official forum under the home directory after finishing the registration on the official ORCA forum and being granted access to the ORCA program on our clusters.
 
-Additional notes from the contributor:
-
 !!! warning
     This is a **temporary** fix prior to the official upgrade of OpenMPI on our clusters. Please remember to delete the manually installed ORCA binaries once the official OpenMPI version is up to date.
 
-The compiling command does not seem to apply to openmpi/2.1.x.
+Additional notes from the contributor:
+The compiling command does not seem to apply to OpenMPI/2.1.x.
 
 ## Using NBO with ORCA
-To run NBO with ORCA, one needs to have access to NBO. On our clusters, NBO is not available as a separate module. However, it is possible to access it via the Gaussian modules which are installed on [Cedar](cedar.md) and [Graham](graham.md). Users interested in using NBO with ORCA should have access to ORCA and Gaussian. To get access to Gaussian, you can follow the steps discussed in this [page](gaussian.md#license-agreement).
+To run NBO with ORCA, one needs to have access to NBO. On our clusters, NBO is not available as a separate module. However, it is possible to access it via the Gaussian modules which are installed on [Cedar](cedar.md) and [Graham](graham.md). Users interested to use NBO with ORCA should have access to ORCA and Gaussian. To get access to Gaussian, you can follow the steps discussed in this [page](gaussian.md#license-agreement).
 
-### Script example
+### Script Example
 The name of the input file (in this next example *orca_input.inp*) should contain the keyword **NBO**.
 
 ```bash title="run_orca-nbo.sh"
@@ -182,6 +225,6 @@ export NBOEXE=`which nbo7.i4.exe`
 ${EBROOTORCA}/orca orca_input.inp > orca_output.out
 ```
 
-## Related links
-* [ORCA tutorials](https://www.orcasoftware.de/tutorials_orca/)
-* [ORCA Forum](https://orcaforum.kofo.mpg.de/app.php/portal)
+## Related Links
+*   [ORCA tutorials](https://www.orcasoftware.de/tutorials_orca/)
+*   [ORCA Forum](https://orcaforum.kofo.mpg.de/app.php/portal)

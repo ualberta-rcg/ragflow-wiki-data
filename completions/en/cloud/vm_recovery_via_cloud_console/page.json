@@ -1,0 +1,91 @@
+{
+  "doc_key": "en/vm_recovery_via_cloud_console",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is the primary purpose of the document regarding VM recovery?",
+      "answer": "The document outlines procedures to regain privileged access to a VM's operating system image when it becomes inaccessible via SSH or a local user."
+    },
+    {
+      "question": "What is the fundamental requirement for performing a VM recovery using the methods described?",
+      "answer": "The boot manager must be accessible and modifiable."
+    },
+    {
+      "question": "Why can't most cloud images simply be booted into single user mode for recovery?",
+      "answer": "Most cloud images have the root account locked, which prevents direct single-user mode access."
+    },
+    {
+      "question": "What is the 'init' process and what is its significance in the boot sequence?",
+      "answer": "The 'init' process is the first userspace binary run by the kernel (PID1) after hardware initialization, responsible for managing userspace activities like running daemons."
+    },
+    {
+      "question": "How is the kernel instructed to execute a shell instead of the standard 'init' process during recovery?",
+      "answer": "By modifying the boot manager to pass a specific parameter, such as `init=/bin/bash` or `rd.break`, to the kernel."
+    },
+    {
+      "question": "What boot manager is typically used on Debian 10 cloud images?",
+      "answer": "GRUB2 is typically used on Debian 10 cloud images."
+    },
+    {
+      "question": "What steps are required to access the GRUB menu for editing on Debian 10?",
+      "answer": "Boot or reboot the system until the GRUB menu appears, then hit `e` for edit."
+    },
+    {
+      "question": "Which specific parameter needs to be added to the Debian 10 kernel line to execute a bash shell for recovery?",
+      "answer": "The parameter `init=/bin/bash` needs to be added to the kernel line."
+    },
+    {
+      "question": "After booting into the recovery shell on Debian 10, why is the filesystem initially read-only?",
+      "answer": "The kernel hands over control with the initrd filesystem mounted read-only, as the userspace init process is supposed to handle the root filesystem."
+    },
+    {
+      "question": "What command is used to remount the initrd filesystem as read/write during Debian 10 recovery?",
+      "answer": "The command `mount -o remount,rw /` is used to remount the initrd filesystem as read/write."
+    },
+    {
+      "question": "What additional bind mounts are required on Debian 10 after mounting the OS image to `/mnt` to use tools like `passwd`?",
+      "answer": "You need to bind mount `/proc`, `/sys`, and `/dev` to `/mnt/proc`, `/mnt/sys`, and `/mnt/dev` respectively."
+    },
+    {
+      "question": "How do you restart a Debian 10 VM after recovery operations when bash has no power control mechanisms?",
+      "answer": "After unmounting everything cleanly, you can restart the VM using the `Ctrl+Alt+Del` submit button on the OpenStack console page, or by stopping and starting the VM."
+    },
+    {
+      "question": "What post-recovery security measure is recommended after resetting the root password on Debian 10?",
+      "answer": "Remove the root password again or disable direct root logins via SSH."
+    },
+    {
+      "question": "How do you access the edit mode in the GRUB menu for CentOS 7 recovery?",
+      "answer": "Once the GRUB menu is visible, hit `e` on your keyboard to enter edit mode."
+    },
+    {
+      "question": "Which specific parameter needs to be added to the kernel line for CentOS 7 recovery to interrupt the boot process early?",
+      "answer": "The parameter `rd.break` needs to be added to the `linux16` line."
+    },
+    {
+      "question": "What console parameter should generally be kept for CentOS 7 recovery, and which ones removed?",
+      "answer": "Keep `console=tty0` and remove other serial console parameters like `ttyS0`."
+    },
+    {
+      "question": "What key combination is used to boot the CentOS 7 kernel with the modified parameters?",
+      "answer": "Hit `Ctrl+x` to boot the kernel with the changes."
+    },
+    {
+      "question": "Where is the image's filesystem initially mounted in a CentOS 7 recovery environment after using `rd.break`?",
+      "answer": "The image's filesystem is found under `/sysroot`, mounted read-only."
+    },
+    {
+      "question": "What command is used to remount the filesystem as read/write in a CentOS 7 recovery environment?",
+      "answer": "The command `mount -o remount,rw /sysroot` is used to remount the filesystem as read/write."
+    },
+    {
+      "question": "How similar is the CentOS 8 recovery procedure to CentOS 7?",
+      "answer": "The CentOS 8 recovery procedure is very similar to CentOS 7."
+    },
+    {
+      "question": "What two key options are needed for CentOS 8 recovery to initialize a tty and launch the recovery environment?",
+      "answer": "The options `console=tty` and `rd.break` are needed."
+    }
+  ],
+  "generated_at": "2026-04-12T10:47:25.376233+00:00"
+}

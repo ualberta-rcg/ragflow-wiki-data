@@ -1,0 +1,79 @@
+{
+  "doc_key": "base/tutoriel_apprentissage_machine",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is the main purpose of this guide?",
+      "answer": "This guide provides a getting started guide for porting a machine learning task to one of our clusters."
+    },
+    {
+      "question": "What is the first step when preparing a machine learning program for the cluster, concerning graphical output?",
+      "answer": "The first step is to modify your program to avoid using graphical displays; any graphical results should be written to disk as files and viewed on your personal computer later."
+    },
+    {
+      "question": "Why is it recommended to archive datasets for training on the clusters?",
+      "answer": "Shared storage on the clusters is not optimized for handling many small files, and not archiving can cause high-frequency file reads from the storage node, negatively impacting system performance."
+    },
+    {
+      "question": "How can you create a tar archive of a directory named `mydataset` without compression?",
+      "answer": "You can use the command `tar cf mydataset.tar mydataset/*`."
+    },
+    {
+      "question": "What is the third step for preparing an ML task, regarding the software environment?",
+      "answer": "The third step is to prepare a virtual environment by creating one in your home space, with further details available in the Python documentation for creating and using virtual environments."
+    },
+    {
+      "question": "Which machine learning frameworks have dedicated documentation available?",
+      "answer": "Documentation is available for PyTorch and TensorFlow."
+    },
+    {
+      "question": "What is the purpose of using an interactive job (`salloc`) before submitting a task with a script?",
+      "answer": "Interactive jobs allow for quicker diagnosis of problems before submitting the task as a script."
+    },
+    {
+      "question": "What are some key actions to perform within an interactive job?",
+      "answer": "You should activate your Python virtual environment, attempt to run your program, install any missing packages from a login node, and note the necessary steps to make your program run."
+    },
+    {
+      "question": "Where should a task primarily read and write data during execution on a compute node?",
+      "answer": "Tasks should read and write as much as possible to the local storage on the compute node (`$SLURM_TMPDIR`) and as little as possible to shared file systems (home, scratch, project)."
+    },
+    {
+      "question": "Why should tasks eventually be submitted using `sbatch` scripts?",
+      "answer": "`sbatch` scripts enable tasks to be fully automated, as interactive tasks are solely for preparation and debugging."
+    },
+    {
+      "question": "What are the suggested resource requests for an `sbatch` script concerning CPU, GPU, and memory?",
+      "answer": "Suggestions are 6 CPUs, 1 GPU (unless multiple are confirmed used), and 32000M of memory."
+    },
+    {
+      "question": "What is the maximum job duration on Béluga, Graham, and Cedar clusters?",
+      "answer": "The maximum duration is 7 days on Béluga and 28 days on Graham and Cedar."
+    },
+    {
+      "question": "How is the virtual environment typically activated in an example `sbatch` script?",
+      "answer": "The virtual environment is activated using `source ~/my_env/bin/activate`."
+    },
+    {
+      "question": "How are archived datasets typically handled and placed for use in an example `sbatch` script?",
+      "answer": "The dataset is extracted from a tar file in shared storage (`~/projects/def-xxxx/data.tar`) into the local compute node storage (`$SLURM_TMPDIR/data`) using `tar xf`."
+    },
+    {
+      "question": "What is the benefit of fragmenting long tasks into shorter blocks?",
+      "answer": "Requesting shorter tasks improves job priority, and chaining them allows exceeding the 7-day limit on Béluga."
+    },
+    {
+      "question": "What needs to be done to allow a long task to be fragmented and resumed?",
+      "answer": "The submission script or program must be modified to allow the task to be interrupted and continued, requiring the program to access the most recent checkpoint."
+    },
+    {
+      "question": "How can you run a chain of `n_blocs` tasks using `sbatch` for fragmented jobs?",
+      "answer": "You can use the `sbatch` argument `--array 1-<n_blocs>%1`."
+    },
+    {
+      "question": "How does the example script for chained jobs handle resuming training from a checkpoint?",
+      "answer": "It checks if a `LAST_CHECKPOINT` exists in `~/scratch/checkpoints/ml-test`; if so, it loads it; otherwise, it starts training from scratch, writing new checkpoints to the specified directory."
+    }
+  ],
+  "generated_at": "2026-04-12T09:54:31.054340+00:00"
+}

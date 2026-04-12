@@ -1,0 +1,91 @@
+{
+  "doc_key": "fr/busco",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "À quoi sert BUSCO?",
+      "answer": "BUSCO est une application qui permet d'évaluer la complétude de l'assemblage et de l'annotation de génomes."
+    },
+    {
+      "question": "Comment puis-je connaître la dernière version de BUSCO disponible?",
+      "answer": "Pour connaître la dernière version disponible, vous pouvez lancer la commande `avail_wheels busco`."
+    },
+    {
+      "question": "Quels modules doivent être chargés avant d'installer le wheel Python de BUSCO?",
+      "answer": "Il faut charger les modules `StdEnv/2023`, `gcc`, `python/3.11`, `augustus/3.5.0`, `hmmer/3.4`, `blast+/2.15`, `metaeuk/7`, `prodigal/2.6.3`, `r` et `bbmap/39.06`."
+    },
+    {
+      "question": "Comment créer et activer un environnement virtuel pour BUSCO?",
+      "answer": "Vous devez d'abord créer l'environnement avec `virtualenv ~/busco_env` et ensuite l'activer avec `source ~/busco_env/bin/activate`."
+    },
+    {
+      "question": "Comment installer le wheel de BUSCO et ses dépendances dans un environnement virtuel?",
+      "answer": "Une fois l'environnement virtuel activé, utilisez la commande `pip install --no-index busco==6.0.0`."
+    },
+    {
+      "question": "Quelle est l'étape essentielle concernant les ensembles de données avant de soumettre une tâche BUSCO?",
+      "answer": "Avant de soumettre une tâche, tous les ensembles de données requis doivent être téléchargés depuis le site BUSCO data."
+    },
+    {
+      "question": "Comment puis-je voir la liste des ensembles de données BUSCO disponibles?",
+      "answer": "Entrez la commande `busco --list-datasets` dans votre terminal pour voir les ensembles de données disponibles."
+    },
+    {
+      "question": "Quelle est la méthode recommandée pour télécharger un ensemble de données BUSCO?",
+      "answer": "La méthode recommandée est d'utiliser la commande `busco --download`, par exemple `busco --download bacteria_odb10`."
+    },
+    {
+      "question": "Est-il possible de télécharger plusieurs ensembles de données BUSCO en une seule opération avec la commande `busco`?",
+      "answer": "Oui, il est possible de télécharger plusieurs ensembles de données en ajoutant les arguments `all`, `prokaryota`, `eukaryota` ou `virus` à la commande `busco --download`."
+    },
+    {
+      "question": "Que fait la commande `busco --download` après avoir téléchargé les fichiers?",
+      "answer": "Elle crée une hiérarchie pour les ensembles de données, les télécharge, les décompresse et, si plusieurs fichiers sont téléchargés, les ajoute automatiquement au répertoire des lignées."
+    },
+    {
+      "question": "Comment puis-je télécharger un fichier de génome pour un test BUSCO?",
+      "answer": "Vous pouvez télécharger un fichier de génome de test avec la commande `wget https://gitlab.com/ezlab/busco/-/raw/master/test_data/bacteria/genome.fna`."
+    },
+    {
+      "question": "Donnez un exemple de commande pour exécuter BUSCO sur un seul fichier de génome.",
+      "answer": "Voici un exemple : `busco --offline --in genome.fna --out TEST --lineage_dataset bacteria_odb10 --mode genome --cpu ${SLURM_CPUS_PER_TASK:-1} --download_path busco_download/`."
+    },
+    {
+      "question": "Comment exécuter BUSCO pour analyser plusieurs génomes situés dans un répertoire?",
+      "answer": "Utilisez l'option `--in` en spécifiant le chemin du répertoire, par exemple `busco --offline --in genome/ --out TEST --lineage_dataset bacteria_odb10 --mode genome --cpu ${SLURM_CPUS_PER_TASK:-1} --download_path busco_download/`."
+    },
+    {
+      "question": "Quel argument faut-il utiliser avec BUSCO pour éviter l'utilisation d'Internet lors d'une tâche Slurm?",
+      "answer": "Utilisez l'argument `--offline` pour éviter l'utilisation de l'Internet."
+    },
+    {
+      "question": "Comment s'assurer que BUSCO utilise le nombre de CPU alloué par Slurm dans un script de tâche?",
+      "answer": "Intégrez `--cpu ${SLURM_CPUS_PER_TASK}` dans votre commande BUSCO pour utiliser le nombre alloué de CPU."
+    },
+    {
+      "question": "Que dois-je faire si une tâche BUSCO est interrompue et que je souhaite la reprendre?",
+      "answer": "Utilisez l'argument `--restart` dans votre commande BUSCO pour reprendre une tâche interrompue."
+    },
+    {
+      "question": "Comment soumettre un script de tâche BUSCO à l'ordonnanceur Slurm?",
+      "answer": "Vous pouvez soumettre un script Bash, par exemple `run_busco.sh`, avec la commande `sbatch run_busco.sh`."
+    },
+    {
+      "question": "Comment puis-je utiliser des paramètres Augustus avancés avec BUSCO?",
+      "answer": "Copiez le répertoire `config` d'Augustus chez vous (`cp -r $EBROOTAUGUSTUS/config $HOME/augustus_config`) et définissez la variable `AUGUSTUS_CONFIG_PATH` (`export AUGUSTUS_CONFIG_PATH=$HOME/augustus_config`). Ensuite, utilisez `--augustus_parameters=\"--yourAugustusParameter\"`."
+    },
+    {
+      "question": "Quelles sont les conditions pour utiliser les paramètres SEPP avec BUSCO?",
+      "answer": "SEPP doit être installé localement dans votre environnement virtuel, et cette installation doit être effectuée à partir du nœud de connexion."
+    },
+    {
+      "question": "Pourquoi la section \"Modules\" concernant BUSCO n'est-elle plus pertinente?",
+      "answer": "La section \"Modules\" est obsolète; il est recommandé d'utiliser les wheels Python qui sont disponibles pour les versions récentes."
+    },
+    {
+      "question": "Comment résoudre l'erreur \"Cannot write to Augustus config path\"?",
+      "answer": "Vous devez vous assurer d'avoir copié le répertoire `config` d'Augustus à un endroit où la lecture est possible et d'avoir exporté la variable `AUGUSTUS_CONFIG_PATH`."
+    }
+  ],
+  "generated_at": "2026-04-11T18:28:04.183035+00:00"
+}

@@ -5,21 +5,47 @@ lang: "en"
 
 source_wiki_title: "Job arrays/en"
 source_hash: "3eb04a2ff3c6e591b37357cc8cde95ea"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T07:31:34.701762+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T08:10:55.262830+00:00"
 
 tags:
   - slurm
 
 keywords:
-  []
+  - "parallel"
+  - "numpy"
+  - "Python script"
+  - "SLURM"
+  - "job array"
+  - "iteration"
+  - "task array"
+  - "SLURM_ARRAY_TASK_ID"
+  - "sbatch"
+  - "Python"
+  - "$SLURM_ARRAY_TASK_ID"
+  - "calculation"
+  - "beta parameter"
+
+questions:
+  - "What is a Slurm job array and how does the `$SLURM_ARRAY_TASK_ID` environment variable function within it?"
+  - "Why is it discouraged to use job arrays for tasks with very short run times, and what are the recommended alternatives?"
+  - "How can a job array be configured to execute tasks across multiple directories that have non-sequential names?"
+  - "How is the SLURM array task ID passed into and read by the Python script?"
+  - "How does the Python script use the retrieved task ID to select the correct beta parameter for its calculation?"
+  - "What specific directive must be included in the bash submission script to define the range of the job array?"
+  - "What is the mathematical operation performed by the `calculation` function and how does it utilize the `numpy` library?"
+  - "How does the `time.sleep(2)` statement impact the total execution time of the script given the size of the `betas` array?"
+  - "What strategies or Python libraries could be used to parallelize the `for` loop and optimize the script's overall performance?"
+  - "How is the SLURM array task ID passed into and read by the Python script?"
+  - "How does the Python script use the retrieved task ID to select the correct beta parameter for its calculation?"
+  - "What specific directive must be included in the bash submission script to define the range of the job array?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -52,15 +78,17 @@ This job will be scheduled as ten independent tasks. Each task has a separate ti
 
 The script references `$SLURM_ARRAY_TASK_ID` to select an input file (named *program_x* in our example), or to set a command-line argument for the application (as in *program_y*).
 
-Using a job array instead of a large number of separate serial jobs has advantages for you and other users. A waiting job array only produces one line of output in squeue, making it easier for you to read its output. The scheduler does not have to analyse job requirements for each task in the array separately, so it can run more efficiently too.
+Using a job array instead of a large number of separate serial jobs has advantages for you and other users. A waiting job array only produces one line of output in squeue, making it easier for you to read its output. The scheduler does not have to analyze job requirements for each task in the array separately, so it can run more efficiently too.
 
-Note that, other than the initial job-submission step with `sbatch`, the load on the scheduler is the same for an array job as for the equivalent number of non-array jobs. The cost of dispatching each array task is the same as dispatching a non-array job. You should not use a job array to submit tasks with very short run times, e.g. much less than an hour. Tasks with run times of only a few minutes should be grouped into longer jobs using [META](meta-a-package-for-job-farming.md), [GLOST](glost.md), [GNU Parallel](gnu-parallel.md), or a shell loop inside a job.
+!!! warning
+    Note that, other than the initial job-submission step with `sbatch`, the load on the scheduler is the same for an array job as for the equivalent number of non-array jobs. The cost of dispatching each array task is the same as dispatching a non-array job. You should not use a job array to submit tasks with very short run times, e.g. much less than an hour. Tasks with run times of only a few minutes should be grouped into longer jobs using [META](meta-a-package-for-job-farming.md), [GLOST](glost.md), [GNU Parallel](gnu-parallel.md), or a shell loop inside a job.
 
 ## Example: Multiple directories
 
 Suppose you have multiple directories, each with the same structure, and you want to run the same script in each directory. If the directories can be named with sequential numbers then the example above can be easily adapted. If the names are not so systematic, then create a file with the names of the directories, like so:
 
-```text title="case_list"
+```bash
+$ cat case_list
 pacific2016
 pacific2017
 atlantic2016
@@ -83,9 +111,9 @@ pwd
 ls
 ```
 
-!!! caution
-    * Take care that the number of tasks you request matches the number of entries in the file.
-    * The file `case_list` should not be changed until all the tasks in the array have run, since it will be read each time a new task starts.
+Cautions:
+*   Take care that the number of tasks you request matches the number of entries in the file.
+*   The file `case_list` should not be changed until all the tasks in the array have run, since it will be read each time a new task starts.
 
 ## Example: Multiple parameters
 
@@ -105,10 +133,8 @@ if __name__ == "__main__":
     for i in range(len(betas)): #iterate through the beta parameter
         res = calculation(x,betas[i])
         print(res) #show the results on screen
-```
 
-```bash
-python my_script.py
+# Run with: python my_script.py
 ```
 
 The above task can be processed in a job array so that each value of the beta parameter can be treated in parallel.
@@ -127,17 +153,14 @@ def calculation(x, beta):
 if __name__ == "__main__":
     x = np.random.rand(100)
     betas = np.linspace(10,36.5,100) #subdivise the interval [10,36.5] with 100 values
-
+    
     i = int(sys.argv[1]) #get the value of the $SLURM_ARRAY_TASK_ID
     res = calculation(x,betas[i])
     print(res) #show the results on screen
-```
 
-```bash
-python my_script_parallel.py $SLURM_ARRAY_TASK_ID
+# Run with: python my_script_parallel.py $SLURM_ARRAY_TASK_ID
 ```
-
-The job submission script is (note the array parameters go from 0 to 99 like the indexes of the NumPy array)
+The job submission script is (note the array parameters goes from 0 to 99 like the indexes of the NumPy array)
 
 ```bash title="data_parallel_python.sh"
 #!/bin/bash

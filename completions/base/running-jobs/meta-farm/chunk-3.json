@@ -1,0 +1,96 @@
+{
+  "doc_key": "base/meta-farm",
+  "level": "chunk",
+  "chunk_index": 3,
+  "qa_pairs": [
+    {
+      "question": "What is the very first step when starting to use META on a cluster?",
+      "answer": "The very first step is to log into a cluster."
+    },
+    {
+      "question": "How do I load the meta-farm module on a cluster?",
+      "answer": "You can load the meta-farm module by executing the command `module load meta-farm`."
+    },
+    {
+      "question": "What command is used to initialize a new farm directory?",
+      "answer": "The command `farm_init.run` is used to initialize a new farm directory. You should provide a name for the farm directory, for example: `farm_init.run Farm_name`."
+    },
+    {
+      "question": "What happens after running `farm_init.run`?",
+      "answer": "After running `farm_init.run`, several important files are created inside the new farm directory, some of which will require customization."
+    },
+    {
+      "question": "Should I copy my executable and input files into the farm directory?",
+      "answer": "Yes, you should copy your executable and input files to the farm directory, though this step can be skipped if you intend to use full paths for all files."
+    },
+    {
+      "question": "What is the purpose of the `table.dat` file in a META farm?",
+      "answer": "The `table.dat` file is a text file located within the farm directory where each line describes one independent computation, also known as a case."
+    },
+    {
+      "question": "Which script might need modification if I want to customize how each individual case is processed?",
+      "answer": "You might need to modify the `single_case.sh` script to customize how each individual case is processed, although in many cases it doesn't require changes."
+    },
+    {
+      "question": "What are the key modifications required for the `job_script.sh` file?",
+      "answer": "You must modify the `job_script.sh` file to include a correct account name and to set an appropriate job runtime."
+    },
+    {
+      "question": "How do I submit a farm using the SIMPLE mode (one case per job)?",
+      "answer": "To submit a farm in SIMPLE mode, execute `submit.run -1` inside the farm directory."
+    },
+    {
+      "question": "How do I submit a farm using the META mode (many cases per job)?",
+      "answer": "To submit a farm in META mode, execute `submit.run N` inside the farm directory, where `N` is the desired number of metajobs. This number `N` should be significantly smaller than the total number of cases."
+    },
+    {
+      "question": "How can I run multiple META farms concurrently?",
+      "answer": "To run another farm concurrently, you must first run `farm_init.run` again with a different farm name. Then, customize the `single_case.sh` and `job_script.sh` files within the new farm directory, create a new `table.dat` file, copy your executables and input files as needed, and finally execute `submit.run` from within that second farm directory."
+    },
+    {
+      "question": "What is the `farm_init.run` command used for?",
+      "answer": "`farm_init.run` is used to initialize a farm."
+    },
+    {
+      "question": "What does the `submit.run` command do?",
+      "answer": "`submit.run` submits the farm to the scheduler."
+    },
+    {
+      "question": "Which command is used to resubmit computations that failed or did not run?",
+      "answer": "The `resubmit.run` command is used to resubmit all computations which failed or never ran as a new farm."
+    },
+    {
+      "question": "How can I get a list of all jobs and their current states for a farm?",
+      "answer": "You can get a list of all jobs with their current states for the farm by using the `list.run` command."
+    },
+    {
+      "question": "What command provides a brief summary of a farm's state, including queued, running, and completed jobs?",
+      "answer": "The `query.run` command provides a short summary of the state of the farm, showing the number of queued, running, and completed jobs, as well as progress. It is more convenient than `list.run` for a large number of jobs."
+    },
+    {
+      "question": "How do I terminate all running and queued jobs in a META farm?",
+      "answer": "To terminate all running and queued jobs in the farm, use the `kill.run` command."
+    },
+    {
+      "question": "What is the function of the `prune.run` command?",
+      "answer": "The `prune.run` command is used to remove only queued jobs from a farm."
+    },
+    {
+      "question": "Which command lists the statuses of all processed cases in a farm?",
+      "answer": "The `Status.run` command (with a capital 'S') lists the statuses of all processed cases."
+    },
+    {
+      "question": "How can I list statuses and ensure non-zero status lines are shown at the end for easier review?",
+      "answer": "You can use `Status.run -f` to list statuses, with non-zero status lines sorted to the end."
+    },
+    {
+      "question": "What files does `clean.run` delete, and what is its main caution?",
+      "answer": "`clean.run` deletes all files in the farm directory (including subdirectories) except for `job_script.sh`, `single_case.sh`, `final.sh`, `resubmit_script.sh`, `config.h`, and `table.dat`. It also deletes associated files in the `/home/$USER/tmp` directory. The main caution is that it deletes all the results produced by your farm."
+    },
+    {
+      "question": "Where must most META commands be executed?",
+      "answer": "All META commands, with the exception of `farm_init.run` itself, must be executed from inside a farm directory (a directory previously created by `farm_init.run`)."
+    }
+  ],
+  "generated_at": "2026-04-12T01:17:28.707226+00:00"
+}

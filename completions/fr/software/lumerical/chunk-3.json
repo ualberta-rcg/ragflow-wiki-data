@@ -1,0 +1,44 @@
+{
+  "doc_key": "fr/lumerical",
+  "level": "chunk",
+  "chunk_index": 3,
+  "qa_pairs": [
+    {
+      "question": "Comment faire pour configurer le fichier de licence pour le module Lumerical?",
+      "answer": "Pour configurer la licence de Lumerical, vous devez créer un fichier nommé `.licenses/lumerical.lic` dans votre répertoire `$HOME`. Ce fichier doit contenir la commande `setenv(\"LUMERICAL_LICENSE_FILE\", \"27011@license01.example.com\")`, en remplaçant `27011@license01.example.com` par l'information de votre serveur de licence."
+    },
+    {
+      "question": "Quelle est la commande pour installer FDTD Solutions si je dispose de la version 8.19.1438?",
+      "answer": "Pour installer FDTD Solutions, version 8.19.1438, il faut lancer la commande `eb FDTD_Solutions-8.19.1438.eb --sourcepath=<chemin> --disable-enforce-checksums`, où `<chemin>` est le chemin vers le répertoire contenant le fichier `.tar.gz`."
+    },
+    {
+      "question": "Comment installer une version de FDTD Solutions différente de celle spécifiée, par exemple la version 8.19.1466?",
+      "answer": "Si vous avez une version différente, comme la 8.19.1466, vous utilisez la commande `eb FDTD_Solutions-8.19.1438.eb --try-software-version=<version> --sourcepath=<chemin> --disable-enforce-checksums`. Par exemple, pour la version 8.19.1466 téléchargée dans `$HOME/Downloads`, la commande serait `eb FDTD_Solutions-8.19.1438.eb --try-software-version=8.19.1466 --sourcepath=$HOME/Downloads --disable-enforce-checksums`."
+    },
+    {
+      "question": "Que dois-je faire si j'ai des difficultés lors de l'installation de FDTD Solutions?",
+      "answer": "En cas de difficulté lors de l'installation de FDTD Solutions, vous devriez communiquer avec le soutien technique pour qu'ils puissent adapter un script d'installation pour votre version."
+    },
+    {
+      "question": "Comment charger le module FDTD Solutions après l'installation?",
+      "answer": "Après avoir installé FDTD Solutions, vous devez vous déconnecter du serveur et vous reconnecter. Ensuite, pour charger le module, utilisez la commande `module load fdtd_solutions`."
+    },
+    {
+      "question": "Comment configurer la licence pour FDTD Solutions après son installation?",
+      "answer": "Pour configurer la licence de FDTD Solutions, il suffit de démarrer l'application une première fois sur un nœud de connexion. On vous demandera alors les informations de votre serveur de licence, et cette opération ne devra pas être répétée."
+    },
+    {
+      "question": "Quelles sont les principales différences entre le module `lumerical` et le module `fdtd_solutions`?",
+      "answer": "Le module `lumerical` offre plus d'outils que `fdtd_solutions`. La principale différence pour l'utilisation des scripts est la variable d'environnement de l'emplacement d'installation, qui est `EBROOTLUMERICAL` pour Lumerical et `EBROOTFDTD_SOLUTIONS` pour FDTD Solutions. Il faut ajuster les scripts en conséquence."
+    },
+    {
+      "question": "Quelles options spécifiques Slurm devrais-je utiliser quand je soumets une tâche Lumerical, considérant l'implémentation MPI?",
+      "answer": "Étant donné que l'implémentation MPI de Lumerical ne fonctionne pas étroitement avec notre ordonnanceur, vous devriez utiliser les options `--ntasks-per-node=1` et `--cpus-per-task=32` lorsque vous soumettez une tâche."
+    },
+    {
+      "question": "Est-ce qu'il y a un exemple de script Slurm pour utiliser le module Lumerical?",
+      "answer": "Oui, un exemple de script `lumrical_job.sh` est fourni. Il demande 2 nœuds pour 30 minutes, charge le module Lumerical et utilise `mpiexec` avec l'exécutable `fdtd-engine-mpich2nem` pour lancer la simulation."
+    }
+  ],
+  "generated_at": "2026-04-12T01:09:00.302333+00:00"
+}

@@ -1,0 +1,51 @@
+{
+  "doc_key": "base/mxnet",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is Apache MXNet?",
+      "answer": "Apache MXNet is a deep learning framework designed for both efficiency and flexibility. It allows mixing symbolic and imperative programming, features a dynamic dependency scheduler for automatic parallelization, and includes a graph optimization layer for fast, memory-efficient symbolic execution. It is portable, lightweight, and scalable to many GPUs and machines."
+    },
+    {
+      "question": "How can I list the available MXNet wheels?",
+      "answer": "You can list the available wheels using the `avail_wheels mxnet` command."
+    },
+    {
+      "question": "What are the steps to install MXNet in a Python virtual environment?",
+      "answer": "First, create and activate a Python virtual environment. Second, install MXNet and its Python dependencies using `pip install --no-index mxnet`. Third, validate the installation."
+    },
+    {
+      "question": "How do I validate an MXNet installation?",
+      "answer": "You can validate it by running `python -c \"import mxnet as mx;print((mx.nd.ones((2, 3))*2).asnumpy());\"` which should output a 2x3 array of twos."
+    },
+    {
+      "question": "What does the `mxnet-conv-ex.py` script demonstrate?",
+      "answer": "The `mxnet-conv-ex.py` script defines and executes a single Convolution layer, illustrating how to set up symbolic variables, perform a convolution operation, determine the device context (CPU or GPU), bind execution, initialize array data, and perform a forward pass."
+    },
+    {
+      "question": "What is the recommended approach for training small-scale MXNet models on HPC clusters?",
+      "answer": "For small-scale models, it is strongly recommended to use multiple CPUs instead of a GPU. This prevents unnecessarily blocking GPU resources that other users might need for larger computations and conserves your group's allocation."
+    },
+    {
+      "question": "Why is it generally discouraged to request a GPU for small MXNet models or datasets on a shared HPC cluster?",
+      "answer": "While GPUs can be faster, for small models or datasets, the speed-up might not be significant compared to CPUs, and the job could use only a small fraction of the GPU's compute capabilities. This unnecessarily blocks a valuable shared resource and uses up your group's allocation, affecting job priority."
+    },
+    {
+      "question": "What is the primary function of the `mxnet-conv.sh` submission script for a CPU job?",
+      "answer": "The script submits an MXNet convolutional job to a scheduler (like Slurm), setting job parameters such as name, account, time, CPU cores, and memory. It loads Python, creates and activates a virtual environment, installs MXNet, and then executes the Python example script using MKLDNN on the CPU."
+    },
+    {
+      "question": "How do the CPU and GPU versions of the `mxnet-conv.sh` script differ for the convolutional example?",
+      "answer": "The GPU version of the `mxnet-conv.sh` script includes the line `#SBATCH --gres=gpu:1` to request a GPU and states it will use cuDNN, whereas the CPU version does not request a GPU and states it will use MKLDNN."
+    },
+    {
+      "question": "How does MXNet achieve high performance with multiple CPUs or a single GPU?",
+      "answer": "MXNet contains parallel implementations of common deep learning operators (like matrix multiplication and convolution). It uses OpenMP and MKLDNN for CPU-based operations, automatically leveraging multi-threading, and CUDA and cuDNN for GPU-based operations, running on the GPU if requested."
+    },
+    {
+      "question": "Which deep learning components are utilized in the `mxnet-example.py` script for training a Convolutional Neural Network on CIFAR10?",
+      "answer": "The `mxnet-example.py` script uses `mxnet.gluon.nn.Sequential` to define the CNN architecture, `SoftmaxCrossEntropyLoss` as the loss criterion, and `mxnet.gluon.Trainer` with an 'sgd' optimizer. It also leverages the `CIFAR10` dataset and `DataLoader` for data management."
+    }
+  ],
+  "generated_at": "2026-04-12T02:05:00.459155+00:00"
+}

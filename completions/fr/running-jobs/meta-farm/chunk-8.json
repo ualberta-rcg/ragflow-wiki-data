@@ -1,0 +1,48 @@
+{
+  "doc_key": "fr/meta-farm",
+  "level": "chunk",
+  "chunk_index": 8,
+  "qa_pairs": [
+    {
+      "question": "Même si mon code n'a pas besoin d'arguments, dois-je quand même générer le fichier `table.dat`?",
+      "answer": "Oui, même si votre code n'a pas besoin de lire d'arguments du fichier `table.dat`, vous devez le générer avec un nombre de lignes égal au nombre de cas à traiter. Ce qui importe, c'est le nombre total de lignes."
+    },
+    {
+      "question": "Est-ce obligatoire d'inclure les numéros de ligne au début de chaque ligne dans `table.dat`?",
+      "answer": "Non, ce n'est pas nécessaire d'inclure les numéros de ligne. Si le script `submit.run` ne les trouve pas, il modifiera le `table.dat` pour les y ajouter automatiquement."
+    },
+    {
+      "question": "À quoi sert la variable `STATUS` dans `single_case.sh`?",
+      "answer": "La variable `STATUS` est utilisée pour indiquer si un cas a été traité correctement. Sa valeur devrait être 0 pour un succès et positive (plus grande que 0) pour un échec. Le script `resubmit.run` s'en sert pour identifier les cas qui ont échoué et qui doivent être traités de nouveau."
+    },
+    {
+      "question": "Est-ce que le code de sortie du programme est toujours suffisant pour définir `STATUS` et détecter les erreurs?",
+      "answer": "Non, pas toujours. La version par défaut de `single_case.sh` assigne le code de sortie de votre programme à `STATUS`, mais certains programmes peuvent retourner 0 même s'ils ont rencontré des problèmes. Vous pouvez modifier `single_case.sh` pour une détection d'erreurs plus spécifique."
+    },
+    {
+      "question": "Comment puis-je personnaliser la détection d'erreurs avec la variable `STATUS` dans `single_case.sh`?",
+      "answer": "Vous pouvez modifier `single_case.sh` pour adapter la définition de `STATUS`. Par exemple, si votre code est censé créer un fichier `out.dat` à la fin, vous pouvez ajouter un test pour vérifier l'existence ou la taille de ce fichier et mettre `STATUS` à 1 s'il manque ou est vide."
+    },
+    {
+      "question": "Quel est le rôle du fichier `job_script.sh`?",
+      "answer": "Le fichier `job_script.sh` est le script qui sera soumis à l'ordonnanceur Slurm pour toutes les métatâches du groupe de cas. C'est là que vous définissez les ressources et le comportement global des métatâches."
+    },
+    {
+      "question": "Quelles options de `sbatch` doivent être configurées dans `job_script.sh`?",
+      "answer": "Vous devez absolument configurer le nom du compte de calcul avec l'option `-A` et la durée d'exécution de la métatâche avec l'option `-t` ou `--time`."
+    },
+    {
+      "question": "En mode SIMPLE, quelle durée d'exécution devrais-je indiquer dans `job_script.sh`?",
+      "answer": "En mode SIMPLE, vous devriez indiquer une durée d'exécution un peu plus longue que celle prévue pour le cas individuel qui prendra le plus de temps."
+    },
+    {
+      "question": "Puis-je passer l'option de durée d'exécution à `sbatch` via les arguments de `submit.run`?",
+      "answer": "Non, l'option de durée d'exécution (`-t` ou `--time`) doit obligatoirement être spécifiée directement dans le script `job_script.sh`. Elle ne peut pas être transmise comme un argument optionnel à `submit.run`."
+    },
+    {
+      "question": "Comment prévenir qu'une métatâche échoue à cause d'un nœud défectueux avant que des cas ne soient perdus?",
+      "answer": "Pour prévenir ce problème, vous devriez ajouter des tests dans le `job_script.sh` avant la ligne `task.run`. Par exemple, un test de présence de GPU NVidia (`nvidia-smi`) qui force la fin de la métatâche si le test échoue, évitant ainsi l'échec de nombreux cas."
+    }
+  ],
+  "generated_at": "2026-04-12T01:24:41.463461+00:00"
+}

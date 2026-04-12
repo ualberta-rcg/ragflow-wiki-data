@@ -1,0 +1,59 @@
+{
+  "doc_key": "fr/qiime",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "C'est quoi QIIME pis à quoi ça sert?",
+      "answer": "QIIME (Quantitative Insights Into Microbial Ecology) est un pipeline bioinformatique open source pour analyser les microbiomes à partir de données de séquençage d'ADN brutes."
+    },
+    {
+      "question": "Quelles sont les principales fonctions de QIIME quand il analyse des données?",
+      "answer": "QIIME peut faire le démultiplexage, le filtrage de qualité, la sélection d'OTU, l'attribution taxonomique, la reconstruction phylogénétique et l'analyse de la diversité pour produire des graphiques et des statistiques."
+    },
+    {
+      "question": "Quelle version de QIIME est supportée et laquelle ne l'est plus?",
+      "answer": "QIIME 2 a remplacé QIIME 1 en janvier 2018 et est la seule version supportée. QIIME 1 ne l'est plus."
+    },
+    {
+      "question": "Est-ce qu'on peut installer QIIME avec Anaconda ou Miniconda sur nos grappes?",
+      "answer": "Non, depuis février 2020, il n'est pas possible d'installer QIIME avec Anaconda ou Miniconda sur nos grappes à cause de problèmes avec les environnements Conda."
+    },
+    {
+      "question": "Comment on fait pour accéder à QIIME2 sur une grappe?",
+      "answer": "On accède à QIIME2 en chargeant un module qui enveloppe un conteneur. Il faut d'abord lancer `module spider qiime2` pour voir les versions disponibles."
+    },
+    {
+      "question": "Après avoir chargé le module QIIME2, comment je peux vérifier qu'il fonctionne?",
+      "answer": "Une fois le module chargé, vous pouvez lancer `qiime --help` pour vérifier le fonctionnement."
+    },
+    {
+      "question": "Pourquoi je devrais définir la variable d'environnement `APPTAINER_BIND` quand j'utilise la commande `qiime`?",
+      "answer": "Étant donné que la commande `qiime` appelle un conteneur, vous pourriez devoir définir `APPTAINER_BIND` pour attacher des répertoires spécifiques au conteneur afin d'avoir accès à vos données."
+    },
+    {
+      "question": "Quelle est la méthode d'installation privilégiée pour QIIME et pourquoi?",
+      "answer": "L'installation est préférable en utilisant Apptainer, car ça permet d'éviter la génération de milliers de fichiers dans votre répertoire /home qui pourrait dépasser le quota de fichiers."
+    },
+    {
+      "question": "Comment on crée une image Apptainer pour QIIME2 à partir de Quay.io?",
+      "answer": "Il faut charger le module Apptainer avec `module load apptainer`, puis lancer `apptainer build qiime2-YYYY.MM.sif docker://quay.io/qiime2/core:YYYY.MM`."
+    },
+    {
+      "question": "Combien de temps prend la création d'une image Apptainer pour QIIME2?",
+      "answer": "Cette étape de construction peut prendre plus d'une heure, mais elle n'est nécessaire qu'une seule fois."
+    },
+    {
+      "question": "Comment j'exécute une commande QIIME avec une image Apptainer?",
+      "answer": "Vous devez utiliser `apptainer exec <nom_image>.sif <votre_commande_QIIME>`."
+    },
+    {
+      "question": "Pourquoi c'est important d'utiliser l'option `-B` (bind) avec Apptainer quand on travaille avec des fichiers?",
+      "answer": "Il est crucial d'utiliser l'option `-B` pour 'binder' (attacher) les répertoires contenant vos données et où vous voulez sauvegarder vos résultats, afin que le conteneur y ait accès."
+    },
+    {
+      "question": "Comment je peux régler le message d'avertissement 'Timezone offset' quand j'importe des données avec QIIME via Apptainer?",
+      "answer": "Vous pouvez contourner cet avertissement en définissant le fuseau horaire avant d'invoquer Apptainer, en faisant `export TZ='UTC'`."
+    }
+  ],
+  "generated_at": "2026-04-12T06:03:07.545908+00:00"
+}

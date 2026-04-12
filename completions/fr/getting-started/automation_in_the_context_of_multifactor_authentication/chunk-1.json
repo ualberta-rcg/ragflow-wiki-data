@@ -1,0 +1,96 @@
+{
+  "doc_key": "fr/automation_in_the_context_of_multifactor_authentication",
+  "level": "chunk",
+  "chunk_index": 1,
+  "qa_pairs": [
+    {
+      "question": "Pourquoi les flux de travail automatisés ne peuvent pas utiliser un deuxième facteur d'authentification?",
+      "answer": "Les flux de travail qui se connectent à nos grappes sans intervention humaine ne peuvent tout simplement pas utiliser de deuxième facteur."
+    },
+    {
+      "question": "Qu'est-ce que l'authentification multifacteur (AMF) signifie pour les flux automatisés maintenant qu'elle est obligatoire?",
+      "answer": "Avec l'authentification multifacteur maintenant obligatoire, vous devez demander l'accès à un des nœuds spéciaux qui sont réservés pour les flux automatisés."
+    },
+    {
+      "question": "Est-ce qu'un deuxième facteur est requis pour l'authentification aux nœuds d'automatisation spéciaux?",
+      "answer": "Non, un deuxième facteur ne sera pas requis pour les nœuds d'automatisation."
+    },
+    {
+      "question": "Les nœuds d'automatisation offrent-ils les mêmes fonctionnalités que les nœuds de connexion réguliers?",
+      "answer": "Non, les fonctionnalités des nœuds d'automatisation sont limitées par rapport à celles des nœuds de connexion réguliers, autant en termes de type d'authentification requise que de types d'actions à exécuter."
+    },
+    {
+      "question": "Comment peut-on obtenir l'accès aux nœuds spéciaux d'automatisation?",
+      "answer": "Pour avoir accès aux nœuds spéciaux d'automatisation, il faut écrire au soutien technique."
+    },
+    {
+      "question": "Quelles informations doit-on fournir au soutien technique pour demander l'accès aux nœuds d'automatisation?",
+      "answer": "Il faut décrire le type d'automatisation, lister les commandes qui seront exécutées ainsi que les outils ou les bibliothèques pour gérer l'automatisation."
+    },
+    {
+      "question": "Comment se fait l'accès aux nœuds d'automatisation?",
+      "answer": "L'accès aux nœuds d'automatisation se fait uniquement via les clés SSH téléversées dans CCDB."
+    },
+    {
+      "question": "Les clés SSH inscrites dans le fichier `.ssh/authorized_keys` sont-elles acceptées pour les nœuds d'automatisation?",
+      "answer": "Non, les clés inscrites dans un fichier `.ssh/authorized_keys` ne sont pas acceptées."
+    },
+    {
+      "question": "Quelle est la règle concernant l'utilisation des clés SSH pour les flux de travail automatisés?",
+      "answer": "Il faut respecter la règle 'une clé SSH par utilisation', ce qui signifie qu'il faut générer une clé expressément pour votre flux de travail automatisé et ne pas la réutiliser pour se connecter interactivement."
+    },
+    {
+      "question": "Quelles sont les contraintes que les clés SSH pour les nœuds d'automatisation doivent respecter?",
+      "answer": "Les clés SSH doivent respecter les contraintes suivantes : `restrict`, `from=\"pattern-list\"` et `command=\"COMMAND\"`."
+    },
+    {
+      "question": "À quoi sert la contrainte `restrict` pour une clé SSH sur les nœuds d'automatisation?",
+      "answer": "La contrainte `restrict` désactive la redirection de port (port forwarding), la redirection d'agent (agent forwarding) et la redirection X11. Elle désactive aussi le pseudotélétype (PTY)."
+    },
+    {
+      "question": "Pourquoi le pseudotélétype (PTY) est-il désactivé sur les nœuds spéciaux?",
+      "answer": "Le pseudotélétype (PTY) est désactivé parce qu'il bloquerait la plupart des flux interactifs, et les nœuds spéciaux ne doivent pas être utilisés pour ces processus."
+    },
+    {
+      "question": "Pourquoi ne devrait-on pas utiliser les nœuds spéciaux pour des processus interactifs ou de longue durée?",
+      "answer": "Les nœuds spéciaux ne doivent pas être utilisés pour les processus interactifs ou de longue durée; dans ces cas, il faut utiliser les nœuds réguliers."
+    },
+    {
+      "question": "Quel est l'effet de la contrainte `from=\"pattern-list\"` sur une clé SSH?",
+      "answer": "Cette contrainte fait en sorte que la clé ne peut être utilisée qu'à partir d'adresses IP qui respectent le `pattern` spécifié et non par d'autres ordinateurs."
+    },
+    {
+      "question": "Comment doit être composée la liste des patterns pour la contrainte `from=\"pattern-list\"`?",
+      "answer": "La liste des patterns doit être uniquement composée d'adresses IP qui spécifient la classe du réseau, le réseau et le sous-réseau, soit les trois premiers éléments de l'adresse."
+    },
+    {
+      "question": "Un pattern comme `x.y.*.*` est-il accepté pour la contrainte `from=\"pattern-list\"`?",
+      "answer": "Non, un pattern comme `x.y.*.*` ne serait pas accepté, mais `x.y.z.*` le serait."
+    },
+    {
+      "question": "Quel type d'adresse IP est requis pour la contrainte `from=\"pattern-list\"`?",
+      "answer": "L'adresse IP doit être une adresse publique. Les adresses des plages privées (comme `10.0.0.0 – 10.255.255.255`, `172.16.0.0 – 172.31.255.255` et `192.168.0.0 – 192.168.255.255`) seraient incorrectes."
+    },
+    {
+      "question": "Comment peut-on trouver son adresse IP publique?",
+      "answer": "Pour connaître votre adresse IP publique, vous pouvez aller sur le site [https://whatismyipaddress.com/ What Is My IP Address?] ou lancer la commande `curl ifconfig.me` de l'interpréteur (shell)."
+    },
+    {
+      "question": "Quelle est la fonction de la contrainte `command=\"COMMAND\"`?",
+      "answer": "Cette contrainte exécute la commande `COMMAND` lors de la connexion, ce qui vous permet de définir les seules commandes qui peuvent être utilisées avec la clé."
+    },
+    {
+      "question": "Quand la contrainte `command=` est-elle la plus utile?",
+      "answer": "Elle est le plus utile quand vous avez un script enveloppant qui accepte ou refuse les commandes qui sont appelées."
+    },
+    {
+      "question": "Où peut-on trouver des scripts enveloppants préparés pour la commande `command=`?",
+      "answer": "Des scripts préparés pour des cas fréquents se trouvent dans ce dépôt git: [https://github.com/ComputeCanada/software-stack-custom/tree/main/bin/computecanada/allowed_commands]."
+    },
+    {
+      "question": "Quel script enveloppant permet uniquement les commandes de transfert de fichiers?",
+      "answer": "Le script `/cvmfs/soft.computecanada.ca/custom/bin/computecanada/allowed_commands/transfer_commands.sh` permet uniquement les commandes de transfert de fichiers, comme `scp`, `sftp` ou `rsync`."
+    }
+  ],
+  "generated_at": "2026-04-11T18:10:31.885870+00:00"
+}

@@ -4,53 +4,45 @@
   "chunk_index": 10,
   "qa_pairs": [
     {
-      "question": "Comment faut configurer le fichier d'entrée pour enregistrer les données de redémarrage pour un total de douze incréments lors d'une analyse explicite?",
-      "answer": "Pour ça, le fichier d'entrée doit inclure la ligne `*RESTART, WRITE, OVERLAY, NUMBER INTERVAL=12, TIME MARKS=NO`."
+      "question": "Comment faut-il spécifier dans le fichier d'entrée qu'on veut écrire les données de redémarrage pour un total de 12 incréments, lors d'une analyse explicite sur un nœud simple?",
+      "answer": "Pour écrire les données de redémarrage pour un total de 12 incréments, le fichier en entrée d'une analyse explicite doit inclure la ligne : `*RESTART, WRITE, OVERLAY, NUMBER INTERVAL=12, TIME MARKS=NO`."
     },
     {
-      "question": "Quelle commande faut utiliser pour vérifier les informations complètes sur le redémarrage d'une analyse explicite?",
-      "answer": "Pour vérifier ça, tu peux utiliser la commande `egrep -i \"step|restart\" testep*.com testep*.msg testep*.sta`."
+      "question": "Comment peut-on vérifier l'information complète sur le redémarrage d'une analyse explicite?",
+      "answer": "Pour vérifier l'information complète sur le redémarrage d'une analyse explicite, on peut utiliser la commande `egrep -i \"step|restart\" testep*.com testep*.msg testep*.sta`."
     },
     {
-      "question": "C'est quoi le but du script `scriptep2.txt` pour l'analyse explicite?",
-      "answer": "C'est un script pour relancer une analyse explicite sur un seul nœud, pis il fonctionne avec le répertoire `/project`."
+      "question": "Quelle est la fonction du script `scriptep2.txt`?",
+      "answer": "Le script `scriptep2.txt` est un script Slurm conçu pour le redémarrage d'une analyse explicite sur un nœud simple, lorsque les fichiers de travail sont stockés dans le répertoire `/project`."
     },
     {
-      "question": "Quelles versions d'Abaqus sont spécifiquement mentionnées dans le script `scriptep2.txt`?",
-      "answer": "La version `abaqus/2026` est la plus récente, `StdEnv/2020` est l'ancienne version, pis `abaqus/2021` devrait pu être utilisée."
+      "question": "Quelles sont les spécifications Slurm par défaut pour la mémoire et le nombre de cœurs par tâche dans le script `scriptep2.txt`?",
+      "answer": "Le script `scriptep2.txt` spécifie par défaut une mémoire totale de `8000M` (`--mem=8000M`) et 4 cœurs par tâche (`--cpus-per-task=4`)."
     },
     {
-      "question": "Quels sont les paramètres Slurm de base définis dans le script `scriptep2.txt` pour une analyse explicite?",
-      "answer": "Les paramètres de base sont `#SBATCH --account=def-group`, `#SBATCH --time=00-06:00`, `#SBATCH --mem=8000M`, `#SBATCH --cpus-per-task=4` pis `#SBATCH --nodes=1`."
+      "question": "Quelle version d'Abaqus est chargée par défaut dans le script `scriptep2.txt`?",
+      "answer": "Le script `scriptep2.txt` charge par défaut la version `abaqus/2026`, qui est la version la plus récente. Les anciennes versions `StdEnv/2020` et `abaqus/2021` sont commentées."
     },
     {
-      "question": "Est-ce que le fichier d'entrée a besoin d'être modifié pour relancer une analyse explicite avec le script `scriptep2.txt`?",
-      "answer": "Non, le fichier d'entrée n'a pas besoin de modifications pour relancer l'analyse."
+      "question": "Faut-il modifier le fichier d'entrée pour le redémarrage d'une analyse explicite avec le script `scriptep2.txt`?",
+      "answer": "Non, le fichier d'entrée ne requiert aucune modification spécifique pour le redémarrage de l'analyse explicite avec le script `scriptep2.txt`."
     },
     {
-      "question": "Comment la commande Abaqus pour relancer une tâche explicite diffère-t-elle dans `scriptep2.txt` d'une soumission initiale?",
-      "answer": "La commande Abaqus inclut l'option `recover`, comme dans `abaqus job=testep2 input=myexp-sim.inp recover`."
+      "question": "Comment une tâche Abaqus explicite est-elle redémarrée sur un nœud simple avec le script `scriptep2.txt` si la version d'Abaqus est 2026 ou plus récente?",
+      "answer": "Si la version d'Abaqus est 2026 ou plus récente, la tâche est redémarrée avec la commande `abaqus job=testep2 input=myexp-sim.inp recover scratch=$SLURM_TMPDIR cpus=$SLURM_CPUS_ON_NODE interactive mp_mode=threads memory=\"$((${SLURM_MEM_PER_NODE}-3072))MB\"`, en utilisant l'option `recover`."
     },
     {
-      "question": "À quoi sert l'option `recover` dans la commande Abaqus pour une analyse explicite?",
-      "answer": "Elle sert à relancer une analyse explicite à partir de données qui existent déjà."
+      "question": "À quoi sert le script `scriptet1.txt`?",
+      "answer": "Le script `scriptet1.txt` est un script Slurm pour soumettre une analyse explicite sur un nœud simple, en utilisant un répertoire temporaire (`$SLURM_TMPDIR`) pour y écrire les fichiers de travail."
     },
     {
-      "question": "C'est quoi l'utilité du script `scriptet1.txt` pour l'analyse explicite?",
-      "answer": "Ce script sert à lancer une analyse explicite sur un nœud simple, pis il est configuré pour écrire les données dans un répertoire temporaire (`$SLURM_TMPDIR`)."
+      "question": "Comment le script `scriptet1.txt` assure-t-il la sauvegarde des données lors d'une exécution dans un répertoire temporaire?",
+      "answer": "Le script `scriptet1.txt` inclut une boucle `while sleep 6h; do cp -f * $SLURM_SUBMIT_DIR 2>/dev/null; done &` qui copie régulièrement les fichiers du répertoire temporaire (`$SLURM_TMPDIR`) vers le répertoire de soumission (`$SLURM_SUBMIT_DIR`) toutes les 6 heures, pour prévenir la perte de données."
     },
     {
-      "question": "Pourquoi y a-t-il une boucle `while sleep 6h` dans le script `scriptet1.txt`?",
-      "answer": "La boucle sert à sauvegarder les données régulièrement (`cp -f * $SLURM_SUBMIT_DIR`) vers le répertoire de soumission, au cas où la tâche atteindrait sa limite de temps ou serait interrompue."
-    },
-    {
-      "question": "Comment le fichier d'entrée est-il spécifié pour la commande `abaqus` dans le script `scriptet1.txt`?",
-      "answer": "Le fichier d'entrée est indiqué comme `input=$SLURM_SUBMIT_DIR/myexp-sim.inp`, ce qui veut dire qu'il est dans le répertoire où la tâche a été soumise."
-    },
-    {
-      "question": "Où Abaqus écrit-il ses fichiers temporaires quand on utilise le script `scriptet1.txt`?",
-      "answer": "Abaqus écrit ses fichiers temporaires dans `$SLURM_TMPDIR`."
+      "question": "Comment Abaqus est-il lancé dans le script `scriptet1.txt` pour une analyse explicite avec la version 2026 ou plus récente?",
+      "answer": "Abaqus est lancé avec la commande `abaqus job=testet1 input=$SLURM_SUBMIT_DIR/myexp-sim.inp scratch=$SLURM_TMPDIR cpus=$SLURM_CPUS_ON_NODE interactive mp_mode=threads memory=\"$((${SLURM_MEM_PER_NODE}-3072))MB\"`. Le fichier d'entrée est récupéré du répertoire de soumission (`$SLURM_SUBMIT_DIR`)."
     }
   ],
-  "generated_at": "2026-04-10T00:35:53.003031+00:00"
+  "generated_at": "2026-04-11T15:38:39.788840+00:00"
 }

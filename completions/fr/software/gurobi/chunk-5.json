@@ -1,0 +1,52 @@
+{
+  "doc_key": "fr/gurobi",
+  "level": "chunk",
+  "chunk_index": 5,
+  "qa_pairs": [
+    {
+      "question": "À quoi sert le script Slurm `script-lp_coins.sh`?",
+      "answer": "Le script Slurm `script-lp_coins.sh` sert à résoudre un modèle simple de production de pièces de monnaie écrit en format LP, en utilisant l'interface ligne de commande de Gurobi (`gurobi_cl`)."
+    },
+    {
+      "question": "Quelles versions de Gurobi et d'environnement standard (`StdEnv`) sont utilisées dans l'exemple `script-lp_coins.sh`?",
+      "answer": "Dans l'exemple `script-lp_coins.sh`, les versions utilisées sont `StdEnv/2020` et `gurobi/9.5.0`."
+    },
+    {
+      "question": "Comment les paramètres comme le nombre de fils d'exécution sont-ils transmis à l'outil `gurobi_cl` dans le script `script-lp_coins.sh`?",
+      "answer": "Les paramètres sont transmis directement à l'outil `gurobi_cl` comme arguments sur la ligne de commande, par exemple `Threads=$SLURM_CPUS_ON_NODE`, `Method=2` et `ResultFile=coins.sol`."
+    },
+    {
+      "question": "Quel est le but du script Slurm `script-facility.sh`?",
+      "answer": "Le script Slurm `script-facility.sh` est conçu pour résoudre un modèle simple d'emplacement de divers sites en utilisant l'interface Gurobi Python."
+    },
+    {
+      "question": "Comment le nombre de fils (`Threads`) est-il paramétré pour une tâche Gurobi Python, comme le montre l'exemple `script-facility.sh`?",
+      "answer": "Le nombre de fils est paramétré en générant un fichier `gurobi.env` dans le répertoire de travail, avec le contenu `echo \"Threads ${SLURM_CPUS_ON_NODE:-1}\" > gurobi.env`, pour qu'il corresponde aux cœurs alloués à la tâche par l'ordonnanceur."
+    },
+    {
+      "question": "Pourquoi est-il important de configurer les fils d'exécution via le fichier `gurobi.env` pour les tâches Gurobi Python?",
+      "answer": "C'est important car si ce n'est pas fait, Gurobi lancera par défaut autant de fils d'exécution qu'il y a de cœurs physiques dans le nœud de calcul, au lieu d'utiliser seulement le nombre de cœurs alloués par l'ordonnanceur, ce qui peut ralentir la tâche et nuire aux performances des autres utilisateurs sur le même nœud."
+    },
+    {
+      "question": "Quelles sont les versions de Gurobi et d'environnement standard (`StdEnv`) spécifiées dans le script `script-facility.sh`?",
+      "answer": "Le script `script-facility.sh` utilise `StdEnv/2023` et `gurobi/11.0.1`."
+    },
+    {
+      "question": "Pourquoi faut-il créer un environnement virtuel Python pour utiliser Gurobi avec d'autres paquets Python?",
+      "answer": "Il faut créer un environnement virtuel Python parce que Gurobi a sa propre version de Python qui ne contient aucun autre paquet de tiers comme NumPy, Matplotlib ou Pandas. L'environnement virtuel permet d'installer `gurobipy` avec ces paquets."
+    },
+    {
+      "question": "Comment peut-on vérifier les versions de Python supportées par une version donnée de Gurobi dans les environnements standards (`StdEnv`)?",
+      "answer": "Pour vérifier les versions de Python supportées, il faut charger le module `StdEnv` et le module Gurobi désirés, puis se positionner dans `$EBROOTGUROBI/lib` et lancer la commande `ls -d python*`."
+    },
+    {
+      "question": "Quelles sont les versions de Python supportées par Gurobi 8.1.1 avec `StdEnv/2016`?",
+      "answer": "Avec `StdEnv/2016` et `gurobi/8.1.1`, les versions de Python supportées sont `python2.7`, `python2.7_utf16`, `python2.7_utf32`, `python3.5_utf32`, `python3.6_utf32` et `python3.7_utf32`."
+    },
+    {
+      "question": "Quelles sont les versions de Python supportées par Gurobi 9.5.2 avec `StdEnv/2020`?",
+      "answer": "Avec `StdEnv/2020` et `gurobi/9.5.2`, les versions de Python supportées sont `python2.7_utf16`, `python2.7_utf32`, `python3.10_utf32`, `python3.7`, `python3.7_utf32`, `python3.8_utf32` et `python3.9_utf32`."
+    }
+  ],
+  "generated_at": "2026-04-11T23:33:50.786348+00:00"
+}

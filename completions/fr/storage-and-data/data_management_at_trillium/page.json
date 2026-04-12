@@ -1,0 +1,91 @@
+{
+  "doc_key": "fr/data_management_at_trillium",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "Pourquoi est-il important de connaître les différents systèmes de fichiers sur SciNet?",
+      "answer": "Il est important de bien connaître les systèmes de fichiers pour travailler de façon optimale et faire bon usage des ressources disponibles."
+    },
+    {
+      "question": "Quels sont les systèmes de fichiers haute performance sur SciNet, à l'exception de /archive?",
+      "answer": "À l'exception de /archive, les systèmes de fichiers haute performance de SciNet sont de type GPFS."
+    },
+    {
+      "question": "Quel est l'impact de nombreux petits fichiers sur la performance des systèmes GPFS comme /scratch et /project?",
+      "answer": "Les systèmes GPFS sont moins performants avec de nombreux petits fichiers, car leur capacité de blocs est de 16 Mo, rendant la lecture de petits fichiers inefficace."
+    },
+    {
+      "question": "Comment peut-on améliorer la performance des opérations d'entrée/sortie (I/O) avec des tâches multiprocessus sur les systèmes GPFS?",
+      "answer": "Pour améliorer la performance I/O, il est recommandé d'utiliser MPI-IO ou un processus I/O dédié qui écrit toutes les données envoyées par les autres processus dans un seul fichier."
+    },
+    {
+      "question": "À quoi sert le système de fichiers /home ($HOME) et quelle est sa principale restriction sur les nœuds de calcul?",
+      "answer": "/home est principalement utilisé pour les fichiers d'utilisateur et les petits ensembles de données partagés, mais il est en lecture seulement sur les nœuds de calcul."
+    },
+    {
+      "question": "Quelle est l'utilisation principale du système de fichiers /scratch ($SCRATCH) et quelle est sa politique de conservation des données?",
+      "answer": "/scratch est destiné aux fichiers temporaires, aux résultats de calcul et aux simulations. Son contenu est purgé régulièrement et aucune copie de sauvegarde n'est faite."
+    },
+    {
+      "question": "À quoi est destiné le système de fichiers /project ($PROJECT) et pourquoi son contenu doit-il rester relativement immuable?",
+      "answer": "/project est destiné aux logiciels de groupe courants et aux grands ensembles de données statiques. Son contenu doit rester immuable pour éviter une surcharge inutile sur le système de sauvegarde TSM."
+    },
+    {
+      "question": "Qu'est-ce que le système de fichiers /bb ($BBUFFER) et dans quelles situations devrait-on l'utiliser?",
+      "answer": "/bb est un 'burst buffer' rapide sur disque SSD, à utiliser pour les tâches avec beaucoup d'opérations I/O ou si la performance sur /scratch ou /project est faible en raison d'un goulot d'étranglement."
+    },
+    {
+      "question": "Quel est le rôle du système de fichiers /archive ($ARCHIVE)?",
+      "answer": "/archive sert d'espace de stockage 'nearline' pour le matériel semi-actif, permettant aux utilisateurs de décharger ou de rappeler des données lorsque les quotas sont atteints sur d'autres systèmes. Il est réservé aux groupes ayant obtenu une allocation."
+    },
+    {
+      "question": "Pourquoi le ramdisk `/dev/shm` est-il avantageux pour les opérations d'entrée/sortie intensives sur Trillium?",
+      "answer": "Le ramdisk `/dev/shm` est plus rapide qu'un disque réel ou un 'burst buffer' car il utilise jusqu'à 70% de la RAM du nœud comme système de fichiers local temporaire, ce qui est très utile pour les programmes à forte intensité d'E/S."
+    },
+    {
+      "question": "Où pointe la variable d'environnement $SLURM_TMPDIR sur Trillium et quelle est sa particularité par rapport à d'autres grappes?",
+      "answer": "Sur Trillium, $SLURM_TMPDIR pointe sur un ramdisk en mémoire et son contenu est supprimé après la tâche, contrairement aux grappes généralistes où elle pointe vers un répertoire sur le SSD d'un nœud local."
+    },
+    {
+      "question": "À quoi sert le répertoire temporaire créé par l'ordonnanceur dans $BB_JOB_DIR pour chaque tâche?",
+      "answer": "$BB_JOB_DIR est un emplacement pour les applications qui génèrent plusieurs petits fichiers temporaires ou des fichiers fréquemment utilisés (IOPS élevées) qui ne peuvent pas être contenus sur un disque virtuel."
+    },
+    {
+      "question": "Quelle est la politique de purge des fichiers sur /scratch?",
+      "answer": "Les fichiers sur /scratch qui n'ont pas été accédés ou modifiés depuis plus de 2 mois sont automatiquement supprimés le 15 de chaque mois."
+    },
+    {
+      "question": "Comment un utilisateur peut-il savoir si ses fichiers sur /scratch sont planifiés pour la suppression?",
+      "answer": "L'utilisateur peut consulter le fichier `/scratch/t/todelete/current` correspondant à son identifiant ou utiliser la commande `ls -1 /scratch/t/todelete/current |grep [userid]`."
+    },
+    {
+      "question": "Quelle commande permet de vérifier l'espace disque utilisé sur les systèmes de fichiers Trillium?",
+      "answer": "La commande `diskUsage` fournit beaucoup d'information sur les systèmes de fichiers, comme l'espace utilisé par l'utilisateur ou le groupe, et l'évolution de l'utilisation."
+    },
+    {
+      "question": "Comment déplacer moins de 10 Go de données vers ou depuis Trillium en utilisant scp ou rsync?",
+      "answer": "On peut utiliser scp ou rsync en se connectant à l'un des nœuds de connexion/copie comme `tri-dm2.scinet.utoronto.ca`."
+    },
+    {
+      "question": "Quelle est la méthode recommandée pour déplacer plus de 10 Go de données vers ou depuis Trillium?",
+      "answer": "Pour déplacer plus de 10 Go, il est recommandé d'utiliser les nœuds de copie `nia-datamover1` ou `nia-datamover2`, ou d'utiliser l'outil web Globus."
+    },
+    {
+      "question": "Quels sont les points de chute Globus pour Trillium et HPSS?",
+      "answer": "Le point de chute Globus est `alliancecan#trillium` pour Trillium et `alliancecan#hpss` pour HPSS."
+    },
+    {
+      "question": "Quelles sont les autorisations par défaut pour les membres d'un même groupe sur SciNet?",
+      "answer": "Sur SciNet, les utilisateurs d'un même groupe ont par défaut l'autorisation de lecture pour les fichiers des autres, mais pas celle d'écriture."
+    },
+    {
+      "question": "Comment peut-on accorder à un superviseur la permission de gérer ses fichiers sur SciNet?",
+      "answer": "On peut utiliser une liste de contrôle d'accès (ACL) avec les commandes GPFS `mmputacl` et `mmgetacl` pour accorder des droits d'écriture, de déplacement ou de suppression à un superviseur."
+    },
+    {
+      "question": "Est-il recommandé d'accorder des permissions d'écriture au niveau supérieur de son répertoire personnel (/home/G/GROUP/[owner]) en utilisant ACL?",
+      "answer": "Non, il est fortement déconseillé d'accorder des autorisations d'écriture au niveau supérieur de son répertoire personnel, car cela compromettrait gravement la confidentialité. Il faut plutôt créer des sous-répertoires spécifiques."
+    }
+  ],
+  "generated_at": "2026-04-11T20:56:53.746182+00:00"
+}

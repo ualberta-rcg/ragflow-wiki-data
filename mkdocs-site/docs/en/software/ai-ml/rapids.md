@@ -5,21 +5,46 @@ lang: "en"
 
 source_wiki_title: "RAPIDS/en"
 source_hash: "5723790fe463e272c4696414fb4d64c6"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T10:40:45.418814+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T10:56:42.123115+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "Jupyter Notebook"
+  - "GPU acceleration"
+  - "Apptainer image"
+  - "Apptainer images"
+  - "Slurm scheduler"
+  - "interactive session"
+  - "Python libraries"
+  - "GPU node"
+  - "RAPIDS"
+  - "Jupyter Notebook server"
+  - "Data science"
+  - "Apptainer"
+
+questions:
+  - "What is the RAPIDS suite and what are its main components for GPU-accelerated data science?"
+  - "How do the \"base\" and \"notebooks\" RAPIDS Docker images differ in their intended use cases?"
+  - "What are the steps to build an Apptainer image for RAPIDS and deploy it on a GPU cluster?"
+  - "How do you request an interactive GPU session and properly launch the RAPIDS Apptainer shell to ensure GPU accessibility?"
+  - "What command is used to start a Jupyter Notebook server within the RAPIDS environment, and how do you connect to it if the compute node lacks internet access?"
+  - "When submitting a RAPIDS batch job to the Slurm scheduler, what is the recommended best practice for managing container images, code, and data?"
+  - "What are the two main execution methods available on a cluster once a RAPIDS Apptainer image is ready?"
+  - "What specific type of Docker base image is required to include a Jupyter Notebook server in the Apptainer image?"
+  - "What kind of hardware node is necessary to interactively explore RAPIDS using the provided image?"
+  - "How do you request an interactive GPU session and properly launch the RAPIDS Apptainer shell to ensure GPU accessibility?"
+  - "What command is used to start a Jupyter Notebook server within the RAPIDS environment, and how do you connect to it if the compute node lacks internet access?"
+  - "When submitting a RAPIDS batch job to the Slurm scheduler, what is the recommended best practice for managing container images, code, and data?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -61,7 +86,7 @@ There are two types of RAPIDS Docker images starting with the RAPIDS v23.08 rele
 
 For example, if the image tag of a selected RAPIDS Docker image is given as
 
-```bash
+```console
 nvcr.io/nvidia/rapidsai/notebooks:25.04-cuda12.0-py3.12
 ```
 
@@ -94,14 +119,12 @@ Once the requested resource is granted, start the RAPIDS shell on the GPU node w
 * the `--nv` option binds the GPU driver on the host to the container, so the GPU device can be accessed from inside of the Apptainer container.
 
 After the shell prompt changes to `Apptainer>`, you can check the GPU stats in the container to make sure the GPU device is accessible with
-
-```bash
+```console
 Apptainer> nvidia-smi
 ```
 
 After the shell prompt changes to `Apptainer>`, you can launch the Jupyter Notebook server in the RAPIDS environment with the following command, and the URL of the Notebook server will be displayed after it starts successfully.
-
-```bash
+```console
 Apptainer> jupyter-lab --ip $(hostname -f) --no-browser
 ```
 
@@ -115,7 +138,7 @@ If there is no direct Internet connection on a compute node, you would need to s
 Once you have your RAPIDS code ready, you can write a job submission script to submit a job execution request to the Slurm scheduler. It is a good practice to [use the local disk](using-node-local-storage.md) on a compute node when working via a container.
 
 **Submission script**
-```bash linenums="1" hl_lines="10 11 12 14 17"
+```bash title="submit.sh"
 #!/bin/bash
 #SBATCH --gpus-per-node=1
 #SBATCH --cpus-per-task=2
@@ -127,13 +150,13 @@ module load apptainer
 
 # copy your container image and your rapids code and data to the local disk on a compute node via $SLURM_TMPDIR
 
-cd $SLURM_TMPDIR
+cd $SLURM_TMPDIR 
 cp /path/to/rapids.sif ./
 cp /path/to/your_rapids_code.py ./
 cp -r /path/to/your_datasets ./
-
-apptainer exec --nv rapids.sif python ./my_rapids_code.py
-
+ 
+apptainer exec --nv rapids.sif python ./my_rapids_code.py 
+ 
 # save any results to your /project before terminating the job
 cp -r your_results ~/projects/def-someuser/username/
 ```

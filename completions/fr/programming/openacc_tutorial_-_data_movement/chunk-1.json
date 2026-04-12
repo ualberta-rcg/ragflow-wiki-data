@@ -1,0 +1,64 @@
+{
+  "doc_key": "fr/openacc_tutorial_-_data_movement",
+  "level": "chunk",
+  "chunk_index": 1,
+  "qa_pairs": [
+    {
+      "question": "Quels sont les principaux objectifs d'apprentissage de cette section?",
+      "answer": "Les objectifs d'apprentissage incluent la compréhension des principes de localité et de mouvement des données, la connaissance de la différence entre données structurées et non structurées, la maîtrise du transfert explicite et la capacité à compiler et exécuter du code OpenACC avec des directives de mouvement."
+    },
+    {
+      "question": "Pourquoi la gestion explicite des données est-elle préférée à l'utilisation de CUDA Unified Memory?",
+      "answer": "Bien que CUDA Unified Memory simplifie les premières étapes d'accélération, le code généré n'est pas portable (il est spécifique à PGI avec `–ta=tesla:managed` ou à NVIDIA seulement). La gestion explicite des données, par contre, rend le code portable et peut aussi améliorer la performance."
+    },
+    {
+      "question": "Qu'est-ce qu'une zone de données structurées et comment la délimite-t-on?",
+      "answer": "Une zone de données structurées est une partie du code où les tableaux du GPU restent sur le GPU et sont partagés par tous les noyaux de cette zone. On la délimite avec la directive OpenACC `<tt>data</tt>`, par exemple, `#pragma acc data { ... }` en C++ ou `!$acc data ... !$acc end data` en Fortran."
+    },
+    {
+      "question": "Expliquez ce qu'est la localité des données dans le contexte des zones structurées.",
+      "answer": "La localité des données signifie que les tableaux qui se trouvent à l'intérieur d'une zone de données structurées restent sur le GPU jusqu'à la fin de cette zone, ce qui permet d'éviter des transferts de données incessants entre l'hôte et le GPU."
+    },
+    {
+      "question": "Dans quels cas utilise-t-on les directives de données non structurées?",
+      "answer": "On utilise les directives de données non structurées quand la délimitation d'une zone de données normale n'est pas appropriée, par exemple, lors de l'utilisation de constructeurs ou de destructeurs en C++, ou quand les données sont allouées et initialisées dans une partie du code et libérées dans une autre, comme dans les modules Fortran."
+    },
+    {
+      "question": "Quelles sont les deux directives principales pour la gestion des données non structurées et quelles sont leurs clauses?",
+      "answer": "Les deux directives principales sont <tt>enter data</tt>, qui définit le début de la durée de vie des données non structurées avec les clauses <tt>copyin(list)</tt> et <tt>create(list)</tt>, et <tt>exit data</tt>, qui définit la fin de cette durée de vie avec les clauses <tt>copyout(list)</tt> et <tt>delete(list)</tt>."
+    },
+    {
+      "question": "Quel est l'avantage principal des clauses de données non structurées concernant les classes C++?",
+      "answer": "L'avantage principal est qu'elles permettent l'utilisation d'OpenACC directement dans les classes C++, en gérant l'allocation et la désallocation de la mémoire du GPU dans les constructeurs et destructeurs, respectivement."
+    },
+    {
+      "question": "Décrivez la fonction de la clause `copyin(list)` de la directive `data`.",
+      "answer": "La clause `copyin(list)` est utilisée pour allouer de la mémoire sur le GPU pour les données spécifiées et pour copier ces données de la mémoire de départ (CPU) vers le GPU au moment où l'on entre dans la zone de données."
+    },
+    {
+      "question": "À quoi sert la clause `copyout(list)` pour la directive `data`?",
+      "answer": "La clause `copyout(list)` est utilisée pour allouer de la mémoire sur le GPU et, à la sortie de la zone de données, copier les données du GPU vers la mémoire de départ (CPU)."
+    },
+    {
+      "question": "Quand faut-il utiliser la clause `copy(list)` et quelle est sa fonction?",
+      "answer": "La clause `copy(list)` est utilisée pour les données structurées. Elle alloue de la mémoire sur le GPU, copie les données du CPU vers le GPU à l'entrée de la zone, et copie les données du GPU vers le CPU à la sortie de la zone."
+    },
+    {
+      "question": "Quelle est la fonction de la clause `create(list)`?",
+      "answer": "La clause `create(list)` permet d'allouer de la mémoire sur le GPU pour les données spécifiées, mais sans effectuer de copie de données depuis la mémoire de départ (CPU)."
+    },
+    {
+      "question": "Pour quel type de données la clause `delete(list)` est-elle réservée et quelle est son utilité?",
+      "answer": "La clause `delete(list)` est réservée aux données non structurées. Elle est utilisée pour désallouer la mémoire du GPU sans effectuer de copie de données."
+    },
+    {
+      "question": "Quand devrait-on utiliser la clause `present(list)`?",
+      "answer": "La clause `present(list)` doit être utilisée pour indiquer au compilateur que les données se trouvent déjà sur le GPU, provenant d'une autre région de données ou d'un transfert précédent, ce qui permet une gestion de haut niveau."
+    },
+    {
+      "question": "Pourquoi est-il parfois nécessaire de spécifier la taille et le format d'un tableau dans les directives OpenACC?",
+      "answer": "Il est nécessaire de spécifier la taille et le format d'un tableau parce que le compilateur ne peut pas toujours déterminer ces informations automatiquement, ce qui est crucial pour une allocation et un mouvement de données corrects sur le GPU."
+    }
+  ],
+  "generated_at": "2026-04-12T04:13:09.414593+00:00"
+}

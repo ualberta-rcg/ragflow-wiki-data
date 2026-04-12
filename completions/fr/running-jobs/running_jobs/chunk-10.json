@@ -1,0 +1,64 @@
+{
+  "doc_key": "fr/running_jobs",
+  "level": "chunk",
+  "chunk_index": 10,
+  "qa_pairs": [
+    {
+      "question": "Comment fonctionne la resoumission d'une tâche Slurm à partir de son propre script?",
+      "answer": "Une tâche peut exécuter une première partie de son calcul, enregistrer un point de contrôle, puis, si le calcul n'est pas encore terminé, se resoumettre elle-même en utilisant `sbatch ${BASH_SOURCE[0]}` avant que son temps d'exécution alloué ne soit écoulé."
+    },
+    {
+      "question": "Quelle est l'importance de faire un 'test positif' pour déterminer si une tâche doit être resoumise?",
+      "answer": "Le test qui détermine la resoumission doit être un 'test positif' pour éviter qu'une tâche se resoumette indéfiniment. Si on testait l'absence d'une condition d'arrêt, une erreur inattendue pourrait empêcher cette condition d'être détectée, menant à une boucle de soumissions infinie."
+    },
+    {
+      "question": "Quelles directives Slurm (`#SBATCH`) sont utilisées dans l'exemple de script pour la resoumission de tâches?",
+      "answer": "L'exemple de script utilise les directives `#SBATCH --job-name=job_chain`, `#SBATCH --account=def-someuser`, `#SBATCH --cpus-per-task=1`, `#SBATCH --time=0-10:00` et `#SBATCH --mem=100M`."
+    },
+    {
+      "question": "Quelles sont les méthodes recommandées pour automatiser la soumission de nombreuses tâches?",
+      "answer": "Les méthodes recommandées incluent l'utilisation de 'lots de tâches' (job arrays) Slurm ou des outils plus avancés qui appliquent des techniques de 'farming' (grappe de serveurs, ferme de calcul)."
+    },
+    {
+      "question": "Quels sont les avantages des techniques de 'farming' pour gérer les tâches sur les grappes?",
+      "answer": "Les outils de 'farming' permettent d'automatiser le flux de travail et d'améliorer l'efficacité du traitement. Ils regroupent plusieurs petites tâches de calcul pour créer moins de tâches, mais avec des durées plus longues."
+    },
+    {
+      "question": "Nommez quelques outils de 'farming' disponibles sur les grappes.",
+      "answer": "Les outils de 'farming' disponibles sur les grappes incluent META-Farm, GNU Parallel et GLOST."
+    },
+    {
+      "question": "Pourquoi est-il généralement recommandé de ne pas spécifier de partition lors de la soumission de tâches Slurm?",
+      "answer": "Il est recommandé de ne pas spécifier de partition pour laisser l'ordonnanceur Slurm assigner les tâches de lui-même, en fonction des ressources requises, ce qui correspond aux meilleures pratiques."
+    },
+    {
+      "question": "Comment gérer un logiciel, comme Masurca, qui s'attend à ce qu'une partition soit spécifiée alors que ce n'est pas la meilleure pratique?",
+      "answer": "Pour de tels logiciels, vous pouvez le configurer pour qu'il utilise `--partition=default`, ce qui permettra au script d'interpréter que vous n'avez pas spécifié de partition."
+    },
+    {
+      "question": "Quelles sont les particularités d'ordonnancement pour les grappes Béluga, Fir, Narval, Nibi et Rorqual?",
+      "answer": "Sur ces grappes, la durée maximale d'une tâche est de 168 heures (7 jours), le nombre maximum de tâches en exécution ou en attente par utilisateur est de 1000, et la durée d'une tâche en production devrait être d'au moins une heure."
+    },
+    {
+      "question": "Où peut-on trouver les restrictions spécifiques à la grappe Trillium?",
+      "answer": "Les restrictions spécifiques à la grappe Trillium sont détaillées sur la page 'Restrictions particulières à Trillium'."
+    },
+    {
+      "question": "Pourquoi est-ce une mauvaise idée d'utiliser un logiciel de traitement de texte pour créer des scripts pour la grappe?",
+      "answer": "L'utilisation d'un logiciel de traitement de texte peut introduire des caractères cachés dans les scripts, ce qui peut causer des problèmes lors de leur exécution sur la grappe."
+    },
+    {
+      "question": "Quels types d'éditeurs de texte sont recommandés pour travailler directement sur une grappe?",
+      "answer": "Il est préférable d'utiliser des éditeurs de texte comme nano, vim ou emacs directement sur la grappe."
+    },
+    {
+      "question": "Comment préparer un script hors ligne sous Windows pour s'assurer qu'il fonctionne correctement sur la grappe?",
+      "answer": "Sous Windows, il faut utiliser un éditeur de texte simple comme Notepad ou Notepad++. Après avoir téléversé le script, il est nécessaire de changer les codes de fin de ligne Windows pour des codes de fin de ligne Linux en utilisant la commande `dos2unix`."
+    },
+    {
+      "question": "Quelle est la meilleure façon de préparer un script hors ligne sous Mac pour l'utiliser sur la grappe?",
+      "answer": "Sous Mac, il est recommandé d'utiliser un éditeur de texte comme nano, vim ou emacs directement dans une fenêtre de terminal pour préparer les scripts."
+    }
+  ],
+  "generated_at": "2026-04-12T07:11:58.710037+00:00"
+}

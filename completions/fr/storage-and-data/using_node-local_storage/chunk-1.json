@@ -1,0 +1,84 @@
+{
+  "doc_key": "fr/using_node-local_storage",
+  "level": "chunk",
+  "chunk_index": 1,
+  "qa_pairs": [
+    {
+      "question": "Quand est-ce qu'un répertoire temporaire est créé pour une tâche Slurm?",
+      "answer": "Un répertoire temporaire est créé sur chacun des nœuds assignés à une tâche quand l'ordonnanceur Slurm démarre cette tâche."
+    },
+    {
+      "question": "Comment le chemin complet d'un répertoire temporaire de tâche est-il configuré par Slurm?",
+      "answer": "Slurm configure le chemin complet pour ce répertoire temporaire par la variable d'environnement `SLURM_TMPDIR`."
+    },
+    {
+      "question": "Pourquoi les opérations d'entrée et de sortie sont-elles plus rapides avec `$SLURM_TMPDIR` qu'avec le stockage sur le réseau?",
+      "answer": "Parce que `$SLURM_TMPDIR` se trouve sur un disque local, les opérations en entrée et en sortie (I/O) sont presque toujours plus rapides qu'avec le stockage sur le réseau (/project, /scratch et /home)."
+    },
+    {
+      "question": "Pour quel type d'opérations le stockage sur disque local est-il préférable?",
+      "answer": "Le stockage sur disque local est à privilégier pour les transactions fréquentes de petites quantités de données."
+    },
+    {
+      "question": "Quelles sont les tâches qui devraient utiliser `$SLURM_TMPDIR` pour une meilleure performance?",
+      "answer": "Toutes les tâches qui font beaucoup de lecture et d'écriture (ce qui est le cas pour la plupart des tâches) seront probablement exécutées plus rapidement en utilisant `$SLURM_TMPDIR`."
+    },
+    {
+      "question": "Qu'est-ce qui rend l'utilisation de `$SLURM_TMPDIR` plus compliquée que le stockage sur le réseau?",
+      "answer": "De par sa nature temporaire, `$SLURM_TMPDIR` est plus compliqué à utiliser que le stockage sur le réseau parce que les données doivent être copiées."
+    },
+    {
+      "question": "Que faut-il faire avec les données en entrée avant de les lire dans `$SLURM_TMPDIR`?",
+      "answer": "Les données en entrée doivent être copiées du réseau à `$SLURM_TMPDIR` avant qu'elles puissent être lues."
+    },
+    {
+      "question": "Que faut-il faire avec les données en sortie de `$SLURM_TMPDIR` pour qu'elles soient conservées?",
+      "answer": "Les données en sortie doivent être copiées de `$SLURM_TMPDIR` au réseau avant que la tâche soit terminée pour que ces données soient conservées."
+    },
+    {
+      "question": "Comment peut-on copier simplement des données vers `$SLURM_TMPDIR` pour les lire?",
+      "answer": "Dans les cas les plus simples, on peut copier les données avec les commandes `cp` ou `rsync`."
+    },
+    {
+      "question": "Dans quels cas la copie simple avec `cp` ou `rsync` vers `$SLURM_TMPDIR` pourrait ne pas fonctionner?",
+      "answer": "Ceci pourrait ne pas fonctionner avec une grande quantité de données ou dans le cas où les données doivent être lues par des processus exécutés sur des nœuds différents."
+    },
+    {
+      "question": "Quel est un cas particulier de données en entrée mentionné dans le document?",
+      "answer": "Un cas particulier se présente avec du code comme donnée en entrée, notamment pour les bibliothèques et fichiers exécutables."
+    },
+    {
+      "question": "Pourquoi les applications exécutées dans un environnement virtuel Python sont-elles mentionnées en lien avec les I/O?",
+      "answer": "Les applications exécutées dans un environnement virtuel Python génèrent un très grand nombre de transactions I/O, plus qu'il n'en faut d'ailleurs pour créer l'environnement virtuel lui-même."
+    },
+    {
+      "question": "Quelle est la recommandation pour la création d'environnements virtuels Python avec Slurm?",
+      "answer": "Notre recommandation est de créer un environnement virtuel dans vos tâches avec `$SLURM_TMPDIR`."
+    },
+    {
+      "question": "Que se passe-t-il si une tâche s'arrête par manque de temps sans que les données en sortie aient été copiées du `$SLURM_TMPDIR`?",
+      "answer": "Si une tâche s'arrête par manque de temps, les dernières lignes du script ne seront peut-être pas exécutées, et les données en sortie de `$SLURM_TMPDIR` ne seront pas conservées."
+    },
+    {
+      "question": "Quelles sont les solutions proposées pour s'assurer que les données en sortie de `$SLURM_TMPDIR` soient conservées?",
+      "answer": "Les solutions suivantes sont possibles : demander plus de temps, placer des points de contrôle dans le stockage sur le réseau, ou écrire une fonction pour intercepter un signal."
+    },
+    {
+      "question": "Dans quel but peut-on demander à Slurm d'envoyer un signal à une tâche?",
+      "answer": "On peut demander à Slurm d'envoyer un signal à la tâche peu avant qu'elle n'atteigne sa limite de temps pour que celle-ci copie le résultat de `$SLURM_TMPDIR` vers l'espace de stockage sur le réseau."
+    },
+    {
+      "question": "Quand est-il utile d'intercepter un signal de Slurm?",
+      "answer": "Ceci est utile si l'estimé du temps d'exécution est incertain ou qu'on enchaîne plusieurs tâches Slurm pour effectuer un long calcul."
+    },
+    {
+      "question": "Comment implémente-t-on l'interception de signal dans un script Slurm?",
+      "answer": "Pour ce faire, on écrit une fonction pour l'interpréteur (shell) afin que la copie soit faite et on utilise la commande `trap` pour associer la fonction avec le signal."
+    },
+    {
+      "question": "Quelle est une limitation de la méthode d'interception de signal pour la conservation des données de `$SLURM_TMPDIR`?",
+      "answer": "Avec cette méthode, le contenu de `$SLURM_TMPDIR` ne sera pas conservé si un nœud tombe en panne ou si le système de fichiers réseau connaît un problème."
+    }
+  ],
+  "generated_at": "2026-04-12T10:31:28.702242+00:00"
+}

@@ -1,0 +1,115 @@
+{
+  "doc_key": "en/busco",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is the primary function of the BUSCO application?",
+      "answer": "BUSCO (Benchmarking sets of Universal Single-Copy Orthologs) is used for assessing the completeness of genome assemblies and annotations."
+    },
+    {
+      "question": "How can users access different versions of BUSCO?",
+      "answer": "Recent versions of BUSCO are available as wheels, while older versions can be accessed as a module."
+    },
+    {
+      "question": "How do I find the latest available version of BUSCO?",
+      "answer": "You can find the latest available version by running the command `avail_wheels busco`."
+    },
+    {
+      "question": "What modules need to be loaded before installing BUSCO using the Python wheel method?",
+      "answer": "You need to load `StdEnv/2023`, `gcc`, `python/3.11`, `augustus/3.5.0`, `hmmer/3.4`, `blast+/2.15`, `metaeuk/7`, `prodigal/2.6.3`, `r`, and `bbmap/39.06`."
+    },
+    {
+      "question": "How do you create and activate a virtual environment for BUSCO installation?",
+      "answer": "First, create the virtual environment using `virtualenv ~/busco_env`, then activate it with `source ~/busco_env/bin/activate`."
+    },
+    {
+      "question": "What is the command to install a specific version of the BUSCO wheel within an activated virtual environment?",
+      "answer": "Within the activated virtual environment, use `pip install --no-index busco==6.0.0` to install version 6.0.0."
+    },
+    {
+      "question": "How can I validate that the BUSCO installation was successful?",
+      "answer": "You can validate the installation by running `busco --help` within the activated virtual environment."
+    },
+    {
+      "question": "How do you save the list of installed packages and their versions to a file?",
+      "answer": "Use the command `pip freeze > ~/busco-requirements.txt` to freeze the environment and requirements set to a text file."
+    },
+    {
+      "question": "What must be done regarding datasets before submitting a BUSCO job?",
+      "answer": "You must pre-download any necessary datasets from the BUSCO data website before submitting your job."
+    },
+    {
+      "question": "How can I see a list of available BUSCO datasets from the terminal?",
+      "answer": "You can access the available datasets by typing `busco --list-datasets` in your terminal."
+    },
+    {
+      "question": "What are the two available options for downloading BUSCO datasets?",
+      "answer": "You can download datasets either by using the `busco` command or the `wget` command."
+    },
+    {
+      "question": "What is the preferred method for downloading a specific BUSCO dataset, and how is it used?",
+      "answer": "The preferred method is using the `busco --download` command; for example, `busco --download bacteria_odb10`."
+    },
+    {
+      "question": "How can I download multiple BUSCO datasets at once using the `busco` command?",
+      "answer": "You can perform a bulk download by replacing the dataset name with `all`, `prokaryota`, `eukaryota`, or `virus`, such as `busco --download virus`."
+    },
+    {
+      "question": "What directory structure does the `busco --download` command create for datasets?",
+      "answer": "It creates a `busco_downloads/` hierarchy containing `information/`, `lineages/` (where dataset files are stored), and `placement_files/`."
+    },
+    {
+      "question": "How can I manually download a BUSCO dataset using `wget` and prepare it for use?",
+      "answer": "Create `busco_downloads/lineages`, change into it, use `wget` to download the `.tar.gz` file, and then decompress it with `tar -xvf file.tar.gz`."
+    },
+    {
+      "question": "How do I download a sample genome file to test BUSCO?",
+      "answer": "You can download a test genome file using `wget https://gitlab.com/ezlab/busco/-/raw/master/test_data/bacteria/genome.fna`."
+    },
+    {
+      "question": "What is the command to run BUSCO on a single genome file in offline mode?",
+      "answer": "The command is `busco --offline --in genome.fna --out TEST --lineage_dataset bacteria_odb10 --mode genome --cpu ${SLURM_CPUS_PER_TASK:-1} --download_path busco_download/`."
+    },
+    {
+      "question": "How do you run BUSCO on multiple genome files located in a directory in offline mode?",
+      "answer": "Use the command `busco --offline --in genome/ --out TEST --lineage_dataset bacteria_odb10 --mode genome --cpu ${SLURM_CPUS_PER_TASK:-1} --download_path busco_download/`, specifying the directory with `--in`."
+    },
+    {
+      "question": "How do you specify input for single-file versus multiple-file analysis in BUSCO?",
+      "answer": "Use `--in genome.fna` for a single file and `--in genome/` for multiple files within a directory."
+    },
+    {
+      "question": "What Slurm-related tips are provided for running BUSCO jobs, especially regarding network access, CPU usage, and restarting?",
+      "answer": "Use `--offline` to avoid internet access, set `--cpu` to `${SLURM_CPUS_PER_TASK}` for allocated CPUs, and `--restart` to resume partial runs."
+    },
+    {
+      "question": "How is a BUSCO job submitted to the scheduler using a `sbatch` script?",
+      "answer": "A job is submitted by running `sbatch run_busco.sh`, where `run_busco.sh` is the job submission script."
+    },
+    {
+      "question": "What are the essential components of an `sbatch` script for running BUSCO?",
+      "answer": "The script includes `SBATCH` directives for job name, account, time, CPUs, and memory, followed by commands to load modules, create/activate a virtual environment, install dependencies from a requirements file, and finally, the `busco` run command."
+    },
+    {
+      "question": "How can advanced users specify custom Augustus parameters when running BUSCO?",
+      "answer": "Advanced users can use the `--augustus_parameters=\"--yourAugustusParameter\"` argument, ensuring the Augustus `config` directory is copied to a writable location and `AUGUSTUS_CONFIG_PATH` is defined."
+    },
+    {
+      "question": "What are the steps to install SEPP locally in a virtual environment to use its parameters with BUSCO?",
+      "answer": "Activate the BUSCO virtual environment, install `DendroPy` with `pip`, then clone the SEPP repository from GitHub, change into it, and run `python setup.py config` and `python setup.py install`."
+    },
+    {
+      "question": "What special consideration is needed when activating a virtual environment that has SEPP installed locally within a job submission script?",
+      "answer": "The virtual environment cannot be created in `$SLURM_TMPDIR`; instead, activate the permanent local virtual environment by adding `source ~/busco_env/bin/activate` in the script."
+    },
+    {
+      "question": "Is the 'Modules' section of the BUSCO documentation still current?",
+      "answer": "No, the 'Modules' section is outdated and deprecated; users should instead use the wheels available."
+    },
+    {
+      "question": "What should be checked if a 'Cannot write to Augustus config path' error occurs?",
+      "answer": "Ensure that the Augustus `config` directory has been copied to a writable location and that the `AUGUSTUS_CONFIG_PATH` environment variable is correctly exported."
+    }
+  ],
+  "generated_at": "2026-04-11T18:26:40.780192+00:00"
+}

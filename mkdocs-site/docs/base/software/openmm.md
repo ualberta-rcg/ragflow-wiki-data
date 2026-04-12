@@ -5,27 +5,54 @@ lang: "base"
 
 source_wiki_title: "OpenMM"
 source_hash: "db963c109f74c1efeb1816f0d4a23c31"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T09:33:30.498486+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T10:02:17.151732+00:00"
 
 tags:
   - software
   - biomolecularsimulation
 
 keywords:
-  []
+  - "biomolecular simulation"
+  - "Python interface"
+  - "GPU"
+  - "Monte Carlo barostat"
+  - "nonbondedMethod"
+  - "Langevin integrator"
+  - "Benchmarking"
+  - "Molecular Dynamics"
+  - "constraints"
+  - "createSystem"
+  - "machine-learning potentials"
+  - "CUDA platform"
+  - "molecular dynamics"
+  - "OpenMM"
+
+questions:
+  - "What are the main features, strengths, and weaknesses of the OpenMM molecular dynamics toolkit?"
+  - "How do you configure the environment modules and prepare input files for an OpenMM simulation on an HPC system?"
+  - "What are the necessary script components and steps to submit and execute an OpenMM simulation job on a GPU?"
+  - "How are the CUDA platform properties and the simulation object configured in the provided OpenMM script?"
+  - "What specific metrics and outputs are tracked by the simulation reporters during the dynamics run?"
+  - "According to the benchmarking section, what is the optimal hardware configuration regarding CPUs, GPUs, and NvLink for running OpenMM efficiently?"
+  - "What specific parameters and methods are used to configure the nonbonded interactions and constraints in the system creation step?"
+  - "How is the Langevin integrator initialized with respect to temperature, friction coefficient, and time step?"
+  - "What role does the Monte Carlo barostat play in the simulation, and what parameters govern its behavior?"
+  - "How are the CUDA platform properties and the simulation object configured in the provided OpenMM script?"
+  - "What specific metrics and outputs are tracked by the simulation reporters during the dynamics run?"
+  - "According to the benchmarking section, what is the optimal hardware configuration regarding CPUs, GPUs, and NvLink for running OpenMM efficiently?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
 # Introduction
-[OpenMM](https://openmm.org/) is an open-source molecular dynamics toolkit designed for flexibility and programmability. It is used via Python, offering both application-level classes for running simulations and a lower-level API that allows users to integrate OpenMM directly into their own code for custom workflows. OpenMM can natively read and simulate systems prepared with AMBER, GROMACS, and CHARMM, enabling seamless reuse of existing biomolecular setups. Its plugin architecture supports integration with machine-learning potentials, including TorchMD-Net, MACE, TorchANI, AIMNet2, and DeepMD for general-purpose or hybrid ML/MM simulations.
+OpenMM [OpenMM home page](https://openmm.org/) is an open-source molecular dynamics toolkit designed for flexibility and programmability. It is used via Python, offering both application-level classes for running simulations and a lower-level API that allows users to integrate OpenMM directly into their own code for custom workflows. OpenMM can natively read and simulate systems prepared with AMBER, GROMACS, and CHARMM, enabling seamless reuse of existing biomolecular setups. Its plugin architecture supports integration with machine-learning potentials, including TorchMD-Net, MACE, TorchANI, AIMNet2, and DeepMD for general-purpose or hybrid ML/MM simulations.
 
 ## Strengths
 * Flexible Python interface with both high-level classes and low-level API access for custom workflows.
@@ -61,9 +88,9 @@ For GROMACS or CHARMM systems, OpenMM can read their respective formats without 
 # Job submission
 Below is a job script for a simulation using one GPU.
 
-```bash title="submit_openmm.cuda.sh"
+```bash linenums="1"
 #!/bin/bash
-#SBATCH --cpus-per-task=1 
+#SBATCH --cpus-per-task=1
 #SBATCH --gpus=h100:1
 #SBATCH --mem-per-cpu=4000
 #SBATCH --time=0-01:00:00
@@ -77,7 +104,7 @@ python openmm_input.py
 # Python simulation script
 The example Python script below loads Amber parameter and restart files, builds the OpenMM simulation system, sets up the integrator, and runs the dynamics.
 
-```python title="openmm_input.py"
+```python linenums="1"
 import os, sys, time
 import openmm.app as app
 from openmm import app, unit, Platform, LangevinMiddleIntegrator, MonteCarloBarostat

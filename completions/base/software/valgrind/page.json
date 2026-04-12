@@ -1,0 +1,59 @@
+{
+  "doc_key": "base/valgrind",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is Valgrind used for?",
+      "answer": "Valgrind is a powerful debugging tool used to detect bad memory usage, including memory leaks, access to unallocated or deallocated memory, and multiple deallocations."
+    },
+    {
+      "question": "What common program errors can Valgrind help diagnose?",
+      "answer": "Valgrind can help diagnose problems in your code that result in a segmentation fault, broken pipe, or bus error."
+    },
+    {
+      "question": "Is Valgrind readily available on Compute Canada clusters, and does it require loading a module?",
+      "answer": "Yes, Valgrind is installed on Compute Canada clusters as part of the base software distribution, so there is no need to load a module to use it."
+    },
+    {
+      "question": "What is a known limitation of current Valgrind versions concerning processor instructions?",
+      "answer": "Current versions of Valgrind are unable to handle AVX-512 instructions used on the latest Intel and AMD processors, leading to 'Unrecognised instruction' errors."
+    },
+    {
+      "question": "How can users work around Valgrind's AVX-512 limitation on Compute Canada clusters?",
+      "answer": "To work around this, users should first load the AVX-2 environment (`module load arch/avx2`) and then recompile their application from scratch."
+    },
+    {
+      "question": "What is required when compiling an application to get useful information from Valgrind?",
+      "answer": "You need to compile your code with debugging information enabled, typically by adding the \"-g\" option during compilation."
+    },
+    {
+      "question": "Why might it be beneficial to link against non-optimized libraries when diagnosing issues with Valgrind?",
+      "answer": "Some aggressive optimizations in mathematical libraries can yield false errors in Valgrind, so linking against non-optimized versions helps diagnose errors in your own code instead of the libraries."
+    },
+    {
+      "question": "What is the command to execute an application within Valgrind for memory checking?",
+      "answer": "The command is `valgrind --tool=memcheck --leak-check=yes --show-reachable=yes ./your_program`."
+    },
+    {
+      "question": "How does running an application with Valgrind affect its performance?",
+      "answer": "When an application runs in Valgrind, it is executed within a virtual machine that validates every memory access, causing it to run much slower than usual."
+    },
+    {
+      "question": "What advice is given regarding the size of the problem to test with Valgrind?",
+      "answer": "Users should choose a much smaller problem size for testing with Valgrind compared to what they would usually run, as Valgrind detects even slight memory access problems."
+    },
+    {
+      "question": "What does a typical Valgrind error message for a memory leak look like?",
+      "answer": "A memory leak error message will indicate that \"X bytes in Y blocks are definitely lost,\" often pointing to the `malloc` call and the `main` function responsible."
+    },
+    {
+      "question": "How does Valgrind typically report invalid pointer access or out-of-bounds errors?",
+      "answer": "Valgrind reports these errors with messages like \"Invalid write of size X\" or \"Invalid read of size X,\" specifying the address and indicating it's \"X bytes after a block of size Y alloc'd.\""
+    },
+    {
+      "question": "What kind of error message does Valgrind display for the usage of uninitialized variables?",
+      "answer": "Valgrind will show an error message such as \"Conditional jump or move depends on uninitialised value(s).\""
+    }
+  ],
+  "generated_at": "2026-04-12T10:56:57.178828+00:00"
+}

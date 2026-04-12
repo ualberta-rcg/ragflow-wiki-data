@@ -1,0 +1,32 @@
+{
+  "doc_key": "en/ansys",
+  "level": "chunk",
+  "chunk_index": 13,
+  "qa_pairs": [
+    {
+      "question": "How is the `machinefile` generated for ANSYS-FLUENT in this script?",
+      "answer": "The `slurm_hl2hl.py --format ANSYS-FLUENT` command is used, and its output is redirected to `/tmp/machinefile-$SLURM_JOB_ID`."
+    },
+    {
+      "question": "How is the `NCORES` variable populated in this script?",
+      "answer": "The `NCORES` variable is assigned the value of `$SLURM_NTASKS`, which represents the total number of tasks (cores) requested."
+    },
+    {
+      "question": "What command is used to launch Fluent when a job is running on a single compute node?",
+      "answer": "The command `fluent -g $MYVERSION -t $NCORES -mpi=intel -pshmem -i $MYJOURNALFILE` is used to launch Fluent when running on a single compute node."
+    },
+    {
+      "question": "Which MPI library and parallelism method are specified for Fluent when running on a single node?",
+      "answer": "For single-node execution, Fluent is configured to use `intel` MPI with shared memory parallelism (`-pshmem`)."
+    },
+    {
+      "question": "What are the conditions for setting the `I_MPI_HYDRA_BOOTSTRAP` environment variable to `ssh`?",
+      "answer": "The `I_MPI_HYDRA_BOOTSTRAP` environment variable is set to `ssh` if the `EBVERSIONANSYS` is 2025 or newer and the cluster is `nibi`, or if the cluster is `narval`. In these cases, `I_MPI_HYDRA_BOOTSTRAP_EXEC_EXTRA_ARGS` is also unset."
+    },
+    {
+      "question": "What happens to the `INTELMPI_ROOT` and `I_MPI_ROOT` variables in the provided script chunk?",
+      "answer": "The `INTELMPI_ROOT` variable is exported with the value of `$I_MPI_ROOT`, and then the `I_MPI_ROOT` variable is unset."
+    }
+  ],
+  "generated_at": "2026-04-11T16:58:53.687429+00:00"
+}

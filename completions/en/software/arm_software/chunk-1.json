@@ -5,140 +5,124 @@
   "qa_pairs": [
     {
       "question": "What is Linaro DDT?",
-      "answer": "Linaro DDT (formerly known as ARM DDT) is a powerful commercial parallel debugger with a graphical user interface."
+      "answer": "Linaro DDT is a powerful commercial parallel debugger with a graphical user interface, formerly known as ARM DDT."
     },
     {
-      "question": "What types of programs can Linaro DDT debug?",
-      "answer": "It can be used to debug serial, MPI, multi-threaded, and CUDA programs, or any combination of these, written in C, C++, and FORTRAN."
+      "question": "What types of programs can be debugged using Linaro DDT?",
+      "answer": "Linaro DDT can debug serial, MPI, multi-threaded, and CUDA programs, or any combination thereof."
     },
     {
-      "question": "What is MAP?",
-      "answer": "MAP is an efficient parallel profiler from Linaro (formerly ARM)."
+      "question": "Which programming languages does Linaro DDT support?",
+      "answer": "Linaro DDT supports programs written in C, C++, and FORTRAN."
     },
     {
-      "question": "Which modules for DDT and MAP are available on Nibi and Trillium?",
-      "answer": "The `ddt-cpu` module is available for CPU debugging and profiling, and the `ddt-gpu` module is available for GPU or mixed CPU/GPU debugging."
+      "question": "What is Linaro MAP?",
+      "answer": "MAP is an efficient parallel profiler and another useful tool from Linaro, formerly known as ARM MAP."
     },
     {
-      "question": "What is required to load `ddt-cpu` and `ddt-gpu` modules on Nibi and Trillium?",
-      "answer": "The StdEnv module must be loaded."
+      "question": "What modules are available for Linaro DDT and MAP on Nibi and Trillium?",
+      "answer": "The available modules are `ddt-cpu` for CPU debugging and profiling, and `ddt-gpu` for GPU or mixed CPU/GPU debugging. The `StdEnv` module must be loaded first."
     },
     {
-      "question": "How should users log in to use DDT/MAP as a GUI application?",
-      "answer": "Users should log in using `ssh -Y` to ensure proper X11 tunnelling."
+      "question": "What is the purpose of the `ddt-cpu` module?",
+      "answer": "The `ddt-cpu` module is used for CPU debugging and profiling."
     },
     {
-      "question": "What SSH clients are recommended for X11 tunnelling on Windows and Mac?",
-      "answer": "MobaXTerm is recommended for Windows, and XQuartz is recommended for Mac."
+      "question": "What is the purpose of the `ddt-gpu` module?",
+      "answer": "The `ddt-gpu` module is used for GPU or mixed CPU/GPU debugging."
     },
     {
-      "question": "How are DDT and MAP normally used interactively?",
-      "answer": "They are normally used interactively through their GUI, accomplished using the `salloc` command."
+      "question": "How should users log in to use Linaro DDT or MAP, which are GUI applications?",
+      "answer": "Users should log in using `ssh -Y` and use an SSH client like MobaXTerm (Windows) or XQuartz (Mac) to ensure proper X11 tunnelling."
+    },
+    {
+      "question": "How are DDT and MAP typically used interactively?",
+      "answer": "DDT and MAP are normally used interactively through their GUI, which is accomplished using the `salloc` command."
     },
     {
       "question": "Can MAP be used non-interactively, and if so, how?",
-      "answer": "Yes, MAP can also be used non-interactively by submitting it to the scheduler with the `sbatch` command."
+      "answer": "Yes, MAP can be used non-interactively by submitting it to the scheduler with the `sbatch` command."
     },
     {
-      "question": "What are the current license limits for DDT/MAP CPU core usage?",
-      "answer": "The current license limits the use of DDT/MAP to a maximum of 64 CPU cores across all users at any given time."
+      "question": "What are the current license limitations for DDT/MAP usage?",
+      "answer": "The current license limits DDT/MAP to a maximum of 64 CPU cores across all users at any given time, and DDT-GPU is limited to 8 GPUs."
     },
     {
-      "question": "What is the license limit for DDT-GPU usage?",
-      "answer": "DDT-GPU is limited to 8 GPUs."
+      "question": "What is the first step to debug or profile CPU-only code without GPUs?",
+      "answer": "The first step is to allocate the node or nodes on which to do the debugging or profiling, which will open a shell session on the allocated node using a command like `salloc --x11 --time=0-1:00 --mem-per-cpu=4G --ntasks=4`."
     },
     {
-      "question": "What is the first step for debugging or profiling CPU-only code?",
-      "answer": "Allocate the node or nodes on which to do the debugging or profiling using `salloc`."
-    },
-    {
-      "question": "Provide an example `salloc` command for CPU-only debugging.",
-      "answer": "An example command is `salloc --x11 --time=0-1:00 --mem-per-cpu=4G --ntasks=4`."
-    },
-    {
-      "question": "Which module should be loaded for CPU-only code debugging?",
-      "answer": "The `ddt-cpu` module should be loaded using `module load ddt-cpu`."
+      "question": "Which module should be loaded for CPU-only debugging and profiling?",
+      "answer": "For CPU-only debugging, you should load the `ddt-cpu` module, for example, by running `module load ddt-cpu`."
     },
     {
       "question": "How do you run DDT or MAP for CPU-only code?",
-      "answer": "You run the command `ddt path/to/code` or `map path/to/code`."
+      "answer": "After loading the appropriate module, you run the command with the path to your code, such as `ddt path/to/code` or `map path/to/code`."
     },
     {
-      "question": "What should be checked regarding the MPI implementation in the DDT/MAP application window?",
-      "answer": "Make sure the MPI implementation is the default OpenMPI before pressing the 'Run' button."
-    },
-    {
-      "question": "How can you change the MPI implementation in DDT/MAP if it's incorrect?",
-      "answer": "Press the 'Change' button next to the 'Implementation:' string, and select the correct option from the drop-down menu."
-    },
-    {
-      "question": "What other setting should be specified in the DDT/MAP application window for CPU-only code?",
-      "answer": "Specify the desired number of CPU cores in the window."
-    },
-    {
-      "question": "How do you terminate an allocation after debugging or profiling CPU-only code?",
-      "answer": "Exit the shell to terminate the allocation."
+      "question": "What specific setting should be checked in the DDT/MAP application window before running CPU-only code?",
+      "answer": "Before pressing the 'Run' button, ensure the MPI implementation is the default OpenMPI. If not, press 'Change' next to 'Implementation:' and select the correct option, and specify the desired number of CPU cores."
     },
     {
       "question": "What compatibility issue exists between current versions of DDT and OpenMPI?",
-      "answer": "There is a compatibility issue that breaks the important feature of DDT - displaying message queues."
+      "answer": "There is a compatibility issue between current versions of DDT and OpenMPI that breaks the important feature of DDT, which is displaying message queues."
     },
     {
-      "question": "What is the workaround for the DDT and OpenMPI compatibility issue?",
-      "answer": "Before running DDT, execute the command `export OMPI_MCA_pml=ob1`."
+      "question": "What is the workaround for the DDT and OpenMPI compatibility issue regarding message queues?",
+      "answer": "Before running DDT, you need to execute the command: `export OMPI_MCA_pml=ob1`."
     },
     {
-      "question": "What is a caution when using the `OMPI_MCA_pml=ob1` workaround?",
-      "answer": "The workaround can make MPI code run slower, so it should only be used when debugging."
+      "question": "What is a potential side effect of using the `export OMPI_MCA_pml=ob1` workaround?",
+      "answer": "The workaround can potentially make your MPI code run slower, so it should only be used when debugging."
     },
     {
-      "question": "What is the first step for debugging or profiling CUDA code?",
-      "answer": "Allocate the node or nodes with `salloc` to open a shell session on the allocated node."
+      "question": "What is the first step to debug or profile CUDA code?",
+      "answer": "The first step is to allocate the node or nodes for debugging or profiling with `salloc`, such as `salloc --x11 --time=0-1:00 --mem-per-cpu=4G --ntasks=1 --gres=gpu:1`."
     },
     {
-      "question": "Provide an example `salloc` command for CUDA code debugging.",
-      "answer": "An example command is `salloc --x11 --time=0-1:00 --mem-per-cpu=4G --ntasks=1 --gres=gpu:1`."
+      "question": "Which module should be loaded for GPU or mixed CPU/GPU debugging?",
+      "answer": "You should load the `ddt-gpu` module, for example, by running `module load ddt-gpu`."
     },
     {
-      "question": "Which module should be loaded for CUDA code debugging?",
-      "answer": "The `ddt-gpu` module should be loaded, for example, `module load ddt-gpu`."
+      "question": "What should you do if `module load ddt-gpu` fails with a suggestion to load an older OpenMPI version?",
+      "answer": "If `module load ddt-gpu` fails, you should reload the OpenMPI module with the suggested command (e.g., `module load openmpi/2.0.2`), and then reload the `ddt-gpu` module."
     },
     {
-      "question": "What should you do if loading `ddt-gpu` suggests loading an older OpenMPI version?",
-      "answer": "Reload the OpenMPI module with the suggested command (e.g., `module load openmpi/2.0.2`), and then reload the `ddt-gpu` module."
+      "question": "What additional module is required when debugging CUDA code?",
+      "answer": "A `cuda` module must be loaded, using a command like `module load cuda`."
     },
     {
-      "question": "What other module must be loaded for CUDA code debugging?",
-      "answer": "A CUDA module must be loaded, for example, `module load cuda`."
+      "question": "How do you run DDT for CUDA code?",
+      "answer": "After loading the necessary modules, you run the `ddt` command with the path to your code, for example, `ddt path/to/code`."
     },
     {
-      "question": "How do you run the DDT command for CUDA code?",
-      "answer": "You run the command `ddt path/to/code`."
-    },
-    {
-      "question": "What action should be taken if DDT complains about a CUDA driver and toolkit version mismatch?",
-      "answer": "Execute `export ALLINEA_FORCE_CUDA_VERSION=X.X` (using the correct version) and then run DDT again."
+      "question": "What action should be taken if DDT reports a mismatch between the CUDA driver and toolkit version?",
+      "answer": "If DDT complains about a mismatch, execute the command `export ALLINEA_FORCE_CUDA_VERSION=10.1` (using the correct version) and then run DDT again."
     },
     {
       "question": "Why might the DDT interface be laggy when using X11 forwarding?",
-      "answer": "X11 is very sensitive to packet latency, so the interface may be laggy unless you are on the same campus as the computer cluster."
+      "answer": "The DDT interface might be laggy because X11 is very sensitive to packet latency, especially if you are not on the same campus as the computer cluster."
     },
     {
-      "question": "How can a laggy DDT interface be fixed?",
-      "answer": "It can be fixed by running DDT under VNC."
+      "question": "How can the lag experienced with DDT's X11 forwarding be resolved?",
+      "answer": "The lag can be resolved by running DDT under VNC."
     },
     {
       "question": "Where can users find instructions for setting up a VNC session?",
-      "answer": "Users can find directions on the VNC page."
+      "answer": "Users can find directions on the [[VNC|VNC page]] to set up a VNC session."
     },
     {
-      "question": "How do you start a program under DDT if your VNC session is on the compute node?",
-      "answer": "You can directly start your program under DDT as described in the CPU or CUDA usage sections."
+      "question": "How is a program started under DDT if the VNC session is on the compute node?",
+      "answer": "If the VNC session is on the compute node, you can directly start your program under DDT as described in the standard usage instructions."
     },
     {
-      "question": "What steps are needed to manually launch a job from the DDT startup screen if the VNC session is on the login node or a graham vdi node?",
-      "answer": "You need to pick the 'manually launch backend yourself' option, enter job information, press 'listen', and then press 'help' to get the command needed to start your job."
+      "question": "What option needs to be selected in the DDT startup screen for manually launching a job via VNC from a login node or Graham VDI node?",
+      "answer": "From the DDT startup screen, you need to pick the 'manually launch backend yourself' job start option."
+    },
+    {
+      "question": "After selecting 'manually launch backend yourself' in DDT, what are the next steps to manually launch a job?",
+      "answer": "You need to enter the appropriate job information, press the 'listen' button, and then press the 'help' button next to 'waiting for you to start the job...' to get the command needed to run your job on the cluster."
     }
   ],
-  "generated_at": "2026-04-10T00:05:47.059893+00:00"
+  "generated_at": "2026-04-11T15:09:41.248198+00:00"
 }

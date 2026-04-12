@@ -5,27 +5,119 @@ lang: "fr"
 
 source_wiki_title: "Globus/fr"
 source_hash: "6ef91ac2397e4500982c7110a1ec1e2f"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T07:03:52.871200+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T07:44:55.551694+00:00"
 
 tags:
   - connecting
 
 keywords:
-  []
+  - "recherche"
+  - "collections"
+  - "point de chute"
+  - "Stockage objet"
+  - "adresse courriel"
+  - "sécurité"
+  - "Arbutus S3 buckets"
+  - "groupe"
+  - "gestion des accès"
+  - "système d'exploitation"
+  - "permissions"
+  - "Use Selected"
+  - "Interface ligne de commande"
+  - "Machines virtuelles"
+  - "installation"
+  - "Globus"
+  - "UUID"
+  - "IA"
+  - "groupes Globus"
+  - "clé d'accès et clé secrète"
+  - "téléchargement"
+  - "soutien technique"
+  - "code d'accès"
+  - "Globus Connect"
+  - "Arbutus S3"
+  - "grappes"
+  - "Alliance de recherche numérique du Canada"
+  - "openstack ec2 credentials"
+  - "portail Globus"
+  - "chemin"
+  - "point de chute Globus"
+  - "nom d'utilisateur"
+  - "sous-répertoire"
+  - "Invitations"
+  - "partage de fichiers"
+  - "clé secrète"
+  - "partage de données"
+  - "tâches massivement parallèles"
+  - "ajouter des utilisateurs"
+  - "collection Globus"
+  - "partage"
+  - "Globus Connect Personal"
+  - "authentification"
+  - "File Manager"
+  - "utilisateurs"
+  - "collection partagée"
+  - "alliancecan#rorqual"
+  - "partage de fichier"
+  - "transfert de fichiers"
+
+questions:
+  - "Qu'est-ce que le service Globus et quels sont ses principaux avantages pour le transfert de fichiers de recherche ?"
+  - "Comment s'authentifier correctement sur le portail Globus de l'Alliance de recherche numérique du Canada ?"
+  - "Quelle est la procédure pour configurer et lancer un transfert de données entre deux collections, notamment avec un ordinateur personnel ?"
+  - "Comment peut-on trouver le nom de la collection Globus associée à une grappe spécifique ?"
+  - "Quelles sont les grappes informatiques recommandées pour un usage général ?"
+  - "Quelles grappes sont spécifiquement dédiées à l'intelligence artificielle et aux tâches massivement parallèles ?"
+  - "Comment fonctionne le processus d'authentification et comment lancer un transfert de fichiers entre deux collections ?"
+  - "Quelles sont les options disponibles lors d'un transfert de fichiers et pourquoi faut-il être prudent avec l'option de chiffrement ?"
+  - "Quelles sont les étapes pour télécharger, installer et configurer Globus Connect Personal sur un ordinateur personnel ?"
+  - "Comment doit-on procéder pour autoriser un transfert de fichiers entre deux points de chute personnels ?"
+  - "Quelle est l'utilité principale de la fonction de partage de fichiers (Globus sharing) pour la collaboration ?"
+  - "Quelles sont les démarches spécifiques qu'un chercheur principal doit suivre pour activer le partage dans le répertoire /project ?"
+  - "Comment sélectionner le bon lien de téléchargement pour son système d'exploitation ?"
+  - "Quel logiciel doit être installé pour pouvoir accéder au point de chute ?"
+  - "Quel est le format du nom complet attribué au point de chute après la configuration ?"
+  - "Quelle condition doit être remplie pour pouvoir créer un nouveau point de chute Globus partagé ?"
+  - "Où les sous-répertoires destinés au partage doivent-ils être créés par rapport au chemin principal ?"
+  - "Comment peut-on gérer les accès pour partager des données spécifiques avec différents utilisateurs ?"
+  - "Pourquoi les données doivent-elles être copiées ou déplacées plutôt que d'utiliser un lien symbolique lors de la préparation ?"
+  - "Quelles sont les étapes à suivre sur le portail Globus pour créer et configurer une nouvelle collection partagée ?"
+  - "Quelles sont les différentes méthodes disponibles pour attribuer des permissions d'accès à d'autres utilisateurs ou groupes ?"
+  - "Comment peut-on partager un fichier simultanément avec plusieurs personnes ?"
+  - "Quels sont les critères de recherche disponibles pour identifier un groupe ?"
+  - "Pourquoi est-il recommandé d'utiliser l'UUID du groupe et où peut-on trouver cette information ?"
+  - "Comment peut-on gérer les permissions d'accès ou supprimer une collection partagée une fois qu'elle n'est plus nécessaire ?"
+  - "Quelles sont les principales précautions de sécurité à prendre en compte avant d'autoriser le partage de vos fichiers ?"
+  - "Quelle est la procédure à suivre pour créer un groupe Globus et y inviter de nouveaux utilisateurs ?"
+  - "Quelle action permet d'ajouter et de finaliser la création d'un groupe ?"
+  - "Quelles sont les méthodes de recherche proposées pour inviter des utilisateurs, et laquelle est privilégiée ?"
+  - "À quelle condition le nom d'un utilisateur invité s'affichera-t-il officiellement dans le groupe ?"
+  - "Quelles sont les différences entre les rôles Admin, Manager et Member lors de la gestion des permissions ?"
+  - "Quelle est la procédure à suivre pour installer l'interface en ligne de commande (CLI) Globus dans un environnement virtuel Python ?"
+  - "Quelles solutions sont recommandées pour configurer un point de chute Globus sur une machine virtuelle ou pour utiliser le stockage objet sur Arbutus ?"
+  - "Quelle commande OpenStack permet de créer la clé d'accès et la clé secrète ?"
+  - "Sur quel site web faut-il se rendre pour se connecter au portail Globus ?"
+  - "Que doit-on rechercher ou sélectionner dans la fenêtre du gestionnaire de fichiers de Globus ?"
+  - "Quelles informations doivent être saisies dans les champs \"AWS IAM Access Key ID\" et \"AWS IAM Secret Key\", et comment génère-t-on le code d'accès ?"
+  - "Quelles sont les étapes à suivre dans l'interface utilisateur pour consentir à l'accès aux données et finaliser la configuration ?"
+  - "Comment peut-on contacter le soutien technique pour Globus et quels renseignements précis faut-il fournir dans sa demande ?"
+  - "Quelles informations doivent être saisies dans les champs \"AWS IAM Access Key ID\" et \"AWS IAM Secret Key\", et comment génère-t-on le code d'accès ?"
+  - "Quelles sont les étapes à suivre dans l'interface utilisateur pour consentir à l'accès aux données et finaliser la configuration ?"
+  - "Comment peut-on contacter le soutien technique pour Globus et quels renseignements précis faut-il fournir dans sa demande ?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
-[Globus](https://www.globus.org/) est un service qui permet le transfert de fichiers de façon rapide, fiable et sécuritaire. Conçue expressément pour les besoins de la recherche, l'interface graphique de Globus comporte des fonctions de suivi en arrière-plan qui automatisent la gestion des transferts de fichiers entre deux supports, qu'il s'agisse de nos grappes ou d'un autre site, d'une grappe localisée sur un campus, d'un serveur de laboratoire, d'un microordinateur ou d'un ordinateur portable.
+[Globus](https://www.globus.org/) est un service qui permet le transfert de fichiers de façon rapide, fiable et sécuritaire. Conçue expressément pour les besoins de la recherche, l'interface graphique de Globus comporte des fonctions de suivi en arrière-plan qui automatisent la gestion des transferts de fichiers entre deux supports, qu'il s'agisse de nos grappes ou d'un autre site, d'une grappe localisée sur un campus, d'un serveur de laboratoire, d'un microordinateur ou d'un ordinateur portatif.
 
-Globus utilise le protocole de transfert GridFTP, mais vous permet d'éviter les tâches complexes et laborieuses qui s'y associent ainsi que d'autres aspects liés au déplacement des données. Le service améliore la performance des protocoles GridFTP, rsync, scp et sftp par le réglage automatique des paramètres de transfert, le redémarrage automatique lorsqu'il y a interruption du transfert et la vérification de l'intégrité des fichiers.
+Globus utilise le protocole de transfert GridFTP, mais vous permet d'éviter les tâches complexes et laborieuses qui s’y associent ainsi que d’autres aspects liés au déplacement des données. Le service améliore la performance des protocoles GridFTP, rsync, scp et sftp par le réglage automatique des paramètres de transfert, le redémarrage automatique lorsqu’il y a interruption du transfert et la vérification de l’intégrité des fichiers.
 
 Vous pouvez accéder au service par [le site web de Globus](https://www.globus.org/) ou par notre portail Globus sur [https://globus.alliancecan.ca/](https://globus.alliancecan.ca/).
 
@@ -34,21 +126,24 @@ Rendez-vous sur [le portail Globus de l'Alliance](https://globus.alliancecan.ca/
 
 ### Lancer un transfert
 
-Les transferts de données se font entre collections (points de chute dans les versions précédentes). Des collections sont déjà définies pour la plupart de nos systèmes. Pour transférer des fichiers en provenance ou à destination de votre ordinateur, vous devez créer une collection. Une fois que cette étape quelque peu exigeante est accomplie, il ne restera qu'à vous assurer que l'application Globus Connect Personal est en opération sur votre ordinateur pour effectuer un transfert. Voir la section [Ordinateurs personnels](#ordinateurs-personnels) ci-dessous.
+Les transferts de données se font entre collections (*points de chute* dans les versions précédentes). Des collections sont déjà définies pour la plupart de nos systèmes. Pour transférer des fichiers en provenance ou à destination de votre ordinateur, vous devez créer une collection. Une fois que cette étape quelque peu exigeante est accomplie, il ne restera qu'à vous assurer que l'application Globus Connect Personal est en opération sur votre ordinateur pour effectuer un transfert. Voir la section [Ordinateurs personnels](#ordinateurs-personnels) ci-dessous.
 
-Si le [Gestionnaire de fichiers](https://globus.alliancecan.ca/file-manager) du portail Globus n'est pas affiché (voir l'image dans l'ancienne version), sélectionnez-le à partir de la barre de gauche.
+Si la page [*Gestionnaire de fichiers* du portail Globus](https://globus.alliancecan.ca/file-manager) n'est pas affichée (voir l'image), sélectionnez-la à partir de la barre de gauche.
 
-Trois boutons *Panels* se trouvent à droite dans le haut de la page; pour voir ensemble deux collections, cliquez sur le deuxième bouton.
+Trois boutons *Panneaux* se trouvent à droite dans le haut de la page; pour voir ensemble deux collections, cliquez sur le deuxième bouton.
 
-Pour trouver une collection, cliquez sur *Search* et entrez le nom de la collection.
+Pour trouver une collection, cliquez sur *Rechercher* et entrez le nom de la collection.
 
-Pour sélectionner une collection, vous pouvez commencer à entrer son nom. Par exemple, pour transférer des données en provenance ou à destination de Rorqual, entrez `rorqual`, attendez deux secondes et sélectionnez `alliancecan#rorqual` dans la liste affichée.
+Pour sélectionner une collection, vous pouvez commencer à entrer son nom. Par exemple, pour transférer des données en provenance ou à destination de Rorqual, entrez *rorqual*, attendez deux secondes et sélectionnez ``alliancecan#rorqual`` dans la liste affichée.
 
 Toutes nos grappes ont une collection Globus dont le nom se trouve dans le haut de chacune des pages pour la grappe en particulier.
 
 | Usage général | Pour les tâches massivement parallèles | Pour l'IA |
-| :------------ | :---------------------------------- | :-------- |
-| * [Fir](fir.md) <br> * [Narval](narval.md) <br> * [Nibi](nibi.md) <br> * [Rorqual](rorqual.md) | * [Trillium](trillium.md) | * [Killarney](killarney.md) <br> * [TamIA](tamia.md) <br> * [Vulcan](vulcan.md) |
+| :------------ | :------------------------------------ | :-------- |
+| * [Fir](fir.md) | * [Trillium](trillium.md) | * [Killarney](killarney.md) |
+| * [Narval](narval.md) | | * [TamIA](tamia.md) |
+| * [Nibi](nibi.md) | | * [Vulcan](vulcan.md) |
+| * [Rorqual](rorqual.md) | | |
 
 Dépendant du site où se trouve la collection, vous pourriez devoir vous authentifier. Par exemple, si vous activez une collection qui se trouve sur Nibi, vous devrez entrer votre identifiant et votre mot de passe. L'authentification d'une de nos collections reste habituellement valide pour une semaine alors que celle des collections personnelles n'a pas d'échéance.
 
@@ -56,19 +151,17 @@ Faites une recherche pour sélectionner une deuxième collection et authentifiez
 
 Quand une collection est active, une liste des répertoires et des fichiers est affichée; vous pouvez double-cliquer sur les répertoires et utiliser le bouton pour naviguer dans la structure. Pour sélectionner un répertoire ou un fichier que vous voulez transférer, cliquez sur son nom; pour une sélection multiple, utilisez Ctrl + clic. Cliquez ensuite sur un des gros boutons bleus avec des flèches blanches pour lancer le transfert. Ceci crée une tâche avec un identifiant unique et le transfert commence immédiatement; vous recevrez un courriel quand le transfert sera terminé. Pour suivre le déroulement et voir les détails sur le transfert, cliquez sur [le bouton *Activité*](https://globus.alliancecan.ca/activity) dans la barre de gauche.
 
-Voir aussi [Comment se connecter et transférer des fichiers avec Globus](https://docs.globus.org/how-to/get-started/) sur le site web Globus.org.
+Voir aussi [How To Log In and Transfer Files with Globus](https://docs.globus.org/how-to/get-started/) sur le site web Globus.org.
 
 ### Options
 
-Plusieurs autres options se trouvent dans la zone *Options de transfert et de synchronisation* entre les deux boutons *Lancer* du centre. Vous pouvez ici demander à Globus de
-*   synchroniser, pour transférer de nouveaux fichiers ou des fichiers modifiés,
-*   supprimer des fichiers à la destination qui sont inexistants à la source,
-*   conserver les renseignements quant au moment des modifications de fichiers,
-*   vérifier l'intégrité des données après un transfert (option sélectionnée par défaut),
-*   chiffrer le transfert.
-
-!!! note "Performances de chiffrement"
-    Prenez note que la fonction de chiffrement diminue de beaucoup la performance du transfert et ne devrait être utilisée que pour des données sensibles.
+Plusieurs autres options se trouvent dans la zone *Options de transfert et de synchronisation* entre les deux boutons *Démarrer* du centre. Vous pouvez ici demander à Globus de
+* synchroniser, pour transférer de nouveaux fichiers ou des fichiers modifiés,
+* supprimer des fichiers à la destination qui sont inexistants à la source,
+* conserver les renseignements quant au moment des modifications de fichiers,
+* vérifier l'intégrité des données après un transfert (option sélectionnée par défaut),
+* chiffrer le transfert.
+Prenez note que la fonction de chiffrement diminue de beaucoup la performance du transfert et ne devrait être utilisée que pour des données sensibles.
 
 ### Ordinateurs personnels
 
@@ -80,18 +173,17 @@ La page [Globus Connect Personal](https://www.globus.org/globus-connect-personal
 
 [Connectez-vous au portail Globus de l'Alliance](https://globus.alliancecan.ca/collections?scope=administered-by-me), si ce n'est pas déjà fait.
 
-1.  Dans la fenêtre du *Gestionnaire de fichiers*, cliquez sur l'icône *Collections* dans la barre de gauche.
+1.  Dans la fenêtre *Gestionnaire de fichiers*, cliquez sur l'icône *Collections* dans la barre de gauche.
 2.  Cliquez sur le bouton *+ Obtenir Globus Connect Personal* à droite, dans le haut de la fenêtre.
 3.  Cliquez sur le lien de téléchargement pour votre système d'exploitation. Pour d'autres systèmes d'exploitation, cliquez sur *Afficher les autres systèmes d'exploitation pris en charge*.
 4.  Installez Globus Connect Personal.
-5.  Vous devriez maintenant avoir accès par Globus au point de chute. Le nom complet est `[votre nom d'utilisateur]#[nom que vous donnez à la configuration]` par exemple, `smith#WorkPC`.
+5.  Vous devriez maintenant avoir accès par Globus au point de chute. Le nom complet est ``[votre nom d'utilisateur]#[nom que vous donnez à la configuration]`` par exemple, smith#WorkPC.
 
 #### Pour lancer Globus Connect Personal
 
-La procédure ci-dessus doit être suivie une fois seulement pour configurer le point de chute. Par la suite, pour effectuer des transferts de fichiers, assurez-vous que **Globus Connect Personal** est en opération, c'est-à-dire lancez l'application et vérifiez que le point de chute n'est pas en pause.
+La procédure ci-dessus doit être suivie une fois seulement pour configurer le point de chute. Par la suite, pour effectuer des transferts de fichiers, assurez-vous que *Globus Connect Personal* est en opération, c'est-à-dire lancez l'application et vérifiez que le point de chute n'est pas en pause.
 
-!!! note
-    Le transfert s'arrêtera si l'application Globus Connect Personal est fermée sur votre point de chute au cours d'un transfert en provenance ou à destination de ce point de chute. Pour reprendre le transfert, lancez l'application à nouveau.
+Remarque : Le transfert s'arrêtera si l'application Globus Connect Personal est fermée sur votre point de chute au cours d'un transfert en provenance ou à destination de ce point de chute. Pour reprendre le transfert, lancez l'application à nouveau.
 
 #### Transfert entre deux points de chute personnels
 
@@ -104,9 +196,9 @@ Pour plus d'information, consultez [les pages d'aide de Globus](https://docs.glo
 
 ## Partage de fichiers avec Globus
 
-**Le partage Globus** facilite la collaboration entre collègues. La fonction de partage permet d'accéder aux fichiers enregistrés sur un de nos systèmes, même si l'autre utilisateur n'a pas de compte sur ce système. Les fichiers peuvent être partagés par quiconque possède un compte Globus, peu importe où cette personne se trouve. Voir [Comment partager des données avec Globus](https://docs.globus.org/how-to/share-files/).
+**Partage Globus** facilite la collaboration entre collègues. La fonction de partage permet d'accéder aux fichiers enregistrés sur un de nos systèmes, même si l'autre utilisateur n'a pas de compte sur ce système. Les fichiers peuvent être partagés par quiconque possède un compte Globus, peu importe où cette personne se trouve. Voir [How To Share Data Using Globus](https://docs.globus.org/how-to/share-files/).
 
-### Création d’une collection partagée
+### Création d'une collection partagée
 
 #### Étape 1 - Préparation du répertoire à partager
 
@@ -115,33 +207,27 @@ Dans le tableau suivant, vérifiez si le système qui héberge les fichiers peut
 | Système | Partage |
 | :------ | :------ |
 | [Trillium](trillium.md) | non |
-| [Grappes d'usage général](national-systems.md#grappes-de-calcul) | dans <br> * `/home`, oui (sauf pour Rorqual) <br> * `/scratch`, non (sauf pour Narval) <br> * `/project`, sur demande (voir ci-dessous) |
+| [Grappes d'usage général](national-systems.md#grappes-de-calcul) | dans <ul><li>``/home``, oui (sauf pour Rorqual)</li><li>``/scratch``, non (sauf pour Narval)</li><li>``/project``, sur demande (voir ci-dessous)</li></ul> |
 
-Sur nos [grappes d'usage général](national-systems.md#grappes-de-calcul), le partage est disponible pour le répertoire `/home`, sauf pour la grappe Rorqual. Vous pouvez tester la fonction de partage dans votre répertoire `/home`.
+Sur nos [grappes d'usage général](national-systems.md#grappes-de-calcul), le partage est disponible pour le répertoire /home, sauf pour la grappe Rorqual. Vous pouvez tester la fonction de partage dans votre répertoire /home.
 
-Par défaut, le partage sur `/project` n'est pas activé pour empêcher les utilisateurs de partager accidentellement des fichiers d'autres utilisateurs. Pour que le partage soit activé, la chercheuse principale ou le chercheur principal doit écrire à [globus@tech.alliancecan.ca](mailto:globus@tech.alliancecan.ca) et indiquer
-*   que le partage par Globus doit être activé,
-*   le nom de la grappe,
-*   le chemin,
-*   la permission (lecture seule ou lecture-écriture).
+Par défaut, le partage sur /project n'est pas activé pour empêcher les utilisateurs de partager accidentellement des fichiers d'autres utilisateurs. Pour que le partage soit activé, la chercheuse principale ou le chercheur principal doit écrire à [globus@tech.alliancecan.ca](mailto:globus@tech.alliancecan.ca) et indiquer **
+* que le partage par Globus doit être activé,
+* le nom de la grappe,
+* le chemin,
+* la permission (lecture seule ou lecture-écriture).
 
 Nous vous suggérons d'utiliser un chemin dont le nom indique clairement que les fichiers pourraient y être partagés, par exemple
 
-```
-/project/my-project-id/Sharing
-```
+``/project/my-project-id/Sharing``
 
 Une fois le partage activé pour le chemin, vous pourrez créer un nouveau point de chute Globus partagé pour tout sous-répertoire sous ce chemin. Par exemple, vous pourriez créer les sous-répertoires
 
-```
-/project/my-project-id/Sharing/Subdir-01
-```
+``/project/my-project-id/Sharing/Subdir-01``
 
 et
 
-```
-/project/my-project-id/Sharing/Subdir-02
-```
+``/project/my-project-id/Sharing/Subdir-02``
 
 Créez un *Partage* différent pour chacun et partagez-les avec de différents utilisateurs.
 
@@ -149,12 +235,13 @@ Créez un *Partage* différent pour chacun et partagez-les avec de différents u
 
 Si ce n'est pas déjà fait, les données qui seront partagées doivent être copiées ou déplacées dans le chemin sélectionné. La création d'un lien symbolique ne permettra pas d'accéder aux données.
 
-!!! error "Erreur d'autorisation"
-    Autrement, vous aurez l'erreur : *The backend responded with an error: You do not have permission to create a shared endpoint on the selected path. The administrator of this endpoint has disabled creation of shared endpoints on the selected path.*
+Autrement, vous aurez l'erreur
+
+> *The backend responded with an error: You do not have permission to create a shared endpoint on the selected path. The administrator of this endpoint has disabled creation of shared endpoints on the selected path.*
 
 #### Étape 3 - Configuration de la collection partagée
 
-Avec vos identifiants Globus, connectez-vous au [portail Globus de l'Alliance](https://globus.alliancecan.ca/). Une fenêtre de transfert sera affichée. Dans le champ *point de chute*, entrez l'identifiant du point de chute que vous voulez partager (par exemple `alliancecan#fir`, `computecanada#graham-globus`, `alliancecan#rorqual`, `alliancecan#trillium_home` etc.) et activez le point de chute si on vous le demande.
+Avec vos identifiants Globus, connectez-vous au [portail Globus de l'Alliance](https://globus.alliancecan.ca). Une fenêtre de transfert sera affichée. Dans le champ *point de chute*, entrez l'identifiant du point de chute que vous voulez partager (par exemple alliancecan#fir, computecanada#graham-globus, alliancecan#rorqual, alliancecan#trillium_home etc.) et activez le point de chute si on vous le demande.
 
 Sélectionnez un répertoire que vous voulez partager et cliquez sur le bouton *Partager* à la droite de la liste des répertoires.
 
@@ -164,9 +251,9 @@ Entrez un nom qui sera facilement reconnaissable. Vous pouvez aussi indiquer l'e
 
 ### Gestion des accès
 
-Après création d'une collection partagée, vous verrez la liste actuelle des accès autorisés, qui ne contiendra que votre compte. Le partage s'avérant peu utile sans une seconde personne, cliquez sur le bouton *Ajouter des permissions -- Partager avec* afin d’ajouter les personnes ou les groupes avec qui vous voulez partager vos données.
+Après création d'une collection partagée, vous verrez la liste actuelle des accès autorisés, qui ne contiendra que votre compte. Le partage s’avérant peu utile sans une seconde personne, cliquez sur le bouton *Ajouter des permissions -- Partager avec* afin d’ajouter les personnes ou les groupes avec qui vous voulez partager vos données.
 
-Dans le formulaire suivant, le champ *Chemin* sert à définir le partage; puisque dans la plupart des cas vous voudrez partager la collection au complet, ce champ contiendra `/`. Par contre pour partager le sous-répertoire *Subdir-01* avec certaines personnes en particulier, entrez `/Subdir-01/` ou utilisez le bouton *Parcourir* pour le sélectionner.
+Dans le formulaire suivant, le champ *Chemin d'accès* sert à définir le partage; puisque dans la plupart des cas vous voudrez partager la collection au complet, ce champ contiendra `/`. Par contre pour partager le sous-répertoire *Subdir-01* avec certaines personnes en particulier, entrez ``/Subdir-01/`` ou utilisez le bouton *Parcourir* pour le sélectionner.
 
 On vous demandera ensuite d’indiquer si vous voulez procéder au partage en utilisant une adresse courriel, un nom d’utilisateur ou un groupe.
 *   Si vous choisissez le nom d’utilisateur, une fenêtre vous permettra d’effectuer une recherche par nom propre ou par nom d’utilisateur Globus.
@@ -174,7 +261,7 @@ On vous demandera ensuite d’indiquer si vous voulez procéder au partage en ut
     *   Cette solution est idéale pour ceux qui possèdent déjà un compte Globus, car ces derniers n’auront rien à faire pour participer au partage. Saisissez le nom de la personne ou le nom d’utilisateur Globus (si vous le connaissez), choisissez le nom correspondant dans la liste puis cliquez sur *Utiliser la sélection*.
 *   Le choix *groupe* permet de partager le fichier simultanément avec plusieurs personnes. Il est possible d’effectuer une recherche d’après le nom du groupe ou son Identifiant universel unique UUID. Le nom d’un groupe pouvant être ambigu, assurez-vous que le partage s’effectue bien avec le groupe désiré. On évitera ce problème en employant l’UUID du groupe, indiqué à la page *Groupes* (voir la partie Groupes).
 
-Pour accorder la permission d'écriture, cliquez sur la case *écriture* pour le groupe ou l'utilisateur. Prenez note qu'il n'est pas possible de retirer l'accès en lecture. Quand le formulaire est complet, cliquez sur le bouton *Ajouter une permission*. Il est aussi possible d'ajouter ou de supprimer l'accès en écriture en cliquant dans la case *ÉCRITURE*.
+Pour accorder la permission de lecture, cliquez sur la case *écriture* pour le groupe ou l'utilisateur. Prenez note qu'il n'est pas possible de retirer l'accès en lecture. Quand le formulaire est complet, cliquez sur le bouton *Ajouter la permission*. Il est aussi possible d'ajouter ou de supprimer l'accès en écriture en cliquant dans la case *ÉCRIRE*.
 
 Pour supprimer un utilisateur ou un groupe de la liste de partage, il suffit de cliquer sur le `x` au bout de la ligne correspondante.
 
@@ -182,7 +269,7 @@ Pour supprimer un utilisateur ou un groupe de la liste de partage, il suffit de 
 
 Lorsque vous n’en aurez plus besoin, vous pouvez supprimer la collection partagée. Pour ce faire,
 
-*   Cliquez sur *Collections* à la gauche de l'écran, cliquez ensuite sur [l'onglet *Partagées par vous*](https://globus.alliancecan.ca/collections?scope=shared-by-me) et ensuite sur le titre de la collection à supprimer.
+*   Cliquez sur *Collections* à la gauche de l'écran, cliquez ensuite sur [onglet *Partagé par vous*](https://globus.alliancecan.ca/collections?scope=shared-by-me) et ensuite sur le titre de la collection à supprimer.
 *   Cliquez sur le bouton *Supprimer le point de chute* à la droite de l'écran.
 *   Confirmez en cliquant sur le bouton rouge.
 
@@ -190,61 +277,59 @@ La collection est maintenant supprimée. Ceci ne supprime pas vos fichiers ni ce
 
 ### Sécurité
 
-!!! warning "Considérations sur la sécurité des partages"
-    Partager des fichiers suppose un certain risque. En autorisant le partage, vous permettez à d’autres de consulter des fichiers que vous étiez seul à contrôler jusque là. Bien que non exhaustive, la liste ci-dessous énumère certains éléments à prendre en considération avant de procéder à un partage.
+Partager des fichiers suppose un certain risque. En autorisant le partage, vous permettez à d’autres de consulter des fichiers que vous étiez seul à contrôler jusque là. Bien que non exhaustive, la liste ci-dessous énumère certains éléments à prendre en considération avant de procéder à un partage.
 
-    *   Si vous n’en êtes pas le propriétaire, assurez-vous que vous avez le droit de partager les fichiers.
-    *   Assurez-vous que vous ne partagez les fichiers qu’avec les bonnes personnes. Vérifiez si la personne que vous ajoutez à la liste est bien celle que vous pensez; certains noms peuvent se ressembler. Rappelez-vous que les noms d’utilisateur Globus n’ont aucun lien avec ceux de l'Alliance. Nous préconisons la méthode de partage reposant sur l’adresse courriel, à moins que vous ne connaissiez le nom exact du compte.
-    *   Si le partage s’effectue avec un groupe sur lequel vous n’exercez aucun contrôle, assurez-vous que la personne qui dirige le groupe est digne de confiance, car des personnes non autorisées à consulter vos données pourraient s’y ajouter.
-    *   Si vous accordez le droit de modifier les données, conservez une copie de sauvegarde des fichiers importants ailleurs que sur le point de chute partagé, car il se pourrait que des utilisateurs du point de chute partagé suppriment ou modifient les fichiers, ou en fassent tout ce que vous pourriez en faire personnellement.
-    *   Nous recommandons vivement que le partage se limite à un répertoire secondaire et ne s’applique pas au répertoire du plus haut niveau.
+*   Si vous n’en êtes pas le propriétaire, assurez-vous que vous avez le droit de partager les fichiers.
+*   Assurez-vous que vous ne partagez les fichiers qu’avec les bonnes personnes. Vérifiez si la personne que vous ajoutez à la liste est bien celle que vous pensez; certains noms peuvent se ressembler. Rappelez-vous que les noms d’utilisateur Globus n’ont aucun lien avec ceux de l'Alliance. Nous préconisons la méthode de partage reposant sur l’adresse courriel, à moins que vous ne connaissiez le nom exact du compte.
+*   Si le partage s’effectue avec un groupe sur lequel vous n’exercez aucun contrôle, assurez-vous que la personne qui dirige le groupe est digne de confiance, car des personnes non autorisées à consulter vos données pourraient s’y ajouter.
+*   Si vous accordez le droit de modifier les données, conservez une copie de sauvegarde des fichiers importants ailleurs que sur le point de chute partagé, car il se pourrait que des utilisateurs du point de chute partagé suppriment ou modifient les fichiers, ou en fassent tout ce que vous pourriez en faire personnellement.
+*   Nous recommandons vivement que le partage se limite à un répertoire secondaire et ne s’applique pas au répertoire du plus haut niveau.
 
 ## Groupes Globus
 Les groupes Globus sont un moyen facile de gérer les permissions pour le partage avec plusieurs utilisateurs. Quand vous créez un groupe, vous pouvez l'utiliser à partir de l'interface de partage pour contrôler l'accès des utilisateurs.
 
-### Création d’un groupe
+### Création d'un groupe
 Cliquez sur [le bouton *Groupes*](https://globus.alliancecan.ca/groups) dans la barre de gauche. Cliquez sur le bouton *Créer un nouveau groupe* dans le coin supérieur droit. Ceci affiche la fenêtre *Créer un nouveau groupe*.
 *   Entrez le nom du groupe dans le champ *Nom du groupe*.
 *   Entrez la description du groupe dans le champ *Description du groupe*.
 *   Indiquez si le groupe sera visible uniquement aux yeux de ses membres (groupe privé) ou si tous les utilisateurs de Globus pourront le voir.
-*   Cliquez sur *Créer un groupe* pour ajouter le groupe.
+*   Cliquez sur *Créer le groupe* pour ajouter le groupe.
 
 ### Invitations
-Après avoir créé le groupe, vous pouvez y ajouter des utilisateurs en sélectionnant *Inviter des utilisateurs* puis en ajoutant leur adresse courriel (méthode privilégiée) ou en cherchant leur nom d’utilisateur. Après avoir choisi les utilisateurs qui sont conviés à se joindre au groupe, cliquez sur le bouton *Ajouter* afin qu’ils reçoivent un message les invitant à se joindre. Lorsqu’ils auront accepté l’invitation, leur nom figurera dans le groupe.
+Après avoir créé le groupe, vous pouvez y ajouter des utilisateurs en sélectionnant *Inviter des utilisateurs* puis en ajoutant leur adresse courriel (méthode privilégiée) ou en cherchant leur nom d’utilisateur. Après avoir choisi les utilisateurs qui sont conviés à se joindre au groupe, cliquez sur le bouton *Ajouter* afin qu’ils reçoivent un message les invitant à se joindre. Lorsqu’ils auront accepté l’ invitation, leur nom figurera dans le groupe.
 
 ### Permissions
 Cliquez sur un nom d'utilisateur pour modifier son rôle ou son statut. Les rôles confèrent les permissions *Administrateur* (toutes les permissions), *Gestionnaire* (modifier les rôles) et *Membre* (aucune permission de gestion). Cliquez sur *Enregistrer*.
 
-## Interface ligne de commande (CLI)
+## Interface en ligne de commande (CLI)
 ### Installation
-L'interface ligne de commande Globus est un module Python qui s'installe avec pip. Voici la procédure d'installation sur une de nos grappes :
+L'interface en ligne de commande Globus est un module Python qui s'installe avec pip. Voici la procédure d'installation sur une de nos grappes :
 1.  Créez un environnement virtuel pour y installer l'interface (voir [Créer et utiliser un environnement virtuel](python.md#créer-et-utiliser-un-environnement-virtuel)).
     ```bash
-    $ virtualenv $HOME/.globus-cli-virtualenv
+    virtualenv $HOME/.globus-cli-virtualenv
     ```
 2.  Activez l'environnement virtuel.
     ```bash
-    $ source $HOME/.globus-cli-virtualenv/bin/activate
+    source $HOME/.globus-cli-virtualenv/bin/activate
     ```
 3.  Installez l'interface (voir [Installer des modules](python.md#installer-des-modules)).
     ```bash
-    $ pip install globus-cli
+    pip install globus-cli
     ```
 4.  Désactivez l'environnement virtuel.
     ```bash
-    $ deactivate
+    deactivate
     ```
 5.  Pour ne pas avoir à charger l'environnement virtuel à chaque utilisation de Globus, modifiez le chemin.
     ```bash
-    $ export PATH=$PATH:$HOME/.globus-cli-virtualenv/bin
-    $ echo 'export PATH=$PATH:$HOME/.globus-cli-virtualenv/bin'>>$HOME/.bashrc
+    export PATH=$PATH:$HOME/.globus-cli-virtualenv/bin
+    echo 'export PATH=$PATH:$HOME/.globus-cli-virtualenv/bin'>>$HOME/.bashrc
     ```
 
 ### Utilisation
-*   Consultez la page Globus [Interface de ligne de commande (CLI)](https://docs.globus.org/cli/).
-
+*   Consultez la page Globus [Command Line Interface (CLI)](https://docs.globus.org/cli/).
 ### Scripts
-*   Pour des renseignements sur l'API Python, consultez [Globus SDK pour Python](https://globus-sdk-python.readthedocs.io/en/stable/).
+*   Pour des renseignements sur l'API Python, consultez [Globus SDK for Python](https://globus-sdk-python.readthedocs.io/en/stable/).
 
 ## Machines virtuelles dans les nuages Arbutus, Fir et Nibi
 Les points de chute Globus existent pour les grappes (Fir, Nibi, Rorqual, Trillium, etc.), mais pas pour les machines virtuelles infonuagiques. Il nous est impossible de créer un point de chute particulier parce qu'il n'y a pas d'espace de stockage réservé à chaque machine virtuelle.
@@ -255,6 +340,7 @@ Si vous avez besoin d'un point de chute pour votre machine virtuelle et que vous
 Globus Connect Personal est plus facile à installer, à gérer et à passer le pare-feu, mais est conçu pour être installé sur les ordinateurs personnels.
 
 *   [Installation pour Windows](https://docs.globus.org/how-to/globus-connect-personal-windows/)
+
 *   [Installation pour Linux](https://docs.globus.org/how-to/globus-connect-personal-linux/)
 
 ### Globus Connect Server
@@ -263,20 +349,20 @@ Globus Connect Server est conçu pour des environnements en ligne de commande (s
 ## Stockage objet sur Arbutus
 
 Pour utiliser le stockage objet sur Arbutus, votre projet infonuagique doit avoir une allocation de stockage. La procédure suivante est faite une seule fois.
-Vous devez d'abord générer l'ID d'accès et la clé secrète avec un [client ligne de commande OpenStack](openstack-command-line-clients.md).
-1.  Importez vos identifiants avec `source <nom du projet>-openrc.sh`.
-2.  Créez la clé d'accès et la clé secrète avec `openstack ec2 credentials create`.
+Vous devez d'abord générer l'identifiant (*ID d'accès*) et la clé secrète avec un [client en ligne de commande OpenStack](openstack-command-line-clients.md).
+1.  Importez vos identifiants avec ``source <nom_du_projet>-openrc.sh``.
+2.  Créez la clé d'accès et la clé secrète avec ``openstack ec2 credentials create``.
 3.  Connectez-vous au [portail Globus](globus.md) avec [https://www.globus.org/](https://www.globus.org/).
-4.  Dans la fenêtre du *Gestionnaire de fichiers*, entrez ou sélectionnez *compartiments S3 Arbutus*.
+4.  Dans la fenêtre *Gestionnaire de fichiers*, entrez ou sélectionnez *Collections S3 Arbutus*.
 5.  Cliquez sur *Continuer* pour consentir à l'accès aux données.
 6.  Cliquez sur *Autoriser*.
-7.  Cliquez sur *Continuer*. Dans le champ *ID de clé d'accès IAM AWS*, entrez le code d'accès généré par `openstack ec2 credentials create`; dans le champ *Clé secrète IAM AWS*, entrez la clé secrète.
+7.  Cliquez sur *Continuer*. Dans le champ *ID de clé d'accès IAM AWS*, entrez le code d'accès généré par ``openstack ec2 credentials create``; dans le champ *Clé secrète IAM AWS*, entrez la clé secrète.
 8.  Cliquez sur *Continuer* pour terminer la configuration.
 
 ## Soutien technique et renseignements additionnels
 Pour en apprendre davantage sur comment nous utilisons Globus ou si vous avez besoin de soutien technique pour ce service, écrivez à [globus@tech.alliancecan.ca](mailto:globus@tech.alliancecan.ca) en incluant les renseignements suivants :
 
 *   nom
-*   identifiant CCRI (Compute Canada Role Identifier)
+*   identifiant CCRI (*Identifiant de rôle de Calcul Canada*)
 *   établissement
 *   demande ou problème; n'oubliez pas de mentionner les sites de provenance et de destination pour votre transfert

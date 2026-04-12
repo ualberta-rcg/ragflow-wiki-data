@@ -5,21 +5,49 @@ lang: "en"
 
 source_wiki_title: "Computational chemistry/en"
 source_hash: "1614c0c699355a71f45a854603294b16"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T05:45:06.216213+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T06:30:15.888616+00:00"
 
 tags:
   - computationalchemistry
 
 keywords:
-  []
+  - "cheminformatics"
+  - "Open Babel"
+  - "RDKit"
+  - "molecular mechanics"
+  - "molecular modeling"
+  - "ab initio"
+  - "molecular dynamics"
+  - "Libxc"
+  - "quantum chemistry"
+  - "Open3DQSAR"
+  - "Polarizable Continuum Model"
+  - "density functional"
+  - "PCMSolver"
+  - "Computational chemistry"
+  - "Spglib"
+
+questions:
+  - "What is computational chemistry and what is its primary purpose?"
+  - "How do the different computational chemistry methods, such as ab initio and molecular mechanics, compare in terms of accuracy, applicability, and computational cost?"
+  - "What are some examples of the software applications and visualization tools used to conduct and analyze computational chemistry simulations?"
+  - "What is the primary purpose of the PCMSolver tool in the context of code development?"
+  - "Which programming languages are used to write the cheminformatics and machine-learning software collection known as RDKit?"
+  - "What specific area of study or development is the Spglib library designed to assist with?"
+  - "What is the primary function of the Libxc library in the context of quantum chemistry?"
+  - "How does the Open3DQSAR tool facilitate pharmacophore exploration?"
+  - "What types of scientific data can be managed, analyzed, and converted using the Open Babel toolset?"
+  - "What is the primary purpose of the PCMSolver tool in the context of code development?"
+  - "Which programming languages are used to write the cheminformatics and machine-learning software collection known as RDKit?"
+  - "What specific area of study or development is the Spglib library designed to assist with?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -31,17 +59,14 @@ Most computer programs in the field offer a large number of methods, which can b
 * [Density functional](https://en.wikipedia.org/wiki/Density_functional_theory) methods may be thought of as a compromise in cost between *ab initio* and semi-empirical methods. The cost-accuracy trade-off is very good and density functional methods have therefore become very widely used in recent years.
 * [Molecular mechanics](https://en.wikipedia.org/wiki/Molecular_mechanics) methods, based on classical mechanics instead of quantum mechanics, are faster but more narrowly applicable. They use a force field that can be optimized using *ab initio* and/or experimental data to reproduce the properties of the materials. Because of the low cost, molecular mechanics methods are frequently used for molecular dynamics calculations and can be applied to systems of thousands or even millions of particles.
 
-Molecular dynamics calculations are extremely useful in the study of biological systems.
+Molecular dynamics calculations are extremely useful in the study of biological systems. Please see the [Biomolecular simulation](biomolecular-simulation.md) page for a list of the resources relevant to this area of research, but bear in mind that the distinction is artificial and many tools are applicable to both biological and non-biological systems. They can be used to simulate glasses, metals, liquids, supercooled liquids, granular materials, complex materials, etc.
 
-!!! note
-    Please see the [Biomolecular simulation](biomolecular-simulation.md) page for a list of the resources relevant to this area of research, but bear in mind that the distinction is artificial and many tools are applicable to both biological and non-biological systems. They can be used to simulate glasses, metals, liquids, supercooled liquids, granular materials, complex materials, etc.
+## Notes on installed software
 
-### Notes on installed software
-
-#### Applications
+### Applications
 
 * [ABINIT](abinit.md)
-* [ADF](adf.md)/[AMS](ams.md)
+* [ADF/AMS](adf-ams.md)
 * [AMBER](amber.md)
 * [CP2K](cp2k.md)
 * [CPMD](cpmd.md)
@@ -71,14 +96,14 @@ Molecular dynamics calculations are extremely useful in the study of biological 
 
 An automatically generated list of all the versions installed on Compute Canada systems can be found on [Available software](available-software.md).
 
-#### Visualization tools
+### Visualization tools
 
 * [Molden](https://www.theochem.ru.nl/molden/), a visualization tool for use in conjunction with GAMESS, Gaussian and other applications.
 * [VMD](visualization.md#vmd), an open-source molecular visualization program for displaying, animating, and analyzing large biomolecular systems in 3D.
 * [VisIt](visualization.md#visit), a general-purpose 3D visualization tool (a [gallery](https://wci.llnl.gov/simulation/computer-codes/visit/gallery) presents examples from chemistry).
 See [Visualization](visualization.md) for more about producing visualizations on Compute Canada clusters.
 
-#### Other tools
+### Other tools
 
 * [CheMPS2](https://github.com/SebWouters/CheMPS2), a "library which contains a spin-adapted implementation of the density matrix renormalization group (DMRG) for *ab initio* quantum chemistry."
 * [Libxc](http://www.tddft.org/programs/octopus/wiki/index.php/Libxc), a library used in density-functional models.

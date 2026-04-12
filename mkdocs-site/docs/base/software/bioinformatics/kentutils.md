@@ -5,26 +5,69 @@ lang: "base"
 
 source_wiki_title: "Kentutils"
 source_hash: "7e5197394deec5bddb4c7fe4eeceafc4"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T07:45:17.684542+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T08:22:53.605939+00:00"
 
 tags:
   - bioinformatics
   - software
 
 keywords:
-  []
+  - "faSize"
+  - "faToTwoBit"
+  - "Executables"
+  - "-sourcePrefix=pre"
+  - "executable"
+  - "Compute Canada"
+  - "Software"
+  - "Bioinformatics"
+  - "gtfToGenePred"
+  - "genome browser"
+  - "KentUtils"
+  - "UCSC Genome Bioinformatics Group"
+  - "UCSC Genome Browser"
+  - "-infoOut=file"
+  - "faFilter"
+  - "-allErrors"
+  - "software stack"
+  - "biological analysis"
+  - "genePred"
+  - "fetchChromSizes"
+  - "fastqToFa"
+  - "transcript"
+  - "KentUtils tools"
+  - "-ignoreGroupsWithoutExons"
+
+questions:
+  - "What is the KentUtils suite and who developed it?"
+  - "How do you load the KentUtils module and its required prerequisites in Compute Canada?"
+  - "What are some of the specific biological analysis tools provided within the KentUtils package?"
+  - "When was the latest version of the KentUtils tools released in the software stack?"
+  - "How can a user access the brief description and usage instructions for most of the listed executables?"
+  - "What are the specific command-line options available for the `gtfToGenePred` tool as shown in the documentation example?"
+  - "What is the common software suite or bioinformatics package that groups these specific command-line utilities together?"
+  - "What are the primary functions of the sequence manipulation tools listed, specifically those starting with \"fa\" and \"fastq\"?"
+  - "How do the utilities mentioning \"Bed\" or \"db\" in their names assist in processing genomic intervals and database records?"
+  - "What is the function of the `-allErrors` flag and why might a user choose to use it?"
+  - "How does the `-ignoreGroupsWithoutExons` parameter alter the program's behavior when encountering groups without exons?"
+  - "Which command-line options are provided to output transcript information to a file and filter entries by their source name?"
+  - "What are the specific functions of the command-line flags mentioned, such as `-simple` and `-geneNameAsName2`?"
+  - "Where can users seek help or ask questions regarding the poorly documented KentUtils executables?"
+  - "What types of resources and links are provided in the references section for accessing the UCSC Genome Bioinformatics Group's suite?"
+  - "What are the specific functions of the command-line flags mentioned, such as `-simple` and `-geneNameAsName2`?"
+  - "Where can users seek help or ask questions regarding the poorly documented KentUtils executables?"
+  - "What types of resources and links are provided in the references section for accessing the UCSC Genome Bioinformatics Group's suite?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
-KentUtils are the UCSC Genome Bioinformatics Group's suite of biological analysis and web display programs as well as some of Jim Kent's own tools: [Source Downloads](http://hgdownload.soe.ucsc.edu/downloads.html#source_downloads), [Admin Executables](http://hgdownload.soe.ucsc.edu/admin/exe/), [UCSC Genome Browser GitHub](https://github.com/ucscGenomeBrowser/kent).
+KentUtils are the UCSC Genome Bioinformatics Group's suite of biological analysis and web display programs as well as some of Jim Kent's own tools [Downloads](http://hgdownload.soe.ucsc.edu/downloads.html#source_downloads), [Genome Browser and Blat application binaries](http://hgdownload.soe.ucsc.edu/admin/exe/), [UCSC Genome Bioinformatics Group's suite](https://github.com/ucscGenomeBrowser/kent).
 
 ## Availability and loading module
 In Compute Canada we provide all these tools through the `kentutils` module:
@@ -33,9 +76,9 @@ In Compute Canada we provide all these tools through the `kentutils` module:
 module spider kentutils/20180716
 ```
 
-Which should give you the usual prerequisites:
+Which should give you the usual prerequisites: 
 
-```console
+```text
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   kentutils: kentutils/20180716
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -95,7 +138,7 @@ Or
 module load intel/2018.3 kentutils/20180716
 ```
 
-The availability of different prerequisites allows you to load other modules that you might need in your pipeline without affecting the KentUtils load.
+The availability of different pre-requisites allow you to load other modules that you might need in your pipeline without affecting the KentUtils load.
 
 ## Tools available
 Kentutils provides the following tools:
@@ -399,7 +442,7 @@ Kentutils provides the following tools:
 * xmlToSql
 
 ## Versions
-The latest version of KentUtils tools in the software stack was released in April 2018 [Executables for Linux x86_64](http://hgdownload.soe.ucsc.edu/admin/exe/linux.x86_64/).
+The latest version of KentUtils tools in the software stack was released in April 2018 [Executables](http://hgdownload.soe.ucsc.edu/admin/exe/linux.x86_64/).
 
 ## Documentation
 Issuing the command without any arguments will give a brief description of the executable in most cases.
@@ -412,7 +455,7 @@ gtfToGenePred
 
 Will result in:
 
-```console
+```text
 gtfToGenePred - convert a GTF file to a genePred
 usage:
    gtfToGenePred gtf genePred
@@ -435,7 +478,7 @@ options:
       in the corresponding identifiers.
 ```
 
-Many of the KentUtils executables are poorly documented. If you require specific help about the executables, you can submit questions to the main [UCSC discussion list](http://genome.ucsc.edu/contacts.html).
+Many of the KentUtils executables are poorly documented. If you require specific help about the executables, you can submit questions to the main UCSC discussion list. See [Discussion list](http://genome.ucsc.edu/contacts.html).
 
 ## References
 * [Downloads](http://hgdownload.soe.ucsc.edu/downloads.html#source_downloads)

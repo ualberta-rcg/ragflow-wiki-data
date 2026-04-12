@@ -5,22 +5,63 @@ lang: "base"
 
 source_wiki_title: "Ray"
 source_hash: "2989344348f7865667fef265081b054e"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T10:45:31.942092+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T11:01:05.115970+00:00"
 
 tags:
   - software
   - ai-and-machine-learning
 
 keywords:
-  []
+  - "Ray"
+  - "train_loader"
+  - "test_ray.py"
+  - "PyTorch"
+  - "Python virtual environment"
+  - "cuda"
+  - "Ray Tune"
+  - "ASHAScheduler"
+  - "Distributed runtime"
+  - "config_env.sh"
+  - "Python"
+  - "Machine Learning"
+  - "CrossEntropyLoss"
+  - "DataLoader"
+  - "Convolutional neural network"
+  - "optim.SGD"
+  - "Ray cluster"
+  - "job submission script"
+  - "CIFAR-10"
+  - "Job submission"
+  - "hyperparameter sweep"
+  - "Hyperparameter search"
+
+questions:
+  - "What is the Ray framework and what types of applications or workloads is it primarily used for?"
+  - "What are the recommended steps to properly install Ray using a Python virtual environment?"
+  - "How does the provided SLURM job submission script configure and launch a Ray cluster across the allocated compute nodes?"
+  - "What is Ray Tune, and which machine learning frameworks does it support for hyperparameter tuning?"
+  - "What are the main factors that determine the amount of computational resources required when running parallel trials with Ray Tune?"
+  - "How does the provided PyTorch code example utilize the Ray Tune configuration dictionary during the model training setup?"
+  - "What steps are executed within the `config_env.sh` script to configure the Python virtual environment and install dependencies?"
+  - "What is the primary objective of connecting to the Ray cluster in this specific example?"
+  - "What is the intended function of the `test_ray.py` script introduced at the end of the text?"
+  - "How are the training and testing datasets configured for loading and batching?"
+  - "What loss function and optimization algorithm are initialized for training the neural network?"
+  - "How does the training loop handle hardware acceleration for the input data and loss computation?"
+  - "How does the script evaluate the model's performance and report the accuracy metric to the Ray Tune session?"
+  - "What hyperparameters are included in the search space, and what distributions or values are used to sample their candidates?"
+  - "How does the script configure the connection to the Ray cluster and allocate CPU and GPU resources for each trial?"
+  - "How does the script evaluate the model's performance and report the accuracy metric to the Ray Tune session?"
+  - "What hyperparameters are included in the search space, and what distributions or values are used to sample their candidates?"
+  - "How does the script configure the connection to the Ray cluster and allocate CPU and GPU resources for each trial?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -38,12 +79,12 @@ For more information, see [Available wheels](python.md#available-wheels).
 ## Installing our wheel
 
 The preferred option is to install it using the Python [wheel](https://pythonwheels.com/) as follows:
-1. Load a Python [module](utiliser-des-modules-en.md#sub-command-load), thus `module load python`
-2. Create and start a [virtual environment](python.md#creating-and-using-a-virtual-environment).
-3. Install Ray in the virtual environment with `pip install`.
+1.  Load a Python [module](utiliser-des-modules-en.md#sub-command-load), thus `module load python`
+2.  Create and start a [virtual environment](python.md#creating-and-using-a-virtual-environment).
+3.  Install Ray in the virtual environment with `pip install`.
 
 ```bash
-(venv) [name@server ~] pip install --no-index ray
+(venv) [name@server ~]$ pip install --no-index ray
 ```
 
 # Job submission
@@ -158,13 +199,14 @@ print(ray.available_resources())
 
 # Hyperparameter search with Ray Tune
 
-Tune is a Ray module for experiment execution and hyperparameter tuning at any scale. It supports a wide range of frameworks including Pytorch, Tensorflow and Scikit-Learn. In the example that follows, we use Tune to perform a hyperparameter sweep and find the best combination of learning rate and batch size to train a convolutional neural network with Pytorch. You can find examples using other frameworks on [Ray's official documentation](https://docs.ray.io/en/latest/tune/examples/ml-frameworks.html)
+Tune is a Ray module for experiment execution and hyperparameter tuning at any scale. It supports a wide range of frameworks including PyTorch, TensorFlow, and Scikit-Learn. In the example that follows, we use Tune to perform a hyperparameter sweep and find the best combination of learning rate and batch size to train a convolutional neural network with PyTorch. You can find examples using other frameworks on [Ray's official documentation](https://docs.ray.io/en/latest/tune/examples/ml-frameworks.html)
 
 To run this example, you can use one of the job submission templates provided [above](#job-submission) depending on whether you require one or multiple nodes. As you will see in the code that follows, the amount of resources required by your job will depend mainly on two factors: the number of samples you wish to draw from the search space and the size of your model in memory. Knowing these two things you can reason about how many trials you will run in total and how many of them can run in parallel using as few resources as possible. For example, how many copies of your model can you fit inside the memory of a single GPU? That is the number of trials you can run in parallel using just one GPU.
 
-In the example, our model takes up about 1GB in memory. We will run 20 trials in total, 10 in parallel at a time on the same GPU, and we will give one CPU to each trial to be used as a `DataLoader` worker. So we will pick the single node job submission template and we will replace the number of cpus per task with `#SBATCH --cpus-per-task=10` and the Python call with `python ray-tune-example.py --num_samples=20 --cpus-per-trial=1 gpus-per-trial=0.1`. We will also need to install the packages `ray[tune]` and `torchvision` in our virtualenv.
+In the example, our model takes up about 1GB in memory. We will run 20 trials in total, 10 in parallel at a time on the same GPU, and we will give one CPU to each trial to be used as a `DataLoader` worker. So we will pick the single node job submission template and we will replace the number of cpus per task with `#SBATCH --cpus-per-task=10` and the Python call with `python ray-tune-example.py --num_samples=20 --cpus-per-trial=1 gpus-per-trial=0.1`. We will also need to install the packages `ray[tune]` and `torchvision` in our virtual environment.
 
 ```python title="ray-tune-example.py"
+
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -203,7 +245,7 @@ class Net(nn.Module):
         x = x.view(-1, 16 * 5 * 5)
         x = F.relu(self.fc1(x))
         x = F.relu(self.fc2(x))
-        x = self.fc3(x)
+        x = F.relu(self.fc3(x))
         return x
 
 
@@ -263,7 +305,7 @@ def main():
 
     ## Define a search space for the sweep
     config = {
-        "lr": tune.loguniform(1e-4, 1e-1), # candidate learning rates will be sampled from a log-uniform distrubution
+        "lr": tune.loguniform(1e-4, 1e-1), # candidate learning rates will be sampled from a log-uniform distrubution 
         "batch_size": tune.choice([2, 4, 8, 16]) # candidate batch sizes will be sampled randomly from this list of values
     }
 

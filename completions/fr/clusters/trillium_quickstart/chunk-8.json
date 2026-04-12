@@ -1,0 +1,64 @@
+{
+  "doc_key": "fr/trillium_quickstart",
+  "level": "chunk",
+  "chunk_index": 8,
+  "qa_pairs": [
+    {
+      "question": "Comment puis-je demander une session interactive pour des tests qui dépassent les limites de `debugjob` sur Trillium?",
+      "answer": "Si vos tâches de test nécessitent plus de temps que ce qui est permis par `debugjob`, vous pouvez demander une session interactive depuis la file d'attente standard en utilisant la commande `salloc`."
+    },
+    {
+      "question": "Quels sont les paramètres essentiels à utiliser avec la commande `salloc` pour une tâche de test CPU?",
+      "answer": "Pour une tâche de test CPU avec `salloc`, vous devez spécifier le nombre de nœuds avec `--nodes=N` et le nombre d'heures d'exécution avec `--time=M:00:00`. L'option `--ngpus-per-node=G` est pour les GPU, et `--x11` est pour les applications graphiques."
+    },
+    {
+      "question": "Y a-t-il des considérations importantes à prendre en compte lors de l'utilisation de `salloc` pour les tâches de test?",
+      "answer": "Oui, les tâches soumises avec `salloc` peuvent prendre plus de temps à démarrer qu'avec `debugjob` et elles sont comptabilisées dans votre allocation de ressources."
+    },
+    {
+      "question": "Quel système Trillium utilise-t-il pour gérer l'exécution des tâches sur la grappe?",
+      "answer": "Trillium utilise SLURM comme ordonnanceur de tâches pour gérer l'exécution des tâches sur les nœuds de calcul."
+    },
+    {
+      "question": "Quelle commande sert à soumettre une tâche à l'ordonnanceur SLURM sur Trillium?",
+      "answer": "Pour soumettre une tâche, vous devez utiliser la commande `sbatch jobscript.sh` sur un nœud de connexion."
+    },
+    {
+      "question": "Dois-je soumettre les tâches CPU et GPU depuis les mêmes nœuds de connexion?",
+      "answer": "Non, les tâches CPU doivent être soumises depuis les nœuds de connexion CPU, tandis que les tâches GPU doivent être soumises depuis le nœud de connexion GPU."
+    },
+    {
+      "question": "Qu'est-ce qu'un script de tâche soumis à SLURM doit contenir?",
+      "answer": "Le script de tâche doit contenir des lignes commençant par `#SBATCH` qui spécifient les ressources nécessaires à la tâche."
+    },
+    {
+      "question": "Quels sont les facteurs qui déterminent la priorité d'une tâche dans la file d'attente SLURM?",
+      "answer": "La priorité d'une tâche dans la file d'attente dépend des ressources demandées, du temps déjà passé dans la file d'attente, de l'utilisation récente, ainsi que du compte SLURM avec lequel la tâche a été soumise."
+    },
+    {
+      "question": "Comment les comptes SLURM sont-ils liés aux RAP (Resource Allocation Project)?",
+      "answer": "Les comptes SLURM correspondent aux RAP. Chaque chercheuse principale ou chercheur principal dispose d'au moins un RAP par défaut (commençant par `def-`), et ceux avec une allocation via concours ont un RAP supplémentaire (commençant par `rrg-` ou `rpp-`)."
+    },
+    {
+      "question": "Est-ce qu'un RAP (Resource Allocation Project) créé pour un autre système comme Nibi peut être utilisé sur Trillium?",
+      "answer": "Non, les RAC sont liés à un système spécifique; par exemple, un RAC pour Nibi ne peut pas être utilisé sur Trillium."
+    },
+    {
+      "question": "Pourquoi Trillium a-t-elle des restrictions particulières par rapport aux autres grappes de calcul?",
+      "answer": "Trillium est conçue spécifiquement pour les tâches massivement parallèles, ce qui implique des différences par rapport aux grappes à usage général comme Fir ou Nibi."
+    },
+    {
+      "question": "Où doivent être écrites les données de sortie des tâches sur Trillium?",
+      "answer": "Les données de sortie des tâches doivent impérativement être écrites dans le système de fichiers `/scratch`."
+    },
+    {
+      "question": "Pourquoi est-il nécessaire d'écrire les données de sortie dans le répertoire `/scratch`?",
+      "answer": "Il est nécessaire d'écrire les données de sortie dans `/scratch` parce que les répertoires `/home` et `/project` sont en lecture seule sur les nœuds de calcul."
+    },
+    {
+      "question": "Quelle est la meilleure pratique pour le répertoire à partir duquel soumettre les tâches afin d'assurer que les fichiers de sortie de l'ordonnanceur soient écrits correctement?",
+      "answer": "Il est généralement recommandé de soumettre vos tâches depuis votre répertoire `$SCRATCH` pour que les fichiers de sortie de l'ordonnanceur soient écrits au bon endroit."
+    }
+  ],
+  "generated_at": "2026-04-12T09:49:29.189210+00:00"
+}

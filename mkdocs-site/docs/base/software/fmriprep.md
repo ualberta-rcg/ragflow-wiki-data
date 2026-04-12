@@ -5,26 +5,38 @@ lang: "base"
 
 source_wiki_title: "FMRIPrep"
 source_hash: "42aaa08a374fb181cbfb6720f10c62fe"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T06:16:44.397843+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T07:00:23.451403+00:00"
 
 tags:
   - software
 
 keywords:
-  []
+  - "fMRIPrep"
+  - "TemplateFlow"
+  - "FreeSurfer"
+  - "DataLad"
+  - "Apptainer"
+
+questions:
+  - "Why is it necessary to manually download TemplateFlow templates using DataLad before running fMRIPrep?"
+  - "How do you configure Apptainer environment variables to ensure the fMRIPrep container has access to the required input, output, and template directories?"
+  - "What additional steps and files are required if a user wants to run fMRIPrep with FreeSurfer preprocessing?"
+  - "Why is it necessary to manually download TemplateFlow templates using DataLad before running fMRIPrep?"
+  - "How do you configure Apptainer environment variables to ensure the fMRIPrep container has access to the required input, output, and template directories?"
+  - "What additional steps and files are required if a user wants to run fMRIPrep with FreeSurfer preprocessing?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
 ## Load fMRIPrep
-[fMRIPrep](https://fmriprep.org/en/stable/) is an [NiPreps](https://www.nipreps.org) app for preprocessing MRI data in [BIDS](https://bids.neuroimaging.io) format. To use this on Alliance resources, first
+[fMRIPrep](https://fmriprep.org/en/stable/) is a [NiPreps](https://www.nipreps.org) app for preprocessing MRI data in [BIDS](https://bids.neuroimaging.io) format. To use this on Alliance resources, first
 
 ```bash
 module load apptainer fmriprep
@@ -52,10 +64,9 @@ datalad get -r tpl-MNI152NLin2009cAsym tpl-OASIS30ANTs
 Do the same for all templates you want to make available but the above is a good start.
 
 !!! note
-    These templates may take a while to download and that you only have to do these DataLad steps **once** and they will be available to you and the rest of your project group until deleted. See [accessing the TemplateFlow archive](https://www.templateflow.org/usage/archive/) for more information.
+    These templates may take a while to download and you only have to do these DataLad steps **once** and they will be available to you and the rest of your project group until deleted. See [accessing the TemplateFlow archive](https://www.templateflow.org/usage/archive/) for more information.
 
 ## Define Apptainer environment variables
-
 Now we can set up our Apptainer and fMRIPrep environment variables
 
 ```bash

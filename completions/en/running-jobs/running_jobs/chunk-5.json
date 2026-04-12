@@ -1,0 +1,64 @@
+{
+  "doc_key": "en/running_jobs",
+  "level": "chunk",
+  "chunk_index": 5,
+  "qa_pairs": [
+    {
+      "question": "What happens if I set the `SBATCH_ACCOUNT` environment variable and also specify an `--account` directive in my Slurm job script?",
+      "answer": "The environment variable `SBATCH_ACCOUNT` will take priority over the `--account` directive that is supplied within your job script."
+    },
+    {
+      "question": "How can I override the account name specified by the `SBATCH_ACCOUNT` environment variable for a particular job?",
+      "answer": "To override the `SBATCH_ACCOUNT` environment variable, you must supply an account name as a command-line argument to `sbatch`."
+    },
+    {
+      "question": "What is the purpose of the `SLURM_ACCOUNT` environment variable?",
+      "answer": "`SLURM_ACCOUNT` plays the same role as `SBATCH_ACCOUNT`, but it applies to the `srun` command instead of `sbatch`."
+    },
+    {
+      "question": "What is the purpose of the `SALLOC_ACCOUNT` environment variable?",
+      "answer": "The `SALLOC_ACCOUNT` environment variable holds the account name to be used with the `salloc` command, similar to how `SBATCH_ACCOUNT` works for `sbatch`."
+    },
+    {
+      "question": "What defines a serial job?",
+      "answer": "A serial job is a job which only requests a single core, making it the simplest type of job."
+    },
+    {
+      "question": "What is an array job?",
+      "answer": "An array job, also known as a task array, is a way to submit a whole set of jobs with one command."
+    },
+    {
+      "question": "How are individual jobs within an array job identified?",
+      "answer": "The individual jobs in an array are distinguished by an environment variable, `$SLURM_ARRAY_TASK_ID`, which is set to a different value for each instance of the job."
+    },
+    {
+      "question": "What is required for an application to utilize OpenMP in a threaded job?",
+      "answer": "For an application to use OpenMP, it must be compiled with the appropriate flag, such as `gcc -fopenmp ...` or `icc -openmp ...`."
+    },
+    {
+      "question": "What is the default memory unit when requesting memory per CPU (`--mem-per-cpu`) for an MPI job?",
+      "answer": "The default unit for memory when using `--mem-per-cpu` is megabytes (M)."
+    },
+    {
+      "question": "What kinds of tasks are interactive jobs useful for?",
+      "answer": "Interactive jobs are useful for tasks such as data exploration at the command line, using interactive console tools like R and iPython, and for significant software development, debugging, or compiling."
+    },
+    {
+      "question": "How do you initiate an interactive session on a compute node?",
+      "answer": "You can start an interactive session on a compute node using the `salloc` command, for example, `$ salloc --time=1:0:0 --mem-per-cpu=3G --ntasks=1 --account=def-someuser`."
+    },
+    {
+      "question": "Can graphical programs be run interactively on a compute node, and if so, how?",
+      "answer": "Yes, it is possible to run graphical programs interactively on a compute node by adding the `--x11` flag to your `salloc` command, provided you first connect to the cluster with X11 forwarding enabled."
+    },
+    {
+      "question": "How quickly do interactive jobs with a duration of three hours or less typically start?",
+      "answer": "Interactive jobs with a duration of three hours or less will likely start very soon after submission, as there are dedicated test nodes for jobs of this duration."
+    },
+    {
+      "question": "What can be expected regarding the start time for interactive jobs requesting more than three hours?",
+      "answer": "Interactive jobs that request more than three hours run on the cluster's regular set of nodes and may wait for many hours or even days before starting, potentially at an unpredictable and inconvenient hour."
+    }
+  ],
+  "generated_at": "2026-04-12T07:08:51.009294+00:00"
+}

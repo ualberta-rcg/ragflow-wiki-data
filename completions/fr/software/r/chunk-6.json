@@ -1,0 +1,84 @@
+{
+  "doc_key": "fr/r",
+  "level": "chunk",
+  "chunk_index": 6,
+  "qa_pairs": [
+    {
+      "question": "Quelles sont les étapes générales à suivre pour utiliser le paquet `foreach` en R?",
+      "answer": "Pour utiliser `foreach`, il faut d'abord charger `foreach` et le paquet dorsal, ensuite enregistrer le paquet dorsal, et finalement appeler `foreach()` en le laissant sur la même ligne que l'opérateur `%do%` (série) ou `%dopar%`."
+    },
+    {
+      "question": "Quel est le nom du fichier script R qui contient le code pour l'exemple d'exécution de `foreach`?",
+      "answer": "Le code R pour l'exemple d'exécution de `foreach` doit être placé dans le fichier script nommé `test_foreach.R`."
+    },
+    {
+      "question": "Quel est le nom du script shell utilisé pour soumettre la tâche `foreach` à l'ordonnanceur?",
+      "answer": "Le script shell utilisé pour soumettre la tâche `foreach` s'appelle `job_foreach.sh`."
+    },
+    {
+      "question": "Comment le nombre de cœurs CPU est-il déterminé pour `doParallel` dans l'exemple `test_foreach.R`?",
+      "answer": "Le nombre de cœurs est déterminé en récupérant la valeur de la variable d'environnement `SLURM_CPUS_PER_TASK` via `Sys.getenv(\"SLURM_CPUS_PER_TASK\")`."
+    },
+    {
+      "question": "Quelle commande enregistre le système dorsal de `doParallel` avec le nombre de cœurs spécifié?",
+      "answer": "La commande `registerDoParallel(cores=ncores)` est utilisée pour enregistrer le système dorsal avec le nombre de cœurs demandé."
+    },
+    {
+      "question": "Quelle est une règle importante concernant la syntaxe de `foreach()` et `%dopar%`?",
+      "answer": "Il est crucial que `foreach()` et `%dopar%` soient sur la même ligne de code."
+    },
+    {
+      "question": "Quelle commande permet de soumettre le script `job_foreach.sh`?",
+      "answer": "Il faut soumettre la tâche avec la commande `sbatch job_foreach.sh`."
+    },
+    {
+      "question": "Quelle commande est utilisée dans le script `job_foreach.sh` pour exécuter le script R de manière non interactive?",
+      "answer": "La commande `R CMD BATCH --no-save --no-restore test_foreach.R` est utilisée."
+    },
+    {
+      "question": "Quelles sont les directives SLURM minimales spécifiées dans le fichier `job_foreach.sh`?",
+      "answer": "Les directives SLURM minimales comprennent `--account=def-someacct`, `--nodes=1`, `--cpus-per-task=4`, `--mem-per-cpu=2048M`, et `--time=0-00:15`."
+    },
+    {
+      "question": "Comment faut-il enregistrer le système dorsal (`backend`) avec `makeCluster`?",
+      "answer": "Il faut enregistrer le système dorsal en lui fournissant le nom des nœuds, multiplié par le nombre désiré de processus, pour créer une grappe."
+    },
+    {
+      "question": "Quel type de grappe est utilisé par `makeCluster` pour exécuter des commandes via des connexions SSH?",
+      "answer": "Le type de grappe utilisé est `PSOCK`."
+    },
+    {
+      "question": "Quel est le nom du script R pour l'exemple d'utilisation de `makeCluster`?",
+      "answer": "Le script R pour l'exemple d'utilisation de `makeCluster` est nommé `test_makecluster.R`."
+    },
+    {
+      "question": "Quel est le nom du script shell pour soumettre une tâche `makeCluster`?",
+      "answer": "Le script shell utilisé pour soumettre une tâche `makeCluster` est `job_makecluster.sh`."
+    },
+    {
+      "question": "Comment la variable d'environnement `NODESLIST` est-elle exportée dans le script `job_makecluster.sh`?",
+      "answer": "La variable `NODESLIST` est exportée en utilisant la commande `export NODESLIST=$(echo $(srun hostname | cut -f 1 -d '.'))`."
+    },
+    {
+      "question": "Quelle commande est utilisée pour créer la grappe (`cluster`) dans le script R `test_makecluster.R`?",
+      "answer": "La grappe est créée avec la commande `cl = makeCluster(nodeslist, type = \"PSOCK\")`."
+    },
+    {
+      "question": "Que doit-on faire après avoir utilisé `makeCluster` pour libérer les ressources?",
+      "answer": "Il est important de libérer les ressources en appelant `stopCluster(cl)`."
+    },
+    {
+      "question": "Comment peut-on s'assurer que les processus sont répartis sur des nœuds différents lors de l'utilisation de `makeCluster` avec SLURM?",
+      "answer": "On peut ajouter la ligne `#SBATCH --ntasks-per-node=2` au script SLURM pour s'assurer que les processus sont placés sur des nœuds différents."
+    },
+    {
+      "question": "Quelles sont les directives SLURM définies dans le fichier `job_makecluster.sh`?",
+      "answer": "Les directives SLURM définies sont `--account=def-someacct`, `--ntasks=4`, `--mem-per-cpu=512M`, et `--time=00:05:00`."
+    },
+    {
+      "question": "Quelle commande est utilisée dans le script `job_makecluster.sh` pour exécuter le script R?",
+      "answer": "La commande `R -f test_makecluster.R` est utilisée."
+    }
+  ],
+  "generated_at": "2026-04-12T06:16:35.071618+00:00"
+}

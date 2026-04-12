@@ -1,0 +1,95 @@
+{
+  "doc_key": "en/lumerical",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is Lumerical?",
+      "answer": "Lumerical is a suite of applications for modelling nanophotonic devices, which includes FDTD Solutions."
+    },
+    {
+      "question": "Is Lumerical or FDTD Solutions centrally installed on Compute Canada systems?",
+      "answer": "No, Compute Canada does not have a central installation of the Lumerical suite or FDTD Solutions."
+    },
+    {
+      "question": "What is required to install Lumerical software?",
+      "answer": "You must be licensed to use the software before you can install it."
+    },
+    {
+      "question": "Which installation instructions should I follow if I've downloaded the entire Lumerical suite?",
+      "answer": "You should follow the instructions in the sections \"Installing Lumerical\" and \"Using the Lumerical module\"."
+    },
+    {
+      "question": "Which installation instructions should I follow if I've only downloaded FDTD Solutions?",
+      "answer": "You should follow the instructions in the sections \"Installing FDTD Solutions\" and \"Using the fdtd_solutions module\"."
+    },
+    {
+      "question": "How do you install the Lumerical suite when the installer release matches the recipe?",
+      "answer": "Run the command `eb Lumerical-2020a-r1-d316eeda68.eb --sourcepath=<path> --disable-enforce-checksums`, replacing `<path>` with the directory containing your `.tar.gz` file."
+    },
+    {
+      "question": "What command is used to install the Lumerical suite when the installer release doesn't match the recipe, but is the same year and letter (e.g., 2020a)?",
+      "answer": "You would run `eb Lumerical-2020a-r1-d316eeda68.eb --try-software-version=<version> --sourcepath=<path> --disable-enforce-checksums`, substituting `<version>` and `<path>` appropriately."
+    },
+    {
+      "question": "What happens if the year or letter of the Lumerical installer release changes (e.g., from 2020a to 2020b)?",
+      "answer": "If the year or letter changes, the installation script will need to be adapted to the new version, and you should contact technical support if existing recipes don't work."
+    },
+    {
+      "question": "How do I load the Lumerical module after installation?",
+      "answer": "After logging out and back into the server, use the command `module load lumerical`."
+    },
+    {
+      "question": "How do I configure my license file for the Lumerical module?",
+      "answer": "Create a file named `$HOME/.licenses/lumerical.lic` with the content `setenv(\"LUMERICAL_LICENSE_FILE\", \"27011@license01.example.com\")`, adjusting the port and hostname for your license server."
+    },
+    {
+      "question": "What command installs FDTD Solutions with a matching installer release?",
+      "answer": "Run `eb FDTD_Solutions-8.19.1438.eb --sourcepath=<path> --disable-enforce-checksums`, where `<path>` points to your downloaded `.tar.gz` file."
+    },
+    {
+      "question": "How do you install FDTD Solutions if your installer version differs from the recipe (e.g., 8.19.1466 instead of 8.19.1438)?",
+      "answer": "Use the command `eb FDTD_Solutions-8.19.1438.eb --try-software-version=<version> --sourcepath=<path> --disable-enforce-checksums`, replacing `<version>` and `<path>` with your specific details."
+    },
+    {
+      "question": "How do I load the FDTD Solutions module after installation?",
+      "answer": "After logging out and back into the server, use the command `module load fdtd_solutions`."
+    },
+    {
+      "question": "How do you set up the license server for FDTD Solutions after installation?",
+      "answer": "Start the software on a login node, and it should prompt you for the license server information. This only needs to be done once."
+    },
+    {
+      "question": "What is a key difference between the `fdtd_solutions` and `lumerical` modules regarding environment variables?",
+      "answer": "The environment variable containing the install location is `EBROOTFDTD_SOLUTIONS` for `fdtd_solutions` and `EBROOTLUMERICAL` for `lumerical`."
+    },
+    {
+      "question": "What `sbatch` options are recommended for Lumerical and FDTD Solutions jobs due to their MPI implementation not being tightly coupled with the scheduler?",
+      "answer": "It is recommended to use `--ntasks-per-node=1` and `--cpus-per-task=32`."
+    },
+    {
+      "question": "How do you submit a Lumerical job requesting two nodes for 30 minutes?",
+      "answer": "You would use an `sbatch` script similar to the example provided, ensuring `--time=0:30:00`, `--ntasks-per-node=1`, `--cpus-per-task=32`, `--ntasks=2`, and `--nodes=2` are set, and load the `lumerical` module."
+    },
+    {
+      "question": "What is the purpose of using template submission scripts for FDTD Solutions?",
+      "answer": "Templates improve efficiency by allowing you to submit many simulations without editing the job submission script for each one."
+    },
+    {
+      "question": "How do you submit an FDTD Solutions job using the `fdtd-run.sh` template script for a single FSP file, requesting 32 cores on one standard node?",
+      "answer": "You would run `fdtd-run.sh fsp1`, where `fsp1` is your FDTD Solutions project file."
+    },
+    {
+      "question": "How do you submit an FDTD Solutions job using the `fdtd-run.sh` template script to use multiple nodes?",
+      "answer": "You would run `fdtd-run.sh -nn <nodes> fsp1 [fsp2 ...]`, replacing `<nodes>` with the desired number of nodes."
+    },
+    {
+      "question": "What does the `fdtd-process-template.sh` script do?",
+      "answer": "It replaces specific tags in a submission script template with actual values (like estimated memory, time, filename) extracted from an FDTD Solutions project file."
+    },
+    {
+      "question": "What command-line option can be used with `fdtd-process-template.sh` to adjust the memory estimate by a multiplicative factor?",
+      "answer": "You can use the `-ms <memory_safety>` option, where `<memory_safety>` is a percentage value (e.g., 110 for a 110% factor)."
+    }
+  ],
+  "generated_at": "2026-04-12T01:06:41.867060+00:00"
+}

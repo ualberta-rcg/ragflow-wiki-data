@@ -1,0 +1,47 @@
+{
+  "doc_key": "base/using_a_new_empty_volume_on_a_linux_vm",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is the primary purpose of these instructions for Linux distributions?",
+      "answer": "The primary purpose is to guide users through partitioning, formatting, and mounting a newly created volume on most Linux distributions."
+    },
+    {
+      "question": "Which steps should be skipped if you're working with an existing volume instead of a new one?",
+      "answer": "The partition and format steps should be skipped if working with an existing volume to prevent data loss."
+    },
+    {
+      "question": "What command is used to create a partition on a volume, and what's the sequence of `fdisk` commands for a new primary partition?",
+      "answer": "The `sudo fdisk /dev/vdb` command is used. The sequence within `fdisk` is `n` (new partition), `p` (primary), `1` (partition number), `<return>` (first sector default), `<return>` (last sector default), and `w` (write partition table)."
+    },
+    {
+      "question": "How do you format a newly created partition with the ext4 filesystem?",
+      "answer": "You format the partition using the command `sudo mkfs -t ext4 /dev/vdb1`."
+    },
+    {
+      "question": "What command is used to create a directory where the volume will be mounted?",
+      "answer": "The command `sudo mkdir /media/data` is used to create a place to mount the device."
+    },
+    {
+      "question": "How do you manually mount the formatted volume to the created mount point?",
+      "answer": "You mount the volume using the command `sudo mount /dev/vdb1 /media/data`."
+    },
+    {
+      "question": "What needs to be done to ensure a volume is mounted automatically at boot time?",
+      "answer": "To mount a volume automatically at boot time, you need to edit `/etc/fstab` and add a line like `/dev/vdb1 /media/data ext4 defaults 0 2`."
+    },
+    {
+      "question": "How can you mount a device added to `/etc/fstab` immediately without rebooting?",
+      "answer": "You can mount a device added to `/etc/fstab` without rebooting by using the command `sudo mount -a`."
+    },
+    {
+      "question": "Why is it recommended to unmount a volume before detaching it?",
+      "answer": "It is recommended to unmount a volume before detaching it to help prevent data corruption."
+    },
+    {
+      "question": "What command is used to unmount a mounted volume, and what happens if the volume is busy?",
+      "answer": "The command `sudo umount /media/data` is used. If the volume is busy (files are being accessed), it will not unmount, and you will receive a message indicating it's still busy."
+    }
+  ],
+  "generated_at": "2026-04-12T10:12:48.059090+00:00"
+}

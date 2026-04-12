@@ -1,0 +1,111 @@
+{
+  "doc_key": "en/mpi",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is the primary purpose of parallel programming, according to the document?",
+      "answer": "The primary purpose of parallel programming is to speed up computations and tackle problems requiring large amounts of memory by dividing a computational problem among multiple computers to perform tasks simultaneously."
+    },
+    {
+      "question": "Which concept is considered the most significant to master when designing parallel applications?",
+      "answer": "The most significant concept to master in designing parallel applications is communication."
+    },
+    {
+      "question": "What are the two main models of computational parallelism discussed in the primer?",
+      "answer": "The two main models of computational parallelism are shared memory and distributed memory."
+    },
+    {
+      "question": "How do processes communicate in shared memory parallelism (SMP)?",
+      "answer": "In shared memory parallelism, communication between processes is implicit, as all processors can ultimately read and write values to globally addressable memory that others can access."
+    },
+    {
+      "question": "What is the main challenge when writing programs for shared memory parallelism?",
+      "answer": "The main challenge is data consistency, ensuring that data is not modified by more than one process at a time."
+    },
+    {
+      "question": "How do processes communicate in a distributed memory parallelism model?",
+      "answer": "In a distributed memory model, processes communicate by explicitly sending messages to one another, typically by invoking functions to send and receive data."
+    },
+    {
+      "question": "What is a significant challenge in distributed memory programming related to performance?",
+      "answer": "A major challenge is minimizing communication overhead, as network data transmission is orders of magnitude slower than memory access within a single machine."
+    },
+    {
+      "question": "What does MPI stand for, and what is it, strictly speaking?",
+      "answer": "MPI stands for Message Passing Interface, and it is strictly a standard describing a set of subroutines, functions, and objects for writing parallel programs in a distributed memory environment."
+    },
+    {
+      "question": "Can you name some common implementations of the MPI standard?",
+      "answer": "Common implementations of the MPI standard include Open MPI, Intel MPI, MPICH, and MVAPICH."
+    },
+    {
+      "question": "What programming languages does the MPI standard officially support, and are there bindings for other languages?",
+      "answer": "The MPI standard officially describes calls from Fortran, C, and C++ (though MPI 3.0 dropped official C++ bindings). Unofficial bindings exist for several other languages, like Python via MPI4py."
+    },
+    {
+      "question": "What are some advantages of using MPI for parallel programming?",
+      "answer": "Advantages of using MPI include its open and non-proprietary nature allowing for easy portability, good parallel efficiency on many cores, and simplified debugging due to local memory preventing processes from interfering with each other's memory."
+    },
+    {
+      "question": "What is the execution model called that parallel programs written with MPI often use?",
+      "answer": "Parallel programs written using MPI often use the Single Program, Multiple Data (SPMD) execution model."
+    },
+    {
+      "question": "In the SPMD model, what is the unique number assigned to each copy or 'process' called?",
+      "answer": "Each copy or 'process' in the SPMD model is assigned a unique number called its 'rank'."
+    },
+    {
+      "question": "What are compiler wrappers in the context of MPI programming?",
+      "answer": "MPI compiler wrappers are scripts provided by MPI library packages that call other compilers and automatically pass the necessary MPI-specific flags for include and library directories, and linking."
+    },
+    {
+      "question": "What is the purpose of the `MPI_Init` function in an MPI program?",
+      "answer": "`MPI_Init` is an initialization function that each copy of an MPI program must call before using any other MPI features to coordinate with other processes."
+    },
+    {
+      "question": "What is the general rule of thumb for placing `MPI_Init` and `MPI_Finalize` in an MPI program?",
+      "answer": "As a rule of thumb, `MPI_Init` should be called as the first statement of the program, and `MPI_Finalize` as its last statement."
+    },
+    {
+      "question": "How can an MPI process determine its unique identifier and the total number of processes running?",
+      "answer": "An MPI process can determine its unique identifier (rank) using `MPI_Comm_rank` and the total number of processes (size) using `MPI_Comm_size`."
+    },
+    {
+      "question": "What is an MPI 'communicator'?",
+      "answer": "A 'communicator' in MPI is a set of processes that are capable of sending messages to one another."
+    },
+    {
+      "question": "What is `MPI_COMM_WORLD`?",
+      "answer": "`MPI_COMM_WORLD` is a predefined MPI value that represents all the MPI processes started with a particular job."
+    },
+    {
+      "question": "What are the two basic MPI functions used for one-to-one data transfer between processes?",
+      "answer": "The two basic MPI functions for one-to-one data transfer are `MPI_Send` for sending data and `MPI_Recv` for receiving data."
+    },
+    {
+      "question": "What does the `datatype` argument in `MPI_Send` and `MPI_Recv` refer to?",
+      "answer": "The `datatype` argument specifies the type of data contained in the message buffer, providing compatibility between processes on different architectures."
+    },
+    {
+      "question": "What is a 'blocking call' in the context of `MPI_Send` and `MPI_Recv`?",
+      "answer": "A 'blocking call' means `MPI_Send` will not return until it's safe to modify the message buffer, and `MPI_Recv` will not return until the entire message content is available in the provided buffer."
+    },
+    {
+      "question": "What is the difference between an 'unsafe' and a 'safe' MPI program?",
+      "answer": "An 'unsafe' MPI program relies on buffering provided by the MPI library to avoid deadlock, which is not guaranteed by the standard. A 'safe' MPI program is designed so that sends and receives are properly paired, preventing deadlock even without buffering."
+    },
+    {
+      "question": "How can one typically make an MPI program that involves circular communication 'safe' from deadlocks?",
+      "answer": "A common solution is to adopt an odd-even pairing communication pattern, where even-ranked processes send then receive, and odd-ranked processes receive then send, ensuring proper pairing and avoiding deadlock."
+    },
+    {
+      "question": "What is the `—showme` option for Open MPI compiler wrappers?",
+      "answer": "The `—showme` option for Open MPI compiler wrappers will print which underlying compiler will be called and what compiler options (flags) will be added."
+    },
+    {
+      "question": "If an MPI program requires a common communication pattern like broadcasting or reduction, what should be used instead of manual `MPI_Send` and `MPI_Recv` calls?",
+      "answer": "If a collective communication function (like broadcast, reduction, barrier, scatter, gather) matches the required pattern, it should be used instead of implementing it manually with `MPI_Send` and `MPI_Recv`."
+    }
+  ],
+  "generated_at": "2026-04-12T01:50:48.293139+00:00"
+}

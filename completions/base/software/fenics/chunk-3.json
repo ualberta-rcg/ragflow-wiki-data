@@ -1,0 +1,68 @@
+{
+  "doc_key": "base/fenics",
+  "level": "chunk",
+  "chunk_index": 3,
+  "qa_pairs": [
+    {
+      "question": "How are Python packages such as fiat, dijitso, ufl, and ffc installed during the FEniCS setup?",
+      "answer": "These Python packages are installed by navigating to their respective directories within the `$FENICS_INSTALL` path and executing `pip3 install .` for each."
+    },
+    {
+      "question": "What is the process for building and installing DOLFIN?",
+      "answer": "To build and install DOLFIN, one must first navigate to `$FENICS_INSTALL/dolfin/build`, activate the FEniCS virtual environment, run a `cmake` command with specific flags (e.g., `-DDOLFIN_SKIP_BUILD_TESTS=true`, `-DCMAKE_INSTALL_PREFIX=$HOME/fenics`), then execute `make -j 8 install`, and finally `pip3 install .` from `$FENICS_INSTALL/dolfin/python`."
+    },
+    {
+      "question": "What is the installation prefix set to during the DOLFIN cmake configuration?",
+      "answer": "The installation prefix is set to `$HOME/fenics` during the DOLFIN cmake configuration."
+    },
+    {
+      "question": "Is the FEniCS add-ons section compatible with StdEnv/2020?",
+      "answer": "No, the FEniCS add-ons section has not been updated to work with StdEnv/2020."
+    },
+    {
+      "question": "What needs to be done before installing FEniCS add-ons?",
+      "answer": "You must first install FEniCS by following the instructions provided earlier in the document."
+    },
+    {
+      "question": "What modules are required to install the `mshr` add-on?",
+      "answer": "The required modules to install `mshr` are `hdf5-mpi/1.8.18`, `boost`, `eigen`, `python/3.5`, `scipy-stack/2017b`, `petsc/3.7.5`, and `fftw-mpi/3.3.6`."
+    },
+    {
+      "question": "What is the default installation prefix for the `mshr` add-on?",
+      "answer": "The default installation prefix for the `mshr` add-on is `$HOME/software/mshr`."
+    },
+    {
+      "question": "How do you configure the environment to use the `mshr` add-on after installation?",
+      "answer": "To use `mshr`, you need to load specific modules, source `~/software/dolfin/share/dolfin/dolfin.conf`, activate the FEniCS virtual environment (`~/fenics/bin/activate`), and then export `PYTHONPATH` and `LD_LIBRARY_PATH` to include the `mshr` installation paths (e.g., `$HOME/software/mshr/lib/python3.5/site-packages` and `$HOME/software/mshr/lib`)."
+    },
+    {
+      "question": "What is the purpose of the FEniCS Singularity recipe?",
+      "answer": "The FEniCS Singularity recipe downloads and installs the FEniCS Docker image, along with additional packages like various Python packages."
+    },
+    {
+      "question": "What are the prerequisites for running the Singularity recipe to build a FEniCS image?",
+      "answer": "The recipe must be run on your own Linux machine that has Singularity installed, and you must have root access."
+    },
+    {
+      "question": "What command is used to build a FEniCS image using the provided Singularity recipe?",
+      "answer": "The command is `sudo singularity build FEniCS.simg FEniCS-ComputeCanada-Singularity-Recipe`."
+    },
+    {
+      "question": "Where does the FEniCS Docker image place its files after being built?",
+      "answer": "The FEniCS Docker image places a number of files in `/home/fenics`."
+    },
+    {
+      "question": "What is the base Docker image utilized by the FEniCS Singularity recipe?",
+      "answer": "The base Docker image used is `quay.io/fenicsproject/stable:latest`."
+    },
+    {
+      "question": "What actions are performed during the `%post` section of the FEniCS Singularity recipe?",
+      "answer": "During the `%post` section, `apt-get -qq update` and `apt-get -y upgrade` are run, followed by the installation of numerous Python packages (e.g., `python-bitstring`, `python3-bitstring`, `cython`, `ipython`, `numpy`, `pandas`, `scipy`) and system development tools like `automake`, `git-core`, `libopenmpi-dev`, `libtool`, `mercurial`, `openmpi-bin`, `python3-pip`, and `python3-venv`."
+    },
+    {
+      "question": "What cleanup operations are carried out at the end of the FEniCS Singularity recipe's `%post` section?",
+      "answer": "At the end of the `%post` section, `sudo apt-get clean` is executed, and temporary files in `/var/lib/apt/lists/*`, `/tmp/*`, and `/var/tmp/*` are removed."
+    }
+  ],
+  "generated_at": "2026-04-11T21:22:36.235721+00:00"
+}

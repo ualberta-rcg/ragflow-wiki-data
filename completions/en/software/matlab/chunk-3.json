@@ -1,0 +1,80 @@
+{
+  "doc_key": "en/matlab",
+  "level": "chunk",
+  "chunk_index": 3,
+  "qa_pairs": [
+    {
+      "question": "What is the name of the example Slurm script provided for running a serial MATLAB program?",
+      "answer": "The example Slurm script for running a serial MATLAB program is named `matlab_slurm.sl`."
+    },
+    {
+      "question": "How do I submit the `matlab_slurm.sl` job to the scheduler?",
+      "answer": "You can submit the `matlab_slurm.sl` job using the command `sbatch matlab_slurm.sl`."
+    },
+    {
+      "question": "What MATLAB version is loaded by default in the `matlab_slurm.sl` script?",
+      "answer": "The `matlab_slurm.sl` script loads MATLAB version `2024b.1`."
+    },
+    {
+      "question": "What command runs the `cosplot` MATLAB function in the serial job script?",
+      "answer": "The command `matlab -singleCompThread -batch \"cosplot\"` runs the `cosplot` MATLAB function in the serial job script."
+    },
+    {
+      "question": "What type of temporary files might MATLAB create, and what should I do with them?",
+      "answer": "MATLAB may create files like `java.log.12345`. You should delete these files after MATLAB has run to avoid wasting storage space."
+    },
+    {
+      "question": "Is there a way to prevent MATLAB from creating `java.log` files?",
+      "answer": "Yes, you can suppress the creation of `java.log` files by using the `-nojvm` option when running MATLAB."
+    },
+    {
+      "question": "What is a potential drawback of using the `-nojvm` option with MATLAB?",
+      "answer": "Using the `-nojvm` option may interfere with certain plotting functions."
+    },
+    {
+      "question": "Where can I find more details about MATLAB command-line options such as `-nodisplay` and `-nojvm`?",
+      "answer": "Further information on command-line options can be found on the MathWorks website, specifically the 'MATLAB (Linux)' documentation."
+    },
+    {
+      "question": "Which parallel execution mode is generally sufficient for most MATLAB users on the clusters?",
+      "answer": "Most MATLAB users on the clusters will probably find it sufficient to run MATLAB using a `Threads` parallel environment on a single node."
+    },
+    {
+      "question": "What is the name of the example MATLAB code for parallel execution using `parfor`?",
+      "answer": "The example MATLAB code for parallel execution using `parfor` is named `timeparfor.m`."
+    },
+    {
+      "question": "What is the name of the example job script for running parallel MATLAB code?",
+      "answer": "The example job script for running parallel MATLAB code is named `matlab_parallel.sh`."
+    },
+    {
+      "question": "How do I submit the `matlab_parallel.sh` job to execute a parallel MATLAB function?",
+      "answer": "You can submit the `matlab_parallel.sh` job using the command `sbatch matlab_parallel.sh`."
+    },
+    {
+      "question": "How many CPUs per task are requested in the example `matlab_parallel.sh` script?",
+      "answer": "The example `matlab_parallel.sh` script requests 4 CPUs per task (`--cpus-per-task=4`)."
+    },
+    {
+      "question": "What is the recommended approach to observe performance effects when running parallel MATLAB jobs?",
+      "answer": "You may wish to experiment with changing the `--cpus-per-task` value to other small values (e.g., 1, 2, 6, 8) to observe the effect this has on performance."
+    },
+    {
+      "question": "What problem can occur if two or more parallel MATLAB jobs using a `Cluster` environment call `parpool` simultaneously?",
+      "answer": "When two or more parallel MATLAB jobs call `parpool` at the same time using a `Cluster` parallel environment, they may try to read and write to the same `.dat` file in the `$HOME/.matlab/local_cluster_jobs/R*` folder, which can corrupt the local parallel profile."
+    },
+    {
+      "question": "What should be done if the local parallel profile is corrupted by simultaneous MATLAB jobs?",
+      "answer": "If the local parallel profile has been corrupted, you should delete the `local_cluster_jobs` folder when no MATLAB job is running."
+    },
+    {
+      "question": "How can one prevent simultaneous parallel MATLAB jobs from corrupting the local parallel profile?",
+      "answer": "To prevent corruption, it's recommended to ensure each job creates its own parallel profile in a unique location by setting the `JobStorageLocation` property of the `parallel.Cluster` object, such as to `getenv('SLURM_TMPDIR')`."
+    },
+    {
+      "question": "Can you provide a code fragment that sets a unique `JobStorageLocation` for a MATLAB parallel job?",
+      "answer": "Yes, a code fragment is:\n```matlab\nlocal_cluster = parcluster('local')\nlocal_cluster.JobStorageLocation = getenv('SLURM_TMPDIR')\nparpool(local_cluster);\n```"
+    }
+  ],
+  "generated_at": "2026-04-12T01:14:09.754681+00:00"
+}

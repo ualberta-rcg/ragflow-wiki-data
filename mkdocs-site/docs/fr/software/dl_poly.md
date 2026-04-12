@@ -5,48 +5,75 @@ lang: "fr"
 
 source_wiki_title: "DL POLY/fr"
 source_hash: "d19d6895fd9eedf91d8916b5b31afc37"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T05:56:09.239959+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T06:41:39.760215+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "Tâche MPI"
+  - "Tâche séquencielle"
+  - "Na+"
+  - "run_serial_dlp.sh"
+  - "open source"
+  - "simulation en mécanique moléculaire"
+  - "SLURM"
+  - "fichiers d'entrée"
+  - "DL_POLY"
+  - "Logiciels connexes"
+  - "Bash"
+  - "modules"
+  - "Cl-"
+  - "finishvdw"
+
+questions:
+  - "Qu'est-ce que le logiciel DL_POLY et quelles sont ses principales caractéristiques techniques en matière de calcul et de gestion des fichiers ?"
+  - "Quelles sont les démarches et les commandes requises pour obtenir l'accès et charger les différentes versions du module DL_POLY ?"
+  - "Quels sont les trois fichiers d'entrée obligatoires pour lancer une simulation et quel type de paramètres chacun d'eux contient-il ?"
+  - "Quelle est la différence de configuration Slurm entre la tâche à processus unique et la tâche MPI pour exécuter DL_POLY4 ?"
+  - "Quels modules d'environnement spécifiques doivent être chargés avant de lancer l'exécutable DLPOLY.Z ?"
+  - "Quels sont les logiciels connexes mentionnés qui sont associés à cet environnement de simulation ?"
+  - "Quelles sont les valeurs des paramètres d'interaction définies pour les paires d'ions Na+ et Cl- ?"
+  - "Quel est le but du script \"run_serial_dlp.sh\" mentionné dans l'onglet de la tâche séquentielle ?"
+  - "Quel type de modèle physique ou de simulation justifie l'utilisation du potentiel \"bhm\" présenté dans ces données ?"
+  - "Quelle est la différence de configuration Slurm entre la tâche à processus unique et la tâche MPI pour exécuter DL_POLY4 ?"
+  - "Quels modules d'environnement spécifiques doivent être chargés avant de lancer l'exécutable DLPOLY.Z ?"
+  - "Quels sont les logiciels connexes mentionnés qui sont associés à cet environnement de simulation ?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
 ## Généralités
 
-DL_POLY est un logiciel classique de simulation en mécanique moléculaire. Sa conception permet de l’utiliser avec un ordinateur à processeur unique ou avec un ordinateur parallèle haute performance. DL_POLY_4 permet des opérations I/O entièrement parallèles et une alternative NetCDF (avec dépendance à une bibliothèque HDF5) aux fichiers de trajectoire ASCII par défaut.
+DL_POLY est un logiciel classique de simulation en mécanique moléculaire. Sa conception permet de l’utiliser avec un ordinateur à processeur unique ou avec un ordinateur parallèle haute performance. DL_POLY_4 permet des opérations d'entrée/sortie entièrement parallèles et une alternative NetCDF (avec dépendance à une bibliothèque HDF5) aux fichiers de trajectoire ASCII par défaut.
 
 [Voir cette liste de diffusion](https://www.jiscmail.ac.uk/cgi-bin/webadmin?A0=DLPOLY)
 
 ## Licence
 
-**DL_POLY** est maintenant [open source](https://gitlab.com/DL%20POLY%20Classic/dl%20poly) et il n'est pas nécessaire de vous enregistrer. Le nouveau module **dl_poly4/5.1.0** est installé sous **StdEnv/2023** et disponible à tous. Cependant, si vous voulez utiliser une version antérieure (**dl_poly4/4.10.0** et/ou **dl_poly4/4.08**), écrivez au [soutien technique](technical_support.md#fr) et demandez de vous ajouter à un groupe POSIX qui contrôle l'accès à DL_POLY4. Il n'est pas nécessaire de vous enregistrer sur le site web de DL_POLY.
+**DL_POLY** est maintenant [*open source*](https://gitlab.com/DL%20POLY%20Classic/dl%20poly) et il n'est pas nécessaire de vous enregistrer. Le nouveau module **dl_poly4/5.1.0** est installé sous **StdEnv/2023** et est disponible à toutes et à tous. Cependant, si vous voulez utiliser une version antérieure (**dl_poly4/4.10.0** et/ou **dl_poly4/4.08**), écrivez au [soutien technique](technical-support.md#fr) et demandez de vous ajouter à un groupe POSIX qui contrôle l'accès à DL_POLY4. Il n'est pas nécessaire de vous enregistrer sur le site web de DL_POLY.
 
 ## Modules
 
-Pour connaître les versions disponibles, lancez `module spider dl_poly4`. La commande `module` est décrite dans la page [Utiliser des modules](utiliser_des_modules.md).
+Pour connaître les versions disponibles, lancez `module spider dl_poly4`. La commande `module` est décrite dans la page [Utiliser des modules](utiliser-des-modules.md).
 
-Chargez la version 5.x avec
+Chargez la version 5.x avec :
 
 ```bash
-module load StdEnv/2023  intel/2023.2.1  openmpi/4.1.5 dl_poly4/5.1.0
+module load StdEnv/2023 intel/2023.2.1 openmpi/4.1.5 dl_poly4/5.1.0
 ```
 
-Pour charger la version précédente 4.10.0, utilisez 
+Pour charger la version précédente 4.10.0, utilisez :
 
 ```bash
-module load StdEnv/2023 intel/2020.1.217  openmpi/4.0.3 dl_poly4/4.10.0
+module load StdEnv/2023 intel/2020.1.217 openmpi/4.0.3 dl_poly4/4.10.0
 ```
 
 Prenez note que cette version doit être ajoutée à un groupe POSIX, comme décrit ci-dessus dans [Licence](#licence).
@@ -55,7 +82,7 @@ L’interface graphique Java n’est pas offerte.
 
 ## Scripts et exemples
 
-Les fichiers d’entrée CONTROL et FIELD proviennent des [exemples DL_POLY](ftp://ftp.dl.ac.uk/ccp5/DL_POLY/DL_POLY_4.0/DATA/) (TEST01).
+Les fichiers d’entrée CONTROL et FIELD proviennent de l’exemple TEST01 téléchargé à partir de [exemples DL_POLY](ftp://ftp.dl.ac.uk/ccp5/DL_POLY/DL_POLY_4.0/DATA/).
 
 Pour lancer une simulation, il faut au moins les trois fichiers suivants :
 
@@ -64,6 +91,7 @@ Pour lancer une simulation, il faut au moins les trois fichiers suivants :
 *   **CONTROL** : paramètres de simulation (pas, nombre d’étapes, ensemble de simulation, etc.)
 
 === "CONTROL"
+
     ```txt title="CONTROL"
     SODIUM CHLORIDE WITH (27000 IONS)
 
@@ -89,6 +117,7 @@ Pour lancer une simulation, il faut au moins les trois fichiers suivants :
     ```
 
 === "FIELD"
+
     ```txt title="FIELD"
     SODIUM CHLORIDE WITH EWALD SUM (27000 IONS)
     units internal
@@ -106,7 +135,8 @@ Pour lancer une simulation, il faut au moins les trois fichiers suivants :
     close
     ```
 
-=== "Tâche séquentielle"
+=== "Tâche séquencielle"
+
     ```bash title="run_serial_dlp.sh"
     #!/bin/bash
 
@@ -130,6 +160,7 @@ Pour lancer une simulation, il faut au moins les trois fichiers suivants :
     ```
 
 === "Tâche MPI"
+
     ```bash title="run_mpi_dlp.sh"
     #!/bin/bash
 

@@ -1,0 +1,99 @@
+{
+  "doc_key": "fr/cuda_tutorial",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "Quel est le but principal de ce tutoriel?",
+      "answer": "Ce tutoriel présente la composante de calcul hautement parallèle qu'est le processeur graphique (GPU), le langage de programmation parallèle CUDA, et des librairies numériques CUDA utilisées en calcul de haute performance."
+    },
+    {
+      "question": "Quelles sont les connaissances préalables recommandées pour tirer le meilleur profit de ce tutoriel?",
+      "answer": "Une bonne connaissance du langage C ou C++ est recommandée, car le tutoriel se limite à CUDA pour C/C++ (CUDA C)."
+    },
+    {
+      "question": "Quels sont les objectifs d'apprentissage de ce tutoriel?",
+      "answer": "Les objectifs sont de comprendre l'architecture d'un GPU, le déroulement d'un programme CUDA, la gestion des différents types de mémoires GPU, et d'écrire et compiler un exemple de code CUDA."
+    },
+    {
+      "question": "Qu'est-ce qu'un GPU et à quoi sert-il au départ?",
+      "answer": "Un GPU (pour ''graphics processing unit'') est un processeur monopuce capable d'effectuer des calculs mathématiques rapidement pour produire des rendus d'images."
+    },
+    {
+      "question": "Comment la puissance des GPU est-elle utilisée en dehors de l'affichage graphique de nos jours?",
+      "answer": "La puissance du GPU sert aussi à accélérer l'exécution de calculs intensifs dans plusieurs domaines de la recherche scientifique de pointe."
+    },
+    {
+      "question": "Qu'est-ce que CUDA?",
+      "answer": "CUDA (''compute unified device architecture'') est un environnement logiciel et un modèle de programmation scalable pour le traitement de calculs parallèles intensifs sur GPU."
+    },
+    {
+      "question": "Quels sont les principaux composants de l'architecture d'un GPU?",
+      "answer": "Un GPU se compose d'une mémoire globale et de multiprocesseurs en continu (SM), qui contiennent eux-mêmes plusieurs processeurs en continu (SP) effectuant les calculs."
+    },
+    {
+      "question": "Dans le modèle CUDA, que désignent les termes \"Hôte\" et \"Carte graphique\"?",
+      "answer": "Hôte désigne le CPU et sa mémoire, tandis que Carte graphique désigne le GPU et sa mémoire."
+    },
+    {
+      "question": "Quelles sont les cinq étapes principales du processus d'un programme CUDA?",
+      "answer": "Les étapes sont : déclaration et allocation de la mémoire, initialisation de la mémoire hôte, transfert des données de l'hôte à la carte graphique, exécution des fonctions GPU (kernels), et retour des données à la mémoire hôte."
+    },
+    {
+      "question": "Qu'est-ce qu'un ''kernel'' dans le contexte d'exécution CUDA?",
+      "answer": "Un ''kernel'' est un code CUDA simple exécuté dans un GPU."
+    },
+    {
+      "question": "Comment les cœurs GPU exécutent-ils le ''kernel'' de manière simultanée?",
+      "answer": "Tous les cœurs GPU exécutent le ''kernel'' de manière simultanée selon le modèle SIMT (''single instruction, multiple threads'')."
+    },
+    {
+      "question": "Comment les fils sont-ils organisés dans CUDA pour obtenir un parallélisme intensif?",
+      "answer": "Les fils sont groupés en blocs de fils, eux-mêmes formant une grille."
+    },
+    {
+      "question": "Comment les fils d'un même bloc interagissent-ils entre eux, et comment se distinguent-ils des fils d'autres blocs?",
+      "answer": "Les fils groupés dans un bloc coopèrent via la mémoire partagée, mais les fils d'un bloc ne coopèrent pas avec ceux des autres blocs."
+    },
+    {
+      "question": "Comment les multiprocesseurs en continu (SM) gèrent-ils l'exécution des blocs de fils?",
+      "answer": "Un SM exécute habituellement un bloc de fils à la fois, en groupes de 32 fils appelés ''warps'', et l'ordonnanceur peut suspendre l'exécution de blocs pour en exécuter d'autres si les données ne sont pas disponibles (ordonnancement ''zero-overhead'')."
+    },
+    {
+      "question": "Quels sont les différents types de mémoire disponibles aux opérations CUDA, et quelle est leur principale caractéristique de performance?",
+      "answer": "Les types sont la mémoire globale (lente, off-chip), la mémoire partagée (très rapide, on-chip, collaboration des fils), les registres et la mémoire locale (très rapide, espace de travail des fils), et la mémoire constante."
+    },
+    {
+      "question": "Quelles fonctions utilise-t-on pour allouer et désallouer de la mémoire sur la carte graphique en CUDA?",
+      "answer": "On utilise `cudaMalloc` pour l'allocation et `cudaFree` pour la désallocation."
+    },
+    {
+      "question": "Comment transfère-t-on des données entre la mémoire hôte et la mémoire de la carte graphique, et quelle fonction permet des transferts non bloquants?",
+      "answer": "On utilise `cudaMemcpy` pour copier les données. `cudaMemcpyAsync` permet des transferts de données asynchrones, ne bloquant pas l'exécution d'autres processus."
+    },
+    {
+      "question": "Comment un ''kernel'' CUDA peut-il être modifié pour paralléliser une tâche en utilisant plusieurs blocs?",
+      "answer": "En spécifiant un nombre N de blocs dans les chevrons triples (ex: `add <<< N, 1 >>>`), et en utilisant `blockIdx.x` dans le ''kernel'' pour que chaque bloc traite une portion différente des données."
+    },
+    {
+      "question": "Quel est l'avantage de paralléliser une tâche sur plusieurs fils au sein d'un même bloc plutôt que sur des blocs indépendants?",
+      "answer": "Contrairement aux blocs, les fils au sein d'un même bloc peuvent communiquer ensemble via la mémoire partagée, ce qui est avantageux pour les tâches nécessitant une communication intense."
+    },
+    {
+      "question": "Pourquoi est-il souvent préférable d'utiliser la mémoire partagée plutôt que la mémoire globale pour la communication entre fils au sein d'un ''kernel''?",
+      "answer": "La mémoire globale est relativement lente pour les transferts entre fils, tandis que la mémoire partagée est très rapide et accélère ces transferts, bien qu'elle ne soit accessible qu'aux fils du même bloc."
+    },
+    {
+      "question": "Comment utilise-t-on la mémoire partagée dans un ''kernel'' CUDA pour permettre la collaboration entre fils?",
+      "answer": "On déclare une variable avec le mot-clé `__shared__` (ex: `__shared__ int temp[N];`) et on utilise `__syncthreads()` pour synchroniser les fils avant que l'un d'eux n'aggrège les résultats."
+    },
+    {
+      "question": "Quels sont les principaux conseils concernant les transferts de mémoire pour optimiser la performance des programmes CUDA?",
+      "answer": "Il faut minimiser les copies de mémoire via PCI-e dans les deux directions, garder les données sur la carte graphique le plus longtemps possible et utiliser les temps mémoire pour analyser l'exécution."
+    },
+    {
+      "question": "Quelles sont les stratégies de programmation recommandées concernant l'utilisation des différents types de mémoire GPU?",
+      "answer": "Il est recommandé d'utiliser la mémoire constante pour la lecture seule, la mémoire partagée pour la lecture/écriture au sein d'un bloc, les registres pour la lecture/écriture dans le fil, et la mémoire globale pour les entrées/sorties et les résultats."
+    }
+  ],
+  "generated_at": "2026-04-11T19:19:57.543520+00:00"
+}

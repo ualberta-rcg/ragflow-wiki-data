@@ -1,0 +1,76 @@
+{
+  "doc_key": "fr/meta-farm",
+  "level": "chunk",
+  "chunk_index": 11,
+  "qa_pairs": [
+    {
+      "question": "Comment faire pour qu'une métatâche ne plante pas à cause d'un nœud défectueux, surtout si on a besoin d'un GPU?",
+      "answer": "Pour prévenir ça, vous pouvez ajouter des tests dans votre `job_script.sh` avant la ligne `task.run`. Par exemple, un test avec `nvidia-smi` peut vérifier la présence d'un GPU NVidia et forcer la fin de la métatâche si aucun GPU n'est trouvé."
+    },
+    {
+      "question": "C'est quoi l'utilitaire `gpu_test` pis comment on l'utilise sur Nibi?",
+      "answer": "L'utilitaire `gpu_test` fait le même genre de vérification qu'avec la commande `nvidia-smi` pour tester les GPU. Sur Nibi, il faut le copier dans votre répertoire `~/bin` avec la commande `cp ~syam/bin/gpu_test ~/bin`."
+    },
+    {
+      "question": "META a un mécanisme pour empêcher les métatâches de passer trop vite sur les cas. Comment ça marche?",
+      "answer": "Oui, META a un mécanisme intégré qui détecte si les `$N_failed_max` premiers cas se terminent en moins de `$dt_failed` secondes. Si c'est le cas, la métatâche est interrompue. Ces paramètres sont définis dans le fichier `config.h`."
+    },
+    {
+      "question": "Quelles sont les valeurs par défaut pour les paramètres `N_failed_max` et `dt_failed`?",
+      "answer": "Par défaut, les deux paramètres, `N_failed_max` et `dt_failed`, sont réglés à 5. Ça veut dire que la métatâche s'arrête par défaut si les 5 premiers cas sont terminés en moins de 5 secondes."
+    },
+    {
+      "question": "Si mes cas ont une durée d'exécution très courte et que le mécanisme de protection de META se déclenche, qu'est-ce que je dois faire?",
+      "answer": "Si le mécanisme de protection se déclenche parce que vos cas ont une durée d'exécution inférieure à `$dt_failed`, vous devriez diminuer la valeur de `dt_failed` dans le fichier `config.h`."
+    },
+    {
+      "question": "Quels fichiers de sortie sont créés dans le répertoire du groupe de cas quand des métatâches roulent?",
+      "answer": "Une fois que des métatâches roulent, deux types de fichiers sont créés dans le répertoire du groupe de cas : `OUTPUT/slurm-$JOBID.out`, qui contient la sortie standard pour chaque métatâche, pis `STATUSES/status.$JOBID`, qui contient l'état de chaque cas traité par métatâche."
+    },
+    {
+      "question": "À quoi correspond `$JOBID` dans les noms des fichiers de sortie?",
+      "answer": "Dans les noms des fichiers de sortie comme `slurm-$JOBID.out` et `status.$JOBID`, `$JOBID` représente l'identifiant de la tâche pour la métatâche correspondante."
+    },
+    {
+      "question": "Un répertoire `MISC` est créé; c'est quoi son utilité?",
+      "answer": "Le répertoire `MISC` est également créé dans le répertoire racine du groupe de cas. Son utilité spécifique n'est pas détaillée dans ce passage."
+    },
+    {
+      "question": "Où est-ce que les petits fichiers de travail temporaires sont créés par `submit.run`?",
+      "answer": "Chaque fois que `submit.run` est exécuté, un sous-répertoire unique est créé dans `/home/$USER/tmp`. C'est là que les petits fichiers de travail sont créés, comme ceux utilisés par `lockfile` pour protéger des opérations critiques."
+    },
+    {
+      "question": "C'est quoi le format des noms pour les sous-répertoires temporaires?",
+      "answer": "Les noms de ces sous-répertoires temporaires contiennent `$NODE.$PID`, où `$NODE` est le nom du nœud actuel (souvent un nœud de connexion) et `$PID` est l'identifiant unique du processus pour le script."
+    },
+    {
+      "question": "Peut-on supprimer les sous-répertoires temporaires une fois que c'est fini?",
+      "answer": "Oui, ce sous-répertoire peut être supprimé une fois que le traitement complet du groupe de cas est terminé. La commande `clean.run` le supprime automatiquement, mais prenez garde parce que cette commande supprime aussi tous les résultats obtenus."
+    },
+    {
+      "question": "C'est quoi le but de la commande `resubmit.run`?",
+      "answer": "La commande `resubmit.run` sert à réanalyser tous les fichiers `status.*` pour trouver les cas qui ont échoué ou n'ont jamais été exécutés, créer un fichier `table.dat_` avec juste ces cas, puis relancer un nouveau groupe de cas pour les retraiter."
+    },
+    {
+      "question": "`resubmit.run` prend-elle les mêmes arguments que `submit.run`?",
+      "answer": "Oui, la commande `resubmit.run` utilise les mêmes arguments que `submit.run`, soit `N [-auto] [optional_sbatch_arguments]`."
+    },
+    {
+      "question": "Quand est-ce qu'on peut exécuter la commande `resubmit.run`?",
+      "answer": "Vous ne pouvez pas exécuter `resubmit.run` tant que toutes les tâches de l'exécution d'origine ne sont pas terminées ou annulées."
+    },
+    {
+      "question": "Comment faire pour vérifier l'état de tous les cas traités, surtout si certains continuent d'échouer?",
+      "answer": "Pour vérifier l'état de tous les cas traités, vous pouvez utiliser la commande `Status.run` (avec un S majuscule). Si des cas échouent à plusieurs reprises, il doit y avoir un problème avec le programme ou son entrée."
+    },
+    {
+      "question": "Comment la commande `Status.run` peut-elle nous aider à mieux voir les cas qui ont échoué?",
+      "answer": "Avec l'option `-f`, la commande `Status.run` trie les résultats en fonction de l'état de la sortie, ce qui affiche les cas avec un état différent de zéro (les échecs) en bas de la liste pour mieux les repérer."
+    },
+    {
+      "question": "À quoi sert l'option `-auto` quand on utilise `resubmit.run`?",
+      "answer": "Si l'option `-auto` est présente avec `resubmit.run`, le groupe de cas sera automatiquement soumis de nouveau à la fin, au besoin, jusqu'à ce que tous les cas qui avaient échoué soient traités."
+    }
+  ],
+  "generated_at": "2026-04-12T01:25:23.076514+00:00"
+}

@@ -1,0 +1,59 @@
+{
+  "doc_key": "fr/job_arrays",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "C'est quoi un vecteur de tâches (job array) dans SLURM?",
+      "answer": "C'est une façon de gérer plusieurs tâches dont un paramètre diffère, en utilisant une seule soumission pour les organiser."
+    },
+    {
+      "question": "Comment est-ce que les tâches individuelles dans un vecteur de tâches sont différenciées?",
+      "answer": "Elles sont différenciées par la variable d’environnement $SLURM_ARRAY_TASK_ID, à laquelle l’ordonnanceur attribue une valeur différente pour chaque tâche."
+    },
+    {
+      "question": "Comment sont définies les valeurs possibles pour $SLURM_ARRAY_TASK_ID?",
+      "answer": "Les valeurs sont définies par le paramètre --array lors de la soumission de la tâche via sbatch."
+    },
+    {
+      "question": "Donnez des exemples de la syntaxe du paramètre --array pour définir les valeurs de $SLURM_ARRAY_TASK_ID.",
+      "answer": "On peut utiliser une plage (ex: --array=0-7), une liste de valeurs (ex: --array=1,3,5,7), une plage avec un pas (ex: --array=1-7:2), ou limiter le nombre de tâches exécutées simultanément (ex: --array=1-100%10)."
+    },
+    {
+      "question": "Que fait le script simple_array.sh et comment utilise-t-il $SLURM_ARRAY_TASK_ID?",
+      "answer": "Il crée 10 tâches indépendantes, chacune d'une durée maximale de 3 heures. $SLURM_ARRAY_TASK_ID est utilisé pour spécifier le fichier d'entrée ou un argument de ligne de commande pour chaque tâche."
+    },
+    {
+      "question": "Quels sont les avantages d'utiliser un vecteur de tâches par rapport à la soumission de plusieurs tâches séparées?",
+      "answer": "Un vecteur de tâches en attente ne produit qu’une seule ligne dans squeue, facilitant la consultation, et l’ordonnanceur gagne en performance en analysant les besoins une seule fois."
+    },
+    {
+      "question": "Dans quelles situations n'est-il pas recommandé d'utiliser un vecteur de tâches?",
+      "answer": "Il n'est pas recommandé pour des tâches qui durent beaucoup moins d'une heure, particulièrement celles de quelques minutes seulement."
+    },
+    {
+      "question": "Quelles alternatives sont suggérées pour regrouper des tâches de très courte durée?",
+      "answer": "On peut utiliser META, GLOST, GNU Parallel ou une boucle de l’interpréteur à l'intérieur d'une seule tâche."
+    },
+    {
+      "question": "Quel type de problème le script directories_array.sh aide-t-il à résoudre?",
+      "answer": "Il permet d'exécuter le même script dans des répertoires multiples ayant une structure identique, en lisant les noms de répertoires à partir d'un fichier."
+    },
+    {
+      "question": "Comment le script directories_array.sh sélectionne-t-il le répertoire pour chaque tâche?",
+      "answer": "Il utilise la commande `sed -n \"${SLURM_ARRAY_TASK_ID}p\" case_list` pour sélectionner la ligne correspondant au numéro de la tâche dans le fichier case_list, puis se déplace dans ce répertoire."
+    },
+    {
+      "question": "Quelle précaution importante faut-il prendre avec le fichier case_list lorsqu'on utilise des répertoires multiples?",
+      "answer": "Le fichier case_list ne doit pas être modifié tant que toutes les tâches du vecteur ne sont pas exécutées, car il est lu au début de chaque nouvelle tâche."
+    },
+    {
+      "question": "Comment le script Python `my_script_parallel.py` récupère-t-il la valeur de $SLURM_ARRAY_TASK_ID?",
+      "answer": "Il récupère la valeur en tant qu'argument de ligne de commande via `sys.argv[1]` et la convertit en entier pour l'utiliser comme index."
+    },
+    {
+      "question": "Comment est configuré le paramètre --array pour l'exemple Python de calculs parallèles?",
+      "answer": "Le paramètre --array est configuré de 0 à 99 (--array=0-99) pour correspondre aux index du vecteur NumPy utilisé dans le script Python."
+    }
+  ],
+  "generated_at": "2026-04-12T00:14:58.295371+00:00"
+}

@@ -1,0 +1,67 @@
+{
+  "doc_key": "fr/samtools",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "C'est quoi Samtools, pis c'est à quoi ça sert?",
+      "answer": "Samtools, c'est un ensemble de programmes conçus pour interagir avec les données de séquençage à haut débit."
+    },
+    {
+      "question": "Quels sont les outils étroitement liés à Samtools et leurs principales fonctions?",
+      "answer": "Les outils sont BCFtools, qui s'occupe des fichiers BCF2, VCF et gVCF pour les variants, et HTSlib, une bibliothèque en C qui permet à Samtools et BCFtools de lire et écrire des données de séquençage."
+    },
+    {
+      "question": "Quelles sont les capacités de Samtools par rapport aux formats SAM, BAM et CRAM?",
+      "answer": "Samtools permet la lecture, l'écriture, l'édition, l'indexation pis l'affichage de ces formats-là."
+    },
+    {
+      "question": "Comment on fait pour charger la version par défaut de Samtools sur un système?",
+      "answer": "Faut lancer la commande `module load samtools`."
+    },
+    {
+      "question": "C'est quoi la raison principale de convertir un fichier SAM en fichier BAM?",
+      "answer": "Un fichier BAM, c'est une version binaire pis compressée d'un fichier SAM, ce qui le rend beaucoup plus compact, facile à manipuler pis idéal pour le stockage de gros alignements."
+    },
+    {
+      "question": "C'est quoi l'avantage du format CRAM par rapport au BAM?",
+      "answer": "Le format CRAM est un format plus récent qui offre encore plus de compression pour le même type de données."
+    },
+    {
+      "question": "Avant de convertir un fichier SAM en BAM, quelle vérification est essentielle à faire?",
+      "answer": "Il faut vérifier si le fichier SAM a un en-tête avec le caractère « @ », en utilisant la commande `samtools view -H mon_échantillon.sam`."
+    },
+    {
+      "question": "Comment on convertit un fichier SAM avec un en-tête en fichier BAM?",
+      "answer": "On utilise `samtools view -bo mon_échantillon.bam mon_échantillon.sam` ou `samtools view -b mon_échantillon.sam -o mon_échantillon.bam`."
+    },
+    {
+      "question": "Si un fichier SAM n'a pas d'en-tête, comment peut-on le convertir en BAM en utilisant un fichier de référence FASTA?",
+      "answer": "On peut utiliser `samtools view -bt réf_seq.fa -o mon_échantillon.bam mon_échantillon.sam`."
+    },
+    {
+      "question": "Pourquoi c'est important de trier pis d'indexer les fichiers BAM?",
+      "answer": "C'est souvent un prérequis pour d'autres applications subséquentes, comme les appels de variants ou le décompte de fonctionnalités."
+    },
+    {
+      "question": "Quelles sont les commandes pour trier un fichier BAM pis ensuite l'indexer?",
+      "answer": "Pour trier, c'est `samtools sort mon_échantillon.bam -o mon_échantillon_trié.bam`, puis pour l'indexer, c'est `samtools index mon_échantillon_trié.bam`."
+    },
+    {
+      "question": "Est-ce qu'on peut convertir un fichier SAM directement en fichier BAM trié en une seule ligne de commande?",
+      "answer": "Oui, en utilisant la fonction pipe (`|`) de l'interpréteur: `samtools view -b mon_échantillon.sam | samtools sort -o mon_échantillon_trié.bam`."
+    },
+    {
+      "question": "Comment on fait pour traiter plusieurs fichiers SAM simultanément pis améliorer la performance?",
+      "answer": "On peut utiliser un script avec une boucle, le multithreading avec l'indicateur `-@` de Samtools, ou bien GNU Parallel pour traiter plusieurs fichiers en même temps."
+    },
+    {
+      "question": "C'est quoi le rôle de l'indicateur `-@` quand on utilise Samtools?",
+      "answer": "L'indicateur `-@` permet à Samtools de travailler sur plusieurs cœurs (multithreading) pour une seule tâche, ce qui peut accélérer le traitement."
+    },
+    {
+      "question": "Comment GNU Parallel aide-t-il au traitement de multiples fichiers avec Samtools?",
+      "answer": "GNU Parallel permet d'exécuter plusieurs commandes Samtools en parallèle sur différents fichiers simultanément, en exploitant plusieurs cœurs ou processeurs disponibles."
+    }
+  ],
+  "generated_at": "2026-04-12T07:38:19.666433+00:00"
+}

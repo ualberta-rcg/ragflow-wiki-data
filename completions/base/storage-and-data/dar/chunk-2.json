@@ -1,0 +1,76 @@
+{
+  "doc_key": "base/dar",
+  "level": "chunk",
+  "chunk_index": 2,
+  "qa_pairs": [
+    {
+      "question": "What happens automatically when archiving files from a Lustre filesystem using `dar`?",
+      "answer": "If files are archived from a Lustre filesystem (typically found in `/home`, `/project`, or `/scratch` on general-purpose compute clusters), some extended attributes are saved automatically."
+    },
+    {
+      "question": "How can I view the extended attributes assigned to each archived file with `dar`?",
+      "answer": "You can use the `dar -l all -alist-ea` command to list the archive's contents and display its extended attributes."
+    },
+    {
+      "question": "What kind of extended attribute is commonly seen when archiving files from a Lustre filesystem?",
+      "answer": "You will typically see strings like `Extended Attribute: [lustre.lov]`."
+    },
+    {
+      "question": "What error message might appear when attempting to extract `dar` archived files with `lustre.lov` attributes to node local storage?",
+      "answer": "You might encounter an error message such as `Error while adding EA lustre.lov : Operation not supported`."
+    },
+    {
+      "question": "How can I prevent the \"Operation not supported\" error when extracting `dar` archived files with Lustre attributes to node local storage (`$SLURM_TMPDIR`)?",
+      "answer": "You can use the `-u 'lustre*'` flag during extraction to exclude specific types of attributes, for example: `dar -R restore/ -O -w -x all -v -g test -u 'lustre*'`."
+    },
+    {
+      "question": "What is an alternative solution to avoid issues with `lustre.lov` attributes, by addressing it during archive creation?",
+      "answer": "You can use the `-u 'lustre*'` flag when creating the archive to prevent the `lustre.lov` attribute from being saved, for example: `dar -w -c all -g test -u 'lustre*'`. "
+    },
+    {
+      "question": "When is it necessary to exclude `lustre.lov` attributes when using `dar`?",
+      "answer": "It is necessary only if you intend to extract the archived files to a location not formatted in Lustre, such as node local storage."
+    },
+    {
+      "question": "How can `dar` be used to create differential and incremental backups?",
+      "answer": "You can create differential and incremental backups by passing the base name of a reference archive using the `-A` flag."
+    },
+    {
+      "question": "How would you create an initial full backup named `monday` for a directory called `test`?",
+      "answer": "You would use the command: `dar -w -c monday -g test`."
+    },
+    {
+      "question": "If you have a full backup named `monday`, how would you create an incremental backup named `tuesday` that includes only modified files from the `test` directory, referencing `monday`?",
+      "answer": "You would use the command: `dar -w -A monday -c tuesday -g test`."
+    },
+    {
+      "question": "Following a `monday` full backup and a `tuesday` incremental backup, how would you create a `wednesday` incremental backup, referencing `tuesday`, for the `test` directory?",
+      "answer": "You would use the command: `dar -w -A tuesday -c wednesday -g test`."
+    },
+    {
+      "question": "If `wednesday.1.dar` contains only files modified on Wednesday, how would you restore only those specific files?",
+      "answer": "You would use the command: `dar -R restore -O -x wednesday`."
+    },
+    {
+      "question": "What is the correct chronological order to restore all files from a series of `dar` backups consisting of a full backup `monday.1.dar`, and incremental backups `tuesday.1.dar` and `wednesday.1.dar`?",
+      "answer": "You must restore them in chronological order: first the full backup (`dar -R restore -O -w -x monday`), then the first incremental backup (`dar -R restore -O -w -x tuesday`), and finally the second incremental backup (`dar -R restore -O -w -x wednesday`)."
+    },
+    {
+      "question": "How can you limit the maximum size of each slice when creating a `dar` archive?",
+      "answer": "To limit the maximum size of each slice in bytes, use the flag `-s` followed by a number and one of k/M/G/T."
+    },
+    {
+      "question": "What command would create a `dar` archive named `monday` from the `test` directory, with each slice limited to 100 MB?",
+      "answer": "You would use the command: `dar -s 100M -w -c monday -g test`."
+    },
+    {
+      "question": "If a 1340 MB archive is created with a 100 MB slice limit, how many slices will be generated?",
+      "answer": "The command will create 14 slices, named `monday.{1..14}.dar`."
+    },
+    {
+      "question": "How do you extract files from an archive that has been split into multiple slices, such as `monday.{1..14}.dar`?",
+      "answer": "You extract from all of these slices by simply using their base name, for example: `dar -O -x monday`."
+    }
+  ],
+  "generated_at": "2026-04-11T20:45:02.854690+00:00"
+}

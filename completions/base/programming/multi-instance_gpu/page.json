@@ -1,0 +1,67 @@
+{
+  "doc_key": "base/multi-instance_gpu",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is Multi-Instance GPU (MIG) technology?",
+      "answer": "MIG is a technology that allows partitioning a single GPU into multiple independent virtual GPU instances, each getting a portion of the original GPU's computational resources and memory, detached by on-chip protections."
+    },
+    {
+      "question": "What are the primary benefits of using GPU instances with MIG technology?",
+      "answer": "Using GPU instances is less wasteful, usage is billed accordingly, jobs use less allocated priority, allowing for more jobs and shorter wait times."
+    },
+    {
+      "question": "Under what conditions should a job be evaluated for running on a GPU instance instead of a full GPU?",
+      "answer": "Jobs that use less than half of a full GPU's computing power and less than half of its available memory should be evaluated and tested on an instance."
+    },
+    {
+      "question": "What is a significant limitation of MIG technology concerning communication between GPUs?",
+      "answer": "MIG technology does not support CUDA Inter-Process Communication (IPC), which optimises data transfers between GPUs over NVLink and NVSwitch."
+    },
+    {
+      "question": "Is it permitted to request more than one MIG instance in a single job?",
+      "answer": "No, requesting more than one MIG instance in a job is not permitted, and such a job will be rejected at submission time."
+    },
+    {
+      "question": "What alternatives are suggested if a user believes they need more than one MIG instance for a job?",
+      "answer": "Users can request a larger instance, an entire GPU or multiple GPUs, use MPS, or contact support to explain their reason for wanting to run on multiple MIGs."
+    },
+    {
+      "question": "Are graphic APIs like OpenGL and Vulkan supported by MIG technology?",
+      "answer": "No, graphic APIs such as OpenGL and Vulkan are not supported by MIG technology."
+    },
+    {
+      "question": "How do CPU core requirements factor into choosing between a full GPU and a GPU instance?",
+      "answer": "GPU jobs requiring many CPU cores may require a full GPU instead of an instance because the maximum number of CPU cores per instance depends on the configured MIG profiles and cores per full GPU, which vary."
+    },
+    {
+      "question": "Which Canadian computing clusters are listed as supporting NVIDIA MIG technology with A100 or H100 GPUs?",
+      "answer": "Narval (with NVIDIA A100-40gb GPUs), Rorqual (with NVIDIA H100-80gb GPUs), Nibi (with NVIDIA H100-80gb GPUS), and Fir (with NVIDIA H100-80gb GPUS) are listed."
+    },
+    {
+      "question": "What information does a MIG instance profile name, such as H100-1g.10gb, convey?",
+      "answer": "The profile name describes the size of the instance, indicating, for example, 1/8th of the computing power with 10GB GPU memory for H100-1g.10gb."
+    },
+    {
+      "question": "What is the benefit of choosing a less powerful MIG profile?",
+      "answer": "Using less powerful MIG profiles will have a lower impact on your allocation and priority."
+    },
+    {
+      "question": "What command can be used to list all available MIG profiles and full-size GPU names on a given cluster?",
+      "answer": "The command `sinfo -o \"%G\"|grep gpu|sed 's/gpu://g'|sed 's/),/\\n/g'|cut -d: -f1|sort|uniq` can be run."
+    },
+    {
+      "question": "What key metrics should users consider when trying to identify if their jobs would benefit from a GPU instance?",
+      "answer": "Users should consider power consumption, GPU functionality utilisation, maximum GPU memory used, and the average number of CPU cores required for the job."
+    },
+    {
+      "question": "Where can users access information about their current and past jobs to determine if a GPU instance is suitable?",
+      "answer": "Users can find information on the Narval usage portal (writing in progress)."
+    },
+    {
+      "question": "How can users monitor GPU metrics in real-time for a running job?",
+      "answer": "Users can attach to the node where the job is running and use `nvidia-smi` to read the GPU metrics in real time."
+    }
+  ],
+  "generated_at": "2026-04-12T03:23:12.037402+00:00"
+}

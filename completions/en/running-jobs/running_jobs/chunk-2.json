@@ -1,0 +1,112 @@
+{
+  "doc_key": "en/running_jobs",
+  "level": "chunk",
+  "chunk_index": 2,
+  "qa_pairs": [
+    {
+      "question": "What is the general command for checking the status of Slurm jobs?",
+      "answer": "The general command for checking the status of Slurm jobs is `squeue`."
+    },
+    {
+      "question": "How can I list only my own jobs in Slurm?",
+      "answer": "You can use the shorter command `sq` to list only your own jobs."
+    },
+    {
+      "question": "What information does `squeue` typically display by default?",
+      "answer": "`squeue` by default supplies information about all jobs in the system, not just your own."
+    },
+    {
+      "question": "What does the 'ST' column in the `sq` output represent?",
+      "answer": "The 'ST' column of the `sq` output shows the status of each job."
+    },
+    {
+      "question": "What are the two most common job states displayed by `sq` or `squeue`?",
+      "answer": "The two most common job states are PD for pending and R for running."
+    },
+    {
+      "question": "Where can I find more detailed information about the output of `sq` or `squeue`?",
+      "answer": "You can find more information about the output of `sq` or `squeue` on the online manual page for `squeue`."
+    },
+    {
+      "question": "Is `sq` a standard Slurm command?",
+      "answer": "`sq` is a local customization on our clusters."
+    },
+    {
+      "question": "Should I run `sq` or `squeue` frequently from a script?",
+      "answer": "No, you should not run `sq` or `squeue` from a script or program at high frequency (e.g., every few seconds) as it adds load to Slurm and may interfere with its performance."
+    },
+    {
+      "question": "What is a recommended alternative for monitoring job status instead of frequently checking `squeue`?",
+      "answer": "Email notification is a much better way to learn when your job starts or ends."
+    },
+    {
+      "question": "Where is the output of a Slurm job placed by default?",
+      "answer": "By default, the output is placed in a file named \"slurm-\", suffixed with the job ID number and \".out\" (e.g., `slurm-123456.out`), in the directory from which the job was submitted."
+    },
+    {
+      "question": "Why is it convenient to have the job ID in the output file name?",
+      "answer": "Having the job ID as part of the file name is convenient for troubleshooting."
+    },
+    {
+      "question": "How can I specify a different name or location for my job's output file?",
+      "answer": "A different name or location for your job's output file can be specified by using the `--output` directive."
+    },
+    {
+      "question": "What kinds of replacement symbols can be used in an output filename specified with `--output`?",
+      "answer": "Certain replacement symbols can be used, such as the job ID number, the job name, or the job array task ID. A complete list is available in the vendor documentation for `sbatch`."
+    },
+    {
+      "question": "Where does error output typically appear for a Slurm job?",
+      "answer": "Error output will normally appear in the same file as standard output, just as it would if you were typing commands interactively."
+    },
+    {
+      "question": "How can I send the standard error channel (stderr) to a separate file?",
+      "answer": "If you want to send the standard error channel (stderr) to a separate file, you can use the `--error` directive."
+    },
+    {
+      "question": "What is required for every job submitted to our clusters regarding accounts?",
+      "answer": "Every job must have an associated account name corresponding to a Resource Allocation Project (RAP)."
+    },
+    {
+      "question": "When does the scheduler automatically associate my jobs with an account?",
+      "answer": "If you are a member of only one account, the scheduler will automatically associate your jobs with that account."
+    },
+    {
+      "question": "What message might I receive if I have access to more than one account when submitting a job?",
+      "answer": "You might receive messages such as \"You are associated with multiple _cpu allocations... Please specify one of the following accounts to submit this job:\" or \"You are associated with multiple _gpu allocations... Please specify one of the following accounts to submit this job:\"."
+    },
+    {
+      "question": "How do I specify an account when I have access to multiple accounts?",
+      "answer": "In this case, you must use the `--account` directive to specify one of the accounts listed in the error message, for example, `#SBATCH --account=def-user-ab`."
+    },
+    {
+      "question": "Where can I find the account name corresponding to a Resource Allocation Project (RAP)?",
+      "answer": "To find the account name, log in to CCDB, click on 'My Projects -> My Resources and Allocations', and look under the 'Group Name' column for your project."
+    },
+    {
+      "question": "Are Resource Allocation Projects always transferable between different clusters?",
+      "answer": "No, a Resource Allocation Project may only apply to a specific cluster (or set of clusters) and may not be transferable from one cluster to another."
+    },
+    {
+      "question": "Which environment variables can I set in my `~/.bashrc` file to consistently use a specific account for all jobs?",
+      "answer": "You can set `export SLURM_ACCOUNT=def-someuser`, `export SBATCH_ACCOUNT=$SLURM_ACCOUNT`, and `export SALLOC_ACCOUNT=$SLURM_ACCOUNT` in your `~/.bashrc` file."
+    },
+    {
+      "question": "If I set `SBATCH_ACCOUNT` in my `~/.bashrc` and also include `--account` in my job script, which one takes priority?",
+      "answer": "The environment variable `SBATCH_ACCOUNT` takes priority over the `--account` directive in the job script."
+    },
+    {
+      "question": "How can I override the `SBATCH_ACCOUNT` environment variable if it's set?",
+      "answer": "To override the environment variable, you must supply an account name as a command-line argument to `sbatch`."
+    },
+    {
+      "question": "What is the role of the `SLURM_ACCOUNT` environment variable?",
+      "answer": "`SLURM_ACCOUNT` plays the same role as `SBATCH_ACCOUNT`, but for the `srun` command instead of `sbatch`."
+    },
+    {
+      "question": "What is the role of the `SALLOC_ACCOUNT` environment variable?",
+      "answer": "`SALLOC_ACCOUNT` serves a similar purpose for the `salloc` command."
+    }
+  ],
+  "generated_at": "2026-04-12T07:08:26.391393+00:00"
+}

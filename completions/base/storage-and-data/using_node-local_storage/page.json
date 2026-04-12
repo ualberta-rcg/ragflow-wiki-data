@@ -1,0 +1,67 @@
+{
+  "doc_key": "base/using_node-local_storage",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is the purpose of the `SLURM_TMPDIR` environment variable?",
+      "answer": "When Slurm starts a job, it creates a temporary directory on each assigned node and sets its full path name in the `SLURM_TMPDIR` environment variable."
+    },
+    {
+      "question": "Why is using `SLURM_TMPDIR` often recommended over network storage like /project, /scratch, or /home?",
+      "answer": "I/O to `SLURM_TMPDIR` is almost always faster than to network storage, especially for frequent small I/O transactions, potentially speeding up jobs with a lot of input and output."
+    },
+    {
+      "question": "What is the main drawback of using `SLURM_TMPDIR` compared to network storage?",
+      "answer": "Due to its temporary nature, input must be copied from network storage to `SLURM_TMPDIR` before use, and output must be copied back to network storage before the job ends to preserve it."
+    },
+    {
+      "question": "How do you typically copy input data to `SLURM_TMPDIR` for a single-node job?",
+      "answer": "You can use commands like `cp` or `rsync`, for example: `cp /project/def-someone/you/input.files.* $SLURM_TMPDIR/`."
+    },
+    {
+      "question": "When might a simple `cp` or `rsync` not be sufficient for copying input to `SLURM_TMPDIR`?",
+      "answer": "It may not work if the input is too large or if it needs to be read by processes on different nodes in a multinode job."
+    },
+    {
+      "question": "Why is `SLURM_TMPDIR` recommended for Python virtual environments within jobs?",
+      "answer": "Using an application in a Python virtual environment generates a large number of small I/O transactions, making `SLURM_TMPDIR` more efficient than network storage for creating and using them."
+    },
+    {
+      "question": "What are the ways to ensure output data from `SLURM_TMPDIR` is preserved if a job times out?",
+      "answer": "You can request enough runtime, write checkpoints directly to network storage, or implement a signal trapping function."
+    },
+    {
+      "question": "What is a signal trapping function in the context of `SLURM_TMPDIR` output?",
+      "answer": "It's a shell function designed to copy output from `SLURM_TMPDIR` to network storage, triggered by a signal Slurm sends shortly before the job's runtime expires."
+    },
+    {
+      "question": "When is using a signal trapping function particularly useful?",
+      "answer": "It's useful if your runtime estimate is uncertain or if you are chaining multiple Slurm jobs together for a long calculation."
+    },
+    {
+      "question": "How do you copy files to `SLURM_TMPDIR` on every node in a multinode job?",
+      "answer": "You use `srun --ntasks=$SLURM_NNODES --ntasks-per-node=1 cp file [files...] $SLURM_TMPDIR`."
+    },
+    {
+      "question": "How do you extract a ZIP archive to `SLURM_TMPDIR` on every node in a multinode job?",
+      "answer": "You use `srun --ntasks=$SLURM_NNODES --ntasks-per-node=1 unzip archive.zip -d $SLURM_TMPDIR`."
+    },
+    {
+      "question": "How do you extract a Tarball archive to `SLURM_TMPDIR` on every node in a multinode job?",
+      "answer": "You use `srun --ntasks=$SLURM_NNODES --ntasks-per-node=1 tar -xvf archive.tar.gz -C $SLURM_TMPDIR`."
+    },
+    {
+      "question": "How is `SLURM_TMPDIR` implemented on Trillium, and what does this mean for available space?",
+      "answer": "On Trillium, `SLURM_TMPDIR` is implemented as RAMdisk, so the available space is limited by the node's memory minus the RAM used by your application."
+    },
+    {
+      "question": "What are the general amounts of space available in `SLURM_TMPDIR` on specific general-purpose clusters?",
+      "answer": "Fir offers 7T, Narval offers 800G, Nibi offers 3T, and Rorqual offers 375G."
+    },
+    {
+      "question": "Does reserving whole nodes affect the amount of `SLURM_TMPDIR` space available to your job?",
+      "answer": "Yes, if you reserve whole nodes, you can reasonably assume the full listed space is available; otherwise, other jobs on the same filesystem might reduce the space."
+    }
+  ],
+  "generated_at": "2026-04-12T10:29:43.454705+00:00"
+}

@@ -1,0 +1,32 @@
+{
+  "doc_key": "en/meta-farm__advanced_features_and_troubleshooting",
+  "level": "chunk",
+  "chunk_index": 11,
+  "qa_pairs": [
+    {
+      "question": "What should I do if I encounter the error message \"lockfile is not on path on node XXX\"?",
+      "answer": "If you see this error, you should use `which lockfile` to confirm that the `lockfile` utility is included in your `$PATH`. If it's present on a login node but not on a specific compute node, it suggests a problem with that compute node, such as a file system not mounting correctly."
+    },
+    {
+      "question": "What does the message \"Exiting after processing one case (-1 option)\" mean?",
+      "answer": "This message is not an error. It indicates that you submitted the farm using `submit.run -1`, which is the mode for processing one case per job, so each meta-job naturally exits after completing a single case."
+    },
+    {
+      "question": "What is the meaning of the message \"Not enough runtime left; exiting.\"?",
+      "answer": "This message indicates that, based on the analysis of run-times for previously processed cases, the meta-job has determined it will likely not have enough time remaining to finish the next case, and is therefore exiting proactively."
+    },
+    {
+      "question": "Is \"No cases left; exiting.\" an error message?",
+      "answer": "No, this is not an error message. It's the typical completion message for a meta-job once all cases in the farm have been successfully computed."
+    },
+    {
+      "question": "When does the message \"Only failed cases left; cannot auto-resubmit; exiting\" appear?",
+      "answer": "This message will only appear if you used the `-auto` switch when submitting the farm, and all remaining cases are ones that previously failed, preventing automatic resubmission."
+    },
+    {
+      "question": "What steps should I take if I receive the message \"Only failed cases left; cannot auto-resubmit; exiting\"?",
+      "answer": "If you see this message, which occurs when the `-auto` switch was used, you need to identify the specific failed cases by running `Status.run -f`. After addressing the issues that caused these cases to fail, you can then manually run `resubmit.run`."
+    }
+  ],
+  "generated_at": "2026-04-12T01:31:52.101709+00:00"
+}

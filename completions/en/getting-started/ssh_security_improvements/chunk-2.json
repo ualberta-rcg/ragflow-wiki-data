@@ -1,0 +1,124 @@
+{
+  "doc_key": "en/ssh_security_improvements",
+  "level": "chunk",
+  "chunk_index": 2,
+  "qa_pairs": [
+    {
+      "question": "How do I tell my system to 'forget' the old host key when using the command line `ssh` on macOS, Linux, GitBash, or Cygwin?",
+      "answer": "You should run one of the commands provided in the documentation, specific to the cluster you are connecting to, to tell your system to 'forget' the old host key."
+    },
+    {
+      "question": "What command should I use on macOS, Linux, GitBash, or Cygwin to make my system 'forget' the old host key for the Graham cluster?",
+      "answer": "For the Graham cluster, you should run the command: `for h in 2620:123:7002:4::{2..5} 199.241.166.{2..5} {gra-login{1..3},graham,gra-dtn,gra-dtn1,gra-platform,gra-platform1}.{sharcnet,computecanada}.ca; do ssh-keygen -R $h; done`"
+    },
+    {
+      "question": "What command should I use on macOS, Linux, GitBash, or Cygwin to make my system 'forget' the old host key for the Cedar cluster?",
+      "answer": "For the Cedar cluster, you should run the command: `for h in 206.12.124.{2,6} cedar{1,5}.cedar.computecanada.ca cedar.computecanada.ca; do ssh-keygen -R $h; done`"
+    },
+    {
+      "question": "What command should I use on macOS, Linux, GitBash, or Cygwin to make my system 'forget' the old host key for the Beluga cluster?",
+      "answer": "For the Beluga cluster, you should run the command: `for h in beluga{,{1..4}}.{computecanada,calculquebec}.ca 132.219.136.{1..4}; do ssh-keygen -R $h; done`"
+    },
+    {
+      "question": "What command should I use on macOS, Linux, GitBash, or Cygwin to make my system 'forget' the old host key for the Mp2 cluster?",
+      "answer": "For the Mp2 cluster, you should run the command: `for h in ip{15..20}-mp2.{computecanada,calculquebec}.ca 204.19.23.2{15..20}; do ssh-keygen -R $h; done`"
+    },
+    {
+      "question": "What happens after running the `ssh-keygen -R` command when I try to connect to a cluster?",
+      "answer": "The next time you SSH to the cluster, you will be asked to confirm the new host keys, and you will see a prompt like 'Are you sure you want to continue connecting (yes/no)?'."
+    },
+    {
+      "question": "What information is displayed when confirming new host keys after running `ssh-keygen -R`?",
+      "answer": "The authenticity of the host, its IP address, and its ED25519 key fingerprints (SHA256 and MD5) are displayed."
+    },
+    {
+      "question": "When prompted to confirm a new host key, what should I do if the fingerprint matches the official list?",
+      "answer": "You should type 'yes' to continue connecting if the fingerprint matches one listed in the SSH host key fingerprints section."
+    },
+    {
+      "question": "What should I do if the host key fingerprint displayed does not match the official list?",
+      "answer": "If the fingerprint does not match any on the official list, you should not accept the connection and contact Technical support with the details."
+    },
+    {
+      "question": "Where can I find the official list of SSH host key fingerprints to verify new connections?",
+      "answer": "The official list of SSH host key fingerprints can be found at the bottom of the 'SSH_changes' page."
+    },
+    {
+      "question": "Why might my SSH key no longer work, causing me to be asked for a password?",
+      "answer": "If you're being asked for a password but previously used SSH keys on the same system, it's likely because 1024-bit DSA & RSA keys have been disabled."
+    },
+    {
+      "question": "What should I do if my SSH key is no longer working?",
+      "answer": "You need to generate a new, stronger key."
+    },
+    {
+      "question": "Where can I find instructions for generating a new, stronger SSH key?",
+      "answer": "The process for generating a new, stronger key depends on your operating system, with instructions available for 'Generating SSH keys in Windows' or 'Using SSH keys in Linux/macOS'."
+    },
+    {
+      "question": "What do the instructions for generating new SSH keys also cover?",
+      "answer": "Those instructions also describe how to add your client's new public key to the remote host, allowing you to authenticate with the key rather than needing a password."
+    },
+    {
+      "question": "What do the error messages 'no matching cipher found,' 'no matching key exchange method found,' or 'no matching mac found' indicate?",
+      "answer": "These error messages indicate that you need to upgrade your SSH client to one of the compatible clients listed in the document."
+    },
+    {
+      "question": "What action should I take if I encounter 'Unable to negotiate...' error messages related to ciphers, key exchange, or MACs?",
+      "answer": "If you encounter these error messages, you need to upgrade your SSH client to one of the compatible clients shown in the document."
+    },
+    {
+      "question": "Is the provided list of compatible SSH clients exhaustive?",
+      "answer": "No, the list of compatible SSH clients is not exhaustive, but it includes clients that have been tested with the new configuration."
+    },
+    {
+      "question": "What is recommended regarding operating system and SSH client versions for compatibility?",
+      "answer": "It is recommended that you update your operating system and SSH client to the latest version compatible with your hardware."
+    },
+    {
+      "question": "Will earlier versions of the listed compatible SSH clients definitely work?",
+      "answer": "Earlier versions of the listed compatible SSH clients may or may not work with the new configuration."
+    },
+    {
+      "question": "Which OpenSSH and OpenSSL versions are compatible for Linux clients on CentOS 7.5 or 7.6?",
+      "answer": "OpenSSH_7.4p1 and OpenSSL 1.0.2k-fips are compatible for Linux clients on CentOS 7.5 or 7.6."
+    },
+    {
+      "question": "Which OpenSSH and OpenSSL versions are compatible for Linux clients on Ubuntu 14?",
+      "answer": "OpenSSH_6.6.1p1 Ubuntu-2ubuntu2.13 and OpenSSL 1.0.1f are compatible for Linux clients on Ubuntu 14."
+    },
+    {
+      "question": "How can I determine the exact version of my SSH client on OS X?",
+      "answer": "You can determine the exact version of your SSH client on OS X using the command `ssh -V`."
+    },
+    {
+      "question": "Which OpenSSH and OpenSSL versions are compatible for OS X clients installed via Homebrew?",
+      "answer": "OpenSSH 7.4p1 and OpenSSL 1.0.2k (Homebrew) are compatible for OS X clients."
+    },
+    {
+      "question": "Which OpenSSH and LibreSSL versions are compatible for OS X clients on OS X 10.14.5?",
+      "answer": "OpenSSH 7.9p1 and LibreSSL 2.7.3 are compatible for OS X clients on OS X 10.14.5."
+    },
+    {
+      "question": "Which version of MobaXterm Home Edition is compatible for Windows clients?",
+      "answer": "MobaXterm Home Edition v11.1 is compatible for Windows clients."
+    },
+    {
+      "question": "Which version of PuTTY is compatible for Windows clients?",
+      "answer": "PuTTY 0.72 is compatible for Windows clients."
+    },
+    {
+      "question": "Is Windows Services for Linux (WSL) v1 compatible with the new SSH configuration?",
+      "answer": "Yes, Windows Services for Linux (WSL) v1 is compatible."
+    },
+    {
+      "question": "Which OpenSSH and OpenSSL versions are compatible for Windows clients using WSL v1 with Ubuntu 18.04?",
+      "answer": "OpenSSH_7.6p1 Ubuntu-4ubuntu0.3 and OpenSSL 1.0.2n are compatible for Windows clients using WSL v1 with Ubuntu 18.04."
+    },
+    {
+      "question": "Which OpenSSH and OpenSSL versions are compatible for Windows clients using WSL v1 with openSUSE Leap 15.1?",
+      "answer": "OpenSSH_7.9p1 and OpenSSL 1.1.0i-fips are compatible for Windows clients using WSL v1 with openSUSE Leap 15.1."
+    }
+  ],
+  "generated_at": "2026-04-12T07:31:42.367325+00:00"
+}

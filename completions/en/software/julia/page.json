@@ -1,0 +1,67 @@
+{
+  "doc_key": "en/julia",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is Julia and how is it made available on Alliance clusters?",
+      "answer": "Julia is a programming language designed for performance, ease of use, and portability. It is available as a module on the Alliance clusters."
+    },
+    {
+      "question": "How are Julia packages installed and managed on Alliance clusters?",
+      "answer": "Packages are downloaded, installed in `~/.julia`, and precompiled the first time they're added to a project using `Pkg.add` or the package mode. Data in `~/.julia` is reused across different projects, and multiple package versions can coexist."
+    },
+    {
+      "question": "What is the key difference in handling binary dependencies for Julia 1.6+ compared to Julia 1.5 and earlier?",
+      "answer": "From Julia 1.6 onwards, packages include their binary dependencies, eliminating the need to load external software modules. With Julia 1.5 and earlier, packages relying on system-provided binaries may require manual configuration using `Libdl.DL_LOAD_PATH`."
+    },
+    {
+      "question": "How should users configure Julia 1.5 and earlier packages that depend on system-provided binaries, such as HDF5?",
+      "answer": "Users should load the appropriate module (e.g., `hdf5`) and use its environment variable (e.g., `HDF5_DIR`) to extend `Libdl.DL_LOAD_PATH` before adding the package with `Pkg.add`."
+    },
+    {
+      "question": "What issue might users encounter when installing Julia packages in `/home` directories on the Narval cluster?",
+      "answer": "On the Narval cluster, Julia may crash with a segmentation fault during the precompilation step of package installation in `/home` directories, due to a bug in the filesystem software."
+    },
+    {
+      "question": "Why is it recommended to change the Julia depot path from the default `~/.julia` location on Alliance clusters?",
+      "answer": "Installing Julia packages in `~/.julia` can create a large number of files, potentially leading to exceeding home directory quotas and affecting performance."
+    },
+    {
+      "question": "How can a user change their Julia depot path to an alternate location, like a project space?",
+      "answer": "Users can set the `JULIA_DEPOT_PATH` environment variable in their `~/.bashrc` file, for example, `export JULIA_DEPOT_PATH=\"/project/def-bob/alice/julia:$JULIA_DEPOT_PATH\"`, and it's best to remove the existing `~/.julia` depot first."
+    },
+    {
+      "question": "What alternative method exists for managing Julia environments and packages that also improves reproducibility and IO performance?",
+      "answer": "An alternative is to create an Apptainer image with a chosen Julia version and packages, redirecting `JULIA_DEPOT_PATH` inside the container. This bundles files into one container file, potentially improving IO performance and reproducibility."
+    },
+    {
+      "question": "How do you set up PyCall.jl to call Python code from Julia on Alliance clusters?",
+      "answer": "After activating a virtual Python environment, set the `PYTHON` environment variable to its Python executable (e.g., `ENV[\"PYTHON\"] = joinpath(ENV[\"VIRTUAL_ENV\"], \"bin\", \"python\")`), and then run `Pkg.build(\"PyCall\")`."
+    },
+    {
+      "question": "Why is it advised against using Miniconda or Anaconda distributions with PyCall.jl on Alliance clusters?",
+      "answer": "Anaconda and similar distributions are not suitable for Alliance clusters, and using Miniconda with PyCall.jl can lead to incompatibilities, performance issues, and quota problems due to the large number of files it creates in the Julia depot."
+    },
+    {
+      "question": "How do you run parallel Julia code with multiple processes using SLURM on Alliance clusters?",
+      "answer": "First, use `srun hostname -s > hostfile` to generate a list of allocated nodes. Then, execute your Julia program with `julia --machine-file ./hostfile <your_script.jl>` to start worker processes on those nodes."
+    },
+    {
+      "question": "What steps are required to configure Julia's MPI to use the system MPI libraries on Alliance clusters?",
+      "answer": "After loading `module load StdEnv julia`, install `MPIPreferences`, then use `MPIPreferences.use_system_binary(;extra_paths=[joinpath(ENV[\"EBROOTOPENMPI\"],\"lib64\")])`, and finally install `MPI`."
+    },
+    {
+      "question": "What environment variable can be used to restrict the number of threads Julia uses for parallel computing?",
+      "answer": "The `JULIA_NUM_THREADS` environment variable can be set to a value `k` (e.g., `JULIA_NUM_THREADS=12`) to restrict Julia to using `k` threads."
+    },
+    {
+      "question": "What is the function of the `JULIA_EXCLUSIVE` environment variable?",
+      "answer": "`JULIA_EXCLUSIVE` takes control of thread scheduling away from the OS and pins Julia threads to CPU cores. This can potentially improve performance if the job has exclusive access to compute nodes and precise information about cache access patterns."
+    },
+    {
+      "question": "How can users install and configure CUDA.jl for GPU usage with Julia on Alliance clusters?",
+      "answer": "On a login node, load `cuda` and `julia` modules, set `ENV[\"JULIA_PKG_PRECOMPILE_AUTO\"]=0`, and then `Pkg.add(\"CUDA\")`. On a GPU compute node, use `CUDA.set_runtime_version!(v\"version_of_cuda\", local_toolkit=true)` to configure CUDA.jl to use the local CUDA toolkit."
+    }
+  ],
+  "generated_at": "2026-04-12T00:23:09.143114+00:00"
+}

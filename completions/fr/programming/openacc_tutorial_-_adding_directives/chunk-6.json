@@ -1,0 +1,44 @@
+{
+  "doc_key": "fr/openacc_tutorial_-_adding_directives",
+  "level": "chunk",
+  "chunk_index": 6,
+  "qa_pairs": [
+    {
+      "question": "Qu'est-ce que le mot-clé `<tt>restrict</tt>` garantit quand on l'applique à un pointeur en C?",
+      "answer": "En déclarant un pointeur comme étant restreint, on s'assure qu'uniquement ce pointeur ou une valeur dérivée (comme `<tt>ptr +1</tt>`) pourra accéder à l'objet auquel il réfère, et ce pour la durée de vie du pointeur."
+    },
+    {
+      "question": "Quel est le risque si un programmeur ne respecte pas la garantie du mot-clé `<tt>restrict</tt>` pour un pointeur?",
+      "answer": "Si le programmeur manque à son obligation, le comportement du programme n'est pas défini."
+    },
+    {
+      "question": "Comment peut-on explicitement dire au compilateur de traiter les boucles de manière indépendante avec OpenACC?",
+      "answer": "On peut utiliser la clause `<tt>independent</tt>` pour spécifier explicitement que le compilateur doit traiter les boucles de manière indépendante."
+    },
+    {
+      "question": "Est-ce que le compilateur peut ignorer la clause `<tt>independent</tt>`?",
+      "answer": "Non, parce que la clause `<tt>independent</tt>` est une directive «prescriptive», le compilateur est obligé de la suivre et son analyse des dépendances ne sera pas considérée."
+    },
+    {
+      "question": "Dans l'exemple du produit matrice-vecteur, quelle modification faut-il faire au code pour éviter les faux alias en C++?",
+      "answer": "Pour éviter les faux alias, il faut définir les pointeurs `Acoefs`, `xcoefs` et `ycoefs` comme étant restreints en remplaçant leurs déclarations par `double *__restrict Acoefs=A.coefs;`, `double *__restrict xcoefs=x.coefs;` et `double *__restrict ycoefs=y.coefs;`."
+    },
+    {
+      "question": "Pourquoi certains pointeurs n'ont pas besoin d'être restreints dans l'exemple de correction des faux alias du produit matrice-vecteur?",
+      "answer": "Les autres pointeurs n'ont pas besoin d'être restreints parce que le compilateur ne les signale pas comme causant des problèmes de dépendance."
+    },
+    {
+      "question": "Après avoir appliqué le mot-clé `<tt>__restrict</tt>` à certains pointeurs dans l'exemple du produit matrice-vecteur, quel est le résultat de la compilation rapporté par le compilateur NVidia?",
+      "answer": "Le compilateur NVidia signale que les boucles sont maintenant parallélisables, générant du code Tesla avec des pragmas `<tt>#pragma acc loop gang</tt>` et `<tt>#pragma acc loop vector</tt>`, incluant une réduction implicite pour la variable `sum`."
+    },
+    {
+      "question": "Quelle était la performance du code porté sur GPU avec OpenACC pour le produit matrice-vecteur, comparativement à la version originale sur CPU?",
+      "answer": "Le code OpenACC a pris 115.068931 secondes, ce qui est près de quatre fois plus long que la version originale qui a pris 29.894881 secondes, malgré des résultats corrects."
+    },
+    {
+      "question": "Quel outil est recommandé pour analyser la performance quand un code OpenACC porté sur GPU est plus lent que la version originale?",
+      "answer": "Le NVIDIA Visual Profiler (NVVP) est recommandé pour analyser et comprendre ce qui se passe quand la performance du code porté est insatisfaisante."
+    }
+  ],
+  "generated_at": "2026-04-12T04:09:31.874030+00:00"
+}

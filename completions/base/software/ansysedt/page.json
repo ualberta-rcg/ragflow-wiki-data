@@ -1,0 +1,59 @@
+{
+  "doc_key": "base/ansysedt",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is AnsysEDT and what simulation solutions does it bundle?",
+      "answer": "AnsysEDT bundles electromagnetics simulation solutions like Ansys HFSS, Ansys Maxwell, Ansys Q3D Extractor, Ansys SIwave, and Ansys Icepak, utilizing electrical CAD (ECAD) and mechanical CAD (MCAD) workflows."
+    },
+    {
+      "question": "How does AnsysEDT support comprehensive multiphysics analysis?",
+      "answer": "AnsysEDT integrates with the complete Ansys portfolio of thermal, fluid, and mechanical solvers for comprehensive multiphysics analysis."
+    },
+    {
+      "question": "How do I obtain an AnsysEDT license for use on Alliance clusters?",
+      "answer": "The Alliance hosts the software but does not provide a generic license; users must use license servers from their own institutions, faculties, or departments. Network changes may be required for cluster compute nodes to reach these servers."
+    },
+    {
+      "question": "How do I specify my AnsysEDT license server?",
+      "answer": "You need to create a file named `$HOME/.licenses/ansys.lic` consisting of two lines that specify your AnsysEDT license server."
+    },
+    {
+      "question": "What is the process for running AnsysEDT interactively in batch (non-GUI) mode on a cluster?",
+      "answer": "First, start an `salloc` session with options for time, tasks, memory, and account (e.g., `salloc --time=3:00:00 --tasks=8 --mem=16G --account=def-account`), then copy-paste the full `ansysedt` command from the last line of `script-local-cmd.sh`, manually specifying `$YOUR_AEDT_FILE`."
+    },
+    {
+      "question": "What information must be modified in the provided Slurm scripts before submitting an AnsysEDT job?",
+      "answer": "Before using the generic Slurm scripts, you must specify the simulation time, memory, and number of cores, and replace `YOUR_AEDT_FILE` with your input file name."
+    },
+    {
+      "question": "How can I find a full listing of command-line options for AnsysEDT?",
+      "answer": "You can obtain a full listing of command-line options by starting AnsysEDT in graphical mode and running `ansysedt -help` or `ansysedt -Batchoptionhelp` to view scrollable graphical pop-ups."
+    },
+    {
+      "question": "What modules need to be loaded to use AnsysEDT on an Alliance cluster?",
+      "answer": "You need to load `StdEnv/2023` and then either `ansysedt/2024R2.1` or `ansysedt/2023R2`."
+    },
+    {
+      "question": "How do I run AnsysEDT in graphical mode?",
+      "answer": "To run AnsysEDT graphically, use an OnDemand or JupyterLab system to start a remote desktop, open a terminal, load `StdEnv/2023` and the desired `ansysedt` module, and then type `ansysedt`."
+    },
+    {
+      "question": "What settings should be verified or changed for HPC and analysis when using AnsysEDT graphically?",
+      "answer": "You should navigate to `Tools -> Options -> HPC and Analysis Options -> Edit`, untick `Use Automatic Settings`, and ensure the settings in the `Machine` tab (Tasks, Cores, GPUs, RAM) correspond to your requested desktop resources."
+    },
+    {
+      "question": "How can I retrieve the AnsysEDT 2024R2.1 Antennas examples?",
+      "answer": "Load `module load ansysedt/2024R2.1`, then use the commands `mkdir -p ~/Ansoft/$EBVERSIONANSYSEDT; rm -rf ~/Ansoft/$EBVERSIONANSYSEDT/Antennas; cp -a $EBROOTANSYSEDT/v242/Linux64/Examples/HFSS/Antennas ~/Ansoft/$EBVERSIONANSYSEDT`."
+    },
+    {
+      "question": "What steps should I take if AnsysEDT crashes and won't restart in graphical mode?",
+      "answer": "If AnsysEDT crashes, you should run `pkill -9 -u $USER -f \"ansys*|mono|mwrpcss|apip-standalone-service\"` to terminate related processes and then `rm -rf ~/.mw` to clear its configuration, which will prompt a first-time setup on the next launch."
+    },
+    {
+      "question": "How do SHARCNET researchers configure their `ansys.lic` file to use the AnsysEDT module on any Alliance cluster?",
+      "answer": "SHARCNET researchers can configure their `~/.licenses/ansys.lic` file by adding `setenv(\"ANSYSLMD_LICENSE_FILE\", \"1055@license3.sharcnet.ca\")` and `setenv(\"ANSYSLI_SERVERS\", \"2325@license3.sharcnet.ca\")`."
+    }
+  ],
+  "generated_at": "2026-04-11T17:17:42.308299+00:00"
+}

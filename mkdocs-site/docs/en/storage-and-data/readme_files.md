@@ -5,21 +5,33 @@ lang: "en"
 
 source_wiki_title: "README files/en"
 source_hash: "309b539a35615d04fcc6148ae17222d3"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T10:42:29.214219+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T10:58:22.436661+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "file documentation"
+  - "file formats"
+  - "research data management"
+  - "project spaces"
+  - "README file"
+
+questions:
+  - "Why is it important to use README files for active research data management in project spaces?"
+  - "What specific information should be included in a README file to properly document the files in a directory?"
+  - "What are the different file formats available for creating a README, and how do they differ in terms of human and machine readability?"
+  - "Why is it important to use README files for active research data management in project spaces?"
+  - "What specific information should be included in a README file to properly document the files in a directory?"
+  - "What are the different file formats available for creating a README, and how do they differ in terms of human and machine readability?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 

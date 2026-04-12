@@ -1,0 +1,63 @@
+{
+  "doc_key": "fr/best_practices_for_job_submission",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "Pourquoi est-ce important de bien choisir les paramètres quand on soumet une tâche sur une de nos grappes?",
+      "answer": "C'est important pour éviter le gaspillage des ressources, ne pas causer de problèmes aux autres usagers, assurer une exécution plus rapide et augmenter les chances de succès de la tâche."
+    },
+    {
+      "question": "Quels sont les problèmes communs si les paramètres de ressources ne sont pas bien choisis pour une tâche?",
+      "answer": "Une tâche peut rester longtemps en attente si elle demande trop de ressources, être arrêtée si elle n'en demande pas assez, ou encore gaspiller des ressources si le programme n'est pas scalable ou n'est pas conçu pour plusieurs nœuds."
+    },
+    {
+      "question": "Comment devrais-je commencer à estimer le temps et la mémoire pour les premières tâches d'une simulation?",
+      "answer": "Il est suggéré de soumettre des tâches tests relativement brèves, d'une ou deux heures, avec une quantité de mémoire standard (comme `#SBATCH --mem-per-cpu=2G`)."
+    },
+    {
+      "question": "Que dois-je faire si une tâche test est interrompue parce qu'elle excède la limite de temps ou de mémoire demandée?",
+      "answer": "Vous devriez doubler la limite de temps ou de mémoire demandée et répéter le test jusqu'à ce que la tâche s'exécute complètement."
+    },
+    {
+      "question": "Quelle est la durée minimale recommandée pour les tâches autres que les tests?",
+      "answer": "La durée des tâches devrait être d'au moins une heure. Si les calculs sont plus courts, il est suggéré de les regrouper avec des outils comme GLOST, META ou GNU Parallel."
+    },
+    {
+      "question": "Comment puis-je connaître la durée réelle d'une tâche qui a déjà été exécutée?",
+      "answer": "Vous pouvez utiliser des outils de surveillance, comme la commande `seff`, et vérifier la valeur du champ `Job Wall-clock time`."
+    },
+    {
+      "question": "Quelle est l'efficacité de mémoire recommandée (Memory Efficiency) pour une tâche?",
+      "answer": "L'efficacité de mémoire devrait être d'au moins 80 à 85 % dans la plupart des cas, avec une petite marge d'erreur ajoutée à la quantité de mémoire demandée."
+    },
+    {
+      "question": "Comment puis-je demander à utiliser toute la mémoire d'un nœud entier?",
+      "answer": "Vous pouvez utiliser la ligne `#SBATCH --mem=0` dans votre script de tâche."
+    },
+    {
+      "question": "Comment puis-je savoir si le logiciel que j'utilise peut fonctionner en parallèle?",
+      "answer": "Le meilleur moyen est de consulter sa documentation. S'il n'y a pas de référence à l'exécution en parallèle, il est probable qu'il fonctionne séquentiellement. Vous pouvez aussi contacter l'équipe de développement."
+    },
+    {
+      "question": "Quand un programme peut-il utiliser plusieurs cœurs CPU sur un seul nœud?",
+      "answer": "Un programme peut utiliser plusieurs cœurs sur un seul nœud s'il est basé sur un environnement de mémoire partagé, ce qui signifie que les cœurs doivent être sur le même nœud."
+    },
+    {
+      "question": "Comment un logiciel peut-il fonctionner avec plus d'un nœud?",
+      "answer": "Le logiciel doit supporter le parallélisme avec mémoire distribuée, ce qui est souvent basé sur le standard MPI. Les programmes MPI devraient être lancés avec `srun` plutôt qu'avec `mpirun`."
+    },
+    {
+      "question": "Quel est l'objectif d'efficacité du CPU (CPU Efficiency) pour une tâche?",
+      "answer": "L'objectif est que l'efficacité du ou des CPU se rapproche le plus possible de 100 %. Une efficacité sous 90 % est considérée faible."
+    },
+    {
+      "question": "Dans quelles conditions devrais-je utiliser des nœuds GPU pour mes tâches?",
+      "answer": "Vous devriez utiliser des nœuds GPU seulement si l'utilisation du GPU augmente significativement la performance de vos tâches, par exemple, si la tâche s'exécute beaucoup plus rapidement qu'avec un nœud CPU, et pas seulement 5 à 10 % plus vite."
+    },
+    {
+      "question": "Quels sont les conseils pour économiser les ressources sur les grappes?",
+      "answer": "Il faut éviter d'utiliser la commande `sleep` et Conda (préférer les environnements virtuels Python ou Apptainer), et optimiser les opérations de lecture et d'écriture en utilisant le stockage local des nœuds."
+    }
+  ],
+  "generated_at": "2026-04-11T18:35:01.639117+00:00"
+}

@@ -1,0 +1,80 @@
+{
+  "doc_key": "base/utiliser_des_modules",
+  "level": "chunk",
+  "chunk_index": 2,
+  "qa_pairs": [
+    {
+      "question": "Can I load multiple modules with a single command?",
+      "answer": "Yes, you can load multiple modules simultaneously using a single `module load` command. For example, `module load gcc/9.3 openmpi/4.0` would load both the GCC 9.3 compiler and the OpenMPI 4.0 library compiled for GCC."
+    },
+    {
+      "question": "What happens if I load a module that is incompatible with an already loaded module?",
+      "answer": "If you load a module that is incompatible with an already loaded module, Lmod will inform you that it has replaced the old module with the new one. This often occurs with compilers and MPI implementations."
+    },
+    {
+      "question": "How do I remove a module from my environment?",
+      "answer": "To remove a module from your environment, use the `unload` subcommand. For example, `module unload gcc/9.3` would remove the GCC 9.3 compiler."
+    },
+    {
+      "question": "What happens to dependent modules when I unload a module?",
+      "answer": "If certain modules depended on the compiler you are unloading, Lmod will indicate that they have been deactivated."
+    },
+    {
+      "question": "How can I remove all loaded modules at once?",
+      "answer": "You can remove all loaded modules at once using the `purge` subcommand with the command `module purge`."
+    },
+    {
+      "question": "Will the `purge` command remove all modules, including permanent ones?",
+      "answer": "No, some modules may be marked as 'sticky' (permanent) by system administrators and will not be removed by the `purge` command."
+    },
+    {
+      "question": "What are the `show`, `help`, and `whatis` subcommands used for?",
+      "answer": "The `show`, `help`, and `whatis` subcommands provide additional information about a specific module. The `show` subcommand displays the module's full details, `help` shows a help message, and `whatis` provides a module description."
+    },
+    {
+      "question": "How can I search for modules by keyword?",
+      "answer": "You can search for a keyword across all modules using the `apropos` or `keyword` subcommands. This is useful if you don't know which module is suitable for your computation, as you can search within their descriptions."
+    },
+    {
+      "question": "Is it recommended to load modules automatically in my `.bashrc` file?",
+      "answer": "No, it is strongly discouraged to load modules automatically in your `.bashrc`. It is recommended to load necessary modules as needed, for example, within your job scripts."
+    },
+    {
+      "question": "What is recommended for loading a large number of modules easily?",
+      "answer": "To facilitate loading a large number of modules, it is preferable to use a module collection."
+    },
+    {
+      "question": "How do I create a module collection using Lmod?",
+      "answer": "To create a module collection with Lmod, first load the required modules, for example, `module load gcc/9.3 openmpi/4.0.3 mkl`."
+    },
+    {
+      "question": "After loading modules, how do I save them as a collection?",
+      "answer": "After loading the required modules, use the `save` command to save the collection. For example, `module save my_modules`. The argument `my_modules` is a name you give to the collection."
+    },
+    {
+      "question": "How do I restore a saved module collection?",
+      "answer": "You can restore a saved module collection in a later session or task using the command `module restore my_modules`."
+    },
+    {
+      "question": "What are hidden modules?",
+      "answer": "Hidden modules are generally modules you do not need to load manually. They are loaded automatically as needed, and you can usually ignore them."
+    },
+    {
+      "question": "Why do we use a module hierarchy?",
+      "answer": "We use a module hierarchy to resolve the issue of complex module naming (e.g., `openmpi/4.0_gcc9.3`, `fftw/3.8_gcc9.3_openmpi4.0`) that arises with many combinations of versions, allowing for simpler commands like `module load gcc/9.3 openmpi/4.0 fftw/3.8`."
+    },
+    {
+      "question": "Does the specific `fftw/3.8` module loaded change based on the previously loaded compiler?",
+      "answer": "Yes, with a module hierarchy, the `fftw/3.8` module loaded will differ based on whether you previously loaded the Intel compiler or the GCC compiler."
+    },
+    {
+      "question": "What is a disadvantage of using a module hierarchy?",
+      "answer": "A disadvantage of using a module hierarchy is that, since modules can share the same name, only modules compatible with the 'parent' modules are displayed by the `module avail` command. Loading a parent module is therefore a prerequisite to access certain modules."
+    },
+    {
+      "question": "How can I get complete information about all modules in a module hierarchy, including those not shown by `module avail`?",
+      "answer": "To get complete information, the module system provides the `module spider` command, which traverses the entire hierarchy and displays all modules. By specifying a particular module and version, you can determine which paths in the hierarchy allow you to load the desired module."
+    }
+  ],
+  "generated_at": "2026-04-12T10:33:04.793211+00:00"
+}

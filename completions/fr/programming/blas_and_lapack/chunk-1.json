@@ -1,0 +1,124 @@
+{
+  "doc_key": "fr/blas_and_lapack",
+  "level": "chunk",
+  "chunk_index": 1,
+  "qa_pairs": [
+    {
+      "question": "C'est quoi, BLAS et LAPACK?",
+      "answer": "BLAS (Basic Linear Algebra Subprogram) et LAPACK (Linear Algebra PACK) sont deux bibliothèques super utilisées en calcul de pointe pour la recherche."
+    },
+    {
+      "question": "À quoi servent BLAS et LAPACK?",
+      "answer": "Elles servent à faire des opérations sur les vecteurs et les matrices, des affaires qu'on rencontre souvent dans ben des algorithmes."
+    },
+    {
+      "question": "Qu'est-ce qui rend BLAS et LAPACK plus que de simples bibliothèques?",
+      "answer": "Elles définissent une interface de programmation standard, c'est-à-dire un paquet de définitions de fonctions qu'on peut appeler pour faire certains calculs."
+    },
+    {
+      "question": "Donnez des exemples de calculs que BLAS et LAPACK peuvent faire.",
+      "answer": "Elles peuvent faire des calculs comme le produit scalaire de deux vecteurs de nombres double précision ou le produit de deux matrices hermitiennes de nombres complexes."
+    },
+    {
+      "question": "Est-ce qu'il y a d'autres implémentations de BLAS et LAPACK à part celle de référence de Netlib?",
+      "answer": "Oui, il existe plusieurs autres implémentations de ces deux standards."
+    },
+    {
+      "question": "La performance des implémentations de BLAS et LAPACK varie-t-elle?",
+      "answer": "Oui, la performance peut varier pas mal selon le logiciel qu'on utilise."
+    },
+    {
+      "question": "Quelle implémentation offre la meilleure performance avec les processeurs Intel dans la plupart des cas?",
+      "answer": "L'implémentation fournie par la bibliothèque Intel Math Kernel Library (Intel MKL) offre une meilleure performance avec les processeurs Intel."
+    },
+    {
+      "question": "Est-ce que l'implémentation Intel MKL est libre?",
+      "answer": "Non, Intel est propriétaire de cette implémentation."
+    },
+    {
+      "question": "Quelles implémentations sont préférables pour les processeurs AMD?",
+      "answer": "Dans certains cas, il est préférable d'utiliser l'implémentation libre OpenBLAS ou encore BLIS, dont la performance est meilleure avec les processeurs AMD."
+    },
+    {
+      "question": "Quels sont deux projets BLAS/LAPACK qui ne sont plus maintenus?",
+      "answer": "Deux projets qui ne sont plus maintenus sont gotoblas et ATLAS BLAS."
+    },
+    {
+      "question": "Quel est le problème quand on veut savoir quelle implémentation est la plus performante pour un logiciel?",
+      "answer": "Faut habituellement recompiler un logiciel pour savoir quelle implémentation est la plus performante pour un code particulier et une configuration matérielle précise."
+    },
+    {
+      "question": "Pourquoi est-ce problématique de devoir recompiler pour choisir l'implémentation optimale?",
+      "answer": "C'est problématique quand on veut créer un environnement logiciel portable qui peut fonctionner sur plusieurs grappes."
+    },
+    {
+      "question": "Comment peut-on résoudre le problème de la recompilation nécessaire pour changer d'implémentation?",
+      "answer": "On peut utiliser FlexiBLAS pour y remédier."
+    },
+    {
+      "question": "C'est quoi, FlexiBLAS?",
+      "answer": "FlexiBLAS est une couche d'abstraction."
+    },
+    {
+      "question": "Quel est l'avantage principal de FlexiBLAS?",
+      "answer": "FlexiBLAS permet de changer l'implémentation de BLAS et de LAPACK au moment de l'exécution plutôt que pendant la compilation."
+    },
+    {
+      "question": "Quelle implémentation était recommandée avant pour les grappes avec processeurs Intel?",
+      "answer": "Avant, on recommandait d'utiliser Intel MKL comme implémentation de référence."
+    },
+    {
+      "question": "Pourquoi la recommandation pour le choix d'implémentation a-t-elle changé récemment?",
+      "answer": "Depuis la mise en service de Narval, qui possède des processeurs AMD, la recommandation a changé."
+    },
+    {
+      "question": "Quelle est la nouvelle recommandation pour compiler le code avec FlexiBLAS sur les grappes?",
+      "answer": "On recommande maintenant de compiler le code avec FlexiBLAS."
+    },
+    {
+      "question": "Comment le module FlexiBLAS est-il configuré pour les processeurs AMD et autres types de processeurs?",
+      "answer": "La configuration de notre module FlexiBLAS fait en sorte que BLIS est utilisé en présence de processeurs AMD et Intel MKL en présence d'autres types de processeurs."
+    },
+    {
+      "question": "Quel est le but de la configuration par défaut de FlexiBLAS sur nos grappes?",
+      "answer": "Le but est d'offrir habituellement la performance optimale."
+    },
+    {
+      "question": "Est-ce que tous les systèmes reconnaissent FlexiBLAS par défaut?",
+      "answer": "Non, ce ne sont pas tous les systèmes qui vont le reconnaître par défaut parce que FlexiBLAS est relativement récent."
+    },
+    {
+      "question": "Comment peut-on configurer les options d'édition pour utiliser FlexiBLAS?",
+      "answer": "On peut configurer les options d'édition pour utiliser <tt>-lflexiblas</tt> pour BLAS et pour LAPACK, habituellement dans le Makefile ou en paramètres à <tt>configure</tt> ou <tt>cmake</tt>."
+    },
+    {
+      "question": "Quelles versions de CMake peuvent trouver FlexiBLAS automatiquement?",
+      "answer": "Les versions de CMake à partir de 3.19 peuvent trouver FlexiBLAS automatiquement."
+    },
+    {
+      "question": "Quels modules CMake faut-il charger pour utiliser une version compatible avec la détection automatique de FlexiBLAS?",
+      "answer": "Il faut charger le module <tt>cmake/3.20.1</tt> ou <tt>cmake/3.21.4</tt>."
+    },
+    {
+      "question": "Comment peut-on changer l'implémentation de BLAS/LAPACK pour l'exécution avec FlexiBLAS?",
+      "answer": "On peut changer l'implémentation en configurant la variable d'environnement <tt>FLEXIBLAS</tt>."
+    },
+    {
+      "question": "Quelles implémentations étaient disponibles via FlexiBLAS en janvier 2022?",
+      "answer": "En date de janvier 2022, les implémentations disponibles étaient <tt>netlib</tt>, <tt>blis</tt>, <tt>imkl</tt> et <tt>openblas</tt>."
+    },
+    {
+      "question": "Comment obtenir la liste complète des implémentations disponibles avec FlexiBLAS?",
+      "answer": "On peut obtenir la liste complète avec la commande <tt>flexiblas list</tt>."
+    },
+    {
+      "question": "Quelle est l'implémentation BLAS/LAPACK utilisée par défaut sur la grappe Narval avec FlexiBLAS?",
+      "answer": "Sur Narval, <tt>FLEXIBLAS=blis</tt> est configuré pour utiliser BLIS par défaut."
+    },
+    {
+      "question": "Quelle est l'implémentation BLAS/LAPACK utilisée par défaut sur les autres grappes quand FlexiBLAS est présent?",
+      "answer": "Sur les autres grappes, <tt>FLEXIBLAS</tt> n'est pas défini, et Intel MKL est utilisé par défaut."
+    }
+  ],
+  "generated_at": "2026-04-11T18:24:33.413768+00:00"
+}

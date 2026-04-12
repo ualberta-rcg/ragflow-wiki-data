@@ -5,35 +5,60 @@ lang: "fr"
 
 source_wiki_title: "Samtools/fr"
 source_hash: "debed46bd1cd1b81726329f88a07e26d"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T11:10:25.433194+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T11:20:58.756698+00:00"
 
 tags:
   - software
 
 keywords:
-  []
+  - "plusieurs cœurs"
+  - "samtools"
+  - "multithreading"
+  - "fichiers SAM et BAM"
+  - "bash"
+  - "SBATCH"
+  - "conversion de fichiers"
+  - "séquençage à haut débit"
+  - "tri et indexation"
+  - "Samtools"
+  - "GNU Parallel"
+  - "fichiers SAM"
+
+questions:
+  - "Quelles sont les principales fonctionnalités et différences entre Samtools, BCFtools et HTSlib pour le traitement des données de séquençage ?"
+  - "Comment procéder à la conversion d'un fichier d'alignement SAM en fichier compressé BAM, que le fichier contienne un en-tête ou non ?"
+  - "Quelles sont les commandes et méthodes recommandées pour trier, indexer et traiter efficacement plusieurs fichiers simultanément (notamment via le multifil ou GNU parallel) ?"
+  - "Quel indicateur permet d'activer le multithreading directement au sein des commandes Samtools ?"
+  - "Quel outil externe est suggéré pour exécuter des opérations sur plusieurs fichiers SAM de manière simultanée ?"
+  - "Quel paramètre de configuration faut-il ajuster dans le script si le nombre de fichiers d'entrée varie ?"
+  - "Quelle est l'action principale effectuée par la boucle sur les fichiers `.sam` dans le script fourni ?"
+  - "Quelles sont les ressources de calcul (processeur, mémoire, temps) demandées via les directives SLURM (`#SBATCH`) ?"
+  - "Quelles méthodes sont suggérées dans le texte pour améliorer les performances de Samtools au-delà de son fonctionnement par défaut sur un seul cœur ?"
+  - "Quel indicateur permet d'activer le multithreading directement au sein des commandes Samtools ?"
+  - "Quel outil externe est suggéré pour exécuter des opérations sur plusieurs fichiers SAM de manière simultanée ?"
+  - "Quel paramètre de configuration faut-il ajuster dans le script si le nombre de fichiers d'entrée varie ?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
 ## Description
 Samtools est un ensemble de programmes permettant d'interagir avec des données de séquençage à haut débit. Samtools est étroitement lié à BCFtools et HTSlib. Au besoin, [consultez la documentation](https://www.htslib.org/).
 
-*   **Samtools** permettent la lecture, l'écriture, l'édition, l'indexation et l'affichage des formats SAM, BAM et CRAM;
-*   **BCFtools** permettent la lecture et l'écriture des fichiers BCF2, VCF et gVCF, en plus de l'appel, le filtrage et le résumé des variants de séquences courtes de SNP et indel;
-*   **HTSlib** est une bibliothèque en C pour lire et écrire les données de séquençage haut débit avec Samtools et BCFtools.
+*   Samtools permettent la lecture, l'écriture, l'édition, l'indexation et l'affichage des formats SAM, BAM et CRAM;
+*   BCFtools permettent la lecture et l'écriture des fichiers BCF2, VCF et gVCF, en plus de l'appel, le filtrage et le résumé des variants de séquences courtes de SNP et indel;
+*   HTSlib est une bibliothèque en C pour lire et écrire les données de séquençage haut débit avec Samtools et BCFtools.
 
 !!! note "Remarque"
     Nous n'abordons pas ici toutes les fonctionnalités. Pour la liste de tous les outils, [consultez Samtools](http://www.htslib.org/doc/samtools.html).
 
-Pour charger la version par défaut, lancez la commande
+Pour charger la version par défaut, lancez la commande suivante :
 
 ```bash
 module load samtools
@@ -55,7 +80,7 @@ CRAM est un format plus récent pour le même type de données et offre encore p
 
 ### Conversion de SAM à BAM
 
-Avant la conversion, vérifiez si votre fichier BAM a un en-tête avec le caractère « @ ». Vous pouvez vérifier ceci avec la commande `view`.
+Avant la conversion, vérifiez si votre fichier BAM a un en-tête avec le caractère « @ ». Vous pouvez vérifier ceci avec la commande `view`.
 
 ```bash
 samtools view -H my_sample.sam
@@ -94,13 +119,13 @@ Un fichier BAM trié accompagné de son fichier index (extension `.bai`) est sou
 ### Multifil et/ou GNU parallel
 
 Plusieurs fichiers SAM sont souvent traités simultanément.
-Un script comportant une boucle est une bonne solution, comme suit
+Un script comportant une boucle est une bonne solution, comme suit :
 
-```bash tab="samtools.sh"
-#!/bin/bash
+```bash title="samtools.sh"
+#!/bin/bash            
 #SBATCH --cpus-per-task 1
-#SBATCH --mem-per-cpu=4G
-#SBATCH --time=3:00:00
+#SBATCH --mem-per-cpu=4G      
+#SBATCH --time=3:00:00 
 
 module load samtools/1.20
 
@@ -114,7 +139,7 @@ Samtools fonctionne généralement sur un seul cœur par défaut, mais dans cert
 
 Samtools peut travailler sur plusieurs cœurs (*multithreading*) avec l'indicateur `-@`.
 
-```bash tab="samtools_multithreading.sh"
+```bash title="samtools_multithreading.sh"
 #!/bin/bash
 #SBATCH --cpus-per-task 4
 #SBATCH --mem-per-cpu=4G
@@ -130,7 +155,7 @@ done
 
 Un autre moyen de travailler sur plusieurs cœurs est d'utiliser GNU Parallel pour traiter plusieurs fichiers simultanément.
 
-```bash tab="samtools_gnuparallel.sh"
+```bash title="samtools_gnuparallel.sh"
 #!/bin/bash
 #SBATCH --cpus-per-task 4
 #SBATCH --mem-per-cpu=4G

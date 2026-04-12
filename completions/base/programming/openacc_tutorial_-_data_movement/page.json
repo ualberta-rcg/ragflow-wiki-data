@@ -1,0 +1,55 @@
+{
+  "doc_key": "base/openacc_tutorial_-_data_movement",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What are the main learning objectives covered in this guide on OpenACC data management?",
+      "answer": "The learning objectives are to understand data locality, data movement, structured and unstructured data clauses, how to explicitly move data, and how to compile and run OpenACC code with data movement directives."
+    },
+    {
+      "question": "Why is explicit data management recommended as an alternative to CUDA Unified Memory in OpenACC?",
+      "answer": "Explicitly managing data makes the code portable, as CUDA Unified Memory is PGI-only and NVIDIA-only, and it may also improve performance."
+    },
+    {
+      "question": "What is an OpenACC structured data region, and how is it defined?",
+      "answer": "A structured data region is a block of code defined by the `data` directive, where GPU arrays remain on the GPU and are shared among all kernels within that region until the region's end."
+    },
+    {
+      "question": "When are unstructured data directives used in OpenACC, and what advantage do they offer?",
+      "answer": "Unstructured data directives are used when scoping does not permit normal data regions, such as with C++ constructors or destructors, or when data is allocated and initialized separately from where it's freed. They enable OpenACC use in C++ classes and Fortran modules."
+    },
+    {
+      "question": "What are the primary directives for unstructured data lifetime management in OpenACC?",
+      "answer": "The primary directives are `enter data` (with clauses like `copyin` and `create`) to mark the beginning of data lifetime, and `exit data` (with clauses like `copyout` and `delete`) to mark its end."
+    },
+    {
+      "question": "Explain the function of the `copyin`, `copyout`, `copy`, `create`, `delete`, and `present` data clauses in OpenACC.",
+      "answer": "`copyin` allocates memory on the GPU and copies data from the host to the GPU; `copyout` allocates on the GPU and copies data to the host; `copy` does both for structured regions; `create` allocates on the GPU without copying; `delete` deallocates on the GPU without copying (unstructured only); and `present` indicates data is already on the GPU from another region."
+    },
+    {
+      "question": "How do you specify array dimensions in OpenACC data clauses when the compiler cannot automatically determine their size?",
+      "answer": "You must explicitly specify the array size with data clauses using an array 'shape' syntax, for example, `a[0:nelem]` in C or `a(1:end)` in Fortran."
+    },
+    {
+      "question": "How are matrix structures and their members explicitly copied to a device using OpenACC directives?",
+      "answer": "The copy is performed in two steps: first, the matrix structure is copied with `pragma acc enter data copyin(A)`, followed by copying its members with `pragma acc enter data copyin(A.row_offsets[:num_rows+1],A.cols[:nnz],A.coefs[:nnz])`."
+    },
+    {
+      "question": "What is the purpose of the `present` clause in OpenACC, and why is it crucial for performance?",
+      "answer": "The `present` clause informs the compiler that the data is already available on the device from an enclosing data region. Using `present` is often critical for achieving good performance through high-level data management."
+    },
+    {
+      "question": "How do you compile OpenACC code to utilize explicit memory management instead of managed memory?",
+      "answer": "To compile with explicit memory management, you change the compiler flag from `-ta=tesla:managed` to `-ta-tesla` in the Makefile."
+    },
+    {
+      "question": "What is the function of the OpenACC `update` directive, and how do its `self` and `device` clauses operate?",
+      "answer": "The `update` directive allows refreshing an array or part of an array within a data region. `self(a)` copies data from the GPU to the CPU, while `device(a)` copies data from the CPU to the GPU."
+    },
+    {
+      "question": "What do performance benchmarks suggest about data locality and the use of managed memory in OpenACC applications?",
+      "answer": "Benchmarks indicate that data locality is effective: when most operations occur on the GPU and data remains there for extended periods, data movement has a minimal impact on performance. Managed memory might improve speed in some cases, likely due to pinned memory."
+    }
+  ],
+  "generated_at": "2026-04-12T04:10:48.217582+00:00"
+}

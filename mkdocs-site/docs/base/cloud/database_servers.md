@@ -5,28 +5,87 @@ lang: "base"
 
 source_wiki_title: "Database servers"
 source_hash: "3958354b58ed59f16ad2e192c41fb299"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T06:04:26.244519+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T06:48:47.893632+00:00"
 
 tags:
   - cloud
 
 keywords:
-  []
+  - "database backups"
+  - "Alliance username"
+  - "Hostname"
+  - "CA certificate"
+  - "Cedar"
+  - "DBaaS host"
+  - "mysql"
+  - "PostgreSQL"
+  - "MariaDB"
+  - "Database servers"
+  - "Cedar PostgreSQL server"
+  - "PostGIS extension"
+  - "PostgreSQL database"
+  - "access request"
+  - "Database sharing"
+  - "PostgreSQL account"
+  - "MySQL server"
+  - "database sharing"
+  - "SQL command"
+  - "MySQL database"
+  - "MySQL"
+  - ".my.cnf"
+  - "job scheduler"
+  - "Graham"
+  - "Database as a Service"
+  - "database"
+  - "MariaDB/MySQL database"
+  - "psql client"
+  - "Postgres"
+  - "Technical support"
+  - "head node"
+  - "IP address"
+  - "SSL connection"
+
+questions:
+  - "What database servers are available for researchers on the Cedar and Graham clusters, and how does the transition to the new Nibi system affect Graham's database services?"
+  - "What specific information must be provided to Technical Support to request a MySQL account, and how are the resulting login credentials securely stored?"
+  - "What are the correct procedures and restrictions for connecting to the Cedar MySQL server and running SQL commands or CPU-intensive scripts?"
+  - "How does the mysql command automatically obtain the required password and server name without needing them as arguments?"
+  - "Why is it acceptable to execute a long-running SQL command directly from the head node?"
+  - "Under what circumstances must a script that issues SQL commands be submitted as a job to the scheduler?"
+  - "What is the required naming convention for creating a new MySQL database on the Cedar server?"
+  - "How can a user grant privileges to share specific tables from their MySQL database with other users?"
+  - "What is the process for requesting and obtaining an account and database on the Cedar PostgreSQL server?"
+  - "How do you securely connect to your PostgreSQL database and ensure you are using the latest version of the client?"
+  - "What are the necessary steps and SQL commands to share a specific table in your PostgreSQL database with another user?"
+  - "How can a user request access to the Database as a Service (DBaaS) offering, and what specific information must be included in the request?"
+  - "What will be the username and default name of the PostgreSQL database assigned to a user?"
+  - "Are users permitted to create their own databases within the system?"
+  - "How can a user request additional databases or the PostGIS extension for their project?"
+  - "Where can users download the CA certificate used to sign the host certificate for the service?"
+  - "What type of connection is strictly enforced when connecting to the DBaaS host, and what happens if a plain text connection is attempted?"
+  - "What specific command-line tools and flags are required to establish a secure connection to PostgreSQL and MariaDB/MySQL databases?"
+  - "What is the frequency and retention period for the database backups?"
+  - "What specific information must be included when contacting Technical support to request database access?"
+  - "What are the hostnames and TCP ports used to connect to the MySQL and PostgreSQL databases?"
+  - "Where can users download the CA certificate used to sign the host certificate for the service?"
+  - "What type of connection is strictly enforced when connecting to the DBaaS host, and what happens if a plain text connection is attempted?"
+  - "What specific command-line tools and flags are required to establish a secure connection to PostgreSQL and MariaDB/MySQL databases?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
 ## Database servers available for researchers
+
 The Alliance offers access to MySQL and Postgres database servers for researchers on both Cedar and Graham.
 
-!!! warning "Note"
+!!! note
     As of January 13, 2025, the Graham cluster will be operating at approximately 25% capacity (see [details here](graham.md#graham-reduction)) until [Nibi](nibi.md) is available. No database server will be provided on Graham during the transition to the new system.
 
 | Information | Cedar - MySQL | Cedar - Postgres | Graham - MySQL |
@@ -41,9 +100,7 @@ The Alliance offers access to MySQL and Postgres database servers for researcher
 
 The Cedar MySQL server offers MariaDB which is compatible with other flavours of MySQL. For information on compatibility, see [MariaDB versus MySQL Compatibility](https://mariadb.com/kb/en/library/mariadb-vs-mysql-compatibility/).
 
-The MariaDB server runs as a VM called "cedar-mysql-vm" (full name: cedar-mysql-vm.int.cedar.computecanada.ca).
-Users who have accounts on the MySQL server are able to connect only through the Cedar head node
-(cedar.computecanada.ca), Cedar compute nodes and [Cedar Portal](https://gateway.cedar.computecanada.ca).
+The MariaDB server runs as a VM called "cedar-mysql-vm" (full name: cedar-mysql-vm.int.cedar.computecanada.ca). Users who have accounts on the MySQL server are able to connect only through the Cedar head node (cedar.computecanada.ca), Cedar compute nodes and [Cedar Portal](https://gateway.cedar.computecanada.ca).
 
 For security, users cannot make an SSH connection to the database server directly.
 
@@ -54,7 +111,7 @@ If you need the privileges to create your own database, you will need a MySQL ac
 *   Your Alliance username
 *   Amount of database space needed for your project
 
-We will then create an MySQL account with the same username as your Alliance username and a 16 digit random string password. The username, password, database server name, and other information required to make a MySQL connection will be stored in a file called `.my.cnf` in your home directory. This file is confidential. You cannot change its contents but you can read it or delete it. If the file is deleted, you will lose access to your database.
+We will then create an MySQL account with the same username as your Alliance username and a 16-digit random string password. The username, password, database server name, and other information required to make a MySQL connection will be stored in a file called `.my.cnf` in your home directory. This file is confidential. You cannot change its contents but you can read it or delete it. If the file is deleted, you will lose access to your database.
 
 Run the "mysql" client to connect to the MySQL server. An older version of the client may be available without loading a [module](utiliser-des-modules.md), but it will not give you access the latest features on the MySQL server. We recommend issuing the following commands to load a more recent version of the client:
 
@@ -77,8 +134,7 @@ It is acceptable to submit a long-running SQL command from the head node, as mos
 
 ### Set up your MySQL database
 
-In order to be able to set up MySQL tables and query them, you need to create your own database. To create a database, the name of the database is arbitrary but it must start with "*username_*"
-where "*username*" is your MySQL username. For example, if your username were "david" the name of the database **must** start with "david_" and the commands to create a database called "david_db1", for example, would be:
+In order to be able to set up MySQL tables and query them, you need to create your own database. To create a database, the name of the database is arbitrary but it must start with "*username_*" where "*username*" is your MySQL username. For example, if your username were "david" the name of the database **must** start with "david_" and the commands to create a database called "david_db1", for example, would be:
 
 ```bash
 mysql
@@ -86,8 +142,7 @@ MariaDB [(none)]> CREATE DATABASE david_db1;
 MariaDB [(none)]> quit
 ```
 
-You may create multiple MySQL databases as long as they all start with "*username_*".
-The created databases will automatically be accessible only to you from the Cedar head node, Cedar compute nodes, and [Cedar Portal](https://gateway.cedar.computecanada.ca). You will have full privileges to create SQL objects such as tables, views, etc.
+You may create multiple MySQL databases as long as they all start with "*username_*". The created databases will automatically be accessible only to you from the Cedar head node, Cedar compute nodes, and [Cedar Portal](https://gateway.cedar.computecanada.ca). You will have full privileges to create SQL objects such as tables, views, etc.
 
 ### Work with your MySQL database
 
@@ -104,6 +159,7 @@ MariaDB [(none)]> quit
 ```
 
 Resources for using MariaDB:
+
 *   [MariaDB Knowledgebase](https://mariadb.com/kb/en/)
 *   [MariaDB Training and Tutorials](https://mariadb.com/kb/en/library/training-tutorials/)
 *   [MariaDB SQL Statement Structure](https://mariadb.com/kb/en/library/sql-statements-structure/)
@@ -136,13 +192,12 @@ MariaDB [(none)]> quit;
 
 The Cedar Postgres server has [Postgres](https://www.postgresql.org/) along with the [PostGIS](https://postgis.net/) extension.
 
-The Cedar PostgreSQL server runs as a VM called "cedar-pgsql-vm" (full name: cedar-pgsql-vm.int.cedar.computecanada.ca).
-Users who have accounts on the PostgreSQL server are able to connect through the main Cedar head node
-(cedar.computecanada.ca), Cedar compute nodes, and [Cedar Portal](https://gateway.cedar.computecanada.ca).
+The Cedar PostgreSQL server runs as a VM called "cedar-pgsql-vm" (full name: cedar-pgsql-vm.int.cedar.computecanada.ca). Users who have accounts on the PostgreSQL server are able to connect through the main Cedar head node (cedar.computecanada.ca), Cedar compute nodes, and [Cedar Portal](https://gateway.cedar.computecanada.ca).
 
 For security, users cannot make an SSH connection to the database server directly.
 
 To get an account and database on the Cedar PostgreSQL server, send a request to our [Technical support](technical-support.md) with the following information:
+
 *   Your Alliance username
 *   Amount of database space needed for your project
 *   If you need the PostGIS extension for the database
@@ -174,12 +229,15 @@ david_db=> \q
 ```
 
 Resources for using PostgreSQL:
+
 *   [PostgreSQL tutorials](https://www.postgresql.org/docs/current/static/tutorial.html)
 *   [PostgreSQL manuals](https://www.postgresql.org/docs/)
 *   [PostgreSQL release notes](https://www.postgresql.org/docs/release/)
 
 ### Share your PostgreSQL data
+
 You can share your data in your PostgreSQL database with others. This is how:
+
 *   The person with whom you want to share access must have a Postgres account on the system. They should apply for one as described above.
 *   You will have to give the person `connect` access to your database.
 *   For each table or view to be shared, you give the person one or more of `select`, `update`, `insert`, and `delete` access to it.
@@ -222,6 +280,7 @@ david_db=> \q
 ```
 
 ## Graham MySQL server
+
 The steps for obtaining and using an account on the Graham MySQL server are similar to [those described above for Cedar](#cedar-mysql-server) except you will need to load the following module instead:
 
 ```bash
@@ -229,25 +288,28 @@ The steps for obtaining and using an account on the Graham MySQL server are simi
 ```
 
 ## Cloud-based database servers
+
 ### Database as a Service (DBaaS)
+
 If a VM is not sufficient to run a database load, a managed database can be used instead, the current offering includes MySQL/MariaDB and Postgres on a physical system.
 The database systems as well as all databases are being backed up once a day. The backups are archived for 3 months.
 To request access, please contact [Technical support](technical-support.md).
 
 **Please provide in your request the client network or IP address you will access the database from.**
 
-| Type | Hostname | TCP port |
-| :--- | :------- | :------- |
-| mysql | dbaas101.arbutus.cloud.computecanada.ca | 3306 |
-| pgsql | dbaas101.arbutus.cloud.computecanada.ca | 5432 |
+| Type  | Hostname                          | TCP port |
+| :---- | :-------------------------------- | :------- |
+| mysql | dbaas101.arbutus.cloud.computecanada.ca | 3306     |
+| pgsql | dbaas101.arbutus.cloud.computecanada.ca | 5432     |
 
 The CA certificate which is used to sign the host certificate for the service, is available for download [here](https://docs.computecanada.ca/mediawiki/images/5/58/Dbaas-ca.pem.zip).
 
 ### PostgreSQL database
+
 Your instance will use an ssl connection to connect to the DBaaS host.
 The example below connects to the DBaaS host, as **user01** and uses the database **dbinstance** via an ssl connection.
 
-```psql
+```text
 psql --set "sslmode=require" -h dbaas101.arbutus.cloud.computecanada.ca -U user01 -d dbinstance
 Password for user user01: 
 SSL connection (protocol: TLSv1.3, cipher: TLS_AES_256_GCM_SHA384, bits: 256, compression: off)
@@ -262,10 +324,11 @@ dbinstance=> \l dbinstance
 The ssl connection is enforced and plain text connections fail.
 
 ### MariaDB/MySQL database
+
 Your instance will use an ssl connection to connect to the DBaaS host.
 The example below connects to the DBaaS host, as **user01** and uses the database **dbinstance** via an ssl connection.
 
-```mysql
+```text
 mysql --ssl -h dbaas101.arbutus.cloud.computecanada.ca -u user01 -p dbinstance
 Enter password: 
 MariaDB [dbinstance]> show databases;
@@ -280,7 +343,7 @@ MariaDB [dbinstance]> show databases;
 
 If you try to use a plain text connection, your authentication will fail.
 
-```mysql
-mysql -h dbaas105.arbutus.cloud.computecanada.ca -u user01 -p dbinstance
+```text
+mysql -h dbaas101.arbutus.cloud.computecanada.ca -u user01 -p dbinstance
 Enter password: 
 ERROR 1045 (28000): Access denied for user 'user01'@'client.arbutus' (using password: YES)

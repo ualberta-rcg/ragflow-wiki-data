@@ -1,0 +1,48 @@
+{
+  "doc_key": "en/pytorch",
+  "level": "chunk",
+  "chunk_index": 3,
+  "qa_pairs": [
+    {
+      "question": "What significant changes might users observe when running GPU-enabled PyTorch code with versions older than 1.12.0 compared to versions 1.12.0 and newer on clusters with A100, H100, or newer Nvidia GPUs?",
+      "answer": "Users may notice a significant slowdown and potentially different results when running GPU-enabled code with `torch < 1.12.0` compared to `torch >= 1.12.0` on clusters equipped with A100, H100, or newer Nvidia GPUs."
+    },
+    {
+      "question": "How can TF32 be enabled or disabled for matrix multiplications in PyTorch versions 1.12.0 and higher?",
+      "answer": "To enable or disable TF32 for matrix multiplications in `torch >= 1.12.0`, set the flag `torch.backends.cuda.matmul.allow_tf32` to `True` or `False` respectively."
+    },
+    {
+      "question": "How can TF32 be enabled or disabled for convolutions in PyTorch versions 1.12.0 and higher?",
+      "answer": "To enable or disable TF32 for convolutions in `torch >= 1.12.0`, set the flag `torch.backends.cudnn.allow_tf32` to `True` or `False` respectively."
+    },
+    {
+      "question": "Where can users find more detailed information about TF32 on Ampere GPUs within PyTorch?",
+      "answer": "More information about TF32 on Ampere GPUs can be found in PyTorch's official documentation."
+    },
+    {
+      "question": "In what ways does PyTorch natively support parallelizing work across multiple CPUs?",
+      "answer": "PyTorch natively supports parallelizing work across multiple CPUs through two main methods: intra-op parallelism and inter-op parallelism."
+    },
+    {
+      "question": "Could you explain what intra-op parallelism means in PyTorch?",
+      "answer": "Intra-op parallelism refers to PyTorch's parallel implementations of common Deep Learning operators, such as matrix multiplication and convolution. These operations automatically leverage multi-threading across available CPU cores, often using OpenMP directly or through libraries like MKL and OneDNN."
+    },
+    {
+      "question": "What is inter-op parallelism in PyTorch?",
+      "answer": "Inter-op parallelism in PyTorch is its ability to execute different parts of your code concurrently. This usually requires explicit program design for parallel execution, such as leveraging PyTorch's Just-In-Time compiler `torch.jit` for asynchronous tasks in a TorchScript program."
+    },
+    {
+      "question": "When is it advisable to use multiple CPUs instead of a GPU for PyTorch models?",
+      "answer": "For small-scale models and datasets, it is strongly recommended to use multiple CPUs instead of a GPU. While GPUs are often faster, for very small models, the speed-up might not be significant, leading to inefficient GPU utilization."
+    },
+    {
+      "question": "Why is it generally not recommended to use a GPU for small-scale PyTorch computations on shared HPC clusters?",
+      "answer": "On shared HPC clusters, using a GPU for small-scale models means unnecessarily blocking a resource that another user might need for larger computations. It also leads to inefficient use of the group's allocation and can negatively affect the priority of colleagues' jobs."
+    },
+    {
+      "question": "What kind of parallelism does the `cifar10-cpu.py` example code contain many opportunities for?",
+      "answer": "The `cifar10-cpu.py` example code contains many opportunities for intra-op parallelism."
+    }
+  ],
+  "generated_at": "2026-04-12T05:40:39.660133+00:00"
+}

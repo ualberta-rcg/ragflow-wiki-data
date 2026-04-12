@@ -5,21 +5,47 @@ lang: "en"
 
 source_wiki_title: "Dedalus/en"
 source_hash: "b16c0558e027bfec458b1793a5608aaa"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T06:07:31.207355+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T06:51:26.844707+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "module load"
+  - "Dedalus"
+  - "Python virtual environment"
+  - "interactive job"
+  - "SBATCH"
+  - "whole nodes"
+  - "virtual environment"
+  - "SLURM"
+  - "job submission"
+  - "job submission script"
+  - "openmpi"
+  - "partial differential equations"
+  - "MPI scheduling"
+
+questions:
+  - "What is the Dedalus framework and how can users check its available prebuilt versions on the clusters?"
+  - "What are the necessary steps to set up a Python virtual environment and install a specific version of Dedalus?"
+  - "How should users configure their job submission scripts to run Dedalus efficiently across multiple nodes or cores?"
+  - "How is the virtual environment created and populated with dependencies across all allocated nodes?"
+  - "What environment variables and commands are used to execute the Python script on the main node?"
+  - "What is the recommended procedure for testing and submitting the job to the scheduler?"
+  - "What are the specific SLURM resource allocations defined in the script for tasks and memory?"
+  - "Which software modules and specific versions are required to be loaded for this environment?"
+  - "What external documentation is referenced for configuring the job to run on whole nodes?"
+  - "How is the virtual environment created and populated with dependencies across all allocated nodes?"
+  - "What environment variables and commands are used to execute the Python script on the main node?"
+  - "What is the recommended procedure for testing and submitting the job to the scheduler?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -31,7 +57,9 @@ Dedalus is available on our clusters as prebuilt Python packages (wheels). You c
 ```bash
 avail_wheels dedalus
 ```
-```text
+
+Expected output:
+```
 name     version    python    arch
 -------  ---------  --------  ---------
 dedalus  3.0.2      cp311     x86-64-v3
@@ -39,116 +67,123 @@ dedalus  3.0.2      cp310     x86-64-v3
 ```
 
 ## Installing Dedalus in a Python virtual environment
-1. Load Dedalus runtime dependencies.
-```bash
-module load StdEnv/2023 gcc openmpi mpi4py/3.1.4 fftw-mpi/3.3.10 hdf5-mpi/1.14.2 python/3.11
-```
+1.  Load Dedalus runtime dependencies.
 
-2. Create and activate a Python virtual environment.
-```bash
-virtualenv --no-download ~/dedalus_env
-source ~/dedalus_env/bin/activate
-```
+    ```bash
+    module load StdEnv/2023 gcc openmpi mpi4py/3.1.4 fftw-mpi/3.3.10 hdf5-mpi/1.14.2 python/3.11
+    ```
 
-3. Install a specific version of Dedalus and its Python dependencies.
-```bash
-(dedalus_env) [name@server ~]$ pip install --no-index --upgrade pip
-(dedalus_env) [name@server ~]$ pip install --no-index dedalus==X.Y.Z
-```
-where `X.Y.Z` is the exact desired version, for instance `3.0.2`.
-You can omit to specify the version in order to install the latest one available from the wheelhouse.
+2.  Create and activate a Python virtual environment.
 
-4. Validate it.
-```bash
-(dedalus_env) [name@server ~]$ python -c 'import dedalus'
-```
+    ```bash
+    virtualenv --no-download ~/dedalus_env
+    source ~/dedalus_env/bin/activate
+    ```
 
-5. Freeze the environment and requirements set.
-```bash
-(dedalus_env) [name@server ~]$ pip freeze --local > ~/dedalus-3.0.2-requirements.txt
-```
+3.  Install a specific version of Dedalus and its Python dependencies.
 
-6. Remove the local virtual environment.
-```bash
-(dedalus_env) [name@server ~]$ deactivate && rm -r ~/dedalus_env
-```
+    ```bash
+    pip install --no-index --upgrade pip
+    pip install --no-index dedalus==X.Y.Z
+    ```
+
+    where `X.Y.Z` is the exact desired version, for instance `3.0.2`.
+    You can omit to specify the version in order to install the latest one available from the wheelhouse.
+
+4.  Validate it.
+
+    ```bash
+    python -c 'import dedalus'
+    ```
+
+5.  Freeze the environment and requirements set.
+
+    ```bash
+    pip freeze --local > ~/dedalus-3.0.2-requirements.txt
+    ```
+
+6.  Remove the local virtual environment.
+
+    ```bash
+    deactivate && rm -r ~/dedalus_env
+    ```
 
 ## Running Dedalus
 You can run Dedalus distributed across multiple nodes or cores.
 For efficient MPI scheduling, please see:
-* [MPI job](running-jobs.md#mpi-job)
-* [Advanced MPI scheduling](advanced-mpi-scheduling.md)
+*   [MPI job](running-jobs.md#mpi-job)
+*   [Advanced MPI scheduling](advanced-mpi-scheduling.md)
 
-1. Write your job submission script.
+1.  Write your job submission script.
 
-=== "submit-dedalus-distributed.sh"
-    ```bash
-    #!/bin/bash
+~~~tabs
+~~~bash tab="submit-dedalus-distributed.sh"
+#!/bin/bash
 
-    #SBATCH --account=def-someprof    # adjust this to match the accounting group you are using to submit jobs
-    #SBATCH --time=08:00:00           # adjust this to match the walltime of your job
-    #SBATCH --ntasks=4                # adjust this to match the number of tasks/processes to run
-    #SBATCH --mem-per-cpu=4G          # adjust this according to the memory you need per process
+#SBATCH --account=def-someprof    # adjust this to match the accounting group you are using to submit jobs
+#SBATCH --time=08:00:00           # adjust this to match the walltime of your job
+#SBATCH --ntasks=4                # adjust this to match the number of tasks/processes to run
+#SBATCH --mem-per-cpu=4G          # adjust this according to the memory you need per process
 
-    # Run on cores across the system : https://docs.alliancecan.ca/wiki/Advanced_MPI_scheduling#Few_cores,_any_number_of_nodes
+# Run on cores across the system : https://docs.alliancecan.ca/wiki/Advanced_MPI_scheduling#Few_cores,_any_number_of_nodes
 
-    # Load modules dependencies.
-    module load StdEnv/2023 gcc openmpi mpi4py/3.1.4 fftw-mpi/3.3.10 hdf5-mpi/1.14.2 python/3.11
+# Load modules dependencies.
+module load StdEnv/2023 gcc openmpi mpi4py/3.1.4 fftw-mpi/3.3.10 hdf5-mpi/1.14.2 python/3.11
 
-    # create the virtual environment on each allocated node:
-    srun --ntasks $SLURM_NNODES --tasks-per-node=1 bash << EOF
-    virtualenv --no-download $SLURM_TMPDIR/env
-    source $SLURM_TMPDIR/env/bin/activate
+# create the virtual environment on each allocated node:
+srun --ntasks "$SLURM_NNODES" --tasks-per-node=1 bash << EOF
+virtualenv --no-download "$SLURM_TMPDIR"/env
+source "$SLURM_TMPDIR"/env/bin/activate
 
-    pip install --no-index --upgrade pip
-    pip install --no-index -r dedalus-3.0.2-requirements.txt
-    EOF
+pip install --no-index --upgrade pip
+pip install --no-index -r dedalus-3.0.2-requirements.txt
+EOF
 
-    # activate only on main node
-    source $SLURM_TMPDIR/env/bin/activate;
+# activate only on main node
+source "$SLURM_TMPDIR"/env/bin/activate;
 
-    export OMP_NUM_THREADS=1
+export OMP_NUM_THREADS=1
 
-    # srun exports the current env, which contains $VIRTUAL_ENV and $PATH variables
-    srun python $SCRATCH/myscript.py;
-    ```
+# srun exports the current env, which contains $VIRTUAL_ENV and $PATH variables
+srun python "$SCRATCH"/myscript.py;
+~~~
 
-=== "submit-dedalus-whole-nodes.sh"
-    ```bash
-    #!/bin/bash
+~~~bash tab="submit-dedalus-whole-nodes.sh"
+#!/bin/bash
 
-    #SBATCH --account=def-someprof    # adjust this to match the accounting group you are using to submit jobs
-    #SBATCH --time=08:00:00           # adjust this to match the walltime of your job
-    #SBATCH --nodes=2                 # adjust this to match the number of whole node
-    #SBATCH --ntasks-per-node=4       # adjust this to match the number of tasks/processes to run per node
-    #SBATCH --mem-per-cpu=4G          # adjust this according to the memory you need per process
+#SBATCH --account=def-someprof    # adjust this to match the accounting group you are using to submit jobs
+#SBATCH --time=08:00:00           # adjust this to match the walltime of your job
+#SBATCH --nodes=2                 # adjust this to match the number of whole node
+#SBATCH --ntasks-per-node=4       # adjust this to match the number of tasks/processes to run per node
+#SBATCH --mem-per-cpu=4G          # adjust this according to the memory you need per process
 
-    # Run on N whole nodes : https://docs.alliancecan.ca/wiki/Advanced_MPI_scheduling#Whole_nodes
+# Run on N whole nodes : https://docs.alliancecan.ca/wiki/Advanced_MPI_scheduling#Whole_nodes
 
-    # Load modules dependencies.
-    module load StdEnv/2023 gcc openmpi mpi4py/3.1.4 fftw-mpi/3.10 hdf5-mpi/1.14.2 python/3.11
+# Load modules dependencies.
+module load StdEnv/2023 gcc openmpi mpi4py/3.1.4 fftw-mpi/3.3.10 hdf5-mpi/1.14.2 python/3.11
 
-    # create the virtual environment on each allocated node:
-    srun --ntasks $SLURM_NNODES --tasks-per-node=1 bash << EOF
-    virtualenv --no-download $SLURM_TMPDIR/env
-    source $SLURM_TMPDIR/env/bin/activate
+# create the virtual environment on each allocated node:
+srun --ntasks "$SLURM_NNODES" --tasks-per-node=1 bash << EOF
+virtualenv --no-download "$SLURM_TMPDIR"/env
+source "$SLURM_TMPDIR"/env/bin/activate
 
-    pip install --no-index --upgrade pip
-    pip install --no-index -r dedalus-3.0.2-requirements.txt
-    EOF
+pip install --no-index --upgrade pip
+pip install --no-index -r dedalus-3.0.2-requirements.txt
+EOF
 
-    # activate only on main node
-    source $SLURM_TMPDIR/env/bin/activate;
+# activate only on main node
+source "$SLURM_TMPDIR"/env/bin/activate;
 
-    export OMP_NUM_THREADS=1
+export OMP_NUM_THREADS=1
 
-    # srun exports the current env, which contains $VIRTUAL_ENV and $PATH variables
-    srun python $SCRATCH/myscript.py;
-    ```
+# srun exports the current env, which contains $VIRTUAL_ENV and $PATH variables
+srun python "$SCRATCH"/myscript.py;
+~~~
+~~~
 
-2. Submit your job to the scheduler.
+2.  Submit your job to the scheduler.
 
-!!! tip
+!!! tip "Test Your Submission Script"
     Before submitting your job, it is important to test that your submission script will start without errors. You can do a quick test in an [interactive job](running-jobs.md#interactive-jobs).
 
 ```bash

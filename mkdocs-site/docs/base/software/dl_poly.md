@@ -5,21 +5,48 @@ lang: "base"
 
 source_wiki_title: "DL POLY"
 source_hash: "7ff31398c4510e1058f975abae90dd51"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T05:55:32.359713+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T06:40:45.257593+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "simulation software"
+  - "Slurm"
+  - "module load"
+  - "Na+"
+  - "MPI job"
+  - "Serial job"
+  - "DL_POLY"
+  - "input files"
+  - "bash script"
+  - "DLPOLY.Z"
+  - "Cl-"
+  - "finishvdw"
+  - "molecular dynamics"
+  - "bhm"
+
+questions:
+  - "What is DL_POLY and what are its main features as a molecular dynamics simulation software?"
+  - "How do the access requirements differ between the newer open-source version of DL_POLY and its previous versions?"
+  - "What are the three essential input files required to start a simulation in DL_POLY, and what specific information does each file contain?"
+  - "What are the key differences in the Slurm configuration and execution commands between the serial and MPI job scripts for DL_POLY?"
+  - "Which specific environment modules need to be loaded before executing the DLPOLY.Z program?"
+  - "What other software packages are listed as being related to this application?"
+  - "What are the mass, charge, and quantity values defined for the Na+ and Cl- ions in the system?"
+  - "What specific potential model and parameter sets are used to define the interactions between the different ion pairs?"
+  - "What does the presence of the formatting tags indicate about the software interface or job type being used for this simulation?"
+  - "What are the key differences in the Slurm configuration and execution commands between the serial and MPI job scripts for DL_POLY?"
+  - "Which specific environment modules need to be loaded before executing the DLPOLY.Z program?"
+  - "What other software packages are listed as being related to this application?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -31,26 +58,25 @@ There is a mailing list [here](https://www.jiscmail.ac.uk/cgi-bin/webadmin?A0=DL
 
 ## License limitations
 
-**DL_POLY** is now [open source](https://gitlab.com/DL%20POLY%20Classic/dl%20poly) and it does not require registration. A new module **dl_poly4/5.1.0** is already installed under **StdEnv/2023** and it is accessible for all users. However, if you would like to use the previous versions (**dl_poly4/4.10.0** and/or **dl_poly4/4.08**), you should contact [support](technical_support.md) and ask to be added to the POSIX group that controls access to DL_POLY4. There is no need to register on DL_POLY website.
+**DL_POLY** is now [open source](https://gitlab.com/DL%20POLY%20Classic/dl%20poly) and it does not require registration. A new module **dl_poly4/5.1.0** is already installed under **StdEnv/2023** and it is accessible for all users. However, if you would like to use the previous versions (**dl_poly4/4.10.0** and/or **dl_poly4/4.08**), you should contact [support](technical-support.md) and ask to be added to the POSIX group that controls access to DL_POLY4. There is no need to register on DL_POLY website.
 
 ## Modules
 
-To see which versions of DL_POLY are installed on our systems, run `module spider dl_poly4`. See [Using modules](using_modules.md) for more about `module` subcommands.
+To see which versions of DL_POLY are installed on our systems, run `module spider dl_poly4`. See [Using modules](using-modules.md) for more about `module` subcommands.
 
 To load the version **5.x**, use:
 
 ```bash
-module load StdEnv/2023 intel/2023.2.1 openmpi/4.1.5 dl_poly4/5.1.0
+module load StdEnv/2023  intel/2023.2.1  openmpi/4.1.5 dl_poly4/5.1.0
 ```
 
 To load the previous version 4.10.0, use:
 
 ```bash
-module load StdEnv/2023 intel/2020.1.217 openmpi/4.0.3 dl_poly4/4.10.0
+module load StdEnv/2023 intel/2020.1.217  openmpi/4.0.3 dl_poly4/4.10.0
 ```
 
-!!! note
-    Note that this version requires to be added to a POSIX group as explained above in [License limitations](#license-limitations).
+Note that this version requires to be added to a POSIX group as explained above in [License limitations](#license-limitations).
 
 We do not currently provide a module for the Java GUI interface.
 
@@ -64,92 +90,91 @@ To start a simulation, one must have at least three files:
 *   **FIELD**: force field parameters
 *   **CONTROL**: simulation parameters (time step, number of MD steps, simulation ensemble, ...etc.)
 
-=== "CONTROL"
-    ```txt
-    SODIUM CHLORIDE WITH (27000 IONS)
+```txt title="CONTROL"
+SODIUM CHLORIDE WITH (27000 IONS)
 
-    restart scale
-    temperature           500.0
-    equilibration steps   20
-    steps                 20
-    timestep              0.001
+restart scale
+temperature           500.0
+equilibration steps   20
+steps                 20
+timestep              0.001
 
-    cutoff                12.0
-    rvdw                  12.0
-    ewald precision       1d-6  
+cutoff                12.0
+rvdw                  12.0
+ewald precision       1d-6  
 
-    ensemble nvt berendsen 0.01
+ensemble nvt berendsen 0.01
 
-    print every           2
-    stats every           2
-    collect
-    job time              100
-    close time            10
+print every           2
+stats every           2
+collect
+job time              100
+close time            10
 
-    finish
-    ```
-=== "FIELD"
-    ```txt
-    SODIUM CHLORIDE WITH EWALD SUM (27000 IONS)
-    units internal
-    molecular types 1
-    SODIUM CHLORIDE
-    nummols 27
-    atoms 1000
-    Na+          22.9898         1.0  500
-    Cl-           35.453        -1.0  500
-    finish
-    vdw    3 
-    Na+     Na+     bhm      2544.35      3.1545      2.3400   1.0117e+4   4.8177e+3
-    Na+     Cl-     bhm      2035.48      3.1545      2.7550   6.7448e+4   8.3708e+4
-    Cl-     Cl-     bhm      1526.61      3.1545      3.1700   6.9857e+5   1.4032e+6
-    close
-    ```
-=== "Serial job"
-    ```bash
-    #!/bin/bash
+finish
+```
 
-    #SBATCH --account=def-someuser
-    #SBATCH --ntasks=1
-    #SBATCH --mem-per-cpu=2500M      # memory; default unit is megabytes.
-    #SBATCH --time=0-00:30           # time (DD-HH:MM).
+```txt title="FIELD"
+SODIUM CHLORIDE WITH EWALD SUM (27000 IONS)
+units internal
+molecular types 1
+SODIUM CHLORIDE
+nummols 27
+atoms 1000
+Na+          22.9898         1.0  500
+Cl-           35.453        -1.0  500
+finish
+vdw    3 
+Na+     Na+     bhm      2544.35      3.1545      2.3400   1.0117e+4   4.8177e+3
+Na+     Cl-     bhm      2035.48      3.1545      2.7550   6.7448e+4   8.3708e+4
+Cl-     Cl-     bhm      1526.61      3.1545      3.1700   6.9857e+5   1.4032e+6
+close
+```
 
-    # Load the module:
+```bash title="run_serial_dlp.sh"
+#!/bin/bash
 
-    module load StdEnv/2023  
-    module load intel/2023.2.1  openmpi/4.1.5 dl_poly4/5.1.0
+#SBATCH --account=def-someuser
+#SBATCH --ntasks=1
+#SBATCH --mem-per-cpu=2500M      # memory; default unit is megabytes.
+#SBATCH --time=0-00:30           # time (DD-HH:MM).
 
-    echo "Starting run at: `date`"
+# Load the module:
 
-    dlp_exec=DLPOLY.Z
+module load StdEnv/2023  
+module load intel/2023.2.1  openmpi/4.1.5 dl_poly4/5.1.0
 
-    ${dlp_exec}
+echo "Starting run at: `date`"
 
-    echo "Program finished with exit code $? at: `date`"
-    ```
-=== "MPI job"
-    ```bash
-    #!/bin/bash
+dlp_exec=DLPOLY.Z
 
-    #SBATCH --account=def-someuser
-    #SBATCH --nodes=1
-    #SBATCH --ntasks-per-node=4
-    #SBATCH --mem-per-cpu=2500M      # memory; default unit is megabytes.
-    #SBATCH --time=0-00:30           # time (DD-HH:MM).
+${dlp_exec}
 
-    # Load the module:
+echo "Program finished with exit code $? at: `date`"
+```
 
-    module load StdEnv/2023  
-    module load intel/2023.2.1  openmpi/4.1.5 dl_poly4/5.1.0
+```bash title="run_mpi_dlp.sh"
+#!/bin/bash
 
-    echo "Starting run at: `date`"
+#SBATCH --account=def-someuser
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=4
+#SBATCH --mem-per-cpu=2500M      # memory; default unit is megabytes.
+#SBATCH --time=0-00:30           # time (DD-HH:MM).
 
-    dlp_exec=DLPOLY.Z
+# Load the module:
 
-    srun ${dlp_exec}
+module load StdEnv/2023  
+module load intel/2023.2.1  openmpi/4.1.5 dl_poly4/5.1.0
 
-    echo "Program finished with exit code $? at: `date`"
-    ```
+echo "Starting run at: `date`"
+
+dlp_exec=DLPOLY.Z
+
+srun ${dlp_exec}
+
+echo "Program finished with exit code $? at: `date`"
+```
 
 ## Related software
 

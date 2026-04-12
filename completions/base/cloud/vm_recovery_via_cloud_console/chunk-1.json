@@ -1,0 +1,84 @@
+{
+  "doc_key": "base/vm_recovery_via_cloud_console",
+  "level": "chunk",
+  "chunk_index": 1,
+  "qa_pairs": [
+    {
+      "question": "When would someone typically need to boot a VM into single user mode or launch a recovery kernel?",
+      "answer": "Someone would typically need to boot a VM into single user mode or launch a recovery kernel if the VM can no longer be accessed via SSH or through a local user."
+    },
+    {
+      "question": "What is the primary requirement for performing a VM recovery using single user mode or a recovery kernel?",
+      "answer": "The primary requirement for performing a VM recovery is that the boot manager must be accessible and capable of being modified."
+    },
+    {
+      "question": "How does the Debian 10 recovery procedure differ in convenience compared to CentOS?",
+      "answer": "The Debian 10 recovery procedure is not as easy and convenient as one might expect from CentOS, although the functionality is similar."
+    },
+    {
+      "question": "Why is simply booting into single user mode often insufficient for recovery on most cloud images, particularly Debian 10?",
+      "answer": "Simply booting into single user mode is often insufficient because most cloud images, including Debian 10, typically have the root account locked."
+    },
+    {
+      "question": "What is the `init` process in a Linux-based system, and what is its Process ID (PID)?",
+      "answer": "The `init` process is a single userspace binary that the kernel runs after all hardware is initialized, and it always has PID1. In most recent distributions, it's either `systemd`, `systemV`, or `upstart`."
+    },
+    {
+      "question": "How can one gain privileged access to the OS image for recovery operations on a Debian 10 VM if the root account is locked?",
+      "answer": "One can gain privileged access by modifying the boot manager to tell the kernel to execute a shell (like `/bin/bash`) instead of the default `init` process, allowing for manual mounting and recovery operations."
+    },
+    {
+      "question": "What boot manager is typically used with Debian 10 cloud images, and how do you enter its edit mode for recovery?",
+      "answer": "Debian 10 cloud images typically come with GRUB2. To enter edit mode, boot or reboot the system until you see the GRUB menu, then hit `e`."
+    },
+    {
+      "question": "What specific modifications are required in the GRUB menu's kernel parameters for Debian 10 recovery?",
+      "answer": "For Debian 10 recovery, you need to remove the serial consoles and add `init=/bin/bash` to the line after `linux` to tell the kernel to use `/bin/bash` as the new `init` process."
+    },
+    {
+      "question": "Can you provide an example of the modified `linux` line for Debian 10 recovery?",
+      "answer": "An example of the modified `linux` line is: `linux /boot/vmlinuz-4.19.0-6-cloud-amd64 root=UUID=d187d85e-8a80-4664-8b5a-dce4d7ceca9e ro biosdevname=0 net.ifnames=0 console=tty0 init=/bin/bash`."
+    },
+    {
+      "question": "What is the initial state of the filesystem after booting the kernel with `init=/bin/bash` during Debian 10 recovery?",
+      "answer": "After booting the kernel with `init=/bin/bash`, the system lands in memory and the filesystem is initially mounted read-only (r/o)."
+    },
+    {
+      "question": "What are the essential subsequent steps for a useful recovery after booting into the `/bin/bash` shell on Debian 10?",
+      "answer": "The essential subsequent steps are to remount the `initrd` filesystem read/write, mount the OS image disk, `chroot` into it, set a root password, and then restart the VM."
+    },
+    {
+      "question": "How do you remount the `initrd` filesystem as read/write during the Debian 10 recovery process?",
+      "answer": "You remount the `initrd` filesystem as read/write using the command: `mount -o remount,rw /`."
+    },
+    {
+      "question": "Which command is used to mount the primary OS image partition (`/dev/vda1`) to `/mnt` during Debian 10 recovery?",
+      "answer": "The command `mount /dev/vda1 /mnt` is used to mount the first primary partition (`/dev/vda1`) to `/mnt`."
+    },
+    {
+      "question": "Why is it necessary to bind mount `/dev`, `/proc`, and `/sys` to `/mnt` before `chroot`ing during Debian 10 recovery?",
+      "answer": "It is necessary to bind mount `/dev` for tty access, and `/proc` and `/sys` for network access and to enable tools like `passwd` from within the `chroot` environment."
+    },
+    {
+      "question": "What specific commands are used to bind mount `/proc`, `/sys`, and `/dev` to the `/mnt` directory for Debian 10 recovery?",
+      "answer": "The specific commands are `mount -o bind /proc /mnt/proc`, `mount -o bind /sys /mnt/sys`, and `mount -o bind /dev /mnt/dev`."
+    },
+    {
+      "question": "What common error might be encountered when `chroot`ing into `/mnt` during Debian 10 recovery, and how should it be handled?",
+      "answer": "An `ioctl` error for the terminal process group might be encountered when `chroot`ing into `/mnt`, but it can be ignored."
+    },
+    {
+      "question": "After resetting the root password using `passwd` within the `chroot` environment, how do you exit the `chroot`?",
+      "answer": "After resetting the root password, you leave the `chroot` environment by pressing `Ctrl+D`."
+    },
+    {
+      "question": "How should the VM be restarted after completing recovery operations and unmounting all filesystems when bash has no power control mechanisms?",
+      "answer": "After unmounting all filesystems, the VM should be restarted by using the `Ctrl+Alt+Del` submit button on the OpenStack console page, or by simply stopping and starting the VM."
+    },
+    {
+      "question": "What final steps should be taken after a successful Debian 10 VM recovery and logging in as root?",
+      "answer": "After a successful recovery and logging in as root, you should either remove the root password again or disable direct root logins via SSH."
+    }
+  ],
+  "generated_at": "2026-04-12T10:46:55.478231+00:00"
+}

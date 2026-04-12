@@ -5,25 +5,133 @@ lang: "base"
 
 source_wiki_title: "Terraform"
 source_hash: "a5add77648e5af0dfe513fe998ec393c"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T11:48:06.834227+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T11:56:41.572294+00:00"
 
 tags:
   - cloud
 
 keywords:
-  []
+  - "openstack_compute_floatingip_associate_v2"
+  - "private network"
+  - "power_state"
+  - "security_groups"
+  - "block device"
+  - "credentials"
+  - "root volume"
+  - "provider blocks"
+  - "network resource sub-block"
+  - "state file"
+  - "Python Pip"
+  - "virtual machines"
+  - "Horizon"
+  - "openstack_compute_instance_v2"
+  - "openstack_networking_floatingip_v2"
+  - "Terraform configuration"
+  - "VM definition"
+  - "infrastructure"
+  - "terraform plan"
+  - "successfully initialized"
+  - "virtual machine"
+  - "key_pair"
+  - "configuration updates"
+  - "version constraints"
+  - "managed resources"
+  - "new configuration"
+  - "floating_ip"
+  - "compute instance"
+  - "Terraform workspace"
+  - "existing resources"
+  - "OpenStack"
+  - "image_id"
+  - "state files"
+  - "Compute instance"
+  - "resource"
+  - "infrastructure-as-code"
+  - "VM"
+  - "block_device"
+  - "configuration"
+  - "terraform init"
+  - "network resource"
+  - "OpenStack CLI"
+  - "cloud"
+  - "terraform apply"
+  - "network"
+  - "terraform.tfstate"
+  - "floating IP"
+  - "Terraform"
+  - "UUIDs"
+  - "OpenStack provider"
+  - "flavor_id"
+  - "execution plan"
+  - "myvm"
+
+questions:
+  - "What is Terraform and what are the main benefits of using its infrastructure-as-code model for managing OpenStack resources?"
+  - "What prerequisites and tools must a user acquire and configure before starting this Terraform tutorial?"
+  - "What are the two methods described in the text for providing OpenStack credentials in a command-line environment?"
+  - "What are the different methods available for providing connection and credential information to the Terraform OpenStack provider?"
+  - "Why is it considered a security best practice to use partial credentials or environment variables instead of hardcoding passwords directly in the Terraform configuration?"
+  - "What is the purpose of running the `terraform init` command, and what actions does it perform regarding the OpenStack provider plugin?"
+  - "What is the OpenStack CLI (OSC) and what is the recommended method for installing it?"
+  - "How do you set up the initial Terraform workspace as described in the guide?"
+  - "What specific types of files will be stored in the newly created Terraform directory?"
+  - "What version constraint is recommended for the OpenStack provider in the configuration?"
+  - "What command does the text suggest running next to see required infrastructure changes?"
+  - "Under what circumstances should the working directory be reinitialized?"
+  - "Why is it considered a best practice in Terraform to specify OpenStack flavors and images using their IDs rather than their names?"
+  - "What are the key components needed to define a minimal OpenStack VM in Terraform, and why is it recommended to create a boot volume for persistent instances?"
+  - "What is the function of the `terraform plan` command, and what information does it provide before making changes to the cloud state?"
+  - "What is the designated name and intended power state of the virtual machine being provisioned?"
+  - "Which specific image ID and flavor ID are being used to create this instance?"
+  - "What is the name of the key pair assigned to this virtual machine for access?"
+  - "Why is it important to review the summary line of the `terraform plan` output before applying changes?"
+  - "How does Terraform interact with existing OpenStack resources that are not defined in its current configuration?"
+  - "What causes the \"Multiple possible networks found\" error during `terraform apply`, and how can it be fixed?"
+  - "Why does Terraform require a specific network to be identified when configuring a project?"
+  - "How can a user locate the name and details of their private network using the CLI or Horizon interface?"
+  - "How do you add a private network to a virtual machine definition in your configuration?"
+  - "What command is executed to apply the Terraform configuration and create the new OpenStack virtual machine?"
+  - "How can you verify the successful creation and status of the new virtual machine using the OpenStack terminal?"
+  - "What is the purpose of the `terraform.tfstate` file, and what are the consequences of deleting it?"
+  - "Why might you use a jump host (bastion host) instead of assigning a floating IP directly to a new VM?"
+  - "How are floating IPs allocated to a project from an external network pool in OpenStack using Terraform?"
+  - "What Terraform resource and syntax are used to associate an allocated floating IP with a specific VM instance?"
+  - "What information does the Terraform state file contain and how does Terraform use it to manage configuration updates?"
+  - "Are users generally required to manually inspect or interact with the Terraform state file?"
+  - "What are the consequences of deleting the Terraform state file, and what actions must be taken to resolve the issue?"
+  - "What is the purpose of the `var.<variable name>` syntax mentioned in the text?"
+  - "Which two components are being associated by the resource described in the explanation?"
+  - "What actions occur when the `terraform apply` command is executed according to the provided shell output?"
+  - "What troubleshooting step should be taken if you are unable to SSH into the VM after associating a floating IP?"
+  - "Why does adding a root volume to an existing virtual machine result in a destructive operation during a Terraform apply?"
+  - "What is the consequence of leaving the `image_id` attribute defined in the outer compute instance block when configuring a boot volume?"
+  - "Why is Terraform forcing the replacement of the virtual machine resource according to the plan output?"
+  - "What post-deployment actions must the user take regarding SSH keys and system updates after the new VM is created?"
+  - "What specific parameters are defined within the block_device block in the final Terraform configuration example?"
+  - "What is the specific flaw in the OpenStack provider that is mentioned in the text?"
+  - "What action does the Terraform execution plan specify for the `openstack_compute_floatingip_associate_v2.myvm_fip` resource?"
+  - "Which floating IP address is associated with the resource being replaced in the provided code snippet?"
+  - "What are the primary configuration details, such as the flavor ID and key pair, assigned to the virtual machine named \"myvm\"?"
+  - "How is the block device configured for this instance, specifically regarding its source, size, and termination policy?"
+  - "From which specific pool is the OpenStack networking floating IP allocated for this deployment?"
+  - "What resources and examples are recommended for users who want to further explore building OpenStack infrastructure with Terraform?"
+  - "What are the specific steps to locate an image's UUID using the Horizon web interface?"
+  - "Why is it more difficult to find a flavour's UUID in Horizon, and what are the recommended methods to ultimately obtain it?"
+  - "What resources and examples are recommended for users who want to further explore building OpenStack infrastructure with Terraform?"
+  - "What are the specific steps to locate an image's UUID using the Horizon web interface?"
+  - "Why is it more difficult to find a flavour's UUID in Horizon, and what are the recommended methods to ultimately obtain it?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
-[Terraform](https://www.terraform.io/) is a tool for defining and provisioning data centre infrastructure, including virtual machines. Terraform is seeing growing use within the Alliance Federation. Its infrastructure-as-code model allows one to maintain OpenStack resources as a collection of definitions which can be easily updated using favourite text editors, shared among members of a group, and stored in version control.
+Terraform is a tool for defining and provisioning data centre infrastructure, including virtual machines. Terraform is seeing growing use within the Alliance Federation. Its infrastructure-as-code model allows one to maintain OpenStack resources as a collection of definitions which can be easily updated using favourite text editors, shared among members of a group, and stored in version control.
 
 This page is written as a tutorial in which we introduce Terraform and demonstrate its use on our OpenStack clouds. We set up our local workspace for Terraform and create a VM with a floating IP and attached volume.
 
@@ -54,7 +162,7 @@ The RC file is a series of shell commands which export environment variables to 
 $ source openrc.sh
 ```
 
-It will then prompt you for your OpenStack password, which along with necessary information about you, your tenant and the cloud you’re connecting to will be stored in environment variables prefixed by `$OS_`, such as `$OS_AUTH_URL` and so on.
+It will then prompt you for your OpenStack password, which along with necessary information about you, your tenant and the cloud you’re connecting to will be stored in environment variables prefixed by `OS_`, such as `$OS_AUTH_URL` and so on.
 
 The other method is to create a configuration in `$HOME/.config/openstack/clouds.yaml`. If you don’t have such a file already, you can download `clouds.yaml` as described above and move it into place. We recommend changing the name given to the cloud in the downloaded file to something meaningful, especially if you use more than one OpenStack cloud. Then, to use the CLI tools described below, simply create an environment variable `$OS_CLOUD` with the name of the cloud you want to use.
 
@@ -126,7 +234,7 @@ The [configuration reference of the OpenStack Provider](https://www.terraform.io
 
 It may be tempting to leave some of the details in the environment so that the Terraform configuration is more portable or reusable, but as we will see later, the Terraform configuration will and must contain details which are specific to each cloud, such as flavour and image UUIDs, network names, and tenants.
 
-The most important consideration in what goes into your configuration in this regard is security. You probably want to avoid storing your credentials in the Terraform configuration, even if you’re not sharing it with anyone, even if it’s on your own workstation and nobody has access but you. Even if you’re not worried about hacking, it is definitely not good practice to store passwords and such in configuration files which may wind up getting copied and moved around your filesystem as you try things out. But also, always remember the “ABC” of Hacking: **A**lways **B**e **C**oncerned about Hacking!
+The most important consideration in what goes into your configuration in this regard is security. You probably want to avoid storing your credentials in the Terraform configuration, even if you’re not sharing it with anyone, even if it’s on your own workstation and nobody has access but you. Even if you’re not worried about hacking, it is definitely not good practice to store passwords and such in configuration files which may wind up getting copied and moved around your filesystem as you try things out. But also, always remember the “ABC” of Hacking: **Always Be Concerned about Hacking**!
 
 ### Initializing Terraform
 
@@ -168,7 +276,7 @@ This shows success in initializing Terraform and downloading the OpenStack provi
 
 So let’s look at defining a basic VM.
 
-!!! important "Important"
+!!! important
     It is good practice to **always** specify flavours and images using their IDs even when Terraform supports using the name. Although the name is more readable, the ID is what actually defines the state of the resource and the ID of a given image or flavour **will never change**. It is possible, however, for the **name** to change. If a flavour or image is retired, for example, and replaced with another of the same name, the next time you run Terraform, the updated ID will be detected and Terraform will determine that you want to **rebuild or resize the associated resource**. This is a destructive (and reconstructive) operation.
 
 A minimal OpenStack VM may be defined as follows in Terraform:
@@ -183,9 +291,9 @@ resource "openstack_compute_instance_v2" "myvm" {
 }
 ```
 
-This will create a VM with the given name, image and flavor, and associate with it a key pair and the default security group.
+This will create a VM with the given name, image and flavour, and associate with it a key pair and the default security group.
 
-!!! note "Note"
+!!! note
     If you’re following along (please do!), use your own values for `image_id`, `flavor_id`, and `key_pair`, or this will probably fail!
 
 The values for `image_id` and `flavor_id` are one reason I like to have a terminal session open running the OpenStack CLI, connected to the cloud I’m targeting with Terraform: I switch over to it and issue `flavor list` or `image list`. These list the names and IDs.
@@ -276,7 +384,7 @@ You may have VMs already defined in your OpenStack project and wonder whether Te
 
 It will not. Terraform has no knowledge of resources already defined in the project and does not attempt to determine existing state. Terraform bases its actions on the given configuration and previously determined state relevant to that configuration. Any existing resources are not represented in either and are invisible to Terraform.
 
-It is possible to import previously defined OpenStack resources into Terraform but [it is not a trivial amount of work](https://dleske.gitlab.io/posts/terraform-import-manually/) and outside the scope of this tutorial. The important thing here is that any existing resources in your OpenStack project are safe from inadvertent mangling from Terraform&mdash;but just to be on the safe side, why don’t you make sure you read the output plans carefully? :)
+It is possible to import previously defined OpenStack resources into Terraform but [it is not a trivial amount of work](https://dleske.gitlab.io/posts/terraform-import-manually/) and outside the scope of this tutorial. The important thing here is that any existing resources in your OpenStack project are safe from inadvertent mangling from Terraform—but just to be on the safe side, why don’t you make sure you read the output plans carefully? :)
 
 ### Applying the configuration
 
@@ -397,7 +505,7 @@ Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
 
 You now have a VM created by Terraform. You should see your new VM on Horizon or in the output of `server list` in your OpenStack terminal window:
 
-```text
+```plaintext
 (openstack) server list -c ID -c Name -c Status
 +--------------------------------------+--------+--------+
 | ID                                   | Name   | Status |
@@ -484,7 +592,7 @@ resource "openstack_compute_floatingip_associate_v2" "myvm_fip" {
 
 This new resource defines as its attributes references to other resources and their attributes.
 
-!!! note "Note"
+!!! note
     Current documentation of the OpenStack provider documentation uses syntax which differs from what is presented here as it has not yet been updated for changes to Terraform v.12.
 
 References like this are typically `<resource type>.<resource name>.<attribute>`. Others you may soon see include `var.<variable name>`. At any rate, this resource forms an association between the created earlier, and the floating IP allocated in the next step.
@@ -555,14 +663,14 @@ Since this is a root volume, create it as part of the compute instance, as anoth
   }
 ```
 
-Set the `uuid` attribute to the UUID of the image you want to use and remove `image_id` from the outer block definition. The other attributes are self-explanatory, except for `destination_type`, which is here set to `volume` to indicate this is to be stored with an OpenStack-provided volume rather than using disk on the hypervisor. `delete_on_termination` is important&mdash;for testing, you will probably want this to be `true` so you don’t have to remember to constantly clean up leftover volumes, but for real use you should consider setting it to `false` as a last defence against accidental deletion of resources.
+Set the `uuid` attribute to the UUID of the image you want to use and remove `image_id` from the outer block definition. The other attributes are self-explanatory, except for `destination_type`, which is here set to `volume` to indicate this is to be stored with an OpenStack-provided volume rather than using disk on the hypervisor. `delete_on_termination` is important—for testing, you will probably want this to be `true` so you don’t have to remember to constantly clean up leftover volumes, but for real use you should consider setting it to `false` as a last defence against accidental deletion of resources.
 
-!!! warning
+!!! note
     Do *not* leave the `image_id` attribute defined in the outer compute instance definition! This will work, but Terraform will see a change from “boot from volume” to “boot directly from image” on every run, and so will always attempt to rebuild your instance. (This is probably a flaw in the OpenStack provider.)
 
 Here’s how the plan looks:
 
-```bash
+```shell
 An execution plan has been generated and is shown below.
 Resource actions are indicated with the following symbols:
 -/+ destroy and then create replacement
@@ -679,15 +787,15 @@ resource "openstack_compute_floatingip_associate_v2" "myvm_fip" {
 
 The following might be of interest to those exploring further and building on the work done in this tutorial. Note that as of this writing the OpenStack provider’s documentation conforms to v0.11 syntax, but this should work under v0.12 without trouble.
 
-* [Introduction to Terraform](https://www.terraform.io/intro/index.html)
-* [OpenStack provider](https://www.terraform.io/docs/providers/openstack/index.html)
-* [OpenStack compute instance resource](https://www.terraform.io/docs/providers/openstack/r/compute_instance_v2.html): many examples of different use cases for creating VMs under OpenStack with Terraform.
-* [Our cloud documentation](cloud.md) and the [Cloud Quick Start](cloud-quick-start.md) guide
+*   [Introduction to Terraform](https://www.terraform.io/intro/index.html)
+*   [OpenStack provider](https://www.terraform.io/docs/providers/openstack/index.html)
+*   [OpenStack compute instance resource](https://www.terraform.io/docs/providers/openstack/r/compute_instance_v2.html): many examples of different use cases for creating VMs under OpenStack with Terraform.
+*   [Our cloud documentation](cloud.md) and the [Cloud Quick Start](cloud-quick-start.md) guide
 
 ### Examples
 
-* The [Magic Castle](https://github.com/ComputeCanada/magic_castle) project
-* [diodonfrost/terraform-openstack-examples](https://github.com/diodonfrost/terraform-openstack-examples) on GitHub
+*   The [Magic Castle](https://github.com/ComputeCanada/magic_castle) project
+*   [diodonfrost/terraform-openstack-examples](https://github.com/diodonfrost/terraform-openstack-examples) on GitHub
 
 ### Finding image and flavour UUIDs in Horizon
 
@@ -709,5 +817,5 @@ Now you should have a list of flavours and it’ll also show you which ones fit 
 
 To actually get the ID, you have two options:
 
-1. Use the name for the first Terraform run, and then get the ID from the output or state file, and finally, switch your configuration to use the ID instead. This should not attempt to recreate the VM, but check before you agree to `terraform apply`.
-2. Switch to using the OpenStack CLI. (Recommended.)
+1.  Use the **name** for the first Terraform run, and then get the ID from the output or state file, and finally, switch your configuration to use the ID instead. This should not attempt to recreate the VM, but check before you agree to `terraform apply`.
+2.  Switch to using the OpenStack CLI. (Recommended.)

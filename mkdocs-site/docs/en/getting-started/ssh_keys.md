@@ -5,21 +5,76 @@ lang: "en"
 
 source_wiki_title: "SSH Keys/en"
 source_hash: "464bb4a32f0864149d779acd94feb987"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T11:04:10.087552+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T11:14:51.973780+00:00"
 
 tags:
   - connecting
 
 keywords:
-  []
+  - "key pairs"
+  - "/home directory"
+  - "CCDB"
+  - "ssh-rsa"
+  - "key constraints"
+  - "PuTTY Key Generator"
+  - "SSH public key"
+  - "pty allocation"
+  - "restrict keyword"
+  - "sshd man page"
+  - "public key cryptography"
+  - "~/.ssh/authorized_keys"
+  - "specific system"
+  - "security best practices"
+  - "public key"
+  - "private key"
+  - "interactive session"
+  - "PEM format"
+  - "long single line"
+  - "passphrase"
+  - "Key Revocation List"
+  - "SSH key agent"
+  - "cryptographic key"
+  - "authorized_keys"
+  - "ssh-keygen"
+  - "key pair"
+  - "base64 string"
+  - "SSH keys"
+  - "install a key"
+  - "SSH key constraints"
+
+questions:
+  - "How does public key cryptography work to secure SSH connections and verify user identities?"
+  - "What are the recommended security practices when generating an SSH key pair and its passphrase?"
+  - "What are the steps to retrieve and install an SSH public key on a target system using the CCDB?"
+  - "What type of cryptographic key is represented by the example string in the text?"
+  - "According to the text, what is the expected visual format or layout of this data?"
+  - "What specific algorithm identifier appears at the very beginning of the provided string?"
+  - "How do you convert an SSH public key from formats like PuTTY or PEM into the required OpenSSH format?"
+  - "What is the procedure for uploading a public key to the CCDB, and how long does it take to propagate to the clusters?"
+  - "How can you configure an SSH key to grant access only to a specific system, and what warning is associated with this method?"
+  - "What is the recommended method for copying an SSH key to a server, and why must users be careful with file permissions when doing so?"
+  - "How does an SSH key agent balance convenience and security when managing encrypted private keys?"
+  - "In what ways can SSH key constraints be applied to restrict a key's capabilities, such as limiting allowed commands or connecting hosts?"
+  - "Why might a user want to install a key exclusively on a specific system?"
+  - "What is the exact file path and directory where a public key should be copied to restrict its access to a single system?"
+  - "How does the example of the system named \"Fir\" demonstrate the process of setting up a system-specific key?"
+  - "What are the recommended best practices for securely managing and storing SSH private keys?"
+  - "For what reasons might an SSH key be revoked and added to the Key Revocation List (KRL)?"
+  - "What immediate actions must a user take if they discover their SSH key has been revoked?"
+  - "What effect does the `restrict` keyword have on pty allocation and interactive sessions?"
+  - "How can you configure a source-constrained interactive session to allow pty allocation while using the `restrict` keyword?"
+  - "Where can a user find comprehensive documentation regarding the various SSH key constraints?"
+  - "What are the recommended best practices for securely managing and storing SSH private keys?"
+  - "For what reasons might an SSH key be revoked and added to the Key Revocation List (KRL)?"
+  - "What immediate actions must a user take if they discover their SSH key has been revoked?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -44,25 +99,33 @@ On our systems, PK is used in SSH several ways:
 
 ## Generating an SSH Key
 
-Using PK requires some initial configuration, but once this is done it is both more secure and more convenient. To use PK, you must generate a key pair and install the public key on the systems you intend to connect with.
+Using PK requires some initial configuration, but once this is done it is both more secure and more convenient.
+To use PK, you must generate a key pair and install the public key on the systems you intend to connect with.
 
-You should generate a key pair on your own system, or on a system you believe is secure. The private part of the key pair should never be shared or copied on another computer, as is the case with any password.
+You should generate a key pair on your own system, or on a system you believe is secure.
+The private part of the key pair should never be shared or copied on another computer, as is the case with any password.
 
-When generating a key pair, you will be prompted for a *passphrase*. This is a string that is used to encrypt the private key. You should **provide a strong passphrase** that is memorable. We recommend 15 characters or more. This passphrase offers protection if the private key file is stolen.
+When generating a key pair, you will be prompted for a *passphrase*. This is a string that is used to encrypt the private key.
+You should **provide a strong passphrase** that is memorable. We recommend 15 characters or more. This passphrase offers protection
+if the private key file is stolen.
 
-The specific process to generate an SSH key pair depends on the operating system you use. For the Windows PuTTY or MobaXterm clients, see [Generating SSH keys in Windows](generating-ssh-keys-in-windows.md). For a Unix-like environment (Linux, Mac, Windows Subsystem for Linux or Cygwin), see [Using SSH keys in Linux](using-ssh-keys-in-linux.md). In addition, if you are using the cloud, OpenStack provides a method for creating key pairs: See the [SSH key pair](cloud-quick-start.md#ssh-key-pair) section on the Cloud Quick Start page.
+The specific process to generate an SSH key pair depends on the operating system you use. For the Windows PuTTY or MobaXterm clients,
+see [Generating SSH keys in Windows](generating-ssh-keys-in-windows.md). For a Unix-like environment (Linux, Mac, Windows Subsystem for Linux or Cygwin), see [Using SSH keys in Linux](using-ssh-keys-in-linux.md).
+In addition if you are using the cloud, OpenStack provides a method for creating key pairs: See the [SSH key pair](cloud-quick-start.md#ssh-key-pair) section on the Cloud Quick Start page.
 
 ## Installing your key
 
 ### Using CCDB
 
-To install the key, you must make the target/destination system aware of the public part of your key. In March 2021, we added a convenient way to do this.
+To install the key, you must make the target/destination system aware of the public part of your key.
+In March 2021, we added a convenient way to do this.
 
 You should follow the steps:
 
 **STEP 1** - Go to CCDB as indicated below
 
-https://ccdb.alliancecan.ca/ssh_authorized_keys
+<https://ccdb.alliancecan.ca/ssh_authorized_keys>
+
 Or via the CCDB menu:
 
 **STEP 2** - Grab your SSH public key
@@ -70,20 +133,12 @@ Or via the CCDB menu:
 Since the public key is plain text, you can examine it under Windows by opening the file with Notepad. Under Linux/MacOS enter `cat .ssh/id_rsa.pub` on the command line.
 
 In both cases, you will see something like this, as a very long single line:
-
 ```
-ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC3qeojDkUShnPTq9pI3cCZe+jgD6RKA/6CPsJIWZ8MqbX6wkk6
-hHgKqKd2/9d7cj8e03Cfv4JLoD++P9fUPE3UyYrP/uVi4zytp5rmIZI4Qo1LvD1Obs0e78y0Dp7pfG1EHTYdn0p8
-zHa0lNLOrZMmzDP0UMVdf4WKuv3Th2K/35yQ7DVIei6X/33Dcmsqd8bTXq7aFlw2y4sa/CHs314G6WYuJ9cTXtsW
-Dlc9oWJuOVqILJLeGQpl3BVEM9aKcYksqLMV1UlZF8bHbry0PKCnrJrNMzVulWfnmSOZ+lPcV32OsDRkFaKsdxPy
-+PxywieC86mxy1v216jeOdHnhLfOJc/VYDqf4egxReSCb3WOucHBB5J1jtDt47GuamKs+F2T7obqCb0J6oTyzgVF
-RIZryxwvh5fQF5jk3LsBGsbhe9GYwDAk54GV6I0rWnXp56mJZjO4JCRQGbwLAJVxH4a7UrBmba2pRcZxEZmbIcBB
-Sjb9KPECtaxiY/aty39077DCmcLCmzeOgBdh0zIkdBYu+OJ65MFKMxzoJWPDbZIcbSRGHEVhDnBZMNj1OiJS+E2D
-A+F0tPH7J+xox1vUoXGAI0cNv+s/nlVRuOZoZjhk6s7tLXeVcToc+Y9Wqx8fdL7D4FegWwB9lsVhpfC4NaA9R8Ao
-OfJUwHSNqUc6SfIt7w== user@machine
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC3qeojDkUShnPTq9pI3cCZe+jgD6RKA/6CPsJIWZ8MqbX6wkk6hHgKqKd2/9d7cj8e03Cfv4JLoD++P9fUPE3UyYrP/uVi4zytp5rmIZI4Qo1LvD1Obs0e78y0Dp7pfG1EHTYdn0p8zHa0lNLOrZMmzDP0UMVdf4WKuv3Th2K/35yQ7DVIei6X/33Dcmsqd8bTXq7aFlw2y4sa/CHs314G6WYuJ9cTXtsWDlc9oWJuOVqILJLeGQpl3BVEM9aKcYksqLMV1UlZF8bHbry0PKCnrJrNMzVulWfnmSOZ+lPcV32OsDRkFaKsdxPy+PxywieC86mxy1v216jeOdHnhLfOJc/VYDqf4egxReSCb3WOucHBB5J1jtDt47GuamKs+F2T7obqCb0J6oTyzgVFRIdryxwvh5fQF5jk3LsBGsbhe9GYwDAk54GV6I0rWnXp56mJZjO4JCRQGbwLAJVxH4a3UrBmba2pRcZxEZmbIcBBSjb9KPECtaxiY/aty39077DCmcLCmzeOgBdh0zIkdBYu+OJ65MFKMxzoJWPDbZIcbSRGHEVhDnBZMNj1OiJS+E2DA+F0tPH7J+xox1vUoXGAI0cNv+s/nlVRuOZoZjhk6s7tLXeVcToc+Y9Wqx8fdL7D4FegWwB9lsVhpfC4NaA9R8AoOfJUwHSNqUc6SfIt7w== user@machine
 ```
 
-Note that you must generate your own pair of public and private keys; you cannot copy the above example for your own use. If the format observed is different (which is the case when the key is generated with PuTTY for instance), you can open PuTTY Key Generator or MobaxTerm SSH Key Generator, go to *File --> Load private key* and grab the content under *Public key for pasting into OpenSSH authorized_keys* as shown in [this image](https://docs.alliancecan.ca/wiki/File:Puttygen2.png).
+Note that you must generate your own pair of public and private keys; you cannot copy the above example for your own use.
+If the format observed is different (which is the case when the key is generated with PuTTY for instance), you can open PuTTY Key Generator or MobaxTerm SSH Key Generator, go to *File --> Load private key* and grab the content under *Public key for pasting into OpenSSH authorized_keys* as shown in [this image](https://docs.alliancecan.ca/wiki/File:Puttygen2.png).
 
 For instance, this is a public key in PEM format that would need to be converted before going to STEP 3:
 ```
@@ -116,17 +171,24 @@ Note: Public keys in RFC4716 or PKCS8 formats will look similar to PEM, with sma
 
 The CCDB method described above makes your public key available on all of our HPC systems. This is convenient, and is often desired.
 
-However, there may be circumstances in which you want to install a key only on a specific system. You can do this by adding the key to a file in your `/home` directory on that system. For instance, to install a key that only works on Fir, copy your public key into the file `~/.ssh/authorized_keys` on Fir. This will allow you to log in to any of Fir's login nodes using PK. On our systems (or any other with OpenSSH) the `ssh-copy-id` command is the most convenient way to do this.
-
+However, there may be circumstances in which you want to install a key only on a specific system. You can do this by adding the key
+to a file in your /home directory on that system. For instance, to install a key that only works on Fir,
+copy your public key into the file `~/.ssh/authorized_keys` on Fir.
+This will allow you to log in to any of Fir's login nodes using PK.
+On our systems (or any other with OpenSSH) the `ssh-copy-id` command is the most convenient way to do this.
 ```bash
 ssh-copy-id -i alliance-key username@fir.alliancecan.ca
 ```
-
-The `authorized_keys` mechanism is standard, and almost universally used on the internet. It is however somewhat fragile: Specifically, SSH is quite picky about the permissions on the `authorized_keys` file, as well as your `/home` directory and the `.ssh` subdirectory. This is described further in [using SSH keys in Linux](using-ssh-keys-in-linux.md).
+The `authorized_keys` mechanism is standard, and almost universally used on the internet. It is however somewhat fragile:
+Specifically, SSH is quite picky about the permissions on the `authorized_keys` file, as well as your /home directory and the `.ssh` subdirectory.
+This is described further in [using SSH keys in Linux](using-ssh-keys-in-linux.md).
 
 ## Using a key agent
 
-Although it's important to secure your private key by encrypting it with the passphrase, it is inconvenient to have to enter your passphrase every time you use the key. Rather than leaving the private key unencrypted, we strongly suggest using an SSH key agent. You type the passphrase when starting up the agent, after which the agent supplies the private key for new connections. This avoids storing the unencrypted private key on permanent storage, where it is more vulnerable to being stolen or copied.
+Although it's important to secure your private key by encrypting it with the passphrase, it is inconvenient to have to enter your
+passphrase every time you use the key. Rather than leaving the private key unencrypted, we strongly suggest using an SSH key agent.
+You type the passphrase when starting up the agent, after which the agent supplies the private key for new connections.
+This avoids storing the unencrypted private key on permanent storage, where it is more vulnerable to being stolen or copied.
 
 ## Options for key generation
 
@@ -157,7 +219,9 @@ ssh-keygen -t rsa-sha2-512 -b 4096
 
 ## SSH key constraints
 
-The public key syntax permits you to provide a number of very useful constraints that limit what the key is allowed to do. By default, a public key installed without constraints can do anything. For instance, this public key
+The public key syntax permits you to provide a number of very useful constraints that limit what the key is allowed to do.
+By default, a public key installed without constraints can do anything.
+For instance, this public key
 ```
 restrict,command="squeue --me" ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGhczaUoV6SzR2VEf9Rp4/P9xHVU8S72CKHrwKU+Yntx
 ```
@@ -171,7 +235,8 @@ The key constraint can also limit which hosts can connect using the key.
 ```
 restrict,from="d24-141-114-17.home.cgocable.net" ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGhczaUoV6SzR2VEf9Rp4/P9xHVU8S72CKHrwKU+Yntx
 ```
-Limiting by hosts is a powerful way to minimize the danger posed by a key being compromised. In this case, the `restrict` keyword turns off `pty allocation`, which makes an interactive session behave peculiarly. For a source-constrained interactive session
+Limiting by hosts is a powerful way to minimize the danger posed by a key being compromised. In this case, the `restrict` keyword
+turns off `pty allocation`, which makes an interactive session behave peculiarly. For a source-constrained interactive session
 ```
 restrict,from="d24-141-114-17.home.cgocable.net",pty ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGhczaUoV6SzR2VEf9Rp4/P9xHVU8S72CKHrwKU+Yntx
 ```
@@ -188,7 +253,10 @@ There are a large number of these key constraints, which are documented in the *
 * Do not copy your private key to a remote system. Your private key should not leave your workstation!
 * If you have several laptops, you can create dedicated SSH key pairs for each of them.
 * If you have several pairs, you may wish to name the keys. For example, `Laptop_RSA4096`.
-    * If you name a key you must use the `-i` option to specify the key name when logging in, like this: `ssh -i Laptop_RSA4096 username@host`
+    * If you name a key you must use the `-i` option to specify the key name when logging in, like this:
+    ```bash
+    ssh -i Laptop_RSA4096 username@host
+    ```
 * Use `ssh-agent` to make encrypted keys convenient.
 * If you use agent forwarding, use `ssh-askpass` too.
 * Apply [constraints](ssh-keys.md#ssh-key-constraints) to your public key to limit its scope.
@@ -205,12 +273,15 @@ An SSH key may be **revoked** for several reasons, such as in cases of identifie
 
 This can occur through various means, such as *improper key management, theft*, or a *security breach*.
 
-This poses a significant security risk, as a malicious actor may use the key to gain unauthorized access to systems and sensitive data. To mitigate the risk associated with compromised SSH keys, the Digital Research Alliance of Canada maintains a **Key Revocation List (KRL)**.
+This poses a significant security risk, as a malicious actor may use the key to gain unauthorized access to systems and sensitive data.
+To mitigate the risk associated with compromised SSH keys, the Digital Research Alliance of Canada maintains a **Key Revocation List (KRL)**.
 
-The Key Revocation List is a registry of SSH keys that are no longer trusted, or are otherwise considered invalid. No SSH key on the list can be used to access Alliance services.
+The Key Revocation List is a registry of SSH keys that are no longer trusted, or are otherwise considered invalid.
+No SSH key on the list can be used to access Alliance services.
 
 If you discover that your SSH key has been revoked it is *imperative* that you take immediate action.
 * Replace the revoked key with a new one to ensure that you can connect securely to Alliance services.
 * Remove the revoked key from *all* services (Alliance or other) to prevent unauthorized access or data breaches.
 
-If you believe that your SSH key has been listed on the Key Revocation List in error, or if you have concerns or questions related to key revocation and access to Alliance services, contact our [Technical support](technical-support.md) for assistance. They will be able to guide you through the resolution process and help ensure the continued security of your digital interactions with our services. Security is of paramount importance, and swift action in response to a revoked SSH key is essential to maintain the integrity of digital research and collaboration.
+If you believe that your SSH key has been listed on the Key Revocation List in error, or if you have concerns or questions related to key revocation and access to Alliance services, contact our [Technical support](technical-support.md) for assistance. They will be able to guide you through the resolution process and help ensure the continued security of your digital interactions with our services.
+Security is of paramount importance, and swift action in response to a revoked SSH key is essential to maintain the integrity of digital research and collaboration.

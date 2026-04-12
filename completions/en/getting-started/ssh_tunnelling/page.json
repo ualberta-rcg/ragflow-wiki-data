@@ -1,0 +1,47 @@
+{
+  "doc_key": "en/ssh_tunnelling",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is SSH tunnelling and why is it necessary within the Alliance environment?",
+      "answer": "SSH tunnelling is a method to use a gateway computer to connect two computers that cannot connect directly. It's necessary in the Alliance because compute nodes on some clusters lack direct access to the Internet or cannot be contacted directly from the Internet."
+    },
+    {
+      "question": "What are some common use cases that require SSH tunnels in the Alliance context?",
+      "answer": "Common use cases include running commercial software that needs to contact a license server over the Internet, using visualization software that requires connection from a user's local computer, and connecting to a database hosted on a cluster from outside its head node."
+    },
+    {
+      "question": "What is a 'port' in the context of network communication?",
+      "answer": "A port is a number used to distinguish different streams of communication, analogous to a radio frequency or channel. Many port numbers are reserved by rule or convention for specific types of network traffic."
+    },
+    {
+      "question": "What information is needed to set up an SSH tunnel for contacting a license server from a compute node?",
+      "answer": "You will need the IP address or name of the license server (LICSERVER) and the specific port number of the license service (LICPORT). This information should be obtained from the license server's maintainer."
+    },
+    {
+      "question": "What is the typical SSH command structure used in a job script to set up a tunnel for a license server, and what do its main parameters mean?",
+      "answer": "The command is `ssh GATEWAY -L COMPUTEPORT:LICSERVER:LICPORT -N -f`. The `-L` parameter specifies port forwarding, `-N` tells SSH not to open a shell, and `-f` along with `-N` runs SSH in the background, allowing the job script to continue."
+    },
+    {
+      "question": "How does the software on a compute node typically connect to the license server through an SSH tunnel?",
+      "answer": "The software is usually configured by setting an environment variable in the job script, informing it that the license server is on `localhost` at the chosen `COMPUTEPORT`, for example, `export MLM_LICENSE_FILE=COMPUTEPORT@localhost`."
+    },
+    {
+      "question": "What is the main purpose of using SSH tunnelling to connect to a program running on a compute node?",
+      "answer": "The main purpose is to allow a user's local computer to connect to a compute node on a cluster through an encrypted tunnel, enabling transparent display of graphical output from applications like Jupyter Notebooks or visualization software, or connecting to a database."
+    },
+    {
+      "question": "How can users on Linux or MacOS X set up an SSH tunnel to connect to a program running on a compute node?",
+      "answer": "Users on Linux or MacOS X are recommended to use the `sshuttle` Python package. They should open a new terminal and run the command `sshuttle --dns -Nr userid@machine_name`."
+    },
+    {
+      "question": "What are the steps to create an SSH tunnel from Windows using MobaXTerm to access an application on a compute node?",
+      "answer": "First, start your application on the cluster in MobaXTerm Session 1 to get its URL. Then, in a local terminal (Session 2), run `ssh -L local_port:remote_hostname:remote_port someuser@cluster.alliancecan.ca`. Finally, modify the application's URL by replacing the hostname with `localhost` and paste it into your browser."
+    },
+    {
+      "question": "How can one establish an SSH tunnel from a desktop to a database server (like PostgreSQL or MySQL) on a cluster?",
+      "answer": "You can use `ssh -L PORT:database_server_address:database_port someuser@cluster.alliancecan.ca`. Afterward, you connect to the database locally from your desktop using commands like `psql -h 127.0.0.1 -p PORT -U <username> -d <database>` or `mysql -h 127.0.0.1 -P PORT -u <username> --protocol=TCP -p`."
+    }
+  ],
+  "generated_at": "2026-04-12T07:34:19.310673+00:00"
+}

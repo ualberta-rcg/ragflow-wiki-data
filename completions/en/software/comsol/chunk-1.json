@@ -1,0 +1,108 @@
+{
+  "doc_key": "en/comsol",
+  "level": "chunk",
+  "chunk_index": 1,
+  "qa_pairs": [
+    {
+      "question": "What is COMSOL?",
+      "answer": "COMSOL is a general-purpose software for modelling engineering applications."
+    },
+    {
+      "question": "Where can I find COMSOL documentation included with the software?",
+      "answer": "You can find the documentation under 'File > Help > Documentation' within the software."
+    },
+    {
+      "question": "Where can I find links to the COMSOL blog, Knowledge Base, Support Centre, and Documentation?",
+      "answer": "Links can be found at the bottom of the COMSOL home page (http://www.comsol.com)."
+    },
+    {
+      "question": "Is searchable online COMSOL documentation available?",
+      "answer": "Yes, searchable online COMSOL documentation is available at https://doc.comsol.com/."
+    },
+    {
+      "question": "Does the hosting provider supply a generic COMSOL license to everyone?",
+      "answer": "No, the hosting provider does not provide a generic license accessible to everyone, though COMSOL software is installed on their clusters."
+    },
+    {
+      "question": "Can existing institutional, faculty, or departmental COMSOL licenses be used on the clusters?",
+      "answer": "Yes, many institutions, faculties, and departments already have licenses that can be used on the clusters."
+    },
+    {
+      "question": "Where can one purchase a COMSOL license for use across Canada?",
+      "answer": "You can purchase a license from CMC (https://account.cmc.ca/en/WhatWeOffer/Products/CMC-00200-00368.aspx) for use anywhere in Canada."
+    },
+    {
+      "question": "What technical requirement exists for using a personal COMSOL license on the clusters?",
+      "answer": "Your license server needs to be reachable by the compute nodes, requiring our technical team to get in touch with your technical personnel managing the license software."
+    },
+    {
+      "question": "What file must be created after the license server setup is complete before using COMSOL modules?",
+      "answer": "Your ~/.licenses/comsol.lic file must be created."
+    },
+    {
+      "question": "Who should I contact if I encounter issues with COMSOL licensing?",
+      "answer": "Please contact our technical support if you encounter licensing issues."
+    },
+    {
+      "question": "Where does the COMSOL module look for license information on the system?",
+      "answer": "The COMSOL module is designed to look for license information in a few places, one of which is your ~/.licenses directory."
+    },
+    {
+      "question": "How do I configure my own COMSOL license server for use on the clusters?",
+      "answer": "You can specify your own license server by creating a text file named $HOME/.licenses/comsol.lic with the content 'SERVER <server> ANY <port>' and 'USE_SERVER', where <server> is your license server hostname and <port> is the flex port number."
+    },
+    {
+      "question": "What kind of changes are needed for researchers using a new local institutional license server?",
+      "answer": "Firewall changes will need to be done to the network on both the Alliance (system/cluster) side and the institutional (server) side."
+    },
+    {
+      "question": "How do I arrange for firewall changes for a local institutional COMSOL license server?",
+      "answer": "You should send an email to technical support with the COMSOL lmgrd TCP flex port number (typically 1718), the static LMCOMSOL TCP vendor port number (typically 1719), and the fully qualified hostname of your COMSOL license server."
+    },
+    {
+      "question": "What should I do after firewall changes for a local license server are complete?",
+      "answer": "Create a corresponding comsol.lic text file as shown in the configuration section (SERVER <server> ANY <port> USE_SERVER)."
+    },
+    {
+      "question": "What preconfigured public IP settings should CMC license holders use for Fir cluster?",
+      "answer": "For Fir, use 'SERVER 172.26.0.101 ANY 6601'."
+    },
+    {
+      "question": "What preconfigured public IP settings should CMC license holders use for Nibi cluster?",
+      "answer": "For Nibi, use 'SERVER 10.25.1.56 ANY 6601'."
+    },
+    {
+      "question": "What preconfigured public IP settings should CMC license holders use for Narval/Rorqual clusters?",
+      "answer": "For Narval/Rorqual, use 'SERVER 10.100.64.10 ANY 6601'."
+    },
+    {
+      "question": "What preconfigured public IP settings should CMC license holders use for Trillium cluster?",
+      "answer": "For Trillium, use 'SERVER scinet-cmc ANY 6601'."
+    },
+    {
+      "question": "What does a CMC license file look like on a Nibi cluster?",
+      "answer": "A license file on a Nibi cluster would look like this: 'SERVER 10.25.1.56 ANY 6601' followed by 'USE_SERVER'."
+    },
+    {
+      "question": "What should I do if my initial CMC license checkout attempts fail?",
+      "answer": "If initial license checkout attempts fail, create a support case with CMC (https://www.cmc.ca/support/)."
+    },
+    {
+      "question": "How can I determine the number of licenses checked out by my running COMSOL job(s)?",
+      "answer": "It is necessary to query the license server you are using."
+    },
+    {
+      "question": "Is the 'lmstat' command installed with COMSOL by default for checking license use?",
+      "answer": "No, the 'lmstat' command is not installed with COMSOL by default."
+    },
+    {
+      "question": "What is the workaround to check COMSOL license use if 'lmstat' is not available?",
+      "answer": "A one-liner workaround using 'lmutil' from the latest installed Ansys module can be run on any cluster login node: 'module load ansys; $EBROOTANSYS/v$(echo ${EBVERSIONANSYS:2:2}${EBVERSIONANSYS:5:1})/licensingclient/linx64/lmutil lmstat -c ~/.licenses/comsol.lic -a | sed '/^$/d' | egrep 'License|UP|$USER|Total of' | grep -v 'Total of 0'."
+    },
+    {
+      "question": "How long might the 'lmutil' workaround take to return results if the license server is busy?",
+      "answer": "It may take a minute to return results if the server is busy."
+    }
+  ],
+  "generated_at": "2026-04-11T19:03:18.812975+00:00"
+}

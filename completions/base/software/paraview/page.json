@@ -1,0 +1,115 @@
+{
+  "doc_key": "base/paraview",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is the primary focus of this document?",
+      "answer": "This document describes remote visualization of datasets residing on Alliance's HPC clusters using ParaView, along with client-server visualization on cloud VMs."
+    },
+    {
+      "question": "What are the three main workflows for remote visualization on Alliance's HPC clusters?",
+      "answer": "The three main workflows are small-scale interactive, large-scale interactive (client-server setup), and batch production."
+    },
+    {
+      "question": "What is the recommendation for using the clusters' H100 GPUs for visualization?",
+      "answer": "Users are advised not to use the clusters' H100 GPUs for visualization, as they are not optimized for graphics rendering and result in poor utilization and slow speeds."
+    },
+    {
+      "question": "Which specific GPUs are recommended if GPU rendering is absolutely necessary?",
+      "answer": "If GPU rendering is absolutely necessary, Nibi's AMD MI300A nodes or older NVIDIA GPUs (e.g., T4) are recommended."
+    },
+    {
+      "question": "How can users perform small-scale interactive visualization on Alliance's HPC clusters?",
+      "answer": "Small-scale interactive visualization can be performed through a remote desktop session via JupyterHub or Open OnDemand, running ParaView interactively using a small number of CPU cores."
+    },
+    {
+      "question": "Which Alliance clusters utilize JupyterLab for small-scale interactive visualization?",
+      "answer": "Fir, Rorqual, and Narval clusters utilize JupyterLab for small-scale interactive visualization."
+    },
+    {
+      "question": "Which Alliance clusters utilize Open OnDemand for small-scale interactive visualization?",
+      "answer": "Nibi and Trillium clusters utilize Open OnDemand for small-scale interactive visualization."
+    },
+    {
+      "question": "How do you launch a single-core ParaView session via JupyterLab?",
+      "answer": "After launching a JupyterLab instance with 1 CPU core, users can either load the `paraview/6.0.0` module and click a 'ParaView (VNC)' button, or open a terminal in a virtual desktop and type `module load paraview/6.0.0; paraview`."
+    },
+    {
+      "question": "How do you set up a multi-core ParaView server and client within a JupyterLab session for parallel rendering?",
+      "answer": "After launching JupyterLab with multiple cores, start `mpirun --oversubscribe -np <cores> pvserver` in one terminal and `paraview` in another, then connect the ParaView GUI client to `localhost:11111`."
+    },
+    {
+      "question": "What is the default port used for the ParaView server connection in client-server setups?",
+      "answer": "The default port used for the ParaView server connection is 11111."
+    },
+    {
+      "question": "How can one verify that parallel rendering is active when using ParaView?",
+      "answer": "Parallel rendering can be verified by colouring the dataset by the `Process Id` variable, which is unavailable in serial mode."
+    },
+    {
+      "question": "What is the general setup for large-scale interactive visualization on HPC clusters?",
+      "answer": "Large-scale interactive visualization uses a client-server setup where the ParaView client runs on the user's computer, and the server runs in parallel as a Slurm job on the HPC cluster."
+    },
+    {
+      "question": "What is a critical requirement for ParaView client and server versions in a large-scale interactive client-server setup?",
+      "answer": "ParaView requires the same major version on both the local client and the remote host to prevent incompatibility that typically shows as a failed handshake."
+    },
+    {
+      "question": "Which ParaView preference setting allows users to control where rendering is performed in a client-server setup?",
+      "answer": "The `Render View -> Remote/Parallel Rendering Options -> Remote Render Threshold` setting allows users to control whether small renderings are performed on their computer's GPU or remotely on the cluster."
+    },
+    {
+      "question": "How can users estimate the number of cores needed for visualizing a large dataset?",
+      "answer": "Users can estimate cores by dividing the dataset's memory requirement by approximately 3.5 GB/core, also accounting for additional memory needed by filters and data processing."
+    },
+    {
+      "question": "What is the minimum core allocation for visualization on Trillium due to its node characteristics?",
+      "answer": "On Trillium, the minimum core allocation for visualization is 192 cores, as jobs must schedule on whole nodes."
+    },
+    {
+      "question": "How do you establish an SSH tunnel for connecting a local ParaView client to a remote ParaView server on a cluster like Fir?",
+      "answer": "From a local terminal, use `ssh <username>@fir.alliancecan.ca -L 11111:<compute_node_name>:11111` to link the local port to the remote compute node's port."
+    },
+    {
+      "question": "What is the specific SSH command for establishing a client-server connection with Nibi, accounting for its network limitations?",
+      "answer": "For Nibi, use `ssh -T -J <username>@nibi.alliancecan.ca -L 11111:localhost:11111 <username>@<nibi_compute_node>` to route port forwarding in two steps through the login node, disabling pseudo-terminal allocation with `-T`."
+    },
+    {
+      "question": "What `pvserver` options are used when starting the server for large-scale interactive visualization on a cluster?",
+      "answer": "The `pvserver` is started with `--force-offscreen-rendering --opengl-window-backend OSMesa`."
+    },
+    {
+      "question": "When is batch production visualization recommended for ParaView?",
+      "answer": "Batch production visualization is strongly recommended for large-scale and automated visualization, such as generating 1,000 frames for a movie."
+    },
+    {
+      "question": "How are batch production visualizations typically set up?",
+      "answer": "They are set up by scripting the ParaView workflow using Python and submitting it as a regular (serial or parallel) Slurm batch job, rendering directly to files without interactive windows."
+    },
+    {
+      "question": "What is the command used to execute a serial ParaView batch script within a Slurm job?",
+      "answer": "The command `pvbatch --force-offscreen-rendering --opengl-window-backend OSMesa script.py` is used within a Slurm job script."
+    },
+    {
+      "question": "What is the command used to execute a parallel ParaView batch script within a Slurm job?",
+      "answer": "The command `srun pvbatch --force-offscreen-rendering --opengl-window-backend OSMesa script.py` is used within a Slurm job script."
+    },
+    {
+      "question": "When should one consider running a ParaView server on a cloud VM instead of a cluster?",
+      "answer": "This approach should only be used if a custom setup is required that is not supported by the cluster-installed ParaView."
+    },
+    {
+      "question": "What is a key prerequisite for compiling ParaView on a CentOS cloud VM for offscreen rendering?",
+      "answer": "Installing various development packages like `xauth`, `wget`, `gcc`, `cmake`, `llvm`, and Mesa with OSMesa support is a key prerequisite."
+    },
+    {
+      "question": "What software rendering drivers are built when compiling ParaView with OSMesa on a cloud VM?",
+      "answer": "Both `llvmpipe` (older and slower) and `SWR` (newer and faster) drivers are built, with `SWR` being recommended."
+    },
+    {
+      "question": "What is the final step to connect a local ParaView client to a ParaView server running on a cloud VM?",
+      "answer": "Organize an SSH tunnel from the local port 11111 to the VM's port 11111 using `ssh centos@vm.ip.address -L 11111:localhost:11111`, then connect the local ParaView client to `localhost:11111`."
+    }
+  ],
+  "generated_at": "2026-04-12T04:51:14.831781+00:00"
+}

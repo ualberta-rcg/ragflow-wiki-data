@@ -5,21 +5,49 @@ lang: "en"
 
 source_wiki_title: "Mii/en"
 source_hash: "d593cc788973a47d48a22fcec7f10b13"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T08:34:58.096160+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T09:08:27.246498+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "disable mii"
+  - "binaries"
+  - "mii"
+  - "module"
+  - "pgc+"
+  - "autoloading"
+  - "Search with Mii"
+  - "nvhpc"
+  - "command"
+  - "Mii"
+  - "smart search engine"
+  - "blast 2.12.0"
+  - "ambiguous commands"
+  - "module environments"
+  - "pgi"
+
+questions:
+  - "What is Mii and what are its primary features within a module environment?"
+  - "How does Mii differentiate and respond to the execution of unambiguous versus ambiguous commands?"
+  - "What happens to the shell environment's state after Mii autoloads a module to run a specific command?"
+  - "Which modules and commands are returned as highly relevant in the search results for \"pgc+\"?"
+  - "What command is used to disable Mii?"
+  - "How can a user re-enable Mii?"
+  - "What action is taken after a specific module is selected from the available options?"
+  - "What is the primary purpose of using the \"Mii\" search tool?"
+  - "How are the results sorted when searching for a binary using Mii?"
+  - "Which modules and commands are returned as highly relevant in the search results for \"pgc+\"?"
+  - "What command is used to disable Mii?"
+  - "How can a user re-enable Mii?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -46,13 +74,13 @@ To enable/load mii:
 module load mii
 ```
 
-Once Mii is loaded, it will start making suggestion. When a command is not found, for example:
+Once Mii is loaded, it will start making suggestions. When a command is not found, for example:
 ```bash
 cmd
 [mii] cmd not found! Similar commands: "xcmd", "vmd", "c2d"
 ```
 
-## Unambiguous commands
+## Unambiguous Commands
 When a command or binary is known and unambiguous, it will be autoloaded:
 ```bash
 python3.9 --version
@@ -60,7 +88,7 @@ python3.9 --version
 Python 3.9.6
 ```
 
-## Ambiguous commands
+## Ambiguous Commands
 When a command or binary is unknown or ambiguous, it will suggest a selection of potential candidates based on their relevance:
 
 ```bash

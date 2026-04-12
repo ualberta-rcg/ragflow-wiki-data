@@ -1,0 +1,60 @@
+{
+  "doc_key": "fr/nextflow",
+  "level": "chunk",
+  "chunk_index": 4,
+  "qa_pairs": [
+    {
+      "question": "Quel type de fichiers Nextflow utilise-t-il comme intrants pour le pipeline rnaseq?",
+      "answer": "Nextflow utilise des fichiers de séquences et une feuille d'échantillons comme intrants pour son pipeline rnaseq."
+    },
+    {
+      "question": "Comment puis-je télécharger les fichiers de séquences nécessaires pour l'exemple rnaseq?",
+      "answer": "Pour télécharger les fichiers de séquences, vous devez vous placer dans le répertoire `~/scratch/nf-test/input` et utiliser la commande `wget` pour chaque fichier spécifié, comme démontré dans l'exemple."
+    },
+    {
+      "question": "Où faut-il sauvegarder la feuille d'échantillons et quel devrait être son nom de fichier?",
+      "answer": "La feuille d'échantillons doit être copiée et sauvegardée dans le fichier `~/scratch/nf-test/samplesheet.csv`."
+    },
+    {
+      "question": "Quelle information doit être incluse dans la feuille d'échantillons (`samplesheet.csv`)?",
+      "answer": "La feuille d'échantillons doit inclure les colonnes `sample`, `fastq_1`, `fastq_2` et `strandedness`, avec les chemins complets vers les fichiers FASTQ."
+    },
+    {
+      "question": "Qu'est-ce qu'il faut remplacer dans le contenu de la feuille d'échantillons fourni?",
+      "answer": "Il faut remplacer `<username>` par votre nom d'utilisateur réel dans les chemins d'accès aux fichiers spécifiés dans la feuille d'échantillons."
+    },
+    {
+      "question": "À quoi sert l'étape 5 dans le processus d'exécution du pipeline Nextflow?",
+      "answer": "L'étape 5 consiste à créer un script de tâche, qui est utilisé pour lancer l'exécution du pipeline Nextflow sur une grappe."
+    },
+    {
+      "question": "Pour quelle grappe l'exemple de script de tâche est-il conçu?",
+      "answer": "L'exemple de script de tâche est à utiliser spécifiquement sur la grappe Fir."
+    },
+    {
+      "question": "Quels éléments du script de tâche doivent être adaptés par l'utilisateur?",
+      "answer": "L'utilisateur doit adapter le nom du pipeline et sa version, le chemin de la cache Apptainer (`NXF_SINGULARITY_CACHEDIR`), le compte Slurm (`SLURM_ACCOUNT`), le profil de la grappe (par exemple, `fir`), et les chemins pour les options `--input` et `--output`."
+    },
+    {
+      "question": "Quelles variables d'environnement sont définies dans le script de tâche?",
+      "answer": "Les variables d'environnement définies dans le script de tâche sont `NFCORE_PL` (pour le pipeline), `PL_VERSION`, `FD_VERSION`, `NXF_SINGULARITY_CACHEDIR` (pour la cache Apptainer) et `SLURM_ACCOUNT` (pour le compte Slurm)."
+    },
+    {
+      "question": "Comment le pipeline Nextflow est-il exécuté à l'intérieur du script de tâche?",
+      "answer": "Le pipeline est exécuté avec la commande `nextflow run nf-core-${NFCORE_PL}_${PL_VERSION}/${FD_VERSION}/ -profile test,singularity,fir --input ~/scratch/nf-test/input/samplesheet.csv --outdir ~/scratch/nf-test/output`."
+    },
+    {
+      "question": "Où faut-il enregistrer le script de tâche et comment le soumettre pour exécution?",
+      "answer": "Le script de tâche doit être enregistré sous `~/scratch/nf-test/nextflow_test.sh` et soumis avec la commande `sbatch nextflow_test.sh`."
+    },
+    {
+      "question": "Quels modules doivent être chargés dans le script de tâche avant d'exécuter Nextflow?",
+      "answer": "Dans le script de tâche, les modules `python/3.11`, `apptainer` et `nextflow` doivent être chargés, et l'environnement virtuel `nf-core-env` doit être activé (`source nf-core-env/bin/activate`)."
+    },
+    {
+      "question": "Où puis-je trouver plus d'informations sur l'exemple rnaseq et les feuilles d'échantillons?",
+      "answer": "Pour plus d'informations, vous pouvez consulter la documentation sur [https://nf-co.re/rnaseq/3.2/docs/usage]."
+    }
+  ],
+  "generated_at": "2026-04-12T03:52:21.347322+00:00"
+}

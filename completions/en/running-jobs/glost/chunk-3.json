@@ -1,0 +1,84 @@
+{
+  "doc_key": "en/glost",
+  "level": "chunk",
+  "chunk_index": 3,
+  "qa_pairs": [
+    {
+      "question": "What is the general syntax for using GLOST?",
+      "answer": "The general syntax for using GLOST involves the `glost_launch` wrapper followed by the name of the task list file, invoked with `srun`, `mpiexec`, or `mpirun`. For instance: `srun glost_launch list_glost_tasks.txt`."
+    },
+    {
+      "question": "How does GLOST distribute serial jobs among available cores?",
+      "answer": "GLOST employs a cyclic distribution method to assign serial jobs among the available cores for a particular job."
+    },
+    {
+      "question": "Describe how the GLOST wrapper assigns tasks to processors.",
+      "answer": "The GLOST wrapper initially assigns the first jobs from the task list, dedicating one processor to each. As processors complete their assigned tasks, GLOST then assigns them subsequent jobs from the list until all tasks are completed or the job's allocated time runs out."
+    },
+    {
+      "question": "Does the number of cores need to match the number of requested jobs in GLOST?",
+      "answer": "No, the number of cores does not necessarily need to match the number of requested jobs in the GLOST list."
+    },
+    {
+      "question": "What is recommended for optimizing resource usage when using GLOST?",
+      "answer": "To optimize resource usage with GLOST, it is recommended that the serial jobs have similar runtimes so they can be distributed evenly among the requested cores."
+    },
+    {
+      "question": "How should I use GLOST for a large number of very short serial jobs?",
+      "answer": "For a large number of very short serial jobs (e.g., hundreds or thousands, lasting only a few minutes), you should submit one or more GLOST jobs using a few cores. These jobs can be scheduled for a short duration and by node to take advantage of back-filling and the scheduler."
+    },
+    {
+      "question": "Is GLOST suitable for a moderate number of short runtime jobs?",
+      "answer": "Yes, if you have tens to hundreds of relatively short runtime jobs (around an hour), you can bundle them into one or more GLOST jobs."
+    },
+    {
+      "question": "Can GLOST be used for many long serial jobs?",
+      "answer": "Yes, GLOST can also be used for many long serial jobs, especially if they have similar runtimes."
+    },
+    {
+      "question": "Why is it important to estimate the runtime of serial jobs before a GLOST job?",
+      "answer": "Estimating the runtime for your serial jobs before running a GLOST job is crucial because it allows you to accurately estimate the overall wall time required for your GLOST job."
+    },
+    {
+      "question": "How can I estimate the wall time for a GLOST job?",
+      "answer": "To estimate the wall time (wt) for a GLOST job with Njobs similar jobs, each taking t0 runtime on one processor, and using Ncores, the formula is: `wt = (t0 * Njobs) / Ncores`."
+    },
+    {
+      "question": "What is the benefit of GLOST regarding MPI communication overhead?",
+      "answer": "GLOST uses MPI only to initiate entirely serial jobs, which means that communication overhead is relatively infrequent. It offers nearly the same efficiency as writing MPI directly but without the development effort."
+    },
+    {
+      "question": "How should I specify memory for a GLOST job in a Slurm script?",
+      "answer": "When configuring memory for a GLOST job in a Slurm script, you should use `--mem-per-cpu` instead of `--mem`. The memory per core should be equivalent to the memory required by the serial job if it were run independently."
+    },
+    {
+      "question": "What kind of file is required before submitting a GLOST job, and what does it contain?",
+      "answer": "Before submitting a GLOST job, you must create a text file, typically named `list_glost_tasks.txt`, which contains all the commands necessary to run the serial jobs, with each job specified on a separate line."
+    },
+    {
+      "question": "What is recommended for the runtimes of jobs listed in `list_glost_tasks.txt`?",
+      "answer": "Ideally, the jobs listed in `list_glost_tasks.txt` should have similar runtimes to optimize the usage of requested resources."
+    },
+    {
+      "question": "What considerations are there when running GLOST jobs in a single directory?",
+      "answer": "When running GLOST jobs in a single directory, you must ensure that outputs do not overlap or use the same temporary/output files. This can be achieved by redirecting standard output to unique files using variables, or by creating a separate directory for each task if jobs utilize similar filenames."
+    },
+    {
+      "question": "Can a single line in the GLOST task list contain multiple commands?",
+      "answer": "Yes, a single line in the GLOST task list can contain one command or multiple commands executed sequentially. If there are multiple commands, they should be separated by `&&`."
+    },
+    {
+      "question": "What Slurm directives are typically included in a GLOST submission script?",
+      "answer": "A typical GLOST submission script includes Slurm directives such as `--nodes`, `--ntasks-per-node`, `--time`, and `--mem-per-cpu`."
+    },
+    {
+      "question": "Which modules should be loaded in a GLOST submission script?",
+      "answer": "A GLOST submission script should load the necessary OpenMPI and GLOST modules, along with any other modules required to run your specific application."
+    },
+    {
+      "question": "What command is used to launch GLOST within a Slurm script?",
+      "answer": "Within a Slurm script, the command `srun glost_launch <list_of_tasks_file.txt>` is used to launch GLOST."
+    }
+  ],
+  "generated_at": "2026-04-11T22:12:36.590784+00:00"
+}

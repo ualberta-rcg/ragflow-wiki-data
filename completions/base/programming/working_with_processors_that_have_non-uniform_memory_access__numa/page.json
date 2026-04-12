@@ -1,0 +1,47 @@
+{
+  "doc_key": "base/working_with_processors_that_have_non-uniform_memory_access__numa",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is Non-uniform memory access (NUMA)?",
+      "answer": "NUMA is a memory design feature found on most modern multi-core processors where CPU cores and memory are divided into subsets called NUMA nodes."
+    },
+    {
+      "question": "Why would someone optimize their program for NUMA features?",
+      "answer": "Optimizing for NUMA is done to achieve the best possible performance for programs where performance depends on memory access latency."
+    },
+    {
+      "question": "How does NUMA improve performance?",
+      "answer": "Cores belonging to a particular NUMA node can access the memory of that node faster than memory belonging to other nodes, reducing latency for performance-critical programs."
+    },
+    {
+      "question": "Does the Slurm scheduler directly support submitting jobs to specific NUMA nodes?",
+      "answer": "No, Slurm does not support submitting jobs to run on a particular NUMA node at present."
+    },
+    {
+      "question": "How can one utilize NUMA features if Slurm doesn't directly support them?",
+      "answer": "You can submit a job that utilizes a full node, giving you full control over various NUMA features when launching your programs."
+    },
+    {
+      "question": "Why is it important to target a specific processor type when using NUMA features in job scripts?",
+      "answer": "The NUMA layout is typically different for each type of processor, so job scripts should be targeted for a particular processor type."
+    },
+    {
+      "question": "What command can be used to view a system's NUMA layout?",
+      "answer": "The command `numactl --hardware` can be used to display the system's NUMA layout."
+    },
+    {
+      "question": "What information does the `numactl --hardware` output provide?",
+      "answer": "It shows available NUMA nodes, the CPUs and memory size for each node, the amount of free memory per node, and the access distances between nodes."
+    },
+    {
+      "question": "How does the example job script bind a program to specific NUMA nodes?",
+      "answer": "It uses `numactl --cpunodebind=X --membind=X ./test.x &` to bind a program to a specific CPU node (X) and its corresponding memory node (X)."
+    },
+    {
+      "question": "What Slurm directives are used in the example job script to prepare for NUMA-aware execution?",
+      "answer": "The script uses `#SBATCH --nodes=1`, `#SBATCH --exclusive`, `#SBATCH --constraint=broadwell`, `#SBATCH --mem=0`, `#SBATCH --ntasks=2`, and `#SBATCH --cpus-per-task=16`."
+    }
+  ],
+  "generated_at": "2026-04-12T12:06:11.661879+00:00"
+}

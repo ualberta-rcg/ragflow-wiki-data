@@ -5,25 +5,66 @@ lang: "fr"
 
 source_wiki_title: "VisIt/fr"
 source_hash: "0aaa094ff190b94bd07b6805bbe041e7"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T12:45:44.732973+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T12:43:52.402464+00:00"
 
 tags:
   - software
 
 keywords:
-  []
+  - "Cloud"
+  - "Compilation"
+  - "Host profiles"
+  - "profil login"
+  - "OSMesa"
+  - "Lien SSH"
+  - "Instance hôte"
+  - "installation"
+  - "Slurm"
+  - "Mode client-serveur"
+  - "Visualisation client-serveur"
+  - "tâche Slurm interactive"
+  - "profil slurm"
+  - "nœud de calcul"
+  - "Grappes"
+  - "mode non interactif"
+  - "Profil hôte"
+  - "Configuration de l'hôte"
+  - "Trillium"
+  - "VisIt"
+  - "système de fichiers"
+
+questions:
+  - "Quelle est la condition essentielle concernant les versions de VisIt pour assurer une connexion réussie entre le client local et l'ordinateur hôte ?"
+  - "Comment doit-on installer et configurer le fichier de profil XML selon le système d'exploitation utilisé (Linux, Mac ou Windows) ?"
+  - "Quelles sont les étapes à suivre pour configurer la connexion SSH et lancer une tâche interactive avec le profil \"slurm\" lorsque l'authentification multifacteur est activée ?"
+  - "Comment configurer l'ordinateur hôte pour permettre à VisIt de se connecter à la grappe Trillium ?"
+  - "Quelle est la différence entre les profils de lancement « login » et « slurm » dans la configuration de VisIt ?"
+  - "Quels sont les prérequis logiciels et la procédure pour compiler VisIt avec OSMesa sur une instance infonuagique ?"
+  - "Comment accède-t-on au fichier souhaité dans le système de fichiers de la grappe ?"
+  - "Quelles sont les différences entre les profils de rendu « login » et « slurm » proposés par le système ?"
+  - "Quels paramètres précis doivent être configurés lors de la sélection du profil « slurm » ?"
+  - "Quelle méthode permet d'effectuer le rendu en mode non interactif lors de la compilation de VisIt avec OSMesa ?"
+  - "Quelles sont les commandes et options spécifiques utilisées pour télécharger, préparer et exécuter le script d'installation ?"
+  - "Quelle est la durée approximative requise pour cette compilation et quelle étape suit généralement ce processus ?"
+  - "Quels paramètres doivent être configurés dans les profils d'hôte pour établir une connexion en mode client-serveur ?"
+  - "Comment procéder pour ouvrir et visualiser un fichier situé sur l'instance distante ?"
+  - "Comment les tâches de traitement des données et d'affichage de l'interface sont-elles réparties entre l'ordinateur local et l'instance distante ?"
+  - "Quels paramètres doivent être configurés dans les profils d'hôte pour établir une connexion en mode client-serveur ?"
+  - "Comment procéder pour ouvrir et visualiser un fichier situé sur l'instance distante ?"
+  - "Comment les tâches de traitement des données et d'affichage de l'interface sont-elles réparties entre l'ordinateur local et l'instance distante ?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
-!!! warning "Incompatibilité de version"
+# Visualisation client-serveur
+
 La même version majeure doit être installée sur le client local et sur l'ordinateur hôte à distance; dans le cas contraire, certaines incompatibilités peuvent empêcher la connexion client-serveur.
 
 Sélectionnez l'onglet approprié.
@@ -35,48 +76,50 @@ Sélectionnez l'onglet approprié.
 Plusieurs versions de VisIt sont installées sur nos grappes; pour connaître les numéros des versions, lancez `module spider visit`. Pour utiliser VisIt à distance en mode client-serveur, votre ordinateur doit avoir la même version majeure que l'ordinateur hôte, soit 2.12.x ou 2.13.x ou 3.2.x.
 Avant de démarrer VisIt, téléchargez le fichier de profil XML [host_fir.xml](https://nextcloud.computecanada.ca/index.php/s/aGeScGwF8RKJJji/download); ce fichier de configuration sert à vous connecter à VisIt 3.2.1.
 
-*   Sous Linux et Mac, copiez le fichier dans `` ~/.visit/hosts/ ``.
-*   Sous Windows, copiez le fichier dans `` My Documents\VisIt 3.2.1\hosts `` ou dans le répertoire similaire.
+*   Sous Linux et Mac, copiez le fichier dans `~/.visit/hosts/`.
+*   Sous Windows, copiez le fichier dans `My Documents\VisIt 3.2.1\hosts` ou dans le répertoire similaire.
 
-Lancez VisIt sur votre ordinateur. Dans le menu principal, sous *Options -> Profils d'hôtes*, vous devriez voir le profil hôte *fir*. Pour effectuer un rendu sur Nibi, utilisez :
+Lancez VisIt sur votre ordinateur. Dans le menu principal, sous **Options -> Host Profiles**, vous devriez voir le profil hôte **fir**. Pour effectuer un rendu sur Nibi, utilisez :
 
-```text
+```
 Host nickname = nibi
 Remote host name = nibi.alliancecan.ca
 ```
 
 Pour Fir et Nibi, entrez votre nom d'utilisateur tel que défini dans CCDB.
 
-```text
-Username = yourOwwUserName
+```
+Username = votreNomDUtilisateur
 ```
 
 À l'exception du nom d'utilisateur, votre configuration devrait être semblable à ceci :
 
-En cliquant sur *Lancer les profils*, les profils *login* et *slurm* devraient se trouver dans la liste.
+En cliquant sur **Launch Profiles**, les profils **login** et **slurm** devraient se trouver dans la liste.
 
-*   Le profil *login* est utilisé dans un nœud de connexion, ce qui n'est pas recommandé pour les visualisations intensives.
-*   Le profil *slurm* est utilisé pour une tâche interactive dans un nœud de calcul. Si vous sélectionnez ce profil, cliquez sur l'onglet *Parallèle* puis sur l'onglet *Avancé* dessous. Dans le champ *Arguments du lanceur*, remplacez `` --account=def-someuser `` par votre allocation par défaut, comme montré ci-dessous.
-*   Sur Fir uniquement, ajoutez l'indicateur `` --chdir=/scratch/username `` avec votre nom d'utilisateur pour lancer votre tâche à partir de votre répertoire /scratch.
+!!! warning "Attention"
+    Le profil **login** est utilisé dans un nœud de connexion, ce qui n'est pas recommandé pour les visualisations intensives.
 
-Enregistrez les paramètres en cliquant sur *Options -> Enregistrer les paramètres* et quittez VisIt pour activer la configuration.
+*   Le profil **slurm** est utilisé pour une tâche interactive dans un nœud de calcul. Si vous sélectionnez ce profil, cliquez sur l'onglet **Parallel** puis sur l'onglet **Advanced** dessous. Dans le champ **Launcher arguments**, remplacez `--account=def-someuser` par votre allocation par défaut, comme montré ci-dessous.
+*   Sur Fir uniquement, ajoutez l'indicateur `--chdir=/scratch/username` avec votre nom d'utilisateur pour lancer votre tâche à partir de votre répertoire /scratch.
 
-Si l'authentification multifacteur est configurée pour votre compte, vous devez [configurer votre client SSH client avec ControlMaster](../Multifactor_authentication/fr.md#configurer_votre_client_ssh) et vous assurer que *Hôte* utilise le nom complet de l'hôte, par exemple
+Enregistrez les paramètres en cliquant sur **Options -> Save Settings** et quittez VisIt pour activer la configuration.
 
-```bash
+Si l'authentification multifacteur est configurée pour votre compte, vous devez [configurer votre client SSH avec ControlMaster](multifactor-authentication-fr.md#configurer-votre-client-ssh-client-avec-controlmaster) et vous assurer que `Host` utilise le nom complet de l'hôte, par exemple :
+
+```ini
 Host fir.alliancecan.ca
     HostName fir.alliancecan.ca
-    User <your user name on the cluster>
+    User <votre nom d'utilisateur sur la grappe>
     ControlPath ~/.ssh/cm-%r@%h:%p
     ControlMaster auto
     ControlPersist 10m
 ```
 
-Ensuite, connectez-vous à la grappe dans une fenêtre de terminal. Enfin, relancez VisIt sur votre ordinateur, ouvrez la boîte de dialogue d'ouverture de fichier et changez l'hôte local en *fir* (ou *Nibi*). La connexion devrait se faire et Component Launcher démarrer sur le nœud de connexion; vous devriez pouvoir voir le système de fichiers de la grappe, accéder à votre fichier et le sélectionner. Vous serez invité à sélectionner le profil *login* (rendu sur le nœud de connexion) ou *slurm* (rendu dans une tâche Slurm interactive sur un nœud de calcul). Si vous sélectionnez le profil *slurm*, il faut préciser le nombre de nœuds et de processeurs ainsi que la durée maximale.
+Ensuite, connectez-vous à la grappe dans une fenêtre de terminal. Enfin, relancez VisIt sur votre ordinateur, ouvrez la boîte de dialogue d'ouverture de fichier et changez l'hôte local en **fir** (ou **Nibi**). La connexion devrait se faire et `Component Launcher` démarrer sur le nœud de connexion; vous devriez pouvoir voir le système de fichiers de la grappe, accéder à votre fichier et le sélectionner. Vous serez invité à sélectionner le profil **login** (rendu sur le nœud de connexion) ou **slurm** (rendu dans une tâche Slurm interactive sur un nœud de calcul). Si vous sélectionnez le profil **slurm**, il faut préciser le nombre de nœuds et de processeurs ainsi que la durée maximale.
 
-Cliquez sur *OK* et attendez que le moteur VisIt soit en marche.
+Cliquez sur **OK** et attendez que le moteur VisIt soit en marche.
 Si le rendu doit s'effectuer sur un nœud de calcul, le temps d'attente peut être plus long.
-Une fois que le jeu de données est affiché dans *Source active*, le moteur fonctionne et vous pouvez commencer à travailler sur votre graphe.
+Une fois que le jeu de données est affiché dans **Active source**, le moteur fonctionne et vous pouvez commencer à travailler sur votre graphe.
 
 === "Trillium"
 
@@ -88,33 +131,31 @@ Pour que VisIt puisse se connecter à la grappe Trillium, vous devez configurer 
 
 #### Fichier de configuration
 
-Téléchargez et enregistrez le fichier [host_trillium.xml](https://support.scinet.utoronto.ca/~mponce/viz/host_trillium.xml) et cliquez sur *Enregistrer sous*.
-*   Sous Linux et Mac, copiez le fichier dans `` ~/.visit/hosts/ ``.
-*   Sous Windows, copiez le fichier dans `` My Documents\VisIt 2.13.0\hosts/ ``.
+Téléchargez et enregistrez le fichier [host_trillium.xml](https://support.scinet.utoronto.ca/~mponce/viz/host_trillium.xml) et cliquez sur **Save as**.
+*   Sous Linux et Mac, copiez le fichier dans `~/.visit/hosts/`.
+*   Sous Windows, copiez le fichier dans `My Documents\VisIt 2.13.0\hosts\`.
 
-Redémarrez VisIt et vérifiez que le profil pour Trillium se trouve sous *Options -> Profils d'hôtes*.
+Redémarrez VisIt et vérifiez que le profil pour Trillium se trouve sous **Options -> Host Profiles**.
 
 #### Configuration manuelle
 
-Lanzez VisIt sur votre ordinateur. Dans le menu *Options*, cliquez sur *Profils d'hôtes*; cliquez sur *Nouvel hôte* et sélectionnez
+Lancez VisIt sur votre ordinateur. Dans le menu **Options**, cliquez sur **Host Profiles**; cliquez sur **New Host** et sélectionnez :
 
-```text
-Host nickname = trillium
-Remote host name = trillium.alliancecan.ca
-Username = Enter_Your_OWN_username_HERE
-Path to VisIt installation = /scinet/trillium/software/2018a/opt/base/visit/2.13.1
-```
+*   `Host nickname = trillium`
+*   `Remote host name = trillium.alliancecan.ca`
+*   `Username = votre_NOM_D_UTILISATEUR_ICI`
+*   `Path to VisIt installation = /scinet/trillium/software/2018a/opt/base/visit/2.13.1`
 
-Sélectionnez *Tunneliser les connexions de données via SSH* et cliquez sur *Appliquer*.
+Sélectionnez **Tunnel data connections through SSH** et cliquez sur **Apply**.
 
-Dans le haut de la fenêtre, cliquez sur *Lancer les profils* pour créer un profil:
+Dans le haut de la fenêtre, cliquez sur **Launch Profiles** pour créer un profil :
 
-*   *login* pour utiliser un nœud de connexion et accéder aux données;
-*   *slurm* pour utiliser un nœud de calcul comme moteur de rendu.
+*   **login** pour utiliser un nœud de connexion et accéder aux données;
+*   **slurm** pour utiliser un nœud de calcul comme moteur de rendu.
 
-Sous l'onglet *Parallèle* sélectionnez *Lancer le moteur parallèle*. Pour un profil Slurm, vous devrez configurer les paramètres.
+Sous l'onglet **Parallel** sélectionnez **Launch parallel engine**. Pour un profil Slurm, vous devrez configurer les paramètres.
 
-Lorsque vous avez terminé, enregistrez les modifications avec *Options -> Enregistrer les paramètres*; elles seront en vigueur la prochaine fois que vous lancerez VisIt.
+Lorsque vous avez terminé, enregistrez les modifications avec **Options -> Save settings**; elles seront en vigueur la prochaine fois que vous lancerez VisIt.
 
 === "Cloud"
 
@@ -122,7 +163,7 @@ Lorsque vous avez terminé, enregistrez les modifications avec *Options -> Enreg
 
 ### Prérequis
 
-La page [Cloud : Guide de démarrage](../Cloud_Quick_Start/fr.md) décrit la création d'une instance. Une fois connecté à l’instance, vous devrez installer certains paquets pour pouvoir compiler ParaView et VisIt; par exemple, sur une instance CentOS,
+La page [Cloud : Guide de démarrage](cloud-quick-start-fr.md) décrit la création d'une instance. Une fois connecté à l’instance, vous devrez installer certains paquets pour pouvoir compiler ParaView et VisIt; par exemple, sur une instance CentOS :
 
 ```bash
 sudo yum install xauth wget gcc gcc-c++ ncurses-devel python-devel libxcb-devel
@@ -148,7 +189,7 @@ chmod u+x build_visit2_12_1
     --hdf4 --hdf5 --netcdf --silo --szip --xdmf --zlib
 ```
 
-Ceci peut nécessiter quelques heures. L’installation peut ensuite être testée avec
+Ceci peut nécessiter quelques heures. L’installation peut ensuite être testée avec :
 
 ```bash
 ~/visit/bin/visit -cli -nowin
@@ -158,5 +199,5 @@ ce qui devrait lancer un interpréteur Python.
 
 ### Mode client-serveur
 
-Sur votre ordinateur, démarrez VisIt. Sous *Options -> Profils d'hôtes*, modifiez les paramètres suivants : le nom de la connexion, le nom de l'instance hôte, le chemin vers VisIt (`` /home/centos/visit ``), votre nom d'utilisateur. Activez enfin le lien SSH. N’oubliez pas de sauvegarder les paramètres avec *Options -> Enregistrer les paramètres*.
-En ouvrant un fichier (*Fichier -> Ouvrir un fichier... -> Hôte = Arbutus*), vous devriez voir le système de fichiers de l’instance. Chargez et visualisez un fichier. Le traitement des données et le rendu devraient s’effectuer sur l’instance alors que le résultat et les contrôles de l’interface utilisateur seront affichés sur votre ordinateur.
+Sur votre ordinateur, démarrez VisIt. Sous **Options -> Host profiles**, modifiez les paramètres suivants : le nom de la connexion, le nom de l'instance hôte, le chemin vers VisIt (`/home/centos/visit`), votre nom d'utilisateur. Activez enfin le lien SSH. N’oubliez pas de sauvegarder les paramètres avec **Options -> Save Settings**.
+En ouvrant un fichier (**File -> Open file... -> Host = Arbutus**), vous devriez voir le système de fichiers de l’instance. Chargez et visualisez un fichier. Le traitement des données et le rendu devraient s’effectuer sur l’instance alors que le résultat et les contrôles de l’interface utilisateur seront affichés sur votre ordinateur.

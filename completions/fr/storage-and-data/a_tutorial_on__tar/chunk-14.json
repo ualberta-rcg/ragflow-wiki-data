@@ -4,37 +4,45 @@
   "chunk_index": 14,
   "qa_pairs": [
     {
-      "question": "Comment faire pour extraire un fichier spécifique d'une archive tar (non compressée) vers un répertoire de destination précis?",
-      "answer": "Pour extraire un fichier spécifique comme 'results/Res-01/log.15Feb16.4' d'une archive 'results.tar' vers un répertoire 'new_results', il faut utiliser la commande `tar -C ./new_results/ --extract --file=results.tar results/Res-01/log.15Feb16.4`. L'option `-C` est obligatoire pour spécifier le répertoire de destination, sinon le fichier sera extrait dans le répertoire courant si la structure de répertoires existe déjà."
+      "question": "Comment on fait pour extraire un seul fichier d'une archive `.tar` sans décompresser toute l'archive?",
+      "answer": "Pour extraire juste un fichier d'une archive `.tar` vers un répertoire de destination précis, comme `new_results/`, il faut utiliser la commande `tar -C ./new_results/ --extract --file=results.tar chemin/vers/le/fichier`. Par exemple, pour `results/Res-01/log.15Feb16.4`, la commande est `tar -C ./new_results/ --extract --file=results.tar results/Res-01/log.15Feb16.4`."
     },
     {
-      "question": "Peut-on extraire plusieurs fichiers à la fois d'une archive tar en les spécifiant un par un?",
-      "answer": "Oui, il est possible d'extraire plusieurs fichiers en les listant avec leur chemin complet après le nom de l'archive. Par exemple, `tar -C ./new_results/ --extract --file=results.tar \"results/Res-01/log.15Feb16.4\" \"file2\" \"file3\"`."
+      "question": "Quand on veut extraire un fichier d'une archive, quelle option est super importante pour dire où le fichier va aboutir?",
+      "answer": "Il faut absolument utiliser l'option `-C` pour spécifier le répertoire de destination. Si on ne le fait pas, le fichier pourrait être extrait dans le même répertoire que l'archive, si un répertoire du même nom existe déjà."
     },
     {
-      "question": "Comment extraire un fichier d'une archive compressée au format gzip (.tar.gz) vers un répertoire de destination?",
-      "answer": "Pour extraire un fichier spécifique d'une archive .tar.gz vers un répertoire de destination, on utilise la commande `tar -C ./new_results/ --extract -z --file=results.tar.gz results/Res-01/log.15Feb16.4`. L'option `-z` est ajoutée pour gérer la compression gzip."
+      "question": "Quand on extrait juste un fichier ou un répertoire d'une archive `tar`, est-ce que la structure des dossiers est conservée?",
+      "answer": "Oui, la commande va recréer la même structure de répertoires que celle de l'archive dans le répertoire de destination."
     },
     {
-      "question": "Quelle est la commande pour extraire un fichier d'une archive compressée au format bzip2 (.tar.bz2) vers un répertoire spécifique?",
-      "answer": "Pour extraire un fichier spécifique d'une archive .tar.bz2 vers un répertoire, la commande est `tar -C ./new_results/ --extract -j --file=results.tar.bz2 results/Res-01/log.15Feb16.4`. L'option `-j` est utilisée pour gérer la compression bzip2."
+      "question": "Est-ce que c'est possible d'extraire plusieurs fichiers spécifiques d'une archive `.tar` en même temps? Si oui, comment on procède?",
+      "answer": "Oui, c'est tout à fait possible d'extraire plusieurs fichiers en même temps. Il faut indiquer le chemin complet pour chaque fichier à la suite de la commande `tar`, comme ceci : `tar -C ./new_results/ --extract --file=results.tar \"chemin/fichier1\" \"chemin/fichier2\" \"chemin/fichier3\"`."
     },
     {
-      "question": "Est-ce qu'on doit indiquer le chemin complet pour le fichier ou le répertoire qu'on veut extraire d'une archive?",
-      "answer": "Oui, pour extraire un fichier ou un répertoire spécifique, il est impératif d'indiquer le bon chemin complet (path) vers celui-ci dans l'archive."
+      "question": "Est-ce que la technique pour extraire un fichier spécifique d'une archive `.tar` marche aussi pour les archives compressées (genre `.tar.gz` ou `.tar.bz2`)?",
+      "answer": "Oui, la même logique de commande s'applique pour extraire un fichier spécifique à partir d'un fichier tar compressé, en ajoutant l'option de compression qui convient (`-z` pour gzip ou `-j` pour bzip2)."
     },
     {
-      "question": "Comment extraire plusieurs fichiers d'une archive en utilisant des caractères génériques (wildcards)?",
-      "answer": "Pour extraire plusieurs fichiers avec des caractères génériques, comme tous les fichiers se terminant par `.dat` dans un répertoire `results`, on utilise la commande `tar -C ./new_results/ -xvf results.tar --wildcards \"results/*.dat\"`."
+      "question": "Quelle commande on utilise pour sortir un fichier précis d'une archive `.tar.gz` et le mettre dans un répertoire de destination?",
+      "answer": "Pour un fichier `.tar.gz`, il faut ajouter l'option `-z` à la commande. Par exemple : `tar -C ./new_results/ --extract -z --file=results.tar.gz results/Res-01/log.15Feb16.4`."
     },
     {
-      "question": "La commande d'extraction avec caractères génériques (wildcards) fonctionne-t-elle aussi pour les archives compressées (.gz ou .bz2)?",
-      "answer": "Oui, la commande avec l'option `--wildcards` est aussi valide avec les options de compression `-j` (pour bzip2) ou `-z` (pour gzip) pour les archives compressées."
+      "question": "Comment on fait pour extraire un fichier spécifique d'une archive `.tar.bz2` et le diriger vers un répertoire de notre choix?",
+      "answer": "Pour un fichier `.tar.bz2`, il faut ajouter l'option `-j` à la commande. Par exemple : `tar -C ./new_results/ --extract -j --file=results.tar.bz2 results/Res-01/log.15Feb16.4`."
     },
     {
-      "question": "Comment extraire tous les fichiers qui commencent par 'log' d'une archive tar vers un répertoire de destination?",
-      "answer": "Pour extraire des fichiers qui commencent par 'log' dans le répertoire `results` d'une archive, on peut utiliser la commande `tar -C ./new_results/ -xvf results.tar --wildcards \"results/log*\"`."
+      "question": "Est-ce qu'on peut extraire plusieurs fichiers d'une archive en utilisant des caractères génériques (comme les \"wildcards\")?",
+      "answer": "Oui, on peut extraire plusieurs fichiers en utilisant des caractères génériques avec l'option `--wildcards`. Par exemple, pour extraire tous les fichiers qui finissent par `.dat` du répertoire `results/` vers `new_results/`, la commande serait `tar -C ./new_results/ -xvf results.tar --wildcards \"results/*.dat\"`."
+    },
+    {
+      "question": "Est-ce que la commande qui utilise les caractères génériques (`--wildcards`) fonctionne aussi avec les archives compressées?",
+      "answer": "Oui, la commande `--wildcards` est aussi valide avec les options `-j` ou `-z` pour les archives compressées (`.tar.bz2` ou `.tar.gz` respectivement)."
+    },
+    {
+      "question": "Comment faire pour extraire d'une archive (`results.tar`) tous les fichiers dont le nom commence par \"log\" et qui sont dans le répertoire `results/`, puis les mettre dans un répertoire `new_results/`?",
+      "answer": "Pour extraire tous les fichiers qui commencent par \"log\" du répertoire `results/` et les mettre dans `new_results/`, la commande serait `tar -C ./new_results/ -xvf results.tar --wildcards \"results/log*\"`."
     }
   ],
-  "generated_at": "2026-04-10T00:21:08.091606+00:00"
+  "generated_at": "2026-04-11T15:23:06.367343+00:00"
 }

@@ -5,21 +5,63 @@ lang: "base"
 
 source_wiki_title: "Dar"
 source_hash: "28d4b422d77d9da249a3c234d39d9722"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T05:57:59.419554+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T06:43:05.959405+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "-g flags"
+  - "dar"
+  - "dar utility"
+  - "extended attributes"
+  - "dar command"
+  - "write your own scripts"
+  - "archiving"
+  - "archive"
+  - "limit size"
+  - "extracting"
+  - "Disk ARchive"
+  - "archive slices"
+  - "backups"
+  - "incremental backups"
+  - "sharedSnippets"
+  - "flag -s"
+  - "extract an entire directory"
+  - "External scripts"
+  - "bash functions"
+  - "Lustre filesystem"
+  - "Unix wild masks"
+  - "creating an archive"
+  - "slice"
+
+questions:
+  - "What are the main advantages and features of the `dar` utility compared to the classical Unix `tar` tool?"
+  - "Where can the `dar` utility be found and accessed within the described cluster environment?"
+  - "What are the basic commands and flags used in `dar` to create an archive, list its contents, and extract specific files?"
+  - "How can you prevent error messages when extracting an archive containing Lustre filesystem extended attributes to a non-Lustre location?"
+  - "What is the correct process for creating and fully restoring incremental backups using the dar command?"
+  - "How do you limit the maximum file size of individual archive slices when creating a backup?"
+  - "What command is used to extract an entire directory with the dar utility?"
+  - "How can a user specify multiple directories and files when using the dar command?"
+  - "What limitation exists regarding the use of Unix wild masks after the -g flag?"
+  - "What flag and unit format are used to limit the maximum size of each backup slice?"
+  - "How are the resulting slice files named when a backup is split into multiple parts?"
+  - "What name should be used in the command when extracting data from a multi-slice archive?"
+  - "What is the purpose of the `dar -O -x monday` command shown in the example?"
+  - "How do the mentioned bash functions assist users in working with the `dar` utility?"
+  - "Where can users access the shared bash functions to use as inspiration for their own scripts?"
+  - "What is the purpose of the `dar -O -x monday` command shown in the example?"
+  - "How do the mentioned bash functions assist users in working with the `dar` utility?"
+  - "Where can users access the shared bash functions to use as inspiration for their own scripts?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -27,12 +69,11 @@ status:
 
 The [`dar`](http://dar.linux.free.fr) (stands for Disk ARchive) utility was written from the ground up as a modern replacement to the classical Unix `tar` tool. First released in 2002, `dar` is open source, is actively maintained, and can be compiled on any Unix-like system.
 
-Similar to `tar`, `dar` supports full / differential / incremental backups. Unlike `tar`, each `dar` archive includes a file index for fast file access and restore -- this is especially useful for large archives! `dar` has built-in compression on a file-by-file basis, making it more resilient against data corruption, and you can optionally tell it not to compress already highly compressed files such as `mp4` and `gz`. `dar` supports strong encryption, can split archives at 1-byte resolution, supports extended file attributes, sparse files, hard and symbolic (soft) links, can detect data corruption in both headers and saved data and recover with minimal data loss, and has many other desirable features. On the [`dar` page](http://dar.linux.free.fr) you can find a [detailed feature-by-feature `tar`-to-`dar` comparison](http://dar.linux.free.fr/doc/FAQ.html#tar).
+Similar to `tar`, `dar` supports full / differential / incremental backups. Unlike `tar`, each `dar` archive includes a file index for fast file access and restore — this is especially useful for large archives! `dar` has built-in compression on a file-by-file basis, making it more resilient against data corruption, and you can optionally tell it not to compress already highly compressed files such as `mp4` and `gz`. `dar` supports strong encryption, can split archives at 1-byte resolution, supports extended file attributes, sparse files, hard and symbolic (soft) links, can detect data corruption in both headers and saved data and recover with minimal data loss, and has many other desirable features. On the [`dar` page](http://dar.linux.free.fr) you can find a [detailed feature-by-feature `tar`-to-`dar` comparison](http://dar.linux.free.fr/doc/FAQ.html#tar).
 
 ## Where to find `dar`
 
-On our clusters, `dar` is available on `/cvmfs`.
-With [StdEnv/2020](standard-software-environments.md):
+On our clusters, `dar` is available on `/cvmfs`. With [StdEnv/2020](standard-software-environments.md):
 
 ```bash
 [user_name@localhost]$ which dar
@@ -72,8 +113,7 @@ To extract a single file into a subdirectory `restore`, use the base name and th
 [user_name@localhost]$ dar -R restore/ -O -w -x all -v -g test/filename
 ```
 
-!!! note
-    The flag `-O` will tell `dar` to ignore file ownership. Wrong ownership would be a problem if you are restoring someone else's files and you are not root. However, even if you are restoring your own files, `dar` will throw a message that you are doing this as non-root and will ask you to confirm. To disable this warning, use `-O`. The flag `-w` will disable a warning if `restore/test` already exists.
+The flag `-O` will tell `dar` to ignore file ownership. Wrong ownership would be a problem if you are restoring someone else's files and you are not root. However, even if you are restoring your own files, `dar` will throw a message that you are doing this as non-root and will ask you to confirm. To disable this warning, use `-O`. The flag `-w` will disable a warning if `restore/test` already exists.
 
 To extract an entire directory, type:
 
@@ -85,28 +125,30 @@ Similar to creating an archive, you can pass multiple directories and files by u
 
 #### A note about the Lustre filesystem
 
-If the archived files are coming from a [Lustre filesystem](https://www.lustre.org/) (typically in `/home`, `/project` or `/scratch` on [our *general-purpose* compute clusters](national-systems.md)), some *extended attributes* are saved automatically. To see which extended attributes are assigned to each archived file, use the `-alist-ea` flag:
+!!! warning "Lustre Filesystem Extended Attributes"
+    If the archived files are coming from a [Lustre filesystem](https://www.lustre.org/) (typically in `/home`, `/project` or `/scratch` on [our *general-purpose* compute clusters](national-systems.md)), some *extended attributes* are saved automatically.
+    To see which extended attributes are assigned to each archived file, use the `-alist-ea` flag:
 
-```bash
-dar -l all -alist-ea
-```
+    ```bash
+    dar -l all -alist-ea
+    ```
 
-We can see strings like: `Extended Attribute: [lustre.lov]`. With this attribute, any file extraction to a location formatted in Lustre will still work as usual. But if one tries to extract files to the [node local storage](using-node-local-storage.md) (also known as `$SLURM_TMPDIR`), the extraction will show error messages like: `Error while adding EA lustre.lov : Operation not supported`.
+    You may see strings like: `Extended Attribute: [lustre.lov]`.
+    With this attribute, any file extraction to a location formatted in Lustre will still work as usual. But if one tries to extract files to the [node local storage](using-node-local-storage.md) (also known as `$SLURM_TMPDIR`), the extraction will show error messages like: `Error while adding EA lustre.lov : Operation not supported`.
 
-To avoid these error messages, the `-u` flag can be used to exclude a specific type of attribute, while the "affected" files are still extracted. For example:
+    To avoid these error messages, the `-u` flag can be used to exclude a specific type of attribute, while the "affected" files are still extracted. For example:
 
-```bash
-dar -R restore/ -O -w -x all -v -g test -u 'lustre*'
-```
+    ```bash
+    dar -R restore/ -O -w -x all -v -g test -u 'lustre*'
+    ```
 
-Another solution is to get rid of the `lustre.lov` attribute while creating the archive with the same `-u` flag:
+    Another solution is to get rid of the `lustre.lov` attribute while creating the archive with the same `-u` flag:
 
-```bash
-dar -w -c all -g test -u 'lustre*'
-```
+    ```bash
+    dar -w -c all -g test -u 'lustre*'
+    ```
 
-!!! tip
-    This is necessary only if you intend to extract files to a location not formatted in Lustre.
+    In conclusion, this is necessary only if you intend to extract files to a location not formatted in Lustre.
 
 ### Incremental backups
 

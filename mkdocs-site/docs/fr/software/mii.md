@@ -5,40 +5,68 @@ lang: "fr"
 
 source_wiki_title: "Mii/fr"
 source_hash: "7db0e57a29fb5675577889567d701a51"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T08:35:23.852206+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T09:08:50.226659+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "Recherche"
+  - "chargement automatique"
+  - "MODULEPATH"
+  - "Commande"
+  - "openmpi/4.0.3"
+  - "commandes"
+  - "Modules"
+  - "moteur de recherche"
+  - "Mii"
+  - "Binaires"
+  - "blast 2.12.0"
+  - "Lmod"
+  - "modules"
+  - "gcc/9.3.0"
+
+questions:
+  - "Quelles sont les principales caractéristiques et fonctionnalités offertes par le moteur de recherche Mii ?"
+  - "Comment l'environnement de l'interpréteur est-il affecté après l'exécution d'un module chargé automatiquement par Mii ?"
+  - "De quelle manière Mii réagit-il face à une commande connue par rapport à une commande qu'il ne reconnaît pas ?"
+  - "Comment utiliser la commande de recherche pour trouver la liste des modules offrant des binaires spécifiques ?"
+  - "Quelle commande doit-on exécuter pour désactiver l'outil Mii ?"
+  - "Comment peut-on réactiver Mii après sa désactivation ?"
+  - "What software modules were loaded into the environment after the user selected option 1?"
+  - "Which module did Lmod automatically replace with \"gcc/9.3.0\" during the loading process?"
+  - "What module was reloaded as a result of changes to the MODULEPATH?"
+  - "Comment utiliser la commande de recherche pour trouver la liste des modules offrant des binaires spécifiques ?"
+  - "Quelle commande doit-on exécuter pour désactiver l'outil Mii ?"
+  - "Comment peut-on réactiver Mii après sa désactivation ?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
 Un moteur de recherche intelligent pour les modules.
 
-Mii recherche et charge des modules sur demande dans une installation existante.
+Mii cherche et charge des modules sur demande dans une installation existante.
 
-Une fois Mii chargé, les modules sont chargés automatiquement dans le cas de commandes connues. Pour les commandes inconnues, Mii demande interactivement quels modules doivent être chargés.
+Une fois Mii chargé, les modules se chargent automatiquement quand les commandes sont connues.
+Pour les commandes inconnues, Mii demande de façon interactive quels modules doivent être chargés.
 
 Caractéristiques :
-*   prend en charge les installations de Lmod et Environment Modules
-*   intégration des interpréteurs bash et zsh
+*   supporte les installations de Lmod et Environment Modules
+*   intégration pour les interpréteurs bash et zsh
 *   liste des modules / renseignements particuliers (via `mii list`, `mii show`)
 *   recherche de commandes exactes (via `mii exact`)
 *   recherche de commandes similaires (via `mii search`)
 *   format d'exportation JSON optionnel
 
-!!! important "Important"
-    Un module chargé automatiquement ne persiste pas après la commande. L'environnement de l'interpréteur reste tel qu'il était avant que Mii ait téléchargé le module.
+!!! warning "Important"
+    Un module chargé automatiquement ne persiste pas après la commande. L'environnement de l'interpréteur demeure tel qu'il était avant que Mii ait téléchargé le module.
 
 ## Activation
 Chargez et activez avec la commande
@@ -47,27 +75,33 @@ Chargez et activez avec la commande
 module load mii
 ```
 
-Une fois chargé, Mii émet des suggestions. Par exemple, lorsqu'une commande est introuvable, Mii suggère
+Une fois chargé, Mii propose des suggestions. Par exemple, quand une commande n'est pas trouvée, Mii suggère
 
-```text
+```bash
 cmd
+```
+```text
 [mii] cmd not found! Similar commands: "xcmd", "vmd", "c2d"
 ```
 
 ## Commandes connues
-Une commande ou un binaire qui est connu sera chargé automatiquement.
+Une commande ou un binaire connu sera chargé automatiquement.
 
-```text
+```bash
 python3.9 --version
+```
+```text
 [mii] loading StdEnv/2020 python/3.9.6 ...
 Python 3.9.6
 ```
 
-## Commandes non connues
-Lorsqu'une commande ou un binaire n'est pas connu, Mii suggère des candidats potentiels en se basant sur leur pertinence.
+## Commandes inconnues
+Quand une commande ou un binaire n'est pas connu, Mii suggère des candidats potentiels selon leur pertinence.
 
-```text
+```bash
 blastn -version
+```
+```text
 [mii] Please select a module to run blastn:
        MODULE         PARENT(S)
     1  blast+/2.12.0  StdEnv/2020 gcc/9.3.0
@@ -103,10 +137,12 @@ blastn: 2.12.0+
 Dans cet exemple, nous avons entré le chiffre 1 à l'invite *Make a selection* et la commande s'est exécutée.
 
 ## Recherche
-Vous pouvez chercher des binaires pour obtenir la liste des modules qui les offrent. Les résultats sont présentés dans l'ordre de leur pertinence.
+Vous pouvez chercher des binaires pour obtenir la liste des modules qui les offrent. Les résultats sont présentés par ordre de pertinence.
 
-```text
+```bash
 mii search pgc+
+```
+```text
 Results for "pgc+": (total 16)
     MODULE            COMMAND      PARENT(S)        RELEVANCE
     nvhpc/20.7        pgcc         StdEnv/2020      high
@@ -127,14 +163,14 @@ Results for "pgc+": (total 16)
     gcccore/.9.3.0    g++          StdEnv/2020      medium
 ```
 
-## Désactiver Mii
+## Désactivation de Mii
 Lancez la commande
 
 ```bash
 mii disable
 ```
 
-## Réactiver Mii
+## Réactivation de Mii
 Lancez la commande
 
 ```bash

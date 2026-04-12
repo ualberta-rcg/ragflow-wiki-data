@@ -1,0 +1,108 @@
+{
+  "doc_key": "base/paraview",
+  "level": "chunk",
+  "chunk_index": 5,
+  "qa_pairs": [
+    {
+      "question": "How can users verify if they are performing parallel rendering in ParaView?",
+      "answer": "Users can verify parallel rendering by colouring their dataset by the `Process Id` variable, which is unavailable when running in serial."
+    },
+    {
+      "question": "Which clusters support single-core visualization via Open OnDemand?",
+      "answer": "Single-core visualization via Open OnDemand is supported on Nibi or Trillium."
+    },
+    {
+      "question": "What are the portal addresses for Open OnDemand on Nibi and Trillium?",
+      "answer": "For Nibi, the portal is https://ondemand.sharcnet.ca, and for Trillium, it is https://ondemand.scinet.utoronto.ca."
+    },
+    {
+      "question": "How do users access the Compute Desktop on Nibi through Open OnDemand?",
+      "answer": "After logging in to Open OnDemand on Nibi, users can find the \"Desktop\" menu under Compute Nodes | Compute Desktop."
+    },
+    {
+      "question": "What resources should be specified for a single-core visualization job on Open OnDemand?",
+      "answer": "For a single-core visualization job on Open OnDemand, users should specify a CPU-only Slurm account and 1 CPU core."
+    },
+    {
+      "question": "What commands are used to launch ParaView in a terminal within an Open OnDemand single-core desktop session?",
+      "answer": "Inside the desktop, users should open a terminal and type `module load paraview/6.0.0` followed by `paraview`."
+    },
+    {
+      "question": "Can the ParaView GUI directly utilize multiple cores for rendering?",
+      "answer": "No, the ParaView GUI application itself is single-threaded and cannot directly use multiple cores."
+    },
+    {
+      "question": "What is required for true parallel rendering in ParaView when using Open OnDemand?",
+      "answer": "For true parallel rendering, users need to connect the single-core ParaView client to a parallel ParaView server, both launched within Open OnDemand."
+    },
+    {
+      "question": "What are the resource limits for memory and cores on Nibi's Open OnDemand for multi-core visualization?",
+      "answer": "On Nibi's Open OnDemand, users can request up to 128GB memory and up to 8 cores."
+    },
+    {
+      "question": "What command is used to start a parallel ParaView server in an Open OnDemand multi-core desktop session with 4 cores?",
+      "answer": "Users would type `module load paraview/6.0.0` and then `mpirun --oversubscribe -np 4 pvserver` in a terminal."
+    },
+    {
+      "question": "How do you connect the ParaView client to the parallel server within an Open OnDemand desktop session?",
+      "answer": "In the ParaView GUI, click `Connect`, then `Add Server`. Set `Server Type` to `Client/Server`, `Host` to `localhost`, `Port` to `11111`, and `Startup Type` to `Manual`. Then click `Connect` again."
+    },
+    {
+      "question": "What is the purpose of the 'Large-scale interactive' tab?",
+      "answer": "The 'Large-scale interactive' tab describes the interactive client-server setup for ParaView on all HPC clusters, where the client runs on the user's computer and the server runs on the remote cluster."
+    },
+    {
+      "question": "Which clusters support the large-scale interactive client-server setup?",
+      "answer": "The large-scale interactive client-server setup is supported on Rorqual, Nibi, Fir, Trillium, and Narval."
+    },
+    {
+      "question": "What is a crucial requirement for ParaView client-server connection compatibility?",
+      "answer": "ParaView requires the same major version on the local client and the remote host to prevent incompatibility and failed handshakes."
+    },
+    {
+      "question": "What is the 'Remote Render Threshold' setting in ParaView preferences, and why is it important?",
+      "answer": "The 'Remote Render Threshold' setting in ParaView's preferences (under `Render View -> Remote/Parallel Rendering Options`) determines whether rendering is done locally or remotely. It's important for balancing interactivity with efficient use of cluster resources for large data."
+    },
+    {
+      "question": "How does setting the 'Remote Render Threshold' to its default (20MB) affect rendering?",
+      "answer": "If set to default (20MB), small rendering will be done on the user's computer's GPU for fast rotation, but anything modestly intensive (under 20MB) will be shipped to the computer, potentially slowing down visualization."
+    },
+    {
+      "question": "What happens if the 'Remote Render Threshold' is set to 0MB?",
+      "answer": "If the 'Remote Render Threshold' is set to 0MB, all rendering, including rotation, will be done remotely using cluster resources, which is good for large data processing but may reduce interactivity."
+    },
+    {
+      "question": "What types of rendering can be performed on cluster CPUs for large-scale interactive visualization?",
+      "answer": "Both rasterization and ray tracing can be performed on cluster CPUs, allocating as many cores as necessary."
+    },
+    {
+      "question": "Which modern CPU-based libraries offer performance similar to GPU-based rendering?",
+      "answer": "Modern CPU-based libraries such as OSPRay and OpenSWR offer performance quite similar to GPU-based rendering."
+    },
+    {
+      "question": "How can users estimate the number of cores needed for rendering a dataset?",
+      "answer": "Users can estimate the number of necessary cores by dividing the amount of memory needed for rendering by approximately 3.5 GB/core."
+    },
+    {
+      "question": "If a 40GB dataset is loaded into memory, what is the minimum number of cores required to hold the data?",
+      "answer": "A 40GB dataset would require at least 12 cores just to hold the data."
+    },
+    {
+      "question": "What is the recommended maximum memory allocation per core for software rendering?",
+      "answer": "It is not recommended to allocate more than 4GB/core for software rendering."
+    },
+    {
+      "question": "Why might a user need to allocate more cores than just what's needed for data storage?",
+      "answer": "Users might need to allocate more cores for filters and data processing, as some operations (e.g., structured to unstructured dataset conversion) can significantly increase memory footprint (e.g., ~3X)."
+    },
+    {
+      "question": "What is a specific constraint for scheduling jobs on Trillium for large-scale interactive visualization?",
+      "answer": "On Trillium, users must schedule on whole nodes, meaning in multiples of 192 cores."
+    },
+    {
+      "question": "What is the minimum number of cores required for an example visualization on Trillium?",
+      "answer": "The minimum example on Trillium will require 192 cores due to whole-node scheduling."
+    }
+  ],
+  "generated_at": "2026-04-12T04:52:05.950775+00:00"
+}

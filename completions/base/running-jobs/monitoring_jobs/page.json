@@ -1,0 +1,87 @@
+{
+  "doc_key": "base/monitoring_jobs",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is the primary purpose of evaluating job efficiency?",
+      "answer": "Evaluating job efficiency is crucial for responsible resource usage, especially when using new programs or after making substantial changes to a job's work."
+    },
+    {
+      "question": "How can a user view all jobs currently managed by the scheduler?",
+      "answer": "Users can view all jobs by running the `squeue` command."
+    },
+    {
+      "question": "What command displays only a user's own current jobs?",
+      "answer": "A user can display their own jobs using `squeue -u $USER` or the `sq` utility."
+    },
+    {
+      "question": "How do you display only running or pending jobs for a specific user?",
+      "answer": "To show running jobs, use `squeue -u <username> -t RUNNING`, and for pending jobs, use `squeue -u <username> -t PENDING`."
+    },
+    {
+      "question": "What command provides detailed information for a specific running job?",
+      "answer": "The `scontrol show job -dd <jobid>` command provides detailed information for a specific job."
+    },
+    {
+      "question": "What is a key caution regarding the use of `squeue` from scripts?",
+      "answer": "One should not run `squeue` from a script or program at a high frequency (e.g., every few seconds), as it adds load to Slurm and can interfere with its performance."
+    },
+    {
+      "question": "How can a user request email notifications for certain job conditions using sbatch?",
+      "answer": "Users can request email notifications by including `#SBATCH --mail-user=your.email@example.com` and `#SBATCH --mail-type=ALL` in their sbatch script options."
+    },
+    {
+      "question": "Why is output from non-interactive Slurm jobs typically delayed?",
+      "answer": "Output from non-interactive Slurm jobs is normally buffered, causing a delay between data being written by the job and when it's visible on a login node."
+    },
+    {
+      "question": "Is it recommended to eliminate output buffering for Slurm jobs?",
+      "answer": "No, it is not recommended to eliminate buffering because it is vital for preserving the overall performance of the filesystem."
+    },
+    {
+      "question": "What method is recommended for monitoring job output in real-time?",
+      "answer": "For real-time output monitoring, it is recommended to run an interactive job."
+    },
+    {
+      "question": "Which command provides a short summary of CPU and memory efficiency for a completed job?",
+      "answer": "The `seff <jobid>` command provides a short summary of CPU and memory efficiency for a completed job."
+    },
+    {
+      "question": "How can one find more detailed information about a completed job and format its output?",
+      "answer": "Use `sacct -j <jobid>` for detailed information, and optionally `--format=JobID,JobName,MaxRSS,Elapsed` to control the output fields."
+    },
+    {
+      "question": "What do the `.bat+` and `.ext+` records typically represent in `sacct` output?",
+      "answer": "The `.bat+` record represents the submission script where the main work is often done, and `.ext+` represents the prologue and epilogue steps."
+    },
+    {
+      "question": "When would you use the `--duplicates` option with `sacct`?",
+      "answer": "The `--duplicates` option is used with `sacct` to see all records related to a given job, especially if it was restarted due to a node failure."
+    },
+    {
+      "question": "Which `sacct` accounting field helps determine how much memory a job needed?",
+      "answer": "The `MaxRSS` accounting field is used to determine how much memory a job needed, indicating the largest resident set size."
+    },
+    {
+      "question": "What command functions similarly to `sacct` but for running jobs?",
+      "answer": "The `sstat` command works on a running job much the same way that `sacct` works on a completed job."
+    },
+    {
+      "question": "What are the main reasons for attaching to a node running a job and executing new processes?",
+      "answer": "Attaching to a running job's node is primarily for troubleshooting or monitoring the job's progress."
+    },
+    {
+      "question": "Provide an example command to monitor GPU usage on a node assigned to a running job.",
+      "answer": "An example command is `srun --jobid 123456 --overlap --pty watch -n 30 nvidia-smi`."
+    },
+    {
+      "question": "What caution should be observed when launching processes on a node where a job is running?",
+      "answer": "Users should be careful not to launch processes that would use a significant portion of the resources allocated for the job, as it could kill or slow down the job."
+    },
+    {
+      "question": "How should one monitor an interactive job using multiple panes?",
+      "answer": "To monitor an interactive job, create multiple panes directly with `tmux` and start each process in its own pane, instead of using `srun`."
+    }
+  ],
+  "generated_at": "2026-04-12T03:13:01.007795+00:00"
+}

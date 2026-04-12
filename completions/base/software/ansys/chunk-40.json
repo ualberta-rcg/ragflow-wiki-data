@@ -1,0 +1,84 @@
+{
+  "doc_key": "base/ansys",
+  "level": "chunk",
+  "chunk_index": 40,
+  "qa_pairs": [
+    {
+      "question": "What is the SHARCNET Ansys license available for?",
+      "answer": "The SHARCNET Ansys license is free for academic use by any Alliance researcher on any Alliance system. It is specifically for Publishable Academic Research."
+    },
+    {
+      "question": "Can the SHARCNET Ansys license be used for commercial purposes?",
+      "answer": "No, the SHARCNET Ansys license is strictly prohibited for any private or commercial purposes."
+    },
+    {
+      "question": "Does the SHARCNET Ansys license have solver or geometry limits?",
+      "answer": "No, the installed software does not have any solver or geometry limits with the SHARCNET Ansys license."
+    },
+    {
+      "question": "Which Ansys products are included with the SHARCNET license?",
+      "answer": "The SHARCNET Ansys license, based on the Multiphysics Campus Solution, includes products such as HF, EM, Electronics HPC, Mechanical, CFD, ROCKY, and LS-DYNA."
+    },
+    {
+      "question": "Is Lumerical software covered by the SHARCNET Ansys license?",
+      "answer": "No, Lumerical software is not covered by the SHARCNET license, even though it's included in recent Ansys module versions."
+    },
+    {
+      "question": "Is SpaceClaim software installed with Ansys modules on Alliance systems?",
+      "answer": "SpaceClaim software is not installed with any Ansys module on Alliance systems because there is no Linux version available."
+    },
+    {
+      "question": "What is the recommended CPU utilization for parallel jobs using the SHARCNET Ansys license?",
+      "answer": "Parallel jobs should achieve at least 50% CPU utilization. Jobs that do not meet this may be flagged by the system, leading to a followup by an Alliance team member."
+    },
+    {
+      "question": "What is the maximum number of simultaneous jobs and HPC cores a researcher can use with the SHARCNET Ansys license?",
+      "answer": "Each researcher is permitted to run up to 8 simultaneous jobs with a total of 768 HPC cores."
+    },
+    {
+      "question": "How many `anshpc` licenses are in the SHARCNET Ansys license pool?",
+      "answer": "There are 1986 `anshpc` licenses in the SHARCNET Ansys license pool."
+    },
+    {
+      "question": "Why might license checkout failures occur frequently with the SHARCNET Ansys license?",
+      "answer": "The license pool is heavily oversubscribed by approximately 4.5 times, meaning if too many users run large jobs, frequent license checkout failures will occur."
+    },
+    {
+      "question": "What should I do if my job fails to start due to a shortage of SHARCNET Ansys licenses?",
+      "answer": "You should manually resubmit your job. There is no need to submit a support ticket each time this happens as the SHARCNET license is monitored for such failures."
+    },
+    {
+      "question": "Will the individual `anshpc` license checkout limit for researchers change if frequent failures occur?",
+      "answer": "Yes, if too many license failures begin to occur, the total number of `anshpc` licenses each user can checkout will be reduced from 768 to 384."
+    },
+    {
+      "question": "How should I configure my `ansys.lic` file to use the SHARCNET Ansys license?",
+      "answer": "As of February 2026, you should configure your `~/.licenses/ansys.lic` file with the line: `setenv(\"ANSYSLMD_LICENSE_FILE\", \"1055@license1.computecanada.ca\")`."
+    },
+    {
+      "question": "What happened to the old SHARCNET license server `license3.sharcnet.ca`?",
+      "answer": "The old `license3.sharcnet.ca` license server was permanently shut down in February 2026."
+    },
+    {
+      "question": "How can I check the number of Ansys licenses in use by my username and by all users on a SHARCNET cluster?",
+      "answer": "You can check by running the following command sequence: `ssh nibi.alliancecan.ca; module load ansys; $EBROOTANSYS/v$(echo ${EBVERSIONANSYS:2:2}${EBVERSIONANSYS:5:1})/licensingclient/linx64/lmutil lmstat -c $ANSYSLMD_LICENSE_FILE -a | grep \"Users of|$USER\" | grep -v \" Total of 0 licenses in use\"`."
+    },
+    {
+      "question": "How are `anshpc` licenses consumed by Fluent jobs, according to the example provided?",
+      "answer": "In the example, an 8-core Fluent job used 4 `anshpc` licenses, and a 32-core Fluent job used 28 `anshpc` licenses. The consumption seems to be (number of cores - 4) for cores greater than 4, plus a base of 4 licenses for any job."
+    },
+    {
+      "question": "What are `rogue Ansys processes` and how can I deal with them?",
+      "answer": "Rogue Ansys processes are Ansys programs or GUI sessions that were not shut down cleanly and continue to run, tying up licenses. To kill them, you can either close the desktop, scancel the salloc session, or open a terminal on the affected node and issue the command: `pkill -9 -e -u $USER -f \"ansys|mwrpcss|mwfwrapper|ENGINE\"`."
+    },
+    {
+      "question": "What is the best way to minimize cores used and avoid license checkout failures with the SHARCNET license?",
+      "answer": "The best way is to perform detailed scaling tests to ensure the job size is optimally chosen. Due to oversubscription, most researchers are required to use less than 166 cores."
+    },
+    {
+      "question": "What options are available if my research regularly requires 768 HPC cores with Ansys and the SHARCNET license is oversubscribed?",
+      "answer": "If your research regularly requires 768 HPC cores, you could consider using an Ansys license server at your local institution, or contribute towards the purchase of a larger SHARCNET license to increase your individual checkout limit."
+    }
+  ],
+  "generated_at": "2026-04-11T16:53:32.033284+00:00"
+}

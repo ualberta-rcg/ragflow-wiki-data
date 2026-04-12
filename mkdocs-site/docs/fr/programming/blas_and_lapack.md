@@ -5,21 +5,47 @@ lang: "fr"
 
 source_wiki_title: "BLAS and LAPACK/fr"
 source_hash: "9a163a19948a6f32c5991967b5dcf97a"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T04:52:33.921816+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T05:43:27.338555+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "compilateur Intel"
+  - "implémentation"
+  - "Narval"
+  - "FLEXIBLAS"
+  - "Intel MKL"
+  - "BLAS/LAPACK"
+  - "options de compilation"
+  - "FlexiBLAS"
+  - "LAPACK"
+  - "MKL Link Advisor"
+  - "BLIS"
+  - "BLAS"
+  - "implémentations"
+
+questions:
+  - "Que sont les bibliothèques BLAS et LAPACK, et pourquoi est-il important de choisir la bonne implémentation selon le matériel utilisé ?"
+  - "Quel est le rôle principal de FlexiBLAS et quel problème majeur permet-il de résoudre lors du déploiement de logiciels sur plusieurs grappes de calcul ?"
+  - "Comment doit-on configurer la compilation d'un programme avec FlexiBLAS et comment changer l'implémentation en arrière-plan lors de l'exécution ?"
+  - "Comment doit-on modifier les options d'un compilateur Intel pour utiliser directement la bibliothèque MKL à la place de FlexiBLAS ?"
+  - "Quelle est la démarche à suivre pour intégrer Intel MKL avec des compilateurs tiers tels que GCC ?"
+  - "Dans quelles situations l'outil Intel MKL Link Advisor s'avère-t-il utile pour les développeurs ?"
+  - "Quelles sont les implémentations de FLEXIBLAS disponibles en janvier 2022 et quelle commande permet d'en afficher la liste complète ?"
+  - "Quelle est la configuration par défaut de la variable FLEXIBLAS sur la grappe Narval ?"
+  - "Quelle bibliothèque est utilisée par défaut sur les grappes autres que Narval lorsque la variable FLEXIBLAS n'est pas définie ?"
+  - "Comment doit-on modifier les options d'un compilateur Intel pour utiliser directement la bibliothèque MKL à la place de FlexiBLAS ?"
+  - "Quelle est la démarche à suivre pour intégrer Intel MKL avec des compilateurs tiers tels que GCC ?"
+  - "Dans quelles situations l'outil Intel MKL Link Advisor s'avère-t-il utile pour les développeurs ?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -27,7 +53,8 @@ status:
 
 En plus de l'implémentation de référence de Netlib, il existe plusieurs autres implémentations de ces deux standards. La performance de ces implémentations peut varier de beaucoup selon le logiciel utilisé; par exemple, il est clairement établi que l'implémentation fournie par [la bibliothèque Intel Math Kernel Library (Intel MKL)](https://www.intel.com/content/www/us/en/developer/tools/oneapi/onemkl.html) offre une meilleure performance avec les processeurs Intel dans la plupart des situations. Intel est cependant propriétaire de cette implémentation et dans certains cas il est préférable d'utiliser [l'implémentation libre OpenBLAS](https://github.com/xianyi/OpenBLAS) ou encore [BLIS](https://github.com/flame/blis), dont la performance est meilleure avec les processeurs AMD. Deux projets qui ne sont plus maintenus sont [gotoblas](https://www.tacc.utexas.edu/research-development/tacc-software/gotoblas2) et [ATLAS BLAS](https://github.com/math-atlas/math-atlas).
 
-Malheureusement, il faut habituellement recompiler un logiciel pour savoir quelle implémentation est la plus performante pour un code particulier et une configuration matérielle précise. Ceci est problématique quand on veut créer un environnement logiciel portable pouvant fonctionner sur plusieurs grappes. Pour y remédier, vous pouvez utiliser [FlexiBLAS](https://www.mpi-magdeburg.mpg.de/projects/flexiblas), une couche d'abstraction qui permet de changer l'implémentation de BLAS et de LAPACK au moment de l'exécution plutôt que pendant la compilation.
+!!! info "À propos de FlexiBLAS"
+    Malheureusement, il faut habituellement recompiler un logiciel pour savoir quelle implémentation est la plus performante pour un code particulier et une configuration matérielle précise. Ceci est problématique quand on veut créer un environnement logiciel portable pouvant fonctionner sur plusieurs grappes. Pour y remédier, vous pouvez utiliser [FlexiBLAS](https://www.mpi-magdeburg.mpg.de/projects/flexiblas), une couche d'abstraction qui permet de changer l'implémentation de BLAS et de LAPACK au moment de l'exécution plutôt que pendant la compilation.
 
 ## Choisir une implémentation
 Depuis quelques années, nous recommandions d'utiliser Intel MKL comme implémentation de référence étant donné que nos grappes n'avaient que des processeurs Intel. Depuis la mise en service de [Narval](narval.md) qui possède des processeurs AMD, nous recommandons maintenant de compiler le code avec FlexiBLAS. La configuration de notre module FlexiBLAS fait en sorte que BLIS est utilisé en présence de processeurs AMD et Intel MKL en présence d'autres types de processeurs, ce qui offre habituellement la performance optimale.
@@ -45,11 +72,13 @@ flexiblas list
 Sur [Narval](narval.md), nous avons configuré `FLEXIBLAS=blis` pour utiliser BLIS par défaut. Sur les autres grappes, `FLEXIBLAS` n'est pas défini et Intel MKL est utilisé par défaut.
 
 ## Utiliser directement Intel MKL
-Même si nous recommandons d'utiliser FlexiBLAS, il est toujours possible d'utiliser directement Intel MKL. Avec un compilateur Intel (par exemple `ifort, icc, icpc`), la solution est de remplacer `-lblas` et `-llapack` dans les options du compilateur et de l'éditeur (*linker*) avec :
+Même si nous recommandons d'utiliser FlexiBLAS, il est toujours possible d'utiliser directement Intel MKL. Avec un compilateur Intel (par exemple `ifort`, `icc`, `icpc`), la solution est de remplacer `-lblas` et `-llapack` dans les options du compilateur et de l'éditeur (*linker*) avec :
 *   `-mkl=sequential` pour ne pas utiliser de fils internes, ou
 *   `-mkl` pour utiliser des fils internes.
+
 Ceci fait en sorte que l'implémentation MKL de BLAS/LAPACK est utilisée. Voyez [la documentation sur les options](https://software.intel.com/en-us/mkl-linux-developer-guide-using-the-mkl-compiler-option).
 
 Avec les compilateurs autres que ceux d'Intel, par exemple la GCC (GNU Compiler Collection), vous devez lister explicitement les bibliothèques MKL requises au cours de l'étape d'édition. Intel fournit l'outil [MKL Link Advisor](https://software.intel.com/en-us/articles/intel-mkl-link-line-advisor) pour vous aider à déterminer les options de compilation et d'édition.
 
-[MKL Link Advisor](https://software.intel.com/en-us/articles/intel-mkl-link-line-advisor) est aussi utile si vous obtenez des erreurs *undefined reference* avec les compilateurs Intel et `-mkl`.
+!!! tip "Problèmes de référence indéfinie"
+    [MKL Link Advisor](https://software.intel.com/en-us/articles/intel-mkl-link-line-advisor) est aussi utile si vous obtenez des erreurs *undefined reference* avec les compilateurs Intel et `-mkl`.

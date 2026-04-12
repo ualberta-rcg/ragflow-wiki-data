@@ -1,0 +1,76 @@
+{
+  "doc_key": "base/points_de_contrôle",
+  "level": "chunk",
+  "chunk_index": 1,
+  "qa_pairs": [
+    {
+      "question": "Why are checkpoints important for long-running programs?",
+      "answer": "Checkpoints are important for long-running programs because they minimize the chances of losing several weeks of computation due to system failures or exceeding the duration allowed by submission systems on clusters. They also allow for the program to be restarted later."
+    },
+    {
+      "question": "When is it recommended to implement checkpoints instead of simply restarting a program?",
+      "answer": "It is recommended to implement checkpoints when a program's execution becomes very long, as opposed to short-duration programs which can be easily restarted."
+    },
+    {
+      "question": "What should you do if an application you're using already has checkpoint functionality?",
+      "answer": "If an application you're using already has checkpoint functionality, you should use that feature and consult its documentation as needed."
+    },
+    {
+      "question": "Under what circumstances can a user implement checkpoint creation and loading themselves?",
+      "answer": "A user can implement checkpoint creation and loading themselves if they have access to the application's source code and/or are the author of the application."
+    },
+    {
+      "question": "How often should a checkpoint file be created?",
+      "answer": "A checkpoint file should be created periodically, with suggested intervals ranging from 2 to 24 hours."
+    },
+    {
+      "question": "What critical consideration should be kept in mind when writing a checkpoint file?",
+      "answer": "When writing a checkpoint file, it is critical to remember that the computation task can be interrupted at any moment due to various technical reasons."
+    },
+    {
+      "question": "Is it advisable to overwrite a previous checkpoint when creating a new one?",
+      "answer": "No, it is preferable not to overwrite the previous checkpoint when creating a new one."
+    },
+    {
+      "question": "How can checkpoint file writing be made 'atomic'?",
+      "answer": "Checkpoint file writing can be made 'atomic' by performing an operation that confirms the end of the writing. For example, one can name the file based on the date and time, then create a symbolic link 'derniere-version' pointing to the new, uniquely named checkpoint file. Another advanced method is to create a second file containing a hash sum of the checkpoint to validate its integrity upon loading."
+    },
+    {
+      "question": "What options are available after an atomic checkpoint write is completed?",
+      "answer": "Once an atomic checkpoint write is completed, one can decide whether or not to delete old checkpoints."
+    },
+    {
+      "question": "What tool is suggested for creating checkpoints if modifying the source code isn't an option?",
+      "answer": "If modifying the source code isn't an option, the use of DMTCP (Distributed Multithreaded CheckPointing) is suggested."
+    },
+    {
+      "question": "What is a key advantage of using DMTCP software?",
+      "answer": "A key advantage of using DMTCP software is that it allows for checkpointing programs without requiring them to be recompiled."
+    },
+    {
+      "question": "How do you perform the first execution of a programme using DMTCP?",
+      "answer": "The first execution of a programme with DMTCP is performed using the `dmtcp_launch` programme, specifying the time between saving intervals."
+    },
+    {
+      "question": "How is a programme restarted after a checkpoint using DMTCP?",
+      "answer": "A programme is restarted after a checkpoint using DMTCP by executing the `dmtcp_restart_script.sh` script."
+    },
+    {
+      "question": "Where are the DMTCP restart script and programme restart files typically written by default?",
+      "answer": "By default, the DMTCP restart script and programme restart files are written to the location where the programme was launched."
+    },
+    {
+      "question": "How can the save location for DMTCP files be changed?",
+      "answer": "The save location for DMTCP files can be changed using the `--ckptdir <répertoire pour les sauvegardes>` option."
+    },
+    {
+      "question": "How can a user view all available options for `dmtcp_launch`?",
+      "answer": "A user can view all available options for `dmtcp_launch` by running `dmtcp_launch --help`."
+    },
+    {
+      "question": "What is a current limitation of DMTCP regarding parallel software?",
+      "answer": "A current limitation is that DMTCP does not work with software parallelized by MPI at this time."
+    }
+  ],
+  "generated_at": "2026-04-12T05:20:31.183014+00:00"
+}

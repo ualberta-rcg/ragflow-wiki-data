@@ -1,0 +1,92 @@
+{
+  "doc_key": "en/managing_your_cloud_resources_with_openstack",
+  "level": "chunk",
+  "chunk_index": 2,
+  "qa_pairs": [
+    {
+      "question": "How many egress rules are typically included in the default security group?",
+      "answer": "The default security group typically contains two egress rules: one for IPv4 and one for IPv6, to allow your instance to access an outside network without any limitation."
+    },
+    {
+      "question": "What ingress rules are included in the default security group?",
+      "answer": "The default security group includes two ingress rules: one for IPv4 and one for IPv6, to allow communication for all the VMs that belong to that security group."
+    },
+    {
+      "question": "Is it safe to remove rules from the default security group?",
+      "answer": "No, it is not recommended to remove rules from the default security group as this may cause problems when creating new VMs. It is safe to add rules to it."
+    },
+    {
+      "question": "Can a virtual machine (VM) belong to more than one security group?",
+      "answer": "Yes, you can define multiple security groups, and a VM can belong to more than one security group."
+    },
+    {
+      "question": "What is a key recommendation when deciding on how to manage security group rules?",
+      "answer": "When deciding on how to manage security groups and rules, you should carefully consider what needs to be accessed and who needs to access it, striving to minimize the IP addresses and ports in your Ingress rules."
+    },
+    {
+      "question": "How can SSH access to a VM be limited to a specific computer with a static IP?",
+      "answer": "If you will always be connecting to your VM via SSH from the same computer with a static IP, it makes sense to allow SSH access only from that IP by using the CIDR box to specify the allowed IP or IP range."
+    },
+    {
+      "question": "What does CIDR stand for?",
+      "answer": "CIDR stands for Classless Inter-Domain Routing."
+    },
+    {
+      "question": "What is the purpose of CIDR?",
+      "answer": "CIDR is a standardized way of defining IP ranges."
+    },
+    {
+      "question": "In a CIDR rule like `192.168.1.1/24`, what does `/24` signify?",
+      "answer": "The `/24` in a CIDR rule like `192.168.1.1/24` means that this CIDR rule will match the first leftmost 24 bits (3 bytes) of an IP address. In this case, any IP address starting with `192.168.1` will match this rule."
+    },
+    {
+      "question": "How can you specify that a CIDR rule must match an IP address exactly?",
+      "answer": "If `/32` is appended to an IP address in a CIDR rule, the full 32 bits of the IP address must match exactly."
+    },
+    {
+      "question": "What CIDR suffix can be used to match any IP address?",
+      "answer": "If `/0` is appended to a CIDR rule, no bits must match, and therefore any IP address will match it."
+    },
+    {
+      "question": "When can you customize an instance using cloudInit?",
+      "answer": "You can customize an instance using cloudInit the first time your instance is launched."
+    },
+    {
+      "question": "What are the two ways to customize an instance with cloudInit?",
+      "answer": "You can customize an instance with cloudInit either via the OpenStack command-line interface or by pasting your cloudInit script in the 'Customization Script' field of the OpenStack dashboard."
+    },
+    {
+      "question": "Where is the 'Customization Script' field located in the OpenStack dashboard for cloudInit?",
+      "answer": "The 'Customization Script' field is located under the 'Configuration' option when using the 'Launch instance' button, accessible from 'Project-->Compute-->Instances'."
+    },
+    {
+      "question": "Can cloudInit be used to add multiple users during VM creation?",
+      "answer": "Yes, cloudInit can be used during VM creation to add multiple users, specifying their shell, sudo permissions, and SSH authorized keys."
+    },
+    {
+      "question": "What happens to the default user if a cloudInit script adding new users is applied without specifying to preserve it?",
+      "answer": "If a cloudInit script adding new users is applied without explicitly preserving the default user, this configuration overwrites the default user, meaning the users listed in the script will be the only users on the newly created VM."
+    },
+    {
+      "question": "When using a cloudInit script that overwrites default users, what is a vital user permission to ensure?",
+      "answer": "It is vital to have at least one user with sudo permission when using a cloudInit script that overwrites the default users."
+    },
+    {
+      "question": "How can you preserve the default user created by the distribution while also adding new users via cloudInit?",
+      "answer": "To preserve the default user created by the distribution while adding new users with cloudInit, you should include `- default` in the `users` list within your cloudInit script."
+    },
+    {
+      "question": "How can you verify that public keys for new users have been added correctly after a VM has spawned using cloudInit?",
+      "answer": "After the VM has spawned, you can verify public key additions by checking the 'log' tab for the instance on the 'Compute->Instances' panel; the log should show information about the authorized keys for the users."
+    },
+    {
+      "question": "When can a VM's security groups be chosen or modified?",
+      "answer": "A VM's security groups can be chosen when it is created on the 'Launch Instance' with the 'Security Groups' option, or modified after the VM has been launched by selecting 'Edit Security Groups' from the drop-down menu of actions for the VM on the 'Project->Compute->Instances' page."
+    },
+    {
+      "question": "What is important to note about whitespace formatting in YAML for cloudInit scripts?",
+      "answer": "YAML is very picky about whitespace formatting, so there must be a space after the '-' before your public key string in the `ssh_authorized_keys` section."
+    }
+  ],
+  "generated_at": "2026-04-12T02:15:31.912592+00:00"
+}

@@ -1,0 +1,72 @@
+{
+  "doc_key": "base/vnc",
+  "level": "chunk",
+  "chunk_index": 5,
+  "qa_pairs": [
+    {
+      "question": "What is the first step to starting a VNC server on a compute node?",
+      "answer": "The first step is to log into a cluster (such as Nibi) and create a compute node allocation using the `salloc` command."
+    },
+    {
+      "question": "What is the purpose of the `salloc` command when starting a VNC server on a compute node?",
+      "answer": "The `salloc` command is used to create a compute node allocation for an interactive job, allowing you to request resources like CPUs, memory, and a time limit."
+    },
+    {
+      "question": "Provide an example of an `salloc` command to request an interactive job with specific resources.",
+      "answer": "An example command is: `salloc --time=1:00:00 --cpus-per-task=4 --mem=16000 --account=def-piusername`. This requests a 1-hour job with 4 CPUs and 16GB of memory."
+    },
+    {
+      "question": "What environment variable needs to be set after an interactive job starts on a compute node to avoid repetitive desktop errors?",
+      "answer": "The `XDG_RUNTIME_DIR` environment variable needs to be set to `export XDG_RUNTIME_DIR=${SLURM_TMPDIR}`."
+    },
+    {
+      "question": "How do you start the VNC server itself on a compute node?",
+      "answer": "You start it using the `vncserver` command after the interactive job has started and the `XDG_RUNTIME_DIR` environment variable is set."
+    },
+    {
+      "question": "What happens the first time you run `vncserver`?",
+      "answer": "The first time you run `vncserver`, you will be prompted to set a password for your VNC server."
+    },
+    {
+      "question": "Why is it important to set a password for your VNC server?",
+      "answer": "It is crucial to set a password and not leave it blank, as doing so would allow anyone to connect to your VNC server and gain access to the files in your account."
+    },
+    {
+      "question": "How can you change your VNC server password after it has been set?",
+      "answer": "You can change your VNC server password later using the `vncpasswd` command."
+    },
+    {
+      "question": "How do you determine which port your VNC server is listening on after it has started?",
+      "answer": "You can determine the listening port by running the `grep` command on the VNC server's log file, for example: `grep -iE \"\\sport|kill\" /home/yourusername/.vnc/c48.nibi.sharcnet:1.log`."
+    },
+    {
+      "question": "What is the next step after starting a VNC server on a compute node and identifying its listening port?",
+      "answer": "The next step is to set up a secure SSH tunnel from your laptop to the compute node where your `vncserver` is running."
+    },
+    {
+      "question": "Are there different SSH tunnel commands based on the cluster type?",
+      "answer": "Yes, there are two types of SSH tunnel commands that may be used, depending on which cluster you are using."
+    },
+    {
+      "question": "What is the recommended SSH tunnel command for clusters other than Nibi?",
+      "answer": "For all clusters except Nibi, the tunnel command is `ssh username@clustername -L localforwardedport:computenode:remotelisteningport`."
+    },
+    {
+      "question": "Provide an example of an SSH tunnel command for a non-Nibi cluster like Rorqual.",
+      "answer": "An example command is `ssh username@rorqual.alliancecan.ca -L 5905:rc12509:5901`, where `rc12509` is the compute node and `5905` is the local forwarded port."
+    },
+    {
+      "question": "What is the specific SSH tunnel command required for the Nibi cluster?",
+      "answer": "For Nibi, the tunnel command is `ssh -J username@clustername -L localforwardedport:localhost:remotelisteningport computenode`."
+    },
+    {
+      "question": "What additional setup is required on your laptop to use the Nibi SSH tunnel command?",
+      "answer": "An SSH key pair must be created on your laptop, and the contents of the public key must be entered into your `~/.ssh/authorized_keys` file on Nibi."
+    },
+    {
+      "question": "Can the new Nibi SSH tunnel command approach be used on other clusters?",
+      "answer": "Yes, the approach for Nibi will also work on any other cluster and may eventually be preferred."
+    }
+  ],
+  "generated_at": "2026-04-12T10:50:17.092638+00:00"
+}

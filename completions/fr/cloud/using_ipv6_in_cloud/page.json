@@ -1,0 +1,63 @@
+{
+  "doc_key": "fr/using_ipv6_in_cloud",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "Quelles sortes d'adresses IPv6 sont typiquement disponibles dans l'environnement infonuagique d'Arbutus?",
+      "answer": "Les adresses LLA (Link-Local) et GUA (Global Unicast Addresses) sont généralement disponibles."
+    },
+    {
+      "question": "Comment les adresses GUA sont-elles configurées sur une instance Arbutus?",
+      "answer": "Elles sont configurées automatiquement par SLAAC (Stateless Address Auto Configuration) sur l'interface de l'instance."
+    },
+    {
+      "question": "Quel est le comportement par défaut des groupes de sécurité pour le trafic IPv6 sortant et entrant via les GUA?",
+      "answer": "Par défaut, le trafic sortant est permis via les GUA, mais rien en provenance de l'extérieur de l'instance ne sera permis tant que des règles spécifiques ne sont pas définies."
+    },
+    {
+      "question": "Comment peut-on assigner une nouvelle interface réseau IPv6 à une instance avec l'interface de ligne de commande OpenStack?",
+      "answer": "Il faut d'abord obtenir l'ID de l'instance avec `openstack server list`, puis utiliser `openstack server add network <ID_de_l'instance> IPv6-GUA`."
+    },
+    {
+      "question": "Comment vérifier l'état de l'assignation d'une interface réseau IPv6 après l'avoir ajoutée avec l'interface de ligne de commande OpenStack?",
+      "answer": "On utilise la commande `openstack server list` pour voir les réseaux assignés à l'instance."
+    },
+    {
+      "question": "Quelles sont les étapes pour attacher une interface IPv6 via le tableau de bord web d'OpenStack?",
+      "answer": "Dans le menu 'Instances', on clique sur 'Attacher l'interface', puis on sélectionne 'IPv6-GUA' dans le champ 'Réseau' et on clique sur 'Attacher l'interface'."
+    },
+    {
+      "question": "Quand est-ce qu'une adresse GUA est libérée et retourne dans le 'pool'?",
+      "answer": "Une adresse GUA est libérée et retourne dans le 'pool' chaque fois que l'interface est détachée. Reconstruire ou redémarrer l'instance ne libère pas l'adresse."
+    },
+    {
+      "question": "Comment peut-on autoriser l'accès entrant à une adresse GUA dans OpenStack?",
+      "answer": "L'accès peut être autorisé par la fonction 'Groupes de sécurité' d'OpenStack, en définissant des règles spécifiques."
+    },
+    {
+      "question": "Comment apparaît l'interface réseau IPv6 configurée dans OpenStack sous Linux?",
+      "answer": "Elle apparaît comme une interface de type eth, typiquement `/dev/eth1` si `/dev/eth0` est l'interface courante."
+    },
+    {
+      "question": "Quelle commande Linux permet de vérifier si IPv6 est activé sur le système?",
+      "answer": "On utilise la commande `sudo sysctl -a | grep ipv6.*disable`. Les résultats devraient tous se terminer par des zéros."
+    },
+    {
+      "question": "Quels paramètres de noyau doivent être ajoutés à `/etc/sysctl.conf` pour une interface IPv6 spécifique comme `eth1`?",
+      "answer": "Il faut ajouter `net.ipv6.conf.eth1.forwarding=0` et `net.ipv6.conf.eth1.accept_ra=1`."
+    },
+    {
+      "question": "Quelles configurations doivent être ajoutées au fichier `/etc/sysconfig/network-scripts/ifcfg-eth1`?",
+      "answer": "Il faut ajouter `IPV6INIT=yes`, `IPV6_AUTOCONF=yes`, `IPV6_DEFROUTE=yes` et `IPV6_FAILURE_FATAL=no`."
+    },
+    {
+      "question": "Après la configuration Linux, quelle commande peut confirmer la configuration des adresses IPv6?",
+      "answer": "La commande `ip -6 address` permet de confirmer la configuration IPv6."
+    },
+    {
+      "question": "Comment peut-on confirmer que la connectivité IPv6 fonctionne sous Linux?",
+      "answer": "On peut confirmer la connectivité avec la commande `ping6 -c 1 www.google.com`."
+    }
+  ],
+  "generated_at": "2026-04-12T10:24:20.953187+00:00"
+}

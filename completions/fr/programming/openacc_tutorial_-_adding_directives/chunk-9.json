@@ -1,0 +1,52 @@
+{
+  "doc_key": "fr/openacc_tutorial_-_adding_directives",
+  "level": "chunk",
+  "chunk_index": 9,
+  "qa_pairs": [
+    {
+      "question": "Pourquoi la version OpenACC du code d'exemple est-elle plus lente que la version originale?",
+      "answer": "La version OpenACC prend près de quatre fois plus de temps que la version originale. Pour comprendre pourquoi, il faut utiliser le NVidia Visual Profiler (nvvp)."
+    },
+    {
+      "question": "Qu'est-ce que le NVidia Visual Profiler (NVVP)?",
+      "answer": "Le NVidia Visual Profiler est un profileur graphique conçu pour analyser les applications qui utilisent les directives OpenACC et CUDA C/C++."
+    },
+    {
+      "question": "Dans quelles circonstances le NVidia Visual Profiler ne fournira-t-il aucun résultat?",
+      "answer": "Le NVidia Visual Profiler ne fournira aucun résultat si l'exécutable qu'il analyse n'utilise pas le processeur graphique (GPU)."
+    },
+    {
+      "question": "Comment puis-je lancer le NVidia Visual Profiler (nvvp) à partir d'un terminal?",
+      "answer": "Pour lancer NVVP, vous devez d'abord charger les modules 'cuda/11.7' et 'java/1.8', puis taper la commande 'nvvp' (ou 'nvvp &' pour le lancer en arrière-plan)."
+    },
+    {
+      "question": "Quelle est la première étape à suivre après le lancement du NVVP?",
+      "answer": "Après le lancement de NVVP, la première étape est de spécifier le répertoire 'Workspace' qui servira pour les fichiers temporaires, en remplaçant 'home' par 'scratch' dans le chemin suggéré."
+    },
+    {
+      "question": "Comment démarrer une nouvelle session de profilage pour un exécutable dans NVVP?",
+      "answer": "Pour démarrer une nouvelle session, allez dans 'File > New Session', cliquez sur 'Browse' pour trouver votre exécutable (comme 'challenge'), sélectionnez 'Profile current process only' sous 'Arguments', puis cliquez sur 'Next' jusqu'à 'Finish'."
+    },
+    {
+      "question": "Que révèle typiquement le profilage d'un code porté du CPU vers le GPU avec NVVP?",
+      "answer": "Le profilage révèle souvent que le transfert de données entre la mémoire de départ (CPU) et la mémoire d'arrivée (GPU) occupe la plus grande partie du temps d'exécution."
+    },
+    {
+      "question": "Quelle est la particularité de la directive OpenACC <tt>parallel loop</tt>?",
+      "answer": "La directive <tt>parallel loop</tt> est une approche 'prescriptive' en OpenACC. Ça veut dire qu'elle force le compilateur à exécuter la boucle en parallèle, et la clause <tt>independent</tt> est implicite à l'intérieur d'une zone parallèle."
+    },
+    {
+      "question": "Pourquoi a-t-on besoin des clauses <tt>private</tt> et <tt>reduction</tt> avec la directive <tt>parallel loop</tt>?",
+      "answer": "On a besoin des clauses <tt>private</tt> et <tt>reduction</tt> pour gérer le flux des données dans la zone parallèle. <tt>private</tt> assure que chaque itération de la boucle a sa propre copie d'une variable, et <tt>reduction</tt> combine les valeurs d'une variable de plusieurs itérations en une seule."
+    },
+    {
+      "question": "Quelle est la différence entre la clause <tt>private</tt> et <tt>reduction</tt>?",
+      "answer": "La clause <tt>private</tt> crée une copie indépendante de la variable pour chaque itération de la boucle, tandis que la clause <tt>reduction</tt> prend les valeurs de la variable dans chaque itération et les réduit à une valeur unique (par exemple, par addition ou multiplication)."
+    },
+    {
+      "question": "Pourquoi les clauses <tt>private</tt> et <tt>reduction</tt> ne sont-elles pas nécessaires avec la directive <tt>kernels</tt>?",
+      "answer": "Ces clauses ne sont pas nécessaires avec la directive <tt>kernels</tt> parce que le compilateur s'occupe de gérer le flux de données et la parallélisation de manière automatique pour vous."
+    }
+  ],
+  "generated_at": "2026-04-12T04:10:02.422198+00:00"
+}

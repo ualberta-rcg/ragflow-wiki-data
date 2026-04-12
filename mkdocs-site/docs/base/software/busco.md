@@ -5,21 +5,75 @@ lang: "base"
 
 source_wiki_title: "BUSCO"
 source_hash: "3ac04a727387819d65944edd888107b7"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T04:53:17.043655+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T05:44:12.870603+00:00"
 
 tags:
   - software
 
 keywords:
-  []
+  - "BUSCO_CONFIG_FILE"
+  - "working directory"
+  - "tar -xvf"
+  - "DendroPy"
+  - "Augustus config path"
+  - "SEPP parameters"
+  - "scheduler"
+  - "configuration file"
+  - "Datasets"
+  - "install SEPP"
+  - "Production runs"
+  - "run_BUSCO.py"
+  - "Slurm"
+  - "AUGUSTUS_CONFIG_PATH"
+  - "virtual environment"
+  - "wget command"
+  - "Augustus"
+  - "Augustus parameters"
+  - "Troubleshooting"
+  - "Annotation completeness"
+  - "Genome assembly"
+  - "SEPP"
+  - "busco_downloads"
+  - "Python wheel"
+  - "writable location"
+  - "genome"
+  - "BUSCO"
+  - "config directory"
+  - "decompress"
+
+questions:
+  - "What is the primary purpose of the BUSCO application?"
+  - "What are the necessary steps and dependencies required to install BUSCO using a Python wheel?"
+  - "What are the two available methods for downloading BUSCO datasets before submitting a job?"
+  - "What action is required if the target directory is not located in the current working directory?"
+  - "Which specific command must be used to decompress the downloaded files?"
+  - "What sequence of commands is provided to create the appropriate directory and download the lineage dataset using wget?"
+  - "How do the command-line arguments differ when running BUSCO on a single genome file versus multiple genome files?"
+  - "What are the necessary steps and module dependencies included in the provided Slurm job submission script for running BUSCO?"
+  - "What specific environment configurations and local installations are required to use advanced Augustus and SEPP parameters?"
+  - "How do you activate the local virtual environment after installing SEPP?"
+  - "What modifications and file copies are necessary to set up the configuration files for BUSCO and Augustus?"
+  - "What command is used to run a test validation for BUSCO, and how long should it typically take to complete?"
+  - "From which node must the local installation of SEPP in the virtual environment be performed?"
+  - "What must be activated before proceeding with the installation of the required packages?"
+  - "Which specific version constraint applies to the DendroPy package during the installation process?"
+  - "What specific error does this troubleshooting guide aim to resolve?"
+  - "Where must the config directory be copied to fix the writing issue?"
+  - "Which environment variable needs to be exported to ensure Augustus functions correctly?"
+  - "What environment variables and command-line arguments are used to execute the sample BUSCO run?"
+  - "How long should the sample `run_BUSCO.py` command take to complete?"
+  - "What is the recommended procedure for handling production runs that require more processing time?"
+  - "What specific error does this troubleshooting guide aim to resolve?"
+  - "Where must the config directory be copied to fix the writing issue?"
+  - "Which environment variable needs to be exported to ensure Augustus functions correctly?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -37,41 +91,41 @@ avail_wheels busco
 
 ## Python wheel
 ### Installation
-**1.** Load the necessary modules.
+1. Load the necessary modules.
 ```bash
 module load StdEnv/2023 gcc python/3.11 augustus/3.5.0 hmmer/3.4 blast+/2.15 metaeuk/7 prodigal/2.6.3 r bbmap/39.06
 ```
 
-**2.** Create the virtual environment.
+2. Create the virtual environment.
 ```bash
 virtualenv ~/busco_env
 source ~/busco_env/bin/activate
 ```
 
-**3.** Install the wheel and its dependencies.
+3. Install the wheel and its dependencies.
 ```bash
 (busco_env) $ pip install --no-index busco==6.0.0
 ```
 
-**4.** Validate the installation.
+4. Validate the installation.
 ```bash
 (busco_env) $ busco --help
 ```
 
-**5.** Freeze the environment and requirements set. To use the requirements text file, see the *bash* submission script shown at point 8.
+5. Freeze the environment and requirements set. To use the requirements text file, see the *bash* submission script shown at point 8.
 ```bash
 (busco_env) $ pip freeze > ~/busco-requirements.txt
 ```
 
 ### Usage
 #### Datasets
-**6.** You must pre-download any datasets from [BUSCO data](https://busco-data.ezlab.org/v5/data/) before submitting your job.
+6. You must pre-download any datasets from [BUSCO data](https://busco-data.ezlab.org/v5/data/) before submitting your job.
 
 You can access the available datasets in your terminal by typing `busco --list-datasets`.
 
 You have **two** options to download datasets:
-* Use the `busco` command,
-* Use the `wget` command.
+* use the `busco` command,
+* use the `wget` command.
 
 ##### 6.1 Using the `busco` command
 This is the preferred option. Type this command in your working directory to download a particular dataset, for example
@@ -88,24 +142,24 @@ This will
 1. create a BUSCO directory hierarchy for the datasets,
 2. download the appropriate datasets,
 3. decompress the file(s),
-4. if you download multiple files, they will all be automatically added to the lineages directory. 
+4. if you download multiple files, they will all be automatically added to the lineages directory.
 
 The hierarchy will look like this:
-```
-* busco_downloads/
-    * information/
-        lineages_list.2021-12-14.txt
-    * lineages/
-        bacteria_odb10
-        actinobacteria_class_odb10
-        actinobacteria_phylum_odb10
-    * placement_files/
-        list_of_reference_markers.archaea_odb10.2019-12-16.txt
-```
+
+> * busco_downloads/
+>   * information/
+>     * lineages_list.2021-12-14.txt
+>   * lineages/
+>     * bacteria_odb10
+>     * actinobacteria_class_odb10
+>     * actinobacteria_phylum_odb10
+>   * placement_files/
+>     * list_of_reference_markers.archaea_odb10.2019-12-16.txt
 
 Doing so, all your lineage files should be in **busco_downloads/lineages/**. When referring to `--download_path busco_downloads/` in the BUSCO command line, it will know where to find the lineage dataset argument `--lineage_dataset bacteria_odb10`. If the *busco_download* directory is not in your working directory, you will need to provide the full path.
 
 ##### 6.2 Using the `wget` command
+
 All files must be decompressed with `tar -xvf file.tar.gz`.
 ```bash
 mkdir -p busco_downloads/lineages
@@ -115,12 +169,13 @@ tar -xvf bacteria_odb10.2020-03-06.tar.gz
 ```
 
 #### Test
-**7.** Download a genome file.
+7. Download a genome file.
+
 ```bash
 wget https://gitlab.com/ezlab/busco/-/raw/master/test_data/bacteria/genome.fna
 ```
 
-**8.** Run.
+8. Run.
 
 Command to run a single genome:
 
@@ -137,7 +192,7 @@ busco --offline --in genome/ --out TEST --lineage_dataset bacteria_odb10 --mode 
 The single genome command should take less than 60 seconds to complete. Production runs which take longer must be submitted to the [scheduler](running-jobs.md).
 
 ##### BUSCO tips
-Specify `--in genome.fna` for single file analysis. 
+Specify `--in genome.fna` for single file analysis.
 
 Specify `--in genome/` for multiple files analysis.
 
@@ -152,7 +207,7 @@ Specify `--restart` to restart from a partial run.
 
 Here you have an example of a submission script. You can submit as so: `sbatch run_busco.sh`.
 
-```bash title="run_busco.sh"
+```bash linenums="1" title="run_busco.sh"
 #!/bin/bash
 
 #SBATCH --job-name=busco9_run
@@ -177,7 +232,7 @@ busco --offline --in genome.fna --out TEST --lineage_dataset bacteria_odb10 --mo
 ```
 
 #### Augustus parameters
-**9.** Advanced users may want to use Augustus parameters: `--augustus_parameters="--yourAugustusParameter"`.
+9. Advanced users may want to use Augustus parameters: `--augustus_parameters="--yourAugustusParameter"`.
 
 * Copy the Augustus *config* directory to a writable location.
 ```bash
@@ -190,19 +245,19 @@ export AUGUSTUS_CONFIG_PATH=$HOME/augustus_config
 ```
 
 #### SEPP parameters
-**10.** To use SEPP parameters, you need to install SEPP locally in your virtual environment. This should be done from the login node.
+10. To use SEPP parameters, you need to install SEPP locally in your virtual environment. This should be done from the login node.
 
-**10.1.** Activate your BUSCO virtual environment.
+10.1. Activate your BUSCO virtual environment.
 ```bash
 source busco_env/bin/activate
 ```
 
-**10.2.** Install DendroPy.
+10.2. Install DendroPy.
 ```bash
 pip install 'dendropy<4.6'
 ```
 
-**10.3.** Install SEPP.
+10.3. Install SEPP.
 ```bash
 git clone https://github.com/smirarab/sepp.git
 cd sepp
@@ -210,13 +265,13 @@ python setup.py config
 python setup.py install
 ```
 
-**10.4.** Validate the installation.
+10.4. Validate the installation.
 ```bash
 cd
 run_sepp.py -h
 ```
 
-**10.5.** Because SEPP is installed locally, you cannot create the virtual environment as described in the previous submission script. To activate your local virtual environment, simply add the following command immediately under the line to load the module:
+10.5. Because SEPP is installed locally, you cannot create the virtual environment as described in the previous submission script. To activate your local virtual environment, simply add the following command immediately under the line to load the module:
 ```bash
 source ~/busco_env/bin/activate
 ```
@@ -225,13 +280,13 @@ source ~/busco_env/bin/activate
 !!! warning "Deprecation"
     This section is outdated and deprecated. You should use the wheels available.
 
-**1.** Load the necessary modules.
+1. Load the necessary modules.
 ```bash
 module load StdEnv/2018.3 gcc/7.3.0 openmpi/3.1.4 busco/3.0.2 r/4.0.2
 ```
 This will also load modules for Augustus, BLAST+, HMMER and some other software packages that BUSCO relies upon.
 
-**2.** Copy the configuration file.
+2. Copy the configuration file.
 ```bash
 cp -v $EBROOTBUSCO/config/config.ini.default $HOME/busco_config.ini
 ```
@@ -240,8 +295,9 @@ or
 wget -O $HOME/busco_config.ini https://gitlab.com/ezlab/busco/raw/master/config/config.ini.default
 ```
 
-**3.** Edit the configuration file. The locations of external tools are all specified in the last section, which is shown below:
-```ini title="partial_busco_config.ini"
+3. Edit the configuration file. The locations of external tools are all specified in the last section, which is shown below:
+
+```text linenums="1" title="partial_busco_config.ini"
 [tblastn]
 # path to tblastn
 path = /cvmfs/soft.computecanada.ca/easybuild/software/2017/avx512/Compiler/gcc7.3/blast+/2.7.1/bin/
@@ -275,12 +331,13 @@ path = /cvmfs/soft.computecanada.ca/easybuild/software/2017/avx512/Compiler/gcc7
 path = /cvmfs/soft.computecanada.ca/easybuild/software/2017/avx512/Compiler/gcc7.3/r/4.0.2/bin/
 ```
 
-**4.** Copy the Augustus `config` directory to a writable location.
+4. Copy the Augustus `config` directory to a writable location.
 ```bash
 cp -r $EBROOTAUGUSTUS/config $HOME/augustus_config
 ```
 
-**5.** Check that it runs.
+5. Check that it runs.
+
 ```bash
 export BUSCO_CONFIG_FILE=$HOME/busco_config.ini
 export AUGUSTUS_CONFIG_PATH=$HOME/augustus_config

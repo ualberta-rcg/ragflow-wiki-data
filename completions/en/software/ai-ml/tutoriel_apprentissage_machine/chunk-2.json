@@ -1,0 +1,68 @@
+{
+  "doc_key": "en/tutoriel_apprentissage_machine",
+  "level": "chunk",
+  "chunk_index": 2,
+  "qa_pairs": [
+    {
+      "question": "How is data prepared for training within the example `ml-test.sh` script?",
+      "answer": "In the example `ml-test.sh` script, data is prepared by first creating a directory `$SLURM_TMPDIR/data` and then extracting the `data.tar` archive from `~/projects/def-xxxx/data.tar` into that directory using `tar xf`."
+    },
+    {
+      "question": "Where should the data be extracted to for training, according to the example `ml-test.sh` script?",
+      "answer": "According to the example `ml-test.sh` script, the data should be extracted to the `$SLURM_TMPDIR/data` directory on the compute node's local storage."
+    },
+    {
+      "question": "What command is used to extract the `data.tar` file in the example `ml-test.sh` script?",
+      "answer": "The command `tar xf ~/projects/def-xxxx/data.tar -C $SLURM_TMPDIR/data` is used to extract the `data.tar` file in the example `ml-test.sh` script."
+    },
+    {
+      "question": "How is the training process initiated in the example `ml-test.sh` script?",
+      "answer": "The training process is initiated by executing the Python script `$SOURCEDIR/train.py` with the prepared data directory `$SLURM_TMPDIR/data` as an argument, using the command `python $SOURCEDIR/train.py $SLURM_TMPDIR/data`."
+    },
+    {
+      "question": "What is the recommended time unit for checkpointing jobs?",
+      "answer": "It is recommended to checkpoint jobs in 24-hour units."
+    },
+    {
+      "question": "Why is it recommended to submit jobs with short durations when checkpointing?",
+      "answer": "Submitting jobs with short durations ensures they are more likely to start sooner, which is beneficial for checkpointed jobs."
+    },
+    {
+      "question": "How can the seven-day job limit on Béluga be overcome for long-running jobs?",
+      "answer": "The seven-day limit on Béluga can be overcome by creating a 'daisy chain' of jobs."
+    },
+    {
+      "question": "What is the first step to enable checkpointing for a job?",
+      "answer": "The first step is to modify your job submission script or your program so that the job can be interrupted and continued, and your program can access the most recent checkpoint file."
+    },
+    {
+      "question": "How do you calculate the number of 24-hour units required for a checkpointed job?",
+      "answer": "You calculate the number of units by dividing the total number of epochs by the number of epochs (or iterations) that can be completed in a 24-hour unit: `n_units = n_epochs_total / n_epochs_per_24h`."
+    },
+    {
+      "question": "Which `sbatch` argument is used to request a chain of jobs for checkpointing?",
+      "answer": "The `sbatch` argument `--array 1-<n_blocs>%1` is used to request a chain of `n_blocs` jobs."
+    },
+    {
+      "question": "How does the example `ml-test-chain.sh` script identify the most recent checkpoint file?",
+      "answer": "The `ml-test-chain.sh` script identifies the most recent checkpoint file by using a combination of `find`, `xargs`, `ls -1 -t`, and `head -1` to locate the newest file matching the `CHECKPOINT_EXT` pattern within the `CHECKPOINTS` directory."
+    },
+    {
+      "question": "Where does the `ml-test-chain.sh` script typically store checkpoint files?",
+      "answer": "The `ml-test-chain.sh` script typically stores checkpoint files in the `~/scratch/checkpoints/ml-test` directory, as indicated by the `CHECKPOINTS` variable."
+    },
+    {
+      "question": "How can the checkpoint file extension be changed in the `ml-test-chain.sh` script for PyTorch checkpoints?",
+      "answer": "The checkpoint file extension can be changed for PyTorch checkpoints by modifying the `CHECKPOINT_EXT` variable from `'*.h5'` to `'*.pt'`."
+    },
+    {
+      "question": "How does the `ml-test-chain.sh` script decide whether to start training from scratch or load a checkpoint?",
+      "answer": "The `ml-test-chain.sh` script decides whether to start training from scratch or load a checkpoint by checking if the `LAST_CHECKPOINT` variable is empty. If it's empty, training starts from scratch; otherwise, it loads the identified last checkpoint."
+    },
+    {
+      "question": "What `sbatch` array argument is used in the `ml-test-chain.sh` example for a job chain?",
+      "answer": "The `sbatch` array argument used in the `ml-test-chain.sh` example is `--array=1-10%1`, indicating a chain of 10 jobs."
+    }
+  ],
+  "generated_at": "2026-04-12T09:55:58.450525+00:00"
+}

@@ -5,32 +5,57 @@ lang: "fr"
 
 source_wiki_title: "Valgrind/fr"
 source_hash: "0a689eb2b67e233b7112378a520e133f"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T12:40:58.009538+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T12:39:25.207492+00:00"
 
 tags:
   - software
 
 keywords:
-  []
+  - "instructions AVX-512"
+  - "conseils"
+  - "erreur de segmentation"
+  - "outil de débogage"
+  - "test"
+  - "pointeurs"
+  - "fuites de mémoire"
+  - "variables non initialisées"
+  - "accès à la mémoire"
+  - "exécution"
+  - "compilation"
+  - "Valgrind"
+
+questions:
+  - "Qu'est-ce que Valgrind et quels types de problèmes de mémoire permet-il de détecter ?"
+  - "Comment doit-on préparer et compiler son programme pour l'analyser efficacement avec cet outil ?"
+  - "Quelle est la solution de contournement recommandée pour résoudre les problèmes de compatibilité avec les instructions AVX-512 ?"
+  - "Est-il nécessaire qu'un programme subisse une erreur de segmentation pour que Valgrind puisse y détecter des problèmes de mémoire ?"
+  - "À quel moment et sous quelle forme Valgrind signale-t-il une fuite de mémoire lors de l'exécution d'un programme ?"
+  - "Quels types de messages d'erreur Valgrind produit-il pour indiquer l'utilisation de pointeurs non valides ou de variables non initialisées ?"
+  - "Où peut-on trouver des informations supplémentaires sur l'utilisation de Valgrind selon le texte ?"
+  - "Pourquoi l'exécution du code est-elle beaucoup plus lente lors de l'utilisation de Valgrind ?"
+  - "Quelle recommandation est donnée concernant la taille du problème à choisir pour effectuer un test ?"
+  - "Est-il nécessaire qu'un programme subisse une erreur de segmentation pour que Valgrind puisse y détecter des problèmes de mémoire ?"
+  - "À quel moment et sous quelle forme Valgrind signale-t-il une fuite de mémoire lors de l'exécution d'un programme ?"
+  - "Quels types de messages d'erreur Valgrind produit-il pour indiquer l'utilisation de pointeurs non valides ou de variables non initialisées ?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
 # Valgrind
 
-[Valgrind](http://valgrind.org/) est un puissant outil de débogage qui permet de détecter des problèmes de mémoire. Il peut trouver des *fuites de mémoire*, mais aussi des accès à de la mémoire non allouée ou désallouée, des désallocations multiples et autres. Si vous avez une *erreur de segmentation*, un *canal brisé* ou une *erreur de bus* lorsque vous exécutez votre programme, vous avez vraisemblablement un problème avec l'utilisation de la mémoire. Valgrind fait partie des logiciels de base installés sur les grappes de l'Alliance; il peut donc être utilisé sans avoir à charger un module.
+[Valgrind](http://valgrind.org/) est un puissant outil de débogage qui permet de détecter des problèmes de mémoire. Il peut trouver des fuites de mémoire (*memory leak*), mais aussi des accès à de la mémoire non allouée ou désallouée, des désallocations multiples et autres. Si vous avez une erreur de segmentation (*segmentation fault*), un *tube brisé* ou une *erreur de bus* lorsque vous exécutez votre programme, vous avez vraisemblablement un problème avec l'utilisation de la mémoire. Valgrind fait partie des logiciels de base installés sur les grappes de l'Alliance; il peut donc être utilisé sans avoir à charger un module.
 
 ## Instructions AVX-512
 
 En date de décembre 2020, les versions actuelles ne peuvent pas utiliser les instructions [AVX-512](https://en.wikipedia.org/wiki/AVX-512) qu'on utilise sur les plus récents processeurs Intel et AMD; un message semblable sera affiché :
-````text
+```text
 vex amd64->IR: unhandled instruction bytes: 0x62 0xF1 0xFE 0x8 0x6F 0x8B 0xE8 0xFF 0xFF 0xFF
 vex amd64->IR:   REX=0 REX.W=0 REX.R=0 REX.X=0 REX.B=0
 vex amd64->IR:   VEX=0 VEX.L=0 VEX.nVVVV=0x0 ESC=NONE
@@ -39,11 +64,11 @@ vex amd64->IR:   PFX.66=0 PFX.F2=0 PFX.F3=0
 ==35839==    at 0x4E68448: if_posix_open (in /cvmfs/soft.computecanada.ca/easybuild/software/2020/avx512/Compiler/gcc9/openmpi/4.0.3/lib/libopen-pal.so.40.20.3)
 ==35839==    by 0x4E2C44A: mca_base_framework_components_open (in /cvmfs/soft.computecanada.ca/easybuild/software/2020/avx512/Compiler/gcc9/openmpi/4.0.3/lib/libopen-pal.so.40.20.3)
 ...
-````
+```
 Prenez note que l'environnement par défaut sur toutes nos grappes (*à l'exception de Narval*) utilise les instructions AVX-2. Pour contourner ce problème, chargez d'abord l'environnement AVX-2 avec
-````bash
+```bash
 module load arch/avx2
-````
+```
 puis recompilez votre application à partir de zéro pour vous assurer que le binaire ne contient aucune de ces instructions.
 
 ## Préparer votre programme
@@ -55,16 +80,17 @@ Certaines optimisations très pointues qui génèrent des opérations non reconn
 ## Utilisation
 
 Lorsque votre programme est compilé avec les bonnes options, exécutez-le dans Valgrind ainsi :
-````bash
+```bash
 valgrind --tool=memcheck --leak-check=yes --show-reachable=yes ./your_program
-````
-
+```
 Pour plus d'information, nous vous conseillons [cette page](http://www.cprogramming.com/debugging/valgrind.html).
 
 ### Quelques conseils
 
-*   Lorsque vous utilisez Valgrind, votre code s'exécute dans une instance qui valide tous les accès à la mémoire et il s'exécutera donc beaucoup plus lentement. Pour effectuer un test, choisissez un problème plus petit que ce que vous exécuteriez normalement.
-*   Il n'est pas nécessaire que votre programme se termine avec une erreur de segmentation ou autre afin que Valgrind puisse détecter des erreurs. Très fréquemment, des problèmes mineurs d'accès mémoire, par exemple la lecture d’un seul élément au-delà des limites d'un tableau, passent inaperçus alors que les problèmes plus graves causent une erreur de segmentation.
+!!! note "Quelques conseils"
+    Lorsque vous utilisez Valgrind, votre code s'exécute dans une instance qui valide tous les accès à la mémoire et il s'exécutera donc beaucoup plus lentement. Pour effectuer un test, choisissez un problème plus petit que ce que vous exécuteriez normalement.
+
+    Il n'est pas nécessaire que votre programme se termine avec une erreur de segmentation ou autre afin que Valgrind puisse détecter des erreurs. Très fréquemment, des problèmes mineurs d'accès mémoire, par exemple la lecture d’un seul élément au-delà des limites d'un tableau, passent inaperçus alors que les problèmes plus graves causent une erreur de segmentation.
 
 ### Quelques messages typiques
 
@@ -73,27 +99,26 @@ Voici quelques problèmes que Valgrind peut détecter et les messages d'erreur q
 #### Fuites de mémoire
 
 Le message d'erreur pour une fuite de mémoire sera produit à la fin de l'exécution du programme et ressemblera à ceci :
-````text
+```text
 ==2116== 100 bytes in 1 blocks are definitely lost in loss record 1 of 1
 ==2116==    at 0x1B900DD0: malloc (vg_replace_malloc.c:131)
 ==2116==    by 0x804840F: main (in /home/cprogram/example1)
-````
+```
 
 #### Utilisation non valide de pointeurs et dépassement de bornes
 
 Si vous tentez d'écrire dans un pointeur non alloué, ou en dehors des bornes de mémoire allouées, le message d'erreur ressemblera à ceci :
-````text
+```text
 ==9814==  Invalid write of size 1
 ==9814==    at 0x804841E: main (example2.c:6)
 ==9814==  Address 0x1BA3607A is 0 bytes after a block of size 10 alloc'd
 ==9814==    at 0x1B900DD0: malloc (vg_replace_malloc.c:131)
 ==9814==    by 0x804840F: main (example2.c:5)
-````
+```
 
 #### Utilisation de variables non initialisées
 
 Si vous utilisez une variable non initialisée, le message d'erreur sera le suivant :
-````text
+```text
 ==17943== Conditional jump or move depends on uninitialised value(s)
 ==17943==    at 0x804840A: main (example3.c:6)
-`

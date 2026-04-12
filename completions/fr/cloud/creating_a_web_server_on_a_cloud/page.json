@@ -1,0 +1,83 @@
+{
+  "doc_key": "fr/creating_a_web_server_on_a_cloud",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "C'est quoi le but principal de ce document-là?",
+      "answer": "Ce document décrit une méthode simple pour créer un serveur web avec Ubuntu et Apache dans l'environnement infonuagique de Compute Canada."
+    },
+    {
+      "question": "Pourquoi est-ce que la sécurité est si importante pour un ordinateur accessible publiquement?",
+      "answer": "La sécurité est un aspect critique parce que ces ordinateurs permettent un accès public, ce qui peut prendre plusieurs formes comme les connexions SSH, l'affichage de code HTML via HTTP, ou l'offre de services tiers."
+    },
+    {
+      "question": "C'est quoi, des 'daemons', pis comment ça interagit avec la sécurité?",
+      "answer": "Les daemons sont des programmes qui soutiennent des services comme SSH ou HTTP. Ils sont toujours actifs et reçoivent les requêtes de l'extérieur via des ports spécifiques, qui doivent être sécurisés."
+    },
+    {
+      "question": "Comment OpenStack permet-il de gérer la sécurité des accès aux ports?",
+      "answer": "OpenStack permet de gérer les ports et d'en restreindre l'accès en l'accordant à des adresses IP spécifiques ou à des groupes d'adresses, via les 'Groupes de sécurité'."
+    },
+    {
+      "question": "Quel protocole est recommandé pour le cryptage des données sensibles sur les sites web?",
+      "answer": "Le protocole Transport Layer Security (TLS) est recommandé pour le cryptage des données, surtout pour les sites web auxquels des personnes de l'extérieur peuvent se connecter."
+    },
+    {
+      "question": "Qui est responsable de la sécurité des instances infonuagiques?",
+      "answer": "La sécurité des instances est la responsabilité de l'utilisateur et ne doit pas être négligée."
+    },
+    {
+      "question": "Quelle est la première étape pour installer un serveur web Apache sur notre nuage?",
+      "answer": "La première étape est de créer une instance persistante sous Linux Ubuntu en suivant les directives du 'Cloud : Guide de démarrage'."
+    },
+    {
+      "question": "Comment on fait pour ouvrir le port 80 pis permettre l'accès HTTP à notre instance?",
+      "answer": "Il faut suivre les directives pour la connexion SSH, mais à partir du menu déroulant, on sélectionne HTTP au lieu de SSH pour ouvrir le port 80."
+    },
+    {
+      "question": "Quelles sont les premières commandes à exécuter après s'être connecté à l'instance pour installer Apache?",
+      "answer": "On doit faire la mise à jour des répertoires apt-get avec `sudo apt-get update` et ensuite la mise à jour d'Ubuntu avec `sudo apt-get upgrade`."
+    },
+    {
+      "question": "Quelle commande sert à installer le serveur web Apache sur Ubuntu?",
+      "answer": "La commande pour installer Apache est `sudo apt-get install apache2`."
+    },
+    {
+      "question": "Comment on vérifie si Apache a été installé correctement?",
+      "answer": "On vérifie l'installation en entrant l'adresse IP flottante de l'instance dans la barre d'adresses d'un fureteur. Une page test Apache2 devrait s'afficher."
+    },
+    {
+      "question": "Où est-ce qu'on modifie le contenu des fichiers pour créer notre site web?",
+      "answer": "On modifie le contenu des fichiers dans le répertoire `/var/www/html`, et surtout le fichier `index.html` qui est le point d'entrée."
+    },
+    {
+      "question": "Pourquoi est-il souvent plus facile de modifier le répertoire root du serveur web?",
+      "answer": "C'est souvent plus facile de gérer un site web si celui ou celle qui se connecte à l'instance est propriétaire des fichiers, comme l'utilisateur 'ubuntu' dans l'exemple."
+    },
+    {
+      "question": "Quelles modifications faut-il faire dans les fichiers de configuration Apache pour changer le répertoire root?",
+      "answer": "Il faut modifier la ligne `<Directory /var/www/>` dans `/etc/apache2/apache2.conf` et la ligne `DocumentRoot /var/www/html` dans `/etc/apache2/sites-available/000-default.conf` pour pointer vers le nouveau répertoire, par exemple `/home/ubuntu/public_html`."
+    },
+    {
+      "question": "Quelles commandes faut-il exécuter après avoir changé le répertoire root pour que les modifications soient prises en compte?",
+      "answer": "Il faut créer le nouveau répertoire avec `mkdir public_html`, y copier la page par défaut avec `cp /var/www/html/index.html /home/ubuntu/public_html`, puis redémarrer le serveur Apache avec `sudo service apache2 restart`."
+    },
+    {
+      "question": "Pourquoi est-il utile de limiter la bande passante d'un serveur web?",
+      "answer": "C'est utile pour limiter l'utilisation des ressources de la bande passante si le serveur web est très sollicité."
+    },
+    {
+      "question": "Quel module Apache est utilisé pour limiter la bande passante?",
+      "answer": "Le module Apache `mod_bw` est utilisé pour limiter la bande passante."
+    },
+    {
+      "question": "Comment on installe et active le module `mod_bw` pour limiter la bande passante?",
+      "answer": "On utilise les commandes `sudo apt install libapache2-mod-bw` pour l'installation, puis `sudo a2enmod bw` pour l'activer."
+    },
+    {
+      "question": "Où est-ce qu'on doit placer la configuration de limitation de bande passante dans Apache?",
+      "answer": "La configuration devrait être placée entre les balises `<VirtualHost></VirtualHost>` pour votre site, souvent dans le fichier `/etc/apache2/sites-enabled/000-default.conf`."
+    }
+  ],
+  "generated_at": "2026-04-11T20:28:34.332547+00:00"
+}

@@ -1,0 +1,51 @@
+{
+  "doc_key": "base/frequently_asked_questions",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "How can I reset my password for an Alliance national cluster?",
+      "answer": "You can reset your password by visiting https://ccdb.alliancecan.ca/security/forgot, but only after your first role has been approved by staff."
+    },
+    {
+      "question": "How do I copy and paste text in the Linux terminal?",
+      "answer": "In Linux, you can use [Ctrl]+[Insert] to copy and [Shift]+[Insert] to paste. macOS users can continue to use [Cmd]+C and [Cmd]+V. Alternatively, selecting text might copy it to the clipboard, and pasting can be done with a right-click or middle-click."
+    },
+    {
+      "question": "What issues can arise from text file line endings between Windows and Linux environments, and how can they be resolved?",
+      "answer": "Windows text files include an invisible 'carriage return' character at the end of each line, which can cause problems in Linux. To resolve this, create and edit text files on the cluster using Linux editors (emacs, vim, nano) or use the `dos2unix <filename>` command on the cluster login node to convert the line endings."
+    },
+    {
+      "question": "Why is saving files slow in Emacs on Alliance national clusters, and how can I improve performance?",
+      "answer": "Emacs uses the `fsync` system call for data reliability, which can cause slow saving on shared filesystems. To improve performance, add `(setq write-region-inhibit-fsync t)` to your `~/.emacs` file."
+    },
+    {
+      "question": "What should I do if I encounter the error 'sbatch: error: Batch job submission failed: Socket timed out on send/recv operation'?",
+      "answer": "This error often indicates high load on the Slurm manager. Wait about a minute, then run `squeue -u $USER` to check if your job was accepted. If it doesn't appear, submit it again."
+    },
+    {
+      "question": "How can I determine why my jobs are pending ('PD') in the Slurm queue?",
+      "answer": "Run `squeue -u <username>`. The `(REASON)` column will typically show 'Resources' (cluster is busy, consider fewer resources) or 'Priority' (your research group has over-consumed resources, which you can track using `sshare`)."
+    },
+    {
+      "question": "What do 'Nodes required for job are DOWN, DRAINED or RESERVED' or 'ReqNodeNotAvailable' mean in `squeue` output?",
+      "answer": "These messages mean that some nodes Slurm considered for your job are unavailable (down, deliberately offline, or reserved). They are not error messages; your job is in the queue and will eventually be processed, similar to the 'Resources' reason in older Slurm versions."
+    },
+    {
+      "question": "How accurate are the `START_TIME` forecasts provided by `squeue`?",
+      "answer": "Slurm's `START_TIME` forecasts for high-priority pending jobs are not very useful because they depend on rapidly changing conditions like jobs ending early or prioritization changes. Most waiting jobs show 'N/A'. The start time for *running* jobs is accurate."
+    },
+    {
+      "question": "What are `.core` files and can I delete them?",
+      "answer": "`.core` files are binary snapshots of a program's state when it crashes. While useful for debugging, regular users can generally delete them. To prevent their creation, add `ulimit -c 0` to your `$HOME/.bashrc` file."
+    },
+    {
+      "question": "How can I fix a 'library not found' error when installing precompiled binary packages in my `$HOME` directory?",
+      "answer": "For errors such as `/lib64/libc.so.6: version 'GLIBC_2.18' not found`, refer to the 'Installing binary packages' section within the 'Installing software in your home directory' guide for a fix."
+    },
+    {
+      "question": "Does the Alliance provide clusters specifically designated for sensitive research data, such as human clinical research data?",
+      "answer": "No, the Alliance does not operate clusters specifically designated for handling personal, private, or sensitive data. While resources follow best practices for shared systems, they are not certified to specific security assurance levels, and the ultimate responsibility for data protection rests with the researcher."
+    }
+  ],
+  "generated_at": "2026-04-11T21:44:56.173533+00:00"
+}

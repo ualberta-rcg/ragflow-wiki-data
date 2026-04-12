@@ -1,0 +1,64 @@
+{
+  "doc_key": "en/matlab",
+  "level": "chunk",
+  "chunk_index": 6,
+  "qa_pairs": [
+    {
+      "question": "What license type should be selected when configuring the MATLAB Parallel Server plugin?",
+      "answer": "You should select 'Network license manager'."
+    },
+    {
+      "question": "What profile names are suggested for the MATLAB Parallel Server plugin on specific clusters?",
+      "answer": "Suggested profile names are 'narval' or 'rorqual'."
+    },
+    {
+      "question": "What final steps are needed to complete the MATLAB Parallel Server profile creation?",
+      "answer": "Click 'Create' and 'Finish' to finalize the profile."
+    },
+    {
+      "question": "Where should I navigate in MATLAB to edit the Parallel Server plugin files?",
+      "answer": "You should go to the `nonshared` folder by running `cd(fullfile(matlabshared.supportpkg.getSupportPackageRoot, 'parallel', 'slurm', 'nonshared'))` in the MATLAB terminal."
+    },
+    {
+      "question": "What modification is required in the `independentSubmitFcn.m` file for the MATLAB Parallel Server plugin?",
+      "answer": "Around line #117, replace `additionalSubmitArgs = sprintf('--ntasks=1 --cpus-per-task=%d', cluster.NumThreads);` with `additionalSubmitArgs = ccSBATCH().getSubmitArgs();`."
+    },
+    {
+      "question": "What change needs to be made in the `communicatingSubmitFcn.m` file for the MATLAB Parallel Server plugin?",
+      "answer": "Around line #126, replace `additionalSubmitArgs = sprintf('--ntasks=%d --cpus-per-task=%d', environmentProperties.NumberOfTasks, cluster.NumThreads);` with `additionalSubmitArgs = ccSBATCH().getSubmitArgs();`."
+    },
+    {
+      "question": "What command should be added to the `communicatingJobWrapper.sh` file for the MATLAB Parallel Server plugin?",
+      "answer": "After the copyright statement (around line #20), add `module load matlab/2022a`, adjusting the module version to your local MATLAB version."
+    },
+    {
+      "question": "What should I do after making modifications to the MATLAB Parallel Server plugin files?",
+      "answer": "You should restart MATLAB and then return to your home directory by running `cd(getenv('HOME'))` (or `cd(getenv('HOMEPATH'))` on Windows)."
+    },
+    {
+      "question": "How should I validate the MATLAB Parallel Server plugin installation?",
+      "answer": "You should *not* use the built-in validation tool in the Cluster Profile Manager. Instead, use the `TestParfor` example from the code samples downloaded from GitHub (`https://github.com/ComputeCanada/matlab-parallel-server-samples`), navigate to its directory in MATLAB, and follow the instructions in the `README.md` file."
+    },
+    {
+      "question": "Can the built-in validation tool be used for MATLAB Parallel Server plugin?",
+      "answer": "No, you should not use the built-in validation tool in the Cluster Profile Manager."
+    },
+    {
+      "question": "If `ccSBATCH.m` is in my current working directory, how will the Cluster Profile Manager validation tool perform?",
+      "answer": "Only the first two tests will work, as other tests are not yet supported."
+    },
+    {
+      "question": "Where can I find official MATLAB documentation?",
+      "answer": "Official MATLAB documentation is available at `https://www.mathworks.com/help/matlab/`."
+    },
+    {
+      "question": "Does MathWorks offer online courses for MATLAB?",
+      "answer": "Yes, MathWorks provides self-paced online courses at `https://matlabacademy.mathworks.com/` in multiple languages (English, Japanese, Spanish, Korean, Chinese)."
+    },
+    {
+      "question": "Are there additional MATLAB job script examples available from other universities?",
+      "answer": "Yes, the University of Calgary provides more examples with job scripts at `https://rcs.ucalgary.ca/MATLAB`."
+    }
+  ],
+  "generated_at": "2026-04-12T01:14:47.229790+00:00"
+}

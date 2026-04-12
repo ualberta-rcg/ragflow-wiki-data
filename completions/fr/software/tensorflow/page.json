@@ -1,0 +1,87 @@
+{
+  "doc_key": "fr/tensorflow",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "C'est quoi, TensorFlow?",
+      "answer": "C'est une bibliothèque logicielle d'apprentissage machine qui est <i>open source</i>."
+    },
+    {
+      "question": "Qu'est-ce qu'on recommande de faire avant de porter un programme TensorFlow sur les grappes de calcul?",
+      "answer": "On recommande de prendre connaissance du tutoriel sur l'apprentissage machine."
+    },
+    {
+      "question": "Comment installe-t-on TensorFlow dans le répertoire <i>home</i> sur une grappe?",
+      "answer": "On l'installe à l'aide des <i>wheels</i> Python, dans un environnement virtuel Python avec la commande <code>pip</code>."
+    },
+    {
+      "question": "Quelles sont les grandes étapes pour installer TensorFlow 2.x?",
+      "answer": "Il faut charger les modules (<code>module load python/3</code>), créer un nouvel environnement virtuel Python, l'activer, puis installer TensorFlow avec <code>pip install --no-index tensorflow</code>."
+    },
+    {
+      "question": "Y'a-t-il des spécificités pour l'installation de TensorFlow 1.x?",
+      "answer": "Oui, TensorFlow 1.x requiert StdEnv/2018 et n'est pas disponible sur la grappe Narval. Il faut aussi choisir entre <code>tensorflow_cpu==1.15.0</code> ou <code>tensorflow_gpu==1.15.0</code>, et ne pas installer le paquet générique <code>tensorflow</code>."
+    },
+    {
+      "question": "Comment peut-on utiliser TensorFlow avec le langage R?",
+      "answer": "Il faut d'abord créer et activer un environnement virtuel Python avec TensorFlow, puis, en R, installer le paquet <code>devtools</code>, le paquet TensorFlow de RStudio, et finalement activer TensorFlow avec <code>library(tensorflow)</code> et <code>use_virtualenv(Sys.getenv('VIRTUAL_ENV'))</code>."
+    },
+    {
+      "question": "Comment soumet-on une tâche TensorFlow qui utilise un GPU sur une grappe de calcul?",
+      "answer": "On soumet la tâche avec <code>sbatch</code> en utilisant un script SLURM qui demande un GPU (<code>#SBATCH --gres=gpu:1</code>), charge les modules <code>cuda</code> et <code>cudnn</code>, et active l'environnement virtuel Python avant d'exécuter le script Python."
+    },
+    {
+      "question": "Comment fait-on le suivi d'une tâche TensorFlow en cours d'exécution?",
+      "answer": "Il est possible de se connecter au nœud sur lequel la tâche est en cours pour exécuter des processus et suivre l'utilisation des ressources et le déroulement de l'entraînement."
+    },
+    {
+      "question": "Comment utilise-t-on TensorBoard pour la visualisation de l'entraînement?",
+      "answer": "TensorBoard doit être lancé en arrière-plan dans la même tâche que le processus TensorFlow. Ensuite, il faut créer un lien SSH entre votre ordinateur local et le nœud de calcul, puis accéder à <code>http://localhost:6006</code> dans un fureteur."
+    },
+    {
+      "question": "Est-ce qu'on peut exécuter TensorBoard sur un nœud de connexion?",
+      "answer": "Non, TensorBoard exige trop de puissance de calcul pour être exécuté sur un nœud de connexion; il faut le lancer dans la même tâche que le processus TensorFlow."
+    },
+    {
+      "question": "Quelles sont les stratégies offertes par TensorFlow pour utiliser plusieurs GPU?",
+      "answer": "TensorFlow offre des stratégies différentes pour utiliser plusieurs GPU avec l'API de haut niveau <code>tf.distribute</code>, comme la <code>MirroredStrategy</code> et la <code>MultiWorkerMirroredStrategy</code>."
+    },
+    {
+      "question": "Comment configure-t-on TensorFlow pour utiliser plusieurs GPU sur un seul nœud avec la stratégie miroir?",
+      "answer": "Dans le script Python, on utilise <code>tf.distribute.MirroredStrategy()</code> et dans le script SLURM, on demande plusieurs GPU avec <code>#SBATCH --gres=gpu:X</code>."
+    },
+    {
+      "question": "Quelle est la principale différence pour utiliser plusieurs GPU sur plusieurs nœuds avec TensorFlow par rapport à un nœud unique?",
+      "answer": "Pour plusieurs nœuds, il faut employer <code>MultiWorkerMirroredStrategy()</code>, utiliser <code>SlurmClusterResolver()</code> pour obtenir l'information sur la tâche, et ajouter <code>CommunicationImplementation.NCCL</code> à la stratégie de distribution pour les communications entre GPU."
+    },
+    {
+      "question": "Pourquoi est-il important de créer des points de contrôle pendant l'entraînement d'un modèle TensorFlow?",
+      "answer": "Les points de contrôle permettent de sauvegarder l'état du modèle à un moment précis, ce qui est utile pour diviser les tâches longues, récupérer le travail en cas d'erreurs inattendues ou de pannes, et éviter la perte de données."
+    },
+    {
+      "question": "Comment crée-t-on des points de contrôle avec Keras?",
+      "answer": "On utilise le paramètre <code>callbacks</code> de la méthode <code>model.fit()</code>, en y ajoutant <code>tf.keras.callbacks.ModelCheckpoint</code> pour spécifier le chemin du fichier et la fréquence de sauvegarde, par exemple à chaque époque."
+    },
+    {
+      "question": "Qu'est-ce qui cause l'erreur <code>OMP: Error #15</code> quand on utilise scikit-image avec TensorFlow, et comment la régler?",
+      "answer": "Cette erreur survient quand TensorFlow essaie de charger une version de OMP incompatible avec la version du système. On la contourne en utilisant des commandes pour lier le bon fichier <code>libiomp5.so</code>, tel qu'indiqué dans la documentation."
+    },
+    {
+      "question": "Comment solutionner l'erreur de <code>libcupti.so</code> non trouvée par TensorFlow?",
+      "answer": "Il faut charger le module CUDA approprié (<code>module load cuda/X.X.xxx</code>) et exporter la variable d'environnement <code>LD_LIBRARY_PATH</code> pour inclure le chemin vers <code>$CUDA_HOME/extras/CUPTI/lib64/</code>."
+    },
+    {
+      "question": "Que faire si on rencontre l'erreur \"libiomp5.so: invalid ELF header\"?",
+      "answer": "Cette erreur indique que le fichier <code>libiomp5.so</code> a été installé par erreur en tant que fichier texte. Il faut accéder au répertoire indiqué dans le message et lancer la commande <code>ln -sf $(cat libiomp5.so) libiomp5.so</code> pour remplacer le fichier texte par le bon lien symbolique."
+    },
+    {
+      "question": "Comment contrôle-t-on le nombre de CPU et de fils d'exécution utilisés par TensorFlow?",
+      "answer": "On peut définir les paramètres <code>intra_op_parallelism_threads</code> et <code>inter_op_parallelism_threads</code> avec les fonctions <code>tf.config.threading.set_inter_op_parallelism_threads(num_threads)</code> et <code>tf.config.threading.set_intra_op_parallelism_threads(num_threads)</code>."
+    },
+    {
+      "question": "Y a-t-il un problème connu avec les layers d'augmentation des données dans Keras avec certaines versions de TensorFlow?",
+      "answer": "Oui, un bogue entre les versions 2.8.3 et 2.11 de TensorFlow affecte la performance des layers d'augmentation des données <i>tf.keras.layers.Random</i>, ralentissant l'entraînement. Ce bogue a été corrigé dans la version 2.12."
+    }
+  ],
+  "generated_at": "2026-04-12T09:02:38.231748+00:00"
+}

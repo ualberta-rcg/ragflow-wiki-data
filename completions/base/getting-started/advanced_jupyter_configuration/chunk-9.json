@@ -1,0 +1,52 @@
+{
+  "doc_key": "base/advanced_jupyter_configuration",
+  "level": "chunk",
+  "chunk_index": 9,
+  "qa_pairs": [
+    {
+      "question": "What are the prerequisites for configuring an R kernel in JupyterLab?",
+      "answer": "To configure an R kernel, you need a Python virtual environment and a `kernels` folder. You should refer to the 'Python kernel' section for initial setup instructions, even if you don't require a Python kernel. Additionally, R package installation needs access to CRAN, and the R kernel configuration must be performed within a remote shell session on a login node."
+    },
+    {
+      "question": "How do I load an R module as part of the R kernel configuration process?",
+      "answer": "Once your Python virtual environment is activated, you can load an R module by running `module load r/4.1` in your terminal."
+    },
+    {
+      "question": "What R kernel dependencies need to be installed, and how long does it take?",
+      "answer": "You need to install `crayon`, `pbdZMQ`, and `devtools`. This process can take up to 10 minutes, and the packages will be installed in a local directory such as `~/R/x86_64-pc-linux-gnu-library/4.1`. The command to use is `R --no-save` followed by `install.packages(c('crayon', 'pbdZMQ', 'devtools'), repos='http://cran.us.r-project.org')` in the R shell."
+    },
+    {
+      "question": "How do I install the IRkernel and its spec file for JupyterLab?",
+      "answer": "First, install the IRkernel by running `devtools::install_github(paste0('IRkernel/', c('repr', 'IRdisplay', 'IRkernel')))` in the R shell. Then, install the kernel spec file with `IRkernel::installspec()`."
+    },
+    {
+      "question": "What is an important step to take after configuring the R kernel before using it?",
+      "answer": "It is crucial to start or restart a new JupyterLab session before attempting to use the newly configured R kernel."
+    },
+    {
+      "question": "Where can I find more information about the IRkernel?",
+      "answer": "You can find additional details and documentation on the IRkernel website: `https://irkernel.github.io/docs/`."
+    },
+    {
+      "question": "Can R packages be installed from Jupyter notebooks, and if not, how should they be installed?",
+      "answer": "No, R packages cannot be installed directly from notebooks because there is no access to CRAN. Instead, you must install R packages from a login node. You can deactivate the Python virtual environment if desired. Ensure the same R module is loaded (e.g., `module load r/4.1`), then start an R shell with `R --no-save` and use `install.packages('doParallel', repos='http://cran.us.r-project.org')` for example, to install a package."
+    },
+    {
+      "question": "Why would I want to run Jupyter notebooks as Python scripts, and how is it done?",
+      "answer": "Running notebooks as Python scripts is recommended for longer analysis or computations that require submitting a non-interactive job. The process involves converting your notebook to a Python script, creating a submission script, and then submitting it."
+    },
+    {
+      "question": "What are the first steps to prepare for converting Jupyter notebooks to Python scripts?",
+      "answer": "From the login node, you need to create and activate a Python virtual environment. Then, install the `nbconvert` package by running `pip install --no-index nbconvert` if it's not already available."
+    },
+    {
+      "question": "How do I convert a Jupyter notebook to a Python script?",
+      "answer": "To convert a notebook, navigate to its directory in your activated virtual environment on the login node and execute the command `jupyter nbconvert --to python mynotebook.ipynb`. You can convert multiple notebooks by modifying the command."
+    },
+    {
+      "question": "Once a notebook is converted, how do I run it within a submission script?",
+      "answer": "In your submission script, you would run the converted Python notebook using `python mynotebook.py`. After setting up your submission script, you submit your non-interactive job with `sbatch my-submit.sh`."
+    }
+  ],
+  "generated_at": "2026-04-11T16:05:18.307407+00:00"
+}

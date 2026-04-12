@@ -1,0 +1,76 @@
+{
+  "doc_key": "fr/ansys",
+  "level": "chunk",
+  "chunk_index": 5,
+  "qa_pairs": [
+    {
+      "question": "Qu'est-ce que la sortie 'Success' indique après la vérification d'une licence Ansys?",
+      "answer": "La sortie 'Success' indique que l'extraction des licences devrait fonctionner lorsque les tâches sont soumises à la file d'attente."
+    },
+    {
+      "question": "Que signifie la sortie 'Fail' après la vérification d'une licence Ansys?",
+      "answer": "La sortie 'Fail' indique qu'il y a un problème quelque part avec la configuration de la licence et que les tâches échoueront probablement."
+    },
+    {
+      "question": "Comment puis-je utiliser un serveur de licence distant pour les modules Ansys Workbench installés localement?",
+      "answer": "Pour utiliser un serveur de licence distant avec les modules Ansys installés localement, vous devriez lancer Workbench avec la commande `runwb2-gui` au lieu de `runwb2`. Ce script 'wrapper' lira votre fichier `~/.licenses/ansys.lic`."
+    },
+    {
+      "question": "Est-il possible d'utiliser le serveur de licence CMC sans avoir à le configurer dans le fichier ansys.lic?",
+      "answer": "Oui, l'option interactive d'utilisation du serveur CMC (acheminé via le serveur SHARCNET CMC CadPASS) sera proposée lorsque vous lancerez `runwb2-gui`, éliminant ainsi la nécessité de le configurer dans votre fichier `ansys.lic`."
+    },
+    {
+      "question": "Comment éviter le message 'Warning: Software rasterizer found, hardware acceleration will be disabled' lors du démarrage de Fluent 2025R1 depuis Workbench?",
+      "answer": "Lorsque vous démarrez Fluent à partir de Workbench avec la version 2025R1, avant de cliquer sur le bouton 'Start', cliquez sur l'onglet 'Environment' du panneau de lancement de 'Fluent Launcher' et copiez/collez `HOOPS_PICTURE=opengl` dans le champ de saisie vide. Vous pouvez aussi définir `export HOOPS_PICTURE=opengl` dans votre environnement avant de démarrer Workbench."
+    },
+    {
+      "question": "Quelle est la configuration recommandée pour l'exécution de Mechanical dans Workbench sur gra-vdi concernant les cœurs?",
+      "answer": "Lorsque vous exécutez Mechanical dans Workbench sur gra-vdi, assurez-vous de cocher 'Distributed' dans le panneau 'Solver' du ruban supérieur et de spécifier une valeur maximale de **24 cœurs**."
+    },
+    {
+      "question": "Quelle est la configuration recommandée pour l'exécution de Fluent dans Workbench sur gra-vdi concernant les cœurs?",
+      "answer": "Lorsque vous exécutez Fluent sur gra-vdi, ne cochez pas 'Distributed' et spécifiez une valeur maximale de **12 cœurs**."
+    },
+    {
+      "question": "Quelle est la limite de mémoire à ne pas dépasser pour les applications Ansys sur gra-vdi?",
+      "answer": "N'essayez pas d'utiliser plus de 128 Go de mémoire sur gra-vdi, sinon Ansys atteindra la limite et sera arrêté."
+    },
+    {
+      "question": "Que faire si ma session graphique Ansys nécessite plus de cœurs ou de mémoire que ce qui est disponible sur gra-vdi?",
+      "answer": "Si vous avez besoin de plus de cœurs ou de mémoire, utilisez un nœud de calcul sur une grappe pour exécuter votre session graphique."
+    },
+    {
+      "question": "Combien de cœurs faut-il utiliser pour les tâches de prétraitement ou de post-traitement avec Ansys sur gra-vdi sans calcul?",
+      "answer": "Lorsque vous effectuez une ancienne tâche de prétraitement ou de post-traitement avec Ansys sur gra-vdi et que vous n'exécutez pas de calcul, utilisez uniquement **4 cœurs**, sinon les licences HPC seront extraites inutilement."
+    },
+    {
+      "question": "Comment résoudre un problème de blocage ou de démarrage incorrect de l'interface graphique de Workbench ou d'autres programmes Ansys sur gra-vdi?",
+      "answer": "Ouvrez une nouvelle fenêtre de terminal sur gra-vdi et exécutez la commande `pkill -9 -e -u $USER -f \"ansys|fluent|mwrpcss|mwfwrapper|ENGINE|mono\"` pour arrêter complètement tous les processus Ansys."
+    },
+    {
+      "question": "Que dois-je faire si les problèmes d'interface graphique Ansys persistent sur gra-vdi après avoir utilisé l'interface graphique sur des nœuds de calcul?",
+      "answer": "Si le problème persiste et que vous utilisiez l'interface graphique sur des nœuds de calcul avant de travailler sur gra-vdi, essayez d'exécuter `rm -rf .ansys`."
+    },
+    {
+      "question": "Si l'interface graphique Ansys ne fonctionne pas correctement à cause de problèmes avec les répertoires '/home', '/project' ou '/scratch', quelle est la solution probable?",
+      "answer": "Si le problème concerne `/home`, `/project` ou `/scratch` (par exemple, la commande `df` bloque), il est fort probable qu'Ansys recommence à fonctionner normalement une fois le problème de stockage résolu."
+    },
+    {
+      "question": "Les simulations Ansys sont-elles compatibles avec les versions antérieures ou postérieures du logiciel?",
+      "answer": "Les simulations Ansys sont typiquement compatibles avec des versions postérieures, mais ce n'est pas le cas avec les versions antérieures."
+    },
+    {
+      "question": "Une simulation créée avec Ansys 2022R2 fonctionnera-t-elle avec Ansys 2023R2?",
+      "answer": "Oui, une simulation créée et sauvegardée avec `ansys/2022R2` devrait pouvoir être chargée et exécutée sans problème avec `ansys/2023R2`."
+    },
+    {
+      "question": "Est-ce qu'une simulation créée avec Ansys 2023R2 fonctionnera avec une version antérieure comme Ansys 2022R2?",
+      "answer": "Non, une simulation créée avec `ansys/2023R2` ne fonctionnera pas avec `ansys/2022R2`. Il est fort possible que la simulation plante ou que vous obteniez des messages d'erreur."
+    },
+    {
+      "question": "Comment puis-je retrouver la version de Fluent utilisée pour créer un fichier de cas?",
+      "answer": "Pour les simulations Fluent, si vous ne vous souvenez pas du numéro de la version Ansys utilisée pour créer le fichier cas, vous trouverez des indices avec les commandes `grep -ia fluent combustor.cas` ou `grep -ia fluent cavity.cas.h5`."
+    }
+  ],
+  "generated_at": "2026-04-11T17:05:57.289795+00:00"
+}

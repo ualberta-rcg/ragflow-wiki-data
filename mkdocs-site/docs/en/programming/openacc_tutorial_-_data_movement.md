@@ -5,26 +5,66 @@ lang: "en"
 
 source_wiki_title: "OpenACC Tutorial - Data movement/en"
 source_hash: "fd8abb64c083892f07817df6cb76fcf0"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T09:24:19.694629+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T09:54:45.170341+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "Data clauses"
+  - "structure of the matrix"
+  - "OpenACC"
+  - "allocate_3d_poisson_matrix"
+  - "Explicit data movement"
+  - "copy to the device"
+  - "data movement"
+  - "Structured data regions"
+  - "update directive"
+  - "Data directives"
+  - "parallel loop directives"
+  - "kernels"
+  - "GPU"
+  - "pinned memory"
+  - "explicit memory management"
+  - "malloc"
+  - "initialize the matrix"
+  - "managed memory"
+  - "Unstructured data"
+  - "present clause"
+  - "data locality"
+  - "compiler flags"
+
+questions:
+  - "Why is explicit data management in OpenACC recommended over relying on CUDA Unified Memory?"
+  - "What are the key differences between structured and unstructured data regions, and when is it necessary to use unstructured directives?"
+  - "How do specific data clauses, such as copyin, copyout, and create, dictate memory allocation and data movement between the host and the GPU?"
+  - "How do you properly free device memory and delete a matrix structure using OpenACC directives?"
+  - "What is the purpose of the present clause in OpenACC, and why is it considered critical for good performance?"
+  - "How does the update directive synchronize data between the CPU and GPU, and what do the benchmark results suggest about the performance impact of managed versus explicit memory?"
+  - "What are the two steps required to copy the initialized matrix to the device?"
+  - "How does the code calculate the total number of rows and the number of non-zero elements based on the parameter N?"
+  - "Which specific members of the matrix structure are allocated memory using the malloc function in the provided snippet?"
+  - "Why do some of the benchmark tests show improved speed when using managed memory?"
+  - "What do the overall benchmark results suggest about the effectiveness of data locality?"
+  - "Under what specific conditions does data movement cease to play a significant role in performance?"
+  - "Which OpenACC directives are suggested for adding explicit data management to the code?"
+  - "What specific change needs to be made to the compiler flags during this challenge?"
+  - "How should you verify that your modifications to the code and flags were successful?"
+  - "Which OpenACC directives are suggested for adding explicit data management to the code?"
+  - "What specific change needs to be made to the compiler flags during this challenge?"
+  - "How should you verify that your modifications to the code and flags were successful?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
-!!! info "Learning objectives"
-
+!!! abstract "Learning objectives"
 *   Understand what are data locality and data movement
 *   Understand what are structured and unstructured data clauses
 *   Learn how to move data explicitly
@@ -33,7 +73,7 @@ status:
 ## Making Data Management Explicit
 
 We used CUDA Unified Memory to simplify the first steps in accelerating our code. This made the process simple, but it also made the code not portable:
-*   PGI-only: –ta=tesla:managed flag
+*   PGI-only: `-ta=tesla:managed` flag
 *   NVIDIA-only: CUDA Unified Memory
 Explicitly managing data will make the code portable and may improve performance.
 
@@ -59,16 +99,15 @@ another example:
 !$acc end data
 ```
 
-!!! tip "Data locality"
+!!! note "Data locality"
     Arrays used within the data region will remain on the GPU until the end of the data region.
 
 ## Unstructured Data
-We sometimes encounter a situation where scoping does not allow the use of normal data regions (e.g. when using constructors or destructors).
-
+We sometimes encounter a situation where scoping does not allow the use of normal data regions (e.g., when using constructors or destructors).
 ### Directives
 In those cases, we use unstructured data directives:
 *   **enter data** - defines the start of an unstructured data lifetime
-    *   clauses : **copyin(list)**, **create(list)**
+    *   clauses: **copyin(list)**, **create(list)**
 *   **exit data** - defines the end of an unstructured data lifetime
     *   clauses: **copyout(list)**, **delete(list)**
 Below is the example of using the unstructured data directives in the code:
@@ -81,7 +120,7 @@ Below is the example of using the unstructured data directives in the code:
 
 ### C++ Classes
 What is the advantage of having unstructured data clauses? In fact, unstructured data clauses enable OpenACC to be used in C++ classes.
-Moreover, unstructured data clauses can be used whenever data is allocated and initialized in a different piece of code than where it is freed (e.g. Fortran modules).
+Moreover, unstructured data clauses can be used whenever data is allocated and initialized in a different piece of code than where it is freed (e.g., Fortran modules).
 ```cpp
 class Matrix { Matrix(int n) {
 len = n;
@@ -90,7 +129,7 @@ v = new double[len];
                      create(v[0:len])
 }
 ~Matrix() {
-#pragma acc exit data 
+#pragma acc exit data
                      delete(v[0:len])
 };
 ```
@@ -116,14 +155,12 @@ In Fortran it will look like this:
 ```
 
 ## Explicit Data Movement: Examples
-
 ### Copy In Matrix
 In the following example we allocate and initialize the matrix first. Then copy it to the device. The copy procedure is done in two steps:
 1.  Copy the structure of the matrix.
 2.  Copy its members.
-
 ```cpp
-void allocate_3d_poisson_matrix(matrix &A, int N) { 
+void allocate_3d_poisson_matrix(matrix &A, int N) {
    int num_rows=(N+1)*(N+1)*(N+1);
    int nnz=27*num_rows;
    A.num_rows=num_rows;
@@ -141,16 +178,15 @@ void allocate_3d_poisson_matrix(matrix &A, int N) {
 In this example, in order to free the device memory we first remove the matrix from the device, then issue the free instructions. Again, this is done in two steps (in reverse order):
 1.  Delete the members.
 2.  Delete the structure.
-
 ```cpp
 void free_matrix(matrix &A) {
-   unsigned int *row_offsets=A.row_offsets; 
+   unsigned int *row_offsets=A.row_offsets;
    unsigned int * cols=A.cols;
    double * coefs=A.coefs;
-   #pragma acc exit data delete(A.row_offsets,A.cols,A.coefs) 
+   #pragma acc exit data delete(A.row_offsets,A.cols,A.coefs)
    #pragma acc exit data delete(A)
-   free(row_offsets); 
-   free(cols); 
+   free(row_offsets);
+   free(cols);
    free(coefs);
 }
 ```
@@ -185,51 +221,50 @@ present(row_offsets,cols,Acoefs,xcoefs,ycoefs)
    for(int i=0;i<num_rows;i++) {
       double sum=0;
       int row_start=row_offsets[i];
-      int row_end=row_offsets[i+1]; 
+      int row_end=row_offsets[i+1];
       for(int j=row_start;j<row_end;j++) {
-         unsigned int Acol=cols[j]; 
-         double Acoef=Acoefs[j]; 
-         double xcoef=xcoefs[Acol]; 
+         unsigned int Acol=cols[j];
+         double Acoef=Acoefs[j];
+         double xcoef=xcoefs[Acol];
          sum+=Acoef*xcoef;
       }
-   ycoefs[i]=sum; 
+   ycoefs[i]=sum;
    }
 }
 ```
 
 ### Compiling and Running with Explicit Memory Management
-In order to rebuild the code without managed memory change **-ta=tesla:managed** to **-ta-tesla** in the Makefile.
+In order to rebuild the code without managed memory change `-ta=tesla:managed` to `-ta-tesla` in the Makefile.
 
 ### Update Directive
 In OpenACC it is possible to specify an array (or part of an array) that should be refreshed within the data region. In order to do so we use the `update` directive:
-```cpp
+```fortran
 do_something_on_device()
-!$acc update self(a)   // '''Copy "a" from GPU to CPU'''
+!$acc update self(a) ! Copy "a" from GPU to CPU
 do_something_on_host()
-!$acc update device(a)  // '''Copy "a" from CPU to GPU'''
+!$acc update device(a) ! Copy "a" from CPU to GPU
 ```
 
 In the following example we demonstrate the usage of the `update` directive. First, we modify a vector on the CPU (host), then copy it to the GPU (device):
 
 ```cpp
 void initialize_vector(vector &v,double val) {
-   for(int i=0;i<v.n;i++) 
-      v.coefs[i]=val;   // '''Updating the vector on the CPU '''
-   #pragma acc update 
-      device(v.coefs[:v.n])    // '''Updating the vector on the GPU'''
+   for(int i=0;i<v.n;i++)
+      v.coefs[i]=val;   // Updating the vector on the CPU
+   #pragma acc update
+      device(v.coefs[:v.n])    // Updating the vector on the GPU
 }
 ```
 
 ### Build and Run without Managed Memory
 Below we demonstrate the performance of the code with and without managed memory.
-In this example, several benchmarks that use OpenACC directives have been compiled with and without the **-ta=tesla:managed** option:
+In this example, several benchmarks that use OpenACC directives have been compiled with and without the `-ta=tesla:managed` option:
 The results indicate that some of these tests improve speed using managed memory, but probably due to the use of the pinned memory in the data transfers. Overall, the results suggest that data locality indeed works: when most of the operations are on the GPU and data stays on the GPU for a long time, the data movement does not play a significant role in the performance.
 
-!!! challenge "Challenge: Adding Data directives"
-
-1.  Modify the code to use explicit data directives. You may use either the `kernels` or the `parallel loop` directives. The directories step2.* from the [Github repository](https://github.com/calculquebec/cq-formation-openacc) contain the solution.
-2.  Change your compiler flags to `-ta=tesla` (not managed)
-3.  Check if you are getting the same results and performance as before.
+!!! question "Challenge: Adding Data directives"
+    1.  Modify the code to use explicit data directives. You may use either the `kernels` or the `parallel loop` directives. The directories step2.* from the [Github repository](https://github.com/calculquebec/cq-formation-openacc) contain the solution.
+    2.  Change your compiler flags to `-ta=tesla` (not managed)
+    3.  Check if you are getting the same results and performance as before.
 
 [Onward to the next unit: Optimizing loops](openacc-tutorial-optimizing-loops.md)
 [Back to the lesson plan](openacc-tutorial.md)

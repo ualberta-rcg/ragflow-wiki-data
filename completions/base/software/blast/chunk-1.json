@@ -1,0 +1,88 @@
+{
+  "doc_key": "base/blast",
+  "level": "chunk",
+  "chunk_index": 1,
+  "qa_pairs": [
+    {
+      "question": "What does BLAST stand for and what is its primary function?",
+      "answer": "BLAST stands for \"Basic Local Alignment Search Tool,\" and its primary function is to find regions of similarity between biological sequences. It compares nucleotide or protein sequences to sequence databases and calculates their statistical significance."
+    },
+    {
+      "question": "Where can users find more detailed information on BLAST arguments?",
+      "answer": "Users can find more information on BLAST arguments in the NCBI user manual, available at https://www.ncbi.nlm.nih.gov/books/NBK279684/, or by using the command `blastn -help`."
+    },
+    {
+      "question": "What are the names of the NCBI databases installed on the clusters for BLAST?",
+      "answer": "The NCBI non-redundant protein (`nr`) and non-redundant nucleotide (`nt`) databases are installed on the clusters for BLAST."
+    },
+    {
+      "question": "What is the general directory path for BLAST databases on the clusters?",
+      "answer": "The general directory path for BLAST databases on the clusters is `/cvmfs/bio.data.computecanada.ca/content/databases/Core/blast_dbs`."
+    },
+    {
+      "question": "What is the specific path for the latest non-redundant protein (`nr`) database?",
+      "answer": "The specific path for the latest non-redundant protein (`nr`) database is `/cvmfs/bio.data.computecanada.ca/content/databases/Core/blast_dbs/2025_06_21/nr/nr`."
+    },
+    {
+      "question": "What is the specific path for the latest non-redundant nucleotide (`nt`) database?",
+      "answer": "The specific path for the latest non-redundant nucleotide (`nt`) database is `/cvmfs/bio.data.computecanada.ca/content/databases/Core/blast_dbs/2025_06_21/nt/nt`."
+    },
+    {
+      "question": "Which files are designated as the reference database and query files in the examples provided for accelerating BLAST searches?",
+      "answer": "In the examples, the file `ref.fa` is used as the reference database in FASTA format, and `seq.fa` is used as the query file."
+    },
+    {
+      "question": "What is the purpose of the `makeblastdb` command in a BLAST workflow?",
+      "answer": "The `makeblastdb` command is used to build the database before running a search. It can serve as a preprocessing job upon which other jobs are dependent."
+    },
+    {
+      "question": "What modules are required to be loaded before running the `makeblastdb` command as shown in the example script?",
+      "answer": "Before running the `makeblastdb` command, the `gcc/7.3.0` and `blast+/2.9.0` modules must be loaded."
+    },
+    {
+      "question": "Provide the example command used in `makeblastdb.sh` to create a nucleotide database.",
+      "answer": "The example command used in `makeblastdb.sh` to create a nucleotide database is `makeblastdb -in ref.fa -title reference -dbtype nucl -out ref.fa`."
+    },
+    {
+      "question": "How can a BLAST search significantly benefit from data parallelism?",
+      "answer": "A BLAST search can greatly benefit from data parallelism by splitting the query file into multiple queries and running these queries against the database simultaneously."
+    },
+    {
+      "question": "What is the recommended minimum size for query file chunks when splitting them for accelerated BLAST searches using task arrays?",
+      "answer": "Query file chunks should be at least `1MB` or greater. They should not be smaller, as this may negatively impact the parallel filesystem."
+    },
+    {
+      "question": "Which utility is used to split the `seq.fa` file into smaller chunks for acceleration?",
+      "answer": "The `faSplit` utility is used to split the `seq.fa` file into smaller chunks."
+    },
+    {
+      "question": "What module needs to be loaded to use the `faSplit` utility?",
+      "answer": "To use the `faSplit` utility, the `kentutils/20180716` module needs to be loaded."
+    },
+    {
+      "question": "How would you use `faSplit` to divide a file named `seqs.fa` into 10 smaller query files?",
+      "answer": "You would use the command `faSplit sequence seqs.fa 10 seq`, which will create 10 files named `seqN.fa` where `N` is in the range of `[0..9]`."
+    },
+    {
+      "question": "How does a job array handle split queries for a BLAST search?",
+      "answer": "Once queries are split, a job array creates a task for each `seq.fa.N` file. The task ID from the array (`$SLURM_ARRAY_TASK_ID`) maps to the filename containing the specific query to run."
+    },
+    {
+      "question": "What is an advantage of using a job array for submitting BLAST tasks with split queries?",
+      "answer": "An advantage is that this solution allows the scheduler to fit the smaller jobs from the array where there are resources available in the cluster, optimizing resource utilization."
+    },
+    {
+      "question": "In the `blastn_array.sh` script, what SLURM variable is used to dynamically reference the query file for each task?",
+      "answer": "In the `blastn_array.sh` script, the `$SLURM_ARRAY_TASK_ID` variable is used to dynamically reference the query file for each task."
+    },
+    {
+      "question": "What is the `blastn` command executed within each task of the `blastn_array.sh` job array?",
+      "answer": "The `blastn` command executed within each task is `blastn -db ref.fa -query seq.fa.${SLURM_ARRAY_TASK_ID} > seq.ref.${SLURM_ARRAY_TASK_ID}`."
+    },
+    {
+      "question": "What are the SBATCH directives for time, CPUs, memory, and array size specified in the `blastn_array.sh` script?",
+      "answer": "The SBATCH directives are `--time=00:02:00` (duration for each task), `--cpus-per-task=1` (cores for each task), `--mem-per-cpu=512M` (memory per core for each task), and `--array=0-9` (specifying 10 tasks)."
+    }
+  ],
+  "generated_at": "2026-04-11T18:20:38.854468+00:00"
+}

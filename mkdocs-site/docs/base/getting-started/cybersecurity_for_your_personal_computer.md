@@ -5,28 +5,56 @@ lang: "base"
 
 source_wiki_title: "Cybersecurity for your personal computer"
 source_hash: "6250a123c0b210a480fd9d23e5a07571"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T05:53:56.904139+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T06:39:08.989431+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "Linux permissions"
+  - "Cybersecurity"
+  - "credentials"
+  - "password hygiene"
+  - "privacy-enhancing tools"
+  - "Wi-Fi security"
+  - "long passwords"
+  - "never share"
+  - "Phishing"
+  - "generate passwords"
+  - "MFA"
+  - "safe browsing"
+  - "Personal computer security"
+  - "Password manager"
+  - "password manager"
+
+questions:
+  - "What are the essential best practices for protecting a personal computer from malware, phishing, and unsecured Wi-Fi networks?"
+  - "Why is it more secure to use long, unique passwords for every service rather than frequently changing them?"
+  - "How can a password manager assist users in maintaining strong password hygiene habits?"
+  - "Under what specific circumstances does the text recommend changing your passwords?"
+  - "What tools and behavioral practices can users adopt to improve their safe browsing and online authentication security?"
+  - "What are the three common mistakes to avoid regarding Linux file permissions on supercomputers?"
+  - "How does using a password manager make it easier to maintain highly secure passwords?"
+  - "What is the recommended character length for a strong password according to the text?"
+  - "What are the primary security risks and policy consequences associated with sharing your personal credentials?"
+  - "Under what specific circumstances does the text recommend changing your passwords?"
+  - "What tools and behavioral practices can users adopt to improve their safe browsing and online authentication security?"
+  - "What are the three common mistakes to avoid regarding Linux file permissions on supercomputers?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
 # Best practices
 
-Don’t know how to keep your personal computer secure? Want to review the security level of your computer?
-Here are a few tips to enhance your computer’s security. If you’d like to evaluate its security level, you might like to take this [short quiz for a health check on your computer](cybersecurity-personal-computer-health-check.md).
+Don't know how to keep your personal computer secure? Want to review the security level of your computer?
+Here are a few tips to enhance your computer's security. If you'd like to evaluate its security level, you might like to take this [short quiz for a health check on your computer](cybersecurity-personal-computer-health-check.md).
 
 ## Security updates
 Enable *Install Update Automatically* to allow timely installation of security updates on your operating system and software.
@@ -44,40 +72,44 @@ Pay attention to the hyperlinks contained in emails or search engine results bef
 For more information, see [Signs of a phishing campaign: How to keep yourself safe](https://www.getcybersafe.gc.ca/en/blogs/signs-phishing-campaign-how-keep-yourself-safe).
 
 ## Wi-Fi security
-To protect the Wi-Fi network at your home, set a strong Wi-Fi password and update your router’s firmware regularly.
+To protect the Wi-Fi network at your home, set a strong Wi-Fi password and update your router's firmware regularly.
 
 Avoid using public Wi-Fi as much as possible. If you need to, consider installing a trustworthy VPN solution and enable it when you connect to a public Wi-Fi spot.
 
 For more information, see [Private networks](https://www.getcybersafe.gc.ca/en/secure-your-connections/private-networks) and [Public Wi-Fi](https://www.getcybersafe.gc.ca/en/secure-your-connections/public-wi-fi).
 
-!!! note "Note"
-    The advice above is mainly for individuals wanting to refresh their cybersecurity awareness and improve cyber defence on their personal computers.
-    Computers at the workplace are typically managed and protected by the organization’s IT services team where different sets of security measures may be applied. You should follow your organization’s policy to protect computers at the workplace. [Check out our short quiz for a health check on your computer!](cybersecurity-personal-computer-health-check.md)
+## Note
+
+The advice above is mainly for individuals wanting to refresh their cybersecurity awareness and improve cyber defence on their personal computers.
+Computers at the workplace are typically managed and protected by the organization's IT services team where different sets of security measures may be applied. You should follow your organization's policy to protect computers at the workplace. [Check out our short quiz for a health check on your computer!](cybersecurity-personal-computer-health-check.md)
 
 # Password hygiene habits
 Despite many solutions that protect information and systems, stolen usernames and passwords (credentials) are still the most common way attackers gain unauthorized access. This is frequently the result of weak, guessable passwords and reused credentials that have been exposed.
 
-What do you think is the best way to keep your passwords secure?
-A. Change them frequently
-B. Use special characters and a mix of lowercase and uppercase letters
-C. Create each password long and unique
+??? question "What do you think is the best way to keep your passwords secure?"
 
-Changing passwords frequently without cause can actually degrade security. When forced to change their password frequently, many people choose an easy one to remember based on predictable patterns.
-Long passwords can be quite secure, especially when they are unique. Adding complexity to a password can help, but length proves to be more important than the actual characters used. The best answer to this question is to create long passwords AND use a different one for each service. Why? Because breaches do happen and some service will eventually mishandle your credentials, which will then get exposed. Just have a look at [https://haveibeenpwned.com/](https://haveibeenpwned.com/) to see that this has already happened to many. If your password isn't unique and is exposed, it can be used to access any system where your credentials are valid. This process called *password stuffing* is usually automated and can happen as quickly as 12 hours after the initial exposure.
+    A. Change them frequently
+    B. Use special characters and a mix of lowercase and uppercase letters
+    C. Create each password long and unique
+
+Changing passwords frequently without cause can actually degrade security. When forced to change their password frequently, many people choose an easy one to remember based on predictable patterns. Long passwords can be quite secure, especially when they are unique. Adding complexity to a password can help, but length proves to be more important than the actual characters used. The best answer to this question is to create long passwords AND use a different one for each service. Why? Because breaches do happen and some service will eventually mishandle your credentials, which will then get exposed. Just have a look at [https://haveibeenpwned.com/](https://haveibeenpwned.com/) to see that this has already happened to many. If your password isn't unique and is exposed, it can be used to access any system where your credentials are valid. This process called *password stuffing* is usually automated and can happen as quickly as 12 hours after the initial exposure.
 
 !!! tip "Best password tips"
+
     - Use a password manager
         - Regardless if you choose one that is standalone or integrated into your web browser, open source or commercial product/service, a password manager is essential when it comes to all the other steps below.
     - Use a different password for everything: every service, every system;
-        - This is quite easy if you’re using a password manager.
+        - This is quite easy if you're using a password manager.
     - Make it long - 15 characters or longer is a good size;
-        - Again, easy with a password manager when you allow it to generate the passwords for you. Using passwords with 20 to 32 characters is not a problem since you don’t need to remember them anyway.
+        - Again, easy with a password manager when you allow it to generate the passwords for you. Using passwords with 20 to 32 characters is not a problem since you don't need to remember them anyway.
     - Never share it with anyone... really... no one... ever;
         - Your credentials belong to you, they identify you. Sharing them not only compromises your identity but is also usually a violation of the policies of the service or system they are used to access.
     - Change them only if there is a reason.
         - If you believe the password may have been compromised, may be reused, or is weak, you should change it. There is no good reason to change passwords based on a specific schedule, which may still be required by some organizations.
 
-If this is not what you’ve been doing, **don’t panic!** You can start making changes today. If you have hundreds of passwords, start with a few of them, do a couple every day at lunch. Every time you make even one set of credentials more secure you’re doing yourself a big favour.
+!!! tip "Don't panic!"
+
+    If this is not what you've been doing, **don't panic!** You can start making changes today. If you have hundreds of passwords, start with a few of them, do a couple every day at lunch. Every time you make even one set of credentials more secure you're doing yourself a big favour.
 
 # Safe browsing and MFA
 We rely on a variety of online resources and accounts to help us in our work and to tackle tasks effectively. How we access these tools and how we behave online can have a significant impact on our personal security and the security of the resources we share.
@@ -93,8 +125,8 @@ When authenticating to online accounts, we can use different identities/username
 Doing even some of these things will make it more challenging for attackers to target us and our colleagues in phishing attacks, to engage in credential stuffing or password guessing.
 
 # Linux permissions
-
-Audience: the content below is intended for a technical audience such as users of our supercomputers.
+!!! note "Audience"
+    The content below is intended for a technical audience such as users of our supercomputers.
 
 Linux permissions are one layer of protection to safeguard your research. Here are three common mistakes to avoid:
 

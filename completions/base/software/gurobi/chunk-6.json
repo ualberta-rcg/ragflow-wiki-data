@@ -1,0 +1,56 @@
+{
+  "doc_key": "base/gurobi",
+  "level": "chunk",
+  "chunk_index": 6,
+  "qa_pairs": [
+    {
+      "question": "What is the recommended installation method for Gurobi for Python versions 11 and newer?",
+      "answer": "For Gurobi versions 11 and newer, the previously recommended `setup.py` method for installing Gurobi for Python has been deprecated. Instead, it involves downloading a compatible binary wheel from pypi.org and converting it for installation."
+    },
+    {
+      "question": "What Gurobi versions are compatible with the `setup.py` installation method for Python?",
+      "answer": "The `setup.py` method for installing Gurobi for Python is only usable with Gurobi 10 versions and older."
+    },
+    {
+      "question": "What are the initial steps to set up a Python virtual environment for Gurobi versions 10.0.3 and older?",
+      "answer": "For Gurobi versions 10.0.3 and older, you first need to load the `gurobi/10.0.3` and `python` modules. Then, create a virtual environment using `virtualenv --no-download ~/env_gurobi` and activate it with `source ~/env_gurobi/bin/activate`."
+    },
+    {
+      "question": "How do I install additional Python packages, like pandas, in a Gurobi virtual environment for versions 10.0.3 and older?",
+      "answer": "Once your virtual environment is activated, you can install other Python packages by running `pip install --no-index pandas`."
+    },
+    {
+      "question": "Why does installing `gurobipy` for Gurobi 10.0.3 (and older) with `python setup.py install` sometimes fail as of StdEnv/2023?",
+      "answer": "As of StdEnv/2023, running `python setup.py install` directly under `$EBROOTGUROBI` for Gurobi 10.0.3 (and older) can result in a fatal error like `error: could not create 'gurobipy.egg-info': Read-only file system`."
+    },
+    {
+      "question": "What is the workaround for the 'Read-only file system' error when installing `gurobipy` for Gurobi 10.0.3 (and older) in a virtual environment?",
+      "answer": "To work around the 'Read-only file system' error, you must first create a temporary directory (e.g., `/tmp/$USER`), copy `$EBROOTGUROBI/{lib,setup.py}` into it, navigate to that directory, and then run `python setup.py install`."
+    },
+    {
+      "question": "Which Gurobi version is recommended to skip when setting up a Python virtual environment, and why?",
+      "answer": "Gurobi version 11.0.0 is recommended to be skipped because it has been observed to cause segmentation faults in some examples, unlike version 11.0.1, which runs smoothly."
+    },
+    {
+      "question": "What are the initial steps to set up a Python virtual environment for Gurobi versions 11.0.1 and newer?",
+      "answer": "For Gurobi versions 11.0.1 and newer, you first need to load the `gurobi/11.0.1` and `python` modules. Then, create a virtual environment using `virtualenv --no-download ~/env_gurobi` and activate it with `source ~/env_gurobi/bin/activate`."
+    },
+    {
+      "question": "How do I install necessary Python packages, such as pandas, for Gurobi versions 11.0.1 and newer within a virtual environment?",
+      "answer": "Once your virtual environment is activated, you can install required Python packages, like pandas (which also provides numpy), by running `pip install --no-index pandas`."
+    },
+    {
+      "question": "Why can't I use the standard `pip install gurobipy` command for Gurobi versions 11.0.1 and newer on these Linux systems?",
+      "answer": "Standard `pip install gurobipy` or offline `python -m pip install --find-links <wheel-dir> --no-index gurobipy` commands do not work on these Linux systems for Gurobi versions 11.0.1 and newer because they are set up with a Gentoo prefix, which complicates direct installation of binary wheels."
+    },
+    {
+      "question": "What is the process for installing `gurobipy` for Gurobi versions 11.0.1 and newer on systems with a Gentoo prefix?",
+      "answer": "To install `gurobipy` for Gurobi 11.0.1 and newer, you need to first download and make executable the `unmanylinuxize.sh` script. Then, run `unmanylinuxize.sh` with `--package gurobipy`, `--version 11.0.1`, and the `--url` pointing to the specific wheel file from pypi.org. Finally, install the converted wheel using `python -m pip install --find-links $PWD --no-index gurobipy`."
+    },
+    {
+      "question": "How do I find the correct URL for the `gurobipy` wheel file for Gurobi versions 11.0.1 and newer?",
+      "answer": "To find the correct URL for the `gurobipy` wheel file, you must visit https://pypi.org/project/gurobipy/, select the desired Gurobi version (e.g., 11.0.1), click the 'Download files' button in the left menu, and then copy the HTTPS link for the appropriate wheel file (e.g., `gurobipy-11.0.1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl`)."
+    }
+  ],
+  "generated_at": "2026-04-11T23:29:29.414980+00:00"
+}

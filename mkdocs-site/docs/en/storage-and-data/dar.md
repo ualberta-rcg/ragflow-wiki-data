@@ -5,21 +5,48 @@ lang: "en"
 
 source_wiki_title: "Dar/en"
 source_hash: "e81aea71f2c6aa0b8bb1f20a88854828"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T05:58:16.900730+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T06:43:34.360607+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "compute clusters"
+  - "backups"
+  - "dar"
+  - "dar utility"
+  - "incremental backups"
+  - "Lustre filesystem"
+  - "archiving"
+  - "archived files"
+  - "extracting"
+  - "Disk ARchive"
+  - "extended attributes"
+  - "-alist-ea flag"
+  - "lustre.lov"
+  - "archive slices"
+
+questions:
+  - "What are the main advantages and features of the dar utility compared to the classical Unix tar tool?"
+  - "Where can the dar utility be found and accessed on the described compute clusters?"
+  - "How do you manually create an archive, list its contents, and extract specific files or directories using dar commands?"
+  - "How can you prevent error messages when extracting an archive containing Lustre extended attributes to a non-Lustre file system?"
+  - "What is the correct procedure for creating and fully restoring a series of incremental backups using the dar command?"
+  - "How do you limit the maximum file size of individual archive slices when creating a backup?"
+  - "What are the typical directories where the Lustre filesystem is located on the general-purpose compute clusters?"
+  - "What happens to the extended attributes of files when they are archived from a Lustre filesystem?"
+  - "Which command flag should be used to view the extended attributes assigned to an archived file?"
+  - "How can you prevent error messages when extracting an archive containing Lustre extended attributes to a non-Lustre file system?"
+  - "What is the correct procedure for creating and fully restoring a series of incremental backups using the dar command?"
+  - "How do you limit the maximum file size of individual archive slices when creating a backup?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -27,7 +54,7 @@ status:
 
 The [`dar`](http://dar.linux.free.fr) (stands for Disk ARchive) utility was written from the ground up as a modern replacement to the classical Unix `tar` tool. First released in 2002, `dar` is open source, is actively maintained, and can be compiled on any Unix-like system.
 
-Similar to `tar`, `dar` supports full / differential / incremental backups. Unlike `tar`, each `dar` archive includes a file index for fast file access and restore -- this is especially useful for large archives! `dar` has built-in compression on a file-by-file basis, making it more resilient against data corruption, and you can optionally tell it not to compress already highly compressed files such as `mp4` and `gz`. `dar` supports strong encryption, can split archives at 1-byte resolution, supports extended file attributes, sparse files, hard and symbolic (soft) links, can detect data corruption in both headers and saved data and recover with minimal data loss, and has many other desirable features. On the [`dar` page](http://dar.linux.free.fr) you can find a [detailed feature-by-feature `tar`-to-`dar` comparison](http://dar.linux.free.fr/doc/FAQ.html#tar).
+Similar to `tar`, `dar` supports full / differential / incremental backups. Unlike `tar`, each `dar` archive includes a file index for fast file access and restore — this is especially useful for large archives! `dar` has built-in compression on a file-by-file basis, making it more resilient against data corruption, and you can optionally tell it not to compress already highly compressed files such as `mp4` and `gz`. `dar` supports strong encryption, can split archives at 1-byte resolution, supports extended file attributes, sparse files, hard and symbolic (soft) links, can detect data corruption in both headers and saved data and recover with minimal data loss, and has many other desirable features. On the [`dar` page](http://dar.linux.free.fr) you can find a [detailed feature-by-feature `tar`-to-`dar` comparison](http://dar.linux.free.fr/doc/FAQ.html#tar).
 
 ## Where to find `dar`
 
@@ -84,7 +111,7 @@ Similar to creating an archive, you can pass multiple directories and files by u
 
 #### A note about the Lustre filesystem
 
-If the archived files are coming from a [Lustre filesystem](https://www.lustre.org/) (typically in `/home`, `/project` or `/scratch` on [our *general-purpose* compute clusters](national-systems.md)), some *extended attributes* are saved automatically. To see which extended attributes are assigned to each archived file, use the `-alist-ea` flag:
+If the archived files are coming from a [`Lustre filesystem`](https://www.lustre.org/) (typically in `/home`, `/project` or `/scratch` on [our *general-purpose* compute clusters](national-systems.md)), some *extended attributes* are saved automatically. To see which extended attributes are assigned to each archived file, use the `-alist-ea` flag:
 
 ```bash
 dar -l all -alist-ea
@@ -104,7 +131,8 @@ Another solution is to get rid of the `lustre.lov` attribute while creating the 
 dar -w -c all -g test -u 'lustre*'
 ```
 
-In conclusion, this is necessary only if you intend to extract files to a location not formatted in Lustre.
+!!! note "Lustre filesystem compatibility"
+    This is necessary only if you intend to extract files to a location not formatted in Lustre.
 
 ### Incremental backups
 
@@ -149,7 +177,7 @@ will only restore files that were modified on Wednesday. To restore everything, 
 
 ### Limiting the size of each slice
 
-To limit the maximum size of each slice in bytes, use the flag `-s` followed by a number and one of `k/M/G/T`. For example, for a 1340 MB archive, the command
+To limit the maximum size of each slice in bytes, use the flag `-s` followed by a number and one of k/M/G/T. For example, for a 1340 MB archive, the command
 
 ```bash
 [user_name@localhost]$ dar -s 100M -w -c monday -g test

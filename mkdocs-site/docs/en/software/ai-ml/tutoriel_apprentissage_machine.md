@@ -5,21 +5,49 @@ lang: "en"
 
 source_wiki_title: "Tutoriel Apprentissage machine/en"
 source_hash: "d83b2ce127ca508e105ae4cf4d0e4776"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T12:11:31.411758+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T12:13:21.614118+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "Virtual environment"
+  - "cluster resources"
+  - "module load"
+  - "daisy chain"
+  - "Machine learning job"
+  - "SBATCH"
+  - "CPU/GPU ratio"
+  - "Scripted job"
+  - "Checkpointing"
+  - "SLURM"
+  - "virtual environment"
+  - "long-running jobs"
+  - "job submission script"
+  - "Cluster"
+  - "Interactive job"
+
+questions:
+  - "Why must datasets be archived into formats like `tar` before being used on the cluster's shared storage?"
+  - "What is the purpose of using the `salloc` command to run an interactive job before submitting a batch script?"
+  - "What essential resource allocations and bash commands need to be defined in an `sbatch` script to successfully automate a machine learning job?"
+  - "Why is it recommended to checkpoint long-running jobs in 24-hour units on the cluster?"
+  - "How can you use SLURM array arguments to create a daisy chain of sequential jobs?"
+  - "What logic does the provided bash script use to determine whether to start training from scratch or resume from a previous state?"
+  - "How are computing resources such as CPUs, memory, and time allocated in this SLURM script?"
+  - "Which software modules are loaded to prepare the environment for the task?"
+  - "What optimization technique is suggested for managing the virtual environment to improve performance?"
+  - "Why is it recommended to checkpoint long-running jobs in 24-hour units on the cluster?"
+  - "How can you use SLURM array arguments to create a daisy chain of sequential jobs?"
+  - "What logic does the provided bash script use to determine whether to start training from scratch or resume from a previous state?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -27,23 +55,19 @@ This page is a beginner's manual concerning how to port a machine learning job t
 
 ## Step 1: Remove All Graphical Display
 
-Edit your program such that it doesn't use a graphical display. All graphical results will have to be written to disk, and visualized on your personal computer once the job is finished. For example, if you show plots using matplotlib, you need to [write the plots to image files instead of showing them on screen](https://stackoverflow.com/questions/4706451/how-to-save-a-figure-remotely-with-pylab).
+Edit your program such that it doesn't use a graphical display. All graphical results will have to be written on disk, and visualized on your personal computer, when the job is finished. For example, if you show plots using matplotlib, you need to [write the plots to image files instead of showing them on screen](https://stackoverflow.com/questions/4706451/how-to-save-a-figure-remotely-with-pylab).
 
 ## Step 2: Archiving a Data Set
 
-Shared storage on our clusters is not designed to handle lots of small files (they are optimized for very large files). Make sure that the data set you need for your training is in an archive format like `tar`, which you can then transfer to your job's compute node when the job starts.
+Shared storage on our clusters is not designed to handle lots of small files (they are optimized for very large files). Make sure that the data set which you need for your training is an archive format like `tar`, which you can then transfer to your job's compute node when the job starts.
+!!! warning "Important"
+    **If you do not respect these rules, you risk causing enormous numbers of I/O operations on the shared filesystem, leading to performance issues on the cluster for all of its users.**
+If you want to learn more about how to handle collections of large number of files, we recommend that you spend some time reading [this page](handling-large-collections-of-files.md).
 
-!!! warning
-    If you do not respect these rules, you risk causing an enormous number of I/O operations on the shared filesystem, leading to performance issues on the cluster for all its users.
-
-If you want to learn more about how to handle collections of large numbers of files, we recommend that you spend some time reading [this page](handling-large-collections-of-files.md).
-
-Assuming that the files you need are in the directory `mydataset`:
-
+Assuming that the files which you need are in the directory `mydataset`:
 ```bash
 tar cf mydataset.tar mydataset/*
 ```
-
 The above command does not compress the data. If you believe that this is appropriate, you can use `tar czf`.
 
 ## Step 3: Preparing Your Virtual Environment
@@ -52,26 +76,24 @@ The above command does not compress the data. If you believe that this is approp
 
 For details on installation and usage of machine learning frameworks, refer to our documentation:
 
-*   [PyTorch](pytorch.md)
-*   [TensorFlow](tensorflow.md)
+* [PyTorch](pytorch.md)
+* [TensorFlow](tensorflow.md)
 
 ## Step 4: Interactive Job (salloc)
 
 We recommend that you try running your job in an [interactive job](running-jobs.md#interactive-jobs) before submitting it using a script (discussed in the following section). You can diagnose problems more quickly using an interactive job. An example of the command for submitting such a job is:
-
 ```bash
 salloc --account=def-someuser --gres=gpu:1 --cpus-per-task=3 --mem=32000M --time=1:00:00
 ```
-
 Once the job has started:
 
-*   Activate your virtual environment.
-*   Try to run your program.
-*   Install any missing modules if necessary. Since the compute nodes don't have internet access, you will have to install them from a login node. Please refer to our documentation on [virtual environments](python.md#creating-and-using-a-virtual-environment).
-*   Note the steps that you took to make your program work.
+* Activate your virtual environment.
+* Try to run your program.
+* Install any missing modules if necessary. Since the compute nodes don't have internet access, you will have to install them from a login node. Please refer to our documentation on [virtual environments](python.md#creating-and-using-a-virtual-environment).
+* Note the steps that you took to make your program work.
 
-!!! tip "Local Storage Usage"
-    Now is a good time to verify that your job reads and writes as much as possible on the compute node's local storage (`$SLURM_TMPDIR`) and as little as possible on the [shared filesystems (home, scratch, and project)](storage-and-file-management.md).
+!!! tip "Important Verification"
+    **Now is a good time to verify that your job reads and writes as much as possible on the compute node's local storage (`$SLURM_TMPDIR`) and as little as possible on the [shared filesystems (home, scratch and project)](storage-and-file-management.md).**
 
 ## Step 5: Scripted Job (sbatch)
 
@@ -82,9 +104,7 @@ You must [submit your jobs](running-jobs.md#use-sbatch-to-submit-jobs) using a s
 1.  Account that will be "billed" for the resources used
 2.  Resources required:
     *   Number of CPUs, suggestion: 6
-    *   Number of GPUs, suggestion: 1
-        !!! note "GPU Usage"
-            Use one (1) single GPU, unless you are certain that your program can use several. By default, TensorFlow and PyTorch use just one GPU.
+    *   Number of GPUs, suggestion: 1 (**Use one (1) single GPU, unless you are certain that your program can use several. By default, TensorFlow and PyTorch use just one GPU.**)
     *   Amount of memory, suggestion: `32000M`
     *   Duration (Maximum Béluga: 7 days, Graham and Cedar: 28 days)
 3.  *Bash* commands:
@@ -94,7 +114,7 @@ You must [submit your jobs](running-jobs.md#use-sbatch-to-submit-jobs) using a s
 
 ### Example Script
 
-````bash title="ml-test.sh"
+```bash title="ml-test.sh"
 #!/bin/bash
 #SBATCH --gres=gpu:1       # Request GPU "generic resources"
 #SBATCH --cpus-per-task=3  # Refer to cluster's documentation for the right CPU/GPU ratio
@@ -115,7 +135,7 @@ tar xf ~/projects/def-xxxx/data.tar -C $SLURM_TMPDIR/data
 
 # Start training
 python $SOURCEDIR/train.py $SLURM_TMPDIR/data
-````
+```
 
 ### Checkpointing a Long-Running Job
 
@@ -128,7 +148,7 @@ We recommend that you checkpoint your jobs in 24-hour units. Submitting jobs whi
 
 The job submission script will look like this:
 
-````bash title="ml-test-chain.sh"
+```bash title="ml-test-chain.sh"
 #!/bin/bash
 #SBATCH --array=1-10%1   # 10 is the number of jobs in the chain
 #SBATCH ...
@@ -153,4 +173,3 @@ if [ -z "$LAST_CHECKPOINT" ]; then
 else
     python $SOURCEDIR/train.py --load-checkpoint $LAST_CHECKPOINT --write-checkpoints-to $CHECKPOINTS ...
 fi
-`

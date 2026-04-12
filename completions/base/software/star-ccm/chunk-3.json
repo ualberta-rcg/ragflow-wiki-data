@@ -1,0 +1,76 @@
+{
+  "doc_key": "base/star-ccm",
+  "level": "chunk",
+  "chunk_index": 3,
+  "qa_pairs": [
+    {
+      "question": "What command is used to load the `starccm-mixed/20.06.010` module in the provided Slurm scripts for Nibi, Fir, Narval, and Rorqual clusters?",
+      "answer": "You can load the module using `module load starccm-mixed/20.06.010`."
+    },
+    {
+      "question": "Which environment variable must be manually set for researchers with a Power-on-Demand (PoD) license in a Slurm script?",
+      "answer": "Researchers with a PoD license must manually set the `LM_PROJECT` environment variable to their 22-digit PoD License Key."
+    },
+    {
+      "question": "What is the default filename for the input simulation specified in the Nibi, Fir, Narval, and Rorqual Slurm scripts?",
+      "answer": "The default input simulation filename is `mySample.sim`."
+    },
+    {
+      "question": "How are temporary output files from STAR-CCM+ jobs redirected in the Slurm scripts for Nibi, Fir, Narval, and Rorqual clusters?",
+      "answer": "Temporary output files are redirected from `~/.star-VERSION#` to `$SLURM_TMPDIR` by setting `export STARCCM_TMP=\"$SLURM_TMPDIR\"`."
+    },
+    {
+      "question": "How is the `NCORE` variable, which represents the total number of cores, calculated in the Slurm scripts?",
+      "answer": "The `NCORE` variable is calculated as `NCORE=$((SLURM_NNODES * SLURM_CPUS_PER_TASK * SLURM_NTASKS_PER_NODE))`."
+    },
+    {
+      "question": "In the Nibi Slurm script, what command checks the license server and port specified in the `CDLMD_LICENSE_FILE`?",
+      "answer": "The command `nmap $server -Pn -p $port` is used to check the license server and port specified in `$CDLMD_LICENSE_FILE`."
+    },
+    {
+      "question": "For Nibi clusters, how is `STAR_MPI` configured when the CPU vendor is GenuineIntel?",
+      "answer": "When the CPU vendor is GenuineIntel, `STAR_MPI` is set to `\"-mpi intel\"`."
+    },
+    {
+      "question": "For Nibi clusters, if the CPU vendor is GenuineIntel and the STAR-CCM+ version is 20 or newer, how is `STAR_FLEXIBLAS` configured?",
+      "answer": "If the CPU vendor is GenuineIntel and the STAR-CCM+ version is 20 or newer, `STAR_FLEXIBLAS` is set to `\"-flexiblaslib MKL\"`."
+    },
+    {
+      "question": "On Nibi clusters, what is the `STAR_MPI` setting for AuthenticAMD CPUs?",
+      "answer": "For AuthenticAMD CPUs, `STAR_MPI` is set to `\"-mpi openmpi40\"`."
+    },
+    {
+      "question": "What is the primary command used to run STAR-CCM+ with a Siemens PoD license server in the Nibi Slurm script?",
+      "answer": "The command is `starccm+ -jvmargs \"-Xmx4G -Djava.io.tmpdir=$SLURM_TMPDIR\" -batch $BATCH_CMD -power -podkey $LM_PROJECT -np $NCORE -nbuserdir $SLURM_TMPDIR -machinefile $SLURM_TMPDIR/machinefile $JAVA_FILE $SIM_FILE $STAR_MPI $STAR_UCX $STAR_FABRIC $STAR_FLEXIBLAS $STAR_PRELOAD`."
+    },
+    {
+      "question": "How is STAR-CCM+ launched in the Nibi Slurm script when using an institutional license server?",
+      "answer": "It is launched using `starccm+ -jvmargs \"-Xmx4G -Djava.io.tmpdir=$SLURM_TMPDIR\" -batch $BATCH_CMD -np $NCORE -nbuserdir $SLURM_TMPDIR -machinefile $SLURM_TMPDIR/machinefile $JAVA_FILE $SIM_FILE $STAR_MPI $STAR_UCX $STAR_FABRIC $STAR_FLEXIBLAS $STAR_PRELOAD`, optionally after a license check with `lmutil`."
+    },
+    {
+      "question": "What is the initial default setting for `FLEXIBLAS` in the Slurm scripts for Fir/Narval/Rorqual clusters?",
+      "answer": "The initial default setting for `FLEXIBLAS` is `NETLIB`."
+    },
+    {
+      "question": "For Fir/Narval/Rorqual clusters, how is `FLEXIBLAS` configured if the `RSNT_CPU_VENDOR_ID` is `intel`?",
+      "answer": "If the `RSNT_CPU_VENDOR_ID` is `intel`, `FLEXIBLAS` is set to `StarMKL`."
+    },
+    {
+      "question": "For Fir/Narval/Rorqual clusters, what is the `STAR_MPI` setting when the `RSNT_CPU_VENDOR_ID` is `intel`?",
+      "answer": "When the `RSNT_CPU_VENDOR_ID` is `intel`, `STAR_MPI` is set to `\"-mpi intel\"`."
+    },
+    {
+      "question": "Under what condition is `STAR_UCX=\"-xsystemucx\"` set in the Slurm scripts for Fir/Narval/Rorqual clusters?",
+      "answer": "`STAR_UCX=\"-xsystemucx\"` is set if the `EBVERSIONSTARCCM` (STAR-CCM+ version) is less than 20."
+    },
+    {
+      "question": "How can a Java macro be specified for a STAR-CCM+ batch job in the provided Slurm scripts?",
+      "answer": "A Java macro can be specified by uncommenting and setting `BATCH_CMD='myMacro.java,run'`."
+    },
+    {
+      "question": "What versions of `starccm` modules are mentioned in the comments as being loadable, besides `20.06.010-R8` or `starccm-mixed/20.06.010`?",
+      "answer": "Other loadable versions mentioned include `18.04.009`, `18.06.007`, `19.04.009`, `19.06.009`, `20.02.008`, and `20.04.007`."
+    }
+  ],
+  "generated_at": "2026-04-12T08:12:44.272707+00:00"
+}

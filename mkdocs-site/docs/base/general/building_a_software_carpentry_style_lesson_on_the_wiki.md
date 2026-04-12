@@ -5,28 +5,41 @@ lang: "base"
 
 source_wiki_title: "Building a Software Carpentry style lesson on the wiki"
 source_hash: "1eef5e27aa73c8c958300291e484ed25"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T05:00:16.505818+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T05:51:12.797217+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "Markdown syntax"
+  - "wiki"
+  - "lessons"
+  - "Software Carpentry"
+  - "templates"
+
+questions:
+  - "What is the main advantage mentioned for hosting Software Carpentry-style lessons on a wiki rather than on GitHub?"
+  - "What are the specific templates provided to help format the different sections of a lesson?"
+  - "How is the syntax structured to implement these templates and generate the corresponding formatted boxes?"
+  - "What is the main advantage mentioned for hosting Software Carpentry-style lessons on a wiki rather than on GitHub?"
+  - "What are the specific templates provided to help format the different sections of a lesson?"
+  - "How is the syntax structured to implement these templates and generate the corresponding formatted boxes?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
-It may be interesting to use our wiki to host Software Carpentry-style lessons. Software Carpentry lessons, such as [this one](http://swcarpentry.github.io/shell-novice/), are usually hosted on Github. They can be written with a Markdown syntax and provide many pre-formatted styles. Hosting a lesson on a wiki also offers the advantage of supporting translation. In order to facilitate the writing of such a lesson, a few templates may be useful and are listed below.
+It may be interesting to use our wiki to host Software Carpentry-style lessons. Software Carpentry lessons, such as [this one](http://swcarpentry.github.io/shell-novice/), are usually hosted on GitHub. They can be written with a Markdown syntax, and provide many pre-formatted styles. Hosting a lesson on a wiki also offers the advantage of supporting translation. In order to facilitate the writing of such lesson, a few templates may be useful, and are listed below.
 
 ## Prerequisites
 The typical SWC prerequisites box can be obtained using the `{{Prerequisites}}` template. For example, the following code
+
 ```text
 {{Prerequisites
   |title=Prerequisites for this lesson
@@ -34,13 +47,16 @@ The typical SWC prerequisites box can be obtained using the `{{Prerequisites}}` 
 This lesson requires you to first know X.
 }}
 ```
+
 results in the following box
 
-!!! note "Prerequisites for this lesson"
+!!! info "Prerequisites for this lesson"
+
     This lesson requires you to first know X.
 
-## Getting ready
+## Getting Ready
 The SWC "getting ready" box can be obtained using the `{{Getready}}` template. For example, the following code
+
 ```text
 {{Getready
   |title=Getting ready for this lesson
@@ -48,13 +64,16 @@ The SWC "getting ready" box can be obtained using the `{{Getready}}` template. F
 You should download the following files prior to starting the lesson.
 }}
 ```
+
 results in the following box
 
 !!! info "Getting ready for this lesson"
+
     You should download the following files prior to starting the lesson.
 
 ## Learning Objectives
 The SWC "objectives" box can be obtained using the `{{Objectives}}` template. For example, the following code
+
 ```text
 {{Objectives
   |title=Learning Objectives
@@ -63,36 +82,44 @@ The SWC "objectives" box can be obtained using the `{{Objectives}}` template. Fo
 * You will also learn B
 }}
 ```
+
 results in the following box
 
 !!! abstract "Learning Objectives"
-    *   You will learn A
-    *   You will also learn B
+
+    * You will learn A
+    * You will also learn B
 
 ## Callouts
 The SWC "callout" box can be obtained using the `{{Callout}}` template. For example, the following code
+
 ```text
 {{Callout
   |title=Using auto completion
   |content=
-You can use the <TAB> key to auto complete.
+You can use the <TAB> key to auto complete. 
 }}
 ```
+
 results in the following box
 
 !!! tip "Using auto completion"
+
     You can use the <TAB> key to auto complete.
 
 ## Challenge
 The SWC "challenge" box can be obtained using the `{{Challenge}}` template. For example, the following code
+
 ```text
 {{Challenge
-  |title=Practising using the commands.
+  |title=Practicing using the commands.
   |content=
 Assuming a ...
 }}
 ```
+
 results in the following box
 
-!!! question "Practising using the commands"
+!!! question "Practicing using the commands"
+
     Assuming a ...

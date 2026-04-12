@@ -1,0 +1,79 @@
+{
+  "doc_key": "base/advanced_mpi_scheduling",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is the primary purpose of this document regarding Slurm job submission?",
+      "answer": "This document provides guidance on submitting MPI or distributed memory parallel jobs using Slurm, with a focus on controlling job allocation."
+    },
+    {
+      "question": "How should most users submit MPI or distributed memory parallel jobs in Slurm?",
+      "answer": "Most users should submit MPI or distributed memory parallel jobs by requesting a number of processes with `--ntasks` or `-n`, allowing the scheduler to balance efficiency."
+    },
+    {
+      "question": "Where can users find more detailed information on controlling job allocation with `sbatch` options?",
+      "answer": "Users can find more detailed information on controlling job allocation on SchedMD's multicore support page, which describes how `sbatch` options constrain process placement."
+    },
+    {
+      "question": "What is the simplest way to specify the number of MPI processes for a Slurm job?",
+      "answer": "The simplest way to specify the number of MPI processes for a Slurm job is with `--ntasks`."
+    },
+    {
+      "question": "Why is it often recommended to specify `--mem-per-cpu` when using `--ntasks` for an MPI job?",
+      "answer": "It's often recommended because the default memory allocation of 256MB per core is usually insufficient, and the number of cores per node is unknown when only `--ntasks` is used."
+    },
+    {
+      "question": "Provide a basic `sbatch` example for an MPI job requesting 15 processes with 3GB of memory per CPU.",
+      "answer": "A basic example would be: `#SBATCH --ntasks=15`, `#SBATCH --mem-per-cpu=3G`, followed by `srun application.exe`."
+    },
+    {
+      "question": "When should a user consider requesting whole nodes for a parallel job?",
+      "answer": "A user should consider requesting whole nodes if they have a large parallel job that can efficiently use 64 cores or more."
+    },
+    {
+      "question": "What does `--mem=0` signify when included in a Slurm job script requesting whole nodes?",
+      "answer": "`--mem=0` signifies that Slurm should reserve all the available memory on each node assigned to the job."
+    },
+    {
+      "question": "For the Narval cluster, what `sbatch` options are used to request two whole nodes?",
+      "answer": "For Narval, you would use `#SBATCH --nodes=2`, `#SBATCH --ntasks-per-node=64`, and `#SBATCH --mem=0`."
+    },
+    {
+      "question": "When should `--mem=0` not be used when requesting whole nodes, and what should be done instead?",
+      "answer": "`--mem=0` should not be used if more memory per node than the smallest node provides is needed; instead, the specific memory amount should be explicitly requested."
+    },
+    {
+      "question": "How can a user ensure all cores for their job are allocated on a single node when requesting less than a full node?",
+      "answer": "A user can ensure this by setting `--nodes=1` and specifying the desired number of tasks per node with `--ntasks-per-node=X`."
+    },
+    {
+      "question": "What is an advantage of using `--mem=VALUE` over `--mem-per-cpu=VALUE` for a single-node job?",
+      "answer": "Using `--mem=VALUE` means the job is cancelled only if the total memory on the node exceeds the requested amount, whereas `--mem-per-cpu=VALUE` cancels the job if any single process exceeds its per-CPU limit."
+    },
+    {
+      "question": "Who should be contacted for assistance with evaluating trade-offs for large parallel jobs that don't match whole node multiples?",
+      "answer": "Technical support should be contacted for assistance with these evaluations."
+    },
+    {
+      "question": "For a hybrid job combining MPI processes and OpenMP/Posix threads, which Slurm option sets the MPI process count?",
+      "answer": "The MPI process count for a hybrid job is set with `--ntasks` or `--ntasks-per-node`."
+    },
+    {
+      "question": "In a hybrid job, which Slurm option is used to set the number of threads per MPI process?",
+      "answer": "The number of threads per MPI process for a hybrid job is set with `--cpus-per-task`."
+    },
+    {
+      "question": "Why is `srun` generally preferred over `mpirun` or `mpiexec` in a Slurm environment?",
+      "answer": "`srun` automatically distributes processes to allocated resources, handles task affinity, and is fully coupled to Slurm, which minimizes resource mismatch risks and provides proper accounting."
+    },
+    {
+      "question": "What environment variables are initialized correctly when `srun` starts a job step?",
+      "answer": "The `SLURM_STEP_ID` and `SLURM_PROCID` environment variables are initialized correctly."
+    },
+    {
+      "question": "Can `mpiexec` ever offer better performance than `srun`?",
+      "answer": "Yes, better performance might be achievable with `mpiexec` than with `srun` under certain circumstances, although using `srun` minimizes the risk of resource mismatch."
+    }
+  ],
+  "generated_at": "2026-04-11T16:10:13.025980+00:00"
+}

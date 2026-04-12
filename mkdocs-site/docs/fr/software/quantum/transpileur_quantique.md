@@ -5,21 +5,33 @@ lang: "fr"
 
 source_wiki_title: "Transpileur quantique/fr"
 source_hash: "06f5fa43b6d3316e6ab9c159b148c061"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T11:57:45.740513+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T12:04:57.541151+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "transpilation"
+  - "circuit quantique"
+  - "ordinateur quantique"
+  - "portes natives"
+  - "qubits"
+
+questions:
+  - "Quel est le rôle principal de la transpilation dans le domaine de l'informatique quantique par rapport à la transpilation classique ?"
+  - "Quelles sont les différentes étapes clés du processus de transpilation permettant d'adapter un circuit théorique aux contraintes physiques d'une machine quantique ?"
+  - "Comment le transpileur développé par Calcul Québec s'intègre-t-il avec PennyLane pour faciliter l'exécution de circuits sur l'ordinateur quantique MonarQ ?"
+  - "Quel est le rôle principal de la transpilation dans le domaine de l'informatique quantique par rapport à la transpilation classique ?"
+  - "Quelles sont les différentes étapes clés du processus de transpilation permettant d'adapter un circuit théorique aux contraintes physiques d'une machine quantique ?"
+  - "Comment le transpileur développé par Calcul Québec s'intègre-t-il avec PennyLane pour faciliter l'exécution de circuits sur l'ordinateur quantique MonarQ ?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -41,6 +53,9 @@ L'idée consiste à établir une association entre les fils du circuit quantique
 ### Routage
 Malgré l’étape de placement, il se peut que certaines opérations à deux qubits ne puissent pas être correctement assignées à des coupleurs physiques disponibles sur la machine. Dans ce cas, des opérations de [permutation](https://pennylane.ai/qml/glossary/what-is-a-swap-gate) sont utilisées pour rapprocher virtuellement les qubits concernés et permettre leur connexion. Ces opérations de permutations sont toutefois très coûteuses, rendant essentiel un placement initial optimal afin de minimiser leur utilisation.
 
+!!! tip "Exemple de routage"
+    Exemple de routage pour joindre deux qubits distants. Une porte CNOT entre le qubit 0 et 2 est convertie en deux portes SWAP et une porte CNOT sur des qubits voisins.
+
 ### Optimisation
 Les qubits accumulent des erreurs et perdent leur cohérence au fil du temps. Pour limiter ces effets, le processus d'optimisation diminue le nombre d'opérations appliquées sur chaque qubit à l'aide de différents algorithmes classiques. Par exemple, il supprime les opérations triviales et les opérations inverses; combine les rotations sur un même axe; et plus généralement, remplace des sections de circuits par des circuits équivalents, générant moins d’erreurs.
 
@@ -48,4 +63,4 @@ Les qubits accumulent des erreurs et perdent leur cohérence au fil du temps. Po
 Chaque ordinateur quantique dispose d'un ensemble fini d'opérations de base (portes natives), à partir desquelles toutes les autres opérations peuvent être composées. Par exemple, MonarQ dispose d’un ensemble de 13 portes natives. La transpilation décompose ainsi toutes les opérations non natives d’un circuit en opérations natives.
 
 ## Utiliser le transpileur de Calcul Québec avec MonarQ
-Calcul Québec a développé un transpileur qui permet d’envoyer des circuits sur MonarQ de manière transparente, en utilisant les étapes de transpilation mentionnées plus haut. Ce transpileur est intégré à un [appareil PennyLane](https://docs.pennylane.ai/en/stable/code/api/pennylane.device.html) et est donc conçu pour être spécifiquement utilisé avec [PennyLane](pennylane.md). Pour les détails, consultez [la documentation](https://github.com/calculquebec/pennylane-calculquebec/blob/main/doc/getting_started.ipynb).
+Calcul Québec a développé un transpileur qui permet d’envoyer des circuits sur MonarQ de manière transparente, en utilisant les étapes de transpilation mentionnées plus haut. Ce transpileur est intégré à un [device PennyLane](https://docs.pennylane.ai/en/stable/code/api/pennylane.device.html) et est donc conçu pour être spécifiquement utilisé avec [PennyLane](pennylane.md). Pour les détails, consultez [la documentation](https://github.com/calculquebec/pennylane-calculquebec/blob/main/doc/getting_started.ipynb).

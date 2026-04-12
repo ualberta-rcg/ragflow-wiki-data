@@ -1,0 +1,84 @@
+{
+  "doc_key": "en/ansys",
+  "level": "chunk",
+  "chunk_index": 15,
+  "qa_pairs": [
+    {
+      "question": "What is the purpose of the Fluent solution restart scripts?",
+      "answer": "The Fluent solution restart scripts are designed to automate restarting very large jobs that require more than the typical seven-day maximum runtime window available on most clusters, by resuming from the most recent saved time step files."
+    },
+    {
+      "question": "What is the maximum time limit specified by default in the `script-flu-bynode+restart.sh` Slurm script?",
+      "answer": "The maximum time limit specified by default is `07-00:00`, which represents 7 days."
+    },
+    {
+      "question": "How many compute nodes are requested by default in the `script-flu-bynode+restart.sh` script for a multinode (by node + restart) Fluent job?",
+      "answer": "The script requests `1` compute node by default, as indicated by `#SBATCH --nodes=1`."
+    },
+    {
+      "question": "What is the default maximum number of cores per compute node specified in the `script-flu-bynode+restart.sh` script?",
+      "answer": "The script specifies up to `32` cores per compute node, as indicated by `#SBATCH --ntasks-per-node=32`."
+    },
+    {
+      "question": "How is memory allocated per compute node in the `script-flu-bynode+restart.sh` script?",
+      "answer": "Memory is allocated for all available memory per compute node, as indicated by `#SBATCH --mem=0`."
+    },
+    {
+      "question": "What does the `#SBATCH --array=1-5%1` line in the `script-flu-bynode+restart.sh` script configure?",
+      "answer": "This line specifies the number of solution restarts, with a default of 5 attempts shown, and it's recommended to set it to 2 or more."
+    },
+    {
+      "question": "Which standard environment module is loaded by the `script-flu-bynode+restart.sh` script?",
+      "answer": "The `StdEnv/2023` module is loaded by the script."
+    },
+    {
+      "question": "Which Ansys version module is specified in the `script-flu-bynode+restart.sh` script?",
+      "answer": "The `ansys/2023R2` module (or newer versions) is specified in the script."
+    },
+    {
+      "question": "What are the default filenames for the journal, restart journal, restart case, and restart data files in the `script-flu-bynode+restart.sh` script?",
+      "answer": "The default filenames are `sample.jou` for the initial journal file, `sample-restart.jou` for the restart journal file, `sample-restart.cas.h5` for the restart case file, and `sample-restart.dat.h5` for the restart data file."
+    },
+    {
+      "question": "What is a fundamental requirement for the Fluent solution restart scripts to function correctly?",
+      "answer": "A fundamental requirement is that the first time step can be completed within the requested job array time limit (specified at the top of your Slurm script) when starting a simulation from an initialized solution field."
+    },
+    {
+      "question": "How should the initial `sample.jou` file be modified when setting up a solution restart job?",
+      "answer": "The `sample.jou` file should be edited to contain `/solve/dual-time-iterate 1` and `/file/auto-save/data-frequency 1`."
+    },
+    {
+      "question": "How is the restart journal file (`sample-restart.jou`) created and modified for solution restart jobs?",
+      "answer": "It is created by copying `sample.jou` to `sample-restart.jou`, then `sample-restart.jou` is edited to contain `/file/read-cas-data sample-restart` instead of `sample` and to comment out the initialization line (e.g., `;/solve/initialize/initialize-flow`). Optionally, it can be edited to specify `/solve/dual-time-iterate 2` if subsequent time steps are known to run faster."
+    },
+    {
+      "question": "Why might the restart journal file specify `/solve/dual-time-iterate 2` for subsequent time steps?",
+      "answer": "Specifying `/solve/dual-time-iterate 2` for the restart journal file is done to minimize the number of solution restarts, which are computationally expensive, under the assumption that the 2nd and subsequent time steps run twice as fast as the initial time step."
+    },
+    {
+      "question": "How is the total time of simulation calculated when using the solution restart scripts with a specified number of restarts?",
+      "answer": "Assuming a dual-time-iterate value of 2, the total time of simulation to be completed will be `1*Dt + 2*Nrestart*Dt`, where `Dt` is the time step size and `Nrestart` is the number of solution restarts specified in the script."
+    },
+    {
+      "question": "What happens if a job completes successfully when using the solution restart script?",
+      "answer": "If a job completes successfully, the script prints a success message and uses `scancel $SLURM_ARRAY_JOB_ID` to terminate the entire job array."
+    },
+    {
+      "question": "What occurs if a simulation fails within a solution restart job array?",
+      "answer": "If a simulation fails, the script indicates that the job attempt failed. If it's not the last attempt in the array, it signals that the job will be resubmitted. If all attempts have failed, it states that all attempts failed and exits."
+    },
+    {
+      "question": "How does the `script-flu-bynode+restart.sh` script handle different cluster environments for parallel Fluent execution?",
+      "answer": "The script includes conditional logic (`if [[ \"$CC_CLUSTER\" == narval ]]` and `if [[ (\"${EBVERSIONANSYS//R*}\" -ge 2025 && \"${CC_CLUSTER}\" == nibi) || \"${CC_CLUSTER}\" == narval ]]`) to load specific Intel MPI modules, set `I_MPI_HYDRA_BOOTSTRAP` to `ssh`, and use different MPI process managers (`-peth` for Nibi, `-pib` for other clusters) based on the cluster type."
+    },
+    {
+      "question": "What command is used to generate the machinefile for Fluent jobs within the restart script?",
+      "answer": "The command `slurm_hl2hl.py --format ANSYS-FLUENT > /tmp/machinefile-$SLURM_JOB_ID` is used to generate the machinefile."
+    },
+    {
+      "question": "How does the solution restart script update the symbolic links for the restart case and data files for subsequent runs?",
+      "answer": "After a successful job run (and if more restarts are pending), the script updates the symbolic links `MYCASFILERES` and `MYDATFILERES` to point to the most recent output case and data files in the `output/` subdirectory using `ln -sfv` commands."
+    }
+  ],
+  "generated_at": "2026-04-11T16:59:17.290956+00:00"
+}

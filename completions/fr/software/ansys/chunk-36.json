@@ -1,0 +1,60 @@
+{
+  "doc_key": "fr/ansys",
+  "level": "chunk",
+  "chunk_index": 36,
+  "qa_pairs": [
+    {
+      "question": "À quoi sert le script `script-rocky-gpu.sh`?",
+      "answer": "Ce script est un exemple de script Slurm conçu pour lancer une simulation Ansys Rocky qui utilise des unités de traitement graphique (GPU)."
+    },
+    {
+      "question": "Comment doit-on spécifier le compte d'utilisateur pour la soumission de tâches Rocky avec GPU?",
+      "answer": "Il faut indiquer le compte en utilisant la directive `#SBATCH --account=account`, où 'account' doit être remplacé par votre compte réel (par exemple, def-group ou rrg-group)."
+    },
+    {
+      "question": "Quelle est la durée maximale d'exécution spécifiée par défaut dans ce script pour une tâche Rocky avec GPU?",
+      "answer": "La limite de temps par défaut spécifiée dans le script est d'une heure (`00-01:00`)."
+    },
+    {
+      "question": "Comment allouer la mémoire pour une tâche Rocky basée sur GPU en utilisant ce script d'exemple?",
+      "answer": "La mémoire est allouée avec la directive `#SBATCH --mem=24G`. On peut aussi la mettre à 0 pour utiliser toute la mémoire du nœud."
+    },
+    {
+      "question": "Combien de cœurs CPU par tâche sont spécifiés dans ce script Rocky pour une utilisation sur Graham?",
+      "answer": "Le script spécifie 6 cœurs CPU par tâche (`#SBATCH --cpus-per-task=6`). Il est noté que sur Graham, on peut utiliser jusqu'à 32 ou 44 cœurs."
+    },
+    {
+      "question": "Quel est le nombre de nœuds de calcul requis pour ce script Rocky avec GPU, et cette valeur peut-elle être modifiée?",
+      "answer": "Le script demande un seul nœud (`#SBATCH --nodes=1`), et cette valeur ne doit pas être modifiée."
+    },
+    {
+      "question": "Comment spécifier le type et la quantité de GPU pour une tâche Rocky dans ce script?",
+      "answer": "On utilise la directive `#SBATCH --gres=gpu:v100:2` pour spécifier, par exemple, 2 GPU de type V100."
+    },
+    {
+      "question": "Quels modules doivent être chargés pour exécuter Ansys Rocky 2024R2.0 avec ce script?",
+      "answer": "Il faut charger les modules `ansysrocky/2024R2.0 StdEnv/2023 ansys/2024R2.04`."
+    },
+    {
+      "question": "Sur quelle grappe les modules Ansys Rocky mentionnés dans le script, comme `ansysrocky/2024R2.0`, sont-ils disponibles?",
+      "answer": "Les modules `ansysrocky/2024R2.0` (et `ansysrocky/2023R2` avant son renommage) sont disponibles uniquement sur la grappe Graham."
+    },
+    {
+      "question": "Quelle commande est utilisée pour lancer la simulation Rocky une fois les modules chargés et les paramètres Slurm définis?",
+      "answer": "La commande est `Rocky --simulate “mysim.rocky” --resume=1 --ncpus=$SLURM_CPUS_PER_TASK --use-gpu=1 --gpu-num=$SLURM_GPUS_ON_NODE`."
+    },
+    {
+      "question": "Que signifie le paramètre `--use-gpu=1` dans la commande de lancement de Rocky?",
+      "answer": "Ce paramètre indique à Ansys Rocky d'utiliser les GPU pour la simulation."
+    },
+    {
+      "question": "À quoi sert le paramètre `--gpu-num=$SLURM_GPUS_ON_NODE` dans la commande Rocky?",
+      "answer": "Ce paramètre transmet à Rocky le nombre de GPU par nœud qui ont été alloués par Slurm, en utilisant la variable d'environnement `$SLURM_GPUS_ON_NODE`."
+    },
+    {
+      "question": "Quel était le nom précédent du module `ansysrocky/2023R2` sur Graham avant le 24 avril 2025?",
+      "answer": "Le module `ansysrocky/2023R2` s'appelait `rocky2023R2` avant son renommage le 24 avril 2025."
+    }
+  ],
+  "generated_at": "2026-04-11T17:14:25.453705+00:00"
+}

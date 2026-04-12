@@ -5,73 +5,101 @@ lang: "fr"
 
 source_wiki_title: "Tutoriel Apprentissage machine/fr"
 source_hash: "0570cf6ed360f25828e7e6faefee06da"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T12:12:04.520151+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T12:13:55.168288+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "soumettre vos tâches"
+  - "apprentissage automatique"
+  - "tâches interactives"
+  - "automatisées"
+  - "tâche scriptée"
+  - "Morcellement de tâche"
+  - "déboguer"
+  - "Script de soumission"
+  - "tâche interactive"
+  - "environnement virtuel"
+  - "Ressources demandées"
+  - "scripts sbatch"
+  - "Checkpoint"
+  - "ensemble de données"
+  - "Commandes bash"
+
+questions:
+  - "Pourquoi est-il fortement recommandé d'archiver son ensemble de données (par exemple au format \"tar\") avant de l'utiliser sur les grappes de calcul ?"
+  - "Quel est le rôle principal d'une tâche interactive (salloc) dans le processus de préparation et de débogage d'un modèle d'apprentissage automatique ?"
+  - "Comment doit-on adapter le code de son programme concernant les résultats visuels, étant donné que l'affichage graphique n'est pas pris en charge ?"
+  - "Quelles sont les recommandations générales concernant l'allocation des ressources (CPU, GPU, mémoire et temps) pour soumettre une tâche sur la grappe de calcul ?"
+  - "Quelles sont les étapes essentielles à inclure dans les commandes bash du script de soumission pour préparer l'environnement, transférer les données et lancer l'exécutable ?"
+  - "Comment doit-on procéder pour morceler une tâche de longue durée à l'aide de points de contrôle (checkpoints) afin d'améliorer sa priorité et respecter les limites de temps ?"
+  - "Pourquoi est-il nécessaire de soumettre les tâches à l'aide de scripts sbatch ?"
+  - "Quel est le rôle spécifique des tâches interactives par rapport aux tâches automatisées ?"
+  - "Quels sont les éléments importants qui doivent figurer dans un script sbatch ?"
+  - "Quelles sont les recommandations générales concernant l'allocation des ressources (CPU, GPU, mémoire et temps) pour soumettre une tâche sur la grappe de calcul ?"
+  - "Quelles sont les étapes essentielles à inclure dans les commandes bash du script de soumission pour préparer l'environnement, transférer les données et lancer l'exécutable ?"
+  - "Comment doit-on procéder pour morceler une tâche de longue durée à l'aide de points de contrôle (checkpoints) afin d'améliorer sa priorité et respecter les limites de temps ?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
-Cette page constitue un guide de démarrage servant à porter une tâche d'apprentissage automatique (Machine Learning) sur une de nos grappes.
+Cette page constitue un guide de démarrage pour porter une tâche d'apprentissage automatique (Machine Learning) sur une de nos grappes.
 
 ## Étape 1 : Enlever tout affichage graphique
 
-Modifiez votre programme afin qu'il n'utilise pas d'affichage graphique. Tout résultat graphique devra être écrit sur le disque dans un fichier, et visualisé sur votre ordinateur personnel, une fois la tâche terminée. Par exemple, si vous affichez des graphiques avec matplotlib, vous devez [enregistrer les graphiques sous forme de fichiers, au lieu de les afficher à l'écran](https://stackoverflow.com/questions/4706451/how-to-save-a-figure-remotely-with-pylab).
+Modifiez votre programme afin qu'il n'utilise pas d'affichage graphique. Tout résultat graphique devra être écrit sur le disque dans un fichier et visualisé sur votre ordinateur personnel, une fois la tâche terminée. Par exemple, si vous affichez des graphiques avec Matplotlib, vous devez [enregistrer les graphiques sous forme de fichiers, au lieu de les afficher à l'écran](https://stackoverflow.com/questions/4706451/how-to-save-a-figure-remotely-with-pylab).
 
 ## Étape 2 : Archivage d'un ensemble de données
 
 Les stockages partagés sur nos grappes ne sont pas optimisés pour gérer un grand nombre de petits fichiers (ils sont plutôt optimisés pour les très gros fichiers). Assurez-vous que l'ensemble de données dont vous aurez besoin pour votre entraînement se trouve dans un fichier archive (tel que "tar"), que vous transférerez sur votre nœud de calcul au début de votre tâche.
 
-!!! warning
-    **Si vous ne le faites pas, vous risquez de causer des lectures de fichiers à haute fréquence du nœud de stockage vers votre nœud de calcul, nuisant ainsi à la performance globale du système.**
+!!! attention "Important : Gestion des petits fichiers"
+    Si vous ne le faites pas, vous risquez de causer des lectures de fichiers à haute fréquence du nœud de stockage vers votre nœud de calcul, nuisant ainsi à la performance globale du système.
 
 Si vous voulez apprendre davantage sur la gestion des grands ensembles de fichiers, on vous recommande la lecture de [cette page](https://docs.alliancecan.ca/wiki/Handling_large_collections_of_files/fr).
 
 En supposant que les fichiers dont vous avez besoin sont dans le dossier `mydataset` :
 
 ```bash
-tar cf mydataset.tar mydataset/*
+$ tar cf mydataset.tar mydataset/*
 ```
 
 La commande ci-haut ne compresse pas les données. Si vous croyez que ce serait approprié, vous pouvez utiliser `tar czf`.
 
 ## Étape 3 : Préparation de l'environnement virtuel
 
-[Créez un environnement virtuel](python.md#creer-et-utiliser-un-environnement-virtuel) dans votre espace home.
+[Créez un environnement virtuel](python.md#creer-et-utiliser-un-environnement-virtuel) dans votre espace personnel.
 
-Pour les détails d'installation et d'utilisation des différents frameworks d'apprentissage machine, référez-vous à notre documentation :
+Pour les détails d'installation et d'utilisation des différents frameworks d'apprentissage automatique, référez-vous à notre documentation :
 
 *   [PyTorch](pytorch.md)
 *   [TensorFlow](tensorflow.md)
 
 ## Étape 4 : Tâche interactive (salloc)
 
-Nous vous recommandons d'essayer votre tâche dans une [tâche interactive](running-jobs.md#taches-interactives) avant de la soumettre avec un script (section suivante). Vous pourrez ainsi diagnostiquer plus rapidement les problèmes. Voici un exemple de la commande pour soumettre une tâche interactive :
+Nous vous recommandons d'essayer votre tâche dans une [tâche interactive](running-jobs.md#taches-interactives) avant de la soumettre avec un script (voir la section suivante). Vous pourrez ainsi diagnostiquer plus rapidement les problèmes. Voici un exemple de la commande pour soumettre une tâche interactive :
 
 ```bash
-salloc --account=def-someuser --gres=gpu:1 --cpus-per-task=3 --mem=32000M --time=1:00:00
+$ salloc --account=def-someuser --gres=gpu:1 --cpus-per-task=3 --mem=32000M --time=1:00:00
 ```
 
-Une fois dans la tâche :
+Une fois la tâche lancée :
 
-*   Activez votre environnement virtuel Python
-*   Tentez d'exécuter votre programme
-*   Installez les paquets manquants s'il y a lieu. Les nœuds de calcul n'ayant pas d'accès à Internet, vous devrez faire l'installation à partir d'un nœud de connexion. Référez-vous à notre [documentation sur les environnements virtuels Python](python.md#creer-et-utiliser-un-environnement-virtuel) pour plus de détails.
-*   Notez les étapes qui ont été nécessaires pour faire fonctionner votre programme
+*   Activez votre environnement virtuel Python.
+*   Tentez d'exécuter votre programme.
+*   Installez les paquets manquants, si nécessaire. Les nœuds de calcul n'ayant pas d'accès à Internet, vous devrez faire l'installation à partir d'un nœud de connexion. Référez-vous à notre [documentation sur les environnements virtuels Python](python.md#creer-et-utiliser-un-environnement-virtuel) pour plus de détails.
+*   Notez les étapes qui ont été nécessaires pour faire fonctionner votre programme.
 
-!!! important
-    **Maintenant est un bon moment pour vérifier que votre tâche lit et écrit le plus possible dans le stockage local au nœud de calcul (`$SLURM_TMPDIR`), et le moins possible sur les [systèmes de fichiers partagés (home, scratch, project)](storage-and-file-management.md).**
+!!! info "Recommandation importante : Stockage local"
+    Maintenant est un bon moment pour vérifier que votre tâche lit et écrit le plus possible dans le stockage local au nœud de calcul (`$SLURM_TMPDIR`), et le moins possible sur les [systèmes de fichiers partagés (personnel, *scratch*, projet)](storage-and-file-management.md).
 
 ## Étape 5 : Tâche scriptée (sbatch)
 
@@ -79,18 +107,18 @@ Vous devez [soumettre vos tâches](running-jobs.md#soumettre-des-taches-avec-sba
 
 ### Éléments importants d'un script `sbatch`
 
-1.  Compte sur lequel les ressources seront "facturées"
+1.  Compte sur lequel les ressources seront facturées.
 2.  Ressources demandées :
-    *   Nombre de CPU, suggestion : 6
-    *   Nombre de GPU, suggestion : 1
-        !!! warning
-            **Utilisez un (1) seul GPU, à moins d'être certain que votre programme en utilise plusieurs. Par défaut, TensorFlow et PyTorch utilisent un seul GPU.**
-    *   Quantité de mémoire, suggestion : `32000M`
-    *   Durée (Maximum Béluga : 7 jours, Graham et Cedar : 28 jours)
-3.  Commandes *bash* :
-    *   Préparation de l'environnement (modules, virtualenv)
-    *   Transfert des données vers le nœud de calcul
-    *   Lancement de l'exécutable
+    *   Nombre de *CPU* : 6 (suggestion)
+    *   Nombre de *GPU* : 1 (suggestion)
+        !!! warning "Important : Utilisation des GPU"
+            Utilisez un (1) seul *GPU*, à moins d'être certain que votre programme en utilise plusieurs. Par défaut, TensorFlow et PyTorch utilisent un seul *GPU*.
+    *   Quantité de mémoire : `32000M` (suggestion)
+    *   Durée (Maximum Béluga : 7 jours, Graham et Cedar : 28 jours).
+3.  Commandes *Bash* :
+    *   Préparation de l'environnement (modules, environnement virtuel).
+    *   Transfert des données vers le nœud de calcul.
+    *   Lancement de l'exécutable.
 
 ### Exemple de script
 
@@ -121,9 +149,9 @@ python $SOURCEDIR/train.py $SLURM_TMPDIR/data
 
 Nous vous recommandons de morceler vos tâches en blocs de 24 heures. Demander des tâches plus courtes améliore votre priorité. En créant une chaîne de tâches, il est possible de dépasser la limite de 7 jours sur Béluga.
 
-1.  Modifiez votre script de soumission (ou votre programme) afin que votre tâche puisse être interrompue et continuée. Votre programme doit pouvoir accéder au *checkpoint* le plus récent. (Voir l'exemple de script ci-dessous.)
+1.  Modifiez votre script de soumission (ou votre programme) afin que votre tâche puisse être interrompue et continuée. Votre programme doit pouvoir accéder au *point de sauvegarde* le plus récent. (Voir l'exemple de script ci-dessous.)
 2.  Vérifiez combien d'epochs (ou d'itérations) peuvent être effectuées à l'intérieur de 24 heures.
-3.  Calculez combien de blocs de 24 heures vous aurez besoin : `n_blocs = n_epochs_total / n_epochs_par_24h`
+3.  Calculez combien de blocs de 24 heures vous aurez besoin : `n_blocs = n_epochs_total / n_epochs_par_24h`.
 4.  Utilisez l'argument `--array 1-<n_blocs>%1` pour demander une chaîne de `n_blocs` tâches.
 
 Le script de soumission ressemblera à ceci :

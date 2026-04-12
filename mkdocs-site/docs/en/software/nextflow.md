@@ -5,21 +5,70 @@ lang: "en"
 
 source_wiki_title: "Nextflow/en"
 source_hash: "f44204046780115dff29212201d8fca4"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T09:14:47.785949+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T09:46:17.048370+00:00"
 
 tags:
   - software
 
 keywords:
-  []
+  - "Nextflow issues"
+  - "GC Failed to create worker thread"
+  - "input files"
+  - "Nextflow"
+  - "rna-seq pipeline"
+  - "Alliance clusters"
+  - "Software"
+  - "sample sheet"
+  - "fastq.gz"
+  - "nf-core"
+  - "Singularity container images"
+  - "Slurm job script"
+  - "container utility"
+  - "nf-core pipeline"
+  - "scientific workflows"
+  - "environment variable"
+  - "cache directory"
+  - "rnaseq"
+  - "Java"
+  - "wget"
+  - "SIGBUS error"
+  - "rnaseq pipeline"
+  - "NXF_OPTS"
+  - "Apptainer"
+
+questions:
+  - "What is Nextflow and how can users access it on the described systems?"
+  - "Why is a specific configuration file required for Alliance clusters, and what kind of cluster-specific parameters does it control?"
+  - "Why must the installation and downloading of nf-core pipelines be performed on a login node instead of a compute node?"
+  - "What are the primary software modules and container utilities that need to be loaded for this pipeline setup?"
+  - "Which specific pipeline and version are being used as an example in the provided bash commands?"
+  - "What is the purpose of the directory being created at the end of the script?"
+  - "Why is it recommended to store Nextflow container images in the `/project` space rather than the `$HOME` directory?"
+  - "When downloading the `rnaseq` workflow, into which specific directories are the container image files and the pipeline files stored?"
+  - "What types of input files must be downloaded and prepared before running the Nextflow pipeline?"
+  - "What specific environment variables and modules must be adapted in the provided Slurm job script to run the Nextflow pipeline correctly?"
+  - "How do you submit the Nextflow job script to the cluster and monitor the progression of the pipeline and its associated tasks?"
+  - "What is the recommended workaround for the \"unable to create native thread\" Java error mentioned in the known issues?"
+  - "What commands are used to download the test FASTQ files from the nf-core repository?"
+  - "What is the required file path and name for the sample sheet being prepared?"
+  - "What specific modification must the user make to the sample sheet after copying the provided template?"
+  - "Which specific GitHub issue numbers are suspected to be related to this Nextflow problem?"
+  - "What exact environment variable configuration is reported to solve the issue?"
+  - "During what specific process or command execution should the environment variable be applied?"
+  - "What is the underlying cause of the \"GC Failed to create worker thread\" error in Nextflow?"
+  - "How can users resolve the issue of Java attempting to create too many threads based on physical cores?"
+  - "What is the other specific error that users have reported encountering from the Nextflow main process?"
+  - "Which specific GitHub issue numbers are suspected to be related to this Nextflow problem?"
+  - "What exact environment variable configuration is reported to solve the issue?"
+  - "During what specific process or command execution should the environment variable be applied?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -38,7 +87,7 @@ Our example uses the `nf-core/rnaseq` pipeline and has five steps:
 *   Step 4: Prepare the inputs.
 *   Step 5: Create a job script.
 
-#### Step 1: Set up the configuration file
+### Step 1: Set up the configuration file
 
 Obtain a configuration file for Alliance clusters from [nf-core](https://github.com/nf-core/configs/blob/master/conf/alliance_canada.config) and place it in `~/.nextflow/config` like so:
 
@@ -54,14 +103,14 @@ export SLURM_ACCOUNT=def-pname
 
 This configuration contains profiles for Fir, Narval, Nibi, Rorqual, and Trillium. If you use this configuration file at Fir you must load the profile using the `-profile fir` flag to the `nextflow` command. At other sites the appropriate profile is automatically selected based on the host name. It ensures that there are no more than 100 jobs in the Slurm queue and that no more than 60 jobs are submitted per minute. It contains cluster-specific information that Nextflow needs, for example that Rorqual machines have 192 cores and 750 GB of RAM with a maximum time limit of one week (168 hours).
 
-!!! warning
-    We discourage you from running nf-core pipelines or any other generic Nextflow pipeline on [Trillium](trillium.md). We recommend running a pipeline on Trillium only if it was designed specifically for Trillium.
+**We discourage you from running nf-core pipelines or any other generic Nextflow pipeline on Trillium.** We recommend running a pipeline on [Trillium](trillium.md) only if it was designed specifically for Trillium.
 
-The configuration is linked to the system you are running on, but it is also related to the pipeline itself. In this rnaseq example cpu = 1 is the default value, but steps in the pipeline can have more than that. This can get quite complicated and labels in the `nf-core-rnaseq_3.21.0/3_21_0/conf/base.config` file are used by the pipeline to identify steps with non-default configurations. We do not cover this more advanced topic here, but note that tweaking these labels could make a big difference in the queuing and execution time of your pipeline.
+The configuration is linked to the system you are running on, but it is also related to the pipeline itself. In this rnaseq example `cpu = 1` is the default value, but steps in the pipeline can have more than that. This can get quite complicated and labels in the `nf-core-rnaseq_3.21.0/3_21_0/conf/base.config` file are used by the pipeline to identify steps with non-default configurations. We do not cover this more advanced topic here, but note that tweaking these labels could make a big difference in the queuing and execution time of your pipeline.
 
-#### Step 2. Install nf-core
+### Step 2. Install nf-core
 
-To use nf-core pipelines on an Alliance cluster, the pipelines must be downloaded on a login node because some clusters do not allow internet access from the compute nodes. Run the following on a **login node** to install `nf-core`.
+To use nf-core pipelines on an Alliance cluster, the pipelines must be downloaded on a **login node** because some clusters do not allow internet access from the compute nodes.
+Run the following on a **login node** to install `nf-core`.
 
 ```bash
 module purge
@@ -75,9 +124,10 @@ python -m pip install nf_core==2.13
 
 We use `pip` to install a [Python](python.md) package to help with the setup. The nf-core tools can be slow to install; this step may take several minutes.
 
-#### Step 3. Download the container images and the pipeline
-
-Set the name of the pipeline to be tested, and load Nextflow and the container utility [Apptainer](apptainer.md). Nextflow integrates well with Apptainer. As noted above, we are using the `rna-seq` pipeline as an example.
+### Step 3. Download the container images and the pipeline
+Set the name of the pipeline to be tested, and load Nextflow and the container utility [Apptainer](apptainer.md).
+Nextflow integrates well with Apptainer.
+As noted above, we are using the `rna-seq` pipeline as an example.
 
 ```bash
 export NFCORE_PL=rnaseq
@@ -93,9 +143,13 @@ mkdir /project/<def-group>/NXF_SINGULARITY_CACHEDIR
 export NXF_SINGULARITY_CACHEDIR=/project/<def-group>/NXF_SINGULARITY_CACHEDIR
 ```
 
-Nextflow will store container images in the directory pointed to by `$NXF_SINGULARITY_CACHEDIR`. "Singularity" was a predecessor to "Apptainer" so the name of the variable still reflects that. Workflow images tend to be big, so do not store them in your `$HOME` space because it has a small quota. Instead, store them in `/project` space.
+Nextflow will store container images in the directory pointed to by `$NXF_SINGULARITY_CACHEDIR`.
+"Singularity" was a predecessor to "Apptainer" so the name of the variable still reflects that.
+Workflow images tend to be big, so do not store them in your $HOME space because it has a small quota.
+Instead, store them in `/project` space.
 
-You should share this folder with other members of your group who are planning to use Nextflow with Apptainer, in order to reduce duplication and save space. Also, you may add the `export` command to your `~/.bashrc` as a convenience.
+You should share this folder with other members of your group who are planning to use Nextflow with Apptainer, in order to reduce duplication and save space.
+Also, you may add the `export` command to your `~/.bashrc` as a convenience.
 
 Run the following command to download the `rnaseq` pipeline and container images.
 
@@ -107,17 +161,19 @@ nf-core download --container-cache-utilisation amend --container-system singular
 
 Type "Y" when you see `Include the nf-core's default institutional configuration files into the download? (Y/n)`
 
-!!! important
+!!! warning "Important!"
     This workflow downloads two components of `rnaseq`:
 
     1.  Container image files go into `$NXF_SINGULARITY_CACHEDIR`
     2.  Pipeline files go into `~/scratch/nf-test/nf-core-${NFCORE_PL}_${PL_VERSION}` folder with the version number `X_X_X`. In this example the pipeline is stored at `~/scratch/nf-test/nf-core-rnaseq_3.21.0/3_21_0`. Please note that you have to include this `nf-core-rnaseq_3.21.0/3_21_0` folder name when calling `nextflow run` in your job script (see Step 5 below).
 
-When the pipeline is launched, Nextflow will look at the `nextflow.config` file in the working directory and also at `~/.nextflow/config` (if it exists) in your home to control how to run the workflow. The nf-core pipelines all have a default configuration, a test configuration, and container configurations (singularity, podman, etc).
+When the pipeline is launched, Nextflow will look at the `nextflow.config` file in the working directory and also at `~/.nextflow/config` (if it exists) in your home to control how to run the workflow.
+The nf-core pipelines all have a default configuration, a test configuration, and container configurations (singularity, podman, etc).
 
-#### Step 4. Prepare the input files
+### Step 4. Prepare the input files
 
-Nextflow uses sequence files and a sample sheet as inputs. To download the sequence files needed for our 'rnaseq' example, run the following:
+Nextflow uses sequence files and a sample sheet as inputs.
+To download the sequence files needed for our 'rnaseq' example, run the following:
 
 ```bash
 cd ~/scratch/nf-test
@@ -148,12 +204,14 @@ RAP1_UNINDUCED_REP2,/home/<username>/scratch/nf-test/input/SRR6357075_1.fastq.gz
 RAP1_IAA_30M_REP1,/home/<username>/scratch/nf-test/input/SRR6357076_1.fastq.gz,/home/<username>/scratch/nf-test/input/SRR6357076_2.fastq.gz,reverse
 ```
 
-You can of course use your own data if you prefer. Read more [here](https://nf-co.re/rnaseq/3.2/docs/usage) about the `rnaseq` example and sample sheets.
+You can of course use your own data if you prefer.
+Read more [here](https://nf-co.re/rnaseq/3.2/docs/usage) about the `rnaseq` example and sample sheets.
 
-#### Step 5. Create a job script
+### Step 5. Create a job script
 
-Here is the example job script for use on Fir. Adapt the script to use the correct:
-*   pipeline (`NFCORE_PL`) and version (`PL_VERSION, FD_VERSION`)
+Here is the example job script for use on Fir.
+Adapt the script to use the correct:
+*   pipeline (`NFCORE_PL`) and version (`PL_VERSION`, `FD_VERSION`)
 *   Apptainer cache path (`NXF_SINGULARITY_CACHEDIR`)
 *   Slurm account (`SLURM_ACCOUNT`)
 *   cluster (`-profile ...,fir`)
@@ -192,26 +250,23 @@ To learn more about configurations and profiles in Nextflow, see:
 
 ## Known issues
 
-!!! note
-    Nextflow is mainly written in Java which tends to use a lot of virtual memory. On some clusters, this may be a problem when running from a login node.
+Note that Nextflow is mainly written in Java which tends to use a lot of virtual memory. On some clusters, this may be a problem when running from a login node.
 
-!!! warning
-    Be careful if you have an AWS configuration in your `~/.aws` directory, as Nextflow might complain that it can't download the pipeline test dataset with your default id.
+Be careful if you have an AWS configuration in your `~/.aws` directory, as Nextflow might complain that it can't download the pipeline test dataset with your default id.
 
-#### "unable to create native thread"
+### "unable to create native thread"
 
 The following error has been observed:
-
 ```text
 java.lang.OutOfMemoryError: unable to create native thread: possibly out of memory or process/resource limits reached
 [error][gc,task] GC Failed to create worker thread
 ```
+We believe this is due to Java trying to create threads to match the number of physical cores on a machine.
+Setting `export NXF_OPTS='-XX:ActiveProcessorCount=1'` when executing `nextflow` is reported to solve the problem.
 
-We believe this is due to Java trying to create threads to match the number of physical cores on a machine. Setting `export NXF_OPTS='-XX:ActiveProcessorCount=1'` when executing `nextflow` is reported to solve the problem.
-
-#### SIGBUS
-
-Some users have reported getting a `SIGBUS` error from the Nextflow main process. We suspect this is connected with these Nextflow issues:
+### SIGBUS
+Some users have reported getting a `SIGBUS` error from the Nextflow main process.
+We suspect this is connected with these Nextflow issues:
 *   https://github.com/nextflow-io/nextflow/issues/842
 *   https://github.com/nextflow-io/nextflow/issues/2774
 Setting the environment variable `NXF_OPTS="-Dleveldb.mmap=false"` when executing `nextflow` is reported to solve the problem.

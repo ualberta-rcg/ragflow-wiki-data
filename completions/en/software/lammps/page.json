@@ -1,0 +1,87 @@
+{
+  "doc_key": "en/lammps",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is LAMMPS and what does its name stand for?",
+      "answer": "LAMMPS is a classical molecular dynamics code, and its name stands for Large-scale Atomic / Molecular Massively Parallel Simulator."
+    },
+    {
+      "question": "Which organization distributes LAMMPS?",
+      "answer": "LAMMPS is distributed by Sandia National Laboratories, a US Department of Energy laboratory."
+    },
+    {
+      "question": "How is LAMMPS parallelized, and can it utilize GPUs?",
+      "answer": "LAMMPS is parallelized using MPI and OpenMP, and it can indeed run on GPUs."
+    },
+    {
+      "question": "Where can users find the official documentation and support for LAMMPS?",
+      "answer": "Official documentation is available through the Online Manual on the LAMMPS project web site, which also lists a mailing list for support."
+    },
+    {
+      "question": "What is the role of force fields in LAMMPS, and what types of systems can it model?",
+      "answer": "Force fields define interatomic potentials and interactions, making LAMMPS suitable for modelling biomolecules, polymers, materials, reactions, and mesoscale systems like granular or colloidal matter."
+    },
+    {
+      "question": "Can different potentials be combined in LAMMPS for complex systems?",
+      "answer": "Yes, combinations of potentials can be used for hybrid systems, such as water on metal or polymer/semiconductor interfaces."
+    },
+    {
+      "question": "How can users check the available LAMMPS versions on their systems?",
+      "answer": "Users can run `module spider lammps` to see which versions of LAMMPS are installed."
+    },
+    {
+      "question": "What is the typical format for LAMMPS version numbers?",
+      "answer": "LAMMPS version numbers are based on release dates and follow the YYYYMMDD format."
+    },
+    {
+      "question": "What types of modules are commonly available for a single LAMMPS release?",
+      "answer": "For a single release, modules are typically available built with MPI, USER-OMP support, and USER-INTEL support, often with GPU-enabled versions as well."
+    },
+    {
+      "question": "What is the procedure to load a GPU-enabled LAMMPS module?",
+      "answer": "To use a GPU-enabled version, you must first load the CUDA module, and then load the desired LAMMPS module, for example: `module load cuda` followed by `module load lammps-omp/20170331`."
+    },
+    {
+      "question": "What is the symbolic link for the LAMMPS executable on the clusters?",
+      "answer": "All prebuilt LAMMPS versions on the clusters use a symbolic link called `lmp` for their executable."
+    },
+    {
+      "question": "Why do different modules exist for the same LAMMPS release?",
+      "answer": "Different modules exist for the same release due to the variation in 'packages' included and enabled during program compilation, as not all packages can be enabled in a single executable."
+    },
+    {
+      "question": "How can users determine which packages are enabled for a specific LAMMPS module?",
+      "answer": "After loading a module, users can run `cat ${EBROOTLAMMPS}/list-packages.txt`. If the file isn't found, they can check the `general_packages` block in the EasyBuild recipe file (`$EBROOTLAMMPS/easybuild/LAMMPS*.eb`)."
+    },
+    {
+      "question": "What components are typically required to run a LAMMPS job, as shown in the examples?",
+      "answer": "Running a LAMMPS job typically requires an input file (e.g., `lammps.in`) and a job script (e.g., `run_lmp_serial.sh` or `run_lmp_mpi.sh`) for execution."
+    },
+    {
+      "question": "What is the main computational bottleneck in molecular dynamics simulations using LAMMPS?",
+      "answer": "Most of the CPU time in LAMMPS molecular dynamics simulations is spent computing the pair interactions between particles."
+    },
+    {
+      "question": "How does LAMMPS distribute work among available processors?",
+      "answer": "LAMMPS uses domain decomposition, assigning a portion of the simulation box to each processor to divide the computational work."
+    },
+    {
+      "question": "What happens to communication time as the number of processors increases for a fixed problem size in LAMMPS?",
+      "answer": "For a given number of particles, communication time increases with an increasing number of processors because more parts of the simulation box must exchange data, potentially leading to lower CPU efficiency."
+    },
+    {
+      "question": "What is recommended before running extensive LAMMPS simulations to optimize performance?",
+      "answer": "It is recommended to run short tests with varying numbers of cores to find a suitable count that approximately maximizes the efficiency of the simulation for the specific problem size."
+    },
+    {
+      "question": "In the example of a low-efficiency simulation, what percentage of time was spent on pair interactions versus communications?",
+      "answer": "In that example, 46.45% of the time was spent computing pair interactions, and 44.5% was spent on communications between processors."
+    },
+    {
+      "question": "According to the performance table, how does the percentage of time spent on 'Comm' (communication) generally change with an increased number of cores for a given system size?",
+      "answer": "The percentage of time spent on 'Comm' generally increases as the number of cores increases for a given system size."
+    }
+  ],
+  "generated_at": "2026-04-12T00:47:40.701830+00:00"
+}

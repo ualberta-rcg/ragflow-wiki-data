@@ -1,0 +1,88 @@
+{
+  "doc_key": "fr/ansys",
+  "level": "chunk",
+  "chunk_index": 11,
+  "qa_pairs": [
+    {
+      "question": "Quel type de script est généralement recommandé pour les tâches Ansys Fluent afin d'optimiser le temps d'attente et la performance sur nos grappes?",
+      "answer": "Pour la plupart des tâches Ansys Fluent, il est suggéré d'utiliser le script 'par nœud'. Ça permet de minimiser le temps d'attente et de maximiser la performance en utilisant le moins de nœuds possible."
+    },
+    {
+      "question": "Dans quel cas pourrait-on choisir le script 'par cœur' pour les tâches Fluent, même si ça peut prendre plus de temps à démarrer?",
+      "answer": "Le script 'par cœur' peut être considéré pour les tâches qui demandent beaucoup de cœurs CPU, car elles pourraient attendre moins longtemps dans la file d'attente. Par contre, le démarrage d’une tâche utilisant plusieurs nœuds peut être plus long."
+    },
+    {
+      "question": "Quel est le risque principal associé à l'exécution de tâches Fluent intensives sur un grand nombre de nœuds non spécifiés?",
+      "answer": "Le risque principal est que ces tâches soient plus susceptibles de planter si un des nœuds de calcul tombe en panne pendant la simulation."
+    },
+    {
+      "question": "Comment les scripts Fluent gèrent-ils la mémoire selon que la tâche utilise un seul nœud ou plusieurs nœuds?",
+      "answer": "Les scripts utilisent la mémoire partagée pour les tâches sur un seul nœud. Pour les tâches sur plusieurs nœuds, ils emploient la mémoire distribuée, avec le MPI et l'interconnexion CHP appropriée."
+    },
+    {
+      "question": "Si Ansys Fluent plante au début du partitionnement automatique du maillage avec les scripts Intel standards sur Narval, quelles alternatives sont suggérées?",
+      "answer": "Les onglets spécifiques à Narval (qui utilisent OpenMPI) peuvent offrir une alternative plus robuste. Une autre option est de faire le partitionnement du maillage manuellement dans l'interface graphique de Fluent avant de relancer la tâche sur la grappe avec les scripts Intel."
+    },
+    {
+      "question": "Pour une efficacité optimale, quelles sont les recommandations concernant le nombre de partitions de maillage et de cellules par cœur dans Fluent?",
+      "answer": "Le nombre de partitions de maillage doit être un multiple entier du nombre de cœurs. De plus, il faut s'assurer d'avoir au moins 10 000 cellules par cœur."
+    },
+    {
+      "question": "Quel est le nom du fichier du script pour soumettre une tâche Fluent en mode 'par nœud' avec Intel MPI?",
+      "answer": "Le script s'appelle `script-flu-bynode-intel.sh`."
+    },
+    {
+      "question": "Quelles sont les principales directives Slurm à configurer dans le script `script-flu-bynode-intel.sh` pour une tâche Fluent?",
+      "answer": "Il faut spécifier le compte (`--account`), la limite de temps (`--time`), le nombre de nœuds de calcul (`--nodes`, à noter qu'il y a un maximum d'un nœud pour Narval), le nombre maximal de cœurs par nœud (`--ntasks-per-node`), et la mémoire par nœud (`--mem`, où 0 alloue toute la mémoire). La directive `--cpus-per-task=1` ne doit pas être modifiée."
+    },
+    {
+      "question": "Quels modules logiciels doivent être chargés avant d'exécuter Ansys Fluent avec le script `script-flu-bynode-intel.sh`?",
+      "answer": "Il faut charger les modules `StdEnv/2023` (qui ne doit pas être changé) et `ansys/2023R2` (ou une version plus récente)."
+    },
+    {
+      "question": "Quelles informations spécifiques à la tâche Fluent doit-on modifier dans le script `script-flu-bynode-intel.sh`?",
+      "answer": "Il faut spécifier le nom du fichier journal dans la variable `MYJOURNALFILE` (par exemple, `sample.jou`) et la version de la simulation (2d, 2ddp, 3d, ou 3ddp) dans la variable `MYVERSION`."
+    },
+    {
+      "question": "Y a-t-il des configurations spécifiques pour Narval dans le script `script-flu-bynode-intel.sh` concernant les modules MPI?",
+      "answer": "Oui, si le cluster est Narval, il faut charger `intel/2023 intelmpi`, exporter `INTELMPI_ROOT=$I_MPI_ROOT`, et `unset I_MPI_ROOT`."
+    },
+    {
+      "question": "Quelles variables d'environnement sont nécessaires pour Ansys Fluent versions 2025 et plus récentes sur Nibi ou Narval, selon le script `script-flu-bynode-intel.sh`?",
+      "answer": "Pour ces versions et clusters, il faut exporter `I_MPI_HYDRA_BOOTSTRAP=ssh` et `unset I_MPI_HYDRA_BOOTSTRAP_EXEC_EXTRA_ARGS`."
+    },
+    {
+      "question": "Comment le script `script-flu-bynode-intel.sh` lance-t-il Fluent sur un seul nœud?",
+      "answer": "Sur un seul nœud, Fluent est lancé avec la commande `fluent -g $MYVERSION -t $NCORES -mpi=intel -pshmem -i $MYJOURNALFILE`."
+    },
+    {
+      "question": "Comment le script `script-flu-bynode-intel.sh` gère-t-il le lancement de Fluent sur plusieurs nœuds, en particulier pour Nibi et les autres clusters?",
+      "answer": "Pour Nibi, la commande est `fluent -g $MYVERSION -t $NCORES -mpi=intel -peth -cnf=/tmp/machinefile-$SLURM_JOB_ID -i $MYJOURNALFILE`. Pour les autres clusters, c'est `fluent -g $MYVERSION -t $NCORES -mpi=intel -pib -cnf=/tmp/machinefile-$SLURM_JOB_ID -i $MYJOURNALFILE`."
+    },
+    {
+      "question": "Quelle est la différence majeure dans la configuration Slurm entre le script Fluent 'par nœud' (Intel) et le script 'par cœur' (Intel)?",
+      "answer": "La différence majeure est que le script 'par nœud' spécifie `--nodes` et `--ntasks-per-node`, tandis que le script 'par cœur' commente la directive `--nodes` et spécifie un nombre total de cœurs avec `--ntasks` ainsi qu'une mémoire par cœur avec `--mem-per-cpu`."
+    },
+    {
+      "question": "Comment la mémoire est-elle allouée dans le script Fluent 'par cœur' (`script-flu-bycore-intel.sh`)?",
+      "answer": "La mémoire est allouée par cœur en utilisant la directive Slurm `#SBATCH --mem-per-cpu=4G`."
+    },
+    {
+      "question": "Pour quel cluster et quel système MPI est conçu le script `script-flu-bynode-openmpi.sh`?",
+      "answer": "Ce script est spécifiquement conçu pour le cluster Narval et utilise Open MPI."
+    },
+    {
+      "question": "Quelles sont les spécifications pour les nœuds et les cœurs par nœud dans le script `script-flu-bynode-openmpi.sh` pour Narval?",
+      "answer": "On peut spécifier `#SBATCH --nodes=1` (1 ou plus) et `#SBATCH --ntasks-per-node=64` (avec un maximum de 64 cœurs par nœud sur Narval)."
+    },
+    {
+      "question": "Comment le fichier de machinefile est-il créé dans le script `script-flu-bynode-openmpi.sh`, et en quoi diffère-t-il des scripts Intel?",
+      "answer": "Il utilise `slurm_hl2hl.py --format ANSYS-FLUENT > /tmp/mf-$SLURM_JOB_ID` pour créer un fichier temporaire, puis une boucle `for` pour le traiter et le formater correctement dans `/tmp/machinefile-$SLURM_JOB_ID`. La méthode diffère car elle est adaptée aux exigences de formatage d'OpenMPI."
+    },
+    {
+      "question": "Quelle commande Fluent est utilisée pour une exécution sur plusieurs nœuds avec Open MPI dans le script `script-flu-bynode-openmpi.sh`?",
+      "answer": "Il faut d'abord exporter `export FI_PROVIDER=verbs`, puis lancer Fluent avec `fluent -g $MYVERSION -t $NCORES -mpi=openmpi -pib -cnf=/tmp/machinefile-$SLURM_JOB_ID -i $MYJOURNALFILE`."
+    }
+  ],
+  "generated_at": "2026-04-11T17:07:21.145559+00:00"
+}

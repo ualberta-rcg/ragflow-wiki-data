@@ -1,0 +1,100 @@
+{
+  "doc_key": "fr/using_ssh_keys_in_linux",
+  "level": "chunk",
+  "chunk_index": 2,
+  "qa_pairs": [
+    {
+      "question": "Pourquoi on devrait enregistrer notre clé publique SSH dans la CCDB?",
+      "answer": "Ça nous permet de l'utiliser pour se connecter à toutes les grappes de l'organisation."
+    },
+    {
+      "question": "Comment on fait pour installer sa clé publique dans la CCDB?",
+      "answer": "Faut copier le contenu de la clé publique (par exemple, 'id_rsa.pub') pis la téléverser dans la CCDB en suivant l'étape 3 de la procédure indiquée."
+    },
+    {
+      "question": "C'est quoi la façon la plus simple pis la plus sécuritaire d'installer une clé sur un système distant?",
+      "answer": "C'est d'utiliser la commande `ssh-copy-id`."
+    },
+    {
+      "question": "Donne-moi un exemple de commande pour installer une clé publique nommée `mynewkey.pub` sur `graham.computecanada.ca`.",
+      "answer": "La commande serait `ssh-copy-id -i ~/.ssh/mynewkey.pub graham.computecanada.ca`."
+    },
+    {
+      "question": "Qu'est-ce que la commande `ssh-copy-id` fait au juste?",
+      "answer": "Elle se connecte au système distant pis place la clé publique dans `.ssh/authorized_keys` dans le répertoire /home de l'utilisateur. En plus, elle crée les fichiers et les répertoires nécessaires pis ajuste les permissions automatiquement."
+    },
+    {
+      "question": "Comment on installe une clé publique manuellement sur un serveur distant?",
+      "answer": "Faut copier le fichier de la clé publique sur le serveur distant, pis après faire `mkdir ~/.ssh`, `cat id_rsa.pub >> ~/.ssh/authorized_keys`, `chmod --recursive go-rwx ~/.ssh` pis `chmod go-w ~`."
+    },
+    {
+      "question": "C'est quoi les conditions de permissions que SSH exige pour que ça fonctionne bien?",
+      "answer": "Le fichier de clé privée ne doit pas être accessible aux autres (`chmod go-rwx id_rsa`), le répertoire /home distant ne doit pas être accessible en écriture par d'autres (`chmod go-w ~`), pis il en est de même pour vos ~/.ssh et ~/.ssh/authorized_keys (`chmod --recursive go-rwx ~/.ssh`)."
+    },
+    {
+      "question": "C'est tu facile de déboguer les problèmes de permissions SSH sur un système distant?",
+      "answer": "Non, ça peut être difficile pis même nécessiter l'intervention d’un administrateur système."
+    },
+    {
+      "question": "Comment on fait pour tester une nouvelle clé en se connectant à un serveur à partir de notre poste local?",
+      "answer": "Faut utiliser la commande `ssh -i /path/to/your/privatekey USERNAME@ADDRESS`."
+    },
+    {
+      "question": "Dans la commande `ssh -i /path/to/your/privatekey USERNAME@ADDRESS`, que représente `/path/to/your/privatekey`?",
+      "answer": "Ça indique le nom du fichier de la clé privée, comme `/home/ubuntu/.ssh/id_rsa`."
+    },
+    {
+      "question": "À quoi correspond `USERNAME` dans la commande de connexion SSH?",
+      "answer": "C'est le nom de l'utilisateur sur la grappe."
+    },
+    {
+      "question": "Et `ADDRESS`, ça représente quoi dans la commande de connexion SSH?",
+      "answer": "C'est l'adresse du serveur distant."
+    },
+    {
+      "question": "Si j'ai les privilèges admin sur le serveur pis que j'ai créé un compte pour un autre utilisateur, qui devrait tester la connexion?",
+      "answer": "L'autre utilisateur devrait tester la connexion lui-même pour ne pas avoir à divulguer sa clé privée."
+    },
+    {
+      "question": "Une fois que la clé publique est installée, pourquoi on doit quand même entrer une phrase de passe chaque fois qu'on veut se connecter à une grappe?",
+      "answer": "Parce qu'il faut déverrouiller la clé privée à chaque connexion pour pouvoir s'en servir."
+    },
+    {
+      "question": "C'est quoi la solution pour éviter d'entrer la phrase de passe à chaque fois qu'on se connecte?",
+      "answer": "Faut utiliser le programme `ssh-agent`."
+    },
+    {
+      "question": "Qu'est-ce que le programme `ssh-agent` fait?",
+      "answer": "Il met la clé privée en mémoire sur l'ordinateur local pis la fournit aux programmes qui en ont besoin, ce qui fait qu'on n'a qu'à déverrouiller la clé privée une seule fois."
+    },
+    {
+      "question": "Comment on démarre `ssh-agent`?",
+      "answer": "Faut utiliser la commande `eval \\`ssh-agent\\``."
+    },
+    {
+      "question": "Après avoir démarré `ssh-agent`, comment on ajoute notre paire de clés à l'agent?",
+      "answer": "Faut utiliser la commande `ssh-add`."
+    },
+    {
+      "question": "Quoi faire si `ssh-add` ne trouve pas ma clé privée?",
+      "answer": "On peut spécifier explicitement le chemin complet de la clé privée comme argument à `ssh-add`."
+    },
+    {
+      "question": "Comment on fait pour voir les clés privées qui ont été ajoutées à l'agent SSH?",
+      "answer": "Faut utiliser l'option `ssh-add -l`."
+    },
+    {
+      "question": "Quand est-ce qu'on a besoin d'activer le transfert d'agent (agent forwarding)?",
+      "answer": "Si on a besoin d'utiliser notre clé privée sur la grappe elle-même, par exemple pour interagir avec un référentiel GitHub distant."
+    },
+    {
+      "question": "Comment on active le transfert d'agent pour une grappe comme Béluga?",
+      "answer": "Faut ajouter les lignes suivantes au fichier `$HOME/.ssh/config` sur notre ordinateur local: `Host beluga.computecanada.ca` suivi de `ForwardAgent yes`."
+    },
+    {
+      "question": "Est-ce qu'il y a une ligne qu'on ne devrait jamais inclure dans le fichier de configuration SSH pour le transfert d'agent?",
+      "answer": "Oui, on ne doit jamais inclure la ligne `Host *` pour le transfert de l'agent dans le fichier `$HOME/.ssh/config`."
+    }
+  ],
+  "generated_at": "2026-04-12T10:12:09.276389+00:00"
+}

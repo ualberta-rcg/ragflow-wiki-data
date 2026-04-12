@@ -1,0 +1,80 @@
+{
+  "doc_key": "fr/arbutus_migration_guide",
+  "level": "chunk",
+  "chunk_index": 9,
+  "qa_pairs": [
+    {
+      "question": "Pour la migration d'une instance associée à un volume en utilisant l'option 'dd' de Linux, quelle est la première étape à suivre sur le nuage Ouest?",
+      "answer": "La première étape est de lancer une instance temporaire sur le nuage Ouest avec le plus petit gabarit possible (par exemple, p1-1.5gb) et d'utiliser CentOS 7 comme système d'exploitation."
+    },
+    {
+      "question": "Comment puis-je installer le CLI OpenStack sur l'instance temporaire que j'ai lancée sur le nuage Ouest pour une migration de volume avec 'dd'?",
+      "answer": "Après vous être connecté à l'instance avec SSH, vous devez installer le CLI OpenStack en tant qu'utilisateur 'root' avec les commandes suivantes : `yum install epel-release`, `yum install python-devel python-pip gcc`, et `pip install python-openstackclient`."
+    },
+    {
+      "question": "Après avoir installé le CLI OpenStack, comment puis-je vérifier qu'il fonctionne correctement sur mon serveur de migration temporaire?",
+      "answer": "Vous pouvez vérifier l'installation en lançant simplement la commande `openstack` en ligne de commande."
+    },
+    {
+      "question": "Que dois-je faire avec le fichier RC d'Arbutus sur le serveur de migration temporaire?",
+      "answer": "Vous devez copier le fichier RC d'Arbutus vers le serveur de migration temporaire et en faire un 'source' (l'exécuter) pour configurer les variables d'environnement. Pour vérifier la connexion à l'API OpenStack sur Arbutus, vous pouvez lancer la commande `openstack image list`."
+    },
+    {
+      "question": "Quand je migre une instance associée à un volume avec 'dd', est-ce que je dois supprimer le volume original sur le nuage Ouest?",
+      "answer": "Non, vous devez supprimer l'instance à déplacer, mais il est crucial de NE PAS SUPPRIMER le volume qui y est associé."
+    },
+    {
+      "question": "Comment puis-je attacher le volume à migrer au serveur de migration temporaire sur le nuage Ouest?",
+      "answer": "Sur l'interface utilisateur du nuage Ouest, allez à 'Compute -> Volumes', sélectionnez 'Gérer les pièces jointes' dans le menu déroulant et attachez le volume au serveur de migration temporaire."
+    },
+    {
+      "question": "Quel est l'utilitaire utilisé pour créer une image à partir du disque attaché à l'instance lors de la migration d'un volume avec 'dd'?",
+      "answer": "L'utilitaire `dd` est utilisé. Un exemple de commande est `dd if=/dev/vdb | openstack image create --private --container-format bare --disk-format raw \"volumemigrate\"`."
+    },
+    {
+      "question": "Une fois l'image créée avec la méthode 'dd', où puis-je la voir dans l'interface Arbutus et comment l'utiliser?",
+      "answer": "Vous devriez voir l'image sous 'Compute -> Images' dans l'interface Arbutus. Cette image peut être utilisée pour lancer de nouvelles instances sur Arbutus, mais vous devez vous assurer de créer un nouveau volume au lancement de l'instance pour que les données soient persistantes."
+    },
+    {
+      "question": "Après avoir migré mes instances et volumes et mis à jour les enregistrements DNS, que dois-je faire avec les anciennes ressources sur le nuage Ouest?",
+      "answer": "Vous devriez supprimer les anciens volumes et instances sur le nuage Ouest."
+    },
+    {
+      "question": "Dans le cas de la migration de grands volumes avec Linux 'dd', est-il recommandé d'utiliser des images?",
+      "answer": "Non, dans le cas de grands volumes, l'utilisation des images n'est pas recommandée. Il est plutôt suggéré de copier les données dans de nouveaux volumes avec `rsync` ou un autre outil, ou d'utiliser la commande `dd` pour une copie identique, surtout pour un volume amorçable."
+    },
+    {
+      "question": "Quelles sont les premières étapes pour migrer de grands volumes en utilisant Linux 'dd'?",
+      "answer": "Vous devez d'abord sauvegarder les données importantes, puis créer une instance temporaire sur le nuage Ouest (p1-1.5gb, CentOS 7) et une autre sur le nouveau nuage Arbutus (CentOS 7)."
+    },
+    {
+      "question": "Comment les instances temporaires sur Ouest et Arbutus doivent-elles être configurées pour la connectivité SSH lors de la migration de grands volumes?",
+      "answer": "Il faut assigner des adresses IP flottantes aux deux instances pour permettre une connexion via SSH."
+    },
+    {
+      "question": "Quels paquets doivent être installés sur l'instance temporaire sur le nuage Ouest pour la migration de grands volumes?",
+      "answer": "Vous devez installer les paquets `epel-release`, `pv` et `screen` avec les commandes `yum install`."
+    },
+    {
+      "question": "Quelle commande doit être exécutée sur l'instance temporaire sur le nuage Arbutus avant de procéder à la migration de grands volumes avec 'dd'?",
+      "answer": "Il faut exécuter la commande `chmod u+s /bin/dd` sur l'instance temporaire sur Arbutus."
+    },
+    {
+      "question": "Que faut-il faire avec la clé privée SSH pour la migration de grands volumes?",
+      "answer": "Il faut copier la clé privée SSH (qui sert à se connecter en tant qu'utilisateur 'centos' à l'instance temporaire Arbutus) dans l'instance temporaire Ouest."
+    },
+    {
+      "question": "Quelles vérifications de sécurité sont nécessaires pour la connexion entre les instances temporaires Ouest et Arbutus?",
+      "answer": "Il faut vérifier que les règles de sécurité SSH permettent à l'instance temporaire Ouest de se connecter à l'instance temporaire Arbutus."
+    },
+    {
+      "question": "Pour chaque volume à migrer de Ouest à Arbutus, quelles sont les étapes initiales à suivre?",
+      "answer": "Il faut créer un volume vide de la même taille dans Arbutus (en l'identifiant comme 'amorçable' si nécessaire) et l'attacher à l'instance temporaire Arbutus. Ensuite, attacher le volume à copier de Ouest à l'instance temporaire Ouest, en notant qu'il pourrait être nécessaire de supprimer l'instance actuelle à laquelle le volume est attaché, mais sans supprimer le volume lui-même."
+    },
+    {
+      "question": "Quelle est la commande 'dd' recommandée pour copier un grand volume de Ouest à Arbutus, en supposant certains paramètres?",
+      "answer": "La commande recommandée, à exécuter dans l'instance temporaire Ouest et idéalement dans une session `screen`, est: `sudo dd bs=16M if=/dev/vdb | pv -s 96G | ssh -i key.pem centos@xxx.xx.xx.xx \"dd bs=16M of=/dev/vdb\"`. Il faut remplacer l'adresse IP et les noms de fichiers par les bonnes valeurs."
+    }
+  ],
+  "generated_at": "2026-04-11T17:49:04.874991+00:00"
+}

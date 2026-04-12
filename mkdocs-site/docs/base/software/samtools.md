@@ -5,28 +5,51 @@ lang: "base"
 
 source_wiki_title: "Samtools"
 source_hash: "a211764a55a4b5e3385d893e5fba171d"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T11:09:45.698001+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T11:20:22.428761+00:00"
 
 tags:
   - software
 
 keywords:
-  []
+  - "multiple cores"
+  - "samtools"
+  - "multithreading"
+  - "SAM and BAM formats"
+  - "HTSlib"
+  - "GNU parallel"
+  - "BCFtools"
+  - "efficiency"
+  - "concurrently"
+  - "Samtools"
+  - "high-throughput sequencing data"
+  - "SAM files"
+
+questions:
+  - "What are the primary functions of Samtools, BCFtools, and HTSlib in managing high-throughput sequencing data?"
+  - "How can a user convert a SAM file into a BAM file, and what commands are used to sort and index the resulting file?"
+  - "How can efficiency be improved when processing multiple SAM files simultaneously using job scripts and multithreading?"
+  - "How does the first script utilize multiple cores to process SAM files using samtools?"
+  - "What is the advantage of using GNU parallel in the second script compared to a standard bash loop?"
+  - "How should the SLURM resource requests be modified if there are more input files to process concurrently?"
+  - "What operations does the provided bash script perform on the input SAM files?"
+  - "What is the default core usage behavior of Samtools?"
+  - "Which specific flag must be used to enable multithreading in Samtools?"
+  - "How does the first script utilize multiple cores to process SAM files using samtools?"
+  - "What is the advantage of using GNU parallel in the second script compared to a standard bash loop?"
+  - "How should the SLURM resource requests be modified if there are more input files to process concurrently?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
 ## Description
-Samtools is a suite of programs for interacting with high-throughput sequencing data.
-It is closely related to BCFtools and to HTSlib. Primary documentation for all three
-of these packages can be found at https://www.htslib.org/
+Samtools is a suite of programs for interacting with high-throughput sequencing data. It is closely related to BCFtools and to HTSlib. Primary documentation for all three of these packages can be found at https://www.htslib.org/
 
 *   Samtools is for reading, writing, editing, indexing, and viewing files in SAM, BAM, or CRAM format
 *   BCFtools is for reading and writing files in BCF2, VCF, and gVCF format, and for calling, filtering, and summarizing SNP and short indel sequence variants
@@ -50,10 +73,7 @@ For more on the `module` command, including how to find other versions of samtoo
 
 ## General usage
 
-SAMtools provides tools for manipulating alignments in SAM and BAM formats.
-A common task is to convert SAM files ("Sequence Alignment/Map") to BAM files.
-BAM files are compressed versions of SAM files and are much smaller in size; the "B" stands for "binary".
-BAM files are easy to manipulate and are ideal for storing large nucleotide sequence alignments.
+SAMtools provides tools for manipulating alignments in SAM and BAM formats. A common task is to convert SAM files ("Sequence Alignment/Map") to BAM files. BAM files are compressed versions of SAM files and are much smaller in size; the "B" stands for "binary". BAM files are easy to manipulate and are ideal for storing large nucleotide sequence alignments.
 
 CRAM is a more recent format for the same type of data, and offers still greater compression.
 
@@ -97,14 +117,13 @@ A sorted BAM file, together with its index file with extension `.bai`, is a comm
 
 ### Processing multiple files with multithreading and/or GNU parallel
 
-You will typically have more than one SAM file to process at one time.
-A job script with a loop is a good way to handle multiple files, as in the following example:
+You will typically have more than one SAM file to process at one time. A job script with a loop is a good way to handle multiple files, as in the following example:
 
 ```bash title="samtools.sh"
-#!/bin/bash
+#!/bin/bash            
 #SBATCH --cpus-per-task 1
-#SBATCH --mem-per-cpu=4G
-#SBATCH --time=3:00:00
+#SBATCH --mem-per-cpu=4G      
+#SBATCH --time=3:00:00 
 
 module load samtools/1.20
 
@@ -145,5 +164,4 @@ module load samtools/1.20
 find . -name "*.sam" | parallel -j ${SLURM_CPUS_PER_TASK} "time samtools view -bS {} | samtools sort -o {.}_mt_sorted.bam"
 ```
 
-The above script will execute `view` and `sort` on four SAM files concurrently.
-If you have more input files, modify the `--cpous-per-task` request.
+The above script will execute `view` and `sort` on four SAM files concurrently. If you have more input files, modify the `--cpus-per-task` request.

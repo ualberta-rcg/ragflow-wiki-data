@@ -1,0 +1,36 @@
+{
+  "doc_key": "base/gatk",
+  "level": "chunk",
+  "chunk_index": 5,
+  "qa_pairs": [
+    {
+      "question": "How can I add a read group (RG) tag to a BAM file using GATK/PICARD?",
+      "answer": "To add a read group, such as 'tag', to an 'input.bam' file, you can use the `AddOrReplaceReadGroups` command. An example command would be: `gatk AddOrReplaceReadGroups -I input.bam -O output.bam --RGLB tag --RGPL ILLUMINA --RGPU tag --RGSM tag --SORT_ORDER 'coordinate' --CREATE_INDEX true`. This command assumes your input file is sorted by coordinates and will generate an index along with the annotated output."
+    },
+    {
+      "question": "What should I do if I encounter a `java.lang.OutOfMemoryError: Java heap space` error when running GATK?",
+      "answer": "If you get a `java.lang.OutOfMemoryError: Java heap space` error, it means a GATK subprogram needs more memory. Add the `-Xmx` command to the `--java-options` argument. For example, if `gatk MarkDuplicates` fails, try `gatk MarkDuplicates --java-options \"-Xmx8G DGATK_STACKTRACE_ON_USER_EXCEPTION=true\" -I input.bam -O marked_duplicates.bam -M marked_dup_metrics.txt`. If it still fails, gradually increase the `-Xmx` memory value until it succeeds. Remember to request sufficient memory on your system."
+    },
+    {
+      "question": "Where can I learn more about Java heap space?",
+      "answer": "You can learn more about Java heap space by starting at [https://plumbr.io/outofmemoryerror/java-heap-space]."
+    },
+    {
+      "question": "Why might increasing Java heap memory not resolve a `java.lang.OutOfMemoryError: Java heap space` issue with GATK?",
+      "answer": "Increasing heap memory might not fix the issue if you are working with non-model organisms and using too many scaffolds in your reference. In such cases, it is recommended to remove small scaffolds and create subsets of your reference, then map and run pipelines on each subset. Be aware that this approach does not work for all pipelines, and results require careful review, as GATK is primarily designed with the human genome in mind."
+    },
+    {
+      "question": "How can I control GATK/JAVA applications from using more memory or CPUs/threads than requested?",
+      "answer": "GATK/JAVA applications sometimes use more resources than requested due to Java garbage collection. To control this behaviour, add `-XX:ConcGCThreads=1` to the `--java-options` argument."
+    },
+    {
+      "question": "Where can I find more GATK frequently asked questions?",
+      "answer": "You can find additional GATK FAQs on their website, specifically in the \"Troubleshooting GATK4 Issues\" section at [https://gatk.broadinstitute.org/hc/en-us/sections/360007226791-Troubleshooting-GATK4-Issues]."
+    },
+    {
+      "question": "Where can I find the GATK Home page and related resources?",
+      "answer": "The GATK Home page is at [https://gatk.broadinstitute.org/hc/en-us]. You can also find information on GATK SPARK at [https://gatk.broadinstitute.org/hc/en-us/articles/360035532012-Parallelism-Multithreading-Scatter-Gather] and tips on making GATK tools run faster at [https://gatk.broadinstitute.org/hc/en-us/articles/360035889611-How-can-I-make-GATK-tools-run-faster-]."
+    }
+  ],
+  "generated_at": "2026-04-11T21:55:25.104724+00:00"
+}

@@ -1,0 +1,68 @@
+{
+  "doc_key": "fr/blast",
+  "level": "chunk",
+  "chunk_index": 2,
+  "qa_pairs": [
+    {
+      "question": "Comment soumettre un vecteur de tâches BLAST après avoir créé la base de données?",
+      "answer": "Vous pouvez soumettre votre requête BLAST en utilisant la commande `sbatch --dependency=afterok:$(sbatch makeblastdb.sh) blastn_array.sh`, ce qui assure qu'elle s'exécute après la création de la base de données."
+    },
+    {
+      "question": "Une fois toutes les tâches d'un vecteur BLAST terminées, comment puis-je concaténer les résultats?",
+      "answer": "Pour concaténer les 10 fichiers de résultats (de `seq.ref.0` à `seq.ref.9`) en un seul fichier `seq.ref`, utilisez la commande `cat seq.ref.{0..9} > seq.ref`."
+    },
+    {
+      "question": "Où peut-on effectuer la concaténation des résultats après un vecteur de tâches BLAST?",
+      "answer": "La concaténation peut être effectuée soit à partir du nœud de connexion, soit comme une tâche indépendante une fois que toutes les tâches du vecteur sont terminées."
+    },
+    {
+      "question": "À quoi sert GNU Parallel dans le contexte de la recherche BLAST?",
+      "answer": "GNU Parallel est un bon outil pour regrouper plusieurs petites tâches en une seule et les paralléliser. Cette solution aide à réduire les problèmes liés à l'utilisation de nombreux petits fichiers dans un système de fichiers parallèle."
+    },
+    {
+      "question": "Est-ce que la taille des blocs est importante quand on utilise GNU Parallel pour accélérer une recherche BLAST?",
+      "answer": "Oui, la taille des blocs est très importante. Par exemple, pour un fichier `seq.fa` de 100 Mo, lire des blocs de 10 Mo pourrait créer 3 tâches utilisant 3 cœurs, gaspillant 7 cœurs si 10 étaient demandés."
+    },
+    {
+      "question": "Peut-on laisser GNU Parallel déterminer lui-même la taille des blocs?",
+      "answer": "Oui, on peut laisser GNU Parallel décider de la taille des blocs en utilisant l'option `--block -1` dans la commande `parallel`."
+    },
+    {
+      "question": "Quels sont les paramètres Sbatch requis pour le script `blastn_gnu.sh` utilisant GNU Parallel, en termes de cœurs et de mémoire par cœur?",
+      "answer": "Le script `blastn_gnu.sh` demande `--cpus-per-task=4` cœurs et `--mem-per-cpu=512M` de mémoire par cœur."
+    },
+    {
+      "question": "À quoi correspond la variable `cmd` dans l'exemple de script `blastn_gnu.sh` pour GNU Parallel?",
+      "answer": "La variable `cmd` contient la commande `'blastn -db ref.fa -query - '`, qui sera exécutée par GNU Parallel en lisant les requêtes via un pipeline (`-`)."
+    },
+    {
+      "question": "Quelles sont quelques-unes des options importantes utilisées avec la commande `parallel` dans l'exemple `blastn_gnu.sh` pour la recherche BLAST?",
+      "answer": "Les options importantes sont `--jobs $SLURM_CPUS_PER_TASK` pour le nombre de cœurs, `--keep-order` pour maintenir l'ordre, `--block -1` pour laisser GNU Parallel évaluer la taille des blocs, `--recstart '>'` pour l'identifiant de séquence, et `--pipepart` pour des performances améliorées en pipeline."
+    },
+    {
+      "question": "Quelle est la différence de performance entre `--pipepart` et `--pipe` dans GNU Parallel?",
+      "answer": "Selon Ole Tange, `--pipepart` est plus rapide que `--pipe`. Alors que `--pipe` est limité à 500 Mo/s, `--pipepart` peut facilement atteindre 5 Go/s."
+    },
+    {
+      "question": "Est-ce que le fichier de séquences d'entrée pour GNU Parallel doit être compressé?",
+      "answer": "Non, le fichier ne doit pas être compressé lorsque vous l'utilisez avec la méthode décrite pour GNU Parallel."
+    },
+    {
+      "question": "Comment soumettre une tâche BLAST utilisant le script GNU Parallel (`blastn_gnu.sh`)?",
+      "answer": "Vous soumettez la tâche avec la commande `sbatch --dependency=afterok:$(sbatch makeblastdb.sh) blastn_gnu.sh`, ce qui assure qu'elle ne commence qu'après la création réussie de la base de données."
+    },
+    {
+      "question": "Quel conseil est donné pour optimiser une recherche BLAST si le stockage local du nœud le permet?",
+      "answer": "Il est conseillé de copier votre base de données FASTA dans l'espace de stockage local `/scratch` (identifié par `$SLURM_TMPDIR`)."
+    },
+    {
+      "question": "Comment peut-on réduire le nombre de réponses obtenues par une recherche BLAST si la recherche s'y prête?",
+      "answer": "Vous pouvez réduire le nombre de réponses en utilisant les arguments `-max_target_seqs` et `-max_hsps`."
+    },
+    {
+      "question": "Comment filtrer les résultats d'une recherche BLAST pour ne conserver que les réponses quasi identiques?",
+      "answer": "Pour ne conserver que les réponses quasi identiques, vous pouvez limiter la liste des réponses avec des filtres `--evalue`."
+    }
+  ],
+  "generated_at": "2026-04-11T18:22:39.535552+00:00"
+}

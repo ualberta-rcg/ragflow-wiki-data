@@ -5,37 +5,99 @@ lang: "en"
 
 source_wiki_title: "Multifactor authentication/en"
 source_hash: "8d2563dc34a82be99094d3e3fffe0a72"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T09:04:03.781376+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T09:36:05.983565+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "Windows Subsystem for Linux"
+  - "MobaXterm"
+  - "PuTTY"
+  - "passcode"
+  - "batch job IDs"
+  - "Multifactor authentication"
+  - "CCDB"
+  - "YubiKey"
+  - "FileZilla"
+  - "SFTP"
+  - "ykman"
+  - "technical support"
+  - "MobaXTerm"
+  - "Multiplexing"
+  - "SSH connection"
+  - "MFA-Duo authentication"
+  - "ssh terminal"
+  - "Yubico OTP"
+  - "one-time password (OTP)"
+  - "clusters"
+  - "Duo Security"
+  - "independent sessions"
+  - "SSH connections"
+  - "log on"
+  - "Duo Mobile"
+  - "SSH clients"
+  - "multifactor authentication"
+  - "ControlMaster"
+  - "SSH Keys"
+  - "authentication"
+  - "Second factor"
+
+questions:
+  - "What are the three available options for the second authentication step when configuring multifactor authentication?"
+  - "Why is it strongly recommended to register at least two different factors for your account?"
+  - "What are the specific software and hardware compatibility requirements for using a mobile device or a YubiKey as your second factor?"
+  - "What type of password or prompt will a user encounter when logging on to one of the clusters?"
+  - "How does a user physically interact with the YubiKey to respond to the authentication prompt?"
+  - "Why does using a YubiKey for authentication eliminate the need for manual typing on a keyboard?"
+  - "What specific information is required to register a YubiKey, and how can it be generated using the YubiKey Authenticator application?"
+  - "How do you authenticate using different second-factor methods, such as Duo Push, a YubiKey, or a backup code, when connecting to a cluster via SSH?"
+  - "How can Linux and MacOS users configure their SSH client to reduce the frequency of second-factor authentication prompts?"
+  - "How does the ControlMaster mechanism affect authentication for subsequent SSH connections on the same device?"
+  - "How long does an SSH connection remain available for reuse after the initial session is disconnected?"
+  - "What workaround is required for Windows users to utilize the ControlMaster multiplexing feature?"
+  - "How can users configure FileZilla to prevent being prompted for their password and second factor multiple times during file transfers?"
+  - "Why is connecting to Niagara with FileZilla challenging, and what workaround is recommended to handle both SSH keys and the MFA prompt?"
+  - "What causes file operations to hang indefinitely in MobaXTerm when using MFA, and how can the file transfer prompt behavior be improved?"
+  - "How must SSH clients like Cyberduck and PyCharm be configured to successfully connect using multifactor authentication?"
+  - "What are the only accepted methods and devices for fulfilling the mandatory multifactor authentication requirement?"
+  - "What specific steps and information are required to recover account access if a user loses their second-factor device?"
+  - "What are the three independent sessions that must be initiated and authenticated when using MobaXterm?"
+  - "How can hidden MFA-Duo windows affect the authentication process for a user?"
+  - "Why does navigating to a different folder on the left pane trigger additional MFA transactions?"
+  - "What personnel and sponsorship information must be provided to validate an account request?"
+  - "What specific details regarding recent cluster usage, software, and technical support are needed to verify a user's activity?"
+  - "Which types of SSH clients are compatible with multifactor authentication?"
+  - "How can users set up automated, unattended SSH connections to the clusters while using multifactor authentication?"
+  - "Why might a user receive an \"Access denied\" message from Duo Security based on their current location?"
+  - "What are the command-line steps required to configure a YubiKey for Yubico OTP and register it?"
+  - "How can users set up automated, unattended SSH connections to the clusters while using multifactor authentication?"
+  - "Why might a user receive an \"Access denied\" message from Duo Security based on their current location?"
+  - "What are the command-line steps required to configure a YubiKey for Yubico OTP and register it?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
 Multifactor authentication (MFA) allows you to protect your account with more than a password. Once your account is configured to use this feature, you will need to enter your username and password as usual, and then perform a second action (the *second factor*) to access most of our services.
 
 You can choose any of these factors for this second authentication step:
-*   Approve a notification on a smart device through the Duo Mobile application.
-*   Enter a code generated on demand.
-*   Push a button on a hardware key (YubiKey).
+* Approve a notification on a smart device through the Duo Mobile application.
+* Enter a code generated on demand.
+* Push a button on a hardware key (YubiKey).
 
 This feature will be gradually deployed and will not be immediately available for all of our services.
 
 ## Recorded webinars
 Two webinars were presented in October 2023. Their recordings are available here:
-*   [Authentification multifacteur pour la communauté de recherche](https://www.youtube.com/watch?v=ciycOUbchl8&ab_channel=TheAlliance%7CL%E2%80%99Alliance) (French)
-*   [Multifactor authentication for researchers](https://www.youtube.com/watch?v=qNsUsZ73HP0&ab_channel=TheAlliance%7CL%E2%80%99Alliance) (English)
+* [Authentification multifacteur pour la communauté de recherche](https://www.youtube.com/watch?v=ciycOUbchl8&ab_channel=TheAlliance%7CL%E2%80%99Alliance) (French)
+* [Multifactor authentication for researchers](https://www.youtube.com/watch?v=qNsUsZ73HP0&ab_channel=TheAlliance%7CL%E2%80%99Alliance) (English)
 
 ## Registering factors
 ### Registering multiple factors
@@ -49,9 +111,7 @@ When you enable multifactor authentication for your account, we **strongly recom
 4.  Enter a name for your device. Click on *Continue*. A QR code will be displayed.
 5.  In the Duo Mobile application, tap *Set up account* or the “+” sign.
 6.  Tap *Use a QR code*.
-7.  Scan the QR code shown to you in CCDB.
-    !!! warning "Important"
-        Make sure that your mobile device is connected to the internet (over wi-fi or cellular data) while you are scanning the QR code.
+7.  Scan the QR code shown to you in CCDB. **Important: Make sure that your mobile device is connected to the internet (over wi-fi or cellular data) while you are scanning the QR code.**
 
 ### Use a YubiKey
 A YubiKey is a small hardware token made by the [Yubico](https://www.yubico.com/) company. If you do not wish to use your phone or tablet for multifactor authentication, do not have a smartphone or tablet that supports Duo, or are often in a situation when using your phone or tablet is not possible, then a YubiKey is your best option. Different YubiKey models can fit in USB-A, USB-C, or Lightning ports, and some also support near-field communication (NFC) for use with a phone or tablet.
@@ -60,26 +120,28 @@ A YubiKey is a small hardware token made by the [Yubico](https://www.yubico.com/
 We recommend using the YubiKey 5 Series, but older or newer devices may also work.
 See this [Yubico identification page](https://www.yubico.com/products/identifying-your-yubikey/) to determine whether a specific product offers the function "Yubico OTP".
 
-If you register a YubiKey for multifactor authentication, when you log on to one of our clusters you will be prompted for a one-time password (OTP) — although the prompt may use different terminology such as "Enter a passcode". You respond by touching a button on your YubiKey, which generates a string of characters to complete your authentication. Using a YubiKey does not require any typing on the keyboard: the YubiKey connected to your computer “types” the string when you touch its button.
+If you register a YubiKey for multifactor authentication, when you log on to one of our clusters you will be prompted for a one-time password (OTP) ---
+although the prompt may use different terminology such as "Enter a passcode".
+You respond by touching a button on your YubiKey, which generates a string of characters to complete your authentication.
+Using a YubiKey does not require any typing on the keyboard: the YubiKey connected to your computer “types” the string when you touch its button.
 
-To register a YubiKey you will need its Public ID, Private ID, and Secret Key. If you have this information, go to the [Multifactor authentication management page](https://ccdb.computecanada.ca/multi_factor_authentications). If you do not have this information, configure your key using the steps below.
+To register a YubiKey you will need its Public ID, Private ID, and Secret Key.
+If you have this information, go to the [Multifactor authentication management page](https://ccdb.computecanada.ca/multi_factor_authentications).
+If you do not have this information, configure your key using the steps below.
 
 #### Configuring your YubiKey for Yubico OTP
 
-1.  If you use a pop-up blocker, disable it because some of the following steps involve pop-up windows.
+1.  If you use a pop-up blocker, disable it because some of the following steps involve pop-up windows
 2.  Download and install the YubiKey Authenticator application from the [Yubico website](https://www.yubico.com/products/yubico-authenticator/).
 3.  Insert your YubiKey and launch the YubiKey Authenticator software.
 4.  In YubiKey Authenticator, select *Slots*.
 5.  Select either slot 1 or slot 2. Slot 1 corresponds to a short touch (pressing for 1 to 2.5 seconds), while slot 2 is a long touch on the key (pressing for 3 to 5 seconds). Slot 1 is typically pre-registered for Yubico cloud mode. If you are already using this slot for other services, either use slot 2, or click on *Swap slots* to transfer the configuration to slot 2 before configuring slot 1.
 6.  Select *Yubico OTP / Program a Yubico OTP credential*.
-7.  In the "Public ID" field click *Use serial*, then generate a Private ID and a Secret key.
-    !!! warning
-        Securely save a copy of the data in the Public ID, Private ID, and Secret key fields, as you will need them shortly.
-8.  !!! warning "IMPORTANT"
-        Click on "Save".
+7.  In the "Public ID" field click *Use serial*, then generate a Private ID and a Secret key. **Securely save a copy of the data in the Public ID, Private ID, and Secret key fields, as you will need them shortly.**
+8.  **IMPORTANT: Click on "Save".**
 9.  Log into the CCDB to register your YubiKey in the *[Multifactor authentication management page](https://ccdb.alliancecan.ca/multi_factor_authentications)*.
 
-You can test your YubiKey setup by pressing the button on it any time while it is inserted into your computer. If set up correctly, it should generate a code at your prompt or cursor.
+You can test your Yubikey setup by pressing the button on it any time while it is inserted into your computer. If set up correctly, it should generate a code at your prompt or cursor.
 
 ## Using your second factor
 ### When connecting via SSH
@@ -118,12 +180,12 @@ Passcode or option (1-1):vvcccbhbllnuuebegkkbcfdftndjijlneejilrgiguki
 Success. Logging you in...
 ```
 
-#### Configuring your SSH client with ControlMaster
+### Configuring your SSH client with ControlMaster
 
-##### Linux and MacOS
+#### Linux and MacOS
 If you use OpenSSH to connect, you can reduce how frequently you are asked for a second factor. To do so, edit your `.ssh/config` to add the lines:
 
-```text
+```bash
 Host HOSTNAME
     ControlPath ~/.ssh/cm-%r@%h:%p
     ControlMaster auto
@@ -133,7 +195,7 @@ where you would replace `HOSTNAME` with the host name of the server for which yo
 
 Note that the above ControlMaster mechanism (a.k.a. Multiplexing) doesn't work with native Windows, in which case [Windows Subsystem for Linux](https://learn.microsoft.com/en-gb/windows/wsl/about) will be required. [See the link below](configuring-wsl-as-a-controlmaster-relay-server.md).
 
-##### Windows
+#### Windows
 
 See [Configuring WSL as a ControlMaster relay server](configuring-wsl-as-a-controlmaster-relay-server.md).
 
@@ -149,18 +211,18 @@ FileZilla will ask the password and second factor each time a transfer is initia
 
 To avoid entering the password and second factor multiple times, you can limit the number of connections to each site to “1” in “Site Manager” => “Transfer Settings tab”; note that you’ll then lose the ability to browse the server during transfers.
 
-1.  Launch FileZilla and select “Site Manager”.
-2.  From the “Site Manager”, create a new site (or edit an existing one).
+1.  Launch FileZilla and select “Site Manager”
+2.  From the “Site Manager”, create a new site (or edit an existing one)
 3.  On the “General” tab, specify the following:
     *   Protocol: “SFTP – SSH File Transfer Protocol”
     *   Host: [the cluster login hostname]
-    *   Logon Type: "Interactive"
+    *   Logon Type: “Interactive”
     *   User: [your username]
 4.  On the “Transfer Settings” tab, specify the following:
     *   Limit number of simultaneous connections: [checked]
     *   Maximum number of connections: 1
-5.  Select “OK” to save the connection.
-6.  Test the connection.
+5.  Select “OK” to save the connection
+6.  Test the connection
 
 #### Niagara special case
 Connections in FileZilla can only be configured to use either SSH keys or interactive prompts, not both. Since Niagara requires using SSH keys and an MFA prompt, using FileZilla is challenging. We recommend using a different SCP client that has better support for interactive prompt, but one possible way to work around is to:
@@ -174,9 +236,13 @@ Install version 23.1 or later.
 
 #### Prompt on file transfer
 
-When connecting to a remote server, MobaXterm establishes two connections by default: the first for the terminal and the second for the remote file browser. By default, the file browser uses the *SFTP protocol*, which causes a mandatory second prompt for your second factor of authentication.
+When connecting to a remote server, MobaXterm establishes two connections by default:
+the first for the terminal and the second for the remote file browser.
+By default, the file browser uses the *SFTP protocol*,
+which causes a mandatory second prompt for your second factor of authentication.
 
-This behaviour can be improved by switching the *SSH-browser type* to "SCP (enhanced speed)" or "SCP (normal speed)" in the session's *Advanced SSH settings*.
+This behaviour can be improved by switching the *SSH-browser type* to
+"SCP (enhanced speed)" or "SCP (normal speed)" in the session's *Advanced SSH settings*.
 
 #### Use SSH key instead of password
 
@@ -206,9 +272,9 @@ Install version 0.72 or later.
 Ensure that you are using [SSH Keys](ssh-keys.md).
 
 ### PyCharm
-In order to connect to our clusters with PyCharm, you must set up your [SSH Keys](ssh-keys.md) before connecting.
+In order to connect to our clusters with PyCharm, you must setup your [SSH Keys](ssh-keys.md) before connecting.
 
-When you connect to a remote host in PyCharm, enter your username and the host you want to connect to. You will then be asked to enter a "One time password" during the authentication process. At this stage, use either your YubiKey or your generated password in Duo, depending on what you have set up in your account.
+When you connect to a remote host in PyCharm, enter your username and the host you want to connect to. You will then be asked to enter a "One time password" during the authentication process. At this stage, use either your YubiKey or your generated password in Duo, depending on what you have setup in your account.
 
 ### Cyberduck
 By default, Cyberduck opens a new connection for every file transfer, prompting you for your second factor each time. To change this, go in the application's preferences, under *Transfers*, in the *General* section, use the drop-down menu beside the *Transfer Files* item and select *Use browser connection*.
@@ -216,20 +282,20 @@ By default, Cyberduck opens a new connection for every file transfer, prompting 
 Then, ensure that the box beside *Segmented downloads with multiple connections per file* is not checked.
 
 ## Frequently asked questions
-### Can I use Authy/Google authenticator/Microsoft Authenticator?
+### Can I use Authy/Google authenticator/Microsoft Authenticator ?
 No. Only Duo Mobile will work.
 
-### I do not have a smartphone or tablet, and I do not want to buy a YubiKey
-Unfortunately, that means you will not be able to use our services when multifactor authentication becomes mandatory. A YubiKey hardware token is the cheapest way to enable multifactor authentication on your account, and is expected to be covered by the principal investigator's research funding like any other work-related hardware. Mandating multifactor authentication is a requirement from our funding bodies.
+### I do not have a smartphone or tablet, and I do not want to buy a Yubikey
+!!! warning "Multifactor authentication is mandatory"
+    Unfortunately, that means you will not be able to use our services when multifactor authentication becomes mandatory. A Yubikey hardware token is the cheapest way to enable multifactor authentication on your account, and is expected to be covered by the principal investigator's research funding like any other work-related hardware. Mandating multifactor authentication is a requirement from our funding bodies.
 
-### Why can't you send me one time passcodes through SMS?
+### Why can't you send me one time passcodes through SMS ?
 Sending SMS costs money which we do not have. Multifactor using SMS is also widely regarded as insecure by most security experts.
 
-### Why can't you send me one time passcodes through email?
+### Why can't you send me one time passcodes through email ?
 No, Duo does not support sending one time code through email.
 
-### I have an older Android phone and I cannot download the Duo Mobile application from the Google Play site. Can I still use Duo?
-
+### I have an older Android phone and I cannot download the Duo Mobile application from the Google Play site. Can I still use Duo ?
 Duo Mobile is only available for Android versions that receive security updates. While you might be able to download and install it manually on older Android versions by following [these instructions](https://help.duo.com/s/article/2211?language=en_US), the application might not work properly or at all, and the Duo service might reject authentication attempts.
 
 ### I want to disable multifactor authentication. How do I do this?
@@ -240,7 +306,7 @@ Yes. In this case, you need [to use a YubiKey](#use-a-yubikey).
 
 ### I have lost my second factor device. What can I do?
 *   If you have bypass codes, or if you have more than one registered device, use one of these other mechanisms to connect to your account on our [portal](https://ccdb.alliancecan.ca/multi_factor_authentications). If you have a new device, register it then. Finally, delete your lost device. Note that you cannot delete a device if it is the only one registered.
-*   If you do not have bypass codes and have lost all of your registered devices, copy the following list providing answers to as many questions as you can. Email this information to support@tech.alliancecan.ca.
+*   If you do not have bypass codes and have lost all of your registered devices, copy the following list providing answers to as many questions as you can. Email this information to `support@tech.alliancecan.ca`.
 
     What is the primary email address registered in your account?
     For how long have you had an active account with us?
@@ -267,10 +333,10 @@ Yes. In this case, you need [to use a YubiKey](#use-a-yubikey).
 *   VSCode
 *   [WinSCP](#winscp)
 
-### I need to have automated SSH connections to the clusters through my account. Can I use multifactor authentication?
+### I need to have automated SSH connections to the clusters through my account. Can I use multifactor authentication ?
 We are currently deploying a set of login nodes dedicated to automated processes that require unattended SSH connections. More information about this can be found [here](automation-in-the-context-of-multifactor-authentication.md).
 
-### Why have I received the message "Access denied. Duo Security does not provide services in your current location"?
+### Why have I received the message "Access denied. Duo Security does not provide services in your current location" ?
 Duo blocks authentications from users whose IP address originates in a country or a region subject to economic and trade sanctions: [Duo help](https://help.duo.com/s/article/7544?language=en_US).
 
 ## Advanced usage
@@ -279,9 +345,8 @@ Duo blocks authentications from users whose IP address originates in a country o
 2.  Insert your YubiKey and read key information with the command `ykman info`.
 3.  Read OTP information with the command `ykman otp info`.
 4.  Select the slot you wish to program and use the command `ykman otp yubiotp` to program it.
-    !!! warning
-        Securely save a copy of the data in the Public ID, Private ID, and Secret Key fields. You will need the data for the next step.
-5.  Log into the CCDB to register your YubiKey in the *[Multifactor authentication management page](https://ccdb.alliancecan.ca/multi_factor_authentications)*.
+5.  **Securely save a copy of the data in the Public ID, Private ID, and Secret Key fields. You will need the data for the next step.**
+6.  Log into the CCDB to register your YubiKey in the *[Multifactor authentication management page](https://ccdb.alliancecan.ca/multi_factor_authentications)*.
 
 ```console
 [name@yourLaptop]$ ykman otp yubiotp -uGgP vvcccctffclk 2

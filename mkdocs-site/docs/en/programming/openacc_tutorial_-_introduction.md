@@ -5,21 +5,49 @@ lang: "en"
 
 source_wiki_title: "OpenACC Tutorial - Introduction/en"
 source_hash: "d22e269bf9b2135cf854846cf05daa0f"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T09:25:13.502025+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T09:55:40.707403+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "accelerator"
+  - "next unit"
+  - "OpenACC Tutorial"
+  - "OpenACC"
+  - "optimize loops"
+  - "express parallelism"
+  - "throughput"
+  - "porting code"
+  - "achieved performance"
+  - "compiler"
+  - "CPU"
+  - "parallel computing"
+  - "Profiling"
+  - "lesson plan"
+  - "express data movement"
+
+questions:
+  - "What are the primary architectural differences, strengths, and weaknesses between a CPU and an accelerator?"
+  - "How does the concept of computing speed differ from throughput, and which types of tasks are best suited for each?"
+  - "What are the essential steps and considerations involved in porting existing code to an accelerator?"
+  - "What is the overarching topic or main lesson plan that this text is a part of?"
+  - "What specific topic will be covered in the next unit of the tutorial?"
+  - "What is the primary purpose of this text snippet within the context of the course?"
+  - "How does the quality of a compiler impact the performance achieved when expressing parallelism through directives?"
+  - "Why is the \"express data movement\" phase necessary even when using the best available compilers?"
+  - "What specific advantage does a programmer have over a compiler during the \"optimize loops\" step?"
+  - "What is the overarching topic or main lesson plan that this text is a part of?"
+  - "What specific topic will be covered in the next unit of the tutorial?"
+  - "What is the primary purpose of this text snippet within the context of the course?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -42,7 +70,7 @@ But CPUs also have some weaknesses:
 
 Typical accelerators, such as GPU or coprocessors, are highly parallel chipsets. They are made out of hundreds or thousands of relatively simple and low frequency compute cores. Simply said, they are optimized for parallel computing. High-end GPUs usually have a few thousand compute cores. They also have a high bandwidth to access their own device memory. They present significantly more compute resources than high-end CPUs, and provide a much **higher throughput**, and much **better performance per watt**. However, they embed a relatively low amount of memory, and have a low per-thread performance.
 
-!!! info "Speed vs throughput, which is best?"
+!!! tip "Speed vs throughput, which is best?"
     Depending on what kind of task you are trying to accomplish, you may want to use a high speed device such as CPU, or a high throughput device such as an accelerator.
 
     A **high speed** device will accomplish a single task within a very short amount of time. This is probably what you want if you are trying to do a single sequential computation, such as the resolution of a one dimensional differential equation. In real life, we could compare a high speed device to a racing motorcycle or a racing car. It will bring a single passenger from point A to point B very quickly.
@@ -61,9 +89,9 @@ Much similarly, we can split the task of porting a code to accelerators into the
 1. Profile the code
 2. Identify parallelism within the bottlenecks
 3. Port the code
-    1. Express parallelism to the compiler
-    2. Express data movement
-    3. Optimize loops
+    * Express parallelism to the compiler
+    * Express data movement
+    * Optimize loops
 4. Validate the resulting code
 5. Start again from step 1
 

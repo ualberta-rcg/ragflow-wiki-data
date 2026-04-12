@@ -1,0 +1,160 @@
+{
+  "doc_key": "base/namd",
+  "level": "chunk",
+  "chunk_index": 1,
+  "qa_pairs": [
+    {
+      "question": "What is NAMD?",
+      "answer": "NAMD is a parallel, object-oriented molecular dynamics code designed for high-performance simulation of large biomolecular systems."
+    },
+    {
+      "question": "How is simulation preparation and analysis handled with NAMD?",
+      "answer": "Simulation preparation and analysis is integrated into the VMD visualization package."
+    },
+    {
+      "question": "How is NAMD typically installed and made available?",
+      "answer": "NAMD is installed by our software team and is available as a module."
+    },
+    {
+      "question": "Whom should I contact if I require a new version of NAMD or need to perform my own installation?",
+      "answer": "If a new version of NAMD is required or if you need to do your own installation, please contact Technical support."
+    },
+    {
+      "question": "What details can I request regarding the NAMD modules?",
+      "answer": "You can ask for details of how our NAMD modules were compiled."
+    },
+    {
+      "question": "What is the latest version of NAMD available on all clusters, and when was it released?",
+      "answer": "The latest version of NAMD is 3.0.2, released on August 27, 2025, and it has been installed on all clusters."
+    },
+    {
+      "question": "Does NAMD 3.0.2 offer improvements over previous versions?",
+      "answer": "Yes, NAMD 3.0.2 has a number of improvements over the previous version 3.0.1."
+    },
+    {
+      "question": "Is NAMD version 2.14 still available?",
+      "answer": "Yes, the previous version 2.14 is also available."
+    },
+    {
+      "question": "What is a limitation of NAMD 2.14 regarding GPUs?",
+      "answer": "NAMD 2.14 cannot run on H100 GPUs."
+    },
+    {
+      "question": "On which cluster should NAMD 2.14 be used if a GPU version is utilized?",
+      "answer": "NAMD 2.14 should be used only on the Narval cluster if the GPU version is used."
+    },
+    {
+      "question": "What should be used to run NAMD jobs that span multiple nodes?",
+      "answer": "To run jobs that span nodes, use UCX."
+    },
+    {
+      "question": "Where can I find help on using the SLURM workload manager?",
+      "answer": "Please refer to the 'Running jobs' page for help on using the SLURM workload manager."
+    },
+    {
+      "question": "What is the purpose of the provided job script for threaded CPU simulations?",
+      "answer": "The provided script is a job script for a threaded simulation."
+    },
+    {
+      "question": "How can I increase the number of cores for a threaded CPU job?",
+      "answer": "You can increase the number for --cpus-per-task to use more cores, up to the maximum number of cores available on a cluster node."
+    },
+    {
+      "question": "Where can I find advice on how to choose the number of cores to use for NAMD jobs?",
+      "answer": "You can find advice on how to choose the number of cores to use in the 'Performance and benchmarking' section."
+    },
+    {
+      "question": "What is the default number of CPUs requested per task in the `serial_namd_job.sh` script?",
+      "answer": "The `serial_namd_job.sh` script requests 8 CPUs per task by default (`#SBATCH --cpus-per-task=8`)."
+    },
+    {
+      "question": "How much memory is requested by default in the `serial_namd_job.sh` script?",
+      "answer": "The `serial_namd_job.sh` script requests 10g of memory by default (`#SBATCH --mem 10g`)."
+    },
+    {
+      "question": "What is the default time limit set in the `serial_namd_job.sh` script?",
+      "answer": "The `serial_namd_job.sh` script sets a default time limit of 5 minutes (`#SBATCH -t 0:05:00`)."
+    },
+    {
+      "question": "Which NAMD module is loaded in the `serial_namd_job.sh` script?",
+      "answer": "The `serial_namd_job.sh` script loads the `namd-multicore/3.0.2` module."
+    },
+    {
+      "question": "What command runs the NAMD 3 simulation in the `serial_namd_job.sh` script?",
+      "answer": "The command `namd3 +p$SLURM_CPUS_PER_TASK +idlepoll +setcpuaffinity stmv.namd` runs the NAMD 3 simulation."
+    },
+    {
+      "question": "How many tasks in total are run in the example multi-node CPU UCX job?",
+      "answer": "The example multi-node CPU UCX job runs 384 tasks in total on 2 nodes."
+    },
+    {
+      "question": "How many tasks are run per node in the example multi-node CPU UCX job?",
+      "answer": "In the example multi-node CPU UCX job, each node runs 192 tasks."
+    },
+    {
+      "question": "What should the `ntasks-per-node` value be for NAMD UCX jobs on fir, rorqual, nibi, and trillium for best performance?",
+      "answer": "For best performance on fir, rorqual, nibi, and trillium, the `ntasks-per-node` should be equal to the number of cores available on the node, which is 192."
+    },
+    {
+      "question": "When should the UCX version of NAMD be used for multi-node CPU jobs?",
+      "answer": "The UCX version of NAMD should only be used if the multicore version is not sufficient for your needs and you need to run on multiple nodes."
+    },
+    {
+      "question": "How many nodes are requested in the `ucx_namd_job.sh` script for multi-node CPU jobs?",
+      "answer": "The `ucx_namd_job.sh` script requests 2 nodes (`#SBATCH --nodes=2`)."
+    },
+    {
+      "question": "What is the `ntasks-per-node` setting in the `ucx_namd_job.sh` script for multi-node CPU jobs?",
+      "answer": "The `ucx_namd_job.sh` script sets `ntasks-per-node` to 192 (`#SBATCH --ntasks-per-node=192`)."
+    },
+    {
+      "question": "What does `#SBATCH --mem=0` signify in the `ucx_namd_job.sh` script?",
+      "answer": "In the `ucx_namd_job.sh` script, `#SBATCH --mem=0` signifies that all available memory per node should be used."
+    },
+    {
+      "question": "Which NAMD module is loaded for multi-node CPU UCX jobs in the provided script?",
+      "answer": "The `ucx_namd_job.sh` script loads the `namd-ucx/3.0.2` module."
+    },
+    {
+      "question": "What command starts the NAMD 3 simulation in the `ucx_namd_job.sh` script?",
+      "answer": "The command `srun --mpi=pmi2 namd3 stmv.namd` starts the NAMD 3 simulation."
+    },
+    {
+      "question": "How many CPU cores and H100 GPUs are used in the example threaded GPU job?",
+      "answer": "The example threaded GPU job uses 16 CPU cores and 1 H100 GPU on a single node."
+    },
+    {
+      "question": "Can the number of GPUs and CPU cores be increased for a threaded GPU job?",
+      "answer": "Yes, you can increase the number of GPUs and CPU cores up to the maximum available on the node."
+    },
+    {
+      "question": "What important input flag was added in NAMD 3 to improve GPU performance?",
+      "answer": "NAMD 3 added an input flag, `GPUresident on;`, which shifts more calculations to the GPU."
+    },
+    {
+      "question": "How do you enable the `GPUresident on;` flag for NAMD 3 GPU jobs?",
+      "answer": "To use the `GPUresident on;` flag, you need to add the line `GPUresident on;` to your NAMD input file."
+    },
+    {
+      "question": "What is the benefit of using the `GPUresident on;` input flag in NAMD 3?",
+      "answer": "Using the `GPUresident on;` input flag can considerably improve performance by shifting more calculations to the GPU."
+    },
+    {
+      "question": "How many CPUs per task are requested in the `multicore_gpu_namd_job.sh` script?",
+      "answer": "The `multicore_gpu_namd_job.sh` script requests 16 CPUs per task (`#SBATCH --cpus-per-task=16`)."
+    },
+    {
+      "question": "How many H100 GPUs per node are requested in the `multicore_gpu_namd_job.sh` script?",
+      "answer": "The `multicore_gpu_namd_job.sh` script requests 1 H100 GPU per node (`#SBATCH --gpus-per-node=h100:1`)."
+    },
+    {
+      "question": "What is the time limit set in the `multicore_gpu_namd_job.sh` script?",
+      "answer": "The `multicore_gpu_namd_job.sh` script sets a time limit of 15 minutes (`#SBATCH --time=0:15:00`)."
+    },
+    {
+      "question": "Which NAMD module is loaded for threaded GPU jobs in the provided script?",
+      "answer": "The `multicore_gpu_namd_job.sh` script loads the `namd-multicore/3.0.2` module, along with `StdEnv/2023`, `gcc/12.3`, and `cuda/12.6`."
+    }
+  ],
+  "generated_at": "2026-04-12T03:30:20.360560+00:00"
+}

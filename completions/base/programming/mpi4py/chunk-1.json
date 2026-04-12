@@ -1,0 +1,148 @@
+{
+  "doc_key": "base/mpi4py",
+  "level": "chunk",
+  "chunk_index": 1,
+  "qa_pairs": [
+    {
+      "question": "What is MPI for Python, or `mpi4py`?",
+      "answer": "`mpi4py` provides Python bindings for the Message Passing Interface (MPI) standard."
+    },
+    {
+      "question": "What capabilities does `mpi4py` offer to Python applications?",
+      "answer": "`mpi4py` allows Python applications to utilize multiple processors on workstations, clusters, and supercomputers."
+    },
+    {
+      "question": "How is `mpi4py` made available?",
+      "answer": "`mpi4py` is available as a module, not through the wheelhouse like typical Python packages."
+    },
+    {
+      "question": "How can one find the available versions of `mpi4py`?",
+      "answer": "You can find available versions by running the command `module spider mpi4py`."
+    },
+    {
+      "question": "How can a user get detailed information about a specific `mpi4py` version?",
+      "answer": "To get more information on a specific version, use the command `module spider mpi4py/X.Y.Z`, replacing `X.Y.Z` with the desired version, such as `4.0.0`."
+    },
+    {
+      "question": "What is the first step to run a 'Hello World' test with `mpi4py`?",
+      "answer": "The first step is to run a short interactive job using `salloc --account=<your account> --ntasks=5`."
+    },
+    {
+      "question": "Which modules need to be loaded to run the `mpi4py` 'Hello World' test?",
+      "answer": "You need to load the `mpi4py/4.0.0` and `python/3.12` modules using `module load mpi4py/4.0.0 python/3.12`."
+    },
+    {
+      "question": "How do you execute the `mpi4py` 'Hello World' test?",
+      "answer": "You can run the 'Hello World' test with the command `srun python -m mpi4py.bench helloworld`."
+    },
+    {
+      "question": "What was the distribution of processes and nodes in the 'Hello World' example provided?",
+      "answer": "In the example, two nodes (`node1` and `node3`) were allocated, and the five processes were distributed across these available resources."
+    },
+    {
+      "question": "What is the initial step when `mpi4py` is a dependency of another package?",
+      "answer": "The initial step is to deactivate any active Python virtual environment by running `test $VIRTUAL_ENV && deactivate`."
+    },
+    {
+      "question": "Why is it important to deactivate a virtual environment before loading `mpi4py` when it's a dependency?",
+      "answer": "If a virtual environment is activated, it's crucial to deactivate it first, then load the `mpi4py` module, and only then reactivate your virtual environment."
+    },
+    {
+      "question": "Which modules should be loaded when setting up `mpi4py` as a package dependency?",
+      "answer": "You should load the `mpi4py/4.0.0` and `python/3.12` modules using `module load mpi4py/4.0.0 python/3.12`."
+    },
+    {
+      "question": "How can you verify that `mpi4py` is visible to `pip`?",
+      "answer": "You can check its visibility by running `pip list | grep mpi4py`."
+    },
+    {
+      "question": "How can you confirm that `mpi4py` is accessible for the currently loaded Python module?",
+      "answer": "You can confirm accessibility by running `python -c 'import mpi4py'`. If no errors occur, it's accessible."
+    },
+    {
+      "question": "What is the final step after ensuring `mpi4py` is visible and accessible when it's a package dependency?",
+      "answer": "The final step is to create a new virtual environment and install your other packages."
+    },
+    {
+      "question": "What types of jobs can be run using `mpi4py`?",
+      "answer": "You can run MPI jobs distributed across multiple nodes or cores."
+    },
+    {
+      "question": "Where can one find information on efficient MPI scheduling?",
+      "answer": "Information on efficient MPI scheduling can be found under 'MPI job' in the 'Running jobs' section and in 'Advanced MPI scheduling'."
+    },
+    {
+      "question": "What is the first step for running a `mpi4py` job on a CPU?",
+      "answer": "The first step is to write your Python code, for example, a script for broadcasting a NumPy array."
+    },
+    {
+      "question": "What is the purpose of the `mpi4py-np-bc.py` example script?",
+      "answer": "The `mpi4py-np-bc.py` script demonstrates broadcasting a NumPy array using `mpi4py`."
+    },
+    {
+      "question": "What does `MPI.COMM_WORLD` represent in the `mpi4py` example code?",
+      "answer": "`MPI.COMM_WORLD` represents the default communicator that includes all processes available at the start of the program."
+    },
+    {
+      "question": "What is the role of `rank` in the `mpi4py` example script?",
+      "answer": "`rank` identifies the unique integer identifier of each process within the communicator."
+    },
+    {
+      "question": "How is the `data` array initialized for `rank == 0` in the `mpi4py-np-bc.py` script?",
+      "answer": "For `rank == 0`, `data` is initialized as a NumPy array containing integers from 0 to 99 (`np.arange(100, dtype='i')`)."
+    },
+    {
+      "question": "What does `comm.Bcast(data, root=0)` accomplish in the example?",
+      "answer": "`comm.Bcast(data, root=0)` broadcasts the `data` array from the root process (rank 0) to all other processes in the communicator."
+    },
+    {
+      "question": "What is the second step after writing the Python code for a `mpi4py` CPU job?",
+      "answer": "The second step is to write your submission script."
+    },
+    {
+      "question": "What is the filename of the distributed submission script example for `mpi4py` CPU jobs?",
+      "answer": "The filename is `submit-mpi4py-distributed.sh`."
+    },
+    {
+      "question": "Which SBATCH directive sets the account for the job in `submit-mpi4py-distributed.sh`?",
+      "answer": "The `#SBATCH --account=def-someprof` directive sets the accounting group for the job."
+    },
+    {
+      "question": "How is the wall time specified in the `submit-mpi4py-distributed.sh` script?",
+      "answer": "The wall time is specified with `#SBATCH --time=08:00:00`, indicating 8 hours."
+    },
+    {
+      "question": "How many tasks are requested in the `submit-mpi4py-distributed.sh` script?",
+      "answer": "The script requests 4 tasks/processes using `#SBATCH --ntasks=4`."
+    },
+    {
+      "question": "What is the memory requested per CPU in the `submit-mpi4py-distributed.sh` script?",
+      "answer": "The script requests 4 Gigabytes of memory per CPU using `#SBATCH --mem-per-cpu=4G`."
+    },
+    {
+      "question": "What modules are loaded in the `submit-mpi4py-distributed.sh` script?",
+      "answer": "The script loads `StdEnv/2023`, `gcc`, `mpi4py/4.0.0`, and `python/3.12`."
+    },
+    {
+      "question": "How is a virtual environment created on each allocated node within the `submit-mpi4py-distributed.sh` script?",
+      "answer": "A virtual environment is created on each allocated node using `srun --ntasks $SLURM_NNODES --tasks-per-node=1 bash << EOF ... virtualenv --no-download $SLURM_TMPDIR/env ... EOF`."
+    },
+    {
+      "question": "How are `pip` and `numpy` installed within the virtual environment in the distributed submission script?",
+      "answer": "`pip` is upgraded using `pip install --no-index --upgrade pip`, and `numpy==2.1.1` is installed with `pip install --no-index numpy==2.1.1`."
+    },
+    {
+      "question": "How is the virtual environment activated on the main node in `submit-mpi4py-distributed.sh`?",
+      "answer": "The virtual environment is activated on the main node using `source $SLURM_TMPDIR/env/bin/activate;`."
+    },
+    {
+      "question": "How is the Python script `mpi4py-np-bc.py` executed in the `submit-mpi4py-distributed.sh` script?",
+      "answer": "The Python script is executed using `srun python mpi4py-np-bc.py;`."
+    },
+    {
+      "question": "What type of MPI scheduling strategy does the `submit-mpi4py-distributed.sh` script utilize?",
+      "answer": "The `submit-mpi4py-distributed.sh` script is configured to run on cores distributed across the system, as indicated by the comment 'Run on cores across the system'."
+    }
+  ],
+  "generated_at": "2026-04-12T02:00:27.733338+00:00"
+}

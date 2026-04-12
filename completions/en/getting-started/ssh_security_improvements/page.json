@@ -1,0 +1,55 @@
+{
+  "doc_key": "en/ssh_security_improvements",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is SSH and why is it important for connecting to your clusters?",
+      "answer": "SSH is a software protocol used to connect to our clusters. It protects communication by verifying the server’s identity and yours, and by encrypting the connection."
+    },
+    {
+      "question": "Why were changes made to the SSH security protocols?",
+      "answer": "Changes were made because security risks evolve over time, and certain SSH options and older encryption algorithms/protocols are no longer deemed secure due to increases in computing power."
+    },
+    {
+      "question": "When were the SSH security improvements implemented on the clusters?",
+      "answer": "The SSH security improvements were implemented on September 24, 2019, on Graham, and one week later on Béluga and Cedar."
+    },
+    {
+      "question": "What are the three main SSH security improvements that were implemented?",
+      "answer": "The three main improvements are: disabling certain encryption algorithms, disabling certain public key types, and regenerating the cluster's host keys."
+    },
+    {
+      "question": "Which cluster is not affected by these SSH changes, and why?",
+      "answer": "Arbutus is not affected because users connect to it via a web interface, not SSH."
+    },
+    {
+      "question": "What common warning message might users see when logging in after the SSH changes?",
+      "answer": "Users will probably see a warning message like 'WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!' because the cluster's host keys were changed, and their SSH client remembers the old keys."
+    },
+    {
+      "question": "How should users of MobaXterm, PuTTY, or WinSCP handle the host key warning?",
+      "answer": "They should click 'Yes' on the pop-up warning to accept the new host key, but only if the fingerprint matches one listed in the SSH host key fingerprints section of the document."
+    },
+    {
+      "question": "What command should macOS, Linux, GitBash, or Cygwin users run to clear old host keys?",
+      "answer": "Users should run `ssh-keygen -R $h` for the specific hostname or IP address to tell their system to 'forget' the old host key."
+    },
+    {
+      "question": "What should a user do if their SSH key no longer works and they are being asked for a password?",
+      "answer": "This is likely because 1024-bit DSA & RSA keys have been disabled. The user needs to generate a new stronger key and add its public key to the remote host."
+    },
+    {
+      "question": "What error messages indicate that a user needs to upgrade their SSH client?",
+      "answer": "Error messages such as 'Unable to negotiate with ... no matching cipher found', 'no matching key exchange method found', or 'no matching mac found' indicate that an SSH client upgrade is needed."
+    },
+    {
+      "question": "Where can users find the correct SSH host key fingerprints for your clusters?",
+      "answer": "Users can find the correct SSH host key fingerprints in the 'SSH host key fingerprints' section of the document or retrieve them remotely using `ssh-keyscan` commands."
+    },
+    {
+      "question": "What should a user do if a host key fingerprint presented during connection does not match the official list?",
+      "answer": "If the fingerprint does not match any on the list, the user should not accept the connection and contact technical support with the details."
+    }
+  ],
+  "generated_at": "2026-04-12T07:30:59.265621+00:00"
+}

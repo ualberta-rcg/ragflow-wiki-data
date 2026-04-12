@@ -1,0 +1,99 @@
+{
+  "doc_key": "en/visit",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is the main requirement for establishing a client-server connection with VisIt?",
+      "answer": "The local client and remote host must have the same major version of VisIt."
+    },
+    {
+      "question": "What issue typically arises if there is a version mismatch between the client and server VisIt installations?",
+      "answer": "A failed handshake usually occurs when attempting to establish the client-server connection."
+    },
+    {
+      "question": "Which major versions of VisIt are available on the Fir, Nibi, and Rorqual clusters?",
+      "answer": "VisIt versions 2.12.x, 2.13.x, and 3.2.x are available."
+    },
+    {
+      "question": "How can I view the installed VisIt versions on the clusters like Fir, Nibi, and Rorqual?",
+      "answer": "You can run the command `module spider visit`."
+    },
+    {
+      "question": "Where should the `host_fir.xml` configuration file be placed on a Linux or Mac system?",
+      "answer": "It should be copied to `~/.visit/hosts/`."
+    },
+    {
+      "question": "What specific settings are needed to connect VisIt to Nibi for remote rendering?",
+      "answer": "Set 'Host nickname' to `nibi` and 'Remote host name' to `nibi.alliancecan.ca`."
+    },
+    {
+      "question": "What username should be used when configuring VisIt for Fir and Nibi?",
+      "answer": "You should use your CCDB username."
+    },
+    {
+      "question": "What are the two types of launch profiles available for VisIt on Fir, Nibi, and Rorqual, and what are their purposes?",
+      "answer": "The `login` profile runs the engine on a login node, and the `slurm` profile runs it inside an interactive job on a compute node."
+    },
+    {
+      "question": "What modification is required for the `slurm` launch profile's 'Launcher arguments' field?",
+      "answer": "You need to replace `--account=def-someuser` with your default allocation."
+    },
+    {
+      "question": "What additional flag should be added to the 'Launcher arguments' field when using the `slurm` profile on Fir?",
+      "answer": "Add `--chdir=/scratch/username`, replacing `username` with your actual username."
+    },
+    {
+      "question": "What is necessary for VisIt connections if your account has multifactor authentication enabled?",
+      "answer": "You need to configure your SSH client with `ControlMaster` and use the full host name for Host."
+    },
+    {
+      "question": "How do you save your VisIt settings after making changes on your laptop?",
+      "answer": "Go to `Options -> Save Settings` and then exit VisIt for the changes to take effect."
+    },
+    {
+      "question": "Where should the `host_trillium.xml` file be placed on a Windows machine?",
+      "answer": "It should be placed in `My Documents\\VisIt 2.13.0\\hosts\\`."
+    },
+    {
+      "question": "After placing the Trillium host configuration file, what should you do to ensure the profile is available?",
+      "answer": "Restart VisIt and check under `Options -> Host Profiles` to confirm the Trillium profile is visible."
+    },
+    {
+      "question": "What is the required 'Path to VisIt installation' for a manual configuration to connect to Trillium?",
+      "answer": "The path is `/scinet/trillium/software/2018a/opt/base/visit/2.13.1`."
+    },
+    {
+      "question": "Which option should be checked when manually configuring VisIt to connect to Trillium?",
+      "answer": "You should check 'Tunnel data connections through SSH'."
+    },
+    {
+      "question": "What settings need to be configured for the `slurm` profile on Trillium?",
+      "answer": "You need to set the parameters for the 'Launch parallel engine' under the `Parallel` tab."
+    },
+    {
+      "question": "What steps are involved in setting up a Cloud VM for VisIt client-server visualization?",
+      "answer": "First, launch a VM using the Cloud Quick Start Guide, then install additional packages on the VM."
+    },
+    {
+      "question": "What is the command to install prerequisite packages on a CentOS Cloud VM for compiling VisIt?",
+      "answer": "You need to install several additional packages using `sudo yum install` commands, such as `xauth`, `wget`, `gcc`, `ncurses-devel`, `libxcb-devel`, `mesa-libGL`, and `zlib-devel`, among others."
+    },
+    {
+      "question": "How can you copy your public SSH key to a Cloud VM to simplify logins?",
+      "answer": "On your laptop, use the command `cat ~/.ssh/id_rsa.pub | ssh -i ~/.ssh/cloudwestkey.pem centos@vm.ip.address 'cat >>.ssh/authorized_keys'`."
+    },
+    {
+      "question": "What script can be used to compile VisIt with offscreen rendering support (OSMesa) on a Cloud VM?",
+      "answer": "The `build_visit2_12_1` script can be downloaded and run with specific flags like `--prefix`, `--mesa`, and `--system-python`."
+    },
+    {
+      "question": "How do you test a VisIt installation after compiling it on a Cloud VM?",
+      "answer": "Run `~/visit/bin/visit -cli -nowin` to start a VisIt Python shell."
+    },
+    {
+      "question": "When running VisIt in client-server mode on a Cloud VM, where does the data processing and rendering occur?",
+      "answer": "Data processing and rendering are done on the VM itself, while the GUI controls are displayed on your laptop."
+    }
+  ],
+  "generated_at": "2026-04-12T11:07:00.073451+00:00"
+}

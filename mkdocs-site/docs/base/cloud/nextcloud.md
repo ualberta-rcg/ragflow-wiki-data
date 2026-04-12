@@ -5,31 +5,58 @@ lang: "base"
 
 source_wiki_title: "Nextcloud"
 source_hash: "7cb1ac8402f35fa8cd1089a660411ca0"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T09:12:52.058976+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T09:44:43.631933+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "synchronization copies"
+  - "network connectivity"
+  - "Alliance"
+  - "rclone"
+  - "WebDAV"
+  - "Synchronization Client"
+  - "curl"
+  - "work offline"
+  - "synchronized systems"
+  - "UNIX command line tools"
+  - "Cloud storage"
+  - "downloaded to client"
+  - "Nextcloud"
+
+questions:
+  - "What is the storage quota for the Alliance Nextcloud service, and what alternative is recommended for larger datasets?"
+  - "What are the different methods available for users to access and manage their files on the Alliance Nextcloud server?"
+  - "What is the primary difference between using a WebDAV client and a Synchronization Client when interacting with Nextcloud?"
+  - "How can the `curl` command line tool be used to upload and download files between a Unix system and Nextcloud?"
+  - "What are the advantages of using `rclone` over `curl`, and how do you configure it to manage files on a remote Nextcloud server?"
+  - "What methods are available in Nextcloud for sharing files with registered CCDB users, groups, and people without an Alliance account?"
+  - "How does the synchronization process ensure that files remain identical across all connected systems?"
+  - "What is the primary drawback of this system when you or your collaborators change files frequently?"
+  - "What is the main advantage of this setup regarding offline work and network connectivity?"
+  - "How can the `curl` command line tool be used to upload and download files between a Unix system and Nextcloud?"
+  - "What are the advantages of using `rclone` over `curl`, and how do you configure it to manage files on a remote Nextcloud server?"
+  - "What methods are available in Nextcloud for sharing files with registered CCDB users, groups, and people without an Alliance account?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
 We provide Nextcloud, a Dropbox-like cloud storage service, for all Alliance users. You can use your Alliance username and password to log in to the [Nextcloud server](https://nextcloud.computecanada.ca/). A complete [Nextcloud user manual](https://docs.nextcloud.com/server/19/Nextcloud_User_Manual.pdf) is available from the [official Nextcloud documentation](https://docs.nextcloud.com/). A manual is also available as a PDF document under your account once you connect. All data transfers between local devices and Alliance's Nextcloud are encrypted.
 
-The Nextcloud service is aimed at users with relatively small datasets (up to 100 GB). For anything larger, we recommend using the [Globus](globus.md) service.
+!!! note
+    The Nextcloud service is aimed at users with relatively small datasets (up to 100 GB). For anything larger, we recommend using the [Globus](globus.md) service.
 
 If you are not familiar with the concept of Nextcloud, you may try the [demo on the Nextcloud website](https://try.nextcloud.com/).
 
-!!! tip "Data Cleanup"
+!!! tip
     We recommend taking this opportunity to take a look at your data and do some cleanup: remove data you no longer need, check with whom you share your data, etc.
 
 ## Alliance Nextcloud service description
@@ -73,7 +100,7 @@ When you connect with a Synchronization client, the first thing the client does 
 
 You can use any available WebDAV command line clients, like [curl](https://curl.haxx.se/) and [cadaver](http://www.webdav.org/cadaver/), to copy files between your Unix computer and Nextcloud. Command line tools are useful when you want to copy data between a remote server you log in to and Nextcloud.
 
-`curl` is usually installed on Mac OSX and Linux systems and can be used to upload and download files using a URL.
+curl is usually installed on Mac OSX and Linux systems and can be used to upload and download files using a URL.
 
 ### Upload a file using `curl`
 
@@ -94,7 +121,7 @@ Unlike [curl](https://curl.haxx.se/), [rclone](https://rclone.org) lets you crea
 First, [install rclone on your computer if it has a Unix-like environment](https://rclone.org/install/).
 
 !!! note
-    If used from our clusters, please note that it is not necessary to install `rclone` as it is already available:
+    If used from our clusters, please note that it is not necessary to install rclone as it is already available:
 
 ```bash
 $ [name@server ~] $ which rclone
@@ -104,12 +131,12 @@ $ /cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr/bin/rclone
 Next, configure a remote storage device profile with
 
 ```bash
-$ rclone config
+rclone config
 ```
 
 You now have the option to edit an existing remote device, create a new remote device, delete a remote device, and so on. Let's say we want to create a new remote service profile called *nextcloud*:
 
-```text
+```
 choose "n"  for "New remote"
 Enter name for new remote --> nextcloud
 Type of storage to configure --> 52 / WebDAV
@@ -127,27 +154,28 @@ choose "q" to quit config
 You should now be able to see your new remote service profile in the list of configured ones with
 
 ```bash
-$ rclone listremotes
+rclone listremotes
 ```
 
 You can probe available disk space with
 
 ```bash
-$ rclone about nextcloud:
+rclone about nextcloud:
 ```
 
 To upload a file, run
 
 ```bash
-$ rclone copy /path/to/local/file nextcloud:remote/path
+rclone copy /path/to/local/file nextcloud:remote/path
 ```
 
 To download a file, run
 
 ```bash
-$ rclone copy nextcloud:remote/path/file .
+rclone copy nextcloud:remote/path/file .
 ```
 
 ## Sharing files using Nextcloud
 
-When you select a file or directory to share, type the user’s first name, last name, or username and the list of matched users registered in CCDB will be displayed in “Firstname Lastname (username)” format. Please review the name carefully as some are very similar; in doubt, enter the username which is unique. You can also share files with a group using their CCDB group name (default, RPP, RRG, or other shared groups). To share a file with people who don’t have an Alliance account, use the *Share link* option and provide their email address. Nextcloud will send an email notification with a link to access the file.
+When you select a file or directory to share, type the user’s first name, last name, or username and the list of matched users registered in CCDB will be displayed in “Firstname Lastname (username)” format. Please review the name carefully as some are very similar; in doubt, enter the username which is unique. You can also share files with a group using their CCDB group name (default, RPP, RRG, or other shared groups).
+To share a file with people who don’t have an Alliance account, use the *Share link* option and provide their email address. Nextcloud will send an email notification with a link to access the file.

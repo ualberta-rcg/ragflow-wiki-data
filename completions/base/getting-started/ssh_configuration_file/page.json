@@ -1,0 +1,47 @@
+{
+  "doc_key": "base/ssh_configuration_file",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is the primary purpose of modifying the local SSH configuration file on Linux and macOS?",
+      "answer": "The primary purpose is to change the default behaviour of `ssh` and simplify the login procedure."
+    },
+    {
+      "question": "How can you simplify the SSH login command for a specific host, like narval.alliancecan.ca, using a username and an SSH key?",
+      "answer": "Add a `Host` block to `~/.ssh/config` on your local machine, specifying `User`, `HostName`, and `IdentityFile` for that host."
+    },
+    {
+      "question": "After configuring a `Host` entry for 'narval' in your SSH config file, what simplified command can be used to log in?",
+      "answer": "You can log in by typing `ssh narval`."
+    },
+    {
+      "question": "Which other commands, besides `ssh`, are also affected by the local SSH configuration file?",
+      "answer": "The local SSH configuration file also changes the behaviour of `sftp`, `scp`, and `rsync`."
+    },
+    {
+      "question": "How can multiple clusters, such as Narval, Beluga, Graham, and Cedar, be configured in one `Host` block?",
+      "answer": "You can modify the `Host` block to list all clusters (e.g., `Host narval beluga graham cedar`) and use `HostName %h.alliancecan.ca`."
+    },
+    {
+      "question": "What is a prerequisite for using SSH keys to log into multiple clusters?",
+      "answer": "You need to install your public SSH key on each cluster separately or use CCDB."
+    },
+    {
+      "question": "How do you enable X11 forwarding (`-X`) through your `~/.ssh/config` file?",
+      "answer": "You can enable X11 forwarding by adding `ForwardX11 yes` to the corresponding section of your configuration file."
+    },
+    {
+      "question": "What is the security risk associated with enabling trusted X11 forwarding (`ForwardX11Trusted yes`) by default?",
+      "answer": "If the server you are connecting to is compromised, a privileged user (`root`) could intercept keyboard activity on your local computer."
+    },
+    {
+      "question": "What is the potential risk of enabling SSH agent forwarding (`ForwardAgent yes`) by default?",
+      "answer": "If the server you are connecting to is compromised, a privileged user (`root`) could use your agent and connect to another host without your knowledge."
+    },
+    {
+      "question": "What is recommended when using SSH agent forwarding to enhance security?",
+      "answer": "It is recommended to combine it with `ssh-askpass` so that any use of your SSH agent triggers a prompt on your computer."
+    }
+  ],
+  "generated_at": "2026-04-12T07:25:21.238468+00:00"
+}

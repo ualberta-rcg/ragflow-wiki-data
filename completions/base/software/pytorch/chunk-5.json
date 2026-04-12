@@ -1,0 +1,68 @@
+{
+  "doc_key": "base/pytorch",
+  "level": "chunk",
+  "chunk_index": 5,
+  "qa_pairs": [
+    {
+      "question": "How can I download the CIFAR10 dataset to test the provided CPU code?",
+      "answer": "To download the CIFAR10 dataset, you need to first create a `data` directory using `mkdir -p data && cd data`. Then, download the dataset with `wget https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz`, extract it using `tar zxf cifar-10-python.tar.gz`, and finally navigate back with `cd ..`."
+    },
+    {
+      "question": "Where should the CIFAR10 dataset be placed for the CPU performance test script?",
+      "answer": "The CIFAR10 dataset should be placed under a directory named `./data` in the same location where the `cifar10-cpu.py` script is executed."
+    },
+    {
+      "question": "How can I observe the effect of PyTorch's native parallelism on CPU performance?",
+      "answer": "You can observe the effect of PyTorch's native support for parallelism on CPU performance by simply requesting more CPUs for your job (e.g., by changing the `--cpus-per-task` parameter in the SLURM script) without needing to make any code changes."
+    },
+    {
+      "question": "What is the primary goal of the `pytorch-multi-cpu.sh` script?",
+      "answer": "The primary goal of the `pytorch-multi-cpu.sh` script is to demonstrate how PyTorch's native support for parallelism impacts CPU performance by allowing users to vary the number of requested CPUs."
+    },
+    {
+      "question": "Is it always advisable to use a GPU for model training on HPC clusters if one is available?",
+      "answer": "No, it is not always advisable. While training very small models might be faster on a GPU on a local workstation, on HPC clusters, you should not request a GPU if your code cannot make reasonable use of its compute capacity."
+    },
+    {
+      "question": "Under what circumstances should one avoid requesting a GPU on HPC clusters?",
+      "answer": "You should avoid requesting a GPU on HPC clusters if your code is not capable of making a reasonable use of its compute capacity, especially for small-scale models where training might actually be faster on multiple CPUs."
+    },
+    {
+      "question": "What are the two main factors contributing to GPUs' performance advantage in Deep Learning?",
+      "answer": "GPUs gain their performance advantage primarily from two sources: their ability to parallelize key numerical operations (like multiply-accumulate) over thousands of compute cores, and their much higher memory bandwidth compared to CPUs."
+    },
+    {
+      "question": "What libraries does PyTorch use for parallel implementations of Deep Learning operators on GPUs?",
+      "answer": "PyTorch uses GPU-specific libraries such as CUDNN or MIOpen for parallel implementations of common Deep Learning operators like matrix multiplication and convolution, depending on the hardware platform."
+    },
+    {
+      "question": "When is a learning task considered worthwhile to run on a GPU?",
+      "answer": "A learning task is considered worthwhile to run on a GPU if it is composed of elements that scale out with massive parallelism, either in terms of the number of operations performed in parallel, the amount of data required, or ideally both. This typically applies to large models, large inputs, or a combination of both."
+    },
+    {
+      "question": "What two parameters are crucial for optimizing GPU performance when adapting multi-CPU code?",
+      "answer": "When adapting multi-CPU code to run on a GPU, the `batch_size` and `num_workers` parameters play an important role in optimizing performance."
+    },
+    {
+      "question": "How does increasing the `batch_size` improve GPU performance?",
+      "answer": "Increasing the `batch_size` improves GPU performance by increasing the size of the inputs at each iteration, which in turn utilizes more of the GPU's compute capacity."
+    },
+    {
+      "question": "How does the `num_workers` parameter help streamline data processing for GPUs?",
+      "answer": "The `num_workers` parameter streamlines data processing for GPUs by efficiently moving inputs from the Host's (CPU's) memory to the GPU's memory, thereby reducing idle time for the GPU while it waits for data."
+    },
+    {
+      "question": "What are the SLURM resource requests specified in the `pytorch-multi-cpu.sh` script?",
+      "answer": "The `pytorch-multi-cpu.sh` script requests 1 node, 1 task per node, 1 CPU per task (configurable), 8GB of memory, a time limit of 5 minutes, and specifies an output file name."
+    },
+    {
+      "question": "How does the `pytorch-multi-cpu.sh` script set up the Python environment and install necessary packages?",
+      "answer": "The script loads the Python module, creates and activates a virtual environment in `$SLURM_TMPDIR/env`, and then installs `torch` and `torchvision` using `pip install --no-index`."
+    },
+    {
+      "question": "What environment variable is set in `pytorch-multi-cpu.sh` to control CPU parallelism?",
+      "answer": "The `OMP_NUM_THREADS` environment variable is set to `$SLURM_CPUS_PER_TASK` in `pytorch-multi-cpu.sh` to control the number of threads for OpenMP, enabling PyTorch's native CPU parallelism."
+    }
+  ],
+  "generated_at": "2026-04-12T05:37:45.972021+00:00"
+}

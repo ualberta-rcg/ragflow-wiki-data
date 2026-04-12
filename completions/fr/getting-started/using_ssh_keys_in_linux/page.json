@@ -1,0 +1,63 @@
+{
+  "doc_key": "fr/using_ssh_keys_in_linux",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "À quoi ça sert, une paire de clés SSH, et quand devrais-je en créer une nouvelle?",
+      "answer": "Une paire de clés SSH sert à s'authentifier de façon sécuritaire. Vous devriez en créer une nouvelle si vous n'êtes pas certain du niveau de sécurité d'une clé existante ou si vous ne savez plus où elle a été utilisée."
+    },
+    {
+      "question": "Où est-ce qu'on trouve habituellement les paires de clés SSH et comment sont-elles nommées par défaut?",
+      "answer": "Les paires de clés SSH se trouvent généralement dans le répertoire `~/.ssh/` de votre espace /home. Par défaut, le nom de la clé est composé du préfixe `id_` suivi de son type (par exemple, `rsa`), et la clé publique a le suffixe `.pub`."
+    },
+    {
+      "question": "Quelle est la commande pour générer une nouvelle paire de clés SSH standard?",
+      "answer": "Pour générer une nouvelle paire de clés SSH, vous pouvez utiliser la commande `ssh-keygen`, par exemple `ssh-keygen -t ed25519` ou `ssh-keygen -b 4096 -t rsa`."
+    },
+    {
+      "question": "Est-ce qu'il faut toujours entrer une phrase de passe quand on génère une paire de clés SSH?",
+      "answer": "Oui, il est de bonne pratique d'entrer une phrase de passe à l'invite lors de la génération d'une clé. Si vous avez déjà des clés, donnez un nom différent au fichier pour éviter d'écraser les clés existantes."
+    },
+    {
+      "question": "Comment on fait pour créer une paire de clés SSH qui utilise une clé de sécurité matérielle comme une YubiKey?",
+      "answer": "Pour générer une paire de clés soutenue par une clé de sécurité matérielle, il faut utiliser la commande `ssh-keygen -t ecdsa-sk`."
+    },
+    {
+      "question": "Quelle est la méthode recommandée pour installer ma clé publique SSH sur les grappes de Calcul Canada?",
+      "answer": "La méthode encouragée est d'enregistrer votre clé publique SSH dans la CCDB en copiant son contenu et en le téléversant selon la procédure décrite à l'étape 3 de l'article lié."
+    },
+    {
+      "question": "C'est quoi la façon la plus simple et sécuritaire d'installer une clé publique sur un système distant?",
+      "answer": "La façon la plus simple et sécuritaire est d'utiliser la commande `ssh-copy-id`, par exemple `ssh-copy-id -i ~/.ssh/mynewkey.pub graham.computecanada.ca`."
+    },
+    {
+      "question": "Si je ne peux pas utiliser `ssh-copy-id`, comment puis-je installer ma clé publique manuellement sur un serveur distant?",
+      "answer": "Vous devez copier le fichier de la clé publique sur le serveur distant, puis créer le répertoire `~/.ssh/` si ce n'est pas déjà fait, ajouter la clé publique à `~/.ssh/authorized_keys`, et ajuster les permissions avec `chmod --recursive go-rwx ~/.ssh` et `chmod go-w ~`."
+    },
+    {
+      "question": "Quelles sont les permissions importantes à respecter pour les fichiers et répertoires SSH pour que ça marche bien?",
+      "answer": "La clé privée ne doit pas être accessible aux autres (`chmod go-rwx id_rsa`), et votre répertoire `/home` distant, ainsi que `~/.ssh` et `~/.ssh/authorized_keys`, ne doivent pas être accessibles en écriture par d'autres (`chmod go-w ~` et `chmod --recursive go-rwx ~/.ssh`)."
+    },
+    {
+      "question": "Une fois ma clé installée, comment est-ce que je me connecte à un serveur avec ma paire de clés?",
+      "answer": "Vous vous connectez avec la commande `ssh -i /chemin/vers/votre/clé_privée NOM_UTILISATEUR@ADRESSE_SERVEUR`."
+    },
+    {
+      "question": "Pourquoi est-ce qu'on utiliserait le programme `ssh-agent`?",
+      "answer": "`ssh-agent` sert à éviter d'avoir à entrer votre phrase de passe chaque fois que vous vous connectez à une grappe distante en mémorisant votre clé privée sur votre ordinateur local."
+    },
+    {
+      "question": "Comment je démarre `ssh-agent` et comment j'ajoute ma clé privée à l'agent?",
+      "answer": "Vous démarrez `ssh-agent` avec la commande `eval `ssh-agent``, puis vous ajoutez votre clé avec `ssh-add` (ou `ssh-add /chemin/vers/votre/clé_privée` si elle n'est pas dans un emplacement habituel)."
+    },
+    {
+      "question": "Dans quel cas est-ce que je devrais activer le transfert d'agent et comment je fais ça?",
+      "answer": "Vous devriez activer le transfert d'agent si vous avez besoin d'utiliser votre clé privée sur la grappe elle-même (par exemple, pour interagir avec un référentiel GitHub distant). Pour l'activer, ajoutez `ForwardAgent yes` sous l'hôte désiré dans votre fichier `$HOME/.ssh/config` local."
+    },
+    {
+      "question": "Est-ce qu'il existe d'autres manières de gérer les clés SSH pour éviter les phrases de passe répétitives sur mon ordinateur local?",
+      "answer": "Oui, macOS et plusieurs distributions récentes de Linux offrent des gestionnaires de trousseaux graphiques qui peuvent enregistrer et fournir automatiquement votre clé privée au client SSH, éliminant le besoin d'entrer la phrase de passe à chaque connexion après la première."
+    }
+  ],
+  "generated_at": "2026-04-12T10:11:42.694794+00:00"
+}

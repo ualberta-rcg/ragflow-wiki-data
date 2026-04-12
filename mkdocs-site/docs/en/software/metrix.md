@@ -5,21 +5,78 @@ lang: "en"
 
 source_wiki_title: "Metrix/en"
 source_hash: "46d556670bc467cd7041302f50d35861"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T08:31:16.644339+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T09:05:18.773539+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "filesystem usage"
+  - "Bandwidth"
+  - "resource usage"
+  - "Ressources section"
+  - "processes and threads"
+  - "Cloud statistics"
+  - "GPU jobs"
+  - "filesystem performance"
+  - "scheduler"
+  - "virtual machines"
+  - "job resources"
+  - "Graphs"
+  - "filesystems"
+  - "priority"
+  - "GPU usage"
+  - "Processes and threads"
+  - "Filesystem usage"
+  - "Metrix portal"
+  - "usage statistics"
+  - "I/O operations per second (IOPS)"
+  - "Allocated and Used"
+  - "Data transfer rate"
+  - "Memory"
+  - "GPU accounts"
+  - "CPU jobs"
+  - "job statistics"
+  - "GPU requests"
+  - "CPU cores"
+  - "Account statistics"
+  - "CPU graph"
+  - "memory usage"
+  - "jobs"
+
+questions:
+  - "What is the primary purpose of the Metrix portal and what types of resource usage can Alliance users track with it?"
+  - "How does the User portal tab help users manage their filesystem quotas and review their recent job history?"
+  - "What specific metrics and graphs are provided in the Job statistics section to allow users to compare their allocated resources against their actual usage?"
+  - "How can you determine the actual resources used by your job in the \"Ressources\" section?"
+  - "What specific information and selection options does the CPU graph provide?"
+  - "Under what circumstances is the CPU graph unavailable for viewing?"
+  - "How does the system evaluate the efficiency of a multithreaded job based on the number of running and sleeping threads compared to the requested cores?"
+  - "What specific metrics are displayed in the filesystem and network graphs to help identify periods of massive data transfer or I/O activity?"
+  - "How does the monitoring interface differ when displaying information for a CPU job array compared to a GPU job?"
+  - "What are the ideal target values for Streaming Multiprocessors (SM) usage, SM occupancy, and Tensor settings when analyzing GPU performance graphs?"
+  - "How can users monitor massive data transfer activities, such as MPI communications or filesystem reading/writing, using the node resource and Infiniband network graphs?"
+  - "What specific metrics can a group track in the \"Account Statistics\" section to evaluate individual user efficiency regarding wasted CPU cores and memory usage?"
+  - "What parameters are illustrated in the \"Processes and threads\" graph?"
+  - "Does the filesystem usage data represent the activity of the entire node or only the current job?"
+  - "What specific metrics are displayed on the left and right graphs to help identify periods of high or low filesystem activity?"
+  - "What specific types of resource usage and wastage metrics can be tracked for users and jobs within a GPU account?"
+  - "How does the system represent user activity on the filesystems in terms of data transfer and disk commands?"
+  - "What information and usage statistics are provided for the virtual machines listed under the Cloud statistics section?"
+  - "How can users monitor the amount of data transferred to the servers over a specific period?"
+  - "What information is provided regarding the recent jobs executed by members of the group?"
+  - "How does the system track GPU account usage and determine a group's computing priority?"
+  - "What specific types of resource usage and wastage metrics can be tracked for users and jobs within a GPU account?"
+  - "How does the system represent user activity on the filesystems in terms of data transfer and disk commands?"
+  - "What information and usage statistics are provided for the virtual machines listed under the Cloud statistics section?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -27,35 +84,33 @@ status:
 
 The Metrix portal is a website for Alliance users. It collects information on compute nodes and management servers, to interactively generate data so you can track your resource usage (CPUs, GPUs, memory, filesystems) in real time.
 
-| Rorqual | [https://metrix.rorqual.alliancecan.ca](https://metrix.rorqual.alliancecan.ca) |
-| :------ | :---------------------------------------------------------------------------------- |
-| Narval  | [https://portail.narval.calculquebec.ca](https://portail.narval.calculquebec.ca) |
-| Nibi    | [https://portal.nibi.sharcnet.ca](https://portal.nibi.sharcnet.ca)                 |
+| Cluster | Metrix Portal URL |
+| :------ | :----------------------------------------------------------------------------------------------------- |
+| Rorqual | [https://metrix.rorqual.alliancecan.ca](https://metrix.rorqual.alliancecan.ca)                           |
+| Narval  | [https://portail.narval.calculquebec.ca](https://portail.narval.calculquebec.ca)                         |
+| Nibi    | [https://portal.nibi.sharcnet.ca](https://portal.nibi.sharcnet.ca)                                       |
 
 **Filesystem performance**
-
-Here you have the graphs for bandwidths and metadata operations, along with viewing options (last week, last day and last hour).
+: Here you have the graphs for bandwidths and metadata operations, along with viewing options (last week, last day and last hour).
 
 **Login nodes**
-
-Under this tab are presented usage statistics for CPUs, memory, system load, and network, with viewing options (last week, last day, and last hour).
+: Under this tab are presented usage statistics for CPUs, memory, system load, and network, with viewing options (last week, last day, and last hour).
 
 **Scheduler**
-
-This tab shows statistics for the cluster's allocated cores and GPUs, with viewing options (last week, last day, and last hour).
+: This tab shows statistics for the cluster's allocated cores and GPUs, with viewing options (last week, last day, and last hour).
 
 **Scientific software**
-
-These graphs show the software most frequently used, with CPU cores and GPUs.
+: These graphs show the software most frequently used, with CPU cores and GPUs.
 
 **Data transfer nodes**
-
-Bandwidth statistics for data transfer nodes are shown under this tab.
+: Bandwidth statistics for data transfer nodes are shown under this tab.
 
 # User portal
+
 Under this tab, you find your quotas for the filesystems, followed by your 10 last jobs. You can select a job by its number to see the details. Also, by clicking on (More details), you are redirected to the *Job statistics* tab, where all your jobs are listed.
 
 # Job statistics
+
 The first block shows your current usage (CPU cores, memory, and GPUs). These statistics represent the average usage by all currently running jobs. You can easily compare the resources allocated to you with those you actually use.
 
 You then have a graph of the average for the last few days.
@@ -65,6 +120,7 @@ Next is a representation of your activity on the filesystems. On the left, the g
 The next section shows all the jobs you have already started, which are currently running or pending. In the top left corner, you can filter jobs by their status (OOM, completed, running, etc.). In the top right corner, you can search by job ID or by job name. Finally, in the bottom right corner, there is an option to quickly navigate between pages by performing multiple jumps.
 
 ## CPU jobs
+
 At the top, you see the job name, its number, your username, and the status. Details of your submission script are displayed by clicking on Show submitted job script. If the job was launched in interactive mode, the submission script will not be available.
 
 The working directory and the submission command can be seen by clicking on Show submit command.
@@ -77,7 +133,7 @@ The **CPU** graph shows the CPU cores you have requested, over time. On the righ
 
 This graphs shows the usage of the memory you requested, over time.
 
-The **Processes and threads** graph shows different parameters. For a multithread job, adding parameters *Running threads* and *Sleeping threads* should not exceed twice the number of cores requested. However, having some *Sleeping threads* is normal for certain types of programs (java, Matlab, commercial software or complex programs). There is also a parameter for the program applications that have been executed over time.
+The **Processes and threads** graph shows different parameters. For a multithread job, adding parameters **Running threads** and **Sleeping threads** should not exceed twice the number of cores requested. However, having some *Sleeping threads* is normal for certain types of programs (java, Matlab, commercial software or complex programs). There is also a parameter for the program applications that have been executed over time.
 
 The following graphs show filesystem usage by the current job, and not for the entire node. On the left, we have the number of I/O operations per second (IOPS). On the right, the graph illustrates the data transfer rate between the job and the filesystem, over time. This helps identify periods of high or low filesystem activity.
 

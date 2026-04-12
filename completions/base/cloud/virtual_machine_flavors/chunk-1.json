@@ -1,0 +1,56 @@
+{
+  "doc_key": "base/virtual_machine_flavors",
+  "level": "chunk",
+  "chunk_index": 1,
+  "qa_pairs": [
+    {
+      "question": "What are \"flavours\" in OpenStack?",
+      "answer": "In OpenStack, \"flavours\" are virtual hardware templates that define parameters such as RAM, disk size, and number of cores, providing users with choices for the type of virtual machine to run."
+    },
+    {
+      "question": "How can researchers view the OpenStack flavours allocated to their project?",
+      "answer": "Researchers can view the flavours allocated to their project in the Horizon Dashboard or by using the OpenStack command line client with the command `openstack flavour list --sort-column RAM`."
+    },
+    {
+      "question": "Who should be contacted if a project requires an OpenStack flavour that is not currently allocated?",
+      "answer": "If a project needs a flavour not currently allocated, please email cloud@tech.alliancecan.ca."
+    },
+    {
+      "question": "What do the prefixes 'c', 'p', and 'g' signify in OpenStack virtual machine flavour names?",
+      "answer": "In OpenStack virtual machine flavour names, 'c' designates \"compute\", 'p' designates \"persistent\", and 'g' designates \"vGPU\"."
+    },
+    {
+      "question": "How are OpenStack virtual machine flavour names structured?",
+      "answer": "Flavour names start with a prefix ('c', 'p', or 'g'), followed by the number of virtual vCPUs/vGPUs, then the amount of RAM after a dash. If a second dash is present, it indicates the size of the secondary ephemeral disk in gigabytes. For vGPU flavours, the compute flavour information is included after the vGPU details."
+    },
+    {
+      "question": "What is the intended use for a \"c\" flavour virtual machine?",
+      "answer": "A \"c\" flavour virtual machine is intended for jobs of finite lifetime and for development and testing tasks."
+    },
+    {
+      "question": "What are the characteristics of storage for a \"c\" flavour VM?",
+      "answer": "A \"c\" flavour VM starts from a qcow2-format image. Its disks reside on the local hardware running the VM, have no redundancy (RAID 0), and the root disk is typically 20GB. They also have a secondary ephemeral data disk, with both storage devices created and destroyed with the instance."
+    },
+    {
+      "question": "How does the Arbutus cloud specifically treat \"c\" flavours?",
+      "answer": "The Arbutus cloud treats \"c\" flavours as having no over-commit on CPU, making them targeted towards CPU intensive tasks."
+    },
+    {
+      "question": "What is the primary purpose of a \"p\" flavour virtual machine?",
+      "answer": "A \"p\" flavour virtual machine is intended to run for an indeterminate length of time."
+    },
+    {
+      "question": "How should \"p\" flavour VMs be started to ensure greater redundancy and resistance to failure?",
+      "answer": "\"p\" flavour VMs should be booted from a volume, which means the instance will be backed by the Ceph storage system, providing greater redundancy and resistance to failure than a \"c\" instance."
+    },
+    {
+      "question": "What is the recommended volume size for a persistent VM's root disk?",
+      "answer": "It is recommended to use a volume size of at least 20GB for the persistent VM root disk."
+    },
+    {
+      "question": "How does the Arbutus cloud treat \"p\" flavours, and what types of applications are they suitable for?",
+      "answer": "The Arbutus cloud places \"p\" flavours on compute nodes with a higher level of redundancy (disk and network) and they do over-commit the CPU. They are geared towards web servers, database servers, and instances with a lower or bursty CPU usage profile in general."
+    }
+  ],
+  "generated_at": "2026-04-12T11:04:32.441039+00:00"
+}

@@ -5,37 +5,72 @@ lang: "fr"
 
 source_wiki_title: "Make/fr"
 source_hash: "5a646e5ef71768da5f7854023e58983c"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T08:23:30.075861+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T08:57:08.480803+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "fichiers objets"
+  - "OptionsDeCompilation"
+  - "Compilation"
+  - "FichiersObjets"
+  - "langage C"
+  - "exemple"
+  - "guide approfondi"
+  - "make"
+  - "NomCompilateur"
+  - "makefile"
+  - "variables"
+  - "fichiers makefile"
+  - "GNU Make"
+  - "compilation"
+  - "ProgrammeOut"
+  - "dépendances"
+  - "fichier source"
+  - "programme exécutable"
+  - "cibles"
+  - "Makefile"
+
+questions:
+  - "Quel est le but principal du logiciel `make` par rapport à l'utilisation d'un simple script d'exécution ?"
+  - "Comment le fichier `makefile` gère-t-il les dépendances pour éviter de recompiler inutilement des fichiers non modifiés ?"
+  - "Quelles sont les cibles conventionnelles les plus courantes (comme *all*, *clean* ou *install*) et quelles actions spécifiques permettent-elles d'accomplir ?"
+  - "Quel est le but principal de ce script Makefile et comment optimise-t-il le processus de compilation ?"
+  - "Quelles sont les variables spécifiques que l'utilisateur doit modifier pour adapter ce script à son propre programme ?"
+  - "Comment utilise-t-on la commande « make » sur la ligne de commande UNIX pour mettre à jour l'ensemble du programme ou une seule routine ?"
+  - "Où peut-on trouver la liste des variables d'installation mentionnées dans le texte ?"
+  - "Quelles sont les caractéristiques de l'exemple de Makefile fourni ?"
+  - "Quel site Web est recommandé pour obtenir un guide approfondi sur la création de fichiers makefile ?"
+  - "Quel est le rôle du symbole `$<` lors de la compilation d'un fichier source selon les commentaires fournis ?"
+  - "Comment les variables de compilation telles que `$(NomCompilateur)` et `$(OptionsDeCompilation)` sont-elles appliquées pour générer les fichiers objets ?"
+  - "De quelle manière la dépendance entre le programme exécutable final et ses composants (fichiers objets) est-elle structurée ?"
+  - "Quel est le but principal de cette ligne de commande dans le processus de compilation ?"
+  - "Que représentent les différentes variables telles que $(NomCompilateur) et $(FichiersObjets) utilisées dans cette instruction ?"
+  - "Quel est le rôle spécifique de l'option \"-o\" placée avant $(ProgrammeOut) ?"
+  - "Quel est le but principal de cette ligne de commande dans le processus de compilation ?"
+  - "Que représentent les différentes variables telles que $(NomCompilateur) et $(FichiersObjets) utilisées dans cette instruction ?"
+  - "Quel est le rôle spécifique de l'option \"-o\" placée avant $(ProgrammeOut) ?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
 ## Description
-[make](https://fr.wikipedia.org/wiki/Make) est un logiciel qui construit automatiquement des bibliothèques ou des fichiers, souvent exécutables, à partir d'éléments de base tels que du code source.
+[make](https://fr.wikipedia.org/wiki/Make) est un logiciel qui construit automatiquement des bibliothèques ou des programmes souvent exécutables, à partir d'éléments de base tels que du code source.
 
 La commande `make` interprète et exécute les instructions du fichier `makefile`. À la différence d'un simple script, `make` exécute les commandes seulement si elles sont nécessaires. Le but est d'arriver à un résultat (logiciel compilé ou installé, documentation créée, etc.) sans nécessairement refaire toutes les étapes.
 
-Dans le fichier `makefile` se trouvent, entre autres, des informations sur les dépendances.
-Par exemple, puisque l'exécutable du programme dépend des fichiers sources, si certains de ces fichiers ont changé, un réassemblage du programme est nécessaire.
-De la même manière, les fichiers objets dépendant de leurs fichiers sources associés, si un fichier source a été modifié, ce dernier doit être recompilé pour recréer le nouveau fichier objet.
-Toutes ces dépendances doivent être incluses dans le fichier `makefile`. Ainsi, il n'est plus nécessaire de recompiler tous les fichiers sources à chaque modification; la commande `make` s'occupe de recompiler et réassembler uniquement ce qui est nécessaire.
+Dans le fichier `makefile` se trouvent, entre autres, des informations sur les dépendances. Par exemple, puisque l'exécutable du programme dépend des fichiers source, si certains de ces fichiers ont changé, un réassemblage du programme est nécessaire. De la même manière, les fichiers objets dépendant de leurs fichiers sources associés, si un fichier source a été modifié, ce dernier doit être recompilé pour recréer le nouveau fichier objet. Toutes ces dépendances doivent être incluses dans le fichier `makefile`. Ainsi, il n'est plus nécessaire de recompiler tous les fichiers sources à chaque modification; la commande `make` s'occupe de recompiler et réassembler uniquement ce qui est nécessaire.
 
 ## Exemples d'utilisation
-Le principal argument de la commande `make` est généralement la cible. Il s'agit de la composante que `make` doit construire.
-Les cibles disponibles dépendent du contenu du `makefile`, mais certaines cibles sont très communes, par exemple *all*, *test*, *check*, *clean* et *install*, qui sont souvent employées. Dans l'exemple suivant de `make`, aucune cible n'est spécifiée.
+Le principal argument de la commande `make` est généralement la cible. Il s'agit de la composante que `make` doit construire. Les cibles disponibles dépendent du contenu du `makefile`, mais certaines cibles sont très communes, par exemple **all**, **test**, **check**, **clean** et **install**, qui sont souvent employées. Dans l'exemple suivant de `make`, aucune cible n'est spécifiée.
 
 ```bash
 make
@@ -47,7 +82,7 @@ Le comportement typique est de tout construire, soit l'équivalent de
 make all
 ```
 
-Les cibles *test* ou *check* sont généralement utilisées pour exécuter des tests afin de valider que l'application ou la bibliothèque compilée fonctionne correctement. De façon générale, ces cibles sont dépendantes de la cible *all*. Vous pouvez ainsi vérifier la compilation via la commande
+Les cibles **test** ou **check** sont généralement utilisées pour exécuter des tests afin de valider que l'application ou la bibliothèque compilée fonctionne correctement. De façon générale, ces cibles sont dépendantes de la cible **all**. Vous pouvez ainsi vérifier la compilation via la commande
 
 ```bash
 make all && make check
@@ -59,7 +94,7 @@ ou
 make all && make test
 ```
 
-La cible *clean* efface tous les fichiers binaires compilés précédemment afin de reprendre la compilation de zéro. Il existe parfois aussi la cible *distclean* qui efface non seulement les fichiers créés par `make`, mais aussi les fichiers créés lors de l'opération de configuration par [configure](autotools.md) ou [cmake](cmake.md). Ainsi, pour nettoyer le répertoire de compilation, vous pouvez généralement exécuter
+La cible **clean** efface tous les fichiers binaires compilés précédemment afin de reprendre la compilation à zéro. Il existe parfois aussi la cible **distclean** qui efface non seulement les fichiers créés par `make`, mais aussi les fichiers créés lors de l'opération de configuration par [configure](autotools.md) ou [cmake](cmake.md). Ainsi, pour nettoyer le répertoire de compilation, vous pouvez généralement exécuter
 
 ```bash
 make clean
@@ -71,15 +106,15 @@ et parfois
 make distclean
 ```
 
-La cible *install* procède normalement à l'installation de l'application ou de la bibliothèque compilée. L'emplacement de l'installation dépend du `makefile`, mais peut souvent se modifier via un paramètre additionnel `prefix` ainsi :
+La cible **install** procède normalement à l'installation de l'application ou de la bibliothèque compilée. L'emplacement de l'installation dépend du `makefile`, mais peut souvent se modifier via un paramètre additionnel **prefix** ainsi :
 
 ```bash
 make install prefix=$HOME/PROGRAM
 ```
 
-Ces cibles `all`, `test`, `check`, `clean`, `distclean` et `install` ne sont cependant que des conventions et l'auteur d'un `makefile` pourrait très bien choisir une autre convention. Pour davantage d'information sur les cibles typiques, notamment supportées par toutes les applications GNU, consultez [cette page](http://www.gnu.org/software/make/manual/make.html#Standard-Targets). Les options pour configurer les répertoires d'installation et autres sont quant à elles listées [ici](http://www.gnu.org/software/make/manual/make.html#Directory-Variables).
+Ces cibles **all**, **test**, **check**, **clean**, **distclean** et **install** ne sont cependant que des conventions et l'auteur d'un `makefile` pourrait très bien choisir une autre convention. Pour davantage d'information sur les cibles typiques, notamment supportées par toutes les applications GNU, consultez [cette page](http://www.gnu.org/software/make/manual/make.html#Standard-Targets). Les options pour configurer les répertoires d'installation et autres sont quant à elles listées [ici](http://www.gnu.org/software/make/manual/make.html#Directory-Variables).
 
-## Exemple de makefile
+## Exemple de `Makefile`
 L'exemple suivant, d'utilisation générale, inclut beaucoup d'explications et de commentaires. Pour un guide approfondi sur la création de fichiers `makefile`, visitez le [site Web GNU Make](http://www.gnu.org/software/make/manual/make.html#Introduction).
 
 ```make title="Makefile"
@@ -91,19 +126,21 @@ L'exemple suivant, d'utilisation générale, inclut beaucoup d'explications et d
 #
 # BUT ET FONCTIONNEMENT DU PRÉSENT SCRIPT :
 #    Script sous forme makefile permettant de mettre à jour un programme
-#    comprenant plusieurs routines séparées sur le disque. Ce script n'est pas  #    exécuté par lui-même, mais est plutôt lu et interprété par la commande 
-#    make. Lors de son appel, la commande make vérifie les dates des     
-#    différents fichiers composant votre programme compilé. Seulement les 
-#    routines ayant été modifiées depuis la compilation du programme final     
-#    seront recompilées sous forme objet (fichiers terminés par .o). Les    
-#    fichiers .o seront ensuite liés ensemble pour reformer une version mise à #    jour du programme final.
+#    comprenant plusieurs routines séparées sur le disque. Ce script n'est pas
+#    exécuté par lui-même, mais est plutôt lu et interprété par la commande
+#    make. Lors de son appel, la commande make vérifie les dates des
+#    différents fichiers composant votre programme compilé. Seulement les
+#    routines ayant été modifiées depuis la compilation du programme final
+#    seront recompilées sous forme objet (fichiers terminés par .o). Les
+#    fichiers .o seront ensuite liés ensemble pour reformer une version mise à
+#    jour du programme final.
 #
-# POUR ADAPTER LE PRÉSENT SCRIPT À VOTRE PROGRAMME : 
-#    Modifiez le contenu des variables de la section ci-dessous. Des   
+# POUR ADAPTER LE PRÉSENT SCRIPT À VOTRE PROGRAMME :
+#    Modifiez le contenu des variables de la section ci-dessous. Des
 #    commentaires vous guideront dans ce sens.
 #
 # UTILISATION DE make SUR LA LIGNE DE COMMANDE UNIX :
-#    1- Tapez «make» pour mettre à jour l'ensemble du programme. 
+#    1- Tapez «make» pour mettre à jour l'ensemble du programme.
 #    2- Tapez «make NomRoutine» pour mettre à jour seulement la
 #          routine NomRoutine.
 #
@@ -115,59 +152,59 @@ L'exemple suivant, d'utilisation générale, inclut beaucoup d'explications et d
 # Nom du compilateur à utiliser (FORTRAN, C ou autre)
 NomCompilateur= xlf
 
-# Options de compilation : ci-dessous, vous trouverez les options normalement 
-#                          utilisées pour compiler en FORTRAN. Vous pouvez  
-#                          assigner d'autres valeurs que celles suggerées à la 
+# Options de compilation : ci-dessous, vous trouverez les options normalement
+#                          utilisées pour compiler en FORTRAN. Vous pouvez
+#                          assigner d'autres valeurs que celles suggerées à la
 #                          variable OptionsDeCompilation.
-#OptionsDeCompilation= -O3 
-# Enlever le caractère # ci-dessous pour activer la compilation en mode debug 
-#OptionsDeCompilation= -g 
+#OptionsDeCompilation= -O3
+# Enlever le caractère # ci-dessous pour activer la compilation en mode debug
+#OptionsDeCompilation= -g
 # Enlever le caractère #  ci-dessous pour utiliser gprof qui indique le temps de
 #    calcul de chaque sous-routine
 #OptionsDeCompilation= -O3 -pg
 
-# Liste des routines à compiler : on nomme ici les versions objet 
-# Placez un \ à la fin de chaque ligne si vous voulez poursuivre la liste 
-#    des routines sur la ligne suivante. 
+# Liste des routines à compiler : on nomme ici les versions objet
+# Placez un \ à la fin de chaque ligne si vous voulez poursuivre la liste
+#    des routines sur la ligne suivante.
 FichiersObjets= trnb3-1.part.o mac4251.o inith.o dsite.o initv.o main.o \
                 entree.o gcals.o defvar1.o defvar2.o magst.o mesure.o
 
-# Nom du programme exécutable finalement produit 
-ProgrammeOut= trnb3-1.out 
+# Nom du programme exécutable finalement produit
+ProgrammeOut= trnb3-1.out
 
-#=====  Fin de la définition des variables  ===== 
+#=====  Fin de la définition des variables  =====
 
 #===============  Il n'y a rien à changer à partir d'ici  ===============
 
 
-# Définit une règle : comment construire un fichier objet (terminé par .o) 
-#                   à partir d'un fichier source (terminé par .f) 
-# remarque : les symboles $< seront remplacés par le nom du programme à compiler 
+# Définit une règle : comment construire un fichier objet (terminé par .o)
+#                   à partir d'un fichier source (terminé par .f)
+# remarque : les symboles $< seront remplacés par le nom du programme à compiler
 # Compilation de programmes en langage Fortran
-.f.o:     
+.f.o:
 	$(NomCompilateur) $(OptionsDeCompilation) -c $<
 
-# Définit une règle : comment construire un fichier objet (terminé par .o) 
-#                   à partir d'un fichier source (terminé par .c) 
-# remarque : les symboles $< seront remplacés par le nom du programme à compiler 
-# Compilation de programmes en langage C  
-  
+# Définit une règle : comment construire un fichier objet (terminé par .o)
+#                   à partir d'un fichier source (terminé par .c)
+# remarque : les symboles $< seront remplacés par le nom du programme à compiler
+# Compilation de programmes en langage C
+
 .c.o:
 	$(NomCompilateur) $(OptionsDeCompilation) -c $<
 
- 
-# Définit une règle : comment construire un fichier objet (terminé par .o) 
-#                   à partir d'un fichier source (termine par .C) 
-# remarque : les symboles $< seront remplacés par le nom du programme à compiler 
+
+# Définit une règle : comment construire un fichier objet (terminé par .o)
+#                   à partir d'un fichier source (termine par .C)
+# remarque : les symboles $< seront remplacés par le nom du programme à compiler
 # Compilation de programmes en langage C
-    
+
  .C.o:
 	$(NomCompilateur) $(OptionsDeCompilation) -c $<
 
-# Dépendance du programme exécutable envers les fichiers objets (.o) le 
-#    composant. 
-# La dépendance des fichiers objets envers les fichiers sources (.f et .c) est 
+# Dépendance du programme exécutable envers les fichiers objets (.o) le
+#    composant.
+# La dépendance des fichiers objets envers les fichiers sources (.f et .c) est
 #    sous-entendue par les règles définies plus haut.
 $(ProgrammeOut): $(FichiersObjets)
 	$(NomCompilateur) $(OptionsDeCompilation) -o $(ProgrammeOut) \
-                                            $(FichiersObjets)
+	                                        $(FichiersObjets)

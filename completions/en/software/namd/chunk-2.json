@@ -1,0 +1,168 @@
+{
+  "doc_key": "en/namd",
+  "level": "chunk",
+  "chunk_index": 2,
+  "qa_pairs": [
+    {
+      "question": "How should I adjust the multi-node GPU job script for use on other clusters?",
+      "answer": "You should look up the specifications of the other clusters' available nodes and adjust the `--cpus-per-task` and `--gpus-per-node` options in the script accordingly."
+    },
+    {
+      "question": "Can NAMD 2.14 be used on clusters equipped with H100 GPUs?",
+      "answer": "No, NAMD 2.14 should not be used on clusters with H100 GPUs."
+    },
+    {
+      "question": "Is the UCX version of NAMD 3.0.1, which supports H100 GPUs, currently available on Alliance clusters?",
+      "answer": "No, the UCX version of NAMD 3.0.1, capable of running on H100 GPUs, is not yet installed on Alliance clusters."
+    },
+    {
+      "question": "What is the filename of the example multi-node GPU UCX job script?",
+      "answer": "The filename of the example multi-node GPU UCX job script is `ucx_namd_job.sh`."
+    },
+    {
+      "question": "How many nodes are requested in the example multi-node GPU UCX job script?",
+      "answer": "The example multi-node GPU UCX job script requests 2 nodes."
+    },
+    {
+      "question": "How many tasks per node are specified in the example multi-node GPU UCX job script?",
+      "answer": "The example multi-node GPU UCX job script specifies 4 tasks per node."
+    },
+    {
+      "question": "How many CPUs per task are allocated in the example multi-node GPU UCX job script?",
+      "answer": "The example multi-node GPU UCX job script allocates 12 CPUs per task."
+    },
+    {
+      "question": "How many GPUs per node are requested in the example multi-node GPU UCX job script?",
+      "answer": "The example multi-node GPU UCX job script requests 4 A100 GPUs per node."
+    },
+    {
+      "question": "What does `--mem=0` signify in the example multi-node GPU UCX job script?",
+      "answer": "In the example multi-node GPU UCX job script, `--mem=0` signifies that all available memory per node should be used."
+    },
+    {
+      "question": "What is the requested time limit for the example multi-node GPU UCX job?",
+      "answer": "The requested time limit for the example multi-node GPU UCX job is 15 minutes (`0:15:00`)."
+    },
+    {
+      "question": "Which modules are loaded in the example multi-node GPU UCX job script?",
+      "answer": "The `StdEnv/2020`, `intel/2020.1.217`, `cuda/11.0`, and `namd-ucx-smp/2.14` modules are loaded in the example multi-node GPU UCX job script."
+    },
+    {
+      "question": "How is the `NUM_PES` variable calculated in the example multi-node GPU UCX job script?",
+      "answer": "The `NUM_PES` variable is calculated as one less than the value of `$SLURM_CPUS_PER_TASK`."
+    },
+    {
+      "question": "What command is used to launch NAMD in the example multi-node GPU UCX job script?",
+      "answer": "The command used to launch NAMD is `srun --cpus-per-task=$SLURM_CPUS_PER_TASK --mpi=pmi2 namd2 ++ppn $NUM_PES stmv.namd`."
+    },
+    {
+      "question": "Who developed the Molecular Dynamics Performance Guide for Alliance clusters?",
+      "answer": "A team at ACENET developed the Molecular Dynamics Performance Guide for Alliance clusters."
+    },
+    {
+      "question": "What is the purpose of the Molecular Dynamics Performance Guide?",
+      "answer": "It helps users determine optimal conditions for AMBER, GROMACS, NAMD, and OpenMM jobs."
+    },
+    {
+      "question": "What is the primary focus of the 'Performance and benchmarking' section?",
+      "answer": "The 'Performance and benchmarking' section primarily focuses on NAMD performance."
+    },
+    {
+      "question": "What factors cause NAMD's performance to vary?",
+      "answer": "NAMD's performance varies depending on the system being simulated, especially the number of atoms in the simulation."
+    },
+    {
+      "question": "Why is it beneficial to conduct NAMD benchmarking for a specific system?",
+      "answer": "It is very beneficial to conduct NAMD benchmarking for a specific system if you plan to spend a significant amount of time simulating it, as performance differs based on the system."
+    },
+    {
+      "question": "When is collecting NAMD benchmarking data particularly useful?",
+      "answer": "Collecting NAMD benchmarking data is particularly useful when applying for a RAC award."
+    },
+    {
+      "question": "What recommendations are provided for conducting a good NAMD benchmark?",
+      "answer": "For a good benchmark, you should vary the number of steps so that your system runs for a few minutes, and timing information should be collected in reasonable time intervals of at least a few seconds."
+    },
+    {
+      "question": "What might occur if a NAMD benchmark run is too short?",
+      "answer": "If a NAMD benchmark run is too short, you might observe fluctuations in your timing results."
+    },
+    {
+      "question": "Which benchmark system was used to obtain the NAMD performance numbers presented?",
+      "answer": "The standard NAMD apoa1 benchmark system was used to obtain the performance numbers presented."
+    },
+    {
+      "question": "Where was the NAMD benchmarking conducted, and what are the specifications of its nodes?",
+      "answer": "The NAMD benchmarking was conducted on the Graham cluster, which has CPU nodes with 32 cores and GPU nodes with 32 cores and 2 GPUs."
+    },
+    {
+      "question": "What must be considered when performing NAMD benchmarking on clusters other than Graham?",
+      "answer": "When performing NAMD benchmarking on other clusters, the different structure of their nodes must be taken into account."
+    },
+    {
+      "question": "Which NAMD version and module were utilized for the results shown in the first benchmarking table?",
+      "answer": "NAMD 2.12 from the verbs module was utilized for the results shown in the first benchmarking table."
+    },
+    {
+      "question": "How is efficiency calculated in the NAMD benchmarking results?",
+      "answer": "Efficiency is computed using the formula: (time with 1 core) / (N * (time with N cores))."
+    },
+    {
+      "question": "According to the CPU benchmarking results, what is the wall time per step for NAMD with 1 core?",
+      "answer": "The wall time per step for NAMD with 1 core is 0.8313 seconds."
+    },
+    {
+      "question": "What is the efficiency when running NAMD with 16 cores, as per the table?",
+      "answer": "The efficiency when running NAMD with 16 cores is 104%."
+    },
+    {
+      "question": "At what number of cores does the efficiency drop below 100% for the CPU benchmark?",
+      "answer": "The efficiency drops below 100% at 64 cores for the CPU benchmark."
+    },
+    {
+      "question": "What is the lowest efficiency reported in the CPU benchmarking table?",
+      "answer": "The lowest efficiency reported in the CPU benchmarking table is 77% for 512 cores."
+    },
+    {
+      "question": "What is the wall time per step for NAMD with 256 cores?",
+      "answer": "The wall time per step for NAMD with 256 cores is 0.0036 seconds."
+    },
+    {
+      "question": "Based on the CPU benchmarking results, what is the acceptable maximum number of cores to use for this system?",
+      "answer": "Based on the CPU benchmarking results, it is acceptable to use up to 256 cores for this system."
+    },
+    {
+      "question": "What is a potential consequence of requesting an excessive number of cores for NAMD jobs?",
+      "answer": "Requesting an excessive number of cores for NAMD jobs can result in longer waiting times in the queue, which affects overall throughput."
+    },
+    {
+      "question": "What type of benchmarking is discussed after the CPU results?",
+      "answer": "Benchmarking with GPUs is discussed after the CPU results."
+    },
+    {
+      "question": "Which NAMD module is used for GPU simulations that fit within a single node?",
+      "answer": "The NAMD multicore module is used for GPU simulations that fit within a single node."
+    },
+    {
+      "question": "Which NAMD module is used for GPU simulations that span multiple nodes?",
+      "answer": "The NAMD verbs-smp module is used for GPU simulations that span multiple nodes."
+    },
+    {
+      "question": "What is the wall time per step for NAMD using 4 cores and 1 GPU on 1 node with the multicore module?",
+      "answer": "The wall time per step for NAMD using 4 cores and 1 GPU on 1 node with the multicore module is 0.0165 seconds."
+    },
+    {
+      "question": "Which configuration resulted in a wall time per step of 0.0045 seconds in the GPU benchmark?",
+      "answer": "The configuration of 32 cores and 2 GPUs on 1 node using the multicore module resulted in a wall time per step of 0.0045 seconds."
+    },
+    {
+      "question": "When using 2 nodes with 64 cores and 4 GPUs (verbs-smp), what is the wall time per step?",
+      "answer": "When using 2 nodes with 64 cores and 4 GPUs (verbs-smp), the wall time per step is 0.0058 seconds."
+    },
+    {
+      "question": "For the GPU benchmarking, what is the wall time per step for 128 cores and 8 GPUs across 2 nodes?",
+      "answer": "The wall time per step for 128 cores and 8 GPUs across 2 nodes is 0.0051 seconds."
+    }
+  ],
+  "generated_at": "2026-04-12T03:32:29.750647+00:00"
+}

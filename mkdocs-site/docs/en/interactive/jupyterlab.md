@@ -5,27 +5,113 @@ lang: "en"
 
 source_wiki_title: "JupyterLab/en"
 source_hash: "941e901923bb855728545c114a8cfcd2"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T07:41:10.737198+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T08:19:00.930970+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "resource monitoring"
+  - "VNC session"
+  - "StarCCM+"
+  - "software modules"
+  - "File browser"
+  - "prebuilt applications"
+  - "VS Code"
+  - "Globus"
+  - "QGIS"
+  - "JupyterLab session"
+  - "OpenRefine"
+  - "Open OnDemand"
+  - "ParaView"
+  - "ignore-installed"
+  - "questions"
+  - "Tensorboard"
+  - "visualisation software"
+  - "pip install"
+  - "Python kernel"
+  - "MLflow"
+  - "Ctrl+V"
+  - "scipy-stack"
+  - "contact us"
+  - "Metrix"
+  - "Running Terminals and Kernels"
+  - "Terminal"
+  - "Octave"
+  - "Python notebook"
+  - "Kernels"
+  - "license file"
+  - "rstudio-server modules"
+  - "notebook"
+  - "GPU Dashboards"
+  - "application launchers"
+  - "Read-only file system"
+  - "integrated development environment"
+  - "R language"
+  - "Ctrl+C"
+  - "JupyterHub"
+  - "contact"
+  - "graphical user interface"
+  - "support"
+  - "Technical support"
+  - "RStudio"
+  - "JupyterLab terminal"
+  - "OSError"
+  - "JupyterLab interface"
+  - "Software Modules"
+  - "JupyterLab"
+
+questions:
+  - "What is JupyterLab and what types of applications can be launched from its interface?"
+  - "What are the recommended methods for launching JupyterLab across the different clusters mentioned?"
+  - "How do users navigate the JupyterLab interface to manage files, monitor GPU resources, and properly close their sessions?"
+  - "How can users search for, load, and manage software modules within the JupyterLab environment?"
+  - "What steps are required to customize the default Python environment, such as changing the Python version or installing new packages?"
+  - "What are the default prebuilt applications available in the Launcher, and what are their primary functions and session characteristics?"
+  - "What is the purpose of the stop icon in the \"Running Terminals and Kernels\" section?"
+  - "How does the \"GPU Dashboards\" feature assist users who are running jobs with GPUs?"
+  - "Which specific interface components are visually represented by the \"browser.png\" and \"Software module selector.png\" files?"
+  - "What is the primary programming language that the RStudio integrated development environment is used for?"
+  - "How can a user load a different version of the R software, and when must this action be performed to avoid restarting the session?"
+  - "What exactly happens in the web browser when a user clicks the RStudio launcher?"
+  - "How must a user properly terminate their JupyterLab session to ensure that underlying compute resources are fully released?"
+  - "What are the specific purposes of the MLflow, OpenRefine, and Tensorboard tools available in the environment?"
+  - "How does the JupyterLab interface simplify access to remote Linux desktop environments and terminal sessions compared to traditional SSH and VNC methods?"
+  - "How can users access the graphical launchers for applications that are not loaded by default on the cluster?"
+  - "Which specific software packages mentioned in the text require users to provide their own license files?"
+  - "What specific authentication step is required to connect to the web-based interface of Ansys Fluent?"
+  - "How does the behavior of the Ctrl+C shortcut differ depending on whether text is selected in the JupyterLab terminal?"
+  - "What keyboard shortcut is used to perform a paste operation?"
+  - "What is the function of the Globus launcher icon when it is available on the cluster?"
+  - "What is the primary purpose and nature of the ParaView software?"
+  - "How are the graphical user interfaces for both Octave and ParaView accessed according to the text?"
+  - "Where can users find more detailed instructions on how to use these specific software packages?"
+  - "How do users launch the graphical user interfaces for software packages like QGIS and StarCCM+?"
+  - "What are the different methods for installing and managing scientific Python packages within a JupyterLab notebook session?"
+  - "How can a user convert an existing Python notebook into a script to submit it as a non-interactive job?"
+  - "What causes the \"OSError: [Errno 30] Read-only file system\" error when installing packages in a notebook?"
+  - "What specific pip command can be used as a workaround to install a package that triggers this read-only error?"
+  - "For which types of packages might the suggested pip installation workaround fail to work?"
+  - "Who should be contacted if a user has any questions?"
+  - "What specific department is designated to handle user inquiries?"
+  - "What action is recommended when someone needs further assistance?"
+  - "Who should be contacted if a user has any questions?"
+  - "What specific department is designated to handle user inquiries?"
+  - "What action is recommended when someone needs further assistance?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
 # JupyterLab
 
-JupyterLab is the recommended general-purpose user interface to use on a JupyterHub. From a JupyterLab server, you can manage your remote files and folders, and you can launch Jupyter applications like a terminal, (Python 3) notebooks, RStudio and a Linux desktop.
+JupyterLab is the recommended general-purpose user interface to use on a JupyterHub. From a JupyterLab server, you can manage your remote files and folders, and you can launch Jupyter applications like a terminal, (Python 3) notebooks, RStudio, and a Linux desktop.
 
 You can add your own "kernels", which appear as application tiles described below. To configure such kernels, please see [Adding kernels](jupyter-notebook.md#adding-kernels).
 
@@ -35,18 +121,19 @@ There are a few ways to launch JupyterLab.
 
 The traditional way would be to use [JupyterHub](jupyter-hub.md#jupyterhub-on-clusters), but more recently, sites have deployed Open OnDemand which sometimes can launch the interface below. In the table below, the column "Fully-featured" indicates whether the JupyterLab interface available has all of the features described below. If there is a link, it is to that cluster's JupyterHub or Open OnDemand server.
 
-| Cluster | JupyterHub Available | JupyterHub Fully-featured | Open OnDemand Available | Open OnDemand JupyterLab | Open OnDemand Fully-featured |
-| :------ | :------------------- | :------------------------ | :---------------------- | :----------------------- | :--------------------------- |
-| Fir     | [Yes](https://jupyterhub.fir.alliancecan.ca/) | Yes | No | | |
-| Killarney | No | No | No | | |
-| Narval  | [Yes](https://jupyterhub.narval.alliancecan.ca/) | Yes | No | | |
-| Nibi    | No | No | [Yes](https://ondemand.sharcnet.ca/) | Yes | Yes |
-| Rorqual | [Yes](https://jupyterhub.rorqual.alliancecan.ca/) | Yes | No | | |
-| tamIA   | No | No | No | | |
-| Trillium | No | No | [Yes](http://ondemand.scinet.utoronto.ca/) | request "Jupyter Lab + Alliance software extensions" | |
-| Vulcan  | No | No | [Yes](https://vulcan.alliancecan.ca/) | Yes | Yes |
+| Cluster | JupyterHub (Available) | JupyterHub (Fully-featured) | Open OnDemand (Available) | Open OnDemand (JupyterLab) | Open OnDemand (Fully-featured) |
+| :------ | :--------------------- | :-------------------------- | :------------------------ | :------------------------- | :----------------------------- |
+| Fir     | [Yes](https://jupyterhub.fir.alliancecan.ca/) | [Yes](https://jupyterhub.fir.alliancecan.ca/) | No                        | No                         | No                             |
+| Killarney | No                     | No                          | No                        | No                         | No                             |
+| Narval  | [Yes](https://jupyterhub.narval.alliancecan.ca/) | [Yes](https://jupyterhub.narval.alliancecan.ca/) | No                        | No                         | No                             |
+| Nibi    | No                     | No                          | [Yes](https://ondemand.sharcnet.ca/) | [Yes](https://ondemand.sharcnet.ca/) | [Yes](https://ondemand.sharcnet.ca/) |
+| Rorqual | [Yes](https://jupyterhub.rorqual.alliancecan.ca/) | [Yes](https://jupyterhub.rorqual.alliancecan.ca/) | No                        | No                         | No                             |
+| tamIA   | No                     | No                          | No                        | No                         | No                             |
+| Trillium | No                     | No                          | [Yes](http://ondemand.scinet.utoronto.ca/) | [Yes](http://ondemand.scinet.utoronto.ca/) | [Yes](http://ondemand.scinet.utoronto.ca/), request "Jupyter Lab + Alliance software extensions" |
+| Vulcan  | No                     | No                          | [Yes](https://vulcan.alliancecan.ca/) | [Yes](https://vulcan.alliancecan.ca/) | [Yes](https://vulcan.alliancecan.ca/) |
 
-It is also possible to launch JupyterLab by [installing it yourself in a virtual environment](advanced-jupyter-configuration.md), but this is not recommended. You will also not benefit from any of the pre-configured applications described below.
+!!! warning "Self-installed JupyterLab is not recommended"
+    It is also possible to launch JupyterLab by [installing it yourself in a virtual environment](advanced-jupyter-configuration.md), but this is not recommended. You will also not benefit from any of the pre-configured applications described below.
 
 ## The JupyterLab interface
 
@@ -63,15 +150,15 @@ Most other menu items are related to notebooks and Jupyter applications.
 
 On the left side of the interface, you will find the tool selector. This changes the content of the frame on the right. The most relevant ones are:
 
-#### *File Browser* (folder icon)
+#### File Browser (folder icon)
 
-This is where you can browse in your home, project and scratch spaces. It is also possible to use it to upload files.
+This is where you can browse in your home, project, and scratch spaces. It is also possible to use it to upload files.
 
-#### *Running Terminals and Kernels* (stop icon)
+#### Running Terminals and Kernels (stop icon)
 
-This is to stop kernel sessions and terminal sessions
+This is to stop kernel sessions and terminal sessions.
 
-#### *GPU Dashboards* (GPU card icon)
+#### GPU Dashboards (GPU card icon)
 
 If your job uses GPUs, this will give you access to some resource monitoring options.
 
@@ -91,7 +178,7 @@ The last subpanel is the list of *Available modules*, similar to the output of `
 
 ## Prebuilt applications
 
-JupyterLab offers access to a terminal, an IDE (Desktop), a Python console and different options to create text and markdown files. This section presents only the main supported Jupyter applications that work with our software stack.
+JupyterLab offers access to a terminal, an IDE (Desktop), a Python console, and different options to create text and markdown files. This section presents only the main supported Jupyter applications that work with our software stack.
 
 ### Applications that are available by default
 
@@ -119,9 +206,11 @@ VS Code (Visual Studio Code) is a code editor originally developed by Microsoft,
 
 The version which we have installed comes with a large number of [extensions](https://github.com/ComputeCanada/easybuild-easyconfigs-installed-avx2/blob/main/2023/code-server/code-server-4.101.2.eb#L27) pre-installed. For more details, see our page on [Visual Studio Code](visual-studio-code.md).
 
-For a new session, the *VS Code* session can take up to 3 minutes to complete its startup.
+!!! note "Session Startup Time"
+    For a new session, the *VS Code* session can take up to 3 minutes to complete its startup.
 
-It is possible to reopen an active VS Code session after the web browser tab was closed.
+!!! tip "Reopening Sessions"
+    It is possible to reopen an active VS Code session after the web browser tab was closed.
 
 The VS Code session will end when the JupyterLab session ends.
 
@@ -131,25 +220,29 @@ The VS Code session will end when the JupyterLab session ends.
 
 This icon will launch a single-user version of the software, which can be used for text analysis.
 
-For a new session, the *LibreQDA* session can take up to 3 minutes to complete its startup.
+!!! note "Session Startup Time"
+    For a new session, the *LibreQDA* session can take up to 3 minutes to complete its startup.
 
-It is possible to reopen an active LibreQDA session after the web browser tab was closed.
+!!! tip "Reopening Sessions"
+    It is possible to reopen an active LibreQDA session after the web browser tab was closed.
 
 The LibreQDA session will end when the JupyterLab session ends.
 
 #### RStudio
 
-[RStudio](https://posit.co/download/rstudio-desktop/) is an integrated development environment primarily use for the [R](r.md) language.
+[RStudio](https://posit.co/download/rstudio-desktop/) is an integrated development environment primarily used for the [R](r.md) language.
 
 We load a default version of the R software, but you may use a different one by loading another version of the `rstudio-server` modules. Please do so **before** launching RStudio, otherwise you may have to restart your JupyterLab session.
 
 This *RStudio* launcher will open or reopen an RStudio interface in a new web browser tab.
 
-It is possible to reopen an active RStudio session after the web browser tab was closed.
+!!! tip "Reopening Sessions"
+    It is possible to reopen an active RStudio session after the web browser tab was closed.
 
 The RStudio session will end when the JupyterLab session ends.
 
-Note that simply quitting RStudio or closing the RStudio and JupyterHub tabs in your browser will not release the resources (CPU, memory, GPU) nor end the underlying Slurm job. **Please end your session with the menu item `File > Log Out` on the JupyterLab browser tab**.
+!!! warning "Ending RStudio Session"
+    Note that simply quitting RStudio or closing the RStudio and JupyterHub tabs in your browser will not release the resources (CPU, memory, GPU) nor end the underlying Slurm job. **Please end your session with the menu item *File* > *Log Out* on the JupyterLab browser tab**.
 
 #### MLflow
 
@@ -161,9 +254,11 @@ Note that simply quitting RStudio or closing the RStudio and JupyterHub tabs in 
 
 It is commonly used to correct typos in manually collected survey data.
 
-For a new session, the *OpenRefine* session can take up to 3 minutes to complete its startup.
+!!! note "Session Startup Time"
+    For a new session, the *OpenRefine* session can take up to 3 minutes to complete its startup.
 
-It is possible to reopen an active OpenRefine session after the web browser tab was closed.
+!!! tip "Reopening Sessions"
+    It is possible to reopen an active OpenRefine session after the web browser tab was closed.
 
 The OpenRefine session will end when the JupyterLab session ends.
 
@@ -173,14 +268,16 @@ The OpenRefine session will end when the JupyterLab session ends.
 
 #### Desktop
 
-Two different Desktop environments are available by default. [Mate Desktop](https://mate-desktop.org/), and [XFCE Desktop](https://www.xfce.org/). You may choose whichever you prefer. XFCE yields a more modern UI, while Mate is lighter to use.
+Two different Desktop environments are available by default: [Mate Desktop](https://mate-desktop.org/) and [XFCE Desktop](https://www.xfce.org/). You may choose whichever you prefer. XFCE yields a more modern UI, while Mate is lighter to use.
 These launchers will open or reopen a remote Linux desktop interface in a new web browser tab.
 
 This is equivalent to running a [VNC server on a compute node](vnc.md#compute-nodes), then creating an [SSH tunnel](ssh-tunnelling.md) and finally using a [VNC client](vnc.md#setup), but you need nothing of all this with JupyterLab!
 
-For a new session, the *Desktop* session can take up to 3 minutes to complete its startup.
+!!! note "Session Startup Time"
+    For a new session, the *Desktop* session can take up to 3 minutes to complete its startup.
 
-It is possible to reopen an active desktop session after the web browser tab was closed.
+!!! tip "Reopening Sessions"
+    It is possible to reopen an active desktop session after the web browser tab was closed.
 
 The desktop session will end when the JupyterLab session ends.
 
@@ -196,13 +293,16 @@ Allows running compute tasks.
 
 The terminal allows copy-and-paste operations of text:
 
-*   Copy operation: select the text, then press Ctrl+C.
-*   Note: Usually, Ctrl+C is used to send a SIGINT signal to a running process, or to cancel the current command. To get this behaviour in JupyterLab's terminal, click on the terminal to deselect any text before pressing Ctrl+C.
-*   Paste operation: press Ctrl+V.
+Copy operation: select the text, then press Ctrl+C.
+
+!!! note "Ctrl+C in Terminal"
+    Usually, Ctrl+C is used to send a SIGINT signal to a running process, or to cancel the current command. To get this behaviour in JupyterLab's terminal, click on the terminal to deselect any text before pressing Ctrl+C.
+
+Paste operation: press Ctrl+V.
 
 #### Globus
 
-If [Globus](globus.md) is availalbe on the cluster you are using, you may see this icon. This will open your browser to the corresponding Globus collection.
+If [Globus](globus.md) is available on the cluster you are using, you may see this icon. This will open your browser to the corresponding Globus collection.
 
 #### Metrix
 
@@ -218,7 +318,7 @@ Loading a module `ijulia-kernel` will allow you to open a notebook with the Juli
 
 #### Ansys suite
 
-The [Ansys](ansys.md) suite has multiple tools which provide a graphical user interface. If you load one of the `ansys` modules, you will get a series of launcher, most of which work through a VNC connection in the browser.
+The [Ansys](ansys.md) suite has multiple tools which provide a graphical user interface. If you load one of the `ansys` modules, you will get a series of launchers, most of which work through a VNC connection in the browser.
 
 In addition, Ansys Fluent has a web-based interface, which can be launched with the icon below.
 
@@ -230,7 +330,7 @@ Note that for Ansys, you will need to provide your own license, as explained in 
 
 [Ansys EDT](https://www.ansys.com/products/electronics) is in its own separate module. Loading the module `ansysedt` will make the corresponding launcher appear.
 
-Note that for Ansys EDT, you will need to provide your own license, as explained in our [Ansys EDT](ansysedt.md) page.
+Note that for Ansys EDT, you will need to provide your own license, as explained in our [Ansys EDT](ansys-edt.md) page.
 
 #### COMSOL
 
@@ -256,7 +356,7 @@ Loading a `cuda` or a `nvhpc` module will add a launcher to start the graphical 
 
 #### ParaView
 
-[ParaView](https://www.paraview.org/) is a powerful open-source visualisation software. Loading a `paraview` module will add a launcher to start the Paraview graphical user interface through a VNC session. See our page on [ParaView](paraview.md) for more details on using this software package.
+[ParaView](https://www.paraview.org/) is a powerful open-source visualisation software. Loading a `paraview` module will add a launcher to start the ParaView graphical user interface through a VNC session. See our page on [ParaView](paraview.md) for more details on using this software package.
 
 #### QGIS
 
@@ -270,7 +370,7 @@ Siemens's [Star-CCM+](https://plm.sw.siemens.com/en-US/simcenter/fluids-thermal-
 
 #### Python notebook
 
-If any of the following scientific Python packages is required by your notebook, before you open this notebook, you must load the `scipy-stack` module from the JupyterLab *Softwares* tool:
+If any of the following scientific Python packages is required by your notebook, before you open this notebook, you must load the `scipy-stack` module from the JupyterLab *Software Modules* tool:
 
 *   `ipython`, `ipython_genutils`, `ipykernel`, `ipyparallel`
 *   `matplotlib`
@@ -279,10 +379,10 @@ If any of the following scientific Python packages is required by your notebook,
 *   `scipy`
 *   See [SciPy stack](python.md#scipy-stack) for more on this
 
-Note: You may also install needed packages by running for example the following command inside a cell: `pip install --no-index numpy`.
-
-*   For some packages (like `plotly`, for example), you may need to restart the notebook's kernel before importing the package.
-*   The installation of packages in the default Python kernel environment is temporary to the lifetime of the JupyterLab session; you will have to reinstall these packages the next time you start a new JupyterLab session. For a persistent Python environment, you must configure a **[custom Python kernel](advanced-jupyter-configuration.md#python-kernel)**.
+!!! note "Installing Python packages"
+    You may also install needed packages by running for example the following command inside a cell: `pip install --no-index numpy`.
+    *   For some packages (like `plotly`, for example), you may need to restart the notebook's kernel before importing the package.
+    *   The installation of packages in the default Python kernel environment is temporary to the lifetime of the JupyterLab session; you will have to reinstall these packages the next time you start a new JupyterLab session. For a persistent Python environment, you must configure a **[custom Python kernel](advanced-jupyter-configuration.md#python-kernel)**.
 
 To open an existing Python notebook:
 
@@ -300,13 +400,13 @@ To open a new Python notebook in the current *File Browser* directory:
 
 ### Running notebooks as Python scripts
 
-1.  From the console, or in a new notebook cell, install `nbconvert` :
+1.  From the console, or in a new notebook cell, install `nbconvert`:
 
     ```bash
     !pip install --no-index nbconvert
     ```
 
-2.  Convert your notebooks to Python scripts
+2.  Convert your notebooks to Python scripts:
 
     ```bash
     !jupyter nbconvert --to python my-current-notebook.ipynb
@@ -338,6 +438,6 @@ For many cases, in your notebook cell, you can use:
 pip install --no-index --ignore-installed <package>
 ```
 
-to install the package that caused the error but note it ***may not*** work for all packages for instance `pyarrow`, `opencv`, `mpi4py`.
+to install the package that caused the error, but note it **may not** work for all packages, for instance `pyarrow`, `opencv`, `mpi4py`.
 
 In case of questions, please contact us: [Technical support](technical-support.md)

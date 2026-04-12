@@ -1,0 +1,51 @@
+{
+  "doc_key": "en/ssh_configuration_file",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is the primary purpose of modifying the local SSH configuration file on Linux and macOS?",
+      "answer": "The primary purpose is to change the default behaviour of `ssh` and simplify the login procedure."
+    },
+    {
+      "question": "Where is the local SSH configuration file typically located on Linux and macOS systems?",
+      "answer": "The local SSH configuration file is located at `~/.ssh/config`."
+    },
+    {
+      "question": "How can one simplify a long `ssh` command that includes a username and a private key for connecting to a host like narval.alliancecan.ca?",
+      "answer": "One can add a `Host` block to `~/.ssh/config` including directives like `User`, `HostName`, and `IdentityFile`."
+    },
+    {
+      "question": "Which other commands, besides `ssh`, benefit from configurations made in `~/.ssh/config`?",
+      "answer": "The commands `sftp`, `scp`, and `rsync` also benefit from these configurations."
+    },
+    {
+      "question": "How can a user configure their SSH client to easily log into multiple AllianceCan clusters (e.g., narval, beluga, graham, cedar) with a common domain?",
+      "answer": "By using a single `Host` block listing multiple cluster names and setting `HostName %h.alliancecan.ca` in `~/.ssh/config`."
+    },
+    {
+      "question": "What is a prerequisite for using a simplified SSH configuration to connect to multiple clusters?",
+      "answer": "You need to install your public SSH key on each cluster separately or use CCDB."
+    },
+    {
+      "question": "Which specific command-line options for SSH forwarding can be configured in the `~/.ssh/config` file?",
+      "answer": "X11 forwarding (`-X`, `-Y`) and agent forwarding (`-A`) can be configured."
+    },
+    {
+      "question": "Why is it generally not recommended to enable X11 forwarding by default in your SSH configuration?",
+      "answer": "Enabling X11 forwarding by default can slow down sessions, especially if your X11 client on your computer is misconfigured."
+    },
+    {
+      "question": "What is the security risk associated with enabling trusted X11 forwarding (`ForwardX11Trusted yes`) by default?",
+      "answer": "If the server is compromised, a privileged user (`root`) could intercept keyboard activity on your local computer."
+    },
+    {
+      "question": "What security concern arises when enabling SSH agent forwarding (`ForwardAgent yes`) by default?",
+      "answer": "If the server is compromised, a privileged user (`root`) could use your agent to connect to another host without your knowledge."
+    },
+    {
+      "question": "What is recommended to mitigate the risks associated with using SSH agent forwarding?",
+      "answer": "It is recommended to combine it with `ssh-askpass` so that any use of your SSH agent triggers a prompt on your computer."
+    }
+  ],
+  "generated_at": "2026-04-12T07:25:45.125678+00:00"
+}

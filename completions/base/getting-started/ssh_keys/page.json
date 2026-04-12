@@ -1,0 +1,83 @@
+{
+  "doc_key": "base/ssh_keys",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is public key cryptography, and how does SSH leverage it?",
+      "answer": "Public key cryptography (PK) uses a key pair, consisting of a secret private key and a freely distributable public key, for asymmetric encryption and identity verification. SSH uses PK to ensure connection to an authentic server, establish encrypted sessions, and verify user identity for login."
+    },
+    {
+      "question": "Why does the document strongly recommend using public key cryptography to connect to their systems?",
+      "answer": "Using public key cryptography is almost always more secure and more convenient than using a password for connecting to their systems."
+    },
+    {
+      "question": "What are the initial steps required to use public key cryptography with SSH?",
+      "answer": "You must generate a key pair on your own secure system and then install the public key on the systems you intend to connect with."
+    },
+    {
+      "question": "What is a passphrase, and what is its purpose when generating an SSH key pair?",
+      "answer": "A passphrase is a string used to encrypt the private key, offering protection if the private key file is stolen. A strong, memorable passphrase of 15 characters or more is recommended."
+    },
+    {
+      "question": "How does the process for generating an SSH key pair vary by operating system?",
+      "answer": "The specific process depends on the operating system: Windows users can use PuTTY or MobaXterm, while Unix-like environments (Linux, Mac, WSL, Cygwin) use command-line tools. OpenStack also provides a method for creating key pairs in the cloud."
+    },
+    {
+      "question": "What is the primary method for installing a public SSH key on their systems as of March 2021?",
+      "answer": "The primary method is to upload your SSH public key to the CCDB (https://ccdb.alliancecan.ca/ssh_authorized_keys) using their online form."
+    },
+    {
+      "question": "Where can SSH keys uploaded to CCDB be used, and what is one limitation?",
+      "answer": "Once loaded into CCDB, the public key can be used to log in to any of their clusters. However, OpenStack cloud systems cannot access keys entered in the CCDB."
+    },
+    {
+      "question": "How long does it typically take for changes to public keys uploaded to CCDB to propagate to clusters?",
+      "answer": "Changes to public keys will often propagate in a few minutes, but in some cases, it can take up to approximately 30 minutes."
+    },
+    {
+      "question": "When might you choose to install an SSH key using the `authorized_keys` file instead of CCDB?",
+      "answer": "You might choose the `authorized_keys` method if you want to install a key only on a specific system, rather than making it available on all HPC systems via CCDB."
+    },
+    {
+      "question": "What command is convenient for installing a public key to an `authorized_keys` file on a remote system?",
+      "answer": "The `ssh-copy-id` command is the most convenient way to copy your public key to the `~/.ssh/authorized_keys` file on a remote system."
+    },
+    {
+      "question": "What security aspect is crucial regarding the `authorized_keys` file and its directories?",
+      "answer": "SSH is quite picky about the permissions on the `authorized_keys` file, as well as your `/home` directory and the `.ssh` subdirectory, which is crucial for security."
+    },
+    {
+      "question": "What is the benefit of using an SSH key agent?",
+      "answer": "An SSH key agent allows you to enter your passphrase only once when starting the agent, after which it supplies the private key for new connections, making it more convenient and avoiding storing an unencrypted private key on permanent storage."
+    },
+    {
+      "question": "What options are available when generating an SSH key to customize it?",
+      "answer": "You can specify a comment for the key (`-C`), choose the name of the key file (`-f`), select a different key type (`-t` like `ed25519`), or strengthen certain key types like RSA by setting a longer key length (`-b 4096`)."
+    },
+    {
+      "question": "How can SSH key constraints enhance security?",
+      "answer": "SSH key constraints limit what a public key is allowed to do, such as restricting it to perform a specific command or limiting which hosts can connect using the key, thereby minimizing the danger if the key is compromised."
+    },
+    {
+      "question": "What are some best practices for managing SSH key pairs?",
+      "answer": "Best practices include using unique keys per user, storing private keys securely, always encrypting private keys with a strong passphrase, never sharing or copying private keys to remote systems, using dedicated key pairs for different devices, naming keys, utilizing `ssh-agent`, and applying constraints to public keys."
+    },
+    {
+      "question": "Under what circumstances might an SSH key be revoked?",
+      "answer": "An SSH key may be revoked due to identified SSH key sharing or if it is believed that the private component of the SSH key has been compromised through improper key management, theft, or a security breach."
+    },
+    {
+      "question": "What is the Key Revocation List (KRL) maintained by the Digital Research Alliance of Canada?",
+      "answer": "The Key Revocation List (KRL) is a registry of SSH keys that are no longer trusted or are considered invalid, preventing any key on the list from accessing Alliance services."
+    },
+    {
+      "question": "What immediate actions should be taken if your SSH key is revoked?",
+      "answer": "If your SSH key is revoked, you must immediately replace it with a new one to connect securely to Alliance services and remove the revoked key from all services to prevent unauthorized access."
+    },
+    {
+      "question": "Who should you contact if you have concerns or questions about a revoked SSH key or access to Alliance services?",
+      "answer": "You should contact their Technical support for assistance with questions related to key revocation and access to Alliance services."
+    }
+  ],
+  "generated_at": "2026-04-12T07:20:19.580252+00:00"
+}

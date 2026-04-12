@@ -5,21 +5,58 @@ lang: "en"
 
 source_wiki_title: "SSH tunnelling/en"
 source_hash: "8de4c4b627f8fae63df4b9fd9301767b"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T11:09:01.674823+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T11:19:35.751135+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "SSH tunnelling"
+  - "PORT"
+  - "port forwarding"
+  - "database server"
+  - "SSH tunnel"
+  - "bash"
+  - "PostgreSQL"
+  - "license server"
+  - "SBATCH"
+  - "MySQL"
+  - "database connection"
+  - "SSH connection"
+  - "password"
+  - "gateway server"
+  - ".my.cnf"
+  - "compute node"
+  - "job script"
+  - "Jupyter Notebook"
+
+questions:
+  - "What is SSH tunnelling and why is it necessary for compute nodes in the Alliance?"
+  - "What are the primary use cases mentioned in the text that require setting up an SSH tunnel?"
+  - "How do you configure a batch job script to create an SSH tunnel for contacting an external license server?"
+  - "What is the primary purpose of using SSH tunneling to connect to a compute node on a cluster?"
+  - "How do the recommended tools and commands for creating an SSH tunnel differ between Linux/MacOS X and Windows operating systems?"
+  - "What is the process and port number constraint for connecting a local desktop to a remote database server like PostgreSQL or MySQL via SSH tunneling?"
+  - "What environment variable is used to define the license file location in the provided example?"
+  - "How does the job script establish a connection to the remote license server?"
+  - "What specific computing resources and time limits are requested by the SLURM directives in the script?"
+  - "What is the maximum allowed value for the port number when setting up this connection?"
+  - "How does this specific connection differ from an ordinary SSH connection?"
+  - "What commands should be executed on the desktop terminal to connect to the PostgreSQL or MySQL database servers?"
+  - "Where is the MySQL password stored?"
+  - "On which server is the home directory containing the configuration file located?"
+  - "What determines how long the database connection remains open?"
+  - "Where is the MySQL password stored?"
+  - "On which server is the home directory containing the configuration file located?"
+  - "What determines how long the database connection remains open?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -43,7 +80,7 @@ While not strictly required to use SSH tunnelling, you may wish to be familiar w
 
 ## Contacting a license server from a compute node
 
-!!! note "What's a port?"
+!!! tip "What's a port?"
     A port is a number used to distinguish streams of communication from one another. You can think of it as loosely analogous to a radio frequency or a channel. Many port numbers are reserved, by rule or by convention, for certain types of traffic. See [List of TCP and UDP port numbers](https://en.wikipedia.org/wiki/List_of_TCP_and_UDP_port_numbers) for more.
 
 Certain commercially licensed programs must connect to a license server machine somewhere on the Internet via a predetermined port. If the compute node where the program is running has no access to the Internet, then a *gateway server* which does have access must be used to forward communications on that port, from the compute node to the license server. To enable this, one must set up an *SSH tunnel*. Such an arrangement is also called *port forwarding*.
@@ -61,9 +98,9 @@ With this information, one can now set up the SSH tunnel. For nibi, an alternati
 ssh GATEWAY -L COMPUTEPORT:LICSERVER:LICPORT -N -f
 ```
 
-In this command, the string following the -L parameter specifies the port forwarding information:
-*   -N tells SSH not to open a shell on the GATEWAY,
-*   -f and -N tell SSH not to open a shell and to run in the background, allowing the job script to continue on past this SSH command.
+In this command, the string following the `-L` parameter specifies the port forwarding information:
+*   `-N` tells SSH not to open a shell on the GATEWAY,
+*   `-f` and `-N` tell SSH not to open a shell and to run in the background, allowing the job script to continue on past this SSH command.
 
 A further command to add to the job script should tell the software that the license server is on port COMPUTEPORT on the server *localhost*. The term *localhost* is the standard name by which a computer refers to itself. It is to be taken literally and should not be replaced with your computer's name. Exactly how to inform your software to use this port on *localhost* will depend on the specific application and the type of license server, but often it is simply a matter of setting an environment variable in the job script like
 
@@ -91,7 +128,7 @@ done || { echo "Giving up forwarding license port after $i attempts..."; exit 1;
 export MLM_LICENSE_FILE=$LOCALPORT@$LOCALHOST
 
 module load thesoftware/2.0
-mpirun thesoftware ..... 
+mpirun thesoftware .....
 ```
 
 ## Connecting to a program running on a compute node
@@ -107,13 +144,13 @@ On a Linux or MacOS X system, we recommend using the [sshuttle](https://sshuttle
 On your computer, open a new terminal window and run the following `sshuttle` command to create the tunnel.
 
 ```bash
-[name@my_computer $] sshuttle --dns -Nr userid@machine_name
+sshuttle --dns -Nr userid@machine_name
 ```
 
 Then, copy and paste the application's URL into your browser. If your application is a [Jupyter notebook](jupyter.md#starting-jupyter-notebook), for example, you are given a URL with a token:
 
-```text
- http://fc3281.int.fir.alliancecan.ca:8888/?token=7ed7059fad64446f837567e32af8d20efa72e72476eb72ca
+```
+http://fc3281.int.fir.alliancecan.ca:8888/?token=7ed7059fad64446f837567e32af8d20efa72e72476eb72ca
 ```
 
 ### From Windows
@@ -127,15 +164,15 @@ Open two sessions in MobaXTerm.
 *   Session 2 should be a local terminal in which we will set up the SSH tunnel. Run the following command, replacing this example host name with the one from the URL you received in Session 1.
 
 ```bash
-[name@my_computer ]$ ssh -L 8888:fc3281.int.fir.alliancecan.ca:8888 someuser@fir.alliancecan.ca
+ssh -L 8888:fc3281.int.fir.alliancecan.ca:8888 someuser@fir.alliancecan.ca
 ```
 
 This command forwards connections to **local port** 8888 to port 8888 on fc3281.int.fir.alliancecan.ca, the **remote port**. The local port number, the first one, does not *need* to match the remote port number, the second one, but it is conventional and reduces confusion.
 
 Modify the URL you were given in Session 1 by replacing the host name with `localhost`. Again using an example from [Jupyter Notebook](jupyter.md#starting-jupyter-notebook), this would be the URL to paste into a browser:
 
-```text
- http://localhost:8888/?token=7ed7059fad64446f837567e32af8d20efa72e72476eb72ca
+```
+http://localhost:8888/?token=7ed7059fad64446f837567e32af8d20efa72e72476eb72ca
 ```
 
 ### Example for connecting to a database server on Fir from your desktop
@@ -151,7 +188,7 @@ These commands connect port number PORT on your local host to PostgreSQL or MySQ
 
 ```bash
 psql -h 127.0.0.1 -p PORT -U <your username> -d <your database>
-mysql -h 127.0.0.1 -P PORT -u <your username> --protocol=TCP -p 
+mysql -h 127.0.0.1 -P PORT -u <your username> --protocol=TCP -p
 ```
 
 MySQL requires a password; it is stored in your *.my.cnf* located in your home directory on Fir. The database connection will remain open as long as the SSH connection remains open.

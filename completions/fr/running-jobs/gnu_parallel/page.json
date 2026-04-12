@@ -1,0 +1,103 @@
+{
+  "doc_key": "fr/gnu_parallel",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "Qu'est-ce que GNU Parallel et à quoi sert-il principalement?",
+      "answer": "GNU Parallel est un outil de la suite GNU qui permet d'exécuter plusieurs tâches séquentielles en parallèle sur un ou plusieurs nœuds. Il est particulièrement utile pour gérer un grand nombre de tâches de courte durée ou de durée variable, notamment pour l'exploration de paramètres."
+    },
+    {
+      "question": "Comment GNU Parallel gère-t-il par défaut l'utilisation des ressources?",
+      "answer": "Par défaut, GNU Parallel maximise l'utilisation des ressources en exécutant autant de tâches que le nombre de cœurs alloués par l'ordonnanceur."
+    },
+    {
+      "question": "Comment peut-on ajuster le nombre de tâches que GNU Parallel exécute simultanément?",
+      "answer": "On peut ajuster le nombre de tâches simultanées avec l'option `--jobs`, suivie du nombre désiré."
+    },
+    {
+      "question": "Quelle est la distinction entre un 'job' de GNU Parallel et une 'tâche' de l'ordonnanceur?",
+      "answer": "Les commandes de GNU Parallel sont appelées des 'jobs', tandis que les scripts exécutés par l'ordonnanceur sont des 'tâches'. Dans le contexte de GNU Parallel, les tâches qu'il exécute sont des 'sous-tâches'."
+    },
+    {
+      "question": "Comment indique-t-on les paramètres passés en argument à une commande avec GNU Parallel?",
+      "answer": "Les paramètres sont indiqués par des accolades, par exemple `{}`. On peut aussi utiliser `:::` pour séparer la commande des arguments."
+    },
+    {
+      "question": "Comment peut-on utiliser plusieurs arguments numérotés avec GNU Parallel?",
+      "answer": "On peut utiliser plusieurs arguments en les numérotant, par exemple `{1}` et `{2}`."
+    },
+    {
+      "question": "Quelle syntaxe permet d'utiliser le contenu d'un fichier comme liste d'arguments pour GNU Parallel?",
+      "answer": "La syntaxe `::::` permet d'utiliser le contenu d'un fichier comme valeurs des arguments."
+    },
+    {
+      "question": "Comment peut-on faire exécuter une liste de sous-tâches contenues dans un fichier avec GNU Parallel?",
+      "answer": "On peut faire exécuter une liste de sous-tâches en redirigeant le contenu d'un fichier vers Parallel, comme ceci : `parallel < my_commands.txt`."
+    },
+    {
+      "question": "Dans quels cas l'utilisation d'un fichier comme liste de commandes est-elle particulièrement avantageuse?",
+      "answer": "Ce mode est utile si les sous-tâches contiennent des symboles spécifiques à GNU Parallel ou si les sous-commandes contiennent plusieurs commandes, par exemple `cd dir1 && ./executable`."
+    },
+    {
+      "question": "Est-il recommandé d'utiliser GNU Parallel sur plusieurs nœuds d'une grappe de calcul? Pourquoi?",
+      "answer": "Non, ce n'est pas recommandé, surtout pour les tâches courtes, car des problèmes peuvent survenir. Cela est dû au lancement de sessions SSH sur les nœuds distants, ce qui peut être long et sujet aux blocages."
+    },
+    {
+      "question": "Si on choisit d'utiliser GNU Parallel sur plusieurs nœuds, quelle option importante faut-il configurer?",
+      "answer": "Il faut s'assurer d'utiliser l'option `--sshdelay 30` pour avoir un délai d'au moins 30 secondes entre chaque tâche, afin de minimiser les problèmes de connexion SSH."
+    },
+    {
+      "question": "Comment spécifie-t-on la liste des nœuds à utiliser pour distribuer les tâches avec GNU Parallel?",
+      "answer": "On spécifie la liste des nœuds avec l'option `--sshloginfile` en lui fournissant un fichier contenant les noms d'hôtes des nœuds, souvent généré avec `scontrol show hostname`."
+    },
+    {
+      "question": "Quelles options permettent de transférer des variables d'environnement et de définir le répertoire de travail pour les tâches sur des nœuds distants?",
+      "answer": "L'option `--env` permet de transférer des variables d'environnement, et `--workdir` fait en sorte que les tâches soient lancées dans le même répertoire que sur le nœud principal."
+    },
+    {
+      "question": "Comment peut-on créer un journal des commandes exécutées par GNU Parallel?",
+      "answer": "On peut créer un journal en utilisant l'argument `--joblog JOBLOGFILE`, qui enregistre les commandes exécutées dans le fichier spécifié."
+    },
+    {
+      "question": "Quelles informations sont enregistrées dans le fichier journal créé par `--joblog`?",
+      "answer": "Le fichier journal contient la liste des commandes complétées avec l'heure de début, la durée, le nom du nœud de calcul et le code de sortie."
+    },
+    {
+      "question": "Quelle option permet de reprendre l'exécution de tâches GNU Parallel si elles ont été interrompues?",
+      "answer": "L'option `--resume` permet de reprendre les tâches à partir du point où elles ont été interrompues."
+    },
+    {
+      "question": "Comment peut-on réexécuter spécifiquement les sous-commandes qui ont échoué?",
+      "answer": "On peut réexécuter les sous-commandes dont le code de sortie était différent de zéro avec l'option `--resume-failed`."
+    },
+    {
+      "question": "Quels arguments de GNU Parallel sont utiles pour travailler efficacement avec des fichiers volumineux?",
+      "answer": "Pour les fichiers volumineux, les arguments `--pipepart` et `--block` sont essentiels, ainsi que `--recstart` pour des formats comme FASTA."
+    },
+    {
+      "question": "Expliquez l'impact de la taille des blocs (`--block`) sur l'efficacité des tâches parallèles avec des fichiers volumineux.",
+      "answer": "Une taille de bloc trop petite crée trop de tâches, tandis qu'une taille trop grande peut réduire l'utilisation des cœurs. Il faut trouver une taille optimale pour que la quantité de tâches corresponde aux cœurs disponibles."
+    },
+    {
+      "question": "Quelle valeur pour l'option `--block` est souvent la plus rapide et la plus efficace pour les fichiers volumineux?",
+      "answer": "La valeur `-1` pour l'option `--block` est souvent la plus rapide, car elle laisse GNU Parallel s'adapter et décider lui-même de la taille des blocs."
+    },
+    {
+      "question": "Décrivez une approche pour exécuter des simulations en parallèle en utilisant un fichier de liste d'arguments séparés par des tabulations.",
+      "answer": "On peut créer un fichier de paramètres où chaque ligne représente une simulation et les paramètres sont séparés par une tabulation. Ensuite, on utilise `parallel -j $SLURM_CPUS_PER_TASK --colsep '\\t' ma_simulation --arg1 {1} --arg2 {2} :::: mes_parametres.txt`."
+    },
+    {
+      "question": "Comment peut-on exécuter un grand nombre de simulations lorsque chaque simulation est représentée par une commande complète dans un fichier?",
+      "answer": "On crée un fichier `my_commands.txt` où chaque ligne est une commande de simulation complète. Puis, on exécute `parallel -j $SLURM_CPUS_PER_TASK < ./my_commands.txt`."
+    },
+    {
+      "question": "Est-il possible de faire générer les paramètres des simulations directement par GNU Parallel sans utiliser de fichier de paramètres? Si oui, comment?",
+      "answer": "Oui, GNU Parallel peut générer les paramètres directement. Par exemple, pour des simulations avec des arguments alpha et beta allant de 1 à 10 et de 1 à 100 respectivement, on peut utiliser `parallel -j $SLURM_CPUS_PER_TASK my_simulator --alpha {1} --beta {2} ::: {1..10} ::: {1..100}`."
+    },
+    {
+      "question": "Quels sont d'autres outils ou concepts liés mentionnés pour la gestion de tâches sur des grappes de calcul?",
+      "answer": "La documentation mentionne META, GLOST et les vecteurs de tâches (Job arrays) comme outils ou concepts liés."
+    }
+  ],
+  "generated_at": "2026-04-11T22:19:16.075042+00:00"
+}

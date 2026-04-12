@@ -1,0 +1,99 @@
+{
+  "doc_key": "fr/cephfs",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "À quoi sert le système de fichiers CephFS dans le contexte d'OpenStack?",
+      "answer": "Il permet de partager un système de fichiers à travers plusieurs hôtes d'instances OpenStack."
+    },
+    {
+      "question": "Comment peut-on obtenir l'accès au service CephFS?",
+      "answer": "Il faut faire une demande à nuage@tech.alliancecan.ca."
+    },
+    {
+      "question": "Quelles compétences sont requises pour la procédure de configuration de CephFS?",
+      "answer": "Des compétences Linux de base sont nécessaires pour créer et modifier des fichiers, définir des permissions et créer des points de montage."
+    },
+    {
+      "question": "Où peut-on demander de l'assistance pour la configuration de CephFS?",
+      "answer": "On peut écrire à nuage@tech.alliancecan.ca pour obtenir de l'aide."
+    },
+    {
+      "question": "Quelles informations doit-on fournir lors d'une demande de quota pour le service CephFS?",
+      "answer": "Il faut indiquer le nom du projet OpenStack, la capacité du quota requise (en Go) et le nombre de points de partage requis."
+    },
+    {
+      "question": "Comment crée-t-on un point de partage CephFS dans l'interface OpenStack?",
+      "answer": "Dans Project --> Share --> Shares, on clique sur '+Create Share', puis on remplit les champs comme le nom, le protocole CephFS, la taille et le type de partage."
+    },
+    {
+      "question": "Quel type de point de partage doit-on choisir pour les plateformes SD4H/Juno?",
+      "answer": "Pour SD4H/Juno, il faut choisir 'cephfs-ec42' comme type de point de partage."
+    },
+    {
+      "question": "Pourquoi est-il important de ne pas sélectionner 'Make visible for all' ou 'Make visible to users from all projects' pour SD4H/Juno?",
+      "answer": "Pour éviter que le point de partage soit accessible par tous les utilisateurs dans tous les projets."
+    },
+    {
+      "question": "Comment crée-t-on une règle d'accès pour un point de partage CephFS?",
+      "answer": "Dans Project --> Share --> Shares, on sélectionne 'Manage Rules' dans la colonne Actions, puis on clique sur '+Add Rule'."
+    },
+    {
+      "question": "Quels sont les détails importants à noter concernant un point de partage CephFS après sa création?",
+      "answer": "Il faut noter le 'Path' (chemin), le nom du client ('Access to') et l''Access Key' (clé d'accès)."
+    },
+    {
+      "question": "Y a-t-il une différence dans l'attachement du réseau CephFS entre Arbutus et SD4H/Juno?",
+      "answer": "Oui, sur Arbutus, le réseau CephFS est déjà disponible pour les instances, tandis que sur SD4H/Juno, il faut l'attacher manuellement à chaque instance."
+    },
+    {
+      "question": "Comment attacher le réseau CephFS à une instance via l'interface web sur SD4H/Juno?",
+      "answer": "Pour chaque instance, on sélectionne 'Instance --> Action --> Attach interface --> CephFS-Network', sans cocher la case 'Fixed IP Address'."
+    },
+    {
+      "question": "Quelle commande utilise-t-on pour attacher le réseau CephFS à une instance via le client OpenStack en ligne de commande?",
+      "answer": "On utilise la commande `openstack server add network <ID_de_l'instance> CephFS-Network`."
+    },
+    {
+      "question": "Quels paquets sont nécessaires pour installer un client CephFS sur une instance de la famille Red Hat (RHEL, CentOS, Fedora, Rocky, Alma)?",
+      "answer": "Après avoir configuré les dépôts, il faut installer `libcephfs2`, `python3-cephfs`, `ceph-common` et `python3-ceph-argparse` avec `sudo dnf install -y`."
+    },
+    {
+      "question": "Comment configure-t-on le fichier `/etc/ceph/ceph.conf` pour le client Ceph?",
+      "answer": "Il faut y définir le 'mon host' (hôtes des moniteurs Ceph) qui varie selon le nuage (Arbutus ou SD4H/Juno), ainsi que d'autres options globales et client."
+    },
+    {
+      "question": "Quelles informations doit-on placer dans le fichier `/etc/ceph/ceph.keyring`?",
+      "answer": "Il faut y entrer le nom du client (par exemple 'MyCephFS-RW') et sa clé d'accès ('Access Key'), qui sont disponibles dans les règles d'accès du point de partage sur la page web du projet."
+    },
+    {
+      "question": "Comment trouve-t-on le 'Path' exact à utiliser pour monter le système de fichiers CephFS?",
+      "answer": "On le copie de la section 'Share Overview' en cliquant sur le nom du point de partage dans la page 'Shares', en cherchant la partie qui contient le caractère ':'."
+    },
+    {
+      "question": "Quel est l'exemple d'entrée `fstab` pour un montage permanent de CephFS sur Arbutus?",
+      "answer": "L'entrée ressemble à `:/volumes/_nogroup/f6cb8f06-f0a4-4b88-b261-f8bd6b03582c /cephfs/ ceph name=MyCephFS-RW,nofail 0 2`."
+    },
+    {
+      "question": "Quelle option `fstab` assure que le système pourra démarrer même si CephFS n'est pas disponible?",
+      "answer": "L'option `nofail` dans le fichier `fstab` garantit que le système pourra être amorcé."
+    },
+    {
+      "question": "Comment monter CephFS en ligne de commande sur SD4H/Juno?",
+      "answer": "On utilise la commande `sudo mount -t ceph :/volumes/_nogroup/f6cb8f06-f0a4-4b88-b261-f8bd6b03582c /cephfs/ -o name=MyCephFS-RW,mds_namespace=cephfs_4_2,x-systemd.device-timeout=30,x-systemd.mount-timeout=30,noatime,_netdev,rw`."
+    },
+    {
+      "question": "Peut-on monter CephFS dans l'espace utilisateur?",
+      "answer": "Oui, CephFS peut être monté directement dans votre espace de travail via `ceph-fuse`, après avoir installé la bibliothèque et décommenté `user_allow_other` dans `/etc/fuse.conf`."
+    },
+    {
+      "question": "Est-il possible d'avoir plusieurs clés utilisateur pour un point de partage CephFS?",
+      "answer": "Oui, un point de partage peut disposer de plusieurs clés utilisateur, permettant un accès plus précis comme la lecture seule pour certains hôtes."
+    },
+    {
+      "question": "Le service CephFS est-il accessible aux hôtes extérieurs à la grappe OpenStack?",
+      "answer": "Non, ce service n'est pas disponible pour les hôtes extérieurs à la grappe OpenStack."
+    }
+  ],
+  "generated_at": "2026-04-11T19:32:27.520013+00:00"
+}

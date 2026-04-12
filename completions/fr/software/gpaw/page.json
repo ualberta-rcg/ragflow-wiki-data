@@ -1,0 +1,63 @@
+{
+  "doc_key": "fr/gpaw",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "C'est quoi GPAW?",
+      "answer": "GPAW est un code de théorie de la fonctionnelle de la densité (DFT) basé sur Python, qui utilise la méthode des ondes augmentées par projecteur (PAW) et l'environnement de simulation atomique (ASE)."
+    },
+    {
+      "question": "Comment peut-on installer GPAW?",
+      "answer": "On peut installer GPAW à l'aide de wheels Python précompilés dans un environnement virtuel Python."
+    },
+    {
+      "question": "Comment savoir quelles versions de GPAW sont disponibles sur le système?",
+      "answer": "Il faut utiliser la commande `avail_wheels gpaw` pour voir les versions disponibles, incluant la version de Python et l'architecture."
+    },
+    {
+      "question": "Quelle est la première étape pour préparer l'environnement avant de créer un environnement virtuel pour GPAW?",
+      "answer": "Il faut charger un module Python, par exemple `module load python/3.10`."
+    },
+    {
+      "question": "Comment créer un nouvel environnement virtuel pour GPAW?",
+      "answer": "On le crée avec la commande `virtualenv --no-download venv_gpaw`."
+    },
+    {
+      "question": "Comment activer l'environnement virtuel GPAW une fois qu'il est créé?",
+      "answer": "On utilise la commande `source venv_gpaw/bin/activate`."
+    },
+    {
+      "question": "Quelle commande est utilisée pour installer GPAW dans l'environnement virtuel activé?",
+      "answer": "On utilise `pip install --no-index gpaw`."
+    },
+    {
+      "question": "Où faut-il télécharger et installer les données nécessaires à GPAW, et quelle commande utiliser?",
+      "answer": "Il faut les télécharger et les installer dans le système de fichiers SCRATCH en utilisant la commande `gpaw install-data $SCRATCH`."
+    },
+    {
+      "question": "Comment doit-on configurer le chemin d'accès aux données PAW (GPAW_SETUP_PATH)?",
+      "answer": "Il faut l'exporter en utilisant `export GPAW_SETUP_PATH=$SCRATCH/nom_utilisateur/gpaw-setups-0.9.20000`, en remplaçant 'nom_utilisateur' par le vôtre."
+    },
+    {
+      "question": "Comment vérifier que l'installation de GPAW fonctionne correctement?",
+      "answer": "On peut lancer les tests avec la commande `gpaw test` et, pour un test parallèle, `gpaw -P 4 test`."
+    },
+    {
+      "question": "À quoi sert l'exemple de script fourni dans la documentation?",
+      "answer": "L'exemple de script fourni démontre comment configurer la parallélisation hybride avec OpenMP et MPI pour les tâches GPAW."
+    },
+    {
+      "question": "Comment le script de travail configure-t-il la parallélisation hybride OpenMP et MPI?",
+      "answer": "Le script utilise `--ntasks` pour définir le nombre de rangs MPI et `--cpus-per-task` pour le nombre de fils OpenMP par rang, et il exporte `OMP_NUM_THREADS` selon `SLURM_CPUS_PER_TASK`."
+    },
+    {
+      "question": "Quels modules doivent être chargés dans le script de travail pour assurer la bonne bibliothèque MPI?",
+      "answer": "Il faut charger les modules `gcc/9.3.0` et `openmpi/4.0.3`."
+    },
+    {
+      "question": "Comment adapter l'exemple de script pour différents serveurs (clusters) comme Graham, Béluga ou Narval?",
+      "answer": "Il faut modifier les valeurs de `--ntasks` et `--cpus-per-task` afin que leur produit corresponde au nombre total de cœurs d'un nœud entier sur le serveur utilisé (par exemple, 32 sur Graham, 64 sur Narval)."
+    }
+  ],
+  "generated_at": "2026-04-11T22:22:28.668084+00:00"
+}

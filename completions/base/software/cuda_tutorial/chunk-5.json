@@ -1,0 +1,80 @@
+{
+  "doc_key": "base/cuda_tutorial",
+  "level": "chunk",
+  "chunk_index": 5,
+  "qa_pairs": [
+    {
+      "question": "What is the primary benefit of using shared memory in CUDA programming?",
+      "answer": "Shared memory can significantly speed up memory operations between threads, especially when there's frequent communication, by reducing reliance on the slower global GPU memory."
+    },
+    {
+      "question": "What is a key limitation of shared memory regarding thread communication?",
+      "answer": "A key limitation of shared memory is that only threads within the same block can communicate with each other using it."
+    },
+    {
+      "question": "What type of memory has been primarily used for kernel memory transfers in previous examples, and what is its speed characteristic?",
+      "answer": "Previously, kernel memory transfers primarily used the regular GPU (global) memory, which is characterized as relatively slow."
+    },
+    {
+      "question": "In the initial `dot` product kernel example, what problem arises when trying to sum the results calculated by each thread?",
+      "answer": "The problem is that each thread's `temp` variable, where it stores its computed portion, is private. This means threads cannot directly share their individual results to sum them together."
+    },
+    {
+      "question": "How is shared memory declared within a CUDA kernel for the dot product example?",
+      "answer": "Shared memory is declared using `__shared__ int temp[N];` within the kernel, where `N` is the size of the array."
+    },
+    {
+      "question": "What is the purpose of `__syncthreads()` in a CUDA kernel that uses shared memory?",
+      "answer": "`__syncthreads()` is used to ensure that all threads within a block have completed their writes to shared memory before any thread proceeds to read from it, preventing race conditions."
+    },
+    {
+      "question": "In the modified `dot` product kernel using shared memory, how is the final sum calculated and stored?",
+      "answer": "After all threads compute their portions and store them in the shared `temp` array, one thread (specifically `threadIdx.x==0`) sums all the elements in `temp` and stores the final result in `*c`."
+    },
+    {
+      "question": "What is a major performance bottleneck identified in memory transfers between the host (CPU) and device (GPU)?",
+      "answer": "PCI-e is identified as a major performance bottleneck, being extremely slow (4-6 GB/s) compared to both host and device memories."
+    },
+    {
+      "question": "What are the key strategies to minimize performance issues related to memory transfers?",
+      "answer": "Key strategies include minimizing host-to-device and device-to-host memory copies, keeping data on the device as long as possible, and using `memcpy` times to analyze execution performance."
+    },
+    {
+      "question": "When might executing a non-optimal job on the GPU still be faster than on the CPU?",
+      "answer": "Executing a non-optimal job on the GPU might still be faster if the time saved by avoiding memory copies to and from the CPU outweighs the GPU's execution time for that job."
+    },
+    {
+      "question": "What should developers always keep in mind when modifying CUDA code regarding performance?",
+      "answer": "Developers should always keep CUDA bandwidth limitations in mind when changing their code."
+    },
+    {
+      "question": "How can one assess if they are effectively utilizing the available bandwidth?",
+      "answer": "One can assess bandwidth utilization by knowing the theoretical peak bandwidth of data links and comparing it to the actual bytes read/written by their code."
+    },
+    {
+      "question": "What advice is given for utilizing different memory spaces in CUDA?",
+      "answer": "The advice is to utilize the various memory spaces (global, shared, constant) strategically, depending on the specific situation and access patterns."
+    },
+    {
+      "question": "Where does constant memory reside, and what is its primary advantage despite being slower than shared memory?",
+      "answer": "Constant memory resides in DRAM, which makes its access much slower than shared memory. However, its primary advantage is that it is cached, providing highly efficient access for read-only and broadcast operations."
+    },
+    {
+      "question": "What memory type is recommended for data that is read-only and frequently accessed?",
+      "answer": "For read-only data, constant memory is recommended because it can provide very fast access if it's in the cache."
+    },
+    {
+      "question": "Which memory type should be used for data that is read and written within a block?",
+      "answer": "Shared memory should be used for data that is read and written within a block, as it offers very fast access."
+    },
+    {
+      "question": "What is the fastest memory type for data that is read and written exclusively within a single thread?",
+      "answer": "Registers are the fastest memory type for data that is read and written exclusively within a single thread."
+    },
+    {
+      "question": "Which memory type is typically used for input data and storing results, and what is its characteristic speed?",
+      "answer": "Global memory is typically used for input data and storing results, and it is characterized as very slow."
+    }
+  ],
+  "generated_at": "2026-04-11T19:18:19.404638+00:00"
+}

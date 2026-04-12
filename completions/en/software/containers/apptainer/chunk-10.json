@@ -1,0 +1,72 @@
+{
+  "doc_key": "en/apptainer",
+  "level": "chunk",
+  "chunk_index": 10,
+  "qa_pairs": [
+    {
+      "question": "What is the recommendation concerning mounting CVMFS paths inside Apptainer containers?",
+      "answer": "It is recommended not to mount CVMFS paths inside your containers, as doing so is fraught with perils and defeats many reasons for using a container. The programs inside a container should be entirely self-contained."
+    },
+    {
+      "question": "Where can I find more details about persistent overlays in Apptainer?",
+      "answer": "You should refer to the official Apptainer documentation page about persistent overlays, available at `https://apptainer.org/docs/user/main/persistent_overlays.html`."
+    },
+    {
+      "question": "What are the two formats in which Apptainer images can be created?",
+      "answer": "Apptainer images can be created as an `SIF` file or as a sandbox directory."
+    },
+    {
+      "question": "What are the characteristics of an `SIF` file when building an Apptainer image?",
+      "answer": "`SIF` files typically contain multiple parts, each usually a `squashfs` filesystem, which means they are read-only and compressed. The `apptainer build` command generally produces a `SIF` file with a read-only `squashfs` filesystem."
+    },
+    {
+      "question": "Why is an `SIF` file the preferred option for Apptainer images?",
+      "answer": "An `SIF` file is the preferred option because the resulting image remains read-only, is much smaller due to compression, and disk reads from that image are done very quickly."
+    },
+    {
+      "question": "What is an Apptainer sandbox directory, and how are its contents managed?",
+      "answer": "A sandbox directory is a normal directory in the filesystem that starts out empty. As Apptainer builds the image, it adds the necessary files and directories to it. The contents of a sandbox directory should only be accessed or updated through the use of Apptainer."
+    },
+    {
+      "question": "When might a user need to utilize a sandbox directory for an Apptainer image?",
+      "answer": "One might need to use a sandbox directory in situations where read-write access to the image itself is required to update the container image."
+    },
+    {
+      "question": "What is the recommended approach if image updates are infrequent but read-write access is occasionally needed?",
+      "answer": "If updates are infrequent, it's typically easier and better to use an `SIF` file. When updates are required, build a sandbox image from the `SIF` file, make the necessary changes, and then build a new `SIF` file from the updated sandbox, after which the sandbox directory can be removed."
+    },
+    {
+      "question": "Why is using an `SIF` file generally recommended over a sandbox directory for Apptainer images?",
+      "answer": "Using an `SIF` file is recommended because disk performance from the container image will be faster than storing each file separately on cluster filesystems. Additionally, an `SIF` file uses a quota file count of 1, compared to thousands for a sandbox directory."
+    },
+    {
+      "question": "What common issue arises when attempting to build Apptainer images on compute clusters using Linux distribution package managers as a normal user?",
+      "answer": "Many Linux distribution package managers require root permissions to use them, which means Apptainer version 1.0.x and older Singularity cannot be used on compute clusters to build images as a normal user."
+    },
+    {
+      "question": "How can users address the need for root permissions when building Apptainer images on compute clusters?",
+      "answer": "Users can submit a ticket to technical support asking for help to create the image, or use a computer with Apptainer installed where they have root permissions."
+    },
+    {
+      "question": "What is the purpose of the `apptainer --fakeroot` feature?",
+      "answer": "The `apptainer --fakeroot` feature is used to build and manipulate images without requiring actual root privileges on the host system."
+    },
+    {
+      "question": "How has the functionality of `apptainer --fakeroot` changed with Apptainer version 1.1?",
+      "answer": "With Apptainer version 1.1 and newer, `--fakeroot` can be used without needing a system administrator to formally add the user. In versions prior to Apptainer 1.1, using this feature on a cluster required submitting a ticket for such consideration."
+    },
+    {
+      "question": "Are all containers capable of being built successfully on compute clusters?",
+      "answer": "No, some containers will not build successfully without using a `root` account, and these specific images cannot be built on compute clusters."
+    },
+    {
+      "question": "Are special permissions or `--fakeroot` typically required when using Docker images as-is with Apptainer?",
+      "answer": "If you only need to use a Docker image as-is with Apptainer, these images can often be built and run without needing additional permissions or explicitly using `--fakeroot`."
+    },
+    {
+      "question": "What might be necessary if a Docker image needs to be modified after it's created as an Apptainer image?",
+      "answer": "If you need to modify the image after creating it, you may require elevated permissions to successfully do this, for instance, if the image's Linux distribution package manager necessitates them for installing packages."
+    }
+  ],
+  "generated_at": "2026-04-11T17:32:46.266713+00:00"
+}

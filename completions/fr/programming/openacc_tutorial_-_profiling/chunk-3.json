@@ -1,0 +1,72 @@
+{
+  "doc_key": "fr/openacc_tutorial_-_profiling",
+  "level": "chunk",
+  "chunk_index": 3,
+  "qa_pairs": [
+    {
+      "question": "Comment on fait pour charger le module qui contient le profileur `nvprof` sur nos grappes?",
+      "answer": "Pour charger le profileur `nvprof`, y faut utiliser la commande `module load cuda/11.7`."
+    },
+    {
+      "question": "Quels arguments faut-il ajouter à la ligne de commande pour profiler un exécutable qui roule juste sur le CPU avec `nvprof`?",
+      "answer": "Pour profiler un exécutable CPU pur, on doit ajouter les arguments `--cpu-profiling on` à la ligne de commande, comme ceci : `nvprof --cpu-profiling on ./cg.x`."
+    },
+    {
+      "question": "Selon le résultat du profilage, quelle fonction utilise le plus de temps d'exécution?",
+      "answer": "D'après le résultat de profilage, la fonction `matvec()` est celle qui prend le plus de temps, avec 83.54% du temps d'exécution."
+    },
+    {
+      "question": "Dans quelle fonction est appelée `matvec()`?",
+      "answer": "L'appel à la fonction `matvec()` se trouve dans la fonction `main()`."
+    },
+    {
+      "question": "Avant de travailler sur une routine, quelles questions devrait-on se poser sur le compilateur?",
+      "answer": "On devrait se demander quelles optimisations ont été appliquées automatiquement, qu'est-ce qui a empêché d'optimiser davantage, et si la performance serait affectée par de petites modifications."
+    },
+    {
+      "question": "Quel indicateur le compilateur NVIDIA offre-t-il pour obtenir des renseignements?",
+      "answer": "Le compilateur NVIDIA offre l'indicateur `-Minfo`."
+    },
+    {
+      "question": "Quelles sont les options disponibles pour l'indicateur `-Minfo` du compilateur NVIDIA?",
+      "answer": "Les options sont `all`, `accel`, `inline`, `loop,mp,par,stdpar,vect`, et `intensity`."
+    },
+    {
+      "question": "Que fait l'option `all` de l'indicateur `-Minfo`?",
+      "answer": "L'option `all` imprime presque tous les types d'information, incluant les opérations du compilateur en rapport avec l'accélérateur (`accel`), l'information sur les fonctions extraites et alignées (`inline`), et les renseignements sur l'optimisation et la vectorisation des boucles (`loop,mp,par,stdpar,vect`)."
+    },
+    {
+      "question": "À quoi sert l'option `intensity` avec `-Minfo`?",
+      "answer": "L'option `intensity` sert à imprimer l'information sur l'intensité des boucles."
+    },
+    {
+      "question": "Quel est le résultat si on n'utilise aucune option avec `-Minfo`?",
+      "answer": "Si aucune option n'est spécifiée, le résultat est le même que l'option `all`, mais sans l'information fournie par `inline`."
+    },
+    {
+      "question": "Comment faut-il modifier le Makefile pour obtenir les renseignements du compilateur avec `nvc++`?",
+      "answer": "Il faut modifier le Makefile comme suit : `CXX=nvc++`, `CXXFLAGS=-fast -Minfo=all,intensity`, et `LDFLAGS=${CXXFLAGS}`."
+    },
+    {
+      "question": "Quelle commande faut-il exécuter après avoir modifié le Makefile pour un nouveau build?",
+      "answer": "Après avoir modifié le Makefile, il faut exécuter la commande `make clean; make`."
+    },
+    {
+      "question": "Quel type d'information est affiché par le compilateur pour la fonction `initialize_vector` avec les options `-Minfo=all,intensity`?",
+      "answer": "Pour `initialize_vector`, le compilateur indique une `Intensity = 0.0` et mentionne que le 'Memory set idiom' a remplacé la boucle par un appel à `__c_mset8`."
+    },
+    {
+      "question": "Pour la fonction `dot`, quels détails d'optimisation le compilateur NVIDIA rapporte-t-il?",
+      "answer": "Pour `dot`, le compilateur rapporte une `Intensity = 1.00`, que du code SIMD vectorisé a été généré pour la boucle contenant des réductions, et que des instructions FMA (fused multiply-add) ont été générées."
+    },
+    {
+      "question": "Quelles sont les informations d'optimisation fournies par le compilateur pour la fonction `waxpby`?",
+      "answer": "Le compilateur indique une `Intensity = 1.00`, que la boucle n'a pas été vectorisée à cause d'une dépendance de données, mais que du code SIMD vectorisé a été généré, que la boucle a été déroulée 2 fois et que des instructions FMA ont été générées."
+    },
+    {
+      "question": "Quelles informations le compilateur donne-t-il sur l'optimisation de `allocate_3d_poisson_matrix`?",
+      "answer": "Pour `allocate_3d_poisson_matrix`, le compilateur mentionne une `Intensity = 0.0`, que la boucle n'a pas été fusionnée à cause d'un nombre différent d'itérations, qu'elle n'a pas été vectorisée/parallélisée car le nombre d'itérations était trop petit, et que la boucle a été complètement déroulée 3 fois."
+    }
+  ],
+  "generated_at": "2026-04-12T04:24:41.645821+00:00"
+}

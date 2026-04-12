@@ -5,21 +5,48 @@ lang: "en"
 
 source_wiki_title: "Galaxy/en"
 source_hash: "410fb979c9e489fd9eb18b7dd6645ba8"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T06:50:16.583171+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T07:32:04.008459+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "Galaxy"
+  - "server management"
+  - "Galaxy server"
+  - "submitting jobs"
+  - "running tools"
+  - "gateway"
+  - "Cedar"
+  - "configuration"
+  - "Cedar cluster"
+  - "Cedar login node"
+  - "UseGalaxy Canada"
+  - "workflow management system"
+  - "web interface"
+  - "bioinformatics"
+
+questions:
+  - "What is the Galaxy platform, and what are the primary differences between using UseGalaxy Canada and requesting a Galaxy instance on Cedar?"
+  - "How do users authenticate to access UseGalaxy Canada directly, and what is the default storage allocation provided to them?"
+  - "How are file ownership and server management handled for a Galaxy instance on Cedar, specifically regarding pseudo-accounts and the dedicated gateway server?"
+  - "How do users access and authenticate into their Galaxy server manager page?"
+  - "What are the primary configuration files for the Galaxy server, and which specific variables should users avoid modifying?"
+  - "What are the recommended methods and best practices for running tools and submitting jobs to the Cedar cluster?"
+  - "Where should the Galaxy server be run, and which specific nodes must be avoided?"
+  - "What relevant directories are mounted on the dedicated \"gateway\" server?"
+  - "How do users manage and communicate with the Galaxy server since SSH connections to the gateway are restricted?"
+  - "How do users access and authenticate into their Galaxy server manager page?"
+  - "What are the primary configuration files for the Galaxy server, and which specific variables should users avoid modifying?"
+  - "What are the recommended methods and best practices for running tools and submitting jobs to the Cedar cluster?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -28,22 +55,22 @@ status:
 Galaxy is an open source, web-based platform for data-intensive biomedical research. It aims to make computational biology accessible to research scientists who do not have computer programming or systems administration experience. Although it was initially developed for genomics research, it is largely domain-agnostic and is now used as a general workflow management system in bioinformatics. The list of tutorials [here](https://training.galaxyproject.org/) suggests the range of applications of Galaxy.
 
 There are 2 ways to use the platform:
-* accessing UseGalaxy Canada directly,
-* requesting a Galaxy instance on Cedar.
+*   accessing UseGalaxy Canada directly,
+*   requesting a Galaxy instance on Cedar.
 
 The following table compares both options to help you decide which is best for you.
 
-| Feature                     | UseGalaxy Canada                      | Galaxy instance on Cedar      |
-| :-------------------------- | :------------------------------------ | :---------------------------- |
-| Server                      | Beluga Cloud & Arbutus                | Cedar                         |
-| Galaxy configuration        | None (done by UseGalaxy Canada admin) | High (done by user)           |
-| Required knowledge of Linux | None                                  | High                          |
-| Management/Updates          | UseGalaxy Canada team                 | User                          |
-| Server configuration        | None                                  | User                          |
-| Pre-installed tools         | Synchronized with UseGalaxy.eu        | Yes (default subset)          |
-| Irida integration           | No                                    | Yes                           |
-| Reference Genome            | Yes (through CVMFS)                   | Managed by user               |
-| Quota                       | 500GB per User                        | Storage RAC                   |
+| Feature            | UseGalaxy Canada                      | Galaxy instance on Cedar |
+| :----------------- | :------------------------------------ | :----------------------- |
+| Server             | Beluga Cloud & Arbutus                | Cedar                    |
+| Galaxy configuration | None (done by UseGalaxy Canada admin) | High (done by user)      |
+| Required knowledge of Linux | None                          | High                     |
+| Management/Updates | UseGalaxy Canada team                 | User                     |
+| Server configuration | None                                | User                     |
+| Pre-installed tools | Synchronized with UseGalaxy.eu      | Yes (default subset)     |
+| Irida integration  | No                                    | Yes                      |
+| Reference Genome   | Yes (through CVMFS)                   | Managed by user          |
+| Quota              | 500GB per User                        | Storage RAC              |
 
 !!! tip
     If you are not dealing with large files or jobs that require a large number of CPU or GPU, we highly recommend the UseGalaxy platform.
@@ -52,7 +79,7 @@ The following table compares both options to help you decide which is best for y
 
 To access UseGalaxy Canada go to [https://starthere.usegalaxy.ca](https://starthere.usegalaxy.ca), follow the link to log in through CILogon and select your institution to authenticate. The platform will detect if you are a Canadian user and allocate you a default starting allocation of 500 GB of storage.
 
-The site [https://starthere.usegalaxy.ca](https://starthere.usegalaxy.ca) provides all the necessary information about UseGalalxy.ca and Galaxy in general, as well as a “Help/Request” form to report issues, get assistance or ask for new tools and data to be installed on the platform.
+The site [https://starthere.usegalaxy.ca](https://starthere.usegalaxy.ca) provides all the necessary information about UseGalaxy.ca and Galaxy in general, as well as a “Help/Request” form to report issues, get assistance or ask for new tools and data to be installed on the platform.
 
 ## Requesting a Galaxy instance on Cedar
 
@@ -72,13 +99,8 @@ All files of your Galaxy instance belong to a "pseudo-account", a shared account
 
 ### Galaxy server management
 
-The first thing you need to do is to start the Galaxy server.
-
-!!! warning
-    This server should NOT be run on a Cedar login node or a compute node.
-
-We recommend you use the dedicated server called "gateway" which contains a web server with the relevant /project and /home directories mounted on it. You cannot make an SSH connection to this gateway due to security reasons; however, we have designed a front-end on this gateway that lets you start/stop your Galaxy server and use the Galaxy web interface to communicate with the server.
-To start the Galaxy server, follow [https://gateway.cedar.computecanada.ca/](https://gateway.cedar.computecanada.ca/) and click on the Galaxy link. You will be asked for your username and password, which are the same as those you entered in your Alliance account. After you authenticate, you will be automatically redirected to your Galaxy server manager page where you can manage your server and use the Galaxy web interface.
+The first thing you need to do is to start the Galaxy server. This server should NOT be run on a Cedar login node or a compute node. We recommend you use the dedicated server called "gateway" which contains a web server with the relevant `/project` and `/home` directories mounted on it. You cannot make an SSH connection to this gateway due to security reasons; however, we have designed a front-end on this gateway that lets you start/stop your Galaxy server and use the Galaxy web interface to communicate with the server.
+To start the Galaxy server, follow https://gateway.cedar.computecanada.ca/ and click on the Galaxy link. You will be asked for your username and password, which are the same as those you entered in your Alliance account. After you authenticate, you will be automatically redirected to your Galaxy server manager page where you can manage your server and use the Galaxy web interface.
 
 ### Galaxy configuration
 
@@ -88,9 +110,9 @@ Files in the `config` directory are used to configure your Galaxy server. Config
     We strongly recommend you do not change them.
 
 *   In file `galaxy.yml` (the main configuration file):
-    *   `http:` contains your unique port number
-    *   `database_connection` is the name of your Galaxy database and your database server.
-    *   `virtualenv` is the path to a [Python virtual environment](python.md#creating-and-using-a-virtual-environment) in the gateway machine
+    *   **http:** contains your unique port number
+    *   **database_connection** is the name of your Galaxy database and your database server.
+    *   **virtualenv** is the path to a [Python virtual environment](python.md#creating-and-using-a-virtual-environment) in the gateway machine
     *   `file_path`, `new_file_path`, `tool_config_file`, `shed_tool_config_file`, `tool_dependency_dir`, `tool_data_path`, `visualization_plugins_directory`, `job_working_directory`, `cluster_files_directory`, `template_cache_path`, `citation_cache_data_dir`, `citation_cache_lock_dir` are appropriate paths for tools, tool sheds and dependencies.
 
 Other variables and files in this directory can be changed by the user.
@@ -110,9 +132,7 @@ Here are some key points you need to know regarding job submission:
     *   By default, jobs are submitted to the Cedar cluster.
 
 *   Avoid running locally:
-
-    !!! warning
-        Running jobs on the gateway machine is not recommended due to limited memory and inefficiency.
+    *   Running jobs on the gateway machine is not recommended due to limited memory and inefficiency.
 
 *   Customization:
     *   You may need to adjust the `job_conf.xml` file based on tool requirements, particularly for memory allocation and walltime limits; optimizing these values is crucial to ensure tools run efficiently and do not fail due to resource constraints.

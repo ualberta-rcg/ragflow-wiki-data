@@ -1,0 +1,83 @@
+{
+  "doc_key": "en/tutoriel_apprentissage_machine",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is the main purpose of this manual?",
+      "answer": "This manual is a beginner's guide on how to port a machine learning job to one of our clusters."
+    },
+    {
+      "question": "What is the first step when porting a machine learning job to a cluster?",
+      "answer": "The first step is to remove all graphical display functionality from your program."
+    },
+    {
+      "question": "How should graphical results be handled when running a job on a cluster?",
+      "answer": "All graphical results should be written to disk as image files and visualized on your personal computer after the job is finished."
+    },
+    {
+      "question": "Why is it recommended to archive datasets for machine learning jobs on the clusters?",
+      "answer": "Shared storage on our clusters is not designed to handle lots of small files and is optimized for very large files, so archiving prevents performance issues caused by excessive I/O operations."
+    },
+    {
+      "question": "What is a recommended archive format for datasets?",
+      "answer": "An archive format like `tar` is recommended for datasets."
+    },
+    {
+      "question": "What command can be used to archive a directory named `mydataset` without compression?",
+      "answer": "The command `tar cf mydataset.tar mydataset/*` can be used to archive a directory without compression."
+    },
+    {
+      "question": "What is the third step in preparing a machine learning job for a cluster?",
+      "answer": "The third step is to prepare your virtual environment, typically by creating one in your home space."
+    },
+    {
+      "question": "Where can users find detailed documentation for installing and using specific machine learning frameworks like PyTorch and TensorFlow?",
+      "answer": "Users can refer to our documentation pages for PyTorch and TensorFlow for details on installation and usage of machine learning frameworks."
+    },
+    {
+      "question": "Why are interactive jobs recommended before submitting a machine learning job with a script?",
+      "answer": "Interactive jobs are recommended for quicker diagnosis of problems before submitting a job using a script."
+    },
+    {
+      "question": "What is an example command for submitting an interactive job?",
+      "answer": "An example command for submitting an interactive job is `salloc --account=def-someuser --gres=gpu:1 --cpus-per-task=3 --mem=32000M --time=1:00:00`."
+    },
+    {
+      "question": "How should missing modules be installed when running an interactive job, given that compute nodes lack internet access?",
+      "answer": "Missing modules must be installed from a login node, by referring to our documentation on virtual environments."
+    },
+    {
+      "question": "What is a crucial verification step once an interactive job has started, regarding file storage?",
+      "answer": "It is crucial to verify that your job reads and writes as much as possible on the compute node's local storage (`$SLURM_TMPDIR`) and as little as possible on the shared filesystems (home, scratch, and project)."
+    },
+    {
+      "question": "Why must machine learning jobs ultimately be submitted using a script with the `sbatch` command?",
+      "answer": "Jobs must be submitted using a script with `sbatch` so that they can be entirely automated as a batch process, as interactive jobs are only for preparation and debugging."
+    },
+    {
+      "question": "What are the important elements that an `sbatch` script for a machine learning job should include?",
+      "answer": "Important elements include the account to be billed, requested resources (number of CPUs, GPUs, amount of memory, duration), and Bash commands for environment setup, data transfer, and starting the executable."
+    },
+    {
+      "question": "What is the general recommendation for GPU usage in an `sbatch` script for machine learning jobs?",
+      "answer": "It is recommended to use one single GPU unless you are certain your program can utilize several, as TensorFlow and PyTorch typically use only one by default."
+    },
+    {
+      "question": "What does the example `ml-test.sh` script demonstrate in terms of job preparation and execution?",
+      "answer": "The example `ml-test.sh` script demonstrates loading modules (python, cuda, cudnn), activating a virtual environment, preparing data by extracting a tar archive to `$SLURM_TMPDIR/data`, and finally starting the training script."
+    },
+    {
+      "question": "Why is checkpointing recommended for long-running machine learning jobs?",
+      "answer": "Checkpointing ensures that jobs are more likely to start sooner by having shorter durations (e.g., 24-hour units), and allows them to overcome duration limits by creating a daisy chain of jobs."
+    },
+    {
+      "question": "What modifications are needed for a job to support checkpointing and run in a daisy chain?",
+      "answer": "The job submission script or your program needs to be modified so that the job can be interrupted and continued, capable of accessing the most recent checkpoint file, and use the `--array 1-<n_blocs>%1` argument for `sbatch`."
+    },
+    {
+      "question": "How does the example `ml-test-chain.sh` script handle the loading of checkpoints?",
+      "answer": "The example `ml-test-chain.sh` script finds the most recent checkpoint file (e.g., `*.h5` or `*.pt`) in a specified directory and either starts training from scratch if no checkpoint is found, or loads the last checkpoint to resume training."
+    }
+  ],
+  "generated_at": "2026-04-12T09:55:27.128803+00:00"
+}

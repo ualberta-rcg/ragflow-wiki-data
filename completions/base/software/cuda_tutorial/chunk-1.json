@@ -1,0 +1,140 @@
+{
+  "doc_key": "base/cuda_tutorial",
+  "level": "chunk",
+  "chunk_index": 1,
+  "qa_pairs": [
+    {
+      "question": "What is introduced in this tutorial?",
+      "answer": "This tutorial introduces the graphics processing unit (GPU) as a massively parallel computing device; the CUDA parallel programming language; and some of the CUDA numerical libraries for high performance computing."
+    },
+    {
+      "question": "What prior knowledge is required to gain the most benefit from this CUDA tutorial?",
+      "answer": "A working knowledge of C or C++ is required to gain the most benefit from this tutorial, as it uses CUDA to accelerate C or C++ code."
+    },
+    {
+      "question": "Which specific CUDA programming language variant is covered in this tutorial?",
+      "answer": "For the purpose of this tutorial, only CUDA C/C++ is covered, though Fortran is also supported by CUDA."
+    },
+    {
+      "question": "What does the term 'CUDA C' refer to in this tutorial?",
+      "answer": "From here on, we use term 'CUDA C' to refer to CUDA C/C++."
+    },
+    {
+      "question": "What capabilities does CUDA C provide?",
+      "answer": "CUDA C is essentially a C/C++ that allows one to execute functions on both GPUs and CPUs."
+    },
+    {
+      "question": "What are the learning objectives outlined for this tutorial?",
+      "answer": "The learning objectives are to understand the architecture of a GPU, understand the workflow of a CUDA program, manage and understand the various types of GPU memories, and write and compile an example of CUDA code."
+    },
+    {
+      "question": "What does GPU stand for, and what is its traditional purpose?",
+      "answer": "A GPU, or graphics processing unit, is a single-chip processor that performs rapid mathematical calculations for the purpose of rendering images."
+    },
+    {
+      "question": "How has the capability of GPUs been utilized more broadly in recent years?",
+      "answer": "In recent years, such capability has been harnessed more broadly to accelerate computational workloads in cutting-edge scientific research."
+    },
+    {
+      "question": "What does CUDA stand for?",
+      "answer": "CUDA stands for 'compute unified device architecture'."
+    },
+    {
+      "question": "What is CUDA?",
+      "answer": "CUDA is a scalable parallel programming model and software environment for parallel computing which provides access to instructions and memory of massively parallel elements in GPUs."
+    },
+    {
+      "question": "What are the two main components of GPU architecture?",
+      "answer": "The two main components of the GPU are Global memory and Streaming multiprocessors (SMs)."
+    },
+    {
+      "question": "Describe Global memory within a GPU.",
+      "answer": "Global memory is similar to CPU memory and is accessible by both CPUs and GPUs."
+    },
+    {
+      "question": "What do Streaming multiprocessors (SMs) consist of, and what is their role?",
+      "answer": "Each Streaming multiprocessor (SM) consists of many streaming processors (SPs); they perform actual computations, and each SM has its own control unit, registers, and execution pipelines."
+    },
+    {
+      "question": "In the CUDA programming model, what is defined as the 'Host'?",
+      "answer": "The 'Host' refers to the CPU and its memory (host memory)."
+    },
+    {
+      "question": "In the CUDA programming model, what is defined as the 'Device'?",
+      "answer": "The 'Device' refers to the GPU and its memory (device memory)."
+    },
+    {
+      "question": "What kind of programming model is the CUDA programming model?",
+      "answer": "The CUDA programming model is a heterogeneous model in which both the CPU and GPU are used."
+    },
+    {
+      "question": "What can CUDA code manage and execute?",
+      "answer": "CUDA code is capable of managing memory of both the CPU and the GPU as well as executing GPU functions, called kernels."
+    },
+    {
+      "question": "How are GPU functions (kernels) executed in CUDA?",
+      "answer": "Such kernels are executed by many GPU threads in parallel."
+    },
+    {
+      "question": "What is the five-step recipe for a typical CUDA code execution?",
+      "answer": "The five-step recipe for a typical CUDA code is to declare and allocate both the host and device memories, initialize the host memory, transfer data from Host memory to device memory, execute GPU functions (kernels), and transfer data back to the host memory."
+    },
+    {
+      "question": "What is a 'kernel' in the context of the CUDA execution model?",
+      "answer": "Simple CUDA code executed on GPU is called a 'kernel'."
+    },
+    {
+      "question": "How does a GPU core (streaming processor) execute a thread?",
+      "answer": "Each GPU core (streaming processor) executes a sequential 'thread', where a 'thread' is the smallest set of instructions handled by the operating system's scheduler."
+    },
+    {
+      "question": "In what manner do all GPU cores execute the kernel?",
+      "answer": "All GPU cores execute the kernel in a SIMT fashion (Single Instruction, Multiple Threads)."
+    },
+    {
+      "question": "What is the recommended three-step procedure for executing on a GPU?",
+      "answer": "The recommended procedure for executing on a GPU is to copy input data from CPU memory to GPU memory, load the GPU program (kernel) and execute it, and then copy results from GPU memory back to CPU memory."
+    },
+    {
+      "question": "How are threads organized in a CUDA kernel to achieve massive parallelism?",
+      "answer": "In CUDA, all the threads are structured in threading blocks, and the blocks are further organized into grids."
+    },
+    {
+      "question": "What conditions must be satisfied when distributing threads in CUDA's block-threading model?",
+      "answer": "When distributing threads, we must make sure that threads within a block cooperate via the shared memory, and threads in different blocks cannot cooperate."
+    },
+    {
+      "question": "How do threads within a block interact in the CUDA block-threading model?",
+      "answer": "Threads within a block work on the same set of instructions (but perhaps with different data sets) and exchange data between each other via shared memory."
+    },
+    {
+      "question": "What types of IDs do threads use to determine what data to process?",
+      "answer": "Each thread uses Block IDs (1D or 2D, like blockIdx.x, blockIdx.y) and Thread IDs (1D, 2D, or 3D, like threadIdx.x, threadIdx.y, threadIdx.z)."
+    },
+    {
+      "question": "What is the benefit of using Block IDs and Thread IDs in the CUDA model?",
+      "answer": "Such a model simplifies memory addressing when processing multi-dimensional data."
+    },
+    {
+      "question": "How does a streaming multiprocessor (SM) typically execute threading blocks?",
+      "answer": "Usually, a streaming multiprocessor (SM) executes one threading block at a time."
+    },
+    {
+      "question": "How are groups of threads referred to when executed by a streaming multiprocessor?",
+      "answer": "The code is executed in groups of 32 threads, called warps."
+    },
+    {
+      "question": "What is the role of the hardware scheduler in thread scheduling?",
+      "answer": "A hardware scheduler is free to assign blocks to any SM at any time and can postpone or suspend execution of blocks under certain conditions, such as when data becomes unavailable, executing another ready threading block instead."
+    },
+    {
+      "question": "What is the term for the scheduling mechanism that keeps SMs from being idle?",
+      "answer": "This is a so-called zero-overhead scheduling."
+    },
+    {
+      "question": "What is the benefit of zero-overhead scheduling?",
+      "answer": "Zero-overhead scheduling makes the execution more streamlined so that SMs are not idle."
+    }
+  ],
+  "generated_at": "2026-04-11T19:17:32.716130+00:00"
+}

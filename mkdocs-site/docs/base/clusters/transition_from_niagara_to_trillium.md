@@ -5,21 +5,62 @@ lang: "base"
 
 source_wiki_title: "Transition from Niagara to Trillium"
 source_hash: "058410c151461964d69580ae1d4f5468"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T11:56:04.449679+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T12:03:16.137407+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "Hardware changes"
+  - "Python virtual environments"
+  - "SSH access"
+  - "Trillium cluster"
+  - "directory locations"
+  - "NiaEnv"
+  - "CPU and GPU subclusters"
+  - "Software stack"
+  - "NVIDIA H100"
+  - "Recompilation"
+  - "data migration"
+  - "CVMFS"
+  - "Trillium"
+  - "GPU subcluster"
+  - "AMD AOCL libraries"
+  - "software stack"
+  - "default modules"
+  - "CCDB opt-in"
+  - "Niagara"
+  - "StdEnv/2023 module"
+  - "AMD Zen 4"
+  - "CUDA compilation"
+
+questions:
+  - "How do users opt-in to gain access to the Trillium cluster and its nearline storage system, HPSS?"
+  - "What specific actions and commands are highly recommended for users to run upon logging into the Trillium terminal for the first time?"
+  - "What are the hardware specifications and differences between Trillium's CPU and GPU subclusters in terms of core counts, memory, and processor types?"
+  - "How is data migrated from Niagara to Trillium, and what manual steps are required for files modified after July 31, 2025?"
+  - "What are the key changes to directory layouts and file sharing permissions for home, scratch, and project folders on Trillium?"
+  - "How does the software stack on Trillium differ from Niagara, and what restrictions apply to writing data during compute jobs?"
+  - "What modules should be used to access the AMD AOCL libraries or Flexiblas?"
+  - "What are the hardware specifications, including memory capacity and chip models, for a single node in the GPU subcluster?"
+  - "What is the total number of GPU compute nodes and individual GPUs available on the Trillium system?"
+  - "Which previous software stacks are being retired and will no longer be available on Trillium and Trillium-gpu?"
+  - "What new software stack will be implemented on Trillium to replace the retired environments?"
+  - "Which specific modules are loaded by default on Trillium, and how must users access additional modules such as compilers and libraries?"
+  - "How do users load the default software environment and the CUDA module for GPU compilation on the Trillium cluster?"
+  - "Why is it necessary to recompile existing code and recreate Python virtual environments after migrating to Trillium?"
+  - "Where can users find training materials, documentation, and technical support for the Trillium cluster?"
+  - "How do users load the default software environment and the CUDA module for GPU compilation on the Trillium cluster?"
+  - "Why is it necessary to recompile existing code and recreate Python virtual environments after migrating to Trillium?"
+  - "Where can users find training materials, documentation, and technical support for the Trillium cluster?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -27,45 +68,38 @@ status:
 
 ### Opt-in
 
-For Niagara and Mist, users had to opt-in on CCDB to use the system. The same is true for the Trillium cluster, but the webpage on which you can do this has changed to [https://ccdb.alliancecan.ca/me/access_systems](https://ccdb.alliancecan.ca/me/access_systems) (on which you can also opt-in to other national services).
+For Niagara and Mist, users had to opt-in on CCDB to use the system. The same is true for the Trillium cluster, but the webpage on which you can do this has changed to [https://ccdb.alliancecan.ca/me/access_systems](https://ccdb.alliancecan.ca/me/access_systems) (on which you can also opt in to other national services).
 
 Users that had opted into Niagara/Mist on August 5, 2025 will have automatically been opted-in to Trillium.
 
 Opting into Trillium gives you access to both the CPU and GPU subclusters of Trillium.
 
-To get access to HPSS, the nearline system for Trillium, there is a separate opt-in on [https://ccdb.alliancecan.ca/me/access_systems](https://ccdb.alliancecan.ca/me/access_systems); here too, if you had access to HPSS through Niagara before August 5th, you will be opted-in automatically. For the moment, HPSS has not been integrated into Trillium yet. Once it has, the files on HPSS will not have changed as it is still the same storage system.
+To get access to HPSS, the nearline system for Trillium, there is a separate opt-in on [https://ccdb.alliancecan.ca/me/access_systems](https://ccdb.alliancecan.ca/me/access_systems); here too, if you had access to HPSS through Niagara before August 5th, you will be opted-in automatically.
+For the moment, HPSS has not been integrated into Trillium yet. Once it has, the files on HPSS will not have changed as it is still the same storage system.
 
 ### Logging in
 
 #### Terminal access
-You can login to the CPU subcluster of Trillium by SSH-ing to `trillium.alliancecan.ca`:
-
+You can login to the CPU subcluster of Trillium by ssh-ing to trillium.alliancecan.ca:
 ```bash
 $ ssh USERNAME@trillium.alliancecan.ca
 ```
+The first time you login, please make sure you are actually accessing Trillium by checking if the [login node ssh host key fingerprint](ssh-security-improvements.md#trillium) matches. As was the case on Niagara and Mist, you will need to use [SSH Keys](ssh-keys.md) and have MFA enabled on your CCDB account. This will get you onto one of six CPU login nodes called tri-login01-6. These login nodes do not have GPUs and *can only submit jobs to CPU compute nodes*.
 
-The first time you login, please make sure you are actually accessing Trillium by checking if the [login node SSH host key fingerprint](ssh-security-improvements.md#Trillium) matches. As was the case on Niagara and Mist, you will need to use [SSH Keys](ssh-keys.md) and have MFA enabled on your CCDB account. This will get you onto one of six CPU login nodes called `tri-login01-6`. These login nodes do not have GPUs and *can only submit jobs to CPU compute nodes*.
-
-To access the GPU subcluster of Trillium, you should log into `trillium-gpu.alliancecan.ca` (also with SSH keys and MFA):
-
+To access the GPU subcluster of Trillium, you should log into trillium-gpu.alliancecan.ca (also with ssh keys and MFA):
 ```bash
 $ ssh USERNAME@trillium-gpu.alliancecan.ca
 ```
-
-This will land you on the GPU login node `trig-login01`, which has 4 NVIDIA H100 GPUs, and from which you can only *submit to the compute nodes of the GPU subcluster*.
+This will land you on the GPU login node trig-login01, which has 4 NVIDIA H100 GPUs, and from which you can only *submit to the compute nodes of the GPU subcluster*.
 
 #### First time actions
 
-After logging in for the first time, you will see the files that were on Niagara. Your initialization files likely won't work, or not exactly as they should.
-
-!!! tip "Recommendation"
-    We **highly recommend** that you run the following command:
-
+!!! tip "Highly Recommended Action"
+    After logging in for the first time, you will see the files that were on Niagara. Your initialization files likely won't work, or not exactly as they should. We **highly recommend** that you run the following command:
     ```bash
     $ trisetup
     ```
-
-    which will populate the following files in your home directory: `.bashrc`, `.bash_profile`, `.chsrc`, and `.Xauthority`. It will also create the directories `.licenses`, `.local`, `.ssh`, and `links`. The latter contains symbolic links to your scratch and project directories. Your original versions of these files will be saved under a different name with a date stamp.
+    which will populate the following files in your home directory: .bashrc, .bash_profile, .cshrc, and .Xauthority. It will also create the directories .licenses, .local, .ssh, and links. The latter contains symbolic links to your scratch and project directories. Your original versions of these files will be saved under a different name with a date stamp.
 
 After this, you can recompile your code, reinstall virtual environments, etc. (see below).
 
@@ -78,21 +112,21 @@ The [SciNet OnDemand website](https://ondemand.scinet.utoronto.ca) will remain c
 Trillium consists of two homogeneous subclusters, a CPU subcluster and a GPU subcluster.
 
 ### CPUs
-Each compute node of the CPU subcluster has 192 cores (Niagara had 40) and 755 GB of available memory (Niagara had 188 GB). The CPUs are AMD Zen 5 chips - a.k.a. Turin (Niagara had Intel Skylake and Cascaselake chips). There are 1224 compute nodes in the Trillium CPU subcluster, for a total of 235,008 cores.
+Each compute node of the CPU subcluster has 192 cores (Niagara had 40) and 755 GB of available memory (Niagara had 188 GB). The CPUs are AMD Zen 5 chips - a.k.a Turin (Niagara had Intel Skylake and Cascaselake chips). There are 1224 compute nodes in the Trillium CPU subcluster, for a total of 235,008 cores.
 
 If you were compiling code that used math and linear algebra routines from the Intel MKL, we suggest you switch to [Flexiblas](blas-and-lapack.md), or use the AMD AOCL libraries directly; these are available in the `aocl-blas` and `aocl-lapack` modules.
 
 ### GPUs
 Each compute node in the GPU subcluster has 96 cores and 755 GB of available memory, and 4 GPUs. The CPUs are AMD Zen 4 (a.k.a. Genoa) chips, while the GPUs are NVIDIA H100 (Mist's GPUs were V100). There are 61 GPU compute nodes, so in total Trillium has 244 GPUs.
 
-!!! warning "Resource Usage"
+!!! warning "Resource Efficiency"
     It is important to make sure that your jobs are not wasting resources. They should either use all of the cores, or exhaust most of the memory, or efficiently use GPUs.
 
 ## Storage
 
 ### Automatic data migration
 
-Any data that was present on your home, scratch, and project directories on Niagara on July 31st 2025 and that you did not change after that, will have been copied over to the corresponding directory on Trillium. Any data that was added or modified afterwards on Niagara may need to be copied over by the user. For example, a user might SSH to Niagara `nia-datamover1`:
+Any data that was present on your home, scratch, and project directories on Niagara on July 31st 2025 and that you did not change after that, will have been copied over to the corresponding directory on Trillium. Any data that was added or modified afterwards on Niagara may need to be copied over by the user. For example, a user might ssh to Niagara `nia-datamover1`:
 
 ```bash
 $ ssh USERNAME@nia-datamover1.scinet.utoronto.ca
@@ -112,17 +146,15 @@ The directory layout of home, scratch, and project has changed compared to that 
 
 The scratch quota and purging settings will be reviewed in the coming months.
 
-If your group had a project directory on Niagara, you will now find that at **`/project/RRG-NAME`**, where RRG-NAME is the name of your RRG allocation. In addition, all groups now have a project directory **`/project/def-PINAME`** with a quota of 1 TB.
+If your group had a project directory on Niagara, you will now find that at **`/project/RRG-NAME`**, where RRG-NAME is the name of your rrg allocation. In addition all groups now have a project directory **`/project/def-PINAME`** with a quota of 1 TB.
 
 As before, home and project will be backed up, but scratch will not.
 
-To make it easier to find these locations, a directory called **links** can be created inside your `$HOME` containing links to your scratch and project directories. To get this set of links, please run the following command, once, after logging in:
-
+To make it easier to find these locations, a directory called `links` can be created inside your $HOME that contains links to your scratch and project directories. To get this set of links, please run the following command, once, after logging in:
 ```bash
 $ trisetup
 ```
-
-This will also update your `.bashrc` and other startup files; the command will show exactly what it did and where it saves any earlier version.
+This will also update your .bashrc and other startup files; the command will show exactly what it did and where it saves any earlier version.
 
 Once setup, the links in `$HOME/links/project` will be automatically updated if you join, leave, or move groups.
 
@@ -132,42 +164,38 @@ Your home directory on Niagara had you as the owner but your PI's group as the g
 
 The situation is similar for scratch, in that new users will see their scratch directory to be private, i.e., it has the group-ownership set to their private group; if you want to share files with someone else, you will need to use ACL or change group ownerships. It should be noted, however, that users whose files were transferred from Niagara, will see those having the group-ownership of the research group under which their scratch was originally nested.
 
-The project directories are setup for sharing and as such have group-membership corresponding to their `def` or RRG allocation.
+The project directories are setup for sharing and as such have group-membership corresponding to their def or rrg allocation.
 
 The home and project file systems are read-only on compute nodes on Trillium. Your compute jobs, therefore, have to write to the scratch directory. Copying data from scratch to project or home should be restricted to data that really needs to be conserved and backed up. For this, you can either use the `scp` or `rsync` commands to a datamover or login node at the end of your job, or log into the datamover node and perform the transfer there.
 
 ## Software
 
 ### Software stack
-The default NiaEnv software stack that was available on Niagara will be retired and will not be available on Trillium. Likewise, the MistEnv software stack on Mist will not be available on Trillium-GPU. The CVMFS software stack that is available on the other national clusters will be used on Trillium as well. However, only the **gentoo/2023** and **CCconfig** modules will be loaded by default; all other modules (for compilers, libraries, Python, etc.) will have to be explicitly loaded.
+The default NiaEnv software stack that was available on Niagara will be retired and will not be available on Trillium. Likewise, the MistEnv software stack on Mist will not be available on Trillium-gpu. The CVMFS software stack that is available on the other national clusters will be used on Trillium as well. However, only the **`gentoo/2023`** and **`CCconfig`** modules will be loaded by default; all other modules (for compilers, libraries, python, etc.) will have to be explicitly loaded.
 
-To get the same set of default modules as on the other national clusters, you should load the `StdEnv/2023` module:
-
+To get the same set of default modules as on the other national clusters, you should load the StdEnv/2023 module:
 ```bash
 $ module load StdEnv/2023
 ```
+This will load the gcc compiler as the default compiler, as well as many other modules.
 
-This will load the GCC compiler as the default compiler, as well as many other modules.
-
-To compile GPU code with CUDA, you also need to load the `cuda` module:
-
+To compile GPU code with CUDA, you also need to load the cuda module:
 ```bash
 trig-login01$ module load StdEnv/2023 cuda/12.6
 ```
-
-The `cuda` module is not available on the Trillium CPU nodes, it only works on its GPU login node and GPU compute nodes.
+The cuda module is not available on the Trillium CPU nodes, it only works on its GPU login node and GPU compute nodes.
 
 ### Recompilation required
 
 Even though all your files, including binaries, were copied over, codes that weren't using CVMFS software stack, or that used absolute paths, will have to be recompiled. In fact, it is recommended to recompile all your code, even if they did use the CVMFS stack on Niagara.
 
-### Recreate virtual Python environments required
+### Recreate virtual python environments required
 
-Even though all your files were copied over, your virtual environments will not work. You must recreate them because of the users’ directory change.
+Even though all your files were copied over, your virtual environments will not work. You must recreate them because of the users' directory change.
 
-If you had Anaconda virtual environments, you will find that there is no Anaconda module. You should switch to using virtual environments instead.
+If you had Anaconda virtual environments, you will find that there is no anaconda module. You should switch to using virtual environments instead.
 
 ## Training, documentation, and support
 *   New quickstart: [Trillium Quickstart](trillium-quickstart.md)
 *   Support email: [trillium@tech.alliancecan.ca](mailto:trillium@tech.alliancecan.ca)
-*   Self-guided ["Intro to SciNet and Trillium"](https://education.scinet.utoronto.ca/course/view.php?id=1389)
+*   Self-guided "[Intro to SciNet and Trillium](https://education.scinet.utoronto.ca/course/view.php?id=1389)"

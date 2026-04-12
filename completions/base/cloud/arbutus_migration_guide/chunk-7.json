@@ -1,0 +1,80 @@
+{
+  "doc_key": "base/arbutus_migration_guide",
+  "level": "chunk",
+  "chunk_index": 7,
+  "qa_pairs": [
+    {
+      "question": "How do I download an image from the Legacy Arbutus Cloud using the command line?",
+      "answer": "In the Legacy Arbutus session, download the image by using the command `openstack image save --file <filename> <image-id>`, ensuring you replace `<filename>` and `<image-id>` with the actual values."
+    },
+    {
+      "question": "What command is used to upload an image to the New Arbutus Cloud from the migration host?",
+      "answer": "From the migration host, in the New Arbutus Cloud session, upload the image using the command `openstack --os-cloud <cloud> image create --private --file <file> <newImageName>`. Replace `<file>` with the name from the previous step and `<newImageName>` with your chosen name."
+    },
+    {
+      "question": "After uploading an image to the New Arbutus Cloud, how can I create a volume from it?",
+      "answer": "In the New Arbutus Cloud web UI, navigate to Compute -> Images. Locate the uploaded image and select the 'Create Volume' option from its drop-down menu. The volume will then be created and can be attached to instances or used to boot a new instance."
+    },
+    {
+      "question": "What action should be taken with old instances and volumes on the Legacy Arbutus Cloud after successful migration?",
+      "answer": "Once you have migrated and validated your instances and volumes, and all associated DNS records are updated, you should delete your old instances and volumes on the Legacy Arbutus Cloud."
+    },
+    {
+      "question": "What kind of instance should be launched on Legacy Arbutus to serve as a temporary migration host for the Linux 'dd' method?",
+      "answer": "You should launch an instance on Legacy Arbutus with the smallest flavour possible, 'p1-1.5gb'. AlmaLinux 9 or any Linux distribution with Python and Pip available should be suitable."
+    },
+    {
+      "question": "How do I install the OpenStack CLI on the temporary migration host on Legacy Arbutus for the 'dd' method?",
+      "answer": "Log in to the instance via SSH and install the OpenStack CLI in a root shell using these commands: `dnf install epel-release`, `dnf install python-devel python-pip gcc`, and `pip install python-openstackclient`."
+    },
+    {
+      "question": "When using the Linux 'dd' method to migrate a volume-backed instance, what should be done with the original instance and its volume?",
+      "answer": "The instance to be moved should be deleted, but it is crucial NOT to delete the volume that was attached to it."
+    },
+    {
+      "question": "How do I attach the volume I intend to migrate to the temporary migration host on Legacy Arbutus?",
+      "answer": "Attach the volume to the temporary migration host by navigating to Volumes -> Volumes in the Legacy Arbutus Cloud web UI. Select 'Manage Attachments' from the volume's drop-down menu and attach it to the temporary migration host. Be sure to note the device it's attached as, typically /dev/vdb or /dev/vdc."
+    },
+    {
+      "question": "What command is used to create an image from an attached disk using the 'dd' utility and upload it to the New Arbutus Cloud?",
+      "answer": "Use the command `dd if=/dev/vdb | openstack image create --private --container-format bare --disk-format raw \"volumemigrate\"`. Replace `/dev/vdb` with the actual device path and `\"volumemigrate\"` with your preferred image name."
+    },
+    {
+      "question": "After creating an image using the 'dd' utility, how can it be used on the New Arbutus Cloud?",
+      "answer": "The newly created image will be visible under Compute -> Images in the New Arbutus Cloud web UI. This image can then be used to launch instances on Arbutus. Remember to create a new volume when launching the instance if persistent data storage is desired."
+    },
+    {
+      "question": "What is the recommended approach for migrating very large volumes?",
+      "answer": "For very large volumes, image-based methods are not recommended. It's advised to copy your data to new volumes on Arbutus using `rsync` or similar file copy tools wherever possible. In cases where this isn't feasible, such as for a bootable volume, the `dd` command can be used to create an identical copy."
+    },
+    {
+      "question": "What essential step should be taken before attempting to migrate large volumes using Linux 'dd'?",
+      "answer": "Always back up any important data prior to performing the migration steps."
+    },
+    {
+      "question": "What temporary instances are needed to migrate large volumes using Linux 'dd'?",
+      "answer": "You need to create a temporary instance on Legacy Arbutus (p1-1.5gb) and a corresponding temporary instance on the New Arbutus Cloud (also p1-1.5gb). Both instances must have floating IPs assigned for SSH access."
+    },
+    {
+      "question": "What packages should be installed on the temporary Legacy Arbutus instance for large volume 'dd' migration?",
+      "answer": "On the temporary Legacy Arbutus instance, you need to install `epel-release`, `pv`, and `screen` using `dnf install`."
+    },
+    {
+      "question": "What specific permission modification is required on the temporary New Arbutus instance for large volume 'dd' migration?",
+      "answer": "On the temporary New Arbutus instance, execute the command `chmod u+s /bin/dd`."
+    },
+    {
+      "question": "How do I set up secure SSH communication between the temporary instances for large volume 'dd' migration?",
+      "answer": "You need to copy the SSH private key used for logging in to the temporary New Arbutus instance to the temporary Legacy Arbutus instance. Additionally, ensure that SSH security rules are configured to permit the temporary Legacy Arbutus instance to SSH into the temporary New Arbutus instance."
+    },
+    {
+      "question": "What are the steps for preparing volumes for transfer when migrating large volumes using the 'dd' command?",
+      "answer": "For each volume you want to move, create an empty volume of the same size on New Arbutus (marking it bootable if it's a boot volume), and attach this new volume to the temporary instance on New Arbutus. Then, attach the volume you wish to copy from Legacy Arbutus to the temporary Legacy Arbutus instance. Note that you may need to delete the instance it was originally attached to, but you must NOT delete the volume itself."
+    },
+    {
+      "question": "What is the command to copy a large volume from Legacy Arbutus to New Arbutus using 'dd' over SSH?",
+      "answer": "On the temporary Legacy Arbutus instance, execute the following command within a `screen` session: `screen; sudo dd bs=16M if=/dev/vdb | pv -s 96G | ssh -i key.pem user@xxx.xx.xx.xx \"sudo dd bs=16M of=/dev/vdb\"`. Remember to substitute `/dev/vdb` with the source volume's device, `96G` with the volume size, `key.pem` with your SSH private key, `user` with the remote user, and `xxx.xx.xx.xx` with the New Arbutus instance's IP address."
+    }
+  ],
+  "generated_at": "2026-04-11T17:42:13.042945+00:00"
+}

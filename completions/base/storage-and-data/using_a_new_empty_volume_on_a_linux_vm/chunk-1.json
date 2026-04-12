@@ -1,0 +1,80 @@
+{
+  "doc_key": "base/using_a_new_empty_volume_on_a_linux_vm",
+  "level": "chunk",
+  "chunk_index": 1,
+  "qa_pairs": [
+    {
+      "question": "What is the purpose of the provided steps on most Linux distributions?",
+      "answer": "The provided steps can be used to partition, format, and mount a newly created volume on most Linux distributions."
+    },
+    {
+      "question": "When should the partition and format steps be skipped?",
+      "answer": "The partition and format steps should be skipped if the volume is not a newly created one, as they will result in data loss on that volume."
+    },
+    {
+      "question": "What steps should be followed if a volume is not newly created?",
+      "answer": "If a volume is not newly created, only the steps to mount the volume should be followed."
+    },
+    {
+      "question": "What command is used to create a partition on a volume?",
+      "answer": "The command `sudo fdisk /dev/vdb` is used to create a partition on a volume."
+    },
+    {
+      "question": "What sequence of commands should be used within `fdisk` to create a new primary partition?",
+      "answer": "To create a new primary partition within `fdisk`, use the sequence: `n` (new partition), `p` (primary), `1` (partition number), `<return>` (first sector default), `<return>` (last sector default), and `w` (write partition table and exit)."
+    },
+    {
+      "question": "What does the 'n' command signify when using `fdisk`?",
+      "answer": "The 'n' command signifies the creation of a new partition."
+    },
+    {
+      "question": "What does the 'w' command do within `fdisk`?",
+      "answer": "The 'w' command writes the partition table to the disk and exits `fdisk`."
+    },
+    {
+      "question": "How do you format a newly created partition as ext4?",
+      "answer": "You format a newly created partition as ext4 using the command `sudo mkfs -t ext4 /dev/vdb1`."
+    },
+    {
+      "question": "What command is used to create a mount point directory for a device?",
+      "answer": "The command `sudo mkdir /media/data` is used to create a place to mount the device."
+    },
+    {
+      "question": "What command is used to mount a volume?",
+      "answer": "The command `sudo mount /dev/vdb1 /media/data` is used to mount the volume."
+    },
+    {
+      "question": "What happens to a mounted volume if the VM is rebooted?",
+      "answer": "If the VM is rebooted for any reason, the volume will need to be remounted."
+    },
+    {
+      "question": "How can a VM be configured to mount a volume automatically at boot time?",
+      "answer": "To cause the VM to mount the volume automatically at boot time, you need to edit `/etc/fstab` and add a specific line."
+    },
+    {
+      "question": "What line should be added to `/etc/fstab` for automatic mounting of `/dev/vdb1` to `/media/data` as ext4?",
+      "answer": "The line `/dev/vdb1 /media/data ext4 defaults 0 2` should be added to `/etc/fstab`."
+    },
+    {
+      "question": "What command can be used to mount devices listed in `/etc/fstab` without rebooting?",
+      "answer": "If you are not rebooting, you can mount the device just added to `/etc/fstab` with the command `sudo mount -a`."
+    },
+    {
+      "question": "Why is it important to unmount a volume before detaching it?",
+      "answer": "Unmounting a volume before detaching it helps prevent data corruption."
+    },
+    {
+      "question": "What command is used to unmount a volume mounted at `/media/data`?",
+      "answer": "To unmount a volume mounted at `/media/data`, use the command `sudo umount /media/data`."
+    },
+    {
+      "question": "Under what condition will the `sudo umount` command fail?",
+      "answer": "The `sudo umount` command will fail if files are being accessed (read or written) by the operating system or any other program running on the VM."
+    },
+    {
+      "question": "What message indicates that a volume cannot be unmounted because it is in use?",
+      "answer": "If a volume cannot be unmounted because it is in use, you will receive a message letting you know that the volume is still busy."
+    }
+  ],
+  "generated_at": "2026-04-12T10:13:01.571622+00:00"
+}

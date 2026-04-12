@@ -1,0 +1,88 @@
+{
+  "doc_key": "en/data_management_at_trillium",
+  "level": "chunk",
+  "chunk_index": 5,
+  "qa_pairs": [
+    {
+      "question": "What is the purpose of the `diskUsage` command on SciNet?",
+      "answer": "The `diskUsage` command provides information on disk space usage for the home, scratch, project, and archive filesystems, including usage by yourself and your group, changes over time, and plots of usage over time."
+    },
+    {
+      "question": "How can I get help for the `diskUsage` command?",
+      "answer": "You can get help for the `diskUsage` command by using the `-h` or `-?` options, such as `diskUsage -h`."
+    },
+    {
+      "question": "How do I list the disk usage of all members in my group using `diskUsage`?",
+      "answer": "To list the disk usage of all members in your group, use the `-a` option with the `diskUsage` command, for example: `diskUsage -a`."
+    },
+    {
+      "question": "Can I check the disk usage as another user within my group?",
+      "answer": "Yes, you can check the disk usage as another user in your group by using the `-u <user>` option with the `diskUsage` command, for example: `diskUsage -u <username>`."
+    },
+    {
+      "question": "What command can I use to find directories with more than 1000 files?",
+      "answer": "You can use the `/scinet/niagara/bin/topUserDirOver1000list` command to check which of your directories contain more than 1000 files."
+    },
+    {
+      "question": "What command can I use to identify directories containing more than 1GB of material?",
+      "answer": "You can use the `/scinet/niagara/bin/topUserDirOver1GBlist` command to identify directories containing more than 1GB of material."
+    },
+    {
+      "question": "How often is information on usage and quota updated on SciNet?",
+      "answer": "Information on usage and quota is updated every 3 hours."
+    },
+    {
+      "question": "What is the purging policy for the `/scratch` filesystem?",
+      "answer": "Files in `/scratch` that have not been accessed or modified for more than 2 months are automatically deleted on the 15th of each month."
+    },
+    {
+      "question": "What reference is used to determine if a file in `/scratch` should be purged?",
+      "answer": "The purging policy uses the `MostRecentOf(atime,ctime)` as the cut-out reference to determine if a file in `/scratch` should be purged."
+    },
+    {
+      "question": "What should users do with files scheduled for deletion from `/scratch`?",
+      "answer": "If files are scheduled for deletion from `/scratch`, users should move them to more permanent locations such as their departmental server, `/project` space, or HPSS (for PIs with allocated storage)."
+    },
+    {
+      "question": "When are users notified about files scheduled for purging from `/scratch`?",
+      "answer": "Users receive an email notification on the first of each month with a list of files scheduled for purging. A second, more current assessment and email notification are sent around the 12th of each month."
+    },
+    {
+      "question": "How can I check if my files are scheduled for deletion from `/scratch`?",
+      "answer": "You can check if your files are scheduled for deletion by listing the contents of `/scratch/t/todelete/current` and using `grep` with your userid, for example: `ls -1 /scratch/t/todelete/current |grep xxyz`."
+    },
+    {
+      "question": "What information is included in the file listing files scheduled for deletion?",
+      "answer": "The file contains a list of all files scheduled for deletion and can be viewed with standard commands like `more`, `less`, or `cat`."
+    },
+    {
+      "question": "How can I check which files other users in my group have scheduled for deletion from `/scratch`?",
+      "answer": "You can verify files scheduled for deletion for other users in your group by using the `ls` command with `grep` on your group ID, for example: `ls -1 /scratch/t/todelete/current |grep abc`."
+    },
+    {
+      "question": "What happens if I change the access or modification time of a file scheduled for deletion before the purging date?",
+      "answer": "If a file's `atime` (access time) or `ctime` (change time) is updated before the purging date on the 15th, it will no longer be deleted, even if the change was not detected by an earlier assessment scan."
+    },
+    {
+      "question": "How can I immediately verify the `ctime` or `mtime` of a file?",
+      "answer": "You can immediately verify the `ctime` (change time) of a file using the `ls -lu` command and the `mtime` (modification time) using `ls -lc`."
+    },
+    {
+      "question": "What are the general methods for moving data to and from Trillium?",
+      "answer": "Data for analysis and final results can be moved to and from Trillium using `rsync`/`scp` or Globus."
+    },
+    {
+      "question": "How should I move data amounts less than 10GB using `rsync` or `scp`?",
+      "answer": "For amounts less than 10GB, you should move data through the login nodes by using `scp` or `rsync` to connect to any of `tri-dm{2,3,4}.scinet.utoronto.ca`."
+    },
+    {
+      "question": "What happens if I attempt to move more than 10GB of data through the login nodes?",
+      "answer": "Attempting to move amounts larger than approximately 10GB through the login nodes using `scp` or `rsync` will typically time out."
+    },
+    {
+      "question": "How should I move data amounts larger than 10GB using `rsync` or `scp`?",
+      "answer": "For amounts larger than 10GB, you should transfer data through the datamover nodes. You can SSH to `nia-datamover1` or `nia-datamover2` from a Trillium login node, or directly connect to `nia-datamover1.scinet.utoronto.ca` or `nia-datamover2.scinet.utoronto.ca` from outside SciNet."
+    }
+  ],
+  "generated_at": "2026-04-11T20:55:46.803808+00:00"
+}

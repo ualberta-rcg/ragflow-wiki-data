@@ -1,0 +1,196 @@
+{
+  "doc_key": "base/ssh_keys",
+  "level": "chunk",
+  "chunk_index": 9,
+  "qa_pairs": [
+    {
+      "question": "What is the foundation of SSH's security?",
+      "answer": "SSH relies on public key cryptography (PK) for its security."
+    },
+    {
+      "question": "How does public key cryptography work?",
+      "answer": "Public key cryptography is based on a key pair consisting of a private part, which must be kept secret, and a public part, which can be freely distributed. The public key encodes a message, and only the private part can decode it."
+    },
+    {
+      "question": "Why is public key cryptography sometimes called asymmetric encryption?",
+      "answer": "Public key cryptography is sometimes described as asymmetric encryption because the public key is used to encode a message, and a different, private key is required to decode it."
+    },
+    {
+      "question": "How does public key cryptography verify identities?",
+      "answer": "Public key cryptography can verify identities by having a second party send a message encoded with a person's public key. If the person can tell what is in the message, it proves they have access to the corresponding private key, thereby establishing their identity."
+    },
+    {
+      "question": "What common internet protocols are based on public key cryptography systems?",
+      "answer": "Public key cryptography systems are the basis for the SSL and TLS protocols that protect most internet traffic, such as HTTPS websites."
+    },
+    {
+      "question": "How is public key cryptography used in SSH on your systems?",
+      "answer": "On our systems, public key cryptography is used in SSH to ensure the client connects to the authentic server, to establish an encrypted session for secure traffic, and for the remote server to verify your identity to allow login."
+    },
+    {
+      "question": "What is the recommended method for connecting to your systems, and why?",
+      "answer": "We strongly recommend using public key cryptography (PK) to connect to our systems because it is almost always more secure than using a password."
+    },
+    {
+      "question": "What initial steps are required to use public key cryptography with SSH?",
+      "answer": "To use public key cryptography, you must generate a key pair and install the public key on the systems you intend to connect with."
+    },
+    {
+      "question": "Where should an SSH key pair be generated?",
+      "answer": "You should generate a key pair on your own system or on a system you believe is secure."
+    },
+    {
+      "question": "What should never be done with the private part of a key pair?",
+      "answer": "The private part of the key pair should never be shared or copied on another computer."
+    },
+    {
+      "question": "What is a passphrase in the context of generating an SSH key pair?",
+      "answer": "A passphrase is a string used to encrypt the private key when generating a key pair."
+    },
+    {
+      "question": "What kind of passphrase is recommended for an SSH key, and why?",
+      "answer": "A strong, memorable passphrase of 15 characters or more is recommended. This passphrase offers protection if the private key file is stolen."
+    },
+    {
+      "question": "Where can I find instructions for generating SSH keys for different operating systems or clients?",
+      "answer": "Instructions for generating SSH keys depend on the operating system: for Windows PuTTY or MobaXterm clients, see 'Generating SSH keys in Windows'; for Unix-like environments (Linux, Mac, WSL, Cygwin), see 'Using SSH keys in Linux'; and for OpenStack cloud, see the 'SSH key pair' section on the Cloud Quick Start page."
+    },
+    {
+      "question": "What is the purpose of installing an SSH key?",
+      "answer": "To install an SSH key, you must make the target or destination system aware of the public part of your key."
+    },
+    {
+      "question": "What is the convenient method introduced in March 2021 for installing an SSH key?",
+      "answer": "In March 2021, a convenient way to install an SSH key was added through CCDB."
+    },
+    {
+      "question": "How do I access the CCDB form to install my SSH public key?",
+      "answer": "You can go to https://ccdb.alliancecan.ca/ssh_authorized_keys or navigate via the CCDB menu."
+    },
+    {
+      "question": "How can I retrieve my SSH public key on Windows or Linux/MacOS?",
+      "answer": "On Windows, you can examine your public key by opening the file with Notepad. Under Linux/MacOS, you can enter `cat .ssh/id_rsa.pub` on the command line."
+    },
+    {
+      "question": "Can I use the example public key provided in the documentation?",
+      "answer": "No, you must generate your own pair of public and private keys; you cannot copy the example provided for your own use."
+    },
+    {
+      "question": "What should I do if my public key format is different, such as from PuTTY?",
+      "answer": "If your public key format is different (e.g., from PuTTY), you can open PuTTY Key Generator or MobaXterm SSH Key Generator, go to 'File --> Load private key', and grab the content under 'Public key for pasting into OpenSSH authorized_keys'."
+    },
+    {
+      "question": "What is the final step after grabbing my public key to install it via CCDB?",
+      "answer": "The final step is to upload your SSH public key into the CCDB form by pasting the public portion of your key and providing a description for it."
+    },
+    {
+      "question": "Where will my SSH key show up after I click 'Add Key' in CCDB?",
+      "answer": "After clicking 'Add Key', your SSH key will show up in the section below the form."
+    },
+    {
+      "question": "Are SSH keys loaded into CCDB accessible by OpenStack cloud systems?",
+      "answer": "No, our OpenStack cloud systems cannot access the keys entered in the CCDB."
+    },
+    {
+      "question": "How long does it typically take for changes to public keys to propagate to clusters via CCDB?",
+      "answer": "Changes to public keys will often propagate to clusters in a few minutes, but in some cases, it can take up to approximately 30 minutes."
+    },
+    {
+      "question": "What is an alternative method to install an SSH key on a specific system rather than on all HPC systems via CCDB?",
+      "answer": "An alternative method is to install a key only on a specific system by adding the public key to the `~/.ssh/authorized_keys` file in your /home directory on that system."
+    },
+    {
+      "question": "What is the most convenient command to install an SSH key using the `authorized_keys` file on systems with OpenSSH?",
+      "answer": "On our systems or any other with OpenSSH, the `ssh-copy-id` command is the most convenient way to do this, for example: `ssh-copy-id -i alliance-key username@fir.alliancecan.ca`."
+    },
+    {
+      "question": "Are there any caveats to using the `authorized_keys` mechanism for SSH keys?",
+      "answer": "Yes, SSH is quite picky about the permissions on the `authorized_keys` file, your /home directory, and the `.ssh` subdirectory. Support for this method might also eventually be withdrawn."
+    },
+    {
+      "question": "What is the purpose of an SSH key agent?",
+      "answer": "An SSH key agent is used to avoid having to enter your passphrase every time you use an encrypted private key, while still securing the private key. You type the passphrase once when starting the agent, and it then supplies the private key for new connections."
+    },
+    {
+      "question": "Why is using an SSH key agent recommended?",
+      "answer": "Using an SSH key agent is strongly suggested because it prevents the unencrypted private key from being stored on permanent storage, where it would be more vulnerable to theft or copying."
+    },
+    {
+      "question": "When generating an SSH key, where should the operation be performed?",
+      "answer": "The operation of generating a key should be performed on your own computer, not on a shared computer like a cluster."
+    },
+    {
+      "question": "How can you specify a comment for your SSH key during generation?",
+      "answer": "You can specify a comment for the key using the `-C` option with `ssh-keygen`, for example: `ssh-keygen -C 'Alliance systems'`."
+    },
+    {
+      "question": "How can you choose a custom name for your SSH key file?",
+      "answer": "You can choose the name of the key file using the `-f` option with `ssh-keygen`, for example: `ssh-keygen -f alliance-key`. This will produce `alliance-key` for the private part and `alliance-key.pub` for the public part."
+    },
+    {
+      "question": "What is required when logging in if you have used a custom name for your SSH key file?",
+      "answer": "If you name a key, you may have to use the `-i` option to specify the name of the key when logging in, like this: `ssh -i alliance-key user@host`."
+    },
+    {
+      "question": "How can you generate an SSH key with a different key type, such as ed25519?",
+      "answer": "You can choose a different key type using the `-t` option with `ssh-keygen`, for example: `ssh-keygen -t ed25519`."
+    },
+    {
+      "question": "How can you strengthen certain key types like RSA by setting a longer key length?",
+      "answer": "You can strengthen certain key types by setting a longer key length using the `-b` option with `ssh-keygen`, for example: `ssh-keygen -t rsa-sha2-512 -b 4096`."
+    },
+    {
+      "question": "What can SSH key constraints be used for?",
+      "answer": "SSH key constraints can be used to limit what a public key is allowed to do, rather than allowing it to perform any action by default."
+    },
+    {
+      "question": "Provide an example of an SSH public key constraint that limits it to a single operation.",
+      "answer": "An example is `restrict,command=\"squeue --me\" ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGhczaUoV6SzR2VEf9Rp4/P9xHVU8S72CKHrwKU+Yntx`, which allows the key to only perform the `squeue --me` operation."
+    },
+    {
+      "question": "How can an SSH key constraint limit its use to only SFTP?",
+      "answer": "An SSH key constraint can limit its use to only SFTP with `restrict,command=\"/usr/libexec/openssh/sftp-server\" ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGhczaUoV6SzR2VEf9Rp4/P9xHVU8S72CKHrwKU+Yntx`."
+    },
+    {
+      "question": "How can an SSH key constraint be used to enhance security by limiting which hosts can connect?",
+      "answer": "A key constraint can limit which hosts can connect using the key, for example: `restrict,from=\"d24-141-114-17.home.cgocable.net\" ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGhczaUoV6SzR2VEf9Rp4/P9xHVU8S72CKHrwKU+Yntx`. This minimizes the danger if the key is compromised."
+    },
+    {
+      "question": "What is a side effect of using the `restrict` keyword in an SSH key constraint, and how can it be avoided for interactive sessions?",
+      "answer": "The `restrict` keyword turns off `pty allocation`, which can make an interactive session behave peculiarly. For a source-constrained interactive session, `pty` can be added, such as `restrict,from=\"d24-141-114-17.home.cgocable.net\",pty ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGhczaUoV6SzR2VEf9Rp4/P9xHVU8S72CKHrwKU+Yntx`."
+    },
+    {
+      "question": "Where can one find documentation on the various SSH key constraints?",
+      "answer": "The large number of SSH key constraints are documented in the `sshd man` page (accessible by typing `man sshd` on a Linux system)."
+    },
+    {
+      "question": "What are some best practices for managing SSH key pairs?",
+      "answer": "Best practices include: making keys unique per user account, storing private keys securely on shared computers (or using external storage), encrypting private keys with strong passphrases (15+ characters), never sharing or copying private keys to remote systems, creating dedicated key pairs for multiple laptops, naming keys for easier management, using `ssh-agent` for convenience, using `ssh-askpass` with agent forwarding, and applying constraints to public keys."
+    },
+    {
+      "question": "What are common reasons for an SSH key to be revoked?",
+      "answer": "An SSH key may be revoked for reasons such as identified SSH key sharing or if its private component is believed to have been compromised through improper key management, theft, or a security breach."
+    },
+    {
+      "question": "What security risk does a compromised SSH key pose?",
+      "answer": "A compromised SSH key poses a significant security risk because a malicious actor may use it to gain unauthorized access to systems and sensitive data."
+    },
+    {
+      "question": "What mechanism does the Digital Research Alliance of Canada use to mitigate risks from compromised SSH keys?",
+      "answer": "The Digital Research Alliance of Canada maintains a Key Revocation List (KRL) to mitigate risks associated with compromised SSH keys."
+    },
+    {
+      "question": "What is the Key Revocation List (KRL)?",
+      "answer": "The Key Revocation List (KRL) is a registry of SSH keys that are no longer trusted or are considered invalid, preventing any key on the list from being used to access Alliance services."
+    },
+    {
+      "question": "What immediate actions should be taken if an SSH key is discovered to be revoked?",
+      "answer": "If an SSH key is revoked, it is imperative to replace it with a new one to ensure secure connection to Alliance services and to remove the revoked key from all services (Alliance or other) to prevent unauthorized access or data breaches."
+    },
+    {
+      "question": "Who should be contacted if there are concerns about an SSH key being listed on the Key Revocation List in error?",
+      "answer": "If you believe your SSH key has been listed on the Key Revocation List in error, or have related concerns or questions, you should contact Technical support for assistance."
+    }
+  ],
+  "generated_at": "2026-04-12T07:21:56.051785+00:00"
+}

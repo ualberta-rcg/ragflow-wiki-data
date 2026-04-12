@@ -1,0 +1,71 @@
+{
+  "doc_key": "en/fmriprep",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is fMRIPrep?",
+      "answer": "fMRIPrep is a NiPreps app used for preprocessing MRI data in BIDS format."
+    },
+    {
+      "question": "How do you load fMRIPrep on Alliance resources?",
+      "answer": "You load it by running `module load apptainer fmriprep`."
+    },
+    {
+      "question": "What technology does fMRIPrep use on the command line?",
+      "answer": "On the command line, fMRIPrep uses Apptainer to invoke a container."
+    },
+    {
+      "question": "How can users affect the Apptainer context when running fMRIPrep?",
+      "answer": "Users can affect the Apptainer context by using Apptainer environment variables."
+    },
+    {
+      "question": "Why is it necessary to manually download TemplateFlow templates for fMRIPrep?",
+      "answer": "fMRIPrep within the container will try to download TemplateFlow templates but will fail, so they must be downloaded in advance."
+    },
+    {
+      "question": "What modules and tool are needed to set up TemplateFlow?",
+      "answer": "You need to load `python` and `git-annex` modules, then install `datalad` with `pip3`."
+    },
+    {
+      "question": "How do you install the TemplateFlow metadataset?",
+      "answer": "You install it using `datalad install -r ///templateflow`."
+    },
+    {
+      "question": "Where does the TemplateFlow metadataset typically download to?",
+      "answer": "It downloads into a shared directory, such as `/lustre03/project/GROUPNAME/shared/templateflow`."
+    },
+    {
+      "question": "How do you download specific TemplateFlow template subsets, for example, MNI152NLin2009cAsym and OASIS30ANTs?",
+      "answer": "You change into the TemplateFlow directory and use `datalad get -r tpl-MNI152NLin2009cAsym tpl-OASIS30ANTs`."
+    },
+    {
+      "question": "How often are the TemplateFlow DataLad download steps required?",
+      "answer": "These DataLad steps only need to be done once per project group."
+    },
+    {
+      "question": "What environment variable points fMRIPrep to the TemplateFlow templates?",
+      "answer": "`APPTAINERENV_TEMPLATEFLOW_HOME` tells fMRIPrep where to find the TemplateFlow templates."
+    },
+    {
+      "question": "Which Apptainer environment variable specifies the directories to be mounted for fMRIPrep's input, output, and logs?",
+      "answer": "`APPTAINER_BIND` is used to specify the input, output, and logs directories for mounting within the container."
+    },
+    {
+      "question": "What is a significant consideration regarding path lengths when using fMRIPrep?",
+      "answer": "fMRIPrep does not accept very long paths, so directory and filenames should be kept short."
+    },
+    {
+      "question": "Provide an example command for running fMRIPrep.",
+      "answer": "An example command is `fmriprep /path/to/input /path/to/output participant --work-dir /path/to/output`."
+    },
+    {
+      "question": "What are the prerequisites for running fMRIPrep with FreeSurfer?",
+      "answer": "You must register with FreeSurfer, download the license file, and copy it to one of the directories specified in `APPTAINER_BIND`."
+    },
+    {
+      "question": "What fMRIPrep option is used to provide the FreeSurfer license file?",
+      "answer": "The `--fs-license-file` option is used to specify the FreeSurfer license file."
+    }
+  ],
+  "generated_at": "2026-04-11T21:27:48.519137+00:00"
+}

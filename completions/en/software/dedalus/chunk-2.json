@@ -1,0 +1,76 @@
+{
+  "doc_key": "en/dedalus",
+  "level": "chunk",
+  "chunk_index": 2,
+  "qa_pairs": [
+    {
+      "question": "How is the virtual environment created on each allocated node for a distributed Dedalus job?",
+      "answer": "The command `srun --ntasks $SLURM_NNODES --tasks-per-node=1 bash << EOF ... EOF` is used to create and set up the virtual environment on each allocated node."
+    },
+    {
+      "question": "What command is used to create the virtual environment within the job submission script?",
+      "answer": "The command `virtualenv --no-download $SLURM_TMPDIR/env` creates the virtual environment."
+    },
+    {
+      "question": "Where is the virtual environment typically created on each node in a Dedalus job script?",
+      "answer": "The virtual environment is created in the `$SLURM_TMPDIR/env` directory on each allocated node."
+    },
+    {
+      "question": "How is the virtual environment activated within the job submission script after its creation on each node?",
+      "answer": "The virtual environment is activated using `source $SLURM_TMPDIR/env/bin/activate`."
+    },
+    {
+      "question": "How is pip upgraded within the virtual environment as part of the job submission script?",
+      "answer": "Pip is upgraded using `pip install --no-index --upgrade pip`."
+    },
+    {
+      "question": "How are Dedalus and its Python dependencies installed within the virtual environment for a distributed job?",
+      "answer": "Dedalus and its dependencies are installed using `pip install --no-index -r dedalus-3.0.2-requirements.txt`."
+    },
+    {
+      "question": "What file specifies the requirements for installing Dedalus in the job script?",
+      "answer": "The file `dedalus-3.0.2-requirements.txt` specifies the requirements for installation."
+    },
+    {
+      "question": "On which node is the virtual environment activated for the main execution step?",
+      "answer": "It is activated only on the main node using `source $SLURM_TMPDIR/env/bin/activate;`."
+    },
+    {
+      "question": "What environment variable is set for OpenMP threads before running the Dedalus script?",
+      "answer": "The `OMP_NUM_THREADS` environment variable is set to `1`."
+    },
+    {
+      "question": "What environmental variables does `srun` export?",
+      "answer": "`srun` exports the current environment, which includes `$VIRTUAL_ENV` and `$PATH` variables."
+    },
+    {
+      "question": "How is the Dedalus Python script executed in a distributed job?",
+      "answer": "The script is executed using `srun python $SCRATCH/myscript.py;`."
+    },
+    {
+      "question": "Where is the Dedalus Python script expected to be located when run via `srun`?",
+      "answer": "The Dedalus Python script is expected to be located in the `$SCRATCH` directory, for example, `$SCRATCH/myscript.py`."
+    },
+    {
+      "question": "What is the next step after writing the job submission script?",
+      "answer": "The next step is to submit your job to the scheduler."
+    },
+    {
+      "question": "What is an important recommendation before submitting a job to the scheduler?",
+      "answer": "It is important to test that your submission script will start without errors."
+    },
+    {
+      "question": "How can one perform a quick test of the job submission script?",
+      "answer": "A quick test can be done in an interactive job."
+    },
+    {
+      "question": "What command is used to submit the Dedalus job script?",
+      "answer": "The command `sbatch submit-dedalus.sh` is used to submit the job."
+    },
+    {
+      "question": "What is a typical filename for the Dedalus job submission script?",
+      "answer": "A typical filename for the Dedalus job submission script is `submit-dedalus.sh`."
+    }
+  ],
+  "generated_at": "2026-04-11T21:08:14.067878+00:00"
+}

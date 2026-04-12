@@ -1,0 +1,88 @@
+{
+  "doc_key": "base/trillium_quickstart",
+  "level": "chunk",
+  "chunk_index": 10,
+  "qa_pairs": [
+    {
+      "question": "What is the purpose of the `--account` option when submitting a job on Trillium?",
+      "answer": "The `--account` option specifies the SLURM account to use for a job. For many users on Trillium, this is automatically handled."
+    },
+    {
+      "question": "How does Trillium handle memory requests specified with the `--mem` option?",
+      "answer": "Memory requests using the `--mem` option are ignored on Trillium. Instead, CPU jobs automatically receive N × 768 GiB of RAM (where N is the number of nodes), and GPU jobs get either 768 GiB for a full node or 188 GiB for a single-GPU job."
+    },
+    {
+      "question": "Where should `#SBATCH` options be placed in a job script?",
+      "answer": "These options should be put in separate comment lines at the top of the job script, after `#!/bin/bash`, and prefixed with `#SBATCH`."
+    },
+    {
+      "question": "Can `--account` and `--mem` options also be used with `salloc`?",
+      "answer": "Yes, these options can also be used as command line options for `salloc`."
+    },
+    {
+      "question": "Where can I find more detailed information about SLURM options?",
+      "answer": "More options and details can be found on the [[Running jobs]] page and in the official [https://slurm.schedmd.com/sbatch.html SLURM documentation]."
+    },
+    {
+      "question": "What factors determine job limits and waiting times on Trillium's CPU subcluster?",
+      "answer": "Job limits and waiting times depend on whether a user is part of a group with a RAC allocation, the partition the job runs in (e.g., `compute` or `debug`), the group's allocation amount, recent past usage, the number of requested nodes, walltime, and the number of other jobs in the queue."
+    },
+    {
+      "question": "What is the default partition for jobs submitted on the CPU subcluster if none is specified?",
+      "answer": "If you do not specify a partition, your job will run in the `compute` partition, which is the most common case."
+    },
+    {
+      "question": "What are the limits for running and submitted jobs in the `compute` partition on the CPU subcluster?",
+      "answer": "In the `compute` partition, users are limited to 150 running jobs and 500 submitted jobs (including running ones)."
+    },
+    {
+      "question": "What is the minimum job size for compute jobs in the `compute` partition on the CPU subcluster?",
+      "answer": "The minimum job size for compute jobs in the `compute` partition is 1 node (192 cores)."
+    },
+    {
+      "question": "What is the maximum job size for compute jobs in the `compute` partition on the CPU subcluster?",
+      "answer": "The maximum job size is 10 nodes (1920 cores) by default, and 128 nodes (24576 cores) for groups with an allocation."
+    },
+    {
+      "question": "What is the minimum walltime for jobs in the `compute` partition on the CPU subcluster?",
+      "answer": "The minimum walltime for jobs in the `compute` partition is 15 minutes."
+    },
+    {
+      "question": "What is the maximum walltime for jobs in the `compute` partition on the CPU subcluster?",
+      "answer": "The maximum walltime for jobs in the `compute` partition is 24 hours."
+    },
+    {
+      "question": "What are the limits for testing or troubleshooting jobs in the `debug` partition on the CPU subcluster?",
+      "answer": "For `debug` jobs, the limit is 1 running job and 1 submitted job (including running). The minimum size is 1 node (192 cores), and the maximum size is 2 nodes (384 cores). The walltime limit is 1 hour."
+    },
+    {
+      "question": "How do I submit an MPI job on the Trillium CPU subcluster?",
+      "answer": "You submit an MPI job from a CPU login node while in your `$SCRATCH` directory using the command `sbatch jobscript.sh`, where `jobscript.sh` is your job script."
+    },
+    {
+      "question": "What does `#!/bin/bash` at the beginning of a job script signify?",
+      "answer": "The line `#!/bin/bash` indicates that the script is a Bash script."
+    },
+    {
+      "question": "What information do `#SBATCH` lines provide to SLURM in a job script?",
+      "answer": "Lines starting with `#SBATCH` are directives that provide job requests to SLURM, such as the number of nodes, tasks per node, time limit, job name, output file, and email notification type."
+    },
+    {
+      "question": "In the MPI job example, what does `cd $SLURM_SUBMIT_DIR` do?",
+      "answer": "The command `cd $SLURM_SUBMIT_DIR` changes the current directory to the directory from which the job was submitted."
+    },
+    {
+      "question": "Which modules are loaded in the MPI job example provided?",
+      "answer": "The MPI job example loads `StdEnv/2023`, `gcc/12.3`, and `openmpi/4.1.5`."
+    },
+    {
+      "question": "What is the purpose of `source /scinet/vast/etc/vastpreload-openmpi.bash` in an MPI job script?",
+      "answer": "This command preloads a library that tunes MPI-IO for the VAST file system. It is important if you are performing MPI-IO."
+    },
+    {
+      "question": "Why is it important to use `mpirun` instead of `srun` when using the VAST preload library for MPI-IO?",
+      "answer": "The VAST preload library only takes effect when `mpirun` is used; it does not work with `srun`."
+    }
+  ],
+  "generated_at": "2026-04-12T09:42:29.769155+00:00"
+}

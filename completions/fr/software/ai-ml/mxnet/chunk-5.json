@@ -1,0 +1,48 @@
+{
+  "doc_key": "fr/mxnet",
+  "level": "chunk",
+  "chunk_index": 5,
+  "qa_pairs": [
+    {
+      "question": "À quoi sert la variable `train_loader` dans le code fourni?",
+      "answer": "La variable `train_loader` est utilisée pour créer un chargeur de données (`DataLoader`) qui gère l'accès à l'ensemble de données d'entraînement (`dataset_train`), en le divisant en lots (`batch_size`), en les mélangeant (`shuffle`) et en utilisant potentiellement plusieurs processus (`num_workers`)."
+    },
+    {
+      "question": "Quel est le but de la liste `perf`?",
+      "answer": "La liste `perf` est initialisée vide au début de la boucle d'entraînement et sert à enregistrer la performance mesurée en 'images_per_sec' (images traitées par seconde) pour chaque lot d'entraînement."
+    },
+    {
+      "question": "Pourquoi les `inputs` et `targets` sont-ils transférés au `ctx` (contexte) avant le début de l'entraînement de chaque lot?",
+      "answer": "Les `inputs` et `targets` sont transférés au contexte (`ctx`) pour s'assurer qu'ils sont placés sur le bon appareil (CPU ou GPU) où les calculs seront effectués, ce qui est essentiel pour une exécution efficace."
+    },
+    {
+      "question": "Quel est le rôle de `with autograd.record():` dans la boucle d'entraînement?",
+      "answer": "Le bloc `with autograd.record():` est utilisé pour enregistrer toutes les opérations effectuées à l'intérieur de ce bloc. Cela permet à MXNet de calculer automatiquement les gradients lors de l'étape de rétropropagation (`loss.backward()`)."
+    },
+    {
+      "question": "Comment la perte (`loss`) est-elle calculée pour un lot d'entraînement?",
+      "answer": "La perte (`loss`) est calculée en appliquant la fonction de critère (`criterion`) aux sorties du réseau de neurones (`outputs`) et aux cibles réelles (`targets`)."
+    },
+    {
+      "question": "Qu'est-ce qui se passe après l'appel à `loss.backward()`?",
+      "answer": "Après l'appel à `loss.backward()`, les gradients de la perte sont calculés par rapport à tous les paramètres entraînables du réseau. Ensuite, le `trainer.step()` est appelé pour mettre à jour les paramètres du réseau en utilisant ces gradients et la taille du lot (`args.batch_size`)."
+    },
+    {
+      "question": "Comment la performance en 'images par seconde' est-elle calculée pour chaque lot?",
+      "answer": "La performance en 'images par seconde' (`images_per_sec`) est calculée en divisant la taille du lot (`args.batch_size`) par le temps pris pour traiter ce lot (`batch_time`), qui est mesuré entre `start = time.time()` et `batch_time = time.time() - start`."
+    },
+    {
+      "question": "Quelle information est affichée à la fin de chaque itération de la boucle d'entraînement?",
+      "answer": "À la fin de chaque itération de la boucle d'entraînement, la 'Current Loss' (perte actuelle) est affichée en utilisant `print(f\"Current Loss: {loss.mean().asscalar()}\")`."
+    },
+    {
+      "question": "Quelle est la dernière information affichée par le script une fois que la boucle d'entraînement est terminée?",
+      "answer": "Une fois que la boucle d'entraînement est terminée, le script affiche la moyenne des images traitées par seconde (`np.mean(perf)`) pour toutes les itérations, avec la ligne `print(f\"Images processed per second: {np.mean(perf)}\")`."
+    },
+    {
+      "question": "Quand la fonction `main()` de ce script est-elle exécutée?",
+      "answer": "La fonction `main()` est exécutée automatiquement lorsque le script Python est lancé directement, grâce à la construction `if __name__=='__main__': main()`."
+    }
+  ],
+  "generated_at": "2026-04-12T02:08:10.422809+00:00"
+}

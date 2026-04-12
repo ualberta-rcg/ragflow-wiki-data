@@ -1,0 +1,76 @@
+{
+  "doc_key": "fr/r",
+  "level": "chunk",
+  "chunk_index": 9,
+  "qa_pairs": [
+    {
+      "question": "Comment s'assurer que les ressources sont bien libérées après avoir utilisé `makeCluster` avec `doParallel`?",
+      "answer": "Pour libérer les ressources, il est important d'appeler la fonction `stopCluster(cl)` à la fin de l'exécution."
+    },
+    {
+      "question": "Quel est le nom du script Slurm fourni en exemple pour l'exécution de `doParallel` avec `makeCluster`?",
+      "answer": "Le script Slurm d'exemple pour cette configuration s'appelle `job_makecluster.sh`."
+    },
+    {
+      "question": "Dans le script `job_makecluster.sh`, comment exporte-t-on les noms des nœuds de calcul?",
+      "answer": "On exporte les noms des nœuds en utilisant la commande `export NODESLIST=$(echo $(srun hostname | cut -f 1 -d '.'))`."
+    },
+    {
+      "question": "Si l'ordonnanceur place tous les processus sur un seul nœud, comment forcer l'exécution sur des nœuds différents avec `doParallel` et `makeCluster`?",
+      "answer": "Pour distribuer les processus sur des nœuds différents, il faut ajouter la ligne `#SBATCH --ntasks-per-node=2` au script de soumission Slurm."
+    },
+    {
+      "question": "Quelle commande utilise-t-on pour soumettre le script `job_makecluster.sh`?",
+      "answer": "On soumet le script avec la commande `sbatch job_makecluster.sh`."
+    },
+    {
+      "question": "À quoi sert le paquet Rmpi?",
+      "answer": "Rmpi est une interface (aussi appelée 'wrapper') pour les routines MPI qui permet d'exécuter du code R en parallèle."
+    },
+    {
+      "question": "Quelle est la première étape pour installer Rmpi?",
+      "answer": "La première étape consiste à consulter la liste des modules R disponibles en utilisant la commande `module spider r`."
+    },
+    {
+      "question": "Quels modules doit-on charger avant de procéder à l'installation de Rmpi?",
+      "answer": "Il faut charger les modules `gcc`, `openmpi` et la version de `r` désirée, par exemple : `module load gcc/12.3`, `module load openmpi/4.1.5` et `module load r/4.5.0`."
+    },
+    {
+      "question": "Comment télécharger la dernière version du paquet Rmpi?",
+      "answer": "On peut télécharger la dernière version en utilisant la commande `wget https://cran.r-project.org/src/contrib/Rmpi_0.7-3.3.tar.gz`, en s'assurant de remplacer le numéro de version au besoin."
+    },
+    {
+      "question": "Comment spécifier le répertoire d'installation local pour Rmpi et s'assurer d'avoir les permissions d'écriture nécessaires?",
+      "answer": "Il faut créer le répertoire, par exemple avec `mkdir -p ~/local/R_libs/`, puis définir la variable d'environnement `R_LIBS` pour qu'elle pointe vers ce répertoire, comme `export R_LIBS=~/local/R_libs/`."
+    },
+    {
+      "question": "Quelle commande faut-il exécuter pour installer Rmpi après avoir téléchargé le fichier et configuré les modules?",
+      "answer": "La commande d'installation est `R CMD INSTALL --configure-args=\"--with-Rmpi-include=$EBROOTOPENMPI/include --with-Rmpi-libpath=$EBROOTOPENMPI/lib --with-Rmpi-type='OPENMPI' \" Rmpi_0.7-3.3.tar.gz`."
+    },
+    {
+      "question": "Que devrais-je faire si l'installation d'un paquet Rmpi échoue?",
+      "answer": "Il faut lire attentivement le message d'erreur, car il peut donner des indices sur d'autres modules qui pourraient être nécessaires pour la compilation."
+    },
+    {
+      "question": "Quel est le nom du fichier de script R fourni comme exemple pour l'exécution de Rmpi?",
+      "answer": "Le fichier de script R fourni en exemple pour Rmpi s'appelle `test.R`."
+    },
+    {
+      "question": "Quel est le nom du script de soumission Slurm utilisé pour exécuter l'exemple Rmpi?",
+      "answer": "Le script de soumission Slurm pour l'exemple Rmpi est nommé `job.sh`."
+    },
+    {
+      "question": "Dans le script `job.sh` pour Rmpi, combien de processus MPI sont demandés?",
+      "answer": "Le script demande 5 processus MPI, tel qu'indiqué par `#SBATCH --ntasks=5`."
+    },
+    {
+      "question": "Quelle commande est utilisée pour démarrer l'exécution du script Rmpi `test.R` via MPI?",
+      "answer": "On utilise la commande `mpirun -np 1 R CMD BATCH test.R test.txt`."
+    },
+    {
+      "question": "Comment soumettre la tâche `job.sh` pour l'exécution de Rmpi?",
+      "answer": "Il faut utiliser la commande `sbatch job.sh` pour soumettre la tâche."
+    }
+  ],
+  "generated_at": "2026-04-12T06:17:09.581682+00:00"
+}

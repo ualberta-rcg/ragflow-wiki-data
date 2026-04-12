@@ -1,0 +1,60 @@
+{
+  "doc_key": "fr/scratch_purging_policy",
+  "level": "chunk",
+  "chunk_index": 2,
+  "qa_pairs": [
+    {
+      "question": "Qu'arrive-t-il à la liste des fichiers à purger si j'accède à des fichiers, les lis, les déplace ou les supprime entre le 1er et le 11 du mois?",
+      "answer": "Si vous interagissez avec des fichiers entre le 1er et le 11 du mois, aucune modification ne sera faite à la liste avant le 12."
+    },
+    {
+      "question": "Dans quelle situation mes fichiers ne sont pas susceptibles d'être purgés, même si mon nom était sur la liste des fichiers à supprimer?",
+      "answer": "Si un fichier avec votre nom existait sur la liste avant le 11 mais plus le 12, aucun de vos fichiers n'est susceptible d'être purgé."
+    },
+    {
+      "question": "Que dois-je faire si j'accède à des fichiers, les lis, les déplace ou les supprime après le 12 du mois, alors qu'ils pourraient être purgés?",
+      "answer": "Vous devrez confirmer si ces fichiers peuvent ou non être purgés le 15."
+    },
+    {
+      "question": "Comment est déterminé l'âge d'un fichier sur les grappes?",
+      "answer": "L'âge d'un fichier est déterminé par la plus récente valeur entre son `atime` (le moment du dernier accès) et son `ctime` (le moment de la dernière modification)."
+    },
+    {
+      "question": "Quelle commande puis-je utiliser pour connaître les valeurs `atime` et `ctime` d'un fichier?",
+      "answer": "Vous pouvez obtenir ces valeurs avec la commande `stat <filename>`."
+    },
+    {
+      "question": "Pourquoi la valeur `mtime` n'est-elle pas utilisée pour déterminer l'âge d'un fichier?",
+      "answer": "La valeur `mtime` n'est pas utilisée car elle peut désigner une date lointaine dans le passé qui a été modifiée par l'utilisateur ou par des programmes comme Git ou Make."
+    },
+    {
+      "question": "Est-il possible de fausser l'âge des fichiers pour éviter qu'ils soient purgés?",
+      "answer": "Oui, il est possible de fausser l'âge des fichiers avec l'exécution périodique de la commande récursive `touch`."
+    },
+    {
+      "question": "L'équipe technique peut-elle détecter les utilisateurs qui tentent de fausser l'âge de leurs fichiers?",
+      "answer": "Oui, notre équipe technique dispose de moyens pour détecter ce genre de pratique."
+    },
+    {
+      "question": "Que se passe-t-il si un utilisateur est détecté en train de fausser l'âge de ses fichiers dans l'espace /scratch?",
+      "answer": "Les utilisateurs qui s'y prêtent seront priés de retirer ces fichiers de l'espace /scratch."
+    },
+    {
+      "question": "Quelles commandes sont habituellement suffisantes pour copier des données de /scratch vers un projet?",
+      "answer": "Dans la plupart des cas, les commandes `cp` ou `rsync` seront suffisantes."
+    },
+    {
+      "question": "Quel est le problème si je copie un dossier contenant des liens symboliques (symlinks) de /scratch vers mon projet avec `cp` ou `rsync`?",
+      "answer": "Les liens symboliques copiés poseront problème parce qu'ils continueront de pointer vers /scratch."
+    },
+    {
+      "question": "Comment puis-je copier un dossier avec des liens symboliques de manière sécuritaire de /scratch vers mon projet?",
+      "answer": "Pour éviter des problèmes, vous pouvez utiliser la commande `tar` pour faire une archive de vos fichiers sur /scratch, et ensuite l'extraire dans votre projet."
+    },
+    {
+      "question": "Quelle est la séquence de commandes suggérée pour copier un dossier avec des liens symboliques de /scratch vers un projet en utilisant `tar`?",
+      "answer": "Vous pouvez le faire d'un seul coup avec les commandes suivantes : `cd /scratch/.../your_data`, `mkdir project/.../your_data`, puis `tar -cf - ./* | tar -C /project/.../your_data -xf -`."
+    }
+  ],
+  "generated_at": "2026-04-12T07:46:03.842430+00:00"
+}

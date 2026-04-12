@@ -5,26 +5,38 @@ lang: "base"
 
 source_wiki_title: "Uv"
 source_hash: "f2f9d8f57d26951a4c850e3b5a6cc22e"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T12:30:09.386409+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T12:29:52.215244+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "uv"
+  - "Python package manager"
+  - "pip"
+  - "not supported"
+  - "cache"
+
+questions:
+  - "Why is the uv package manager currently not supported on the clusters and what specific issues might arise from using it?"
+  - "What is the recommended tool and version for installing Python packages on the clusters instead of uv?"
+  - "How can users clear the uv cache and configure the tool to avoid using the cache in the future?"
+  - "Why is the uv package manager currently not supported on the clusters and what specific issues might arise from using it?"
+  - "What is the recommended tool and version for installing Python packages on the clusters instead of uv?"
+  - "How can users clear the uv cache and configure the tool to avoid using the cache in the future?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
 !!! warning "Not supported"
-uv is currently **not** supported on our clusters.
+    uv is currently **not** supported on our clusters.
 
 uv is an extremely fast Python package and project manager written in Rust. While you may be able to use it to install some packages, it will likely fail for others.
 

@@ -1,0 +1,100 @@
+{
+  "doc_key": "base/cryosparc",
+  "level": "chunk",
+  "chunk_index": 2,
+  "qa_pairs": [
+    {
+      "question": "Where is CryoSPARC installed within the container?",
+      "answer": "CryoSPARC is installed in `/usr/local/cryosparc` within the container."
+    },
+    {
+      "question": "Where is the CryoSPARC database stored?",
+      "answer": "The CryoSPARC database is stored at `${HOST_PATH}/database`."
+    },
+    {
+      "question": "What is the path for the CryoSPARC worker?",
+      "answer": "The path for the CryoSPARC worker is `${INSTALL_PATH}/cryosparc_worker`."
+    },
+    {
+      "question": "Which path is used for SSD operations during CryoSPARC installation?",
+      "answer": "The path `/tmp` is used for SSD operations during CryoSPARC installation."
+    },
+    {
+      "question": "What utilities are installed during the CryoSPARC container build process?",
+      "answer": "`vim`, `wget`, `curl`, and `iproute2` are installed during the CryoSPARC container build process."
+    },
+    {
+      "question": "Which script is executed to install CryoSPARC within the container?",
+      "answer": "The `./install.sh` script located in `${INSTALL_PATH}/cryosparc_master` is executed to install CryoSPARC."
+    },
+    {
+      "question": "What port does the CryoSPARC installation script use by default?",
+      "answer": "The CryoSPARC installation script uses port `61000`."
+    },
+    {
+      "question": "What information is required to set up the initial CryoSPARC login during installation?",
+      "answer": "The initial email, username, first name, last name, and password are required to set up the CryoSPARC login during installation."
+    },
+    {
+      "question": "What command is used to build the CryoSPARC container image?",
+      "answer": "The command `apptainer build -B $HOST_PATH -B $SLURM_TMPDIR:/tmp --nv cryosparc.sif cryosparc.def` is used to build the CryoSPARC container image."
+    },
+    {
+      "question": "What is the name of the script used to launch CryoSPARC in a batch GPU job?",
+      "answer": "The script used to launch CryoSPARC in a batch GPU job is named `run_cryosparc.sh`."
+    },
+    {
+      "question": "What SLURM resources are requested by the `run_cryosparc.sh` script for a CryoSPARC job?",
+      "answer": "The `run_cryosparc.sh` script requests one node, one task, 8 CPUs per task, 64000M of memory, and one h100 GPU."
+    },
+    {
+      "question": "What is the time limit specified for the CryoSPARC batch job in `run_cryosparc.sh`?",
+      "answer": "The time limit specified for the CryoSPARC batch job is 3 hours (`3:00:00`)."
+    },
+    {
+      "question": "How can a user receive email notifications for their CryoSPARC batch job?",
+      "answer": "A user can receive email notifications by setting the `--mail-user` and `--mail-type=ALL` options in the `run_cryosparc.sh` script."
+    },
+    {
+      "question": "What command is used to start the CryoSPARC Apptainer instance?",
+      "answer": "The command `apptainer instance start --nv -B ${HOST_PATH} -B $SLURM_TMPDIR:/tmp ${HOST_PATH}/cryosparc.sif cryosparc-master` is used to start the CryoSPARC Apptainer instance."
+    },
+    {
+      "question": "How do you start the CryoSPARC master process once the Apptainer instance is running?",
+      "answer": "You start the CryoSPARC master process with `apptainer exec instance://cryosparc-master /usr/local/cryosparc/cryosparc_master/bin/cryosparcm start`."
+    },
+    {
+      "question": "What command should a user run in their PC terminal to access the CryoSPARC graphical interface?",
+      "answer": "To access the CryoSPARC graphical interface, a user should run `ssh -N -L 61000:$HOSTNAME:61000 ${USER}@fir.alliancecan.ca` in their PC terminal."
+    },
+    {
+      "question": "What credentials are used to log in to the CryoSPARC graphical interface?",
+      "answer": "The email and password set up in `cryosparc.def` are used to log in to the CryoSPARC graphical interface."
+    },
+    {
+      "question": "How can a user cancel a CryoSPARC batch job after it's finished?",
+      "answer": "A user can cancel a CryoSPARC batch job by running `scancel ${SLURM_JOB_ID}`."
+    },
+    {
+      "question": "What actions should a user take after their CryoSPARC job is complete?",
+      "answer": "After the job is complete, the user should check the output files and cancel the Slurm job with `scancel` to prevent it from reaching the walltime limit."
+    },
+    {
+      "question": "What command updates the `CRYOSPARC_MASTER_HOSTNAME` in `cryosparc_master/config.sh`?",
+      "answer": "The command `sed -i \"s/^export CRYOSPARC_MASTER_HOSTNAME=.*/export CRYOSPARC_MASTER_HOSTNAME=\\\"$(hostname -f)\\\"/\" cryosparc_master/config.sh` updates the hostname in the `config.sh` file."
+    },
+    {
+      "question": "Why are symbolic links created for `config.sh`, `run`, and `registry` after installation?",
+      "answer": "Symbolic links are created to point from the installation path (`${INSTALL_PATH}`) to the host path (`$HOST_PATH`) for `config.sh`, `run`, and `registry`, allowing for persistent storage outside the container."
+    },
+    {
+      "question": "What needs to be replaced in the `run_cryosparc.sh` script before submission?",
+      "answer": "The `export HOST_PATH=/path/to/cryosparc` variable needs to be replaced with the actual path specified in Step 2."
+    },
+    {
+      "question": "What should the user do once the CryoSPARC graphical interface is open in their local browser?",
+      "answer": "The user should use the interface to set up their CryoSPARC job and launch the worker."
+    }
+  ],
+  "generated_at": "2026-04-11T20:30:13.519241+00:00"
+}

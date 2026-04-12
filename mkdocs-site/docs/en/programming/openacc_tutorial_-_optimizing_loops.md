@@ -5,37 +5,92 @@ lang: "en"
 
 source_wiki_title: "OpenACC Tutorial - Optimizing loops/en"
 source_hash: "70077efcf547a4cfcfde7e3a7b44691e"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T09:26:54.999810+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T09:56:44.382348+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "collapse(N) clause"
+  - "nested loops"
+  - "OpenACC"
+  - "levels of parallelism"
+  - "device_type"
+  - "...]) clause"
+  - "Examine Individual Kernels"
+  - "Laplace Equation"
+  - "gang worker vector"
+  - "optimizing loops"
+  - "Examine GPU Usage"
+  - "[M"
+  - "Analysis tab"
+  - "vector worker gang"
+  - "GPU occupancy"
+  - "parallelism"
+  - "Kernel Analysis"
+  - "tile(N"
+  - "profiler warnings"
+  - "parallelizing"
+  - "GPU"
+  - "Bonus exercise"
+  - "worker"
+  - "vector length"
+  - "Jacobi method"
+  - "parallelization"
+  - "gang"
+  - "loop"
+  - "NVidia Visual Profiler"
+  - "vector"
+  - "optimization clauses"
+  - "compiler feedback"
+
+questions:
+  - "Why might the compiler's default parallelization strategy, such as using vector(128), result in wasted computation for certain data structures?"
+  - "What are the three levels of parallelism in OpenACC, and how do they conceptually map to CUDA's architecture?"
+  - "How can a programmer use OpenACC clauses to explicitly control the level of parallelism for a loop, and what order must be followed when applying multiple clauses?"
+  - "What are the four clauses available to control loop execution, and what specific type of parallelism does each apply?"
+  - "How can a loop be configured to run sequentially without any parallelism?"
+  - "What is the required order of specification when applying multiple parallelism clauses to a single loop?"
+  - "How does the `device_type` clause function in OpenACC, and what are the hardware limitations when specifying the size of parallelism levels like vectors and gangs on NVidia GPUs?"
+  - "How does the syntax for controlling vector length differ when using the `kernels` directive versus the `parallel loop` directive?"
+  - "What steps should be followed in the NVidia Visual Profiler to perform a guided analysis and identify potential performance improvements in the code?"
+  - "According to the profiler analysis, what specific metrics indicate that the GPU is underutilized, and how does this relate to the size of the gangs?"
+  - "How can the OpenACC directives be modified to increase the gang size and improve performance by adjusting the number of workers?"
+  - "What are the purposes of the collapse(N) and tile(N,[M,...]) clauses, and in what scenarios are they most useful for optimizing loops?"
+  - "How do you initiate a new session in the NVidia Visual Profiler?"
+  - "What kind of feedback is provided after running the \"Examine GPU Usage\" analysis?"
+  - "What information is displayed when you click on \"Examine Individual Kernels\"?"
+  - "What mathematical equation and numerical method does the code in the bonus folder solve?"
+  - "Which programming standard is recommended to port the Jacobi iteration code to the GPU?"
+  - "What specific outcome should you evaluate after successfully porting the code?"
+  - "What is the effect of applying the collapse(N) clause to a loop directive, and in what situations is it most beneficial?"
+  - "How does the tile(N,[M,...]) clause process loops before they are parallelized?"
+  - "Why is high data locality an important factor when considering the use of the tile clause for loop optimization?"
+  - "What mathematical equation and numerical method does the code in the bonus folder solve?"
+  - "Which programming standard is recommended to port the Jacobi iteration code to the GPU?"
+  - "What specific outcome should you evaluate after successfully porting the code?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
 !!! info "Learning objectives"
-
-*   Understand the various levels of parallelism on a GPU
-*   Understand compiler messages telling how parallelization was performed.
-*   Learn how to get optimization advice from the visual profiler
-*   Learn how to tell the compiler what parameters to use for parallelization.
+* Understand the various levels of parallelism on a GPU
+* Understand compiler messages telling how parallelization was performed.
+* Learn how to get optimization advice out of the visual profiler
+* Learn how to tell the compiler what parameters to use for parallelization.
 
 ## Being smarter than the compiler
-
 So far, the compiler did a pretty good job. We obtained a gain of about 3 in performance in the previous steps, compared to the CPU performance. It is now time to look more closely at how the compiler parallelized our code and see if we can give it some tips. In order to do so, we will need to understand the different levels of parallelism that can be used in OpenACC, and more specifically with an NVidia GPU. But first, let's look at some compiler feedback that we got while compiling the latest version (in steps2.kernels).
 
 ```bash
-pgc++ -fast -ta=tesla,lineinfo -Minfo=all,intensity,ccff -c -o main.o main.cpp
+pgc++ -fast -ta=tesla,lineinfo -Minfo=all,intensity,ccff   -c -o main.o main.cpp
 ```
 
 ```text
@@ -63,52 +118,43 @@ waxpby(double, const vector &, double, const vector &, const vector &):
               Generating Tesla code
               44, #pragma acc loop gang, vector(128) /* blockIdx.x threadIdx.x */
 ```
-
-Note that each loop is parallelized using `vector(128)`. This means that the compiler generated instructions for chunks of data of length 128. This is where the programmer has an advantage over the compiler. Indeed, if you look in the file `matrix.h`, you will see that each row of the matrix has 27 elements. This means that the compiler generated instructions which waste computation on 101 elements. We will see how to fix that below.
+Note that each loop is parallelized using `vector(128)`. This means that the compiler generated instructions for a chunk of data of length 128. This is where the programmer has an advantage over the compiler. Indeed, if you look in the file `matrix.h`, you will see that each row of the matrix has 27 elements. This means that the compiler generated instructions which waste computation on 101 elements. We will see how to fix that below.
 
 ## Levels of parallelism OpenACC
-
 There are three levels of parallelism that can be used in OpenACC. They are called `vector`, `worker`, and `gang`.
 
-*   `vector` threads perform a single operation on multiple data (SIMD) in a single step. If there are fewer data than the length of the vector, the operation is still performed on null values and the result is discarded.
-*   A `worker` computes one `vector`.
-*   A `gang` comprises one or multiple `worker`s. All `worker`s within a `gang` can share resources, such as cache memory or processor. Multiple `gang`s run completely independently.
+* `vector` threads perform a single operation on multiple data (SIMD) in a single step. If there are fewer data than the length of the vector, the operation is still performed on null values and the result is discarded.
+* A `worker` computes one `vector`.
+* A `gang` comprises one or multiple `worker`s. All `worker`s within a `gang` can share resources, such as cache memory or processor. Multiple `gang`s run completely independently.
 
 !!! note "Correspondence between OpenACC and CUDA"
-    Because OpenACC is meant as a language for generic accelerators, there is no direct mapping to CUDA's threads, blocks and warps. Version 2.0 of the standard only states that `gang` must be the outermost level of parallelism, while `vector` must be the innermost level. The mapping is actually left to the compiler. However, while knowing there may be exceptions, you can think of the following mapping to be applicable:
-    *   OpenACC `vector` => CUDA threads
-    *   OpenACC `worker` => CUDA warps
-    *   OpenACC `gang` => CUDA thread blocks
+    Because OpenACC is meant as a language for generic accelerators, there is no direct mapping to CUDA's threads, blocks, and warps. Version 2.0 of the standard only states that `gang` must be the outermost level of parallelism, while `vector` must be the innermost level. The mapping is actually left to the compiler. However, while knowing there may be exceptions, you can think of the following mapping to be applicable:
+    * OpenACC `vector` => CUDA threads
+    * OpenACC `worker` => CUDA warps
+    * OpenACC `gang` => CUDA thread blocks
 
 ## OpenACC clauses to control parallelism
-
 The `loop` can be used with specific clauses to control the level of parallelism that the compiler should use to parallelize the next loop. The following clauses can be used:
-
-*   `gang` will apply `gang`-level parallelism to the loop
-*   `worker` will apply `worker`-level parallelism to the loop
-*   `vector` will apply `vector`-level parallelism to the loop
-*   `seq` will run the loop sequentially, without parallelism
-
+* `gang` will apply `gang`-level parallelism to the loop
+* `worker` will apply `worker`-level parallelism to the loop
+* `vector` will apply `vector`-level parallelism to the loop
+* `seq` will run the loop sequentially, without parallelism
 Multiple of these clauses can be applied to a given loop, but they must be specified in a top-down order (`gang` first, `vector` last).
 
 ### Specifying the type of device the clause applies to
-
 Since different accelerators may perform differently depending on how the parallelization is done, OpenACC provides a clause to specify which type of accelerators the following clause applies to. This clause is called `device_type`. For example, the clauses `device_type(nvidia) vector` would apply vector parallelism to the loop only if the code is compiled for NVidia GPUs.
 
 ### Specifying the size of each level of parallelism
-
 Each of the `vector`, `worker` and `gang` clauses can take a parameter to explicitly state their size. For example, the clause `worker(32) vector(32)` would create 32 workers to perform computations on vectors of size 32.
 
 !!! warning "Size limitations"
-    Accelerators may have limitations on how many `vector`, `worker` and `gang` a loop can be parallelized on. For NVidia GPUs for example, the following limitations apply:
-    *   `vector` length must be a multiple of 32 (up to 1024)
-    *   `gang` size is given by the number of `worker`s times the size of a `vector`. This number cannot be larger than 1024.
+    Accelerators may have limitations on how many `vector`, `worker`, and `gang` a loop can be parallelized on. For NVidia GPUs for example, the following limitations apply:
+    * `vector` length must be a multiple of 32 (up to 1024)
+    * `gang` size is given by the number of `worker`s times the size of a `vector`. This number cannot be larger than 1024.
 
 ## Controlling `vector` length
-
 Going back to our example, remember that we noticed the `vector` length was set to 128 by the compiler. Since we know that our rows contain 27 elements, we can reduce the `vector` length to 32. With a `kernels` directive, this is done with the following code:
-
-```cpp linenums="1" hl_lines="7"
+```cpp
 #pragma acc kernels present(row_offsets,cols,Acoefs,xcoefs,ycoefs)
   {
     for(int i=0;i<num_rows;i++) {
@@ -126,10 +172,8 @@ Going back to our example, remember that we noticed the `vector` length was set 
     }
   }
 ```
-
 If you prefer the `parallel loop` directive, the `vector` length is specified at the level of the top loop with the `vector_length` clause. The `vector` clause is then used to specify to parallelize an inner loop over vector. The example becomes:
-
-```cpp linenums="1" hl_lines="2 8"
+```cpp
 #pragma acc parallel loop present(row_offsets,cols,Acoefs,xcoefs,ycoefs) \
         device_type(nvidia) vector_length(32)
   for(int i=0;i<num_rows;i++) {
@@ -147,27 +191,23 @@ If you prefer the `parallel loop` directive, the `vector` length is specified at
     ycoefs[i]=sum;
   }
 ```
-
 If you actually make this change, you will see that, on a K20, the run time actually goes up, from about 10 seconds to about 15 seconds. This is because the compiler is doing something clever.
 
 ## Guided analysis with the NVidia Visual Profiler
-
-As instructed in the [third section](openacc-tutorial---adding-directives.md#how-is-ported-code-performing) of this tutorial, open the NVidia Visual Profiler and start a new session with the latest executable we have built. Then, follow the following steps:
-1.  Go to the "Analysis" tab, and click on "Examine GPU Usage". Once the analysis is run, the profiler gives you a series of warnings. This gives you indications on what it might be possible to improve upon.
-2.  Then click on "Examine Individual Kernels". This will show you a list of kernels.
-3.  Select the top one, and click on "Perform Kernel Analysis". The profiler will show you a more detailed analysis of this specific kernel, highlighting the most likely bottleneck. In this case, the performance is limited by memory latency.
-4.  Click on "Perform Latency Analysis".
+As instructed in the [third section](openacc-tutorial-adding-directives.md#how-is-ported-code-performing) of this tutorial, open the NVidia Visual Profiler and start a new session with the latest executable we have built. Then, follow the following steps:
+1. Go in in the "Analysis" tab, and click on "Examine GPU Usage". Once the analysis is run, the profiler gives you a series of warnings. This gives you indications on what it might be possible to improve upon.
+2. Then click on "Examine Individual Kernels". This will show you a list of kernels.
+3. Select the top one, and click on "Perform Kernel Analysis". The profiler will show you a more detailed analysis of this specific kernel, highlighting the most likely bottleneck. In this case, the performance is limited by memory latency.
+4. Click on "Perform Latency Analysis"
 
 Once you have performed those steps, you should have the following information displayed.
-This screenshot gives us a number of important information. First, the text tells us clearly that the performance is limited by the size of the blocks, which in OpenACC corresponds to the size of the gangs. Second, the "Active Threads" line tells us that the GPU is running 512 threads, while it could be running 2048. The occupancy line correspondingly states that the GPU is only used at 25% of its capacity. Occupancy is the ratio of how much the GPU **is** utilized over how much the GPU **could be** utilized. Note that 100% occupancy does not necessarily yield the best performance. However, 25% is quite low.
+This screenshot gives us a number of important information. First, the text tells us clearly that the performance is limited by the size of the blocks, which in OpenACC corresponds to the size of the gangs. Second, the "Active Threads" line tells us that the GPU is running 512 threads, while it could be running 2048. The occupancy line correspondingly states that the GPU is only used at 25% of its capacity. Occupancy is the ratio of how much the GPU ***is*** utilized over how much the GPU ***could be*** utilized. Note that 100% occupancy does not necessarily yield the best performance. However, 25% is quite low.
 
 The most important answers come from the "Warps" table. This table tells us that the GPU is running 32 threads per block (OpenACC: vector threads per gang) while it could be running 1024. It also tells us that it is running 1 warp per block (OpenACC: worker per gang), while it could be running 32. Finally, the last line tells us that in order to fill the device, we would need to run 64 gangs, but the device can only hold 16. The conclusion to draw is that we need bigger gangs. We can do this by adding more workers while keeping the vector size to 32.
 
 ## Adding more `worker`s
-
-Since we know that on NVidia GPUs, the maximum size of a `gang` is 1024, and is given by the size of the `vector` times the number of `worker`s, we want to have 32 `worker`s per gang. Using the `kernels` directive, this is done with the following code:
-
-```cpp linenums="1" hl_lines="3"
+Since we know that on NVidia GPUs, the maximum size of a `gang` is 1024, and is given by the size of the `vector` times the number of `worker`s, we want to have 32 `worker` per gang. Using the `kernels` directive, this is done with the following code:
+```cpp
 #pragma acc kernels present(row_offsets,cols,Acoefs,xcoefs,ycoefs)
   {
 #pragma acc loop device_type(nvidia) gang worker(32)
@@ -186,12 +226,10 @@ Since we know that on NVidia GPUs, the maximum size of a `gang` is 1024, and is 
     }
   }
 ```
-
-Note that we parallelize the **outer** loop on workers, since the inner loop is already using the `vector` level of parallelism.
+Note that we parallelize the ***outer*** loop on workers, since the inner loop is already using the `vector` level of parallelism.
 
 Correspondingly, giving this information to the compiler with the `parallel loop` directive is done with the following code:
-
-```cpp linenums="1" hl_lines="3"
+```cpp
 #pragma acc parallel loop present(row_offsets,cols,Acoefs,xcoefs,ycoefs) \
         device_type(nvidia) vector_length(32) \
         gang worker num_workers(32)
@@ -210,14 +248,13 @@ Correspondingly, giving this information to the compiler with the `parallel loop
     ycoefs[i]=sum;
   }
 ```
-
 Doing this additional step gave us a gain of performance of a factor of almost two compared to what the compiler did by itself. The code ran in roughly 10 seconds on a K20 before and now runs in about 6 seconds.
 
 ## Other optimization clauses
-
 There are two clauses which we did not use in the examples, and which may be useful in optimizing loops. The first one is the `collapse(N)` clause. This clause is applied to a loop directive, and will cause the next N loops to be collapsed into a single, flattened loop. This is useful if you have many nested loops or when you have really short loops. The second clause is the `tile(N,[M,...])` clause. This will break the next loops into tiles before parallelizing, and it can be useful if your algorithm has high locality because the device can then use data from nearby tiles.
 
-!!! challenge "Jacobi iterations"
+## Bonus exercise
+!!! question "Jacobi iterations"
     The `bonus` folder contains a code which solves the [Laplace Equation](https://en.wikipedia.org/wiki/Laplace%27s_equation) using the [Jacobi method](https://en.wikipedia.org/wiki/Jacobi_method). Use what you have learned in this tutorial to port it to GPU using OpenACC and see what performance gain you are able to get.
 
 [Back to the lesson plan](openacc-tutorial.md)

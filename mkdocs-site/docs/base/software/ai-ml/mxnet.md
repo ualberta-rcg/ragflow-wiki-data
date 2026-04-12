@@ -5,21 +5,65 @@ lang: "base"
 
 source_wiki_title: "MXNet"
 source_hash: "0d4b29f9e1851458ccf22fc145e4f1e4"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T08:21:23.845453+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T08:55:11.266117+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "deep learning framework"
+  - "Trainer"
+  - "SBATCH"
+  - "job submission"
+  - "GPU compute capabilities"
+  - "SoftmaxCrossEntropyLoss"
+  - "nn.Sequential"
+  - "walltime"
+  - "nn.Conv2D"
+  - "MXNet"
+  - "memory"
+  - "net.initialize"
+  - "Apache MXNet"
+  - "Python virtual environment"
+  - "Convolutional Neural Network"
+  - "GPU"
+  - "GPUs"
+  - "nn.MaxPool2D"
+  - "CIFAR10"
+  - "nn.Dense"
+  - "DataLoader"
+  - "submit jobs"
+  - "Deep Learning"
+  - "SLURM"
+  - "autograd.record"
+
+questions:
+  - "What are the core features and advantages of the Apache MXNet deep learning framework?"
+  - "How do you set up and install MXNet within a Python virtual environment?"
+  - "What are the necessary steps and script configurations to submit an MXNet job using CPU or GPU resources?"
+  - "How do you set up the virtual environment and install MXNet within a Slurm job script?"
+  - "Why does the guide strongly recommend using multiple CPUs instead of a GPU for training small-scale models?"
+  - "How does MXNet automatically handle parallel execution for common deep learning operators across available CPUs and GPUs?"
+  - "How do you configure the maximum execution time for a job using SBATCH directives?"
+  - "What parameters must be adjusted to allocate the appropriate amount of CPU cores and memory for your task?"
+  - "Under what specific circumstance does the script suggest requesting more than one GPU?"
+  - "How does the code determine whether to execute the model on a GPU or a CPU?"
+  - "What is the specific layer architecture and sequence of the convolutional neural network defined in the snippet?"
+  - "What is the purpose of the final initialization step and how does it relate to the selected hardware context?"
+  - "How is the CIFAR10 training dataset preprocessed and loaded before being fed into the model?"
+  - "What specific steps are taken within the training loop to compute the loss, calculate gradients, and update the model's parameters?"
+  - "How does the script calculate and report the performance metric of images processed per second?"
+  - "How is the CIFAR10 training dataset preprocessed and loaded before being fed into the model?"
+  - "What specific steps are taken within the training loop to compute the loss, calculate gradients, and update the model's parameters?"
+  - "How does the script calculate and report the performance metric of images processed per second?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -27,8 +71,12 @@ status:
 
 ## Available wheels
 You can list available wheels using the `avail_wheels` command.
+
 ```bash
 avail_wheels mxnet
+```
+
+```text
 name    version    python    arch
 ------  ---------  --------  ------
 mxnet   1.9.1      cp39      avx2
@@ -37,28 +85,36 @@ mxnet   1.9.1      cp310     avx2
 ```
 
 ## Installing in a Python virtual environment
-1. Create and activate a Python virtual environment.
-```bash
-module load python/3.10
-virtualenv --no-download ~/env
-source ~/env/bin/activate
-```
+1.  Create and activate a Python virtual environment.
 
-2. Install MXNet and its Python dependencies.
-```bash
-pip install --no-index mxnet
-```
+    ```bash
+    module load python/3.10
+    virtualenv --no-download ~/env
+    source ~/env/bin/activate
+    ```
 
-3. Validate it.
-```bash
-python -c "import mxnet as mx;print((mx.nd.ones((2, 3))*2).asnumpy());"
-[[2. 2. 2.]
- [2. 2. 2.]]
-```
+2.  Install MXNet and its Python dependencies.
+
+    ```bash
+    pip install --no-index mxnet
+    ```
+
+3.  Validate it.
+
+    ```bash
+    python -c "import mxnet as mx;print((mx.nd.ones((2, 3))*2).asnumpy());"
+    ```
+
+    ```text
+    [[2. 2. 2.]
+     [2. 2. 2.]]
+    ```
 
 ## Running a job
 A single Convolution layer:
-```python title="mxnet-conv-ex.py"
+
+```python
+# mxnet-conv-ex.py
 #!/bin/env python
 
 import mxnet as mx
@@ -88,9 +144,11 @@ print(t)
 ```
 
 2. Edit the following submission script according to your needs.
+
 === "CPU"
 
-    ```bash title="mxnet-conv.sh"
+    ```bash
+    # mxnet-conv.sh
     #!/bin/bash
 
     #SBATCH --job-name=mxnet-conv
@@ -115,7 +173,8 @@ print(t)
 
 === "GPU"
 
-    ```bash title="mxnet-conv.sh"
+    ```bash
+    # mxnet-conv.sh
     #!/bin/bash
 
     #SBATCH --job-name=mxnet-conv
@@ -139,20 +198,26 @@ print(t)
     python mxnet-conv-ex.py
     ```
 
-3. Submit the job to the scheduler.
-```bash
-sbatch mxnet-conv.sh
-```
+3.  Submit the job to the scheduler.
+
+    ```bash
+    sbatch mxnet-conv.sh
+    ```
 
 ## High Performance with MXNet
 
 ### MXNet with Multiple CPUs or a Single GPU
 
-With the above being said, when training small-scale models, we strongly recommend using **multiple CPUs instead of a GPU**. While training will almost certainly run faster on a GPU (except in cases where the model is very small), if your model and your dataset are not large enough, the speed-up relative to CPU will likely not be very significant, and your job will end up using only a small portion of the GPU's compute capabilities. This might not be an issue on your own workstation, but in a shared environment like our HPC clusters, this means you are unnecessarily blocking a resource that another user may need to run actual large-scale computations! Furthermore, you would be unnecessarily using up your group's allocation and affecting the priority of your colleagues' jobs.
+Similar to PyTorch and TensorFlow, MXNet contains both CPU- and GPU-based parallel implementations of operators commonly used in Deep Learning, such as matrix multiplication and convolution, using OpenMP and MKLDNN (CPU) or CUDA and CUDNN (GPU). Whenever you run MXNet code that performs such operations, they will either automatically leverage multi-threading over as many CPU cores as are available to your job, or run on the GPU if your job requests one.
+
+!!! important
+
+    When training small-scale models, we strongly recommend using **multiple CPUs instead of using a GPU**. While training will almost certainly run faster on a GPU (except in cases where the model is very small), if your model and your dataset are not large enough, the speed-up relative to CPU will likely not be very significant and your job will end up using only a small portion of the GPU's compute capabilities. This might not be an issue on your own workstation, but in a shared environment like our HPC clusters, this means you are unnecessarily blocking a resource that another user may need to run actual large-scale computations! Furthermore, you would be unnecessarily using up your group's allocation and affecting the priority of your colleagues' jobs.
 
 Simply put, **you should not ask for a GPU** if your code is not capable of making reasonable use of its compute capacity. The following example illustrates how to train a Convolutional Neural Network using MXNet with or without a GPU:
 
-```bash title="mxnet-example.sh"
+```bash
+# mxnet-example.sh
 #!/bin/bash
 #SBATCH --nodes 1
 #SBATCH --tasks-per-node=1
@@ -175,7 +240,8 @@ echo "starting training..."
 python mxnet-example.py
 ```
 
-```python title="mxnet-example.py"
+```python
+# mxnet-example.py
 import numpy as np
 import time
 

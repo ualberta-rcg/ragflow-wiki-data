@@ -1,0 +1,64 @@
+{
+  "doc_key": "base/ansys",
+  "level": "chunk",
+  "chunk_index": 7,
+  "qa_pairs": [
+    {
+      "question": "How do I export a data file if I want to continue a previous Fluent calculation?",
+      "answer": "If you have existing data from a previous calculation you wish to continue, you should export a \"data\" file using `File > Export > Data…` or locate it in your project folder (e.g., `FFF-1.dat.gz`)."
+    },
+    {
+      "question": "Where should I transfer my Fluent case and data files on the cluster?",
+      "answer": "You should transfer your Fluent case file, and data file if needed, to a directory on either the `/project` or `/scratch` filesystem on the cluster."
+    },
+    {
+      "question": "Can I rename my Fluent case and data files when transferring them to the cluster?",
+      "answer": "Yes, when exporting or uploading your files, you can save them under a more descriptive name instead of the default `FFF-1.*` format."
+    },
+    {
+      "question": "What is the purpose of a Fluent journal file?",
+      "answer": "A Fluent journal file is used to load the case file (and optionally the data file), run the solver, and then write the results."
+    },
+    {
+      "question": "What should I do if my Fluent jobs often fail to start because of license shortages?",
+      "answer": "If your Fluent jobs frequently fail to start due to license shortages, you can consider modifying your script to automatically requeue the job up to 4 times, as demonstrated under the 'by node + requeue' tab."
+    },
+    {
+      "question": "What are the risks of using job requeuing for Fluent simulations?",
+      "answer": "Job requeuing can also restart simulations that fail due to non-license issues (like divergence), leading to wasted compute time. It's crucial to monitor Slurm output files to confirm failures are license-related. If a job requeues due to a simulation problem, you should immediately kill the job with `scancel jobid` and resolve the issue."
+    },
+    {
+      "question": "How do I import data back into Fluent after a job has finished running on the cluster?",
+      "answer": "After your job has completed, you can download the data file and import it back into Fluent by selecting `File > Import > Data…`."
+    },
+    {
+      "question": "Which Slurm script is generally recommended for most Fluent jobs to optimize performance?",
+      "answer": "Most Fluent jobs should use the 'by node' script to minimize solution latency and maximize performance over as few nodes as possible."
+    },
+    {
+      "question": "Is there an alternative Fluent Slurm script for very large jobs that might reduce queue wait times?",
+      "answer": "Yes, very large Fluent jobs might experience shorter queue wait times if a 'by core' script is used."
+    },
+    {
+      "question": "What are the potential disadvantages of using a 'by core' script for large Fluent jobs across many nodes?",
+      "answer": "Using a 'by core' script for large jobs across many nodes can lead to significantly longer startup times, negating some benefits. It also makes simulations more vulnerable to crashing if any compute nodes fail."
+    },
+    {
+      "question": "How do the Fluent Slurm scripts manage communication for single-node versus multi-node runs?",
+      "answer": "The Fluent scripts ensure shared memory for communication when running on a single node and distributed memory (utilizing MPI and the appropriate HPC interconnect) when running across multiple nodes."
+    },
+    {
+      "question": "What options are available if Fluent crashes during auto mesh partitioning on Narval using standard Intel-based scripts?",
+      "answer": "If Fluent crashes during the initial auto mesh partitioning phase on Narval with standard Intel-based scripts, the two Narval-specific tabs provide more robust alternatives."
+    },
+    {
+      "question": "What is another method to address Fluent crashing during mesh partitioning besides using Narval-specific scripts?",
+      "answer": "Another method is to manually perform mesh partitioning in the Fluent GUI, allowing you to inspect partition statistics and choose an optimal partitioning method, then re-run the job on the cluster with Intel scripts."
+    },
+    {
+      "question": "What are the guidelines for ensuring optimal efficiency when configuring Fluent mesh partitions?",
+      "answer": "For optimal efficiency, the number of mesh partitions should be an integral multiple of the number of cores, and you should ensure there are at least 10,000 cells per core."
+    }
+  ],
+  "generated_at": "2026-04-11T16:47:10.459329+00:00"
+}

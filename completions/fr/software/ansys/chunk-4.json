@@ -1,0 +1,32 @@
+{
+  "doc_key": "fr/ansys",
+  "level": "chunk",
+  "chunk_index": 4,
+  "qa_pairs": [
+    {
+      "question": "Comment faire pour s'assurer que ma licence Ansys est bien configurée et qu'elle fonctionne correctement sur une grappe?",
+      "answer": "Pour vérifier si votre licence Ansys est configurée correctement, vous devez copier et coller une séquence de commandes sur la grappe où vous prévoyez soumettre des tâches. Cela inclut se rendre dans le répertoire `/tmp`, allouer des ressources avec `salloc`, charger les modules `StdEnv/2023` et `ansys/2025R2.04`, puis exécuter la commande `lmutil lmstat` pour vérifier l'état de la licence."
+    },
+    {
+      "question": "Quel est le jeu de commandes exact pour vérifier la licence Ansys sur un nœud de calcul interactif?",
+      "answer": "Les commandes à exécuter sont les suivantes :\n`cd /tmp`\n`salloc --time=1:0:0 --mem=1000M --account=def-YOURUSERID`\n`module load StdEnv/2023; module load ansys/2025R2.04`\n`$EBROOTANSYS/v$(echo ${EBVERSIONANSYS:2:2}${EBVERSIONANSYS:5:1})/licensingclient/linx64/lmutil lmstat -c $ANSYSLMD_LICENSE_FILE | grep \"ansyslmd: UP\" 1> /dev/null && echo Success || echo Fail`"
+    },
+    {
+      "question": "Quelles ressources sont demandées pour la session interactive utilisée pour vérifier la licence Ansys, selon l'exemple fourni?",
+      "answer": "Pour la session interactive de vérification de licence, l'exemple demande une heure (`--time=1:0:0`) et 1000 mégaoctets de mémoire (`--mem=1000M`)."
+    },
+    {
+      "question": "Quelle version du module Ansys est utilisée dans la séquence de commandes pour la vérification de licence?",
+      "answer": "La séquence de commandes utilise le module `ansys/2025R2.04`, après avoir chargé le module `StdEnv/2023`."
+    },
+    {
+      "question": "Qu'indique un résultat 'Success' après avoir exécuté la commande de vérification de licence?",
+      "answer": "Un résultat de 'Success' indique que l'extraction des licences devrait fonctionner lorsque les tâches sont soumises à la file d'attente."
+    },
+    {
+      "question": "Que signifie la partie `grep \"ansyslmd: UP\"` de la commande de vérification de licence?",
+      "answer": "La partie `grep \"ansyslmd: UP\"` de la commande cherche la ligne indiquant que le démon de licence Ansys (`ansyslmd`) est en marche ('UP'), ce qui confirme que le serveur de licence est opérationnel."
+    }
+  ],
+  "generated_at": "2026-04-11T17:05:38.140300+00:00"
+}

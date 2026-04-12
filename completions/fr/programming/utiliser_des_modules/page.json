@@ -1,0 +1,139 @@
+{
+  "doc_key": "fr/utiliser_des_modules",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "C'est quoi un module et à quoi ça sert dans ce contexte?",
+      "answer": "Un module est un fichier de configuration contenant des instructions pour modifier votre environnement logiciel. Ça permet d'avoir plusieurs versions d'une même application installées sans qu'elles entrent en conflit."
+    },
+    {
+      "question": "Comment est-ce qu'on accède à un logiciel qui est déjà installé sur les serveurs de calcul?",
+      "answer": "Le logiciel est accessible sous la forme d'un module."
+    },
+    {
+      "question": "Qu'est-ce qu'on fait si le logiciel dont on a besoin n'est pas déjà installé sur les serveurs?",
+      "answer": "On peut soit demander à l'équipe de l'installer pour nous, soit le faire soi-même."
+    },
+    {
+      "question": "Quel outil est utilisé pour gérer les modules sur les nouveaux serveurs, et est-il similaire à l'outil précédent?",
+      "answer": "Sur les nouveaux serveurs, les modules sont gérés par Lmod. Il remplace 'Environment Modules' et a été conçu pour lui être très similaire."
+    },
+    {
+      "question": "Qu'est-ce qu'un fichier module contient typiquement pour rendre une application disponible?",
+      "answer": "Un fichier module contient des instructions qui modifient ou initialisent des variables d'environnement comme PATH et LD_LIBRARY_PATH."
+    },
+    {
+      "question": "Est-ce que le simple fait de charger un module exécute le logiciel qu'il représente?",
+      "answer": "Non, le simple fait de charger un module n'exécute pas le logiciel dont il est question."
+    },
+    {
+      "question": "Comment on peut voir des détails spécifiques pour un module?",
+      "answer": "On peut voir des détails en tapant la commande `module show <nom de module>`."
+    },
+    {
+      "question": "C'est quoi la syntaxe normale pour utiliser la commande `module`?",
+      "answer": "La syntaxe normale est `module commande [autres options]`."
+    },
+    {
+      "question": "Comment est-ce qu'on peut voir la liste des sous-commandes disponibles pour `module`?",
+      "answer": "On utilise la commande `module help`."
+    },
+    {
+      "question": "À quoi sert la sous-commande `module spider`?",
+      "answer": "`module spider` affiche tous les modules de l'environnement logiciel standard courant et permet de chercher des versions spécifiques d'applications."
+    },
+    {
+      "question": "Comment on liste les modules qu'on peut charger?",
+      "answer": "On utilise la commande `module avail`."
+    },
+    {
+      "question": "Pourquoi `module avail` pourrait ne pas lister tous les modules disponibles?",
+      "answer": "`module avail` peut ne pas lister certains modules qui sont incompatibles avec ceux déjà chargés. Pour la liste complète, il faut utiliser `module spider`."
+    },
+    {
+      "question": "Quelle commande affiche les modules qui sont présentement chargés dans notre environnement?",
+      "answer": "La sous-commande `module list` affiche les modules présentement chargés."
+    },
+    {
+      "question": "Comment est-ce qu'on charge un module, par exemple la version 9.3 du compilateur GCC?",
+      "answer": "On utilise la commande `module load gcc/9.3`."
+    },
+    {
+      "question": "Peut-on charger plus d'un module avec une même commande `module load`?",
+      "answer": "Oui, on peut charger plus d'un module avec une même commande, par exemple `module load gcc/9.3 openmpi/4.0`."
+    },
+    {
+      "question": "Qu'arrive-t-il si on charge un module incompatible avec un module déjà chargé?",
+      "answer": "Lmod nous indiquera qu'il a remplacé l'ancien module par le nouveau."
+    },
+    {
+      "question": "Comment est-ce qu'on enlève un module de notre environnement, comme GCC 9.3?",
+      "answer": "On utilise la commande `module unload gcc/9.3`."
+    },
+    {
+      "question": "Si on désactive un module dont d'autres modules dépendaient, qu'est-ce que Lmod nous indique?",
+      "answer": "Lmod nous indique que les modules dépendants ont été désactivés."
+    },
+    {
+      "question": "Quelle commande permet d'enlever d'un seul coup tous les modules que vous avez chargés?",
+      "answer": "La sous-commande `module purge` permet d'enlever tous les modules chargés."
+    },
+    {
+      "question": "Est-ce que tous les modules sont enlevés par la commande `module purge`?",
+      "answer": "Non, certains modules marqués comme 'sticky' (permanents) par les administrateurs ne seront pas enlevés."
+    },
+    {
+      "question": "Quelle est la différence entre les sous-commandes `show`, `help` et `whatis` pour obtenir des informations sur un module?",
+      "answer": "`show` affiche l'intégralité du module, `help` affiche un message d'aide et `whatis` montre une description du module."
+    },
+    {
+      "question": "Comment on peut chercher un module quand on ne connaît pas son nom exact mais qu'on a un mot-clé?",
+      "answer": "On utilise les sous-commandes `module apropos` ou `module keyword` pour chercher un mot-clé dans les descriptions des modules."
+    },
+    {
+      "question": "Est-ce qu'il est recommandé de charger des modules automatiquement dans le `.bashrc`?",
+      "answer": "Non, il est déconseillé de charger des modules automatiquement dans le `.bashrc`. Il est plutôt recommandé de les charger au besoin dans les scripts de tâches."
+    },
+    {
+      "question": "Pourquoi est-il préférable d'utiliser une collection de modules?",
+      "answer": "Pour faciliter le chargement d'un grand nombre de modules nécessaires."
+    },
+    {
+      "question": "Comment on crée une collection de modules avec Lmod?",
+      "answer": "On charge d'abord les modules requis, puis on utilise la commande `module save <nom de la collection>`."
+    },
+    {
+      "question": "Comment on restaure une collection de modules sauvegardée dans une session ultérieure?",
+      "answer": "On restaure une collection avec la commande `module restore <nom de la collection>`."
+    },
+    {
+      "question": "C'est quoi les modules cachés?",
+      "answer": "Ce sont des modules que vous n'avez pas à charger manuellement; ils sont chargés automatiquement selon les besoins."
+    },
+    {
+      "question": "Quel problème la hiérarchie de modules vise-t-elle à résoudre?",
+      "answer": "Elle résout le problème des noms de modules longs et peu pratiques résultant de multiples combinaisons de versions compilées de différents modules."
+    },
+    {
+      "question": "Quel est l'avantage d'utiliser une hiérarchie de modules?",
+      "answer": "Elle permet de charger des modules parents (ex: un compilateur) puis des modules enfants (ex: une bibliothèque) avec des noms simplifiés, le système choisissant la version compatible."
+    },
+    {
+      "question": "Quel est l'inconvénient d'une hiérarchie de modules et comment `module spider` aide-t-elle à le contourner?",
+      "answer": "L'inconvénient est que `module avail` n'affiche que les modules compatibles avec ceux déjà chargés. `module spider` parcourt la hiérarchie complète et affiche tous les modules."
+    },
+    {
+      "question": "Que se passe-t-il si un module remplacé est un nœud de la hiérarchie de modules?",
+      "answer": "Les modules dépendants seront chargés de nouveau s'il existe une version compatible, ou désactivés dans le cas contraire."
+    },
+    {
+      "question": "Où peut-on trouver des instructions pour créer ses propres modules?",
+      "answer": "On peut se référer à la documentation officielle de Lmod."
+    },
+    {
+      "question": "Quelles commandes faut-il exécuter pour utiliser des modules avec les shells ZSH ou KSH?",
+      "answer": "Il faut exécuter `zsh -l` pour ZSH et `ksh -l` pour KSH."
+    }
+  ],
+  "generated_at": "2026-04-12T10:35:01.235432+00:00"
+}

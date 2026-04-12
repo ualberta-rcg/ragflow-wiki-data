@@ -5,25 +5,104 @@ lang: "en"
 
 source_wiki_title: "OpenACC Tutorial - Adding directives/en"
 source_hash: "85c4f5c757ab961cad1c54f74ac3fd86"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T09:22:34.082053+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T09:53:11.719421+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "independent clause"
+  - "OpenACC"
+  - "CUDA C/C++"
+  - "kernels directive"
+  - "loops"
+  - "descriptive directives"
+  - "pragma acc parallel loop"
+  - "restrict keyword"
+  - "nvc++"
+  - "performance profiling"
+  - "parallel"
+  - "parallel loop"
+  - "kernel"
+  - "compiler analysis"
+  - "GPU offloading"
+  - "accelerator"
+  - "#pragma acc kernels"
+  - "NVidia compilers"
+  - "Loop directive"
+  - "graphical profiler"
+  - "GPU profiling"
+  - "kernels"
+  - "GPU"
+  - "matvec"
+  - "NVIDIA Visual Profiler"
+  - "independent calls"
+  - "cores"
+  - "pointer aliasing"
+  - "OpenACC directives"
+  - "prescriptive directive"
+  - "compiler directives"
+  - "NVVP"
+  - "false aliasing"
+  - "undefined behaviour"
+  - "parallelization"
+  - "loop dependencies"
+  - "data transfer"
+  - "gpu=managed"
+  - "compiler"
+  - "loop reduction"
+  - "parallel loop directive"
+  - "compiler feedback"
+
+questions:
+  - "What is the process of \"offloading\" to a GPU, and why is managing data transfers between the host and GPU memory critical?"
+  - "What are the primary advantages of using OpenACC directives to modify and compile code for accelerators?"
+  - "How does the compiler handle an OpenACC `kernels` directive to transform and parallelize loop iterations?"
+  - "What is the primary function of the OpenACC `kernels` directive and how does the compiler respond to it?"
+  - "What is the main difference between the descriptive nature of OpenACC directives and the prescriptive nature of OpenMP directives?"
+  - "How is the `kernels` directive practically applied to a C++ matrix-vector product code to initiate GPU parallelization?"
+  - "How does the independence of each kernel call enable parallel execution across the cores of an accelerator?"
+  - "What is the purpose of compiling the kernel before it is executed?"
+  - "How does the provided C++ loop example illustrate the type of sequential operation that is typically converted into a parallel kernel?"
+  - "What is the first directive added to the code to attempt running it on the GPU?"
+  - "Which technical considerations, such as data transfer, are intentionally ignored during this initial stage?"
+  - "How is the new directive applied to the loop structure in the provided C++ code snippet?"
+  - "What compiler options are used to enable OpenACC compilation with managed memory and optimization using the NVidia compiler?"
+  - "Why do C and C++ compilers often falsely assume loop dependencies that prevent parallelization?"
+  - "What are the two methods explained in the text to tell the compiler that loop iterations are independent and pointers are not aliased?"
+  - "How does the text recommend resolving false aliasing issues in the matrix-vector product code?"
+  - "What is the performance difference between the original version and the OpenACC ported version of the code?"
+  - "Which tool is introduced to investigate the unexpected slowdown of the OpenACC application?"
+  - "What is the consequence of violating the guarantee mentioned at the beginning of the text?"
+  - "How can a developer explicitly specify to the compiler that loop iterations are independent?"
+  - "What characterizes a prescriptive directive and how does it interact with standard compiler analysis?"
+  - "What is the primary function of the NVIDIA Visual Profiler (NVVP)?"
+  - "Which specific types of code and programming instructions is NVVP designed to analyze?"
+  - "What platform compatibility does the NVVP tool offer for its users?"
+  - "What are the steps to launch and configure the NVIDIA Visual Profiler (NVVP) to analyze a GPU executable?"
+  - "Based on the profiler's timeline, what is a common performance bottleneck when porting code from a CPU to a GPU?"
+  - "How does the prescriptive \"parallel loop\" directive differ from the \"kernels\" directive in OpenACC, and what roles do the \"private\" and \"reduction\" clauses play?"
+  - "What specific mathematical operation is being performed by the nested loops and array accesses in the provided C++ code?"
+  - "How do the OpenACC pragmas optimize the execution of the inner and outer loops in this snippet?"
+  - "What is the purpose of the specific flags used in the `nvc++` compilation command, such as `-acc` and `-gpu=managed`?"
+  - "What are the primary differences in responsibility and optimization between using the parallel loop and kernel directives in OpenACC?"
+  - "Based on the provided compiler output for the matvec function, what specific OpenACC loop optimizations and data movement operations were generated?"
+  - "According to the challenge instructions, which compiler flags must be added to the Makefile to enable OpenACC with managed memory and output accelerator information?"
+  - "What are the primary differences in responsibility and optimization between using the parallel loop and kernel directives in OpenACC?"
+  - "Based on the provided compiler output for the matvec function, what specific OpenACC loop optimizations and data movement operations were generated?"
+  - "According to the challenge instructions, which compiler flags must be added to the Makefile to enable OpenACC with managed memory and output accelerator information?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
-!!! note "Learning objectives"
+!!! abstract "Learning objectives"
 *   Understand the process of *offloading*
 *   Understand what is an OpenACC directive
 *   Understand what is the difference between the `loop` and `kernels` directive
@@ -42,33 +121,42 @@ This means that managing data transfers between the host and the GPU will be of 
 OpenACC directives are much like [OpenMP](openmp.md) directives.
 They take the form of `pragma` statements in C/C++, and comments in Fortran.
 There are several advantages to using directives:
-*   First, since it involves very minor modifications to the code, changes can be done *incrementally*, one `pragma` at a time. This is especially useful for debugging purposes, since making a single change at a time allows one to quickly identify which change created a bug.
+*   First, since it involves very minor modifications to the code, changes can be done *incrementally*, one `pragma` at a time. This is especially useful for debugging purpose, since making a single change at a time allows one to quickly identify which change created a bug.
 *   Second, OpenACC support can be disabled at compile time. When OpenACC support is disabled, the `pragma` are considered comments, and ignored by the compiler. This means that a single source code can be used to compile both an accelerated version and a normal version.
 *   Third, since all of the offloading work is done by the compiler, the same code can be compiled for various accelerator types: GPUs or SIMD instructions on CPUs. It also means that a new generation of devices only requires one to update the compiler, not to change the code.
 
 In the following example, we take a code comprised of two loops.
 The first one initializes two vectors, and the second performs a [SAXPY](https://en.wikipedia.org/wiki/Basic_Linear_Algebra_Subprograms#Level_1), a basic vector addition operation.
 
-| C/C++                       | FORTRAN                     |
-| :-------------------------- | :-------------------------- |
-| ```cpp                     | ```fortran                  |
-| #pragma acc kernels         | !$acc kernels               |
-| {                           |   do i=1,N                  |
-|   for (int i=0; i<N; i++)   |     x(i) = 1.0              |
-|   {                         |     y(i) = 2.0              |
-|     x[i] = 1.0;             |   end do                    |
-|     y[i] = 2.0;             |                             |
-|   }                         |   y(:) = a*x(:) + y(:)      |
-|                             | !$acc end kernels           |
-|   for (int i=0; i<N; i++)   | ```                         |
-|   {                         |                             |
-|     y[i] = a * x[i] + y[i]; |                             |
-|   }                         |                             |
-| }                           |                             |
-| ```                         |                             |
+| C/C++                                        | FORTRAN                                      |
+| :------------------------------------------- | :------------------------------------------- |
+| ```cpp hl_lines="1 2 13"
+#pragma acc kernels
+{
+  for (int i=0; i<N; i++)
+  {
+    x[i] = 1.0;
+    y[i] = 2.0;
+  }
+
+  for (int i=0; i<N; i++)
+  {
+    y[i] = a * x[i] + y[i];
+  }
+}
+```                     | ```fortran hl_lines="1 7"
+!$acc kernels
+  do i=1,N
+    x(i) = 1.0
+    y(i) = 2.0
+  end do
+  
+  y(:) = a*x(:) + y(:)
+!$acc end kernels
+```                   |
 
 Both in the C/C++ and the Fortran cases, the compiler will identify **two** kernels:
-*   In C/C++, the two kernels will correspond to the inside of each loop.
+*   In C/C++, the two kernels will correspond to the inside of each loops.
 *   In Fortran, the kernels will be the inside of the first loop, as well as the inside of the implicit loop that Fortran performs when it does an array operation.
 
 Note that in C/C++, the OpenACC block is delimited using curly brackets,
@@ -78,19 +166,24 @@ while in Fortran, the same comment needs to be repeated, with the `end` keyword 
 
 When the compiler reaches an OpenACC `kernels` directive, it will analyze the code in order to identify sections that can be parallelized.
 This often corresponds to the body of a loop that has independent iterations.
-When such a case is identified, the compiler will first wrap the body of the loop into a special function called a [kernel](https://en.wikipedia.org/wiki/Compute_kernel).
+When such a case is identified, the compiler will first wrap the body of the loop into a special function called a [*kernel*](https://en.wikipedia.org/wiki/Compute_kernel).
 This internal code refactoring makes sure that each call to the kernel is independent from any other call.
 The kernel is then compiled to enable it to run on an accelerator.
 Since each call is independent, each one of the hundreds of cores of the accelerator can run the function for one specific index in parallel.
 
-| LOOP                                | KERNEL                          |
-| :---------------------------------- | :------------------------------ |
-| ```cpp                             | ```cpp                          |
-| for (int i=0; i<N; i++)             | void kernelName(A, B, C, i)     |
-| {                                   | {                               |
-|   C[i] = A[i] + B[i];               |   C[i] = A[i] + B[i];           |
-| }                                   | }                               |
-| ```                                 | ```                             |
+| LOOP                                | KERNEL                                    |
+| :---------------------------------- | :---------------------------------------- |
+| ```cpp
+for (int i=0; i<N; i++)
+{
+  C[i] = A[i] + B[i];
+}
+```                          | ```cpp
+void kernelName(A, B, C, i)
+{
+  C[i] = A[i] + B[i];
+}
+```                        |
 | Calculates sequentially from index `i=0` to `i=N-1`, inclusive. | Each compute core calculates for one value of `i`. |
 
 ## The `kernels` directive
@@ -106,7 +199,7 @@ Typically, it will:
 
 One example of this directive is the following code:
 
-```cpp
+```cpp hl_lines="1 2 7"
 #pragma acc kernels
 {
   for (int i=0; i<N; i++)
@@ -117,21 +210,22 @@ One example of this directive is the following code:
 ```
 
 The above example is very simple. However, code is often not that simple,
-and we then need to rely on [compiler feedback](openacc-tutorial-profiling.md#compiler-feedback)
+and we then need to rely on [compiler feedback](openacc-tutorial---profiling.md#compiler-feedback)
 in order to identify regions it failed to parallelize.
 
 !!! note "Descriptive vs prescriptive"
     Those who have used [OpenMP](openmp.md) before will be familiar with the directive based nature of OpenACC.
     There is however one major difference between OpenMP and OpenACC directives:
-    *   OpenMP directives are by design *prescriptive* in nature. This means that the compiler is required to perform the requested parallelization, no matter whether this is good from a performance standpoint or not. This yields very reproducible results from one compiler to the next. This also means that parallelization will be performed the same way, whatever the hardware the code runs on. However, not every architecture performs best with code written the same way. Sometimes, it may be beneficial to switch the order of loops for example. If one were to parallelize a code with OpenMP and wanted it to perform optimally on multiple different architectures, they would have to write different sets of directives for different architectures.
+    *   OpenMP directives are by design *prescriptive* in nature. This means that the compiler is required to perform the requested parallelization, no matter whether this is good from a performance stand point or not. This yields very reproducible results from one compiler to the next. This also means that parallelization will be performed the same way, whatever the hardware the code runs on. However, not every architecture performs best with code written the same way. Sometimes, it may be beneficial to switch the order of loops for example. If one were to parallelize a code with OpenMP and wanted it to perform optimally on multiple different architectures, they would have to write different sets of directives for different architectures.
+
     *   In contrast, many of OpenACC's directives are *descriptive* in nature. This means that the compiler is free to compile the code whichever way it thinks is best for the target architecture. This may even imply that the code is not parallelized at all. The **same code**, compiled to run on GPU or on CPU may therefore yield different binary code. This, of course, means that different compilers may yield different performance. It also means that new generations of compilers will do better than previous generations, especially with new hardware.
 
 ### Example: porting a matrix-vector product
 For this example, we use the code from the [exercises repository](https://github.com/calculquebec/cq-formation-openacc).
-More precisely, we will use a portion of the code from the [`cpp/matrix_functions.h`](https://github.com/calculquebec/cq-formation-openacc/blob/main/cpp/matrix_functions.h#L20) file.
-The equivalent Fortran code can be found in the subroutine [`matvec`](https://github.com/calculquebec/cq-formation-openacc/blob/main/f90/matrix.F90#L101) contained in the `matrix.F90` file.
+More precisely, we will use a portion of the code from the [`cpp/matrix_functions.h` file](https://github.com/calculquebec/cq-formation-openacc/blob/main/cpp/matrix_functions.h#L20).
+The equivalent Fortran code can be found in the subroutine `matvec` contained in the `matrix.F90` file.
 The C++ code is the following:
-```cpp
+```cpp linenums="29"
   for(int i=0;i<num_rows;i++) {
     double sum=0;
     int row_start=row_offsets[i];
@@ -146,10 +240,10 @@ The C++ code is the following:
   }
 ```
 
-The [first change](https://github.com/calculquebec/cq-formation-openacc/blob/main/cpp/step1.kernels/matrix_functions.h#L29) we make to this code in order to try to run it on the GPU is to add the `kernels` directive.
+The [`first change`](https://github.com/calculquebec/cq-formation-openacc/blob/main/cpp/step1.kernels/matrix_functions.h#L29) we make to this code in order to try to run it on the GPU is to add the `kernels` directive.
 At this stage, we don't worry about data transfer, or about giving more information to the compiler.
 
-```cpp
+```cpp linenums="29" hl_lines="1 2 15"
 #pragma acc kernels
   {
     for(int i=0;i<num_rows;i++) {
@@ -180,7 +274,6 @@ nvc++ -fast -Minfo=accel -acc -gpu=managed main.cpp -o challenge
 ```
 
 ```text
-...
 matvec(const matrix &, const vector &, const vector &):
      23, include "matrix_functions.h"
           30, Generating implicit copyin(cols[:],row_offsets[:num_rows+1],Acoefs[:]) [if not already present]
@@ -205,12 +298,12 @@ Sometimes, the compiler believes that loops cannot be parallelized despite being
 ### `restrict` keyword
 One way to tell the compiler that pointers are **not** going to be aliased, is by using a special keyword. In C, the keyword `restrict` was introduced in C99 for this purpose. In C++, there is no standard way yet, but each compiler typically has its own keyword. Either `__restrict` or `__restrict__` can be used depending on the compiler. For Portland Group and NVidia compilers, the keyword is `__restrict`. For an explanation as to why there is no standard way to do this in C++, you can read [this paper](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2014/n3988.pdf). This concept is important not only for OpenACC, but for any C/C++ programming, since many more optimizations can be done by compilers when pointers are guaranteed not to be aliased. Note that the keyword goes *after* the pointer, since it refers to the pointer, and not to the type. In other words, you would declare `float * __restrict A;` rather than `float __restrict * A;`.
 
-!!! note "What does `restrict` really mean?"
+!!! note "What does `restrict` really mean ?"
     Declaring a pointer as restricted formally means that for "the lifetime of the pointer, only it or a value derived from it (such as `ptr +1`) will be used to access the object to which it points". This is a guarantee that the *programmer* gives to the *compiler*. If the programmer violates this guarantee, behaviour is undefined. For more information on this concept, see this [Wikipedia article](https://en.wikipedia.org/wiki/Restrict).
 
 ### Loop directive with independent clause
-Another way to tell the compiler that loop iterations are independent is to specify it explicitly by using a different directive: `loop`, with the clause `independent`. This is a *prescriptive* directive. Like any prescriptive directive, this tells the compiler what to do, and overrides any compiler analysis. The initial example above would become:
-```cpp
+Another way to tell the compiler that loops iterations are independent is to specify it explicitly by using a different directive: `loop`, with the clause `independent`. This is a *prescriptive* directive. Like any prescriptive directive, this tells the compiler what to do, and overrides any compiler analysis. The initial example above would become:
+```cpp hl_lines="3"
 #pragma acc kernels
 {
 #pragma acc loop independent
@@ -252,7 +345,7 @@ matvec(const matrix &, const vector &, const vector &):
           34, Loop is parallelizable
 ```
 
-## How is ported code performing?
+## How is ported code performing ?
 Since we have completed a first step to porting the code to GPU, we need to analyze how the code is performing, and whether it gives the correct results. Running the original version of the code yields the following (performed on one GPU node):
 ```bash
 ./cg.x
@@ -310,14 +403,14 @@ module load cuda/11.7 java/1.8
 nvvp
 ```
 
-1.  After the NVVP startup window, you get prompted for a *Workspace* directory, which will be used for temporary files. Replace `home` with `scratch` in the suggested path. Then click *OK*.
-2.  Select *File > New Session*, or click on the corresponding button in the toolbar.
-3.  Click on the *Browse* button at the right of the *File* path editor.
+1.  After the NVVP startup window, you get prompted for a `Workspace` directory, which will be used for temporary files. Replace `home` with `scratch` in the suggested path. Then click `OK`.
+2.  Select `File > New Session`, or click on the corresponding button in the toolbar.
+3.  Click on the `Browse` button at the right of the `File` path editor.
     *   Change directory if needed.
     *   Select an executable built from codes written with OpenACC and CUDA C/C++ instructions.
-4.  Below the *Arguments* editor, select the profiling option *Profile current process only*.
-5.  Click *Next >* to review additional profiling options.
-6.  Click *Finish* to start profiling the executable.
+4.  Below the `Arguments` editor, select the profiling option `Profile current process only`.
+5.  Click `Next >` to review additional profiling options.
+6.  Click `Finish` to start profiling the executable.
 
 This can be done with the following steps:
 1.  Start `nvvp` with the command `nvvp &` (the `&` sign is to start it in the background)
@@ -325,11 +418,11 @@ This can be done with the following steps:
 3.  In the "File:" field, search for the executable (named `challenge` in our example).
 4.  Click "Next" until you can click "Finish".
 
-This will run the program and generate a timeline of the execution. The resulting timeline is illustrated on the image on the right side. As we can see, almost all of the run time is being spent transferring data between the host and the device. This is very often the case when one ports a code from CPU to GPU. We will look at how to optimize this in the [next part of the tutorial](openacc-tutorial-data-movement.md).
+This will run the program and generate a timeline of the execution. The resulting timeline is illustrated on the image on the right side. As we can see, almost all of the run time is being spent transferring data between the host and the device. This is very often the case when one ports a code from CPU to GPU. We will look at how to optimize this in the [next part of the tutorial](openacc-tutorial---data-movement.md).
 
 ## The `parallel loop` directive
 With the `kernels` directive, we let the compiler do all of the analysis. This is the *descriptive* approach to porting a code. OpenACC supports a *prescriptive* approach through a different directive, called the `parallel` directive. This can be combined with the `loop` directive, to form the `parallel loop` directive. An example would be the following code:
-```cpp
+```cpp hl_lines="1"
 #pragma acc parallel loop
 for (int i=0; i<N; i++)
 {
@@ -344,7 +437,7 @@ For reasons that we explain below, in order to use this directive in the matrix-
 These clauses were not required with the `kernels` directive, because the `kernels` directive handles this for you.
 
 Going back to the matrix-vector multiplication example, the corresponding code with the `parallel loop` directive would look like this:
-```cpp
+```cpp hl_lines="6"
 #pragma acc parallel loop
   for(int i=0;i<num_rows;i++) {
     double sum=0;
@@ -379,14 +472,15 @@ matvec(const matrix &, const vector &, const vector &):
 ```
 
 ## Parallel loop vs kernel
-| PARALLEL LOOP                                 | KERNEL                                                                     |
-| :-------------------------------------------- | :------------------------------------------------------------------------- |
-| *   It is the programmer's responsibility to ensure that parallelism is safe | *   It is the compiler's responsibility to analyze the code and determine what is safe to parallelize. |
-| *   Enables parallelization of sections that the compiler may miss | *   A single directive can cover a large area of code                      |
-| *   Straightforward path from OpenMP          | *   The compiler has more room to optimize                                 |
+
+| PARALLEL LOOP                                                                                                                                                                             | KERNEL                                                                                                                                                                                                                          |
+| :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| *   It is the programmer's responsibility to ensure that parallelism is safe <br/> *   Enables parallelization of sections that the compiler may miss <br/> *   Straightforward path from OpenMP | *   It is the compiler's responsibility to analyze the code and determine what is safe to parallelize.<br/> *   A single directive can cover a large area of code<br/> *   The compiler has more room to optimize |
+
+Both approaches are equally valid and can perform equally well.
 
 !!! challenge "Challenge: Add OpenACC directives `kernels` or `parallel loop`"
-1.  Modify the functions `matvec`, `waxpby` and `dot` to use OpenACC. You may use either the `kernels` or the `parallel loop` directives. The directories step1.* from the [GitHub repository](https://github.com/calculquebec/cq-formation-openacc) contain solutions.
+1.  Modify the functions `matvec`, `waxpby` and `dot` to use OpenACC. You may use either the `kernels` or the `parallel loop` directives. The directories step1.* from the [Github repository](https://github.com/calculquebec/cq-formation-openacc) contain solutions.
 2.  Modify the Makefile to add `-acc -gpu=managed` and `-Minfo=accel` to your compiler flags.
 
-[<- Previous unit: *Profiling*](openacc-tutorial-profiling.md) | [^- Back to the lesson plan](openacc-tutorial.md) | [Onward to the next unit: *Data movement* ->](openacc-tutorial-data-movement.md)
+[<- Previous unit: *Profiling*](openacc-tutorial---profiling.md) | [^- Back to the lesson plan](openacc-tutorial.md) | [Onward to the next unit: *Data movement* ->](openacc-tutorial---data-movement.md)

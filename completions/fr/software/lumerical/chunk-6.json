@@ -1,0 +1,56 @@
+{
+  "doc_key": "fr/lumerical",
+  "level": "chunk",
+  "chunk_index": 6,
+  "qa_pairs": [
+    {
+      "question": "C'est quoi le rôle du script `fdtd-mpi-template.sh`?",
+      "answer": "Le script `fdtd-mpi-template.sh` sert de gabarit pour soumettre des tâches en utilisant le module `fdtd_solutions`. Il contient les informations de base pour lancer une simulation MPI, comme le module à charger, les chemins des exécutables MPI et du programme FDTD, ainsi que la configuration pour le calcul du nombre de cœurs."
+    },
+    {
+      "question": "Quel module est chargé par le script `fdtd-mpi-template.sh`?",
+      "answer": "Le script `fdtd-mpi-template.sh` charge le module `fdtd_solutions`."
+    },
+    {
+      "question": "Comment les chemins pour l'exécutable MPI et le programme FDTD sont-ils définis dans `fdtd-mpi-template.sh`?",
+      "answer": "Dans `fdtd-mpi-template.sh`, le chemin de l'exécutable MPI est défini par `$EBROOTFDTD_SOLUTIONS/mpich2/nemesis/bin/mpiexec` et celui du programme FDTD par `$EBROOTFDTD_SOLUTIONS/bin/fdtd-engine-mpich2nem`."
+    },
+    {
+      "question": "À quoi sert le script `fdtd-process-template.sh`?",
+      "answer": "Le script `fdtd-process-template.sh` sert à remplacer des marqueurs (tags) dans un gabarit de script de soumission par des valeurs réelles extraites d'un fichier de projet FDTD Solutions."
+    },
+    {
+      "question": "Quels sont les arguments attendus par le script `fdtd-process-template.sh`?",
+      "answer": "Le script `fdtd-process-template.sh` s'attend aux arguments suivants: `fdtd-process-template.sh [options] <fichier fsp> <fichier gabarit> <#processus>`."
+    },
+    {
+      "question": "Quelles options peut-on utiliser avec `fdtd-process-template.sh`?",
+      "answer": "Les options valides pour `fdtd-process-template.sh` sont:\n- `-r <débit>`: le débit de simulation en MNodes/s pour les estimations de temps.\n- `-tm <temps_min>`: le temps minimum en secondes que la simulation peut prendre.\n- `-ms <facteur_sécurité_mémoire>`: un facteur multiplicatif en % à appliquer à l'estimation de la mémoire.\n- `-mm <mémoire_min>`: la mémoire minimum qu'un processus peut utiliser."
+    },
+    {
+      "question": "Quel est le débit de simulation par défaut utilisé pour l'estimation du temps dans `fdtd-process-template.sh`?",
+      "answer": "Par défaut, le débit de simulation pour l'estimation du temps est de 4 MNodes/s/processus, ce qui est une valeur très conservatrice."
+    },
+    {
+      "question": "Quelle est la durée minimale par défaut pour une simulation dans `fdtd-process-template.sh`?",
+      "answer": "Le temps minimum par défaut pour une simulation dans `fdtd-process-template.sh` est de 600 secondes."
+    },
+    {
+      "question": "Quel est le facteur de sécurité multiplicatif par défaut pour l'estimation de la mémoire dans `fdtd-process-template.sh`?",
+      "answer": "Le facteur multiplicatif par défaut pour l'estimation de la mémoire dans `fdtd-process-template.sh` est de 110 %."
+    },
+    {
+      "question": "Quelle est la mémoire minimale par défaut qu'un processus peut utiliser dans `fdtd-process-template.sh`?",
+      "answer": "La mémoire minimale par défaut qu'un processus peut utiliser dans `fdtd-process-template.sh` est de 20 Mo."
+    },
+    {
+      "question": "Quels marqueurs (tokens) sont remplacés par le script `fdtd-process-template.sh` dans le fichier gabarit?",
+      "answer": "Le script `fdtd-process-template.sh` remplace les marqueurs suivants:\n- `<total_memory>`: la mémoire totale requise par tous les processus.\n- `<processor_memory>`: la mémoire requise pour chaque processus de simulation.\n- `<hours>`, `<minutes>`, `<seconds>`: le temps total requis pour la simulation.\n- `<n>`: le nombre de processus à utiliser.\n- `<dir_fsp>`: le chemin du fichier de projet fsp.\n- `<filename>`: le nom du fichier de projet fsp, sans le chemin initial."
+    },
+    {
+      "question": "Comment le script `fdtd-process-template.sh` calcule-t-il la mémoire totale requise et le temps estimé?",
+      "answer": "Le script `fdtd-process-template.sh` exécute la commande `$SCRIPTDIR/fdtd-engine-mpich2nem -mr $1` sur le fichier de projet FDTD pour obtenir des statistiques comme la mémoire estimée, les points de grille et les pas de temps. Ces informations sont ensuite utilisées avec les options de sécurité et de débit pour calculer la mémoire totale et le temps."
+    }
+  ],
+  "generated_at": "2026-04-12T01:09:53.771476+00:00"
+}

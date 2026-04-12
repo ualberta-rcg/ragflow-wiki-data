@@ -1,0 +1,84 @@
+{
+  "doc_key": "fr/star-ccm",
+  "level": "chunk",
+  "chunk_index": 6,
+  "qa_pairs": [
+    {
+      "question": "À quoi sert la variable d'environnement `STARCCM_TMP` dans le script Slurm pour la grappe Niagara?",
+      "answer": "Elle est utilisée pour rediriger les fichiers temporaires de `~/.star-VERSION#` vers le répertoire `$SLURM_TMPDIR`."
+    },
+    {
+      "question": "Comment est configurée la variable `CDLMD_LICENSE_FILE` pour la grappe Niagara?",
+      "answer": "Elle est définie comme `\"$FLEXPORT@127.0.0.1\"`."
+    },
+    {
+      "question": "Quelle commande est utilisée pour établir un tunnel SSH pour la gestion des licences sur la grappe Niagara?",
+      "answer": "La commande est `ssh tri-gw -L $FLEXPORT:$LICSERVER:$FLEXPORT -L $VENDPORT:$LICSERVER:$VENDPORT -N -f`."
+    },
+    {
+      "question": "Comment le nombre total de cœurs (`NCORE`) est-il calculé dans le script Slurm pour Niagara?",
+      "answer": "Le `NCORE` est calculé en multipliant `SLURM_NNODES`, `SLURM_CPUS_PER_TASK`, et `SLURM_NTASKS_PER_NODE`."
+    },
+    {
+      "question": "Quel est le réglage par défaut de `FLEXIBLAS` pour la grappe Niagara?",
+      "answer": "Il est réglé à `StarAOCL`."
+    },
+    {
+      "question": "Quel type d'implémentation MPI est utilisé par défaut sur la grappe Niagara?",
+      "answer": "L'implémentation MPI par défaut est `openmpi`."
+    },
+    {
+      "question": "Y'a-t-il une solution de contournement pour les échecs de licence de Star-CCM+ sur Niagara, et comment ça marche?",
+      "answer": "Oui, le script essaie de démarrer Star-CCM+ jusqu'à cinq fois si le statut de sortie n'est pas zéro, avec une pause de 5 secondes après la première tentative."
+    },
+    {
+      "question": "Quelles options sont utilisées pour lancer Star-CCM+ avec une licence Siemens PoD dans le script Niagara?",
+      "answer": "Les options incluent `-jvmargs \"-Xmx4G -Djava.io.tmpdir=$SLURM_TMPDIR\" -batch $BATCH_CMD -power -podkey $LM_PROJECT -np $NCORE -nbuserdir $SLURM_TMPDIR -machinefile $SLURM_TMPDIR/machinefile $SIM_FILE $STAR_MPI $STAR_UCX`."
+    },
+    {
+      "question": "Quelles options sont utilisées pour lancer Star-CCM+ avec une licence institutionnelle dans le script Niagara?",
+      "answer": "Les options incluent `-jvmargs \"-Xmx4G -Djava.io.tmpdir=$SLURM_TMPDIR\" -batch $BATCH_CMD -np $NCORE -nbuserdir $SLURM_TMPDIR -machinefile $SLURM_TMPDIR/machinefile $SIM_FILE $STAR_MPI $STAR_UCX`."
+    },
+    {
+      "question": "Quelle est la meilleure façon d'utiliser Star-CCM+ en mode graphique?",
+      "answer": "On recommande d'utiliser un système OnDemand ou JupyterLab pour démarrer un bureau distant."
+    },
+    {
+      "question": "Quelles configurations de licence sont nécessaires pour le mode graphique, surtout pour les licences POD?",
+      "answer": "Il faut configurer le fichier `~/.licenses/starccm.lic` et, pour les licences POD, il faut aussi exécuter `export LM_PROJECT='CD-ADAPCO PROJECT ID'` avant `starccm+`. D'autres options, comme `-power`, peuvent être nécessaires selon le type de licence."
+    },
+    {
+      "question": "Comment puis-je vérifier les versions de Star-CCM+ disponibles dans l'environnement StdEnv que j'ai chargé?",
+      "answer": "Faut utiliser la commande `module avail starccm-mixed`."
+    },
+    {
+      "question": "Comment puis-je voir toutes les versions de modules Star-CCM+ disponibles, peu importe la version de StdEnv?",
+      "answer": "Faut utiliser la commande `module spider starccm-mixed`."
+    },
+    {
+      "question": "Quelles sont les adresses URL OnDemand pour les plateformes Nibi, Fir, Narval, Rorqual et Trillium?",
+      "answer": "NIBI: `https://ondemand.sharcnet.ca`, FIR: `https://jupyterhub.fir.alliancecan.ca`, NARVAL: `https://portail.narval.calculquebec.ca/`, RORQUAL: `https://jupyterhub.rorqual.alliancecan.ca`, TRILLIUM: `https://ondemand.scinet.utoronto.ca`."
+    },
+    {
+      "question": "Comment lancer Star-CCM+ version 18.04.008 ou plus récente en mode graphique via OnDemand?",
+      "answer": "Il faut charger `StdEnv/2023`, puis `starccm-mixed/20.04.007` (ou `starccm/20.04.007-R8`), et ensuite lancer `starccm+ -rr server`."
+    },
+    {
+      "question": "Comment lancer Star-CCM+ versions de 15.04.010 à 18.02.008 en mode graphique via OnDemand?",
+      "answer": "Il faut charger `StdEnv/2020` (non pris en charge), puis `starccm-mixed/15.04.010` (ou `starccm/15.04.010-R8`), et ensuite lancer `starccm+ -mesa`."
+    },
+    {
+      "question": "Quelle est la première étape pour utiliser VncViewer pour le mode graphique de Star-CCM+?",
+      "answer": "Il faut se connecter à un nœud de connexion ou à un nœud de calcul avec TigerVNC."
+    },
+    {
+      "question": "Comment lancer Star-CCM+ version 18.04.008 ou plus récente en mode graphique via VncViewer?",
+      "answer": "Il faut charger `StdEnv/2023` (par défaut), puis `starccm-mixed/20.04.007` (ou `starccm/20.04.007-R8`), et ensuite lancer `starccm+ -rr server`."
+    },
+    {
+      "question": "Comment lancer Star-CCM+ versions de 15.04.010 à 18.02.008 en mode graphique via VncViewer?",
+      "answer": "Il faut charger `StdEnv/2020` (non pris en charge), puis `starccm-mixed/17.02.007` (ou `starccm/17.02.007-R8`), et ensuite lancer `starccm+`."
+    }
+  ],
+  "generated_at": "2026-04-12T08:19:20.830404+00:00"
+}

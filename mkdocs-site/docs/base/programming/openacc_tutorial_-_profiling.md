@@ -5,29 +5,82 @@ lang: "base"
 
 source_wiki_title: "OpenACC Tutorial - Profiling"
 source_hash: "d1b9f52e3897e89fb0b583bc7897b93e"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T09:28:34.464443+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T09:57:44.567881+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "data dependency"
+  - "OpenACC"
+  - "Data dependency"
+  - "NVIDIA nvprof"
+  - "CUDA C/C++"
+  - "Generated vector simd code"
+  - "nvprof"
+  - "Compiler feedback"
+  - "NVIDIA compiler"
+  - "-Minfo flag"
+  - "Loop not fused"
+  - "NVPROF"
+  - "FMA (fused multiply-add)"
+  - "loop unrolled"
+  - "Computational Intensity"
+  - "Command Line Profiler"
+  - "Code profiling"
+  - "loop trip count"
+  - "Hotspots"
+  - "matvec"
+  - "GPU"
+  - "Reduction"
+  - "inlined"
+  - "NVIDIA HPC SDK"
+  - "vector simd code"
+  - "Intensity"
+  - "loop not vectorized"
+  - "CPU profiling"
+
+questions:
+  - "Why is it important to profile code and identify hotspots according to Amdahl's law?"
+  - "Which compilers are recommended in the tutorial for providing the most advanced OpenACC support?"
+  - "What are the main differences between the NVIDIA nvprof and nvvp profilers mentioned in the text?"
+  - "What programming instructions and models were used to write the codes mentioned in the text?"
+  - "Why is the analysis of the previously built cg.x executable starting with the nvprof profiler?"
+  - "Where can the proper version of the nvprof profiler be found for use on the specific clusters?"
+  - "How do you use nvprof to profile a pure CPU executable and identify the most time-consuming functions?"
+  - "What specific insights about code optimization can be gained by using the NVIDIA compiler's -Minfo flag?"
+  - "How can you modify a Makefile to enable compiler feedback and view optimization details during the build process?"
+  - "What specific functions are inlined within the main function according to the compiler report?"
+  - "What types of successful loop optimizations and instruction generations, such as SIMD and FMA, are applied to the code?"
+  - "What are the primary reasons cited in the report for the compiler failing to fuse or vectorize certain loops?"
+  - "Why was the loop at line 45 not parallelized by the compiler?"
+  - "What specific issue prevented the loop at line 59 from being vectorized?"
+  - "How is the computational intensity formula defined for the `matvec` function?"
+  - "How is \"Computational Intensity\" calculated, and what threshold suggests a loop is suitable for GPU execution?"
+  - "Why is the accumulation of values in the `sum` variable not considered a problematic data dependency in the provided code?"
+  - "What example is given to illustrate a data dependency where one loop iteration affects another, making efficient parallelism difficult?"
+  - "Why was the initial loop prevented from being vectorized, and what type of SIMD code was eventually generated?"
+  - "What specific loop transformations and function inlining actions did the compiler perform or reject?"
+  - "Why was the compute intensity marked as unprintable, and which compiler options are recommended to fix this?"
+  - "How is \"Computational Intensity\" calculated, and what threshold suggests a loop is suitable for GPU execution?"
+  - "Why is the accumulation of values in the `sum` variable not considered a problematic data dependency in the provided code?"
+  - "What example is given to illustrate a data dependency where one loop iteration affects another, making efficient parallelism difficult?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
 !!! info "Learning objectives"
-    * Understand what a profiler is*
+    * Understand what a profiler is
     * Understand how to use the NVPROF profiler
     * Understand how the code is performing
-    * Understand where to focus your time and rewrite most time-consuming routines
+    * Understand where to focus your time and rewrite most time consuming routines
 
 ## Code profiling
 Why would one need to profile code? Because it's the only way to understand:
@@ -37,23 +90,19 @@ Why would one need to profile code? Because it's the only way to understand:
 
 What is so important about hotspots in the code?
 The [Amdahl's law](https://en.wikipedia.org/wiki/Amdahl%27s_law) says that
-"Parallelising the most time-consuming routines (i.e. the hotspots) will have the most impact".
+"Parallelizing the most time-consuming routines (i.e. the hotspots) will have the most impact".
 
 ## Build the Sample Code
 For the following example, we use a code from this [Git repository](https://github.com/calculquebec/cq-formation-openacc).
 You are invited to [download and extract the package](https://github.com/calculquebec/cq-formation-openacc/archive/refs/heads/main.zip), and go to the `cpp` or the `f90` directory.
 The object of this example is to compile and link the code, obtain an executable, and then profile its source code with a profiler.
 
-!!! note "Which compiler?"
-    Being pushed by [Cray](https://www.cray.com/) and by [NVIDIA](https://www.nvidia.com) through its
-    [Portland Group](https://www.pgroup.com/support/release_archive.php) division until 2020 and now through its [HPC SDK](https://developer.nvidia.com/hpc-sdk), these two lines of compilers offer the most advanced OpenACC support.
+!!! tip "Which compiler?"
+    Being pushed by [Cray](https://www.cray.com/) and by [NVIDIA](https://www.nvidia.com) through its [Portland Group](https://www.pgroup.com/support/release_archive.php) division until 2020 and now through its [HPC SDK](https://developer.nvidia.com/hpc-sdk), these two lines of compilers offer the most advanced OpenACC support.
 
-    As for the [GNU compilers](https://gcc.gnu.org/wiki/OpenACC), since GCC version 6, the support for OpenACC 2.x kept improving.
-    As of July 2022, GCC versions 10, 11 and 12 support OpenACC version 2.6.
+    As for the [GNU compilers](https://gcc.gnu.org/wiki/OpenACC), since GCC version 6, the support for OpenACC 2.x kept improving. As of July 2022, GCC versions 10, 11 and 12 support OpenACC version 2.6.
 
-    For the purpose of this tutorial, we use the
-    [NVIDIA HPC SDK](https://developer.nvidia.com/nvidia-hpc-sdk-releases), version 22.7.
-    Please note that NVIDIA compilers are free for academic usage.
+    For the purpose of this tutorial, we use the [NVIDIA HPC SDK](https://developer.nvidia.com/nvidia-hpc-sdk-releases), version 22.7. Please note that NVIDIA compilers are free for academic usage.
 
 ```bash
 module load nvhpc/22.7
@@ -81,10 +130,10 @@ the profiler will measure function calls by executing and monitoring this progra
 **Important:** this executable uses about 3GB of memory and one CPU core at near 100%.
 Therefore, **a proper test environment should have at least 4GB of available memory and at least two (2) CPU cores**.
 
-!!! note "Which profiler?"
+!!! tip "Which profiler?"
     For the purpose of this tutorial, we use two profilers:
-    *   **[NVIDIA `nvprof`](https://docs.nvidia.com/cuda/profiler-users-guide/)** - a command line text-based profiler that can analyse non-GPU codes.
-    *   **[NVIDIA Visual Profiler `nvvp`](openacc-tutorial-adding-directives.md#nvidia-visual-profiler)** - a graphical cross-platform analysing tool for the codes written with OpenACC and CUDA C/C++ instructions.
+    * **[NVIDIA `nvprof`](https://docs.nvidia.com/cuda/profiler-users-guide/)** - a command line text-based profiler that can analyze non-GPU codes.
+    * **[NVIDIA Visual Profiler `nvvp`](openacc-tutorial---adding-directives.md#nvidia-visual-profiler)** - a graphical cross-platform analyzing tool for the codes written with OpenACC and CUDA C/C++ instructions.
     Since our previously built `cg.x` is not yet using the GPU, we will start the analysis with the `nvprof` profiler.
 
 ### NVIDIA `nvprof` Command Line Profiler
@@ -108,15 +157,15 @@ nvprof --cpu-profiling on ./cg.x
 ======== CPU profiling result (bottom up):
 Time(%)      Time  Name
  83.54%  90.6757s  matvec(matrix const &, vector const &, vector const &)
- 83.54%  90.6757s  {{!}} main
+ 83.54%  90.6757s  | main
   7.94%  8.62146s  waxpby(double, vector const &, double, vector const &, vector const &)
-  7.94%  8.62146s  {{!}} main
+  7.94%  8.62146s  | main
   5.86%  6.36584s  dot(vector const &, vector const &)
-  5.86%  6.36584s  {{!}} main
+  5.86%  6.36584s  | main
   2.47%  2.67666s  allocate_3d_poisson_matrix(matrix&, int)
-  2.47%  2.67666s  {{!}} main
+  2.47%  2.67666s  | main
   0.13%  140.35ms  initialize_vector(vector&, double)
-  0.13%  140.35ms  {{!}} main
+  0.13%  140.35ms  | main
 ...
 ======== Data collected at 100Hz frequency
 ```
@@ -125,27 +174,28 @@ From the above output, the `matvec()` function is responsible for 83.5% of the e
 
 ## Compiler Feedback
 Before working on the routine, we need to understand what the compiler is actually doing by asking ourselves the following questions:
-* What optimisations were applied automatically by the compiler?
-* What prevented further optimisations?
+* What optimizations were applied automatically by the compiler?
+* What prevented further optimizations?
 * Can very minor modifications of the code affect performance?
 
 The NVIDIA compiler offers a `-Minfo` flag with the following options:
-*   `all` - Print almost all types of compilation information, including:
-    *   `accel` - Print compiler operations related to the accelerator
-    *   `inline` - Print information about functions extracted and inlined
-    *   `loop,mp,par,stdpar,vect` - Print various information about loop optimisation and vectorisation
-*   `intensity` - Print compute intensity information about loops
-*   (none) - If `-Minfo` is used without any option, it is the same as with the `all` option, but without the `inline` information
+* `all` - Print almost all types of compilation information, including:
+    * `accel` - Print compiler operations related to the accelerator
+    * `inline` - Print information about functions extracted and inlined
+    * `loop,mp,par,stdpar,vect` - Print various information about loop optimization and vectorization
+* `intensity` - Print compute intensity information about loops
+* (none) - If `-Minfo` is used without any option, it is the same as with the `all` option, but without the `inline` information
 
 ### How to Enable Compiler Feedback
-*   Edit the `Makefile`:
-    ```makefile
-    CXX=nvc++
-    CXXFLAGS=-fast -Minfo=all,intensity
-    LDFLAGS=${CXXFLAGS}
-    ```
+* Edit the `Makefile`:
 
-*   Rebuild
+```makefile
+CXX=nvc++
+CXXFLAGS=-fast -Minfo=all,intensity
+LDFLAGS=${CXXFLAGS}
+```
+
+* Rebuild
 
 ```bash
 make clean; make
@@ -278,13 +328,12 @@ main:
 The *Computational Intensity* of a loop is a measure of how much work is being done compared to memory operations.
 Basically:
 
-Computational Intensity = $\frac{\text{Compute Operations}}{\text{Memory Operations}}$
+$$\mbox{Computational Intensity} = \frac{\mbox{Compute Operations}}{\mbox{Memory Operations}}$$
 
 In the compiler feedback, an `Intensity` $\ge$ 1.0 suggests that the loop might run well on a GPU.
 
 ## Understanding the code
-Let's look closely at the main loop in the
-[`matvec()</code> function implemented in `matrix_functions.h`](https://github.com/calculquebec/cq-formation-openacc/blob/main/cpp/matrix_functions.h#L29):
+Let's look closely at the main loop in the [\`matvec()\` function implemented in \`matrix_functions.h\`](https://github.com/calculquebec/cq-formation-openacc/blob/main/cpp/matrix_functions.h#L29):
 
 ```cpp
   for(int i=0;i<num_rows;i++) {
@@ -293,8 +342,8 @@ Let's look closely at the main loop in the
     int row_end=row_offsets[i+1];
     for(int j=row_start; j<row_end;j++) {
       unsigned int Acol=cols[j];
-      double Acoef=Acoefs[j];
-      double xcoef=xcoefs[Acol];
+      double Acoef=Acoefs[j]; 
+      double xcoef=xcoefs[Acol]; 
       sum+=Acoef*xcoef;
     }
     ycoefs[i]=sum;
@@ -302,13 +351,13 @@ Let's look closely at the main loop in the
 ```
 
 Given the code above, we search for data dependencies:
-*   Does one loop iteration affect other loop iterations?
-    *   For example, when generating the [Fibonacci sequence](https://en.wikipedia.org/wiki/Fibonacci_number), each new value depends on the previous two values. Therefore, efficient parallelism is very difficult to implement, if not impossible.
-*   Is the accumulation of values in `sum` a data dependency?
-    *   No, it’s a [reduction](https://en.wikipedia.org/wiki/Reduction_operator)! And modern compilers are good at optimising such reductions.
-*   Do loop iterations read from and write to the same array, such that written values are used or overwritten in other iterations?
-    *   Fortunately, that does not happen in the above code.
+* Does one loop iteration affect other loop iterations?
+    * For example, when generating the **[Fibonacci sequence](https://en.wikipedia.org/wiki/Fibonacci_number)**, each new value depends on the previous two values. Therefore, efficient parallelism is very difficult to implement, if not impossible.
+* Is the accumulation of values in `sum` a data dependency?
+    * No, it’s a **[reduction](https://en.wikipedia.org/wiki/Reduction_operator)**! And modern compilers are good at optimizing such reductions.
+* Do loop iterations read from and write to the same array, such that written values are used or overwritten in other iterations?
+    * Fortunately, that does not happen in the above code.
 
 Now that the code analysis is done, we are ready to add directives to the compiler.
 
-[<- Previous unit: *Introduction*](openacc-tutorial-introduction.md) | [^- Back to the lesson plan](openacc-tutorial.md) | [Onward to the next unit: *Adding directives* ->](openacc-tutorial-adding-directives.md)
+[<- Previous unit: *Introduction*](openacc-tutorial---introduction.md) | [^- Back to the lesson plan](openacc-tutorial.md) | [Onward to the next unit: *Adding directives* ->](openacc-tutorial---adding-directives.md)

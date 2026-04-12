@@ -1,0 +1,76 @@
+{
+  "doc_key": "base/cephfs",
+  "level": "chunk",
+  "chunk_index": 4,
+  "qa_pairs": [
+    {
+      "question": "How do you install the required CephFS client packages for Red Hat family distributions?",
+      "answer": "You can install the required packages using the command: `sudo dnf install -y libcephfs2 python3-cephfs ceph-common python3-ceph-argparse`."
+    },
+    {
+      "question": "Which operating system families require specific package installation steps for the CephFS client, distinct from Red Hat distributions?",
+      "answer": "The Debian family, which includes Debian, Ubuntu, and Mint, requires specific package installation steps for the CephFS client."
+    },
+    {
+      "question": "How do you determine the codename of your Debian-based distribution?",
+      "answer": "You can find your distro's codename by running the command `lsb_release -sc`."
+    },
+    {
+      "question": "How do you add the Ceph repository for Debian family distributions?",
+      "answer": "First, figure out your distro's codename using `lsb_release -sc`, then use the command `sudo apt-add-repository 'deb https://download.ceph.com/debian-tentacle/ {codename} main'`."
+    },
+    {
+      "question": "What should you do if the `apt-add-repository` command gives an error when adding the Ceph repository on a Debian-based system?",
+      "answer": "If the `apt-add-repository` command gives an error, you should revert it with `sudo add-apt-repository -r 'deb https://download.ceph.com/debian-tentacle/ {codename} main'` and then proceed to the next step."
+    },
+    {
+      "question": "What command is used to install the Ceph client library, CephFS client, and other dependencies on Debian-based systems?",
+      "answer": "You can install them using the command: `sudo apt-get install -y libcephfs2 python3-cephfs ceph-common python3-ceph-argparse`."
+    },
+    {
+      "question": "What is the next configuration step after installing the Ceph client?",
+      "answer": "After installing the Ceph client, you need to create a `ceph.conf` file."
+    },
+    {
+      "question": "What is the recommended content for the `/etc/ceph/ceph.conf` file when configuring for Arbutus cloud?",
+      "answer": "For Arbutus, the recommended `/etc/ceph/ceph.conf` content is:\n```ini\n[global]\nadmin socket = /var/run/ceph/$cluster-$name-$pid.asok\nclient reconnect stale = true\ndebug client = 0/2\nfuse big writes = true\nmon host = [v2:134.87.15.61:3300/0,v1:134.87.15.61:6789/0] [v2:134.87.15.62:3300/0,v1:134.87.15.62:6789/0] [v2:134.87.15.63:3300/0,v1:134.87.15.63:6789/0]\n[client]\nquota = true\n```"
+    },
+    {
+      "question": "What is the recommended content for the `/etc/ceph/ceph.conf` file when configuring for SD4H/Juno cloud?",
+      "answer": "For SD4H/Juno, the recommended `/etc/ceph/ceph.conf` content is:\n```ini\n[global]\nadmin socket = /var/run/ceph/$cluster-$name-$pid.asok\nclient reconnect stale = true\ndebug client = 0/2\nfuse big writes = true\nmon host = 10.65.0.10:6789,10.65.0.12:6789,10.65.0.11:6789\n[client]\nquota = true\n```"
+    },
+    {
+      "question": "Where can you find the monitor information that will be used to mount the CephFS volume?",
+      "answer": "You can find the monitor information in the `Path` field within the share details on the web page."
+    },
+    {
+      "question": "What should you do if the `mon host` values in the wiki page for `ceph.conf` differ from the values found in the share details `Path` field?",
+      "answer": "If the values differ, it means the wiki page is out of date, and you should use the monitor information from the share details `Path` field to mount the volume."
+    },
+    {
+      "question": "What file is used to store the client name and secret for CephFS access?",
+      "answer": "Your client name and secret need to be put into the `/etc/ceph/ceph.keyring` file."
+    },
+    {
+      "question": "What is an example structure for the `/etc/ceph/ceph.keyring` file?",
+      "answer": "An example structure for the `/etc/ceph/ceph.keyring` file is:\n```ini\n[client.MyCephFS-RW]\n    key = <Access Key>\n```"
+    },
+    {
+      "question": "Where are the access key and client name found for populating the `ceph.keyring` file?",
+      "answer": "The access key and client name (e.g., `MyCephFS-RW`) are found under the access rules on your project web page, specifically by navigating to `Project --> Share --> Shares` and then clicking on the name of the share."
+    },
+    {
+      "question": "How do you retrieve the specific connection information from the share page needed to mount the CephFS filesystem?",
+      "answer": "To retrieve the connection information, open the share details by clicking on its name in the `Shares` page, then copy the portion of the `Path` that begins with a colon (`:`)."
+    },
+    {
+      "question": "What is the initial step to mount the CephFS filesystem on your host VM?",
+      "answer": "The initial step is to create a mount point directory on your host, for example, `/cephfs`, using the command `mkdir /cephfs`."
+    },
+    {
+      "question": "How can you permanently mount a CephFS device on an Arbutus VM using `/etc/fstab`?",
+      "answer": "For Arbutus, you can permanently mount the CephFS device by adding the following line to the VM's `/etc/fstab` file: `:/volumes/_nogroup/f6cb8f06-f0a4-4b88-b261-f8bd6b03582c /cephfs/ ceph name=MyCephFS-RW,nofail 0 2`."
+    }
+  ],
+  "generated_at": "2026-04-11T19:30:05.070841+00:00"
+}

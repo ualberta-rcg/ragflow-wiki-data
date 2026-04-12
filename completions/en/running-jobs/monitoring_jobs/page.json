@@ -1,0 +1,87 @@
+{
+  "doc_key": "en/monitoring_jobs",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is the main purpose of this document?",
+      "answer": "This document describes various methods for evaluating the efficiency of jobs, covering both currently running and completed tasks."
+    },
+    {
+      "question": "Why is it important to evaluate the efficiency of your jobs?",
+      "answer": "It's an important part of being a responsible user, especially when using a new program or after making substantial changes to a job's work."
+    },
+    {
+      "question": "How can you view all jobs the scheduler is currently managing?",
+      "answer": "You can use the `squeue` command to view all jobs the scheduler is currently managing."
+    },
+    {
+      "question": "What is the shortcut command to view only your own jobs?",
+      "answer": "You can use `sq` or `squeue -u $USER` to view only your own jobs."
+    },
+    {
+      "question": "How do you display only running or only pending jobs for a specific user?",
+      "answer": "To show running jobs, use `squeue -u <username> -t RUNNING`. For pending jobs, use `squeue -u <username> -t PENDING`."
+    },
+    {
+      "question": "What command provides detailed information for a specific running job?",
+      "answer": "You can use `scontrol show job -dd <jobid>` to get detailed information for a specific running job."
+    },
+    {
+      "question": "What is the caution regarding running `squeue` from a script?",
+      "answer": "Do not run `squeue` from a script or program at a high frequency (e.g., every few seconds) as it adds load to Slurm and may interfere with performance."
+    },
+    {
+      "question": "How can you set up email notifications for job conditions using sbatch?",
+      "answer": "You can supply `#SBATCH --mail-user=your.email@example.com` and `#SBATCH --mail-type=ALL` options to `sbatch`."
+    },
+    {
+      "question": "What does 'output buffering' mean for non-interactive Slurm jobs?",
+      "answer": "Output buffering means there's normally a delay between when data is written by the job and when you can see the output on a login node."
+    },
+    {
+      "question": "What is recommended for monitoring job output in real time?",
+      "answer": "If you need to monitor job output in real time, it's recommended to run an interactive job."
+    },
+    {
+      "question": "How do you get a short summary of CPU and memory efficiency for a completed job?",
+      "answer": "You can use the `seff <jobid>` command to get a short summary of CPU and memory efficiency for a completed job."
+    },
+    {
+      "question": "What command provides more detailed information about a completed job, and how can its output be formatted?",
+      "answer": "The `sacct -j <jobid>` command provides detailed information. Its output can be formatted using the `--format` option, for example: `sacct -j <jobid> --format=JobID,JobName,MaxRSS,Elapsed`."
+    },
+    {
+      "question": "In `sacct` output, what do `.bat+` and `.ext+` typically represent?",
+      "answer": "`.bat+` represents the batch step (your submission script), and `.ext+` represents the extern step (prologue and epilogue)."
+    },
+    {
+      "question": "How can you view all records related to a job if it was restarted?",
+      "answer": "You can add the `--duplicates` option to the `sacct` command to see all records related to a given job, even if it was restarted."
+    },
+    {
+      "question": "Which accounting field in `sacct` helps determine the maximum memory a job utilized?",
+      "answer": "The `MaxRSS` accounting field helps determine the maximum resident set size (memory) a job needed."
+    },
+    {
+      "question": "What command functions similarly to `sacct` but for running jobs?",
+      "answer": "The `sstat` command works on a running job much the same way that `sacct` works on a completed job."
+    },
+    {
+      "question": "Why might you want to connect to a node running a job and execute new processes?",
+      "answer": "You might want to do this for troubleshooting or to monitor the progress of a job."
+    },
+    {
+      "question": "Provide an example command to monitor GPU usage on a node assigned to a running job.",
+      "answer": "An example command is `srun --jobid 123456 --overlap --pty watch -n 30 nvidia-smi`."
+    },
+    {
+      "question": "What is a key caution when launching new processes on a node where a job is already running?",
+      "answer": "Be careful not to launch processes that would use a significant portion of the resources allocated for the job, as this could lead to the job being killed or slowed down."
+    },
+    {
+      "question": "Do the `srun` monitoring commands work the same way for interactive jobs as for `sbatch` jobs?",
+      "answer": "No, the `srun` commands shown work only to monitor a job submitted with `sbatch`. To monitor an interactive job, you would create multiple panes with `tmux` and start each process in its own pane."
+    }
+  ],
+  "generated_at": "2026-04-12T03:13:57.357772+00:00"
+}

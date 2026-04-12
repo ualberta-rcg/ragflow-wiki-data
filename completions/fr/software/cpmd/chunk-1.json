@@ -1,0 +1,72 @@
+{
+  "doc_key": "fr/cpmd",
+  "level": "chunk",
+  "chunk_index": 1,
+  "qa_pairs": [
+    {
+      "question": "C'est quoi, CPMD?",
+      "answer": "CPMD est un programme de simulation ab initio en dynamique moléculaire qui est basé sur la théorie de la fonctionnelle de la densité (DFT) pour les ondes planes et les pseudo-potentiels."
+    },
+    {
+      "question": "Est-ce que l'enregistrement est encore obligatoire pour utiliser CPMD?",
+      "answer": "Non, l'enregistrement n'est plus nécessaire. Par le passé, il fallait s'enregistrer et attendre une confirmation, mais ce n'est plus le cas."
+    },
+    {
+      "question": "Comment faire pour utiliser CPMD sur nos grappes de calcul?",
+      "answer": "Pour pouvoir utiliser CPMD sur nos grappes, il faut écrire au soutien technique afin qu'ils vous ajoutent au groupe POSIX."
+    },
+    {
+      "question": "Qu'est-ce qui protège les modules CPMD installés sur les grappes de calcul?",
+      "answer": "Les modules qui sont installés sur nos grappes sont protégés par un groupe POSIX."
+    },
+    {
+      "question": "Quelles commandes doit-on lancer pour charger le module CPMD?",
+      "answer": "Il faut lancer `module load StdEnv/2020` suivi de `module load intel/2020.1.217 openmpi/4.0.3 cpmd/4.3`."
+    },
+    {
+      "question": "Pourquoi pourrait-on vouloir installer CPMD localement?",
+      "answer": "On pourrait vouloir installer CPMD localement parce que la réponse des administrateurs de CPMD peut prendre plusieurs semaines, voire des mois. Comme utilisateur enregistré, on a accès aux fichiers sources pour le construire soi-même."
+    },
+    {
+      "question": "Comment peut-on construire CPMD dans son répertoire /home?",
+      "answer": "On peut le construire dans son répertoire /home en utilisant notre environnement EasyBuild avec la même recette que nous utilisons pour une installation centrale."
+    },
+    {
+      "question": "Quelles sont les premières étapes pour installer CPMD 4.3 localement sur une grappe?",
+      "answer": "Il faut d'abord créer un répertoire local avec la commande `mkdir -p ~/.local/easybuild/sources/c/CPMD`, puis y placer les tarballs et les rustines (patches)."
+    },
+    {
+      "question": "Nommez quelques fichiers qu'on doit placer dans le répertoire `~/.local/easybuild/sources/c/CPMD` pour une installation locale.",
+      "answer": "On doit y placer des fichiers comme `cpmd2cube.tar.gz`, `cpmd2xyz-scripts.tar.gz`, `cpmd-v4.3.tar.gz`, `fourier.tar.gz` et plusieurs `patch.to.xxxx`."
+    },
+    {
+      "question": "Quelle commande EasyBuild faut-il lancer pour l'installation locale de CPMD?",
+      "answer": "Il faut lancer la commande `eb CPMD-4.3-iomkl-2020a.eb --rebuild`."
+    },
+    {
+      "question": "À quoi sert l'option `--rebuild` avec EasyBuild lors d'une installation locale?",
+      "answer": "L'option `--rebuild` fait en sorte qu'EasyBuild utilise l'installation située dans votre répertoire /home plutôt que celle de l'endroit central."
+    },
+    {
+      "question": "Que doit-on faire après avoir installé l'application CPMD localement pour qu'elle soit trouvée?",
+      "answer": "Une fois l'application installée, il faut se déconnecter de la grappe et se reconnecter à nouveau."
+    },
+    {
+      "question": "Après une installation locale et une reconnexion, où se trouve le programme exécutable `cpmd.x`?",
+      "answer": "La commande `which cpmd.x` devrait retourner un chemin similaire à `~/.local/easybuild/software/2020/avx2/MPI/intel2020/openmpi4/cpmd/4.3/bin/cpmd.x`, indiquant qu'il est dans votre répertoire /home."
+    },
+    {
+      "question": "Qu'est-ce qu'on doit configurer pour faire exécuter une tâche avec CPMD?",
+      "answer": "Il faut configurer un fichier d'entrée et avoir accès aux pseudo-potentiels."
+    },
+    {
+      "question": "Quelle est la commande pour exécuter le programme CPMD en parallèle si le fichier d'entrée et les pseudo-potentiels sont dans le même répertoire?",
+      "answer": "La commande est `srun cpmd.x <input files> > <output file>`."
+    },
+    {
+      "question": "Comment fait-on exécuter CPMD si les pseudo-potentiels sont dans un répertoire différent du fichier d'entrée?",
+      "answer": "La commande est `srun cpmd.x <input files> <path to pseudo potentials location> > <output file>`."
+    }
+  ],
+  "generated_at": "2026-04-11T19:14:16.648276+00:00"
+}

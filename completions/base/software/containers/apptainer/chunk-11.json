@@ -1,0 +1,28 @@
+{
+  "doc_key": "base/apptainer",
+  "level": "chunk",
+  "chunk_index": 11,
+  "qa_pairs": [
+    {
+      "question": "In the example, what Apptainer command is used within an `sbatch` job?",
+      "answer": "The example uses the command `apptainer run -C -W $SLURM_TMPDIR a-container.sif wc -l ./my_data_file.txt`."
+    },
+    {
+      "question": "Where is the file `my_data_file.txt` located in the provided example?",
+      "answer": "The file `my_data_file.txt` is located in the current directory on the host system, meaning it is not stored inside the Apptainer container."
+    },
+    {
+      "question": "Why would the `wc` program inside the container not be able to access `my_data_file.txt` in the given example?",
+      "answer": "The `wc` program will not be able to access `my_data_file.txt` because the `-C` option isolates the running container from all filesystems, preventing access to files outside the container."
+    },
+    {
+      "question": "What is the expected outcome if the `wc` program cannot access `my_data_file.txt` inside the container?",
+      "answer": "An access error will result if the `wc` program cannot access `my_data_file.txt`."
+    },
+    {
+      "question": "What is the solution to allow the `wc` program to access `my_data_file.txt` when the container is run with the `-C` option?",
+      "answer": "The fix is to bind mount the current directory into the container."
+    }
+  ],
+  "generated_at": "2026-04-11T17:29:16.656062+00:00"
+}

@@ -1,0 +1,32 @@
+{
+  "doc_key": "fr/mpi",
+  "level": "chunk",
+  "chunk_index": 13,
+  "qa_pairs": [
+    {
+      "question": "Dans le programme `phello2`, comment est-ce que les processus communiquent entre eux pour échanger des messages?",
+      "answer": "Chaque processus de rang `i` envoie son message au processus de rang `(i + 1) % size` et reçoit un message du processus de rang `(i + size - 1) % size` pour boucler la boucle."
+    },
+    {
+      "question": "Quel est le problème caché malgré que le fonctionnement du programme `phello2` semble approprié lors de l'exécution?",
+      "answer": "La norme MPI n'offre aucune garantie que la fonction `MPI_Send` retournera avant que le message ait été livré, ce qui crée un problème caché de fiabilité."
+    },
+    {
+      "question": "Qu'arriverait-il si les implémentations de MPI n'utilisaient pas de mémoire tampon pour la fonction `MPI_Send` dans le cas du programme `phello2`?",
+      "answer": "Le code bloquerait. Chaque processus appellerait `MPI_Send` et attendrait que le processus voisin appelle `MPI_Recv`, et comme le voisin serait aussi en attente, tous les processus seraient indéfiniment en attente (interblocage)."
+    },
+    {
+      "question": "Pourquoi le programme `phello2` n'a-t-il pas bloqué sur les systèmes de Calcul Canada même avec le problème de conception?",
+      "answer": "Les bibliothèques des systèmes de Calcul Canada utilisent des mémoires tampons ('buffers'), ce qui a permis au code de s'exécuter sans bloquer."
+    },
+    {
+      "question": "Est-ce que le modèle de conception de `phello2` est considéré fiable même s'il fonctionne grâce à la mémoire tampon des bibliothèques MPI?",
+      "answer": "Non, ce modèle de conception n'est pas fiable. Sans mémoire tampon offerte par la bibliothèque, le programme pourrait faire défaut, et même avec une mémoire tampon, un appel pourrait être bloqué si celle-ci est saturée."
+    },
+    {
+      "question": "Comment la plupart des implémentations de `MPI_Send` gèrent-elles les données envoyées?",
+      "answer": "Dans la plupart des implémentations, les données sont mises en mémoire temporaire par `MPI_Send`, et la fonction retourne sans attendre que les données soient livrées."
+    }
+  ],
+  "generated_at": "2026-04-12T01:57:42.928694+00:00"
+}

@@ -5,43 +5,94 @@ lang: "fr"
 
 source_wiki_title: "FEniCS/fr"
 source_hash: "8a466c2d091340379d0b9b7aaa7eba4d"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T06:16:24.821344+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T07:00:04.500801+00:00"
 
 tags:
   - software
 
 keywords:
-  []
+  - "bac à sable"
+  - "Certificat pip"
+  - "pybind11"
+  - "cmake"
+  - "installation"
+  - "répertoire"
+  - "SIF"
+  - "fenicsproject"
+  - "conteneur Singularity"
+  - "python3"
+  - "Installation"
+  - "équations aux dérivées partielles"
+  - "mshr"
+  - "fenics-legacy.sandbox"
+  - "fichier SIF"
+  - "ufl_legacy"
+  - "environnement virtuel"
+  - "python-cryptography"
+  - "Trillium"
+  - "script bash"
+  - "Python"
+  - "apt-get"
+  - "FEniCS"
+  - "cython"
+  - "FEniCS Legacy"
+  - "dolfin"
+  - "apptainer build"
+  - "Apptainer"
+
+questions:
+  - "Qu'est-ce que la plateforme FEniCS et quel est son objectif principal ?"
+  - "Quelles sont les deux méthodes d'installation proposées pour utiliser FEniCS puisqu'il n'y a pas d'installation centrale unique ?"
+  - "Que fait le script bash fourni et quelles instructions doivent être exécutées par l'utilisateur une fois l'installation terminée ?"
+  - "What specific software components are having build directories created for them within the installation directory?"
+  - "What CMake configuration flags and compilation commands are utilized to build and install the pybind11 library?"
+  - "What overarching software platform is being set up, as indicated by the environment variables and package names like dolfin and mshr?"
+  - "Quelles sont les étapes principales pour compiler et installer Dolfin et les dépendances Python de FEniCS dans un environnement virtuel ?"
+  - "Comment procéder à l'installation et à la configuration du plugiciel mshr selon les instructions fournies ?"
+  - "Quelle est la méthode décrite pour construire et utiliser un conteneur Singularity pour FEniCS à partir d'une image Docker ?"
+  - "Quelles sont les principales bibliothèques Python et dépendances système installées en prérequis dans ce script ?"
+  - "Quelle version spécifique du logiciel FEniCS est ciblée pour l'installation sur le système Trillium ?"
+  - "Comment utiliser Apptainer pour télécharger l'image Docker et créer un bac à sable avec des permissions d'écriture ?"
+  - "What base container image is specified at the beginning of the configuration?"
+  - "What system update and upgrade commands are executed in the post-installation section?"
+  - "Which specific Python 2 and Python 3 packages are being installed in this environment?"
+  - "Comment créer une nouvelle image Apptainer (SIF) en lecture seule à partir d'un bac à sable modifié ?"
+  - "Pourquoi est-il nécessaire d'utiliser le paquet `ufl_legacy` au lieu de `ufl` avec FEniCS Legacy ?"
+  - "Quelle est la procédure pour créer et tester un alias (shim) permettant aux logiciels tiers de charger `ufl_legacy` sous le nom `ufl` ?"
+  - "Quel est l'objectif principal de la création d'une arborescence sandbox à partir du fichier SIF ?"
+  - "Quelle commande exacte doit-on utiliser pour construire cette sandbox avec Apptainer ?"
+  - "Quelles sont les options de personnalisation possibles pour le nom du répertoire généré ?"
+  - "Comment créer une nouvelle image Apptainer (SIF) en lecture seule à partir d'un bac à sable modifié ?"
+  - "Pourquoi est-il nécessaire d'utiliser le paquet `ufl_legacy` au lieu de `ufl` avec FEniCS Legacy ?"
+  - "Quelle est la procédure pour créer et tester un alias (shim) permettant aux logiciels tiers de charger `ufl_legacy` sous le nom `ufl` ?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
 [FEniCS](https://fenicsproject.org) est une plateforme de logiciels libres pour la résolution d'équations aux dérivées partielles.
 
-Puisque la plateforme peut être construite avec diverses extensions, nous n'offrons pas une installation centrale unique. Vous avez le choix entre :
-
-- l'installation dans un environnement virtuel;
+Puisque la plateforme peut être construite avec diverses extensions, nous n'offrons pas une installation centrale unique. Vous avez plutôt le choix entre :
+- l'installation dans un environnement virtuel,
 - l'utilisation d'un conteneur Singularity.
 
 ## Installation dans un environnement virtuel
+Les directives suivantes installent la version 2019.1.0 dans StdEnv/2020 avec OpenMPI et GCC 9.3.0.
 
-Les instructions suivantes installent la version 2019.1.0 dans StdEnv/2020 avec OpenMPI et GCC 9.3.0.
+Vous pouvez exécuter le script ci-dessous en le copiant sur le cluster que vous utilisez et en lançant **bash fenics-install.sh**.
 
-Vous pouvez exécuter le script ci-dessous en le copiant sur la grappe que vous utilisez et en lançant **bash fenics-install.sh**.
+Lors de l'installation, une notification vous informe qu'un nouveau répertoire sera créé pour l'application, ou que le répertoire sera remplacé si l'application s'y trouve déjà. Les directives d'utilisation seront affichées une fois l'installation terminée. Le script peut être modifié pour spécifier un répertoire différent.
 
-À l'installation, une notification vous informe qu'un nouveau répertoire sera créé pour l'application, ou que le répertoire sera remplacé si l'application s'y trouve déjà. Les directives d'utilisation seront affichées quand l'installation sera terminée. Le script peut être modifié pour spécifier un répertoire différent.
-
-```sh title="fenics-install.sh"
+```bash title="fenics-install.sh"
 #!/usr/bin/env bash
 # =============================================================================
-# Compile script for FEniCS 2019.1.0
+# Script de compilation pour FEniCS 2019.1.0
 # =============================================================================
 
 set -e
@@ -80,11 +131,11 @@ main () {
 
 warning_install () {
     echo "---------------------------------------------------------------"
-    echo "AVERTISSEMENT : L'INSTALLATION DE FENICS/DOLFIN EFFACERA CE RÉPERTOIRE"
+    echo "AVERTISSEMENT : L'installation de FENICS/DOLFIN effacera ce répertoire :"
     echo "     $FENICS_INSTALL "
     echo
-    echo "SI VOUS NE VOULEZ PAS QUE CELA ARRIVE, APPUYEZ SUR CTRL-C POUR ANNULER"
-    echo "APPUYEZ SUR N'IMPORTE QUELLE TOUCHE POUR CONTINUER"
+    echo "SI VOUS NE VOULEZ PAS QUE CELA SE PRODUITE, APPUYEZ SUR CTRL-C POUR ANNULER."
+    echo "APPUYEZ SUR N'IMPORTE QUELLE TOUCHE POUR CONTINUER."
     echo "---------------------------------------------------------------"
     read -n 1
 }
@@ -93,9 +144,9 @@ print_instructions () {
     echo "---------------------------------------------------------------"
     echo "POUR UTILISER FENICS/DOLFIN, VOUS DEVEZ FAIRE :"
     echo
-    echo "module load StdEnv/2020"
-    echo "source $FENICS_INSTALL/bin/activate"
-    echo "source $FENICS_INSTALL/share/dolfin/dolfin.conf"
+    echo "module load \$MODULES"
+    echo "source \$FENICS_INSTALL/bin/activate"
+    echo "source \$FENICS_INSTALL/share/dolfin/dolfin.conf"
     echo "---------------------------------------------------------------"
 }
 
@@ -173,16 +224,17 @@ make_dolfin () {
 main
 ```
 
-## Plugiciels
+!!! warning "Environnement StdEnv/2020 obsolète"
 
-!!! warning "Section obsolète"
-    Cette section n'est pas à jour pour l'environnement StdEnv/2020.
+## Extensions
+
+**Cette section n'est pas à jour pour StdEnv/2020.**
 
 Installez d'abord FEniCS en suivant les directives ci-dessus.
 
 ### mshr
 
-```sh title="mshr_install.sh"
+```bash title="mshr_install.sh"
 module load hdf5-mpi/1.8.18 boost eigen python/3.5 scipy-stack/2017b petsc/3.7.5 fftw-mpi/3.3.6
 
 export CMAKE_PREFIX_PATH=/home/$USER/software/dolfin/share/dolfin/cmake/:$CMAKE_PREFIX_PATH
@@ -191,15 +243,15 @@ git clone https://bitbucket.org/fenics-project/mshr.git
 cd mshr
 mkdir build
 cd build
-cmake .. -DCMAKE_INSTALL_PREFIX=$HOME/software/mshr   -DCMAKE_BUILD_TYPE=Release -DCMAKE_SKIP_RPATH=ON -DCMAKE_PREFIX_PATH=$NIXUSER_PROFILE:$CMAKE_PREFIX_PATH -DEIGEN3_INCLUDE_DIR=$EBROOTEIGEN/include 
+cmake .. -DCMAKE_INSTALL_PREFIX=$HOME/software/mshr   -DCMAKE_BUILD_TYPE=Release -DCMAKE_SKIP_RPATH=ON -DCMAKE_PREFIX_PATH=$NIXUSER_PROFILE:$CMAKE_PREFIX_PATH -DEIGEN3_INCLUDE_DIR=$EBROOTEIGEN/include
 
 make
 make install
 ```
 
-Ensuite, exécutez
+Ensuite, exécutez le script suivant :
 
-```sh title="fenics_mshr_run.sh"
+```bash title="fenics_mshr_run.sh"
 module load hdf5-mpi/1.8.18 boost eigen python/3.5 scipy-stack/2017b petsc/3.7.5 fftw-mpi/3.3.6
 source ~/software/dolfin/share/dolfin/dolfin.conf
 source ~/fenics/bin/activate
@@ -209,17 +261,17 @@ export LD_LIBRARY_PATH=$HOME/software/mshr/lib:$LD_LIBRARY_PATH
 
 ## Utilisation d'un conteneur Singularity
 
-Le pilote Singularity Recipe télécharge l'image FEniCS Docker, l'installe et télécharge des paquets additionnels comme Python, par exemple. Exécutez le pilote sur votre ordinateur où Singularity est installé sous Linux et où vous avez toutes les permissions.
+Le fichier de définition Singularity télécharge l'image FEniCS Docker, l'installe et télécharge des paquets additionnels comme Python, par exemple. Exécutez le fichier de définition sur votre ordinateur où Singularity est installé sous Linux et où vous avez toutes les permissions.
 
-Utilisez la commande
+Utilisez la commande suivante :
 
 ```bash
 sudo singularity build FEniCS.simg FEniCS-ComputeCanada-Singularity-Recipe
 ```
 
-Téléversez ensuite `FEniCS.simg` dans votre compte. L'image FEniCS Docker place plusieurs fichiers dans `/home/fenics`.
+Téléversez ensuite `FEniCS.simg` dans votre compte. L'image *FEniCS Docker* place plusieurs fichiers dans `/home/fenics`.
 
-```text title="FEniCS-ComputeCanada-Singularity-Recipe"
+```singularity title="FEniCS-ComputeCanada-Singularity-Recipe"
 Bootstrap: docker
 From: quay.io/fenicsproject/stable:latest
 
@@ -275,7 +327,7 @@ From: quay.io/fenicsproject/stable:latest
   sudo apt-get -y install python-terminado python3-terminado
   sudo apt-get -y install python-tornado python3-tornado
   sudo apt-get -y install python-traitlets python3-traitlets
-  sudo apt-get -y install automake git-core libopenmpi-dev libtool mercurial openmpi-bin 
+  sudo apt-get -y install automake git-core libopenmpi-dev libtool mercurial openmpi-bin
   sudo apt-get -y install python3-pip python3-venv
 
   # Clean up downloaded and temporary files...
@@ -285,67 +337,57 @@ From: quay.io/fenicsproject/stable:latest
 
 ## Installation de FEniCS Legacy (2019) sur Trillium
 
-Dans votre répertoire `/home`, configurez et testez le conteneur pour la version FEniCS Legacy 2019 avec les instructions suivantes.
+Dans votre répertoire `/home`, configurez et testez le conteneur pour la version FEniCS Legacy 2019 avec les directives suivantes.
 
-### 1. Téléchargez l'image Docker au format Apptainer SIF
-
+### 1. Téléchargement de l'image Docker au format Apptainer SIF
 ```bash
-apttainer pull fenics-legacy.sif docker://ghcr.io/scientificcomputing/fenics-gmsh:2024-05-30
+apptainer pull fenics-legacy.sif docker://ghcr.io/scientificcomputing/fenics-gmsh:2024-05-30
 ```
 
-### 2. Créez un bac à sable (*sandbox*) avec permission d'écriture
-
-Créez l'arborescence *fenics-legacy.sandbox* à partir du fichier SIF afin de modifier ou installer d'autres paquets.
-
+### 2. Création d'un environnement bac à sable (*sandbox*) avec permission d'écriture
+Créez l’arborescence *fenics-legacy.sandbox* à partir du fichier SIF afin de modifier ou d'installer d’autres paquets.
 ```bash
 apptainer build --sandbox fenics-legacy.sandbox fenics-legacy.sif
 ```
 
-**Remarques :**
-- la commande crée le répertoire *fenics-legacy.sandbox*
-- Vous pouvez modifier le nom du répertoire (par exemple *fenics-dev/* ou *my_rw_image/*)
-- le suffixe *.sandbox* est optionnel
+!!! note "Remarques"
+    - la commande crée le répertoire *fenics-legacy.sandbox*
+    - Vous pouvez modifier le nom du répertoire (par exemple *fenics-dev/* ou *my_rw_image/*)
+    - le suffixe *.sandbox* est facultatif.
 
 ### 3. Certificat pip
-
-À l'intérieur du bac à sable, créez un dossier de certificats et un lien symbolique vers le faisceau de CA afin que pip/SSL fasse confiance au HTTPS :
-
+À l'intérieur de l'environnement bac à sable, créez un dossier de certificats (certs) et créez un lien symbolique (symlink) vers le paquet CA (CA bundle) afin que pip/SSL fasse confiance aux connexions HTTPS :
 ```bash
 apptainer exec --writable fenics-legacy.sandbox sh -c "mkdir -p /etc/pki/tls/certs && ln -s /etc/ssl/certs/ca-certificates.crt /etc/pki/tls/certs/ca-bundle.crt"
 ```
 
-### 4. Créez un nouveau SIF à partir du bac à sable
-
-Une fois les modifications du bac à sable terminées, utilisez-le pour créer une nouvelle image en lecture seulement. Cette image est portable et permet des calculs reproductibles.
-
+### 4. Création d'un nouveau fichier SIF à partir de l'environnement bac à sable
+Une fois les modifications de l'environnement bac à sable terminées, utilisez-le pour créer une nouvelle image en lecture seule. Cette image est portable et permet des calculs reproductibles.
 ```bash
 apptainer build fenics-legacy-updated.sif fenics-legacy.sandbox
 ```
 
-### 5. Effectuez ces courts tests
-
+### 5. Exécution de tests rapides
 ```bash
 apptainer exec --bind $PWD:/root/shared --pwd /root/shared fenics-legacy-updated.sif python3 -c "import ufl_legacy; print('ufl_legacy ok. version:', ufl_legacy.__version__)"
 ```
 
-**Remarques :**
-- `--bind $PWD:/root/shared` monte le répertoire hôte actif dans le conteneur
-- `--pwd` définit le répertoire de travail
+!!! note "Remarques"
+    - `--bind $PWD:/root/shared` monte le répertoire hôte actif dans le conteneur
+    - `--pwd` définit le répertoire de travail
 
 ## Remarques importantes
-
 - FEniCS Legacy (2019.1.x) nécessite UFL Legacy, déjà inclus.
 - Le paquet Python se nomme `ufl_legacy`, et non `ufl`.
-- La version UFL compatible est 2022.3.0 (fournie par `ufl_legacy`).
-- L'instruction `import ufl` devrait échouer, mais non `import ufl_legacy`.
+- La version UFL compatible est la 2022.3.0 (fournie par `ufl_legacy`).
+- L'instruction `import ufl` devrait échouer, mais pas `import ufl_legacy`.
 
-## Créez un alias ufl
+## Création d'un alias `ufl`
+Certains logiciels (tels qu'Oasis) supposent que le nom du module à charger est `ufl`. Plutôt que de modifier ces logiciels, vous pouvez créer un *shim* qui réexporte `ufl_legacy` sous le nom `ufl`.
 
-Certains logiciels (tels que Oasis) assument que le nom du module à charger est `ufl`. Plutôt que de modifier ces logiciels, vous pouvez créer un *shim* qui réexporte `ufl_legacy` sous le nom `ufl`.
+Créez le fichier `/pyshims/ufl/__init__.py` qui contient le code suivant :
 
-Créez le fichier `/pyshims/ufl/__init__.py` qui contient
-
-```python
+```python title="/pyshims/ufl/__init__.py"
 import sys
 import ufl_legacy as ufl
 
@@ -355,13 +397,7 @@ for key in api:
 del api
 ```
 
-## Testez l'alias
-
-Ajoutez le chemin de l'alias (*shim*) à PYTHONPATH lors de l'utilisation du conteneur.
-
+## Tester l'alias
+Ajoutez le chemin de l'alias (*shim*) à `PYTHONPATH` lors de l'utilisation du conteneur.
 ```bash
 APPTAINERENV_PYTHONPATH=<path_to_shim>:$PYTHONPATH apptainer exec --bind /scratch:/scratch ~/fenics-legacy-updated.sif python3 -c "from ufl.tensors import ListTensor; print('UFL tensors ok')"
-```
-
-**Remarques :**
-- `--bind /scratch:/scratch` monte le répertoire hôte actif dans le conteneur

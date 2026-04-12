@@ -1,0 +1,47 @@
+{
+  "doc_key": "base/aiida",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is AiiDA and what is its main purpose?",
+      "answer": "AiiDA is an open-source Python tool designed to help researchers automate and reproduce complex workflows associated with modern computational science."
+    },
+    {
+      "question": "What issue does AiiDA encounter when trying to connect to clusters that use multifactor authentication?",
+      "answer": "AiiDA struggles with clusters requiring interactive Multifactor Authentication (MFA) because it needs to make many autonomous SSH connections."
+    },
+    {
+      "question": "How has Alliance addressed the challenge of AiiDA connecting to clusters with MFA?",
+      "answer": "Alliance has set up 'automation nodes' on each cluster that permit SSH connections without MFA, subject to restrictions."
+    },
+    {
+      "question": "What is the first step a user must take to gain access to Alliance cluster automation nodes?",
+      "answer": "Users must submit a ticket requesting access to automation nodes, explaining why it is needed."
+    },
+    {
+      "question": "What specific details must be included in the public SSH key uploaded for Alliance cluster access?",
+      "answer": "The uploaded key must specify the IP address of the machine running AiiDA, the AiiDA working directory (used during 'computer setup'), and the location of the `aiida_commands.sh` script on the cluster."
+    },
+    {
+      "question": "What should a user do if the IP address of the machine running AiiDA changes?",
+      "answer": "If the IP address changes, the user will need to upload a new SSH key with the updated IP address."
+    },
+    {
+      "question": "How do users obtain and set up the `aiida_commands.sh` script on an Alliance cluster?",
+      "answer": "Users download the script from a specified GitHub URL using `wget` on the cluster, place it in the location specified in their SSH key, then set execute permission (`chmod u+x`) and make it non-writeable (`chmod u-w`)."
+    },
+    {
+      "question": "How is AiiDA configured to utilize the automation nodes?",
+      "answer": "Users set up a 'computer' in AiiDA, specifying one of the cluster automation nodes as the hostname and selecting the previously defined SSH key."
+    },
+    {
+      "question": "What environment variables need to be set in the `.bashrc` file on the cluster for AiiDA jobs?",
+      "answer": "Users need to add `export SLURM_ACCOUNT=def-someuser` and `export SBATCH_ACCOUNT=$SLURM_ACCOUNT` to their `.bashrc`, and potentially `source /etc/profile`."
+    },
+    {
+      "question": "What should users do if they encounter difficulties with complex AiiDA workflows using the automation script?",
+      "answer": "Users should consult with Alliance staff if they run into difficulties with more complicated workflows, as the script has primarily been tested for basic AiiDA jobs."
+    }
+  ],
+  "generated_at": "2026-04-11T16:14:50.252087+00:00"
+}

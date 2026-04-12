@@ -1,0 +1,72 @@
+{
+  "doc_key": "fr/cephfs",
+  "level": "chunk",
+  "chunk_index": 6,
+  "qa_pairs": [
+    {
+      "question": "Comment est-ce qu'on fait pour trouver le chemin d'accès (Path) d'un point de partage CephFS pour le montage?",
+      "answer": "Faut ouvrir les détails du point de partage en cliquant sur son nom dans la page *Shares*, pis copier la partie du *Path* qui contient un deux-points (`:`)."
+    },
+    {
+      "question": "Avant de monter un système de fichiers CephFS, quelle est la première étape à faire sur l'hôte?",
+      "answer": "Faut créer un répertoire qui va servir de point de montage, comme `/cephfs` par exemple."
+    },
+    {
+      "question": "Comment monter un partage CephFS de manière permanente sur une instance Arbutus?",
+      "answer": "On peut l'ajouter dans le fichier `/etc/fstab` de l'instance, avec une ligne comme `:/volumes/_nogroup/f6cb8f06-f0a4-4b88-b261-f8bd6b03582c /cephfs/ ceph name=MyCephFS-RW,nofail 0 2`."
+    },
+    {
+      "question": "Pour une instance SD4H/Juno, quelle ligne faut ajouter dans `/etc/fstab` pour que le montage CephFS soit persistant?",
+      "answer": "Faut ajouter une ligne comme `:/volumes/_nogroup/f6cb8f06-f0a4-4b88-b261-f8bd6b03582c /cephfs/ ceph name=MyCephFS-RW,mds_namespace=cephfs_4_2,x-systemd.device-timeout=30,x-systemd.mount-timeout=30,noatime,_netdev,rw,nofail 0 2` dans le fichier `/etc/fstab`."
+    },
+    {
+      "question": "Le caractère deux-points (:) devant le chemin d'accès au périphérique dans le fstab, est-ce que c'est une erreur?",
+      "answer": "Non, c'est pas une erreur de frappe, même si c'est un caractère non standard."
+    },
+    {
+      "question": "Quelles sont les options de montage spécifiques à utiliser pour SD4H/Juno, pis à quoi elles servent?",
+      "answer": "L'option `namespace` est obligatoire pour SD4H/Juno, tandis que les autres options sont là pour des ajustements de performance."
+    },
+    {
+      "question": "À quoi sert l'option de montage `nofail` dans le contexte de CephFS?",
+      "answer": "L'option `nofail` fait en sorte que le système va pouvoir démarrer même si CephFS est pas disponible ou si on peut pas le rejoindre."
+    },
+    {
+      "question": "Quelle est la commande à utiliser pour monter CephFS directement en ligne de commande sur une instance Arbutus?",
+      "answer": "Faut taper `sudo mount -t ceph :/volumes/_nogroup/f6cb8f06-f0a4-4b88-b261-f8bd6b03582c /cephfs/ -o name=MyCephFS-RW`."
+    },
+    {
+      "question": "Sur une instance SD4H/Juno, comment monter CephFS avec une commande directe?",
+      "answer": "On utilise la commande `sudo mount -t ceph :/volumes/_nogroup/f6cb8f06-f0a4-4b88-b261-f8bd6b03582c /cephfs/ -o name=MyCephFS-RW,mds_namespace=cephfs_4_2,x-systemd.device-timeout=30,x-systemd.mount-timeout=30,noatime,_netdev,rw`."
+    },
+    {
+      "question": "Est-ce qu'on peut monter CephFS d'une autre façon que par le pilote noyau?",
+      "answer": "Oui, on peut aussi le monter directement dans son espace de travail en utilisant `ceph-fuse`."
+    },
+    {
+      "question": "Quelle commande faut utiliser pour installer la bibliothèque `ceph-fuse`?",
+      "answer": "Faut utiliser la commande `sudo dnf install ceph-fuse`."
+    },
+    {
+      "question": "Qu'est-ce qu'il faut modifier pour permettre à `ceph-fuse` de monter des partages dans l'espace utilisateur?",
+      "answer": "Faut enlever le commentaire de la ligne `user_allow_other` dans le fichier `fuse.conf`."
+    },
+    {
+      "question": "Comment monter un partage CephFS dans son répertoire `home` en utilisant `ceph-fuse`?",
+      "answer": "On doit d'abord créer un répertoire, par exemple `mkdir ~/my_cephfs`, pis ensuite utiliser la commande `ceph-fuse my_cephfs/ --id=MyCephFS-RW --conf=~/ceph.conf --keyring=~/ceph.keyring --client-mountpoint=/volumes/_nogroup/f6cb8f06-f0a4-4b88-b261-f8bd6b03582c`."
+    },
+    {
+      "question": "Dans la commande `ceph-fuse`, quel argument correspond au nom du client?",
+      "answer": "C'est l'argument `--id` qui sert de nom de client."
+    },
+    {
+      "question": "Est-ce qu'un seul point de partage CephFS peut avoir plusieurs clés utilisateur?",
+      "answer": "Oui, un point de partage peut avoir plusieurs clés utilisateur pour offrir un accès plus précis, comme un accès en lecture seule pour certains hôtes."
+    },
+    {
+      "question": "Les hôtes qui sont pas dans la grappe OpenStack peuvent-ils bénéficier du service CephFS?",
+      "answer": "Non, ce service n'est pas disponible pour les hôtes extérieurs à la grappe OpenStack."
+    }
+  ],
+  "generated_at": "2026-04-11T19:34:06.188608+00:00"
+}

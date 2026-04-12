@@ -1,0 +1,88 @@
+{
+  "doc_key": "fr/dar",
+  "level": "chunk",
+  "chunk_index": 2,
+  "qa_pairs": [
+    {
+      "question": "Qu'arrive-t-il aux attributs étendus des fichiers provenant d'un système de fichiers Lustre quand ils sont archivés avec `dar`?",
+      "answer": "Les attributs étendus des fichiers provenant d'un système de fichiers Lustre sont automatiquement sauvegardés lors de l'archivage avec `dar`."
+    },
+    {
+      "question": "Où est-ce qu'on retrouve habituellement les fichiers Lustre sur nos grappes de calcul d'usage général?",
+      "answer": "Sur nos grappes de calcul d'usage général, les fichiers Lustre se trouvent habituellement dans les répertoires `/home`, `/project` ou `/scratch`."
+    },
+    {
+      "question": "Comment puis-je voir les attributs étendus assignés à chaque fichier archivé?",
+      "answer": "Pour connaître les attributs étendus assignés à chaque fichier archivé, vous devez utiliser l'indicateur `-alist-ea` avec la commande `dar -l`."
+    },
+    {
+      "question": "Quelle commande permet de lister les attributs étendus d'une archive nommée « all »?",
+      "answer": "La commande pour lister les attributs étendus d'une archive « all » est `dar -l all -alist-ea`."
+    },
+    {
+      "question": "Que signifie l'énoncé « Extended Attribute: [lustre.lov] » lorsqu'on inspecte les attributs étendus d'une archive?",
+      "answer": "Un énoncé comme « Extended Attribute: [lustre.lov] » indique la présence d'un attribut étendu spécifique au système de fichiers Lustre."
+    },
+    {
+      "question": "Est-ce que l'extraction de fichiers qui ont l'attribut « lustre.lov » vers un endroit formaté Lustre pose problème?",
+      "answer": "Non, l'extraction de fichiers qui ont l'attribut « lustre.lov » vers un endroit au format Lustre fonctionnera comme à l'habitude."
+    },
+    {
+      "question": "Quels messages d'erreur peuvent survenir si j'essaie d'extraire un fichier Lustre vers un stockage local sur un nœud de calcul, comme dans `$SLURM_TMPDIR`?",
+      "answer": "Si vous tentez d'extraire un fichier Lustre vers un stockage local sur un nœud de calcul (comme dans `$SLURM_TMPDIR`), vous pourriez obtenir des messages d'erreur comme « Error while adding EA lustre.lov : Operation not supported »."
+    },
+    {
+      "question": "Comment éviter les erreurs lors de l'extraction de fichiers Lustre vers un endroit qui n'a pas le format Lustre?",
+      "answer": "Pour éviter ces erreurs lors de l'extraction, vous pouvez utiliser l'indicateur `-u` pour exclure un type particulier d'attribut, par exemple `dar -R restore/ -O -w -x all -v -g test -u 'lustre*'`. Cela permet d'extraire les fichiers touchés sans les attributs problématiques."
+    },
+    {
+      "question": "Existe-t-il une autre solution pour gérer les attributs Lustre problématiques, au moment de la création de l'archive?",
+      "answer": "Oui, une autre solution est de supprimer l'attribut `lustre.lov` dès la création de l'archive en utilisant le même indicateur `-u`, par exemple avec la commande `dar -w -c all -g test -u 'lustre*'`. Cela prévient les problèmes futurs à l'extraction."
+    },
+    {
+      "question": "Dans quel cas est-il nécessaire d'utiliser l'indicateur `-u 'lustre*'`?",
+      "answer": "L'indicateur `-u 'lustre*'` est nécessaire uniquement si vous avez l'intention d'extraire des fichiers vers un endroit qui n'a pas le format Lustre."
+    },
+    {
+      "question": "Comment créer une sauvegarde différentielle ou incrémentale avec `dar`?",
+      "answer": "Pour créer une sauvegarde différentielle et incrémentale, il faut joindre l'indicateur `-A` au nom de base de l’archive référencée."
+    },
+    {
+      "question": "Quelle commande utiliseriez-vous pour faire une sauvegarde complète nommée « monday » du sous-répertoire « test »?",
+      "answer": "La commande pour créer une sauvegarde complète nommée « monday » du sous-répertoire « test » est `dar -w -c monday -g test`."
+    },
+    {
+      "question": "Si j'ai une sauvegarde complète « monday », quelle commande utiliser pour faire une sauvegarde incrémentale le mardi, en utilisant l'archive « monday » comme référence?",
+      "answer": "Pour faire une sauvegarde incrémentale nommée « tuesday » le mardi, en utilisant l'archive « monday » comme référence, la commande est `dar -w -A monday -c tuesday -g test`."
+    },
+    {
+      "question": "Comment créer une autre sauvegarde incrémentale nommée « wednesday », en se basant sur la sauvegarde « tuesday »?",
+      "answer": "Pour créer une sauvegarde incrémentale nommée « wednesday », avec l'archive « tuesday » en référence, la commande est `dar -w -A tuesday -c wednesday -g test`."
+    },
+    {
+      "question": "Que contient exactement un fichier d'archive incrémentale comme « wednesday.1.dar »?",
+      "answer": "Le fichier `wednesday.1.dar` contient uniquement les fichiers qui ont été modifiés le mercredi, mais pas les fichiers des sauvegardes précédentes (lundi ou mardi)."
+    },
+    {
+      "question": "Si je restaure une seule archive incrémentale, par exemple « wednesday », avec la commande `dar -R restore -O -x wednesday`, qu'est-ce qui sera restauré?",
+      "answer": "Si vous restaurez uniquement l'archive incrémentale « wednesday », seuls les fichiers modifiés le mercredi seront restaurés."
+    },
+    {
+      "question": "Comment restaurer tous les fichiers lorsqu'on a plusieurs sauvegardes incrémentales (par exemple, monday, tuesday, wednesday)?",
+      "answer": "Pour restaurer tous les fichiers, vous devrez passer par toutes les sauvegardes en ordre chronologique, en commençant par la sauvegarde complète, par exemple: `dar -R restore -O -w -x monday`, puis `dar -R restore -O -w -x tuesday`, et enfin `dar -R restore -O -w -x wednesday`."
+    },
+    {
+      "question": "Comment peut-on fixer la taille maximale de chaque tranche d'une archive `dar`?",
+      "answer": "Pour fixer la taille maximale de chaque tranche, vous devez utiliser l'indicateur `-s` suivi d'un nombre et d'une unité de mesure (k pour kilo-octets, M pour méga-octets, G pour giga-octets ou T pour téra-octets)."
+    },
+    {
+      "question": "Quelle commande utiliser pour créer une archive « monday » du répertoire « test » avec des tranches de 100 Mo maximum?",
+      "answer": "La commande pour créer une archive « monday » du répertoire « test » avec des tranches de 100 Mo est `dar -s 100M -w -c monday -g test`."
+    },
+    {
+      "question": "Si une archive est divisée en plusieurs tranches (par exemple, `monday.1.dar`, `monday.2.dar`, etc.), comment faut-il procéder pour extraire le contenu de toutes les tranches?",
+      "answer": "Pour extraire le contenu de toutes les tranches, il suffit d'utiliser le nom de base de l'archive, par exemple `dar -O -x monday`."
+    }
+  ],
+  "generated_at": "2026-04-11T20:47:00.504360+00:00"
+}

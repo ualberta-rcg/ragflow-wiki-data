@@ -1,0 +1,100 @@
+{
+  "doc_key": "en/using_ssh_keys_in_linux",
+  "level": "chunk",
+  "chunk_index": 2,
+  "qa_pairs": [
+    {
+      "question": "How can I install a public SSH key to a remote system using `ssh-copy-id`?",
+      "answer": "You can install a public key to a remote system by using the `ssh-copy-id` command, for example: `ssh-copy-id -i ~/.ssh/mynewkey.pub graham.computecanada.ca`."
+    },
+    {
+      "question": "What assumptions does the `ssh-copy-id` command make?",
+      "answer": "The `ssh-copy-id` command assumes that the new key pair is named \"mynewkey\" and \"mynewkey.pub\", and that your username on the remote machine is the same as your local username."
+    },
+    {
+      "question": "What is the primary function of `ssh-copy-id`?",
+      "answer": "`ssh-copy-id` connects to the remote machine and places the public key into the `.ssh/authorized_keys` file in your /home directory on that server."
+    },
+    {
+      "question": "What is the main benefit of using `ssh-copy-id` for installing a public key?",
+      "answer": "The main benefit of using `ssh-copy-id` is that it will create necessary files and directories if they don't exist, and will ensure that the permissions on them are correct."
+    },
+    {
+      "question": "How can I manually install a public key to a remote server?",
+      "answer": "You can manually install a public key by copying the public key file to the remote server, then running the following commands: `mkdir ~/.ssh`, `cat id_rsa.pub >> ~/.ssh/authorized_keys`, `chmod --recursive go-rwx ~/.ssh`, and `chmod go-w ~`."
+    },
+    {
+      "question": "What are the required permissions for SSH to function correctly on both the client and server?",
+      "answer": "The private key file must not be accessible to others (`chmod go-rwx id_rsa`), your remote /home directory must not be writable by others (`chmod go-w ~`), and the remote ~/.ssh directory and ~/.ssh/authorized_keys file must not be writable by others (`chmod --recursive go-rwx ~/.ssh`)."
+    },
+    {
+      "question": "What command ensures that a private key file is not accessible to other users?",
+      "answer": "To ensure a private key file is not accessible to others, you should use the command: `chmod go-rwx id_rsa`."
+    },
+    {
+      "question": "What command prevents other users from writing to your remote /home directory?",
+      "answer": "To prevent others from writing to your remote /home directory, you should use the command: `chmod go-w ~`."
+    },
+    {
+      "question": "What command sets appropriate permissions for the remote ~/.ssh directory and its contents?",
+      "answer": "To set appropriate permissions for the remote ~/.ssh directory and its contents, you should use the command: `chmod --recursive go-rwx ~/.ssh`."
+    },
+    {
+      "question": "How do you test a new SSH key by connecting to a remote machine?",
+      "answer": "You test a new key by SSHing to the remote machine from the local machine using the command: `ssh -i /path/to/your/privatekey USERNAME@ADDRESS`."
+    },
+    {
+      "question": "In the `ssh` command for testing a key, what do `USERNAME` and `ADDRESS` represent?",
+      "answer": "`USERNAME` is the user name on the remote machine, and `ADDRESS` is the address of the remote machine."
+    },
+    {
+      "question": "What is the best practice for server administrators when creating accounts for other users who will use SSH keys?",
+      "answer": "If you have administrative access on the server and created the account for other users, they should test the connection themselves and not disclose their private key."
+    },
+    {
+      "question": "What is the purpose of the `ssh-agent` program?",
+      "answer": "The `ssh-agent` program stores your private key in memory on your local computer and provides it whenever another program on that computer needs it for authentication, eliminating the need to type your passphrase repeatedly."
+    },
+    {
+      "question": "How does `ssh-agent` improve the SSH login process with key pairs?",
+      "answer": "With `ssh-agent`, you only need to unlock your private key once with its passphrase. After that, you can log in to remote clusters multiple times without having to type the passphrase again, as the agent provides the key from memory."
+    },
+    {
+      "question": "How do you start the `ssh-agent` program?",
+      "answer": "You can start the `ssh-agent` program using the command: `eval `ssh-agent``."
+    },
+    {
+      "question": "How do you add your key pair to the `ssh-agent`?",
+      "answer": "After starting `ssh-agent`, you can add your key pair to those managed by the agent using the command `ssh-add`."
+    },
+    {
+      "question": "What should you do if `ssh-add` cannot find your key pair in standard locations?",
+      "answer": "If `ssh-add` cannot find your key pair, you can explicitly add the full path to the private key as an argument to `ssh-add`."
+    },
+    {
+      "question": "How can you view the private keys currently accessible to the `ssh-agent`?",
+      "answer": "You can view the private keys currently accessible to the `ssh-agent` by using the command: `ssh-add -l`."
+    },
+    {
+      "question": "What is agent forwarding, and when is it required?",
+      "answer": "Agent forwarding is a feature that allows your local `ssh-agent` to be used for authentication on a remote server. It's required if you need to use your private key on the cluster itself, for example, when interacting with a remote GitHub repository."
+    },
+    {
+      "question": "How do you enable agent forwarding for the Béluga cluster?",
+      "answer": "To enable agent forwarding for the Béluga cluster, you add the following lines to your `$HOME/.ssh/config` file on your personal computer: `Host beluga.computecanada.ca\n    ForwardAgent yes`."
+    },
+    {
+      "question": "What is a crucial security note regarding agent forwarding in the SSH configuration file?",
+      "answer": "You should never use the line `Host *` for agent forwarding in your SSH configuration file."
+    },
+    {
+      "question": "What alternative tools are available on Linux and macOS for managing SSH key pairs?",
+      "answer": "Many contemporary Linux distributions and macOS offer graphical \"keychain managers\" that can be configured to manage your SSH key pair."
+    },
+    {
+      "question": "What is the benefit of using graphical keychain managers for SSH key pairs?",
+      "answer": "Using graphical keychain managers means that logging in on your local computer is sufficient to store the private key in memory, allowing the operating system to automatically provide it to the SSH client during login on a remote cluster, thereby eliminating the need to type any passphrase."
+    }
+  ],
+  "generated_at": "2026-04-12T10:10:51.013198+00:00"
+}

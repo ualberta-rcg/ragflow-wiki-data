@@ -1,0 +1,64 @@
+{
+  "doc_key": "base/trillium_quickstart",
+  "level": "chunk",
+  "chunk_index": 13,
+  "qa_pairs": [
+    {
+      "question": "How do I submit an OpenMP job on Trillium?",
+      "answer": "You can submit an OpenMP job script from a CPU login node while in your `$SCRATCH` directory using the command: `sbatch openmp_job.sh`."
+    },
+    {
+      "question": "What does the first line `#!/bin/bash` in an OpenMP job script indicate?",
+      "answer": "The first line `#!/bin/bash` indicates that the script is a Bash script."
+    },
+    {
+      "question": "What is the purpose of lines starting with `#SBATCH` in an OpenMP job script?",
+      "answer": "Lines starting with `#SBATCH` are directives for SLURM, which read them as a job request. They specify resources and other job parameters."
+    },
+    {
+      "question": "What resources does the example OpenMP job request from SLURM?",
+      "answer": "The example OpenMP job requests one node with 192 CPUs for a single task running up to 192 OpenMP threads, for a duration of one hour."
+    },
+    {
+      "question": "Which modules are loaded in the example OpenMP job script?",
+      "answer": "The example OpenMP job script loads the `StdEnv/2023` and `gcc/12.3` modules."
+    },
+    {
+      "question": "How is the `OMP_NUM_THREADS` environment variable configured in the example OpenMP job script?",
+      "answer": "The `OMP_NUM_THREADS` environment variable is set to the value of `$SLURM_CPUS_PER_TASK`, ensuring it matches SLURM’s CPU allocation for the job."
+    },
+    {
+      "question": "How do I submit a hybrid MPI/OpenMP job on Trillium?",
+      "answer": "You submit a hybrid MPI/OpenMP job script from a CPU login node while in your `$SCRATCH` directory using the command: `sbatch hybrid_job.sh`."
+    },
+    {
+      "question": "What resources does the example hybrid MPI/OpenMP job request from SLURM?",
+      "answer": "The example hybrid MPI/OpenMP job requests two nodes, with each node running 48 tasks, and each task utilizing 4 threads, for a duration of one hour."
+    },
+    {
+      "question": "What modules are loaded for the example hybrid MPI/OpenMP job?",
+      "answer": "The example hybrid MPI/OpenMP job loads `StdEnv/2023`, `gcc/12.3`, and `openmpi/4.1.5` modules."
+    },
+    {
+      "question": "Which environment variables are set for thread management in the hybrid MPI/OpenMP job example?",
+      "answer": "The environment variables `OMP_NUM_THREADS`, `OMP_PLACES`, and `OMP_PROC_BIND` are set to `$SLURM_CPUS_PER_TASK`, `cores`, and `true` respectively."
+    },
+    {
+      "question": "What is the purpose of `source /scinet/vast/etc/vastpreload-openmpi.bash` in the hybrid MPI/OpenMP job script?",
+      "answer": "This command preloads a library that tunes MPI-IO specifically for the VAST file system, which is important if the job performs MPI-IO operations."
+    },
+    {
+      "question": "Can `srun` be used with the VAST preload library for MPI-IO?",
+      "answer": "No, the VAST preload library for MPI-IO only takes effect when `mpirun` is used; it does not work with `srun`."
+    },
+    {
+      "question": "How does the example hybrid MPI/OpenMP job ensure processes and threads are distributed evenly over the cores?",
+      "answer": "The `mpirun` command uses the `--bind-to core` and `--map-by ppr:$RANKS_PER_L3CACHE:l3cache:pe=$OMP_NUM_THREADS` options to help spread processes and threads evenly over the cores."
+    },
+    {
+      "question": "When should 'l3cache' be changed to 'numa' or 'socket' in the `--map-by` option for a hybrid MPI/OpenMP job?",
+      "answer": "For more than 8 and at most 24 threads per process, 'l3cache' should be changed to 'numa'. For more than 24 threads, it should be changed to 'socket'."
+    }
+  ],
+  "generated_at": "2026-04-12T09:42:53.706396+00:00"
+}

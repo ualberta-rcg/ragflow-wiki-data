@@ -1,0 +1,56 @@
+{
+  "doc_key": "base/gromacs",
+  "level": "chunk",
+  "chunk_index": 19,
+  "qa_pairs": [
+    {
+      "question": "What is the primary benefit of using job arrays for GROMACS checkpointing simulations?",
+      "answer": "Using job arrays for GROMACS checkpointing allows users to automate the process of splitting long simulations into multiple short jobs, which generally leads to less waiting time in the queue. Only one job runs at a time, and as soon as it completes, the next one starts to resume the simulation until all jobs are done or the simulation finishes."
+    },
+    {
+      "question": "What are the key SLURM parameters for a GROMACS checkpointing job script configured for whole nodes on Narval using the `StdEnv/2023` environment?",
+      "answer": "For a GROMACS checkpointing job script on whole nodes on Narval using `StdEnv/2023`, the key SLURM parameters are `--nodes=1`, `--ntasks-per-node=32` (requesting 32 MPI tasks per node), `--cpus-per-task=2` (resulting in 2 OpenMP threads per MPI task for a total of 64 CPUs/node), `--mem-per-cpu=2000M`, `--time=03:00:00`, and `--array=1-20%1` (for a job range running only 1 at a time)."
+    },
+    {
+      "question": "Which modules are necessary to load for a GROMACS checkpointing job designed for whole nodes on Narval, specifically with `StdEnv/2023`?",
+      "answer": "To run a GROMACS checkpointing job on whole nodes with `StdEnv/2023` on Narval, the required modules are `StdEnv/2023`, `gcc/12.3`, `openmpi/4.1.5`, and `gromacs/2024.4`."
+    },
+    {
+      "question": "How is the `OMP_NUM_THREADS` environment variable configured in the GROMACS whole node checkpointing job script?",
+      "answer": "The `OMP_NUM_THREADS` environment variable is set using the value of `SLURM_CPUS_PER_TASK`, defaulting to 1 if `SLURM_CPUS_PER_TASK` is not defined, through the command `export OMP_NUM_THREADS=\"${SLURM_CPUS_PER_TASK:-1}\"`."
+    },
+    {
+      "question": "What is the `srun` command used to initiate the `gmx_mpi mdrun` process in a GROMACS whole node checkpointing job script?",
+      "answer": "The `srun` command used is `srun gmx_mpi mdrun -ntomp $nt -deffnm $simname -cpi \"$simname.cpt\" -maxh $nhours`."
+    },
+    {
+      "question": "What measures does the GROMACS whole node checkpointing job script take if a simulation exits with an error?",
+      "answer": "If the simulation exits with a non-zero exit code, the script prints \"Simulation exited with an error, cancelling pending jobs\" and cancels all pending jobs in the array using `scancel -t pending $SLURM_ARRAY_JOB_ID`."
+    },
+    {
+      "question": "How does the GROMACS whole node checkpointing job script determine if a simulation has successfully concluded?",
+      "answer": "The script checks the simulation's log file (`$simname.log`) to see if the message \"Writing checkpoint, step $nsteps at \" appears, where `$nsteps` matches the total number of steps recorded. If this condition is met, it assumes the simulation is finished and cancels any remaining pending jobs."
+    },
+    {
+      "question": "What are the specific SLURM parameters for a GROMACS GPU checkpointing job script using the `StdEnv/2023` environment?",
+      "answer": "For a GROMACS GPU checkpointing job script with `StdEnv/2023`, the SLURM parameters include `--gpus-per-node=1`, `--cpus-per-task=4`, `--mem-per-cpu=2000M`, `--time=03:00:00`, and `--array=1-20%1` (for a job range running only 1 at a time)."
+    },
+    {
+      "question": "Which modules must be loaded to execute a GROMACS GPU checkpointing job with the `StdEnv/2023` environment?",
+      "answer": "To run a GROMACS GPU checkpointing job with `StdEnv/2023`, the modules `StdEnv/2023`, `gcc/12.3`, `openmpi/4.1.5`, `cuda/12.2`, and `gromacs/2024.4` need to be loaded."
+    },
+    {
+      "question": "What is the `srun` command used to start `gmx mdrun` within a GROMACS GPU checkpointing job script?",
+      "answer": "The `srun` command used for the GROMACS GPU checkpointing job is `srun gmx mdrun -ntomp $nt -deffnm $simname -cpi \"$simname.cpt\" -maxh $nhours`."
+    },
+    {
+      "question": "Where can users find a guide to determine optimal performance conditions for GROMACS and other molecular dynamics software on Alliance clusters?",
+      "answer": "A team at ACENET has created a 'Molecular Dynamics Performance Guide' available on their MDBench portal, which helps determine optimal conditions for AMBER, GROMACS, NAMD, and OpenMM jobs on Alliance clusters."
+    },
+    {
+      "question": "Is optimizing `mdrun` performance in GROMACS a straightforward process?",
+      "answer": "No, getting the best `mdrun` performance with GROMACS is not a straightforward task. The GROMACS developers maintain a comprehensive section in their user guide that explains relevant options, parameters, and strategies for achieving good performance."
+    }
+  ],
+  "generated_at": "2026-04-11T22:27:39.586365+00:00"
+}

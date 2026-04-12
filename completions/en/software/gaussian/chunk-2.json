@@ -1,0 +1,92 @@
+{
+  "doc_key": "en/gaussian",
+  "level": "chunk",
+  "chunk_index": 2,
+  "qa_pairs": [
+    {
+      "question": "What is the shared capacity of the `/localscratch` directory?",
+      "answer": "The `/localscratch` directory has a shared capacity of approximately 3TB, which is shared by all jobs running on the same node."
+    },
+    {
+      "question": "When should I consider using the G16 (G09, G03) option instead of the `g16` option for Gaussian jobs?",
+      "answer": "You should use the G16 (G09, G03) option if your job's files are expected to be larger than or close to the 3TB capacity of `/localscratch`, as the `g16` option temporarily saves files there."
+    },
+    {
+      "question": "What does a sample `g16` job script named `mysub.sh` look like?",
+      "answer": "A sample `g16` job script would include Slurm directives and the Gaussian command, for example:\n```bash\n#!/bin/bash\n#SBATCH --account=def-someuser\n#SBATCH --mem=32G\n#SBATCH --time=02-00:00\n#SBATCH --cpus-per-task=32\nmodule load gaussian/g16.c01\ng16 < name.com >& name.log\n```"
+    },
+    {
+      "question": "How should I set the memory allocation (`--mem`) in a `g16` job script?",
+      "answer": "You should set the `#SBATCH --mem` directive to roughly two times the `%mem` defined in your Gaussian input file (e.g., `name.com`)."
+    },
+    {
+      "question": "How should I set the CPU allocation (`--cpus-per-task`) in a `g16` job script?",
+      "answer": "You should set the `#SBATCH --cpus-per-task` directive to match the `%nprocs` defined in your Gaussian input file (e.g., `name.com`)."
+    },
+    {
+      "question": "What command is used to submit a `g16` job script named `mysub.sh`?",
+      "answer": "To submit a `g16` job script named `mysub.sh`, you use the command `sbatch mysub.sh`."
+    },
+    {
+      "question": "What is the primary purpose of running interactive Gaussian jobs on clusters?",
+      "answer": "The primary purpose of running interactive Gaussian jobs on clusters is for testing."
+    },
+    {
+      "question": "Is it acceptable to run interactive Gaussian jobs on a login node?",
+      "answer": "No, it is not considered good practice to run interactive Gaussian jobs on a login node; they should be run on a compute node."
+    },
+    {
+      "question": "How do I start an interactive session on a compute node for a Gaussian job, requesting specific resources?",
+      "answer": "You can start an interactive session on a compute node using the `salloc` command. For example, to request an hour, 8 CPUs, and 10GB of memory, you would use: `salloc --time=1:0:0 --cpus-per-task=8 --mem=10g`."
+    },
+    {
+      "question": "How do I run a G16 Gaussian job interactively after starting an `salloc` session, and where are its runtime files typically saved?",
+      "answer": "After starting an `salloc` session and navigating to your input file directory, you would use: `module load gaussian/g16.c01; G16 g16_test2.com`. The G16 option saves runtime files (like `.rwf`) to `/scratch/yourid/jobid/`."
+    },
+    {
+      "question": "How do I run a `g16` Gaussian job interactively after starting an `salloc` session, and where are its runtime files typically saved?",
+      "answer": "After starting an `salloc` session and navigating to your input file directory, you would use: `module load gaussian/g16.c01; g16 < g16_test2.com >& g16_test2.log &`. The `g16` option saves runtime files to `/localscratch/yourid/`."
+    },
+    {
+      "question": "What file type is generally used to restart Gaussian jobs?",
+      "answer": "Gaussian jobs can always be restarted from the previous `.rwf` file."
+    },
+    {
+      "question": "Which file type is used to restart geometry optimization jobs?",
+      "answer": "Geometry optimization jobs can be restarted from the `.chk` file."
+    },
+    {
+      "question": "Can one-step computations be restarted from an `.rwf` file? If so, which ones?",
+      "answer": "Yes, one-step computations can be restarted from an `.rwf` file. This includes Analytic frequency calculations (with properties like ROA and VCD with ONIOM), CCSD and EOM-CCSD calculations, NMR, Polar=OptRot, CID, CISD, CCD, QCISD, and BD energies."
+    },
+    {
+      "question": "What information is essential to restart a job from a previous `.rwf` file?",
+      "answer": "To restart a job from a previous `.rwf` file, you need to know the location (path) of that `.rwf` file from your prior run."
+    },
+    {
+      "question": "What are the required components for a sample Gaussian restart input file?",
+      "answer": "A sample restart input file requires specifying the `%rwf` path to the previous `.rwf` file, changing the keywords line to `#p restart`, and including a blank line at the end."
+    },
+    {
+      "question": "Where can I find example Gaussian input files and run scripts?",
+      "answer": "Example input files and run scripts (`*.sh`) can be found in `/opt/software/gaussian/version/examples/`, where 'version' refers to `g03.d10`, `g09.e01`, or `g16.b01`."
+    },
+    {
+      "question": "Which Gaussian version includes NBO7, and what keywords activate it?",
+      "answer": "NBO7 is included exclusively in the `g16.c01` version, and both `nbo6` and `nbo7` keywords will run NBO7 in this version."
+    },
+    {
+      "question": "In which Gaussian versions is NBO6 available?",
+      "answer": "NBO6 is available in the `g09.e01` and `g16.b01` versions of Gaussian."
+    },
+    {
+      "question": "Where can I find webinar slides on effectively running Gaussian16 and NBO7?",
+      "answer": "You can find webinar slides titled 'Running Gaussian16 and NBO7 effectively on Nibi and Fir (2026)' as a PDF document."
+    },
+    {
+      "question": "Where can I find information about common Gaussian error messages and their suggested resolutions?",
+      "answer": "Information regarding common Gaussian error messages and suggestions for their resolution can be found on the 'Gaussian error messages' page."
+    }
+  ],
+  "generated_at": "2026-04-11T22:51:16.168651+00:00"
+}

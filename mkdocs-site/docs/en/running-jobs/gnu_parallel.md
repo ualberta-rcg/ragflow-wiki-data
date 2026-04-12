@@ -5,21 +5,62 @@ lang: "en"
 
 source_wiki_title: "GNU Parallel/en"
 source_hash: "91dcc07509b4d4508246be9666bca3f1"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T06:40:49.696462+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T07:23:18.632138+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "text-align"
+  - "100MB"
+  - "0m10.877s"
+  - "sshdelay"
+  - "arguments list"
+  - "multiple nodes"
+  - "cluster"
+  - "large files handling"
+  - "Slurm job"
+  - "subjobs"
+  - "827MB"
+  - "sequential tasks"
+  - "distribute workload"
+  - "GNU Parallel"
+  - "simulations"
+  - "0m2.042s"
+  - "joblog"
+  - "restart capabilities"
+  - "block size"
+  - "SLURM"
+  - "remote nodes"
+  - "OpenMP"
+
+questions:
+  - "What is GNU Parallel and how does it manage resource usage by default?"
+  - "How can users provide arguments or lists of commands to GNU Parallel using its specific syntax and file redirection?"
+  - "Why is running GNU Parallel across multiple nodes not recommended, and what precaution should be taken if one chooses to do so?"
+  - "How does GNU Parallel distribute tasks across multiple nodes and manage environment variables in a SLURM environment?"
+  - "How can users track the execution status of commands and resume interrupted or failed jobs using GNU Parallel?"
+  - "What arguments are used in GNU Parallel to efficiently process large files by splitting them into chunks?"
+  - "Why is it necessary to add a delay using the `--sshdelay` option when starting sessions on remote nodes?"
+  - "What tool is recommended for distributing workloads across multiple nodes in a cluster environment?"
+  - "How does the `scontrol show hostname` command assist in setting up distributed jobs?"
+  - "What specific system metrics or benchmark parameters do the memory values such as 827MB and 100MB represent in this table?"
+  - "What factors contribute to the significant difference in execution times, specifically between the 2.042-second and 10.877-second runs?"
+  - "How do the integer values, such as 8, 9, and -1, correlate with the memory usage and execution times recorded in the data?"
+  - "How does the choice of block size impact the efficiency and core utilization of a job?"
+  - "What is the recommended approach for estimating the total resources required when running hundreds or thousands of simulations?"
+  - "What are the three different methods demonstrated for feeding parameters or commands into GNU Parallel within a submission script?"
+  - "How does the choice of block size impact the efficiency and core utilization of a job?"
+  - "What is the recommended approach for estimating the total resources required when running hundreds or thousands of simulations?"
+  - "What are the three different methods demonstrated for feeding parameters or commands into GNU Parallel within a submission script?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -29,7 +70,7 @@ status:
 By default, `parallel` will run as many tasks as the number of cores allocated by the scheduler, therefore maximizing resource usage. You can change this behaviour using the option `--jobs` followed by the number of simultaneous tasks that GNU Parallel should run. When one task finishes, a new task will automatically be started by `parallel` in its stead, always keeping the maximum number of tasks running.
 
 ## Basic Usage
-Parallel uses curly brackets `{}` as parameters for the command to be run. For example, to run `gzip` on all the text files in a directory, you can execute
+Parallel uses curly brackets `{}` as parameters for the command to be run. For example, to run `gzip` on all the text files in a directory, you can execute:
 
 ```bash
 ls *.txt | parallel gzip {}
@@ -41,8 +82,7 @@ An alternative syntax is to use `:::`, such as in this example:
 parallel echo {} ::: $(seq 1 3)
 ```
 
-The output would be:
-```
+```text
 1
 2
 3
@@ -57,8 +97,7 @@ You can also use multiple arguments by enumerating them, for example:
 parallel echo {1} {2} ::: $(seq 1 3) ::: $(seq 2 3)
 ```
 
-The output would be:
-```
+```text
 1 2
 1 3
 2 2
@@ -87,34 +126,33 @@ Here is an example how to run a Slurm job using GNU Parallel. The list of comman
 
 === "Script"
 
-    ```bash
-    #!/bin/bash
-    #SBATCH --account=def-someuser
-    #SBATCH --cpus-per-task=4
-    #SBATCH --time=00-02:00
-    #SBATCH --mem=4000M     # Total memory for all tasks
+```bash title="run_gnuparallel_test.sh"
+#!/bin/bash
+#SBATCH --account=def-someuser
+#SBATCH --cpus-per-task=4
+#SBATCH --time=00-02:00
+#SBATCH --mem=4000M     # Total memory for all tasks
 
-    parallel --joblog parallel.log < ./my_commands.txt
-    ```
+parallel --joblog parallel.log < ./my_commands.txt
+```
 
 === "List of Tasks"
 
-    ```text
-    command1
-    command2
-    command3
-    command4
-    command5
-    command6
-    command7
-    command8
-    command9
-    ```
+```text title="my_commands.txt"
+command1
+command2
+command3
+command4
+command5
+command6
+command7
+command8
+command9
+```
 
 ## Running on Multiple Nodes
-
 !!! warning "Not recommended"
-    While GNU parallel can be used across multiple nodes, it can have problems doing so, and it is not recommended, in particular in the context of a lot of short jobs. That is because it needs to start an SSH session on remote nodes, an operation which often requires several seconds and may hang. If you choose to use it, make sure you add a delay between jobs of 30 seconds or more, using the option `--sshdelay 30`
+    While GNU Parallel can be used across multiple nodes, it can have problems doing so, and it is not recommended, in particular in the context of a lot of short jobs. That is because it needs to start an SSH session on remote nodes, an operation which often requires several seconds and may hang. If you choose to use it, make sure you add a delay between jobs of 30 seconds or more, using the option `--sshdelay 30`.
 
 You can also use GNU Parallel to distribute a workload across multiple nodes in a cluster, such as in the context of a job on our servers. An example of this use is the following:
 
@@ -138,7 +176,7 @@ export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
 parallel --jobs $SLURM_NTASKS_PER_NODE --sshloginfile ./node_list_${SLURM_JOB_ID} --workdir $PWD --env OMP_NUM_THREADS --sshdelay 30 ./my_program
 ```
 
-In this case, up to `5*N` OpenMP processes are running simultaneously with a CPU usage of up to 800% each.
+In this case, up to `5*N` OpenMP processes are running simultaneously with a CPU usage of up to `800%` each.
 
 ## Keeping Track of Completed and Failed Commands, and Restart Capabilities
 You can tell GNU Parallel to keep track of which commands have completed by using the `--joblog JOBLOGFILE` argument. The file JOBLOGFILE will contain the list of completed commands, their start times, durations, hosts, and exit values. For example,
@@ -147,7 +185,7 @@ You can tell GNU Parallel to keep track of which commands have completed by usin
 ls *.txt | parallel --joblog gzip.log gzip {}
 ```
 
-The job log functionality opens the door to a number of possible restart options. If the `parallel` command was interrupted (e.g. your job ran longer than the requested walltime for a job), you can make it pick up where it left off using the `--resume` option, for instance
+The job log functionality opens the door to a number of possible restart options. If the `parallel` command was interrupted (e.g. your job ran longer than the requested walltime for a job), you can make it pick up where it left off using the `--resume` option, for instance:
 
 ```bash
 ls *.txt | parallel --resume --joblog gzip.log gzip {}
@@ -155,7 +193,7 @@ ls *.txt | parallel --resume --joblog gzip.log gzip {}
 
 The new jobs will be appended to the old log file.
 
-If some of the subcommands failed (i.e. they produced a non-zero exit code) and you think that you have eliminated the source of the error, you can re-run the failed ones, using `--resume-failed`, e.g.
+If some of the subcommands failed (i.e. they produced a non-zero exit code) and you think that you have eliminated the source of the error, you can re-run the failed ones, using `--resume-failed`, e.g.:
 
 ```bash
 ls *.txt | parallel --resume-failed --joblog gzip.log gzip {}
@@ -172,12 +210,12 @@ parallel --jobs $SLURM_CPUS_PER_TASK --keep-order --block -1 --recstart '>' --pi
 
 By varying the `block` size we get:
 
-|   | # Cores in task | Ref. database size | Block read size | # GNU parallel jobs | # Cores used | Time counting chars |
-|---|----------------:|-------------------:|----------------:|--------------------:|-------------:|--------------------:|
+| | # Cores in task | Ref. database size | Block read size | # GNU parallel jobs | # Cores used | Time counting chars |
+|:---|----------------:|-------------------:|----------------:|--------------------:|-------------:|--------------------:|
 | 1 |               8 |              827MB |            10MB |                  83 |            8 |            0m2.633s |
 | 2 |               8 |              827MB |           100MB |                   9 |            8 |            0m2.042s |
 | 3 |               8 |              827MB |           827MB |                   1 |            1 |           0m10.877s |
-| 4 |               8 |              827MB |             -1  |                   8 |            8 |            0m1.734s |
+| 4 |               8 |              827MB |              -1 |                   8 |            8 |            0m1.734s |
 
 This table shows that choosing the right block size has a real impact on the efficiency and the number of cores actually used.
 The first line shows that the block size is too small, resulting in many jobs dispatched over the available cores.
@@ -198,56 +236,56 @@ As shown in section [File Content as Argument List](#file-content-as-argument-li
 
 === "Parameters"
 
-    ```text
-    1   1
-    1   2
-    1   3
-    ...
-    ```
+```text title="my_parameters.txt"
+1   1
+1   2
+1   3
+...
+```
 
 === "Script"
 
-    ```bash
-    #!/bin/bash
-    #SBATCH --account=def-someuser
-    #SBATCH --nodes=1
-    #SBATCH --cpus-per-task=32
-    #SBATCH --time=03:00:00
-    #SBATCH --mem-per-cpu=2G
+```bash title="sim_submit.sh"
+#!/bin/bash
+#SBATCH --account=def-someuser
+#SBATCH --nodes=1
+#SBATCH --cpus-per-task=32
+#SBATCH --time=03:00:00
+#SBATCH --mem-per-cpu=2G
 
-    # Read the parameters, placing each column to their respective argument
-    parallel -j $SLURM_CPUS_PER_TASK --colsep '\t' my_simulator --alpha {1} --beta {2} :::: ./my_parameters.txt
-    ```
+# Read the parameters, placing each column to their respective argument
+parallel -j $SLURM_CPUS_PER_TASK --colsep '\t' my_simulator --alpha {1} --beta {2} :::: ./my_parameters.txt
+```
 
 ### Commands List
 As shown in the section [File Content as Command List](#file-content-as-command-list), you can use a file containing all the commands and their parameters.
 
 === "Commands"
 
-    ```text
-    my_simulator --alpha 1 --beta 1
-    my_simulator --alpha 1 --beta 2
-    my_simulator --alpha 1 --beta 3
-    ...
-    ```
+```text title="my_commands.txt"
+my_simulator --alpha 1 --beta 1
+my_simulator --alpha 1 --beta 2
+my_simulator --alpha 1 --beta 3
+...
+```
 
 === "Script"
 
-    ```bash
-    #!/bin/bash
-    #SBATCH --account=def-someuser
-    #SBATCH --nodes=1
-    #SBATCH --cpus-per-task=32
-    #SBATCH --time=03:00:00
-    #SBATCH --mem-per-cpu=2G
+```bash title="sim_submit.sh"
+#!/bin/bash
+#SBATCH --account=def-someuser
+#SBATCH --nodes=1
+#SBATCH --cpus-per-task=32
+#SBATCH --time=03:00:00
+#SBATCH --mem-per-cpu=2G
 
-    parallel -j $SLURM_CPUS_PER_TASK < ./my_commands.txt
-    ```
+parallel -j $SLURM_CPUS_PER_TASK < ./my_commands.txt
+```
 
 ### Multiple Arguments
 You can use GNU Parallel to generate the parameters and feed them to the command.
 
-```bash
+```bash title="sim_submit.sh"
 #!/bin/bash
 #SBATCH --account=def-someuser
 #SBATCH --nodes=1

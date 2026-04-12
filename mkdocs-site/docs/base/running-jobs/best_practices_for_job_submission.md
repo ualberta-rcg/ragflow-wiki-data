@@ -5,21 +5,65 @@ lang: "base"
 
 source_wiki_title: "Best practices for job submission"
 source_hash: "095d55320ded161d8f62c399ec1c2b9a"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T04:56:12.735442+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T05:46:57.044334+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "diskfile"
+  - "checkpoints"
+  - "cores per node"
+  - "Monitoring efficiency"
+  - "power outage"
+  - "compute node"
+  - "job script header"
+  - "MPI processes"
+  - "Cluster computing"
+  - "Memory consumption"
+  - "MPI standard"
+  - "parallel processes"
+  - "Parallelism"
+  - "snapshot"
+  - "Resource estimation"
+  - "Job duration"
+  - "integral multiple"
+  - "GPUs"
+  - "CPU efficiency"
+  - "Node-local storage"
+  - "Wasting resources"
+  - "Memory limit"
+  - "CPU cores"
+  - "Scalability"
+  - "Job submission"
+
+questions:
+  - "What are the consequences of requesting incorrect resource amounts, such as time and memory, when submitting a job to the cluster?"
+  - "How can users utilize small test jobs to accurately estimate the resources needed for their actual computations?"
+  - "What are the recommended strategies for managing job durations, particularly for computations that are extremely short or exceed 48 hours?"
+  - "What is the recommended target for memory efficiency, and what are the implications of requesting a whole node's memory versus a specific large memory amount?"
+  - "How can you determine if a software program supports parallel execution, and why is it important to study its scalability before requesting multiple cores?"
+  - "What are the best practices for running parallel jobs across multiple nodes, specifically regarding the use of MPI, job starting commands, and process distribution?"
+  - "What is a checkpoint and how does it record the state of a software program?"
+  - "What are the primary benefits of using checkpoints in the event of a power outage or system interruption?"
+  - "How often is it recommended to write a checkpoint file to effectively minimize the loss of computational work?"
+  - "What is the recommended best practice for determining the number of parallel processes to request when submitting a job?"
+  - "How many parallel processes should a user ask for on a cluster that has 40 cores per node?"
+  - "What SBATCH script header configuration is required to compactly assign 120 MPI processes across three whole nodes?"
+  - "What is the target CPU efficiency for a job, and which command can be used to measure it?"
+  - "Why is it recommended to test a sample calculation before requesting a GPU node, and what level of performance improvement justifies its use?"
+  - "What are the best practices for avoiding resource waste regarding software environment management and read/write operations?"
+  - "What is the target CPU efficiency for a job, and which command can be used to measure it?"
+  - "Why is it recommended to test a sample calculation before requesting a GPU node, and what level of performance improvement justifies its use?"
+  - "What are the best practices for avoiding resource waste regarding software environment management and read/write operations?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -29,44 +73,38 @@ For your first jobs on the cluster, it's understandably difficult to estimate ho
 
 ## Typical job submission problems
 
-*   The more resources - time, memory, CPU cores, GPUs - that your job asks for, the more difficult it will be for the scheduler to find these resources and so the longer your job will wait in queue.
-*   But if not enough resources are requested, the job can be stopped if it goes beyond its time limit or its memory limit.
-*   Estimating required resources based on the performance of a local computer could be misleading since the processor type and speed can differ significantly.
-*   The compute tasks listed in the job script are wasting resources.
-    *   The program does not scale well with the number of CPU cores.
-    *   The program is not made for multiple node usage.
-    *   The processors are waiting after read-write operations.
+!!! warning "Consequences of Resource Misestimation"
+    * The more resources - time, memory, CPU cores, GPUs - that your job asks for, the more difficult it will be for the scheduler to find these resources and so the longer your job will wait in queue.
+    * But if not enough resources are requested, the job can be stopped if it goes beyond its time limit or its memory limit.
+    * Estimating required resources based on the performance of a local computer could be misleading since the processor type and speed can differ significantly.
+    * The compute tasks listed in the job script are wasting resources.
+        * The program does not scale well with the number of CPU cores.
+        * The program is not made for multiple node usage.
+        * The processors are waiting after read-write operations.
 
 ## Best practice tips
 
-!!! tip
-    The best approach is to begin by submitting a few relatively small test jobs, asking for a fairly standard amount of memory (`#SBATCH --mem-per-cpu=2G`) and time, for example one or two hours.
-    *   Ideally, you should already know what the answer will be in these test jobs, allowing you to verify that the software is running correctly on the cluster.
-    *   If the job ends before the computation finished, you can increase the duration by doubling it until the job's duration is sufficient.
-    *   If your job ends with a message about an **OOM event** this means it ran out of memory (OOM), so try doubling the memory you've requested and see if this is enough.
+The best approach is to begin by submitting a few relatively small test jobs, asking for a fairly standard amount of memory (`#SBATCH --mem-per-cpu=2G`) and time, for example one or two hours.
+* Ideally, you should already know what the answer will be in these test jobs, allowing you to verify that the software is running correctly on the cluster.
+* If the job ends before the computation finished, you can increase the duration by doubling it until the job's duration is sufficient.
+* If your job ends with a message about an "OOM event" this means it ran out of memory (OOM), so try doubling the memory you've requested and see if this is enough.
 
 By means of these test jobs, you should gain some familiarity with how long certain analyses require on the cluster and how much memory is needed, so that for more realistic jobs you'll be able to make an intelligent estimate.
 
 ## Job duration
 
-*   For jobs which are not tests, the duration should be **at least one hour**.
-
-    !!! tip "Batching short jobs"
-        If your computation requires less than an hour, you should consider using tools like [GLOST](glost.md), [META](meta-a-package-for-job-farming.md) or [GNU Parallel](gnu-parallel.md) to regroup several of your computations into a single Slurm job with a duration of at least an hour. Hundreds or thousands of very short jobs place undue stress on the scheduler.
-
-*   It is equally important that your estimate of the **job duration be relatively accurate**.
-
-    !!! warning "Accurate duration estimates"
-        Asking for five days when the computation in reality finishes after just sixteen hours leads to your job spending much more time waiting to start than it would had you given a more accurate estimate of the duration.
-
-*   **Use [monitoring tools](running-jobs.md#completed-jobs)** to see how long completed jobs took.
-    *   For example, the `Job Wall-clock time` field in the output of the `seff` command:
+* For jobs which are not tests, the duration should be **at least one hour**.
+    * If your computation requires less than an hour, you should consider using tools like [GLOST](glost.md), [META](meta-a-package-for-job-farming.md) or [GNU Parallel](gnu-parallel.md) to regroup several of your computations into a single Slurm job with a duration of at least an hour. Hundreds or thousands of very short jobs place undue stress on the scheduler.
+* It is equally important that your estimate of the **job duration be relatively accurate**.
+    * Asking for five days when the computation in reality finishes after just sixteen hours leads to your job spending much more time waiting to start than it would had you given a more accurate estimate of the duration.
+* **Use [monitoring tools](running-jobs.md#completed-jobs)** to see how long completed jobs took.
+    * For example, the `Job Wall-clock time` field in the output of the `seff` command:
 
 ```bash
 seff 1234567
 ```
 
-```text
+```text title="seff output"
 Job ID: 1234567
 Cluster: beluga
 User/Group: jdoe/jdoe
@@ -80,87 +118,61 @@ Memory Utilized: 14.95 GB (estimated maximum)
 Memory Efficiency: 11.68% of 128.00 GB (8.00 GB/core)
 ```
 
-*   **Increase the estimated duration by 5% or 10%**, just in case.
-    *   It's natural to leave a certain amount of room for error in the estimate, but otherwise it's in your interest for your estimate of the job's duration to be as accurate as possible.
-
-*   Longer jobs, such as those with a duration exceeding 48 hours, should **consider using [checkpoints](checkpoints.md)** if the software permits this.
-
-    !!! tip "Using Checkpoints for Long Jobs"
-        With a checkpoint, the program writes a snapshot of its state to a diskfile and the program can then be restarted from this diskfile, at that precise point in the calculation. In this way, even if there is a power outage or some other interruption of the compute node(s) being used by your job, you won't necessarily lose much work if your program writes a checkpoint file every six or eight hours.
+* **Increase the estimated duration by 5% or 10%**, just in case.
+    * It's natural to leave a certain amount of room for error in the estimate, but otherwise it's in your interest for your estimate of the job's duration to be as accurate as possible.
+* Longer jobs, such as those with a duration exceeding 48 hours, should **consider using [checkpoints](points-de-controle.md)** if the software permits this.
+    * With a checkpoint, the program writes a snapshot of its state to a diskfile and the program can then be restarted from this diskfile, at that precise point in the calculation. In this way, even if there is a power outage or some other interruption of the compute node(s) being used by your job, you won't necessarily lose much work if your program writes a checkpoint file every six or eight hours.
 
 ## Memory consumption
 
-*   Your `Memory Efficiency` in the output from the `seff` command **should be at least 80% to 85%** in most cases.
-    *   Much like with the duration of your job, the goal when requesting the memory is to ensure that the amount is sufficient, with a certain margin of error.
-*   If you plan on using a **whole node** for your job, it is natural to also **use all of its available memory** which you can express using the line `#SBATCH --mem=0` in your job submission script.
-    *   Note however that most of our clusters offer nodes with variable amounts of memory available, so using this approach means your job will likely be assigned a node with less memory.
-*   If your testing has shown that you need a **large memory node**, then you will want to use a line like `#SBATCH --mem=1500G` for example, to request a node with 1500 GB (or 1.46 TB) of memory.
-
-    !!! warning "Large memory node availability"
-        There are relatively few of these large memory nodes so your job will wait much longer to run - make sure your job really needs all this extra memory.
+* Your `Memory Efficiency` in the output from the `seff` command **should be at least 80% to 85%** in most cases.
+    * Much like with the duration of your job, the goal when requesting the memory is to ensure that the amount is sufficient, with a certain margin of error.
+* If you plan on using a **whole node** for your job, it is natural to also **use all of its available memory** which you can express using the line `#SBATCH --mem=0` in your job submission script.
+    * Note however that most of our clusters offer nodes with variable amounts of memory available, so using this approach means your job will likely be assigned a node with less memory.
+* If your testing has shown that you need a **large memory node**, then you will want to use a line like `#SBATCH --mem=1500G` for example, to request a node with 1500 GB (or 1.46 TB) of memory.
+    * There are relatively few of these large memory nodes so your job will wait much longer to run - make sure your job really needs all this extra memory.
 
 ## Parallelism
 
-*   By default your job will get one core on one node and this is the most sensible policy because **most software is serial**: it can only ever make use of a single core.
+* By default your job will get one core on one node and this is the most sensible policy because **most software is serial**: it can only ever make use of a single core.
+    * Asking for more cores and/or nodes will not make the serial program run any faster because for it to run in parallel the program's source code needs to be modified, in some cases in a very profound manner requiring a substantial investment of developer time.
+* How can you **determine if** the software you're using **can run in parallel**?
+    * The best approach is to **look in the software's documentation** for a section on parallel execution: if you can't find anything, this is usually a sign that this program is serial.
+    * You can also **contact the development team** to ask if the software can be run in parallel and if not, to request that such a feature be added in a future version.
 
-    !!! warning "Serial software does not scale"
-        Asking for more cores and/or nodes will not make the serial program run any faster because for it to run in parallel the program's source code needs to be modified, in some cases in a very profound manner requiring a substantial investment of developer time.
+* If the program can run in parallel, the next question is **what number of cores to use**?
+    * Many of the programming techniques used to allow a program to run in parallel assume the existence of a *shared memory environment*, i.e. multiple cores can be used but they must all be located on the same node. In this case, the maximum number of cores available on a single node provides a ceiling for the number of cores you can use.
+    * It may be tempting to simply request "as many cores as possible", but this is often not the wisest approach. Just as having too many cooks trying to work together in a small kitchen to prepare a single meal can lead to chaos, so too adding an excessive number of CPU cores can have the perverse effect of slowing down a program.
+    * To choose the optimal number of CPU cores, you need to **study the [software's scalability](scalability.md)**.
 
-*   How can you **determine if** the software you're using **can run in parallel**?
-    *   The best approach is to **look in the software's documentation** for a section on parallel execution: if you can't find anything, this is usually a sign that this program is serial.
-    *   You can also **contact the development team** to ask if the software can be run in parallel and if not, to request that such a feature be added in a future version.
+* A further complication with parallel execution concerns **the use of multiple nodes** - the software you are running must support *distributed memory parallelism*.
+    * Most software able to run over more than one node uses **the [MPI](mpi.md) standard**, so if the documentation doesn't mention MPI or consistently refers to threading and thread-based parallelism, this likely means you will need to restrict yourself to a single node.
+    * Programs that have been parallelized to run across multiple nodes **should be started using** `srun` rather than `mpirun`.
 
-*   If the program can run in parallel, the next question is **what number of cores to use**?
-    *   Many of the programming techniques used to allow a program to run in parallel assume the existence of a *shared memory environment*, i.e. multiple cores can be used but they must all be located on the same node. In this case, the maximum number of cores available on a single node provides a ceiling for the number of cores you can use.
-    *   It may be tempting to simply request "as many cores as possible", but this is often not the wisest approach. Just as having too many cooks trying to work together in a small kitchen to prepare a single meal can lead to chaos, so too adding an excessive number of CPU cores can have the perverse effect of slowing down a program.
-    *   To choose the optimal number of CPU cores, you need to **study the [software's scalability](scalability.md)**.
+* A goal should also be to **avoid scattering your parallel processes across more nodes than is necessary**: a more compact distribution will usually help your job's performance.
+    * Highly fragmented parallel jobs often exhibit poor performance and also make the scheduler's job more complicated. This being the case, you should try to submit jobs where the number of parallel processes is equal to an integral multiple of the number of cores per node, assuming this is compatible with the parallel software your jobs run.
+    * So on a cluster with 40 cores/node, you would always submit parallel jobs asking for 40, 80, 120, 160, 240, etc. processes. For example, with the following job script header, all 120 MPI processes would be assigned in the most compact fashion, using three whole nodes.
 
-*   A further complication with parallel execution concerns **the use of multiple nodes** - the software you are running must support *distributed memory parallelism*.
-    *   Most software able to run over more than one node uses **the [MPI](mpi.md) standard**, so if the documentation doesn't mention MPI or consistently refers to threading and thread-based parallelism, this likely means you will need to restrict yourself to a single node.
-    *   Programs that have been parallelized to run across multiple nodes **should be started using** `srun` rather than `mpirun`.
-
-*   A goal should also be to **avoid scattering your parallel processes across more nodes than is necessary**: a more compact distribution will usually help your job's performance.
-
-    !!! warning "Avoid fragmented parallel jobs"
-        Highly fragmented parallel jobs often exhibit poor performance and also make the scheduler's job more complicated. This being the case, you should try to submit jobs where the number of parallel processes is equal to an integral multiple of the number of cores per node, assuming this is compatible with the parallel software your jobs run.
-        So on a cluster with 40 cores/node, you would always submit parallel jobs asking for 40, 80, 120, 160, 240, etc. processes. For example, with the following job script header, all 120 MPI processes would be assigned in the most compact fashion, using three whole nodes.
-
-```bash
+```slurm title="jobscript.sh"
 #SBATCH --nodes=3
 #SBATCH --ntasks-per-node=40
 ```
 
-*   Ultimately, the goal should be to **ensure that the CPU efficiency of your jobs is very close to 100%**, as measured by the field `CPU Efficiency` in the output from the `seff` command.
-
-    !!! note "Target CPU efficiency"
-        Any value of CPU efficiency less than 90% is poor and means that your use of whatever software your job executes needs to be improved.
+* Ultimately, the goal should be to **ensure that the CPU efficiency of your jobs is very close to 100%**, as measured by the field `CPU Efficiency` in the output from the `seff` command.
+    * Any value of CPU efficiency less than 90% is poor and means that your use of whatever software your job executes needs to be improved.
 
 ## Using GPUs
 
 The nodes with GPUs are relatively uncommon so that any job which asks for a GPU will wait significantly longer in most cases.
-
-*   Be sure that this GPU you had to wait so much longer to obtain is **being used as efficiently as possible** and that it is really contributing to improved performance in your jobs.
-    *   A considerable amount of software does have a GPU option, for example such widely used packages as [NAMD](namd.md) and [GROMACS](gromacs.md), but only a small part of these programs' functionality has been modified to make use of GPUs. For this reason, it is wiser to **first test a small sample calculation both with and without a GPU** to see what kind of speed-up you obtain from the use of this GPU.
-    *   Because of the high cost of GPU nodes, a job using **a single GPU** should run significantly faster than if it was using a full CPU node.
-
-    !!! warning "GPU efficiency"
-        If your job **only finishes 5% or 10% more quickly with a GPU, it's probably not worth** the effort of waiting to get a node with a GPU as it will be idle during much of your job's execution.
-
-*   **Other tools for monitoring the efficiency** of your GPU-based jobs include [nvidia-smi](https://developer.nvidia.com/nvidia-system-management-interface), `nvtop` and, if you're using software based on [TensorFlow](tensorflow.md), the [TensorBoard](tensorflow.md#tensorboard) utility.
+* Be sure that this GPU you had to wait so much longer to obtain is **being used as efficiently as possible** and that it is really contributing to improved performance in your jobs.
+    * A considerable amount of software does have a GPU option, for example such widely used packages as [NAMD](namd.md) and [GROMACS](gromacs.md), but only a small part of these programs' functionality has been modified to make use of GPUs. For this reason, it is wiser to **first test a small sample calculation both with and without a GPU** to see what kind of speed-up you obtain from the use of this GPU.
+    * Because of the high cost of GPU nodes, a job using **a single GPU** should run significantly faster than if it was using a full CPU node.
+    * If your job **only finishes 5% or 10% more quickly with a GPU, it's probably not worth** the effort of waiting to get a node with a GPU as it will be idle during much of your job's execution.
+* **Other tools for monitoring the efficiency** of your GPU-based jobs include [nvidia-smi](https://developer.nvidia.com/nvidia-system-management-interface), `nvtop` and, if you're using software based on [TensorFlow](tensorflow.md), the [TensorBoard](tensorflow.md#tensorboard) utility.
 
 ## Avoid wasting resources
 
-*   In general, your jobs should never contain the command `sleep`.
-
-    !!! warning "Avoid `sleep` in job scripts"
-        The `sleep` command is almost never appropriate in a job script as it leads to wasted compute time.
-
-*   We strongly recommend against the use of [Conda](conda.md) and its variants on the clusters, in favour of solutions like a [Python virtual environment](python.md#creating-and-using-a-virtual-environment) or [Apptainer](apptainer.md).
-
-    !!! warning "Avoid Conda on clusters"
-        Conda's default behaviour often leads to inefficient package management and potential conflicts, which can negatively impact performance and resource utilization. Consider Python virtual environments or Apptainer for better control and efficiency.
-
-*   Read and write operations should be optimized by **[using node-local storage](using-node-local-storage.md)**.
-
-    !!! tip "Optimize I/O with node-local storage"
-        Using node-local storage for temporary files can significantly improve I/O performance and reduce strain on shared filesystems.
+!!! warning "Resource Conservation"
+    * In general, your jobs should never contain the command `sleep`.
+    * We strongly recommend against the use of [Conda](anaconda.md) and its variants on the clusters, in favour of solutions like a [Python virtual environment](python.md#creating-and-using-a-virtual-environment) or [Apptainer](apptainer.md).
+    * Read and write operations should be optimized by **[using node-local storage](using-node-local-storage.md)**.

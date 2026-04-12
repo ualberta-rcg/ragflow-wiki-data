@@ -1,0 +1,112 @@
+{
+  "doc_key": "en/dask",
+  "level": "chunk",
+  "chunk_index": 3,
+  "qa_pairs": [
+    {
+      "question": "What is the recommended setting for the `-N` and `-n` parameters when running `config_virtualenv.sh`?",
+      "answer": "The recommendation is to set both `-N` and `-n` to the number of nodes."
+    },
+    {
+      "question": "Which command is used to activate the virtual environment in the multi-node Dask example?",
+      "answer": "The command `source $SLURM_TMPDIR/env/bin/activate` is used to activate the virtual environment."
+    },
+    {
+      "question": "How is the Dask scheduler initiated in the multi-node example script?",
+      "answer": "The Dask scheduler is initiated with `dask scheduler --host $DASK_SCHEDULER_ADDR --port $DASK_SCHEDULER_PORT &`."
+    },
+    {
+      "question": "What is the purpose of the `sleep 10` command after launching the Dask scheduler?",
+      "answer": "The `sleep 10` command makes the script wait for 10 seconds, likely to allow the scheduler to fully start before workers are launched."
+    },
+    {
+      "question": "Which script is responsible for launching Dask workers in the multi-node setup?",
+      "answer": "The `launch_dask_workers.sh` script is responsible for launching Dask workers, executed via `srun launch_dask_workers.sh &`."
+    },
+    {
+      "question": "How is the process ID (PID) of the Dask cluster processes captured?",
+      "answer": "The PID of the Dask cluster processes is captured using `dask_cluster_pid=$!`."
+    },
+    {
+      "question": "What is the final step in the main script after `test_dask.py` finishes execution?",
+      "answer": "The final step is to shut down Dask workers using `kill $dask_cluster_pid` after `python test_dask.py` exits."
+    },
+    {
+      "question": "What is the primary function of the `config_virtualenv.sh` script?",
+      "answer": "The `config_virtualenv.sh` script's primary function is to install a virtual environment and then install Dask with its distributed and dataframe components."
+    },
+    {
+      "question": "Which modules are loaded by `config_virtualenv.sh`?",
+      "answer": "The `config_virtualenv.sh` script loads the `python`, `gcc`, and `arrow` modules."
+    },
+    {
+      "question": "How does `config_virtualenv.sh` create a virtual environment?",
+      "answer": "It creates a virtual environment using `virtualenv --no-download $SLURM_TMPDIR/env`."
+    },
+    {
+      "question": "Which Dask packages are installed within the virtual environment by `config_virtualenv.sh`?",
+      "answer": "`dask[distributed,dataframe]` is installed using `pip install --no-index`."
+    },
+    {
+      "question": "What message is displayed when `config_virtualenv.sh` completes the virtual environment setup?",
+      "answer": "The script prints \"Done installing virtualenv!\" upon completion."
+    },
+    {
+      "question": "How does `launch_dask_workers.sh` determine the connection string for the Dask scheduler?",
+      "answer": "The connection string is determined by setting `SCHEDULER_CONNECTION_STRING=\"tcp://$DASK_SCHEDULER_ADDR:$DASK_SCHEDULER_PORT\"`."
+    },
+    {
+      "question": "What memory limit is applied to a Dask worker on the SLURM task with Rank 0?",
+      "answer": "On the SLURM task with Rank 0, the Dask worker is allocated 40% (`DASK_WORKER_MEM=0.4`) of the job's memory."
+    },
+    {
+      "question": "How many threads are allocated to a Dask worker on the SLURM task with Rank 0?",
+      "answer": "On the SLURM task with Rank 0, the Dask worker is allocated `SLURM_CPUS_PER_TASK-1` threads, leaving one core for the scheduler."
+    },
+    {
+      "question": "What memory limit is applied to Dask workers on SLURM tasks other than Rank 0?",
+      "answer": "On SLURM tasks other than Rank 0, each Dask worker is allocated 50% (`DASK_WORKER_MEM=0.5`) of the job's allocated memory."
+    },
+    {
+      "question": "How many threads are allocated to Dask workers on SLURM tasks other than Rank 0?",
+      "answer": "On SLURM tasks other than Rank 0, Dask workers are allocated all cores (`$SLURM_CPUS_PER_TASK`) allocated to their task."
+    },
+    {
+      "question": "Which option is used to prevent the Dask dashboard from running with the workers?",
+      "answer": "The `--no-dashboard` option is used to prevent the Dask dashboard from running."
+    },
+    {
+      "question": "Where do Dask workers store their temporary local files?",
+      "answer": "Dask workers store their temporary local files in `$SLURM_TMPDIR`."
+    },
+    {
+      "question": "What message does `launch_dask_workers.sh` print after a worker has started?",
+      "answer": "The script prints \"dask worker started!\"."
+    },
+    {
+      "question": "Which Python libraries are imported at the beginning of `test_dask.py`?",
+      "answer": "`pandas`, `numpy`, `dask.dataframe`, `dask.distributed.Client`, and `os` are imported."
+    },
+    {
+      "question": "How does `test_dask.py` establish a connection to the Dask cluster?",
+      "answer": "It establishes a connection by creating a `Client` object using `Client(f\"tcp://{os.environ['DASK_SCHEDULER_ADDR']}:{os.environ['DASK_SCHEDULER_PORT']}\")`."
+    },
+    {
+      "question": "What are the characteristics of the `pd.date_range` used to create the index in `test_dask.py`?",
+      "answer": "The `pd.date_range` starts on \"2021-09-01\", has 2400 periods, and a frequency of 1 hour (`freq=\"1H\"`)."
+    },
+    {
+      "question": "How many partitions are specified when converting the Pandas DataFrame to a Dask DataFrame in `test_dask.py`?",
+      "answer": "Six partitions (`npartitions=6`) are specified when converting the Pandas DataFrame to a Dask DataFrame."
+    },
+    {
+      "question": "What computation is performed on the Dask DataFrame in the `test_dask.py` script?",
+      "answer": "The mean of column 'a' (`ddf.a.mean().compute()`) is computed on the Dask DataFrame."
+    },
+    {
+      "question": "What is the final output of the `test_dask.py` script?",
+      "answer": "The script prints the calculated mean value, formatted as \"The mean is {result}\"."
+    }
+  ],
+  "generated_at": "2026-04-11T20:49:58.339451+00:00"
+}

@@ -1,0 +1,32 @@
+{
+  "doc_key": "fr/lumerical",
+  "level": "chunk",
+  "chunk_index": 8,
+  "qa_pairs": [
+    {
+      "question": "Comment la mémoire requise par processus (`PROCMEM`) est-elle déterminée?",
+      "answer": "La mémoire requise par processus (`PROCMEM`) est d'abord calculée en divisant la mémoire totale estimée (`TOTALMEM`) par le nombre de processus (`PROCS`). Si le résultat est inférieur à la mémoire minimale (`MEMORY_MIN`), `PROCMEM` est ajustée pour être égale à `MEMORY_MIN`."
+    },
+    {
+      "question": "D'où proviennent les valeurs de points de grille (`GRIDPTS`) et d'étapes de temps (`TIMESTEPS`)?",
+      "answer": "Les valeurs de `GRIDPTS` et `TIMESTEPS` sont extraites d'un fichier temporaire nommé `$1.tmp`. Le script cherche les lignes contenant 'gridpoints' et 'time_steps' respectivement, puis en retire le préfixe jusqu'au signe '='."
+    },
+    {
+      "question": "Comment le temps estimé (`TIME`) pour une simulation est-il calculé?",
+      "answer": "Le temps estimé (`TIME`) est calculé en multipliant les points de grille (`GRIDPTS`) par les étapes de temps (`TIMESTEPS`), puis en divisant ce résultat par le nombre de processus (`PROCS`), le taux de simulation (`RATE`) et une constante de 10 millions. Si ce temps est inférieur au temps minimum (`TIME_MIN`), il est ajusté pour être égal à `TIME_MIN`."
+    },
+    {
+      "question": "Comment le temps total estimé (`TIME`) est-il converti en heures, minutes et secondes?",
+      "answer": "Les heures (`HOUR`) sont obtenues en divisant `TIME` par 3600. Les secondes restantes (`MINSEC`) après le calcul des heures sont ensuite divisées par 60 pour obtenir les minutes (`MIN`). Les secondes restantes (`SEC`) sont alors calculées en soustrayant les minutes converties de `MINSEC`."
+    },
+    {
+      "question": "Quelle information est affichée par le script `fdtd-process-template.sh` avant de procéder aux remplacements?",
+      "answer": "Le script affiche la valeur de la mémoire totale requise (`TOTALMEM`)."
+    },
+    {
+      "question": "Quels sont les jetons (tokens) qui sont remplacés dans le gabarit de script (`$2`) par cette section de code?",
+      "answer": "Cette section de code initialise le remplacement des jetons `<total_memory>`, `<processor_memory>`, `<hours>`, `<minutes>`, `<seconds>`, `<n>`, `<dir_fsp>` et `<filename>` par les valeurs calculées correspondantes."
+    }
+  ],
+  "generated_at": "2026-04-12T01:10:17.937333+00:00"
+}

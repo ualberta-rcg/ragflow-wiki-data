@@ -5,27 +5,54 @@ lang: "base"
 
 source_wiki_title: "Biomolecular simulation"
 source_hash: "dff8db034e15ab8dec8b69e17d2890ac"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T04:58:05.524755+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T05:49:09.188240+00:00"
 
 tags:
   - biomolecularsimulation
 
 keywords:
-  []
+  - "Alliance clusters"
+  - "Amber"
+  - "ACENET"
+  - "PYTRAJ"
+  - "workshops"
+  - "Biomolecular simulation"
+  - "Python wheels"
+  - "Molecular dynamics"
+  - "Molecular Dynamics"
+  - "Software packages"
+  - "VMD"
+  - "self-study"
+  - "Performance and benchmarking"
+  - "Computational chemistry"
+
+questions:
+  - "What is biomolecular simulation and what specific biochemical processes can be modeled using this technique?"
+  - "What software packages and Python libraries are available on the HPC resources for molecular dynamics simulations and analysis?"
+  - "Where can users find workshops and self-study training materials for learning about molecular dynamics and related software tools?"
+  - "Which organization created the Molecular Dynamics Performance Guide for Alliance clusters?"
+  - "What is the main purpose of using the Molecular Dynamics Performance Guide?"
+  - "Which specific molecular dynamics software packages does the guide help optimize?"
+  - "Where will announcements for future workshops be published?"
+  - "How can individuals access the workshop materials if they want to study on their own?"
+  - "What specific topics and software tools are covered in the provided self-study links?"
+  - "Which organization created the Molecular Dynamics Performance Guide for Alliance clusters?"
+  - "What is the main purpose of using the Molecular Dynamics Performance Guide?"
+  - "Which specific molecular dynamics software packages does the guide help optimize?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
 ## General
 
-Biomolecular simulation [1] is the application of molecular dynamics simulations to biochemical research questions. Processes that can be modelled include, but are not limited to, protein folding, drug binding, membrane transport, and the conformational changes critical to protein function.
+Biomolecular simulation[^1] is the application of molecular dynamics simulations to biochemical research questions. Processes that can be modelled include, but are not limited to, protein folding, drug binding, membrane transport, and the conformational changes critical to protein function.
 
 While biomolecular simulation could be considered a sub-field of computational chemistry, it is sufficiently specialized that we have a Biomolecular Simulations National Team that supports this area. There is nevertheless some overlap of software tools between the two fields. See [Computational chemistry](computational-chemistry.md) for an annotated list of available software packages in that area.
 
@@ -63,11 +90,9 @@ This list contains a selection of useful wheels, but is not to be considered com
 *   [ParmEd](http://parmed.github.io/ParmEd/) is a general tool for aiding in investigations of biomolecular systems using popular molecular simulation packages.
 *   [PyRETIS](pyretis.md) is a Python library for rare event molecular simulations with emphasis on methods based on transition interface sampling and replica exchange transition interface sampling.
 
-!!! note
-    Please check the [list of available wheels](available-python-wheels.md) and use the `avail_wheels` command on our clusters to see what is available.
+Please check the [list of available wheels](available-python-wheels.md) and use the [avail_wheels command](python.md#listing-available-wheels) on our clusters to see what is available.
 
-!!! tip
-    If you require additional Python packages or newer versions, please [contact Support](technical-support.md).
+If you require additional Python packages or newer versions, please [contact Support](technical-support.md).
 
 ## Workshops and Training Material
 
@@ -86,4 +111,4 @@ A team at [ACENET](https://www.ace-net.ca/) has created a [Molecular Dynamics Pe
 
 ## References
 
-1.  Ron O. Dror, Robert M. Dirks, J.P. Grossman, Huafeng Xu, and David E. Shaw. "Biomolecular Simulation: A Computational Microscope for Molecular Biology." *Annual Review of Biophysics*, 41:429-452, 2012. https://doi.org/10.1146/annurev-biophys-042910-155245
+[^1]: Ron O. Dror, Robert M. Dirks, J.P. Grossman, Huafeng Xu, and David E. Shaw. "Biomolecular Simulation: A Computational Microscope for Molecular Biology." *Annual Review of Biophysics*, 41:429-452, 2012. https://doi.org/10.1146/annurev-biophys-042910-155245

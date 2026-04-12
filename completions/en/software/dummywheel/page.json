@@ -1,0 +1,39 @@
+{
+  "doc_key": "en/dummywheel",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is the primary purpose of Dummy Wheel in the wheelhouse?",
+      "answer": "Dummy Wheel exists to provide placeholders for popular Python packages available on PyPI but installed as modules on the infrastructure."
+    },
+    {
+      "question": "How are Dummy Wheels identified by their version tags?",
+      "answer": "They are tagged with a local version like `+dummy`, for example: `pyarrow-23.0.1+dummy.computecanada-py3-none-any.whl`."
+    },
+    {
+      "question": "Could you list some examples of Python packages for which Dummy Wheels exist?",
+      "answer": "Examples include pyarrow (Arrow), opencv_python (OpenCV), and MPI4py."
+    },
+    {
+      "question": "What happens when pip selects a Dummy Wheel during an installation process?",
+      "answer": "When a dummy wheel is selected by pip, it will raise an error because pip cannot find a match for the requirement, which is considered a normal error."
+    },
+    {
+      "question": "What are the common reasons for an error when a dummy wheel is selected for a package like `pyarrow`?",
+      "answer": "The error means either the relevant module was not loaded, the loaded module's version does not meet the requested version, or the loaded module does not support the Python version being used."
+    },
+    {
+      "question": "What steps should one take to resolve a 'module not loaded' error when a dummy wheel is encountered?",
+      "answer": "Deactivate any virtual environment, load the required module (e.g., `module load gcc arrow/x.y.z python/x.y.z`), re-activate the virtual environment, and then re-run your pip install command."
+    },
+    {
+      "question": "How can one determine the specific version requirement of a dependency if the loaded module version is insufficient?",
+      "answer": "You can find the asked requirement (version) by examining the output line when running `pip install --no-index <package>`, specifically looking for text like `(from pyarrow>=21.0.0->datasets)`."
+    },
+    {
+      "question": "How can you verify if a loaded module provides Python bindings for a package like `pyarrow`?",
+      "answer": "You can verify by running `python -c \"import pyarrow\"`; if nothing is displayed, the import was successful. Alternatively, check if pip sees it by running `pip list | grep pyarrow` and looking for an entry."
+    }
+  ],
+  "generated_at": "2026-04-11T21:14:17.711657+00:00"
+}

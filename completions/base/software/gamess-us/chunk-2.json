@@ -1,0 +1,68 @@
+{
+  "doc_key": "base/gamess-us",
+  "level": "chunk",
+  "chunk_index": 2,
+  "qa_pairs": [
+    {
+      "question": "When is increasing the number of CPUs not an efficient use of resources for GAMESS calculations?",
+      "answer": "It is not an efficient use of resources if a calculation runs only 30% faster when the number of CPUs is doubled, or if certain calculations run slower when the number of CPUs is increased."
+    },
+    {
+      "question": "What does it mean for quantum chemistry calculations to be \"memory bound\"?",
+      "answer": "\"Memory bound\" means that larger molecules at a high level of theory require a significant amount of memory (RAM), often exceeding what is typically available in a standard computer."
+    },
+    {
+      "question": "How does GAMESS manage memory for quantum chemistry calculations that require a lot of RAM?",
+      "answer": "GAMESS uses disk storage (SCRATCH) to store intermediate results, which frees up memory and allows it to read those results back from disk later in the calculation."
+    },
+    {
+      "question": "How does the speed of SCRATCH storage compare to RAM?",
+      "answer": "Even our fastest SCRATCH storage is several orders of magnitude slower than the memory (RAM)."
+    },
+    {
+      "question": "What is the two-step process for assigning sufficient memory to GAMESS calculations?",
+      "answer": "The two-step process involves requesting memory for the job in the submission script and then defining the `MWORDS` and `MEMDDI` options in the `$SYSTEM` group of the input file."
+    },
+    {
+      "question": "What is a reasonable `--mem-per-cpu` value to request in the submission script for a GAMESS job?",
+      "answer": "A reasonable value is `--mem-per-cpu=4000M`, as it matches the memory-to-CPU ratio on the base nodes."
+    },
+    {
+      "question": "What might happen if I request more memory than the `--mem-per-cpu=4000M` recommendation for a GAMESS job?",
+      "answer": "Requesting more than `--mem-per-cpu=4000M` might cause the job to wait to be scheduled on a large-memory node."
+    },
+    {
+      "question": "What is the purpose of the `MWORDS` and `MEMDDI` options in the GAMESS input file?",
+      "answer": "These options tell GAMESS how much memory it is allowed to use."
+    },
+    {
+      "question": "What does `MWORDS` represent in the GAMESS input file?",
+      "answer": "`MWORDS` is the maximum replicated memory which a job can use on every core. It is given in units of 1,000,000 words, where a word is defined as 64 bits (8 bytes)."
+    },
+    {
+      "question": "What is `MEMDDI` in the context of GAMESS memory settings?",
+      "answer": "`MEMDDI` is the grand total memory needed for the distributed data interface (DDI) storage, given in units of 1,000,000 words."
+    },
+    {
+      "question": "How is the total memory required per processor core calculated for a GAMESS run using `p` CPU-cores?",
+      "answer": "The memory required on each processor core for a run using `p` CPU-cores is calculated as `MEMDDI/p + MWORDS`."
+    },
+    {
+      "question": "Where can I find more detailed information about the `$SYSTEM` group settings in GAMESS?",
+      "answer": "You can refer to the `$SYSTEM group` section in the GAMESS documentation for more details."
+    },
+    {
+      "question": "Why is it important to leave a safety margin of memory when configuring GAMESS jobs?",
+      "answer": "It is important to leave a few hundred MB of memory between the memory requested from the scheduler and the memory that GAMESS is allowed to use, as a safety margin, to prevent job termination."
+    },
+    {
+      "question": "What does the error message \"slurmstepd: error: Exceeded step/job memory limit at some point\" in the `slurm-{JOBID}.out` file indicate?",
+      "answer": "This message indicates that Slurm terminated the job because it attempted to use more memory than was requested."
+    },
+    {
+      "question": "How can I resolve a \"slurmstepd: error: Exceeded step/job memory limit\" error?",
+      "answer": "To resolve this error, you need to either reduce the `MWORDS` or `MEMDDI` values in the input file or increase the `--mem-per-cpu` setting in the submission script."
+    }
+  ],
+  "generated_at": "2026-04-11T21:52:08.593121+00:00"
+}

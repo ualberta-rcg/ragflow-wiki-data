@@ -5,21 +5,33 @@ lang: "base"
 
 source_wiki_title: "Including source code within the wiki"
 source_hash: "fca72be15388fe21ef73610b74eb8071"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T07:21:32.007575+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T08:00:55.798543+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "source code"
+  - "line option"
+  - "syntaxhighlight tag"
+  - "lang option"
+  - "SyntaxHighlight_GeSHi"
+
+questions:
+  - "What extension and specific tag are required to include syntax-highlighted source code within the wiki?"
+  - "How does the \"lang\" option work, and what is the default programming language if this option is not specified?"
+  - "What is the purpose of including the \"line\" option within the syntax highlight tag?"
+  - "What extension and specific tag are required to include syntax-highlighted source code within the wiki?"
+  - "How does the \"lang\" option work, and what is the default programming language if this option is not specified?"
+  - "What is the purpose of including the \"line\" option within the syntax highlight tag?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 

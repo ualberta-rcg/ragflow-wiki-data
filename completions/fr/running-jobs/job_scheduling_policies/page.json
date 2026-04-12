@@ -1,0 +1,75 @@
+{
+  "doc_key": "fr/job_scheduling_policies",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "À quoi sert principalement le document sur les politiques d'ordonnancement des tâches?",
+      "answer": "Il vise à aider les utilisateurs à soumettre des tâches qui nécessitent beaucoup de ressources ou qui sont multiples, en leur fournissant une bonne connaissance des politiques d'ordonnancement pour une meilleure productivité."
+    },
+    {
+      "question": "Comment la priorité des tâches est-elle établie sur les grappes de Compute Canada?",
+      "answer": "La priorité des tâches est déterminée par l'algorithme Fair Tree, qui évalue la 'juste part' de chaque projet."
+    },
+    {
+      "question": "Quels sont les types de codes de compte utilisés pour la soumission de tâches et à quoi correspondent-ils?",
+      "answer": "Les codes commençant par `rrg-` ou `rpp-` sont pour les projets ayant une allocation via le concours d'allocation de ressources, et ceux commençant par `def-` sont pour le service d'accès rapide."
+    },
+    {
+      "question": "Comment les cibles d'utilisation des ressources sont-elles définies pour les différents projets?",
+      "answer": "Pour les projets alloués par concours, elles dépendent des CPU-années ou GPU-années allouées. Pour les comptes `def-`, elles sont ajustées fréquemment selon le nombre de projets actifs."
+    },
+    {
+      "question": "Quelle commande permet de visualiser l'information sur l'utilisation et le partage des ressources pour un projet?",
+      "answer": "La commande `sshare -l -A [code_de_compte]_cpu/gpu -u [liste_utilisateurs]` permet de consulter ces informations."
+    },
+    {
+      "question": "Qu'indique la valeur de la colonne `LevelFS` dans la sortie de la commande `sshare`?",
+      "answer": "La colonne `LevelFS` indique la valeur de la juste part (fair share). Un résultat supérieur à 1 signifie que l'association reçoit moins de ressources que mérité, et un résultat entre 0 et 1 indique l'inverse."
+    },
+    {
+      "question": "Comment l'utilisation passée (`RawUsage`) est-elle prise en compte dans la priorisation des tâches?",
+      "answer": "L'usage passé est pondéré et diminue avec une demi-vie d'une semaine, ce qui signifie que l'utilisation datant de plus de quelques semaines a un effet minime sur la priorisation."
+    },
+    {
+      "question": "Quand est-il préférable de demander des nœuds entiers plutôt que des cœurs individuels pour l'exécution d'une tâche?",
+      "answer": "Il est préférable de demander des nœuds entiers pour les applications qui peuvent utiliser efficacement plus de cœurs que ce qu'un nœud simple contient."
+    },
+    {
+      "question": "Qu'est-ce qui est considéré comme un abus injustifié des ressources concernant les requêtes de processeurs?",
+      "answer": "Demander un nombre inefficace de processeurs, par exemple, 192 cœurs pour un programme ayant un temps d'exécution similaire sur 64 cœurs."
+    },
+    {
+      "question": "Quelles sont les durées maximales d'exécution des tâches sur les grappes Trillium, Fir, Narval, Nibi et Rorqual?",
+      "answer": "Trillium peut accommoder des tâches jusqu'à 24 heures, tandis que Fir, Narval, Nibi et Rorqual permettent des tâches d'une durée maximale de 7 jours."
+    },
+    {
+      "question": "Pourquoi les tâches de plus courte durée sont-elles avantagées par l'ordonnanceur?",
+      "answer": "Les tâches plus courtes sont susceptibles d'être ordonnancées plus rapidement car elles ont accès à plus de ressources, pouvant s'exécuter dans diverses partitions de durées maximales différentes, et sont favorisées par le remplissage."
+    },
+    {
+      "question": "Qu'est-ce que le 'remplissage' (backfilling) et quel est son but?",
+      "answer": "Le remplissage est une technique d'ordonnancement qui optimise l'utilisation des ressources en lançant des tâches de basse priorité, à condition qu'elles ne retardent pas les tâches de plus haute priorité."
+    },
+    {
+      "question": "Quelles sont les trois catégories de nœuds disponibles sur les grappes d'usage général?",
+      "answer": "Les catégories de nœuds sont : les nœuds de type 'base' (4 à 8 Go de mémoire par cœur), les nœuds de type 'large' (16 à 96 Go de mémoire par cœur) et les nœuds de type 'GPU base'."
+    },
+    {
+      "question": "Quelle est la différence entre les partitions 'par nœud' et 'par cœur'?",
+      "answer": "Les partitions 'par nœud' sont pour les tâches utilisant toutes les ressources d'un nœud entier, tandis que les partitions 'par cœur' sont pour les tâches n'utilisant qu'un sous-ensemble des cœurs sur un nœud."
+    },
+    {
+      "question": "À quoi sert l'utilitaire `partition-stats`?",
+      "answer": "Il montre le nombre de tâches en attente et en cours d'exécution, le nombre de nœuds inactifs et le nombre total de nœuds assignés à chaque partition par type de nœud et par durée maximale."
+    },
+    {
+      "question": "Y a-t-il une limite au nombre de tâches qu'un compte normal peut avoir en exécution ou en attente sur Narval, Nibi et Rorqual?",
+      "answer": "Oui, un compte normal ne peut pas avoir plus de 1000 tâches en exécution ou en attente au même moment, chaque élément d'un vecteur de tâches comptant pour une tâche individuelle."
+    },
+    {
+      "question": "Où peut-on consulter les mises à jour des politiques d'ordonnancement?",
+      "answer": "Les changements sont listés sur la page 'Mise à jour de nos politiques d'ordonnancement'."
+    }
+  ],
+  "generated_at": "2026-04-12T00:19:59.872998+00:00"
+}

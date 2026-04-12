@@ -1,0 +1,80 @@
+{
+  "doc_key": "en/paraview",
+  "level": "chunk",
+  "chunk_index": 5,
+  "qa_pairs": [
+    {
+      "question": "How do I launch ParaView for single-core visualization using Open OnDemand after starting a Compute Desktop session?",
+      "answer": "Once your Compute Desktop is running, open a terminal inside it and type `module load paraview/6.0.0`, then `paraview`. You can then load your dataset and begin visualizing."
+    },
+    {
+      "question": "Can the ParaView GUI application directly utilize multiple cores for rendering?",
+      "answer": "No, the ParaView GUI application itself is single-threaded and cannot directly use multiple cores."
+    },
+    {
+      "question": "What is required for true parallel rendering with ParaView in an Open OnDemand environment?",
+      "answer": "For true parallel rendering, you need to connect the single-core ParaView client to a parallel ParaView server, both of which can be launched within Open OnDemand."
+    },
+    {
+      "question": "What are the resource limits for memory and cores when requesting resources on Nibi's Open OnDemand for multi-core visualization?",
+      "answer": "On Nibi's Open OnDemand, you can request up to 128GB of memory and up to 8 CPU cores."
+    },
+    {
+      "question": "How do I start a parallel ParaView server within an Open OnDemand desktop session for multi-core visualization?",
+      "answer": "First, load the ParaView module by typing `module load paraview/6.0.0` in a terminal. Then, in the same terminal, type `mpirun --oversubscribe -np 4 pvserver` (adjusting `4` to your desired number of cores)."
+    },
+    {
+      "question": "What is an example of the connection URL displayed when a parallel ParaView server starts on Open OnDemand?",
+      "answer": "An example connection URL is `cs://g4.nibi.sharcnet:11111`."
+    },
+    {
+      "question": "How do I connect the ParaView GUI client to the parallel ParaView server when both are running in an Open OnDemand multi-core setup?",
+      "answer": "In the ParaView GUI, click the 'Connect' button, then 'Add Server'. Select 'Client/Server' for Server Type, set 'Host' to 'localhost', 'Port' to '11111', and 'Startup Type' to 'Manual'. Finally, click 'Connect' again."
+    },
+    {
+      "question": "How can I confirm that parallel rendering is active in ParaView?",
+      "answer": "You can confirm parallel rendering by colouring your dataset by the 'Process Id' variable, which is not available when ParaView is running in serial mode."
+    },
+    {
+      "question": "What is the primary function of the 'Large-scale interactive' tab?",
+      "answer": "This tab outlines the interactive client-server setup for all HPC clusters, where a ParaView client runs on your local computer, and the ParaView server runs on the remote cluster."
+    },
+    {
+      "question": "What is a key compatibility requirement between the local ParaView client and the remote ParaView server?",
+      "answer": "ParaView requires that both the local client and the remote host have the same major version to avoid incompatibility issues that can lead to failed handshakes."
+    },
+    {
+      "question": "What is the 'Remote Render Threshold' setting in ParaView preferences, and why is it significant?",
+      "answer": "The 'Remote Render Threshold' is found under 'Render View -> Remote/Parallel Rendering Options'. If set to its default (e.g., 20MB), small rendering tasks are handled by your computer's GPU. Setting it to 0MB means all rendering, including rotations, is done remotely, which is beneficial for large data processing but may impact interactivity. Users should experiment to find an optimal value."
+    },
+    {
+      "question": "Can rasterization and ray tracing be performed using cluster CPUs for rendering?",
+      "answer": "Yes, both rasterization and ray tracing can be executed on cluster CPUs by allocating the necessary number of cores for rendering."
+    },
+    {
+      "question": "Do modern CPU-based rendering libraries offer comparable performance to GPU-based rendering?",
+      "answer": "Yes, modern CPU-based libraries such as OSPRay and OpenSWR provide performance quite similar to GPU-based rendering."
+    },
+    {
+      "question": "How does the ParaView server handle parallel rendering for very large datasets?",
+      "answer": "The ParaView server uses MPI for distributed-memory processing, enabling parallel rendering on a large number of CPU cores, which can be located on a single node or spread across multiple nodes."
+    },
+    {
+      "question": "What is a method to estimate the number of cores required for large-scale ParaView rendering?",
+      "answer": "To estimate the necessary cores, divide the anticipated memory needed for your rendering by approximately 3.5 GB/core."
+    },
+    {
+      "question": "What is the recommended maximum memory allocation per core for CPU-intensive software rendering?",
+      "answer": "For software rendering, it is not recommended to allocate more than 4GB/core due to its CPU-intensive nature."
+    },
+    {
+      "question": "Besides holding the dataset, why is it important to allocate additional memory for ParaView rendering?",
+      "answer": "Additional memory is crucial for filters and data processing; for instance, converting a structured dataset to an unstructured one can increase your memory footprint by approximately 3X."
+    },
+    {
+      "question": "What action should be taken if a ParaView server is terminated during data processing?",
+      "answer": "If your ParaView server is killed while processing data, you will need to increase the number of cores allocated."
+    }
+  ],
+  "generated_at": "2026-04-12T04:54:37.916508+00:00"
+}

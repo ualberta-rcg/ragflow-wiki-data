@@ -4,121 +4,69 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "What is the purpose of the `GO_H2O.run` script shown in the document?",
-      "answer": "The `GO_H2O.run` script combines multiple ADF calculations into a single job by creating an input file."
+      "question": "How can multiple ADF or BAND calculations be combined into a single job?",
+      "answer": "Multiple calculations can be combined into a single job by creating an input file, such as `GO_H2O.run`, which includes all the calculations. This input file is then executed by a Slurm job script."
     },
     {
-      "question": "What type of geometry optimization is performed in the first section of the `GO_H2O.run` script?",
-      "answer": "The first section performs a WATER Geometry Optimization with Delocalized Coordinates."
+      "question": "What is the purpose of the `GO_H2O.run` script?",
+      "answer": "The `GO_H2O.run` script executes a series of ADF geometry optimizations for a water molecule using various coordinate systems and optimization methods, including a partial specification of Hessian."
     },
     {
-      "question": "What are the `GeoVar` parameters specified for the WATER Geometry Optimization with Internal Coordinates in the `GO_H2O.run` script?",
-      "answer": "The `GeoVar` parameters are `rOH=0.9` and `theta=100`."
+      "question": "What Slurm directives are used in the `GO_H2O.sh` script?",
+      "answer": "The `GO_H2O.sh` script requests 1 node with 32 CPUs (`--nodes=1 --ntasks-per-node=32`), all memory on the node (`--mem=0`), a time limit of 3 hours (`--time=00-03:00`), and directs output to `GO_H2O_%j.log`."
     },
     {
-      "question": "What is the convergence criterion for geometry optimization specified in the `GO_H2O.run` script?",
-      "answer": "The convergence criterion for geometry optimization is `0.0000001`."
+      "question": "Which modules must be loaded to run the `GO_H2O.sh` script?",
+      "answer": "The `openmpi` module must be unloaded, and the `adf/2019.305` module must be loaded."
     },
     {
-      "question": "What kind of optimization is performed with a partial specification of the Hessian in the `GO_H2O.run` script?",
-      "answer": "It is a WATER optimization with a (partial) specification of the Hessian."
+      "question": "How is the `GO_H2O.run` script executed within the `GO_H2O.sh` Slurm job script?",
+      "answer": "The `GO_H2O.run` script is executed using the command `bash GO_H2O.run` within the Slurm job script."
     },
     {
-      "question": "Which fragments are specified for the Hessian optimization calculation in `GO_H2O.run`?",
-      "answer": "The fragments specified are `H t21.H` and `O t21.O`."
+      "question": "What happens to the `TAPE21` file at the end of the `GO_H2O.run` script?",
+      "answer": "At the end of the `GO_H2O.run` script, the `TAPE21` file is renamed to `H2O.t21`."
     },
     {
-      "question": "What are the `HessDiag` parameters for the Hessian optimization calculation?",
-      "answer": "The `HessDiag` parameters are `rad=1.0` and `ang=0.1`."
-    },
-    {
-      "question": "What is the final operation performed by the `GO_H2O.run` script?",
-      "answer": "The `GO_H2O.run` script moves the `TAPE21` file to `H2O.t21`."
-    },
-    {
-      "question": "What files are removed after each ADF calculation block within the `GO_H2O.run` script?",
-      "answer": "`TAPE21` and `logfile` are removed after each ADF calculation block."
-    },
-    {
-      "question": "What is the name of the Slurm script used to submit multiple ADF or BAND runs?",
-      "answer": "The Slurm script is named `GO_H2O.sh`."
-    },
-    {
-      "question": "How many nodes and tasks per node are requested by the `GO_H2O.sh` Slurm script?",
-      "answer": "The `GO_H2O.sh` script requests 1 node with 32 tasks per node."
-    },
-    {
-      "question": "What is the requested memory for a job submitted with the `GO_H2O.sh` script?",
-      "answer": "The script requests all memory on the node (`--mem=0`)."
-    },
-    {
-      "question": "What is the time limit specified in the `GO_H2O.sh` Slurm script?",
-      "answer": "The time limit specified is 3 hours (`00-03:00`)."
-    },
-    {
-      "question": "What output file name format is used by the `GO_H2O.sh` script?",
-      "answer": "The output file name format is `GO_H2O_%j.log`."
-    },
-    {
-      "question": "Which ADF module version is loaded by the `GO_H2O.sh` script?",
-      "answer": "The script loads `adf/2019.305`."
-    },
-    {
-      "question": "How does the `GO_H2O.sh` script execute the multiple ADF runs?",
-      "answer": "It executes the `GO_H2O.run` shell script using `bash GO_H2O.run`."
-    },
-    {
-      "question": "Where can users find example input/output for ADF on Graham?",
+      "question": "Where can users find example input and output files for ADF on Graham?",
       "answer": "Example input/output for ADF can be found on Graham under `/home/jemmyhu/tests/test_ADF/2019.305/test_adf/`."
     },
     {
-      "question": "Where can users find example input/output for BAND jobs on Graham?",
-      "answer": "Example input/output for BAND jobs can be found on Graham under `/home/jemmyhu/tests/test_ADF/2019.305/test_band/`."
+      "question": "Where can users find example input and output files for BAND jobs on Graham?",
+      "answer": "Example input/output for BAND jobs, including `band_test.inp` and `band_test.sh` examples, can be found on Graham under `/home/jemmyhu/tests/test_ADF/2019.305/test_band/`."
     },
     {
-      "question": "Why is X11 forwarding not recommended for ADF-GUI?",
-      "answer": "Rendering over an SSH connection with X11 forwarding is very slow for GUI applications like ADF-GUI."
+      "question": "Why is VNC recommended for SCM-GUI applications like ADF-GUI?",
+      "answer": "VNC is recommended for SCM-GUI applications because rendering over an SSH connection with X11 forwarding is very slow for graphical user interface applications."
     },
     {
-      "question": "What is recommended for running ADF-GUI due to slow X11 forwarding?",
-      "answer": "It is recommended to use VNC to connect if running ADF-GUI."
+      "question": "What are the steps to run ADF interactively in graphical mode on a Graham compute node?",
+      "answer": "To run ADF interactively in graphical mode on a Graham compute node, you need to: 1. Install a TigerVNC client on your desktop, 2. Connect to a compute node with `vncviewer`, 3. Load the `adf` module (`module load adf`), and 4. Run `adfinput`."
     },
     {
-      "question": "How can ADF be run interactively in graphical mode on a Graham compute node?",
-      "answer": "ADF can be run interactively in graphical mode on a Graham compute node using TigerVNC."
+      "question": "What is the time limit for running ADF-GUI on a Graham compute node?",
+      "answer": "There is a 3-hour time limit for running ADF-GUI on a Graham compute node."
     },
     {
-      "question": "What is the time limit for running ADF interactively in graphical mode on a Graham compute node?",
-      "answer": "There is a 3-hour time limit."
+      "question": "What are the steps to run ADF interactively in graphical mode on gra-vdi?",
+      "answer": "To run ADF interactively in graphical mode on gra-vdi, you need to: 1. Install a TigerVNC client on your desktop, 2. Connect to `gra-vdi.computecanada.ca` with `vncviewer`, 3. Load the `clumod` module, 4. Load the `adf` module, and 5. Run `adfinput`."
     },
     {
-      "question": "What are the steps to run ADF-GUI interactively on a Graham compute node using TigerVNC?",
-      "answer": "The steps are to install a TigerVNC client, connect to a compute node with `vncviewer`, load the `adf` module, and then run `adfinput`."
-    },
-    {
-      "question": "How can ADF be run interactively in graphical mode on gra-vdi?",
-      "answer": "ADF can be run interactively in graphical mode on gra-vdi using TigerVNC."
-    },
-    {
-      "question": "Is there a connection time limit when running ADF-GUI on gra-vdi?",
+      "question": "Is there a connection time limit for ADF-GUI sessions on gra-vdi?",
       "answer": "No, there is no connection time limit when running ADF-GUI on gra-vdi."
     },
     {
-      "question": "What are the steps to run ADF-GUI interactively on gra-vdi using TigerVNC?",
-      "answer": "The steps are to install a TigerVNC client, connect to `gra-vdi.computecanada.ca` with `vncviewer`, load the `clumod` module, load the `adf` module, and then run `adfinput`."
+      "question": "Where can I find a tutorial PDF for running ADF-GUI using TigerVNC on gra-vdi?",
+      "answer": "A tutorial PDF is available at `https://www.sharcnet.ca/~jemmyhu/TigerVNC-for-ADF-GUI.pdf`."
     },
     {
-      "question": "Where can a tutorial PDF for installing, connecting, and running ADF-GUI using TigerVNC on gra-vdi be found?",
-      "answer": "A tutorial PDF can be found at `https://www.sharcnet.ca/~jemmyhu/TigerVNC-for-ADF-GUI.pdf`."
+      "question": "Can ADF-GUI be run on a local desktop machine?",
+      "answer": "Yes, ADF-GUI can be run on a local desktop machine, but SCM requires a separate license for this."
     },
     {
-      "question": "Is a separate license required to run ADF-GUI on a local desktop machine?",
-      "answer": "Yes, SCM has a separate license to run ADF-GUI on a local desktop machine."
-    },
-    {
-      "question": "Who should be contacted to purchase a local license for ADF-GUI?",
-      "answer": "`license@scm.com` should be contacted to purchase a local license."
+      "question": "Who should be contacted to purchase a license for running ADF-GUI locally?",
+      "answer": "To purchase a license for running ADF-GUI on a local desktop machine, you should contact `license@scm.com`."
     }
   ],
-  "generated_at": "2026-04-09T23:49:56.812729+00:00"
+  "generated_at": "2026-04-11T14:53:39.763592+00:00"
 }

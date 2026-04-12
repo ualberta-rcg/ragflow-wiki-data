@@ -1,0 +1,87 @@
+{
+  "doc_key": "fr/mpi",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "Pourquoi est-ce qu'on utilise la programmation parallèle?",
+      "answer": "On utilise la programmation parallèle pour augmenter la vitesse de calcul et répondre aux exigences élevées en mémoire, en fragmentant un problème pour que plusieurs processeurs travaillent en même temps."
+    },
+    {
+      "question": "Quel est l'aspect le plus important à considérer quand on développe des programmes parallèles?",
+      "answer": "La communication entre les différents processus est l'aspect le plus important, car c'est ce qui rend la conception complexe."
+    },
+    {
+      "question": "Quels sont les deux modèles principaux en programmation parallèle?",
+      "answer": "Les deux modèles principaux sont les programmes à mémoire partagée (SMP) et les programmes à mémoire distribuée."
+    },
+    {
+      "question": "Comment fonctionne le modèle à mémoire partagée (SMP) et quel est son défi?",
+      "answer": "Dans le modèle à mémoire partagée, tous les processeurs voient la même image mémoire et communiquent implicitement. Le défi principal est d'assurer la cohérence des données."
+    },
+    {
+      "question": "Décrivez le modèle à mémoire distribuée et son principal défi.",
+      "answer": "Ce modèle s'apparente à une grappe d'ordinateurs, où chaque processus possède sa propre mémoire et communique par l'envoi et la réception explicites de messages. Le défi est de minimiser les communications à cause de la lenteur des réseaux."
+    },
+    {
+      "question": "Quel modèle de programmation parallèle est abordé dans ce tutoriel?",
+      "answer": "Ce tutoriel se concentre uniquement sur la programmation avec mémoire distribuée sur grappe, en utilisant MPI."
+    },
+    {
+      "question": "C'est quoi MPI et à quoi ça sert?",
+      "answer": "MPI (Message Passing Interface) est une norme avec des sous-routines, fonctions et objets pour développer des programmes parallèles dans un environnement à mémoire distribuée, facilitant la communication entre les processus."
+    },
+    {
+      "question": "Pour quels langages MPI est-elle standardisée et quels autres langages ont des interfaces?",
+      "answer": "MPI est standardisée pour Fortran, C et C++. Il existe aussi des interfaces pour Python (mpi4py), Boost.MPI, Rmpi, entre autres."
+    },
+    {
+      "question": "Quels sont les avantages de programmer avec MPI?",
+      "answer": "Les programmes MPI sont portables, offrent une bonne scalabilité, et simplifient le débogage des erreurs de segmentation grâce aux plages mémoire distinctes de chaque processus."
+    },
+    {
+      "question": "C'est quoi le modèle d'exécution SPMD utilisé par MPI?",
+      "answer": "SPMD (Single Program Multiple Data) signifie que plusieurs instances du même programme s'exécutent en même temps, chacune assignée à un rang unique, et peuvent avoir des comportements différents grâce à des énoncés conditionnels."
+    },
+    {
+      "question": "Quelles fonctions sont essentielles pour démarrer et arrêter un programme MPI?",
+      "answer": "Il faut appeler `MPI_Init` au tout début du programme pour initialiser l'environnement MPI et `MPI_Finalize` à la toute fin pour faire un nettoyage."
+    },
+    {
+      "question": "Comment on fait pour obtenir le rang d'un processus et le nombre total de processus en opération avec MPI?",
+      "answer": "On utilise `MPI_Comm_rank` pour obtenir le rang du processus actuel et `MPI_Comm_size` pour connaître le nombre total de processus, en spécifiant `MPI_COMM_WORLD` comme communicateur."
+    },
+    {
+      "question": "À quoi sert le communicateur `MPI_COMM_WORLD`?",
+      "answer": "C'est un communicateur prédéfini par MPI qui représente l'ensemble de tous les processus lancés pour une tâche donnée."
+    },
+    {
+      "question": "Quels sont les paramètres principaux des fonctions `MPI_Send` et `MPI_Recv`?",
+      "answer": "Ces fonctions prennent en paramètres un pointeur vers les données, le nombre d'éléments, le type de données MPI (ex: `MPI_CHAR`), le rang du destinataire ou de l'expéditeur, un identifiant (tag) et le communicateur. `MPI_Recv` inclut aussi un paramètre `status`."
+    },
+    {
+      "question": "Pourquoi utilise-t-on des types de données MPI (comme `MPI_CHAR`) et pas les types natifs du langage?",
+      "answer": "Les types de données MPI assurent une couche de compatibilité entre les processus qui peuvent s'exécuter sur des architectures où le format natif des données est différent."
+    },
+    {
+      "question": "Qu'est-ce qui peut causer une impasse (deadlock) avec `MPI_Send` et `MPI_Recv`?",
+      "answer": "Une impasse peut arriver si `MPI_Send` bloque en attendant que le processus de destination appelle `MPI_Recv`, et que ce même processus de destination est aussi bloqué sur son propre `MPI_Send` avant d'appeler `MPI_Recv`, créant une attente indéfinie."
+    },
+    {
+      "question": "Comment peut-on s'assurer d'éviter les impasses dans les communications MPI?",
+      "answer": "Pour éviter les impasses, on peut adopter des stratégies comme l'approche \"pair-impair\" où les processus pairs exécutent l'envoi suivi de la réception, tandis que les processus impairs exécutent la réception suivie de l'envoi, garantissant ainsi des appels `Send` et `Recv` bien appariés."
+    },
+    {
+      "question": "C'est quoi une enveloppe de compilateur MPI?",
+      "answer": "C'est un script pratique fourni par les bibliothèques MPI qui appelle un compilateur standard (comme `gcc` ou `icc`) en y ajoutant automatiquement les options (`include`, `lib`) nécessaires pour compiler des programmes MPI."
+    },
+    {
+      "question": "Donnez des exemples d'enveloppes de compilateurs MPI.",
+      "answer": "Des exemples incluent `mpicc` pour le C, `mpicxx` pour le C++, et `mpifort` (ou `mpif90`, `mpif77`) pour le Fortran."
+    },
+    {
+      "question": "À quoi sert l'option `--showme` avec les enveloppes de compilateurs Open MPI?",
+      "answer": "L'option `--showme` affiche le nom du compilateur sous-jacent qui sera utilisé et toutes les options (flags) qui lui seront ajoutées pour la compilation MPI."
+    }
+  ],
+  "generated_at": "2026-04-12T01:55:16.463326+00:00"
+}

@@ -5,36 +5,106 @@ lang: "fr"
 
 source_wiki_title: "Metrix/fr"
 source_hash: "19f93e68f500786319f849accc1c3f68"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T08:32:00.403839+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T09:05:48.447407+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "numéro de tâche"
+  - "machines virtuelles"
+  - "recherche"
+  - "Utilisation des ressources"
+  - "naviguer rapidement"
+  - "mémoire"
+  - "communication MPI"
+  - "précision"
+  - "Tensor"
+  - "statut"
+  - "utilisation des ressources"
+  - "bande passante"
+  - "filtrer les tâches"
+  - "dernières tâches"
+  - "statistiques d'un compte"
+  - "Vecteur de tâches"
+  - "opérations en virgule flottante"
+  - "Portail Metrix"
+  - "nœuds de calcul"
+  - "script de soumission"
+  - "GPU"
+  - "statistiques des tâches"
+  - "tâche CPU"
+  - "CPU"
+  - "compte GPU"
+  - "système de fichiers Lustre"
+  - "systèmes de fichiers"
+  - "statistiques"
+  - "cœurs CPUs"
+  - "Tâche CPU"
+  - "disque local"
+  - "Système de fichiers"
+  - "cloud"
+  - "commandes d’écriture sur disque"
+  - "Tâche GPU"
+  - "IOPS"
+  - "système de fichiers"
+  - "matrices multidimensionnelles"
+
+questions:
+  - "Quel est l'objectif principal du portail Metrix et quelles sont les ressources globales qu'il permet de surveiller en temps réel ?"
+  - "Quelles informations spécifiques à l'usager, telles que les quotas de stockage et l'historique récent, peut-on consulter dans l'onglet \"Sommaire utilisateur\" ?"
+  - "Comment la section \"Statistiques des tâches\" aide-t-elle les utilisateurs à analyser en détail l'utilisation de leurs ressources allouées (CPU, mémoire, GPU) et l'état de leurs travaux ?"
+  - "Comment est-il possible de filtrer les tâches et quels sont les exemples de statuts mentionnés ?"
+  - "Quels critères peuvent être utilisés pour effectuer une recherche de tâche dans la partie supérieure droite ?"
+  - "Quelle option est disponible en bas à droite pour faciliter la navigation entre les pages ?"
+  - "Comment peut-on consulter les détails du script et la commande de soumission d'une tâche à partir de cette page ?"
+  - "Quelles informations spécifiques les graphiques de CPU, de mémoire et de processus permettent-ils d'analyser pour évaluer l'utilisation des ressources allouées ?"
+  - "Pourquoi les statistiques des ressources du nœud au complet (comme la bande passante et le disque local) peuvent-elles s'avérer imprécises par rapport aux statistiques de la tâche elle-même ?"
+  - "Quelles sont les opérations et les méthodes de communication décrites dans le contexte du système de fichiers Lustre ?"
+  - "Que mesure précisément le graphique de gauche concernant l'activité du disque local au fil du temps ?"
+  - "Quelle information spécifique est illustrée par le graphique de droite et comment est-elle définie dans le texte ?"
+  - "Quelle est la différence entre la page d'une tâche CPU régulière et celle d'une tâche issue d'un vecteur de tâches (job array) ?"
+  - "Comment l'interface permet-elle de comparer et de visualiser l'utilisation des ressources générales (CPU, mémoire, système de fichiers) par rapport aux ressources allouées ?"
+  - "Quels sont les indicateurs de performance idéaux à surveiller sur le graphique GPU, notamment concernant les Streaming Multiprocessors (SM) et les cœurs Tensor ?"
+  - "Quelles sont les différentes métriques de performance et de consommation du GPU qui peuvent être analysées à travers les graphiques présentés ?"
+  - "Comment les statistiques globales d'un nœud, telles que la bande passante réseau Infiniband et les opérations sur le disque local (IOPS), sont-elles représentées ?"
+  - "Quelles informations spécifiques à la gestion d'un groupe, comme l'utilisation des cœurs CPU, la mémoire gaspillée et l'activité du système de fichiers, peut-on suivre dans la section des statistiques d'un compte ?"
+  - "Quelle valeur est généralement attendue pour le premier indicateur mentionné ?"
+  - "Pourquoi est-il idéal de maximiser la valeur du paramètre \"Tensor\" et à quel type d'opérations cette partie du GPU est-elle optimisée ?"
+  - "Comment l'activité des opérations en virgule flottante (FP64, FP32 et FP16) doit-elle se répartir en fonction de la précision utilisée par le code ?"
+  - "Que mesure exactement le graphique de gauche en termes d'opérations sur le disque ?"
+  - "À quoi correspond la quantité de données transférées affichée sur le graphique de droite ?"
+  - "Quelles informations peut-on retrouver dans la liste des tâches concernant le groupe ?"
+  - "Quelles sont les différentes statistiques d'utilisation et de gaspillage des ressources (GPU, CPU, mémoire) que l'on peut suivre pour un compte GPU ?"
+  - "Quelles informations et métriques de performance sont détaillées pour les instances de machines virtuelles dans la section des statistiques du cloud ?"
+  - "Comment l'activité liée aux systèmes de fichiers, telle que les opérations d'écriture (IOPS) et la bande passante, est-elle mesurée et affichée dans ces tableaux de bord ?"
+  - "Quelles sont les différentes statistiques d'utilisation et de gaspillage des ressources (GPU, CPU, mémoire) que l'on peut suivre pour un compte GPU ?"
+  - "Quelles informations et métriques de performance sont détaillées pour les instances de machines virtuelles dans la section des statistiques du cloud ?"
+  - "Comment l'activité liée aux systèmes de fichiers, telle que les opérations d'écriture (IOPS) et la bande passante, est-elle mesurée et affichée dans ces tableaux de bord ?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
 # Aperçu
 
-Le portail Metrix est un site web destiné aux usagers de l'Alliance. Il exploite les informations collectées sur les nœuds de calcul et les serveurs de gestion pour générer, de manière interactive, des données permettant aux usagers de suivre en temps réel leur utilisation des ressources (CPU, GPU, mémoire, systèmes de fichiers).
+Le portail Metrix est un site web destiné aux usagers de l'Alliance. Il exploite les informations collectées sur les nœuds de calcul et les serveurs de gestion pour générer, de manière interactive, des données permettant aux usagers de suivre en temps réel leur utilisation des ressources (CPU, GPU, mémoire, système de fichiers).
 
+| | |
+|:---|:---|
 | Rorqual | [https://metrix.rorqual.alliancecan.ca](https://metrix.rorqual.alliancecan.ca) |
-| :------ | :------------------------------------------------------------------ |
-| Narval  | [https://portail.narval.calculquebec.ca](https://portail.narval.calculquebec.ca) |
-| Nibi    | [https://portal.nibi.sharcnet.ca](https://portal.nibi.sharcnet.ca)   |
+| Narval | [https://portail.narval.calculquebec.ca](https://portail.narval.calculquebec.ca) |
+| Nibi | [https://portal.nibi.sharcnet.ca](https://portal.nibi.sharcnet.ca) |
 
 **Performance des systèmes de fichiers**
 
-On retrouve ici les graphiques de bandes passantes et d'opérations sur les métadonnées, accompagnés des options de visualisation suivantes: dernière semaine, dernier jour et dernière heure.
+On retrouve ici les graphiques de bandes passantes et d'opérations sur les métadonnées, accompagnés des options de visualisation suivantes : dernière semaine, dernier jour et dernière heure.
 
 **Nœuds de connexion**
 
@@ -54,7 +124,7 @@ Les statistiques de bande passante des nœuds de transfert de données sont pré
 
 # Sommaire utilisateur
 
-Sous l'onglet sommaire utilisateur, vous trouverez vos quotas des différents systèmes de fichiers, suivis de vos 10 dernières tâches. Vous pouvez en sélectionner une par son numéro et accéder à la page détaillée. De plus, en cliquant sur *(Plus de détails)*, vous serez redirigé directement vers l'onglet **Statistiques des tâches**, où vous allez retrouver toutes vos tâches.
+Sous l'onglet sommaire utilisateur, vous trouverez vos quotas des différents systèmes de fichiers, suivis de vos 10 dernières tâches. Vous pouvez en sélectionner une par son numéro et accéder à la page détaillée. De plus, en cliquant sur (Plus de détails), vous serez redirigé directement vers l'onglet **Statistiques des tâches**, où vous allez retrouver toutes vos tâches.
 
 # Statistiques des tâches
 
@@ -64,7 +134,7 @@ Vous avez ensuite accès à une moyenne des derniers jours, présentée sous for
 
 Vous avez ensuite une représentation de votre activité sur les systèmes de fichiers. À gauche, le graphique montre le nombre de commandes d’écriture sur disque que vous avez effectuées. (*input/output operations per second (IOPS)*) À droite, vous voyez la quantité de données transférées vers les serveurs sur une période donnée. (Bande passante)
 
-La section suivante présente l’ensemble des tâches que vous avez déjà lancées, qui sont actuellement en cours d’exécution ou en attente. En haut à gauche, vous pouvez filtrer les tâches par statut (OOM, completed, running, etc.). En haut à droite, vous pouvez effectuer une recherche par numéro de tâche (Job ID) ou par nom. Enfin, en bas à droite, une option vous permet de naviguer rapidement entre les pages en effectuant des sauts multiples.
+La section suivante présente l’ensemble des tâches que vous avez déjà lancées, qui sont actuellement en cours d’exécution ou en attente. En haut à gauche, vous pouvez filtrer les tâches par statut (Mémoire insuffisante (OOM), terminées, en cours d'exécution, etc.). En haut à droite, vous pouvez effectuer une recherche par numéro de tâche (Job ID) ou par nom. Enfin, en bas à droite, une option vous permet de naviguer rapidement entre les pages en effectuant des sauts multiples.
 
 ## Page d'une tâche CPU
 
@@ -76,15 +146,21 @@ La prochaine section est dédiée aux informations de l'ordonnanceur. Vous pouve
 
 Dans la section **Ressources** vous pouvez obtenir un aperçu initial de l'utilisation des ressources de votre tâche en comparant les colonnes **Alloués** et **Utilisés** pour les différents paramètres listés.
 
-Le graphique **CPU** vous permet de visualiser, dans le temps, des cœurs CPUs que vous avez demandés. À droite, vous pouvez sélectionner/désélectionner les différents cœurs selon vos besoins. Notez que pour des tâches très courtes, ce graphique n'est pas disponible.
+Le graphique **CPU** vous permet de visualiser, dans le temps, des cœurs CPUs que vous avez demandés. À droite, vous pouvez sélectionner/désélectionner les différents cœurs selon vos besoins.
+
+!!! note
+    Pour des tâches très courtes, ce graphique n'est pas disponible.
 
 Le graphique **Mémoire** vous permet de visualiser, dans le temps, l'utilisation de la mémoire que vous avez demandée.
 
-Le graphique **Processus et fils d'exécution** vous permet d'observer différents paramètres liés aux processus et aux fils d'exécution. Idéalement, pour une tâche multifils (multithreading), l'addition du paramètre **Running threads** et **Sleeping threads** ne devrait pas dépasser de 2 fois le nombre de cœurs demandé. Cela dit, il est tout à fait normal d'avoir quelques processus en mode **dormant** (*Sleeping threads*) pour certain type de programmes (java, Matlab, logiciels commercial ou programmes complexes). Vous avez aussi en paramètre les applications du programme exécutées au fil du temps.
+Le graphique **Processus et fils d'exécution** vous permet d'observer différents paramètres liés aux processus et aux fils d'exécution. Vous avez aussi en paramètre les applications du programme exécutées au fil du temps.
 
-Les graphiques suivants représentent l'utilisation du système de fichier pour la tâche en cours et non du nœud au complet. À gauche, une représentation du nombre d’opérations d’entrée/sortie par seconde (IOPS) est affichée. À droite, le graphique illustre le débit de transfert de données entre la tâche et le système de fichiers au fil du temps. Ce graphique permet d’identifier les périodes d’activité intense ou de faible utilisation du système de fichiers.
+!!! tip
+    Idéalement, pour une tâche multifils (multithreading), l'addition du paramètre **fils d'exécution actifs** et **fils d'exécution dormants** ne devrait pas dépasser de 2 fois le nombre de cœurs demandé. Cela dit, il est tout à fait normal d'avoir quelques processus en mode **dormant** (*Sleeping threads*) pour certain type de programmes (java, Matlab, logiciels commercial ou programmes complexes).
 
-!!! warning "Statistiques des ressources du nœud"
+Les graphiques suivants représentent l'utilisation du système de fichiers pour la tâche en cours et non du nœud au complet. À gauche, une représentation du nombre d’opérations d’entrée/sortie par seconde (IOPS) est affichée. À droite, le graphique illustre le débit de transfert de données entre la tâche et le système de fichiers au fil du temps. Ce graphique permet d’identifier les périodes d’activité intense ou de faible utilisation du système de fichiers.
+
+!!! warning
     Pour les statistiques des ressources du nœud au complet, sachez qu'elles peuvent être imprécises si le nœud est partagé entre plusieurs utilisateurs.
 
 Le graphique de gauche, illustre l'évolution de la bande passante utilisée par la tâche au fil du temps, en lien avec les logiciels, les licences, etc. Le graphique de droite représente l’évolution de la bande passante réseau utilisée par une tâche ou un ensemble de tâches via le réseau Infiniband, au fil du temps. On peut y observer les périodes de transfert massif de données (ex. : lecture/écriture sur un système de fichiers (Lustre), communication MPI entre nœuds).
@@ -97,7 +173,7 @@ Représentation graphique de la puissance utilisée.
 
 ## Page d'une tâche CPU (vecteur de tâches, *job array*)
 
-La page d'une tâche CPU dans un vecteur de tâches est identique à celle d'une tâche CPU régulière, à l'exception de la section *Other jobs in the array*. Le tableau liste les autres numéros de tâches faisant partie du même vecteur de tâches, ainsi que des informations sur leur statut, leur nom, leur heure de début et leur heure de fin.
+La page d'une tâche CPU dans un vecteur de tâches est identique à celle d'une tâche CPU régulière, à l'exception de la section **Autres tâches du vecteur**. Le tableau liste les autres numéros de tâches faisant partie du même vecteur de tâches, ainsi que des informations sur leur statut, leur nom, leur heure de début et leur heure de fin.
 
 ## Page d'une tâche GPU
 
@@ -109,23 +185,26 @@ La section suivante est réservée aux informations de l'ordonnanceur. Vous pouv
 
 Dans la section **Ressources** vous pouvez obtenir un premier aperçu de l'utilisation des ressources de votre tâche en comparant les colonnes **Alloués** et **Utilisés** pour les différents paramètres listés.
 
-Le graphique **CPU** vous permet de visualiser l'utilisation des cœurs CPUs demandés au fil du temps. À droite, vous pouvez sélectionner/désélectionner les différents cœurs selon vos besoins. Notez que pour des tâches très courtes, ce graphique n'est pas disponible.
+Le graphique **CPU** vous permet de visualiser l'utilisation des cœurs CPUs demandés au fil du temps. À droite, vous pouvez sélectionner/désélectionner les différents cœurs selon vos besoins.
+
+!!! note
+    Pour des tâches très courtes, ce graphique n'est pas disponible.
 
 Le graphique **Mémoire** vous permet de visualiser l'utilisation dans le temps de la mémoire que vous avez demandée pour les CPU.
 
 Le graphique **Processus et fils d'exécution** vous permet d'observer différents paramètres liés aux processus et aux fils d'exécution.
 
-Les graphiques suivants représentent l'utilisation du système de fichier pour la tâche en cours et non du nœud au complet. À gauche, une représentation du nombre d’opérations d’entrée/sortie par seconde (IOPS) est affichée. À droite, le graphique illustre le débit de transfert de données entre la tâche et le système de fichiers au fil du temps. Ce graphique permet d’identifier les périodes d’activité intense ou de faible utilisation du système de fichiers.
+Les graphiques suivants représentent l'utilisation du système de fichiers pour la tâche en cours et non du nœud au complet. À gauche, une représentation du nombre d’opérations d’entrée/sortie par seconde (IOPS) est affichée. À droite, le graphique illustre le débit de transfert de données entre la tâche et le système de fichiers au fil du temps. Ce graphique permet d’identifier les périodes d’activité intense ou de faible utilisation du système de fichiers.
 
-Le graphique GPU représente votre utilisation des GPU. Le paramètre *Streaming Multiprocessors* (SM) activé indique le pourcentage de temps pendant lequel le GPU exécute un warp (un groupe de *threads* consécutifs) dans la dernière fenêtre d’échantillonnage. Cette valeur devrait idéalement se situer autour de 80 %. Pour le *SM occupancy* (défini comme le rapport entre le nombre de warps affectés à un SM et le nombre maximal de warps qu’un SM peut gérer), une valeur autour de 50 % est généralement attendue. Concernant le paramètre *Tensor*, la valeur devrait être la plus élevée possible. Idéalement, votre code devrait exploiter cette partie du GPU, optimisée pour les multiplications et convolutions de matrices multidimensionnelles. Enfin, pour les opérations en virgule flottante (*Floating Point*) FP64, FP32 et FP16, vous devriez observer une activité significative sur un seul de ces types, selon la précision utilisée par votre code.
+Le graphique **GPU** représente votre utilisation des GPU. Le paramètre *Multiprocesseurs de flux (SM) actifs* indique le pourcentage de temps pendant lequel le GPU exécute un warp (un groupe de fils d'exécution consécutifs) dans la dernière fenêtre d’échantillonnage. Cette valeur devrait idéalement se situer autour de 80 %. Pour l'*Occupation des SM* (défini comme le rapport entre le nombre de warps affectés à un SM et le nombre maximal de warps qu’un SM peut gérer), une valeur autour de 50 % est généralement attendue. Concernant le paramètre *Tensor*, la valeur devrait être la plus élevée possible. Idéalement, votre code devrait exploiter cette partie du GPU, optimisée pour les multiplications et convolutions de matrices multidimensionnelles. Enfin, pour les opérations en *Virgule flottante* (FP64, FP32 et FP16), vous devriez observer une activité significative sur un seul de ces types, selon la précision utilisée par votre code.
 
 À gauche, vous avez un graphique indiquant la mémoire utilisée par le GPU. À droite, un graphique des cycles d'accès du GPU à la mémoire, représentant le pourcentage de cycles pendant lesquels l’interface mémoire de l’appareil est active pour envoyer ou recevoir des données.
 
 Le graphique de puissance GPU affiche l’évolution de la consommation énergétique (en watts) du GPU au fil du temps.
 
-À gauche, la bande passante GPU sur le bus PCIe (ou **PCI Express**, pour *Peripheral Component Interconnect Express*). À droite, bande passante GPU sur le bus NVlink. Le bus NVLink est une technologie développée par NVIDIA pour permettre une communication ultra-rapide entre plusieurs GPU.
+À gauche, la bande passante GPU sur le bus PCIe (ou *PCI Express*, pour *Peripheral Component Interconnect Express*). À droite, bande passante GPU sur le bus NVLink. Le bus NVLink est une technologie développée par NVIDIA pour permettre une communication ultra-rapide entre plusieurs GPU.
 
-!!! warning "Statistiques des ressources du nœud"
+!!! warning
     Pour les statistiques des ressources du nœud au complet, sachez qu'elles peuvent être imprécises si le nœud est partagé entre plusieurs utilisateurs.
 
 Le graphique de gauche, illustre l'évolution de la bande passante utilisée par la tâche au fil du temps, en lien avec les logiciels, les licences, etc. Le graphique de droite représente l’évolution de la bande passante réseau utilisée par une tâche ou un ensemble de tâches via le réseau Infiniband, au fil du temps. On peut y observer les périodes de transfert massif de données (ex. : lecture/écriture sur un système de fichiers (Lustre), communication MPI entre nœuds).
@@ -138,7 +217,7 @@ Représentation graphique de la puissance utilisée.
 
 # Statistiques d'un compte
 
-La section **Statistiques d'un compte** regroupe l'utilisation de votre groupe dans deux sous-sections: CPU et GPU.
+La section **Statistiques d'un compte** regroupe l'utilisation de votre groupe dans deux sous-sections : CPU et GPU.
 
 ## Statistiques d'un compte CPU
 

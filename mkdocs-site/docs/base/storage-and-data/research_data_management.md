@@ -5,21 +5,49 @@ lang: "base"
 
 source_wiki_title: "Research Data Management"
 source_hash: "de784a25eace12f2d13e37aa63e09981"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T10:46:47.111841+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T11:02:14.139723+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "Metadata"
+  - "Terminology"
+  - "Sensitive data"
+  - "Research Data Management"
+  - "Research data management"
+  - "Repositories"
+  - "ROR"
+  - "Data management planning"
+  - "DOI"
+  - "RAiD"
+  - "Data curation"
+  - "UUID"
+  - "Tri-Agency RDM Policy"
+  - "Persistent identifiers"
+  - "ORCID"
+
+questions:
+  - "What is the primary role of the Alliance in the context of Canadian research data management?"
+  - "How can academic researchers and institutions access support or get connected with partners for managing their data assets?"
+  - "What are the main categories of resources provided in the text to assist researchers with different aspects of data management?"
+  - "What are the primary repository options and directories available for Canadian researchers to store and find research data?"
+  - "What resources and toolkits are recommended for handling and understanding sensitive research data?"
+  - "Where can individuals access standardized glossaries to understand the terminology used in research data management?"
+  - "Which specific identifiers are recommended for tracking researchers and their associated data?"
+  - "What are the designated identification systems for research organizations, projects, and physical samples?"
+  - "In situations where a DOI is not appropriate for metadata, what alternative identifier should be used?"
+  - "What are the primary repository options and directories available for Canadian researchers to store and find research data?"
+  - "What resources and toolkits are recommended for handling and understanding sensitive research data?"
+  - "Where can individuals access standardized glossaries to understand the terminology used in research data management?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 

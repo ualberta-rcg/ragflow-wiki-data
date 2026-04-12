@@ -1,0 +1,59 @@
+{
+  "doc_key": "base/mpi4py",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is the primary function of `mpi4py`?",
+      "answer": "`mpi4py` provides Python bindings for the Message Passing Interface (MPI) standard, allowing Python applications to exploit multiple processors on workstations, clusters, and supercomputers."
+    },
+    {
+      "question": "How can I find the available versions of `mpi4py`?",
+      "answer": "You can find available versions by using the command `module spider mpi4py`."
+    },
+    {
+      "question": "Is `mpi4py` available as a typical Python wheel package?",
+      "answer": "No, `mpi4py` is available as a module and not from the wheelhouse like typical Python packages."
+    },
+    {
+      "question": "How can I get more detailed information about a specific `mpi4py` version, such as `4.0.0`?",
+      "answer": "You can look for more information on a specific version by using `module spider mpi4py/X.Y.Z`, replacing `X.Y.Z` with the desired version, for example, `4.0.0`."
+    },
+    {
+      "question": "What are the steps to run a basic 'Hello World' test using `mpi4py`?",
+      "answer": "First, run a short interactive job, then load the `mpi4py` and Python modules, and finally, execute `srun python -m mpi4py.bench helloworld`."
+    },
+    {
+      "question": "What is the correct procedure when `mpi4py` is a dependency of another package and you are using a Python virtual environment?",
+      "answer": "You must deactivate any existing Python virtual environment, load the `mpi4py` module, and then you can reactivate or create your virtual environment before installing other packages."
+    },
+    {
+      "question": "How do I verify that `mpi4py` is accessible for my currently loaded Python module after loading it?",
+      "answer": "You can check if it's visible by `pip` using `pip list | grep mpi4py` and verify its accessibility by running `python -c 'import mpi4py'`."
+    },
+    {
+      "question": "Where can users find recommendations for efficient MPI scheduling when running `mpi4py` jobs?",
+      "answer": "Users can find recommendations in the 'MPI job' and 'Advanced MPI scheduling' sections under the 'Running jobs' documentation."
+    },
+    {
+      "question": "What is the general workflow for running an `mpi4py` job on a CPU?",
+      "answer": "The workflow involves writing your Python code, creating a submission script (e.g., for distributed or whole nodes), testing the script in an interactive job, and then submitting the job to the scheduler using `sbatch`."
+    },
+    {
+      "question": "What is a crucial step for setting up a virtual environment in a CPU job submission script for `mpi4py`?",
+      "answer": "The virtual environment should be created on each allocated node using `srun --ntasks $SLURM_NNODES --tasks-per-node=1 bash << EOF ... EOF` and then activated only on the main node."
+    },
+    {
+      "question": "How can I get a demo example for `mpi4py` that uses GPUs?",
+      "answer": "You can download the `use_cupy.py` demo example from a login node using `wget https://raw.githubusercontent.com/mpi4py/mpi4py/refs/heads/master/demo/cuda-aware-mpi/use_cupy.py`."
+    },
+    {
+      "question": "Which SLURM directive is necessary to allocate GPU resources for an `mpi4py` job?",
+      "answer": "The `--gpus=1` directive is required in the SBATCH submission script to allocate GPU resources for the job."
+    },
+    {
+      "question": "What are the potential solutions if I encounter a `ModuleNotFoundError: No module named 'mpi4py'`?",
+      "answer": "Possible solutions include checking for compatible Python versions using `module spider mpi4py/X.Y.Z` and ensuring that the `mpi4py` module is loaded before activating any virtual environment."
+    }
+  ],
+  "generated_at": "2026-04-12T02:00:13.778278+00:00"
+}

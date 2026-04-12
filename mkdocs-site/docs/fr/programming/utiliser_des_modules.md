@@ -5,31 +5,71 @@ lang: "fr"
 
 source_wiki_title: "Utiliser des modules/fr"
 source_hash: "a23e873ebce5b0acb79badc00a91e427"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T12:30:00.455136+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T12:29:44.110942+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "sous-commandes"
+  - "module spider"
+  - "système de modules"
+  - "commande module load"
+  - "module load"
+  - "compilateur GCC"
+  - "hiérarchie de modules"
+  - "serveurs de calcul"
+  - "commande module"
+  - "environnement logiciel"
+  - "sous-commande load"
+  - "compilateur gcc"
+  - "commandes module"
+  - "fftw"
+  - "collection de modules"
+  - "charger un module"
+  - "Lmod"
+  - "modules"
+  - "bibliothèque OpenMPI"
+  - "openmpi"
+  - "remplacement automatique"
+
+questions:
+  - "Quel est le rôle d'un fichier module et comment permet-il d'éviter les conflits entre plusieurs versions d'une même application ?"
+  - "Quel outil est utilisé pour gérer les modules sur les nouveaux serveurs et quelles variables d'environnement sont typiquement modifiées par celui-ci ?"
+  - "À quoi servent respectivement les sous-commandes `spider`, `avail`, `list` et `load` lors de l'utilisation quotidienne de la commande `module` ?"
+  - "Quelles sont les différences entre les sous-commandes unload et purge pour retirer des modules de son environnement ?"
+  - "Quelle est la méthode recommandée pour sauvegarder et charger un ensemble de modules fréquemment utilisés sans les ajouter au fichier .bashrc ?"
+  - "Quel problème la hiérarchie de modules permet-elle de résoudre par rapport à une structure de modules plate ?"
+  - "Quelle est la fonction principale de la sous-commande `load` ?"
+  - "Comment doit-on écrire la commande pour charger un module spécifique comme GCC version 9.3 ?"
+  - "De quelle manière peut-on charger plusieurs modules simultanément en utilisant une seule commande ?"
+  - "Pourquoi les anciens noms de modules combinés sont-ils considérés comme inélégants et peu pratiques ?"
+  - "Quelle solution spécifique est adoptée pour résoudre ce problème de complexité ?"
+  - "Quels logiciels et compilateurs sont donnés en exemple pour illustrer ces difficultés de gestion de versions ?"
+  - "Comment fonctionne la hiérarchie des modules et quelle commande permet d'afficher l'ensemble des modules disponibles indépendamment de leur compatibilité immédiate ?"
+  - "Que se passe-t-il pour les modules dépendants lorsqu'un module parent est automatiquement remplacé par une autre version ou un module de la même famille ?"
+  - "Quelles commandes spécifiques doivent être exécutées pour pouvoir utiliser le système de modules avec les shells ZSH ou KSH ?"
+  - "Comment fonctionne la hiérarchie des modules et quelle commande permet d'afficher l'ensemble des modules disponibles indépendamment de leur compatibilité immédiate ?"
+  - "Que se passe-t-il pour les modules dépendants lorsqu'un module parent est automatiquement remplacé par une autre version ou un module de la même famille ?"
+  - "Quelles commandes spécifiques doivent être exécutées pour pouvoir utiliser le système de modules avec les shells ZSH ou KSH ?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
 Nos serveurs peuvent exécuter la totalité des logiciels fonctionnant sous Linux. Dans le cas le plus simple, le logiciel dont vous avez besoin sera déjà installé sur l'un des serveurs de calcul. Il sera alors accessible sous la forme d'un **module**. Si ce n'est pas le cas, vous pouvez soit demander à notre équipe de l'installer pour vous, soit le faire vous-même.
 
-Les modules sont des fichiers de configuration qui contiennent des instructions pour modifier votre environnement logiciel. Cette architecture modulaire permet d'avoir plusieurs versions d'une même application installées sans que celles-ci entrent en conflit. Pour les nouveaux serveurs, les modules sont gérés par l'outil [Lmod](https://www.tacc.utexas.edu/research-development/tacc-projects/lmod) développé au [TACC](https://www.tacc.utexas.edu/). Cet outil remplace [*Environment Modules*](http://modules.sourceforge.net) qui est utilisé sur la plupart des anciens serveurs. Si vous le connaissez, vous ne devriez pas être trop dépaysé, car *Lmod* a été conçu pour être très similaire à *Environment Modules*. Référez-vous à la section [Lmod vs Environment Modules](#lmod-vs-environment-modules) ci-dessous pour connaître les différences principales.
+Les modules sont des fichiers de configuration qui contiennent des instructions pour modifier votre environnement logiciel. Cette architecture modulaire permet d'avoir plusieurs versions d'une même application installées sans que celles-ci entrent en conflit. Pour les nouveaux serveurs, les modules sont gérés par l'outil [Lmod](https://www.tacc.utexas.edu/research-development/tacc-projects/lmod) développé au [TACC](https://www.tacc.utexas.edu/). Cet outil remplace [*Environment Modules*](http://modules.sourceforge.net) qui est utilisé sur la plupart des anciens serveurs. Si vous le connaissez, vous ne devriez pas être trop dépaysé, car *Lmod* a été conçu pour être très similaire à *Environment Modules*. Référez-vous à la section [Lmod vs Environment Modules](utiliser-des-modules.md#lmod-vs-environment-modules) ci-dessous pour connaître les différences principales.
 
 Un fichier module (*modulefile*) contient les informations nécessaires pour rendre disponible une application ou une bibliothèque dans la session de l'usager. Typiquement, un fichier module contient des instructions qui modifient ou initialisent les variables d'environnement comme `PATH` et `LD_LIBRARY_PATH` pour utiliser les différents logiciels installés. Notez que le simple fait de charger un module n'exécute pas le logiciel dont il est question. Pour connaître le nom du fichier binaire et la syntaxe de son usage, il faut lire la documentation du logiciel et avec la commande `module`, vous n'avez normalement pas besoin de connaître le chemin du logiciel ou de la bibliothèque. Vous pouvez voir des détails pour le module en tapant la commande `module show <nom de module>`.
 
-## Principales commandes de `module`
+## Principales commandes de module
 La commande `module` a plusieurs sous-commandes. La syntaxe normale est
 
 ```bash
@@ -42,7 +82,7 @@ Pour connaître la liste des sous-commandes disponibles, utilisez
 module help
 ```
 
-### Sous-commande `spider`
+### Sous-commande spider
 La sous-commande `spider` fait afficher tous les modules qui se trouvent dans [l'environnement logiciel standard](standard-software-environments.md) courant.
 
 ```bash
@@ -63,7 +103,7 @@ module spider openmpi/4.0.3
 ```
 cela affichera la liste des options de module à charger afin d'accéder à cette version.
 
-### Sous-commande `avail`
+### Sous-commande avail
 Pour lister les modules que vous pouvez charger, utilisez
 
 ```bash
@@ -78,15 +118,15 @@ module avail openmpi
 
 Notez que la commande `module avail` peut ne pas lister certains modules qui sont incompatibles avec les modules que vous avez chargés. Pour voir la liste des modules autres que ceux qui sont chargés et qui vous sont disponibles, utilisez la sous-commande `spider` documentée ci-dessus.
 
-### Sous-commande `list`
-La sous-commande `**list**` affiche les modules qui sont présentement chargés dans votre environnement.
+### Sous-commande list
+La sous-commande **list** affiche les modules qui sont présentement chargés dans votre environnement.
 
 ```bash
 module list
 ```
 
-### Sous-commande `load`
-La sous-commande `**load**` permet de charger un module donné. Par exemple
+### Sous-commande load
+La sous-commande **load** permet de charger un module donné. Par exemple
 
 ```bash
 module load gcc/9.3
@@ -100,20 +140,20 @@ module load gcc/9.3 openmpi/4.0
 ```
 chargerait à la fois le compilateur GCC 9.3 et la bibliothèque OpenMPI 4.0 compilée pour GCC.
 
-Si vous chargez un module qui est incompatible avec un module déjà chargé, *Lmod* vous indiquera qu'il a remplacé l'ancien module par le nouveau. Ceci peut se produire en particulier pour des compilateurs et des implémentations MPI.
+Si vous chargez un module qui est incompatible avec un module déjà chargé, Lmod vous indiquera qu'il a remplacé l'ancien module par le nouveau. Ceci peut se produire en particulier pour des compilateurs et des implémentations MPI.
 
-### Sous-commande `unload`
-Au contraire de la sous-commande `**load**`, `**unload**` enlève un module de votre environnement. Par exemple
+### Sous-commande unload
+Au contraire de la sous-commande **load**, **unload** enlève un module de votre environnement. Par exemple
 
 ```bash
 module unload gcc/9.3
 ```
 enlèverait le compilateur GCC 9.3 de votre environnement.
 
-Si certains modules dépendaient de ce compilateur, *Lmod* vous indiquera qu'ils ont été désactivés.
+Si certains modules dépendaient de ce compilateur, Lmod vous indiquera qu'ils ont été désactivés.
 
-### Sous-commande `purge`
-La sous-commande `**purge**` permet d'enlever d'un seul coup tous les modules que vous avez chargés.
+### Sous-commande purge
+La sous-commande **purge** permet d'enlever d'un seul coup tous les modules que vous avez chargés.
 
 ```bash
 module purge
@@ -121,22 +161,23 @@ module purge
 
 Certains modules peuvent être marqués comme *sticky* (permanents) par les administrateurs de système et ne seront pas enlevés.
 
-### Sous-commandes `show`, `help` et `whatis`
-Les sous-commandes `**show**`, `**help**` et `**whatis**` permettent d'avoir de l'information supplémentaire sur un module donné. La sous-commande `**show**` affiche l'intégralité du module, la commande `**help**` affiche un message d'aide, et la commande `**whatis**` montre une description du module.
+### Sous-commandes show, help et whatis
+Les sous-commandes **show**, **help** et **whatis** permettent d'avoir de l'information supplémentaire sur un module donné. La sous-commande **show** affiche l'intégralité du module, la commande **help** affiche un message d'aide, et la commande **whatis** montre une description du module.
 
 ```bash
 module help gcc/9.3
 ```
 
-### Sous-commande `apropos` ou `keyword`
+### Sous-commande apropos ou keyword
 Les sous-commandes `apropos` ou `keyword` permettent de chercher un mot-clé dans l'ensemble des modules. Si vous ne savez pas quel module est approprié pour réaliser votre calcul, vous pouvez ainsi chercher dans les descriptions.
 
 ## Chargement automatique des modules
-!!! avertissement
-    Nous **déconseillons de charger des modules automatiquement dans votre `.bashrc`**. Nous vous recommandons plutôt de charger les modules nécessaires au besoin, par exemple dans vos scripts de tâches. Afin de faciliter le chargement d'un grand nombre de modules, il est préférable d'utiliser une collection de modules.
+
+!!! warning "Chargement automatique des modules"
+    Nous vous **déconseillons de charger des modules automatiquement dans votre .bashrc**. Nous vous recommandons plutôt de charger les modules nécessaires au besoin, par exemple dans vos scripts de tâches. Afin de faciliter le chargement d'un grand nombre de modules, il est préférable d'utiliser une collection de modules.
 
 ## Collection de modules
-*Lmod* vous permet de créer une collection de modules. Pour ce faire, chargez d'abord les modules requis avec, par exemple
+Lmod vous permet de créer une collection de modules. Pour ce faire, chargez d'abord les modules requis avec, par exemple
 
 ```bash
 module load gcc/9.3 openmpi/4.0.3 mkl
@@ -180,7 +221,7 @@ Lorsque le système de modules détecte deux modules de la même famille, ou deu
 Pour des instructions sur comment créer des modules, veuillez vous référer à la [documentation officielle](http://lmod.readthedocs.io/en/latest/015_writing_modules.html).
 
 ## Utiliser des modules avec ZSH et KSH
-Si vous voulez utiliser des modules avec les *interpréteurs de commandes* ZSH ou KSH, exécutez les commandes suivantes :
+Si vous voulez utiliser des modules avec les *shells* ZSH ou KSH, exécutez les commandes suivantes :
 
 ```bash
 zsh -l

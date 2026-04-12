@@ -5,21 +5,64 @@ lang: "base"
 
 source_wiki_title: "Frequently Asked Questions about the CCDB"
 source_hash: "021a316e96a4e94f7dbc4f4118b40cc9"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T06:27:13.431821+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T07:10:08.302802+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "application approval"
+  - "Resource Allocation Projects"
+  - "Alliance account"
+  - "CCDB"
+  - "reset password"
+  - "Cloud allocations"
+  - "RAC RAP"
+  - "Research Allocation Project Identifier"
+  - "RAPI"
+  - "Primary Investigators"
+  - "Group name"
+  - "RAP membership"
+  - "CCRI"
+  - "update email address"
+  - "Role"
+  - "changed position"
+  - "sponsored roles"
+  - "sponsor roles"
+  - "apply for a new role"
+  - "CCI"
+  - "HPC resources"
+  - "account application"
+  - "naming convention"
+  - "Default RAP"
+
+questions:
+  - "What is the CCDB portal, and what are the eligibility requirements for obtaining a unique personal identifier (CCI)?"
+  - "How is a user's role (CCRI) defined within the system, and why is it necessary to create a new role when changing institutions or positions?"
+  - "What is a Resource Allocation Project (RAP), and how do Default RAPs differ from RAC RAPs in terms of resource allocation?"
+  - "How does automatic membership assignment differ between a Default RAP, an HPC RAC RAP, and a Cloud RAC RAP?"
+  - "What are the three membership permission levels within a RAC RAP, and what specific privileges does each level grant?"
+  - "What is the proper procedure for updating an existing Alliance account when a user's position or sponsor changes?"
+  - "What are the standard naming conventions used for Cloud allocations?"
+  - "How is a group name defined in relation to a Research Allocation Project Identifier (RAPI)?"
+  - "What does the \"xx\" typically represent in the standard convention for group names?"
+  - "What steps must a user take to apply for a new role if they have changed positions?"
+  - "How can a user reset their password if they have forgotten it?"
+  - "What should a user do if they can no longer access the email address associated with their account?"
+  - "What are the steps and requirements for registering a new account?"
+  - "What is the difference between sponsor and sponsored roles, and who is eligible for each?"
+  - "How does the account approval process work after an application is submitted?"
+  - "What are the steps and requirements for registering a new account?"
+  - "What is the difference between sponsor and sponsored roles, and who is eligible for each?"
+  - "How does the account approval process work after an application is submitted?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -27,7 +70,7 @@ status:
 
 ## What is the CCDB?
 
-[CCDB is the portal to your account with the Alliance](https://ccdb.alliancecan.ca) where you can find information on the roles you have in the projects you are involved in, the resources that are allocated to you, as well as statistics on your use of these resources.
+The [CCDB is the portal to your account with the Alliance](https://ccdb.alliancecan.ca) where you can find information on the roles you have in the projects you are involved in, the resources that are allocated to you, as well as statistics on your use of these resources.
 
 ## What can I do on the portal?
 
@@ -38,7 +81,7 @@ status:
 
 ## What is a CCI and why would I want one?
 
-A CCI is a unique personal and national identifier. When you register at https://ccdb.alliancecan.ca a CCI is created for you. The CCI is a string of 3 letters - 3 digits. For example: abc-123.
+A CCI is a unique personal and national identifier. When you register at https://ccdb.alliancecan.ca a CCI is created for you. The CCI is a string of 3 letters <dash> 3 digits. For example: abc-123.
 
 ## Who is eligible to get a CCI?
 
@@ -51,7 +94,7 @@ People who can be sponsored include, but are not limited to, graduate students a
 
 A role is an identifier that represents the combination of a person's position (e.g., faculty, graduate student, postdoctoral fellow, etc.), institution, and sponsor. In order to access our computational resources, you must have a valid and up-to-date role. Most people will only have one role at a time, but when you change institution, sponsor, or position you will need to apply for a new role rather than update the old one. We ask you to do this so we can maintain accurate records for usage reporting to our governmental funding agencies.
 
-The CCRI follows the following convention: CCI - 2 digits. For example, for a user with the CCI abc-123, the CCRI for a first role would be abc-123-01 and for a second role, abc-123-02.
+The CCRI follows the following convention: CCI <dash> 2 digits. For example, for a user with the CCI abc-123, the CCRI for a first role would be abc-123-01 and for a second role, abc-123-02.
 
 ## What is a CCRI?
 
@@ -64,19 +107,19 @@ Access to our national computational resources are made available to PIs through
 
 Researchers are usually working on at least one research project. For reporting purposes, we need to be able to provide statistics on how our facilities are used, but the word *project* is too ambiguous, therefore we use a name which does not have any implicit meanings. Also, computing resources are not allocated to individuals, they are allocated to groups of researchers. The RAP is the group of researchers which resources are allocated to.
 
-In general, there are two main types to RAPs:
-*   Default RAP: A default RAP is automatically created when a PI role is activated. Default and Rapid Access Service quotas for storage and cloud resources are managed via this default RAP. The Default RAP allows PIs and sponsored users to make opportunistic use of compute resources with the default (that is, the lowest) priority. On CCDB, it uses the convention `def-profname`.
-*   RAC RAP: This RAP is created when the PI receives an award through the RAC application process. The RAC RAPI typically takes the form `abc-123-ab`, with an associated group name typically of the form of `rrg-profname-xx` or `rpp-profname-xx` for HPC allocations, and `crg-profname-xx` or `cpp-profname-xx` for Cloud allocations, depending on the competition.
+In general, there are two main types of RAPs:
+*   **Default RAP:** A default RAP is automatically created when a PI role is activated. Default and Rapid Access Service quotas for storage and cloud resources are managed via this default RAP. The Default RAP allows PIs and sponsored users to make opportunistic use of compute resources with the default (that is, the lowest) priority. On CCDB, it uses the convention `def-profname`.
+*   **RAC RAP:** This RAP is created when the PI receives an award through the RAC application process. The RAC RAPI typically takes the form `abc-123-ab`, with an associated group name typically of the form of `rrg-profname-xx` or `rpp-profname-xx` for HPC allocations, and `crg-profname-xx` or `cpp-profname-xx` for Cloud allocations, depending on the competition.
 
 ## What is a group name?
 Group name is an alias of the Research Allocation Project Identifier (RAPI). Each RAPI has a unique group name (one-to-one mapping), but it is often easier for users to remember the group name.
 
 Typically, group names follow this convention (where “xx” represents some sequence of digits and letters):
-*   Default RAP: `def-[profname][-xx]`
-*   RRG/HPC resource RAP: `rrg-[profname][-xx]`
-*   RPP/HPC resource RAP: `rpp-[profname][-xx]`
-*   RRG/Cloud resource RAP: `crg-[profname][-xx]`
-*   RPP/Cloud resource RAP: `cpp-[profname][-xx]`
+*   **Default RAP:** `def-[profname][-xx]`
+*   **RRG/HPC resource RAP:** `rrg-[profname][-xx]`
+*   **RPP/HPC resource RAP:** `rpp-[profname][-xx]`
+*   **RRG/Cloud resource RAP:** `crg-[profname][-xx]`
+*   **RPP/Cloud resource RAP:** `cpp-[profname][-xx]`
 
 The group name is used as a POSIX group name with an associated POSIX group ID and is propagated through LDAP in the dn attribute: `dn: cn=rpp-profname,ou=Group,dc=computecanada,dc=ca`
 
@@ -84,18 +127,18 @@ The group name is used as a POSIX group name with an associated POSIX group ID a
 **Default RAP:** All of a PI's activated sponsored user roles are always members of the PI's default RAP. That is, confirming sponsorship of a user confers on them membership in a PI's default RAP. This cannot be modified. However, a PI can at any time deactivate any role they sponsor.
 
 **RAC RAP:** Membership works differently depending on whether the RAC RAP has HPC or Cloud resources allocated:
-*   HPC resources: At the time a new RAP is created with HPC resources (e.g. CPU, GPU, project storage, nearline storage, etc.), CCDB automatically adds as members of the RAP a) all of a PI's sponsored user roles, *and* b) all associated Co-PI roles, *and* c) all sponsored users roles of all of the associated Co-PIs. Any new role that the PI sponsors *after* a RAP has been created will also be automatically added as a member of the RAP.
-*   Cloud resources: At the time a new RAP is created with Cloud resources allocated, only the PI is added as a member of that RAP.
+*   **HPC resources:** At the time a new RAP is created with HPC resources (e.g., CPU, GPU, project storage, nearline storage, etc.), CCDB automatically adds as members of the RAP a) all of a PI's sponsored user roles, *and* b) all associated Co-PI roles, *and* c) all sponsored user roles of all of the associated Co-PIs. Any new role that the PI sponsors *after* a RAP has been created will also be automatically added as a member of the RAP.
+*   **Cloud resources:** At the time a new RAP is created with Cloud resources allocated, only the PI is added as a member of that RAP.
 
 ## How to manage membership for a RAC RAP
 The PI can modify the membership of any of their RAC RAPs at any time. Any user with an active Alliance account can be added as a member of a RAC RAP. The PI may, for example, want to allow access to user roles they are not sponsoring (i.e., a co-PI) or remove one or more of their sponsored user roles from their RAC RAP and limit them to only be able to access their default RAP.
 
 There are three RAP membership permission levels:
-*   Owner: The PI is the sole owner of the RAP and all the allocations associated to that RAP. This cannot be changed. The owner can add or remove RAP managers and members.
-*   Manager: An elevated permission (on CCDB only, not on the clusters) delegated by the owner or another manager that allows making membership changes. Managers can also use the PI's allocation in the corresponding cluster(s).
-    !!! important "Important"
+*   **Owner:** The PI is the sole owner of the RAP and all the allocations associated to that RAP. This cannot be changed. The owner can add or remove RAP managers and members.
+*   **Manager:** An elevated permission (on CCDB only, not on the clusters) delegated by the owner or another manager that allows making membership changes. Managers can also use the PI's allocation in the corresponding cluster(s).
+    !!! important
         Members that have been promoted to *Manager* on a RAC RAP cannot make changes (e.g., change ownership of the files, apply ACLs, manage permissions on Globus, etc.) on the project/nearline file systems on behalf of the PIs.
-*   Member: Members can use the PI’s allocation in the corresponding cluster(s). Members cannot make any modifications to the RAP membership.
+*   **Member:** Members can use the PI’s allocation in the corresponding cluster(s). Members cannot make any modifications to the RAP membership.
 
 RAP membership is represented as a group in LDAP. It defines a group of users that are authorized to submit jobs against the RAPI (which is the ID of the RAP) and share files within the same Unix group.
 
@@ -103,15 +146,15 @@ For detailed instructions about how to add members to a RAC RAP, please visit th
 
 # Registering for an account
 
-## I had an account in the past, but my position or sponsor has changed or I have lost my password. Should I sign up for a new one? {#duplicate_accounts}
+## I had an account in the past, but my position or sponsor has changed or I have lost my password. Should I sign up for a new one?
 
-Each person can only have one Alliance account (that is, one CCI). Requests for duplicate CCI's are refused. If you have an existing CCI and have changed position, you should apply for a new role (which will have a new CCRI) instead. To do so, please log in with your existing account and visit the [apply for a new role](https://ccdb.alliancecan.ca/me/add_role) form. If you have forgotten your password, you may [reset it](https://ccdb.alliancecan.ca/security/forgot). If you can no longer access the email address you have on file please email [accounts@tech.alliancecan.ca](mailto:accounts@tech.alliancecan.ca) and we can update it for you.
+Each person can only have one Alliance account (that is, one CCI). Requests for duplicate CCIs are refused. If you have an existing CCI and have changed position, you should apply for a new role (which will have a new CCRI) instead. To do so, please log in with your existing account and visit the [apply for a new role](https://ccdb.alliancecan.ca/me/add_role) form. If you have forgotten your password, you may [reset it](https://ccdb.alliancecan.ca/security/forgot). If you can no longer access the email address you have on file please email [accounts@tech.alliancecan.ca](mailto:accounts@tech.alliancecan.ca) and we can update it for you.
 
 ## How do I sign up?
 
 Go to the [register](https://ccdb.alliancecan.ca/account_application) link.
 !!! note
-    You will have to accept certain policies and agreements to get an account.
+    Note that you will have to accept certain policies and agreements to get an account.
 You can read these [policies on the Alliance website](https://alliancecan.ca/en/policies).
 
 Once your account has been approved, you will be able to see at any time on CCDB the agreements that you have accepted by going to [My Account --> Agreements](https://ccdb.alliancecan.ca/agreements/user_index).
@@ -131,7 +174,7 @@ Sponsored roles fall into two groups: internal and external. The difference is i
 *   collaborators affiliated with a different institution than the PI: external collaborator.
 
 !!! note
-    External collaborators must specify an institution different from that of the PI.
+    An external collaborator is anyone working with the group whom the PI is willing to sponsor. However, please note that external collaborators must specify an institution different from that of the PI.
 
 The full list of roles is available on this [page](user-roles-to-access-resources-and-services-of-the-alliance-federation.md).
 

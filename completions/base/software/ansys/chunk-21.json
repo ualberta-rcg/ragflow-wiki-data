@@ -1,0 +1,48 @@
+{
+  "doc_key": "base/ansys",
+  "level": "chunk",
+  "chunk_index": 21,
+  "qa_pairs": [
+    {
+      "question": "What are Fluent journal files used for in Ansys?",
+      "answer": "Fluent journal files allow users to automate commands from Fluent's Text-User-Interface (TUI). This enables running a series of simulations under different conditions with a single case file by changing parameters in the journal file."
+    },
+    {
+      "question": "How do I configure Fluent journal files to use the more efficient .cas.h5/.dat.h5 file format?",
+      "answer": "To use the more efficient .cas.h5/.dat.h5 file format (which is the default in module versions 2020R1 or newer), you should set the command `/file/cff-files yes` in your journal file. For legacy .cas/.dat format (default for 2019R3 or older), use `/file/cff-files no`."
+    },
+    {
+      "question": "What is the purpose of the `/file/confirm-overwrite no` command in a Fluent journal file?",
+      "answer": "The `/file/confirm-overwrite no` command prevents Fluent from prompting the user for confirmation before overwriting files, allowing the simulation to run without interruption."
+    },
+    {
+      "question": "How do I set up automatic data saving in a steady Fluent simulation journal file?",
+      "answer": "In a journal file for a steady simulation, you can set up automatic data saving using the following commands:\n`/file/auto-save/data-frequency 100` (to save data every 100 iterations)\n`/file/auto-save/retain-most-recent-files y` (to retain data files from the 5 most recent iterations)\n`/file/auto-save/root-name output/FFF-out` (to write data files to an 'output' subdirectory, appending the iteration number to the root name)."
+    },
+    {
+      "question": "What commands are used to configure time-stepping and initialization for a transient Fluent simulation in a journal file?",
+      "answer": "For a transient Fluent simulation, you can configure time-stepping and initialization with:\n`/solve/set/time-step 0.0001` (to set the physical time step size)\n`/solve/set/reporting-interval 1` (to set the reporting interval for convergence monitors)\n`/solve/initialize/hyb-initialization` (to initialize using the hybrid initialization method)\n`/solve/dual-time-iterate 1000 75` (to set the number of time steps and maximum iterations per time step)."
+    },
+    {
+      "question": "What is a User-Defined Function (UDF) in Ansys Fluent, and how do I prepare it for use on a cluster?",
+      "answer": "A User-Defined Function (UDF) is a C source file that allows users to customize Fluent's functionality. To prepare it, transfer the `sampleudf.c` source file and any dependencies to the cluster using the text mode setting if uploading from a Windows machine. Place the UDF in the same directory as your journal, case, and data files. Before uploading your case file, ensure that neither the Interpreted UDFs Dialog Box nor the UDF Library Manager Dialog Box are configured to use any UDFs in the Fluent GUI."
+    },
+    {
+      "question": "How do I include an interpreted UDF in my Fluent simulation using a journal file?",
+      "answer": "To include an interpreted UDF, add the command `define/user-defined/interpreted-functions \"sampleudf.c\" \"cpp\" 10000 no` into your journal file before commands that read in case/data files. Replace `sampleudf.c` with the actual name of your UDF source file. For parallel jobs, the UDF will also need to be parallelized."
+    },
+    {
+      "question": "What is the process for using a compiled UDF with Fluent on an Alliance cluster?",
+      "answer": "To use a compiled UDF, it must first be compiled on an Alliance cluster, which creates a `libudf` subdirectory containing `libudf.so`. This directory cannot be copied from a remote system. Once compiled, you can transfer the `libudf` directory to other Alliance clusters if they use the same `StdEnv` environment module version. In your journal file, use `define/user-defined/compiled-functions load libudf` to load it. Avoid leaving the `compile` command uncommented in your journal for submitted jobs, as this is inefficient and can cause conflicts."
+    },
+    {
+      "question": "Why is parallelization necessary for UDFs when running Fluent parallel jobs?",
+      "answer": "Parallelization is necessary for UDFs when running Fluent parallel jobs (both single-node SMP and multi-node MPI) to control how different processes execute specific parts of the UDF code. Failing to parallelize a UDF can lead to slow performance or immediate crashes. The process involves adding compiler directives, predicates, and reduction macros, as detailed in the 'Part I: Chapter 7: Parallel Considerations' section of the Ansys 2024 Fluent Customization Manual."
+    },
+    {
+      "question": "Where should UDF source files be placed on the cluster?",
+      "answer": "The UDF source file and any additional dependency files should be placed in the same directory as your journal, case, and data files on the cluster."
+    }
+  ],
+  "generated_at": "2026-04-11T16:50:00.613423+00:00"
+}

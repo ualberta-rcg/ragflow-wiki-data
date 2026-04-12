@@ -1,0 +1,72 @@
+{
+  "doc_key": "fr/openmp",
+  "level": "chunk",
+  "chunk_index": 4,
+  "qa_pairs": [
+    {
+      "question": "Comment fonctionne la distribution des itérations en mode de planification `static` dans OpenMP?",
+      "answer": "En mode `static`, le nombre d'itérations est fixe, et toutes les itérations sont distribuées au début de la section parallèle."
+    },
+    {
+      "question": "Expliquez le mode de planification `dynamic` pour les boucles parallèles en OpenMP.",
+      "answer": "Dans le mode `dynamic`, le nombre d'itérations est fixe, mais la distribution des itérations se fait pendant l'exécution, en fonction du temps requis par chaque fil d'exécution."
+    },
+    {
+      "question": "Quel est le principe du mode de planification `guided` en OpenMP, et que signifie la valeur 'n'?",
+      "answer": "En mode `guided`, 'n' représente le nombre minimal d'itérations. Le nombre d'itérations est d'abord choisi \"grand\", puis diminue dynamiquement à mesure que le nombre restant d'itérations diminue."
+    },
+    {
+      "question": "Qui est responsable de la distribution des itérations lorsque le mode `auto` est utilisé pour la planification dans OpenMP?",
+      "answer": "Pour le mode `auto`, le compilateur et la bibliothèque OpenMP sont libres de faire leurs propres choix quant à la distribution des itérations."
+    },
+    {
+      "question": "Quels sont les avantages des modes de planification `dynamic`, `guided` et `auto` en OpenMP?",
+      "answer": "L'avantage de ces modes est qu'ils permettent en théorie de mieux balancer les fils d'exécution, puisqu'ils s'ajustent dynamiquement selon le temps requis par chaque fil."
+    },
+    {
+      "question": "Quels inconvénients sont associés à l'utilisation des modes de planification `dynamic`, `guided` et `auto`?",
+      "answer": "L'inconvénient est qu'on ne sait pas à l'avance quel processeur exécutera quel fil ni à quelle mémoire il accède. Ceci rend impossible de prévoir l'affinité entre la mémoire et le processeur, ce qui est problématique dans une architecture NUMA."
+    },
+    {
+      "question": "À quoi sert la variable d'environnement `OMP_STACKSIZE`?",
+      "answer": "La variable d'environnement `OMP_STACKSIZE` définit la taille de la pile pour chacun des fils d'exécution créés lors de l'exécution d'un programme OpenMP."
+    },
+    {
+      "question": "Comment est gérée la taille de la pile pour le fil principal OpenMP comparativement aux fils additionnels?",
+      "answer": "Le fil principal OpenMP (celui qui exécute la partie séquentielle du programme) obtient la taille de sa pile de l'interpréteur (shell), alors que `OMP_STACKSIZE` affecte chacun des fils additionnels créés à l'exécution."
+    },
+    {
+      "question": "Quelle est la valeur par défaut de la variable `OMP_STACKSIZE` si elle n'est pas définie?",
+      "answer": "Si la variable `OMP_STACKSIZE` n'est pas définie, la valeur par défaut de la taille de la pile sera de 4 Mo."
+    },
+    {
+      "question": "Que peut-il se produire si un programme OpenMP manque de mémoire pour la pile de ses fils?",
+      "answer": "Si le code ne possède pas assez de mémoire pour la pile, il pourrait se terminer de façon anormale en raison d'une erreur de segmentation."
+    },
+    {
+      "question": "Par quelle préfixe commencent les variables d'environnement spécifiques aux compilateurs Intel et GNU?",
+      "answer": "Les variables d'environnement spécifiques au compilateur Intel débutent par `KMP_`, alors que celles spécifiques à GNU débutent par `GOMP_`."
+    },
+    {
+      "question": "Quelles variables faut-il fixer pour optimiser les performances en accès mémoire et l'affinité processeur dans OpenMP, et pourquoi?",
+      "answer": "Pour des performances optimales en accès mémoire, il faut fixer les variables `OMP_PROC_BIND`, `KMP_AFFINITY` pour Intel et `GOMP_CPU_AFFINITY` pour GNU. Ça empêche les fils d'exécution OpenMP de se déplacer d'un processeur à l'autre, ce qui est crucial dans une architecture NUMA."
+    },
+    {
+      "question": "Donnez la commande pour compiler un programme C nommé `ompHello.c` avec OpenMP en utilisant GCC.",
+      "answer": "La commande est `gcc -O3 -fopenmp ompHello.c -o ompHello`."
+    },
+    {
+      "question": "Comment spécifie-t-on le nombre de fils d'exécution pour un programme OpenMP avant de l'exécuter, comme dans l'exemple?",
+      "answer": "On spécifie le nombre de fils avec la commande `export OMP_NUM_THREADS=X`, où 'X' est le nombre de fils désiré, par exemple `export OMP_NUM_THREADS=4`."
+    },
+    {
+      "question": "Quelle directive OpenMP est utilisée dans l'exemple de code C pour créer une région parallèle?",
+      "answer": "Dans l'exemple C, la directive `#pragma omp parallel` est utilisée pour créer une région parallèle."
+    },
+    {
+      "question": "Quelles fonctions sont utilisées dans l'exemple de code C pour afficher le numéro du fil courant et le nombre total de fils?",
+      "answer": "Les fonctions `omp_get_thread_num()` et `omp_get_num_threads()` sont utilisées dans l'exemple C pour obtenir et afficher ces informations."
+    }
+  ],
+  "generated_at": "2026-04-12T04:36:43.167433+00:00"
+}

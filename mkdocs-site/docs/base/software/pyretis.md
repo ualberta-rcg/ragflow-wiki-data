@@ -5,22 +5,34 @@ lang: "base"
 
 source_wiki_title: "PyRETIS"
 source_hash: "300751a926f39efd8091e7b80c77cfcf"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T10:04:24.794172+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T10:32:03.491623+00:00"
 
 tags:
   - software
   - biomolecularsimulation
 
 keywords:
-  []
+  - "PyRETIS"
+  - "rare event molecular simulations"
+  - "virtual environment"
+  - "transition interface sampling"
+  - "Python library"
+
+questions:
+  - "What is the primary purpose of the PyRETIS library and which simulation methods does it emphasize?"
+  - "What is the correct procedure and dependency order for installing PyRETIS and MDTraj within a Python virtual environment?"
+  - "Which specific modules must be loaded prior to activating the virtual environment in order to successfully run the PyVisA analysis GUI?"
+  - "What is the primary purpose of the PyRETIS library and which simulation methods does it emphasize?"
+  - "What is the correct procedure and dependency order for installing PyRETIS and MDTraj within a Python virtual environment?"
+  - "Which specific modules must be loaded prior to activating the virtual environment in order to successfully run the PyVisA analysis GUI?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -31,10 +43,11 @@ status:
 We provide pre-compiled Python Wheels for PyRETIS in our [Wheelhouse](available-python-wheels.md) that are compatible with different versions of Python and can be installed within a [virtual Python environment](python.md#creating-and-using-a-virtual-environment).
 
 As of July 2020, PyRETIS 2.5.0 is compatible with Python versions 3.6 and 3.7.
-!!! warning
+
+!!! note
     According to the [PyRETIS installation instructions](http://www.pyretis.org/v2.5.0/user/install.html), the dependency [MDTraj](http://mdtraj.org/) has to be installed **after** PyRETIS.
 
-A Python virtualenv with PyRETIS can be created by running the following series of commands (lines beginning with `#` are comments, `$` is a prompt and `(env_PyRETIS) $` is a prompt with an activated virtualenv):
+A Python virtualenv with PyRETIS can be created by running the following series of commands (lines beginning with `#` are comments):
 
 ```bash
 # load the Python module we want to use, e.g. python/3.7:
@@ -61,7 +74,10 @@ source ~/env_PyRETIS/bin/activate
 pyretisrun --input INPUT.rst --log_file LOG_FILE.log
 ```
 
-PyRETIS also offers an analysis tool, named PyVisA. Its GUI requires PyQt5 to be executed. PyQt5 is installed as part of the Qt modules. In order to allow the Python version from the virtualenv to find PyQt5, it is important to first load the modules for Python and Qt before activating the PyRETIS virtualenv:
+PyRETIS also offers an analysis tool, named PyVisA. Its GUI requires PyQt5 to be executed. PyQt5 is installed as part of the Qt modules.
+
+!!! important
+    In order to allow the Python version from the virtualenv to find PyQt5, it is important to first load the modules for Python and Qt *before* activating the PyRETIS virtualenv:
 
 ```bash
 module load python/3.7 qt/5.11.3

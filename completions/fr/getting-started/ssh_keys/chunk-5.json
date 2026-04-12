@@ -1,0 +1,64 @@
+{
+  "doc_key": "fr/ssh_keys",
+  "level": "chunk",
+  "chunk_index": 5,
+  "qa_pairs": [
+    {
+      "question": "Une fois ma clé publique SSH téléversée dans CCDB, est-ce que je peux l'utiliser pour me brancher à toutes les grappes?",
+      "answer": "Oui, une fois que votre clé est enregistrée dans CCDB, vous pouvez l'utiliser pour vous connecter à toutes nos grappes, sauf aux nuages OpenStack qui n'y ont pas accès."
+    },
+    {
+      "question": "Combien de temps ça prend pour que les changements faits à ma clé publique dans CCDB soient appliqués sur les grappes?",
+      "answer": "Les changements aux clés publiques sont souvent propagés aux grappes en quelques minutes, mais il peut y avoir une attente d'environ 30 minutes dans certains cas."
+    },
+    {
+      "question": "Est-ce que les clés publiques aux formats RFC4716 et PKCS8 sont pareilles que celles en format PEM?",
+      "answer": "Non, les clés publiques aux formats RFC4716 et PKCS8 ressemblent à celles en format PEM, mais elles ont des différences au niveau de l'en-tête et du bas de page."
+    },
+    {
+      "question": "Quelle est l'autre façon d'installer une clé SSH si on ne veut pas passer par CCDB?",
+      "answer": "L'autre façon est d'ajouter la clé publique directement dans le fichier `authorized_keys` de votre répertoire `/home` sur la grappe spécifique. Par contre, il faut noter que le soutien pour cette méthode pourrait être cessé."
+    },
+    {
+      "question": "Comment faire pour installer une clé publique sur une grappe spécifique, comme Fir, en utilisant le fichier `authorized_keys`?",
+      "answer": "Pour installer une clé sur une grappe spécifique comme Fir, vous devez copier votre clé publique dans le fichier `~/.ssh/authorized_keys` de votre répertoire `/home` sur cette grappe."
+    },
+    {
+      "question": "Quelle commande est recommandée pour copier facilement une clé publique sur une grappe avec OpenSSH?",
+      "answer": "Sur nos grappes et sur toute autre grappe avec OpenSSH, la commande `ssh-copy-id` est la façon la plus pratique de procéder. Par exemple : `ssh-copy-id -i alliance-key username@fir.alliancecan.ca`."
+    },
+    {
+      "question": "Pourquoi le mécanisme `authorized_keys` est-il considéré comme fragile?",
+      "answer": "Le mécanisme `authorized_keys` est quelque peu fragile, car SSH est très sensible aux permissions du fichier `authorized_keys`, ainsi qu'à celles de votre répertoire `/home` et du sous-répertoire `.ssh`."
+    },
+    {
+      "question": "Pourquoi devrais-je utiliser un agent SSH?",
+      "answer": "Vous devriez utiliser un agent SSH pour éviter d'avoir à entrer votre phrase de passe chaque fois que vous utilisez votre clé privée, tout en la gardant chiffrée. L'agent fournit la clé privée pour vos nouvelles connexions, empêchant de la conserver non chiffrée où elle pourrait être volée."
+    },
+    {
+      "question": "Où est-ce que je devrais générer mes clés SSH?",
+      "answer": "Cette opération devrait être effectuée sur votre propre ordinateur et non sur un ordinateur partagé comme une grappe."
+    },
+    {
+      "question": "Comment faire pour ajouter un commentaire à une clé SSH quand on la génère?",
+      "answer": "Pour ajouter un commentaire servant à différencier une clé d'une autre, vous pouvez utiliser la commande `ssh-keygen -C 'Alliance systems'`."
+    },
+    {
+      "question": "Comment choisir le nom de fichier pour ma clé SSH lors de la génération?",
+      "answer": "Vous pouvez choisir le nom de fichier pour votre clé en utilisant la commande `ssh-keygen -f alliance-key`. Ça va créer `alliance-key` pour la partie privée et `alliance-key.pub` pour la partie publique."
+    },
+    {
+      "question": "Si j'ai donné un nom personnalisé à ma clé SSH, comment est-ce que je me connecte avec?",
+      "answer": "Si vous avez donné un nom personnalisé à votre clé, vous devrez utiliser l'option `-i` pour indiquer le nom de la clé quand vous vous connectez, comme ceci : `ssh -i alliance-key user@host`."
+    },
+    {
+      "question": "Quelle commande faut utiliser si je veux générer une clé SSH d'un type différent de RSA, comme ed25519?",
+      "answer": "Pour utiliser un type de clé différent du type RSA par défaut, comme ed25519, vous devez utiliser la commande `ssh-keygen -t ed25519`."
+    },
+    {
+      "question": "Comment est-ce que je peux renforcer la sécurité d'une clé RSA en utilisant une longueur plus grande?",
+      "answer": "Vous pouvez renforcer la sécurité d'une clé RSA en spécifiant une clé plus longue, par exemple avec la commande `ssh-keygen -t rsa-sha2-512 -b 4096`."
+    }
+  ],
+  "generated_at": "2026-04-12T07:24:29.973741+00:00"
+}

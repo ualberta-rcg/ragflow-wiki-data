@@ -1,0 +1,87 @@
+{
+  "doc_key": "base/comsol",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is COMSOL software primarily used for?",
+      "answer": "COMSOL is a general-purpose software for modelling engineering applications."
+    },
+    {
+      "question": "Where can users find official documentation for COMSOL?",
+      "answer": "Users can consult the documentation included with the software under 'File > Help > Documentation,' or find links to the COMSOL blog, Knowledge Base, Support Centre, and searchable online documentation on the COMSOL home page."
+    },
+    {
+      "question": "Does the hosting provider offer a generic COMSOL license accessible to everyone?",
+      "answer": "No, the hosting provider installs the software on their clusters but does not provide a generic license; users must have their own."
+    },
+    {
+      "question": "How can researchers acquire a COMSOL license if they don't already have one?",
+      "answer": "Researchers can purchase a license from CMC for use anywhere in Canada, or utilize existing licenses from their institutions, faculties, or departments."
+    },
+    {
+      "question": "What is the technical prerequisite for a license server to work with the clusters?",
+      "answer": "The license server on the user's end needs to be reachable by the compute nodes, which requires coordination with the hosting provider's technical team."
+    },
+    {
+      "question": "How do users configure their own license file for COMSOL on the clusters?",
+      "answer": "Users must create a text file named `comsol.lic` in their `$HOME/.licenses/` directory, specifying their license server hostname and flex port with the format `SERVER <server> ANY <port>` followed by `USE_SERVER`."
+    },
+    {
+      "question": "What information should be sent to technical support to set up a new local institutional license server?",
+      "answer": "Users should send an email to technical support containing the COMSOL lmgrd TCP flex port number (typically 1718), the static LMCOMSOL TCP vendor port number (typically 1719), and the fully qualified hostname of their COMSOL license server."
+    },
+    {
+      "question": "What are the recommended public IP settings for CMC license users on the Narval or Rorqual clusters?",
+      "answer": "For Narval or Rorqual, CMC license users should use `SERVER 10.100.64.10 ANY 6601` in their `comsol.lic` file."
+    },
+    {
+      "question": "What should be done if initial COMSOL license checkout attempts fail?",
+      "answer": "If initial license checkout attempts fail, users should create a support case with CMC."
+    },
+    {
+      "question": "How can users determine the number of licenses checked out by their running COMSOL job(s)?",
+      "answer": "Users can query the license server using the `lmutil` command, which is available by loading an Ansys module on any cluster login node, as `lmstat` is not included with COMSOL by default."
+    },
+    {
+      "question": "How do users check which COMSOL modules and products are available for use?",
+      "answer": "Users can start COMSOL in graphical mode and then click 'Options > Licensed and Used Products' on the upper pull-down menu."
+    },
+    {
+      "question": "How can users find the full version number of COMSOL installed on a cluster?",
+      "answer": "Users can either start COMSOL in graphical mode and inspect the lower right corner messages window, or run `comsol batch -version` after loading the module in batch mode."
+    },
+    {
+      "question": "What command should be used to check all available COMSOL versions across all standard environments?",
+      "answer": "To check all available COMSOL versions, users should use the `module spider comsol` command."
+    },
+    {
+      "question": "What is a key recommendation regarding core allocation when running a COMSOL job on a single compute node?",
+      "answer": "It is advisable to test the scaling of the simulation by gradually increasing the number of cores, as COMSOL may not be able to efficiently use very many cores depending on the simulation's complexity."
+    },
+    {
+      "question": "When is it advisable to run a COMSOL job across multiple compute nodes?",
+      "answer": "It is ideal for very large simulations that exceed the capabilities of a single compute node."
+    },
+    {
+      "question": "What should users do if a multiple node COMSOL job crashes on startup with a Java segmentation fault?",
+      "answer": "Users should try increasing the Java heap memory by adding `sed` commands to modify `comsolbatch.ini` and `java.opts` in their submission script."
+    },
+    {
+      "question": "What are the recommended methods for running COMSOL in graphical mode?",
+      "answer": "COMSOL in graphical mode is best run by opening a remote desktop on an OnDemand or JupyterLab system."
+    },
+    {
+      "question": "What should a user do if the upper menu items are greyed out and not clickable after starting COMSOL in GUI mode?",
+      "answer": "If the menu items are greyed out, the user should try deleting their `~/.comsol` directory, as it may be corrupted."
+    },
+    {
+      "question": "Can users submit parameter sweeps to the cluster queue directly from the COMSOL graphical interface?",
+      "answer": "No, support for submitting parametric simulations to the cluster queue from the graphical interface using a Cluster Sweep node is not available at this time."
+    },
+    {
+      "question": "How are parameter sweeps typically run on a cluster?",
+      "answer": "To run a parameter sweep on a cluster, a job must be submitted to the scheduler from the command line using `sbatch slurmscript`."
+    }
+  ],
+  "generated_at": "2026-04-11T19:01:37.574822+00:00"
+}

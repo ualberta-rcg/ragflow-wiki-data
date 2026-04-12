@@ -1,0 +1,48 @@
+{
+  "doc_key": "fr/pytorch",
+  "level": "chunk",
+  "chunk_index": 3,
+  "qa_pairs": [
+    {
+      "question": "Quels sont les impacts possibles quand on exécute du code PyTorch sur des GPU A100, H100 ou Nvidia plus récents en changeant de version de Torch?",
+      "answer": "Sur les grappes équipées de GPU A100, H100 ou Nvidia plus récents, on pourrait remarquer un fort ralentissement ou obtenir des résultats différents quand on passe d'une version de `torch < 1.12.0` à `torch >= 1.12.0`."
+    },
+    {
+      "question": "Comment faire pour activer ou désactiver la fonction TF32 pour les multiplications matricielles dans PyTorch, à partir de la version 1.12.0?",
+      "answer": "Pour activer ou désactiver TF32 pour les multiplications matricielles avec `torch >= 1.12.0`, il faut donner la valeur `True` ou `False` à l'indicateur `torch.backends.cuda.matmul.allow_tf32`."
+    },
+    {
+      "question": "Comment peut-on gérer l'activation ou la désactivation de TF32 pour les convolutions avec PyTorch version 1.12.0 ou plus?",
+      "answer": "Pour les convolutions, il faut ajuster l'indicateur `torch.backends.cudnn.allow_tf32` à `True` ou `False` pour activer ou désactiver TF32 avec `torch >= 1.12.0`."
+    },
+    {
+      "question": "Où peut-on trouver plus d'informations sur l'utilisation du mode TF32 avec PyTorch?",
+      "answer": "On peut consulter la documentation PyTorch à l'adresse `https://pytorch.org/docs/stable/notes/cuda.html#tf32-on-ampere` pour plus d'informations sur le mode TF32."
+    },
+    {
+      "question": "Quelles sont les deux méthodes principales offertes par PyTorch pour le parallélisme avec plusieurs CPU?",
+      "answer": "PyTorch permet le parallélisme avec plusieurs CPU de deux façons principales : le parallélisme intra-op et le parallélisme inter-op."
+    },
+    {
+      "question": "Expliquez ce qu'est le parallélisme intra-op dans PyTorch et quels outils il peut utiliser.",
+      "answer": "Le parallélisme intra-op implique l'implémentation parallèle d'opérateurs courants en apprentissage profond (comme le produit matriciel ou de convolution) en utilisant OpenMP ou des bibliothèques de bas niveau comme MKL et OneDNN. Ces opérations utilisent automatiquement plusieurs fils avec tous les cœurs CPU disponibles."
+    },
+    {
+      "question": "Décrivez le parallélisme inter-op avec PyTorch.",
+      "answer": "Le parallélisme inter-op consiste à exécuter différentes parties du code de manière concurrente. Ça demande habituellement que le programme soit conçu pour exécuter plusieurs parties en parallèle, par exemple en utilisant le compilateur en temps réel `torch.jit` pour des tâches asynchrones dans un programme TorchScript."
+    },
+    {
+      "question": "Quand est-il préférable d'utiliser plusieurs CPU plutôt qu'un GPU pour l'entraînement de modèles avec PyTorch?",
+      "answer": "Pour les petits modèles, il est fortement recommandé d'utiliser plusieurs CPU plutôt qu'un GPU. L'entraînement est plus rapide avec un GPU, mais pour de petits modèles ou ensembles de données, le gain de vitesse est minime et le GPU est sous-utilisé, ce qui bloque une ressource précieuse sur une grappe partagée."
+    },
+    {
+      "question": "Pourquoi l'utilisation d'un GPU pour de petits modèles sur une grappe partagée n'est-elle pas une bonne idée?",
+      "answer": "Sur une grappe partagée, utiliser un GPU pour de petits modèles bloque une ressource qui pourrait servir à des calculs de grande échelle. Ça contribue aussi à la diminution de l'allocation du groupe et peut affecter la priorité des tâches des collègues."
+    },
+    {
+      "question": "Le code Python `cifar10-cpu.py` mentionné dans la documentation offre-t-il des possibilités de parallélisme?",
+      "answer": "Oui, le code `cifar10-cpu.py` offre plusieurs occasions d'utiliser le parallélisme intra-op."
+    }
+  ],
+  "generated_at": "2026-04-12T05:45:27.353658+00:00"
+}

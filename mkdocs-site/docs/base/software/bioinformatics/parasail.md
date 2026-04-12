@@ -5,23 +5,50 @@ lang: "base"
 
 source_wiki_title: "Parasail"
 source_hash: "87e26196c15606540da728956edf1e16"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T09:52:09.204593+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T10:20:18.652095+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "Python extension"
+  - "virtualenv"
+  - "pip list"
+  - "Python packages"
+  - "SLURM"
+  - "python"
+  - "parasail_aligner"
+  - "parasail"
+  - "sbatch"
+  - "sequence alignment"
+  - "biopython"
+  - "Slurm output file"
+
+questions:
+  - "What is the parasail library and what types of sequence alignment algorithms does it implement?"
+  - "How should the number of threads be configured when executing the parasail_aligner binary within a job?"
+  - "How does the installation and setup process for the parasail Python extension differ between StdEnv/2023 and StdEnv/2020?"
+  - "How can a user view the output of their job once it has finished running in Slurm?"
+  - "How does loading the parasail module affect other Python packages that depend on it?"
+  - "What command can be used to verify the installation and version of the parasail Python package?"
+  - "What specific environment modules and versions must be loaded prior to creating the virtual environment?"
+  - "How are the required Python packages, such as Biopython and Parasail, installed within the temporary Slurm directory?"
+  - "What command is used to submit the final job script to the cluster?"
+  - "How can a user view the output of their job once it has finished running in Slurm?"
+  - "How does loading the parasail module affect other Python packages that depend on it?"
+  - "What command can be used to verify the installation and version of the parasail Python package?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
+
+# Parasail
 
 [parasail](https://github.com/jeffdaily/parasail) is a SIMD C (C99) library containing implementations of the Smith-Waterman (local), Needleman-Wunsch (global), and various semi-global pairwise sequence alignment algorithms.
 
@@ -40,14 +67,14 @@ and load the library using
 module load parasail/2.6.2
 ```
 
-### parasail_aligner Example
+## parasail_aligner Example
 
 When using the binary `parasail_aligner`, it is important to set the number of threads according to the number of cores allocated in our job. We can set it with
 ```bash
 parasail_aligner -t ${SLURM_CPUS_PER_TASK:-1} ...
 ```
 
-### Python extension
+## Python extension
 
 The module contains bindings for multiple Python versions.
 To discover which are the compatible Python versions, run
@@ -55,7 +82,7 @@ To discover which are the compatible Python versions, run
 module spider parasail/1.3.4
 ```
 
-#### Usage
+### Usage
 
 1. Load the required modules.
 ```bash
@@ -69,12 +96,12 @@ python -c "import parasail"
 
 If the command displays nothing, the import was successful.
 
-#### Example
+### Example
 
 Run a quick local alignment score comparison between BioPython and parasail.
 
 1. Write the Python script:
-```python title="parasail-sw.py"
+```python tab="parasail-sw.py"
 import parasail
 from Bio.Align import PairwiseAligner
 
@@ -92,9 +119,10 @@ print('biopython:', bio_score)
 ```
 
 2. Write the job submission script:
+
 === "Default StdEnv"
 
-    ```sh title="submit-parasail.sh"
+    ```bash tab="submit-parasail.sh"
     #!/bin/bash
     #SBATCH --account=def-someuser  # replace with your PI account
     #SBATCH --cpus-per-task=1
@@ -111,12 +139,14 @@ print('biopython:', bio_score)
 
     python parasail-sw.py
     ```
+
 === "StdEnv/2020"
 
     2.1. Identify available wheels first :
     ```bash
     avail_wheel parasail
     ```
+
     ```text
     name      version    python    arch
     --------  ---------  --------  -------
@@ -124,7 +154,7 @@ print('biopython:', bio_score)
     ```
 
     Install the desired version in your virtual environment:
-    ```sh title="submit-parasail.sh"
+    ```bash tab="submit-parasail.sh"
     #!/bin/bash
     #SBATCH --account=def-someuser  # replace with your PI account
     #SBATCH --cpus-per-task=1
@@ -151,16 +181,18 @@ sbatch submit-parasail.sh
 ```bash
 less slurm-*.out
 ```
+
 ```text
 parasail: 4000
 biopython: 4000.0
 ```
 
-##### Available Python packages
+#### Available Python packages
 
 Other Python packages that depend on parasail will have their requirement satisfied by loading the parasail module:
 ```bash
 pip list | grep parasail
 ```
+
 ```text
 parasail                           1.3.4

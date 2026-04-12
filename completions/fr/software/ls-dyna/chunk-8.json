@@ -1,0 +1,36 @@
+{
+  "doc_key": "fr/ls-dyna",
+  "level": "chunk",
+  "chunk_index": 8,
+  "qa_pairs": [
+    {
+      "question": "Comment on lance une tâche LS-DYNA en MPP si la variable d'environnement EBVERSIONNIXPKGS est égale à 16.09?",
+      "answer": "Si la variable `$EBVERSIONNIXPKGS` est à 16.09, on doit commencer par utiliser `slurm_hl2hl.py` pour créer un fichier d'hôtes MPI. Après ça, on lance la tâche avec `mpirun -np $SLURM_NTASKS -hostfile /tmp/mpihostlist-$SLURM_JOB_ID ls-dyna_d i=airbag.deploy.k memory=200M`."
+    },
+    {
+      "question": "Si la variable d'environnement EBVERSIONNIXPKGS n'est pas 16.09, comment on exécute une tâche LS-DYNA en MPP?",
+      "answer": "Si `$EBVERSIONNIXPKGS` n'est pas 16.09, on peut juste utiliser la commande `srun ls-dyna_d i=airbag.deploy.k memory=200M` pour exécuter la tâche."
+    },
+    {
+      "question": "Quelle est la différence entre les solveurs 'ls-dyna_s' et 'ls-dyna_d' quand on fait des tâches MPP?",
+      "answer": "Le solveur 'ls-dyna_s' sert pour la simple précision, pis le 'ls-dyna_d' est pour la double précision."
+    },
+    {
+      "question": "Pourquoi c'est important de faire des tests de scalabilité avant de lancer des longues tâches LS-DYNA?",
+      "answer": "Parce que LS-DYNA peut ne pas toujours bien utiliser un gros nombre de cœurs en parallèle. Faire des tests de scalabilité nous aide à trouver le nombre maximal de cœurs qu'on peut utiliser avant que ça commence à moins bien performer."
+    },
+    {
+      "question": "Comment on fait pour extraire les statistiques d'une tâche de test, comme le temps d'exécution ou l'efficacité de la mémoire et du CPU?",
+      "answer": "On peut utiliser la commande `seff jobnumber` ou passer par un portail web, comme celui de Nibi, pour avoir ces statistiques-là."
+    },
+    {
+      "question": "Quelles sont les conditions pour avoir des résultats fiables quand on fait des tests de scalabilité avec LS-DYNA?",
+      "answer": "Pour que les résultats soient fiables, il faut faire les tests de scalabilité avec la vraie simulation qu'on veut rouler et sur la grappe où les grosses tâches de production vont être exécutées."
+    },
+    {
+      "question": "Les anciens tests de performance pour le problème des coussins gonflables, pourquoi c'était pas toujours représentatif?",
+      "answer": "Ces tests-là étaient assez petits, ils utilisaient seulement 6 cœurs sur un nœud unique pour la version SMP et 6 cœurs répartis sur deux nœuds pour la version MPP, ce qui ne reflète pas les conditions des simulations de production plus larges."
+    }
+  ],
+  "generated_at": "2026-04-12T00:56:21.122071+00:00"
+}

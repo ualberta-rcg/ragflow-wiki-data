@@ -1,0 +1,64 @@
+{
+  "doc_key": "fr/lumerical",
+  "level": "chunk",
+  "chunk_index": 5,
+  "qa_pairs": [
+    {
+      "question": "Quelles options `--ntasks-per-node` et `--cpus-per-task` devrais-je utiliser pour soumettre une tâche FDTD Solutions?",
+      "answer": "Puisque l'implémentation MPI de FDTD ne fonctionne pas étroitement avec notre ordonnanceur, vous devriez utiliser les options `--ntasks-per-node=1` et `--cpus-per-task=32` quand vous soumettez une tâche."
+    },
+    {
+      "question": "Est-ce qu'il existe un script d'exemple pour l'utilisation du module `fdtd_solutions`, et quelles sont ses caractéristiques par défaut?",
+      "answer": "Oui, il y a un script d'exemple nommé `fdtd_solutions.sh`. Il est configuré pour demander deux nœuds pendant 30 minutes, avec `--ntasks-per-node=1`, `--cpus-per-task=32`, `--ntasks=2`, `--nodes=2` et `--mem=0` (pour toute la mémoire)."
+    },
+    {
+      "question": "Comment puis-je personnaliser le script d'exemple `fdtd_solutions.sh`?",
+      "answer": "Vous pouvez modifier les valeurs de la durée (`--time`) et du nombre de nœuds (`--nodes`) dans le script `fdtd_solutions.sh` pour l'adapter à vos besoins."
+    },
+    {
+      "question": "Quel est l'avantage d'utiliser des gabarits de scripts pour les simulations FDTD Solutions?",
+      "answer": "Utiliser des gabarits de scripts est avantageux si vous avez plusieurs simulations à faire exécuter, car cela évite de devoir modifier manuellement le script pour chaque simulation, ce qui serait inefficace."
+    },
+    {
+      "question": "Est-ce que la section sur les gabarits de scripts s'applique au module Lumerical?",
+      "answer": "Non, la section sur les gabarits de scripts a été rédigée spécifiquement pour le module `fdtd_solutions` et n'est pas adaptée au module `lumerical`."
+    },
+    {
+      "question": "Comment dois-je configurer mon environnement pour utiliser les gabarits de scripts FDTD Solutions?",
+      "answer": "Vous devez créer le répertoire `$HOME/bin` et y enregistrer le script `fdtd-run.sh`. Ensuite, créez le répertoire `$HOME/bin/templates` et enregistrez-y les gabarits `fdtd-mpi-template.sh` et `fdtd-process-template.sh`."
+    },
+    {
+      "question": "Quel est le rôle du fichier `fdtd-mpi-template.sh`?",
+      "answer": "Le fichier `fdtd-mpi-template.sh` sert d'interpréteur (ou 'shell') pour le script `fdtd_solutions.sh`."
+    },
+    {
+      "question": "À quoi sert le gabarit de script `fdtd-process-template.sh`?",
+      "answer": "Le gabarit `fdtd-process-template.sh` est utilisé pour spécifier les ressources de calcul dont vous avez besoin."
+    },
+    {
+      "question": "Quelle est la commande de base pour soumettre une tâche avec `fdtd-run.sh`?",
+      "answer": "Pour soumettre une tâche de base, vous utilisez la commande `fdtd-run.sh fsp1 [fsp2 ...]`, où `fsp1`, `fsp2`, etc., sont vos fichiers de projet FDTD Solutions."
+    },
+    {
+      "question": "Combien de cœurs le script `fdtd-run.sh` utilise-t-il par défaut si le nombre de nœuds n'est pas spécifié?",
+      "answer": "Par défaut, si aucun argument pour le nombre de nœuds n'est donné, le script `fdtd-run.sh` utilisera 32 cœurs sur un seul nœud standard."
+    },
+    {
+      "question": "Comment puis-je demander plus de cœurs ou utiliser plusieurs nœuds avec le script `fdtd-run.sh`?",
+      "answer": "Pour utiliser plus de cœurs ou demander plusieurs nœuds, vous devez ajouter l'option `-nn <nodes>` à la commande, comme ceci: `fdtd-run.sh -nn <nodes> fsp1 [fsp2 ...]`, en remplaçant `<nodes>` par le nombre de nœuds désiré."
+    },
+    {
+      "question": "Que fait le script `fdtd-run.sh` lorsqu'il est exécuté avec un ou plusieurs fichiers FSP?",
+      "answer": "Pour chaque fichier FSP listé, `fdtd-run.sh` génère un script de soumission Slurm en remplaçant les balises du gabarit `fdtd-mpi-template.sh` par des valeurs extraites du fichier FSP. Il extrait aussi la mémoire totale requise et soumet ensuite la tâche avec `sbatch`."
+    },
+    {
+      "question": "Quel est le nombre de processus par nœud par défaut configuré dans le script `fdtd-run.sh`?",
+      "answer": "Dans le script `fdtd-run.sh`, le nombre de processus par nœud (`PROCS`) est configuré par défaut à 32."
+    },
+    {
+      "question": "Quel est le nombre de nœuds par défaut utilisé par `fdtd-run.sh` si l'option `-nn` n'est pas spécifiée?",
+      "answer": "Si l'option `-nn` n'est pas fournie, le script `fdtd-run.sh` utilisera 1 nœud par défaut."
+    }
+  ],
+  "generated_at": "2026-04-12T01:09:42.125887+00:00"
+}

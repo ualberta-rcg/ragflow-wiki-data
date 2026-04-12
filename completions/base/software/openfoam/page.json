@@ -1,0 +1,67 @@
+{
+  "doc_key": "base/openfoam",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is OpenFOAM?",
+      "answer": "OpenFOAM (Open Field Operation and Manipulation) CFD Toolbox is a free, open-source software package for computational fluid dynamics, capable of solving complex fluid flows, chemical reactions, turbulence, heat transfer, solid dynamics, and electromagnetics."
+    },
+    {
+      "question": "How do you load the recent version of OpenFOAM on the clusters?",
+      "answer": "You can load the recent version of OpenFOAM by running the command `module load openfoam`."
+    },
+    {
+      "question": "Who are the main development entities behind OpenFOAM?",
+      "answer": "The OpenFOAM development community consists of the OpenFOAM Foundation Ltd. (openfoam.org, cfd.direct) and OpenCFD Ltd. (openfoam.com)."
+    },
+    {
+      "question": "How are different OpenFOAM module versions distinguished on the clusters after version 2.3.1?",
+      "answer": "Module names beginning with 'v' (e.g., `openfoam/v1706`) are from the .com branch, while those beginning with a digit (e.g., `openfoam/4.1`) are from the .org branch."
+    },
+    {
+      "question": "Where can users find official documentation for OpenFOAM?",
+      "answer": "Users can find documentation on OpenFOAM.com and the CFD Direct user guide."
+    },
+    {
+      "question": "What is a mandatory prerequisite for running OpenFOAM commands?",
+      "answer": "You must load an appropriate module file to run OpenFOAM commands."
+    },
+    {
+      "question": "What are the key steps in a serial OpenFOAM job submission script?",
+      "answer": "A serial submission script typically includes purging existing modules, loading the OpenFOAM module (e.g., `openfoam/12`), and then executing commands like `blockMesh` and `icoFoam`."
+    },
+    {
+      "question": "What are the key steps in a parallel OpenFOAM job submission script?",
+      "answer": "A parallel submission script involves purging modules, loading OpenFOAM (e.g., `openfoam/12`), running `blockMesh`, `setFields`, `decomposePar`, and then using `srun` to execute the solver in parallel (e.g., `srun interFoam -parallel`), along with Slurm directives for tasks and memory."
+    },
+    {
+      "question": "When should OpenFOAM solvers be submitted as Slurm jobs?",
+      "answer": "Solvers like `icoFoam` are usually the most expensive step and should always be submitted as a Slurm job, except for very small test cases or tutorials."
+    },
+    {
+      "question": "What is the `petscFoam` solver and is it included in standard OpenFOAM modules?",
+      "answer": "`petscFoam` is an external solver for OpenFOAM that can be compiled on clusters, but it is not included in the standard OpenFOAM modules provided."
+    },
+    {
+      "question": "How do you determine compatible PETSc versions for a specific OpenFOAM module when compiling `petscFoam`?",
+      "answer": "Load the desired OpenFOAM module and run `grep \"^petsc_version\" $EBROOTOPENFOAM/OpenFOAM*/etc/config.sh/petsc` to see which PETSc version it was tested with."
+    },
+    {
+      "question": "What are the general steps to compile the `petscFoam` solver?",
+      "answer": "The general steps include loading necessary modules (StdEnv, gcc, openmpi, openfoam, petsc), downloading and extracting the `external-solver-main.tar.gz` package, navigating into the extracted directory, and then running `./Allwmake`."
+    },
+    {
+      "question": "How can you confirm that a compiled `petscFoam` solver is functional?",
+      "answer": "You can check if OpenFOAM can load `petscFoam` using `foamHasLibrary -verbose petscFoam`, confirm the dynamic library's location with `ls $FOAM_USER_LIBBIN`, and check its dependencies using `ldd $FOAM_USER_LIBBIN/libpetscFoam.so | grep petsc`."
+    },
+    {
+      "question": "How can OpenFOAM's performance be improved if it's producing excessive debugging information?",
+      "answer": "Performance can be improved by reducing or disabling debugging output by copying `controlDict` to `$HOME/.OpenFOAM/$WM_PROJECT_VERSION` and altering `debugSwitches` to zero, or by utilizing the node-local scratch directory (`$SLURM_TMPDIR`)."
+    },
+    {
+      "question": "What is the benefit of using `$SLURM_TMPDIR` for OpenFOAM workflows?",
+      "answer": "`$SLURM_TMPDIR` is a node-local scratch disk that can improve performance for OpenFOAM workflows that create many small files by making it the working directory."
+    }
+  ],
+  "generated_at": "2026-04-12T04:27:01.964188+00:00"
+}

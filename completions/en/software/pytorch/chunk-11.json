@@ -1,0 +1,100 @@
+{
+  "doc_key": "en/pytorch",
+  "level": "chunk",
+  "chunk_index": 11,
+  "qa_pairs": [
+    {
+      "question": "What are the final three layers defined in the `Net` class for the `pytorch-ddp-test.py` script?",
+      "answer": "The final three layers are `self.fc1 = nn.Linear(16 * 5 * 5, 120)`, `self.fc2 = nn.Linear(120, 84)`, and `self.fc3 = nn.Linear(84, 10)`."
+    },
+    {
+      "question": "How is the `Net` model moved to a CUDA device in the `pytorch-ddp-test.py` script?",
+      "answer": "The `net` model is moved to a CUDA device using `net.cuda()`."
+    },
+    {
+      "question": "How is the `net` model wrapped for distributed data parallelism in `pytorch-ddp-test.py`?",
+      "answer": "The `net` model is wrapped using `net = torch.nn.parallel.DistributedDataParallel(net, device_ids=[current_device])`."
+    },
+    {
+      "question": "What transformations are applied to the training data in the `pytorch-ddp-test.py` script?",
+      "answer": "The training data undergoes `transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])`."
+    },
+    {
+      "question": "Which dataset is used for training in the `pytorch-ddp-test.py` example, and what are its initialization parameters?",
+      "answer": "The CIFAR10 dataset is used, initialized with `CIFAR10(root='./data', train=True, download=False, transform=transform_train)`."
+    },
+    {
+      "question": "How is `DistributedSampler` utilized for the training data in `pytorch-ddp-test.py`?",
+      "answer": "A `train_sampler` is created using `torch.utils.data.distributed.DistributedSampler(dataset_train)`."
+    },
+    {
+      "question": "What are the key parameters for the `DataLoader` in the `pytorch-ddp-test.py` script?",
+      "answer": "The `DataLoader` is configured with `batch_size=args.batch_size`, `shuffle=(train_sampler is None)`, `num_workers=args.num_workers`, `sampler=train_sampler`, and `pin_memory=True`."
+    },
+    {
+      "question": "What loss function is used in `pytorch-ddp-test.py` and how is it prepared for GPU computation?",
+      "answer": "The `nn.CrossEntropyLoss()` is used, and it's prepared for GPU by calling `.cuda()` on it: `criterion = nn.CrossEntropyLoss().cuda()`."
+    },
+    {
+      "question": "Which optimizer is employed in the `pytorch-ddp-test.py` script, and what are its parameters?",
+      "answer": "An `optim.SGD` optimizer is used with `net.parameters()`, a learning rate (`lr=args.lr`), `momentum=0.9`, and `weight_decay=1e-4`."
+    },
+    {
+      "question": "What happens at the beginning of each epoch within the `main` function before calling `train` in `pytorch-ddp-test.py`?",
+      "answer": "At the beginning of each epoch, `train_sampler.set_epoch(epoch)` is called."
+    },
+    {
+      "question": "How are inputs and targets moved to CUDA devices within the `train` function in `pytorch-ddp-test.py`?",
+      "answer": "Inputs are moved using `inputs = inputs.cuda()` and targets using `targets = targets.cuda()`."
+    },
+    {
+      "question": "How are the loss and optimizer updated for each batch in the `train` function of `pytorch-ddp-test.py`?",
+      "answer": "The loss is calculated, `optimizer.zero_grad()` is called, `loss.backward()` for backpropagation, and then `optimizer.step()` to update parameters."
+    },
+    {
+      "question": "What SLURM resources are requested for GPUs and tasks in the `pytorch-ddp-test.sh` script?",
+      "answer": "The script requests `gpu:2` (2 generic GPU resources) and `tasks-per-node=2` (1 process per GPU)."
+    },
+    {
+      "question": "What environment variable is exported for asynchronous handling with NCCL in `pytorch-ddp-test.sh`?",
+      "answer": "`TORCH_NCCL_ASYNC_HANDLING=1` is exported."
+    },
+    {
+      "question": "What is PyTorch Lightning?",
+      "answer": "PyTorch Lightning is a Python package that provides interfaces to PyTorch, simplifying many common, but otherwise code-heavy, tasks, including training on multiple GPUs."
+    },
+    {
+      "question": "How is PyTorch Lightning installed in the virtual environment within `pytorch-ddp-test-pl.sh`?",
+      "answer": "It is installed using `pip install torchvision pytorch-lightning --no-index`."
+    },
+    {
+      "question": "What happens if a user does not request one task per GPU or does not run their script with `srun` when using PyTorch Lightning?",
+      "answer": "If these conditions are not met, the job will fail, as PyTorch Lightning expects one task per GPU when running within a SLURM batch job."
+    },
+    {
+      "question": "How does the `Net` class in `pytorch-ddp-test-pl.py` differ from the `Net` class in `pytorch-ddp-test.py`?",
+      "answer": "The `Net` class in `pytorch-ddp-test-pl.py` inherits from `pl.LightningModule`, whereas the one in `pytorch-ddp-test.py` inherits from `nn.Module`."
+    },
+    {
+      "question": "How is the `training_step` defined in the PyTorch Lightning `Net` model?",
+      "answer": "The `training_step` takes `batch` and `batch_idx` as arguments, performs a forward pass, and calculates the `F.cross_entropy` loss: `loss = F.cross_entropy(y_hat, y)`."
+    },
+    {
+      "question": "How is the optimizer configured in the PyTorch Lightning `Net` model?",
+      "answer": "The `configure_optimizers` method returns `torch.optim.Adam(self.parameters(), lr=args.lr)`."
+    },
+    {
+      "question": "How is the `pl.Trainer` initialized for multi-GPU training in `pytorch-ddp-test-pl.py`?",
+      "answer": "The `Trainer` is initialized with `accelerator=\"gpu\"`, `devices=2`, `num_nodes=1`, `strategy='ddp'`, `max_epochs = args.max_epochs`, and `enable_progress_bar=False`."
+    },
+    {
+      "question": "What is the purpose of `enable_progress_bar=False` in the `pl.Trainer` initialization?",
+      "answer": "This setting is used to avoid writing a progress bar to the logs, which can cause issues due to updating logs too frequently."
+    },
+    {
+      "question": "What is the default `batch_size` argument used when executing `pytorch-ddp-test-pl.py` from its SLURM script?",
+      "answer": "The default `batch_size` used is `256`."
+    }
+  ],
+  "generated_at": "2026-04-12T05:42:20.507678+00:00"
+}

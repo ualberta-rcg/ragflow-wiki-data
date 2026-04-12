@@ -1,0 +1,68 @@
+{
+  "doc_key": "fr/gromacs",
+  "level": "chunk",
+  "chunk_index": 22,
+  "qa_pairs": [
+    {
+      "question": "Quand est-ce que la performance de GROMACS avec la décomposition des domaines commence à chuter?",
+      "answer": "La performance diminue quand le temps de communication devient trop important par rapport à la taille des domaines, mesurée en nombre de particules et en volume. Dans des cas extrêmes, la performance peut même baisser si on augmente trop le nombre de domaines."
+    },
+    {
+      "question": "GROMACS gère-t-il la répartition de la charge entre les domaines de manière automatique?",
+      "answer": "Oui, GROMACS peut faire une répartition dynamique de la charge (''dynamic load balancing'') en déplaçant les frontières des domaines pour éviter que certains processus prennent plus de temps que d'autres. Le paramètre `mdrun` est activé par défaut pour ça."
+    },
+    {
+      "question": "Quelle est la taille minimale qu'un domaine peut avoir dans GROMACS?",
+      "answer": "Dans chaque direction, un domaine ne peut pas être plus petit que le plus long rayon de coupure."
+    },
+    {
+      "question": "À quoi sert la sommation d'Ewald (PME) dans GROMACS?",
+      "answer": "La sommation d'Ewald (PME ou ''particle mesh Ewald method'') est souvent utilisée pour calculer les interactions non liantes à distance, c'est-à-dire celles qui dépassent le rayon de coupure."
+    },
+    {
+      "question": "Comment GROMACS essaie-t-il d'éviter la dégradation de performance causée par la sommation d'Ewald (PME)?",
+      "answer": "Pour éviter la dégradation de performance due à la communication globale requise par la PME, GROMACS attribue des processus MPI spécifiquement pour gérer uniquement les interactions PME."
+    },
+    {
+      "question": "À partir de combien de processus MPI GROMACS alloue-t-il des processus pour la PME par défaut?",
+      "answer": "Par défaut, GROMACS mdrun utilise une méthode heuristique pour attribuer des processus au calcul des interactions PME quand il y a plus de 12 processus MPI au total."
+    },
+    {
+      "question": "Comment peut-on ajuster manuellement le nombre de processus MPI dédiés aux interactions PME?",
+      "answer": "On peut sélectionner manuellement le nombre de rangs PME en utilisant le paramètre mdrun `-npme`."
+    },
+    {
+      "question": "Que se passe-t-il si la charge de travail est déséquilibrée entre les processus PP et PME dans GROMACS?",
+      "answer": "En cas de débalancement de charge important entre les rangs PP et PME (si les rangs PP travaillent plus), le travail peut être redirigé des rangs PP aux rangs PME en augmentant le rayon de coupure, sans que cela ait un effet sur le résultat."
+    },
+    {
+      "question": "GROMACS gère-t-il automatiquement le débalancement de charge entre les rangs PP et PME?",
+      "answer": "Oui, depuis la version 4.6, mdrun tente de gérer ce débalancement automatiquement, à moins que le paramètre `-notunepme` ne soit utilisé."
+    },
+    {
+      "question": "Est-il possible d'utiliser un GPU pour les interactions PME avec GROMACS?",
+      "answer": "Oui, à partir de la version 2018, les interactions PME peuvent être redirigées vers un GPU."
+    },
+    {
+      "question": "Y a-t-il des limitations quand on utilise un GPU pour les interactions PME, surtout avec la version 2018.1 de GROMACS?",
+      "answer": "Oui, avec la version 2018.1, une des contraintes est qu'un seul rang GPU peut être dédié aux interactions PME."
+    },
+    {
+      "question": "Comment améliorer la performance de GROMACS une fois que la décomposition des domaines atteint ses limites de scalabilité?",
+      "answer": "On peut améliorer la performance en utilisant des fils OpenMP par la distribution du travail d'un processus MPI (rang) sur plus d'un cœur CPU."
+    },
+    {
+      "question": "Quels paramètres Slurm et variables d'environnement faut-il utiliser pour configurer les fils OpenMP avec GROMACS?",
+      "answer": "Il faut utiliser le paramètre `--cpus-per-task` dans le script Slurm (pour `#SBATCH` et `srun`) et définir la variable `OMP_NUM_THREADS` avec `export OMP_NUM_THREADS=\"${SLURM_CPUS_PER_TASK:-1}\"` (recommandé) ou utiliser le paramètre mdrun `-ntomp ${SLURM_CPUS_PER_TASK:-1}`."
+    },
+    {
+      "question": "Quel est le nombre optimal de fils OpenMP par processus MPI selon les programmeurs de GROMACS?",
+      "answer": "Le nombre optimal de fils OpenMP par processus MPI (CPU par tâche) est habituellement entre 2 et 6. Cependant, il peut être avantageux d'augmenter le nombre de CPU par tâche pour les simulations exécutées sur un grand nombre de nœuds."
+    },
+    {
+      "question": "Que faire si la méthode PME n'est pas employée et qu'on ne veut pas se soucier du débalancement de charge PP-PME?",
+      "answer": "Si la méthode PME n'est pas utilisée, il n'y a pas lieu de se soucier du débalancement de charge PP-PME. On peut alors choisir 2 ou 4 `ntasks-per-node` et définir `cpus-per-task` pour que leur produit corresponde au nombre de cœurs CPU dans un nœud de calcul."
+    }
+  ],
+  "generated_at": "2026-04-11T22:43:28.734689+00:00"
+}

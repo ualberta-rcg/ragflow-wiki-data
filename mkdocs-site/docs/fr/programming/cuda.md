@@ -5,21 +5,46 @@ lang: "fr"
 
 source_wiki_title: "CUDA/fr"
 source_hash: "2cc5bbfafd71bc6c6738cc46172b8f21"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T05:15:53.119646+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T06:06:04.565781+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "Slurm"
+  - "Dépannage"
+  - "GPU NVIDIA"
+  - "GPU"
+  - "bibliothèques"
+  - "parallélisme"
+  - "nvcc"
+  - "cuBLAS"
+  - "CUDA"
+  - "calcul parallèle"
+  - "cmake"
+  - "compute capability"
+
+questions:
+  - "Qu'est-ce que la plateforme CUDA et quels langages de programmation permet-elle d'utiliser pour les calculs sur GPU ?"
+  - "Comment compile-t-on un code source CUDA et quelle extension de fichier est requise pour que le compilateur le reconnaisse ?"
+  - "Quelle est la procédure à suivre pour soumettre et exécuter un programme CUDA sur une grappe de calcul à l'aide de l'ordonnanceur Slurm ?"
+  - "Qu'est-ce que l'attribut « compute capability » utilisé par NVIDIA pour ses GPU ?"
+  - "Quels messages d'erreur spécifiques indiquent un problème lié à cet attribut lors de l'exécution ou de la compilation ?"
+  - "Comment configurer les indicateurs de compilation avec `nvcc` ou `cmake` pour résoudre ces erreurs d'architecture GPU ?"
+  - "Quels indicateurs de compilation faut-il utiliser pour lier des bibliothèques incluses avec CUDA comme cuBLAS ?"
+  - "Quelle est la commande exacte fournie dans l'exemple pour compiler le code ?"
+  - "Vers quelle ressource le texte renvoie-t-il pour apprendre à utiliser le parallélisme avec les GPU ?"
+  - "Qu'est-ce que l'attribut « compute capability » utilisé par NVIDIA pour ses GPU ?"
+  - "Quels messages d'erreur spécifiques indiquent un problème lié à cet attribut lors de l'exécution ou de la compilation ?"
+  - "Comment configurer les indicateurs de compilation avec `nvcc` ou `cmake` pour résoudre ces erreurs d'architecture GPU ?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -30,17 +55,19 @@ On peut voir CUDA comme étant un ensemble de bibliothèques et de compilateurs 
 ## Un exemple simple
 
 ### Compilation
-Nous exécutons ici du code créé avec le compilateur CUDA C/C++ `nvcc`. Ce même exemple plus détaillé se trouve à la page [Tutoriel CUDA](cuda-tutorial.md).
+Nous faisons exécuter ici du code créé avec le compilateur CUDA C/C++ `nvcc`. Ce même exemple plus détaillé se trouve à la page [Tutoriel CUDA](cuda-tutorial.md).
 
 Chargez d'abord le [module](utiliser-des-modules.md) CUDA.
+
 ```bash
 module purge
 module load cuda
 ```
 
-Dans cet exemple, nous additionnons deux nombres. Enregistrez le fichier sous `add.cu`; *le suffixe `cu` est important*.
+Dans cet exemple, nous additionnons deux nombres. Sauvegardez le fichier sous `add.cu`; *le suffixe `cu` est important*.
 
-```c++ title="add.cu"
+```cpp
+// add.cu
 #include <iostream>
 
 __global__ void add (int *a, int *b, int *c){
@@ -80,8 +107,7 @@ nvcc add.cu -o add
 
 ### Soumission de tâches
 Pour exécuter le programme, créez le script Slurm ci-dessous. Assurez-vous de remplacer `def-someuser` par votre nom de compte (voir [Comptes et projets](running-jobs.md#comptes-et-projets)). Pour les détails sur l'ordonnancement, consultez [Ordonnancement Slurm des tâches avec GPU](using-gpus-with-slurm.md).
-
-```bash title="gpu_job.sh"
+```bash
 #!/bin/bash
 #SBATCH --account=def-someuser
 #SBATCH --gres=gpu:1              # Number of GPUs (per node)
@@ -98,7 +124,7 @@ Submitted batch job 3127733
 Pour plus d'information sur la commande `sbatch`, l'exécution et le suivi des tâches, consultez [Exécuter des tâches](running-jobs.md).
 
 Le fichier en sortie sera semblable à ceci :
-```text
+```bash
 cat slurm-3127733.out
 2+7=9
 ```
@@ -118,7 +144,7 @@ Voyez le [Tutoriel CUDA](cuda-tutorial.md) pour plus de détails sur cet exemple
 
 NVIDIA utilise le terme *compute capability* pour désigner un des attributs des dispositifs GPU.
 
-NVIDIA a créé ce terme technique qui indique les fonctionnalités prises en charge par ce GPU et spécifie certains paramètres matériels de ce dernier.
+Nvidia a créé ce terme technique qui indique les fonctionnalités prises en charge par ce GPU et spécifie certains paramètres matériels de ce dernier.
 
 Pour plus de détails, consultez [Compute Capability and Streaming Multiprocessor Versions](https://docs.nvidia.com/cuda/cuda-programming-guide/01-introduction/cuda-platform.html#cuda-platform-compute-capability-sm-version).
 
@@ -140,7 +166,7 @@ L'ajout d'un indicateur dans l'appel `nvcc` pourrait résoudre ces problèmes.
 
 Si vous utilisez `cmake`, l'indicateur serait
 
-```bash
+```text
 cmake .. -DCMAKE_CUDA_ARCHITECTURES=XX
 ```
 
@@ -155,5 +181,5 @@ L'indicateur à utiliser lors de la compilation avec `nvcc` est
 
 L'indicateur pour `cmake` est
 
-```bash
+```text
 cmake .. -DCMAKE_CUDA_ARCHITECTURES=80

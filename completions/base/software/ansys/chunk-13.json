@@ -1,0 +1,88 @@
+{
+  "doc_key": "base/ansys",
+  "level": "chunk",
+  "chunk_index": 13,
+  "qa_pairs": [
+    {
+      "question": "What error message is displayed if a link to a writable `~/.ansys` directory does not exist when using the Trillium Fluent script?",
+      "answer": "The script will display the error: 'ERROR: A link to a writable .ansys directory does not exist.' and advise the user to remove `~/.ansys` if it exists, then run `ln -s $SCRATCH/.ansys ~/.ansys`."
+    },
+    {
+      "question": "How can a user resolve an error if their `~/.fluentconf` directory is not a writable link on the Trillium cluster?",
+      "answer": "To resolve this, the user should remove `~/.fluentconf` if it exists, then run `ln -s $SCRATCH/.fluentconf ~/.fluentconf`, and then try submitting their job again."
+    },
+    {
+      "question": "What steps should be taken if the `~/.flrecent` file is not a writable link when submitting a Fluent job on Trillium?",
+      "answer": "The user should remove `~/.flrecent` if it exists, then run `ln -s $SCRATCH/.flrecent ~/.flrecent`, and resubmit their job."
+    },
+    {
+      "question": "What preparatory actions does the Trillium Fluent script perform if the `$HOME/.ansys`, `$HOME/.fluentconf`, and `$HOME/.flrecent` links are correctly configured?",
+      "answer": "If the links are correctly configured, the script will create the directories `$SCRATCH/.ansys` and `$SCRATCH/.fluentconf` if they don't exist, and touch `$SCRATCH/.flrecent` to ensure it exists."
+    },
+    {
+      "question": "Under what specific conditions are license requeue scripts recommended for Fluent jobs?",
+      "answer": "License requeue scripts are recommended only for Fluent jobs that are known to complete normally without errors in the output but typically need multiple attempts to check out licenses."
+    },
+    {
+      "question": "When should license requeue scripts NOT be used for Fluent jobs?",
+      "answer": "License requeue scripts are not recommended for Fluent jobs that may run for a long time before crashing, or that run to completion but contain unresolved journal file warnings."
+    },
+    {
+      "question": "What is the consequence of using a license requeue script for a Fluent simulation that fails due to a non-license related issue?",
+      "answer": "If a license requeue script is used for a simulation that fails due to a non-license related issue, the simulation will be repeated from the beginning until the maximum number of requeue attempts, as specified by the `array` value, is reached."
+    },
+    {
+      "question": "What is the default number of nodes requested in the `script-flu-bynode+requeue.sh` Slurm script?",
+      "answer": "The `script-flu-bynode+requeue.sh` Slurm script requests 1 compute node by default."
+    },
+    {
+      "question": "What is the default time limit specified in the `script-flu-bynode+requeue.sh` Fluent script?",
+      "answer": "The default time limit specified in the `script-flu-bynode+requeue.sh` is `00-03:00` (3 hours)."
+    },
+    {
+      "question": "What is the maximum number of cores per compute node that can be specified for Narval in the `script-flu-bynode+requeue.sh`?",
+      "answer": "Up to a maximum of 32 cores per compute node can be specified for Narval in the `script-flu-bynode+requeue.sh`."
+    },
+    {
+      "question": "What memory allocation is specified for compute nodes in the `script-flu-bynode+requeue.sh`?",
+      "answer": "The `script-flu-bynode+requeue.sh` specifies `mem=0`, which allocates all available memory per compute node."
+    },
+    {
+      "question": "What is the default number of requeue attempts configured in the `script-flu-bynode+requeue.sh`?",
+      "answer": "The `script-flu-bynode+requeue.sh` specifies `array=1-5%1`, indicating 5 requeue attempts by default (where 2 or more is possible)."
+    },
+    {
+      "question": "Which Ansys module version is loaded by default in the `script-flu-bynode+requeue.sh`?",
+      "answer": "The `script-flu-bynode+requeue.sh` loads `ansys/2023R2` or newer module versions."
+    },
+    {
+      "question": "What is the default filename for the journal file (`MYJOURNALFILE`) in the `script-flu-bynode+requeue.sh`?",
+      "answer": "The default filename for the journal file (`MYJOURNALFILE`) is `sample.jou`."
+    },
+    {
+      "question": "What is the default version for Fluent (`MYVERSION`) in the `script-flu-bynode+requeue.sh`?",
+      "answer": "The default version for Fluent (`MYVERSION`) is `3d`."
+    },
+    {
+      "question": "How does the `script-flu-bynode+requeue.sh` configure Intel MPI if the cluster is Narval?",
+      "answer": "If the cluster is Narval, the script loads `intel/2023` and `intelmpi`, then exports `INTELMPI_ROOT=$I_MPI_ROOT` and unsets `I_MPI_ROOT`."
+    },
+    {
+      "question": "When is the `I_MPI_HYDRA_BOOTSTRAP=ssh` environment variable exported in the Fluent requeue scripts?",
+      "answer": "This environment variable is exported if the Ansys version is 2025 or newer and the cluster is Nibi, or if the cluster is Narval."
+    },
+    {
+      "question": "What command is used to generate the machinefile for ANSYS Fluent in the requeue scripts?",
+      "answer": "The command `slurm_hl2hl.py --format ANSYS-FLUENT > /tmp/machinefile-$SLURM_JOB_ID` is used to generate the machinefile."
+    },
+    {
+      "question": "How is Fluent launched in the `script-flu-bynode+requeue.sh` if the job is running on a single compute node?",
+      "answer": "Fluent is launched using the command: `fluent -g $MYVERSION -t $NCORES -mpi=intel -pshmem -i $MYJOURNALFILE`."
+    },
+    {
+      "question": "How is Fluent launched in the `script-flu-bynode+requeue.sh` if the job is running on multiple nodes on the Nibi cluster?",
+      "answer": "Fluent is launched using the command: `fluent -g $MYVERSION -t $NCORES -mpi=intel -peth -cnf=/tmp/machinefile-$SLURM_JOB_ID -i $MYJOURNALFILE`."
+    }
+  ],
+  "generated_at": "2026-04-11T16:48:19.897886+00:00"
+}

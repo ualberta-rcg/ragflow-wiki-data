@@ -1,0 +1,103 @@
+{
+  "doc_key": "base/openmp",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is OpenMP?",
+      "answer": "OpenMP (Open Multi-Processing) is an application programming interface (API) for shared memory parallel computing."
+    },
+    {
+      "question": "Which programming languages and operating systems does OpenMP support?",
+      "answer": "OpenMP supports C/C++ and Fortran on various platforms, including Linux and Windows."
+    },
+    {
+      "question": "What does the OpenMP API consist of?",
+      "answer": "The API consists of a set of directives, a software library, and environment variables."
+    },
+    {
+      "question": "How do OpenMP directives affect program execution?",
+      "answer": "Directives control whether a section of a program executes in parallel and how work is distributed among subtasks, while preserving the serial code structure."
+    },
+    {
+      "question": "What happens if a compiler doesn't support OpenMP directives?",
+      "answer": "A compiler that doesn't support OpenMP directives can still compile the program, allowing the user to run it serially."
+    },
+    {
+      "question": "In OpenMP, what is a 'thread'?",
+      "answer": "A thread is a lightweight process or 'virtual processor' and is formally defined as the smallest unit of work that an operating system can schedule."
+    },
+    {
+      "question": "Is the number of OpenMP threads dependent on the number of physical cores?",
+      "answer": "No, the number of threads is independent of the number of physical cores. More threads than cores can run, with the operating system sharing core time between them."
+    },
+    {
+      "question": "Why is synchronization important when using multiple threads in OpenMP?",
+      "answer": "Synchronization is important to ensure the correctness of the code, as the order of computations among multiple threads is not guaranteed without explicit synchronization directives."
+    },
+    {
+      "question": "What is software scalability in the context of parallel programming?",
+      "answer": "Software scalability refers to how well a program can run in parallel, and a scaling analysis helps understand its parallel performance."
+    },
+    {
+      "question": "How do you compile an OpenMP program?",
+      "answer": "You typically compile an OpenMP program by adding a command-line option to the compilation flags, such as `-fopenmp` for GNU compilers (GCC)."
+    },
+    {
+      "question": "How are OpenMP directives inserted into Fortran programs?",
+      "answer": "In Fortran, directives are inserted using sentinels, which are keywords like `!$OMP` placed immediately after a comment symbol."
+    },
+    {
+      "question": "How are OpenMP directives inserted into C/C++ programs?",
+      "answer": "In C/C++, directives are inserted using a pragma construct, like `#pragma omp directive`."
+    },
+    {
+      "question": "Can you list some common OpenMP directives?",
+      "answer": "Some common OpenMP directives include `PARALLEL`, `DO` (Fortran) / `for` (C/C++), `SECTIONS`, `SINGLE`, `MASTER`, `CRITICAL`, `BARRIER`, `ATOMIC`, `FLUSH`, and `ORDERED`."
+    },
+    {
+      "question": "What are some important environment variables that affect OpenMP program execution?",
+      "answer": "Key environment variables include `OMP_NUM_THREADS`, `OMP_SCHEDULE`, `OMP_DYNAMIC`, `OMP_STACKSIZE`, and `OMP_NESTED`."
+    },
+    {
+      "question": "How do you set an OpenMP environment variable on a UNIX system?",
+      "answer": "You can set an OpenMP environment variable using a command like `export OMP_NUM_THREADS=12`."
+    },
+    {
+      "question": "What does the `OMP_NUM_THREADS` environment variable control?",
+      "answer": "It controls the number of threads used by an OpenMP program, commonly set to the number of reserved cores per machine."
+    },
+    {
+      "question": "How does `OMP_SCHEDULE` affect loop distribution in OpenMP?",
+      "answer": "`OMP_SCHEDULE` controls how loops and parallel sections are distributed among threads, with possible values like `static,n`, `dynamic,n`, `guided,n`, or `auto`."
+    },
+    {
+      "question": "What is the advantage of using `dynamic` or `guided` scheduling for loops?",
+      "answer": "These scheduling types theoretically allow for better load balancing by dynamically adjusting the work assigned to each thread during execution."
+    },
+    {
+      "question": "What is a potential disadvantage of `dynamic` or `guided` scheduling, especially in NUMA architectures?",
+      "answer": "The programmer doesn't know in advance which core a thread executes on or what memory it accesses, making it difficult to predict memory-core affinity, which can be problematic in NUMA architectures."
+    },
+    {
+      "question": "What is the purpose of the `OMP_STACKSIZE` environment variable?",
+      "answer": "It specifies the size of the stack for each thread created by the OpenMP runtime, defaulting to 4M if not set."
+    },
+    {
+      "question": "Which environment variables are used to control thread affinity for Intel and GNU compilers?",
+      "answer": "For Intel compilers, `KMP_AFFINITY` is used, and for GNU compilers, `GOMP_CPU_AFFINITY` is used, in conjunction with `OMP_PROC_BIND`."
+    },
+    {
+      "question": "Why is setting thread affinity variables important in NUMA architectures?",
+      "answer": "It prevents the operating system from moving OpenMP threads between processors, which is crucial for optimal memory access performance in Non-Uniform Memory Access (NUMA) architectures."
+    },
+    {
+      "question": "How is a C 'Hello world' OpenMP example compiled and run?",
+      "answer": "It's compiled using `gcc -O3 -fopenmp ompHello.c -o ompHello`, then `OMP_NUM_THREADS` is set (e.g., `export OMP_NUM_THREADS=4`), and finally executed with `./ompHello`."
+    },
+    {
+      "question": "Where can one find comprehensive resources and documentation for OpenMP?",
+      "answer": "Comprehensive tutorials are available from Lawrence Livermore National Labs, and OpenMP.org publishes formal specifications, reference cards, and examples."
+    }
+  ],
+  "generated_at": "2026-04-12T04:32:41.242223+00:00"
+}

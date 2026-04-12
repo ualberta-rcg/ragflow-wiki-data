@@ -1,0 +1,68 @@
+{
+  "doc_key": "fr/mpi-io",
+  "level": "chunk",
+  "chunk_index": 2,
+  "qa_pairs": [
+    {
+      "question": "C'est quoi l'objectif du code d'exemple `mpi_view.c`?",
+      "answer": "Il montre comment faire des opérations de lecture pis d'écriture en parallèle en utilisant les vues MPI-IO."
+    },
+    {
+      "question": "Comment le tampon (`buffer`) est-il initialisé dans l'exemple `mpi_view.c`?",
+      "answer": "Il est rempli avec des caractères qui commencent par 'a' plus le rang du processus, pis le dernier caractère est un saut de ligne."
+    },
+    {
+      "question": "Quelles fonctions MPI sont utilisées pour initialiser l'environnement MPI et pour obtenir l'information sur le processus?",
+      "answer": "On utilise `MPI_Init` pour l'initialisation, `MPI_Comm_rank` pour le rang du processus, pis `MPI_Comm_size` pour la taille du communicateur."
+    },
+    {
+      "question": "Comment le fichier `testmpi.txt` est-il ouvert pour l'écriture dans l'exemple `mpi_view.c`?",
+      "answer": "Il est ouvert avec `MPI_File_open` en utilisant `MPI_COMM_WORLD`, le nom de fichier \"testmpi.txt\", le mode `(MPI_MODE_WRONLY | MPI_MODE_CREATE)`, pis `MPI_INFO_NULL`."
+    },
+    {
+      "question": "Quelles fonctions MPI sont utilisées pour définir un type de données contigu pour l'écriture dans la boucle?",
+      "answer": "C'est `MPI_Type_contiguous` qui est utilisée pour créer `type_intercomp`, pis `MPI_Type_commit` pour le valider."
+    },
+    {
+      "question": "Comment la vue est-elle configurée pour l'écriture de données dans la boucle de l'exemple?",
+      "answer": "`MPI_File_set_view` est appelée avec le pointeur de fichier `f`, un déplacement calculé comme `rank*BLOCKSIZE+i*size*BLOCKSIZE`, `MPI_CHAR`, le type de données validé `type_intercomp`, le déplacement \"native\", pis `MPI_INFO_NULL`."
+    },
+    {
+      "question": "Quelle fonction est utilisée pour écrire des données une fois que la vue est configurée pour l'écriture?",
+      "answer": "On utilise `MPI_File_write` pour écrire `BLOCKSIZE` caractères à partir du tampon (`buffer`)."
+    },
+    {
+      "question": "Comment le fichier est-il fermé après les opérations d'écriture dans l'exemple `mpi_view.c`?",
+      "answer": "Le fichier est fermé avec la fonction `MPI_File_close(&f)`."
+    },
+    {
+      "question": "Comment le fichier `testmpi.txt` est-il ouvert pour la lecture dans l'exemple `mpi_view.c`?",
+      "answer": "Il est ouvert avec `MPI_File_open` en utilisant `MPI_COMM_WORLD`, le nom de fichier \"testmpi.txt\", le mode `MPI_MODE_RDONLY`, pis `MPI_INFO_NULL`."
+    },
+    {
+      "question": "Quelles fonctions MPI sont utilisées pour définir un type de données contigu pour la lecture?",
+      "answer": "On utilise `MPI_Type_contiguous` pour créer `type_contiguous` avec la taille `NBRBLOCKS*BLOCKSIZE`, pis `MPI_Type_commit` pour le valider."
+    },
+    {
+      "question": "Comment la vue est-elle configurée pour la lecture de données dans l'exemple `mpi_view.c`?",
+      "answer": "`MPI_File_set_view` est appelée avec le pointeur de fichier `f`, un déplacement calculé comme `rank*NBRBLOCKS*BLOCKSIZE`, `MPI_CHAR`, le type de données validé `type_contiguous`, le déplacement \"native\", pis `MPI_INFO_NULL`."
+    },
+    {
+      "question": "Quelle fonction est utilisée pour lire des données une fois que la vue est configurée pour la lecture?",
+      "answer": "C'est `MPI_File_read` qui est utilisée pour lire `BLOCKSIZE` caractères dans le tampon (`buffer`)."
+    },
+    {
+      "question": "Qu'est-ce qui arrive à la toute fin du programme `mpi_view.c`?",
+      "answer": "`MPI_File_close(&f)` ferme le fichier, `MPI_Finalize()` termine l'environnement MPI, pis le programme retourne 0."
+    },
+    {
+      "question": "C'est quoi un problème potentiel quand on utilise des vues sur des sections disjointes d'un fichier?",
+      "answer": "Certains systèmes de fichiers ne supportent pas les verrous sur les fichiers (\"file locks\"). Par conséquent, ça peut rendre certaines opérations, comme l'utilisation de vues sur des sections disjointes, impossibles."
+    },
+    {
+      "question": "Quelles références sont recommandées pour en savoir plus sur MPI-IO?",
+      "answer": "La documentation OpenMPI pis un cours sur les entrées-sorties parallèles sont recommandés."
+    }
+  ],
+  "generated_at": "2026-04-12T01:50:22.857638+00:00"
+}

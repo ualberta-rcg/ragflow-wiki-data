@@ -1,0 +1,56 @@
+{
+  "doc_key": "base/ray",
+  "level": "chunk",
+  "chunk_index": 5,
+  "qa_pairs": [
+    {
+      "question": "How is accuracy calculated and reported during the evaluation phase in the `train` function?",
+      "answer": "Accuracy is calculated by accumulating `total` and `correct` predictions, then reported using `session.report({\"accuracy\": correct / total})`."
+    },
+    {
+      "question": "What command-line arguments are defined for the `cifar10 hyperparameter sweep` script?",
+      "answer": "The script defines command-line arguments: `--num_samples` (integer, default 10), `--gpus_per_trial` (float, default 1), and `--cpus_per_trial` (integer, default 1)."
+    },
+    {
+      "question": "What is the default number of samples (`--num_samples`) for the hyperparameter sweep?",
+      "answer": "The default number of samples (`--num_samples`) for the hyperparameter sweep is 10."
+    },
+    {
+      "question": "How does the Python script connect to the Ray cluster?",
+      "answer": "The script connects to the Ray cluster by calling `ray.init()` using environment variables for the head node's address and port: `ray.init(address=f\"{os.environ['HEAD_NODE']}:{os.environ['RAY_PORT']}\", _node_ip_address=os.environ['HEAD_NODE'])`."
+    },
+    {
+      "question": "How is the search space for the learning rate (`lr`) defined in the Ray Tune example?",
+      "answer": "The search space for the learning rate (`lr`) is defined using `tune.loguniform(1e-4, 1e-1)`, which means candidate learning rates will be sampled from a log-uniform distribution between 1e-4 and 1e-1."
+    },
+    {
+      "question": "What are the candidate batch sizes for the hyperparameter search?",
+      "answer": "The candidate batch sizes for the hyperparameter search are 2, 4, 8, and 16, from which values will be sampled randomly using `tune.choice`."
+    },
+    {
+      "question": "What type of scheduler is used in the Ray Tune example, and what is its general function?",
+      "answer": "An `ASHAScheduler` is used. Its general function is to kill trials before they conclude if they do not appear promising, which is particularly useful for training loops that run for many epochs."
+    },
+    {
+      "question": "What are the specific parameters set for the `ASHAScheduler` in this example?",
+      "answer": "The `ASHAScheduler` is configured with `max_t=1`, `grace_period=1`, and `reduction_factor=2`."
+    },
+    {
+      "question": "How are CPU and GPU resources specified for each trial within the Ray Tune configuration?",
+      "answer": "CPU and GPU resources are specified for each trial using `resources={\"cpu\": args.cpus_per_trial, \"gpu\": args.gpus_per_trial}` in the `tune.with_resources` wrapper."
+    },
+    {
+      "question": "What does setting `gpus_per_trial` to `0.1` signify in the Ray Tune configuration?",
+      "answer": "Setting `gpus_per_trial` to `0.1` signifies that each trial will be allocated one-tenth of a GPU."
+    },
+    {
+      "question": "What metric and mode are configured for the `tune.TuneConfig` to evaluate hyperparameter trials?",
+      "answer": "The `tune.TuneConfig` is configured to use \"accuracy\" as the metric and \"max\" as the mode for evaluating hyperparameter trials."
+    },
+    {
+      "question": "How is the best trial identified and its configuration displayed after the tuning process?",
+      "answer": "The best trial is identified by calling `results.get_best_result(\"accuracy\", \"max\")`, and its configuration is then displayed using `print(\"Best trial config: {}\".format(best.config))`."
+    }
+  ],
+  "generated_at": "2026-04-12T06:55:09.759189+00:00"
+}

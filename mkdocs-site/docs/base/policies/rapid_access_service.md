@@ -5,21 +5,33 @@ lang: "base"
 
 source_wiki_title: "Rapid Access Service"
 source_hash: "0e7bd8676ce88b4437a31fb235f8338e"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T10:44:03.851138+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T10:59:48.435564+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "Cloud resources"
+  - "GPU resources"
+  - "HPC resources"
+  - "Storage resources"
+  - "CPU resources"
+
+questions:
+  - "What is the mandatory first step that Principal Investigators and sponsored users must take to access any computational system offered by the Alliance?"
+  - "How can Principal Investigators request additional storage resources without a RAC application, and what are the maximum limits for project and nearline storage?"
+  - "How does \"opportunistic use\" function for CPU and GPU resources for research groups that do not have a specific allocation award?"
+  - "What is the mandatory first step that Principal Investigators and sponsored users must take to access any computational system offered by the Alliance?"
+  - "How can Principal Investigators request additional storage resources without a RAC application, and what are the maximum limits for project and nearline storage?"
+  - "How does \"opportunistic use\" function for CPU and GPU resources for research groups that do not have a specific allocation award?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -33,10 +45,10 @@ Some [storage resources](storage-and-file-management.md) are made available in t
 
 When the resources mentioned above are not sufficient, PIs can request additional storage resources in any General Purpose cluster without submitting a RAC application, up to a maximum of 40 TB of project storage and 100 TB of nearline storage. These resources can be requested all in one cluster or split across multiple ones, *but the total amount across all clusters must not exceed 40 TB of project storage or 100 TB of nearline storage*. Resources allocated via RAS will be available in the Default [Resource Allocation Project](frequently-asked-questions-about-the-ccdb.md#resource-allocation-projects-rap) (RAP).
 
-| **Cluster**                | **Project storage**                  | **Nearline storage**                 |
-| :------------------------- | :----------------------------------- | :----------------------------------- |
-| Fir, Nibi, Rorqual, Narval | Max 40 TB *across all clusters*      | Max 100 TB *across all clusters*     |
-| Trillium, HPSS             | RAS storage not available            | RAS storage not available            |
+| Cluster | Project storage | Nearline storage |
+| :------ | :-------------- | :--------------- |
+| Fir, Nibi, Rorqual, Narval | Max 40 TB *across all clusters* | Max 100 TB *across all clusters* |
+| Trillium, HPSS | RAS storage not available | RAS storage not available |
 
 To request storage resources via RAS, PIs (not sponsored users) must send an email to support@tech.alliancecan.ca with details of the storage resources needed.
 

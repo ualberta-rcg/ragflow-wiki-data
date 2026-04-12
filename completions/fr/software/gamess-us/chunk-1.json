@@ -1,0 +1,108 @@
+{
+  "doc_key": "fr/gamess-us",
+  "level": "chunk",
+  "chunk_index": 1,
+  "qa_pairs": [
+    {
+      "question": "C'est quoi GAMESS?",
+      "answer": "GAMESS, ou 'General Atomic and Molecular Electronic Structure System', c'est un paquet logiciel de chimie quantique ab initio."
+    },
+    {
+      "question": "Où est-ce qu'on peut trouver des infos pour soumettre et faire le suivi d'une tâche?",
+      "answer": "Pour savoir comment soumettre une tâche et la suivre, il faut consulter la section 'Exécuter des tâches'."
+    },
+    {
+      "question": "Quelle est la première étape pour soumettre une tâche GAMESS?",
+      "answer": "La première étape, c'est de préparer un fichier d'entrée GAMESS qui contient la géométrie moléculaire et le type de calcul à effectuer."
+    },
+    {
+      "question": "Où est-ce qu'on peut trouver des informations sur le format du fichier d'entrée et les mots-clés de GAMESS?",
+      "answer": "On peut consulter la documentation GAMESS en ligne, surtout la section 2 du manuel qui décrit le format du fichier et les mots-clés."
+    },
+    {
+      "question": "Quels fichiers doit-on préparer pour soumettre une tâche GAMESS?",
+      "answer": "En plus du fichier d'entrée (comme 'name.inp'), il faut préparer un script pour la tâche qui spécifie les ressources de calcul requises."
+    },
+    {
+      "question": "Où doivent se trouver le fichier d'entrée et le script d'une tâche GAMESS?",
+      "answer": "Le fichier d'entrée et le script doivent être dans le même répertoire."
+    },
+    {
+      "question": "Quelles sont les ressources de calcul par défaut spécifiées dans le script d'exemple pour une tâche GAMESS?",
+      "answer": "Le script d'exemple spécifie par défaut 1 CPU par tâche, 4000 Mo de mémoire par CPU et une durée de 30 minutes."
+    },
+    {
+      "question": "Quelle commande faut-il utiliser pour charger le module GAMESS?",
+      "answer": "Il faut utiliser la commande `module load gamess-us/20170420-R1` pour charger le module GAMESS."
+    },
+    {
+      "question": "Comment soumettre une tâche à l'ordonnanceur après avoir préparé les fichiers?",
+      "answer": "Pour soumettre la tâche à l'ordonnanceur, il faut utiliser la commande `sbatch gamess_job.sh`."
+    },
+    {
+      "question": "Où sont enregistrés par défaut les fichiers binaires temporaires (fichiers 'scratch') de GAMESS?",
+      "answer": "Par défaut, les fichiers binaires temporaires sont enregistrés sur le disque local du nœud de calcul, dans le répertoire `$SLURM_TMPDIR`."
+    },
+    {
+      "question": "Est-ce que l'emplacement par défaut des fichiers 'scratch' offre une bonne performance?",
+      "answer": "Oui, l'emplacement par défaut sur le disque local du nœud de calcul devrait offrir la meilleure performance."
+    },
+    {
+      "question": "Qu'arrive-t-il aux données du répertoire `$SLURM_TMPDIR` après la fin d'une tâche?",
+      "answer": "Les données du répertoire `$SLURM_TMPDIR` seront supprimées une fois la tâche terminée."
+    },
+    {
+      "question": "Que faire si le disque local n'a pas assez d'espace pour les fichiers 'scratch'?",
+      "answer": "Si l'espace sur le disque local est insuffisant, il faut utiliser le répertoire `/scratch` en configurant la variable d'environnement `SCR`."
+    },
+    {
+      "question": "Où sont copiés les fichiers de sortie supplémentaires de GAMESS?",
+      "answer": "Les fichiers de sortie supplémentaires sont copiés à l'endroit désigné par la variable d'environnement `USERSCR`, qui est par défaut le répertoire `$SCRATCH` de l'utilisateur."
+    },
+    {
+      "question": "Quelle variable d'environnement contrôle l'emplacement des fichiers binaires temporaires de GAMESS?",
+      "answer": "La variable d'environnement `SCR` contrôle l'emplacement des fichiers binaires temporaires de GAMESS."
+    },
+    {
+      "question": "Où sont stockés par défaut les fichiers de sortie supplémentaires de GAMESS?",
+      "answer": "Par défaut, les fichiers de sortie supplémentaires de GAMESS sont stockés dans le répertoire `$SCRATCH` de l'utilisateur."
+    },
+    {
+      "question": "Quel paramètre sert à définir le nombre de CPUs pour un calcul GAMESS?",
+      "answer": "C'est le paramètre `--cpus-per-task` qui définit le nombre de CPUs disponibles pour le calcul."
+    },
+    {
+      "question": "Comment se fait la parallélisation des calculs avec GAMESS?",
+      "answer": "La parallélisation avec GAMESS se fait par sockets."
+    },
+    {
+      "question": "Quelle est la contrainte principale pour l'utilisation des cœurs CPU par GAMESS?",
+      "answer": "GAMESS ne peut utiliser que les cœurs CPU qui se trouvent sur le même nœud de calcul."
+    },
+    {
+      "question": "Combien de cœurs CPU maximum peut-on utiliser par nœud sur la grappe Graham pour une tâche GAMESS?",
+      "answer": "Sur la grappe Graham, on peut utiliser jusqu'à 32 cœurs CPU par nœud pour une tâche GAMESS."
+    },
+    {
+      "question": "Est-ce que les calculs de chimie quantique sont très efficaces avec un grand nombre de CPUs?",
+      "answer": "Non, les calculs de chimie quantique ne se transposent pas aussi bien sur plusieurs CPUs que la mécanique moléculaire classique, ce qui veut dire qu'ils ne sont pas toujours efficaces avec un grand nombre de CPUs."
+    },
+    {
+      "question": "De quoi dépend l'efficacité de l'utilisation des CPUs pour les calculs de chimie quantique?",
+      "answer": "L'efficacité dépend du niveau théorique et de la quantité d'atomes et de fonctions de base utilisés."
+    },
+    {
+      "question": "Comment faire pour trouver le nombre optimal de CPUs pour une tâche?",
+      "answer": "Pour déterminer un nombre raisonnable de CPUs, il faut faire un test de 'scalabilité', en comparant les temps d'exécution avec différents nombres de CPUs pour le même fichier."
+    },
+    {
+      "question": "Quel est le résultat idéal d'un test de scalabilité?",
+      "answer": "Idéalement, le temps d'exécution devrait diminuer de moitié quand deux fois plus de CPUs sont utilisés."
+    },
+    {
+      "question": "Dans quel cas l'ajout de CPUs ne serait pas une bonne utilisation des ressources?",
+      "answer": "Ce ne serait pas une bonne utilisation des ressources si un calcul s'exécute seulement 30% plus rapidement avec deux fois plus de CPUs, ou si ça prend même plus de temps."
+    }
+  ],
+  "generated_at": "2026-04-11T21:53:48.046140+00:00"
+}

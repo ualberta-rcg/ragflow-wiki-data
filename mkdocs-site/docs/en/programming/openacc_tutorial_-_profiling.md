@@ -5,29 +5,83 @@ lang: "en"
 
 source_wiki_title: "OpenACC Tutorial - Profiling/en"
 source_hash: "e476f0f0b3e58f54485fcb64e339e863"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T09:29:35.370360+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T09:58:26.192031+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "CUDA module"
+  - "data dependency"
+  - "OpenACC"
+  - "Data dependency"
+  - "allocate_3d_poisson_matrix"
+  - "Generated vector simd code"
+  - "nvprof"
+  - "Loop optimization"
+  - "NVIDIA compiler"
+  - "Loop iterations"
+  - "-Minfo flag"
+  - "Loop not fused"
+  - "FMA (fused multiply-add)"
+  - "inline"
+  - "loop not fused"
+  - "Computational Intensity"
+  - "loop trip count"
+  - "Code profiling"
+  - "Compiler Feedback"
+  - "profiling result"
+  - "Compute intensity"
+  - "Loop unrolled"
+  - "inlined"
+  - "NVIDIA HPC SDK"
+  - "vector simd code"
+  - "loop not vectorized"
+  - "hotspots"
+  - "CPU profiling"
+  - "command line"
+
+questions:
+  - "Why is code profiling necessary and how does it relate to Amdahl's law?"
+  - "Which compilers and profiling tools are recommended in this tutorial for building and analyzing the sample code?"
+  - "What specific command-line arguments are required to profile a pure CPU executable using NVIDIA's nvprof?"
+  - "How do you load the appropriate CUDA module version on the clusters?"
+  - "What command-line arguments are required to profile a pure CPU executable using nvprof?"
+  - "Based on the profiling result provided, which function consumes the majority of the execution time?"
+  - "According to the profiling output, which function is identified as the primary performance bottleneck, consuming the vast majority of the execution time?"
+  - "What specific compiler flag and options does the NVIDIA compiler provide to generate detailed feedback on loop optimizations, vectorization, and compute intensity?"
+  - "Based on the provided compiler feedback, what was the reason the loop in the waxpby() function was not vectorized?"
+  - "Which specific functions from main.cpp were successfully inlined by the compiler according to the optimization log?"
+  - "What are the primary reasons cited in the report for the compiler failing to fuse or vectorize certain loops?"
+  - "How did the compiler optimize memory operations and arithmetic loops, such as through idiom replacement and SIMD or FMA instruction generation?"
+  - "What specific compiler optimizations and instructions were successfully generated for the loop containing reductions?"
+  - "Which function was inlined within the main function, and what was its reported size?"
+  - "What were the specific reasons given for the loops that failed to be fused, vectorized, or parallelized?"
+  - "How is \"Computational Intensity\" calculated, and what does an intensity of 1.0 or greater suggest about a loop's suitability for a GPU?"
+  - "Why is the accumulation of values in the `sum` variable of the `matvec()` function classified as a reduction rather than a problematic data dependency?"
+  - "What specific types of data dependencies are analyzed in the code to determine if efficient parallelism can be implemented?"
+  - "Why were the loops in the provided compiler output not fused?"
+  - "What was the specific reason given for the loop at line 39 not being vectorized?"
+  - "Which function was reported as inlined with a size of 10 in main.cpp?"
+  - "How is \"Computational Intensity\" calculated, and what does an intensity of 1.0 or greater suggest about a loop's suitability for a GPU?"
+  - "Why is the accumulation of values in the `sum` variable of the `matvec()` function classified as a reduction rather than a problematic data dependency?"
+  - "What specific types of data dependencies are analyzed in the code to determine if efficient parallelism can be implemented?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
-!!! note "Learning objectives"
-    * Understand what a profiler is
-    * Understand how to use the NVPROF profiler
-    * Understand how the code is performing
-    * Understand where to focus your time and rewrite most time consuming routines
+!!! info "Learning objectives"
+* Understand what a profiler is
+* Understand how to use the `nvprof` profiler
+* Understand how the code is performing
+* Understand where to focus your time and rewrite most time consuming routines
 
 ## Code profiling
 Why would one need to profile code? Because it's the only way to understand:
@@ -37,7 +91,7 @@ Why would one need to profile code? Because it's the only way to understand:
 
 What is so important about hotspots in the code?
 The [Amdahl's law](https://en.wikipedia.org/wiki/Amdahl%27s_law) says that
-"**Parallelising the most time-consuming routines (i.e. the hotspots) will have the most impact**".
+"Parallelizing the most time-consuming routines (i.e. the hotspots) will have the most impact".
 
 ## Build the Sample Code
 For the following example, we use a code from this [Git repository](https://github.com/calculquebec/cq-formation-openacc).
@@ -45,31 +99,35 @@ You are invited to [download and extract the package](https://github.com/calculq
 The object of this example is to compile and link the code, obtain an executable, and then profile its source code with a profiler.
 
 !!! note "Which compiler?"
-    Being pushed by [Cray](https://www.cray.com/) and by [NVIDIA](https://www.nvidia.com) through its
-    [Portland Group](https://www.pgroup.com/support/release_archive.php) division until 2020 and now through its [HPC SDK](https://developer.nvidia.com/hpc-sdk), these two lines of compilers offer the most advanced OpenACC support.
+Being pushed by [Cray](https://www.cray.com/) and by [NVIDIA](https://www.nvidia.com/) through its
+[Portland Group](https://www.pgroup.com/support/release_archive.php) division until 2020 and now through its [HPC SDK](https://developer.nvidia.com/hpc-sdk), these two lines of compilers offer the most advanced OpenACC support.
 
-    As for the [GNU compilers](https://gcc.gnu.org/wiki/OpenACC), since GCC version 6, the support for OpenACC 2.x kept improving.
-    As of July 2022, GCC versions 10, 11 and 12 support OpenACC version 2.6.
+As for the [GNU compilers](https://gcc.gnu.org/wiki/OpenACC), since GCC version 6, the support for OpenACC 2.x kept improving.
+As of July 2022, GCC versions 10, 11 and 12 support OpenACC version 2.6.
 
-    For the purpose of this tutorial, we use the
-    [NVIDIA HPC SDK](https://developer.nvidia.com/nvidia-hpc-sdk-releases), version 22.7.
-    Please note that NVIDIA compilers are free for academic usage.
+For the purpose of this tutorial, we use the
+[NVIDIA HPC SDK](https://developer.nvidia.com/nvidia-hpc-sdk-releases), version 22.7.
+Please note that NVIDIA compilers are free for academic usage.
 
 ```bash
 module load nvhpc/22.7
-# Expected output:
-# Lmod is automatically replacing "intel/2020.1.217" with "nvhpc/22.7".
-#
-# The following have been reloaded with a version change:
-#   1) gcccore/.9.3.0 => gcccore/.11.3.0        3) openmpi/4.0.3 => openmpi/4.1.4
-#   2) libfabric/1.10.1 => libfabric/1.15.1     4) ucx/1.8.0 => ucx/1.12.1
+```
+
+```text
+Lmod is automatically replacing "intel/2020.1.217" with "nvhpc/22.7".
+
+The following have been reloaded with a version change:
+  1) gcccore/.9.3.0 => gcccore/.11.3.0        3) openmpi/4.0.3 => openmpi/4.1.4
+  2) libfabric/1.10.1 => libfabric/1.15.1     4) ucx/1.8.0 => ucx/1.12.1
 ```
 
 ```bash
 make
-# Expected output:
-# nvc++    -c -o main.o main.cpp
-# nvc++ main.o -o cg.x
+```
+
+```text
+nvc++    -c -o main.o main.cpp
+nvc++ main.o -o cg.x
 ```
 
 Once the executable `cg.x` is created, we are going to profile its source code:
@@ -78,10 +136,10 @@ the profiler will measure function calls by executing and monitoring this progra
 Therefore, **a proper test environment should have at least 4GB of available memory and at least two (2) CPU cores**.
 
 !!! note "Which profiler?"
-    For the purpose of this tutorial, we use two profilers:
-    * **[NVIDIA `nvprof`](https://docs.nvidia.com/cuda/profiler-users-guide/)** - a command-line text-based profiler that can analyse non-GPU codes.
-    * **[NVIDIA Visual Profiler `nvvp`](openacc-tutorial-adding-directives.md#nvidia-visual-profiler)** - a graphical cross-platform analysing tool for the codes written with OpenACC and CUDA C/C++ instructions.
-    Since our previously built `cg.x` is not yet using the GPU, we will start the analysis with the `nvprof` profiler.
+For the purpose of this tutorial, we use two profilers:
+* **[NVIDIA `nvprof`](https://docs.nvidia.com/cuda/profiler-users-guide/)** - a command line text-based profiler that can analyze non-GPU codes.
+* **[NVIDIA Visual Profiler `nvvp`](openacc-tutorial-adding-directives.md#nvidia-visual-profiler)** - a graphical cross-platform analyzing tool for the codes written with OpenACC and CUDA C/C++ instructions.
+Since our previously built `cg.x` is not yet using the GPU, we will start the analysis with the `nvprof` profiler.
 
 ### NVIDIA `nvprof` Command Line Profiler
 NVIDIA usually provides `nvprof` with its HPC SDK,
@@ -93,187 +151,191 @@ module load cuda/11.7
 To profile a pure CPU executable, we need to add the arguments `--cpu-profiling on` to the command line:
 ```bash
 nvprof --cpu-profiling on ./cg.x
-# Expected output:
-# ...
-# <Program output >
-# ...
-# ======== CPU profiling result (bottom up):
-# Time(%)      Time  Name
-#  83.54%  90.6757s  matvec(matrix const &, vector const &, vector const &)
-#  83.54%  90.6757s  {{!}} main
-#   7.94%  8.62146s  waxpby(double, vector const &, double, vector const &, vector const &)
-#   7.94%  8.62146s  {{!}} main
-#   5.86%  6.36584s  dot(vector const &, vector const &)
-#   5.86%  6.36584s  {{!}} main
-#   2.47%  2.67666s  allocate_3d_poisson_matrix(matrix&, int)
-#   2.47%  2.67666s  {{!}} main
-#   0.13%  140.35ms  initialize_vector(vector&, double)
-#   0.13%  140.35ms  {{!}} main
-# ...
-# ======== Data collected at 100Hz frequency
+```
+
+```text
+...
+<Program output >
+...
+======== CPU profiling result (bottom up):
+Time(%)      Time  Name
+ 83.54%  90.6757s  matvec(matrix const &, vector const &, vector const &)
+ 83.54%  90.6757s  {{!}} main
+  7.94%  8.62146s  waxpby(double, vector const &, double, vector const &, vector const &)
+  7.94%  8.62146s  {{!}} main
+  5.86%  6.36584s  dot(vector const &, vector const &)
+  5.86%  6.36584s  {{!}} main
+  2.47%  2.67666s  allocate_3d_poisson_matrix(matrix&, int)
+  2.47%  2.67666s  {{!}} main
+  0.13%  140.35ms  initialize_vector(vector&, double)
+  0.13%  140.35ms  {{!}} main
+...
+======== Data collected at 100Hz frequency
 ```
 From the above output, the `matvec()` function is responsible for 83.5% of the execution time, and this function call can be found in the `main()` function.
 
 ## Compiler Feedback
 Before working on the routine, we need to understand what the compiler is actually doing by asking ourselves the following questions:
-* What optimisations were applied automatically by the compiler?
-* What prevented further optimisations?
+* What optimizations were applied automatically by the compiler?
+* What prevented further optimizations?
 * Can very minor modifications of the code affect performance?
 
 The NVIDIA compiler offers a `-Minfo` flag with the following options:
 * `all` - Print almost all types of compilation information, including:
-    * `accel` - Print compiler operations related to the accelerator
-    * `inline` - Print information about functions extracted and inlined
-    * `loop,mp,par,stdpar,vect` - Print various information about loop optimisation and vectorisation
+  * `accel` - Print compiler operations related to the accelerator
+  * `inline` - Print information about functions extracted and inlined
+  * `loop,mp,par,stdpar,vect` - Print various information about loop optimization and vectorization
 * `intensity` - Print compute intensity information about loops
 * (none) - If `-Minfo` is used without any option, it is the same as with the `all` option, but without the `inline` information
 
 ### How to Enable Compiler Feedback
 * Edit the `Makefile`:
-```makefile
-CXX=nvc++
-CXXFLAGS=-fast -Minfo=all,intensity
-LDFLAGS=${CXXFLAGS}
-```
+  ```makefile
+  CXX=nvc++
+  CXXFLAGS=-fast -Minfo=all,intensity
+  LDFLAGS=${CXXFLAGS}
+  ```
 
 * Rebuild
 ```bash
 make clean; make
-# Expected output:
-# ...
-# nvc++ -fast -Minfo=all,intensity   -c -o main.o main.cpp
-# initialize_vector(vector &, double):
-#      20, include "vector.h"
-#           36, Intensity = 0.0
-#               Memory set idiom, loop replaced by call to __c_mset8
-# dot(const vector &, const vector &):
-#      21, include "vector_functions.h"
-#           27, Intensity = 1.00
-#               Generated vector simd code for the loop containing reductions
-#           28, FMA (fused multiply-add) instruction(s) generated
-# waxpby(double, const vector &, double, const vector &, const vector &):
-#      21, include "vector_functions.h"
-#           39, Intensity = 1.00
-#               Loop not vectorized: data dependency
-#               Generated vector simd code for the loop
-#               Loop unrolled 2 times
-#               FMA (fused multiply-add) instruction(s) generated
-#           40, FMA (fused multiply-add) instruction(s) generated
-# allocate_3d_poisson_matrix(matrix &, int):
-#      22, include "matrix.h"
-#           43, Intensity = 0.0
-#               Loop not fused: different loop trip count
-#           44, Intensity = 0.0
-#               Loop not vectorized/parallelized: loop count too small
-#           45, Intensity = 0.0
-#               Loop unrolled 3 times (completely unrolled)
-#           57, Intensity = 0.0
-#           59, Intensity = 0.0
-#               Loop not vectorized: data dependency
-# matvec(const matrix &, const vector &, const vector &):
-#      23, include "matrix_functions.h"
-#           29, Intensity = (num_rows*((row_end-row_start)*         2))/(num_rows+(num_rows+(num_rows+((row_end-row_start)+(row_end-row_start)))))
-#           33, Intensity = 1.00
-#               Generated vector simd code for the loop containing reductions
-#           37, FMA (fused multiply-add) instruction(s) generated
-# main:
-#      38, allocate_3d_poisson_matrix(matrix &, int) inlined, size=41 (inline) file main.cpp (29)
-#           43, Intensity = 0.0
-#               Loop not fused: different loop trip count
-#           44, Intensity = 0.0
-#               Loop not vectorized/parallelized: loop count too small
-#           45, Intensity = 0.0
-#               Loop unrolled 3 times (completely unrolled)
-#           57, Intensity = 0.0
-#               Loop not fused: function call before adjacent loop
-#           59, Intensity = 0.0
-#               Loop not vectorized: data dependency
-#      42, allocate_vector(vector &, unsigned int) inlined, size=3 (inline) file main.cpp (24)
-#      43, allocate_vector(vector &, unsigned int) inlined, size=3 (inline) file main.cpp (24)
-#      44, allocate_vector(vector &, unsigned int) inlined, size=3 (inline) file main.cpp (24)
-#      45, allocate_vector(vector &, unsigned int) inlined, size=3 (inline) file main.cpp (24)
-#      46, allocate_vector(vector &, unsigned int) inlined, size=3 (inline) file main.cpp (24)
-#      48, initialize_vector(vector &, double) inlined, size=5 (inline) file main.cpp (34)
-#           36, Intensity = 0.0
-#               Memory set idiom, loop replaced by call to __c_mset8
-#      49, initialize_vector(vector &, double) inlined, size=5 (inline) file main.cpp (34)
-#           36, Intensity = 0.0
-#               Memory set idiom, loop replaced by call to __c_mset8
-#      52, waxpby(double, const vector &, double, const vector &, const vector &) inlined, size=10 (inline) file main.cpp (33)
-#           39, Intensity = 0.0
-#               Memory copy idiom, loop replaced by call to __c_mcopy8
-#      53, matvec(const matrix &, const vector &, const vector &) inlined, size=19 (inline) file main.cpp (20)
-#           29, Intensity = [symbolic], and not printable, try the -Mpfi -Mpfo options
-#               Loop not fused: different loop trip count
-#           33, Intensity = 1.00
-#               Generated vector simd code for the loop containing reductions
-#      54, waxpby(double, const vector &, double, const vector &, const vector &) inlined, size=10 (inline) file main.cpp (33)
-#           27, FMA (fused multiply-add) instruction(s) generated
-#           36, FMA (fused multiply-add) instruction(s) generated
-#           39, Intensity = 0.67
-#               Loop not fused: different loop trip count
-#               Loop not vectorized: data dependency
-#               Generated vector simd code for the loop
-#               Loop unrolled 4 times
-#               FMA (fused multiply-add) instruction(s) generated
-#      56, dot(const vector &, const vector &) inlined, size=9 (inline) file main.cpp (21)
-#           27, Intensity = 1.00
-#               Loop not fused: function call before adjacent loop
-#               Generated vector simd code for the loop containing reductions
-#      61, Intensity = 0.0
-#      62, waxpby(double, const vector &, double, const vector &, const vector &) inlined, size=10 (inline) file main.cpp (33)
-#           39, Intensity = 0.0
-#               Memory copy idiom, loop replaced by call to __c_mcopy8
-#      65, dot(const vector &, const vector &) inlined, size=9 (inline) file main.cpp (21)
-#           27, Intensity = 1.00
-#               Loop not fused: different controlling conditions
-#               Generated vector simd code for the loop containing reductions
-#      67, waxpby(double, const vector &, double, const vector &, const vector &) inlined, size=10 (inline) file main.cpp (33)
-#           39, Intensity = 0.67
-#               Loop not fused: different loop trip count
-#               Loop not vectorized: data dependency
-#               Generated vector simd code for the loop
-#               Loop unrolled 4 times
-#      72, matvec(const matrix &, const vector &, const vector &) inlined, size=19 (inline) file main.cpp (20)
-#           29, Intensity = [symbolic], and not printable, try the -Mpfi -Mpfo options
-#               Loop not fused: different loop trip count
-#           33, Intensity = 1.00
-#               Generated vector simd code for the loop containing reductions
-#      73, dot(const vector &, const vector &) inlined, size=9 (inline) file main.cpp (21)
-#           27, Intensity = 1.00
-#               Loop not fused: different loop trip count
-#               Generated vector simd code for the loop containing reductions
-#      77, waxpby(double, const vector &, double, const vector &, const vector &) inlined, size=10 (inline) file main.cpp (33)
-#           39, Intensity = 0.67
-#               Loop not fused: different loop trip count
-#               Loop not vectorized: data dependency
-#               Generated vector simd code for the loop
-#               Loop unrolled 4 times
-#      78, waxpby(double, const vector &, double, const vector &, const vector &) inlined, size=10 (inline) file main.cpp (33)
-#           39, Intensity = 0.67
-#               Loop not fused: function call before adjacent loop
-#               Loop not vectorized: data dependency
-#               Generated vector simd code for the loop
-#               Loop unrolled 4 times
-#      88, free_vector(vector &) inlined, size=2 (inline) file main.cpp (29)
-#      89, free_vector(vector &) inlined, size=2 (inline) file main.cpp (29)
-#      90, free_vector(vector &) inlined, size=2 (inline) file main.cpp (29)
-#      91, free_vector(vector &) inlined, size=2 (inline) file main.cpp (29)
-#      92, free_matrix(matrix &) inlined, size=5 (inline) file main.cpp (73)
+```
+
+```text
+...
+nvc++ -fast -Minfo=all,intensity   -c -o main.o main.cpp
+initialize_vector(vector &, double):
+     20, include "vector.h"
+          36, Intensity = 0.0
+              Memory set idiom, loop replaced by call to __c_mset8
+dot(const vector &, const vector &):
+     21, include "vector_functions.h"
+          27, Intensity = 1.00
+              Generated vector simd code for the loop containing reductions
+          28, FMA (fused multiply-add) instruction(s) generated
+waxpby(double, const vector &, double, const vector &, const vector &):
+     21, include "vector_functions.h"
+          39, Intensity = 1.00
+              Loop not vectorized: data dependency
+              Generated vector simd code for the loop
+              Loop unrolled 2 times
+              FMA (fused multiply-add) instruction(s) generated
+          40, FMA (fused multiply-add) instruction(s) generated
+allocate_3d_poisson_matrix(matrix &, int):
+     22, include "matrix.h"
+          43, Intensity = 0.0
+              Loop not fused: different loop trip count
+          44, Intensity = 0.0
+              Loop not vectorized/parallelized: loop count too small
+          45, Intensity = 0.0
+              Loop unrolled 3 times (completely unrolled)
+          57, Intensity = 0.0
+          59, Intensity = 0.0
+              Loop not vectorized: data dependency
+matvec(const matrix &, const vector &, const vector &):
+     23, include "matrix_functions.h"
+          29, Intensity = (num_rows*((row_end-row_start)*         2))/(num_rows+(num_rows+(num_rows+((row_end-row_start)+(row_end-row_start)))))
+          33, Intensity = 1.00
+              Generated vector simd code for the loop containing reductions
+          37, FMA (fused multiply-add) instruction(s) generated
+main:
+     38, allocate_3d_poisson_matrix(matrix &, int) inlined, size=41 (inline) file main.cpp (29)
+          43, Intensity = 0.0
+              Loop not fused: different loop trip count
+          44, Intensity = 0.0
+              Loop not vectorized/parallelized: loop count too small
+          45, Intensity = 0.0
+              Loop unrolled 3 times (completely unrolled)
+          57, Intensity = 0.0
+              Loop not fused: function call before adjacent loop
+          59, Intensity = 0.0
+              Loop not vectorized: data dependency
+     42, allocate_vector(vector &, unsigned int) inlined, size=3 (inline) file main.cpp (24)
+     43, allocate_vector(vector &, unsigned int) inlined, size=3 (inline) file main.cpp (24)
+     44, allocate_vector(vector &, unsigned int) inlined, size=3 (inline) file main.cpp (24)
+     45, allocate_vector(vector &, unsigned int) inlined, size=3 (inline) file main.cpp (24)
+     46, allocate_vector(vector &, unsigned int) inlined, size=3 (inline) file main.cpp (24)
+     48, initialize_vector(vector &, double) inlined, size=5 (inline) file main.cpp (34)
+          36, Intensity = 0.0
+              Memory set idiom, loop replaced by call to __c_mset8
+     49, initialize_vector(vector &, double) inlined, size=5 (inline) file main.cpp (34)
+          36, Intensity = 0.0
+              Memory set idiom, loop replaced by call to __c_mset8
+     52, waxpby(double, const vector &, double, const vector &, const vector &) inlined, size=10 (inline) file main.cpp (33)
+          39, Intensity = 0.0
+              Memory copy idiom, loop replaced by call to __c_mcopy8
+     53, matvec(const matrix &, const vector &, const vector &) inlined, size=19 (inline) file main.cpp (20)
+          29, Intensity = [symbolic], and not printable, try the -Mpfi -Mpfo options
+              Loop not fused: different loop trip count
+          33, Intensity = 1.00
+              Generated vector simd code for the loop containing reductions
+     54, waxpby(double, const vector &, double, const vector &, const vector &) inlined, size=10 (inline) file main.cpp (33)
+          27, FMA (fused multiply-add) instruction(s) generated
+          36, FMA (fused multiply-add) instruction(s) generated
+          39, Intensity = 0.67
+              Loop not fused: different loop trip count
+              Loop not vectorized: data dependency
+              Generated vector simd code for the loop
+              Loop unrolled 4 times
+              FMA (fused multiply-add) instruction(s) generated
+     56, dot(const vector &, const vector &) inlined, size=9 (inline) file main.cpp (21)
+          27, Intensity = 1.00
+              Loop not fused: function call before adjacent loop
+              Generated vector simd code for the loop containing reductions
+     61, Intensity = 0.0
+     62, waxpby(double, const vector &, double, const vector &, const vector &) inlined, size=10 (inline) file main.cpp (33)
+          39, Intensity = 0.0
+              Memory copy idiom, loop replaced by call to __c_mcopy8
+     65, dot(const vector &, const vector &) inlined, size=9 (inline) file main.cpp (21)
+          27, Intensity = 1.00
+              Loop not fused: different controlling conditions
+              Generated vector simd code for the loop containing reductions
+     67, waxpby(double, const vector &, double, const vector &, const vector &) inlined, size=10 (inline) file main.cpp (33)
+          39, Intensity = 0.67
+              Loop not fused: different loop trip count
+              Loop not vectorized: data dependency
+              Generated vector simd code for the loop
+              Loop unrolled 4 times
+     72, matvec(const matrix &, const vector &, const vector &) inlined, size=19 (inline) file main.cpp (20)
+          29, Intensity = [symbolic], and not printable, try the -Mpfi -Mpfo options
+              Loop not fused: different loop trip count
+          33, Intensity = 1.00
+              Generated vector simd code for the loop containing reductions
+     73, dot(const vector &, const vector &) inlined, size=9 (inline) file main.cpp (21)
+          27, Intensity = 1.00
+              Loop not fused: different loop trip count
+              Generated vector simd code for the loop containing reductions
+     77, waxpby(double, const vector &, double, const vector &, const vector &) inlined, size=10 (inline) file main.cpp (33)
+          39, Intensity = 0.67
+              Loop not fused: different loop trip count
+              Loop not vectorized: data dependency
+              Generated vector simd code for the loop
+              Loop unrolled 4 times
+     78, waxpby(double, const vector &, double, const vector &, const vector &) inlined, size=10 (inline) file main.cpp (33)
+          39, Intensity = 0.67
+              Loop not fused: function call before adjacent loop
+              Loop not vectorized: data dependency
+              Generated vector simd code for the loop
+              Loop unrolled 4 times
+     88, free_vector(vector &) inlined, size=2 (inline) file main.cpp (29)
+     89, free_vector(vector &) inlined, size=2 (inline) file main.cpp (29)
+     90, free_vector(vector &) inlined, size=2 (inline) file main.cpp (29)
+     91, free_vector(vector &) inlined, size=2 (inline) file main.cpp (29)
+     92, free_matrix(matrix &) inlined, size=5 (inline) file main.cpp (73)
 ```
 
 ### Interpretation of the Compiler Feedback
 The *Computational Intensity* of a loop is a measure of how much work is being done compared to memory operations.
 Basically:
 
-$$ \mbox{Computational Intensity} = \frac{\mbox{Compute Operations}}{\mbox{Memory Operations}} $$
+$\mbox{Computational Intensity} = \frac{\mbox{Compute Operations}}{\mbox{Memory Operations}}$
 
 In the compiler feedback, an `Intensity` $\ge$ 1.0 suggests that the loop might run well on a GPU.
 
 ## Understanding the code
 Let's look closely at the main loop in the
 [`matvec()` function implemented in `matrix_functions.h`](https://github.com/calculquebec/cq-formation-openacc/blob/main/cpp/matrix_functions.h#L29):
-```cpp linenums="29" hl_lines="1 5 10 12"
+```cpp
   for(int i=0;i<num_rows;i++) {
     double sum=0;
     int row_start=row_offsets[i];
@@ -289,11 +351,11 @@ Let's look closely at the main loop in the
 ```
 Given the code above, we search for data dependencies:
 * Does one loop iteration affect other loop iterations?
-    * For example, when generating the **[Fibonacci sequence](https://en.wikipedia.org/wiki/Fibonacci_number)**, each new value depends on the previous two values. Therefore, efficient parallelism is very difficult to implement, if not impossible.
+  * For example, when generating the **[Fibonacci sequence](https://en.wikipedia.org/wiki/Fibonacci_number)**, each new value depends on the previous two values. Therefore, efficient parallelism is very difficult to implement, if not impossible.
 * Is the accumulation of values in `sum` a data dependency?
-    * No, it’s a **[reduction](https://en.wikipedia.org/wiki/Reduction_operator)**! And modern compilers are good at optimising such reductions.
+  * No, it’s a **[reduction](https://en.wikipedia.org/wiki/Reduction_operator)**! And modern compilers are good at optimizing such reductions.
 * Do loop iterations read from and write to the same array, such that written values are used or overwritten in other iterations?
-    * Fortunately, that does not happen in the above code.
+  * Fortunately, that does not happen in the above code.
 
 Now that the code analysis is done, we are ready to add directives to the compiler.
 

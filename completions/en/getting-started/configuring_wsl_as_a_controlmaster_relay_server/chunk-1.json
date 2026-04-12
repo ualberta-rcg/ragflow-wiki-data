@@ -1,0 +1,124 @@
+{
+  "doc_key": "en/configuring_wsl_as_a_controlmaster_relay_server",
+  "level": "chunk",
+  "chunk_index": 1,
+  "qa_pairs": [
+    {
+      "question": "What is the status of this procedure for leveraging ControlMaster under WSL?",
+      "answer": "This procedure is still experimental and considered a work in progress."
+    },
+    {
+      "question": "Where should users send suggestions regarding this experimental procedure?",
+      "answer": "Suggestions should be sent to technical support."
+    },
+    {
+      "question": "What is the main goal of leveraging ControlMaster under WSL with this procedure?",
+      "answer": "The main goal is to log into clusters with several apps under native Windows for a certain period without having to use multifactor authentication for every session."
+    },
+    {
+      "question": "Where can I find detailed instructions for installing Linux on Windows using WSL?",
+      "answer": "Detailed instructions are available at: https://docs.alliancecan.ca/wiki/Windows_Subsystem_for_Linux_(WSL)."
+    },
+    {
+      "question": "Which Linux distribution is assumed for this setup?",
+      "answer": "Ubuntu is assumed as the distribution for this setup."
+    },
+    {
+      "question": "What is the assumed hostname for the WSL instance in this setup?",
+      "answer": "The assumed hostname for the WSL instance is 'ubuntu'."
+    },
+    {
+      "question": "What should the `/etc/hostname` file contain according to the sample configuration assumptions?",
+      "answer": "The `/etc/hostname` file should contain 'ubuntu'."
+    },
+    {
+      "question": "What should the `/etc/hosts` file contain according to the sample configuration assumptions?",
+      "answer": "The `/etc/hosts` file should contain '127.0.0.1 localhost ubuntu'."
+    },
+    {
+      "question": "What is the assumed name of the Windows system in this setup?",
+      "answer": "The assumed name of the Windows system is 'smart'."
+    },
+    {
+      "question": "What is the assumed login name for the Windows system 'smart'?",
+      "answer": "The assumed login name for the Windows system 'smart' is 'jaime'."
+    },
+    {
+      "question": "What is the assumed user name on the Ubuntu VM?",
+      "answer": "The assumed user name on the Ubuntu VM is 'jaime'."
+    },
+    {
+      "question": "What is the assumed Alliance user name for connecting to Cedar?",
+      "answer": "The assumed Alliance user name is 'pinto'."
+    },
+    {
+      "question": "Which cluster is used as the target server for this exercise?",
+      "answer": "Cedar is used as the target server for this exercise."
+    },
+    {
+      "question": "What commands are used to install additional packages on Ubuntu for this setup?",
+      "answer": "You should run `sudo apt update && sudo apt upgrade -y` followed by `sudo apt install openssh-server -y`."
+    },
+    {
+      "question": "How can you log in from Windows to Ubuntu after installing `openssh-server`?",
+      "answer": "You can log in from Windows to Ubuntu using `ssh localhost`."
+    },
+    {
+      "question": "Describe the general idea of the SSH setup.",
+      "answer": "The general idea of the setup is: your Windows machine (ssh client 'smart') connects to your Ubuntu VM (ssh relay server 'ubuntu') which then connects to Cedar (ssh target server)."
+    },
+    {
+      "question": "What port is configured for the custom `sshd` server in the `custom_ssh/sshd_config` file?",
+      "answer": "The custom `sshd` server is configured to listen on Port 2222."
+    },
+    {
+      "question": "How do you copy the `ssh_host_ed25519_key` from `/etc/ssh` to the `custom_ssh` folder?",
+      "answer": "You can copy the key using the command: `sudo cp /etc/ssh/ssh_host_ed25519_key /home/jaime/custom_ssh/`."
+    },
+    {
+      "question": "What are the `ControlMaster` and `ControlPersist` settings configured for the `cedar` host in the Ubuntu `~/.ssh/config`?",
+      "answer": "For the `cedar` host in Ubuntu's `~/.ssh/config`, `ControlMaster` is set to `auto` and `ControlPersist` is set to `10m`."
+    },
+    {
+      "question": "What is the `HostName` configured for `cedar` in the Ubuntu `~/.ssh/config`?",
+      "answer": "The `HostName` configured for `cedar` is `cedar.alliancecan.ca`."
+    },
+    {
+      "question": "What is the requirement for the public SSH key used in `/home/jaime/custom_ssh/authorized_keys`?",
+      "answer": "You must use the same public SSH key that you uploaded to CCDB."
+    },
+    {
+      "question": "How do you start the custom `sshd` server on Ubuntu?",
+      "answer": "You start the custom `sshd` server using the command: `/usr/sbin/sshd -f ${HOME}/custom_ssh/sshd_config`."
+    },
+    {
+      "question": "Who should start the `sshd` server on Ubuntu?",
+      "answer": "The `sshd` server should be started as yourself, not as root."
+    },
+    {
+      "question": "When is it necessary to restart the `sshd` server on Ubuntu?",
+      "answer": "You will need to start the `sshd` server every time you restart your computer, or after closing or restarting WSL."
+    },
+    {
+      "question": "What is the `Hostname` configured for the `ubuntu` host in the Windows system's `~/.ssh/config`?",
+      "answer": "The `Hostname` configured for the `ubuntu` host is `localhost`."
+    },
+    {
+      "question": "What is the `RemoteCommand` specified for the `ubuntu` host in the Windows system's `~/.ssh/config`?",
+      "answer": "The `RemoteCommand` specified is `ssh cedar`."
+    },
+    {
+      "question": "What command is used to log into Cedar from the 'smart' Windows system using this setup?",
+      "answer": "You use `ssh -t ubuntu -p 2222` to log into Cedar from the 'smart' Windows system."
+    },
+    {
+      "question": "In the alternative setup, where is the `RemoteCommand` placed?",
+      "answer": "In the alternative setup, the `RemoteCommand` is placed directly within the public key entry in `/home/jaime/custom_ssh/authorized_keys` on Ubuntu."
+    },
+    {
+      "question": "Which Windows GUI applications might benefit from the alternative setup?",
+      "answer": "Windows GUI apps that don't let you explicitly set the `RemoteCommand`, such as WinSCP, might work better with the alternative setup."
+    }
+  ],
+  "generated_at": "2026-04-11T20:22:23.131748+00:00"
+}

@@ -1,0 +1,48 @@
+{
+  "doc_key": "fr/pytorch",
+  "level": "chunk",
+  "chunk_index": 11,
+  "qa_pairs": [
+    {
+      "question": "C'est quoi l'objectif principal du script Python `pytorch-ddp-test.py`?",
+      "answer": "Le script `pytorch-ddp-test.py` vise à tester le parallélisme des données distribuées (`Distributed Data Parallel`) pour des modèles de classification CIFAR10."
+    },
+    {
+      "question": "Comment le script `pytorch-ddp-test.py` identifie-t-il le GPU local à utiliser?",
+      "answer": "Le script utilise la variable d'environnement `SLURM_LOCALID` pour obtenir le rang local (`local_rank`), puis il attribue ce rang au `current_device` en appelant `torch.cuda.set_device(current_device)`."
+    },
+    {
+      "question": "Quelle fonction est utilisée dans `pytorch-ddp-test.py` pour initialiser le groupe de processus pour la communication distribuée?",
+      "answer": "La fonction `dist.init_process_group` est utilisée pour initialiser le groupe de processus, en spécifiant le backend, la méthode d'initialisation, la taille du monde (`world_size`) et le rang (`rank`)."
+    },
+    {
+      "question": "Comment le modèle `Net` est-il préparé pour le parallélisme des données distribuées dans le script `pytorch-ddp-test.py`?",
+      "answer": "Après avoir été compilé avec `torch.compile(Net())` et déplacé sur le GPU avec `net.cuda()`, le modèle est enveloppé par `torch.nn.parallel.DistributedDataParallel(net, device_ids=[current_device])`."
+    },
+    {
+      "question": "Quel type d'échantillonneur (`sampler`) est utilisé pour les données d'entraînement dans l'exemple de parallélisme distribué (`pytorch-ddp-test.py`)?",
+      "answer": "Un `torch.utils.data.distributed.DistributedSampler(dataset_train)` est utilisé pour gérer la distribution des données d'entraînement entre les différents processus."
+    },
+    {
+      "question": "Quels sont l'optimiseur et la fonction de perte utilisés dans le script `pytorch-ddp-test.py`?",
+      "answer": "L'optimiseur est `optim.SGD` avec un taux d'apprentissage (`lr`), un `momentum` et un `weight_decay`, et la fonction de perte est `nn.CrossEntropyLoss().cuda()`."
+    },
+    {
+      "question": "C'est quoi PyTorch Lightning?",
+      "answer": "PyTorch Lightning est un paquet qui offre des interfaces à PyTorch pour simplifier diverses tâches complexes, comme l'entraînement de modèles avec plusieurs GPU, en réduisant la quantité de code nécessaire."
+    },
+    {
+      "question": "Comment PyTorch Lightning gère-t-il le parallélisme des données avec plusieurs GPU par rapport à l'approche manuelle avec `DistributedDataParallel`?",
+      "answer": "PyTorch Lightning simplifie ce processus en permettant d'obtenir des résultats similaires sans avoir à recourir explicitement à la classe `DistributedDataParallel`, comme démontré dans l'exemple `pytorch-ddp-test-pl.py`."
+    },
+    {
+      "question": "Quel est le but de `enable_progress_bar=False` lors de l'initialisation du `Trainer` dans l'exemple PyTorch Lightning?",
+      "answer": "Ce paramètre est utilisé pour éviter que la barre de progression n'écrive trop souvent dans les logs, ce qui pourrait entraîner des problèmes."
+    },
+    {
+      "question": "Comment le modèle est-il défini et entraîné en utilisant PyTorch Lightning dans l'exemple `pytorch-ddp-test-pl.py`?",
+      "answer": "Le modèle est défini en héritant de `pl.LightningModule` et est entraîné en initialisant un `pl.Trainer` (spécifiant `accelerator=\"gpu\"`, `devices`, `num_nodes`, et `strategy='ddp'`) puis en appelant `trainer.fit(net, train_loader)`."
+    }
+  ],
+  "generated_at": "2026-04-12T05:47:04.102638+00:00"
+}

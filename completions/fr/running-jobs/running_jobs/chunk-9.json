@@ -1,0 +1,44 @@
+{
+  "doc_key": "fr/running_jobs",
+  "level": "chunk",
+  "chunk_index": 9,
+  "qa_pairs": [
+    {
+      "question": "Comment faire pour annuler une tâche Slurm spécifique, si je connais son identifiant?",
+      "answer": "Pour annuler une tâche Slurm spécifique, il faut utiliser la commande `scancel` en spécifiant l'identifiant de la tâche, comme ceci : `scancel <jobid>`."
+    },
+    {
+      "question": "Y a-t-il une façon d'annuler toutes mes tâches Slurm d'un coup?",
+      "answer": "Oui, pour annuler toutes vos tâches Slurm, vous pouvez utiliser la commande `scancel -u $USER`."
+    },
+    {
+      "question": "Comment puis-je annuler seulement les tâches Slurm qui sont en attente?",
+      "answer": "Pour annuler uniquement vos tâches Slurm qui sont en attente, la commande à utiliser est `scancel -t PENDING -u $USER`."
+    },
+    {
+      "question": "Pourquoi est-ce que je devrais resoumettre une tâche pour un calcul de longue durée?",
+      "answer": "Vous pourriez avoir besoin de resoumettre une tâche pour un calcul de longue durée si votre calcul dépasse la limite de temps maximale imposée par le système."
+    },
+    {
+      "question": "Qu'est-ce qu'une application doit supporter pour permettre la resoumission de tâches de longue durée?",
+      "answer": "Pour qu'une application puisse gérer la resoumission de tâches de longue durée, elle doit être capable de gérer des points de contrôle (checkpointing), de sauvegarder son état intégral dans un fichier de point de contrôle et de redémarrer pour poursuivre le calcul à partir de ce dernier état sauvegardé."
+    },
+    {
+      "question": "Quelles sont les deux méthodes recommandées pour automatiser la resoumission de calculs de longue durée?",
+      "answer": "Les deux méthodes recommandées pour automatiser la resoumission de calculs de longue durée sont l'utilisation de vecteurs de tâches (job arrays) Slurm, et la resoumission à partir de la fin du script."
+    },
+    {
+      "question": "Comment la syntaxe `--array=1-100%10` fonctionne-t-elle pour les vecteurs de tâches?",
+      "answer": "La syntaxe `--array=1-100%10` permet de soumettre une collection de tâches identiques en n'exécutant qu'une tâche à la fois. Le chiffre après le pourcent (`%`) indique le nombre maximal de tâches à exécuter simultanément."
+    },
+    {
+      "question": "Comment un script utilisant des vecteurs de tâches gère-t-il les points de contrôle?",
+      "answer": "Le script utilisant des vecteurs de tâches doit s'assurer que le dernier point de contrôle est toujours utilisé pour la prochaine tâche. Si un fichier de point de contrôle (`state.cpt`) existe, la simulation redémarre à partir de celui-ci; sinon, une nouvelle simulation est lancée."
+    },
+    {
+      "question": "Décrivez le principe de la resoumission de tâches à partir d'un script.",
+      "answer": "Avec cette méthode, la tâche exécute la première partie du calcul et enregistre un point de contrôle. Avant la fin du temps alloué, le script vérifie si le calcul est terminé. Si ce n'est pas le cas, le script soumet une copie de lui-même pour continuer le travail."
+    }
+  ],
+  "generated_at": "2026-04-12T07:11:44.197298+00:00"
+}

@@ -1,0 +1,56 @@
+{
+  "doc_key": "fr/allocations_and_compute_scheduling",
+  "level": "chunk",
+  "chunk_index": 7,
+  "qa_pairs": [
+    {
+      "question": "Comment est calculée la quantité d'Unités GPU de référence (UGR) quand on demande des GPU-année pour un projet?",
+      "answer": "La quantité d'UGR est calculée en multipliant le nombre de GPU-année demandées par la valeur UGR du modèle de GPU choisi. Par exemple, si vous demandez 13 GPU-année du modèle A100-40gb, la quantité serait de 13 * 4,0 = 52 UGR."
+    },
+    {
+      "question": "Que se passe-t-il si une allocation de GPU doit être déplacée d'une grappe à une autre?",
+      "answer": "Si une allocation de GPU doit être déplacée vers une autre grappe, le comité d'allocation attribuera des GPU-année à cette autre ressource tout en conservant la même quantité en UGR."
+    },
+    {
+      "question": "Sur quel principe se base la détermination de la priorité des tâches de calcul?",
+      "answer": "La priorité des tâches de calcul se base sur les ressources qu'une tâche rend non disponibles aux autres utilisateurs, plutôt que sur les ressources effectivement utilisées."
+    },
+    {
+      "question": "Dans quel cas des cœurs non utilisés peuvent-ils influencer le calcul des priorités?",
+      "answer": "Des cœurs non utilisés influencent le calcul des priorités lorsqu'une tâche demande plusieurs cœurs, mais n'en consomme qu'une partie à l'exécution. Le nombre de cœurs demandés bloque les cœurs non utilisés."
+    },
+    {
+      "question": "Quel est un autre scénario courant où des cœurs peuvent être bloqués sans être directement consommés par une tâche?",
+      "answer": "Un autre cas est lorsqu'une tâche exige plus de mémoire que celle demandée pour un cœur. Par exemple, sur une grappe où chaque cœur est doté de 4Go de mémoire, une tâche demandant un seul cœur et 8Go de mémoire bloquerait 2 cœurs."
+    },
+    {
+      "question": "Qu'est-ce qu'un 'équivalent-cœur' ou 'bundle'?",
+      "answer": "Un équivalent-cœur, ou 'bundle', est une unité de ressource composée d'un cœur simple et d'une certaine quantité de mémoire qui lui est associée."
+    },
+    {
+      "question": "Quel est le ratio mémoire:cœur le plus commun sur les grappes mentionnées dans le document?",
+      "answer": "Présentement, le ratio mémoire:cœur le plus commun sur nos grappes est de 4Go par cœur."
+    },
+    {
+      "question": "Pourquoi l'utilisation de portions d'équivalents-cœur peut-elle rendre le suivi des cibles plus complexe?",
+      "answer": "L'utilisation de portions d'équivalents-cœur complique le suivi des cibles parce que ça risque d'augmenter le pointage servant au calcul de la juste part du groupe de recherche."
+    },
+    {
+      "question": "Selon les exemples de comptabilisation, quand est-ce que les cœurs sont comptabilisés comme facteur principal par l'ordonnanceur?",
+      "answer": "Les cœurs sont comptabilisés si un groupe utilise plus de cœurs que de mémoire, c'est-à-dire plus que le ratio de 1 cœur pour 4Go."
+    },
+    {
+      "question": "Si une tâche demande 2 cœurs et 2Go de mémoire par cœur, comment l'ordonnanceur évalue-t-il cette demande en équivalents-cœurs, en considérant un bundle de 1 cœur et 4Go?",
+      "answer": "Pour cette demande, l'ordonnanceur évalue la demande à 2 équivalents-cœurs, car même si la mémoire totale (4Go) correspond à un seul bundle, la demande en cœurs (2 cœurs) prime sur le ratio mémoire."
+    },
+    {
+      "question": "Quand est-ce que la mémoire est comptabilisée comme facteur principal par l'ordonnanceur pour les équivalents-cœurs?",
+      "answer": "La mémoire est comptabilisée si un groupe utilise plus de mémoire que le ratio de 1 cœur pour 4Go."
+    },
+    {
+      "question": "Si une tâche demande 2 cœurs et 5Go de mémoire par cœur, comment l'ordonnanceur calcule-t-il les équivalents-cœurs, en considérant un bundle de 1 cœur et 4Go?",
+      "answer": "L'ordonnanceur évalue la demande à 2.5 équivalents-cœurs. Ceci est calculé en fonction de la mémoire totale de 10Go, ce qui représente 2.5 bundles de 4Go chacun."
+    }
+  ],
+  "generated_at": "2026-04-11T16:28:29.878621+00:00"
+}

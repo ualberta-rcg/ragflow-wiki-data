@@ -1,0 +1,76 @@
+{
+  "doc_key": "en/paraview",
+  "level": "chunk",
+  "chunk_index": 9,
+  "qa_pairs": [
+    {
+      "question": "What is an example Slurm job submission script for parallel batch production visualization?",
+      "answer": "A Slurm job submission script for parallel batch production, named `distributed.sh`, would typically include `#SBATCH --time=3:0:0`, `#SBATCH --mem-per-cpu=3600`, `#SBATCH --ntasks=4`, `#SBATCH --account=def-someuser`, and the command `srun pvbatch --force-offscreen-rendering --opengl-window-backend OSMesa script.py`."
+    },
+    {
+      "question": "What is the purpose of the 'Client-server visualization in a cloud VM' section?",
+      "answer": "This section describes how to set up and run a ParaView server on a cloud Virtual Machine (VM), which is a less common approach intended for custom setups not supported by cluster-installed ParaView."
+    },
+    {
+      "question": "What are the prerequisite packages to install on a CentOS VM for compiling ParaView or VisIt?",
+      "answer": "On a CentOS VM, you would need to install `xauth`, `wget`, `gcc`, `gcc-c++`, `ncurses-devel`, `python-devel`, `libxcb-devel`, `patch`, `imake`, `libxml2-python`, `mesa-libGL`, `mesa-libGL-devel`, `mesa-libGLU`, `mesa-libGLU-devel`, `bzip2`, `bzip2-libs`, `libXt-devel`, `zlib-devel`, `flex`, and `byacc`."
+    },
+    {
+      "question": "How can one copy a private-public SSH key pair to a cloud VM?",
+      "answer": "From your computer, you can issue the command `cat ~/.ssh/id_rsa.pub | ssh -i ~/.ssh/cloudwestkey.pem centos@vm.ip.address 'cat >>.ssh/authorized_keys'` to copy your public key to the VM's authorized keys, simplifying future logins."
+    },
+    {
+      "question": "Why is OSMesa support required when compiling ParaView on a cloud VM?",
+      "answer": "OSMesa support is needed because most Arbutus VMs do not have access to a GPU, so ParaView must be compiled to perform offscreen (software) rendering."
+    },
+    {
+      "question": "Which drivers are built with the default OSMesa configuration and which one is recommended?",
+      "answer": "The default OSMesa configuration builds both `llvmpipe` (older and slower) and `SWR` (newer and faster) drivers. SWR is recommended for use."
+    },
+    {
+      "question": "What are the steps to compile CMake on a VM?",
+      "answer": "To compile CMake on a VM, first download `cmake-4.1.1.tar.gz` using `wget`, then extract it, navigate into the directory, run `./bootstrap`, `make`, and finally `sudo make install`."
+    },
+    {
+      "question": "What is the command to download the LLVM project for compilation on a VM?",
+      "answer": "The command to download the LLVM project is `wget https://github.com/llvm/llvm-project/releases/download/llvmorg-21.1.0/LLVM-21.1.0-Linux-X64.tar.xz`."
+    },
+    {
+      "question": "What are the key configuration options when compiling LLVM on a VM?",
+      "answer": "Key configuration options for compiling LLVM include `-DCMAKE_BUILD_TYPE=Release`, `-DLLVM_BUILD_LLVM_DYLIB=ON`, `-DLLVM_ENABLE_RTTI=ON`, `-DLLVM_INSTALL_UTILS=ON`, and `-DLLVM_TARGETS_TO_BUILD:STRING=X86`."
+    },
+    {
+      "question": "What command is used to download Mesa with OSMesa for compilation on a VM?",
+      "answer": "The command to download Mesa with OSMesa is `wget https://archive.mesa3d.org/mesa-25.2.3.tar.xz`."
+    },
+    {
+      "question": "What are the essential `./configure` options for compiling Mesa with OSMesa support?",
+      "answer": "Essential `./configure` options for Mesa with OSMesa support include `--enable-opengl`, `--disable-gles1`, `--disable-gles2`, `--enable-shared-glapi`, `--enable-gallium-llvm`, `--enable-llvm-shared-libs`, `--with-gallium-drivers=swrast,swr`, and `--enable-gallium-osmesa` while disabling `--disable-va`, `--disable-xvmc`, `--disable-vdpau`, `--disable-texture-float`, `--disable-dri`, `--disable-egl`, `--disable-gbm`, `--disable-glx`, and `--disable-osmesa`."
+    },
+    {
+      "question": "What command is used to download the ParaView server for compilation on a VM?",
+      "answer": "The command to download the ParaView server is `wget https://www.paraview.org/files/v6.0/ParaView-v6.0.0.tar.gz`."
+    },
+    {
+      "question": "What are the important CMake flags for compiling the ParaView server on a VM for offscreen rendering?",
+      "answer": "Important CMake flags for compiling the ParaView server for offscreen rendering on a VM include `-DCMAKE_BUILD_TYPE=Release`, `-DCMAKE_INSTALL_PREFIX=/home/centos/paraview`, `-DPARAVIEW_USE_MPI=OFF`, `-DPARAVIEW_ENABLE_PYTHON=ON`, `-DPARAVIEW_BUILD_QT_GUI=OFF`, `-DVTK_OPENGL_HAS_OSMESA=ON`, `-DVTK_USE_OFFSCREEN=ON`, and `-DVTK_USE_X=OFF`."
+    },
+    {
+      "question": "How do you start the ParaView server on a VM with SWR rendering?",
+      "answer": "You start the ParaView server on the VM with SWR rendering by executing `./paraview/bin/pvserver --force-offscreen-rendering --opengl-window-backend OSMesa`."
+    },
+    {
+      "question": "How can an SSH tunnel be organized from a local machine to a VM for ParaView client-server connection?",
+      "answer": "An SSH tunnel can be organized by running `ssh centos@vm.ip.address -L 11111:localhost:11111` on your computer, which links the local port 11111 to the VM's port 11111."
+    },
+    {
+      "question": "After setting up the SSH tunnel, how do you connect the ParaView client on your computer to the server on the VM?",
+      "answer": "After setting up the SSH tunnel, you start the ParaView client on your computer and connect to `localhost:11111`."
+    },
+    {
+      "question": "What message should appear in the console during rendering if SWR is detected when using ParaView in a cloud VM?",
+      "answer": "During rendering, if SWR is detected, the message 'SWR detected AVX2' should appear in the console."
+    }
+  ],
+  "generated_at": "2026-04-12T04:55:23.121942+00:00"
+}

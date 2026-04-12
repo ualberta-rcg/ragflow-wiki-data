@@ -1,0 +1,111 @@
+{
+  "doc_key": "en/gnu_parallel",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is GNU Parallel?",
+      "answer": "GNU Parallel is a tool designed for running numerous sequential tasks concurrently on one or more computing nodes."
+    },
+    {
+      "question": "What types of tasks is GNU Parallel particularly useful for?",
+      "answer": "It is useful for running a large number of sequential tasks, especially if they are short, of variable durations, or when performing a parameter sweep."
+    },
+    {
+      "question": "Where can users find more advanced documentation for GNU Parallel?",
+      "answer": "Users can find more advanced usage information in the official GNU Parallel documentation."
+    },
+    {
+      "question": "How does GNU Parallel determine the number of simultaneous tasks by default?",
+      "answer": "By default, `parallel` runs as many tasks as the number of cores allocated by the scheduler, maximizing resource usage."
+    },
+    {
+      "question": "How can one change the default number of simultaneous tasks that GNU Parallel runs?",
+      "answer": "You can change this behaviour using the `--jobs` option followed by the desired number of simultaneous tasks."
+    },
+    {
+      "question": "What syntax does GNU Parallel use to specify parameters for a command?",
+      "answer": "GNU Parallel uses curly brackets `{}` as parameters for the command to be run."
+    },
+    {
+      "question": "What is an alternative syntax for passing arguments to GNU Parallel?",
+      "answer": "An alternative syntax for passing arguments is to use `:::`, typically followed by a list of values or a command that generates them."
+    },
+    {
+      "question": "In the context of GNU Parallel, what is the distinction between a 'job' and a 'subjob'?",
+      "answer": "GNU Parallel refers to each executed command as a 'job', which can be confusing because on many systems, a 'job' is a batch script run by a scheduler, making GNU Parallel's 'jobs' essentially 'subjobs' within that larger context."
+    },
+    {
+      "question": "How can you specify multiple arguments for a command in GNU Parallel?",
+      "answer": "Multiple arguments can be used by enumerating them, such as `parallel echo {1} {2} ::: $(seq 1 3) ::: $(seq 2 3)`."
+    },
+    {
+      "question": "How does GNU Parallel use the content of a file to generate a list of argument values?",
+      "answer": "The `::::` syntax takes the content of a file, where each line or delimited section provides values for the arguments."
+    },
+    {
+      "question": "How can GNU Parallel execute a list of subjobs specified in a file?",
+      "answer": "GNU Parallel can interpret the lines of a file as actual subjobs to be run in parallel by using input redirection, such as `parallel < my_commands.txt`."
+    },
+    {
+      "question": "When is it particularly useful to provide a list of commands to GNU Parallel via a file?",
+      "answer": "This usage mode is particularly useful if the subjobs contain symbols special to GNU Parallel, or if the subcommands consist of a few combined commands."
+    },
+    {
+      "question": "Is it recommended to use GNU Parallel across multiple nodes?",
+      "answer": "No, it is not recommended to use GNU Parallel across multiple nodes, especially for many short jobs, due to potential issues with SSH session overhead and hanging."
+    },
+    {
+      "question": "If one chooses to use GNU Parallel on multiple nodes, what option should be added and why?",
+      "answer": "A delay of 30 seconds or more should be added between jobs using the `--sshdelay 30` option, as starting an SSH session on remote nodes often requires several seconds and can hang."
+    },
+    {
+      "question": "How can GNU Parallel be configured to distribute tasks across multiple nodes in a cluster?",
+      "answer": "You can create a file containing a list of node hostnames (e.g., using `scontrol show hostname`) and then specify this file with the `--sshloginfile` option to tell GNU Parallel which nodes to use."
+    },
+    {
+      "question": "What is the purpose of the `--env` option when running GNU Parallel on multiple nodes?",
+      "answer": "The `--env` option allows for transferring a named environment variable to all the nodes where GNU Parallel tasks will run."
+    },
+    {
+      "question": "What does the `--workdir` option ensure when using GNU Parallel on multiple nodes?",
+      "answer": "The `--workdir` option ensures that the GNU Parallel tasks will start in the same directory as the main node."
+    },
+    {
+      "question": "How can users keep track of completed and failed commands when using GNU Parallel?",
+      "answer": "Users can use the `--joblog JOBLOGFILE` argument to tell GNU Parallel to record completed commands, their start times, durations, hosts, and exit values in a specified file."
+    },
+    {
+      "question": "How can an interrupted `parallel` command be resumed from where it left off?",
+      "answer": "An interrupted command can be resumed using the `--resume` option in conjunction with the `--joblog` argument, which will append new jobs to the existing log file."
+    },
+    {
+      "question": "How can users re-run only the failed subcommands after a GNU Parallel execution?",
+      "answer": "Users can re-run failed subcommands (those with a non-zero exit code) using the `--resume-failed` option along with the `--joblog` argument."
+    },
+    {
+      "question": "Which GNU Parallel arguments are essential for efficiently handling chunks of a large file?",
+      "answer": "The `--pipepart`, `--block`, and `--recstart` arguments are essential for efficiently handling chunks of a large file, such as in a FASTA file example."
+    },
+    {
+      "question": "Why is choosing the correct block size important when processing large files with GNU Parallel?",
+      "answer": "Choosing the right block size significantly impacts efficiency and CPU core usage; an improper size can lead to too many small jobs, too few large jobs, or inefficient core utilization."
+    },
+    {
+      "question": "What block size setting is often the most efficient for processing large files with GNU Parallel?",
+      "answer": "Letting GNU Parallel adapt and decide on the block size, often indicated by `-1` for the `--block` option, is frequently faster."
+    },
+    {
+      "question": "Before running hundreds or thousands of simulations with GNU Parallel, what is the initial step?",
+      "answer": "The initial step is to determine the resources (memory, core, time) required by a single simulation to estimate the total resources needed for the entire job."
+    },
+    {
+      "question": "How can a file containing a list of parameters be used for simulations with GNU Parallel?",
+      "answer": "A file containing parameters, delimited by a tab character (`\\t`) with each line corresponding to one simulation, can be read by GNU Parallel using `::::` and the `--colsep` option to pass arguments to the simulation command."
+    },
+    {
+      "question": "How can GNU Parallel generate simulation parameters on the fly without a separate parameter file?",
+      "answer": "GNU Parallel can generate parameters on the fly using the `:::` syntax with ranges (e.g., `{1..10} ::: {1..100}`) to feed them directly to the simulation command."
+    }
+  ],
+  "generated_at": "2026-04-11T22:17:51.096959+00:00"
+}

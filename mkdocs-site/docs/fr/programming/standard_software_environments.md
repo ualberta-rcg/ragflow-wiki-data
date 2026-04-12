@@ -5,21 +5,49 @@ lang: "fr"
 
 source_wiki_title: "Standard software environments/fr"
 source_hash: "07ecfc84e552818ea7f28c0f552796f6"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T11:24:12.637708+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T11:34:42.741209+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "Open MPI"
+  - "extensions de modules"
+  - "compilateurs"
+  - "Environnement logiciel"
+  - "architectures CPU"
+  - "Compilateurs"
+  - "noyau Linux"
+  - "Modules"
+  - "bio-informatique"
+  - "optimisations spécifiques"
+  - "StdEnv"
+  - "environnement logiciel"
+  - "module"
+  - "couche de compatibilité"
+  - "compilateur"
+
+questions:
+  - "Qu'est-ce qu'un environnement logiciel standard (StdEnv) et comment ses modules sont-ils structurés ?"
+  - "Quelles sont les principales mises à jour et modifications apportées aux modules par défaut dans la version StdEnv/2023 ?"
+  - "Comment la version StdEnv/2020 optimise-t-elle les performances des binaires sur des grappes possédant plusieurs générations de processeurs ?"
+  - "Quelles sont les exigences minimales du noyau Linux pour les différentes versions de l'environnement standard ?"
+  - "Quel changement majeur a été apporté à l'outil de la couche de compatibilité lors du passage à la version 2020 ?"
+  - "Quelles sont les principales différences techniques, telles que les compilateurs et le support AVX512, entre les environnements obsolètes StdEnv/2016.4 et StdEnv/2018.3 ?"
+  - "Quel est l'impact du déplacement d'Intel à un niveau plus bas de la hiérarchie sur la visibilité des modules ?"
+  - "Quels sont les exemples spécifiques de modules qui ne nécessitent plus le chargement préalable du module gcc ?"
+  - "Quelles optimisations techniques ont permis de rendre ces modules visibles indépendamment du compilateur chargé ?"
+  - "Quelles sont les exigences minimales du noyau Linux pour les différentes versions de l'environnement standard ?"
+  - "Quel changement majeur a été apporté à l'outil de la couche de compatibilité lors du passage à la version 2020 ?"
+  - "Quelles sont les principales différences techniques, telles que les compilateurs et le support AVX512, entre les environnements obsolètes StdEnv/2016.4 et StdEnv/2018.3 ?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -39,7 +67,7 @@ Les plus récentes versions des paquets logiciels sont habituellement installée
 ### `StdEnv/2023`
 Cette dernière itération de notre environnement logiciel utilise par défaut GCC 12.3.0, Intel 2023.1, et Open MPI 4.1.5.
 
-Pour activer cet environnement, lancez la commande
+Pour activer cet environnement, lancez la commande :
 ```bash
 module load StdEnv/2023
 ```
@@ -63,7 +91,7 @@ Les versions par défaut des modules suivants ont été mises à jour :
 
 Cette troisième version de notre environnement logiciel est devenue la version par défaut en avril 2021. Les compilateurs par défaut sont passés à GCC 9.3.0 et Intel 2020.1. MPI par défaut est passée à Open MPI 4.0.3.
 
-Activez cet environnement avec la commande
+Activez cet environnement avec la commande :
 ```bash
 module load StdEnv/2020
 ```
@@ -82,7 +110,7 @@ La couche de compatibilité est un niveau de la hiérarchie en dessous de celui 
 Les versions 2016.4 et 2018.3 nécessitent une version du noyau Linux 2.6.32 ou plus, ce qui est supporté à partir de CentOS 6. La version 2020 demande un noyau Linux 3.10 ou plus, ce qui est supporté à partir de CentOS 7. Les autres distributions Linux ont habituellement un noyau beaucoup plus récent et vous n’aurez donc pas à changer votre distribution Linux si vous utilisez cet environnement standard sous une autre que CentOS.
 
 #### Extensions de modules
-Avec l'environnement 2020, nous avons commencé à installer plusieurs extensions Python dans les modules principaux correspondants. Par exemple, `PyQt5` a été installé dans le module `qt/5.12.8` pour supporter plusieurs versions de Python. Le système des modules a été modifié pour vous permettre de trouver facilement ce type d'extensions. Par exemple, avec
+Avec l'environnement 2020, nous avons commencé à installer plusieurs extensions Python dans les modules principaux correspondants. Par exemple, `PyQt5` a été installé dans le module `qt/5.12.8` pour supporter plusieurs versions de Python. Le système des modules a été modifié pour vous permettre de trouver facilement ce type d'extensions. Par exemple, avec :
 ```bash
 module spider pyqt5
 ```
@@ -92,9 +120,9 @@ vous saurez que vous pouvez obtenir le module `qt/5.12.8`.
 !!! warning "Obsolète"
     Cet environnement n'est plus pris en charge.
 
-Cette deuxième version de notre environnement logiciel a été installée en 2018, avec la mise en service de la grappe [Béluga](béluga.md), peu après le déploiement de [Niagara](niagara.md). Les compilateurs par défaut sont passés à GCC 7.3.0 et Intel 2018.3. L’implémentation MPI par défaut est passée à Open MPI 3.1.2. Il s’agit de la première version à offrir le support des instructions AVX512.
+Cette deuxième version de notre environnement logiciel a été installée en 2018, avec la mise en service de la grappe [Béluga](beluga.md), peu après le déploiement de [Niagara](niagara.md). Les compilateurs par défaut sont passés à GCC 7.3.0 et Intel 2018.3. L’implémentation MPI par défaut est passée à Open MPI 3.1.2. Il s’agit de la première version à offrir le support des instructions AVX512.
 
-Activez cet environnement avec la commande
+Activez cet environnement avec la commande :
 ```bash
 module load StdEnv/2018.3
 ```
@@ -103,8 +131,8 @@ module load StdEnv/2018.3
 !!! warning "Obsolète"
     Cet environnement n'est plus supporté.
 
-Cette première version de notre environnement logiciel a été installée en 2016 avec la mise en service des grappes [Cedar](cedar.md) et [Graham](graham.md). Les compilateurs par défaut sont GCC 5.4.0 et Intel 2016.4. L’implémentation MPI par défaut est Open MPI 2.1.1. La plupart des logiciels compilés dans cet environnement ne supportent pas les instructions AVX512, contrairement aux processeurs Skylake de [Béluga](béluga.md), [Niagara](niagara.md) et aux récents ajouts à Cedar et Graham.
+Cette première version de notre environnement logiciel a été installée en 2016 avec la mise en service des grappes [Cedar](cedar.md) et [Graham](graham.md). Les compilateurs par défaut sont GCC 5.4.0 et Intel 2016.4. L’implémentation MPI par défaut est Open MPI 2.1.1. La plupart des logiciels compilés dans cet environnement ne supportent pas les instructions AVX512, contrairement aux processeurs Skylake de [Béluga](beluga.md), [Niagara](niagara.md) et aux récents ajouts à Cedar et Graham.
 
-Activez cet environnement avec la commande
+Activez cet environnement avec la commande :
 ```bash
 module load StdEnv/2016.4

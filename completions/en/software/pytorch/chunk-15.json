@@ -1,0 +1,56 @@
+{
+  "doc_key": "en/pytorch",
+  "level": "chunk",
+  "chunk_index": 15,
+  "qa_pairs": [
+    {
+      "question": "When is it advisable to use Single GPU Data Parallelism for model training?",
+      "answer": "Single GPU Data Parallelism is advisable when you have a fairly small model that doesn't fully utilize a GPU's memory or compute capacity, but you need to train with a very large dataset and a small batch size. It helps increase resource usage and provides a speed-up in such scenarios."
+    },
+    {
+      "question": "When should one avoid using a GPU for training small models, and what's the recommended alternative?",
+      "answer": "If a model is fairly small and doesn't take up a large portion of GPU memory or cannot use a reasonable amount of its compute capacity, it is not advisable to use a GPU. Instead, it is recommended to use one or more CPUs."
+    },
+    {
+      "question": "How does Single GPU Data Parallelism increase GPU utilization with small models?",
+      "answer": "Single GPU Data Parallelism increases GPU utilization by fitting several replicas of a small model onto a single GPU, thereby increasing resource usage and achieving a speed-up."
+    },
+    {
+      "question": "What technologies are used to implement Single GPU Data Parallelism with multiple model replicas on one GPU?",
+      "answer": "Nvidia's Multi-Process Service (MPS), along with MPI (Message Passing Interface), are used to efficiently place multiple model replicas on one GPU for Single GPU Data Parallelism."
+    },
+    {
+      "question": "How do you activate Nvidia MPS for a PyTorch job using a SLURM script?",
+      "answer": "You can activate Nvidia MPS by setting the `CUDA_MPS_PIPE_DIRECTORY` and `CUDA_MPS_LOG_DIRECTORY` environment variables and then running `nvidia-cuda-mps-control -d` in your SLURM script."
+    },
+    {
+      "question": "Why is NCCL not recommended as a backend for `dist.init_process_group` when performing Single GPU Data Parallelism?",
+      "answer": "NCCL does not work on a single GPU for `dist.init_process_group` due to a hard-coded multi-GPU topology check. Instead, `backend=\"mpi\"` or `\"gloo\"` should be used."
+    },
+    {
+      "question": "What is Fully Sharded Data Parallelism (FSDP) in PyTorch?",
+      "answer": "Fully Sharded Data Parallelism (FSDP) is a technique that enables distributed storage and computing of different elements of a training task, such as optimizer states, model weights, model gradients, and model activations, across multiple devices like GPU, CPU, and local hard disk."
+    },
+    {
+      "question": "What is the primary benefit of using FSDP?",
+      "answer": "The primary benefit of FSDP is the 'pooling' of resources, particularly for storage, which allows models with massive amounts of parameters to be trained efficiently across multiple nodes."
+    },
+    {
+      "question": "What is a key limitation of FSDP that users should be aware of?",
+      "answer": "A key limitation of FSDP is that a model layer sharded across devices may be collected inside a single device during a forward or backward pass. Therefore, FSDP should not be used if your model has layers that do not fit entirely in the memory of a single GPU."
+    },
+    {
+      "question": "What alternative is suggested if a model has layers that do not fit entirely in the memory of a single GPU, making FSDP unsuitable?",
+      "answer": "If a model has layers that do not fit entirely in the memory of a single GPU, Tensor Parallelism is suggested as an alternative to FSDP."
+    },
+    {
+      "question": "In the `cifar10-gpu-mps.py` script, what is the purpose of `rank = os.environ.get(\"SLURM_LOCALID\")`?",
+      "answer": "In the `cifar10-gpu-mps.py` script, `rank = os.environ.get(\"SLURM_LOCALID\")` is used to retrieve the local rank of the current process, which is then used for identification in print statements."
+    },
+    {
+      "question": "What dataset is being used in the `cifar10-gpu-mps.py` example for single GPU data parallelism?",
+      "answer": "The CIFAR10 dataset is being used in the `cifar10-gpu-mps.py` example for single GPU data parallelism."
+    }
+  ],
+  "generated_at": "2026-04-12T05:43:11.694130+00:00"
+}

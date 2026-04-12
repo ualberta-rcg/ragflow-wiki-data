@@ -1,0 +1,112 @@
+{
+  "doc_key": "base/tutoriel_apprentissage_machine",
+  "level": "chunk",
+  "chunk_index": 2,
+  "qa_pairs": [
+    {
+      "question": "What is the first important element to include in an `sbatch` script?",
+      "answer": "The first important element is the account to which the resources will be billed."
+    },
+    {
+      "question": "What is the suggested number of CPUs for an `sbatch` job?",
+      "answer": "The suggested number of CPUs for an `sbatch` job is 6."
+    },
+    {
+      "question": "How many GPUs are typically suggested for an `sbatch` job, and why?",
+      "answer": "It is suggested to use one (1) GPU, unless you are certain your program utilizes several. By default, TensorFlow and PyTorch use only a single GPU."
+    },
+    {
+      "question": "What is the suggested memory allocation for an `sbatch` job?",
+      "answer": "The suggested memory allocation for an `sbatch` job is 32000M."
+    },
+    {
+      "question": "What are the maximum job durations for Béluga, Graham, and Cedar clusters?",
+      "answer": "The maximum job duration for Béluga is 7 days, while for Graham and Cedar, it is 28 days."
+    },
+    {
+      "question": "What types of Bash commands should be included in an `sbatch` script?",
+      "answer": "Bash commands should include environment preparation (modules, virtualenv), data transfer to the compute node, and launching the executable."
+    },
+    {
+      "question": "How do you request a single GPU in an `sbatch` script, according to the example?",
+      "answer": "You request a single GPU using the directive `#SBATCH --gres=gpu:1`."
+    },
+    {
+      "question": "Which `sbatch` directive is used to specify the number of CPUs per task, as shown in the example?",
+      "answer": "The `#SBATCH --cpus-per-task=3` directive is used to specify 3 CPUs per task."
+    },
+    {
+      "question": "What is an example of an `sbatch` directive for setting memory, and what value is used in the script example?",
+      "answer": "The `#SBATCH --mem=32000M` directive sets the memory, with 32000M being used in the example script."
+    },
+    {
+      "question": "How is the job's time limit specified in the `sbatch` script example?",
+      "answer": "The job's time limit is specified using `#SBATCH --time=DD-HH:MM:SS`, for example, `#SBATCH --time=0-03:00` for 3 hours."
+    },
+    {
+      "question": "How are Python, CUDA, and cuDNN modules typically loaded in the example `sbatch` script?",
+      "answer": "They are loaded using the command `module load python/3.6 cuda cudnn`."
+    },
+    {
+      "question": "How is a virtual environment activated in the example `ml-test.sh` script?",
+      "answer": "A virtual environment is activated using `source ~/my_env/bin/activate`."
+    },
+    {
+      "question": "Where can a virtual environment be created for better performance?",
+      "answer": "For better performance, a virtual environment can be created on the local storage (`$SLURM_TMPDIR`) of the compute node."
+    },
+    {
+      "question": "How is data prepared and transferred to the local storage for training in the example script?",
+      "answer": "A directory `$SLURM_TMPDIR/data` is created, and then a tar archive `~/projects/def-xxxx/data.tar` is extracted into it using `tar xf ~/projects/def-xxxx/data.tar -C $SLURM_TMPDIR/data`."
+    },
+    {
+      "question": "How does the `ml-test.sh` example script start the training process?",
+      "answer": "The training process is started by executing `python $SOURCEDIR/train.py $SLURM_TMPDIR/data`."
+    },
+    {
+      "question": "What is the recommended approach for handling long tasks?",
+      "answer": "It is recommended to split long tasks into 24-hour blocks."
+    },
+    {
+      "question": "What is a benefit of requesting shorter tasks?",
+      "answer": "Requesting shorter tasks improves your job priority."
+    },
+    {
+      "question": "How can a user exceed the 7-day job limit on the Béluga cluster?",
+      "answer": "By creating a chain of tasks, it is possible to exceed the 7-day limit on Béluga."
+    },
+    {
+      "question": "What modification is necessary for a task to be interruptible and resumable?",
+      "answer": "The submission script or the program itself must be modified to allow the task to be interrupted and continued, requiring the program to access the most recent checkpoint."
+    },
+    {
+      "question": "What should a user determine regarding epochs when chaining tasks?",
+      "answer": "Users should determine how many epochs (or iterations) can be completed within a 24-hour period."
+    },
+    {
+      "question": "How do you calculate the number of 24-hour blocks needed for a chained task?",
+      "answer": "The number of blocks (`n_blocs`) is calculated by dividing the total number of epochs (`n_epochs_total`) by the number of epochs that can be completed in 24 hours (`n_epochs_par_24h`)."
+    },
+    {
+      "question": "Which `sbatch` argument is used to request a chain of tasks?",
+      "answer": "The `sbatch` argument `--array 1-<n_blocs>%1` is used to request a chain of `n_blocs` tasks."
+    },
+    {
+      "question": "What does `#SBATCH --array=1-10%1` in the `ml-test-chain.sh` script signify?",
+      "answer": "It signifies a request for a chain of 10 jobs, with only one job running at a time."
+    },
+    {
+      "question": "What is an example checkpoint file extension used in the task chaining script, and what is its PyTorch equivalent?",
+      "answer": "The example uses `'*.h5'` for checkpoint file extensions; for PyTorch checkpoints, it should be replaced by `'*.pt'`."
+    },
+    {
+      "question": "Where are checkpoints saved in the `ml-test-chain.sh` example?",
+      "answer": "Checkpoints are saved to `~/scratch/checkpoints/ml-test`."
+    },
+    {
+      "question": "How does the chaining script determine whether to start training from scratch or load a checkpoint?",
+      "answer": "The script checks if the `LAST_CHECKPOINT` variable is null (empty). If it is, training starts from scratch; otherwise, it loads the identified `LAST_CHECKPOINT`."
+    }
+  ],
+  "generated_at": "2026-04-12T09:55:05.074284+00:00"
+}

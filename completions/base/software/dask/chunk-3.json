@@ -1,0 +1,56 @@
+{
+  "doc_key": "base/dask",
+  "level": "chunk",
+  "chunk_index": 3,
+  "qa_pairs": [
+    {
+      "question": "How many CPUs are allocated per task in this SLURM job configuration?",
+      "answer": "Three CPUs are allocated per task, as indicated by `--cpus-per-task=3`."
+    },
+    {
+      "question": "What is the maximum wall-clock time specified for this job?",
+      "answer": "The maximum wall-clock time specified for the job is 30 minutes (`--time=0-00:30`)."
+    },
+    {
+      "question": "Which software modules are loaded at the beginning of the script?",
+      "answer": "The `python` and `arrow` modules are loaded using `module add python arrow`."
+    },
+    {
+      "question": "How is the Dask scheduler's address determined in this script?",
+      "answer": "The Dask scheduler's address is set to the hostname of the machine executing the script using `export DASK_SCHEDULER_ADDR=$(hostname)`."
+    },
+    {
+      "question": "What specific port number is assigned to the Dask scheduler?",
+      "answer": "The Dask scheduler is assigned port number 34567 via `export DASK_SCHEDULER_PORT=34567`."
+    },
+    {
+      "question": "Which script is responsible for configuring the virtual environment across multiple nodes?",
+      "answer": "The `config_virtualenv.sh` script is executed across two nodes (`srun -N 2 -n 2 config_virtualenv.sh`) to configure the virtual environment."
+    },
+    {
+      "question": "What is the command used to launch the Dask scheduler?",
+      "answer": "The Dask scheduler is launched with `dask scheduler --host $DASK_SCHEDULER_ADDR --port $DASK_SCHEDULER_PORT &`."
+    },
+    {
+      "question": "What action occurs immediately after the Dask scheduler is launched?",
+      "answer": "The script pauses for 10 seconds (`sleep 10`) after the Dask scheduler is launched."
+    },
+    {
+      "question": "How are the Dask workers started in this configuration?",
+      "answer": "The Dask workers are started by running the `launch_dask_workers.sh` script in the background using `srun launch_dask_workers.sh &`."
+    },
+    {
+      "question": "What is the purpose of the command `source $SLURM_TMPDIR/env/bin/activate`?",
+      "answer": "This command activates the Python virtual environment located in the temporary directory `$SLURM_TMPDIR/env`."
+    },
+    {
+      "question": "What is the specified output file format for this job?",
+      "answer": "The output file is specified as `%N-%j.out`, which typically means the node name followed by the job ID and a `.out` extension."
+    },
+    {
+      "question": "Is an account required to run this job?",
+      "answer": "Yes, an account is required, specified by `--account=<your account>`."
+    }
+  ],
+  "generated_at": "2026-04-11T20:48:19.711544+00:00"
+}

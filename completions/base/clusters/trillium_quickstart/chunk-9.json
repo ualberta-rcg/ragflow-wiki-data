@@ -1,0 +1,152 @@
+{
+  "doc_key": "base/trillium_quickstart",
+  "level": "chunk",
+  "chunk_index": 9,
+  "qa_pairs": [
+    {
+      "question": "Where must job output be written on Trillium?",
+      "answer": "Job output must be written to the scratch file system on Trillium."
+    },
+    {
+      "question": "Why are home and project directories not suitable for writing job output on Trillium's compute nodes?",
+      "answer": "The home and project directories are only available for reading on the compute nodes, which enforces writing job output to the scratch file system."
+    },
+    {
+      "question": "From which directory should jobs typically be submitted on Trillium to ensure output files are written correctly?",
+      "answer": "In most cases, jobs should be submitted from your `$SCRATCH` directory."
+    },
+    {
+      "question": "What happens if you don't submit your job from the `$SCRATCH` directory on Trillium?",
+      "answer": "The default location for SLURM output files is the directory from which you submit, so if that is not in scratch, the output files would not be written."
+    },
+    {
+      "question": "Under what allocation do jobs typically run on Trillium?",
+      "answer": "Jobs will run under your group's RAC allocation, or if one is not available, under a RAS allocation."
+    },
+    {
+      "question": "How can users explicitly specify the SLURM account for their job on Trillium?",
+      "answer": "Users can explicitly specify the account with the `--account=ACCOUNT_NAME` option in their job script or submission command."
+    },
+    {
+      "question": "What is recommended for users with multiple allocations when submitting jobs on Trillium?",
+      "answer": "For users with multiple allocations, specifying the account name is highly recommended."
+    },
+    {
+      "question": "Is it possible to submit new jobs from compute nodes or datamover nodes on Trillium?",
+      "answer": "No, jobs cannot be submitted from compute nodes (nor datamover nodes) on Trillium."
+    },
+    {
+      "question": "Why is job submission from compute or datamover nodes prevented on Trillium?",
+      "answer": "This prevents accidentally spawning many jobs, overloading the scheduler, and overloading the backup process."
+    },
+    {
+      "question": "Is it possible to request a specific number of CPU cores on Trillium's CPU subcluster?",
+      "answer": "No, it is not possible to request a certain number of cores on Trillium; all jobs must use full nodes on the CPU subcluster."
+    },
+    {
+      "question": "What is the minimum size of a CPU job on Trillium in terms of cores?",
+      "answer": "The minimum size of a CPU job on Trillium has 192 cores at its disposal."
+    },
+    {
+      "question": "How should users handle serial or low-core-count jobs on Trillium's CPU subcluster?",
+      "answer": "Users must still use all 192 cores on the node by bundling multiple independent tasks in one job script."
+    },
+    {
+      "question": "What should users do if their job underutilizes the CPU cores on Trillium?",
+      "answer": "If your job underutilizes the cores, the support team may reach out to assist you in optimizing your workflow, or you can contact them for assistance."
+    },
+    {
+      "question": "How many GPUs does each node on Trillium's GPU subcluster contain?",
+      "answer": "Each node on Trillium's GPU subcluster contains 4 GPUs."
+    },
+    {
+      "question": "What options are available for requesting GPUs on Trillium's GPU subcluster?",
+      "answer": "On the GPU subcluster, the scheduler allows you to request either a whole number of nodes or a single GPU."
+    },
+    {
+      "question": "What resources are allocated when a single GPU is requested on Trillium's GPU subcluster?",
+      "answer": "A single GPU request amounts to a quarter node, with 24 cores and about 188 GiB of RAM."
+    },
+    {
+      "question": "Does Trillium support NVIDIA's MIG technology for fractional GPU scheduling?",
+      "answer": "No, Trillium does not support MIG (Multi-Instance GPU) for scheduling a fraction of a GPU."
+    },
+    {
+      "question": "What technology can be used to share a GPU among processes within a job on Trillium?",
+      "answer": "You can use Hyper-Q / MPS (Multi-Process Service) within your jobs to share a GPU among processes."
+    },
+    {
+      "question": "Are memory requests specified in job scripts considered on Trillium?",
+      "answer": "No, memory requests are ignored on Trillium."
+    },
+    {
+      "question": "How much RAM do CPU jobs receive on Trillium?",
+      "answer": "CPU jobs always receive `N × 768 GB` of RAM, where `N` is the number of nodes."
+    },
+    {
+      "question": "How much RAM do GPU full-node jobs receive on Trillium?",
+      "answer": "GPU full-node jobs receive the same amount of memory as CPU nodes, which is `N × 768 GB` of RAM, where `N` is the number of nodes."
+    },
+    {
+      "question": "How much RAM do single-GPU jobs receive on Trillium?",
+      "answer": "Single-GPU jobs receive 1/4 of the node's memory, which is 188 GiB."
+    },
+    {
+      "question": "What does the `--nodes` or `-N` option specify in a SLURM job script?",
+      "answer": "The `--nodes` or `-N` option specifies the number of nodes for the job."
+    },
+    {
+      "question": "Is it recommended to include the `--nodes` option in a job script on Trillium?",
+      "answer": "Yes, it is recommended to always include the `--nodes` option."
+    },
+    {
+      "question": "What does the `--ntasks-per-node` option specify?",
+      "answer": "The `--ntasks-per-node` option specifies the number of tasks for `srun`/`mpirun` to launch per node."
+    },
+    {
+      "question": "Which option is preferred between `--ntasks-per-node` and `--ntasks` for launching tasks?",
+      "answer": "`--ntasks-per-node` is preferred over `--ntasks`."
+    },
+    {
+      "question": "What does the `--ntasks` or `-n` option specify?",
+      "answer": "The `--ntasks` or `-n` option specifies the number of tasks for `srun`/`mpirun` to launch."
+    },
+    {
+      "question": "What does the `--cpus-per-task` or `-c` option specify, and for what is it typically used?",
+      "answer": "The `--cpus-per-task` or `-c` option specifies the number of cores per task, typically used for OpenMP threads."
+    },
+    {
+      "question": "What does the `--time` or `-t` option specify in a SLURM job script?",
+      "answer": "The `--time` or `-t` option specifies the duration of the job."
+    },
+    {
+      "question": "What does the `--job-name` or `-J` option specify?",
+      "answer": "The `--job-name` or `-J` option specifies a name for the job."
+    },
+    {
+      "question": "What does the `--output` or `-o` option specify in a SLURM job script?",
+      "answer": "The `--output` or `-o` option specifies the file to redirect standard output to, and can be a pattern using, for example, `%j` for the job ID."
+    },
+    {
+      "question": "What does the `--mail-type` option specify?",
+      "answer": "The `--mail-type` option specifies when to send email notifications, such as `BEGIN`, `END`, `FAIL`, or `ALL`."
+    },
+    {
+      "question": "What does the `--gpus-per-node` option specify, and what values are allowed on Trillium's GPU subcluster?",
+      "answer": "The `--gpus-per-node` option specifies the number of GPUs to use on each node. On the GPU subcluster, either 1 or 4 GPUs per node are allowed."
+    },
+    {
+      "question": "What does the `--partition` or `-p` option specify?",
+      "answer": "The `--partition` or `-p` option specifies the partition to submit the job to."
+    },
+    {
+      "question": "What does the `--account` or `-A` option specify?",
+      "answer": "The `--account` or `-A` option specifies the SLURM account to use."
+    },
+    {
+      "question": "How is the `--mem` option handled on Trillium?",
+      "answer": "The `--mem` option, which typically requests an amount of memory, is ignored on Trillium because jobs automatically receive all available memory."
+    }
+  ],
+  "generated_at": "2026-04-12T09:42:20.184185+00:00"
+}

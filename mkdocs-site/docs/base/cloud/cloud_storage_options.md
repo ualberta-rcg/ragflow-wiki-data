@@ -5,21 +5,30 @@ lang: "base"
 
 source_wiki_title: "Cloud storage options"
 source_hash: "57b500379a430efec3331674ccac3459"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T05:40:31.650698+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T06:26:12.579141+00:00"
 
 tags:
   - cloud
 
 keywords:
-  []
+  - "Shared filesystem storage"
+  - "Ephemeral storage"
+  - "Object storage"
+  - "Cloud storage"
+  - "Volume storage"
+
+questions:
+  - "What are the four existing storage types available in the cloud environment and what are their primary functions?"
+  - "Which storage options are best suited for frequently changing data versus long-term, write-once storage?"
+  - "How do the different storage types handle data persistence, such as automatic backups and deletion upon virtual machine removal?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 

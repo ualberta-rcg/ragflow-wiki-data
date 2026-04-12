@@ -1,0 +1,52 @@
+{
+  "doc_key": "en/mpi-io",
+  "level": "chunk",
+  "chunk_index": 2,
+  "qa_pairs": [
+    {
+      "question": "How is a contiguous MPI datatype for writing data defined in the `mpi_view.c` example?",
+      "answer": "In the `mpi_view.c` example, a contiguous MPI datatype for writing data is defined using `MPI_Type_contiguous(BLOCKSIZE, MPI_CHAR, &type_intercomp);` and then committed with `MPI_Type_commit(&type_intercomp);`."
+    },
+    {
+      "question": "What MPI function is used to set the file view for writing data in the `mpi_view.c` example?",
+      "answer": "The `MPI_File_set_view` function is used to set the file view for writing data in the `mpi_view.c` example, specifically with `MPI_File_set_view(f, rank*BLOCKSIZE+i*size*BLOCKSIZE, MPI_CHAR, type_intercomp, \"native\", MPI_INFO_NULL);`."
+    },
+    {
+      "question": "Which MPI function writes data to the file after the view has been set in the `mpi_view.c` example?",
+      "answer": "After the view has been set, data is written to the file using `MPI_File_write(f, buffer, BLOCKSIZE, MPI_CHAR, MPI_STATUS_IGNORE);` in the `mpi_view.c` example."
+    },
+    {
+      "question": "How is a contiguous MPI datatype for reading data defined in the `mpi_view.c` example?",
+      "answer": "In the `mpi_view.c` example, a contiguous MPI datatype for reading data is defined using `MPI_Type_contiguous(NBRBLOCKS*BLOCKSIZE, MPI_CHAR, &type_contiguous);` and then committed with `MPI_Type_commit(&type_contiguous);`."
+    },
+    {
+      "question": "What MPI function is used to set the file view for reading data in the `mpi_view.c` example?",
+      "answer": "The `MPI_File_set_view` function is used to set the file view for reading data in the `mpi_view.c` example, specifically with `MPI_File_set_view(f, rank*NBRBLOCKS*BLOCKSIZE, MPI_CHAR, type_contiguous, \"native\", MPI_INFO_NULL);`."
+    },
+    {
+      "question": "Which MPI function reads data from the file after the view has been set in the `mpi_view.c` example?",
+      "answer": "After the view has been set, data is read from the file using `MPI_File_read(f, buffer, BLOCKSIZE, MPI_CHAR, MPI_STATUS_IGNORE);` in the `mpi_view.c` example."
+    },
+    {
+      "question": "What is the final MPI function called in the `main` function of `mpi_view.c`?",
+      "answer": "The final MPI function called in the `main` function of `mpi_view.c` is `MPI_Finalize();`."
+    },
+    {
+      "question": "What is a potential limitation of some file systems regarding MPI-IO operations?",
+      "answer": "Some file systems do not support file locks, which can be a limitation for MPI-IO operations."
+    },
+    {
+      "question": "Which specific MPI-IO operations might not be possible due to file systems not supporting file locks?",
+      "answer": "Some operations, particularly using views on disjoint file sections, might not be possible if file systems do not support file locks."
+    },
+    {
+      "question": "Where can users find OpenMPI documentation, according to the references?",
+      "answer": "Users can find OpenMPI documentation at http://www.open-mpi.org/doc/current/, according to the references."
+    },
+    {
+      "question": "Is there a reference for a course on parallel I/O provided?",
+      "answer": "Yes, there is a reference for a 'Course on parallel I/O' at https://scinet.courses/215."
+    }
+  ],
+  "generated_at": "2026-04-12T01:49:31.541023+00:00"
+}

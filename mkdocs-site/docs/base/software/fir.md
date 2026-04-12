@@ -5,32 +5,77 @@ lang: "base"
 
 source_wiki_title: "Fir"
 source_hash: "1b5ac2d33193ab6da0c9291d87ebcb57"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T06:20:18.219755+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T07:03:25.451018+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "GPU instance sizes"
+  - "InfiniBand interconnect"
+  - "CCDs"
+  - "Performance tuning"
+  - "Fir computing cluster"
+  - "Slurm options"
+  - "DDN Lustre storage"
+  - "compute job"
+  - "NUMA nodes"
+  - "MIG technology"
+  - "tasks per node"
+  - "High-performance computing"
+  - "NVidia H100 GPUs"
+  - "GPU"
+  - "CPU"
+  - "AMD EPYC processors"
+  - "GPU instances"
+  - "AMD EPYC"
+  - "Simon Fraser University"
+  - "GPU memory"
+  - "NUMA architecture"
+  - "NVMe"
+  - "H100 GPUs"
+  - "H100-80gb"
+  - "NVidia H100"
+
+questions:
+  - "What is the Fir computing cluster, and what are its key environmental sustainability features and performance rankings?"
+  - "What are the specific steps and site policies required for a researcher to access and run jobs on the Fir cluster?"
+  - "What are the primary hardware specifications of the Fir cluster, including its storage capacity, interconnect technology, and node characteristics?"
+  - "What is the hardware architecture and core layout of the CPU nodes, and what specific Slurm configurations are recommended to optimize their performance?"
+  - "What are the hardware specifications of the GPU nodes, including their CPU architecture, NUMA configuration, and attached accelerators?"
+  - "How do the performance tuning strategies for task and thread binding differ between the CPU nodes and GPU nodes based on their respective chiplet designs?"
+  - "What are the specific models and generations of the AMD EPYC processors used in these configurations?"
+  - "Which hardware setup includes dedicated graphics processing units, and what are their specifications?"
+  - "What is the standard storage capacity and drive type provided across all the listed systems?"
+  - "How many tasks per node should be launched to achieve the best performance when configuring for 4 NUMA nodes per socket?"
+  - "Why is it important to keep each task within a single NUMA domain?"
+  - "What must a user do to request one or more full H100 GPUs using Slurm?"
+  - "What command-line flags are required to allocate single or multiple full H100-80gb GPUs for a compute job?"
+  - "What are the specifications of the three available MIG (Multi-Instance GPU) sizes in terms of computing power and memory?"
+  - "How do you format the command to request a specific fractional MIG GPU instance, such as the 3g.40gb option?"
+  - "What command-line flags are required to allocate single or multiple full H100-80gb GPUs for a compute job?"
+  - "What are the specifications of the three available MIG (Multi-Instance GPU) sizes in terms of computing power and memory?"
+  - "How do you format the command to request a specific fractional MIG GPU instance, such as the 3g.40gb option?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
+| Field | Value |
+| :----------------------------------- | :--------------------------------------------------------------------------------------------------------------------- |
 | Availability date: | *August 11, 2025* |
-| :---------------------------------------- | :---------------------------------------------------------------------------------------------------------------- |
-| Login node:                               | *fir.alliancecan.ca*                                                                                              |
-| Automation node:                          | *robot.fir.alliancecan.ca*                                                                                        |
-| Globus collection:                        | [*alliancecan#fir-globus*](https://globus.alliancecan.ca/file-manager?origin_id=8dec4129-9ab4-451d-a45f-5b4b8471f7a3&two_pane=false) |
-| JupyterHub:                               | [jupyterhub.fir.alliancecan.ca](https://jupyterhub.fir.alliancecan.ca/)                                           |
-| Data transfer node (rsync, scp, sftp ...): | *to be determined*                                                                                                |
-| Portal:                                   | *to be determined*                                                                                                |
+| Login node: | *fir.alliancecan.ca* |
+| Automation node: | *robot.fir.alliancecan.ca* |
+| Globus collection: | [*alliancecan#fir-globus*](https://globus.alliancecan.ca/file-manager?origin_id=8dec4129-9ab4-451d-a45f-5b4b8471f7a3&two_pane=false) |
+| JupyterHub: | [jupyterhub.fir.alliancecan.ca](https://jupyterhub.fir.alliancecan.ca/) |
+| Data transfer node (rsync, scp, sftp ...): | *to be determined* |
+| Portal: | *to be determined* |
 
 Fir is a versatile, heterogeneous computing cluster built in partnership with Lenovo Canada and Data Direct Networks (DDN) and is designed to support a wide range of scientific computations. It is hosted at Simon Fraser University (SFU) in Burnaby, British Columbia, and is named after the Red Creek Fir—the largest known Douglas fir tree on Earth by volume.
 
@@ -58,20 +103,21 @@ Fir's compute nodes have full access to the internet.
 
 The crontab tool is not supported.
 
-Each job should have a duration of at least one hour (at least five minutes for test jobs) and the maximum job duration is 7 days (168 hours). 
+Each job should have a duration of at least one hour (at least five minutes for test jobs) and the maximum job duration is 7 days (168 hours).
 
 For transferring data via Globus, use the endpoint specified at the top of this page; for tools like rsync and scp, please use the login node.
 
 ## Storage
 
 51PB high-performance DDN Lustre storage (2PB NVME / 49 SAS).
+
 !!! note "All mounts share the available storage"
 
-| Storage Area | Access Path                   | Quotas                                   | Backup                | Notes                                                           |
-| :----------- | :---------------------------- | :--------------------------------------- | :-------------------- | :-------------------------------------------------------------- |
-| **HOME**     | Default `$HOME`               | Small per-user quota                     | Daily automatic backup | Cannot be increased; use `/project` for larger storage          |
-| **SCRATCH**  | `$HOME/scratch`               | Large per-user quota                     | No backup             | For temporary files; old files are purged automatically         |
-| **PROJECT**  | `$HOME/project/${def-project-id}` | Large and adjustable per-project quota | Daily backup          | For group data sharing and large datasets                       |
+| Storage Area | Access Path | Quotas | Backup | Notes |
+| :----------- | :---------- | :----- | :----- | :---- |
+| **HOME** | `$HOME` | Small per-user quota | Daily automatic backup | Cannot be increased; use `/project` for larger storage |
+| **SCRATCH** | `$HOME/scratch` | Large per-user quota | No backup | For temporary files; old files are purged automatically |
+| **PROJECT** | `$HOME/project/${def-project-id}` | Large and adjustable per-project quota | Daily backup | For group data sharing and large datasets |
 
 ## High-performance interconnect
 
@@ -82,11 +128,11 @@ For transferring data via Globus, use the endpoint specified at the top of this 
 
 ## Node characteristics
 
-| nodes | cores | available memory | CPU                                           | Storage    | GPU                                                  |
-| :---- | :---- | :--------------- | :-------------------------------------------- | :--------- | :--------------------------------------------------- |
-| 864   | 192   | 750G or 768000M  | 2 x AMD EPYC 9655 (Zen 5) @ 2.7 GHz, 384MB cache L3 | 7.84TB NVMe |                                                      |
-| 8     | 192   | 6000G or 6144000M | 2 x AMD EPYC 9654 (Zen 4) @ 2.4 GHz, 384MB cache L3 | 7.84TB NVMe |                                                      |
-| 160   | 48    | 1125G or 1152000M | 1 x AMD EPYC 9454 (Zen 4) @ 2.75 GHz, 256MB cache L3 | 7.84TB NVMe | 4 x NVidia H100 SXM5 (80 GB memory), connected via NVLink |
+| Nodes | Cores | Available memory | CPU | Storage | GPU |
+| :---- | :---- | :--------------- | :-- | :------ | :-- |
+| 864 | 192 | 750G or 768000M | 2 x AMD EPYC 9655 (Zen 5) @ 2.7 GHz, 384MB cache L3 | 7.84TB NVMe | |
+| 8 | 192 | 6000G or 6144000M | 2 x AMD EPYC 9654 (Zen 4) @ 2.4 GHz, 384MB cache L3 | 7.84TB NVMe | |
+| 160 | 48 | 1125G or 1152000M | 1 x AMD EPYC 9454 (Zen 4) @ 2.75 GHz, 256MB cache L3 | 7.84TB NVMe | 4 x NVidia H100 SXM5 (80 GB memory), connected via NVLink |
 
 ## CPU nodes
 
@@ -94,6 +140,7 @@ For transferring data via Globus, use the endpoint specified at the top of this 
 Each node features 2 × AMD EPYC 9655 (Zen 5) @ 2.7 GHz processors, totaling 192 physical cores. The system is built on a chiplet-based NUMA architecture, where each chiplet (CCD) operates as a separate NUMA node. The memory and cache hierarchy is non-uniform, and performance is sensitive to data locality.
 
 ### Layout
+
 *   2 sockets, each with:
     *   96 cores
     *   4 NUMA nodes, each with:
@@ -117,10 +164,13 @@ Total:
 
 To make best use of the EPYC 9655's architecture:
 
-1.  Align tasks to CCDs 
+1.  Align tasks to CCDs
     Each CCD contains 8 tightly-coupled cores with shared L3 cache. Keeping threads within a CCD avoids inter-chiplet communication latency.
 
-    Use: `#SBATCH --cpus-per-task=8`
+    Use:
+    ```bash
+    #SBATCH --cpus-per-task=8
+    ```
 
     This ensures that threads of each task stay within a single CCD.
 
@@ -128,7 +178,10 @@ To make best use of the EPYC 9655's architecture:
 
     With 24 CCDs per node, launch 24 tasks per node to fully utilize all CCDs without overloading any single one.
 
-    Use: `#SBATCH --ntasks-per-node=24`
+    Use:
+    ```bash
+    #SBATCH --ntasks-per-node=24
+    ```
 
     Together with `--cpus-per-task=8`, this fills the full 192-core node cleanly.
 
@@ -141,7 +194,7 @@ Each GPU node contains 1 × AMD EPYC 9454 (Zen 4) @ 2.75 GHz processor with 48 p
 
 *   1 socket, configured as NPS=4:
     *   4 NUMA nodes, each with
-        *   2 CCDs (Core Complex Dies), each with:
+        *   2 CCDs (Core Complex Dies), each with
             *   6 cores
             *   32 MiB of shared L3 cache
         *   3 memory channels
@@ -161,7 +214,10 @@ To fully utilize the architecture of the EPYC 9454 CPU and ensure optimal CPU-GP
 
 1.  Bind threads to CCDs
 
-    Each CCD has 6 closely coupled cores sharing a 32 MiB L3 cache. To keep threads within a CCD: `#SBATCH --cpus-per-task=6`
+    Each CCD has 6 closely coupled cores sharing a 32 MiB L3 cache. To keep threads within a CCD:
+    ```bash
+    #SBATCH --cpus-per-task=6
+    ```
 
     This confines threads to one CCD, reducing cross-CCD latency and improving cache usage.
 
@@ -178,9 +234,9 @@ To fully utilize the architecture of the EPYC 9454 CPU and ensure optimal CPU-GP
 
 To request one or more full H100 GPUs, you need to use one of the following Slurm options:
 
-**One H100-80gb**: `--gpus=h100:1`
+**One H100-80gb** : `--gpus=h100:1`
 
-**Multiple H100-80gb per node**:
+**Multiple H100-80gb per node** :
 *   `--gpus-per-node=h100:2`
 *   `--gpus-per-node=h100:3`
 *   `--gpus-per-node=h100:4`
@@ -195,6 +251,6 @@ Approximately half of the GPU nodes are configured with MIG technology, and only
 
 To request one and only one GPU instance for your compute job, use the corresponding option:
 
-*   **1g.10gb**: `--gpus=nvidia_h100_80gb_hbm3_1g.10gb:1`
-*   **2g.20gb**: `--gpus=nvidia_h100_80gb_hbm3_2g.20gb:1`
-*   **3g.40gb**: `--gpus=nvidia_h100_80gb_hbm3_3g.40gb:1`
+*   **1g.10gb** : `--gpus=nvidia_h100_80gb_hbm3_1g.10gb:1`
+*   **2g.20gb** : `--gpus=nvidia_h100_80gb_hbm3_2g.20gb:1`
+*   **3g.40gb** : `--gpus=nvidia_h100_80gb_hbm3_3g.20gb:1`

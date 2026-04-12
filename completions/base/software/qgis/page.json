@@ -1,0 +1,67 @@
+{
+  "doc_key": "base/qgis",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is QGIS and what does it do?",
+      "answer": "QGIS is a free and open-source cross-platform desktop geographic information system (GIS) application that supports viewing, editing, and analysis of geospatial data."
+    },
+    {
+      "question": "Are there any important restrictions when using QGIS?",
+      "answer": "Yes, you should never make intense use of QGIS on the login nodes. Instead, submit jobs using the command line or visualize data on an interactive node. Using parallel rendering on login nodes will result in the termination of your session."
+    },
+    {
+      "question": "What is the first module users need to load before loading QGIS?",
+      "answer": "Users first need to load the `gcc` module, specifically `gcc/5.4.0`."
+    },
+    {
+      "question": "How can I load a specific version of the QGIS module?",
+      "answer": "You can load a particular QGIS module using a command like `module load qgis/2.18.24`, after checking available versions with `module spider qgis`."
+    },
+    {
+      "question": "What should I do if a package fails to install because of missing dependencies?",
+      "answer": "You should read the error message carefully for details on additional modules needed, or use `module spider [module_name]` to find module dependencies."
+    },
+    {
+      "question": "How do I execute QGIS processes using the command line?",
+      "answer": "You execute QGIS by running a Python script, typically within a job submission script (e.g., `job.sh`) submitted with `sbatch job.sh`."
+    },
+    {
+      "question": "What are the key components of a Python script for command-line QGIS execution?",
+      "answer": "A Python script for command-line QGIS execution should set the QGIS installation path, create a `QgsApplication` reference disabling the GUI (`QgsApplication([], False)`), initialize QGIS providers with `qgs.initQgis()`, and clean up with `qgs.exitQgis()` when done."
+    },
+    {
+      "question": "What environment variable is important to set in a job submission script for command-line QGIS?",
+      "answer": "The `QT_QPA_PLATFORM` environment variable should be set to `offscreen` in the job submission script."
+    },
+    {
+      "question": "Where should I use the QGIS GUI for visualizing large datasets or parallel rendering?",
+      "answer": "You should use interactive nodes for visualizing large datasets and enabling parallel rendering, as login nodes are shared and have runtime limitations."
+    },
+    {
+      "question": "What is a prerequisite for using the QGIS GUI?",
+      "answer": "Using the QGIS GUI requires X11 forwarding to be enabled."
+    },
+    {
+      "question": "How can I ensure X11 forwarding is enabled when connecting with MobaXTerm?",
+      "answer": "After connecting via SSH in MobaXTerm, ensure the X server logo is green to confirm X11 forwarding is enabled."
+    },
+    {
+      "question": "After loading the necessary modules, how do I start the QGIS GUI?",
+      "answer": "You start the QGIS GUI by typing `qgis` in the terminal."
+    },
+    {
+      "question": "How do I request an interactive node for using the QGIS GUI with X11 forwarding?",
+      "answer": "You can request an interactive job using a command like `salloc --time=1:0:0 --ntasks=2 --x11 --account=def-someuser`, making sure to include the `--x11` argument."
+    },
+    {
+      "question": "How do I enable parallel rendering of layers within the QGIS GUI on an interactive node?",
+      "answer": "In the QGIS GUI, go to 'Settings', then 'Options', select 'Rendering', and check 'Render layers in parallel using many CPU cores'. You can optionally select the number of cores to use."
+    },
+    {
+      "question": "What command should I use to terminate an interactive node allocation after I'm done with QGIS?",
+      "answer": "To terminate the allocation, type `exit` in the terminal once you have closed the QGIS GUI window."
+    }
+  ],
+  "generated_at": "2026-04-12T06:00:33.528422+00:00"
+}

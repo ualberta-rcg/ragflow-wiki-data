@@ -5,21 +5,48 @@ lang: "en"
 
 source_wiki_title: "Standard software environments/en"
 source_hash: "26e3f87a60909fe4c52fa61927975ced"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T11:23:44.164796+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T11:34:13.794865+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "Open MPI"
+  - "Gentoo Prefix"
+  - "operating system"
+  - "software environment"
+  - "Modules"
+  - "compatibility layer"
+  - "StdEnv"
+  - "Standard software environments"
+  - "Compilers"
+  - "CentOS"
+  - "2020 release"
+  - "module extensions"
+  - "Nix package manager"
+  - "Linux kernel"
+
+questions:
+  - "What is a standard software environment and how are its modules organized within the system?"
+  - "What are the key performance improvements and default module changes introduced in the StdEnv/2023 release?"
+  - "How does the StdEnv/2020 release handle CPU architecture optimizations, and what tool does it use for its compatibility layer?"
+  - "How did the Linux kernel and operating system requirements change with the release of the 2020 software environment?"
+  - "How are Python extensions installed and located within the module system in the 2020 environment?"
+  - "What are the primary differences in compiler defaults and hardware instruction support between the deprecated 2016.4 and 2018.3 environments?"
+  - "What is the primary function of the compatibility layer across different operating systems?"
+  - "Which tool was used for the compatibility layer in the 2016.4 and 2018.3 versions?"
+  - "What new tool replaced the previous package manager for the 2020 release?"
+  - "How did the Linux kernel and operating system requirements change with the release of the 2020 software environment?"
+  - "How are Python extensions installed and located within the module system in the 2020 environment?"
+  - "What are the primary differences in compiler defaults and hardware instruction support between the deprecated 2016.4 and 2018.3 environments?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -59,7 +86,7 @@ The following core modules have seen their default version upgraded:
 
 ### `StdEnv/2020`
 !!! warning "Deprecated"
-    This environment is no longer supported on newer systems, although cpu-only software will run fine.
+    This environment is no longer supported on newer systems, although CPU-only software will run fine.
 
 This is the third version of our software environment which became the default in April 2021. It uses GCC 9.3.0, Intel 2020.1, and Open MPI 4.0.3 as defaults.
 
@@ -92,7 +119,7 @@ it will tell you that you can get this by loading the `qt/5.12.8` module.
 !!! warning "Deprecated"
     This environment is no longer supported.
 
-This is the second version of our software environment. It was released in 2018 with the deployment of [Béluga](béluga.md), and shortly after the deployment of [Niagara](niagara.md). Defaults were upgraded to GCC 7.3.0, Intel 2018.3, and Open MPI 3.1.2. This is the first version to support AVX512 instructions.
+This is the second version of our software environment. It was released in 2018 with the deployment of [Béluga](beluga.md), and shortly after the deployment of [Niagara](niagara.md). Defaults were upgraded to GCC 7.3.0, Intel 2018.3, and Open MPI 3.1.2. This is the first version to support AVX512 instructions.
 
 To activate this environment, use the command
 ```bash
@@ -103,7 +130,7 @@ module load StdEnv/2018.3
 !!! warning "Deprecated"
     This environment is no longer supported.
 
-This is the initial version of our software environment released in 2016 with the deployment of [Cedar](cedar.md) and [Graham](graham.md). It features GCC 5.4.0 and Intel 2016.4 as default compilers, and Open MPI 2.1.1 as its default implementation of MPI. Most of the software compiled with this environment does not support AVX512 instructions provided by the Skylake processors on [Béluga](béluga.md), [Niagara](niagara.md), as well as on the most recent additions to Cedar and Graham.
+This is the initial version of our software environment released in 2016 with the deployment of [Cedar](cedar.md) and [Graham](graham.md). It features GCC 5.4.0 and Intel 2016.4 as default compilers, and Open MPI 2.1.1 as its default implementation of MPI. Most of the software compiled with this environment does not support AVX512 instructions provided by the Skylake processors on [Béluga](beluga.md), [Niagara](niagara.md), as well as on the most recent additions to Cedar and Graham.
 
 To activate this environment, use the command
 ```bash

@@ -5,33 +5,77 @@ lang: "en"
 
 source_wiki_title: "Rorqual/en"
 source_hash: "1feb8bbfbccae5db1ee90b2ae6567375"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T10:55:02.469372+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T11:06:03.502811+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "Node characteristics"
+  - "GPU instance sizes"
+  - "H100-3g.40gb"
+  - "Rorqual cluster"
+  - "high-performance interconnect"
+  - "GPU nodes"
+  - "CPU nodes"
+  - "Slurm"
+  - "Slurm options"
+  - "compute job"
+  - "available memory"
+  - "nvidia_h100_80gb"
+  - "Multi-Instance GPU"
+  - "NUMA nodes"
+  - "CPU"
+  - "cores"
+  - "h100_20gb"
+  - "AMD EPYC 9654"
+  - "compute nodes"
+  - "data transfer"
+  - "Lustre filesystem"
+  - "--gpus-per-node"
+  - "H100 GPUs"
+  - "NVidia H100"
+
+questions:
+  - "How does a researcher request access to the Rorqual cluster and what agreements must be accepted?"
+  - "What are the site-specific policies regarding internet access, job duration, and job limits on the compute nodes?"
+  - "What are the differences in capacity, backup policies, and intended use among the HOME, SCRATCH, and PROJECT storage systems?"
+  - "What is the hierarchical topology of the CPU nodes, and how can users optimize their job submissions to fully benefit from it?"
+  - "How does the architecture of the GPU nodes differ from the CPU nodes in terms of cache memory, core layout, and accelerator interconnectivity?"
+  - "What are the available GPU instance types, and what specific Slurm options must be used to request them or to increase the temporary directory space?"
+  - "What are the specific CPU models and their clock speeds used in these nodes?"
+  - "How much available memory and storage capacity is provided per node?"
+  - "How many nodes are listed with these hardware characteristics, and what is their core count?"
+  - "What specific Slurm command options must be used to request one full H100-80gb GPU?"
+  - "What are the different identifiers and memory sizes listed for the partitioned H100 GPUs?"
+  - "Which job scheduling system is referenced for allocating these GPU resources?"
+  - "What command-line options are required to request multiple full H100-80gb GPUs for a compute job?"
+  - "What are the specific computing power and memory configurations for the three available Multi-Instance GPU (MIG) sizes?"
+  - "Where can users find the recommended limits for CPU cores and system memory per GPU instance?"
+  - "What command-line options are required to request multiple full H100-80gb GPUs for a compute job?"
+  - "What are the specific computing power and memory configurations for the three available Multi-Instance GPU (MIG) sizes?"
+  - "Where can users find the recommended limits for CPU cores and system memory per GPU instance?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
-| Availability: | June 19, 2025 |
-| :------------ | :------------ |
-| Login node: | **rorqual.alliancecan.ca** |
-| Data transfer node (rsync, scp, sftp ...): | **rorqual.alliancecan.ca** |
-| [Automation node](automation_in_the_context_of_multifactor_authentication.md): | robot.rorqual.alliancecan.ca |
-| Globus collection: | [alliancecan#rorqual](https://app.globus.org/file-manager?origin_id=f19f13f5-5553-40e3-ba30-6c151b9d35d4) |
-| JupyterHub: | [jupyterhub.rorqual.alliancecan.ca](https://jupyterhub.rorqual.alliancecan.ca/) |
-| Portal: | [metrix.rorqual.alliancecan.ca](https://metrix.rorqual.alliancecan.ca/) |
-| Webinar: | [slides](https://docs.google.com/presentation/d/1Ah61BBKZIJcn_AeosgUspxRCX_amubPUetZY68SfyXU), [video](https://www.youtube.com/watch?v=lXetzrViI8Q) |
+| Key | Value |
+| :------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Availability                           | June 19, 2025                                                                                                                                                                           |
+| Login node                             | **rorqual.alliancecan.ca**                                                                                                                                                              |
+| Data transfer node (rsync, scp, sftp ...) | **rorqual.alliancecan.ca**                                                                                                                                                              |
+| Automation node                        | [robot.rorqual.alliancecan.ca](automation-in-the-context-of-multifactor-authentication.md)                                                                                              |
+| Globus collection                      | **[alliancecan#rorqual](https://app.globus.org/file-manager?origin_id=f19f13f5-5553-40e3-ba30-6c151b9d35d4)**                                                                          |
+| JupyterHub                             | [jupyterhub.rorqual.alliancecan.ca](https://jupyterhub.rorqual.alliancecan.ca/)                                                                                                         |
+| Portal                                 | [metrix.rorqual.alliancecan.ca](https://metrix.rorqual.alliancecan.ca/)                                                                                                                 |
+| Webinar                                | [slides](https://docs.google.com/presentation/d/1Ah61BBKZIJcn_AeosgUspxRCX_amubPUetZY68SfyXU), [video](https://www.youtube.com/watch?v=lXetzrViI8Q)                                    |
 
 Rorqual is a heterogeneous and versatile cluster designed for a wide variety of scientific calculations. Built by Dell Canada and CDW Canada, the cluster is located at the [École de technologie supérieure](https://www.etsmtl.ca/en/) in Montreal. Its name recalls the [rorqual](https://en.wikipedia.org/wiki/Rorqual), a marine mammal of which several species can be observed in the St. Lawrence River.
 
@@ -45,11 +89,12 @@ Each researcher must [request access in CCDB](https://ccdb.alliancecan.ca/me/acc
     2.  Rorqual Service Level Agreement
     3.  Calcul Québec Terms of Use
 
-It can take **up to one hour** for your access to be enabled.
+!!! note "Access Activation"
+    It can take **up to one hour** for your access to be enabled.
 
 ## Site-specific policies
 
-Rorqual's compute nodes cannot access the internet. If you need an exception to this rule, contact [technical support](technical_support.md) explaining what you need and why.
+Rorqual's compute nodes cannot access the internet. If you need an exception to this rule, contact [technical support](technical-support.md) explaining what you need and why.
 
 The `crontab` tool is not offered.
 
@@ -57,13 +102,25 @@ Each job should have a duration of at least one hour (at least five minutes for 
 
 ## Storage
 
-| Filesystem | Description |
-| :--------- | :---------- |
-| HOME <br> Lustre filesystem, 116 TB | * This small space cannot be increased; for larger storage needs, use the `/project` space<br>* Small per user [quotas](storage_and_file_management.md#filesystem-quotas-and-policies)<br>* Daily automatic backup |
-| SCRATCH <br> Lustre filesystem, 6.5 PB | * Accessible via symbolic link `$HOME/links/scratch`<br>* Large space for storing temporary files during computations<br>* No backup system in place<br>* Large per user [quotas](storage_and_file_management.md#filesystem-quotas-and-policies)<br>* Older files are [automatically purged](scratch_purging_policy.md) |
-| PROJECT <br> Lustre filesystem, 62 PB | * Accessible via symbolic link `$HOME/links/projects/nom-du-projet`<br>* Designed for sharing data among the members of a research group and for storing large amounts of data<br>* Large and adjustable per group [quotas](storage_and_file_management.md#quotas-et-politiques)<br>* Daily backup |
+| System        | Characteristics                                                                                                                                                                      |
+| :------------ | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| HOME          | Lustre filesystem, 116 TB                                                                                                                                                            |
+|               | * This small space cannot be increased; for larger storage needs, use the `/project` space                                                                                             |
+|               | * Small per user [quotas](storage-and-file-management.md#filesystem-quotas-and-policies)                                                                                             |
+|               | * Daily automatic backup                                                                                                                                                             |
+| SCRATCH       | Lustre filesystem, 6.5 PB                                                                                                                                                            |
+|               | * Accessible via symbolic link `$HOME/links/scratch`                                                                                                                                 |
+|               | * Large space for storing temporary files during computations                                                                                                                        |
+|               | * No backup system in place                                                                                                                                                          |
+|               | * Large per user [quotas](storage-and-file-management.md#filesystem-quotas-and-policies)                                                                                             |
+|               | * Older files are [automatically purged](scratch-purging-policy.md)                                                                                                                  |
+| PROJECT       | Lustre filesystem, 62 PB                                                                                                                                                             |
+|               | * Accessible via symbolic link `$HOME/links/projects/nom-du-projet`                                                                                                                  |
+|               | * Designed for sharing data among the members of a research group and for storing large amounts of data                                                                                |
+|               | * Large and adjustable per group [quotas](storage-and-file-management.md#quotas-et-politiques)                                                                                       |
+|               | * Daily backup                                                                                                                                                                       |
 
-For transferring data via [Globus](globus_fr.md), use the endpoint specified at the top of this page; for tools like [rsync](transferring_data.md#rsync) and [scp](transferring_data.md#scp), please use the login node.
+For transferring data via [Globus](globus.md), use the endpoint specified at the top of this page; for tools like [rsync](transferring-data.md#rsync) and [scp](transferring-data.md#scp), please use the login node.
 
 ## High-performance interconnect
 *   InfiniBand interconnect
@@ -73,14 +130,15 @@ For transferring data via [Globus](globus_fr.md), use the endpoint specified at 
 
 ## Node characteristics
 
-| nodes | cores | available memory | storage | CPU | GPU |
-| :---- | :---- | :--------------- | :------ | :-- | :-- |
-| 670 | 192 | 750G or 768000M | 1 x SATA SSD, 480G (6Gbit/s) | 2 x [AMD EPYC 9654 (Zen 4)](https://www.amd.com/en/support/downloads/drivers.html/processors/epyc/epyc-9004-series/amd-epyc-9654.html) @ 2.40 GHz, 384MB cache L3 | |
-| 8 | 192 | 750G or 768000M | 1 x NVMe SSD, 3.84TB | 2 x [AMD EPYC 9654 (Zen 4)](https://www.amd.com/en/support/downloads/drivers.html/processors/epyc/epyc-9004-series/amd-epyc-9654.html) @ 2.40 GHz, 384MB cache L3 | |
-| 8 | 192 | 3013G or 3086250M | 1 x SATA SSD, 480G (6Gbit/s) | 2 x [AMD EPYC 9654 (Zen 4)](https://www.amd.com/en/support/downloads/drivers.html/processors/epyc/epyc-9004-series/amd-epyc-9654.html) @ 2.40 GHz, 384MB cache L3 | |
-| 93 | 64 | 498G or 510000M | 1 x NVMe SSD, 3.84TB | 2 x [Intel Xeon Gold 6448Y](https://ark.intel.com/content/www/us/en/ark/products/232384/intel-xeon-gold-6448y-processor-60m-cache-2-10-ghz.html) @ 2.10 GHz, 60MB cache L3 | 4 x NVidia H100 SXM5 (80GB), connected via NVLink |
+| nodes | cores | available memory | storage                      | CPU                                                                                                                                                 | GPU                                    |
+| :---- | :---- | :--------------- | :--------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------- |
+| 670   | 192   | 750G or 768000M  | 1 x SATA SSD, 480G (6Gbit/s) | 2 x [AMD EPYC 9654 (Zen 4)](https://www.amd.com/en/support/downloads/drivers.html/processors/epyc/epyc-9004-series/amd-epyc-9654.html) @ 2.40 GHz, 384MB cache L3 |                                        |
+| 8     | 192   | 750G or 768000M  | 1 x NVMe SSD, 3.84TB         | 2 x [AMD EPYC 9654 (Zen 4)](https://www.amd.com/en/support/downloads/drivers.html/processors/epyc/epyc-9004-series/amd-epyc-9654.html) @ 2.40 GHz, 384MB cache L3 |                                        |
+| 8     | 192   | 3013G or 3086250M| 1 x SATA SSD, 480G (6Gbit/s) | 2 x [AMD EPYC 9654 (Zen 4)](https://www.amd.com/en/support/downloads/drivers.html/processors/epyc/epyc-9004-series/amd-epyc-9654.html) @ 2.40 GHz, 384MB cache L3 |                                        |
+| 93    | 64    | 498G or 510000M  | 1 x NVMe SSD, 3.84TB         | 2 x [Intel Xeon Gold 6448Y](https://ark.intel.com/content/www/us/en/ark/products/232384/intel-xeon-gold-6448y-processor-60m-cache-2-10-ghz.html) @ 2.10 GHz, 60MB cache L3 | 4 x NVidia H100 SXM5 (80GB), connected via NVLink |
 
-*   To get a larger `$SLURM_TMPDIR` space, a job can be submitted with `--tmp=xG`, where `x` is a value between 370 and 3360.
+!!! tip "Larger $SLURM_TMPDIR"
+    To get a larger `$SLURM_TMPDIR` space, a job can be submitted with `--tmp=xG`, where `x` is a value between 370 and 3360.
 
 ### CPU nodes
 The 192 cores and the different memory spaces are not equidistant, which causes variable delays (of the order of nanoseconds) to access data. In each node, there are
@@ -91,7 +149,7 @@ The 192 cores and the different memory spaces are not equidistant, which causes 
             *   8 cores per chiplet, each with its own 1 MiB L2 cache memory and 32+32 KiB L1 cache memory
 
 In other words, we have
-*   groups of 8 closely spaced cores sharing a single L3 cache, which is ideal for [multithreaded parallel programs](running_jobs.md#threaded-or-openmp-job) (for example, with the `--cpus-per-task=8` option)
+*   groups of 8 closely spaced cores sharing a single L3 cache, which is ideal for [multithreaded parallel programs](running-jobs.md#threaded-or-openmp-job) (for example, with the `--cpus-per-task=8` option)
 *   NUMA nodes of 3x8 = 24 cores sharing a trio of system memory channels
 *   a total of 2x4x3x8 = 192 cores per node
 
@@ -112,12 +170,12 @@ The 4 node accelerators are interconnected by [SXM5](https://en.wikipedia.org/wi
 
 Available GPU instance names are:
 
-| Model | Instance | Short name | Without unit | By memory | Long name |
-| :---- | :------- | :--------- | :----------- | :-------- | :-------- |
-| **GPU** | **H100-80gb** | `h100` | `h100` | `h100_80gb` | `nvidia_h100_80gb_hbm3` |
-| **MIG** | **H100-1g.10gb** | `h100_1g.10gb` | `h100_1.10` | `h100_10gb` | `nvidia_h100_80gb_hbm3_1g.10gb` |
-| **MIG** | **H100-2g.20gb** | `h100_2g.20gb` | `h100_2.20` | `h100_20gb` | `nvidia_h100_80gb_hbm3_2g.20gb` |
-| **MIG** | **H100-3g.40gb** | `h100_3g.40gb` | `h100_3.40` | `h100_40gb` | `nvidia_h100_80gb_hbm3_3g.40gb` |
+| Type    | Model/Instance   | Short name       | Without unit | By memory  | Long name                         |
+| :------ | :--------------- | :--------------- | :----------- | :--------- | :-------------------------------- |
+| **GPU** | **H100-80gb**    | `h100`           | `h100`       | `h100_80gb`| `nvidia_h100_80gb_hbm3`           |
+| **MIG** | **H100-1g.10gb** | `h100_1g.10gb`   | `h100_1.10`  | `h100_10gb`| `nvidia_h100_80gb_hbm3_1g.10gb`   |
+|         | **H100-2g.20gb** | `h100_2g.20gb`   | `h100_2.20`  | `h100_20gb`| `nvidia_h100_80gb_hbm3_2g.20gb`   |
+|         | **H100-3g.40gb** | `h100_3g.40gb`   | `h100_3.40`  | `h100_40gb`| `nvidia_h100_80gb_hbm3_3g.40gb`   |
 
 To request one or more full H100 GPUs, you need to use one of the following Slurm options:
 *   **One H100-80gb**: `--gpus=h100:1` or `--gpus=h100_80gb:1`
@@ -127,11 +185,11 @@ To request one or more full H100 GPUs, you need to use one of the following Slur
     *   `--gpus-per-node=h100:4`
 *   **For multiple full H100 GPUs** spread anywhere: `--gpus=h100:n` (replace `n` with the number of GPUs you want)
 
-Approximately half of the GPU nodes are configured with [MIG technology](multi-instance_gpu.md), and only 3 GPU instance sizes are available:
+Approximately half of the GPU nodes are configured with [MIG technology](multi-instance-gpu.md), and only 3 GPU instance sizes are available:
 
-*   **H100-1g.10gb**: 1/8th of the computing power with 10GB GPU memory
-*   **H100-2g.20gb**: 2/8th of the computing power with 20GB GPU memory
-*   **H100-3g.40gb**: 3/8th of the computing power with 40GB GPU memory
+*   **H100-1g.10gb**: 1/8^th^ of the computing power with 10GB GPU memory
+*   **H100-2g.20gb**: 2/8^th^ of the computing power with 20GB GPU memory
+*   **H100-3g.40gb**: 3/8^th^ of the computing power with 40GB GPU memory
 
 To request **one and only one GPU instance** for your compute job, use the corresponding option:
 
@@ -139,4 +197,4 @@ To request **one and only one GPU instance** for your compute job, use the corre
 *   **H100-2g.20gb**: `--gpus=h100_2g.20gb:1`
 *   **H100-3g.40gb**: `--gpus=h100_3g.40gb:1`
 
-The maximum recommended number of **CPU cores and system memory** per GPU instance is listed in [this table](allocations_and_compute_scheduling.md#ratios-in-bundles).
+The maximum recommended number of **CPU cores and system memory** per GPU instance is listed in [this table](allocations-and-compute-scheduling.md#ratios-in-bundles).

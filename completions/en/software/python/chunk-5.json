@@ -1,0 +1,44 @@
+{
+  "doc_key": "en/python",
+  "level": "chunk",
+  "chunk_index": 5,
+  "qa_pairs": [
+    {
+      "question": "How can one create a `requirements.txt` file for a TensorFlow virtual environment using a specific Python version?",
+      "answer": "To create a `requirements.txt` file for a TensorFlow virtual environment, load the desired Python module (e.g., `python/3.11`), create a temporary virtual environment, activate it, upgrade `pip`, install TensorFlow using `pip install --no-index tensorflow`, then freeze the local environment to `requirements.txt`, deactivate, and remove the temporary environment. The commands are: `module load python/3.11`, `ENVDIR=/tmp/$RANDOM`, `virtualenv --no-download $ENVDIR`, `source $ENVDIR/bin/activate`, `pip install --no-index --upgrade pip`, `pip install --no-index tensorflow`, `pip freeze --local > requirements.txt`, `deactivate`, and `rm -rf $ENVDIR`."
+    },
+    {
+      "question": "What is the purpose of the `requirements.txt` file created for a virtual environment?",
+      "answer": "The `requirements.txt` file ensures that your Python environment is reproducible between jobs by listing all the installed packages and their exact versions."
+    },
+    {
+      "question": "What should one do if a required Python package wheel is not available in the provided wheelhouse?",
+      "answer": "If a required package's wheel is not available in the wheelhouse, you can pre-download it. If you believe the missing wheel should be included, you should contact technical support to make a request."
+    },
+    {
+      "question": "Why is it necessary to activate a virtual environment on each node when running multi-node Python scripts?",
+      "answer": "In order to run Python scripts across multiple nodes, each node must have its own virtual environment activated so that the necessary packages and Python interpreter are available to the script on every node."
+    },
+    {
+      "question": "How do you create a virtual environment on each allocated node within a SLURM submission script for a multi-node job?",
+      "answer": "You can create the virtual environment on each allocated node by using an `srun` command with a here-doc block in your submission script. The command would look like this: `srun --ntasks $SLURM_NNODES --tasks-per-node=1 bash << EOF` followed by `virtualenv --no-download $SLURM_TMPDIR/env`, `source $SLURM_TMPDIR/env/bin/activate`, `pip install --no-index --upgrade pip`, and `pip install --no-index -r requirements.txt`, ending with `EOF`."
+    },
+    {
+      "question": "After creating virtual environments on each node for a multi-node job, how is the virtual environment activated on the main node?",
+      "answer": "The virtual environment is activated on the main node by running `source $SLURM_TMPDIR/env/bin/activate;` in the submission script after the `srun` block for creating environments on all nodes."
+    },
+    {
+      "question": "How do you execute a Python script in a multi-node job after activating the virtual environment?",
+      "answer": "To execute a Python script in a multi-node job, you use the `srun` command, for example: `srun python myscript.py;`. The `srun` command will export the current environment, which includes the activated virtual environment's variables."
+    },
+    {
+      "question": "What SLURM directives are used in the example multi-node submission script for Python jobs?",
+      "answer": "The example multi-node submission script uses the following SLURM directives: `--account=<your account>`, `--time=00:30:00`, `--nodes=2`, `--ntasks=2`, and `--mem-per-cpu=2000M`."
+    },
+    {
+      "question": "Which modules are loaded in the example multi-node submission script?",
+      "answer": "The example multi-node submission script loads the `StdEnv/2023`, `python/3.11`, and `mpi4py/4.0.3` modules."
+    }
+  ],
+  "generated_at": "2026-04-12T05:54:16.233094+00:00"
+}

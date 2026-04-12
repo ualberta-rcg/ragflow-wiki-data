@@ -5,21 +5,49 @@ lang: "en"
 
 source_wiki_title: "Make/en"
 source_hash: "5cc9d973811302fc07890697924a66db"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T08:23:07.400880+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T08:56:47.009857+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "dependencies"
+  - "linked together"
+  - "adapt script"
+  - "make command"
+  - "CompilerName"
+  - "ObjectFiles"
+  - "program compilation"
+  - "make"
+  - "make utility"
+  - "CompilationOptions"
+  - "targets"
+  - "compilation"
+  - "Unix command line"
+  - "makefile"
+  - "object files"
+
+questions:
+  - "What is the primary purpose of the `make` utility and how does it use dependencies to optimize the build process?"
+  - "What are the conventional targets used with the `make` command, such as `clean` or `install`, and what specific functions do they serve?"
+  - "According to the provided Makefile example, how does the `make` command determine which specific routines need to be recompiled?"
+  - "How do you use the \"make\" command on the UNIX command line to update the entire program versus a specific routine?"
+  - "What are the key variables defined in this Makefile, and how can the compilation options be adjusted for debugging or profiling?"
+  - "How does the Makefile define the implicit rules for compiling Fortran, C, and C++ source files into object files?"
+  - "How does the \"make\" command determine which routines need to be recompiled?"
+  - "What happens to the recompiled object files (.o files) after they are generated?"
+  - "What steps are required to adapt this script for a custom program?"
+  - "How do you use the \"make\" command on the UNIX command line to update the entire program versus a specific routine?"
+  - "What are the key variables defined in this Makefile, and how can the compilation options be adjusted for debugging or profiling?"
+  - "How does the Makefile define the implicit rules for compiling Fortran, C, and C++ source files into object files?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -33,41 +61,51 @@ For example, if the `makefile` indicates that an object (`.o`) file depends on a
 In the same way, if an executable depends on any object files which have changed then the linking step will be rerun to update the executable.
 All dependencies must be included in the `makefile`. Then it is not necessary to recompile all files for every modification; the `make` command takes care of recompiling and relinking only what is necessary.
 
-## Examples for using make
+## Examples for Using Make
 The main argument of the `make` command is the *target*. The *target* may be the name of some file that `make` should build, or it may be an abstract target such as *all*, *test*, *check*, *clean*, or *install*.
 The targets that are available depend on the contents of the `makefile`, but the ones just listed are conventional and are specified in many makefiles. If `make` is invoked with no target specified, like so:
+
 ```bash
 make
 ```
+
 then the typical behaviour is to construct everything, equivalent to:
+
 ```bash
 make all
 ```
 
 The *test* or *check* targets are generally used to run tests to validate if the application or compiled library functions correctly. Usually these targets depend on the *all* target. Hence you can verify the compilation using
+
 ```bash
 make all && make check
 ```
+
 or
+
 ```bash
 make all && make test
 ```
 
 The *clean* target erases all previously compiled binary files to be able to recompile from scratch. There is sometimes also a *distclean* target, which not only deletes files made by `make`, but also files created at configuration time by [configure](autotools.md) or [cmake](cmake.md). So to clean the compilation directory, you can usually run
+
 ```bash
 make clean
 ```
+
 and sometimes
+
 ```bash
 make distclean
 ```
 
 The *install* target normally installs a compiled program or library. Where the installation is put depends on the `makefile`, but can often be modified using an additional *prefix* parameter, like this:
+
 ```bash
 make install prefix=$HOME/PROGRAM
 ```
 
-The targets *all*, *test*, *check*, *clean*, *distclean* and *install* are only conventions and a `makefile` author could very well choose another convention. To get more information on typical target names, notably supported by all GNU applications, visit [this page](http://www.gnu.org/software/make/manual/make.html#Standard-Targets). Options to configure installation and other directories are [listed here](http://www.gnu.org/software/make/manual/make.html#Directory-Variables).
+The targets `all`, `test`, `check`, `clean`, `distclean` and `install` are only conventions and a `makefile` author could very well choose another convention. To get more information on typical target names, notably supported by all GNU applications, visit [this page](http://www.gnu.org/software/make/manual/make.html#Standard-Targets). Options to configure installation and other directories are [listed here](http://www.gnu.org/software/make/manual/make.html#Directory-Variables).
 
 ## Example of a Makefile
 The following example, of general use, includes a lot of explanations and comments. For a detailed guide on how to create a `makefile`, visit [the GNU Make web site](http://www.gnu.org/software/make/manual/make.html#Introduction).

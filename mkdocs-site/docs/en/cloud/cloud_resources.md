@@ -5,21 +5,61 @@ lang: "en"
 
 source_wiki_title: "Cloud resources/en"
 source_hash: "0adb972cb25331b050fd47b296eb4a6f"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T05:39:00.439805+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T06:24:56.523380+00:00"
 
 tags:
   - cloud
 
 keywords:
-  []
+  - "Cloud"
+  - "VMs"
+  - "images"
+  - "Arbutus cloud"
+  - "Ceph storage"
+  - "Linux distributions"
+  - "security updates"
+  - "OpenStack"
+  - "CPUs"
+  - "vCPUs"
+  - "working with images"
+  - "GPUs"
+  - "University of Victoria"
+  - "category"
+  - "details"
+  - "Hardware specifications"
+  - "EOL Linux distribution"
+  - "older images"
+  - "Alliance cloud"
+  - "migrate systems"
+  - "Tesla K80"
+
+questions:
+  - "Where is the Arbutus cloud physically located and what is its web address?"
+  - "What are the total hardware capacities of the Arbutus cloud in terms of CPUs, GPUs, RAM, and storage?"
+  - "What are the different CPU models and storage configurations used across the various nodes in the Arbutus cloud?"
+  - "What are the hardware specifications, storage capacities, and physical locations of the Cedar, Nibi, and Béluga clouds?"
+  - "Which versions of the OpenStack platform are utilized across the different Alliance cloud environments?"
+  - "What is the Alliance cloud's policy regarding the provision, updating, and End of Life (EOL) management of Linux distribution images?"
+  - "Where is this computing facility located?"
+  - "What are the total numbers of CPUs, vCPUs, and GPUs available in this system?"
+  - "How much total RAM and Ceph storage capacity does the facility possess?"
+  - "Why is it recommended to migrate systems and platforms to newer releases?"
+  - "What will happen to older Linux distribution images that have passed their End of Life (EOL)?"
+  - "How does the removal of EOL Linux images affect existing virtual machines compared to the creation of new ones?"
+  - "Where can a user find more detailed information about using images?"
+  - "Under which category is this information classified?"
+  - "What is the exact title of the linked page provided for further reading?"
+  - "Where can a user find more detailed information about using images?"
+  - "Under which category is this information classified?"
+  - "What is the exact title of the linked page provided for further reading?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -31,7 +71,7 @@ status:
 Address: [arbutus.cloud.alliancecan.ca](https://arbutus.cloud.alliancecan.ca)
 
 | Node count | CPU | Memory (GB) | Local (ephemeral) storage | Interconnect | GPU | Total CPUs | Total vCPUs |
-| :--------- | :-- | :---------- | :------------------------ | :----------- | :-- | :--------- | :---------- |
+|---|---|---|---|---|---|---|---|
 | 156 | 2 x [Gold 6248](https://ark.intel.com/content/www/us/en/ark/products/192446/intel-xeon-gold-6248-processor-27-5m-cache-2-50-ghz.html) | 384 | 2 x 1.92TB SSD in [RAID0](https://en.wikipedia.org/wiki/Standard_RAID_levels#RAID_0) | 1 x 25GbE | N/A | 6,240 | 12,480 |
 | 8 | 2 x [Gold 6248](https://ark.intel.com/content/www/us/en/ark/products/192446/intel-xeon-gold-6248-processor-27-5m-cache-2-50-ghz.html) | 1024 | 2 x 1.92TB SSD in [RAID1](https://en.wikipedia.org/wiki/Standard_RAID_levels#RAID_1) | 1 x 25GbE | N/A | 320 | 6,400 |
 | 26 | 2 x [Gold 6248](https://ark.intel.com/content/www/us/en/ark/products/192446/intel-xeon-gold-6248-processor-27-5m-cache-2-50-ghz.html) | 384 | 2 x 1.6TB SSD in [RAID0](https://en.wikipedia.org/wiki/Standard_RAID_levels#RAID_0) | 1 x 25GbE | 4 x [V100 32GB](https://www.nvidia.com/en-us/data-center/v100/) | 1,040 | 2,080 |
@@ -54,7 +94,7 @@ Total RAM: 157,184 GB
 Address: [cedar.cloud.alliancecan.ca](http://cedar.cloud.alliancecan.ca)
 
 | Node count | CPU | Memory (GB) | Local (ephemeral) storage | Interconnect | GPU | Total CPUs | Total vCPUs |
-| :--------- | :-- | :---------- | :------------------------ | :----------- | :-- | :--------- | :---------- |
+|---|---|---|---|---|---|---|---|
 | 28 | 2 x [E5-2683 v4](https://ark.intel.com/content/www/us/en/ark/products/91766/intel-xeon-processor-e5-2683-v4-40m-cache-2-10-ghz.html) | 256 | 2 x 480GB SSD in [RAID1](https://en.wikipedia.org/wiki/Standard_RAID_levels#RAID_1) | 1 x 10GbE | N/A | 896 | 1,792 |
 | 4 | 2 x [E5-2683 v4](https://ark.intel.com/content/www/us/en/ark/products/91766/intel-xeon-processor-e5-2683-v4-40m-cache-2-10-ghz.html) | 256 | 2 x 480GB SSD in [RAID1](https://en.wikipedia.org/wiki/Standard_RAID_levels#RAID_1) | 1 x 10GbE | N/A | 128 | 256 |
 
@@ -67,8 +107,8 @@ Total RAM: 7,680 GB
 ### Nibi cloud
 Address: [nibi.cloud.alliancecan.ca](https://nibi.cloud.alliancecan.ca)
 
-| Node count | CPU | Memory (GB) | Local (ephemeral) storage | Interconnect | GPU | Total CPUs | Total vCPUs |
-| :--------- | :-- | :---------- | :------------------------ | :----------- | :-- | :--------- | :---------- |
+| Node count | CPU | Memory (GB) | Local (ephemeral) storage | Interconnect | GPU | Total CPUs | Total vCPUS |
+|---|---|---|---|---|---|---|---|
 | 18 | 2 X AMD EPYC 9474F 48-Core Processor | 1511 | 3.5 TB | 1 X 1GbE, 1 X 25GbE, 1 X 50GbE | N/A | 1728 | 3456 |
 
 Location: University of Waterloo
@@ -81,7 +121,7 @@ Total RAM: 26.57 TB (27202.94 GB | 27,860,544 MB)
 Address: [beluga.cloud.alliancecan.ca](https://beluga.cloud.alliancecan.ca)
 
 | Node count | CPU | Memory (GB) | Local (ephemeral) storage | Interconnect | GPU | Total CPUs | Total vCPUs |
-| :--------- | :-- | :---------- | :------------------------ | :----------- | :-- | :--------- | :---------- |
+|---|---|---|---|---|---|---|---|
 | 96 | 2 x Intel Xeon Gold 5218 | 256 | N/A, ephemeral storage in ceph | 1 x 25GbE | N/A | 3,072 | 6,144 |
 | 16 | 2 x Intel Xeon Gold 5218 | 768 | N/A, ephemeral storage in ceph | 1 x 25GbE | N/A | 512 | 1,024 |
 
@@ -93,15 +133,23 @@ Total RAM: 36,864 GiB
 1.7 PiB of erasure coded persistent HDD [Ceph](https://en.wikipedia.org/wiki/Ceph_(software)) storage.
 
 ## Software
+
 Alliance cloud OpenStack platform versions as of February 23, 2026
-* Arbutus: Ussuri
-* Cedar: Train
-* Nibi: Flamingo
-* Béluga: Victoria
+
+*   Arbutus: Ussuri
+*   Cedar: Train
+*   Nibi: Flamingo
+*   Béluga: Victoria
 
 See the [OpenStack releases](http://releases.openstack.org/) for a list of all OpenStack versions.
 
 ## Images
-Images are provided by Alliance staff on the Alliance Clouds for common Linux distributions (Alma, Debian, Fedora, Rocky, and Ubuntu). New images for these distributions will be added periodically as new releases and updates become available. As releases have an end of life (EOL) after which support and updates are no longer provided, we encourage you to migrate systems and platforms to newer releases in order to continue receiving patches and security updates. Older images for Linux distributions past their EOL will be removed. This does not prevent you from continuing to run a VM with an EOL Linux distribution (though you shouldn't) but does mean that those images will no longer be available when creating new VMs.
+
+Images are provided by Alliance staff on the Alliance Clouds for common Linux distributions (Alma, Debian, Fedora, Rocky, and Ubuntu). New images for these distributions will be added periodically as new releases and updates become available.
+
+!!! warning "End of Life (EOL) Linux Distributions"
+    As releases have an end of life (EOL) after which support and updates are no longer provided, we encourage you to migrate systems and platforms to newer releases in order to continue receiving patches and security updates.
+
+    Older images for Linux distributions past their EOL will be removed. This does not prevent you from continuing to run a VM with an EOL Linux distribution (though you shouldn't) but does mean that those images will no longer be available when creating new VMs.
 
 For more details about using images see [working with images](working-with-images.md).

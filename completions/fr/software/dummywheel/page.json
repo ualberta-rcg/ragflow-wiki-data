@@ -1,0 +1,47 @@
+{
+  "doc_key": "fr/dummywheel",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "C'est quoi un Dummy Wheel et à quoi ça sert?",
+      "answer": "Un Dummy Wheel est un substitut pour des paquets Python populaires qui sont disponibles sur PyPI, mais qui sont installés comme des modules sur notre infrastructure."
+    },
+    {
+      "question": "Comment peut-on reconnaître un Dummy Wheel?",
+      "answer": "Les Dummy Wheels sont étiquetés avec une version locale, par exemple: `pyarrow-23.0.1+dummy.computecanada-py3-none-any.whl`."
+    },
+    {
+      "question": "Quel est le comportement de pip lorsqu'il sélectionne un Dummy Wheel?",
+      "answer": "Lorsque pip sélectionne un Dummy Wheel, il génère une erreur, car il ne peut pas trouver de correspondance pour l'exigence."
+    },
+    {
+      "question": "Est-ce normal de voir une erreur générée par un Dummy Wheel?",
+      "answer": "Oui, c'est une erreur normale générée par ce Dummy Wheel."
+    },
+    {
+      "question": "Quelles sont les causes fréquentes d'une erreur quand un Dummy Wheel est sélectionné?",
+      "answer": "Les causes sont que le module n'a pas été chargé, que la version du module chargé ne répond pas aux exigences, ou que le module chargé ne supporte pas la version de Python utilisée."
+    },
+    {
+      "question": "Comment dépanner si le module nécessaire n'est pas chargé (par exemple, Arrow)?",
+      "answer": "Il faut désactiver l'environnement virtuel, charger le module requis, réactiver l'environnement virtuel, puis relancer la commande d'installation de pip."
+    },
+    {
+      "question": "Quelles commandes sont utilisées pour corriger un problème de module non chargé?",
+      "answer": "Les commandes sont `test $VIRTUAL_ENV && deactivate`, `module load gcc arrow/x.y.z python/x.y.z` (avec la bonne version), `source <env>/bin/activate`, et `pip install <paquet>`."
+    },
+    {
+      "question": "Comment savoir si la version du paquet/module chargé ne correspond pas à l'exigence?",
+      "answer": "On peut le voir en consultant la ligne `pyarrow_noinstall` dans la sortie de `pip install --no-index <paquet>`, qui indique la version requise (par exemple, `pyarrow>=21.0.0`)."
+    },
+    {
+      "question": "Comment vérifier si le module chargé dispose des liaisons Python pour la version de Python utilisée?",
+      "answer": "On peut utiliser la commande `python -c \"import pyarrow\"`. Si la commande n'affiche rien, l'importation a réussi et les liaisons sont présentes."
+    },
+    {
+      "question": "Comment peut-on confirmer que pip voit un module comme pyarrow?",
+      "answer": "On peut utiliser `pip list | grep pyarrow`. Si une entrée apparaît, le module est disponible et visible par pip; sinon, il ne l'est pas."
+    }
+  ],
+  "generated_at": "2026-04-11T21:14:51.795559+00:00"
+}

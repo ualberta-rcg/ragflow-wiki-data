@@ -1,0 +1,96 @@
+{
+  "doc_key": "en/trillium_quickstart",
+  "level": "chunk",
+  "chunk_index": 7,
+  "qa_pairs": [
+    {
+      "question": "What are the characteristics of the shell environment within a `debugjob` on Trillium?",
+      "answer": "Within a `debugjob` on Trillium, the shell environment will be similar to a fresh login, meaning only standard modules are loaded, there's no internet access, no write access to home and project file systems, and no job submissions are allowed."
+    },
+    {
+      "question": "How can I make my `debugjob` session inherit previously loaded modules?",
+      "answer": "To make your `debugjob` session inherit the modules you had loaded before issuing the command, add \"`--export=ALL`\" as the first option to `debugjob`."
+    },
+    {
+      "question": "What command should I use if my test job requires more time than a `debugjob` allows?",
+      "answer": "If your test job requires more time than a `debugjob` allows, you can request an interactive session from the regular queue using the `salloc` command."
+    },
+    {
+      "question": "What is the basic `salloc` command syntax for CPU test jobs on Trillium?",
+      "answer": "For CPU test jobs, the `salloc` command syntax is `$ salloc --export=NONE --nodes=N --time=M:00:00 [--ngpus-per-node=G] [--x11]`."
+    },
+    {
+      "question": "What do the `N`, `M`, and `G` parameters represent in the `salloc` command?",
+      "answer": "In the `salloc` command, `N` represents the number of nodes, `M` represents the number of hours the job should run, and `G` represents the number of GPUs per node (if applicable)."
+    },
+    {
+      "question": "When is the `--x11` option required for `salloc`?",
+      "answer": "The `--x11` option is required for `salloc` when using graphical applications, such as ARM DDT. It is optional otherwise."
+    },
+    {
+      "question": "What are two important considerations when submitting jobs with `salloc` compared to `debugjob`?",
+      "answer": "Jobs submitted with `salloc` may take longer to start than those submitted with `debugjob`, and they also count towards your allocation."
+    },
+    {
+      "question": "What are the preliminary steps before submitting jobs to Trillium's compute nodes?",
+      "answer": "Before submitting jobs to Trillium's compute nodes, you should compile and test your code or workflow on the login nodes to ensure it behaves correctly."
+    },
+    {
+      "question": "What job scheduler does Trillium use?",
+      "answer": "Trillium uses SLURM as its job scheduler."
+    },
+    {
+      "question": "How do you submit a job to the Trillium scheduler?",
+      "answer": "You submit a job to the Trillium scheduler by using the `sbatch` command on a login node, for example: `$ sbatch jobscript.sh`."
+    },
+    {
+      "question": "From which login nodes should CPU and GPU compute jobs be submitted?",
+      "answer": "CPU compute jobs must be submitted from the CPU login nodes, while GPU compute jobs must be submitted from the GPU login node."
+    },
+    {
+      "question": "What special lines should a job script contain to specify required resources for SLURM?",
+      "answer": "A job script should contain lines starting with `#SBATCH` to specify the resources it needs."
+    },
+    {
+      "question": "Under what conditions does SLURM begin executing a submitted job?",
+      "answer": "SLURM begins executing a job on compute nodes when it reaches the top of the priority queue and the requested resources are available."
+    },
+    {
+      "question": "What factors influence a job's priority in the Trillium queue?",
+      "answer": "A job's priority in the Trillium queue depends on factors such as requested resources, time spent in the queue, recent past usage, and the SLURM account under which the job was submitted."
+    },
+    {
+      "question": "What do SLURM accounts on Trillium correspond to?",
+      "answer": "SLURM accounts on Trillium correspond to Resource Allocation Projects (RAPs)."
+    },
+    {
+      "question": "What is a RAS or default RAP, and how are its associated SLURM accounts named?",
+      "answer": "A RAS or default RAP is a Resource Allocation Project available to each Principal Investigator (PI). Users sponsored by that PI can access the corresponding SLURM account, which typically starts with `def-`."
+    },
+    {
+      "question": "How are SLURM accounts associated with RAC allocations named?",
+      "answer": "SLURM accounts associated with RAC (Resource Allocation Competition) allocations typically start with `rrg-` or `rpp-`."
+    },
+    {
+      "question": "Can a RAC allocation from another system, like Nibi, be used on Trillium?",
+      "answer": "No, RAC allocations are bound to a specific system; for example, a RAC for Nibi cannot be used on Trillium."
+    },
+    {
+      "question": "Why should job output be written to the scratch file system on Trillium?",
+      "answer": "Job output should be written to the scratch file system because it's a fast parallel file system, and the home and project directories are only available for reading on the compute nodes, enforcing this policy."
+    },
+    {
+      "question": "What is the recommended directory for submitting jobs, and why?",
+      "answer": "It is recommended to submit jobs from your `$SCRATCH` directory (not `$HOME` or `$PROJECT`) because SLURM's default output file location is the submission directory, and if it's not in scratch, the output files won't be written due to read-only restrictions on other file systems during job execution."
+    },
+    {
+      "question": "Which allocation type do jobs run under by default on Trillium?",
+      "answer": "By default, jobs on Trillium will run under your group's RAC allocation; if one isn't available, they will use a RAS allocation."
+    },
+    {
+      "question": "How can users explicitly control which SLURM account their job uses?",
+      "answer": "Users can explicitly control which SLURM account their job uses by specifying the account name with the `--account=ACCOUNT_NAME` option in their job script or submission command. This is highly recommended for users with multiple allocations."
+    }
+  ],
+  "generated_at": "2026-04-12T09:45:50.620095+00:00"
+}

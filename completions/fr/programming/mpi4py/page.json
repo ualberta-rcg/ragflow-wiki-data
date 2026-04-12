@@ -1,0 +1,39 @@
+{
+  "doc_key": "fr/mpi4py",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "C'est quoi, mpi4py, pis à quoi ça sert exactement?",
+      "answer": "mpi4py offre une interface Python pour la norme de communication MPI (Message Passing Interface), permettant aux applications Python d'exploiter plusieurs processeurs sur des postes de travail, des grappes et des supercalculateurs."
+    },
+    {
+      "question": "Comment on fait pour trouver les versions d'mpi4py disponibles dans notre environnement?",
+      "answer": "Faut utiliser la commande `module spider mpi4py` pour voir les versions disponibles."
+    },
+    {
+      "question": "Quelles sont les étapes pour faire rouler un petit test de type 'Hello World' avec mpi4py?",
+      "answer": "D'abord, démarrez une tâche interactive, puis chargez les modules `mpi4py/4.0.0` et `python/3.12`. Après ça, exécutez `srun python -m mpi4py.bench helloworld`."
+    },
+    {
+      "question": "Quand mpi4py est une dépendance pour un autre paquet, comment on gère ça avec les environnements virtuels?",
+      "answer": "Il faut désactiver tout environnement virtuel Python actif, charger le module `mpi4py`, et seulement après, réactiver votre environnement virtuel avant de créer et d'installer les paquets."
+    },
+    {
+      "question": "Comment on s'assure que le module mpi4py est bien visible par pip et accessible par Python après l'avoir chargé?",
+      "answer": "Pour vérifier, on peut utiliser `pip list | grep mpi4py` pour voir s'il est listé, pis `python -c 'import mpi4py'` pour s'assurer qu'il s'importe sans erreur."
+    },
+    {
+      "question": "Quelles sont les étapes pour soumettre une tâche mpi4py qui distribue un tableau NumPy sur des CPU?",
+      "answer": "Faut préparer un script Python (`mpi4py-np-bc.py`), puis un script de soumission Slurm (`submit-mpi4py-distributed.sh` ou `submit-mpi4py-whole-nodes.sh`) qui charge les modules, crée un environnement virtuel sur chaque nœud alloué, pis l'active, avant de soumettre la tâche avec `sbatch`."
+    },
+    {
+      "question": "Comment on fait pour préparer pis soumettre une tâche mpi4py qui utilise les GPU?",
+      "answer": "Sur un nœud de connexion, on télécharge un exemple comme `use_cupy.py`. Ensuite, on prépare un script de soumission Slurm (`submit-mpi4py-gpu.sh`) qui charge les modules (incluant `cuda`), crée un environnement virtuel, installe `cupy` et `numba`, pis exécute le script Python, avant de soumettre avec `sbatch`."
+    },
+    {
+      "question": "Si j'ai l'erreur 'ModuleNotFoundError: No module named 'mpi4py'', c'est quoi les solutions possibles?",
+      "answer": "Ça veut dire que mpi4py est pas accessible. Faut vérifier la compatibilité des versions de Python avec le module mpi4py chargé (avec `module spider mpi4py/X.Y.Z`) pis s'assurer de charger le module avant d'activer votre environnement virtuel."
+    }
+  ],
+  "generated_at": "2026-04-12T02:02:15.985395+00:00"
+}

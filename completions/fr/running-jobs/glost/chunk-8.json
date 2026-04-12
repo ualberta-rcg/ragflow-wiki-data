@@ -1,0 +1,32 @@
+{
+  "doc_key": "fr/glost",
+  "level": "chunk",
+  "chunk_index": 8,
+  "qa_pairs": [
+    {
+      "question": "Comment sont structurées les commandes pour une tâche GLOST quand elle est exécutée dans son propre répertoire, d'après l'exemple fourni?",
+      "answer": "Selon l'exemple, les commandes pour une tâche GLOST dans son propre répertoire sont enchaînées avec l'opérateur `&&`. Elles commencent typiquement par définir une variable (comme `nargument`), créent un répertoire unique (`mkdir -p RUN_${nargument}`), changent le répertoire courant (`cd RUN_${nargument}`), exécutent la tâche réelle (ici, `sleep 360` en tant que substitut), puis gèrent la sortie ou d'autres opérations (par exemple, `echo ${nargument}.`hostname` > log_run.txt`)."
+    },
+    {
+      "question": "Pourquoi est-ce pertinent de créer des répertoires distincts pour chaque tâche GLOST, comme dans l'exemple avec `mkdir -p RUN_${nargument}`?",
+      "answer": "C'est pertinent de créer des répertoires distincts pour chaque tâche GLOST afin de prévenir les terminaisons anormales ou les chevauchements de résultats. C'est particulièrement utile quand un programme utilise des fichiers temporaires ou des fichiers d'entrée/sortie avec des noms identiques, garantissant que chaque tâche a son propre environnement de travail sans interférence."
+    },
+    {
+      "question": "À quoi sert la variable `nargument` dans les lignes de la liste de tâches GLOST montrées pour les répertoires séparés?",
+      "answer": "Dans cet exemple, la variable `nargument` sert à créer un identifiant unique pour chaque tâche. Elle est utilisée pour nommer le répertoire de travail spécifique à la tâche (comme `RUN_${nargument}`) et pour personnaliser les fichiers de journalisation ou de sortie (comme `log_run.txt`), permettant ainsi d'éviter les conflits entre les différentes tâches et de les distinguer."
+    },
+    {
+      "question": "Que représente la commande `sleep 360` dans l'exemple de tâches GLOST exécutées dans des répertoires différents?",
+      "answer": "Dans cet exemple, la commande `sleep 360` est une commande générique qui simule l'exécution d'une application pendant 360 secondes. C'est un substitut que vous devriez remplacer par la ligne de commande réelle de votre propre application."
+    },
+    {
+      "question": "Comment les commandes multiples d'une seule ligne de tâche sont-elles exécutées séquentiellement dans le fichier `list_glost_tasks.txt`?",
+      "answer": "Les commandes multiples d'une seule ligne de tâche sont exécutées séquentiellement en utilisant l'opérateur `&&`. Cet opérateur garantit que chaque commande ne sera lancée que si la commande précédente s'est terminée avec succès, ce qui est crucial pour les enchaînements comme la création de répertoire suivie du changement de répertoire."
+    },
+    {
+      "question": "Expliquez la fonction de la commande `echo ${nargument}.`hostname` > log_run.txt` dans l'exemple de tâches GLOST en répertoires distincts.",
+      "answer": "Cette commande sert à écrire l'identifiant de la tâche (`nargument`) suivi du nom d'hôte de la machine où la tâche est exécutée dans un fichier nommé `log_run.txt`. Le symbole `>` redirige la sortie standard de la commande `echo` vers ce fichier, créant ainsi un journal spécifique et unique pour chaque tâche dans son répertoire distinct."
+    }
+  ],
+  "generated_at": "2026-04-11T22:15:38.899149+00:00"
+}

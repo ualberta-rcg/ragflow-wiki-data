@@ -5,21 +5,49 @@ lang: "en"
 
 source_wiki_title: "Using cloud vGPUs/en"
 source_hash: "2995519f70531526770fe98805867f40"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T12:23:10.764261+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T12:23:32.937798+00:00"
 
 tags:
   - cloud
 
 keywords:
-  []
+  - "nvidia-gridd"
+  - "virtual machine"
+  - "CUDA toolkit"
+  - "PID"
+  - "GPU Memory"
+  - "Process name"
+  - "vGPU"
+  - "GPU"
+  - "license"
+  - "Processes"
+  - "virtual GPU"
+  - "ClientConfigToken"
+  - "Arbutus cloud"
+  - "NVIDIA driver"
+  - "NVIDIA Virtual Compute Server"
+
+questions:
+  - "What specific VM flavors must be used to deploy an instance with vGPU access in the Arbutus cloud?"
+  - "What are the necessary preparation steps and files required to successfully install the NVIDIA vGPU driver on the virtual machine?"
+  - "How can a user verify that the operating system has proper access to the vGPU after the driver installation is complete?"
+  - "Where should the licensing token be copied to initiate the vGPU licensing process?"
+  - "What command is used to configure the feature type for the NVIDIA Grid Daemon?"
+  - "How is the vGPU license renewed after it has been successfully acquired?"
+  - "What is the current GPU memory usage compared to the total available capacity shown in the output?"
+  - "What specific attributes are tracked for each process running on the GPU according to the table headers?"
+  - "What type of system monitoring tool or command typically generates this specific tabular output?"
+  - "Where should the licensing token be copied to initiate the vGPU licensing process?"
+  - "What command is used to configure the feature type for the NVIDIA Grid Daemon?"
+  - "How is the vGPU license renewed after it has been successfully acquired?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -30,7 +58,10 @@ This page describes how to
 Access to repositories as well as to the vGPUs is currently only available within [the Arbutus cloud](arbutus.md).
 
 !!! note
-    The documentation below only covers the vGPU driver installation. The [CUDA toolkit](https://developer.nvidia.com/cuda-toolkit-archive) is not pre-installed but you can install it directly from NVIDIA or load it from [the CVMFS software stack](accessing-cvmfs.md). If you choose to install the toolkit directly from NVIDIA, please ensure that the vGPU driver is not overwritten with the one from the CUDA package.
+    Please note that the documentation below only covers the vGPU driver installation. The [CUDA toolkit](https://developer.nvidia.com/cuda-toolkit-archive) is not pre-installed but you can install it directly from NVIDIA or load it from [the CVMFS software stack](accessing-cvmfs.md).
+
+!!! warning
+    If you choose to install the toolkit directly from NVIDIA, please ensure that the vGPU driver is not overwritten with the one from the CUDA package.
 
 ## Supported flavours
 
@@ -45,7 +76,8 @@ Once the VM is available, make sure to update the OS to the latest available sof
 
 **Reboot the VM to have the latest kernel running.**
 
-It is recommended to install [DKMS package](https://en.wikipedia.org/wiki/Dynamic_Kernel_Module_Support), which is available via default repositories for all major distributions. If the dkms package doesn't install the kernel-header package automatically, it needs to be installed manually via the package manager of your distribution.
+It is recommended to install [DKMS package](https://en.wikipedia.org/wiki/Dynamic_Kernel_Module_Support), which is available via default repositories for all major distributions.
+If the dkms package doesn't install the kernel-header package automatically, it needs to be installed manually via the package manager of your distribution.
 
 Download the 2 files listed below to your system.
 
@@ -63,11 +95,12 @@ Install the Nvidia vGPU driver with
 root@vgpudoc:/home/debian# chmod 755 NVIDIA-Linux-x86_64-580.105.08-grid.run && ./NVIDIA-Linux-x86_64-580.105.08-grid.run
 ```
 
-Options ''NVIDIA Proprietary'' and ''DKMS'', are recommended.
+!!! tip
+    Options *NVIDIA Proprietary* and *DKMS* are recommended.
 
 After a successful installation, reboot the system and verify via `nvidia-smi` that the OS has now proper access to the vGPU.
 
-```text
+```bash
 root@vgpudoc:/home/debian# nvidia-smi
 Thu Apr  2 19:06:00 2026
 +-----------------------------------------------------------------------------------------+
@@ -102,7 +135,7 @@ Thu Apr  2 19:06:00 2026
 +-----------------------------------------------------------------------------------------+
 ```
 
-The vGPU is now accessible and needs to be licensed. Copy the token ''kalpa-prod.tok'' to ''/etc/nvidia/ClientConfigToken/''.
+The vGPU is now accessible and needs to be licensed. Copy the token *kalpa-prod.tok* to */etc/nvidia/ClientConfigToken/*.
 
 Configure nvidia-gridd, via the command below.
 
@@ -111,7 +144,8 @@ echo "FeatureType=4" >/etc/nvidia/gridd.conf
 ```
 
 Enable nvidia-gridd and verify its status.
-```text
+
+```bash
 systemctl enable --now nvidia-gridd
 
 
@@ -137,4 +171,4 @@ Apr 02 19:11:14 vgpudoc nvidia-gridd[837]: Acquiring license. (Info: api.cls.lic
 Apr 02 19:11:16 vgpudoc nvidia-gridd[837]: License acquired successfully. (Info: api.cls.licensing.nvidia.com, NVIDIA Virtual Compute Server; Expiry: 2026-4-3 19:11:16 GMT)
 ```
 
-Once gridd has received a valid license, all features of the vGPU can be used. The license renewal is handled via nvidia-gridd automatically.
+Once gridd has received a valid licence, all features of the vGPU can be used. The licence renewal is handled via nvidia-gridd automatically.

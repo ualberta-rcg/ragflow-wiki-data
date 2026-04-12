@@ -1,0 +1,112 @@
+{
+  "doc_key": "en/running_jobs",
+  "level": "chunk",
+  "chunk_index": 1,
+  "qa_pairs": [
+    {
+      "question": "Who is this page about submitting jobs to clusters intended for?",
+      "answer": "This page is intended for users who are already familiar with the concepts of job scheduling and job scripts, and who want guidance on submitting jobs to our clusters."
+    },
+    {
+      "question": "What should new users read before submitting jobs to a large shared computer cluster?",
+      "answer": "If you have not worked on a large shared computer cluster before, you should probably read \"What is a scheduler?\" first."
+    },
+    {
+      "question": "How must all jobs be submitted on our clusters?",
+      "answer": "All jobs must be submitted via the scheduler."
+    },
+    {
+      "question": "What tasks are exempt from being submitted via the scheduler and can run on a login node?",
+      "answer": "Exceptions are made for compilation and other tasks not expected to consume more than about 10 CPU-minutes and about 4 gigabytes of RAM. Such tasks may be run on a login node."
+    },
+    {
+      "question": "Where should processes never be run on our clusters?",
+      "answer": "In no case should you run processes on compute nodes except via the scheduler."
+    },
+    {
+      "question": "What job scheduler is used on our clusters?",
+      "answer": "On our clusters, the job scheduler is the Slurm Workload Manager."
+    },
+    {
+      "question": "Where can users find comprehensive documentation for Slurm?",
+      "answer": "Comprehensive documentation for Slurm is maintained by SchedMD on their website."
+    },
+    {
+      "question": "Is there a resource available for users transitioning to Slurm from other schedulers like PBS/Torque, SGE, LSF, or LoadLeveler?",
+      "answer": "If you are coming to Slurm from PBS/Torque, SGE, LSF, or LoadLeveler, you might find a table of corresponding commands useful."
+    },
+    {
+      "question": "What is the command used to submit a job in Slurm?",
+      "answer": "The command to submit a job is `sbatch`."
+    },
+    {
+      "question": "What does a minimal Slurm job script include?",
+      "answer": "A minimal Slurm job script includes a shebang line (`#!/bin/bash`), `#SBATCH` directives for time and account, and executable commands like `echo 'Hello, world!'` and `sleep 30`."
+    },
+    {
+      "question": "What resources does a minimal job script reserve on general-purpose (GP) clusters?",
+      "answer": "On general-purpose (GP) clusters, this job reserves 1 core and 256MB of memory for 15 minutes."
+    },
+    {
+      "question": "What resources does a minimal job script reserve on the Trillium cluster?",
+      "answer": "On Trillium, this job reserves the whole node with all its memory."
+    },
+    {
+      "question": "What prefix do directives in a job script use?",
+      "answer": "Directives (or options) in the job script are prefixed with `#SBATCH`."
+    },
+    {
+      "question": "Where must `#SBATCH` directives be placed in a job script?",
+      "answer": "Directives prefixed with `#SBATCH` must precede all executable commands in the job script."
+    },
+    {
+      "question": "What directives are required by our policies for each job submission?",
+      "answer": "Our policies require that you supply at least a time limit (`--time`) for each job, and you may also need to supply an account name (`--account`)."
+    },
+    {
+      "question": "How else can directives be specified apart from within the job script?",
+      "answer": "You can also specify directives as command-line arguments to `sbatch`, for example, `sbatch --time=00:30:00 simple_job.sh`."
+    },
+    {
+      "question": "What are the acceptable time formats for the `--time` directive?",
+      "answer": "The acceptable time formats include \"minutes\", \"minutes:seconds\", \"hours:minutes:seconds\", \"days-hours\", \"days-hours:minutes\" and \"days-hours:minutes:seconds\"."
+    },
+    {
+      "question": "How does the specified time limit impact job start times?",
+      "answer": "The time limit will strongly affect how quickly the job is started, since longer jobs are eligible to run on fewer nodes."
+    },
+    {
+      "question": "What should users be cautious about when submitting many Slurm jobs in a short period?",
+      "answer": "Submitting thousands of jobs at a time can cause Slurm to become unresponsive to other users. Consider using an array job instead, or use `sleep` to space out calls to `sbatch` by one second or more."
+    },
+    {
+      "question": "How can memory be requested for a job in Slurm?",
+      "answer": "Memory may be requested with `--mem-per-cpu` (memory per core) or `--mem` (memory per node)."
+    },
+    {
+      "question": "What is the default memory amount allocated per core on general-purpose (GP) clusters if not specified?",
+      "answer": "On general-purpose (GP) clusters, a default memory amount of 256 MB per core will be allocated unless you make some other request."
+    },
+    {
+      "question": "Is a memory specification required on the Trillium cluster?",
+      "answer": "On Trillium, only whole nodes are allocated along with all available memory, so a memory specification is not required there."
+    },
+    {
+      "question": "Why is not all nominal memory on a node available to a job?",
+      "answer": "Some memory on a node is not available to the job as it is reserved for the OS, etc."
+    },
+    {
+      "question": "What happens if a job requests more memory than a node type provides?",
+      "answer": "If you request more memory than a node-type provides, your job will be constrained to run on higher-memory nodes, which may be fewer in number."
+    },
+    {
+      "question": "How does Slurm interpret memory units like K, M, and G?",
+      "answer": "Slurm interprets K, M, G, etc., as binary prefixes, so `--mem=125G` is equivalent to `--mem=128000M`."
+    },
+    {
+      "question": "Where can users find the maximum memory they can request on each general-purpose cluster node?",
+      "answer": "See the 'Available memory' column in the 'Node characteristics' table for each GP cluster for the Slurm specification of the maximum memory you can request on each node, such as Fir, Narval, Nibi, or Rorqual."
+    }
+  ],
+  "generated_at": "2026-04-12T07:08:14.951793+00:00"
+}

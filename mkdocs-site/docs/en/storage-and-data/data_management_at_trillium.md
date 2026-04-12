@@ -5,31 +5,101 @@ lang: "en"
 
 source_wiki_title: "Data management at Trillium/en"
 source_hash: "5236ff2511ad864ebbf73bf9bcd62f6a"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T06:01:55.352398+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T06:46:43.621934+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "HPSS"
+  - "SciNet"
+  - "parallel filesystems"
+  - "ACL attributes"
+  - "diskUsage command"
+  - "burst buffer"
+  - "usage plots"
+  - "permissions"
+  - "Trillium datamovers"
+  - "Globus"
+  - "disk space"
+  - "filesystems"
+  - "login nodes"
+  - "Ramdisk"
+  - "file I/O"
+  - "ssh key authentication"
+  - "privacy"
+  - "temporary local filesystem"
+  - "file deletion"
+  - "gpfs built-in commands"
+  - "Trillium"
+  - "disk usage"
+  - "datamover nodes"
+  - "delta information"
+  - "$SLURM_TMPDIR"
+  - "diskUsage"
+  - "Moving data"
+  - "moving data"
+  - "mmgetacl"
+  - "Input/Output"
+  - "Access Control Lists"
+  - "scratch disk purging policy"
+  - "rsync/scp"
+  - "ACL's"
+  - "Recursive ACL script"
+  - "mmputacl"
+  - "GPFS"
+  - "home directory"
+
+questions:
+  - "Why does the GPFS filesystem perform poorly with many small files, and what I/O strategies are recommended for multi-process jobs?"
+  - "What are the distinct purposes, usage rules, and retention policies for the /home, /scratch, /project, and /archive filesystems?"
+  - "When should a user choose to utilize high-performance storage alternatives like the burst buffer (/bb) or ramdisk (/dev/shm)?"
+  - "What is a Ramdisk and what is the maximum amount of node RAM it can utilize as a local filesystem?"
+  - "For what specific type of computing task or code migration is a Ramdisk most beneficial?"
+  - "Why does heavy file I/O create a performance bottleneck on parallel filesystems like GPFS?"
+  - "What are the primary differences between the $SLURM_TMPDIR and $BB_JOB_DIR temporary storage environments on the Trillium cluster?"
+  - "What are the specific quotas, backup policies, and expiration times for the different filesystems like $HOME, $SCRATCH, and $PROJECT?"
+  - "How can users check their remaining disk space and track their storage usage over time across the various filesystems?"
+  - "On which nodes and filesystems can the diskUsage command be executed to monitor storage?"
+  - "How can a user check the combined disk space usage of their entire group?"
+  - "What options are available for visualizing or tracking changes in disk usage over a specific period?"
+  - "How can users check their disk usage and identify directories that contain over 1000 files or exceed 1GB in size?"
+  - "What is the automated purging policy for the /scratch directory, and how can users check which of their files are scheduled for deletion?"
+  - "What are the recommended methods and specific nodes for transferring data to and from Trillium depending on whether the data is under or over 10GB?"
+  - "How can users transfer data to or from the Trillium system, and what tools are recommended for frequent transfers?"
+  - "What is the purpose of the HPSS facility, and how do users acquire storage space on it?"
+  - "How can users manage file ownership and grant specific access permissions to other users or groups using GPFS native ACL commands?"
+  - "What are the primary tools and general purposes for moving data to and from the Trillium system?"
+  - "Which specific nodes and addresses should be used when transferring data amounts smaller than 10GB?"
+  - "Why must data transfers larger than 10GB be routed through the datamover nodes instead of the login nodes?"
+  - "What restriction do ACLs place on granting permissions for files and directories?"
+  - "Why is it highly recommended to avoid giving write permissions to other users on the top level of your home directory?"
+  - "What is the recommended method for allowing other users to safely access or manipulate your files?"
+  - "Where can users find more detailed information about the mmputacl and mmgetacl commands?"
+  - "What is the primary purpose of the provided sample bash script?"
+  - "Who is credited for originally providing the recursive ACL script?"
+  - "Where can users find more detailed information about the mmputacl and mmgetacl commands?"
+  - "What is the primary purpose of the provided sample bash script?"
+  - "Who is credited for originally providing the recursive ACL script?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
-Understanding the various filesystems, and how to use them properly, is critical to optimizing your workflow and being a good SciNet citizen. This page describes the various Niagara filesystems, and how to properly use them.
+Understanding the various filesystems, and how to use them properly, is critical to optimizing your workflow and being a good SciNet citizen. This page describes the various Trillium filesystems, and how to properly use them.
 
 ## Performance
-The filesystems on SciNet, with the exception of /archive, are [GPFS](http://en.wikipedia.org/wiki/IBM_General_Parallel_File_System), a high-performance filesystem which provides rapid reads and writes to large datasets in parallel from many nodes. As a consequence of this design, however, **the filesystem performs quite *poorly* at accessing data sets which consist of many, small files.** For instance, you will find that reading data in from one 16MB file is enormously faster than from 400 40KB files. Such small files are also quite wasteful of space, as the [blocksize](https://en.wikipedia.org/wiki/Block_(data_storage)) for the scratch and project filesystems is 16MB. This is something you should keep in mind when planning your input/output strategy for runs on SciNet.
+The filesystems on SciNet, with the exception of /archive, are [GPFS](https://en.wikipedia.org/wiki/IBM_General_Parallel_File_System), a high-performance filesystem which provides rapid reads and writes to large datasets in parallel from many nodes. As a consequence of this design, however, **the filesystem performs quite *poorly* at accessing data sets which consist of many, small files.** For instance, you will find that reading data in from one 16MB file is enormously faster than from 400 40KB files. Such small files are also quite wasteful of space, as the [blocksize](https://en.wikipedia.org/wiki/Block_(data_storage)) for the scratch and project filesystems is 16MB. This is something you should keep in mind when planning your input/output strategy for runs on SciNet.
 
-For instance, if you run multi-process jobs, having each process write to a file of its own is not an scalable I/O solution. A directory gets locked by the first process accessing it, so all other processes have to wait for it. Not only has the code just become considerably less parallel, chances are the filesystem will have a time-out while waiting for your other processes, leading your program to crash mysteriously.
-Consider using MPI-IO (part of the MPI-2 standard), which allows files to be opened simultaneously by different processes, or using a dedicated process for I/O to which all other processes send their data, and which subsequently writes this data to a single file.
+!!! warning
+    If you run multi-process jobs, having each process write to a file of its own is not a scalable I/O solution. A directory gets locked by the first process accessing it, so all other processes have to wait for it. Not only has the code just become considerably less parallel, chances are the filesystem will have a time-out while waiting for your other processes, leading your program to crash mysteriously.
+    Consider using MPI-IO (part of the MPI-2 standard), which allows files to be opened simultaneously by different processes, or using a dedicated process for I/O to which all other processes send their data, and which subsequently writes this data to a single file.
 
 ## Purpose of each filesystem
 Trillium accesses several different filesystems. Note that not all of these filesystems are available to all users.
@@ -43,7 +113,7 @@ Trillium accesses several different filesystems. Note that not all of these file
 ### /project ($PROJECT)
 /project is intended for common group software, large static datasets, or any material very costly to be reacquired or re-generated by the group.
 
-!!! warning "Immutability of /project"
+!!! warning
     Material on /project is expected to remain relatively immutable over time.
 
 Temporary or transient files should be kept on scratch, not project. High data turnover induces stress and unnecessary consumption tapes on the TSM backup system, long after this material has been deleted, due to backup retention policies and the extra versions kept of the same file. Even renaming top directories is enough to trick the system into assuming a completely new directory tree has been created, and the old one deleted, hence think carefully about your naming convention ahead of time, and stick with it. Users abusing the project filesystem and using it as scratch will be flagged and contacted. Note that on Trillium /project is only available to groups with RAC allocation.
@@ -58,32 +128,27 @@ Temporary or transient files should be kept on scratch, not project. High data t
 On the Trillium nodes a [ramdisk](https://docs.scinet.utoronto.ca/index.php/User_Ramdisk) is available. [Ramdisk](https://docs.scinet.utoronto.ca/index.php/User_Ramdisk) is much faster than real disk, and faster than Burst Buffer. Up to 70 percent of the RAM on the node (i.e. 202GB) may be used as a temporary **local** filesystem. This is particularly useful in the early stages of migrating desktop-computing codes to a HPC platform such as Trillium, especially those that use a lot of file I/O (Input/Output). Using a lot of I/O is a bottleneck in large scale computing, especially on parallel filesystems (such as the GPFS used on Trillium), since the files are synchronized across the whole network.
 
 ### $SLURM_TMPDIR (RAM)
-For consistency with the general-purpose clusters, the environment variable $SLURM_TMPDIR will be set on Trillium compute jobs. Note that this variable will point to RAMdisk, not to local hard drives. The $SLURM_TMPDIR directory will be empty when your jobs starts and its content gets deleted after the job has finished.
+For consistency with the general-purpose clusters, the environment variable `$SLURM_TMPDIR` will be set on Trillium compute jobs. Note that this variable will point to RAMdisk, not to local hard drives. The `$SLURM_TMPDIR` directory will be empty when your jobs starts and its content gets deleted after the job has finished.
 
 ### Per-job temporary burst buffer space ($BB_JOB_DIR)
 For every job on Trillium, the scheduler creates a temporary directory on the burst buffer called `$BB_JOB_DIR`. The `$BB_JOB_DIR` directory will be empty when your jobs starts and its content gets deleted after the job has finished. This directory is accessible from all nodes of a job.
 
 `$BB_JOB_DIR` is intended as a place for applications that generate many small temporary files or that create files that are accessed very frequently (i.e., high IOPS applications), but that do not fit in ramdisk.
 
-It should be emphasized that if the temporary files do fit in ramdisk, then that is generally a better location for them as both the bandwidth and iops of ramdisk far exceeds that of the burst buffer. To use ramdisk, you can either directly access /dev/shm or use the environment variable `$SLURM_TMPDIR`.
+It should be emphasized that if the temporary files do fit in ramdisk, then that is generally a better location for them as both the bandwidth and iops of ramdisk far exceeds that of the burst buffer. To use ramdisk, you can either directly access `/dev/shm` or use the environment variable `$SLURM_TMPDIR`.
 
 Note that Trillium compute nodes have no local disks so `$SLURM_TMPDIR` lives in memory (ramdisk), in contrast to general-purpose clusters like Fir or Nibi where this variable points to a directory on a node-local SSD.
 
 ## Quotas and purging
 You should familiarize yourself with the [various filesystems](#purpose-of-each-filesystem), what purpose they serve, and how to properly use them. This table summarizes the various filesystems.
 
-| Location | Quota | Block size | Expiration time | Backed up | On login nodes | On compute nodes |
-| :------- | :---- | :--------- | :-------------- | :-------- | :------------- | :--------------- |
-| $HOME | 100 GB per user | 1 MB | | yes | yes | read-only |
-| $SCRATCH | 25 TB per user provided group quota is not reached | 16 MB | 2 months | no | yes | yes |
-| | groups of up to 4 users: 50TB for the group | 16 MB | 2 months | no | yes | yes |
-| | groups of up to 11 users: 125TB for the group | 16 MB | 2 months | no | yes | yes |
-| | groups of up to 28 users: 250TB for the group | 16 MB | 2 months | no | yes | yes |
-| | groups of up to 60 users: 400TB for the group | 16 MB | 2 months | no | yes | yes |
-| | groups with over 60 users: 500TB for the group | 16 MB | 2 months | no | yes | yes |
-| $PROJECT | by group allocation | 16 MB | | yes | yes | yes |
-| $ARCHIVE | by group allocation | | | dual-copy | no | no |
-| $BBUFFER | 10 TB per user | 1 MB | very short | no | yes | yes |
+| Location | Quota (User) | Quota (Group) | Block Size | Expiration Time | Backed Up | On Login Nodes | On Compute Nodes |
+| :------- | :----------- | :------------ | ---------: | :-------------- | :-------- | :------------- | :--------------- |
+| $HOME    | 100 GB per user | N/A           | 1 MB       |                 | yes       | yes            | read-only        |
+| $SCRATCH | 25 TB per user (if group quota not reached) | Up to 4 users: 50 TB<br>Up to 11 users: 125 TB<br>Up to 28 users: 250 TB<br>Up to 60 users: 400 TB<br>Over 60 users: 500 TB | 16 MB      | 2 months        | no        | yes            | yes              |
+| $PROJECT | N/A          | by group allocation | 16 MB      |                 | yes       | yes            | yes              |
+| $ARCHIVE | N/A          | by group allocation |            |                 | dual-copy | no             | no               |
+| $BBUFFER | 10 TB per user | N/A           | 1 MB       | very short      | no        | yes            | yes              |
 
 *   [Inode vs. Space quota (PROJECT and SCRATCH)](https://docs.scinet.utoronto.ca/images/9/9a/Inode_vs._Space_quota_-_v2x.pdf)
 *   [dynamic quota per group (SCRATCH)](https://docs.scinet.utoronto.ca/images/0/0e/Scratch-quota.pdf)
@@ -109,42 +174,43 @@ Note: information on usage and quota is only updated every 3 hours!
 ## Scratch disk purging policy
 In order to ensure that there is always significant space available for running jobs **we automatically delete files in /scratch that have not been accessed or modified for more than 2 months by the actual deletion day on the 15th of each month**. Note that we recently changed the cut out reference to the *MostRecentOf(atime,ctime)*. This policy is subject to revision depending on its effectiveness. More details about the purging process and how users can check if their files will be deleted follows. If you have files scheduled for deletion you should move them to more permanent locations such as your departmental server or your /project space or into HPSS (for PIs who have either been allocated storage space by the RAC on project or HPSS).
 
-On the **first** of each month, a list of files scheduled for purging is produced, and an email notification is sent to each user on that list. You also get a notification on the shell every time your login to Trillium. Furthermore, at/or about the **12th** of each month a 2nd scan produces a more current assessment and another email notification is sent. This way users can double check that they have indeed taken care of all the files they needed to relocate before the purging deadline. Those files will be automatically deleted on the **15th** of the same month unless they have been accessed or relocated in the interim. If you have files scheduled for deletion then they will be listed in a file in /scratch/t/todelete/current, which has your userid and groupid in the filename. For example, if user xxyz wants to check if they have files scheduled for deletion they can issue the following command on a system which mounts /scratch (e.g. a scinet login node): **`ls -1 /scratch/t/todelete/current |grep xxyz`**. In the example below, the name of this file indicates that user xxyz is part of group abc, has 9,560 files scheduled for deletion and they take up 1.0TB of space:
+On the **first** of each month, a list of files scheduled for purging is produced, and an email notification is sent to each user on that list. You also get a notification on the shell every time your login to Trillium. Furthermore, at/or about the **12th** of each month a 2nd scan produces a more current assessment and another email notification is sent. This way users can double check that they have indeed taken care of all the files they needed to relocate before the purging deadline. Those files will be automatically deleted on the **15th** of the same month unless they have been accessed or relocated in the interim. If you have files scheduled for deletion then they will be listed in a file in `/scratch/t/todelete/current`, which has your userid and groupid in the filename. For example, if user xxyz wants to check if they have files scheduled for deletion they can issue the following command on a system which mounts /scratch (e.g. a scinet login node): **`ls -1 /scratch/t/todelete/current |grep xxyz`**. In the example below, the name of this file indicates that user xxyz is part of group abc, has 9,560 files scheduled for deletion and they take up 1.0TB of space:
 
 ```bash
-[xxyz@nia-login03 ~]$ ls -1 /scratch/t/todelete/current |grep xxyz
--rw-r----- 1 xxyz     root       1733059 Jan 17 11:46 3110001___xxyz_______abc_________1.00T_____9560files
+ [xxyz@nia-login03 ~]$ ls -1 /scratch/t/todelete/current |grep xxyz
+ -rw-r----- 1 xxyz     root       1733059 Jan 17 11:46 3110001___xxyz_______abc_________1.00T_____9560files
 ```
 
 The file itself contains a list of all files scheduled for deletion (in the last column) and can be viewed with standard commands like more/less/cat - e.g. **`more /scratch/t/todelete/current/3110001___xxyz_______abc_________1.00T_____9560files`**
 
 Similarly, you can also verify all other users on your group by using the ls command with grep on your group. For example: **`ls -1 /scratch/t/todelete/current |grep abc`**. That will list all other users in the same group that xxyz is part of, and have files to be purged on the 15th. Members of the same group have access to each other's contents.
 
-**NOTE:** Preparing these assessments takes several hours. If you change the access/modification time of a file in the interim, that will not be detected until the next cycle. A way for you to get immediate feedback is to use the **`ls -lu`** command on the file to verify the ctime and **`ls -lc`** for the mtime. If the file atime/ctime has been updated in the meantime, coming the purging date on the 15th it will no longer be deleted.
+!!! note
+    Preparing these assessments takes several hours. If you change the access/modification time of a file in the interim, that will not be detected until the next cycle. A way for you to get immediate feedback is to use the `ls -lu` command on the file to verify the ctime and `ls -lc` for the mtime. If the file atime/ctime has been updated in the meantime, coming the purging date on the 15th it will no longer be deleted.
 
 ## Moving data
 Data for analysis and final results need to be moved to and from Trillium. There are several ways to accomplish this.
 
 ### Using rsync/scp
-***Move amounts less than 10GB through the login nodes.***
+**Move amounts less than 10GB through the login nodes.**
 
 *   Trillium login nodes and datamovers are visible from outside SciNet.
-*   Use scp or rsync to connect to any of tri-dm{2,3,4}.scinet.utoronto.ca
+*   Use `scp` or `rsync` to connect to any of `tri-dm{2,3,4}.scinet.utoronto.ca`
 *   This will time out for amounts larger than about 10GB.
 
-***Move amounts larger than 10GB through the datamover nodes.***
+**Move amounts larger than 10GB through the datamover nodes.**
 
-*   From a Trillium login node, ssh to `nia-datamover1` or `nia-datamover2`. From there you can transfer to or from Trillium.
+*   From a Trillium login node, `ssh` to `nia-datamover1` or `nia-datamover2`. From there you can transfer to or from Trillium.
 *   Alternatively, you may also login/scp/rsync directly to the datamovers from the outside:
-    nia-datamover1.scinet.utoronto.ca
-    nia-datamover2.scinet.utoronto.ca
+    `nia-datamover1.scinet.utoronto.ca`
+    `nia-datamover2.scinet.utoronto.ca`
 *   If you do this often, consider using [Globus](globus.md), a web-based tool for data transfer.
 
 ### Using Globus
 Please check the comprehensive documentation [here](globus.md) and [here](https://docs.scinet.utoronto.ca/index.php/Globus).
 
-The Trillium "endpoint" for globus is " alliancecan#trillium"
-The HPSS "endpoint" for globus is " alliancecan#hpss"
+The Trillium "endpoint" for globus is " `alliancecan#trillium` "
+The HPSS "endpoint" for globus is " `alliancecan#hpss` "
 
 ### Moving data to HPSS/Archive/Nearline
 HPSS is for long-term storage of data.
@@ -157,49 +223,51 @@ HPSS is for long-term storage of data.
 *   You may use access control list (**ACL**) to allow your supervisor (or another user within your group) to manage files for you (i.e., create, move, rename, delete), while still retaining your access and permission as the original owner of the files/directories. You may also let users in other groups or whole other groups access (read, execute) your files using this same mechanism.
 
 ### Using mmputacl/mmgetacl
-*   You may use gpfs' native **`mmputacl`** and **`mmgetacl`** commands. The advantages are that you can set "control" permission and that [POSIX or NFS v4 style ACL](http://publib.boulder.ibm.com/infocenter/clresctr/vxrx/index.jsp?topic=%2Fcom.ibm.cluster.gpfs.doc%2Fgpfs31%2Fbl1adm1160.html) are supported. You will need first to create a /tmp/supervisor.acl file with the following contents:
-    ````text title="/tmp/supervisor.acl"
-    user::rwxc
-    group::----
-    other::----
-    mask::rwxc
-    user:[owner]:rwxc
-    user:[supervisor]:rwxc
-    group:[othegroup]:r-xc
-    ````
+*   You may use GPFS' native **`mmputacl`** and **`mmgetacl`** commands. The advantages are that you can set "control" permission and that [POSIX or NFS v4 style ACL](http://publib.boulder.ibm.com/infocenter/clresctr/vxrx/index.jsp?topic=%2Fcom.ibm.cluster.gpfs.doc%2Fgpfs31%2Fbl1adm1160.html) are supported. You will need first to create a `/tmp/supervisor.acl` file with the following contents:
+
+```text title="/tmp/supervisor.acl"
+user::rwxc
+group::----
+other::----
+mask::rwxc
+user:[owner]:rwxc
+user:[supervisor]:rwxc
+group:[othegroup]:r-xc
+```
 
 Then issue the following two commands:
+
 ```bash
 1) $ mmputacl -i /tmp/supervisor.acl /project/g/group/[owner]
 2) $ mmputacl -d -i /tmp/supervisor.acl /project/g/group/[owner]
-   # (every *new* file/directory inside [owner] will inherit [supervisor] ownership by default as well as
-   # [owner] ownership, ie, ownership of both by default, for files/directories created by [supervisor])
+   (every *new* file/directory inside [owner] will inherit [supervisor] ownership by default as well as 
+   [owner] ownership, ie, ownership of both by default, for files/directories created by [supervisor])
 
 $ mmgetacl /project/g/group/[owner]
-   # (to determine the current ACL attributes)
+   (to determine the current ACL attributes)
 
 $ mmdelacl -d /project/g/group/[owner]
-   # (to remove any previously set ACL)
+   (to remove any previously set ACL)
 
 $ mmeditacl /project/g/group/[owner]
-   # (to create or change a GPFS access control list)
-   # (for this command to work set the EDITOR environment variable: export EDITOR=/usr/bin/vi)
+   (to create or change a GPFS access control list)
+   (for this command to work set the EDITOR environment variable: export EDITOR=/usr/bin/vi)
 ```
 
 NOTES:
-*   There is no option to recursively add or remove ACL attributes using a gpfs built-in command to existing files. You'll need to use the -i option as above for each file or directory individually. [Here is a sample bash script you may use for that purpose.](https://docs.scinet.utoronto.ca/index.php/Recursive_ACL_script)
+*   There is no option to recursively add or remove ACL attributes using a GPFS built-in command to existing files. You'll need to use the `-i` option as above for each file or directory individually. [Here is a sample bash script you may use for that purpose.](https://docs.scinet.utoronto.ca/index.php/Recursive_ACL_script)
 
-*   `mmputacl` will not overwrite the original linux group permissions for a directory when copied to another directory already with ACLs, hence the "#effective:r-x" note you may see from time to time with mmgetacf. If you want to give rwx permissions to everyone in your group you should simply rely on the plain unix 'chmod g+rwx' command. You may do that before or after copying the original material to another folder with the ACLs.
+*   `mmputacl` will not overwrite the original Linux group permissions for a directory when copied to another directory already with ACLs, hence the "#effective:r-x" note you may see from time to time with `mmgetacf`. If you want to give rwx permissions to everyone in your group you should simply rely on the plain unix '`chmod g+rwx`' command. You may do that before or after copying the original material to another folder with the ACLs.
 
-*   In the case of PROJECT, your group's supervisor will need to set proper ACL to the /project/G/GROUP level in order to let users from other groups access your files.
+*   In the case of PROJECT, your group's supervisor will need to set proper ACL to the `/project/G/GROUP` level in order to let users from other groups access your files.
 
 *   ACL's won't let you give away permissions to files or directories that do not belong to you.
 
-*   We highly recommend that you never give write permission to other users on the top level of your home directory (/home/G/GROUP/[owner]), since that would seriously compromise your privacy, in addition to disable ssh key authentication, among other things. If necessary, make specific sub-directories under your home directory so that other users can manipulate/access files from those.
+*   We highly recommend that you never give write permission to other users on the top level of your home directory (`/home/G/GROUP/[owner]`), since that would seriously compromise your privacy, in addition to disable ssh key authentication, among other things. If necessary, make specific sub-directories under your home directory so that other users can manipulate/access files from those.
 
 For more information on using [`mmputacl`](https://www.ibm.com/support/knowledgecenter/SSFKCN_4.1.0/com.ibm.cluster.gpfs.v4r1.gpfs100.doc/bl1adm_mmputacl.htm) or [`mmgetacl`](https://www.ibm.com/support/knowledgecenter/SSFKCN_4.1.0/com.ibm.cluster.gpfs.v4r1.gpfs100.doc/bl1adm_mmgetacl.htm) see their man pages.
 
 ### Recursive ACL script
-You may use/adapt **[this sample bash script](https://docs.scinet.utoronto.ca/index.php/Recursive_ACL_script)** to recursively add or remove ACL attributes using gpfs built-in commands
+You may use/adapt **[this sample bash script](https://docs.scinet.utoronto.ca/index.php/Recursive_ACL_script)** to recursively add or remove ACL attributes using GPFS built-in commands
 
 Courtesy of Agata Disks (http://csngwinfo.in2p3.fr/mediawiki/index.php/GPFS_ACL)

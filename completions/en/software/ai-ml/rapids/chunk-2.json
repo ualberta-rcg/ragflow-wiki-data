@@ -1,0 +1,68 @@
+{
+  "doc_key": "en/rapids",
+  "level": "chunk",
+  "chunk_index": 2,
+  "qa_pairs": [
+    {
+      "question": "How do I request an interactive session on a GPU node for RAPIDS?",
+      "answer": "You can request an interactive session using the `salloc` command with specified resources, for example: `salloc --ntasks=1 --cpus-per-task=2 --mem=10G --gpus-per-node=1 --time=1:0:0 --account=def-someuser`."
+    },
+    {
+      "question": "What commands are needed to start a RAPIDS shell on a GPU node after an interactive session is granted?",
+      "answer": "First, load the Apptainer module with `module load apptainer`. Then, start the RAPIDS shell using `apptainer shell --nv rapids.sif`."
+    },
+    {
+      "question": "What is the function of the `--nv` option when starting an Apptainer shell for RAPIDS?",
+      "answer": "The `--nv` option binds the GPU driver on the host to the Apptainer container, allowing the GPU device to be accessed from within the container."
+    },
+    {
+      "question": "How can I verify that the GPU device is accessible inside the Apptainer container?",
+      "answer": "After the shell prompt changes to `Apptainer>`, you can check the GPU statistics using the command `nvidia-smi`."
+    },
+    {
+      "question": "How do I launch a Jupyter Notebook server within the RAPIDS environment inside an Apptainer container?",
+      "answer": "From the `Apptainer>` prompt, you can launch the Jupyter Notebook server with the command `jupyter-lab --ip $(hostname -f) --no-browser`. The server's URL will be displayed once it starts successfully."
+    },
+    {
+      "question": "What's a key feature of RAPIDS v23.08 and later releases regarding packages?",
+      "answer": "Starting with the RAPIDS v23.08 release, all packages are included in the base conda environment, which is activated by default in the container shell."
+    },
+    {
+      "question": "What should be done if there's no direct Internet connection on a compute node when trying to connect to JupyterLab?",
+      "answer": "If there is no direct Internet connection on a compute node, you would need to set up an SSH tunnel with port forwarding between your local computer and the GPU node."
+    },
+    {
+      "question": "What is considered good practice for storage when working with RAPIDS jobs via a container on a compute node?",
+      "answer": "It is good practice to use the local disk on a compute node, often accessed via `$SLURM_TMPDIR`, when working via a container."
+    },
+    {
+      "question": "What are some of the typical SBATCH directives used in a Slurm job submission script for a RAPIDS job?",
+      "answer": "Typical SBATCH directives include `--gpus-per-node=1`, `--cpus-per-task=2`, `--mem=10G`, `--time=dd:hh:mm`, and `--account=def-someuser`."
+    },
+    {
+      "question": "How can I copy my RAPIDS container image, code, and data to the local disk of a compute node within a Slurm submission script?",
+      "answer": "You can change directories to `$SLURM_TMPDIR` and then use `cp` commands, for instance: `cp /path/to/rapids.sif ./`, `cp /path/to/your_rapids_code.py ./`, and `cp -r /path/to/your_datasets ./`."
+    },
+    {
+      "question": "How is a Python RAPIDS script executed inside an Apptainer container within a Slurm batch job?",
+      "answer": "After setting up the environment and copying files to `$SLURM_TMPDIR`, the script can be executed using `apptainer exec --nv rapids.sif python ./my_rapids_code.py`."
+    },
+    {
+      "question": "What should I do with the results of a RAPIDS job running on a compute node before the job finishes?",
+      "answer": "You should save any results by copying them from `$SLURM_TMPDIR` to your persistent `/project` directory, for example: `cp -r your_results ~/projects/def-someuser/username/`."
+    },
+    {
+      "question": "Where can users find documentation, connection information, and issue reporting for RAPIDS?",
+      "answer": "Users can find this information on the RAPIDS Docs website."
+    },
+    {
+      "question": "Are there resources available with example notebooks to help users quickly get started with RAPIDS?",
+      "answer": "Yes, a collection of example notebooks is available on GitHub under 'RAPIDS Notebooks'."
+    },
+    {
+      "question": "Where can I find use cases and blogs related to RAPIDS applications?",
+      "answer": "A collection of use cases and blogs for RAPIDS applications is available on 'RAPIDS on Medium'."
+    }
+  ],
+  "generated_at": "2026-04-12T06:45:27.175262+00:00"
+}

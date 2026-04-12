@@ -1,0 +1,56 @@
+{
+  "doc_key": "fr/pytorch",
+  "level": "chunk",
+  "chunk_index": 10,
+  "qa_pairs": [
+    {
+      "question": "À quoi sert le script Python `pytorch-ddp-test.py`?",
+      "answer": "Ce script est conçu pour les tests de parallélisme de données distribué avec des modèles de classification CIFAR10."
+    },
+    {
+      "question": "Comment le script `pytorch-ddp-test.py` est-il lancé sur les grappes, tel qu'illustré dans l'exemple de soumission de tâche?",
+      "answer": "Il est lancé en utilisant la commande `srun` comme suit : `srun python pytorch-ddp-test.py --init_method tcp://$MASTER_ADDR:3456 --world_size $((SLURM_NTASKS_PER_NODE * SLURM_JOB_NUM_NODES)) --batch_size 256`."
+    },
+    {
+      "question": "Que représente le paramètre `--world_size` lors de l'exécution du script `pytorch-ddp-test.py` via `srun`?",
+      "answer": "Le paramètre `--world_size` indique le nombre total de processus disponibles pour l'exécution, calculé par la variable `SLURM_NTASKS_PER_NODE * SLURM_JOB_NUM_NODES`."
+    },
+    {
+      "question": "Comment le script `pytorch-ddp-test.py` détermine-t-il le rang local et le rang global d'un processus?",
+      "answer": "Il récupère le rang local (`local_rank`) à partir de `os.environ.get(\"SLURM_LOCALID\")` et le rang global (`rank`) à partir de `os.environ.get(\"SLURM_PROCID\")`."
+    },
+    {
+      "question": "Comment le groupe de processus est-il initialisé pour la communication distribuée dans `pytorch-ddp-test.py`?",
+      "answer": "Le groupe de processus est initialisé en appelant `dist.init_process_group` avec des paramètres tels que `backend`, `init_method`, `world_size` et `rank`."
+    },
+    {
+      "question": "Comment le modèle de réseau neuronal est-il configuré pour le parallélisme de données distribué dans `pytorch-ddp-test.py`?",
+      "answer": "L'instance du modèle (`net`) est d'abord déplacée vers un GPU (`net.cuda()`), puis elle est enveloppée avec `torch.nn.parallel.DistributedDataParallel` en spécifiant les `device_ids`."
+    },
+    {
+      "question": "Quel jeu de données est utilisé dans l'exemple du script `pytorch-ddp-test.py`?",
+      "answer": "L'exemple utilise le jeu de données CIFAR10 de `torchvision.datasets.CIFAR10`."
+    },
+    {
+      "question": "Comment les données d'entraînement sont-elles distribuées entre les processus dans `pytorch-ddp-test.py`?",
+      "answer": "Les échantillons de données sont distribués en utilisant `torch.utils.data.distributed.DistributedSampler` en conjonction avec le `DataLoader`."
+    },
+    {
+      "question": "Quel est le rôle de la ligne `train_sampler.set_epoch(epoch)` dans la boucle d'entraînement du script `pytorch-ddp-test.py`?",
+      "answer": "Cette ligne assure une distribution appropriée et un rééchantillonnage des données pour chaque époque lorsque le `DistributedSampler` est utilisé, garantissant que chaque processus reçoit un ensemble différent d'échantillons de données à chaque époque."
+    },
+    {
+      "question": "Quelle est la valeur par défaut du paramètre `batch_size` si on ne la spécifie pas lors de l'exécution du script `pytorch-ddp-test.py`?",
+      "answer": "La valeur par défaut du `batch_size` est de `768`."
+    },
+    {
+      "question": "Quel est le nombre maximal d'époques par défaut (`max_epochs`) défini dans le script `pytorch-ddp-test.py`?",
+      "answer": "Le nombre maximal d'époques par défaut est de `4`."
+    },
+    {
+      "question": "Quel est le backend de communication distribuée par défaut utilisé dans `pytorch-ddp-test.py` si non spécifié en ligne de commande?",
+      "answer": "Le backend par défaut pour la communication distribuée est `nccl`."
+    }
+  ],
+  "generated_at": "2026-04-12T05:46:51.646672+00:00"
+}

@@ -1,0 +1,32 @@
+{
+  "doc_key": "en/qiime",
+  "level": "chunk",
+  "chunk_index": 3,
+  "qa_pairs": [
+    {
+      "question": "How do you typically execute a QIIME command using an Apptainer image?",
+      "answer": "You typically run each QIIME command within an `apptainer exec` statement, for example: `apptainer exec qiime2-2021.11.sif <your QIIME command>`."
+    },
+    {
+      "question": "Can you provide an example of an SBATCH script for running QIIME commands with Apptainer?",
+      "answer": "Yes, an example SBATCH script would start with `#!/bin/bash` and include directives like `#SBATCH --time=15:00:00` and `#SBATCH --account=def-someuser`, followed by an `apptainer exec` command that specifies bind mounts and the QIIME command, such as: `apptainer exec -B $PWD:/home -B /scratch/someuser:/outputs -B /project/def-somePI/someuser/path/to/inputs:/inputs qiime2-2021.11.sif qiime tools import --type 'FeatureData[Sequence]' --input-path /inputs/some_fastafile.fa`."
+    },
+    {
+      "question": "What are some of the SBATCH directives included in the provided example script?",
+      "answer": "The example script includes `#SBATCH --time=15:00:00` to set the walltime and `#SBATCH --account=def-someuser` to specify the accounting group."
+    },
+    {
+      "question": "How are input, output, and home directories bound to the container in the example SBATCH script?",
+      "answer": "In the example SBATCH script, directories are bound using the `-B` option: `-B $PWD:/home` binds the current working directory to `/home`, `-B /scratch/someuser:/outputs` binds a scratch directory to `/outputs`, and `-B /project/def-somePI/someuser/path/to/inputs:/inputs` binds a project input directory to `/inputs` within the container."
+    },
+    {
+      "question": "Which specific Apptainer image is utilized in the SBATCH script example?",
+      "answer": "The specific Apptainer image utilized in the SBATCH script example is `qiime2-2021.11.sif`."
+    },
+    {
+      "question": "What is the first QIIME command demonstrated in the example SBATCH script for importing data?",
+      "answer": "The first QIIME command demonstrated is `qiime tools import`, used with arguments like `--type 'FeatureData[Sequence]'` and `--input-path /inputs/some_fastafile.fa`."
+    }
+  ],
+  "generated_at": "2026-04-12T06:02:54.683289+00:00"
+}

@@ -1,0 +1,84 @@
+{
+  "doc_key": "fr/fmriprep",
+  "level": "chunk",
+  "chunk_index": 1,
+  "qa_pairs": [
+    {
+      "question": "Qu'est-ce que fMRIPrep?",
+      "answer": "fMRIPrep est une application NiPreps qui sert au prétraitement d'images au format BIDS obtenues par résonance magnétique."
+    },
+    {
+      "question": "À quoi sert l'application fMRIPrep?",
+      "answer": "L'application fMRIPrep sert au prétraitement d'images obtenues par résonance magnétique."
+    },
+    {
+      "question": "Comment doit-on faire pour utiliser fMRIPrep sur nos grappes?",
+      "answer": "Pour utiliser fMRIPrep sur nos grappes, il faut d'abord charger le module avec la commande `module load apptainer fmriprep`."
+    },
+    {
+      "question": "Quelle est la commande pour charger le module fMRIPrep?",
+      "answer": "La commande pour charger le module fMRIPrep est `module load apptainer fmriprep`."
+    },
+    {
+      "question": "Comment fMRIPrep interagit-il avec Apptainer en ligne de commande?",
+      "answer": "En ligne de commande, fMRIPrep utilise Apptainer en arrière-plan pour appeler un conteneur dans lequel fMRIPrep est configuré."
+    },
+    {
+      "question": "Comment peut-on modifier le contexte d'Apptainer?",
+      "answer": "Pour modifier le contexte d'Apptainer, il faut utiliser les variables d'environnement d'Apptainer."
+    },
+    {
+      "question": "Pourquoi fMRIPrep ne peut-il pas télécharger les gabarits TemplateFlow directement dans le conteneur?",
+      "answer": "fMRIPrep est incapable de télécharger les gabarits TemplateFlow directement dans le conteneur, ces données doivent être téléchargées à l'avance."
+    },
+    {
+      "question": "Quelles sont les étapes requises pour télécharger les gabarits TemplateFlow à l'avance?",
+      "answer": "Il faut charger Python et git-annex (`module load python git-annex`), installer DataLad (`pip3 install datalad`), puis installer l'ensemble de métadonnées de TemplateFlow (`datalad install -r ///templateflow`)."
+    },
+    {
+      "question": "Où sont téléchargées les données de TemplateFlow par défaut?",
+      "answer": "Le téléchargement des données TemplateFlow se fait dans un répertoire partagé du projet par défaut, semblable à `/lustre03/project/GROUPNAME/shared/templateflow`."
+    },
+    {
+      "question": "Comment télécharger des sous-ensembles spécifiques de gabarits TemplateFlow, comme tpl-MNI152NLin2009cAsym et tpl-OASIS30ANTs?",
+      "answer": "Il faut se positionner dans le répertoire partagé TemplateFlow (`cd /lustre03/project/GROUPNAME/shared/templateflow`) puis utiliser la commande `datalad get -r tpl-MNI152NLin2009cAsym tpl-OASIS30ANTs`."
+    },
+    {
+      "question": "Est-il nécessaire de répéter le téléchargement des gabarits TemplateFlow à chaque utilisation?",
+      "answer": "Non, ces étapes de DataLad ne sont faites qu'une seule fois et les gabarits seront disponibles pour tous les membres de votre groupe tant qu'ils ne sont pas supprimés, bien que le téléchargement initial puisse prendre beaucoup de temps."
+    },
+    {
+      "question": "Comment configure-t-on la variable d'environnement APPTAINERENV_TEMPLATEFLOW_HOME?",
+      "answer": "On la configure avec la commande `export APPTAINERENV_TEMPLATEFLOW_HOME=/lustre03/project/GROUPNAME/shared/templateflow`."
+    },
+    {
+      "question": "À quoi sert la variable APPTAINERENV_TEMPLATEFLOW_HOME?",
+      "answer": "La variable `APPTAINERENV_TEMPLATEFLOW_HOME` indique à fMRIPrep où trouver les gabarits TemplateFlow."
+    },
+    {
+      "question": "Comment configure-t-on la variable APPTAINER_BIND pour l'entrée, la sortie et les journaux?",
+      "answer": "On la configure avec la commande `export APPTAINER_BIND=/path/to/input,/path/to/output,/path/to/output/logs,$APPTAINERENV_TEMPLATEFLOW_HOME`."
+    },
+    {
+      "question": "Que permet la variable APPTAINER_BIND?",
+      "answer": "La variable `APPTAINER_BIND` permet d'indiquer à Apptainer où trouver les données en entrée, en sortie ainsi que les journaux, pour qu'ils soient montés et rendus disponibles à fMRIPrep dans le conteneur."
+    },
+    {
+      "question": "Y a-t-il une mise en garde concernant les noms de chemins avec fMRIPrep?",
+      "answer": "Oui, il faut faire attention, car fMRIPrep gère mal les longs noms de chemins; il est recommandé d'utiliser des noms courts pour les fichiers et répertoires."
+    },
+    {
+      "question": "Quelle est la commande pour lancer fMRIPrep une fois configuré?",
+      "answer": "La commande pour lancer fMRIPrep est `fmriprep /path/to/input /path/to/output participant --work-dir /path/to/output`."
+    },
+    {
+      "question": "Quelles sont les étapes supplémentaires pour utiliser FreeSurfer avec fMRIPrep?",
+      "answer": "Pour utiliser FreeSurfer avec fMRIPrep, il faut s'enregistrer avec FreeSurfer, télécharger le fichier de licence, le copier dans un des répertoires spécifiés dans `APPTAINER_BIND`, et utiliser l'option `--fs-license-file`."
+    },
+    {
+      "question": "Quelle option faut-il utiliser pour spécifier le fichier de licence de FreeSurfer avec fMRIPrep?",
+      "answer": "Il faut utiliser l'option `--fs-license-file` pour spécifier le fichier de licence de FreeSurfer."
+    }
+  ],
+  "generated_at": "2026-04-11T21:28:25.171354+00:00"
+}

@@ -1,0 +1,60 @@
+{
+  "doc_key": "en/apptainer",
+  "level": "chunk",
+  "chunk_index": 7,
+  "qa_pairs": [
+    {
+      "question": "What additional options should be used with `apptainer run` on Alliance clusters?",
+      "answer": "On our clusters, you will want to use a number of additional options, including `-C`, `-c`, `-e`, `-W`, as well as various bind mount options to make your disk space available to the programs that run in your container."
+    },
+    {
+      "question": "Can you provide an example of using `apptainer run` to compile a C++ program on an Alliance cluster?",
+      "answer": "An example command to compile a C++ program on an Alliance cluster is: `apptainer run -C -W $SLURM_TMPDIR -B /project -B /scratch your-container-name.sif g++ -O2 -march=broadwell ./myprog.cpp`."
+    },
+    {
+      "question": "How do I run commands interactively within an Apptainer container?",
+      "answer": "To run commands interactively while remaining inside a container, use the `apptainer shell` command instead."
+    },
+    {
+      "question": "What is the basic command to start an interactive shell for an Apptainer container?",
+      "answer": "To run commands interactively in a container, one first invokes the `apptainer shell` command, e.g., `apptainer shell your-container-name.sif`."
+    },
+    {
+      "question": "What prompt will I see when I'm inside an interactive Apptainer shell session?",
+      "answer": "Once the container starts, you will see an `Apptainer>` prompt (or `Singularity>` prompt if using Singularity)."
+    },
+    {
+      "question": "How do I exit an interactive Apptainer shell session?",
+      "answer": "When done, type `exit` and hit the Enter/Return key to exit the container."
+    },
+    {
+      "question": "What additional options should be used with `apptainer shell` on Alliance clusters?",
+      "answer": "On our clusters, you will want to use a number of additional options, including `-C`, `-c`, `-e`, `-W`, as well as various bind mount options to make your disk space available to the programs that run in your container."
+    },
+    {
+      "question": "Can you give an example of using `apptainer shell` with recommended options on an Alliance cluster?",
+      "answer": "An example is: `apptainer shell -C -W $SLURM_TMPDIR -B /home:/cluster_home -B /project -B /scratch your-container-name.sif`."
+    },
+    {
+      "question": "What is crucial for saving changes to a persistent overlay image during an `apptainer shell` session?",
+      "answer": "If you are making use of a persistent overlay image and want changes to be written to that image, it is extremely important to pass the `-w` or `--writable` option to your container. If this option is not passed to it, any changes you make to the image in the `apptainer shell` session will not be saved!"
+    },
+    {
+      "question": "How does Apptainer facilitate running daemons within compute jobs on clusters?",
+      "answer": "Apptainer has been designed to be able to properly run daemons within compute jobs on clusters, and running daemons is achieved, in part, by using `apptainer instance`."
+    },
+    {
+      "question": "Why should I use `apptainer instance` instead of manually running daemons?",
+      "answer": "`apptainer instance` works properly with other tools such as the Slurm scheduler, preventing daemons from hanging or becoming defunct processes if a job is cancelled, killed, crashes, or otherwise finished. Additionally, it allows you to control the daemons and programs running in the same container."
+    },
+    {
+      "question": "What is the lifespan of daemons run using `apptainer instance` on Alliance clusters?",
+      "answer": "Daemons can only run in your job while your job is running; should the scheduler kill your job, all daemons running in that job will also be killed."
+    },
+    {
+      "question": "What should I do if I need to run daemons longer than the duration of my compute job?",
+      "answer": "Should you need to run daemons longer than the job they were started in, you may need to also have a virtual machine running in the cloud; if so, please contact technical support."
+    }
+  ],
+  "generated_at": "2026-04-11T17:32:00.942529+00:00"
+}

@@ -5,21 +5,63 @@ lang: "en"
 
 source_wiki_title: "Frequently Asked Questions about the CCDB/en"
 source_hash: "f4487ee548cdedded9dc7a0bc83ce448"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T06:27:41.881311+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T07:10:32.419124+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "policies and agreements"
+  - "group name"
+  - "Resource Allocation Projects"
+  - "Cloud resource"
+  - "Alliance account"
+  - "CCDB"
+  - "external collaborators"
+  - "Alliance Federation"
+  - "RAC RAP"
+  - "Primary Investigators"
+  - "RAP membership"
+  - "Sponsored user roles"
+  - "CCRI"
+  - "HPC resource"
+  - "Alliance website"
+  - "RAP"
+  - "Role"
+  - "sponsored roles"
+  - "applying for a role"
+  - "sponsor roles"
+  - "CCI"
+  - "account application"
+  - "naming convention"
+
+questions:
+  - "What is the CCDB portal, and who is eligible to register for an account and receive a unique personal identifier (CCI)?"
+  - "How does the system define a \"role\" (CCRI), and why must users apply for a new one when their academic position, sponsor, or institution changes?"
+  - "What is a Resource Allocation Project (RAP), and what are the main differences between a Default RAP and a RAC RAP?"
+  - "How does membership access differ between a Default RAP and a RAC RAP for both HPC and Cloud resources?"
+  - "What are the three different RAP membership permission levels and what specific privileges does each level grant?"
+  - "What steps should a user take if they already have an existing account but their position or sponsor has changed?"
+  - "Why are group names generally preferred by users over the one-to-one mapping?"
+  - "What is the standard structural convention used to format these group names?"
+  - "How do the specific prefixes in the group names distinguish between Default, HPC, and Cloud resources?"
+  - "What policies and agreements must be accepted to register for an account?"
+  - "Where can users view their accepted agreements after their account has been approved?"
+  - "What are the two main types of roles available when applying for a position?"
+  - "Who is eligible to be a sponsor or Primary Investigator, and what must non-faculty administrators do if they lead research projects?"
+  - "What are the different categories of sponsored roles, and what distinguishes an internal group member from an external collaborator?"
+  - "What are the specific steps in the application approval process for both principal investigators and sponsored applicants after a request is submitted?"
+  - "Who is eligible to be a sponsor or Primary Investigator, and what must non-faculty administrators do if they lead research projects?"
+  - "What are the different categories of sponsored roles, and what distinguishes an internal group member from an external collaborator?"
+  - "What are the specific steps in the application approval process for both principal investigators and sponsored applicants after a request is submitted?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -27,7 +69,7 @@ status:
 
 ## What is the CCDB?
 
-[CCDB is the portal to your account with the Alliance](https://ccdb.alliancecan.ca) where you can find information on the roles you have in the projects you are involved in, the resources that are allocated to you, as well as statistics on your use of these resources.
+[The CCDB is the portal to your account with the Alliance](https://ccdb.alliancecan.ca) where you can find information on the roles you have in the projects you are involved in, the resources that are allocated to you, as well as statistics on your use of these resources.
 
 ## What can I do on the portal?
 
@@ -38,7 +80,7 @@ status:
 
 ## What is a CCI and why would I want one?
 
-A CCI is a unique personal and national identifier. When you register at https://ccdb.alliancecan.ca a CCI is created for you. The CCI is a string of 3 letters-3 digits. For example: abc-123.
+A CCI is a unique personal and national identifier. When you register at https://ccdb.alliancecan.ca a CCI is created for you. The CCI is a string of 3 letters-3 digits. For example: `abc-123`.
 
 ## Who is eligible to get a CCI?
 
@@ -51,7 +93,7 @@ People who can be sponsored include, but are not limited to, graduate students a
 
 A role is an identifier that represents the combination of a person's position (e.g., faculty, graduate student, postdoctoral fellow, etc.), institution, and sponsor. In order to access our computational resources, you must have a valid and up-to-date role. Most people will only have one role at a time, but when you change institution, sponsor, or position you will need to apply for a new role rather than update the old one. We ask you to do this so we can maintain accurate records for usage reporting to our governmental funding agencies.
 
-The CCRI follows the following convention: CCI-2 digits. For example, for a user with the CCI abc-123, the CCRI for a first role would be abc-123-01 and for a second role, abc-123-02.
+The CCRI follows the following convention: `CCI-2-digits`. For example, for a user with the CCI `abc-123`, the CCRI for a first role would be `abc-123-01` and for a second role, `abc-123-02`.
 
 ## What is a CCRI?
 
@@ -66,11 +108,10 @@ Access to our national computational resources are made available to PIs through
 Researchers are usually working on at least one research project. For reporting purposes, we need to be able to provide statistics on how our facilities are used, but the word *project* is too ambiguous, therefore we use a name which does not have any implicit meanings. Also, computing resources are not allocated to individuals, they are allocated to groups of researchers. The RAP is the group of researchers which resources are allocated to.
 
 In general, there are two main types to RAPs:
-*   Default RAP: A default RAP is automatically created when a PI role is activated. Default and Rapid Access Service quotas for storage and cloud resources are managed via this default RAP. The Default RAP allows PIs and sponsored users to make opportunistic use of compute resources with the default (that is, the lowest) priority. On CCDB, it uses the convention `def-profname`.
-*   RAC RAP: This RAP is created when the PI receives an award through the RAC application process. The RAC RAPI typically takes the form `abc-123-ab`, with an associated group name typically of the form of `rrg-profname-xx` or `rpp-profname-xx` for HPC allocations, and `crg-profname-xx` or `cpp-profname-xx` for Cloud allocations, depending on the competition.
+*   **Default RAP:** A default RAP is automatically created when a PI role is activated. Default and Rapid Access Service quotas for storage and cloud resources are managed via this default RAP. The Default RAP allows PIs and sponsored users to make opportunistic use of compute resources with the default (that is, the lowest) priority. On CCDB, it uses the convention `def-profname`.
+*   **RAC RAP:** This RAP is created when the PI receives an award through the RAC application process. The RAC RAPI typically takes the form `abc-123-ab`, with an associated group name typically of the form of `rrg-profname-xx` or `rpp-profname-xx` for HPC allocations, and `crg-profname-xx` or `cpp-profname-xx` for Cloud allocations, depending on the competition.
 
 ## What is a group name?
-
 Group name is an alias of the Research Allocation Project Identifier (RAPI). Each RAPI has a unique group name (one-to-one mapping), but it is often easier for users to remember the group name.
 
 Typically, group names follow this convention (where “xx” represents some sequence of digits and letters):
@@ -83,7 +124,6 @@ Typically, group names follow this convention (where “xx” represents some se
 The group name is used as a POSIX group name with an associated POSIX group ID and is propagated through LDAP in the dn attribute: `dn: cn=rpp-profname,ou=Group,dc=computecanada,dc=ca`
 
 ## Who has access to a RAP?
-
 **Default RAP:** All of a PI's activated sponsored user roles are always members of the PI's default RAP. That is, confirming sponsorship of a user confers on them membership in a PI's default RAP. This cannot be modified. However, a PI can at any time deactivate any role they sponsor.
 
 **RAC RAP:** Membership works differently depending on whether the RAC RAP has HPC or Cloud resources allocated:
@@ -91,13 +131,15 @@ The group name is used as a POSIX group name with an associated POSIX group ID a
 *   Cloud resources: At the time a new RAP is created with Cloud resources allocated, only the PI is added as a member of that RAP.
 
 ## How to manage membership for a RAC RAP
-
 The PI can modify the membership of any of their RAC RAPs at any time. Any user with an active Alliance account can be added as a member of a RAC RAP. The PI may, for example, want to allow access to user roles they are not sponsoring (i.e., a co-PI) or remove one or more of their sponsored user roles from their RAC RAP and limit them to only be able to access their default RAP.
 
 There are three RAP membership permission levels:
-*   Owner: The PI is the sole owner of the RAP and all the allocations associated to that RAP. This cannot be changed. The owner can add or remove RAP managers and members.
-*   Manager: An elevated permission (on CCDB only, not on the clusters) delegated by the owner or another manager that allows making membership changes. Managers can also use the PI's allocation in the corresponding cluster(s). Important: Members that have been promoted to *Manager* on a RAC RAP cannot make changes (e.g., change ownership of the files, apply ACLs, manage permissions on Globus, etc.) on the project/nearline file systems on behalf of the PIs.
-*   Member: Members can use the PI’s allocation in the corresponding cluster(s). Members cannot make any modifications to the RAP membership.
+*   **Owner:** The PI is the sole owner of the RAP and all the allocations associated to that RAP. This cannot be changed. The owner can add or remove RAP managers and members.
+*   **Manager:** An elevated permission (on CCDB only, not on the clusters) delegated by the owner or another manager that allows making membership changes. Managers can also use the PI's allocation in the corresponding cluster(s).
+
+    !!! important "Manager Permissions"
+        Members that have been promoted to *Manager* on a RAC RAP cannot make changes (e.g., change ownership of the files, apply ACLs, manage permissions on Globus, etc.) on the project/nearline file systems on behalf of the PIs.
+*   **Member:** Members can use the PI’s allocation in the corresponding cluster(s). Members cannot make any modifications to the RAP membership.
 
 RAP membership is represented as a group in LDAP. It defines a group of users that are authorized to submit jobs against the RAPI (which is the ID of the RAP) and share files within the same Unix group.
 
@@ -105,7 +147,7 @@ For detailed instructions about how to add members to a RAC RAP, please visit th
 
 # Registering for an account
 
-## I had an account in the past, but my position or sponsor has changed or I have lost my password. Should I sign up for a new one? { #duplicate-accounts }
+## I had an account in the past, but my position or sponsor has changed or I have lost my password. Should I sign up for a new one?
 
 Each person can only have one Alliance account (that is, one CCI). Requests for duplicate CCIs are refused. If you have an existing CCI and have changed position, you should apply for a new role (which will have a new CCRI) instead. To do so, please log in with your existing account and visit the [apply for a new role](https://ccdb.alliancecan.ca/me/add_role) form. If you have forgotten your password, you may [reset it](https://ccdb.alliancecan.ca/security/forgot). If you can no longer access the email address you have on file please email [accounts@tech.alliancecan.ca](mailto:accounts@tech.alliancecan.ca) and we can update it for you.
 
@@ -122,7 +164,7 @@ There are two main types of roles:
 *   *sponsored* roles.
 Only faculty members can be sponsors. Administrators who are not faculty but who lead research projects must contact [accounts@tech.alliancecan.ca](mailto:accounts@tech.alliancecan.ca) so that we can make appropriate accommodations. Faculty roles are only granted to faculty from Canadian post-secondary academic institutions who are eligible for CFI funding.
 
-Sponsored roles fall into two groups: internal and external. The difference is in whether the applicant is part of the supervisors local group, or a collaborator from a different institution. Available roles are:
+Sponsored roles fall into two groups: internal and external. The difference is in whether the applicant is part of the supervisor's local group, or a collaborator from a different institution. Available roles are:
 
 *   students: undergraduate, masters, doctoral;
 *   researchers affiliated with the same institution as the PI: postdoctoral fellow, researcher (but only if the person is paid by the PI's institution);

@@ -4,29 +4,21 @@
   "chunk_index": 8,
   "qa_pairs": [
     {
-      "question": "Quels arguments sont passés à la commande Abaqus dans ce script pour le redémarrage?",
-      "answer": "Les arguments passés à la commande Abaqus pour le redémarrage sont `job`, `oldjob`, `input`, `scratch`, `cpus`, `interactive`, `mp_mode` et `memory`."
+      "question": "Pour redémarrer une simulation Abaqus, quelles lignes doivent absolument être incluses dans le fichier d'entrée?",
+      "answer": "Le fichier d'entrée pour un redémarrage doit contenir les lignes `*HEADING` et `*RESTART, READ`."
     },
     {
-      "question": "Comment la mémoire est-elle calculée et attribuée à Abaqus dans ce script?",
-      "answer": "La mémoire attribuée à Abaqus est calculée en soustrayant 3072 Mo de la mémoire par nœud disponible (`SLURM_MEM_PER_NODE`), ce qui donne `$((${SLURM_MEM_PER_NODE}-3072))MB`."
+      "question": "Comment la mémoire est-elle calculée et assignée pour Abaqus dans le script de redémarrage pour un répertoire temporaire?",
+      "answer": "La mémoire est calculée en soustrayant 3072 Mo de la mémoire totale disponible par nœud (`$SLURM_MEM_PER_NODE`) avant d'être passée à Abaqus."
     },
     {
-      "question": "Comment fait-on pour activer l'utilisation des cartes graphiques (GPU) dans ce script?",
-      "answer": "Pour utiliser une carte graphique (GPU), il faut décommenter la ligne `#gpus=$SLURM_GPUS_ON_NODE`."
+      "question": "Si je veux utiliser un GPU pour ma tâche de redémarrage avec Abaqus via ce script, qu'est-ce que je dois faire?",
+      "answer": "Pour activer l'utilisation d'un GPU, vous devez décommenter la ligne `#gpus=$SLURM_GPUS_ON_NODE` dans le script."
     },
     {
-      "question": "Quel est le contenu minimal requis pour le fichier d'entrée quand on redémarre une simulation Abaqus avec ce script?",
-      "answer": "Le fichier d'entrée pour un redémarrage de simulation doit absolument contenir les lignes `*HEADING` et `*RESTART, READ`."
-    },
-    {
-      "question": "Où sont stockés les fichiers temporaires (scratch) par Abaqus dans l'exécution de ce script?",
-      "answer": "Les fichiers temporaires d'Abaqus sont stockés dans le répertoire `SLURM_TMPDIR/scratch`."
-    },
-    {
-      "question": "Après l'exécution du script, quels fichiers sont rapatriés vers le répertoire de soumission?",
-      "answer": "Après l'exécution, tous les fichiers dont le nom commence par `testst2*` sont copiés vers le répertoire de soumission (`$SLURM_SUBMIT_DIR`)."
+      "question": "Une fois la tâche de redémarrage terminée dans le répertoire temporaire, où sont sauvegardés les fichiers de sortie générés par la simulation Abaqus?",
+      "answer": "Les fichiers de sortie `testst2*` sont copiés du répertoire temporaire vers le répertoire de soumission de la tâche (`$SLURM_SUBMIT_DIR`) après l'exécution."
     }
   ],
-  "generated_at": "2026-04-10T00:35:10.947529+00:00"
+  "generated_at": "2026-04-11T15:37:56.522891+00:00"
 }

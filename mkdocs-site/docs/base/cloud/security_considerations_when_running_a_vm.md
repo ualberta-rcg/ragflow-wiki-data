@@ -5,29 +5,43 @@ lang: "base"
 
 source_wiki_title: "Security considerations when running a VM"
 source_hash: "ab28d15c527c07b2ce102f817c8b2e8d"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T11:14:43.215458+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T11:25:15.346179+00:00"
 
 tags:
   - cloud
 
 keywords:
-  []
+  - "SSH authentication"
+  - "Operating system updates"
+  - "Network security"
+  - "Virtual machines"
+  - "Cloud security"
+
+questions:
+  - "What are the recommended practices for keeping a virtual machine's operating system secure and updated?"
+  - "How should network security and access rules be configured to protect services running on the VM?"
+  - "What are the key topics covered in the provided \"Safety First!\" video recording regarding cloud VM security?"
+  - "What are the recommended practices for keeping a virtual machine's operating system secure and updated?"
+  - "How should network security and access rules be configured to protect services running on the VM?"
+  - "What are the key topics covered in the provided \"Safety First!\" video recording regarding cloud VM security?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
 *Parent page: [Cloud](cloud.md)*
 
-On the [cloud](cc-cloud.md), you are responsible for the security of your virtual machines.
+!!! warning "Your Responsibility"
+    On the [cloud](cc-cloud.md), you are responsible for the security of your virtual machines.
 
-This document is not a complete guide, but will set out some things you need to consider when creating a VM on the cloud.
+!!! note "Scope of This Document"
+    This document is not a complete guide, but will set out some things you need to consider when creating a VM on the cloud.
 
 ## Basic security talk recording
 There is a recording of an ~1.5 hr talk on some basic security considerations when working with VMs in the cloud available on YouTube called [Safety First!](https://youtu.be/l3CcXzaVpTs).
@@ -56,10 +70,10 @@ Below is a list of links to different sections of the recording for easier video
 * Do not bundle ranges of ports to allow access.
 * Think carefully about your security rules. Consider the following:
   * These services aren't meant to be publicly accessible:
-    * ssh (22) - this service allows interactive login to your instance and **MUST NOT** be made publicly accessible
-    * RDP (3389) - this service allows interactive login to your instance and **MUST NOT** be made publicly accessible
+    * ssh (22) - this service allows interactive login to your instance and MUST NOT be made publicly accessible
+    * RDP (3389) - this service allows interactive login to your instance and MUST NOT be made publicly accessible
     * mysql (3306)
-    * VNC (5900-5906) - this service allows interactive login to your instance and **MUST NOT** be made publicly accessible
+    * VNC (5900-5906) - this service allows interactive login to your instance and MUST NOT be made publicly accessible
     * postgresql (5432)
     * nosql
     * tomcat
@@ -70,26 +84,30 @@ Below is a list of links to different sections of the recording for easier video
     * ... others
 * Configure your web server to use HTTPS instead of HTTP.
   * In many cases HTTP should only be used to redirect traffic to HTTPS.
-* Do **NOT** run a mail server.
-* Do **NOT** run a BitTorrent server.
+* Do NOT run a mail server.
+* Do NOT run a BitTorrent server.
 
 ## Updating your VM
 In order to keep a VM's operating system secure, it must be regularly updated - ideally weekly, or as often as new packages become available. To upgrade a Linux VM choose the commands below for your particular distribution. Note you will need to reconnect to your VM after rebooting.
+
 ### Ubuntu/Debian
 ```bash
 $ sudo apt-get update
 $ sudo apt-get dist-upgrade
 $ sudo reboot
 ```
+
 ### CentOS
 ```bash
 $ sudo yum update
 $ sudo reboot
 ```
+
 ### Fedora
 ```bash
 $ sudo dnf update
 $ sudo reboot
 ```
+
 ## Further reading
 An Amazon article on securing instances: [https://aws.amazon.com/articles/1233/](https://aws.amazon.com/articles/1233/)

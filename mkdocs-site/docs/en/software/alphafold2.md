@@ -5,21 +5,84 @@ lang: "en"
 
 source_wiki_title: "AlphaFold2/en"
 source_hash: "d54bfabea8b5daaec2d786e6f844c9fa"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T04:10:13.814994+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T05:03:18.728095+00:00"
 
 tags:
   - software
 
 keywords:
-  []
+  - "database download"
+  - "SLURM batch script"
+  - "hhblits"
+  - "uniref"
+  - "run_alphafold.py"
+  - "transfer node"
+  - "sbatch"
+  - "login node"
+  - "terminal multiplexer"
+  - "CPU and GPU"
+  - "machine learning model"
+  - "virtual environment"
+  - "pip install"
+  - "INPUT_DIR"
+  - "module dependencies"
+  - "SLURM submission script"
+  - "uniprot"
+  - "databases"
+  - "Python virtual environment"
+  - "GPU"
+  - "pdb_seqres"
+  - "AlphaFold"
+  - "protein folding"
+  - "DOWNLOAD_DIR"
+  - "broken pipe error"
+  - "transferring data"
+  - "jackhmmer"
+  - "SLURM"
+  - "Database paths"
+  - "bash script"
+  - "OUTPUT_DIR"
+  - "SLURM_TMPDIR"
+
+questions:
+  - "What is AlphaFold and what citation requirements must be followed when publishing findings based on its use?"
+  - "How do you install a specific version of AlphaFold and its dependencies within a Python virtual environment?"
+  - "Where are the required AlphaFold databases stored on the cluster, and what is the process for downloading them locally?"
+  - "Which type of node should be used for transferring data depending on the cluster's configuration?"
+  - "Why is it recommended to use a terminal multiplexer for the download process?"
+  - "What specific error message might occur during the download, and where can the solution be found?"
+  - "What is the expected directory structure and approximate storage size required for the downloaded AlphaFold databases?"
+  - "Why is it recommended to request a maximum of 8 CPU cores when running an AlphaFold job?"
+  - "What are the key steps and module dependencies required in the SLURM submission script to execute AlphaFold on a CPU?"
+  - "How is the virtual environment configured and activated within the SLURM temporary directory?"
+  - "What is the process for installing AlphaFold and its required dependencies using pip?"
+  - "How do you execute the AlphaFold script to process specific FASTA sequence files?"
+  - "What are the recommended SLURM resource allocations, such as CPUs, GPUs, and memory, specified in the script for running an AlphaFold job?"
+  - "Which software modules and Python dependencies must be loaded and installed in the virtual environment before executing the AlphaFold script?"
+  - "What specific biological databases and binary paths are required as arguments for the `run_alphafold.py` command according to the provided configuration?"
+  - "What are the key differences in SLURM resource allocation when submitting an AlphaFold job on a CPU versus a GPU?"
+  - "What software modules and virtual environment setup steps are required before running the AlphaFold script?"
+  - "Which specific database paths and command-line arguments must be configured to execute the `run_alphafold.py` command?"
+  - "What specific sequence databases are required and referenced by the paths in this configuration?"
+  - "Which bioinformatics search tools or executables are being configured with binary paths in this script?"
+  - "What environment variables must be defined for the system to correctly locate the directories for the downloads and software suites?"
+  - "What specific software modules and versions must be loaded to satisfy the dependencies for this environment?"
+  - "How are the directory paths for downloaded data, input data, and output data configured in this script?"
+  - "Based on the loaded modules and directory names, what computational biology tool is this setup script intended for?"
+  - "How do you set up the virtual environment and install the necessary dependencies for AlphaFold?"
+  - "What are the key arguments and database paths required to execute the run_alphafold.py command?"
+  - "What are the recommended solutions for resolving a \"Broken pipe\" error when downloading the AlphaFold database?"
+  - "How do you set up the virtual environment and install the necessary dependencies for AlphaFold?"
+  - "What are the key arguments and database paths required to execute the run_alphafold.py command?"
+  - "What are the recommended solutions for resolving a \"Broken pipe\" error when downloading the AlphaFold database?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -36,7 +99,7 @@ AlphaFold is available on our clusters as prebuilt Python packages (wheels). You
 avail_wheels alphafold --all-versions
 ```
 
-```text
+```
 name       version    python    arch
 ---------  ---------  --------  -------
 alphafold  2.3.1      py3       generic
@@ -69,8 +132,8 @@ alphafold  2.0.0      py3       generic
 3.  Install a specific version of AlphaFold and its Python dependencies.
 
     ```bash
-    pip install --no-index --upgrade pip
-    pip install --no-index alphafold==X.Y.Z
+    (alphafold_env) [name@server ~]$ pip install --no-index --upgrade pip
+    (alphafold_env) [name@server ~]$ pip install --no-index alphafold==X.Y.Z
     ```
 
     where `X.Y.Z` is the exact desired version, for instance `2.2.4`. You can omit to specify the version in order to install the latest one available from the wheelhouse.
@@ -78,13 +141,13 @@ alphafold  2.0.0      py3       generic
 4.  Validate it.
 
     ```bash
-    run_alphafold.py --help
+    (alphafold_env) [name@server ~]$ run_alphafold.py --help
     ```
 
 5.  Freeze the environment and requirements set.
 
     ```bash
-    pip freeze > ~/alphafold-requirements.txt
+    (alphafold_env) [name@server ~]$ pip freeze > ~/alphafold-requirements.txt
     ```
 
 ## Databases
@@ -95,323 +158,315 @@ The databases are available in `/cvmfs/bio.data.computecanada.ca/content/databas
 AlphaFold databases on CVMFS undergo yearly updates. In January 2024, the database was updated and is accessible in folder `2024_01`.
 
 ```bash
-export DOWNLOAD_DIR=/cvmfs/bio.data.computecanada.ca/content/databases/Core/alphafold2_dbs/2024_01/
+(alphafold_env) [name@server ~]$ export DOWNLOAD_DIR=/cvmfs/bio.data.computecanada.ca/content/databases/Core/alphafold2_dbs/2024_01/
 ```
 
 You can also choose to download the databases locally into your `$SCRATCH` directory.
 
-**Important:** The databases must live in the `$SCRATCH` directory.
+!!! warning "Important"
+    The databases must live in the `$SCRATCH` directory.
 
 === "General"
+1.  From a DTN or login node, create the data folder.
 
-    1.  From a DTN or login node, create the data folder.
+    ```bash
+    (alphafold_env) [name@server ~]$ export DOWNLOAD_DIR=$SCRATCH/alphafold/data
+    (alphafold_env) [name@server ~]$ mkdir -p $DOWNLOAD_DIR
+    ```
 
-        ```bash
-        export DOWNLOAD_DIR=$SCRATCH/alphafold/data
-        mkdir -p $DOWNLOAD_DIR
-        ```
+2.  With your modules loaded and virtual environment activated, you can download the data.
 
-    2.  With your modules loaded and virtual environment activated, you can download the data.
+    ```bash
+    (alphafold_env) [name@server ~]$ download_all_data.sh $DOWNLOAD_DIR
+    ```
 
-        ```bash
-        download_all_data.sh $DOWNLOAD_DIR
-        ```
-
-    Note that this step **cannot** be done from a compute node. It should be done on a data transfer node (DTN) on clusters that have them (see [Transferring data](transferring-data.md)). On clusters that have no DTN, use a login node instead. Since the download can take up to a full day, we suggest using a [terminal multiplexer](prolonging-terminal-sessions.md#terminal-multiplexers). You may encounter a `Client_loop: send disconnect: Broken pipe` error message. See [Troubleshooting](#broken-pipe-error-message) below.
+    Note that this step **cannot** be done from a compute node. It should be done on a data transfer node (DTN) on clusters that have them (see [Transferring data](transferring-data.md)). On clusters that have no DTN, use a login node instead. Since the download can take up to a full day, we suggest using a [terminal multiplexer](prolonging-terminal-sessions.md#terminal-multiplexers). You may encounter a `Client_loop: send disconnect: Broken pipe` error message. See [Troubleshooting](#troubleshooting) below.
 
 === "Graham only"
+1.  Set `DOWNLOAD_DIR`.
 
-    1.  Set `DOWNLOAD_DIR`.
-
-        ```bash
-        export DOWNLOAD_DIR=/datashare/alphafold
-        ```
+    ```bash
+    (alphafold_env) [name@server ~]$ export DOWNLOAD_DIR=/datashare/alphafold
+    ```
 
 Afterwards, the structure of your data should be similar to
 
 === "2.3"
+```bash
+(alphafold_env) [name@server ~]$ tree -d $DOWNLOAD_DIR
+```
 
-    ```bash
-    tree -d $DOWNLOAD_DIR
-    ```
-
-    ```text
-    $DOWNLOAD_DIR/                             # ~ 2.6 TB (total)
-        bfd/                                   # ~ 1.8 TB
-            # 6 files
-        mgnify/                                # ~ 120 GB
-            mgy_clusters.fa
-        params/                                # ~ 5.3 GB
-            # LICENSE
-            # 15 models
-            # 16 files (total)
-        pdb70/                                 # ~ 56 GB
-            # 9 files
-        pdb_mmcif/                             # ~ 246 GB
-            mmcif_files/
-                # 202,764 files
-            obsolete.dat
-        pdb_seqres/                            # ~ 237 MB
-            pdb_seqres.txt
-        uniprot/                               # ~ 111 GB
-            uniprot.fasta
-        uniref30/                              # ~ 206 GB
-            # 7 files
-        uniref90/                              # ~ 73 GB
-            uniref90.fasta
-    ```
+```
+$DOWNLOAD_DIR/                             # ~ 2.6 TB (total)
+    bfd/                                   # ~ 1.8 TB
+        # 6 files
+    mgnify/                                # ~ 120 GB
+        mgy_clusters.fa
+    params/                                # ~ 5.3 GB
+        # LICENSE
+        # 15 models
+        # 16 files (total)
+    pdb70/                                 # ~ 56 GB
+        # 9 files
+    pdb_mmcif/                             # ~ 246 GB
+        mmcif_files/
+            # 202,764 files
+        obsolete.dat
+    pdb_seqres/                            # ~ 237 MB
+        pdb_seqres.txt
+    uniprot/                               # ~ 111 GB
+        uniprot.fasta
+    uniref30/                              # ~ 206 GB
+        # 7 files
+    uniref90/                              # ~ 73 GB
+        uniref90.fasta
+```
 
 === "2.2"
+```bash
+(alphafold_env) [name@server ~]$ tree -d $DOWNLOAD_DIR
+```
 
-    ```bash
-    tree -d $DOWNLOAD_DIR
-    ```
-
-    ```text
-    $DOWNLOAD_DIR/                             # Total: ~ 2.2 TB (download: 428 GB)
-        bfd/                                   # ~ 1.8 TB (download: 271.6 GB)
-            # 6 files.
-        mgnify/                                # ~ 64 GB (download: 32.9 GB)
-            mgy_clusters.fa
-        params/                                # ~ 3.5 GB (download: 3.5 GB)
-            # 5 CASP14 models,
-            # 5 pTM models,
-            # LICENSE,
-            # = 11 files.
-        pdb70/                                 # ~ 56 GB (download: 19.5 GB)
-            # 9 files.
-        pdb_mmcif/                             # ~ 206 GB (download: 46 GB)
-            mmcif_files/
-                # About 180,000 .cif files.
-            obsolete.dat
-        uniclust30/                            # ~ 87 GB (download: 24.9 GB)
-            uniclust30_2018_08/
-                # 13 files.
-        uniref90/                              # ~ 59 GB (download: 29.7 GB)
-            uniref90.fasta
-    ```
+```
+$DOWNLOAD_DIR/                             # Total: ~ 2.2 TB (download: 428 GB)
+    bfd/                                   # ~ 1.8 TB (download: 271.6 GB)
+        # 6 files.
+    mgnify/                                # ~ 64 GB (download: 32.9 GB)
+        mgy_clusters.fa
+    params/                                # ~ 3.5 GB (download: 3.5 GB)
+        # 5 CASP14 models,
+        # 5 pTM models,
+        # LICENSE,
+        # = 11 files.
+    pdb70/                                 # ~ 56 GB (download: 19.5 GB)
+        # 9 files.
+    pdb_mmcif/                             # ~ 206 GB (download: 46 GB)
+        mmcif_files/
+            # About 180,000 .cif files.
+        obsolete.dat
+    uniclust30/                            # ~ 87 GB (download: 24.9 GB)
+        uniclust30_2018_08/
+            # 13 files.
+    uniref90/                              # ~ 59 GB (download: 29.7 GB)
+        uniref90.fasta
+```
 
 ## Running AlphaFold
-
 !!! warning "Performance"
     You can request at most 8 CPU cores when running AlphaFold because it is hardcoded to not use more and does not benefit from using more.
 
 Edit one of following submission scripts according to your needs.
 
 === "2.3 on CPU"
+```bash title="alphafold-2.3-cpu.sh"
+#!/bin/bash
 
-    ```bash title="alphafold-2.3-cpu.sh"
-    #!/bin/bash
+#SBATCH --job-name=alphafold_run
+#SBATCH --account=def-someprof    # adjust this to match the accounting group you are using to submit jobs
+#SBATCH --time=08:00:00           # adjust this to match the walltime of your job
+#SBATCH --cpus-per-task=8         # a MAXIMUM of 8 core, AlphaFold has no benefit to use more
+#SBATCH --mem=20G                 # adjust this according to the memory you need
 
-    #SBATCH --job-name=alphafold_run
-    #SBATCH --account=def-someprof    # adjust this to match the accounting group you are using to submit jobs
-    #SBATCH --time=08:00:00           # adjust this to match the walltime of your job
-    #SBATCH --cpus-per-task=8         # a MAXIMUM of 8 core, AlphaFold has no benefit to use more
-    #SBATCH --mem=20G                 # adjust this according to the memory you need
+# Load modules dependencies.
+module load StdEnv/2020 gcc/9.3.0 openmpi/4.0.3 cuda/11.4 cudnn/8.2.0 kalign/2.03 hmmer/3.2.1 openmm-alphafold/7.5.1 hh-suite/3.3.0 python/3.8
 
-    # Load modules dependencies.
-    module load StdEnv/2020 gcc/9.3.0 openmpi/4.0.3 cuda/11.4 cudnn/8.2.0 kalign/2.03 hmmer/3.2.1 openmm-alphafold/7.5.1 hh-suite/3.3.0 python/3.8
+DOWNLOAD_DIR=$SCRATCH/alphafold/data   # set the appropriate path to your downloaded data
+INPUT_DIR=$SCRATCH/alphafold/input     # set the appropriate path to your input data
+OUTPUT_DIR=${SCRATCH}/alphafold/output # set the appropriate path to your output data
 
-    DOWNLOAD_DIR=$SCRATCH/alphafold/data   # set the appropriate path to your downloaded data
-    INPUT_DIR=$SCRATCH/alphafold/input     # set the appropriate path to your input data
-    OUTPUT_DIR=${SCRATCH}/alphafold/output # set the appropriate path to your output data
+# Generate your virtual environment in $SLURM_TMPDIR.
+virtualenv --no-download ${SLURM_TMPDIR}/env
+source ${SLURM_TMPDIR}/env/bin/activate
 
-    # Generate your virtual environment in $SLURM_TMPDIR.
-    virtualenv --no-download ${SLURM_TMPDIR}/env
-    source ${SLURM_TMPDIR}/env/bin/activate
+# Install AlphaFold and its dependencies.
+pip install --no-index --upgrade pip
+pip install --no-index --requirement ~/alphafold-requirements.txt
 
-    # Install AlphaFold and its dependencies.
-    pip install --no-index --upgrade pip
-    pip install --no-index --requirement ~/alphafold-requirements.txt
-
-    # Edit with the proper arguments and run your commands.
-    # run_alphafold.py --help
-    run_alphafold.py \
-       --fasta_paths=${INPUT_DIR}/YourSequence.fasta,${INPUT_DIR}/AnotherSequence.fasta \
-       --output_dir=${OUTPUT_DIR} \
-       --data_dir=${DOWNLOAD_DIR} \
-       --db_preset=full_dbs \
-       --model_preset=multimer \
-       --bfd_database_path=${DOWNLOAD_DIR}/bfd/bfd_metaclust_clu_complete_id30_c90_final_seq.sorted_opt \
-       --mgnify_database_path=${DOWNLOAD_DIR}/mgnify/mgy_clusters_2022_05.fa \
-       --pdb70_database_path=${DOWNLOAD_DIR}/pdb70/pdb70 \
-       --template_mmcif_dir=${DOWNLOAD_DIR}/pdb_mmcif/mmcif_files \
-       --obsolete_pdbs_path=${DOWNLOAD_DIR}/pdb_mmcif/obsolete.dat \
-       --pdb_seqres_database_path=${DOWNLOAD_DIR}/pdb_seqres/pdb_seqres.txt \
-       --uniprot_database_path=${DOWNLOAD_DIR}/uniprot/uniprot.fasta \
-       --uniref30_database_path=${DOWNLOAD_DIR}/uniref30/UniRef30_2021_03 \
-       --uniref90_database_path=${DOWNLOAD_DIR}/uniref90/uniref90.fasta \
-       --hhblits_binary_path=${EBROOTHHMINSUITE}/bin/hhblits \
-       --hhsearch_binary_path=${EBROOTHHMINSUITE}/bin/hhsearch \
-       --jackhmmer_binary_path=${EBROOTHMMER}/bin/jackhmmer \
-       --kalign_binary_path=${EBROOTKALIGN}/bin/kalign \
-       --max_template_date=2022-01-01 \
-       --use_gpu_relax=False
-    ```
+# Edit with the proper arguments and run your commands.
+# run_alphafold.py --help
+run_alphafold.py \
+   --fasta_paths=${INPUT_DIR}/YourSequence.fasta,${INPUT_DIR}/AnotherSequence.fasta \
+   --output_dir=${OUTPUT_DIR} \
+   --data_dir=${DOWNLOAD_DIR} \
+   --db_preset=full_dbs \
+   --model_preset=multimer \
+   --bfd_database_path=${DOWNLOAD_DIR}/bfd/bfd_metaclust_clu_complete_id30_c90_final_seq.sorted_opt \
+   --mgnify_database_path=${DOWNLOAD_DIR}/mgnify/mgy_clusters_2022_05.fa \
+   --pdb70_database_path=${DOWNLOAD_DIR}/pdb70/pdb70 \
+   --template_mmcif_dir=${DOWNLOAD_DIR}/pdb_mmcif/mmcif_files \
+   --obsolete_pdbs_path=${DOWNLOAD_DIR}/pdb_mmcif/obsolete.dat \
+   --pdb_seqres_database_path=${DOWNLOAD_DIR}/pdb_seqres/pdb_seqres.txt \
+   --uniprot_database_path=${DOWNLOAD_DIR}/uniprot/uniprot.fasta \
+   --uniref30_database_path=${DOWNLOAD_DIR}/uniref30/UniRef30_2021_03 \
+   --uniref90_database_path=${DOWNLOAD_DIR}/uniref90/uniref90.fasta \
+   --hhblits_binary_path=${EBROOTHHMINSUITE}/bin/hhblits \
+   --hhsearch_binary_path=${EBROOTHHMINSUITE}/bin/hhsearch \
+   --jackhmmer_binary_path=${EBROOTHMMER}/bin/jackhmmer \
+   --kalign_binary_path=${EBROOTKALIGN}/bin/kalign \
+   --max_template_date=2022-01-01 \
+   --use_gpu_relax=False
+```
 
 === "2.3 on GPU"
+```bash title="alphafold-2.3-gpu.sh"
+#!/bin/bash
 
-    ```bash title="alphafold-2.3-gpu.sh"
-    #!/bin/bash
+#SBATCH --job-name=alphafold_run
+#SBATCH --account=def-someprof    # adjust this to match the accounting group you are using to submit jobs
+#SBATCH --time=08:00:00           # adjust this to match the walltime of your job
+#SBATCH --cpus-per-task=8         # a MAXIMUM of 8 core, AlphaFold has no benefit to use more
+#SBATCH --gres=gpu:1              # a GPU helps to accelerate the inference part only
+#SBATCH --mem=20G                 # adjust this according to the memory you need
 
-    #SBATCH --job-name=alphafold_run
-    #SBATCH --account=def-someprof    # adjust this to match the accounting group you are using to submit jobs
-    #SBATCH --time=08:00:00           # adjust this to match the walltime of your job
-    #SBATCH --cpus-per-task=8         # a MAXIMUM of 8 core, AlphaFold has no benefit to use more
-    #SBATCH --gres=gpu:1              # a GPU helps to accelerate the inference part only
-    #SBATCH --mem=20G                 # adjust this according to the memory you need
+# Load modules dependencies.
+module load StdEnv/2020 gcc/9.3.0 openmpi/4.0.3 cuda/11.4 cudnn/8.2.0 kalign/2.03 hmmer/3.2.1 openmm-alphafold/7.5.1 hh-suite/3.3.0 python/3.8
 
-    # Load modules dependencies.
-    module load StdEnv/2020 gcc/9.3.0 openmpi/4.0.3 cuda/11.4 cudnn/8.2.0 kalign/2.03 hmmer/3.2.1 openmm-alphafold/7.5.1 hh-suite/3.3.0 python/3.8
+DOWNLOAD_DIR=$SCRATCH/alphafold/data   # set the appropriate path to your downloaded data
+INPUT_DIR=$SCRATCH/alphafold/input     # set the appropriate path to your input data
+OUTPUT_DIR=${SCRATCH}/alphafold/output # set the appropriate path to your output data
 
-    DOWNLOAD_DIR=$SCRATCH/alphafold/data   # set the appropriate path to your downloaded data
-    INPUT_DIR=$SCRATCH/alphafold/input     # set the appropriate path to your input data
-    OUTPUT_DIR=${SCRATCH}/alphafold/output # set the appropriate path to your output data
+# Generate your virtual environment in $SLURM_TMPDIR.
+virtualenv --no-download ${SLURM_TMPDIR}/env
+source ${SLURM_TMPDIR}/env/bin/activate
 
-    # Generate your virtual environment in $SLURM_TMPDIR.
-    virtualenv --no-download ${SLURM_TMPDIR}/env
-    source ${SLURM_TMPDIR}/env/bin/activate
+# Install AlphaFold and its dependencies.
+pip install --no-index --upgrade pip
+pip install --no-index --requirement ~/alphafold-requirements.txt
 
-    # Install AlphaFold and its dependencies.
-    pip install --no-index --upgrade pip
-    pip install --no-index --requirement ~/alphafold-requirements.txt
-
-    # Edit with the proper arguments and run your commands.
-    # run_alphafold.py --help
-    run_alphafold.py \
-       --fasta_paths=${INPUT_DIR}/YourSequence.fasta,${INPUT_DIR}/AnotherSequence.fasta \
-       --output_dir=${OUTPUT_DIR} \
-       --data_dir=${DOWNLOAD_DIR} \
-       --db_preset=full_dbs \
-       --model_preset=multimer \
-       --bfd_database_path=${DOWNLOAD_DIR}/bfd/bfd_metaclust_clu_complete_id30_c90_final_seq.sorted_opt \
-       --mgnify_database_path=${DOWNLOAD_DIR}/mgnify/mgy_clusters_2022_05.fa \
-       --pdb70_database_path=${DOWNLOAD_DIR}/pdb70/pdb70 \
-       --template_mmcif_dir=${DOWNLOAD_DIR}/pdb_mmcif/mmcif_files \
-       --obsolete_pdbs_path=${DOWNLOAD_DIR}/pdb_mmcif/obsolete.dat \
-       --pdb_seqres_database_path=${DOWNLOAD_DIR}/pdb_seqres/pdb_seqres.txt \
-       --uniprot_database_path=${DOWNLOAD_DIR}/uniprot/uniprot.fasta \
-       --uniref30_database_path=${DOWNLOAD_DIR}/uniref30/UniRef30_2021_03 \
-       --uniref90_database_path=${DOWNLOAD_DIR}/uniref90/uniref90.fasta \
-       --hhblits_binary_path=${EBROOTHHMINSUITE}/bin/hhblits \
-       --hhsearch_binary_path=${EBROOTHHMINSUITE}/bin/hhsearch \
-       --jackhmmer_binary_path=${EBROOTHMMER}/bin/jackhmmer \
-       --kalign_binary_path=${EBROOTKALIGN}/bin/kalign \
-       --max_template_date=2022-01-01 \
-       --use_gpu_relax=True
-    ```
+# Edit with the proper arguments and run your commands.
+# run_alphafold.py --help
+run_alphafold.py \
+   --fasta_paths=${INPUT_DIR}/YourSequence.fasta,${INPUT_DIR}/AnotherSequence.fasta \
+   --output_dir=${OUTPUT_DIR} \
+   --data_dir=${DOWNLOAD_DIR} \
+   --db_preset=full_dbs \
+   --model_preset=multimer \
+   --bfd_database_path=${DOWNLOAD_DIR}/bfd/bfd_metaclust_clu_complete_id30_c90_final_seq.sorted_opt \
+   --mgnify_database_path=${DOWNLOAD_DIR}/mgnify/mgy_clusters_2022_05.fa \
+   --pdb70_database_path=${DOWNLOAD_DIR}/pdb70/pdb70 \
+   --template_mmcif_dir=${DOWNLOAD_DIR}/pdb_mmcif/mmcif_files \
+   --obsolete_pdbs_path=${DOWNLOAD_DIR}/pdb_mmcif/obsolete.dat \
+   --pdb_seqres_database_path=${DOWNLOAD_DIR}/pdb_seqres/pdb_seqres.txt \
+   --uniprot_database_path=${DOWNLOAD_DIR}/uniprot/uniprot.fasta \
+   --uniref30_database_path=${DOWNLOAD_DIR}/uniref30/UniRef30_2021_03 \
+   --uniref90_database_path=${DOWNLOAD_DIR}/uniref90/uniref90.fasta \
+   --hhblits_binary_path=${EBROOTHHMINSUITE}/bin/hhblits \
+   --hhsearch_binary_path=${EBROOTHHMINSUITE}/bin/hhsearch \
+   --jackhmmer_binary_path=${EBROOTHMMER}/bin/jackhmmer \
+   --kalign_binary_path=${EBROOTKALIGN}/bin/kalign \
+   --max_template_date=2022-01-01 \
+   --use_gpu_relax=True
+```
 
 === "2.2 on CPU"
+```bash title="alphafold-cpu.sh"
+#!/bin/bash
 
-    ```bash title="alphafold-cpu.sh"
-    #!/bin/bash
+#SBATCH --job-name=alphafold_run
+#SBATCH --account=def-someprof    # adjust this to match the accounting group you are using to submit jobs
+#SBATCH --time=08:00:00           # adjust this to match the walltime of your job
+#SBATCH --cpus-per-task=8         # a MAXIMUM of 8 core, AlphaFold has no benefit to use more
+#SBATCH --mem=20G                 # adjust this according to the memory you need
 
-    #SBATCH --job-name=alphafold_run
-    #SBATCH --account=def-someprof    # adjust this to match the accounting group you are using to submit jobs
-    #SBATCH --time=08:00:00           # adjust this to match the walltime of your job
-    #SBATCH --cpus-per-task=8         # a MAXIMUM of 8 core, AlphaFold has no benefit to use more
-    #SBATCH --mem=20G                 # adjust this according to the memory you need
+# Load modules dependencies.
+module load StdEnv/2020 gcc/9.3.0 openmpi/4.0.3 cuda/11.4 cudnn/8.2.0 kalign/2.03 hmmer/3.2.1 openmm-alphafold/7.5.1 hh-suite/3.3.0 python/3.8
 
-    # Load modules dependencies.
-    module load StdEnv/2020 gcc/9.3.0 openmpi/4.0.3 cuda/11.4 cudnn/8.2.0 kalign/2.03 hmmer/3.2.1 openmm-alphafold/7.5.1 hh-suite/3.3.0 python/3.8
+DOWNLOAD_DIR=$SCRATCH/alphafold/data   # set the appropriate path to your downloaded data
+INPUT_DIR=$SCRATCH/alphafold/input     # set the appropriate path to your input data
+OUTPUT_DIR=${SCRATCH}/alphafold/output # set the appropriate path to your output data
 
-    DOWNLOAD_DIR=$SCRATCH/alphafold/data   # set the appropriate path to your downloaded data
-    INPUT_DIR=$SCRATCH/alphafold/input     # set the appropriate path to your input data
-    OUTPUT_DIR=${SCRATCH}/alphafold/output # set the appropriate path to your output data
+# Generate your virtual environment in $SLURM_TMPDIR.
+virtualenv --no-download ${SLURM_TMPDIR}/env
+source ${SLURM_TMPDIR}/env/bin/activate
 
-    # Generate your virtual environment in $SLURM_TMPDIR.
-    virtualenv --no-download ${SLURM_TMPDIR}/env
-    source ${SLURM_TMPDIR}/env/bin/activate
+# Install AlphaFold and its dependencies.
+pip install --no-index --upgrade pip
+pip install --no-index --requirement ~/alphafold-requirements.txt
 
-    # Install AlphaFold and its dependencies.
-    pip install --no-index --upgrade pip
-    pip install --no-index --requirement ~/alphafold-requirements.txt
-
-    # Edit with the proper arguments and run your commands.
-    # Note that the `--uniclust30_database_path` option below was renamed to
-    # `--uniref30_database_path` in 2.3.
-    # run_alphafold.py --help
-    run_alphafold.py \
-       --fasta_paths=${INPUT_DIR}/YourSequence.fasta,${INPUT_DIR}/AnotherSequence.fasta \
-       --output_dir=${OUTPUT_DIR} \
-       --data_dir=${DOWNLOAD_DIR} \
-       --model_preset=monomer_casp14 \
-       --bfd_database_path=${DOWNLOAD_DIR}/bfd/bfd_metaclust_clu_complete_id30_c90_final_seq.sorted_opt \
-       --mgnify_database_path=${DOWNLOAD_DIR}/mgnify/mgy_clusters_2018_12.fa \
-       --pdb70_database_path=${DOWNLOAD_DIR}/pdb70/pdb70 \
-       --template_mmcif_dir=${DOWNLOAD_DIR}/pdb_mmcif/mmcif_files \
-       --obsolete_pdbs_path=${DOWNLOAD_DIR}/pdb_mmcif/obsolete.dat \
-       --uniclust30_database_path=${DOWNLOAD_DIR}/uniclust30/uniclust30_2018_08/uniclust30_2018_08  \
-       --uniref90_database_path=${DOWNLOAD_DIR}/uniref90/uniref90.fasta  \
-       --hhblits_binary_path=${EBROOTHHMINSUITE}/bin/hhblits \
-       --hhsearch_binary_path=${EBROOTHHMINSUITE}/bin/hhsearch \
-       --jackhmmer_binary_path=${EBROOTHMMER}/bin/jackhmmer \
-       --kalign_binary_path=${EBROOTKALIGN}/bin/kalign \
-       --max_template_date=2020-05-14 \
-       --use_gpu_relax=False
-    ```
+# Edit with the proper arguments and run your commands.
+# Note that the `--uniclust30_database_path` option below was renamed to
+# `--uniref30_database_path` in 2.3.
+# run_alphafold.py --help
+run_alphafold.py \
+   --fasta_paths=${INPUT_DIR}/YourSequence.fasta,${INPUT_DIR}/AnotherSequence.fasta \
+   --output_dir=${OUTPUT_DIR} \
+   --data_dir=${DOWNLOAD_DIR} \
+   --model_preset=monomer_casp14 \
+   --bfd_database_path=${DOWNLOAD_DIR}/bfd/bfd_metaclust_clu_complete_id30_c90_final_seq.sorted_opt \
+   --mgnify_database_path=${DOWNLOAD_DIR}/mgnify/mgy_clusters_2018_12.fa \
+   --pdb70_database_path=${DOWNLOAD_DIR}/pdb70/pdb70 \
+   --template_mmcif_dir=${DOWNLOAD_DIR}/pdb_mmcif/mmcif_files \
+   --obsolete_pdbs_path=${DOWNLOAD_DIR}/pdb_mmcif/obsolete.dat \
+   --uniclust30_database_path=${DOWNLOAD_DIR}/uniclust30/uniclust30_2018_08/uniclust30_2018_08  \
+   --uniref90_database_path=${DOWNLOAD_DIR}/uniref90/uniref90.fasta  \
+   --hhblits_binary_path=${EBROOTHHMINSUITE}/bin/hhblits \
+   --hhsearch_binary_path=${EBROOTHHMINSUITE}/bin/hhsearch \
+   --jackhmmer_binary_path=${EBROOTHMMER}/bin/jackhmmer \
+   --kalign_binary_path=${EBROOTKALIGN}/bin/kalign \
+   --max_template_date=2020-05-14 \
+   --use_gpu_relax=False
+```
 
 === "2.2 on GPU"
+```bash title="alphafold-gpu.sh"
+#!/bin/bash
 
-    ```bash title="alphafold-gpu.sh"
-    #!/bin/bash
+#SBATCH --job-name=alphafold_run
+#SBATCH --account=def-someprof    # adjust this to match the accounting group you are using to submit jobs
+#SBATCH --time=08:00:00           # adjust this to match the walltime of your job
+#SBATCH --gres=gpu:1              # a GPU helps to accelerate the inference part only
+#SBATCH --cpus-per-task=8         # a MAXIMUM of 8 core, AlphaFold has no benefit to use more
+#SBATCH --mem=20G                 # adjust this according to the memory you need
 
-    #SBATCH --job-name=alphafold_run
-    #SBATCH --account=def-someprof    # adjust this to match the accounting group you are using to submit jobs
-    #SBATCH --time=08:00:00           # adjust this to match the walltime of your job
-    #SBATCH --gres=gpu:1              # a GPU helps to accelerate the inference part only
-    #SBATCH --cpus-per-task=8         # a MAXIMUM of 8 core, AlphaFold has no benefit to use more
-    #SBATCH --mem=20G                 # adjust this according to the memory you need
+# Load modules dependencies.
+module load StdEnv/2020 gcc/9.3.0 openmpi/4.0.3 cuda/11.4 cudnn/8.2.0 kalign/2.03 hmmer/3.2.1 openmm-alphafold/7.5.1 hh-suite/3.3.0 python/3.8
 
-    # Load modules dependencies.
-    module load StdEnv/2020 gcc/9.3.0 openmpi/4.0.3 cuda/11.4 cudnn/8.2.0 kalign/2.03 hmmer/3.2.1 openmm-alphafold/7.5.1 hh-suite/3.3.0 python/3.8
+DOWNLOAD_DIR=$SCRATCH/alphafold/data   # set the appropriate path to your downloaded data
+INPUT_DIR=$SCRATCH/alphafold/input     # set the appropriate path to your input data
+OUTPUT_DIR=${SCRATCH}/alphafold/output # set the appropriate path to your output data
 
-    DOWNLOAD_DIR=$SCRATCH/alphafold/data   # set the appropriate path to your downloaded data
-    INPUT_DIR=$SCRATCH/alphafold/input     # set the appropriate path to your input data
-    OUTPUT_DIR=${SCRATCH}/alphafold/output # set the appropriate path to your output data
+# Generate your virtual environment in $SLURM_TMPDIR.
+virtualenv --no-download ${SLURM_TMPDIR}/env
+source ${SLURM_TMPDIR}/env/bin/activate
 
-    # Generate your virtual environment in $SLURM_TMPDIR.
-    virtualenv --no-download ${SLURM_TMPDIR}/env
-    source ${SLURM_TMPDIR}/env/bin/activate
+# Install AlphaFold  and its dependencies.
+pip install --no-index --upgrade pip
+pip install --no-index --requirement ~/alphafold-requirements.txt
 
-    # Install AlphaFold  and its dependencies.
-    pip install --no-index --upgrade pip
-    pip install --no-index --requirement ~/alphafold-requirements.txt
-
-    # Edit with the proper arguments and run your commands.
-    # Note that the `--uniclust30_database_path` option below was renamed to
-    # `--uniref30_database_path` in 2.3.
-    # run_alphafold.py --help
-    run_alphafold.py \
-       --fasta_paths=${INPUT_DIR}/YourSequence.fasta,${INPUT_DIR}/AnotherSequence.fasta \
-       --output_dir=${OUTPUT_DIR} \
-       --data_dir=${DOWNLOAD_DIR} \
-       --model_preset=monomer_casp14 \
-       --bfd_database_path=${DOWNLOAD_DIR}/bfd/bfd_metaclust_clu_complete_id30_c90_final_seq.sorted_opt \
-       --mgnify_database_path=${DOWNLOAD_DIR}/mgnify/mgy_clusters_2018_12.fa \
-       --pdb70_database_path=${DOWNLOAD_DIR}/pdb70/pdb70 \
-       --template_mmcif_dir=${DOWNLOAD_DIR}/pdb_mmcif/mmcif_files \
-       --obsolete_pdbs_path=${DOWNLOAD_DIR}/pdb_mmcif/obsolete.dat \
-       --uniclust30_database_path=${DOWNLOAD_DIR}/uniclust30/uniclust30_2018_08/uniclust30_2018_08  \
-       --uniref90_database_path=${DOWNLOAD_DIR}/uniref90/uniref90.fasta  \
-       --hhblits_binary_path=${EBROOTHHMINSUITE}/bin/hhblits \
-       --hhsearch_binary_path=${EBROOTHHMINSUITE}/bin/hhsearch \
-       --jackhmmer_binary_path=${EBROOTHMMER}/bin/jackhmmer \
-       --kalign_binary_path=${EBROOTKALIGN}/bin/kalign \
-       --max_template_date=2020-05-14 \
-       --use_gpu_relax=True
-    ```
+# Edit with the proper arguments and run your commands.
+# Note that the `--uniclust30_database_path` option below was renamed to
+# `--uniref30_database_path` in 2.3.
+# run_alphafold.py --help
+run_alphafold.py \
+   --fasta_paths=${INPUT_DIR}/YourSequence.fasta,${INPUT_DIR}/AnotherSequence.fasta \
+   --output_dir=${OUTPUT_DIR} \
+   --data_dir=${DOWNLOAD_DIR} \
+   --model_preset=monomer_casp14 \
+   --bfd_database_path=${DOWNLOAD_DIR}/bfd/bfd_metaclust_clu_complete_id30_c90_final_seq.sorted_opt \
+   --mgnify_database_path=${DOWNLOAD_DIR}/mgnify/mgy_clusters_2018_12.fa \
+   --pdb70_database_path=${DOWNLOAD_DIR}/pdb70/pdb70 \
+   --template_mmcif_dir=${DOWNLOAD_DIR}/pdb_mmcif/mmcif_files \
+   --obsolete_pdbs_path=${DOWNLOAD_DIR}/pdb_mmcif/obsolete.dat \
+   --uniclust30_database_path=${DOWNLOAD_DIR}/uniclust30/uniclust30_2018_08/uniclust30_2018_08  \
+   --uniref90_database_path=${DOWNLOAD_DIR}/uniref90/uniref90.fasta  \
+   --hhblits_binary_path=${EBROOTHHMINSUITE}/bin/hhblits \
+   --hhsearch_binary_path=${EBROOTHHMINSUITE}/bin/hhsearch \
+   --jackhmmer_binary_path=${EBROOTHMMER}/bin/jackhmmer \
+   --kalign_binary_path=${EBROOTKALIGN}/bin/kalign \
+   --max_template_date=2020-05-14 \
+   --use_gpu_relax=True
+```
 
 Then, submit the job to the scheduler.
 
 ```bash
-sbatch --job-name alphafold-X alphafold-gpu.sh
+(alphafold_env) [name@server ~]$ sbatch --job-name alphafold-X alphafold-gpu.sh
 ```
 
 ## Troubleshooting
 ### Broken pipe error message
 When downloading the database, you may encounter a `Client_loop: send disconnect: Broken pipe` error message. It is hard to find the exact cause for this error message. It could be as simple as an unusually high number of users working on the login node, leaving less space for you to upload data.
 
-*   One solution is to use a [terminal multiplexer](prolonging-terminal-sessions.md#terminal-multiplexers). Note that you could still encounter this error message but the chances are less.
-*   A second solution is to use the database that is already present on the cluster: `/cvmfs/bio.data.computecanada.ca/content/databases/Core/alphafold2_dbs/2023_07/`.
-*   Another option is to download the full database in sections. To have access to the different download scripts, after loading the module and activating your virtual environment, you simply enter `download_` in your terminal and tap twice on the `tab` keyboard key to visualize all the scripts that are available. You can manually download sections of the database by using the available script, as for instance `download_pdb.sh`.
+*   One solution is to use a [terminal multiplexer](prolonging-terminal-sessions.md#terminal-multiplexers). Note that you could still encounter this error message but less are the chances.
+*   A second solution is to use the database that is already present on the cluster. `/cvmfs/bio.data.computecanada.ca/content/databases/Core/alphafold2_dbs/2023_07/`.
+*   Another option is to download the full database in sections. To have access to the different download scripts, after loading the module and activated your virtual environment, you simply enter `download_` in your terminal and tap twice on the `tab` keyboard key to visualize all the scripts that are available. You can manually download sections of the database by using the available script, as for instance `download_pdb.sh`.

@@ -5,21 +5,47 @@ lang: "en"
 
 source_wiki_title: "Apply for a CCDB account/en"
 source_hash: "d4b4e0343657b5b62e9c75c9dae6c03a"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T04:26:52.704391+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T05:18:42.484346+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "Account Application"
+  - "CCRI"
+  - "Principal Investigators"
+  - "Sponsor"
+  - "CCDB registration process"
+  - "CCDB registration"
+  - "PI"
+  - "CCDB"
+  - "Group Members"
+  - "sponsor"
+  - "Digital Research Alliance of Canada"
+  - "Confirmation link"
+  - "Group Member"
+
+questions:
+  - "Who is eligible to register for a CCDB account to access the Alliance Federation resources?"
+  - "What is the difference in the registration and approval process between Principal Investigators (PIs) and Group Members?"
+  - "What are the required steps and agreements a user must complete to successfully create a new CCDB account?"
+  - "How is a Sponsor notified that a Group Member's account application is ready for approval?"
+  - "What specific information must the Sponsor verify about the Group Member before granting approval?"
+  - "What action must the Sponsor take to finalize the application, and what is the outcome of this action?"
+  - "What is the purpose of the CCRI for a Principal Investigator (PI) and their Group Members?"
+  - "How can a user retrieve their CCRI if they forget it after the registration process?"
+  - "What action must a PI take when a Group Member registers for a CCDB account using their CCRI?"
+  - "How is a Sponsor notified that a Group Member's account application is ready for approval?"
+  - "What specific information must the Sponsor verify about the Group Member before granting approval?"
+  - "What action must the Sponsor take to finalize the application, and what is the outcome of this action?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -30,8 +56,8 @@ Any faculty member at a CFI-eligible Canadian university is eligible to register
 Researchers coming from government, non-profits, and industry may also be eligible to use Federation resources. These inquiries should be directed to accounts@tech.alliancecan.ca.
 
 !!! note
-    * *The instructions below only apply if you are registering with the Alliance for the first time.*
-    * If you already have a CCDB account, even if it is deactivated, you do not need to apply for a new account again. Read the [Account Renewals FAQ](account-renewal-faq.md).
+    *The instructions below only apply if you are registering with the Alliance for the first time.*
+    If you already have a CCDB account, even if it is deactivated, you do not need to apply for a new account again. Read the [Account Renewals FAQ](account-renewal-faq.md).
 
 ## User roles
 The CCDB has 12 classifications of roles, which can be seen on the registration page. Visit the [User Roles](user-roles-to-access-resources-and-services-of-the-alliance-federation.md) page for descriptions and key characteristics of each available role.
@@ -55,9 +81,9 @@ If you have any questions about getting an account, please email accounts@tech.a
 5.  Then complete the form with all required information as in the image below. **Please register with your institutional email address.** The information provided will be checked for accuracy. To ensure there is no delay in getting your CCRI, please ensure all information is completed correctly.
 6.  After clicking **Submit** application, you will receive an email. If you do not receive the confirmation email, please contact accounts@tech.alliancecan.ca.
 7.  Once you have received your confirmation email, click on the confirmation link indicated in the email. If the link does not work, copy and paste the confirmation link into your browser.
-8.  **If you are the PI**, an administrator will process your account request. The approver will check the information you have submitted to ensure you are a faculty person at the institution you have specified. Your account request will be processed within 2 business days.
-    **If you are a Group Member**, an email will be sent to your Sponsor asking them to confirm your application. *Please see the section titled “Approving a Group Member” for details on this process.*
-9.  Once your request has been approved, you will receive a notification email. *Please note your CCRI.* If you are a PI, you will need to provide your CCRI to all Group Members that you will be sponsoring. If you forget your CCRI, you can log in to the system and retrieve it. Please note the email you used to register and the password you have created.
+    1.  **If you are the PI**, an administrator will process your account request. The approver will check the information you have submitted to ensure you are a faculty person at the institution you have specified. Your account request will be processed within 2 business days.
+    2.  **If you are a Group Member**, an email will be sent to your Sponsor asking them to confirm your application. *Please see the section titled “Approving a Group Member” for details on this process.*
+8.  Once your request has been approved, you will receive a notification email. *Please note your CCRI.* If you are a PI, you will need to provide your CCRI to all Group Members that you will be sponsoring. If you forget your CCRI, you can log in to the system and retrieve it. Please note the email you used to register and the password you have created.
 
 You have now completed the CCDB registration process.
 

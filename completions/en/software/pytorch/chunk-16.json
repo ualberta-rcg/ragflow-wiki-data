@@ -1,0 +1,76 @@
+{
+  "doc_key": "en/pytorch",
+  "level": "chunk",
+  "chunk_index": 16,
+  "qa_pairs": [
+    {
+      "question": "What is Tensor Parallelism (TP) in the context of model sharding?",
+      "answer": "Tensor Parallelism (TP) is a model sharding approach where the computation of a forward or backward pass through a model layer is split along with the layers' weights across multiple devices."
+    },
+    {
+      "question": "How does Tensor Parallelism (TP) differ from Fully Sharded Data Parallelism (FSDP)?",
+      "answer": "TP differs from FSDP because with TP, computation steps are done locally on the device where a model shard is placed. FSDP, on the other hand, collects shards into a single device during certain computation steps, which introduces overhead and implies that individual layers must fit entirely in the memory of a single device."
+    },
+    {
+      "question": "When is Tensor Parallelism (TP) recommended over Fully Sharded Data Parallelism (FSDP)?",
+      "answer": "TP is recommended over FSDP when a model has layers that do not fit entirely into the memory of a single GPU, as FSDP requires layers or sharded blocks to fit within one device's memory during computation."
+    },
+    {
+      "question": "Could you describe Pipeline Parallelism (PP) as a model sharding approach?",
+      "answer": "Pipeline Parallelism (PP) is a model sharding approach where the shards are groups of consecutive layers of a model. Each shard, or block of sequential layers, gets placed on a different device."
+    },
+    {
+      "question": "How does Pipeline Parallelism handle computations across different devices?",
+      "answer": "In Pipeline Parallelism, a forward or backward pass through the model involves performing computations on each device in sequence."
+    },
+    {
+      "question": "What strategy is used in Pipeline Parallelism to keep all devices busy?",
+      "answer": "To mitigate devices waiting for their turn in sequential computation, Pipeline Parallelism breaks every input batch into 'micro-batches,' which are then fed to the model in sequence, ensuring all devices stay busy."
+    },
+    {
+      "question": "What is the primary purpose of creating model checkpoints during training?",
+      "answer": "The primary purpose of creating model checkpoints is to save a snapshot of your model at a given point during the training process, which can then be loaded later. This helps break up long jobs and prevents losing progress from errors or node failures."
+    },
+    {
+      "question": "What are the advantages of using checkpoints for long-running training jobs?",
+      "answer": "Checkpoints offer advantages such as allowing long jobs to be broken into multiple shorter jobs, which may get allocated more quickly on a cluster, and preventing the loss of progress in case of unexpected code errors or node failures."
+    },
+    {
+      "question": "How do you create a checkpoint when using PyTorch Lightning?",
+      "answer": "When training with PyTorch Lightning, you create a checkpoint by using the `callbacks` parameter of the `Trainer()` class, specifically with `pl.callbacks.ModelCheckpoint`."
+    },
+    {
+      "question": "Provide an example of how to configure PyTorch Lightning to create a checkpoint at the end of every training epoch.",
+      "answer": "To create a checkpoint at the end of every training epoch, you can use the following configuration: `callbacks = [pl.callbacks.ModelCheckpoint(dirpath=\"./ckpt\",every_n_epochs=1)] trainer = pl.Trainer(callbacks=callbacks) trainer.fit(model)`."
+    },
+    {
+      "question": "Can PyTorch Lightning automatically load an existing checkpoint to resume training?",
+      "answer": "Yes, PyTorch Lightning can automatically load a checkpoint from the specified `dirpath` (e.g., `./ckpt`), if one exists, and continue training from that point."
+    },
+    {
+      "question": "Where can I find information on creating checkpoints with custom training loops?",
+      "answer": "For information on creating and loading checkpoints within custom training loops, you should refer to the official PyTorch documentation."
+    },
+    {
+      "question": "In distributed training, which process should handle checkpointing?",
+      "answer": "In distributed training, checkpointing should only be performed by one process, typically rank 0, because all ranks will have the same model state at the end of each iteration."
+    },
+    {
+      "question": "What is the recommended code snippet for saving a checkpoint by rank 0 in a distributed training program?",
+      "answer": "The recommended code snippet for saving a checkpoint by rank 0 is: `if global_rank == 0: torch.save(ddp_model.state_dict(), \"./checkpoint_path\")`."
+    },
+    {
+      "question": "What potential issues should be considered when loading checkpoints in a distributed training environment?",
+      "answer": "When loading checkpoints in a distributed training environment, you must be careful that a process doesn't try to load a checkpoint before it has been fully saved by another, which could lead to errors or incorrect results."
+    },
+    {
+      "question": "How can one safely load a checkpoint across multiple processes in distributed training?",
+      "answer": "To safely load a checkpoint across multiple processes, you can add `torch.distributed.barrier()` to your code to ensure the checkpoint is written before others attempt to load it, and pass `map_location=f\"cuda:{local_rank}\"` to `torch.load` to load tensors on the correct GPU for each rank."
+    },
+    {
+      "question": "What is the default device that `torch.load` attempts to use when loading tensors?",
+      "answer": "By default, `torch.load` will attempt to load tensors to the GPU that originally saved them, typically `cuda:0`."
+    }
+  ],
+  "generated_at": "2026-04-12T05:43:29.137364+00:00"
+}

@@ -5,21 +5,47 @@ lang: "base"
 
 source_wiki_title: "MrBayes"
 source_hash: "617a82055a165823dc8cf9b73ce3b087"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T09:00:31.455206+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T09:32:36.811371+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "Markov chain Monte Carlo"
+  - "MrBayes"
+  - "mcmc"
+  - "append keyword"
+  - "Slurm jobs"
+  - "Slurm job scripts"
+  - "Checkpointing"
+  - "primates.nex"
+  - "job array"
+  - "split calculation"
+  - "job1.nex"
+  - "sbatch"
+  - "Bayesian inference"
+
+questions:
+  - "What is the primary purpose of the MrBayes program and what statistical method does it use to estimate model parameters?"
+  - "What are the different hardware configurations, such as sequential, MPI parallel, and GPU, available for running MrBayes job scripts?"
+  - "How does the checkpointing mechanism in MrBayes help manage very long computational runs across multiple jobs?"
+  - "What specific MCMC parameters are defined in the Nexus file to control the execution and stopping rules of the MrBayes calculation?"
+  - "How does the provided bash script utilize a Slurm job array and the $SLURM_ARRAY_TASK_ID variable to manage multiple calculation jobs?"
+  - "What command is required to submit the configured job script to the cluster?"
+  - "What is the primary purpose of creating the two files, job1.nex and job2.nex?"
+  - "How are the two Slurm jobs scheduled to execute in relation to one another?"
+  - "What is the key syntax difference between the first and second job files?"
+  - "What specific MCMC parameters are defined in the Nexus file to control the execution and stopping rules of the MrBayes calculation?"
+  - "How does the provided bash script utilize a Slurm job array and the $SLURM_ARRAY_TASK_ID variable to manage multiple calculation jobs?"
+  - "What command is required to submit the configured job script to the cluster?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -29,8 +55,7 @@ status:
 ```bash
 module spider mrbayes
 ```
-
-For more on finding and selecting a version of MrBayes using `module` commands see [Using modules](utiliser-des-modules.md)
+For more on finding and selecting a version of MrBayes using `module` commands see [Using modules](using-modules.md)
 
 ## Examples
 
@@ -108,7 +133,8 @@ sbatch submit-mrbayes-gpu.sh
 ```
 
 ## Checkpointing
-If you need very long runs of MrBayes, we suggest you break up the work into several small jobs rather than one very long job. Long jobs are more likely to be interrupted by hardware failure or maintenance outage. Fortunately, MrBayes has a mechanism for creating checkpoints, in which progress can be saved from one job and continued in a subsequent job.
+!!! tip
+    If you need very long runs of MrBayes, we suggest you break up the work into several small jobs rather than one very long job. Long jobs are more likely to be interrupted by hardware failure or maintenance outage. Fortunately, MrBayes has a mechanism for creating checkpoints, in which progress can be saved from one job and continued in a subsequent job.
 
 Here is an example of how to split a calculation into two Slurm jobs which will run one after the other. Create two files, `job1.nex` and `job2.nex`, as shown below. Notice that the key difference between them is the presence of the `append` keyword in the second.
 

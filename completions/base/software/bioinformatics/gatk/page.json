@@ -1,0 +1,67 @@
+{
+  "doc_key": "base/gatk",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is the Genome Analysis Toolkit (GATK) primarily used for?",
+      "answer": "GATK is a set of bioinformatic tools for analyzing high-throughput sequencing (HTS) and variant call format (VCF) data, particularly well-established for germline short variant discovery from whole genome and exome sequencing data."
+    },
+    {
+      "question": "How can users view the available GATK versions on the system?",
+      "answer": "Users can view the available GATK versions by using the command `module spider gatk`."
+    },
+    {
+      "question": "What is the prerequisite module for loading GATK, and how is it typically handled?",
+      "answer": "The prerequisite module for GATK is `StdEnv/2020`, which is loaded by default, so users can generally load GATK directly with `module load gatk/VERSION`."
+    },
+    {
+      "question": "How do later versions of GATK (>=4.0.0.0) simplify command execution compared to earlier versions?",
+      "answer": "Later versions of GATK (>=4.0.0.0) provide a wrapper (`gatk` command) over the Java executables, automatically setting most environmental variables, unlike earlier versions that required direct JAR file calls."
+    },
+    {
+      "question": "How should users specify Java options, such as memory allocation, when running GATK 4 and newer versions?",
+      "answer": "Users should pass Java options, like maximum heap memory (`-Xmx8G`), through the `--java-options` argument, ensuring all options are enclosed in quotation marks, for example: `gatk --java-options \"-Xmx8G\" ToolName [GATK args]`."
+    },
+    {
+      "question": "What specific Java option is recommended for better error reporting in GATK?",
+      "answer": "It is recommended to always use `-DGATK_STACKTRACE_ON_USER_EXCEPTION=true` within `--java-options` for more detailed error information if the program fails."
+    },
+    {
+      "question": "What is recommended for handling temporary files when running GATK in an `sbatch` job on the systems?",
+      "answer": "It is recommended to use the `--tmp-dir` option and set it to `${SLURM_TMPDIR}` in an `sbatch` job, redirecting temporary files to local storage for better performance."
+    },
+    {
+      "question": "How do earlier versions of GATK (less than 4) differ in their execution method?",
+      "answer": "Earlier GATK versions (less than 4) do not have the `gatk` command; users must call the JAR file directly, like `java -jar \"${EBROOTGATK}\"/GenomeAnalysisTK.jar PROGRAM OPTIONS`."
+    },
+    {
+      "question": "Are most GATK 4 tools designed for multicore usage by default?",
+      "answer": "No, most GATK 4 tools are not multicore by default, and users should typically request only one core, though some tools (like Mutect2) allow a limited number of threads."
+    },
+    {
+      "question": "How does GATK support Spark commands, and what should users consider when requesting resources for them?",
+      "answer": "GATK 4 provides some Spark commands, and for these, users should request multiple CPUs and specify the exact number of CPUs to the `spark` command, e.g., `--spark-master local[10]`."
+    },
+    {
+      "question": "When might users consider running GATK via Apptainer instead of the installed modules?",
+      "answer": "Users might consider running GATK via Apptainer if they encounter errors like `IllegalArgumentException` when using the installed modules on the clusters."
+    },
+    {
+      "question": "How can a user add a read group (RG) tag to a BAM file using GATK?",
+      "answer": "A user can add a read group tag to a BAM file using the GATK/PICARD command `AddOrReplaceReadGroups`, specifying options like `-I`, `-O`, `--RGLB`, `--RGPL`, `--RGPU`, `--RGSM`, `--SORT_ORDER`, and `--CREATE_INDEX`."
+    },
+    {
+      "question": "What is the initial solution for resolving a `java.lang.OutOfMemoryError: Java heap space` error in GATK?",
+      "answer": "The initial solution for a `java.lang.OutOfMemoryError: Java heap space` error is to increase the maximum heap memory by adding or increasing the `-Xmx` command within the `--java-options` argument."
+    },
+    {
+      "question": "If increasing Java heap memory doesn't resolve an `OutOfMemoryError`, what alternative approach is suggested for non-model organisms?",
+      "answer": "For non-model organisms where increasing heap memory doesn't work, it's suggested to remove small scaffolds, create subsets of the reference, map multiple times, and run pipelines on each subset, though this isn't suitable for all pipelines."
+    },
+    {
+      "question": "How can users prevent GATK/JAVA applications from using more memory or CPUs than requested due to Java garbage collection?",
+      "answer": "To prevent excess resource usage caused by Java garbage collection, users can add `-XX:ConcGCThreads=1` to the `--java-options` argument."
+    }
+  ],
+  "generated_at": "2026-04-11T21:54:28.082451+00:00"
+}

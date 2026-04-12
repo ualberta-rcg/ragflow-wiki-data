@@ -5,21 +5,33 @@ lang: "base"
 
 source_wiki_title: "Optuna"
 source_hash: "72a1868420da4f5b7c5e125a3d483e98"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T09:40:38.888609+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T10:08:32.993271+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "hyperparameter optimization"
+  - "Compute Canada"
+  - "SBATCH script"
+  - "Optuna"
+  - "machine learning"
+
+questions:
+  - "How do you configure an SBATCH script to set up and run an Optuna hyperparameter optimization study on Compute Canada?"
+  - "Why is it important to limit the number of parallel jobs compared to the total number of jobs during the optimization process?"
+  - "Why must the Python script be configured to execute only a single trial per job when running the study?"
+  - "How do you configure an SBATCH script to set up and run an Optuna hyperparameter optimization study on Compute Canada?"
+  - "Why is it important to limit the number of parallel jobs compared to the total number of jobs during the optimization process?"
+  - "Why must the Python script be configured to execute only a single trial per job when running the study?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -32,7 +44,7 @@ Please refer to the [Optuna Documentation](https://optuna.readthedocs.io/en/stab
 Here is a sketch of an SBATCH script for an HPO using Optuna:
 
 ```sh title="hpo_with_optuna.sh"
-#!/bin/bash 
+#!/bin/bash
 #SBATCH -A def-account
 #SBATCH --array 1-N%M   # This will launch N jobs, but only allow M to run in parallel
 #SBATCH --time TIME     # Each of the N jobs will have the time limit defined in here.
@@ -49,14 +61,14 @@ OPTUNA_DB=$HOME/${OPTUNA_STUDY_NAME}.db
 python train.py --optuna-db $OPTUNA_DB --optuna-study-name $OPTUNA_STUDY_NAME
 ```
 
-!!! tip
+!!! warning "Parallel Job Limiting"
     It's important for `M` to be much smaller than `N`, to let the optimization process do its thing. At the limit, if all trials execute simultaneously, they won't benefit from "past knowledge", and it will be equivalent to doing a random search. As for evolution and natural selection, there has to be a sequence of generations.
 
 In `train.py`, create and launch the Optuna study like the following. For the rest of the code, see the [Optuna Documentation](https://optuna.readthedocs.io/en/stable/).
 
 ```python
 # args.optuna_db and args.optuna_study_name are command line arguments
- 
+
 study = optuna.create_study(
     storage='sqlite:///' + args.optuna_db,
     study_name=args.optuna_study_name,
@@ -66,5 +78,5 @@ study = optuna.create_study(
 study.optimize(objective, n_trials=1)  # Only execute a single trial at a time, to avoid wasting compute
 ```
 
-!!! important
-    Remember that we are launching a separate job for each trial. Thus, we want our python script to stop after a single trial. Else, a subsequent trial will start, and the job will be killed while it's running.
+!!! warning "Single Trial Execution"
+    Remember that we are launching a separate job for each trial. Thus, we want our Python script to stop after a single trial. Else, a subsequent trial will start, and the job will be killed while it's running.

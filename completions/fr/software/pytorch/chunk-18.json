@@ -1,0 +1,28 @@
+{
+  "doc_key": "fr/pytorch",
+  "level": "chunk",
+  "chunk_index": 18,
+  "qa_pairs": [
+    {
+      "question": "C'est quoi un point de contrôle dans le contexte de l'entraînement d'un modèle?",
+      "answer": "Un point de contrôle, c'est comme un instantané de votre modèle à un moment précis pendant l'entraînement, par exemple après quelques itérations ou époques. On l'enregistre sur le disque pour pouvoir le recharger plus tard."
+    },
+    {
+      "question": "Pourquoi est-ce une bonne idée de créer des points de contrôle pendant l'entraînement d'un modèle?",
+      "answer": "C'est pratique pour découper les grosses tâches qui durent longtemps en plusieurs petites tâches, ce qui permet de les allouer plus rapidement sur la grappe. Ça aide aussi à ne pas perdre votre progression si jamais il y a des erreurs inattendues dans votre code ou si un nœud tombe en panne."
+    },
+    {
+      "question": "Comment on fait pour créer un point de contrôle avec PyTorch Lightning?",
+      "answer": "Avec PyTorch Lightning, on utilise le paramètre de rappels (callbacks) de la classe `Trainer()`. Par exemple, pour en créer un à la fin de chaque époque d'entraînement, on peut spécifier `callbacks = [pl.callbacks.ModelCheckpoint(dirpath=\"./ckpt\",every_n_epochs=1)]` et passer ça au `Trainer`."
+    },
+    {
+      "question": "Est-ce qu'il y a quelque chose de spécial à vérifier quand on crée des points de contrôle avec PyTorch Lightning?",
+      "answer": "Oui, il faut s'assurer que le chemin d'accès où vous voulez créer le point de contrôle existe déjà, comme indiqué par `dirpath` dans l'exemple."
+    },
+    {
+      "question": "Comment un modèle entraîné avec PyTorch Lightning peut-il reprendre l'entraînement à partir d'un point de contrôle existant?",
+      "answer": "Le code d'entraînement pour PyTorch Lightning va charger automatiquement un point de contrôle à partir du chemin spécifié (par exemple, `./ckpt`) si un point de contrôle existe, et va continuer l'entraînement à partir de ce point-là."
+    }
+  ],
+  "generated_at": "2026-04-12T05:48:16.703357+00:00"
+}

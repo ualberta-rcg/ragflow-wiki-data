@@ -1,0 +1,256 @@
+{
+  "doc_key": "en/data_management_at_trillium",
+  "level": "chunk",
+  "chunk_index": 3,
+  "qa_pairs": [
+    {
+      "question": "What does the environment variable $SLURM_TMPDIR refer to on Trillium compute jobs?",
+      "answer": "On Trillium compute jobs, the environment variable $SLURM_TMPDIR points to RAMdisk."
+    },
+    {
+      "question": "Is the $SLURM_TMPDIR on Trillium linked to local hard drives?",
+      "answer": "No, on Trillium compute nodes, $SLURM_TMPDIR points to RAMdisk, not local hard drives, because Trillium compute nodes do not have local disks."
+    },
+    {
+      "question": "When is the $SLURM_TMPDIR directory cleared on Trillium?",
+      "answer": "The $SLURM_TMPDIR directory is empty when a job starts, and its content gets deleted after the job has finished."
+    },
+    {
+      "question": "How does $SLURM_TMPDIR on Trillium compare to general-purpose clusters like Fir or Nibi?",
+      "answer": "On Trillium, $SLURM_TMPDIR lives in memory (ramdisk), while on general-purpose clusters like Fir or Nibi, this variable points to a directory on a node-local SSD."
+    },
+    {
+      "question": "What is $BB_JOB_DIR?",
+      "answer": "$BB_JOB_DIR is a temporary directory created by the scheduler on the burst buffer for every job on Trillium."
+    },
+    {
+      "question": "When is the $BB_JOB_DIR directory available and when is it cleared?",
+      "answer": "The $BB_JOB_DIR directory will be empty when a job starts and its content gets deleted after the job has finished."
+    },
+    {
+      "question": "Is $BB_JOB_DIR accessible from all nodes of a job?",
+      "answer": "Yes, the $BB_JOB_DIR directory is accessible from all nodes of a job."
+    },
+    {
+      "question": "For what type of applications is $BB_JOB_DIR intended?",
+      "answer": "$BB_JOB_DIR is intended for applications that generate many small temporary files or create files that are accessed very frequently (high IOPS applications), but do not fit in ramdisk."
+    },
+    {
+      "question": "When should ramdisk be preferred over $BB_JOB_DIR for temporary files?",
+      "answer": "If temporary files fit in ramdisk, it is generally a better location for them than $BB_JOB_DIR due to ramdisk's superior bandwidth and IOPS."
+    },
+    {
+      "question": "How can users access ramdisk for temporary files?",
+      "answer": "To use ramdisk, users can either directly access /dev/shm or use the environment variable $SLURM_TMPDIR."
+    },
+    {
+      "question": "What is the quota for the $HOME filesystem on Trillium?",
+      "answer": "The quota for the $HOME filesystem is 100 GB per user."
+    },
+    {
+      "question": "What is the block size for the $HOME filesystem?",
+      "answer": "The block size for the $HOME filesystem is 1 MB."
+    },
+    {
+      "question": "Is the $HOME filesystem backed up?",
+      "answer": "Yes, the $HOME filesystem is backed up."
+    },
+    {
+      "question": "Is the $HOME filesystem accessible on login nodes and compute nodes?",
+      "answer": "The $HOME filesystem is accessible on login nodes and is read-only on compute nodes."
+    },
+    {
+      "question": "What is the default individual user quota for the $SCRATCH filesystem?",
+      "answer": "The default individual user quota for the $SCRATCH filesystem is 25 TB per user, provided the group quota is not reached."
+    },
+    {
+      "question": "What is the block size for the $SCRATCH filesystem?",
+      "answer": "The block size for the $SCRATCH filesystem is 16 MB."
+    },
+    {
+      "question": "What is the expiration time for files on $SCRATCH?",
+      "answer": "Files on $SCRATCH have an expiration time of 2 months."
+    },
+    {
+      "question": "Is the $SCRATCH filesystem backed up?",
+      "answer": "No, the $SCRATCH filesystem is not backed up."
+    },
+    {
+      "question": "What are the group quotas for $SCRATCH based on the number of users?",
+      "answer": "Group quotas for $SCRATCH are: 50 TB for groups up to 4 users, 125 TB for groups up to 11 users, 250 TB for groups up to 28 users, 400 TB for groups up to 60 users, and 500 TB for groups with over 60 users."
+    },
+    {
+      "question": "How is storage space on the $PROJECT filesystem allocated?",
+      "answer": "Storage space on the $PROJECT filesystem is allocated by group allocation."
+    },
+    {
+      "question": "What is the block size for the $PROJECT filesystem?",
+      "answer": "The block size for the $PROJECT filesystem is 16 MB."
+    },
+    {
+      "question": "Is the $PROJECT filesystem backed up?",
+      "answer": "Yes, the $PROJECT filesystem is backed up."
+    },
+    {
+      "question": "What is the quota for the $ARCHIVE filesystem?",
+      "answer": "The quota for the $ARCHIVE filesystem is determined by group allocation."
+    },
+    {
+      "question": "How is data on the $ARCHIVE filesystem backed up?",
+      "answer": "Data on the $ARCHIVE filesystem uses a dual-copy backup."
+    },
+    {
+      "question": "Is the $ARCHIVE filesystem accessible on Trillium login or compute nodes?",
+      "answer": "No, the $ARCHIVE filesystem is not accessible on Trillium login, compute, or datamover nodes."
+    },
+    {
+      "question": "What is the quota for the $BBUFFER filesystem per user?",
+      "answer": "The quota for the $BBUFFER filesystem is 10 TB per user."
+    },
+    {
+      "question": "What is the block size for the $BBUFFER filesystem?",
+      "answer": "The block size for the $BBUFFER filesystem is 1 MB."
+    },
+    {
+      "question": "What is the expiration time for files on $BBUFFER?",
+      "answer": "Files on $BBUFFER have a very short expiration time."
+    },
+    {
+      "question": "Is the $BBUFFER filesystem backed up?",
+      "answer": "No, the $BBUFFER filesystem is not backed up."
+    },
+    {
+      "question": "What does $BBUFFER stand for and what is its purpose?",
+      "answer": "$BBUFFER stands for Burst Buffer, and it is a faster parallel storage tier for temporary data."
+    },
+    {
+      "question": "Do Trillium compute nodes have local storage?",
+      "answer": "No, Trillium compute nodes do not have local storage."
+    },
+    {
+      "question": "What does 'backup' mean in the context of SciNet filesystems?",
+      "answer": "'Backup' means a recent snapshot, not an archive of all data that ever was."
+    },
+    {
+      "question": "Where is the archive space located on Trillium?",
+      "answer": "The archive space is on HPSS."
+    },
+    {
+      "question": "Which command can users use to check their disk space usage on SciNet?",
+      "answer": "Users can use the `diskUsage` command, available on the login nodes and datamovers, to check their disk space."
+    },
+    {
+      "question": "How can a user check disk usage for all members of their group using the `diskUsage` command?",
+      "answer": "To list usages of all members in a group, the `-a` option can be used with the `diskUsage` command (e.g., `diskUsage -a`)."
+    },
+    {
+      "question": "How often is information on usage and quota updated?",
+      "answer": "Information on usage and quota is updated every 3 hours."
+    },
+    {
+      "question": "What command can identify directories with more than 1000 files?",
+      "answer": "The command `/scinet/niagara/bin/topUserDirOver1000list` can identify directories with more than 1000 files."
+    },
+    {
+      "question": "What command can identify directories with more than 1GB of material?",
+      "answer": "The command `/scinet/niagara/bin/topUserDirOver1GBlist` can identify directories with more than 1GB of material."
+    },
+    {
+      "question": "What is the policy for deleting files in /scratch?",
+      "answer": "Files in /scratch that have not been accessed or modified for more than 2 months are automatically deleted on the 15th of each month."
+    },
+    {
+      "question": "When does SciNet send email notifications about files scheduled for purging from /scratch?",
+      "answer": "An email notification is sent on the first of each month, and a second, more current assessment and email notification are sent around the 12th of each month."
+    },
+    {
+      "question": "How can a user check if their files are scheduled for deletion from /scratch?",
+      "answer": "Files scheduled for deletion are listed in a file in `/scratch/t/todelete/current`, which includes the user's ID and group ID in the filename. Users can use `ls -1 /scratch/t/todelete/current | grep <userid>` to find their file."
+    },
+    {
+      "question": "What specific command can a user use to view the content of the file listing their scheduled-for-deletion files?",
+      "answer": "A user can use standard commands like `more`, `less`, or `cat` on the specific file in `/scratch/t/todelete/current/` (e.g., `more /scratch/t/todelete/current/3110001___xxyz_______abc_________1.00T_____9560files`)."
+    },
+    {
+      "question": "How can a user verify if other members of their group have files scheduled for purging?",
+      "answer": "Users can use `ls -1 /scratch/t/todelete/current | grep <groupid>` to list all users in their group who have files scheduled for purging."
+    },
+    {
+      "question": "How can a user get immediate feedback on whether their files' access/modification times have been updated to avoid purging?",
+      "answer": "Users can use the `ls -lu` command to verify the ctime and `ls -lc` for the mtime of the file. If updated, it won't be deleted on the 15th."
+    },
+    {
+      "question": "What method should be used to move data amounts less than 10GB through login nodes?",
+      "answer": "For amounts less than 10GB, users should use `scp` or `rsync` to connect to any of `tri-dm{2,3,4}.scinet.utoronto.ca`."
+    },
+    {
+      "question": "Why is it not recommended to move amounts larger than 10GB through login nodes?",
+      "answer": "Transfers larger than about 10GB using `scp` or `rsync` through login nodes will time out."
+    },
+    {
+      "question": "What method should be used to move data amounts larger than 10GB through datamover nodes?",
+      "answer": "For amounts larger than 10GB, users should `ssh` to `nia-datamover1` or `nia-datamover2` from a Trillium login node, or directly `login/scp/rsync` to `nia-datamover1.scinet.utoronto.ca` or `nia-datamover2.scinet.utoronto.ca` from outside."
+    },
+    {
+      "question": "What is the recommended tool for frequent data transfers?",
+      "answer": "For frequent data transfers, users should consider using Globus, a web-based tool."
+    },
+    {
+      "question": "What are the Globus endpoints for Trillium and HPSS?",
+      "answer": "The Trillium Globus endpoint is \"alliancecan#trillium\", and the HPSS endpoint is \"alliancecan#hpss\"."
+    },
+    {
+      "question": "What is HPSS used for?",
+      "answer": "HPSS is for long-term storage of data."
+    },
+    {
+      "question": "How is storage space on HPSS allocated?",
+      "answer": "Storage space on HPSS is allocated through the annual Resource Allocation Competition."
+    },
+    {
+      "question": "What kind of storage solution is HPSS?",
+      "answer": "HPSS is a tape-based storage solution, also known as SciNet's nearline or archive facility."
+    },
+    {
+      "question": "By default, what permissions do users within the same group have on each other's files at SciNet?",
+      "answer": "By default, users within the same group have read permission to each other's files (but not write)."
+    },
+    {
+      "question": "What is ACL (Access Control List) used for?",
+      "answer": "ACL can be used to allow a supervisor or another user within a group to manage files (create, move, rename, delete), or to let users in other groups access (read, execute) files."
+    },
+    {
+      "question": "What are the advantages of using GPFS' native mmputacl and mmgetacl commands for ACLs?",
+      "answer": "The advantages are that users can set \"control\" permission and that POSIX or NFS v4 style ACLs are supported."
+    },
+    {
+      "question": "Can mmputacl recursively add or remove ACL attributes to existing files?",
+      "answer": "No, there is no option to recursively add or remove ACL attributes using a GPFS built-in command to existing files. Users need to use the -i option for each file or directory individually, or use a sample bash script."
+    },
+    {
+      "question": "What should be used if a user wants to give rwx permissions to everyone in their group?",
+      "answer": "Users should rely on the plain Unix 'chmod g+rwx' command."
+    },
+    {
+      "question": "Why is it strongly recommended not to give write permission to other users on the top level of one's home directory?",
+      "answer": "Giving write permission on the top level of the home directory would seriously compromise privacy and disable SSH key authentication, among other issues."
+    },
+    {
+      "question": "What is the recommended way to allow other users to manipulate files in a user's home directory if write access is needed?",
+      "answer": "Users should make specific sub-directories under their home directory for other users to manipulate or access files."
+    },
+    {
+      "question": "What command is used to display the current ACL attributes?",
+      "answer": "The `mmgetacl` command is used to determine the current ACL attributes."
+    },
+    {
+      "question": "How can a previously set ACL be removed?",
+      "answer": "A previously set ACL can be removed using the `mmdelacl -d` command."
+    },
+    {
+      "question": "What command allows creating or changing a GPFS access control list interactively?",
+      "answer": "The `mmeditacl` command allows creating or changing a GPFS access control list, provided the `EDITOR` environment variable is set (e.g., `export EDITOR=/usr/bin/vi`)."
+    }
+  ],
+  "generated_at": "2026-04-11T20:55:24.633616+00:00"
+}

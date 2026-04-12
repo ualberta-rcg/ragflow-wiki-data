@@ -1,0 +1,83 @@
+{
+  "doc_key": "fr/gurobi",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "C'est quoi Gurobi et à quoi ça sert sur les systèmes de l'Alliance?",
+      "answer": "Gurobi est une suite logicielle commerciale qui permet de résoudre des problèmes complexes d'optimisation sur nos grappes."
+    },
+    {
+      "question": "Sur quelles grappes la licence gratuite de Gurobi est-elle disponible et qui offre le soutien technique?",
+      "answer": "La licence gratuite est disponible sur Nibi, Fir, Rorqual et Trillium, et le soutien technique est dispensé par l'équipe des grappes."
+    },
+    {
+      "question": "Quelles sont les limites d'utilisation de la licence gratuite de Gurobi sur les grappes?",
+      "answer": "La licence permet 4096 utilisations simultanées (avec jetons) et l'optimisation distribuée sur un maximum de 100 nœuds."
+    },
+    {
+      "question": "Comment puis-je obtenir l'accès pour utiliser Gurobi sur les systèmes de l'Alliance?",
+      "answer": "Vous devez faire parvenir un courriel au soutien technique avec l'entente (Academic Usage Agreement) dûment complétée. L'accès sera activé après quelques jours."
+    },
+    {
+      "question": "Est-il nécessaire de créer un fichier de licence Gurobi spécifique sur mon compte?",
+      "answer": "Non, il n'est pas nécessaire de créer le fichier ~/.licenses/gurobi.lic. Les paramètres de licence sont configurés par défaut quand un module Gurobi est chargé."
+    },
+    {
+      "question": "Comment vérifier si ma licence Gurobi est bien configurée et fonctionnelle?",
+      "answer": "Chargez le module Gurobi avec `module load gurobi`, puis exécutez `gurobi_cl 1> /dev/null && echo Success || echo Fail`. Vous devriez obtenir 'Success'."
+    },
+    {
+      "question": "Que dois-je faire si le test de ma licence Gurobi retourne 'Fail'?",
+      "answer": "Vérifiez et supprimez un fichier nommé ~/.license/gurobi s'il existe, ou supprimez/commentez les variables d'environnement GUROBI dans vos fichiers .bashrc ou .bash_profile. Si le problème persiste, contactez le soutien technique."
+    },
+    {
+      "question": "Pourquoi est-il important de limiter les demandes de licence Gurobi?",
+      "answer": "Il est important de limiter les demandes de licence car le serveur de licences est distant et les tentatives de contact sont coûteuses en temps, ce qui peut nuire aux performances de votre tâche et à la réactivité du serveur."
+    },
+    {
+      "question": "Comment puis-je m'assurer que mon programme Gurobi utilise un minimum de licences?",
+      "answer": "Votre programme doit n'effectuer qu'une seule demande de licence par tâche et réutiliser ce jeton de licence pendant toute la durée de la tâche. Pour des soumissions en boucle, utilisez l'option de dépendance 'after' de Slurm pour un démarrage progressif."
+    },
+    {
+      "question": "Y a-t-il une limite sur le nombre d'utilisations de licences Gurobi par grappe?",
+      "answer": "Oui, le nombre d'utilisations de licences Gurobi est limité à 10 000 par grappe sur une période de 24 heures."
+    },
+    {
+      "question": "Comment lancer une allocation interactive pour utiliser Gurobi en ligne de commande?",
+      "answer": "Utilisez `salloc` pour obtenir une allocation, puis chargez le module Gurobi et exécutez `gurobi_cl` avec vos commandes."
+    },
+    {
+      "question": "Comment configurer le nombre de fils d'exécution pour une tâche Gurobi en Python?",
+      "answer": "Pour que Gurobi utilise le nombre de cœurs alloués par Slurm, ajoutez la ligne `echo \"Threads ${SLURM_CPUS_ON_NODE:-1}\" > gurobi.env` dans votre script Slurm avant d'exécuter le script Python."
+    },
+    {
+      "question": "Comment utiliser Gurobi avec d'autres paquets Python comme NumPy ou Pandas?",
+      "answer": "Il faut créer un environnement virtuel Python, y installer `gurobipy` et les autres paquets nécessaires (`pip install --no-index pandas`, par exemple)."
+    },
+    {
+      "question": "Comment installer `gurobipy` dans un environnement virtuel Python pour les versions de Gurobi 10.0.3 et antérieures?",
+      "answer": "Après avoir activé l'environnement virtuel, copiez les fichiers Gurobi `lib` et `setup.py` vers un répertoire inscriptible (par exemple, `/tmp/$USER`), puis exécutez `python setup.py install` depuis ce répertoire."
+    },
+    {
+      "question": "Comment installer `gurobipy` dans un environnement virtuel Python pour les versions de Gurobi 11.0.0 et plus récentes?",
+      "answer": "Utilisez le script `unmanylinuxize.sh` pour télécharger et convertir la roue binaire de `gurobipy` depuis PyPI, puis installez-la avec `python -m pip install --find-links $PWD --no-index gurobipy`."
+    },
+    {
+      "question": "Comment exécuter un script Gurobi Python dans un environnement virtuel via un script Slurm?",
+      "answer": "Dans votre script Slurm, chargez `StdEnv` et le module Gurobi, activez votre environnement virtuel (`source ~/env_gurobi/bin/activate`), puis exécutez votre script Python (`python my_gurobi_script.py`). N'oubliez pas le fichier `gurobi.env`."
+    },
+    {
+      "question": "Comment utiliser Gurobi avec Java sur les grappes?",
+      "answer": "Il faut charger un module Java et ajouter l'option `-Djava.library.path=$EBROOTGUROBI/lib` à la commande `java` pour que l'environnement Java puisse trouver les bibliothèques Gurobi."
+    },
+    {
+      "question": "Où puis-je trouver des ressources pour utiliser Gurobi avec des notebooks Jupyter?",
+      "answer": "Des exemples et des ressources sont disponibles sur le site de Gurobi, notamment dans les sections 'Resources', 'Code and Modeling Examples' et en recherchant 'Jupyter Notebooks' sur support.gurobi.com."
+    },
+    {
+      "question": "Comment dois-je citer le logiciel Gurobi dans une publication académique?",
+      "answer": "Vous devez consulter l'article 'How do I cite Gurobi software for an academic publication?' sur le site de support de Gurobi."
+    }
+  ],
+  "generated_at": "2026-04-11T23:33:00.971553+00:00"
+}

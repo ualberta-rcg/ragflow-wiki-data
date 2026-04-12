@@ -5,30 +5,70 @@ lang: "base"
 
 source_wiki_title: "Visual Studio Code"
 source_hash: "12778a957cababbec82bb77c848477bb"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T12:46:18.660951+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T12:44:23.554070+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "SLURM environment variables"
+  - "Connect to Host"
+  - "Configuration"
+  - "compute node"
+  - "settings.json"
+  - "VS Code"
+  - "login node"
+  - "code-server"
+  - "interactive job"
+  - "Visual Studio Code"
+  - "SSH configuration"
+  - "login nodes"
+  - "remote connection"
+  - "Remote SSH"
+  - "SSH key"
+  - "Login node"
+  - "local development"
+  - "Remote SSH extension"
+  - "Remote-SSH"
+  - "Command Palette"
+  - "remote system"
+
+questions:
+  - "Why is it strongly recommended to use Visual Studio Code locally instead of running or debugging code directly on the remote login nodes?"
+  - "How can users safely debug and test their code on the remote systems using the JupyterLab environment?"
+  - "What are the necessary steps to configure Visual Studio Code for a remote connection using the Remote SSH extension if other methods are not possible?"
+  - "How do you configure the local VS Code user settings to prepare for the remote connection?"
+  - "What are the steps to create and apply the machine configuration file on the remote server?"
+  - "How do you initiate the connection to the remote login node using the VS Code Command Palette?"
+  - "What extension is required to configure VS Code for a remote connection?"
+  - "Where should the generated public SSH key be added during the configuration process?"
+  - "What type of file must be created or added to the local computer to set up the SSH connection?"
+  - "What specific configuration settings are defined for the remote SSH connection and workspace startup in the provided snippet?"
+  - "What are the exact steps and keyboard shortcuts required to initiate a remote host connection using the Command Palette in VS Code?"
+  - "What specific type of system node is the user connected to after successfully confirming the remote host?"
+  - "How do you properly close a remote VS Code connection and kill the server on the host system?"
+  - "What are the necessary steps to configure SSH and connect VS Code to an interactive compute node?"
+  - "What specific restrictions and warnings apply to running code or using VS Code on login nodes?"
+  - "How do you properly close a remote VS Code connection and kill the server on the host system?"
+  - "What are the necessary steps to configure SSH and connect VS Code to an interactive compute node?"
+  - "What specific restrictions and warnings apply to running code or using VS Code on login nodes?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
-[Visual Studio Code](https://code.visualstudio.com/) is an integrated development environment (IDE) from [Microsoft](https://www.microsoft.com) which can be used for local development with numerous extensions and is highly customizable.
+[Visual Studio Code](https://code.visualstudio.com/) is an integrated development environment (IDE) from [Microsoft](https://www.microsoft.com/) which can be used for local development with numerous extensions and is highly customizable.
 
 !!! warning "Resources Eager"
     VS Code is notable for misbehaving on the login nodes. Whenever possible **strictly** use it locally or see below how to configure it.
 
-!!! warning "Running or debugging your code"
+!!! warning "Running or Debugging Your Code"
     If Visual Studio Code is connected to remote systems, avoid running or debugging your code, as this will execute code on the login nodes, which can lead to performance issues or system disruptions. Instead, use the `code-server` environment, which provides a safer and more appropriate context for debugging tasks.
 
 *   Use VS Code locally and avoid connecting it to the systems. Save your changes to your project files with Git, and pull the changes onto the systems when ready to test.
@@ -36,8 +76,8 @@ status:
 *   For debugging and quick testing, you can load the `code-server` module.
 *   When all the above are not possible, configure VS Code for remote connections.
 
-## Local usage
-The advantages of using VS Code locally are
+## Local Usage
+The advantages of using VS Code locally are:
 *   speed & stability: running VS Code locally means fewer network interruptions and faster performance, which is ideal for iterative development;
 *   direct access: you can interact with files, extensions, and terminals directly on your machine with zero latency;
 *   offline capability: you’re not tied to an internet connection or remote server, so you can code anytime, anywhere.
@@ -65,12 +105,12 @@ git pull
 
 Then test your changes in a short [interactive job](running-jobs.md#interactive-jobs) using minimal resources.
 
-## Editing files on the systems
+## Editing Files on the Systems
 While VS Code is great for local development, sometimes you need direct access to files on a remote system. In such cases, terminal-based editors like `nano` or `vim` offer a lightweight and efficient way to edit files directly from the command line.
 
 If you prefer a graphical interface, the [JupyterLab](jupyterlab.md) text editor provides a versatile alternative. It supports Markdown, Python scripts, and other formats.
 
-## Debugging and testing
+## Debugging and Testing
 If you need to debug or test your code on the systems, you can start a [`code-server` instance from Jupyter Lab](jupyterlab.md#vs-code).
 
 1.  Access one of the [options to launch JupyterLab](jupyterlab.md#launching-jupyterlab).
@@ -81,31 +121,31 @@ If you need to debug or test your code on the systems, you can start a [`code-se
     The `code-server` instance you are accessing is running in a compute job that **does not** have internet access.
 The `code-server` module has several common extensions already available, but we can add more upon request.
 
-### Custom extension installation
+### Custom Extension Installation
 TBD...
 
-## Configuration of VS Code for remote connection
+## Configuration of VS Code for Remote Connection
 If none of the above works for your case, one can configure VS Code to connect to a remote host with the Remote SSH extension.
 
-### SSH configuration
+### SSH Configuration
 If not done already, [generate your SSH key](ssh-keys.md#generating-an-ssh-key) and [add your *public* SSH key on the CCDB](ssh-keys.md#installing-your-key).
 
 Then create (or add) an SSH configuration file to your local computer:
 
-```ini title="~/.ssh/config"
+````bash title="~/.ssh/config"
 Host *
   ServerAliveInterval 30
   User your_username
 
 Host rorqual narval nibi fir
   HostName %h.alliancecan.ca
-```
+````
 
-### Local configuration
+### Local Configuration
 1.  In VS Code, open the Command Palette: Press `Ctrl+Shift+P` (Windows/Linux) or `Cmd+Shift+P` (macOS).
 
 2.  Open the user settings (`Preferences: Open User Settings (JSON)`) and paste (or merge) the following configuration:
-```json title="local-settings.json"
+````json title="local-settings.json"
 {
   // file-watch + search
   "files.watcherExclude": {
@@ -143,11 +183,11 @@ Host rorqual narval nibi fir
 
   "workbench.startupEditor": "none",
 }
-```
+````
 
 3.  Save it and restart VS Code.
 
-### Remote configuration
+### Remote Configuration
 1.  Log in to the system via an external terminal.
 ```bash
 ssh <username>@<host>.alliancecan.ca
@@ -164,7 +204,7 @@ nano ~/.vscode-server/data/Machine/settings.json
 ```
 
 4.  Copy the configuration below. You may need to manually merge settings with your own if any already.
-```json title="system-settings.json"
+````json title="system-settings.json"
 {
   // file-watch + search
   "files.watcherExclude": {
@@ -223,7 +263,7 @@ nano ~/.vscode-server/data/Machine/settings.json
 
   "workbench.startupEditor": "none",
 }
-```
+````
 
 ### Connecting
 1.  Open the Command Palette in VS Code: Press `Ctrl+Shift+P` (Windows/Linux) or `Cmd+Shift+P` (macOS).
@@ -235,49 +275,46 @@ You'll now be connected to a **login node**.
 !!! warning "Login Node"
     Do *not* test, debug or run your code as it runs on the login node!
 
-### Closing your connection
+### Closing Your Connection
 1.  Open the Command Palette in VS Code: Press `Ctrl+Shift+P` (Windows/Linux) or `Cmd+Shift+P` (macOS).
 2.  Type `remote` and then select `Remote-SSH: Kill VS Code Server on Host...`
 3.  Choose the host (remote system) and confirm.
 4.  Open the File menu, and select `Close Remote Connection`.
 
-### Advanced - Connecting to an interactive compute node
+### Advanced - Connecting to an Interactive Compute Node
 The following is only needed for advanced usage.
 
 Update your ssh configuration to add the following lines:
 
 === "Narval"
-
-    ```ini title="~/.ssh/config"
+    ````bash title="~/.ssh/config"
     Host nc* ng* nl*
       ProxyJump narval
       User your_username
-    ```
-
+    ````
 === "Rorqual"
-
-    ```ini title="~/.ssh/config"
+    ````bash title="~/.ssh/config"
     Host rc* rg* rl*
       ProxyJump rorqual
       User your_username
-    ```
+    ````
 
 1.  In an external terminal, connected to the system via an ssh connection, start a new **[interactive job](running-jobs.md#interactive-jobs)** (with `salloc`) with at least 2000M of memory.
-    1.  Note the allocated compute node name.
-    2.  If you need to work with `SLURM_*` environment variables in VS Code, save them all in a *source* file:
-        ```bash
-        env | grep SLURM_ | sed -e 's/^\(.*\)=\(.*\)$/export \1="\2"/g' > slurm_var.sh
-        ```
+    *   Note the allocated compute node name.
+    *   If you need to work with `SLURM_*` environment variables in VS Code, save them all in a *source* file:
+    ```bash
+    env | grep SLURM_ | sed -e 's/^\(.*\)=\(.*\)$/export \1="\2"/g' > slurm_var.sh
+    ```
 2.  In VS Code, start a new remote session with the name of the allocated compute node.
-    1.  Press `F1` or `Ctrl+Shift+P` to start the command prompt `>` in the Command Palette.
-    2.  Start typing *Remote* and select *Remote-SSH: Connect to Host... > Remote-SSH: Connect to Host...*
-    3.  Enter the noted compute node name.
-        1.  If you get prompted for the type of operating system, select **Linux**.
+    *   Press `F1` or `Ctrl+Shift+P` to start the command prompt `>` in the Command Palette.
+    *   Start typing *Remote* and select *Remote-SSH: Connect to Host...* > *Remote-SSH: Connect to Host...*
+    *   Enter the noted compute node name.
+    *   If you get prompted for the type of operating system, select **Linux**.
 3.  If you need to work with `SLURM_*` environment variables, navigate to the working directory in a VS Code terminal and *source* the `slurm_var.sh` file.
     ```bash
     source slurm_var.sh
     ```
 
-## Special notes
-*   VScode is banned on tamIA login nodes.
-*   VScode is banned on Fir login nodes.
+## Special Notes
+*   VS Code is banned on tamIA login nodes.
+*   VS Code is banned on Fir login nodes.

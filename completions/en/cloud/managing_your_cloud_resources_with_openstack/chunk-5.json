@@ -1,0 +1,32 @@
+{
+  "doc_key": "en/managing_your_cloud_resources_with_openstack",
+  "level": "chunk",
+  "chunk_index": 5,
+  "qa_pairs": [
+    {
+      "question": "How can I add new users to a VM using cloud-init while also preserving the default user created by the distribution?",
+      "answer": "To preserve the default user (e.g., debian, centos, ubuntu) while adding new users via cloud-init, include '- default' under the 'users:' section in your cloud-init script, followed by the configurations for the new users."
+    },
+    {
+      "question": "Can you provide an example of a cloud-init script that adds new users 'gretzky' and 'lemieux' while keeping the default distribution user?",
+      "answer": "Yes, an example cloud-init script for this scenario is:\n```yaml\n#cloud-config\nusers:\n  - default\n  - name: gretzky\n    shell: /bin/bash\n    sudo: ALL=(ALL) NOPASSWD:ALL\n    ssh_authorized_keys:\n      - <Gretzky's public key goes here>\n  - name: lemieux\n    shell: /bin/bash\n    ssh_authorized_keys:\n      - <Lemieux's public key goes here>\n```"
+    },
+    {
+      "question": "After a VM has been launched with a cloud-init script that adds users, how do I ensure their public keys were added correctly?",
+      "answer": "After the VM has finished spawning, you should look at its log to ensure that the public keys have been added correctly for those users."
+    },
+    {
+      "question": "Where can I find the VM's log to verify the addition of public keys?",
+      "answer": "The VM's log can be found by clicking on the name of the instance on the 'Compute->Instances' panel and then selecting the 'log' tab."
+    },
+    {
+      "question": "What kind of information should appear in the VM's log to confirm that public keys for new users like 'gretzky' and 'lemieux' have been successfully added?",
+      "answer": "The log should show 'ci-info' entries indicating 'Authorized keys from /home/<username>/.ssh/authorized_keys' for each user, followed by a table detailing the keytype, fingerprint, options, and comment for their respective public keys."
+    },
+    {
+      "question": "Once the public keys have been correctly added to the VM for the new users, how can those users log in?",
+      "answer": "Once the public keys are added, users can log into the VM with their private keys as usual."
+    }
+  ],
+  "generated_at": "2026-04-12T02:15:47.130563+00:00"
+}

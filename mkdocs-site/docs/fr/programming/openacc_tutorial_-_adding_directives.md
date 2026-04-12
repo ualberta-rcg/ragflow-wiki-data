@@ -5,35 +5,111 @@ lang: "fr"
 
 source_wiki_title: "OpenACC Tutorial - Adding directives/fr"
 source_hash: "d41cb399a73cde93207fcf33b3a79630"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T09:23:21.722516+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T09:53:58.337635+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "OpenACC"
+  - "transfert"
+  - "approche prescriptive"
+  - "directive OpenACC"
+  - "répertoire Github"
+  - "boucles"
+  - "mot-clé restrict"
+  - "directive kernels"
+  - "Directive parallel loop"
+  - "clause reduction"
+  - "alias de pointeurs"
+  - "dépendances de boucles"
+  - "clause independent"
+  - "compilateur"
+  - "matrix_functions.h"
+  - "parallel loop"
+  - "Iteration"
+  - "optimisations"
+  - "Tolerance"
+  - "approche descriptive"
+  - "__restrict"
+  - "Directives OpenACC"
+  - "Profilage"
+  - "code Fortran"
+  - "kernels"
+  - "GPU"
+  - "NVIDIA Visual Profiler"
+  - "clause private"
+  - "parallélisation"
+  - "Transfert de données"
+  - "cq-formation-openacc"
+  - "Rows"
+  - "noyaux"
+  - "directive parallel loop"
+  - "pointeurs"
+  - "code C++"
+  - "Total Time"
+  - "C++"
+  - "produit matrice-vecteur"
+  - "OpenMP"
+  - "parallélisées"
+
+questions:
+  - "Pourquoi est-il crucial de bien gérer les transferts de données (offloading) entre la mémoire de l'hôte (CPU) et celle du processeur graphique (GPU) ?"
+  - "Quels sont les principaux avantages liés à l'utilisation des directives OpenACC pour modifier un code source ?"
+  - "Comment le compilateur interprète-t-il et transforme-t-il le code lorsqu'il rencontre la directive OpenACC \"kernels\" ?"
+  - "Comment la transformation d'une boucle séquentielle en \"kernel\" permet-elle son exécution en parallèle sur un accélérateur ?"
+  - "Quel est le rôle exact de la directive descriptive \"kernels\" et comment le compilateur réagit-il lorsqu'il la rencontre ?"
+  - "Quelle est la différence fondamentale entre l'approche prescriptive d'OpenMP et l'approche descriptive d'OpenACC en matière de parallélisation ?"
+  - "Que fait le compilateur lorsqu'il lit la directive OpenACC <tt>kernels</tt> ?"
+  - "À quoi correspondent le plus souvent les sections de code pouvant être parallélisées ?"
+  - "Comment le compilateur délimite-t-il le début et la fin du corps du code à paralléliser ?"
+  - "Quel est le répertoire Github mentionné dans le texte pour retrouver le code source ?"
+  - "Dans quel fichier précis se trouve la portion de code C++ ciblée par le document ?"
+  - "Comment s'appelle la sous-routine contenant le code Fortran équivalent et dans quel fichier est-elle située ?"
+  - "Quelle directive OpenACC et quelles options de compilation sont utilisées pour préparer et compiler le code pour le GPU ?"
+  - "Pourquoi le compilateur indique-t-il qu'il est impossible de paralléliser la boucle externe lors de la première tentative ?"
+  - "Comment le mot-clé restrict permet-il de résoudre le problème des fausses dépendances de boucles causé par les alias de pointeurs ?"
+  - "Quel est le rôle du mot-clé restrict lors de la déclaration d'un pointeur et que se passe-t-il si le programmeur ne respecte pas cette garantie ?"
+  - "Comment la clause independent influence-t-elle le comportement du compilateur lors de l'analyse et du traitement des boucles ?"
+  - "Quel est l'impact de l'utilisation de pointeurs restreints sur la compilation et la parallélisation du code pour le produit matrice-vecteur sur GPU ?"
+  - "Où peut-on trouver les raisons expliquant l'absence de standard en C++ pour ce concept ?"
+  - "Pourquoi l'absence d'alias entre les pointeurs est-elle importante pour OpenACC et l'optimisation par les compilateurs ?"
+  - "Quelle est la syntaxe correcte pour positionner ce mot-clé lors de la déclaration d'un pointeur et pourquoi ?"
+  - "Comment la valeur de tolérance évolue-t-elle au fil des itérations lors de l'exécution du programme ?"
+  - "Quel est le temps d'exécution total et le nombre total d'itérations nécessaires pour terminer le processus ?"
+  - "Quelles sont les caractéristiques des données (nombre de lignes et d'éléments non nuls) traitées par la version OpenACC ?"
+  - "Pourquoi l'opération a-t-elle pris plus de temps que prévu et quel outil graphique est suggéré pour analyser ce problème de performance ?"
+  - "Quelles sont les étapes spécifiques à suivre dans l'interface de NVIDIA Visual Profiler (NVVP) pour démarrer le profilage d'un exécutable ?"
+  - "Quelle est la cause principale du ralentissement identifiée par le profileur et quelle directive OpenACC est proposée pour adopter une approche prescriptive ?"
+  - "Quel rôle spécifique le compilateur joue-t-il lors de l'utilisation de la directive kernels dans l'approche descriptive ?"
+  - "Quelles directives OpenACC sont combinées pour former l'approche dite « prescriptive » ?"
+  - "Quel est le thème de la prochaine section du tutoriel mentionnée au début du texte ?"
+  - "Que signifie le caractère \"prescriptif\" de la directive parallel loop pour le compilateur ?"
+  - "Quel est le rôle spécifique des clauses private et reduction lors de l'utilisation de la directive parallel loop ?"
+  - "Quelles sont les principales différences entre les directives parallel loop et kernels en matière de responsabilité d'analyse et d'intégrité du code ?"
+  - "Que signifie le caractère \"prescriptif\" de la directive parallel loop pour le compilateur ?"
+  - "Quel est le rôle spécifique des clauses private et reduction lors de l'utilisation de la directive parallel loop ?"
+  - "Quelles sont les principales différences entre les directives parallel loop et kernels en matière de responsabilité d'analyse et d'intégrité du code ?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
 !!! info "Objectifs d'apprentissage"
-
-*   comprendre le processus de transfert (*offloading*)
-*   comprendre ce qu'est une directive OpenACC
-*   connaître la différence entre les directives `loop` et `kernels`
-*   savoir programmer avec OpenACC
-*   comprendre le concept d'alias en C/C++
-*   savoir utiliser la rétroaction du compilateur et éviter les faux alias
+    *   comprendre le processus de transfert (*offloading*)
+    *   comprendre ce qu'est une directive OpenACC
+    *   connaitre la différence entre les directives `loop` et `kernels`
+    *   savoir programmer avec OpenACC
+    *   comprendre le concept d'alias en C/C++
+    *   savoir utiliser la rétroaction du compilateur et éviter les faux alias
 
 ## Transfert vers un processeur graphique (GPU)
-
 Avant de porter du code sur un GPU, il faut savoir que ceux-ci ne partagent pas la même mémoire que le CPU de l'hôte.
 
 *   la mémoire de l'hôte est en général plus grande, mais plus lente que la mémoire du GPU;
@@ -42,34 +118,42 @@ Avant de porter du code sur un GPU, il faut savoir que ceux-ci ne partagent pas 
 *   il est donc de la plus haute importance de bien gérer les transferts entre la mémoire de départ et le GPU. En anglais, ce processus s'appelle *offloading*.
 
 ## Directives OpenACC
-
-Les directives OpenAcc sont semblables aux directives [OpenMP](openmp.md). En C/C++, ce sont des énoncés `pragmas` et en Fortran, des commentaires. L'emploi de directives comporte plusieurs avantages :
+Les directives OpenACC sont semblables aux directives [OpenMP](openmp.md). En C/C++, ce sont des énoncés `pragmas` et en Fortran, des commentaires. L'emploi de directives comporte plusieurs avantages:
 
 *   Premièrement, puisque le code est peu affecté, les modifications peuvent se faire de manière incrémentale, un `pragma` à la fois; ceci est particulièrement utile pour le débogage puisqu'il est ainsi facile d'identifier le changement précis qui crée le bogue.
 *   Deuxièmement, OpenACC peut être désactivé au moment de la compilation; les `pragmas` sont alors vus comme étant des commentaires et ne sont pas considérés par le compilateur, ce qui permet de compiler une version accélérée et une version normale à partir du même code source.
 *   Troisièmement, comme le compilateur fait tout le travail de transfert, le même code peut être compilé pour différents types d'accélérateurs, que ce soit un GPU ou des instructions SIMD sur un CPU; ainsi, un changement du matériel exigera simplement la mise à jour du compilateur, sans modification au code.
 
-Le code de notre exemple contient deux boucles : la première initialise deux vecteurs et la seconde effectue une opération de [niveau 1](https://fr.wikipedia.org/wiki/Basic_Linear_Algebra_Subprograms) d'addition des vecteurs.
+Le code de notre exemple contient deux boucles: la première initialise deux vecteurs et la seconde effectue une opération de [niveau 1](https://fr.wikipedia.org/wiki/Basic_Linear_Algebra_Subprograms) d'addition des vecteurs.
 
-| C/C++                       | FORTRAN                      |
-| :-------------------------- | :--------------------------- |
-| ```cpp hl_lines="1 2 13"    | ```fortran hl_lines="1 7"    |
-| #pragma acc kernels         | !$acc kernels                |
-| {                           |   do i=1,N                   |
-|   for (int i=0; i<N; i++)   |     x(i) = 1.0               |
-|   {                         |     y(i) = 2.0               |
-|     x[i] = 1.0;             |   end do                     |
-|     y[i] = 2.0;             |                              |
-|   }                         |   y(:) = a*x(:) + y(:)       |
-|                             | !$acc end kernels            |
-|   for (int i=0; i<N; i++)   | ```                          |
-|   {                         |                              |
-|     y[i] = a * x[i] + y[i]; |                              |
-|   }                         |                              |
-| }                           |                              |
-| ```                         |                              |
+| C/C++ | FORTRAN |
+| :---- | :------ |
+| ```cpp hl_lines="1 2 13"
+#pragma acc kernels
+{
+  for (int i=0; i<N; i++)
+  {
+    x[i] = 1.0;
+    y[i] = 2.0;
+  }
 
-Dans les deux cas, le compilateur identifie deux noyaux (*kernels*) :
+  for (int i=0; i<N; i++)
+  {
+    y[i] = a * x[i] + y[i];
+  }
+}
+``` | ```fortran hl_lines="1 7"
+!$acc kernels
+  do i=1,N
+    x(i) = 1.0
+    y(i) = 2.0
+  end do
+
+  y(:) = a*x(:) + y(:)
+!$acc end kernels
+``` |
+
+Dans les deux cas, le compilateur identifie deux noyaux (*kernels*):
 
 *   en C/C++, les deux noyaux sont à l'intérieur de chaque boucle;
 *   en Fortran, les noyaux sont à l'intérieur de la première boucle et à l'intérieur de la boucle implicite effectuée lors d'une opération sur des tableaux.
@@ -80,18 +164,22 @@ Remarquez que le bloc OpenACC est délimité en C/C++ par des accolades; en Fort
 
 Quand le compilateur lit la directive OpenACC `kernels`, il analyse le code pour identifier les sections pouvant être parallélisées. Ceci correspond souvent au corps d'une boucle qui a des itérations indépendantes. Dans ce cas, le compilateur délimite le début et la fin du corps du code avec la fonction [*kernel*](https://en.wikipedia.org/wiki/Compute_kernel). Les appels à cette fonction ne seront pas affectés par les autres appels. La fonction est compilée et peut ensuite être exécutée sur un accélérateur. Comme chaque appel est indépendant, chacun des centaines de cœurs de l'accélérateur peut exécuter la fonction en parallèle pour un index spécifique.
 
-| BOUCLE                           | KERNEL                         |
-| :------------------------------- | :----------------------------- |
-| ```cpp                          | ```cpp                        |
-| for (int i=0; i<N; i++)          | void kernelName(A, B, C, i)    |
-| {                                | {                              |
-|   C[i] = A[i] + B[i];            |   C[i] = A[i] + B[i];          |
-| }                                | }                              |
-| ```                              | ```                            |
+| BOUCLE | KERNEL |
+| :----- | :----- |
+| ```cpp
+for (int i=0; i<N; i++)
+{
+  C[i] = A[i] + B[i];
+}
+``` | ```cpp
+void kernelName(A, B, C, i)
+{
+  C[i] = A[i] + B[i];
+}
+``` |
 | Calcule séquentiellement de `i=0` à `i=N-1`, inclusivement. | Chaque unité de calcul exécute la fonction pour une seule valeur de `i`. |
 
 ## La directive `kernels`
-
 Cette directive est dite *descriptive*. Le programmeur l'utilise pour signifier au compilateur les portions qui selon lui peuvent être parallélisées. Le compilateur fait ce qu'il veut de cette information et adopte la stratégie qui lui semble la meilleure pour exécuter le code, **incluant** son exécution séquentielle. De façon générale, le compilateur
 
 1.  analyse le code pour détecter le parallélisme,
@@ -99,7 +187,7 @@ Cette directive est dite *descriptive*. Le programmeur l'utilise pour signifier 
 3.  crée un *kernel*,
 4.  transfère le *kernel* au GPU.
 
-Voici un exemple de cette directive :
+Voici un exemple de cette directive:
 
 ```cpp hl_lines="1 2 7"
 #pragma acc kernels
@@ -111,19 +199,17 @@ Voici un exemple de cette directive :
 }
 ```
 
-Il est rare que le code soit aussi simple et il faut se baser sur la [rétroaction du compilateur](../profiling/#renseignements-sur-le-compilateur) pour trouver les portions qu'il a négligé de paralléliser.
+Il est rare que le code soit aussi simple et il faut se baser sur la [rétroaction du compilateur](openacc-tutorial-profiling.md#renseignements-sur-le-compilateur) pour trouver les portions qu'il a négligé de paralléliser.
 
-!!! note "Description ou prescription"
+!!! info "Description ou prescription"
+    Si vous avez déjà utilisé [OpenMP](openmp.md), vous retrouverez dans OpenACC le principe de `directives`. Il existe cependant d'importantes différences entre les directives OpenMP et OpenACC:
 
-    Si vous avez déjà utilisé [OpenMP](openmp.md), vous retrouverez dans OpenACC le principe de *directives*. Il existe cependant d'importantes différences entre les directives OpenMP et OpenACC :
-
-    *   Les directives OpenMP sont à la base *prescriptives*. Ceci signifie que le compilateur est forcé d'accomplir la parallélisation, peu importe que l'effet détériore ou améliore la performance. Le résultat est prévisible pour tous les compilateurs. De plus, la parallélisation se fera de la même manière, peu importe le matériel utilisé pour exécuter le code. Par contre, le même code peut connaître une moins bonne performance, dépendant de l'architecture. Il peut donc être préférable par exemple de changer l'ordre des boucles. Pour paralléliser du code avec OpenMP et obtenir une performance optimale dans différentes architectures, il faudrait avoir un ensemble différent de directives pour chaque architecture.
+    *   Les directives OpenMP sont à la base *prescriptives*. Ceci signifie que le compilateur est forcé d'accomplir la parallélisation, peu importe que l'effet détériore ou améliore la performance. Le résultat est prévisible pour tous les compilateurs. De plus, la parallélisation se fera de la même manière, peu importe le matériel utilisé pour exécuter le code. Par contre, le même code peut connaitre une moins bonne performance, dépendant de l'architecture. Il peut donc être préférable par exemple de changer l'ordre des boucles. Pour paralléliser du code avec OpenMP et obtenir une performance optimale dans différentes architectures, il faudrait avoir un ensemble différent de directives pour chaque architecture.
 
     *   Pour leur part, plusieurs directives OpenACC sont de nature *descriptive*. Ici, le compilateur est libre de compiler le code de la façon qu'il juge la meilleure, selon l'architecture visée. Dans certains cas, le code ne sera pas parallélisé du tout. Le **même code** exécuté sur un GPU ou sur un CPU peut donner du code binaire différent. Ceci signifie que la performance pourrait varier selon le compilateur et que les compilateurs d'une nouvelle génération seront plus efficaces, surtout en présence de nouveau matériel.
 
 ### Exemple : porter un produit matrice-vecteur
-
-Pour notre exemple, nous utilisons du code provenant du [répertoire Github](https://github.com/calculquebec/cq-formation-openacc), particulièrement une portion de code [fichier `cpp/matrix_functions.h`](https://github.com/calculquebec/cq-formation-openacc/blob/main/cpp/matrix_functions.h#L20). Le code Fortran équivalent se trouve dans la sous-routine [`matvec` contenue dans le fichier `matrix.F90`](https://github.com/calculquebec/cq-formation-openacc/blob/main/f90/matrix.F90#L101). Le code C++ est comme suit :
+Pour notre exemple, nous utilisons du code provenant du [répertoire Github](https://github.com/calculquebec/cq-formation-openacc), particulièrement une portion de code [fichier `cpp/matrix_functions.h`](https://github.com/calculquebec/cq-formation-openacc/blob/main/cpp/matrix_functions.h#L20). Le code Fortran équivalent se trouve dans la sous-routine [`matvec` contenue dans le fichier `matrix.F90`](https://github.com/calculquebec/cq-formation-openacc/blob/main/f90/matrix.F90#L101). Le code C++ est comme suit:
 
 ```cpp
   for(int i=0;i<num_rows;i++) {
@@ -188,20 +274,16 @@ matvec(const matrix &, const vector &, const vector &):
 Le résultat montre que la boucle externe sur la ligne 31 n'a pas pu être parallélisée par le compilateur. Dans la prochaine section, nous expliquons comment traiter ces dépendances.
 
 ## Réparer les fausses dépendances de boucles
-
-Même lorsque le programmeur sait qu'une boucle peut être parallélisée, il arrive que le compilateur ne le remarque pas. Un cas commun en C/C++ est connu sous le nom de [*pointer aliasing*](https://en.wikipedia.org/wiki/Pointer_aliasing). Contrairement au Fortran, C/C++ ne possèdent pas comme tel de tableaux (*arrays*), mais plutôt des pointeurs. Le concept d'alias s'applique à deux pointeurs dirigés vers la même mémoire. Si le compilateur ne sait pas que des pointeurs ne sont pas des alias, il doit cependant le supposer. Dans l'exemple précédent, on voit clairement pourquoi le compilateur ne pouvait pas paralléliser la boucle. En supposant que les pointeurs sont identiques, il y a forcément dépendance des itérations de la boucle.
+Même lorsque le programmeur sait qu'une boucle peut être parallélisée, il arrive que le compilateur ne le remarque pas. Un cas commun en C/C++ est connu sous le nom de [*pointer aliasing*](https://en.wikipedia.org/wiki/Pointer_aliasing). Contrairement au Fortran, C/C++ ne possèdent pas comme tels de tableaux (*arrays*), mais plutôt des pointeurs. Le concept d'alias s'applique à deux pointeurs dirigés vers la même mémoire. Si le compilateur ne sait pas que des pointeurs ne sont pas des alias, il doit cependant le supposer. Dans l'exemple précédent, on voit clairement pourquoi le compilateur ne pouvait pas paralléliser la boucle. En supposant que les pointeurs sont identiques, il y a forcément dépendance des itérations de la boucle.
 
 ### Mot-clé `restrict`
-
 Une des manières de dire au compilateur que les pointeurs **ne sont pas** des alias est d'utiliser le mot-clé `restrict`, introduit à cette fin dans C99. Il n'y a toujours pas de manière standard pour ce faire en C++, mais chaque compilateur possède un mot-clé qui lui est propre. Dépendant du compilateur, on peut utiliser `__restrict` ou `__restrict__`. Les compilateurs du Portland Group et de NVidia utilisent `__restrict`. Pour savoir pourquoi il n'existe pas de standard en C++, consultez [ce document](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2014/n3988.pdf). Ce concept est important pour OpenACC comme pour toute programmation C/C++, car les compilateurs peuvent effectuer plusieurs autres optimisations si les pointeurs ne sont pas des alias. Remarquez que le mot-clé se place **après** le pointeur puisque c'est à ce dernier qu'il se réfère, et non au type; autrement dit, la déclaration doit se lire `float * __restrict A;` plutôt que `float __restrict * A;`.
 
-!!! note "Utilisation du mot-clé `restrict`"
-
-    En déclarant un pointeur comme étant *restreint*, on s'assure qu'uniquement ce pointeur ou une valeur dérivée (comme `ptr +1`) pourra accéder à l'objet auquel il réfère, et ce pour la durée de vie du pointeur. Ceci est une garantie que le programmeur donne au compilateur; si le programmeur manque à son obligation, le comportement n'est pas défini. Pour plus d'information, consultez l'article Wikipédia [restrict](https://en.wikipedia.org/wiki/Restrict).
+!!! info "Utilisation du mot-clé `restrict`"
+    En déclarant un pointeur comme étant *restreint*, on s'assure qu'uniquement ce pointeur ou une valeur dérivée (comme `ptr +1`) pourra accéder à l'objet auquel il réfère, et ce pour la durée de vie du pointeur. Ceci est une garantie que le programmeur donne au compilateur; si le programmeur manque à son obligation, le comportement n'est pas défini. Pour plus d'information, consultez l'article Wikipédia [restrict](https://en.wikipedia.org/wiki/Restrict_(C_keyword)).
 
 ### Boucle avec clause `independent`
-
-Une autre façon de s'assurer que le compilateur traite les boucles de manière indépendante est de le spécifier explicitement avec la clause `independent`. Comme toute autre directive *prescriptive*, le compilateur y est obligé et l'analyse qu'il pourrait faire ne sera pas considérée. En reprenant l'exemple de la section *La directive `kernels`* ci-dessus, nous avons :
+Une autre façon de s'assurer que le compilateur traite les boucles de manière indépendante est de le spécifier explicitement avec la clause `independent`. Comme toute autre directive *prescriptive*, le compilateur y est obligé et l'analyse qu'il pourrait faire ne sera pas considérée. En reprenant l'exemple de la section *La directive `kernels`* ci-dessus, nous avons:
 
 ```cpp hl_lines="3"
 #pragma acc kernels
@@ -215,7 +297,6 @@ for (int i=0; i<N; i++)
 ```
 
 ### Produit matrice-vecteur
-
 Revenons au cas du produit matrice-vecteur présenté plus haut. Notre recommandation pour éviter les faux alias est de définir les pointeurs comme étant restreints en remplaçant le code de `matrix_functions.h`.
 
 ```cpp
@@ -232,7 +313,7 @@ par le code
   double *__restrict ycoefs=y.coefs;
 ```
 
-Remarquez que les autres pointeurs n'ont pas besoin d'être restreints puisque le compilateur ne les rapporte pas comme causant des problèmes. En recompilant avec les changements que nous venons de faire, le compilateur émet le message suivant :
+Remarquez que les autres pointeurs n'ont pas besoin d'être restreints puisque le compilateur ne les rapporte pas comme causant des problèmes. En recompilant avec les changements que nous venons de faire, le compilateur émet le message suivant:
 
 ```bash
 nvc++ -fast -Minfo=accel -acc -gpu=managed main.cpp -o challenge
@@ -252,8 +333,7 @@ matvec(const matrix &, const vector &, const vector &):
 ```
 
 ## Performance du code porté
-
-Maintenant que le code est porté sur le GPU, nous pouvons analyser sa performance et vérifier si les résultats sont corrects. L'exécution du code original sur un nœud GPU produit ceci :
+Maintenant que le code est porté sur le GPU, nous pouvons analyser sa performance et vérifier si les résultats sont corrects. L'exécution du code original sur un nœud GPU produit ceci:
 
 ```bash
 ./cg.x
@@ -274,7 +354,7 @@ Iteration: 90, Tolerance: 4.6209e-05
 Total Iterations: 100 Total Time: 29.894881s
 ```
 
-Voici le résultat pour la version OpenACC :
+Voici le résultat pour la version OpenACC:
 
 ```bash
 ./challenge
@@ -294,14 +374,12 @@ Iteration: 80, Tolerance: 1.3515e-03
 Iteration: 90, Tolerance: 4.6209e-05
 Total Iterations: 100 Total Time: 115.068931s
 ```
-
 Les résultats sont corrects, toutefois, loin de gagner en vitesse, l'opération a pris près de quatre fois plus de temps! Utilisons le NVidia Visual Profiler (`nvvp`) pour voir ce qui se passe.
 
 ### NVIDIA Visual Profiler
-
 [NVIDIA Visual Profiler (NVVP)](https://developer.nvidia.com/nvidia-visual-profiler) est un profileur graphique pour les applications OpenACC. C'est un outil d'analyse pour les **codes écrits avec les directives OpenACC et CUDA C/C++**. En conséquence, si l'exécutable n'utilise pas le GPU, ce profileur ne fournira aucun résultat.
 
-Quand [X11 est redirigé vers un serveur X-Server](../visualization/#fenetres-a-distance-avec-redirection-x11) ou quand vous utilisez un [environnement bureau Linux](../vnc/) (aussi via [JupyterHub](../jupyterhub/#bureau) avec 2 cœurs CPU, 5000M de mémoire et 1 GPU), vous pouvez lancer NVVP à partir d'un terminal :
+Quand [X11 est redirigé vers un serveur X-Server](visualization.md#fenetres-a-distance-avec-redirection-x11) ou quand vous utilisez un [environnement bureau Linux](vnc.md) (aussi via [JupyterHub](jupyterhub.md#bureau) avec 2 cœurs CPU, 5000M de mémoire et 1 GPU), vous pouvez lancer NVVP à partir d'un terminal:
 
 ```bash
 module load cuda/11.7 java/1.8
@@ -311,7 +389,7 @@ module load cuda/11.7 java/1.8
 nvvp
 ```
 
-1.  Après l'affichage de la fenêtre de lancement de NVVP, vous devez entrer le répertoire *Workspace* qui sera employé pour les fichiers temporaires. Dans le chemin suggéré, remplacez `home` par `scratch` et cliquez sur *OK*.
+1.  Après l'affichage de la fenêtre de lancement de NVVP, vous devez entrer le répertoire *Workspace* qui sera employé pour les fichiers temporaires. Dans le chemin suggéré, remplacez `home` par `scratch` et cliquez sur `OK`.
 2.  Sélectionnez *File > New Session* ou cliquez sur le bouton correspondant dans la barre d'outils.
 3.  Cliquez sur le bouton *Browse* à la droite du champ *File* pour le chemin.
     *   Changez le répertoire s'il y a lieu.
@@ -320,18 +398,17 @@ nvvp
 5.  Cliquez sur *Next >* pour voir les autres options de profilage.
 6.  Cliquez sur *Finish* pour lancer le profilage de l'exécutable.
 
-Pour faire ceci, suivez ces étapes :
+Pour faire ceci, suivez ces étapes:
 
 1.  Lancez `nvvp` avec la commande `nvvp &` (le symbole `&` commande le lancement en arrière-plan).
 2.  Sélectionnez *File -> New Session*.
 3.  Dans le champ *File:*, cherchez l'exécutable (nommé dans notre exemple `challenge`).
 4.  Cliquez sur *Next* jusqu'à ce que vous puissiez cliquer sur *Finish*.
 
-Le programme est exécuté et on obtient un tableau chronologique du déroulement. On remarque que le transfert de données entre le départ et l'arrivée occupe la plus grande partie du temps d'exécution, ce qui est fréquent quand du code est porté d'un CPU vers un GPU. Nous verrons comment ceci peut être amélioré dans la prochaine partie, [Mouvement des données](openacc-tutorial-data-movement.md).
+Le programme est exécuté et on obtient un tableau chronologique du déroulement (voir l'image). On remarque que le transfert de données entre le départ et l'arrivée occupe la plus grande partie du temps d'exécution, ce qui est fréquent quand du code est porté d'un CPU vers un GPU. Nous verrons comment ceci peut être amélioré dans la prochaine partie, [Mouvement des données](openacc-tutorial-data-movement.md).
 
 ## La directive `parallel loop`
-
-Avec la directive `kernels`, c'est le compilateur qui fait toute l'analyse; ceci est une approche *descriptive* pour porter du code. OpenACC offre aussi une approche *prescriptive* avec la directive `parallel` qui peut être combinée à la directive `loop` ainsi :
+Avec la directive `kernels`, c'est le compilateur qui fait toute l'analyse; ceci est une approche *descriptive* pour porter du code. OpenACC offre aussi une approche *prescriptive* avec la directive `parallel` qui peut être combinée à la directive `loop` ainsi:
 
 ```cpp hl_lines="1"
 #pragma acc parallel loop
@@ -346,11 +423,11 @@ Comme `parallel loop` est une directive *prescriptive*, le compilateur est forc�
 Pour utiliser cette directive dans notre exemple du produit matrice-vecteur, nous avons besoin des clauses `private` et `reduction` pour gérer le flux des données dans la zone parallèle.
 
 *   Avec la clause `private`, une copie de la variable est faite pour chaque itération de la boucle; la valeur de la variable est ainsi indépendante des autres itérations.
-*   Avec la clause `reduction`, les valeurs de la variable dans chaque itération sont *réduites* à une valeur unique. La clause s'utilise entre autres avec les opérations addition (+), multiplication (*), maximum (max) et minimum (min).
+*   Avec la clause `reduction`, les valeurs de la variable dans chaque itération sont *réduites* à une valeur unique. La clause s'utilise entre autres avec les opérations addition (`+`), multiplication (`*`), maximum (`max`) et minimum (`min`).
 
 Ces clauses ne sont pas nécessaires avec la directive `kernels` puisque celle-ci fait le travail pour vous.
 
-Reprenons l'exemple de produit matrice-vecteur avec la directive `parallel loop` :
+Reprenons l'exemple de produit matrice-vecteur avec la directive `parallel loop`:
 
 ```cpp hl_lines="6"
 #pragma acc parallel loop
@@ -368,8 +445,7 @@ Reprenons l'exemple de produit matrice-vecteur avec la directive `parallel loop`
     ycoefs[i]=sum;
   }
 ```
-
-La compilation produit le message suivant :
+La compilation produit le message suivant:
 
 ```bash
 nvc++ -fast -Minfo=accel -acc -gpu=managed main.cpp -o challenge
@@ -389,18 +465,17 @@ matvec(const matrix &, const vector &, const vector &):
 ```
 
 ## Différences entre `parallel loop` et `kernels`
-
-| PARALLEL LOOP                                      | KERNELS                                                                  |
-| :------------------------------------------------- | :----------------------------------------------------------------------- |
-| *   l'intégrité du code parallélisé revient au programmeur | *   la responsabilité d'analyser le code et de garantir son intégrité revient au compilateur |
-| *   le programmeur voit la parallélisation que le compilateur pourrait manquer | *   une seule directive peut s'appliquer à une grande portion de code    |
-| *   le fonctionnement est identique en OpenMP      | *   le compilateur est libre d'optimiser le code                         |
-
+| `parallel loop` | `kernels` |
+| :-------------- | :-------- |
+| *   l'intégrité du code parallélisé revient au programmeur
+*   le programmeur voit la parallélisation que le compilateur pourrait manquer
+*   le fonctionnement est identique en OpenMP | *   la responsabilité d'analyser le code et de garantir son intégrité revient au compilateur
+*   une seule directive peut s'appliquer à une grande portion de code
+*   le compilateur est libre d'optimiser le code |
 Les deux approches sont valides et leur performance est comparable.
 
-!!! question "Exercice : utiliser `kernels` ou `parallel loop`"
-
-1.  Modifiez les fonctions `matvec`, `waxpby` et `dot`. Vous pouvez utiliser soit `kernels`, soit `parallel loop`. La solution se trouve dans les répertoires `step1.*` de [Github](https://github.com/calculquebec/cq-formation-openacc).
-2.  Modifiez le Makefile en ajoutant `-acc -gpu=managed` et `-Minfo=accel` aux indicateurs pour le compilateur.
+!!! challenge "Exercice : utiliser `kernels` ou `parallel loop`"
+    1.  Modifiez les fonctions `matvec`, `waxpby` et `dot`. Vous pouvez utiliser soit `kernels`, soit `parallel loop`. La solution se trouve dans les répertoires `step1.` de [Github](https://github.com/calculquebec/cq-formation-openacc).
+    2.  Modifiez le `Makefile` en ajoutant `-acc -gpu=managed` et `-Minfo=accel` aux indicateurs pour le compilateur.
 
 [<- Page précédente, Profileurs](openacc-tutorial-profiling.md) | [^- Retour au début du tutoriel](openacc-tutorial.md) | [Page suivante, Mouvement des données ->](openacc-tutorial-data-movement.md)

@@ -1,0 +1,175 @@
+{
+  "doc_key": "base/python",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is Python described as in the document?",
+      "answer": "Python is an interpreted programming language with a design philosophy emphasizing code readability, simple and expressive syntax, and an extensive, easy-to-use standard library."
+    },
+    {
+      "question": "How are Python's capabilities extended, and who is responsible for installing third-party packages?",
+      "answer": "Python's capabilities are extended with third-party packages. Generally, individual users and groups are responsible for installing these packages in their own directories to simplify operations."
+    },
+    {
+      "question": "Which Python version should users typically avoid when logging into clusters, especially if package installation is needed?",
+      "answer": "Users should generally avoid the default Python version available upon logging into clusters, especially when package installation is required. It's recommended to find out the specific version needed or use the latest available version."
+    },
+    {
+      "question": "How can one discover the available Python versions on the clusters?",
+      "answer": "To discover available Python versions, one can use the command `module avail python`."
+    },
+    {
+      "question": "How do users load a specific Python version module?",
+      "answer": "Users load a specific Python version using `module load python/X.Y`, where `X.Y` represents the version number, for example, `3.13`."
+    },
+    {
+      "question": "For which Python versions does the system provide prebuilt packages in its wheelhouse?",
+      "answer": "The system provides prebuilt Python packages in its wheelhouse only for the three most recent Python versions available on the systems, to prevent dependency issues with older versions."
+    },
+    {
+      "question": "What is the SciPy stack module, and what common packages does it include?",
+      "answer": "The SciPy stack is an environment module that includes packages such as NumPy, SciPy, Matplotlib, IPython, pandas, Sympy, and nose."
+    },
+    {
+      "question": "How does one load the SciPy stack after loading a Python version?",
+      "answer": "After loading a Python version of choice, one can load the SciPy stack using `module load scipy-stack`."
+    },
+    {
+      "question": "What is the primary purpose of `virtualenv`?",
+      "answer": "`virtualenv` allows users to create isolated virtual environments to easily install Python packages, install multiple versions of the same package, or compartmentalize installations for specific projects."
+    },
+    {
+      "question": "Where should virtual environments generally be created, and what location should be avoided?",
+      "answer": "Virtual environments should generally be created in `/home` or `/project` directories. Users should avoid creating them under `$SCRATCH` as they may be partially deleted."
+    },
+    {
+      "question": "What command is used to create a virtual environment after loading the necessary modules?",
+      "answer": "After loading Python and optionally SciPy stack modules, the command `virtualenv --no-download ENV` is used to create a virtual environment, where `ENV` is the directory name for the new environment."
+    },
+    {
+      "question": "How does a user activate a virtual environment?",
+      "answer": "A user activates a virtual environment using the command `source ENV/bin/activate`."
+    },
+    {
+      "question": "What command is used to exit a virtual environment?",
+      "answer": "To exit a virtual environment, one simply types `deactivate`."
+    },
+    {
+      "question": "Which command-line tool is used for compiling and installing most Python packages?",
+      "answer": "The `pip` command is used for compiling and installing most Python packages and their dependencies."
+    },
+    {
+      "question": "Why is it recommended to use the `--no-index` option with `pip install` when a Python wheel is available?",
+      "answer": "Using `--no-index` tells `pip` to install only from locally available prebuilt Python wheels, which are optimized for the clusters, can prevent issues with missing or conflicting dependencies, and avoid installing potentially problematic newer versions from PyPI."
+    },
+    {
+      "question": "If a user wants to install a package from PyPI and compile it from source, ignoring all prebuilt packages including wheels, what `pip` option should they use?",
+      "answer": "To install a package from PyPI by compiling it from source and ignoring all prebuilt packages, users should use the `--no-binary` option with `pip`."
+    },
+    {
+      "question": "How can one get more verbose output from the `pip` command for diagnosing installation issues?",
+      "answer": "To get more verbose output from `pip`, use the `-vvv` option."
+    },
+    {
+      "question": "What is the recommended way to install multiple packages using `pip` to help resolve dependencies?",
+      "answer": "It is advisable to install multiple packages with one `pip install` command (e.g., `pip install package1 package2 package3`) as this helps `pip` resolve dependencies issues."
+    },
+    {
+      "question": "Why might a user create a virtual environment inside a job on a compute node's local disk for single-node Python jobs?",
+      "answer": "Creating a virtual environment inside a job on a compute node's local disk can be faster than running from the parallel filesystem, provides protection against filesystem performance issues, and acts as a workaround for slowdowns caused by intensive small file access."
+    },
+    {
+      "question": "What file can be generated from a test environment to ensure a reproducible virtual environment between jobs?",
+      "answer": "A `requirements.txt` file, generated using `pip freeze --local > requirements.txt`, can ensure environment reproducibility between jobs."
+    },
+    {
+      "question": "When running scripts across multiple nodes, how are virtual environments activated on each node?",
+      "answer": "For multi-node scripts, the virtual environment must be created and activated on each allocated node within the submission script using `srun --ntasks $SLURM_NNODES --tasks-per-node=1 bash << EOF ... EOF`."
+    },
+    {
+      "question": "How can users list currently available Python wheels on the cluster?",
+      "answer": "Users can list available wheels by running the command `avail_wheels` on the cluster or by checking the 'Available Python wheels' page."
+    },
+    {
+      "question": "What command is used to pre-download a Python package as a wheel without its dependencies?",
+      "answer": "The command `pip download --no-deps <package_name>` is used to pre-download a package as a wheel without its dependencies."
+    },
+    {
+      "question": "When installing a package from a remote Git repository using `pip`, what is important to specify for reproducible installations?",
+      "answer": "It is important to specify a tag (version) or a commit ID when installing from a remote Git repository to ensure reproducible installations, rather than using `HEAD`."
+    },
+    {
+      "question": "How can a user create a local wheel from a remote Git repository after activating a virtual environment?",
+      "answer": "A user can create a local wheel using `pip wheel --no-deps -w $HOME git+https://git.example.com/MyProject.git@<commit id>`, which clones the repository and builds a wheel in the specified directory."
+    },
+    {
+      "question": "What Python module is commonly used for parallel programming on a single compute node?",
+      "answer": "The `multiprocessing` module, particularly its `Pool` class, is commonly used for parallel programming on a single compute node."
+    },
+    {
+      "question": "How should the number of processes in a `multiprocessing.Pool` be determined when running on a cluster?",
+      "answer": "The number of processes in a `multiprocessing.Pool` should be determined by the amount of CPU cores allocated to your job by the scheduler (e.g., using `os.environ.get('SLURM_CPUS_PER_TASK')`)."
+    },
+    {
+      "question": "What Python debugger is suggested for interactive debugging in a small interactive job?",
+      "answer": "The `pdb` debugger is suggested for debugging Python code interactively in a small interactive job."
+    },
+    {
+      "question": "How can one attach to a running Python 3.14+ process to start `pdb`?",
+      "answer": "With Python 3.14 and higher, one can attach to a running process by executing `python -m pdb --pid <process id>` in a different terminal."
+    },
+    {
+      "question": "What Python module can be used to help diagnose hanging scripts by dumping a traceback after a timeout?",
+      "answer": "The `faulthandler` module, specifically `faulthandler.dump_traceback_later()`, can be used to dump a traceback for hanging scripts."
+    },
+    {
+      "question": "What external tool can be used to inspect a running Python process without modifying the script beforehand?",
+      "answer": "`py-spy` is an external tool that can be installed in a virtual environment and used to get live feedback or a traceback from a running Python script."
+    },
+    {
+      "question": "What should a user do if they encounter an error indicating 'Package 'X' requires a different Python: X.Y.Z not in '>=X.Y''?",
+      "answer": "Users should update to a more recent Python module or install an older version of the problematic package 'X'."
+    },
+    {
+      "question": "What is the suggested solution for the error 'Package has requirement X, but you'll have Y which is incompatible'?",
+      "answer": "The suggested solution is to upgrade `pip` to the latest version or higher than `21.3` to use the new dependency resolver, then rerun the install command."
+    },
+    {
+      "question": "If `pip` reports 'No matching distribution found for X,' what steps should a user take?",
+      "answer": "Users should verify the package name and version, check that the package is available from the wheelhouse using `avail_wheels`, and note that `manylinux_x_y` wheels are discarded."
+    },
+    {
+      "question": "What are common reasons for a virtual environment to stop working, and what is a solution?",
+      "answer": "Common reasons include updated packages leading to a non-reproducible environment or partial deletion if created in `$SCRATCH`. A solution involves freezing specific package versions and creating a `requirements.txt` file for reproducibility."
+    },
+    {
+      "question": "What are common causes for the error 'X is not a supported wheel on this platform'?",
+      "answer": "Common causes include trying to install a `manylinux` package or a Python package built for a different Python version than the one currently active (e.g., Python 3.11 wheel on Python 3.9)."
+    },
+    {
+      "question": "If a `numpy` `AttributeError` occurs (e.g., `module 'numpy' has no attribute 'bool'`), what is a likely cause and solution?",
+      "answer": "This error is likely caused by using a `numpy` version (e.g., v1.24+) where attributes deprecated in v1.20 have expired. The solution is to install a previous version of `numpy`, such as `pip install --no-index 'numpy<1.24'`."
+    },
+    {
+      "question": "What are common causes and solutions for `ModuleNotFoundError: No module named 'X'`?",
+      "answer": "Causes include the package not being installed, a mismatch between package and module name, or a broken virtual environment. Solutions involve verifying installation with `pip list`, double-checking module names, and restarting with a new virtual environment if doubts persist, while avoiding modifying `PYTHONPATH` or `PATH`."
+    },
+    {
+      "question": "What causes `ImportError: numpy.core.multiarray failed to import` and how can it be resolved?",
+      "answer": "This error is caused by an incompatible version of Numpy. It is especially true with the release of Numpy 2.0 breaking ABI. The solution is to install a compatible, usually lower, version with `pip install --no-index 'numpy<2.0'`."
+    },
+    {
+      "question": "What does the message 'Defaulting to user installation because normal site-packages is not writeable' indicate?",
+      "answer": "This message indicates that `pip` is installing packages in a user-specific location because no virtual environment is active and it lacks permissions to write to standard site-packages, potentially leading to problematic local installations."
+    },
+    {
+      "question": "Why are local installations (`pip install --user`) generally discouraged?",
+      "answer": "Local installations are discouraged because they dump dependencies into a shared space, leading to weird import or runtime issues, version conflicts, and 'dependency hell.' Virtual environments are preferable for isolation, reproducibility, and managing different versions across projects."
+    },
+    {
+      "question": "How can a user effectively remove local Python installations?",
+      "answer": "To effectively remove local installations, a user can run `rm -vr ~/.local/bin ~/.local/lib/python*`, and then start over with a fresh virtual environment."
+    }
+  ],
+  "generated_at": "2026-04-12T05:49:53.844087+00:00"
+}

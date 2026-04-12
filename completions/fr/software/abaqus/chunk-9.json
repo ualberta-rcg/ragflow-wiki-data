@@ -4,73 +4,45 @@
   "chunk_index": 9,
   "qa_pairs": [
     {
-      "question": "C'est quoi l'objectif du script `scriptsp1-mpi.txt` pour les analyses standards?",
-      "answer": "Ce script sert à faire des calculs avec MPI en utilisant un ensemble de nœuds déterminés automatiquement par l'ordonnanceur, surtout pour les tâches qui demandent beaucoup de mémoire pis de calcul."
+      "question": "Pour quelles versions d'Abaqus est-ce que le script pour nœuds multiples (`scriptsp1-mpi.txt`) est conçu?",
+      "answer": "Le script `scriptsp1-mpi.txt` est conçu pour Abaqus/2026 et les versions plus récentes."
     },
     {
-      "question": "Est-ce qu'une licence spécifique est nécessaire pour utiliser le script pour les nœuds multiples en analyse standard?",
-      "answer": "Oui, faut avoir une licence qui permet de faire rouler des tâches qui nécessitent beaucoup de mémoire pis de calcul."
+      "question": "Est-ce qu'un script de redémarrage pour les tâches Abaqus sur nœuds multiples est fourni dans la section d'analyse standard?",
+      "answer": "Non, un script modèle pour redémarrer des tâches sur nœuds multiples n'est pas fourni dans la section d'analyse standard, car son utilisation présente des limitations supplémentaires."
     },
     {
-      "question": "Y'a-t-il un script pour redémarrer les tâches d'analyse standard sur plusieurs nœuds?",
-      "answer": "Non, y'a pas de script modèle pour redémarrer des tâches sur plusieurs nœuds pour l'instant, parce que ça présente des limitations supplémentaires."
+      "question": "Quels sont les modes de parallélisation supportés par les solveurs pour l'analyse explicite?",
+      "answer": "Pour l'analyse explicite, les solveurs prennent en charge la parallélisation avec fils (threads) et avec MPI."
     },
     {
-      "question": "Quelles versions d'Abaqus sont compatibles avec le script pour les nœuds multiples en analyse standard?",
-      "answer": "On peut utiliser juste Abaqus/2026 et les versions plus récentes avec ce script."
+      "question": "Est-ce qu'on peut utiliser un script de redémarrage pour les tâches d'analyse explicite qui utilisent plusieurs nœuds?",
+      "answer": "Non, des modèles de scripts pour redémarrer une tâche qui utilise des nœuds multiples en analyse explicite nécessitent plus de tests et ne sont pas présentés pour l'instant."
     },
     {
-      "question": "Dans le script `scriptsp1-mpi.txt`, quelle directive Slurm est utilisée pour spécifier le nombre de tâches (cores)?",
-      "answer": "C'est `#SBATCH --ntasks=8`."
+      "question": "Si je veux soumettre une tâche d'analyse standard sur plusieurs nœuds avec Abaqus/2026, quel est le nom du script recommandé?",
+      "answer": "Le script recommandé pour soumettre une tâche d'analyse standard sur plusieurs nœuds avec Abaqus/2026 est `scriptsp1-mpi.txt`."
     },
     {
-      "question": "Quelle est la directive Slurm pour la mémoire par cœur dans le script `scriptsp1-mpi.txt`?",
-      "answer": "La directive, c'est `#SBATCH --mem-per-cpu=4G`."
+      "question": "Quelles directives SLURM sont définies par défaut dans le script `scriptsp1-mpi.txt` pour une tâche d'analyse standard sur nœuds multiples?",
+      "answer": "Les directives SLURM par défaut sont `--account=def-group`, `--time=00-06:00`, `--ntasks=8`, `--mem-per-cpu=4G` et `--cpus-per-task=1`."
     },
     {
-      "question": "Quelle est la commande Abaqus utilisée dans le script `scriptsp1-mpi.txt` pour lancer une simulation?",
-      "answer": "La commande, c'est `abaqus job=testsp1-mpi input=mystd-sim.inp scratch=$SLURM_TMPDIR cpus=$SLURM_NTASKS interactive mp_mode=mpi`."
+      "question": "Quelle est la commande Abaqus utilisée dans le script `scriptsp1-mpi.txt` pour lancer une tâche d'analyse standard sur plusieurs nœuds?",
+      "answer": "La commande Abaqus utilisée est `abaqus job=testsp1-mpi input=mystd-sim.inp scratch=$SLURM_TMPDIR cpus=$SLURM_NTASKS interactive mp_mode=mpi`."
     },
     {
-      "question": "Est-ce que la directive `#SBATCH --cpus-per-task=1` doit être modifiée dans le script `scriptsp1-mpi.txt`?",
-      "answer": "Non, cette directive ne doit pas être changée."
+      "question": "Dans un script d'analyse explicite pour un nœud simple (`scriptep1.txt`), quelle est la directive SLURM pour la mémoire totale?",
+      "answer": "La directive SLURM pour la mémoire totale est `--mem=8000M`."
     },
     {
-      "question": "Pour l'analyse explicite, quels types de parallélisation sont supportés par les solveurs?",
-      "answer": "Les solveurs supportent la parallélisation avec des fils (threads) et avec MPI."
+      "question": "Est-ce que le script `scriptep1.txt` pour l'analyse explicite sur un nœud simple peut être utilisé avec Abaqus/2021?",
+      "answer": "Oui, le script `scriptep1.txt` contient une condition pour supporter Abaqus/2021 et les versions plus récentes comme Abaqus/2026."
     },
     {
-      "question": "Est-ce qu'on peut trouver des scripts de redémarrage pour les tâches d'analyse explicite qui utilisent plusieurs nœuds?",
-      "answer": "Non, y'a pas de modèles de scripts pour redémarrer des tâches sur plusieurs nœuds pour l'analyse explicite pour l'instant, parce qu'ils nécessitent plus de tests."
-    },
-    {
-      "question": "Quel est le nom du script Slurm de base pour l'analyse explicite sur un nœud simple pour le répertoire `/project`?",
-      "answer": "Le nom du script, c'est `scriptep1.txt`."
-    },
-    {
-      "question": "C'est quoi la directive Slurm pour la limite de temps dans le script `scriptep1.txt`?",
-      "answer": "La directive pour la limite de temps, c'est `#SBATCH --time=00-06:00`, ça indique la limite en jours-heures:minutes."
-    },
-    {
-      "question": "Quelle quantité de mémoire totale est spécifiée dans le script `scriptep1.txt` pour un nœud simple?",
-      "answer": "La mémoire totale spécifiée est `#SBATCH --mem=8000M`, ce qui doit être plus grand que 5M."
-    },
-    {
-      "question": "Combien de cœurs par tâche sont spécifiés dans le script `scriptep1.txt`?",
-      "answer": "C'est `#SBATCH --cpus-per-task=4`, ça indique 4 cœurs par tâche, et ça doit être plus grand que 1."
-    },
-    {
-      "question": "Comment on fait pour écrire les données de redémarrage pour un total de 12 incréments dans le fichier d'entrée d'une analyse explicite?",
-      "answer": "Faut ajouter `*RESTART, WRITE, OVERLAY, NUMBER INTERVAL=12, TIME MARKS=NO` dans le fichier d'entrée."
-    },
-    {
-      "question": "Comment on vérifie l'information complète sur le redémarrage d'une analyse explicite?",
-      "answer": "On utilise la commande `egrep -i \"step|restart\" testep*.com testep*.msg testep*.sta`."
-    },
-    {
-      "question": "Quel module Abaqus est chargé dans les scripts Slurm pour l'analyse explicite?",
-      "answer": "On charge le module `abaqus/2026` qui est la dernière version."
+      "question": "Comment le script `scriptsp1-mpi.txt` gère-t-il la liste des hôtes pour la parallélisation MPI?",
+      "answer": "Le script utilise `slurm_hl2hl.py` pour générer une liste d'hôtes MPI, la formate en `mp_host_list=[...]`, l'exporte comme variable d'environnement et l'écrit aussi dans `abaqus_v6.env`."
     }
   ],
-  "generated_at": "2026-04-10T00:35:32.988791+00:00"
+  "generated_at": "2026-04-11T15:38:10.596172+00:00"
 }

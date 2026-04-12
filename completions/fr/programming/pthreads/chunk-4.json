@@ -1,0 +1,72 @@
+{
+  "doc_key": "fr/pthreads",
+  "level": "chunk",
+  "chunk_index": 4,
+  "qa_pairs": [
+    {
+      "question": "Qu'est-ce qui se passe quand on appelle la fonction `pthread_mutex_lock`?",
+      "answer": "Quand on appelle `pthread_mutex_lock`, ça bloque le fil d'exécution, et il va attendre indéfiniment que le mutex soit disponible."
+    },
+    {
+      "question": "Quel problème peut survenir avec `pthread_mutex_lock` dans un programme qui a plusieurs mutex?",
+      "answer": "Ça peut poser problème si le code provoque d'autres blocages, parce que le mutex doit absolument redevenir disponible, surtout dans un programme réel avec plusieurs variables mutex."
+    },
+    {
+      "question": "Y a-t-il une autre façon, non bloquante, de gérer un mutex que `pthread_mutex_lock`?",
+      "answer": "Oui, il y a l'alternative non bloquante `pthread_mutex_trylock`."
+    },
+    {
+      "question": "Comment `pthread_mutex_trylock` indique-t-il qu'un mutex est occupé?",
+      "answer": "`pthread_mutex_trylock` produit immédiatement une valeur non nulle si le mutex n'est pas accompli, ce qui veut dire qu'il est déjà occupé."
+    },
+    {
+      "question": "Pourquoi est-ce que le code à l'intérieur d'un bloc sérialisé devrait être le plus court possible?",
+      "answer": "Puisque ce code est exécuté en série, il doit être le plus concis possible pour ne pas nuire au parallélisme général de l'exécution du programme."
+    },
+    {
+      "question": "Quel outil de synchronisation plus 'subtil' que le mutex est mentionné pour pthreads?",
+      "answer": "Une synchronisation plus subtile est possible avec le verrou lecture/écriture, ou `pthread_rwlock_t`."
+    },
+    {
+      "question": "Comment le verrou `pthread_rwlock_t` gère-t-il l'accès pour la lecture et l'écriture?",
+      "answer": "Cet outil permet la lecture simultanée d'une variable par plusieurs fils, mais se comporte comme un mutex standard pour l'écriture, ce qui veut dire qu'aucun autre fil n'a accès à cette variable quand il est en écriture."
+    },
+    {
+      "question": "Quelles fonctions sont utilisées pour obtenir un verrou en lecture et un verrou en écriture avec `pthread_rwlock_t`?",
+      "answer": "Un fil obtient un verrou en lecture avec `pthread_rwlock_rdlock` et un verrou en écriture avec `pthread_rwlock_wrlock`."
+    },
+    {
+      "question": "Comment on déverrouille un `pthread_rwlock_t`?",
+      "answer": "Dans les deux cas (lecture ou écriture), le verrou est détruit avec `pthread_rwlock_unlock`."
+    },
+    {
+      "question": "C'est quoi une variable-condition et à quoi ça sert dans pthreads?",
+      "answer": "Une variable-condition, exprimée comme `pthread_cond_t`, est un outil qui permet à plusieurs fils d'agir sur la même condition, par exemple, pour attendre que des fils esclaves soient sollicités pour une tâche."
+    },
+    {
+      "question": "Quelles sont les étapes de base pour utiliser une variable-condition?",
+      "answer": "La variable-condition doit être initialisée avant d'être utilisée et détruite lorsqu'elle n'est plus nécessaire."
+    },
+    {
+      "question": "Qu'est-ce qui doit contrôler l'accès aux variables qui influencent une variable-condition?",
+      "answer": "Pour utiliser une variable-condition, un mutex doit contrôler l'accès aux variables qui ont une incidence sur la condition."
+    },
+    {
+      "question": "Comment un fil d'exécution attend-il une condition avec `pthread_cond_wait`?",
+      "answer": "Un fil en attente d'une condition verrouille le mutex et fait appel à la fonction `pthread_cond_wait` avec la variable-condition et le mutex en arguments."
+    },
+    {
+      "question": "Dans l'exemple `thread_condition.c`, quelle est la contrainte sur la valeur initiale de `workload`?",
+      "answer": "La valeur initiale de l'entier `workload` doit être plus petite ou égale à 25."
+    },
+    {
+      "question": "Quand le deuxième fil appelle-t-il `pthread_cond_signal` dans l'exemple `thread_condition.c`?",
+      "answer": "Le deuxième fil appelle `pthread_cond_signal` quand la valeur de `workload` devient plus grande que 25, pour signaler au fil en attente que la condition est satisfaite."
+    },
+    {
+      "question": "Qu'est-ce que le premier fil fait une fois qu'il est 'réveillé' dans l'exemple `thread_condition.c`?",
+      "answer": "Le premier fil 'réveillé' incrémente de 15 la valeur de `workload` et quitte ensuite la fonction `task`."
+    }
+  ],
+  "generated_at": "2026-04-12T05:32:16.403605+00:00"
+}

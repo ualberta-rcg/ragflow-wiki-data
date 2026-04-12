@@ -1,0 +1,100 @@
+{
+  "doc_key": "fr/creating_a_web_server_on_a_cloud",
+  "level": "chunk",
+  "chunk_index": 1,
+  "qa_pairs": [
+    {
+      "question": "C'est quoi le but principal de ce document-là?",
+      "answer": "Ce document-là décrit une méthode super simple pour créer un serveur web dans notre environnement infonuagique en utilisant Ubuntu pis Apache Web Server."
+    },
+    {
+      "question": "Pourquoi est-ce que la sécurité, c'est important pour un ordinateur avec un accès public?",
+      "answer": "Parce qu'un ordinateur avec un accès public peut avoir plusieurs portes d'accès, comme les connexions SSH, l'affichage de code HTML via HTTP, ou des services qui roulent des logiciels tiers comme WordPress."
+    },
+    {
+      "question": "C'est quoi qu'on appelle des 'daemons'?",
+      "answer": "Les 'daemons', c'est les programmes qui supportent des services tels que SSH ou HTTP; ces programmes-là sont toujours actifs pis reçoivent les requêtes de l'extérieur via des ports spécifiques."
+    },
+    {
+      "question": "Comment OpenStack peut aider pour la sécurité des ports?",
+      "answer": "OpenStack permet de gérer les ports pis de restreindre l'accès, par exemple en donnant l'accès à des adresses IP spécifiques ou à un groupe d'adresses."
+    },
+    {
+      "question": "Même si l'accès est contrôlé, y'a-t-il quand même des risques pour la sécurité d'une instance?",
+      "answer": "Oui, si les données que vous envoyez sont pas cryptées d'une quelconque manière, une personne habile peut trouver le moyen de les consulter."
+    },
+    {
+      "question": "Quel protocole de cryptage est souvent recommandé pour les sites web avec des connexions externes?",
+      "answer": "Le protocole Transport Layer Security (TLS) est souvent recommandé pour tous les sites web où des personnes de l'extérieur peuvent se connecter, comme WordPress ou MediaWiki."
+    },
+    {
+      "question": "Qui est responsable de la sécurité des instances?",
+      "answer": "La sécurité de vos instances est votre responsabilité; nous vous rappelons de ne pas négliger cet aspect critique."
+    },
+    {
+      "question": "C'est quoi la première étape pour installer Apache?",
+      "answer": "La première étape, c'est de suivre les directives dans la page « Cloud : Guide de démarrage » pour créer une instance persistante sous Linux Ubuntu."
+    },
+    {
+      "question": "Comment on fait pour ouvrir le port 80 pis permettre l'accès HTTP à l'instance?",
+      "answer": "Faut suivre les directives pour la connexion à l'instance par SSH, mais à partir du menu déroulant, on sélectionne HTTP au lieu de SSH."
+    },
+    {
+      "question": "Quelle commande faut utiliser pour mettre à jour les répertoires apt-get une fois connecté à l'instance?",
+      "answer": "Faut utiliser la commande `sudo apt-get update`."
+    },
+    {
+      "question": "Pourquoi est-ce qu'on fait une mise à jour de la version d'Ubuntu avec `sudo apt-get upgrade`?",
+      "answer": "La mise à jour assure que la version la plus récente comprendra toutes les dernières rustines de sécurité."
+    },
+    {
+      "question": "Quelle commande sert à installer le serveur web Apache?",
+      "answer": "La commande pour installer Apache, c'est `sudo apt-get install apache2`."
+    },
+    {
+      "question": "Comment on peut vérifier si Apache est bien installé?",
+      "answer": "On peut faire afficher la nouvelle page Apache temporaire en entrant l'adresse IP flottante de votre instance dans la barre d'adresses de votre fureteur."
+    },
+    {
+      "question": "Dans quel répertoire faut modifier les fichiers pour créer le site web?",
+      "answer": "Faut modifier le contenu des fichiers dans `/var/www/html`, pis en particulier le fichier `index.html` qui en définit le point d'entrée."
+    },
+    {
+      "question": "Pourquoi est-ce qu'on voudrait changer le répertoire root du serveur web?",
+      "answer": "C'est souvent plus simple de gérer un site web si la personne qui se connecte à l'instance est propriétaire des fichiers."
+    },
+    {
+      "question": "Dans l'image Ubuntu de l'exemple, qui est le propriétaire par défaut des fichiers?",
+      "answer": "Le propriétaire par défaut est `ubuntu`."
+    },
+    {
+      "question": "Quel est l'exemple de nouveau répertoire root suggéré pour Apache?",
+      "answer": "L'exemple suggéré est `/home/ubuntu/public_html` plutôt que `/var/www/html`."
+    },
+    {
+      "question": "Quelle commande utilise-t-on pour modifier le fichier `apache2.conf` pour changer le répertoire root?",
+      "answer": "Faut utiliser `sudo vim /etc/apache2/apache2.conf` (ou un autre éditeur) pour modifier la ligne `<Directory /var/www/>` en `<Directory /home/ubuntu/public_html>`."
+    },
+    {
+      "question": "Et quelle commande pour modifier le fichier `000-default.conf`?",
+      "answer": "Pour `000-default.conf`, c'est `sudo vim /etc/apache2/sites-available/000-default.conf` pour modifier la ligne `DocumentRoot /var/www/html` en `DocumentRoot /home/ubuntu/public_html`."
+    },
+    {
+      "question": "Comment on crée le nouveau répertoire `public_html`?",
+      "answer": "On le crée dans le répertoire /home de l'utilisateur avec la commande `mkdir public_html`."
+    },
+    {
+      "question": "Quelle commande faut utiliser pour copier la page par défaut dans le nouveau répertoire?",
+      "answer": "La commande est `cp /var/www/html/index.html /home/ubuntu/public_html`."
+    },
+    {
+      "question": "Comment on fait pour redémarrer le serveur Apache après avoir fait des modifications?",
+      "answer": "On utilise la commande `sudo service apache2 restart` pour actualiser les modifications."
+    },
+    {
+      "question": "Après avoir changé le répertoire root, quel est l'avantage quand on veut modifier le fichier `index.html`?",
+      "answer": "On devrait pouvoir modifier le fichier `/home/ubuntu/public_html/index.html` sans avoir besoin d'utiliser `sudo`."
+    }
+  ],
+  "generated_at": "2026-04-11T20:28:51.745893+00:00"
+}

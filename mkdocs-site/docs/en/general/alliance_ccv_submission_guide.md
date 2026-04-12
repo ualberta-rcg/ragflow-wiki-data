@@ -5,21 +5,68 @@ lang: "en"
 
 source_wiki_title: "Alliance CCV submission guide/en"
 source_hash: "10ccd1be0d05505b96405376ffecf5f9"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T04:04:51.932790+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T04:57:51.176582+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "computational resources"
+  - "CCDB"
+  - "Resource Allocation Competitions"
+  - "account renewal"
+  - "Alliance CCV template"
+  - "Co-Principal Investigator"
+  - "RAC application"
+  - "Canadian Common CV"
+  - "RRG or RPP"
+  - "Confirmation number"
+  - "CCV"
+  - "publications"
+  - "confirmation number"
+  - "reporting process"
+  - "Alliance template"
+  - "Resource Application"
+  - "Digital Research Alliance of Canada"
+  - "publications reporting"
+  - "CCV interface"
+  - "CCV confirmation code"
+  - "Account renewal"
+  - "CCV submission"
+
+questions:
+  - "Why does the Digital Research Alliance of Canada require faculty users to submit a Canadian Common CV (CCV)?"
+  - "Who should users contact for technical support regarding CCV account access versus specific questions about the Alliance CCV template?"
+  - "What are the steps to submit an Alliance CCV, and what information is required at the end of the process to link it to a Resource Allocation Competition (RAC) application?"
+  - "How can a user identify and edit missing or incorrect information within the CCV interface?"
+  - "What buttons must be clicked to preview and begin the submission process for the CCV?"
+  - "Why is it mandatory to record the confirmation number received upon submission?"
+  - "Which sections of the Alliance Canadian Common CV (CCV) template are mandatory, and which are optional?"
+  - "What is the specific process for Faculty members to renew their Alliance account using their CCV confirmation number?"
+  - "Who is required to provide an updated CCV when applying to the Resource Allocation Competitions (RAC)?"
+  - "What steps should a user take if they encounter an error on CCDB despite entering the correct CCV submission parameters?"
+  - "What are the specific CCV update requirements for Co-Principal Investigators on a RAC application, and how can they update their status?"
+  - "How do Academic PIs report which of their newly uploaded publications were enabled by the provided computational resources?"
+  - "What is the correct URL and initial navigation step for a delegated person to submit an application on behalf of a sponsor?"
+  - "How does a user start a new application versus edit an existing one under the Resource Allocation Competitions section?"
+  - "What specific section must the applicant scroll down to locate once the application form is open?"
+  - "How does the CCDB system visually distinguish newly added publications from those that were previously reported?"
+  - "What happens to the application process if a user fails to scroll down and review all the newly added publications?"
+  - "What specific clicking steps must a user take to indicate that a new publication was not enabled by the provided computational resources?"
+  - "What information does the CCDB display regarding a user's currently available CCV?"
+  - "Under what condition is a user required to submit a new CCV for a RAC application?"
+  - "What are the exact steps a user must follow to update an expired CCV on the CCDB?"
+  - "How does the CCDB system visually distinguish newly added publications from those that were previously reported?"
+  - "What happens to the application process if a user fails to scroll down and review all the newly added publications?"
+  - "What specific clicking steps must a user take to indicate that a new publication was not enabled by the provided computational resources?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -34,12 +81,12 @@ We require all faculty users to submit a CCV for the following:
 *   **To renew your Alliance account:** This is required for all users with Faculty and Adjunct Faculty roles, with the exception of Emeritus Professors, Librarians and Retired Faculty, for whom submitting a CCV is optional.
 *   **To apply for the Resource Allocation Competitions (RAC):** An updated CCV is required for the Principal Investigator (PI) and ALL the co-PIs of a RAC application.
 
-!!! note "Please note"
+!!! note
     A message in the Alliance account renewal online form will indicate whether the submission of the CCV is mandatory or optional in each case.
 
     Emeritus Professors, Retired Faculty and Librarians may choose not to submit a CCV when renewing their account. However, submission of the CCV **is mandatory** for ALL PIs and Co-PIs of a RAC application.
 
-PIs can update their CCV at any time by going to *My Account → [View Reporting](https://ccdb.computecanada.ca/reporting)* on CCDB.
+PIs can update their CCV at any time by going to *My Account* → [View Reporting](https://ccdb.computecanada.ca/reporting) on CCDB.
 
 ### Who should I contact for support?
 If you forgot your CCV username or password, or if you need technical support to access https://ccv-cvc.ca/, please contact the CCV helpdesk directly by email at support@cihr-irsc.gc.ca or by phone at 613-954-1968 or 1-888-603-4178.
@@ -78,28 +125,31 @@ Submitting your CCV requires you to add and update items to your CV, and then su
 9.  To preview your CCV submission, click on the *Preview* button.
 10. To begin the submission process, click on the *Submit* button.
 11. Make note of the **confirmation number** you are assigned upon submission. It is mandatory to enter this number on the CCDB to link your RAC application with your CCV submission.
-    *   !!! warning "Important"
+    !!! important
         Only confirmation numbers for CCVs submitted using the **Alliance** template will be accepted. You cannot use confirmation numbers for other CCV templates that you may already have (e.g., NSERC, CIHR, etc.)
 12. Agree to the consent terms and confirm your submission.
 
 ### Required and Optional Information
 The table below shows the mandatory and optional information for the Alliance template:
 
-| Section Name                       | Description                                                                                                                                                                                                                                                                                                                                                                                                                            |
-| :--------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Personal Information *(Mandatory)* | Identification, Correspondence language                                                                                                                                                                                                                                                                                                                                                                                                |
-| Education *(Mandatory)*            | Degrees.                                                                                                                                                                                                                                                                                                                                                                                                                               |
-| Recognitions (Optional)            | List of prizes and awards over the last five years.                                                                                                                                                                                                                                                                                                                                                                                    |
-| Employment *(Mandatory)*           | Academic Work Experience, Non-Academic Work Experience, Affiliations, Leaves of Absence and Impact on Research.                                                                                                                                                                                                                                                                                                                          |
-| Research Funding History (Mandatory) | Research funding **over the last five years.**                                                                                                                                                                                                                                                                                                                                                                                         |
-| Activities (Optional)              | Supervisory Activities, Knowledge and Technology Translation, International Collaboration Activities.                                                                                                                                                                                                                                                                                                                                    |
-| Contributions (Optional)           | Presentations, Publications, Artistic Contributions, Intellectual Property. <br/> !!! note "Note" <br/> While this section is marked as optional, we do need to report to our funders the contributions enabled by our computational resources. (PIs can update their CCV at any time by going to *My account → [View Reporting](https://ccdb.computecanada.ca/reporting)* on the CCDB.) |
+| Section Name | Description |
+| :----------- | :---------- |
+| Personal Information *(Mandatory)* | Identification, Correspondence language |
+| Education *(Mandatory)* | Degrees. |
+| Recognitions (Optional) | List of prizes and awards over the last five years. |
+| Employment *(Mandatory)* | Academic Work Experience, Non-Academic Work Experience, Affiliations, Leaves of Absence and Impact on Research. |
+| Research Funding History *(Mandatory)* | Research funding **over the last five years.** |
+| Activities (Optional) | Supervisory Activities, Knowledge and Technology Translation, International Collaboration Activities. |
+| Contributions (Optional) | Presentations, Publications, Artistic Contributions, Intellectual Property. |
+
+!!! note
+    While this section is marked as optional, we do need to report to our funders the contributions enabled by our computational resources. (PIs can update their CCV at any time by going to *My account* → [View reporting](https://ccdb.computecanada.ca/reporting) on the CCDB.)
 
 ## Renew your Alliance account - Faculty only
 Only users with Faculty and Adjunct Faculty roles are required to submit a CCV to renew their Alliance account.
 
-!!! warning "Important"
-    Submitting a CCV to renew an account is only optional for Emeritus Professors, Retired Faculty and Librarians. If you do not wish to submit a CCV, please send an email to support@tech.alliancecan.ca.
+!!! important
+    Submitting a CCV to renew an account is only optional for Emeritus Professors, Retired Faculty and Librarians. If you do not wish to submit a CCV, please send an email to support@tech.alliancecancomputecanada.ca.
 
 To renew your account, your CCV must have been submitted in the last 300 days.
 
@@ -109,7 +159,7 @@ To renew your account, your CCV must have been submitted in the last 300 days.
 4.  Click on the *Update CCV* button:
     *   If we were able to process a submission given the parameters you provided, your application will be saved and you will see all the publications reported in your Alliance CCV.
     *   If there is an error trying to process your submission, you will receive an error message.
-    *   If you are absolutely sure that your CCV submission was successful and the parameters you have entered are correct, yet you receive an error on CCDB, please contact support@tech.alliancecan.ca for assistance.
+    *   If you are absolutely sure that your CCV submission was successful and the parameters you have entered are correct, yet you receive an error on CCDB, please contact support@tech.alliancecancomputecanada.ca for assistance.
 5.  Report contributions enabled by Alliance resources (see here for instructions).
 
 If you have further questions about the renewals process, please visit our [Renewals FAQ](account-renewal-faq.md) page.
@@ -117,24 +167,24 @@ If you have further questions about the renewals process, please visit our [Rene
 ## Apply to the Resource Allocation Competitions
 An updated CCV is required for the Academic Principal Investigator (PI) and ALL the co-PIs of a RAC application.
 
-!!! warning "Important"
+!!! important
     Since faculty are required to update their CCV to renew Alliance accounts in the spring, most Academic PIs will have an updated their CCV when submitting a RAC application in the fall. In this case, submitting a new CCV (e.g., because new information was added to the CCV since the spring) is at the discretion of the PI.
 
 If you have further questions, please visit the [Resource Allocation Competitions](account-renewal-faq.md) (RAC) page.
 
 ### Academic Principal Investigator of a RAC application
-!!! note "Note"
+!!! note
     If you have delegated your application to a sponsored user, have the delegated person follow the steps below to submit on your behalf.
 
 1.  Navigate to the Resource Application page on CCDB: https://ccdb.computecanada.ca/allocation/resource_applications
-2.  Under the Resource Allocation Competitions section, go to the *Ongoing Competitions* tab and click on *Apply* in the corresponding RRG or RPP section to start a new application, or click on *Edit* to continue working on an already created application.
+2.  Under the *Resource Allocation Competitions* section, go to the *Ongoing Competitions* tab and click on *Apply* in the corresponding RRG or RPP section to start a new application, or click on *Edit* to continue working on an already created application.
 3.  In the application form, scroll down to the *Canadian Common CV* section.
-4.  Enter the submission confirmation number you obtained from the steps explained in Section 3 of this document. Remember that only confirmation numbers for the Alliance template will be accepted.
+4.  Enter the submission **confirmation number** you obtained from the steps explained in [Section 3](#submit-an-alliance-ccv) of this document. Remember that only confirmation numbers for the **Alliance template** will be accepted.
 5.  Click on the *Submit CCV* button.
     *   If we were able to process a submission given the parameters you provided, your publications will be uploaded and shown in the CCV Publications Reporting section.
     *   If there is an error trying to process your submission, you will receive an error message.
-    *   If you are absolutely sure that your CCV submission was successful and the parameters you have entered are correct, yet you receive an error on CCDB, please contact support@tech.alliancecan.ca for assistance.
-6.  Report contributions enabled by our computational resources (see instructions in **Section 6** of this document).
+    *   If you are absolutely sure that your CCV submission was successful and the parameters you have entered are correct, yet you receive an error on CCDB, please contact support@tech.alliancecancomputecanada.ca for assistance.
+6.  Report contributions enabled by our computational resources (see instructions in [Section 6](#report-publications-enabled-by-our-computational-resources) of this document).
 
 ### Co-Principal Investigator of a RAC application
 All Co-PIs of the RAC application must have an updated CCV on file. This means that CCVs on file must have been submitted within the last 90 days. The Academic PI will not be able to submit their RAC application until all the CCVs meet this requirement.
@@ -145,14 +195,14 @@ Co-PIs can update their CCV in any of the two following ways:
 
 **In the Resource Applications page**
 
-1.  In the Resource Applications menu, click on Resource Applications.
+1.  In the *Resource Applications* menu, click on *Resource Applications*.
 2.  Under the *Ongoing Competitions* tab, navigate to the application where you are listed *As a Co-PI of*
 3.  Click on *Update CCV*.
 4.  Follow the instructions.
 
 **In the Reporting page**
 
-1.  In the *My Account* menu, click on [View reporting](https://ccdb.computecanada.ca/reporting).
+1.  In the *My Account* menu, click on [*View reporting*](https://ccdb.computecanada.ca/reporting).
 2.  Follow the instructions.
 
 ## Report Publications enabled by our computational Resources
@@ -165,7 +215,7 @@ Once you submit a new CCV (either because you are doing it for the first time or
 2.  Check the box next to each publication to clear the red border one-by-one or simply click *Select all new* to mark all of your publications as enabled by our resources.
 3.  Click on the *Clear all new* button if none of the new publications uploaded were enabled by our computational resources.
 
-!!! warning "Important"
+!!! important
     If you choose not to use the *Select all* or *Clear all* buttons, but instead prefer to go over your publications one-by-one, please note that you have to click twice on a publication to mark it as not enabled by our resources:
 
     *   the first time you click on it, a check mark indicates that the publication was enabled by our resources;
@@ -185,5 +235,5 @@ If your CCV on file is older than 90 days, you will be required to submit a new 
     *   If you have added new publications to your Alliance CCV (compared to the ones that we have on file), CCDB will remember your previously reported publications and will mark with a red border only the recently added ones. In this case, you only need to click on the ones with the red border.
     *   Since publications are shown in chronological order (most recent at the top), please scroll down to make sure that you have checked (as applicable) all the new publications with a red border. Otherwise, the reporting process will be incomplete and you will not be able to submit your application.
 
-!!! warning "Important"
+!!! important
     You have to click twice on a new publication to identify it as not enabled by our computational resources. The first time you click on the new publication, a check mark indicates that it was enabled by our resources; the second time you click on the same box, the check mark is removed, thus indicating that the new publication was not enabled by our resources.

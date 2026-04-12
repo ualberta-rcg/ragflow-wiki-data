@@ -1,0 +1,48 @@
+{
+  "doc_key": "base/meta-farm",
+  "level": "chunk",
+  "chunk_index": 13,
+  "qa_pairs": [
+    {
+      "question": "What should be done if not all requested metajobs run due to cluster busyness in META mode?",
+      "answer": "In META mode, even if not all requested metajobs run, all results will eventually be obtained. However, for particularly large farms, you might need to use `resubmit.run` to ensure completion."
+    },
+    {
+      "question": "How can one determine the optimal number of metajobs and the runtime for `job_script.sh`?",
+      "answer": "To figure out the optimum number of metajobs and runtime, first estimate the average runtime for an individual case, then calculate the total CPU time needed for the entire farm, and finally, make a sensible choice for the metajobs' runtime to determine the number of metajobs."
+    },
+    {
+      "question": "What is the first step to estimate the average runtime for an individual case in META mode?",
+      "answer": "The first step is to allocate a single CPU core using `salloc` and then execute `single_case.sh` for a few different cases to measure their total runtime."
+    },
+    {
+      "question": "How can the average case runtime be estimated using a shell loop?",
+      "answer": "You can estimate the average case runtime by using a shell `for` loop like `$ N=10; time for ((i=1; i<=$N; i++)); do ./single_case.sh table.dat $i; done`. Divide the 'real' time output by the number of sample cases (`$N`) to get the average runtime."
+    },
+    {
+      "question": "How is the total CPU time required to process an entire farm estimated?",
+      "answer": "Estimate the total CPU time by multiplying the average case runtime (dt_case) by the total number of cases (lines in `table.dat`). For safety, multiply this by a factor like 1.1 or 1.3, and divide by 3600 to convert to CPU-hours."
+    },
+    {
+      "question": "What considerations are important when choosing the runtime for metajobs?",
+      "answer": "The chosen runtime should be significantly larger than the average individual case runtime (ideally 100 times or more), and definitely longer than the longest expected individual case. It should not exceed 3 days, as longer runtimes can lead to longer scheduling wait times. On Alliance general-purpose clusters, 12h or 24h are good choices due to scheduling policies."
+    },
+    {
+      "question": "How do you calculate the number of metajobs needed once a runtime has been chosen?",
+      "answer": "Once a runtime (in hours) is chosen, divide the estimated total CPU-hours for the farm by the chosen runtime. Round this result up to the next integer to get the required number of metajobs."
+    },
+    {
+      "question": "What are the benefits of choosing appropriate metajob runtimes and numbers?",
+      "answer": "With appropriate choices, the queue wait time should be fairly small, and the throughput and efficiency of the farm should be fairly high."
+    },
+    {
+      "question": "Can you provide an example of calculating metajobs and runtime for a farm?",
+      "answer": "For example, if the average case takes 95 seconds and there are 1000 cases, the total CPU time is 95,000 CPU-seconds (26.4 CPU-hours). With a 1.2 safety factor, this becomes 31.7 CPU-hours. If a 3-hour runtime is chosen for metajobs, the calculation is 31.7 core-hours / 3 hours = 10.6, rounded up to 11 metajobs. The farm would then be launched with `submit.run 11` and `#SBATCH -t 3:00:00` in `job_script.sh`."
+    },
+    {
+      "question": "What is the maximum number of jobs that can be submitted on Nibi and Rorqual clusters, and how does this affect large farms?",
+      "answer": "The maximum number of jobs that can be submitted on Nibi and Rorqual is 1000. For farms requiring more than 1000 jobs, you cannot run the entire collection with a single command. A workaround involves running `submit.run 1000` and then repeatedly using `resubmit.run 1000` after each previous farm has completed."
+    }
+  ],
+  "generated_at": "2026-04-12T01:19:06.952421+00:00"
+}

@@ -1,0 +1,100 @@
+{
+  "doc_key": "base/matlab",
+  "level": "chunk",
+  "chunk_index": 6,
+  "qa_pairs": [
+    {
+      "question": "How do I manually start the MATLAB Parallel Server configuration wizard if it doesn't launch automatically?",
+      "answer": "You can manually start the configuration wizard by running `parallel.cluster.generic.runProfileWizard()` in MATLAB."
+    },
+    {
+      "question": "What operating system should I select in the MATLAB Parallel Server configuration wizard?",
+      "answer": "You should select \"Unix\" as the operating system."
+    },
+    {
+      "question": "What should be entered for \"Shared location\" during the MATLAB Parallel Server configuration?",
+      "answer": "You should select \"No\" for \"Shared location\"."
+    },
+    {
+      "question": "What cluster host should I specify for Narval during the MATLAB Parallel Server configuration?",
+      "answer": "For Narval, you should specify `narval.alliancecan.ca` as the cluster host."
+    },
+    {
+      "question": "What cluster host should I specify for Rorqual during the MATLAB Parallel Server configuration?",
+      "answer": "For Rorqual, you should specify `rorqual.alliancecan.ca` as the cluster host."
+    },
+    {
+      "question": "Is it necessary to enter a username during the MATLAB Parallel Server configuration, and can the identity file be set later?",
+      "answer": "Entering your Alliance username is optional, and the identity file can be set later if needed."
+    },
+    {
+      "question": "What is the recommended remote job storage location for the MATLAB Parallel Server and what subfolder setting should be used?",
+      "answer": "The recommended remote job storage location is `/scratch`, and you should keep 'Use unique subfolders' checked."
+    },
+    {
+      "question": "What is the maximum number of workers that can be specified during the MATLAB Parallel Server configuration?",
+      "answer": "The maximum number of workers to specify is 960."
+    },
+    {
+      "question": "What is the required MATLAB installation folder for workers when configuring MATLAB Parallel Server for local R2022a?",
+      "answer": "For local R2022a, the MATLAB installation folder for workers should be `/cvmfs/restricted.computecanada.ca/easybuild/software/2020/Core/matlab/2022a`."
+    },
+    {
+      "question": "What license type should be selected during the MATLAB Parallel Server setup?",
+      "answer": "You should select \"Network license manager\" as the license type."
+    },
+    {
+      "question": "What profile names are suggested when configuring the MATLAB Parallel Server?",
+      "answer": "Suggested profile names are \"narval\" or \"rorqual\"."
+    },
+    {
+      "question": "How do I navigate to the `nonshared` folder to edit the MATLAB Parallel Server plugin files?",
+      "answer": "In the MATLAB terminal, run `cd(fullfile(matlabshared.supportpkg.getSupportPackageRoot, 'parallel', 'slurm', 'nonshared'))`."
+    },
+    {
+      "question": "What modification is required in the `independentSubmitFcn.m` file when editing the MATLAB Parallel Server plugin?",
+      "answer": "In `independentSubmitFcn.m`, around line #117, you need to replace `additionalSubmitArgs = sprintf('--ntasks=1 --cpus-per-task=%d', cluster.NumThreads);` with `additionalSubmitArgs = ccSBATCH().getSubmitArgs();`."
+    },
+    {
+      "question": "What modification is required in the `communicatingSubmitFcn.m` file when editing the MATLAB Parallel Server plugin?",
+      "answer": "In `communicatingSubmitFcn.m`, around line #126, you need to replace `additionalSubmitArgs = sprintf('--ntasks=%d --cpus-per-task=%d', environmentProperties.NumberOfTasks, cluster.NumThreads);` with `additionalSubmitArgs = ccSBATCH().getSubmitArgs();`."
+    },
+    {
+      "question": "What command needs to be added to the `communicatingJobWrapper.sh` file when editing the MATLAB Parallel Server plugin?",
+      "answer": "You need to add `module load matlab/2022a` around line #20 in `communicatingJobWrapper.sh`, adjusting the module version to match your local MATLAB version."
+    },
+    {
+      "question": "What steps should I take after editing the MATLAB Parallel Server plugin files?",
+      "answer": "You should restart MATLAB and then navigate back to your home directory by running `cd(getenv('HOME'))` (or `cd(getenv('HOMEPATH'))` on Windows)."
+    },
+    {
+      "question": "Which validation tool should *not* be used for the MATLAB Parallel Server setup?",
+      "answer": "You should *not* use the built-in validation tool in the Cluster Profile Manager."
+    },
+    {
+      "question": "How should I validate the MATLAB Parallel Server setup?",
+      "answer": "You should use the `TestParfor` example along with a proper `ccSBATCH.m` script file."
+    },
+    {
+      "question": "Where can I find the code samples for validating the MATLAB Parallel Server setup?",
+      "answer": "You can find the code samples on GitHub at `https://github.com/ComputeCanada/matlab-parallel-server-samples`."
+    },
+    {
+      "question": "Which tests in the *Cluster Profile Manager* validation tool are supported if `ccSBATCH.m` is in the current working directory?",
+      "answer": "Only the first two tests in the *Cluster Profile Manager* validation tool will work if `ccSBATCH.m` is in your current working directory; other tests are not supported."
+    },
+    {
+      "question": "Where can I find official MathWorks documentation for MATLAB?",
+      "answer": "Official MathWorks documentation for MATLAB is available at `https://www.mathworks.com/help/matlab/`."
+    },
+    {
+      "question": "Where can I find self-paced online courses for MATLAB provided by MathWorks?",
+      "answer": "Self-paced online courses for MATLAB are available at `https://matlabacademy.mathworks.com/`."
+    },
+    {
+      "question": "Which university provides additional MATLAB documentation with job script examples?",
+      "answer": "The University of Calgary provides additional MATLAB documentation with job script examples at `https://rcs.ucalgary.ca/MATLAB`."
+    }
+  ],
+  "generated_at": "2026-04-12T01:13:13.558744+00:00"
+}

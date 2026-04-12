@@ -5,28 +5,43 @@ lang: "en"
 
 source_wiki_title: "CirQ/en"
 source_hash: "1682feceb368b9ce09cc869473586964"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T05:25:50.835412+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T06:16:05.378956+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "quantum computing"
+  - "CirQ"
+  - "quantum circuits"
+  - "Python"
+  - "Bell states"
+
+questions:
+  - "What is the CirQ library and what are its main capabilities in quantum computing?"
+  - "What are the necessary steps to install and execute a CirQ job using a Python virtual environment on a computing cluster?"
+  - "How does the provided use case utilize CirQ's Hadamard and CNOT gates to construct and simulate a Bell state?"
+  - "What is the CirQ library and what are its main capabilities in quantum computing?"
+  - "What are the necessary steps to install and execute a CirQ job using a Python virtual environment on a computing cluster?"
+  - "How does the provided use case utilize CirQ's Hadamard and CNOT gates to construct and simulate a Bell state?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
-Google-developed, [CirQ](https://quantumai.google/cirq) is an open-source quantum computing library to build, optimize, simulate, and run quantum circuits. More specifically, CirQ allows simulating circuits on particular qubit configurations, which can optimize a circuit for a certain qubit architecture. Information on the features can be found in the CirQ [documentation](https://quantumai.google/cirq) and [GitHub](https://github.com/quantumlib/Cirq). Like [Snowflurry](snowflurry.md), CirQ can be used to run quantum circuits on the [MonarQ](monarq.md) quantum computer.
+Developed by Google, [CirQ](https://quantumai.google/cirq) is an open-source quantum computing library to build, optimize, simulate, and run quantum circuits. More specifically, CirQ allows for the simulation of circuits on particular qubit configurations, which can optimize a circuit for a certain qubit architecture. Information on the features can be found in the CirQ [documentation](https://quantumai.google/cirq) and [GitHub](https://github.com/quantumlib/Cirq). Like [Snowflurry](snowflurry.md), CirQ can be used to run quantum circuits on the [MonarQ](monarq.md) quantum computer.
 
 ## Installation
-The CirQ simulator is available on all of our clusters. To have access, you must load the [Python](python/fr.md) language. It is preferable to work in a [Python virtual environment](python/fr.md#créer-et-utiliser-un-environnement-virtuel).
+The CirQ simulator is available on all of our clusters. To have access, you must load the [Python](python.md) language.
+
+!!! note
+    It is preferable to work in a [Python virtual environment](python.md).
 
 ```bash
 module load python/3.11
@@ -36,8 +51,7 @@ pip install --no-index cirq==1.4.1
 python -c "import cirq"
 pip freeze > cirq-1.4.1-reqs.txt
 ```
-
-The last command creates the `cirq-1.4.1-reqs.txt` file, which you can also use in a job script such as in the example below.
+The last command creates the `cirq-1.4.1-reqs.txt` file, which you can also use in a job script, such as in the example below.
 
 ## Running on a Cluster
 ```sh title="script.sh"
@@ -65,8 +79,8 @@ python cirq_example.py
 You can then [submit your job to the scheduler](running-jobs.md).
 
 ## Use case: Bell states
-Bell states are the simplest states that allow explaining both superposition and entanglement on qubits.
-The [CirQ library](https://github.com/quantumlib/Cirq) allows building a Bell state as follows:
+Bell states are the simplest states that allow for the explanation of both superposition and entanglement on qubits.
+The [CirQ](https://github.com/quantumlib/Cirq) library allows for the construction of a Bell state as follows:
 
 ```python
 python> import cirq
@@ -79,7 +93,7 @@ python> circuit.append(cirq.measure(qubits, key='m'))
 python> SVGCircuit(circuit)
 ```
 
-This code builds and displays a circuit that prepares a Bell state. The H gate (Hadamard gate) creates an equal superposition of |0⟩ and |1⟩ on the first qubit while the CNOT gate (controlled X gate) creates an entanglement between the two qubits. This Bell state is therefore an equal superposition of the states |00⟩ and |11⟩. Simulating this circuit using CirQ allows you to visualize the results. In this diagram, the integer 3 represents the state |11⟩ since 3 is written 11 in binary.
+This code builds and displays a circuit that prepares a Bell state. The H gate (Hadamard gate) creates an equal superposition of |0⟩ and |1⟩ on the first qubit, while the CNOT gate (controlled X gate) creates an entanglement between the two qubits. This Bell state is therefore an equal superposition of the states |00⟩ and |11⟩. Simulating this circuit using CirQ allows you to visualize the results. In this diagram, the integer 3 represents the state |11⟩ since 3 is written 11 in binary.
 
 ```python
 python> import matplotlib.pyplot as plt

@@ -5,28 +5,37 @@ lang: "en"
 
 source_wiki_title: "Self-paced courses/en"
 source_hash: "47fc94bab421a5637091cba5f3f8be78"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T11:16:04.636089+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T11:26:46.615815+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "SciNet"
+  - "Alliance account"
+  - "self-paced courses"
+  - "Certificate of Completion"
+  - "SHARCNET"
+
+questions:
+  - "What are the general characteristics and access requirements of the self-paced courses provided in the list?"
+  - "What do participants receive upon the successful completion of a course's quizzes and assignments?"
+  - "What specific technical topics are covered in the curriculum, and which organizations created these courses?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
 This is a growing list of self-paced (or self-directed) courses developed by our technical staff. The courses can be taken at any time, and you can proceed at your own pace. The courses include quizzes and/or assignments, upon successful completion of which you will get the Certificate of Completion for the course. The list is sorted alphabetically. Some courses require an Alliance account.
 
 | Course | Language | Hours | Alliance account required | Certificate of Completion | Creator |
-| :------- | :------- | :---- | :------------------------ | :------------------------ | :------ |
+|---|---|---|---|---|---|
 | [Bioinformatics](https://training.sharcnet.ca/courses/course/view.php?id=205) | EN | 2 | Yes | Yes | SHARCNET |
 | [Introduction to GPU Programming](https://training.sharcnet.ca/courses/course/view.php?id=173) | EN | 3-4 | Yes | Yes | SHARCNET |
 | [Introduction to Machine Learning](https://training.sharcnet.ca/courses/course/view.php?id=180) | EN | 3-4 | Yes | Yes | SHARCNET |

@@ -1,0 +1,100 @@
+{
+  "doc_key": "base/meta-farm",
+  "level": "chunk",
+  "chunk_index": 1,
+  "qa_pairs": [
+    {
+      "question": "What new feature was introduced in Version 1.0.3 of META-Farm?",
+      "answer": "Version 1.0.3, released in March 2025, adds support for the Trillium cluster."
+    },
+    {
+      "question": "How is support for the Trillium cluster implemented in META-Farm Version 1.0.3?",
+      "answer": "Support for the Trillium cluster is achieved through the introduction of the new WHOLE_NODE mode and a few other accommodations."
+    },
+    {
+      "question": "What is the default setting for the WHOLE_NODE mode?",
+      "answer": "The WHOLE_NODE mode is disabled by default."
+    },
+    {
+      "question": "Where can the WHOLE_NODE mode be configured?",
+      "answer": "The WHOLE_NODE mode can be set in `config.h`."
+    },
+    {
+      "question": "How does the WHOLE_NODE mode function?",
+      "answer": "The Whole Node mode operates by packaging serial farm jobs into whole node jobs."
+    },
+    {
+      "question": "What is META-Farm?",
+      "answer": "META (short for META-Farm) is a suite of scripts designed in SHARCNET to automate high-throughput computing, which involves running a large number of related calculations."
+    },
+    {
+      "question": "What are other common names for the practice of high-throughput computing or running a large number of related calculations?",
+      "answer": "This practice is sometimes called farming, serial farming, or task farming."
+    },
+    {
+      "question": "On which systems can META be used?",
+      "answer": "META works on all Alliance national systems and can also be used on other clusters that utilize the same setup, most importantly, those that use the Slurm scheduler."
+    },
+    {
+      "question": "What is a 'case' in the context of this technical document?",
+      "answer": "A 'case' refers to one independent computation, which may involve the execution of a serial program, a parallel program, or a GPU-using program."
+    },
+    {
+      "question": "What is a 'job' as defined in this article?",
+      "answer": "A 'job' is an invocation of the Slurm job scheduler, which may handle several cases."
+    },
+    {
+      "question": "What are the two modes of operation available in META?",
+      "answer": "META has two modes of operation: SIMPLE mode, which handles one case per job, and META mode, which handles many cases per job."
+    },
+    {
+      "question": "What are the primary features of META?",
+      "answer": "META features include two modes of operation (SIMPLE and META), dynamic workload balancing in META mode, capturing the exit status of all individual cases, automatic resubmission of failed or unrun cases, the ability to submit and independently operate multiple farms on the same cluster, and automatic execution of a post-processing job once all cases are successfully processed."
+    },
+    {
+      "question": "What are the technical prerequisites for using META farms?",
+      "answer": "For each farm, every case to be computed must be described as a separate line in a `table.dat` file, and each independent farm must have its own directory."
+    },
+    {
+      "question": "How does META mode optimize the number of jobs submitted relative to the number of cases to process?",
+      "answer": "In META mode, the number of actual jobs (called metajobs) submitted by the package is usually much smaller than the number of cases to process."
+    },
+    {
+      "question": "How do metajobs in META mode process cases from `table.dat`?",
+      "answer": "A collection of metajobs will read lines from `table.dat`, starting from the first line, in a serialized manner using a `lockfile` mechanism to prevent a race condition, with each metajob processing multiple lines."
+    },
+    {
+      "question": "What is the advantage of using a `lockfile` mechanism in META mode?",
+      "answer": "The `lockfile` mechanism ensures a good dynamic workload balance between metajobs, meaning metajobs that handle shorter cases will process more of them."
+    },
+    {
+      "question": "Do all metajobs need to run simultaneously to process cases in META mode?",
+      "answer": "No, not all metajobs need to run in META mode. The first metajob starts processing, and if and when a second job starts, it joins the first one, and so on."
+    },
+    {
+      "question": "When might a single metajob be sufficient to process all cases?",
+      "answer": "If the runtime of an individual metajob is long enough, all the cases might be processed with just a single metajob."
+    },
+    {
+      "question": "What is a significant advantage of META over GLOST regarding queue wait times?",
+      "answer": "With META, the queue wait time can be dramatically shorter than with GLOST because the scheduler has full flexibility to start individual metajobs when it wants, allowing initial results within minutes, unlike GLOST's potential weeks of waiting for large MPI jobs."
+    },
+    {
+      "question": "How does META prevent wasted CPU time at the end of farm computations compared to GLOST?",
+      "answer": "With META, there is no such waste at the end of the farm, as individual metajobs exit earlier if they have no more workload to process. In contrast, with GLOST, some MPI ranks will finish earlier and sit idle until the very last—the slowest—MPI rank ends."
+    },
+    {
+      "question": "Does GLOST offer automated resubmission for failed or unrun cases?",
+      "answer": "No, GLOST and other similar packages do not support automated resubmission of cases which failed or never ran, a feature that META includes and makes easy to use."
+    },
+    {
+      "question": "When was the webinar describing the META package recorded?",
+      "answer": "A webinar describing the META package was recorded on October 6th, 2021."
+    },
+    {
+      "question": "Where can the META package webinar be viewed?",
+      "answer": "The META package webinar can be viewed at [https://youtu.be/GcYbaPClwGE here]."
+    }
+  ],
+  "generated_at": "2026-04-12T01:17:07.577891+00:00"
+}

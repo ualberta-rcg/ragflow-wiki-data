@@ -1,0 +1,104 @@
+{
+  "doc_key": "en/gromacs",
+  "level": "chunk",
+  "chunk_index": 20,
+  "qa_pairs": [
+    {
+      "question": "How is the simulation performance typically quantified in GROMACS?",
+      "answer": "The simulation performance in GROMACS is typically quantified by the number of nanoseconds of MD-trajectory that can be simulated within a day (ns/day)."
+    },
+    {
+      "question": "What is parallel scaling in the context of GROMACS?",
+      "answer": "Parallel scaling is a measure of how effectively compute resources are used, defined as S = p_N / (N * p_1), where p_N is the performance using N CPU cores."
+    },
+    {
+      "question": "What does 'linear scaling' mean in parallel computing?",
+      "answer": "Linear scaling (S = 1) means that the performance increases linearly with the number of CPU cores."
+    },
+    {
+      "question": "What is the primary method to increase the number of MPI processes in GROMACS using Slurm?",
+      "answer": "The most straightforward way to increase the number of MPI processes, or MPI-ranks, is by using Slurm's `--ntasks` or `--ntasks-per-node` parameters in the job script."
+    },
+    {
+      "question": "How does GROMACS use Domain Decomposition (DD) to distribute work?",
+      "answer": "GROMACS uses Domain Decomposition to distribute the work of solving non-bonded Particle-Particle (PP) interactions across multiple CPU cores by cutting the simulation box along the X, Y, and/or Z axes into domains, assigning each to one MPI process."
+    },
+    {
+      "question": "When does parallel scaling drop significantly in GROMACS simulations using Domain Decomposition?",
+      "answer": "Parallel scaling drops significantly when the time needed for communication becomes large relative to the size (number of particles or volume) of the domain, and in extreme cases, performance can drop with an increased number of domains."
+    },
+    {
+      "question": "What is Dynamic Load Balancing in GROMACS and what is its default setting?",
+      "answer": "Dynamic Load Balancing allows GROMACS to shift boundaries between domains to prevent some domains from taking significantly longer to solve than others. The default `mdrun` parameter for this is `-dlb auto`."
+    },
+    {
+      "question": "What is the minimum size requirement for domains in GROMACS?",
+      "answer": "Domains cannot be smaller in any direction than the longest cutoff radius."
+    },
+    {
+      "question": "What is the Particle-Mesh-Ewald (PME) method used for in GROMACS?",
+      "answer": "The Particle-Mesh-Ewald (PME) method is often used to calculate long-range non-bonded interactions (interactions beyond the cutoff radius)."
+    },
+    {
+      "question": "Why can PME performance degrade quickly when many MPI processes are involved?",
+      "answer": "PME requires global communication, which can cause performance degradation when many MPI processes are calculating both short-range (PP) and long-range (PME) interactions."
+    },
+    {
+      "question": "How does GROMACS prevent PME performance degradation with many MPI processes?",
+      "answer": "It avoids degradation by having dedicated MPI processes (PME-ranks) that only perform PME calculations."
+    },
+    {
+      "question": "Under what condition does GROMACS mdrun default to dedicating MPI processes to PME?",
+      "answer": "GROMACS mdrun by default uses heuristics to dedicate a number of MPI processes to PME when the total number of MPI processes is 12 or greater."
+    },
+    {
+      "question": "How can a user manually select the number of PME ranks?",
+      "answer": "The `mdrun` parameter `-npme` can be used to manually select the number of PME ranks."
+    },
+    {
+      "question": "How can a load imbalance between Particle-Particle (PP) and PME ranks be addressed?",
+      "answer": "A load imbalance can be addressed by shifting work from PP ranks to PME ranks by increasing the cutoff radius."
+    },
+    {
+      "question": "Does increasing the cutoff radius to balance PP and PME ranks affect the simulation result?",
+      "answer": "No, it will not affect the result, as the sum of short-range and long-range forces (or energies) will remain the same for a given timestep."
+    },
+    {
+      "question": "Since which GROMACS version does mdrun automatically attempt to tune PME load imbalance?",
+      "answer": "Mdrun attempts to automatically tune PME load imbalance since version 4.6, unless the `-notunepme` parameter is used."
+    },
+    {
+      "question": "Can PME calculations be offloaded to a GPU in GROMACS?",
+      "answer": "Yes, since version 2018, PME can be offloaded to the GPU."
+    },
+    {
+      "question": "What is a limitation of GPU-accelerated PME as of GROMACS version 2018.1?",
+      "answer": "As of GROMACS version 2018.1, only a single GPU rank can be dedicated to PME."
+    },
+    {
+      "question": "How can GROMACS performance be improved after reaching the scaling limit with MPI processes?",
+      "answer": "Performance can be further improved by using OpenMP threads to spread the work of an MPI process (rank) over more than one CPU core."
+    },
+    {
+      "question": "How are OpenMP threads specified in a Slurm job script for GROMACS?",
+      "answer": "OpenMP threads are specified using Slurm's `--cpus-per-task` parameter in the job script (for both `#SBATCH` and `srun`), and by setting the `OMP_NUM_THREADS` variable, for example, `export OMP_NUM_THREADS=\"${SLURM_CPUS_PER_TASK:-1}\"`."
+    },
+    {
+      "question": "What is the recommended range for OpenMP threads per MPI process, according to GROMACS developers?",
+      "answer": "According to GROMACS developers, the optimum is usually between 2 and 6 OpenMP threads per MPI process (cpus-per-task)."
+    },
+    {
+      "question": "How does GROMACS utilize CPU architecture for performance?",
+      "answer": "GROMACS uses optimized kernel functions that leverage SIMD instruction sets like AVX, AVX2, and AVX512 to compute the real-space portion of short-range, non-bonded interactions."
+    },
+    {
+      "question": "When are kernel functions chosen for GROMACS?",
+      "answer": "Kernel functions are chosen when compiling GROMACS and should match the capabilities of the CPUs that will run the simulations."
+    },
+    {
+      "question": "What information does GROMACS provide in its log file regarding CPU architecture optimization?",
+      "answer": "GROMACS reports which SIMD instruction set it supports in its log file and will warn if the selected kernel function is suboptimal."
+    }
+  ],
+  "generated_at": "2026-04-11T22:35:17.758578+00:00"
+}

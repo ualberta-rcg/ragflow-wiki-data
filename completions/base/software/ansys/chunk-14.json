@@ -1,0 +1,36 @@
+{
+  "doc_key": "base/ansys",
+  "level": "chunk",
+  "chunk_index": 14,
+  "qa_pairs": [
+    {
+      "question": "What is the purpose of the `slurm_hl2hl.py` command in the Fluent Slurm script?",
+      "answer": "The `slurm_hl2hl.py` command generates a machine file, which is then saved to `/tmp/machinefile-$SLURM_JOB_ID`, for use by ANSYS Fluent."
+    },
+    {
+      "question": "How is the number of cores (`NCORES`) determined in this Fluent Slurm script snippet?",
+      "answer": "The number of cores (`NCORES`) is determined by assigning the value of the `$SLURM_NTASKS` environment variable to it."
+    },
+    {
+      "question": "What command is used to run Fluent when a job is executed on a single compute node?",
+      "answer": "When running on a single compute node, the command `fluent -g $MYVERSION -t $NCORES -mpi=intel -pshmem -i $MYJOURNALFILE` is used to start Fluent."
+    },
+    {
+      "question": "How is Fluent run on the Nibi cluster for a multinode job according to this script?",
+      "answer": "For a multinode job on the Nibi cluster, Fluent is run using the command `fluent -g $MYVERSION -t $NCORES -mpi=intel -peth -cnf=/tmp/machinefile-$SLURM_JOB_ID -i $MYJOURNALFILE`."
+    },
+    {
+      "question": "Which MPI implementation is specified for Fluent jobs in this script snippet?",
+      "answer": "The script snippet specifies the use of Intel MPI (`-mpi=intel`) for Fluent jobs."
+    },
+    {
+      "question": "What parallelization method is used for single-node Fluent jobs in this script?",
+      "answer": "For single-node Fluent jobs, shared memory parallel (`-pshmem`) is utilized."
+    },
+    {
+      "question": "What parallelization method is used for multinode Fluent jobs on the Nibi cluster in this script?",
+      "answer": "For multinode Fluent jobs on the Nibi cluster, the Ethernet interconnect (`-peth`) is specified for distributed memory parallelization."
+    }
+  ],
+  "generated_at": "2026-04-11T16:48:28.974134+00:00"
+}

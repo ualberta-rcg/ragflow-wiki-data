@@ -1,0 +1,60 @@
+{
+  "doc_key": "fr/arbutus_migration_guide",
+  "level": "chunk",
+  "chunk_index": 7,
+  "qa_pairs": [
+    {
+      "question": "Quels outils d'orchestration sont suggérés pour la migration d'instances et de volumes?",
+      "answer": "Pour l'orchestration de la migration, vous pouvez utiliser des outils comme Ansible, Terraform ou Heat."
+    },
+    {
+      "question": "Si j'utilise déjà Ansible, Terraform ou Heat sur le nuage Arbutus de la génération précédente (nuage Ouest), est-ce que ça fonctionnera sur le nouveau nuage Arbutus?",
+      "answer": "Oui, si vous utilisez déjà ces outils d'automatisation sur le nuage Ouest, ils devraient fonctionner de la même manière sur le nouveau nuage Arbutus."
+    },
+    {
+      "question": "Qu'est-ce qu'une instance associée à des volumes?",
+      "answer": "Une instance associée à des volumes est une instance qui est liée à un volume persistant, lequel contient le système d'exploitation et les données nécessaires."
+    },
+    {
+      "question": "Quelle est une bonne pratique pour la gestion des volumes des instances associées à des volumes?",
+      "answer": "Une bonne pratique est de créer des volumes distincts pour le système d'exploitation et pour les données."
+    },
+    {
+      "question": "Pour quels volumes la méthode de migration avec des images Glance est-elle recommandée?",
+      "answer": "Cette méthode est recommandée pour les volumes de moins de 150 Go."
+    },
+    {
+      "question": "Quelle approche de migration est préférée pour les volumes plus grands que 150 Go?",
+      "answer": "Pour les volumes plus grands que 150 Go, la migration manuelle ou orchestrée est préférable."
+    },
+    {
+      "question": "Comment préparer les sessions sur le serveur de migration pour une migration avec des images Glance?",
+      "answer": "Il faut ouvrir deux sessions sur le serveur de migration `cloudmigration.calculcanada.ca` avec votre nom d’utilisateur et mot de passe. Dans une session, faites un `source` du fichier RC du nuage Ouest (`oldcloudrc.sh`), et dans l'autre, faites un `source` du fichier RC du nuage Arbutus (`newcloudrc.sh`). Il est aussi recommandé d’utiliser la commande `screen` pour ne pas perdre ces sessions."
+    },
+    {
+      "question": "Comment peut-on créer une image d'un volume depuis l'interface utilisateur du nuage Ouest?",
+      "answer": "Dans l’interface utilisateur du nuage Ouest, allez à ''Compute -> Volumes'', sélectionnez le volume désiré et choisissez ''Télécharger dans l'image'' dans le menu déroulant. N'oubliez pas de sélectionner le format de disque QCOW2, et si le volume est actif, vous pouvez utiliser l’option ''force''."
+    },
+    {
+      "question": "Est-il possible de créer une image d'un volume via la ligne de commande sur le nuage Ouest?",
+      "answer": "Oui, vous pouvez utiliser la commande `cinder --os-volume-api-version 2 upload-to-image <nom_du_volume> <nom_de_l_image> --force`."
+    },
+    {
+      "question": "Comment télécharger une image du nuage Ouest vers le serveur de migration en ligne de commande?",
+      "answer": "Sur le serveur de migration, dans la session configurée pour le nuage Ouest, utilisez la commande `glance image-download --progress --file <nom_du_fichier> <ID_de_l_image>`."
+    },
+    {
+      "question": "Comment téléverser une image du serveur de migration vers le nuage Arbutus en ligne de commande?",
+      "answer": "Sur le serveur de migration, dans la session configurée pour le nuage Arbutus, utilisez la commande `glance image-create --progress --visibility private --container-format bare --disk-format qcow2 --name <nom_de_l_image> --file <nom_du_fichier>`."
+    },
+    {
+      "question": "Comment créer un volume à partir d'une image téléversée sur le nuage Arbutus via l'interface utilisateur?",
+      "answer": "Dans l’interface utilisateur du nuage Arbutus, allez à ''Compute -> Images'', trouvez l'image téléversée, et dans son menu déroulant, sélectionnez l’option ''Créer le volume''."
+    },
+    {
+      "question": "Quelles sont les dernières étapes après avoir migré et testé les instances et volumes et mis à jour les enregistrements DNS?",
+      "answer": "Une fois que vos instances et volumes ont été migrés et testés, et que tous vos enregistrements DNS ont été mis à jour, il faut supprimer les anciens volumes et instances sur le nuage Ouest."
+    }
+  ],
+  "generated_at": "2026-04-11T17:48:40.595255+00:00"
+}

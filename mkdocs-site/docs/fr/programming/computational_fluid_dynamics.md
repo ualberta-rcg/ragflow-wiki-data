@@ -5,21 +5,33 @@ lang: "fr"
 
 source_wiki_title: "Computational fluid dynamics/fr"
 source_hash: "80ce750cb5c19b18186e47eef7ab679c"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T05:45:46.182154+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T06:31:14.349082+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "mécanique des fluides numérique"
+  - "WRF"
+  - "OpenFOAM"
+  - "Fluent"
+  - "CFD"
+
+questions:
+  - "Qu'est-ce que la mécanique des fluides numérique (CFD) et quel est son objectif principal ?"
+  - "Quelle est la différence de licence et d'accès entre les logiciels OpenFOAM et Fluent sur les grappes de calcul ?"
+  - "Quel logiciel mentionné dans le texte est spécifiquement dédié à la dynamique des fluides atmosphériques ?"
+  - "Qu'est-ce que la mécanique des fluides numérique (CFD) et quel est son objectif principal ?"
+  - "Quelle est la différence de licence et d'accès entre les logiciels OpenFOAM et Fluent sur les grappes de calcul ?"
+  - "Quel logiciel mentionné dans le texte est spécifiquement dédié à la dynamique des fluides atmosphériques ?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -27,20 +39,18 @@ La [mécanique des fluides numérique](https://fr.wikipedia.org/wiki/M%C3%A9cani
 
 ## OpenFOAM
 
-Suite de solveurs et d'outils open source. Plusieurs versions de [OpenFOAM](openfoam.md) sont disponibles sur nos grappes sous forme de modules.
+Suite de solveurs et d'outils open source. Plusieurs versions d'[OpenFOAM](openfoam.md) sont disponibles sur nos grappes sous forme de modules.
 
 ## Fluent
 
-Logiciel commercial. Fait partie de la suite [Ansys](ansys.md) disponible sur nos grappes, mais vous devez fournir une licence.
+Programme du commerce. Fait partie de la suite [Ansys](ansys.md) disponible sur nos grappes, mais vous devez fournir une licence.
 
 ## WRF
 
-Logiciel non commercial pour la dynamique des fluides atmosphériques. [WRF](wrf.md) est disponible sur nos grappes sous forme de module.
+Programme non commercial pour la dynamique des fluides atmosphériques. [WRF](wrf.md) est disponible sur nos grappes sous forme de module.
 
-## Techniques de Lattice Boltzmann
-
-!!! note "À venir"
+## Techniques Lattice Boltzmann
+(à venir)
 
 ## Hydrodynamique des particules lissées
-
-!!! note "À venir"
+(à venir)

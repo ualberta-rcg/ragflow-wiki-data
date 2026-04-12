@@ -5,27 +5,55 @@ lang: "base"
 
 source_wiki_title: "Tuning Lustre"
 source_hash: "f697342019b73f173d0ea87485bf5223"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T12:09:52.241815+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T12:11:24.197244+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "MPI ranks"
+  - "parallel program"
+  - "Lustre Filesystem"
+  - "stripe size"
+  - "open/close operations"
+  - "lfs getstripe"
+  - "restripe"
+  - "lfs setstripe"
+  - "raid0"
+  - "Stripe Count"
+  - "lfs migrate"
+  - "Distributed filesystem"
+  - "Stripe Size"
+  - "lmm_stripe_count"
+  - "stripe count"
+
+questions:
+  - "What are stripe size and stripe count in the context of the Lustre Filesystem?"
+  - "How can a user view and modify the stripe parameters for a specific file or directory?"
+  - "What steps must be taken to apply new stripe settings to an already existing file?"
+  - "What are the performance and reliability trade-offs associated with increasing a file's stripe count?"
+  - "How should parallel programs configure stripe counts and MPI operations differently when handling small files versus large files?"
+  - "What are the recommended best practices for managing file open/close operations and structuring data writes to optimize filesystem performance?"
+  - "What command is used to restripe an old file?"
+  - "How can a user verify the stripe configuration of a file after migration?"
+  - "What specific layout parameters are detailed in the output of the stripe query?"
+  - "What are the performance and reliability trade-offs associated with increasing a file's stripe count?"
+  - "How should parallel programs configure stripe counts and MPI operations differently when handling small files versus large files?"
+  - "What are the recommended best practices for managing file open/close operations and structuring data writes to optimize filesystem performance?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
 # Lustre Filesystem
 
-[Lustre](http://lustre.org/) is a high-performance distributed filesystem which allows users to reach high bandwidth for input/output operations. There are however some caveats to consider if one wants to achieve the best performance.
+[Lustre](http://lustre.org/) is a high performance distributed filesystem which allows users to reach high bandwidth for input/output operations. There are however some caveats to consider if one wants to achieve the best performance.
 
 !!! warning
     The advice offered here is for advanced users and should be used with caution. Be sure to carry out tests both to verify the scientific validity of your output and to ensure the changes lead to real performance improvements.
@@ -44,7 +72,7 @@ It is also possible to change those parameters for a given directory using the c
 lfs setstripe -c count /path/to/dir
 ```
 
-For example, if *count*=8 , then the files will be spread on 8 targets (RAIDs), each MB will be written in a round-robin fashion on up to 8 different servers.
+For example, if *count*=8, then the files will be spread on 8 targets (RAIDs), each MB will be written in a round-robin fashion on up to 8 different servers.
 
 ```bash
 lfs setstripe -c 8 /home/user/newdir
@@ -53,7 +81,7 @@ lfs setstripe -c 8 /home/user/newdir
 Changing the stripe count will not modify an existing file. To change those parameters, the file must be **copied** (not moved) to a directory with different parameters or the file needs to be migrated. To create an empty file with a given value of those parameters without changing the parameters of the directory, you may run `lfs setstripe` on the name of the file to be created. The file will be created as an empty file with the given parameters.
 
 Example of a non-striped directory with a file called "example_file" (lmm_stripe_count is 1 and there is only 1 object for the file)
-```bash
+```
 $ lfs getstripe striping_example/
 striping_example/
 stripe_count:  1 stripe_size:   1048576 pattern:       raid0 stripe_offset: -1
@@ -63,8 +91,8 @@ lmm_stripe_size:   1048576
 lmm_pattern:       raid0
 lmm_layout_gen:    0
 lmm_stripe_offset: 2
-	obdidx		 objid		 objid		 group
-	     2	       3714477	     0x38adad	   0x300000400
+ 	obdidx		 objid		 objid		 group
+ 	     2	       3714477	     0x38adad	   0x300000400
 ```
 
 We can change the striping of this directory to use a stripe count of 2 and create a new file.
@@ -81,17 +109,17 @@ lmm_stripe_size:   1048576
 lmm_pattern:       raid0
 lmm_layout_gen:    0
 lmm_stripe_offset: 2
-	obdidx		 objid		 objid		 group
-	     2	       3714477	     0x38adad	   0x300000400
+ 	obdidx		 objid		 objid		 group
+ 	     2	       3714477	     0x38adad	   0x300000400
 striping_example//new_file
 lmm_stripe_count:  2
 lmm_stripe_size:   1048576
 lmm_pattern:       raid0
 lmm_layout_gen:    0
 lmm_stripe_offset: 3
-	obdidx		 objid		 objid		 group
-	     3	       3714601	     0x38ae29	   0x400000400
-	     0	       3714618	     0x38ae3a	   0x2c0000400
+ 	obdidx		 objid		 objid		 group
+ 	     3	       3714601	     0x38ae29	   0x400000400
+ 	     0	       3714618	     0x38ae3a	   0x2c0000400
 ```
 
 Only the new_file is using the new default of count=2 (lmm_stripe_count) and 2 objects are allocated.
@@ -106,20 +134,22 @@ lmm_stripe_size:   1048576
 lmm_pattern:       raid0
 lmm_layout_gen:    2
 lmm_stripe_offset: 10
-	obdidx		 objid		 objid		 group
-	    10	       3685344	     0x383be0	   0x500000400
-	    11	       3685328	     0x383bd0	   0x540000400
+ 	obdidx		 objid		 objid		 group
+ 	    10	       3685344	     0x383be0	   0x500000400
+ 	    11	       3685328	     0x383bd0	   0x540000400
 ```
 
-The file now has a lmm_stripe_count of 2 and 2 objects are allocated.
+The file now has a lmm_stripe_count of 2 and 2 objects are allocated
 
 !!! warning
     Increasing the stripe count may improve performances, but also makes this file more susceptible to hardware failures.
 
-!!! tip
-    When a parallel program needs to read a small file (< 1MB), a configuration file for example, it is best to put this file on one disk (stripe count=1), to read it with the master rank, and to send its content to other ranks using a `MPI_Broadcast` or `MPI_Scatter`.
+When a parallel program needs to read a small file (< 1MB), a configuration file for example, it is best to put this file on one disk (stripe count=1), to read it with the master rank, and to send its content to other ranks using a `MPI_Broadcast` or `MPI_Scatter`.
 
-When treating large files, it is usually best to use a stripe count as large as the number of MPI ranks. For the stripe size, you will want it to be the same size as the buffer size for the data that is being read or written, by each rank. For example, if each rank reads 1 MB of data at a time, the ideal stripe size will likely be 1 MB. If you don't know what size to use, your best bet is to keep the default value, which has been optimized for large files. **Note that the stripe size must always be an integer multiple of 1MB**.
+When treating large files, it is usually best to use a stripe count as large as the number of MPI ranks. For the stripe size, you will want it to be the same size as the buffer size for the data that is being read or written, by each rank. For example, if each rank reads 1 MB of data at a time, the ideal stripe size will likely be 1 MB. If you don't know what size to use, your best bet is to keep the default value, which has been optimized for large files.
+
+!!! warning
+    The stripe size must always be an integer multiple of 1MB.
 
 !!! tip
     In general, you want to reduce the number of open/close operations on the filesystem. It is therefore best to concatenate all data within a single file rather than writing a lot of small files. It will also be best to open the file once at the beginning, and close it once at the end of the program, rather than opening and closing it each time you want to add new data.

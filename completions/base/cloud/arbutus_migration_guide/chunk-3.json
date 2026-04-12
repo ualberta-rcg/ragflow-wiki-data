@@ -1,0 +1,64 @@
+{
+  "doc_key": "base/arbutus_migration_guide",
+  "level": "chunk",
+  "chunk_index": 3,
+  "qa_pairs": [
+    {
+      "question": "What is the first recommended preliminary step to prepare the environment for instance migration?",
+      "answer": "The first recommended preliminary step is to back up any critical data, as project owners are responsible for creating necessary backups because the Arbutus Cloud Team does not make backups or copies of instances."
+    },
+    {
+      "question": "How can I obtain the OpenStack RC file(s) for Legacy Arbutus and New Arbutus?",
+      "answer": "After logging in to the respective cloud URLs with your account credentials, navigate to 'Project -> API Access' and then select 'Download OpenStack RC File'."
+    },
+    {
+      "question": "What should I do with the OpenStack RC files after downloading them?",
+      "answer": "You should copy the OpenStack RC files to the host you will be using for the migration and then follow the instructions in the 'New Arbutus RC File Modifications' Section."
+    },
+    {
+      "question": "How do I test the OpenStack RC file(s) to confirm access to my projects in both clouds?",
+      "answer": "To test, activate an RC file by sourcing it (`source opensrc.sh`) in a shell session, ensuring only one RC file is active at a time. Then, test your configuration by running a simple OpenStack command, such as `openstack volume list`."
+    },
+    {
+      "question": "How do I migrate SSH keys using the Horizon dashboard from Legacy Arbutus to New Arbutus Cloud?",
+      "answer": "On Legacy Arbutus, navigate to 'Compute -> Key Pairs', click the key pair's name, and copy the public key value. On the New Arbutus Cloud, navigate to 'Compute -> Key Pairs', click 'Import Public Key', give your Key Pair a name, and paste the public key from the Legacy Arbutus Cloud."
+    },
+    {
+      "question": "Can I generate new SSH Key Pairs instead of migrating existing ones?",
+      "answer": "Yes, you can also generate new Key Pairs if you choose."
+    },
+    {
+      "question": "How can I import SSH Key Pairs using the OpenStack Command Line Interface (CLI)?",
+      "answer": "Key Pairs can be imported via the CLI using the command: `openstack keypair create --public-key <public-keyfile> <name>`."
+    },
+    {
+      "question": "What is the process for migrating security groups and rules using the Horizon dashboard?",
+      "answer": "On Legacy Arbutus Cloud, note the existing security groups and their associated rules under 'Network -> Security Groups'. On the New Arbutus Cloud, re-create these security groups and their associated rules as needed under 'Network -> Security Groups'."
+    },
+    {
+      "question": "Are there any default security rules on the New Arbutus Cloud that should not be deleted?",
+      "answer": "Yes, you should not delete any of the Egress security rules for IPv4 and IPv6 created by default, as deleting them can cause instances to fail to retrieve configuration data from the OpenStack metadata service and lead to other issues."
+    },
+    {
+      "question": "How do I create a security group and add a rule for HTTP port 80 via the OpenStack CLI?",
+      "answer": "You can create a security group with `openstack security group create <group-name>` and add an HTTP port 80 rule with `openstack security group rule create --proto tcp --remote-ip 0.0.0.0/0 --dst-port 80 <group-name>`."
+    },
+    {
+      "question": "How can I view existing security groups and their rules using the OpenStack CLI?",
+      "answer": "To list available security groups, use `openstack security group list`. To view the rules within a specific group, use `openstack security group rule list`."
+    },
+    {
+      "question": "What factors should be considered when planning an outage window for migration?",
+      "answer": "When planning an outage, generally shut down services and then the instance to avoid data corruption. Account for volume sizes, as smaller volumes (10GB) copy in under 5 minutes, while larger ones (100GB) can take 30-40 minutes. Also, floating IP addresses will change, so set a small TTL for DNS records for quick propagation."
+    },
+    {
+      "question": "What specific lines need to be added to the new Arbutus RC file after downloading it?",
+      "answer": "You need to add the following lines: `export OS_AUTH_TYPE=v3websso`, `export OS_IDENTITY_PROVIDER=atmosphere`, `export OS_PROTOCOL=openid`, and `export OS_PROJECT_DOMAIN_NAME=default`."
+    },
+    {
+      "question": "Which lines should be removed from the new Arbutus RC file?",
+      "answer": "You should remove the lines containing `export OS_USER_DOMAIN_NAME=\"atmosphere\" if [ -z \"$OS_USER_DOMAIN_NAME\" ]; then unset OS_USER_DOMAIN_NAME; fi` and `echo \"Please enter your OpenStack Password for project $OS_PROJECT_NAME as user $OS_USERNAME: \" read -sr OS_PASSWORD_INPUT export OS_PASSWORD=$OS_PASSWORD_INPUT`."
+    }
+  ],
+  "generated_at": "2026-04-11T17:41:19.554633+00:00"
+}

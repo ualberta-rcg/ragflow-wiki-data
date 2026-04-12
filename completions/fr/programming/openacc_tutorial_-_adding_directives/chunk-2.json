@@ -1,0 +1,44 @@
+{
+  "doc_key": "fr/openacc_tutorial_-_adding_directives",
+  "level": "chunk",
+  "chunk_index": 2,
+  "qa_pairs": [
+    {
+      "question": "Comment les unités de calcul d'un accélérateur exécutent-elles une fonction compilée en tant que \"kernel\"?",
+      "answer": "Puisque chaque appel est indépendant, chacun des centaines de cœurs de l'accélérateur peut exécuter la fonction en parallèle pour un index spécifique."
+    },
+    {
+      "question": "Quelle est la principale différence entre l'exécution d'une boucle traditionnelle et celle d'un \"kernel\" OpenACC pour un calcul?",
+      "answer": "Une boucle traditionnelle calcule séquentiellement de `i=0` à `i=N-1`, alors qu'un \"kernel\" permet à chaque unité de calcul d'exécuter la fonction pour une seule valeur de `i` en parallèle."
+    },
+    {
+      "question": "Comment décririez-vous la directive OpenACC `kernels` et son utilisation?",
+      "answer": "La directive `kernels` est dite \"descriptive\". Le programmeur l'utilise pour indiquer au compilateur quelles portions de code peuvent être parallélisées, et le compilateur décide ensuite de la meilleure stratégie, qui peut même inclure une exécution séquentielle."
+    },
+    {
+      "question": "Quelles sont les étapes qu'un compilateur suit habituellement lorsqu'il traite du code avec une directive `kernels`?",
+      "answer": "De façon générale, le compilateur analyse le code pour détecter le parallélisme, identifie et transfère les données si nécessaire, crée un \"kernel\", puis transfère ce \"kernel\" au GPU."
+    },
+    {
+      "question": "Pourquoi est-ce utile de consulter la rétroaction du compilateur après avoir utilisé la directive `kernels`?",
+      "answer": "Il est rare que le code soit assez simple, alors il faut se baser sur la rétroaction du compilateur pour trouver les portions qu'il aurait pu négliger de paralléliser."
+    },
+    {
+      "question": "Quelle est la nature des directives OpenMP par rapport aux directives OpenACC?",
+      "answer": "Les directives OpenMP sont \"prescriptives\", ce qui signifie que le compilateur est forcé de paralléliser le code, peu importe l'impact sur la performance."
+    },
+    {
+      "question": "Comment la performance d'un code OpenMP est-elle affectée par l'architecture du matériel?",
+      "answer": "Avec OpenMP, la parallélisation se fait toujours de la même manière, peu importe le matériel, ce qui peut faire en sorte que le même code ait une moins bonne performance sur différentes architectures. Pour une performance optimale, il faudrait des ensembles de directives différents pour chaque architecture."
+    },
+    {
+      "question": "Comment les directives OpenACC se comparent-elles à OpenMP concernant la liberté du compilateur et l'adaptation au matériel?",
+      "answer": "Plusieurs directives OpenACC sont \"descriptives\". Le compilateur est libre de compiler le code de la façon qu'il juge la meilleure selon l'architecture visée. Le code pourrait ne pas être parallélisé du tout et le même code exécuté sur un GPU ou un CPU peut donner du code binaire différent, ce qui signifie que la performance pourrait varier selon le compilateur et le matériel."
+    },
+    {
+      "question": "Où peut-on trouver l'exemple de code pour le produit matrice-vecteur mentionné dans le document?",
+      "answer": "L'exemple de code se trouve dans le répertoire Github de Calcul Québec. La version C++ est dans le fichier `cpp/matrix_functions.h` et l'équivalent Fortran est dans la sous-routine `matvec` du fichier `matrix.F90`."
+    }
+  ],
+  "generated_at": "2026-04-12T04:08:50.809361+00:00"
+}

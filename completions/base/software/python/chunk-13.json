@@ -1,0 +1,132 @@
+{
+  "doc_key": "base/python",
+  "level": "chunk",
+  "chunk_index": 13,
+  "qa_pairs": [
+    {
+      "question": "What is the default process limit for the Python `multiprocessing` examples provided?",
+      "answer": "The provided `multiprocessing` examples are limited to using 4 processes."
+    },
+    {
+      "question": "Why is it important to use the allocated cores on a cluster for parallel Python programming?",
+      "answer": "On a cluster, it is very important to use the cores that are allocated to your job to prevent slowing down calculations or overloading compute nodes."
+    },
+    {
+      "question": "What happens if I launch more processes than requested cores on a cluster for a Python job?",
+      "answer": "Launching more processes than requested cores will slow down your calculation and could overload the compute node."
+    },
+    {
+      "question": "What happens if I launch fewer processes than requested cores on a cluster for a Python job?",
+      "answer": "Launching fewer processes than requested cores will result in wasted resources and idle cores."
+    },
+    {
+      "question": "How is the correct number of cores for a parallel Python program determined on a cluster?",
+      "answer": "The correct number of cores to use in your code is determined by the amount of resources you requested to the scheduler."
+    },
+    {
+      "question": "When should I consider using all cores of a node for a Python computation?",
+      "answer": "If you have the same computation to perform on many tens of data or more, it would make sense to use all of the cores of a node."
+    },
+    {
+      "question": "How do I request 32 CPU cores for a single-node Python job using a SLURM submission script?",
+      "answer": "You can include `#SBATCH --ntasks-per-node=1` and `#SBATCH --cpus-per-task=32` in your SLURM job submission script header."
+    },
+    {
+      "question": "How can a Python script dynamically determine the number of allocated CPU cores from a SLURM job?",
+      "answer": "A Python script can use `int(os.environ.get('SLURM_CPUS_PER_TASK', default=1))` to dynamically determine the number of allocated CPU cores from a SLURM job."
+    },
+    {
+      "question": "What should I consider if my Python code calls external parallel libraries like `numpy`?",
+      "answer": "If your Python code calls external libraries like `numpy`, you should verify if their functions are themselves parallel and control how many threads they use to avoid slowing down your code or overloading the node."
+    },
+    {
+      "question": "What happens if an external parallel library uses all available cores while I'm also starting many parallel processes?",
+      "answer": "If an external parallel library uses all available cores while you are also starting many parallel processes, it will slow down your code and could overload the node."
+    },
+    {
+      "question": "What is the limitation of the Python `multiprocessing` module in terms of compute nodes?",
+      "answer": "The `multiprocessing` module is restricted to using a single compute node, so the speedup achievable by your program is usually limited to the total number of CPU cores in that node."
+    },
+    {
+      "question": "What are alternative tools for parallelizing Python programs across multiple compute nodes?",
+      "answer": "To parallelize Python programs across multiple compute nodes, you can consider using mpi4py or PySpark."
+    },
+    {
+      "question": "Where can I find other methods for parallelizing Python programs?",
+      "answer": "Other methods of parallelizing Python are listed on the Python wiki page for ParallelProcessing."
+    },
+    {
+      "question": "What is an important first step to improve Python program performance before parallelizing?",
+      "answer": "Before parallelizing, you should first ensure your Python program is written efficiently to greatly improve its performance."
+    },
+    {
+      "question": "Who should I contact if I'm unsure about the efficiency of my Python code?",
+      "answer": "If you are unsure if your Python code is efficient, you should contact technical support and have them look at your code."
+    },
+    {
+      "question": "What are some simple methods for debugging Python code?",
+      "answer": "Simple methods for debugging Python code include adding `print` statements or assertions (`assert`)."
+    },
+    {
+      "question": "When is it recommended to use a debugger like `pdb` for Python code?",
+      "answer": "Using a debugger like `pdb` is easier when you need to dig deeper into the code and its context to fix errors."
+    },
+    {
+      "question": "Where can I debug my Python code?",
+      "answer": "You can debug your Python code in a small interactive job."
+    },
+    {
+      "question": "How do I start the `pdb` debugger in my Python script?",
+      "answer": "To start the `pdb` debugger, add `import pdb; pdb.set_trace()` to the beginning of your file, or `breakpoint()` at the desired location."
+    },
+    {
+      "question": "After adding a breakpoint, how do I run my Python code to enter the debugger?",
+      "answer": "After adding a breakpoint, you run your code using `python ...` to enter the debugger."
+    },
+    {
+      "question": "What can I do once I'm in the Python debugger (`pdb`)?",
+      "answer": "Once in the `pdb` debugger, you can look around and evaluate expressions."
+    },
+    {
+      "question": "What does the `w` or `here` command do in the `pdb` debugger?",
+      "answer": "In `pdb`, the `w` or `here` command prints a stack trace, with an arrow indicating the current frame."
+    },
+    {
+      "question": "What does the `b` or `break` command do in `pdb`?",
+      "answer": "In `pdb`, the `b` or `break` command with a line number argument sets a breakpoint at that line in the current file."
+    },
+    {
+      "question": "What does the `s` or `step` command do in `pdb`?",
+      "answer": "In `pdb`, the `s` or `step` command executes the current line and stops at the first possible occasion, either in a called function or on the next line in the current function."
+    },
+    {
+      "question": "What does the `n` or `next` command do in `pdb`?",
+      "answer": "In `pdb`, the `n` or `next` command continues execution until the next line in the current function is reached or it returns."
+    },
+    {
+      "question": "What does the `r` or `return` command do in `pdb`?",
+      "answer": "In `pdb`, the `r` or `return` command continues execution until the current function returns."
+    },
+    {
+      "question": "What does the `c` or `cont(inue)` command do in `pdb`?",
+      "answer": "In `pdb`, the `c` or `cont(inue)` command continues execution, only stopping when a breakpoint is encountered."
+    },
+    {
+      "question": "What does the `p exp` command do in `pdb`?",
+      "answer": "In `pdb`, the `p exp` command evaluates an expression in the current context and prints its value."
+    },
+    {
+      "question": "What does the `l` or `list` command do in `pdb`?",
+      "answer": "In `pdb`, the `l` or `list` command lists the source code for the current file."
+    },
+    {
+      "question": "What does the `q` or `quit` command do in `pdb`?",
+      "answer": "In `pdb`, the `q` or `quit` command quits from the debugger and aborts the program being executed."
+    },
+    {
+      "question": "Which `pdb` commands are typically used for debugging a file?",
+      "answer": "Typically, the `w`, `s`, `l`, `p`, and `n` commands are used to debug a file with `pdb`."
+    }
+  ],
+  "generated_at": "2026-04-12T05:52:03.787870+00:00"
+}

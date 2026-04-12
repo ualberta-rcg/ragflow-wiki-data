@@ -1,0 +1,47 @@
+{
+  "doc_key": "en/gcc_c___dual_abi",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What significant change occurred in GCC between version 4.9 and 5.1?",
+      "answer": "GCC introduced a major change to its Application Binary Interface (ABI)."
+    },
+    {
+      "question": "What is the primary issue that arises if different compiler versions are used after the GCC 4.9 to 5.1 ABI change?",
+      "answer": "The ABI change may cause linking to fail, especially when linking to precompiled libraries from a vendor."
+    },
+    {
+      "question": "How can one resolve linking failures caused by the GCC ABI change when using GCC v5.1 or higher with legacy libraries?",
+      "answer": "You can use GCC's Dual ABI feature by passing `-D_GLIBCXX_USE_CXX11_ABI=0` to GCC."
+    },
+    {
+      "question": "What type of error message might indicate an ABI mismatch problem, as mentioned in the document?",
+      "answer": "An error message like `.../extensions.hpp(38): error: \"std::list\" is ambiguous` could indicate an ABI mismatch."
+    },
+    {
+      "question": "What is an Application Binary Interface (ABI) in the context of C++ compilers?",
+      "answer": "An ABI defines how compiled code interacts with libraries, specifically through compiler-specific algorithms that mangle and export `extern \"C++\"` symbol names."
+    },
+    {
+      "question": "Why do ABI changes occasionally occur, even if compiler vendors try to maintain consistency on a given platform?",
+      "answer": "ABI changes are occasionally necessary, and any modification can lead to programs failing to link."
+    },
+    {
+      "question": "What is the purpose of the provided C++ example program (`main.cxx`) and makefile?",
+      "answer": "The example demonstrates how different compiler settings, specifically the `_GLIBCXX_USE_CXX11_ABI` flag, affect the generated ABI symbol names and cause differences in linking."
+    },
+    {
+      "question": "What must be ensured before running `make` for the provided example to work correctly?",
+      "answer": "A module for GCC v5.1 or higher must be loaded."
+    },
+    {
+      "question": "According to the example's output, how do the `_GLIBCXX_USE_CXX11_ABI` settings affect symbol names for `std::string`?",
+      "answer": "When `_GLIBCXX_USE_CXX11_ABI=1` (new ABI), `std::string` symbols include `_ZNSt7__cxx1112basic_string`, whereas with `_GLIBCXX_USE_CXX11_ABI=0` (old ABI), they appear as `_ZNSs`."
+    },
+    {
+      "question": "Does the `-std=c++98` versus `-std=c++11` flag alone (without `_GLIBCXX_USE_CXX11_ABI`) cause ABI differences in the example output?",
+      "answer": "No, if only `-std=c++98` or `-std=c++11` is used without explicitly setting `_GLIBCXX_USE_CXX11_ABI`, the compiler uses the default (newer) ABI, and there are no significant ABI differences shown in the example's default comparison."
+    }
+  ],
+  "generated_at": "2026-04-11T22:00:47.329472+00:00"
+}

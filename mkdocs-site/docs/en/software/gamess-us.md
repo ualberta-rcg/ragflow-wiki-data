@@ -5,22 +5,49 @@ lang: "en"
 
 source_wiki_title: "GAMESS-US/en"
 source_hash: "bd1d2228a566fafe069e501369395bd3"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T06:29:14.899790+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T07:11:58.332669+00:00"
 
 tags:
   - software
   - computationalchemistry
 
 keywords:
-  []
+  - "Memory bound"
+  - "Slurm"
+  - "CPUs"
+  - "MWORDS"
+  - "scratch files"
+  - "Slurm scheduler"
+  - "GAMESS"
+  - "Quantum chemistry calculations"
+  - "quantum chemistry"
+  - "job submission"
+  - "memory allocation"
+  - "Execution time"
+  - "RAM"
+  - "MEMDDI"
+
+questions:
+  - "What are the essential files and commands required to prepare and submit a GAMESS job using the Slurm scheduler?"
+  - "How does GAMESS manage temporary binary and supplementary output files, and how can users change their default storage locations?"
+  - "What are the limitations of running GAMESS on multiple CPUs, and why is it recommended to perform a scaling test?"
+  - "Why is it crucial to allocate sufficient memory to GAMESS instead of relying on SCRATCH disk storage?"
+  - "What specific parameters must be configured in both the submission script and the GAMESS input file to properly assign memory to a job?"
+  - "How can a user troubleshoot and resolve a Slurm error indicating that a job has exceeded its memory limit?"
+  - "What is the ideal relationship between the number of CPUs used and the execution time of a calculation?"
+  - "How can adding more CPUs sometimes result in an inefficient use of computational resources?"
+  - "Why are quantum chemistry calculations involving large molecules often considered to be \"memory bound\"?"
+  - "Why is it crucial to allocate sufficient memory to GAMESS instead of relying on SCRATCH disk storage?"
+  - "What specific parameters must be configured in both the submission script and the GAMESS input file to properly assign memory to a job?"
+  - "How can a user troubleshoot and resolve a Slurm error indicating that a job has exceeded its memory limit?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -31,7 +58,7 @@ The General Atomic and Molecular Electronic Structure System (GAMESS) [GAMESS Ho
 ### Job submission
 Compute Canada clusters use the Slurm scheduler. For more about submitting and monitoring jobs, see [Running jobs](running-jobs.md).
 
-The first step is to prepare a GAMESS input file containing the molecular geometry and a specification of the calculation to be carried out. Please refer to the [GAMESS Documentation](http://www.msg.ameslab.gov/gamess/documentation.html) and particularly Chapter 2 "Input Description" ([Input Description (PDF)](http://www.msg.ameslab.gov/gamess/GAMESS_Manual/input.pdf)) for a description the file format and keywords.
+The first step is to prepare a GAMESS input file containing the molecular geometry and a specification of the calculation to be carried out. Please refer to the GAMESS Documentation [Documentation](http://www.msg.ameslab.gov/gamess/documentation.html) and particularly Chapter 2 "Input Description" [Input Description (PDF)](http://www.msg.ameslab.gov/gamess/GAMESS_Manual/input.pdf) for a description the file format and keywords.
 
 Besides your input file (in our example, "name.inp"), you have to prepare a job script to define the compute resources for the job. Input file and job script must be in the same directory.
 
@@ -64,16 +91,17 @@ sbatch gamess_job.sh
 
 By default, temporary binary files (scratch files) will be written to local disk on the compute node (`$SLURM_TMPDIR`) as we expect this to give the best performance.
 
-!!! warning
+!!! warning "Temporary Data"
     Please be aware that the data in `$SLURM_TMPDIR` will be **deleted** after the job finishes.
+
 If there is insufficient space on local disk, you can use /scratch instead by setting the `SCR` environment variable as shown in the comments in the example above.
 
 Supplementary output files are written to a location defined by the `USERSCR` environment variable. By default this is the user's `$SCRATCH` directory.
 
-| Description                       | Environment Variable | Default location                      |
-| :-------------------------------- | :------------------- | :------------------------------------ |
-| GAMESS temporary binary files     | `SCR`                | `$SLURM_TMPDIR` (node-local storage)  |
-| GAMESS supplementary output files | `USERSCR`            | `$SCRATCH` (user's SCRATCH directory) |
+| Description | Environment Variable | Default location |
+| :--------------------------------- | :-------------------- | :---------------------------------- |
+| GAMESS temporary binary files | `SCR` | `$SLURM_TMPDIR` (node-local storage) |
+| GAMESS supplementary output files | `USERSCR` | `$SCRATCH` (user's SCRATCH directory) |
 
 ### Running GAMESS on multiple CPUs
 
@@ -83,27 +111,21 @@ As GAMESS has been built using [sockets](https://en.wikipedia.org/wiki/Unix_doma
 
 Quantum chemistry calculations are known to not scale well to large numbers of CPUs as compared to e.g. classical molecular mechanics, which means that they can't use large numbers of CPUs efficiently. Exactly how many CPUs can be used efficiently depends on the number of atoms, the number of basis functions, and the level of theory.
 
-To determine a reasonable number of CPUs to use, one needs to run a scaling test--- That is, run the same input file using different numbers of CPUs and compare the execution times. Ideally the execution time should be half as long when using twice as many CPUs. Obviously it is not a good use of resources if a calculation runs (for example) only 30% faster when the number of CPUs is doubled. It is even possible for certain calculations to run slower when increasing the number of CPUs.
+To determine a reasonable number of CPUs to use, one needs to run a scaling test— That is, run the same input file using different numbers of CPUs and compare the execution times. Ideally the execution time should be half as long when using twice as many CPUs. Obviously it is not a good use of resources if a calculation runs (for example) only 30% faster when the number of CPUs is doubled. It is even possible for certain calculations to run slower when increasing the number of CPUs.
 
 ### Memory
 
-Quantum chemistry calculations are often "memory bound"--- meaning that larger molecules at high level of theory need a lot of memory (RAM), often more than is available in a typical computer. Therefore packages like GAMESS use disk storage (SCRATCH) to store intermediate results to free up memory, reading them back from disk later in the calculation.
+Quantum chemistry calculations are often "memory bound"— meaning that larger molecules at high level of theory need a lot of memory (RAM), often more than is available in a typical computer. Therefore packages like GAMESS use disk storage (SCRATCH) to store intermediate results to free up memory, reading them back from disk later in the calculation.
 
 Even our fastest SCRATCH storage is several orders of magnitudes slower than the memory, so you should make sure to assign sufficient memory to GAMESS. This is a two-step process:
 
 1.  Request memory for the job in the submission script. Using `--mem-per-cpu=4000M` is a reasonable value, since it matches the memory-to-CPU ratio on the base nodes. Requesting more than that may cause the job to wait to be scheduled on a large-memory node.
+
 2.  In the `$SYSTEM` group of the input file, define the `MWORDS` and `MEMDDI` options. This tells GAMESS how much memory it is allowed to use.
     *   `MWORDS` is the maximum replicated memory which a job can use, on every core. This is given in units of 1,000,000 words (as opposed to 1024*1024 words), and a word is defined as 64 bits = 8 bytes.
     *   `MEMDDI` is the grand total memory needed for the distributed data interface (DDI) storage, given in units of 1,000,000 words. The memory required on each processor core for a run using `p` CPU-cores is therefore `MEMDDI/p + MWORDS`.
 
-Please refer to the `$SYSTEM` group section in the [GAMESS documentation](http://www.msg.ameslab.gov/gamess/GAMESS_Manual/input.pdf) if you want more details.
+Please refer to the `$SYSTEM` group section in the GAMESS documentation [Input Description (PDF)](http://www.msg.ameslab.gov/gamess/GAMESS_Manual/input.pdf) if you want more details.
 
-!!! warning "Memory Management"
+!!! warning "Memory Allocation"
     It is important to leave a few hundred MB of memory between the memory requested from the scheduler and the memory that GAMESS is allowed to use, as a safety margin. If a job's output is incomplete and the `slurm-{JOBID}.out` file contains a message like "slurmstepd: error: Exceeded step/job memory limit at some point", then Slurm has terminated the job for trying to use more memory than was requested. In that case one needs to either reduce the `MWORDS` or `MEMDDI` in the input file or increase the `--mem-per-cpu` in the submission script.
-
-## References
-
-*   [GAMESS Homepage](http://www.msg.ameslab.gov/gamess/)
-*   [GAMESS Documentation](http://www.msg.ameslab.gov/gamess/documentation.html)
-*   [Input Description (PDF)](http://www.msg.ameslab.gov/gamess/GAMESS_Manual/input.pdf)
-*   [Unix domain socket](https://en.wikipedia.org/wiki/Unix_domain_socket)

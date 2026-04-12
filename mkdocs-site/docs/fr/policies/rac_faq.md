@@ -5,21 +5,117 @@ lang: "fr"
 
 source_wiki_title: "RAC FAQ/fr"
 source_hash: "8409fe694e45150fd733c0cd8811d316"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T10:25:46.122265+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T10:49:09.726244+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "ressources de calcul"
+  - "Processus de demande accélérée"
+  - "Demande de ressources"
+  - "Infrastructure de calcul"
+  - "Service d'accès rapide"
+  - "CCDB"
+  - "Demande accélérée"
+  - "ressources infonuagiques"
+  - "groupes de recherche"
+  - "utilisation des ressources"
+  - "Ressources de calcul et de stockage"
+  - "chercheurs principaux"
+  - "demande au concours"
+  - "politique d'allocation"
+  - "processus de demande"
+  - "soutien technique"
+  - "comités d'examen par les pairs"
+  - "priorité"
+  - "accès rapide"
+  - "chercheurs"
+  - "charge maximale de travail"
+  - "demander des ressources"
+  - "Concours pour l'allocation de ressources"
+  - "plateformes et portails de recherche"
+  - "CV commun canadien (CVC)"
+  - "concours d'allocation de ressources"
+  - "Chercheur principal"
+  - "Allocation de ressources"
+  - "allocation de ressources"
+  - "concours pour l’allocation de ressources"
+  - "algorithme de juste part"
+  - "chercheur principal"
+  - "ordonnancement des tâches"
+  - "Concours d'allocation de ressources"
+  - "logiciel d'ordonnancement"
+  - "Calcul de pointe"
+  - "allocation pluriannuelle"
+  - "Algorithme de juste part"
+  - "espace de stockage"
+  - "allocation"
+  - "traitement en lots"
+  - "Examen par les pairs"
+  - "utilisateurs"
+  - "rapport d'avancement annuel"
+  - "processus de demande accélérée"
+  - "ressources de calcul et de stockage"
+  - "Soutien technique"
+  - "ressources infonuagiques et de calcul"
+  - "priorité d'accès"
+  - "allocations actuelles"
+  - "service d'accès rapide"
+  - "exploitation des ressources"
+  - "concours"
+
+questions:
+  - "Quelles sont les conditions d'admissibilité requises pour soumettre une demande au concours pour l'allocation des ressources ?"
+  - "Comment se déroule le processus d'évaluation scientifique et technique des projets soumis au concours ?"
+  - "Quelle est la nature exacte des ressources offertes aux chercheurs retenus, et ce concours inclut-il un financement monétaire ?"
+  - "Quel est l'objectif principal du processus de demande accélérée ?"
+  - "Qui est autorisé à soumettre une demande en utilisant ce mécanisme spécifique ?"
+  - "Quels types de ressources peuvent faire l'objet de cette allocation pluriannuelle ?"
+  - "Qu'est-ce que le processus de demande accélérée et garantit-il l'obtention de la même allocation de ressources que l'année précédente ?"
+  - "Quels types de ressources informatiques et de soutien technique sont offerts aux chercheurs dans le cadre de ce concours ?"
+  - "Quelles sont les conditions préalables et les documents requis, tels que le compte CCDB et le CV commun canadien, pour soumettre une demande d'allocation ?"
+  - "Quelles sont les conditions d'admissibilité au concours et quelle est la politique concernant la date limite de soumission des demandes ?"
+  - "Quand les résultats du concours sont-ils annoncés et de quelle manière la valeur des ressources allouées est-elle calculée ?"
+  - "Pourquoi une allocation peut-elle être inférieure à la quantité demandée et comment le système gère-t-il l'accès aux ressources via l'algorithme de juste part ?"
+  - "Quels membres de l'équipe de recherche sont tenus de soumettre un CV commun canadien (CVC) ?"
+  - "Quels sont les avantages de l'intégration du CVC à la CCDB pour le processus d'évaluation des projets ?"
+  - "Où peut-on consulter les directives expliquant la marche à suivre pour soumettre un CVC ?"
+  - "Quel est l'objectif principal de ce mode de fonctionnement concernant les ressources de calcul ?"
+  - "Que représente concrètement l'allocation de ressources attribuée à un projet pour l'année complète ?"
+  - "Dans quelles circonstances un utilisateur est-il autorisé à dépasser la quantité de ressources qui lui a été initialement allouée ?"
+  - "Quel est le rôle des comités d'examen par les pairs dans l'évaluation des demandes et comment sont-ils assignés ?"
+  - "Quelles sont les responsabilités du comité d'administration du programme d’accès aux ressources concernant la répartition finale des allocations ?"
+  - "Dans quelles situations un groupe de recherche devrait-il utiliser le service d'accès rapide plutôt que de soumettre une demande formelle d'allocation de ressources ?"
+  - "Quelles sont les ressources spécifiques fournies par le service d'accès rapide et à qui s'adresse-t-il ?"
+  - "Comment fonctionne l'accès opportuniste par rapport à l'accès prioritaire pour les ressources de calcul ?"
+  - "Dans quelle mesure ce service d'accès rapide parvient-il à combler les besoins des différents groupes de recherche ?"
+  - "Quelles sont les restrictions concernant le nombre de demandes qu'un chercheur principal peut soumettre aux concours d'allocation de ressources ?"
+  - "Dans quelles situations est-il préférable d'utiliser le processus de demande accélérée plutôt que de soumettre une nouvelle demande complète ?"
+  - "Quelle est la différence principale entre les projets admissibles au concours pour les groupes de recherche et ceux destinés aux plateformes et portails ?"
+  - "Quel est le niveau de soutien technique offert pour la gestion et l'exploitation de la plateforme ou du portail ?"
+  - "Combien de demandes un chercheur principal peut-il soumettre au concours en tant que responsable d'un groupe de recherche ?"
+  - "Est-il permis à un chercheur principal de participer à d'autres demandes en tant que membre de différents groupes de recherche ?"
+  - "Quelles sont les démarches à suivre pour renouveler une allocation de ressources selon qu'elle soit pluriannuelle ou accordée pour une seule année ?"
+  - "Comment se définissent concrètement les allocations et quelle est la différence entre une allocation de stockage et une allocation de calcul ?"
+  - "Quelles sont les options disponibles si un chercheur épuise la totalité de son allocation et a besoin de ressources supplémentaires ?"
+  - "Comment l'algorithme de juste part détermine-t-il la priorité d'accès d'un utilisateur aux ressources de la grappe ?"
+  - "Quel est l'impact d'une utilisation récente supérieure à sa juste part sur la priorité d'un utilisateur ?"
+  - "Comment la plage de temps évaluée par le logiciel d'ordonnancement influence-t-elle le calcul des priorités ?"
+  - "Les projets bénéficiant actuellement d'une allocation sont-ils prioritaires pour les prochaines demandes ?"
+  - "De quelle manière l'historique d'un projet en cours facilite-t-il l'examen de son dossier ?"
+  - "Est-il possible d'utiliser les ressources offertes sans détenir d'allocation officielle ?"
+  - "Les projets bénéficiant actuellement d'une allocation sont-ils prioritaires pour les prochaines demandes ?"
+  - "De quelle manière l'historique d'un projet en cours facilite-t-il l'examen de son dossier ?"
+  - "Est-il possible d'utiliser les ressources offertes sans détenir d'allocation officielle ?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -30,7 +126,6 @@ Pour plus d'information sur le processus du concours pour l'allocation de ressou
 ## QUESTIONS D'ORDRE GÉNÉRAL
 
 ### Pourquoi devons-nous allouer nos ressources?
-
 À l’heure où arrive une nouvelle génération d’instruments scientifiques avant-gardistes; où le calcul informatique de pointe se révèle pertinent dans un nombre croissant de domaines; où les chercheuses et chercheurs peaufinent toujours plus les modèles représentant le monde qui nous entoure grâce aux progrès technologiques et à l’innovation marquante en collecte et en exploitation de données, les besoins du milieu canadien de la recherche en calcul de pointe ne cessent d’augmenter et notre infrastructure se doit d’évoluer au même rythme. Cependant, les demandes de ressources se faisant de plus en plus nombreuses au fil des ans, nos superordinateurs fonctionnent déjà à plein rendement.
 
 ### Qui peut utiliser ces ressources?
@@ -39,11 +134,11 @@ Pour présenter une demande au concours pour l’allocation des ressources, les 
 1.  être professeure ou professeur dans un établissement d'enseignement canadien;
 2.  être titulaire d’un compte actif avec l'Alliance et détenir le rôle de chercheuse principale ou chercheur principal en milieu académique (professeure, professeur, professeure associée, professeur associé, bibliothécaire).
 
-!!! note "Important"
-    *Vous devez soumettre votre demande sous votre rôle principal le plus à jour*. Si vous avez récemment changé d’établissement et que vous n’avez pas encore indiqué votre nouveau rôle de professeure ou professeur dans la `CCDB`, veuillez le faire *avant* de soumettre votre demande.
-    * Si vous avez entré plusieurs rôles actifs de professeure ou professeur dans `CCDB`, assurez-vous que votre rôle le plus à jour est indiqué comme étant votre *rôle principal*. Dans `CCDB`, allez à la page d'accueil et au besoin, cliquez sur le bouton `Sélectionner comme rôle principal` correspondant à votre rôle principal.
+!!! warning "Important"
+    *   Vous devez soumettre votre demande sous votre rôle principal le plus à jour. Si vous avez récemment changé d’établissement et que vous n’avez pas encore indiqué votre nouveau rôle de professeure ou professeur dans la CCDB, veuillez le faire *avant* de soumettre votre demande.
+    *   Si vous avez entré plusieurs rôles actifs de professeure ou professeur dans CCDB, assurez-vous que votre rôle le plus à jour est indiqué comme étant votre **rôle principal**. Dans CCDB, allez à la page d'accueil et au besoin, cliquez sur le bouton *Sélectionner comme rôle principal* correspondant à votre rôle principal.
 
-*Le non-respect de l'une de ces conditions pourrait entraîner des problèmes si votre demande est retenue*. Si vous avez des questions, écrivez à allocations@tech.alliancecan.ca.
+Le non-respect de l'une de ces conditions pourrait entraîner des problèmes si votre demande est retenue. Si vous avez des questions, écrivez à allocations@tech.alliancecan.ca.
 
 ### Qu'est-ce que le concours pour l'allocation des ressources?
 Les demandes soumises au concours font l’objet de deux examens :
@@ -55,7 +150,7 @@ Le processus d’évaluation est supervisé par le comité d’administration du
 
 Pour plus d’information, voir la page [Concours pour l'allocation de ressources](resource-allocation-competition.md).
 
-### Le concours pour l’allocation des ressources comporte-t-il un volet de financement?
+### Le concours pour l’allocation de ressources comporte-t-il un volet de financement?
 Non. Nous ne sommes pas un organisme de financement. Nous offrons l'accès à nos superordinateurs pour l'utilisation de ressources infonuagiques et de ressources de calcul et de stockage.
 
 ### Qu’est-ce le processus de demande accélérée?
@@ -63,7 +158,7 @@ Ce processus offre aux chercheuses principales et chercheurs principaux admissib
 
 Certaines chercheuses, chercheurs et petits groupes de recherche souhaitent conserver leur allocation actuelle sans modifier l'approche scientifique ou avec des modifications minimes, voire nulles, des ressources nécessaires. Pour réduire la nécessité de réévaluer ces propositions, nous avons mis en place le processus de demande accélérée.
 
-La demande accélérée ne comporte AUCUNE garantie de recevoir la même allocation que l’année précédente. Les demandes accélérées sont sujettes à la mise à l’échelle des allocations, ce qui peut signifier une augmentation ou une diminution des ressources allouées par rapport à l’année précédente.
+La demande accélérée ne comporte **AUCUNE** garantie de recevoir la même allocation que l’année précédente. Les demandes accélérées sont sujettes à la mise à l’échelle des allocations, ce qui peut signifier une augmentation ou une diminution des ressources allouées par rapport à l’année précédente.
 
 *Le facteur de mise à l’échelle peut varier d’une année à l’autre en fonction de la demande totale et de la disponibilité des ressources.*
 
@@ -87,7 +182,7 @@ Notre équipe technique aide les chercheuses et chercheurs à tirer pleinement p
 Oui. Dans votre propre intérêt, nous vous recommandons vivement de consulter le personnel technique chargé des grappes que vous comptez utiliser pour vérifier que les aspects techniques correspondent à vos besoins. Les chercheuses principales et chercheurs principaux n’ayant jamais utilisé nos grappes devraient consulter le personnel technique avant de présenter leur demande. La consultation de notre personnel doit se faire avant l’envoi de la demande afin de laisser suffisamment de temps pour les éventuels échanges et pour la révision. Pour connaître l’équipe technique à contacter, écrivez à allocations@tech.alliancecan.ca.
 
 ### Comment soumet-on une demande?
-Pour soumettre une demande, vous devez détenir un compte actif dans `CCDB` (voir la page [Demander un compte CCDB](apply-for-a-ccdb-account.md)). Toutes les demandes doivent être soumises directement dans `CCDB`.
+Pour soumettre une demande, vous devez détenir un compte actif dans CCDB (voir la page [Demander un compte CCDB](apply-for-a-ccdb-account.md)). Toutes les demandes doivent être soumises directement dans CCDB.
 
 ### Une chercheuse ou un chercheur peut-il recevoir une allocation pour un groupe de recherche et une autre pour les plateformes et portails?
 Oui. Dans le cas des groupes de recherche, une chercheuse principale ou un chercheur principal ne peut présenter qu’une seule demande en tant que responsable d’un groupe de recherche, mais peut cependant participer à d’autres groupes pour lesquels une demande est présentée. Dans le cas des plateformes et portails, une chercheuse ou un chercheur peut présenter plusieurs demandes à titre de responsable de projet, mais une seule pour un groupe de recherche. Pour l’information, voyez le guide de préparation des demandes pour le concours d’allocation de ressources.
@@ -95,9 +190,9 @@ Oui. Dans le cas des groupes de recherche, une chercheuse principale ou un cherc
 Avant de présenter une demande, vérifiez que votre projet respecte les critères. Si le guide ne répond pas à toutes vos questions, écrivez à allocations@tech.alliancecan.ca.
 
 ### Faut-il soumettre un CV commun canadien (CVC) pour demander des ressources?
-Oui. Les chercheuses principales, chercheurs principaux, co-chercheuses et co-chercheurs doivent soumettre un `CVC`. L’intégration du `CVC` à la `CCDB` facilite la tâche de téléchargement d’un CV et en uniformise le format. De plus, les comités d’examen par les pairs peuvent mieux évaluer la qualité des équipes de projets. Pour des directives sur la façon de soumettre un `CVC`, voir la page [Guide de rédaction du CV commun canadien pour l'Alliance](alliance-ccv-submission-guide.md).
+Oui. Les chercheuses principales, chercheurs principaux, co-chercheuses et co-chercheurs doivent soumettre un CVC. L’intégration du CVC à la CCDB facilite la tâche de téléchargement d’un CV et en uniformise le format. De plus, les comités d’examen par les pairs peuvent mieux évaluer la qualité des équipes de projets. Pour des directives sur la façon de soumettre un CVC, voir la page [Guide de rédaction du CV commun canadien pour l'Alliance](alliance-ccv-submission-guide.md).
 
-Les co-chercheuses et co-chercheurs peuvent mettre leur `CVC` à jour en cliquant sur `Mettre à jour le CVC` sous l’onglet `Demandes de ressources` ou aller à la page `Mon compte` → `Rapport`. Une fois le `CVC` à jour, le statut du `CVC` est mis à jour sur le formulaire électronique.
+Les co-chercheuses et co-chercheurs peuvent mettre leur CVC à jour en cliquant sur *Mettre à jour le CVC* sous l’onglet *Demandes de ressources* ou aller à la page *Mon compte → Rapport*. Une fois le CVC à jour, le statut du CVC est mis à jour sur le formulaire électronique.
 
 ### Je ne connais pas certains des termes employés. Y a-t-il un lexique?
 Oui. Pour vous aider à préparer votre demande, nous avons mis à votre disposition une liste des termes employés dans le contexte du concours (voir la page [Terminologie du concours pour l’allocation de ressources](technical-glossary-for-the-resource-allocation-competitions.md)).
@@ -115,7 +210,7 @@ Non. La date limite indiquée pour la soumission des demandes est définitive. E
 Les résultats du concours seront annoncés en mars. Vous recevrez un courriel indiquant tous les renseignements nécessaires et les étapes à suivre pour accéder à vos ressources. Une fois que toutes les participantes et participants auront été personnellement informés, nous publierons sur notre site Web la liste des projets retenus, la quantité de ressources allouées à chaque projet et la valeur des allocations (voir [Rapports annuels pour le concours d'allocation de ressources](rac-annual-reports.md)).
 
 ### Comment la valeur des ressources allouées est-elle calculée?
-Il est possible de calculer la valeur de chaque allocation. Cela aide les chercheuses et chercheurs à déterminer la valeur en nature de la contribution de la Fédération à leur programme de recherche; cette valeur en nature ne peut cependant pas être utilisée pour obtenir une subvention équivalente de la `FCI`. La valeur est basée sur la moyenne pour l’ensemble de nos sites et comprend les coûts totaux de l’exploitation et du capital encourus par la Fédération pour fournir les ressources et les services associés.
+Il est possible de calculer la valeur de chaque allocation. Cela aide les chercheuses et chercheurs à déterminer la valeur en nature de la contribution de la Fédération à leur programme de recherche; cette valeur en nature ne peut cependant pas être utilisée pour obtenir une subvention équivalente de la FCI. La valeur est basée sur la moyenne pour l’ensemble de nos sites et comprend les coûts totaux de l’exploitation et du capital encourus par la Fédération pour fournir les ressources et les services associés.
 
 ### Si j’ai bien expliqué les répercussions sur ma recherche d’une allocation de ressources inférieure à ma demande, pourquoi m’alloue-t-on moins que la quantité demandée?
 Tous les ans, plus de ressources sont demandées que ce qui est disponible. Une fonction d’ajustement cautionnée par les présidents des comités d’examen par les pairs est donc appliquée aux demandes, ce qui permet de déterminer les allocations dans un contexte de ressources limitées.
@@ -123,7 +218,7 @@ Tous les ans, plus de ressources sont demandées que ce qui est disponible. Une 
 ### Si j’ai bien expliqué les répercussions sur ma recherche d’une allocation de ressources inférieure à ma demande, pourquoi m’alloue-t-on moins que la quantité demandée?
 Tous peuvent accéder à de petites quantités de ressources infonuagiques, de calcul et de stockage au moyen du [service d’accès rapide](rapid-access-service.md). Il ne s’agit pas d’une allocation de ressources garantie, mais plutôt d'un ensemble de ressources non allouées qui peuvent être partagées.
 
-Pour les ressources de calcul, de façon générale, nous établissons la priorité de traitement en lots selon un algorithme de juste part. Chaque utilisateur reçoit une part des ressources totales du système qui se traduit dans les faits par une priorité d’accès au système. Par exemple, si vous avez utilisé une grande portion des ressources récemment (soit plus grande que votre juste part), votre priorité diminue. Cependant, le logiciel d’ordonnancement ne tient compte que d’une plage de temps limitée pour le calcul des priorités. Ainsi, si vous réduisez votre utilisation, le système « oubliera » graduellement que vous en avez déjà fait une utilisation excessive. Cette façon de fonctionner vise à assurer une pleine exploitation des ressources et non à pénaliser les utilisateurs qui profitent des ressources de calcul inexploitées. Ainsi, vous n’êtes pas nécessairement limité à la quantité de ressources qui vous sont allouées. Votre allocation représente la charge maximale de travail de votre projet pour l’année complète, en supposant que vous et les autres utilisateurs soumettez régulièrement des tâches. Vous pourriez augmenter votre charge de travail si celle des autres utilisateurs diminue et vice versa.
+Pour les ressources de calcul, de façon générale, nous établissons la priorité de traitement en lots selon un algorithme de juste part. Chaque utilisateur reçoit une part des ressources totales du système qui se traduit dans les faits par une priorité d’accès au système. Par exemple, si vous avez utilisé une grande portion des ressources récemment (soit plus grande que votre juste part), votre priorité diminue. Cependant, le logiciel d’ordonnancement ne tient compte que d’une plage de temps limitée pour le calcul des priorités. Ainsi, si vous réduisez votre oubliera graduellement que vous en avez déjà fait une utilisation excessive. Cette façon de fonctionner vise à assurer une pleine exploitation des ressources et non à pénaliser les utilisateurs qui profitent des ressources de calcul inexploitées. Ainsi, vous n’êtes pas nécessairement limité à la quantité de ressources qui vous sont allouées. Votre allocation représente la charge maximale de travail de votre projet pour l’année complète, en supposant que vous et les autres utilisateurs soumettez régulièrement des tâches. Vous pourriez augmenter votre charge de travail si celle des autres utilisateurs diminue et vice versa.
 
 Pour plus d’information, voir la page [Allocation et ordonnancement](allocations-and-compute-scheduling.md).
 
@@ -149,7 +244,7 @@ Avant d’avoir accès aux demandes, les membres des comités d'examen par les p
 Oui. Nous nous réservons toutefois le droit de soumettre celle-ci à un autre comité au besoin.
 
 ### Quel est le rôle du comité d'administration du programme d’accès aux ressources?
-Ce comité applique les politiques du concours, supervise le déroulement de celui-ci et offre du soutien technique et administratif aux divers comités d’examen par les pairs. Bien qu’il incombe à ces derniers de déterminer le mérite de chaque proposition et d’allouer les ressources appropriées, le comité veille à répartir ces allocations en fonction des ressources disponibles. Ainsi, les présidents des comités d’examen par les pairs doivent parfois cautionner une réduction proportionnelle de l’ensemble des allocations, laquelle se fait en fonction de la note attribuée par le comité scientifique et non selon une évaluation du comité d’administration du programme d'accès aux ressources. Ce dernier est composé de personnes qui ont une connaissance approfondie des ressources et des processus du concours : il est composé de dirigeants techniques et administratifs représentant chaque région (Groupe de l’`IRN` de la C.-B., `IRN` des Prairies, Calcul Ontario, Calcul Québec et `ACENET`).
+Ce comité applique les politiques du concours, supervise le déroulement de celui-ci et offre du soutien technique et administratif aux divers comités d’examen par les pairs. Bien qu’il incombe à ces derniers de déterminer le mérite de chaque proposition et d’allouer les ressources appropriées, le comité veille à répartir ces allocations en fonction des ressources disponibles. Ainsi, les présidents des comités d’examen par les pairs doivent parfois cautionner une réduction proportionnelle de l’ensemble des allocations, laquelle se fait en fonction de la note attribuée par le comité scientifique et non selon une évaluation du comité d’administration du programme d'accès aux ressources. Ce dernier est composé de personnes qui ont une connaissance approfondie des ressources et des processus du concours : il est composé de dirigeants techniques et administratifs représentant chaque région (Groupe de l’IRN de la C.-B., IRN des Prairies, Calcul Ontario, Calcul Québec et ACENET).
 
 ### Dois-je préparer une lettre d’intention pour soumettre une demande au concours?
 Non. Une lettre d’intention n’est pas requise.
@@ -206,7 +301,7 @@ Oui. Une chercheuse principale ou un chercheur principal en milieu académique p
 2.  présenter une seule demande par année pour une plateforme ou un portail de recherche, mais participer à d’autres projets de plateformes et portails de recherche.
 
 ### Si j’obtiens une allocation pluriannuelle, dois-je soumettre une nouvelle demande chaque année pour la renouveler?
-Non. Les groupes de recherche qui reçoivent une allocation pluriannuelle doivent fournir un rapport d’avancement annuel, mais ils n’ont pas à soumettre une nouvelle demande chaque année pour renouveler leur allocation. Ce rapport doit être présenté directement dans `CCDB`. Pour plus d’information, voir [Rapport annuel sur l’avancement des projets de plateformes et portails de recherche](rpp-annual-progress-report-guidelines.md).
+Non. Les groupes de recherche qui reçoivent une allocation pluriannuelle doivent fournir un rapport d’avancement annuel, mais ils n’ont pas à soumettre une nouvelle demande chaque année pour renouveler leur allocation. Ce rapport doit être présenté directement dans CCDB. Pour plus d’information, voir [Rapport annuel sur l’avancement des projets de plateformes et portails de recherche](rpp-annual-progress-report-guidelines.md).
 
 ### Si j'ai obtenu une allocation de ressources pour une année et que je veux qu’elle se poursuive, dois-je soumettre une nouvelle demande?
 Oui.
@@ -219,7 +314,7 @@ Voir [Rapport annuel sur l’avancement des projets de plateformes et portails d
 
 ## ALLOCATIONS
 
-### Que signifie le terme « allocation »?
+### Que signifie le terme « allocation »?
 Une allocation de calcul correspond à une cible d’utilisation au cours d’une période déterminée, habituellement un an. Dans le cas du stockage et de certaines ressources infonuagiques, il s’agit d’une quantité **maximale**. Les allocations sont généralement accordées en termes de cœurs-année, de processeurs graphiques-année ou d’espace de stockage.
 
 Les allocations de stockage sont les plus simples à comprendre : les groupes de recherche reçoivent une quantité maximale d’espace de stockage qu’ils peuvent utiliser exclusivement au cours de la période d’allocation.
@@ -235,7 +330,7 @@ Non. La quantité totale de ressources de votre allocation ne peut pas être com
 ### Si j'utilise toute mon allocation et qu'elle ne suffit pas à mes besoins, puis-je avoir accès à plus de ressources?
 Les chercheuses principales et chercheurs principaux peuvent accéder à de petites quantités de ressources infonuagiques, de calcul et de stockage au moyen du [service d’accès rapide](rapid-access-service.md). Des ressources de calcul sont aussi offertes pour utilisation opportuniste, sans priorité spéciale.
 
-Pour les ressources de calcul, de façon générale, nous établissons la priorité de traitement en lots selon un algorithme de juste part. Chaque utilisateur reçoit une part des ressources totales de la grappe qui se traduit dans les faits par une priorité d’accès à cette grappe. Par exemple, si vous avez utilisé une grande portion des ressources récemment (soit plus grande que votre juste part), votre priorité diminue. Cependant, le logiciel d’ordonnancement ne tient compte que d’une plage de temps limitée pour le calcul des priorités. Pour plus d’information, voyez la page [Allocation et ordonnancement des tâches de calcul](allocations-and-compute-scheduling.md).
+Pour les ressources de calcul, de façon générale, nous établissons la priorité de traitement en lots selon un algorithme de juste part. Chaque utilisateur reçoit une part des ressources totales de la grappe qui se traduit dans les faits par une priorité d’accès à cette grappe. Par exemple, si vous avez utilisé une grande portion des ressources récemment (soit plus grande que votre juste part), votre priorité diminue. Cependant, le logiciel d’ordonnancement ne tient compte que d’une plage de temps limitée pour le calcul des priorités. Pour plus d’information, voyez la page Allocation et ordonnancement des tâches de calcul.
 
 ### Les allocations actuelles ont-elles priorité au moment de décider des prochaines allocations?
 Non. Aucune allocation n’est prioritaire. Les projets en voie d’exécution ne sont pas avantagés par la politique d’allocation; par contre, leur examen est facilité en raison de leur historique d’utilisation des ressources et de leurs accomplissements.

@@ -1,0 +1,48 @@
+{
+  "doc_key": "fr/meta-farm",
+  "level": "chunk",
+  "chunk_index": 10,
+  "qa_pairs": [
+    {
+      "question": "Que doit-on faire si on rencontre un problème avec un nœud de calcul?",
+      "answer": "Il faut signaler tout problème avec un nœud à l’équipe de soutien technique."
+    },
+    {
+      "question": "Quels sont les risques si une métatâche est allouée à un nœud défectueux?",
+      "answer": "Si une métatâche est allouée à un nœud défectueux, elle pourrait rapidement parcourir le fichier <code>table.dat</code> et faire échouer tout le groupe de cas."
+    },
+    {
+      "question": "Comment peut-on prévenir les problèmes liés aux nœuds défectueux dans META?",
+      "answer": "Pour prévenir ce genre de problème, on peut ajouter des tests au script <code>job_script.sh</code> avant la ligne <code>task.run</code>."
+    },
+    {
+      "question": "Pourriez-vous me donner un exemple de test à inclure dans <code>job_script.sh</code> pour vérifier la disponibilité d'un GPU?",
+      "answer": "Oui, on peut inclure le code suivant pour tester la présence d’un GPU NVidia : `nvidia-smi >/dev/null; retVal=$?; if [ $retVal -ne 0 ]; then exit 1; fi`. Cela force la fin de la métatâche si aucun GPU valide n'est trouvé."
+    },
+    {
+      "question": "Existe-t-il un utilitaire pour tester les GPU qui fait le même travail?",
+      "answer": "Oui, l'utilitaire <code>gpu_test</code> fait un travail équivalent."
+    },
+    {
+      "question": "Comment copier l'utilitaire <code>gpu_test</code> sur la grappe Nibi?",
+      "answer": "Sur Nibi, on peut le copier dans son répertoire personnel <code>~/bin</code> avec la commande `cp ~syam/bin/gpu_test ~/bin`."
+    },
+    {
+      "question": "Est-ce que META a un mécanisme intégré pour détecter les problèmes de nœuds ou de métatâches défaillantes?",
+      "answer": "Oui, META possède un mécanisme intégré qui tente de détecter et d'interrompre une métatâche qui traiterait les cas trop rapidement, indiquant un problème."
+    },
+    {
+      "question": "Quels sont les paramètres qui contrôlent le mécanisme de protection intégré de META?",
+      "answer": "Les paramètres <code>N_failed_max</code> et <code>dt_failed</code>, définis dans le fichier <code>config.h</code>, contrôlent ce mécanisme de protection."
+    },
+    {
+      "question": "Comment fonctionne le mécanisme de protection par défaut de META?",
+      "answer": "Le mécanisme se déclenche si les <code>N_failed_max</code> premiers cas se terminent en moins de <code>dt_failed</code> secondes. Par défaut, la métatâche s’arrête si les 5 premiers cas se terminent en moins de 5 secondes."
+    },
+    {
+      "question": "Que faire si le mécanisme de protection se déclenche alors que mes cas sont simplement très courts?",
+      "answer": "Si le mécanisme se déclenche parce que certains de vos cas ont une durée d’exécution inférieure à la valeur de <code>dt_failed</code>, il faut diminuer la valeur de <code>dt_failed</code> dans le fichier <code>config.h</code>."
+    }
+  ],
+  "generated_at": "2026-04-12T01:25:01.008024+00:00"
+}

@@ -1,0 +1,84 @@
+{
+  "doc_key": "base/ssh_tunnelling",
+  "level": "chunk",
+  "chunk_index": 1,
+  "qa_pairs": [
+    {
+      "question": "What is SSH tunnelling?",
+      "answer": "SSH tunnelling is a method used to connect two computers that cannot connect directly by employing a gateway computer."
+    },
+    {
+      "question": "Why is SSH tunnelling necessary within the Alliance context?",
+      "answer": "In the Alliance context, SSH tunnelling is necessary because compute nodes on some clusters do not have direct access to the Internet, nor can they be contacted directly from the Internet."
+    },
+    {
+      "question": "What are the common use cases that require SSH tunnels?",
+      "answer": "SSH tunnels are required for: running commercial software on a compute node that needs to contact a license server over the Internet; running visualization software on a compute node that needs to be contacted by client software on a user's local computer; and connecting to a database hosted on a cluster from somewhere other than that cluster's head node, such as your desktop."
+    },
+    {
+      "question": "What is a port?",
+      "answer": "A port is a number used to distinguish streams of communication from one another. It's loosely analogous to a radio frequency or a channel, with many port numbers reserved by rule or convention for specific types of traffic."
+    },
+    {
+      "question": "When is a gateway server needed for commercially licensed programs?",
+      "answer": "If a commercially licensed program running on a compute node lacks Internet access and needs to connect to a license server via a predetermined port, a gateway server with Internet access must be used to forward communications from the compute node to the license server."
+    },
+    {
+      "question": "What is another term for setting up an SSH tunnel to forward communications?",
+      "answer": "Such an arrangement is also called port forwarding."
+    },
+    {
+      "question": "What information is required to set up an SSH tunnel for contacting a license server in a batch job?",
+      "answer": "You will need the IP address or name of the license server (LICSERVER) and the port number of the license service (LICPORT)."
+    },
+    {
+      "question": "Who should provide the license server's IP address or name and its port number?",
+      "answer": "You should obtain this information from whoever maintains the license server."
+    },
+    {
+      "question": "What is the outgoing IP address for Trillium when connecting to a license server?",
+      "answer": "For Trillium, the outgoing IP address will be 142.150.188.58."
+    },
+    {
+      "question": "What is an alternative solution for nibi clusters to access a license server?",
+      "answer": "For nibi, an alternative solution is to request a firewall exception for the license server (LICSERVER) and its specific port (LICPORT)."
+    },
+    {
+      "question": "What is the gateway server on Trillium?",
+      "answer": "The gateway server (GATEWAY) on Trillium is tri-gw."
+    },
+    {
+      "question": "How do you choose a gateway server on nibi?",
+      "answer": "On nibi, you would pick one of the login nodes (l1, l2, ... l5) as the gateway server."
+    },
+    {
+      "question": "What is the SSH command to set up a tunnel in a job script for contacting a license server?",
+      "answer": "The SSH command to issue in the job script is: `ssh GATEWAY -L COMPUTEPORT:LICSERVER:LICPORT -N -f`."
+    },
+    {
+      "question": "What is the purpose of the `-N` parameter in the SSH command for tunnelling?",
+      "answer": "The `-N` parameter tells SSH not to open a shell on the GATEWAY."
+    },
+    {
+      "question": "What do the `-f` and `-N` parameters combined do in the SSH command?",
+      "answer": "Combined, `-f` and `-N` tell SSH not to open a shell and to run in the background, allowing the job script to continue past the SSH command."
+    },
+    {
+      "question": "How should software be configured to use the SSH tunnel for a license server?",
+      "answer": "A command should be added to the job script to inform the software that the license server is on port COMPUTEPORT on the server `localhost`."
+    },
+    {
+      "question": "What does the term 'localhost' refer to?",
+      "answer": "`Localhost` is the standard name by which a computer refers to itself. It should be taken literally and not replaced with your computer's actual name."
+    },
+    {
+      "question": "How is software typically informed to use a specific port on `localhost` for licensing?",
+      "answer": "Often, it is simply a matter of setting an environment variable in the job script, such as `export MLM_LICENSE_FILE=COMPUTEPORT@localhost`."
+    },
+    {
+      "question": "What is the purpose of the example job script provided?",
+      "answer": "The example job script sets up an SSH tunnel to contact `licenseserver.institution.ca` at port `9999`."
+    }
+  ],
+  "generated_at": "2026-04-12T07:33:23.292458+00:00"
+}

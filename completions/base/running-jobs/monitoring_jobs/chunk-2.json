@@ -1,0 +1,60 @@
+{
+  "doc_key": "base/monitoring_jobs",
+  "level": "chunk",
+  "chunk_index": 2,
+  "qa_pairs": [
+    {
+      "question": "How can I determine the amount of memory a job required?",
+      "answer": "You can determine how much memory a job needed by using the MaxRSS accounting field."
+    },
+    {
+      "question": "What information does the MaxRSS accounting field provide?",
+      "answer": "The MaxRSS accounting field provides the largest resident set size for any of the tasks within a job."
+    },
+    {
+      "question": "How can I identify which task and node were responsible for the maximum memory usage?",
+      "answer": "If you want to know which task and node were responsible for the maximum memory usage, print the MaxRSSTask and MaxRSSNode fields in addition to MaxRSS."
+    },
+    {
+      "question": "Which command allows me to monitor a running job in a similar way to how `sacct` monitors completed jobs?",
+      "answer": "The `sstat` command works on a running job much the same way that `sacct` works on a completed job."
+    },
+    {
+      "question": "What are the primary reasons for attaching to a job that is currently running?",
+      "answer": "You might want to attach to a running job for troubleshooting or to monitor its progress."
+    },
+    {
+      "question": "Is it possible to execute new processes on the compute node where a job is active?",
+      "answer": "Yes, it is possible to connect to the node running a job and execute new processes there."
+    },
+    {
+      "question": "What command can I use to continuously monitor GPU usage with `nvidia-smi` every 30 seconds for a running job?",
+      "answer": "To continuously monitor GPU usage with `nvidia-smi` every 30 seconds for a running job, you can use the command: `$ srun --jobid 123456 --overlap --pty watch -n 30 nvidia-smi`."
+    },
+    {
+      "question": "How do I launch multiple monitoring commands, such as `htop` and `nvidia-smi`, in separate panes for a running job using `tmux`?",
+      "answer": "You can launch multiple monitoring commands using `tmux`. For example, to launch `htop` and `nvidia-smi` in separate panes, use the command: `$ srun --jobid 123456 --overlap --pty tmux new-session -d 'htop -u $USER' \\; split-window -h 'watch nvidia-smi' \\; attach`."
+    },
+    {
+      "question": "Do processes launched with `srun` for monitoring share resources with the main job?",
+      "answer": "Yes, processes launched with `srun` share the resources with the job specified."
+    },
+    {
+      "question": "What are the potential risks of launching processes that consume a lot of resources while monitoring a running job?",
+      "answer": "Launching processes that would use a significant portion of the resources allocated for the job might result in the job being killed (if too much memory is used) or slowed down (if too many CPU cycles are used)."
+    },
+    {
+      "question": "Are the `srun` commands provided for monitoring applicable to all types of jobs?",
+      "answer": "No, the `srun` commands shown work only to monitor a job submitted with `sbatch`."
+    },
+    {
+      "question": "How should an interactive job be monitored?",
+      "answer": "To monitor an interactive job, you should create multiple panes with `tmux` and start each process in its own pane."
+    },
+    {
+      "question": "Where can I find further information on monitoring GPU jobs?",
+      "answer": "For further information on monitoring GPU jobs, refer to \"Monitor GPU usage\" under NVTOP."
+    }
+  ],
+  "generated_at": "2026-04-12T03:13:34.782523+00:00"
+}

@@ -1,0 +1,55 @@
+{
+  "doc_key": "fr/ssh_security_improvements",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "C'est quoi, le but principal des modifications apportées au protocole SSH?",
+      "answer": "Les modifications visent à améliorer la sécurité des connexions aux grappes de calcul, car les anciens algorithmes de chiffrement ne sont plus jugés suffisamment sécuritaires face à la puissance de traitement actuelle."
+    },
+    {
+      "question": "Quand est-ce que les principales modifications SSH ont été déployées pour des grappes comme Graham, Béluga et Cedar?",
+      "answer": "Pour la grappe Graham, les modifications ont été faites le 24 septembre 2019, et une semaine plus tard pour Béluga et Cedar."
+    },
+    {
+      "question": "Quelles sont les trois modifications majeures implémentées concernant SSH?",
+      "answer": "Les modifications incluent la désactivation de certains algorithmes de chiffrement, la désactivation de certains types de clés publiques et la régénération des clés hôtes."
+    },
+    {
+      "question": "Quels utilisateurs sont affectés par ces mises à jour de sécurité SSH?",
+      "answer": "Tous les utilisateurs qui se connectent aux grappes via SSH sont affectés, à l'exception des utilisateurs d'Arbutus qui utilisent une interface web."
+    },
+    {
+      "question": "Quel genre de message d'avertissement risque-t-on de voir apparaître la première fois qu'on se connecte après les modifications des clés hôtes?",
+      "answer": "On risque de recevoir un avertissement comme « WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED! » indiquant que les clés hôtes de la grappe ont été modifiées."
+    },
+    {
+      "question": "Si j'utilise MobaXterm, PuTTY ou WinSCP sous Windows et que je vois un avertissement de clé hôte changée, comment dois-je procéder?",
+      "answer": "Vous devriez accepter la nouvelle clé en cliquant sur 'Yes' dans la fenêtre d'avertissement, mais seulement après avoir vérifié que l'empreinte correspond à celles listées dans la documentation."
+    },
+    {
+      "question": "Comment faire pour gérer le changement de clé hôte sur macOS ou Linux si j'utilise la ligne de commande SSH?",
+      "answer": "Il faut utiliser la commande `ssh-keygen -R` pour que votre système oublie l'ancienne clé hôte pour le serveur concerné, puis confirmer la nouvelle clé en vérifiant l'empreinte quand vous vous connecterez à nouveau."
+    },
+    {
+      "question": "Ma clé SSH ne fonctionne plus et on me demande un mot de passe. C'est quoi le problème?",
+      "answer": "Le problème est probablement dû à la désactivation des clés DSA et RSA 1024 bits jugées moins sécuritaires. Il faut générer une nouvelle clé SSH plus forte."
+    },
+    {
+      "question": "J'ai des messages d'erreur du genre \"Unable to negotiate with... no matching cipher found\", qu'est-ce que ça veut dire?",
+      "answer": "Ces messages indiquent que votre client SSH est incompatible avec les nouvelles politiques de sécurité. Vous devez le mettre à jour vers une version compatible."
+    },
+    {
+      "question": "Y a-t-il une liste de clients SSH compatibles suite aux modifications?",
+      "answer": "Oui, le document fournit une liste non exhaustive de clients testés et compatibles pour Linux, OS X, Windows et iOS, mais il est recommandé de toujours mettre à jour votre système d'exploitation et votre client SSH."
+    },
+    {
+      "question": "Comment est-ce que je peux récupérer et vérifier l'empreinte d'une clé hôte à distance?",
+      "answer": "Vous pouvez utiliser les commandes `ssh-keyscan <hostname> | ssh-keygen -E md5 -l -f -` ou `ssh-keyscan <hostname> | ssh-keygen -E sha256 -l -f -` et comparer le résultat avec la liste des empreintes de clés hôtes fournie."
+    },
+    {
+      "question": "Si l'empreinte d'une clé hôte que je reçois ne correspond pas à celles listées, que dois-je faire?",
+      "answer": "Vous ne devez pas accepter la connexion et contacter immédiatement le soutien technique."
+    }
+  ],
+  "generated_at": "2026-04-12T07:32:13.163318+00:00"
+}

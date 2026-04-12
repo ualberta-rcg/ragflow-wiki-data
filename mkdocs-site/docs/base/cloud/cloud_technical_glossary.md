@@ -5,21 +5,45 @@ lang: "base"
 
 source_wiki_title: "Cloud Technical Glossary"
 source_hash: "684182ad1f7e01f2b63763b26faaa0f9"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T05:36:57.560888+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T06:23:08.266042+00:00"
 
 tags:
   - cloud
 
 keywords:
-  []
+  - "OpenStack"
+  - "Cloud"
+  - "Ceph"
+  - "virtual machine"
+  - "security rules"
+  - "network traffic"
+  - "shared filesystem"
+  - "cloud infrastructure"
+  - "service portal"
+  - "Instance"
+  - "Object storage"
+  - "volume storage"
+  - "Web research portals"
+  - "up-time requirements"
+
+questions:
+  - "What are the key OpenStack components and concepts used to manage and configure virtual machines in this cloud environment?"
+  - "How do the different storage options, such as CephFS, object storage, and ephemeral local disks, differ in their functionality and availability?"
+  - "What are the primary mechanisms and programs, such as RAC and RAS, through which users can request and manage cloud computing resources?"
+  - "How do the mentioned security rules function in controlling network traffic for instances?"
+  - "What is the primary purpose of the Web research service portals hosted on the infrastructure?"
+  - "What specific technical and resource requirements distinguish a service portal from most other research projects?"
+  - "What are the differences between a shared filesystem, SWIFT object storage, and volume storage within this cloud infrastructure?"
+  - "How do virtual machines utilize vCPUs and vGPUs to allocate processing power from the underlying physical hardware?"
+  - "Why is the SSL protocol considered obsolete, and what should be used in its place for encrypted communications?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -30,7 +54,7 @@ status:
 | **Ceph** | The distributed data storage platform for our clouds; includes volume storage. |
 | **[CephFS](arbutus-cephfs.md)** (Ceph File System) | A filesystem with Ceph storage, which allows data to be mounted simultaneously on multiple OpenStack instances. Currently only available with Arbutus. See [https://docs.ceph.com/en/latest/cephfs/](https://docs.ceph.com/en/latest/cephfs/). |
 | **cloud** | When referring to our cloud services, short form of *IaaS cloud*. |
-| **compute cloud** | Type of resource allocated to support OpenStack instances intended to run for a limited time, usually with a very high sustained usage of CPU and memory. Flavours for these resources have labels beginning with c*. Currently only available on Arbutus, Béluga and Cedar. Compare with *persistent cloud*. |
+| **compute cloud** | Type of resource allocated to support OpenStack instances intended to run for a limited time, usually with a very high sustained usage of CPU and memory. Flavours for these resources have labels beginning with c\*. Currently only available on Arbutus, Béluga and Cedar. Compare with *persistent cloud*. |
 | **[CVMFS](cvmfs.md)** (CernVM File System) | A read-only content distribution system often used to manage software. |
 | **ephemeral local disk** | Virtual disk which is created and destroyed along with an OpenStack instance. An ephemeral disk is created when an instance is launched without the specification of a volume. |
 | **flavor** | OpenStack term for a predefined specification of a new instance. A flavor can define sizes for RAM, disk, number of cores, and so on. |
@@ -42,7 +66,7 @@ status:
 | **[IPV6](using-ipv6-in-cloud.md)** (Internet Protocol version 6) | A communications protocol successor to IPv4. See [https://en.wikipedia.org/wiki/IPv6](https://en.wikipedia.org/wiki/IPv6). |
 | **[object storage](arbutus-object-storage.md)** | Object storage (or *object-based storage*) is a storage type that manages data as objects, as opposed to other storage architectures like filesystems which manage data as a file hierarchy, and storage types where data is managed as blocks. Each object typically includes the data itself, a variable amount of metadata, and a globally unique identifier. Offered as S3 and Swift protocols. Allocated in TB. See [https://en.wikipedia.org/wiki/Object_storage](https://en.wikipedia.org/wiki/Object_storage). Currently only available with Arbutus. |
 | **[OpenStack](managing-your-cloud-resources-with-openstack.md)** | The software suite used on our clouds to control hardware resources such as computers, storage and networking. |
-| **persistent cloud** | Allocation type for persistent virtual machines that are expected to run indefinitely and have low or bursty CPU requirements. Flavours for these resources have labels beginning with p*. Currently only available on Arbutus, Béluga and Cedar. Compare with *compute cloud*. |
+| **persistent cloud** | Allocation type for persistent virtual machines that are expected to run indefinitely and have low or bursty CPU requirements. Flavours for these resources have labels beginning with p\*. Currently only available on Arbutus, Béluga and Cedar. Compare with *compute cloud*. |
 | **project** | In our infrastructure, a project represents an allocation of cloud resources to a group or user. Sometimes referred to as *tenant*. |
 | **[RAC](https://alliancecan.ca/en/services/advanced-research-computing/research-portal/accessing-resources/resource-allocation-competitions)** (Resource Allocation Competition) | Our program via which PIs can submit a request for storage and computer resources beyond what can be obtained via the Rapid Access Service (RAS). The requests are evaluated by a committee of peers. |
 | **[RAS](https://alliancecan.ca/en/services/advanced-research-computing/research-portal/accessing-resources/rapid-access-service)** (Rapid Access Service) | Service by which Principal Investigators can request a modest amount of storage and cloud resources without having to apply to the RAC. |

@@ -1,0 +1,63 @@
+{
+  "doc_key": "fr/gatk",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "C'est quoi, GATK, pis à quoi ça sert?",
+      "answer": "GATK (Genome Analysis Toolkit) est une boîte d'outils bioinformatiques pour l'analyse des données de séquençage haut débit et du format Variant Call (VCF), surtout pour la découverte de variantes courtes des lignées germinales."
+    },
+    {
+      "question": "Comment je fais pour voir les versions de GATK disponibles sur les grappes?",
+      "answer": "Pour obtenir l'information sur les versions disponibles, il faut lancer la commande `module spider gatk`."
+    },
+    {
+      "question": "C'est quoi les prérequis pour charger un module GATK?",
+      "answer": "Le seul module prérequis est `StdEnv/2020`, qui est chargé par défaut, donc vous pouvez simplement lancer `module load gatk/version`."
+    },
+    {
+      "question": "Comment j'utilise GATK pour les versions 4.0.0.0 et plus?",
+      "answer": "Pour ces versions, un enveloppeur est fourni; la commande de base est `gatk [--java-options \"-Xmx4G\"] ToolName [GATK args]`."
+    },
+    {
+      "question": "C'est quoi les options Java importantes à considérer quand j'utilise GATK?",
+      "answer": "Il faut toujours utiliser `--java-options` pour définir la mémoire maximale du tas (par exemple, `-Xmx8G`) et ajouter `-DGATK_STACKTRACE_ON_USER_EXCEPTION=true` pour obtenir plus d'information pour le débogage."
+    },
+    {
+      "question": "Quelles sont les recommandations pour les tâches `sbatch` avec GATK sur nos grappes?",
+      "answer": "On recommande l'option `--tmp-dir ${SLURM_TMPDIR}` pour rediriger les fichiers temporaires et, avec `GenomicsDBImport`, d'activer `--genomicsdb-shared-posixfs-optimizations` ou de copier la base de données dans `${SLURM_TMPDIR}`."
+    },
+    {
+      "question": "Comment on fait pour utiliser les versions de GATK antérieures à la 4?",
+      "answer": "Pour les versions antérieures, il faut invoquer directement le fichier `jar` avec `java -jar \"${EBROOTGATK}\"/GenomeAnalysisTK.jar PROGRAM OPTIONS` après avoir chargé le module approprié, comme `nixpkgs/16.09 gatk/3.8`."
+    },
+    {
+      "question": "Est-ce que les outils GATK utilisent plusieurs cœurs par défaut?",
+      "answer": "La plupart des outils GATK (>=4) n'utilisent pas plusieurs cœurs par défaut. Vous devriez demander un seul cœur, sauf pour quelques outils qui utilisent des fils (comme `Mutect2` avec `--native-pair-hmm-threads`) ou les commandes Spark."
+    },
+    {
+      "question": "Quand devrais-je utiliser Apptainer pour GATK, pis comment je construis une image?",
+      "answer": "On recommande Apptainer si vous obtenez des erreurs comme `IllegalArgumentException` avec les modules installés. Pour construire une image, utilisez `apptainer build gatk.sif docker://broadinstitute/gatk`."
+    },
+    {
+      "question": "Comment j'exécute GATK avec une image Apptainer dans un script SBATCH?",
+      "answer": "Dans votre script SBATCH, après avoir chargé le module `apptainer`, utilisez `apptainer exec -B /home -B /project -B /scratch -B /localscratch <chemin_image>/gatk.sif gatk [--java-options \"-Xmx4G\"] ToolName [GATK args]`."
+    },
+    {
+      "question": "Comment j'ajoute une étiquette de groupe de lecture (RG tag) à un fichier BAM avec GATK?",
+      "answer": "Vous pouvez utiliser la commande `gatk AddOrReplaceReadGroups` avec les options `-I` (input), `-O` (output), `--RGLB`, `--RGPL`, `--RGPU`, `--RGSM`, `--SORT_ORDER 'coordinate'` et `--CREATE_INDEX true`."
+    },
+    {
+      "question": "J'ai l'erreur `java.lang.OutOfMemoryError: Java heap space`, qu'est-ce que je fais?",
+      "answer": "Il faut augmenter la mémoire allouée au tas Java en ajoutant ou en augmentant l'option `-Xmx` (par exemple, `-Xmx8G`) à l'argument `--java-options` dans votre commande GATK."
+    },
+    {
+      "question": "J'ai augmenté la mémoire, mais l'erreur `java.lang.OutOfMemoryError: Java heap space` persiste, pourquoi?",
+      "answer": "Cela arrive souvent avec des organismes qui ne sont pas des modèles ou quand les références sont trop échafaudées. Il est recommandé de supprimer les niveaux moins importants et de créer des sous-ensembles pour vos références, puis d'exécuter les pipelines sur chaque sous-ensemble."
+    },
+    {
+      "question": "Pourquoi GATK/JAVA utilise plus de mémoire ou de CPU que ce que j'ai demandé, pis comment je règle ça?",
+      "answer": "C'est souvent dû au processus de Garbage Collection de Java. Pour contourner ça, vous pouvez ajouter `-XX:ConcGCThreads=1` à l'argument `--java-options`."
+    }
+  ],
+  "generated_at": "2026-04-11T21:56:44.697824+00:00"
+}

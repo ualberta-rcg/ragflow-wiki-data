@@ -5,21 +5,140 @@ lang: "en"
 
 source_wiki_title: "Trillium Quickstart/en"
 source_hash: "87715982761ff3b09cca1da843cf4d1b"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T12:08:19.118546+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T12:10:04.966280+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "environment modules"
+  - "resource usage"
+  - "scratch file system"
+  - "GPU jobs"
+  - "software modules"
+  - "job limits"
+  - "job submission"
+  - "storage quotas"
+  - "node allocation"
+  - "module commands"
+  - "sbatch"
+  - "queue"
+  - "SSH access"
+  - "testing and debugging"
+  - "login node"
+  - "requested nodes"
+  - "Walltime limit"
+  - "waiting time"
+  - "GPU status"
+  - "queued jobs"
+  - "login nodes"
+  - "partition"
+  - "whole node scheduling"
+  - "Storage System"
+  - "Job monitoring"
+  - "allocation amount"
+  - "CPU Subcluster"
+  - "hybrid MPI/OpenMP"
+  - "module purge"
+  - "SLURM commands"
+  - "software module"
+  - "file systems"
+  - "module load"
+  - "output files"
+  - "CPUs"
+  - "software environment"
+  - "CCDB username"
+  - "interactive session"
+  - "SSH private key"
+  - "module list"
+  - "Trillium"
+  - "debugjob"
+  - "my.SciNet portal"
+  - "OMP_NUM_THREADS"
+  - "GPU subcluster"
+  - "scheduler account"
+  - "squeue"
+  - "compute nodes"
+  - "ssh host key fingerprint"
+  - "job script"
+  - "commercial software"
+  - "compute partition"
+  - "OpenMP job"
+  - "module avail"
+  - "MPI job"
+  - "SLURM"
+  - "RAC allocation"
+  - "OpenMP threads"
+  - "CPU cores"
+  - "batch job script"
+  - "accounting data"
+  - "GPU Subcluster"
+  - "jobs"
+  - "Subcluster"
+
+questions:
+  - "What are the three main hardware components of the Trillium cluster and what are their primary technical specifications?"
+  - "What are the prerequisites and steps required for a user to request and obtain access to Trillium?"
+  - "What are the two available methods for logging into Trillium, and what specific authentication mechanism is required for terminal access?"
+  - "What are the primary functions and usage restrictions of the Trillium login nodes?"
+  - "What are the different storage directories available on Trillium, and what are their respective quotas and backup policies?"
+  - "How does the environment modules system manage software packages on Trillium, and what are the common commands used to interact with it?"
+  - "What do the placeholders in the SSH command represent regarding the user's credentials?"
+  - "What specific security measure should be taken the first time a user logs into the system?"
+  - "Which server or system is the user attempting to access with the provided command?"
+  - "How do you load a specific version of a software package compared to its default version?"
+  - "What command is used to display the modules that are currently active in your environment?"
+  - "How can you search the system to find available modules and their respective versions?"
+  - "What are the recommended best practices for managing and loading software modules to ensure reproducibility and avoid conflicts?"
+  - "What are the policies and requirements for using commercial software on the Trillium cluster?"
+  - "How should users approach testing and debugging their code, and what are the differences between running tests on login nodes versus using the `debugjob` command?"
+  - "What is the primary purpose of using the debugjob command?"
+  - "How do the resource allocations and walltime limits differ between a single-node and a two-node CPU debug job?"
+  - "What are the specific command variations and corresponding hardware limits for requesting GPU resources?"
+  - "How can a user request an interactive session for a test job that requires more time than the debugjob command allows?"
+  - "What factors determine the priority of a job in the SLURM queue after it is submitted with the sbatch command?"
+  - "Why is it required to write job outputs to the scratch file system and highly recommended to submit jobs from the $SCRATCH directory on Trillium?"
+  - "Where are SLURM output files saved by default, and why might they fail to be written?"
+  - "Under which default allocations will a job run if no specific account is provided?"
+  - "How can a user explicitly specify a scheduler account, and for whom is this highly recommended?"
+  - "What are the specific scheduling rules and minimum resource requirements for running jobs on the CPU and GPU subclusters?"
+  - "How is memory allocated for different types of jobs on Trillium given that explicit memory requests are ignored?"
+  - "What are the restrictions on job submission locations, and how do partitions and user allocations impact job limits?"
+  - "What are the specific resource limits, such as maximum walltime and node count, for jobs submitted to the compute and debug partitions?"
+  - "What factors determine how long a submitted job will have to wait in the queue before it starts running?"
+  - "How do the SLURM directives and execution commands differ when configuring a batch script for an MPI job versus an OpenMP job?"
+  - "How does a user's group allocation, such as having a RAC allocation, affect the number of jobs they can run or have queued?"
+  - "What does the term \"partition\" mean in SLURM terminology?"
+  - "How can a user specify a partition when submitting a job, and what is the default behavior if one is not specified?"
+  - "What specific hardware resources and time limits does SLURM allocate for the `openmp_job`?"
+  - "What preparatory steps does the script perform regarding directories and modules once a node is allocated?"
+  - "How does the script configure the thread count and execute the `openmp_example` application?"
+  - "Why must `mpirun` be used instead of `srun` when running a hybrid MPI/OpenMP job with the VAST file system, and how does the script ensure processes are evenly spread over the cores?"
+  - "What are the specific restrictions and allowed quantities for requesting GPUs on a single node within the Trillium subcluster?"
+  - "What factors influence the queue waiting time for jobs submitted to the GPU subcluster, even if they respect the partition limits?"
+  - "How do you configure SLURM batch scripts to request different scales of GPU resources, such as single-GPU, whole-node, or multi-node jobs?"
+  - "What are the recommended best practices for submitting GPU jobs, particularly regarding memory allocation and software modules?"
+  - "Which commands and tools can be used to monitor the status, performance, and historical data of both running and completed jobs?"
+  - "What are the specific hardware and time limits for running a testing or debug GPU job?"
+  - "Why must a job still enter the queue even if it strictly respects all submission limits?"
+  - "What factors determine how long a job will have to wait in the queue before it begins running?"
+  - "Why might SLURM commands like squeue and sacct fail to find a specific job?"
+  - "How can users inspect the resource usage and performance data of their past jobs?"
+  - "What command is used to submit a batch job script according to the quick reference guide?"
+  - "How can a user manage, monitor, and cancel their submitted jobs using the provided commands?"
+  - "What is the process for searching, listing, and loading software modules in this environment?"
+  - "Which commands are used to check system resources like storage quotas and GPU status?"
+  - "How can a user manage, monitor, and cancel their submitted jobs using the provided commands?"
+  - "What is the process for searching, listing, and loading software modules in this environment?"
+  - "Which commands are used to check system resources like storage quotas and GPU status?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -27,22 +146,20 @@ status:
 
 Trillium is a large parallel cluster built by Lenovo Canada and hosted by SciNet at the University of Toronto. It consists of three main components:
 
-1. CPU Subcluster
+1.  CPU Subcluster
     *   235,008 cores provided by 1224 CPU compute nodes
     *   Each CPU compute node has 192 cores from two 96-core AMD EPYC 9655 CPUs ("Zen 5" a.k.a. "Turin") at 2.6 GHz (base frequency)
     *   Each CPU compute node has 755 GiB / 810 GB of available memory
     *   The nodes are connected by a non-blocking (1:1) 400 Gb/s InfiniBand NDR interconnect
     *   This subcluster is designed for large-scale parallel workloads
-
-2. GPU Subcluster
+2.  GPU Subcluster
     *   252 GPUs provided by 63 GPU compute nodes.
     *   Each GPU compute node has 4 NVIDIA H100 (SXM) GPUs with 80 GB of dedicated VRAM
     *   Each GPU compute node also has 96 cores from one 96-core AMD EPYC 9654 CPUs ("Zen 4" a.k.a. "Genoa") at 2.4 GHz (base frequency)
     *   The nodes are connected by a non-blocking (1:1) 800 Gb/s InfiniBand NDR interconnect, i.e. 200 Gb/s per GPU
-    *   Has a dedicated login node (trig-login01) with 4 four NVIDIA H100 (SXM) GPUs.
+    *   Has a dedicated login node (trig-login01) with 4 NVIDIA H100 (SXM) GPUs.
     *   This subcluster is optimized for AI/ML and accelerated science workloads
-
-3. Storage System
+3.  Storage System
     *   Unified 29 PB VAST NVMe storage for all workloads
     *   All flash-based for consistent performance
     *   Accessible as a standard shared parallel file system.
@@ -69,13 +186,13 @@ You can use [SSH](ssh.md) by opening a terminal window (e.g. [Connecting with Pu
 *   Use this command to log into one of the login nodes of the CPU subcluster:
 
 ```bash
-$ ssh -i /PATH/TO/SSH_PRIVATE_KEY  MYALLIANCEUSERNAME@trillium.scinet.utoronto.ca
+ssh -i /PATH/TO/SSH_PRIVATE_KEY MYALLIANCEUSERNAME@trillium.scinet.utoronto.ca
 ```
 
 *   To log into the login node for the GPU cluster, use this command
 
 ```bash
-$ ssh -i /PATH/TO/SSH_PRIVATE_KEY  MYALLIANCEUSERNAME@trillium-gpu.scinet.utoronto.ca
+ssh -i /PATH/TO/SSH_PRIVATE_KEY MYALLIANCEUSERNAME@trillium-gpu.scinet.utoronto.ca
 ```
 
 Here, `/PATH/TO/SSH_PRIVATE_KEY` is the path to your private SSH key and `MYALLIANCEUSERNAME` is your username on the CCDB.
@@ -88,7 +205,8 @@ Here, `/PATH/TO/SSH_PRIVATE_KEY` is the path to your private SSH key and `MYALLI
     *   If you add the option `-Y` you enable X11 forwarding, which allows graphical programs on Trillium to open windows on your local computer.
     *   To run on compute nodes, you must submit a batch job.
 
-!!! warning "On the login nodes, you may not:"
+!!! warning
+    **On the login nodes, you may not:**
     *   Run large memory jobs
     *   Run parallel training or highly multi-threaded processes
     *   Run long computations (keep them under a few minutes)
@@ -109,7 +227,7 @@ For your convenience, the location of the top level of your home and scratch dir
 You may be part of several projects. In that case, `$PROJECT` points at your last project in alphabetical order (often, that is the one associated with an allocation). But you can find all the top level directories of projects that you have access to in `$HOME/links/projects`, next to a link `$HOME/links/scratch` which points to `$SCRATCH`. If you do not see the directory `$HOME/links` in your account, you can get it by running the command
 
 ```bash
-$ trisetup
+trisetup
 ```
 
 The content of the `$HOME/links/projects` will automatically update when you leave or join projects.
@@ -118,16 +236,16 @@ On [HPSS](using-nearline-storage.md), the nearline system to be attached to Tril
 
 The table below summarized the available space and policies for each location:
 
-| location    | quota                                       | expiration time | backed up | on login nodes | on compute nodes |
-| :---------- | :------------------------------------------ | :-------------- | :-------- | :------------- | :--------------- |
-| `$HOME`     | 100 GB per user                             | none            | yes       | yes            | read-only        |
-| `$SCRATCH`  | 25 TB per user<sup>(1)</sup>                | TBD<sup>\*</sup> | no        | yes            | yes              |
-| `$PROJECT`  | determined by RAC allocation<br/>1 TB per default group<sup>(2)</sup> | none            | yes       | yes            | read-only        |
-| `$ARCHIVE`  | determined by RAC allocation<sup>(2)</sup> | none            | dual-copy | no             | no               |
+| location      | quota                                             | expiration time | backed up  | on login nodes | on compute nodes |
+| :------------ | :------------------------------------------------ | :-------------- | :--------- | :------------- | :--------------- |
+| `$HOME`       | 100 GB per user                                   | none            | yes        | yes            | read-only        |
+| `$SCRATCH`    | 25 TB per user_^(1)_                             | TBD_^*^_        | no         | yes            | yes              |
+| `$PROJECT`    | determined by RAC allocation<br>1 TB per default group_^(2)_ | none            | yes        | yes            | read-only        |
+| `$ARCHIVE`    | determined by RAC allocation_^(2)_                | none            | dual-copy  | no             | no               |
 
-<small><sup>(1)</sup>The SCRATCH policies are still subject to revision.</small>
+_^(1)_ The SCRATCH policies are still subject to revision.
 
-<small><sup>(2)</sup>There is no RAC mechanism to increase project (`$PROJECT`) and nearline (`$ARCHIVE`) quotas on Trillium.</small>
+_^(2)_ There is no RAC mechanism to increase project (`$PROJECT`) and nearline (`$ARCHIVE`) quotas on Trillium.
 
 ## Software
 
@@ -153,7 +271,7 @@ When you have just logged in, only the `CCconfig`, `gentoo/2023` and `mii` modul
 
 Properly managing your software environment is key to avoiding conflicts and ensuring reproducibility. Here are some best practices:
 
-*   Avoid loading modules in your `.bashrc` file. Doing so can cause unexpected behaviour, particularly in non-interactive environments like batch jobs or remote shells.
+*   Avoid loading modules in your `.bashrc` file. Doing so can cause unexpected behavior, particularly in non-interactive environments like batch jobs or remote shells.
 
 *   Instead, load modules manually, from a separate script, or using module collections. This approach gives you more control and helps keep environments clean.
 
@@ -167,7 +285,7 @@ Properly managing your software environment is key to avoiding conflicts and ens
 
 You may be able to use commercial software on Trillium, but there are a few important considerations:
 
-*   Bring your own license. You can use commercial software on Trillium if you have a valid license. If the software requires a license server, you can connect to it securely using [SSH tunnelling](ssh.md#ssh-tunnelling).
+*   Bring your own license. You can use commercial software on Trillium if you have a valid license. If the software requires a license server, you can connect to it securely using [SSH tunnelling](ssh-tunnelling.md).
 
 *   We do not provide user-specific licenses. Due to the large and diverse user base, we cannot provide licenses for individual or specialized commercial packages.
 
@@ -179,7 +297,8 @@ You may be able to use commercial software on Trillium, but there are a few impo
 
 Before submitting your job to the cluster, it's important to test your code to ensure correctness and determine the resources it requires.
 
-*   **Lightweight tests** can be run directly on the login nodes. As a rule of thumb, these should:
+!!! tip
+    **Lightweight tests** can be run directly on the login nodes. As a rule of thumb, these should:
     *   Run in under a few minutes
     *   Use no more than 1–2 GB of memory
     *   Use only 1–4 CPU cores
@@ -190,25 +309,25 @@ Before submitting your job to the cluster, it's important to test your code to e
 *   For tests that exceed login node limits or require dedicated resources, request an interactive debug job using the `debugjob` command on a login node:
 
 ```bash
-$ debugjob
+debugjob
 ```
 
-When run from a CPU login node, this command gives you an interactive shell on a CPU compute session for 1-hour. When running the debugjob command from the GPU login node, you get an interactive session with 1 GPU on a (shared) GPU compute node for two hours. A few variations of this command that you can use to request more resources for an interactive session, are given in the next table. Note that the more resources you request, the shorter the allowed walltime is (this helps makes sure that interactive session almost always start right away).
+When run from a CPU login node, this command gives you an interactive shell on a CPU compute session for 1-hour. When running the `debugjob` command from the GPU login node, you get an interactive session with 1 GPU on a (shared) GPU compute node for two hours. A few variations of this command that you can use to request more resources for an interactive session, are given in the next table. Note that the more resources you request, the shorter the allowed walltime is (this helps makes sure that interactive session almost always start right away).
 
 | Command                  | Subcluster | Number of nodes | Number of CPU cores | Number of GPUs | Memory   | Walltime limit |
 | :----------------------- | :--------- | :-------------- | :------------------ | :------------- | :------- | :------------- |
 | `debugjob`               | CPU        | 1               | 192                 | 0              | 755GiB   | 60 minutes     |
 | `debugjob 2`             | CPU        | 2               | 384                 | 0              | 2x755GiB | 30 minutes     |
-| `debugjob`<br/>`debugjob -g 1` | GPU        | 1/4             | 24                  | 1              | 188GiB   | 120 minutes    |
-| `debugjob 1`<br/>`debugjob -g 4` | GPU        | 1               | 96                  | 4              | 755GiB   | 30 minutes     |
-| `debugjob 2`<br/>`debugjob -g 8` | GPU        | 2               | 192                 | 8              | 2x755GiB | 15 minutes     |
+| `debugjob`<br>`debugjob -g 1` | GPU        | 1/4             | 24                  | 1              | 188GiB   | 120 minutes    |
+| `debugjob 1`<br>`debugjob -g 4` | GPU        | 1               | 96                  | 4              | 755GiB   | 30 minutes     |
+| `debugjob 2`<br>`debugjob -g 8` | GPU        | 2               | 192                 | 8              | 2x755GiB | 15 minutes     |
 
-The shell environment in a debugjob will be similar to the environment you get when you have just logged in: only standard modules loaded, no internet access, no write access to the home and project file systems, and no job submissions. By the way, if you want the session to inherit the modules that you had loaded before issuing the debugjob command, you can add "`--export=ALL`" as the first option to debugjob.
+The shell environment in a debugjob will be similar to the environment you get when you have just logged in: only standard modules loaded, no internet access, no write access to the home and project file systems, and no job submissions. By the way, if you want the session to inherit the modules that you had loaded before issuing the `debugjob` command, you can add "`--export=ALL`" as the first option to `debugjob`.
 
 *   If your test job requires more time than allowed by `debugjob`, you can request an interactive session from the regular queue using `salloc`. For CPU test jobs, the command would be as follows:
 
 ```bash
-$ salloc --export=NONE --nodes=N --time=M:00:00 [--ngpus-per-node=G] [--x11]
+salloc --export=NONE --nodes=N --time=M:00:00 [--ngpus-per-node=G] [--x11]
 ```
 
 where
@@ -229,12 +348,12 @@ Trillium uses SLURM as its job scheduler. More advanced details of how to intera
 To submit a job, use the `sbatch` command on a login node:
 
 ```bash
-$ sbatch jobscript.sh
+sbatch jobscript.sh
 ```
 
 CPU compute jobs need to be submitted from the CPU login nodes, while GPU compute nodes must be submitted from the GPU login node. In both cases, the command is the same, but the options inside the jobscript will have to be different (see below).
 
-The sbatch command places your job into the queue. The job script should contain lines starting with `#SBATCH` that specify the resources that this script will need (the most common options will be given below). SLURM will begin execution of this script on compute nodes when your job is at the top of the priority queue and these resources are available.
+The `sbatch` command places your job into the queue. The job script should contain lines starting with `#SBATCH` that specify the resources that this script will need (the most common options will be given below). SLURM will begin execution of this script on compute nodes when your job is at the top of the priority queue and these resources are available.
 
 The priority of a job in the queue depends on requested resources, time spent in the queue, recent past usage, as well as on the SLURM account under which the job was submitted. SLURM accounts correspond to [Resource Allocation Projects](frequently-asked-questions-about-the-ccdb.md#resource-allocation-projects-rap), or RAPs:
 *   Each PI has at least one RAP, the RAS or default RAP. Users sponsored by that PI have access to the corresponding SLURM account, whose name starts with `def-`.
@@ -260,7 +379,7 @@ Jobs cannot be submitted from compute nodes (nor datamover nodes). This prevents
 
 ### Whole node or whole GPU scheduling
 
-It is not possible to request a certain number of core on Trillium. On the CPU subcluster, all jobs must use full nodes. That means the minimum size of a CPU job has 192 cores are its disposal which you must use effectively. If you are running serial or low-core-count jobs you must still use all 192 cores on the node by bundling multiple independent tasks in one job script. For examples, see [GNU Parallel](gnu-parallel.md) and [this section of the META-Farm advanced page](meta-farm-advanced-features-and-troubleshooting.md#whole_node_mode).
+It is not possible to request a certain number of core on Trillium. On the CPU subcluster, all jobs must use full nodes. That means the minimum size of a CPU job has 192 cores are its disposal which you must use effectively. If you are running serial or low-core-count jobs you must still use all 192 cores on the node by bundling multiple independent tasks in one job script. For examples, see [GNU Parallel](gnu-parallel.md) and [this section of the META-Farm advanced page](meta-farm-advanced-features-and-troubleshooting.md#whole-node-mode).
 
 If your job underutilizes the cores, our support team may reach out to assist you in optimizing your workflow, or you can [contact us](mailto:trillium@tech.alliancecan.ca) to get assistance.
 
@@ -274,20 +393,20 @@ Memory requests are ignored. Your CPU jobs always receive `N × 768GB` of RAM, w
 
 The following options are commonly used:
 
-| option                   | short option | meaning                                        | notes                                                                    |
-| :----------------------- | :----------- | :--------------------------------------------- | :----------------------------------------------------------------------- |
-| `--nodes`                | `-N`         | number of nodes                                | Recommended to always include this                                       |
-| `--ntasks-per-node`      |              | number of tasks for srun/mpirun to launch per node | Prefer this over `--ntasks`                                              |
-| `--ntasks`               | `-n`         | number of tasks for srun/mpirun to launch      |                                                                          |
-| `--cpus-per-task`        | `-c`         | number of cores per task;                      | Typically for (OpenMP) threads                                           |
-| `--time`                 | `-t`         | duration of the job                            |                                                                          |
-| `--job-name`             | `-J`         | specify a name for the job                     |                                                                          |
-| `--output`               | `-o`         | file to redirect standard ouput to             | Can be a pattern using e.g. `%j` for the jobid.                          |
-| `--mail-type`            |              | when to send email (e.g. BEGIN, END, FAIL, ALL) |                                                                          |
-| `--gpus-per-node`        |              | number of gpus to use on each node             | Either 1 or 4 is allowed on the GPU subcluster                           |
-| `--partition`            | `-p`         | partition to submit to                         | See below for available partitions                                       |
-| `--account`              | `-A`         | slurm account to use                           | For many users, this is automatic on Trillium                            |
-| `--mem`                  |              | amount of memory requested                     | Ignored on Trillium, you get all the memory                              |
+| option             | short option | meaning                                         | notes                                                                  |
+| :----------------- | :----------- | :---------------------------------------------- | :--------------------------------------------------------------------- |
+| `--nodes`          | `-N`         | number of nodes                                 | Recommended to always include this                                     |
+| `--ntasks-per-node`|              | number of tasks for `srun`/`mpirun` to launch per node | Prefer this over `--ntasks`                                            |
+| `--ntasks`         | `-n`         | number of tasks for `srun`/`mpirun` to launch   |                                                                        |
+| `--cpus-per-task`  | `-c`         | number of cores per task;                       | Typically for (OpenMP) threads                                         |
+| `--time`           | `-t`         | duration of the job                             |                                                                        |
+| `--job-name`       | `-J`         | specify a name for the job                      |                                                                        |
+| `--output`         | `-o`         | file to redirect standard output to             | Can be a pattern using e.g. `%j` for the jobid.                        |
+| `--mail-type`      |              | when to send email (e.g. BEGIN, END, FAIL, ALL) |                                                                        |
+| `--gpus-per-node`  |              | number of gpus to use on each node              | Either 1 or 4 is allowed on the GPU subcluster                         |
+| `--partition`      | `-p`         | partition to submit to                          | See below for available partitions                                     |
+| `--account`        | `-A`         | slurm account to use                            | For many users, this is automatic on Trillium                          |
+| `--mem`            |              | amount of memory requested                      | Ignored on Trillium, you get all the memory                            |
 
 These options should be put in separate comment lines at the top of the job script (but after `#!/bin/bash`), prefixed with `#SBATCH`. They can also be used as command line options for `salloc`. Some examples of job scripts are given below.
 
@@ -299,12 +418,12 @@ More options and details can be found on the [Running jobs](running-jobs.md) pag
 
 There are limits to the size and duration of your jobs, the number of jobs you can run, and the number of jobs you can have queued. It matters whether a user is part of a group with a RAC allocation (e.g. an RRG or RPP) or not. It also matters in which "partition" the job runs. "Partitions" are SLURM-speak for use cases. You specify the partition with the `-p` parameter to `sbatch` or `salloc`, but if you do not specify one, your job will run in the `compute` partition, which is the most common case.
 
-| Usage                    | Partition | Limit on Running jobs | Limit on Submitted jobs (incl. running) | Min. size of jobs       | Max. size of jobs                                                                                             | Min. walltime | Max. walltime |
-| :----------------------- | :-------- | :-------------------- | :-------------------------------------- | :---------------------- | :------------------------------------------------------------------------------------------------------------ | :------------ | :------------ |
-| Compute jobs             | compute   | 150                   | 500                                     | 1 node (192 cores)      | default: 10 nodes (1920 cores)<br/> with allocation: 128 nodes (24576 cores)<sup>\*</sup>                    | 15 minutes    | 24 hours      |
-| Testing or troubleshooting | debug     | 1                     | 1                                       | 1 node (192 cores)      | 2 nodes (384 cores)                                                                                           | N/A           | 1 hour        |
+| Usage                    | Partition | Limit on Running jobs | Limit on Submitted jobs (incl. running) | Min. size of jobs            | Max. size of jobs                                                               | Min. walltime | Max. walltime |
+| :----------------------- | :-------- | :-------------------- | :-------------------------------------- | :--------------------------- | :------------------------------------------------------------------------------ | :------------ | :------------ |
+| Compute jobs             | `compute` | 150                   | 500                                     | 1 node (192 cores)           | default: 10 nodes (1920 cores) <br> with allocation: 128 nodes (24576 cores)_^*^_ | 15 minutes    | 24 hours      |
+| Testing or troubleshooting | `debug`   | 1                     | 1                                       | 1 node (192 cores)           | 2 nodes (384 cores)                                                             | N/A           | 1 hour        |
 
-<small><sup>*</sup> This is a safe-guard, if your rrg involves running larger jobs, let us know.</small>
+_^*^_ This is a safe-guard, if your rrg involves running larger jobs, let us know.
 
 Even if you respect these limits, your jobs will still have to wait in the queue. The waiting time depends on many factors such as your group's allocation amount, how much allocation has been used in the recent past, the number of requested nodes and walltime, and how many other jobs are waiting in the queue.
 
@@ -333,7 +452,7 @@ mpirun ./mpi_example
 Submit this script from a CPU login node while in your `$SCRATCH` directory with the command:
 
 ```bash
-$ sbatch mpi_job.sh
+sbatch mpi_job.sh
 ```
 
 *   First line indicates that this is a bash script.
@@ -343,11 +462,8 @@ $ sbatch mpi_job.sh
 *   Once it finds such nodes, it runs the script, which does the following:
     *   Change to the submission directory;
     *   Loads modules;
-    *   Preloads a library tuning MPI-IO for the VAST file system; change this to source /scinet/vast/etc/vastpreload-intelmpi.bash if using IntelMPI instead of OpenMPI.
+    *   Preloads a library tuning MPI-IO for the VAST file system; change this to `source /scinet/vast/etc/vastpreload-intelmpi.bash` if using IntelMPI instead of OpenMPI. **Note: `mpirun` must be used for the VAST preload library to take effect, it does not work with `srun`.**
     *   Runs the `mpi_example` application (SLURM will inform `mpirun` or `srun` how many processes to run).
-
-!!! warning
-    `mpirun` must be used for the VAST preload library to take effect, it does not work with `srun`.
 
 ### Example: OpenMP job
 
@@ -375,7 +491,7 @@ export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
 Submit this script from a CPU login node while in your `$SCRATCH` directory with the command:
 
 ```bash
-$ sbatch openmp_job.sh
+sbatch openmp_job.sh
 ```
 
 *   First line indicates that this is a Bash script.
@@ -388,7 +504,7 @@ $ sbatch openmp_job.sh
     *   Sets `OMP_NUM_THREADS` based on SLURM’s CPU allocation;
     *   Runs the `openmp_example` application.
 
-### Example: Hybrid MPI/OpenMP job
+### Example: hybrid MPI/OpenMP job
 
 ```bash
 #!/bin/bash
@@ -421,7 +537,7 @@ mpirun --bind-to core --map-by ppr:$RANKS_PER_L3CACHE:l3cache:pe=$OMP_NUM_THREAD
 Submit this script from a CPU login node while in your `$SCRATCH` directory with the command:
 
 ```bash
-$ sbatch hybrid_job.sh
+sbatch hybrid_job.sh
 ```
 
 *   First line indicates that this is a bash script.
@@ -431,12 +547,9 @@ $ sbatch hybrid_job.sh
 *   Once it finds such a node, it runs the script:
     *   Change to the submission directory;
     *   Loads modules;
-    *   Preloads a library tuning MPI-IO for the VAST file system; change this to source /scinet/vast/etc/vastpreload-intelmpi.bash if using IntelMPI instead of OpenMPI.
+    *   Preloads a library tuning MPI-IO for the VAST file system; change this to `source /scinet/vast/etc/vastpreload-intelmpi.bash` if using IntelMPI instead of OpenMPI. **Note: `mpirun` must be used for the VAST preload library to take effect, it does not work with `srun`.**
     *   Runs the `hybrid_example` application. While SLURM will inform `mpirun` how many processes to run, it needs help to spread the processes and threads evenly over the cores. The `--map-by` option solves this.
         (for more than 8 and at most 24 threads per process, change 'l3cache' to 'numa' and for more than 24, change it to 'socket').
-
-!!! warning
-    `mpirun` must be used for the VAST preload library to take effect, it does not work with `srun`.
 
 ## Submitting jobs for the GPU subcluster
 
@@ -449,10 +562,10 @@ On Trillium, you are only allowed to request exactly 1 GPU or a multiple of 4 GP
 *   For single-GPU jobs, use `--gpus-per-node=1`.
 *   For whole-node GPU job, use `--gpus-per-node=4`.
 
-| Usage          | Partition | Limit on Running jobs | Limit on Submitted jobs (incl. running) | Min. size of jobs         | Max. size of jobs                                                                                                   | Min. walltime | Max. walltime                      |
-| :------------- | :-------- | :-------------------- | :-------------------------------------- | :------------------------ | :------------------------------------------------------------------------------------------------------------------ | :------------ | :--------------------------------- |
-| GPU compute jobs | compute   | 150                   | 500                                     | 1/4 node (24 cores / 1GPU) | default: 5 nodes (480 cores/20 GPUs)<br/> with allocation: 25 nodes (2400 cores/100 GPUs)                        | 15 minutes    | 24 hours                           |
-| Testing GPU jobs | debug     | 1                     | 1                                       | 1/4 node (24 cores / 1 GPU) | 2 nodes (192 cores/ 8 GPUs)                                                                                         | N/A           | 2 hours (1 GPU) - 30 minutes (8 GPUs) |
+| Usage          | Partition | Limit on Running jobs | Limit on Submitted jobs (incl. running) | Min. size of jobs          | Max. size of jobs                                                                | Min. walltime | Max. walltime                   |
+| :------------- | :-------- | :-------------------- | :-------------------------------------- | :------------------------- | :------------------------------------------------------------------------------- | :------------ | :------------------------------ |
+| GPU compute jobs | `compute` | 150                   | 500                                     | 1/4 node (24 cores / 1GPU) | default: 5 nodes (480 cores/20 GPUs) <br> with allocation: 25 nodes (2400 cores/100 GPUs) | 15 minutes    | 24 hours                        |
+| Testing GPU jobs | `debug`   | 1                     | 1                                       | 1/4 node (24 cores / 1 GPU) | 2 nodes (192 cores/ 8 GPUs)                                                      | N/A           | 2 hours (1 GPU) - 30 minutes (8 GPUs) |
 
 Even if you respect these limits, your jobs will still have to wait in the queue. The waiting time depends on many factors such as your group's allocation amount, how much allocation has been used in the recent past, the number of requested nodes and walltime, and how many other jobs are waiting in the queue.
 
@@ -552,23 +665,23 @@ More details on monitoring jobs can be found on the [Slurm page](running-jobs.md
 
 ## Monitoring running and past jobs
 
-Note that after your job has finished, it will be removed from the queue, so SLURM commands that query the queue like squeue and sacct will not find your job anymore.
+Note that after your job has finished, it will be removed from the queue, so SLURM commands that query the queue like `squeue` and `sacct` will not find your job anymore.
 
 Your past jobs and their resource usage can be inspected through the [my.SciNet](https://my.scinet.utoronto.ca) portal. This portal saves information about all jobs, including performance data collected every two minutes while the job was running.
 
 # Quick Reference for Common Commands
 
-| Command                     | Description                                            |
-| :-------------------------- | :----------------------------------------------------- |
-| `sbatch <script>`           | Submit a batch job script                              |
-| `squeue [-u $USER]`         | View queued jobs (optionally for current user)         |
-| `scancel <JOBID>`           | Cancel a job                                           |
-| `sacct`                     | View accounting data for recent past jobs              |
-| `module load <module>`      | Load a software module                                 |
-| `module list`               | List loaded modules                                    |
-| `module avail`              | List available modules                                 |
-| `module spider <module>`    | Search for modules and dependencies                    |
-| `debugjob [N]`              | Request a short debug job (on N nodes)                 |
-| `diskusage_report`          | Check storage quotas                                   |
-| `jobperf <JOBID>`           | Monitor CPU and memory usage of a running job          |
-| `nvidia-smi`                | Check GPU status (on GPU nodes)                        |
+| Command                 | Description                                                 |
+| :---------------------- | :---------------------------------------------------------- |
+| `sbatch <script>`       | Submit a batch job script                                   |
+| `squeue [-u $USER]`     | View queued jobs (optionally for current user)              |
+| `scancel <JOBID>`       | Cancel a job                                                |
+| `sacct`                 | View accounting data for recent past jobs                   |
+| `module load <module>`  | Load a software module                                      |
+| `module list`           | List loaded modules                                         |
+| `module avail`          | List available modules                                      |
+| `module spider <module>`| Search for modules and dependencies                         |
+| `debugjob [N]`          | Request a short debug job (on N nodes)                      |
+| `diskusage_report`      | Check storage quotas                                        |
+| `jobperf <JOBID>`       | Monitor CPU and memory usage of a running job               |
+| `nvidia-smi`            | Check GPU status (on GPU nodes)                             |

@@ -1,0 +1,108 @@
+{
+  "doc_key": "base/gurobi",
+  "level": "chunk",
+  "chunk_index": 2,
+  "qa_pairs": [
+    {
+      "question": "What is the purpose of the `submit.sh` script shown in the document?",
+      "answer": "The `submit.sh` script is used to gradually submit Gurobi jobs to the scheduler in a loop, aiming to minimize the licence checkout rate and the load imposed on the Gurobi licence server."
+    },
+    {
+      "question": "How does the `submit.sh` script achieve gradual job submission?",
+      "answer": "It uses the Slurm dependency `after` option, submitting subsequent jobs only after the previous one has started successfully."
+    },
+    {
+      "question": "How many jobs does the provided `submit.sh` script submit in its loop?",
+      "answer": "The provided `submit.sh` script submits 1000 jobs in its loop, starting with an initial job and then 999 more."
+    },
+    {
+      "question": "What is the significance of the `--parsable` and `--output` options used with `sbatch` in the `submit.sh` script?",
+      "answer": "The `--parsable` option is used to make the job ID easily parsable, while `--output=slurm-%j-$i.out` specifies a unique output file name for each job, incorporating the job ID and iteration number."
+    },
+    {
+      "question": "What is the purpose of the command `[ \"$?\" -ne 0 ] && exit 1` within the `submit.sh` script?",
+      "answer": "This command checks the exit status of the previous `sbatch` command. If `sbatch` failed (indicated by a non-zero exit status), the script will immediately exit with an error code of 1."
+    },
+    {
+      "question": "How can a user allocate resources for an interactive Gurobi session using command-line tools?",
+      "answer": "Users can allocate resources using the `salloc` command, specifying parameters such as `--time`, `--cpus-per-task`, `--mem`, and `--account`. For example: `salloc --time=1:00:0 --cpus-per-task=8 --mem=1G --account=def-xyz`."
+    },
+    {
+      "question": "What is the command to load the Gurobi module on a cluster for interactive use?",
+      "answer": "The command to load the Gurobi module is `module load gurobi`."
+    },
+    {
+      "question": "How can a user run a Gurobi optimization problem from the command line, specifying parameters and files?",
+      "answer": "A user can use `gurobi_cl` followed by parameters like `Record=1`, `Threads=8`, `Method=2`, `ResultFile=p0033.sol`, `LogFile=p0033.log`, and the path to the model file, e.g., `$GUROBI_HOME/examples/data/p0033.mps`."
+    },
+    {
+      "question": "How can a user access help for the `gurobi_cl` command-line tool?",
+      "answer": "Users can access help by running `gurobi_cl --help`."
+    },
+    {
+      "question": "What are the initial steps to start an interactive Gurobi shell session?",
+      "answer": "First, allocate resources with `salloc`, then load the Gurobi module with `module load gurobi`. After that, you can set environment variables (e.g., `echo \"Record 1\" > gurobi.env`) and launch the shell with `gurobi.sh`."
+    },
+    {
+      "question": "How do you load a model within the Gurobi interactive shell?",
+      "answer": "Inside the Gurobi interactive shell, you can load a model using `m = read('/path/to/model.mps')`, for example: `m = read('/cvmfs/restricted.computecanada.ca/easybuild/software/2017/Core/gurobi/8.1.1/examples/data/glass4.mps')`."
+    },
+    {
+      "question": "How can a user set optimization parameters like `Threads` or `Method` within the Gurobi interactive shell?",
+      "answer": "Parameters can be set using `m.Params.ParameterName = Value`, such as `m.Params.Threads = 8` or `m.Params.Method = 2`."
+    },
+    {
+      "question": "What commands are used to optimize a model and save results in the Gurobi interactive shell?",
+      "answer": "To optimize, use `m.optimize()`. To save the solution, set `m.Params.ResultFile = \"filename.sol\"` before optimizing. To write the model to an LP file, use `m.write('filename.lp')`."
+    },
+    {
+      "question": "How can a user check the optimization status and runtime of a model in the Gurobi interactive shell?",
+      "answer": "Users can check the optimization status with `m.status` and the runtime with `m.runtime`."
+    },
+    {
+      "question": "How can a user get help within the Gurobi interactive shell?",
+      "answer": "A user can get help by typing `help()` in the Gurobi interactive shell."
+    },
+    {
+      "question": "Where can a user find more documentation on Gurobi API calls, parameter descriptions, optimization status codes, and attributes?",
+      "answer": "Users can find detailed documentation on Gurobi's website, with specific links provided for recording API calls, parameter descriptions, optimization status codes, and attributes."
+    },
+    {
+      "question": "How can previously recorded Gurobi API calls be replayed?",
+      "answer": "Recorded API calls can be replayed using the `gurobi_cl` command with the recording file, for example: `gurobi_cl recording000.grbr`."
+    },
+    {
+      "question": "What is the command to submit a prepared Slurm script for a Gurobi problem to the queue?",
+      "answer": "The command to submit a Slurm script is `sbatch script-name.sh`."
+    },
+    {
+      "question": "How can a user check the status of their Gurobi jobs in the queue?",
+      "answer": "The status of jobs in the queue can be checked by running the `sq` command."
+    },
+    {
+      "question": "What is the purpose of the `script-lp_coins.sh` Slurm script example?",
+      "answer": "The `script-lp_coins.sh` Slurm script example demonstrates how to solve a simple coin production model written in LP format using the Gurobi command-line interface (`gurobi_cl`) within a batch job."
+    },
+    {
+      "question": "How are Gurobi parameters passed to `gurobi_cl` in the `script-lp_coins.sh` example?",
+      "answer": "Parameters are passed directly as command-line arguments to `gurobi_cl`, such as `Threads=$SLURM_CPUS_ON_NODE`, `Method=2`, and `ResultFile=coins.sol`."
+    },
+    {
+      "question": "Where can users find help for selecting optimal Gurobi parameters and values?",
+      "answer": "Users can refer to the 'Performance and Parameters' and 'Algorithms and Search' sections in the Gurobi Knowledge Base, as well as the extensive online Gurobi documentation."
+    },
+    {
+      "question": "What are the key Slurm directives used in the `script-lp_coins.sh` example?",
+      "answer": "The key Slurm directives in the `script-lp_coins.sh` example are `--account`, `--time`, `--cpus-per-task`, `--mem`, and `--nodes`."
+    },
+    {
+      "question": "What Gurobi module version is loaded in the `script-lp_coins.sh` example?",
+      "answer": "The `script-lp_coins.sh` example loads `gurobi/9.5.0`."
+    },
+    {
+      "question": "How does the `script-lp_coins.sh` example ensure a clean slate before running the Gurobi command?",
+      "answer": "It removes any existing `coins.sol` file using `rm -f coins.sol` before executing the `gurobi_cl` command."
+    }
+  ],
+  "generated_at": "2026-04-11T23:28:41.202052+00:00"
+}

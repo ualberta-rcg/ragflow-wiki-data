@@ -5,21 +5,46 @@ lang: "fr"
 
 source_wiki_title: "Job arrays/fr"
 source_hash: "5d2e8fcc5e60951a92d148a41c6a5f91"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T07:31:55.196956+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T08:11:18.314932+00:00"
 
 tags:
   - slurm
 
 keywords:
-  []
+  - "traitement en parallèle"
+  - "script Python"
+  - "SLURM"
+  - "fichier case_list"
+  - "soumettre la tâche"
+  - "vecteur de tâches"
+  - "tableau NumPy"
+  - "tâches du vecteur"
+  - "$SLURM_ARRAY_TASK_ID"
+  - "ordonnanceur"
+  - "paramètres multiples"
+  - "paramètre --array"
+
+questions:
+  - "Qu'est-ce qu'un vecteur de tâches (job array) dans SLURM et quel est le rôle de la variable d'environnement $SLURM_ARRAY_TASK_ID ?"
+  - "Quels sont les avantages en termes de performance et de gestion d'utiliser un vecteur de tâches, et pour quel type de tâches cette méthode est-elle déconseillée ?"
+  - "Comment peut-on configurer un vecteur de tâches pour exécuter un script dans plusieurs répertoires aux noms non séquentiels à l'aide d'un fichier texte ?"
+  - "Quel est l'avantage principal de passer d'une boucle itérative dans le script initial à l'utilisation d'un vecteur de tâches ?"
+  - "Comment le script Python modifié récupère-t-il et utilise-t-il la variable d'environnement pour traiter une valeur spécifique du paramètre beta ?"
+  - "Quelle directive spécifique dans le script bash permet de définir la plage d'indices pour l'exécution des tâches en parallèle via SLURM ?"
+  - "Pourquoi le fichier `case_list` ne doit-il subir aucune modification avant la fin de l'exécution de toutes les tâches du vecteur ?"
+  - "À quel moment précis le fichier est-il lu par le système lors du traitement ?"
+  - "Quelles structures de données sont utilisées pour définir les paramètres multiples dans l'exemple du script Python ?"
+  - "Quel est l'avantage principal de passer d'une boucle itérative dans le script initial à l'utilisation d'un vecteur de tâches ?"
+  - "Comment le script Python modifié récupère-t-il et utilise-t-il la variable d'environnement pour traiter une valeur spécifique du paramètre beta ?"
+  - "Quelle directive spécifique dans le script bash permet de définir la plage d'indices pour l'exécution des tâches en parallèle via SLURM ?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -40,7 +65,7 @@ sbatch --array=1-100%10  # limite à 10 le nombre de tâches exécutées simulta
 
 ## Exemple simple
 
-```bash title="simple_array.sh"
+```bash
 #!/bin/bash
 #SBATCH --array=1-10
 #SBATCH --time=3:00:00
@@ -52,18 +77,20 @@ Ce script crée 10 tâches indépendantes. Chacune a une durée maximum de 3 heu
 
 Le script utilise `$SLURM_ARRAY_TASK_ID` pour indiquer le fichier pour les données en entrée (dans notre exemple *program x*) ou utiliser en commande de ligne l'argument (avec par exemple *program y*).
 
-Le fait d’utiliser un vecteur de tâches plutôt que plusieurs tâches séquentielles est avantageux pour vous-même et pour les autres utilisateurs. Un vecteur de tâches en attente ne produit qu’une seule ligne dans `squeue`, ce qui vous permet de consulter son résultat plus facilement. De plus, l’ordonnanceur n’est pas appelé à analyser les besoins de chacune des tâches séparément, ce qui résulte en un gain de performance.
+Le fait d’utiliser un vecteur de tâches plutôt que plusieurs tâches séquentielles est avantageux pour vous-même et pour les autres utilisateurs. Un vecteur de tâches en attente ne produit qu’une seule ligne dans squeue, ce qui vous permet de consulter son résultat plus facilement. De plus, l’ordonnanceur n’est pas appelé à analyser les besoins de chacune des tâches séparément, ce qui résulte en un gain de performance.
 
-En excluant le recours à `sbatch` comme étape initiale, l’ordonnanceur subit la même charge avec un vecteur de tâches qu’avec un nombre équivalent de tâches soumises séparément. Il n’est pas recommandé d’utiliser un vecteur pour soumettre des tâches qui ont une durée de beaucoup moins d’une heure. Les tâches d’une durée de quelques minutes seulement devraient être groupées avec [META](meta-farm.md), [GLOST](glost.md), [GNU Parallel](gnu-parallel.md) ou dans une boucle de l’interpréteur à l'intérieur d'une tâche.
+En excluant le recours à sbatch comme étape initiale, l’ordonnanceur subit la même charge avec un vecteur de tâches qu’avec un nombre équivalent de tâches soumises séparément. Il n’est pas recommandé d’utiliser un vecteur pour soumettre des tâches qui ont une durée de beaucoup moins d’une heure. Les tâches d’une durée de quelques minutes seulement devraient être groupées avec [META](meta-farm.md), [GLOST](glost.md), [GNU Parallel](gnu-parallel.md) ou dans une boucle de l’interpréteur à l'intérieur d'une tâche.
 
 ## Exemple avec des répertoires multiples
 
 Supposons que vous voulez exécuter le même script dans des répertoires multiples ayant une structure identique;
-* si les noms des répertoires peuvent être des nombres séquentiels, il serait facile d’adapter l’exemple présenté plus haut;
-* autrement, créez un fichier avec les noms des répertoires comme suit
+*   si les noms des répertoires peuvent être des nombres séquentiels, il serait facile d’adapter l’exemple présenté plus haut;
+*   autrement, créez un fichier avec les noms des répertoires comme suit
 
 ```bash
-$ cat case_list
+cat case_list
+```
+```text
 pacific2016
 pacific2017
 atlantic2016
@@ -72,7 +99,7 @@ atlantic2017
 
 Il y a plusieurs manières de sélectionner une ligne en particulier dans un fichier; dans le prochain exemple, nous utilisons `sed`.
 
-```bash title="directories_array.sh"
+```bash
 #!/bin/bash
 #SBATCH --time=3:00:00
 #SBATCH --array=1-4
@@ -86,7 +113,7 @@ pwd
 ls
 ```
 
-!!! warning
+!!! warning "Attention"
     *   Le nombre de tâches que vous demandez doit être égal au nombre de lignes du fichier.
     *   Le fichier `case_list` ne doit pas être modifié tant que toutes les tâches du vecteur ne sont pas exécutées puisque le fichier sera lu au commencement de chaque nouvelle tâche.
 
@@ -94,7 +121,7 @@ ls
 
 Supposons que vous avez un script Python qui effectue des calculs avec certains paramètres définis dans une liste Python ou un tableau NumPy tel que
 
-```python title="my_script.py"
+```python
 import time
 import numpy as np
 
@@ -105,7 +132,7 @@ def calculation(x, beta):
 if __name__ == "__main__":
     x = np.random.rand(100)
     betas = np.linspace(10,36.5,100) #subdivise l'intervale [10,36.5] en 100 valeurs
-    for i in range(len(betas)): #iteration sur les valeurs du paramètre beta
+    for i in range(len(betas)): #iteration sur les valeurs du paramètre beta 
         res = calculation(x,betas[i])
         print(res) #affiche les résultats
 
@@ -116,7 +143,7 @@ Le traitement de cette tâche peut se faire avec un vecteur de tâches pour que 
 Il faut passer `$SLURM_ARRAY_TASK_ID` au script Python et obtenir le paramètre beta selon sa valeur.
 Le script Python est maintenant
 
-```python title="my_script_parallel.py"
+```python
 import time
 import numpy as np
 import sys
@@ -128,17 +155,16 @@ def calculation(x, beta):
 if __name__ == "__main__":
     x = np.random.rand(100)
     betas = np.linspace(10,36.5,100) #subdivise l'intervale [10,36.5] en 100 valeurs
-
+    
     i = int(sys.argv[1]) #obtient la valeur de $SLURM_ARRAY_TASK_ID
     res = calculation(x,betas[i])
     print(res) #affiche les résultats
 
 # à exécuter avec python my_script_parallel.py $SLURM_ARRAY_TASK_ID
 ```
-
 Le script pour soumettre la tâche est le suivant (remarquez que les paramètres vont de 0 à 99 tout comme les index du vecteur NumPy).
 
-```bash title="data_parallel_python.sh"
+```bash
 #!/bin/bash
 #SBATCH --array=0-99
 #SBATCH --time=1:00:00

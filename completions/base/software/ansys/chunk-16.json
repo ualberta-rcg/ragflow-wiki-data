@@ -1,0 +1,48 @@
+{
+  "doc_key": "base/ansys",
+  "level": "chunk",
+  "chunk_index": 16,
+  "qa_pairs": [
+    {
+      "question": "What is the primary function of the `script-flu-bynode+restart.sh` script?",
+      "answer": "The `script-flu-bynode+restart.sh` script is designed to run Fluent simulations on multiple nodes with built-in solution restart capabilities, allowing jobs to resume from the most recently saved time step files."
+    },
+    {
+      "question": "What are the default Slurm parameters for account, time limit, and number of nodes in this restart script?",
+      "answer": "By default, the script specifies `--account=def-group`, a time limit of `--time=07-00:00` (7 days), and requests `--nodes=1`. While the example shows 1 node, the script's logic supports multiple nodes."
+    },
+    {
+      "question": "How can I configure the number of solution restarts for a Fluent job using the `script-flu-bynode+restart.sh` script?",
+      "answer": "You can specify the number of solution restarts by adjusting the `--array` Slurm directive. For instance, `--array=1-5%1` allows for 5 restart attempts, and it can be set to 2 or more."
+    },
+    {
+      "question": "Which Ansys module version is loaded by the `script-flu-bynode+restart.sh` script?",
+      "answer": "The script loads the `ansys/2023R2` module (or newer versions) along with `StdEnv/2023`."
+    },
+    {
+      "question": "Which user-defined variables are essential to customize in the `script-flu-bynode+restart.sh` script?",
+      "answer": "You need to customize `MYVERSION` (e.g., `3d`, `2d`, `2ddp`, `3ddp`), `MYJOUFILE` for the initial journal file, `MYJOUFILERES` for the restart journal file, `MYCASFILERES` for the restart case file, and `MYDATFILERES` for the restart data file."
+    },
+    {
+      "question": "How does the script manage the files required for restarting a Fluent job?",
+      "answer": "If a job array task completes successfully and is not the final task, the script creates symbolic links (`ln -sfv`) from the most recent output `.cas` and `.dat` files found in the `output` subdirectory to the filenames specified by `MYCASFILERES` and `MYDATFILERES`, respectively, making them ready as input for the next restart attempt."
+    },
+    {
+      "question": "What MPI settings are applied for Fluent jobs on the Narval cluster when using this script?",
+      "answer": "On the Narval cluster, the script loads `intel/2023` and `intelmpi`, and exports `INTELMPI_ROOT`. Additionally, for Ansys versions 2025 or newer, or specifically for Narval, `I_MPI_HYDRA_BOOTSTRAP` is exported as `ssh`. For multi-node runs, it utilizes `intel` MPI with `pib` (likely InfiniBand) if not on Nibi, or `peth` (Ethernet) if on Nibi."
+    },
+    {
+      "question": "What occurs if a Fluent simulation fails during execution when using the `script-flu-bynode+restart.sh` script?",
+      "answer": "If a Fluent simulation fails (i.e., the `fluent` command returns a non-zero exit code), the script will output \"Simulation failed. Exiting …\" and the entire Slurm array job will terminate, as the restart logic only proceeds if the Fluent command succeeds."
+    },
+    {
+      "question": "How does the `script-flu-bynode+restart.sh` script handle the distinction between single-node and multi-node execution for Fluent?",
+      "answer": "The script uses an `if [ \"$SLURM_NNODES\" == 1 ]` condition. For single-node execution, it hardcodes `2ddp` for the `-g` option and uses `-pshmem`. For multi-node execution, it uses the `MYVERSION` variable for the `-g` option, `-peth` for Nibi, or `-pib` for other clusters, along with a machine file (`-cnf=/tmp/machinefile-$SLURM_JOB_ID`) and the `-ssh` option."
+    },
+    {
+      "question": "When running on a single node with this script, why does the Fluent command use `2ddp` for the `-g` option instead of the `MYVERSION` variable?",
+      "answer": "When running on a single node, the script explicitly hardcodes `2ddp` for the `-g` option in the `fluent` command, overriding the `MYVERSION` variable which is used for multi-node execution."
+    }
+  ],
+  "generated_at": "2026-04-11T16:49:14.957334+00:00"
+}

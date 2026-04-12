@@ -1,0 +1,56 @@
+{
+  "doc_key": "base/sharing_data",
+  "level": "chunk",
+  "chunk_index": 9,
+  "qa_pairs": [
+    {
+      "question": "Why should collaborators use a `/project` path instead of a `/home/<user>/projects` path when sharing a directory in the project filesystem?",
+      "answer": "Collaborators must be provided with a path that starts with `/project` because `/home/<user>/projects` contains symbolic links (symlinks, or shortcuts) to the physical directories in `/project`. These symlinks will not be reachable by your collaborators unless they also have access to your home directory."
+    },
+    {
+      "question": "How can I find the physical path that a symbolic link (symlink) points to in the project filesystem?",
+      "answer": "You can get the physical path a symlink points to by using the `realpath` command. For example, `realpath /home/smithj/projects/def-smithj/shared_data` could return `/project/9041430/shared_data`."
+    },
+    {
+      "question": "Is the physical path to a project directory consistent across all clusters?",
+      "answer": "No, the physical path to a project directory is not the same on all clusters. If you wish to share a project directory on more than one cluster, you should check its physical path with `realpath` on each cluster."
+    },
+    {
+      "question": "What command is used to recursively remove all extended ACL attributes from a directory?",
+      "answer": "To remove all extended ACL attributes from a directory recursively, use the command: `setfacl -bR /home/<user>/projects/def-<PI>/shared_data`."
+    },
+    {
+      "question": "What is a data sharing group?",
+      "answer": "A data sharing group is a special group to which all people with whom certain data is to be shared are added. This group is then given access permissions through Access Control Lists (ACLs)."
+    },
+    {
+      "question": "When would I need to create a data sharing group?",
+      "answer": "You would typically need a data sharing group for more complicated data sharing scenarios, such as those involving multiple people on multiple clusters. It is not needed for specialized sharing circumstances."
+    },
+    {
+      "question": "What is the first step in creating a data sharing group?",
+      "answer": "The first step is to send an email to technical support requesting the creation of a data sharing group. You should indicate the name of the group you would like to have and that you should be the owner."
+    },
+    {
+      "question": "After technical support confirms the creation of a data sharing group, how do I manage it?",
+      "answer": "Once you receive confirmation, go to ccdb.computecanada.ca/services/, access the group by clicking on its name, and then you can enter the group management screen to add members."
+    },
+    {
+      "question": "What permissions are required on parent directories for a data sharing group to work?",
+      "answer": "Just as with individual user sharing, the parent directories of the data you are trying to share must have execute permissions either for everyone or for the data sharing group."
+    },
+    {
+      "question": "How can a PI give consent for execute permissions on a project directory for a data sharing group?",
+      "answer": "A PI can give consent by using `chmod o+X /project/def-<PI>/` to allow execute permissions for everyone, or `setfacl -m g:wg_datasharing:X /project/def-<PI>/` to specifically grant execute permissions to the data sharing group."
+    },
+    {
+      "question": "What commands are used to add a data sharing group to the ACL for a shared directory?",
+      "answer": "You can add your group to the ACL for the directory by using: `$ setfacl -d -m g:wg-datasharing:rwx /home/<user>/projects/def-<PI>/shared_data` for default rules, and `$ setfacl -R -m g:wg-datasharing:rwx /home/<user>/projects/def-<PI>/shared_data` for existing content."
+    },
+    {
+      "question": "How can I check if I have read access to all items within a specific directory recursively?",
+      "answer": "To make sure you have read access to everything in a specific directory, you can use the command: `find <directory_name> ! -readable -ls` which will list all items not readable to you."
+    }
+  ],
+  "generated_at": "2026-04-12T07:57:15.902891+00:00"
+}

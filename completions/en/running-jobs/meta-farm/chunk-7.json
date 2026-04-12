@@ -1,0 +1,64 @@
+{
+  "doc_key": "en/meta-farm",
+  "level": "chunk",
+  "chunk_index": 7,
+  "qa_pairs": [
+    {
+      "question": "How can I avoid repeating the same command on every line of `table.dat`?",
+      "answer": "You can edit `single_case.sh` to include the common command, and then edit your `table.dat` to contain only the arguments or redirects for each case."
+    },
+    {
+      "question": "What would a `table.dat` file look like if `single_case.sh` is customized to include the common command?",
+      "answer": "If `single_case.sh` is customized, `table.dat` would contain only the arguments for each case, for example: `12.56` followed by `21.35` on separate lines."
+    },
+    {
+      "question": "Do I still need a `table.dat` file if my code doesn't require any arguments from it?",
+      "answer": "Yes, you still have to generate `table.dat` with the number of lines equal to the total number of cases you want to compute. The content of the lines won't matter; only the total number of lines is important."
+    },
+    {
+      "question": "What would a `single_case.sh` line look like if `table.dat` only provides the number of cases and no arguments?",
+      "answer": "A key line in `single_case.sh` could be `/path/to/your/code -seed $ID`, using the case number (`$ID`) as an argument."
+    },
+    {
+      "question": "Do I need to manually add line numbers to `table.dat`?",
+      "answer": "No, you do not need to insert line numbers at the beginning of each line of `table.dat`. The `submit.run` script will modify `table.dat` to add line numbers if it doesn't find them there."
+    },
+    {
+      "question": "What is the purpose of the `STATUS` variable in `single_case.sh`?",
+      "answer": "The `STATUS` variable in `single_case.sh` should be set to \"0\" if your case was computed correctly, and some positive value (greater than 0) otherwise. It is used by `resubmit.run` to determine which cases failed and need to be re-computed."
+    },
+    {
+      "question": "How is `STATUS` initially set in the default `single_case.sh`, and why might this be insufficient for error detection?",
+      "answer": "In the provided version of `single_case.sh`, `STATUS` is set to the exit code of your program. This may be insufficient because some programs produce an exit code of zero even if something goes wrong."
+    },
+    {
+      "question": "Can I customize how the `STATUS` variable is set in `single_case.sh`?",
+      "answer": "Yes, you can change how `STATUS` is set by editing `single_case.sh` to include additional error checks beyond just the program's exit code."
+    },
+    {
+      "question": "How can I customize `single_case.sh` to check for specific output files to determine `STATUS`?",
+      "answer": "You can add a check in `single_case.sh` after your code runs to test whether an expected output file (e.g., `out.dat`) exists and is not empty. If it fails this check, you can set `STATUS` to a positive value, such as 1."
+    },
+    {
+      "question": "What is the role of `job_script.sh` in the META package?",
+      "answer": "The `job_script.sh` file is the job script which will be submitted to SLURM for all metajobs in your farm."
+    },
+    {
+      "question": "What are the minimum changes required for the default `job_script.sh`?",
+      "answer": "At the very least, you should change the account name (the `-A` switch) and the metajob runtime (the `-t` switch) in the default `job_script.sh`."
+    },
+    {
+      "question": "In SIMPLE mode, how should I determine the runtime for `job_script.sh`?",
+      "answer": "In SIMPLE mode, you should set the runtime in `job_script.sh` to be somewhat longer than the longest expected individual case."
+    },
+    {
+      "question": "Is it mandatory to include a runtime switch in `job_script.sh`?",
+      "answer": "Yes, your `job_script.sh` must include the runtime switch (either `-t` or `--time`). This cannot be passed to `sbatch` as an optional argument to `submit.run`."
+    },
+    {
+      "question": "How can I prevent a metajob from failing many cases if it's assigned to a defective node?",
+      "answer": "You can add tests to `job_script.sh` before the `task.run` line to check for anticipated problems, such as the presence of an NVidia GPU. If the test fails, you can force the metajob to exit before it starts processing cases."
+    }
+  ],
+  "generated_at": "2026-04-12T01:21:26.247211+00:00"
+}

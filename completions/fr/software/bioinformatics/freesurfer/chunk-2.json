@@ -1,0 +1,80 @@
+{
+  "doc_key": "fr/freesurfer",
+  "level": "chunk",
+  "chunk_index": 2,
+  "qa_pairs": [
+    {
+      "question": "Comment on installe FreeSurfer dans un répertoire partagé, comme un dossier `/project`, en utilisant EasyBuild?",
+      "answer": "Pour installer FreeSurfer dans un répertoire partagé, on doit d'abord définir les variables `installdir`, `moduledir` et `pathtosrc`, puis exécuter la commande `eb FreeSurfer-6.0.1-centos6_x86_64.eb --installpath-modules=${moduledir} --prefix=${installdir} --sourcepath=${pathtosrc}`."
+    },
+    {
+      "question": "Si on rencontre un problème de 'checksums' durant l'installation de FreeSurfer avec la commande `eb`, quelle option doit-on ajouter?",
+      "answer": "Si un problème de 'checksums' survient, on doit ajouter l'option `--disable-enforce-checksums` à la commande `eb`."
+    },
+    {
+      "question": "Quelles sont les deux étapes nécessaires pour que tous les membres d'un groupe aient accès à FreeSurfer après une installation dans un répertoire partagé?",
+      "answer": "Chaque membre du groupe doit avoir un accès en lecture et en exécution au répertoire d'installation (`/home/$USER/projects/def-someuser/$USER`), et il doit aussi enregistrer le fichier du module (par exemple `6.0.1.lua`) dans son répertoire personnel (`/home/$USER`)."
+    },
+    {
+      "question": "Où se trouve le fichier du module FreeSurfer, comme `6.0.1.lua`, après son installation via EasyBuild dans un répertoire partagé?",
+      "answer": "Le fichier du module `6.0.1.lua` se trouve sous `/home/$USER/.local/easybuild/modules/2020/Core/freesurfer/`."
+    },
+    {
+      "question": "Quelles commandes doit-on exécuter pour créer le répertoire nécessaire et copier le fichier du module FreeSurfer dans son espace personnel?",
+      "answer": "On doit utiliser `mkdir -p /home/$USER/.local/easybuild/modules/2020/Core/freesurfer` pour créer le répertoire, puis `cp 6.0.1.lua /home/$USER/.local/easybuild/modules/2020/Core/freesurfer/` pour y copier le fichier du module."
+    },
+    {
+      "question": "Quel est l'objectif des directives d'installation du module FreeSurfer pour les membres d'un groupe?",
+      "answer": "Ces directives installent le fichier du module, qui pointe vers le répertoire d'installation, dans les espaces `/project` des utilisateurs, ce qui leur donne accès à l'application."
+    },
+    {
+      "question": "Comment les membres d'un groupe doivent-ils charger le module FreeSurfer pour l'utiliser après qu'il a été configuré?",
+      "answer": "Les membres du groupe doivent charger le module à partir de leur compte avec la commande `module load freesurfer/6.0.1`."
+    },
+    {
+      "question": "Pour faire l'analyse de l'hippocampe et du tronc cérébral, d'où faut-il télécharger le module MATLAB précompilé version 2012b?",
+      "answer": "Il faut le télécharger et l'installer directement à partir du site web de FreeSurfer."
+    },
+    {
+      "question": "Quelles sont les commandes pour télécharger et installer le module MATLAB précompilé 2012b pour l'analyse de l'hippocampe et du tronc cérébral?",
+      "answer": "Il faut d'abord charger le module `freesurfer/6.0.0`, ensuite se positionner dans `$FREESURFER_HOME`, puis utiliser `curl \"http://surfer.nmr.mgh.harvard.edu/fswiki/MatlabRuntime?action=AttachFile&do=get&target=runtime2012bLinux.tar.gz\" -o \"matlab_runtime2012bLinux.tar.gz\"` pour le télécharger, et enfin `tar xvf matlab_runtime2012bLinux.tar.gz` pour le décompresser."
+    },
+    {
+      "question": "Dans un script SLURM pour les versions de FreeSurfer 6.0.0 et plus, quelle commande est utilisée pour charger le module?",
+      "answer": "On utilise la commande `module load freesurfer/6.0.0` dans le script SLURM."
+    },
+    {
+      "question": "Comment doit-on spécifier le répertoire des sujets (`SUBJECTS_DIR`) dans un script FreeSurfer?",
+      "answer": "On doit l'exporter en utilisant `export SUBJECTS_DIR=<User_Defined_DIR>`."
+    },
+    {
+      "question": "Quelle commande sert à configurer les variables d'environnement de FreeSurfer dans un script SLURM?",
+      "answer": "La commande à utiliser est `source $EBROOTFREESURFER/FreeSurferEnv.sh`."
+    },
+    {
+      "question": "Combien de temps doit-on allouer pour l'exécution de la commande `recon-all -all`?",
+      "answer": "On devrait prévoir 8 heures de temps d'exécution (`#SBATCH --time=08:00:00`)."
+    },
+    {
+      "question": "Quelle est la durée d'exécution recommandée pour la commande `recon-all -qcache`?",
+      "answer": "La durée recommandée est de 20 minutes (`#SBATCH --time=00:20:00`)."
+    },
+    {
+      "question": "Combien de temps est estimé pour l'exécution de la commande `recon-all -base -tp1 -tp2`?",
+      "answer": "La durée estimée est de 10 heures (`#SBATCH --time=10:00:00`)."
+    },
+    {
+      "question": "Quel est le temps d'exécution typique pour la commande `recon-all -long subjid -base base`?",
+      "answer": "Le temps d'exécution typique est de 10 heures (`#SBATCH --time=10:00:00`)."
+    },
+    {
+      "question": "Quelle est la durée d'exécution prévue pour l'opération `recon-all -hippocampal-subfields-T1`?",
+      "answer": "La durée prévue est de 40 minutes (`#SBATCH --time=00:40:00`)."
+    },
+    {
+      "question": "Combien de temps dure l'exécution de la commande `recon-all -brainstem-structures`?",
+      "answer": "La durée d'exécution est de 30 minutes (`#SBATCH --time=00:30:00`)."
+    }
+  ],
+  "generated_at": "2026-04-11T21:44:38.347487+00:00"
+}

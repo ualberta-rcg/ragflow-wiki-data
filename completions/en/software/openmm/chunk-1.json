@@ -1,0 +1,132 @@
+{
+  "doc_key": "en/openmm",
+  "level": "chunk",
+  "chunk_index": 1,
+  "qa_pairs": [
+    {
+      "question": "What is OpenMM?",
+      "answer": "OpenMM is an open-source molecular dynamics toolkit designed for flexibility and programmability."
+    },
+    {
+      "question": "How is OpenMM primarily used?",
+      "answer": "It is used via Python, offering both application-level classes for running simulations and a lower-level API for custom workflows."
+    },
+    {
+      "question": "Which existing biomolecular formats can OpenMM natively read and simulate?",
+      "answer": "OpenMM can natively read and simulate systems prepared with AMBER, GROMACS, and CHARMM."
+    },
+    {
+      "question": "What machine-learning potentials does OpenMM's plugin architecture support for simulations?",
+      "answer": "Its plugin architecture supports integration with machine-learning potentials, including TorchMD-Net, MACE, TorchANI, AIMNet2, and DeepMD for general-purpose or hybrid ML/MM simulations."
+    },
+    {
+      "question": "Does OpenMM have a flexible Python interface?",
+      "answer": "Yes, OpenMM offers a flexible Python interface with both high-level classes and low-level API access for custom workflows."
+    },
+    {
+      "question": "Does OpenMM support a high-level plugin framework for ML-driven potentials and hybrid simulations?",
+      "answer": "Yes, OpenMM supports a high-level plugin framework for ML-driven potentials and hybrid simulations."
+    },
+    {
+      "question": "Can OpenMM execute efficiently on CPUs and GPUs?",
+      "answer": "Yes, OpenMM is designed for efficient execution on CPUs and GPUs, making it suitable for HPC platforms."
+    },
+    {
+      "question": "What major biomolecular formats does OpenMM natively support?",
+      "answer": "OpenMM natively supports major biomolecular formats, including AMBER, GROMACS, and CHARMM."
+    },
+    {
+      "question": "Is OpenMM an open-source toolkit?",
+      "answer": "Yes, OpenMM is open-source with an active ecosystem of plugins for ML and advanced force fields."
+    },
+    {
+      "question": "Is OpenMM slower than highly optimized classical MM engines for large-scale production runs?",
+      "answer": "Yes, OpenMM is slower than highly optimized classical MM engines (like GROMACS and AMBER) for large-scale production runs."
+    },
+    {
+      "question": "Can OpenMM's flexibility add complexity for hybrid ML/MM simulations?",
+      "answer": "Yes, its flexibility can add complexity for hybrid ML/MM simulations."
+    },
+    {
+      "question": "Does specialized trajectory analysis using OpenMM always require external tools?",
+      "answer": "Specialized trajectory analysis using OpenMM may require external tools."
+    },
+    {
+      "question": "Which modules need to be loaded to use OpenMM 8.4.0 with CUDA 12.6?",
+      "answer": "The command to load the necessary modules is: `module load StdEnv/2023 gcc/12.3 openmpi/4.1.5 cuda/12.6 openmm/8.4.0 ambertools/25.0`."
+    },
+    {
+      "question": "When is the `ambertools` module required for OpenMM simulations?",
+      "answer": "The `ambertools` module is optional and required only if you plan to simulate AMBER-prepared systems."
+    },
+    {
+      "question": "How can users install extra Python packages, such as machine-learning potentials, for OpenMM?",
+      "answer": "Users can optionally create a Python virtual environment to install extra packages (e.g., ML potentials)."
+    },
+    {
+      "question": "What input files does OpenMM require for AMBER systems?",
+      "answer": "OpenMM can directly read Amber topology and coordinate/restart files if simulating AMBER systems."
+    },
+    {
+      "question": "What preparation steps are recommended for a system before transferring files to an HPC for OpenMM simulation?",
+      "answer": "It is recommended to ensure your system is equilibrated and minimized in Amber or another package before transferring files to HPC."
+    },
+    {
+      "question": "Can OpenMM read GROMACS or CHARMM system formats without the `ambertools` module?",
+      "answer": "Yes, for GROMACS or CHARMM systems, OpenMM can read their respective formats without AmberTools."
+    },
+    {
+      "question": "What is the filename for the example job script provided for OpenMM CUDA simulations?",
+      "answer": "The filename for the example job script is `submit_openmm.cuda.sh`."
+    },
+    {
+      "question": "How many GPUs are requested in the example OpenMM job submission script?",
+      "answer": "The example job submission script requests one GPU: `#SBATCH --gpus=h100:1`."
+    },
+    {
+      "question": "What is the purpose of `module purge` in the job script?",
+      "answer": "The `module purge` command ensures a clean environment by unloading all currently loaded modules before loading the specific ones required for OpenMM."
+    },
+    {
+      "question": "What is the name of the Python simulation script executed by the job script?",
+      "answer": "The job script executes a Python simulation script named `openmm_input.py`."
+    },
+    {
+      "question": "What are the default simulation parameters set in the `openmm_input.py` script for number of steps, timestep, temperature, pressure, and cutoff?",
+      "answer": "The default simulation parameters are `nsteps = 6000`, `dt = 2.0 * unit.femtoseconds`, `temperature = 310 * unit.kelvin`, `pressure = 1 * unit.atmosphere`, and `cutoff = 8.0 * unit.angstroms`."
+    },
+    {
+      "question": "How are AMBER topology and restart files loaded in the example Python simulation script?",
+      "answer": "AMBER topology and restart files are loaded using `amber_sys=load_file(\"prmtop.parm7\", \"restart.rst7\")` and `ncrst=app.amberinpcrdfile.AmberInpcrdFile(\"restart.rst7\")`."
+    },
+    {
+      "question": "Which nonbonded method is used when creating the OpenMM system in the provided Python example?",
+      "answer": "The `PME` (Particle Mesh Ewald) method is used for nonbonded interactions: `nonbondedMethod=app.PME`."
+    },
+    {
+      "question": "What type of integrator is set up in the `openmm_input.py` script?",
+      "answer": "A `LangevinMiddleIntegrator` is set up: `integrator = LangevinMiddleIntegrator(temperature, 1.0/unit.picoseconds, dt)`."
+    },
+    {
+      "question": "How is constant pressure maintained in the example OpenMM simulation script?",
+      "answer": "Constant pressure is maintained by adding a `MonteCarloBarostat` to the system: `barostat = MonteCarloBarostat(pressure, temperature, 50); system.addForce(barostat)`."
+    },
+    {
+      "question": "What platform is specified for running the OpenMM simulation in the example script?",
+      "answer": "The `CUDA` platform is specified: `platform = Platform.getPlatformByName(\"CUDA\")`."
+    },
+    {
+      "question": "What CUDA platform properties are configured in the example Python script?",
+      "answer": "The configured CUDA platform properties are `CudaPrecision=\"mixed\"`, `UseCpuPme='false'`, `DeterministicForces=\"false\"`, and `DeviceIndex=os.environ[\"CUDA_VISIBLE_DEVICES\"]`."
+    },
+    {
+      "question": "What information does the `StateDataReporter` output to `sys.stdout` in the example script?",
+      "answer": "The `StateDataReporter` outputs `step`, `potentialEnergy`, `kineticEnergy`, `temperature`, and `volume` every 1000 steps."
+    },
+    {
+      "question": "What files are used to save the trajectory and restart information in the example Python script?",
+      "answer": "The trajectory is saved to `trajectory.nc` using `NetCDFReporter`, and restart information is saved to `restart.nc` using `RestartReporter`."
+    }
+  ],
+  "generated_at": "2026-04-12T04:31:07.825069+00:00"
+}

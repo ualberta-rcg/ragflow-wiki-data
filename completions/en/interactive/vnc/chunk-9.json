@@ -1,0 +1,88 @@
+{
+  "doc_key": "en/vnc",
+  "level": "chunk",
+  "chunk_index": 9,
+  "qa_pairs": [
+    {
+      "question": "How can a user start a VNC server that allows multiple connections from different locations?",
+      "answer": "To allow multiple connections, the `vncserver` command should be started with the `-alwaysshared` option, for example: `vncserver -idletimeout 86400 -alwaysshared`."
+    },
+    {
+      "question": "What is the primary benefit of using the `-alwaysshared` option when starting a VNC server?",
+      "answer": "The primary benefit is that a user can start working on a VNC desktop from one location (e.g., office), then establish new tunnels from another location (e.g., home), and seamlessly re-connect to the same desktop to continue working."
+    },
+    {
+      "question": "What happens if a VNC server is started without the `-AlwaysShared` option and a user tries to connect from multiple places?",
+      "answer": "If a VNC server is not started with the `-AlwaysShared` option, only one `vncviewer` connection is possible. The user would need to close all applications, shut down the vncserver, and then restart a whole new desktop and all applications from scratch when connecting from a different location."
+    },
+    {
+      "question": "What is a common reason for repeated failures when trying to establish a new VNC server or viewer connection?",
+      "answer": "Repeated failing attempts to establish a new VNC server/viewer connection may be due to an old SSH tunnel still running on the desktop and tying up ports."
+    },
+    {
+      "question": "How can a user identify and terminate old SSH tunnels that might be interfering with VNC connections?",
+      "answer": "To identify and kill such tunnels, a user should open a terminal window on their desktop, run `ps ux | grep ssh`, and then use the `kill PID` command with the appropriate process ID."
+    },
+    {
+      "question": "Which password should be entered if the VNC screensaver times out and requests one?",
+      "answer": "If the VNC screensaver times out and requests a password, the user should enter their cluster account password, not their vncserver password."
+    },
+    {
+      "question": "What command can be used to unlock the MATE desktop screensaver if it becomes unresponsive?",
+      "answer": "If the MATE desktop screensaver will not unlock, a user can try running the command `killall -9 .mate-screensaver`."
+    },
+    {
+      "question": "Is the VNC screensaver still active on current clusters?",
+      "answer": "No, the VNC screensaver has been disabled on the clusters, so it should no longer be a problem."
+    },
+    {
+      "question": "Describe the two-step process for logging into `gra-vdi.alliancecan.ca`.",
+      "answer": "The login process for `gra-vdi.alliancecan.ca` is a two-step process: first, enter your username and CCDB password, and second, enter your username and Duo two-factor MFA passcode."
+    },
+    {
+      "question": "What happens if a user enters an incorrect username or CCDB password during the first step of the `gra-vdi.alliancecan.ca` login procedure?",
+      "answer": "If an incorrect username or CCDB password is entered in the first step, the user will still be prompted for the second step (Duo two-factor MFA passcode). After sending the username/passcode, they will receive a 'Success, Logging you in...' message but will be returned to the first login screen."
+    },
+    {
+      "question": "How can a user reset their CCDB password if they've forgotten it?",
+      "answer": "A user can reset their CCDB password by visiting `https://ccdb.alliancecan.ca/security/forgot`, assuming their account is not pending renewal by their PI."
+    },
+    {
+      "question": "What must be modified in the `salloc` command to run a graphics-based program that uses hardware-based accelerated OpenGL?",
+      "answer": "The `salloc` command must be modified to request a GPU node."
+    },
+    {
+      "question": "What is the consequence if a GPU node is not requested for an OpenGL graphics program?",
+      "answer": "If a GPU node is not requested, the program will fall back to using software-based rendering on CPUs, which is relatively much slower."
+    },
+    {
+      "question": "How can a user request the first available GPU node to minimize queue wait time using `salloc`?",
+      "answer": "To request the first available GPU node, a user can specify `--gpus-per-node=1` in the `salloc` command, for example: `salloc --time=1:00:00 --cpus-per-task=4 --gpus-per-node=1 --mem=16000 --account=def-piname`."
+    },
+    {
+      "question": "How can a user request a specific type of GPU node, such as a t4 GPU, with the `salloc` command?",
+      "answer": "To request a specific GPU type like a t4 GPU, a user can specify `--gpus-per-node=t4:1` in the `salloc` command, for example: `salloc --time=1:00:00 --cpus-per-task=4 --gpus-per-node=t4:1 --mem=16000 --account=def-piname`."
+    },
+    {
+      "question": "What command should typically be added before a program name in a VNC desktop terminal for OpenGL graphics acceleration?",
+      "answer": "The `vglrun` command will probably need to be added just before the name of your `PROGRAM` on the command line of your VNC desktop terminal window, for example: `vglrun -d egl PROGRAM`."
+    },
+    {
+      "question": "What is the function of the `vglrun` command?",
+      "answer": "The `vglrun` command sets some extra environment variables to ensure your program will use the correct virtualgl libraries for hardware acceleration."
+    },
+    {
+      "question": "When is the `vglrun` command not necessary for OpenGL graphics acceleration?",
+      "answer": "The `vglrun` command is not required if the program has already been patched to use the current cvmfs standard environment."
+    },
+    {
+      "question": "What are two alternative portal systems to VNC for users experiencing graphics issues?",
+      "answer": "Two alternative portals are OpenOnDemand on the Nibi cluster (`https://ondemand.sharcnet.ca/`) and JupyterHub on the Rorqual cluster (`https://jupyterhub.rorqual.alliancecan.ca/`)."
+    },
+    {
+      "question": "What advantages do OpenOnDemand and JupyterHub offer compared to VNC for desktop GUI experience?",
+      "answer": "Both OpenOnDemand and JupyterHub offer an automated modern desktop VDI web interface GUI experience designed for ease of use, with improved hardware performance and software support."
+    }
+  ],
+  "generated_at": "2026-04-12T10:53:36.129223+00:00"
+}

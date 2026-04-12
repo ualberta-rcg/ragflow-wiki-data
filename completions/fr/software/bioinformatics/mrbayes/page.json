@@ -1,0 +1,35 @@
+{
+  "doc_key": "fr/mrbayes",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "C'est quoi MrBayes pis à quoi ça sert?",
+      "answer": "MrBayes, c'est un programme qui fait de l'inférence bayésienne et du choix de modèles pour les modèles phylogénétiques et évolutifs, en utilisant les méthodes de Monte Carlo par chaîne de Markov (MCMC) pour estimer la distribution a posteriori des paramètres."
+    },
+    {
+      "question": "Comment on fait pour trouver les versions de MrBayes qui sont disponibles?",
+      "answer": "Tu peux utiliser la commande `module spider mrbayes` pour voir les modules disponibles."
+    },
+    {
+      "question": "Comment je peux lancer une tâche MrBayes en mode séquentiel?",
+      "answer": "Tu crées un script SLURM en demandant un seul cœur CPU (`--cpus-per-task=1`), tu charges le module MrBayes, puis tu utilises `srun mb [fichier_entrée.nex]`."
+    },
+    {
+      "question": "Comment MrBayes peut-il travailler en parallèle, mettons avec MPI?",
+      "answer": "Pour le MPI, tu spécifies le nombre total de cœurs CPU désirés avec `--ntasks=[nombre_de_cœurs]` dans ton script SLURM, puis tu lances `srun mb [fichier_entrée.nex]`."
+    },
+    {
+      "question": "Est-ce que MrBayes peut se servir des GPU pis si oui, comment on configure ça?",
+      "answer": "Oui, MrBayes peut utiliser les GPU. Tu dois ajouter `--gpus=1` à ton script SLURM et charger les modules `gcc`, `cuda/12` et `mrbayes/3.2.7`."
+    },
+    {
+      "question": "Pourquoi c'est important d'utiliser des points de contrôle (checkpoints) avec MrBayes pour les longues tâches?",
+      "answer": "Les points de contrôle permettent de diviser les longues tâches en plus petites, ce qui réduit les risques d'interruption par une panne ou de la maintenance, en permettant de reprendre le travail là où il a été arrêté."
+    },
+    {
+      "question": "Comment on met en place des points de contrôle pour MrBayes en utilisant un vecteur de tâches?",
+      "answer": "Tu prépares des fichiers d'entrée `.nex` pour chaque étape (le deuxième ayant `append=yes`). Ensuite, tu crées un script SLURM avec l'option `--array=1-N%X` pour soumettre les sous-tâches séquentiellement, en utilisant `$SLURM_ARRAY_TASK_ID` pour sélectionner le bon fichier `.nex`."
+    }
+  ],
+  "generated_at": "2026-04-12T03:21:15.440768+00:00"
+}

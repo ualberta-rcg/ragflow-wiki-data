@@ -1,0 +1,95 @@
+{
+  "doc_key": "base/cuda_tutorial",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is the primary purpose of this tutorial?",
+      "answer": "This tutorial introduces the graphics processing unit (GPU) as a massively parallel computing device, the CUDA parallel programming language, and some of the CUDA numerical libraries for high performance computing."
+    },
+    {
+      "question": "What programming language background is required to gain the most benefit from this tutorial?",
+      "answer": "A working knowledge of C or C++ is required, as the tutorial focuses on CUDA C/C++."
+    },
+    {
+      "question": "What does GPU stand for, and what was its initial function?",
+      "answer": "GPU stands for graphics processing unit, and its initial function was to perform rapid mathematical calculations for rendering images."
+    },
+    {
+      "question": "What does CUDA stand for, and what does it provide?",
+      "answer": "CUDA stands for 'compute unified device architecture' and is a scalable parallel programming model and software environment that provides access to instructions and memory of massively parallel elements in GPUs."
+    },
+    {
+      "question": "What are the two main architectural components of a GPU?",
+      "answer": "The two main architectural components of a GPU are Global memory and Streaming Multiprocessors (SMs)."
+    },
+    {
+      "question": "In the CUDA programming model, what do 'Host' and 'Device' refer to?",
+      "answer": "'Host' refers to the CPU and its memory, while 'Device' refers to the GPU and its memory."
+    },
+    {
+      "question": "Outline the typical five-step recipe for a CUDA program's workflow.",
+      "answer": "The five steps are: declare and allocate both host and device memories; initialize the host memory; transfer data from Host memory to device memory; execute GPU functions (kernels); and transfer data back to the host memory."
+    },
+    {
+      "question": "What is a 'kernel' in the context of CUDA programming?",
+      "answer": "A 'kernel' is a simple CUDA code executed on the GPU."
+    },
+    {
+      "question": "How are threads organized in the CUDA block-threading model to achieve massive parallelism?",
+      "answer": "In CUDA, threads are structured into threading blocks, and these blocks are further organized into grids."
+    },
+    {
+      "question": "What are the cooperation rules for threads within the CUDA block-threading model?",
+      "answer": "Threads within a block can cooperate via shared memory, but threads in different blocks cannot cooperate."
+    },
+    {
+      "question": "What are 'warps' in CUDA thread scheduling?",
+      "answer": "Warps are groups of 32 threads that a streaming multiprocessor (SM) executes code in."
+    },
+    {
+      "question": "Name four types of memory available for CUDA operations.",
+      "answer": "Four types of memory available for CUDA operations are Global memory, Shared memory, Registers and Local Memory, and Constant memory."
+    },
+    {
+      "question": "What is the purpose of `cudaMalloc` and `cudaFree` functions?",
+      "answer": "`cudaMalloc` allocates objects in the device memory, and `cudaFree` deallocates objects from device memory."
+    },
+    {
+      "question": "How does `cudaMemcpyAsync` differ from `cudaMemcpy`?",
+      "answer": "`cudaMemcpyAsync` transfers data asynchronously, meaning it does not block the execution of other processes, unlike `cudaMemcpy`."
+    },
+    {
+      "question": "Why is shared memory advantageous in CUDA programming?",
+      "answer": "Shared memory is on-chip and very fast, allowing for significant speed-up of memory operations between threads within the same block."
+    },
+    {
+      "question": "What are some strategies to minimize memory transfer bottlenecks in CUDA?",
+      "answer": "Strategies include minimizing host-to-device and device-to-host memory copies, keeping data on the device as long as possible, and using `memcpy` timings to analyze execution."
+    },
+    {
+      "question": "Describe the access characteristics of constant memory in GPUs.",
+      "answer": "Constant memory resides in DRAM, making it slower than shared memory, but it is cached, which provides highly efficient access for read-only, broadcast operations."
+    },
+    {
+      "question": "How should data be divided for optimal GPU performance based on access patterns?",
+      "answer": "Read-only data should go to constant memory, read/write within a block to shared memory, read/write within a thread to registers, and read/write input/results to global memory."
+    },
+    {
+      "question": "What is a Streaming Multiprocessor (SM) in a GPU?",
+      "answer": "A Streaming Multiprocessor (SM) is a GPU component made of many Streaming Processors (SPs) that perform actual computations, each with its own control unit, registers, and execution pipelines."
+    },
+    {
+      "question": "What is the benefit of zero-overhead scheduling in CUDA?",
+      "answer": "Zero-overhead scheduling keeps SMs from being idle by suspending the execution of blocks when data is unavailable and immediately executing another block that is ready."
+    },
+    {
+      "question": "When is it advantageous to parallelize across multiple threads within a block versus across multiple blocks?",
+      "answer": "Parallelizing across multiple threads within a block is advantageous when heavy communication is involved, as threads in a block can communicate. Chunks of code that can run independently are distributed across parallel blocks."
+    },
+    {
+      "question": "What is the purpose of `__syncthreads()` in a CUDA kernel?",
+      "answer": "`__syncthreads()` synchronizes all threads within a block, ensuring they have all completed their operations up to that point before any thread proceeds further, which is crucial for shared memory operations."
+    }
+  ],
+  "generated_at": "2026-04-11T19:17:12.355242+00:00"
+}

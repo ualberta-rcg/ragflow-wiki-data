@@ -1,0 +1,60 @@
+{
+  "doc_key": "fr/managing_your_cloud_resources_with_openstack",
+  "level": "chunk",
+  "chunk_index": 4,
+  "qa_pairs": [
+    {
+      "question": "Comment on fait pour modifier les groupes de sécurité d'une instance qui roule déjà?",
+      "answer": "Quand l'instance est déjà active, il faut aller dans le tableau de bord, cliquer sur \"Projet->Calcul->Instances\", puis dans la colonne \"Actions\", choisir l'option \"Editer les groupes de sécurité\" dans le menu déroulant."
+    },
+    {
+      "question": "C'est quoi, CIDR?",
+      "answer": "CIDR, ça veut dire \"Classless Inter-Domain Routing\". C'est une façon standard pour définir des groupes d'adresses IP."
+    },
+    {
+      "question": "Peux-tu me donner un exemple de règle CIDR pis m'expliquer ce que ça veut dire?",
+      "answer": "Bien sûr! Prends `192.168.1.1/24` comme exemple. Le `/24` à la fin, ça veut dire que la règle va comparer les 24 premiers bits (ou 3 octets) des adresses IP. Donc, toutes les adresses qui commencent par `192.168.1` vont matcher cette règle."
+    },
+    {
+      "question": "Qu'est-ce que ça veut dire si une règle CIDR se termine par `/32`?",
+      "answer": "Si une règle CIDR se termine par `/32`, ça veut dire que les 32 bits de l'adresse IP doivent correspondre exactement. C'est comme cibler une seule adresse IP précise."
+    },
+    {
+      "question": "Quand est-ce qu'on peut utiliser cloudInit pis c'est quoi le principe?",
+      "answer": "On peut utiliser cloudInit la première fois que ton instance est lancée, pour la personnaliser. C'est une façon de configurer des choses dès le départ."
+    },
+    {
+      "question": "Comment on peut utiliser cloudInit pour personnaliser une instance?",
+      "answer": "Tu peux soit passer par l'interface en ligne de commande d'OpenStack, soit coller ton script cloudInit dans le champ \"Script de personnalisation\" quand tu lances une instance via le tableau de bord OpenStack (Projet-->Compute-->Instances--> bouton Lancer une instance, option Configuration)."
+    },
+    {
+      "question": "Comment on ajoute des utilisateurs avec cloud-init quand on crée une instance?",
+      "answer": "Il faut insérer un script cloud-init qui définit les utilisateurs. Par exemple, tu peux ajouter un utilisateur comme `gretzky` avec les permissions sudo et un autre comme `lemieux` sans les permissions sudo, en spécifiant leurs clés publiques SSH."
+    },
+    {
+      "question": "Y'a-t-il des choses importantes à savoir sur le format YAML pour les scripts cloud-init?",
+      "answer": "Oui, les espaces sont super importantes dans le format YAML. Faut faire gaffe à bien laisser un espace entre le tiret initial et la clé publique, par exemple."
+    },
+    {
+      "question": "Si j'utilise un script cloud-init pour ajouter des utilisateurs, est-ce que ça affecte l'utilisateur par défaut de l'instance?",
+      "answer": "Oui, si tu définis tes propres utilisateurs avec un script cloud-init, ça remplace l'utilisateur par défaut qui est normalement créé. Les utilisateurs que tu listes dans le script seront les seuls sur la nouvelle instance."
+    },
+    {
+      "question": "Faut-il toujours qu'un utilisateur ait les permissions sudo quand on utilise cloud-init pour en ajouter?",
+      "answer": "Oui, il faut absolument s'assurer qu'au moins un des utilisateurs que tu définis dans ton script cloud-init ait les permissions sudo, pour pouvoir administrer l'instance."
+    },
+    {
+      "question": "Comment faire pour garder l'utilisateur par défaut de la distribution (comme `debian` ou `ubuntu`) tout en ajoutant d'autres utilisateurs avec cloud-init?",
+      "answer": "Pour ça, tu dois inclure `- default` au début de la section `users` dans ton script cloud-init, avant de lister les nouveaux utilisateurs que tu veux ajouter."
+    },
+    {
+      "question": "Une fois l'instance démarrée, comment on vérifie si les clés SSH sont bien associées aux utilisateurs?",
+      "answer": "Il faut consulter le journal des opérations. Tu vas dans \"Projet->Calcul->Instances\", tu cliques sur le nom de ton instance, pis tu regardes l'onglet \"Journal\". Ça va te montrer le journal de la console."
+    },
+    {
+      "question": "Après avoir configuré des utilisateurs avec cloud-init, comment ils peuvent se connecter à l'instance?",
+      "answer": "Une fois que tout est configuré, les utilisateurs peuvent se connecter à l'instance en utilisant leur clé privée SSH respective."
+    }
+  ],
+  "generated_at": "2026-04-12T02:16:56.962883+00:00"
+}

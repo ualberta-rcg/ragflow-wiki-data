@@ -1,0 +1,95 @@
+{
+  "doc_key": "base/ha_fip",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What issue does Floating IP High Availability aim to resolve?",
+      "answer": "It aims to prevent application inaccessibility caused by a single virtual machine (VM) failure."
+    },
+    {
+      "question": "What is the primary goal of making a Floating IP (FIP) highly available?",
+      "answer": "The primary goal is to make the application hosted on the VMs highly available."
+    },
+    {
+      "question": "What type of high-availability system is described in this document?",
+      "answer": "The document describes an active-passive high-availability system."
+    },
+    {
+      "question": "What aspects of application availability does this setup *not* cover?",
+      "answer": "This setup does not cover the availability of application data (like files) or its services (like running web server software)."
+    },
+    {
+      "question": "What protocol is used for communication between the systems to determine their status in this HA setup?",
+      "answer": "The Virtual Router Redundancy Protocol (VRRP) is used to determine the systems' status."
+    },
+    {
+      "question": "In a VRRP setup, what happens if the 'MASTER' system stops responding?",
+      "answer": "If the 'MASTER' system stops responding, the 'BACKUP' system changes to 'MASTER' mode and brings up the internal Virtual IP (VIP)."
+    },
+    {
+      "question": "How does the public Floating IP (FIP) ensure continuous application reachability?",
+      "answer": "The public FIP will always forward traffic to the Virtual IP (VIP), ensuring the application is reachable as long as a system is accessible via the VIP."
+    },
+    {
+      "question": "What are the three main components required for the example setup described in the document?",
+      "answer": "The setup requires two VMs hosting the application, one Virtual IP (VIP) from within your project, and one HA Floating IP."
+    },
+    {
+      "question": "Which software packages need to be installed on both virtual machines for this HA setup?",
+      "answer": "Nginx and Keepalived need to be installed on both virtual machines."
+    },
+    {
+      "question": "Why is it important to choose a Virtual IP (VIP) that is not already in use within the project's internal network?",
+      "answer": "It is important because IP addresses are unique identifiers, even within a private network, and to avoid conflicts."
+    },
+    {
+      "question": "Where in the OpenStack dashboard do you add the chosen Virtual IP (VIP) to the Allowed Address Pair for each VM?",
+      "answer": "You add it under 'Compute' -> 'Instances', select the VM, go to the 'Interfaces' tab, then 'Allowed Address Pair', and click 'Add Allowed Address Pair'."
+    },
+    {
+      "question": "What is the file path for the Keepalived configuration on each VM?",
+      "answer": "The configuration file path is `/etc/keepalived/keepalived.conf`."
+    },
+    {
+      "question": "What 'state' and 'priority' are typically configured for the active system in the Keepalived configuration?",
+      "answer": "The active system is configured with `state MASTER` and a higher `priority`, such as `100`."
+    },
+    {
+      "question": "What 'state' and 'priority' are typically configured for the passive (standby) system in the Keepalived configuration?",
+      "answer": "The passive system is configured with `state BACKUP` and a lower `priority`, such as `50`."
+    },
+    {
+      "question": "What security measure is necessary to allow VRRP traffic between the systems?",
+      "answer": "You must allow VRRP traffic in your 'Security Groups' and ensure they are attached to your systems."
+    },
+    {
+      "question": "How do you enable and start the Keepalived service on a VM?",
+      "answer": "You enable and start Keepalived using the command `systemctl enable --now keepalived`."
+    },
+    {
+      "question": "How can you verify that the Virtual IP (VIP) has been assigned to the active system after starting Keepalived?",
+      "answer": "You can verify it by running `ip a s dev ens3` and looking for the VIP listed as an `inet` address."
+    },
+    {
+      "question": "How do you test the failover functionality of the Keepalived setup?",
+      "answer": "You can test failover by stopping Keepalived on the active system and then checking if the standby system takes over the VIP."
+    },
+    {
+      "question": "If the original active system restarts Keepalived with a higher priority, what happens to the VIP?",
+      "answer": "The original active system will take the VIP over again if it restarts Keepalived with a higher priority."
+    },
+    {
+      "question": "What is the first step to bind the Floating IP (FIP) to the Virtual IP (VIP) address?",
+      "answer": "The first step is to create a port in your network (`Network` -> `Networks` -> `your-projectname-network`) with the VIP as its fixed address."
+    },
+    {
+      "question": "After creating the VIP port, how do you associate the Floating IP (FIP) with it?",
+      "answer": "You select the FIP under 'Network' -> 'Floating IPs', click 'Associate', and then select the newly created VIP port."
+    },
+    {
+      "question": "How can you confirm that the Floating IP (FIP) has been successfully associated with the VIP port?",
+      "answer": "You can confirm it when the 'Status' field for the Floating IP shows 'Active'."
+    }
+  ],
+  "generated_at": "2026-04-11T23:39:24.265716+00:00"
+}

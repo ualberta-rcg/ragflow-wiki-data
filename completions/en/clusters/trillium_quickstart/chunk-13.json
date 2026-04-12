@@ -1,0 +1,128 @@
+{
+  "doc_key": "en/trillium_quickstart",
+  "level": "chunk",
+  "chunk_index": 13,
+  "qa_pairs": [
+    {
+      "question": "What type of job does the provided example script demonstrate for Trillium's CPU subcluster?",
+      "answer": "The script demonstrates a hybrid MPI/OpenMP job."
+    },
+    {
+      "question": "How many nodes and tasks per node are requested for the hybrid MPI/OpenMP job in the example script?",
+      "answer": "The script requests 2 nodes, with 48 tasks per node."
+    },
+    {
+      "question": "What is the wall time limit specified for the example hybrid MPI/OpenMP job?",
+      "answer": "The wall time limit specified is 1 hour (`01:00:00`)."
+    },
+    {
+      "question": "Which software modules are loaded in the example hybrid MPI/OpenMP job script?",
+      "answer": "The `StdEnv/2023`, `gcc/12.3`, and `openmpi/4.1.5` modules are loaded."
+    },
+    {
+      "question": "How is the `OMP_NUM_THREADS` environment variable set in the hybrid MPI/OpenMP example script?",
+      "answer": "`OMP_NUM_THREADS` is set to the value of `$SLURM_CPUS_PER_TASK`."
+    },
+    {
+      "question": "What is the purpose of sourcing `/scinet/vast/etc/vastpreload-openmpi.bash` in the hybrid MPI/OpenMP job script?",
+      "answer": "It preloads a library to tune MPI-IO for the VAST file system, which is important for MPI-IO operations."
+    },
+    {
+      "question": "What happens if `srun` is used instead of `mpirun` when the `vastpreload` library is sourced for MPI-IO?",
+      "answer": "The `vastpreload` library will not take effect if `srun` is used; `mpirun` must be used for it to work."
+    },
+    {
+      "question": "What command is used to submit the `hybrid_job.sh` script from a CPU login node?",
+      "answer": "The script is submitted using the command `sbatch hybrid_job.sh` while in the `$SCRATCH` directory."
+    },
+    {
+      "question": "How does the example hybrid MPI/OpenMP job script ensure processes and threads are spread evenly over the cores?",
+      "answer": "The `mpirun` command uses the `--bind-to core --map-by ppr:$RANKS_PER_L3CACHE:l3cache:pe=$OMP_NUM_THREADS` options to help spread processes and threads evenly."
+    },
+    {
+      "question": "What should be changed in the `mpirun --map-by` option if a hybrid MPI/OpenMP job uses more than 8 but at most 24 threads per process?",
+      "answer": "For more than 8 and at most 24 threads per process, `l3cache` should be changed to `numa` in the `mpirun --map-by` option."
+    },
+    {
+      "question": "What should be changed in the `mpirun --map-by` option if a hybrid MPI/OpenMP job uses more than 24 threads per process?",
+      "answer": "For more than 24 threads per process, `l3cache` should be changed to `socket` in the `mpirun --map-by` option."
+    },
+    {
+      "question": "What are the specific GPU request restrictions on Trillium?",
+      "answer": "On Trillium, users are only allowed to request exactly 1 GPU or a multiple of 4 GPUs. Requesting `--gpus-per-node=2` or `3` is not allowed."
+    },
+    {
+      "question": "Can NVIDIA's MIG technology be used on Trillium's GPU subcluster?",
+      "answer": "No, Trillium does not support NVIDIA's MIG technology for allocating a subdivision of a GPU."
+    },
+    {
+      "question": "How can multiple processes share a single GPU within a job on Trillium?",
+      "answer": "Users can use NVIDIA's Multi-Process Service (MPS) to share a GPU among processes running on the same job."
+    },
+    {
+      "question": "What `sbatch` option is used to request a single GPU for a job on Trillium?",
+      "answer": "To request a single GPU, use `--gpus-per-node=1`."
+    },
+    {
+      "question": "What `sbatch` option is used to request a whole GPU node (all GPUs on a node) for a job on Trillium?",
+      "answer": "To request a whole GPU node, use `--gpus-per-node=4`."
+    },
+    {
+      "question": "What is the maximum number of running GPU compute jobs allowed for a user in the `compute` partition?",
+      "answer": "A user can have a maximum of 150 running GPU compute jobs in the `compute` partition."
+    },
+    {
+      "question": "What is the maximum number of submitted GPU compute jobs (including running jobs) allowed in the `compute` partition?",
+      "answer": "A user can have a maximum of 500 submitted GPU compute jobs (including running jobs) in the `compute` partition."
+    },
+    {
+      "question": "What is the minimum size for a GPU compute job in the `compute` partition?",
+      "answer": "The minimum size for a GPU compute job is 1/4 node (24 cores / 1 GPU)."
+    },
+    {
+      "question": "What is the default maximum size for a GPU compute job in the `compute` partition without a special allocation?",
+      "answer": "The default maximum size is 5 nodes (480 cores / 20 GPUs)."
+    },
+    {
+      "question": "What is the maximum size for a GPU compute job in the `compute` partition with an allocation?",
+      "answer": "With an allocation, the maximum size is 25 nodes (2400 cores / 100 GPUs)."
+    },
+    {
+      "question": "What is the minimum wall time for a GPU compute job in the `compute` partition?",
+      "answer": "The minimum wall time is 15 minutes."
+    },
+    {
+      "question": "What is the maximum wall time for a GPU compute job in the `compute` partition?",
+      "answer": "The maximum wall time is 24 hours."
+    },
+    {
+      "question": "What is the maximum number of running GPU testing jobs allowed in the `debug` partition?",
+      "answer": "A user can have a maximum of 1 running GPU testing job in the `debug` partition."
+    },
+    {
+      "question": "What is the maximum number of submitted GPU testing jobs (including running jobs) allowed in the `debug` partition?",
+      "answer": "A user can have a maximum of 1 submitted GPU testing job (including running jobs) in the `debug` partition."
+    },
+    {
+      "question": "What is the minimum size for a GPU testing job in the `debug` partition?",
+      "answer": "The minimum size for a GPU testing job is 1/4 node (24 cores / 1 GPU)."
+    },
+    {
+      "question": "What is the maximum size for a GPU testing job in the `debug` partition?",
+      "answer": "The maximum size for a GPU testing job is 2 nodes (192 cores / 8 GPUs)."
+    },
+    {
+      "question": "What is the wall time limit for a single-GPU testing job in the `debug` partition?",
+      "answer": "The wall time limit for a single-GPU testing job is 2 hours."
+    },
+    {
+      "question": "What is the wall time limit for an 8-GPU testing job in the `debug` partition?",
+      "answer": "The wall time limit for an 8-GPU testing job is 30 minutes."
+    },
+    {
+      "question": "What factors influence the waiting time for GPU jobs on Trillium?",
+      "answer": "The waiting time depends on factors such as the group's allocation amount, recent past usage, the number of requested nodes and walltime, and the number of other jobs waiting in the queue."
+    }
+  ],
+  "generated_at": "2026-04-12T09:46:48.129054+00:00"
+}

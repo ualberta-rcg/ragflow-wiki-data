@@ -1,0 +1,96 @@
+{
+  "doc_key": "base/gromacs",
+  "level": "chunk",
+  "chunk_index": 8,
+  "qa_pairs": [
+    {
+      "question": "Are all CPU (non-GPU) versions of GROMACS available in double precision?",
+      "answer": "No, with the exception of GROMACS 2019.3, CPU (non-GPU) versions are available in both single and double precision, but double precision is not available for AVX512 in GROMACS 2019.3."
+    },
+    {
+      "question": "How do I load a CPU (non-GPU) GROMACS module?",
+      "answer": "You can load a CPU (non-GPU) GROMACS module using a `module load` command. For example: `module load StdEnv/2023 gcc/12.3 openmpi/4.1.5 gromacs/2025.4` or `module load StdEnv/2020 gcc/9.3.0 openmpi/4.0.3 gromacs/2023.2`."
+    },
+    {
+      "question": "Are GROMACS versions with GPU support available in both single and double precision?",
+      "answer": "No, GROMACS versions with GPU support are only available with single precision."
+    },
+    {
+      "question": "What additional module is required to load a GPU-enabled GROMACS version?",
+      "answer": "To load a GPU-enabled GROMACS version, the `cuda` module needs to be loaded first."
+    },
+    {
+      "question": "Can you provide an example command to load a GPU-enabled GROMACS module?",
+      "answer": "An example command to load a GPU-enabled GROMACS module is: `module load StdEnv/2023 gcc/12.3 openmpi/4.1.5 cuda/12.6 gromacs/2025.4` or `module load StdEnv/2020 gcc/9.3.0 cuda/11.4 openmpi/4.0.3 gromacs/2023.2`."
+    },
+    {
+      "question": "Where can I find more information about environment modules?",
+      "answer": "More information on environment modules can be found on the \"Using modules\" page."
+    },
+    {
+      "question": "How many binaries do GROMACS 5.x, 2016.x, and newer releases consist of?",
+      "answer": "GROMACS 5 and newer releases consist of only four binaries that contain the full functionality."
+    },
+    {
+      "question": "How are GROMACS tools from previous versions implemented in GROMACS 5 and newer releases?",
+      "answer": "All GROMACS tools from previous versions have been implemented as sub-commands of the `gmx` binaries in GROMACS 5 and newer releases."
+    },
+    {
+      "question": "Where can I find documentation on tool changes for GROMACS 5.0 and newer versions?",
+      "answer": "You can refer to the \"GROMACS 5.0 Tool Changes\" page and the \"GROMACS documentation manuals\" for your specific version."
+    },
+    {
+      "question": "What does the `gmx` binary represent in GROMACS 5.x and newer?",
+      "answer": "The `gmx` binary represents mixed (\"single\") precision GROMACS with OpenMP (threading) but without MPI."
+    },
+    {
+      "question": "What does the `gmx_mpi` binary represent in GROMACS 5.x and newer?",
+      "answer": "The `gmx_mpi` binary represents mixed (\"single\") precision GROMACS with OpenMP and MPI."
+    },
+    {
+      "question": "What does the `gmx_d` binary represent in GROMACS 5.x and newer?",
+      "answer": "The `gmx_d` binary represents double precision GROMACS with OpenMP but without MPI."
+    },
+    {
+      "question": "What does the `gmx_mpi_d` binary represent in GROMACS 5.x and newer?",
+      "answer": "The `gmx_mpi_d` binary represents double precision GROMACS with OpenMP and MPI."
+    },
+    {
+      "question": "How are double precision binaries suffixed in GROMACS 4.6.7?",
+      "answer": "In GROMACS 4.6.7, double precision binaries have the suffix `_d`."
+    },
+    {
+      "question": "What are the parallel single and double precision `mdrun` binaries for GROMACS 4.6.7?",
+      "answer": "For GROMACS 4.6.7, the parallel `mdrun` binaries are `mdrun_mpi` (single precision) and `mdrun_mpi_d` (double precision)."
+    },
+    {
+      "question": "Where can I find help on using the SLURM workload manager for GROMACS?",
+      "answer": "You can find help on using the SLURM workload manager on the \"Running jobs\" page."
+    },
+    {
+      "question": "Can you provide a basic job script for a serial `mdrun` simulation?",
+      "answer": "Yes, a basic job script for a serial `mdrun` simulation is: `#!/bin/bash\n#SBATCH --time=0-0:30         # time limit (D-HH:MM)\n#SBATCH --mem-per-cpu=1000M   # memory per CPU (in MB)\nmodule purge  \nmodule load  StdEnv/2023  gcc/12.3  openmpi/4.1.5  gromacs/2025.4\nexport OMP_NUM_THREADS=\"${SLURM_CPUS_PER_TASK:-1}\"\ngmx mdrun -nt 1 -deffnm em`."
+    },
+    {
+      "question": "What file does the example serial `mdrun` script simulate?",
+      "answer": "The example serial `mdrun` script simulates the molecular system described in the file `em.tpr`."
+    },
+    {
+      "question": "Why might I need to use whole nodes for GROMACS simulations?",
+      "answer": "You should often use a number of whole nodes for GROMACS simulations because the systems being simulated are commonly very large."
+    },
+    {
+      "question": "What is the general rule for setting `--ntasks-per-node` and `--cpus-per-task` for GROMACS simulations on compute nodes?",
+      "answer": "Generally, the product of `--ntasks-per-node` and `--cpus-per-task` should match the number of CPU cores of the cluster’s compute nodes."
+    },
+    {
+      "question": "What should I do if GROMACS reports an error about domain decomposition when using a large number of CPU cores per node?",
+      "answer": "If GROMACS reports an error about domain decomposition being impossible, you should halve the `--ntasks-per-node` value and double the `--cpus-per-task` value."
+    },
+    {
+      "question": "How does system size affect domain decomposition in GROMACS on clusters with many CPU cores?",
+      "answer": "For larger systems, domain decomposition can divide the system into more smaller regions, which allows for larger `--ntasks-per-node` values."
+    }
+  ],
+  "generated_at": "2026-04-11T22:25:34.611279+00:00"
+}

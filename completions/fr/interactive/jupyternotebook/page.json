@@ -1,0 +1,75 @@
+{
+  "doc_key": "fr/jupyternotebook",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "Quel est le but principal de Project Jupyter, d'après le document?",
+      "answer": "Project Jupyter est un projet ''open source'' sans but lucratif dont la mission est de servir le calcul scientifique et la science des données interactives."
+    },
+    {
+      "question": "Qu'est-ce que l'application web Jupyter Notebook permet de créer et de partager?",
+      "answer": "L'application web Jupyter Notebook rend possibles la création et le partage de documents contenant aussi bien du code, des équations et des visualisations que du texte."
+    },
+    {
+      "question": "Où est-il recommandé de faire fonctionner Jupyter Notebook pour éviter les limites de ressources?",
+      "answer": "Il est recommandé de faire fonctionner Jupyter Notebook sur un nœud de calcul plutôt que sur un nœud de connexion, pour éviter des limites de ressources et des terminaisons d'applications."
+    },
+    {
+      "question": "Quelle est la principale alternative à Jupyter Notebook suggérée dans le document?",
+      "answer": "Le document suggère d'installer plutôt JupyterLab, car ce n'est pas la plus récente interface de Jupyter."
+    },
+    {
+      "question": "Quelles sont les étapes générales pour installer Jupyter Notebook dans votre répertoire personnel?",
+      "answer": "Il faut charger un module Python, créer et activer un environnement virtuel Python, puis installer Jupyter Notebook avec la commande `pip`."
+    },
+    {
+      "question": "Comment crée-t-on le script (wrapper) pour lancer Jupyter Notebook dans l'environnement virtuel?",
+      "answer": "On crée le script en utilisant la commande `echo -e '#!/bin/bash\\nexport JUPYTER_RUNTIME_DIR=$SLURM_TMPDIR/jupyter\\njupyter notebook --ip $(hostname -f) --no-browser' > $VIRTUAL_ENV/bin/notebook.sh`."
+    },
+    {
+      "question": "À quoi sert le module d'extension Jupyter Lmod?",
+      "answer": "Jupyter Lmod est un module d'extension permettant d'interagir avec les modules d'environnement avant le lancement des noyaux (''kernels''), par exemple pour charger ou décharger des collections."
+    },
+    {
+      "question": "Quelle est l'utilité de `nbserverproxy` pour Jupyter Notebook?",
+      "answer": "`nbserverproxy` permet d'accéder à des services web mandataires démarrés dans un serveur Jupyter, ce qui est utile pour des services comme TensorBoard qui n'écoutent que sur un port du serveur local."
+    },
+    {
+      "question": "Que fait RStudio Launcher et avec quels environnements logiciels fonctionne-t-il?",
+      "answer": "RStudio Launcher crée l'option ''RStudio Session'' dans le menu ''New'' de Jupyter Notebook pour démarrer une session RStudio. Il fonctionne uniquement avec les environnements logiciels `StdEnv/2016.4` et `StdEnv/2018.3`."
+    },
+    {
+      "question": "Comment lance-t-on Jupyter Notebook après l'activation de l'environnement virtuel?",
+      "answer": "On le lance en soumettant une tâche interactive avec la commande `salloc --time=1:0:0 --ntasks=1 --cpus-per-task=2 --mem-per-cpu=1024M --account=def-yourpi srun $VIRTUAL_ENV/bin/notebook.sh`, en ajustant les paramètres selon les besoins."
+    },
+    {
+      "question": "Pourquoi est-il nécessaire de créer un tunnel SSH pour se connecter à Jupyter Notebook?",
+      "answer": "Un tunnel SSH est nécessaire parce que les nœuds de calcul ne sont pas directement accessibles par l'Internet, ce qui permet à votre fureteur web d'avoir accès à Jupyter Notebook opérant sur un nœud de calcul."
+    },
+    {
+      "question": "Comment établir un tunnel SSH pour Jupyter Notebook sous Linux ou macOS X?",
+      "answer": "Sous Linux ou macOS X, il est recommandé d'utiliser le paquet Python `sshuttle` en ouvrant un nouveau terminal et en lançant la commande `sshuttle --dns -Nr <username>@<cluster>.alliancecan.ca`."
+    },
+    {
+      "question": "Comment se connecter à Jupyter Notebook depuis Windows en utilisant MobaXTerm?",
+      "answer": "Il faut ouvrir deux onglets Terminal dans MobaXTerm: le premier pour lancer Jupyter Notebook et obtenir l'URL/jeton, et le second pour établir un tunnel SSH avec la commande `ssh -L 8888:<hostname:port> <username>@<cluster>.alliancecan.ca`, puis naviguer vers `http://localhost:8888/?token=<jeton>`."
+    },
+    {
+      "question": "Comment ferme-t-on le serveur Jupyter Notebook avant la fin du temps d'exécution alloué?",
+      "answer": "Pour fermer le serveur Jupyter Notebook, il faut appuyer deux fois sur CTRL-C dans le terminal où la tâche interactive a été lancée."
+    },
+    {
+      "question": "Quelles sont les deux étapes principales pour ajouter de nouveaux noyaux (''kernels'') à Jupyter Notebook?",
+      "answer": "Les deux étapes sont l'installation des paquets permettant à l'interpréteur de communiquer avec Jupyter Notebook, et la création du fichier de configuration du noyau dans un sous-répertoire de `~/.local/share/jupyter/kernels`."
+    },
+    {
+      "question": "Comment installe-t-on le noyau Julia pour Jupyter Notebook?",
+      "answer": "Pour le noyau Julia, il faut charger le module Julia, activer l'environnement virtuel Jupyter Notebook, puis exécuter `echo 'Pkg.add(\"IJulia\")' | julia`."
+    },
+    {
+      "question": "Comment ajoute-t-on un noyau Python d'une version différente à Jupyter Notebook?",
+      "answer": "Il faut charger le module Python désiré, créer et activer un nouvel environnement Python pour cette version, installer la bibliothèque `ipykernel` et générer le fichier de configuration du noyau avec `python -m ipykernel install --user --name <unique_name> --display-name \"Python 3.5 Kernel\"`."
+    }
+  ],
+  "generated_at": "2026-04-12T00:40:03.456597+00:00"
+}

@@ -5,21 +5,76 @@ lang: "base"
 
 source_wiki_title: "Large Scale Machine Learning (Big Data)"
 source_hash: "8958bb73a4ca2eb3caec75f3f3c11706"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T07:53:04.520872+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T08:29:24.158810+00:00"
 
 tags:
   - ai-and-machine-learning
 
 keywords:
-  []
+  - "SnapML"
+  - "thread parallelism"
+  - "Out-of-memory training"
+  - "SGDRegressor"
+  - "LogisticRegression"
+  - "scikit-learn"
+  - "Scikit-learn"
+  - "memory-mapped numpy arrays"
+  - "ridge regression"
+  - "virtual environment"
+  - "pip install"
+  - "stochastic gradient descent"
+  - "Large datasets"
+  - "Stochastic gradient solvers"
+  - "machine learning"
+  - "Traditional Machine Learning"
+  - "out-of-core learning"
+  - "datasets in memory"
+  - "Spark ML"
+  - "Snap ML"
+  - "Out-Of-Memory (OOM) errors"
+  - "penalty='l2'"
+  - "Python wheel"
+  - "Multithreading"
+  - "unidimensional"
+  - "GPU acceleration"
+  - "partial_fit"
+  - "Apache Spark"
+  - "MPI"
+  - "Batch learning"
+
+questions:
+  - "Why is scaling traditional machine learning models in packages like scikit-learn often more difficult than scaling deep learning models?"
+  - "How can switching to a stochastic gradient descent (SGD) solver help prevent Out-Of-Memory (OOM) errors during training?"
+  - "What is the primary advantage of using the SGDRegressor class instead of the Ridge class, and what specific limitation does it have?"
+  - "What underlying algorithm does the SGDRegressor use as a solver?"
+  - "What is the main caveat regarding the output when using the SGDRegressor?"
+  - "How can the SGDRegressor be configured to perform a ridge regression?"
+  - "How can you train a machine learning model in scikit-learn when the dataset is too large to fit into system memory?"
+  - "What are the main features of the Snap ML library and when should it be used as an alternative to scikit-learn?"
+  - "What is the recommended procedure for installing the Snap ML library using Python wheels in a virtual environment?"
+  - "How can users control thread parallelism in Snap ML to achieve faster training times compared to scikit-learn?"
+  - "What specific parameters must be configured to enable single or multi-GPU acceleration for Snap ML estimators?"
+  - "How does Snap ML facilitate out-of-memory training for large datasets without loading them entirely into RAM?"
+  - "What is the preferred package format used to install SnapML?"
+  - "What preliminary environment setup steps are required before installing the software?"
+  - "What is the exact pip command used to execute the SnapML installation?"
+  - "How do you run Snap ML estimators in distributed mode using MPI?"
+  - "What are the main capabilities and advantages of using the Spark ML library?"
+  - "What tutorial should users consult before trying out the examples in the official Spark ML documentation?"
+  - "How does Snap ML's approach to loading datasets into memory differ from that of scikit-learn?"
+  - "What specific numpy data structure can be used as direct input for Snap ML models?"
+  - "How is a Logistic Regression model trained using memory-mapped arrays in the provided Python example?"
+  - "How do you run Snap ML estimators in distributed mode using MPI?"
+  - "What are the main capabilities and advantages of using the Spark ML library?"
+  - "What tutorial should users consult before trying out the examples in the official Spark ML documentation?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -59,8 +114,7 @@ model = Ridge(solver='saga')
 model.fit(X,y)
 ```
 
-!!! note "Unidimensional Output for SGDRegressor"
-    Another option that reduces memory usage even more, is to use [SGDRegressor](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.SGDRegressor.html) instead of Ridge. This class implements many types of generalized linear models for regression, using a vanilla stochastic gradient descent as a solver. One caveat of using SGDRegressor is that it only works if the output is unidimensional (a scalar).
+Another option that reduces memory usage even more, is to use [SGDRegressor](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.SGDRegressor.html) instead of Ridge. This class implements many types of generalized linear models for regression, using a vanilla stochastic gradient descent as a solver. One caveat of using SGDRegressor is that it only works if the output is unidimensional (a scalar).
 
 ```python title="ridge-sgd_regressor.py"
 from sklearn.datasets import make_regression
@@ -75,9 +129,9 @@ model.fit(X,y)
 
 ## Batch learning
 
-In cases where your dataset is too large to fit in memory --or just large enough that it does not leave enough memory free for training-- it is possible to leave your data on disk and load it in batches during training, similar to how deep learning packages work. Scikit-learn refers to this as *out-of-core learning* and it is a viable option whenever an estimator has the `partial_fit` [method available](https://scikit-learn.org/stable/computing/scaling_strategies.html?highlight=partial_fit#incremental-learning). In the examples below, we perform out-of-core learning by iterating over datasets stored on disk.
+In cases where your dataset is too large to fit in memory --or just large enough that it does not leave enough memory free for training-- it is possible to leave your data on disk and load it in batches during training, similar to how deep learning packages work. Scikit-learn refers to this as *[out-of-core learning](https://scikit-learn.org/stable/computing/scaling_strategies.html)* and it is a viable option whenever an estimator has the `partial_fit` [method available](https://scikit-learn.org/stable/computing/scaling_strategies.html?highlight=partial_fit#incremental-learning). In the examples below, we perform out-of-core learning by iterating over datasets stored on disk.
 
-In this first example, we use [SGDClassifier](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.SGDClassifier.html) to fit a linear SVM classifier with batches of data coming from a pair of **numpy** arrays. These arrays are stored on disk as [npy files](https://numpy.org/doc/stable/reference/generated/numpy.lib.format.html#npy-format) and we will keep them there by [memory-mapping](https://numpy.org/doc/stable/reference/generated/numpy.memmap.html) these files. Since `SGDClassifier` has the `partial_fit` method, we can iterate through our large memory-mapped files loading only a small batch of rows from the arrays in memory at a time. Each call to `partial_fit` will then run one epoch of stochastic gradient descent over a batch of data.
+In this first example, we use `SGDClassifier` to fit a linear SVM classifier with batches of data coming from a pair of **numpy** arrays. These arrays are stored on disk as [npy files](https://numpy.org/doc/stable/reference/generated/numpy.lib.format.html#npy-format) and we will keep them there by [memory-mapping](https://numpy.org/doc/stable/reference/generated/numpy.memmap.html) these files. Since `SGDClassifier` has the `partial_fit` method, we can iterate through our large memory-mapped files loading only a small batch of rows from the arrays in memory at a time. Each call to `partial_fit` will then run one epoch of stochastic gradient descent over a batch of data.
 
 ```python title="svm-sgd-npy.py"
 import numpy as np
@@ -130,7 +184,6 @@ The preferred option is to install it using the Python [wheel](https://pythonwhe
 3. Install SnapML in the virtual environment with `pip install`.
 
 ```bash
-# (venv) [name@server ~]
 pip install --no-index snapml
 ```
 

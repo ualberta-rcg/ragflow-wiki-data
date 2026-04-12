@@ -5,34 +5,46 @@ lang: "fr"
 
 source_wiki_title: "Diskusage Explorer/fr"
 source_hash: "2a1f00aaf3f1c9ff844cee49e6f43887"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T06:10:12.703407+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T06:53:50.590360+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "Diskusage Explorer"
+  - "SQLite"
+  - "espace disque"
+  - "interface graphique"
+  - "interface ncurse"
+
+questions:
+  - "À quoi sert l'outil Diskusage Explorer et sur quel système est-il exclusivement disponible pour le moment ?"
+  - "Comment peut-on alterner entre l'affichage de l'espace disque consommé et le nombre de fichiers lors de l'utilisation de l'outil ?"
+  - "Quelle est la procédure recommandée pour analyser ses répertoires plus rapidement et de manière plus fluide depuis son propre ordinateur local ?"
+  - "À quoi sert l'outil Diskusage Explorer et sur quel système est-il exclusivement disponible pour le moment ?"
+  - "Comment peut-on alterner entre l'affichage de l'espace disque consommé et le nombre de fichiers lors de l'utilisation de l'outil ?"
+  - "Quelle est la procédure recommandée pour analyser ses répertoires plus rapidement et de manière plus fluide depuis son propre ordinateur local ?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
 ## Contenu des répertoires
 
-!!! attention
+!!! attention "Important"
     Pour l'instant, cet outil est seulement disponible sur [Narval](narval.md).
 
 L'outil Diskusage Explorer vous permet d'obtenir le détail de l'utilisation de l'espace dans vos répertoires `/home`, `/scratch` et `/project`. Cette information est mise à jour quotidiennement et est triée selon un format [SQLite](sqlite.md) pour un accès rapide.
 
 Dans notre exemple, nous verrons la consommation de l'espace disque du répertoire `def-professor` dans `/project`.
 
-### Interface ncurse
+### Interface ncurses
 
 Sélectionnez un espace `/project` auquel vous avez accès et que vous voulez analyser; dans notre exemple, nous analysons `def-professor`.
 
@@ -54,14 +66,15 @@ La commande `man duc` affiche une page du manuel.
 
 ### Interface graphique
 
-Si le nœud de connexion est particulièrement occupé ou si vous avez un trop grand nombre de fichiers dans votre espace `/project`, l'affichage peut être lent et irrégulier. Pour de meilleurs résultats, voyez comment utiliser `diskusage_explorer` sur votre propre ordinateur.
+!!! note
+    Si le nœud de connexion est particulièrement occupé ou si vous avez un trop grand nombre de fichiers dans votre espace `/project`, l'affichage peut être lent et irrégulier. Pour de meilleurs résultats, voyez comment utiliser `diskusage_explorer` sur votre propre ordinateur.
 
-Nous recommandons d'utiliser le mode texte ncurse standard sur nos nœuds de connexion, mais `diskusage_explorer` inclut aussi une belle interface graphique.
+Nous recommandons d'utiliser le mode texte ncurses standard sur nos nœuds de connexion, mais `diskusage_explorer` inclut aussi une belle interface graphique.
 
 Assurez-vous d'abord que votre connexion [SSH](ssh.md) fait en sorte que l'affichage des applications d'interfaces se fait correctement. Vous pouvez alors utiliser une interface graphique avec la commande
 
 ```bash
-duc gui -d /project/.duc_databases/def-professor.sqlite  /project/def-professor
+duc gui -d /project/.duc_databases/def-professor.sqlite /project/def-professor
 ```
 
 Vous pouvez naviguer avec la souris et aussi utiliser `c` pour alterner entre la taille des fichiers et le nombre de fichiers.
@@ -71,8 +84,8 @@ Vous pouvez naviguer avec la souris et aussi utiliser `c` pour alterner entre la
 [Installez d'abord le logiciel diskusage_explorer](http://duc.zevv.nl/#download) sur votre ordinateur local puis, toujours sur votre ordinateur local, téléchargez le fichier SQLite de votre grappe et lancez `duc`.
 
 ```bash
-rsync -v --progress username@beluga.calculcanada.ca:/project/.duc_databases/def-professor.sqlite  .
-duc gui -d ./def-professor.sqlite  /project/def-professor
+rsync -v --progress username@beluga.calculcanada.ca:/project/.duc_databases/def-professor.sqlite .
+duc gui -d ./def-professor.sqlite /project/def-professor
 ```
 
 Vous pourrez ainsi naviguer de manière plus agréable.

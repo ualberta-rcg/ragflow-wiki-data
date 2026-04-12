@@ -5,21 +5,86 @@ lang: "fr"
 
 source_wiki_title: "MIKE/fr"
 source_hash: "a3bfeda37f90dd4476028bc715b3b305"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T08:13:36.146074+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T08:46:27.838351+00:00"
 
 tags:
   - software
 
 keywords:
-  []
+  - "paquets binaires"
+  - "installation Linux"
+  - "--license-server"
+  - "sed"
+  - "SBATCH"
+  - "installation"
+  - "Simulation"
+  - "licence internet"
+  - "licence"
+  - "script pour une tâche"
+  - "bash"
+  - "--install-path"
+  - "hydraulic and hydrological modeling"
+  - "MIKE_Zero_2022"
+  - "MIKE_Zero_2025_rhel9"
+  - "Progiciel MIKE"
+  - "module"
+  - "MIKE_Zero"
+  - "bibliothèque Intel MPI"
+  - "grappes de calcul"
+  - "module load"
+  - "MIKE"
+  - "module d'environnement"
+  - "modélisation hydraulique"
+  - "MIKE_HOME"
+  - "intelmpi"
+  - "configuration"
+  - "install-path"
+  - "OMP_NUM_THREADS"
+  - "software package"
+  - "Finite Elements"
+  - "setrpaths.sh"
+  - "FemEngineHD"
+  - "install.sh"
+
+questions:
+  - "À quoi sert le progiciel MIKE et quel est son domaine d'application principal ?"
+  - "Quelles sont les exigences spécifiques en matière de licence pour pouvoir utiliser MIKE sur les grappes de calcul ?"
+  - "Quelles sont les étapes de préparation et d'installation requises pour déployer les archives Linux de MIKE ?"
+  - "Why is the `sed` command repeatedly used to change `cp -rp` to `cp -r` within the installation scripts?"
+  - "What specific configuration arguments, such as the installation path and license server, are provided to the `install.sh` scripts during execution?"
+  - "Which distinct components or directories of the MIKE Zero 2025 software suite are being navigated to and processed in this sequence?"
+  - "What are the common command-line arguments used when executing the install scripts for the different MIKE software versions?"
+  - "What specific modification is made to the install.sh scripts using the `sed` command during the MIKE 2024 and 2025 installations?"
+  - "Which environment modules and path configurations must be loaded and set after the MIKE software extraction and installation?"
+  - "What are the specific shell commands and flags used to install the MIKE Zero 2022 Tools and Examples?"
+  - "Which environment modules must be loaded to support the MIKE Zero 2022 software?"
+  - "What is the purpose of executing the setrpaths.sh script on the installation's binary directory?"
+  - "Comment doit-on ajuster les noms de fichiers et les directives MPI lors de l'installation d'une version différente du logiciel MIKE ?"
+  - "Quelle est la méthode recommandée pour gérer la bibliothèque Intel MPI et rendre les paquets binaires compatibles avec la pile logicielle au lieu d'utiliser les prérequis officiels ?"
+  - "Quelles sont les étapes et les commandes requises pour créer, configurer et activer un module d'environnement personnalisé pour MIKE ?"
+  - "Comment activer le module MIKE pour une tâche ou une session de connexion selon la version choisie ?"
+  - "Comment configurer la licence internet de MIKE et dans quel fichier ces informations sont-elles enregistrées ?"
+  - "Quels éléments et commandes doivent être inclus dans un script SLURM pour soumettre correctement une tâche MIKE ?"
+  - "What is the primary purpose and description of the MIKE software package?"
+  - "What specific software dependencies and environment variables must be loaded or set to run this module?"
+  - "How does the configuration script determine the root directory path for the MIKE installation?"
+  - "What Slurm resource allocations, such as the number of tasks, memory per CPU, and time limit, are specified for this job?"
+  - "Which environment modules must be loaded to properly set up the environment for the MIKE 2025 simulation?"
+  - "What are the specific names of the engine and the model file being executed by the script?"
+  - "How does the execution command differ between MIKE 2022 and the newer versions (2023 and 2024) in the provided SLURM scripts?"
+  - "Which specific environment modules need to be loaded to run the MIKE 2024 version compared to the older versions?"
+  - "What are the standard SLURM resource allocations, such as memory and time limits, defined across all three job scripts?"
+  - "How does the execution command differ between MIKE 2022 and the newer versions (2023 and 2024) in the provided SLURM scripts?"
+  - "Which specific environment modules need to be loaded to run the MIKE 2024 version compared to the older versions?"
+  - "What are the standard SLURM resource allocations, such as memory and time limits, defined across all three job scripts?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -39,6 +104,7 @@ Vous devez télécharger les archives d'installation pour Linux.
 
 Les directives suivantes supposent que les archives d'installation sont dans un fichier Zip (MIKE 2025 et plus récentes) ou dans trois fichiers `*.tgz` (MIKE 2024 et moins récentes).
 
+```tabs
 === "MIKE 2025"
     * `MIKE_Zero_2025_rhel9.zip`
 === "MIKE 2024"
@@ -53,11 +119,13 @@ Les directives suivantes supposent que les archives d'installation sont dans un 
     * `MIKE_Zero_2022_rhel7_Update_1.tgz`
     * `MIKE_Zero_2022_Tools_rhel7_Update_1.tgz`
     * `MIKE_Zero_2022_Examples_Update_1.tgz`
+```
 
-1.  Créez le répertoire `~/scratch/MIKE_TGZ` pour y téléverser les archives d'installation.
+1. Créez le répertoire `~/scratch/MIKE_TGZ` pour y téléverser les archives d'installation.
 
-2.  MIKE a été compilé avec la bibliothèque Intel MPI, donc chargez le module apparié `intelmpi`.
+2. MIKE a été compilé avec la bibliothèque Intel MPI, donc chargez le module apparié `intelmpi`.
 
+```tabs
 === "MIKE 2024 et 2025"
     ```bash
     module load StdEnv/2023 intel/2023.2.1 intelmpi/2021.9.0
@@ -70,11 +138,11 @@ Les directives suivantes supposent que les archives d'installation sont dans un 
     ```bash
     module load StdEnv/2020  intel/2020.1.217  intelmpi/2019.7.217
     ```
+```
 
-3.  Lancez les commandes suivantes, selon la version de MIKE.
-    Ceci fera l'extraction des archives. Exécutez les scripts d'installation *install.sh* pour chaque composant,
-    ensuite [modifiez les binaires](installing-software-in-your-home-directory.md#installer-des-paquets-binaires) pour qu'ils trouvent les bibliothèques dynamiques d'Intel MPI.
+3. Lancez les commandes suivantes, selon la version de MIKE. Ceci fera l'extraction des archives. Exécutez les scripts d'installation *install.sh* pour chaque composant, ensuite [modifiez les binaires](installing-software-in-your-home-directory.md#installer-des-paquets-binaires) pour qu'ils trouvent les bibliothèques dynamiques d'Intel MPI.
 
+```tabs
 === "MIKE 2025"
     ```bash
     export MIKE_TGZ="$HOME/scratch/MIKE_TGZ"
@@ -170,6 +238,7 @@ Les directives suivantes supposent que les archives d'installation sont dans un 
     setrpaths.sh --path "$MIKE_INST_DIR/bin"  --add_origin  \
         --add_path="$EBROOTIMPI/intel64/lib/release:$EBROOTIMPI/intel64/lib"
     ```
+```
 
 ### Autres versions
 
@@ -188,6 +257,7 @@ Assurez-vous de modifier la version (par exemple 2025) pour correspondre à la v
 Modifiez aussi la version des modules `intelmpi` et `intel` pour correspondre à ce que vous avez chargé pendant l'installation.
 Après avoir exécuté les commandes ci-dessous, connectez-vous de nouveau pour que le nouveau module d'environnement soit visible par les commandes de modules; vous pouvez aussi exécuter `module use $HOME/modulefiles`.
 
+```tabs
 === "MIKE 2025"
     ```bash
     export MIKE_VERSION=2025
@@ -290,9 +360,11 @@ Après avoir exécuté les commandes ci-dessous, connectez-vous de nouveau pour 
     prepend_path( "PATH", pathJoin(root, "bin"))
     EOF
     ```
+```
 
 Activez ce module dans chaque tâche ou dans chaque session de connexion avec
 
+```tabs
 === "MIKE 2025"
     ```bash
     module load StdEnv/2023 mike/2025
@@ -309,6 +381,7 @@ Activez ce module dans chaque tâche ou dans chaque session de connexion avec
     ```bash
     module load StdEnv/2020 mike/2022
     ```
+```
 
 ### Configurer la licence
 
@@ -321,6 +394,7 @@ Les renseignements sur la licence sont enregistrés dans le fichier `~/.config/D
 
 ## Exemple de script pour une tâche
 
+```tabs
 === "MIKE 2025"
     ```bash title="job_mike_2025_CPU.sh"
     #!/bin/bash
@@ -389,3 +463,4 @@ Les renseignements sur la licence sont enregistrés dans le fichier `~/.config/D
     model="my_model.m3fm"
     
     mpirun -machinefile machinefile.$SLURM_JOBID $engine $model
+    ```

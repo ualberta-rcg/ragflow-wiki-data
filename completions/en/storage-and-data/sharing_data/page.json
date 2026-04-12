@@ -1,0 +1,111 @@
+{
+  "doc_key": "en/sharing_data",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is considered a significant security risk regarding file permissions on shared facilities like clusters?",
+      "answer": "Issuing a bulk `chmod -R 777` on any of your folders is a huge security risk and is completely unacceptable on shared facilities."
+    },
+    {
+      "question": "What are the primary mechanisms available for sharing data with colleagues on the clusters?",
+      "answer": "Data can be shared using project space for colleagues within the same research group, shared endpoints via Globus for external users without cluster accounts, or filesystem permissions for colleagues with cluster accounts but not in a common research group."
+    },
+    {
+      "question": "How can one request the creation of a research group on a national cluster?",
+      "answer": "You can request the creation of a group by contacting technical support."
+    },
+    {
+      "question": "What is a prerequisite for someone to access a shared file if it's located within a deep directory structure?",
+      "answer": "The individual must have execute permission for the entire chain of directories leading from `/scratch` or `/project` to the directory where the file is located."
+    },
+    {
+      "question": "What are the three categories of users for filesystem objects on the clusters?",
+      "answer": "The three categories are the object's owner, members of the object's group, and everyone else."
+    },
+    {
+      "question": "How can you view the current permissions for a file or directory?",
+      "answer": "You can see the current permissions using the command `ls -l name_of_object`."
+    },
+    {
+      "question": "What does the command `chmod g+r file.txt` accomplish?",
+      "answer": "This command grants read permission to all members of the group that `file.txt` belongs to."
+    },
+    {
+      "question": "Explain the concept of octal notation for Unix filesystem permissions.",
+      "answer": "Octal notation uses three bits to represent permissions (read=4, write=2, execute=1) for each user category, with these bits interpreted as a number from 0 to 7. For example, 644 means the owner has read/write, and the group and others have read only."
+    },
+    {
+      "question": "What permissions are specifically required on a directory for a user to be able to access files within it?",
+      "answer": "To access files within a directory, a user needs both read and execute permission on the directory itself, which corresponds to '5' or '7' in octal notation."
+    },
+    {
+      "question": "What is the purpose of the sticky bit in a shared directory?",
+      "answer": "The sticky bit prevents individuals from deleting or renaming files or directories within a shared directory unless they are the file's owner or the directory's owner, even if they have write and execute permissions for the directory."
+    },
+    {
+      "question": "How can you enable the sticky bit on a directory using `chmod`?",
+      "answer": "You can enable the sticky bit using `chmod +t <directory name>` or, with octal notation, `chmod 1774 <directory name>`."
+    },
+    {
+      "question": "What is the function of the `setGID` bit when enabled for a directory?",
+      "answer": "When the `setGID` bit is enabled for a directory, new files and directories created within it will automatically inherit the same group ownership as the parent directory."
+    },
+    {
+      "question": "Is the `setUID` bit functional on the clusters, and why or why not?",
+      "answer": "No, the `setUID` bit is completely disabled on our clusters for security reasons."
+    },
+    {
+      "question": "What defines the default filesystem permissions for newly created files?",
+      "answer": "Default filesystem permissions for new files are defined by the `umask` value."
+    },
+    {
+      "question": "How can I check my current `umask` value in a session?",
+      "answer": "You can display your current `umask` value by running the command `umask -S`."
+    },
+    {
+      "question": "Does changing the `umask` value affect files that already exist?",
+      "answer": "No, the `umask` only applies to new files and does not change the access permissions of existing files."
+    },
+    {
+      "question": "What are Access Control Lists (ACLs) used for?",
+      "answer": "ACLs provide more fine-grained permissions, allowing access to be set on a user-by-user basis beyond the standard owner, group, and others categories."
+    },
+    {
+      "question": "Which commands are used to view and modify ACL permissions?",
+      "answer": "`getfacl` is used to see ACL permissions, and `setfacl` is used to alter them."
+    },
+    {
+      "question": "How would you grant read and execute permission to a specific user, 'smithj', for a single file named 'my_script.py' using ACLs?",
+      "answer": "You would use the command `setfacl -m u:smithj:rx my_script.py`."
+    },
+    {
+      "question": "When sharing a subdirectory recursively with ACLs, why are two `setfacl` commands often necessary?",
+      "answer": "One command (`-d -m`) sets default ACL rules for any new files or directories created in the future, while the other (`-R -m`) applies the rules recursively to all existing content within the directory."
+    },
+    {
+      "question": "What does the 'X' attribute in `rwX` signify when setting ACLs for directories?",
+      "answer": "The 'X' attribute sets the execute permission only if the item is already executable (e.g., a directory or an executable file), which is crucial for directory browsing."
+    },
+    {
+      "question": "If sharing a project directory, why must collaborators be provided with a path starting with `/project` instead of `/home/<user>/projects`?",
+      "answer": "The `/home/<user>/projects` path contains symbolic links that will not be reachable by collaborators unless they also have access to your home directory; `/project` provides the physical path."
+    },
+    {
+      "question": "How can one remove all extended ACL attributes recursively from a directory?",
+      "answer": "Use the command `setfacl -bR /home/<user>/projects/def-<PI>/shared_data`."
+    },
+    {
+      "question": "Under what circumstances would you typically need to create a data sharing group?",
+      "answer": "A data sharing group is typically needed for more complex data sharing scenarios involving multiple people across multiple clusters."
+    },
+    {
+      "question": "What is the initial step to create a data sharing group?",
+      "answer": "The first step is to send an email to technical support requesting the creation of the group and indicating that you should be the owner."
+    },
+    {
+      "question": "How can you test for read access recursively within a specific directory, identifying any unreadable items?",
+      "answer": "You can use the command `find <directory_name> ! -readable -ls`."
+    }
+  ],
+  "generated_at": "2026-04-12T07:57:37.307271+00:00"
+}

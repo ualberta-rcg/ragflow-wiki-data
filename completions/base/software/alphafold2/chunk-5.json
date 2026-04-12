@@ -1,0 +1,72 @@
+{
+  "doc_key": "base/alphafold2",
+  "level": "chunk",
+  "chunk_index": 5,
+  "qa_pairs": [
+    {
+      "question": "What environment variables are defined at the start of the AlphaFold 2.3 submission scripts?",
+      "answer": "The environment variables `DOWNLOAD_DIR`, `INPUT_DIR`, and `OUTPUT_DIR` are defined to specify paths for downloaded data, input sequences, and output results, respectively. For example, `DOWNLOAD_DIR` is set to `$SCRATCH/alphafold/data`."
+    },
+    {
+      "question": "How is a Python virtual environment created and activated within the AlphaFold 2.3 submission scripts?",
+      "answer": "A virtual environment is created using `virtualenv --no-download ${SLURM_TMPDIR}/env`, and then activated with `source ${SLURM_TMPDIR}/env/bin/activate`."
+    },
+    {
+      "question": "What commands are used to install AlphaFold and its dependencies in the virtual environment within the submission script?",
+      "answer": "The commands are `pip install --no-index --upgrade pip` to update pip, followed by `pip install --no-index --requirement ~/alphafold-requirements.txt` to install AlphaFold and its dependencies."
+    },
+    {
+      "question": "Which modules need to be loaded as dependencies for AlphaFold 2.3?",
+      "answer": "The required modules are `StdEnv/2020`, `gcc/9.3.0`, `openmpi/4.0.3`, `cuda/11.4`, `cudnn/8.2.0`, `kalign/2.03`, `hmmer/3.2.1`, `openmm-alphafold/7.5.1`, and `python/3.8`."
+    },
+    {
+      "question": "What is the primary command used to run AlphaFold 2.3?",
+      "answer": "The primary command used is `run_alphafold.py`, followed by various arguments to configure the run."
+    },
+    {
+      "question": "What are the arguments for specifying input FASTA files, output directory, and the main data directory in the `run_alphafold.py` command for AlphaFold 2.3?",
+      "answer": "The arguments are `--fasta_paths` for input FASTA files (e.g., `${INPUT_DIR}/YourSequence.fasta,${INPUT_DIR}/AnotherSequence.fasta`), `--output_dir` for the output location, and `--data_dir` for the main data directory."
+    },
+    {
+      "question": "What database and model presets are typically used for AlphaFold 2.3 in these scripts?",
+      "answer": "The scripts use `--db_preset=full_dbs` and `--model_preset=multimer`."
+    },
+    {
+      "question": "Which database paths are specifically provided to the `run_alphafold.py` command for AlphaFold 2.3?",
+      "answer": "The command provides paths for `bfd`, `mgnify`, `pdb70`, `pdb_mmcif`, `obsolete_pdbs`, `pdb_seqres`, `uniprot`, `uniref30`, and `uniref90` databases."
+    },
+    {
+      "question": "What date is specified for the `--max_template_date` argument in the AlphaFold 2.3 run command?",
+      "answer": "The `--max_template_date` argument is set to `2022-01-01`."
+    },
+    {
+      "question": "What binary tool paths are included in the AlphaFold 2.3 run command?",
+      "answer": "Paths for `hhblits`, `hhsearch`, `jackhmmer`, and `kalign` binaries are included using environment variables like `${EBROOTHHMINSUITE}/bin/hhblits`."
+    },
+    {
+      "question": "How does the `use_gpu_relax` argument differ between the CPU and GPU versions of the AlphaFold 2.3 submission scripts?",
+      "answer": "The CPU script sets `--use_gpu_relax=False`, while the GPU script sets `--use_gpu_relax=True`."
+    },
+    {
+      "question": "What is the recommended maximum number of CPU cores to request when running AlphaFold 2.3?",
+      "answer": "A maximum of 8 CPU cores (`--cpus-per-task=8`) is recommended, as AlphaFold does not benefit from using more."
+    },
+    {
+      "question": "What is the default memory allocation requested in the AlphaFold 2.3 submission scripts?",
+      "answer": "The scripts suggest requesting `--mem=20G` for memory."
+    },
+    {
+      "question": "How is a GPU requested in the AlphaFold 2.3 GPU submission script?",
+      "answer": "A GPU is requested using the SLURM directive `#SBATCH --gres=gpu:1`."
+    },
+    {
+      "question": "What are the default job name and account name specified in the AlphaFold 2.3 submission scripts?",
+      "answer": "The default job name is `alphafold_run`, and the account name is `def-someprof`, which the user should adjust to their specific accounting group."
+    },
+    {
+      "question": "What is the suggested walltime for an AlphaFold 2.3 job as indicated in the submission scripts?",
+      "answer": "The suggested walltime is `--time=08:00:00` (8 hours)."
+    }
+  ],
+  "generated_at": "2026-04-11T16:32:06.185539+00:00"
+}

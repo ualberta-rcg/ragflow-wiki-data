@@ -1,0 +1,115 @@
+{
+  "doc_key": "en/parallel_i_o_introductory_tutorial",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is the primary focus of this tutorial?",
+      "answer": "This tutorial discusses issues in handling large amounts of data in High-Performance Computing (HPC) and various parallel I/O strategies, including MPI-IO, NetCDF, and HDF5."
+    },
+    {
+      "question": "What are the three important I/O activities in large parallel calculations?",
+      "answer": "The three important I/O activities are reading initial datasets or conditions, checkpointing for application restarts, and storing results for follow-up runs or post-processing."
+    },
+    {
+      "question": "How does Amdahl's law apply to I/O bottlenecks in parallel programs?",
+      "answer": "Amdahl's law states that a parallel program's speedup is limited by its sequential fraction, meaning a sequential I/O part can significantly reduce overall performance."
+    },
+    {
+      "question": "What are the main components of total execution time in an HPC application?",
+      "answer": "Total execution time is the sum of Computation Time, Communication Time, and I/O Time."
+    },
+    {
+      "question": "Why is efficient I/O particularly challenging in HPC systems?",
+      "answer": "I/O-related systems in HPC are often slow compared to other parts, meaning supercomputers can generate data much faster than it can be stored efficiently."
+    },
+    {
+      "question": "How are I/O performance measurements defined?",
+      "answer": "IOPs (I/O operations per second) is the inverse of latency for read/write operations, and I/O Bandwidth is the quantity of data read or written."
+    },
+    {
+      "question": "Are parallel filesystems optimized for 'supercomputing' I/O performance?",
+      "answer": "No, parallel filesystems are optimized for efficient I/O by multiple users on multiple machines/nodes, but they do not necessarily provide 'supercomputing' performance for I/O."
+    },
+    {
+      "question": "What layers comprise the I/O software and hardware stack in HPC?",
+      "answer": "The stack includes I/O Hardware, Parallel Filesystem, I/O Middleware, High-end I/O library (like HDF5 or NetCDF), and the Application."
+    },
+    {
+      "question": "What is the purpose of a parallel filesystem like Lustre?",
+      "answer": "A parallel filesystem maintains logical partitions, provides efficient access to data, and is designed to scale efficiently across tens of thousands of computing nodes."
+    },
+    {
+      "question": "How do parallel filesystems manage concurrent file access?",
+      "answer": "They use 'locks', where files are broken into units scattered across multiple drives, and client nodes obtain locks on these units before I/O occurs."
+    },
+    {
+      "question": "What kind of files are parallel filesystems optimized for, and what kind do they handle poorly?",
+      "answer": "They are optimized for large, shared files but show very poor performance when storing many small files or handling many small read/write operations."
+    },
+    {
+      "question": "What are some best practices for I/O in HPC environments?",
+      "answer": "Best practices include planning data needs, minimizing 'ls' or 'du' commands in large directories, regularly checking disk usage, and performing housekeeping (e.g., gzip, tar, deleting files)."
+    },
+    {
+      "question": "What are the advantages and disadvantages of using ASCII file format?",
+      "answer": "ASCII files are human-readable and portable but are inefficient for storage and costly for read/write operations due to larger file sizes."
+    },
+    {
+      "question": "Why is binary file format generally more efficient than ASCII for large datasets?",
+      "answer": "Binary format uses less storage (e.g., 4 bytes per single-precision float compared to 13 for ASCII) and allows for more efficient read/write operations."
+    },
+    {
+      "question": "What is the role of metadata in data storage?",
+      "answer": "Metadata describes the data itself, providing additional information like variable names, dimensions, sizes, and other contextual details, which is crucial for data sharing and interpretation."
+    },
+    {
+      "question": "What are the benefits of using standard scientific dataset libraries like HDF5 and NetCDF?",
+      "answer": "These libraries efficiently store large arrays, include data descriptions, provide data portability across platforms and languages, and support optional data compression."
+    },
+    {
+      "question": "Why is it important to organize parallel I/O when a dataset is distributed across many processors?",
+      "answer": "When a dataset is distributed, simply using a parallel filesystem is insufficient; explicit organization of parallel I/O is required to efficiently write data from multiple nodes to disk."
+    },
+    {
+      "question": "What is the 'spokesperson' approach to serial I/O in a parallel job, and what are its drawbacks?",
+      "answer": "One processor collects all data from others and writes it sequentially to a single file. Drawbacks include limited bandwidth, potential memory constraints on the collecting node, and poor scalability."
+    },
+    {
+      "question": "What are the disadvantages of having each processor perform serial I/O to individual files?",
+      "answer": "This method generates many small files (which parallel filesystems handle poorly), often necessitates post-processing, and uncoordinated I/O can overwhelm the filesystem."
+    },
+    {
+      "question": "What is considered the best approach for parallel I/O with multiple processes and a single file?",
+      "answer": "The best approach is for each participating process to write data simultaneously into a single file using parallel I/O, ideally in a coordinated fashion to avoid swamping the filesystem."
+    },
+    {
+      "question": "What is the key difference between Independent I/O and Collective I/O?",
+      "answer": "Independent I/O operations are performed by a single process, while Collective I/O involves coordinated access to storage by a group of processes, enabling greater optimization in lower software layers for better performance."
+    },
+    {
+      "question": "What is MPI-IO, and what is its relationship with HDF5 and NetCDF?",
+      "answer": "MPI-IO is the parallel I/O part of the MPI-2 standard. High-end I/O libraries such as HDF5 and NetCDF are often built on top of MPI-IO."
+    },
+    {
+      "question": "What are some key features and limitations of MPI-IO?",
+      "answer": "MPI-IO is widely available on HPC systems and doesn't require additional libraries. However, it writes raw data, making it less portable and lacking built-in data descriptions."
+    },
+    {
+      "question": "What is the purpose of `MPI_File_set_view` in MPI-IO?",
+      "answer": "`MPI_File_set_view` assigns specific regions of a file to separate processes by defining a view using a displacement, elementary datatype (`etype`), and filetype."
+    },
+    {
+      "question": "What are the advantages of using NetCDF for data storage?",
+      "answer": "NetCDF stores data as binary, is self-describing (with metadata in its header), portable across architectures, supports optional compression, and is optimized for performance using MPI-IO under the hood."
+    },
+    {
+      "question": "How does NetCDF simplify parallel I/O compared to raw MPI-IO, based on its C example?",
+      "answer": "NetCDF simplifies parallel I/O by allowing users to define dimensions and variables abstractly (e.g., 'x', 'y', 'data') and then call a function to put the data, handling the underlying file offsets and views automatically."
+    },
+    {
+      "question": "What are the main characteristics of HDF5?",
+      "answer": "HDF5 is a self-describing, hierarchical file format for large datasets, built on MPI-IO. It is more general than NetCDF, offering an object-oriented description of datasets, groups, attributes, and types, allowing a Unix-like file arrangement within a single file."
+    }
+  ],
+  "generated_at": "2026-04-12T05:03:53.567415+00:00"
+}

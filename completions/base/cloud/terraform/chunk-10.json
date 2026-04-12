@@ -1,0 +1,48 @@
+{
+  "doc_key": "base/terraform",
+  "level": "chunk",
+  "chunk_index": 10,
+  "qa_pairs": [
+    {
+      "question": "Why can't I access my newly created VM if it's only connected to a private network?",
+      "answer": "You can't log in and check out your VM because it hasn't been assigned a floating IP, which means it's not directly accessible from outside the tenant."
+    },
+    {
+      "question": "What is an alternative strategy to direct access for a VM on a private network that doesn't need a floating IP?",
+      "answer": "If you have another host in the same tenant with a floating IP, you can use it as a jump host (or bastion host) to access the new VM. This is useful for nodes not requiring direct internet access or to conserve floating IPs, which are a limited resource."
+    },
+    {
+      "question": "How are floating IPs handled in OpenStack relative to VMs?",
+      "answer": "Floating IPs are not created directly on a VM in OpenStack; instead, they are allocated to the project from a pool and then associated with the VM’s private network interface."
+    },
+    {
+      "question": "What information is required to declare a floating IP resource using Terraform?",
+      "answer": "The only information you need is the pool from which to allocate the floating IP. For example, on our clouds, this is typically the external network (e.g., `ext_net`)."
+    },
+    {
+      "question": "Provide the Terraform code example for declaring a floating IP resource.",
+      "answer": "You can declare a floating IP resource like this: `resource \"openstack_networking_floatingip_v2\" \"myvm_fip\" { pool = \"ext_net\" }`."
+    },
+    {
+      "question": "What happens after a floating IP is declared and created in Terraform but not yet associated?",
+      "answer": "The floating IP is allocated to the project but is not yet associated with your VM."
+    },
+    {
+      "question": "How do you associate an allocated floating IP with a VM using Terraform?",
+      "answer": "You add the following definition: `resource \"openstack_compute_floatingip_associate_v2\" \"myvm_fip\" { floating_ip = openstack_networking_floatingip_v2.myvm_fip.address instance_id = openstack_compute_instance_v2.myvm.id }`."
+    },
+    {
+      "question": "What is the general syntax for referencing attributes of other resources within Terraform configurations?",
+      "answer": "References like these typically follow the format: `<resource type>.<resource name>.<attribute>`."
+    },
+    {
+      "question": "What does the `terraform apply` command output indicate when a new floating IP is successfully allocated?",
+      "answer": "The output will show \"Plan: 1 to add, 0 to change, 0 to destroy\" indicating that one `openstack_networking_floatingip_v2` resource will be created, followed by \"Apply complete! Resources: 1 added, 0 changed, 0 destroyed.\""
+    },
+    {
+      "question": "What does the `terraform apply` command output indicate when a floating IP is successfully associated with a VM?",
+      "answer": "The output will show \"Plan: 1 to add, 0 to change, 0 to destroy\" indicating that one `openstack_compute_floatingip_associate_v2` resource will be created, followed by \"Apply complete! Resources: 1 added, 0 changed, 0 destroyed.\""
+    }
+  ],
+  "generated_at": "2026-04-12T09:07:52.245397+00:00"
+}

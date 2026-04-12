@@ -1,0 +1,40 @@
+{
+  "doc_key": "fr/mpi",
+  "level": "chunk",
+  "chunk_index": 19,
+  "qa_pairs": [
+    {
+      "question": "Quelle est la problématique que la stratégie pair-impair tente de résoudre en programmation parallèle avec MPI?",
+      "answer": "La stratégie pair-impair vise à éviter les situations d'interblocage (deadlock) qui peuvent survenir lorsque les fonctions bloquantes comme `MPI_Send` et `MPI_Recv` sont utilisées sans garantie de mémoire tampon ou lorsque la mémoire tampon est saturée, menant à une attente indéfinie entre les processus."
+    },
+    {
+      "question": "Comment la méthode pair-impair garantit-elle un code fiable pour la communication entre processus MPI?",
+      "answer": "Elle assure que les appels d'envoi et de réception sont correctement appariés. Les processus de rang pair exécutent d'abord un envoi, puis une réception, tandis que les processus de rang impair exécutent d'abord une réception, puis un envoi. Ça élimine ainsi les interblocages."
+    },
+    {
+      "question": "Dans le cadre de la stratégie pair-impair, quelle est la séquence d'opérations pour un processus de rang pair?",
+      "answer": "Un processus de rang pair (`rank % 2 == 0`) va d'abord appeler la fonction `MPI_Send` pour envoyer son message, puis il appellera `MPI_Recv` pour recevoir un message."
+    },
+    {
+      "question": "Quelle est la séquence d'opérations pour un processus de rang impair en utilisant le modèle pair-impair?",
+      "answer": "Un processus de rang impair va d'abord appeler la fonction `MPI_Recv` pour recevoir un message, puis il appellera `MPI_Send` pour envoyer son message."
+    },
+    {
+      "question": "Est-ce qu'un nombre impair de processus pose problème avec la stratégie pair-impair dans l'exemple `phello3`?",
+      "answer": "Non, ça ne pose pas de problème. L'envoi fait par le processus 0 (pair) est correctement apparié à la réception lancée par le processus 1 (impair), qui commence par une réception, assurant que la transaction est complétée sans risque d'interblocage."
+    },
+    {
+      "question": "Que signifie la sortie d'exécution de `phello3` avec 16 processus, comme dans l'exemple `[P_1] process 0 said: \"Hello, world! from process 0 of 16\"]`?",
+      "answer": "Cette sortie indique que le processus de rang 1 (`P_1`) a reçu un message du processus de rang 0 (`process 0 said:`). Ça confirme que la communication circulaire entre les processus, où chaque processus reçoit un message du processus qui le précède dans la boucle (modulo le nombre total de processus), fonctionne comme prévu. L'ordre des messages affichés n'est pas garanti."
+    },
+    {
+      "question": "Quelles fonctions MPI sont utilisées pour l'initialisation et la finalisation dans l'exemple Fortran 2008 du code fiable `phello3.f90`?",
+      "answer": "Les fonctions `MPI_Init()` sont utilisées pour l'initialisation du programme MPI, et `MPI_Finalize()` est utilisée pour le nettoyage avant la fin du programme."
+    },
+    {
+      "question": "Comment calcule-t-on le destinataire et l'expéditeur d'un message dans l'exemple `phello3`?",
+      "answer": "Le destinataire (`sendto`) est calculé comme `mod((rank + 1), num_procs)`, et l'expéditeur (`recvfrom`) est calculé comme `mod(((rank + num_procs) - 1), num_procs)`."
+    }
+  ],
+  "generated_at": "2026-04-12T01:59:17.913342+00:00"
+}

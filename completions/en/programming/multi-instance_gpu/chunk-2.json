@@ -1,0 +1,60 @@
+{
+  "doc_key": "en/multi-instance_gpu",
+  "level": "chunk",
+  "chunk_index": 2,
+  "qa_pairs": [
+    {
+      "question": "How do I request a 3/8 power and 20GB GPU instance for a one-hour interactive job?",
+      "answer": "You can request it using the command: `salloc --account=def-someuser --gpus=a100_3g.20gb:1 --cpus-per-task=2 --mem=40gb --time=1:0:0`."
+    },
+    {
+      "question": "Can you provide an example of a batch job script requesting an A100 4g.20gb GPU instance for a 24-hour duration?",
+      "answer": "An example batch job script named `a100_4g.20gb_mig_job.sh` would include: `#!/bin/bash\n#SBATCH --account=def-someuser\n#SBATCH --gpus=a100_4g.20gb:1 \n#SBATCH --cpus-per-task=6    # There are 6 CPU cores per 3g.20gb and 4g.20gb on Narval.\n#SBATCH --mem=62gb           # There are 62GB GPU RAM per 3g.20gb and 4g.20gb on Narval.\n#SBATCH --time=24:00:00\nhostname\nnvidia-smi`."
+    },
+    {
+      "question": "How many CPU cores are typically recommended for an A100 4g.20gb instance on Narval?",
+      "answer": "Six CPU cores are typically recommended per 3g.20gb and 4g.20gb instance on Narval."
+    },
+    {
+      "question": "What is the recommended amount of GPU RAM for an A100 4g.20gb instance on Narval?",
+      "answer": "Sixty-two GB of GPU RAM is recommended per 3g.20gb and 4g.20gb instance on Narval."
+    },
+    {
+      "question": "Where can I find information about my current and past jobs to determine if they are suitable for a GPU instance?",
+      "answer": "You can find this information on the Narval usage portal (writing in progress)."
+    },
+    {
+      "question": "What is a reliable indicator of the total computing power requested from a GPU by a job?",
+      "answer": "Power consumption is a good indicator of the total computing power requested from the GPU."
+    },
+    {
+      "question": "How can power consumption data suggest that a job could benefit from a GPU instance instead of a full GPU?",
+      "answer": "For example, if a job requests a full A100 GPU with a maximum TDP of 400W but only uses 100W on average, which is just 50W more than the idle electric consumption, it indicates potential underutilization."
+    },
+    {
+      "question": "In addition to power consumption, what other metric provides insight into GPU usage, especially when power consumption data is insufficient?",
+      "answer": "GPU functionality utilization may also provide insights on the usage of the GPU in cases where the power consumption is not sufficient."
+    },
+    {
+      "question": "What are the key metrics to consider when deciding if a job should use a GPU instance?",
+      "answer": "The final metrics to consider are the maximum amount of GPU memory and the average number of CPU cores required to run the job."
+    },
+    {
+      "question": "If a job on a full A100 GPU uses a maximum of 3GB of GPU memory out of 40GB and a single CPU core, what type of GPU instance is suggested?",
+      "answer": "Such a job should easily run on a 3g.20GB or 4g.20GB GPU instance with power and memory to spare."
+    },
+    {
+      "question": "How can I monitor the usage of a currently running job in real time?",
+      "answer": "You can monitor a running job by attaching to the node where it is currently running and then using `nvidia-smi` to read the GPU metrics in real time."
+    },
+    {
+      "question": "Does real-time monitoring with `nvidia-smi` provide complete historical data for a job?",
+      "answer": "No, using `nvidia-smi` in real time will not provide maximum and average values for memory and power usage of the entire job."
+    },
+    {
+      "question": "What is a benefit of using `nvidia-smi` for real-time monitoring of a running job, despite its limitations in providing historical data?",
+      "answer": "It may be helpful to identify and troubleshoot underperforming jobs."
+    }
+  ],
+  "generated_at": "2026-04-12T03:24:23.606228+00:00"
+}

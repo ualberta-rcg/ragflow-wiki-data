@@ -5,21 +5,90 @@ lang: "en"
 
 source_wiki_title: "R/en"
 source_hash: "bf2e2dda0a9dfaec7767f2e8e8710d92"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T10:22:12.885285+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T10:45:44.980033+00:00"
 
 tags:
   - software
 
 keywords:
-  []
+  - "R CMD INSTALL"
+  - "SBATCH"
+  - "spatial data"
+  - "vectorized forms"
+  - "sbatch"
+  - "OPENMPI"
+  - "MPI processes"
+  - "dependencies"
+  - "foreach"
+  - "TMPDIR"
+  - "R packages"
+  - "R_LIBS"
+  - "passing arguments"
+  - "bash"
+  - "R_libs"
+  - "R script"
+  - "mirror"
+  - "doParallel"
+  - "makeCluster"
+  - "Parallel computing"
+  - "parallelism"
+  - "R"
+  - "install.packages"
+  - "system calls"
+  - "job scheduler"
+  - "serial implementation"
+  - "performance bottleneck"
+  - "job_foreach.sh"
+  - "high-performance computing"
+  - "Rmpi"
+  - "apply functions"
+  - "SLURM"
+  - "Rscript"
+  - "sp package"
+  - "install packages"
+  - "parallel processing"
+  - "job submission script"
+  - "parallelizing R code"
+
+questions:
+  - "Why is R considered an essential tool on HPC installations despite not being originally developed for high-performance computing?"
+  - "What is the proper method for executing long-running R scripts on the cluster instead of using the login node?"
+  - "What are the specific constraints and recommended steps for installing new R packages from CRAN on the cluster?"
+  - "What command should be used on a login node to install the `sp` package for spatial data?"
+  - "What occurs during the installation process if the `repos` argument is left unspecified?"
+  - "Which environment variable must sometimes be defined prior to installing certain packages?"
+  - "How can users properly install R packages that require external libraries or dependencies on the cluster?"
+  - "What is the correct method for passing command-line arguments to an R script to avoid hardcoding parameters?"
+  - "Why is it recommended to optimize serial R code using vectorized functions and the `apply` family before attempting to parallelize it?"
+  - "What should be done to the serial implementation before attempting to parallelize R code?"
+  - "Why do loops and nested loops create significant performance bottlenecks in R?"
+  - "Which specific functions and programming elements are recommended to replace loops for better performance?"
+  - "How does the terminology for \"node\" and \"cluster\" differ between standard cluster documentation and R documentation?"
+  - "What is the relationship between the foreach package and its backends, and what are the required steps to execute a parallel loop?"
+  - "How should a user dynamically set the number of cores for an R script submitted as a SLURM job?"
+  - "How do you configure and register a cluster backend across multiple nodes using the `doParallel` package in R?"
+  - "What are the necessary components of a Slurm bash script to properly allocate resources and execute a parallel R job?"
+  - "What are the specific steps and configuration arguments required to manually install the `Rmpi` package in an HPC environment?"
+  - "What specific computing resources, such as nodes, CPUs, memory, and time limits, are requested by the SLURM directives in the script?"
+  - "Which software environment and version are loaded for execution in this job?"
+  - "What modification must the user make to the account directive before submitting the script?"
+  - "How do you set up a local directory and environment variable for R libraries before installation?"
+  - "What is the specific command and configuration arguments required to install the Rmpi package?"
+  - "What troubleshooting steps should be taken if the R package fails to install?"
+  - "What is the purpose of the `test.R` script and which library does it utilize to manage parallel processes?"
+  - "What resource configurations and environment modules need to be defined in the `job.sh` submission script?"
+  - "Which command is used in the terminal to submit the job script for execution?"
+  - "What is the purpose of the `test.R` script and which library does it utilize to manage parallel processes?"
+  - "What resource configurations and environment modules need to be defined in the `job.sh` submission script?"
+  - "Which command is used in the terminal to submit the job script for execution?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -41,8 +110,10 @@ module load r/4.5.0
 For more on this, see [Using modules](utiliser-des-modules.md).
 
 Now you can start the R interpreter and type R code inside that environment:
-```console
+```r
 R
+```
+```
 R version 4.5.0 (2025-04-11) -- "How About a Twenty-Six"
 Copyright (C) 2025 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu
@@ -73,8 +144,8 @@ Rscript computation.R
 
 `Rscript` will automatically pass scripting-appropriate options `--slave` and `--no-restore` to the R interpreter. These also imply the `--no-save` option, preventing the creation of useless workspace files on exit.
 
-!!! warning "Important Note"
-    **Any calculations lasting more than two or three minutes should not be run on the login node**.
+!!! warning "Warning"
+    Any calculations lasting more than two or three minutes should not be run on the login node.
     They should be run via the job scheduler.
 
 A simple job script looks like this:
@@ -101,8 +172,10 @@ module load gcc/12.3.0 r/4.5.0
 #### Installing for a specific R version
 For example, to install the `sp` package that provides classes and methods for spatial data, use the following command on a login node:
 
-```console
+```r
 R
+```
+```
 [...]
 > install.packages('sp', repos='https://cloud.r-project.org/')
 ```
@@ -172,8 +245,10 @@ print(paste("Processing with name:'", name, "' and number:'", number,"'", sep = 
 ```
 
 This script can be used like this:
-```console
+```bash
 Rscript arguments_test.R Hello 42
+```
+```
 [1] "Processing with name:'Hello' and number:'42'"
 ```
 
@@ -201,22 +276,22 @@ to an individual machine, also called a 'host', and a collection of such nodes m
 In a lot of R documentation however, the term 'node' refers to a worker process and a 'cluster' is a
 collection of such processes. As an example, consider the following quote, "Following **snow**, a pool
 of worker processes listening *via* sockets for commands from the master is called a 'cluster' of
-nodes." ([Core package "parallel" vignette](https://stat.ethz.ch/R-manual/R-devel/library/parallel/doc/parallel.pdf)).
+nodes."[^1].
 
 ### doParallel and foreach
 #### Usage
-Foreach can be considered as a unified interface for all backends (i.e. `doMC`, `doMPI`, `doParallel`, `doRedis`, etc.). It works on all platforms, assuming that the backend works. doParallel acts as an interface between foreach and the parallel package and can be loaded alone. There are some [known efficiency issues](scalability.md) when using foreach to run a very large number of very small tasks. Therefore, keep in mind that the following code is not the best example of an optimized use of the `foreach()` call but rather that the function chosen was kept at a minimum for demonstration purposes.
+Foreach can be considered as a unified interface for all backends (i.e. doMC, doMPI, doParallel, doRedis, etc.). It works on all platforms, assuming that the backend works. doParallel acts as an interface between foreach and the parallel package and can be loaded alone. There are some [known efficiency issues](scalability.md) when using foreach to run a very large number of very small tasks. Therefore, keep in mind that the following code is not the best example of an optimized use of the foreach() call but rather that the function chosen was kept at a minimum for demonstration purposes.
 
 You must register the backend by feeding it the number of cores available. If the backend is not registered, foreach will assume that the number of cores is 1 and will proceed to go through the iterations serially.
 
 The general method to use foreach is:
-1. to load both foreach and the backend package;
-2. to register the backend;
-3. to call `foreach()` by keeping it on the same line as the `%do%` (serial) or `%dopar%` operator.
+1.  to load both foreach and the backend package;
+2.  to register the backend;
+3.  to call foreach() by keeping it on the same line as the `%do%` (serial) or `%dopar%` operator.
 
 #### Running
 
-1. Place your R code in a script file, in this case the file is called *test_foreach.R*.
+1.  Place your R code in a script file, in this case the file is called *test_foreach.R*.
 
 ```r title="test_foreach.R"
 # library(foreach) # optional if using doParallel
@@ -239,7 +314,7 @@ var2.v = seq(0.1, 1, length.out = 8)
 # Use the environment variable SLURM_CPUS_PER_TASK to set the number of cores.
 # This is for SLURM. Replace SLURM_CPUS_PER_TASK by the proper variable for your system.
 # Avoid manually setting a number of cores.
-ncores = Sys.getenv("SLURM_CPUS_PER_TASK") 
+ncores = Sys.getenv("SLURM_CPUS_PER_TASK")
 
 registerDoParallel(cores=ncores)# Shows the number of Parallel Workers to be used
 print(ncores) # this how many cores are available, and how many you have requested.
@@ -249,7 +324,7 @@ getDoParWorkers()# you can compare with the number of actual workers
 foreach(var1=var1.v, .combine=rbind) %:% foreach(var2=var2.v, .combine=rbind) %dopar% {test_func(var1=var1, var2=var2)}
 ```
 
-2. Copy the following content in a job submission script called *job_foreach.sh*:
+2.  Copy the following content in a job submission script called *job_foreach.sh*:
 
 ```bash title="job_foreach.sh"
 #!/bin/bash
@@ -265,7 +340,7 @@ export R_LIBS=~/local/R_libs/
 R CMD BATCH --no-save --no-restore test_foreach.R
 ```
 
-3. Submit the job with:
+3.  Submit the job with:
 
 ```bash
 sbatch job_foreach.sh
@@ -278,7 +353,7 @@ For more on submitting jobs, see [Running jobs](running-jobs.md).
 You must register the backend by feeding it the nodes name multiplied by the desired number of processes. For instance, with two nodes (node1 and node2) and two processes, we would create a cluster composed of : `node1 node1 node2 node2` hosts. The *PSOCK* cluster type will run commands through SSH connections into the nodes.
 
 #### Running
-1. Place your R code in a script file, in this case the file is called `test_makecluster.R`.
+1.  Place your R code in a script file, in this case the file is called `test_makecluster.R`.
 ```r title="test_makecluster.R"
 library(doParallel)
 
@@ -287,7 +362,7 @@ nodeslist = unlist(strsplit(Sys.getenv("NODESLIST"), split=" "))
 
 # Create the cluster with the nodes name. One process per count of node name.
 # nodeslist = node1 node1 node2 node2, means we are starting 2 processes on node1, likewise on node2.
-cl = makeCluster(nodeslist, type = "PSOCK") 
+cl = makeCluster(nodeslist, type = "PSOCK")
 registerDoParallel(cl)
 
 # Compute (Source : https://cran.r-project.org/web/packages/doParallel/vignettes/gettingstartedParallel.pdf)
@@ -305,7 +380,7 @@ foreach(icount(trials), .combine=cbind) %dopar%
 stopCluster(cl)
 ```
 
-2. Copy the following content in a job submission script called `job_makecluster.sh`:
+2.  Copy the following content in a job submission script called `job_makecluster.sh`:
 ```bash title="job_makecluster.sh"
 #!/bin/bash
 #SBATCH --account=def-someacct  # replace this with your supervisors account
@@ -315,7 +390,7 @@ stopCluster(cl)
 
 module load StdEnv/2023 r/4.5.0
 
-# Export the nodes names. 
+# Export the nodes names.
 # If all processes are allocated on the same node, NODESLIST contains : node1 node1 node1 node1
 # Cut the domain name and keep only the node name
 export NODESLIST=$(echo $(srun hostname | cut -f 1 -d '.'))
@@ -326,7 +401,7 @@ In the above example the scheduler might place all four processes on just one no
 This is okay, but if you wish to prove that the same job works even if the processes happen
 to be placed on different nodes, then add the line `#SBATCH --ntasks-per-node=2`
 
-3. Submit the job with:
+3.  Submit the job with:
 ```bash
 sbatch job_makecluster.sh
 ```
@@ -337,39 +412,39 @@ For more information on submitting jobs, see [Running jobs](running-jobs.md).
 #### Installing
 This next procedure installs [Rmpi](https://cran.r-project.org/web/packages/Rmpi/index.html), an interface (wrapper) to MPI routines, which allow R to run in parallel.
 
-1. See the available R modules by running:
+1.  See the available R modules by running:
 ```bash
 module spider r
 ```
 
-2. Select the R version and load the required OpenMPI module.
+2.  Select the R version and load the required OpenMPI module.
 ```bash
 module load gcc/12.3
 module load openmpi/4.1.5
 module load r/4.5.0
 ```
 
-3. Download [the latest Rmpi version](https://cran.r-project.org/web/packages/Rmpi/index.html); change the version number to whatever is desired.
+3.  Download [the latest Rmpi version](https://cran.r-project.org/web/packages/Rmpi/index.html); change the version number to whatever is desired.
 ```bash
 wget https://cran.r-project.org/src/contrib/Rmpi_0.7-3.3.tar.gz
 ```
 
-4. Specify the directory where you want to install the package files; you must have write permission for this directory. The directory name can be changed if desired.
+4.  Specify the directory where you want to install the package files; you must have write permission for this directory. The directory name can be changed if desired.
 ```bash
 mkdir -p ~/local/R_libs/
 export R_LIBS=~/local/R_libs/
 ```
 
-5. Run the install command.
+5.  Run the install command.
 ```bash
-R CMD INSTALL --configure-args="--with-Rmpi-include=$EBROOTOPENMPI/include   --with-Rmpi-libpath=$EBROOTOPENMPI/lib --with-Rmpi-type='OPENMPI' " Rmpi_0.7-3.3.tar.gz
+R CMD INSTALL --configure-args="--with-Rmpi-include=$EBROOTOPENMPI/include --with-Rmpi-libpath=$EBROOTOPENMPI/lib --with-Rmpi-type='OPENMPI' " Rmpi_0.7-3.3.tar.gz
 ```
 
 Again, carefully read any error message that comes up when packages fail to install and load the required modules to ensure that all your packages are successfully installed.
 
 #### Running
 
-1. Place your R code in a script file, in this case the file is called *test.R*.
+1.  Place your R code in a script file, in this case the file is called *test.R*.
 
 ```r title="test.R"
 #Tell all slaves to return a message identifying themselves.
@@ -390,7 +465,7 @@ mpi.close.Rslaves()
 mpi.quit()
 ```
 
-2. Copy the following content in a job submission script called *job.sh*:
+2.  Copy the following content in a job submission script called *job.sh*:
 
 ```bash title="job.sh"
 #!/bin/bash
@@ -405,10 +480,12 @@ export R_LIBS=~/local/R_libs/
 mpirun -np 1 R CMD BATCH test.R test.txt
 ```
 
-3. Submit the job with:
+3.  Submit the job with:
 
 ```bash
 sbatch job.sh
 ```
 
 For more on submitting jobs, see [Running jobs](running-jobs.md).
+
+[^1]: Core package "parallel" vignette, [https://stat.ethz.ch/R-manual/R-devel/library/parallel/doc/parallel.pdf](https://stat.ethz.ch/R-manual/R-devel/library/parallel/doc/parallel.pdf)

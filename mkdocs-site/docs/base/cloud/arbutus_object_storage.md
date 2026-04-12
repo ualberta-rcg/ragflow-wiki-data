@@ -5,21 +5,63 @@ lang: "base"
 
 source_wiki_title: "Arbutus object storage"
 source_hash: "81c1ba355e0db0a17c0d2476039ba088"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T04:36:35.100210+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T05:28:16.148133+00:00"
 
 tags:
   - cloud
 
 keywords:
-  []
+  - "Cloud"
+  - "Arbutus OpenStack Dashboard"
+  - "object storage"
+  - "s3:ListAllMyBuckets"
+  - "Arbutus Object Store"
+  - "s3cmd client"
+  - "Container policies"
+  - "Configuration"
+  - "s3"
+  - "Data containers"
+  - "Swift"
+  - "Bucket"
+  - "Object"
+  - "Public access"
+  - "S3-compatible clients"
+  - "s3:CreateBucket"
+  - "s3:ListBucket"
+  - "s3cmd"
+  - "Object storage"
+  - "s3:DeleteBucket"
+  - "Arbutus object storage"
+  - "s3:PutBucketPolicy"
+  - "S3"
+
+questions:
+  - "What is object storage and what are its primary use cases compared to traditional file storage?"
+  - "What are the key differences between using the Swift and S3 protocols for accessing the Arbutus Object Store?"
+  - "How can a user establish access to and manage their data containers within the Arbutus Object Store?"
+  - "How are data containers created in Arbutus Object Storage, and who is responsible for managing them?"
+  - "How can a user make a data container publicly accessible, and what URL structure is used to read its contents?"
+  - "How are access policies applied to data containers, and what are the current limitations regarding supported AWS policy actions?"
+  - "How is the s3cmd client used in relation to the Arbutus Object Store?"
+  - "What types of alternative clients are compatible with the Arbutus Object Store?"
+  - "Where can users find the interface to perform management tasks for their object storage within the Arbutus OpenStack Dashboard?"
+  - "What specific AWS service and security framework do these listed actions belong to?"
+  - "How do the permissions in this list differ in terms of managing individual objects versus configuring entire buckets?"
+  - "What are the potential security risks associated with granting the policy and ACL modification permissions included in this text?"
+  - "What specific cloud service and resource management category do these listed API permissions apply to?"
+  - "Which actions from the provided list are responsible for enforcing data security policies such as object retention, legal holds, and public access blocking?"
+  - "How can administrators use the listed configuration permissions to manage automated bucket behaviors like lifecycle rules, replication, and website hosting?"
+  - "What specific cloud service and resource management category do these listed API permissions apply to?"
+  - "Which actions from the provided list are responsible for enforcing data security policies such as object retention, legal holds, and public access blocking?"
+  - "How can administrators use the listed configuration permissions to manage automated bucket behaviors like lifecycle rules, replication, and website hosting?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -48,7 +90,6 @@ In order to manage your Arbutus Object Store, you will need your own storage acc
 `openstack ec2 credentials create`
 
 ## Accessing your Arbutus Object Store
-
 Setting access policies cannot be done via a web browser but must be done with a [SWIFT or S3-compatible client](arbutus-object-storage-clients.md). There are several ways to access your data containers:
 
 1.  You can use an [S3-compatible client](arbutus-object-storage-clients.md) (e.g. s3cmd).
@@ -58,7 +99,9 @@ Setting access policies cannot be done via a web browser but must be done with a
 
 ## Managing your Arbutus Object Store
 
-The recommended way to manage buckets and objects in the Arbutus Object Store is by using the `s3cmd` tool, which is available in Linux. Our documentation provides specific instructions on [configuring and managing access](accessing-object-storage-with-s3cmd.md) with the `s3cmd` client. We can also use other [S3-compatible clients](arbutus-object-storage-clients.md) that are also compatible with Arbutus Object Store.
+The recommended way to manage buckets and objects in the Arbutus Object Store is by using the `s3cmd` tool, which is available in Linux.
+Our documentation provides specific instructions on [configuring and managing access](accessing-object-storage-with-s3cmd.md) with the `s3cmd` client.
+We can also use other [S3-compatible clients](arbutus-object-storage-clients.md) that are also compatible with Arbutus Object Store.
 
 In addition, we can perform certain management tasks for our object storage using the [Containers](https://arbutus.cloud.computecanada.ca/project/containers) section under the **Object Store** tab in the [Arbutus OpenStack Dashboard](https://arbutus.cloud.computecanada.ca).
 
@@ -66,8 +109,9 @@ This interface refers to *data containers*, which are also known as *buckets* in
 
 Using the dashboard, we can create new data containers, upload files, and create directories. Alternatively, we can also create data containers using [S3-compatible clients](arbutus-object-storage-clients.md).
 
-!!! note "Important"
+!!! note
     Please note that data containers are owned by the user who creates them and cannot be manipulated by others.
+
     Therefore, you are responsible for managing your data containers and their contents within your cloud project.
 
 If you create a new container as **Public**, anyone on the internet can read its contents by simply navigating to
@@ -85,7 +129,7 @@ To make a data container accessible to the public, we can change its policy to a
 !!! warning "Attention"
     Be careful with policies because an ill-conceived policy can lock you out of your data container.
 
-Currently, Arbutus Object Storage only supports a [subset](arbutus-object-storage.md#policy-subset) of the AWS specification for [data container policies](https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-iam-policies.html). The following example shows how to create, apply, and view a policy. The first step is to create a policy json file:
+Currently, Arbutus Object Storage only supports a [subset](#policy-subset) of the AWS specification for [data container policies](https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-iam-policies.html). The following example shows how to create, apply, and view a policy. The first step is to create a policy json file:
 
 ```json
 {

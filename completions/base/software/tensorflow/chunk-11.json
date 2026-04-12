@@ -1,0 +1,36 @@
+{
+  "doc_key": "base/tensorflow",
+  "level": "chunk",
+  "chunk_index": 11,
+  "qa_pairs": [
+    {
+      "question": "What should I do if TensorFlow reports it \"Couldn't open CUDA library libcupti.so\"?",
+      "answer": "If TensorFlow gives an error indicating it \"Couldn't open CUDA library libcupti.so.9.0\" with a specific LD_LIBRARY_PATH, you need to load the appropriate CUDA module (e.g., `module load cuda/9.0.xxx`) and then export your `LD_LIBRARY_PATH` to include `$CUDA_HOME/extras/CUPTI/lib64/` before running your script."
+    },
+    {
+      "question": "How can I find the correct CUDA version for the `libcupti.so` troubleshooting step?",
+      "answer": "You can find the appropriate CUDA version by using the command `module av cuda`."
+    },
+    {
+      "question": "I'm seeing an error like \"libiomp5.so: invalid ELF header\" in TensorFlow. How can I fix this?",
+      "answer": "This error often means the `libiomp5.so` shared object file was mistakenly installed as a text file. To fix it, navigate to the directory mentioned in the error message (e.g., `[...]/_U@mkl_Ulinux_S_S_Cmkl_Ulibs_Ulinux___Uexternal_Smkl_Ulinux_Slib`) and execute `ln -sf $(cat libiomp5.so) libiomp5.so`. This command will replace the incorrect text file with the correct symbolic link."
+    },
+    {
+      "question": "Which configuration parameters control the number of threads TensorFlow uses?",
+      "answer": "The TensorFlow configuration parameters `intra_op_parallelism_threads` and `inter_op_parallelism_threads` are used to influence the number of threads utilized by TensorFlow."
+    },
+    {
+      "question": "How do I set the `intra_op_parallelism_threads` and `inter_op_parallelism_threads` in TensorFlow?",
+      "answer": "You can set these parameters using the commands `tf.config.threading.set_inter_op_parallelism_threads(num_threads)` and `tf.config.threading.set_intra_op_parallelism_threads(num_threads)` within your TensorFlow script."
+    },
+    {
+      "question": "Is there a known performance issue with Keras data augmentation layers in TensorFlow?",
+      "answer": "Yes, a bug in Keras implementations after TensorFlow version 2.8.3 affects the performance of data augmentation layers with the `tf.keras.layers.Random` prefix (like `tf.keras.layers.RandomRotation`), slowing down the training process by over 100 times."
+    },
+    {
+      "question": "What TensorFlow version includes the fix for the Keras data augmentation performance bug?",
+      "answer": "The performance bug affecting Keras data augmentation layers (e.g., `tf.keras.layers.RandomRotation`, `tf.keras.layers.RandomTranslation`) is fixed in TensorFlow version 2.12."
+    }
+  ],
+  "generated_at": "2026-04-12T09:00:11.748960+00:00"
+}

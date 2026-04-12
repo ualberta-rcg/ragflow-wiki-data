@@ -1,0 +1,72 @@
+{
+  "doc_key": "fr/using_node-local_storage",
+  "level": "chunk",
+  "chunk_index": 2,
+  "qa_pairs": [
+    {
+      "question": "Comment on fait pour intercepter un signal avec Slurm avant que la tâche manque de temps?",
+      "answer": "Pour ce faire, il faut écrire une fonction pour l'interpréteur (shell) afin que la copie des données soit faite et utiliser la commande `trap` pour associer cette fonction avec le signal."
+    },
+    {
+      "question": "Où est-ce qu'on peut trouver plus d'informations sur les signaux envoyés par Slurm?",
+      "answer": "Pour plus d'information, on peut consulter la page du CRIANN qui s'appelle 'signals-sent-by-slurm'."
+    },
+    {
+      "question": "Quels sont les risques d'utiliser la méthode d'interception de signal pour conserver le contenu de $SLURM_TMPDIR?",
+      "answer": "Avec cette méthode, le contenu de `$SLURM_TMPDIR` ne sera pas conservé si un nœud tombe en panne ou si le système de fichiers réseau connaît un problème."
+    },
+    {
+      "question": "Si une tâche Slurm est répartie sur plusieurs nœuds, est-ce que les commandes `cp` ou `tar -x` sont suffisantes pour gérer les données?",
+      "answer": "Non, si une tâche est répartie sur plusieurs nœuds et que chacun d'eux doit utiliser les données, `cp` ou `tar -x` ne sont pas suffisants."
+    },
+    {
+      "question": "Comment on copie un ou plusieurs fichiers sur le répertoire temporaire `$SLURM_TMPDIR` de chaque nœud alloué pour une tâche multi-nœuds?",
+      "answer": "Pour copier un ou plusieurs fichiers sur `$SLURM_TMPDIR` de chacun des nœuds alloués, il faut utiliser la commande `srun --ntasks=$SLURM_NNODES --ntasks-per-node=1 cp file [files...] $SLURM_TMPDIR`."
+    },
+    {
+      "question": "Comment on extrait une archive ZIP vers `$SLURM_TMPDIR` sur chaque nœud pour une tâche multi-nœuds?",
+      "answer": "Pour extraire une archive ZIP vers `$SLURM_TMPDIR` sur chaque nœud, on utilise la commande `srun --ntasks=$SLURM_NNODES --ntasks-per-node=1 unzip archive.zip -d $SLURM_TMPDIR`."
+    },
+    {
+      "question": "Quelle commande faut-il utiliser pour extraire une archive Tarball vers `$SLURM_TMPDIR` sur tous les nœuds pour une tâche distribuée?",
+      "answer": "Pour extraire une archive Tarball vers `$SLURM_TMPDIR` sur tous les nœuds, on utilise la commande `srun --ntasks=$SLURM_NNODES --ntasks-per-node=1 tar -xvf archive.tar.gz -C $SLURM_TMPDIR`."
+    },
+    {
+      "question": "Comment est implémenté `$SLURM_TMPDIR` sur la grappe Trillium et qu'est-ce qui limite son espace?",
+      "answer": "Sur Trillium, `$SLURM_TMPDIR` est implémenté comme un RAMdisk; l'espace disponible est donc limité par la mémoire du nœud, moins la capacité de RAM utilisée par l'application."
+    },
+    {
+      "question": "Pour les grappes d'usage général, de quoi dépend la quantité d'espace disponible dans `$SLURM_TMPDIR`?",
+      "answer": "Pour les grappes d'usage général, la quantité d'espace disponible dans `$SLURM_TMPDIR` dépend de la grappe et du nœud auquel la tâche est assignée."
+    },
+    {
+      "question": "Quelle est la capacité de `$SLURM_TMPDIR` sur la grappe Fir?",
+      "answer": "La capacité de `$SLURM_TMPDIR` sur la grappe Fir est de 7T."
+    },
+    {
+      "question": "Quelle est la capacité de `$SLURM_TMPDIR` sur la grappe Narval?",
+      "answer": "La capacité de `$SLURM_TMPDIR` sur la grappe Narval est de 800G."
+    },
+    {
+      "question": "Quelle est la capacité de `$SLURM_TMPDIR` sur la grappe Nibi?",
+      "answer": "La capacité de `$SLURM_TMPDIR` sur la grappe Nibi est de 3T."
+    },
+    {
+      "question": "Quelle est la capacité de `$SLURM_TMPDIR` sur la grappe Rorqual?",
+      "answer": "La capacité de `$SLURM_TMPDIR` sur la grappe Rorqual est de 375G."
+    },
+    {
+      "question": "Si une tâche réserve des nœuds entiers, quelle quantité d'espace `$SLURM_TMPDIR` peut-on espérer?",
+      "answer": "Si une tâche réserve des nœuds entiers, il est raisonnable de penser qu'autant d'espace `$SLURM_TMPDIR` sera disponible sur chaque nœud."
+    },
+    {
+      "question": "Comment l'espace disponible dans `$SLURM_TMPDIR` est-il affecté si une tâche demande moins qu'un nœud entier?",
+      "answer": "Si une tâche demande moins qu'un nœud entier, les autres tâches pourront aussi écrire dans le même système de fichiers (mais non dans le même répertoire) et ainsi limiter l'espace disponible pour cette tâche."
+    },
+    {
+      "question": "Où peut-on trouver des informations sur les nœuds qui ont plus d'espace disque local que ce qui est indiqué dans le tableau pour chaque grappe?",
+      "answer": "À chacun des sites, certains nœuds ont plus d'espace disque local qu'indiqué dans le tableau; il faut consulter la section 'Caractéristiques des nœuds' pour chacune des grappes (Fir, Narval, Nibi, Rorqual)."
+    }
+  ],
+  "generated_at": "2026-04-12T10:31:40.562992+00:00"
+}

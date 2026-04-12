@@ -1,0 +1,87 @@
+{
+  "doc_key": "fr/sharing_data",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "Pourquoi ne devrait-on jamais utiliser la commande `chmod -R 777` sur nos répertoires, surtout pas dans `/home`?",
+      "answer": "Cette commande représente un ÉNORME risque à la sécurité de vos données et est inacceptable sur les systèmes partagés comme nos grappes de calcul, en plus de n'être jamais vraiment nécessaire."
+    },
+    {
+      "question": "Comment peut-on partager des données avec un collègue qui fait partie du même groupe de recherche sur une grappe?",
+      "answer": "La meilleure approche est d'utiliser l'espace `/project` disponible aux membres du groupe."
+    },
+    {
+      "question": "Si je souhaite partager des données avec une personne qui n'a pas de compte sur la grappe que j'utilise, quel est le moyen recommandé?",
+      "answer": "Vous pouvez créer un point de chute commun dans Globus."
+    },
+    {
+      "question": "Quelle est la condition essentielle pour qu'un autre utilisateur puisse accéder à un fichier que je partage, en plus des permissions du fichier lui-même?",
+      "answer": "L'autre utilisateur doit avoir la permission d'exécution sur tous les répertoires du chemin, du répertoire racine (comme `/scratch` ou `/project`) jusqu'au répertoire contenant le fichier."
+    },
+    {
+      "question": "Quelles sont les trois catégories d'utilisateurs et les trois types de permissions de base dans les systèmes de fichiers Linux?",
+      "answer": "Les trois catégories d'utilisateurs sont le propriétaire, les membres du groupe de l'objet et tous les autres. Les trois types de permissions sont la lecture (r), l'écriture (w) et l'exécution (x)."
+    },
+    {
+      "question": "Comment peut-on vérifier les permissions associées à un fichier ou à un répertoire sur une grappe?",
+      "answer": "On utilise la commande `ls -l nom_de_l_objet`."
+    },
+    {
+      "question": "Quelle commande utiliser pour accorder la permission de lecture à tous les membres du groupe d'un fichier nommé `fichier.txt`?",
+      "answer": "La commande à utiliser est `chmod g+r fichier.txt`."
+    },
+    {
+      "question": "Expliquez la notation octale pour les permissions des fichiers et donnez un exemple pour la valeur 644.",
+      "answer": "La notation octale représente les permissions d'une catégorie d'utilisateur par un chiffre de 0 à 7, où la lecture vaut 4, l'écriture 2 et l'exécution 1. La valeur 644 signifie lecture et écriture pour le propriétaire (4+2=6), et lecture seulement pour le groupe et les autres (4+0=4)."
+    },
+    {
+      "question": "À quoi sert le `sticky bit` et comment peut-on l'activer sur un répertoire partagé comme `/project`?",
+      "answer": "Le `sticky bit` empêche qu'un fichier soit supprimé ou renommé par un autre utilisateur que son propriétaire dans un répertoire partagé. On l'active avec `chmod +t <nom_du_répertoire>` ou `chmod 1774 <nom_du_répertoire>`."
+    },
+    {
+      "question": "Quel est l'effet du bit `setGID` lorsqu'il est activé sur un répertoire parent?",
+      "answer": "Lorsque `setGID` est activé sur un répertoire, les nouveaux fichiers et sous-répertoires créés à l'intérieur de celui-ci héritent du groupe du répertoire parent."
+    },
+    {
+      "question": "Le bit `setUID` peut-il être utilisé sur les grappes de calcul nationales?",
+      "answer": "Non, le bit `setUID` ne fonctionne pas sur nos grappes et est désactivé pour des raisons de sécurité."
+    },
+    {
+      "question": "Comment les permissions par défaut des nouveaux fichiers sont-elles définies, et comment peut-on afficher la valeur actuelle dans une session?",
+      "answer": "Les permissions par défaut sont définies par l'attribut `umask`. On peut afficher sa valeur actuelle avec la commande `umask -S`."
+    },
+    {
+      "question": "Quelles sont les limitations des permissions Unix traditionnelles qui ont mené à l'introduction des listes de contrôle d'accès (ACL)?",
+      "answer": "Les permissions Unix traditionnelles sont limitées à trois catégories d'utilisateurs (propriétaire, groupe, autres), ne permettant pas d'accorder des permissions précises à un utilisateur en particulier sans les étendre à tous les autres."
+    },
+    {
+      "question": "Je veux donner à l'utilisateur `smithj` les permissions de lecture, d'écriture et d'exécution sur un sous-répertoire `/home/<user>/projects/def-<PI>/shared_data`, incluant les nouveaux fichiers qui y seront créés. Quelles commandes ACL devrais-je utiliser?",
+      "answer": "Vous utiliseriez `setfacl -d -m u:smithj:rwX /home/<user>/projects/def-<PI>/shared_data` pour les nouvelles données et `setfacl -R -m u:smithj:rwX /home/<user>/projects/def-<PI>/shared_data` pour les données existantes."
+    },
+    {
+      "question": "Lorsque je partage un répertoire situé dans l'espace `/project` avec des ACL, pourquoi devrais-je fournir un chemin qui commence par `/project` et non par `/home/<user>/projects`?",
+      "answer": "Le chemin `/home/<user>/projects` contient des liens symboliques qui pourraient ne pas être accessibles aux autres utilisateurs n'ayant pas accès à votre répertoire `/home`, contrairement au chemin physique `/project`."
+    },
+    {
+      "question": "Comment puis-je supprimer toutes les règles d'une liste de contrôle d'accès (ACL) de manière récursive dans un répertoire?",
+      "answer": "Utilisez la commande `setfacl -bR <nom_du_répertoire>`."
+    },
+    {
+      "question": "Dans quels cas spécifiques est-il recommandé de créer un « groupe de partage » pour la gestion des accès aux données?",
+      "answer": "Un groupe de partage est recommandé pour des partages de données complexes, impliquant plusieurs utilisateurs sur plusieurs grappes."
+    },
+    {
+      "question": "Comment initier la création d'un groupe de partage de données sur les grappes nationales?",
+      "answer": "Il faut écrire au soutien technique pour demander la création du groupe, en indiquant son nom et en confirmant que vous en êtes le propriétaire."
+    },
+    {
+      "question": "Comment puis-je vérifier quels fichiers ou sous-répertoires dans un répertoire donné ne sont pas lisibles par moi-même?",
+      "answer": "Vous pouvez utiliser la commande `find <nom_du_répertoire> ! -readable -ls`."
+    },
+    {
+      "question": "Comment modifier les permissions de fichiers existants pour correspondre aux permissions par défaut où le groupe et les autres n'ont pas la permission d'écriture ni d'exécution?",
+      "answer": "Vous utiliseriez `chmod g-w,o-rx <fichier>` pour un fichier unique ou `chmod -R g-w,o-rx <répertoire>` pour un répertoire et son contenu."
+    }
+  ],
+  "generated_at": "2026-04-12T08:00:05.662193+00:00"
+}

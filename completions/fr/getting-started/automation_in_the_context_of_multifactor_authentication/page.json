@@ -1,0 +1,75 @@
+{
+  "doc_key": "fr/automation_in_the_context_of_multifactor_authentication",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "Pourquoi est-ce qu'on doit utiliser des nœuds spéciaux pour les flux de travail automatisés avec nos grappes?",
+      "answer": "Parce que l'authentification multifacteur est maintenant obligatoire, et les flux automatisés ne peuvent pas utiliser un deuxième facteur, donc ils ont besoin de nœuds spéciaux où c'est pas requis."
+    },
+    {
+      "question": "Est-ce que les fonctionnalités des nœuds spéciaux sont pareilles que celles des nœuds de connexion réguliers?",
+      "answer": "Non, les fonctionnalités des nœuds spéciaux sont limitées par rapport aux nœuds réguliers, autant pour le type d'authentification que pour les types d'actions qu'on peut y exécuter."
+    },
+    {
+      "question": "Comment on fait pour avoir accès aux nœuds spéciaux d'automatisation?",
+      "answer": "Faut écrire au soutien technique pis décrire le type d'automatisation, les commandes qui seront exécutées, ainsi que les outils ou bibliothèques à utiliser."
+    },
+    {
+      "question": "Quel genre de clés SSH sont acceptées pour se connecter aux nœuds d'automatisation?",
+      "answer": "L'accès se fait uniquement avec les clés SSH téléversées dans CCDB. Les clés inscrites dans un fichier `.ssh/authorized_keys` sont pas acceptées."
+    },
+    {
+      "question": "C'est quoi la règle 'une clé SSH par utilisation'?",
+      "answer": "Ça veut dire qu'on doit générer une clé SSH juste pour notre flux de travail automatisé pis ne pas la réutiliser pour se connecter de façon interactive."
+    },
+    {
+      "question": "Quelles sont les contraintes obligatoires pour les clés SSH utilisées avec les nœuds d'automatisation?",
+      "answer": "Les clés doivent respecter les contraintes `restrict`, `from=\"pattern-list\"` et `command=\"COMMAND\"`."
+    },
+    {
+      "question": "À quoi sert la contrainte `restrict` sur une clé SSH?",
+      "answer": "Elle désactive la redirection de port, la redirection d'agent, la redirection X11 pis le pseudotélétype (PTY), pour que les nœuds spéciaux ne soient pas utilisés pour des processus interactifs ou de longue durée."
+    },
+    {
+      "question": "Comment on doit formater l'adresse IP pour la contrainte `from=\"pattern-list\"`?",
+      "answer": "La liste des `patterns` doit juste être composée d'adresses IP publiques qui spécifient la classe, le réseau pis le sous-réseau, comme `x.y.z.*`."
+    },
+    {
+      "question": "C'est quoi le rôle de la contrainte `command=\"COMMAND\"`?",
+      "answer": "Ça permet de définir la ou les seules commandes qui peuvent être exécutées quand on se connecte avec cette clé SSH-là."
+    },
+    {
+      "question": "Où peut-on trouver des scripts enveloppants pré-faits pour la contrainte `command=`?",
+      "answer": "On peut les trouver dans le dépôt git de Compute Canada, sous `/cvmfs/soft.computecanada.ca/custom/bin/computecanada/allowed_commands/`."
+    },
+    {
+      "question": "Donnez un exemple de script enveloppant pour les commandes Slurm.",
+      "answer": "Le script `/cvmfs/soft.computecanada.ca/custom/bin/computecanada/allowed_commands/slurm_commands.sh` permet des commandes comme `squeue` ou `sbatch`."
+    },
+    {
+      "question": "Quelles sont les adresses des nœuds d'automatisation pour les grappes Fir et Rorqual?",
+      "answer": "Pour Fir, c'est `robot.fir.alliancecan.ca`, pis pour Rorqual, c'est `robot.rorqual.alliancecan.ca`."
+    },
+    {
+      "question": "Comment on s'assure d'utiliser la bonne clé SSH quand on en a plusieurs?",
+      "answer": "On peut spécifier la clé avec l'option `-i` pour `ssh` ou `scp`, ou on peut configurer le fichier `~/.ssh/config` avec `identityfile`."
+    },
+    {
+      "question": "C'est quoi le problème d'adressage courant avec IPv4 et IPv6 quand on essaie de se connecter à un nœud d'automatisation?",
+      "answer": "Le client SSH de l'ordi pourrait choisir l'IPv6 au lieu de l'IPv4, pis si le masque de l'adresse IP dans la clé SSH de CCDB est en IPv4, la clé pourrait ne pas être acceptée."
+    },
+    {
+      "question": "Comment on peut vérifier si un problème de connexion est dû à IPv4 ou IPv6?",
+      "answer": "Faut faire un test avec la commande `ssh -i ~/.ssh/automation_key -vvv username@robot.rorqal.alliancecan.ca \"ls -l\"` pis regarder le message 'Connecting to...' pour voir si l'adresse est IPv4 ou IPv6."
+    },
+    {
+      "question": "Quelles sont des solutions possibles pour contourner le problème d'adressage IPv4/IPv6?",
+      "answer": "On peut forcer le client SSH à utiliser IPv4 ou IPv6 avec les options `-4` ou `-6`, pointer au nœud d'automatisation avec son adresse IP directe, ou désactiver l'adressage IPv6 sur l'ordinateur (en dernier recours)."
+    },
+    {
+      "question": "Comment on configure l'automatisation avec Python et le module Paramiko pour une clé Ed25519?",
+      "answer": "Faut utiliser `paramiko.Ed25519Key.from_private_key_file()` pour charger la clé, spécifier l'utilisateur pis l'hôte, pis s'assurer d'avoir installé Paramiko avec `pip install paramiko[all]` pour le support Ed25519."
+    }
+  ],
+  "generated_at": "2026-04-11T18:10:13.489022+00:00"
+}

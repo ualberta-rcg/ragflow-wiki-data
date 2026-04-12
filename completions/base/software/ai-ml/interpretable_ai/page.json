@@ -1,0 +1,55 @@
+{
+  "doc_key": "base/interpretable_ai",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is Interpretable AI (IAI)?",
+      "answer": "IAI is a suite of machine learning tools aimed at achieving full transparency and understandability by humans."
+    },
+    {
+      "question": "What programming interface does IAI provide?",
+      "answer": "IAI provides a Python interface for its algorithms."
+    },
+    {
+      "question": "What are the licensing requirements for IAI?",
+      "answer": "IAI can only be used under license, but a free license is available for academic use on Alliance systems."
+    },
+    {
+      "question": "Who should users contact for IAI licensing issues?",
+      "answer": "Users should contact technical support for any IAI licensing issues."
+    },
+    {
+      "question": "What is the initial step for installing IAI on Alliance clusters?",
+      "answer": "Download the latest IAI release from their download page, ensuring to select 'Linux' and the correct Julia version (e.g., 1.11.3)."
+    },
+    {
+      "question": "Which files must be noted after uploading and unzipping IAI on a cluster?",
+      "answer": "The `sys.so` and `Artifacts.toml` files, and their directory location (e.g., `/path/to/sysimage/`)."
+    },
+    {
+      "question": "Which modules are required to be loaded on Alliance systems before IAI installation?",
+      "answer": "Users need to load `StdEnv/2023`, `python/3.11.5`, `scipy-stack/2025a`, and `julia/1.11.3`."
+    },
+    {
+      "question": "How do you set up a Python virtual environment and install the `interpretableai` package?",
+      "answer": "Create a virtual environment with `virtualenv --no-download iaiENV && source iaiENV/bin/activate`, then install pip updates and the package using `pip install --no-index --upgrade pip` and `pip install interpretableai`."
+    },
+    {
+      "question": "What are the steps to install IAI in Julia and configure PyCall within the virtual environment?",
+      "answer": "In an active virtual environment, launch Julia and run: `import Pkg; Pkg.add(url=\"https://github.com/InterpretableAI/IAISystemImages.jl\")`, `import IAISystemImages`, `IAISystemImages.install_artifacts(\"/path/to/sysimage/Artifacts.toml\")`, `using Pkg, PyCall`, `ENV[\"PYTHON\"] = joinpath(ENV[\"VIRTUAL_ENV\"], \"bin\", \"python\")`, and `Pkg.build(\"PyCall\")`."
+    },
+    {
+      "question": "What is the final IAI setup required in Python after Julia integration?",
+      "answer": "Within the active virtual environment, launch Python and execute: `from julia import Julia; Julia(sysimage='/path/to/sysimage/sys.so'); import interpretableai; interpretableai.install()`."
+    },
+    {
+      "question": "What code must be included in Python scripts before importing IAI?",
+      "answer": "The code `from julia import Julia` followed by `Julia(sysimage='/path/to/sysimage/sys.so')` must be included before importing IAI."
+    },
+    {
+      "question": "What is a recommended practice for job scripts when using IAI?",
+      "answer": "It is recommended to disable automatic updating by including `export IAI_DISABLE_UPDATE_CHECK=true` in job scripts."
+    }
+  ],
+  "generated_at": "2026-04-12T00:10:15.919737+00:00"
+}

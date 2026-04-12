@@ -1,0 +1,84 @@
+{
+  "doc_key": "base/namd",
+  "level": "chunk",
+  "chunk_index": 3,
+  "qa_pairs": [
+    {
+      "question": "When is it advisable to use multi-node GPU jobs for NAMD simulations?",
+      "answer": "Multi-node GPU jobs are justified only when your job can efficiently utilize the computational power across multiple nodes, as a single GPU node already offers significant power."
+    },
+    {
+      "question": "What are the specifications of the Narval GPU nodes used in the multi-node GPU job example?",
+      "answer": "Narval GPU nodes have 48 cores and 4 GPUs per node."
+    },
+    {
+      "question": "In the multi-node GPU job example for Narval, how many tasks are run in total and across how many nodes?",
+      "answer": "The example runs 8 tasks in total across 2 nodes."
+    },
+    {
+      "question": "How many threads and GPUs does each task use in the Narval multi-node GPU job example?",
+      "answer": "Each task uses 12 threads and 1 GPU."
+    },
+    {
+      "question": "Why might NAMD report fewer cores being used than actually allocated in a multi-node GPU job on Narval?",
+      "answer": "One core per task is reserved for a communications thread, so NAMD will report that only 88 cores are being used, which is normal for this configuration."
+    },
+    {
+      "question": "What is the recommended approach for adapting a multi-node GPU job script to different clusters?",
+      "answer": "To adapt the script, you should look up the specifications of the target cluster's nodes and adjust the `--cpus-per-task` and `--gpus-per-node` options accordingly."
+    },
+    {
+      "question": "Which version of NAMD is not recommended for clusters with H100 GPUs in a multi-node UCX setup?",
+      "answer": "NAMD 2.14 should not be used on clusters with H100 GPUs."
+    },
+    {
+      "question": "Is the UCX version of NAMD 3.0.1 compatible with H100 GPUs currently available on Alliance clusters?",
+      "answer": "No, the UCX version of NAMD 3.0.1 capable of running on H100 GPUs is not yet installed on Alliance clusters."
+    },
+    {
+      "question": "What module is loaded for the multi-node GPU UCX job in the provided script example?",
+      "answer": "The script loads `StdEnv/2020`, `intel/2020.1.217`, `cuda/11.0`, and `namd-ucx-smp/2.14` modules."
+    },
+    {
+      "question": "What is the purpose of the `NUM_PES=$(expr $SLURM_CPUS_PER_TASK - 1 )` line in the multi-node GPU UCX job script?",
+      "answer": "This line calculates the number of processing elements (`NUM_PES`) for NAMD, which is one less than the allocated CPUs per task, accounting for the communications thread."
+    },
+    {
+      "question": "What is the main objective of the 'Performance and benchmarking' section?",
+      "answer": "The main objective is to help users determine optimal conditions for their AMBER, GROMACS, NAMD, and OpenMM jobs, with a specific focus on NAMD performance."
+    },
+    {
+      "question": "Who created the Molecular Dynamics Performance Guide for Alliance clusters?",
+      "answer": "A team at ACENET created the Molecular Dynamics Performance Guide for Alliance clusters."
+    },
+    {
+      "question": "Why is it useful to benchmark NAMD for a particular system?",
+      "answer": "Benchmarking is very useful if you plan to spend a significant amount of time simulating a particular system, as NAMD's performance differs depending on the number of atoms in the simulation. It's also beneficial when applying for a RAC award."
+    },
+    {
+      "question": "What factors should be considered for a good NAMD benchmark?",
+      "answer": "For a good benchmark, you should vary the number of steps so the system runs for a few minutes, and timing information should be collected in reasonable intervals of at least a few seconds to avoid fluctuations in results."
+    },
+    {
+      "question": "On which cluster was the NAMD apoa1 benchmark conducted?",
+      "answer": "The NAMD apoa1 benchmark was conducted on the Graham cluster."
+    },
+    {
+      "question": "What are the specifications of the CPU and GPU nodes on the Graham cluster?",
+      "answer": "On the Graham cluster, CPU nodes have 32 cores, and GPU nodes have 32 cores and 2 GPUs."
+    },
+    {
+      "question": "How is efficiency computed for the NAMD benchmarking results?",
+      "answer": "Efficiency is computed as (time with 1 core) / (N * (time with N cores)), where N is the number of cores used."
+    },
+    {
+      "question": "Based on the CPU benchmarking results for the NAMD apoa1 system, what is an acceptable number of cores to use?",
+      "answer": "For the NAMD apoa1 system, it is acceptable to use up to 256 cores."
+    },
+    {
+      "question": "What is a potential drawback of requesting a very high number of cores for a NAMD job?",
+      "answer": "If you ask for more cores, your jobs will typically wait in the queue for a longer time, which can affect your overall throughput."
+    }
+  ],
+  "generated_at": "2026-04-12T03:30:37.370988+00:00"
+}

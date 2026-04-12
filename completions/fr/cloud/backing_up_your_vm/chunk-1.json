@@ -1,0 +1,124 @@
+{
+  "doc_key": "fr/backing_up_your_vm",
+  "level": "chunk",
+  "chunk_index": 1,
+  "qa_pairs": [
+    {
+      "question": "Pourquoi c'est important d'avoir une bonne stratégie de sauvegarde pour mon instance?",
+      "answer": "C'est important d'avoir une bonne stratégie de sauvegarde pour votre instance afin de pouvoir rétablir la situation en cas de problème. Le choix de la stratégie dépend de vos exigences spécifiques et de votre cas particulier."
+    },
+    {
+      "question": "Où est-ce qu'on recommande de faire les copies de sauvegarde?",
+      "answer": "Il est fortement recommandé de créer des copies de sauvegarde à l’extérieur du nuage, pas juste dedans."
+    },
+    {
+      "question": "C'est quoi la règle du 3-2-1 pour les sauvegardes?",
+      "answer": "La règle du 3-2-1 suggère que vous devriez avoir trois copies de vos données, enregistrées sur au moins deux types de médias différents, et qu'une de ces copies se trouve hors du site original."
+    },
+    {
+      "question": "Pouvez-vous me nommer des outils qu'on peut utiliser pour sauvegarder des fichiers à distance?",
+      "answer": "Oui, pour la sauvegarde de fichiers à distance, vous pouvez utiliser des outils comme rsync, duplicity, borg et restic. Ce sont des stratégies aussi valides pour les instances virtuelles que pour les ordinateurs physiques."
+    },
+    {
+      "question": "Quels outils d'approvisionnement peuvent servir à automatiser la configuration des logiciels et du système d’exploitation?",
+      "answer": "Des outils d’approvisionnement comme Ansible, Puppet, Chef et SaltStack peuvent être utilisés pour automatiser la configuration des logiciels et du système d’exploitation."
+    },
+    {
+      "question": "Est-ce qu'on peut recréer facilement une instance avec des outils d'approvisionnement?",
+      "answer": "Oui, avec les fichiers de spécification appropriés pour chacun de ces outils, il est très facile de recréer une instance."
+    },
+    {
+      "question": "Comment on peut gérer les fichiers de spécification pour les outils d'approvisionnement?",
+      "answer": "Les fichiers de spécification peuvent être gérés par une application de gestion de versions comme Git."
+    },
+    {
+      "question": "Quel est le but d'utiliser des outils d'approvisionnement avec des outils d'orchestration comme Heat ou Terraform?",
+      "answer": "Ces outils peuvent être utilisés ensemble pour automatiser le processus complet de création d'une instance et de configuration de ses logiciels."
+    },
+    {
+      "question": "Si on utilise l'automatisation pour créer une instance, qu'arrive-t-il aux données qui ne sont pas générées automatiquement?",
+      "answer": "Les données qui ne sont pas générées ou créées automatiquement devront être sauvegardées en utilisant une méthode de sauvegarde de fichiers."
+    },
+    {
+      "question": "Quelles sont les options de stockage qu'OpenStack offre?",
+      "answer": "OpenStack offre deux options de stockage: le stockage dans un volume avec triple réplication, et le stockage éphémère sur un nœud local."
+    },
+    {
+      "question": "Le stockage dans un volume avec triple réplication, est-ce que ça protège contre la suppression involontaire de données?",
+      "answer": "Non, cette option protège les données en cas de problème de matériel, mais pas en cas de suppression involontaire ou malicieuse."
+    },
+    {
+      "question": "Quand est-ce qu'on ne devrait pas utiliser le stockage éphémère sur un nœud local?",
+      "answer": "Il ne devrait pas être utilisé avec des données critiques, mais plutôt de façon temporaire, même s'il protège contre les problèmes de matériel."
+    },
+    {
+      "question": "Quels outils OpenStack offre-t-il pour la sauvegarde?",
+      "answer": "OpenStack offre aussi des outils pour créer des images de disques et des instantanés d’instances."
+    },
+    {
+      "question": "C'est quoi la différence entre les gabarits d'instance p et c?",
+      "answer": "Les gabarits d'instance principaux p (persistant) et c (calcul) ont des comportements différents, et des procédures de sauvegarde différentes sont recommandées pour chacun."
+    },
+    {
+      "question": "Comment les instances persistantes sont-elles conçues pour démarrer?",
+      "answer": "Les instances persistantes sont conçues pour être démarrées à partir d'un volume."
+    },
+    {
+      "question": "Quand on crée une copie de sauvegarde d'un volume pour une instance persistante, qu'est-ce qui n'est pas inclus?",
+      "answer": "Cette copie ne comprend pas le gabarit de l'instance, son adresse IP publique et ses règles de sécurité."
+    },
+    {
+      "question": "Quelle est la meilleure façon de faire une copie de sauvegarde d'un volume?",
+      "answer": "La meilleure manière de créer une copie de sauvegarde d'un volume est de créer une image de ce volume."
+    },
+    {
+      "question": "Comment on peut réutiliser une image de volume?",
+      "answer": "Une fois créée, l'image peut être téléchargée et réutilisée pour créer plusieurs nouvelles instances, accessible via VirtualBox sur votre ordi personnel, ou téléversée vers un autre nuage."
+    },
+    {
+      "question": "Est-ce qu'un volume doit être détaché de l'instance pour en créer une image?",
+      "answer": "Oui, pour créer une image à partir d'un volume, ce volume doit être détaché de l’instance."
+    },
+    {
+      "question": "Si c'est le volume racine d'une instance, est-ce qu'on peut le détacher sans supprimer l'instance?",
+      "answer": "Non, si le volume est le volume racine ('root') de l’instance, il ne peut pas être détaché sans que l’instance ne soit supprimée."
+    },
+    {
+      "question": "Comment est-ce qu'on peut supprimer une instance sans perdre les données de son volume?",
+      "answer": "Vous pouvez supprimer votre instance sans perdre de données pourvu que vous n’ayez pas coché la case 'Supprimer le volume lors de la suppression de l'instance' au moment de la création de l’instance."
+    },
+    {
+      "question": "Est-ce qu'OpenStack nous avertit si on a coché la case 'Supprimer le volume lors de la suppression de l'instance'?",
+      "answer": "Non, OpenStack ne vous signalera pas que cette case a été cochée, donc il faut être vigilant."
+    },
+    {
+      "question": "C'est quoi une façon de contourner le fait qu'on ne peut pas détacher un volume racine sans supprimer l'instance?",
+      "answer": "Une façon de contourner ça est de créer un instantané du volume."
+    },
+    {
+      "question": "Est-ce que les instantanés de volume affectent le quota de stockage?",
+      "answer": "Oui, il faut s'assurer que votre quota de stockage le permet, puisque les instantanés sont comptabilisés."
+    },
+    {
+      "question": "Est-ce qu'un volume sera supprimé si on supprime l'instance et qu'un instantané du volume existe?",
+      "answer": "Non, comme un volume ne peut pas être supprimé si un instantané de ce volume a été créé, le volume ne sera pas supprimé si vous supprimez l’instance, peu importe si vous avez coché la case ou non."
+    },
+    {
+      "question": "Quel doit être l'état des volumes pour pouvoir en créer une image?",
+      "answer": "L’état de tous les volumes dont vous voulez créer une image devrait être 'Disponible(s)'."
+    },
+    {
+      "question": "Quel format d'image est recommandé pour OpenStack et pourquoi?",
+      "answer": "Le format QCOW2 est recommandé parce qu'il fonctionne bien avec OpenStack et prend typiquement moins d'espace que les images de format 'Raw'."
+    },
+    {
+      "question": "Quels autres formats d'images de disques peuvent être utiles?",
+      "answer": "Les formats 'vmdk' et 'vdi' sont utiles quand vous travaillez avec d’autres outils de visualisation comme VirtualBox."
+    },
+    {
+      "question": "Une fois les images des volumes créées, comment on peut recréer l'instance?",
+      "answer": "Une fois les images de tous les volumes que vous voulez sauvegarder créées, vous pouvez créer à nouveau l’instance à partir du volume racine original de l'instance et, s'il y a lieu, y attacher les volumes supplémentaires que vous auriez attachés à l’instance originale."
+    }
+  ],
+  "generated_at": "2026-04-11T18:31:39.736587+00:00"
+}

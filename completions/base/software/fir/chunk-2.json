@@ -1,0 +1,220 @@
+{
+  "doc_key": "base/fir",
+  "level": "chunk",
+  "chunk_index": 2,
+  "qa_pairs": [
+    {
+      "question": "What type of processors do the Fir CPU nodes feature?",
+      "answer": "Each Fir CPU node features 2 × AMD EPYC 9655 (Zen 5) @ 2.7 GHz processors."
+    },
+    {
+      "question": "How many physical cores are available in each Fir CPU node?",
+      "answer": "Each Fir CPU node has a total of 192 physical cores."
+    },
+    {
+      "question": "What kind of architecture is the Fir CPU node system built on?",
+      "answer": "The Fir CPU node system is built on a chiplet-based NUMA architecture, where each chiplet (CCD) operates as a separate NUMA node."
+    },
+    {
+      "question": "Why is data locality important for performance on Fir CPU nodes?",
+      "answer": "Performance on Fir CPU nodes is sensitive to data locality due to its non-uniform memory and cache hierarchy."
+    },
+    {
+      "question": "How many sockets are there in a Fir CPU node?",
+      "answer": "Each Fir CPU node has 2 sockets."
+    },
+    {
+      "question": "How many cores are in each socket of a Fir CPU node?",
+      "answer": "Each socket in a Fir CPU node has 96 cores."
+    },
+    {
+      "question": "How many NUMA nodes are within each socket of a Fir CPU node?",
+      "answer": "Each socket in a Fir CPU node contains 4 NUMA nodes."
+    },
+    {
+      "question": "How many CCDs (chiplets) are within each NUMA node of a Fir CPU node?",
+      "answer": "Each NUMA node in a Fir CPU node has 3 CCDs (chiplets)."
+    },
+    {
+      "question": "How many cores does each CCD (chiplet) in a Fir CPU node contain?",
+      "answer": "Each CCD (chiplet) in a Fir CPU node contains 8 cores."
+    },
+    {
+      "question": "What is the size of the shared L3 cache in each CCD of a Fir CPU node?",
+      "answer": "Each CCD (chiplet) in a Fir CPU node has a 32 MiB shared L3 cache."
+    },
+    {
+      "question": "How many memory channels does each NUMA node in a Fir CPU node have?",
+      "answer": "Each NUMA node in a Fir CPU node has 3 memory channels."
+    },
+    {
+      "question": "What is the L2 cache size for each core in a Fir CPU node?",
+      "answer": "Each core in a Fir CPU node has a 1 MiB L2 cache."
+    },
+    {
+      "question": "What are the L1 instruction and data cache sizes for each core in a Fir CPU node?",
+      "answer": "Each core in a Fir CPU node has a 32+32 KiB L1 instruction/data cache."
+    },
+    {
+      "question": "How many DDR5 memory channels are shared via the I/O die for each core in a Fir CPU node?",
+      "answer": "Each core in a Fir CPU node shares 12 DDR5 memory channels via the I/O die."
+    },
+    {
+      "question": "What is the total number of NUMA nodes per Fir CPU node?",
+      "answer": "There are a total of 8 NUMA nodes per Fir CPU node (4 per socket × 2)."
+    },
+    {
+      "question": "How many CCDs (chiplets) are there in total per Fir CPU node?",
+      "answer": "There are a total of 24 CCDs (chiplets) per Fir CPU node (12 per socket × 2)."
+    },
+    {
+      "question": "What is the total L3 cache available in a Fir CPU node?",
+      "answer": "A Fir CPU node has a total of 768 MiB L3 cache."
+    },
+    {
+      "question": "What is the first recommendation for performance tuning on Fir CPU nodes with EPYC 9655 architecture?",
+      "answer": "The first recommendation is to align tasks to CCDs to avoid inter-chiplet communication latency."
+    },
+    {
+      "question": "Why should tasks be aligned to CCDs on Fir CPU nodes?",
+      "answer": "Tasks should be aligned to CCDs because each CCD contains 8 tightly-coupled cores with a shared L3 cache, and keeping threads within a CCD avoids inter-chiplet communication latency."
+    },
+    {
+      "question": "Which Slurm option should be used to ensure threads of each task stay within a single CCD on Fir CPU nodes?",
+      "answer": "To ensure threads of each task stay within a single CCD, use the Slurm option `#SBATCH --cpus-per-task=8`."
+    },
+    {
+      "question": "What is the second recommendation for performance tuning on Fir CPU nodes?",
+      "answer": "The second recommendation is to distribute tasks across CCDs to fully utilise all CCDs without overloading any single one."
+    },
+    {
+      "question": "How many tasks per node should be launched to fully utilise all CCDs on a Fir CPU node?",
+      "answer": "To fully utilise all 24 CCDs per node without overloading any, 24 tasks per node should be launched."
+    },
+    {
+      "question": "Which Slurm option should be used to launch 24 tasks per node on a Fir CPU node?",
+      "answer": "To launch 24 tasks per node, use the Slurm option `#SBATCH --ntasks-per-node=24`."
+    },
+    {
+      "question": "What combination of Slurm options will fully utilise a 192-core Fir CPU node cleanly?",
+      "answer": "The combination of Slurm options `#SBATCH --cpus-per-task=8` and `#SBATCH --ntasks-per-node=24` will fully utilise the full 192-core Fir CPU node cleanly."
+    },
+    {
+      "question": "What processor is used in each Fir GPU node?",
+      "answer": "Each Fir GPU node contains 1 × AMD EPYC 9454 (Zen 4) @ 2.75 GHz processor."
+    },
+    {
+      "question": "How many physical cores does the processor in a Fir GPU node have?",
+      "answer": "The AMD EPYC 9454 processor in a Fir GPU node has 48 physical cores."
+    },
+    {
+      "question": "How does the GPU node processor handle memory locality?",
+      "answer": "The GPU node processor uses AMD’s chiplet-based NUMA architecture, with memory access times varying depending on core and memory locality, and it operates in NPS=4 mode, dividing the socket into four NUMA nodes for better memory locality."
+    },
+    {
+      "question": "How many sockets are configured in a Fir GPU node?",
+      "answer": "A Fir GPU node is configured with 1 socket."
+    },
+    {
+      "question": "How is the single socket in a Fir GPU node configured for NUMA?",
+      "answer": "The single socket in a Fir GPU node is configured as NPS=4."
+    },
+    {
+      "question": "How many NUMA nodes are there per socket in a Fir GPU node?",
+      "answer": "There are 4 NUMA nodes per socket in a Fir GPU node."
+    },
+    {
+      "question": "How many CCDs (Core Complex Dies) are within each NUMA node of a Fir GPU node?",
+      "answer": "Each NUMA node in a Fir GPU node contains 2 CCDs (Core Complex Dies)."
+    },
+    {
+      "question": "How many cores are within each CCD (Core Complex Die) in a Fir GPU node?",
+      "answer": "Each CCD in a Fir GPU node contains 6 cores."
+    },
+    {
+      "question": "What is the size of the shared L3 cache in each CCD of a Fir GPU node?",
+      "answer": "Each CCD in a Fir GPU node has 32 MiB of shared L3 cache."
+    },
+    {
+      "question": "How many memory channels does each NUMA node in a Fir GPU node have?",
+      "answer": "Each NUMA node in a Fir GPU node has 3 memory channels."
+    },
+    {
+      "question": "What is the L2 cache size for each core in a Fir GPU node?",
+      "answer": "Each core in a Fir GPU node has a 1 MiB L2 cache."
+    },
+    {
+      "question": "What are the L1 instruction and data cache sizes for each core in a Fir GPU node?",
+      "answer": "Each core in a Fir GPU node has a 32 KiB L1 instruction cache and a 32 KiB L1 data cache."
+    },
+    {
+      "question": "How many DDR5 memory channels are shared via the I/O die for each core in a Fir GPU node?",
+      "answer": "Each core in a Fir GPU node shares 12 DDR5 memory channels via the I/O die."
+    },
+    {
+      "question": "How many NVidia H100 80GB accelerators are included in each Fir GPU node?",
+      "answer": "Each Fir GPU node includes 4 NVidia H100 80GB accelerators."
+    },
+    {
+      "question": "How are the NVidia H100 accelerators within a Fir GPU node interconnected?",
+      "answer": "The NVidia H100 accelerators within a Fir GPU node are interconnected by SXM5."
+    },
+    {
+      "question": "What is the first performance tuning recommendation for EPYC 9454 CPU in Fir GPU nodes?",
+      "answer": "The first recommendation is to bind threads to CCDs."
+    },
+    {
+      "question": "Why should threads be bound to CCDs on Fir GPU nodes?",
+      "answer": "Threads should be bound to CCDs because each CCD has 6 closely coupled cores sharing a 32 MiB L3 cache, which helps confine threads to one CCD, reducing cross-CCD latency and improving cache usage."
+    },
+    {
+      "question": "Which Slurm option is recommended to keep threads within a single CCD on Fir GPU nodes?",
+      "answer": "To keep threads within a single CCD, the recommended Slurm option is `#SBATCH --cpus-per-task=6`."
+    },
+    {
+      "question": "What is the second performance tuning recommendation for EPYC 9454 CPU in Fir GPU nodes?",
+      "answer": "The second recommendation is to match tasks to NUMA nodes."
+    },
+    {
+      "question": "How many tasks per node should be launched on Fir GPU nodes for best performance, considering the NPS=4 configuration?",
+      "answer": "For best performance, with 4 NUMA nodes per socket (NPS=4), users should launch 4 tasks per node (or a multiple thereof)."
+    },
+    {
+      "question": "What Slurm options are recommended to keep each task within a NUMA domain and ensure local memory and GPU access on Fir GPU nodes?",
+      "answer": "The recommended Slurm options are `#SBATCH --ntasks-per-node=4` and `#SBATCH --cpus-per-task=12`."
+    },
+    {
+      "question": "Which Slurm option is used to request one full H100-80gb GPU?",
+      "answer": "To request one full H100-80gb GPU, use the Slurm option `--gpus=h100:1`."
+    },
+    {
+      "question": "Which Slurm options can be used to request multiple H100-80gb GPUs per node?",
+      "answer": "To request multiple H100-80gb GPUs per node, you can use options like `--gpus-per-node=h100:2`, `--gpus-per-node=h100:3`, or `--gpus-per-node=h100:4`."
+    },
+    {
+      "question": "How can a user request multiple full H100 GPUs spread anywhere across the cluster?",
+      "answer": "A user can request multiple full H100 GPUs spread anywhere by using the Slurm option `--gpus=h100:n`, where 'n' is the desired number of GPUs."
+    },
+    {
+      "question": "Are all GPU nodes configured with MIG technology?",
+      "answer": "Approximately half of the GPU nodes are configured with MIG technology."
+    },
+    {
+      "question": "What are the available GPU instance sizes for nodes configured with MIG technology?",
+      "answer": "The available GPU instance sizes are 1g.10gb, 2g.20gb, and 3g.40gb."
+    },
+    {
+      "question": "Which Slurm option should be used to request a 1g.10gb GPU instance?",
+      "answer": "To request a 1g.10gb GPU instance, use the Slurm option `--gpus=nvidia_h100_80gb_hbm3_1g.10gb:1`."
+    },
+    {
+      "question": "What Slurm option is required to request a 2g.20gb GPU instance?",
+      "answer": "To request a 2g.20gb GPU instance, use the Slurm option `--gpus=nvidia_h100_80gb_hbm3_2g.20gb:1`."
+    },
+    {
+      "question": "How does one request a 3g.40gb GPU instance using Slurm?",
+      "answer": "To request a 3g.40gb GPU instance, use the Slurm option `--gpus=nvidia_h100_80gb_hbm3_3g.40gb:1`."
+    }
+  ],
+  "generated_at": "2026-04-11T21:33:07.851890+00:00"
+}

@@ -1,0 +1,135 @@
+{
+  "doc_key": "base/arbutus_migration_guide",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is the main purpose of this document?",
+      "answer": "This document aims to describe how to migrate virtual machine (VM) instances from the legacy Arbutus Cloud to the new Arbutus Cloud."
+    },
+    {
+      "question": "Why is migration from the legacy Arbutus Cloud necessary?",
+      "answer": "Migration is necessary because the legacy Arbutus Cloud will be decommissioned in 2026."
+    },
+    {
+      "question": "What is the deadline for migrating resources from Legacy Arbutus to New Arbutus Cloud?",
+      "answer": "The deadline for both RAS and RAC Projects to migrate between Legacy Arbutus and New Arbutus is August 31, 2026."
+    },
+    {
+      "question": "Whom should I contact if I have questions about my migration plan?",
+      "answer": "You can contact cloud@tech.alliancecan.ca for questions or to review your migration plan."
+    },
+    {
+      "question": "What initial steps should be taken to plan a cloud migration?",
+      "answer": "To plan your migration, you need to identify which resources require migration, determine if instances are ephemeral or volume-backed, check volume sizes, identify if automation tools are used, note custom DNS entries, decide on using the OpenStack Dashboard or CLI, ensure all users have accounts, and plan for potential service outages."
+    },
+    {
+      "question": "Why might some resources not need to be migrated?",
+      "answer": "If any volume or an instance is no longer needed, it could be decommissioned instead of being migrated."
+    },
+    {
+      "question": "What should I do if my cloud volumes are larger than 150 GB?",
+      "answer": "Volumes larger than 150 GB should be migrated using Globus."
+    },
+    {
+      "question": "What should I consider if I use custom DNS entries?",
+      "answer": "Custom DNS entries will need to be updated because the new Arbutus Cloud uses different floating IP address ranges, causing IP addresses to change."
+    },
+    {
+      "question": "What is the recommended practice for backing up critical data before migration?",
+      "answer": "Project owners are responsible for creating backups of any critical data, as the Arbutus Cloud Team does not make backups or copies of instances."
+    },
+    {
+      "question": "What are the URLs for accessing the Horizon Web UI for the Legacy and New Arbutus Clouds?",
+      "answer": "The Legacy Arbutus Cloud URL is https://arbutus.cloud.computecanada.ca, and the New Arbutus Cloud URL is https://arbutus.alliancecan.ca/."
+    },
+    {
+      "question": "Which web browsers are supported for accessing the Arbutus Cloud Horizon Web UI?",
+      "answer": "Firefox and Chrome browsers are supported."
+    },
+    {
+      "question": "Will my project, network, and router be pre-created in the New Arbutus Cloud?",
+      "answer": "Yes, your Arbutus Cloud Project (Tenant), Network, and Router will be pre-created for you in the New Arbutus Cloud."
+    },
+    {
+      "question": "What essential modifications are required for the New Arbutus RC file?",
+      "answer": "You must add specific `export` lines for `OS_AUTH_TYPE`, `OS_IDENTITY_PROVIDER`, `OS_PROTOCOL`, and `OS_PROJECT_DOMAIN_NAME`, and remove lines related to `OS_USER_DOMAIN_NAME` and the password prompt."
+    },
+    {
+      "question": "How do I prepare my environment for using the OpenStack CLI with the new Arbutus RC file?",
+      "answer": "You should create a Python virtual environment, activate it, and then install `python-openstackclient`, `keystoneauth-websso`, and `python-manilaclient` using pip."
+    },
+    {
+      "question": "How do I migrate SSH keys from the Legacy Arbutus Cloud to the New Arbutus Cloud?",
+      "answer": "You can copy the public key value from your existing key pair in the Legacy Horizon dashboard and import it into the New Arbutus Cloud Horizon dashboard or use the OpenStack CLI."
+    },
+    {
+      "question": "What should I remember when migrating security groups to the New Arbutus Cloud?",
+      "answer": "You must re-create security groups and their associated rules as needed, but avoid deleting the default Egress security rules for IPv4 and IPv6, as this can cause instance failures."
+    },
+    {
+      "question": "What are the three general migration scenarios outlined in the document?",
+      "answer": "The three general migration scenarios are manual or orchestrated migration, migrating volume-backed instances, and migrating ephemeral instances."
+    },
+    {
+      "question": "When is the \"Migration using Glance images\" method recommended for volume-backed instances?",
+      "answer": "This method is recommended for volumes less than 150GB in size."
+    },
+    {
+      "question": "What is an alternative method for migrating a volume-backed instance if Glance images are not suitable?",
+      "answer": "An alternative method is to use the Linux 'dd' command to create an image from the attached disk of the instance on a temporary migration host."
+    },
+    {
+      "question": "What is the recommended approach for migrating large bootable volumes where rsync is not possible?",
+      "answer": "For large bootable volumes, the 'dd' command can be used to make an identical copy from a Legacy Arbutus volume to a new Arbutus volume, typically involving temporary instances and SSH."
+    },
+    {
+      "question": "How are ephemeral instances migrated?",
+      "answer": "Ephemeral instances can be migrated using methods similar to 'Migration using Glance images' or the 'Alternative method: Migrating a volume-backed instance using Linux dd'."
+    },
+    {
+      "question": "Which data transfer tool is recommended for very large data volumes (greater than 5TB)?",
+      "answer": "Globus is recommended for very large data volumes (greater than 5TB)."
+    },
+    {
+      "question": "Which data transfer method is recommended for smaller data volumes?",
+      "answer": "rsync over SSH is recommended for smaller volumes, offering good transfer speeds and incremental copying."
+    },
+    {
+      "question": "Why might using the IPv6 GUA network with rsync be beneficial?",
+      "answer": "The IPv6 GUA network is a VLAN network that bypasses the OpenStack Neutron component, potentially offering improved data transfer performance."
+    },
+    {
+      "question": "What are some common post-transfer activities required after migrating instances?",
+      "answer": "Post-transfer activities may include updating host-based firewall rules, working with DNS providers to update custom domain entries, updating IP addresses in configuration files, altering database usernames, renewing TLS certificates, and testing the configuration."
+    },
+    {
+      "question": "Is New Arbutus Cloud CephFS Shared Filesystem automatically migrated?",
+      "answer": "No, New Arbutus Cloud CephFS Shared Filesystem is a distinct and separate service, and any desired data must be intentionally migrated."
+    },
+    {
+      "question": "How do I migrate data between legacy and new CephFS shares?",
+      "answer": "For each share in legacy Arbutus Cloud, create an equivalent share in new Arbutus. Mount both shares to separate mount locations on the same virtual machine in new Arbutus Cloud, then use rsync to transfer the data."
+    },
+    {
+      "question": "What are the key differences when creating and mounting new CephFS shares in the New Arbutus Cloud?",
+      "answer": "You must use the New Arbutus Cloud web UI, create a separate `ceph-new.conf` file, update the `mon_host` value in `ceph-new.conf`, and specify `conf=/etc/ceph/ceph-new.conf` in the mount command."
+    },
+    {
+      "question": "Is New Arbutus Cloud Object Storage automatically migrated?",
+      "answer": "No, New Arbutus Cloud Object Storage is a distinct and separate service, and any desired data must be intentionally migrated."
+    },
+    {
+      "question": "What should be considered regarding bucket ACLs during Object Storage migration?",
+      "answer": "Be cautious, as most tools do not preserve bucket ACLs, so they may need to be recreated in the new environment, and any referenced user or project UUIDs will be different."
+    },
+    {
+      "question": "What is the recommended tool for migrating Object Storage data if I am unsure which to use?",
+      "answer": "rclone is recommended for migrating Object Storage data."
+    },
+    {
+      "question": "What format does the unauthenticated S3 access URL take in New Arbutus Cloud Object Storage?",
+      "answer": "The URL for unauthenticated S3 access follows the format `https://object-arbutus.alliancecan.ca/<tenant-id>:<bucket-name>/<object-name>`."
+    }
+  ],
+  "generated_at": "2026-04-11T17:40:40.280850+00:00"
+}

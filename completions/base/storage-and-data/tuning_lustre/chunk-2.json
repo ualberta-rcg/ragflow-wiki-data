@@ -1,0 +1,52 @@
+{
+  "doc_key": "base/tuning_lustre",
+  "level": "chunk",
+  "chunk_index": 2,
+  "qa_pairs": [
+    {
+      "question": "What are the potential effects of increasing the Lustre filesystem's stripe count?",
+      "answer": "Increasing the stripe count may improve performance, but it also makes the file more susceptible to hardware failures."
+    },
+    {
+      "question": "How should a small file, less than 1 MB, such as a configuration file, be handled in a parallel program?",
+      "answer": "For small files (less than 1 MB), like configuration files, in a parallel program, it is best to place the file on a single disk (stripe count=1), read it with the master rank, and then distribute its content to other ranks using `MPI_Broadcast` or `MPI_Scatter`."
+    },
+    {
+      "question": "What is the recommended stripe count for large files in a parallel program?",
+      "answer": "When treating large files, it is usually best to use a stripe count as large as the number of MPI ranks."
+    },
+    {
+      "question": "How should the stripe size be determined for large files?",
+      "answer": "For large files, the stripe size should ideally be the same as the buffer size for the data that is being read or written by each rank."
+    },
+    {
+      "question": "What would be an ideal stripe size if each rank reads 1 MB of data at a time?",
+      "answer": "If each rank reads 1 MB of data at a time, the ideal stripe size will likely be 1 MB."
+    },
+    {
+      "question": "What should be done if the optimal stripe size is unknown?",
+      "answer": "If you don't know what size to use, your best bet is to keep the default value, which has been optimized for large files."
+    },
+    {
+      "question": "What is a mandatory requirement regarding Lustre filesystem stripe size?",
+      "answer": "The stripe size must always be an integer multiple of 1MB."
+    },
+    {
+      "question": "What general principle should be followed to optimize filesystem operations?",
+      "answer": "In general, you want to reduce the number of open/close operations on the filesystem."
+    },
+    {
+      "question": "Is it better to create many small files or concatenate data into a single file on a Lustre filesystem?",
+      "answer": "It is best to concatenate all data within a single file rather than writing a lot of small files."
+    },
+    {
+      "question": "What is the recommended practice for opening and closing files within a program to add new data?",
+      "answer": "It is best to open the file once at the beginning, and close it once at the end of the program, rather than opening and closing it each time you want to add new data."
+    },
+    {
+      "question": "Where can users find tools and examples for archiving and compressing files?",
+      "answer": "Tools and examples for archiving and compressing files can be found under the 'Archiving and compressing files' section."
+    }
+  ],
+  "generated_at": "2026-04-12T09:52:44.602454+00:00"
+}

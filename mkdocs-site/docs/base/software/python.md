@@ -5,26 +5,147 @@ lang: "base"
 
 source_wiki_title: "Python"
 source_hash: "ade3bdf3221040a91b0ce5d90d5a728a"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T10:11:38.142960+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T10:37:10.671407+00:00"
 
 tags:
   - software
 
 keywords:
-  []
+  - "requirements.txt"
+  - "repository"
+  - "debugger"
+  - "package installation"
+  - "Python version"
+  - "breakpoint"
+  - "version control system"
+  - "allocated node"
+  - "versions"
+  - "virtualenv command"
+  - "local wheel"
+  - "requirements file"
+  - "Python code"
+  - "pip"
+  - "Python wheels"
+  - "virtual environments"
+  - "compute node"
+  - "apply_async"
+  - "debugging"
+  - "No matching distribution found"
+  - "dependencies"
+  - "parallel"
+  - "Slurm"
+  - "submission script"
+  - "interactive job"
+  - "single-node Python jobs"
+  - "Github"
+  - "virtual environment"
+  - "pip install"
+  - "user installation"
+  - "multiprocessing"
+  - "py-spy"
+  - "command"
+  - "dependency hell"
+  - "python"
+  - "parallel filesystem"
+  - "multi-node"
+  - "module load"
+  - "Troubleshooting"
+  - "wheelhouse"
+  - "ABI break"
+  - "multiprocessing module"
+  - "parallel programming"
+  - "avail_wheels"
+  - "multi-nodes"
+  - "Numpy"
+  - "Python"
+  - "SciPy stack"
+  - "site-packages not writeable"
+  - "local installation"
+  - "Python Debugger"
+  - "pdb"
+  - "numpy"
+  - "mp.Pool"
+  - "environment module"
+  - "Python packages"
+  - "releases"
+  - "SLURM"
+  - "parallel processing"
+  - "job submission script"
+  - "remote repository"
+  - "local disk"
+  - "Numpy 2.0"
+
+questions:
+  - "How can a user discover and load a specific version of Python on the cluster instead of using the default version?"
+  - "What is the purpose of the scipy-stack module, and what are some of the key packages it provides?"
+  - "Why is it recommended to create a virtual environment using virtualenv, and where should these environments be located to avoid deletion?"
+  - "How do you properly activate, deactivate, and reuse a Python virtual environment?"
+  - "Why is it strongly recommended to use the `--no-index` option when installing packages with pip on the cluster?"
+  - "What are the performance benefits of creating a virtual environment on a compute node's local disk instead of using the parallel filesystem?"
+  - "What command is required to select a specific Python version before creating a virtual environment?"
+  - "When is it necessary to load the scipy-stack module during this process?"
+  - "What is the final command used to actually create the new virtual environment directory?"
+  - "Where should you create the virtual environment for single-node Python jobs according to the text?"
+  - "What are the performance advantages of recreating your environment for every job rather than using the parallel filesystem?"
+  - "Why must the process of creating a node-local virtual environment be repeated for each node in a job?"
+  - "How is the requirements.txt file generated on a login node to ensure a reproducible environment?"
+  - "What steps should be taken if a required package is not available in the provided Python wheels?"
+  - "How must virtual environments be configured when running scripts across multiple nodes in a single job?"
+  - "What is the necessary prerequisite for running scripts across multiple nodes in a job?"
+  - "Where should the commands for creating the virtual environment on each allocated node be placed?"
+  - "What specific command is used to execute the virtual environment creation across all allocated nodes?"
+  - "How do you create and activate a Python virtual environment across multiple nodes in a SLURM job?"
+  - "What are the default filtering behaviors of the `avail_wheels` command when searching for packages on the cluster?"
+  - "Which operators can be used with the `avail_wheels` command to search for specific version ranges of a Python wheel?"
+  - "How can the `avail_wheels` command be used to check for package availability using a specific Python version or a requirements file?"
+  - "What is the process for pre-downloading a package on a login node to install on a compute node, and which wheel filename suffixes indicate potential compatibility issues?"
+  - "Why is it strongly recommended to use a specific tag or commit identifier instead of the repository's HEAD when installing a package from a remote Git repository?"
+  - "What comparison operators are supported for filtering package versions in the provided command?"
+  - "How can a user list versions of a specific package that are strictly older than a given version number?"
+  - "What syntax and flag should be used to display all available versions of packages that match a wildcard string?"
+  - "Why might installing from the HEAD of a repository cause issues over time?"
+  - "Where are the tags or releases located on a GitHub repository page?"
+  - "Where can users find additional documentation on installing from a version control system?"
+  - "In what situations would you need to create a local Python wheel from a remote repository, and how is this accomplished using pip?"
+  - "How can you install a locally created wheel and freeze your virtual environment's state into a requirements file?"
+  - "How can the Python multiprocessing module, specifically the Pool class, be used to convert a sequential data processing task into a parallel one?"
+  - "What is the purpose of the `multiprocessing.Pool` object in the provided Python code?"
+  - "How does the `apply_async` method differ from the `map` approach when executing the `cube` function concurrently?"
+  - "What is the expected output printed at the end of the script after retrieving the results with `p.get()`?"
+  - "How can a user dynamically set the number of processes in their Python script to match the cores allocated by the job scheduler?"
+  - "What is the main limitation of the Python multiprocessing module, and which alternative tools should be used to scale a program across multiple compute nodes?"
+  - "What are the recommended steps for interactively debugging Python code using the pdb module within a cluster environment?"
+  - "What type of job environment is recommended for debugging Python code?"
+  - "What specific commands should be added to a Python script to initiate the debugger?"
+  - "What actions can a user perform once they enter the debugger interface?"
+  - "What are the common `pdb` commands used to debug a Python file, and how can you attach the debugger to an already running process?"
+  - "What tools and methods can be used to inspect and troubleshoot a Python script that is hanging?"
+  - "How do you resolve common package installation errors, such as incompatible Python versions, dependency conflicts, or missing distributions?"
+  - "What is the recommended approach for installing multiple packages simultaneously, and how can you prevent a virtual environment from becoming non-reproducible or nonfunctional?"
+  - "What are the common causes and troubleshooting steps for encountering a \"ModuleNotFoundError\" or an unsupported wheel error?"
+  - "How can you resolve Numpy-specific errors, such as missing attributes or multiarray import failures, that arise from recent version updates?"
+  - "What causes the \"No matching distribution found\" error when using pip?"
+  - "How does the system handle `manylinux_x_y` wheels during package installation?"
+  - "What methods can be used to verify if a Python package is available in the wheelhouse?"
+  - "What compatibility issue is caused by the release of NumPy 2.0?"
+  - "How can a user resolve the problem of a wheel built with NumPy 1.x being installed with version 2.x?"
+  - "Why might a package installation automatically default to a user installation instead of the normal site-packages directory?"
+  - "What causes pip to perform a local installation instead of installing within a virtual environment?"
+  - "Why are local installations of Python packages considered problematic for dependency management?"
+  - "How can a user effectively remove local Python installations to start over with a clean virtual environment?"
+  - "What causes pip to perform a local installation instead of installing within a virtual environment?"
+  - "Why are local installations of Python packages considered problematic for dependency management?"
+  - "How can a user effectively remove local Python installations to start over with a clean virtual environment?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
-
-!!! tip "Training opportunities"
-[Learn about upcoming Python training opportunities on Explora](https://explora.alliancecan.ca/events?q=Python)
 
 ## Description
 [Python](http://www.python.org/) is an interpreted programming language with a design philosophy stressing the readability of code. Its syntax is simple and expressive. Python has an extensive, easy-to-use standard library.
@@ -44,25 +165,25 @@ To discover the versions of Python available:
 module avail python
 ```
 
-You can then load the version of your choice using `module load`. For example:
+You can then load the version of your choice using `module load`. For example
 ```bash
 module load python/X.Y
 ```
-where `X.Y` represents the version, for example `3.13`.
+where `X.Y` represent the version, for example `3.13`.
 
 ### Python version supported
-In general in the Python ecosystem, the transition to more modern versions of python is accelerating, with many packages only supporting the latest few versions of Python 3.x. In our case, we provide prebuilt Python packages in our [wheelhouse](available-python-wheels.md) only for the 3 most recent Python versions available on the systems. This will result in dependencies issues when trying to install those packages with older versions of Python. See [Troubleshooting](#package-x-requires-a-different-python-xyz-not-in-gexy).
+In general in the Python ecosystem, the transition to more modern versions of python is accelerating, with many packages only supporting the latest few versions of Python 3.x. In our case, we provide prebuilt Python packages in our [wheelhouse](available-python-wheels.md) only for the 3 most recent Python versions available on the systems. This will result in dependencies issues when trying to install those packages with older versions of Python. See [Troubleshooting](#package-x-requires-a-different-python-xyz-not-in-xy).
 
 ### SciPy stack
 In addition to the base Python module, the [SciPy](https://www.scipy.org/) package is also available as an [environment module](utiliser-des-modules.md). The `scipy-stack` module includes:
 * NumPy
 * SciPy
 * Matplotlib
-    * dateutil
-    * pytz
+  * dateutil
+  * pytz
 * IPython
-    * pyzmq
-    * tornado
+  * pyzmq
+  * tornado
 * pandas
 * Sympy
 * nose
@@ -72,10 +193,12 @@ If you want to use any of these Python packages, load a Python version of your c
 To get a complete list of the packages contained in `scipy-stack`, along with their version numbers, run `module spider scipy-stack/2020a` (replacing `2020a` with whichever version you want to find out about).
 
 ## Creating and using a virtual environment
+
 With each version of Python, we provide the tool [virtualenv](http://pypi.python.org/pypi/virtualenv). This tool allows users to create virtual environments within which you can easily install Python packages. These environments allow one to install many versions of the same package, for example, or to compartmentalize a Python installation according to the needs of a specific project. Usually you should create your Python virtual environment(s) in your /home directory or in one of your /project directories. (See "Creating virtual environments inside of your jobs" below for a third alternative.)
 
 !!! warning "Virtual environment location"
-    Do not create your virtual environment under `$SCRATCH` as it may get partially deleted. Instead, [create it inside your job](#creating-virtual-environments-inside-of-your-jobs).
+    Do not create your virtual environment under `$SCRATCH` as it may get partially deleted.
+    Instead, [create it inside your job](#creating-virtual-environments-inside-of-your-jobs).
 
 To create a virtual environment, make sure you have selected a Python version with `module load python/X.Y.Z` as shown above in section *Loading a Python module*. If you expect to use any of the packages listed in section *SciPy stack* above, also run `module load scipy-stack/X.Y.Z`. Then enter the following command, where `ENV` is the name of the directory for your new environment:
 ```bash
@@ -102,6 +225,7 @@ You can now use the same virtual environment over and over again. Each time:
 2. Activate the environment, `source ENV/bin/activate`
 
 ### Installing packages
+
 Once you have a virtual environment loaded, you will be able to run the [pip](http://www.pip-installer.org/) command. This command takes care of compiling and installing most of Python packages and their dependencies. A comprehensive index of Python packages can be found at [PyPI](https://pypi.python.org/pypi).
 
 All of `pip`'s commands are explained in detail in the [user guide](https://pip.pypa.io/en/stable/user_guide/). We will cover only the most important commands and use the [Numpy](http://numpy.scipy.org/) package as an example.
@@ -110,7 +234,7 @@ We first load the Python interpreter:
 ```bash
 module load python/X.Y
 ```
-where `X.Y` represents the version, for example `3.13`.
+where `X.Y` represent the version, for example `3.13`.
 
 We then activate the virtual environment, previously created using the `virtualenv` command:
 ```bash
@@ -131,15 +255,13 @@ To see where the `pip` command is installing a python package from, diagnosing i
 
 ### Creating virtual environments inside of your jobs
 
-!!! note
-    On Trillium it is recommended to create virtual environments from a login node in `HOME` and source it in your job script.
+**Note**: On Trillium it is recommended to create virtual environments from a login node in `HOME` and source it in your job script.
 
 Parallel filesystems such as the ones used on our clusters are very good at reading or writing large chunks of data, but can be bad for intensive use of small files. Launching a software and loading libraries, such as starting Python and loading a virtual environment, can be slow for this reason.
 
 As a workaround for this kind of slowdown, and especially for single-node Python jobs, you can create your virtual environment inside of your job, using the compute node's local disk. It may seem counter-intuitive to recreate your environment for every job, but it can be faster than running from the parallel filesystem, and will give you some protection against some filesystem performance issues. This approach, of creating a node-local virtualenv, has to be done for each node in the job, since the virtualenv is only accessible on one node. Following job submission script demonstrates how to do this for a single-node job:
 
-```bash
-# file: submit_venv.sh
+```bash title="submit_venv.sh"
 #!/bin/bash
 #SBATCH --account=def-someuser
 #SBATCH --mem-per-cpu=1500M      # increase as needed
@@ -166,9 +288,8 @@ deactivate
 rm -rf $ENVDIR
 ```
 
-This will yield a file called `requirements.txt`, with content such as the following:
-```text
-# file: requirements.txt
+This will yield a file called `requirements.txt`, with content such as the following
+```text title="requirements.txt"
 absl_py==1.2.0+computecanada
 astunparse==1.6.3+computecanada
 cachetools==5.2.0+computecanada
@@ -216,34 +337,34 @@ This file will ensure that your environment is reproducible between jobs.
 Note that the above instructions require all of the packages you need to be available in the python wheels that we provide (see "Available wheels" below). If the wheel is not available in our wheelhouse, you can pre-download it (see "Pre-downloading packages" section below). If you think that the missing wheel should be included in our wheelhouse, please contact [Technical support](technical-support.md) to make a request.
 
 #### Creating virtual environments inside of your jobs (multi-nodes)
+
 In order to run scripts across multiple nodes, each node must have its own virtual environment activated.
 
 1. In your submission script, create the virtual environment on each allocated node:
-    ```bash
-    srun --ntasks $SLURM_NNODES --tasks-per-node=1 bash << EOF
+```bash
+srun --ntasks $SLURM_NNODES --tasks-per-node=1 bash << EOF
 
-    virtualenv --no-download $SLURM_TMPDIR/env
-    source $SLURM_TMPDIR/env/bin/activate
+virtualenv --no-download $SLURM_TMPDIR/env
+source $SLURM_TMPDIR/env/bin/activate
 
-    pip install --no-index --upgrade pip
-    pip install --no-index -r requirements.txt
+pip install --no-index --upgrade pip
+pip install --no-index -r requirements.txt
 
-    EOF
-    ```
+EOF
+```
 
 2. Activate the virtual environment on the main node,
-    ```bash
-    source $SLURM_TMPDIR/env/bin/activate;
-    ```
+```bash
+source $SLURM_TMPDIR/env/bin/activate;
+```
 
 3. Use `srun` to run your script
-    ```bash
-    srun python myscript.py;
-    ```
+```bash
+srun python myscript.py;
+```
 
 #### Example (multi-nodes)
-```bash
-# file: submit-nnodes-venv.sh
+```bash title="submit-nnodes-venv.sh" linenums="1"
 #!/bin/bash
 #SBATCH --account=<your account>
 #SBATCH --time=00:30:00
@@ -280,6 +401,7 @@ To list wheels containing `cdf` (case insensitive) in its name:
 ```bash
 avail_wheels "*cdf*"
 ```
+
 ```text
 name      version    python    arch
 --------  ---------  --------  -------
@@ -293,6 +415,7 @@ Or an exact name:
 ```bash
 avail_wheels numpy
 ```
+
 ```text
 name    version    python    arch
 ------  ---------  --------  -------
@@ -306,6 +429,7 @@ To list a specific version, you can use the same format as with `pip`:
 ```bash
 avail_wheels numpy==1.23
 ```
+
 ```text
 name    version    python    arch
 ------  ---------  --------  -------
@@ -317,6 +441,7 @@ Or use the long option:
 ```bash
 avail_wheels numpy --version 1.23
 ```
+
 ```text
 name    version    python    arch
 ------  ---------  --------  -------
@@ -328,6 +453,7 @@ With the `pip` format, you can use different operators: `==`, `<`, `>`, `~=`, `<
 ```bash
 avail_wheels 'numpy<1.23'
 ```
+
 ```text
 name    version    python    arch
 ------  ---------  --------  -------
@@ -339,6 +465,7 @@ And to list all available versions:
 ```bash
 avail_wheels "*cdf*" --all-version
 ```
+
 ```text
 name      version    python    arch
 --------  ---------  --------  -------
@@ -358,6 +485,7 @@ You can list a specific version of Python:
 ```bash
 avail_wheels 'numpy<1.23' --python 3.9
 ```
+
 ```text
 name    version    python    arch
 ------  ---------  --------  -------
@@ -370,6 +498,7 @@ One can list available wheels based on a `requirements.txt` file with:
 ```bash
 avail_wheels -r requirements.txt
 ```
+
 ```text
 name       version    python    arch
 ---------  ---------  --------  -------
@@ -380,6 +509,7 @@ And display wheels that are not available:
 ```bash
 avail_wheels -r requirements.txt --not-available
 ```
+
 ```text
 name       version    python    arch
 ---------  ---------  --------  -------
@@ -389,6 +519,7 @@ tabulate   0.8.10     py3       generic
 ```
 
 ### Pre-downloading packages
+
 Here is how to pre-download a package called `tensorboardX` on a login node, and install it on a compute node:
 
 1. Run `pip download --no-deps tensorboardX`. This will download the package as `tensorboardX-1.9-py2.py3-none-any.whl` (or similar) in the working directory. The syntax of `pip download` is the same as `pip install`.
@@ -396,6 +527,7 @@ Here is how to pre-download a package called `tensorboardX` on a login node, and
 3. Then, when installing, use the path for file `pip install tensorboardX-1.9-py2.py3-none-any.whl`.
 
 ### Installing from a remote repository (Github)
+
 In some cases the source package is not available on the python package index (PyPI), but it is available from a remote repository.
 That remote repository may be Git, Subversion, Bazaar or Mercurial based but we'll focus on Git-based below.
 
@@ -415,9 +547,10 @@ If you use the `HEAD` of the repository, it may (or may not) work today, but tom
 
 On Github, you can find the tags or releases under the Releases section on the right panel.
 
-For more information on installing from a version control system (VCS), see [vcs-support](https://pip.pypa.io/en/stable/topics/vcs-support/#vcs-support).
+For more information on installing from a version control system (VCS), see [vcs-support](https://pip.pypa.io/en/stable/topics/vcs-support/#vcs-support)
 
 ### Creating a local wheel
+
 In some contexts,
 * some packages are provided only from a remote repository (i.e. Github) without any version nor tags nor releases;
 * or you need to modify its source code.
@@ -446,8 +579,7 @@ Finally, with the local wheel, you can install it in your virtual environment:
 (ENV) [name@server ~]$ pip install $HOME/MyProject-1.0.0-py3-none.whl
 ```
 or add it to your requirements file:
-```text
-# file: requirements.txt
+```text title="requirements.txt"
 ~/MyProject-1.0.0-py3-none.whl
 torch-2.11.0+computecanada-cp314-cp314-linux_x86_64.whl
 ```
@@ -460,10 +592,17 @@ If you aim to create a requirements file, then you should use `--no-index` and t
 See also [Creating virtual environments inside of your jobs](#creating-virtual-environments-inside-of-your-jobs).
 
 ## Parallel programming with the Python `multiprocessing` module
+
 Doing parallel programming with Python can be an easy way to get results faster. A usual way of doing so is to use the [`multiprocessing`](https://sebastianraschka.com/Articles/2014_multiprocessing.html) module. Of particular interest is the `Pool` class of this module, since it allows one to control the number of processes started in parallel, and apply the same calculation to multiple data. As an example, suppose we want to calculate the `cube` of a list of numbers. The serial code would look like this:
-=== "Using a loop"
-    ```python
-    # file: cubes_sequential.py
+
+<div class="tabbed-set" data-tabs="1">
+  <input checked="checked" id="__tab_1_1" name="__tab_1" type="radio">
+  <label for="__tab_1_1">
+    Using a loop
+  </label>
+  <div class="tabbed-content">
+
+    ```python title="cubes_sequential.py"
     def cube(x):
         return x**3
 
@@ -471,9 +610,15 @@ Doing parallel programming with Python can be an easy way to get results faster.
     cubes = [cube(x) for x in data]
     print(cubes)
     ```
-=== "Using a map"
-    ```python
-    # file: cubes_sequential.py
+
+  </div>
+  <input id="__tab_1_2" name="__tab_1" type="radio">
+  <label for="__tab_1_2">
+    Using a map
+  </label>
+  <div class="tabbed-content">
+
+    ```python title="cubes_sequential.py"
     def cube(x):
         return x**3
 
@@ -482,10 +627,18 @@ Doing parallel programming with Python can be an easy way to get results faster.
     print(cubes)
     ```
 
+  </div>
+</div>
+
 Using the `Pool` class, running in parallel, the above codes become:
-=== "Using a loop"
-    ```python
-    # file: cubes_parallel.py
+<div class="tabbed-set" data-tabs="2">
+  <input checked="checked" id="__tab_2_1" name="__tab_2" type="radio">
+  <label for="__tab_2_1">
+    Using a loop
+  </label>
+  <div class="tabbed-content">
+
+    ```python title="cubes_parallel.py"
     import multiprocessing as mp
 
     def cube(x):
@@ -497,9 +650,15 @@ Using the `Pool` class, running in parallel, the above codes become:
     cubes = [p.get() for p in results]
     print(cubes)
     ```
-=== "Using a map"
-    ```python
-    # file: cubes_parallel.py
+
+  </div>
+  <input id="__tab_2_2" name="__tab_2" type="radio">
+  <label for="__tab_2_2">
+    Using a map
+  </label>
+  <div class="tabbed-content">
+
+    ```python title="cubes_parallel.py"
     import multiprocessing as mp
 
     def cube(x):
@@ -511,18 +670,25 @@ Using the `Pool` class, running in parallel, the above codes become:
     print(cubes)
     ```
 
+  </div>
+</div>
+
 The above examples will however be limited to using `4` processes. On a cluster, it is very important to use the cores that are allocated to your job. Launching more processes than you have cores requested will slow down your calculation and possibly overload the compute node. Launching fewer processes than you have cores will result in wasted resources and cores remaining idle. The correct number of cores to use in your code is determined by the amount of resources you requested to the scheduler. For example, if you have the same computation to perform on many tens of data or more, it would make sense to use all of the cores of a node. In this case, you can write your job submission script with the following header:
-```bash
-# file: submit.sh
+```bash title="submit.sh"
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=32
 
 python cubes_parallel.py
 ```
 and then, your code would become the following:
-=== "Using a loop"
-    ```python
-    # file: cubes_parallel.py
+<div class="tabbed-set" data-tabs="3">
+  <input checked="checked" id="__tab_3_1" name="__tab_3" type="radio">
+  <label for="__tab_3_1">
+    Using a loop
+  </label>
+  <div class="tabbed-content">
+
+    ```python title="cubes_parallel.py"
     import multiprocessing as mp
     import os
 
@@ -536,9 +702,15 @@ and then, your code would become the following:
     cubes = [p.get() for p in results]
     print(cubes)
     ```
-=== "Using a map"
-    ```python
-    # file: cubes_parallel.py
+
+  </div>
+  <input id="__tab_3_2" name="__tab_3" type="radio">
+  <label for="__tab_3_2">
+    Using a map
+  </label>
+  <div class="tabbed-content">
+
+    ```python title="cubes_parallel.py"
     import multiprocessing as mp
     import os
 
@@ -551,6 +723,9 @@ and then, your code would become the following:
     cubes = pool.map(cube, data)
     print(cubes)
     ```
+
+  </div>
+</div>
 
 Note that in the above example, the function `cube` itself is sequential. If you are calling some external library, such as `numpy`, it is possible that the functions called by your code are themselves parallel. If you want to distribute processes with the technique above, you should verify whether the functions you call are themselves parallel, and if they are, you need to control how many threads they will take themselves. If, for example, they take all the cores available (32 in the above example), and you are yourself starting 32 processes, this will slow down your code and possibly overload the node as well.
 
@@ -563,6 +738,7 @@ Please see [Anaconda](anaconda.md).
 Please see [Jupyter](jupyter.md).
 
 ## Debugging
+
 Debugging your python code might not be obvious. Simple methods such as adding `print` statement or assertion (`assert`) can help you fix some errors.
 
 But often, it is required to dig a bit deeper in the code and its context, using a debugger such as `pdb` is then easier.
@@ -575,17 +751,17 @@ You can debug your Python code, in [a small interactive job](running-jobs.md#int
 
 Useful commands:
 
-| Command         | Description                                                                                                                                                                                                                                                                                                |
-| :-------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `w` (here)      | Print a stack trace, with the most recent frame at the bottom. An arrow (>) indicates the current frame, which determines the context of most commands.                                                                                                                                                    |
-| `b` (reak)      | With a `lineno` argument, set a break at line `lineno` in the current file.                                                                                                                                                                                                                                |
-| `s` (tep)       | Execute the current line, stop at the first possible occasion (either in a function that is called or on the next line in the current function).                                                                                                                                                           |
-| `n` (ext)       | Continue execution until the next line in the current function is reached or it returns.                                                                                                                                                                                                                   |
-| `r` (eturn)     | Continue execution until the current function returns.                                                                                                                                                                                                                                                       |
-| `c` (ont(inue)) | Continue execution, only stop when a breakpoint is encountered.                                                                                                                                                                                                                                            |
-| `p exp`         | Evaluate `expression` in the current context and print its value.                                                                                                                                                                                                                                          |
-| `l` (ist)       | List source code for the current file.                                                                                                                                                                                                                                                                     |
-| `q` (uit)       | Quit from the debugger. The program being executed is aborted.                                                                                                                                                                                                                                             |
+| Command | Description |
+|---|---|
+| `w (here)` | Print a stack trace, with the most recent frame at the bottom. An arrow (>) indicates the current frame, which determines the context of most commands. |
+| `b (reak)` | With a lineno argument, set a break at line lineno in the current file. |
+| `s (tep)` | Execute the current line, stop at the first possible occasion (either in a function that is called or on the next line in the current function). |
+| `n (ext)` | Continue execution until the next line in the current function is reached or it returns. |
+| `r (eturn)` | Continue execution until the current function returns. |
+| `c (ont(inue))` | Continue execution, only stop when a breakpoint is encountered. |
+| `p exp` | Evaluate expression in the current context and print its value. |
+| `l (list)` | List source code for the current file. |
+| `q (quit)` | Quit from the debugger. The program being executed is aborted. |
 
 Typically, one would use `w`, `s`, `l`, `p`, `n` to debug a file.
 
@@ -601,6 +777,7 @@ python -m pdb --pid <process id>
 ## Troubleshooting
 
 ### Python script is hanging
+
 By using the [faulthandler](https://docs.python.org/3.8/library/faulthandler.html) module, you can edit your script to allow dumping a traceback after a timeout. See `faulthandler.dump_traceback_later()`.
 
 You can also inspect a python process while the job is running, without modifying it beforehand, using [py-spy](https://pythonrepo.com/repo/benfred-py-spy-python-debugging-tools):
@@ -614,19 +791,15 @@ You can also inspect a python process while the job is running, without modifyin
 
 ### Package 'X' requires a different Python: X.Y.Z not in '>=X.Y'
 When installing packages, you may encounter an error similar to:
-```
-ERROR: Package 'X' requires a different Python: 3.6.10 not in '>=3.7'
-```
+`ERROR: Package 'X' requires a different Python: 3.6.10 not in '>=3.7'`.
 
 The current python module loaded (3.6.10 in this case) is not supported by that package. You can update to a more recent version, such as the latest available module. Or install an older version of package 'X'.
 
 ### Package has requirement X, but you'll have Y which is incompatible
 When installing packages, you may encounter an error similar to:
-```
-ERROR: Package has requirement X, but you'll have Y which is incompatible.
-```
+`ERROR: Package has requirement X, but you'll have Y which is incompatible.`.
 
-Upgrade `pip` to the latest version or higher than [`21.3`](https://pip.pypa.io/en/stable/news/#v21-3) to use the new dependency resolver:
+Upgrade `pip` to the latest version or higher than [21.3](https://pip.pypa.io/en/stable/news/#v21-3) to use the new dependency resolver:
 ```bash
 (ENV) [name@server ~]$ pip install --no-index --upgrade pip
 ```
@@ -637,6 +810,7 @@ When installing packages, you may encounter an error similar to:
 ```bash
 (ENV) [name@server ~]$ pip install X
 ```
+
 ```text
 ERROR: Could not find a version that satisfies the requirement X (from versions: none)
 ERROR: No matching distribution found for X
@@ -668,7 +842,7 @@ To remedy that, freeze the specific packages and their versions with
 and then create a [requirements file](#creating-virtual-environments-inside-of-your-jobs) that will be used to install the required packages in your job.
 
 ### X is not a supported wheel on this platform
-When installing a package, you may encounter the following error: `ERROR: package-3.8.1-cp311-cp311-manylinux_2_28_x86_64.whl is not a supported wheel on this platform.`
+When installing a package, you may encounter the following error: `ERROR: package-3.8.1-cp311-cp311-manylinux_2_28_x86_64.whl is not a supported wheel on this platform.`.
 
 Some packages may be incompatible or not supported on the systems.
 Two common cases are:
@@ -704,11 +878,12 @@ When you encounter this problem, first make sure you followed the above advice. 
 In doubt, start over with a new virtual environment.
 
 ### ImportError: numpy.core.multiarray failed to import
+
 When trying to import a Python module that depends on Numpy, one may encounter `ImportError: numpy.core.multiarray failed to import`.
 
 This is caused by an incompatible version of Numpy installed or used and you must install a compatible version.
 
-This is especially true with the [release of Numpy 2.0 which breaks the ABI.](https://numpy.org/devdocs/dev/depending_on_numpy.html#numpy-2-0-specific-advice)
+This is especially true with the [release of Numpy 2.0 which breaks the ABI](https://numpy.org/devdocs/dev/depending_on_numpy.html#numpy-2-0-specific-advice).
 In the case of a wheel that was built with version 1.x but installed version 2.x, one must installed a lower version with: `pip install --no-index 'numpy<2.0'`
 
 ### Defaulting to user installation because normal site-packages is not writeable

@@ -1,0 +1,60 @@
+{
+  "doc_key": "fr/mpi",
+  "level": "chunk",
+  "chunk_index": 6,
+  "qa_pairs": [
+    {
+      "question": "À quoi sert le programme `phello1` en programmation parallèle?",
+      "answer": "Le programme `phello1` est une version parallèle du \"Hello World\" classique. Chaque processus est conçu pour afficher son propre rang et le nombre total de processus en opération."
+    },
+    {
+      "question": "Pourquoi n'est-il pas nécessaire d'introduire des énoncés conditionnels dans le code du programme `phello1`?",
+      "answer": "Il n'est pas nécessaire d'avoir des énoncés conditionnels parce que tous les processus exécutent les mêmes appels de fonction pour obtenir leur rang et la taille du communicateur."
+    },
+    {
+      "question": "Comment on compile un programme MPI en C, comme `phello1.c`?",
+      "answer": "On compile un programme MPI en C avec la commande `mpicc -Wall phello1.c -o phello1`."
+    },
+    {
+      "question": "Comment on fait pour exécuter le programme `phello1` avec quatre processus?",
+      "answer": "Pour exécuter le programme `phello1` avec quatre processus, on utilise la commande `mpirun -np 4 ./phello1`."
+    },
+    {
+      "question": "Qu'est-ce qu'on peut remarquer sur l'ordre des sorties quand on roule `phello1` avec plusieurs processus?",
+      "answer": "On va voir que les sorties produites par les processus ne sont pas nécessairement ordonnées selon leur rang. L'ordre d'affichage n'est pas prévisible."
+    },
+    {
+      "question": "Comment se présente le résultat final quand `phello1` est exécuté en parallèle?",
+      "answer": "Le résultat final est une concaténation des sorties standard (`stdout`) de tous les processus, et chaque processus affiche des informations basées sur ses variables locales (son rang et le nombre total de processus)."
+    },
+    {
+      "question": "Est-ce que la version Python du programme `phello1.py` doit être compilée?",
+      "answer": "Non, la version Python, qui utilise `mpi4py`, n'a pas besoin d'être compilée."
+    },
+    {
+      "question": "Comment on exécute la version Python du programme `phello1.py` avec quatre processus?",
+      "answer": "On exécute la version Python avec la commande `mpirun -np 4 python phello1.py`."
+    },
+    {
+      "question": "Comment on compile un programme C++ utilisant Boost.MPI, comme `phello1.cpp`?",
+      "answer": "Pour compiler un programme C++ avec Boost.MPI, on utilise la commande `mpic++ --std=c++11 phello1.cpp -lboost_mpi-mt -lboost_serialization-mt -o phello1`."
+    },
+    {
+      "question": "Après avoir fait un programme \"Hello World\" parallèle sans communication, quelle est la prochaine chose à aborder?",
+      "answer": "La prochaine étape, c'est d'aborder la communication entre les processus."
+    },
+    {
+      "question": "Quel patron de communication est proposé pour les exemples suivants?",
+      "answer": "Le patron proposé est que chaque processus transmet le mot \"hello\" au processus suivant, en bouclant le cercle."
+    },
+    {
+      "question": "Décrivez le patron de communication circulaire en utilisant les rangs des processus.",
+      "answer": "Le processus de rang `i` envoie son message au processus de rang `i+1`. Le dernier processus, qui a le rang `N-1`, envoie son message au processus de rang `0`, ce qui ferme la boucle."
+    },
+    {
+      "question": "Comment peut-on exprimer mathématiquement la destination d'un message dans ce patron de communication circulaire?",
+      "answer": "On peut dire que le processus `i` envoie son message au processus `(i+1)%N`, où `N` représente le nombre total de processus et `%` est l'opérateur modulo."
+    }
+  ],
+  "generated_at": "2026-04-12T01:56:39.325243+00:00"
+}

@@ -5,33 +5,77 @@ lang: "base"
 
 source_wiki_title: "Apache Spark"
 source_hash: "c0e8f07153ab6f819897b333cffc385b"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T04:25:07.789748+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T05:17:17.942853+00:00"
 
 tags:
   - software
 
 keywords:
-  []
+  - "calcul distribué"
+  - "SparkPi"
+  - "application web"
+  - "code"
+  - "markup"
+  - "fureteur web"
+  - "SparkLR"
+  - "traitement en mémoire"
+  - "URL"
+  - "PySpark"
+  - "visualisation"
+  - "HistoryServer"
+  - "journaux d'activités"
+  - "translate"
+  - "closing tag"
+  - "apprentissage automatique"
+  - "spark-submit"
+  - "Ctrl-C"
+  - "XML"
+  - "configuration"
+  - "srun"
+  - "Spark"
+  - "stop-master.sh"
+  - "terminal"
+  - "Apache Spark"
+
+questions:
+  - "Quelles sont les principales différences entre Apache Spark et Hadoop MapReduce en matière de gestion de la mémoire et de performances ?"
+  - "Pour quels types d'applications le framework Spark est-il particulièrement recommandé ?"
+  - "Comment configurer et soumettre un travail Spark (via PySpark ou Java) sur une grappe de calcul à l'aide d'un script SLURM ?"
+  - "Comment configurer l'environnement Spark pour activer la sauvegarde des journaux d'activités ?"
+  - "Quelles sont les étapes requises pour lancer et accéder à l'application web de visualisation des journaux ?"
+  - "Quelle est la procédure pour arrêter l'application de visualisation une fois qu'elle est en cours d'exécution ?"
+  - "How is the Spark job submission command configured to integrate with the Slurm workload manager?"
+  - "What specific Spark example applications are being executed by the script?"
+  - "What steps does the script take to clean up and terminate the Spark cluster processes after the jobs are completed?"
+  - "Sur quel port le service HistoryServer a-t-il démarré avec succès selon les journaux du terminal ?"
+  - "Comment doit-on procéder pour accéder à l'application à l'aide de l'URL affichée ?"
+  - "Quelle combinaison de touches permet d'arrêter l'application de visualisation dans le terminal ?"
+  - "What is the primary function of the `</translate>` closing tag within a markup or programming context?"
+  - "How do parsers or translation systems process the content that immediately precedes this specific tag?"
+  - "In which specific software frameworks or document formats is this tag typically implemented?"
+  - "What is the primary function of the `</translate>` closing tag within a markup or programming context?"
+  - "How do parsers or translation systems process the content that immediately precedes this specific tag?"
+  - "In which specific software frameworks or document formats is this tag typically implemented?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
-# Apache Spark
+## Introduction
 
-Apache Spark is an open-source distributed computing framework initially developed by the AMPLab at Berkeley University, and now an Apache Foundation project. Unlike the MapReduce algorithm implemented by Hadoop, which uses disk storage, Spark uses in-memory primitives, allowing it to achieve performances up to 100 times faster for certain applications. Loading data into memory allows it to be queried frequently, making Spark a particularly suitable framework for machine learning and interactive data analysis.
+Apache Spark is an open-source distributed computing framework initially developed by AMPLab at the University of Berkeley, and now an Apache Foundation project. Unlike the MapReduce algorithm implemented by Hadoop, which uses disk storage, Spark uses in-memory primitives, allowing it to achieve up to 100 times faster performance for certain applications. Loading data into memory allows it to be queried frequently, making Spark a particularly suitable framework for machine learning and interactive data analysis.
 
-# Usage
+## Usage
 
-## PySpark
+### PySpark
 
-```bash title="pyspark_submit.sh"
+```sh title="pyspark_submit.sh"
 #!/bin/bash
 #SBATCH --account=def-someuser
 #SBATCH --time=00:01:00
@@ -44,7 +88,7 @@ module load spark/2.3.0
 module load python/3.7
 
 # Recommended settings for calling Intel MKL routines from multi-threaded applications
-# https://software.intel.com/en-us/articles/recommended-settings-for-calling-intel-mkl-routines-from-multi-threaded-applications 
+# https://software.intel.com/en-us/articles/recommended-settings-for-calling-intel-mkl-routines-from-multi-threaded-applications
 export MKL_NUM_THREADS=1
 export SPARK_IDENT_STRING=$SLURM_JOBID
 export SPARK_WORKER_DIR=$SLURM_TMPDIR
@@ -66,9 +110,9 @@ kill $slaves_pid
 stop-master.sh
 ```
 
-## Java Jars
+### Java Jars
 
-```bash title="pyspark_java_submit.sh"
+```sh title="pyspark_java_submit.sh"
 #!/bin/bash
 #SBATCH --account=def-someuser
 #SBATCH --time=00:01:00
@@ -80,7 +124,7 @@ stop-master.sh
 module load spark/2.3.0
 
 # Recommended settings for calling Intel MKL routines from multi-threaded applications
-# https://software.intel.com/en-us/articles/recommended-settings-for-calling-intel-mkl-routines-from-multi-threaded-applications 
+# https://software.intel.com/en-us/articles/recommended-settings-for-calling-intel-mkl-routines-from-multi-threaded-applications
 export MKL_NUM_THREADS=1
 export SPARK_IDENT_STRING=$SLURM_JOBID
 export SPARK_WORKER_DIR=$SLURM_TMPDIR
@@ -102,25 +146,25 @@ kill $slaves_pid
 stop-master.sh
 ```
 
-# Monitoring
+## Monitoring
 
-Spark application activity logs can be saved and viewed later using a web application provided with Spark. The following instructions show how to enable log saving and start the web application.
+The activity logs of an executed Spark application can be saved and subsequently viewed using a web application provided with Spark. The following instructions show how to enable log saving and start the web application.
 
-## Configuration
+### Configuration
 
-First, create a directory that will contain the application logs:
+First, create a directory to store the application logs:
 
 ```bash
 mkdir ~/.spark/<spark version>/eventlog
 ```
 
-If it doesn't already exist, then create a directory that will contain Spark's configuration parameters:
+If it doesn't already exist, create a directory to store Spark's configuration parameters:
 
 ```bash
 mkdir ~/.spark/<spark version>/conf
 ```
 
-In this directory, create the following file or add the content presented to the `spark-defaults.conf` file if it already exists.
+In this directory, create the following file or add the presented content to `spark-defaults.conf` if it already exists.
 
 ```conf title="spark-defaults.conf"
 spark.eventLog.enabled true
@@ -128,9 +172,9 @@ spark.eventLog.dir /home/<userid>/.spark/<spark version>/eventlog
 spark.history.fs.logDirectory  /home/<userid>/.spark/<spark version>/eventlog
 ```
 
-## Visualization
+### Visualization
 
-Create an [SSH tunnelling](ssh-tunnelling.md) between your computer and the compute cluster.
+Create an [SSH tunnel](ssh-tunnelling-fr.md) between your computer and the compute cluster.
 
 Load the Spark module:
 
@@ -165,8 +209,6 @@ Using Spark's default log4j profile: org/apache/spark/log4j-defaults.properties
 17/10/13 04:29:02 INFO HistoryServer: Bound HistoryServer to 0.0.0.0, and started at http://<server ip address>:18080
 ```
 
-!!! note
-    Copy the URL displayed in the terminal and paste it into your web browser.
+Copy the URL displayed in the terminal and paste it into your web browser.
 
-!!! note
-    To stop the visualization application, enter the Ctrl-C key combination in the terminal used to launch the application.
+To stop the visualization application, enter the Ctrl-C key combination in the terminal where the application was launched.

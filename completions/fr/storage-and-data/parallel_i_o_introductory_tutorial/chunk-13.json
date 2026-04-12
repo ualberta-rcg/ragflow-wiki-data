@@ -1,0 +1,68 @@
+{
+  "doc_key": "fr/parallel_i_o_introductory_tutorial",
+  "level": "chunk",
+  "chunk_index": 13,
+  "qa_pairs": [
+    {
+      "question": "À quoi sert la fonction `MPI_File_set_view` en MPI-IO?",
+      "answer": "La fonction `MPI_File_set_view` est utilisée pour assigner des régions du fichier à des processus distincts."
+    },
+    {
+      "question": "Quels sont les trois éléments qui définissent une vue de fichier pour `MPI_File_set_view`?",
+      "answer": "Les vues de fichier sont spécifiées à l'aide d'un triplet : le `displacement` (déplacement), le `etype` (type d'élément) et le `filetype` (type de fichier)."
+    },
+    {
+      "question": "Que signifie le terme `displacement` dans le contexte d'une vue de fichier MPI-IO?",
+      "answer": "Le `displacement` représente le nombre d'octets à sauter à partir du début du fichier."
+    },
+    {
+      "question": "Qu'est-ce que le `etype` (type d'élément) dans la spécification d'une vue de fichier?",
+      "answer": "Le `etype` est l'unité d'accès aux données et peut être n'importe quel type de donnée de base ou dérivé."
+    },
+    {
+      "question": "Quel est le rôle du `filetype` (type de fichier) quand on définit une vue de fichier?",
+      "answer": "Le `filetype` spécifie la portion du fichier qui est visible pour le processus."
+    },
+    {
+      "question": "Quelles sont quelques-unes des opérations de base de MPI-IO disponibles en Fortran 90?",
+      "answer": "En Fortran 90, on retrouve des opérations comme `MPI_FILE_OPEN`, `MPI_FILE_SEEK`, `MPI_FILE_SET_VIEW`, `MPI_FILE_READ`, `MPI_FILE_WRITE` et `MPI_FILE_CLOSE`."
+    },
+    {
+      "question": "À quoi sert la fonction `MPI_FILE_SEEK` en Fortran 90?",
+      "answer": "`MPI_FILE_SEEK` est utilisée pour mettre à jour le pointeur de fichier individuel."
+    },
+    {
+      "question": "Quelles sont les informations essentielles requises pour ouvrir un fichier avec MPI-IO?",
+      "answer": "Pour ouvrir un fichier, il faut fournir un communicateur, un nom de fichier, un descripteur de fichier pour toute référence future, et un mode d'accès au fichier (`amode`)."
+    },
+    {
+      "question": "Nommez au moins trois modes d'accès au fichier (`amode`) qu'on peut utiliser avec MPI-IO.",
+      "answer": "Quelques modes d'accès sont `MPI_MODE_RDONLY` (lecture seulement), `MPI_MODE_WRONLY` (écriture seulement), `MPI_MODE_RDWR` (lecture et écriture), `MPI_MODE_CREATE` (créer le fichier s'il n'existe pas), et `MPI_MODE_APPEND` (positionner tous les pointeurs de fichier à la fin)."
+    },
+    {
+      "question": "Comment combine-t-on plusieurs modes d'accès au fichier (`amode`) en C et en Fortran?",
+      "answer": "En C, on les combine en utilisant l'opérateur OU binaire (`|`), et en Fortran, on utilise l'addition (`+`)."
+    },
+    {
+      "question": "Quelle valeur est habituellement assignée à l'argument `info` lors de l'ouverture d'un fichier avec MPI-IO?",
+      "answer": "L'argument `info` est habituellement défini à `MPI_INFO_NULL`."
+    },
+    {
+      "question": "Donnez un exemple d'ouverture de fichier en C pour la lecture seulement.",
+      "answer": "Un exemple en C est : `MPI_File_open (MPI_COMM_WORLD, \"test.dat\", MPI_MODE_RDONLY, MPI_INFO_NULL,&fh );`."
+    },
+    {
+      "question": "Donnez un exemple d'ouverture de fichier en Fortran 90 pour la lecture seulement.",
+      "answer": "Un exemple en Fortran 90 est : `call MPI_FILE_OPEN(MPI_COMM_WORLD,\"test.dat\", MPI_MODE_RDONLY, MPI_INFO_NULL, fh, ierr)`."
+    },
+    {
+      "question": "Décrivez le concept d'écriture de données contiguës à partir de plusieurs processus dans un seul fichier.",
+      "answer": "Dans ce modèle, chaque processus écrit ses données dans une portion désignée et contiguë du même fichier, ce qui permet à l'écriture de se dérouler de manière ordonnée d'un processus à l'autre."
+    },
+    {
+      "question": "Dans l'exemple C d'écriture de données contiguës, comment est calculé le `displace` (déplacement) pour chaque processeur?",
+      "answer": "Le `displace` est calculé en multipliant le rang du processeur (`rank`) par la taille du tableau (`n`) et par la taille d'un caractère (`sizeof(char)`), soit `rank * n * sizeof(char)`."
+    }
+  ],
+  "generated_at": "2026-04-12T05:10:21.545665+00:00"
+}

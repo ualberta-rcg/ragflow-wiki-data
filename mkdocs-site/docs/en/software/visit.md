@@ -5,21 +5,45 @@ lang: "en"
 
 source_wiki_title: "VisIt/en"
 source_hash: "0941dae1c138f21ab3673732af5948bd"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T12:45:02.741222+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T12:43:14.081359+00:00"
 
 tags:
   - software
 
 keywords:
-  []
+  - "Slurm"
+  - "Host configuration"
+  - "Remote rendering"
+  - "Trillium cluster"
+  - "Host profile"
+  - "VisIt"
+  - "Host Profiles"
+  - "Cloud VM"
+  - "Client-server visualization"
+  - "Configuration file"
+  - "SSH tunneling"
+
+questions:
+  - "Why is it necessary to have the same major version of VisIt installed on both the local client and the remote host?"
+  - "What are the specific steps and directory paths required to configure the host profile XML file on different operating systems like Linux/Mac and Windows?"
+  - "What is the difference between using the 'login' profile versus the 'slurm' profile when launching the VisIt engine on the clusters?"
+  - "How do you manually configure a new host profile and launch profiles in VisIt to connect to the Trillium cluster?"
+  - "What prerequisite packages and build commands are required to compile VisIt with OSMesa support on a CentOS Cloud VM?"
+  - "How do you configure VisIt on a local machine to run in client-server mode and visualize data hosted on a remote virtual machine?"
+  - "What configuration step is required for the VisIt software to connect to the Trillium cluster?"
+  - "How can a user download the Trillium host configuration file?"
+  - "What characteristic of the user's local machine will affect the subsequent steps of the setup process?"
+  - "How do you manually configure a new host profile and launch profiles in VisIt to connect to the Trillium cluster?"
+  - "What prerequisite packages and build commands are required to compile VisIt with OSMesa support on a CentOS Cloud VM?"
+  - "How do you configure VisIt on a local machine to run in client-server mode and visualize data hosted on a remote virtual machine?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -27,47 +51,40 @@ status:
 
 VisIt requires the same major version on the local client and the remote host; this prevents incompatibility that typically shows as a failed handshake when establishing the client-server connection.
 
-Please use the tabs below to select the remote system.
+Please use the sections below to select the remote system.
 
-## Fir, Nibi, and Rorqual
-
+## Fir, Nibi, Rorqual
 ### Client-server visualization on Fir, Nibi and Rorqual
 
-We have several versions of VisIt installed on the clusters. You can see them by running *module spider visit*. To use remote VisIt in client-server mode, on your laptop you need the matching major version, either 2.12.x or 2.13.x or 3.2.x. Before starting VisIt, download the host profile XML file [host_fir.xml](https://nextcloud.computecanada.ca/index.php/s/aGeScGwF8RKJJji/download) -- this config file is for connecting to VisIt 3.2.1.
+We have several versions of VisIt installed on the clusters. You can see them by running `module spider visit`. To use remote VisIt in client-server mode, on your laptop you need the matching major version, either 2.12.x or 2.13.x or 3.2.x. Before starting VisIt, download the host profile XML file [host_fir.xml](https://nextcloud.computecanada.ca/index.php/s/aGeScGwF8RKJJji/download) -- this configuration file is for connecting to VisIt 3.2.1.
 
-*   On Linux/Mac, copy the file to *~/.visit/hosts/.*
-*   On Windows, copy the file to *My Documents\VisIt 3.2.1\hosts* or similar directory.
+*   On Linux/Mac, copy the file to `~/.visit/hosts/`.
+*   On Windows, copy the file to `My Documents\VisIt 3.2.1\hosts` or similar directory.
 
 Start VisIt on your laptop; in the main menu, under *Options -> Host Profiles*, you should see the *fir* host profile. If you want to do remote rendering on Nibi instead, set:
 
-```
-Host nickname = nibi
-Remote host name = nibi.alliancecan.ca
-```
+*   **Host nickname**: nibi
+*   **Remote host name**: nibi.alliancecan.ca
 
 For both Fir and Nibi, set your CCDB username:
 
-```
-Username = yourOwwUserName
-```
+*   **Username**: yourOwwUserName
 
 With the exception of your username, your settings should be similar to the ones shown below:
 
 In the same setup window, click on the *Launch Profiles* tab. You should see two profiles (*login* and *slurm*):
 
 *   The *login* profile is for running the engine on a login node.
-
     !!! warning
-        We do not recommend the *login* profile for heavy visualizations.
-
-*   The *slurm* profile is for running the engine inside an interactive job on a compute node. If you are planning to do this, select the *slurm* profile and then click on the *Parallel* tab and below it on the *Advanced* tab. In the *Launcher arguments* field, replace `--account=def-someuser` by your default allocation, as shown below.
+        We do not recommend this for heavy visualizations.
+*   The *slurm* profile is for running the engine inside an interactive job on a compute node. If you are planning to do this, select the *slurm* profile and then click on the *Parallel* tab and below it on the *Advanced* tab. In the *Launcher arguments* field, replace `--account=def-someuser` by your default allocation.
 *   On Fir only, add the flag `--chdir=/scratch/username`, specifying your actual username, to launch your job from your scratch directory.
 
 Save the settings with *Options -> Save Settings* and then exit VisIt on your laptop for settings to take effect.
 
-If your account has multifactor authentication enabled, you will need to [configure your SSH client with ControlMaster](Multifactor_authentication.md#configuring-your-ssh-client-with-controlmaster) and make sure to use the full host name for Host, e.g.
+If your account has multifactor authentication enabled, you will need to [configure your SSH client with ControlMaster](multifactor-authentication.md#configuring-your-ssh-client-with-controlmaster) and make sure to use the full host name for Host, e.g.
 
-```bash
+```
 Host fir.alliancecan.ca
     HostName fir.alliancecan.ca
     User <your user name on the cluster>
@@ -76,17 +93,11 @@ Host fir.alliancecan.ca
     ControlPersist 10m
 ```
 
-Next, log into the cluster in a terminal window. Finally, relaunch VisIt on your computer, start the file-open dialogue and change the local host to *fir* (or *nibi*). Hopefully, the connection is established, the remote VisIt Component Launcher gets started on the cluster's login node, and you should be able to see the cluster's filesystem, navigate to your file and select it. You will be prompted to select either the *login* (rendering on the login node) or *slurm* (rendering inside an an interactive Slurm job on a compute node) profile. If you select the *slurm* profile, you will need to specify the number of nodes and processors and the maximum time limit:
+Next, log into the cluster in a terminal window. Finally, relaunch VisIt on your computer, start the file-open dialogue and change the local host to *fir* (or *nibi*). Hopefully, the connection is established, the remote VisIt Component Launcher gets started on the cluster's login node, and you should be able to see the cluster's filesystem, navigate to your file and select it. You will be prompted to select either the *login* (rendering on the login node) or *slurm* (rendering inside an interactive Slurm job on a compute node) profile. If you select the *slurm* profile, you will need to specify the number of nodes and processors and the maximum time limit:
 
-Click on *OK* and wait for VisIt's engine to start.
-
-!!! note
-    If you selected rendering on a compute node, it may take some time for your job to get started.
-
-Once your dataset appears in the *Active source*, the VisIt's engine is running and you can proceed with creating and drawing your plot.
+Click on *OK* and wait for VisIt's engine to start. If you selected rendering on a compute node, it may take some time for your job to get started. Once your dataset appears in the *Active source*, the VisIt's engine is running and you can proceed with creating and drawing your plot.
 
 ## Trillium
-
 ### Client-server visualization on Trillium
 
 #### Host configuration
@@ -95,27 +106,27 @@ For VisIt to connect to the Trillium cluster, you need to configure your host al
 
 ##### Configuration file
 
-Download the Trillium host file, right-click on [host_trillium.xml](https://support.scinet.utoronto.ca/~mponce/viz/host_trillium.xml) and select *Save as*. Depending on the OS you are using on your local machine,
+Download the Trillium host file, right-click on [host_trillium.xml](https://support.scinet.utoronto.ca/~mponce/viz/host_trillium.xml) and select *Save as*.
+Depending on the OS you are using on your local machine:
 
-*   on Linux/Mac, place the file in *>~/.visit/hosts/*;
-*   on Windows, place the file in *My Documents\VisIt 2.13.0\hosts\*.*
+*   on Linux/Mac, place the file in `~/.visit/hosts/`;
+*   on Windows, place the file in `My Documents\VisIt 2.13.0\hosts\`.
 
-Restart VisIt and check that the Trillium profile is available under *Options -> Host Profiles.*
+Restart VisIt and check that the Trillium profile is available under *Options -> Host Profiles*.
 
 ##### Manual configuration
 
-Open VisIt in your computer, go to the *Options* menu, and click on *Host Profiles.* Then click on *New Host* and select:
+Open VisIt on your computer, go to the *Options* menu, and click on *Host Profiles*.
+Then click on *New Host* and select:
 
-```
-Host nickname = trillium
-Remote host name = trillium.alliancecan.ca
-Username = Enter_Your_OWN_username_HERE
-Path to VisIt installation = /scinet/trillium/software/2018a/opt/base/visit/2.13.1
-```
+*   **Host nickname**: trillium
+*   **Remote host name**: trillium.alliancecan.ca
+*   **Username**: Enter_Your_OWN_username_HERE
+*   **Path to VisIt installation**: /scinet/trillium/software/2018a/opt/base/visit/2.13.1
 
-Check *Tunnel data connections through SSH* and click on *Apply.*
+Check *Tunnel data connections through SSH* and click on *Apply*.
 
-At the top of the window, click on the *Launch Profiles* tab and click on *New Profile.* Select the appropriate profile:
+At the top of the window, click on the *Launch Profiles* tab and click on *New Profile*. Select the appropriate profile:
 
 *   *login* to connect through a login node and access data;
 *   *slurm* to use compute nodes as rendering engines.
@@ -125,12 +136,11 @@ Then click on the *Parallel* tab and set the *Launch parallel engine*. For the S
 Finally, after you are done with these changes, go to the *Options* menu and select *Save settings*, so that your changes are saved and available the next time you launch VisIt.
 
 ## Cloud VM
-
 ### Client-server visualization on a cloud
 
 #### Prerequisites
 
-The [Cloud Quick Start Guide](Cloud_Quick_Start.md) explains how to launch a new virtual machine (VM). Once you log into the VM, you will need to install some additional packages to be able to compile ParaView or VisIt. For example, on a CentOS VM you can type:
+The [Cloud Quick Start Guide](cloud-quick-start.md) explains how to launch a new virtual machine (VM). Once you log into the VM, you will need to install some additional packages to be able to compile ParaView or VisIt. For example, on a CentOS VM you can type:
 
 ```bash
 sudo yum install xauth wget gcc gcc-c++ ncurses-devel python-devel libxcb-devel
@@ -153,7 +163,7 @@ VisIt with offscreen rendering support can be built with a single script.
 wget http://portal.nersc.gov/project/visit/releases/2.12.1/build_visit2_12_1
 chmod u+x build_visit2_12_1
 ./build_visit2_12_1 --prefix /home/centos/visit --mesa --system-python \
-    --hdf4 --hdf5 --netcdf --silo --szip --xdmf --zlib
+   --hdf4 --hdf5 --netcdf --silo --szip --xdmf --zlib
 ```
 
 This may take a couple of hours. Once finished, you can test the installation with:
@@ -166,4 +176,4 @@ This should start a VisIt Python shell.
 
 #### Running VisIt in client-server mode
 
-Start VisIt on your laptop. In *Options -> Host profiles*, edit the connection nickname, the VM host name, the path to the VisIt installation (/home/centos/visit) and your username on the VM; also enable tunneling through SSH. Don't forget to save your settings with *Options -> Save Settings.* When you open a file (*File -> Open file -> Host = Arbutus*) you should see the VM's filesystem. Load a file and try to visualize it. Data processing and rendering should be done on the VM, while the result and the GUI controls will be displayed on your laptop.
+Start VisIt on your laptop. In *Options -> Host profiles*, edit the connection nickname, the VM host name, the path to the VisIt installation (`/home/centos/visit`) and your username on the VM; also enable tunnelling through SSH. Don't forget to save your settings with *Options -> Save Settings*. When you open a file (*File -> Open file -> Host = Arbutus*) you should see the VM's filesystem. Load a file and try to visualize it. Data processing and rendering should be done on the VM, while the result and the GUI controls will be displayed on your laptop.

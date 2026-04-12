@@ -1,0 +1,56 @@
+{
+  "doc_key": "fr/gromacs",
+  "level": "chunk",
+  "chunk_index": 17,
+  "qa_pairs": [
+    {
+      "question": "Quel est le rôle de la commande `gmx grompp` dans GROMACS?",
+      "answer": "La commande `gmx grompp` est utilisée pour créer les fichiers d'entrée binaires \"tpr\" (portable binary run input file) nécessaires pour une simulation. Avant la version 5.0, cette commande s'appelait simplement `grompp`."
+    },
+    {
+      "question": "Quels types de fichiers sont nécessaires pour créer un fichier `tpr` avec `gmx grompp`?",
+      "answer": "Pour créer un fichier `tpr`, vous avez besoin d'un fichier de coordonnées avec la structure de départ (formats comme `.gro`, `.pdb` ou `.cpt`), d'un fichier de topologie du système au format `.top` (qui peut inclure des fichiers `.itp`), et d'un fichier `.mdp` pour les paramètres d'exécution."
+    },
+    {
+      "question": "Qu'est-ce qu'un fichier de topologie (au format `.top`) et à quoi sert-il?",
+      "answer": "Un fichier de topologie au format `.top` détermine le champ de force et la façon dont les paramètres du champ de force s'appliquent au système simulé. Il inclut souvent des fichiers `.itp` qui contiennent les topologies des molécules individuelles."
+    },
+    {
+      "question": "Est-ce que les fichiers `tpr` sont portables?",
+      "answer": "Oui, les fichiers `tpr` sont portables. On peut les créer (ou 'grompp-ed') sur une grappe, les copier sur une autre, et les utiliser comme fichier d'entrée pour `mdrun`."
+    },
+    {
+      "question": "Pourquoi est-il important d'utiliser la même version de GROMACS pour `grompp` et `mdrun`?",
+      "answer": "C'est crucial d'utiliser la même version de GROMACS pour `grompp` et `mdrun` parce que, même si `mdrun` peut lire des fichiers `tpr` créés avec une version antérieure de `grompp`, ça peut donner des résultats inattendus."
+    },
+    {
+      "question": "Pourquoi les simulations de dynamique moléculaire (MD) prennent-elles souvent plus de temps que la durée maximale permise pour une tâche?",
+      "answer": "Les simulations MD prennent souvent plus de temps à compléter que la durée maximale permise en temps réel pour une tâche, ce qui veut dire qu'elles doivent être redémarrées."
+    },
+    {
+      "question": "Comment peut-on minimiser le temps d'attente avant qu'une tâche GROMACS ne soit lancée sur une grappe de calcul?",
+      "answer": "Pour minimiser le temps d'attente, il est conseillé de choisir une durée d'exécution plus courte pour la tâche, par exemple 24 ou 72 heures. Ça permet de maximiser le nombre de nœuds auxquels on a accès."
+    },
+    {
+      "question": "Quel est le but du paramètre `-maxh` avec la commande `mdrun`?",
+      "answer": "Le paramètre `-maxh` de `mdrun` sert à indiquer au programme la durée en temps réel pour que l'étape en cours se termine bien quand la durée atteint 99%. De cette façon, `mdrun` crée un fichier de point de contrôle et ferme tous les fichiers de sortie (trajectoires, énergie, journalisation, etc.) proprement."
+    },
+    {
+      "question": "Comment redémarrer une simulation GROMACS déjà commencée?",
+      "answer": "Pour redémarrer une simulation, on utilise la même commande `mdrun` qu'à l'origine, mais en ajoutant le paramètre `-cpi state.cpt`, où `state.cpt` est le nom du dernier fichier de point de contrôle."
+    },
+    {
+      "question": "Que fait `mdrun` par défaut quand une simulation est redémarrée (depuis la version 4.5)?",
+      "answer": "Depuis la version 4.5, `mdrun` essaie par défaut d'utiliser les fichiers existants (trajectoires, énergie, journalisation, etc.). GROMACS vérifie aussi la cohérence entre les fichiers de sortie et rejette au besoin les étapes plus récentes que le fichier de point de contrôle."
+    },
+    {
+      "question": "Quel est l'avantage d'utiliser le paramètre `-maxh` lors du redémarrage d'une simulation?",
+      "answer": "Le paramètre `-maxh` assure que les fichiers de contrôle et de sortie sont cohérents au moment où la simulation atteint la durée limite d'exécution, ce qui est très pratique pour les redémarrages."
+    },
+    {
+      "question": "Si j'utilise `#SBATCH --time=24:00:00` dans mon script Slurm, quelle valeur devrais-je utiliser pour l'option `-maxh` de `gmx mdrun`?",
+      "answer": "Si vous utilisez `#SBATCH --time=24:00:00` (soit 24 heures), vous devriez utiliser `gmx mdrun -maxh 24 ...` pour que le programme termine proprement avant la limite de temps."
+    }
+  ],
+  "generated_at": "2026-04-11T22:42:22.801094+00:00"
+}

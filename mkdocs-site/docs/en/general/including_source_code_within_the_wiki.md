@@ -5,21 +5,33 @@ lang: "en"
 
 source_wiki_title: "Including source code within the wiki/en"
 source_hash: "28238a0ca137c3de981df79e35ef5f79"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T07:21:49.993874+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T08:01:05.258476+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "source code"
+  - "line option"
+  - "syntaxhighlight tag"
+  - "lang option"
+  - "SyntaxHighlight_GeSHi"
+
+questions:
+  - "What extension and specific tag are required to include syntax-highlighted source code within the wiki?"
+  - "How does the \"lang\" option work, and what is the default programming language if this option is not specified?"
+  - "What is the purpose of including the \"line\" option within the syntax highlight tag?"
+  - "What extension and specific tag are required to include syntax-highlighted source code within the wiki?"
+  - "How does the \"lang\" option work, and what is the default programming language if this option is not specified?"
+  - "What is the purpose of including the \"line\" option within the syntax highlight tag?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -37,7 +49,7 @@ The **line** option displays line numbers.
 ## Example
 Here is an example of a C++ code snippet created with the `<syntaxhighlight lang="cpp" line> ... </syntaxhighlight>` tag.
 
-```cpp linenums
+```cpp
 #include <iostream>
 #include <fstream>
 #include <unistd.h>

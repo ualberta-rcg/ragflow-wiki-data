@@ -5,84 +5,40 @@
   "qa_pairs": [
     {
       "question": "What types of parallelization do Abaqus solvers support for explicit analysis?",
-      "answer": "Abaqus solvers support thread-based and MPI-based parallelization for explicit analysis."
+      "answer": "Abaqus solvers support both thread-based and MPI-based parallelization for explicit analysis."
     },
     {
-      "question": "Are scripts available for running explicit analysis type jobs on single or multiple nodes?",
-      "answer": "Yes, scripts for each type are provided for running explicit analysis type jobs on single or multiple nodes, respectively."
+      "question": "Are template scripts available for multinode job restarts in explicit analysis?",
+      "answer": "No, template scripts to perform multinode job restarts for explicit analysis are not currently provided, pending further testing."
     },
     {
-      "question": "Are template scripts currently provided for performing multinode job restarts in explicit analysis?",
-      "answer": "No, template scripts to perform multinode job restarts are not currently provided pending further testing."
+      "question": "What is the name of the project directory script for single-node explicit analysis?",
+      "answer": "The project directory script for single-node explicit analysis is named `scriptep1.txt`."
     },
     {
-      "question": "What is the name of the 'project directory script' provided for single node explicit analysis?",
-      "answer": "The script is named `scriptep1.txt`."
+      "question": "Which Abaqus module is recommended for use in the `scriptep1.txt` script for explicit analysis?",
+      "answer": "The `abaqus/2026` module, which is the latest version, is recommended for use in the `scriptep1.txt` script."
     },
     {
-      "question": "What Slurm account should be specified in the `scriptep1.txt` script for explicit analysis?",
-      "answer": "The Slurm account `def-group` should be specified."
+      "question": "How is the memory for a single-node explicit analysis job determined in the provided script?",
+      "answer": "The memory for a single-node explicit analysis job is determined by `memory=\"$((${SLURM_MEM_PER_NODE}-3072))MB\"`, which subtracts 3072 MB from the total memory per node."
     },
     {
-      "question": "What is the default time limit specified for an explicit analysis job using `scriptep1.txt`?",
-      "answer": "The default time limit is 6 hours (00-06:00 days-hrs:mins)."
-    },
-    {
-      "question": "How much memory is requested for a single-node explicit analysis job using `scriptep1.txt`?",
-      "answer": "8000M (8GB) of node memory is requested, which should be greater than 5GB."
-    },
-    {
-      "question": "How many CPUs per task are specified for a single-node explicit analysis job in `scriptep1.txt`?",
-      "answer": "4 CPUs per task are specified, which should be greater than 1."
-    },
-    {
-      "question": "What is the required number of nodes for a single-node explicit analysis job using `scriptep1.txt`?",
-      "answer": "The number of nodes should be 1, and this value should not be changed."
-    },
-    {
-      "question": "Which Abaqus module is recommended to be loaded for explicit analysis in `scriptep1.txt`?",
-      "answer": "The `abaqus/2026` module, which is the latest version, is recommended."
-    },
-    {
-      "question": "What environment variable is exported to 'tcp' in the `scriptep1.txt` script?",
-      "answer": "The `MPI_IC_ORDER` environment variable is exported to 'tcp'."
-    },
-    {
-      "question": "What licensing-related environment variables are echoed in the `scriptep1.txt` script?",
-      "answer": "The `LM_LICENSE_FILE` and `ABAQUSLM_LICENSE_FILE` environment variables are echoed."
-    },
-    {
-      "question": "What files are removed at the beginning of the `scriptep1.txt` script before running the Abaqus job?",
-      "answer": "Files matching `testep1*` and `testep2*` are removed."
-    },
-    {
-      "question": "How does the `scriptep1.txt` script handle different Abaqus versions (2021 vs. 2026+) when running an explicit analysis job?",
-      "answer": "If the `EBVERSIONABAQUS` is 2021, it uses `unshare` before the Abaqus command; if `EBVERSIONABAQUS` is 2026 or greater, it runs the Abaqus command directly."
-    },
-    {
-      "question": "What is the Abaqus command used to start an explicit analysis job in the `scriptep1.txt` script?",
-      "answer": "The Abaqus command used is `abaqus job=testep1 input=myexp-sim.inp scratch=$SLURM_TMPDIR cpus=$SLURM_CPUS_ON_NODE interactive mp_mode=threads memory=\"$((${SLURM_MEM_PER_NODE}-3072))MB\"`."
-    },
-    {
-      "question": "How is the scratch directory specified for the Abaqus explicit analysis job in `scriptep1.txt`?",
-      "answer": "The scratch directory is specified using `scratch=$SLURM_TMPDIR`."
-    },
-    {
-      "question": "What `mp_mode` is used for single-node explicit analysis jobs in `scriptep1.txt`?",
-      "answer": "The `mp_mode=threads` is used."
-    },
-    {
-      "question": "How is the memory for the Abaqus explicit analysis job calculated and set in `scriptep1.txt`?",
-      "answer": "The memory is calculated as `$((${SLURM_MEM_PER_NODE}-3072))MB`."
+      "question": "What `mp_mode` is used for single-node explicit analysis in the `scriptep1.txt` script?",
+      "answer": "For single-node explicit analysis, the `scriptep1.txt` script uses `mp_mode=threads`."
     },
     {
       "question": "How can one specify writing restart data for a total of 12 time increments in an explicit analysis input file?",
-      "answer": "To specify writing restart data for a total of 12 time increments in the input file, include the line: `*RESTART, WRITE, OVERLAY, NUMBER INTERVAL=12, TIME MARKS=NO`."
+      "answer": "To write restart data for a total of 12 time increments in an explicit analysis, you should specify `*RESTART, WRITE, OVERLAY, NUMBER INTERVAL=12, TIME MARKS=NO` in the input file."
     },
     {
-      "question": "How can users check for completed restart information for explicit analysis jobs?",
-      "answer": "Users can check for completed restart information by running `egrep -i \"step|restart\" testep*.com testep*.msg testep*.sta` on the relevant output files."
+      "question": "What command can be used to check for completed restart information in an explicit analysis?",
+      "answer": "You can check for completed restart information in an explicit analysis by using the command `egrep -i \"step|restart\" testep*.com testep*.msg testep*.sta` on the relevant output files."
+    },
+    {
+      "question": "What are the default Slurm resource requests for a single-node explicit analysis project directory script?",
+      "answer": "The default Slurm resource requests for a single-node explicit analysis project directory script are `--account=def-group`, `--time=00-06:00`, `--mem=8000M`, `--cpus-per-task=4`, and `--nodes=1`."
     }
   ],
-  "generated_at": "2026-04-10T00:30:54.965457+00:00"
+  "generated_at": "2026-04-11T15:33:05.782129+00:00"
 }

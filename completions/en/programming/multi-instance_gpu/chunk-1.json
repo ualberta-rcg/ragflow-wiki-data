@@ -1,0 +1,100 @@
+{
+  "doc_key": "en/multi-instance_gpu",
+  "level": "chunk",
+  "chunk_index": 1,
+  "qa_pairs": [
+    {
+      "question": "What common problem do many programs face regarding modern GPUs?",
+      "answer": "Many programs are unable to fully use modern GPUs such as NVidia A100s and H100s."
+    },
+    {
+      "question": "What is Multi-Instance GPU (MIG) technology?",
+      "answer": "Multi-Instance GPU (MIG) is a technology that allows partitioning a single GPU into multiple instances, making each one a completely independent virtual GPU."
+    },
+    {
+      "question": "How are GPU instances isolated from one another?",
+      "answer": "Each GPU instance receives a portion of the original GPU's computational resources and memory, all detached from the other instances by on-chip protections."
+    },
+    {
+      "question": "What are the benefits of using GPU instances for jobs?",
+      "answer": "Using GPU instances is less wasteful, and usage is billed accordingly. Jobs submitted on such instances use less of your allocated priority compared to a full GPU, allowing you to execute more jobs and have shorter wait times."
+    },
+    {
+      "question": "When should jobs be tested on a GPU instance rather than a full GPU?",
+      "answer": "Jobs that use less than half of the computing power of a full GPU and less than half of the available memory should be evaluated and tested on an instance. In most cases, these jobs will run just as fast and consume less than half of the computing resource."
+    },
+    {
+      "question": "Where can one find more detailed information on determining which jobs should use a GPU instance?",
+      "answer": "More details can be found in the section 'Finding which of your jobs should use an instance'."
+    },
+    {
+      "question": "What specific CUDA feature is not supported by MIG technology?",
+      "answer": "The MIG technology does not support CUDA Inter-Process Communication (IPC), which optimizes data transfers between GPUs over NVLink and NVSwitch."
+    },
+    {
+      "question": "What is the consequence of MIG technology not supporting CUDA IPC?",
+      "answer": "This limitation reduces communication efficiency between instances, and consequently, requesting more than one MIG instance in a job is not permitted."
+    },
+    {
+      "question": "What happens if a job requests more than one MIG instance?",
+      "answer": "Such a job will be rejected at submission time."
+    },
+    {
+      "question": "What are the alternatives if a user needs functionality similar to multiple MIG instances?",
+      "answer": "If you need more than one MIG instance, you can request a larger instance (e.g., a 3g instead of three 1g instances), request an entire GPU or multiple GPUs, use MPS rather than MIG, or contact support to experiment."
+    },
+    {
+      "question": "Are graphic APIs supported by MIG technology?",
+      "answer": "Graphic APIs are not supported (for example, OpenGL, Vulkan, etc.)."
+    },
+    {
+      "question": "When might a GPU job require a full GPU instead of a MIG instance in terms of CPU resources?",
+      "answer": "GPU jobs requiring many CPU cores may also require a full GPU instead of an instance."
+    },
+    {
+      "question": "What determines the maximum number of CPU cores per MIG instance?",
+      "answer": "The maximum number of CPU cores per instance depends on the number of cores per full GPU and on the configured MIG profiles, both of which vary between clusters and GPU nodes."
+    },
+    {
+      "question": "Are MIG configurations and profiles universally the same?",
+      "answer": "While there are many possible MIG configurations and profiles, the supported profiles are system dependent."
+    },
+    {
+      "question": "Which systems support NVIDIA A100-40gb GPUs with MIG instances?",
+      "answer": "Narval supports NVIDIA A100-40gb GPUs with MIG instances."
+    },
+    {
+      "question": "Which systems support NVIDIA H100-80gb GPUs with MIG instances?",
+      "answer": "Rorqual, Nibi, and Fir support NVIDIA H100-80gb GPUs with MIG instances."
+    },
+    {
+      "question": "How does the profile name describe a MIG instance?",
+      "answer": "The profile name describes the size of the instance."
+    },
+    {
+      "question": "What are the specifications for an H100-1g.10gb MIG instance?",
+      "answer": "An H100-1g.10gb instance provides 1/8th of the computing power with 10GB of GPU memory."
+    },
+    {
+      "question": "What are the specifications for an H100-2g.20gb MIG instance?",
+      "answer": "An H100-2g.20gb instance provides 2/8th of the computing power with 20GB of GPU memory."
+    },
+    {
+      "question": "What are the specifications for an H100-3g.40gb MIG instance?",
+      "answer": "An H100-3g.40gb instance provides 3/8th of the computing power with 40GB of GPU memory."
+    },
+    {
+      "question": "How do less powerful MIG profiles affect a user's allocation and priority?",
+      "answer": "Using less powerful profiles will have a lower impact on your allocation and priority."
+    },
+    {
+      "question": "What command can be used to list all available MIG flavours and full GPU names on a cluster?",
+      "answer": "One can run `sinfo -o \"%G\" | grep gpu | sed 's/gpu://g' | sed 's/),/\n/g' | cut -d: -f1 | sort | uniq` to list all available MIG flavours and full GPU names on a given cluster."
+    },
+    {
+      "question": "Where can recommended maximums for CPU cores and system memory per instance be found?",
+      "answer": "The recommended maximum number of CPU cores and amount of system memory per instance are listed in the table of ratios in bundles."
+    }
+  ],
+  "generated_at": "2026-04-12T03:24:07.797521+00:00"
+}

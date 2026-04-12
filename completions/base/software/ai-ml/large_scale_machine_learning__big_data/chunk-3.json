@@ -1,0 +1,56 @@
+{
+  "doc_key": "base/large_scale_machine_learning__big_data",
+  "level": "chunk",
+  "chunk_index": 3,
+  "qa_pairs": [
+    {
+      "question": "What is 'out-of-core learning' in Scikit-learn?",
+      "answer": "Out-of-core learning, as referred to by Scikit-learn, is a strategy for training models when datasets are too large to fit entirely in memory. It involves leaving data on disk and loading it in smaller batches during the training process, similar to how deep learning packages operate."
+    },
+    {
+      "question": "When is out-of-core learning a viable option in Scikit-learn?",
+      "answer": "Out-of-core learning is a viable option in Scikit-learn whenever an estimator has the `partial_fit` method available. This method allows the model to be trained incrementally on batches of data."
+    },
+    {
+      "question": "How can `SGDClassifier` be used for out-of-core learning with NumPy arrays?",
+      "answer": "You can use `SGDClassifier` for out-of-core learning with NumPy arrays by storing the arrays as `.npy` files on disk and memory-mapping them. Then, you iterate through these memory-mapped files, loading small batches of rows into memory at a time, and call `model.partial_fit(X,y)` for each batch."
+    },
+    {
+      "question": "What happens with each call to `partial_fit` when performing out-of-core learning with `SGDClassifier`?",
+      "answer": "Each call to `partial_fit` will run one epoch of stochastic gradient descent over the current batch of data loaded into memory."
+    },
+    {
+      "question": "How can a LASSO regression model be trained in batches from a CSV file using Scikit-learn and Pandas?",
+      "answer": "A LASSO regression model can be trained in batches from a CSV file by using the `pandas` package's `read_csv` function with the `chunksize` and `iterator=True` parameters. This allows data to be read in chunks, and then `SGDRegressor` (with `penalty='l1'`) can be used with its `partial_fit` method for incremental training on each batch."
+    },
+    {
+      "question": "What is Snap ML?",
+      "answer": "Snap ML is a closed-source machine learning library developed by IBM that supports various classical machine learning models. It's designed to scale efficiently to datasets with billions of examples and/or features."
+    },
+    {
+      "question": "What capabilities does Snap ML offer?",
+      "answer": "Snap ML offers distributed training, GPU acceleration, and support for sparse data structures. It scales gracefully to massive datasets and features an API similar to scikit-learn."
+    },
+    {
+      "question": "When might Snap ML be used as an alternative to Scikit-learn?",
+      "answer": "Snap ML can be used as a replacement for Scikit-learn when dealing with massive datasets, particularly those with billions of examples or features, due to its scalability features."
+    },
+    {
+      "question": "How can you check the latest available version of Snap ML that has been built?",
+      "answer": "You can check the latest built version of Snap ML by running the command `avail_wheels \"snapml\"`."
+    },
+    {
+      "question": "What are the recommended steps for installing Snap ML using a Python wheel?",
+      "answer": "The recommended steps for installing Snap ML using a Python wheel are: 1. Load a Python module (e.g., `module load python`). 2. Create and start a virtual environment. 3. Install Snap ML in the virtual environment using `pip install --no-index snapml`."
+    },
+    {
+      "question": "How do Snap ML estimators support multithreading?",
+      "answer": "All estimators in Snap ML support thread parallelism, which can be controlled using the `n_jobs` parameter. Setting this parameter to the number of available cores can significantly speed up training compared to scikit-learn implementations."
+    },
+    {
+      "question": "What parameter in Snap ML controls thread parallelism?",
+      "answer": "The `n_jobs` parameter in Snap ML controls thread parallelism for all estimators."
+    }
+  ],
+  "generated_at": "2026-04-12T00:57:38.071384+00:00"
+}

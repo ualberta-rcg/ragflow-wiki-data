@@ -1,0 +1,68 @@
+{
+  "doc_key": "en/apptainer",
+  "level": "chunk",
+  "chunk_index": 13,
+  "qa_pairs": [
+    {
+      "question": "How can I build an Apptainer SIF file image from a Docker image?",
+      "answer": "To build an Apptainer SIF file image from Docker's latest busybox image, use the `apptainer build` command, for example: `$ apptainer build bb.sif docker://busybox`."
+    },
+    {
+      "question": "Where can I find more advanced information about building Apptainer images?",
+      "answer": "For more advanced aspects of building images, refer to the official Apptainer documentation."
+    },
+    {
+      "question": "How do I build a sandbox directory instead of an SIF file?",
+      "answer": "To build a \"sandbox\" directory, use the `--sandbox DIR_NAME` or `-s DIR_NAME` option with the `apptainer build` command, where `DIR_NAME` is the name of the directory you want to create for your sandbox image. For example, `$ apptainer build --sandbox bb.dir docker://busybox`."
+    },
+    {
+      "question": "What are the key differences between a sandbox image and a normal SIF file?",
+      "answer": "A SIF file's image is contained in a single file, is compressed, and is read-only. In contrast, a \"sandbox\" image is placed in a directory, is uncompressed, may contain thousands of files, and will be able to be read-write."
+    },
+    {
+      "question": "Which image format is recommended if read-write access to the underlying image is not usually needed?",
+      "answer": "If read-write access to the underlying image is not normally required, it is advised to use an SIF file instead of a \"sandbox\" directory."
+    },
+    {
+      "question": "What are the implications of using a sandbox directory for disk space and file count quotas?",
+      "answer": "Within an account, using a \"sandbox\" directory will consume significant amounts of both disk space and file count quotas, as some images can typically contain thousands of files and directories."
+    },
+    {
+      "question": "How do SIF files compare to sandbox images in terms of disk access speed?",
+      "answer": "Using an SIF file will have higher disk access speeds to content contained within the SIF file compared to a \"sandbox\" directory."
+    },
+    {
+      "question": "Can I create an Apptainer container from a Dockerfile directly on Alliance compute clusters?",
+      "answer": "No, these instructions will not work on Alliance compute clusters because the clusters do not have the Docker software installed."
+    },
+    {
+      "question": "What are the prerequisites for creating an Apptainer container from a Dockerfile?",
+      "answer": "You need access to a system with both Docker and Apptainer installed, and sufficient access to Docker (e.g., `sudo` or root access, or being in that system's `docker` group) and, if needed, Apptainer (e.g., `sudo`, root, or `--fakeroot` access)."
+    },
+    {
+      "question": "What command sequence is used to create an Apptainer SIF file from a Dockerfile?",
+      "answer": "On a computer with Docker and Apptainer installed and sufficient permissions, you would run the following sequence: `docker build -f Dockerfile -t your-tag-name`, `docker save your-tag-name -o your-tarball-name.tar`, `docker image rm your-tag-name`, `apptainer build --fakeroot your-sif-name.sif docker-archive://your-tarball-name.tar`, and `rm your-tarball-name.tar`."
+    },
+    {
+      "question": "What does `your-tag-name` represent in the Dockerfile conversion commands?",
+      "answer": "`your-tag-name` is a custom name you make up that will identify the container created in Docker."
+    },
+    {
+      "question": "What does `your-tarball-name.tar` represent in the Dockerfile conversion commands?",
+      "answer": "`your-tarball-name.tar` is a filename you create where Docker will save the generated content of the container."
+    },
+    {
+      "question": "What is the purpose of the `--fakeroot` option when building an Apptainer SIF from a Docker archive?",
+      "answer": "The `--fakeroot` option is used when building some Apptainer containers, particularly if elevated permissions are required. It may be optional; if `sudo` is needed instead, then you should omit `--fakeroot` and prefix the line with `sudo`."
+    },
+    {
+      "question": "What should I do after successfully creating an Apptainer SIF file from a Dockerfile on my own system?",
+      "answer": "After the SIF file is created, transfer it to the appropriate cluster(s) in order to use it."
+    },
+    {
+      "question": "How can I free up disk space if the Dockerfile pulled in additional layers during the conversion process?",
+      "answer": "To free up disk space, first run `docker images` to see a list of images, then run `docker image rm ID` for each additional layer's image ID to delete them manually."
+    }
+  ],
+  "generated_at": "2026-04-11T17:33:10.896334+00:00"
+}

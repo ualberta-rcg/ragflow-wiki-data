@@ -1,0 +1,59 @@
+{
+  "doc_key": "base/orca",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is ORCA and what are its main capabilities?",
+      "answer": "ORCA is a flexible, efficient, and user-friendly general-purpose tool for quantum chemistry, with a specific focus on the spectroscopic properties of open-shell molecules. It supports a wide array of quantum chemical methods, from semiempirical to ab initio, and can handle environmental and relativistic effects."
+    },
+    {
+      "question": "How do I gain access to prebuilt ORCA executables?",
+      "answer": "You must register at the ORCA forum, verify your email, and upon receiving the second registration completion email, contact technical support with a copy of that email to request access."
+    },
+    {
+      "question": "Which ORCA 6.x version is recommended, and what modules are required to load it?",
+      "answer": "ORCA 6.0.1 is recommended over 6.0.0 because it fixes bugs. To load it, use `module load StdEnv/2023 gcc/12.3 openmpi/4.1.5 orca/6.0.1`."
+    },
+    {
+      "question": "Why is ORCA 5.0.4 the recommended version for the 5.x series?",
+      "answer": "ORCA 5.0.4 is recommended over earlier 5.0.x versions (5.0.1, 5.0.2, 5.0.3) because it fixes several bugs, including a notable one involving D4 dispersion gradients."
+    },
+    {
+      "question": "How can I load ORCA version 4.2.1?",
+      "answer": "You can load ORCA 4.2.1 using either `module load StdEnv/2020 gcc/9.3.0 openmpi/4.0.3 orca/4.2.1` or `module load nixpkgs/16.09 gcc/7.3.0 openmpi/3.1.4 orca/4.2.1`."
+    },
+    {
+      "question": "What two additional parameters should always be set in ORCA input files?",
+      "answer": "In addition to simulation-specific keywords, you should always set the number of CPUs and `maxcore` parameters in your ORCA input files."
+    },
+    {
+      "question": "How do I check which versions of ORCA are available and their specific loading requirements?",
+      "answer": "To see available ORCA versions, type `module spider orca`. For detailed information, including other necessary modules, use `module spider orca/<full_version_name>` (e.g., `module spider orca/4.0.1.2`)."
+    },
+    {
+      "question": "How is ORCA started in a job script, given it's an MPI program?",
+      "answer": "Unlike most MPI programs, ORCA is not started with a parallel launch command like `mpirun` or `srun`. Instead, you use the full path to the executable, provided by `$EBROOTORCA`, followed by the input file name."
+    },
+    {
+      "question": "What should I add to my ORCA input file to ensure efficient use of all allocated resources?",
+      "answer": "You should add the line `%pal nprocs <ncores> end` to your input file, replacing `<ncores>` with the number of cores specified in your job script, to ensure efficient resource utilization."
+    },
+    {
+      "question": "What action is required to restart a failed ORCA calculation?",
+      "answer": "To restart a calculation, you must delete the `*.hostnames` file (e.g., `benzene.hostnames`) associated with the job before resubmitting it."
+    },
+    {
+      "question": "How can I use NBO with ORCA on the clusters?",
+      "answer": "To use NBO with ORCA, you need access to NBO via the Gaussian modules available on Cedar and Graham. This requires access to both ORCA and Gaussian, and the ORCA input file must contain the keyword `NBO`."
+    },
+    {
+      "question": "What is a temporary fix for OpenMPI version inconsistency issues with ORCA, particularly for specific calculations?",
+      "answer": "For certain calculations like DLPNO-STEOM-CCSD, a temporary fix involves building a custom OpenMPI version. For ORCA 4.2.0, you can prepare `openmpi/3.1.4` by loading `gcc/7.3.0` and using `eb OpenMPI-3.1.2-GCC-7.3.0.eb --try-software-version=3.1.4`, then manually installing ORCA binaries."
+    },
+    {
+      "question": "Where can I find additional resources for ORCA tutorials and support?",
+      "answer": "You can find ORCA tutorials on the official ORCA website and seek support through the ORCA Forum."
+    }
+  ],
+  "generated_at": "2026-04-12T03:58:23.821187+00:00"
+}

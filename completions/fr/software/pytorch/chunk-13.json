@@ -1,0 +1,48 @@
+{
+  "doc_key": "fr/pytorch",
+  "level": "chunk",
+  "chunk_index": 13,
+  "qa_pairs": [
+    {
+      "question": "C'est quoi l'avantage d'utiliser PyTorch Lightning pour l'entraînement de modèles?",
+      "answer": "PyTorch Lightning simplifie les tâches d'entraînement de modèles qui demandent habituellement beaucoup de code, surtout pour les entraînements avec plusieurs GPU."
+    },
+    {
+      "question": "Que doit faire l'utilisateur quand il exécute un script PyTorch Lightning dans un environnement de tâche SLURM?",
+      "answer": "L'utilisateur doit demander une tâche par GPU. Si ce n'est pas fait ou si le script n'est pas lancé avec `srun`, la tâche va échouer."
+    },
+    {
+      "question": "Pourquoi la barre de progression (`progress_bar_refresh_rate=0` ou `enable_progress_bar=False`) est-elle désactivée dans l'initialisation du `Trainer()` de PyTorch Lightning?",
+      "answer": "C'est désactivé pour éviter des problèmes causés par la mise à jour trop fréquente des journaux (`logs`)."
+    },
+    {
+      "question": "Comment le script `pytorch-ddp-test-pl.py` peut-il être rendu plus générique pour l'initialisation du `Trainer()`?",
+      "answer": "On peut utiliser `torch.cuda.device_count()` pour le nombre de GPU et `int(os.environ.get(\"SLURM_JOB_NUM_NODES\"))` pour le nombre de nœuds au lieu de valeurs fixes."
+    },
+    {
+      "question": "Est-ce qu'il est recommandé d'utiliser un GPU pour un petit modèle qui utilise peu de mémoire ou de capacité de calcul?",
+      "answer": "Non, il n'est pas conseillé d'utiliser un GPU dans ce cas; il est préférable d'utiliser un ou plusieurs CPU."
+    },
+    {
+      "question": "Quand est-ce que le parallélisme des données sur un seul GPU devient une bonne option pour un modèle relativement petit?",
+      "answer": "Ça devient une bonne option si le modèle est petit, mais qu'il y a un très grand jeu de données à entraîner avec des lots de petite taille (`batch_size`)."
+    },
+    {
+      "question": "Comment le parallélisme des données sur un seul GPU est-il mis en œuvre pour optimiser l'utilisation des ressources?",
+      "answer": "On peut exécuter plusieurs copies (`replicas`) du modèle sur un seul GPU en utilisant le service Multi-Process (MPS) de Nvidia et MPI."
+    },
+    {
+      "question": "Comment on active Nvidia MPS dans un script `pytorch-gpu-mps.sh`?",
+      "answer": "On active Nvidia MPS en exportant les variables `CUDA_MPS_PIPE_DIRECTORY` et `CUDA_MPS_LOG_DIRECTORY`, puis en exécutant `nvidia-cuda-mps-control -d`."
+    },
+    {
+      "question": "Quel backend doit être utilisé pour `dist.init_process_group` quand on fait du parallélisme des données sur un seul GPU, et pourquoi?",
+      "answer": "On doit utiliser le backend `mpi` ou `gloo` parce que `nccl` ne fonctionne pas sur un seul GPU à cause d'une vérification de topologie multi-GPU codée en dur."
+    },
+    {
+      "question": "Quel est le rôle du paramètre `--tasks-per-node` dans le script `pytorch-gpu-mps.sh` quand on utilise un seul GPU?",
+      "answer": "Ce paramètre détermine le nombre de copies du modèle (`model replicas`) qui seront placées sur le GPU."
+    }
+  ],
+  "generated_at": "2026-04-12T05:47:18.540745+00:00"
+}

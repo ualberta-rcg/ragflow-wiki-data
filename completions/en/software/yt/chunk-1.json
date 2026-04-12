@@ -1,0 +1,108 @@
+{
+  "doc_key": "en/yt",
+  "level": "chunk",
+  "chunk_index": 1,
+  "qa_pairs": [
+    {
+      "question": "How do I install YT for CPU rendering on a cluster in my own directory?",
+      "answer": "To install YT for CPU rendering on a cluster, you need to load `python` and `mpi4py` modules, create a virtual environment named `astro`, activate it, and then use `pip` to install `cython`, `numpy`, and `yt`."
+    },
+    {
+      "question": "What modules should be loaded before installing YT?",
+      "answer": "You should load the `python` and `mpi4py` modules."
+    },
+    {
+      "question": "What is the command to create a virtual environment for Python tools named 'astro'?",
+      "answer": "The command is `virtualenv astro`, which installs Python tools in your `$HOME/astro` directory."
+    },
+    {
+      "question": "How do I activate the 'astro' virtual environment?",
+      "answer": "You can activate the 'astro' virtual environment by running `source ~/astro/bin/activate`."
+    },
+    {
+      "question": "Which Python packages are required to be installed via `pip` for YT functionality?",
+      "answer": "You need to install `cython`, `numpy`, and `yt` using `pip`."
+    },
+    {
+      "question": "What is the general process for using the YT environment after installation?",
+      "answer": "You simply load the environment using `source ~/astro/bin/activate`, then start Python, and eventually deactivate the environment with `deactivate`."
+    },
+    {
+      "question": "Where can I download the sample dataset 'Enzo_64'?",
+      "answer": "The sample dataset 'Enzo_64' can be downloaded from `http://yt-project.org/data`."
+    },
+    {
+      "question": "What is the purpose of the `grids.py` script?",
+      "answer": "The `grids.py` script is designed to render 90 frames, rotating the dataset around the vertical axis."
+    },
+    {
+      "question": "How is MPI parallelism enabled in the `grids.py` script?",
+      "answer": "MPI parallelism is enabled by calling `yt.enable_parallelism()` in the script."
+    },
+    {
+      "question": "What specific dataset file is loaded in the `grids.py` script?",
+      "answer": "The script loads the dataset file `\"Enzo_64/DD0043/data0043\"`."
+    },
+    {
+      "question": "What type of data is visualized when creating the scene in `grids.py`?",
+      "answer": "The scene is created to visualize `('gas', 'density')`."
+    },
+    {
+      "question": "What is the resolution set for each rendered frame in `grids.py`?",
+      "answer": "The resolution for each frame is set to `(1024, 1024)`."
+    },
+    {
+      "question": "How are domain boundaries drawn in the `grids.py` rendering?",
+      "answer": "Domain boundaries are drawn using `sc.annotate_domain(ds, color=[1, 1, 1, 0.005])`, specifying a colour and alpha value."
+    },
+    {
+      "question": "How are grid boundaries annotated in the rendering script?",
+      "answer": "Grid boundaries are annotated using `sc.annotate_grids(ds, alpha=0.005)`."
+    },
+    {
+      "question": "How many frames are generated during the rotation loop in `grids.py`?",
+      "answer": "The script generates 90 frames during the rotation loop, controlled by the `nspin` variable."
+    },
+    {
+      "question": "What is the total rotation angle for the dataset during rendering?",
+      "answer": "The dataset is rotated by 180 degrees (`pi` radians)."
+    },
+    {
+      "question": "What is the purpose of the `yt-mpi.sh` script?",
+      "answer": "The `yt-mpi.sh` script is a job submission script used to run the `grids.py` script on a cluster using SLURM."
+    },
+    {
+      "question": "What is the requested walltime for the job defined in `yt-mpi.sh`?",
+      "answer": "The requested walltime is 30 minutes (`0:30:00`)."
+    },
+    {
+      "question": "How many MPI processes are requested for the `yt-mpi.sh` job?",
+      "answer": "The job requests 4 MPI processes (`--ntasks=4`)."
+    },
+    {
+      "question": "How much memory per CPU is allocated for the job in `yt-mpi.sh`?",
+      "answer": "3800 MB (`--mem-per-cpu=3800`) of memory per CPU is allocated."
+    },
+    {
+      "question": "How does the `yt-mpi.sh` script execute the `grids.py` script?",
+      "answer": "It first sources the user's `astro` environment and then runs `python grids.py` using `srun`."
+    },
+    {
+      "question": "How do I submit the job defined in `yt-mpi.sh`?",
+      "answer": "You submit the job using the command `sbatch yt-mpi.sh`."
+    },
+    {
+      "question": "What command is used to create a movie from the rendered image frames?",
+      "answer": "The command `ffmpeg -r 30 -i frame%04d.png -c:v libx264 -pix_fmt yuv420p -vf \"scale=trunc(iw/2)*2:trunc(ih/2)*2\" grids.mp4` is used to create a movie."
+    },
+    {
+      "question": "What is the frame rate specified for the output movie?",
+      "answer": "The output movie is set to a frame rate of 30 frames per second (`-r 30`)."
+    },
+    {
+      "question": "What will be the filename of the generated movie?",
+      "answer": "The generated movie will be named `grids.mp4`."
+    }
+  ],
+  "generated_at": "2026-04-12T12:11:18.219545+00:00"
+}

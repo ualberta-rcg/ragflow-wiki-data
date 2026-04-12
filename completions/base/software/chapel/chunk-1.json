@@ -1,0 +1,128 @@
+{
+  "doc_key": "base/chapel",
+  "level": "chunk",
+  "chunk_index": 1,
+  "qa_pairs": [
+    {
+      "question": "What is Chapel?",
+      "answer": "Chapel is a general-purpose, compiled, high-level parallel programming language featuring built-in abstractions for both shared- and distributed-memory parallelism."
+    },
+    {
+      "question": "What are the two main styles of parallel programming available in Chapel?",
+      "answer": "Chapel supports two styles of parallel programming: task parallelism, driven by programmer-specified tasks, and data parallelism, driven by applying the same computation on subsets of data elements."
+    },
+    {
+      "question": "How is task parallelism implemented in Chapel?",
+      "answer": "In Chapel, task parallelism is achieved when parallelism is driven by tasks explicitly specified by the programmer."
+    },
+    {
+      "question": "How does data parallelism work in Chapel?",
+      "answer": "Data parallelism in Chapel involves applying the same computation to subsets of data elements, which can be located in the shared memory of a single node or distributed across multiple nodes."
+    },
+    {
+      "question": "Who is Chapel ideal for learning parallel programming?",
+      "answer": "Chapel is ideal for novice HPC users learning parallel programming due to its high-level abstractions."
+    },
+    {
+      "question": "What makes Chapel intuitive and performant?",
+      "answer": "Chapel strives to combine the ease-of-use of Python with the performance of traditional compiled languages like C and Fortran, making it incredibly intuitive."
+    },
+    {
+      "question": "How does Chapel's code length compare to MPI for parallel blocks?",
+      "answer": "Parallel blocks that typically require tens of lines of MPI code can be expressed in just a few lines of Chapel code."
+    },
+    {
+      "question": "Is Chapel an open-source language?",
+      "answer": "Yes, Chapel is an open-source programming language."
+    },
+    {
+      "question": "On what operating systems can Chapel run?",
+      "answer": "Chapel can run on any Unix-like operating system."
+    },
+    {
+      "question": "What range of hardware does Chapel support?",
+      "answer": "Chapel offers hardware support from laptops up to large HPC systems."
+    },
+    {
+      "question": "What is a current limitation regarding Chapel's libraries?",
+      "answer": "Chapel has a relatively small user base, meaning many libraries available for C, C++, and Fortran have not yet been implemented in Chapel."
+    },
+    {
+      "question": "Where can users find more information about Chapel?",
+      "answer": "For more information, users can watch the Chapel webinars available at [https://westgrid.github.io/trainingMaterials/programming/#chapel]."
+    },
+    {
+      "question": "What does 'Single-locale Chapel' refer to?",
+      "answer": "'Single-locale Chapel' refers to Chapel running on a single node with shared-memory only."
+    },
+    {
+      "question": "Which module provides Single-locale Chapel on general-purpose clusters?",
+      "answer": "The module `chapel-multicore` provides Single-locale Chapel on general-purpose clusters."
+    },
+    {
+      "question": "How can one test Chapel codes in serial on a single node using `salloc`?",
+      "answer": "To test Chapel codes in serial on a single node, one can use `salloc` with commands like `module load gcc/12.3 chapel-multicore/2.4.0`, `salloc --time=0:30:0 --ntasks=1 --mem-per-cpu=3600 --account=def-someprof`, `chpl test.chpl -o test`, and `./test`."
+    },
+    {
+      "question": "How can one test Chapel codes on multiple cores of the same node?",
+      "answer": "To test Chapel codes on multiple cores of the same node, use `salloc` with `cpus-per-task` set to more than one, for example: `module load gcc/12.3 chapel-multicore/2.4.0`, `salloc --time=0:30:0 --ntasks=1 --cpus-per-task=3 --mem-per-cpu=3600 --account=def-someprof`, `chpl test.chpl -o test`, and `./test`."
+    },
+    {
+      "question": "How should production jobs for Single-locale Chapel be submitted?",
+      "answer": "For production jobs, a job submission script should be written and submitted using `sbatch`."
+    },
+    {
+      "question": "What does 'Multi-locale Chapel' mean?",
+      "answer": "'Multi-locale Chapel' refers to Chapel running across multiple nodes, utilizing both shared- and distributed-memory in a hybrid fashion."
+    },
+    {
+      "question": "Which module enables Multi-locale Chapel on InfiniBand clusters?",
+      "answer": "The `chapel-ucx` module provides Multi-locale Chapel on InfiniBand clusters."
+    },
+    {
+      "question": "What information does the provided `probeLocales.chpl` code print?",
+      "answer": "The `probeLocales.chpl` code prints basic information about the nodes available within a job, including locale ID, name, number of processor cores, physical memory in GB, and maximum parallelism."
+    },
+    {
+      "question": "Which module needs to be loaded to run `probeLocales.chpl` on an InfiniBand cluster?",
+      "answer": "To run `probeLocales.chpl` on an InfiniBand cluster, you need to load the `chapel-ucx` module using `module load gcc/12.3 chapel-ucx/2.4.0`."
+    },
+    {
+      "question": "What `salloc` command can be used to allocate resources for a Multi-locale Chapel job on an InfiniBand cluster?",
+      "answer": "An example `salloc` command for a Multi-locale Chapel job on an InfiniBand cluster is `salloc --time=0:30:0 --nodes=4 --cpus-per-task=3 --mem-per-cpu=3500 --account=def-someprof`."
+    },
+    {
+      "question": "How do you compile and run `probeLocales.chpl` after an interactive multi-locale job has started?",
+      "answer": "Once the interactive job starts, you can compile with `chpl --fast probeLocales.chpl` and run with `./probeLocales -nl 4` from the prompt on the first allocated compute node."
+    },
+    {
+      "question": "How are production Multi-locale Chapel jobs submitted?",
+      "answer": "For production Multi-locale Chapel jobs, a Slurm submission script should be written and submitted using `sbatch`."
+    },
+    {
+      "question": "Which module provides NVIDIA GPU support for multi-locale Chapel?",
+      "answer": "The `chapel-ucx-cuda` module provides NVIDIA GPU support for multi-locale Chapel."
+    },
+    {
+      "question": "What is the purpose of the `chapel-ucx-cuda` module?",
+      "answer": "The `chapel-ucx-cuda` module adds NVIDIA GPU support to multi-locale Chapel on InfiniBand clusters."
+    },
+    {
+      "question": "What does the `probeGPU.chpl` code demonstrate?",
+      "answer": "The `probeGPU.chpl` code demonstrates basic Chapel GPU functionality, including printing locale information, GPU count, and performing a simple array operation (incrementing elements) on either a GPU (if available) or a CPU."
+    },
+    {
+      "question": "Which modules need to be loaded to run Multi-locale Chapel with NVIDIA GPU support?",
+      "answer": "To run Multi-locale Chapel with NVIDIA GPU support, you need to load `gcc/12.3`, `cuda/12.2`, and `chapel-ucx-cuda/2.4.0` modules."
+    },
+    {
+      "question": "What `salloc` command can be used to allocate resources for a Multi-locale Chapel job with GPU support?",
+      "answer": "An example `salloc` command for allocating resources for a Multi-locale Chapel job with GPU support is `salloc --time=0:30:0 --mem-per-cpu=3500 --gpus-per-node=1 --account=def-someprof`."
+    },
+    {
+      "question": "How do you compile and run `probeGPU.chpl` after an interactive GPU-enabled job has started?",
+      "answer": "Once the interactive job starts, you can compile with `chpl --fast probeGPU.chpl` and run with `./probeGPU -nl 1` from the prompt on the allocated compute node."
+    }
+  ],
+  "generated_at": "2026-04-11T19:35:53.132683+00:00"
+}

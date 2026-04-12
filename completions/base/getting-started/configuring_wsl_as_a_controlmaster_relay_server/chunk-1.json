@@ -1,0 +1,104 @@
+{
+  "doc_key": "base/configuring_wsl_as_a_controlmaster_relay_server",
+  "level": "chunk",
+  "chunk_index": 1,
+  "qa_pairs": [
+    {
+      "question": "What is the primary purpose of this experimental procedure?",
+      "answer": "The primary purpose of this experimental procedure is to leverage ControlMaster under WSL so you may log into the clusters with several apps under native Windows for a certain period without having to use multifactor authentication for every session."
+    },
+    {
+      "question": "Is this procedure a final, stable release?",
+      "answer": "No, this is still an experimental procedure and a work in progress."
+    },
+    {
+      "question": "Where can users send suggestions regarding this procedure?",
+      "answer": "If you have suggestions, please write to technical support."
+    },
+    {
+      "question": "Where can I find more detailed instructions for installing Linux on Windows with WSL?",
+      "answer": "More detailed instructions for installing Linux on Windows with WSL can be found at this link: https://docs.alliancecan.ca/wiki/Windows_Subsystem_for_Linux_(WSL)."
+    },
+    {
+      "question": "Which Linux distribution is assumed for this setup?",
+      "answer": "This setup assumes that Ubuntu was selected as your distribution."
+    },
+    {
+      "question": "What is the assumed hostname for the WSL instance in this configuration?",
+      "answer": "The assumed hostname for the WSL instance is 'ubuntu'."
+    },
+    {
+      "question": "What are the assumed Windows system name and login name for this setup?",
+      "answer": "The assumed Windows system is named 'smart', and the login name is 'jaime'."
+    },
+    {
+      "question": "What is the assumed user name on the Ubuntu VM?",
+      "answer": "The assumed user name on the Ubuntu VM is also 'jaime'."
+    },
+    {
+      "question": "What is the assumed Alliance user name and target server for this exercise?",
+      "answer": "The assumed Alliance user name is 'pinto', and the target server for this exercise is Cedar."
+    },
+    {
+      "question": "What commands are required to install additional packages, including an OpenSSH server, on Ubuntu?",
+      "answer": "You need to run `sudo apt update && sudo apt upgrade -y` followed by `sudo apt install openssh-server -y`."
+    },
+    {
+      "question": "How can you log in from Windows to Ubuntu after installing the necessary packages?",
+      "answer": "You may log in from Windows to Ubuntu with `ssh localhost`."
+    },
+    {
+      "question": "Describe the general idea of the SSH setup.",
+      "answer": "The general idea of the setup is an SSH client (your Windows machine, 'smart') connecting to an SSH relay server (your Ubuntu VM, 'ubuntu') which then connects to an SSH target server (Cedar)."
+    },
+    {
+      "question": "What is the default port configured in the `custom_ssh/sshd_config` file?",
+      "answer": "The default port configured in the `custom_ssh/sshd_config` file is `2222`."
+    },
+    {
+      "question": "How are the SSH host keys copied to the `custom_ssh` folder on Ubuntu?",
+      "answer": "You may copy the 'ssh_host' keys from '/etc/ssh' with `sudo cp /etc/ssh/ssh_host_ed25519_key /home/jaime/custom_ssh/`."
+    },
+    {
+      "question": "What are the `~/.ssh/config` settings for the 'cedar' host on Ubuntu?",
+      "answer": "The `~/.ssh/config` settings for the 'cedar' host on Ubuntu include `ControlPath ~/.ssh/cm-%r@%h:%p`, `ControlMaster auto`, `ControlPersist 10m`, `HostName cedar.alliancecan.ca`, and `User pinto`."
+    },
+    {
+      "question": "What public SSH key should be used for the `authorized_keys` file in `custom_ssh`?",
+      "answer": "You should use the same public SSH key that you uploaded to CCDB."
+    },
+    {
+      "question": "How do you start the `sshd` server on Ubuntu using the custom configuration?",
+      "answer": "You start the `sshd` server on Ubuntu using the command `/usr/sbin/sshd -f ${HOME}/custom_ssh/sshd_config`."
+    },
+    {
+      "question": "What is an important consideration when starting the `sshd` server on Ubuntu with the custom configuration?",
+      "answer": "Make sure you start the server as yourself, not as root."
+    },
+    {
+      "question": "When is it necessary to restart the `sshd` server on Ubuntu?",
+      "answer": "You will need to start the `sshd` server every time you restart your computer, or after closing or restarting WSL."
+    },
+    {
+      "question": "What are the `~/.ssh/config` settings for the 'ubuntu' host on the Windows system ('smart')?",
+      "answer": "The `~/.ssh/config` settings for the 'ubuntu' host on the Windows system ('smart') are `Hostname localhost` and `RemoteCommand ssh cedar`."
+    },
+    {
+      "question": "What command is used from the Windows system ('smart') to log into Cedar via the Ubuntu VM?",
+      "answer": "The command used is `ssh -t ubuntu -p 2222`."
+    },
+    {
+      "question": "What is the main advantage of the alternative setup?",
+      "answer": "The alternative setup may work better for some Windows GUI apps that don't let you explicitly set the `RemoteCommand`, such as WinSCP."
+    },
+    {
+      "question": "How is the `RemoteCommand` handled in the alternative setup?",
+      "answer": "In the alternative setup, the `RemoteCommand` is set directly on the public key within the `authorized_keys` file on Ubuntu, e.g., `command=\"ssh cedar\" ssh-ed25519 AAAZDINzaC1lZDI1NTE5AAC1lZDIvqzlffkzcjRAaMQoTBrPe5FxlSAjRAaMQyVzN+A+`."
+    },
+    {
+      "question": "Can `ssh ubuntu -p 2222` still be used from a Windows shell with the alternative setup?",
+      "answer": "Yes, you may still use `ssh ubuntu -p 2222` after that from a shell on Windows."
+    }
+  ],
+  "generated_at": "2026-04-11T20:21:37.217714+00:00"
+}

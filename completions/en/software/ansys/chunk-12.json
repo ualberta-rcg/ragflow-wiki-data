@@ -1,0 +1,68 @@
+{
+  "doc_key": "en/ansys",
+  "level": "chunk",
+  "chunk_index": 12,
+  "qa_pairs": [
+    {
+      "question": "When should Fluent jobs be configured for license requeue?",
+      "answer": "Fluent jobs should be configured for license requeue only if they are known to complete normally without generating any errors in the output but typically require multiple attempts to check out licenses."
+    },
+    {
+      "question": "For which types of Fluent jobs is the license requeue functionality not recommended?",
+      "answer": "The license requeue functionality is not recommended for Fluent jobs that might run for a long time before crashing, or complete but contain unresolved journal file warnings. In these cases, simulations would be repeated from the beginning until the maximum number of requeue attempts is reached, leading to lost compute time."
+    },
+    {
+      "question": "How many requeue attempts can be specified in a Slurm script for Fluent jobs?",
+      "answer": "The number of requeue attempts for Fluent jobs can be specified using the `#SBATCH --array` parameter in the Slurm script, with a minimum of 2 attempts (e.g., `1-5%1` shows 5 attempts)."
+    },
+    {
+      "question": "What action should be taken if a requeued Fluent job fails due to a simulation issue instead of a license issue?",
+      "answer": "Users are strongly recommended to monitor and inspect each Slurm output file to confirm if a requeue attempt is license-related. If it is determined that a job is requeued due to a simulation issue, the job progression should be immediately killed with `scancel jobid` and the problem corrected."
+    },
+    {
+      "question": "What is the primary purpose of the solution restart scripts for Fluent jobs?",
+      "answer": "The solution restart scripts are provided to automate restarting very large Fluent jobs that require more than the typical seven-day maximum runtime window available on most clusters."
+    },
+    {
+      "question": "From what point do Fluent jobs restart when using the solution restart scripts?",
+      "answer": "Fluent jobs using the solution restart scripts restart from the most recent saved time step files."
+    },
+    {
+      "question": "What is a fundamental requirement for the solution restart functionality to work correctly?",
+      "answer": "A fundamental requirement for solution restart is that the first time step can be completed within the requested job array time limit (specified at the top of your Slurm script) when starting a simulation from an initialized solution field."
+    },
+    {
+      "question": "What files are required to be present to initiate a solution restart for a Fluent job?",
+      "answer": "To begin a solution restart, a working set of `sample.cas`, `sample.dat`, and `sample.jou` files must be present."
+    },
+    {
+      "question": "How should the `sample.jou` file be modified to enable solution restart?",
+      "answer": "The `sample.jou` file should be edited to contain `/solve/dual-time-iterate 1` and `/file/auto-save/data-frequency 1`."
+    },
+    {
+      "question": "How is a restart journal file (`sample-restart.jou`) created and configured for a Fluent job?",
+      "answer": "A restart journal file is created by copying `sample.jou` to `sample-restart.jou`. The `sample-restart.jou` file should then be edited to contain `/file/read-cas-data sample-restart` instead of `/file/read-cas-data sample`, and the initialization line (e.g., `;/solve/initialize/initialize-flow`) should be commented out with a semicolon."
+    },
+    {
+      "question": "How can the solution restart frequency be optimized if subsequent time steps run faster than the initial one?",
+      "answer": "If your second and subsequent time steps are known to run twice as fast as the initial time step, you can edit `sample-restart.jou` to specify `/solve/dual-time-iterate 2`. This minimizes computationally expensive solution restarts by completing two time steps before the solution is restarted."
+    },
+    {
+      "question": "How is the total simulation time calculated when using solution restart with a `dual-time-iterate 2` setting?",
+      "answer": "Assuming a `dual-time-iterate 2` setting is chosen, the total simulation time will be calculated as `1*Dt + 2*Nrestart*Dt`, where `Dt` is the time step size and `Nrestart` is the number of solution restarts specified in the script."
+    },
+    {
+      "question": "What is the maximum Slurm time window that can be requested for jobs, including those using solution restart?",
+      "answer": "The maximum Slurm time window that can be requested for jobs is `#SBATCH --time=07-00:00` days."
+    },
+    {
+      "question": "What happens if a job configured for license requeue completes successfully?",
+      "answer": "If a job configured for license requeue completes successfully, the script will output 'Job completed successfully! Exiting now.' and then terminate the job array using `scancel $SLURM_ARRAY_JOB_ID`."
+    },
+    {
+      "question": "What message indicates that all requeue attempts have failed for a job?",
+      "answer": "If all requeue attempts have failed, the script will output 'All job attempts failed exiting now.'"
+    }
+  ],
+  "generated_at": "2026-04-11T16:58:37.751645+00:00"
+}

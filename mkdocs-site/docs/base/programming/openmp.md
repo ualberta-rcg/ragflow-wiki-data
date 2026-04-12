@@ -5,21 +5,76 @@ lang: "base"
 
 source_wiki_title: "OpenMP"
 source_hash: "0c717ce66e40b0a02d9094d7d1b0c503"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T09:34:59.299790+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T10:03:34.310734+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "Fortran"
+  - "dynamic case"
+  - "OMP_SCHEDULE"
+  - "parallel computing"
+  - "auto mode"
+  - "number of iterations"
+  - "Specifications"
+  - "Running jobs"
+  - "shared memory"
+  - "examples"
+  - "thread execution"
+  - "OpenMP directives"
+  - "threads"
+  - "environment variables"
+  - "OMP PARALLEL"
+  - "directives"
+  - "thread scheduling"
+  - "OMP_NUM_THREADS"
+  - "C/C++"
+  - "guided case"
+  - "reference cards"
+  - "Thread"
+  - "thread affinity"
+  - "NUMA architecture"
+  - "pragma omp"
+  - "Environment variables"
+  - "C++"
+  - "Lawrence Livermore National Labs"
+  - "OpenMP"
+  - "Clauses"
+
+questions:
+  - "What is OpenMP and how does it utilize threads to execute parallel applications on multicore machines?"
+  - "What command-line options are typically required to compile an OpenMP program using compilers like GNU and Intel?"
+  - "How are OpenMP directives inserted into the source code for different programming languages such as Fortran and C/C++?"
+  - "What is the primary purpose of the OpenMP directives presented in the text?"
+  - "How does the syntax for declaring a parallel block differ between Fortran and C/C++?"
+  - "Which specific loop-level OpenMP directive is demonstrated for Fortran in the provided snippet?"
+  - "What are the syntax differences between Fortran and C/C++ when declaring OpenMP directives and clauses?"
+  - "How should the OMP_NUM_THREADS environment variable typically be configured for an OpenMP application?"
+  - "What are the different scheduling modes available for the OMP_SCHEDULE environment variable, and how do they affect loop distribution?"
+  - "What are the theoretical advantages and potential drawbacks of using \"dynamic\", \"guided\", or \"auto\" scheduling in OpenMP?"
+  - "How does the OMP_STACKSIZE environment variable function, and what are the consequences of insufficient stack memory in an OpenMP program?"
+  - "Why is it crucial to configure thread affinity variables, such as OMP_PROC_BIND, when running OpenMP applications on NUMA architectures?"
+  - "How are iterations distributed among threads during execution in the \"dynamic\" case?"
+  - "How does the number of iterations assigned at a time change throughout the execution of the \"guided\" case?"
+  - "What entities are responsible for determining the scheduling behavior when the \"auto\" mode is selected?"
+  - "What programming languages are covered by the provided OpenMP reference cards?"
+  - "What additional resource is included alongside the interface reference cards?"
+  - "Which specific version of OpenMP do these documents and examples refer to?"
+  - "What is the expected output format for the OpenMP \"Hello world\" program mentioned in the text?"
+  - "Where can users find instructions and examples for submitting an OpenMP job?"
+  - "Which organizations provide the comprehensive tutorial and formal specifications for OpenMP referenced in the text?"
+  - "What programming languages are covered by the provided OpenMP reference cards?"
+  - "What additional resource is included alongside the interface reference cards?"
+  - "Which specific version of OpenMP do these documents and examples refer to?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -28,7 +83,7 @@ status:
 
 OpenMP allows one to develop fine-grained parallel applications on a multicore machine while making it possible to preserve the structure of the serial code. Although there is only one program instance running, it can execute multiple subtasks in parallel. Directives inserted into the program control whether a section of the program executes in parallel, and if so, they also control the distribution of work among subtasks. The beauty of these directives is that they are usually non-intrusive. A compiler that does not support them can still compile the program and the user can run it serially.
 
-OpenMP relies on the notion of [threads](https://en.wikipedia.org/wiki/Thread_(computing)). A thread is a bit like a light weight process or a "virtual processor, operating serially", and can formally be defined as the smallest unit of work/processing that can be scheduled by an operating system. From a programmer's point of view, if there are five threads, then that corresponds virtually to five cores that can do a computation in parallel. It is important to understand that the number of threads is independent of the number of physical cores within the computer. Two cores can, for example, run a program with ten threads. The operating system decides how to share the cores' time between threads.
+OpenMP relies on the notion of [threads](https://en.wikipedia.org/wiki/Thread_(computing)). A thread is a bit like a light-weight process or a "virtual processor, operating serially", and can formally be defined as the smallest unit of work/processing that can be scheduled by an operating system. From a programmer's point of view, if there are five threads, then that corresponds virtually to five cores that can do a computation in parallel. It is important to understand that the number of threads is independent of the number of physical cores within the computer. Two cores can, for example, run a program with ten threads. The operating system decides how to share the cores' time between threads.
 
 Conversely, one thread can *not* be executed by two processors at the same time, so if you have (e.g.) four cores available you must create at least four threads in order to take advantage of them all. In some cases it *may* be advantageous to use more threads than the number of available cores, but the usual practice is to match the number of threads to the number of cores.
 
@@ -45,10 +100,10 @@ For most compilers, compiling an OpenMP program is done by simply adding a comma
 
 OpenMP directives are inserted in Fortran programs using sentinels. A sentinel is a keyword placed immediately after a symbol that marks a comment. For example:
 
-```
-!$OMP directive 
-c$OMP directive 
-C$OMP directive 
+```fortran
+!$OMP directive
+c$OMP directive
+C$OMP directive
 *$OMP directive
 ```
 
@@ -58,42 +113,38 @@ In C, directives are inserted using a pragma construct, as follows:
 #pragma omp directive
 ```
 
-### OpenMP directives
+### OpenMP Directives
 
 | Fortran | C, C++ |
-| :------ | :----- |
-| `$OMP PARALLEL [clause, clause,…]`<br>`block`<br>`$OMP END PARALLEL` | `#pragma omp parallel [clause, clause,…]`<br>`structured-block` |
-| `$OMP DO [ clause, clause,… ]`<br>`do_loop`<br>`$OMP END DO` | `#pragma omp for [ clause, clause,… ]`<br>`for-loop` |
-| `$OMP SECTIONS [clause, clause,…]`<br>`$OMP SECTION`<br>`block`<br>`$OMP SECTION`<br>`block`<br>`$OMP END SECTIONS [NOWAIT]` | `#pragma omp sections [clause, clause,…] {`<br>`[ #pragma omp section ]`<br>`structured-block`<br>`[ #pragma omp section ]`<br>`structured-block`<br>`}` |
-| `$OMP SINGLE [clause, clause,…]`<br>`block`<br>`$OMP END SINGLE [NOWAIT]` | `#pragma omp single [clause, clause,…]`<br>`structured-block` |
-| `$OMP PARALLEL DO [clause, clause,…]`<br>`DO_LOOP`<br>`[ !$OMP END PARALLEL DO ]` | `#pragma omp parallel for [clause, clause,…]`<br>`for-loop` |
-| `$OMP PARALLEL SECTIONS [clause, clause,…]`<br>`$OMP SECTION`<br>`block`<br>`$OMP SECTION`<br>`block`<br>`$OMP END PARALLEL SECTIONS` | `#pragma omp parallel sections [clause, clause,…] {`<br>`[ #pragma omp section ]`<br>`structured-block`<br>`[ #pragma omp section ]`<br>`structured-block`<br>`}` |
-| `$OMP MASTER`<br>`block`<br>`$OMP END MASTER` | `#pragma omp master`<br>`structured-block` |
-| `$OMP CRITICAL [(name)]`<br>`block`<br>`$OMP END CRITICAL [(name)]` | `#pragma omp critical [(name)]`<br>`structured-block` |
-| `$OMP BARRIER` | `#pragma omp barrier` |
-| `$OMP ATOMIC`<br>`expresion_statement` | `#pragma omp atomic`<br>`expression-statement` |
-| `$OMP FLUSH [(list)]` | `#pragma omp flush [(list)]` |
-| `$OMP ORDERED`<br>`block`<br>`$OMP END ORDERED` | `#pragma omp ordered`<br>`structured-block` |
-| `$OMP THREADPRIVATE( /cb/[, /cb/]…)` | `#pragma omp threadprivate ( list )` |
-
-#### Clauses
-
-| Fortran | C, C++ |
-| :------ | :----- |
-| `PRIVATE ( list )` | `private ( list )` |
-| `SHARED ( list )` | `shared ( list )` |
-| `DEFAULT ( PRIVATE | SHARED | NONE )` | `default ( shared | none )` |
-| `FIRSTPRIVATE ( list )` | `firstprivate ( list )` |
-| `LASTPRIVATE ( list )` | `lastprivate ( list )` |
-| `REDUCTION ( { operator | intrinsic } : list )` | `reduction ( op : list )` |
-| `IF ( scalar_logical_expression )` | `if ( scalar-expression )` |
-| `COPYIN ( list )` | `copyin ( list )` |
-| `NOWAIT` | `nowait` |
+| :----------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| !$OMP PARALLEL [clause, clause,…] <br> block<br> !$OMP END PARALLEL | #pragma omp parallel [clause, clause,…]<br> structured-block |
+| !$OMP DO [ clause, clause,… ]<br> do_loop<br> !$OMP END DO | #pragma omp for [ clause, clause,… ]<br> for-loop |
+| !$OMP SECTIONS [clause, clause,…]<br> !$OMP SECTION<br> block<br> !$OMP SECTION<br> block<br> !$OMP END SECTIONS [NOWAIT] | #pragma omp sections [clause, clause,…] {<br> [ #pragma omp section ]<br> structured-block<br> [ #pragma omp section ]<br> structured-block<br> } |
+| !$OMP SINGLE [clause, clause,…]<br> block<br> !$OMP END SINGLE [NOWAIT] | #pragma omp single [clause, clause,…]<br> structured-block |
+| !$OMP PARALLEL DO [clause, clause,…]<br> DO_LOOP<br> [ !$OMP END PARALLEL DO ] | #pragma omp parallel for [clause, clause,…]<br> for-loop |
+| !$OMP PARALLEL SECTIONS [clause, clause,…]<br> !$OMP SECTION<br> block<br> !$OMP SECTION<br> block<br> !$OMP END PARALLEL SECTIONS | #pragma omp parallel sections [clause, clause,…] {<br> [ #pragma omp section ]<br> structured-block<br> [ #pragma omp section ]<br> structured-block<br> } |
+| !$OMP MASTER<br> block<br> !$OMP END MASTER | #pragma omp master<br> structured-block |
+| !$OMP CRITICAL [(name)]<br> block<br> !$OMP END CRITICAL [(name)] | #pragma omp critical [(name)]<br> structured-block |
+| !$OMP BARRIER | #pragma omp barrier |
+| !$OMP ATOMIC<br> expresion_statement | #pragma omp atomic<br> expression-statement |
+| !$OMP FLUSH [(list)] | #pragma omp flush [(list)] |
+| !$OMP ORDERED<br> block<br> !$OMP END ORDERED | #pragma omp ordered<br> structured-block |
+| !$OMP THREADPRIVATE( /cb/[, /cb/]…) | #pragma omp threadprivate ( list ) |
+| **Clauses** | |
+| PRIVATE ( list ) | private ( list ) |
+| SHARED ( list ) | shared ( list ) |
+| DEFAULT ( PRIVATE \| SHARED \| NONE ) | default ( shared \| none ) |
+| FIRSTPRIVATE ( list ) | firstprivate ( list ) |
+| LASTPRIVATE ( list ) | lastprivate ( list ) |
+| REDUCTION ( { operator \| intrinsic } : list ) | reduction ( op : list ) |
+| IF ( scalar_logical_expression ) | if ( scalar-expression ) |
+| COPYIN ( list ) | copyin ( list ) |
+| NOWAIT | nowait |
 
 ## Environment
 There are a few environment variables that influence the execution of an OpenMP program:
 
-```
+```text
 OMP_NUM_THREADS
 OMP_SCHEDULE
 OMP_DYNAMIC
@@ -123,6 +174,7 @@ Environment variables specific to the Intel compiler start with `KMP_` whereas t
 Here is a *Hello world* example that shows the use of OpenMP.
 
 === "C"
+
     ```c title="hello.c"
     #include <stdio.h>
     #include <omp.h>
@@ -138,6 +190,7 @@ Here is a *Hello world* example that shows the use of OpenMP.
     ```
 
 === "Fortran"
+
     ```fortran title="hello.f90"
      program hello
       implicit none

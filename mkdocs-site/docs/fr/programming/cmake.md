@@ -5,29 +5,79 @@ lang: "fr"
 
 source_wiki_title: "CMake/fr"
 source_hash: "4a5d0c6b688595bb9df1f44c5234c524"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T05:07:50.614417+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T05:58:52.763716+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "cmake"
+  - "options du projet"
+  - "ccmake"
+  - "manuel"
+  - "CMAKE_OSX_SYSROOT"
+  - "CMake"
+  - "MacOSX10.8.sdk"
+  - "variables"
+  - "commande"
+  - "Autotools"
+  - "mode avancé"
+  - "complet"
+  - "CMAKE_BUILD_TYPE"
+  - "configuration"
+  - "Xcode"
+  - "CMAKE_SHARED_LINKER_FLAGS"
+  - "répertoire à construire"
+  - "compilation"
+  - "options en ligne de commande"
+  - "guide d'initiation"
+  - "français"
+  - "Tutoriel"
+  - "tutoriel"
+  - "compilateur"
+  - "Makefile"
+
+questions:
+  - "Quelles sont les principales raisons pour lesquelles certains projets logiciels préfèrent utiliser CMake plutôt qu'Autotools ?"
+  - "Quelles sont les commandes de base à exécuter pour configurer, compiler et installer une application avec CMake ?"
+  - "Quelles options de ligne de commande permettent d'éviter les conflits de RPATH et d'aider CMake à trouver les bibliothèques sur les grappes de calcul ?"
+  - "Quelle commande permet de lancer la construction dans le répertoire courant avec ccmake ?"
+  - "Dans quel ordre les commandes cmake et ccmake doivent-elles être exécutées ?"
+  - "Quelles informations la commande ccmake affiche-t-elle en premier lors de son exécution ?"
+  - "Comment modifier une valeur et tester la nouvelle configuration dans l'interface de ccmake ?"
+  - "Quelles sont les touches permettant de générer le Makefile après une configuration réussie ou de quitter le programme ?"
+  - "Quelle est l'utilité du mode avancé activé par la touche \"t\" lors de la configuration de l'application ?"
+  - "Comment l'outil ccmake permet-il de vérifier et de modifier les bibliothèques et les options de compilation d'un projet ?"
+  - "Quelle est la syntaxe à utiliser en ligne de commande pour définir ou modifier des variables spécifiques comme le répertoire d'installation ou le compilateur ?"
+  - "Quels sont les différents types de compilation proposés par la variable CMAKE_BUILD_TYPE et quelles sont leurs caractéristiques en matière d'optimisation et de débogage ?"
+  - "Which CMake toolchain variables are currently marked as not found in the configuration?"
+  - "What is the path to the macOS SDK specified by the CMAKE_OSX_SYSROOT variable?"
+  - "Which binary paths are explicitly defined for the nm and ranlib tools in this environment?"
+  - "Quel est le sujet technologique principal abordé dans le tutoriel pointé par ce lien ?"
+  - "Dans quelle langue ce manuel technique est-il rédigé ?"
+  - "Qui est l'auteur ou l'hôte du site web proposant ce contenu ?"
+  - "Pourquoi l'utilisateur n'a-t-il pas besoin de vérifier les options de compilation à utiliser ?"
+  - "Quels sujets spécifiques sont abordés dans le guide d'initiation en français mentionné dans les références ?"
+  - "Quelles sont les deux ressources en anglais proposées sur le site officiel de CMake selon le texte ?"
+  - "Quel est le sujet technologique principal abordé dans le tutoriel pointé par ce lien ?"
+  - "Dans quelle langue ce manuel technique est-il rédigé ?"
+  - "Qui est l'auteur ou l'hôte du site web proposant ce contenu ?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
 ## Description
-[CMake](http://www.cmake.org/) (pour *cross-platform make*) est un outil de compilation libre, multiplateforme et multilangage. Alors qu'[Autotools](autotools.md) est l'outil traditionnel sous Linux (utilisé entre autres pour tous les projets GNU), plusieurs projets sont passés à CMake au cours des dernières années, et ce pour différentes raisons, entre autres KDE et MySQL. Ceux qui ont éprouvé certaines difficultés à construire leur propre projet avec Autotools trouveront probablement CMake beaucoup plus facile d'utilisation. Selon KDE, les principales raisons pour lesquelles ils sont passés de Autotools à CMake sont que la compilation est beaucoup plus rapide et que les fichiers de construction sont beaucoup plus faciles à écrire.
+[CMake](http://www.cmake.org/) (pour *cross-platform make*) est un outil de compilation libre multiplateforme et multilangage. Alors que [Autotools](autotools.md) est l'outil traditionnel sous Linux (utilisé entre autres pour tous les projets GNU), plusieurs projets sont passés à CMake au cours des dernières années, et ce, pour différentes raisons, entre autres KDE et MySQL. Ceux qui ont éprouvé certaines difficultés à construire leur propre projet avec Autotools trouveront probablement CMake beaucoup plus facile d'utilisation. Selon KDE, les principales raisons pour lesquelles ils sont passés d'Autotools à CMake sont que la compilation est beaucoup plus rapide et que les fichiers de construction sont beaucoup plus faciles à écrire.
 
 ## Principe de base
-CMake fonctionne de la même manière que Autotools et requiert l'exécution d'un script `configure`, suivi d'un *build* avec `make`. Cependant, plutôt qu'appeler `./configure`, on appelle `cmake *répertoire*`. Par exemple, si on est dans le répertoire où l'on veut construire l'application, on exécute :
+CMake fonctionne de la même manière qu'Autotools et requiert l'exécution d'un script `configure`, suivi d'une *construction* avec `make`. Cependant, plutôt que d'appeler `./configure`, on appelle `cmake *répertoire*`. Par exemple, si on est dans le répertoire où l'on veut construire l'application, on exécute :
 
 ```bash
 cmake .
@@ -94,15 +144,15 @@ cmake . && ccmake .
  PRECOMPILED_TEMPLATES            ON
  USE_GSL_OMP                      OFF
  USE_OMP                          OFF
-Press [enter] to edit option                                                                                                                                                         CMake Version 2.8.8
-Press [c] to configure
-Press [h] for help           Press [q] to quit without generating
-Press [t] to toggle advanced mode (Currently Off)
+Appuyez sur [Entrée] pour modifier l'option                                                                                                                                              CMake Version 2.8.8
+Appuyez sur [c] pour configurer
+Appuyez sur [h] pour de l'aide           Appuyez sur [q] pour quitter sans générer
+Appuyez sur [t] pour activer/désactiver le mode avancé (Actuellement désactivé)
 ```
 
-Comme indiqué au bas de cette liste, vous pouvez éditer une valeur en appuyant sur la touche `Enter`. Si vous modifiez une valeur, appuyez sur la touche `c` pour tester la configuration avec cette nouvelle valeur. Si la configuration réussit, vous aurez alors l'option `g`, pour générer le `Makefile` avec la nouvelle configuration, ou vous pouvez quitter avec la touche `q`. Le mode avancé est activé avec la touche `t`, ce qui produit une liste beaucoup plus longue de variables qui permettra de configurer l'application avec précision. Voici un exemple de liste d'options :
+Comme indiqué au bas de cette liste, vous pouvez éditer une valeur en appuyant sur la touche `Entrée`. Si vous modifiez une valeur, appuyez sur la touche `c` pour tester la configuration avec cette nouvelle valeur. Si la configuration réussit, vous aurez alors l'option `g`, pour générer le `Makefile` avec la nouvelle configuration, ou vous pouvez quitter avec la touche `q`. Le mode avancé est activé avec la touche `t`, ce qui produit une liste beaucoup plus longue de variables qui permettra de configurer l'application avec précision. Voici un exemple de liste d'options :
 
-````text title="ccmake_output.txt"
+```text title="Sortie de ccmake en mode avancé"
  ARPACK_LIBRARIES                 ARPACK_LIBRARIES-NOTFOUND
  BLAS_Accelerate_LIBRARY          /System/Library/Frameworks/Accelerate.framework
  BLAS_acml_LIBRARY                BLAS_acml_LIBRARY-NOTFOUND
@@ -169,7 +219,6 @@ Comme indiqué au bas de cette liste, vous pouvez éditer une valeur en appuyant
  DOXYGEN_EXECUTABLE               /Applications/Doxygen.app/Contents/Resources/doxygen
  GSL_CONFIG                       /opt/local/bin/gsl-config
  GSL_CONFIG_PREFER_PATH           /bin;;/bin;
- GSL_EXE_LINKER_FLAGS             -Wl,-rpath,/opt/local/lib
  GSL_INCLUDE_DIR                  /opt/local/include
  GTEST_INCLUDE_DIR                /opt/local/include
  GTEST_LIBRARY                    /opt/local/lib/libgtest.dylib
@@ -183,7 +232,7 @@ Comme indiqué au bas de cette liste, vous pouvez éditer une valeur en appuyant
  PRECOMPILED_TEMPLATES            ON
  USE_GSL_OMP                      OFF
  USE_OMP                          OFF
-````
+```
 
 Remarquez que `ccmake` en mode avancé affiche aussi bien les bibliothèques trouvées que celles qui n'ont pas été trouvées. Si vous voulez utiliser une certaine version de [BLAS](blas-and-lapack.md) par exemple, vous saurez immédiatement si c'est celle que CMake a trouvée et, le cas échéant, pourrez la modifier. `ccmake` affiche aussi la liste des options passées aux compilateurs et à l'éditeur de liens, et ce, en fonction du type de construction.
 
@@ -202,26 +251,26 @@ cmake . -DCMAKE_INSTALL_PREFIX=/home/user/mon_repertoire
 
 Pour configurer la compilation, vous voudrez possiblement changer les valeurs suivantes :
 
-| Option                      | Description                                   |
-| :-------------------------- | :-------------------------------------------- |
-| `CMAKE_C_COMPILER`          | change le compilateur C                       |
-| `CMAKE_CXX_COMPILER`        | change le compilateur C++                     |
-| `CMAKE_LINKER`              | change l'éditeur de liens                     |
-| `CMAKE_C_FLAGS`             | change les options passées au compilateur C   |
-| `CMAKE_CXX_FLAGS`           | change les options passées au compilateur C++ |
-| `CMAKE_SHARED_LINKER_FLAGS` | change les options passées à l'éditeur de liens |
+| Option                      | Description                                       |
+| :-------------------------- | :------------------------------------------------ |
+| `CMAKE_C_COMPILER`          | Change le compilateur C                           |
+| `CMAKE_CXX_COMPILER`        | Change le compilateur C++                         |
+| `CMAKE_LINKER`              | Change l'éditeur de liens                         |
+| `CMAKE_C_FLAGS`             | Change les options passées au compilateur C       |
+| `CMAKE_CXX_FLAGS`           | Change les options passées au compilateur C++     |
+| `CMAKE_SHARED_LINKER_FLAGS` | Change les options passées à l'éditeur de liens   |
 
 La liste complète des options est disponible sur la [page officielle de CMake](http://www.cmake.org/Wiki/CMake_Useful_Variables).
 
 Si vous ne voulez pas vous aventurer dans ces options spécifiques, CMake propose une option plus simple avec `CMAKE_BUILD_TYPE`, qui définit le type de compilation à utiliser. Les valeurs possibles sont :
 
-| Option           | Description                                                                                 |
-| :--------------- | :------------------------------------------------------------------------------------------ |
-| -                | aucune valeur                                                                               |
-| `Debug`          | active les options de débogage, désactive les options d'optimisation                        |
-| `Release`        | désactive les options de débogage, active les optimisations typiques                        |
-| `MinSizeRel`     | désactive les options de débogage, active les options d'optimisation en minimisant la taille du binaire |
-| `RelWithDebInfo` | active les options de débogage et les optimisations typiques                                |
+| Option          | Description                                                                  |
+| :-------------- | :--------------------------------------------------------------------------- |
+| -               | Aucune valeur                                                                |
+| Debug           | Active les options de débogage, désactive les options d'optimisation         |
+| Release         | Désactive les options de débogage, active les optimisations typiques         |
+| MinSizeRel      | Désactive les options de débogage, active les options d'optimisation en minimisant la taille du binaire |
+| RelWithDebInfo  | Active les options de débogage et les optimisations typiques                 |
 
 Ces différents types de compilation définissent des options de compilateurs qui varient selon le compilateur utilisé; vous n'avez donc pas à vérifier quelles options doivent être utilisées.
 

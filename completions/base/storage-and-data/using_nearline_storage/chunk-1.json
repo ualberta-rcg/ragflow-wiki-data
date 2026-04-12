@@ -1,0 +1,120 @@
+{
+  "doc_key": "base/using_nearline_storage",
+  "level": "chunk",
+  "chunk_index": 1,
+  "qa_pairs": [
+    {
+      "question": "What is Nearline intended for?",
+      "answer": "Nearline is a tape-based filesystem intended for inactive data."
+    },
+    {
+      "question": "What kind of datasets are suitable for storage in /nearline?",
+      "answer": "Datasets that you do not expect to access for months are good candidates to be stored in /nearline."
+    },
+    {
+      "question": "Why are there specific guidelines for file sizes when storing data in /nearline?",
+      "answer": "Retrieving small files from tape is inefficient, while extremely large files pose other problems."
+    },
+    {
+      "question": "What should be done with files smaller than approximately 10GB before storing them in /nearline?",
+      "answer": "Files smaller than ~10GB should be combined into archive files (tarballs) using 'tar' or a similar tool."
+    },
+    {
+      "question": "How should files larger than 4TB be handled before storing them in /nearline?",
+      "answer": "Files larger than 4TB should be split into chunks of 1TB using the 'split' command or a similar tool."
+    },
+    {
+      "question": "Should small files generally be sent to Nearline?",
+      "answer": "No, small files should not be sent to Nearline, except for indexes."
+    },
+    {
+      "question": "Is it necessary to compress data before storing it in /nearline?",
+      "answer": "No, there is no need to compress the data in /nearline since the tape archive system automatically performs compression using specialized circuitry."
+    },
+    {
+      "question": "What happens if already compressed data is copied to /nearline?",
+      "answer": "If your data is already compressed, it can be copied to /nearline without any issues."
+    },
+    {
+      "question": "Which tools should be used to create archive files for /nearline?",
+      "answer": "Use 'tar' or 'dar' to create an archive file."
+    },
+    {
+      "question": "Where should source files be kept when creating an archive for /nearline?",
+      "answer": "Keep the source files in their original filesystem. Do NOT copy the source files to /nearline before creating the archive."
+    },
+    {
+      "question": "Where is the most efficient place to create an archive for /nearline?",
+      "answer": "Create the archive directly in /nearline. This does not require additional storage space and is more efficient than creating it elsewhere and copying it later."
+    },
+    {
+      "question": "Which 'tar' options are recommended for archiving hundreds of gigabytes of data into suitable file sizes?",
+      "answer": "The 'tar' options '-M (--multi-volume)' and '-L (--tape-length)' can be used to produce archive files of suitable size."
+    },
+    {
+      "question": "Which 'dar' option is recommended for creating archive files of suitable size?",
+      "answer": "If you are using 'dar', you can use the '-s (--slice)' option."
+    },
+    {
+      "question": "Why should an index be created for archive files in /nearline?",
+      "answer": "To avoid having to restore an entire large collection from tape when you only need one or a few files, you should make an index of all archive files."
+    },
+    {
+      "question": "When should an index be created for an archive file?",
+      "answer": "Create the index as soon as you create the collection."
+    },
+    {
+      "question": "How can an index be created when using 'tar' to create an archive, including verbose output?",
+      "answer": "You can save the output of 'tar' with the 'verbose' option, like this: `tar cvvf /nearline/def-sponsor/user/mycollection.tar /project/def-sponsor/user/something > /nearline/def-sponsor/user/mycollection.index`."
+    },
+    {
+      "question": "How can an index be created for an existing 'tar' archive?",
+      "answer": "You can create an index for an existing 'tar' archive like this: `tar tvvf /nearline/def-sponsor/user/mycollection.tar > /nearline/def-sponsor/user/mycollection.index`."
+    },
+    {
+      "question": "Are index files allowed to be small in /nearline?",
+      "answer": "Yes, index files are an exception to the rule about small files on /nearline; it's okay to store them there."
+    },
+    {
+      "question": "Is reading from /nearline permitted in a job context on compute nodes?",
+      "answer": "No, reading from /nearline in a job context is not permitted because data retrieval may take an uncertain amount of time."
+    },
+    {
+      "question": "Is /nearline mounted on compute nodes?",
+      "answer": "No, /nearline is not mounted on compute nodes."
+    },
+    {
+      "question": "Where should resource-intensive tasks like creating 'tar' or 'dar' files for large data volumes be performed?",
+      "answer": "These tasks should be performed on a data-transfer node (DTN) on clusters that have them."
+    },
+    {
+      "question": "What should be used for resource-intensive archiving tasks if a cluster does not have DTN nodes?",
+      "answer": "If a cluster has no DTN nodes, use a login node for resource-intensive archiving tasks."
+    },
+    {
+      "question": "Why is it recommended to use a terminal multiplexer when archiving large file collections?",
+      "answer": "Archiving large file collections can take several hours or even days, and a terminal multiplexer helps manage issues like SSH session interruptions or wanting to keep programs running in the background."
+    },
+    {
+      "question": "Which terminal multiplexer is suggested for managing long-running archiving processes?",
+      "answer": "A terminal multiplexer such as 'tmux' is suggested."
+    },
+    {
+      "question": "How does 'dar' behave when used in a terminal?",
+      "answer": "When used in a terminal, 'dar' runs in interactive mode and asks to confirm certain operations."
+    },
+    {
+      "question": "How does 'dar' behave when used without an attached terminal?",
+      "answer": "When used without an attached terminal, 'dar' runs in non-interactive mode and assumes a 'no' answer to any questions."
+    },
+    {
+      "question": "How can interactivity be explicitly disabled for 'dar'?",
+      "answer": "We recommend explicitly disabling interactivity with 'dar -Q'."
+    },
+    {
+      "question": "When is it especially useful to disable 'dar' interactivity?",
+      "answer": "Disabling 'dar' interactivity is especially useful when running 'dar' in an unattended terminal multiplexer."
+    }
+  ],
+  "generated_at": "2026-04-12T10:25:36.311353+00:00"
+}

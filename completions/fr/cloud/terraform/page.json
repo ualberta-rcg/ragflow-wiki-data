@@ -1,0 +1,79 @@
+{
+  "doc_key": "fr/terraform",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "C'est quoi Terraform, pis à quoi ça sert au juste dans l'Alliance?",
+      "answer": "Terraform, c't'un outil qui permet de définir pis d'approvisionner l'infrastructure de centres de données, incluant des machines virtuelles, en utilisant un modèle d'infrastructure-en-code."
+    },
+    {
+      "question": "Pourquoi c'est un avantage d'utiliser l'infrastructure-en-code avec Terraform pour gérer OpenStack?",
+      "answer": "Ça permet de maintenir les ressources OpenStack comme une collection de définitions qui peuvent être facilement mises à jour avec des éditeurs de texte, partagées entre les membres d'un groupe pis stockées dans un système de contrôle de version."
+    },
+    {
+      "question": "Avant de commencer avec Terraform, qu'est-ce qu'il faut avoir de préparé?",
+      "answer": "Faut avoir accès à un projet OpenStack avec des ressources disponibles, le binaire <code>terraform</code> installé pis avoir fait quelques configurations sur son poste de travail."
+    },
+    {
+      "question": "Si on n'a jamais utilisé OpenStack, qu'est-ce que le tutoriel nous suggère de faire avant de se lancer dans Terraform?",
+      "answer": "On devrait se familiariser avec OpenStack en créant une machine virtuelle, en attachant un volume, en associant une IP flottante pis en s'assurant qu'on peut s'y connecter."
+    },
+    {
+      "question": "Comment on peut fournir nos identifiants OpenStack à Terraform en ligne de commande?",
+      "answer": "On peut les fournir via des variables d'environnement (en sourçant un fichier RC) ou en les configurant dans un fichier <code>clouds.yaml</code>."
+    },
+    {
+      "question": "À quoi sert la commande <code>terraform init</code>?",
+      "answer": "Elle sert à initialiser le répertoire de travail, à s'assurer que le fournisseur est configuré correctement pis à télécharger le plugiciel du fournisseur OpenStack."
+    },
+    {
+      "question": "Quand on définit une machine virtuelle dans Terraform, pourquoi est-ce important d'utiliser les identifiants (UUID) des gabarits pis des images plutôt que leurs noms?",
+      "answer": "Parce que l'identifiant ne change jamais, ce qui garantit que Terraform gère l'état exact de la ressource sans risque de la reconstruire accidentellement si le nom venait à changer."
+    },
+    {
+      "question": "Qu'est-ce que la commande <code>terraform plan</code> fait, pis pourquoi est-ce important de la vérifier?",
+      "answer": "Elle compile la définition de Terraform, détermine les modifications nécessaires pour arriver à l'état souhaité pis présente un plan des actions sans les appliquer. C'est crucial de le vérifier pour éviter les mauvaises surprises."
+    },
+    {
+      "question": "Est-ce que Terraform va toucher aux ressources OpenStack qui sont déjà définies dans notre projet, mais qui n'ont pas été créées par lui?",
+      "answer": "Non, Terraform ne connaît pas les ressources existantes qu'il n'a pas lui-même définies ou importées. Il ne les affectera pas, mais c'est toujours bon de vérifier les plans pour être tranquille."
+    },
+    {
+      "question": "Comment on applique les changements décrits dans le plan de Terraform?",
+      "answer": "On utilise la commande <code>terraform apply</code> pis on doit taper 'yes' pour confirmer les actions."
+    },
+    {
+      "question": "Si une VM Terraform échoue à la création avec une erreur de réseau, c'est quoi la solution probable?",
+      "answer": "C'est probablement qu'il faut spécifier le réseau privé à utiliser en ajoutant un sous-bloc <code>network { name = \"mon-réseau-privé\" }</code> dans la définition de la VM."
+    },
+    {
+      "question": "À quoi sert le fichier <code>terraform.tfstate</code>, pis pourquoi est-il important?",
+      "answer": "Ce fichier contient les détails sur les ressources que Terraform gère. Il est essentiel pour que Terraform puisse déterminer comment mettre à jour les ressources lors des changements de configuration."
+    },
+    {
+      "question": "Comment on peut rendre une machine virtuelle accessible de l'extérieur du locataire si elle est juste sur le réseau privé?",
+      "answer": "Il faut lui ajouter une adresse IP flottante."
+    },
+    {
+      "question": "Comment on ajoute une adresse IP flottante à une VM avec Terraform?",
+      "answer": "On déclare d'abord une ressource <code>openstack_networking_floatingip_v2</code> à partir d'un pool (comme <code>ext_net</code>), pis on associe cette IP à l'instance avec une ressource <code>openstack_compute_floatingip_associate_v2</code>."
+    },
+    {
+      "question": "Si on ajoute un volume de démarrage à une VM déjà existante avec Terraform, c'est quoi la conséquence?",
+      "answer": "C'est une opération destructrice; Terraform va détruire la VM existante pour en créer une nouvelle avec le volume de démarrage attaché."
+    },
+    {
+      "question": "Pour éviter des reconstructions inutiles d'une VM qui démarre d'un volume, qu'est-ce qu'on doit faire?",
+      "answer": "Faut pas laisser l'attribut <code>image_id</code> défini dans la définition de l'instance de calcul externe, car Terraform pourrait croire qu'on veut passer du démarrage par volume au démarrage direct par image, et la reconstruire à chaque fois."
+    },
+    {
+      "question": "Comment on trouve l'UUID d'une image dans l'interface web Horizon?",
+      "answer": "On va dans <i>Images</i> sous <i>Compute</i>, on clique sur l'image qu'on veut pis son ID va s'afficher."
+    },
+    {
+      "question": "Est-ce qu'on peut trouver l'UUID d'un gabarit (flavor) directement dans l'interface web Horizon?",
+      "answer": "Non, Horizon montre seulement le nom des gabarits. Pour avoir l'UUID, on doit soit utiliser la ligne de commande OpenStack, soit laisser Terraform le détecter à la première exécution."
+    }
+  ],
+  "generated_at": "2026-04-12T09:12:36.108727+00:00"
+}

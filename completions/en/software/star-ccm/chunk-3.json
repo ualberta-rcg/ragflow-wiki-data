@@ -1,0 +1,112 @@
+{
+  "doc_key": "en/star-ccm",
+  "level": "chunk",
+  "chunk_index": 3,
+  "qa_pairs": [
+    {
+      "question": "What is `SIM_FILE` used for in the provided Slurm scripts for STAR-CCM+?",
+      "answer": "The `SIM_FILE` variable is used to specify your input simulation filename."
+    },
+    {
+      "question": "How can Java macros, mesh, run, or step commands be specified in a STAR-CCM+ Slurm job on Nibi?",
+      "answer": "You can specify Java macros, mesh, run, or step commands by uncommenting and setting the `BATCH_CMD` variable, for example, `BATCH_CMD='myMacro.java,run'`."
+    },
+    {
+      "question": "What is the purpose of the `LM_PROJECT` environment variable in a STAR-CCM+ Slurm script when using a Power-on-Demand (PoD) license?",
+      "answer": "The `LM_PROJECT` environment variable is used to specify your Siemens PoD Key, which is a 22-digit PoD License Key."
+    },
+    {
+      "question": "When should the `LM_PROJECT` line be commented out in a STAR-CCM+ Slurm script?",
+      "answer": "The `LM_PROJECT` line should be commented out when using a local institutional license server instead of a Power-on-Demand (PoD) license."
+    },
+    {
+      "question": "How is the `STARCCM_TMP` environment variable configured in the provided Slurm scripts?",
+      "answer": "The `STARCCM_TMP` environment variable is set to `$SLURM_TMPDIR` to redirect temporary output files from `~/.star-VERSION#` to the Slurm temporary directory."
+    },
+    {
+      "question": "How is the `NCORE` variable calculated in the Nibi and Fir/Narval/Rorqual Slurm scripts?",
+      "answer": "`NCORE` is calculated by multiplying `SLURM_NNODES` (number of nodes) by `SLURM_CPUS_PER_TASK` (cores per task) and `SLURM_NTASKS_PER_NODE` (tasks per node): `NCORE=$((SLURM_NNODES * SLURM_CPUS_PER_TASK * SLURM_NTASKS_PER_NODE))`."
+    },
+    {
+      "question": "How do the Nibi Slurm scripts check the license server and port?",
+      "answer": "The scripts extract the server hostname from the `CDLMD_LICENSE_FILE` using `head -n1 $CDLMD_LICENSE_FILE {{!}} awk '{print $2}'` and the port using `cat $CDLMD_LICENSE_FILE {{!}} grep -Eo '[0-9]+$'`, then use `nmap` to check connectivity."
+    },
+    {
+      "question": "What `FLEXIBLAS` setting is used for Intel CPUs when running STAR-CCM+ versions 20 or newer on Nibi?",
+      "answer": "For Intel CPUs and STAR-CCM+ versions 20 or newer on Nibi, `STAR_FLEXIBLAS` is set to `\"-flexiblaslib MKL\"`."
+    },
+    {
+      "question": "What MPI library is used for Intel CPUs on Nibi clusters?",
+      "answer": "For Intel CPUs on Nibi clusters, `STAR_MPI` is set to `\"-mpi intel\"`."
+    },
+    {
+      "question": "What are the specific STAR-CCM+ command-line options for AMD CPUs on Nibi for versions 20 or newer?",
+      "answer": "For AMD CPUs and STAR-CCM+ versions 20 or newer on Nibi, the options include `STAR_FLEXIBLAS=\"-flexiblaslib AOCL\"`, `STAR_PRELOAD=\"-ldpreload /usr/lib64/libdrm_amdgpu.so.1\"`, and `STAR_MPI=\"-mpi openmpi40\"`."
+    },
+    {
+      "question": "How does the STAR-CCM+ launch command differ between a Siemens PoD license and an institutional license on Nibi?",
+      "answer": "When using a Siemens PoD license, the `starccm+` command includes `-power` and `-podkey $LM_PROJECT`. These options are omitted for an institutional license."
+    },
+    {
+      "question": "What `FLEXIBLAS` setting is applied by default for STAR-CCM+ jobs on Fir/Narval/Rorqual clusters if the CPU vendor is not specified as Intel or AMD?",
+      "answer": "By default, if the CPU vendor is not Intel or AMD, `FLEXIBLAS` is set to `NETLIB` for STAR-CCM+ jobs on Fir/Narval/Rorqual clusters."
+    },
+    {
+      "question": "Which MPI library is generally used for STAR-CCM+ jobs on Fir/Narval/Rorqual clusters when the CPU vendor is AMD?",
+      "answer": "For STAR-CCM+ jobs on Fir/Narval/Rorqual clusters when the CPU vendor is AMD, the `STAR_MPI` variable is set to `\"-mpi openmpi\"`."
+    },
+    {
+      "question": "What is the CPU vendor identification variable used in the Fir/Narval/Rorqual Slurm scripts?",
+      "answer": "The `RSNT_CPU_VENDOR_ID` variable is used to identify the CPU vendor in the Fir/Narval/Rorqual Slurm scripts."
+    },
+    {
+      "question": "What is the memory limit specified in the Slurm script for Nibi?",
+      "answer": "The memory limit specified in the Slurm script for Nibi is `64G` per node (`#SBATCH --mem=64G`)."
+    },
+    {
+      "question": "What is the time limit for the Slurm job on Nibi?",
+      "answer": "The time limit specified in the Slurm script for Nibi is 1 hour (`#SBATCH --time=00-01:00`)."
+    },
+    {
+      "question": "What is the maximum number of CPUs per task specified for Nibi?",
+      "answer": "The maximum number of CPUs per task specified for Nibi is 16 (`#SBATCH --cpus-per-task=16`)."
+    },
+    {
+      "question": "What constraint is used for nodes on Nibi in the example Slurm script?",
+      "answer": "The constraint used for nodes on Nibi is `granite`, which means it uses Intel CPU-only base nodes."
+    },
+    {
+      "question": "What is the network switch setting for Nibi in the example Slurm script?",
+      "answer": "The network switch setting for Nibi in the example Slurm script is `1` (`#SBATCH --switches=1`), which is optional."
+    },
+    {
+      "question": "What environment module is loaded before loading the STAR-CCM+ module in the Nibi Slurm script?",
+      "answer": "The `StdEnv/2023` module is loaded before loading the STAR-CCM+ module in the Nibi Slurm script."
+    },
+    {
+      "question": "When is the `STAR_UCX` flag enabled for STAR-CCM+ versions on Nibi, regardless of CPU vendor?",
+      "answer": "The `STAR_UCX` flag is enabled for STAR-CCM+ versions with a major version number less than 20 (e.g., `${EBVERSIONSTARCCM:0:2}` < 20)."
+    },
+    {
+      "question": "What `FLEXIBLAS` library is exported for AMD CPUs when running STAR-CCM+ versions prior to 20 on Nibi?",
+      "answer": "For AMD CPUs and STAR-CCM+ versions prior to 20 on Nibi, `FLEXIBLAS` is exported as `StarAOCL`."
+    },
+    {
+      "question": "How are temporary output files from STAR-CCM+ jobs handled in the provided Slurm scripts?",
+      "answer": "Temporary output files from STAR-CCM+ jobs are redirected to the `$SLURM_TMPDIR` by setting `export STARCCM_TMP=\"$SLURM_TMPDIR\"`."
+    },
+    {
+      "question": "What is the purpose of `slurm_hl2hl.py --format STAR-CCM+ > $SLURM_TMPDIR/machinefile` in the Slurm scripts?",
+      "answer": "This command is used to generate a `machinefile` in the `$SLURM_TMPDIR` for STAR-CCM+, based on the Slurm host list."
+    },
+    {
+      "question": "What command is used to check the status of an institutional license server for STAR-CCM+?",
+      "answer": "The command `lmutil lmstat -c ~/.licenses/starccm.lic -a {{!}} egrep \"license1{{!}}UP{{!}}use{{!}}$USER\"` is used to check the status of an institutional license server."
+    },
+    {
+      "question": "What is the `STAR_FABRIC` setting for Intel CPUs on Nibi clusters?",
+      "answer": "For Intel CPUs on Nibi clusters, `STAR_FABRIC` is set to `\"-fabric tcp\"`."
+    }
+  ],
+  "generated_at": "2026-04-12T08:15:27.926130+00:00"
+}

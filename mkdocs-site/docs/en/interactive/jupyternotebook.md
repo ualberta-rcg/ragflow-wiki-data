@@ -5,37 +5,74 @@ lang: "en"
 
 source_wiki_title: "JupyterNotebook/en"
 source_hash: "a37ea9c57622e2eec27da96453b5c95b"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T07:44:13.434945+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T08:21:49.180978+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "SSH tunnelling"
+  - "kernel spec file"
+  - "compute node"
+  - "installation"
+  - "username"
+  - "Jupyter Notebook"
+  - "MobaXTerm"
+  - "hostname:port"
+  - "cluster"
+  - "virtual environment"
+  - "token authentication system"
+  - "Terminal tab"
+  - "Python virtual environment"
+  - "kernels"
+  - "RStudio session"
+  - "Python"
+  - "software environments"
+  - "RStudio Launcher"
+  - "Jupyter extensions"
+
+questions:
+  - "Why is it recommended to run Jupyter Notebook on a compute node instead of a login node?"
+  - "What are the necessary steps to install Jupyter Notebook and create its wrapper script within a Python virtual environment?"
+  - "How do extensions such as Jupyter Lmod and nbserverproxy enhance the functionality of the Jupyter Notebook application?"
+  - "How do you activate the required Python virtual environment and submit an interactive job to start Jupyter Notebook on the cluster?"
+  - "What is the recommended method for creating an SSH tunnel to access the Jupyter Notebook from a Linux or MacOS X system?"
+  - "How can Windows users configure an SSH tunnel using MobaXTerm to connect to the running Jupyter Notebook?"
+  - "How does the RStudio Launcher handle authentication when starting a session through Jupyter Notebook?"
+  - "Where is the option to start an RStudio session located within the Jupyter Notebook interface?"
+  - "Which specific software environments are required for the RStudio Launcher installation procedure to work?"
+  - "What application is required to open the second Terminal tab for Session 2?"
+  - "Which three specific placeholders must be substituted in the command before it is executed?"
+  - "Where can the user find the correct values for the hostname, port, and cluster to use in the new command?"
+  - "How do you access the running Jupyter Notebook from your local browser using the SSH tunnel and token?"
+  - "What is the proper procedure to shut down the Jupyter Notebook server and close the SSH tunnel?"
+  - "What are the two main steps required to install and configure a new kernel for languages like Julia, Python, or R?"
+  - "How do you access the running Jupyter Notebook from your local browser using the SSH tunnel and token?"
+  - "What is the proper procedure to shut down the Jupyter Notebook server and close the SSH tunnel?"
+  - "What are the two main steps required to install and configure a new kernel for languages like Julia, Python, or R?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
 !!! warning "Advanced material"
-    This page is for advanced users. Please see [JupyterHub](jupyterhub.md) instead.
+This page is for advanced users. Please see [JupyterHub](jupyterhub.md) instead.
 
 ## Introduction
 
-"Project Jupyter is a non-profit, open-source project, born out of the IPython Project in 2014 as it evolved to support interactive data science and scientific computing across all programming languages."[http://jupyter.org/about.html]
+"Project Jupyter is a non-profit, open-source project, born out of the IPython Project in 2014 as it evolved to support interactive data science and scientific computing across all programming languages." (http://jupyter.org/about.html)
 
-"The Jupyter Notebook is an open-source web application that allows you to create and share documents that contain live code, equations, visualizations and narrative text."[http://www.jupyter.org/]
+"The Jupyter Notebook is an open-source web application that allows you to create and share documents that contain live code, equations, visualisations and narrative text." (http://www.jupyter.org/)
 
 You can run Jupyter Notebook on a compute node or on a login node (not recommended). Note that login nodes impose various user- and process-based limits, so applications running there may be killed if they consume too much CPU time or memory. To use a compute node you will have to submit a job requesting the number of CPUs (and optionally GPUs), the amount of memory, and the run time. Here, we give instructions to submit a Jupyter Notebook job.
 
 **Other information:**
-
 *   Since Jupyter Notebook is the older Jupyter interface, please consider installing **[JupyterLab](advanced-jupyter-configuration.md)** instead.
 *   If you are instead looking for a preconfigured Jupyter environment, please see the **[Jupyter](jupyter.md)** page.
 
@@ -56,17 +93,17 @@ These instructions install Jupyter Notebook with the `pip` command in a [Python 
     source $HOME/jupyter_py3/bin/activate
     ```
 4.  Install Jupyter Notebook in your new virtual environment.
-    ```console
+    ```bash
     (jupyter_py3) [name@server ~]$ pip install --no-index --upgrade pip
     (jupyter_py3) [name@server ~]$ pip install --no-index jupyter
     ```
 5.  In the virtual environment, create a wrapper script that launches Jupyter Notebook.
-    ```console
-    (jupyter_py3)_[name@server ~]$ echo -e '#!/bin/bash\nexport JUPYTER_RUNTIME_DIR=$SLURM_TMPDIR/jupyter\njupyter notebook --ip $(hostname -f) --no-browser' > $VIRTUAL_ENV/bin/notebook.sh
+    ```bash
+    (jupyter_py3) [name@server ~]$ echo -e '#!/bin/bash\nexport JUPYTER_RUNTIME_DIR=$SLURM_TMPDIR/jupyter\njupyter notebook --ip $(hostname -f) --no-browser' > $VIRTUAL_ENV/bin/notebook.sh
     ```
 6.  Finally, make the script executable.
-    ```console
-    (jupyter_py3)_[name@server ~]$ chmod u+x $VIRTUAL_ENV/bin/notebook.sh
+    ```bash
+    (jupyter_py3) [name@server ~]$ chmod u+x $VIRTUAL_ENV/bin/notebook.sh
     ```
 
 ## Installing extensions
@@ -77,20 +114,20 @@ Extensions allow you to add functionalities and modify the application’s user 
 
 [Jupyter Lmod](https://github.com/cmd-ntrf/jupyter-lmod) is an extension that allows you to interact with environment modules before launching kernels. The extension uses the Lmod's Python interface to accomplish module-related tasks like loading, unloading, saving a collection, etc.
 
-```console
-(jupyter_py3)_[name@server ~]$ pip install jupyterlmod
-(jupyter_py3)_[name@server ~]$ jupyter nbextension install --py jupyterlmod --sys-prefix
-(jupyter_py3)_[name@server ~]$ jupyter nbextension enable --py jupyterlmod --sys-prefix
-(jupyter_py3)_[name@server ~]$ jupyter serverextension enable --py jupyterlmod --sys-prefix
+```bash
+(jupyter_py3) [name@server ~]$ pip install jupyterlmod
+(jupyter_py3) [name@server ~]$ jupyter nbextension install --py jupyterlmod --sys-prefix
+(jupyter_py3) [name@server ~]$ jupyter nbextension enable --py jupyterlmod --sys-prefix
+(jupyter_py3) [name@server ~]$ jupyter serverextension enable --py jupyterlmod --sys-prefix
 ```
 
 ### Proxy web services
 
 [nbserverproxy](https://github.com/jupyterhub/nbserverproxy) enables users to reach arbitrary web services running within their spawned Jupyter server. This is useful to access web services that are listening only on a port of the localhost like [TensorBoard](https://www.tensorflow.org/programmers_guide/summaries_and_tensorboard).
 
-```console
-(jupyter_py3)_[name@server ~]$ pip install nbserverproxy
-(jupyter_py3)_[name@server ~]$ jupyter serverextension enable --py nbserverproxy --sys-prefix
+```bash
+(jupyter_py3) [name@server ~]$ pip install nbserverproxy
+(jupyter_py3) [name@server ~]$ jupyter serverextension enable --py nbserverproxy --sys-prefix
 ```
 
 #### Example
@@ -101,7 +138,7 @@ In Jupyter, a user starts a web service via 'Terminal' in the *New* dropdown lis
 tensorboard --port=8008
 ```
 
-The service is proxied off of `/proxy/` at https://address.of.notebook.server/user/theuser/proxy/8008.
+The service is proxied off of /proxy/ at https://address.of.notebook.server/user/theuser/proxy/8008.
 
 ### RStudio Launcher
 
@@ -109,13 +146,13 @@ Jupyter Notebook can start an RStudio session that uses Jupyter Notebook's token
 
 **Note:** the installation procedure below only works with the `StdEnv/2016.4` and `StdEnv/2018.3` software environments.
 
-```console
-(jupyter_py3)_[name@server ~]$ pip install nbserverproxy
-(jupyter_py3)_[name@server ~]$ pip install https://github.com/jupyterhub/nbrsessionproxy/archive/v0.8.0.zip
-(jupyter_py3)_[name@server ~]$ jupyter serverextension enable --py nbserverproxy --sys-prefix
-(jupyter_py3)_[name@server ~]$ jupyter nbextension install --py nbrsessionproxy --sys-prefix
-(jupyter_py3)_[name@server ~]$ jupyter nbextension enable --py nbrsessionproxy --sys-prefix
-(jupyter_py3)_[name@server ~]$ jupyter serverextension enable --py nbrsessionproxy --sys-prefix
+```bash
+(jupyter_py3) [name@server ~]$ pip install nbserverproxy
+(jupyter_py3) [name@server ~]$ pip install https://github.com/jupyterhub/nbrsessionproxy/archive/v0.8.0.zip
+(jupyter_py3) [name@server ~]$ jupyter serverextension enable --py nbserverproxy --sys-prefix
+(jupyter_py3) [name@server ~]$ jupyter nbextension install --py nbrsessionproxy --sys-prefix
+(jupyter_py3) [name@server ~]$ jupyter nbextension enable --py nbrsessionproxy --sys-prefix
+(jupyter_py3) [name@server ~]$ jupyter serverextension enable --py nbrsessionproxy --sys-prefix
 ```
 
 ## Activating the environment
@@ -136,16 +173,16 @@ source $HOME/jupyter_py3/bin/activate
 
 To use [RStudio Launcher](#rstudio-launcher), load the RStudio Server module.
 
-```console
-(jupyter_py3)_[name@server ~]$ module load rstudio-server
+```bash
+(jupyter_py3) [name@server ~]$ module load rstudio-server
 ```
 
 ## Starting Jupyter Notebook
 
 To start the application, submit an interactive job. Adjust the parameters based on your needs. See [Running jobs](running-jobs.md) for more information.
 
-```console
-(jupyter_py3)_[name@server ~]$ salloc --time=1:0:0 --ntasks=1 --cpus-per-task=2 --mem-per-cpu=1024M --account=def-yourpi srun $VIRTUAL_ENV/bin/notebook.sh
+```bash
+(jupyter_py3) [name@server ~]$ salloc --time=1:0:0 --ntasks=1 --cpus-per-task=2 --mem-per-cpu=1024M --account=def-yourpi srun $VIRTUAL_ENV/bin/notebook.sh
 ```
 
 ```text
@@ -174,14 +211,13 @@ On a Linux or MacOS X system, we recommend using the [sshuttle](https://sshuttle
 
 On your computer, open a new terminal window and run the following `sshuttle` command to create the tunnel.
 
-```console
+```bash
 [name@my_computer ~]$ sshuttle --dns -Nr <username>@<cluster>.alliancecan.ca
 ```
 
 In the preceding command substitute `<username>` by your username; and substitute `<cluster>` by the cluster you connected to launch your Jupyter Notebook.
 
 Then, copy and paste the provided URL into your browser. In the above example, this would be
-
 ```text
  http://cdr544.int.cedar.computecanada.ca:8888/?token=7ed7059fad64446f837567e3
 ```
@@ -197,7 +233,7 @@ An [SSH tunnel](ssh-tunnelling.md) can be created from Windows using [MobaXTerm]
                       hostname:port                               token
     ```
 2.  Open a second Terminal tab in MobaXTerm (Session 2). In the following command, substitute `<hostname:port>` by its corresponding value from the URL you obtained in Session 1 (refer to the previous figure); substitute `<username>` by your username; and substitute `<cluster>` by the cluster you connected to in Session 1. Run the command.
-    ```console
+    ```bash
     [name@my_computer ~]$ ssh -L 8888:<hostname:port> <username>@<cluster>.alliancecan.ca
     ```
 3.  Open your browser and go to
@@ -221,7 +257,6 @@ The installation of a new kernel is done in two steps.
 2.  Creation of a file that will indicate to Jupyter Notebook how to initiate a communication channel with the language interpreter. This file is called a *kernel spec file*.
 
 Each kernel spec file has to be created in its own subfolder inside a folder in your home directory with the following path `~/.local/share/jupyter/kernels`. Jupyter Notebook does not create this folder, so the first step in all cases is to create it. You can use the following command.
-
 ```bash
 mkdir -p ~/.local/share/jupyter/kernels
 ```
@@ -239,8 +274,8 @@ In the following sections, we provide a few examples of the kernel installation 
     source $HOME/jupyter_py3/bin/activate
     ```
 3.  Install IJulia.
-    ```console
-    (jupyter_py3)_[name@server ~]$ echo 'Pkg.add("IJulia")' | julia
+    ```bash
+    (jupyter_py3) [name@server ~]$ echo 'Pkg.add("IJulia")' | julia
     ```
 
 For more information, see the [IJulia documentation](https://github.com/JuliaLang/IJulia.jl).
@@ -260,16 +295,16 @@ For more information, see the [IJulia documentation](https://github.com/JuliaLan
     source $HOME/jupyter_py3.5/bin/activate
     ```
 4.  Install the `ipykernel` library.
-    ```console
-    (jupyter_py3.5)_[name@server ~]$ pip install ipykernel
+    ```bash
+    (jupyter_py3.5) [name@server ~]$ pip install ipykernel
     ```
 5.  Generate the kernel spec file. Substitute `<unique_name>` by a name that will uniquely identify your kernel.
-    ```console
-    (jupyter_py3.5)_[name@server ~]$ python -m ipykernel install --user --name <unique_name> --display-name "Python 3.5 Kernel"
+    ```bash
+    (jupyter_py3.5) [name@server ~]$ python -m ipykernel install --user --name <unique_name> --display-name "Python 3.5 Kernel"
     ```
 6.  Deactivate the virtual environment.
-    ```console
-    (jupyter_py3.5)_[name@server ~]$ deactivate
+    ```bash
+    (jupyter_py3.5) [name@server ~]$ deactivate
     ```
 
 For more information, see the [ipykernel documentation](http://ipython.readthedocs.io/en/stable/install/kernel_install.html).
@@ -285,18 +320,16 @@ For more information, see the [ipykernel documentation](http://ipython.readthedo
     source $HOME/jupyter_py3/bin/activate
     ```
 3.  Install the R kernel dependencies.
-    ```console
-    (jupyter_py3)_[name@server ~]$ R -e "install.packages(c('crayon', 'pbdZMQ', 'devtools'), repos='http://cran.us.r-project.org')"
+    ```bash
+    (jupyter_py3) [name@server ~]$ R -e "install.packages(c('crayon', 'pbdZMQ', 'devtools'), repos='http://cran.us.r-project.org')"
     ```
 4.  Install the R kernel.
-    ```console
-    (jupyter_py3)_[name@server ~]$ R -e "devtools::install_github(paste0('IRkernel/', c('repr', 'IRdisplay', 'IRkernel')))"
+    ```bash
+    (jupyter_py3) [name@server ~]$ R -e "devtools::install_github(paste0('IRkernel/', c('repr', 'IRdisplay', 'IRkernel')))"
     ```
 5.  Install the R kernel spec file.
-    ```console
-    (jupyter_py3)_[name@server ~]$ R -e "IRkernel::installspec()"
+    ```bash
+    (jupyter_py3) [name@server ~]$ R -e "IRkernel::installspec()"
     ```
 
 For more information, see the [IRKernel documentation](https://irkernel.github.io/docs/).
-
-## References

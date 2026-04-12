@@ -1,0 +1,80 @@
+{
+  "doc_key": "fr/gatk",
+  "level": "chunk",
+  "chunk_index": 2,
+  "qa_pairs": [
+    {
+      "question": "Comment j'fais pour lancer les versions de GATK antérieures à la version 4?",
+      "answer": "Pour les versions de GATK avant la 4, tu dois appeler directement le fichier `jar` plutôt que d'utiliser la commande `gatk`. La syntaxe, c'est `java -jar GenomeAnalysisTK.jar PROGRAM OPTIONS`."
+    },
+    {
+      "question": "Où est-ce que le fichier `GenomeAnalysisTK.jar` doit se trouver pour que ça marche?",
+      "answer": "Le fichier `GenomeAnalysisTK.jar` doit être dans le `PATH`."
+    },
+    {
+      "question": "Sur les grappes, comment on trouve le chemin du fichier `jar` pour GATK 3 ou moins?",
+      "answer": "Sur nos grappes, les variables d'environnement `$EBROOTPICARD` pour Picard (dans GATK >= 4) et `$EBROOTGATK` pour GATK contiennent le chemin vers le fichier `jar`."
+    },
+    {
+      "question": "Peux-tu me donner un exemple de commande pour appeler GATK 3.8 sur nos grappes?",
+      "answer": "Oui, tu dois d'abord charger le module avec `module load nixpkgs/16.09 gatk/3.8`, puis lancer `java -jar \"${EBROOTGATK}\"/GenomeAnalysisTK.jar PROGRAM OPTIONS`."
+    },
+    {
+      "question": "Où est-ce que je peux trouver de l'information spécifique sur GATK 3?",
+      "answer": "Tu peux consulter le guide GATK3 en ligne à cette adresse : `https://github.com/broadinstitute/gatk-docs/tree/master/gatk3-tooldocs`."
+    },
+    {
+      "question": "Est-ce que la plupart des outils GATK (version 4 ou plus) peuvent utiliser plusieurs cœurs par défaut?",
+      "answer": "Non, la plupart des outils GATK (version 4 ou plus) ne peuvent pas utiliser plusieurs cœurs par défaut. Tu devrais demander un seul cœur quand tu utilises ce genre d'outil."
+    },
+    {
+      "question": "Est-ce qu'il y a des exceptions pour les outils GATK qui peuvent utiliser plus d'un cœur?",
+      "answer": "Oui, pour certains calculs, quelques outils comme `Mutect2` peuvent utiliser des fils (par exemple, avec `--native-pair-hmm-threads`), ce qui te permet de demander jusqu'à 4 fils ou CPU dans certains cas."
+    },
+    {
+      "question": "Est-ce que des commandes Spark sont disponibles avec GATK4?",
+      "answer": "Oui, quelques commandes Spark sont disponibles avec GATK4."
+    },
+    {
+      "question": "Est-ce que tous les outils GATK utilisent Spark?",
+      "answer": "Non, Spark n'est pas utilisé par tous les outils GATK."
+    },
+    {
+      "question": "Comment on sait quels outils GATK supportent Spark?",
+      "answer": "Les outils qui utilisent GATK le mentionnent dans leur documentation respective."
+    },
+    {
+      "question": "Comment sont nommées les versions d'outils GATK qui supportent Spark?",
+      "answer": "Certaines versions qui supportent Spark ont le suffixe `spark`. Si un outil GATK n'a qu'une seule version qui supporte Spark, son nom n'aura pas ce suffixe."
+    },
+    {
+      "question": "Quand j'utilise des commandes Spark avec GATK, comment je spécifie le nombre de CPU?",
+      "answer": "Tu devrais indiquer le nombre exact de CPU dans la commande Spark. Par exemple, si tu demandes 10 CPU, utilise `--spark-master local[10]` plutôt que `--spark-master local[*]`. "
+    },
+    {
+      "question": "Comment je fais pour utiliser GATK avec Spark dans un environnement multi-nœuds?",
+      "answer": "Pour travailler en multinœuds, tu dois d'abord déployer une grappe Spark et ensuite configurer les variables appropriées dans ta commande GATK."
+    },
+    {
+      "question": "Si j'obtiens des erreurs comme `IllegalArgumentException` quand j'utilise les modules GATK sur les grappes, qu'est-ce que je devrais faire?",
+      "answer": "On te recommande d'essayer de travailler autrement en passant par Apptainer si tu obtiens des erreurs comme `IllegalArgumentException`."
+    },
+    {
+      "question": "Où puis-je trouver des images Docker de GATK?",
+      "answer": "Tu peux trouver une image Docker principale sur Docker Hub à `https://hub.docker.com/r/broadinstitute/gatk` et d'autres versions spécifiques à `https://hub.docker.com/r/broadinstitute/gatk/tags`."
+    },
+    {
+      "question": "Comment je construis une image Apptainer à partir d'une image Docker pour GATK?",
+      "answer": "Pour les versions les plus récentes, lance `module load apptainer` suivi de `apptainer build gatk.sif docker://broadinstitute/gatk`. Pour une version spécifique, utilise `apptainer build gatk_VERSION.sif docker://broadinstitute/gatk:VERSION`."
+    },
+    {
+      "question": "Comment ça s'intègre un script SBATCH avec Apptainer pour GATK?",
+      "answer": "Dans ton script SBATCH, tu devrais inclure `module load apptainer` et ensuite `apptainer exec -B /home -B /project -B /scratch -B /localscratch <chemin_vers_image>/gatk.sif gatk [--java-options \"-Xmx4G\"] NomOutil [arguments_GATK]`."
+    },
+    {
+      "question": "Où est-ce que je peux trouver plus d'informations sur Apptainer?",
+      "answer": "Tu peux visionner un séminaire web sur Apptainer à cette adresse : `https://www.youtube.com/watch?v=bpmrfVqBowY`."
+    }
+  ],
+  "generated_at": "2026-04-11T21:57:07.446767+00:00"
+}

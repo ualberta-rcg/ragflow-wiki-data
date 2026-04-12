@@ -5,21 +5,48 @@ lang: "en"
 
 source_wiki_title: "Chapel/en"
 source_hash: "d5623894d8dac442aa7ca1c4ccbdcc50"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T05:24:00.328348+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T06:14:23.624247+00:00"
 
 tags:
   - software
 
 keywords:
-  []
+  - "multi-locale Chapel"
+  - "NVIDIA GPU support"
+  - "Slurm submission script"
+  - "GPU"
+  - "chapel-ucx-cuda"
+  - "parallel programming"
+  - "HPC"
+  - "Chapel GPU code"
+  - "Interactive jobs"
+  - "InfiniBand clusters"
+  - "Chapel"
+  - "multi-locale"
+  - "GPU support"
+  - "InfiniBand cluster"
+
+questions:
+  - "What is the Chapel programming language, and what are the two main styles of parallel programming it supports?"
+  - "How do the module requirements and execution commands differ when running single-locale Chapel versus multi-locale Chapel?"
+  - "Which specific module must be loaded to enable NVIDIA GPU support for multi-locale Chapel on InfiniBand clusters?"
+  - "How does the provided Chapel code dynamically determine whether to execute its operations on a GPU or a CPU?"
+  - "What specific modules and resource allocation commands are required to set up the environment for this code on an InfiniBand cluster?"
+  - "What is the difference in the workflow for compiling and running this code interactively versus submitting it for a production job?"
+  - "What module is required to enable NVIDIA GPU support for multi-locale Chapel on InfiniBand clusters?"
+  - "What is the purpose of the provided `probeGPU.chpl` code snippet?"
+  - "Which specific Chapel module is imported within the example code to initiate GPU diagnostics?"
+  - "How does the provided Chapel code dynamically determine whether to execute its operations on a GPU or a CPU?"
+  - "What specific modules and resource allocation commands are required to set up the environment for this code on an InfiniBand cluster?"
+  - "What is the difference in the workflow for compiling and running this code interactively versus submitting it for a production job?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 

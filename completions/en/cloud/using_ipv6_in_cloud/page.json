@@ -1,0 +1,63 @@
+{
+  "doc_key": "en/using_ipv6_in_cloud",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is the primary purpose of the \"IPv6 in Arbutus Cloud\" document?",
+      "answer": "The document provides instructions for setting up and configuring IPv6 Link-Local and Global Unicast Addresses within the Arbutus Cloud environment."
+    },
+    {
+      "question": "Which types of IPv6 addresses are generally available within the Arbutus Cloud environment?",
+      "answer": "IPv6 Link-Local (LLA) and Global Unicast Addresses (GUA) are generally available."
+    },
+    {
+      "question": "How are IPv6 Global Unicast Addresses (GUA) set up on a VM interface in Arbutus Cloud?",
+      "answer": "They are set up using Stateless Address Auto Configuration (SLAAC), which automatically configures the IP on the VM interface."
+    },
+    {
+      "question": "What is the default security group behaviour for outbound and inbound IPv6 GUA traffic from a VM?",
+      "answer": "By default, all outbound traffic from the VM is allowed, but no inbound traffic originating from outside the VM is allowed until specific security group rules have been defined."
+    },
+    {
+      "question": "How do you find the ID of a VM using the OpenStack command-line interface?",
+      "answer": "You can find the VM ID by using the command `openstack server list`."
+    },
+    {
+      "question": "What is the OpenStack CLI command to assign an IPv6-GUA network interface to a VM?",
+      "answer": "The command is `openstack server add network <VM_ID> IPv6-GUA`."
+    },
+    {
+      "question": "What are the steps to attach an IPv6 interface using the OpenStack web interface?",
+      "answer": "Log in to the dashboard, go to the 'Instances' menu, click on 'Attach Interface', select 'IPv6-GUA' from the network menu, and then click 'Attach'."
+    },
+    {
+      "question": "What happens to a Global Unicast Address (GUA) when its associated interface is detached?",
+      "answer": "When the interface is detached, the GUA is released and put back into the pool, making it available for anyone else."
+    },
+    {
+      "question": "How is access from any IPv6 GUA granted to a VM in OpenStack?",
+      "answer": "Access can be granted via 'Security Groups' in OpenStack, where the CIDR automatically detects the address type."
+    },
+    {
+      "question": "How can one confirm that IPv6 is enabled on a Linux system?",
+      "answer": "Run the command `sudo sysctl -a | grep ipv6.*disable`, and the output should all end in zeros."
+    },
+    {
+      "question": "Which kernel parameters should be added to `/etc/sysctl.conf` for a new IPv6 interface like `eth1`?",
+      "answer": "Add `net.ipv6.conf.eth1.forwarding=0` and `net.ipv6.conf.eth1.accept_ra=1`."
+    },
+    {
+      "question": "What configurations need to be added to `/etc/sysconfig/network-scripts/ifcfg-eth1` for IPv6 functionality?",
+      "answer": "Add `IPV6INIT=yes`, `IPV6_AUTOCONF=yes`, `IPV6_DEFROUTE=yes`, and `IPV6_FAILURE_FATAL=no`."
+    },
+    {
+      "question": "How do you confirm the IPv6 address configuration on a Linux system?",
+      "answer": "You can confirm the IPv6 configuration using the command `ip -6 address`."
+    },
+    {
+      "question": "What command can be used to confirm that IPv6 connectivity is working on a Linux system?",
+      "answer": "The command `ping6 -c 1 www.google.com` confirms IPv6 connectivity."
+    }
+  ],
+  "generated_at": "2026-04-12T10:23:35.791352+00:00"
+}

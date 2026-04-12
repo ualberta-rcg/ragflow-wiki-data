@@ -1,0 +1,96 @@
+{
+  "doc_key": "en/weights___biases__wandb",
+  "level": "chunk",
+  "chunk_index": 1,
+  "qa_pairs": [
+    {
+      "question": "What is Weights & Biases (wandb)?",
+      "answer": "Weights & Biases (wandb) is a meta machine learning platform designed to assist AI practitioners and teams in building reliable machine learning models for real-world applications by streamlining the machine learning model lifecycle."
+    },
+    {
+      "question": "What functionalities does wandb provide for machine learning experiments?",
+      "answer": "By using wandb, you can track, compare, explain, and reproduce machine learning experiments."
+    },
+    {
+      "question": "What are the key requirements for full usage of wandb on Alliance compute nodes?",
+      "answer": "Full usage of wandb on compute nodes requires both internet access and access to Google Cloud Storage."
+    },
+    {
+      "question": "Which Alliance clusters offer full wandb availability without requiring `httpproxy`?",
+      "answer": "Fir, Nibi, Vulcan, and Killarney clusters offer full wandb availability, and `httpproxy` is not required for their use."
+    },
+    {
+      "question": "Which Alliance clusters have limited wandb availability and require `httpproxy` for eligible users?",
+      "answer": "Narval, Rorqual, and TamIA clusters have limited wandb availability and require `httpproxy` for users from MILA and other eligible groups."
+    },
+    {
+      "question": "Why is wandb completely unavailable on the Trillium cluster?",
+      "answer": "Wandb is unavailable on the Trillium cluster because internet access is disabled on its compute nodes."
+    },
+    {
+      "question": "How can members of the MILA Québec AI Institute use wandb on Alliance clusters?",
+      "answer": "Members of the MILA Québec AI Institute can use wandb on any clusters with internet access, provided they use a valid Mila-org Weights & Biases account to log in."
+    },
+    {
+      "question": "What should other groups do if they want to use wandb and bypass calls to the Google Cloud Storage API?",
+      "answer": "Other groups should contact their PI to determine if arrangements have been made with Weights & Biases to bypass calls to the Google Cloud Storage API."
+    },
+    {
+      "question": "What issue arises when using wandb in online mode on Narval, Rorqual, or TamIA clusters?",
+      "answer": "On Narval, Rorqual, and TamIA, the wandb package automatically attempts to upload environment information to a Google Cloud Storage bucket, which is not allowed on these clusters' compute nodes. This causes crashes or freezes during or at the end of training runs."
+    },
+    {
+      "question": "Does uploading artifacts with `wandb.save()` work on Narval, Rorqual, or TamIA?",
+      "answer": "No, uploading artifacts with `wandb.save()` on Narval, Rorqual, or TamIA also requires access to Google Cloud Storage and will cause your job to freeze or crash."
+    },
+    {
+      "question": "Is it possible to disable wandb's automatic upload behaviour to Google Cloud Storage on Narval, Rorqual, or TamIA?",
+      "answer": "No, it is not currently possible to disable this behaviour on Narval, Rorqual, or TamIA."
+    },
+    {
+      "question": "How can users still employ wandb on clusters like Narval, Rorqual, and TamIA despite limitations?",
+      "answer": "Users can still employ wandb on these clusters by enabling `offline` mode."
+    },
+    {
+      "question": "What happens in wandb's `offline` mode?",
+      "answer": "In `offline` mode, wandb writes all metrics, logs, and artifacts to the local disk and does not attempt to sync anything to the Weights & Biases service on the internet."
+    },
+    {
+      "question": "How do you sync wandb content to the online service after running a job in offline mode?",
+      "answer": "After your jobs finish running in offline mode, you can sync their wandb content to the online service by running the command `wandb sync` on the login node."
+    },
+    {
+      "question": "What command would you use to sync all offline wandb runs to the server?",
+      "answer": "You would use the command `wandb sync ./wandb/offline-run*` to sync all offline wandb runs to the server."
+    },
+    {
+      "question": "What is an alternative to Weights & Biases that functions on Narval, Rorqual, and TamIA?",
+      "answer": "Comet.ml is a product very similar to Weights & Biases that works on Narval, Rorqual, and TamIA."
+    },
+    {
+      "question": "What is the recommended number of CPUs for an SBATCH job running wandb?",
+      "answer": "At least two CPUs are recommended for an SBATCH job running wandb: one for the main process and one for the wandb process."
+    },
+    {
+      "question": "In the example `wandb-test.sh` script, how is wandb installed?",
+      "answer": "In the example script, wandb is installed by first creating a virtual environment with `virtualenv --no-download $SLURM_TMPDIR/env`, activating it with `source $SLURM_TMPDIR/env/bin/activate`, and then using `pip install --no-index wandb`."
+    },
+    {
+      "question": "How is offline mode explicitly enabled in the provided example `wandb-test.sh` script?",
+      "answer": "Offline mode is explicitly enabled by the line `wandb offline` in the example `wandb-test.sh` script."
+    },
+    {
+      "question": "What is the purpose of `wandb.init` in the `wandb-test.py` example?",
+      "answer": "`wandb.init(project=\"wandb-pytorch-test\", settings=wandb.Settings(start_method=\"fork\"))` is used to initialize a new wandb run, setting the project name to \"wandb-pytorch-test\" and configuring the start method."
+    },
+    {
+      "question": "How is a metric logged in the example `wandb-test.py` script?",
+      "answer": "A metric named 'my_metric' is logged using `wandb.log({'my_metric': my_metric})` within a loop in the example `wandb-test.py` script."
+    },
+    {
+      "question": "Where does wandb store data locally after a training run in offline mode?",
+      "answer": "After a training run in offline mode, wandb stores its data in a new folder located at `./wandb/offline-run*`."
+    }
+  ],
+  "generated_at": "2026-04-12T11:25:26.879854+00:00"
+}

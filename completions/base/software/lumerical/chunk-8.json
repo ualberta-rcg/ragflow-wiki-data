@@ -1,0 +1,40 @@
+{
+  "doc_key": "base/lumerical",
+  "level": "chunk",
+  "chunk_index": 8,
+  "qa_pairs": [
+    {
+      "question": "How is the total memory required for a simulation calculated within the `fdtd-process-template.sh` script?",
+      "answer": "The total memory required (TOTALMEM) is calculated by multiplying the estimated memory (ESTMEM) by the memory safety factor (MEMORY_SAFETY) and then dividing by 100. The formula is `ESTMEM * MEMORY_SAFETY / 100`."
+    },
+    {
+      "question": "What is the formula used to determine the memory required per process in `fdtd-process-template.sh`?",
+      "answer": "The memory required per process (PROCMEM) is initially calculated by dividing the total memory (TOTALMEM) by the number of processes (PROCS). The formula is `TOTALMEM / PROCS`."
+    },
+    {
+      "question": "What happens if the calculated memory required per process (PROCMEM) is less than the minimum memory (MEMORY_MIN)?",
+      "answer": "If the calculated PROCMEM is less than MEMORY_MIN, PROCMEM is then set to the value of MEMORY_MIN."
+    },
+    {
+      "question": "How does `fdtd-process-template.sh` obtain the number of grid points for a simulation?",
+      "answer": "The number of grid points (GRIDPTS) is extracted from a temporary file named `$1.tmp` by searching for the string 'gridpoints' and then parsing the value after an equals sign."
+    },
+    {
+      "question": "From where does the `fdtd-process-template.sh` script retrieve the total number of timesteps?",
+      "answer": "The total number of timesteps (TIMESTEPS) is obtained by grepping for 'time_steps' in the `$1.tmp` temporary file and extracting the value that follows an equals sign."
+    },
+    {
+      "question": "What is the formula for estimating the total simulation time in the `fdtd-process-template.sh` script?",
+      "answer": "The estimated time (TIME) is calculated using the formula `GRIDPTS * TIMESTEPS / PROCS / RATE / 10000000`."
+    },
+    {
+      "question": "Is there a minimum estimated time for a simulation in `fdtd-process-template.sh`, and if so, what happens if the calculated time is lower?",
+      "answer": "Yes, there is a minimum estimated time (TIME_MIN). If the calculated TIME is less than TIME_MIN, then TIME is set to the value of TIME_MIN."
+    },
+    {
+      "question": "How are the hours, minutes, and seconds components derived from the total estimated time in the `fdtd-process-template.sh` script?",
+      "answer": "The hours (HOUR) are calculated by dividing TIME by 3600. The remaining seconds (MINSEC) are found by subtracting `HOUR * 3600` from TIME. Minutes (MIN) are then calculated by dividing MINSEC by 60, and seconds (SEC) are the remainder of `MINSEC - MIN * 60`."
+    }
+  ],
+  "generated_at": "2026-04-12T01:06:16.668794+00:00"
+}

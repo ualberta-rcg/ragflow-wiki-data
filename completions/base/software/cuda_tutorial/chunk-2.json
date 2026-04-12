@@ -1,0 +1,96 @@
+{
+  "doc_key": "base/cuda_tutorial",
+  "level": "chunk",
+  "chunk_index": 2,
+  "qa_pairs": [
+    {
+      "question": "How does a streaming microprocessor (SM) typically execute threading blocks in CUDA?",
+      "answer": "A streaming microprocessor (SM) usually executes one threading block at a time."
+    },
+    {
+      "question": "What are 'warps' in the context of CUDA code execution?",
+      "answer": "Warps are groups of 32 threads in which CUDA code is executed."
+    },
+    {
+      "question": "What is the function of a hardware scheduler in CUDA's execution model?",
+      "answer": "A hardware scheduler is free to assign threading blocks to any streaming multiprocessor (SM) at any time."
+    },
+    {
+      "question": "Under what conditions might a hardware scheduler postpone or suspend the execution of a threading block?",
+      "answer": "The scheduler can postpone or suspend execution of blocks when data becomes unavailable, for example, when reading data from the global GPU memory, which is time-consuming."
+    },
+    {
+      "question": "What is 'zero-overhead scheduling' in CUDA?",
+      "answer": "Zero-overhead scheduling is when the scheduler executes another threading block that is ready for execution if a current block's execution is postponed or suspended due to data unavailability, making execution more streamlined and preventing SMs from being idle."
+    },
+    {
+      "question": "What are the different types of memories available for CUDA operations?",
+      "answer": "The types of memories available for CUDA operations include Global memory, Shared memory, Registers and Local Memory, and Constant memory."
+    },
+    {
+      "question": "Describe the characteristics of CUDA's Global memory.",
+      "answer": "Global memory in CUDA is off-chip, good for I/O, but relatively slow."
+    },
+    {
+      "question": "What are the key features of Shared memory in CUDA?",
+      "answer": "Shared memory in CUDA is on-chip, very fast, and good for thread collaboration."
+    },
+    {
+      "question": "What is the role and speed of Registers and Local Memory in CUDA?",
+      "answer": "Registers and Local Memory serve as a thread's work space and are very fast."
+    },
+    {
+      "question": "Which CUDA memory type is typically used for collaboration between threads?",
+      "answer": "Shared memory is used for thread collaboration."
+    },
+    {
+      "question": "What CUDA function is used to allocate an object in device memory?",
+      "answer": "The `cudaMalloc((void**)&array, size)` function is used to allocate an object in device memory, requiring the address of a pointer to the allocated array and its size."
+    },
+    {
+      "question": "How do you deallocate an object from device memory in CUDA?",
+      "answer": "An object is deallocated from device memory using the `cudaFree(array)` function, which requires a pointer to the array."
+    },
+    {
+      "question": "What is the purpose of the `cudaMemcpy` function?",
+      "answer": "The `cudaMemcpy` function is used to copy data from either device to host or host to device, or device to device."
+    },
+    {
+      "question": "What parameters are required by the `cudaMemcpy` function?",
+      "answer": "`cudaMemcpy` requires pointers to the destination and original arrays, the size of the data, and the direction type (e.g., cudaMemcpyHostToDevice, cudaMemcpyDeviceToHost, cudaMemcpyDeviceToDevice)."
+    },
+    {
+      "question": "How does `cudaMemcpyAsync` differ from `cudaMemcpy`?",
+      "answer": "`cudaMemcpyAsync` is similar to `cudaMemcpy` but transfers data asynchronously, meaning it does not block the execution of other processes."
+    },
+    {
+      "question": "In the provided CUDA C program example, how are input values `a` and `b` transferred to the device?",
+      "answer": "Input values `a` and `b` are transferred to the device using `cudaMemcpy (dev_a, &a, size, cudaMemcpyHostToDevice)` and `cudaMemcpy (dev_b, &b, size, cudaMemcpyHostToDevice)` respectively."
+    },
+    {
+      "question": "How is the `add` kernel initially launched on the GPU in the simple CUDA C program?",
+      "answer": "The `add` kernel is initially launched on the GPU using `add <<< 1, 1 >>> (dev_a, dev_b, dev_c)`."
+    },
+    {
+      "question": "How are the results transferred back from the device to the host in the simple CUDA C program example?",
+      "answer": "Results are transferred back from the device to the host using `cudaMemcpy (&c, dev_c, size, cudaMemcpyDeviceToHost)`."
+    },
+    {
+      "question": "How is parallelism introduced in the CUDA C example when using multiple blocks?",
+      "answer": "Parallelism is introduced by replacing `1` with `N` in the first triple bracket of the kernel call, e.g., `add <<< N, 1 >>> (dev_a, dev_b, dev_c)`, and modifying the kernel to use `blockIdx.x` for unique block identification."
+    },
+    {
+      "question": "What is the purpose of `blockIdx.x` in a parallelized CUDA kernel?",
+      "answer": "`blockIdx.x` is a unique number identifying a CUDA block, allowing each CUDA block to add a value from different indexed elements of arrays `a` and `b`."
+    },
+    {
+      "question": "How is parallelism achieved across multiple threads within a single block in a CUDA program?",
+      "answer": "Parallelism is achieved across multiple threads within a single block by changing the kernel launch configuration to `add <<< 1, N >>> (dev_a, dev_b, dev_c)`."
+    },
+    {
+      "question": "What is the main advantage of distributing a job across parallel threads within a block, as opposed to parallel blocks?",
+      "answer": "The main advantage of distributing a job across parallel threads within a block is that, unlike blocks, threads within a block can communicate with each other, which is beneficial when heavy communication is involved."
+    }
+  ],
+  "generated_at": "2026-04-11T19:17:51.507435+00:00"
+}

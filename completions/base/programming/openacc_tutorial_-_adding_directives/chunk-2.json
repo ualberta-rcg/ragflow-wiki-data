@@ -1,0 +1,48 @@
+{
+  "doc_key": "base/openacc_tutorial_-_adding_directives",
+  "level": "chunk",
+  "chunk_index": 2,
+  "qa_pairs": [
+    {
+      "question": "In the context of OpenACC, how does a standard loop's calculation differ from a kernel's calculation?",
+      "answer": "A standard loop calculates sequentially from index `i=0` to `i=N-1`, inclusive, while each compute core in a kernel calculates for one specific value of `i`."
+    },
+    {
+      "question": "What is the primary purpose of the `kernels` directive in OpenACC?",
+      "answer": "The `kernels` directive is a descriptive directive used to inform the compiler that the programmer believes a specific region of code can be made parallel."
+    },
+    {
+      "question": "What actions does a compiler typically perform when it encounters an OpenACC `kernels` directive?",
+      "answer": "Typically, the compiler will analyze the code to identify parallelism, determine which data needs to be transferred and when, create a kernel, and then offload that kernel to the GPU."
+    },
+    {
+      "question": "Does the `kernels` directive guarantee that the code will run in parallel?",
+      "answer": "No, since it is a descriptive directive, the compiler is free to decide the best strategy for running the code, which may include running it sequentially."
+    },
+    {
+      "question": "Provide an example of an OpenACC `kernels` directive in C++.",
+      "answer": "An example in C++ is `#pragma acc kernels { for (int i=0; i<N; i++) { C[i] = A[i] + B[i]; } }`."
+    },
+    {
+      "question": "If a compiler fails to parallelize regions of code marked with a `kernels` directive, what step should a programmer take?",
+      "answer": "The programmer should rely on compiler feedback to identify regions that failed to parallelize and then address those issues."
+    },
+    {
+      "question": "What is a major distinction between OpenMP and OpenACC directives?",
+      "answer": "OpenMP directives are prescriptive, meaning the compiler must perform the requested parallelization, whereas many OpenACC directives are descriptive, giving the compiler freedom to optimize as it sees fit for the target architecture."
+    },
+    {
+      "question": "What does it mean for OpenMP directives to be 'prescriptive'?",
+      "answer": "For OpenMP directives to be 'prescriptive' means the compiler is required to perform the requested parallelization, ensuring reproducible results across compilers and consistent parallelization regardless of the hardware, although this might not be optimal for all architectures."
+    },
+    {
+      "question": "What are the implications of OpenACC's directives being 'descriptive'?",
+      "answer": "The descriptive nature of many OpenACC directives means the compiler is free to choose the best compilation method for the target architecture, which may result in different binary code for the same source compiled for a GPU versus a CPU, and allows new generations of compilers to perform better with new hardware."
+    },
+    {
+      "question": "In the example of porting a matrix-vector product, what was the very first modification made to the C++ code to enable GPU execution?",
+      "answer": "The first change made was to add the `kernels` directive to the relevant section of the code."
+    }
+  ],
+  "generated_at": "2026-04-12T04:04:37.651522+00:00"
+}

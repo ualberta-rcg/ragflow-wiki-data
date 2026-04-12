@@ -1,0 +1,79 @@
+{
+  "doc_key": "base/handling_large_collections_of_files",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What common problem arises when managing very large collections of small files in domains like AI and Machine Learning on clusters?",
+      "answer": "Filesystem quotas on clusters limit the number of filesystem objects, and very large numbers of small files create significant performance problems for shared filesystems and automated backups."
+    },
+    {
+      "question": "What is one way to recursively count all files in folders within the current directory to identify areas for cleanup?",
+      "answer": "Users can use a `for` loop combined with `find . -maxdepth 1 -type d | tail -n +2` to iterate through folders and `find $FOLDER -type f | wc -l` to count files within each."
+    },
+    {
+      "question": "How can users find the top 10 directories using the most disk space from their current directory?",
+      "answer": "The command `du -sh * | sort -hr | head -10` will output the 10 directories using the most disk space."
+    },
+    {
+      "question": "What is the primary benefit of using local disks attached to compute nodes for storing datasets?",
+      "answer": "Local disks generally offer considerably better performance than project or scratch filesystems, being at least SATA SSD or better."
+    },
+    {
+      "question": "How can users access the local disk within a job script?",
+      "answer": "The local disk can be accessed using the environment variable `$SLURM_TMPDIR`."
+    },
+    {
+      "question": "What is a common workflow for using local disk space during a job for large datasets?",
+      "answer": "Users can archive their dataset as a single `tar` file in project space, copy it to `$SLURM_TMPDIR` at the job's start, extract and use it, then re-archive and copy back any changes at job's end."
+    },
+    {
+      "question": "What is the typical local disk size available on Béluga's CPU and GPU nodes?",
+      "answer": "Béluga CPU nodes offer roughly 370GB of local disk, while GPU nodes have a 1.6TB NVMe disk."
+    },
+    {
+      "question": "Does Niagara cluster have local storage on its compute nodes?",
+      "answer": "No, Niagara does not have local storage on its compute nodes."
+    },
+    {
+      "question": "How can the `/tmp` filesystem be used as a RAM disk on compute nodes?",
+      "answer": "The `/tmp` filesystem, implemented using `tmpfs`, can be used as a RAM disk on compute nodes."
+    },
+    {
+      "question": "What happens to the contents of `/tmp` at the end of a job?",
+      "answer": "The contents of `/tmp` are cleared at job end."
+    },
+    {
+      "question": "What is 'dar' in the context of archiving solutions?",
+      "answer": "Dar (Disk archive utility) is presented as a significant modernization of the traditional `tar` tool."
+    },
+    {
+      "question": "What is HDF5 and what kind of data can it store?",
+      "answer": "HDF5 is a high-performance binary file format capable of storing various data types, including extended objects like matrices and image data, with tools available in languages like Python."
+    },
+    {
+      "question": "How does SQLite help with managing many small files?",
+      "answer": "SQLite allows a relational database to reside entirely in a single file on disk, enabling storage of binary blobs (like image files) within a single file rather than as millions of individual files, accessible via SQL commands and APIs."
+    },
+    {
+      "question": "What are the potential limitations of SQLite for very large database files?",
+      "answer": "Performance of SQLite can degrade for very large database files (several gigabytes or more), potentially requiring the use of a traditional database server like MySQL or PostgreSQL."
+    },
+    {
+      "question": "How can users access the `sqlite3` executable on the systems?",
+      "answer": "The `sqlite3` executable is available via the `nixpkgs` module, which is loaded by default on the systems."
+    },
+    {
+      "question": "How can parallel compression be used when creating an archive with `tar`?",
+      "answer": "Users can use `pigz` instead of `gzip` with `tar` by specifying `--use-compress-program=\"pigz -p 4\"` to compress the archive using multiple cores."
+    },
+    {
+      "question": "How can a user extract only a specific part of an archive to the local disk?",
+      "answer": "A specific folder can be extracted from an archive to `$SLURM_TMPDIR` using `tar -zxf /path/to/archive.tar.gz dir/subdir --directory $SLURM_TMPDIR`."
+    },
+    {
+      "question": "What Git command is recommended to manage the growth of files in the hidden `.git` repository subdirectory and speed up Git operations?",
+      "answer": "Using `git repack` will pack many files together into fewer large database files, greatly speeding up Git's operations."
+    }
+  ],
+  "generated_at": "2026-04-11T23:40:22.500615+00:00"
+}

@@ -5,21 +5,59 @@ lang: "en"
 
 source_wiki_title: "CheckV/en"
 source_hash: "39b2cd263bb6584fe1acbbbf2ae88815"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T05:25:04.796095+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T06:15:23.591969+00:00"
 
 tags:
   - software
 
 keywords:
-  []
+  - "database download"
+  - "resource allocation"
+  - "salloc command"
+  - "job submission"
+  - "Python wheels"
+  - "Slurm"
+  - "interactive job"
+  - "python version"
+  - "virtual environment"
+  - "pip install"
+  - "multithreaded code"
+  - "software installation"
+  - "CheckV"
+  - "interactive session"
+  - "requirement file"
+  - "computing clusters"
+  - "wheel"
+  - "software development"
+  - "command line"
+
+questions:
+  - "What is the primary function of CheckV, and how does the text use it to demonstrate software management on the clusters?"
+  - "What commands should a user utilize to search for available general software modules and Python wheels on the clusters?"
+  - "What are the necessary steps to install a Python package like CheckV in a virtual environment if it is not already available?"
+  - "How can a user validate their CheckV installation and freeze the environment requirements?"
+  - "What are the different methods described for downloading, updating, or archiving the CheckV database?"
+  - "How should a user configure and launch an interactive Slurm session to test CheckV's multithreaded capabilities?"
+  - "For which versions of Python is it specifically noted as important to upgrade pip?"
+  - "What is the preferred method and command for installing a wheel and its dependencies?"
+  - "What limitation is encountered when installing a wheel from the web inside a virtual environment?"
+  - "How can you adjust the number of threads when running multithreaded code?"
+  - "What is the recommended initial salloc command line to use for CheckV?"
+  - "What is the primary purpose of using an interactive job instead of running a long-term script?"
+  - "What is the correct sequence of steps to load modules, activate the virtual environment, and execute a CheckV test run?"
+  - "How is a bash submission script configured and submitted to run CheckV on a compute node via Slurm?"
+  - "What methods can be used to monitor a completed job's CPU and memory efficiency to optimize future resource requests?"
+  - "What is the correct sequence of steps to load modules, activate the virtual environment, and execute a CheckV test run?"
+  - "How is a bash submission script configured and submitted to run CheckV on a compute node via Slurm?"
+  - "What methods can be used to monitor a completed job's CPU and memory efficiency to optimize future resource requests?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -27,12 +65,12 @@ CheckV is a fully automated command-line pipeline for assessing the quality of s
 [CheckV](https://bitbucket.org/berkeleylab/checkv/src/master/)
 [PyPI-CheckV](https://pypi.org/project/checkv/)
 
-Here is a demo explaining all the steps you should take when you want to use a software on the clusters. We will use CheckV as an example, but note that the point is for you to translate all these steps for the use of any other software.
+Here is a demo explaining all the steps you should take when you want to use software on the clusters. We will use CheckV as an example, but note that the point is for you to translate all these steps for the use of any other software.
 
 ## How to find if a software is available on the clusters?
 
 ### Modules
-You will find all information about available software here [Available software](available-software.md). In short, some of the softwares are available by loading the appropriate module.
+You will find all information about [available software](available-software.md) here. In short, some of the software is available by loading the appropriate module.
 
 To find the module you do:
 
@@ -40,10 +78,9 @@ To find the module you do:
 module spider nameOfYourSoftware
 ```
 
-!!! note
-    You can also do the search by putting the name in between double quotes `""` if you do not have the full name. Note that this search is not sensitive to the case so you should get the same output with uppercase and lowercase or a mix of them.
+You can also do the search by putting the name in between double quotes **""** if you do not have the full name. Note that this search is not sensitive to the case so you should get the same output with uppercase and lowercase or a mix of them.
 
-You also have the possibility to add the version number after the name to get more details about some modules you might need to load before and/or together with your software, we name them dependencies.
+You also have the possibility to add the version number after the name to get more details about some modules you might need to load before and/or together with your software; we name them dependencies.
 
 ```bash
 module spider nameOfYourSoftware/10.2
@@ -51,9 +88,9 @@ module spider nameOfYourSoftware/10.2
 
 ### Python packages
 
-In our example, we would not get any output for CheckV because it is a python wheel.
+In our example, we would not get any output for CheckV because it is a Python wheel.
 
-Python modules are provided as binary wheels [Available Python wheels](available-python-wheels.md).
+Python modules are provided as [available Python wheels](available-python-wheels.md).
 
 You can find them by typing:
 ```bash
@@ -64,16 +101,16 @@ You can apply the same search tricks as the module for double quotes and it is a
 
 ## What do I need to do if the software I want to use is not available?
 
-First steps would be to have a look at the documentation of the software. You can easily find the software development page that is often based on a github repository and follow the installation steps.
+First steps would be to have a look at the documentation of the software. You can easily find the software development page that is often based on a GitHub repository and follow the installation steps.
 
-!!! warning
-    Note that you **cannot** use Conda environment on the clusters [Anaconda](anaconda.md).
+!!! warning "Conda environments"
+    Note that you **cannot** use Conda environments on the clusters due to [Anaconda](anaconda.md) limitations.
 
-We have a wiki page that explains how you can install it locally in your account [Installing software in your home directory](installing-software-in-your-home-directory.md) or you can email the [Technical support](technical-support.md) to get some help to either install it in your account or in the clusters.
+We have a wiki page that explains how you can [installing software in your home directory](installing-software-in-your-home-directory.md) or you can email [Technical support](technical-support.md) to get some help to either install it in your account or on the clusters.
 
-For python wheels, you can search them on [PyPI](https://pypi.org/) website which is a collection of wheels made available for everyone. We will get in more details in the following section but you can install them in your virtual environment with this command: `pip install nameOfTheWheel`.
+For Python wheels, you can search them on the [PyPI](https://pypi.org/) website, which is a collection of wheels made available for everyone. We will get into more details in the following section, but you can install them in your virtual environment with this command: `pip install nameOfTheWheel`.
 
-You can also contact us to add your preferred wheel on the wheelhouse as this command is not installing the wheel from our wheelhouse but from the web. To install it from our wheelhouse you need to add `--no-index` parameter. `pip install nameOfTheWheel --no-index`
+You can also contact us to add your preferred wheel to the wheelhouse as this command is not installing the wheel from our wheelhouse but from the web. To install it from our wheelhouse, you need to add the `--no-index` parameter: `pip install nameOfTheWheel --no-index`.
 
 ## Installation
 
@@ -81,7 +118,7 @@ You can also contact us to add your preferred wheel on the wheelhouse as this co
 
 As mentioned in section [How to find if a software is available on the clusters?](#how-to-find-if-a-software-is-available-on-the-clusters), you can find the dependencies that are necessary to load before you load your software by looking at a specific version with `module spider nameOfYourSoftware/10.2`.
 
-There could also be other dependencies, you usually find them on the software development page. Note that you would need to go though section [How to find if a software is available on the clusters?](#how-to-find-if-a-software-is-available-on-the-clusters) for all dependencies to find if they are present on the clusters.
+There could also be other dependencies; you usually find them on the software development page. Note that you would need to go through section [How to find if a software is available on the clusters?](#how-to-find-if-a-software-is-available-on-the-clusters) for all dependencies to find if they are present on the clusters.
 
 ```bash
 module load gcc hmmer/3.3.2 prodigal-gv/2.6.3 diamond/2.0.4 python/3.10
@@ -96,8 +133,8 @@ source ~/CheckV_env/bin/activate
 
 **3. You should also upgrade `pip` in the environment.**
 
-!!! note
-    This step is important if you are using python version < then 3.10.2.
+!!! note "Pip Upgrade Importance"
+    This step is important if you are using Python version < 3.10.2.
 
 ```bash
 pip install --no-index --upgrade pip
@@ -105,21 +142,19 @@ pip install --no-index --upgrade pip
 
 **4. Install the wheel and its dependencies (if you have any).**
 
-4.1 A wheel from the wheelhouse (preferred choice):
-```bash
-pip install --no-index checkv
-```
-4.2 A wheel from the web.
-!!! warning
-    Note that if you install a wheel from the web inside your virtual environment you will not be able to use a requirement file. You would need to do option 4.3 as an alternative.
-```bash
-pip install checkv
-```
-4.3 If you want to use a wheel from the web and also use a requirement file, you would need to do the following command outside the virtual environment.
-```bash
-deactivate
-pip install checkv
-```
+*   4.1 A wheel from the wheelhouse (preferred choice):
+    ```bash
+    pip install --no-index checkv
+    ```
+*   4.2 A wheel from the web. Note that if you install a wheel from the web inside your virtual environment, you will not be able to use a requirement file. You would need to do option 4.3 as an alternative.
+    ```bash
+    pip install checkv
+    ```
+*   4.3 If you want to use a wheel from the web and also use a requirement file, you would need to do the following command outside the virtual environment.
+    ```bash
+    deactivate
+    pip install checkv
+    ```
 
 **5. Validate it.**
 
@@ -128,10 +163,7 @@ python -c 'import checkv'
 checkv --help
 ```
 
-Freeze the environment and requirements set. For requirements text file usage, have a look at the bash submission script described in point number {}.
-
-!!! note
-    Remember that you can use a requirement file only with installation option 4.1 and 4.3.
+Freeze the environment and requirements set. For requirements text file usage, have a look at the bash submission script described in point number {}. Remember that you can use a requirement file only with installation option 4.1 and 4.3.
 
 ```bash
 pip freeze > checkv-1.0.1-requirements.txt
@@ -141,8 +173,7 @@ pip freeze > checkv-1.0.1-requirements.txt
 
 **1. Download the database**
 
-!!! tip
-    You must pre-download the database before submitting your job. For intensive read/write operations on large files, scratch storage space is the best choice. This is why we usually recommend downloading databases in your scratch.
+You must pre-download the database before submitting your job. For intensive read/write operations on large files, scratch storage space is the best choice. This is why we usually recommend downloading databases to your scratch space.
 
 ```bash
 checkv download_database $SCRATCH/
@@ -154,7 +185,7 @@ Some users may wish to update the database using their own complete genomes:
 checkv update_database /path/to/checkv-db /path/to/updated-checkv-db genomes.fna
 ```
 
-Some users may wish to download a specific database version. See [here](https://portal.nersc.gov/CheckV/) for an archive of all previous database versions. If you go this route then you'll need to build the DIAMOND database manually:
+Some users may wish to download a specific database version. See [https://portal.nersc.gov/CheckV/](https://portal.nersc.gov/CheckV/) for an archive of all previous database versions. If you go this route, then you'll need to build the DIAMOND database manually:
 
 ```bash
 wget https://portal.nersc.gov/CheckV/checkv-db-archived-version.tar.gz
@@ -164,7 +195,7 @@ diamond makedb --in checkv_reps.faa --db checkv_reps
 ```
 
 **2. Download a sequence test**
-Some software will give access to a data set for you to test the software. You can look if anything is available on the web or the github repository. For CheckV, the data set is available [here](https://bitbucket.org/berkeleylab/checkv/src/master/test/). You can download it with this command:
+Some software will give access to a dataset for you to test the software. You can look if anything is available on the web or the GitHub repository. For CheckV, the dataset is available here [https://bitbucket.org/berkeleylab/checkv/src/master/test/](https://bitbucket.org/berkeleylab/checkv/src/master/test/). You can download it with this command:
 
 ```bash
 wget https://bitbucket.org/berkeleylab/checkv/raw/3f185b5841e8c109848cd0b001df7117fe795c50/test/test_sequences.fna
@@ -178,14 +209,14 @@ wget https://bitbucket.org/berkeleylab/checkv/raw/3f185b5841e8c109848cd0b001df71
 
 First step for running your job: use an interactive session.
 
-Still need to demystify #SBATCH parameter?
-If you need to refresh your SBATCH parameter knowledge we recommend having a look at the [Slurm SBATCH command page](https://slurm.schedmd.com/sbatch.html) and the [Running jobs](running-jobs.md) wiki page.
+Still need to demystify #SBATCH parameters?
+If you need to refresh your SBATCH parameter knowledge, we recommend having a look at the [Slurm SBATCH command page](https://slurm.schedmd.com/sbatch.html) and the [running jobs](running-jobs.md) wiki page.
 
-To learn more about interactive job you can have a look at the wiki page [Running jobs - Interactive job section](running-jobs.md#interactive-job).
+To learn more about interactive jobs, you can have a look at the wiki page [running jobs#interactive-job](running-jobs.md#interactive-job).
 
 **1. Gather information on the command line and the software.**
 
-The first thing you need to do is to analyse the proposed command line and look in the help menu if there is any information about threading or parameters to help you set up an HPC (High performance computing) usage.
+The first thing you need to do is to analyse the proposed command line and look in the help menu if there is any information about threading or parameters to help you set up an HPC (High-Performance Computing) usage.
 
 In our case, here is the command line proposed for a full pipeline analysis:
 
@@ -193,30 +224,32 @@ In our case, here is the command line proposed for a full pipeline analysis:
 checkv end_to_end input_file.fna output_directory -t 16
 ```
 
-In this case, you should be intrigued in finding what the `-t` parameter is doing. To have access to the help menu for end_to_end program:
+In this case, you should be intrigued in finding what the `-t` parameter is doing. To have access to the help menu for the `end_to_end` program:
 
 ```bash
 checkv end_to_end --help
 ```
+
+Output:
 ```text
 Run full pipeline to estimate completeness, contamination, and identify closed genomes
 
 usage: checkv end_to_end <input> <output> [options]
 
 positional arguments:
-input            Input nucleotide sequences in FASTA format (.gz, .bz2 and .xz files are supported)
-output           Output directory
+input	Input nucleotide sequences in FASTA format (.gz, .bz2 and .xz files are supported)
+output	Output directory
 
 Options:
--h, --help       show this help message and exit
--d PATH          Reference database path. By default the CHECKVDB environment variable is used
---remove_tmp     Delete intermediate files from the output directory
--t INT           Number of threads to use for Prodigal and DIAMOND
---restart        Overwrite existing intermediate files. By default CheckV continues where program left off
---quiet          Suppress logging messages
+-h, --help	    show this help message and exit
+-d PATH	        Reference database path. By default the CHECKVDB environment variable is used
+--remove_tmp	Delete intermediate files from the output directory
+-t INT		    Number of threads to use for Prodigal and DIAMOND
+--restart 	    Overwrite existing intermediate files. By default CheckV continues where program left off
+--quiet		    Suppress logging messages
 ```
 
-First thing to look at is the usage. This tells us in which order we need to provide the arguments. Also, we have the details about parameter `-t` that tells us that CheckV is using Prodigal and DIAMOND that are programs written with multithreaded code so we can modify this parameter to adjust the number of threads.
+First thing to look at is the usage. This tells us in which order we need to provide the arguments. Also, we have the details about parameter `-t` that tells us that CheckV is using Prodigal and DIAMOND, which are programs written with multithreaded code so we can modify this parameter to adjust the number of threads.
 
 **2. Launch the salloc command.**
 
@@ -226,21 +259,15 @@ For CheckV, here is the command line you should ask as a first trial:
 salloc --time=1:0:0 --mem=2G --cpus-per-task=16 --account=def-someuser
 ```
 
-2.1 Time
-!!! note
+*   2.1 Time
     First of all, the use of an interactive job is not to run a script for 24h. It is to explore a command line or an environment tool for software development in terms of debugging or compiling. So if you wish to work for 1h or 2h this would be your number.
-
-2.2 Memory
-!!! tip
+*   2.2 Memory
     The objective is to start low and increase if needed. Here you can start with 2G.
-
-2.3 CPU
-!!! tip
+*   2.3 CPU
     Same as the memory, here is to go from lower to higher. As suggested in the proposed command line in the CheckV software, we can ask for 16 tasks.
     Load the appropriate modules
 
-!!! note
-    Note that it is important to do this step before activating your virtual environment.
+Note that it is important to do this step before activating your virtual environment.
 
 **3. Load the necessary modules.**
 
@@ -256,20 +283,13 @@ source ~/CheckV_env/bin/activate
 
 **5. Execute your command**
 
-Here we are using the data set downloaded in section [Download a sequence test](#download-a-sequence-test).
-
-!!! tip
-    As mentioned before, it is a good habit to look into the git repository if any data tests are available and use it in your first attempts to run your software.
-
+Here we are using the dataset downloaded in section [Download a sequence test](#download-a-sequence-test). As mentioned before, it is a good habit to look into the Git repository if any data tests are available and use it in your first attempts to run your software.
 ```bash
 checkv end_to_end test_sequences.fna $SCRATCH/checkv_output -t ${SLURM_CPUS_PER_TASK:-1} -d $SCRATCH/checkv-db-v1.5
 ```
 
 **6. Gather information about the run.**
-The `checkv end_to_end` command line had 4 different analysis outputs. The execution time was less than a minute for all sections together with a peak of memory just under 2GB.
-
-!!! note
-    This is important information because we are going to use those time and memory parameters in the bash submission script to launch the command line on the compute nodes.
+The `checkv end_to_end` command line had 4 different analysis outputs. The execution time was less than a minute for all sections together with a peak of memory just under 2GB. This is important information because we are going to use those time and memory parameters in the bash submission script to launch the command line on the compute nodes.
 
 #### Compute node job submission
 
@@ -304,19 +324,16 @@ checkv end_to_end test_sequences.fna $SCRATCH/checkv_output -t ${SLURM_CPUS_PER_
 
 ### Useful commands to adjust resources.
 
-To have the whole picture about commands involved in job monitoring please have a look at this wiki page: [Monitoring jobs](running-jobs.md#monitoring-jobs).
+To have the whole picture about commands involved in job monitoring, please have a look at this wiki page: [Monitoring jobs](running-jobs.md#monitoring-jobs).
 
 **1. Seff command.**
 
-The seff command is a post run command. It uses the slurm job number as parameter, `seff 42760046`. You will be able to see the time, the CPU efficiency and the memory efficiency.
-
-!!! tip
-    Depending on the percentage noted in the output you will be able to adjust future runs so you are not going to waste any resources.
+The `seff` command is a post-run command. It uses the Slurm job number as a parameter, `seff 42760046`. You will be able to see the time, the CPU efficiency, and the memory efficiency. Depending on the percentage noted in the output, you will be able to adjust future runs so you are not going to waste any resources.
 
 **2. Slurm output file.**
-Have a look at the slurm output file `slurm-[job_number].out`.
+Have a look at the Slurm output file `slurm-[job_number].out`.
 
-The slurm output file can give you useful information about the run.
+The Slurm output file can give you useful information about the run.
 
 ```bash
 less slurm-[job_number].out

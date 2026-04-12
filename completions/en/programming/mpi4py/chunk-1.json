@@ -1,0 +1,100 @@
+{
+  "doc_key": "en/mpi4py",
+  "level": "chunk",
+  "chunk_index": 1,
+  "qa_pairs": [
+    {
+      "question": "What is MPI for Python (mpi4py)?",
+      "answer": "MPI for Python (mpi4py) provides Python bindings for the Message Passing Interface (MPI) standard."
+    },
+    {
+      "question": "What does mpi4py allow Python applications to do?",
+      "answer": "It allows Python applications to exploit multiple processors on workstations, clusters, and supercomputers."
+    },
+    {
+      "question": "How is mpi4py typically made available?",
+      "answer": "mpi4py is available as a module and not from the wheelhouse as typical Python packages are."
+    },
+    {
+      "question": "How can I find available versions of mpi4py?",
+      "answer": "You can find available versions using the command: `module spider mpi4py`."
+    },
+    {
+      "question": "How can I get more information on a specific mpi4py version?",
+      "answer": "You can look for more information on a specific version with the command: `module spider mpi4py/X.Y.Z`, where `X.Y.Z` is the exact desired version, for example, `4.0.0`."
+    },
+    {
+      "question": "What are the initial steps to run a 'Hello World' test with mpi4py?",
+      "answer": "First, run a short interactive job using `salloc --account=<your account> --ntasks=5`. Then, load the necessary modules, such as `module load mpi4py/4.0.0 python/3.12`."
+    },
+    {
+      "question": "What command is used to run a 'Hello World' test with mpi4py?",
+      "answer": "The command to run a 'Hello World' test is `srun python -m mpi4py.bench helloworld`."
+    },
+    {
+      "question": "What is an example output from the mpi4py 'Hello World' test?",
+      "answer": "An example output is:\n`Hello, World! I am process 0 of 5 on node1.\nHello, World! I am process 1 of 5 on node1.\nHello, World! I am process 2 of 5 on node3.\nHello, World! I am process 3 of 5 on node3.\nHello, World! I am process 4 of 5 on node3.`"
+    },
+    {
+      "question": "How were jobs distributed in the 'Hello World' example provided?",
+      "answer": "In the example, two nodes (node1 and node3) were allocated, and the jobs were distributed across the available resources."
+    },
+    {
+      "question": "What should be done if mpi4py is a dependency of another package and a virtual environment is active?",
+      "answer": "You should deactivate any Python virtual environment first using `test $VIRTUAL_ENV && deactivate`, then load the `mpi4py` module, and finally reactivate your virtual environment."
+    },
+    {
+      "question": "Which modules should be loaded when mpi4py is a package dependency?",
+      "answer": "The modules `mpi4py/4.0.0` and `python/3.12` should be loaded."
+    },
+    {
+      "question": "How can you check if mpi4py is visible to pip?",
+      "answer": "You can check by running the command: `pip list | grep mpi4py`. The expected result would show `mpi4py            4.0.0`."
+    },
+    {
+      "question": "How do you verify if mpi4py is accessible for your currently loaded Python module?",
+      "answer": "You can verify by running the command: `python -c 'import mpi4py'`. If no errors are raised, it means everything is OK."
+    },
+    {
+      "question": "What is the final step after confirming mpi4py's visibility and accessibility when it's a package dependency?",
+      "answer": "The final step is to create a virtual environment and install your packages."
+    },
+    {
+      "question": "What is the first step when running mpi4py jobs on CPU?",
+      "answer": "The first step is to write your Python code, such as the example provided for broadcasting a numpy array in `mpi4py-np-bc.py`."
+    },
+    {
+      "question": "What does the `mpi4py-np-bc.py` example script demonstrate?",
+      "answer": "The `mpi4py-np-bc.py` script demonstrates broadcasting a numpy array using `mpi4py`'s `Bcast` function, where rank 0 broadcasts data to all other processes."
+    },
+    {
+      "question": "Where can the `mpi4py-np-bc.py` example for CPU jobs be found?",
+      "answer": "The example is based on the mpi4py tutorial, which can be found at `https://mpi4py.readthedocs.io/en/stable/tutorial.html#running-python-scripts-with-mpi`."
+    },
+    {
+      "question": "What is the second step for running mpi4py jobs on CPU?",
+      "answer": "The second step is to write your submission script, for instance, `submit-mpi4py-distributed.sh` for distributed execution."
+    },
+    {
+      "question": "What `SBATCH` parameters are set in the `submit-mpi4py-distributed.sh` submission script for CPU jobs?",
+      "answer": "The `SBATCH` parameters include `--account=def-someprof`, `--time=08:00:00`, `--ntasks=4`, and `--mem-per-cpu=4G`."
+    },
+    {
+      "question": "Which modules are loaded in the `submit-mpi4py-distributed.sh` script?",
+      "answer": "The script loads `StdEnv/2023`, `gcc`, `mpi4py/4.0.0`, and `python/3.12`."
+    },
+    {
+      "question": "How is a virtual environment created and activated on each allocated node within the `submit-mpi4py-distributed.sh` script?",
+      "answer": "A virtual environment is created on each allocated node using `srun --ntasks $SLURM_NNODES --tasks-per-node=1 bash << EOF ... virtualenv --no-download $SLURM_TMPDIR/env ... EOF` and activated only on the main node with `source $SLURM_TMPDIR/env/bin/activate;`."
+    },
+    {
+      "question": "How is NumPy installed in the virtual environment within the `submit-mpi4py-distributed.sh` script?",
+      "answer": "NumPy is installed using `pip install --no-index numpy==2.1.1` after upgrading pip with `pip install --no-index --upgrade pip`."
+    },
+    {
+      "question": "How is the Python script `mpi4py-np-bc.py` executed within the `submit-mpi4py-distributed.sh` submission script?",
+      "answer": "The Python script is executed using `srun python mpi4py-np-bc.py;`."
+    }
+  ],
+  "generated_at": "2026-04-12T02:01:26.493728+00:00"
+}

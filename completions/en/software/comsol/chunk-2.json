@@ -1,0 +1,32 @@
+{
+  "doc_key": "en/comsol",
+  "level": "chunk",
+  "chunk_index": 2,
+  "qa_pairs": [
+    {
+      "question": "How can I determine the number of COMSOL licenses checked out by my running jobs?",
+      "answer": "You can determine the number of licenses checked out by your COMSOL jobs by querying the license server. Although the `lmstat` command is not installed with COMSOL by default, a workaround using `lmutil` from the latest installed ansys module can be run on any cluster login node."
+    },
+    {
+      "question": "Is the `lmstat` command included with COMSOL by default?",
+      "answer": "No, the `lmstat` command is not installed with COMSOL by default."
+    },
+    {
+      "question": "Where should the COMSOL license checking workaround command be executed?",
+      "answer": "The COMSOL license checking workaround command, which uses `lmutil` from the ansys module, should be run on any cluster login node."
+    },
+    {
+      "question": "What file defines the license server for the COMSOL license usage check?",
+      "answer": "The standard `~/.licenses/comsol.lic` file is used to define which license server you are querying for the COMSOL license usage check."
+    },
+    {
+      "question": "Why might the COMSOL license usage check take a minute to return results?",
+      "answer": "The COMSOL license usage check command may take a minute to return results if the license server is busy."
+    },
+    {
+      "question": "What is the specific command to check COMSOL license usage on a cluster login node using the ansys module workaround?",
+      "answer": "The command to check COMSOL license usage on a cluster login node using the ansys module workaround is: `module load ansys; $EBROOTANSYS/v$(echo ${EBVERSIONANSYS:2:2}${EBVERSIONANSYS:5:1})/licensingclient/linx64/lmutil lmstat -c ~/.licenses/comsol.lic -a | sed '/^$/d' | egrep 'License|UP|$USER|Total of' | grep -v 'Total of 0'`"
+    }
+  ],
+  "generated_at": "2026-04-11T19:03:25.504730+00:00"
+}

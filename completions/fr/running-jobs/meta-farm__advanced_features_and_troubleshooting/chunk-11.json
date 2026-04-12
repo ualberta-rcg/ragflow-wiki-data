@@ -1,0 +1,32 @@
+{
+  "doc_key": "fr/meta-farm__advanced_features_and_troubleshooting",
+  "level": "chunk",
+  "chunk_index": 11,
+  "qa_pairs": [
+    {
+      "question": "Que veut dire le message d'erreur \"Too many failed (very short) cases - exiting\" et comment y remédier?",
+      "answer": "Ce message apparaît quand les premiers `$N_failed_max` cas ont échoué trop rapidement, c'est-à-dire en moins de `$dt_failed` secondes. Pour corriger ça, il faut identifier la cause des échecs et la régler, ou alors ajuster les valeurs des paramètres `$N_failed_max` et `$dt_failed` dans le fichier `config.h`."
+    },
+    {
+      "question": "J'ai le message d'erreur \"lockfile is not on path on node XXX\". Qu'est-ce que ça signifie et comment résoudre le problème?",
+      "answer": "Ce message indique que l'utilitaire `lockfile` ne se trouve pas dans votre variable `$PATH` sur le nœud de calcul spécifié (XXX). Vous devriez vérifier sa présence avec la commande `which lockfile` sur le nœud de connexion. Si le chemin est correct là, il est possible qu'il y ait eu un problème avec le système de fichiers sur le nœud de calcul en question, comme un montage qui a échoué."
+    },
+    {
+      "question": "Est-ce que le message \"Exiting after processing one case (-1 option)\" indique une erreur?",
+      "answer": "Non, ce n'est pas un message d'erreur. Il signifie simplement que vous avez soumis le 'farm' avec l'option `submit.run -1`, ce qui fait que chaque méta-tâche quitte après avoir traité un seul cas."
+    },
+    {
+      "question": "Pourquoi ma méta-tâche affiche-t-elle \"Not enough runtime left; exiting.\"?",
+      "answer": "Ce message indique que la méta-tâche a estimé qu'elle n'aurait probablement pas assez de temps pour compléter le prochain cas, basé sur l'analyse des durées des cas traités jusqu'à présent. Elle s'arrête donc plus tôt pour éviter des arrêts brusques pendant le traitement d'un cas."
+    },
+    {
+      "question": "Quand voit-on le message \"No cases left; exiting.\"?",
+      "answer": "Ce n'est pas un message d'erreur. C'est la façon normale dont chaque méta-tâche termine son exécution lorsque tous les cas qui lui étaient assignés ont été calculés."
+    },
+    {
+      "question": "J'ai le message \"Only failed cases left; cannot auto-resubmit; exiting\". Que dois-je faire?",
+      "answer": "Ce message peut apparaître seulement si vous avez utilisé l'option `-auto` lors de la soumission du 'farm'. Il signifie qu'il ne reste que des cas qui ont échoué et que la soumission automatique s'arrête pour éviter de boucler à l'infini sur des cas problématiques. Vous devez trouver les cas en échec avec `Status.run -f`, corriger ce qui cause ces échecs, puis relancer `resubmit.run`."
+    }
+  ],
+  "generated_at": "2026-04-12T01:34:43.279020+00:00"
+}

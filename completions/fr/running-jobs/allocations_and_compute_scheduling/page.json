@@ -1,0 +1,59 @@
+{
+  "doc_key": "fr/allocations_and_compute_scheduling",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "C'est quoi une allocation pour le calcul haute performance?",
+      "answer": "Une allocation, c'est l'attribution d'une quantité de ressources, comme du stockage ou des cœurs de calcul, à un groupe de recherche pour une période donnée, habituellement un an."
+    },
+    {
+      "question": "Comment l'ordonnanceur de tâches calcule-t-il la priorité des tâches sur les ressources de calcul partagées?",
+      "answer": "L'ordonnanceur utilise des algorithmes spécialisés pour comparer la consommation récente d'un groupe à l'utilisation qui lui était allouée, en se basant sur les cibles et le facteur le plus déterminant étant la consommation (ou non-consommation) récente."
+    },
+    {
+      "question": "Qu'arrive-t-il si mon groupe dépasse son allocation cible de cœurs ou de GPU?",
+      "answer": "Si la demande en ressources est basse, l'ordonnanceur pourrait quand même exécuter vos tâches. Les tâches futures pourraient se voir attribuer une priorité plus basse, mais aucune tâche n'est refusée pour surutilisation, et votre utilisation moyenne devrait se rapprocher de la cible."
+    },
+    {
+      "question": "Qu'est-ce que l'Unité GPU de Référence (UGR) et pourquoi a-t-elle été introduite?",
+      "answer": "L'UGR est une unité de mesure créée en 2024 pour classer et comparer la performance de tous les modèles de GPU en production, afin de régler les problèmes d'attribution et d'exécution des tâches qui survenaient lorsque tous les GPU étaient considérés comme équivalents."
+    },
+    {
+      "question": "Quels sont les critères utilisés pour classer les modèles de GPU et calculer leur valeur UGR?",
+      "answer": "Les critères d'évaluation avec leurs poids correspondants sont le score FP32 (40%), le score FP16 (40%) et le score mémoire GPU (20%). Le GPU A100-40gb est le modèle de référence avec une valeur UGR de 4."
+    },
+    {
+      "question": "Comment les allocations de GPU sont-elles gérées dans le cadre d'un concours d'attribution de ressources?",
+      "answer": "Toute demande de GPU doit spécifier le modèle préféré. La quantité d'UGR est automatiquement calculée à partir des GPU-année demandés, et le comité d’allocation attribue des UGR, en conservant cette quantité même si l'allocation est déplacée vers une autre grappe."
+    },
+    {
+      "question": "Quel est le principe fondamental derrière la détermination de la priorité des tâches de calcul?",
+      "answer": "Le principe est basé sur les ressources qu'une tâche rend non disponibles aux autres utilisateurs, plutôt que sur les ressources effectivement utilisées par la tâche."
+    },
+    {
+      "question": "Qu'est-ce qu'un « équivalent-cœur » ou « bundle » et comment est-il utilisé par l'ordonnanceur?",
+      "answer": "Un équivalent-cœur est une unité composée d'un cœur simple et d'une certaine quantité de mémoire (généralement 4Go par cœur). L'ordonnanceur comptabilise l'utilisation en se basant sur le plus grand des ratios entre les cœurs demandés et la mémoire demandée par rapport au bundle standard."
+    },
+    {
+      "question": "Comment l'utilisation des GPU est-elle comptabilisée par l'ordonnanceur avec les « équivalents-UGR »?",
+      "answer": "L'utilisation des GPU suit des principes similaires, où un équivalent-UGR est un bundle incluant une UGR, des cœurs et de la mémoire. L'ordonnanceur évalue la demande en fonction du nombre maximum de bundles UGR-cœurs-mémoire requis pour la tâche."
+    },
+    {
+      "question": "Où peut-on consulter l'utilisation des ressources de calcul pour nos projets?",
+      "answer": "On peut visionner l'utilisation des ressources soit via le portail Slurm (portal.alliancecan.ca/slurm) pour des données détaillées, soit via la base de données CCDB en sélectionnant 'Mon compte --> Utilisation par le groupe'."
+    },
+    {
+      "question": "Quelles informations trouve-t-on dans le portail Slurm pour le suivi de l'utilisation des ressources?",
+      "answer": "Le portail montre l'utilisation des jours CPU (ou équivalents-CPU/UGR/équivalents-UGR) par projet et par grappe. On peut filtrer par compte Slurm, système, période, afficher les parts brutes Slurm, l'allocation CCDB, les ressources en attente, et des projections."
+    },
+    {
+      "question": "Qu'est-ce que représentent les « SLURM Raw Shares » et « SLURM Raw Usage » dans le portail Slurm?",
+      "answer": "Les \"SLURM Raw Shares\" (parts brutes Slurm) représentent l'allocation cible du compte sur la grappe. L'\"SLURM Raw Usage\" (utilisation brute Slurm) est la somme cumulée de l'utilisation du compte avec une période de décroissance, utilisée par l'ordonnanceur pour déterminer la priorité."
+    },
+    {
+      "question": "Quelles vues sont offertes pour le suivi de l'utilisation des ressources dans CCDB?",
+      "answer": "CCDB offre des vues 'Par ressource de calcul' (par grappe), 'Par projet (RAPI)', 'Par utilisateur' et 'Utilisation du stockage'. Les détails d'utilisation des GPU sont aussi donnés en GPU-années et UGR-années."
+    }
+  ],
+  "generated_at": "2026-04-11T16:27:02.446627+00:00"
+}

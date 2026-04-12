@@ -1,0 +1,80 @@
+{
+  "doc_key": "fr/advanced_mpi_scheduling",
+  "level": "chunk",
+  "chunk_index": 1,
+  "qa_pairs": [
+    {
+      "question": "Comment est-ce qu'on soumet des tâches MPI parallèles à mémoire distribuée la plupart du temps?",
+      "answer": "La plupart du temps, on devrait soumettre les tâches MPI parallèles à mémoire distribuée en suivant l'exemple de la section \"Tâche MPI\" de la page \"Exécuter des tâches\", en utilisant `--ntasks` ou `-n` pour spécifier le nombre de processus et en laissant l'ordonnanceur gérer l'allocation pour une meilleure efficacité de la grappe."
+    },
+    {
+      "question": "Où est-ce qu'on peut trouver plus de contrôle sur l'allocation des tâches?",
+      "answer": "Pour plus de contrôle sur l'allocation, on peut consulter la page \"Support for Multi-core/Multi-thread Architectures\" de SchedMD, qui décrit comment les options de la commande `sbatch` agissent sur l'ordonnancement des processus."
+    },
+    {
+      "question": "Quelle ressource Slurm pourrait être utile pour comprendre ce qu'est un CPU?",
+      "answer": "La réponse à la question \"What exactly is considered a CPU?\" dans la foire aux questions de Slurm peut s'avérer utile."
+    },
+    {
+      "question": "Quelle est la manière la plus simple d'indiquer le nombre de processus MPI que Slurm doit démarrer?",
+      "answer": "La manière la plus simple d'indiquer le nombre de processus MPI est d'utiliser l'option `--ntasks`."
+    },
+    {
+      "question": "Pourquoi est-ce qu'il est important de spécifier la quantité de mémoire pour une tâche Slurm?",
+      "answer": "Il est important de spécifier la quantité de mémoire parce que l'allocation par défaut de 256 Mo est souvent insuffisante."
+    },
+    {
+      "question": "Quand `--ntasks` est utilisé et qu'on ne sait pas combien de cœurs il y aura sur chaque nœud, quelle option de mémoire devrait-on utiliser?",
+      "answer": "Dans ce cas, on devrait utiliser l'option `--mem-per-cpu`."
+    },
+    {
+      "question": "Dans l'exemple de script `basic_mpi_job.sh` avec `--ntasks=15` et `--mem-per-cpu=3G`, combien de processus MPI sont demandés et comment l'allocation des cœurs peut-elle se faire?",
+      "answer": "Dans cet exemple, 15 processus MPI sont demandés. L'allocation des cœurs pourrait se faire sur 1 nœud, sur 15 nœuds, ou sur n'importe quel nombre de nœuds entre 1 et 15."
+    },
+    {
+      "question": "Pour quel type de tâche devrait-on envisager de demander des nœuds entiers?",
+      "answer": "On devrait envisager de demander des nœuds entiers pour une tâche parallèle intensive qui peut utiliser efficacement 64 cœurs ou plus."
+    },
+    {
+      "question": "Combien de cœurs et de mémoire utilisable y a-t-il sur les nœuds de la grappe Fir?",
+      "answer": "Les nœuds de la grappe Fir ont 192 cœurs et 750 Gio de mémoire utilisable."
+    },
+    {
+      "question": "Combien de cœurs et de mémoire utilisable y a-t-il sur les nœuds de la grappe Narval?",
+      "answer": "Les nœuds de la grappe Narval ont 64 cœurs et 249 Gio de mémoire utilisable."
+    },
+    {
+      "question": "Combien de cœurs et de mémoire utilisable y a-t-il sur les nœuds de la grappe Nibi?",
+      "answer": "Les nœuds de la grappe Nibi ont 192 cœurs et 748 Gio de mémoire utilisable."
+    },
+    {
+      "question": "Combien de cœurs et de mémoire utilisable y a-t-il sur les nœuds de la grappe Rorqual?",
+      "answer": "Les nœuds de la grappe Rorqual ont 192 cœurs et 750 Gio de mémoire utilisable."
+    },
+    {
+      "question": "Combien de cœurs et de mémoire utilisable y a-t-il sur les nœuds de la grappe Trillium?",
+      "answer": "Les nœuds de la grappe Trillium ont 192 cœurs et 749 Gio de mémoire utilisable."
+    },
+    {
+      "question": "Quelle est la particularité des nœuds de la grappe Trillium en ce qui concerne les tâches?",
+      "answer": "La grappe Trillium permet uniquement des tâches sur nœud entier."
+    },
+    {
+      "question": "Qu'est-ce que ça veut dire quand un nœud est \"réservé pour les tâches sur nœud entier\"?",
+      "answer": "Ça signifie que les tâches par cœur sont interdites sur ces nœuds spécifiques."
+    },
+    {
+      "question": "Dans les scripts d'exemple pour les nœuds entiers (ex. pour Fir, Narval, Nibi), que signifie l'option `--mem=0`?",
+      "answer": "L'option `--mem=0` indique à Slurm de réserver toute la mémoire disponible de chacun des nœuds assignés à la tâche."
+    },
+    {
+      "question": "Quand ne devrait-on PAS utiliser l'option `--mem=0`?",
+      "answer": "On ne devrait PAS utiliser l'option `--mem=0` si on a besoin de plus de mémoire par nœud que ce que le plus petit nœud peut offrir (par exemple, plus de 748 Gio sur Nibi), ou si une quantité explicite de mémoire est préférée."
+    },
+    {
+      "question": "Pourquoi est-ce que la mémoire utilisable est différente de la mémoire totale d'un nœud?",
+      "answer": "Une partie de la mémoire de chaque nœud est réservée au système d'exploitation, ce qui rend la mémoire utilisable par une tâche plus petite que la mémoire totale."
+    }
+  ],
+  "generated_at": "2026-04-11T16:13:37.532527+00:00"
+}

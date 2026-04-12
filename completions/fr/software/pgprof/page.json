@@ -1,0 +1,83 @@
+{
+  "doc_key": "fr/pgprof",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "C'est quoi PGPROF, pis à quoi ça sert?",
+      "answer": "PGPROF est un outil simple mais puissant pour analyser des programmes parallèles écrits avec OpenMP, MPI, OpenACC ou CUDA."
+    },
+    {
+      "question": "Comment on peut utiliser PGPROF?",
+      "answer": "On peut l'utiliser en mode ligne de commande ou en mode graphique."
+    },
+    {
+      "question": "C'est quoi les deux grandes étapes pour travailler avec PGPROF?",
+      "answer": "Les deux étapes, peu importe le mode, c'est de collecter les données en roulant l'application avec le profilage activé, pis ensuite d'analyser ces données-là."
+    },
+    {
+      "question": "Comment on fait pour charger le module d'environnement de PGPROF?",
+      "answer": "Faut lancer la commande `module load pgi/version`, par exemple `module load pgi/17.3`."
+    },
+    {
+      "question": "Comment je peux voir les modules PGI disponibles?",
+      "answer": "Pour la liste des modules PGI disponibles, faut lancer la commande `module -r spider '.*pgi.*'`."
+    },
+    {
+      "question": "C'est quoi la condition de compilation pour que PGPROF nous donne des infos utiles?",
+      "answer": "Faut d'abord compiler le code avec un des compilateurs PGI, soit `pgcc` pour C, `pgc++` pour C++ ou `pgfortran` pour Fortran."
+    },
+    {
+      "question": "Y'a-t-il un indicateur de compilation spécial pour le code source Fortran?",
+      "answer": "Oui, du code source Fortran pourrait avoir besoin d'être compilé avec l'indicateur `-g`."
+    },
+    {
+      "question": "Comment on ramasse les données de performance en mode ligne de commande?",
+      "answer": "On exécute l'application avec `pgprof -o a.prof ./a.out`, où `a.prof` est le fichier pour sauvegarder les données."
+    },
+    {
+      "question": "Comment on analyse les données qu'on a ramassées en mode ligne de commande?",
+      "answer": "Pour l'étape de visualisation, on utilise la commande `pgprof -i a.prof`."
+    },
+    {
+      "question": "Quels genres de résultats sont généralement présentés lors de l'analyse en ligne de commande?",
+      "answer": "Les résultats sont montrés en différentes catégories, comme le profil de performance du noyau GPU, de l'exécution de l'API CUDA ou OpenACC, pis des fonctions du CPU."
+    },
+    {
+      "question": "Comment on fait pour afficher juste les résultats liés au CPU en ligne de commande?",
+      "answer": "Faut utiliser l'option `--cpu-profiling`."
+    },
+    {
+      "question": "C'est quoi la commande pour voir les résultats du profilage CPU en mode « top-down »?",
+      "answer": "On utilise `pgprof --cpu-profiling-mode top-down -i a.prof` pour avoir la fonction principale en premier."
+    },
+    {
+      "question": "Comment on affiche les résultats du profilage CPU en mode « bottom-up »?",
+      "answer": "Faut utiliser `pgprof --cpu-profiling-mode bottom-up -i a.prof` pour savoir quelle partie de l'application demande le plus de temps."
+    },
+    {
+      "question": "Où est-ce qu'on devrait lancer l'interface graphique de PGPROF, pis pourquoi?",
+      "answer": "Faut la rouler sur un nœud de calcul dans une session interactive, parce que le nœud de connexion manque de mémoire pour l'interface Java."
+    },
+    {
+      "question": "Comment on active la redirection X11 pour lancer une session interactive en mode graphique?",
+      "answer": "On démarre la session interactive avec `salloc --x11 ...`."
+    },
+    {
+      "question": "Quelles sont les étapes pour collecter des données en mode graphique?",
+      "answer": "On lance le profileur, on démarre une nouvelle session via ''File > New Session'', on sélectionne le fichier exécutable, on ajoute les arguments si nécessaire, pis on clique sur ''Next'' puis ''Finish''."
+    },
+    {
+      "question": "Comment on visualise les données en mode graphique une fois qu'elles sont collectées?",
+      "answer": "Dans le volet ''CPU Details'', faut cliquer sur le bouton ''Show the top-down (callers first) call tree view''."
+    },
+    {
+      "question": "Peux-tu me décrire les quatre volets de la fenêtre de visualisation en mode graphique?",
+      "answer": "Y'a le volet supérieur qui montre les événements par temps, 'GPU Details' pour la performance des noyaux GPU, 'CPU Details' pour les fonctions CPU, pis 'Properties' pour l'info détaillée de la fonction sélectionnée."
+    },
+    {
+      "question": "C'est qui qui produit PGPROF?",
+      "answer": "PGPROF est produit par PGI, une filiale de NVIDIA Corporation."
+    }
+  ],
+  "generated_at": "2026-04-12T04:48:46.882997+00:00"
+}

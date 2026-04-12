@@ -1,0 +1,64 @@
+{
+  "doc_key": "en/ansys",
+  "level": "chunk",
+  "chunk_index": 25,
+  "qa_pairs": [
+    {
+      "question": "What is the prerequisite for submitting an Ansys Workbench job to the queue using a Slurm script?",
+      "answer": "Before submitting an Ansys Workbench job to the queue with a Slurm script, you must initialise it once."
+    },
+    {
+      "question": "How do I begin the initialisation process for an Ansys Workbench job on a cluster?",
+      "answer": "To begin, open an OnDemand desktop on the cluster where you plan to submit Workbench jobs, such as Nibi. Choosing either a Compute node (without a GPU) or a Basic Desktop resource will be sufficient."
+    },
+    {
+      "question": "What should I do after opening the OnDemand desktop for Workbench initialisation?",
+      "answer": "After opening the OnDemand desktop, you should open a terminal window and navigate into the directory where your project directory is located that contains your `YOURPROJECT.wbpj` file."
+    },
+    {
+      "question": "What directory should be removed before initialising a Workbench project?",
+      "answer": "You should remove the old project cache directory by running `rm -rf _ProjectScratch`, as this can be very large from previous runs."
+    },
+    {
+      "question": "Which module version should be loaded in the terminal for Workbench initialisation?",
+      "answer": "You should open a terminal window and load the module version that you will be using in your Slurm script, for example, `module load ansys/2025R2.04`."
+    },
+    {
+      "question": "How do I open the Ansys Workbench GUI with my project file during initialisation?",
+      "answer": "You can open the Workbench GUI with your project file by issuing `runwb2 -f YOURPROJECT.wbpj` directly from the command line. If a popup appears asking \"Do you want to recover the project before opening?\", answer \"No\"."
+    },
+    {
+      "question": "What steps are involved in resetting the Model in Ansys Workbench during initialisation?",
+      "answer": "In the context menu popup that should appear in the centre Project Schematic window, right-click on `Model` and select `Reset`. When Ansys Workbench pops up a warning that \"This operation will delete the operations local and generated data\", click `Ok` to accept and proceed."
+    },
+    {
+      "question": "How should I save and exit Workbench after resetting the Model during initialisation?",
+      "answer": "In the top menu bar pulldown, select `File -> Save` then `File -> Exit` to shut down Workbench."
+    },
+    {
+      "question": "What should I do if Ansys Workbench asks to save the modified project upon exiting the initialisation process?",
+      "answer": "In the Ansys Workbench popup, when asked \"The current project has been modified. Do you want to save it?\", click on the `No` button."
+    },
+    {
+      "question": "After completing the initialisation steps, what is the next action for the Workbench job?",
+      "answer": "After quitting Workbench, you can submit your job using one of the Slurm scripts."
+    },
+    {
+      "question": "Is there an alternative to submitting Workbench jobs via Slurm scripts, and why might it be preferred?",
+      "answer": "Yes, you can consider running your Workbench simulations directly from within the Workbench native GUI during an OnDemand desktop session. This might be a more intuitive option, especially since a Compute Node with up to 96 cores, 768GB memory, and 8 hours of runtime can now be reserved for such sessions."
+    },
+    {
+      "question": "How are Workbench project files submitted to the queue using Slurm scripts?",
+      "answer": "A project file can be submitted to the queue by customising one of the provided Slurm scripts and then running the `sbatch script-wbpj-202X.sh` command."
+    },
+    {
+      "question": "How can I prevent a Workbench Slurm job from overwriting the solution upon successful completion?",
+      "answer": "To avoid writing the solution when a running job successfully completes, change `Save(Overwrite=True)` to `Save(Overwrite=False)` in the last line of the Slurm script."
+    },
+    {
+      "question": "Why might I want to change `Save(Overwrite=True)` to `Save(Overwrite=False)` in a Workbench Slurm script?",
+      "answer": "Changing `Save(Overwrite=True)` to `Save(Overwrite=False)` will make it easier to determine how well the simulation scales when `#SBATCH --ntasks` is increased, as the initialised solution will not be overwritten by each test job."
+    }
+  ],
+  "generated_at": "2026-04-11T17:01:39.020121+00:00"
+}

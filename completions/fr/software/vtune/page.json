@@ -1,0 +1,55 @@
+{
+  "doc_key": "fr/vtune",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "C'est quoi, VTune, pis à quoi ça sert?",
+      "answer": "VTune est un produit d'Intel conçu pour analyser la performance des systèmes et des applications, surtout celles qui utilisent OpenMP et MPI."
+    },
+    {
+      "question": "Comment on fait pour charger le module VTune sur les grappes?",
+      "answer": "Pour charger le module VTune, faut juste lancer la commande `module load vtune`."
+    },
+    {
+      "question": "Y'a eu des changements de noms pour VTune pis ses commandes; peux-tu m'expliquer ça?",
+      "answer": "Oui, le produit s'appelait Intel® VTune™ Amplifier, pis là c'est Intel® VTune™ Profiler. Les commandes `amplxe-cl` et `amplxe-gui` sont devenues `vtune` et `vtune-gui` respectivement, mais les versions des modules sur nos grappes sont antérieures, donc les anciens noms sont encore valides."
+    },
+    {
+      "question": "C'est quoi la commande pour ramasser des données d'analyse avec VTune?",
+      "answer": "Pour ramasser des données d'analyse, tu lances la commande `vtune -collect <analysis-type> <target_exe> <exe_arguments>`."
+    },
+    {
+      "question": "Qu'est-ce qu'on recommande pour compiler l'exécutable pour que les résultats d'analyse soient précis?",
+      "answer": "On recommande de compiler l'exécutable avec l'option `-g` et d'utiliser le niveau d'optimisation normal pour obtenir des résultats exacts."
+    },
+    {
+      "question": "Comment on fait pour générer un rapport après avoir collecté des données d'analyse?",
+      "answer": "Pour générer un rapport, tu utilises la commande `vtune -report <report-type>`, en spécifiant le type de rapport que tu veux, comme `hotspots`."
+    },
+    {
+      "question": "Pourrais-tu me donner un exemple complet de comment analyser le projet 'Intel Matrix Sample Project' sur la ligne de commande?",
+      "answer": "Après avoir alloué des ressources avec `salloc` et chargé les modules `StdEnv/2020` et `vtune`, tu copies le projet, tu le compiles avec `make icc`, puis tu collectes les données avec `vtune -collect hotspots ../matrix` et tu génères un sommaire avec `vtune -report summary`."
+    },
+    {
+      "question": "Quand est-ce que le mode graphique de VTune peut être utile?",
+      "answer": "Le mode graphique peut être utile pour générer des configurations en commande de ligne ou pour visualiser les résultats d'analyse dans une interface graphique."
+    },
+    {
+      "question": "Comment on fait pour lancer l'interface graphique de VTune sur un nœud de calcul ou de connexion d'une grappe?",
+      "answer": "Faut se connecter à un nœud avec TigerVNC, charger les modules `StdEnv/2020` et `vtune`, pis ensuite lancer `vtune-gui`."
+    },
+    {
+      "question": "Pis sur un nœud VDI, c'est quoi les étapes pour utiliser VTune en mode graphique?",
+      "answer": "C'est pas mal pareil: tu te connectes avec TigerVNC, tu charges les modules `CcEnv StdEnv/2020 vtune`, pis après tu tapes `vtune-gui`."
+    },
+    {
+      "question": "Comment on profile un programme MPI avec VTune?",
+      "answer": "Après avoir chargé les modules `StdEnv/2020` et `vtune`, tu compiles ton programme MPI normalement, puis tu le lances avec `srun aps your_mpi_program.x` dans un job ou une session interactive."
+    },
+    {
+      "question": "Une fois le programme MPI terminé, comment on génère un rapport de performance à partir des données collectées?",
+      "answer": "Les données de profilage sont stockées dans un répertoire `aps_result_YYYYMMDD`. Pour un rapport sommaire, tu lances `aps-report -D aps_result_YYYYMMDD`, ce qui crée un fichier HTML."
+    }
+  ],
+  "generated_at": "2026-04-12T11:20:22.615891+00:00"
+}

@@ -5,21 +5,47 @@ lang: "base"
 
 source_wiki_title: "Cloud"
 source_hash: "c0e9760755e6b38c3624ec840f8dd924"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T05:27:01.932971+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T06:17:03.187476+00:00"
 
 tags:
   - cloud
 
 keywords:
-  []
+  - "OpenStack"
+  - "virtual machine"
+  - "project quotas"
+  - "RAS allocations"
+  - "Cloud computing"
+  - "Cloud project"
+  - "HPC"
+  - "cloud infrastructure"
+  - "Cloud systems"
+  - "Virtual machines"
+  - "User responsibilities"
+  - "Infrastructure as a Service"
+  - "storage options"
+
+questions:
+  - "What are the primary differences between using the cloud infrastructure and an HPC environment, and when should a user choose one over the other?"
+  - "What is the process and what specific information is required for a Principal Investigator (PI) to request a new cloud project or increase an existing quota?"
+  - "What technical skills and security responsibilities are expected of a user when creating, configuring, and managing virtual machines in this cloud environment?"
+  - "What are the core responsibilities of a user when managing a cloud project and its virtual machines?"
+  - "What advanced tools and specific use cases are documented for experienced users to configure their cloud environments?"
+  - "Which cloud systems are available for hosting projects, and where can users check their underlying hardware details and current system status?"
+  - "What are the rules and limits regarding project quotas and RAS allocations for a Principal Investigator?"
+  - "Where can users find step-by-step instructions for manually creating their first virtual machine on the cloud infrastructure?"
+  - "What resources are available for users to understand common cloud terminology and select the most appropriate storage options?"
+  - "What are the core responsibilities of a user when managing a cloud project and its virtual machines?"
+  - "What advanced tools and specific use cases are documented for experienced users to configure their cloud environments?"
+  - "Which cloud systems are available for hosting projects, and where can users check their underlying hardware details and current system status?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -29,32 +55,29 @@ A user of the cloud will typically create or *spin up* one or more virtual machi
 
 Virtual machines can be easily replicated. One can take a *snapshot* of a VM which can then be started again elsewhere. This makes it easy to replicate or scale up a service, and to recover from (for example) a power interruption.
 
-!!! note
-    If you can fit your work easily into the [HPC](https://en.wikipedia.org/wiki/Supercomputer) [batch](https://en.wikipedia.org/wiki/Batch_processing) submission workflow and environment (see [What is a scheduler?](what-is-a-scheduler.md)) it is preferable to work outside the cloud, as there are more [resources available](national-systems.md) for HPC and software is already configured and installed for many common needs. There are also tools like [Apptainer](apptainer.md) to run custom software stacks inside containers within our HPC clusters.
-    If your need isn't served by Apptainer or HPC batch, then the cloud is your solution.
+If you can fit your work easily into the [HPC](https://en.wikipedia.org/wiki/Supercomputer) [batch](https://en.wikipedia.org/wiki/Batch_processing) submission workflow and environment (see [what-is-a-scheduler.md](what-is-a-scheduler.md)) it is preferable to work outside the cloud, as there are more [resources available](national-systems.md) for HPC and software is already configured and installed for many common needs. There are also tools like [Apptainer](apptainer.md) to run custom software stacks inside containers within our HPC clusters.
+If your need isn't served by Apptainer or HPC batch, then the cloud is your solution.
 
 ## Getting a cloud project
 * Review and understand the [important role](cloud-shared-security-responsibility-model.md) you are about to take on to [safeguard your research](https://science.gc.ca/site/science/en/safeguarding-your-research) and the shared cloud infrastructure.
 * If you do not have an account with us, create one with [these instructions](https://docs.alliancecan.ca/wiki/Apply_for_a_CCDB_account).
 * A [project](managing-your-cloud-resources-with-openstack.md#projects) is an allocation of resources for creating VMs within a cloud.
 * If you are a primary investigator (PI) with an active cloud resource allocation (see [RAC](https://alliancecan.ca/en/services/advanced-research-computing/research-portal/accessing-resources/resource-allocation-competitions)) you should already have a project. See the sections below on using the cloud to get started. If not or if you are not sure please contact [technical support](technical-support.md).
-* Otherwise go to the [Alliance cloud project and RAS request form](https://docs.google.com/forms/d/e/1FAIpQLSeU_BoRk5cEz3AvVLf3e9yZJq-OvcFCQ-mg7p4AWXmUkd5rTw/viewform) to
-    * request access to an existing project (see the section below for information you will need to supply)
-    * and if you are a PI you may also
-        * request a new project with our Rapid Access Service ([RAS](cloud-ras-allocations.md)),
-        * or request an increase in quota of an existing project.
-
+* Otherwise go to the [Alliance cloud project and RAS request form](https://docs.google.com/forms/d/e/1FAIpQLSeU_BoRk5cEz3AvVL3e9yZJq-OvcFCQ-mg7p4AWXmUkd5rTw/viewform) to
+  * request access to an existing project (see the section below for information you will need to supply)
+  * and if you are a PI you may also
+    * request a new project with our Rapid Access Service ([RAS](cloud-ras-allocations.md)),
+    * or request an increase in quota of an existing project.
 * Requests are typically processed within two business days.
 
 ### Preparing your request
 * When requesting access to an existing project, you will need to know the project name and which cloud it is on. See the section on [projects](managing-your-cloud-resources-with-openstack.md#projects) for guidance on how to find the project name and the section about [cloud systems](#cloud-systems) for a list of our clouds. Requests for access must be confirmed by the PI owning the project.
 * When requesting either a new project or an increase in quota for an existing project some justification, in the form of a few sentences, is required:
-    * why you need cloud resources,
-    * why an HPC cluster is not suitable,
-    * your plans for efficient usage of your resources,
-    * your plans for maintenance and security ([refer to this page](security-considerations-when-running-a-vm.md)).
-!!! note
-    A PI may own up to 3 projects, but the sum of all project quotas must be within the [RAS](cloud-ras-allocations.md) allocation limits. A PI may have both compute and persistent cloud RAS allocations.
+  * why you need cloud resources,
+  * why an HPC cluster is not suitable,
+  * your plans for efficient usage of your resources,
+  * your plans for maintenance and security ([refer to this page](security-considerations-when-running-a-vm.md)).
+* A PI may own up to 3 projects, but the sum of all project quotas must be within the [RAS](cloud-ras-allocations.md) allocation limits. A PI may have both compute and persistent cloud RAS allocations.
 
 ## Creating a virtual machine on the cloud infrastructure
 * The [cloud quick start guide](cloud-quick-start.md) describes how to manually create your first VM.

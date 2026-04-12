@@ -1,0 +1,64 @@
+{
+  "doc_key": "base/deepspeed",
+  "level": "chunk",
+  "chunk_index": 6,
+  "qa_pairs": [
+    {
+      "question": "What ZeRO stage is utilized when model parameters and optimizer states are offloaded to the CPU?",
+      "answer": "ZeRO stage 3 is used when offloading model parameters and optimizer states to the CPU."
+    },
+    {
+      "question": "What components of a training task are offloaded to the CPU in the ZeRO with offload to CPU example?",
+      "answer": "In this example, model parameters and optimizer states are offloaded to the CPU."
+    },
+    {
+      "question": "What is the primary benefit of offloading model parameters and optimizer states to the CPU?",
+      "answer": "Offloading to the CPU means the compute node's memory becomes available to store tensors not currently needed by any GPU computations, and optimizer steps are computed on the CPU. This effectively gives GPUs more available memory."
+    },
+    {
+      "question": "How much additional memory can GPUs conceptually gain when offloading to the CPU?",
+      "answer": "For practical purposes, you can think of your GPUs gaining an extra 32GB of memory when offloading to the CPU."
+    },
+    {
+      "question": "What impact does CPU offloading have on GPU memory pressure?",
+      "answer": "CPU offloading takes even more pressure off from GPU memory, allowing for an increase in batch size or model size."
+    },
+    {
+      "question": "Which DeepSpeed optimizer is used when offloading to the CPU to maintain performance parity with pure Data Parallelism?",
+      "answer": "DeepSpeed's `DeepSpeedCPUAdam` optimizer is used to maintain performance at par with pure Data Parallelism when offloading to the CPU."
+    },
+    {
+      "question": "What is required to use DeepSpeed's optimizers, such as `DeepSpeedCPUAdam`?",
+      "answer": "You must load the `cuda/<version>` module, where `<version>` matches the version used to build your PyTorch installation, as DeepSpeed's optimizers are JIT compiled at run-time."
+    },
+    {
+      "question": "What command loads the necessary modules in the `deepspeed-stage3-offload-cpu.sh` script?",
+      "answer": "The command `module load python cuda` loads the necessary modules in the `deepspeed-stage3-offload-cpu.sh` script."
+    },
+    {
+      "question": "How many GPUs are requested per node in the `deepspeed-stage3-offload-cpu.sh` SLURM script?",
+      "answer": "The `deepspeed-stage3-offload-cpu.sh` SLURM script requests 2 GPUs per node, specified by `--gres=gpu:2`."
+    },
+    {
+      "question": "What is the memory requested for the SLURM job defined in `deepspeed-stage3-offload-cpu.sh`?",
+      "answer": "The SLURM job requests 32GB of memory, specified by `--mem=32G`."
+    },
+    {
+      "question": "What environment variable related to NCCL is set in the `deepspeed-stage3-offload-cpu.sh` script?",
+      "answer": "The `TORCH_NCCL_ASYNC_HANDLING` environment variable is set to `1`."
+    },
+    {
+      "question": "What is PyTorch Lightning's expectation regarding tasks per GPU when running inside a SLURM batch job?",
+      "answer": "PyTorch Lightning expects the user to have requested one task per GPU when running inside a SLURM batch job. If this isn't met, or if `srun` isn't used, the job will fail."
+    },
+    {
+      "question": "How is the DeepSpeed strategy configured for CPU offloading within the `pl.Trainer` in `deepspeed-stage3-offload-cpu.py`?",
+      "answer": "The `pl.Trainer` uses `DeepSpeedStrategy(stage=3, offload_optimizer=True, offload_parameters=True)` for CPU offloading."
+    },
+    {
+      "question": "What is the default batch size passed to the Python script in the `deepspeed-stage3-offload-cpu.sh` example?",
+      "answer": "The default batch size passed to the Python script in the example is 256 (`--batch_size 256`)."
+    }
+  ],
+  "generated_at": "2026-04-11T21:10:55.913228+00:00"
+}

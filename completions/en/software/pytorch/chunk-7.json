@@ -1,0 +1,92 @@
+{
+  "doc_key": "en/pytorch",
+  "level": "chunk",
+  "chunk_index": 7,
+  "qa_pairs": [
+    {
+      "question": "What is the significance of `batch_size` in PyTorch model training?",
+      "answer": "The `batch_size` is an important parameter with respect to a model's performance on a given task (accuracy, error, etc.) and is also relevant for GPU utilization."
+    },
+    {
+      "question": "When should a user consider using \"Single GPU Data Parallelism\" for their PyTorch application?",
+      "answer": "If you have a fairly small model that doesn't take up a large portion of GPU memory and cannot use a reasonable amount of its compute capacity, but you have a very large dataset and wish to perform training with a small batch size, then taking advantage of Data Parallelism on a GPU becomes a viable option."
+    },
+    {
+      "question": "What is the purpose of the `pytorch-single-gpu.sh` script?",
+      "answer": "The `pytorch-single-gpu.sh` script is an example of a job submission script that requests a single GPU and runs the `cifar10-gpu.py` Python script within a virtual environment, installing necessary PyTorch components."
+    },
+    {
+      "question": "How do you request a GPU in the `pytorch-single-gpu.sh` SLURM script?",
+      "answer": "To request a GPU in the `pytorch-single-gpu.sh` SLURM script, you use the `#SBATCH --gres=gpu:1` directive."
+    },
+    {
+      "question": "How can you adjust the number of CPUs per task and workers in the `pytorch-single-gpu.sh` script?",
+      "answer": "You can change the `#SBATCH --cpus-per-task` parameter and increase the `--num_workers` argument accordingly to see the effect on performance when running the Python script."
+    },
+    {
+      "question": "What environment setup is performed in the `pytorch-single-gpu.sh` script before running the Python application?",
+      "answer": "The script loads a Python module, creates and activates a virtual environment in `$SLURM_TMPDIR/env`, and then installs `torch` and `torchvision` using `pip install --no-index`."
+    },
+    {
+      "question": "What is the default `batch_size` and `num_workers` used when running `cifar10-gpu.py` from the `pytorch-single-gpu.sh` script?",
+      "answer": "The `pytorch-single-gpu.sh` script runs `cifar10-gpu.py` with `--batch_size=512` and `--num_workers=0`."
+    },
+    {
+      "question": "What is the main objective of the `cifar10-gpu.py` script?",
+      "answer": "The `cifar10-gpu.py` script is designed to test the performance of CIFAR10 classification models on a single GPU."
+    },
+    {
+      "question": "How is a PyTorch model loaded onto the GPU in `cifar10-gpu.py`?",
+      "answer": "The model is loaded onto the GPU using `net = net.cuda()` after it has been compiled with `torch.compile(Net())`."
+    },
+    {
+      "question": "How is the loss function loaded onto the GPU in `cifar10-gpu.py`?",
+      "answer": "The loss function is loaded onto the GPU using `criterion = nn.CrossEntropyLoss().cuda()`."
+    },
+    {
+      "question": "How are input data and targets moved to the GPU in `cifar10-gpu.py`?",
+      "answer": "Inside the training loop, inputs and targets are moved to the GPU by calling their `.cuda()` method: `inputs = inputs.cuda()` and `targets = targets.cuda()`."
+    },
+    {
+      "question": "What dataset is used for training in `cifar10-gpu.py`?",
+      "answer": "The CIFAR10 dataset is used for training in the `cifar10-gpu.py` script."
+    },
+    {
+      "question": "What transforms are applied to the training data in `cifar10-gpu.py`?",
+      "answer": "The training data undergoes `transforms.Compose([transforms.ToTensor(),transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])`."
+    },
+    {
+      "question": "What optimizer is used in the `cifar10-gpu.py` script?",
+      "answer": "The `cifar10-gpu.py` script uses the `optim.SGD` optimizer with parameters from the neural network and a learning rate (`lr`) specified by `args.lr`."
+    },
+    {
+      "question": "What is the purpose of `pin_memory=True` in the `DataLoader` configuration in `cifar10-gpu.py`?",
+      "answer": "`pin_memory=True` in the `DataLoader` configuration is used to streamline the movement of inputs from the Host's (or the CPU's) memory to the GPU's memory, which helps reduce the amount of time the GPU sits idle waiting for data to process."
+    },
+    {
+      "question": "What is Data Parallelism in the context of PyTorch training?",
+      "answer": "Data Parallelism refers to methods to perform training over multiple replicas of a model in parallel, where each replica receives a different chunk of training data at each iteration."
+    },
+    {
+      "question": "How does Data Parallelism work?",
+      "answer": "With Data Parallelism, gradients are aggregated at the end of an iteration, and the parameters of all model replicas are updated in a synchronous or asynchronous fashion, depending on the method."
+    },
+    {
+      "question": "What is a key benefit of using Data Parallelism?",
+      "answer": "Using Data Parallelism may provide a significant speed-up by iterating through all examples in a large dataset approximately N times faster, where N is the number of model replicas."
+    },
+    {
+      "question": "What is an important caveat when using Data Parallelism to ensure an equivalent trained model?",
+      "answer": "An important caveat is that to get a trained model equivalent to one trained without Data Parallelism, the user must scale either the learning rate or the desired batch size in function of the number of replicas."
+    },
+    {
+      "question": "What is a model requirement for using Data Parallelism with multiple GPUs?",
+      "answer": "For Data Parallelism in the multiple-GPU case, the model must be small enough to fit inside the memory of a single GPU."
+    },
+    {
+      "question": "What are the three ways to perform Data Parallelism using PyTorch mentioned in this document?",
+      "answer": "The three ways to perform Data Parallelism using PyTorch are using the `DistributedDataParallel` class directly with one or multiple GPUs, and using the `PyTorch Lightning` package."
+    }
+  ],
+  "generated_at": "2026-04-12T05:41:22.663620+00:00"
+}

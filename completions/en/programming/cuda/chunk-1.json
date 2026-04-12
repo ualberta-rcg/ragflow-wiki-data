@@ -1,0 +1,96 @@
+{
+  "doc_key": "en/cuda",
+  "level": "chunk",
+  "chunk_index": 1,
+  "qa_pairs": [
+    {
+      "question": "What is CUDA?",
+      "answer": "CUDA is a parallel computing platform and programming model developed by NVIDIA for general computing on graphical processing units (GPUs)."
+    },
+    {
+      "question": "Who developed CUDA?",
+      "answer": "CUDA was developed by NVIDIA."
+    },
+    {
+      "question": "What is CUDA primarily used for?",
+      "answer": "CUDA is used for general computing on graphical processing units (GPUs)."
+    },
+    {
+      "question": "How can one reasonably think of CUDA from a programming perspective?",
+      "answer": "It is reasonable to think of CUDA as a set of libraries and associated C, C++, and Fortran compilers that enable you to write code for GPUs."
+    },
+    {
+      "question": "What is the first step to using the CUDA C/C++ language compiler?",
+      "answer": "First, load a CUDA module using the command `$ module load cuda` after `$ module purge`."
+    },
+    {
+      "question": "What is the name of the CUDA C/C++ language compiler?",
+      "answer": "The CUDA C/C++ language compiler is called `nvcc`."
+    },
+    {
+      "question": "What file extension is crucial for CUDA C/C++ programs?",
+      "answer": "The `.cu` file extension is important for CUDA C/C++ programs."
+    },
+    {
+      "question": "What does the provided `add.cu` program example do?",
+      "answer": "The `add.cu` program adds two numbers together on a GPU."
+    },
+    {
+      "question": "How do you compile a CUDA program like `add.cu`?",
+      "answer": "You compile the program with `nvcc` using the command `$ nvcc add.cu -o add` to create an executable named `add`."
+    },
+    {
+      "question": "How do you run a CUDA program that uses GPUs?",
+      "answer": "To run a CUDA program, you need to create a Slurm job script and submit it to the scheduler using the `sbatch` command, for example, `$ sbatch gpu_job.sh`."
+    },
+    {
+      "question": "What are some important parameters to specify in a Slurm job script for a GPU program?",
+      "answer": "Important parameters in a Slurm job script include `--account` (your specific account), `--gres=gpu:1` (number of GPUs per node), `--mem` (memory per node), and `--time` (job duration)."
+    },
+    {
+      "question": "What is the expected output of the `add` program when run successfully on a GPU?",
+      "answer": "The expected output is `2+7=9`."
+    },
+    {
+      "question": "What output might you see if the `add` program runs without a GPU present?",
+      "answer": "If the `add` program runs without a GPU present, you might see output like `2+7=0`."
+    },
+    {
+      "question": "How do you link CUDA libraries, such as cuBLAS, when compiling with `nvcc`?",
+      "answer": "To link CUDA libraries, you compile with flags such as `nvcc -lcublas -Xlinker=-rpath,$CUDA_PATH/lib64`."
+    },
+    {
+      "question": "Where can one find a more extensive tutorial on CUDA programming and GPU parallelism?",
+      "answer": "A longer tutorial on CUDA programming and how to make use of GPU parallelism can be found at `[[CUDA tutorial]]`."
+    },
+    {
+      "question": "What is 'compute capability' as defined by NVIDIA?",
+      "answer": "Compute capability is a technical term created by NVIDIA that 'indicates what features are supported by that GPU and specifies some hardware parameters for that GPU'."
+    },
+    {
+      "question": "What are common errors related to compute capability?",
+      "answer": "Common errors related to compute capability include `nvcc fatal : Unsupported gpu architecture 'compute_XX'` and `no kernel image is available for execution on the device (209)`."
+    },
+    {
+      "question": "How can compute capability errors be fixed when using `nvcc`?",
+      "answer": "Compute capability errors can often be fixed by adding the flag `-gencode arch=compute_XX,code=[sm_XX,compute_XX]` to the `nvcc` call, where `XX` is the compute capability of the GPU."
+    },
+    {
+      "question": "How can compute capability errors be fixed when using `cmake`?",
+      "answer": "When using `cmake`, you can fix compute capability errors by providing the flag `cmake .. -DCMAKE_CUDA_ARCHITECTURES=XX`, where `XX` is the compute capability of the GPU."
+    },
+    {
+      "question": "How do you find the correct 'XX' value for compute capability flags?",
+      "answer": "To find the correct 'XX' value, consult the `CUDA GPU Compute Capability` page from NVIDIA and omit the decimal point from the listed compute capability."
+    },
+    {
+      "question": "If a Narval A100 node has a compute capability of '8.0', what is the correct `nvcc` flag to use?",
+      "answer": "For a Narval A100 node with a compute capability of '8.0', the correct `nvcc` flag is `-gencode arch=compute_80,code=[sm_80,compute_80]`."
+    },
+    {
+      "question": "If a Narval A100 node has a compute capability of '8.0', what is the correct `cmake` flag to use?",
+      "answer": "For a Narval A100 node with a compute capability of '8.0', the correct `cmake` flag is `cmake .. -DCMAKE_CUDA_ARCHITECTURES=80`."
+    }
+  ],
+  "generated_at": "2026-04-11T19:15:49.616345+00:00"
+}

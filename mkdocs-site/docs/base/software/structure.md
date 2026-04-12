@@ -5,44 +5,96 @@ lang: "base"
 
 source_wiki_title: "Structure"
 source_hash: "5f3e4324255e7ce3e7e8f29a8d9e40bd"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T11:30:07.382658+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T11:40:08.730791+00:00"
 
 tags:
   - software
 
 keywords:
-  []
+  - "HPC clusters"
+  - "SBATCH"
+  - "STRUCTURE analysis"
+  - "job submission"
+  - "create_strauto_slurm_scripts.py"
+  - "runstructure shell script"
+  - "BMC Bioinformatics"
+  - "Structure binary"
+  - "Slurm"
+  - "structure"
+  - "Python script"
+  - "structureHarvester"
+  - "Structure software"
+  - "template"
+  - "bash script"
+  - "StructureHarvester"
+  - "SLURM job scripts"
+  - "Slurm Workload manager"
+  - "population structure"
+  - "multilocus genotype data"
+  - "job scripts"
+  - "Structure"
+  - "mainparams"
+  - "SLURM"
+  - "structureCommands"
+  - "automation and parallelization"
+  - "StrAuto"
+
+questions:
+  - "What is the primary purpose of the Structure software package and what types of genetic markers can it analyze?"
+  - "Which specific configuration and data files are required by default when running Structure from the command line?"
+  - "How can users achieve parallel execution for population structure inference since the Structure software does not natively support it?"
+  - "What is the primary function of the StrAuto tool as described in the referenced 2017 publication?"
+  - "Which two specific software tools are mentioned in the provided text fragment?"
+  - "What types of online resources and documentation are cited for the StrAuto software?"
+  - "Why is it recommended to submit long Structure runs as individual jobs to Slurm rather than grouping them together?"
+  - "What specific scripts and software tools must be placed in the working directory to use the create_strauto_slurm_scripts.py script?"
+  - "Which specific setting must be enabled in the input.py file before executing the StrAuto setup commands?"
+  - "What is the primary purpose of the 'create_strauto_slurm_scripts.py' script?"
+  - "What specific settings and parameters must be adjusted in the script and 'input.py' before execution?"
+  - "What are the final commands used to submit the batch jobs and aggregate the results once they are completed?"
+  - "What options are presented to the user before the system begins writing the output files?"
+  - "Which specific parameter files are generated for the dataset named 'my_dataset'?"
+  - "What is the purpose of executing the `create_strauto_slurm_scripts.py` command at the end of the process?"
+  - "What is the primary purpose of this script regarding the generation of SLURM job scripts and directory structures?"
+  - "Which specific input file is required for the script to execute successfully, and what happens if it is missing?"
+  - "What are the functions of the `submit_strauto_jobs.sh` and `post_strauto.sh` helper scripts created at the end of the execution?"
+  - "What is the primary purpose of the SLURM batch script defined in the `template` variable?"
+  - "Which specific software module and version is being loaded for execution within the main job template?"
+  - "What file management action does the `post_template` script perform?"
+  - "What is the primary purpose of this script regarding the generation of SLURM job scripts and directory structures?"
+  - "Which specific input file is required for the script to execute successfully, and what happens if it is missing?"
+  - "What are the functions of the `submit_strauto_jobs.sh` and `post_strauto.sh` helper scripts created at the end of the execution?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
 ## Description
 
-Structure [1] is a free software package for using multilocus genotype data to investigate population structure. Its uses include inferring the presence of distinct populations, assigning individuals to populations, studying hybrid zones, identifying migrants and admixed individuals, and estimating population allele frequencies in situations where many individuals are migrants or admixed. It can be applied to most of the commonly-used genetic markers, including SNPS, microsatellites, RFLPs and AFLPs.
-[2]
-[3]
+Structure[^homepage] is a free software package for using multilocus genotype data to investigate population structure. Its uses include inferring the presence of distinct populations, assigning individuals to populations, studying hybrid zones, identifying migrants and admixed individuals, and estimating population allele frequencies in situations where many individuals are migrants or admixed. It can be applied to most of the commonly-used genetic markers, including SNPs, microsatellites, RFLPs and AFLPs.
+[^structure_2000]
+[^structure_2009]
 
 ## Installed versions
 
-At the time of writing Structure v2.3.4 has been installed (module: `structure/2.3.4`).
+At the time of writing, Structure v2.3.4 has been installed (module: `structure/2.3.4`).
 Please look on page [Available software](available-software.md) for module `structure` for an up-to-date list of installed versions.
 
 ## Usage
 
 When starting *structure* without any command-line options, it expects to find the following three files in the current working directory:
-* `mainparams` - Example [mainparams](http://web.stanford.edu/group/pritchardlab/software/mainparams) on the Structure Homepage [4]
-* `extraparams` - Example [extraparams](http://web.stanford.edu/group/pritchardlab/software/extraparams) on the Structure Homepage [5]
-* and a data file. The name of the data file can be either be set the `INFILE` parameter in `mainparams` or supplied via the command line (`-i`).
+* `mainparams` - Example mainparams[^mainparams]
+* `extraparams` - Example extraparams[^extraparams]
+* and a data file. The name of the data file can either be set by the *INFILE* parameter in `mainparams` or supplied via the command line (-i).
 
-Please refer to §7 "Running *structure* from the command line" in the Structure Documentation [6] for a complete description of the available parameters and file-formats. There are also several command-line options to supply alternative filenames or override options. e.g.: `-m` (mainparams), `-e` (extraparams), `-i` (input file), `-o` (output file).
-See section §7.4 in the Structure Documentation [6].
+Please refer to §7 "Running *structure* from the command line" in the Structure Documentation[^manual] for a complete description of the available parameters and file-formats. There are also several command-line options to supply alternative filenames or override options, e.g.: -m (mainparams), -e (extraparams), -i (input file), -o (output file).
+See section §7.4 in the Structure Documentation[^manual].
 
 Here is an example submission script:
 
@@ -54,27 +106,29 @@ structure -i data_file1  -o results1
 ```
 
 ## Running Structure in parallel: StrAuto & StructureHarvester
-The Structure in itself is not able to run in parallel, however as population structure inference using the Evanno-method [7] involves multiple structure-runs, the tools StrAuto [8][9][10] and StructureHarvester [11][12] have been developed to automate the process of setting up such runs and aggregating their results respectively.
+
+The Structure software itself is not able to run in parallel; however, as population structure inference using the Evanno-method[^evanno_2005] involves multiple Structure runs, the tools StrAuto[^strauto_site][^strauto_doc][^strauto_2017] and StructureHarvester[^harvester_site][^harvester_2011] have been developed to automate the process of setting up such runs and aggregating their results, respectively.
 
 ### Practical considerations
-There is an example for running StrAuto jobs on HPC clusters using the Slurm Workload manager outlined in chapter 8 the StrAuto User Guide [9].
+
+There is an example for running StrAuto jobs on HPC clusters using the Slurm Workload manager outlined in chapter 8 of the StrAuto User Guide[^strauto_doc].
 The example works best when the total number of Structure runs is a multiple of the number of requested tasks, as otherwise some of the allocated CPUs will sit idle while the last Structure runs are being executed. This may lead to a significant waste of computing resources.
 
 Moreover, the requested maximum job time needs to be sufficiently large to accommodate multiple subsequent Structure runs.
 While this can be a sensible choice for relatively short runs, jobs with long walltimes will typically have to wait longer until they are dispatched due to [job scheduling policies](job-scheduling-policies.md#time-limits).
-Therefore in cases where an individual Structure run takes more than just a few hours to finish, we recommend submitting each Structure run as an individual job to Slurm.
+Therefore, in cases where an individual Structure run takes more than just a few hours to finish, we recommend submitting each Structure run as an individual job to Slurm.
 
 ### Running a set of longer Structure runs
 
-The script `create_strauto_slurm_scripts.py` shown at the bottom of this section is designed to help you run Structure [1] jobs on Compute Canada HPC clusters that use the Slurm Workload manager.
-It requires Structure, StrAuto [8], and StructureHarvester [11].
+The script `create_strauto_slurm_scripts.py` shown at the bottom of this section is designed to help you run Structure[^homepage] jobs on Compute Canada HPC clusters that use the Slurm Workload manager.
+It requires Structure, StrAuto[^strauto_site], and StructureHarvester[^harvester_site].
 
 Usage:
 
 * Place the `create_strauto_slurm_scripts.py` script shown below into a directory along with:
-    * `strauto_1.py` and `input.py` from StrAuto [8].
-    * `structureHarvester.py` and `harvesterCore.py` from StructureHarvester [11].
-    * The file with the Structure dataset e.g. `my_dataset.str`.
+    * `strauto_1.py` and `input.py` from StrAuto[^strauto_site].
+    * `structureHarvester.py` and `harvesterCore.py` from StructureHarvester[^harvester_site].
+    * The file with the Structure dataset, e.g., `my_dataset.str`.
 * Make `create_strauto_slurm_scripts.py` executable with:
 ```bash
 chmod u+x create_strauto_slurm_scripts.py
@@ -83,25 +137,26 @@ chmod u+x create_strauto_slurm_scripts.py
 ```bash
 ls -F
 ```
-```text title="Output"
+```text
 create_strauto_slurm_scripts.py*  harvesterCore.py
 input.py                          my_dataset.str
 strauto_1.py*                     structureHarvester.py*
 ```
-* Edit the settings in `input.py` as described in the StrAuto User Manual [9].
+* Edit the settings in `input.py` as described in the StrAuto User Manual[^strauto_doc].
     * Make sure to set the option `parallel = True` (question 23).
 * Adjust the parameters in this file (lines 65-70):
     * Set `max_jobtime` to a duration where you can be reasonably sure that no individual Structure run takes longer than this.
-    * In cases where a user can submit under multiple Slurm-accounts `slurm_account` can be used to specify under which account to submit.
+    * In cases where a user can submit under multiple Slurm-accounts, `slurm_account` can be used to specify under which account to submit.
     * To avoid overloading the Scheduler, the submission helper script delays each submission by a time defined by `submit_delay`.
 * Run the following commands:
+
 ```bash
 module load python/2.7
 ```
 ```bash
 ./strauto_1.py
 ```
-```text title="Output"
+```text
 input.py found. Proceeding!
 ----------------------------------------------------------------------
   Finished entering data for 'my_dataset'.  Verify your information.
@@ -128,7 +183,7 @@ Now writing 'runstructure' shell script
 ```bash
 ./create_strauto_slurm_scripts.py
 ```
-```text title="Output"
+```text
 Creating SLURM job scripts...
 created 40 job scripts.
 
@@ -140,12 +195,11 @@ created helper script: "submit_strauto_jobs.sh"
 Creating postprocessing script...
 created post-script: "post_strauto.sh"
 ```
-
 * Submit the jobs with:
 ```bash
 bash submit_strauto_jobs.sh
 ```
-```text title="Output"
+```text
 Submitted batch job 12345001
 Submitted batch job 12345002
 [...]
@@ -338,15 +392,16 @@ if __name__ == '__main__':
 ```
 
 ## References
-1.  Structure Homepage: <http://web.stanford.edu/group/pritchardlab/structure.html>
-2.  J.K. Pritchard, M. Stephens, and P. Donnelly. Inference of population structure using multilocus genotype data. Genetics, 155:945–959, 2000. <https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1461096/>
-3.  M.J. Hubisz, D. Falush, M. Stephens, and J.K. Pritchard. Inferring weak population structure with the assistance of sample group information. Molecular Ecology Resources, 9(5):1322–1332, 2009. doi: <https://doi.org/10.1111/j.1755-0998.2009.02591.x>
-4.  Example [mainparams](http://web.stanford.edu/group/pritchardlab/software/mainparams) on the Structure Homepage
-5.  Example [extraparams](http://web.stanford.edu/group/pritchardlab/software/extraparams) on the Structure Homepage
-6.  Structure Documentation for version 2.3.4 [PDF](http://web.stanford.edu/group/pritchardlab/structure_software/release_versions/v2.3.4/structure_doc.pdf)
-7.  G. Evanno, S. Regnaut, and J. Goudet. Detecting the number of clusters of individuals using the software structure: a simulation study. Molecular Ecology, 14:2611–2620, 2005. DOI: <https://doi.org/10.1111/j.1365-294X.2005.02553.x>
-8.  StrAuto Homepage: <https://vc.popgen.org/software/strauto/>
-9.  StrAuto User Guide: <https://vc.popgen.org/software/strauto/strauto_doc.pdf>
-10. Chhatre, VE & Emerson KJ. StrAuto: Automation and parallelization of STRUCTURE analysis. BMC Bioinformatics (2017) 18:192. doi: <http://dx.doi.org/10.1186/s12859-017-1593-0>
-11. StructureHarvester Homepage: <http://alumni.soe.ucsc.edu/~dearl/software/structureHarvester/> ; GitHub: <https://github.com/dentearl/structureHarvester>
-12. Earl, Dent A. and vonHoldt, Bridgett M. STRUCTURE HARVESTER: a website and program for visualizing STRUCTURE output and implementing the Evanno method. Conservation Genetics Resources (2011) DOI: <https://doi.org/10.1007/s12686-011-9548-7>
+
+[^homepage]: Structure Homepage: http://web.stanford.edu/group/pritchardlab/structure.html
+[^structure_2000]: J.K. Pritchard, M. Stephens, and P. Donnelly. Inference of population structure using multilocus genotype data. Genetics, 155:945–959, 2000. https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1461096/
+[^structure_2009]: M.J. Hubisz, D. Falush, M. Stephens, and J.K. Pritchard. Inferring weak population structure with the assistance of sample group information. Molecular Ecology Resources, 9(5):1322–1332, 2009. doi: https://doi.org/10.1111/j.1755-0998.2009.02591.x
+[^mainparams]: Example [mainparams](http://web.stanford.edu/group/pritchardlab/software/mainparams) on the Structure Homepage
+[^extraparams]: Example [extraparams](http://web.stanford.edu/group/pritchardlab/software/extraparams) on the Structure Homepage
+[^manual]: Structure Documentation for version 2.3.4 [PDF](http://web.stanford.edu/group/pritchardlab/structure_software/release_versions/v2.3.4/structure_doc.pdf)
+[^evanno_2005]: G. Evanno, S. Regnaut, and J. Goudet. Detecting the number of clusters of individuals using the software structure: a simulation study. Molecular Ecology, 14:2611–2620, 2005. DOI: https://doi.org/10.1111/j.1365-294X.2005.02553.x
+[^strauto_site]: StrAuto Homepage: https://vc.popgen.org/software/strauto/
+[^strauto_doc]: StrAuto User Guide: https://vc.popgen.org/software/strauto/strauto_doc.pdf
+[^strauto_2017]: Chhatre, VE & Emerson KJ. StrAuto: Automation and parallelization of STRUCTURE analysis. BMC Bioinformatics (2017) 18:192. doi: http://dx.doi.org/10.1186/s12859-017-1593-0
+[^harvester_site]: StructureHarvester Homepage: http://alumni.soe.ucsc.edu/~dearl/software/structureHarvester/ ; GitHub: https://github.com/dentearl/structureHarvester
+[^harvester_2011]: Earl, Dent A. and vonHoldt, Bridgett M. STRUCTURE HARVESTER: a website and program for visualizing STRUCTURE output and implementing the Evanno method. Conservation Genetics Resources (2011) DOI: 10.1007/s12686-011-9548-7

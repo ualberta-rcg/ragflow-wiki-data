@@ -1,0 +1,84 @@
+{
+  "doc_key": "en/julia",
+  "level": "chunk",
+  "chunk_index": 5,
+  "qa_pairs": [
+    {
+      "question": "What is the purpose of the JULIA_THREAD_SLEEP_THRESHOLD variable?",
+      "answer": "The JULIA_THREAD_SLEEP_THRESHOLD variable controls the number of nanoseconds after which a spinning thread is scheduled to sleep."
+    },
+    {
+      "question": "What does setting JULIA_THREAD_SLEEP_THRESHOLD to \"infinite\" signify?",
+      "answer": "Setting JULIA_THREAD_SLEEP_THRESHOLD to \"infinite\" (as a string) indicates that there will be no sleeping on spinning for threads."
+    },
+    {
+      "question": "When might it be advantageous to schedule out spinning threads more quickly by adjusting JULIA_THREAD_SLEEP_THRESHOLD?",
+      "answer": "It can be advantageous to schedule out spinning threads more quickly if many threads are frequently contending for a shared resource, as spinning under heavy contention would only increase CPU load."
+    },
+    {
+      "question": "In what scenario can prohibiting threads from sleeping lead to lower latency when using JULIA_THREAD_SLEEP_THRESHOLD?",
+      "answer": "If a resource is only very infrequently contended, prohibiting threads from sleeping (by setting JULIA_THREAD_SLEEP_THRESHOLD to infinity) can result in lower latency."
+    },
+    {
+      "question": "What is recommended before configuring threading behaviour variables like JULIA_THREAD_SLEEP_THRESHOLD?",
+      "answer": "It is recommended that configuring these values should only be done when one has accurately profiled any contention issues."
+    },
+    {
+      "question": "Why is it important to consult Julia's documentation when configuring its threading subsystem?",
+      "answer": "Given the high pace at which Julia, and especially its threading subsystem Base.Threads, evolves, one should always consult the documentation to ensure changing the default configuration will have only the expected behaviour as a result."
+    },
+    {
+      "question": "What is Julia's main programming interface for GPUs?",
+      "answer": "Julia's primary programming interface for GPUs is the CUDA.jl package."
+    },
+    {
+      "question": "How do you install the CUDA.jl package in Julia?",
+      "answer": "The Julia package manager can be used to install the CUDA.jl package."
+    },
+    {
+      "question": "What commands are used on a login node to prepare for installing CUDA.jl?",
+      "answer": "On a login node, you would use `module load cuda/12.9 julia/1.11.3` followed by starting Julia and setting `ENV[\"JULIA_PKG_PRECOMPILE_AUTO\"]=0` before adding the CUDA package."
+    },
+    {
+      "question": "Where should the CUDA.jl package be downloaded?",
+      "answer": "The CUDA.jl package should be downloaded on a login node."
+    },
+    {
+      "question": "What environment variable should be set before adding the CUDA.jl package to prevent auto-precompilation?",
+      "answer": "You should set `ENV[\"JULIA_PKG_PRECOMPILE_AUTO\"]=0` before adding the CUDA.jl package."
+    },
+    {
+      "question": "What is a potential issue when using the CUDA toolkit downloaded during CUDA.jl installation with the installed CUDA driver?",
+      "answer": "It is possible that the CUDA toolkit downloaded during installation will not work with the installed CUDA driver."
+    },
+    {
+      "question": "How can you resolve the issue of the CUDA toolkit not working with the installed CUDA driver on a GPU node?",
+      "answer": "This problem can be avoided by configuring Julia to use the local CUDA toolkit using `CUDA.set_runtime_version!(v\"version_of_cuda\", local_toolkit=true)` on a GPU node, where 'version_of_cuda' matches the loaded CUDA module (e.g., 12.6 if `cuda/12.6` is loaded)."
+    },
+    {
+      "question": "How do you verify the CUDA version Julia is using after configuration?",
+      "answer": "After restarting Julia, you can verify it's using the correct CUDA version by running `julia> CUDA.versioninfo()`."
+    },
+    {
+      "question": "Provide an example of Julia code to test a CUDA.jl installation.",
+      "answer": "You can test the installation with the following Julia code: `julia> a = CuArray([1,2,3])` and then `julia> a.+=1`."
+    },
+    {
+      "question": "Where should the steps for configuring Julia to use the local CUDA toolkit be performed?",
+      "answer": "Everything related to configuring Julia to use the local CUDA toolkit, including testing the installation, should be done on a GPU compute node."
+    },
+    {
+      "question": "What organization produced a series of online seminars about Julia?",
+      "answer": "A series of online seminars about Julia was produced by SHARCNET."
+    },
+    {
+      "question": "What are the titles and durations of the available SHARCNET Julia seminars?",
+      "answer": "The available SHARCNET Julia seminars are:\n* Julia: A first perspective (47 minutes)\n* Julia: A second perspective (57 minutes)\n* Julia: A third perspective - parallel computing explained (65 minutes)"
+    },
+    {
+      "question": "Which Julia seminar topic is expected to be available soon?",
+      "answer": "The seminar titled \"Julia: Parallel computing revisited\" is expected to be available soon."
+    }
+  ],
+  "generated_at": "2026-04-12T00:24:05.720087+00:00"
+}

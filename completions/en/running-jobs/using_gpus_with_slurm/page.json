@@ -1,0 +1,87 @@
+{
+  "doc_key": "en/using_gpus_with_slurm",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is the primary Slurm directive recommended for requesting GPUs?",
+      "answer": "The recommended Slurm directive for requesting GPUs is `--gpus-per-node=<model_specifier>:<number>`."
+    },
+    {
+      "question": "Provide an example of how to request one A100 GPU per node using the recommended Slurm directive.",
+      "answer": "An example is `--gpus-per-node=a100:1`, which requests a single A100 GPU per node."
+    },
+    {
+      "question": "What is an older Slurm directive for requesting GPUs that is not recommended for future use?",
+      "answer": "The form `--gres=gpu:<model_specifier>:<number>` is an older directive that may not be supported in the future."
+    },
+    {
+      "question": "Besides `--gpus-per-node`, what other Slurm directives can be used to request GPU resources?",
+      "answer": "Other directives include `--gpus`, `--gpus-per-socket`, `--gpus-per-task`, `--mem-per-gpu`, and `--ntasks-per-gpu`."
+    },
+    {
+      "question": "What should users do if other Slurm GPU directives don't yield expected results?",
+      "answer": "Users should contact technical support if they try one of the other Slurm GPU directives and don't get the result they expect."
+    },
+    {
+      "question": "How can users obtain a real-time list of GPU model specifiers available from Slurm?",
+      "answer": "Users can run the command `sinfo -o \"%G\" | grep gpu | sed 's/gpu://g' | sed 's/),/\\n/g' | cut -d: -f1 | sort | uniq` to get a list of available GPU model specifiers."
+    },
+    {
+      "question": "Why is it strongly recommended to always provide a specific GPU model specifier for a job?",
+      "answer": "It is strongly recommended because not supplying one may result in the job being rejected or sent to an arbitrary GPU instance, which very few programs can use efficiently."
+    },
+    {
+      "question": "What is Multi-Instance GPU (MIG) technology?",
+      "answer": "MIG is a technology that partitions a GPU into multiple instances, allowing jobs to use a MIG instance instead of a whole GPU."
+    },
+    {
+      "question": "What additional resources should be requested alongside each GPU instance, and where can users find recommended ratios?",
+      "answer": "Alongside each GPU instance, a job should have a number of CPU cores and some amount of system memory. Recommended maximum numbers are listed in the 'table of bundle characteristics'."
+    },
+    {
+      "question": "Which GPU models are available on the Fir cluster, including MIG specifiers?",
+      "answer": "The Fir cluster offers H100-80gb GPUs, with model specifiers 'h100' and MIG options like 'nvidia_h100_80gb_hbm3_1g.10gb', 'nvidia_h100_80gb_hbm3_2g.20gb', and 'nvidia_h100_80gb_hbm3_3g.40gb'."
+    },
+    {
+      "question": "Which GPU models are available on the Narval cluster, including MIG specifiers?",
+      "answer": "The Narval cluster offers A100-40gb GPUs, with model specifiers 'a100' and MIG options such as 'a100_1g.5gb', 'a100_2g.10gb', 'a100_3g.20gb', and 'a100_4g.20gb'."
+    },
+    {
+      "question": "What is required to enable GPU profiling on Narval and Rorqual?",
+      "answer": "To enable GPU profiling on Narval and Rorqual, users must disable the NVIDIA Data Centre GPU Manager (DCGM) by setting the `DISABLE_DCGM=1` environment variable during job submission."
+    },
+    {
+      "question": "After disabling DCGM on Narval or Rorqual, what is the next step before launching a profiler?",
+      "answer": "After disabling DCGM, users must wait until DCGM is disabled on the node using the command `while [ ! -z \"$(dcgmi -v | grep 'Hostengine build info:')\" ]; do sleep 5; done` before launching their profiler."
+    },
+    {
+      "question": "On which clusters is the described GPU profiling technique not yet available?",
+      "answer": "GPU profiling using the described technique is not yet available on Fir and Nibi."
+    },
+    {
+      "question": "How would you request one A100 GPU, 4GB of memory, and run a program in a single-core Slurm job?",
+      "answer": "A single-core Slurm job would include `#SBATCH --gpus-per-node=a100:1` and `#SBATCH --mem=4000M`, followed by executing `./program`."
+    },
+    {
+      "question": "How would you request one A100 GPU and 6 CPU cores for a multi-threaded Slurm job?",
+      "answer": "A multi-threaded Slurm job would include `#SBATCH --gpus-per-node=a100:1` and `#SBATCH --cpus-per-task=6`, with `export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK` before running the program."
+    },
+    {
+      "question": "How would you request 8 A100 GPUs and run 8 MPI processes, each with 6 CPU cores and 5GB memory per CPU core?",
+      "answer": "An MPI job would include `#SBATCH --gpus=a100:8`, `#SBATCH --ntasks-per-gpu=1`, `#SBATCH --cpus-per-task=6`, `#SBATCH --mem-per-cpu=5G`, and execute with `srun --cpus-per-task=$SLURM_CPUS_PER_TASK ./program`."
+    },
+    {
+      "question": "When might it be beneficial to request a whole node for a GPU application?",
+      "answer": "If an application can efficiently use an entire node and its associated GPUs, requesting a whole node will likely result in shorter wait times."
+    },
+    {
+      "question": "How can GNU Parallel be used to run multiple single-GPU programs concurrently within one Slurm job, ensuring each uses a distinct GPU?",
+      "answer": "GNU Parallel can be used with `cat params.input | parallel -j4 'CUDA_VISIBLE_DEVICES=$(({%} - 1)) python {} &> {#}.out'`, where `-j4` specifies concurrent tasks and `CUDA_VISIBLE_DEVICES` assigns unique GPUs based on the slot ID."
+    },
+    {
+      "question": "Are GPUs at Arbutus scheduled via Slurm?",
+      "answer": "No, GPUs available at Arbutus are cloud resources and cannot be scheduled via Slurm."
+    }
+  ],
+  "generated_at": "2026-04-12T10:03:14.307563+00:00"
+}

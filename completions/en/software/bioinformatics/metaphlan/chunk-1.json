@@ -1,0 +1,92 @@
+{
+  "doc_key": "en/metaphlan",
+  "level": "chunk",
+  "chunk_index": 1,
+  "qa_pairs": [
+    {
+      "question": "What is MetaPhlAn used for?",
+      "answer": "MetaPhlAn is a computational tool for profiling the composition of microbial communities (Bacteria, Archaea, and Eukaryotes) from metagenomic shotgun sequencing data, with species-level resolution."
+    },
+    {
+      "question": "Does MetaPhlAn perform strain-level microbial profiling?",
+      "answer": "No, MetaPhlAn provides species-level profiling. However, StrainPhlAn, a related tool, makes accurate strain-level microbial profiling possible."
+    },
+    {
+      "question": "Where can users find more information about MetaPhlAn?",
+      "answer": "Users can find more information on the MetaPhlAn GitHub repository or its wiki page."
+    },
+    {
+      "question": "Are older versions of MetaPhlAn available on the clusters?",
+      "answer": "Yes, the software stack on our clusters does contain modules for older versions of MetaPhlAn, specifically 2.2.0 and 2.8."
+    },
+    {
+      "question": "How are users expected to install recent versions of MetaPhlAn?",
+      "answer": "Users are expected to install recent versions of MetaPhlAn using a Python virtual environment."
+    },
+    {
+      "question": "What command lists available MetaPhlAn wheels?",
+      "answer": "You can list available MetaPhlAn wheels using the `avail_wheels metaphlan --all-versions` command."
+    },
+    {
+      "question": "Which MetaPhlAn versions are available as wheels?",
+      "answer": "MetaPhlAn versions 4.0.3 and 3.0.7 are available as wheels."
+    },
+    {
+      "question": "Where must MetaPhlAn databases be downloaded and stored?",
+      "answer": "MetaPhlAn databases must be downloaded and stored in the `$SCRATCH` directory."
+    },
+    {
+      "question": "From which FTP server can MetaPhlAn databases be downloaded?",
+      "answer": "MetaPhlAn databases can be downloaded from the Segatalab FTP server at `http://cmprod1.cibio.unitn.it/biobakery4/metaphlan_databases`."
+    },
+    {
+      "question": "What is the first step to prepare for downloading MetaPhlAn databases from a login node?",
+      "answer": "The first step is to create the data folder by exporting `DB_DIR=$SCRATCH/metaphlan_databases`, creating the directory with `mkdir -p $DB_DIR`, and then changing into it with `cd $DB_DIR`."
+    },
+    {
+      "question": "Which specific database files need to be downloaded for MetaPhlAn?",
+      "answer": "The specific database files to download are `mpa_vJan21_CHOCOPhlAnSGB_202103.tar`, `mpa_vJan21_CHOCOPhlAnSGB_202103_marker_info.txt.bz2`, and `mpa_vJan21_CHOCOPhlAnSGB_202103_species.txt.bz2`."
+    },
+    {
+      "question": "Can the MetaPhlAn database download step be performed from a compute node?",
+      "answer": "No, the database download step cannot be performed from a compute node; it must be done from a login node."
+    },
+    {
+      "question": "How do you extract the downloaded MetaPhlAn databases?",
+      "answer": "To extract the databases, first untar the main archive using `tar -xf mpa_vJan21_CHOCOPhlAnSGB_202103.tar`, then unzip the bz2 files using `parallel bunzip2 ::: *.bz2`."
+    },
+    {
+      "question": "What interactive job resources are recommended for extracting MetaPhlAn databases?",
+      "answer": "An example suggests using `salloc --account=<your account> --cpus-per-task=2 --mem=10G`, requesting 2 CPUs and 10GB of memory."
+    },
+    {
+      "question": "What modules should be loaded in a job script before running MetaPhlAn?",
+      "answer": "The recommended modules to load are `gcc`, `blast`, `samtools`, `bedtools`, `bowtie2`, and `python/3.14`."
+    },
+    {
+      "question": "How is a Python virtual environment created and activated within the example MetaPhlAn job script?",
+      "answer": "A virtual environment is created in `$SLURM_TMPDIR` using `virtualenv --no-download ${SLURM_TMPDIR}/env` and then activated with `source ${SLURM_TMPDIR}/env/bin/activate`."
+    },
+    {
+      "question": "How is MetaPhlAn installed in the virtual environment within the job script?",
+      "answer": "MetaPhlAn and its dependencies are installed using `pip install --no-index --upgrade pip` and `pip install --no-index metaphlan==X.Y.Z`, replacing `X.Y.Z` with the desired version (e.g., 4.0.3)."
+    },
+    {
+      "question": "What are the important arguments for MetaPhlAn to run correctly inside a job?",
+      "answer": "It is important to use the `--index` and `--bowtie2db` arguments for MetaPhlAn to run inside the job."
+    },
+    {
+      "question": "What is an example command for running MetaPhlAn on a metagenome.fastq file?",
+      "answer": "An example command is `metaphlan metagenome.fastq --input_type fastq -o profiled_metagenome.txt --nproc $SLURM_CPUS_PER_TASK --index mpa_vJan21_CHOCOPhlAnSGB_202103 --bowtie2db $DB_DIR --bowtie2out metagenome.bowtie2.bz2`."
+    },
+    {
+      "question": "How do you submit the MetaPhlAn job script to the scheduler?",
+      "answer": "You submit the job script to the scheduler using the command `sbatch metaphlan-job.sh`."
+    },
+    {
+      "question": "What are the suggested SLURM resource allocations for a MetaPhlAn job?",
+      "answer": "The example job script suggests `--cpus-per-task=4` and `--mem=15G`, indicating 4 CPU cores and 15 GB of memory."
+    }
+  ],
+  "generated_at": "2026-04-12T02:23:18.940116+00:00"
+}

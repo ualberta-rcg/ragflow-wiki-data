@@ -5,26 +5,38 @@ lang: "en"
 
 source_wiki_title: "Keras/en"
 source_hash: "36766f6fc55bf20bc6bbd9c981478d03"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T07:45:51.375682+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T08:23:28.241570+00:00"
 
 tags:
   - software
   - ai-and-machine-learning
 
 keywords:
-  []
+  - "Keras"
+  - "R package"
+  - "Neural networks API"
+  - "Python"
+  - "TensorFlow"
+
+questions:
+  - "What is Keras and which backend frameworks is it capable of running on top of?"
+  - "What are the necessary steps to install Keras within a Python virtual environment?"
+  - "How should a user install and configure the Keras package in R to properly utilize the pre-installed virtual environment?"
+  - "What is Keras and which backend frameworks is it capable of running on top of?"
+  - "What are the necessary steps to install Keras within a Python virtual environment?"
+  - "How should a user install and configure the Keras package in R to properly utilize the pre-installed virtual environment?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
-"Keras is a high-level neural networks API, written in Python and capable of running on top of TensorFlow, CNTK, or Theano." (Source: [Keras.io](https://keras.io/))
+"Keras is a high-level neural networks API, written in Python and capable of running on top of TensorFlow, CNTK, or Theano." (Source: [Keras website](https://keras.io/))
 
 If you are porting a Keras program to one of our clusters, you should follow [our tutorial on the subject](tutoriel-apprentissage-machine.md).
 
@@ -59,7 +71,9 @@ This section details how to install Keras for R and use TensorFlow as the backen
     devtools::install_github('rstudio/keras')
     ```
 
-You are then good to go. Do not call `install_keras()` in R, as Keras and TensorFlow have already been installed in your virtual environment with `pip`. To use the Keras package installed in your virtual environment, enter the following commands in R after the environment has been activated.
+!!! warning "Important Note"
+    You are then good to go. Do not call `install_keras()` in R, as Keras and TensorFlow have already been installed in your virtual environment with `pip`. To use the Keras package installed in your virtual environment, enter the following commands in R after the environment has been activated.
+
 ```r
 library(keras)
 use_virtualenv(Sys.getenv('VIRTUAL_ENV'))

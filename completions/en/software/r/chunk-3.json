@@ -1,0 +1,80 @@
+{
+  "doc_key": "en/r",
+  "level": "chunk",
+  "chunk_index": 3,
+  "qa_pairs": [
+    {
+      "question": "How do I specify the local installation directory for R packages when installing for one or many R versions?",
+      "answer": "You can specify the local installation directory by first creating it with `mkdir -p ~/.local/R/$EBVERSIONR/` and then setting the `R_LIBS` environment variable with `export R_LIBS=~/.local/R/$EBVERSIONR/`."
+    },
+    {
+      "question": "What command should I use to install an R package like 'sp' for multiple R versions, once the local library directory is set?",
+      "answer": "You can install the package using the command: `R -e 'install.packages(\"sp\", repos=\"https://cloud.r-project.org/\")'`"
+    },
+    {
+      "question": "What steps are required in a job submission script after installing R packages for multiple R versions into a local library?",
+      "answer": "In your submission script, you must load the desired R module and set the local library directory using `export R_LIBS=~/.local/R/$EBVERSIONR/`."
+    },
+    {
+      "question": "What should I do if an R package I want to install depends on external libraries that are already available on the clusters?",
+      "answer": "If the external library is listed under 'Available software', you should load the appropriate module for that library before attempting to install the R package that requires it."
+    },
+    {
+      "question": "How can I find out how to load a specific external library module, such as 'gdal'?",
+      "answer": "You can typically find out how to load a specific module by running a command like `module spider gdal/3.9.1` for the 'gdal' library."
+    },
+    {
+      "question": "What should I do if an R package fails to install?",
+      "answer": "If an R package fails to install, you should carefully read the error message, as it often provides details about additional modules you might need to load."
+    },
+    {
+      "question": "How do I install an R package that I have downloaded locally, rather than using `install.packages()`?",
+      "answer": "To install a downloaded package (e.g., `archive_package.tgz`), run the shell command: `R CMD INSTALL -l 'path for your local (home) R library' archive_package.tgz`."
+    },
+    {
+      "question": "What common issue can occur when using the R command `system()` on clusters?",
+      "answer": "Using the R command `system()` on clusters can lead to problems because R might assign an incorrect value to the environment variable `LD_LIBRARY_PATH`."
+    },
+    {
+      "question": "How can the `LD_LIBRARY_PATH` issue be avoided when making system calls from R?",
+      "answer": "You can avoid this problem by using the syntax `system(\"LD_LIBRARY_PATH=$RSNT_LD_LIBRARY_PATH <my system call>\")` in your R system calls."
+    },
+    {
+      "question": "Why is it beneficial to pass parameters as arguments to R scripts?",
+      "answer": "Passing parameters as arguments to R scripts is useful because it avoids the need to change the R script for every job or to manage multiple copies of otherwise identical scripts."
+    },
+    {
+      "question": "What kinds of parameters can be passed to R scripts using command-line arguments?",
+      "answer": "Parameters like input/output file names and numerical values can be passed as arguments to R scripts."
+    },
+    {
+      "question": "Can you provide an example of how to pass arguments to an R script from the command line?",
+      "answer": "You can pass arguments like this: `Rscript myscript.R input_1.csv 5` or `Rscript myscript.R input_2.csv 10`."
+    },
+    {
+      "question": "How does an R script access the arguments passed to it from the command line?",
+      "answer": "An R script can access command-line arguments using the `commandArgs(trailingOnly=TRUE)` function."
+    },
+    {
+      "question": "What makes the supercomputers on our clusters powerful, even with ordinary processors?",
+      "answer": "The supercomputers are powerful because they provide access to thousands of CPU cores with a high-performance network."
+    },
+    {
+      "question": "What is recommended to ensure before investing time in parallelizing R code?",
+      "answer": "Before parallelizing R code, it's recommended to first ensure that the serial implementation is as efficient as possible."
+    },
+    {
+      "question": "What is a significant performance bottleneck in R, especially due to its nature as an interpreted language?",
+      "answer": "The use of loops, particularly nested loops, constitutes a significant performance bottleneck in R."
+    },
+    {
+      "question": "What are some ways to make serial R code more efficient and improve performance?",
+      "answer": "To make serial R code more efficient, you should try to use vectorized forms of R functions and functional elements like the `apply` family of functions and the `ifelse` function, whenever possible."
+    },
+    {
+      "question": "What is the primary benefit of using vectorized R functions or `apply`/`ifelse` functions over loops?",
+      "answer": "These alternatives frequently offer a much better performance gain by eliminating a loop entirely, rather than just parallelizing a slow loop across several CPU cores."
+    }
+  ],
+  "generated_at": "2026-04-12T06:14:16.378157+00:00"
+}

@@ -1,0 +1,55 @@
+{
+  "doc_key": "base/cp2k",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is CP2K?",
+      "answer": "CP2K is a quantum chemistry and solid-state physics software package designed for atomistic simulations of various systems, including solid-state, liquid, molecular, periodic, material, crystal, and biological systems."
+    },
+    {
+      "question": "Which version of CP2K is currently installed?",
+      "answer": "The latest installed version is CP2K 8.2."
+    },
+    {
+      "question": "How can one load the GCC-compiled version of CP2K 8.2?",
+      "answer": "You can load it using the command: `module load StdEnv/2020 gcc/9.3.0 openmpi/4.0.3 cp2k/8.2`."
+    },
+    {
+      "question": "Is there an Intel-compiled version of CP2K 8.2 available, and are there any known issues?",
+      "answer": "Yes, an Intel-compiled version is available via `module load StdEnv/2020 intel/2020.1.217 openmpi/4.0.3 cp2k/8.2`, but it's noted to be less stable and sometimes crashes."
+    },
+    {
+      "question": "What are the initial steps to prepare for a static calculation example using CP2K?",
+      "answer": "First, log into a cluster, then download and extract the required files using `wget https://www.cp2k.org/_media/static_calculation.tgz`, `tar xvfz static_calculation.tgz`, and navigate into the `static_calculation/sample_output_no_smearing` directory."
+    },
+    {
+      "question": "What is the typical output file name for a CP2K calculation?",
+      "answer": "The output of a CP2K calculation is usually located in a file named `Si_bulk8.out` (or similar, depending on the input file name)."
+    },
+    {
+      "question": "How do you submit a CP2K job script named `mpi_job.sh`?",
+      "answer": "You submit it using the command `sbatch mpi_job.sh`."
+    },
+    {
+      "question": "How can you check the status of your submitted CP2K job?",
+      "answer": "You can check the job status by running the command `sq`."
+    },
+    {
+      "question": "Which executables are included with CP2K version 8.2 and later for different types of jobs?",
+      "answer": "CP2K 8.2 and later include `cp2k.popt` for MPI-only jobs and `cp2k.psmp` for OpenMP/MPI (threaded/MPI) jobs."
+    },
+    {
+      "question": "When might using the `cp2k.psmp` executable be beneficial?",
+      "answer": "The `cp2k.psmp` executable, which supports OpenMP/MPI, may offer better performance for some calculations, such as a 10% increase observed for the QS/H2O-512.inp benchmark when using 2 threads per MPI process."
+    },
+    {
+      "question": "What crucial step should be taken before deciding to use `cp2k.psmp` for a specific calculation?",
+      "answer": "You must benchmark your code with both `cp2k.popt` and `cp2k.psmp` because performance changes with threads are highly problem-dependent, and `cp2k.psmp` can sometimes be slower."
+    },
+    {
+      "question": "How do you specify the number of OpenMP threads for an OpenMP/MPI job within a SLURM script?",
+      "answer": "You export the `OMP_NUM_THREADS` environment variable, typically setting it to `$SLURM_CPUS_PER_TASK`, before executing the `srun` command for `cp2k.psmp`."
+    }
+  ],
+  "generated_at": "2026-04-11T19:07:36.815234+00:00"
+}

@@ -1,0 +1,99 @@
+{
+  "doc_key": "base/cesm",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is the Community Earth System Model (CESM)?",
+      "answer": "The Community Earth System Model (CESM) is a fully coupled global climate model that provides state-of-the-art computer simulations of Earth's past, present, and future climate states."
+    },
+    {
+      "question": "What is the primary benefit of a local CESM installation?",
+      "answer": "Local installations allow for source code changes, which can be useful for specific research purposes."
+    },
+    {
+      "question": "What is the first step required before adapting the configuration files for a local CESM installation?",
+      "answer": "Before making adaptations, you need to download CESM 2.1 from the CESM developers into your local directory."
+    },
+    {
+      "question": "How can I download CESM version 2.1.5?",
+      "answer": "You can download CESM version 2.1.5 by running the command: `git clone -b release-cesm2.1.5 https://github.com/ESCOMP/CESM.git /path/to/CESM`."
+    },
+    {
+      "question": "What is the status of CESM version 2.1.3?",
+      "answer": "CESM version 2.1.3 is an older, popular version in the research community, but it is no longer officially supported and may become obsolete."
+    },
+    {
+      "question": "What additional steps are required to make CESM version 2.1.3 work?",
+      "answer": "To make CESM version 2.1.3 work, some external dependencies must be replaced with newer versions, and researchers are responsible for confirming their validity."
+    },
+    {
+      "question": "Which command is used to replace external dependencies for CESM 2.1.3?",
+      "answer": "You need to use `sed` commands to update specific lines in `/path/to/CESM/Externals.cfg`, such as replacing 'cam_cesm2_1_rel_41' with 'cam_cesm2_1_rel_59'."
+    },
+    {
+      "question": "What script should be run before the first use of CESM to checkout individual model components?",
+      "answer": "You should run the `checkout_externals` script located at `/path/to/CESM/manage_externals/checkout_externals`."
+    },
+    {
+      "question": "How can one validate the checkout of external model components?",
+      "answer": "To validate the checkout, run the `checkout_externals` script again with the `-S` flag: `/path/to/CESM/manage_externals/checkout_externals -S`."
+    },
+    {
+      "question": "Where should the local machine configuration file be created and edited?",
+      "answer": "The local machine configuration file, `config_machines.xml`, should be created and edited at `~/.cime/config_machines.xml`."
+    },
+    {
+      "question": "What critical information must be updated in the `config_machines.xml` file for any cluster?",
+      "answer": "You must update both configuration lines containing `def-EDIT_THIS` with the compute account you want to use on the cluster."
+    },
+    {
+      "question": "How do you validate the `config_machines.xml` file against its schema?",
+      "answer": "You can validate it using `xmllint --noout --schema /path/to/CESM/cime/config/xml_schemas/config_machines.xsd ~/.cime/config_machines.xml`."
+    },
+    {
+      "question": "Which command queries the current machine's configuration as seen by CIME?",
+      "answer": "The command `/path/to/CESM/cime/scripts/query_config --machines current` can be used to query the current machine's configuration."
+    },
+    {
+      "question": "Where can users find an official template for additional machine configuration parameters?",
+      "answer": "Users can check the official template at `/path/to/CESM/cime/config/xml_schemas/config_machines_template.xml`."
+    },
+    {
+      "question": "What is the purpose of the `~/.cime/config_batch.xml` file?",
+      "answer": "The `~/.cime/config_batch.xml` file controls arguments to the batch submit command and defines batch system variables."
+    },
+    {
+      "question": "Which batch system is configured for Fir, Nibi, Narval, Niagara, and Rorqual clusters in the `config_batch.xml` examples?",
+      "answer": "The `slurm` batch system is configured for these clusters."
+    },
+    {
+      "question": "How is the `config_batch.xml` file validated?",
+      "answer": "The `config_batch.xml` file can be validated using `xmllint --noout --schema /path/to/CESM/cime/config/xml_schemas/config_batch.xsd ~/.cime/config_batch.xml`."
+    },
+    {
+      "question": "What is the purpose of the `~/.cime/config_compilers.xml` file?",
+      "answer": "The `~/.cime/config_compilers.xml` file configures compiler-specific settings for CESM on a given machine, including paths for NetCDF and other libraries."
+    },
+    {
+      "question": "What flags are enabled in the `CPPDEFS` section for the 'gptl' model in `config_compilers.xml`?",
+      "answer": "The flags `-DHAVE_NANOTIME -DBIT64 -DHAVE_VPRINTF -DHAVE_BACKTRACE -DHAVE_SLASHPROC -DHAVE_COMM_F2C -DHAVE_TIMES -DHAVE_GETTIMEOFDAY` are enabled to allow nano timers."
+    },
+    {
+      "question": "How do you validate the `config_compilers.xml` file?",
+      "answer": "You validate it using `xmllint --noout --schema /path/to/CESM/cime/config/xml_schemas/config_compilers_v2.xsd ~/.cime/config_compilers.xml`."
+    },
+    {
+      "question": "What are the initial steps to set up a new CESM test case?",
+      "answer": "The initial steps involve creating output and input data directories, then running `create_newcase` with desired compset and resolution, and changing to the new case directory."
+    },
+    {
+      "question": "What are the subsequent commands to configure and build a CESM test case after creating it?",
+      "answer": "You need to run `./case.setup`, `./case.build`, and `./check_input_data --download`."
+    },
+    {
+      "question": "How do you prepare and submit a CESM simulation run?",
+      "answer": "To prepare and submit a simulation, you first run `./preview_run` and then `./case.submit`."
+    }
+  ],
+  "generated_at": "2026-04-11T18:50:12.766592+00:00"
+}

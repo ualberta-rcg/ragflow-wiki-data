@@ -1,0 +1,71 @@
+{
+  "doc_key": "fr/openfoam",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "Qu'est-ce qu'OpenFOAM?",
+      "answer": "C'est une suite logicielle libre et gratuite pour la modélisation numérique de la dynamique des fluides, capable de gérer l'électromagnétisme, la dynamique des solides, et les flux complexes avec réaction chimique, turbulence et transfert thermique."
+    },
+    {
+      "question": "Comment charger un module OpenFOAM pour l'utiliser?",
+      "answer": "Pour une version récente, il faut utiliser la commande `module load openfoam`."
+    },
+    {
+      "question": "Quelles sont les entités principales de la communauté OpenFOAM?",
+      "answer": "Les principales entités sont la OpenFOAM Foundation (avec openfoam.org et cfd.direct) et OpenCFD (avec openfoam.com)."
+    },
+    {
+      "question": "Comment faire la distinction entre les modules OpenFOAM des branches .com et .org pour les versions après 2.3.1?",
+      "answer": "Les modules dont le nom commence par 'v' proviennent de la branche .com (ex: `openfoam/v1706`), tandis que ceux commençant par un chiffre proviennent de la branche .org (ex: `openfoam/4.1`)."
+    },
+    {
+      "question": "Où peut-on trouver la documentation pour OpenFOAM?",
+      "answer": "La documentation est disponible sur openfoam.com/documentation/ et via le Guide de l'utilisateur de CFD Direct."
+    },
+    {
+      "question": "Quelle est une étape préalable essentielle pour exécuter les commandes OpenFOAM?",
+      "answer": "Il est impératif de charger un module OpenFOAM."
+    },
+    {
+      "question": "Pouvez-vous fournir un exemple de script pour une tâche OpenFOAM séquentielle?",
+      "answer": "Un script peut charger `openfoam/12` puis exécuter `blockMesh` et `icoFoam`."
+    },
+    {
+      "question": "Quel est un exemple de script pour une tâche OpenFOAM parallèle?",
+      "answer": "Un script pour tâche parallèle devrait inclure `decomposePar` et lancer le solveur avec `srun <solveur> -parallel`, comme `srun interFoam -parallel`."
+    },
+    {
+      "question": "Quand faut-il soumettre les tâches OpenFOAM à l'ordonnanceur?",
+      "answer": "Les tâches exigeantes, comme celles du solveur (`icoFoam`), devraient toujours être soumises à l'ordonnanceur, sauf pour les cas très petits ou les tutoriels."
+    },
+    {
+      "question": "Est-ce que le solveur petscFoam est inclus par défaut dans les modules OpenFOAM disponibles?",
+      "answer": "Non, nos modules OpenFOAM n'incluent pas ce solveur, mais il peut être compilé sur toutes nos grappes."
+    },
+    {
+      "question": "Comment vérifier la compatibilité d'une version de PETSc avec un module OpenFOAM précis?",
+      "answer": "Après avoir chargé le module OpenFOAM désiré, exécutez `grep \"^petsc_version\" $EBROOTOPENFOAM/OpenFOAM*/etc/config.sh/petsc`."
+    },
+    {
+      "question": "Quelles sont les principales étapes pour compiler le solveur petscFoam?",
+      "answer": "Il faut charger les modules nécessaires, télécharger et décompresser le paquet `external-solver-main.tar.gz`, puis se rendre dans le répertoire décompressé et exécuter `./Allwmake`."
+    },
+    {
+      "question": "Comment confirmer qu'OpenFOAM peut bien charger petscFoam après la compilation?",
+      "answer": "On peut vérifier cela avec la commande `foamHasLibrary -verbose petscFoam`."
+    },
+    {
+      "question": "Comment la fonction de débogage d'OpenFOAM peut-elle affecter la performance?",
+      "answer": "La fonction de débogage peut générer des centaines d'opérations d'écriture par seconde, ce qui diminue la performance des systèmes de fichiers partagés."
+    },
+    {
+      "question": "Comment peut-on réduire ou désactiver la fonction de débogage pour améliorer la performance?",
+      "answer": "Il faut copier `controlDict` dans `$HOME/.OpenFOAM/$WM_PROJECT_VERSION/` et y modifier les valeurs des indicateurs de `debugSwitches` à zéro."
+    },
+    {
+      "question": "Quel espace de stockage est recommandé pour les flux de travail OpenFOAM qui génèrent beaucoup de petits fichiers?",
+      "answer": "Il est préférable d'utiliser l'espace de stockage temporaire local (`$SLURM_TMPDIR`), qui est un disque directement rattaché au nœud de calcul."
+    }
+  ],
+  "generated_at": "2026-04-12T04:28:40.425235+00:00"
+}

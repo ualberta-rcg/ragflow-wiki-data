@@ -1,0 +1,76 @@
+{
+  "doc_key": "fr/lammps",
+  "level": "chunk",
+  "chunk_index": 2,
+  "qa_pairs": [
+    {
+      "question": "Comment peut-on savoir quels paquets sont activés ou désactivés pour un module LAMMPS spécifique?",
+      "answer": "Une fois que vous avez chargé un module LAMMPS, vous pouvez lancer la commande `cat ${EBROOTLAMMPS}/list-packages.txt` pour consulter le fichier `list-packages.txt`."
+    },
+    {
+      "question": "Que faire si le fichier `list-packages.txt` est introuvable pour un module LAMMPS?",
+      "answer": "Si le fichier `list-packages.txt` n'est pas disponible, vous pourriez déterminer les paquets en ouvrant le fichier de recette EasyBuild, soit `${EBROOTLAMMPS}/easybuild/LAMMPS*.eb`. Les paquets disponibles se trouvent dans le bloc `general_packages`."
+    },
+    {
+      "question": "Quel est le nom du fichier d'entrée de simulation typique fourni en exemple?",
+      "answer": "Le fichier d'entrée d'exemple est nommé `lammps.in`."
+    },
+    {
+      "question": "Quel type de simulation est illustré dans le fichier d'entrée d'exemple `lammps.in`?",
+      "answer": "Le fichier `lammps.in` décrit une simulation de type '3d Lennard-Jones melt'."
+    },
+    {
+      "question": "Quel est le nom du script de tâche en exemple pour une exécution séquentielle de LAMMPS?",
+      "answer": "Le script de tâche séquentielle est nommé `run_lmp_serial.sh`."
+    },
+    {
+      "question": "Comment est-ce qu'on exécute LAMMPS avec le script de tâche séquentielle `run_lmp_serial.sh`?",
+      "answer": "On utilise la commande `lmp < lammps.in > lammps_output.txt`."
+    },
+    {
+      "question": "Quels modules sont nécessaires pour l'exécution séquentielle de LAMMPS selon l'exemple `run_lmp_serial.sh`?",
+      "answer": "Il faut charger les modules `StdEnv/2020`, `intel/2020.1.217`, `openmpi/4.0.3` et `lammps-omp/20210929`."
+    },
+    {
+      "question": "Quel est le nom du script de tâche en exemple pour une exécution parallèle de LAMMPS avec MPI?",
+      "answer": "Le script de tâche MPI est nommé `run_lmp_mpi.sh`."
+    },
+    {
+      "question": "Combien de tâches MPI sont demandées dans le script d'exemple `run_lmp_mpi.sh`?",
+      "answer": "Le script demande 4 tâches MPI (`#SBATCH --ntasks=4`)."
+    },
+    {
+      "question": "Comment est-ce qu'on exécute LAMMPS avec le script de tâche MPI `run_lmp_mpi.sh`?",
+      "answer": "On utilise la commande `srun lmp < lammps.in > lammps_output.txt`."
+    },
+    {
+      "question": "Quelle est la mémoire par CPU et le temps alloués pour les tâches LAMMPS dans les scripts d'exemple?",
+      "answer": "La mémoire par CPU est de 2500 Mo (`--mem-per-cpu=2500M`) et le temps alloué est de 30 minutes (`--time=0-00:30`)."
+    },
+    {
+      "question": "Dans les simulations de dynamique moléculaire, quelle partie du calcul occupe la plus grande part du temps CPU?",
+      "answer": "Le calcul des interactions de paires entre particules est la partie qui occupe la plus grande part du temps CPU."
+    },
+    {
+      "question": "Comment LAMMPS répartit-il le travail entre les processeurs disponibles?",
+      "answer": "LAMMPS utilise la méthode de décomposition des domaines, où chaque processeur se voit attribuer une portion de la boîte de simulation."
+    },
+    {
+      "question": "Pourquoi l'augmentation du nombre de processeurs peut-elle parfois diminuer l'efficacité du CPU dans une simulation LAMMPS?",
+      "answer": "Plus il y a de processeurs, plus la boîte de simulation est divisée en parties, ce qui augmente le temps de communication entre les processeurs et peut réduire l'efficacité du CPU."
+    },
+    {
+      "question": "Quel conseil est donné pour évaluer l'impact du nombre de cœurs sur la performance avant de lancer de grosses simulations?",
+      "answer": "Il faut faire des tests courts avec un nombre différent de cœurs pour identifier celui qui offre la meilleure efficacité, même si les résultats ne sont qu'approximatifs."
+    },
+    {
+      "question": "Quelle est la performance d'une simulation de 4000 particules avec 12 tâches MPI?",
+      "answer": "L'efficacité est très basse; le calcul des interactions de paires prend 46,45% du temps et la communication entre les processeurs occupe 44,5%."
+    },
+    {
+      "question": "Pourquoi la communication entre les processeurs occupe-t-elle une proportion aussi importante du temps pour une simulation de 4000 particules avec 12 tâches MPI?",
+      "answer": "La proportion est importante parce qu'un système aussi petit (4000 atomes) est réparti sur un grand nombre de petites boîtes (12 cœurs), ce qui augmente le temps de communication."
+    }
+  ],
+  "generated_at": "2026-04-12T00:49:36.444697+00:00"
+}

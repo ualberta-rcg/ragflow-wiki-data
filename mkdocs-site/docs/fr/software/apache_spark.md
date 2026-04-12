@@ -5,33 +5,60 @@ lang: "fr"
 
 source_wiki_title: "Apache Spark/fr"
 source_hash: "89dd5b36c453b2b451415124f84991a2"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T04:26:06.201776+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T05:18:16.229147+00:00"
 
 tags:
   - software
 
 keywords:
-  []
+  - "apprentissage automatique"
+  - "calcul distribué"
+  - "application web"
+  - "analyse de données"
+  - "Spark"
+  - "Monitoring"
+  - "journaux d'activités"
+  - "Journaux d'application"
+  - "Apache Spark"
+  - "Configuration"
+  - "History Server"
+  - "sauvegarde des journaux"
+  - "Visualisation"
+  - "PySpark"
+
+questions:
+  - "Quelles sont les principales différences entre Apache Spark et Hadoop MapReduce en matière de gestion de la mémoire et de performances ?"
+  - "Comment les scripts fournis permettent-ils de configurer et de soumettre des tâches PySpark ou Java sur une grappe de calcul via Slurm ?"
+  - "Quelle méthode est proposée pour sauvegarder et consulter les journaux d'activités une fois l'exécution de l'application Spark terminée ?"
+  - "Quelles sont les étapes de configuration nécessaires pour activer et stocker les journaux d'événements Spark ?"
+  - "Quelle commande permet de lancer le serveur d'historique (History Server) pour visualiser les journaux ?"
+  - "Comment accéder à l'interface web de visualisation et quelle est la procédure pour l'arrêter ?"
+  - "Comment peut-on sauvegarder et consulter les journaux d'activités d'une application Spark après son exécution ?"
+  - "Quel type d'interface est fourni par défaut avec Spark pour faciliter le suivi et la visualisation de ces journaux ?"
+  - "Quelles commandes sont utilisées dans l'exemple pour lancer l'application SparkLR et arrêter les processus maître et esclaves ?"
+  - "Quelles sont les étapes de configuration nécessaires pour activer et stocker les journaux d'événements Spark ?"
+  - "Quelle commande permet de lancer le serveur d'historique (History Server) pour visualiser les journaux ?"
+  - "Comment accéder à l'interface web de visualisation et quelle est la procédure pour l'arrêter ?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
-# Introduction
+## Introduction
 
-Apache Spark est un *framework* de calcul distribué à code source ouvert initialement développé par l'AMPLab de l'Université Berkeley, et maintenant un projet de la fondation Apache. Contrairement à l'algorithme MapReduce implémenté par Hadoop qui utilise le stockage sur disque, Spark utilise des primitives conservées en mémoire lui permettant d'atteindre des performances jusqu'à 100 fois plus rapides pour certaines applications. Le chargement des données en mémoire permet de les interroger fréquemment ce qui fait de Spark un *framework* particulièrement approprié pour l'apprentissage automatique et l'analyse de données interactive.
+Apache Spark est un cadre de travail de calcul distribué à code source ouvert initialement développé par l'AMPLab de l'Université Berkeley, et maintenant un projet de la fondation Apache. Contrairement à l'algorithme MapReduce implémenté par Hadoop qui utilise le stockage sur disque, Spark utilise des primitives conservées en mémoire lui permettant d'atteindre des performances jusqu'à 100 fois plus rapides pour certaines applications. Le chargement des données en mémoire permet de les interroger fréquemment ce qui fait de Spark un cadre de travail particulièrement approprié pour l'apprentissage automatique et l'analyse de données interactive.
 
-# Utilisation
+## Utilisation
 
-## PySpark
+### PySpark
 
-```sh title="pyspark_submit.sh"
+```sh title="pyspark_submit.sh" linenums="1"
 #!/bin/bash
 #SBATCH --account=def-someuser
 #SBATCH --time=00:01:00
@@ -66,9 +93,9 @@ kill $slaves_pid
 stop-master.sh
 ```
 
-## Java Jars
+### Fichiers JAR Java
 
-```sh title="pyspark_java_submit.sh"
+```sh title="pyspark_java_submit.sh" linenums="1"
 #!/bin/bash
 #SBATCH --account=def-someuser
 #SBATCH --time=00:01:00
@@ -102,48 +129,44 @@ kill $slaves_pid
 stop-master.sh
 ```
 
-# Surveillance
+## Suivi
 
-Les journaux d'activités de l'application Spark qui a été exécutée peuvent être sauvegardés et consultés par la suite à l'aide d'une application web fournie avec Spark. Les instructions suivantes montrent comment activer la sauvegarde des journaux et le démarrage de l'application web.
+!!! note "Suivi des journaux d'application"
+    Les journaux d'activités de l'application Spark qui a été exécutée peuvent être sauvegardés et consultés par la suite à l'aide d'une application web fournie avec Spark. Les instructions suivantes montrent comment activer la sauvegarde des journaux et le démarrage de l'application web.
 
-## Configuration
+### Configuration
 
 Créer d'abord un répertoire qui contiendra les journaux d'application :
-
 ```bash
 mkdir ~/.spark/<spark version>/eventlog
 ```
 
 S'il n'existe pas déjà, créer ensuite un répertoire qui contiendra les paramètres de configuration de Spark :
-
 ```bash
 mkdir ~/.spark/<spark version>/conf
 ```
 
-Dans ce répertoire, créer le fichier suivant ou ajouter le contenu présenté au fichier `spark-defaults.conf` si ce dernier existe déjà.
-
+Dans ce répertoire, créer le fichier suivant ou ajouter le contenu présenté au fichier `spark-defaults.conf` s'il existe déjà.
 ```conf title="spark-defaults.conf"
 spark.eventLog.enabled true
 spark.eventLog.dir /home/<userid>/.spark/<spark version>/eventlog
 spark.history.fs.logDirectory  /home/<userid>/.spark/<spark version>/eventlog
 ```
-## Visualisation
 
-Créer un [tunnel](ssh-tunnelling.md) entre votre ordinateur et la grappe de calcul.
+### Visualisation
+
+Créer un [tunnel SSH](ssh-tunnelling.md) entre votre ordinateur et la grappe de calcul.
 
 Charger le module Spark :
-
 ```bash
 module load spark/2.3.0
 ```
 
 Lancer l'application web de visualisation des journaux :
-
 ```bash
 SPARK_NO_DAEMONIZE=1 start-history-server.sh
 ```
-
-```console
+```text
 starting org.apache.spark.deploy.history.HistoryServer, logging to /home/<userid>/.spark/<spark version>/log/spark-<userid>-org.apache.spark.deploy.history.HistoryServer-1-<server>.computecanada.ca.out
 Spark Command: /cvmfs/soft.computecanada.ca/easybuild/software/2017/Core/java/1.8.0_121/bin/java -cp /home/<userid>/.spark/<spark version>/conf/:/cvmfs/soft.computecanada.ca/easybuild/software/2017/Core/spark/2.2.0/jars/* -Xmx1g org.apache.spark.deploy.history.HistoryServer
 ========================================
@@ -163,7 +186,6 @@ Using Spark's default log4j profile: org/apache/spark/log4j-defaults.properties
 17/10/13 04:29:02 INFO Utils: Successfully started service on port 18080.
 17/10/13 04:29:02 INFO HistoryServer: Bound HistoryServer to 0.0.0.0, and started at http://<server ip address>:18080
 ```
+Copier l'URL affichée dans le terminal et la coller dans votre fureteur web.
 
-Copier l'URL affichée dans le terminal et coller dans votre fureteur web.
-
-Pour stopper l'application de visualisation, entrer la combinaison de touche Ctrl-C dans le terminal ayant servi à lancer l'application.
+Pour arrêter l'application de visualisation, appuyer sur la combinaison de touches Ctrl-C dans le terminal ayant servi à lancer l'application.

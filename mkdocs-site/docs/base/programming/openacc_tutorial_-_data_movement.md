@@ -5,26 +5,66 @@ lang: "base"
 
 source_wiki_title: "OpenACC Tutorial - Data movement"
 source_hash: "6e3afcce3f11bda349298734194739f2"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T09:23:44.078404+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T09:54:21.013883+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "Data clauses"
+  - "Fortran"
+  - "OpenACC"
+  - "Explicit Data Movement"
+  - "device memory"
+  - "Copy In Matrix"
+  - "data directives"
+  - "memory management"
+  - "Structured data regions"
+  - "pragma acc data"
+  - "update directive"
+  - "GPU"
+  - "Data management"
+  - "GPU (device)"
+  - "CPU (host)"
+  - "copy"
+  - "benchmarking"
+  - "managed memory"
+  - "Unstructured data"
+  - "present clause"
+  - "vector"
+  - "copyin"
+
+questions:
+  - "Why is it beneficial to explicitly manage data movement in OpenACC rather than relying on CUDA Unified Memory?"
+  - "What is the difference between structured and unstructured data regions, and in what scenarios are unstructured directives necessary?"
+  - "How do specific data clauses, such as copyin, copyout, and create, control memory allocation and data transfer between the host and the GPU?"
+  - "How does OpenACC handle the allocation and deletion of complex data structures, such as a matrix and its members, on the device?"
+  - "What is the purpose of the `present` clause in OpenACC, and why is it considered critical for achieving good performance?"
+  - "How does the `update` directive enable data synchronization between the host (CPU) and the device (GPU) during execution?"
+  - "How does the OpenACC syntax for data movement differ between C/C++ and Fortran in the provided examples?"
+  - "What specific clauses are used in the code snippets to define the copying of array sections to and from the device?"
+  - "What are the initial steps outlined for explicitly copying an allocated and initialized matrix to the device?"
+  - "What is the primary purpose of the `update` directive as demonstrated in the text?"
+  - "What are the sequential steps described for managing the vector data between the CPU and the GPU?"
+  - "How does the provided C++ function initialize the vector on the host before it is copied to the device?"
+  - "What do the benchmark results indicate about the relationship between managed memory, data locality, and overall performance?"
+  - "Which compiler options are used to compile the OpenACC benchmarks with and without managed memory?"
+  - "What specific steps are outlined in the challenge to transition the code from using managed memory to explicit data directives?"
+  - "What do the benchmark results indicate about the relationship between managed memory, data locality, and overall performance?"
+  - "Which compiler options are used to compile the OpenACC benchmarks with and without managed memory?"
+  - "What specific steps are outlined in the challenge to transition the code from using managed memory to explicit data directives?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
-!!! abstract "Learning objectives"
-
+!!! note "Learning objectives"
 *   Understand what are data locality and data movement
 *   Understand what are structured and unstructured data clauses
 *   Learn how to move data explicitly
@@ -38,11 +78,9 @@ We used CUDA Unified Memory to simplify the first steps in accelerating our code
 Explicitly managing data will make the code portable and may improve performance.
 
 ## Structured Data Regions
+The `data` directive defines a region of code in which GPU arrays remain on the GPU and are shared among all kernels in that region. Here is an example of defining the structured data region with data directives:
 
-The `data` directive defines a region of code in which GPU arrays remain on the GPU and are shared among all kernels in that region.
-Here is an example of defining the structured data region with data directives:
-
-```cpp hl_lines="1 6"
+```cpp {1,6}
 #pragma acc data
 {
 #pragma acc parallel loop ...
@@ -50,10 +88,8 @@ Here is an example of defining the structured data region with data directives:
 ...
 }
 ```
-
 another example:
-
-```cpp hl_lines="1 6"
+```cpp {1,6}
 !$acc data
 !$acc parallel loop
 ...
@@ -63,12 +99,11 @@ another example:
 ```
 
 !!! note "Data locality"
-
-Arrays used within the data region will remain on the GPU until the end of the data region.
+    Arrays used within the data region will remain on the GPU until the end of the data region.
 
 ## Unstructured Data
+We sometimes encounter a situation where scoping does not allow the use of normal data regions (e.g., when using constructors or destructors).
 
-We sometimes encounter a situation where scoping does not allow the use of normal data regions (e.g. when using constructors or destructors).
 ### Directives
 In those cases, we use unstructured data directives:
 *   **enter data** - defines the start of an unstructured data lifetime
@@ -77,17 +112,15 @@ In those cases, we use unstructured data directives:
     *   clauses: **copyout(list)**, **delete(list)**
 Below is the example of using the unstructured data directives in the code:
 
-```cpp hl_lines="1 3"
+```cpp {1,3}
 #pragma acc enter data copyin(a)
 ...
 #pragma acc exit data delete(a)
 ```
 
 ### C++ Classes
-What is the advantage of having unstructured data clauses? In fact, unstructured data clauses enable OpenACC to be used in C++ classes.
-Moreover, unstructured data clauses can be used whenever data is allocated and initialized in a different piece of code than where it is freed (e.g. Fortran modules).
-
-```cpp hl_lines="4 5 8 9"
+What is the advantage of having unstructured data clauses? In fact, unstructured data clauses enable OpenACC to be used in C++ classes. Moreover, unstructured data clauses can be used whenever data is allocated and initialized in a different piece of code than where it is freed (e.g., Fortran modules).
+```cpp {4,5,8,9}
 class Matrix { Matrix(int n) {
 len = n;
 v = new double[len];
@@ -109,16 +142,13 @@ v = new double[len];
 *   **present(list)** - Data is already present on GPU from another containing data region.
 
 ### Array Shape
-Sometimes, the compiler cannot determine the size of arrays. Therefore, one has to explicitly specify the size with data clauses and array "shape".
-Here is an example of array shape in C:
-
-```cpp hl_lines="1"
+Sometimes, the compiler cannot determine the size of arrays. Therefore, one has to explicitly specify the size with data clauses and array "shape". Here is an example of array shape in C:
+```cpp {1}
 #pragma acc data copyin(a[0:nelem]) copyout(b[s/4:3*s/4])
 ```
 
 In Fortran it will look like this:
-
-```fortran hl_lines="1"
+```cpp {1}
 !$acc data copyin(a(1:end)) copyout(b(s/4:3*s/4))
 ```
 
@@ -128,7 +158,7 @@ In the following example we allocate and initialize the matrix first. Then copy 
 1.  Copy the structure of the matrix.
 2.  Copy its members.
 
-```cpp hl_lines="10 11"
+```cpp {10,11}
 void allocate_3d_poisson_matrix(matrix &A, int N) {
    int num_rows=(N+1)*(N+1)*(N+1);
    int nnz=27*num_rows;
@@ -148,7 +178,7 @@ In this example, in order to free the device memory we first remove the matrix f
 1.  Delete the members.
 2.  Delete the structure.
 
-```cpp hl_lines="5 6"
+```cpp {5,6}
 void free_matrix(matrix &A) {
    unsigned int *row_offsets=A.row_offsets;
    unsigned int * cols=A.cols;
@@ -162,10 +192,8 @@ void free_matrix(matrix &A) {
 ```
 
 ### The `present` Clause
-When managing the memory at a higher level, it’s necessary to inform the compiler that data is already present on the device.
-Local variables should still be declared in the function where they’re used.
-
-```cpp hl_lines="2 8"
+When managing the memory at a higher level, it’s necessary to inform the compiler that data is already present on the device. Local variables should still be declared in the function where they’re used.
+```cpp {2,8}
 function main(int argc, char **argv) {
 #pragma acc data copy(A) {
     laplace2D(A,n,m);
@@ -182,12 +210,10 @@ function laplace2D(double[N][M] A,n,m){
 ```
 
 !!! tip "Use `present` when possible."
-
-High-level data management and the `present` clause are often critical to good performance.
+    High-level data management and the `present` clause are often critical to good performance.
 
 In our next example, we inform the compiler in the compute region of the code that our data is already present:
-
-```cpp hl_lines="1 2"
+```cpp {1,2}
 #pragma acc kernels \
 present(row_offsets,cols,Acoefs,xcoefs,ycoefs)
 {
@@ -207,41 +233,40 @@ present(row_offsets,cols,Acoefs,xcoefs,ycoefs)
 ```
 
 ### Compiling and Running with Explicit Memory Management
-In order to rebuild the code without managed memory change **-ta=tesla:managed** to **-ta=tesla** in the Makefile.
+In order to rebuild the code without managed memory change `-ta=tesla:managed` to `-ta=tesla` in the Makefile.
 
 ### Update Directive
 In OpenACC it is possible to specify an array (or part of an array) that should be refreshed within the data region. In order to do so we use the `update` directive:
-
-```cpp hl_lines="2 4"
+```cpp {2,4}
 do_something_on_device()
-!$acc update self(a)   //  **Copy "a" from GPU to CPU**
+!$acc update self(a)   // Copy "a" from GPU to CPU
 do_something_on_host()
-!$acc update device(a)  // **Copy "a" from CPU to GPU**
+!$acc update device(a)  // Copy "a" from CPU to GPU
 ```
 
 In the following example we demonstrate the usage of the `update` directive. First, we modify a vector on the CPU (host), then copy it to the GPU (device):
 
-```cpp hl_lines="4 5"
+```cpp {4,5}
 void initialize_vector(vector &v,double val) {
    for(int i=0;i<v.n;i++)
-      v.coefs[i]=val;   // **Updating the vector on the CPU**
+      v.coefs[i]=val;   // Updating the vector on the CPU
    #pragma acc update
-      device(v.coefs[:v.n])    // **Updating the vector on the GPU**
+      device(v.coefs[:v.n])    // Updating the vector on the GPU
 }
 ```
 
 ### Build and Run without Managed Memory
 Below we demonstrate the performance of the code with and without managed memory.
 
-In this example, several benchmarks that use OpenACC directives have been compiled with and without the **-ta=tesla:managed** option:
+In this example, several benchmarks that use OpenACC directives have been compiled with and without the `-ta=tesla:managed` option:
 
 The results indicate that some of these tests improve speed using managed memory, but probably due to the use of the pinned memory in the data transfers. Overall, the results suggest that data locality indeed works: when most of the operations are on the GPU and data stays on the GPU for a long time, the data movement does not play a significant role in the performance.
 
 !!! challenge "Challenge: Adding Data directives"
 
-1.  Modify the code to use explicit data directives. You may use either the `kernels` or the `parallel loop` directives. The directories step2.* from the [Github repository](https://github.com/calculquebec/cq-formation-openacc) contain the solution.
-2.  Change your compiler flags to `-ta=tesla` (not managed)
-3.  Check if you are getting the same results and performance as before.
+    1.  Modify the code to use explicit data directives. You may use either the `kernels` or the `parallel loop` directives. The directories step2.* from the [Github repository](https://github.com/calculquebec/cq-formation-openacc) contain the solution.
+    2.  Change your compiler flags to `-ta=tesla` (not managed)
+    3.  Check if you are getting the same results and performance as before.
 
 [Onward to the next unit: Optimizing loops](openacc-tutorial-optimizing-loops.md)
 [Back to the lesson plan](openacc-tutorial.md)

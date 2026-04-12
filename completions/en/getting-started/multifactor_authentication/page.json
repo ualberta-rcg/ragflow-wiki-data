@@ -1,0 +1,111 @@
+{
+  "doc_key": "en/multifactor_authentication",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is multifactor authentication (MFA) and how does it protect an account?",
+      "answer": "Multifactor authentication (MFA) allows you to protect your account with more than a password. Once configured, you'll need to enter your username and password, then perform a second action (the second factor) to access most services."
+    },
+    {
+      "question": "What are the available options for the second authentication step?",
+      "answer": "You can choose to approve a notification on a smart device via the Duo Mobile application, enter a code generated on demand, or push a button on a hardware key (YubiKey)."
+    },
+    {
+      "question": "Why is it strongly recommended to register multiple factors for MFA?",
+      "answer": "It's strongly recommended to configure at least two options for your second factor to ensure you can still access your account if one factor is lost."
+    },
+    {
+      "question": "Which mobile application is required for smartphone or tablet multifactor authentication, and which apps are not compatible?",
+      "answer": "The Duo Mobile authentication application is required. TOTP applications such as Aegis, Google Authenticator, and Microsoft Authenticator are not compatible with Duo and will not scan the QR code."
+    },
+    {
+      "question": "What are the steps to register a smartphone or tablet using the Duo Mobile app?",
+      "answer": "First, install Duo Mobile. Then, log into the CCDB, go to 'My account → Multifactor authentication management', click 'Duo Mobile' under 'Register a device', enter a name, and scan the displayed QR code with the Duo Mobile app (ensuring your device is connected to the internet)."
+    },
+    {
+      "question": "What is a YubiKey and when is it a recommended option for MFA?",
+      "answer": "A YubiKey is a small hardware token from Yubico. It's recommended if you prefer not to use a phone/tablet, your device doesn't support Duo, or if you're often in situations where using a phone/tablet isn't possible."
+    },
+    {
+      "question": "What function must a YubiKey support to work with the systems, and which series is recommended?",
+      "answer": "A YubiKey must support the 'Yubico OTP' function. The YubiKey 5 Series is recommended."
+    },
+    {
+      "question": "How do you configure a YubiKey for Yubico OTP using the YubiKey Authenticator application?",
+      "answer": "Disable pop-up blockers, install YubiKey Authenticator, insert your YubiKey, launch the software, select 'Slots', choose slot 1 or 2, select 'Yubico OTP / Program a Yubico OTP credential', use serial for Public ID, generate Private ID and Secret Key, securely save these details, then click 'Save' before registering in CCDB."
+    },
+    {
+      "question": "What information is crucial to save after configuring a YubiKey for Yubico OTP?",
+      "answer": "You must securely save a copy of the data in the Public ID, Private ID, and Secret Key fields, as this information will be needed to register the YubiKey in the CCDB."
+    },
+    {
+      "question": "How does multifactor authentication work when connecting via SSH?",
+      "answer": "After supplying your password or SSH key, you'll be prompted for your second factor. You can select a Duo Push notification, touch your YubiKey, or type a backup code/time-based one-time password."
+    },
+    {
+      "question": "How can users reduce the frequency of MFA prompts when connecting via SSH on Linux and MacOS?",
+      "answer": "By editing their `.ssh/config` file to add `ControlPath`, `ControlMaster auto`, and `ControlPersist 10m` for a specific host, allowing subsequent connections to reuse the first session's authentication for up to 10 minutes."
+    },
+    {
+      "question": "How does MFA work when authenticating to the account portal?",
+      "answer": "After entering your username and password, you will see a prompt where you click on the desired second factor option to complete authentication."
+    },
+    {
+      "question": "Why does FileZilla repeatedly ask for the second factor during transfers, and how can this be mitigated?",
+      "answer": "FileZilla asks each time because transfers use independent connections that close after idle time. To mitigate this, limit the number of simultaneous connections to '1' in 'Site Manager' -> 'Transfer Settings tab', though this will prevent browsing during transfers."
+    },
+    {
+      "question": "What is the recommended MobaXterm version for MFA, and how can its default SFTP behaviour be improved?",
+      "answer": "Install MobaXterm version 23.1 or later (version 23.5 is the latest for described instructions). To improve SFTP behaviour, switch the 'SSH-browser type' to 'SCP (enhanced speed)' or 'SCP (normal speed)' in the session's 'Advanced SSH settings' to avoid a second prompt for the file browser."
+    },
+    {
+      "question": "Can I use authentication apps like Google Authenticator or Microsoft Authenticator for MFA?",
+      "answer": "No, only Duo Mobile will work for multifactor authentication."
+    },
+    {
+      "question": "What are the options if I don't have a smartphone or tablet and don't want to buy a YubiKey?",
+      "answer": "Unfortunately, if you don't have a smartphone/tablet and don't wish to purchase a YubiKey, you will not be able to use the services once multifactor authentication becomes mandatory, as it is a requirement from funding bodies."
+    },
+    {
+      "question": "Why are one-time passcodes not sent via SMS or email?",
+      "answer": "Sending SMS costs money and is widely regarded as insecure by most security experts. Duo does not support sending one-time codes through email."
+    },
+    {
+      "question": "Is multifactor authentication mandatory, and can users disable it?",
+      "answer": "Multifactor authentication is mandatory, and users cannot disable it. Exceptions are only granted for automation purposes."
+    },
+    {
+      "question": "What should I do if I lose my second factor device?",
+      "answer": "If you have bypass codes or another registered device, use it to log into the portal, register a new device, and then delete the lost one. If you've lost all devices and have no bypass codes, you must email specific account validation information to support@tech.alliancecan.ca."
+    },
+    {
+      "question": "Which SSH clients are generally compatible with multifactor authentication?",
+      "answer": "Most command-line interface clients, Cyberduck, FileZilla, JuiceSSH on Android, MobaXTerm, PuTTY, PyCharm, Termius on iOS, VSCode, and WinSCP are compatible."
+    },
+    {
+      "question": "Why might I receive an 'Access denied. Duo Security does not provide services in your current location' message?",
+      "answer": "Duo blocks authentications from users whose IP address originates in a country or region subject to economic and trade sanctions."
+    },
+    {
+      "question": "Where can I find recordings of webinars about multifactor authentication?",
+      "answer": "Two webinars presented in October 2023 are available, one in French ('Authentification multifacteur pour la communauté de recherche') and one in English ('Multifactor authentication for researchers')."
+    },
+    {
+      "question": "How does a YubiKey generate a second factor during authentication?",
+      "answer": "When prompted for a one-time password or passcode, you simply touch a button on your YubiKey, and it 'types' a string of characters to complete your authentication without manual typing."
+    },
+    {
+      "question": "What are the common issues with MobaXterm after MFA adoption, especially with file transfers?",
+      "answer": "MobaXterm may exhibit strange behaviour where file operations (opening, downloading, uploading) through the left navigation bar hang indefinitely. This can be caused by one or two hidden MFA-Duo windows awaiting authentication, as MobaXterm initiates independent sessions for the terminal, file display, and transfers, each requiring MFA."
+    },
+    {
+      "question": "How can Cyberduck be configured to avoid being prompted for the second factor during every file transfer?",
+      "answer": "In Cyberduck's preferences, under 'Transfers', in the 'General' section, set 'Transfer Files' to 'Use browser connection' and ensure 'Segmented downloads with multiple connections per file' is not checked."
+    },
+    {
+      "question": "How do you configure a YubiKey for Yubico OTP using the command line (`ykman`)?",
+      "answer": "Install `ykman`, insert your YubiKey, read key info (`ykman info`) and OTP info (`ykman otp info`), select a slot, use `ykman otp yubiotp` to program it, securely save the Public ID, Private ID, and Secret Key, and then register in the CCDB."
+    }
+  ],
+  "generated_at": "2026-04-12T03:25:59.120681+00:00"
+}

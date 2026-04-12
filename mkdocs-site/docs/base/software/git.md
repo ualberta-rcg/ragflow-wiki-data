@@ -5,21 +5,47 @@ lang: "base"
 
 source_wiki_title: "Git"
 source_hash: "3b5659c0f289fb60e3840f968186689d"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T07:00:48.173882+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T07:41:40.578652+00:00"
 
 tags:
   - software
 
 keywords:
-  []
+  - "source code management"
+  - "repository"
+  - "distributed"
+  - "git config"
+  - "Version Control"
+  - "Git"
+  - "public repository"
+  - "configure"
+  - "commit"
+  - "git clone"
+  - "commands"
+  - "commit changes"
+  - "global Git environment"
+
+questions:
+  - "How does Git's distributed operating principle differ from older source code management tools?"
+  - "What is the basic workflow a developer follows when using Git for a project?"
+  - "What are the primary categories of Git commands provided in the summary, and what functions do they serve?"
+  - "How do you configure global settings in Git, such as your username, email, and default text editor?"
+  - "What are the basic commands used to create or clone a repository, commit changes, and push them to a remote server?"
+  - "How can you resolve the \"unable to create thread\" error when using Git on cluster login nodes?"
+  - "What lesson is the information about the global Git environment based on?"
+  - "What specific personal details must be configured when starting development on a new system?"
+  - "What happens to your configured name and email address when you push commits to a public repository?"
+  - "How do you configure global settings in Git, such as your username, email, and default text editor?"
+  - "What are the basic commands used to create or clone a repository, commit changes, and push them to a remote server?"
+  - "How can you resolve the \"unable to create thread\" error when using Git on cluster login nodes?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -43,65 +69,53 @@ Since Git is distributed, there may not be an authoritative repository.
 
 ### Summary of commands
 
-Basic commands
+| Command            | Description                                                       |
+| :----------------- | :---------------------------------------------------------------- |
+| `git config`       | Configure git                                                     |
+| `git init`         | Create a new repository                                           |
+| `git clone`        | Clone an existing repository                                      |
+| `git add`          | Add a file or directory to a repository                           |
+| `git rm`           | Delete a file or directory from the repository                    |
+| `git commit`       | Commit changes to the repository                                  |
+| `git push`         | Push changes to another repository                                |
+| `git pull`         | Pull changes from another repository and merge them with your own repository |
+| `git fetch`        | Fetch changes from another repository without merging them with yours |
+| `git merge`        | Merge changes to the repository                                   |
 
-| Command        | Description                                                       |
-|:---------------|:------------------------------------------------------------------|
-| `git config`   | Configure git                                                     |
-| `git init`     | Create a new repository                                           |
-| `git clone`    | Clone an existing repository                                      |
-| `git add`      | Add a file or directory to a repository                           |
-| `git rm`       | Delete a file or directory from the repository                    |
-| `git commit`   | Commit changes to the repository                                  |
-| `git push`     | Push changes to another repository                                |
-| `git pull`     | Pull changes from another repository and merge them with your own repository |
-| `git fetch`    | Fetch changes from another repository without merging them with yours |
-| `git merge`    | Merge changes to the repository                                   |
+| Command            | Description                              |
+| :----------------- | :--------------------------------------- |
+| `git blame`        | Show which authors last modified a file  |
+| `git log`          | Show the commit history                  |
+| `git diff`         | Compare two versions                     |
+| `git status`       | Display the status of the current files  |
+| `git show`         | Display various git objects              |
+| `git cat-file`     | Display the content, type or size of objects |
 
-Commands to explore changes
+| Command            | Description                                  |
+| :----------------- | :------------------------------------------- |
+| `git branch`       | Manage development branches                  |
+| `git tag`          | Manage version tags                          |
+| `git remote`       | Manage remote repositories                   |
+| `git checkout`     | Check out a branch or a path                 |
+| `git reset`        | Change the head of a branch                  |
 
-| Command      | Description                                     |
-|:-------------|:------------------------------------------------|
-| `git blame`  | Show which authors last modified a file         |
-| `git log`    | Show the commit history                         |
-| `git diff`   | Compare two versions                            |
-| `git status` | Display the status of the current files         |
-| `git show`   | Display various git objects                     |
-| `git cat-file` | Display the content, type or size of objects  |
+| Command            | Description         |
+| :----------------- | :------------------ |
+| `git format-patch` | Create a patch      |
+| `git am`           | Apply a patch       |
+| `git send-email`   | Send a patch by email |
 
-Commands for branches, tags, remote repositories
-
-| Command        | Description                         |
-|:---------------|:------------------------------------|
-| `git branch`   | Manage development branches         |
-| `git tag`      | Manage version tags                 |
-| `git remote`   | Manage remote repositories          |
-| `git checkout` | Check out a branch or a path        |
-| `git reset`    | Change the head of a branch         |
-
-Commands for patches
-
-| Command          | Description               |
-|:-----------------|:--------------------------|
-| `git format-patch` | Create a patch            |
-| `git am`         | Apply a patch             |
-| `git send-email` | Send a patch by email     |
-
-Other commands
-
-| Command      | Description                         |
-|:-------------|:------------------------------------|
-| `git bisect` | Used to diagnose problems           |
-| `git gc`     | Collect garbage objects             |
-| `git rebase` | Rebase history of the repository    |
-| `git grep`   | Search for content                  |
+| Command            | Description                     |
+| :----------------- | :------------------------------ |
+| `git bisect`       | Used to diagnose problems       |
+| `git gc`           | Collect garbage objects         |
+| `git rebase`       | Rebase history of the repository |
+| `git grep`         | Search for content              |
 
 ### Configuring the global Git environment
 This section is based on the [Software Carpentry - *Version Control with Git*](https://swcarpentry.github.io/git-novice/02-setup.html) lesson. When you start developing on a new system, you want to configure:
 
-*   Your name and email address, which will be associated with every commit.
-    !!! warning "Public Information"
-        Note: this information will become **public** if you push your revisions to a public repository.
+*   Your name and email address, which will be associated with every commit. Note: this information will become **public** if you push your revisions to a public repository.
     ```bash
     git config --global user.name "First-name Last-name"
     git config --global user.email "email@address.ca"
@@ -161,7 +175,6 @@ git push origin main
 In the above command, *origin* is the remote repository and *main* is the current branch that will be pushed.
 
 You might have to use `git push origin master` for older git repositories.
-
 ## Hosting Git repositories
 [GitHub](http://github.com) and [Bitbucket](http://bitbucket.org) are two of the main Git repository hosting services. They are both available for commercial projects as well as free projects.
 
@@ -170,7 +183,7 @@ You might have to use `git push origin master` for older git repositories.
 ### Unable to create thread
 If you see:
 
-```
+```text
 fatal: unable to create thread: Resource temporarily unavailable
 fatal: fetch-pack: invalid index-pack output
 ```

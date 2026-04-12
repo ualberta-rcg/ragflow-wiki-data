@@ -1,0 +1,84 @@
+{
+  "doc_key": "base/data_management_at_trillium",
+  "level": "chunk",
+  "chunk_index": 6,
+  "qa_pairs": [
+    {
+      "question": "If I update a file's access or modification time, how can I immediately confirm it will no longer be purged from /scratch?",
+      "answer": "To get immediate feedback, you can use the `ls -lu` command to verify the ctime and `ls -lc` for the mtime of the file. If these times have been updated, the file will not be deleted on the purging date of the 15th."
+    },
+    {
+      "question": "What is the purpose of the 'Moving data' section in the documentation?",
+      "answer": "The 'Moving data' section describes various methods and strategies for transferring data to and from Trillium, intended for analysis and managing final results."
+    },
+    {
+      "question": "What is the recommended method for moving data amounts less than 10GB to or from Trillium?",
+      "answer": "For data amounts less than 10GB, you should use `scp` or `rsync` through the login nodes or datamovers, connecting to any of `tri-dm{2,3,4}.scinet.utoronto.ca`. Be aware that transfers larger than 10GB may time out with this method."
+    },
+    {
+      "question": "How should I transfer data amounts larger than 10GB to or from Trillium?",
+      "answer": "For data amounts larger than 10GB, you should use the datamover nodes. You can `ssh` to `nia-datamover1` or `nia-datamover2` from a Trillium login node, or log in/scp/rsync directly to `nia-datamover1.scinet.utoronto.ca` or `nia-datamover2.scinet.utoronto.ca` from outside SciNet."
+    },
+    {
+      "question": "Which specific datamover nodes can be used for large data transfers from outside SciNet?",
+      "answer": "You can directly connect to `nia-datamover1.scinet.utoronto.ca` or `nia-datamover2.scinet.utoronto.ca` from outside SciNet for large data transfers."
+    },
+    {
+      "question": "What web-based tool is recommended for frequent data transfers?",
+      "answer": "If you frequently transfer data, you should consider using Globus, which is a web-based tool for data transfer."
+    },
+    {
+      "question": "What is the Globus endpoint for Trillium?",
+      "answer": "The Globus endpoint for Trillium is \"alliancecan#trillium\"."
+    },
+    {
+      "question": "What is the Globus endpoint for HPSS?",
+      "answer": "The Globus endpoint for HPSS is \"alliancecan#hpss\"."
+    },
+    {
+      "question": "What is HPSS, and what is its primary use?",
+      "answer": "HPSS is a tape-based storage solution and SciNet's nearline, also known as archive facility, used for the long-term storage of data."
+    },
+    {
+      "question": "How is storage space on HPSS allocated?",
+      "answer": "Storage space on HPSS is allocated through the annual Resource Allocation Competition."
+    },
+    {
+      "question": "What are the default file permissions for users within the same group on SciNet?",
+      "answer": "By default, users within the same group at SciNet have read permission to each other's files, but not write permission."
+    },
+    {
+      "question": "What is an Access Control List (ACL) used for at SciNet?",
+      "answer": "An Access Control List (ACL) can be used to allow a supervisor or other users within your group to manage (create, move, rename, delete) your files, or to grant users in other groups access (read, execute) to your files, while you retain original ownership."
+    },
+    {
+      "question": "Which native GPFS commands are available for managing Access Control Lists?",
+      "answer": "GPFS' native commands `mmputacl` and `mmgetacl` can be used for managing Access Control Lists."
+    },
+    {
+      "question": "What are the benefits of using `mmputacl` and `mmgetacl` for ACL management?",
+      "answer": "The benefits of using `mmputacl` and `mmgetacl` are that you can set \"control\" permission, and they support POSIX or NFS v4 style ACLs."
+    },
+    {
+      "question": "How do I apply an ACL from a file to a directory using `mmputacl`?",
+      "answer": "You apply an ACL from a file by issuing commands such as `mmputacl -i /tmp/supervisor.acl /project/g/group/[owner]` and `mmputacl -d -i /tmp/supervisor.acl /project/g/group/[owner]` to ensure new files inherit ownership."
+    },
+    {
+      "question": "What does the `mmputacl -d -i` command achieve when setting up ACLs?",
+      "answer": "The `mmputacl -d -i` command ensures that every new file or directory created within the specified path will inherit the ownership of both the original owner and the supervisor by default."
+    },
+    {
+      "question": "How can I view the current ACL attributes of a directory?",
+      "answer": "You can determine the current ACL attributes of a directory using the command `$ mmgetacl /project/g/group/[owner]`."
+    },
+    {
+      "question": "What is the command to remove a previously set ACL from a directory?",
+      "answer": "To remove a previously set ACL from a directory, you use the command `$ mmdelacl -d /project/g/group/[owner]`."
+    },
+    {
+      "question": "How can I create or modify a GPFS access control list using an editor?",
+      "answer": "You can create or change a GPFS access control list with `$ mmeditacl /project/g/group/[owner]`. Before running this command, you must set the `EDITOR` environment variable, for example, by running `export EDITOR=/usr/bin/vi`."
+    }
+  ],
+  "generated_at": "2026-04-11T20:53:32.050482+00:00"
+}

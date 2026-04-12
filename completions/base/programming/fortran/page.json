@@ -1,0 +1,51 @@
+{
+  "doc_key": "base/fortran",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is Fortran and why is it recommended for programming on Compute Canada's servers?",
+      "answer": "Fortran is a compiled programming language with a long history, available on Compute Canada's servers, and its use is encouraged because compiled languages generally offer much better performance."
+    },
+    {
+      "question": "Which Fortran compilers are available on Compute Canada's servers?",
+      "answer": "The `gfortran` and `ifort` compilers are installed and available on Compute Canada's servers."
+    },
+    {
+      "question": "What `gfortran` compiler option is useful for checking array bounds, pointers, and uninitialized variables?",
+      "answer": "The `gfortran` compiler option `-fcheck=all` is useful for checking array bounds, alerting for disassociated pointers, and uninitialized variables."
+    },
+    {
+      "question": "What `ifort` compiler options are useful for debugging floating-point exceptions and checking memory issues?",
+      "answer": "For `ifort`, `-check` can check array bounds and uninitialized variables, while `-fpe0` causes the application to halt for floating-point exceptions like division by zero."
+    },
+    {
+      "question": "What general compiler options should be used during the testing phase of Fortran code development?",
+      "answer": "During testing, you should use `-O0` to disable optimizations and `-g` to add debugging symbols."
+    },
+    {
+      "question": "What built-in functions do modern Fortran versions provide for numerical linear algebra?",
+      "answer": "Modern Fortran versions (from Fortran 90 on) include built-in functions like `matmul` for matrix multiplication, `dot_product` for dot products, and `transpose` for matrix transposition."
+    },
+    {
+      "question": "Why should users avoid writing their own methods for basic linear algebra operations in Fortran?",
+      "answer": "Users should avoid writing their own linear algebra methods because built-in functions or system-provided BLAS/LAPACK libraries are highly optimized, with routines like BLAS matrix-matrix multiplication being up to 100 times faster than naive implementations."
+    },
+    {
+      "question": "What is a frequent cause of segmentation faults (SIGSEGV) in Fortran programs?",
+      "answer": "Segmentation faults in Fortran programs frequently arise from interface problems when a pointer, a dynamically allocated array, or a function pointer is passed as an argument to a subroutine without its interface being explicitly defined."
+    },
+    {
+      "question": "How can segmentation faults caused by interface problems in Fortran be fixed?",
+      "answer": "To fix segmentation faults caused by interface problems, you should ensure that the interface of the subroutine is explicitly defined using the `INTERFACE` command in Fortran."
+    },
+    {
+      "question": "What is the Fortran solution to correct a segmentation fault when passing an allocatable array to a subroutine?",
+      "answer": "To correct a segmentation fault when passing an allocatable array, one should define the function's interface (e.g., `function genmat( ntot, matrix ) ... end function genmat`) within an `interface` block in the calling program unit."
+    },
+    {
+      "question": "What is the Fortran solution to correct a segmentation fault when passing a function pointer as an argument?",
+      "answer": "To correct a segmentation fault when passing a function pointer, one should explicitly define the interface of the function being passed (e.g., `FunctionToIntegrate`) in the calling program and also define the interface for the function pointer argument (`func`) within the called function's `interface` block."
+    }
+  ],
+  "generated_at": "2026-04-11T21:39:50.961294+00:00"
+}

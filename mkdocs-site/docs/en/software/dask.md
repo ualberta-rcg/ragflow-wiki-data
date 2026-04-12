@@ -5,45 +5,70 @@ lang: "en"
 
 source_wiki_title: "Dask/en"
 source_hash: "7e3eaccc835bd92c4d1fe576ac6be0a7"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T05:59:20.292693+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T06:44:38.852308+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "virtualenv"
+  - "virtualenv.sh"
+  - "Dask worker"
+  - "SLURM"
+  - "distributed computing"
+  - "Dask"
+  - "parallel computing"
+  - "job submission"
+  - "Dask workers"
+  - "python test_dask.py"
+  - "Python"
+  - "SLURM_TMPDIR"
+  - "dask scheduler"
+
+questions:
+  - "What is Dask and what is the preferred method for installing it?"
+  - "How do you configure and submit a single-node Dask cluster job using SLURM?"
+  - "What are the necessary steps and script modifications to scale a Dask job across multiple nodes?"
+  - "How is the Python virtual environment configured and what dependencies are installed in the initial setup script?"
+  - "How does the `launch_dask_workers.sh` script allocate memory and CPU threads differently for the SLURM task with Rank 0 compared to the other tasks?"
+  - "What data processing steps does the `test_dask.py` script execute to test the connection to the Dask scheduler?"
+  - "What is the purpose of the `config_virtualenv.sh` script referenced at the end of the text?"
+  - "How does the provided script manage the lifecycle and orchestration of the Dask scheduler and workers around the main Python process?"
+  - "What role do environment variables like `$DASK_SCHEDULER_ADDR` and `$SLURM_TMPDIR` play in setting up the cluster environment?"
+  - "How is the Python virtual environment configured and what dependencies are installed in the initial setup script?"
+  - "How does the `launch_dask_workers.sh` script allocate memory and CPU threads differently for the SLURM task with Rank 0 compared to the other tasks?"
+  - "What data processing steps does the `test_dask.py` script execute to test the connection to the Dask scheduler?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
 [Dask](https://docs.dask.org/en/stable/) is a flexible library for parallel computing in Python. It provides distributed NumPy array and Pandas DataFrame objects, as well as enabling distributed computing in pure Python with access to the PyData stack.
 
-# Installing our wheel
+## Installing Our Wheel
 
 The preferred option is to install it using our provided Python [wheel](https://pythonwheels.com/) as follows:
+1. Load a Python [module](utiliser-des-modules.md#sub-command-load), thus `module load python/3.11`
+2. Create and start a [virtual environment](python.md#creating-and-using-a-virtual-environment).
+3. Install `dask`, and optionally `dask-distributed` in the virtual environment with `pip install`.
 
-1.  Load a Python [module](utiliser-des-modules.md#sub-command-load), thus `module load python/3.11`
-2.  Create and start a [virtual environment](python.md#creating-and-using-a-virtual-environment).
-3.  Install `dask`, and optionally `dask-distributed` in the virtual environment with `pip install`.
-
-```bash
+```bash {data-prompt="(venv) [name@server ~]"}
 pip install --no-index dask distributed
 ```
 
-# Job submission
+## Job Submission
 
-## Single node
+### Single Node
 
-Below is an example of a job that spawns a single-node Dask cluster with 6 CPUs and computes the mean of a column of a parallelized dataframe.
+Below is an example of a job that spawns a single-node Dask cluster with 6 cpus and computes the mean of a column of a parallelized dataframe.
 
-```bash tab="dask-example.sh"
+```bash {data-title="dask-example.sh"}
 #!/bin/bash
 #SBATCH --account=<your account>
 #SBATCH --ntasks=1
@@ -74,9 +99,9 @@ sleep 10
 python dask-example.py
 ```
 
-In the script `Dask-example.py`, we launch a Dask cluster with as many worker processes as there are cores in our job. This means each worker will spawn at most one CPU thread. For a complete discussion of how to reason about the number of worker processes and the number of threads per worker, see the [official Dask documentation](https://distributed.dask.org/en/stable/efficiency.html?highlight=workers%20threads#adjust-between-threads-and-processes). In this example, we split a pandas data frame into 6 chunks, so each worker will process a part of the data frame using one CPU:
+In the script `dask-example.py`, we launch a Dask cluster with as many worker processes as there are cores in our job. This means each worker will spawn at most one CPU thread. For a complete discussion of how to reason about the number of worker processes and the number of threads per worker, see the [official Dask documentation](https://distributed.dask.org/en/stable/efficiency.html?highlight=workers%20threads#adjust-between-threads-and-processes). In this example, we split a pandas data frame into 6 chunks, so each worker will process a part of the data frame using one CPU:
 
-```python tab="dask-example.py"
+```python {data-title="dask-example.py"}
 import pandas as pd
 
 from dask import dataframe as dd
@@ -98,11 +123,11 @@ result = ddf.a.mean().compute()
 print(f"The mean is {result}")
 ```
 
-## Multiple nodes
+### Multiple Nodes
 
 In the example that follows, we reproduce the single-node example, but this time with a two-node Dask cluster, with 6 CPUs on each node. This time we also spawn 2 workers per node, each with 3 cores.
 
-```bash tab="dask-example.sh"
+```bash {data-title="dask-example.sh"}
 #!/bin/bash
 #SBATCH --nodes 2
 #SBATCH --tasks-per-node=2
@@ -135,7 +160,7 @@ kill $dask_cluster_pid # shut down Dask workers after the python process exits
 
 Where the script `config_virtualenv.sh` is:
 
-```bash tab="config_env.sh"
+```bash {data-title="config_env.sh"}
 #!/bin/bash
 
 echo "From node ${SLURM_NODEID}: installing virtualenv..."
@@ -153,7 +178,7 @@ deactivate
 
 And the script `launch_dask_workers.sh` is:
 
-```bash tab="launch_dask_workers.sh"
+```bash {data-title="launch_dask_workers.sh"}
 #!/bin/bash
 
 source $SLURM_TMPDIR/env/bin/activate
@@ -181,7 +206,7 @@ echo "dask worker started!"
 
 And, finally, the script `test_dask.py` is:
 
-```python tab="test_dask.py"
+```python {data-title="test_dask.py"}
 import pandas as pd
 import numpy as np
 

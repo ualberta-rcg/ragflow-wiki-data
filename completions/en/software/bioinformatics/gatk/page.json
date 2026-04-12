@@ -1,0 +1,71 @@
+{
+  "doc_key": "en/gatk",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is the Genome Analysis Toolkit (GATK) primarily used for?",
+      "answer": "GATK is a set of bioinformatic tools for analyzing high-throughput sequencing (HTS) and variant call format (VCF) data, well-established for germline short variant discovery from whole genome and exome sequencing data."
+    },
+    {
+      "question": "How can I check the available versions of GATK on the system?",
+      "answer": "You can check available GATK versions by using the `module spider gatk` command."
+    },
+    {
+      "question": "What is the recommended way to load a specific GATK module, such as version 4.1.8.1?",
+      "answer": "You can load GATK 4.1.8.1 using `module load gatk/4.1.8.1`, as `StdEnv/2020` is loaded by default."
+    },
+    {
+      "question": "How do you run later versions of GATK (>=4.0.0.0)?",
+      "answer": "Later versions of GATK are run using a wrapper over Java executables, typically in the format `gatk [--java-options \"-Xmx4G\"] ToolName [GATK args]`."
+    },
+    {
+      "question": "What Java option is recommended for GATK to get more information if the program fails?",
+      "answer": "It is recommended to always use `-DGATK_STACKTRACE_ON_USER_EXCEPTION=true` within the `--java-options` argument."
+    },
+    {
+      "question": "What is recommended for handling temporary files when running GATK in an `sbatch` job on the systems?",
+      "answer": "It is recommended to use the `--tmp-dir` option and set it to `${SLURM_TMPDIR}` to redirect temporary files to local storage."
+    },
+    {
+      "question": "What optimization should be enabled for `GenomicsDBImport` on shared Posix Filesystems?",
+      "answer": "You should enable the `--genomicsdb-shared-posixfs-optimizations` option to improve usability and performance for shared Posix Filesystems."
+    },
+    {
+      "question": "How do you run GATK versions earlier than 4?",
+      "answer": "Earlier versions are run by directly calling the jar file, for example: `java -jar \"${EBROOTGATK}\"/GenomeAnalysisTK.jar PROGRAM OPTIONS` after loading the appropriate module."
+    },
+    {
+      "question": "Are most GATK (>=4) tools multicore by default?",
+      "answer": "No, most GATK (>=4) tools are not multicore by default, meaning you should generally request only one core when calling them, unless specified otherwise (e.g., some tools with specific threading options or Spark commands)."
+    },
+    {
+      "question": "How do you specify the number of CPUs for GATK tools that use Spark?",
+      "answer": "For Spark commands, you should provide the exact number of CPUs requested, for example, `--spark-master local[10]` if 10 CPUs were requested."
+    },
+    {
+      "question": "When is it recommended to use GATK via Apptainer?",
+      "answer": "It is recommended to use GATK via Apptainer if you encounter errors like `IllegalArgumentException` while using the installed modules on the clusters."
+    },
+    {
+      "question": "How do you build an Apptainer image for GATK from a Docker image?",
+      "answer": "You can build an Apptainer image by running `module load apptainer` followed by `apptainer build gatk.sif docker://broadinstitute/gatk` for the latest version, or `apptainer build gatk_VERSION.sif docker://broadinstitute/gatk:VERSION` for a specific version."
+    },
+    {
+      "question": "How do you add a read group (RG) tag to a BAM file using GATK?",
+      "answer": "You can use the `AddOrReplaceReadGroups` Picard tool within GATK, specifying options like `-I input.bam -O output.bam --RGLB tag --RGPL ILLUMINA --RGPU tag --RGSM tag`."
+    },
+    {
+      "question": "What is the primary solution for the `java.lang.OutOfMemoryError: Java heap space` error in GATK?",
+      "answer": "The initial solution is to add or increase the maximum heap memory using the `-Xmx` command within the `--java-options` argument, such as `--java-options \"-Xmx8G DGATK_STACKTRACE_ON_USER_EXCEPTION=true\"`."
+    },
+    {
+      "question": "What should be done if increasing heap memory doesn't resolve `java.lang.OutOfMemoryError: Java heap space`, especially for non-model organisms?",
+      "answer": "It may be necessary to remove small scaffolds, create subsets of the reference genome, map multiple times, and run pipelines on each subset, as GATK is designed with the human genome in mind."
+    },
+    {
+      "question": "How can you prevent GATK/JAVA applications from using more resources (memory or CPUs/threads) than requested?",
+      "answer": "To control resource usage, you can add `-XX:ConcGCThreads=1` to the `--java-options` argument."
+    }
+  ],
+  "generated_at": "2026-04-11T21:55:37.993765+00:00"
+}

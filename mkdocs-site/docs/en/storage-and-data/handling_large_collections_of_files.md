@@ -5,21 +5,49 @@ lang: "en"
 
 source_wiki_title: "Handling large collections of files/en"
 source_hash: "72d7a3442454d3007f9e2c13506b94d2"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T07:14:02.935462+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T07:54:56.763287+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "RAM disk"
+  - "Filesystem quotas"
+  - "parallel compression"
+  - "archive extraction"
+  - "git repack"
+  - "tar tool"
+  - "Data management"
+  - "SQLite"
+  - "Dar"
+  - "binary file format"
+  - "relational database"
+  - "Local disk"
+  - "Archiving"
+  - "HDF5"
+  - "archive utility"
+
+questions:
+  - "Why do large collections of small files create problems on shared cluster filesystems, and how can users identify the directories using the most files or disk space?"
+  - "How can the $SLURM_TMPDIR environment variable and local compute node disks be utilized to efficiently process large datasets during a job?"
+  - "What are the benefits of using archiving tools and formats like dar or HDF5 to manage and store extensive collections of data?"
+  - "What are the advantages and limitations of using SQLite for storing large collections of files compared to traditional database servers?"
+  - "How can you optimize the creation and extraction of archives using parallel compression tools like pigz and partial extraction commands?"
+  - "What command can be used to consolidate files in a growing hidden .git directory to improve Git's operational speed?"
+  - "What is the relationship between the Dar archive utility and the traditional 'tar' tool?"
+  - "What types of data structures and information can be stored within the HDF5 binary file format?"
+  - "Which programming languages and tools can be utilized to manipulate HDF5 files?"
+  - "What are the advantages and limitations of using SQLite for storing large collections of files compared to traditional database servers?"
+  - "How can you optimize the creation and extraction of archives using parallel compression tools like pigz and partial extraction commands?"
+  - "What command can be used to consolidate files in a growing hidden .git directory to improve Git's operational speed?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -29,11 +57,7 @@ So how can a user or group of users store these necessary datasets on the cluste
 
 ## Finding folders with lots of files
 
-!!! tip
-
-    As always in optimization, it is better to start looking for where some cleanup is worth doing.
-
-You may consider the following code which will recursively count all files in folders in the current directory:
+As always in optimization, it is better to start looking for where some cleanup is worth doing. You may consider the following code which will recursively count all files in folders in the current directory:
 
 ```bash
 for FOLDER in $(find . -maxdepth 1 -type d | tail -n +2); do
@@ -45,7 +69,6 @@ done
 ## Finding folders using the most disk space
 
 The following code will output the 10 directories using the most disk space from your current directory.
-
 ```bash
 du -sh * | sort -hr | head -10
 ```
@@ -54,13 +77,7 @@ du -sh * | sort -hr | head -10
 
 ### Local disk
 
-Local disks attached to compute nodes are at least SATA SSD or better, and, in general, will have a performance that is considerably better than the project or scratch filesystems.
-
-!!! note
-
-    A local disk is shared by all running jobs on that node without being allocated by the scheduler.
-
-The actual amount of local disk space varies from one cluster to another (and might also vary within a given cluster). For example,
+Local disks attached to compute nodes are at least SATA SSD or better, and, in general, will have a performance that is considerably better than the project or scratch filesystems. Note that a local disk is shared by all running jobs on that node without being allocated by the scheduler. The actual amount of local disk space varies from one cluster to another (and might also vary within a given cluster). For example,
 
 *   [Béluga](beluga.md) offers roughly 370GB of local disk for the CPU nodes, the GPU nodes have a 1.6TB NVMe disk (to help with the AI image datasets with their millions of small files).
 *   [Niagara](niagara.md) does not have local storage on the compute nodes (but see [Data management at Niagara](data-management-at-niagara.md#slurm_tmpdir-ram))
@@ -69,8 +86,7 @@ The actual amount of local disk space varies from one cluster to another (and mi
 You can access this local disk inside of a job using the environment variable `$SLURM_TMPDIR`. One approach therefore would be to keep your dataset archived as a single `tar` file in the project space and then copy it to the local disk at the beginning of your job, extract it and use the dataset during the job. If any changes were made, at the job's end you could again archive the contents to a `tar` file and copy it back to the project space.
 
 Here is an example of a submission script that allocates an entire node
-
-```bash title="job_script.sh"
+```bash job_script.sh
 #!/bin/bash
 #SBATCH --time=1-00:00        
 #SBATCH --nodes=1             
@@ -93,7 +109,6 @@ tar -cf ~/projects/def-foo/johndoe/results.tar work
 ### RAM disk
 
 The `/tmp` file system can be used as a RAM disk on the compute nodes. It is implemented using [tmpfs](https://en.wikipedia.org/wiki/Tmpfs). Here is more information
-
 *   `/tmp` is `tmpfs` on all clusters
 *   `/tmp` is cleared at job end
 *   like all of a job's other memory use, falls under the cgroup limit corresponding to the sbatch request
@@ -111,28 +126,21 @@ This is a high-performance binary file format that can be used to store a variet
 
 #### SQLite
 
-The [SQLite software](https://www.sqlite.org) allows for the use of a relational database which resides entirely in a single file stored on disk, without the need for a database server. The data located in the file can be accessed using standard [SQL](https://en.wikipedia.org/wiki/SQL) (Structured Query Language) commands such as `SELECT` and there are APIs for several common programming languages. Using these APIs you can then interact with your SQLite database inside of a program written in C/C++, Python, R, Java and Perl. Modern relational databases contain datatypes for handling the storage of *binary blobs*, such as the contents of an image file, so storing a collection of 5 or 10 million small PNG or JPEG images inside of a single SQLite file may be much more practical than storing them as individual files. There is the overhead of creating the SQLite database and this approach assumes that you are familiar with SQL and designing a simple relational database with a small number of tables.
+The [SQLite software](https://www.sqlite.org) allows for the use of a relational database which resides entirely in a single file stored on disk, without the need for a database server. The data located in the file can be accessed using standard [SQL](https://en.wikipedia.org/wiki/SQL) (Structured Query Language) commands such as `SELECT` and there are APIs for several common programming languages. Using these APIs you can then interact with your SQLite database inside of a program written in C/C++, Python, R, Java and Perl. Modern relational databases contain datatypes for handling the storage of *binary blobs*, such as the contents of an image file, so storing a collection of 5 or 10 million small PNG or JPEG images inside of a single SQLite file may be much more practical than storing them as individual files. There is the overhead of creating the SQLite database and this approach assumes that you are familiar with SQL and designing a simple relational database with a small number of tables. Note as well that the performance of SQLite can start to degrade for very large database files, several gigabytes or more, in which case you may need to contemplate the use of a more traditional [database server](database-servers.md) using [MySQL](https://www.mysql.com) or [PostgreSQL](https://www.postgresql.org).
 
-!!! warning
-
-    Note as well that the performance of SQLite can start to degrade for very large database files, several gigabytes or more, in which case you may need to contemplate the use of a more traditional [database server](database-servers.md) using [MySQL](https://www.mysql.com) or [PostgreSQL](https://www.postgresql.org).
-
-The SQLite executable is called `sqlite3`. It is available via the `nixpkgs` [module](utiliser-des-modules.md), which is loaded by default on our systems.
+The SQLite executable is called `sqlite3`. It is available via the [module](utiliser-des-modules.md), which is loaded by default on our systems.
 
 #### Parallel compression
 
-When creating an archive from a significant number of files, it may be useful to use `pigz` instead of the traditional `gzip` to compress the archive.
-
+When creating an archive from a significant number of files, it may be useful to use `pigz` instead of the traditional gzip to compress the archive.
 ```bash
 tar -vc --use-compress-program="pigz -p 4" -f dir.tar.gz dir_to_tar
 ```
-
 Here the archive will be compressed using 4 cores.
 
 #### Partial extraction from an archive
 
 Sometimes, it is not necessary to extract all the content of an archive but only part of it. For example, if the current simulation or job only needs files from a specific folder, this particular folder can be extracted from the archive and saved on the local disk using:
-
 ```bash
 tar -zxf /path/to/archive.tar.gz dir/subdir --directory $SLURM_TMPDIR
 ```

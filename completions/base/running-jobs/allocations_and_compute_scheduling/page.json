@@ -1,0 +1,87 @@
+{
+  "doc_key": "base/allocations_and_compute_scheduling",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is an allocation in high-performance computing?",
+      "answer": "An allocation is a specified amount of resources, such as storage, computation cores, or GPUs, that a research group can use over a set period, typically a year."
+    },
+    {
+      "question": "How are core year and GPU year allocations different from storage allocations?",
+      "answer": "Storage allocations provide a maximum exclusive amount, while core year and GPU year allocations represent an average amount of usage over time on shared resources."
+    },
+    {
+      "question": "How does the scheduler manage compute-related allocations for research groups?",
+      "answer": "The scheduler uses prioritization algorithms, based on a group's recent usage compared to their allocated usage, to provide resources for submitted jobs and help groups meet their allocation targets."
+    },
+    {
+      "question": "What happens if a research group overuses its CPU or GPU allocation?",
+      "answer": "If a group overuses its allocation, subsequent jobs may have lower priority for a time, but the group is not prevented from submitting new jobs, and overall usage should still approximate the target over time."
+    },
+    {
+      "question": "Why were Reference GPU Units (RGUs) introduced?",
+      "answer": "RGUs were introduced to rank different GPU models based on their performance for allocation purposes, addressing problems caused by treating all GPUs as equivalent previously."
+    },
+    {
+      "question": "What criteria and weights are used to rank GPU models for RGU calculation?",
+      "answer": "GPU models are ranked using FP32 score (40% weight), FP16 score (40% weight), and GPU memory score (20% weight)."
+    },
+    {
+      "question": "Which GPU model is used as the reference for RGU values, and what is its assigned RGU value?",
+      "answer": "The NVIDIA A100-40gb GPU is the reference model and is assigned an RGU value of 4.0."
+    },
+    {
+      "question": "What is Multi-Instance GPU (MIG) technology, and how does it relate to RGUs?",
+      "answer": "MIG technology allows a fraction of a GPU, called a GPU instance or MIG instance, to be scheduled for different jobs simultaneously. RGU values have been estimated for these GPU instances based on whole-GPU performance and the instance's fraction of the GPU."
+    },
+    {
+      "question": "How does the Resource Allocation Competition (RAC) use RGUs for GPU awards?",
+      "answer": "During RAC, proposals must specify a preferred GPU model, and the requested GPU-years are automatically converted to RGUs. The committee allocates RGUs, and if a project moves clusters, GPU-years are adjusted to maintain the same RGU amount."
+    },
+    {
+      "question": "What is the overarching principle for calculating job priority on national clusters?",
+      "answer": "Compute-based job priority is calculated based on the resources that other users are prevented from using, not just the resources actually consumed by the job."
+    },
+    {
+      "question": "What is a 'core equivalent' in terms of resource usage?",
+      "answer": "A core equivalent is a bundle consisting of a single core and a predefined amount of associated memory, typically 4GB of memory per core on most Alliance clusters."
+    },
+    {
+      "question": "How is usage charged if a job requests more memory than associated with its requested cores?",
+      "answer": "If a job requests more memory than the default per-core allocation, it will be charged based on the memory amount, effectively counting more core equivalents than the actual cores requested because other resources become unavailable."
+    },
+    {
+      "question": "How is usage charged for GPU-based jobs using Reference GPU Units (RGUs)?",
+      "answer": "GPU-based jobs are charged for the maximum number of RGU-core-memory bundles they utilize. The scheduler considers the highest constraint among RGUs, cores, or memory relative to the bundle ratios."
+    },
+    {
+      "question": "What are the common RGU-core-memory bundle characteristics on Alliance clusters?",
+      "answer": "Alliance systems define RGU-core-memory bundles with specific ratios of cores per RGU and memory per RGU (GB), which vary by cluster (e.g., Fir, Narval, Nibi, Rorqual, Trillium)."
+    },
+    {
+      "question": "Where can users view time-series data about their jobs on national clusters?",
+      "answer": "Users can view time-series data about their jobs on national clusters through the Slurm portal at portal.alliancecan.ca/slurm."
+    },
+    {
+      "question": "What information can be displayed in the Slurm portal's usage figure?",
+      "answer": "The Slurm portal figure can display CPU, CPU-equivalent, RGU, RGU-equivalent, Memory, Billing, GPU, and specific GPU model usage, along with SLURM Raw Usage, SLURM Raw Shares (allocation target), Queued jobs, and daily Totals."
+    },
+    {
+      "question": "How does the Slurm portal represent the 'SLURM Raw Shares' and 'SLURM Raw Usage'?",
+      "answer": "SLURM Raw Shares is shown as a horizontal red line representing the account's allocation, while SLURM Raw Usage is a cumulative sum of the account's usage with a half-life decay, indicating how past usage influences priority."
+    },
+    {
+      "question": "How can users view their compute resource usage information in the CCDB?",
+      "answer": "Users can view their compute resource usage in the CCDB by logging in and navigating to 'My Account > View Group Usage'."
+    },
+    {
+      "question": "What categories of usage information are available in the CCDB's 'View Group Usage' section?",
+      "answer": "The CCDB offers usage breakdowns 'By Compute Resource' (cluster), 'By Resource Allocation Project' (project identifiers), and 'By Submitter' (individual user)."
+    },
+    {
+      "question": "How does the CCDB display GPU usage for resource allocation projects?",
+      "answer": "For projects with GPU usage, the CCDB table breaks down usage by various GPU models and measures it in Reference GPU Units (RGUs)."
+    }
+  ],
+  "generated_at": "2026-04-11T16:20:12.509601+00:00"
+}

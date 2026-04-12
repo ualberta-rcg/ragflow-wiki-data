@@ -1,0 +1,71 @@
+{
+  "doc_key": "en/backing_up_your_vm",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is the primary purpose of this document regarding virtual machines?",
+      "answer": "This document outlines various strategies for backing up virtual machines and recovering from disasters, emphasizing different requirements and use cases."
+    },
+    {
+      "question": "What common backup rule is strongly encouraged for virtual machine data?",
+      "answer": "The 3-2-1 backup rule is strongly encouraged, which advises having three copies of data, stored on at least two different types of media, with one copy being offsite."
+    },
+    {
+      "question": "Why is it recommended to create virtual machine backups outside the cloud?",
+      "answer": "Creating backups in locations outside the cloud is strongly encouraged to enhance recovery capabilities and mitigate cloud-specific risks."
+    },
+    {
+      "question": "Which tools can be used for performing file backups of data within a virtual machine to remote locations?",
+      "answer": "Tools such as rsync, duplicity, borg, and restic can be used for file backups within a VM."
+    },
+    {
+      "question": "How do provisioning tools like Ansible and Puppet assist in virtual machine recovery?",
+      "answer": "Provisioning tools like Ansible and Puppet automate the setup and configuration of software and operating systems, making it straightforward to recreate a virtual machine using specification files."
+    },
+    {
+      "question": "What are the two main storage options in OpenStack, and what is their primary difference in data protection?",
+      "answer": "OpenStack provides Volumes, which are protected by 3 times replication against hardware failure, and ephemeral storage, which is local to the VM, not replicated, and not suitable for critical data due to potential data loss from hardware failure."
+    },
+    {
+      "question": "Does the 3 times replication for OpenStack Volumes protect against accidental data deletion?",
+      "answer": "No, the 3 times replication for OpenStack Volumes protects against hardware failure but not against accidental deletion or data loss from malicious intent."
+    },
+    {
+      "question": "What are the two main virtual machine 'flavours' in OpenStack, and why is this distinction important for backup procedures?",
+      "answer": "The two main VM flavours are persistent (p) and compute (c). They have different behaviours regarding booting and storage, necessitating different backup procedures."
+    },
+    {
+      "question": "What is the recommended method for backing up a persistent VM in OpenStack?",
+      "answer": "For persistent VMs, the best way to create a copy for backup purposes is to create an image from the volume(s) attached to the VM."
+    },
+    {
+      "question": "What is a consideration when creating an image from a volume that is the root volume of a persistent VM?",
+      "answer": "If it's the root volume, it cannot be detached unless the VM is deleted. A useful trick, if unsure about the 'Delete Volume on Instance Delete' setting, is to create a snapshot of the volume first."
+    },
+    {
+      "question": "Which disk format is generally recommended for images created from OpenStack volumes and why?",
+      "answer": "The QCOW2 disk format is recommended for images created from OpenStack volumes because it works well with OpenStack and typically uses less space than 'Raw' images."
+    },
+    {
+      "question": "What is the primary limitation of OpenStack volume snapshots for backup purposes?",
+      "answer": "Volume snapshots depend on the original volume remaining intact, cannot be downloaded, and are therefore not ideal for comprehensive backups."
+    },
+    {
+      "question": "How do you create a backup image for a compute VM in OpenStack?",
+      "answer": "For compute VMs, you create an image by clicking 'Create Snapshot' on the VM's drop-down menu on the 'Instances' tab, which creates an image containing a copy of the VM's root drive."
+    },
+    {
+      "question": "Is data on the `/mnt` drive of a compute VM included when creating a snapshot of the VM?",
+      "answer": "No, data on the `/mnt` drive of a compute VM is not captured in the image created from a VM snapshot and requires separate arrangements for saving."
+    },
+    {
+      "question": "What is the most crucial step after implementing any backup strategy?",
+      "answer": "The most crucial step is to test restoring from your backup to ensure its effectiveness and functionality."
+    },
+    {
+      "question": "What is a suggested strategy for backing up very large disk images?",
+      "answer": "A good strategy involves separating large datasets from the operating system and software stack. The OS/software can be backed up via disk image or provisioning, while datasets are backed up using file backup methods to a remote location, including database dumps."
+    }
+  ],
+  "generated_at": "2026-04-11T18:30:25.685797+00:00"
+}

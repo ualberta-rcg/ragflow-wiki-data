@@ -5,21 +5,48 @@ lang: "fr"
 
 source_wiki_title: "Biomolecular simulation/fr"
 source_hash: "b473e0fc19e8f987e2ed545f23c5f2c5"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T04:59:00.974332+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T05:49:55.714942+00:00"
 
 tags:
   - biomolecularsimulation
 
 keywords:
-  []
+  - "dynamique moléculaire"
+  - "PyRETIS"
+  - "formation"
+  - "wheels disponibles"
+  - "échantillonnage d'interfaces de transition"
+  - "simulation moléculaire"
+  - "étalonnage"
+  - "wheels Python"
+  - "simulations d'événements rares"
+  - "chimie computationnelle"
+  - "simulation biomoléculaire"
+  - "bibliothèque Python"
+  - "logiciels"
+  - "modélisation"
+
+questions:
+  - "Qu'est-ce que la simulation biomoléculaire et quels types de processus biochimiques permet-elle de modéliser ?"
+  - "Quels sont les principaux logiciels de simulation biomoléculaire mis à disposition par ces ressources ?"
+  - "Quelle est l'utilité des \"wheels Python\" offerts par Calcul Canada et quels outils spécifiques incluent-ils pour la dynamique moléculaire ?"
+  - "Que doit faire un utilisateur s'il a besoin de paquets Python supplémentaires ou de versions plus récentes ?"
+  - "Quelles ressources et opportunités de formation sont offertes pour apprendre la modélisation et la simulation moléculaires ?"
+  - "Quel guide est recommandé pour connaître les conditions optimales d'exécution des tâches avec des logiciels tels que AMBER, GROMACS, NAMD et OpenMM ?"
+  - "Qu'est-ce que la bibliothèque Python PyRETIS et quel est son objectif principal ?"
+  - "Quelles sont les méthodes d'échantillonnage spécifiques sur lesquelles PyRETIS met l'accent ?"
+  - "Quelle commande ou ressource permet de consulter la liste des \"wheels\" Python disponibles ?"
+  - "Que doit faire un utilisateur s'il a besoin de paquets Python supplémentaires ou de versions plus récentes ?"
+  - "Quelles ressources et opportunités de formation sont offertes pour apprendre la modélisation et la simulation moléculaires ?"
+  - "Quel guide est recommandé pour connaître les conditions optimales d'exécution des tâches avec des logiciels tels que AMBER, GROMACS, NAMD et OpenMM ?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -27,7 +54,7 @@ status:
 
 La simulation biomoléculaire est l'application de la simulation en dynamique moléculaire à la recherche biochimique. Parmi les processus qui peuvent être modélisés, on trouve le repliement des protéines, les liaisons médicamenteuses, le transport membranaire et les modifications conformationnelles essentielles à la fonction protéinique.
 
-La simulation biomoléculaire est considérée comme étant un sous-domaine de la chimie computationnelle; son champ d'action est cependant assez spécialisé pour que nous disposions d'une équipe d'experts dédiés. Consultez aussi la liste des ressources disponibles en [chimie computationnelle](computational-chemistry.md).
+La simulation biomoléculaire est considérée comme un sous-domaine de la chimie computationnelle; son champ d'action est cependant assez spécialisé pour que nous disposions d'une équipe d'experts dédiés. Consultez aussi la liste des ressources disponibles en [chimie computationnelle](computational-chemistry.md).
 
 ## Logiciels
 
@@ -48,11 +75,11 @@ Les paquets logiciels suivants sont disponibles avec nos ressources.
 
 ### Wheels Python
 
-Calcul Canada offre des [wheels Python](available-python-wheels.md) qui peuvent être installés dans des [environnements virtuels Python](python.md#crer-et-utiliser-un-environnement-virtuel); ces wheels sont très utiles en simulation biomoléculaire et dynamique moléculaire.
+Calcul Canada offre des [wheels Python](available-python-wheels.md) qui peuvent être installés dans des [environnements virtuels Python](python.md#créer-et-utiliser-un-environnement-virtuel); ces wheels sont très utiles en simulation biomoléculaire et dynamique moléculaire.
 
 La liste suivante contient une sélection des wheels les plus utiles, mais ne doit pas être considérée comme complète :
 
-*   [ACPYPE: AnteChamber PYthon Parser interfacE](acpype.md) outil servant à générer des topologies de composés chimiques.
+*   [ACPYPE: AnteChamber PYthon Parser interfacE](acpype.md), outil servant à générer des topologies de composés chimiques.
 *   [MDAnalysis](https://www.mdanalysis.org/), bibliothèque Python orientée objet pour l'analyse de trajectoires dans les simulations de dynamique moléculaires dans plusieurs formats.
 *   [MDTraj](http://mdtraj.org/), qui peut aussi lire, écrire et analyser des trajectoires par quelques lignes de code Python, dans une grande variété de formats.
 *   [Biopython](https://biopython.org/), ensemble d'outils gratuits pour les calculs biologiques.
@@ -73,15 +100,15 @@ Des ateliers de formation sont donnés par notre équipe nationale pour la modé
 
 Vous pouvez aussi prendre connaissance du matériel de formation par les liens suivants :
 
-1.  [Practical considerations for Molecular Dynamics](https://computecanada.github.io/molmodsim-md-theory-lesson-novice/)
-2.  [Visualizing Structures with VMD](https://computecanada.github.io/molmodsim-vmd-visualization/)
-3.  [Running Molecular Dynamics with Amber on our clusters](https://computecanada.github.io/molmodsim-amber-md-lesson/)
-4.  [Analyzing Molecular Dynamics Data with PYTRAJ](https://computecanada.github.io/molmodsim-pytraj-analysis/)
+1.  [Considérations pratiques pour la dynamique moléculaire](https://computecanada.github.io/molmodsim-md-theory-lesson-novice/)
+2.  [Visualisation des structures avec VMD](https://computecanada.github.io/molmodsim-vmd-visualization/)
+3.  [Exécution de la dynamique moléculaire avec Amber sur nos grappes](https://computecanada.github.io/molmodsim-amber-md-lesson/)
+4.  [Analyse des données de dynamique moléculaire avec PYTRAJ](https://computecanada.github.io/molmodsim-pytraj-analysis/)
 
-## Performance et étalonnage *benchmarking*
+## Performance et étalonnage
 
-Le guide *[Molecular Dynamics Performance Guide](https://mdbench.ace-net.ca/mdbench/)* a été créé par une équipe [d'ACENET](https://www.ace-net.ca/). Le guide décrit les conditions optimales pour exécuter aussi des tâches sur nos grappes avec AMBER, GROMACS, NAMD et OpenMM.
+Le guide [*Molecular Dynamics Performance Guide*](https://mdbench.ace-net.ca/mdbench/) a été créé par une équipe [d'ACENET](https://www.ace-net.ca/). Le guide décrit les conditions optimales pour exécuter des tâches sur nos grappes avec AMBER, GROMACS, NAMD et OpenMM.
 
 ## Références
 
-Ron O. Dror, Robert M. Dirks, J.P. Grossman, Huafeng Xu, and David E. Shaw. "Biomolecular Simulation: A Computational Microscope for Molecular Biology." *Annual Review of Biophysics*, 41:429-452, 2012. [https://doi.org/10.1146/annurev-biophys-042910-155245](https://doi.org/10.1146/annurev-biophys-042910-155245)
+[Biomolecular Simulation: A Computational Microscope for Molecular Biology](http://www.annualreviews.org/doi/10.1146/annurev-biophys-042910-155245)

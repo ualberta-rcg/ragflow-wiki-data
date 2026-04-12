@@ -5,25 +5,49 @@ lang: "en"
 
 source_wiki_title: "Qiskit/en"
 source_hash: "11f3de977c1fb0e5d893fd6850b7ab13"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T10:17:05.470113+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T10:41:40.397947+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "CalculQuebecClient"
+  - "quantum computing"
+  - "QuantumCircuit"
+  - "SamplerV2"
+  - "Python virtual environment"
+  - "Qiskit"
+  - "MonarQ backend"
+  - "qiskit-calculquebec"
+  - "Quantum circuit"
+  - "Transpilation"
+  - "Python"
+
+questions:
+  - "What is Qiskit and what are its primary functions in quantum computing?"
+  - "What are the required steps to install Qiskit and submit a job using it on a cluster via Slurm?"
+  - "How do you configure and initialize the MonarQ backend to run Qiskit circuits on the Calcul Québec infrastructure?"
+  - "What are the necessary steps to transpile and execute a quantum circuit on the MonarQ backend?"
+  - "Why is transpilation specifically required when using the MonarQ backend?"
+  - "Which Qiskit execution class is recommended for running circuits with measurements, and what is the maximum number of shots allowed?"
+  - "How do you initialize the MonarQ backend using the `qiskit_calculquebec` library?"
+  - "What specific credentials and parameters are required to successfully create the `CalculQuebecClient`?"
+  - "Which Python modules and classes must be imported to execute this quantum computing setup?"
+  - "What are the necessary steps to transpile and execute a quantum circuit on the MonarQ backend?"
+  - "Why is transpilation specifically required when using the MonarQ backend?"
+  - "Which Qiskit execution class is recommended for running circuits with measurements, and what is the maximum number of shots allowed?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
-Developed in Python by IBM, [Qiskit](https://docs.quantum.ibm.com/) is an open-source quantum computing library. Like [PennyLane](pennylane.md) and [Snowflurry](snowflurry.md), it allows you to build, simulate and run quantum circuits.
+Developed in Python by IBM, [Qiskit](https://docs.quantum.ibm.com/) is an open-source quantum computing library. Like [PennyLane](pennylane.md) and [Snowflurry](snowflurry.md), it allows you to build, simulate, and run quantum circuits.
 
 ## Installation
 1. Load the Qiskit dependencies.
@@ -38,22 +62,23 @@ virtualenv --no-download --clear ~/ENV && source ~/ENV/bin/activate
 
 3. Install a version of Qiskit.
 ```bash
-(ENV) [name@server ~]$ pip install --no-index --upgrade pip
-(ENV) [name@server ~]$ pip install --no-index qiskit==X.Y.Z  qiskit_aer==X.Y.Z
+pip install --no-index --upgrade pip
+pip install --no-index qiskit==X.Y.Z qiskit_aer==X.Y.Z
 ```
 where `X.Y.Z` is the version number, for example `1.4.0`. To install the most recent version available on our clusters, do not specify a number. Here, we only imported `qiskit` and `qiskit_aer`. You can add other Qiskit software with the syntax `qiskit_package==X.Y.Z` where `qiskit_package` is the software name, for example `qiskit-finance`. To see the wheels that are currently available, see [Available Python wheels](available-python-wheels.md).
 
 4. Validate the installation.
 ```bash
-(ENV) [name@server ~]$ python -c 'import qiskit'
+python -c 'import qiskit'
 ```
 
 5. Freeze the environment and its dependencies.
 ```bash
-(ENV) [name@server ~]$ pip freeze --local > ~/qiskit_requirements.txt
+pip freeze --local > ~/qiskit_requirements.txt
 ```
 
 ## Running Qiskit on a cluster
+
 ```sh title="script.sh"
 #!/bin/bash
 #SBATCH --account=def-someuser #Modify with your account name
@@ -62,17 +87,17 @@ where `X.Y.Z` is the version number, for example `1.4.0`. To install the most re
 #SBATCH --mem-per-cpu=1G       #Modify as needed
 
 # Load module dependencies.
-module load StdEnv/2023 gcc python/3.11 symengine/0.11.2
+module load StdEnv/2023 gcc python/3.11 symengine/0.11.2 
 
-# Generate your virtual environment in $SLURM_TMPDIR.
-virtualenv --no-download ${SLURM_TMPDIR}/env
-source ${SLURM_TMPDIR}/env/bin/activate
+# Generate your virtual environment in $SLURM_TMPDIR.                                                                                                         
+virtualenv --no-download ${SLURM_TMPDIR}/env                                                                                                                   
+source ${SLURM_TMPDIR}/env/bin/activate  
 
-# Install Qiskit and its dependencies.
-pip install --no-index --upgrade pip
+# Install Qiskit and its dependencies.                                                                                                                                                                                                                                                                                    
+pip install --no-index --upgrade pip                                                                                                                            
 pip install --no-index --requirement ~/qiskit_requirements.txt
 
-# Modify your Qiskit program.
+# Modify your Qiskit program.                                                                                                                                                                       
 python qiskit_example.py
 ```
 You can then [submit your job to the scheduler](running-jobs.md).
@@ -148,7 +173,6 @@ print(result[0].data.meas.get_counts())
 
 ### Notes
 
-!!! note
-    *   Transpilation is required to adapt the circuit to MonarQ's native connectivity and ports.
-    *   The number of *shots* can be adjusted as needed (maximum: 1024).
-    *   The use of **SamplerV2** is recommended for running circuits with measures.
+* Transpilation is required to adapt the circuit to MonarQ's native connectivity and ports.
+* The number of *shots* can be adjusted as needed (maximum: 1024).
+* The use of `SamplerV2` is recommended for running circuits with measures.

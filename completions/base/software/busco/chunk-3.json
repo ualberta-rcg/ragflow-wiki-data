@@ -1,0 +1,100 @@
+{
+  "doc_key": "base/busco",
+  "level": "chunk",
+  "chunk_index": 3,
+  "qa_pairs": [
+    {
+      "question": "How do I download a genome file for testing BUSCO?",
+      "answer": "You can download a genome file using the command: `wget https://gitlab.com/ezlab/busco/-/raw/master/test_data/bacteria/genome.fna`."
+    },
+    {
+      "question": "What is the command to run BUSCO for a single genome file in offline mode?",
+      "answer": "To run BUSCO for a single genome file in offline mode, use the command: `busco --offline --in genome.fna --out TEST --lineage_dataset bacteria_odb10 --mode genome --cpu ${SLURM_CPUS_PER_TASK:-1} --download_path busco_download/`."
+    },
+    {
+      "question": "How do I run BUSCO for multiple genome files located in a directory?",
+      "answer": "To run BUSCO for multiple genome files in a directory, use the command: `busco --offline --in genome/ --out TEST --lineage_dataset bacteria_odb10 --mode genome --cpu ${SLURM_CPUS_PER_TASK:-1} --download_path busco_download/`. Ensure the 'genome/' folder is in your current directory or provide its full path."
+    },
+    {
+      "question": "How long should a single genome BUSCO test run take to complete?",
+      "answer": "A single genome BUSCO command should take less than 60 seconds to complete."
+    },
+    {
+      "question": "What should I do if a BUSCO run takes longer than 60 seconds?",
+      "answer": "Production runs which take longer than 60 seconds must be submitted to the scheduler."
+    },
+    {
+      "question": "Which BUSCO argument is used for single file analysis?",
+      "answer": "For single file analysis, specify `--in genome.fna`."
+    },
+    {
+      "question": "Which BUSCO argument is used for multiple file analysis?",
+      "answer": "For multiple files analysis, specify `--in genome/`."
+    },
+    {
+      "question": "How can I prevent BUSCO from using the internet during a Slurm job?",
+      "answer": "To avoid using the internet, specify the `--offline` argument in your BUSCO command."
+    },
+    {
+      "question": "How can I ensure BUSCO uses the allocated number of CPUs in a Slurm job?",
+      "answer": "Specify `--cpu ${SLURM_CPUS_PER_TASK}` in your job submission script to use the number of CPUs allocated by Slurm."
+    },
+    {
+      "question": "What BUSCO argument allows me to restart a partial run?",
+      "answer": "You can use the `--restart` argument to restart a partial BUSCO run."
+    },
+    {
+      "question": "How do I submit a BUSCO job using a Slurm script?",
+      "answer": "You can submit a BUSCO job using a Slurm script by running `sbatch run_busco.sh`."
+    },
+    {
+      "question": "What is an example of a Slurm job name for a BUSCO run?",
+      "answer": "An example of a Slurm job name is `#SBATCH --job-name=busco9_run`."
+    },
+    {
+      "question": "What modules are typically loaded in a Slurm submission script for BUSCO?",
+      "answer": "Typically, the following modules are loaded: `module load StdEnv/2023 gcc python/3.11 augustus/3.5.0 hmmer/3.4 blast+/2.15 metaeuk/7 prodigal/2.6.3 r bbmap/39.06`."
+    },
+    {
+      "question": "How do I create and activate a virtual environment for BUSCO within a Slurm job script?",
+      "answer": "You can generate and activate a virtual environment in the `$SLURM_TMPDIR` using: `virtualenv --no-download ${SLURM_TMPDIR}/env` followed by `source ${SLURM_TMPDIR}/env/bin/activate`."
+    },
+    {
+      "question": "How are BUSCO and its dependencies installed within a Slurm job script after activating a virtual environment?",
+      "answer": "BUSCO and its dependencies can be installed using: `pip install --no-index --upgrade pip` and `pip install --no-index --requirement ~/busco-requirements.txt`."
+    },
+    {
+      "question": "How do I use Augustus parameters with BUSCO?",
+      "answer": "To use Augustus parameters, you can add `--augustus_parameters=\"--yourAugustusParameter\"` to your BUSCO command."
+    },
+    {
+      "question": "What steps are required to configure Augustus for use with BUSCO, specifically regarding its config directory?",
+      "answer": "You need to copy the Augustus `config` directory to a writable location using `cp -r $EBROOTAUGUSTUS/config $HOME/augustus_config` and then define the `AUGUSTUS_CONFIG_PATH` environment variable with `export AUGUSTUS_CONFIG_PATH=$HOME/augustus_config`."
+    },
+    {
+      "question": "What is required to use SEPP parameters with BUSCO?",
+      "answer": "To use SEPP parameters, you need to install SEPP locally in your virtual environment from the login node."
+    },
+    {
+      "question": "What is the first step to install SEPP for BUSCO in your virtual environment?",
+      "answer": "The first step is to activate your BUSCO virtual environment using `source busco_env/bin/activate`."
+    },
+    {
+      "question": "How do I install DendroPy as a prerequisite for SEPP?",
+      "answer": "You can install DendroPy using the command: `pip install 'dendropy<4.6'`."
+    },
+    {
+      "question": "What are the commands to install SEPP locally in a virtual environment?",
+      "answer": "The commands to install SEPP are: `git clone https://github.com/smirarab/sepp.git`, `cd sepp`, `python setup.py config`, and `python setup.py install`."
+    },
+    {
+      "question": "How can I validate the local installation of SEPP?",
+      "answer": "To validate the installation, change back to your home directory (`cd`) and then run `run_sepp.py -h`."
+    },
+    {
+      "question": "How do I activate a local virtual environment for BUSCO when SEPP is installed locally, differing from the standard submission script method?",
+      "answer": "If SEPP is installed locally, you must activate your local virtual environment by adding `source ~/busco_env/bin/activate` immediately under the line where modules are loaded in your submission script."
+    }
+  ],
+  "generated_at": "2026-04-11T18:25:49.707479+00:00"
+}

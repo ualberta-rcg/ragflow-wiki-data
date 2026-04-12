@@ -1,0 +1,60 @@
+{
+  "doc_key": "base/estimer_et_prévenir_le_gaspillage_des_ressources",
+  "level": "chunk",
+  "chunk_index": 13,
+  "qa_pairs": [
+    {
+      "question": "How can one correct the issue of reserving a full 4-GPU node but only utilizing one GPU?",
+      "answer": "To correct this situation, you can either adapt your code to effectively utilize all four GPUs or simply request only one GPU when submitting your task, using `#SBATCH --gpu-per-node=1`."
+    },
+    {
+      "question": "What is the recommendation for requesting CPUs per GPU on a node with four GPUs?",
+      "answer": "On a node with four GPUs, it is inadvisable to request more than a quarter of the CPUs per GPU."
+    },
+    {
+      "question": "What negative impact can occur if too many CPUs are requested per GPU on a four-GPU node?",
+      "answer": "If too many CPUs are requested per GPU on a four-GPU node, additional CPUs risk being allocated to an incorrect NUMA node or a different socket than the GPU, which can lead to a significant slowdown in transfers between the CPU and the GPU."
+    },
+    {
+      "question": "What is MIG technology and for which GPU instances is it available?",
+      "answer": "MIG (Multi-Instance GPU) technology is available for A100 type GPU instances."
+    },
+    {
+      "question": "Under what conditions might a GPU task be suitable for running on a MIG instance?",
+      "answer": "A GPU task might be suitable for running on a MIG instance if its GPU utilization is more than 10% but less than 40%, and its memory usage is less than 20 GB."
+    },
+    {
+      "question": "Why is it important to choose the right MIG type?",
+      "answer": "It is important to choose the right type of MIG according to your needs to avoid resource wastage."
+    },
+    {
+      "question": "What indicates inefficient GPU usage when a task uses the GPU temporarily or irregularly?",
+      "answer": "If a task uses the GPU only temporarily or irregularly, it suggests inefficient usage and can result in resource wastage."
+    },
+    {
+      "question": "What is recommended to optimize resource use if a task only uses the GPU temporarily or irregularly?",
+      "answer": "It is recommended to evaluate the possibility of interrupting the task after the GPU computation phase to resume it on a CPU node, or vice-versa, to optimize resource utilization."
+    },
+    {
+      "question": "How can understanding a task's needs help optimize resource use with temporary GPU usage?",
+      "answer": "Well understanding your task's needs allows for efficiently separating CPU and GPU phases, thereby optimizing resource utilization."
+    },
+    {
+      "question": "What does MPS stand for, and when might its use be relevant for reducing GPU wastage?",
+      "answer": "MPS stands for Multi-Process Service, and its use might be relevant when a task does not efficiently exploit the GPU's capabilities to reduce observed wastage."
+    },
+    {
+      "question": "Can you provide examples of tasks where MPS (Multi-Process Service) is well-suited?",
+      "answer": "MPS is well-suited for a multi-processor (MPI) task where each process does not individually fill a GPU, a multi-threaded task where each execution thread does not individually fill a GPU, or several similar serial tasks where each individual job does not fill a GPU."
+    },
+    {
+      "question": "What are the benefits of grouping tasks that only require one GPU, especially with MPS?",
+      "answer": "If your tasks only require one GPU, grouping them can improve your priority in the queue. You can also leverage MPS (Multi-Process Service) within a MIG (Multi-Instance GPU) to optimize resource utilization."
+    },
+    {
+      "question": "On which compute clusters is the MPS approach applicable?",
+      "answer": "The MPS approach is applicable to all compute clusters equipped with GPUs."
+    }
+  ],
+  "generated_at": "2026-04-11T21:21:08.659415+00:00"
+}

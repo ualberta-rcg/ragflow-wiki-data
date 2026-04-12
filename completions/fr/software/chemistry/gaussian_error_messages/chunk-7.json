@@ -1,0 +1,48 @@
+{
+  "doc_key": "fr/gaussian_error_messages",
+  "level": "chunk",
+  "chunk_index": 7,
+  "qa_pairs": [
+    {
+      "question": "Qu'est-ce qui cause l'erreur \"Convergence failure -- run terminated\" dans Gaussian?",
+      "answer": "L'erreur \"Convergence failure -- run terminated\" se produit parce que la procédure SCF (''self-consistent field'') n'a pas réussi à converger."
+    },
+    {
+      "question": "Quelles solutions existent si mes orbitales moléculaires ont un <code>guess=read</code> faible, menant à une erreur de convergence SCF?",
+      "answer": "Si vos orbitales moléculaires ont un <code>guess=read</code> faible, vous pouvez essayer d'obtenir un meilleur <code>guess=read</code> en exécutant une procédure SCF avec la même structure de départ, mais à un niveau théorique plus bas, comme HF/STO-3G. Si ça ne fonctionne pas, utilisez une procédure de convergence différente, telle que <code>SCF=QC</code> ou <code>SCF=XQC</code>."
+    },
+    {
+      "question": "Comment puis-je résoudre une erreur de convergence SCF si la géométrie de départ est problématique?",
+      "answer": "Si une faiblesse dans la géométrie de départ (comme des liens trop longs ou trop courts) empêche la convergence, le problème peut être résolu en modifiant la géométrie initiale."
+    },
+    {
+      "question": "Que faire si une étape de la procédure d'optimisation a été mal effectuée, causant une erreur de convergence SCF?",
+      "answer": "Si l'erreur de convergence résulte d'une étape d'optimisation mal effectuée, il faut soumettre la tâche de nouveau en utilisant l'avant-dernière géométrie (ou une géométrie antérieure) et une nouvelle évaluation de la matrice hessienne."
+    },
+    {
+      "question": "Quand est-ce que l'erreur \"FOPT requested but NVar= XX while NDOF= YY\" se manifeste dans Gaussian?",
+      "answer": "Cette erreur se produit lorsque vous avez demandé une optimisation complète (FOpt), incluant une vérification du nombre de variables, et que cette vérification a signalé une erreur."
+    },
+    {
+      "question": "Si NDOF est plus petit que NVar dans l'erreur \"FOPT requested...\", quelle solution dois-je appliquer?",
+      "answer": "Si NDOF est plus petit que NVar, cela indique que la molécule est exécutée avec une symétrie inférieure à ce qu'elle est en réalité; vous devriez donc augmenter la symétrie."
+    },
+    {
+      "question": "Que dois-je faire si NVar est plus petit que NDOF dans le cas d'une erreur \"FOPT requested...\"?",
+      "answer": "Si NVar est plus petit que NDOF, cela signifie que votre Z-matrice a trop de contraintes pour la symétrie en question, et vous devrez l'ajuster."
+    },
+    {
+      "question": "Est-il conseillé de contourner la vérification des variables en utilisant <code>Opt</code> au lieu de <code>FOpt</code>?",
+      "answer": "Non, il n'est pas recommandé de contourner la vérification des variables en utilisant <code>Opt</code> plutôt que <code>FOpt</code>."
+    },
+    {
+      "question": "Quelle est la cause de l'erreur \"Unable to project read-in occupied orbitals\" dans Gaussian?",
+      "answer": "L'erreur \"Unable to project read-in occupied orbitals\" est causée par l'échec de la projection de l'ancienne base vers la nouvelle lorsqu'on lit le ''guess'' d'une orbitale moléculaire à partir du fichier de contrôle (''checkpoint''). Cela peut survenir avec certaines bases pseudopotentielles (comme CEP-121G*) utilisées avec des fonctions de polarisation alors qu'aucune de ces fonctions n'existe, Gaussian utilisant alors des fonctions de polarisation temporaires à exposant zéro."
+    },
+    {
+      "question": "Comment puis-je résoudre le problème de projection des orbitales occupées lues (''read-in occupied orbitals'') quand j'utilise des bases pseudopotentielles comme CEP-121G*?",
+      "answer": "Pour résoudre ce problème, vous pouvez utiliser CEP-121G plutôt que CEP-121G*, étant donné qu'ils sont identiques pour plusieurs éléments. Vous pouvez aussi contourner le problème en évitant d'utiliser le ''guess''."
+    }
+  ],
+  "generated_at": "2026-04-11T23:00:37.857951+00:00"
+}

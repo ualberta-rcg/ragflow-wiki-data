@@ -1,0 +1,47 @@
+{
+  "doc_key": "fr/advanced_job_submission",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "Pourquoi utiliser des outils spécifiques quand on a beaucoup de tâches de calcul à soumettre?",
+      "answer": "Pour traiter efficacement un grand nombre de fichiers ou des combinaisons de paramètres différentes (ce qu'on appelle un 'parameter sweep')."
+    },
+    {
+      "question": "Quelles sont les conditions idéales pour utiliser les Job Arrays?",
+      "answer": "Les Job Arrays sont parfaits quand chaque tâche dépasse une heure et que le nombre total de tâches est de moins de mille."
+    },
+    {
+      "question": "Quel outil est recommandé pour exécuter et gérer plusieurs calculs courts, incluant les balayages de paramètres, sur un seul nœud?",
+      "answer": "GNU Parallel est l'outil conseillé pour cette situation, puisqu'il permet de faire ça sur un seul nœud réservé via une tâche parallèle."
+    },
+    {
+      "question": "Comment le Greedy Launcher Of Small Tasks (GLOST) gère-t-il une longue liste de tâches sérielles?",
+      "answer": "GLOST utilise MPI et une architecture de type gérant-travailleur pour exécuter progressivement une longue liste de tâches sérielles sur les cœurs de CPU réservés via une tâche parallèle."
+    },
+    {
+      "question": "Quelle est la principale utilité de la suite de scripts META de SHARCNET?",
+      "answer": "META vise à automatiser le calcul à haut débit, c'est-à-dire l'exécution d'un grand nombre de calculs sériels, parallèles ou GPU, souvent liés entre eux."
+    },
+    {
+      "question": "Qu'est-ce qu'une dépendance entre tâches (inter-job dependency) dans Slurm?",
+      "answer": "C'est un lien ou une relation entre les étapes d'un pipeline de calcul, permettant de définir qu'une tâche dépend du début, de la fin ou du statut final d'une autre tâche."
+    },
+    {
+      "question": "Comment peut-on soumettre une tâche qui doit absolument attendre la réussite d'une tâche précédente dans Slurm?",
+      "answer": "On utilise la commande `sbatch --dependency=afterok:$JOBID1 job2.sh`, où `$JOBID1` est l'identifiant de la première tâche qui doit réussir."
+    },
+    {
+      "question": "Existe-t-il différents types de dépendances entre tâches dans Slurm?",
+      "answer": "Oui, il y a plusieurs types de dépendances comme `after`, `afterany`, `afterok` et `afternotok` pour des contrôles variés sur le démarrage des tâches dépendantes."
+    },
+    {
+      "question": "À quoi servent les tâches hétérogènes (heterogeneous jobs) dans Slurm?",
+      "answer": "Elles sont très pratiques pour les applications MPI où le processus principal requiert plus de cœurs CPU et de mémoire que les autres processus."
+    },
+    {
+      "question": "Comment spécifier des requêtes de ressources différentes pour les composants d'une tâche hétérogène dans Slurm?",
+      "answer": "On peut utiliser l'instruction `#SBATCH hetjob` dans le script de tâche, ou séparer les requêtes de ressources avec un deux-points (:) directement sur la ligne de commande `sbatch`."
+    }
+  ],
+  "generated_at": "2026-04-11T16:03:05.056944+00:00"
+}

@@ -1,0 +1,108 @@
+{
+  "doc_key": "en/arbutus_migration_guide",
+  "level": "chunk",
+  "chunk_index": 11,
+  "qa_pairs": [
+    {
+      "question": "What are some post-transfer configuration activities that may be required after migrating data to a new instance?",
+      "answer": "Post-transfer configuration activities may include updating firewall rules for new IP addresses, working with your DNS provider to update DNS entries for custom domains, updating IP addresses in configuration files (e.g., /etc/hosts, /etc/resolv.conf), altering usernames in MySQL, renewing Let’s Encrypt TLS certificates, and testing the configuration."
+    },
+    {
+      "question": "What is the final step after completing and testing your data migration?",
+      "answer": "Once you have finished testing your data migration, you should inform your research team and users that the migration has been completed."
+    },
+    {
+      "question": "Is the New Arbutus Cloud CephFS Shared Filesystem identical to the legacy CephFS Shared Filesystem?",
+      "answer": "No, the New Arbutus Cloud CephFS Shared Filesystem is a distinct and separate service, and any desired data must be intentionally migrated."
+    },
+    {
+      "question": "Where are legacy CephFS shares and their management operations controlled?",
+      "answer": "Share management for legacy CephFS shares, including creation, deletion, and key management, is controlled through the legacy Arbutus Cloud."
+    },
+    {
+      "question": "Where are new CephFS shares and their management operations controlled?",
+      "answer": "Creation and management for shares in the new Arbutus Cloud is done exclusively in the new Arbutus Cloud environment."
+    },
+    {
+      "question": "Can both legacy and new CephFS shares be mounted on New Arbutus Cloud virtual machines?",
+      "answer": "Yes, both legacy shares and new shares are able to be mounted on New Arbutus Cloud virtual machines."
+    },
+    {
+      "question": "What is the recommended procedure for migrating data between legacy and new CephFS shares?",
+      "answer": "The recommended procedure is to: 1. Create an equivalent share in new Arbutus for each legacy share. 2. Mount both shares to separate locations on the same virtual machine in New Arbutus Cloud. 3. Use a data copy tool such as 'rsync' to transfer the data from the old share to the new and ensure data integrity."
+    },
+    {
+      "question": "Where can I find the procedure for mounting legacy CephFS shares?",
+      "answer": "The procedure for mounting legacy shares is unchanged and can be found at: https://docs.alliancecan.ca/wiki/CephFS"
+    },
+    {
+      "question": "What are the key differences when creating an equivalent share in the new Arbutus Cloud for CephFS migration?",
+      "answer": "Key differences include creating the new share and access keys using the new Arbutus Cloud web UI, creating a separate 'ceph.conf' file (e.g., 'ceph-new.conf'), updating the 'mon_host' config value in 'ceph-new.conf' for the new share, and specifying 'conf=/etc/ceph/ceph-new.conf' in the mount command for the new share."
+    },
+    {
+      "question": "What is the legacy 'mon_host' config value for CephFS?",
+      "answer": "The legacy 'mon_host' config value is: '10.30.201.3:6789,10.30.202.3:6789,10.30.203.3:6789'."
+    },
+    {
+      "question": "What is the new 'mon_host' config value required for CephFS in 'ceph-new.conf'?",
+      "answer": "The new 'mon_host' config value for CephFS in 'ceph-new.conf' is: '134.87.15.61:6789,134.87.15.62:6789,134.87.15.63:6789'."
+    },
+    {
+      "question": "Which rsync command is recommended for transferring data between mounted CephFS shares?",
+      "answer": "The recommended rsync command is: `rsync -avp /mnt/old-share/ /mnt/new-share/`."
+    },
+    {
+      "question": "What tools are advised to maintain an rsync session for large CephFS data transfers in case of disconnection?",
+      "answer": "For large CephFS data transfers, it is advised to use tools such as 'screen' or 'tmux' to keep the session alive in case of a dropped connection."
+    },
+    {
+      "question": "Is the New Arbutus Cloud Object Storage service the same as the legacy object storage?",
+      "answer": "No, the New Arbutus Cloud Object Storage is a distinct and separate service from legacy, and any desired data must be intentionally migrated."
+    },
+    {
+      "question": "What is the endpoint for New Arbutus Cloud Object Storage?",
+      "answer": "The New Arbutus Cloud Object Storage Endpoint is: https://object-arbutus.alliancecan.ca."
+    },
+    {
+      "question": "What is the endpoint for Legacy Arbutus Cloud Object Storage?",
+      "answer": "The Legacy Arbutus Cloud Object Storage Endpoint is: https://object-arbutus.cloud.computecanada.ca."
+    },
+    {
+      "question": "What caution should be exercised when migrating object storage if using bucket ACLs?",
+      "answer": "Be cautious that the tool you use copies bucket ACLs correctly, or recreate them in the new environment, as most tools do not preserve bucket ACLs. Also, user or project UUIDs will be different in the new Arbutus Cloud."
+    },
+    {
+      "question": "Does New Arbutus Cloud Object Storage utilize tenants?",
+      "answer": "Yes, New Arbutus Cloud Object Storage uses tenants."
+    },
+    {
+      "question": "How do tenants affect bucket name collisions in New Arbutus Cloud Object Storage?",
+      "answer": "Because New Arbutus Cloud Object Storage uses tenants, bucket name collisions will only happen within an individual project instead of across all projects in Arbutus."
+    },
+    {
+      "question": "How is the tenant identified when authenticating with the Swift or S3 API for object storage?",
+      "answer": "When authenticating with either the Swift or S3 API, the tenant is inferred from the user/key provided."
+    },
+    {
+      "question": "When is it necessary to explicitly specify the tenant for object storage access?",
+      "answer": "The tenant must be specified for public access to buckets with no authentication."
+    },
+    {
+      "question": "What is the format for an unauthenticated S3 access URL in New Arbutus Cloud Object Storage?",
+      "answer": "The URL for unauthenticated S3 access will be of the format: `https://object-arbutus.alliancecan.ca/<tenant-id>:<bucket-name>/<object-name>`."
+    },
+    {
+      "question": "What tool is recommended for migrating object storage if users are unsure which method to use?",
+      "answer": "Rclone is recommended for migrating object storage if you are not sure which tool to use."
+    },
+    {
+      "question": "What is a characteristic of rclone concerning bucket ACLs during object storage migration?",
+      "answer": "Rclone will not copy the bucket ACLs, so all access will initially be defaulted private in the new location."
+    },
+    {
+      "question": "What is the command to sync all buckets from legacy to new Arbutus Cloud using rclone?",
+      "answer": "The command to sync all buckets is: `rclone sync legacy: renewal:`."
+    }
+  ],
+  "generated_at": "2026-04-11T17:46:26.439591+00:00"
+}

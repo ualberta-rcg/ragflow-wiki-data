@@ -1,0 +1,83 @@
+{
+  "doc_key": "en/gbrowse",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is GBrowse?",
+      "answer": "GBrowse is a combination of a database and interactive web pages designed for manipulating and displaying annotations on genomes."
+    },
+    {
+      "question": "Where is GBrowse installed on Compute Canada infrastructure?",
+      "answer": "GBrowse is installed on Cedar."
+    },
+    {
+      "question": "What is the web address for the GBrowse installation on Cedar?",
+      "answer": "The web address is https://gateway.cedar.computecanada.ca."
+    },
+    {
+      "question": "How does the Cedar GBrowse installation differ from the standard setup?",
+      "answer": "The Cedar installation differs from the standard GBrowse setup, particularly regarding authentication and authorization."
+    },
+    {
+      "question": "Who must request access to GBrowse for a research group?",
+      "answer": "The Principal Investigator (PI) of the group must request access."
+    },
+    {
+      "question": "What is the main implication of a shared GBrowse account for file security?",
+      "answer": "With a shared account, any member of a research group can read GBrowse config files and input files belonging to any other member of that group."
+    },
+    {
+      "question": "What type of account is also required on Cedar to use GBrowse?",
+      "answer": "Users must also have a database account on Cedar."
+    },
+    {
+      "question": "Where should GBrowse config files be placed?",
+      "answer": "GBrowse config files should be placed in `/project/GROUPID/gbrowse/USERNAME/conf`."
+    },
+    {
+      "question": "What is the purpose of the symbolic link `${HOME}/gbrowse-config/`?",
+      "answer": "A symbolic link from `${HOME}/gbrowse-config/` is created for user convenience, pointing to the actual config directory."
+    },
+    {
+      "question": "What is crucial about the group permissions for GBrowse config files?",
+      "answer": "Files in the config directory should be readable by all members of the group, and their group permission should not be changed."
+    },
+    {
+      "question": "How do you configure a MySQL database connection in GBrowse config files?",
+      "answer": "You need to specify `db_adaptor = Bio::DB::SeqFeature::Store` and `db_args = -adaptor DBI::mysql -dsn DATABASE;mysql_read_default_file=/home/SHARED/.my.cnf`."
+    },
+    {
+      "question": "What is the role of the `.my.cnf` file in a MySQL connection for GBrowse?",
+      "answer": "The `.my.cnf` file, created by staff, contains information required for the shared account to connect to MySQL."
+    },
+    {
+      "question": "How do you configure a Postgres database connection in GBrowse config files?",
+      "answer": "You need to specify `db_adaptor = Bio::DB::SeqFeature::Store`, `db_args = -adaptor DBI::Pg`, and `-dsn = dbi:Pg:dbname=DATABASE`."
+    },
+    {
+      "question": "Can GBrowse directly read .bam files?",
+      "answer": "Yes, GBrowse can read .bam files directly without needing to upload them to the database."
+    },
+    {
+      "question": "What are the key requirements for GBrowse to directly read .bam files from your `/project` directory?",
+      "answer": "The files must be group-readable, the containing directory needs the `setgid` and `group-execute` bits turned on, and the .bam file's group ownership must be set to your group."
+    },
+    {
+      "question": "Which tool is used to upload files to the GBrowse database?",
+      "answer": "BioPerl is used to upload files to the GBrowse database."
+    },
+    {
+      "question": "What is the purpose of the `header_file` when using `bp_seqfeature_load.pl`?",
+      "answer": "The `header_file` contains details about the length of the chromosomes."
+    },
+    {
+      "question": "Where should database upload commands be executed?",
+      "answer": "Database upload commands should be run via the job scheduler, not on the head node."
+    },
+    {
+      "question": "After uploading data to the database, what is the next step to ensure GBrowse can access it?",
+      "answer": "You need to grant view access to the shared account so that GBrowse is able to access your database for reading."
+    }
+  ],
+  "generated_at": "2026-04-11T21:58:28.736718+00:00"
+}

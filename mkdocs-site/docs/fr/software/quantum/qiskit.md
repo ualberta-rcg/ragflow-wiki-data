@@ -5,21 +5,46 @@ lang: "fr"
 
 source_wiki_title: "Qiskit/fr"
 source_hash: "9ec466c100c6048f10971cf490981512"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T10:17:34.365867+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T10:42:02.373142+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "backend MonarQ"
+  - "Qiskit"
+  - "programmation quantique"
+  - "MonarQ"
+  - "identifiants"
+  - "portail Thunderhead"
+  - "environnement virtuel"
+  - "Circuit quantique"
+  - "qiskit-calculquebec"
+  - "grappe"
+  - "Calcul Québec"
+  - "Transpilation"
+
+questions:
+  - "Qu'est-ce que la bibliothèque Qiskit et quelles sont ses principales fonctionnalités ?"
+  - "Quelles sont les étapes nécessaires pour installer Qiskit dans un environnement virtuel et soumettre une tâche sur une grappe de calcul ?"
+  - "Comment doit-on configurer Qiskit pour l'utiliser directement avec l'infrastructure quantique MonarQ de Calcul Québec ?"
+  - "Comment configure-t-on le client et le backend pour se connecter à l'ordinateur quantique MonarQ avec Qiskit ?"
+  - "Pourquoi l'étape de transpilation est-elle indispensable avant d'exécuter le circuit quantique sur le backend ?"
+  - "Quelles sont les limites et recommandations spécifiées pour l'exécution du circuit, notamment concernant le nombre de tirs (shots) et l'outil d'échantillonnage ?"
+  - "Quelle est la particularité de l'installation du paquet qiskit-calculquebec concernant Qiskit ?"
+  - "Où l'utilisateur peut-il récupérer son jeton pour configurer ses identifiants ?"
+  - "Quelle est l'adresse exacte de l'hôte (host) requise pour l'initialisation du backend MonarQ ?"
+  - "Comment configure-t-on le client et le backend pour se connecter à l'ordinateur quantique MonarQ avec Qiskit ?"
+  - "Pourquoi l'étape de transpilation est-elle indispensable avant d'exécuter le circuit quantique sur le backend ?"
+  - "Quelles sont les limites et recommandations spécifiées pour l'exécution du circuit, notamment concernant le nombre de tirs (shots) et l'outil d'échantillonnage ?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -31,35 +56,35 @@ status:
 module load StdEnv/2023 gcc python/3.11 symengine/0.11.2
 ```
 
-2. Créez et activez un [environnement virtuel Python](python.md#créer-et-utiliser-un-environnement-virtuel).
+2. Créez et activez un [environnement virtuel Python](python.md#creer-et-utiliser-un-environnement-virtuel).
 ```bash
 virtualenv --no-download --clear ~/ENV && source ~/ENV/bin/activate
 ```
 
 3. Installez une version spécifique de Qiskit.
 ```bash
-(ENV) [name@server ~]$ pip install --no-index --upgrade pip
-(ENV) [name@server ~]$ pip install --no-index qiskit==X.Y.Z qiskit_aer==X.Y.Z
+pip install --no-index --upgrade pip
+pip install --no-index qiskit==X.Y.Z qiskit_aer==X.Y.Z
 ```
-où `X.Y.Z` représente le numéro de la version, par exemple `1.4.0`. Pour installer la plus récente version disponible sur nos grappes, n'indiquez pas de version. Ici, nous n'avons importé que `qiskit` et `qiskit_aer`. Vous pouvez ajouter d'autres logiciels Qiskit en fonction de vos besoins en suivant la structure `qiskit_package==X.Y.Z` où `qiskit_package` représente le logiciel voulu, par exemple `qiskit-finance`. Les roues (wheels) présentement disponibles sont listées sur la page [Wheels Python](available-python-wheels.md).
+où `X.Y.Z` représente le numéro de la version, par exemple `1.4.0`. Pour installer la plus récente version disponible sur nos grappes, n'indiquez pas de version. Ici, nous n'avons importé que `qiskit` et `qiskit_aer`. Vous pouvez ajouter d'autres logiciels Qiskit en fonction de vos besoins en suivant la structure `qiskit_package==X.Y.Z` où `qiskit_package` représente le logiciel voulu, par exemple `qiskit-finance`. Les *wheels* présentement disponibles sont listés sur la page [Wheels Python](available-python-wheels.md).
 
 4. Validez l’installation de Qiskit.
 ```bash
-(ENV)[name@server ~]$ python -c 'import qiskit'
+python -c 'import qiskit'
 ```
 
 5. Gelez l'environnement et les dépendances.
 ```bash
-(ENV)[name@server ~]$ pip freeze --local > ~/qiskit_requirements.txt
+pip freeze --local > ~/qiskit_requirements.txt
 ```
 
 ## Exécuter Qiskit sur une grappe
-```sh title="script.sh"
+```bash title="script.sh"
 #!/bin/bash
-#SBATCH --account=def-someuser # indiquez le nom de votre compte
-#SBATCH --time=00:15:00        # modifiez s'il y a lieu
-#SBATCH --cpus-per-task=1      # modifiez s'il y a lieu
-#SBATCH --mem-per-cpu=1G       # modifiez s'il y a lieu
+#SBATCH --account=def-someuser #indiquez le nom de votre compte
+#SBATCH --time=00:15:00        #modifiez s'il y a lieu
+#SBATCH --cpus-per-task=1      #modifiez s'il y a lieu
+#SBATCH --mem-per-cpu=1G       #modifiez s'il y a lieu
 
 # Chargez les dépendances des modules.
 module load StdEnv/2023 gcc python/3.11 symengine/0.11.2
@@ -78,10 +103,12 @@ python qiskit_example.py
 Vous pouvez ensuite [soumettre votre tâche à l'ordonnanceur](running-jobs.md).
 
 ## Utiliser Qiskit avec MonarQ
+
 Il est possible d’utiliser directement [MonarQ](monarq.md) avec Qiskit via le plugiciel qiskit-calculquebec. Ce plugiciel permet de développer et d'exécuter des circuits Qiskit sur l’infrastructure de Calcul Québec.
 
 ### Installation des dépendances
-* **Étape 1** : Installer les dépendances
+
+*   Étape 1 : Installer les dépendances
 ```bash
 module load python/3.11
 virtualenv --no-download --clear ~/ENV && source ~/ENV/bin/activate
@@ -90,14 +117,16 @@ pip install --no-index qiskit-calculquebec
 pip install --no-index qiskit-ibm-runtime
 python -c "import qiskit; import qiskit_calculquebec"
 ```
-* !!! info "Note"
-    `qiskit-calculquebec` installe automatiquement Qiskit.
+
+!!! note
+    **qiskit-calculquebec** installe automatiquement Qiskit.
 
 ### Initialisation du backend MonarQ
-* **Étape 2** : Configurer vos identifiants et le backend
-  * Créez un client avec vos identifiants. Votre jeton est disponible via le portail Thunderhead.
-  * Le *serveur hôte* est `https://monarq.calculquebec.ca`.
-  * Initialisez ensuite le backend MonarQ.
+
+*   Étape 2 : Configurer vos identifiants et le backend
+    *   Créez un client avec vos identifiants. Votre jeton est disponible via le portail Thunderhead.
+    *   Le *host* est **https://monarq.calculquebec.ca**.
+    *   Initialisez ensuite le backend MonarQ.
 
 ```python title="qiskit_example.py"
 import qiskit
@@ -123,7 +152,8 @@ qc.measure_all()
 ```
 
 ### Exécution du circuit
-* **Étape 3** : Transpiler et exécuter le circuit
+
+*   Étape 3 : Transpiler et exécuter le circuit
 
 ```python title="qiskit_example.py"
 from qiskit_ibm_runtime import SamplerV2 as Sampler
@@ -142,6 +172,7 @@ print(result[0].data.meas.get_counts())
 ```
 
 ### Notes
-* La transpilation est nécessaire pour adapter le circuit à la connectivité et aux portes natives de MonarQ.
-* Le nombre de *tirs* peut être ajusté selon les besoins (maximum : 1024).
-* L’utilisation de **SamplerV2** est recommandée pour l’exécution de circuits avec mesures.
+
+*   La transpilation est nécessaire pour adapter le circuit à la connectivité et aux portes natives de MonarQ.
+*   Le nombre de *shots* peut être ajusté selon les besoins (maximum : 1024).
+*   L’utilisation de **SamplerV2** est recommandée pour l’exécution de circuits avec mesures.

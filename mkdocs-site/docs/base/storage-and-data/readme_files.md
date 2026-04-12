@@ -5,27 +5,39 @@ lang: "base"
 
 source_wiki_title: "README files"
 source_hash: "953e265c918f9be616d4ea497518a7f6"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T10:42:19.421698+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T10:58:12.133671+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "data repository"
+  - "file formats"
+  - "research data management"
+  - "project spaces"
+  - "README file"
+
+questions:
+  - "Why is it important to use README files for data management in project spaces?"
+  - "What specific information should be included in a README file to properly document a directory's contents?"
+  - "What are the different file formats available for creating a README, and how do they differ in terms of readability and functionality?"
+  - "Why is it important to use README files for data management in project spaces?"
+  - "What specific information should be included in a README file to properly document a directory's contents?"
+  - "What are the different file formats available for creating a README, and how do they differ in terms of readability and functionality?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
 In your project spaces, your data should be documented such that you know the purpose of each file. A README file is usually the first reference point.
 
-Using README files on clusters is part of active research data management. It will be useful for future publications and for team members wondering what are the files in some directory.
+Using README files on clusters is part of active research data management. It will be useful for future publications and for team members wondering what the files in some directory are.
 
 ## What to write in a README file
 

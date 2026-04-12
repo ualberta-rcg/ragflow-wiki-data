@@ -1,0 +1,92 @@
+{
+  "doc_key": "fr/transition_from_niagara_to_trillium",
+  "level": "chunk",
+  "chunk_index": 2,
+  "qa_pairs": [
+    {
+      "question": "Si j'compile du code qui utilise Intel MKL pour des routines mathématiques, par quoi je devrais le remplacer sur Trillium?",
+      "answer": "Vous devriez passer à Flexiblas ou utiliser directement les bibliothèques AOCL de AMD, qui sont disponibles via les modules `aocl-blas` et `aocl-lapack`."
+    },
+    {
+      "question": "C'est quoi la configuration d'un nœud de calcul GPU sur Trillium?",
+      "answer": "Chaque nœud de calcul GPU dispose de 4 GPU, 96 cœurs et de 755 Go de mémoire vive disponible."
+    },
+    {
+      "question": "Quels types de processeurs et de GPU se retrouvent sur les nœuds de calcul GPU de Trillium?",
+      "answer": "Les processeurs sont des AMD Zen 4 (Genoa) et les GPU sont des NVIDIA H100."
+    },
+    {
+      "question": "Combien de nœuds de calcul GPU et de GPU y a-t-il au total sur Trillium?",
+      "answer": "Il y a 61 nœuds de calcul GPU et un total de 244 GPU."
+    },
+    {
+      "question": "Comment puis-je m'assurer que mes tâches n'gaspillent pas les ressources sur les nœuds GPU?",
+      "answer": "Il est important que vos tâches utilisent soit tous les cœurs, soit la majeure partie de la mémoire, soit qu'elles exploitent efficacement les GPU."
+    },
+    {
+      "question": "Mes données sur Niagara ont-elles été copiées automatiquement sur Trillium?",
+      "answer": "Oui, toutes les données présentes dans vos répertoires /home, /scratch et /project sur Niagara au 31 juillet 2025, et qui n'ont pas été modifiées après cette date, ont été copiées dans les répertoires correspondants sur Trillium."
+    },
+    {
+      "question": "Comment je fais si j'ai des données ajoutées ou modifiées sur Niagara après le 31 juillet 2025 que je veux transférer sur Trillium?",
+      "answer": "Vous pouvez vous connecter via SSH au nœud de copie `nia-datamover1` en utilisant la commande `ssh USERNAME@nia-datamover1.scinet.utoronto.ca` pour copier ces données."
+    },
+    {
+      "question": "Pourquoi est-ce une bonne idée d'utiliser `nia-datamover1` pour transférer des fichiers entre Niagara et Trillium?",
+      "answer": "Parce que les systèmes de fichiers de Niagara et Trillium sont montés sur ce nœud, ce qui vous permet de faire des copies localement, d'une grappe à l'autre."
+    },
+    {
+      "question": "C'est quoi un exemple de commande pour copier un fichier de Niagara vers Trillium via le nœud de copie `nia-datamover1`?",
+      "answer": "Vous pouvez utiliser une commande comme `cp /home/G/GROUP/USERNAME/file.txt /trillium_home/USERNAME/file.txt`."
+    },
+    {
+      "question": "Quels sont les quotas par défaut pour les répertoires /home et /scratch sur Trillium?",
+      "answer": "En date du 4 novembre, les quotas par défaut sont de 100 Go pour /home et de 25 To pour /scratch, ce qui est pareil que sur Niagara."
+    },
+    {
+      "question": "Est-ce que la structure des répertoires /home et /scratch est la même sur Trillium que sur Niagara?",
+      "answer": "Non, les structures sont différentes. Sur Trillium, les répertoires /home et /scratch ne sont pas imbriqués dans un groupe, mais se trouvent directement sous `/home/USERNAME` et `/scratch/USERNAME`."
+    },
+    {
+      "question": "Où puis-je trouver le répertoire /project de mon groupe si on en avait un sur Niagara?",
+      "answer": "Vous le trouverez sous `/project/RRG-NAME`, où RRG-NAME est le nom de votre allocation de projet de recherche."
+    },
+    {
+      "question": "Chaque groupe a-t-il un répertoire /project par défaut sur Trillium? Si oui, quel est son quota?",
+      "answer": "Oui, chaque groupe aura un répertoire /project sous `/project/def-PINAME`, où PINAME est le nom de la chercheuse ou du chercheur principal, avec un quota de 1 To."
+    },
+    {
+      "question": "Quels répertoires sont sauvegardés sur Trillium?",
+      "answer": "Comme sur Niagara, les répertoires /home et /project sont sauvegardés, mais /scratch ne l'est pas."
+    },
+    {
+      "question": "Comment je peux créer des liens pour accéder plus facilement à mes répertoires /scratch et /project?",
+      "answer": "Vous pouvez exécuter la commande `trisetup`. Ça va créer un répertoire `liens` dans votre répertoire /HOME pour y mettre des liens vers /scratch et /project."
+    },
+    {
+      "question": "Qu'est-ce que la commande `trisetup` fait d'autre quand je la lance?",
+      "answer": "Elle met également à jour votre fichier .bashrc et les autres fichiers de démarrage. La commande vous montrera exactement ce qu'elle a fait et où elle a enregistré les versions antérieures."
+    },
+    {
+      "question": "Si je rejoins ou je quitte un groupe, est-ce que les liens dans mon répertoire `links` pour /project seront mis à jour automatiquement?",
+      "answer": "Oui, une fois configurés, les liens dans `$HOME/links/project` seront automatiquement modifiés si vous vous joignez à un groupe ou si vous en quittez un."
+    },
+    {
+      "question": "Qui est propriétaire de mes fichiers et répertoires dans /home sur Trillium, et en quoi c'est différent de Niagara?",
+      "answer": "Sur Niagara, vous étiez propriétaire de votre répertoire /home, mais le groupe propriétaire était celui de votre chercheur ou chercheuse principale. Sur Trillium, vos fichiers et répertoires dans /home appartiennent à votre propre groupe privé."
+    },
+    {
+      "question": "Comment je fais pour partager des fichiers dans mon répertoire /home sur Trillium avec d'autres membres de mon groupe?",
+      "answer": "Vous devrez définir les autorisations à l'aide des listes de contrôle d'accès (ACL) ou changer le groupe propriétaire des fichiers."
+    },
+    {
+      "question": "C'est quoi la différence de permissions pour les répertoires /scratch entre les nouveaux utilisateurs de Trillium et ceux dont les fichiers ont été migrés de Niagara?",
+      "answer": "Pour les nouveaux utilisateurs, leur répertoire /scratch sera privé (le groupe propriétaire sera leur groupe privé). Par contre, pour les utilisateurs dont les fichiers ont été transférés de Niagara, le groupe de propriété sera celui du groupe de recherche sous lequel leur répertoire /scratch était initialement imbriqué."
+    },
+    {
+      "question": "Est-ce que le répertoire /project est configuré pour le partage sur Trillium?",
+      "answer": "Oui, le répertoire /project est configuré pour être partagé, et les membres du groupe correspondent à ceux définis dans l'allocation par défaut ou l'allocation pour un projet du groupe de recherche."
+    }
+  ],
+  "generated_at": "2026-04-12T09:29:17.373795+00:00"
+}

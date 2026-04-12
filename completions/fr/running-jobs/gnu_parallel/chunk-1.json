@@ -1,0 +1,72 @@
+{
+  "doc_key": "fr/gnu_parallel",
+  "level": "chunk",
+  "chunk_index": 1,
+  "qa_pairs": [
+    {
+      "question": "C'est quoi, GNU Parallel?",
+      "answer": "GNU Parallel, c'est un outil de la suite GNU qui permet de lancer plusieurs tâches séquentielles en parallèle sur un ou plusieurs nœuds."
+    },
+    {
+      "question": "Dans quelles situations est-ce que GNU Parallel est particulièrement pratique?",
+      "answer": "C'est un outil super utile pour rouler un gros paquet de tâches séquentielles, qu'elles soient courtes ou de durée variable, sur un ensemble de paramètres (genre, pour l'exploration de paramètres)."
+    },
+    {
+      "question": "Où est-ce qu'on peut trouver plus d'informations sur GNU Parallel?",
+      "answer": "Pour plus d'informations, il faut consulter la documentation officielle du produit, puisque cette documentation-ci couvre juste les notions de base."
+    },
+    {
+      "question": "Comment `parallel` gère-t-il l'utilisation des ressources par défaut?",
+      "answer": "Par défaut, `parallel` maximise l'utilisation des ressources en exécutant autant de tâches qu'il y a de cœurs alloués par l'ordonnanceur."
+    },
+    {
+      "question": "Comment on fait pour changer le nombre de tâches que GNU Parallel roule en même temps?",
+      "answer": "On peut changer ça avec l'option `--jobs`, suivie du nombre de tâches que GNU Parallel devrait exécuter simultanément."
+    },
+    {
+      "question": "Qu'est-ce qui arrive quand une tâche est terminée avec `parallel`?",
+      "answer": "Quand une tâche est finie, `parallel` en lance automatiquement une nouvelle. Comme ça, le nombre maximal de tâches est toujours en exécution."
+    },
+    {
+      "question": "Qu'est-ce que les accolades `{}` représentent dans les commandes GNU Parallel?",
+      "answer": "Les accolades `{}` indiquent les paramètres qui sont passés en argument à la commande qu'on veut exécuter."
+    },
+    {
+      "question": "Peux-tu me donner un exemple de comment utiliser `parallel` avec `gzip` pour tous les fichiers texte d'un répertoire?",
+      "answer": "Oui, pour compresser tous les fichiers texte d'un répertoire avec `gzip`, on peut faire `ls *.txt | parallel gzip {}`."
+    },
+    {
+      "question": "Est-ce qu'il y a une autre façon de passer des arguments à `parallel`?",
+      "answer": "Oui, on peut aussi utiliser `:::` comme dans l'exemple `parallel echo {} ::: $(seq 1 3)`."
+    },
+    {
+      "question": "Il y a une différence entre les 'jobs' de GNU Parallel pis les 'jobs' de l'ordonnanceur?",
+      "answer": "Oui, les commandes de GNU Parallel sont appelées des 'jobs'. Faut pas les confondre avec les tâches (aussi des 'jobs') qui sont des scripts exécutés par l'ordonnanceur. Dans le contexte de `parallel`, ses tâches sont des 'sous-tâches'."
+    },
+    {
+      "question": "Comment on fait pour utiliser plusieurs arguments avec GNU Parallel?",
+      "answer": "On peut utiliser plusieurs arguments en les numérotant, par exemple `{1}` et `{2}`, comme dans `parallel echo {1} {2} ::: $(seq 1 3) ::: $(seq 2 3)`."
+    },
+    {
+      "question": "Quelle syntaxe on utilise pour que GNU Parallel prenne les arguments à partir d'un fichier?",
+      "answer": "La syntaxe `::::` permet d'utiliser le contenu d'un fichier comme valeurs des arguments."
+    },
+    {
+      "question": "Donne-moi un exemple pour afficher le contenu d'un fichier comme liste de paramètres avec `parallel`.",
+      "answer": "Si ta liste de paramètres est dans le fichier `maliste.txt`, tu peux faire `parallel echo {1} :::: maliste.txt`."
+    },
+    {
+      "question": "Comment lancer plusieurs sous-tâches listées dans un fichier avec GNU Parallel?",
+      "answer": "Chaque sous-tâche doit être sur une ligne distincte dans le fichier. Si ton fichier de sous-tâches s'appelle `my_commands.txt`, tu peux la faire exécuter avec `parallel < my_commands.txt`."
+    },
+    {
+      "question": "Y a-t-il une particularité à noter quand on utilise un fichier comme liste de commandes pour `parallel`?",
+      "answer": "Oui, aucune commande ou argument n'est passé directement à `parallel`. C'est particulièrement utile si les sous-tâches contiennent des symboles spécifiques de GNU Parallel ou si elles ont plusieurs commandes, comme `cd dir1 && ./executable`."
+    },
+    {
+      "question": "Comment on fait pour rouler une tâche Slurm qui utilise GNU Parallel avec un fichier de commandes comme `my_commands.txt`?",
+      "answer": "On crée un script Slurm qui spécifie le nombre de CPU, par exemple `#SBATCH --cpus-per-task=4`, et qui exécute `parallel --joblog parallel.log < ./my_commands.txt`. Ça va faire en sorte que 4 commandes seront toujours en marche à la fois jusqu'à la fin de la liste."
+    }
+  ],
+  "generated_at": "2026-04-11T22:19:32.039884+00:00"
+}

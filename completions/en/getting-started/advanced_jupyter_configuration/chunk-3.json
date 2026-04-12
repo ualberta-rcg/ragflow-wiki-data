@@ -1,0 +1,80 @@
+{
+  "doc_key": "en/advanced_jupyter_configuration",
+  "level": "chunk",
+  "chunk_index": 3,
+  "qa_pairs": [
+    {
+      "question": "What is the first step when installing RStudio Server for use with JupyterLab?",
+      "answer": "The first step is to load the `rstudio-server` module before the `python` module and prior to creating a new Python virtual environment."
+    },
+    {
+      "question": "What command should be used to load the necessary modules for RStudio Server and Python?",
+      "answer": "You should use the command `module load rstudio-server python` to load the modules."
+    },
+    {
+      "question": "After JupyterLab is installed in a new virtual environment, what is the next step to enable RStudio Server?",
+      "answer": "Once JupyterLab is installed in the new virtual environment, you need to install the Jupyter RSession proxy using `pip install --no-index jupyter-rsession-proxy`."
+    },
+    {
+      "question": "Where can users expect to find the RStudio application within JupyterLab after it's configured?",
+      "answer": "In JupyterLab, users should see an RStudio application available in the `Launcher` tab."
+    },
+    {
+      "question": "How do you activate the Python virtual environment for JupyterLab once you log onto the cluster?",
+      "answer": "You can activate the Python virtual environment by running the command `source $HOME/jupyter_py3/bin/activate`."
+    },
+    {
+      "question": "How can one verify that the JupyterLab environment is correctly activated and ready?",
+      "answer": "To verify the environment, you can get a list of installed `jupyter*` packages by running `pip freeze | grep jupyter`."
+    },
+    {
+      "question": "What command is used to start a JupyterLab server on a compute node?",
+      "answer": "To start a JupyterLab server, you submit an interactive job using the `salloc` command."
+    },
+    {
+      "question": "Can you provide an example command for starting a JupyterLab server with specific resource requests?",
+      "answer": "An example command is `salloc --time=1:0:0 --ntasks=1 --cpus-per-task=2 --mem-per-cpu=1024M --account=def-yourpi srun $VIRTUAL_ENV/bin/jupyterlab.sh`. Users should adjust parameters based on their needs."
+    },
+    {
+      "question": "Why is an SSH tunnel required to access JupyterLab running on a compute node from a web browser?",
+      "answer": "An SSH tunnel is required because compute nodes are not directly accessible from the internet, meaning a connection from your local computer needs to pass through the cluster securely."
+    },
+    {
+      "question": "What Python package is recommended for creating an SSH tunnel from Linux or macOS systems?",
+      "answer": "The `sshuttle` Python package is recommended for creating an SSH tunnel from Linux or macOS."
+    },
+    {
+      "question": "How do you create an SSH tunnel from a Linux or macOS terminal for JupyterLab access?",
+      "answer": "You open a new terminal and use the command `sshuttle --dns -Nr <username>@<cluster>.alliancecan.ca`, replacing `<username>` with your Alliance account username and `<cluster>` with the cluster name."
+    },
+    {
+      "question": "After creating an SSH tunnel from Linux or macOS, how do you open JupyterLab in your web browser?",
+      "answer": "You copy and paste the first provided HTTP address from the JupyterLab server's output (e.g., `http://node_name.int.cluster.alliancecan.ca:8888/lab?token=...`) into your web browser."
+    },
+    {
+      "question": "Which tool can be used to create an SSH tunnel from a Windows operating system?",
+      "answer": "MobaXTerm can be used to create an SSH tunnel from Windows, and this procedure also works from any terminal that supports the `ssh` command."
+    },
+    {
+      "question": "When connecting from Windows, what information needs to be extracted from the JupyterLab HTTP address?",
+      "answer": "When connecting from Windows, you need to extract the `hostname:port` and the `token` from the first provided HTTP address, such as `http://node_name.int.cluster.alliancecan.ca:8888/lab?token=...`."
+    },
+    {
+      "question": "What command is used in MobaXTerm to establish an SSH tunnel from Windows?",
+      "answer": "The command is `ssh -L 8888:<hostname:port> <username>@<cluster>.alliancecan.ca`, where you replace the bracketed values with your specific details."
+    },
+    {
+      "question": "Once an SSH tunnel is established from Windows, what URL should be used in the web browser to access JupyterLab?",
+      "answer": "You should navigate to `http://localhost:8888/?token=<token>` in your web browser, replacing `<token>` with the alphanumerical value extracted from the JupyterLab server output."
+    },
+    {
+      "question": "How do you shut down the JupyterLab server before its allocated walltime limit is reached?",
+      "answer": "To shut down the JupyterLab server, press `Ctrl-C` twice in the terminal where the interactive job was launched."
+    },
+    {
+      "question": "How do you shut down an SSH tunnel that was created using MobaXterm?",
+      "answer": "To shut down an SSH tunnel created with MobaXterm, press `Ctrl-D` in the terminal tab where the tunnel was established."
+    }
+  ],
+  "generated_at": "2026-04-11T16:06:19.142128+00:00"
+}

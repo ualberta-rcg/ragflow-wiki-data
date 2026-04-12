@@ -1,0 +1,44 @@
+{
+  "doc_key": "fr/python",
+  "level": "chunk",
+  "chunk_index": 12,
+  "qa_pairs": [
+    {
+      "question": "Comment faire pour installer un paquet wheel local et ensuite enregistrer les paquets installés dans un fichier `requirements.txt`?",
+      "answer": "Pour installer un paquet wheel local, vous devez utiliser la commande `pip install --no-index $HOME/MyProject-1.0.0-py3-none.whl`. Après l'installation, vous pouvez enregistrer l'état de votre environnement virtuel dans un fichier `requirements.txt` en utilisant `pip freeze --local > ~/requirements.txt`."
+    },
+    {
+      "question": "Quel module Python est couramment employé pour la programmation parallèle afin d'accélérer l'exécution des tâches?",
+      "answer": "Le module `multiprocessing` est habituellement utilisé pour la programmation parallèle en Python, ce qui permet d'obtenir des résultats plus rapidement."
+    },
+    {
+      "question": "Quelle classe du module `multiprocessing` est particulièrement utile pour gérer plusieurs processus exécutant le même calcul avec des données différentes?",
+      "answer": "La classe `Pool` du module `multiprocessing` est particulièrement intéressante parce qu'elle permet de contrôler le nombre de processus lancés en parallèle pour exécuter le même calcul avec des données multiples."
+    },
+    {
+      "question": "Pour quelle raison la programmation parallèle est-elle avantageuse en Python?",
+      "answer": "La programmation parallèle avec Python est un moyen facile d'obtenir des résultats plus rapidement."
+    },
+    {
+      "question": "Comment peut-on calculer le cube d'une liste de nombres de façon séquentielle en Python, en utilisant une boucle ou un mappage?",
+      "answer": "Pour calculer le cube d'une liste de nombres de façon séquentielle, on peut utiliser une compréhension de liste (par exemple, `cubes = [cube(x) for x in data]`) ou la fonction `map` (par exemple, `cubes = list(map(cube,data))`)."
+    },
+    {
+      "question": "Quel est le principe d'utilisation de la classe `Pool` du module `multiprocessing` pour effectuer des calculs parallèles, comme le cube d'une liste de nombres?",
+      "answer": "On importe `multiprocessing` comme `mp`, on crée une instance de `Pool` en spécifiant le nombre de processus (par exemple, `pool = mp.Pool(processes=4)`), puis on peut utiliser `pool.apply_async` dans une boucle ou `pool.map` directement sur la liste de données pour exécuter la fonction en parallèle."
+    },
+    {
+      "question": "Pourquoi est-il crucial d'aligner le nombre de processus exécutés avec le nombre de cœurs alloués pour une tâche sur une grappe de calcul?",
+      "answer": "Il est très important d'utiliser les cœurs alloués à la tâche. Si le nombre de processus dépasse les cœurs demandés, les calculs seront ralentis et le nœud pourrait être surchargé. Si le nombre de processus est insuffisant, des cœurs resteront inactifs, menant à une sous-utilisation des ressources."
+    },
+    {
+      "question": "Comment un script de soumission Slurm (`submit.sh`) devrait-il être configuré pour qu'un script Python utilise tous les cœurs d'un nœud pour une tâche parallèle?",
+      "answer": "L'en-tête du script de soumission de la tâche devrait inclure `#SBATCH --ntasks-per-node=1` et `#SBATCH --cpus-per-task=32` (si 32 cœurs sont disponibles), suivi de la commande `python cubes_parallel.py`."
+    },
+    {
+      "question": "Comment un script Python peut-il récupérer le nombre de cœurs alloués par Slurm pour l'adapter dynamiquement au `multiprocessing.Pool`?",
+      "answer": "Dans le script Python, on peut récupérer le nombre de cœurs alloués à partir de la variable d'environnement `SLURM_CPUS_PER_TASK` en utilisant `ncpus = int(os.environ.get('SLURM_CPUS_PER_TASK',default=1))` pour ensuite le passer au paramètre `processes` de `mp.Pool`."
+    }
+  ],
+  "generated_at": "2026-04-12T05:58:54.729214+00:00"
+}

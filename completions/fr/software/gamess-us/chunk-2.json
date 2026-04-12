@@ -1,0 +1,60 @@
+{
+  "doc_key": "fr/gamess-us",
+  "level": "chunk",
+  "chunk_index": 2,
+  "qa_pairs": [
+    {
+      "question": "De quoi dépendent souvent les calculs en chimie quantique?",
+      "answer": "Les calculs en chimie quantique dépendent souvent de la quantité de mémoire utilisée ('memory bound'), surtout pour les plus grandes molécules à un niveau théorique élevé."
+    },
+    {
+      "question": "Pourquoi les logiciels comme GAMESS utilisent-ils le stockage 'scratch'?",
+      "answer": "Les paquets logiciels comme GAMESS utilisent le stockage 'scratch' pour stocker les résultats intermédiaires et ainsi libérer de la mémoire, en accédant au disque plus tard pour les calculs."
+    },
+    {
+      "question": "Le stockage 'scratch' est-il plus rapide que la mémoire RAM?",
+      "answer": "Non, le stockage 'scratch' le plus rapide est énormément plus lent que la mémoire RAM."
+    },
+    {
+      "question": "Comment doit-on spécifier la quantité de mémoire pour une tâche GAMESS?",
+      "answer": "Il faut spécifier la quantité de mémoire dans le script de soumission de la tâche et aussi utiliser les options MWORDS et MEMDDI dans le groupe $SYSTEM du fichier d'entrée GAMESS."
+    },
+    {
+      "question": "Quelle est une valeur raisonnable pour le paramètre `--mem-per-cpu` dans le script de soumission GAMESS?",
+      "answer": "Une valeur de `--mem-per-cpu=4000M` est raisonnable, car elle équivaut au ratio mémoire-CPU des nœuds de base."
+    },
+    {
+      "question": "Que pourrait-il arriver si on demande trop de mémoire avec `--mem-per-cpu`?",
+      "answer": "Demander trop de mémoire pourrait faire en sorte que la tâche reste en attente pour être exécutée sur un nœud de type 'large'."
+    },
+    {
+      "question": "Quelles options du groupe `$SYSTEM` dans le fichier d'entrée GAMESS servent à indiquer la mémoire utilisable?",
+      "answer": "Dans le groupe `$SYSTEM group` du fichier d'entrée, il faut utiliser les options `MWORDS` et `MEMDDI` pour indiquer à GAMESS la quantité de mémoire pouvant être utilisée."
+    },
+    {
+      "question": "Qu'est-ce que l'option `MWORDS` représente dans GAMESS et quelles sont ses unités?",
+      "answer": "L'option `MWORDS` est le maximum de mémoire que la tâche peut utiliser sur chacun des cœurs. Ses unités sont de 1 000 000 mots, où un mot représente 64 bits ou 8 octets."
+    },
+    {
+      "question": "À quoi sert l'option `MEMDDI` dans GAMESS et quelles sont ses unités?",
+      "answer": "`MEMDDI` est la quantité totale de mémoire nécessaire au DDI ('distributed data interface'), sur la base d'unités de 1 000 000 mots."
+    },
+    {
+      "question": "Comment calcule-t-on la mémoire requise sur chaque cœur de processeur en utilisant `MEMDDI` et `MWORDS`?",
+      "answer": "La mémoire requise sur chaque cœur de processeur utilisant 'p' cœurs-CPU est calculée avec la formule `MEMDDI/p + MWORDS`."
+    },
+    {
+      "question": "Est-il important de maintenir une marge entre la mémoire demandée à l'ordonnanceur et celle utilisée par GAMESS?",
+      "answer": "Oui, il importe de garder une marge de sûreté de quelques centaines de Mo entre la mémoire demandée à l'ordonnanceur et celle que GAMESS peut utiliser."
+    },
+    {
+      "question": "Quel message dans le fichier `slurm-{JOBID}.out` indique qu'une tâche a dépassé sa limite de mémoire?",
+      "answer": "Le message \"slurmstepd: error: Exceeded step/job memory limit at some point\" dans le fichier `slurm-{JOBID}.out` indique que Slurm a cessé l'exécution de la tâche parce qu'elle utilisait plus de mémoire que la quantité demandée."
+    },
+    {
+      "question": "Que doit-on faire si une tâche GAMESS dépasse la limite de mémoire allouée par Slurm?",
+      "answer": "Si une tâche GAMESS dépasse la limite de mémoire, on peut réduire la valeur de `MWORDS` ou `MEMDDI` dans le fichier d'entrée, ou augmenter la valeur de `--mem-per-cpu` dans le script de soumission."
+    }
+  ],
+  "generated_at": "2026-04-11T21:54:02.175663+00:00"
+}

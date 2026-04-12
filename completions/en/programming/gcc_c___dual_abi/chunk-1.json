@@ -1,0 +1,68 @@
+{
+  "doc_key": "en/gcc_c___dual_abi",
+  "level": "chunk",
+  "chunk_index": 1,
+  "qa_pairs": [
+    {
+      "question": "What caused a major change to GCC's Application Binary Interface (ABI)?",
+      "answer": "The transition from GCC version 4.9 to version 5.1 introduced a major change to its Application Binary Interface (ABI)."
+    },
+    {
+      "question": "Which specific GCC versions were involved in the major ABI transition?",
+      "answer": "The major ABI transition occurred between GCC version 4.9 and version 5.1."
+    },
+    {
+      "question": "What is a potential issue when using different compilers after the GCC ABI change?",
+      "answer": "If different compilers are used, the ABI change may cause linking to fail."
+    },
+    {
+      "question": "Under what circumstances is linking failure particularly likely due to the GCC ABI change?",
+      "answer": "Failure is likely if you are linking to precompiled libraries provided in a vendor's product."
+    },
+    {
+      "question": "How can developers resolve linking failures when using GCC v5.1 or higher with libraries built using an older ABI?",
+      "answer": "Developers can use GCC's Dual ABI feature to tell GCC to use the old ABI, for example, by passing `-D_GLIBCXX_USE_CXX11_ABI=0`."
+    },
+    {
+      "question": "What GCC flag should be passed to GCC v5.1 or higher to link with libraries built using the older ABI?",
+      "answer": "You would pass `-D_GLIBCXX_USE_CXX11_ABI=0` to GCC if using GCC v5.1 or higher to link to libraries built using the older ABI."
+    },
+    {
+      "question": "Can you provide an example of an error that might be resolved by using `-D_GLIBCXX_USE_CXX11_ABI=0`?",
+      "answer": "Using `-D_GLIBCXX_USE_CXX11_ABI=0` can resolve errors like `.../extensions.hpp(38): error: \"std::list\" is ambiguous`."
+    },
+    {
+      "question": "What constitutes an Application Binary Interface (ABI) in C++?",
+      "answer": "The Application Binary Interface (ABI) comprises the mangled and exported `extern \"C++\"` symbol names, which are generated using a compiler-specific algorithm, and are used to link compiled code with libraries."
+    },
+    {
+      "question": "How do C++ compilers typically handle `extern \"C++\"` symbol names?",
+      "answer": "By default, C++ compilers mangle and export all `extern \"C++\"` symbol names using a compiler-specific algorithm."
+    },
+    {
+      "question": "Why can a change to a compiler's ABI lead to programs failing to link?",
+      "answer": "Any change to a compiler's ABI can result in programs failing to link because for successful linking, all symbol names must match up."
+    },
+    {
+      "question": "What is the purpose of the example provided regarding options passed to GCC v5.1 or higher?",
+      "answer": "The example illustrates how options passed to GCC v5.1 or higher can affect the ABI used in the generated binaries, specifically demonstrating how the ABI's exported symbol names differ with various compiler settings."
+    },
+    {
+      "question": "What C++ program is used in the example to generate ABI symbol names?",
+      "answer": "The example uses a C++ program named `main.cxx` that includes `<iostream>` and `<string>`, and prints 'Hello World!'."
+    },
+    {
+      "question": "What are some of the compiler settings used in the `Makefile` example to show how ABI calls differ?",
+      "answer": "The `Makefile` uses settings such as `-std=c++98`, `-std=c++11`, `-D_GLIBCXX_USE_CXX11_ABI=1`, and `-D_GLIBCXX_USE_CXX11_ABI=0`."
+    },
+    {
+      "question": "Which command within the `Makefile` is responsible for extracting and filtering symbol names from object files?",
+      "answer": "The command `nm $@ | cut -c 20- >$@.symbols` is used to extract and filter symbol names from the object files."
+    },
+    {
+      "question": "What is the objective of the `diff` commands present in the example's `Makefile`?",
+      "answer": "The `diff` commands are used to demonstrate the differences in the produced ABI symbols when compiled with various GCC compiler options."
+    }
+  ],
+  "generated_at": "2026-04-11T22:01:01.108312+00:00"
+}

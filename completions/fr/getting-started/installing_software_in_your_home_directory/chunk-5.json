@@ -1,0 +1,60 @@
+{
+  "doc_key": "fr/installing_software_in_your_home_directory",
+  "level": "chunk",
+  "chunk_index": 5,
+  "qa_pairs": [
+    {
+      "question": "Pourquoi la compilation d'un logiciel peut-elle s'arrêter sur le système?",
+      "answer": "La compilation peut s'arrêter si le logiciel indique explicitement le chemin `/usr`, car il s'attend à y trouver des fichiers alors qu'il devrait être dirigé vers l'environnement CVMFS."
+    },
+    {
+      "question": "Comment résoudre un problème de compilation lorsque le logiciel pointe explicitement vers `/usr`?",
+      "answer": "Pour résoudre ce problème, il faut spécifier la variable `$EBROOTGENTOO`, ce qui peut impliquer d'ajuster un Makefile, de passer un indicateur `--with-` via le script de compilation ou d'éditer un fichier de configuration."
+    },
+    {
+      "question": "Que dois-je faire si je ne sais pas comment ajuster un Makefile ou un script de compilation pour spécifier une variable?",
+      "answer": "Si vous ne savez pas comment procéder, vous devriez contacter le soutien technique."
+    },
+    {
+      "question": "Que faire si un paquet logiciel a besoin d'une bibliothèque d'un module autre que `gentoo`?",
+      "answer": "Si un paquet dépend d'une bibliothèque d'un module autre que `gentoo`, vous devrez peut-être spécifier l'emplacement de ses fichiers d'en-tête et de ses bibliothèques."
+    },
+    {
+      "question": "Comment trouver l'emplacement des fichiers d'installation (comme les fichiers d'en-tête et les bibliothèques) d'un module spécifique, par exemple `hdf5`?",
+      "answer": "Après avoir chargé un module comme `hdf5` avec `module load hdf5`, son installation se trouve dans la variable d'environnement `$EBROOTHDF5`, ses fichiers d'en-tête dans `$EBROOTHDF5/include` et ses fichiers de bibliothèque dans `$EBROOTHDF5/lib`. La règle générale est `EBROOT` suivi du nom du module en majuscules."
+    },
+    {
+      "question": "À qui dois-je m'adresser si une bibliothèque ou un fichier d'en-tête manquant ne se trouve ni avec `gentoo` ni avec un autre module?",
+      "answer": "Si un fichier d'en-tête ou une bibliothèque n'est pas disponible via `gentoo` ou un autre module, vous devriez en informer le soutien technique, car ils pourront très probablement l'ajouter."
+    },
+    {
+      "question": "Est-ce que j'ai besoin d'utiliser la variable d'environnement `$LD_LIBRARY_PATH` pour les binaires installés sous `/cvmfs/soft.computecanada.ca`?",
+      "answer": "Non, il n'est pas nécessaire d'utiliser `$LD_LIBRARY_PATH` pour les binaires sous `/cvmfs/soft.computecanada.ca` parce qu'ils utilisent déjà un RUNPATH qui inclut les répertoires des bibliothèques d'exécution."
+    },
+    {
+      "question": "Pourquoi est-il déconseillé de configurer `$LD_LIBRARY_PATH` pour qu'il pointe vers des emplacements comme `/usr/lib64` ou `$EBROOTGENTOO/lib`?",
+      "answer": "Il est déconseillé de le faire car `$LD_LIBRARY_PATH` a préséance sur le RUNPATH, et si elle pointe vers ces répertoires, plusieurs binaires pourraient ne pas fonctionner."
+    },
+    {
+      "question": "Quelle commande peut-on utiliser pour obtenir une installation AlmaLinux-9 brute, sans aucun module chargé?",
+      "answer": "En dernier recours, vous pouvez utiliser la commande `module --force purge` pour éliminer l'environnement CVMFS et obtenir une installation AlmaLinux-9 brute."
+    },
+    {
+      "question": "Dans quels cas spécifiques la purge des modules avec `module --force purge` est-elle utile?",
+      "answer": "Cette action est utile dans des cas spéciaux, par exemple si vous compilez GCC par vous-même ou si vous utilisez des chaînes d'outils de compilation spécifiques comme MESA SDK."
+    },
+    {
+      "question": "La purge des modules est-elle une étape permanente?",
+      "answer": "Non, il n'est nécessaire de purger les modules qu'au moment de la compilation. Ils peuvent être chargés à nouveau quand vous lancez le logiciel."
+    },
+    {
+      "question": "Où la compilation de code s'effectue-t-elle généralement?",
+      "answer": "Dans la plupart des cas, vous pouvez compiler votre code directement sur un nœud de connexion."
+    },
+    {
+      "question": "Quand devrais-je envisager de compiler mon code sur un nœud de calcul plutôt que sur un nœud de connexion?",
+      "answer": "Vous devriez compiler sur un nœud de calcul si votre développement nécessite un GPU ou un CPU Skylake; pour ce faire, il faut démarrer une tâche interactive sur un serveur avec le matériel approprié."
+    }
+  ],
+  "generated_at": "2026-04-12T00:10:02.697110+00:00"
+}

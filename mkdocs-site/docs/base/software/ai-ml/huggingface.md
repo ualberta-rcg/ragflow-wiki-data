@@ -5,21 +5,90 @@ lang: "base"
 
 source_wiki_title: "Huggingface"
 source_hash: "cc6703ef312bb81101d7fac3d492d3fb"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T07:16:18.826836+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T07:56:11.296715+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "Datasets package"
+  - "Multi-GPU"
+  - "accelerate library"
+  - "HF_EVALUATE_OFFLINE"
+  - "Huggingface"
+  - "Fully Sharded Data Parallel"
+  - "accelerate"
+  - "offline environment"
+  - "LLM training"
+  - "AutoTokenizer"
+  - "GPU nodes"
+  - "FSDP"
+  - "training script"
+  - "transformers pipeline"
+  - "LLM sharding"
+  - "login node"
+  - "nn.Module"
+  - "Multi-node"
+  - "cache location"
+  - "Evaluate library"
+  - "virtual environment"
+  - "Accelerator"
+  - "Accelerate"
+  - "PyTorch"
+  - "Large Language Models"
+  - "pre-trained model"
+  - "loading"
+  - "Distributed training"
+  - "$SLURM_TMPDIR"
+  - "compute nodes"
+  - "argparse"
+  - "SLURM"
+  - "evaluate.load()"
+  - "distributed data parallel"
+  - "Fully Sharded Data Parallel (FSDP)"
+  - "cifar10 classification models"
+  - "pipeline"
+  - "download evaluators"
+
+questions:
+  - "How do you properly install the Hugging Face Transformers package within a virtual environment on the cluster?"
+  - "What are the different methods provided for downloading pre-trained models from the Hugging Face hub?"
+  - "Why is it necessary to download models on a login node, and how can they be loaded from the local filesystem during a compute job?"
+  - "How do you configure the model and tokenizer to load exclusively from a locally saved directory?"
+  - "What arguments can be passed to the pipeline function to load a pre-trained model?"
+  - "Where are the model files stored by default when downloaded via a pipeline on a login node?"
+  - "How do you configure the `transformers` pipeline to load models and tokenizers locally in an offline job environment?"
+  - "What are the recommended steps and module dependencies required to properly install the `datasets` and `evaluate` packages?"
+  - "Which environment variables must be set to successfully use previously downloaded datasets and evaluators on compute nodes without internet access?"
+  - "Why is it necessary to download evaluators on a login node prior to submitting a job?"
+  - "What specific Python command is used to download an evaluator such as \"accuracy\"?"
+  - "Which environment variable must be set to prevent the library from attempting internet downloads on compute nodes?"
+  - "What is the Accelerate package and what primary benefit does it provide for running PyTorch code?"
+  - "How can a user change the default storage location for Hugging Face evaluators and properly install the Accelerate package?"
+  - "How does configuring a multi-GPU and multi-node job with Accelerate differ from standard PyTorch distributed training in terms of task allocation and rank management?"
+  - "What are the specific steps and commands required to download the Zephyr-7b-beta model and the ultrachat_200k dataset onto the cluster's login node?"
+  - "What are the primary hardware and data-related challenges that can hinder the efficient training of Large Language Models?"
+  - "How does the tutorial recommend using the accelerate library and local compute node storage to overcome the challenges of model size and dataset reading?"
+  - "What is the primary purpose of the script as indicated by the argument parser's description?"
+  - "Which command-line arguments are defined in the script for configuring the training process, and what are their default values?"
+  - "How does the script initialize the hardware device and distributed training environment within the main function?"
+  - "What library and configuration strategy are utilized to shard the LLM across multiple devices?"
+  - "How does using the accelerate library simplify the implementation of the sharding strategy for the user?"
+  - "What specific step is required to read the dataset from the compute node's local storage?"
+  - "How does the provided SLURM batch script allocate hardware resources and prepare the environment for the training job?"
+  - "What distributed training strategy is configured in the `fsdp.yaml` file, and what are its key settings?"
+  - "How does the `train_llm.py` script handle dataset preprocessing and model training using the Hugging Face libraries?"
+  - "How does the provided SLURM batch script allocate hardware resources and prepare the environment for the training job?"
+  - "What distributed training strategy is configured in the `fsdp.yaml` file, and what are its key settings?"
+  - "How does the `train_llm.py` script handle dataset preprocessing and model training using the Hugging Face libraries?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -33,11 +102,11 @@ Transformers is a Python package that provides APIs and tools to easily download
 
 Our recommendation is to install it using our provided Python [wheel](https://pythonwheels.com/) as follows:
 
-1.  Load a Python [module](utiliser-des-modules.md#sub-command_load), thus `module load python`.
+1.  Load a Python [module](utiliser-des-modules.md#sub-command_load), thus `module load python`
 2.  Create and start a [virtual environment](python.md#creating-and-using-a-virtual-environment).
 3.  Install Transformers in the virtual environment with `pip install`.
 
-```bash
+```bash title="(venv) [name@server ~]"
 pip install --no-index transformers
 ```
 
@@ -45,9 +114,12 @@ pip install --no-index transformers
 
 To download a pre-trained model from the Hugging Face model hub, choose one of the options below and follow the instructions on the **login node** of the cluster you are working on. Models must be downloaded on a login node to avoid idle compute while waiting for resources to download.
 
+!!! warning "Login Node Downloads"
+    Models must be downloaded on a login node to avoid idle compute while waiting for resources to download.
+
 #### Using git lfs
 
-Pre-trained models are usually made up of fairly large binary files. Hugging Face makes these files available for download via [Git Large File Storage](https://git-lfs.com/). To download a model, load the `git-lfs` module and clone your chosen model repository from the model hub:
+Pre-trained models are usually made up of fairly large binary files. The Hugging Face makes these files available for download via [Git Large File Storage](https://git-lfs.com/). To download a model, load the `git-lfs` module and clone your chosen model repository from the model hub:
 
 ```bash
 module load git-lfs/3.4.0
@@ -70,8 +142,8 @@ The `huggingface_hub` package contains a command line interface (CLI) which can 
 HF_HUB_DISABLE_XET=1 hf download --max-workers=1 HuggingFaceH4/zephyr-7b-beta
 ```
 
-!!! warning
-    We set the variable `HF_HUB_DISABLE_XET` to avoid using the `hf_xet` package to download models. This package, meant to make downloading artifacts from Hugging Face more efficient, currently leads to failures on our systems and should not be used at this time.
+!!! warning "HF_HUB_DISABLE_XET"
+    Note that we set the variable `HF_HUB_DISABLE_XET` to avoid using the `hf_xet` package to download models. This package, meant to make downloading artifacts from the Hugging Face more efficient, currently leads to failures on our systems and should not be used at this time.
 
 #### Using Python
 
@@ -83,7 +155,7 @@ model = AutoModel.from_pretrained("bert-base-uncased")
 tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
 ```
 
-This will store the pre-trained model files in a cache directory, which defaults to `$HOME/.cache/huggingface/hub`. You can change the cache directory by setting the environment variable `TRANSFORMERS_CACHE` **before** you import anything from the Transformers package in your Python script. For example, the following will store model files in the current working directory:
+This will store the pre-trained model files in a cache directory, which defaults to `$HOME/.cache/huggingface/hub`. You can change the cache directory by setting the environment variable `TRANSFORMERS_CACHE` **before** you import anything from the transformers package in your Python script. For example, the following will store model files in the current working directory:
 
 ```python
 import os
@@ -119,7 +191,8 @@ tokenizer = AutoTokenizer.from_pretrained("/path/to/where/model/is/saved", local
 pipe = pipeline(task = "text-classification", model = model, tokenizer = tokenizer)
 ```
 
-Failing to do so will result in `pipeline` attempting to download models from the internet, which will result in a connection timeout error during a job.
+!!! warning "Offline Pipeline Usage"
+    Failing to do so will result in `pipeline` attempting to download models from the internet, which will result in a connection timeout error during a job.
 
 ## Datasets
 
@@ -129,20 +202,20 @@ Datasets is a Python package for easily accessing and sharing datasets for Audio
 
 Our recommendation is to install it using our provided Python [wheel](https://pythonwheels.com/) as follows:
 
-1.  Load a Python [module](utiliser-des-modules.md#sub-command_load), thus `module load python`.
+1.  Load a Python [module](utiliser-des-modules.md#sub-command_load), thus `module load python`
 2.  Create and start a [virtual environment](python.md#creating-and-using-a-virtual-environment).
 3.  Load the Arrow module. This will make the `pyarrow` package (a dependency of Datasets) available inside your virtualenv.
 4.  Install Datasets in the virtual environment with `pip install`.
 
-```bash
+```bash title="(venv) [name@server ~]"
 module load gcc/9.3.0 arrow/11.0.0
 ```
 
-```bash
+```bash title="(venv) [name@server ~]"
 pip install --no-index datasets
 ```
 
-!!! note
+!!! note "Arrow Module Dependency"
     You will need to load the arrow module every time you intend to import the Datasets package in your Python script.
 
 ### Downloading Datasets
@@ -170,20 +243,20 @@ With a single line of code, you get access to dozens of evaluation methods for d
 
 Our recommendation is to install it using our provided Python [wheel](https://pythonwheels.com/) as follows:
 
-1.  Load a Python [module](utiliser-des-modules.md#sub-command_load), thus `module load python`.
+1.  Load a Python [module](utiliser-des-modules.md#sub-command_load), thus `module load python`
 2.  Create and start a [virtual environment](python.md#creating-and-using-a-virtual-environment).
 3.  Load the Arrow module. This will make the `pyarrow` package (a dependency of Evaluate) available inside your virtualenv.
 4.  Install Evaluate in the virtual environment with `pip install`.
 
-```bash
+```bash title="(venv) [name@server ~]"
 module load gcc arrow
 ```
 
-```bash
+```bash title="(venv) [name@server ~]"
 pip install --no-index evaluate
 ```
 
-!!! note
+!!! note "Arrow Module Dependency"
     You will need to load the arrow module every time you intend to import the Evaluate package in your Python script.
 
 ### Downloading Evaluators
@@ -199,22 +272,21 @@ evaluate.load("accuracy")
 
 Inside a job on compute nodes **without internet connection**, you must set the environment variable `HF_EVALUATE_OFFLINE=1` to prevent Evaluate from attempting to download evaluators from the web.
 
-!!! note
-    Evaluators are saved at the default location `$HOME/.cache/huggingface/evaluate`. You can change this by pointing the environment variable `HF_HOME` to your desired storage location. Note that setting this variable will change the storage location for all Hugging Face ecosystem libraries such as Transformers and Datasets.
+Note that evaluators are saved at the default location `$HOME/.cache/huggingface/evaluate`. You can change this by pointing the environment variable `HF_HOME` to your desired storage location. Note that setting this variable will change the storage location for all Hugging Face ecosystem libraries such as Transformers and Datasets.
 
 ## Accelerate
 
-Accelerate is a package that enables any PyTorch code to be run across any distributed configuration by adding just four lines of code. This makes training and inference at scale simple, efficient, and adaptable.
+Accelerate is a package that enables any PyTorch code to be run across any distributed configuration by adding just four lines of code. This makes training and inference at scale simple, efficient and adaptable.
 
 ### Installing Accelerate
 
 Our recommendation is to install it using our provided Python [wheel](https://pythonwheels.com/) as follows:
 
-1.  Load a Python [module](utiliser-des-modules.md#sub-command_load), thus `module load python`.
+1.  Load a Python [module](utiliser-des-modules.md#sub-command_load), thus `module load python`
 2.  Create and start a [virtual environment](python.md#creating-and-using-a-virtual-environment).
 3.  Install Accelerate in the virtual environment with `pip install`.
 
-```bash
+```bash title="(venv) [name@server ~]"
 pip install --no-index accelerate
 ```
 
@@ -222,10 +294,10 @@ pip install --no-index accelerate
 
 In the example that follows, we use `accelerate` to reproduce our [PyTorch tutorial](pytorch.md#pytorch-with-multiple-gpus) on how to train a model with multiple GPUs distributed over multiple nodes. Notable differences are:
 
-1.  Here we ask for only one task per node, and we let `accelerate` handle starting the appropriate number of processes (one per GPU) on each node.
-2.  We pass the number of nodes in the job and the individual node IDs in the job to Accelerate via the `machine_rank` and `num_machines` arguments respectively. Accelerate handles setting global and local ranks internally.
+1.  Here we ask for only one task per node and we let `accelerate` handle starting the appropriate number of processes (one per GPU) on each node.
+2.  We pass the number of nodes in the job and the individual node IDs in the job to accelerate via the `machine_rank` and `num_machines` arguments respectively. Accelerate handles setting global and local ranks internally.
 
-```bash linenums="1" title="accelerate-example.sh"
+```bash title="accelerate-example.sh"
 #!/bin/bash
 #SBATCH --nodes 2
 #SBATCH --ntasks-per-node=1
@@ -246,7 +318,7 @@ srun launch_training_accelerate.sh
 
 Where the script `config_env.sh` is:
 
-```bash linenums="1" title="config_env.sh"
+```bash title="config-env.sh"
 #!/bin/bash
 
 module load python
@@ -264,7 +336,7 @@ echo "Done installing virtualenv!"
 
 The script `launch_training_accelerate.sh` is:
 
-```bash linenums="1" title="launch_training_accelerate.sh"
+```bash title="launch-training-accelerate.sh"
 #!/bin/bash
 
 source $SLURM_TMPDIR/ENV/bin/activate
@@ -286,7 +358,7 @@ pytorch-accelerate.py --batch_size 256 --num_workers=2
 
 And finally, `pytorch-accelerate.py` is:
 
-```python linenums="1" title="pytorch-accelerate.py"
+```python title="pytorch-accelerate.py"
 import os
 
 import torch
@@ -373,7 +445,7 @@ if __name__=='__main__':
 
 ## Training Large Language Models (LLMs)
 
-The following is a tutorial on how to train LLMs using Hugging Face libraries on the Alliance's clusters. The goal is to illustrate a set of best practices to make the most out of our infrastructures and avoid common pitfalls. Here we fine-tune [Hugging Face’s Zephyr model](https://huggingface.co/HuggingFaceH4/zephyr-7b-beta) on the [ultrachat_200k dataset](https://huggingface.co/datasets/HuggingFaceH4/ultrachat_200k).
+The following is a tutorial on how to train LLMs using Huggingface libraries on the Alliance's clusters. The goal is to illustrate a set of best practices to make the most out of our infrastructures and avoid common pitfalls. Here we fine-tune [Huggingface's Zephyr model](https://huggingface.co/HuggingFaceH4/zephyr-7b-beta) on the [ultrachat_200k dataset](https://huggingface.co/datasets/HuggingFaceH4/ultrachat_200k).
 
 ### Downloading the Model and the Dataset
 
@@ -400,14 +472,14 @@ rm -r ENV
 
 Where the script `get_ultrachat.py` is:
 
-```python linenums="1" title="get_ultrachat.py"
+```python title="get-ultrachat.py"
 from datasets import load_dataset
 
 dataset_name_and_config = ("HuggingFaceH4/ultrachat_200k",)
 dataset = load_dataset(*dataset_name_and_config, split="train_gen")
 ```
 
-Now that the model and the dataset are both saved locally on the cluster’s network filesystem, the next step is to design a job with sufficient resources to train our LLM efficiently. The main factors that might hinder training performance or prevent the training script from even running in the first place are:
+Now that the model and the dataset are both saved locally on the cluster’s network filesystem, the next step is to design a job with sufficient resources to train our LLM efficiently. The main factors that might hinder training performance, or prevent the training script from even running in the first place are:
 
 1.  The model is too large to fit entirely inside the memory of a single GPU.
 2.  The training set, while relatively small in size, is made up of a large number of very small examples.
@@ -421,7 +493,7 @@ To shard the LLM across multiple devices, we will use the `accelerate` library, 
 
 For this example, we will reserve a whole node with 4 GPUs and 48 CPUs, such as the GPU nodes available on Narval. The job submission script is then:
 
-```bash linenums="1" title="accelerate-example.sh"
+```bash title="accelerate-example.sh"
 #!/bin/bash
 #SBATCH --nodes 1
 #SBATCH --ntasks-per-node=1
@@ -450,7 +522,7 @@ export TRANSFORMERS_OFFLINE=1
 export TORCH_NCCL_ASYNC_ERROR_HANDLING=1
 
 accelerate launch \
---config_file="fsdp.yaml" \
+—-config_file="fsdp.yaml" \
 --mixed_precision="fp16" \
 --num_machines=$SLURM_NNODES \
 --machine_rank=$SLURM_NODEID \
@@ -460,7 +532,7 @@ train_llm.py
 
 Where the config file `fsdp.yaml` is:
 
-```yaml linenums="1" title="fsdp.yaml"
+```yaml title="fsdp.yaml"
 compute_environment: LOCAL_MACHINE
 debug: true
 distributed_type: FSDP
@@ -489,7 +561,7 @@ use_cpu: false
 
 And the script `train_llm.py` is:
 
-```python linenums="1" title="train_llm.py"
+```python title="train-llm.py"
 import transformers
 from transformers import MistralForCausalLM, AutoTokenizer
 from transformers import TrainingArguments

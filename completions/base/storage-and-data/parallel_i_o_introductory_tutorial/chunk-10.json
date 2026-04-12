@@ -1,0 +1,60 @@
+{
+  "doc_key": "base/parallel_i_o_introductory_tutorial",
+  "level": "chunk",
+  "chunk_index": 10,
+  "qa_pairs": [
+    {
+      "question": "What four essential arguments are required when opening a file with MPI-IO?",
+      "answer": "When opening a file with MPI-IO, the required arguments are a Communicator, a file name, a file handle (for future reference), and a file access mode (`amode`)."
+    },
+    {
+      "question": "What is the function of the 'amode' argument in the MPI_File_open call?",
+      "answer": "The 'amode' argument defines the file access mode, specifying operations like read-only, write-only, read and write, or creating the file if it doesn't exist."
+    },
+    {
+      "question": "Name at least five file access modes that can be used with MPI-IO.",
+      "answer": "Some common file access modes include `MPI_MODE_RDONLY` (Read only), `MPI_MODE_RDWR` (Read and writing), `MPI_MODE_WRONLY` (Write only), `MPI_MODE_CREATE` (Create file if it does not exist), `MPI_MODE_EXCL` (Error if creating file that exists), `MPI_MODE_DELETE_ON_CLOSE` (Delete file on close), `MPI_MODE_UNIQUE_OPEN` (File not to be opened elsewhere), `MPI_MODE_SEQUENTIAL` (File to be accessed sequentially), and `MPI_MODE_APPEND` (Position all file pointers to end)."
+    },
+    {
+      "question": "How are multiple file access modes combined in C and FORTRAN when opening a file with MPI-IO?",
+      "answer": "Multiple file access modes are combined using a bitwise 'or' operator ('|') in C or an addition operator ('+') in FORTRAN."
+    },
+    {
+      "question": "What is the typical value used for the 'Info' argument in MPI_File_open?",
+      "answer": "The 'Info' argument is usually set to 'MPI_INFO_NULL'."
+    },
+    {
+      "question": "In the context of MPI-IO, how can each process write its data into a designated, contiguous portion of a single file?",
+      "answer": "Each process can write its data into a designated portion of the same file, with writing proceeding in a contiguous fashion (e.g., from process 0 to 3), using functions like `MPI_File_set_view` to define their writing regions."
+    },
+    {
+      "question": "In the provided C example for writing contiguous data, how is the 'displace' offset calculated for each processor?",
+      "answer": "The 'displace' offset for each processor is calculated by multiplying the processor's rank (`rank`), the size of the array (`n`), and the size of a character (`sizeof(char)`), i.e., `rank*n*sizeof(char)`."
+    },
+    {
+      "question": "What is the primary function of the `MPI_File_set_view` call in MPI-IO?",
+      "answer": "The `MPI_File_set_view` function is used to assign specific regions, or views, of a file to separate processes, defining where each process will access data within the file."
+    },
+    {
+      "question": "What does the 'native' string signify when used as the 'datarep' argument in `MPI_File_set_view`?",
+      "answer": "The 'native' string indicates that the data in its representation is stored in the file exactly as it is in memory."
+    },
+    {
+      "question": "Is MPI-IO a standard part of the MPI library, and is it widely implemented on HPC systems?",
+      "answer": "Yes, MPI-IO is a part of the standard MPI-2 library and is widely installed on almost all HPC systems with modern MPI versions, such as OpenMPI."
+    },
+    {
+      "question": "Does using MPI-IO for parallel I/O operations necessitate installing additional libraries?",
+      "answer": "No, MPI-IO does not require additional libraries to be installed, as it is included with standard MPI installations."
+    },
+    {
+      "question": "What are the main drawbacks or limitations of using MPI-IO for data storage?",
+      "answer": "The main drawbacks of MPI-IO are that it writes raw data to file, meaning it is not portable across platforms, it is hard to append new variables, and it does not include data description or metadata."
+    },
+    {
+      "question": "Why is data written with MPI-IO considered not portable across different computing platforms?",
+      "answer": "Data written with MPI-IO is considered not portable across platforms because it writes raw data to file, without including self-describing metadata that would allow other systems to interpret it correctly."
+    }
+  ],
+  "generated_at": "2026-04-12T05:02:53.809212+00:00"
+}

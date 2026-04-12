@@ -5,21 +5,60 @@ lang: "en"
 
 source_wiki_title: "BUSCO/en"
 source_hash: "820545bbc130c5ee29bb4b2f252c76f2"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T04:53:53.142677+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T05:44:36.489663+00:00"
 
 tags:
   - software
 
 keywords:
-  []
+  - "BLAST+"
+  - "SEPP parameters"
+  - "lineage files"
+  - "configuration file"
+  - "run command"
+  - "single genome"
+  - "Slurm"
+  - "AUGUSTUS_CONFIG_PATH"
+  - "external tools"
+  - "busco"
+  - "Augustus"
+  - "Augustus parameters"
+  - "genome assembly"
+  - "Python wheel"
+  - "multiple genomes"
+  - "genome"
+  - "BUSCO"
+  - "datasets"
+  - "modules"
+  - "Job submission"
+
+questions:
+  - "What is the primary purpose of the BUSCO application?"
+  - "What are the required steps to install the BUSCO Python wheel and its dependencies within a virtual environment?"
+  - "What are the two available methods for pre-downloading datasets before running a BUSCO job?"
+  - "How should a user configure a Slurm submission script to properly allocate resources and install dependencies for a BUSCO job?"
+  - "What are the necessary steps to configure and use custom Augustus parameters within a BUSCO run?"
+  - "How can a user locally install and activate SEPP parameters in their BUSCO virtual environment?"
+  - "What is the exact command provided to execute a single genome run using BUSCO?"
+  - "How does the path specification change when attempting to run multiple genomes instead of a single one?"
+  - "What specific parameters are used in the command to manage CPU allocation and offline data paths?"
+  - "What software modules and dependencies must be loaded to prepare the environment for BUSCO?"
+  - "What is the destination path for the copied BUSCO configuration file?"
+  - "Which two command-line tools can be used as alternative methods to acquire the default configuration file?"
+  - "How are the paths for external tools like tblastn and augustus specified in the BUSCO configuration file?"
+  - "What environment variables and directory setups are required before executing the test run with the run_BUSCO.py command?"
+  - "How do you troubleshoot and resolve the \"Cannot write to Augustus config path\" error?"
+  - "How are the paths for external tools like tblastn and augustus specified in the BUSCO configuration file?"
+  - "What environment variables and directory setups are required before executing the test run with the run_BUSCO.py command?"
+  - "How do you troubleshoot and resolve the \"Cannot write to Augustus config path\" error?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -50,17 +89,17 @@ source ~/busco_env/bin/activate
 
 3. Install the wheel and its dependencies.
 ```bash
-(busco_env) $ pip install --no-index busco==6.0.0
+pip install --no-index busco==6.0.0
 ```
 
 4. Validate the installation.
 ```bash
-(busco_env) $ busco --help
+busco --help
 ```
 
 5. Freeze the environment and requirements set. To use the requirements text file, see the *bash* submission script shown at point 8.
 ```bash
-(busco_env) $ pip freeze > ~/busco-requirements.txt
+pip freeze > ~/busco-requirements.txt
 ```
 
 ### Usage
@@ -70,10 +109,10 @@ source ~/busco_env/bin/activate
 You can access the available datasets in your terminal by typing `busco --list-datasets`.
 
 You have **two** options to download datasets:
-* use the `busco` command,
-* use the `wget` command.
+*   use the `busco` command,
+*   use the `wget` command.
 
-##### Using the `busco` command
+##### 6.1 Using the `busco` command
 This is the preferred option. Type this command in your working directory to download a particular dataset, for example
 ```bash
 busco --download bacteria_odb10
@@ -91,27 +130,19 @@ This will
 4. if you download multiple files, they will all be automatically added to the lineages directory.
 
 The hierarchy will look like this:
-> * busco_downloads/
->
->     * information/
->
->         * lineages_list.2021-12-14.txt
->
->     * lineages/
->
->         * bacteria_odb10
->
->         * actinobacteria_class_odb10
->
->         * actinobacteria_phylum_odb10
->
->     * placement_files/
->
->         * list_of_reference_markers.archaea_odb10.2019-12-16.txt
+*   busco_downloads/
+    *   information/
+        *   lineages_list.2021-12-14.txt
+    *   lineages/
+        *   bacteria_odb10
+        *   actinobacteria_class_odb10
+        *   actinobacteria_phylum_odb10
+    *   placement_files/
+        *   list_of_reference_markers.archaea_odb10.2019-12-16.txt
 
 Doing so, all your lineage files should be in **busco_downloads/lineages/**. When referring to `--download_path busco_downloads/` in the BUSCO command line, it will know where to find the lineage dataset argument `--lineage_dataset bacteria_odb10`. If the *busco_download* directory is not in your working directory, you will need to provide the full path.
 
-##### Using the `wget` command
+##### 6.2 Using the `wget` command
 
 All files must be decompressed with `tar -xvf file.tar.gz`.
 ```bash
@@ -188,12 +219,12 @@ busco --offline --in genome.fna --out TEST --lineage_dataset bacteria_odb10 --mo
 #### Augustus parameters
 9. Advanced users may want to use Augustus parameters: `--augustus_parameters="--yourAugustusParameter"`.
 
-* Copy the Augustus *config* directory to a writable location.
+*   Copy the Augustus *config* directory to a writable location.
 ```bash
 cp -r $EBROOTAUGUSTUS/config $HOME/augustus_config
 ```
 
-* Make sure to define the `AUGUSTUS_CONFIG_PATH` environment variable.
+*   Make sure to define the `AUGUSTUS_CONFIG_PATH` environment variable.
 ```bash
 export AUGUSTUS_CONFIG_PATH=$HOME/augustus_config
 ```
@@ -239,8 +270,7 @@ source ~/busco_env/bin/activate
 ```bash
 module load StdEnv/2018.3 gcc/7.3.0 openmpi/3.1.4 busco/3.0.2 r/4.0.2
 ```
-This will also load modules for Augustus, BLAST+, HMMER and some other
-software packages that BUSCO relies upon.
+This will also load modules for Augustus, BLAST+, HMMER and some other software packages that BUSCO relies upon.
 
 2. Copy the configuration file.
 ```bash

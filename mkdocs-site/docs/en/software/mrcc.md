@@ -5,39 +5,51 @@ lang: "en"
 
 source_wiki_title: "MRCC/en"
 source_hash: "c82207a40ca89d32089ae1319265c7d8"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T08:20:51.242909+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T08:54:32.032788+00:00"
 
 tags:
   - software
   - computationalchemistry
 
 keywords:
-  []
+  - "MRCC"
+  - "electronic structure calculations"
+  - "ab initio"
+  - "coupled-cluster"
+  - "quantum chemistry"
+
+questions:
+  - "What is the MRCC software suite and what are its primary computational chemistry features?"
+  - "What specific conditions must a user agree to in order to comply with the MRCC license limitations on the Alliance systems?"
+  - "How can users access and load the MRCC module on the clusters, and what type of parallel processing support does it include?"
+  - "What is the MRCC software suite and what are its primary computational chemistry features?"
+  - "What specific conditions must a user agree to in order to comply with the MRCC license limitations on the Alliance systems?"
+  - "How can users access and load the MRCC module on the clusters, and what type of parallel processing support does it include?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
 ## Introduction
 
-[MRCC](https://www.mrcc.hu/index.php) is a suite of ab initio and density functional quantum chemistry programs for high-accuracy electronic structure calculations developed and maintained by the quantum chemistry research group at the Department of Physical Chemistry and Materials Science, TU Budapest. Its special feature, the use of automated programming tools enabled the development of tensor manipulation routines which are independent of the number of indices of the corresponding tensors, thus significantly simplifying the general implementation of quantum chemical methods. Applying the automated tools of the program several quantum chemistry models and techniques of high complexity have been implemented so far, including arbitrary single-reference coupled-cluster (CC) and configuration interaction (CI) methods, multi-reference CC approaches, CC and CI energy derivatives and response functions, arbitrary perturbative CC approaches. Many features of the package are also available with relativistic Hamiltonians allowing for accurate calculations on heavy element systems. The developed cost-reduction techniques and local correlation approaches also enable high-precision calculations for medium-sized and large molecules.
+[MRCC](https://www.mrcc.hu/index.php) is a suite of ab initio and density functional quantum chemistry programs for high-accuracy electronic structure calculations developed and maintained by the quantum chemistry research group at the Department of Physical Chemistry and Materials Science, TU Budapest. Its special feature, the use of automated programming tools, enabled the development of tensor manipulation routines which are independent of the number of indices of the corresponding tensors, thus significantly simplifying the general implementation of quantum chemical methods. Applying the automated tools of the program, several quantum chemistry models and techniques of high complexity have been implemented so far, including arbitrary single-reference coupled-cluster (CC) and configuration interaction (CI) methods, multi-reference CC approaches, CC and CI energy derivatives and response functions, and arbitrary perturbative CC approaches. Many features of the package are also available with relativistic Hamiltonians allowing for accurate calculations on heavy element systems. The developed cost-reduction techniques and local correlation approaches also enable high-precision calculations for medium-sized and large molecules.
 
 ## License limitations
 
-!!! note
-    The Alliance has signed a license agreement with Prof. Dr. Mihaly Kallay who acts for the developers of the MRCC Software.
+The Alliance has signed a license agreement with Prof. Dr. Mihaly Kallay, who acts for the developers of the MRCC Software.
 
+!!! note
     In order to use the current installed version on the Alliance systems, each user must agree to certain conditions. Please contact support with a copy of the following statement:
 
     1.  I will use MRCC only for academic research.
     2.  I will not copy the MRCC software, nor make it available to anyone else.
-    3.  I will properly acknowledge original papers related to MRCC and to the Alliance in my publications, for more details: [https://www.mrcc.hu/index.php/citation](https://www.mrcc.hu/index.php/citation)
+    3.  I will properly acknowledge original papers related to MRCC and to the Alliance in my publications; for more details, see [this page](https://www.mrcc.hu/index.php/citation).
     4.  I understand that the agreement for using MRCC can be terminated by one of the parties: MRCC developers or the Alliance.
     5.  I will notify the Alliance of any change in the above acknowledgement.
 
@@ -46,13 +58,13 @@ status:
 The MRCC version from "2023-08-28" is available on all clusters by loading a [module](utiliser-des-modules.md):
 
 ```bash
-module load intel/2023.2.1  openmpi/4.1.5 mrcc/20230828
+module load intel/2023.2.1 openmpi/4.1.5 mrcc/20230828
 ```
 
 The module was installed with OpenMP and MPI support. Once the module is loaded, you can access all the binaries and the basis. The list of binaries is:
 
 ```bash
-[ ~]$ module load intel/2023.2.1  openmpi/4.1.5 mrcc/20230828
+[ ~]$ module load intel/2023.2.1 openmpi/4.1.5 mrcc/20230828
 [ ~]$ ls $EBROOTMRCC/bin/
 ccsd      cis                      dmrcc      drpa      goldstone  minp      mrcc      mulli   ovirt  qmmod  scf_mpi  xmrcc
 ccsd_mpi  dirac_mointegral_export  dmrcc_mpi  drpa_mpi  integ      mp2f12    mrcc_mpi  orbloc  prop   scf    uccsd    xmrcc_mpi

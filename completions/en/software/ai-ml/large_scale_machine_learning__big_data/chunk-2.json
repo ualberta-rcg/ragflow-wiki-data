@@ -1,0 +1,76 @@
+{
+  "doc_key": "en/large_scale_machine_learning__big_data",
+  "level": "chunk",
+  "chunk_index": 2,
+  "qa_pairs": [
+    {
+      "question": "How can a linear SVM classifier be fitted using batches of data in scikit-learn?",
+      "answer": "A linear SVM classifier can be fitted using `SGDClassifier` with batches of data, particularly when the estimator has the `partial_fit` method available. This allows iterating through large memory-mapped files and loading only small batches into memory at a time."
+    },
+    {
+      "question": "What is the purpose of the `partial_fit` method in scikit-learn's out-of-core learning strategy?",
+      "answer": "The `partial_fit` method allows an estimator to train incrementally on batches of data, which is crucial for out-of-core learning where the entire dataset cannot fit into memory. Each call to `partial_fit` runs one epoch of stochastic gradient descent over a batch of data."
+    },
+    {
+      "question": "How are large numpy arrays typically stored and accessed for out-of-core learning in scikit-learn?",
+      "answer": "Large numpy arrays are typically stored on disk as `npy` files and then accessed by memory-mapping these files using `numpy.memmap`. This allows iterating through the files and loading only small batches of rows into memory."
+    },
+    {
+      "question": "Which scikit-learn class is used for fitting a linear SVM classifier in an out-of-core learning scenario?",
+      "answer": "`sklearn.linear_model.SGDClassifier` is used for fitting a linear SVM classifier in an out-of-core learning scenario by setting `loss='hinge'`."
+    },
+    {
+      "question": "What function is defined in the `svm-sgd-npy.py` example to handle data batching?",
+      "answer": "The `svm-sgd-npy.py` example defines a `batch_loader` function that returns a generator, yielding batches of features (`X`) and targets (`y`) from the input arrays."
+    },
+    {
+      "question": "How is a LASSO regression model trained in batches from a CSV file using scikit-learn?",
+      "answer": "A LASSO regression model can be trained in batches from a CSV file using `sklearn.linear_model.SGDRegressor` with `penalty='l1'`, by reading the data in chunks using the `pandas` package's `read_csv` method with the `chunksize` and `iterator=True` parameters, and calling `partial_fit` for each batch."
+    },
+    {
+      "question": "Which Python package is used to read data in batches from CSV files for machine learning training?",
+      "answer": "The `pandas` package is used to read data in batches from CSV files for machine learning training, specifically using its `read_csv` function with `chunksize` and `iterator=True`."
+    },
+    {
+      "question": "What is Snap ML?",
+      "answer": "Snap ML is a closed-source machine learning library developed by IBM that supports various classical machine learning models, scales gracefully to massive datasets, offers distributed training, GPU acceleration, and supports sparse data structures."
+    },
+    {
+      "question": "What are the key features of Snap ML?",
+      "answer": "Key features of Snap ML include support for classical machine learning models, graceful scaling to datasets with billions of examples/features, distributed training, GPU acceleration, and support for sparse data structures."
+    },
+    {
+      "question": "How does Snap ML's API relate to scikit-learn?",
+      "answer": "Snap ML features an API that is very similar to scikit-learn, making it suitable as a replacement for scikit-learn when dealing with massive datasets."
+    },
+    {
+      "question": "How can one check the latest available wheels for Snap ML?",
+      "answer": "To check the latest available wheels for Snap ML, one can use the command `avail_wheels \"snapml\"`."
+    },
+    {
+      "question": "What is the preferred method for installing Snap ML?",
+      "answer": "The preferred method for installing Snap ML is using the Python `wheel` via `pip install` within a virtual environment."
+    },
+    {
+      "question": "What are the general steps to install Snap ML using pip in a virtual environment?",
+      "answer": "The steps to install Snap ML using pip in a virtual environment are: load a Python module (e.g., `module load python`), create and start a virtual environment, and then install Snap ML in the virtual environment with `pip install --no-index snapml`."
+    },
+    {
+      "question": "Do Snap ML estimators support thread parallelism?",
+      "answer": "Yes, all estimators in Snap ML support thread parallelism."
+    },
+    {
+      "question": "How is thread parallelism controlled in Snap ML estimators?",
+      "answer": "Thread parallelism in Snap ML estimators is controlled via the `n_jobs` parameter."
+    },
+    {
+      "question": "What is the typical benefit of setting the `n_jobs` parameter in Snap ML?",
+      "answer": "Setting the `n_jobs` parameter to the number of available cores typically delivers a good speedup relative to the scikit-learn implementation of the same estimator."
+    },
+    {
+      "question": "How can memory usage be monitored when running Python code that trains machine learning models?",
+      "answer": "Memory usage can be monitored by running the command `htop` on the terminal while the Python code is executing."
+    }
+  ],
+  "generated_at": "2026-04-12T00:58:45.624515+00:00"
+}

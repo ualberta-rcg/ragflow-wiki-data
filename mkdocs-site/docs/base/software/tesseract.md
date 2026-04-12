@@ -5,21 +5,33 @@ lang: "base"
 
 source_wiki_title: "Tesseract"
 source_hash: "79e327150ebe41d2c3f3c84635ac05be"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T11:50:42.547287+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T11:58:30.360567+00:00"
 
 tags:
   - software
 
 keywords:
-  []
+  - "language models"
+  - "TESSDATA_PREFIX"
+  - "OCR Engine"
+  - "pytesseract"
+  - "Tesseract"
+
+questions:
+  - "What is Tesseract and what is its primary function?"
+  - "How do you configure Tesseract to locate downloaded language models?"
+  - "Which wrapper package is used to integrate Tesseract with Python?"
+  - "What is Tesseract and what is its primary function?"
+  - "How do you configure Tesseract to locate downloaded language models?"
+  - "Which wrapper package is used to integrate Tesseract with Python?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -35,4 +47,7 @@ export TESSDATA_PREFIX=~/tessdata
 ```
 
 ## Using from Python
-Tesseract can be used from Python using the wrapper package "pytesseract". We recommend you install this in a [Virtualenv](virtualenv.md).
+Tesseract can be used from Python using the wrapper package "pytesseract".
+
+!!! tip
+    We recommend you install this in a [Virtualenv](virtualenv.md).

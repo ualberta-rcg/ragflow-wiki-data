@@ -1,0 +1,60 @@
+{
+  "doc_key": "en/gaussian_error_messages",
+  "level": "chunk",
+  "chunk_index": 1,
+  "qa_pairs": [
+    {
+      "question": "Who originally assembled the list of Gaussian errors?",
+      "answer": "Professor Cory C. Pye originally assembled this list."
+    },
+    {
+      "question": "What does a normal termination of a Gaussian job look like?",
+      "answer": "A normal termination of a Gaussian job is indicated by a line similar to 'Normal termination of Gaussian 16 at Tue Nov 14 15:31:56 2017.', often preceded by job CPU time and elapsed time."
+    },
+    {
+      "question": "What are common reasons for a Gaussian job to terminate without a normal termination message and no other error?",
+      "answer": "If a Gaussian job doesn't end with a normal termination message and no other error is produced, it usually means that the disk quota was exceeded, the job exceeded the time requested from the scheduler, the job exceeded the memory requested, or the job produced too much data for the local disk on the compute node."
+    },
+    {
+      "question": "What are the common output messages for an 'Erroneous Write' error in Gaussian?",
+      "answer": "Common output messages for an 'Erroneous Write' error include: 'Erroneous write. write 122880 instead of 4239360.', 'writwa: File exists', 'Erroneous write. write -1 instead of 3648000.', 'writwa: No space left on device', or 'Erroneous write during file extend. write -1 instead of 8192 Probably out of disk space. Write error in NtrExt1'."
+    },
+    {
+      "question": "What is the typical cause of an 'Erroneous Write' error in Gaussian?",
+      "answer": "The typical cause of an 'Erroneous Write' error in Gaussian is running out of disk space. This can happen if a disk quota is exceeded, a disk is physically full, or, less commonly, a network drive is unavailable due to a communication timeout."
+    },
+    {
+      "question": "How can one fix an 'Erroneous Write' error in Gaussian?",
+      "answer": "To fix an 'Erroneous Write' error, you should check your disk quota using the `quota` command and delete unnecessary files. Alternatively, the job might be too large for the current hardware, in which case using a smaller basis set could help."
+    },
+    {
+      "question": "What does a 'Link 9999' error look like in Gaussian output?",
+      "answer": "A 'Link 9999' error is indicated by lines such as 'Error termination request processed by link 9999.' and 'Error termination via Lnk1e in /disc30/g98/l9999.exe.' near the end of the output. Earlier in the output, messages like 'Optimization stopped. -- Number of steps exceeded, NStep= 34' might also appear, along with unconverged force and displacement values."
+    },
+    {
+      "question": "What is the explanation for a 'Link 9999' error in Gaussian?",
+      "answer": "A 'Link 9999' error signifies an abnormal termination of the Gaussian job due to an internal Gaussian issue, most commonly when a geometry optimization has not converged."
+    },
+    {
+      "question": "What are the common reasons for geometry optimizations to fail convergence, leading to a 'Link 9999' error?",
+      "answer": "Geometry optimizations often fail to converge because of a poor initial starting structure, a poor starting force constants matrix (Hessian), or, rarely, an issue with the coordinate system (e.g., collinear atoms in a z-matrix). Sometimes, the number of optimization steps is simply exceeded."
+    },
+    {
+      "question": "How can I fix a 'Link 9999' error caused by a poor initial starting structure during a geometry optimization?",
+      "answer": "If a 'Link 9999' error is due to a poor starting structure, you can try providing a better one, such as optimizing it at a lower level of theory first. If the structure appears to be converging, restart the optimization from the last step using `geom=allcheck` in the route line, and consider adding `opt=CalcFC` if it's not too expensive (e.g., at HF or DFT levels)."
+    },
+    {
+      "question": "What should I do if a 'Link 9999' error is caused by a poor starting force constants matrix?",
+      "answer": "If a 'Link 9999' error is caused by a poor starting force constants matrix, you should use a better one. This can be achieved by linking jobs with `--Link1--`. Options like `Opt=ReadFC`, `Opt=CalcFC`, or rarely `Opt=CalcAll` can be used to read or recalculate force constants from previous jobs."
+    },
+    {
+      "question": "How can a 'Link 9999' error related to the coordinate system be resolved?",
+      "answer": "To resolve a 'Link 9999' error related to the coordinate system, especially if it's due to a z-matrix with collinear atoms for a torsion angle, you should either formulate a better z-matrix or use the default redundant internal coordinates."
+    },
+    {
+      "question": "What are alternative optimization methods to try if standard methods fail for a 'Link 9999' error?",
+      "answer": "If standard optimization methods fail for a 'Link 9999' error, you could try changing the optimization method. For example, `opt=ef` can be used if the number of variables is less than 50, or `opt=gdiis` for floppy molecules."
+    }
+  ],
+  "generated_at": "2026-04-11T22:56:45.050889+00:00"
+}

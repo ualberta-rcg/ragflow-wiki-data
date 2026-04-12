@@ -1,0 +1,47 @@
+{
+  "doc_key": "base/points_de_contrôle",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "Why are checkpoints recommended for long-running programs on clusters?",
+      "answer": "Checkpoints are recommended because program execution can be too long for submission system limits, system reliability is unpredictable, and they help minimize the loss of computational work by allowing programs to be restarted."
+    },
+    {
+      "question": "What is the suggested frequency for creating checkpoint files?",
+      "answer": "It is suggested to create checkpoint files periodically, with periods ranging from 2 to 24 hours."
+    },
+    {
+      "question": "What practices are recommended when writing a checkpoint file to ensure robustness?",
+      "answer": "It is preferable not to overwrite the previous checkpoint, to make the writing atomic, and optionally to delete old checkpoints once the atomic writing is complete."
+    },
+    {
+      "question": "How can the atomic writing of a checkpoint file be achieved?",
+      "answer": "Atomic writing can be achieved by initially naming the file by date and time, then creating a symbolic link (e.g., 'derniere-version') to the new unique file, or by creating a second file with a hash sum to validate integrity."
+    },
+    {
+      "question": "What is DMTCP?",
+      "answer": "DMTCP (Distributed Multithreaded CheckPointing) is software that allows programs to create checkpoints without requiring recompilation."
+    },
+    {
+      "question": "How do you initiate a program execution with DMTCP?",
+      "answer": "You initiate it using the `dmtcp_launch` command, specifying the time interval between saves."
+    },
+    {
+      "question": "How is a program restarted from a DMTCP checkpoint?",
+      "answer": "A program is restarted by executing the `dmtcp_restart_script.sh` script."
+    },
+    {
+      "question": "Can the location for DMTCP checkpoint files be changed?",
+      "answer": "Yes, the location for DMTCP checkpoint files can be changed using the `--ckptdir <directory for saves>` option with `dmtcp_launch`."
+    },
+    {
+      "question": "What is a current limitation of DMTCP?",
+      "answer": "DMTCP currently does not work with programs parallelized using MPI."
+    },
+    {
+      "question": "What are the two recommended methods for resubmitting long-duration jobs that are fragmented into multiple Slurm tasks?",
+      "answer": "The two recommended methods are using Slurm job arrays ('vecteurs de tâches') or resubmitting from the end of the script."
+    }
+  ],
+  "generated_at": "2026-04-12T05:20:17.392714+00:00"
+}

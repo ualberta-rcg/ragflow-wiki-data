@@ -1,0 +1,60 @@
+{
+  "doc_key": "base/alphafold3",
+  "level": "chunk",
+  "chunk_index": 5,
+  "qa_pairs": [
+    {
+      "question": "How do I build data for the AlphaFold3 model inference stage within a virtual environment?",
+      "answer": "To build data for the AlphaFold3 model inference stage, you need to execute the `build_data` command within your virtual environment."
+    },
+    {
+      "question": "What is the XLA_FLAGS environment variable used for in AlphaFold3 inference scripts?",
+      "answer": "The `XLA_FLAGS` environment variable is used as a compilation time workaround for AlphaFold3, set to `--xla_gpu_enable_triton_gemm=false`."
+    },
+    {
+      "question": "Which environment variables are set to optimize GPU memory for AlphaFold3 inference?",
+      "answer": "To optimize GPU memory for AlphaFold3 inference, the environment variables `XLA_PYTHON_CLIENT_PREALLOCATE` should be set to `true`, and `XLA_CLIENT_MEM_FRACTION` to `0.95`."
+    },
+    {
+      "question": "What command line argument should be included when running `run_alphafold.py` for the inference stage?",
+      "answer": "When running `run_alphafold.py` for the inference stage, you must include the `--norun_data_pipeline` argument, along with specifying `--db_dir`, `--input_dir`, `--output_dir`, and `--jax_compilation_cache_dir`."
+    },
+    {
+      "question": "How are AlphaFold3 jobs submitted to the scheduler?",
+      "answer": "AlphaFold3 jobs can be submitted to the scheduler as either independent jobs or dependent jobs."
+    },
+    {
+      "question": "What is the command to submit the first stage of an independent AlphaFold3 job?",
+      "answer": "The command to submit the first stage of an independent AlphaFold3 job is `sbatch alphafold3-data.sh`."
+    },
+    {
+      "question": "How do I submit the AlphaFold3 inference stage job after the data stage has completed independently?",
+      "answer": "After the data stage job has completed, you submit the AlphaFold3 inference stage job using `sbatch alphafold3-inference.sh`."
+    },
+    {
+      "question": "How can I submit AlphaFold3 data and inference jobs as dependent jobs?",
+      "answer": "You can submit AlphaFold3 jobs as dependent jobs by first submitting the data stage (`jid1=$(sbatch alphafold3-data.sh)`) and then submitting the inference stage with a dependency (`jid2=$(sbatch --dependency=afterok:$jid1 alphafold3-inference.sh)`)."
+    },
+    {
+      "question": "What action should be taken if the first stage of a dependent AlphaFold3 job fails?",
+      "answer": "If the first stage of a dependent AlphaFold3 job fails, you will need to manually cancel the second stage using the command `scancel -u $USER -n alphafold3-inference`."
+    },
+    {
+      "question": "When might an 'Out of memory (GPU)' error occur with AlphaFold3?",
+      "answer": "An 'Out of memory (GPU)' error can occur if you're running AlphaFold3 on inputs larger than 5,120 tokens or on a GPU with less memory, such as an A100 with 40 GB."
+    },
+    {
+      "question": "How can I enable unified memory to address 'Out of memory (GPU)' issues in AlphaFold3?",
+      "answer": "You can enable unified memory in your inference stage submission script by adding specific environment variables."
+    },
+    {
+      "question": "Which environment variables are required to enable unified memory for AlphaFold3 inference, and what are their typical values?",
+      "answer": "To enable unified memory, you should add `export XLA_PYTHON_CLIENT_PREALLOCATE=false`, `export TF_FORCE_UNIFIED_MEMORY=true`, and `export XLA_CLIENT_MEM_FRACTION=2.0` (for example, to request 80 GB from a 40 GB GPU)."
+    },
+    {
+      "question": "What SBLATCH parameter should be adjusted when enabling unified memory for AlphaFold3?",
+      "answer": "When enabling unified memory, you must adjust the amount of memory allocated to your job in the submission script, for instance, by setting `#SBATCH --mem=80G`."
+    }
+  ],
+  "generated_at": "2026-04-11T16:39:16.480045+00:00"
+}

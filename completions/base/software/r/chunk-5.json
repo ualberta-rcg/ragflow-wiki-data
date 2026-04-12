@@ -1,0 +1,156 @@
+{
+  "doc_key": "base/r",
+  "level": "chunk",
+  "chunk_index": 5,
+  "qa_pairs": [
+    {
+      "question": "What is the primary function of R?",
+      "answer": "R is a system primarily used for statistical computation and graphics, comprising a language and a runtime environment with graphics, a debugger, system function access, and the capability to run script files."
+    },
+    {
+      "question": "Why is R considered an essential tool on HPC installations dedicated to academic research, despite not being developed for high-performance computing (HPC)?",
+      "answer": "R is considered essential on HPC installations due to its popularity among scientists across various disciplines (engineering, mathematics, statistics, bioinformatics), and features like C extensions, byte-compiled code, and parallelization that allow for reasonable performance in single-node jobs."
+    },
+    {
+      "question": "How can R users customize the available R functions?",
+      "answer": "Thanks to R’s modular nature, users can customize R functions by installing packages from the Comprehensive R Archive Network (CRAN) into their home directories."
+    },
+    {
+      "question": "Who wrote the blog post 'How to run your R script with Compute Canada'?",
+      "answer": "User Julie Fortin wrote the blog post 'How to run your R script with Compute Canada'."
+    },
+    {
+      "question": "How do you typically begin using the R interpreter?",
+      "answer": "You need to begin by loading an R module, which can be done with a command like `module load r/4.5.0` after checking available versions with `module spider r`."
+    },
+    {
+      "question": "What command is used to start the R interpreter?",
+      "answer": "You can start the R interpreter by simply typing `R` in the command line environment."
+    },
+    {
+      "question": "What command is used to quit the R interpreter?",
+      "answer": "To quit the R interpreter, you type `q()`."
+    },
+    {
+      "question": "How can an R script be executed non-interactively?",
+      "answer": "To execute an R script non-interactively, use `Rscript` with the file containing the R commands as an argument, for example, `Rscript computation.R`."
+    },
+    {
+      "question": "What options does `Rscript` automatically pass to the R interpreter?",
+      "answer": "`Rscript` automatically passes `--slave`, `--no-restore`, and implicitly `--no-save` options to the R interpreter, which prevents the creation of useless workspace files on exit."
+    },
+    {
+      "question": "Where should R calculations lasting more than a few minutes be run?",
+      "answer": "Any R calculations lasting more than two or three minutes should not be run on the login node; they should be run via the job scheduler."
+    },
+    {
+      "question": "Can R packages be installed in a batch or interactive job on compute nodes?",
+      "answer": "No, installing R packages in a batch or interactive job is not possible because the compute nodes on most clusters do not have access to the Internet."
+    },
+    {
+      "question": "What module is recommended to load before installing R packages, especially those developed with GNU compilers?",
+      "answer": "It is recommended to load a `gcc` module, such as `module load gcc/12.3.0`, before trying to install any R packages developed using the GNU family of compilers."
+    },
+    {
+      "question": "How do you install an R package like 'sp' from CRAN for a specific R version?",
+      "answer": "To install a package like 'sp', you can use `install.packages('sp', repos='https://cloud.r-project.org/')` in an interactive R session on a login node, ensuring you have loaded the specific R module first."
+    },
+    {
+      "question": "What happens if the `repos` argument is not specified during package installation using `install.packages()`?",
+      "answer": "If the `repos` argument is not specified, you will be prompted to select an appropriate mirror for download, ideally one geographically close to your cluster."
+    },
+    {
+      "question": "What environment variable might need to be defined before installing some R packages?",
+      "answer": "Some packages may require defining the environment variable `TMPDIR` before installation."
+    },
+    {
+      "question": "How can you specify a local installation directory for R packages based on the currently loaded R module?",
+      "answer": "You can specify a local installation directory by creating it with `mkdir -p ~/.local/R/$EBVERSIONR/` and setting the `R_LIBS` environment variable with `export R_LIBS=~/.local/R/$EBVERSIONR/`."
+    },
+    {
+      "question": "How do you install a downloaded R package (e.g., `archive_package.tgz`) that is not from `install.packages()`?",
+      "answer": "To install a downloaded package, run `R CMD INSTALL -l 'path for your local (home) R library' archive_package.tgz` in a shell."
+    },
+    {
+      "question": "What problem can arise when using `system()` calls in R on our clusters, and how can it be avoided?",
+      "answer": "Using `system()` calls in R on our clusters can lead to problems because R might give an incorrect value to the `LD_LIBRARY_PATH` environment variable. This can be avoided by using the syntax `system(\"LD_LIBRARY_PATH=$RSNT_LD_LIBRARY_PATH <my system call>\")` in your R system calls."
+    },
+    {
+      "question": "Why is it useful to pass parameters as arguments to R scripts?",
+      "answer": "Passing parameters as arguments to R scripts is useful to avoid repeatedly changing the script for every job or managing multiple copies of similar scripts, particularly for specifying input/output filenames or numerical parameters."
+    },
+    {
+      "question": "How can arguments be passed to an R script from the command line?",
+      "answer": "Arguments can be passed to an R script by listing them after the script name when using `Rscript`, for example, `Rscript myscript.R input_1.csv 5`."
+    },
+    {
+      "question": "How does an R script access command-line arguments?",
+      "answer": "An R script accesses command-line arguments using `args = commandArgs(trailingOnly=TRUE)`."
+    },
+    {
+      "question": "What makes the clusters 'supercomputers' if their processors are ordinary?",
+      "answer": "The clusters are considered 'supercomputers' because users have access to thousands of CPU cores with a high-performance network, even if the individual processors are ordinary."
+    },
+    {
+      "question": "What should be done before investing significant effort in parallelizing R code?",
+      "answer": "Prior to investing significant time and effort in parallelizing R code, it is important to ensure that the serial implementation is as efficient as possible."
+    },
+    {
+      "question": "What is a major performance bottleneck in R, especially for an interpreted language?",
+      "answer": "As an interpreted language, the use of loops in R, and particularly nested loops, constitutes a significant performance bottleneck."
+    },
+    {
+      "question": "What R programming practices are recommended to achieve better performance gains instead of just parallelizing loops?",
+      "answer": "It's recommended to use vectorized forms of R functions and more functional elements like the `apply` family of functions and `ifelse`, as this often offers better performance by eliminating loops altogether rather than just parallelizing slow loop execution."
+    },
+    {
+      "question": "Where can users find information about R packages for high-performance and parallel computing?",
+      "answer": "The CRAN Task View on High-Performance and Parallel Computing with R describes a collection of interrelated R packages for parallel computing."
+    },
+    {
+      "question": "What is the terminology difference for 'node' between general documentation and R documentation?",
+      "answer": "In most of our documentation, 'node' refers to an individual machine or 'host', while in a lot of R documentation, 'node' refers to a worker process."
+    },
+    {
+      "question": "What is the terminology difference for 'cluster' between general documentation and R documentation?",
+      "answer": "In our documentation, a 'cluster' is a collection of individual machines (nodes/hosts), whereas in R documentation, a 'cluster' is a collection of worker processes."
+    },
+    {
+      "question": "What is `foreach` considered in the context of R parallel computing?",
+      "answer": "`foreach` is considered a unified interface for various parallel computing backends, such as `doMC`, `doMPI`, `doParallel`, and `doRedis`."
+    },
+    {
+      "question": "Does `foreach` work on all platforms?",
+      "answer": "`foreach` works on all platforms, provided that the chosen backend is functional."
+    },
+    {
+      "question": "What is the function of `doParallel` in relation to `foreach` and the `parallel` package?",
+      "answer": "`doParallel` acts as an interface between `foreach` and the `parallel` package, and it can be loaded independently."
+    },
+    {
+      "question": "Are there any known efficiency issues when using `foreach`?",
+      "answer": "Yes, there are known efficiency issues when using `foreach` for a very large number of very small tasks."
+    },
+    {
+      "question": "What happens if a `foreach` backend is not registered?",
+      "answer": "If the `foreach` backend is not registered, `foreach` will default to assuming 1 core and will process iterations serially."
+    },
+    {
+      "question": "What are the general steps to use `foreach` for parallel computing?",
+      "answer": "The general method to use `foreach` involves loading both `foreach` and the backend package, registering the backend, and calling `foreach()` on the same line as the `%do%` (serial) or `%dopar%` operator."
+    },
+    {
+      "question": "How is the number of cores typically set for `doParallel` in a SLURM environment?",
+      "answer": "In a SLURM environment, the number of cores for `doParallel` should be set using the `SLURM_CPUS_PER_TASK` environment variable, rather than manually setting a number of cores."
+    },
+    {
+      "question": "What is the command to register the `doParallel` backend with a specified number of cores?",
+      "answer": "The command to register the `doParallel` backend is `registerDoParallel(cores=ncores)`, where `ncores` is the variable holding the number of cores."
+    },
+    {
+      "question": "What is a crucial syntax requirement when using `foreach()` with the `%dopar%` operator?",
+      "answer": "When using `foreach()`, it is crucial that the `foreach()` call and the `%dopar%` operator remain on the same line."
+    }
+  ],
+  "generated_at": "2026-04-12T06:10:31.662348+00:00"
+}

@@ -1,0 +1,124 @@
+{
+  "doc_key": "base/data_management_at_trillium",
+  "level": "chunk",
+  "chunk_index": 3,
+  "qa_pairs": [
+    {
+      "question": "What is `/dev/shm (RAM)` on Trillium nodes?",
+      "answer": "`/dev/shm` refers to a ramdisk available on Trillium nodes, which can be used as a temporary local filesystem."
+    },
+    {
+      "question": "How much RAM can be utilized for the ramdisk on Trillium nodes?",
+      "answer": "Up to 70 percent of the RAM on the node, which is 202GB, may be used as a temporary local filesystem via `/dev/shm`."
+    },
+    {
+      "question": "Why is using ramdisk (`/dev/shm`) beneficial when migrating desktop-computing codes to Trillium?",
+      "answer": "It is particularly useful for codes that use a lot of file I/O (Input/Output), as high I/O can be a bottleneck on parallel filesystems like GPFS, and ramdisk is much faster."
+    },
+    {
+      "question": "How does the speed of ramdisk compare to traditional disks and Burst Buffer?",
+      "answer": "Ramdisk is much faster than real disk and faster than Burst Buffer."
+    },
+    {
+      "question": "What is the function of the `$SLURM_TMPDIR` environment variable in Trillium compute jobs?",
+      "answer": "The `$SLURM_TMPDIR` environment variable is set on Trillium compute jobs and points to RAMdisk, providing a temporary storage space whose content is deleted after the job has finished."
+    },
+    {
+      "question": "How does the implementation of `$SLURM_TMPDIR` on Trillium differ from general-purpose clusters like Fir or Nibi?",
+      "answer": "On Trillium compute nodes, `$SLURM_TMPDIR` points to RAMdisk because there are no local disks. In contrast, on general-purpose clusters like Fir or Nibi, this variable points to a directory on a node-local SSD."
+    },
+    {
+      "question": "What is `$BB_JOB_DIR`?",
+      "answer": "`$BB_JOB_DIR` is a temporary directory created by the scheduler on the burst buffer for every job on Trillium."
+    },
+    {
+      "question": "When is the content of the `$BB_JOB_DIR` directory removed?",
+      "answer": "The content of the `$BB_JOB_DIR` directory is deleted after the job has finished. It is empty when your job starts."
+    },
+    {
+      "question": "What kind of applications are best suited for using `$BB_JOB_DIR`?",
+      "answer": "`$BB_JOB_DIR` is intended for applications that generate many small temporary files or frequently accessed files (high IOPS applications) that do not fit in ramdisk."
+    },
+    {
+      "question": "For temporary files, which is preferred: ramdisk or burst buffer (via `$BB_JOB_DIR`), if the files fit in ramdisk?",
+      "answer": "If temporary files fit in ramdisk, it is generally a better location than the burst buffer, as ramdisk's bandwidth and IOPS far exceed those of the burst buffer."
+    },
+    {
+      "question": "What are the ways to use ramdisk for temporary files on Trillium?",
+      "answer": "To use ramdisk, you can either directly access `/dev/shm` or use the environment variable `$SLURM_TMPDIR`."
+    },
+    {
+      "question": "What is the per-user quota for the `$HOME` filesystem?",
+      "answer": "The `$HOME` filesystem has a quota of 100 GB per user."
+    },
+    {
+      "question": "Is the `$HOME` filesystem backed up?",
+      "answer": "Yes, the `$HOME` filesystem is backed up."
+    },
+    {
+      "question": "Can the `$HOME` filesystem be written to from compute nodes?",
+      "answer": "No, the `$HOME` filesystem is read-only on the compute nodes."
+    },
+    {
+      "question": "What is the individual user quota for the `$SCRATCH` filesystem?",
+      "answer": "The individual user quota for the `$SCRATCH` filesystem is 25 TB, provided the group quota is not reached."
+    },
+    {
+      "question": "What is the group quota for the `$SCRATCH` filesystem for groups with up to 4 users?",
+      "answer": "For groups of up to 4 users, the `$SCRATCH` group quota is 50 TB."
+    },
+    {
+      "question": "What is the group quota for the `$SCRATCH` filesystem for groups with over 60 users?",
+      "answer": "For groups with over 60 users, the `$SCRATCH` group quota is 500 TB."
+    },
+    {
+      "question": "What is the block size used for the `$SCRATCH` filesystem?",
+      "answer": "The block size for the `$SCRATCH` filesystem is 16 MB."
+    },
+    {
+      "question": "What is the expiration time for files stored on the `$SCRATCH` filesystem?",
+      "answer": "Files on the `$SCRATCH` filesystem have an expiration time of 2 months."
+    },
+    {
+      "question": "Is the `$SCRATCH` filesystem backed up?",
+      "answer": "No, the `$SCRATCH` filesystem is not backed up."
+    },
+    {
+      "question": "What is the quota for the `$PROJECT` filesystem?",
+      "answer": "The quota for the `$PROJECT` filesystem is determined by group allocation."
+    },
+    {
+      "question": "Is the `$PROJECT` filesystem backed up?",
+      "answer": "Yes, the `$PROJECT` filesystem is backed up."
+    },
+    {
+      "question": "What kind of backup is provided for the `$ARCHIVE` filesystem?",
+      "answer": "The `$ARCHIVE` filesystem uses a dual-copy backup."
+    },
+    {
+      "question": "Is the `$ARCHIVE` filesystem accessible on login or compute nodes?",
+      "answer": "No, the `$ARCHIVE` filesystem is not available on login or compute nodes."
+    },
+    {
+      "question": "What is the per-user quota for the `$BBUFFER` filesystem?",
+      "answer": "The user quota for the `$BBUFFER` filesystem is 10 TB per user."
+    },
+    {
+      "question": "What is the block size for the `$BBUFFER` filesystem?",
+      "answer": "The block size for the `$BBUFFER` filesystem is 1 MB."
+    },
+    {
+      "question": "Does the `$BBUFFER` filesystem have a prolonged expiration time for its data?",
+      "answer": "No, the `$BBUFFER` filesystem has a very short expiration time."
+    },
+    {
+      "question": "Is the `$BBUFFER` filesystem backed up?",
+      "answer": "No, the `$BBUFFER` filesystem is not backed up."
+    },
+    {
+      "question": "Do Trillium compute nodes have local disks?",
+      "answer": "No, Trillium compute nodes do not have local disks."
+    }
+  ],
+  "generated_at": "2026-04-11T20:52:44.605071+00:00"
+}

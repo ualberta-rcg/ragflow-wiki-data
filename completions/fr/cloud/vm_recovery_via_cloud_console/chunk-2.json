@@ -1,0 +1,68 @@
+{
+  "doc_key": "fr/vm_recovery_via_cloud_console",
+  "level": "chunk",
+  "chunk_index": 2,
+  "qa_pairs": [
+    {
+      "question": "Après être entré dans `/mnt` avec chroot lors d'une récupération Debian 10, que devrait-on faire?",
+      "answer": "On peut utiliser la commande `passwd` pour redéfinir le mot de passe de l'utilisateur racine (root)."
+    },
+    {
+      "question": "C'est normal de voir une erreur ioctl pour le groupe de processus du terminal quand on entre dans `/mnt` avec chroot?",
+      "answer": "Oui, c'est une erreur normale et il ne faut pas en tenir compte."
+    },
+    {
+      "question": "Comment qu'on fait pour sortir de chroot après avoir redéfini le mot de passe racine sur Debian 10?",
+      "answer": "On quitte chroot en appuyant sur `Ctrl+D`."
+    },
+    {
+      "question": "Quelles sont les manières de redémarrer le système après avoir terminé les étapes de récupération sur Debian 10?",
+      "answer": "On peut redémarrer le système avec le bouton `Ctrl+Alt+Del` sur la page de la console OpenStack, ou simplement arrêter et relancer l'instance."
+    },
+    {
+      "question": "Quel est l'état des systèmes de fichiers physiques et des mémoires tampons quand on choisit d'arrêter et de lancer l'instance après une récupération Debian 10?",
+      "answer": "Tous les systèmes de fichiers physiques sont déjà démontés, synchronisés, et toutes les mémoires tampons ont été vidées sur le disque virtuel, puisque l'on opère directement dans la mémoire, ce qui est volatil."
+    },
+    {
+      "question": "Qu'est-ce qu'on peut faire après avoir lancé l'instance avec succès avec un nouveau mot de passe racine suite à une récupération Debian 10?",
+      "answer": "On peut s'y connecter avec le mot de passe qu'on a choisi, puis soit supprimer de nouveau le mot de passe, soit désactiver les connexions directes en mode racine via SSH."
+    },
+    {
+      "question": "Comment on fait pour commencer le processus de récupération pour CentOS 7?",
+      "answer": "Il faut ouvrir la console via Horizon et redémarrer l'instance avec le bouton `CtrlAltDel`, sauf si on doit récupérer d'une panique persistante du noyau."
+    },
+    {
+      "question": "Qu'est-ce qu'on doit faire quand le menu GRUB apparaît pendant la récupération CentOS 7?",
+      "answer": "Il faut appuyer sur la touche `e` du clavier pour entrer en mode d'édition."
+    },
+    {
+      "question": "Quelle ligne dans le mode d'édition GRUB faut-il modifier pour la récupération CentOS 7?",
+      "answer": "La ligne qui commence par `linux16`."
+    },
+    {
+      "question": "Quel paramètre de console devrait être gardé ou modifié sur la ligne `linux16` pour une récupération CentOS 7, surtout quand qemu est utilisé?",
+      "answer": "Le plus simple est de laisser `console=tty0` en place, car qemu utilise une console à transmission série (ttySX) qui nécessiterait d'aller directement sur le nœud de calcul pour l'attacher à un terminal si tous les paramètres étaient supprimés."
+    },
+    {
+      "question": "Faut-il monter le système de fichiers en mode lecture-écriture (`rw`) tout de suite pendant la récupération CentOS 7?",
+      "answer": "Non, pas nécessairement; c'est préférable de le garder en lecture seule (`ro`) au début pour préserver les estampilles temporelles au cas où il faudrait retracer un problème."
+    },
+    {
+      "question": "Quel paramètre spécifique à CentOS est utilisé pour interrompre le processus de démarrage dès le début?",
+      "answer": "Le paramètre `rd.break`."
+    },
+    {
+      "question": "Comment on fait pour appliquer les modifications du noyau et démarrer avec celles-ci sur CentOS 7?",
+      "answer": "On doit appuyer sur `Ctrl+x`."
+    },
+    {
+      "question": "Où est le système de fichiers monté après avoir démarré avec `rd.break` sur CentOS 7, et dans quel mode?",
+      "answer": "Il est monté sous `/sysroot` et est en mode lecture seule par défaut."
+    },
+    {
+      "question": "Comment on fait pour remonter le système de fichiers en mode lecture-écriture sous `/sysroot` pendant la récupération CentOS 7?",
+      "answer": "On utilise la commande `mount -o remount,rw /sysroot`."
+    }
+  ],
+  "generated_at": "2026-04-12T10:48:49.304299+00:00"
+}

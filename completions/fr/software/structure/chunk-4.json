@@ -1,0 +1,100 @@
+{
+  "doc_key": "fr/structure",
+  "level": "chunk",
+  "chunk_index": 4,
+  "qa_pairs": [
+    {
+      "question": "Comment fait-on pour soumettre les tâches (jobs) une fois qu'elles sont créées par le script `create_strauto_slurm_scripts.py`?",
+      "answer": "Une fois que le script `create_strauto_slurm_scripts.py` a généré les scripts de tâches, on soumet les tâches en exécutant la commande `bash submit_strauto_jobs.sh`."
+    },
+    {
+      "question": "Qu'est-ce qu'on doit faire une fois que toutes les tâches soumises par `submit_strauto_jobs.sh` sont terminées?",
+      "answer": "Quand toutes les tâches sont finies, il faut lancer la commande `bash post_strauto.sh` pour agréger les résultats et exécuter StructureHarvester."
+    },
+    {
+      "question": "À quoi sert le script `create_strauto_slurm_scripts.py`?",
+      "answer": "Ce script est conçu pour aider à exécuter des tâches Structure sur les grappes de calcul haute performance (CHP) de Calcul Canada qui utilisent le gestionnaire de charge Slurm."
+    },
+    {
+      "question": "Avec quels outils logiciels le script `create_strauto_slurm_scripts.py` est-il censé être utilisé?",
+      "answer": "Le script `create_strauto_slurm_scripts.py` est fait pour être utilisé avec Structure, StrAuto et StructureHarvester."
+    },
+    {
+      "question": "Où faut-il placer le script `create_strauto_slurm_scripts.py` pour son utilisation?",
+      "answer": "Il faut placer le script `create_strauto_slurm_scripts.py` dans un répertoire avec les fichiers `strauto_1.py` et `input.py` de StrAuto, `structureHarvester.py` et `harvesterCore.py` de StructureHarvester, ainsi que le fichier de données Structure (par exemple, `sim.str`)."
+    },
+    {
+      "question": "Quels fichiers spécifiques de StrAuto doivent accompagner le script `create_strauto_slurm_scripts.py`?",
+      "answer": "Les fichiers `strauto_1.py` et `input.py` de StrAuto sont requis."
+    },
+    {
+      "question": "Quels fichiers spécifiques de StructureHarvester doivent être dans le même répertoire que `create_strauto_slurm_scripts.py`?",
+      "answer": "Les fichiers `structureHarvester.py` et `harvesterCore.py` de StructureHarvester sont nécessaires."
+    },
+    {
+      "question": "Quel autre type de fichier est essentiel dans le répertoire où se trouve `create_strauto_slurm_scripts.py`?",
+      "answer": "Le fichier avec l'ensemble de données Structure, comme `my_dataset.str` ou `sim.str`, est requis."
+    },
+    {
+      "question": "Quels réglages faut-il modifier dans le fichier `input.py` avant d'utiliser le script de création de scripts Slurm?",
+      "answer": "Il faut modifier les paramètres dans `input.py` tel que décrit dans le manuel de l'utilisateur de StrAuto."
+    },
+    {
+      "question": "Quelle option doit-on s'assurer de configurer à 'True' dans le fichier `input.py` pour une exécution parallèle?",
+      "answer": "Il faut s'assurer de configurer l'option `parallel = True` (question 23) dans `input.py`."
+    },
+    {
+      "question": "Quels paramètres faut-il ajuster directement dans le script `create_strauto_slurm_scripts.py` lui-même?",
+      "answer": "Il faut ajuster les paramètres `max_jobtime`, `slurm_account` et `submit_delay` dans le script `create_strauto_slurm_scripts.py`."
+    },
+    {
+      "question": "À quoi sert le paramètre `max_jobtime` dans le script `create_strauto_slurm_scripts.py`?",
+      "answer": "Le paramètre `max_jobtime` sert à définir une durée (format d-hh:mm:ss) dont on peut être raisonnablement sûr qu'aucune exécution individuelle de Structure ne prendra plus de temps."
+    },
+    {
+      "question": "Quel est le rôle du paramètre `slurm_account` dans le script `create_strauto_slurm_scripts.py`?",
+      "answer": "Le paramètre `slurm_account` peut être utilisé pour spécifier sous quel compte Slurm soumettre la tâche, si l'utilisateur peut soumettre sous plusieurs comptes."
+    },
+    {
+      "question": "Pourquoi le paramètre `submit_delay` est-il important?",
+      "answer": "Le paramètre `submit_delay` définit un délai entre chaque soumission de tâche par le script d'aide pour éviter de surcharger l'ordonnanceur Slurm."
+    },
+    {
+      "question": "Quelles sont les commandes à exécuter séquentiellement avant de soumettre les tâches Slurm avec `submit_strauto_jobs.sh`?",
+      "answer": "Il faut d'abord exécuter `./strauto_1.py`, puis `./create_strauto_slurm_scripts.py`."
+    },
+    {
+      "question": "Combien de scripts de tâches (job scripts) Slurm sont créés par le script `create_strauto_slurm_scripts.py` d'après l'exemple fourni?",
+      "answer": "Quarante (40) scripts de tâches Slurm sont créés."
+    },
+    {
+      "question": "Quels types de scripts sont créés par `create_strauto_slurm_scripts.py`?",
+      "answer": "Le script `create_strauto_slurm_scripts.py` crée des scripts de tâches SLURM, un script d'aide pour la soumission nommé `submit_strauto_jobs.sh` et un script de post-traitement nommé `post_strauto.sh`."
+    },
+    {
+      "question": "Quels répertoires sont créés par `create_strauto_slurm_scripts.py`?",
+      "answer": "Le script crée les répertoires `results_f`, `log`, `harvester`, ainsi que des sous-répertoires pour chaque `kn` (comme `k1`, `k2`, etc.) et `log/kn`."
+    },
+    {
+      "question": "Quel est le rôle du script `submit_strauto_jobs.sh`?",
+      "answer": "Le script `submit_strauto_jobs.sh` soumet les tâches créées à Slurm en utilisant la commande `sbatch` avec un court délai (`sleep 0.5s`) entre chaque soumission pour ne pas surcharger l'ordonnanceur."
+    },
+    {
+      "question": "Que fait le script de post-traitement `post_strauto.sh` une fois que toutes les tâches sont terminées?",
+      "answer": "Le script `post_strauto.sh` déplace les fichiers de la liste `klist` vers `results_f/`, crée le répertoire `harvester_input`, copie les fichiers de résultats dedans, exécute `structureHarvester.py` avec des options spécifiques, puis nettoie les fichiers d'entrée de Harvester en les compressant dans un fichier zip et en supprimant le répertoire `harvester_input`."
+    },
+    {
+      "question": "Quelles options sont passées à `structureHarvester.py` lors de son exécution dans le script `post_strauto.sh`?",
+      "answer": "`structureHarvester.py` est exécuté avec les options `--dir harvester_input --out harvester --evanno --clumpp`."
+    },
+    {
+      "question": "Sous quelle licence le script `create_strauto_slurm_scripts.py` est-il publié?",
+      "answer": "Le script `create_strauto_slurm_scripts.py` est publié sous les conditions de la \"MIT License\"."
+    },
+    {
+      "question": "Qui est le détenteur des droits d'auteur pour le script `create_strauto_slurm_scripts.py` et pour quelles années?",
+      "answer": "Les droits d'auteur sont détenus par Oliver Stueker <ostueker(a)ace-net.ca> pour les années 2017-2020."
+    }
+  ],
+  "generated_at": "2026-04-12T08:35:38.162397+00:00"
+}

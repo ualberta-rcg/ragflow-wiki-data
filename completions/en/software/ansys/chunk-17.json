@@ -1,0 +1,60 @@
+{
+  "doc_key": "en/ansys",
+  "level": "chunk",
+  "chunk_index": 17,
+  "qa_pairs": [
+    {
+      "question": "What is the primary purpose of the Fluent multinode (by core + restart) Slurm script?",
+      "answer": "This script is designed to automate restarting very large Fluent jobs that exceed the typical seven-day maximum runtime window available on most clusters, by restarting them from the most recently saved time step files."
+    },
+    {
+      "question": "What are the fundamental requirements for a Fluent job to be suitable for solution restart using this script?",
+      "answer": "The first time step must be able to complete within the requested job array time limit when starting a simulation from an initialized solution field, and it is assumed that a standard fixed time step size is being used."
+    },
+    {
+      "question": "Which initial files are required to begin a solution restart simulation?",
+      "answer": "A working set of `sample.cas`, `sample.dat`, and `sample.jou` files must be present."
+    },
+    {
+      "question": "What modifications are needed for the `sample.jou` file when setting up a solution restart?",
+      "answer": "The `sample.jou` file should be edited to include `/solve/dual-time-iterate 1` and `/file/auto-save/data-frequency 1`."
+    },
+    {
+      "question": "How do you create and modify the restart journal file (`sample-restart.jou`)?",
+      "answer": "You create it by copying `sample.jou` (e.g., `cp sample.jou sample-restart.jou`), then edit `sample-restart.jou` to contain `/file/read-cas-data sample-restart` instead of `/file/read-cas-data sample`, and comment out the initialization line (e.g., `; /solve/initialize/initialize-flow`)."
+    },
+    {
+      "question": "How can you optimize the restart process if subsequent time steps are known to run faster?",
+      "answer": "If your second and subsequent time steps run twice as fast as the initial time step, you can edit `sample-restart.jou` to specify `/solve/dual-time-iterate 2`. This minimizes the number of computationally expensive solution restarts."
+    },
+    {
+      "question": "What is the formula for calculating the total simulation time when using solution restart with '2' as the dual-time-iterate value?",
+      "answer": "The total simulation time will be `1*Dt + 2*Nrestart*Dt`, where `Dt` is the time step size and `Nrestart` is the number of solution restarts specified in the script."
+    },
+    {
+      "question": "What is the maximum time limit that can be specified for a Slurm job array using these restart scripts?",
+      "answer": "The time resource request can be specified up to a maximum of `#SBATCH --time=07-00:00` days."
+    },
+    {
+      "question": "How is the number of solution restarts specified in the Slurm script?",
+      "answer": "The number of solution restarts (or time steps) is specified using the `#SBATCH --array=1-5%1` directive, where `5` indicates the total number of restart attempts."
+    },
+    {
+      "question": "What Ansys Fluent module version is used by default in the 'Multinode (by core + restart)' script?",
+      "answer": "The script defaults to loading `ansys/2023R2` or newer versions."
+    },
+    {
+      "question": "What happens if the Fluent simulation fails when using this restart script?",
+      "answer": "If the simulation fails, the script will output \"Simulation failed. Exiting now.\" and terminate."
+    },
+    {
+      "question": "How does the script handle a successful job completion?",
+      "answer": "Upon successful completion, the script prints \"Job completed successfully! Exiting now.\" and then cancels the entire Slurm job array using `scancel $SLURM_ARRAY_JOB_ID`."
+    },
+    {
+      "question": "What are `MYCASFILERES` and `MYDATFILERES` in the restart script, and how are they managed?",
+      "answer": "`MYCASFILERES` (e.g., `sample-restart.cas.h5`) and `MYDATFILERES` (e.g., `sample-restart.dat.h5`) are the filenames for the case and data files used for restarting. The script creates symbolic links to the most recent output files to facilitate the restart."
+    }
+  ],
+  "generated_at": "2026-04-11T16:59:50.481831+00:00"
+}

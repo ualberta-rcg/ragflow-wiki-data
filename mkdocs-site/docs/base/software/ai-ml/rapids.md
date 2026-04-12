@@ -5,21 +5,47 @@ lang: "base"
 
 source_wiki_title: "RAPIDS"
 source_hash: "7d41e58fc03e5255f59ad14b49729715"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T10:40:04.718698+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T10:56:24.104407+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "GPU acceleration"
+  - "Apptainer image"
+  - "Apptainer images"
+  - "rapids.sif"
+  - "image-building process"
+  - "Slurm scheduler"
+  - "GPU node"
+  - "docker"
+  - "RAPIDS"
+  - "NVIDIA"
+  - "memory and disk space"
+  - "Data science"
+  - "Jupyter Notebook"
+
+questions:
+  - "What is the RAPIDS software suite and what are its main components for GPU-accelerated data science?"
+  - "What are the differences between the \"base\" and \"notebooks\" RAPIDS Docker images, and in what scenarios should each be used?"
+  - "How can a user build an Apptainer image from a RAPIDS Docker image, and what are the resource considerations for doing so?"
+  - "How do you request an interactive session and start a Jupyter Notebook server using a RAPIDS Apptainer image on a GPU node?"
+  - "What is the recommended process for submitting a RAPIDS batch job to the Slurm scheduler using local node storage?"
+  - "What is the purpose of the `--nv` option when starting the Apptainer shell or executing a container?"
+  - "What command is used to build the \"rapids.sif\" Apptainer image from the specified Docker repository?"
+  - "How much time is typically required to complete the image-building process?"
+  - "Why does the server need to have a significant amount of memory and disk space to build this image?"
+  - "How do you request an interactive session and start a Jupyter Notebook server using a RAPIDS Apptainer image on a GPU node?"
+  - "What is the recommended process for submitting a RAPIDS batch job to the Slurm scheduler using local node storage?"
+  - "What is the purpose of the `--nv` option when starting the Apptainer shell or executing a container?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -53,14 +79,12 @@ There are two types of RAPIDS Docker images starting with the RAPIDS v23.08 rele
 
 For example, if the image tag of a selected RAPIDS Docker image is given as
 
-```text
-nvcr.io/nvidia/rapidsai/notebooks:25.04-cuda12.0-py3.12
-```
+`nvcr.io/nvidia/rapidsai/notebooks:25.04-cuda12.0-py3.12`
 
 on a computer that supports Apptainer, you can build an Apptainer image (here *rapids.sif*) with the following command:
 
 ```bash
-[name@server ~]$ apptainer build rapids.sif docker://nvcr.io/nvidia/rapidsai/notebooks:25.04-cuda12.0-py3.12
+apptainer build rapids.sif docker://nvcr.io/nvidia/rapidsai/notebooks:25.04-cuda12.0-py3.12
 ```
 
 It usually takes from thirty to sixty minutes to complete the image-building process. Since the image size is relatively large, you need to have enough memory and disk space on the server to build such an image.
@@ -73,29 +97,32 @@ Once you have an Apptainer image for RAPIDS ready in your account, you can reque
 
 If an Apptainer image was built based on a `Notebooks` type of Docker image, it includes a Jupyter Notebook server and can be used to explore RAPIDS interactively on a compute node with a GPU.
 To request an interactive session on a compute node with a single GPU, for example
+
 ```bash
-[name@cluster-login ~]$ salloc --ntasks=1 --cpus-per-task=2 --mem=10G --gpus-per-node=1 --time=1:0:0 --account=def-someuser
+salloc --ntasks=1 --cpus-per-task=2 --mem=10G --gpus-per-node=1 --time=1:0:0 --account=def-someuser
 ```
 
 Once the requested resource is granted, start the RAPIDS shell on the GPU node with
 
 ```bash
-[name@compute-node#### ~]$ module load apptainer
-[name@compute-node#### ~]$ apptainer shell --nv rapids.sif
+module load apptainer
+apptainer shell --nv rapids.sif
 ```
 *   the `--nv` option binds the GPU driver on the host to the container, so the GPU device can be accessed from inside of the Apptainer container.
 
 After the shell prompt changes to `Apptainer>`, you can check the GPU stats in the container to make sure the GPU device is accessible with
+
 ```bash
-Apptainer> nvidia-smi
+nvidia-smi
 ```
 
 After the shell prompt changes to `Apptainer>`, you can launch the Jupyter Notebook server in the RAPIDS environment with the following command, and the URL of the Notebook server will be displayed after it starts successfully.
+
 ```bash
-Apptainer> jupyter-lab --ip $(hostname -f) --no-browser
+jupyter-lab --ip $(hostname -f) --no-browser
 ```
 
-!!! note
+!!! note "Note"
     Starting with the RAPIDS v23.08 release, all packages are included in the base conda environment which is activated by default in the container shell.
 
 If there is no direct Internet connection on a compute node, you would need to set up an SSH tunnel with port forwarding between your local computer and the GPU node. See [detailed instructions for connecting to Jupyter Notebook](advanced-jupyter-configuration.md#connecting-to-jupyterlab).
@@ -105,7 +132,8 @@ If there is no direct Internet connection on a compute node, you would need to s
 Once you have your RAPIDS code ready, you can write a job submission script to submit a job execution request to the Slurm scheduler. It is a good practice to [use the local disk](using-node-local-storage.md) on a compute node when working via a container.
 
 **Submission script**
-````sh title="submit.sh"
+
+```sh tab="submit.sh"
 #!/bin/bash
 #SBATCH --gpus-per-node=1
 #SBATCH --cpus-per-task=2
@@ -126,7 +154,7 @@ apptainer exec --nv rapids.sif python ./my_rapids_code.py
 
 # save any results to your /project before terminating the job
 cp -r your_results ~/projects/def-someuser/username/
-````
+```
 
 # Helpful links
 

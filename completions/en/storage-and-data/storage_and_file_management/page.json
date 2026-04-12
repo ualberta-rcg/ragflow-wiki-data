@@ -1,0 +1,79 @@
+{
+  "doc_key": "en/storage_and_file_management",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is the primary purpose of the storage options provided on the systems?",
+      "answer": "The storage solutions aim to meet diverse user needs, ranging from high-speed temporary local storage to various long-term storage options, and are strictly for research data, not personal use."
+    },
+    {
+      "question": "What types of files should users avoid storing, and what is the recommended alternative for handling many small files?",
+      "answer": "Users should avoid storing tens of thousands of small files (less than a few megabytes) in the same directory. A better approach is to use commands like `tar` or `zip` to archive them into a single, large file."
+    },
+    {
+      "question": "How are new user accounts initially set up on a cluster with regard to storage access?",
+      "answer": "Upon account creation, a user's home directory includes symbolic links, which act as shortcuts, to their scratch and project spaces, allowing easy access to these other filesystems."
+    },
+    {
+      "question": "Which command-line utility allows users to check their current disk usage for home, scratch, and project filesystems?",
+      "answer": "Users can check their available disk space and current utilization for home, scratch, and project filesystems using the `diskusage_report` command-line utility."
+    },
+    {
+      "question": "What are the characteristics and recommended uses for the HOME filesystem?",
+      "answer": "The HOME filesystem has a relatively small quota and isn't optimal for large data transfers. It's best suited for source code, small parameter files, and job submission scripts."
+    },
+    {
+      "question": "What are the characteristics and recommended uses for the PROJECT filesystem?",
+      "answer": "The PROJECT filesystem offers a larger quota and is designed for sharing data among research group members. Data stored here should be fairly static, as frequent changes can burden the tape-based backup system."
+    },
+    {
+      "question": "What are the characteristics and recommended uses for the SCRATCH filesystem?",
+      "answer": "SCRATCH is ideal for intensive read/write operations on large files (> 100 MB) and temporary data like checkpoint files or job outputs. It is not backed up, and older files are subject to purging, so it shouldn't be considered normal storage for important files."
+    },
+    {
+      "question": "When should the NEARLINE filesystem be used?",
+      "answer": "NEARLINE is a tape-based filesystem intended for inactive data, suitable for datasets that users do not expect to access for several months."
+    },
+    {
+      "question": "What is the `$SLURM_TMPDIR` environment variable, and what are its advantages for temporary job files?",
+      "answer": "During a job, `$SLURM_TMPDIR` points to a unique temporary folder on a fast, local filesystem on the compute node. It offers increased performance for temporary files needed only for the job's duration and is automatically deleted when the job ends."
+    },
+    {
+      "question": "How can an individual user estimate their specific disk and file count usage within a shared project space?",
+      "answer": "To estimate individual usage on the entire project space, users can run `lfs quota -u $USER /project`. For file counts in specific directories, `lfs find <path to the directory> -type f | wc -l` can be used."
+    },
+    {
+      "question": "What are some key best practices for managing data on the shared filesystems?",
+      "answer": "Key best practices include regularly cleaning up scratch and project spaces, documenting files with READMEs, using scratch and local storage for temporary files, archiving and compressing unused but retained data, and moving it to alternative locations like nearline."
+    },
+    {
+      "question": "What is the recommended safe procedure for deleting files or directories?",
+      "answer": "To safely delete files or directories, create a temporary directory like `toDelete`, move the items there, verify the contents, and then recursively delete `toDelete`. Avoid using `*` and `/` characters directly in `rm` commands."
+    },
+    {
+      "question": "What are the typical default quotas for Home, Scratch, and Project spaces on most general-purpose clusters like Fir, Narval, and Rorqual?",
+      "answer": "On most general-purpose clusters, the default quota for Home space is 50 GB and 500K files per user, Scratch space is 20 TB and 1M files per user, and Project space is 1 TB and 500K files per group."
+    },
+    {
+      "question": "What is the purging policy for files stored in the Scratch space on most clusters?",
+      "answer": "On most general-purpose clusters, files older than 60 days in the Scratch space are purged."
+    },
+    {
+      "question": "How can users request an increase in their project or scratch space quotas?",
+      "answer": "Small increases in project and scratch spaces are available through the Rapid Access Service, while larger increases in project spaces require an application to the annual Resource Allocation Competition."
+    },
+    {
+      "question": "What is the backup policy for Home and Project spaces, and how can a user request a file recovery?",
+      "answer": "Home and Project spaces have nightly backups retained for 30 days, with deleted files retained for an additional 60 days. To recover files, users should contact technical support with the full path and desired version (by date)."
+    },
+    {
+      "question": "What are some specific characteristics of the Trillium cluster's filesystems, particularly regarding compute node access and storage types?",
+      "answer": "On Trillium, $HOME and $PROJECT are read-only on compute nodes, and it features an $ARCHIVE space based on HPSS instead of Nearline, in addition to $SCRATCH."
+    },
+    {
+      "question": "How do the backup policies and project space quotas on the TamIA cluster differ from most other general-purpose clusters?",
+      "answer": "On TamIA, the $HOME and $PROJECT spaces are notably not backed up. Furthermore, the $PROJECT quotas vary by user affiliation, ranging from 500 GB to 5 TB per group, which can be different from other general-purpose clusters."
+    }
+  ],
+  "generated_at": "2026-04-12T08:24:05.413473+00:00"
+}

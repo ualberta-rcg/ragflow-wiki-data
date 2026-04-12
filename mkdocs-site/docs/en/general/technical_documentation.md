@@ -5,38 +5,48 @@ lang: "en"
 
 source_wiki_title: "Technical documentation/en"
 source_hash: "0f0be4147d839a9f5a67ccde776fc554"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T11:39:19.635307+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T11:49:41.358116+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "compute clusters"
+  - "Research Data Management"
+  - "technical documentation"
+  - "Digital Research Alliance of Canada"
+  - "cloud computing"
+
+questions:
+  - "What is the primary purpose of the Digital Research Alliance of Canada's technical documentation wiki, and who is allowed to edit its content?"
+  - "What specific types of national computing systems and services, such as general-purpose clusters and cloud storage, are currently offered by the Alliance?"
+  - "What instructional resources, how-to guides, and discipline-specific materials are available to help users learn how to operate the provided infrastructure?"
+  - "What is the primary purpose of the Digital Research Alliance of Canada's technical documentation wiki, and who is allowed to edit its content?"
+  - "What specific types of national computing systems and services, such as general-purpose clusters and cloud storage, are currently offered by the Alliance?"
+  - "What instructional resources, how-to guides, and discipline-specific materials are available to help users learn how to operate the provided infrastructure?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
-**Welcome to the technical documentation wiki of the Digital Research Alliance of Canada (the Alliance).**
+Welcome to the technical documentation wiki of the Digital Research Alliance of Canada (the Alliance).
 This is the primary source for users with questions on equipment and services of the Alliance.
 
 The focus here is on national services and systems. For documentation on services and systems managed by our regional partners, please use the links provided below.
 
-This wiki is a constant work-in-progress and some links might take you to pages which do not yet have content; such pages display [like this](like-this.md). Our staff works constantly to improve and expand the available documentation.
-
-!!! note
-    Any of our users is free to add new material and edit existing content.
+This wiki is a constant work-in-progress and some links might take you to pages which do not yet have content; such pages display [like this](like-this.md). Our staff works constantly to improve and expand the available documentation; note however that any of our users is free to add new material and edit existing content.
 
 ## Systems and services
+
 **Systems**
 * 2025 [infrastructure renewal](infrastructure-renewal.md)
-* **[General-purpose clusters](national-systems.md#compute-clusters)**, for CPU or GPU jobs:
+* **[General-purpose clusters](national-systems.md)**, for CPU or GPU jobs:
   * [Fir](fir.md), [Nibi](nibi.md), [Narval](narval.md), [Rorqual](rorqual.md)
 * [Trillium](trillium.md), a cluster designed for large parallel jobs
 * GPU clusters which are part of the Pan-Canadian AI Compute Environment (PAICE)
@@ -52,7 +62,7 @@ This wiki is a constant work-in-progress and some links might take you to pages 
 * [Nextcloud](nextcloud.md) cloud storage service
 * **[Research Data Management](https://alliancecan.ca/en/services/research-data-management)**
 * **[Research Software](https://alliancecan.ca/en/services/research-software)**
-* [Quantum computing services](services-d-informatique-quantique.md)
+* [Quantum computing services](services-dinformatique-quantique.md)
 
 The [Service status page](https://status.alliancecan.ca/) describes current and planned outages of clusters and services.
 FAQ: [Frequently Asked Questions](frequently-asked-questions.md)
@@ -87,6 +97,7 @@ FAQ: [Frequently Asked Questions](frequently-asked-questions.md)
 * [Subatomic physics](subatomic-physics.md)
 
 ## Regional partners and services
+
 * [Western training](https://training.westdri.ca/)
   * [UAlberta training](https://www.ualberta.ca/information-services-and-technology/research-computing/bootcamps.html)
 * [SHARCNET](https://sharcnet.ca)

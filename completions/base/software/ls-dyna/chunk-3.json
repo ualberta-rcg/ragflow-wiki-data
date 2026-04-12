@@ -1,0 +1,112 @@
+{
+  "doc_key": "base/ls-dyna",
+  "level": "chunk",
+  "chunk_index": 3,
+  "qa_pairs": [
+    {
+      "question": "How can I specify my LSTC license server using environment variables in my slurm scripts?",
+      "answer": "You can specify your LSTC license server by setting the following two environment variables in your slurm scripts: `export LSTC_LICENSE=network` and `export LSTC_LICENSE_SERVER=<port>@<server>`, where `<port>` is an integer and `<server>` is the hostname or IP address of your LSTC license server."
+    },
+    {
+      "question": "Do LSTC license environment variables take priority over settings in the `~/.licenses/ls-dyna.lic` file?",
+      "answer": "Yes, these environment variables will take priority over any values specified in your `~/.licenses/ls-dyna.lic` file."
+    },
+    {
+      "question": "What file must exist for any `ls-dyna` or `ls-dyna-mpi` module to successfully load when using LSTC environment variables for licensing?",
+      "answer": "The `~/.licenses/ls-dyna.lic` file must exist (even if it's empty) for any `ls-dyna` or `ls-dyna-mpi` module to successfully load when LSTC environment variables are used."
+    },
+    {
+      "question": "What is the command to ensure the `~/.licenses/ls-dyna.lic` file exists on a cluster for LSTC licensing?",
+      "answer": "To ensure the `~/.licenses/ls-dyna.lic` file exists, you should run `touch ~/.licenses/ls-dyna.lic` once on the command line on each cluster where you will submit jobs."
+    },
+    {
+      "question": "Where can I find additional documentation for LSTC license configuration?",
+      "answer": "For further details on LSTC license configuration, you can refer to the official [https://lsdyna.ansys.com/download-install-overview/ documentation]."
+    },
+    {
+      "question": "How do I set up my slurm scripts for an LS-DYNA license hosted on an Ansys license server?",
+      "answer": "If your LS-DYNA license is hosted on an Ansys license server, you need to set `export LSTC_LICENSE=ansys` and `export ANSYSLMD_LICENSE_FILE=<port>@<server>` in your slurm scripts, where `<port>` is an integer and `<server>` is the hostname or IP address of your Ansys license server."
+    },
+    {
+      "question": "Can Ansys license server environment variables be defined within the `~/.licenses/ls-dyna.lic` file?",
+      "answer": "No, these variables cannot be defined in your `~/.licenses/ls-dyna.lic` file."
+    },
+    {
+      "question": "What is the minimum LS-DYNA module version required for compatibility with Ansys license servers?",
+      "answer": "Only module versions greater than or equal to 12.2.1 will work with Ansys license servers."
+    },
+    {
+      "question": "What types of LS-DYNA jobs does the SHARCNET Ansys license support?",
+      "answer": "The SHARCNET Ansys license supports running SMP (Shared Memory Parallel) and MPP (Message Passing Parallel) LS-DYNA jobs."
+    },
+    {
+      "question": "Which cluster allows free use of the SHARCNET Ansys license, and under what conditions?",
+      "answer": "The SHARCNET Ansys license can be used for free by anyone (on a core and job limited basis) on the Nibi cluster."
+    },
+    {
+      "question": "What lines should be added to a slurm script to utilize the free SHARCNET Ansys license on the Nibi cluster?",
+      "answer": "To use the free SHARCNET Ansys license on Nibi cluster, add the following lines to your slurm script: `export LSTC_LICENSE=ansys` and `export ANSYSLMD_LICENSE_FILE=1055@license1.computecanada.ca`."
+    },
+    {
+      "question": "How do I set the environment variables for an LS-DYNA license purchased from CMC Microsystems?",
+      "answer": "You need to set `export LSTC_LICENSE=ansys` and `export ANSYSLMD_LICENSE_FILE=<port>@<server>` according to the specific cluster you are using, where the IP address corresponds to the respective CADpass servers."
+    },
+    {
+      "question": "What are the specific `ANSYSLMD_LICENSE_FILE` values for CMC licenses on the Fir, Nibi, Narval, Rorqual, and Trillium clusters?",
+      "answer": "For Fir, use `6624@172.26.0.101`. For Nibi, use `6624@10.25.1.56`. For Narval and Rorqual, use `6624@10.100.64.10`. For Trillium, use `6624@scinet-cmc`."
+    },
+    {
+      "question": "Are firewall modifications necessary to use a CMC LS-DYNA license on any cluster?",
+      "answer": "No, firewall changes are not required to use a CMC license on any cluster, as these modifications have already been completed."
+    },
+    {
+      "question": "Can environment variables for CMC LS-DYNA licenses be defined in the `~/.licenses/ls-dyna.lic` file?",
+      "answer": "No, since the remote CMC server that hosts LS-DYNA licenses is Ansys-based, these variables cannot be defined in your `~/.licenses/ls-dyna.lic` file."
+    },
+    {
+      "question": "What is the minimum LS-DYNA module version required to work with CMC license servers?",
+      "answer": "Only module versions greater than or equal to 13.1.1 will work with Ansys license servers that host CMC licenses."
+    },
+    {
+      "question": "What types of binaries does LS-DYNA offer for running jobs on compute nodes?",
+      "answer": "LS-DYNA provides binaries for running jobs on a single compute node (SMP - Shared Memory Parallel using OpenMP) or across multiple compute nodes (MPP - Message Passing Parallel using MPI)."
+    },
+    {
+      "question": "How can I view the available modules for running LS-DYNA jobs on a single compute node?",
+      "answer": "You can list the modules for running jobs on a single compute node by executing the command: `module spider ls-dyna`."
+    },
+    {
+      "question": "What command is used to submit single-node LS-DYNA jobs to the queue?",
+      "answer": "Single-node LS-DYNA jobs may be submitted to the queue with the command: `sbatch script-smp.sh`."
+    },
+    {
+      "question": "What is the purpose of the `LSTC_MEMORY=AUTO` option for explicit analysis in LS-DYNA?",
+      "answer": "The `LSTC_MEMORY=AUTO` option allows memory to be dynamically extended beyond the specified `memory` word setting, which is suitable for explicit analysis like metal forming simulations but not for crash analysis."
+    },
+    {
+      "question": "For a double precision solver, how much memory does a `memory=1500M` setting in a slurm script allocate for an implicit problem?",
+      "answer": "For a double precision solver, a `memory=1500M` setting in a slurm script equates to a maximum of (1500Mw * 8Bytes/w) = 12GB of memory before LS-DYNA self-terminates when solving an implicit problem."
+    },
+    {
+      "question": "For a double precision solver with `LSTC_MEMORY=AUTO`, how much memory does a `memory=1500M` setting in a slurm script allocate for an explicit problem?",
+      "answer": "For a double precision solver with `LSTC_MEMORY=AUTO`, a `memory=1500M` setting equates to a starting amount of 12GB memory, which can be extended by up to 25% if necessary when solving an explicit problem."
+    },
+    {
+      "question": "What is considered an ideal percentage of total reserved RAM for implicit LS-DYNA jobs on a single node?",
+      "answer": "12GB, which represents 75% of the total 16GB RAM reserved for the job, is considered ideal for implicit jobs on a single node."
+    },
+    {
+      "question": "How can the Slurm total memory setting and the memory parameter value in mega words be calculated for a double precision solution, given an estimated total solver memory in GB?",
+      "answer": "For a double precision solution, the total memory setting for Slurm is calculated by multiplying the estimated total solver memory in GB by 25%, and the memory parameter value in mega words is calculated as `(0.75 * memGB / 8Bytes/w) * 1000M`."
+    },
+    {
+      "question": "How can the Slurm total memory setting and the memory parameter value in mega words be calculated for a single precision solution, given an estimated total solver memory in GB?",
+      "answer": "For a single precision solution, the total memory setting for Slurm is calculated by multiplying the estimated total solver memory in GB by 25%, and the memory parameter value in mega words is calculated as `(0.75 * memGB / 4Bytes/w) * 1000M`."
+    },
+    {
+      "question": "What do `ls-dyna_s` and `ls-dyna_d` signify in the context of single-node LS-DYNA jobs?",
+      "answer": "`ls-dyna_s` refers to the single precision SMP (Shared Memory Parallel) solver, and `ls-dyna_d` refers to the double precision SMP solver."
+    }
+  ],
+  "generated_at": "2026-04-12T00:51:10.641343+00:00"
+}

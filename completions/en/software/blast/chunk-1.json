@@ -1,0 +1,108 @@
+{
+  "doc_key": "en/blast",
+  "level": "chunk",
+  "chunk_index": 1,
+  "qa_pairs": [
+    {
+      "question": "What does the acronym BLAST stand for?",
+      "answer": "BLAST stands for \"Basic Local Alignment Search Tool\"."
+    },
+    {
+      "question": "What is the primary function of BLAST?",
+      "answer": "BLAST finds regions of similarity between biological sequences."
+    },
+    {
+      "question": "What types of biological sequences can BLAST compare?",
+      "answer": "BLAST can compare nucleotide or protein sequences to sequence databases."
+    },
+    {
+      "question": "What kind of significance does BLAST calculate for sequence comparisons?",
+      "answer": "BLAST calculates the statistical significance of sequence comparisons."
+    },
+    {
+      "question": "Where can users find more information about BLAST arguments?",
+      "answer": "Users can find more information on BLAST arguments in the user manual available at https://www.ncbi.nlm.nih.gov/books/NBK279684/ or by using the command `blastn -help`."
+    },
+    {
+      "question": "How can one access help for `blastn` command-line arguments?",
+      "answer": "Help for `blastn` command-line arguments can be accessed by typing `blastn -help` in the command line."
+    },
+    {
+      "question": "Which NCBI databases are installed on the clusters for BLAST?",
+      "answer": "The NCBI non-redundant protein (`nr`) and non-redundant nucleotide (`nt`) databases are installed on the clusters."
+    },
+    {
+      "question": "What is the installation path for the NCBI BLAST databases on the clusters?",
+      "answer": "The NCBI BLAST databases are installed on the clusters in `/cvmfs/bio.data.computecanada.ca/content/databases/Core/blast_dbs`."
+    },
+    {
+      "question": "Where is the latest version of the `nr` database located?",
+      "answer": "The latest version of the `nr` database is located at `/cvmfs/bio.data.computecanada.ca/content/databases/Core/blast_dbs/2025_06_21/nr/nr`."
+    },
+    {
+      "question": "What is the path for the latest `nt` database version?",
+      "answer": "The latest version of the `nt` database is located at `/cvmfs/bio.data.computecanada.ca/content/databases/Core/blast_dbs/2025_06_21/nt/nt`."
+    },
+    {
+      "question": "What files are used as the reference database and queries in the provided BLAST examples?",
+      "answer": "In the examples, `ref.fa` is used as the reference database in FASTA format, and `seq.fa` is used as the queries."
+    },
+    {
+      "question": "What must be done before running a BLAST search with a custom reference database?",
+      "answer": "Before running a BLAST search, the database must be built using `makeblastdb`."
+    },
+    {
+      "question": "Can `makeblastdb` be set up as a preprocessing job?",
+      "answer": "Yes, building the database with `makeblastdb` can be a preprocessing job, with other jobs dependent on its completion."
+    },
+    {
+      "question": "What modules are loaded in the `makeblastdb.sh` submission script?",
+      "answer": "The `makeblastdb.sh` submission script loads the `gcc/7.3.0` and `blast+/2.9.0` modules."
+    },
+    {
+      "question": "What command is used to create a nucleotide database from `ref.fa` in the `makeblastdb.sh` script?",
+      "answer": "The command `makeblastdb -in ref.fa -title reference -dbtype nucl -out ref.fa` is used to create a nucleotide database from `ref.fa`."
+    },
+    {
+      "question": "How can BLAST search be significantly accelerated using data parallelism?",
+      "answer": "BLAST search can be greatly accelerated by splitting the query file into multiple smaller query files and running these queries against the database in parallel."
+    },
+    {
+      "question": "What is the recommended minimum size for chunks when splitting a query file for parallel processing, and why?",
+      "answer": "The query file should be split into chunks of at least 1MB or greater. Chunks smaller than 1MB should be avoided as it may hurt the parallel filesystem."
+    },
+    {
+      "question": "Which utility is used to split a FASTA sequence file into smaller chunks?",
+      "answer": "The `faSplit` utility is used to split a FASTA sequence file into smaller chunks."
+    },
+    {
+      "question": "How do you load the `kentutils` module to use `faSplit`?",
+      "answer": "You load the `kentutils` module using the command `module load kentutils/20180716`."
+    },
+    {
+      "question": "If you run `faSplit sequence seqs.fa 10 seq`, how many files will be created and what will be their naming convention?",
+      "answer": "It will create 10 files named `seqN.fa`, where `N` ranges from `[0..9]`."
+    },
+    {
+      "question": "How does using a job array help with split queries?",
+      "answer": "A job array allows creating a separate task for each split query file (`seq.fa.N`), where the task ID maps to the file name. This enables the scheduler to fit smaller jobs where resources are available in the cluster."
+    },
+    {
+      "question": "What modules are loaded in the `blastn_array.sh` submission script?",
+      "answer": "The `blastn_array.sh` submission script loads the `gcc/7.3.0` and `blast+/2.9.0` modules."
+    },
+    {
+      "question": "Which SLURM variable is used to identify the current task's index in a job array?",
+      "answer": "The `$SLURM_ARRAY_TASK_ID` variable is used to identify the current task's index in a job array."
+    },
+    {
+      "question": "What command submits the `blastn_array.sh` job to run only after `makeblastdb.sh` has successfully completed?",
+      "answer": "The command `sbatch --dependency=afterok:$(sbatch makeblastdb.sh) blastn_array.sh` submits `blastn_array.sh` dependent on the successful completion of `makeblastdb.sh`."
+    },
+    {
+      "question": "How are the results from all tasks of a job array concatenated once they are finished?",
+      "answer": "The results from all tasks (e.g., `seq.ref.0` through `seq.ref.9`) can be concatenated into a single file named `seq.ref` using the command `cat seq.ref.{0..9} > seq.ref`."
+    }
+  ],
+  "generated_at": "2026-04-11T18:21:31.488470+00:00"
+}

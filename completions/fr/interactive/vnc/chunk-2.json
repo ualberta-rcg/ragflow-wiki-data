@@ -1,0 +1,56 @@
+{
+  "doc_key": "fr/vnc",
+  "level": "chunk",
+  "chunk_index": 2,
+  "qa_pairs": [
+    {
+      "question": "Comment faire pour savoir si j'ai des vncservers actifs dont je n'ai plus besoin sur un nœud de connexion?",
+      "answer": "Pour lister les vncservers actifs sur un nœud de connexion, vous devez d'abord vous connecter au nœud, puis lancer la commande `vncserver -list`."
+    },
+    {
+      "question": "Quelle commande dois-je utiliser pour tuer tous les vncservers actifs sur un nœud de connexion Nibi?",
+      "answer": "Pour tuer tous les vncservers actifs sous votre nom d'utilisateur sur un nœud de connexion, utilisez la commande `pkill Xvnc -u $USER`."
+    },
+    {
+      "question": "Comment lancer un vncserver sur un nœud de connexion et s'assurer qu'il se ferme automatiquement après une période d'inactivité?",
+      "answer": "Pour démarrer un vncserver avec une limite de temps d'inactivité, utilisez la commande `vncserver -idletimeout seconds`, où `seconds` est la durée en secondes avant la fermeture automatique. Par exemple, `vncserver -idletimeout 86400`."
+    },
+    {
+      "question": "Sur quelle application la commande vncserver fournie par StdEnv/2023 est-elle basée?",
+      "answer": "La commande vncserver fournie par StdEnv/2023 est basée sur TurboVNC."
+    },
+    {
+      "question": "Qu'est-ce qui arrive si j'oublie de fermer ma session VNC Viewer et que j'ai configuré un `-idletimeout`?",
+      "answer": "Si vous oubliez de fermer votre session vncviewer en cliquant sur `System -> Log out` et que l'option `-idletimeout` est configurée, votre vncserver se fermera définitivement après la période d'inactivité spécifiée."
+    },
+    {
+      "question": "Qu'est-ce que je dois faire la première fois que je démarre un vncserver?",
+      "answer": "Au premier démarrage d'un vncserver, vous devrez définir un mot de passe qui sera nécessaire pour vous connecter à votre bureau distant avec un client VNC comme vncviewer."
+    },
+    {
+      "question": "Comment puis-je permettre à plusieurs utilisateurs de se connecter simultanément à mon vncserver?",
+      "answer": "Pour permettre plusieurs connexions simultanées, vous devez démarrer votre vncserver en ajoutant l'option `-alwaysshared` à la commande `vncserver`."
+    },
+    {
+      "question": "Comment faire pour trouver le numéro de port sur lequel mon nouveau vncserver écoute les connexions?",
+      "answer": "Pour identifier le port d'écoute de votre vncserver, utilisez la commande `grep -iE \"\\sport|kill\"` sur le fichier de journalisation, par exemple `grep -iE \"\\sport|kill\" /home/yourusername/.vnc/l4.nibi.sharcnet:1.log`."
+    },
+    {
+      "question": "Est-ce que le vncserver que j'ai lancé sur un nœud de connexion restera actif si je me déconnecte de ce nœud?",
+      "answer": "Oui, le vncserver que vous avez lancé restera actif même si vous quittez le nœud de connexion, et ce, jusqu'à ce que la limite de temps définie avec l'option `-idletimeout` soit atteinte."
+    },
+    {
+      "question": "Comment configurer un tunnel SSH sécurisé de mon ordinateur vers le serveur VNC sur le nœud de connexion?",
+      "answer": "Sur votre ordinateur, démarrez un tunnel SSH en utilisant une commande du genre `ssh nibi.computecanada.ca -L 5905:l4:5901`. Ici, `5905` est un port arbitraire de votre ordinateur local qui sera transféré au port d'écoute de votre serveur VNC (`5901`) sur le nœud distant `l4`."
+    },
+    {
+      "question": "Comment me connecter au serveur VNC avec TigerVNC Viewer une fois le tunnel SSH établi?",
+      "answer": "Vous avez deux options : soit cliquer sur l'icône de l'application `TigerVNC Viewer` et entrer `localhost:5905` dans la boîte de dialogue, soit ouvrir une autre fenêtre de terminal et lancer la commande `vncviewer localhost:5905`."
+    },
+    {
+      "question": "Qu'est-ce qui me sera demandé après avoir entré `localhost:5905` dans TigerVNC Viewer?",
+      "answer": "Après avoir entré les détails de connexion, une fenêtre contextuelle vous demandera le mot de passe d'authentification VNC que vous avez configuré précédemment."
+    }
+  ],
+  "generated_at": "2026-04-12T10:54:29.605848+00:00"
+}

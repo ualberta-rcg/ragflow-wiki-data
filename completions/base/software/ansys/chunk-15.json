@@ -1,0 +1,76 @@
+{
+  "doc_key": "base/ansys",
+  "level": "chunk",
+  "chunk_index": 15,
+  "qa_pairs": [
+    {
+      "question": "What is the purpose of the \"Multinode (by core + requeue)\" Slurm script for Fluent?",
+      "answer": "The \"Multinode (by core + requeue)\" Slurm script is designed for Fluent jobs that frequently fail to start due to license shortages, allowing for automatic requeue attempts."
+    },
+    {
+      "question": "How many requeue attempts are specified in the `script-flu-bycore+requeue.sh` example?",
+      "answer": "The `script-flu-bycore+requeue.sh` example specifies 5 requeue attempts using `#SBATCH --array=1-5%1`."
+    },
+    {
+      "question": "What environment modules should be loaded for a \"Multinode (by core + requeue)\" Fluent job?",
+      "answer": "For a \"Multinode (by core + requeue)\" Fluent job, the `StdEnv/2023` and `ansys/2023R2` (or newer) modules should be loaded."
+    },
+    {
+      "question": "What happens if a job submitted with the \"Multinode (by core + requeue)\" script completes successfully?",
+      "answer": "If a job submitted with the \"Multinode (by core + requeue)\" script completes successfully, it will output \"Job completed successfully! Exiting now.\" and cancel the entire job array."
+    },
+    {
+      "question": "What happens if a job submitted with the \"Multinode (by core + requeue)\" script fails due to a license or simulation issue?",
+      "answer": "If a job submitted with the \"Multinode (by core + requeue)\" script fails, it will output a message indicating the failure and will attempt to resubmit the job if the current attempt number is less than the total allowed requeue attempts. Otherwise, it will state that all attempts have failed."
+    },
+    {
+      "question": "What is the significance of `NCORES=$SLURM_NTASKS` in the Fluent requeue script?",
+      "answer": "`NCORES=$SLURM_NTASKS` sets the number of cores to be used by Fluent based on the total number of tasks requested for the Slurm job."
+    },
+    {
+      "question": "How does the \"Multinode (by core + requeue)\" script handle different cluster environments like Narval or Nibi for MPI?",
+      "answer": "For Narval, the script loads `intel/2023 intelmpi` and exports `INTELMPI_ROOT`. If the Ansys version is 2025 or newer on Nibi, or on Narval, it sets `I_MPI_HYDRA_BOOTSTRAP=ssh`. When running Fluent, it uses `-peth` for Nibi and `-pib` for other clusters, both with `mpi=intel`, and `-pshmem` for single-node jobs."
+    },
+    {
+      "question": "What is the main purpose of the \"Solution restart\" scripts for Fluent?",
+      "answer": "The \"Solution restart\" scripts are provided to automate restarting very large Fluent jobs that require more than the typical seven-day maximum runtime window available on most clusters."
+    },
+    {
+      "question": "From where do Fluent solution restart jobs resume?",
+      "answer": "Fluent solution restart jobs resume from the most recent saved time step files."
+    },
+    {
+      "question": "What are the fundamental file requirements for setting up a Fluent solution restart?",
+      "answer": "To begin setting up a Fluent solution restart, a working set of `sample.cas`, `sample.dat`, and `sample.jou` files must be present."
+    },
+    {
+      "question": "How should the `sample.jou` file be modified for a Fluent solution restart?",
+      "answer": "The `sample.jou` file should be edited to include `/solve/dual-time-iterate 1` and `/file/auto-save/data-frequency 1` for a Fluent solution restart."
+    },
+    {
+      "question": "How do you create and modify a restart journal file (`sample-restart.jou`) for Fluent?",
+      "answer": "You create a restart journal file by copying `sample.jou` to `sample-restart.jou`. Then, edit `sample-restart.jou` to contain `/file/read-cas-data sample-restart` instead of `/file/read-cas-data sample` and comment out the initialization line (e.g., `;/solve/initialize/initialize-flow`)."
+    },
+    {
+      "question": "What value should be specified for `/solve/dual-time-iterate` in `sample-restart.jou` if subsequent time steps run twice as fast?",
+      "answer": "If the second and subsequent time steps are known to run twice as fast, you should specify `/solve/dual-time-iterate 2` in `sample-restart.jou`."
+    },
+    {
+      "question": "Why is the `dual-time-iterate` value chosen for Fluent solution restart scripts?",
+      "answer": "The `dual-time-iterate` value is chosen such that the time for the specified number of steps fits comfortably within the job array time limit, thereby minimizing computationally expensive solution restarts."
+    },
+    {
+      "question": "How is the total simulation time calculated when using Fluent solution restart scripts?",
+      "answer": "The total simulation time to be completed is calculated as `1*Dt + 2*Nrestart*Dt`, where `Nrestart` is the number of solution restarts specified in the script and `Dt` is the time step."
+    },
+    {
+      "question": "What is the maximum time window for a Slurm job in days?",
+      "answer": "The maximum Slurm time window for a job is 7 days, which is specified as `#SBATCH --time=07-00:00`."
+    },
+    {
+      "question": "Where are output files for each time step saved during a Fluent solution restart?",
+      "answer": "An output file for each time step will be saved in the `output` subdirectory during a Fluent solution restart."
+    }
+  ],
+  "generated_at": "2026-04-11T16:48:47.705265+00:00"
+}

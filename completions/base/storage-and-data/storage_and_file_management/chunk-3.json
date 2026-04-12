@@ -1,0 +1,124 @@
+{
+  "doc_key": "base/storage_and_file_management",
+  "level": "chunk",
+  "chunk_index": 3,
+  "qa_pairs": [
+    {
+      "question": "When should I use scratch storage?",
+      "answer": "Scratch storage is the best choice for intensive read/write operations on large files (over 100 MB per file)."
+    },
+    {
+      "question": "Are important files backed up on scratch storage?",
+      "answer": "No, important files are not backed up on scratch storage and should be copied off it."
+    },
+    {
+      "question": "What happens to older files on scratch storage?",
+      "answer": "Older files on scratch storage are subject to purging."
+    },
+    {
+      "question": "What types of files should be stored on scratch storage?",
+      "answer": "Scratch storage should be used for temporary files such as checkpoint files, output from jobs, and other data that can be easily recreated."
+    },
+    {
+      "question": "Should I consider scratch storage as my normal storage?",
+      "answer": "No, you should not regard scratch as your normal storage; it is intended for transient files that you can afford to lose."
+    },
+    {
+      "question": "What is nearline storage?",
+      "answer": "Nearline is a tape-based filesystem intended for inactive data."
+    },
+    {
+      "question": "What kind of data is suitable for nearline storage?",
+      "answer": "Datasets that you do not expect to access for months are good candidates for nearline storage, specifically in `/nearline`."
+    },
+    {
+      "question": "What does the `$SLURM_TMPDIR` environment variable contain?",
+      "answer": "While a job is running, the `$SLURM_TMPDIR` environment variable holds a unique path to a temporary folder on a fast, local filesystem on each compute node allocated to the job."
+    },
+    {
+      "question": "When are the contents of `$SLURM_TMPDIR` deleted?",
+      "answer": "The directory and its contents in `$SLURM_TMPDIR` are deleted when the job ends."
+    },
+    {
+      "question": "What is the recommended use for `$SLURM_TMPDIR`?",
+      "answer": "`$SLURM_TMPDIR` should be used for temporary files that are only needed for the duration of the job."
+    },
+    {
+      "question": "What is an advantage of using `$SLURM_TMPDIR`?",
+      "answer": "An advantage of using `$SLURM_TMPDIR` is increased performance because the filesystem is local to the compute node."
+    },
+    {
+      "question": "For what types of files is `$SLURM_TMPDIR` especially well-suited?",
+      "answer": "`$SLURM_TMPDIR` is especially well-suited for large collections of small files (for example, smaller than a few megabytes per file)."
+    },
+    {
+      "question": "Is the `$SLURM_TMPDIR` filesystem shared?",
+      "answer": "Yes, the `$SLURM_TMPDIR` filesystem is shared between all jobs running on the node."
+    },
+    {
+      "question": "What determines the available space in `$SLURM_TMPDIR`?",
+      "answer": "The available space in `$SLURM_TMPDIR` depends on the compute node type."
+    },
+    {
+      "question": "What information does the `diskusage_report` command provide for project space?",
+      "answer": "The `diskusage_report` command shows the total quota of the group on project space, not per-user usage."
+    },
+    {
+      "question": "What files are included in the `diskusage_report` for project space?",
+      "answer": "The `diskusage_report` for project space includes all files from each member of the group."
+    },
+    {
+      "question": "Why is it difficult to get per-user usage for project space?",
+      "answer": "It is difficult to obtain correct per-user figures for project space because a user's files could be anywhere within the project space, especially if they have access to more than one project."
+    },
+    {
+      "question": "How can users estimate their space and file count use on the entire project space?",
+      "answer": "Users can obtain an estimate of their space and file count use on the entire project space by running the command `lfs quota -u $USER /project`."
+    },
+    {
+      "question": "How can users estimate the number of files in a specific directory within project space?",
+      "answer": "Users can estimate the number of files in a given directory (and its subdirectories) using the command `lfs find <path to the directory> -type f | wc -l`."
+    },
+    {
+      "question": "Why is it important to regularly clean up data in scratch and project spaces?",
+      "answer": "It is important to regularly clean up data in scratch and project spaces because those filesystems are used for huge data collections."
+    },
+    {
+      "question": "What is a best practice for documenting files?",
+      "answer": "You should document your files with README files."
+    },
+    {
+      "question": "What is the recommended procedure for deleting a set of files?",
+      "answer": "For any set of files that could be deleted, you should create a temporary directory `toDelete`, move the files into it, verify its contents, and then delete `toDelete` recursively."
+    },
+    {
+      "question": "What characters should be avoided in `rm` commands if possible?",
+      "answer": "If possible, you should avoid using `*` and `/` characters in your `rm` commands."
+    },
+    {
+      "question": "What steps should be taken before using `rm` commands?",
+      "answer": "Before using `rm` commands, you should navigate to the parent directory containing the item(s) to be deleted and double-check that you are in the correct directory."
+    },
+    {
+      "question": "What precautions should be taken when using environment variables in `rm` commands within shell scripts?",
+      "answer": "In shell scripts, if environment variables are used in `rm` commands, each variable must be tested before use because empty or undefined variables can cause catastrophic errors, and any input value has to be checked against malicious or erroneous use of the script."
+    },
+    {
+      "question": "For what file size should text format be used?",
+      "answer": "Text format should only be used for files that are smaller than a few megabytes."
+    },
+    {
+      "question": "Where should temporary files be stored?",
+      "answer": "As far as possible, temporary files should be stored in scratch and local storage, using the temporary directory created by the job scheduler, named `$SLURM_TMPDIR`, for local storage."
+    },
+    {
+      "question": "What is the fastest way for a program to search within a file?",
+      "answer": "If your program must search within a file, it is fastest to do it by first reading the file completely before searching."
+    },
+    {
+      "question": "What should be done with files that are no longer used but must be retained?",
+      "answer": "If you no longer use certain files but they must be retained, you should archive and compress them, and if possible, move them to an alternative location like nearline storage."
+    }
+  ],
+  "generated_at": "2026-04-12T08:21:29.253144+00:00"
+}

@@ -1,0 +1,91 @@
+{
+  "doc_key": "en/using_nearline_storage",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is the primary purpose of the Nearline filesystem?",
+      "answer": "Nearline is a tape-based filesystem intended for inactive data, suitable for datasets not expected to be accessed for several months."
+    },
+    {
+      "question": "What are the file size guidelines for storing data in /nearline?",
+      "answer": "Files smaller than approximately 10GB should be combined into archive files (tarballs), and files larger than 4TB should be split into 1TB chunks. Small files, except for indexes, should generally not be sent to Nearline."
+    },
+    {
+      "question": "Is it necessary to compress data before storing it in /nearline?",
+      "answer": "No, there's no need to compress your data as the tape archive system automatically performs compression using specialized circuitry."
+    },
+    {
+      "question": "Which tools are recommended for creating archive files for /nearline?",
+      "answer": "The recommended tools are `tar` or `dar`."
+    },
+    {
+      "question": "Where should archive files be created when moving data to /nearline?",
+      "answer": "Archive files should be created directly in /nearline, as this is more efficient and doesn't require additional storage space."
+    },
+    {
+      "question": "How can users manage very large archive files with `tar` or `dar`?",
+      "answer": "For `tar`, use the `-M (--multi-volume)` and `-L (--tape-length)` options, and for `dar`, use the `-s (--slice)` option to produce suitably sized archive files."
+    },
+    {
+      "question": "Why is it important to create an index for archived files in /nearline, and how is it typically done?",
+      "answer": "Creating an index makes it easier to find individual files without restoring an entire large archive from tape. It can be done by saving the verbose output of `tar` when creating or listing the archive."
+    },
+    {
+      "question": "Are index files subject to the same small file restrictions as other data in /nearline?",
+      "answer": "No, index files are an exception to the rule about small files and are acceptable to store in /nearline."
+    },
+    {
+      "question": "Can compute nodes access data stored in /nearline?",
+      "answer": "No, /nearline is not mounted on compute nodes, and reading from it is not permitted in a job context due to the uncertain retrieval times."
+    },
+    {
+      "question": "Which type of node should be used for creating large `tar` or `dar` archives?",
+      "answer": "Creating large archives should be done on a data-transfer node (DTN) if available, or on a login node on clusters without DTNs."
+    },
+    {
+      "question": "Why should a terminal multiplexer be used when archiving large file collections?",
+      "answer": "A terminal multiplexer like `tmux` helps manage long-running archiving processes, preventing interruptions from SSH session disconnections and allowing users to resume their work later."
+    },
+    {
+      "question": "How should `dar` be used when running it in an unattended terminal multiplexer?",
+      "answer": "It is recommended to explicitly disable `dar`'s interactivity with `dar -Q` so it runs in non-interactive mode and assumes a 'no' answer to questions."
+    },
+    {
+      "question": "What are the main advantages of using Nearline storage over disk or solid-state media?",
+      "answer": "Nearline offers a lower cost per unit of data, easy expansion of storage volume, and effectively zero energy consumption per unit of data stored."
+    },
+    {
+      "question": "Describe the typical lifecycle of a file stored in /nearline.",
+      "answer": "Initially, a file exists only on disk; after a period, it's copied to both disk and tape; later, the disk copy may be deleted (making it 'virtualized' on tape); and when recalled, it's copied back from tape to disk."
+    },
+    {
+      "question": "What happens when a virtualized file (only on tape) is accessed?",
+      "answer": "When a virtualized file is read, it is copied from tape back to disk, causing the process trying to read it to block for an uncertain amount of time, ranging from less than a minute to over an hour."
+    },
+    {
+      "question": "What should users expect regarding transfer times when moving data from /nearline?",
+      "answer": "Users should expect longer transfer times from /nearline, as each file restoration from tape can hang the transfer for a few minutes to several hours."
+    },
+    {
+      "question": "How can users check the state or location of their files in /nearline?",
+      "answer": "Some clusters support `diskusage_report --nearline --per_user --all_users`, and users can use the `lfs hsm_state <FILE>` command to determine if a specific file is on disk, tape, or both."
+    },
+    {
+      "question": "Is it possible to explicitly recall a file from tape without actually reading it?",
+      "answer": "Yes, you can explicitly force a file to be recalled from tape without reading it by using the command `lfs hsm_restore <FILE>`."
+    },
+    {
+      "question": "On Béluga, what happens to tape copies of files that are accidentally or deliberately deleted from `~/nearline`?",
+      "answer": "On Béluga, if a file is deleted from `~/nearline`, its tape copy is retained for up to 60 days, and it can be restored by contacting technical support with the full path and desired version."
+    },
+    {
+      "question": "How does the /nearline service on Nibi differ from that on Béluga?",
+      "answer": "On Nibi, it may take longer than 24 hours for the initial tape copy to be created, and the disk copy of data is not erased until 60 days have passed."
+    },
+    {
+      "question": "What are the three methods for accessing the HPSS /nearline service on Trillium?",
+      "answer": "The three methods are submitting HPSS-specific commands (`htar` or `hsi`) to the Slurm scheduler, using the VFS (Virtual File System) node, or using Globus for transfers with the `alliancecan#hpss` endpoint."
+    }
+  ],
+  "generated_at": "2026-04-12T10:26:35.834381+00:00"
+}

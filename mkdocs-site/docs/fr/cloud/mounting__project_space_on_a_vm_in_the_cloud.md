@@ -5,21 +5,33 @@ lang: "fr"
 
 source_wiki_title: "Mounting /project space on a VM in the cloud/fr"
 source_hash: "73b98ed2ac4bfd2e0bb68507924bfa01"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T08:58:58.465496+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T09:31:14.855462+00:00"
 
 tags:
   - cloud
 
 keywords:
-  []
+  - "Instance virtuelle"
+  - "SSHFS"
+  - "sécurité"
+  - "clé SSH"
+  - "espace projet"
+
+questions:
+  - "Quel outil permet à une instance virtuelle d'accéder aux systèmes de fichiers de l'espace projet ?"
+  - "Comment les utilisateurs peuvent-ils interagir avec le répertoire configuré via SSHFS dans leur instance ?"
+  - "Quelles sont les exigences de sécurité spécifiques à respecter concernant les mots de passe et les clés SSH ?"
+  - "Quel outil permet à une instance virtuelle d'accéder aux systèmes de fichiers de l'espace projet ?"
+  - "Comment les utilisateurs peuvent-ils interagir avec le répertoire configuré via SSHFS dans leur instance ?"
+  - "Quelles sont les exigences de sécurité spécifiques à respecter concernant les mots de passe et les clés SSH ?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -31,11 +43,13 @@ Nous décrivons ici comment une instance virtuelle peut accéder aux systèmes d
 
 SSHFS permet de configurer votre répertoire `/project` dans votre instance. Ces répertoires sont semblables aux autres types de répertoires et vous pouvez y accéder par les commandes Linux régulières.
 
-Pour des informations, consultez [la référence](https://wiki.archlinux.org/index.php/SSHFS).
+Pour plus d'informations, consultez [cette référence sur SSHFS](https://wiki.archlinux.org/index.php/SSHFS).
 
 ## Exigences particulières
 
-!!! warning "Pour éviter les problèmes de sécurité, respectez les exigences suivantes :"
+!!! warning "Exigences de sécurité"
+    Pour éviter les problèmes de sécurité, respectez les exigences suivantes :
+
     *   NE CONSERVEZ PAS votre mot de passe en texte brut dans l'instance.
     *   Créez une clé SSH EXCLUSIVEMENT pour SSHFS. N'utilisez pas la clé SSH qui sert à vous connecter.
     *   Gardez votre instance à jour et n'ouvrez que les ports sécuritaires qui sont nécessaires.

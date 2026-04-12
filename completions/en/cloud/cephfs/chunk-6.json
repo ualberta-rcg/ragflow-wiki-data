@@ -1,0 +1,52 @@
+{
+  "doc_key": "en/cephfs",
+  "level": "chunk",
+  "chunk_index": 6,
+  "qa_pairs": [
+    {
+      "question": "How do I mount a CephFS share from the command line on Arbutus?",
+      "answer": "On Arbutus, you can mount a CephFS share directly from the command line using `sudo mount -t ceph :/volumes/_nogroup/f6cb8f06-f0a4-4b88-b261-f8bd6b03582c /cephfs/ -o name=MyCephFS-RW`."
+    },
+    {
+      "question": "What is the command to mount a CephFS share from the command line on SD4H/Juno?",
+      "answer": "On SD4H/Juno, you can mount a CephFS share directly from the command line using `sudo mount -t ceph :/volumes/_nogroup/f6cb8f06-f0a4-4b88-b261-f8bd6b03582c /cephfs/ -o name=MyCephFS-RW,mds_namespace=cephfs_4_2,x-systemd.device-timeout=30,x-systemd.mount-timeout=30,noatime,_netdev,rw`."
+    },
+    {
+      "question": "Can CephFS be mounted directly in user space?",
+      "answer": "Yes, CephFS can be mounted directly in user space via ceph-fuse."
+    },
+    {
+      "question": "Which library needs to be installed to use ceph-fuse for user space mounts on Red Hat family distributions?",
+      "answer": "You need to install the `ceph-fuse` library by running `sudo dnf install ceph-fuse`."
+    },
+    {
+      "question": "What configuration change is required in the `fuse.conf` file to allow fuse mounts to be accessible in user space?",
+      "answer": "You need to uncomment `user_allow_other` in the `/etc/fuse.conf` file to let the fuse mount be accessible in user space."
+    },
+    {
+      "question": "How do I mount CephFS in a user's home directory using ceph-fuse?",
+      "answer": "First, create a mount point directory, for example `mkdir ~/my_cephfs`, then execute the command `ceph-fuse my_cephfs/ --id=MyCephFS-RW --conf=~/ceph.conf --keyring=~/ceph.keyring --client-mountpoint=/volumes/_nogroup/f6cb8f06-f0a4-4b88-b261-f8bd6b03582c`."
+    },
+    {
+      "question": "What does the `--id` option signify in the ceph-fuse mount command?",
+      "answer": "In the ceph-fuse mount command, the `--id` option represents the client name."
+    },
+    {
+      "question": "Are the `ceph.conf` and `ceph.keyring` files different for ceph-fuse mounts compared to ceph kernel mounts?",
+      "answer": "No, the `ceph.conf` and `ceph.keyring` content are exactly the same as for the ceph kernel mount."
+    },
+    {
+      "question": "Can a CephFS share have multiple user keys?",
+      "answer": "Yes, a particular share can have more than one user key provisioned for it, which allows for more granular access to the filesystem."
+    },
+    {
+      "question": "What is an advantage of having multiple user keys for a CephFS share?",
+      "answer": "Multiple user keys allow for more granular access to the filesystem; for example, if you needed some hosts to only access the filesystem in a read-only capacity."
+    },
+    {
+      "question": "Is the CephFS service available to hosts located outside of the OpenStack cluster?",
+      "answer": "No, this service is not available to hosts outside of the OpenStack cluster."
+    }
+  ],
+  "generated_at": "2026-04-11T19:32:00.313596+00:00"
+}

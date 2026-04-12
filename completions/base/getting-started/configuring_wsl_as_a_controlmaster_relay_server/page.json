@@ -1,0 +1,67 @@
+{
+  "doc_key": "base/configuring_wsl_as_a_controlmaster_relay_server",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is the primary goal of this experimental procedure?",
+      "answer": "The primary goal is to leverage ControlMaster under WSL so users can log into clusters with several native Windows applications for a certain period without having to use multifactor authentication for every session."
+    },
+    {
+      "question": "What is the initial prerequisite for setting up this procedure?",
+      "answer": "The initial prerequisite is to install Linux on Windows using the Windows Subsystem for Linux (WSL), following the detailed instructions provided by a link."
+    },
+    {
+      "question": "Which specific Linux distribution and default hostname are assumed for the WSL instance in the sample configuration?",
+      "answer": "The setup assumes Ubuntu as the distribution, with 'ubuntu' as the hostname for the WSL instance."
+    },
+    {
+      "question": "What are the assumed Windows system name, Windows login name, Ubuntu VM user name, and Alliance user name for the sample configuration?",
+      "answer": "The Windows system is assumed to be 'smart', the Windows login name and Ubuntu VM user name are both 'jaime', and the Alliance user name is 'pinto', connecting to Cedar."
+    },
+    {
+      "question": "Which additional package needs to be installed on the Ubuntu VM for this setup?",
+      "answer": "You need to install `openssh-server` on the Ubuntu VM."
+    },
+    {
+      "question": "Describe the general architecture of the SSH setup.",
+      "answer": "The setup involves your Windows machine as the SSH client, connecting to an SSH relay server (your Ubuntu VM), which then connects to the SSH target server (e.g., Cedar)."
+    },
+    {
+      "question": "What is the purpose of the `custom_ssh/sshd_config` file on Ubuntu?",
+      "answer": "It defines a custom SSH daemon configuration, including a non-standard port (2222), custom host keys, a specific `AuthorizedKeysFile`, and other server settings for the relay server."
+    },
+    {
+      "question": "From where are the `ssh_host` keys copied to the `custom_ssh` folder on Ubuntu?",
+      "answer": "The `ssh_host` keys are copied from `/etc/ssh` to the `/home/jaime/custom_ssh/` folder."
+    },
+    {
+      "question": "How is the `~/.ssh/config` file customized on Ubuntu to connect to Cedar?",
+      "answer": "It includes a 'Host cedar' entry defining `ControlPath`, `ControlMaster auto`, `ControlPersist 10m`, `HostName cedar.alliancecan.ca`, and `User pinto`."
+    },
+    {
+      "question": "Which public SSH key should be used in the `authorized_keys` file for the custom Ubuntu SSH server?",
+      "answer": "The same public SSH key that was uploaded to CCDB should be used."
+    },
+    {
+      "question": "How do you start the custom SSHD server on Ubuntu, and what is an important operational consideration?",
+      "answer": "The server is started with `/usr/sbin/sshd -f ${HOME}/custom_ssh/sshd_config`. It must be started as the user (not root) and requires restarting every time the computer is restarted, or after closing/restarting WSL."
+    },
+    {
+      "question": "How is the `~/.ssh/config` file on the Windows machine (`smart`) customized to connect to the Ubuntu relay?",
+      "answer": "It includes a 'Host ubuntu' entry defining `Hostname localhost` and `RemoteCommand ssh cedar`."
+    },
+    {
+      "question": "What is the command to initiate a login to Cedar from the Windows shell after completing the setup?",
+      "answer": "The command is `ssh -t ubuntu -p 2222`."
+    },
+    {
+      "question": "What alternative setup is provided for Windows GUI apps that do not allow explicit `RemoteCommand` settings?",
+      "answer": "An alternative involves embedding the `RemoteCommand` directly into the public key entry within the `authorized_keys` file on Ubuntu, such as `command=\"ssh cedar\" ssh-ed25519 AAAZDINzaC...`."
+    },
+    {
+      "question": "Which specific third-party application is mentioned with setup instructions and screenshots?",
+      "answer": "MobaXterm is mentioned with setup instructions and screenshots."
+    }
+  ],
+  "generated_at": "2026-04-11T20:21:18.593255+00:00"
+}

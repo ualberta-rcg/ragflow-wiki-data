@@ -1,0 +1,95 @@
+{
+  "doc_key": "fr/storage_and_file_management",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "Pourquoi offre-t-on différentes options de stockage?",
+      "answer": "On offre plusieurs options de stockage pour répondre aux besoins variés des utilisateurs, allant du stockage à long terme au stockage temporaire à haute vitesse."
+    },
+    {
+      "question": "Comment devrait-on utiliser les systèmes de fichiers partagés?",
+      "answer": "Il faut les utiliser de manière responsable, car une mauvaise gestion peut affecter de nombreux autres utilisateurs. Ils sont conçus pour un nombre limité de très gros fichiers binaires, et non des milliers de petits fichiers."
+    },
+    {
+      "question": "Que doit-on faire si on a plusieurs petits fichiers à stocker?",
+      "answer": "On devrait les regrouper en un seul grand fichier d'archive en utilisant des commandes comme `tar` ou `zip` pour éviter de nuire à la performance du système."
+    },
+    {
+      "question": "Quelle est la responsabilité de l'utilisateur concernant la durée de stockage des données?",
+      "answer": "C'est la responsabilité de l'utilisateur de vérifier depuis quand ses données sont stockées et de déplacer les fichiers non utilisés ailleurs, car la plupart des systèmes ne sont pas pour l'archivage à long terme."
+    },
+    {
+      "question": "Pour quel type de données les ressources de stockage sont-elles destinées?",
+      "answer": "Elles sont conçues pour les données de recherche, et non pour les données personnelles."
+    },
+    {
+      "question": "Comment peut-on transférer de grandes quantités de données?",
+      "answer": "Le transfert de grandes quantités de données se fait généralement avec l'outil Globus."
+    },
+    {
+      "question": "Quels sont les répertoires de base disponibles quand un compte est créé sur une grappe?",
+      "answer": "Le répertoire `home` contient des liens symboliques vers les espaces `project` et `scratch` de l'utilisateur."
+    },
+    {
+      "question": "Quand les liens symboliques vers les espaces `project` et `scratch` apparaissent-ils dans le répertoire `home`?",
+      "answer": "Ces liens symboliques peuvent apparaître quelques heures après la première connexion."
+    },
+    {
+      "question": "Quels espaces de stockage sont personnels et lesquels sont partagés?",
+      "answer": "Les espaces `home` et `scratch` sont personnels à l'utilisateur, tandis que l'espace `project` est partagé par le groupe de recherche."
+    },
+    {
+      "question": "Comment peut-on vérifier l'espace disque utilisé et disponible sur les systèmes de fichiers?",
+      "answer": "Tous les utilisateurs peuvent utiliser l'utilitaire en ligne de commande `diskusage_report` en se connectant à la grappe par SSH et en entrant la commande."
+    },
+    {
+      "question": "Quelles sont les caractéristiques du système de fichiers `HOME`?",
+      "answer": "Il a un quota relativement petit, une performance limitée pour les grandes quantités de données et convient mieux pour le code source, les petits fichiers de paramètres et les scripts de soumission."
+    },
+    {
+      "question": "Quelles sont les caractéristiques du système de fichiers `PROJECT`?",
+      "answer": "Il a un quota beaucoup plus grand, est idéal pour le partage de données entre membres d'un groupe, et est conçu pour des données relativement statiques qui ne sont pas souvent modifiées. Il est copié pour sauvegarde."
+    },
+    {
+      "question": "Quelles sont les caractéristiques du système de fichiers `SCRATCH`?",
+      "answer": "C'est le meilleur choix pour les opérations intensives de lecture/écriture de gros fichiers. Il n'a pas de copie de sauvegarde et ses fichiers plus anciens sont susceptibles d'être purgés. Il est destiné aux fichiers temporaires."
+    },
+    {
+      "question": "À quoi sert le système de fichiers `NEARLINE`?",
+      "answer": "C'est un système de fichiers sur bande pour stocker les données inactives, comme les jeux de données auxquels on ne prévoit pas d'accéder avant plusieurs mois."
+    },
+    {
+      "question": "Quelle est l'utilité de la variable d'environnement `$SLURM_TMPDIR`?",
+      "answer": "Elle pointe vers un répertoire temporaire sur un système de fichier local rapide sur les nœuds de calcul, utilisé pour des fichiers temporaires pendant l'exécution d'une tâche pour de meilleures performances. Il est supprimé à la fin de la tâche."
+    },
+    {
+      "question": "Comment un utilisateur peut-il estimer sa propre consommation d'espace dans un espace `project` partagé?",
+      "answer": "On peut obtenir une estimation avec la commande `lfs quota -u $USER /project`."
+    },
+    {
+      "question": "Quelles sont les meilleures pratiques pour nettoyer les données dans les espaces `project` et `scratch`?",
+      "answer": "Il faut nettoyer régulièrement les données, documenter les fichiers avec des `README`, et utiliser une procédure sécuritaire pour la suppression en déplaçant d'abord les fichiers dans un répertoire temporaire avant de le supprimer."
+    },
+    {
+      "question": "Pourquoi des quotas et des politiques sont-ils imposés sur les systèmes de fichiers?",
+      "answer": "Des quotas sont imposés pour assurer que tous les utilisateurs disposent de suffisamment d'espace et pour gérer les ressources de manière équitable."
+    },
+    {
+      "question": "Comment peut-on augmenter l'espace disque pour les systèmes de fichiers `project` ou `scratch`?",
+      "answer": "Pour une légère augmentation, on utilise le Service d'accès rapide; pour une augmentation importante, il faut faire une demande dans le cadre du concours pour l'allocation de ressources."
+    },
+    {
+      "question": "Quelle est la politique de sauvegarde pour les espaces `home` et `project`?",
+      "answer": "Ces espaces sont sauvegardés chaque soir, les copies sont conservées pendant 30 jours, et les fichiers supprimés sont gardés 60 jours de plus."
+    },
+    {
+      "question": "Comment peut-on récupérer une version antérieure d'un fichier ou d'un répertoire?",
+      "answer": "Pour récupérer une version antérieure d'un fichier ou d'un répertoire, il faut contacter le soutien technique en mentionnant le chemin complet et la date de la version désirée."
+    },
+    {
+      "question": "Est-ce que les quotas de stockage varient selon la grappe utilisée?",
+      "answer": "Oui, les quotas et les caractéristiques des systèmes de fichiers (comme les politiques de sauvegarde ou de purge) peuvent varier d'une grappe à l'autre (par exemple, Fir, Nibi, Narval et Rorqual, Trillium, Killarney, TamIA, Vulcan)."
+    }
+  ],
+  "generated_at": "2026-04-12T08:26:47.883303+00:00"
+}

@@ -1,0 +1,104 @@
+{
+  "doc_key": "base/valgrind",
+  "level": "chunk",
+  "chunk_index": 1,
+  "qa_pairs": [
+    {
+      "question": "What is Valgrind?",
+      "answer": "Valgrind is a powerful debugging tool designed to detect bad memory usage."
+    },
+    {
+      "question": "What kinds of memory problems can Valgrind detect?",
+      "answer": "Valgrind can detect memory leaks, access to unallocated or deallocated memory, multiple deallocations, or other forms of bad memory usage."
+    },
+    {
+      "question": "What common program errors suggest a memory problem that Valgrind could help resolve?",
+      "answer": "If your program ends with a 'segmentation fault', 'broken pipe', or 'bus error', you most likely have a memory problem in your code."
+    },
+    {
+      "question": "Is Valgrind installed on Compute Canada clusters?",
+      "answer": "Yes, Valgrind is installed on Compute Canada clusters as part of the base software distribution."
+    },
+    {
+      "question": "Do I need to load a module to use Valgrind on Compute Canada clusters?",
+      "answer": "No, there is no need to load a module to use Valgrind on Compute Canada clusters."
+    },
+    {
+      "question": "What is a known limitation of current Valgrind versions regarding processors?",
+      "answer": "Current versions of Valgrind are unable to handle AVX-512 instructions used on the latest Intel and AMD processors."
+    },
+    {
+      "question": "What kind of error message might indicate an AVX-512 limitation when using Valgrind?",
+      "answer": "You might see an error message like 'vex amd64->IR: unhandled instruction bytes' or 'valgrind: Unrecognised instruction at address'."
+    },
+    {
+      "question": "Which Compute Canada clusters, apart from Narval, use AVX-512 instructions by default?",
+      "answer": "All current Compute Canada clusters, except Narval, use AVX-512 instructions by default."
+    },
+    {
+      "question": "How can I work around the AVX-512 limitation when using Valgrind?",
+      "answer": "You can circumvent the AVX-512 limitation by first loading the AVX-2 environment and then recompiling your application from scratch."
+    },
+    {
+      "question": "What command is used to load the AVX-2 environment?",
+      "answer": "The command `module load arch/avx2` is used to load the AVX-2 environment."
+    },
+    {
+      "question": "Why is recompiling necessary after loading the AVX-2 environment to address AVX-512 issues with Valgrind?",
+      "answer": "Recompiling your application from scratch after loading the AVX-2 environment ensures that the binary doesn't contain any AVX-512 instructions, resolving the Valgrind compatibility problem."
+    },
+    {
+      "question": "What is required to obtain useful information from Valgrind?",
+      "answer": "To get useful information from Valgrind, you first need to compile your code with debugging information enabled."
+    },
+    {
+      "question": "How do you enable debugging information during code compilation for use with Valgrind?",
+      "answer": "With most compilers, you enable debugging information by adding a '-g' option during compilation."
+    },
+    {
+      "question": "Why might aggressive optimizations lead to false errors in Valgrind?",
+      "answer": "Aggressive optimizations may yield false errors in Valgrind if they result in unsupported operations, which can occur in certain mathematical libraries."
+    },
+    {
+      "question": "When diagnosing errors with Valgrind, how should code be compiled and linked if mathematical libraries might be causing issues?",
+      "answer": "You should compile and link your code against non-optimized versions of libraries (such as the Netlib implementation of BLAS/LAPACK) that do not use unsupported operations."
+    },
+    {
+      "question": "When should optimized libraries be used in an application, as opposed to non-optimized versions used for Valgrind diagnosis?",
+      "answer": "Optimized libraries should be linked when the time comes to run real simulations, not when merely diagnosing issues with Valgrind."
+    },
+    {
+      "question": "What is the command to execute an application within Valgrind for memory checking and leak detection?",
+      "answer": "The command is `valgrind --tool=memcheck --leak-check=yes --show-reachable=yes ./your_program`."
+    },
+    {
+      "question": "Where can one find more information about Valgrind?",
+      "answer": "More information about Valgrind can be found on the page http://www.cprogramming.com/debugging/valgrind.html."
+    },
+    {
+      "question": "How does running an application in Valgrind affect its execution speed?",
+      "answer": "When you run your code in Valgrind, your application is executed within a virtual machine that validates every memory access, causing it to run much slower than usual."
+    },
+    {
+      "question": "What is the reason for an application running much slower when executed within Valgrind?",
+      "answer": "The application runs much slower because Valgrind executes it within a virtual machine that validates every memory access."
+    },
+    {
+      "question": "What caution should be exercised when choosing the problem size for testing with Valgrind?",
+      "answer": "When testing with Valgrind, choose a problem size much smaller than what you would usually run, as the application will run much slower."
+    },
+    {
+      "question": "Is it necessary to run the exact problem that causes a segmentation fault to detect memory issues with Valgrind?",
+      "answer": "No, you do not need to run the exact same problem that results in a segmentation fault to detect memory issues in your code using Valgrind."
+    },
+    {
+      "question": "How effectively does Valgrind detect subtle memory access problems?",
+      "answer": "Valgrind is very effective; it will detect even the slightest access outside of the bounds of an array, even issues that might go undetected for small size problems without it."
+    },
+    {
+      "question": "What types of problems will Valgrind help detect?",
+      "answer": "Valgrind will help detect problems such as memory leaks, invalid pointer access/out of bound errors, and usage of uninitialized variables."
+    }
+  ],
+  "generated_at": "2026-04-12T10:57:12.974150+00:00"
+}

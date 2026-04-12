@@ -1,0 +1,44 @@
+{
+  "doc_key": "en/mpi",
+  "level": "chunk",
+  "chunk_index": 15,
+  "qa_pairs": [
+    {
+      "question": "What does it mean for MPI_Send and MPI_Recv to be considered 'blocking calls' in the MPI standard?",
+      "answer": "For `MPI_Send`, it means the call will not return until it is safe for the calling module to modify the contents of the provided message buffer. For `MPI_Recv`, it means the call will not return until the entire contents of the message are available in the message buffer the caller provides."
+    },
+    {
+      "question": "How does the MPI library's buffering affect `MPI_Send` operations?",
+      "answer": "If the MPI library provides an internal buffer, `MPI_Send` need not block. Once the message is copied out of the original data location into the buffer, it's safe for the user to modify that location, allowing the call to return immediately."
+    },
+    {
+      "question": "How does the MPI library's buffering affect `MPI_Recv` operations?",
+      "answer": "Whether or not the MPI library provides buffering does not affect receive operations. `MPI_Recv` will always block until the data is received and placed directly into the message buffer provided by the caller."
+    },
+    {
+      "question": "What is an 'unsafe' MPI program?",
+      "answer": "An 'unsafe' MPI program is one that relies on a buffered implementation of `MPI_Send` to function correctly and avoid deadlocks, even though the MPI standard does not explicitly require such buffering."
+    },
+    {
+      "question": "Why was the `phello2.c` version of the 'Hello, world!' program considered unsafe?",
+      "answer": "The `phello2.c` program was unsafe because all processes called `MPI_Send` first. This design works only if the MPI library buffers the messages. If the library were unbuffered, or if messages were too large, the program would deadlock because all processes would be stuck trying to send before any could receive."
+    },
+    {
+      "question": "Describe a scenario that would cause an MPI program to deadlock, regardless of buffering.",
+      "answer": "A deadlock would occur if, for example, process 0 calls `MPI_Recv(from 1)` and process 1 simultaneously calls `MPI_Recv(from 0)`. Both processes would block indefinitely waiting for a message that the other process is not sending yet."
+    },
+    {
+      "question": "What is a 'safe' MPI program?",
+      "answer": "A 'safe' MPI program is one that does not rely on a buffered `MPI_Send` implementation to avoid deadlocks. It ensures that communication patterns (sends and receives) are properly paired between processes to prevent blocking indefinitely."
+    },
+    {
+      "question": "How can the 'Hello, world!' program with communication be made 'safe' according to the document?",
+      "answer": "The 'Hello, world!' program can be made safe by adopting an odd-even pairing for communication. All even-ranked processes execute a send followed by a receive, while all odd-ranked processes execute a receive followed by a send. This ensures that sends and receives are always properly paired."
+    },
+    {
+      "question": "Does the odd-even pairing strategy for safe MPI communication cause a problem if there's an odd number of processors?",
+      "answer": "No, it does not cause a problem. Even with an odd number of processors, the communication remains safe. For example, process 0 (even) sends to process 1 (odd), which immediately receives. Once process 0 finishes its send, it proceeds to receive from process N-1, ensuring no deadlock occurs."
+    }
+  ],
+  "generated_at": "2026-04-12T01:53:42.525303+00:00"
+}

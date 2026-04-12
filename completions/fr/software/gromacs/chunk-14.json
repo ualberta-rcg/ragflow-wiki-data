@@ -1,0 +1,56 @@
+{
+  "doc_key": "fr/gromacs",
+  "level": "chunk",
+  "chunk_index": 14,
+  "qa_pairs": [
+    {
+      "question": "Qu'est-ce qu'on devrait éviter quand on demande des ressources CPU et de mémoire pour une tâche GPU avec GROMACS?",
+      "answer": "Il faut éviter d'utiliser une fraction de CPU et de mémoire qui serait plus grande que la fraction de GPU que vous demandez dans un nœud."
+    },
+    {
+      "question": "Où est-ce que je peux trouver les résultats de performance pour GROMACS avec CUDA?",
+      "answer": "Vous pouvez consulter les résultats de performance sur le portail 'MOLECULAR DYNAMICS PERFORMANCE GUIDE'."
+    },
+    {
+      "question": "Pourquoi GROMACS et d'autres programmes de simulation MD ne peuvent-ils pas exploiter pleinement les GPU récents comme les Nvidia A100 et H100?",
+      "answer": "GROMACS et d'autres programmes de simulation MD ne peuvent pas exploiter pleinement les GPU récents (comme les Nvidia A100 et H100), à moins que le système moléculaire ne soit très volumineux (plusieurs millions d'atomes). Exécuter une simulation classique sur un tel GPU gaspille des ressources de calcul allouées."
+    },
+    {
+      "question": "Quelles sont les deux solutions recommandées pour gérer la sous-utilisation des GPU puissants avec GROMACS?",
+      "answer": "Les deux solutions recommandées sont d'exécuter plusieurs simulations sur un seul GPU en utilisant l'option `mdrun -multidir`, ou d'utiliser une instance MIG (une fraction de GPU) au lieu d'un GPU complet."
+    },
+    {
+      "question": "Dans quel cas est-il idéal d'utiliser l'option `mdrun -multidir` pour exécuter plusieurs simulations sur un seul GPU?",
+      "answer": "C'est la solution idéale si vous exécutez plusieurs simulations similaires, par exemple pour répéter une simulation afin d'obtenir un échantillonnage plus précis, simuler plusieurs variants de protéines ou de ligands, ou simuler sur la base d'ensembles comme l'échange de répliques."
+    },
+    {
+      "question": "Pourquoi est-ce important que les simulations soient semblables quand on utilise l'option `mdrun -multidir`?",
+      "answer": "Des simulations semblables sont nécessaires pour assurer un équilibrage de charge adéquat. Si les simulations sont dissemblables, certaines progresseront plus vite et se termineront plus tôt que d'autres, ce qui gaspillera des ressources."
+    },
+    {
+      "question": "Que fait le script d'exemple `gpu_gromacs_job_multidir.sh`?",
+      "answer": "Le script exécute trois simulations semblables dans des répertoires distincts (`sim1`, `sim2`, `sim3`) avec un seul GPU."
+    },
+    {
+      "question": "Quels paramètres Slurm devrait-on ajuster si le nombre de simulations change dans une tâche `mdrun -multidir`?",
+      "answer": "Si vous modifiez le nombre de simulations, il faut ajuster les paramètres `--ntasks-per-node` et `--cpus-per-task`. Une tâche par simulation doit être exécutée, et le nombre total de cœurs de processeur doit rester constant."
+    },
+    {
+      "question": "Quand est-ce qu'il est idéal d'utiliser une instance MIG (une fraction de GPU) pour les simulations GROMACS?",
+      "answer": "Ceci est idéal si vous n'avez qu'une seule simulation ou si vos simulations sont dissemblables, par exemple des systèmes de tailles différentes (plus de 10 % de différence dans le nombre d'atomes) ou des systèmes de formes ou de compositions différentes (comme une protéine membranaire et une protéine soluble)."
+    },
+    {
+      "question": "Est-ce qu'il faut utiliser Hyper-Q/MPS avec GROMACS?",
+      "answer": "Non, Hyper-Q/MPS ne doit jamais être utilisé avec GROMACS. L'option intégrée `-multidir` permet d'obtenir la même fonctionnalité de manière plus efficace."
+    },
+    {
+      "question": "Quel fichier d'entrée binaire est requis pour exécuter une simulation GROMACS?",
+      "answer": "L'exécution d'une simulation requiert un fichier d'entrée binaire 'tpr' ('portable binary run input file')."
+    },
+    {
+      "question": "Quelles informations sont contenues dans un fichier '.tpr' de GROMACS?",
+      "answer": "Un fichier '.tpr' contient la structure de simulation de départ, la topologie moléculaire et l'ensemble des paramètres de simulation."
+    }
+  ],
+  "generated_at": "2026-04-11T22:41:57.416050+00:00"
+}

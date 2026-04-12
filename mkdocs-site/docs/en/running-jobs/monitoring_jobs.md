@@ -5,21 +5,48 @@ lang: "en"
 
 source_wiki_title: "Monitoring jobs/en"
 source_hash: "fbca34ee335ca2e3aa7974d3208b28c2"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T08:57:26.690564+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T09:29:45.463572+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "Slurm"
+  - "resident set size"
+  - "job efficiency"
+  - "running job"
+  - "MaxRSSTask"
+  - "MaxRSSNode"
+  - "seff"
+  - "tmux"
+  - "monitoring"
+  - "GPU usage"
+  - "sstat"
+  - "sacct"
+  - "srun"
+  - "squeue"
+
+questions:
+  - "How can users safely monitor the status and details of their currently running or pending jobs using Slurm commands?"
+  - "Why is output from non-interactive jobs delayed, and what is the recommended approach if real-time monitoring is needed?"
+  - "What tools and specific metrics can be used to evaluate the CPU and memory efficiency of a job after it has completed?"
+  - "How can a user attach to a running job to monitor its progress or troubleshoot using commands like `srun`?"
+  - "What are the potential risks and resource constraints to consider when launching new processes on a node with an already running job?"
+  - "How does the method for monitoring a job differ between jobs submitted with `sbatch` and interactive jobs?"
+  - "What metric is used to determine the maximum amount of memory a job required?"
+  - "Which fields must be printed to identify the specific task and node where the highest memory usage occurred?"
+  - "What is the primary difference between the sstat and sacct commands when monitoring jobs?"
+  - "How can a user attach to a running job to monitor its progress or troubleshoot using commands like `srun`?"
+  - "What are the potential risks and resource constraints to consider when launching new processes on a node with an already running job?"
+  - "How does the method for monitoring a job differ between jobs submitted with `sbatch` and interactive jobs?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -28,32 +55,38 @@ Ensuring that your jobs make efficient use of the resources that are assigned to
 ## Current jobs
 
 By default [squeue](https://slurm.schedmd.com/squeue.html) will show all the jobs the scheduler is managing at the moment. It will run much faster if you ask only about your own jobs with
+
 ```bash
 squeue -u $USER
 ```
+
 You can also use the utility `sq` to do the same thing with less typing.
 
 You can show only running jobs, or only pending jobs:
+
 ```bash
 squeue -u <username> -t RUNNING
 squeue -u <username> -t PENDING
 ```
 
 You can show detailed information for a specific job with [scontrol](https://slurm.schedmd.com/scontrol.html):
+
 ```bash
 scontrol show job -dd <jobid>
 ```
 
-!!! warning "Do not run `squeue` frequently"
-    **Do not** run `squeue` from a script or program at high frequency (e.g., every few seconds). Responding to `squeue` adds load to Slurm and may interfere with its performance or correct operation.
+!!! warning
+    Do not run `squeue` from a script or program at high frequency (e.g., every few seconds). Responding to `squeue` adds load to Slurm and may interfere with its performance or correct operation.
 
 ### Email notification
 
 You can ask to be notified by email of certain job conditions by supplying options to sbatch:
-```slurm
+
+```bash
 #SBATCH --mail-user=your.email@example.com
 #SBATCH --mail-type=ALL
 ```
+
 For a complete list of the options see [SchedMD's documentation](https://slurm.schedmd.com/sbatch.html#OPT_mail-type).
 
 ### Output buffering
@@ -65,10 +98,12 @@ There are methods to reduce or eliminate the buffering, but we do not recommend 
 ## Completed jobs
 
 Get a short summary of the CPU and memory efficiency of a job with `seff`:
+
 ```bash
 seff 12345678
 ```
-```text
+
+```
 Job ID: 12345678
 Cluster: cedar
 User/Group: jsmith/jsmith
@@ -82,6 +117,7 @@ Memory Efficiency: 0.17% of 125.00 GB
 ```
 
 Find more detailed information about a completed job with [sacct](https://slurm.schedmd.com/sacct.html), and optionally, control what it prints using `--format`:
+
 ```bash
 sacct -j <jobid>
 sacct -j <jobid> --format=JobID,JobName,MaxRSS,Elapsed
@@ -102,13 +138,13 @@ The [sstat](https://slurm.schedmd.com/sstat.html) command works on a running job
 
 It is possible to connect to the node running a job and execute new processes there. You might want to do this for troubleshooting or to monitor the progress of a job.
 
-Suppose you want to run the utility [nvidia-smi](https://developer.nvidia.com/nvidia-system-management-interface) to monitor GPU usage on a node where you have a job running. The following command runs `watch` on the node assigned to the given job, which in turn runs `nvidia-smi` every 30 seconds, displaying the output on your terminal.
+Suppose you want to run the utility [`nvidia-smi`](https://developer.nvidia.com/nvidia-system-management-interface) to monitor GPU usage on a node where you have a job running. The following command runs `watch` on the node assigned to the given job, which in turn runs `nvidia-smi` every 30 seconds, displaying the output on your terminal.
 
 ```bash
 srun --jobid 123456 --overlap --pty watch -n 30 nvidia-smi
 ```
 
-It is possible to launch multiple monitoring commands using [tmux](prolonging-terminal-sessions.md#tmux). The following command launches `htop` and `nvidia-smi` in separate panes to monitor the activity on a node assigned to the given job.
+It is possible to launch multiple monitoring commands using [`tmux`](prolonging-terminal-sessions.md#tmux). The following command launches `htop` and `nvidia-smi` in separate panes to monitor the activity on a node assigned to the given job.
 
 ```bash
 srun --jobid 123456 --overlap --pty tmux new-session -d 'htop -u $USER' \; split-window -h 'watch nvidia-smi' \; attach
@@ -116,7 +152,7 @@ srun --jobid 123456 --overlap --pty tmux new-session -d 'htop -u $USER' \; split
 
 Processes launched with `srun` share the resources with the job specified. You should therefore be careful not to launch processes that would use a significant portion of the resources allocated for the job. Using too much memory, for example, might result in the job being killed; using too many CPU cycles will slow down the job.
 
-!!! note "Monitoring interactive jobs"
+!!! note
     The `srun` commands shown above work only to monitor a job submitted with `sbatch`. To monitor an interactive job, create multiple panes with `tmux` and start each process in its own pane.
 
 ## Monitoring a GPU job

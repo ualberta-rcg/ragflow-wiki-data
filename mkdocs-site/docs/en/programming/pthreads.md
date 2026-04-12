@@ -5,35 +5,88 @@ lang: "en"
 
 source_wiki_title: "Pthreads/en"
 source_hash: "ee5689f41e92ae4e43622d824262f568"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T10:02:12.554157+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T10:29:55.579272+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "lifecycle"
+  - "pthread_join"
+  - "condition variable"
+  - "pthread_cond_signal"
+  - "function calls"
+  - "POSIX threads"
+  - "workload"
+  - "POSIX Threads"
+  - "shared memory"
+  - "worker threads"
+  - "threads"
+  - "LANL tutorial"
+  - "read lock"
+  - "David Butenhof"
+  - "read/write lock"
+  - "synchronizing data access"
+  - "pthread_create"
+  - "race conditions"
+  - "master thread"
+  - "mutex"
+  - "pthread_rwlock_t"
+  - "pthread_rwlock_unlock"
+  - "parallelization"
+  - "write lock"
+  - "pthread_cond_wait"
+  - "POSIX thread"
+  - "waiting threads"
+  - "pthread_cond_broadcast"
+  - "pthreads"
+  - "blocking function"
+
+questions:
+  - "What are POSIX threads (pthreads) and what type of memory environment do they require for parallelization?"
+  - "What are the necessary steps to compile a C program using pthreads, and how can the number of threads be specified?"
+  - "What is the basic lifecycle of a POSIX thread, and which functions are used to create and reabsorb these threads?"
+  - "What is the purpose of the pthread_join function as used by the master thread?"
+  - "What specific function are the twelve worker threads executing before they rejoin the master thread?"
+  - "How does the program illustrate the basic lifecycle of a POSIX thread?"
+  - "Why is data synchronization necessary when multiple worker threads access shared global variables?"
+  - "How does a standard mutex prevent race conditions in pthreads, and what precautions should be taken to avoid deadlocks and performance issues?"
+  - "What is the difference between a standard mutex and a read/write lock when managing concurrent access to shared data?"
+  - "What is the primary purpose of a condition variable, and what other synchronization construct must be used alongside it?"
+  - "How does the `pthread_cond_wait` function handle the associated mutex when a thread begins waiting for a condition?"
+  - "What is the difference in behavior between `pthread_cond_signal` and `pthread_cond_broadcast` when multiple threads are waiting on a condition?"
+  - "What are the necessary initialization and destruction steps for a pthread_rwlock_t variable?"
+  - "Which specific functions must individual threads call to obtain a read lock versus a write lock?"
+  - "How is a read or write lock released once a thread no longer needs it?"
+  - "What is the intended scope and purpose of the current page regarding the subject of pthreads?"
+  - "What specific advanced topics and function call parameters were simplified or omitted in this brief overview?"
+  - "Which external resources are recommended for readers who want an in-depth discussion of POSIX threads?"
+  - "What is the primary difference in outcome between using `pthread_cond_broadcast` and `pthread_cond_signal`?"
+  - "How does `pthread_cond_signal` determine which specific thread to notify among multiple waiting threads?"
+  - "What happens to the rest of the waiting threads after a single thread is notified via `pthread_cond_signal`?"
+  - "What is the intended scope and purpose of the current page regarding the subject of pthreads?"
+  - "What specific advanced topics and function call parameters were simplified or omitted in this brief overview?"
+  - "Which external resources are recommended for readers who want an in-depth discussion of POSIX threads?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
-## Pthreads
-
-### Introduction
+## Introduction
 One of the earliest parallelization techniques was through the use of [POSIX threads](https://en.wikipedia.org/wiki/POSIX_Threads), usually shortened to just **pthreads**. Like other threading constructs, pthreads parallelization relies on the assumption of a shared memory environment and is, therefore, typically used only on a single node with the number of active threads limited by the number of available CPU cores on that node. While pthreads can be used with a variety of programming languages, in practice the main target language is C. To parallelize a Fortran program using threads, [OpenMP](openmp.md) is almost certainly a better idea while C++ programmers would probably find the constructs in the [Boost threading library](http://www.boost.org) or which are part of the [C++11 standard](https://en.wikipedia.org/wiki/C%2B%2B11#Threading_facilities) to be more attractive options, given their consistency with object-oriented design.
 
 As one of the earliest forms of parallelization, pthreads have also served as the basis for later approaches to shared memory parallelization like OpenMP and can be thought of as forming a toolkit of threading primitives that permit the most general and low-level parallelization, at the price of sacrificing much of the simplicity and ease of use of a high level API like OpenMP. The essential model for pthreads is the dynamic spawning of lightweight sub-processes (threads) that asynchronously carry out operations and then are extinguished by rejoining the program's master process. As all the threads of a program reside in the same memory space, sharing data among them through global variables isn't difficult in comparison with a distributed approach like [MPI](mpi.md) but any modifications of this shared data have to be managed with care to avoid [race conditions](https://en.wikipedia.org/wiki/Race_condition).
 
-!!! tip "Scalability Considerations"
+!!! tip "Scaling Analysis"
     When parallelizing a program using pthreads (or any other technique) it's important to also consider how well the program is able to run in parallel, known as the software's [scalability](scalability.md). After you've parallelized your software and are satisfied about its correctness, we recommend that you perform a scaling analysis in order to understand its parallel performance.
 
-### Compilation
+## Compilation
 To use the various functions and data structures associated with pthreads in your C program, you will need to include the header file `pthread.h` and compile your program with a special flag so that it is linked with the pthread library.
 
 ```bash
@@ -41,20 +94,23 @@ gcc -pthread -o test threads.c
 ```
 
 There are different ways to specify the number of threads to be used:
+
 *   it can be set via a command-line argument;
 *   it can be set via an environment variable;
 *   it can be hard-coded into the source file, but then you would not be able to adjust the thread count at run time.
 
-### Creation and Destruction of Pthreads
+## Creation and Destruction of Pthreads
 When parallelizing an existing serial program using pthreads, we use a programming model where threads are created by a parent, then carry out some work, and finally are reabsorbed or joined back into the parent. The parent may be the serial *master thread* or another *worker thread*.
 
-New threads are created with the function [`pthread_create`](http://pubs.opengroup.org/onlinepubs/009695399/functions/pthread_create.html). This function has four arguments:
+New threads are created with the function [pthread_create](http://pubs.opengroup.org/onlinepubs/009695399/functions/pthread_create.html). This function has four arguments:
+
 *   the unique identifier for the newly created thread;
 *   the set of attributes for this thread;
 *   the C function that the thread will execute upon initiation (the "start routine");
 *   the argument for the start routine.
 
-```c title="thread.c"
+::: c title="thread.c"
+```c
 #include <stdio.h>
 #include <pthread.h>
 
@@ -62,7 +118,7 @@ const long NT = 12;
 
 void* task(void* thread_id)
 {
-  long tnumber = (long) thread_id;
+  long tnumber = (long) thread_id; 
   printf("Hello World from thread %ld\n",1+tnumber);
 }
 
@@ -85,17 +141,17 @@ int main(int argc,char** argv)
   return 0;
 }
 ```
-
-This simple example creates twelve threads, each one executing the function `task` with the argument consisting of the thread's index, from 0 to 11. Note that the call of `pthread_create` is non-blocking, i.e. the root or master thread, which is executing the `main` function, continues to execute after each of the twelve worker threads is created. After creating the twelve threads, the master thread then goes into the second *for* loop and calls [`pthread_join`](http://pubs.opengroup.org/onlinepubs/9699919799/functions/pthread_join.html), a blocking function where the master thread waits for the twelve workers to finish executing the function `task` and rejoin the master thread. While trivial, this program illustrates the basic lifecycle of a POSIX thread: the master thread creates a thread by assigning it a function to run, then waits for the thread to finish and join back into the execution of the master thread.
+This simple example creates twelve threads, each one executing the function `task` with the argument consisting of the thread's index, from 0 to 11. Note that the call of `pthread_create` is non-blocking, i.e. the root or master thread, which is executing the `main` function, continues to execute after each of the twelve worker threads is created. After creating the twelve threads, the master thread then goes into the second *for* loop and calls [pthread_join](http://pubs.opengroup.org/onlinepubs/9699919799/functions/pthread_join.html), a blocking function where the master thread waits for the twelve workers to finish executing the function `task` and rejoin the master thread. While trivial, this program illustrates the basic lifecycle of a POSIX thread: the master thread creates a thread by assigning it a function to run, then waits for the thread to finish and join back into the execution of the master thread.
 
 If you run this test program several times in a row you'll likely notice that the order in which you see the various worker threads saying hello varies, which is what we would expect since they are now running in an asynchronous manner. Each time the program is executed, the twelve threads compete for access to the standard output during the `printf` call and from one execution of the program to another the winners of this competition will change.
 
-### Synchronizing Data Access
+## Synchronizing Data Access
 In a more realistic program, worker threads will need to read and eventually modify certain data in order to accomplish their tasks. These data normally consist of a set of global variables of different types and dimensions, and with multiple threads reading and writing these data, we need to ensure that the access to these data is synchronized in some fashion to avoid [race conditions](https://en.wikipedia.org/wiki/Race_condition), i.e. situations in which the program's output depends on the random order in which the asynchronous threads access the data. Typically, we want the parallel version of our program to produce results identical to what we would obtain when running it serially, so the race conditions are unacceptable.
 
-The simplest and most common way to control the reading and writing of data shared among threads is the [mutex](https://en.wikipedia.org/wiki/Lock_(computer_science)), derived from the expression 'mutual exclusion'. In pthreads, a mutex is a kind of variable that may be "locked" or "owned" by only one thread at a time. The thread must then release or unlock the mutex once the global data has been read or modified. The code that lies between the call to lock a mutex and the call to unlock it will only be executed by a single thread at a time. To create a mutex in a pthreads program, we declare a global variable of type `pthread_mutex_t` which must be initialized before it is used by calling [`pthread_mutex_init`](http://pubs.opengroup.org/onlinepubs/7908799/xsh/pthread_mutex_init.html). At the program's end we release the resources associated with the mutex by calling [`pthread_mutex_destroy`](http://pubs.opengroup.org/onlinepubs/7908799/xsh/pthread_mutex_destroy.html).
+The simplest and most common way to control the reading and writing of data shared among threads is the [mutex](https://en.wikipedia.org/wiki/Lock_(computer_science)), derived from the expression 'mutual exclusion'. In pthreads, a mutex is a kind of variable that may be "locked" or "owned" by only one thread at a time. The thread must then release or unlock the mutex once the global data has been read or modified. The code that lies between the call to lock a mutex and the call to unlock it will only be executed by a single thread at a time. To create a mutex in a pthreads program, we declare a global variable of type `pthread_mutex_t` which must be initialized before it is used by calling [pthread_mutex_init](http://pubs.opengroup.org/onlinepubs/7908799/xsh/pthread_mutex_init.html). At the program's end we release the resources associated with the mutex by calling [pthread_mutex_destroy](http://pubs.opengroup.org/onlinepubs/7908799/xsh/pthread_mutex_destroy.html).
 
-```c title="thread_mutex.c"
+::: c title="thread_mutex.c"
+```c
 #include <stdio.h>
 #include <pthread.h>
 
@@ -105,7 +161,7 @@ pthread_mutex_t mutex;
 
 void* task(void* thread_id)
 {
-  long tnumber = (long) thread_id;
+  long tnumber = (long) thread_id; 
   pthread_mutex_lock(&mutex);
   printf("Hello World from thread %ld\n",1+tnumber);
   pthread_mutex_unlock(&mutex);
@@ -136,24 +192,22 @@ int main(int argc,char** argv)
   return 0;
 }
 ```
+In this example, based on the previous code, access to the standard output channel is serialized - as it normally should be - using a mutex.
 
-!!! warning "Avoiding Deadlock"
-    The call to [`pthread_mutex_lock`](http://pubs.opengroup.org/onlinepubs/7908799/xsh/pthread_mutex_lock.html) is *blocking*, i.e. the thread will continue to wait indefinitely for the mutex to become available, so you have to take care that no deadlock can occur in your code, that is, that the mutex is guaranteed to become available eventually. This is particularly problematic in a more realistic example where you may have many different mutexes designed to control access to different global data structures. There is also a non-blocking alternative, [`pthread_mutex_trylock`](http://pubs.opengroup.org/onlinepubs/7908799/xsh/pthread_mutex_lock.html), which if it fails to obtain the mutex lock returns immediately with a non-zero value indicating that the mutex is busy.
+!!! warning "Deadlock Potential"
+    The call to [pthread_mutex_lock](http://pubs.opengroup.org/onlinepubs/7908799/xsh/pthread_mutex_lock.html) is *blocking*, i.e. the thread will continue to wait indefinitely for the mutex to become available, so you have to take care that no deadlock can occur in your code, that is, that the mutex is guaranteed to become available eventually. This is particularly problematic in a more realistic example where you may have many different mutexes designed to control access to different global data structures.
 
-!!! tip "Efficient Critical Sections"
-    You should also ensure that no extraneous code appears inside the serialized code block; since this code will be executed in a serial manner, you want it to be as short as it can safely be in order not to reduce your program's parallel performance.
+!!! tip "Optimizing Mutex Use"
+    There is also a non-blocking alternative, [pthread_mutex_trylock](http://pubs.opengroup.org/onlinepubs/7908799/xsh/pthread_mutex_trylock.html), which if it fails to obtain the mutex lock returns immediately with a non-zero value indicating that the mutex is busy. You should also ensure that no extraneous code appears inside the serialized code block; since this code will be executed in a serial manner, you want it to be as short as it can safely be in order not to reduce your program's parallel performance.
 
-A more subtle form of data synchronization is possible with the read/write lock, `pthread_rwlock_t`. With this construct, multiple threads can simultaneously read the value of a variable but for write access, the read/write lock behaves like the standard mutex, i.e. no other thread may have any access (read or write) to the variable. Like with a mutex, a `pthread_rwlock_t` must be initialized before its first use and destroyed when it is no longer needed during the program. Individual threads can obtain either a read lock by calling [`pthread_rwlock_rdlock`](http://pubs.opengroup.org/onlinepubs/7908799/xsh/pthread_rwlock_rdlock.html), or a write lock with [`pthread_rwlock_wrlock`](http://pubs.opengroup.org/onlinepubs/007908775/xsh/pthread_rwlock_wrlock.html). Either one is released using [`pthread_rwlock_unlock`](http://pubs.opengroup.org/onlinepubs/7908799/xsh/pthread_rwlock_unlock.html).
+A more subtle form of data synchronization is possible with the read/write lock, `pthread_rwlock_t`. With this construct, multiple threads can simultaneously read the value of a variable but for write access, the read/write lock behaves like the standard mutex, i.e. no other thread may have any access (read or write) to the variable. Like with a mutex, a `pthread_rwlock_t` must be initialized before its first use and destroyed when it is no longer needed during the program. Individual threads can obtain either a read lock by calling [pthread_rwlock_rdlock](http://pubs.opengroup.org/onlinepubs/7908799/xsh/pthread_rwlock_rdlock.html), or a write lock with [pthread_rwlock_wrlock](http://pubs.opengroup.org/onlinepubs/007908775/xsh/pthread_rwlock_wrlock.html). Either one is released using [pthread_rwlock_unlock](http://pubs.opengroup.org/onlinepubs/7908799/xsh/pthread_rwlock_unlock.html).
 
-Another construct is used to allow multiple threads to wait for a single condition, for example waiting for work to become available for the worker threads. This construct is called a *condition variable* and has the datatype `pthread_cond_t`. Like a mutex or read/write lock, a condition variable must be initialized before its first use and destroyed when it is no longer needed. The use of a condition variable also requires a mutex to control access to the variable(s) that are the basis for the condition that is being tested. A thread that needs to wait on a condition will lock the mutex and then call the function [`pthread_cond_wait`](http://pubs.opengroup.org/onlinepubs/007908775/xsh/pthread_cond_wait.html) with two arguments: the condition variable, and the mutex. The mutex will be released *atomically* with the creation of the condition variable that the thread is now waiting upon, so that other threads can lock the mutex either to wait on the same condition or to modify one or more variables, thereby changing the condition.
+Another construct is used to allow multiple threads to wait for a single condition, for example waiting for work to become available for the worker threads. This construct is called a *condition variable* and has the datatype `pthread_cond_t`. Like a mutex or read/write lock, a condition variable must be initialized before its first use and destroyed when it is no longer needed. The use of a condition variable also requires a mutex to control access to the variable(s) that are the basis for the condition that is being tested. A thread that needs to wait on a condition will lock the mutex and then call the function [pthread_cond_wait](http://pubs.opengroup.org/onlinepubs/007908775/xsh/pthread_cond_wait.html) with two arguments: the condition variable, and the mutex. The mutex will be released *atomically* with the creation of the condition variable that the thread is now waiting upon, so that other threads can lock the mutex either to wait on the same condition or to modify one or more variables, thereby changing the condition.
 
-!!! warning "Initial Workload for Example"
-    The initial value of the `workload` integer must be less than or equal to 25 for the `thread_condition.c` example to execute as intended.
-
-```c title="thread_condition.c"
+::: c title="thread_condition.c"
+```c
 #include <stdio.h>
 #include <pthread.h>
-#include <stdlib.h> // For atoi
 
 const long NT = 2;
 
@@ -188,7 +242,6 @@ void* task(void* thread_id)
       pthread_mutex_unlock(&mutex);
     } while(!done);
   }
-  return NULL; // pthread functions return void*
 }
 
 int main(int argc,char** argv)
@@ -196,11 +249,6 @@ int main(int argc,char** argv)
   int success;
   long i;
   pthread_t threads[NT];
-
-  if (argc < 2) {
-      printf("Usage: %s <initial_workload>\n", argv[0]);
-      return 1;
-  }
 
   workload = atoi(argv[1]);
   if (workload > 25) {
@@ -232,11 +280,7 @@ int main(int argc,char** argv)
   return 0;
 }
 ```
+In the above example we have two worker threads which modify the value of the integer `workload`, whose initial value must be less than or equal to 25. The first thread locks the mutex and then waits because `workload <= 25`, creating the condition variable `ticker` and releasing the mutex. The second thread can then perform a loop that increments the value of `workload` by three at each iteration. After each increment the second thread checks if the `workload` is greater than 25, and when it is, calls [pthread_cond_signal](http://pubs.opengroup.org/onlinepubs/007908799/xsh/pthread_cond_signal.html) to alert the thread waiting on `ticker` that the condition is now satisfied. With the first thread signalled, the second thread sets the exit condition for the loop, releases the mutex, and disappears in the `pthread_join`. Meanwhile the first thread, having been woken up, increments `workload` by 15 and exits the function `task` itself. After the worker threads have been absorbed, the master thread prints out the final value of `workload` and the program exits. Note that in a more realistic context in which several threads are waiting on a condition variable, we can use [pthread_cond_broadcast](http://pubs.opengroup.org/onlinepubs/009695399/functions/pthread_cond_broadcast.html) to notify *all* the waiting threads that the condition is satisfied. If we use `pthread_cond_signal` in this context, then a single waiting thread chosen at random will be notified that the condition is satisfied while the others continue to wait.
 
-In the above example we have two worker threads which modify the value of the integer `workload`, whose initial value must be less than or equal to 25. The first thread locks the mutex and then waits because `workload <= 25`, creating the condition variable `ticker` and releasing the mutex. The second thread can then perform a loop that increments the value of `workload` by three at each iteration. After each increment the second thread checks if the `workload` is greater than 25, and when it is, calls [`pthread_cond_signal`](http://pubs.opengroup.org/onlinepubs/007908799/xsh/pthread_cond_signal.html) to alert the thread waiting on `ticker` that the condition is now satisfied. With the first thread signalled, the second thread sets the exit condition for the loop, releases the mutex, and disappears in the `pthread_join`. Meanwhile the first thread, having been woken up, increments `workload` by 15 and exits the function `task` itself. After the worker threads have been absorbed, the master thread prints out the final value of `workload` and the program exits.
-
-!!! note "pthread_cond_signal vs. pthread_cond_broadcast"
-    In a more realistic context in which several threads are waiting on a condition variable, we can use [`pthread_cond_broadcast`](http://pubs.opengroup.org/onlinepubs/009695399/functions/pthread_cond_broadcast.html) to notify *all* the waiting threads that the condition is satisfied. If we use `pthread_cond_signal` in this context, then a single waiting thread chosen at random will be notified that the condition is satisfied while the others continue to wait.
-
-### Further Reading
+## Further Reading
 This page is only intended to provide a very brief overview of what is in fact a complex and demanding subject. Individuals who are interested in a more in-depth discussion of pthreads, the various optional arguments that are available for many function calls - where we have used the default NULL argument for such parameters in this page - and advanced topics can consult sources like David Butenhof's [Programming with POSIX Threads](https://ptgmedia.pearsoncmg.com/images/9780201633924/samplepages/0201633922.pdf) or the excellent [LANL tutorial](https://computing.llnl.gov/tutorials/pthreads).

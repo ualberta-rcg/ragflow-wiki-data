@@ -1,0 +1,56 @@
+{
+  "doc_key": "fr/qiskit",
+  "level": "chunk",
+  "chunk_index": 2,
+  "qa_pairs": [
+    {
+      "question": "C'est quoi les modules Python qu'on doit importer pour initialiser un client et un backend MonarQ avec Qiskit?",
+      "answer": "Pour initialiser un client et un backend MonarQ avec Qiskit, faut importer les modules `qiskit`, `QuantumCircuit`, `CalculQuebecClient` (de `qiskit_calculquebec.API.client`), pis `MonarQBackend` (de `qiskit_calculquebec.backends`)."
+    },
+    {
+      "question": "Quelle est l'adresse du serveur (host) qu'on doit utiliser pour se connecter à MonarQ à travers le plugiciel Qiskit-CalculQuebec?",
+      "answer": "L'adresse du serveur (host) pour se connecter à MonarQ est `https://monarq.calculquebec.ca`."
+    },
+    {
+      "question": "Comment on fait pour créer un client MonarQ en utilisant la classe `CalculQuebecClient` de `qiskit_calculquebec`?",
+      "answer": "On crée un client en instanciant `CalculQuebecClient` avec le `host`, l'identifiant (`user`), le jeton d'accès (`access_token`) pis l'identifiant du projet (`project_id`), comme ça : `my_client = CalculQuebecClient(host, user, access_token, project_id=project_id)`."
+    },
+    {
+      "question": "Comment on fait pour créer une instance du backend MonarQ une fois qu'on a notre client `CalculQuebecClient`?",
+      "answer": "On crée l'instance du backend MonarQ en utilisant `backend = MonarQBackend(\"monarq\", my_client)`."
+    },
+    {
+      "question": "C'est quoi les étapes pour bâtir un circuit quantique simple de deux qubits qui produit un état intriqué, selon l'exemple fourni?",
+      "answer": "Pour bâtir le circuit, on initialise `qc = QuantumCircuit(2)`, on applique une porte Hadamard sur le premier qubit (`qc.h(0)`), pis une porte CNOT entre les qubits 0 et 1 (`qc.cx(0, 1)`). Finalement, on mesure tous les qubits avec `qc.measure_all()`."
+    },
+    {
+      "question": "Pourquoi est-ce que la transpilation est nécessaire quand on utilise Qiskit avec le backend MonarQ?",
+      "answer": "La transpilation est nécessaire pour adapter le circuit quantique à la connectivité pis aux portes natives spécifiques du backend MonarQ."
+    },
+    {
+      "question": "Quel est le module Python à importer pour la transpilation pis pour l'exécution des circuits avec `SamplerV2`?",
+      "answer": "Pour la transpilation, on importe `generate_preset_pass_manager` de `qiskit.transpiler.preset_passmanagers`. Pour l'exécution, on importe `SamplerV2` (sous le nom `Sampler`) de `qiskit_ibm_runtime`."
+    },
+    {
+      "question": "Comment on effectue la transpilation d'un circuit en l'adaptant au backend MonarQ avec un niveau d'optimisation de 3?",
+      "answer": "On utilise `pm = generate_preset_pass_manager(optimization_level=3, backend=backend)` pour configurer le gestionnaire de passe, pis ensuite `transpiled_qc = pm.run(qc)` pour exécuter la transpilation sur le circuit."
+    },
+    {
+      "question": "Quel est le nombre maximal de *shots* qu'on peut ajuster pour l'exécution d'un circuit sur MonarQ?",
+      "answer": "Le nombre de *shots* peut être ajusté jusqu'à un maximum de 1024."
+    },
+    {
+      "question": "Quelle classe est recommandée pour l'exécution de circuits Qiskit qui comprennent des mesures?",
+      "answer": "L'utilisation de `SamplerV2` est fortement recommandée pour l'exécution de circuits qui incluent des mesures."
+    },
+    {
+      "question": "Comment on exécute un circuit quantique transpiled sur le backend MonarQ en spécifiant 1000 *shots* à l'aide de `SamplerV2`?",
+      "answer": "D'abord, on initialise le sampler avec `sampler = Sampler(mode=backend)`. Ensuite, on lance le job avec `job = sampler.run([transpiled_qc], shots=1000)`."
+    },
+    {
+      "question": "Comment on fait pour récupérer les résultats d'un job Qiskit exécuté sur MonarQ avec `SamplerV2` et afficher les dénombrements des mesures?",
+      "answer": "On récupère les résultats du job avec `result = job.result()`. Pour afficher les dénombrements des mesures, on utilise `print(result[0].data.meas.get_counts())`."
+    }
+  ],
+  "generated_at": "2026-04-12T06:06:32.513802+00:00"
+}

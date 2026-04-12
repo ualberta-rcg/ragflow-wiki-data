@@ -1,0 +1,36 @@
+{
+  "doc_key": "en/scratch_purging_policy",
+  "level": "chunk",
+  "chunk_index": 2,
+  "qa_pairs": [
+    {
+      "question": "What actions are considered abuse of the file age tracking system on the clusters?",
+      "answer": "Periodically running a recursive `touch` command on your files to prevent them from being flagged for expiration, and similar tactics aimed at circumventing the purging policy, are considered abuse."
+    },
+    {
+      "question": "How do staff deal with users who attempt to circumvent the /scratch purging policy?",
+      "answer": "Our staff have methods for detecting such tactics. Users who employ these techniques will be asked to move the offending data from /scratch to another location."
+    },
+    {
+      "question": "Are there methods for detecting attempts to avoid the /scratch purging policy?",
+      "answer": "Yes, our staff have methods for detecting tactics like periodically running a recursive `touch` command and similar techniques aimed at circumventing the purging policy."
+    },
+    {
+      "question": "When copying data from /scratch to /project, which commands are usually sufficient?",
+      "answer": "In most cases, `cp` or `rsync` will be sufficient to copy data from /scratch to /project."
+    },
+    {
+      "question": "What issues can arise when using `cp` or `rsync` to copy directories containing symbolic links from /scratch?",
+      "answer": "If you have symbolic links in /scratch, copying them with `cp` or `rsync` will cause problems since they will still point to /scratch after being copied."
+    },
+    {
+      "question": "What is the recommended method for safely copying a directory with symbolic links from /scratch to /project?",
+      "answer": "To safely copy a directory with symbolic links, you can use `tar` to make an archive of your files on /scratch and then extract this archive in /project."
+    },
+    {
+      "question": "Can you provide an example command for safely copying a directory with symbolic links from /scratch to /project using `tar`?",
+      "answer": "Yes, you can use the following commands:\n```bash\ncd /scratch/.../your_data\nmkdir project/.../your_data\ntar -cf - ./* | tar -C /project/.../your_data -xf -\n```"
+    }
+  ],
+  "generated_at": "2026-04-12T07:45:11.018363+00:00"
+}

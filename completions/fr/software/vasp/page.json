@@ -1,0 +1,87 @@
+{
+  "doc_key": "fr/vasp",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "C'est quoi VASP et à quoi ça sert?",
+      "answer": "VASP, ou Vienna ab initio Simulation Package, est un logiciel qui sert à modéliser les matériaux à l'échelle atomique, par exemple pour calculer les propriétés électroniques et faire de la dynamique moléculaire par mécanique quantique."
+    },
+    {
+      "question": "Qui peut utiliser le logiciel VASP?",
+      "answer": "Seuls les groupes de recherche qui ont une licence de VASP Software GmbH, obtenue par leur chercheur principal (professeur), peuvent l'utiliser."
+    },
+    {
+      "question": "Quels renseignements doit-on fournir au soutien technique pour utiliser les binaires VASP sur les grappes une fois la licence obtenue?",
+      "answer": "Il faut indiquer le nom, le courriel, le département et l'établissement universitaire du chercheur principal, la version de la licence (4, 5 ou 6), le numéro de la licence VASP, et une mise à jour de la liste des personnes autorisées."
+    },
+    {
+      "question": "Comment fonctionnent les licences VASP entre les différentes versions (4, 5, 6)?",
+      "answer": "Une licence pour la version 5 permet aussi d'utiliser la version 4. Une licence pour la version 6 permet d'utiliser les versions 5 et 4. Par contre, une licence pour la version 4 ne permet pas d'utiliser les versions 5 ou 6."
+    },
+    {
+      "question": "Pourquoi le fonctionnement de VASP Software GmbH est-il incompatible avec le mode de fonctionnement de l'infrastructure de calcul?",
+      "answer": "VASP Software GmbH accorde des licences uniquement aux groupes employés par une seule entité juridique, ce qui est incompatible avec le mode de fonctionnement de l'infrastructure qui regroupe plusieurs entités."
+    },
+    {
+      "question": "Y a-t-il des exceptions pour l'accès à VASP dans certaines universités?",
+      "answer": "Oui, l'Université Simon-Fraser (Fir), l'Université de Waterloo (Nibi) et l'Université de Toronto (Trillium) possèdent leurs propres licences VASP, ce qui permet à certains de leurs membres d'avoir accès et une assistance limitée."
+    },
+    {
+      "question": "Comment on charge un module VASP préconstruit sur Fir et Nibi?",
+      "answer": "Pour charger VASP, il faut d'abord charger l'environnement standard, les modules Intel et Intel MPI, puis le module VASP désiré, par exemple: `module load StdEnv/2023 intel/2023.2.1 intelmpi/2021.9.0 vasp/6.4.2`."
+    },
+    {
+      "question": "Comment on fait pour charger les modules VASP sur Trillium?",
+      "answer": "Sur Trillium, en plus de l'environnement standard et des modules Intel/IMPI, il faut charger `imkl/2023.2.0` (pour vasp/5.4.4) ou `hdf5/1.14.2` (pour vasp/6.4.2), puis `module use /opt/software/commercial/modules` avant de charger le module VASP spécifique."
+    },
+    {
+      "question": "Où se trouvent les pseudopotentiels pour VASP sur Cedar et Graham?",
+      "answer": "Les pseudopotentiels sont situés dans le répertoire `$EBROOTVASP/pseudopotentials/` sur Cedar et Graham, et le module VASP doit être chargé pour y avoir accès."
+    },
+    {
+      "question": "Quels sont les exécutables principaux pour VASP 4.6 et leurs rôles?",
+      "answer": "Pour VASP 4.6, il y a `vasp` pour les calculs standards de NVT avec des points k non-gamma, `vasp-gamma` pour les calculs standards de NVT avec des points k gamma seulement, et `makeparam` pour estimer la mémoire requise."
+    },
+    {
+      "question": "Quels sont les exécutables disponibles pour les versions 5.4.1, 5.4.4 et 6.1.0 de VASP sans CUDA?",
+      "answer": "Les exécutables sont `vasp_std` pour les calculs NVT avec points k non-gamma, `vasp_gam` pour les calculs NVT avec points k gamma, et `vasp_ncl` pour les calculs NPT avec points k non-gamma."
+    },
+    {
+      "question": "Quels exécutables sont disponibles pour VASP-5.4.4 et 6.1.0 avec CUDA?",
+      "answer": "Avec CUDA, on a `vasp_gpu` pour les calculs NVT avec points K gamma et non-gamma, et `vasp_gpu_ncl` pour les calculs NPT avec points K gamma et non-gamma."
+    },
+    {
+      "question": "Quelles extensions sont incorporées aux versions de VASP mentionnées?",
+      "answer": "Les extensions Transition State Tools (VTSTtools) et VASPsol sont incorporées."
+    },
+    {
+      "question": "Que doit-on faire si la version de VASP qu'on veut utiliser n'est pas offerte?",
+      "answer": "On peut soit la construire soi-même si on a le code source, soit demander au soutien technique de la construire et de l'installer."
+    },
+    {
+      "question": "Quelle est la recommandation principale quand on utilise les exécutables Vasp-GPU?",
+      "answer": "Il est fortement recommandé d'effectuer des essais (benchmarking) avec un ou deux GPU pour s'assurer que leur utilisation est optimale, car les calculs de base sur GPU peuvent être coûteux."
+    },
+    {
+      "question": "Quels sont les quatre fichiers d'entrée que VASP utilise?",
+      "answer": "VASP utilise INCAR, KPOINTS, POSCAR et POTCAR comme fichiers d'entrée."
+    },
+    {
+      "question": "Comment soumettre une tâche VASP en utilisant un script Slurm?",
+      "answer": "Il faut préparer les fichiers d'entrée dans un répertoire différent pour chaque tâche, puis utiliser la commande `sbatch nom_du_script.sh` à partir de ce répertoire."
+    },
+    {
+      "question": "Comment peut-on estimer la quantité de mémoire requise pour une tâche VASP?",
+      "answer": "On peut préparer les fichiers d'entrée et exécuter `makeparam` dans une tâche interactive. On utilise ensuite la mémoire obtenue pour l'exécution suivante, ou on vérifie la taille maximale de la pile de mémoire pour les tâches complétées pour une meilleure estimation."
+    },
+    {
+      "question": "Dans quelles conditions peut-on construire VASP soi-même?",
+      "answer": "On peut construire VASP soi-même si on dispose d'une licence VASP et qu'on a accès à son code source."
+    },
+    {
+      "question": "Comment construire VASP soi-même en utilisant EasyBuild?",
+      "answer": "On utilise la commande `eb -f [NOM DE LA RECETTE] --sourcepath=[CHEMIN_FICHIER_SOURCE]`, où `[CHEMIN_FICHIER_SOURCE]` est le répertoire contenant le code source de VASP."
+    }
+  ],
+  "generated_at": "2026-04-12T10:41:34.522085+00:00"
+}

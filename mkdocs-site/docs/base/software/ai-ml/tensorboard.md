@@ -5,21 +5,33 @@ lang: "base"
 
 source_wiki_title: "Tensorboard"
 source_hash: "4c33212e96a55cb45607ee7bac0cadc5"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T11:46:11.232880+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T11:55:25.214224+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "JupyterHub"
+  - "tensorboard_logs"
+  - "AI frameworks"
+  - "Machine Learning"
+  - "TensorBoard"
+
+questions:
+  - "What is TensorBoard and what are its primary functions for AI and Machine Learning runs?"
+  - "How can a user launch the TensorBoard application when working on a cluster with JupyterHub?"
+  - "What is the default directory for TensorBoard logs on JupyterHub, and how can this location be modified?"
+  - "What is TensorBoard and what are its primary functions for AI and Machine Learning runs?"
+  - "How can a user launch the TensorBoard application when working on a cluster with JupyterHub?"
+  - "What is the default directory for TensorBoard logs on JupyterHub, and how can this location be modified?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -27,15 +39,16 @@ TensorBoard is a suite of web applications for inspecting and understanding your
 
 ## On JupyterHub
 
-On clusters where [JupyterHub](jupyterhub.md) is available, you can launch TensorBoard by clicking on the following icon on an active launcher tab:
-This will open the application on a new tab on your web browser. Switch to that tab to start using TensorBoard.
+On clusters where [JupyterHub](jupyterhub.md) is available, you can launch TensorBoard by clicking on an icon on an active launcher tab. This will open the application in a new tab in your web browser. Switch to that tab to start using TensorBoard.
 
-Upon launching TensorBoard on JupyterHub, a directory `$HOME/tensorboard_logs` will be created. This is the location where TensorBoard will look for data to display on your web browser.
+!!! note "TensorBoard Log Directory"
+    Upon launching TensorBoard on JupyterHub, a directory `$HOME/tensorboard_logs` will be created. This is the default location where TensorBoard will look for data to display in your web browser, so you must ensure any calls to TensorBoard in your code write data to this directory. Failing to do so will result in no data being displayed in the TensorBoard tab in your browser.
 
-!!! note
-    You must make sure any calls to TensorBoard in your code write data to this directory. Failing to do so will result in no data being displayed on the TensorBoard tab on your browser.
+    You can change the default location of this directory by adding the following to your `.bashrc` file:
 
-You can change the location of this directory by adding `export TENSORBOARD_LOGDIR=/some/other/path` in your `.bashrc`.
+    ```bash
+    export TENSORBOARD_LOGDIR=/some/other/path
+    ```
 
 For detailed examples on the many uses of TensorBoard, see the official documentation for your preferred AI framework:
 

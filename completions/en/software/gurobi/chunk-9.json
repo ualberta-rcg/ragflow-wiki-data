@@ -1,0 +1,84 @@
+{
+  "doc_key": "en/gurobi",
+  "level": "chunk",
+  "chunk_index": 9,
+  "qa_pairs": [
+    {
+      "question": "What are the first steps to set up a Python virtual environment for Gurobi version 11.0.1 and newer?",
+      "answer": "You need to load the `gurobi/11.0.1` and `python` modules, then create the virtual environment using `virtualenv --no-download ~/env_gurobi` and activate it with `source ~/env_gurobi/bin/activate`."
+    },
+    {
+      "question": "Which Gurobi version is skipped for installation in virtual environments and why?",
+      "answer": "Gurobi version 11.0.0 is skipped because it has been observed to segfault in at least one example, whereas version 11.0.1 runs smoothly."
+    },
+    {
+      "question": "How do you install additional Python packages like `pandas` into a Gurobi virtual environment?",
+      "answer": "Once the virtual environment is activated, you can install packages using `pip install --no-index pandas`."
+    },
+    {
+      "question": "Why is the `setup.py` method no longer recommended for installing `gurobipy` for Gurobi versions 11 and newer?",
+      "answer": "The `setup.py` method has been deprecated for Gurobi 11 versions and newer. It is only usable with Gurobi 10 versions and older."
+    },
+    {
+      "question": "What is the recommended alternative for installing `gurobipy` for Gurobi 11 and newer versions?",
+      "answer": "The `pip` approach is recommended, although it requires a specific process due to the Linux systems being set up with a gentoo prefix."
+    },
+    {
+      "question": "Why won't direct `pip install gurobipy` or `python -m pip install --find-links <wheel-dir> --no-index gurobipy` work for Gurobi 11+ on these systems?",
+      "answer": "These direct commands won't work because the Linux systems are set up with a gentoo prefix, which requires a specific conversion of the binary wheel."
+    },
+    {
+      "question": "What script is used to convert the `gurobipy` wheel into a usable format for installation on these systems?",
+      "answer": "The `unmanylinuxize.sh` script, available from `https://raw.githubusercontent.com/ComputeCanada/wheels_builder/main/unmanylinuxize.sh`, is used to convert the wheel."
+    },
+    {
+      "question": "How do you obtain the URL for the `gurobipy` wheel file needed for the `unmanylinuxize.sh` script?",
+      "answer": "You must visit `https://pypi.org/project/gurobipy/` for the desired Gurobi version (e.g., 11.0.1), click `Download files`, and then copy the `https` link for the relevant wheel file (e.g., `gurobipy-11.0.1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl`)."
+    },
+    {
+      "question": "What is the command to install the converted `gurobipy` wheel after using `unmanylinuxize.sh`?",
+      "answer": "The command is `python -m pip install --find-links $PWD --no-index gurobipy`."
+    },
+    {
+      "question": "How do you activate a previously created Gurobi virtual environment?",
+      "answer": "You activate it by running `source ~/env_gurobi/bin/activate`."
+    },
+    {
+      "question": "What modules need to be loaded to run the matrix example with Gurobi 11.0.1 in a virtual environment?",
+      "answer": "You need to load `gurobi/11.0.1` and `scipy-stack` modules. `numpy` is also required and should have been installed in the environment via `pip`."
+    },
+    {
+      "question": "How can you run a Gurobi example Python script, such as `matrix1.py`, within an activated virtual environment?",
+      "answer": "You can run it using `python $EBROOTGUROBI/examples/python/matrix1.py`."
+    },
+    {
+      "question": "How can custom Python scripts using Gurobi be submitted as jobs to the queue?",
+      "answer": "Custom Python scripts can be run as jobs by writing Slurm scripts that load your virtual environment and then submitting the Slurm script with `sbatch script-name.sh`."
+    },
+    {
+      "question": "What is the purpose of the line `echo \"Threads ${SLURM_CPUS_ON_NODE:-1}\" > gurobi.env` in the sample Slurm script for Python Gurobi jobs?",
+      "answer": "This line dynamically generates a `gurobi.env` file in the working directory, setting the number of Gurobi threads to the number of CPUs allocated to the job (`SLURM_CPUS_ON_NODE`). This prevents Gurobi from defaulting to using all physical cores on the compute node, which could slow down the job and impact other users."
+    },
+    {
+      "question": "Where can users find more information about creating and using Python virtual environments within job scripts?",
+      "answer": "Further information can be found in the documentation under 'Python#Creating_virtual_environments_inside_of_your_jobs'."
+    },
+    {
+      "question": "What modules are required to use Gurobi with Java?",
+      "answer": "You need to load a Java module (e.g., `java/14.0.2`) and a Gurobi module (e.g., `gurobi/9.1.2`)."
+    },
+    {
+      "question": "What Java option must be added to allow the Java virtual environment to find Gurobi libraries?",
+      "answer": "You must add the option `-Djava.library.path=$EBROOTGUROBI/lib` to your Java command."
+    },
+    {
+      "question": "Where can I find resources and code examples for using Gurobi with Jupyter Notebooks?",
+      "answer": "You can find topics by visiting `https://www.gurobi.com/resources/`, then clicking 'Code and Modeling Examples', and finally 'Optimization with Python – Jupyter Notebook Modeling Examples'. Alternatively, search on 'Jupyter Notebooks' at `https://support.gurobi.com/`."
+    },
+    {
+      "question": "Is there a demo video available for using Gurobi with Jupyter Notebooks on these systems?",
+      "answer": "Yes, a demo case can be found in a video recording at time 38:28 (`https://youtu.be/Qk3Le5HBxeg?t=2310`)."
+    }
+  ],
+  "generated_at": "2026-04-11T23:32:34.217700+00:00"
+}

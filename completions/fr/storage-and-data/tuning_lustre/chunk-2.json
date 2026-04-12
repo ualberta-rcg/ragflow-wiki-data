@@ -1,0 +1,48 @@
+{
+  "doc_key": "fr/tuning_lustre",
+  "level": "chunk",
+  "chunk_index": 2,
+  "qa_pairs": [
+    {
+      "question": "Après avoir resegmenté le fichier `striping_example/example_file`, quelle est la valeur de `lmm_stripe_count` et combien d'objets y sont alloués?",
+      "answer": "Après la resegmentation, la valeur de `lmm_stripe_count` est maintenant de 2, et deux objets sont alloués pour le fichier `striping_example/example_file`."
+    },
+    {
+      "question": "Est-ce qu'augmenter le nombre de disques est toujours bénéfique pour la performance d'un fichier?",
+      "answer": "Non, augmenter le nombre de disques peut augmenter les performances, mais ça rend aussi le fichier plus vulnérable aux défaillances matérielles."
+    },
+    {
+      "question": "Si un programme parallèle a besoin de lire un petit fichier (moins de 1 Mo), comme un fichier de configuration, quelle est la façon la plus efficace de le gérer?",
+      "answer": "Pour un petit fichier (< 1 Mo), il est plus efficace de le placer sur un seul disque (`stripe count=1`), de le lire avec le processus maître (`master rank`), puis de l'envoyer aux autres processus à l'aide de `MPI_Broadcast` ou `MPI_Scatter`."
+    },
+    {
+      "question": "Lorsqu'on manipule de gros fichiers de données avec un programme parallèle, combien de disques devrait-on idéalement utiliser?",
+      "answer": "Il est préférable d'utiliser autant de disques que le nombre de processus MPI."
+    },
+    {
+      "question": "Si chaque processus d'un programme parallèle lit ou écrit 1 Mo de données à la fois, quelle `stripe_size` serait probablement idéale pour des gros fichiers?",
+      "answer": "Si chaque processus lit ou écrit 1 Mo de données à la fois, une `stripe_size` de 1 Mo serait probablement l'idéal."
+    },
+    {
+      "question": "Quand est-il recommandé de ne pas modifier la `stripe_size` pour des fichiers de grande taille?",
+      "answer": "Si vous n'avez pas de bonne raison de modifier la `stripe_size`, il est recommandé de la laisser à sa valeur par défaut, qui a été optimisée pour des fichiers de grande taille."
+    },
+    {
+      "question": "Quelle contrainte doit toujours être respectée concernant la taille du `stripe_size`?",
+      "answer": "La taille du `stripe_size` doit toujours être un multiple entier de 1 Mo."
+    },
+    {
+      "question": "Comment peut-on réduire au maximum les ouvertures et fermetures de fichiers pour optimiser les performances?",
+      "answer": "Il est préférable d’agglomérer toutes les données dans un seul fichier plutôt que d'écrire une multitude de petits fichiers, et d'ouvrir le fichier une seule fois au début de l'exécution pour le fermer à la fin."
+    },
+    {
+      "question": "Est-il préférable d'avoir une multitude de petits fichiers ou un seul gros fichier pour agglomérer des données?",
+      "answer": "Il sera préférable d’agglomérer toutes les données dans un seul fichier plutôt que d'écrire une multitude de petits fichiers."
+    },
+    {
+      "question": "Quelle est la meilleure pratique pour l'ouverture et la fermeture des fichiers pendant l'exécution d'un programme?",
+      "answer": "Il est grandement préférable d'ouvrir le fichier une seule fois au début de l'exécution et de le fermer à la fin, plutôt que de l'ouvrir et de le fermer chaque fois qu'on veut y ajouter de nouvelles données."
+    }
+  ],
+  "generated_at": "2026-04-12T09:54:12.412608+00:00"
+}

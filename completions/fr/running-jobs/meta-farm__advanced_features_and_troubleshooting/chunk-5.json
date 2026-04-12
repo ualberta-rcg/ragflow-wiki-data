@@ -1,0 +1,48 @@
+{
+  "doc_key": "fr/meta-farm__advanced_features_and_troubleshooting",
+  "level": "chunk",
+  "chunk_index": 5,
+  "qa_pairs": [
+    {
+      "question": "Comment j'fais pour configurer `job_script.sh` afin d'utiliser des GPU avec les applications?",
+      "answer": "Pour les applications qui utilisent des GPU, vous devez modifier `job_script.sh` en ajoutant la ligne `#SBATCH --gres=gpu[[:type]:number]` en suivant les directives de « Using GPUs with Slurm »."
+    },
+    {
+      "question": "C'est quoi l'utilitaire `gpu_test` pis comment je l'utilise?",
+      "answer": "L'utilitaire `gpu_test` peut être copié dans votre répertoire `~/bin` (seulement sur Nibi) et vous pouvez ajouter des lignes à votre `job_script.sh` juste avant `task.run` pour détecter si une GPU est disponible. Si `gpu_test` retourne une erreur, le script va sortir."
+    },
+    {
+      "question": "Pourquoi c'est important d'utiliser l'utilitaire `gpu_test` dans `job_script.sh`?",
+      "answer": "C'est important pour attraper les situations rares où y'a un problème avec le nœud et la GPU n'est pas disponible. Ça évite que votre job essaie de rouler toutes vos tâches de `table.dat` et qu'elles échouent."
+    },
+    {
+      "question": "Est-ce que les jobs META gardent l'environnement quand ils roulent?",
+      "answer": "Oui, tous les jobs générés par le package META héritent de l'environnement présent quand vous lancez `submit.run` ou `resubmit.run`. Ça inclut tous les modules chargés pis les variables d'environnement."
+    },
+    {
+      "question": "Faut-il être prudent avec l'option `--export` quand on utilise META?",
+      "answer": "Oui, faut être prudent pour pas briser le comportement par défaut de META. Si vous utilisez l'option `--export`, assurez-vous que `ALL` est un des arguments, comme dans `--export=ALL,X=1,Y=2`."
+    },
+    {
+      "question": "Comment je passe des variables d'environnement personnalisées à tous mes jobs de ferme, incluant ceux qui sont soumis automatiquement ou de post-traitement?",
+      "answer": "Pour passer des variables d'environnement personnalisées, ne pas utiliser `--export`. À la place, définissez les variables directement sur la ligne de commande, par exemple: `$ VAR1=1 VAR2=5 VAR3=3.1416 submit.run ...`"
+    },
+    {
+      "question": "Comment préparer le fichier `table.dat` si mon application `fcode` lit des fichiers d'entrée numérotés, comme `data.1`, `data.2`, etc.?",
+      "answer": "Vous pouvez créer `table.dat` en listant chaque appel de l'application avec son fichier d'entrée, comme ça: `fcode < /home/user/IC/data.1`, `fcode < /home/user/IC/data.2`, etc. Assurez-vous que `fcode` est dans votre `$PATH` ou utilisez le chemin complet."
+    },
+    {
+      "question": "Y'a-tu une façon facile de créer un `table.dat` pour plein de fichiers d'entrée numérotés?",
+      "answer": "Oui, vous pouvez utiliser une boucle shell, par exemple: `$ for ((i=1; i<=100; i++)); do echo \"fcode < /home/user/IC/data.$i\"; done >table.dat` pour générer le fichier."
+    },
+    {
+      "question": "Comment je gère une application qui s'attend à lire un fichier d'entrée avec un nom spécifique pis qui peut pas être changé, comme `INPUT`?",
+      "answer": "Pour gérer ça, chaque cas doit rouler dans son propre sous-répertoire. Vous devez copier le fichier d'entrée spécifique à ce cas, nommé par exemple `/path/to/data.X`, vers le nom attendu, `INPUT`, dans le sous-répertoire."
+    },
+    {
+      "question": "Comment je modifie `table.dat` et `single_case.sh` pour qu'une application lise un fichier d'entrée avec un nom fixe?",
+      "answer": "Votre `table.dat` devrait contenir seulement le nom de l'application, répété pour chaque cas, comme `/path/to/code`. Ensuite, ajoutez la ligne `cp /path/to/data.$ID INPUT` au début de `single_case.sh`, juste avant `$COMM`, pour copier le fichier d'entrée correspondant à chaque cas dans son sous-répertoire."
+    }
+  ],
+  "generated_at": "2026-04-12T01:33:33.928737+00:00"
+}

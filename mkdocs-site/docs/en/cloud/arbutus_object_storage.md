@@ -5,23 +5,66 @@ lang: "en"
 
 source_wiki_title: "Arbutus object storage/en"
 source_hash: "a02440a0beac92bf09580243bb986710"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T04:37:00.696013+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T05:28:37.660119+00:00"
 
 tags:
   - cloud
 
 keywords:
-  []
+  - "Buckets"
+  - "Arbutus OpenStack Dashboard"
+  - "Cloud"
+  - "Public Access Block"
+  - "bucket policies"
+  - "ReplicationConfiguration"
+  - "Arbutus Object Store"
+  - "JSON policy files"
+  - "Object Lock"
+  - "ObjectTagging"
+  - "LifecycleConfiguration"
+  - "s3"
+  - "Data containers"
+  - "Swift"
+  - "Bucket"
+  - "data containers"
+  - "S3-compatible clients"
+  - "OpenStack"
+  - "Arbutus Object Storage"
+  - "Bucket Encryption"
+  - "s3cmd"
+  - "Object storage"
+
+questions:
+  - "What are the primary characteristics and recommended use cases for object storage compared to traditional file storage?"
+  - "How is storage capacity allocated to Arbutus projects, and what processes must be followed to request additional space?"
+  - "What protocols and client tools can be used to access, manage, and set policies for the Arbutus Object Store?"
+  - "How do you make a data container publicly accessible and what URL format is used to read its contents?"
+  - "How can users create and apply JSON policy files to manage access controls, such as restricting access by IP address?"
+  - "What specific subset of AWS policy actions does Arbutus Object Storage currently support?"
+  - "Where can users access the object storage interface within the Arbutus OpenStack Dashboard?"
+  - "What alternative term is commonly used in other object storage systems to refer to data containers?"
+  - "What specific actions can be performed using the dashboard, and what alternative method exists for creating data containers?"
+  - "What specific AWS S3 features and configurations are managed by this list of IAM permissions?"
+  - "How do these permissions differentiate between bucket-level management and object-level or version-level tagging?"
+  - "What are the security and operational implications of granting the \"Put\" and \"Delete\" actions included in this text?"
+  - "What specific S3 permissions are required to manage object lock configurations, legal holds, and retention policies?"
+  - "Which API actions are listed for configuring, retrieving, and deleting public access blocks at both the account and bucket levels?"
+  - "What are the designated permissions for managing bucket encryption within this cloud category?"
+  - "What specific S3 permissions are required to manage object lock configurations, legal holds, and retention policies?"
+  - "Which API actions are listed for configuring, retrieving, and deleting public access blocks at both the account and bucket levels?"
+  - "What are the designated permissions for managing bucket encryption within this cloud category?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
+
+## Introduction
 
 Object storage is a service that manages data as objects. This is different from other storage architectures where data is managed in a file hierarchy. Objects can be created, replaced, or deleted, but unlike traditional storage, they cannot be edited in place. Object storage has become popular due to its ability to handle large files and large numbers of files, and due to the prevalence of compatible tools.
 
@@ -43,17 +86,21 @@ Swift is the default and is simpler since you do not have to manage credentials 
 
 In order to manage your Arbutus Object Store, you will need your own storage access ID and secret key. To generate these, use the [OpenStack command line client](openstack-command-line-clients.md):
 
-`openstack ec2 credentials create`
+```bash
+openstack ec2 credentials create
+```
 
-## Accessing your Arbutus Object Store
+### Accessing your Arbutus Object Store
+
 Setting access policies cannot be done via a web browser but must be done with a [SWIFT or S3-compatible client](arbutus-object-storage-clients.md). There are several ways to access your data containers:
 
-1.  You can use an [S3-compatible client](arbutus-object-storage-clients.md) (e.g. s3cmd).
+1.  You can use an [S3-compatible client](arbutus-object-storage-clients.md) (e.g. `s3cmd`).
 2.  You can use [Globus](globus.md#object-storage-on-arbutus).
 3.  If your object storage policies are set to public (not default), you can use a browser via an HTTPS endpoint:
-    ```
-    https://object-arbutus.alliancecan.ca/PROJECT_ID:DATA_CONTAINER/FILENAME
-    ```
+
+```
+https://object-arbutus.alliancecan.ca/PROJECT_ID:DATA_CONTAINER/FILENAME
+```
 
 ## Managing your Arbutus Object Store
 
@@ -67,9 +114,8 @@ This interface refers to *data containers*, which are also known as *buckets* in
 
 Using the dashboard, we can create new data containers, upload files, and create directories. Alternatively, we can also create data containers using [S3-compatible clients](arbutus-object-storage-clients.md).
 
-!!! note
-    Please note that data containers are owned by the user who creates them and cannot be manipulated by others.
-    Therefore, you are responsible for managing your data containers and their contents within your cloud project.
+> Please note that data containers are owned by the user who creates them and cannot be manipulated by others.
+> Therefore, you are responsible for managing your data containers and their contents within your cloud project.
 
 If you create a new container as **Public**, anyone on the internet can read its contents by simply navigating to
 
@@ -86,7 +132,7 @@ To make a data container accessible to the public, we can change its policy to a
 !!! warning "Attention"
     Be careful with policies because an ill-conceived policy can lock you out of your data container.
 
-Currently, Arbutus Object Storage only supports a [subset](#policy-subset) of the AWS specification for [data container policies](https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-iam-policies.html). The following example shows how to create, apply, and view a policy. The first step is to create a policy json file:
+Currently, Arbutus Object Storage only supports a [subset](arbutus-object-storage.md#policy-subset) of the AWS specification for [data container policies](https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-iam-policies.html). The following example shows how to create, apply, and view a policy. The first step is to create a policy JSON file:
 
 ```json
 {
@@ -117,11 +163,15 @@ This example denies access except from the specified source IP address ranges in
 
 Once you have your policy file, you can implement that policy on the data container:
 
-`s3cmd setpolicy testbucket.policy s3://testbucket`
+```bash
+s3cmd setpolicy testbucket.policy s3://testbucket
+```
 
 To view the policy you can use the following command:
 
-`s3cmd info s3://testbucket`
+```bash
+s3cmd info s3://testbucket
+```
 
 ### Policy subset
 

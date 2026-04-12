@@ -1,0 +1,76 @@
+{
+  "doc_key": "en/cephfs",
+  "level": "chunk",
+  "chunk_index": 4,
+  "qa_pairs": [
+    {
+      "question": "What command is used to install the CephFS client and its dependencies on a Debian-based system?",
+      "answer": "You can install the ceph lib, cephfs client, and other dependencies using the command: `sudo apt-get install -y libcephfs2 python3-cephfs ceph-common python3-ceph-argparse`."
+    },
+    {
+      "question": "What is the next configuration step after installing the CephFS client?",
+      "answer": "Once the client is installed, you need to create a `ceph.conf` file."
+    },
+    {
+      "question": "What is the recommended path for the `ceph.conf` file?",
+      "answer": "The `ceph.conf` file should be created at `/etc/ceph/ceph.conf`."
+    },
+    {
+      "question": "What are the monitor host addresses for `ceph.conf` on Arbutus?",
+      "answer": "On Arbutus, the `mon host` entries in `ceph.conf` are `[v2:134.87.15.61:3300/0,v1:134.87.15.61:6789/0] [v2:134.87.15.62:3300/0,v1:134.87.15.62:6789/0] [v2:134.87.15.63:3300/0,v1:134.87.15.63:6789/0]`."
+    },
+    {
+      "question": "What are the monitor host addresses for `ceph.conf` on SD4H/Juno?",
+      "answer": "On SD4H/Juno, the `mon host` entries in `ceph.conf` are `10.65.0.10:6789,10.65.0.12:6789,10.65.0.11:6789`."
+    },
+    {
+      "question": "Where can the monitor information be found if the values in the `ceph.conf` file example are different from the current web page data?",
+      "answer": "The monitor information can be found in the share details' `Path` field, which is used to mount the volume. If this value differs from the wiki page, the wiki page is likely out of date."
+    },
+    {
+      "question": "What additional file is required to store the client name and secret, and where should it be located?",
+      "answer": "You need to create a `ceph.keyring` file at `/etc/ceph/ceph.keyring` to store your client name and secret."
+    },
+    {
+      "question": "What content should the `ceph.keyring` file contain?",
+      "answer": "The `ceph.keyring` file should contain your client name and its corresponding access key, formatted like this: `[client.MyCephFS-RW]\n    key = <Access Key>`."
+    },
+    {
+      "question": "How can you find the access key and client name needed for the `ceph.keyring` file?",
+      "answer": "The access key and client name (e.g., `MyCephFS-RW`) are located under the access rules on your project web page. Navigate to `Project --> Share --> Shares`, then click on the name of your share."
+    },
+    {
+      "question": "How do you retrieve the specific 'Path' information from the share details for mounting the filesystem?",
+      "answer": "To retrieve the 'Path', open the share details by clicking on the share's name in the `Shares` page, then copy the portion of the `Path` that begins with a colon (`:`)."
+    },
+    {
+      "question": "What is an example of the 'Path' information used for mounting a CephFS filesystem?",
+      "answer": "An example of the 'Path' is `:/volumes/_nogroup/f6cb8f06-f0a4-4b88-b261-f8bd6b03582c`."
+    },
+    {
+      "question": "What is the initial step to prepare your host for mounting a CephFS filesystem?",
+      "answer": "The first step is to create a mount point directory on your host, such as `/cephfs`, by running `mkdir /cephfs`."
+    },
+    {
+      "question": "How can a CephFS device be permanently mounted on an Arbutus VM using `/etc/fstab`?",
+      "answer": "To permanently mount on Arbutus, add an entry to `/etc/fstab` like: `:/volumes/_nogroup/f6cb8f06-f0a4-4b88-b261-f8bd6b03582c /cephfs/ ceph name=MyCephFS-RW,nofail 0 2`."
+    },
+    {
+      "question": "How can a CephFS device be permanently mounted on an SD4H/Juno VM using `/etc/fstab`?",
+      "answer": "To permanently mount on SD4H/Juno, add an entry to `/etc/fstab` like: `:/volumes/_nogroup/f6cb8f06-f0a4-4b88-b261-f8bd6b03582c /cephfs/ ceph name=MyCephFS-RW,mds_namespace=cephfs_4_2,x-systemd.device-timeout=30,x-systemd.mount-timeout=30,noatime,_netdev,rw,nofail 0 2`."
+    },
+    {
+      "question": "What is the significance of the colon (`:`) appearing before the device path in the `/etc/fstab` entry for CephFS?",
+      "answer": "The colon (`:`) before the device path is a non-standard but intentional part of the syntax and is not a typo."
+    },
+    {
+      "question": "What is the purpose of the `nofail` option when mounting CephFS via `/etc/fstab`?",
+      "answer": "The `nofail` option ensures that the system will still boot successfully even if the CephFS service is temporarily down or unreachable."
+    },
+    {
+      "question": "Which specific mount option is required for CephFS on SD4H/Juno that is not required on Arbutus?",
+      "answer": "The `mds_namespace=cephfs_4_2` option is specifically required for CephFS mounts on SD4H/Juno."
+    }
+  ],
+  "generated_at": "2026-04-11T19:31:42.010280+00:00"
+}

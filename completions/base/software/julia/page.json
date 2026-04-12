@@ -1,0 +1,87 @@
+{
+  "doc_key": "base/julia",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is Julia and how is it provided on Alliance clusters?",
+      "answer": "Julia is a programming language designed for performance, ease of use, and portability, available as a module on the Alliance clusters."
+    },
+    {
+      "question": "How are Julia packages installed and managed within projects?",
+      "answer": "Packages are downloaded, installed in `~/.julia`, and precompiled the first time they're added to a project using `Pkg.add` or the package mode, and can be reused or have different versions coexist across multiple projects."
+    },
+    {
+      "question": "What is the recommendation for handling binary dependencies with Julia 1.6 and newer?",
+      "answer": "Julia 1.6 onwards includes binary dependencies within its packages, so there is no need to load any separate software modules for them, and it's recommended not to."
+    },
+    {
+      "question": "For Julia 1.5 and earlier, how should system-provided binary dependencies like HDF5 be handled?",
+      "answer": "Load the appropriate software module (e.g., `hdf5`) and extend `Libdl.DL_LOAD_PATH` using the environment variable defined by the module (e.g., `HDF5_DIR`) before adding the package."
+    },
+    {
+      "question": "Which package is recommended for HDF5-based data handling in Julia, and why?",
+      "answer": "JLD2 is recommended over JLD because it no longer relies on a system-installed HDF5 library, making it more portable."
+    },
+    {
+      "question": "What issue can occur when installing Julia packages on the Narval cluster, and what is the recommended workaround?",
+      "answer": "Julia may crash with a segmentation fault during the precompilation step of package installation in `/home` directories on Narval due to a filesystem bug; the workaround is to use an alternate location, such as `/project`, for your Julia 'depot'."
+    },
+    {
+      "question": "Why might a user need to change their Julia depot path from the default `~/.julia`?",
+      "answer": "Installing many Julia packages in `~/.julia` can create a large number of files, potentially exceeding the home directory quota and causing performance issues."
+    },
+    {
+      "question": "How can a user change their Julia depot path to a different location, such as project space?",
+      "answer": "Set the `JULIA_DEPOT_PATH` environment variable in your `~/.bashrc` file (e.g., `export JULIA_DEPOT_PATH=\"/project/def-bob/alice/julia:$JULIA_DEPOT_PATH\"`) and optionally remove your existing `~/.julia` depot."
+    },
+    {
+      "question": "What is an alternative method to manage Julia packages and environments, and what are its advantages?",
+      "answer": "An alternative is to create an Apptainer image with a chosen Julia version and packages, redirecting `JULIA_DEPOT_PATH` inside the container, which can improve I/O performance, reproducibility, and allow custom dependencies."
+    },
+    {
+      "question": "How should PyCall.jl be configured to call Python from Julia on Alliance clusters?",
+      "answer": "Activate a virtual Python environment, then within Julia, set the `PYTHON` environment variable to the virtual environment's Python executable (e.g., `ENV[\"PYTHON\"] = joinpath(ENV[\"VIRTUAL_ENV\"], \"bin\", \"python\")`) before building PyCall.jl."
+    },
+    {
+      "question": "What should be avoided when using PyCall.jl on Alliance clusters?",
+      "answer": "Avoid the default PyCall.jl behaviour of using a Miniconda distribution inside your Julia environment, as Anaconda and similar distributions are not suitable on these clusters."
+    },
+    {
+      "question": "How can a parallel Julia code be run across multiple nodes using an `sbatch` script on a cluster?",
+      "answer": "An `sbatch` script can use `srun hostname -s > hostfile` to generate a list of allocated nodes, then `julia --machine-file ./hostfile ./pi_p.jl` to start a main Julia process and worker processes on those nodes."
+    },
+    {
+      "question": "What steps are required to configure Julia's MPI to use the system's MPI libraries?",
+      "answer": "Load the `StdEnv` and `julia` modules, then within Julia, add `MPIPreferences`, use `MPIPreferences.use_system_binary(;extra_paths=[joinpath(ENV[\"EBROOTOPENMPI\"],\"lib64\")])`, and finally add `MPI`."
+    },
+    {
+      "question": "How do you run a Julia program with MPI after it has been configured?",
+      "answer": "Load the `StdEnv` and `julia` modules, then execute using `mpirun -np <number_of_processes> julia <your_program.jl>`."
+    },
+    {
+      "question": "How can the number of threads Julia uses be restricted, and what is `JULIA_EXCLUSIVE`?",
+      "answer": "The number of threads can be restricted by setting `JULIA_NUM_THREADS=k`. `JULIA_EXCLUSIVE` (when set to a non-zero value) pins threads to cores, taking control of thread scheduling away from the OS."
+    },
+    {
+      "question": "What is the purpose of `JULIA_THREAD_SLEEP_THRESHOLD`?",
+      "answer": "`JULIA_THREAD_SLEEP_THRESHOLD` controls the number of nanoseconds after which a spinning thread is scheduled to sleep, allowing for fine-tuning of CPU load and latency under contention."
+    },
+    {
+      "question": "What are the initial steps to install `CUDA.jl` for GPU usage on a login node?",
+      "answer": "On a login node, load the `cuda` and `julia` modules, then within Julia, set `ENV[\"JULIA_PKG_PRECOMPILE_AUTO\"]=0` and use `Pkg.add(\"CUDA\")`."
+    },
+    {
+      "question": "How should CUDA.jl be configured on a GPU compute node to ensure compatibility with the local CUDA toolkit?",
+      "answer": "On a GPU node, start Julia, then use `CUDA.set_runtime_version!(v\"version_of_cuda\", local_toolkit=true)` where `version_of_cuda` matches the loaded CUDA module (e.g., `v\"12.6\"` for `cuda/12.6`)."
+    },
+    {
+      "question": "How can a user verify `CUDA.jl` installation and test basic GPU functionality?",
+      "answer": "Verify with `CUDA.versioninfo()` in Julia, then test by creating a `CuArray` (e.g., `a = CuArray([1,2,3])`) and performing an operation (e.g., `a.+=1`)."
+    },
+    {
+      "question": "Where can users find video tutorials related to Julia and parallel computing?",
+      "answer": "A series of online seminars produced by SHARCNET are available, covering different perspectives of Julia and parallel computing."
+    }
+  ],
+  "generated_at": "2026-04-12T00:21:57.343285+00:00"
+}

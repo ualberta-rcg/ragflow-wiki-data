@@ -1,0 +1,108 @@
+{
+  "doc_key": "en/transferring_data",
+  "level": "chunk",
+  "chunk_index": 4,
+  "qa_pairs": [
+    {
+      "question": "When using the `cp` command, what happens if the source is a directory and the destination directory does not exist?",
+      "answer": "If the `LOCALNAME` is a directory and `somedir` does not exist, the `cp` command will rename `LOCALNAME` to `somedir`."
+    },
+    {
+      "question": "Under what circumstances should a checksum utility be used to verify if files match between two systems?",
+      "answer": "You should use a checksum utility if Globus is unavailable for synchronization between two systems and Rsync is taking too long."
+    },
+    {
+      "question": "Which specific checksum utility is provided as an example in the documentation?",
+      "answer": "The `sha1sum` utility is used as an example."
+    },
+    {
+      "question": "How do you generate checksums for all files in a user's home directory and record them in a log file?",
+      "answer": "You can use the command `find /home/username/ -type f -print0 | xargs -0 sha1sum | tee checksum-result.log` to generate checksums and save them to `checksum-result.log`."
+    },
+    {
+      "question": "What is the purpose of the command `find /home/username/ -type f -print0 | xargs -0 sha1sum | tee checksum-result.log`?",
+      "answer": "This command creates a new file called `checksum-result.log` in the current directory, which contains all checksums for files in `/home/username/`, and also prints all checksums to the screen."
+    },
+    {
+      "question": "What is recommended when generating checksums for a large number of files or very large files to prevent SSH connection timeouts?",
+      "answer": "If you have many or large files, it is recommended to run the checksum generation command in the background, possibly within a GNU Screen or tmux session, to ensure it continues even if your SSH connection times out."
+    },
+    {
+      "question": "After running checksums on two systems, how can you identify files that do not match?",
+      "answer": "After running checksums on both systems, you can use the `diff` utility to find files that do not match by comparing the generated checksum log files."
+    },
+    {
+      "question": "What command is used to compare two checksum log files?",
+      "answer": "The `diff` utility is used to compare checksum log files, for example: `diff checksum-result-silo.log checksum-dtn.log`."
+    },
+    {
+      "question": "Why might `diff` show false differences when comparing checksum log files, and how can this be corrected?",
+      "answer": "The `find` command might crawl through directories in a different order, leading to false differences. To correct this, you should sort both checksum log files using `sort -k2` before running `diff`."
+    },
+    {
+      "question": "How can you sort a checksum result log file before performing a comparison with `diff`?",
+      "answer": "You can sort a checksum result log file using a command like `sort -k2 checksum-result-silo.log -o checksum-result-silo.log`."
+    },
+    {
+      "question": "What does SFTP stand for, and what protocol does it utilize for data transfer?",
+      "answer": "SFTP stands for Secure File Transfer Protocol and it uses the SSH protocol to encrypt data being transferred between machines."
+    },
+    {
+      "question": "How does SFTP ensure the security of data during file transfers?",
+      "answer": "SFTP ensures data security by using the SSH protocol, which encrypts the data as it is transferred between machines."
+    },
+    {
+      "question": "What is the command to connect to a remote machine using SFTP?",
+      "answer": "You can connect to a remote machine using SFTP with the command `sftp USERNAME@ADDRESS`."
+    },
+    {
+      "question": "How can an SSH key be used for authentication when establishing an SFTP connection?",
+      "answer": "An SSH key can be used for authentication by including the `-i` option followed by the path to your private key, for example: `sftp -i /home/name/.ssh/id_rsa USERNAME@ADDRESS`."
+    },
+    {
+      "question": "Once connected via SFTP, how can a user view the list of available commands at the `sftp>` prompt?",
+      "answer": "At the `sftp>` prompt, a user can enter the `help` command to get a list of available commands."
+    },
+    {
+      "question": "What are some graphical programs available for SFTP file transfers across different operating systems?",
+      "answer": "Graphical programs for SFTP include WinSCP and MobaXterm for Windows; FileZilla for Windows, Mac, and Linux; and Cyberduck for Mac and Windows."
+    },
+    {
+      "question": "What does SCP stand for?",
+      "answer": "SCP stands for Secure Copy Protocol."
+    },
+    {
+      "question": "How does SCP secure the data being transferred?",
+      "answer": "Like SFTP, SCP uses the SSH protocol to encrypt data being transferred."
+    },
+    {
+      "question": "Does SCP provide file synchronization capabilities?",
+      "answer": "No, SCP does not support synchronization like Globus or rsync."
+    },
+    {
+      "question": "How do I copy a file named `foo.txt` from my local computer's current directory to the `work` directory in my home on the Rorqual cluster using SCP?",
+      "answer": "You can use the command `scp foo.txt username@rorqual.alliancecan.ca:work/` to copy the file."
+    },
+    {
+      "question": "What command would I use to copy a file named `output.dat` from my project space on the Fir cluster to my current local directory?",
+      "answer": "You would use the command `scp username@fir.alliancecan.ca:projects/def-jdoe/username/results/output.dat .`"
+    },
+    {
+      "question": "On which computer should SCP commands always be executed?",
+      "answer": "SCP commands should always be executed on your local computer, initiating the connection from there, regardless of whether you are transferring data to or from the remote cluster."
+    },
+    {
+      "question": "What is the function of the `-r` option in SCP?",
+      "answer": "The `-r` option in SCP is used to recursively transfer a set of directories and files."
+    },
+    {
+      "question": "Is it advisable to use `scp -r` when transferring data to the `/project` filesystem, and why?",
+      "answer": "No, it is strongly recommended against using `scp -r` to transfer data into `/project` because it can turn off the setgid bit in created directories, which may lead to 'Disk quota exceeded' errors."
+    },
+    {
+      "question": "If I use a custom SSH key name, not one of the default names, how do I specify it for an SCP transfer?",
+      "answer": "If you use a custom SSH key name, you need to use the `-i` option of `scp` and specify the path to your private key before the file paths, for example: `scp -i /path/to/key foo.txt username@rorqual.alliancecan.ca:work/`."
+    }
+  ],
+  "generated_at": "2026-04-12T09:22:05.771206+00:00"
+}

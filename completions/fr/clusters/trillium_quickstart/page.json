@@ -1,0 +1,107 @@
+{
+  "doc_key": "fr/trillium_quickstart",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "C'est quoi la grappe Trillium et qui l'a bâtie?",
+      "answer": "La grappe Trillium est conçue pour prendre en charge des tâches massivement parallèles. Elle a été bâtie par Lenovo Canada et est hébergée par SciNet à l'Université de Toronto."
+    },
+    {
+      "question": "Quelles sont les trois composantes principales de la grappe Trillium?",
+      "answer": "Les trois composantes principales sont la sous-grappe de CPU, la sous-grappe de GPU et le système de stockage."
+    },
+    {
+      "question": "Combien de cœurs CPU y a-t-il dans la sous-grappe de CPU de Trillium et quelle est la mémoire disponible par nœud?",
+      "answer": "La sous-grappe de CPU compte 235 008 cœurs répartis dans 1 224 nœuds de calcul, et chaque nœud a 755GiB / 810GB de mémoire disponible."
+    },
+    {
+      "question": "Quel type de GPU est utilisé dans la sous-grappe de GPU de Trillium et à quoi est-elle optimisée?",
+      "answer": "La sous-grappe de GPU est équipée de 252 GPU NVIDIA H100 (SXM) et est optimisée pour l'IA, l'apprentissage machine et les charges de travail scientifiques accélérées."
+    },
+    {
+      "question": "Quelle est la capacité du système de stockage de Trillium et sa particularité technologique?",
+      "answer": "Trillium dispose d'un système de stockage NVMe VAST unifié de 29PB qui utilise uniquement de la mémoire flash pour des performances constantes."
+    },
+    {
+      "question": "Comment peut-on demander l'accès à Trillium?",
+      "answer": "Il faut posséder un compte CCDB actif et demander l'accès à Trillium en sélectionnant 'Ressources --> Accès aux systèmes --> onglet HPC' dans le CCDB."
+    },
+    {
+      "question": "Quelles sont les deux façons de se connecter à Trillium?",
+      "answer": "On peut se connecter via un navigateur avec Open OnDemand ou via un terminal avec SSH."
+    },
+    {
+      "question": "Quel système d'exploitation Trillium utilise-t-elle et est-ce que des connaissances en Linux sont nécessaires?",
+      "answer": "Trillium utilise Rocky Linux 9.6, un système d'exploitation de type Linux, et des connaissances de l'interpréteur Linux sont nécessaires pour y travailler."
+    },
+    {
+      "question": "Quelles sont les restrictions sur ce que je peux faire sur les nœuds de connexion de Trillium?",
+      "answer": "On ne peut pas exécuter des tâches à forte consommation de mémoire, des entraînements parallèles, des calculs de longue durée (plus de quelques minutes) ou des tâches intensives comme des opérations avec plusieurs I/O ou des simulations."
+    },
+    {
+      "question": "Quels sont les trois répertoires de stockage disponibles sur Trillium et à quoi servent-ils?",
+      "answer": "Il y a `/home` pour les configurations et fichiers personnels, `/scratch` pour l'espace de stockage personnel temporaire haute vitesse pour les données des tâches, et `/project` pour l'espace partagé pour les projets d'équipe."
+    },
+    {
+      "question": "Comment Trillium gère-t-elle les logiciels et les bibliothèques?",
+      "answer": "Trillium utilise des modules d'environnement qui modifient dynamiquement l'environnement (par exemple, `PATH`, `LD_LIBRARY_PATH`) pour accéder à différentes versions de logiciels."
+    },
+    {
+      "question": "Quelle commande sert à lister tous les modules logiciels disponibles sur Trillium?",
+      "answer": "La commande `module avail` liste tous les modules disponibles pouvant être chargés."
+    },
+    {
+      "question": "Pourquoi est-il recommandé d'éviter de charger des modules dans le fichier `.bashrc`?",
+      "answer": "Charger des modules dans `.bashrc` peut entraîner des comportements inattendus, particulièrement dans les environnements non interactifs comme les tâches en lot."
+    },
+    {
+      "question": "Comment faire pour effectuer des tests légers de mon code sur Trillium?",
+      "answer": "Les tests légers peuvent être exécutés directement sur les nœuds de connexion, à condition qu'ils s'exécutent en quelques minutes, utilisent au plus 1 à 2GB de mémoire, entre 1 et 4 CPU et au plus 1 GPU."
+    },
+    {
+      "question": "Quelle commande puis-je utiliser pour demander une tâche de débogage interactive sur un nœud de calcul?",
+      "answer": "Vous pouvez utiliser la commande `debugjob` sur un nœud de connexion pour demander une tâche de débogage interactive."
+    },
+    {
+      "question": "Quel ordonnanceur de tâches Trillium utilise-t-elle pour gérer l'exécution des tâches sur les nœuds de calcul?",
+      "answer": "Trillium utilise SLURM comme ordonnanceur de tâches."
+    },
+    {
+      "question": "Où doivent être écrites les données de sortie des tâches sur Trillium et pourquoi?",
+      "answer": "Les données de sortie doivent être écrites dans le répertoire `/scratch` parce que les répertoires `/home` et `/project` sont en lecture seule sur les nœuds de calcul."
+    },
+    {
+      "question": "Quelle est la particularité de l'ordonnancement des tâches CPU sur la sous-grappe de CPU de Trillium?",
+      "answer": "Sur la sous-grappe de CPU, toutes les tâches doivent utiliser des nœuds entiers, ce qui signifie que la taille minimale d'une tâche CPU est de 192 cœurs."
+    },
+    {
+      "question": "Comment les GPU sont-ils alloués sur la sous-grappe de GPU de Trillium?",
+      "answer": "L'ordonnanceur permet de demander soit un nombre entier de nœuds (4 GPU), soit un seul GPU (un quart de nœud). Il n'est pas possible de demander 2 ou 3 GPU par nœud, ni d'utiliser la technologie MIG."
+    },
+    {
+      "question": "Est-ce que je dois spécifier la quantité de mémoire requise dans mes scripts de tâches sur Trillium?",
+      "answer": "Non, la quantité de mémoire requise ne doit pas être indiquée, car les tâches CPU reçoivent toujours 768GB de RAM par nœud, et les tâches GPU obtiennent 192GB par GPU ou 768GB pour un nœud entier."
+    },
+    {
+      "question": "Quelle est la durée maximale d'une tâche de calcul standard sur la sous-grappe de CPU?",
+      "answer": "La durée maximale d'une tâche de calcul standard sur la partition `compute` de la sous-grappe de CPU est de 24 heures."
+    },
+    {
+      "question": "Quelle est la commande pour soumettre un script de tâche à l'ordonnanceur SLURM?",
+      "answer": "La commande `sbatch <script>` est utilisée pour soumettre un script pour une tâche en lot."
+    },
+    {
+      "question": "Comment puis-je vérifier l'état des tâches que j'ai soumises à la file d'attente?",
+      "answer": "Vous pouvez utiliser la commande `squeue -u $USER` pour voir uniquement vos propres tâches dans la file d'attente."
+    },
+    {
+      "question": "Quelle commande sert à annuler une tâche déjà soumise à l'ordonnanceur?",
+      "answer": "La commande `scancel <JOBID>` annule une tâche soumise."
+    },
+    {
+      "question": "Où puis-je consulter des informations sur mes tâches passées et leur utilisation des ressources?",
+      "answer": "Les informations sur les tâches passées et leur utilisation des ressources sont accessibles via le portail my.SciNet (my.scinet.utoronto.ca)."
+    }
+  ],
+  "generated_at": "2026-04-12T09:47:50.270845+00:00"
+}

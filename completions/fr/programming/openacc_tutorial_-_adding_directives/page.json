@@ -1,0 +1,75 @@
+{
+  "doc_key": "fr/openacc_tutorial_-_adding_directives",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "Quels sont les objectifs d'apprentissage couverts par ce document?",
+      "answer": "Les objectifs incluent la compréhension du processus de transfert (offloading), c'est quoi une directive OpenACC, connaître la différence entre les directives <tt>loop</tt> et <tt>kernels</tt>, savoir programmer avec OpenACC, comprendre le concept d'alias en C/C++ et savoir utiliser la rétroaction du compilateur pour éviter les faux alias."
+    },
+    {
+      "question": "C'est quoi, le processus de transfert (offloading) vers un processeur graphique (GPU)?",
+      "answer": "Le transfert (offloading) est le processus de déplacer des données entre la mémoire du CPU de l'hôte et la mémoire du GPU pour permettre au GPU de les utiliser, parce qu'ils ne partagent pas la même mémoire."
+    },
+    {
+      "question": "Pourquoi est-ce important de bien gérer les transferts de données entre la mémoire de l'hôte et le GPU?",
+      "answer": "C'est crucial parce que le bus PCI, qui relie le CPU au GPU, a une bande passante moins élevée que celles du CPU et du GPU, ce qui peut impacter la performance."
+    },
+    {
+      "question": "C'est quoi, une directive OpenACC, et comment est-elle implémentée en C/C++ et Fortran?",
+      "answer": "Une directive OpenACC est un énoncé qui guide le compilateur pour l'accélération. En C/C++, ce sont des <tt>pragmas</tt>, et en Fortran, ce sont des commentaires."
+    },
+    {
+      "question": "Quels sont les principaux avantages à utiliser des directives OpenACC?",
+      "answer": "Les avantages sont la possibilité de faire des modifications incrémentales, de compiler une version accélérée et une version normale à partir du même code source, et la portabilité du code sur différents types d'accélérateurs sans le modifier, juste en mettant à jour le compilateur."
+    },
+    {
+      "question": "Comment fonctionne la directive OpenACC <tt>kernels</tt>?",
+      "answer": "La directive <tt>kernels</tt> est descriptive; le programmeur l'utilise pour suggérer des portions de code à paralléliser. Le compilateur analyse le code, identifie le parallélisme et les données à transférer, crée un noyau et le transfère au GPU, en choisissant la meilleure stratégie d'exécution."
+    },
+    {
+      "question": "Quelle est la différence entre une boucle exécutée séquentiellement et un ''kernel'' exécuté sur un accélérateur?",
+      "answer": "Une boucle séquentielle calcule les itérations de <tt>i=0</tt> à <tt>N-1</tt> une à une, tandis qu'un ''kernel'' est une fonction que chaque unité de calcul de l'accélérateur peut exécuter en parallèle pour une seule valeur spécifique de <tt>i</tt>."
+    },
+    {
+      "question": "C'est quoi, le concept d'alias de pointeurs en C/C++, et pourquoi ça peut empêcher la parallélisation de boucles?",
+      "answer": "Un alias se produit quand deux pointeurs réfèrent à la même zone mémoire. Si le compilateur ne sait pas que des pointeurs ne sont pas des alias, il doit supposer qu'ils le sont, ce qui crée de fausses dépendances entre les itérations et bloque la parallélisation."
+    },
+    {
+      "question": "Comment peut-on indiquer au compilateur que des pointeurs ne sont pas des alias en C et C++?",
+      "answer": "En C, on utilise le mot-clé <tt>restrict</tt>. En C++, il n'y a pas de standard, mais des compilateurs comme ceux de Portland Group et NVidia utilisent <tt>__restrict</tt>."
+    },
+    {
+      "question": "Quels indicateurs de compilation sont recommandés pour obtenir de la rétroaction sur l'accélération OpenACC?",
+      "answer": "Pour les compilateurs NVidia, il est recommandé d'utiliser <tt>-acc -gpu=managed</tt> et <tt>-Minfo=accel</tt> pour obtenir des informations détaillées sur l'accélération des sections de code."
+    },
+    {
+      "question": "Après avoir appliqué la directive <tt>kernels</tt> à l'exemple du produit matrice-vecteur, quel problème a été identifié par le compilateur?",
+      "answer": "Le compilateur a signalé que la boucle externe n'avait pas pu être parallélisée à cause de dépendances de boucles, spécifiquement sur les tableaux <tt>ycoefs</tt>, <tt>Acoefs</tt> et <tt>xcoefs</tt>."
+    },
+    {
+      "question": "Comment le problème de fausses dépendances a-t-il été corrigé pour le produit matrice-vecteur avec OpenACC?",
+      "answer": "Le problème a été corrigé en déclarant les pointeurs <tt>Acoefs</tt>, <tt>xcoefs</tt> et <tt>ycoefs</tt> comme étant restreints à l'aide du mot-clé <tt>__restrict</tt>."
+    },
+    {
+      "question": "Pourquoi le code porté sur GPU avec OpenACC était-il initialement plus lent que la version originale sur CPU?",
+      "answer": "Le code était plus lent parce que le transfert de données entre le CPU et le GPU occupait la majeure partie du temps d'exécution, prenant près de quatre fois plus de temps."
+    },
+    {
+      "question": "C'est quoi, le NVIDIA Visual Profiler (NVVP), et à quoi ça sert?",
+      "answer": "Le NVIDIA Visual Profiler (NVVP) est un profileur graphique pour les applications OpenACC et CUDA C/C++. Il sert à analyser la performance du code exécuté sur le GPU, notamment pour identifier les goulots d'étranglement comme les transferts de données."
+    },
+    {
+      "question": "C'est quoi, la directive OpenACC <tt>parallel loop</tt>?",
+      "answer": "La directive <tt>parallel loop</tt> est une directive OpenACC ''prescriptive'' qui force le compilateur à exécuter la boucle en parallèle, impliquant que la clause <tt>independent</tt> est implicite."
+    },
+    {
+      "question": "Quelles clauses sont souvent requises avec <tt>parallel loop</tt> qui ne le sont pas avec <tt>kernels</tt>?",
+      "answer": "Les clauses <tt>private</tt> et <tt>reduction</tt> sont souvent requises avec <tt>parallel loop</tt> pour gérer le flux des données dans la zone parallèle, car la directive <tt>kernels</tt> gère ces aspects automatiquement."
+    },
+    {
+      "question": "Quelles sont les principales différences entre les directives OpenACC <tt>parallel loop</tt> et <tt>kernels</tt>?",
+      "answer": "Avec <tt>parallel loop</tt>, l'intégrité du code parallélisé revient au programmeur et le fonctionnement est similaire à OpenMP. Avec <tt>kernels</tt>, la responsabilité d'analyser le code et de garantir son intégrité revient au compilateur, qui est libre d'optimiser le code et peut appliquer une seule directive à une grande portion de code."
+    }
+  ],
+  "generated_at": "2026-04-12T04:08:22.663692+00:00"
+}

@@ -1,0 +1,80 @@
+{
+  "doc_key": "en/orca",
+  "level": "chunk",
+  "chunk_index": 2,
+  "qa_pairs": [
+    {
+      "question": "What is the name of the example ORCA input file provided?",
+      "answer": "The example ORCA input file is named `benzene.inp`."
+    },
+    {
+      "question": "What kind of calculation is performed in the `benzene.inp` example?",
+      "answer": "The `benzene.inp` example performs a 'Benzene RHF Opt Calculation', which includes RHF TightSCF PModel and optimization."
+    },
+    {
+      "question": "How do I specify the number of processors to use in an ORCA input file?",
+      "answer": "You should add the line `%pal nprocs <ncores> end` to your input file, replacing `<ncores>` with the number of cores specified in your job script."
+    },
+    {
+      "question": "What is the purpose of including `%pal nprocs <ncores> end` in the ORCA input file?",
+      "answer": "Adding `%pal nprocs <ncores> end` to your input file ensures that the program runs efficiently and utilizes all the resources or cores requested in your job script."
+    },
+    {
+      "question": "What should I do if I want to restart an ORCA calculation?",
+      "answer": "To restart a calculation, you must delete the `*.hostnames` file (e.g., `benzene.hostnames`) before submitting the follow-up job."
+    },
+    {
+      "question": "What error might occur if I don't delete the `*.hostnames` file before restarting an ORCA job?",
+      "answer": "If you do not delete the `*.hostnames` file, the job is likely to fail with the error message 'All nodes which are allocated for this job are already filled.'"
+    },
+    {
+      "question": "What caused the OpenMPI version inconsistency issue mentioned in the document (Sep. 6 2019)?",
+      "answer": "The issue was caused by using an older version of OpenMPI (e.g., 3.1.2) than officially recommended (3.1.3 for ORCA 4.1.0 and 3.1.4 for ORCA 4.2.0), leading to unknown OpenMPI related fatal errors."
+    },
+    {
+      "question": "Which specific calculations were known to be affected by the OpenMPI version inconsistency issue?",
+      "answer": "The OpenMPI version inconsistency issue specifically affected DLPNO-STEOM-CCSD calculations, among others."
+    },
+    {
+      "question": "How can I temporarily fix the OpenMPI version inconsistency for ORCA 4.2.0?",
+      "answer": "You can temporarily fix the issue by building a custom OpenMPI 3.1.4 for ORCA 4.2.0 using the commands `module load gcc/7.3.0` and `eb OpenMPI-3.1.2-GCC-7.3.0.eb --try-software-version=3.1.4`."
+    },
+    {
+      "question": "What are the steps to load a custom-built OpenMPI and then install ORCA binaries?",
+      "answer": "After building a custom OpenMPI, you can load it using `module load openmpi/3.1.4`. Then, you can manually install ORCA 4.2.0 binaries from the official forum under your home directory."
+    },
+    {
+      "question": "Is the custom OpenMPI build a permanent solution?",
+      "answer": "No, this is a temporary fix prior to the official upgrade of OpenMPI on the clusters. Manually installed ORCA binaries should be deleted once the official OpenMPI version is up to date."
+    },
+    {
+      "question": "Does the OpenMPI custom build command apply to all versions of OpenMPI?",
+      "answer": "No, the compiling command for the custom OpenMPI build does not seem to apply to OpenMPI/2.1.x versions."
+    },
+    {
+      "question": "How can users access NBO to run it with ORCA on the clusters?",
+      "answer": "On the clusters, NBO is not available as a separate module, but users can access it via the Gaussian modules installed on Cedar and Graham."
+    },
+    {
+      "question": "What software access is required for users interested in using NBO with ORCA?",
+      "answer": "Users interested in using NBO with ORCA should have access to both ORCA and Gaussian."
+    },
+    {
+      "question": "Where can I find instructions to get access to Gaussian?",
+      "answer": "Instructions for getting access to Gaussian can be found on the [[Gaussian#License_agreement|page]]."
+    },
+    {
+      "question": "What keyword must be included in the ORCA input file when using NBO?",
+      "answer": "The ORCA input file (e.g., `orca_input.inp`) must contain the keyword `NBO` when running NBO with ORCA."
+    },
+    {
+      "question": "What modules need to be loaded in a job script to run ORCA with NBO, according to the example?",
+      "answer": "According to the example script, you need to load `StdEnv/2020 gcc/10.3.0 openmpi/4.1.1 orca/5.0.4` and `gaussian/g16.c01`."
+    },
+    {
+      "question": "How are the NBO executables referenced in the example script for running NBO with ORCA?",
+      "answer": "The NBO executables are referenced by setting environment variables `GENEXE` and `NBOEXE` using the `which` command, for example: `export GENEXE=`which gennbo.i4.exe`` and `export NBOEXE=`which nbo7.i4.exe``."
+    }
+  ],
+  "generated_at": "2026-04-12T03:59:45.698857+00:00"
+}

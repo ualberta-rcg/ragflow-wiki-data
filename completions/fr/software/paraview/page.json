@@ -1,0 +1,75 @@
+{
+  "doc_key": "fr/paraview",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "Quel est l'objectif principal de ce guide de visualisation à distance?",
+      "answer": "Ce guide explique comment visualiser à distance vos ensembles de données situés sur les grappes de calcul de l'Alliance ou sur une machine virtuelle, en utilisant ParaView."
+    },
+    {
+      "question": "Quels sont les trois principaux scénarios de flux de travail pour la visualisation décrits dans le document?",
+      "answer": "Les scénarios sont: la visualisation interactive de petits ensembles de données, la visualisation interactive d'ensembles de données plus grands en configuration client-serveur, et la production automatisée de visualisations en lots."
+    },
+    {
+      "question": "Est-ce qu'il est recommandé d'utiliser les GPU H100 pour le rendu graphique?",
+      "answer": "Non, les GPU H100 ne sont pas optimisés pour le rendu graphique; leur utilisation est inefficace et consomme inutilement les ressources de la grappe."
+    },
+    {
+      "question": "Si un rendu GPU est absolument nécessaire, quelles alternatives aux H100 sont suggérées?",
+      "answer": "Les nœuds AMD MI300A de Nibi ou des GPU NVIDIA plus anciens (comme les T4) sont suggérés si un rendu GPU est indispensable."
+    },
+    {
+      "question": "Comment peut-on visualiser de manière interactive un petit ensemble de données (quelques Go) sur les grappes Fir, Rorqual ou Narval?",
+      "answer": "On démarre une session de bureau à distance via JupyterHub, puis on exécute ParaView de manière interactive avec un petit nombre de CPU."
+    },
+    {
+      "question": "Quelles sont les étapes pour lancer une session ParaView monocœur via JupyterLab?",
+      "answer": "Il faut se connecter à JupyterHub, sélectionner un compte CPU, 1 cœur et la mémoire nécessaire, puis charger le module `paraview/6.0.0` et démarrer ParaView via le bouton VNC ou un terminal dans le bureau virtuel."
+    },
+    {
+      "question": "Comment configurer ParaView pour une visualisation multifil via JupyterLab?",
+      "answer": "Il faut sélectionner le nombre de cœurs et la mémoire souhaités, lancer un serveur ParaView parallèle (`mpirun pvserver`) dans un terminal, puis un client ParaView (`paraview`) dans un autre, et connecter le client au serveur via `localhost:11111`."
+    },
+    {
+      "question": "Quand est-il conseillé d'utiliser une configuration client-serveur pour des tâches interactives de ParaView?",
+      "answer": "Cette configuration est conseillée pour visualiser de manière interactive des ensembles de données plus grands, avec le client ParaView sur votre ordinateur et le serveur en parallèle sur une grappe soumise par Slurm."
+    },
+    {
+      "question": "Quel est un paramètre important dans les préférences de ParaView à considérer pour la visualisation client-serveur?",
+      "answer": "Le paramètre `Render View -> Remote/Parallel Rendering Options -> Remote Render Threshold` est important; une valeur de 0 Mo fera tout le rendu à distance, utilisant les ressources de la grappe."
+    },
+    {
+      "question": "Comment estimer la quantité de cœurs CPU nécessaire pour un rendu client-serveur efficace sur la grappe?",
+      "answer": "Il est suggéré de diviser la quantité de mémoire requise pour votre rendu par environ 3,5 Go par cœur, en prévoyant de la mémoire supplémentaire pour les filtres et le traitement des données."
+    },
+    {
+      "question": "Y a-t-il une particularité pour l'allocation de ressources sur la grappe Trillium pour la visualisation client-serveur?",
+      "answer": "Oui, sur Trillium, il faut demander des nœuds entiers, c'est-à-dire par multiples de 192 cœurs."
+    },
+    {
+      "question": "Comment établit-on un tunnel SSH entre un poste de travail local et un nœud de calcul distant pour la connexion client-serveur ParaView?",
+      "answer": "Sur un terminal local, on utilise la commande `ssh <username>@grappe.alliancecan.ca -L 11111:<nom_du_nœud_de_calcul>:11111` pour lier un port local à celui du serveur ParaView distant."
+    },
+    {
+      "question": "La procédure de tunnel SSH est-elle la même pour la grappe Nibi?",
+      "answer": "Non, pour Nibi, une commande SSH spécifique en deux étapes est nécessaire (`ssh -T -J <username>@nibi.alliancecan.ca -L 11111:localhost:11111 <username>@<nibi_compute_node>`) pour gérer les restrictions de communication."
+    },
+    {
+      "question": "Quel est le but principal du flux de travail de 'production en lots'?",
+      "answer": "La production en lots vise à automatiser les tâches de visualisation longues et intensives en exécutant des scripts Python ParaView hors écran (sans interface graphique), soit séquentiellement, soit en parallèle sur les grappes."
+    },
+    {
+      "question": "Quelle commande est utilisée pour lancer un rendu séquentiel en lots d'un script ParaView Python?",
+      "answer": "On utilise `sbatch serial.sh` où `serial.sh` est un script Slurm qui appelle `pvbatch --force-offscreen-rendering --opengl-window-backend OSMesa script.py`."
+    },
+    {
+      "question": "Dans quel cas devrait-on envisager la visualisation client-serveur sur une machine virtuelle?",
+      "answer": "Cette approche est à utiliser si une configuration ParaView personnalisée, qui n'est pas prise en charge par les installations existantes sur les grappes, est absolument nécessaire."
+    },
+    {
+      "question": "Pourquoi est-il nécessaire de compiler ParaView avec OSMesa sur une machine virtuelle sans GPU?",
+      "answer": "Comme les machines virtuelles n'ont généralement pas de GPU, la compilation avec OSMesa est essentielle pour permettre un rendu hors écran (offscreen rendering) efficace, en utilisant les CPU avec des pilotes logiciels comme OpenSWR."
+    }
+  ],
+  "generated_at": "2026-04-12T04:56:08.589431+00:00"
+}

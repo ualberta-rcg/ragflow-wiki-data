@@ -5,21 +5,49 @@ lang: "fr"
 
 source_wiki_title: "Points de contrôle/fr"
 source_hash: "81d5af8b3da67a42597bc193ce17d058"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T09:57:21.069669+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T10:25:55.814787+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "exécution d'un programme"
+  - "dmtcp_launch"
+  - "grappes"
+  - "simulation"
+  - "restart"
+  - "resoumission à partir d'un script"
+  - "vecteurs de tâches"
+  - "points de contrôle"
+  - "écriture atomique"
+  - "redémarrage"
+  - "tâches Slurm"
+  - "checkpoint file"
+  - "resoumettre une tâche"
+  - "dmtcp_restart_script.sh"
+  - "calcul de longue durée"
+
+questions:
+  - "Pourquoi est-il important de créer des points de contrôle lors de l'exécution de longs programmes sur des grappes de calcul ?"
+  - "À quelle fréquence est-il recommandé de générer un fichier de point de contrôle lors de son implémentation ?"
+  - "Quelles méthodes peuvent être utilisées pour rendre l'écriture d'un point de contrôle atomique et éviter la corruption des données en cas d'interruption ?"
+  - "Dans quel cas de figure est-il nécessaire de morceler un calcul en plusieurs tâches Slurm ?"
+  - "Quelle est la première méthode recommandée utilisant les vecteurs de tâches (job arrays) pour gérer ces calculs longs ?"
+  - "Quelle est la méthode alternative proposée pour resoumettre une tâche sans utiliser les vecteurs de tâches ?"
+  - "How does the script determine whether to start a new simulation or resume an existing one?"
+  - "What is the purpose of the parameters used in the `dmtcp_launch` command, specifically the `-i 3600` flag?"
+  - "What information is logged by the script after the simulation process concludes?"
+  - "Dans quel cas de figure est-il nécessaire de morceler un calcul en plusieurs tâches Slurm ?"
+  - "Quelle est la première méthode recommandée utilisant les vecteurs de tâches (job arrays) pour gérer ces calculs longs ?"
+  - "Quelle est la méthode alternative proposée pour resoumettre une tâche sans utiliser les vecteurs de tâches ?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 

@@ -5,25 +5,35 @@ lang: "base"
 
 source_wiki_title: "Policy"
 source_hash: "d78a6691423efc54c7c8109c2a55b235"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T09:57:35.557835+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T10:26:10.174692+00:00"
 
 tags:
   - policy
 
 keywords:
-  []
+  - "Account Management"
+  - "Compute Canada"
+  - "Resource Allocation"
+  - "Policies"
+  - "Technical Support"
+
+questions:
+  - "What are the primary policies that govern the use, security, and privacy of Compute Canada resources?"
+  - "How can a researcher apply for, renew, and manage their Compute Canada account to access computational resources?"
+  - "Where can users find technical documentation, support services, and information about regional partners?"
+  - "What are the primary policies that govern the use, security, and privacy of Compute Canada resources?"
+  - "How can a researcher apply for, renew, and manage their Compute Canada account to access computational resources?"
+  - "Where can users find technical documentation, support services, and information about regional partners?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
-
-!!! warning "Draft"
 
 ## Introduction
 

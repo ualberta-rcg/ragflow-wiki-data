@@ -5,21 +5,73 @@ lang: "en"
 
 source_wiki_title: "Lumerical/en"
 source_hash: "34ac5884ea29571d2ead48e00cdc38ca"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T07:57:35.709158+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T08:33:49.126467+00:00"
 
 tags:
   - software
 
 keywords:
-  []
+  - "SBATCH"
+  - "token replacement"
+  - "nanophotonic devices"
+  - "port and hostname"
+  - "job submission"
+  - "fdtd_solutions.sh"
+  - "Lumerical module"
+  - "memory estimate"
+  - "installation"
+  - "Slurm"
+  - "bash"
+  - "time limit"
+  - "Installation"
+  - "ntasks"
+  - "fdtd-mpi-template.sh"
+  - "module load"
+  - "submission script template"
+  - "license server"
+  - "Lumerical"
+  - "FDTD Solutions"
+  - "node count"
+  - "fdtd_solutions"
+  - "template scripts"
+  - "license file"
+  - "job submission script"
+  - "bash script"
+  - "MPI"
+
+questions:
+  - "What is the Lumerical software suite used for, and what specific application does it include?"
+  - "How can a user install the Lumerical suite on Compute Canada if their downloaded installer version differs from the available installation recipe?"
+  - "What steps must be taken to configure the license file so that the Lumerical module can successfully contact the license server?"
+  - "What command is required to load the Lumerical module on the server?"
+  - "In which directory and file does the Lumerical module look for license server information?"
+  - "What specific details must be adjusted within the license file to properly connect to the license server?"
+  - "How do you install a specific version of FDTD Solutions and configure its license server?"
+  - "What is the main difference between the fdtd_solutions and lumerical modules regarding environment variables?"
+  - "Why must specific SLURM options like --ntasks-per-node=1 be used when submitting jobs for these modules?"
+  - "What is the primary advantage of using template submission scripts for FDTD simulations instead of editing individual job scripts?"
+  - "What specific directory structure and script files must be created to set up the template-based submission system?"
+  - "How can a user specify the number of nodes they want to use when submitting a job with the `fdtd-run.sh` command?"
+  - "Which parameters in the batch script can be adjusted to fit the user's specific needs?"
+  - "Which SBATCH directives are explicitly marked as values that should not be changed?"
+  - "How does the script configure the relationship between the total number of tasks and the requested nodes?"
+  - "What is the primary purpose of the fdtd-process-template.sh script?"
+  - "What command-line options can be used to adjust the simulation's time and memory estimates, and what are their default values?"
+  - "Which specific tokens in the template file does the script replace with the calculated FDTD project statistics?"
+  - "What software module and specific engine are being loaded and executed in this SLURM script template?"
+  - "How does the script calculate the total number of cores allocated for the MPI job?"
+  - "Which placeholders in the script template must the user replace with specific values before submitting the job?"
+  - "What is the primary purpose of the fdtd-process-template.sh script?"
+  - "What command-line options can be used to adjust the simulation's time and memory estimates, and what are their default values?"
+  - "Which specific tokens in the template file does the script replace with the calculated FDTD project statistics?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
@@ -29,85 +81,88 @@ status:
 FDTD Solutions is now available as part of the Lumerical package.
 Compute Canada does not have a central installation of the Lumerical suite or FDTD Solutions. However, if you are licensed to use the software, you can install it following the instructions below.
 
-If you have downloaded whole Lumerical suite (e.g. filename: `Lumerical-2020a-r1-d316eeda68.tar.gz`), follow the instructions in sections "Installing Lumerical" and "Using the Lumerical module".
-If you have downloaded FDTD Solutions on its own (e.g. filename: `FDTD_Solutions-8.19.1438.tar.gz`), follow the instructions in sections "Installing FDTD Solutions" and "Using the fdtd_solutions module".
+If you have downloaded the whole Lumerical suite (e.g., filename: `Lumerical-2020a-r1-d316eeda68.tar.gz`), follow the instructions in sections "Installing Lumerical" and "Using the Lumerical module".
+If you have downloaded FDTD Solutions on its own (e.g., filename: `FDTD_Solutions-8.19.1438.tar.gz`), follow the instructions in sections "Installing FDTD Solutions" and "Using the fdtd_solutions module".
 
 ## Installing Lumerical
 ### In case the installer release matches that of the recipe
-To install the Lumerical suite run the command
-```bash
+To install the Lumerical suite, run the command:
+````bash
 eb Lumerical-2020a-r1-d316eeda68.eb --sourcepath=<path> --disable-enforce-checksums
-```
+````
 where `path` is the path to the folder containing the `.tar.gz` file to install Lumerical on Linux.
 
 ### In case the installer release does not match that of the recipe
-With a different 2020a release than 2020a-r1-d316eeda68, run
-```bash
+With a different 2020a release than 2020a-r1-d316eeda68, run:
+````bash
 eb Lumerical-2020a-r1-d316eeda68.eb --try-software-version=<version> --sourcepath=<path> --disable-enforce-checksums
-```
+````
 For example, if `Lumerical-2020a-r1-d316eeda68.eb.tar.gz` is downloaded in `$HOME/scratch`, the following command will install Lumerical within your `$HOME/.local` folder.
-```bash
+````bash
 eb Lumerical-2020a-r1-d316eeda68.eb --try-software-version=2020a-r6-aabbccdd --sourcepath=$HOME/scratch --disable-enforce-checksums
-```
+````
+
 It is important that the version of the installation recipe (year plus 'a' or 'b') needs to exactly match that of the installer.
-If either the letter or the year changes (e.g. from 2020a to 2020b), we will need to adapt the installation script to the new version.
+If either the letter or the year changes (e.g., from 2020a to 2020b), we will need to adapt the installation script to the new version.
 
-As of April 1st, 2020 we have the following installation recipes available:
+As of April 1st, 2020, we have the following installation recipes available:
 
-| Installation recipe | Intended for Installer | Compatible with Installers |
-| :----------------------------------------- | :------------------------------------------- | :--------------------------- |
-| `Lumerical-2019b-r6-1db3676.eb`             | `Lumerical-2019b-r6-1db3676.tar.gz`          | `Lumerical-2019b-*.tar.gz`   |
-| `Lumerical-2020a-r1-d316eeda68.eb`          | `Lumerical-2020a-r1-d316eeda68.tar.gz`       | `Lumerical-2020a-*.tar.gz`   |
-| `Lumerical-2021-R2.5-2885-27742aa972.eb`    | `Lumerical-2021-R2.5-2885-27742aa972.tar.gz` | `Lumerical-2021-*.tar.gz`    |
-| `Lumerical-2022-R1.3-3016-2c0580a.eb`       | `Lumerical-2022-R1.3-3016-2c0580a.tar.gz`    | `Lumerical-2022-*.tar.gz`    |
+| Installation recipe                         | Intended for Installer                              | Compatible with Installers        |
+| :------------------------------------------ | :-------------------------------------------------- | :-------------------------------- |
+| `Lumerical-2019b-r6-1db3676.eb`             | `Lumerical-2019b-r6-1db3676.tar.gz`                 | `Lumerical-2019b-*.tar.gz`        |
+| `Lumerical-2020a-r1-d316eeda68.eb`          | `Lumerical-2020a-r1-d316eeda68.tar.gz`              | `Lumerical-2020a-*.tar.gz`        |
+| `Lumerical-2021-R2.5-2885-27742aa972.eb`    | `Lumerical-2021-R2.5-2885-27742aa972.tar.gz`        | `Lumerical-2021-*.tar.gz`         |
+| `Lumerical-2022-R1.3-3016-2c0580a.eb`       | `Lumerical-2022-R1.3-3016-2c0580a.tar.gz`           | `Lumerical-2022-*.tar.gz`         |
 
 If this does not work, please contact our [Technical support](technical-support.md) and we will adapt an installation recipe for your version.
 
-Once installed, you will need to log out and back into the server. To load the Lumerical module, use
-```bash
+Once installed, you will need to log out and back into the server. To load the Lumerical module, use:
+````bash
 module load lumerical
-```
+````
 
 ### Configuring your own license file
 The Lumerical module will look for the file `$HOME/.licenses/lumerical.lic` to determine how to contact the license server.
 Create the file with the following content, adjusting `27011@license01.example.com` to the port and hostname of your license server.
 
-copy the content below to `$HOME/.licenses/lumerical.lic`
-```text
+Copy the content below to `$HOME/.licenses/lumerical.lic`
+````text
 setenv("LUMERICAL_LICENSE_FILE", "27011@license01.example.com")
-```
+````
 
 ## Installing FDTD Solutions
-To install FDTD Solutions, run the command
-```bash
+To install FDTD Solutions, run the command:
+````bash
 eb FDTD_Solutions-8.19.1438.eb --sourcepath=<path> --disable-enforce-checksums
-```
+````
 where `path` is the path to the folder containing the `.tar.gz` file to install FDTD Solutions on Linux.
 
-With a version other than 8.19.1438, run
-```bash
+With a version other than 8.19.1438, run:
+````bash
 eb FDTD_Solutions-8.19.1438.eb --try-software-version=<version> --sourcepath=<path> --disable-enforce-checksums
-```
-For example, if `FDTD_Solutions-8.19.1466.tar` is downloaded in `$HOME/Downloads`, the following command will install FDTD Solution within your `$HOME/.local` folder.
-```bash
+````
+For example, if `FDTD_Solutions-8.19.1466.tar` is downloaded in `$HOME/Downloads`, the following command will install FDTD Solutions within your `$HOME/.local` folder.
+````bash
 eb FDTD_Solutions-8.19.1438.eb --try-software-version=8.19.1466 --sourcepath=$HOME/Downloads --disable-enforce-checksums
-```
+````
+
 If this does not work, please contact our [Technical support](technical-support.md) and we will adapt an installation script for your version.
 
-Once installed, you will need to log out and back into the server. To load the FDTD module, use
-```bash
+Once installed, you will need to log out and back into the server. To load the FDTD module, use:
+````bash
 module load fdtd_solutions
-```
+````
+
 You will also need to set up your installation to use your license server. Start the software first on a login node; it should ask you for information about the license server. You will only need to do this once.
 
 # Using the software
-The main difference between the modules `fdtd_solutions` and `lumerical`, beside the fact that the Lumerical module contains additional tools, is that the environment variable that contains the install location is named `EBROOTFDTD_SOLUTIONS` and `EBROOTLUMERICAL` respectively. This means scripts written for one module should be adjusted for the other by replacing the name of the module in the `module load ...` line and replacing `EBROOTFDTD_SOLUTIONS` with `EBROOTLUMERICAL` or vice versa.
+The main difference between the modules `fdtd_solutions` and `lumerical`, besides the fact that the Lumerical module contains additional tools, is that the environment variable that contains the install location is named `EBROOTFDTD_SOLUTIONS` and `EBROOTLUMERICAL` respectively. This means scripts written for one module should be adjusted for the other by replacing the name of the module in the `module load ...` line and replacing `EBROOTFDTD_SOLUTIONS` with `EBROOTLUMERICAL` or vice versa.
 
 ## Using the Lumerical module
 The MPI implementation provided by Lumerical is not tightly coupled with our scheduler. Because of this, you should use options `--ntasks-per-node=1` and `--cpus-per-task=32` when submitting a job.
 
 Your submission script should look like the following example, where two nodes are requested for 30 minutes. You can adjust the time limit and the node count to fit your needs.
-```sh title="lumrical_job.sh"
+````bash title="lumrical_job.sh"
 #!/bin/bash
 #SBATCH --time=0:30:00            # time limit (D-HH:MM:SS)
 #SBATCH --ntasks-per-node=1       # do not change this number
@@ -123,15 +178,15 @@ MY_PROG=$EBROOTLUMERICAL/bin/fdtd-engine-mpich2nem
 INPUT="avalanche_photodetector_optical.fsp"
 NCORE=$((SLURM_NTASKS * SLURM_CPUS_PER_TASK))
 
-$MPI -n $NCORE $MY_PROG ./${INPUT}
-```
+$MPI -n "$NCORE" "$MY_PROG" "./${INPUT}"
+````
 
 ## Using the fdtd_solutions module
 The MPI implementation provided by FDTD is not tightly coupled with our scheduler. Because of this, you should use options `--ntasks-per-node=1` and `--cpus-per-task=32` when submitting a job.
 
 Your submission script should look like the following example, where two nodes are requested for one hour. You can adjust the time limit and the node count to fit your needs.
 
-```sh title="fdtd_solutions.sh"
+````bash title="fdtd_solutions.sh"
 #!/bin/bash
 #SBATCH --time=0:30:00            # time limit (D-HH:MM:SS)
 #SBATCH --ntasks-per-node=1    # do not change this number
@@ -145,12 +200,12 @@ MY_PROG=$EBROOTFDTD_SOLUTIONS/bin/fdtd-engine-mpich2nem
 
 INPUT="benchmark2.fsp"
 NCORE=$((SLURM_NTASKS * SLURM_CPUS_PER_TASK))
-$MPI -n $NCORE $MY_PROG ./${INPUT}
-```
+$MPI -n "$NCORE" "$MY_PROG" "./${INPUT}"
+````
 
 ## Templates
 
-!!! note "Note"
+!!! note
     This section is intended for use with the "fdtd_solutions" module and has not been adapted for "lumerical".
 
 If you are performing a lot of simulations, you may find it inefficient to edit the job submission script for each simulation. You can use template submission scripts to improve this.
@@ -161,15 +216,15 @@ For example:
 
 `fdtd-mpi-template.sh` is basically a shell of the `fdtd_solutions.sh` script shown above and `fdtd-process-template.sh` determines the computing resources you need.
 
-To submit a job, run
-```bash
+To submit a job, run:
+````bash
 fdtd-run.sh fsp1 [fsp2 ...]
-```
+````
 This will use the 32 cores on a single standard node. If you want to use more cores, request multiple nodes like so:
-```bash
+````bash
 fdtd-run.sh -nn <nodes> fsp1 [fsp2 ...]
-```
-```sh title="fdtd-run.sh"
+````
+````bash title="fdtd-run.sh"
 #!/bin/bash
 # This script will create a Slurm-style job submission script for
 # FDTD Solutions project files using the template provided in
@@ -193,7 +248,7 @@ fdtd-run.sh -nn <nodes> fsp1 [fsp2 ...]
 # Locate the directory of this script so we can find
 # utility scripts and templates relative to this path.
 module load fdtd_solutions
-SCRIPTDIR=$EBROOTFDTD_SOLUTIONS/bin
+SCRIPTDIR="$EBROOTFDTD_SOLUTIONS/bin"
 
 # The location of the template file to use when submitting jobs.
 # The line below can be changed to use your own template file.
@@ -205,7 +260,7 @@ PROCS=32
 # Number of nodes to use. Default is 1 if no -nn argument is given.
 NODES=1
 if [ "$1" = "-nn" ]; then
-    NODES=$2
+    NODES="$2"
     shift
     shift
 fi
@@ -219,34 +274,34 @@ do
     # Additional arguments can be added to fdtd-process-template to fine-tune
     # the memory and time estimates. See comments in that file for details.
     SHELLFILE=${1%.fsp}.sh
-    ../bin/templates/fdtd-process-template.sh -ms 500 $1 $TEMPLATE $((PROCS)) > $SHELLFILE
-    TOTAL_MEM=$(head -n 1 $SHELLFILE)
-    sed -i -e '1,1d' $SHELLFILE
+    ../bin/templates/fdtd-process-template.sh -ms 500 "$1" "$TEMPLATE" $((PROCS)) > "$SHELLFILE"
+    TOTAL_MEM=$(head -n 1 "$SHELLFILE")
+    sed -i -e '1,1d' "$SHELLFILE"
 
     # Submit the job script.
-    echo Submitting: $SHELLFILE
-    echo Total Memory Required = $TOTAL_MEM
-    sbatch --nodes=${NODES} --ntasks=${NODES} --cpus-per-task=${PROCS} --mem=${TOTAL_MEM} $SHELLFILE
+    echo "Submitting: $SHELLFILE"
+    echo "Total Memory Required = $TOTAL_MEM"
+    sbatch --nodes="${NODES}" --ntasks="${NODES}" --cpus-per-task="${PROCS}" --mem="${TOTAL_MEM}" "$SHELLFILE"
 
     shift
 done
-```
+````
 
-```sh title="fdtd-mpi-template.sh"
+````bash title="fdtd-mpi-template.sh"
 #!/bin/bash
 #SBATCH --time=<hours>:<minutes>:<seconds>
 #SBATCH --ntasks-per-node=1
 
 module load fdtd_solutions
-MPI=$EBROOTFDTD_SOLUTIONS/mpich2/nemesis/bin/mpiexec
-MY_PROG=$EBROOTFDTD_SOLUTIONS/bin/fdtd-engine-mpich2nem
+MPI="$EBROOTFDTD_SOLUTIONS/mpich2/nemesis/bin/mpiexec"
+MY_PROG="$EBROOTFDTD_SOLUTIONS/bin/fdtd-engine-mpich2nem"
 
 INPUT="<filename>"
 NCORE=$((SLURM_NTASKS * SLURM_CPUS_PER_TASK))
-$MPI -n $NCORE $MY_PROG ./${INPUT}
-```
+"$MPI" -n "$NCORE" "$MY_PROG" "./${INPUT}"
+````
 
-```sh title="fdtd-process-template.sh"
+````bash title="fdtd-process-template.sh"
 #!/bin/bash
 # This script is used to replace tags in a submission script template with
 # actual values from an FDTD Solutions project file. The script is called
@@ -260,13 +315,13 @@ $MPI -n $NCORE $MY_PROG ./${INPUT}
 #                      If no option is given the default is 4MNodes/s/process
 #                      which is very conservative.
 #
-# -tm <min_time>       The minimum time in seconds that the simulation can take. 
+# -tm <min_time>       The minimum time in seconds that the simulation can take.
 #                      If no option is given the default is 600 seconds.
 #
 # -ms <memory_safety>  A multiplicative factor to apply to the memory estimate in %.
 #                      If no option is given the default value is 110.
 #
-# -mm <memory_min>     The minimum memory that a process can use. 
+# -mm <memory_min>     The minimum memory that a process can use.
 #                       If no option is given the default is 20MB.
 #
 # The script will replace the following tokens in the template file with specified values:
@@ -296,37 +351,38 @@ MEMORY_SAFETY=110
 MEMORY_MIN=20
 
 #Process command line options
-while [ $# -gt 3 ] ; do
-    case $1 in
-        -r) RATE=$2
+while [ "$#" -gt 3 ] ; do
+    case "$1" in
+        -r) RATE="$2"
          ;;
-        -tm) TIME_MIN=$2
+        -tm) TIME_MIN="$2"
          ;;
-        -ms) MEMORY_SAFETY=$2
+        -ms) MEMORY_SAFETY="$2"
          ;;
-        -mm) MEMORY_MIN=$2
+        -mm) MEMORY_MIN="$2"
          ;;
+        *) echo "Unknown option: $1" >&2; exit 1 ;;
     esac
     shift
     shift
 done
 
 #Number of processes
-PROCS=$3
+PROCS="$3"
 
 #Path of fsp file
-DIRFSP=`dirname $1`
+DIRFSP=$(dirname "$1")
 
 #fsp file name without path
-FILENAME=`basename $1`
+FILENAME=$(basename "$1")
 
 #Run FDTD to get stats from project file
 module load fdtd_solutions
-SCRIPTDIR=$EBROOTFDTD_SOLUTIONS/bin
-$SCRIPTDIR/fdtd-engine-mpich2nem -mr $1 > $1.tmp
+SCRIPTDIR="$EBROOTFDTD_SOLUTIONS/bin"
+"$SCRIPTDIR/fdtd-engine-mpich2nem" -mr "$1" > "$1.tmp"
 
 #Estimated memory
-ESTMEM=`grep memory $1.tmp | sed 's/^.*=//'`
+ESTMEM=$(grep memory "$1.tmp" | sed 's/^.*=//')
 
 #Total memory required
 TOTALMEM=$(( ESTMEM * MEMORY_SAFETY / 100 ))
@@ -334,19 +390,19 @@ TOTALMEM=$(( ESTMEM * MEMORY_SAFETY / 100 ))
 #Memory required per process
 PROCMEM=$((TOTALMEM / PROCS))
 if [ "$PROCMEM" -lt "$MEMORY_MIN" ]; then
-    PROCMEM=$MEMORY_MIN
+    PROCMEM="$MEMORY_MIN"
 fi
 
 #Gridpoints
-GRIDPTS=`grep gridpoints $1.tmp | sed 's/^.*=//'`
+GRIDPTS=$(grep gridpoints "$1.tmp" | sed 's/^.*=//')
 
 #Timesteps
-TIMESTEPS=`grep time_steps $1.tmp | sed 's/^.*=//'`
+TIMESTEPS=$(grep time_steps "$1.tmp" | sed 's/^.*=//')
 
 #Estimated time
 TIME=$(( GRIDPTS * TIMESTEPS / PROCS / RATE / 10000000 ))
 if [ "$TIME" -lt "$TIME_MIN" ]; then
-    TIME=$TIME_MIN
+    TIME="$TIME_MIN"
 fi
 
 HOUR=$((TIME / 3600))
@@ -354,7 +410,7 @@ MINSEC=$((TIME - HOUR * 3600))
 MIN=$((MINSEC / 60))
 SEC=$((MINSEC - MIN * 60))
 
-echo $TOTALMEM
+echo "$TOTALMEM"
 
 #The replacements
 sed -e "s#<total_memory>#$TOTALMEM#g" \
@@ -365,4 +421,5 @@ sed -e "s#<total_memory>#$TOTALMEM#g" \
     -e "s#<n>#$PROCS#g" \
     -e "s#<dir_fsp>#$DIRFSP#g" \
     -e "s#<filename>#$FILENAME#g" \
-    $2
+    "$2"
+`

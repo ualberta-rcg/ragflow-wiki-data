@@ -1,0 +1,51 @@
+{
+  "doc_key": "fr/cpmd",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "C'est quoi CPMD?",
+      "answer": "CPMD est un programme de simulation *ab initio* en dynamique moléculaire qui utilise la théorie de la fonctionnelle de la densité (DFT) pour les ondes planes et les pseudo-potentiels."
+    },
+    {
+      "question": "Comment faire pour utiliser CPMD sur nos grappes de calcul?",
+      "answer": "Pour utiliser CPMD sur nos grappes, il faut contacter le soutien technique pour être ajouté au groupe POSIX, car l'enregistrement n'est plus nécessaire."
+    },
+    {
+      "question": "Quelles commandes doit-on utiliser pour charger le module CPMD?",
+      "answer": "Il faut charger l'environnement standard avec `module load StdEnv/2020` et ensuite les modules spécifiques avec `module load intel/2020.1.217 openmpi/4.0.3 cpmd/4.3`."
+    },
+    {
+      "question": "Pourquoi voudrait-on installer CPMD localement dans son répertoire /home?",
+      "answer": "Une installation locale permet d'éviter les délais d'attente (qui peuvent prendre des semaines, voire des mois) pour que les administrateurs de CPMD installent l'application de façon centrale."
+    },
+    {
+      "question": "Quelles sont les étapes pour installer CPMD 4.3 localement avec EasyBuild sur une de nos grappes?",
+      "answer": "Il faut d'abord créer un répertoire `~/.local/easybuild/sources/c/CPMD`, y placer les tarballs et rustines (patches), puis lancer la commande `eb CPMD-4.3-iomkl-2020a.eb --rebuild`."
+    },
+    {
+      "question": "À quoi sert l'option `--rebuild` quand on utilise EasyBuild pour une installation locale?",
+      "answer": "L'option `--rebuild` force EasyBuild à utiliser l'installation située dans votre répertoire /home plutôt qu'une installation centrale."
+    },
+    {
+      "question": "Comment s'assurer que le système utilise l'installation locale de CPMD après l'avoir installée?",
+      "answer": "Après l'installation, vous devez vous déconnecter de la grappe et vous reconnecter. Ensuite, la commande `module load cpmd` trouvera l'application dans votre répertoire /home."
+    },
+    {
+      "question": "Quels sont les deux éléments essentiels pour exécuter une tâche CPMD?",
+      "answer": "Vous devez configurer un fichier d'entrée et avoir accès aux pseudo-potentiels nécessaires."
+    },
+    {
+      "question": "Comment exécuter le programme CPMD en parallèle si le fichier d'entrée et les pseudo-potentiels sont dans le même répertoire?",
+      "answer": "La commande à utiliser est `srun cpmd.x <fichiers d'entrée> > <fichier de sortie>`."
+    },
+    {
+      "question": "Comment exécuter CPMD si les pseudo-potentiels se trouvent dans un répertoire différent du fichier d'entrée?",
+      "answer": "La commande est `srun cpmd.x <fichiers d'entrée> <chemin vers l'emplacement des pseudo-potentiels> > <fichier de sortie>`."
+    },
+    {
+      "question": "Quel type de calcul est effectué dans le fichier d'entrée `1-h2-wave.inp` fourni en exemple?",
+      "answer": "Le fichier d'entrée `1-h2-wave.inp` configure une simulation pour une molécule d'hydrogène isolée avec un calcul de point unique, demandant l'optimisation de la fonction d'onde et la convergence des orbitales."
+    }
+  ],
+  "generated_at": "2026-04-11T19:14:03.112859+00:00"
+}

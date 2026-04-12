@@ -1,0 +1,47 @@
+{
+  "doc_key": "fr/mpi-io",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "C'est quoi, MPI-IO, pis à quoi ça sert?",
+      "answer": "MPI-IO, c'est une partie du standard MPI-2 qui regroupe des routines MPI pour faire des opérations de lecture pis d'écriture en parallèle."
+    },
+    {
+      "question": "Quel est l'avantage principal de MPI-IO?",
+      "answer": "Son avantage, c'est qu'on peut lire pis écrire des données réparties sur plusieurs processus dans un seul fichier commun, pis ça, c'est simple pis efficace."
+    },
+    {
+      "question": "Dans quel contexte MPI-IO est-il le plus utile?",
+      "answer": "C'est particulièrement utile quand on manipule des données comme des vecteurs ou des matrices qui sont découpées de manière structurée entre les processus."
+    },
+    {
+      "question": "C'est quoi la manière la plus simple de faire des opérations de lecture et écriture en parallèle avec MPI-IO?",
+      "answer": "La manière la plus simple, c'est d'utiliser des déplacements (offsets) pour que chaque processus lise ou écrive à un endroit précis dans le fichier."
+    },
+    {
+      "question": "Comment est-ce qu'on peut effectuer une opération avec un déplacement?",
+      "answer": "On peut le faire en deux étapes avec `MPI_File_seek` suivi de `MPI_File_read` ou `MPI_File_write`, ou bien en une seule opération avec `MPI_File_read_at` ou `MPI_File_write_at`."
+    },
+    {
+      "question": "Comment calcule-t-on habituellement le déplacement dans le fichier?",
+      "answer": "On calcule d'habitude le déplacement en fonction du rang du processus."
+    },
+    {
+      "question": "Qu'est-ce que c'est, le concept des vues dans MPI-IO?",
+      "answer": "Avec les vues, chaque processus 'voit' juste une section du fichier, comme si c'était le fichier au complet, ce qui simplifie les opérations."
+    },
+    {
+      "question": "Quel est l'intérêt d'utiliser les vues pour les opérations de fichiers?",
+      "answer": "Ça simplifie pas mal les choses parce qu'on n'a plus besoin de calculer les déplacements pour chaque processus, pis on a moins peur de créer des conflits avec les autres processus."
+    },
+    {
+      "question": "Quelle fonction est utilisée pour définir une vue?",
+      "answer": "On utilise la fonction `MPI_File_set_view` pour définir une vue."
+    },
+    {
+      "question": "Est-ce qu'il y a des limitations quand on utilise les vues?",
+      "answer": "Oui, certains systèmes de fichiers supportent pas les verrous de fichiers (file locks), ce qui peut empêcher d'utiliser des vues sur des sections disjointes d'un fichier."
+    }
+  ],
+  "generated_at": "2026-04-12T01:49:48.636190+00:00"
+}

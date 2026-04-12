@@ -5,82 +5,104 @@ lang: "base"
 
 source_wiki_title: "Make"
 source_hash: "a2660bf65cef38dfba7ffe7606a86dcc"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T08:22:48.141768+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T08:56:25.059478+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "dependencies"
+  - "object form"
+  - "make command"
+  - "Compiler"
+  - "separated routines"
+  - "Executable program"
+  - "program compilation"
+  - "make"
+  - "targets"
+  - "Object files"
+  - "Compilation options"
+  - "compilation"
+  - "makefile"
+  - "Makefile"
+
+questions:
+  - "What is the fundamental purpose of the make utility and how does it use dependencies to avoid unnecessary recompilation?"
+  - "What are the conventional targets (such as 'all', 'clean', and 'install') used with the make command, and what specific actions do they trigger?"
+  - "How does a makefile structure the instructions for building a program, and are its target names strict rules or general conventions?"
+  - "How do you use the \"make\" command on the UNIX command line to update either the entire program or a specific routine?"
+  - "What are the key variables that need to be modified to adapt this Makefile to a specific program?"
+  - "How does the script define the rules for compiling different types of source files into object files and linking them into the final executable?"
+  - "What is the primary purpose of a Makefile when managing a program with multiple separated routines?"
+  - "How is a Makefile processed, given that it is not executed directly by itself?"
+  - "How does the \"make\" command determine which specific routines need to be recompiled into object files?"
+  - "How do you use the \"make\" command on the UNIX command line to update either the entire program or a specific routine?"
+  - "What are the key variables that need to be modified to adapt this Makefile to a specific program?"
+  - "How does the script define the rules for compiling different types of source files into object files and linking them into the final executable?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
 ## Description
 [make](http://en.wikipedia.org/wiki/Makefile) is a utility that automatically builds files, such as executables or libraries, from other files, such as source code.
 
-!!! note "Understanding Makefiles and Dependencies"
-    The `make` command interprets and executes the instructions within a file named `makefile`. Unlike a simple script, `make` only executes the commands that are necessary. The goal is to arrive at a result (compiled or installed software, formatted documentation, etc.) without needing to redo all steps.
+The `make` command interprets and executes the instructions within a file named `makefile`. Unlike a simple script, `make` only executes the commands that are necessary. The goal is to arrive at a result (compiled or installed software, formatted documentation, etc.) without needing to redo all steps.
 
-    The `makefile` contains information on *dependencies*. For example, if the `makefile` indicates that an object (`.o`) file depends on a source file, and the source file has changed, then the source file is recompiled to update the object file. In the same way, if an executable depends on any object files which have changed then the linking step will be rerun to update the executable. All dependencies must be included in the `makefile`. Then it is not necessary to recompile all files for every modification; the `make` command takes care of recompiling and relinking only what is necessary.
+The `makefile` contains information on *dependencies*.
+For example, if the `makefile` indicates that an object (`.o`) file depends on a source file, and the source file has changed, then the source file is recompiled to update the object file.
+In the same way, if an executable depends on any object files which have changed then the linking step will be rerun to update the executable.
+All dependencies must be included in the `makefile`. Then it is not necessary to recompile all files for every modification; the `make` command takes care of recompiling and relinking only what is necessary.
 
-## Examples for using Make
-The main argument of the `make` command is the *target*. The *target* may be the name of some file that `make` should build, or it may be an abstract target such as `all`, `test`, `check`, `clean`, or `install`. The targets that are available depend on the contents of the `makefile`, but the ones just listed are conventional and are specified in many makefiles. If `make` is invoked with no target specified, like so:
-
+## Examples for using make
+The main argument of the `make` command is the *target*. The *target* may be the name of some file that `make` should build, or it may be an abstract target such as `all`, `test`, `check`, `clean`, or `install`.
+The targets that are available depend on the contents of the `makefile`, but the ones just listed are conventional and are specified in many makefiles. If `make` is invoked with no target specified, like so:
 ```bash
 make
 ```
-
 then the typical behaviour is to construct everything, equivalent to:
-
 ```bash
 make all
 ```
 
 The `test` or `check` targets are generally used to run tests to validate if the application or compiled library functions correctly. Usually these targets depend on the `all` target. Hence you can verify the compilation using
-
 ```bash
 make all && make check
 ```
-
 or
-
 ```bash
 make all && make test
 ```
 
 The `clean` target erases all previously compiled binary files to be able to recompile from scratch. There is sometimes also a `distclean` target, which not only deletes files made by `make`, but also files created at configuration time by [configure](autotools.md) or [cmake](cmake.md). So to clean the compilation directory, you can usually run
-
 ```bash
 make clean
 ```
-
 and sometimes
-
 ```bash
 make distclean
 ```
 
 The `install` target normally installs a compiled program or library. Where the installation is put depends on the `makefile`, but can often be modified using an additional `prefix` parameter, like this:
-
 ```bash
 make install prefix=$HOME/PROGRAM
 ```
 
-!!! info "Conventional Make Targets"
-    The targets `all`, `test`, `check`, `clean`, `distclean` and `install` are only conventions and a `makefile` author could very well choose another convention. To get more information on typical target names, notably supported by all GNU applications, visit [this page](http://www.gnu.org/software/make/manual/make.html#Standard-Targets). Options to configure installation and other directories are [listed here](http://www.gnu.org/software/make/manual/make.html#Directory-Variables).
+The targets `all`, `test`, `check`, `clean`, `distclean` and `install` are only conventions and a `makefile` author could very well choose another convention. To get more information on typical target names, notably supported by all GNU applications, visit [this page](http://www.gnu.org/software/make/manual/make.html#Standard-Targets). Options to configure installation and other directories are [listed here](http://www.gnu.org/software/make/manual/make.html#Directory-Variables).
 
-## Example of a Makefile
+## Example of a `Makefile`
 The following example, of general use, includes a lot of explanations and comments. For a detailed guide on how to create a `makefile`, visit [the GNU Make web site](http://www.gnu.org/software/make/manual/make.html#Introduction).
 
-```make title="Makefile"
+```yaml
+title: Makefile
+language: make
+---
 # Makefile to easily update the compilation of a program (.out)
 # --------
 #

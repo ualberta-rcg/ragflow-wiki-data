@@ -1,0 +1,51 @@
+{
+  "doc_key": "fr/frequently_asked_questions",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "Comment puis-je réinitialiser mon mot de passe pour accéder aux grappes nationales de l'Alliance?",
+      "answer": "Vous pouvez le réinitialiser en visitant https://ccdb.alliancecan.ca/security/forgot. Assurez-vous d'abord que votre premier rôle a été approuvé."
+    },
+    {
+      "question": "Comment faire pour copier-coller du texte dans un terminal Linux, sous Windows ou macOS?",
+      "answer": "Dans un terminal Linux, Ctrl+C est pour annuler; utilisez plutôt Ctrl+Insert pour copier et Shift+Insert pour coller, ou sélectionnez le texte puis clic droit/milieu. Sous macOS, utilisez Cmd+C et Cmd+V comme d'habitude."
+    },
+    {
+      "question": "Quels problèmes les fichiers texte créés sous Windows peuvent-ils causer dans un environnement Linux, et comment les résoudre?",
+      "answer": "Les fichiers Windows contiennent un caractère 'retour de chariot' invisible à la fin des lignes, ce qui cause des problèmes sous Linux. Pour contrer cela, créez/éditez les fichiers directement sur la grappe avec des éditeurs Linux (emacs, vim, nano) ou utilisez la commande `dos2unix <filename>` sur un nœud de connexion."
+    },
+    {
+      "question": "Pourquoi la sauvegarde des fichiers avec Emacs est-elle lente sur les grappes, et comment améliorer la performance?",
+      "answer": "Emacs utilise l'appel système `fsync` pour une meilleure fiabilité, ce qui peut ralentir la sauvegarde sur les systèmes de fichiers partagés. Pour améliorer la performance, ajoutez la ligne `(setq write-region-inhibit-fsync t)` à votre fichier `~/.emacs`."
+    },
+    {
+      "question": "Que signifie le message d'erreur ''sbatch: error: Batch job submission failed: Socket timed out on send/recv operation'' et que devrais-je faire?",
+      "answer": "Ce message indique que l'ordonnanceur est possiblement surchargé. Attendez environ une minute, puis utilisez `squeue -u $USER` pour vérifier si la tâche a été soumise. Si ce n'est pas le cas, soumettez-la de nouveau, car Slurm peut l'avoir acceptée malgré le message."
+    },
+    {
+      "question": "Comment puis-je savoir pourquoi mes tâches ont le statut 'en attente' (PD), et que signifient 'Resources' ou 'Priority'?",
+      "answer": "Exécutez la commande `squeue -u <username>`. Si la raison est 'Resources', la grappe est occupée. Si c'est 'Priority', votre tâche a une basse priorité due à une utilisation récente élevée des ressources par vous ou votre groupe."
+    },
+    {
+      "question": "Que signifient les messages comme ''Nodes required for job are DOWN, DRAINED or RESERVED for jobs in higher priority partitions'' ou ''ReqNodeNotAvailable'' pour mes tâches?",
+      "answer": "Ces messages, souvent affichés par Slurm 19.05, indiquent que les nœuds requis sont en panne, hors service ou réservés. Ce ne sont pas des erreurs; les tâches sont en attente et seront traitées, comme la raison 'Ressources' de Slurm 17.11."
+    },
+    {
+      "question": "Pourquoi le moment de début (`START_TIME`) affiché par `squeue` pour les tâches en attente n'est-il pas précis ou est souvent 'N/A'?",
+      "answer": "Le `START_TIME` est imprécis car les conditions des grappes changent constamment (tâches qui finissent tôt, nouvelles tâches de haute priorité, annulations). Slurm revoit souvent l'ordre d'exécution. Pour la plupart des tâches en attente, Slurm n'essaie pas de fixer le moment de début ('N/A'). Il n'est précis que pour les tâches déjà en cours."
+    },
+    {
+      "question": "Qu'est-ce qu'un fichier '.core', à quoi sert-il et comment éviter qu'il ne soit créé?",
+      "answer": "Un fichier '.core' est créé lorsqu'un programme se termine anormalement; il contient un instantané de l'état du programme utile pour le débogage. Pour les utilisateurs, il signale un problème et peut être supprimé. Pour éviter leur création, ajoutez `ulimit -c 0` à la fin de votre fichier `$HOME/.bashrc`."
+    },
+    {
+      "question": "J'obtiens une erreur 'librairie introuvable' comme '/lib64/libc.so.6: version 'GLIBC_2.18' not found' en exécutant un paquet binaire. Où puis-je trouver la solution?",
+      "answer": "Vous trouverez la solution à cette erreur dans la section 'Installer des paquets binaires' du guide d'installation de logiciels dans votre répertoire `$HOME`."
+    },
+    {
+      "question": "Est-ce que les grappes de l'Alliance sont sécurisées pour gérer des données de recherche sensibles?",
+      "answer": "Les grappes ne sont pas spécifiquement conçues pour garantir la sécurité des données sensibles. L'Alliance applique les meilleures pratiques, mais il est de la responsabilité des chercheurs de s'assurer que les exigences de sécurité spécifiques pour leurs données sont respectées, en consultant la Politique de protection des données et les Conditions d'utilisation."
+    }
+  ],
+  "generated_at": "2026-04-11T21:46:41.314369+00:00"
+}

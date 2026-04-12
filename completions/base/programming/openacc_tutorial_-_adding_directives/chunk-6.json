@@ -1,0 +1,48 @@
+{
+  "doc_key": "base/openacc_tutorial_-_adding_directives",
+  "level": "chunk",
+  "chunk_index": 6,
+  "qa_pairs": [
+    {
+      "question": "What does declaring a pointer as 'restricted' formally mean?",
+      "answer": "Declaring a pointer as restricted formally means that for the lifetime of the pointer, only it or a value derived from it (such as `ptr + 1`) will be used to access the object to which it points. This is a guarantee the programmer gives to the compiler."
+    },
+    {
+      "question": "What is the consequence if a programmer violates the guarantee provided by the `restrict` keyword?",
+      "answer": "If a programmer violates the guarantee given by the `restrict` keyword, the behaviour is undefined."
+    },
+    {
+      "question": "What is an alternative OpenACC directive for explicitly indicating that loop iterations are independent?",
+      "answer": "Another way to tell the compiler that loop iterations are independent is to specify it explicitly using the `loop` directive with the `independent` clause, for example, `#pragma acc loop independent`."
+    },
+    {
+      "question": "Is the `loop` directive with the `independent` clause a descriptive or prescriptive directive?",
+      "answer": "The `loop` directive with the `independent` clause is a prescriptive directive."
+    },
+    {
+      "question": "How does a prescriptive directive like `loop independent` influence the compiler's actions?",
+      "answer": "A prescriptive directive like `loop independent` tells the compiler what to do and overrides any compiler analysis, forcing it to perform the requested action."
+    },
+    {
+      "question": "What is the recommended approach to fix false aliasing in the matrix-vector product example?",
+      "answer": "The recommended way to fix false aliasing in the matrix-vector product example is by declaring the pointers as restricted using the `__restrict` keyword."
+    },
+    {
+      "question": "How should the declaration `double *Acoefs=A.coefs;` be modified to declare `Acoefs` as restricted?",
+      "answer": "To declare `Acoefs` as restricted, the code should be changed to `double *__restrict Acoefs=A.coefs;`."
+    },
+    {
+      "question": "What was the compiler's feedback after applying the `__restrict` keyword to address false aliasing in the matrix-vector product example?",
+      "answer": "After applying the `__restrict` keyword, the compiler feedback indicated that both the outer loop on line 30 and the inner loop on line 34 were parallelizable. It generated Tesla code, including `pragma acc loop gang` and `pragma acc loop vector(128)` directives, and an implicit sum reduction for the `sum` variable."
+    },
+    {
+      "question": "How did the initial OpenACC version of the matrix-vector product perform in terms of execution time compared to the original CPU version?",
+      "answer": "The initial OpenACC version of the matrix-vector product ran significantly slower, taking 115.068931 seconds compared to the original CPU version's 29.894881 seconds, resulting in a slowdown by a factor of almost 4."
+    },
+    {
+      "question": "Did the OpenACC version of the matrix-vector product produce correct results despite the performance slowdown?",
+      "answer": "Yes, despite the slowdown, the OpenACC version of the matrix-vector product produced correct results."
+    }
+  ],
+  "generated_at": "2026-04-12T04:05:07.419177+00:00"
+}

@@ -5,29 +5,54 @@ lang: "fr"
 
 source_wiki_title: "GBrowse/fr"
 source_hash: "eed6d37eca76cc6cc6e74405f9c05426"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T06:32:58.774469+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T07:15:20.704158+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "fichiers de configuration"
+  - "chemin vers le fichier"
+  - "GBrowse"
+  - "téléverser des fichiers"
+  - "fichier FASTA"
+  - "fichier .bam"
+  - "données génomiques"
+  - "fichier de configuration"
+  - "base de données"
+  - "BioPerl"
+  - "fichiers .bam"
+  - "ordonnanceur"
+
+questions:
+  - "Comment un groupe de recherche doit-il procéder pour demander et obtenir l'accès à GBrowse sur Cedar ?"
+  - "Comment doit-on configurer les fichiers pour établir la connexion entre GBrowse et une base de données MySQL ou Postgres ?"
+  - "Quelles sont les exigences spécifiques concernant l'emplacement et les permissions des fichiers .bam pour qu'ils soient lus directement par l'outil sans être téléversés ?"
+  - "Quels sont les fichiers et paramètres nécessaires pour charger une séquence génomique dans la base de données avec la commande BioPerl ?"
+  - "Comment doit-on exécuter le script de chargement sur le cluster pour éviter d'utiliser un nœud principal ?"
+  - "Quelle configuration des droits d'accès doit être effectuée après le téléversement pour que GBrowse puisse lire la base de données ?"
+  - "Quel format de nom d'utilisateur est recommandé dans les instructions ?"
+  - "Comment doit-on configurer le chemin d'accès au fichier .bam dans le fichier de configuration ?"
+  - "Quelle est la procédure à suivre pour téléverser des fichiers vers la base de données ?"
+  - "Quels sont les fichiers et paramètres nécessaires pour charger une séquence génomique dans la base de données avec la commande BioPerl ?"
+  - "Comment doit-on exécuter le script de chargement sur le cluster pour éviter d'utiliser un nœud principal ?"
+  - "Quelle configuration des droits d'accès doit être effectuée après le téléversement pour que GBrowse puisse lire la base de données ?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
 ## Introduction
 
-GBrowse est un outil permettant de manipuler et de visualiser des données génomiques par une interface web. Il est composé d’une base de données combinée à des pages web interactives. GBrowse est disponible sur [Cedar](cedar.md) et peut être installé à partir de https://gateway.cedar.computecanada.ca.
+GBrowse est un outil pour manipuler et visualiser des données génomiques par une interface web. Il est formé d’une base de données combinée à des pages web interactives. GBrowse est disponible sur [Cedar](cedar.md) et peut être installé à partir de [https://gateway.cedar.computecanada.ca](https://gateway.cedar.computecanada.ca).
 
-Notre installation diffère de celle décrite sur la [page web GBrowse](http://gmod.org/wiki/GBrowse), particulièrement en ce qui a trait à l’**autorisation** et à l’**authentification**.
+Notre installation diffère de celle décrite sur la [page web GBrowse](http://gmod.org/wiki/GBrowse), particulièrement en ce qui a trait à l’autorisation et à l’authentification.
 
 ## Accéder à GBrowse
 
@@ -73,12 +98,14 @@ où `*DATABASE*` est le nom de la base de données.
 
 ### Fichiers de données
 
-Il n’est pas nécessaire de téléverser les fichiers .bam pour pouvoir les visualiser. Pour que GBrowse puisse lire directement les fichiers .bam :
+Il n’est pas nécessaire de téléverser les fichiers .bam pour pouvoir les visualiser.
 
-*   les fichiers doivent être copiés dans votre répertoire `/project` et être lisibles par le groupe;
-*   le répertoire qui contient les fichiers .bam doit avoir le `setgid` et la permission `group-execute` d'exécution par le groupe activés, c’est-à-dire que le résultat de `ls -l` doit avoir un s minuscule (bas de casse) en lieu et place du x de l'exécution de groupe;
-*   la propriété de groupe du fichier .bam doit indiquer le nom du groupe et non le nom de l’utilisateur, par exemple `jsmith:def-kjones` plutôt que `jsmith:jsmith`;
-*   le chemin vers le fichier .bam doit être modifié dans le fichier de configuration, par exemple
+!!! note "Exigences pour la lecture directe des fichiers .bam"
+    Pour que GBrowse puisse lire directement les fichiers .bam :
+    *   les fichiers doivent être copiés dans votre répertoire `/project` et être lisibles par le groupe;
+    *   le répertoire qui contient les fichiers .bam doit avoir le `setgid` et la permission `group-execute` d'exécution par le groupe activés, c’est-à-dire que le résultat de `ls -l` doit avoir un s minuscule (bas de casse) en lieu et place du x de l'exécution de groupe;
+    *   la propriété de groupe du fichier .bam doit indiquer le nom du groupe et non le nom de l’utilisateur, par exemple `jsmith:def-kjones` plutôt que `jsmith:jsmith`;
+    *   le chemin vers le fichier .bam doit être modifié dans le fichier de configuration, par exemple
 
 ```ini
 [example_bam:database]
@@ -93,7 +120,7 @@ Avec BioPerl, exécutez
 
 ```bash
 module load bioperl/1.7.1
-bp_seqfeature_load.pl -c –d *DATABASE*:mysql_read_default_file=/home/*USERNAME*/.my.cnf \
+bp_seqfeature_load.pl -c -d *DATABASE*:mysql_read_default_file=/home/*USERNAME*/.my.cnf \
     example_genomic_sequence.fa header_file
 ```
 
@@ -110,6 +137,7 @@ Voici un exemple d’un fichier d'en-tête :
 ##sequence-region MtDNA 1 13794
 ```
 
-N’exécutez pas ce fichier sur un nœud principal, mais exécutez ces commandes en passant par [l'ordonnanceur](running-jobs.md).
+!!! warning "Attention"
+    N’exécutez pas ce fichier sur un nœud principal, mais exécutez ces commandes en passant par [l'ordonnanceur](running-jobs.md).
 
 Une fois que les données sont téléversées dans la base de données, vous devez accorder l'accès en lecture au compte partagé (`*SHARED*`) pour que GBrowse puisse lire la base de données; voyez [Partager vos données MySQL](database-servers.md#partager-vos-donnees-mysql).

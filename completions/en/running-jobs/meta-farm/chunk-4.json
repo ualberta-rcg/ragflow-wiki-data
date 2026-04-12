@@ -1,0 +1,76 @@
+{
+  "doc_key": "en/meta-farm",
+  "level": "chunk",
+  "chunk_index": 4,
+  "qa_pairs": [
+    {
+      "question": "Under what conditions is it recommended to use the SIMPLE mode for running jobs?",
+      "answer": "The SIMPLE mode is recommended when the total number of cases is relatively small (e.g., less than 500) and each individual case is expected to run for at least 20 minutes."
+    },
+    {
+      "question": "What mode should be considered if the conditions for using SIMPLE mode are not met?",
+      "answer": "If the conditions for SIMPLE mode are not met, users should consider using the META mode to handle many cases per job."
+    },
+    {
+      "question": "What are the three essential scripts involved in using the META package?",
+      "answer": "The three essential scripts are `submit.run`, `single_case.sh`, and `job_script.sh`."
+    },
+    {
+      "question": "What is the mandatory argument for the `submit.run` command?",
+      "answer": "The mandatory argument for the `submit.run` command is `N`, which specifies the number of jobs to submit."
+    },
+    {
+      "question": "How do you activate SIMPLE mode when using the `submit.run` command?",
+      "answer": "To activate SIMPLE mode, you should use `N=-1` as the argument for `submit.run`, which instructs it to submit as many jobs as there are lines in `table.dat`."
+    },
+    {
+      "question": "How is META mode activated with the `submit.run` command?",
+      "answer": "META mode is activated by providing a positive integer `N` to `submit.run`, where `N` represents the desired number of metajobs."
+    },
+    {
+      "question": "What happens if an invalid value for `N` is provided to `submit.run`?",
+      "answer": "Any value for `N` other than `-1` (for SIMPLE mode) or a positive integer (for META mode) is considered invalid by `submit.run`."
+    },
+    {
+      "question": "What is the purpose of the optional `-auto` switch in the `submit.run` command?",
+      "answer": "When the optional `-auto` switch is present, the farm will automatically resubmit itself at the end, if necessary, until all cases from `table.dat` have been processed."
+    },
+    {
+      "question": "What is the function of a `final.sh` file if it is present in the farm directory during `submit.run` execution?",
+      "answer": "If a `final.sh` file is present in the farm directory, `submit.run` will treat it as a post-processing job script and automatically launch it once all cases from `table.dat` have been successfully processed."
+    },
+    {
+      "question": "What happens to any extra arguments provided to the `submit.run` command?",
+      "answer": "Any additional arguments supplied to `submit.run` will be passed directly to the Slurm `sbatch` command, which is used to launch all metajobs for the farm."
+    },
+    {
+      "question": "What is the primary role of the `single_case.sh` script?",
+      "answer": "The primary role of `single_case.sh` is to read one line from `table.dat`, parse its contents, and then use that information to launch the user's code for a single case."
+    },
+    {
+      "question": "Can the `single_case.sh` script be customized by the user?",
+      "answer": "Yes, `single_case.sh` is a user-customizable script that can be modified for specific purposes."
+    },
+    {
+      "question": "How does the default `single_case.sh` script process each line from `table.dat`?",
+      "answer": "The default `single_case.sh` script treats each line in `table.dat` as a literal command and executes it within its own subdirectory named `RUNyyy`, where `yyy` is the case number."
+    },
+    {
+      "question": "What kind of commands can be included in each line of `table.dat` if `single_case.sh` is not modified?",
+      "answer": "If `single_case.sh` is unmodified, each line of `table.dat` should contain a complete command, which can also be a compound command consisting of several commands separated by semicolons."
+    },
+    {
+      "question": "What types of executable statements are allowed in `table.dat`?",
+      "answer": "`table.dat` can contain any executable statement, not just a list of identical commands differentiated by their arguments."
+    },
+    {
+      "question": "How can a user avoid repeating the same command on every line of `table.dat`?",
+      "answer": "To avoid repetition, a user can edit `single_case.sh` to include the common command, and then modify `table.dat` to contain only the arguments or redirects specific to each case."
+    },
+    {
+      "question": "Is it necessary for users to manually insert line numbers at the beginning of each line in `table.dat`?",
+      "answer": "No, it is not necessary to manually insert line numbers in `table.dat` because the `submit.run` script will automatically add them if they are not already present."
+    }
+  ],
+  "generated_at": "2026-04-12T01:20:57.580434+00:00"
+}

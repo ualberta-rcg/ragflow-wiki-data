@@ -1,0 +1,36 @@
+{
+  "doc_key": "fr/openacc_tutorial_-_optimizing_loops",
+  "level": "chunk",
+  "chunk_index": 6,
+  "qa_pairs": [
+    {
+      "question": "Pourquoi la boucle externe est-elle parallélisée avec des workers quand on ajoute des workers, comme mentionné dans le document?",
+      "answer": "La boucle externe est parallélisée avec des workers parce que la boucle interne est déjà au niveau de parallélisme `vector`."
+    },
+    {
+      "question": "Comment le code C++ est-il modifié avec la directive `parallel loop` pour ajouter 32 workers et spécifier un type d'accélérateur NVIDIA, en gardant une longueur de vecteur de 32?",
+      "answer": "Pour la directive `parallel loop`, on ajoute les clauses `device_type(nvidia) vector_length(32) gang worker num_workers(32)` à la déclaration de la boucle externe, comme suit: `#pragma acc parallel loop present(row_offsets,cols,Acoefs,xcoefs,ycoefs) \\ device_type(nvidia) vector_length(32) \\ gang worker num_workers(32)`."
+    },
+    {
+      "question": "Quelle est l'amélioration de performance observée sur un GPU K20 après avoir ajouté des workers au code OpenACC?",
+      "answer": "Sur un GPU K20, le temps d'exécution du code passe de 10 secondes à 6 secondes après l'ajout de workers, ce qui représente près du double de la performance que le compilateur pouvait obtenir par lui-même."
+    },
+    {
+      "question": "À quoi sert la clause `collapse(N)` en OpenACC?",
+      "answer": "La clause `collapse(N)` est utilisée avec une directive de boucle pour replier les N prochaines boucles en une seule boucle plate. Elle est utile dans les cas de boucles imbriquées ou quand les boucles sont très courtes."
+    },
+    {
+      "question": "Dans quels contextes la clause `tile(N,[M,...])` est-elle utile en OpenACC?",
+      "answer": "La clause `tile(N,[M,...])` répartit les boucles suivantes dans une structure en mosaïque avant de les paralléliser. Elle est utile dans le cas d'un algorithme à forte localité, car l'accélérateur peut alors utiliser les données des carreaux environnants."
+    },
+    {
+      "question": "Quel est l'objectif de l'exercice proposé avec le code dans le répertoire `bonus`?",
+      "answer": "L'objectif de l'exercice est de mettre en pratique les connaissances sur OpenACC en portant sur un GPU le code qui résout l'équation de Laplace avec la méthode de Jacobi, et d'observer le gain de performance obtenu."
+    },
+    {
+      "question": "Où peut-on trouver le code pour l'exercice sur les itérations de Jacobi?",
+      "answer": "Le code pour l'exercice sur les itérations de Jacobi se trouve dans le répertoire `bonus`."
+    }
+  ],
+  "generated_at": "2026-04-12T04:20:12.521198+00:00"
+}

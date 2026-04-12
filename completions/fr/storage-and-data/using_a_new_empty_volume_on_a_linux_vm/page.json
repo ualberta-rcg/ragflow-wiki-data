@@ -1,0 +1,59 @@
+{
+  "doc_key": "fr/using_a_new_empty_volume_on_a_linux_vm",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "C'est quoi le but principal de ce document?",
+      "answer": "Ce document explique comment partitionner, formater et monter un nouveau volume sur un système Linux."
+    },
+    {
+      "question": "Quel est l'avertissement crucial avant de partitionner ou formater un volume?",
+      "answer": "Si c'est un volume déjà existant, il ne faut pas le partitionner ni le formater pour éviter de perdre des données; il faut seulement le monter."
+    },
+    {
+      "question": "Quelle commande est utilisée pour initialiser le partitionnement d'un volume?",
+      "answer": "Il faut utiliser `sudo fdisk /dev/vdb`."
+    },
+    {
+      "question": "Quelles sont les étapes pour créer une nouvelle partition primaire avec `fdisk`?",
+      "answer": "Il faut entrer `n`, `p`, `1`, puis deux fois `retour` pour les valeurs par défaut et `w` pour écrire la table de partition."
+    },
+    {
+      "question": "Comment formater une nouvelle partition en système de fichiers `ext4`?",
+      "answer": "On utilise la commande `sudo mkfs -t ext4 /dev/vdb1`."
+    },
+    {
+      "question": "Quelle commande sert à créer le dossier qui servira de point de montage?",
+      "answer": "La commande est `sudo mkdir /media/data`."
+    },
+    {
+      "question": "Comment monter le volume sur son point de montage une fois que tout est prêt?",
+      "answer": "On utilise `sudo mount /dev/vdb1 /media/data`."
+    },
+    {
+      "question": "Qu'arrive-t-il si l'instance est redémarrée après un montage manuel du volume?",
+      "answer": "Le volume devra être monté à nouveau manuellement."
+    },
+    {
+      "question": "Comment faire pour que le volume se monte automatiquement après chaque redémarrage?",
+      "answer": "Il faut ajouter la ligne `/dev/vdb1 /media/data ext4 defaults 0 2` au fichier `/etc/fstab`."
+    },
+    {
+      "question": "Comment monter les périphériques configurés dans `/etc/fstab` sans avoir à redémarrer l'instance?",
+      "answer": "On peut utiliser la commande `sudo mount -a`."
+    },
+    {
+      "question": "Pourquoi est-il recommandé de démonter un volume avant de le manipuler, par exemple pour créer une image?",
+      "answer": "Pour éviter la corruption des données sur le volume."
+    },
+    {
+      "question": "Quelle est la commande pour démonter le volume monté dans l'exemple?",
+      "answer": "Il faut utiliser `sudo umount /media/data`."
+    },
+    {
+      "question": "Qu'est-ce qui peut empêcher de démonter un volume, et quel message est affiché dans ce cas?",
+      "answer": "Si des fichiers sur le volume sont en cours d'utilisation, la commande échouera et affichera un message indiquant que le volume est occupé."
+    }
+  ],
+  "generated_at": "2026-04-12T10:13:40.950183+00:00"
+}

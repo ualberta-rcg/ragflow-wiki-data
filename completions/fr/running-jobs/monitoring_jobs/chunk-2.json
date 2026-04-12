@@ -1,0 +1,68 @@
+{
+  "doc_key": "fr/monitoring_jobs",
+  "level": "chunk",
+  "chunk_index": 2,
+  "qa_pairs": [
+    {
+      "question": "Qu'arrive-t-il si j'utilise `srun` dans mon script de soumission?",
+      "answer": "Si vous utilisez `srun` dans votre script de soumission, une étape `.0` sera créée, ce qui consommera presque toutes les ressources."
+    },
+    {
+      "question": "À quoi sert l'étape externe (`.ext+`) et quelle quantité de ressources consomme-t-elle généralement?",
+      "answer": "L'étape externe (`.ext+`) est surtout utilisée en prologue et en épilogue et ne consomme habituellement pas une grande quantité de ressources."
+    },
+    {
+      "question": "Comment puis-je consulter tous les enregistrements d'une tâche, même si elle a été relancée suite à une défaillance de nœud?",
+      "answer": "Pour consulter tous les enregistrements relatifs à une tâche, même en cas de défaillance et de relance, il faut ajouter l'option `--duplicates` à la commande `sacct`."
+    },
+    {
+      "question": "Que représente le champ `MaxRSS` pour une tâche?",
+      "answer": "Le champ `MaxRSS` indique la quantité de mémoire utilisée par une tâche et retourne la valeur du plus grand `resident set size`."
+    },
+    {
+      "question": "Comment puis-je identifier la tâche et le nœud associés à la valeur `MaxRSS`?",
+      "answer": "Pour connaître la tâche et le nœud en cause pour le champ `MaxRSS`, vous devez aussi imprimer les champs `MaxRSSTask` et `MaxRSSNode`."
+    },
+    {
+      "question": "Quelle commande fournit des renseignements sur l'état d'une tâche qui est en cours d'exécution?",
+      "answer": "La commande `sstat` fournit des renseignements sur l'état d'une tâche en cours d'exécution."
+    },
+    {
+      "question": "Quelle commande doit-on utiliser pour obtenir des informations sur une tâche qui est déjà terminée?",
+      "answer": "La commande `sacct` est utilisée pour obtenir des informations sur les tâches qui sont terminées."
+    },
+    {
+      "question": "Pourquoi est-ce utile de se connecter à un nœud où une tâche est en cours d'exécution?",
+      "answer": "Il est utile de se connecter à un nœud où une tâche est en cours pour des opérations de dépannage ou pour suivre le déroulement de la tâche."
+    },
+    {
+      "question": "Quel utilitaire est utilisé pour surveiller l'utilisation d'un GPU sur un nœud où une tâche est en cours d'exécution?",
+      "answer": "L'utilitaire `nvidia-smi` est employé pour surveiller l'utilisation d'un GPU sur un nœud où une tâche est en cours d'exécution."
+    },
+    {
+      "question": "Comment puis-je surveiller l'utilisation d'un GPU toutes les 30 secondes sur un nœud où une tâche est en cours, à l'aide de `srun`?",
+      "answer": "Vous pouvez utiliser la commande `$ srun --jobid 123456 --overlap --pty watch -n 30 nvidia-smi` pour surveiller l'utilisation d'un GPU toutes les 30 secondes."
+    },
+    {
+      "question": "Comment lancer plusieurs commandes, comme `htop` et `nvidia-smi`, dans des fenêtres distinctes pour suivre l'activité d'une tâche sur un nœud?",
+      "answer": "Vous pouvez lancer plusieurs commandes avec `tmux` en utilisant `srun`, par exemple: `$ srun --jobid 123456 --overlap --pty tmux new-session -d 'htop -u $USER' \\; split-window -h 'watch nvidia-smi' \\; attach`."
+    },
+    {
+      "question": "Quels sont les risques si je lance de nouveaux processus qui consomment beaucoup de ressources sur un nœud où une tâche est déjà active via `srun`?",
+      "answer": "Les processus lancés avec `srun` partagent les ressources de la tâche principale. Si vous lancez des processus qui utilisent trop de ressources, cela pourrait ralentir la tâche ou même l'arrêter."
+    },
+    {
+      "question": "Les exemples de surveillance avec `srun` (comme pour `nvidia-smi` et `tmux`) fonctionnent-ils pour les tâches interactives?",
+      "answer": "Non, les exemples de `srun` montrés fonctionnent uniquement sur des tâches soumises avec `sbatch`."
+    },
+    {
+      "question": "Comment puis-je faire le suivi d'une tâche interactive?",
+      "answer": "Pour faire le suivi d'une tâche interactive, vous devez ouvrir plusieurs fenêtres avec `tmux` et démarrer les processus de surveillance dans des fenêtres distinctes."
+    },
+    {
+      "question": "Où puis-je trouver plus d'informations sur le suivi des tâches qui utilisent un GPU?",
+      "answer": "Vous pouvez trouver plus d'informations sous la section 'Utilisation de GPU'."
+    }
+  ],
+  "generated_at": "2026-04-12T03:15:14.239147+00:00"
+}

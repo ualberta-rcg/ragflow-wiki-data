@@ -1,0 +1,100 @@
+{
+  "doc_key": "base/aiida",
+  "level": "chunk",
+  "chunk_index": 1,
+  "qa_pairs": [
+    {
+      "question": "What is AiiDA?",
+      "answer": "AiiDA is an open-source Python tool designed to help researchers with automating and reproducing the complex workflows associated with modern computational science."
+    },
+    {
+      "question": "What is the primary function of AiiDA's plugins?",
+      "answer": "AiiDA's plugins exist to integrate it with common computational packages, particularly in the field of computational chemistry."
+    },
+    {
+      "question": "Where does AiiDA typically run?",
+      "answer": "AiiDA typically runs on a user's personal computer, a lab workstation, or a virtual machine in the cloud."
+    },
+    {
+      "question": "What challenge does AiiDA face when submitting jobs to clusters?",
+      "answer": "AiiDA needs to make many autonomous SSH connections to clusters, which becomes a problem on clusters requiring interactive Multifactor authentication (MFA)."
+    },
+    {
+      "question": "Is AiiDA's support for Multifactor authentication (MFA) fully developed?",
+      "answer": "No, the implementation of MFA support in AiiDA is still under development."
+    },
+    {
+      "question": "How do Alliance clusters address the issue of AiiDA connecting with MFA requirements?",
+      "answer": "To allow AiiDA and similar software to connect to Alliance clusters, 'automation nodes' have been set up on each cluster, permitting SSH connections without MFA, subject to restrictions."
+    },
+    {
+      "question": "What is assumed about the user's knowledge when following these instructions for AiiDA with Alliance clusters?",
+      "answer": "These instructions assume the reader is already familiar with how AiiDA works."
+    },
+    {
+      "question": "What is the process for users to obtain access to automation nodes?",
+      "answer": "Users need to submit a ticket requesting access to automation nodes and explain why it is needed."
+    },
+    {
+      "question": "What is the first step to enable AiiDA access to Alliance clusters?",
+      "answer": "The first step is to upload the public SSH key to enable access to Alliance clusters."
+    },
+    {
+      "question": "On which machine should the public SSH key for AiiDA be generated?",
+      "answer": "The public SSH key should be generated on the machine that will be running AiiDA."
+    },
+    {
+      "question": "What specific information must be included in the uploaded SSH key?",
+      "answer": "The uploaded key needs to specify the IP address that will be used to connect, the working directory that AiiDA will be using (from the 'computer setup' stage), and the location of the `aiida_commands.sh` script."
+    },
+    {
+      "question": "What action is required if the IP address of the machine running AiiDA changes?",
+      "answer": "If the IP of the machine running AiiDA changes, the user will need to upload a key with the updated IP address."
+    },
+    {
+      "question": "Is the SSH key provided in the instructions an example or a template to be used directly?",
+      "answer": "The key given is an example only; users should change it to their own generated public key."
+    },
+    {
+      "question": "What part of the example SSH key needs to be customized by the user?",
+      "answer": "Users need to change 'someusername' to their actual username and `/project/6000000/aiida_work_dir` to the actual directory where they want to put their AiiDA files."
+    },
+    {
+      "question": "How should the `aiida_commands.sh` script be obtained and placed on the Alliance cluster?",
+      "answer": "The user should download this script to the desired Alliance cluster by running `wget https://raw.githubusercontent.com/ComputeCanada/software-stack-custom/main/bin/computecanada/allowed_commands/aiida_commands.sh` on that cluster."
+    },
+    {
+      "question": "What permissions should be set for the `aiida_commands.sh` file?",
+      "answer": "The file should be given execute permission (`chmod u+x aiida_commands.sh`) and made non-writeable for added security (`chmod u-w aiida_commands.sh`)."
+    },
+    {
+      "question": "Can users modify the `aiida_commands.sh` script?",
+      "answer": "No, this file should not be modified without consultation with Alliance staff."
+    },
+    {
+      "question": "How should a 'computer' be set up in AiiDA for connecting to an Alliance cluster?",
+      "answer": "In AiiDA, a 'computer' should be set up to use the desired cluster, using one of the cluster automation nodes as the hostname, and the previously defined SSH key should be specified for use."
+    },
+    {
+      "question": "What must be ensured regarding the working directory for AiiDA on the cluster?",
+      "answer": "Users must make sure the working directory specified when creating the 'computer' in AiiDA for connecting to the cluster exists."
+    },
+    {
+      "question": "How can a user specify the default account for jobs to run under on the cluster?",
+      "answer": "Users can specify the default account by adding `export SLURM_ACCOUNT=def-someuser` and `export SBATCH_ACCOUNT=$SLURM_ACCOUNT` to their `.bashrc` file, changing 'someuser' to the actual username."
+    },
+    {
+      "question": "What additional line might be needed in the `.bashrc` file for the script to work?",
+      "answer": "Users may also need to add the line `source /etc/profile` to their `.bashrc`."
+    },
+    {
+      "question": "For what type of AiiDA job has the script been tested?",
+      "answer": "The script has been tested for a basic AiiDA job."
+    },
+    {
+      "question": "Who should users consult if they encounter difficulties with more complex AiiDA workflows?",
+      "answer": "Users should consult with Alliance staff if they run into any difficulties with more complicated workflows."
+    }
+  ],
+  "generated_at": "2026-04-11T16:15:08.444178+00:00"
+}

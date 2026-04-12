@@ -1,0 +1,43 @@
+{
+  "doc_key": "fr/cp2k",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "C'est quoi CP2K, pis ça sert à quoi dans le fond?",
+      "answer": "CP2K, c'est un paquet logiciel pour la chimie quantique pis la physique des solides. Ça permet de faire des simulations atomistiques pour des systèmes solides, liquides, moléculaires, matériels, cristallins pis biologiques."
+    },
+    {
+      "question": "Quelle est la plus récente version de CP2K qu'on peut utiliser, pis comment on fait pour la charger si elle a été compilée avec GCC?",
+      "answer": "La plus récente version installée, c'est la 8.2. Pour la charger si elle est compilée avec GCC, on doit lancer la commande `module load StdEnv/2020 gcc/9.3.0 openmpi/4.0.3 cp2k/8.2`."
+    },
+    {
+      "question": "Est-ce que la version de CP2K compilée avec Intel est aussi stable que celle compilée avec GCC?",
+      "answer": "Non, la version compilée avec Intel semble moins stable. Des fois, elle plante pour des raisons qu'on ne connaît pas."
+    },
+    {
+      "question": "Pour faire l'exemple de calcul statique, comment on fait pour récupérer les fichiers nécessaires?",
+      "answer": "Il faut se connecter à une grappe, puis télécharger les fichiers avec `wget https://www.cp2k.org/_media/static_calculation.tgz`, les décompresser avec `tar xvfz static_calculation.tgz`, pis ensuite aller dans le répertoire `cd static_calculation/sample_output_no_smearing`."
+    },
+    {
+      "question": "Une fois qu'on a créé un script de tâche, comme `mpi_job.sh`, comment on le soumet pour qu'il s'exécute?",
+      "answer": "Pour soumettre la tâche, il faut lancer la commande `sbatch mpi_job.sh`."
+    },
+    {
+      "question": "Comment on fait pour vérifier si notre tâche CP2K est terminée, pis où on trouve les résultats?",
+      "answer": "On lance la commande `sq` pour voir si notre tâche apparaît encore dans la liste. Si elle n'y est plus, c'est qu'elle est terminée. Le résultat de CP2K se trouve dans le fichier `Si_bulk8.out`."
+    },
+    {
+      "question": "À partir de la version 8.2 de CP2K, quels sont les deux exécutables qu'on peut utiliser, pis c'est quoi la différence?",
+      "answer": "On a `cp2k.popt` pour les calculs MPI seulement, pis `cp2k.psmp` qui est un exécutable OpenMP/MPI. Le `cp2k.psmp` peut parfois améliorer la performance en utilisant des fils."
+    },
+    {
+      "question": "Est-ce que l'utilisation de l'exécutable `cp2k.psmp` avec OpenMP/MPI garantit toujours une meilleure performance?",
+      "answer": "Non, l'amélioration de performance dépend du problème. Des fois, `cp2k.psmp` peut même prendre plus de temps, alors c'est important de faire des essais pour trouver la meilleure option pour son code."
+    },
+    {
+      "question": "Quand on utilise `cp2k.psmp` avec OpenMP/MPI, quelles sont les configurations importantes à mettre dans le script de tâche et comment on gère les fils?",
+      "answer": "Il faut configurer les paramètres SBATCH comme `--nodes`, `--ntasks` (nombre de processus MPI), `--cpus-per-task` (nombre de fils par tâche), `--mem-per-cpu` pis `--time`. On gère le nombre de fils en exportant `OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK`."
+    }
+  ],
+  "generated_at": "2026-04-11T19:08:40.149310+00:00"
+}

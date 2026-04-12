@@ -5,40 +5,51 @@ lang: "fr"
 
 source_wiki_title: "Services d'informatique quantique/fr"
 source_hash: "706dac88f94795228f2140ee4602036e"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T11:16:59.345789+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T11:27:44.269987+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "MonarQ"
+  - "logiciels de calcul quantique"
+  - "informatique quantique"
+  - "Calcul Québec"
+  - "qubits"
+
+questions:
+  - "Quelles sont les caractéristiques de l'ordinateur quantique MonarQ et comment les utilisateurs peuvent-ils y accéder ?"
+  - "Dans quels domaines de recherche l'informatique quantique offre-t-elle des applications prometteuses selon le texte ?"
+  - "Quels logiciels, formations et services d'accompagnement sont proposés par l'équipe pour soutenir les projets en calcul quantique ?"
+  - "Quelles sont les caractéristiques de l'ordinateur quantique MonarQ et comment les utilisateurs peuvent-ils y accéder ?"
+  - "Dans quels domaines de recherche l'informatique quantique offre-t-elle des applications prometteuses selon le texte ?"
+  - "Quels logiciels, formations et services d'accompagnement sont proposés par l'équipe pour soutenir les projets en calcul quantique ?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
 ## Aperçu
 
-Notre équipe d'analystes en informatique quantique offre son expertise, son accompagnement et sa formation en informatique quantique et en informatique hybride classique-quantique. À compter de janvier 2025, Calcul Québec offre l’accès à un ordinateur quantique supraconducteur de 24 qubits, [MonarQ](monarq.md), disponible via la grappe [Narval](narval.md). Pour plus de détails, consultez notre page [MonarQ](monarq.md).
+Notre équipe d'analystes en informatique quantique offre expertise, accompagnement et formation en informatique quantique et en informatique hybride classique-quantique. À compter de janvier 2025, Calcul Québec offre l’accès à un ordinateur quantique supraconducteur de 24 qubits, [MonarQ](monarq.md), disponible via la grappe [Narval](narval.md). Voir notre page [MonarQ](monarq.md) pour plus de détails.
 
 Pour démarrer avec MonarQ, référez-vous à [Premiers pas sur MonarQ](monarq.md#premiers-pas-sur-monarq).
 
-**Qu’est-ce que le calcul quantique?**
-
-Un ordinateur quantique exploite les caractéristiques des particules quantiques (qubits), notamment la superposition d'états, les interférences constructives et destructives, et l'intrication. Grâce à ces propriétés, un nouveau paradigme de calcul est en place, promettant une plus grande parallélisation pour la résolution de problèmes complexes qui demeurent insolubles pour les systèmes informatiques classiques.
+!!! info "Qu’est-ce que le calcul quantique?"
+    Un ordinateur quantique exploite les caractéristiques des particules quantiques (qubits), notamment la superposition d'états; les interférences constructives et destructives; et l'intrication. Grâce à ces propriétés, un nouveau paradigme de calcul est en place, promettant une plus grande parallélisation pour la résolution de problèmes complexes qui restent insolubles pour les systèmes informatiques classiques.
 
 ## Applications
 
 L'optimisation de problèmes complexes est l'un des domaines les plus prometteurs pour le calcul quantique et peut s'appliquer à plusieurs domaines de recherche :
 *   Apprentissage automatique : l’ordinateur quantique pourrait permettre de réduire les temps d’apprentissage et les délais de traitement.
-*   Finances : l'ordinateur quantique pourrait accélérer l'évaluation de risques de portefeuilles et la détection de fraudes.
-*   Modélisation moléculaire : l'ordinateur quantique pourrait permettre de simuler des systèmes chimiques plus complexes et de simuler des réactions en temps réel.
+*   Finances : l'ordinateur quantique pourrait accélérer l'évaluation de risques de portefolios et la détection de fraudes.
+*   Modélisation moléculaire : l'ordinateur quantique pourrait permettre de simuler des systèmes chimiques plus complexes et simuler des réactions en temps réel.
 *   Météorologie : l'ordinateur quantique pourrait permettre d'augmenter le nombre de variables pour les prévisions météorologiques.
 *   Logistique : l'ordinateur quantique pourrait permettre d'optimiser la logistique et la planification des flux de travail associés à la gestion des chaînes d'approvisionnement.
 

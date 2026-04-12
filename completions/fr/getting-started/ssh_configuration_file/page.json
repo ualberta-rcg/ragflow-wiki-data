@@ -1,0 +1,51 @@
+{
+  "doc_key": "fr/ssh_configuration_file",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "À quoi sert de modifier le fichier de configuration SSH local sous Linux et macOS?",
+      "answer": "Ça permet de changer le comportement de `ssh` et de simplifier la procédure de connexion à des serveurs distants."
+    },
+    {
+      "question": "Comment peut-on éviter de taper la commande complète pour se connecter à Narval avec une clé SSH à chaque fois?",
+      "answer": "Il faut ajouter un bloc `Host` au fichier `~/.ssh/config` de votre ordinateur local, en y spécifiant l'utilisateur, le nom d'hôte et le fichier d'identité de la clé."
+    },
+    {
+      "question": "Une fois que le fichier `~/.ssh/config` est configuré pour un hôte comme Narval, quelle commande simplifiée peut-on utiliser pour se connecter?",
+      "answer": "On peut utiliser la commande `ssh narval`."
+    },
+    {
+      "question": "Est-ce que la configuration du fichier `~/.ssh/config` affecte d'autres outils comme `sftp` ou `scp`?",
+      "answer": "Oui, ça change aussi le comportement de `sftp`, `scp` et `rsync`, permettant des commandes simplifiées pour le transfert de fichiers."
+    },
+    {
+      "question": "Comment configurer l'accès à plusieurs grappes (par exemple, Narval, Beluga, Graham, Cedar) de manière générique dans le fichier de configuration SSH?",
+      "answer": "Il faut modifier le bloc `Host` pour inclure toutes les grappes et utiliser `%h.alliancecan.ca` pour le `HostName`."
+    },
+    {
+      "question": "Quelle est une condition essentielle pour que la connexion avec des clés SSH via le fichier de configuration fonctionne?",
+      "answer": "Il faut installer votre clé SSH publique sur chacune des grappes, ou la gérer via la CCDB."
+    },
+    {
+      "question": "Comment activer la redirection X11 (`-X`) dans le fichier de configuration SSH?",
+      "answer": "On doit ajouter la ligne `ForwardX11 yes` dans la section de l'hôte concerné."
+    },
+    {
+      "question": "Quelle option permet d'activer la redirection de l'agent SSH (`-A`) via le fichier `~/.ssh/config`?",
+      "answer": "Il faut ajouter la ligne `ForwardAgent yes`."
+    },
+    {
+      "question": "Pourquoi n'est-il pas recommandé d'activer `ForwardX11 yes` par défaut pour toutes les connexions?",
+      "answer": "Car cela peut ralentir vos sessions, surtout si le client X11 de votre ordinateur est mal configuré."
+    },
+    {
+      "question": "Quels sont les risques liés à l'activation de `ForwardX11Trusted yes`?",
+      "answer": "Si le serveur est compromis, un utilisateur avec les permissions root pourrait détecter l'activité du clavier de votre ordinateur. Il est recommandé de l'utiliser seulement si vous n'avez aucune autre option."
+    },
+    {
+      "question": "Quand est-il recommandé d'utiliser la redirection de l'agent SSH (`ForwardAgent yes`) et quelles précautions faut-il prendre?",
+      "answer": "Il est recommandé de l'utiliser *uniquement lorsque nécessaire*, car un serveur compromis permettrait à un utilisateur root d'utiliser votre agent pour se connecter ailleurs à votre insu. Il est aussi conseillé de la combiner avec `ssh-askpass`."
+    }
+  ],
+  "generated_at": "2026-04-12T07:26:13.186333+00:00"
+}

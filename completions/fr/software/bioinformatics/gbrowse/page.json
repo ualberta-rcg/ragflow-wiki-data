@@ -1,0 +1,75 @@
+{
+  "doc_key": "fr/gbrowse",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "Qu'est-ce que GBrowse et à quoi sert-il?",
+      "answer": "GBrowse est un outil web qui permet de manipuler et de visualiser des données génomiques au moyen d'une interface interactive, combinant une base de données et des pages web."
+    },
+    {
+      "question": "Où est-ce que GBrowse est disponible sur les systèmes de Compute Canada?",
+      "answer": "GBrowse est disponible sur Cedar et peut être installé à partir de https://gateway.cedar.computecanada.ca."
+    },
+    {
+      "question": "Comment notre installation de GBrowse diffère-t-elle de celle décrite sur la page web officielle de GBrowse?",
+      "answer": "Notre installation diffère principalement en ce qui a trait à l’autorisation et à l’authentification."
+    },
+    {
+      "question": "Qui doit faire la demande pour obtenir un accès à GBrowse pour un groupe de recherche?",
+      "answer": "Le chercheur principal ou la chercheuse principale doit écrire au soutien technique pour demander la création du compte partagé."
+    },
+    {
+      "question": "Quel type de compte est créé pour les groupes de recherche demandant l'accès à GBrowse?",
+      "answer": "Un compte partagé est créé, où les données et les fichiers de configuration sont lisibles par tous les membres du groupe."
+    },
+    {
+      "question": "Quelle information additionnelle est requise lors de la demande d'accès à GBrowse?",
+      "answer": "Il faut indiquer le nom de la base de données utilisée sur Cedar. Si vous n’avez pas de compte de base de données, consultez la page des serveurs de bases de données."
+    },
+    {
+      "question": "Où doivent être placés les fichiers de configuration de GBrowse pour qu'ils soient visibles par tous les membres du groupe?",
+      "answer": "Les fichiers de configuration doivent être placés dans le répertoire /project/GROUPID/gbrowse/USERNAME/conf."
+    },
+    {
+      "question": "Comment doit-on s'assurer que les membres du groupe peuvent lire les fichiers de configuration?",
+      "answer": "Il faut s'assurer que les permissions de lecture du groupe pour ces fichiers sont activées."
+    },
+    {
+      "question": "Comment configure-t-on la connexion à une base de données MySQL dans les fichiers de configuration GBrowse?",
+      "answer": "La configuration doit inclure `db_adaptor = Bio::DB::SeqFeature::Store` et `db_args = -adaptor DBI::mysql -dsn DATABASE;mysql_read_default_file=/home/SHARED/.my.cnf`."
+    },
+    {
+      "question": "À quoi sert le fichier .my.cnf dans la configuration de connexion MySQL?",
+      "answer": "Le fichier .my.cnf est créé par l'équipe technique et contient les renseignements nécessaires pour se connecter à MySQL."
+    },
+    {
+      "question": "Comment configure-t-on la connexion à une base de données Postgres dans les fichiers de configuration GBrowse?",
+      "answer": "La configuration doit inclure `db_adaptor = Bio::DB::SeqFeature::Store` et `db_args = -adaptor DBI::Pg -dsn = dbi:Pg:dbname=DATABASE`."
+    },
+    {
+      "question": "Est-il nécessaire de téléverser les fichiers .bam pour les visualiser avec GBrowse?",
+      "answer": "Non, il n'est pas nécessaire de téléverser les fichiers .bam; GBrowse peut les lire directement si certaines conditions sont respectées."
+    },
+    {
+      "question": "Quelles sont les exigences pour que GBrowse puisse lire directement les fichiers .bam?",
+      "answer": "Les fichiers doivent être dans le répertoire /project et lisibles par le groupe, le répertoire doit avoir le setgid et la permission group-execute, la propriété de groupe du fichier .bam doit être celle du groupe, et le chemin doit être modifié dans le fichier de configuration."
+    },
+    {
+      "question": "Quelle commande BioPerl est utilisée pour téléverser des séquences génomiques dans la base de données?",
+      "answer": "On utilise `module load bioperl/1.7.1; bp_seqfeature_load.pl -c –d DATABASE:mysql_read_default_file=/home/USERNAME/.my.cnf example_genomic_sequence.fa header_file`."
+    },
+    {
+      "question": "Quels types de fichiers sont nécessaires pour la commande de téléversement `bp_seqfeature_load.pl`?",
+      "answer": "Un fichier FASTA (par exemple, `example_genomic_sequence.fa`) contenant le génome complet et un fichier d'en-tête (par exemple, `header_file`) contenant les détails sur la longueur des chromosomes."
+    },
+    {
+      "question": "Où ne devrait-on pas exécuter la commande de téléversement de données BioPerl?",
+      "answer": "Il ne faut pas exécuter cette commande sur un nœud principal, mais plutôt en passant par l’ordonnanceur."
+    },
+    {
+      "question": "Quelle est l'étape finale après le téléversement des données dans la base de données pour que GBrowse y accède?",
+      "answer": "Il faut accorder l'accès en lecture au compte partagé (`SHARED`) pour que GBrowse puisse lire la base de données."
+    }
+  ],
+  "generated_at": "2026-04-11T21:59:12.778381+00:00"
+}

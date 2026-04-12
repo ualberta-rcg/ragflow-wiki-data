@@ -1,0 +1,72 @@
+{
+  "doc_key": "fr/glost",
+  "level": "chunk",
+  "chunk_index": 5,
+  "qa_pairs": [
+    {
+      "question": "Comment est-ce qu'on sépare plusieurs commandes qui sont exécutées dans une même tâche GLOST?",
+      "answer": "Les commandes exécutées l'une à la suite de l'autre dans une tâche GLOST doivent être séparées par l'opérateur `&&`."
+    },
+    {
+      "question": "Combien de commandes est-ce qu'une tâche GLOST peut contenir?",
+      "answer": "Une tâche GLOST peut contenir une ou plusieurs commandes, qui s'exécutent séquentiellement."
+    },
+    {
+      "question": "Combien de tâches contient le fichier `list_glost_example.txt` mentionné dans le premier exemple?",
+      "answer": "Le fichier `list_glost_example.txt` contient huit tâches."
+    },
+    {
+      "question": "Quelles sont les directives Slurm (`#SBATCH`) utilisées dans le script d'exemple `run_glost_test.sh`?",
+      "answer": "Le script d'exemple `run_glost_test.sh` utilise les directives Slurm suivantes : `--nodes=1`, `--ntasks-per-node=2`, `--time=00-02:00` et `--mem-per-cpu=4000M`."
+    },
+    {
+      "question": "Quel module GLOST est chargé dans le script d'exemple `run_glost_test.sh`?",
+      "answer": "Le script d'exemple `run_glost_test.sh` charge le module `glost/0.3.1`, de même que `intel/2023.2.1` et `openmpi/4.1.5`."
+    },
+    {
+      "question": "Quelle commande est utilisée pour lancer GLOST dans le script d'exemple `run_glost_test.sh`?",
+      "answer": "Pour lancer GLOST, le script d'exemple utilise la commande `srun glost_launch list_glost_example.txt`."
+    },
+    {
+      "question": "Est-ce que l'exemple de script `run_glost_test.sh` peut être exécuté tel quel?",
+      "answer": "Non, l'exemple de script `run_glost_test.sh` ne contient pas de commandes d'application et ne peut pas être exécuté directement. Il sert à des fins de démonstration de la syntaxe."
+    },
+    {
+      "question": "À quoi servent les exemples de scripts et de listes de tâches qui sont fournis?",
+      "answer": "Les exemples illustrent la syntaxe de base pour la liste de tâches (`list_glost_tasks.txt`) qui doit être passée comme argument à `glost_launch`, ainsi qu'un script type pour la soumission de tâches, lesquels doivent être adaptés à votre contexte."
+    },
+    {
+      "question": "Comment est-ce que GLOST peut être utilisé pour exécuter des tâches séquentielles qui se trouvent toutes dans le même répertoire?",
+      "answer": "GLOST peut exécuter un ensemble de tâches séquentielles dans un même répertoire. Pour éviter que les résultats n'écrasent les fichiers temporaires ou de sortie, il faut ajouter des arguments afin de différencier les tâches."
+    },
+    {
+      "question": "Combien de tâches sont présentées dans le deuxième exemple, celui où les tâches sont situées dans le même répertoire?",
+      "answer": "Le deuxième exemple, qui montre des tâches dans le même répertoire, contient 10 tâches."
+    },
+    {
+      "question": "Dans l'exemple de tâches du même répertoire, quelle est la fonction de la première commande de chaque ligne de la liste de tâches?",
+      "answer": "La première commande de chaque ligne définit une variable nommée `nargument`, qui peut servir de variable ou de paramètre à passer au programme."
+    },
+    {
+      "question": "Quelle est la deuxième commande utilisée dans l'exemple de tâches du même répertoire, et par quoi devrait-elle être remplacée dans une application réelle?",
+      "answer": "Pour les besoins du test, la deuxième commande est `sleep 360`. Dans une application réelle, elle devrait être remplacée par la ligne de commande de votre application, par exemple `./my_first_prog < first_input_file.txt > first_output_file.txt`."
+    },
+    {
+      "question": "Est-ce que les commandes après la deuxième sont obligatoires dans une tâche GLOST?",
+      "answer": "Non, la troisième commande et toutes les commandes suivantes sont optionnelles."
+    },
+    {
+      "question": "Dans l'exemple de tâches du même répertoire, à quoi sert la troisième commande d'exemple?",
+      "answer": "La troisième commande d'exemple, `echo ${nargument}.`hostname` > log_${nargument}.txt`, imprime la valeur de `nargument` et le nom de l'hôte dans un fichier journal. Comme pour la deuxième commande, elle doit être remplacée par une commande pertinente pour votre application."
+    },
+    {
+      "question": "Combien de cœurs et de tâches sont utilisés dans l'exemple des tâches situées dans le même répertoire?",
+      "answer": "Dans cet exemple, 2 cœurs et une liste de 10 tâches sont utilisés."
+    },
+    {
+      "question": "Comment GLOST attribue-t-il les tâches aux processeurs dans l'exemple des tâches situées dans le même répertoire?",
+      "answer": "Dans cet exemple, GLOST assigne les deux premières tâches (correspondant aux deux premières lignes) aux processeurs disponibles. Une fois ces tâches terminées, les processeurs passent aux tâches suivantes, et ainsi de suite, jusqu'à la fin de la liste."
+    }
+  ],
+  "generated_at": "2026-04-11T22:14:57.311742+00:00"
+}

@@ -5,35 +5,73 @@ lang: "base"
 
 source_wiki_title: "GCC C++ Dual ABI"
 source_hash: "fa8ee76e150f64ae674c5fd91a21fcd0"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T06:33:28.154837+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T07:15:51.998033+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "ABI symbols"
+  - "Application Binary Interface (ABI)"
+  - "-std=c++98"
+  - "C++ ABIs"
+  - "_GLIBCXX_USE_CXX11_ABI"
+  - "GCC v5.1"
+  - "diff"
+  - "GCC compiler options"
+  - "nm"
+  - "symbols"
+  - "-std=c++11"
+  - "c++98"
+  - "main.cxx"
+  - "ABI"
+  - "C++ compiler"
+  - "c++11"
+  - "Dual ABI"
+  - "basic_string"
+  - "GCC"
+  - "C++ ABI"
+  - "Makefile"
+
+questions:
+  - "What major change introduced in GCC version 5.1 can cause linking failures when compiling with legacy libraries?"
+  - "How can the Dual ABI feature and specific compiler flags be used to resolve linking errors related to ABI changes?"
+  - "What role do symbol names and compiler-specific algorithms play in defining a C++ Application Binary Interface (ABI)?"
+  - "What minimum version of the GCC compiler must be loaded before executing the make command?"
+  - "What is the primary purpose of the provided Makefile and what specific differences does its output illustrate?"
+  - "Which preprocessor macro is used in the compilation commands to explicitly toggle between the old and new C++ ABIs?"
+  - "What is the purpose of the `_GLIBCXX_USE_CXX11_ABI` macro used in the compilation commands?"
+  - "How does the script extract and process the symbols from the compiled object files?"
+  - "What are the specific differences in compiler flags used to generate the various object files like `main-cxx11-newabi.o` and `main-cxx11-oldabi.o`?"
+  - "What is the main difference between the old and new C++ ABIs as demonstrated in the text?"
+  - "Which command and file types are used to compare the symbols of the two different ABIs?"
+  - "How does the mangled symbol name for the string class change when switching to the new C++11 ABI?"
+  - "How does the `_GLIBCXX_USE_CXX11_ABI` macro influence the choice between the old and new C++ ABI?"
+  - "Why does specifying `-std=c++98` or `-std=c++11` alone not change the ABI used by the compiler?"
+  - "What must a developer do to successfully link against binaries compiled with the old ABI when using GCC v5.1 or newer?"
+  - "How does the `_GLIBCXX_USE_CXX11_ABI` macro influence the choice between the old and new C++ ABI?"
+  - "Why does specifying `-std=c++98` or `-std=c++11` alone not change the ABI used by the compiler?"
+  - "What must a developer do to successfully link against binaries compiled with the old ABI when using GCC v5.1 or newer?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
 The transition from [GCC](https://gcc.gnu.org/) version 4.9 to version 5.1 introduced a major change to its [application binary interface (ABI)](https://en.wikipedia.org/wiki/Application_binary_interface). If all source code including all dependent libraries is recompiled using the same version of the compiler then there will be no issues. If different compilers are used, the ABI change may cause linking to fail. Failure is likely if you are linking to precompiled libraries provided in a vendor's product. If this occurs, you can use GCC's Dual ABI feature to tell GCC to use the old ABI in order for your application to link properly with those legacy libraries, e.g., you would pass `-D_GLIBCXX_USE_CXX11_ABI=0` to GCC if using GCC v5.1 or higher to link to libraries built using the older ABI.
 
 In some cases, using `-D_GLIBCXX_USE_CXX11_ABI=0` will resolve errors like this one:
-```
 .../extensions.hpp(38): error: “std::list” is ambiguous
-```
 The class could be anything, not necessarily `std::list`.
 
-# Application Binary Interface (ABI)
+## Application Binary Interface (ABI)
 
-By default, C++ compilers mangle and export all `extern "C++"` symbol names using a compiler-specific algorithm. These symbol names comprise part of the the Application Binary Interface (ABI) used to link the compiled code with libraries. Although many compiler vendors make efforts to use the same ABI on a given platform (e.g., Linux), ABI changes are needed from time-to-time. This means any change to a compiler's ABI can result in programs failing to link.
+By default, C++ compilers mangle and export all `extern "C++"` symbol names using a compiler-specific algorithm. These symbol names comprise part of the Application Binary Interface (ABI) used to link the compiled code with libraries. Although many compiler vendors make efforts to use the same ABI on a given platform (e.g., Linux), ABI changes are needed from time-to-time. This means any change to a compiler's ABI can result in programs failing to link.
 
 ## An Example
 
@@ -43,7 +81,7 @@ The following example illustrates how options passed to GCC v5.1 or higher can a
 
 The following C++ program will be compiled to generate the ABI symbol names contained within it:
 
-```cpp title="main.cxx"
+```c++ title="main.cxx"
 #include <iostream>
 #include <string>
 
@@ -57,7 +95,7 @@ int main()
 
 The above program will need to be compiled using a number of different settings to show how the ABI calls differ. The following makefile is used to generate such:
 
-```make title="Makefile"
+```makefile title="Makefile"
 all: \
         main-cxx98.o main-cxx98-newabi.o main-cxx98-oldabi.o \
         main-cxx11.o main-cxx11-newabi.o main-cxx11-oldabi.o \
@@ -114,7 +152,7 @@ diff-cxx-default: main-cxx98.o main-cxx11.o
 
 Executing the make file will demonstrate the differences in the produced ABI symbols with different GCC compiler options. The following is sample output of running `make` on the above `Makefile`:
 
-```text title="Makefile output"
+```text title="Output from 'make'"
 $ make
 c++ -c -o main-cxx98.o -std=c++98  main.cxx
 nm main-cxx98.o | cut -c 20- >main-cxx98.o.symbols
@@ -170,4 +208,4 @@ Thus, to link to binaries compiled using the old ABI when using GCC v5.1 or high
 
 ## References
 
-*   Free Software Foundation. The GNU C++ Library, Chapter 3. <https://gcc.gnu.org/onlinedocs/libstdc++/manual/using_dual_abi.html>
+*   Free Software Foundation. The GNU C++ Library, Chapter 3. [https://gcc.gnu.org/onlinedocs/libstdc++/manual/using_dual_abi.html](https://gcc.gnu.org/onlinedocs/libstdc++/manual/using_dual_abi.html)

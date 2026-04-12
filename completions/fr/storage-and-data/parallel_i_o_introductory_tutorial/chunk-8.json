@@ -1,0 +1,52 @@
+{
+  "doc_key": "fr/parallel_i_o_introductory_tutorial",
+  "level": "chunk",
+  "chunk_index": 8,
+  "qa_pairs": [
+    {
+      "question": "Comment les ensembles de données sont-ils organisés dans les calculs parallèles à grande échelle?",
+      "answer": "Dans les calculs parallèles à grande échelle, votre ensemble de données est réparti sur de nombreux processeurs ou nœuds. Le domaine de calcul est décomposé en plusieurs morceaux de charge de travail, et chaque nœud prend en charge une allocation."
+    },
+    {
+      "question": "Lorsque les données sont distribuées sur plusieurs nœuds, est-ce qu'un système de fichiers parallèle est suffisant?",
+      "answer": "Non, un système de fichiers parallèle n'est pas suffisant dans ce cas; vous devez organiser vous-même l'I/O parallèle (entrée/sortie parallèle)."
+    },
+    {
+      "question": "Quelles sont les options de format de fichier pour écrire des données dans un contexte d'I/O parallèle?",
+      "answer": "Les options incluent un binaire brut sans métadonnées ou l'utilisation de bibliothèques de pointe comme HDF5 et NetCDF."
+    },
+    {
+      "question": "Décrivez la méthode la plus simple pour l'I/O séquentiel lorsqu'on tente d'écrire des données de la mémoire de plusieurs nœuds vers un seul fichier.",
+      "answer": "La méthode la plus simple consiste à désigner un 'porte-parole' pour collecter toutes les données des autres membres via la communication. Une fois les données entièrement collectées, il écrit les données dans un fichier comme une I/O séquentielle régulière."
+    },
+    {
+      "question": "Quels sont les désavantages de la méthode d'I/O séquentiel qui utilise un seul 'porte-parole' pour écrire les données?",
+      "answer": "Les désavantages incluent une bande passante d'écriture limitée par le débit d'un seul client, une possible insuffisance de mémoire sur un nœud pour contenir toutes les données, et un temps d'opération qui augmente linéairement avec la quantité de données, la taille du problème et le nombre de processus, ce qui empêche cette approche d'être évolutive."
+    },
+    {
+      "question": "Quelle est une autre approche pour l'I/O séquentiel avec N processeurs, par opposition à l'approche avec un seul CPU?",
+      "answer": "Une autre approche est d'organiser chaque processus participant pour qu'il effectue une I/O séquentielle, c'est-à-dire que tous les processus effectuent des opérations d'I/O vers des fichiers individuels."
+    },
+    {
+      "question": "Quels sont les problèmes qui peuvent survenir lorsque chaque processeur écrit ses données dans un fichier individuel (I/O séquentiel avec N processeurs)?",
+      "answer": "Les problèmes sont la génération d'un grand nombre de petits fichiers (un par processeur) à mesure que le nombre de processus augmente, ce qui entraîne une mauvaise performance du système de fichiers parallèle. De plus, les données de sortie doivent souvent être post-traitées en un seul fichier, et l'I/O non coordonnée peut submerger le système de fichiers à cause des verrous de fichiers."
+    },
+    {
+      "question": "Pourquoi les systèmes de fichiers parallèles performent-ils mal avec un grand nombre de petits fichiers?",
+      "answer": "Les systèmes de fichiers parallèles sont optimisés pour stocker de gros fichiers partagés et affichent de très mauvaises performances lorsqu'il s'agit de stocker de nombreux fichiers de petite taille."
+    },
+    {
+      "question": "Quelle est la meilleure approche pour l'I/O parallèle lorsque N processus écrivent ou lisent à partir d'un seul fichier?",
+      "answer": "La meilleure approche est d'effectuer une I/O parallèle appropriée où chaque processus participant écrit les données simultanément dans un seul fichier, de manière coordonnée."
+    },
+    {
+      "question": "Quels sont les avantages d'une approche d'I/O parallèle coordonnée vers un seul fichier?",
+      "answer": "Les avantages sont qu'il n'y a qu'un seul fichier (ce qui est bon pour la visualisation, la gestion des données et le stockage), les données peuvent être stockées de manière canonique, et l'évitement du post-traitement peut être évolutif si cela est fait correctement."
+    },
+    {
+      "question": "Quel est le principal inconvénient d'une I/O parallèle vers un seul fichier si elle n'est pas coordonnée?",
+      "answer": "Si l'I/O parallèle n'est pas coordonnée, elle peut submerger le système de fichiers à cause des verrous de fichiers."
+    }
+  ],
+  "generated_at": "2026-04-12T05:09:15.542547+00:00"
+}

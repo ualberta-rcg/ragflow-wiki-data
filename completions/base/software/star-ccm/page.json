@@ -1,0 +1,67 @@
+{
+  "doc_key": "base/star-ccm",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is STAR-CCM+ and what is its primary purpose?",
+      "answer": "STAR-CCM+ is a multidisciplinary engineering simulation suite developed by Siemens, used for modelling various phenomena like acoustics, fluid dynamics, heat transfer, and solid mechanics."
+    },
+    {
+      "question": "Does the Alliance provide STAR-CCM+ licenses?",
+      "answer": "The Alliance has authorization to host STAR-CCM+ binaries on clusters, but users must purchase a license from Siemens to use the software."
+    },
+    {
+      "question": "What are the two main options for obtaining a STAR-CCM+ license for Alliance clusters?",
+      "answer": "Researchers can either purchase a remotely hosted Power-on-Demand (PoD) license or set up and manage a locally hosted license server at their institution."
+    },
+    {
+      "question": "How do you configure your account to use a license server with the Star-CCM+ module?",
+      "answer": "You need to create a license file named `~/.licenses/starccm.lic` with specific server and port details, or for PoD, specify `flex.cd-adapco.com` as the server and `1999` as the port."
+    },
+    {
+      "question": "What environment variable is crucial for researchers using a Power-on-Demand (PoD) license in batch jobs?",
+      "answer": "Researchers must manually set the `LM_PROJECT` environment variable to their 22-digit PoD license key."
+    },
+    {
+      "question": "What common issue can occur with temporary files from STAR-CCM+ jobs, and how can it be resolved?",
+      "answer": "Temporary output files may accumulate in hidden directories like `~/.star-version_number`, consuming quota space. They can be removed by periodically running `rm -ri ~/.starccm*`."
+    },
+    {
+      "question": "What is the recommended approach for running STAR-CCM+ in graphical mode?",
+      "answer": "It is recommended to use an OnDemand or JupyterLab system to start a remote desktop session."
+    },
+    {
+      "question": "How do you launch STAR-CCM+ in parallel on a local host via an OnDemand desktop session for newer versions (18.04.008 or newer)?",
+      "answer": "After loading `StdEnv/2023` and the appropriate `starccm-mixed` or `starccm` module, run `starccm+ -rr server -np 2 -mpi openmpi40`."
+    },
+    {
+      "question": "What steps are involved in configuring a parallel run within the STAR-CCM+ GUI when launched via JupyterLab?",
+      "answer": "Within the GUI, click File -> New, select 'Parallel on Local Host' as the Process Option, add `-mpi openmpi40` to the 'Command:' string, and then click OK."
+    },
+    {
+      "question": "What general steps are required in a Slurm script to prepare the environment for a STAR-CCM+ job?",
+      "answer": "Typical steps include specifying Slurm directives (account, time, nodes, cpus, memory), loading `StdEnv/2023`, loading the desired `starccm` module, defining the input simulation file (`SIM_FILE`), and setting `STARCCM_TMP` to `$SLURM_TMPDIR`."
+    },
+    {
+      "question": "How do Slurm scripts for Trillium differ for STAR-CCM+ licensing compared to other clusters like Nibi or Fir?",
+      "answer": "For Trillium, instead of a `~/.licenses/starccm.lic` file, the script explicitly sets `FLEXPORT`, `VENDPORT`, and `LICSERVER` variables and establishes an SSH tunnel to the license server using `ssh tri-gw`."
+    },
+    {
+      "question": "What is the purpose of the `slurm_hl2hl.py` command in STAR-CCM+ Slurm scripts?",
+      "answer": "The `slurm_hl2hl.py` command is used to generate a machine file (`$SLURM_TMPDIR/machinefile`) in the format required by STAR-CCM+ for parallel execution."
+    },
+    {
+      "question": "What role does the `CDLMD_LICENSE_FILE` environment variable play in STAR-CCM+ licensing on clusters?",
+      "answer": "When a STAR-CCM+ module is loaded, `CDLMD_LICENSE_FILE` is automatically set to your `~/.licenses/starccm.lic` file, which contains the license server details."
+    },
+    {
+      "question": "Are there specific optimizations for different CPU vendors when running STAR-CCM+ on clusters, and how are they handled?",
+      "answer": "Yes, scripts include conditional logic based on CPU vendor (Intel or AMD) to set optimal `FLEXIBLAS`, `MPI`, `UCX`, and `FABRIC` options for improved performance."
+    },
+    {
+      "question": "What is a common troubleshooting step for STAR-CCM+ licensing issues?",
+      "answer": "If problems arise with licensing, try removing or renaming the `~/.flexlmrc` file, as it may contain old search paths or license server settings."
+    }
+  ],
+  "generated_at": "2026-04-12T08:11:51.848730+00:00"
+}

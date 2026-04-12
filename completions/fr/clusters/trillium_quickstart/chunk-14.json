@@ -1,0 +1,52 @@
+{
+  "doc_key": "fr/trillium_quickstart",
+  "level": "chunk",
+  "chunk_index": 14,
+  "qa_pairs": [
+    {
+      "question": "Même si on respecte les limites de la grappe Trillium, qu'est-ce qui arrive à nos tâches?",
+      "answer": "Même en respectant les limites, vos tâches devront passer par la file d'attente."
+    },
+    {
+      "question": "Quels sont les facteurs qui influencent le temps d'attente d'une tâche dans la file d'attente sur Trillium?",
+      "answer": "Le temps d'attente dépend de plusieurs facteurs, notamment la taille de l'allocation pour votre groupe, la quantité de ressources utilisées récemment, le nombre de nœuds et le temps d’exécution demandés, ainsi que le nombre total de tâches en attente."
+    },
+    {
+      "question": "Pourriez-vous me montrer un exemple de script pour une tâche MPI?",
+      "answer": "Oui, voici un exemple de script pour une tâche MPI :\n```bash\n#!/bin/bash\n#SBATCH --nodes=2\n#SBATCH --ntasks-per-node=192\n#SBATCH --time=01:00:00\n#SBATCH --job-name=mpi_job\n#SBATCH --output=mpi_output_%j.txt\n#SBATCH --mail-type=FAIL\n\ncd $SLURM_SUBMIT_DIR\n\nmodule load StdEnv/2023\nmodule load gcc/12.3\nmodule load openmpi/4.1.5\n\nsource /scinet/vast/etc/vastpreload-openmpi.bash # important if doing MPI-IO\n\nmpirun ./mpi_example\n```"
+    },
+    {
+      "question": "Comment on soumet un script de tâche MPI (par exemple, 'mpi_job.sh') à l'ordonnanceur?",
+      "answer": "Vous devez soumettre le script à partir de votre répertoire `$SCRATCH` en utilisant la commande `$ sbatch mpi_job.sh`."
+    },
+    {
+      "question": "Que signifie la première ligne `#!/bin/bash` dans un script de tâche MPI?",
+      "answer": "Cette ligne indique qu'il s'agit d'un script bash, spécifiant ainsi l'interpréteur à utiliser."
+    },
+    {
+      "question": "À quoi servent les lignes commençant par `#SBATCH` dans un script de tâche MPI?",
+      "answer": "Les lignes qui commencent par `#SBATCH` sont des directives qui sont lues par l'ordonnanceur Slurm pour spécifier les requêtes de ressources pour la tâche."
+    },
+    {
+      "question": "Dans l'exemple de script MPI, quelles sont les ressources demandées à l'ordonnanceur?",
+      "answer": "L'ordonnanceur est configuré pour rechercher deux nœuds, exécuter 192 tâches par nœud et avoir une durée d'exécution d'une heure."
+    },
+    {
+      "question": "Quelles actions Slurm exécute-t-il après avoir alloué les nœuds pour une tâche MPI?",
+      "answer": "Une fois les nœuds alloués, Slurm exécute le script. Ce script accède au répertoire de soumission, charge les modules requis, précharge la bibliothèque qui optimise MPI-IO pour le système de fichiers VAST, puis exécute l'application `mpi_example`."
+    },
+    {
+      "question": "Quelle commande faut-il utiliser pour précharger une bibliothèque qui optimise MPI-IO pour le système de fichiers VAST quand on utilise OpenMPI?",
+      "answer": "Il faut utiliser la commande `source /scinet/vast/etc/vastpreload-openmpi.bash`."
+    },
+    {
+      "question": "Si on utilise IntelMPI au lieu d'OpenMPI, quelle commande doit-on utiliser pour précharger la bibliothèque VAST?",
+      "answer": "Si vous utilisez IntelMPI, vous devriez utiliser la commande `source /scinet/vast/etc/vastpreload-intelmpi.bash`."
+    },
+    {
+      "question": "Pourquoi est-il crucial d'utiliser `mpirun` plutôt que `srun` pour que le préchargement de la bibliothèque VAST fonctionne?",
+      "answer": "Il est crucial d'utiliser `mpirun` plutôt que `srun` pour que le préchargement de la bibliothèque VAST fonctionne correctement."
+    }
+  ],
+  "generated_at": "2026-04-12T09:50:39.499162+00:00"
+}

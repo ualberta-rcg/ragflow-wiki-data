@@ -1,0 +1,75 @@
+{
+  "doc_key": "fr/pthreads",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "C'est quoi, les pthreads, pis à quoi ça sert?",
+      "answer": "Les pthreads, ça vient de POSIX threads, pis c'est une technique de parallélisation qui s'utilise dans un contexte de mémoire partagée, souvent sur un seul nœud, pour faire rouler des opérations en parallèle."
+    },
+    {
+      "question": "Dans quel contexte est-ce qu'on utilise pthreads, pis c'est quoi ses limites?",
+      "answer": "On utilise pthreads dans un contexte de mémoire partagée, habituellement sur un seul nœud, pis le nombre de fils d'exécution est limité aux cœurs CPU disponibles. Ça risque aussi de créer des situations de compétition si l'accès aux données partagées n'est pas synchronisé."
+    },
+    {
+      "question": "Dans quels langages de programmation est-ce qu'on utilise pthreads le plus souvent, pis c'est quoi les alternatives?",
+      "answer": "On utilise pthreads surtout en C. Pour Fortran, on préfère OpenMP, pis pour le C++, les outils Boost issus de la norme C11 sont mieux adaptés."
+    },
+    {
+      "question": "Comment est-ce qu'on peut décrire pthreads par rapport à d'autres outils de parallélisation comme OpenMP?",
+      "answer": "Pthreads, c'est un ensemble d'outils primitifs avec des fonctionnalités élémentaires de parallélisation, tandis qu'OpenMP offre des APIs plus conviviales et de haut niveau."
+    },
+    {
+      "question": "Comment on partage les données entre les fils d'exécution avec pthreads, pis c'est quoi le risque?",
+      "answer": "Puisque tous les fils sont dans le même espace mémoire, c'est facile de partager des données avec des variables globales. Par contre, ça risque de créer des situations de compétition (race conditions) si les modifications ne sont pas synchronisées."
+    },
+    {
+      "question": "C'est quoi un point important à considérer avant de paralléliser un programme avec pthreads?",
+      "answer": "Il faut considérer la scalabilité du programme, c'est-à-dire sa capacité à bien s'exécuter en parallèle, pis faire une analyse de performance après la parallélisation."
+    },
+    {
+      "question": "Comment on compile un programme C qui utilise pthreads?",
+      "answer": "Il faut inclure le fichier d'en-tête `<pthread.h>` pis compiler le programme avec l'indicateur `-pthread` pour faire le lien avec la bibliothèque, comme `gcc -pthread -o test threads.c`."
+    },
+    {
+      "question": "De quelles manières peut-on définir le nombre de fils d'exécution pour un programme pthreads?",
+      "answer": "On peut le définir comme argument dans une ligne de commande, via une variable d'environnement, ou en l'encodant directement dans le fichier source (mais ça, ça permet pas d'ajuster le nombre à l'exécution)."
+    },
+    {
+      "question": "C'est quoi la fonction principale pour créer un nouveau fil d'exécution avec pthreads, pis quels arguments ça prend?",
+      "answer": "La fonction principale, c'est `pthread_create`. Ça prend quatre arguments : l'identifiant du nouveau fil, ses attributs, la fonction C que le fil doit exécuter, pis l'argument de cette fonction."
+    },
+    {
+      "question": "C'est quoi le rôle de la fonction `pthread_join`?",
+      "answer": "La fonction `pthread_join` est bloquante, ça veut dire que le fil maître attend que le fil esclave spécifié ait fini son exécution pis qu'il réintègre le processus principal."
+    },
+    {
+      "question": "C'est quoi une 'situation de compétition' (race condition), pis comment on peut l'éviter avec pthreads?",
+      "answer": "Une situation de compétition, c'est quand le résultat d'un programme dépend de l'ordre d'accès des fils aux données partagées. On peut l'éviter en synchronisant l'accès aux données, par exemple avec un mutex."
+    },
+    {
+      "question": "Comment un mutex aide à gérer l'accès aux données partagées?",
+      "answer": "Un mutex (mutual exclusion) est un mécanisme de verrouillage qui s'assure qu'une variable ou un bloc de code est assigné à un seul fil à la fois, évitant ainsi les accès concurrents non désirés."
+    },
+    {
+      "question": "C'est quoi les fonctions de base pour utiliser un mutex avec pthreads?",
+      "answer": "Pour un mutex, on utilise `pthread_mutex_init` pour l'initialiser, `pthread_mutex_lock` pour le verrouiller, `pthread_mutex_unlock` pour le déverrouiller, pis `pthread_mutex_destroy` pour libérer ses ressources."
+    },
+    {
+      "question": "C'est quoi la différence entre `pthread_mutex_lock` et `pthread_mutex_trylock`?",
+      "answer": "`pthread_mutex_lock` bloque le fil indéfiniment jusqu'à ce que le mutex soit disponible. `pthread_mutex_trylock` est non-bloquant : il retourne tout de suite une valeur non nulle si le mutex est déjà occupé, sans attendre."
+    },
+    {
+      "question": "À quoi sert un verrou lecture/écriture (`pthread_rwlock_t`), pis comment ça fonctionne?",
+      "answer": "Un verrou lecture/écriture (`pthread_rwlock_t`) permet à plusieurs fils de lire une variable en même temps, mais se comporte comme un mutex standard pour l'écriture, n'accordant l'accès qu'à un seul fil à la fois (pour lecture ou écriture)."
+    },
+    {
+      "question": "C'est quoi une variable-condition (`pthread_cond_t`), pis quand est-ce qu'on l'utilise?",
+      "answer": "Une variable-condition (`pthread_cond_t`) permet à plusieurs fils d'attendre qu'une condition particulière soit remplie. On l'utilise quand des fils doivent être sollicités pour une tâche ou attendre un changement d'état."
+    },
+    {
+      "question": "Quelles sont les fonctions importantes pour les variables-conditions, pis c'est quoi la différence entre `pthread_cond_signal` et `pthread_cond_broadcast`?",
+      "answer": "Les fonctions importantes sont `pthread_cond_init`, `pthread_cond_destroy`, `pthread_cond_wait`, `pthread_cond_signal` pis `pthread_cond_broadcast`. `pthread_cond_signal` réveille un seul fil en attente au hasard, tandis que `pthread_cond_broadcast` réveille tous les fils en attente de la condition."
+    }
+  ],
+  "generated_at": "2026-04-12T05:31:20.343786+00:00"
+}

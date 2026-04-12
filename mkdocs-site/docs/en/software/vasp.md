@@ -5,29 +5,83 @@ lang: "en"
 
 source_wiki_title: "VASP/en"
 source_hash: "83620b7b9b982b863ee9c342d5e1f409"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T12:31:56.407242+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T12:31:29.686083+00:00"
 
 tags:
   - software
   - computationalchemistry
 
 keywords:
-  []
+  - "Vasp-GPU"
+  - "executable files"
+  - "source code"
+  - "prebuilt binaries"
+  - "input files"
+  - "job submission"
+  - "Cedar"
+  - "executable programs"
+  - "Computational Chemistry"
+  - "Slurm"
+  - "Software"
+  - "NVT calculations"
+  - "Slurm job script"
+  - "StdEnv/2023"
+  - "VASP"
+  - "Python interface"
+  - "GPU"
+  - "py4vasp"
+  - "CPU"
+  - "licensing"
+  - "HDF5"
+  - "pseudopotentials"
+  - "Included Libraries"
+  - "computing clusters"
+  - "benchmark"
+  - "EasyBuild"
+  - "gamma points"
+  - "job script"
+
+questions:
+  - "What specific information must be provided to technical support to request access to the prebuilt VASP binaries?"
+  - "Why do the licensing terms of VASP Software GmbH restrict the level of installation support provided on the computing infrastructure?"
+  - "What are the specific module load commands required to run prebuilt VASP versions on the Fir, Nibi, and Trillium clusters?"
+  - "Where are the downloaded pseudopotentials stored on the Cedar and Graham clusters, and what step is required to access them?"
+  - "What are the specific executable programs available for users running VASP-4.6?"
+  - "What is the difference in usage between the `vasp` and `vasp-gamma` executables for standard NVT calculations?"
+  - "What are the specific VASP executable files used for different types of calculations with and without CUDA support?"
+  - "Why does the documentation strongly recommend performing a benchmark before running VASP jobs on multiple GPUs?"
+  - "What key parameters and modules must be configured in a Slurm job script to successfully submit a VASP CPU or GPU job?"
+  - "What are the four essential input files required to run a VASP job?"
+  - "How can a user estimate the required memory for a VASP job if it is initially unknown?"
+  - "What are the steps and commands required to build VASP from source using EasyBuild?"
+  - "What specific hardware resources, including CPU cores, memory, and GPU type, are requested by the job script?"
+  - "Which software modules must be loaded before running the VASP application?"
+  - "What commands are mentioned in the text for executing the VASP job on the cluster?"
+  - "How do the supported features change across the different versions of VASP listed in the table?"
+  - "What is the function of the py4vasp tool provided in the external links?"
+  - "Under which scientific and technical categories is the VASP software classified?"
+  - "What versions of the VASP software and their corresponding source files are listed in the table?"
+  - "What build environment and hardware architecture are specified for these VASP installations?"
+  - "Which specific external libraries are included in the VASP builds according to the \"Included Libraries\" tab?"
+  - "How do the supported features change across the different versions of VASP listed in the table?"
+  - "What is the function of the py4vasp tool provided in the external links?"
+  - "Under which scientific and technical categories is the VASP software classified?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
-*The Vienna ab initio Simulation Package (VASP) is a computer program for atomic scale materials modelling, e.g. electronic structure calculations and quantum mechanical molecular dynamics, from first principles.*
+_The Vienna ab initio Simulation Package (VASP) is a computer program for atomic scale materials modelling, e.g., electronic structure calculations and quantum mechanical molecular dynamics, from first principles._
 Reference: [VASP website](https://www.vasp.at/)
 
 ## Licensing
+
 VASP can only be used by research groups that have been licensed by the developers, VASP Software GmbH. Your PI (principal investigator, professor) must register at the [VASP website](https://www.vasp.at/) and obtain a license.
 
 Once you have a license, if you wish to use the prebuilt VASP binaries on [Fir](fir.md), [Nibi](nibi.md), or [Trillium](trillium.md), contact [Technical support](technical-support.md) requesting access to VASP with the following information:
@@ -45,10 +99,10 @@ If you are licensed for version 5 you may also use version 4, but a version 4 li
 You may also choose to install VASP yourself, according to the terms of your license. See [Building VASP yourself](#building-vasp-yourself) below.
 
 ### Why?
-!!! warning
-    VASP Software GmbH will only grant licenses to groups that are hired by a single legal entity, which is incompatible with the way we operate. We have tried to negotiate an agreement with the licensor which would let us install the software everywhere on our infrastructure, but without success. Please read the terms of your own license, as you are likely subject to the same restriction. This limits the support we can offer to users who need help installing the software.
 
-    Simon Fraser University, the University of Waterloo, and the University of Toronto own Fir, Nibi, and Trillium, respectively, and have licenses with VASP. Some of their employees are therefore allowed to install specific versions of VASP on those clusters and provide limited support.
+VASP Software GmbH will only grant licenses to groups that are hired by a single legal entity, which is incompatible with the way we operate. We have tried to negotiate an agreement with the licensor which would let us install the software everywhere on our infrastructure, but without success. Please read the terms of your own license, as you are likely subject to the same restriction. This limits the support we can offer to users who need help installing the software.
+
+Simon Fraser University, the University of Waterloo, and the University of Toronto own Fir, Nibi, and Trillium, respectively, and have licenses with VASP. Some of their employees are therefore allowed to install specific versions of VASP on those clusters and provide limited support.
 
 ## Using prebuilt VASP
 
@@ -67,11 +121,11 @@ module load vasp/6.4.2
 1.  Run `module spider vasp` to see which versions are available.
 2.  Choose your version and run `module spider vasp/<version>` to see which dependencies you need to load for this particular version.
 3.  Load the dependencies and the VASP module, for example:
-    ```bash
-    module load StdEnv/2023 intel/2023.2.1 intelmpi/2021.9.0
-    module load vasp/6.4.2
-    ```
-    See [Using modules](using-modules.md) for more information.
+```bash
+module load StdEnv/2023 intel/2023.2.1 intelmpi/2021.9.0
+module load vasp/6.4.2
+```
+See [Using modules](using-modules.md) for more information.
 
 To use VASP on [Trillium](trillium.md), modules may be loaded as follows:
 
@@ -92,6 +146,7 @@ module load vasp/6.4.2
 For general usage of Trillium, please see the [Trillium Quickstart](trillium-quickstart.md) page.
 
 ### Pseudopotential files
+
 All pseudopotentials have been downloaded from the official VASP website and untarred. They are all located in `$EBROOTVASP/pseudopotentials/` on Cedar and Graham and can be accessed once the VASP module is loaded.
 
 ### Executable programs
@@ -117,38 +172,39 @@ Two extensions have also been incorporated:
 If you need a version of VASP that does not appear here, you can either build it yourself (see below) or [write to us](technical-support.md) and ask that it be built and installed.
 
 ## Vasp-GPU
-Vasp-GPU executable files run on both GPUs and CPUs of a node. Basically, calculation on a GPU is much more expensive than on a CPU, therefore we highly recommend to perform a benchmark using one or 2 GPUs to make sure they are getting a maximum performance from the GPU use. Fig.1 shows a benchmark of Si crystal which contains 256 Si-atoms in the simulation box. Blue, black and red lines show simulation time as a function of Number of CPU for GPU=0, 1, and 2 respectively. It shows the performance for GPU=1,2 and CPU=1 is more than 5 times better compared to GPU=0 and CPU=1. However, a comparison of calculations with GPU=1 and GPU=2 indicates that there is not much performance gain from GPU=1 to GPU=2. In fact, use for GPU=2 is around 50% in our monitoring system.
-!!! tip
-    Therefore we recommend users to first perform a benchmark like this for their own system to make sure they are not wasting any computer resources.
+
+Vasp-GPU executable files run on both GPUs and CPUs of a node. Basically, calculation on a GPU is much more expensive than on a CPU, therefore we highly recommend to perform a benchmark using one or 2 GPUs to make sure they are getting a maximum performance from the GPU use. Fig.1 shows a benchmark of Si crystal which contains 256 Si-atoms in the simulation box. Blue, black and red lines show simulation time as a function of Number of CPU for GPU=0, 1, and 2 respectively. It shows the performance for GPU=1,2 and CPU=1 is more than 5 times better compared to GPU=0 and CPU=1. However, a comparison of calculations with GPU=1 and GPU=2 indicates that there is not much performance gain from GPU=1 to GPU=2. In fact, use for GPU=2 is around 50% in our monitoring system. Therefore we recommend users to first perform a benchmark like this for their own system to make sure they are not wasting any computer resources.
 
 ## Example of a VASP job script
 
 The following is a job script to run VASP in parallel using the Slurm job scheduler:
 
-```bash title="vasp_job.sh"
+```file
+vasp_job.sh
 #!/bin/bash
 #SBATCH --account=<ACCOUNT>
 #SBATCH --ntasks=4             # number of MPI processes
 #SBATCH --mem-per-cpu=1024M    # memory
 #SBATCH --time=0-00:05         # time (DD-HH:MM)
-module load intel/2020.1.217  intelmpi/2019.7.217 vasp/<VERSION>
+module load intel/2020.1.217 intelmpi/2019.7.217 vasp/<VERSION>
 mpirun <VASP>
 ```
 
 *   The above job script requests four CPU cores and 4096MB memory (4x1024MB).
 *   `<ACCOUNT>` is a Slurm account name; see [Accounts and projects](running-jobs.md#accounts-and-projects) to know what to enter there.
 *   `<VERSION>` is the number for the VASP version you want to use: 4.6, 5.4.1, 5.4.4 or 6.1.0.
-*   Use module spider vasp/<VERSION> to see how you can change this particular version.
+*   Use `module spider vasp/<VERSION>` to see how you can change this particular version.
 *   `<VASP>` is the name of the executable. Refer to section *Executable programs* above for the executables you can select for each version.
 
-```bash title="vasp_gpu_job.sh"
+```file
+vasp_gpu_job.sh
 #!/bin/bash
 #SBATCH --account=<ACCOUNT>
 #SBATCH --cpus-per-task=1      # number of CPU processes
 #SBATCH --gres=gpu:p100:1      # Number of GPU type:p100 (valid type only for cedar)
 #SBATCH --mem=3GB              # memory
 #SBATCH --time=0-00:05         # time (DD-HH:MM)
-module load intel/2020.1.217  cuda/11.0  openmpi/4.0.3 vasp/<VERSION>
+module load intel/2020.1.217 cuda/11.0 openmpi/4.0.3 vasp/<VERSION>
 mpirun <VASP>
 ```
 
@@ -160,8 +216,7 @@ VASP uses four input files named as INCAR, KPOINTS, POSCAR, POTCAR. It is best t
 ```bash
 sbatch vasp_job.sh
 ```
-!!! tip
-    If you do not know how much memory you need for your job, prepare all your input files and then run `makeparam` in an [interactive job submission](running-jobs.md#interactive-jobs). Then use the result as required memory for the next run. However, for a more accurate estimate for future jobs, check the maximum stack size used by [completed jobs](running-jobs.md#completed-jobs) and use this as the memory requirement per processor for the next job.
+If you do not know how much memory you need for your job, prepare all your input files and then run `makeparam` in an [interactive job submission](running-jobs.md#interactive-jobs). Then use the result as required memory for the next run. However, for a more accurate estimate for future jobs, check the maximum stack size used by [completed jobs](running-jobs.md#completed-jobs) and use this as the memory requirement per processor for the next job.
 
 If you want to use 32 or more cores, please read about [whole-node scheduling](job-scheduling-policies.md#whole-nodes-versus-cores).
 
@@ -169,39 +224,40 @@ If you want to use 32 or more cores, please read about [whole-node scheduling](j
 
 If you are licensed to use VASP and have access to VASP source code, you can install various versions of VASP in your `/home` directory on all our clusters using the following [EasyBuild](easybuild.md) commands.
 
-`eb -f [RECIPE NAME] --sourcepath=[SOURCEPATH]`
+```bash
+eb -f [RECIPE NAME] --sourcepath=[SOURCEPATH]
+```
 
-where `[SOURCEPATH]` is the directory containing the VASP source code and `[RECIPE NAME]` is the name of the recipe. The first tab of the table below shows the list of available recipes along with the corresponding required source files. In this table VTSTtools and vaspSOL are Transition State Tools and VASPsol extensions respectively. The second tab of this table shows the list of the libraries that are included to vasp. You may download the source code from the [VASP website](https://www.vasp.at/). Running the command will take some time, perhaps more than an hour. Once it is done, you will be able to load and run VASP using `module` commands just as explained above in [Using prebuilt VASP](#using-prebuilt-vasp).
+where `[SOURCEPATH]` is the directory containing the VASP source code and `[RECIPE NAME]` is the name of the recipe. The first tab of the table below shows the list of available recipes along with the corresponding required source files. In this table VTSTtools and vaspSOL are Transition State Tools and VASPsol extensions respectively. The second tab of this table shows the list of the libraries that are included with VASP. You may download the source code from the [VASP website](https://www.vasp.at/). Running the command will take some time, perhaps more than an hour. Once it is done, you will be able to load and run VASP using `module` commands just as explained above in [Using prebuilt VASP](#using-prebuilt-vasp).
 
-Alternatively to build a custom version of VASP, please see [Installing software in your home directory](installing-software-in-your-home-directory.md) and [Installing VASP 5](https://www.vasp.at/wiki/index.php/Installing_VASP.5.X.X) or [Installing VASP 6](https://www.vasp.at/wiki/index.php/Installing_VASP.6.X.X).
+Alternatively to build a custom version of VASP, please see [Installing software in your home directory](installing-software-in-your-home-directory.md) and
+[Installing VASP 5](https://www.vasp.at/wiki/index.php/Installing_VASP.5.X.X) or [Installing VASP 6](https://www.vasp.at/wiki/index.php/Installing_VASP.6.X.X).
 
 === "Recipe specification and implementation"
-
-| Recipe Name               | Version | Environment | Source file          | CPU/GPU | VTSTtools | vaspSOL |
-| :------------------------ | :------ | :---------- | :------------------- | :------ | :-------- | :------ |
-| VASP-5.4.4-iimpi-2020a.eb | 5.4.4   | StdEnv/2023 | vasp.5.4.4.pl2.tgz   | CPU     | yes       | yes     |
-| VASP-6.1.2-iimpi-2020a.eb | 6.1.2   | StdEnv/2020 | vasp.6.1.2_patched.tgz | CPU     | yes       | yes     |
-| VASP-6.2.1-iimpi-2020a.eb | 6.2.1   | StdEnv/2020 | vasp.6.2.1.tgz       | CPU     | yes       | yes     |
-| VASP-6.3.0-iimpi-2020a.eb | 6.3.0   | StdEnv/2020 | vasp.6.3.0.tgz       | CPU     | yes       | yes     |
-| VASP-6.3.1-iimpi-2020a.eb | 6.3.1   | StdEnv/2020 | vasp.6.3.1.tgz       | CPU     | yes       | yes     |
-| VASP-6.4.2-iimpi-2023a.eb | 6.4.2   | StdEnv/2023 | vasp.6.4.2.tar       | CPU     | yes       | yes     |
-| VASP-6.4.3-iimpi-2023a.eb | 6.4.3   | StdEnv/2023 | vasp.6.4.3.tar       | CPU     | yes       | yes     |
-| VASP-6.5.0-iimpi-2023a.eb | 6.5.0   | StdEnv/2023 | vasp.6.5.0.tgz       | CPU     | No        | No      |
-| VASP-6.5.1-iimpi-2023a.eb | 6.5.1   | StdEnv/2023 | vasp.6.5.1.tgz       | CPU     | No        | No      |
+| Recipe Name | Version | Environment | Source file | CPU/GPU | VTSTtools | vaspSOL |
+| :---------- | :------ | :---------- | :---------- | :------ | :-------- | :------ |
+| VASP-5.4.4-iimpi-2020a.eb | 5.4.4 | StdEnv/2023 | vasp.5.4.4.pl2.tgz | CPU | yes | yes |
+| VASP-6.1.2-iimpi-2020a.eb | 6.1.2 | StdEnv/2020 | vasp.6.1.2_patched.tgz | CPU | yes | yes |
+| VASP-6.2.1-iimpi-2020a.eb | 6.2.1 | StdEnv/2020 | vasp.6.2.1.tgz | CPU | yes | yes |
+| VASP-6.3.0-iimpi-2020a.eb | 6.3.0 | StdEnv/2020 | vasp.6.3.0.tgz | CPU | yes | yes |
+| VASP-6.3.1-iimpi-2020a.eb | 6.3.1 | StdEnv/2020 | vasp.6.3.1.tgz | CPU | yes | yes |
+| VASP-6.4.2-iimpi-2023a.eb | 6.4.2 | StdEnv/2023 | vasp.6.4.2.tar | CPU | yes | yes |
+| VASP-6.4.3-iimpi-2023a.eb | 6.4.3 | StdEnv/2023 | vasp.6.4.3.tar | CPU | yes | yes |
+| VASP-6.5.0-iimpi-2023a.eb | 6.5.0 | StdEnv/2023 | vasp.6.5.0.tgz | CPU | No | No |
+| VASP-6.5.1-iimpi-2023a.eb | 6.5.1 | StdEnv/2023 | vasp.6.5.1.tgz | CPU | No | No |
 
 === "Included Libraries"
-
-| Recipe Name               | Wannier Function | Beef | HDF5 | LibXC | ELPA | Libmbd | dft4 |
-| :------------------------ | :--------------- | :--- | :--- | :---- | :--- | :----- | :--- |
-| VASP-5.4.4-iimpi-2020a.eb | Yes              | Yes  | No   | No    | No   | No     | No   |
-| VASP-6.1.2-iimpi-2020a.eb | Yes              | Yes  | No   | No    | No   | No     | No   |
-| VASP-6.2.1-iimpi-2020a.eb | Yes              | Yes  | No   | No    | No   | No     | No   |
-| VASP-6.3.0-iimpi-2020a.eb | Yes              | Yes  | Yes  | Yes   | No   | No     | No   |
-| VASP-6.3.1-iimpi-2020a.eb | Yes              | Yes  | Yes  | Yes   | No   | No     | No   |
-| VASP-6.4.2-iimpi-2023a.eb | Yes              | Yes  | Yes  | Yes   | No   | No     | No   |
-| VASP-6.4.3-iimpi-2023a.eb | Yes              | Yes  | Yes  | Yes   | No   | No     | Yes  |
-| VASP-6.5.0-iimpi-2023a.eb | Yes              | Yes  | Yes  | Yes   | Yes  | Yes    | Yes  |
-| VASP-6.5.1-iimpi-2023a.eb | Yes              | Yes  | Yes  | Yes   | Yes  | Yes    | Yes  |
+| Recipe Name | Wannier Function | Beef | HDF5 | LibXC | ELPA | Libmbd | dft4 |
+| :---------- | :--------------- | :--- | :--- | :---- | :--- | :----- | :--- |
+| VASP-5.4.4-iimpi-2020a.eb | Yes | Yes | No | No | No | No | No |
+| VASP-6.1.2-iimpi-2020a.eb | Yes | Yes | No | No | No | No | No |
+| VASP-6.2.1-iimpi-2020a.eb | Yes | Yes | No | No | No | No | No |
+| VASP-6.3.0-iimpi-2020a.eb | Yes | Yes | Yes | Yes | No | No | No |
+| VASP-6.3.1-iimpi-2020a.eb | Yes | Yes | Yes | Yes | No | No | No |
+| VASP-6.4.2-iimpi-2023a.eb | Yes | Yes | Yes | Yes | No | No | No |
+| VASP-6.4.3-iimpi-2023a.eb | Yes | Yes | Yes | Yes | No | No | Yes |
+| VASP-6.5.0-iimpi-2023a.eb | Yes | Yes | Yes | Yes | Yes | Yes | Yes |
+| VASP-6.5.1-iimpi-2023a.eb | Yes | Yes | Yes | Yes | Yes | Yes | Yes |
 
 ## External links
 

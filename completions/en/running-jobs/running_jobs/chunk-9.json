@@ -1,0 +1,88 @@
+{
+  "doc_key": "en/running_jobs",
+  "level": "chunk",
+  "chunk_index": 9,
+  "qa_pairs": [
+    {
+      "question": "What is 'farming,' 'serial farming,' or 'task farming' in the context of job submission?",
+      "answer": "These terms refer to the practice of automating the submission of a large number of related serial, parallel, or GPU calculations. It also aims to improve computational efficiency by bundling many short computations into fewer tasks of longer duration."
+    },
+    {
+      "question": "What tools are available on the clusters for automating job submission?",
+      "answer": "The clusters provide tools such as META-Farm, GNU Parallel, and GLOST for automating job submission."
+    },
+    {
+      "question": "Why should users avoid specifying a partition when submitting jobs?",
+      "answer": "Users should avoid specifying a partition because it conflicts with the recommendation to allow the scheduler to assign a partition to a job based on the resources it requests."
+    },
+    {
+      "question": "What should be done if a software package automatically submits jobs and expects a partition to be specified?",
+      "answer": "If a software package, such as Masurca, automatically submits jobs and expects a partition, you should configure the software to use `--partition=default`, which the script treats the same as not specifying a partition."
+    },
+    {
+      "question": "What are the job duration and job count limits on clusters like Beluga, Fir, Narval, Nibi, and Rorqual?",
+      "answer": "On these clusters, no jobs are permitted to run longer than 168 hours (7 days), and there is a limit of 1000 jobs (queued and running) per user."
+    },
+    {
+      "question": "What is the recommended duration for production jobs on Beluga, Fir, Narval, Nibi, and Rorqual clusters?",
+      "answer": "Production jobs on Beluga, Fir, Narval, Nibi, and Rorqual clusters should have a duration of at least an hour."
+    },
+    {
+      "question": "What is a common cause of troubleshooting issues with job scripts?",
+      "answer": "A common cause of trouble is preparing a job script with a word processor instead of a text editor."
+    },
+    {
+      "question": "What is the best practice for preparing job scripts on the cluster?",
+      "answer": "The best practice is to prepare your job script on the cluster using a text editor such as nano, vim, or emacs."
+    },
+    {
+      "question": "What should Windows users do if they prepare job scripts offline?",
+      "answer": "Windows users should use a text editor like Notepad or Notepad++ and, after uploading the script, use `dos2unix` to change Windows end-of-line characters to Linux end-of-line characters."
+    },
+    {
+      "question": "What should Mac users do if they prepare job scripts offline?",
+      "answer": "Mac users should open a terminal window and use an editor such as nano, vim, or emacs."
+    },
+    {
+      "question": "What happens if a parent job fails when a dependent job has been submitted with `--dependency=afterok:<jobid>`?",
+      "answer": "If the parent job fails (ends with a non-zero exit code), the dependent job can never be scheduled and will be automatically cancelled."
+    },
+    {
+      "question": "What does the error 'Lmod has detected the following error: These module(s) exist but cannot be loaded as requested' typically indicate?",
+      "answer": "This error typically indicates that the particular module has an unsatisfied prerequisite."
+    },
+    {
+      "question": "How can a user determine why a module cannot be loaded due to prerequisites?",
+      "answer": "To determine why a module cannot be loaded, you can use the command `module spider <module-name>/<version>` to see how to load the module and identify its prerequisites."
+    },
+    {
+      "question": "How can an unsatisfied module prerequisite be resolved in a job script?",
+      "answer": "To resolve an unsatisfied module prerequisite, you need to load all necessary prerequisite modules before loading the module that initially failed."
+    },
+    {
+      "question": "By default, what environment settings do jobs inherit from the submitting shell?",
+      "answer": "By default, a job will inherit the environment variables of the shell where the job was submitted."
+    },
+    {
+      "question": "Why is it recommended to include `module purge` in job scripts?",
+      "answer": "It is recommended to include `module purge` in your job script before loading all required modules to ensure a consistent state for each job submission and avoid unintended environment changes from your shell affecting your jobs."
+    },
+    {
+      "question": "How can a user prevent a job from inheriting environment variables from the submitting shell?",
+      "answer": "To suppress the inheritance of environment variables from the submitting shell, users can use the `--export=none` directive when submitting jobs."
+    },
+    {
+      "question": "What is a common reason for a submitted job to appear to hang with no output for an extended period?",
+      "answer": "A common reason for a submitted job appearing to hang with no output is the aggressive buffering performed by the Slurm scheduler, which aggregates many output lines before flushing them to the log file."
+    },
+    {
+      "question": "When is the output file typically written for a job with aggressive buffering?",
+      "answer": "Often, the output file will only be written after the job completes; if the job is cancelled or runs out of time, part of the output may be lost."
+    },
+    {
+      "question": "What is a good way to monitor the progress of a submitted job as it runs, or to determine its required runtime?",
+      "answer": "To monitor the progress of a submitted job or to find out how much time it needs, users should consider running an interactive job."
+    }
+  ],
+  "generated_at": "2026-04-12T07:09:32.353306+00:00"
+}

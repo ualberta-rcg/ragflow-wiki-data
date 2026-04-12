@@ -5,28 +5,96 @@ lang: "base"
 
 source_wiki_title: "Sharing data"
 source_hash: "086474696b64686afc964624cabe7234"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T11:18:56.145407+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T11:29:36.215462+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "directory sharing"
+  - "ACL attributes"
+  - "share data"
+  - "directory"
+  - "umask"
+  - "groups"
+  - "Globus"
+  - "project filesystem"
+  - "filesystem permissions"
+  - "executable"
+  - "setGID bit"
+  - "Filesystem permissions"
+  - "Access Control Lists (ACLs)"
+  - "chmod"
+  - "group"
+  - "project directory"
+  - "file permissions"
+  - "sticky bit"
+  - "owner"
+  - "user categories"
+  - "readable"
+  - "octal notation"
+  - "setfacl"
+  - "data sharing group"
+  - "octal values"
+  - "Security risk"
+  - "execute permission"
+  - "access permissions"
+  - "File permissions"
+  - "Data sharing"
+  - "setGID"
+  - "current working directory"
+  - "new file"
+  - "writable"
+  - "default group"
+  - "group permissions"
+  - "setUID"
+
+questions:
+  - "Why is issuing a bulk `chmod -R 777` command on your folders considered a major security risk on shared cluster facilities?"
+  - "What are the recommended mechanisms for sharing data with colleagues depending on their account status and research group affiliation?"
+  - "How do Linux filesystem permissions work, and why must a user have execute access to the entire directory chain to read a shared file?"
+  - "What do the user category abbreviations `u`, `g`, `o`, and `a` stand for in the context of file permissions?"
+  - "How does the command `chmod g+r file.txt` affect the access rights for the members of the file's group?"
+  - "What is the specific outcome of executing the command `chmod o-x script.py` regarding execute permissions?"
+  - "How is octal notation calculated and used to represent Unix filesystem permissions for different user categories?"
+  - "What is the purpose of the sticky bit in a shared directory, and how can it be configured using the chmod command?"
+  - "How does enabling the Set Group ID (setGID) bit affect the group ownership of newly created files and directories within a parent directory?"
+  - "What are the two groups associated with the user in the provided example?"
+  - "What are the permissions and group ownership of the existing directory before a new file is created?"
+  - "Which group is automatically assigned to a newly created file within the directory?"
+  - "How does enabling the setGID permission on a parent directory affect the group ownership of newly created files and subdirectories within it?"
+  - "What does an uppercase 'S' indicate in directory permissions compared to a lowercase 's', and what potential access issues can it cause?"
+  - "What is the function of the umask command, and how can it be used to view or change the default access permissions for newly created files?"
+  - "Besides the umask, what other factors and directory-level permissions determine a user's ability to access a file?"
+  - "How can the chmod command be used to change the permissions of existing files and entire directories?"
+  - "What are Access Control Lists (ACLs), and how do commands like setfacl allow for more fine-grained, user-specific file sharing compared to standard Unix permissions?"
+  - "What type of numerical values does the umask command accept according to the text?"
+  - "What are the specific file permissions granted to the owner, group, and others when the umask is set to 077?"
+  - "How does a umask value of 027 change the readability, writability, and executability of files for the group compared to the owner?"
+  - "What specific permission must be granted on all parent directories to successfully share data with another user?"
+  - "What commands can be used to apply the required execute permissions for a specific user or for everyone?"
+  - "Is public read permission necessary for sharing data, and how does this apply to the main project directory?"
+  - "Why must collaborators be given a physical directory path starting with `/project` rather than a symlink, and what command is used to find it?"
+  - "What is the process for creating and adding members to a data sharing group for complex sharing scenarios?"
+  - "How can a user recursively check a directory to list all items they do not have read access to?"
+  - "Why must collaborators be given a physical directory path starting with `/project` rather than a symlink, and what command is used to find it?"
+  - "What is the process for creating and adding members to a data sharing group for complex sharing scenarios?"
+  - "How can a user recursively check a directory to list all items they do not have read access to?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
 *Parent page: [Storage and file management](storage-and-file-management.md)*
 
 !!! warning "Important Note"
-    Don't ever issue a bulk `chmod -R 777` on your home folder, in fact on any of your folders for that matter. This is a HUGE security risk, and is completely unacceptable on shared facilities such as our clusters. In addition, it's never necessary.
+    Do **not** ever issue a bulk `chmod -R 777` on your home folder, in fact on any of your folders for that matter. This is a **huge** security risk and is completely unacceptable on shared facilities such as our clusters. In addition, it's never necessary.
 
 Having to share some but not all of your data with a colleague or another research group is a common occurrence. Our systems provide a variety of mechanisms to facilitate this data sharing with colleagues. If the person you want to share the data with is a member of the same research group as you, then the best approach may be to make use of the [project space](project-layout.md) that each research group has in common; if your research requires the creation of a group on one of the national clusters, you can request this by contacting [technical support](technical-support.md) since users cannot create their own groups. At the opposite extreme, if the person you need to share the data with doesn't even have an account on the cluster, you can use [Globus](globus.md) and in particular what is called a [shared endpoint](globus.md#globus-sharing) to share the data. To handle the scenario of sharing with a colleague who has an account on the cluster but doesn't belong to a common research group with you, the simplest approach is to use the permissions available in the filesystem to share the data, the principal topic of this page.
 
@@ -60,7 +128,7 @@ chmod a+r file.txt
 ```
 grants everyone on the cluster the right to read file.txt.
 
-It's also common for people to use *octal notation* when referring to Unix filesystem permissions even if this is somewhat less intuitive than the above symbolic notation. In this case, we use three bits to represent the permissions for each category of user, with these three bits then interpreted as a number from 0 to 7 using the formula (read_bit)*4 + (write_bit)*2 + (execute_bit)*1. In the above example, the octal representation would be 4+2+0 = 6 for the owner and 4+0+0 = 4 for the group and everyone else, so 644 overall.
+It's also common for people to use *octal notation* when referring to Unix filesystem permissions even if this is somewhat less intuitive than the above symbolic notation. In this case, we use three bits to represent the permissions for each category of user, with these three bits then interpreted as a number from 0 to 7 using the formula (read_bit)\*4 + (write_bit)\*2 + (execute_bit)\*1. In the above example, the octal representation would be 4+2+0 = 6 for the owner and 4+0+0 = 4 for the group and everyone else, so 644 overall.
 
 Note that to be able to exercise your rights on a file, you also need to be able to access the directory in which it resides. This means having both read and execute permission ("5" or "7" in octal notation) on the directory in question.
 
@@ -82,7 +150,7 @@ chmod 1774 <directory name>
 to set the sticky bit and `rwxrwxr--` permissions on the directory.
 
 The sticky bit is represented in `ls -l` output by the letter "t" or "T" in the last place of the permissions field, like so:
-```console
+```bash
 $ ls -ld directory
 drwxrws--T 2 someuser def-someuser 4096 Sep 25 11:25 directory
 ```
@@ -103,36 +171,36 @@ When creating files and directories within a parent directory, it is often usefu
 If the `setGID` bit is enabled for a directory, new files and directories in that directory will be created with the same group ownership as the directory. To illustrate the use of this mode, let us walk through an example.
 
 Start by checking the groups that `someuser` belongs to with the `groups` command.
-```console
+```bash
 [someuser@server]$ groups
 someuser def-someuser
 ```
 `someuser` belongs to two groups `someuser` and `def-someuser`. In the current working directory there is a directory which belongs to the group `def-someuser`.
-```console
+```bash
 [someuser@server]$ ls -l
 drwxrwx---  2 someuser   def-someuser       4096 Oct 13 19:39 testDir
 ```
 If we create a new file in that directory we can see that it is created belonging to `someuser`'s default group `someuser`.
-```console
+```bash
 [someuser@server]$ touch dirTest/test01.txt
 [someuser@server]$ ls -l dirTest/
 -rw-rw-r-- 1 someuser   someuser    0 Oct 13 19:38 test01.txt
 ```
 If we are in `/project` this is probably not what we want. We want a newly created file to belong to the same group as the parent folder. Enable the `setGID` permission on the parent directory like so:
-```console
+```bash
 [someuser@server]$ chmod g+s dirTest
 [someuser@server]$ ls -l
 drwxrws---  2 someuser   def-someuser       4096 Oct 13 19:39 dirTest
 ```
 Notice that the `x` permission on the group permissions has changed to an `s`. Now newly created files in `dirTest` will have the same group as the parent directory.
-```console
+```bash
 [someuser@server]$ touch dirTest/test02.txt
 [someuser@server]$ ls -l dirTest
 -rw-rw-r-- 1 someuser   someuser      0 Oct 13 19:38 test01.txt
 -rw-rw-r-- 1 someuser   def-someuser  0 Oct 13 19:39 test02.txt
 ```
 If we create a directory inside a directory with the `setGID` enabled, it will have the same group as the parent folder and also have its `setGID` enabled.
-```console
+```bash
 [someuser@server]$ mkdir dirTest/dirChild
 [someuser@server]$ ls -l dirTest/
 -rw-rw-r-- 1 someuser   someuser      0 Oct 13 19:38 test01.txt
@@ -140,26 +208,26 @@ If we create a directory inside a directory with the `setGID` enabled, it will h
 drwxrwsr-x 1 someuser   def-someuser  0 Oct 13 19:39 dirChild
 ```
 Finally, it can be important to note the difference between `S` (uppercase S) and `s`. The uppercase S indicates that execute permissions have been removed from the directory but the `setGID` is still in place. It can be easy to miss this and may result in unexpected problems, such as others in the group not being able to access files within your directory.
-```console
+```bash
 [someuser@server]$ chmod g-x dirTest/
 [someuser@server]$ ls -l
 drwxrS---  3 someuser   def-someuser       4096 Oct 13 19:39 dirTest
 ```
 
 ### Set User ID bit
-!!! warning "Set User ID bit"
+!!! warning "SetUID Disabled"
     The `setUID` bit **will not work** on our clusters. Its usual behaviour is completely disabled, for security reasons.
 
 ## Default filesystem permissions
 
-Default filesystem permissions are defined by something called the [umask](https://en.wikipedia.org/wiki/Umask). There is a default value that is defined on any Linux system. To display the current value in your session, you can run the command
+Default filesystem permissions are defined by something called the [`umask`](https://en.wikipedia.org/wiki/Umask). There is a default value that is defined on any Linux system. To display the current value in your session, you can run the command
 ```bash
 umask -S
 ```
 For example, on our clusters, you would get
-```console
+```bash
 umask -S
-u=rwx,g=rx,o=
+# u=rwx,g=rx,o=
 ```
 This means that, by default, new files that you create can be read, written and executed by yourself, they can be read and executed by members of the group of the file, and they cannot be accessed by other people. **The `umask` only applies to new files. Changing the `umask` does not change the access permissions of existing files.**
 
@@ -170,12 +238,12 @@ umask <value>
 where the `<value>` can take a number of octal values. Below is a table of useful options, depending on your use case:
 
 | `umask` value | `umask` meaning | Human-readable explanation |
-|:--------------|:----------------|:---------------------------|
-| `077`         | `u=rwx,g=,o=`   | Files are readable, writable and executable by the owner only |
-| `027`         | `u=rwx,g=rx,o=` | Files are readable and executable by the owner and the group, but writable only by the owner |
-| `007`         | `u=rwx,g=rwx,o=`| Files are readable, writable and executable by the owner and the group |
-| `022`         | `u=rwx,g=rx,o=rx`| Files are readable and executable by everyone, but writable only by the owner |
-| `002`         | `u=rwx,g=rwx,o=rx`| Files are readable and executable by everyone, but writable only by the owner and the group |
+| :------------ | :-------------- | :-------------------------------------------------------------------------------------- |
+| 077           | u=rwx,g=,o=     | Files are readable, writable and executable by the owner only                             |
+| 027           | u=rwx,g=rx,o=   | Files are readable and executable by the owner and the group, but writable only by the owner |
+| 007           | u=rwx,g=rwx,o=  | Files are readable, writable and executable by the owner and the group                  |
+| 022           | u=rwx,g=rx,o=rx | Files are readable and executable by everyone, but writable only by the owner             |
+| 002           | u=rwx,g=rwx,o=rx| Files are readable and executable by everyone, but writable only by the owner and the group |
 
 The umask is not the only thing that determines who can access a file.
 * A user trying to access a file must have execute permission on all directories in the path to the file. For example, a file might have `o=rx` permissions but an arbitrary user could not read or execute it if the parent directory does not also have `o=x` permission.
@@ -205,7 +273,7 @@ The file permissions discussed above have been available in Unix-like operating 
 
 #### Sharing a single file
 To allow a single person with username `smithj` to have read and execute permission on the file `my_script.py`, use:
-```console
+```bash
 $ setfacl -m u:smithj:rx my_script.py
 ```
 
@@ -213,7 +281,7 @@ $ setfacl -m u:smithj:rx my_script.py
 
 To allow read and write access to a single user in a whole subdirectory, including new files created in it, you can run the following commands:
 
-```console
+```bash
 $ setfacl -d -m u:smithj:rwX /home/<user>/projects/def-<PI>/shared_data
 $ setfacl -R -m u:smithj:rwX /home/<user>/projects/def-<PI>/shared_data
 ```
@@ -229,7 +297,7 @@ In order for this method to work the following things need to be in place:
 
 #### Removing ACL
 To remove all extended ACL attributes from a directory recursively, use:
-```console
+```bash
 setfacl -bR /home/<user>/projects/def-<PI>/shared_data
 ```
 
@@ -241,12 +309,15 @@ You do not need a data sharing group except in specialized sharing circumstances
 
 #### Creating a data sharing group
 
-The steps below describe how to create a data sharing group. In this example it is called `wg-datasharing`.
+The steps below describe how to create a data sharing group. In this example it is called `wg-datasharing`
 
 1.  Send email to our [technical support](technical-support.md) requesting creation of data sharing group, indicate name of the group you would like to have and that you should be the owner.
 2.  When you receive confirmation from the technical support team that the group has been created, go to [ccdb.computecanada.ca/services/](https://ccdb.computecanada.ca/services/) and access it:
+    (Image removed)
 3.  Click on the group's name and enter the group management screen:
+    (Image removed)
 4.  Add member (Victor Van Doom with CCI vdv-888, for example) to the group as a member:
+    (Image removed)
 
 #### Using a data sharing group
 
@@ -262,7 +333,7 @@ $ setfacl -m g:wg_datasharing:X /project/def-<PI>/
 
 Finally, you can add your group to the ACL for the directory you are trying to share. The commands parallel those needed to share with an individual:
 
-```console
+```bash
 $ setfacl -d -m g:wg-datasharing:rwx /home/<user>/projects/def-<PI>/shared_data
 $ setfacl -R -m g:wg-datasharing:rwx /home/<user>/projects/def-<PI>/shared_data
 ```

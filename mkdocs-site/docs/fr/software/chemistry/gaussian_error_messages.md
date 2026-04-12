@@ -5,554 +5,758 @@ lang: "fr"
 
 source_wiki_title: "Gaussian error messages/fr"
 source_hash: "e196a06c638e31c36948542920d64e13"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T06:55:54.607161+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T07:36:50.485394+00:00"
 
 tags:
   - computationalchemistry
 
 keywords:
-  []
+  - "Opt=CalcFC"
+  - "Fichier de sortie"
+  - "convergence"
+  - "CEP-121G"
+  - "fichier de point de contrôle"
+  - "espace disque"
+  - "forces convergentes"
+  - "coordonnées Z-matrice"
+  - "atomes reliés"
+  - "guess=read"
+  - "Convergence failure"
+  - "Z-matrice"
+  - "Link 9999"
+  - "Symbolic Z-matrix"
+  - "atomes fictifs"
+  - "bases pseudopotentielles"
+  - "fichier de contrôle"
+  - "groupe ponctuel"
+  - "coordonnées cartésiennes"
+  - "changement géométrique"
+  - "méthode d'optimisation"
+  - "fichier d'entrée"
+  - "erreur"
+  - "symbole atomique"
+  - "orbitales moléculaires"
+  - "No such file or directory"
+  - "procédure SCF"
+  - "Erroneous Write"
+  - "geom=allcheck"
+  - "messages d'erreur"
+  - "symétrie"
+  - "orbitale moléculaire"
+  - "Matrice hessienne"
+  - "Error termination"
+  - "Optimisation géométrique"
+  - "error code"
+  - "GAUSS_SCRDIR"
+  - "plans symétriques"
+  - "Opt=ReadFC"
+  - "segmentation violation"
+  - "système de coordonnées"
+  - "géométrie"
+  - "optimisation de molécules"
+  - "Erreur de saisie"
+  - "message d'erreur"
+  - "PGFIO/stdio"
+  - "fichier de sortie"
+  - "répertoire qui n'existe pas"
+  - "mkdir"
+  - "optimisation géométrique"
+  - "optimisation"
+  - "erreur de saisie"
+  - "erreur Gaussian"
+  - "fonctions de polarisation"
+  - "l502.exe"
+  - "SCF Done"
+  - "End of file in ZSymb"
+  - "Gaussian"
+  - "manque de mémoire"
+
+questions:
+  - "Quelles sont les causes possibles d'un échec de la tâche Gaussian lorsqu'aucun message d'erreur n'est produit et que la sortie semble normale ?"
+  - "Pourquoi l'erreur « Erroneous Write » se produit-elle et quelles sont les solutions recommandées pour la résoudre ?"
+  - "Quelle est la cause principale de l'erreur « Link 9999 » et quelles stratégies d'optimisation peuvent être utilisées pour y remédier ?"
+  - "Quelle commande permet d'exécuter une série de tâches liées lors de l'optimisation ?"
+  - "Quelles options d'optimisation sont recommandées pour utiliser les données d'une tâche précédente ?"
+  - "Quel problème de convergence spécifique peut survenir entre les forces et les incréments lors de ces calculs ?"
+  - "Quelles sont les solutions recommandées lorsque l'algorithme d'optimisation échoue à cause d'un problème de Z-matrice ou d'un angle hors des limites permises ?"
+  - "Comment doit-on modifier le fichier d'entrée pour corriger l'erreur \"Reading basis center\" liée à la définition de la base ?"
+  - "Quelle est la cause principale de l'erreur \"Operation on file out of range\" lors de la lecture d'un fichier de point de contrôle ?"
+  - "Quelle est la cause de l'erreur « End of file in GetChg » et comment peut-on y remédier ?"
+  - "Pourquoi l'erreur de changement de groupe ponctuel ou d'orientation standard survient-elle lors d'une optimisation ?"
+  - "Dans quelles situations le programme génère-t-il l'erreur « Unrecognized atomic symbol » ?"
+  - "Quelles options de calcul sont utilisées pour tenter d'extraire des données d'un fichier de point de contrôle ?"
+  - "Pour quelles raisons l'information recherchée peut-elle être introuvable dans le fichier de point de contrôle ?"
+  - "Quelles contraintes de ressources peuvent empêcher la complétion de la tâche précédente ?"
+  - "Quelle est la cause principale de l'arrêt du programme selon le fichier de sortie ?"
+  - "Combien de cycles ont été exécutés et quelle est la valeur de l'énergie (E(RHF)) au moment de l'arrêt ?"
+  - "Quel est le temps de calcul (CPU) total écoulé avant l'interruption de la tâche ?"
+  - "Quelles sont les solutions recommandées pour résoudre une erreur de non-convergence de la procédure SCF ?"
+  - "Comment corriger l'erreur liée à la demande d'optimisation complète (FOpt) lorsque le nombre de variables (NVar) ne correspond pas aux degrés de liberté (NDOF) ?"
+  - "Quelle est la cause principale de l'échec de la projection des orbitales moléculaires lues à partir d'un fichier de contrôle (checkpoint) ?"
+  - "Quel problème survient lors de l'utilisation du \"guess\" d'une orbitale moléculaire provenant du fichier de contrôle ?"
+  - "Pourquoi la projection de l'ancienne base vers la nouvelle échoue-t-elle avec certaines bases pseudopotentielles comme CEP-121G* ?"
+  - "Quelle solution de contournement le logiciel Gaussian utilise-t-il parfois concernant les fonctions de polarisation ?"
+  - "Comment résoudre l'erreur \"KLT.ge.NIJTC in GetRSB\" survenant lors d'un calcul MP2 ?"
+  - "Quelles erreurs de formatage ou de saisie dans la Z-matrice peuvent provoquer l'arrêt du programme ?"
+  - "Quelle est la cause principale du message d'erreur \"Problem with the distance matrix\" et comment y remédier ?"
+  - "Quelles sont les solutions recommandées pour corriger les erreurs de saisie courantes, telles qu'une matrice introuvable, une variable manquante ou un atome inexistant ?"
+  - "Comment doit-on procéder pour résoudre l'erreur d'optimisation « Linear search skipped for unknown reason » liée à une matrice hessienne invalide ?"
+  - "Pourquoi la conversion vers la Z-matrice échoue-t-elle après une optimisation géométrique et quel type de coordonnées faut-il utiliser à la place ?"
+  - "Quelle est la particularité géométrique des molécules décrites concernant leurs plans symétriques et la distance entre les atomes ?"
+  - "Quel est le message d'erreur exact généré par le programme à la fin du fichier de sortie ZSymb ?"
+  - "Quelles sont les valeurs de charge, de multiplicité et le temps de calcul indiqués dans le journal d'exécution ?"
+  - "Quelle est la cause de l'échec de la conversion des coordonnées internes redondantes en coordonnées Z-matrice ?"
+  - "Quelle alternative est proposée lorsque le logiciel Gaussian ne parvient pas à reconvertir vers la Z-matrice d'entrée après la convergence de l'optimisation ?"
+  - "À quel endroit du fichier de sortie l'erreur \"malloc failed\" apparaît-elle généralement ?"
+  - "Comment doit-on ajuster les paramètres de mémoire (`%mem` et `--mem=`) pour éviter les erreurs d'allocation comme \"malloc failed\" ou \"galloc\" ?"
+  - "Quelle erreur de saisie provoque le message \"Charge and multiplicity card seems defective\" et comment peut-on la corriger ?"
+  - "Pourquoi l'erreur \"Attempt to redefine unrecognized symbol\" se produit-elle lors de l'utilisation de `geom=modify` en lien avec le fichier de contrôle ?"
+  - "Quelle erreur technique spécifique est abordée dans ce texte ?"
+  - "Quelle est la cause principale de l'erreur de violation de segmentation mentionnée ?"
+  - "Quelles sont les solutions proposées pour résoudre le problème lié au répertoire `GAUSS_SCRDIR` ?"
+  - "De quels facteurs dépend la valeur conservatrice de 1 Go mentionnée dans le texte ?"
+  - "Quelle est la signification de l'erreur \"No such file or directory\" rencontrée dans la description ?"
+  - "Quelles informations techniques spécifiques sont fournies par le message d'erreur PGFIO dans le fichier de sortie ?"
+  - "Quelle erreur technique spécifique est abordée dans ce texte ?"
+  - "Quelle est la cause principale de l'erreur de violation de segmentation mentionnée ?"
+  - "Quelles sont les solutions proposées pour résoudre le problème lié au répertoire `GAUSS_SCRDIR` ?"
 
 status:
   downloaded: true
   converted: true
   tagged: true
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
-*Page enfant de [Gaussian](gaussian.md)*
-
+Page enfant de [Gaussian](gaussian.md)
 Cette information a été initialement compilée par le professeur Cory C. Pye.
 
-## Arrêt normal de Gaussian
+## Terminaison normale de Gaussian
 En conditions d'exécution normale, Gaussian termine comme suit :
-```text
+```
  Job cpu time:       0 days  0 hours 26 minutes 18.3 seconds.
  Elapsed time:       0 days  0 hours  6 minutes 43.3 seconds.
  Normal termination of Gaussian 16 at Tue Nov 14 15:31:56 2017.
 ```
-
-!!! info "Si la tâche échoue sans message d'erreur"
-    Si la tâche échoue sans produire de message d’erreur et que le rapport de sortie semble autrement normal, ceci peut éventuellement indiquer que :
-    * votre quota a été dépassé (voir [Quotas et politiques](storage-and-file-management.md#quotas-et-politiques));
-    * le temps d’exécution a été plus long que le temps demandé à (voir [l'ordonnanceur](running-jobs.md)) (`--time=HH:MM:SS`);
-    * la mémoire demandée est insuffisante (voir [Suivi des tâches](running-jobs.md#suivi-des-taches)); ou
-    * votre tâche produit des données dont la taille dépasse la capacité du disque local des nœuds de calcul.
+Si la tâche échoue sans produire de message d’erreur et que le rapport de sortie semble autrement normal, ceci peut éventuellement indiquer que :
+*   Votre quota a été dépassé (voir [Quotas et politiques](storage-and-file-management.md#quotas-et-politiques));
+*   Le temps d’exécution a été plus long que le temps demandé à [l'ordonnanceur](running-jobs.md) (`--time=HH:MM:SS`);
+*   La mémoire demandée est insuffisante (voir [Suivi des tâches](running-jobs.md#suivi-des-taches)); ou
+*   Votre tâche produit des données dont la taille dépasse la capacité du disque local des nœuds de calcul.
 
 ## Écriture erronée
-**Description**
-Vers la fin du fichier de sortie, on peut lire une variante de
-```text
-Erroneous write. write 122880 instead of 4239360.
-fd = 3
-Erroneous write. write 122880 instead of 4239360.
-fd = 3
-writwa
-writwa: File exists
-```
-ou
-```text
-Erroneous write. write -1 instead of 3648000. 
 
-fd = 4
-writwa
-writwa: No space left on device
-```
-ou
-```text
-Erroneous write during file extend. write -1 instead of 8192
-Probably out of disk space.
-Write error in NtrExt1
-```
+!!! warning "Écriture erronée"
 
-**Cause**
-Cette erreur se produit habituellement quand l’espace disque est épuisé. L’erreur peut se produire si vous avez dépassé votre quota, si le disque est à pleine capacité ou, dans le cas plus rare où un lecteur de réseau n’est pas disponible en raison d’une interruption de la communication.
+    **Description**
+    Vers la fin du fichier de sortie, on peut lire une variante de
+    ```
+    Erroneous write. write 122880 instead of 4239360.
+    fd = 3
+    Erroneous write. write 122880 instead of 4239360.
+    fd = 3
+    writwa
+    writwa: File exists
+    ```
+    ou
+    ```
+    Erroneous write. write -1 instead of 3648000. 
 
-**Solution**
-* Vérifiez votre quota avec `quota`; au besoin, supprimez les fichiers qui ne sont pas nécessaires.
-* Il se peut que votre tâche soit trop volumineuse pour être exécutée sur le matériel; essayez de réduire la base.
+    fd = 4
+    writwa
+    writwa: No space left on device
+    ```
+    ou
+    ```
+    Erroneous write during file extend. write -1 instead of 8192
+    Probably out of disk space.
+    Write error in NtrExt1
+    ```
+
+    **Cause**
+    Cette erreur se produit habituellement quand l’espace disque est épuisé. L’erreur peut se produire si vous avez dépassé votre quota, si le disque est à pleine capacité ou, dans le cas plus rare où un lecteur de réseau n’est pas disponible en raison d’une interruption de la communication.
+
+    **Solution**
+    *   Vérifiez votre quota avec `quota`; au besoin, supprimez les fichiers qui ne sont pas nécessaires.
+    *   Il se peut que votre tâche soit trop volumineuse pour être exécutée sur le matériel; essayez de réduire la base.
 
 ## Lien 9999
-**Description**
-À la fin du fichier de sortie, on peut lire une variante de
-```text
- Error termination request processed by link 9999.
- Error termination via Lnk1e in /disc30/g98/l9999.exe.
-```
-Quelques pages plus haut, on peut lire une variante de
-```text
- Maximum Force            0.020301     0.000450     NO 
- RMS     Force            007068     0.000300     NO 
- Maximum Displacement     0.078972     0.001800     NO 
- RMS     Displacement     0.023716     0.001200     NO 
- Predicted change in Energy=-3.132299D-05
- Optimization stopped.
-    -- Number of steps exceeded,  NStep=  34
-    -- Flag reset to prevent archiving.
-                       ----------------------------
-                       ! Non-Optimized Parameters !
-                       ! (Angstroms and Degrees)  !
-```
-**Cause**
-La tâche s’est terminée de façon anormale dû à une raison interne à l’application. La cause la plus fréquente est la non-convergence d’une optimisation géométrique.
 
-**Solution**
-* Optimisez la structure de départ sur la base d’un niveau théorique plus bas. Toutefois, si le visualiseur montre une convergence comme vous la souhaitez, redémarrez l’optimisation à partir de la dernière étape en utilisant par exemple `geom=allcheck` dans la ligne spécifiant la direction. Il serait peut-être bon d’utiliser `opt=CalcFC` si ce n’est pas trop coûteux, ce qui est probablement le cas aux niveaux HF ou DFT.
-* Utilisez une matrice hessienne de constantes de force plus riche. Ce serait généralement le cas si les constantes de force varient beaucoup d’un niveau à l’autre, ou s’il y a un changement géométrique important à l’optimisation. Une série de tâches liées peut être exécutée avec `--Link1--`. Si vous avez une tâche précédente, `Opt=ReadFC` donnera habituellement de bons résultats, mais occasionnellement aussi `Opt=CalcFC` et plus rarement `Opt=CalcAll`. Dans ces cas, les forces sont souvent convergentes, mais les incréments ne le sont pas, ce qui donne
-```text
-         Item               Value     Threshold  Converged?
- Maximum Force            0.000401     0.000450     YES
- RMS     Force            0.000178     0.000300     YES
- Maximum Displacement     0.010503     0.001800     NO 
- RMS     Displacement     0.003163     0.001200     NO 
-```
-* À l’occasion, le problème vient du système de coordonnées, surtout avec une Z-matrice où il est facile de faire de mauvais choix. Dans plusieurs cas, trois des quatre atomes utilisés pour définir l’angle dièdre peuvent se retrouver colinéaires, c’est-à-dire que l’angle est près de 0 ou 180 degrés, ce qui peut faire échouer l’algorithme. Vous pouvez soit modifier votre Z-matrice ou utiliser les coordonnées internes redondantes définies par défaut.
-* En dernier recours, remplacez la méthode d’optimisation par défaut par un autre type de méthode, par exemple `opt=ef` (pour moins de 50 variables) ou `opt=gdiis` (pour des molécules souples).
+!!! warning "Lien 9999"
 
-## L'angle alpha est en dehors de la plage valide de 0 à 180
-**Description**
-À la fin du fichier de sortie, on peut lire une variante de
-```text
- ------------------------------------------------------------------------
- Error termination via Lnk1e in /disc30/g98/l716.exe.
-```
-The lines above will be a z-matrix, above which will contain lines such as
-```text
-  Error on Z-matrix card number    9
- angle Alpha is outside the valid range of 0 to 180.
- Conversion from Z-matrix to cartesian coordinates failed:
- ------------------------------------------------------------------------
-                         Z-MATRIX (ANGSTROMS AND DEGREES)
- CD Cent Atom  N1     Length/X     N2    Alpha/Y     N3     Beta/Z      J
- ------------------------------------------------------------------------
-...
-  9   9  H     8   0.962154(  8)   1   -1.879( 16)   2    0.000( 23)   0
-...
-```
-**Cause**
-La tâche s’est terminée de façon anormale parce qu’un des angles X de la Z-matrice s’est trouvé hors des limites permises de 0 < X < 180.
+    **Description**
+    À la fin du fichier de sortie, on peut lire une variante de
+    ```
+    Error termination request processed by link 9999.
+    Error termination via Lnk1e in /disc30/g98/l9999.exe.
+    ```
+    Quelques pages plus haut, on peut lire une variante de
+    ```
+    Maximum Force            0.020301     0.000450     NO 
+    RMS     Force            0.007068     0.000300     NO 
+    Maximum Displacement     0.078972     0.001800     NO 
+    RMS     Displacement     0.023716     0.001200     NO 
+    Predicted change in Energy=-3.132299D-05
+    Optimization stopped.
+        -- Number of steps exceeded,  NStep=  34
+        -- Flag reset to prevent archiving.
+                           ----------------------------
+                           ! Non-Optimized Parameters !
+                           ! (Angstroms and Degrees)  !
+    ```
 
-**Solution**
-Ceci peut se produire dans le cas de modifications géométriques importantes dans une molécule, surtout quand elle est composée de fragments en interaction. Redéfinissez la Z-matrice ou utilisez un autre système de coordonnées.
+    **Cause**
+    La tâche s’est terminée de façon anormale dû à une raison interne à l’application. La cause la plus fréquente est la non-convergence d’une optimisation géométrique.
 
-## Lecture du centre de la base
-**Description**
-À la fin du fichier de sortie, on peut lire une variante de
-```text
- End of file reading basis center.
- Error termination via Lnk1e in /disc30/g98/l301.exe.
- Job cpu time:  0 days  0 hours  0 minutes  1.9 seconds.
- File lengths (MBytes):  RWF=   11 Int=    0 D2E=    0 Chk=   10 Scr=    1
-```
-**Cause**
-Il s’agit d’une erreur de saisie. Vous voulez lire une base générale, mais vous avez omis de l’indiquer.
+    **Solution**
+    *   Optimisez la structure de départ sur la base d’un niveau théorique plus bas. Toutefois, si le visualiseur montre une convergence comme vous la souhaitez, redémarrez l’optimisation à partir de la dernière étape en utilisant par exemple `geom=allcheck` dans la ligne spécifiant la direction. Il serait peut-être bon d’utiliser `opt=CalcFC` si ce n’est pas trop coûteux, ce qui est probablement le cas aux niveaux HF ou DFT.
+    *   Utilisez une matrice hessienne de constantes de force plus riche. Ce serait généralement le cas si les constantes de force varient beaucoup d’un niveau à l’autre, ou s’il y a un changement géométrique important à l’optimisation. Une série de tâches liées peut être exécutée avec `--Link1--`. Si vous avez une tâche précédente, `Opt=ReadFC` donnera habituellement de bons résultats, mais occasionnellement aussi `Opt=CalcFC` et plus rarement `Opt=CalcAll`. Dans ces cas, les forces sont souvent convergentes, mais les incréments ne le sont pas, ce qui donne
+        ```
+                Item               Value     Threshold  Converged?
+         Maximum Force            0.000401     0.000450     YES
+         RMS     Force            0.000178     0.000300     YES
+         Maximum Displacement     0.010503     0.001800     NO 
+         RMS     Displacement     0.003163     0.001200     NO 
+        ```
+    *   À l’occasion, le problème vient du système de coordonnées, surtout avec une Z-matrice où il est facile de faire de mauvais choix. Dans plusieurs cas, trois des quatre atomes utilisés pour définir l’angle dièdre peuvent se retrouver colinéaires, c’est-à-dire que l’angle est près de 0 ou 180 degrés, ce qui peut faire échouer l’algorithme. Vous pouvez soit modifier votre Z-matrice ou utiliser les coordonnées internes redondantes définies par défaut.
+    *   En dernier recours, remplacez la méthode d’optimisation par défaut par un autre type de méthode, par exemple `opt=ef` (pour moins de 50 variables) ou `opt=gdiis` (pour des molécules souples).
 
-**Solution**
-Entrez la base en question, ou supprimez `gen` de la ligne pour la route et indiquez une base interne.
+## L'angle Alpha est hors de la plage valide de 0 à 180
 
-## Opération sur fichier hors limites
-**Description**
-À la fin du fichier de sortie, on peut lire une variante de
-```text
- Error termination in NtrErr:
- NtrErr Called from FileIO.
-```
-précédée de
-```text
- Operation on file out of range.
-FileIO: IOper= 2 IFilNo(1)=-19999 Len=     1829888 IPos=  -900525056 Q=       4352094416
+!!! warning "L'angle Alpha est hors de la plage valide de 0 à 180"
 
- dumping /fiocom/, unit = 1 NFiles =   109 SizExt =    524288 WInBlk =      1024
-                   defal = T LstWrd =  7437256704 FType=2 FMxFil=10000
-```
-et suivie de plusieurs nombres.
+    **Description**
+    À la fin du fichier de sortie, on peut lire une variante de
+    ```
+    ------------------------------------------------------------------------
+    Error termination via Lnk1e in /disc30/g98/l716.exe.
+    ```
+    Les lignes ci-dessus seront une Z-matrice, au-dessus de laquelle se trouveront des lignes telles que
+    ```
+    Error on Z-matrix card number    9
+    angle Alpha is outside the valid range of 0 to 180.
+    Conversion from Z-matrix to cartesian coordinates failed:
+    ------------------------------------------------------------------------
+                            Z-MATRIX (ANGSTROMS AND DEGREES)
+    CD Cent Atom  N1     Length/X     N2    Alpha/Y     N3     Beta/Z      J
+    ------------------------------------------------------------------------
+    ...
+    9   9  H     8   0.962154(  8)   1   -1.879( 16)   2    0.000( 23)   0
+    ...
+    ```
 
-**Cause**
-Vous utilisez `Opt=ReadFC`, `guess=read` ou `geom=allcheck/modify` pour obtenir du fichier de point de contrôle (''checkpoint file'') quelque chose qui n’est pas trouvé parce que le calcul ne s’est pas fait ou que l’information est absente du fichier de point de contrôle parce que la tâche précédente n’a pas été complétée par manque de temps ou d’espace disque.
+    **Cause**
+    La tâche s’est terminée de façon anormale parce qu’un des angles X de la Z-matrice s’est trouvé hors des limites permises de 0 < X < 180.
 
-**Solution**
-Reprenez les calculs ou entrez l’information requise.
+    **Solution**
+    Ceci peut se produire dans le cas de modifications géométriques importantes dans une molécule, surtout quand elle est composée de fragments en interaction. Redéfinissez la Z-matrice ou utilisez un autre système de coordonnées.
+
+## Lecture du centre de base
+
+!!! warning "Lecture du centre de base"
+
+    **Description**
+    À la fin du fichier de sortie, on peut lire une variante de
+    ```
+    End of file reading basis center.
+    Error termination via Lnk1e in /disc30/g98/l301.exe.
+    Job cpu time:  0 days  0 hours  0 minutes  1.9 seconds.
+    File lengths (MBytes):  RWF=   11 Int=    0 D2E=    0 Chk=   10 Scr=    1
+    ```
+
+    **Cause**
+    Il s’agit d’une erreur de saisie. Vous voulez lire une base générale, mais vous avez omis de l’indiquer.
+
+    **Solution**
+    Entrez la base en question, ou supprimez `gen` de la ligne pour la route et indiquez une base interne.
+
+## Opération sur un fichier hors de portée
+
+!!! warning "Opération sur un fichier hors de portée"
+
+    **Description**
+    À la fin du fichier de sortie, on peut lire une variante de
+    ```
+    Error termination in NtrErr:
+    NtrErr Called from FileIO.
+    ```
+    précédée de
+    ```
+    Operation on file out of range.
+    FileIO: IOper= 2 IFilNo(1)=-19999 Len=     1829888 IPos=  -900525056 Q=       4352094416
+
+    dumping /fiocom/, unit = 1 NFiles =   109 SizExt =    524288 WInBlk =      1024
+                       defal = T LstWrd =  7437256704 FType=2 FMxFil=10000
+    ```
+    et suivie de plusieurs nombres.
+
+    **Cause**
+    Vous utilisez `Opt=ReadFC`, `guess=read` ou `geom=allcheck/modify` pour obtenir du fichier de point de contrôle (''checkpoint file'') quelque chose qui n’est pas trouvé parce que le calcul ne s’est pas fait ou que l’information est absente du fichier de point de contrôle parce que la tâche précédente n’a pas été complétée par manque de temps ou d’espace disque.
+
+    **Solution**
+    Reprenez les calculs ou entrez l’information requise.
 
 ## Fin de fichier dans GetChg
-**Description**
-À la fin du fichier de sortie, on peut lire une variante de
-```text
- Symbolic Z-matrix:
- End of file in GetChg.
- Error termination via Lnk1e in /disc30/g98/l101.exe.
- Job cpu time:  0 days  0 hours  0 minutes  0.5 seconds.
- File lengths (MBytes):  RWF=    6 Int=    0 D2E=    0 Chk=   11 Scr=    1
-```
-**Cause**
-Vous avez omis d’entrer la ligne charge/multiplicity en entrée ou vous vouliez utiliser charge/multiplicity à partir du fichier de contrôle (''checkpoint''), mais vous avez omis `geom=allcheck` dans la section pour la route.
 
-**Solution**
-Entrez la ligne charge/multiplicity ou ajoutez `geom=allcheck` dans la section pour la route.
+!!! warning "Fin de fichier dans GetChg"
+
+    **Description**
+    À la fin du fichier de sortie, on peut lire une variante de
+    ```
+    Symbolic Z-matrix:
+    End of file in GetChg.
+    Error termination via Lnk1e in /disc30/g98/l101.exe.
+    Job cpu time:  0 days  0 hours  0 minutes  0.5 seconds.
+    File lengths (MBytes):  RWF=    6 Int=    0 D2E=    0 Chk=   11 Scr=    1
+    ```
+
+    **Cause**
+    Vous avez omis d’entrer la ligne charge/multiplicité en entrée ou vous vouliez utiliser charge/multiplicité à partir du fichier de contrôle (''checkpoint''), mais vous avez omis `geom=allcheck` dans la section pour la route.
+
+    **Solution**
+    Entrez la ligne charge/multiplicité ou ajoutez `geom=allcheck` dans la section pour la route.
 
 ## Changement de groupe ponctuel ou d'orientation standard
-**Description**
-À la fin du fichier de sortie, on peut lire une variante de
-```text
- Stoichiometry    CdH14O7(2+)
- Framework group  C2[C2(CdO),X(H14O6)]
- Deg. of freedom   30
- Full point group                 C2      NOp   2
- Omega: Change in point group or standard orientation.
 
- Error termination via Lnk1e in /disc30/g98/l202.exe.
- Job cpu time:  0 days  3 hours 35 minutes 40.8 seconds.
- File lengths (MBytes):  RWF=   58 Int=    0 D2E=    0 Chk=   19 Scr=    1
-```
-**Cause**
-L’orientation standard ou le groupe ponctuel de la molécule a été modifié au cours de l’optimisation. Dans ce dernier cas, un programme de visualisation montrera un retournement soudain de la structure, généralement de 180 degrés. Cette erreur se produit moins depuis la version Gaussian 03.
+!!! warning "Changement de groupe ponctuel ou d'orientation standard"
 
-**Solution**
-Votre Z-matrice est peut-être mal définie si vous allez d’un groupe ponctuel à un sous-groupe de ce groupe ponctuel (par exemple de C2v à C2, Cs ou C1).
-* Si le groupe ponctuel est correct, il se pourrait que la symétrie de la structure de départ soit trop élevée et qu’elle doive être diminuée.
-* Dans certains cas rares, le groupe ponctuel est incorrect ou la symétrie est trop élevée; reformulez la Z-matrice avec plus de symétrie.
+    **Description**
+    À la fin du fichier de sortie, on peut lire une variante de
+    ```
+    Stoichiometry    CdH14O7(2+)
+    Framework group  C2[C2(CdO),X(H14O6)]
+    Deg. of freedom   30
+    Full point group                 C2      NOp   2
+    Omega: Change in point group or standard orientation.
 
-Si la symétrie n’a pas d’importance, désactivez-la.
+    Error termination via Lnk1e in /disc30/g98/l202.exe.
+    Job cpu time:  0 days  3 hours 35 minutes 40.8 seconds.
+    File lengths (MBytes):  RWF=   58 Int=    0 D2E=    0 Chk=   19 Scr=    1
+    ```
+
+    **Cause**
+    L’orientation standard ou le groupe ponctuel de la molécule a été modifié au cours de l’optimisation. Dans ce dernier cas, un programme de visualisation montrera un retournement soudain de la structure, généralement de 180 degrés. Cette erreur se produit moins depuis la version Gaussian 03.
+
+    **Solution**
+    Votre Z-matrice est peut-être mal définie si vous allez d’un groupe ponctuel à un sous-groupe de ce groupe ponctuel (par exemple de C2v à C2, Cs ou C1).
+    *   Si le groupe ponctuel est correct, il se pourrait que la symétrie de la structure de départ soit trop élevée et qu’elle doive être diminuée.
+    *   Dans certains cas rares, le groupe ponctuel est incorrect ou la symétrie est trop élevée; reformulez la Z-matrice avec plus de symétrie.
+
+    Si la symétrie n’a pas d’importance, désactivez-la.
 
 ## Symbole atomique non reconnu
-**Description**
-À la fin du fichier de sortie, on peut lire une variante de
-```text
- General basis read from cards:  (6D, 7F)
- Unrecognized atomic symbol ic2 
 
- Error termination via Lnk1e in /disc30/g98/l301.exe.
- Job cpu time:  0 days  0 hours  0 minutes  1.6 seconds.
- File lengths (MBytes):  RWF=    6 Int=    0 D2E=    0 Chk=   12 Scr=    1
-```
-**Cause**
-La lecture se fait dans une base générale, mais l’atome spécifié (`ic2` dans cet exemple) ne correspond à aucun symbole atomique standard. Ceci peut aussi se produire dans une tâche liée si dans une étape précédente des coordonnées par défaut ont été utilisées et ont effacé la Z-matrice alors que vous tentez ensuite de la modifier avec `geom=modify`. La section des variables est ignorée, mais l’application peut tenter de l’interpréter comme faisant partie de la base.
+!!! warning "Symbole atomique non reconnu"
 
-**Solution**
-Entrez le bon symbole atomique.
+    **Description**
+    À la fin du fichier de sortie, on peut lire une variante de
+    ```
+    General basis read from cards:  (6D, 7F)
+    Unrecognized atomic symbol ic2 
 
-## Échec de convergence -- exécution terminée
-**Description**
-À la fin du fichier de sortie, on peut lire une variante de
-```text
- >>>>>>>>>> Convergence criterion not met.
- SCF Done:  E(RHF) =  -2131.95693715     A.U. after  257 cycles
-             Convg  =    0.8831D-03             -V/T =  2.0048
-             S**2   =   0.0000
- Convergence failure -- run terminated.
- Error termination via Lnk1e in /disc30/g98/l502.exe.
- Job cpu time:  0 days  0 hours  5 minutes  0.5 seconds.
- File lengths (MBytes):  RWF=   15 Int=    0 D2E=    0 Chk=    8 Scr=    1
-```
-ou
-```text
-  >>>>>>>>>> Convergence criterion not met.
- SCF Done:  E(UHF) =  -918.564956094     A.U. after   65 cycles
-             Convg  =    0.4502D-04             -V/T =  2.0002
-             S**2   =   0.8616
- Annihilation of the first spin contaminant:
- S**2 before annihilation     0.8616,   after     0.7531
- Convergence failure -- run terminated.
- Error termination via Lnk1e in /disc30/g98/l502.exe.
- Job cpu time:  0 days  0 hours  3 minutes 56.2 seconds.
- File lengths (MBytes):  RWF=   11 Int=    0 D2E=    0 Chk=    8 Scr=    1
-```
-**Cause**
-La procédure SCF (''self-consistent field'') n’a pas créé la convergence.
+    Error termination via Lnk1e in /disc30/g98/l301.exe.
+    Job cpu time:  0 days  0 hours  0 minutes  1.6 seconds.
+    File lengths (MBytes):  RWF=    6 Int=    0 D2E=    0 Chk=   12 Scr=    1
+    ```
 
-**Solution**
-* Ceci peut se produire quand les orbitales moléculaires ont un `guess=read` faible.
-  Essayez d’obtenir un meilleur `guess=read` en exécutant une procédure SCF avec la même structure de départ, mais avec un niveau théorique plus bas, par exemple HF/STO-3G.
-  Si ceci ne fonctionne pas, utilisez une procédure de convergence différente, comme `SCF=QC` ou `SCF=XQC`.
-* Dans certains cas, une faiblesse dans la géométrie peut empêcher la convergence si un des liens est soit beaucoup trop long ou beaucoup trop court. Le problème peut être résolu en modifiant la géométrie initiale.
-* L’erreur peut aussi résulter d’une étape de la procédure d’optimisation qui a été mal effectuée.
-  Soumettez la tâche de nouveau en utilisant l’avant-dernière géométrie (ou une géométrie antérieure) et une nouvelle évaluation de la matrice hessienne.
+    **Cause**
+    La lecture se fait dans une base générale, mais l’atome spécifié (`ic2` dans cet exemple) ne correspond à aucun symbole atomique standard. Ceci peut aussi se produire dans une tâche liée si dans une étape précédente des coordonnées par défaut ont été utilisées et ont effacé la Z-matrice alors que vous tentez ensuite de la modifier avec `geom=modify`. La section des variables est ignorée, mais l’application peut tenter de l’interpréter comme faisant partie de la base.
 
-## FOPT demandé, mais NVar= XX alors que NDOF= YY
-**Description**
-À la fin du fichier de sortie, on peut lire une variante de
-```text
- FOPT requested but NVar= 29 while NDOF= 15.
- Error termination via Lnk1e in /disc30/g98/l202.exe.
- Job cpu time:  0 days  0 hours  0 minutes  1.3 seconds.
- File lengths (MBytes):  RWF=   11 Int=    0 D2E=    0 Chk=    1 Scr=    1
-```
-**Cause**
-Vous avez demandé une optimisation complète (FOpt), incluant une vérification du nombre correct de variables. La vérification a signalé une erreur.
+    **Solution**
+    Entrez le bon symbole atomique.
 
-**Solution**
-* Si NDOF est plus petit que NVar, la molécule est exécutée avec une symétrie inférieure à ce qu’elle est. Augmentez la symétrie.
-* Si NVar est plus petit que NDOF, votre Z-matrice a trop de contraintes pour la symétrie en question.
+## Échec de convergence -- tâche terminée
 
-Le ''check'' peut être contourné en utilisant `Opt` plutôt que `FOpt`; ceci n’est toutefois pas recommandé.
+!!! warning "Échec de convergence -- tâche terminée"
+
+    **Description**
+    À la fin du fichier de sortie, on peut lire une variante de
+    ```
+    >>>>>>>>>> Convergence criterion not met.
+    SCF Done:  E(RHF) =  -2131.95693715     A.U. after  257 cycles
+                Convg  =    0.8831D-03             -V/T =  2.0048
+                S**2   =   0.0000
+    Convergence failure -- run terminated.
+    Error termination via Lnk1e in /disc30/g98/l502.exe.
+    Job cpu time:  0 days  0 hours  5 minutes  0.5 seconds.
+    File lengths (MBytes):  RWF=   15 Int=    0 D2E=    0 Chk=    8 Scr=    1
+    ```
+    ou
+    ```
+    >>>>>>>>>> Convergence criterion not met.
+    SCF Done:  E(UHF) =  -918.564956094     A.U. after   65 cycles
+                Convg  =    0.4502D-04             -V/T =  2.0002
+                S**2   =   0.8616
+    Annihilation of the first spin contaminant:
+    S**2 before annihilation     0.8616,   after     0.7531
+    Convergence failure -- run terminated.
+    Error termination via Lnk1e in /disc30/g98/l502.exe.
+    Job cpu time:  0 days  0 hours  3 minutes 56.2 seconds.
+    File lengths (MBytes):  RWF=   11 Int=    0 D2E=    0 Chk=    8 Scr=    1
+    ```
+
+    **Cause**
+    La procédure SCF (''self-consistent field'') n’a pas créé la convergence.
+
+    **Solution**
+    *   Ceci peut se produire quand les orbitales moléculaires ont un `guess=read` faible. Essayez d’obtenir un meilleur `guess=read` en exécutant une procédure SCF avec la même structure de départ, mais avec un niveau théorique plus bas, par exemple HF/STO-3G. Si ceci ne fonctionne pas, utilisez une procédure de convergence différente, comme `SCF=QC` ou `SCF=XQC`.
+    *   Dans certains cas, une faiblesse dans la géométrie peut empêcher la convergence si un des liens est soit beaucoup trop long ou beaucoup trop court. Le problème peut être résolu en modifiant la géométrie initiale.
+    *   L’erreur peut aussi résulter d’une étape de la procédure d’optimisation qui a été mal effectuée. Soumettez la tâche de nouveau en utilisant l’avant-dernière géométrie (ou une géométrie antérieure) et une nouvelle évaluation de la matrice hessienne.
+
+## FOpt demandé, mais NVar= XX alors que NDOF= YY
+
+!!! warning "FOpt demandé, mais NVar= XX alors que NDOF= YY"
+
+    **Description**
+    À la fin du fichier de sortie, on peut lire une variante de
+    ```
+    FOpt requested but NVar= 29 while NDOF= 15.
+    Error termination via Lnk1e in /disc30/g98/l202.exe.
+    Job cpu time:  0 days  0 hours  0 minutes  1.3 seconds.
+    File lengths (MBytes):  RWF=   11 Int=    0 D2E=    0 Chk=    1 Scr=    1
+    ```
+
+    **Cause**
+    Vous avez demandé une optimisation complète (FOpt), incluant une vérification du nombre correct de variables. La vérification a signalé une erreur.
+
+    **Solution**
+    *   Si NDOF est plus petit que NVar, la molécule est exécutée avec une symétrie inférieure à ce qu’elle est. Augmentez la symétrie.
+    *   Si NVar est plus petit que NDOF, votre Z-matrice a trop de contraintes pour la symétrie en question.
+
+    Le ''check'' peut être contourné en utilisant `Opt` plutôt que `FOpt`; ceci n’est toutefois pas recommandé.
 
 ## Impossible de projeter les orbitales occupées lues
-**Description**
-À la fin du fichier de sortie, on peut lire une variante de
-```text
- Initial guess read from the checkpoint file:
- BiAq7_3+_C2.chk
- Unable to project full set of read-in orbitals.
- Projecting just the  36 occupied ones.
- Unable to project read-in occupied orbitals.
- Error termination via Lnk1e in /disc30/g98/l401.exe.
- Job cpu time:  0 days  0 hours  0 minutes 29.5 seconds.
- File lengths (MBytes):  RWF=   18 Int=    0 D2E=    0 Chk=   17 Scr=    1
-```
-**Cause**
-Vous lisez le ''guess'' d’une orbitale moléculaire qui provient du fichier de contrôle (''checkpoint''), mais la projection de l’ancienne base à la nouvelle n’a pas fonctionné. Ceci peut se produire quand certaines bases pseudopotentielles (CEP-121G*) sont utilisées avec des fonctions de polarisation alors qu’aucune de ces fonctions n’existe. Dans certains cas, Gaussian utilise des fonctions de polarisation temporaires à exposant zéro.
 
-**Solution**
-* Utilisez CEP-121G plutôt que CEP-121G*; ils sont les mêmes pour plusieurs éléments.
-* Vous pouvez aussi contourner le problème en évitant d’utiliser le ''guess''.
+!!! warning "Impossible de projeter les orbitales occupées lues"
+
+    **Description**
+    À la fin du fichier de sortie, on peut lire une variante de
+    ```
+    Initial guess read from the checkpoint file:
+    BiAq7_3+_C2.chk
+    Unable to project full set of read-in orbitals.
+    Projecting just the  36 occupied ones.
+    Unable to project read-in occupied orbitals.
+    Error termination via Lnk1e in /disc30/g98/l401.exe.
+    Job cpu time:  0 days  0 hours  0 minutes 29.5 seconds.
+    File lengths (MBytes):  RWF=   18 Int=    0 D2E=    0 Chk=   17 Scr=    1
+    ```
+
+    **Cause**
+    Vous lisez le ''guess'' d’une orbitale moléculaire qui provient du fichier de contrôle (''checkpoint''), mais la projection de l’ancienne base à la nouvelle n’a pas fonctionné. Ceci peut se produire quand certaines bases pseudopotentielles (`CEP-121G*`) sont utilisées avec des fonctions de polarisation alors qu’aucune de ces fonctions n’existe. Dans certains cas, Gaussian utilise des fonctions de polarisation temporaires à exposant zéro.
+
+    **Solution**
+    *   Utilisez `CEP-121G` plutôt que `CEP-121G*`; ils sont les mêmes pour plusieurs éléments.
+    *   Vous pouvez aussi contourner le problème en évitant d’utiliser le ''guess''.
 
 ## KLT.ge.NIJTC dans GetRSB
-**Description**
-À la fin du fichier de sortie, on peut lire une variante de
-```text
- (rs|ai) integrals will be sorted in core.
- KLT.ge.NIJTC in GetRSB.
- Error termination via Lnk1e in /disc30/g98/l906.exe.
- Job cpu time:  0 days  0 hours  0 minutes 32.7 seconds.
- File lengths (MBytes):  RWF=  514 Int=    0 D2E=    0 Chk=   10 Scr=    1
-```
-**Cause**
-Le calcul MP2 a échoué peut-être en raison du problème de pseudopotentiel mentionné en rapport avec le message d’erreur précédent.
 
-**Solution**
-Utilisez CEP-121G plutôt que CEP-121G*; ils sont les mêmes pour plusieurs éléments.
+!!! warning "KLT.ge.NIJTC dans GetRSB"
+
+    **Description**
+    À la fin du fichier de sortie, on peut lire une variante de
+    ```
+    (rs|ai) integrals will be sorted in core.
+    KLT.ge.NIJTC in GetRSB.
+    Error termination via Lnk1e in /disc30/g98/l906.exe.
+    Job cpu time:  0 days  0 hours  0 minutes 32.7 seconds.
+    File lengths (MBytes):  RWF=  514 Int=    0 D2E=    0 Chk=   10 Scr=    1
+    ```
+
+    **Cause**
+    Le calcul MP2 a échoué peut-être en raison du problème de pseudopotentiel mentionné en rapport avec le message d’erreur précédent.
+
+    **Solution**
+    Utilisez `CEP-121G` plutôt que `CEP-121G*`; ils sont les mêmes pour plusieurs éléments.
 
 ## Symbole XXX introuvable dans la Z-matrice
-**Description**
-À la fin du fichier de sortie, on peut lire une variante de
-```text
- Symbol "H3NNN" not found in Z-matrix.
- Error termination via Lnk1e in /disc30/g98/l101.exe.
- Job cpu time:  0 days  0 hours  0 minutes  0.5 seconds.
- File lengths (MBytes):  RWF=    6 Int=    0 D2E=    0 Chk=   14 Scr=    1
-```
-**Cause**
-Vous avez entré un nom de variable (ici `H3NNN`) qui ne se trouve pas dans la Z-matrice.
 
-**Solution**
-Entrez le bon nom de variable ou ajoutez-le à la Z-matrice.
+!!! warning "Symbole XXX introuvable dans la Z-matrice"
+
+    **Description**
+    À la fin du fichier de sortie, on peut lire une variante de
+    ```
+    Symbol "H3NNN" not found in Z-matrix.
+    Error termination via Lnk1e in /disc30/g98/l101.exe.
+    Job cpu time:  0 days  0 hours  0 minutes  0.5 seconds.
+    File lengths (MBytes):  RWF=    6 Int=    0 D2E=    0 Chk=   14 Scr=    1
+    ```
+
+    **Cause**
+    Vous avez entré un nom de variable (ici `H3NNN`) qui ne se trouve pas dans la Z-matrice.
+
+    **Solution**
+    Entrez le bon nom de variable ou ajoutez-le à la Z-matrice.
 
 ## La variable X a un nombre d'étapes invalide
-**Description**
-À la fin du fichier de sortie, on peut lire une variante de
-```text
- Scan the potential surface.
- Variable   Value     No. Steps Step-Size
- -------- ----------- --------- ---------
- Variable  1 has invalid number of steps      -1.
- Error termination via Lnk1e in /disc30/g98/l108.exe.
- Job cpu time:  0 days  0 hours  0 minutes  0.7 seconds.
- File lengths (MBytes):  RWF=   11 Int=    0 D2E=    0 Chk=   13 Scr=    1
-```
-**Cause**
-Il s’agit d’une erreur de saisie. Vous tentez de générer un scan rigide de l’énergie potentielle et il y a probablement deux lignes vides plutôt qu’une entre la Z-matrice et les variables.
 
-**Solution**
-Supprimez la ligne vide.
+!!! warning "La variable X a un nombre d'étapes invalide"
 
-## Problème avec la matrice des distances
-**Description**
-À la fin du fichier de sortie, on peut lire une variante de
-```text
-  Problem with the distance matrix.
- Error termination via Lnk1e in /disc30/g98/l202.exe.
- Job cpu time:  0 days  9 hours 11 minutes 14.3 seconds.
- File lengths (MBytes):  RWF=  634 Int=    0 D2E=    0 Chk=   10 Scr=    1
-```
-**Cause**
-Il peut s’agir d’une erreur de saisie. Au moins deux atomes sont trop près l’un de l’autre dans cette liste. Il s’agit quelquefois d’une erreur de programmation surtout quand une des distances est NaN (*pas un nombre*). Ceci peut se produire à l’optimisation de molécules diatomiques quand la distance au départ est trop grande.
+    **Description**
+    À la fin du fichier de sortie, on peut lire une variante de
+    ```
+    Scan the potential surface.
+    Variable   Value     No. Steps Step-Size
+    -------- ----------- --------- ---------
+    Variable  1 has invalid number of steps      -1.
+    Error termination via Lnk1e in /disc30/g98/l108.exe.
+    Job cpu time:  0 days  0 hours  0 minutes  0.7 seconds.
+    File lengths (MBytes):  RWF=   11 Int=    0 D2E=    0 Chk=   13 Scr=    1
+    ```
 
-**Solution**
-Vérifiez les variables et la Z-matrice des atomes en question pour voir si certains atomes sont trop rapprochés. Ceci pourrait être le résultat de l’absence d’un signe de soustraction dans un angle de torsion pour des molécules ayant des plans symétriques où les atomes reliés ne coïncident pas, c’est-à-dire que la distance entre eux est de zéro.
+    **Cause**
+    Il s’agit d’une erreur de saisie. Vous tentez de générer un scan rigide de l’énergie potentielle et il y a probablement deux lignes vides plutôt qu’une entre la Z-matrice et les variables.
+
+    **Solution**
+    Supprimez la ligne vide.
+
+## Problème avec la matrice de distances
+
+!!! warning "Problème avec la matrice de distances"
+
+    **Description**
+    À la fin du fichier de sortie, on peut lire une variante de
+    ```
+    Problem with the distance matrix.
+    Error termination via Lnk1e in /disc30/g98/l202.exe.
+    Job cpu time:  0 days  9 hours 11 minutes 14.3 seconds.
+    File lengths (MBytes):  RWF=  634 Int=    0 D2E=    0 Chk=   10 Scr=    1
+    ```
+
+    **Cause**
+    Il peut s’agir d’une erreur de saisie. Au moins deux atomes sont trop près l’un de l’autre dans cette liste. Il s’agit quelquefois d’une erreur de programmation surtout quand une des distances est `NaN` (''pas un nombre''). Ceci peut se produire à l’optimisation de molécules diatomiques quand la distance au départ est trop grande.
+
+    **Solution**
+    Vérifiez les variables et la Z-matrice des atomes en question pour voir si certains atomes sont trop rapprochés. Ceci pourrait être le résultat de l’absence d’un signe de soustraction dans un angle de torsion pour des molécules ayant des plans symétriques où les atomes reliés ne coïncident pas, c’est-à-dire que la distance entre eux est de zéro.
 
 ## Fin de fichier dans ZSymb
-**Description**
-À la fin du fichier de sortie, on peut lire une variante de
-```text
- Symbolic Z-matrix:
- Charge =  0 Multiplicity = 1
- End of file in ZSymb.
- Error termination via Lnk1e in /disc30/g98/l101.exe.
- Job cpu time:  0 days  0 hours  0 minutes  0.6 seconds.
- File lengths (MBytes):  RWF=    6 Int=    0 D2E=    0 Chk=    9 Scr=    1
-```
-**Cause**
-Il s’agit d’une erreur de saisie. La matrice est introuvable pour une de ces raisons :
-* Vous avez peut-être omis la ligne vide à la fin des spécifications de géométrie.
-* Vous vouliez obtenir la Z-matrice et les paramètres du fichier de contrôle (''checkpoint''), mais vous avez oublié d’entrer `geom=check`.
 
-**Solution**
-Ajoutez une ligne vide à la fin ou ajoutez `geom=check`.
+!!! warning "Fin de fichier dans ZSymb"
+
+    **Description**
+    À la fin du fichier de sortie, on peut lire une variante de
+    ```
+    Symbolic Z-matrix:
+    Charge =  0 Multiplicity = 1
+    End of file in ZSymb.
+    Error termination via Lnk1e in /disc30/g98/l101.exe.
+    Job cpu time:  0 days  0 hours  0 minutes  0.6 seconds.
+    File lengths (MBytes):  RWF=    6 Int=    0 D2E=    0 Chk=    9 Scr=    1
+    ```
+
+    **Cause**
+    Il s’agit d’une erreur de saisie. La matrice est introuvable pour une de ces raisons :
+    *   Vous avez peut-être omis la ligne vide à la fin des spécifications de géométrie.
+    *   Vous vouliez obtenir la Z-matrice et les paramètres du fichier de contrôle (''checkpoint''), mais vous avez oublié d’entrer `geom=check`.
+
+    **Solution**
+    Ajoutez une ligne vide à la fin ou ajoutez `geom=check`.
 
 ## Recherche linéaire ignorée pour une raison inconnue
-**Description**
-À la fin du fichier de sortie, on peut lire une variante de
-```text
- RFO could not converge Lambda in  999 iterations.
- Linear search skipped for unknown reason.
- Error termination via Lnk1e in /disc30/g98/l103.exe.
- Job cpu time:  0 days  7 hours  9 minutes 17.0 seconds.
- File lengths (MBytes):  RWF=   21 Int=    0 D2E=    0 Chk=    6 Scr=    1
-```
-**Cause**
-La RFO (*rational function optimization*) n’a pas fonctionné pendant une recherche linéaire. La matrice hessienne n’est probablement plus valide.
 
-**Solution**
-Redémarrez l’optimisation avec `Opt=CalcFC`.
+!!! warning "Recherche linéaire ignorée pour une raison inconnue"
 
-## L'indice de variable 3000 sur la carte XXX est hors limites, NVar=XX
-**Description**
-À la fin du fichier de sortie, on peut lire une variante de
-```text
- Variable index of 3000 on card  15 is out of range, NVar=  42.
- Termination in UpdVr1.
- Error termination via Lnk1e in /disc30/g98/l101.exe.
- Job cpu time:  0 days  0 hours  0 minutes  0.5 seconds.
- File lengths (MBytes):  RWF=   11 Int=    0 D2E=    0 Chk=    8 Scr=    1
-```
-**Cause**
-Il s’agit d’une erreur de saisie. Vous avez oublié d’ajouter à la liste une variable de votre Z-matrice; dans cet exemple, la variable définit l’atome numéro 15.
+    **Description**
+    À la fin du fichier de sortie, on peut lire une variante de
+    ```
+    RFO could not converge Lambda in  999 iterations.
+    Linear search skipped for unknown reason.
+    Error termination via Lnk1e in /disc30/g98/l103.exe.
+    Job cpu time:  0 days  7 hours  9 minutes 17.0 seconds.
+    File lengths (MBytes):  RWF=   21 Int=    0 D2E=    0 Chk=    6 Scr=    1
+    ```
 
-**Solution**
-Ajoutez la variable.
+    **Cause**
+    La `RFO` (''rational function optimization'') n’a pas fonctionné pendant une recherche linéaire. La matrice hessienne n’est probablement plus valide.
+
+    **Solution**
+    Redémarrez l’optimisation avec `Opt=CalcFC`.
+
+## L'indice de variable 3000 sur la carte XXX est hors de portée, NVar=XX
+
+!!! warning "L'indice de variable 3000 sur la carte XXX est hors de portée, NVar=XX"
+
+    **Description**
+    À la fin du fichier de sortie, on peut lire une variante de
+    ```
+    Variable index of 3000 on card  15 is out of range, NVar=  42.
+    Termination in UpdVr1.
+    Error termination via Lnk1e in /disc30/g98/l101.exe.
+    Job cpu time:  0 days  0 hours  0 minutes  0.5 seconds.
+    File lengths (MBytes):  RWF=   11 Int=    0 D2E=    0 Chk=    8 Scr=    1
+    ```
+
+    **Cause**
+    Il s’agit d’une erreur de saisie. Vous avez oublié d’ajouter à la liste une variable de votre Z-matrice ; dans cet exemple, la variable définit l’atome numéro 15.
+
+    **Solution**
+    Ajoutez la variable.
 
 ## Centre inconnu XXX
-**Description**
-À la fin du fichier de sortie, on peut lire une variante de
-```text
- Unknown center X
- Error termination via Lnk1e in /disc30/g98/l101.exe.
- Job cpu time:  0 days  0 hours  0 minutes  0.5 seconds.
- File lengths (MBytes):  RWF=    6 Int=    0 D2E=    0 Chk=    8 Scr=    1
-```
-**Cause**
-Il s’agit d’une erreur de saisie. Vous tentez de définir un atome dans une Z-matrice en utilisant un autre atome inexistant (X dans cet exemple).
 
-**Solution**
-Utilisez le bon nom d’atome.
+!!! warning "Centre inconnu XXX"
 
-## Échec de la détermination des variables d'atomes fictifs lors de la conversion de la z-matrice
-**Description**
-À la fin du fichier de sortie, on peut lire une variante de
-```text
- Error termination request processed by link 9999.
- Error termination via Lnk1e in /disc30/g98/l9999.exe.
- Job cpu time:  0 days  1 hours 53 minutes 10.4 seconds.
- File lengths (MBytes):  RWF=   20 Int=    0 D2E=    0 Chk=   11 Scr=    1
-```
-et juste avant
-```text
- Determination of dummy atom variables in z-matrix conversion failed.
- Determination of dummy atom variables in z-matrix conversion failed.
- NNew=      6.03366976D+01 NOld=      5.07835896D+01 Diff= 9.55D+00
-```
-**Cause**
-La conversion des coordonnées internes redondantes à des coordonnées Z-matrice a échoué en raison des atomes fictifs. Vous devrez vous contenter de coordonnées cartésiennes.
+    **Description**
+    À la fin du fichier de sortie, on peut lire une variante de
+    ```
+    Unknown center X
+    Error termination via Lnk1e in /disc30/g98/l101.exe.
+    Job cpu time:  0 days  0 hours  0 minutes  0.5 seconds.
+    File lengths (MBytes):  RWF=    6 Int=    0 D2E=    0 Chk=    8 Scr=    1
+    ```
 
-**Solution**
-L’optimisation géométrique a convergé, mais Gaussian a été incapable de reconvertir vers la Z-matrice d’entrée.
+    **Cause**
+    Il s’agit d’une erreur de saisie. Vous tentez de définir un atome dans une Z-matrice en utilisant un autre atome inexistant (X dans cet exemple).
+
+    **Solution**
+    Utilisez le bon nom d’atome.
+
+## La détermination des variables d'atomes fictifs dans la conversion de la Z-matrice a échoué
+
+!!! warning "La détermination des variables d'atomes fictifs dans la conversion de la Z-matrice a échoué"
+
+    **Description**
+    À la fin du fichier de sortie, on peut lire une variante de
+    ```
+    Error termination request processed by link 9999.
+    Error termination via Lnk1e in /disc30/g98/l9999.exe.
+    Job cpu time:  0 days  1 hours 53 minutes 10.4 seconds.
+    File lengths (MBytes):  RWF=   20 Int=    0 D2E=    0 Chk=   11 Scr=    1
+    ```
+    et juste avant
+    ```
+    Determination of dummy atom variables in z-matrix conversion failed.
+    Determination of dummy atom variables in z-matrix conversion failed.
+    NNew=      6.03366976D+01 NOld=      5.07835896D+01 Diff= 9.55D+00
+    ```
+
+    **Cause**
+    La conversion des coordonnées internes redondantes à des coordonnées Z-matrice a échoué en raison des atomes fictifs. Vous devrez vous contenter de coordonnées cartésiennes.
+
+    **Solution**
+    L’optimisation géométrique a convergé, mais Gaussian a été incapable de reconvertir vers la Z-matrice d’entrée.
 
 ## Échec de malloc
-**Description**
-À la fin du fichier de sortie, on peut lire une variante de
-```text
-malloc failed.: Resource temporarily unavailable
-malloc failed.
-```
-**Cause**
-Il ne s’agit pas d’une erreur Gaussian à proprement parler. Ceci indique un manque de mémoire, peut-être parce que vous avez demandé trop de mémoire sur la ligne `%mem`.
 
-**Solution**
-Diminuez la valeur de `%mem` ou augmentez la quantité de mémoire indiquée dans le script de la tâche avec `--mem=`.
+!!! warning "Échec de malloc"
+
+    **Description**
+    À la fin du fichier de sortie, on peut lire une variante de
+    ```
+    malloc failed.: Resource temporarily unavailable
+    malloc failed.
+    ```
+
+    **Cause**
+    Il ne s’agit pas d’une erreur Gaussian à proprement parler. Ceci indique un manque de mémoire, peut-être parce que vous avez demandé trop de mémoire sur la ligne `%mem`.
+
+    **Solution**
+    Diminuez la valeur de `%mem` ou augmentez la quantité de mémoire indiquée dans le script de la tâche avec `--mem=`.
 
 ## La carte de charge et de multiplicité semble défectueuse
-**Description**
-À la fin du fichier de sortie, on peut lire une variante de
-```text
- ----
- -2 1
- ----
- Z-Matrix taken from the checkpoint file:
- oxalate_2-_Aq1_C2.chk
- Charge and multiplicity card seems defective:
- Charge is bogus.
-  WANTED AN INTEGER AS INPUT.
-  FOUND A STRING AS INPUT.
- CX      =  0.7995                                                              
-                                                        
-   ?
- Error termination via Lnk1e in /disc30/g98/l101.exe.
-```
-**Cause**
-Il s’agit d’une erreur de saisie. En l’absence d’une ligne de titre avec `geom=modify`, la ligne charge/multiplicity est interprétée comme étant le titre (-2 1 dans cet exemple) et la ligne charge/multiplicity est interprétée comme étant la liste des variables.
 
-**Solution**
-Entrez une ligne de titre.
+!!! warning "La carte de charge et de multiplicité semble défectueuse"
+
+    **Description**
+    À la fin du fichier de sortie, on peut lire une variante de
+    ```
+    ----
+    -2 1
+    ----
+    Z-Matrix taken from the checkpoint file:
+    oxalate_2-_Aq1_C2.chk
+    Charge and multiplicity card seems defective:
+    Charge is bogus.
+    WANTED AN INTEGER AS INPUT.
+    FOUND A STRING AS INPUT.
+    CX      =  0.7995
+
+      ?
+    Error termination via Lnk1e in /disc30/g98/l101.exe.
+    ```
+
+    **Cause**
+    Il s’agit d’une erreur de saisie. En l’absence d’une ligne de titre avec `geom=modify`, la ligne charge/multiplicité est interprétée comme étant le titre (-2 1 dans cet exemple) et la ligne charge/multiplicité est interprétée comme étant la liste des variables.
+
+    **Solution**
+    Entrez une ligne de titre.
 
 ## Tentative de redéfinir un symbole non reconnu "XXXXX"
-**Description**
-À la fin du fichier de sortie, on peut lire une variante de
-```text
- O2WXC  90. 
- Attempt to redefine unrecognized symbol "O2WXC".
- Error termination via Lnk1e in /disc30/g98/l101.exe.
- Job cpu time:  0 days  0 hours  0 minutes  0.5 seconds.
- File lengths (MBytes):  RWF=    6 Int=    0 D2E=    0 Chk=    8 Scr=    1
-```
-**Cause**
-Il s’agit d’une erreur de saisie. Vous demandez `geom=modify`, mais une des variables que vous tentez de déplacer ne se trouve pas dans le fichier de contrôle (''checkpoint'').
 
-**Solution**
-Entrez le bon fichier de contrôle ou la bonne variable.
+!!! warning "Tentative de redéfinir un symbole non reconnu "XXXXX""
+
+    **Description**
+    À la fin du fichier de sortie, on peut lire une variante de
+    ```
+    O2WXC  90. 
+    Attempt to redefine unrecognized symbol "O2WXC".
+    Error termination via Lnk1e in /disc30/g98/l101.exe.
+    Job cpu time:  0 days  0 hours  0 minutes  0.5 seconds.
+    File lengths (MBytes):  RWF=    6 Int=    0 D2E=    0 Chk=    8 Scr=    1
+    ```
+
+    **Cause**
+    Il s’agit d’une erreur de saisie. Vous demandez `geom=modify`, mais une des variables que vous tentez de déplacer ne se trouve pas dans le fichier de contrôle (''checkpoint'').
+
+    **Solution**
+    Entrez le bon fichier de contrôle ou la bonne variable.
 
 ## Incohérence #2 dans MakNEB
-**Description**
-À la fin du fichier de sortie, on peut lire une variante de
-```text
- Standard basis: 3-21G (6D, 7F)
- Inconsistency #2 in MakNEB.
- Error termination via Lnk1e in /disc30/g98/l301.exe.
- Job cpu time:  0 days  3 hours 46 minutes 57.4 seconds.
- File lengths (MBytes):  RWF=  245 Int=    0 D2E=    0 Chk=   11 Scr=    1
-```
-**Cause**
-Il s’agit d’une erreur de saisie. Le groupe ponctuel a été modifié et vous avez spécifié `iop(2/15=4,2/16=2,2/17=7)` pour ne pas que le programme plante.
 
-**Solution**
-Soyez très prudent avec `iop` ou supprimez-le.
+!!! warning "Incohérence #2 dans MakNEB"
 
-## galloc : impossible d'allouer de la mémoire
-**Description**
-Dans le fichier de sortie, on lit
-```text
-  galloc: could not allocate memory
-```
-**Cause**
-Il s’agit d’une erreur d’allocation en raison du manque de mémoire. Gaussian utilise environ 1Go de plus que `%mem`.
+    **Description**
+    À la fin du fichier de sortie, on peut lire une variante de
+    ```
+    Standard basis: 3-21G (6D, 7F)
+    Inconsistency #2 in MakNEB.
+    Error termination via Lnk1e in /disc30/g98/l301.exe.
+    Job cpu time:  0 days  3 hours 46 minutes 57.4 seconds.
+    File lengths (MBytes):  RWF=  245 Int=    0 D2E=    0 Chk=   11 Scr=    1
+    ```
 
-**Solution**
-La valeur de `%mem` doit être au moins de 1Go inférieure à la valeur spécifiée dans le script de la tâche. De la même manière, la valeur de `--mem` spécifiée dans le script doit être au moins de 1Go supérieure à la quantité spécifiée par la directive `%mem` du fichier d’entrée. L’incrément approprié semble dépendre du type de tâche et des détails dans le fichier d’entrée; 1Go est une valeur conservatrice déterminée de manière empirique.
+    **Cause**
+    Il s’agit d’une erreur de saisie. Le groupe ponctuel a été modifié et vous avez spécifié `iop(2/15=4,2/16=2,2/17=7)` pour ne pas que le programme plante.
+
+    **Solution**
+    Soyez très prudent avec `iop` ou supprimez-le.
+
+## galloc : mémoire insuffisante
+
+!!! warning "galloc : mémoire insuffisante"
+
+    **Description**
+    Dans le fichier de sortie, on lit
+    ```
+    galloc: could not allocate memory
+    ```
+
+    **Cause**
+    Il s’agit d’une erreur d’allocation en raison du manque de mémoire. Gaussian utilise environ 1Go de plus que `%mem`.
+
+    **Solution**
+    La valeur de `%mem` doit être au moins de 1Go inférieure à la valeur spécifiée dans le script de la tâche. De la même manière, la valeur de `--mem` spécifiée dans le script doit être au moins de 1Go supérieure à la quantité spécifiée par la directive `%mem` du fichier d’entrée. L’incrément approprié semble dépendre du type de tâche et des détails dans le fichier d’entrée; 1Go est une valeur conservatrice déterminée de manière empirique.
 
 ## Fichier ou répertoire introuvable
-**Description**
-Dans le fichier de sortie, on peut lire une variante de
-```text
-PGFIO/stdio: No such file or directory
-PGFIO-F-/OPEN/unit=11/error code returned by host stdio - 2.
- File name = /home/johndoe/scratch/Gau-12345.inp
- In source file ml0.f, at line number 181
-  0  0x42bb41
-Error: segmentation violation, address not mapped to object
-```
-**Cause**
-Le fichier mentionné dans la troisième ligne n’existe pas possiblement parce que le répertoire qui le contient n’existe pas. Ceci peut se produire par exemple si vous attribuez à `GAUSS_SCRDIR` un répertoire qui n’existe pas.
 
-**Solution**
-Créez le répertoire avec `mkdir` ou modifiez la définition de `GAUSS_SCRDIR` pour utiliser un répertoire existant.
+!!! warning "Fichier ou répertoire introuvable"
+
+    **Description**
+    Dans le fichier de sortie, on peut lire une variante de
+    ```
+    PGFIO/stdio: No such file or directory
+    PGFIO-F-/OPEN/unit=11/error code returned by host stdio - 2.
+    File name = /home/johndoe/scratch/Gau-12345.inp
+    In source file ml0.f, at line number 181
+    0  0x42bb41
+    Error: segmentation violation, address not mapped to object
+    ```
+
+    **Cause**
+    Le fichier mentionné dans la troisième ligne n’existe pas possiblement parce que le répertoire qui le contient n’existe pas. Ceci peut se produire par exemple si vous attribuez à `GAUSS_SCRDIR` un répertoire qui n’existe pas.
+
+    **Solution**
+    Créez le répertoire avec `mkdir` ou modifiez la définition de `GAUSS_SCRDIR` pour utiliser un répertoire existant.

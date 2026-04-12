@@ -5,33 +5,45 @@ lang: "en"
 
 source_wiki_title: "Uv/en"
 source_hash: "e1dd6f4960d3521f748481be8a464ebf"
-last_synced: "2026-04-09T20:02:20.019957+00:00"
-last_processed: "2026-04-10T12:30:18.307366+00:00"
+last_synced: "2026-04-10T15:28:10.183781+00:00"
+last_processed: "2026-04-11T12:29:59.412226+00:00"
 
 tags:
   []
 
 keywords:
-  []
+  - "uv"
+  - "Python packages"
+  - "pip"
+  - "clusters"
+  - "cache"
+
+questions:
+  - "Why is the uv package manager currently not supported on the clusters, and what specific issues might users encounter?"
+  - "What is the recommended tool and version for installing Python packages on the clusters instead of using uv?"
+  - "How can users clear the uv cache and prevent the tool from using it in future commands?"
+  - "Why is the uv package manager currently not supported on the clusters, and what specific issues might users encounter?"
+  - "What is the recommended tool and version for installing Python packages on the clusters instead of using uv?"
+  - "How can users clear the uv cache and prevent the tool from using it in future commands?"
 
 status:
   downloaded: true
   converted: true
   tagged: false
-  keywords_generated: false
-  ragflow_synced: false
+  keywords_generated: true
+  ragflow_synced: true
   qa_generated: false
 ---
 
 !!! warning "Not supported"
-uv is currently **not** supported on our clusters.
+    uv is currently **not** supported on our clusters.
 
 uv is an extremely fast Python package and project manager written in Rust. While you may be able to use it to install some packages, it will likely fail for others.
 
 Some issues and pitfalls you may encounter:
-* some packages are distributed in a format that is incompatible with our clusters, but uv tries to install them nonetheless;
-* uv is unaware of the Python packages provided by loaded modules;
-* uv can quickly fill up your /home directory quota since it stores a very large number of files in its cache.
+*   some packages are distributed in a format that is incompatible with our clusters, but uv tries to install them nonetheless;
+*   uv is unaware of the Python packages provided by loaded modules;
+*   uv can quickly fill up your /home directory quota since it stores a very large number of files in its cache.
 
 ## Installing Python packages
 To install packages on our clusters, use `pip`; see [Python](python.md).

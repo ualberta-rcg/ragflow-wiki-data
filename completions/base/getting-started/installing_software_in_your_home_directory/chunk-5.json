@@ -1,0 +1,40 @@
+{
+  "doc_key": "base/installing_software_in_your_home_directory",
+  "level": "chunk",
+  "chunk_index": 5,
+  "qa_pairs": [
+    {
+      "question": "What is a RUNPATH in the context of binaries located under `/cvmfs/soft.computecanada.ca`?",
+      "answer": "A RUNPATH means that the directories for the runtime libraries these binaries depend on are embedded directly inside the binary itself."
+    },
+    {
+      "question": "Is it generally necessary to use the `$LD_LIBRARY_PATH` environment variable for binaries under `/cvmfs/soft.computecanada.ca`?",
+      "answer": "No, it is generally not necessary to use the `$LD_LIBRARY_PATH` environment variable for binaries under `/cvmfs/soft.computecanada.ca` because they utilize a RUNPATH."
+    },
+    {
+      "question": "Why should users avoid setting `$LD_LIBRARY_PATH` to locations such as `/usr/lib64` or `$EBROOTGENTOO/lib64`?",
+      "answer": "Setting `$LD_LIBRARY_PATH` to these specific locations is discouraged because it overrides the existing RUNPATH, which can lead to many binaries failing to work correctly."
+    },
+    {
+      "question": "How can a user remove the CVMFS environment and what is the resulting system state?",
+      "answer": "A user can remove the CVMFS environment by using the command `module --force purge`. This action leaves the user with a bare-bones AlmaLinux-9 installation that has no modules loaded."
+    },
+    {
+      "question": "For what special situations might purging the CVMFS environment be beneficial?",
+      "answer": "Purging the CVMFS environment can be beneficial for special situations such as compiling GCC yourself or when using custom toolchains like the MESA SDK."
+    },
+    {
+      "question": "When is it necessary to purge modules when working with special software or custom toolchains, and can they be reloaded?",
+      "answer": "Purging modules is only necessary during the compilation phase of such software; the modules can be reloaded again when the software is run."
+    },
+    {
+      "question": "In most scenarios, where should users compile their code?",
+      "answer": "In most situations, users can compile their code on the login nodes."
+    },
+    {
+      "question": "When should code compilation be moved from login nodes to a compute node, and how is this done?",
+      "answer": "Code compilation should be performed on a compute node if the code requires building on hardware such as a GPU or a Skylake CPU. To do this, you need to start an interactive job on a host that provides the necessary hardware, and then compile the code from within that job."
+    }
+  ],
+  "generated_at": "2026-04-12T00:07:39.878250+00:00"
+}

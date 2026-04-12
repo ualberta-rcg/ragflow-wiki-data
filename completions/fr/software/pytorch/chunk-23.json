@@ -1,0 +1,44 @@
+{
+  "doc_key": "fr/pytorch",
+  "level": "chunk",
+  "chunk_index": 23,
+  "qa_pairs": [
+    {
+      "question": "Comment faire pour installer rTorch à partir d'un nœud de connexion?",
+      "answer": "Pour installer rTorch, il faut charger les modules requis, créer votre répertoire d'installation, installer la version la plus récente de rtorch et ses dépendances, puis corriger la bibliothèque partagée 'lantern'."
+    },
+    {
+      "question": "Quels modules sont nécessaires pour installer rTorch?",
+      "answer": "Les modules requis pour rTorch sont `r/4.5`, `cuda/12.6` et `cudnn`."
+    },
+    {
+      "question": "Comment créer un répertoire d'installation pour rTorch?",
+      "answer": "Tu peux créer ton répertoire d'installation en utilisant la commande `mkdir -p ~/.local/R/$EBVERSIONR/`."
+    },
+    {
+      "question": "Comment configurer la variable d'environnement R_LIBS pour rTorch?",
+      "answer": "Pour configurer la variable `R_LIBS`, tu dois exécuter `export R_LIBS=~/.local/R/$EBVERSIONR/`."
+    },
+    {
+      "question": "Quelle est la commande pour installer la dernière version disponible de rtorch?",
+      "answer": "La commande pour installer la dernière version de rtorch est `R -e 'install.packages(\"torch\", repos=\"https://cloud.r-project.org/\")'`."
+    },
+    {
+      "question": "Comment installer les dépendances nécessaires pour rtorch?",
+      "answer": "Pour installer les dépendances, tu dois exécuter `R -e 'torch::install_torch()'`."
+    },
+    {
+      "question": "Comment corriger la bibliothèque partagée 'lantern' de rTorch?",
+      "answer": "Tu peux corriger la bibliothèque partagée 'lantern' avec la commande `setrpaths.sh --path $R_LIBS/torch/lib/liblantern.so --add_path $EBROOTCUDACORE/lib --any_interpreter`."
+    },
+    {
+      "question": "Comment faire un test rapide de CPU avec rTorch et quel est le résultat attendu?",
+      "answer": "Pour un test rapide de CPU, tu peux exécuter `R -e 'torch::torch_tensor(1);'`. Le résultat attendu est:\n```\n> torch::torch_tensor(1);\ntorch_tensor\n 1\n[ CPUFloatType{1} ]\n```"
+    },
+    {
+      "question": "Comment effectuer un test de GPU avec rTorch et quel devrait être le résultat?",
+      "answer": "Pour effectuer un test de GPU, tu dois utiliser la commande `srun --mem=3500M --gpus=h100_1g.10gb:1 -- R -e 'torch::torch_tensor(1)$cuda()'`. Le résultat devrait être:\n```\n> torch::torch_tensor(1)$cuda();\ntorch_tensor\n 1\n[ CUDAFloatType{1} ]\n```"
+    }
+  ],
+  "generated_at": "2026-04-12T05:49:17.867255+00:00"
+}

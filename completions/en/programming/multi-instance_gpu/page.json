@@ -1,0 +1,67 @@
+{
+  "doc_key": "en/multi-instance_gpu",
+  "level": "page",
+  "qa_pairs": [
+    {
+      "question": "What is NVIDIA's Multi-Instance GPU (MIG) technology?",
+      "answer": "MIG is a technology that allows partitioning a single GPU into multiple independent virtual GPU instances, each with its own portion of computational resources and memory, protected by on-chip mechanisms."
+    },
+    {
+      "question": "What are the benefits of using GPU instances created with MIG?",
+      "answer": "Using GPU instances is less wasteful, usage is billed accordingly, and jobs submitted on instances use less of your allocated priority, leading to more job execution and shorter wait times."
+    },
+    {
+      "question": "When should a job be considered for running on a GPU instance instead of a full GPU?",
+      "answer": "Jobs that use less than half of the computing power and less than half of the available memory of a full GPU should be evaluated and tested on an instance."
+    },
+    {
+      "question": "What is one key limitation of MIG technology regarding inter-process communication?",
+      "answer": "MIG technology does not support CUDA Inter-Process Communication (IPC), which optimizes data transfers between GPUs over NVLink and NVSwitch."
+    },
+    {
+      "question": "Is it permissible to request more than one MIG instance in a single job?",
+      "answer": "No, requesting more than one MIG instance in a job is not permitted, and such a job will be rejected at submission time."
+    },
+    {
+      "question": "What are the alternatives if a user needs more than one MIG instance for a job?",
+      "answer": "Alternatives include requesting a larger instance, an entire GPU or multiple GPUs, using MPS, or contacting support to explain the need for multiple MIGs."
+    },
+    {
+      "question": "Which types of APIs are not supported by MIG technology?",
+      "answer": "Graphic APIs, such as OpenGL and Vulkan, are not supported by MIG technology."
+    },
+    {
+      "question": "Which clusters currently support NVIDIA A100-40gb and H100-80gb GPU instances?",
+      "answer": "Narval (A100-40gb), Rorqual (H100-80gb), Nibi (H100-80gb), and Fir (H100-80gb) support these GPU instances."
+    },
+    {
+      "question": "How are MIG profiles named, and what do the names indicate?",
+      "answer": "MIG profiles are named to describe the size of the instance, indicating its portion of computing power and amount of GPU memory, such as H100-1g.10gb for 1/8th power and 10GB memory."
+    },
+    {
+      "question": "How does using less powerful MIG profiles affect a user's allocation and priority?",
+      "answer": "Using less powerful MIG profiles will have a lower impact on your allocation and priority."
+    },
+    {
+      "question": "What command can be used to list all available MIG flavours and full-size GPU names on a cluster?",
+      "answer": "You can use the command `sinfo -o \"%G\"|grep gpu|sed 's/gpu://g'|sed 's/),/\n/g'|cut -d: -f1|sort|uniq` to list them."
+    },
+    {
+      "question": "What metrics are good indicators to determine if a job should use a GPU instance?",
+      "answer": "Power consumption, GPU functionality utilization, maximum GPU memory usage, and the average number of CPU cores required are good indicators."
+    },
+    {
+      "question": "How can a user monitor a running job's GPU metrics in real-time?",
+      "answer": "By attaching to the node where the job is running and using `nvidia-smi`, users can read GPU metrics in real time."
+    },
+    {
+      "question": "Provide an example Slurm command for requesting an interactive job with an A100 3g.20gb GPU instance.",
+      "answer": "An example command is `salloc --account=def-someuser --gpus=a100_3g.20gb:1 --cpus-per-task=2 --mem=40gb --time=1:0:0`."
+    },
+    {
+      "question": "Under what circumstances might a GPU job require a full GPU instead of an instance, concerning CPU cores?",
+      "answer": "GPU jobs requiring many CPU cores may also require a full GPU instead of an instance, as the maximum number of CPU cores per instance depends on the configured MIG profiles and cores per full GPU."
+    }
+  ],
+  "generated_at": "2026-04-12T03:23:58.773241+00:00"
+}
