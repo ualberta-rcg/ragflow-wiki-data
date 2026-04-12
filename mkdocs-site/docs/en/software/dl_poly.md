@@ -82,7 +82,7 @@ We do not currently provide a module for the Java GUI interface.
 
 # Scripts and examples
 
-The input files shown below (CONTROL and FIELD) were taken from example TEST01 that can be downloaded from the page of [DL_POLY examples](ftp://ftp.dl.ac.uk/ccp5/DL_POLY/DL_POLY_4.0/DATA/).
+The input files shown below (CONTROL and FIELD) were taken from example TEST01 that can be downloaded from the page of DL_POLY examples.
 
 To start a simulation, one must have at least three files:
 

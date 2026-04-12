@@ -169,7 +169,7 @@ source ~/venv_acpype/bin/activate
 export OMP_NUM_THREADS="${SLURM_CPUS_PER_TASK:-1}"
 
 # generate "adp.mol2" file from SMILES string:
-obabel  -:"c1nc(c2c(n1)n(cn2)[C@H]3[C@@H]([C@@H]([C@H](O3)COP(=O)(O)OP(=O)(O)O)O)O)N" \
+obabel  -:"c1nc(c2c(n1)n(cn2)[C@H]3C@@HCOP(=O)(O)OP(=O)(O)O)O)O)N" \
     -i smi -o mol2 -O adp.mol2 -h  --gen3d
 
 acpype -i adp.mol2

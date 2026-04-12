@@ -215,7 +215,7 @@ VASP utilise quatre fichiers d'entrée, soit INCAR, KPOINTS, POSCAR et POTCAR. I
 sbatch vasp_job.sh
 ```
 
-Si vous ignorez combien de mémoire votre tâche nécessite, préparez tous vos fichiers d’entrée et exécutez `makeparam` dans une [tâche interactive](../running-jobs/running_jobs.md#taches-interactives). Utilisez ensuite la quantité de mémoire obtenue en résultat pour la prochaine exécution. Pour obtenir une meilleure estimation pour les tâches futures, vérifiez quelle est la taille maximale de la pile de mémoire pour les [tâches complétées](../running-jobs/running_jobs.md#taches-completees) et utilisez cette valeur pour demander la quantité de mémoire par processeur.
+Si vous ignorez combien de mémoire votre tâche nécessite, préparez tous vos fichiers d’entrée et exécutez `makeparam` dans une [tâche interactive](../running-jobs/running_jobs.md). Utilisez ensuite la quantité de mémoire obtenue en résultat pour la prochaine exécution. Pour obtenir une meilleure estimation pour les tâches futures, vérifiez quelle est la taille maximale de la pile de mémoire pour les [tâches complétées](../running-jobs/running_jobs.md) et utilisez cette valeur pour demander la quantité de mémoire par processeur.
 
 Si vous voulez utiliser 32 cœurs ou plus, consultez la [politique d'ordonnancement des tâches](../running-jobs/job_scheduling_policies.md), section *Nœuds entiers ou cœurs*.
 

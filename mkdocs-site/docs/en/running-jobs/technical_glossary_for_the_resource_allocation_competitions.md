@@ -82,7 +82,7 @@ status:
 Allocations of storage space and cloud resources are handled differently from allocations of CPUs and GPUs.
 
 *   Storage allocations are straightforward: A research group will get a maximum amount of storage that they can use exclusively throughout the allocation period. Likewise, a cloud resource allocation is a maximum number of VCPUs, amount of storage, etc., which cannot be exceeded during the allocation period.
-*   CPU and GPU allocations are not maxima but targets for average usage, which are then translated into scheduling priorities. An allocation of N CPUs means the group may expect to have access to N CPUs throughout the allocation period. Periods of greater usage may be possible as competing demand allows, but are not guaranteed; periods of lesser usage will not be compensated, whether due to the group’s actions or resource unavailability. To learn more about compute allocations, click [here](allocations-and-resource-scheduling.md).
+*   CPU and GPU allocations are not maxima but targets for average usage, which are then translated into scheduling priorities. An allocation of N CPUs means the group may expect to have access to N CPUs throughout the allocation period. Periods of greater usage may be possible as competing demand allows, but are not guaranteed; periods of lesser usage will not be compensated, whether due to the group’s actions or resource unavailability. To learn more about compute allocations, click here.
 
 ## Batch computing
 **Cluster:** A group of interconnected compute nodes managed as a unit by a scheduling program.

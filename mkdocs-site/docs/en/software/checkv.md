@@ -212,7 +212,7 @@ First step for running your job: use an interactive session.
 Still need to demystify #SBATCH parameters?
 If you need to refresh your SBATCH parameter knowledge, we recommend having a look at the [Slurm SBATCH command page](https://slurm.schedmd.com/sbatch.html) and the [running jobs](../running-jobs/running_jobs.md) wiki page.
 
-To learn more about interactive jobs, you can have a look at the wiki page [running jobs#interactive-job](../running-jobs/running_jobs.md#interactive-job).
+To learn more about interactive jobs, you can have a look at the wiki page [running jobs#interactive-job](../running-jobs/running_jobs.md).
 
 **1. Gather information on the command line and the software.**
 

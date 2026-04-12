@@ -56,7 +56,7 @@ status:
 module load StdEnv/2023 gcc python/3.11 symengine/0.11.2
 ```
 
-2. Créez et activez un [environnement virtuel Python](../python.md#creer-et-utiliser-un-environnement-virtuel).
+2. Créez et activez un [environnement virtuel Python](../python.md).
 ```bash
 virtualenv --no-download --clear ~/ENV && source ~/ENV/bin/activate
 ```

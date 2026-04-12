@@ -180,4 +180,4 @@ $ s3cmd info s3://compartimentdetest
 
 Pour d’autres exemples plus avancés, voir le [site d’aide de s3cmd](https://www.s3express.com/help/help.html) ou la page man de s3cmd(1).
 
-Voir la page [Stockage objet sur Arbutus](arbutus_object_storage.md) pour des exemples et pour les [directives sur la gestion des politiques de conteneurs (compartiments) pour votre stockage objet Arbutus](arbutus_object_storage.md#gestion-des-politiques-de-conteneurs-compartiments-pour-votre-stockage-objet-arbutus).
+Voir la page [Stockage objet sur Arbutus](arbutus_object_storage.md) pour des exemples et pour les [directives sur la gestion des politiques de conteneurs (compartiments) pour votre stockage objet Arbutus](arbutus_object_storage.md).

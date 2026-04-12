@@ -91,7 +91,7 @@ OpenStack offre aussi des outils pour créer des images de disques et des instan
 
 ### Instances persistantes
 
-Les instances persistantes sont conçues pour être [démarrées depuis un volume](working_with_volumes.md#demarrer-depuis-un-volume). Une copie de sauvegarde est créée lorsqu’une copie du ou des volumes associés à l’instance est créée. Cependant, ceci ne comprend pas le gabarit de l’instance, son IP publique et ses règles de sécurité. La meilleure manière de créer une copie de sauvegarde d’un volume est donc de créer une image de ce volume. Cette image peut alors être [téléchargée](working_with_images.md#telecharger-une-image) et réutilisée pour créer plusieurs nouvelles instances; vous pouvez y [accéder par VirtualBox](working_with_images.md#creer-une-instance-virtualbox-depuis-une-image-dans-un-nuage) à partir de votre ordinateur personnel; ou la [téléverser](working_with_images.md#televerser-une-image) vers un autre nuage.
+Les instances persistantes sont conçues pour être [démarrées depuis un volume](working_with_volumes.md). Une copie de sauvegarde est créée lorsqu’une copie du ou des volumes associés à l’instance est créée. Cependant, ceci ne comprend pas le gabarit de l’instance, son IP publique et ses règles de sécurité. La meilleure manière de créer une copie de sauvegarde d’un volume est donc de créer une image de ce volume. Cette image peut alors être [téléchargée](working_with_images.md) et réutilisée pour créer plusieurs nouvelles instances; vous pouvez y [accéder par VirtualBox](working_with_images.md) à partir de votre ordinateur personnel; ou la [téléverser](working_with_images.md) vers un autre nuage.
 
 Pour créer une image depuis un volume, ce volume doit être détaché de l’instance. De plus, si le volume est le volume racine (*root*) de l’instance, il ne peut pas être détaché sans que l’instance ne soit supprimée. Vous pouvez supprimer votre instance sans perdre de données pourvu que vous n’ayez pas coché « Supprimer le volume lors de la suppression de l'instance » lors de la création de l’instance.
 
@@ -130,7 +130,7 @@ Il peut être difficile de gérer des images de plus de 10-20Go qui exigent beau
 ## Voir aussi
 
 *   [Clients ligne de commande](openstack_command_line_clients.md)
-*   [Créer une image depuis une instance](working_with_images.md#creer-une-image-depuis-une-instance)
-*   [Télécharger une image](working_with_images.md#telecharger-une-image)
-*   [Téléverser une image](working_with_images.md#televerser-une-image)
-*   [Synchroniser les données](../getting-started/transferring_data.md#synchroniser-les-donnees)
+*   [Créer une image depuis une instance](working_with_images.md)
+*   [Télécharger une image](working_with_images.md)
+*   [Téléverser une image](working_with_images.md)
+*   [Synchroniser les données](../getting-started/transferring_data.md)

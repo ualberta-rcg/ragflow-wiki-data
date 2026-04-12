@@ -66,7 +66,7 @@ Molecular dynamics calculations are extremely useful in the study of biological 
 ### Applications
 
 * [ABINIT](../abinit.md)
-* [ADF/AMS](adf-ams.md)
+* ADF/AMS
 * [AMBER](../amber.md)
 * [CP2K](../cp2k.md)
 * [CPMD](../cpmd.md)

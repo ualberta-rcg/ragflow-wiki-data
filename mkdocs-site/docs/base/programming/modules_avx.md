@@ -1493,8 +1493,8 @@ URL: [http://abacus.gene.ucl.ac.uk/software/paml.html](http://abacus.gene.ucl.ac
 | [panther](https://www.google.ca/search?q=panther) | - | 14.1 | <details>
 <summary>Description</summary>
 Panther is the database part of InterProScan software. It contains only data.
-Homepage: [ftp://ftp.ebi.ac.uk/pub/software/unix/iprscan/5/data/](ftp://ftp.ebi.ac.uk/pub/software/unix/iprscan/5/data/)
-URL: [ftp://ftp.ebi.ac.uk/pub/software/unix/iprscan/5/data/](ftp://ftp.ebi.ac.uk/pub/software/unix/iprscan/5/data/)
+Homepage: ftp://ftp.ebi.ac.uk/pub/software/unix/iprscan/5/data/
+URL: ftp://ftp.ebi.ac.uk/pub/software/unix/iprscan/5/data/
 </details> |
 | [parasail](https://github.com/jeffdaily/parasail) | - | 2.5 | <details>
 <summary>Description</summary>

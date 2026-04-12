@@ -66,7 +66,7 @@ Our cloud systems are offering an Infrastructure as a Service (IaaS) based on Op
 | [Arbutus cloud](../cloud/cloud_resources.md#arbutus-cloud) | * arbutus-compute-cloud<br/>* arbutus-persistent-cloud<br/>* arbutus-dcache | * VCPU, VGPU, RAM<br/>* Local ephemeral disk<br/>* Volume and snapshot storage<br/>* Shared filesystem storage (backed up)<br/>* Object storage<br/>* Floating IPs<br/>* dCache storage | In production |
 | [Béluga cloud](../cloud/cloud_resources.md#béluga-cloud) | * beluga-compute-cloud<br/>* beluga-persistent-cloud | * VCPU, RAM<br/>* Local ephemeral disk<br/>* Volume and snapshot storage<br/>* Floating IPs | In production |
 | [Cedar cloud](../cloud/cloud_resources.md#cedar-cloud) | * cedar-persistent-cloud<br/>* cedar-compute-cloud | * VCPU, RAM<br/>* Local ephemeral disk<br/>* Volume and snapshot storage<br/>* Floating IPs | In production |
-| [Graham cloud](../cloud/cloud_resources.md#graham-cloud) | * graham-persistent-cloud | * VCPU, RAM<br/>* Local ephemeral disk<br/>* Volume and snapshot storage<br/>* Floating IPs | In production |
+| [Graham cloud](../cloud/cloud_resources.md) | * graham-persistent-cloud | * VCPU, RAM<br/>* Local ephemeral disk<br/>* Volume and snapshot storage<br/>* Floating IPs | In production |
 
 ## PAICE clusters
 

@@ -98,7 +98,7 @@ By means of these test jobs, you should gain some familiarity with how long cert
     It is equally important that your estimate of the **job duration be relatively accurate**.
     *   Asking for five days when the computation in reality finishes after just sixteen hours leads to your job spending much more time waiting to start than it would had you given a more accurate estimate of the duration.
 *   !!! tip
-    **Use [monitoring tools](running_jobs.md#completed-jobs)** to see how long completed jobs took.
+    **Use [monitoring tools](running_jobs.md)** to see how long completed jobs took.
     *   For example, the `Job Wall-clock time` field in the output of the `seff` command:
     ```bash
     seff 1234567

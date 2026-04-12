@@ -146,7 +146,7 @@ Une invite vous demande d'entrer une phrase de passe et d'activer la clé matér
 ## Installer la clé publique
 
 ### Installation via la CCDB
-Nous vous encourageons à enregistrer votre clé publique SSH dans la CCDB, ce qui vous permettra de l'utiliser pour vous connecter à toutes nos grappes. Copiez le contenu de la clé publique (dans notre exemple, **id_rsa.pub**) et téléversez-la dans la CCDB tel que décrit à l'étape 3 de [cette procédure](ssh_keys.md#using-ccdb).
+Nous vous encourageons à enregistrer votre clé publique SSH dans la CCDB, ce qui vous permettra de l'utiliser pour vous connecter à toutes nos grappes. Copiez le contenu de la clé publique (dans notre exemple, **id_rsa.pub**) et téléversez-la dans la CCDB tel que décrit à l'étape 3 de [cette procédure](ssh_keys.md).
 
 Le moyen le plus simple et le plus sécuritaire d'installer une clé sur un système distant est d'utiliser la commande
 ```bash

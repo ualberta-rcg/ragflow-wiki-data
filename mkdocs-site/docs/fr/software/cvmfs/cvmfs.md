@@ -49,7 +49,7 @@ status:
   qa_generated: false
 ---
 
-Nous utilisons CVMFS (CERN Virtual Machine File System) pour distribuer les logiciels, les données et d'autres contenus. Pour plus d'information, voir [le site web](https://cernvm.cern.ch/fs/) et [la section documentation](https://cvmfs.readthedocs.io/). Pour savoir comment configurer un client CVMFS, voir notre page wiki [Accès à CVMFS](acces-a-cvmfs.md).
+Nous utilisons CVMFS (CERN Virtual Machine File System) pour distribuer les logiciels, les données et d'autres contenus. Pour plus d'information, voir [le site web](https://cernvm.cern.ch/fs/) et [la section documentation](https://cvmfs.readthedocs.io/). Pour savoir comment configurer un client CVMFS, voir notre page wiki Accès à CVMFS.
 
 ## Introduction
 CVMFS est un système de distribution de logiciels distribué en lecture seule, implémenté en tant que système de fichiers POSIX dans l'espace utilisateur (FUSE) à l'aide du transport HTTP. Il a été développé à l'origine pour les expériences du Grand Collisionneur de Hadrons au CERN afin de fournir des logiciels aux machines virtuelles et de remplacer diverses zones d'installation de logiciels partagés et des systèmes de gestion de paquets sur de nombreux sites informatiques. Conçu pour fournir des logiciels de manière rapide, évolutive et fiable, son utilisation s'est rapidement développée ces dernières années pour inclure des dizaines de projets, ~10<sup>10</sup> fichiers et répertoires, ~10<sup>2</sup> sites de calcul et ~10<sup>5</sup> clients à travers le monde. Le [CernVM Monitor](https://cvmfs-monitor-frontend.web.cern.ch/) montre plusieurs groupes de recherche qui utilisent CVMFS et les sites des strates qui répliquent leurs référentiels.

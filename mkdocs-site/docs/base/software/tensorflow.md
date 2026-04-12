@@ -279,7 +279,7 @@ TensorFlow can run on all GPU node types. See [Using GPUs with SLURM](../running
 
 ## Monitoring
 
-It is possible to connect to the node running a job and execute processes. This can be used to monitor resources used by TensorFlow and to visualize the progress of the training. See [Attaching to a running job](../running-jobs/running_jobs.md#attaching-to-a-running-job) for examples.
+It is possible to connect to the node running a job and execute processes. This can be used to monitor resources used by TensorFlow and to visualize the progress of the training. See [Attaching to a running job](../running-jobs/running_jobs.md) for examples.
 
 ### TensorBoard
 

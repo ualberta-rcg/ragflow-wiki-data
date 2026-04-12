@@ -72,8 +72,8 @@ status:
     *   [Bioinformatics](../software/bioinformatics/bioinformatics.md)
     *   [Biomolecular simulation](../software/molecular-sim/biomolecular_simulation.md)
     *   [Computational chemistry](../software/chemistry/computational_chemistry.md)
-    *   [Computational fluid dynamics](../programming/computational_fluid_dynamics.md) ([CFD](cfd.md))
-    *   [Geographic information systems](geographic-information-systems.md) ([GIS](../software/gis.md))
+    *   [Computational fluid dynamics](../programming/computational_fluid_dynamics.md) (CFD)
+    *   Geographic information systems ([GIS](../software/gis.md))
     *   [Visualization](../software/visualization.md)
 *   If you have hundreds of gigabytes of data to move across the network, [read about the Globus file transfer service](globus.md).
 *   Python users can learn how to [install modules in a virtual environment](../software/python.md#creating-and-using-a-virtual-environment).

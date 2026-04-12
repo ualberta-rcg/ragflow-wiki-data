@@ -176,7 +176,7 @@ $ sbatch --time=00:30:00 simple_job.sh
 
 soumet le script présenté plus haut en limitant la durée à 30 minutes. Les formats de date valides sont minutes, minutes:secondes, heures:minutes:secondes, jours-heures, jours-heures:minutes, jours-heures:minutes:secondes. Sachez que la durée a une incidence importante sur le temps d'attente avant que la tâche soit exécutée. En effet, les tâches de longue durée sont [susceptibles d'être exécutées sur moins de nœuds](job_scheduling_policies.md).
 
-L'exécution d'un script qui soumet plusieurs tâches à de courts intervalles risque d'affecter la disponibilité de l'ordonnanceur Slurm pour les autres utilisateurs et utilisatrices (voir l'information sur le message d'erreur [Batch job submission failed: Socket timed out on send/recv operation](../getting-started/frequently_asked_questions.md#sbatch-error-batch-job-submission-failed-socket-timed-out-on-sendrecv-operation)). Utilisez plutôt un [vecteur de tâches](#redemarrage-avec-des-vecteurs-de-taches) ou espacez les appels à `sbatch` de une seconde ou plus avec la commande `sleep`.
+L'exécution d'un script qui soumet plusieurs tâches à de courts intervalles risque d'affecter la disponibilité de l'ordonnanceur Slurm pour les autres utilisateurs et utilisatrices (voir l'information sur le message d'erreur [Batch job submission failed: Socket timed out on send/recv operation](../getting-started/frequently_asked_questions.md)). Utilisez plutôt un [vecteur de tâches](#redemarrage-avec-des-vecteurs-de-taches) ou espacez les appels à `sbatch` de une seconde ou plus avec la commande `sleep`.
 
 ### Mémoire
 
@@ -184,7 +184,7 @@ La quantité de mémoire peut être demandée avec `--mem-per-cpu` (mémoire par
 
 Une source commune de confusion est qu'une certaine quantité de la mémoire du nœud n'est pas disponible pour la tâche, étant réservée pour le système d'exploitation, etc. Chaque type de nœud a donc une quantité maximum à la disposition des tâches; par exemple, les nœuds de 128Go sont configurés de façon à offrir 125Go pour l'exécution des tâches soumises. Si vous demandez plus que cette quantité, votre tâche devra être exécutée avec des nœuds de plus de mémoire qui pourraient être moins nombreux.
 
-Pour compliquer davantage, K, M, G, etc. sont interprétés par Slurm comme étant des [préfixes binaires](https://fr.wikipedia.org/wiki/Pr%C3%A9fixe_binaire); ainsi `--mem=125G` équivaut à `--mem=128000M`. La quantité de mémoire que vous pouvez demander est indiquée dans le tableau *Caractéristiques des nœuds* pour [Fir](../software/fir.md#caracteristiques-des-noeuds), [Narval](../clusters/narval.md#caracteristiques-des-noeuds), [Graham](../clusters/graham.md#caracteristiques-des-noeuds), [Narval](../clusters/narval.md#caracteristiques-des-noeuds) et [Nibi](../clusters/nibi.md#caracteristiques-des-noeuds).
+Pour compliquer davantage, K, M, G, etc. sont interprétés par Slurm comme étant des [préfixes binaires](https://fr.wikipedia.org/wiki/Pr%C3%A9fixe_binaire); ainsi `--mem=125G` équivaut à `--mem=128000M`. La quantité de mémoire que vous pouvez demander est indiquée dans le tableau *Caractéristiques des nœuds* pour [Fir](../software/fir.md), [Narval](../clusters/narval.md), [Graham](../clusters/graham.md), [Narval](../clusters/narval.md) et [Nibi](../clusters/nibi.md).
 
 ## Lister les tâches avec `squeue` ou `sq`
 
@@ -355,7 +355,7 @@ Les deux méthodes recommandées sont :
 *   l'utilisation de vecteurs de tâches (*job arrays*) Slurm;
 *   la resoumission à partir de la fin du script.
 
-Consultez l'information sur le [morcellement d'une longue tâche](../software/ai-ml/tutoriel_apprentissage_machine.md#morcellement-dune-longue-tache) dans notre [tutoriel en apprentissage machine](../software/ai-ml/tutoriel_apprentissage_machine.md).
+Consultez l'information sur le [morcellement d'une longue tâche](../software/ai-ml/tutoriel_apprentissage_machine.md) dans notre [tutoriel en apprentissage machine](../software/ai-ml/tutoriel_apprentissage_machine.md).
 
 ### Redémarrage avec des vecteurs de tâches
 
@@ -469,7 +469,7 @@ Les politiques d'ordonnancement ne sont pas les mêmes sur toutes nos grappes.
     La durée maximale d'une tâche est de 168 heures (7 jours) et le nombre maximum de tâches en exécution ou en attente dans la queue est de 1000 par utilisateur. La durée d'une tâche en production devrait être d'au moins une heure.
 
 === "Trillium"
-    Voir [Restrictions particulières à Trillium](../clusters/trillium_quickstart.md#restrictions-particulieres-a-trillium).
+    Voir [Restrictions particulières à Trillium](../clusters/trillium_quickstart.md).
 
 ## Dépannage
 

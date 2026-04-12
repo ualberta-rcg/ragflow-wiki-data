@@ -64,6 +64,6 @@ as described in the [Installing packages](../software/python.md#installing-packa
 
 The main [Available software](available_software.md) page is a good starting point. Other related pages are:
 * [Standard software environments](standard_software_environments.md): as of April 1, 2021, `StdEnv/2020` is the default collection of Lmod modules
-* Lmod [modules specific to Niagara](modules-specific-to-niagara.md)
-* Tables of Lmod modules optimized for [AVX](modules-avx.md), **[AVX2](modules-avx2.md)** and **[AVX512](modules-avx512.md)** [CPU instructions](standard_software_environments.md#performance-improvements)
-* [Category 'Software'](category-software.md): a list of different software pages in this wiki, including commercial or licensed software
+* Lmod modules specific to Niagara
+* Tables of Lmod modules optimized for AVX, **AVX2** and **AVX512** [CPU instructions](standard_software_environments.md#performance-improvements)
+* Category 'Software': a list of different software pages in this wiki, including commercial or licensed software

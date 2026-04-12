@@ -151,4 +151,4 @@ srun --jobid 123456 --overlap --pty tmux new-session -d 'htop -u $USER' \; split
     Dans les exemples précédents, `srun` fonctionne uniquement sur des tâches soumises avec `sbatch`. Pour faire le suivi d'une tâche interactive, ouvrez plusieurs fenêtres avec `tmux` et démarrez les processus dans des fenêtres distinctes.
 
 ## Suivi des tâches qui utilisent un GPU
-Voir [Utilisation de GPU](../programming/nvtop.md#utilisation-de-gpu).
+Voir [Utilisation de GPU](../programming/nvtop.md).

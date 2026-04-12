@@ -162,7 +162,7 @@ où `<format>` correspond à la valeur dans la colonne *Disk Format* et `<ID>` c
 
 ## Téléverser une image
 
-Installez d'abord le client OpenStack, puis téléchargez et exécutez le fichier OpenStack RC (voir la section « Connecter le client ligne de commande à OpenStack » dans [Client ligne de commande](openstack_command_line_clients.md#connecter-le-client-ligne-de-commande-à-openstack)).
+Installez d'abord le client OpenStack, puis téléchargez et exécutez le fichier OpenStack RC (voir la section « Connecter le client ligne de commande à OpenStack » dans [Client ligne de commande](openstack_command_line_clients.md)).
 Lancez la commande
 ```bash
 openstack image create --file <path-to-local-file-image> --disk-format <format> <new-image-name>

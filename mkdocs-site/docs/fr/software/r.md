@@ -296,7 +296,7 @@ Vous trouverez d'autres renseignements et exemples dans les sous-sections ci-des
 
 ### doParallel et foreach
 #### Utilisation
-`foreach` peut être vu comme une interface unifiée pour tous les *systèmes dorsaux* comme `doMC`, `doMPI`, `doParallel`, `doRedis`, etc. et fonctionne sur toutes les plateformes pourvu que le système dorsal soit fonctionnel. `doParallel` agit comme interface entre `foreach` et le paquet parallèle et peut être chargé seul. Certains [problèmes de performance connus](extensibilite.md) surviennent avec `foreach` lors de l'exécution d'un très grand nombre de très petites tâches. Notez que l'exemple simple qui suit n'utilise pas l'appel `foreach()` de façon optimale.
+`foreach` peut être vu comme une interface unifiée pour tous les *systèmes dorsaux* comme `doMC`, `doMPI`, `doParallel`, `doRedis`, etc. et fonctionne sur toutes les plateformes pourvu que le système dorsal soit fonctionnel. `doParallel` agit comme interface entre `foreach` et le paquet parallèle et peut être chargé seul. Certains problèmes de performance connus surviennent avec `foreach` lors de l'exécution d'un très grand nombre de très petites tâches. Notez que l'exemple simple qui suit n'utilise pas l'appel `foreach()` de façon optimale.
 
 Enregistrez le système dorsal en lui indiquant le nombre de cœurs disponibles. Si le système dorsal n'est pas enregistré, `foreach` assume que le nombre de cœurs est 1 et exécute les itérations de façon séquentielle.
 

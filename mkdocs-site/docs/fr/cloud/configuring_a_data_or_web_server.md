@@ -38,4 +38,4 @@ Les instances (machines virtuelles ou VMs) utilisées pour fournir des données 
 
 !!! tip "Ressources additionnelles"
     *   Pour créer un serveur de données partagées, consultez [Serveurs FTP dans notre environnement infonuagique](ftp_server_in_the_cloud.md) où il est aussi question de HTTP et SFTP.
-    *   Pour créer un serveur web, consultez [Création d'un serveur web dans notre environnement infonuagique](creating-a-webserver-on-the-cloud.md).
+    *   Pour créer un serveur web, consultez Création d'un serveur web dans notre environnement infonuagique.

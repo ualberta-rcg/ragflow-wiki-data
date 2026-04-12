@@ -161,7 +161,7 @@ Les trois niveaux de permission sont :
 
 Les membres d'un RAP constituent un groupe pour LDAP. Il s'agit du groupe d'utilisatrices et utilisateurs qui peuvent soumettre des tâches dans le cadre du RAPI (l'identifiant du RAP) et qui peuvent partager des fichiers sous Unix.
 
-Pour savoir comment ajouter des membres, consultez les [caractéristiques des grappes](../running-jobs/using_a_resource_allocation.md#caracteristiques-des-grappes).
+Pour savoir comment ajouter des membres, consultez les [caractéristiques des grappes](../running-jobs/using_a_resource_allocation.md).
 
 ## Obtenir un compte
 

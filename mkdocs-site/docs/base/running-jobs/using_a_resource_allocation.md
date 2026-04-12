@@ -102,7 +102,7 @@ A RAC award consists of one or more **allocations**. Each allocation consists of
 You can find RAPIs and their corresponding group names and allocations by visiting the [CCDB portal](https://ccdb.alliancecan.ca).
 See [Running jobs: Accounts and projects](running_jobs.md#accounts-and-projects) for an illustration.
 
-For more details about RAP and RAP memberships, visit the [CCDB FAQ page](../getting-started/frequently_asked_questions_about_the_ccdb.md#resource-allocation-project-rap)
+For more details about RAP and RAP memberships, visit the [CCDB FAQ page](../getting-started/frequently_asked_questions_about_the_ccdb.md)
 
 ## Sponsored users
 
@@ -178,7 +178,7 @@ The location of a `/project` storage allocation on Niagara should be found by us
 
 #### `/nearline`
 
-A `/nearline` allocation on Niagara means space in HPSS. Please see [Using nearline storage](../storage-and-data/using_nearline_storage.md#niagara).
+A `/nearline` allocation on Niagara means space in HPSS. Please see [Using nearline storage](../storage-and-data/using_nearline_storage.md).
 
 === "Cloud"
 
@@ -203,6 +203,6 @@ If desired, you can select which users may use your allocation. To do so:
 
 !!! important
     *   Any new member added to a RAP for your cloud project will automatically has access to your cloud allocation. If desired, at any time you can promote members to Managers, or remove members.
-    *   Membership in your Cloud RAP allows full access to your OpenStack tenants. For more details, see or wiki page on [OpenStack projects](openstack.md#projects).
+    *   Membership in your Cloud RAP allows full access to your OpenStack tenants. For more details, see or wiki page on OpenStack projects.
 
-For information about logging in and using a particular cloud see [using the cloud](../cloud/cloud.md#using-the-cloud). If you are unsure about your cloud allocation or if you have difficulty logging into a cloud where you have an allocation, please contact [technical support](../support/technical_support.md).
+For information about logging in and using a particular cloud see [using the cloud](../cloud/cloud.md). If you are unsure about your cloud allocation or if you have difficulty logging into a cloud where you have an allocation, please contact [technical support](../support/technical_support.md).

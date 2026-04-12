@@ -54,7 +54,7 @@ status:
 
 Cette page est préparée par l’équipe nationale de physique subatomique. Sa dernière mise à jour est en date de juillet 2021.
 
-Voyez aussi la page [Astronomy and High Energy Physics Interactive Analysis Facility](astronomy-and-high-energy-physics-interactive-analysis-facility.md).
+Voyez aussi la page Astronomy and High Energy Physics Interactive Analysis Facility.
 
 La plupart des groupes de physique subatomique expérimentale utilisent les dépôts CVMFS du CERN, du consortium Open Science Grid et des dépôts spécifiques pour chacune des expériences.
 

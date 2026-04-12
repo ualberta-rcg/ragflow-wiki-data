@@ -183,7 +183,7 @@ module restore my_modules
     Some modules are hidden. You can ignore them. These are generally modules you do not need to load manually. They are loaded automatically as needed.
 
 ## Module Hierarchy
-Many high-performance computing systems worldwide use a flat module structure with all modules at the same level. This becomes problematic when a large number of version combinations of different modules are available. For example, if you need to use the [FFTW](fftw.md) library, and the `fftw` module is available in several versions, including one compiled with the `gcc` compiler version 4.8 and `openmpi` 1.6, you may have already seen modules named `openmpi/4.0_gcc9.3` and `fftw/3.8_gcc9.3_openmpi4.0`. This is neither elegant nor practical. To solve this problem, we use a module hierarchy. Instead of using the command
+Many high-performance computing systems worldwide use a flat module structure with all modules at the same level. This becomes problematic when a large number of version combinations of different modules are available. For example, if you need to use the FFTW library, and the `fftw` module is available in several versions, including one compiled with the `gcc` compiler version 4.8 and `openmpi` 1.6, you may have already seen modules named `openmpi/4.0_gcc9.3` and `fftw/3.8_gcc9.3_openmpi4.0`. This is neither elegant nor practical. To solve this problem, we use a module hierarchy. Instead of using the command
 ```bash
 module load gcc/9.3 openmpi/4.0_gcc9.3 fftw/3.8_gcc9.3_openmpi4.0
 ```

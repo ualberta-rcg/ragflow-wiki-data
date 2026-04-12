@@ -78,7 +78,7 @@ status:
 | **shared filesystem** | Persistent storage space offered as a Unix-compliant filesystem that can be mounted across multiple hosts in a project. This is useful for sharing data across multiple hosts. Our service runs on CephFS and requires either a Fuse driver (Windows/Linux) or the CephFS kernel driver (Linux) for access. Allocated in TB. |
 | **snapshot** | Copy of an OpenStack volume that can be used as a backup or to launch another instance. |
 | **SSL** (Secure Sockets Layer) | A protocol to allow encrypted communications over networks. SSL is obsolete and should be replaced by TLS (Transport Layer Security) wherever possible. |
-| **[SWIFT](using-swift.md)** | A type of object storage. See [https://wiki.openstack.org/wiki/Swift](https://wiki.openstack.org/wiki/Swift). |
+| **SWIFT** | A type of object storage. See [https://wiki.openstack.org/wiki/Swift](https://wiki.openstack.org/wiki/Swift). |
 | **tenant** | See **project**. |
 | **TLS** (Transport Layer Security) | See **SSL**. |
 | **vCPU** (virtual central processing unit) | A vCPU represents a portion or share of the underlying, physical CPU that is assigned to a particular virtual machine. |

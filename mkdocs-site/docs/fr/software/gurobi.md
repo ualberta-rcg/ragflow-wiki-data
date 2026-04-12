@@ -136,7 +136,7 @@ Veuillez noter que toutes les demandes de licence Gurobi sont gérées par un se
 !!! warning "Utilisation incorrecte des licences"
     Une utilisation incorrecte de Gurobi à cet égard peut entraîner des échecs aléatoires et intermittents. Si cela se produit, nous vous contacterons pour vous inviter à interrompre toutes vos tâches jusqu'à ce que votre programme soit corrigé et testé afin de garantir la résolution du problème. Voyez [la documentation pour les programmes en C++](https://support.gurobi.com/hc/en-us/articles/360013417731-How-do-I-release-a-shared-license). Cette documentation explique comment créer un environnement Gurobi unique utilisable pour tous vos modèles. [Pour Python, consultez cette page](https://support.gurobi.com/hc/en-us/articles/360013417731-How-do-I-release-a-shared-license) qui explique comment mettre en œuvre ce même principe d'environnement unique, et donc d'un jeton de licence unique, pour plusieurs modèles. D'autres programmes utilisant Gurobi, comme R, peuvent également facilement déclencher ce problème lors d'une exécution lorsque de nombreuses tâches parallèles sont soumises et/ou exécutées simultanément.
 
-Si vous soumettez de nombreuses tâches Gurobi en boucle à l'ordonnanceur, utilisez l'exemple de script suivant (ou un équivalent) pour assurer un démarrage progressif. Cela permettra de minimiser la fréquence d'utilisation des licences et, par conséquent, la charge sur notre serveur de licences Gurobi. Le script utilise l'option de dépendance `after` de [l'ordonnanceur Slurm](https://slurm.schedmd.com/sbatch.html) qui est décrite dans [Soumettre une tâche : Fonctions avancées](soumettre-une-tache-fonctions-avancees.md). Nous limitons à 10 000 le nombre d'utilisations de licences Gurobi par grappe, sur une période de 24 heures. Si votre programme Gurobi utilise un algorithme nécessitant l'utilisation de deux licences par tâche, cela correspond à un maximum de 5 000 tâches soumises par jour.
+Si vous soumettez de nombreuses tâches Gurobi en boucle à l'ordonnanceur, utilisez l'exemple de script suivant (ou un équivalent) pour assurer un démarrage progressif. Cela permettra de minimiser la fréquence d'utilisation des licences et, par conséquent, la charge sur notre serveur de licences Gurobi. Le script utilise l'option de dépendance `after` de [l'ordonnanceur Slurm](https://slurm.schedmd.com/sbatch.html) qui est décrite dans Soumettre une tâche : Fonctions avancées. Nous limitons à 10 000 le nombre d'utilisations de licences Gurobi par grappe, sur une période de 24 heures. Si votre programme Gurobi utilise un algorithme nécessitant l'utilisation de deux licences par tâche, cela correspond à un maximum de 5 000 tâches soumises par jour.
 
 ```bash title="submit.sh"
 # [l2(nibi):~] cat submit.sh
@@ -246,7 +246,7 @@ gurobi.sh ${GUROBI_HOME}/examples/python/facility.py
 
 ## Environnements virtuels Python
 
-Gurobi a sa propre version de Python qui ne contient aucun autre paquet de tiers autre que Gurobi. Pour utiliser Gurobi avec d'autres paquets Python comme NumPy, Matplotlib, Pandas et autres, il faut [créer un environnement virtuel Python](python.md#creer-et-utiliser-un-environnement-virtuel) dans lequel seront installés `gurobipy` et, par exemple, `pandas`.
+Gurobi a sa propre version de Python qui ne contient aucun autre paquet de tiers autre que Gurobi. Pour utiliser Gurobi avec d'autres paquets Python comme NumPy, Matplotlib, Pandas et autres, il faut [créer un environnement virtuel Python](python.md) dans lequel seront installés `gurobipy` et, par exemple, `pandas`.
 Avant de commencer, il faut décider quelle combinaison des versions Gurobi et Python nous voulons utiliser. La liste suivante montre les versions de Python supportées par les versions principales de Gurobi dans les environnements standards (StdEnv).
 
 ```bash
@@ -283,7 +283,7 @@ Tel que mentionné vers la fin de [How do I install Gurobi for Python?](http://s
 
 ### Versions Gurobi 10.0.3 et antérieures
 
-Il faut suivre les étapes suivantes une fois sur chaque système avec StdEnv/2023 et les versions antérieures. Chargez d'abord les modules pour [créer l'environnement virtuel](python.md#creer-et-utiliser-un-environnement-virtuel), puis activez cet environnement.
+Il faut suivre les étapes suivantes une fois sur chaque système avec StdEnv/2023 et les versions antérieures. Chargez d'abord les modules pour [créer l'environnement virtuel](python.md), puis activez cet environnement.
 
 ```bash
 module load gurobi/10.0.3 python
@@ -323,7 +323,7 @@ deactivate
 
 ### Versions Gurobi 11.0.0 et plus récentes
 
-Encore une fois, les étapes suivantes doivent être effectuées une fois pour chaque système sous StdEnv/2023 et les versions antérieures. Chargez d'abord les modules dans [Créer et utiliser un environnement virtuel](python.md#creer-et-utiliser-un-environnement-virtuel), puis activez-le. La version 11.0.0 est ignorée car il a été observé qu'elle produit une erreur de segmentation dans au moins un exemple, comparé à la version 11.0.1 qui fonctionne sans problème.
+Encore une fois, les étapes suivantes doivent être effectuées une fois pour chaque système sous StdEnv/2023 et les versions antérieures. Chargez d'abord les modules dans [Créer et utiliser un environnement virtuel](python.md), puis activez-le. La version 11.0.0 est ignorée car il a été observé qu'elle produit une erreur de segmentation dans au moins un exemple, comparé à la version 11.0.1 qui fonctionne sans problème.
 
 ```bash
 module load gurobi/11.0.1 python
@@ -398,7 +398,7 @@ source ~/env_gurobi/bin/activate
 python my_gurobi_script.py
 ```
 
-Pour plus d'information sur la création et l'utilisation des environnements virtuels Python, voir [Créer un environnement virtuel dans vos tâches](python.md#creer-un-environnement-virtuel-dans-vos-taches).
+Pour plus d'information sur la création et l'utilisation des environnements virtuels Python, voir [Créer un environnement virtuel dans vos tâches](python.md).
 
 ## Utiliser Gurobi avec Java
 

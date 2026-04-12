@@ -207,14 +207,14 @@ Si vous débutez avec META, suivez les étapes ci-dessous. Il est toutefois fort
 *   Copiez vos fichiers exécutables et vos fichiers d'entrée dans le répertoire du groupe de cas. (Vous pouvez ignorer cette étape si vous prévoyez utiliser des chemins complets partout.)
 *   Modifiez le fichier `table.dat` dans le répertoire. Il s'agit d'un fichier texte décrivant un cas (un calcul distinct) par ligne. Voyez des exemples dans les sections suivantes :
     *   [single_case.sh](#single_case.sh)
-    *   [Exemple : fichiers d'entrée numérotés](meta-farm__advanced_features_and_troubleshooting.md#exemple-fichiers-dentree-numerotes) (avancé)
-    *   [Exemple : fichier d'entrée doit avoir le même nom](meta-farm__advanced_features_and_troubleshooting.md#exemple-fichier-dentree-doit-avoir-le-meme-nom) (avancé)
-    *   [Accéder à chaque paramètre d'un cas](meta-farm__advanced_features_and_troubleshooting.md#acceder-a-chaque-parametre-dun-cas) (avancé)
+    *   [Exemple : fichiers d'entrée numérotés](meta-farm__advanced_features_and_troubleshooting.md) (avancé)
+    *   [Exemple : fichier d'entrée doit avoir le même nom](meta-farm__advanced_features_and_troubleshooting.md) (avancé)
+    *   [Accéder à chaque paramètre d'un cas](meta-farm__advanced_features_and_troubleshooting.md) (avancé)
 *   Modifiez le script `single_case.sh` au besoin. Souvent, aucune modification n'est requise; voir les sections suivantes :
     *   [single_case.sh](#single_case.sh)
     *   [STATUS et traitement des erreurs](#status-et-traitement-des-erreurs)
-    *   [Exemple : fichier d'entrée doit avoir le même nom](meta-farm__advanced_features_and_troubleshooting.md#exemple-fichier-dentree-doit-avoir-le-meme-nom) (avancé)
-    *   [Accéder à chaque paramètre d'un cas](meta-farm__advanced_features_and_troubleshooting.md#acceder-a-chaque-parametre-dun-cas) (avancé)
+    *   [Exemple : fichier d'entrée doit avoir le même nom](meta-farm__advanced_features_and_troubleshooting.md) (avancé)
+    *   [Accéder à chaque paramètre d'un cas](meta-farm__advanced_features_and_troubleshooting.md) (avancé)
 *   Modifiez le fichier `job_script.sh` selon vos besoins, tel que décrit dans [job_script.sh, ci-dessous](#job_script.sh). En particulier, utilisez un nom de compte de calcul valide et indiquez une durée d’exécution appropriée. Pour plus d'information sur le temps d’exécution, voir [Estimation du temps d'exécution et du nombre de métatâches](#estimation-du-temps-dexectution-et-du-nombre-de-metataches).
 *   Dans le répertoire des cas, lancez
 
@@ -267,9 +267,9 @@ submit.run N [-auto] [optional_sbatch_arguments]
 
 Avec *N*=-1, vous demandez le mode SIMPLE (pour soumettre autant de tâches qu'il y a de lignes dans le fichier `table.dat`). Si *N* est un entier positif, vous demandez le mode META (pour soumettre une tâche avec plusieurs cas), *N* étant le nombre de métatâches demandées. Toute autre valeur de *N* est une erreur.
 
-Si l’option `-auto` est présente, la soumission se refera automatiquement à la fin, plus d'une fois si nécessaire, jusqu'à ce que tous les cas dans `table.dat` aient été traités. Cette fonction est décrite dans [Resoumettre automatiquement les cas qui ont échoué](meta-farm__advanced_features_and_troubleshooting.md#resoumettre-automatiquement-les-cas-qui-ont-echoue).
+Si l’option `-auto` est présente, la soumission se refera automatiquement à la fin, plus d'une fois si nécessaire, jusqu'à ce que tous les cas dans `table.dat` aient été traités. Cette fonction est décrite dans [Resoumettre automatiquement les cas qui ont échoué](meta-farm__advanced_features_and_troubleshooting.md).
 
-Si un fichier nommé `final.sh` est présent dans le répertoire du groupe de cas, `submit.run` le traitera comme un script de tâche pour le post-traitement et il sera lancé automatiquement une fois que tous les cas de `table.dat` auront été traités avec succès; voir [Exécuter automatiquement une tâche de post-traitement](meta-farm__advanced_features_and_troubleshooting.md#executer-automatiquement-une-tache-de-post-traitement).
+Si un fichier nommé `final.sh` est présent dans le répertoire du groupe de cas, `submit.run` le traitera comme un script de tâche pour le post-traitement et il sera lancé automatiquement une fois que tous les cas de `table.dat` auront été traités avec succès; voir [Exécuter automatiquement une tâche de post-traitement](meta-farm__advanced_features_and_troubleshooting.md).
 
 Si vous fournissez d'autres arguments, ils seront transmis à la commande `sbatch` de l’ordonnanceur pour le lancement de toutes les métatâches pour ce groupe de cas.
 
@@ -444,7 +444,7 @@ Vous ne pouvez pas exécuter `resubmit.run` tant que toutes les tâches de l'ex�
 
 Si certains cas échouent ou ne s'exécutent toujours pas, vous pouvez soumettre le groupe de cas à nouveau, autant de fois que nécessaire. Bien sûr, si certains cas échouent à plusieurs reprises, il doit y avoir un problème avec le programme que vous exécutez ou avec son entrée. Dans ce cas, vous pouvez utiliser la commande `Status.run` (le S est en majuscule) qui affiche l’état de tous les cas traités. Avec l'option `-f`, `Status.run` triera le résultat en fonction de l’état de la sortie en affichant les cas avec un état différent de zéro dans le bas pour mieux les repérer.
 
-De la même manière que pour `submit.run`, si l’option `-auto` est présente, le groupe de cas sera automatiquement soumis de nouveau à la fin, plus d'une fois si nécessaire (voir [Resoumettre automatiquement les cas qui ont échoué](meta-farm__advanced_features_and_troubleshooting.md#resoumettre-automatiquement-les-cas-qui-ont-echoue)).
+De la même manière que pour `submit.run`, si l’option `-auto` est présente, le groupe de cas sera automatiquement soumis de nouveau à la fin, plus d'une fois si nécessaire (voir [Resoumettre automatiquement les cas qui ont échoué](meta-farm__advanced_features_and_troubleshooting.md)).
 
 ## Mode META pour un grand nombre de cas
 
@@ -479,7 +479,7 @@ En résumé, toutes les métatâches demandées ne s'exécuteront pas nécessair
 
 Comment peut-on déterminer le nombre optimal de métatâches et le temps d'exécution à utiliser dans `job_script.sh`?
 
-Vous devez d'abord déterminer le temps d'exécution moyen pour un cas individuel (une seule ligne dans `table.dat`). Pour ce faire, en supposant que votre programme ne soit pas parallèle, allouez un seul cœur CPU avec [`salloc`](running_jobs.md#taches-interactives), puis exécutez `single_case.sh` pour quelques cas différents. Mesurez la durée d'exécution totale et divisez-la par le nombre de cas que vous avez exécutés pour obtenir une estimation de la durée d'exécution moyenne des cas. Cela peut être fait avec une boucle `for`.
+Vous devez d'abord déterminer le temps d'exécution moyen pour un cas individuel (une seule ligne dans `table.dat`). Pour ce faire, en supposant que votre programme ne soit pas parallèle, allouez un seul cœur CPU avec [`salloc`](running_jobs.md), puis exécutez `single_case.sh` pour quelques cas différents. Mesurez la durée d'exécution totale et divisez-la par le nombre de cas que vous avez exécutés pour obtenir une estimation de la durée d'exécution moyenne des cas. Cela peut être fait avec une boucle `for`.
 
 ```bash
 N=10; time for ((i=1; i<=$N; i++)); do  ./single_case.sh table.dat $i  ; done
@@ -491,7 +491,7 @@ Estimez le temps CPU total nécessaire pour traiter le tout en multipliant *dt_c
 
 Vous pouvez maintenant faire un choix judicieux pour le temps d'exécution des métatâches et cela déterminera également le nombre de métatâches nécessaires pour traiter le groupe de cas en entier.
 
-La durée d'exécution que vous choisissez doit être nettement supérieure à la durée d'exécution moyenne d'un cas individuel, idéalement par un facteur de 100 ou plus. Il doit certainement être supérieur à la durée d'exécution la plus longue que vous prévoyez pour un cas individuel. En revanche, il ne doit pas être trop grand, soit pas plus de 3 jours. Plus la durée d'exécution d'une tâche est longue, plus elle restera longtemps en file d’attente. Sur les grappes à usage général de l’Alliance, un bon choix serait 12 ou 24 heures en raison des [politiques d’ordonnancement des tâches](job_scheduling_policies.md#duree-maximale). Une fois le temps d'exécution choisi, divisez le nombre total d'heures CPU par le temps d'exécution que vous avez choisi (en heures) pour obtenir le nombre requis de métatâches. Arrondissez ce nombre à l'entier supérieur.
+La durée d'exécution que vous choisissez doit être nettement supérieure à la durée d'exécution moyenne d'un cas individuel, idéalement par un facteur de 100 ou plus. Il doit certainement être supérieur à la durée d'exécution la plus longue que vous prévoyez pour un cas individuel. En revanche, il ne doit pas être trop grand, soit pas plus de 3 jours. Plus la durée d'exécution d'une tâche est longue, plus elle restera longtemps en file d’attente. Sur les grappes à usage général de l’Alliance, un bon choix serait 12 ou 24 heures en raison des [politiques d’ordonnancement des tâches](job_scheduling_policies.md). Une fois le temps d'exécution choisi, divisez le nombre total d'heures CPU par le temps d'exécution que vous avez choisi (en heures) pour obtenir le nombre requis de métatâches. Arrondissez ce nombre à l'entier supérieur.
 
 Avec ces choix, le temps dans la file d'attente devrait être acceptable, et le débit et l'efficacité devraient être assez élevés.
 
@@ -510,7 +510,7 @@ resubmit.run 1000
 ...   
 ```
 
-Si cela semble plutôt fastidieux, envisagez plutôt d'utiliser la fonctionnalité avancée pour [resoumettre automatiquement les cas qui ont échoué](meta-farm__advanced_features_and_troubleshooting.md#resoumettre-automatiquement-les-cas-qui-ont-echoue).
+Si cela semble plutôt fastidieux, envisagez plutôt d'utiliser la fonctionnalité avancée pour [resoumettre automatiquement les cas qui ont échoué](meta-farm__advanced_features_and_troubleshooting.md).
 
 ## Quelques précautions
 

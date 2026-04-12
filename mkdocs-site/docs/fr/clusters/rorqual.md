@@ -149,7 +149,7 @@ Dans un nœud CPU, les 192 cœurs et les différents espaces mémoire ne sont pa
             *   Huit (8) cœurs par *chiplet*, chacun ayant sa propre mémoire cache L2 de 1 Mio et L1 de 32+32 Kio.
 
 Autrement dit, on a :
-*   Des groupes de 8 cœurs rapprochés qui se partagent une même mémoire cache L3, ce qui est idéal pour des [programmes parallèles multifils](../running-jobs/running_jobs.md#tache-multifil-ou-tache-openmp) (par exemple, avec l'option `--cpus-per-task=8`)
+*   Des groupes de 8 cœurs rapprochés qui se partagent une même mémoire cache L3, ce qui est idéal pour des [programmes parallèles multifils](../running-jobs/running_jobs.md) (par exemple, avec l'option `--cpus-per-task=8`)
 *   Des *nœuds NUMA* de 3×8 = 24 cœurs qui se partagent un trio de canaux de mémoire système.
 *   Un total de 2×4×3×8 = 192 cœurs par nœud.
 

@@ -197,7 +197,7 @@ Pour plus d'information, voyez [Wheels disponibles](python.md#wheels-disponibles
 La meilleure option est d'installer avec [Python wheels](https://pythonwheels.com/) comme suit :
 
 1.  [Chargez un module](../programming/utiliser_des_modules.md#sous-commande-load) Python avec `module load python`.
-2.  Créez et démarrez un [environnement virtuel](python.md#creer-et-utiliser-un-environnement-virtuel).
+2.  Créez et démarrez un [environnement virtuel](python.md).
 3.  Installez PyTorch dans l'environnement virtuel avec `pip install`.
 
 #### GPU et CPU
@@ -976,7 +976,7 @@ if __name__=='__main__':
 ```
 
 ### Parallélisme de données entièrement fragmentées (FSDP)
-Similar to [Deepspeed](deepspeed.md), Fully Sharded Data Parallelism ([FSDP](https://docs.pytorch.org/tutorials/intermediate/FSDP_tutorial.html)) enables distributed storage and computing of different elements of a training task - such as optimizer states, model weights, model gradients and model activations - across multiple devices, including GPU, CPU, local hard disk, and/or combinations of these devices. This "pooling" of resources, notably for storage, allows models with massive amounts of parameters to be trained efficiently, across multiple nodes.
+Similar to Deepspeed, Fully Sharded Data Parallelism ([FSDP](https://docs.pytorch.org/tutorials/intermediate/FSDP_tutorial.html)) enables distributed storage and computing of different elements of a training task - such as optimizer states, model weights, model gradients and model activations - across multiple devices, including GPU, CPU, local hard disk, and/or combinations of these devices. This "pooling" of resources, notably for storage, allows models with massive amounts of parameters to be trained efficiently, across multiple nodes.
 
 Note that, with FSDP, a model layer that gets sharded across devices may be collected inside a single device during a forward or backward pass. You should not use FSDP if your model has layers that do not fit entirely in the memory of a single GPU. See the section on [Tensor Parallelism](#parallélisme-tensoriel) to see how to deal with this case.
 

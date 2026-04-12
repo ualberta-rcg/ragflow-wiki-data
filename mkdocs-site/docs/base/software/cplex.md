@@ -166,7 +166,7 @@ After installing [CPLEX](https://www.ibm.com/analytics/data-science/prescriptive
 module load mycplex/<version>
 ```
 
-To install CPLEX packages such as `docplex`, we suggest doing so from a [virtual environment](../python/#create-and-use-a-virtual-environment).
+To install CPLEX packages such as `docplex`, we suggest doing so from a virtual environment.
 
 Once the virtual environment is activated, you will need to navigate to the `$STUDIO_ROOT/python` directory, and then you can install the library with the command:
 ```bash

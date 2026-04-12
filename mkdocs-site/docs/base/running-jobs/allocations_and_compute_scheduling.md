@@ -271,9 +271,9 @@ Alliance systems have the following RGU-core-memory bundle characteristics (only
 | Cluster                                      | Cores per RGU | Memory per RGU (GB) |
 | :------------------------------------------: | :-----------: | :-----------------: |
 | [Fir](../software/fir.md#node-characteristics)           | 0.98          | 23.6                |
-| [Narval](../clusters/narval.md#node-characteristics)     | 3.00          | 31.1                |
+| [Narval](../clusters/narval.md)     | 3.00          | 31.1                |
 | [Nibi](../clusters/nibi.md#node-characteristics)         | 1.15          | 20.5                |
-| [Rorqual](../clusters/rorqual.md#node-characteristics)   | 1.31          | 10.2                |
+| [Rorqual](../clusters/rorqual.md)   | 1.31          | 10.2                |
 | [Trillium](../clusters/trillium.md#node-characteristics) | 1.97          | 15.4                |
 
 And the following GPU-core-memory bundle characteristics:
@@ -284,19 +284,19 @@ And the following GPU-core-memory bundle characteristics:
 | [Fir](../software/fir.md#node-characteristics)           | H100-1g.10gb      | 1.74        | 1.7 cores, 41 GB     | 1 core, 35 GB        |
 | [Fir](../software/fir.md#node-characteristics)           | H100-2g.20gb      | 3.48        | 3.4 cores, 82 GB     | 3 cores, 70 GB       |
 | [Fir](../software/fir.md#node-characteristics)           | H100-3g.40gb      | 6.1         | 6 cores, 144 GB      | 6 cores, 140 GB      |
-| [Narval](../clusters/narval.md#node-characteristics)     | **A100-40gb**     | **4.0**     | **12 cores, 124.5 GB** | **12 cores, 124 GB** |
-| [Narval](../clusters/narval.md#node-characteristics)     | A100-1g.5gb       | 0.57        | 1.7 cores, 17.7 GB   | 1 core, 15 GB        |
-| [Narval](../clusters/narval.md#node-characteristics)     | A100-2g.10gb      | 1.14        | 3.4 cores, 35.4 GB   | 3 cores, 31 GB       |
-| [Narval](../clusters/narval.md#node-characteristics)     | A100-3g.20gb      | 2.0         | 6.0 cores, 62.2 GB   | 6 cores, 62 GB       |
-| [Narval](../clusters/narval.md#node-characteristics)     | A100-4g.20gb      | 2.3         | 6.9 cores, 71.5 GB   | 6 cores, 62 GB       |
+| [Narval](../clusters/narval.md)     | **A100-40gb**     | **4.0**     | **12 cores, 124.5 GB** | **12 cores, 124 GB** |
+| [Narval](../clusters/narval.md)     | A100-1g.5gb       | 0.57        | 1.7 cores, 17.7 GB   | 1 core, 15 GB        |
+| [Narval](../clusters/narval.md)     | A100-2g.10gb      | 1.14        | 3.4 cores, 35.4 GB   | 3 cores, 31 GB       |
+| [Narval](../clusters/narval.md)     | A100-3g.20gb      | 2.0         | 6.0 cores, 62.2 GB   | 6 cores, 62 GB       |
+| [Narval](../clusters/narval.md)     | A100-4g.20gb      | 2.3         | 6.9 cores, 71.5 GB   | 6 cores, 62 GB       |
 | [Nibi](../clusters/nibi.md#node-characteristics)         | **H100-80gb**     | **12.2**    | **14 cores, 250 GB** | **14 cores, 250 GB** |
 | [Nibi](../clusters/nibi.md#node-characteristics)         | H100-1g.10gb      | 1.74        | 2 cores, 35.7 GB     | 2 cores, 31 GB       |
 | [Nibi](../clusters/nibi.md#node-characteristics)         | H100-2g.20gb      | 3.48        | 4 cores, 71.4 GB     | 4 cores, 62 GB       |
 | [Nibi](../clusters/nibi.md#node-characteristics)         | H100-3g.40gb      | 6.1         | 7 cores, 125 GB      | 6 cores, 124 GB      |
-| [Rorqual](../clusters/rorqual.md#node-characteristics)   | **H100-80gb**     | **12.2**    | **16 cores, 124.5 GB** | **16 cores, 124 GB** |
-| [Rorqual](../clusters/rorqual.md#node-characteristics)   | H100-1g.10gb      | 1.74        | 2.3 cores, 17.7 GB   | 2 cores, 15 GB       |
-| [Rorqual](../clusters/rorqual.md#node-characteristics)   | H100-2g.20gb      | 3.48        | 4.5 cores, 35.4 GB   | 4 cores, 31 GB       |
-| [Rorqual](../clusters/rorqual.md#node-characteristics)   | H100-3g.40gb      | 6.1         | 8 cores, 62.2 GB     | 8 cores, 62 GB       |
+| [Rorqual](../clusters/rorqual.md)   | **H100-80gb**     | **12.2**    | **16 cores, 124.5 GB** | **16 cores, 124 GB** |
+| [Rorqual](../clusters/rorqual.md)   | H100-1g.10gb      | 1.74        | 2.3 cores, 17.7 GB   | 2 cores, 15 GB       |
+| [Rorqual](../clusters/rorqual.md)   | H100-2g.20gb      | 3.48        | 4.5 cores, 35.4 GB   | 4 cores, 31 GB       |
+| [Rorqual](../clusters/rorqual.md)   | H100-3g.40gb      | 6.1         | 8 cores, 62.2 GB     | 8 cores, 62 GB       |
 | [Trillium](../clusters/trillium.md#node-characteristics) | **H100-80gb**     | **12.2**    | **24 cores, 188 GB** | **24 cores, 188 GB** |
 
 !!! note

@@ -114,9 +114,9 @@ Each job should be at least one hour long (at least five minutes for test jobs),
 
 | Filesystem | Description |
 | :--------- | :---------- |
-| HOME <br> Lustre filesystem, 116 TB total space | * This space is small and cannot be expanded: you will need to use your `project` space for large storage needs.<br>* Small, fixed [quotas](../storage-and-data/storage_and_file_management.md#quotas-and-policies) per user<br>* There is an automatic daily backup. |
-| SCRATCH <br> Lustre filesystem, 6.5 PB total space | * Accessible via the symbolic link `$HOME/links/scratch`<br>* Large space for storing temporary files during computations.<br>* No automatic backup system<br>* Large, fixed [quotas](../storage-and-data/storage_and_file_management.md#quotas-and-policies) per user<br>* There is an [automatic purging policy](../storage-and-data/scratch_purging_policy.md) for old files in this space. |
-| PROJECT <br> Lustre filesystem, 62 PB total space | * Accessible via the symbolic link `$HOME/links/projects/project-name`<br>* This space is designed for data sharing among group members and for storing large amounts of data.<br>* Large, adjustable [quotas](../storage-and-data/storage_and_file_management.md#quotas-and-policies) per project<br>* There is an automatic daily backup. |
+| HOME <br> Lustre filesystem, 116 TB total space | * This space is small and cannot be expanded: you will need to use your `project` space for large storage needs.<br>* Small, fixed [quotas](../storage-and-data/storage_and_file_management.md) per user<br>* There is an automatic daily backup. |
+| SCRATCH <br> Lustre filesystem, 6.5 PB total space | * Accessible via the symbolic link `$HOME/links/scratch`<br>* Large space for storing temporary files during computations.<br>* No automatic backup system<br>* Large, fixed [quotas](../storage-and-data/storage_and_file_management.md) per user<br>* There is an [automatic purging policy](../storage-and-data/scratch_purging_policy.md) for old files in this space. |
+| PROJECT <br> Lustre filesystem, 62 PB total space | * Accessible via the symbolic link `$HOME/links/projects/project-name`<br>* This space is designed for data sharing among group members and for storing large amounts of data.<br>* Large, adjustable [quotas](../storage-and-data/storage_and_file_management.md) per project<br>* There is an automatic daily backup. |
 
 At the very beginning of this page, a table lists several connection addresses. For data transfers via [Globus](../getting-started/globus.md), use the **Globus Endpoint**. However, for tools like [rsync](../getting-started/transferring_data.md#rsync) and [scp](../getting-started/transferring_data.md#scp), you must use the **Data transfer node** address.
 
@@ -146,7 +146,7 @@ In a CPU node, the 192 cores and different memory spaces are not equidistant, ca
             *   Eight (8) cores per *chiplet*, each with its own 1 MiB L2 and 32+32 KiB L1 cache.
 
 In other words, we have:
-*   Groups of 8 closely located cores that share the same L3 cache, which is ideal for [multithreaded parallel programs](../running-jobs/running_jobs.md#multithreaded-or-openmp-jobs) (for example, with the `--cpus-per-task=8` option).
+*   Groups of 8 closely located cores that share the same L3 cache, which is ideal for [multithreaded parallel programs](../running-jobs/running_jobs.md) (for example, with the `--cpus-per-task=8` option).
 *   NUMA *nodes* of 3×8 = 24 cores that share a trio of system memory channels.
 *   A total of 2×4×3×8 = 192 cores per node.
 

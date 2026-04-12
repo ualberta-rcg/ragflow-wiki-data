@@ -176,7 +176,7 @@ Après avoir fait l'installation de [CPLEX](https://www.ibm.com/analytics/data-s
 module load mycplex/<version>
 ```
 
-Pour installer les paquets de CPLEX tels que `docplex`, nous vous suggérons de le faire à partir d'un [environnement virtuel](python.md#creer-et-utiliser-un-environnement-virtuel).
+Pour installer les paquets de CPLEX tels que `docplex`, nous vous suggérons de le faire à partir d'un [environnement virtuel](python.md).
 
 Une fois l'environnement virtuel activé, vous devrez aller dans le répertoire `$STUDIO_ROOT/python` et ensuite vous pourrez faire l'installation de la librairie avec la commande :
 

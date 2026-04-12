@@ -79,7 +79,7 @@ Calcul Canada offre des [wheels Python](../../programming/available_python_wheel
 
 La liste suivante contient une sélection des wheels les plus utiles, mais ne doit pas être considérée comme complète :
 
-*   [ACPYPE: AnteChamber PYthon Parser interfacE](acpype.md), outil servant à générer des topologies de composés chimiques.
+*   ACPYPE: AnteChamber PYthon Parser interfacE, outil servant à générer des topologies de composés chimiques.
 *   [MDAnalysis](https://www.mdanalysis.org/), bibliothèque Python orientée objet pour l'analyse de trajectoires dans les simulations de dynamique moléculaires dans plusieurs formats.
 *   [MDTraj](http://mdtraj.org/), qui peut aussi lire, écrire et analyser des trajectoires par quelques lignes de code Python, dans une grande variété de formats.
 *   [Biopython](https://biopython.org/), ensemble d'outils gratuits pour les calculs biologiques.
@@ -90,7 +90,7 @@ La liste suivante contient une sélection des wheels les plus utiles, mais ne do
 *   [ParmEd](http://parmed.github.io/ParmEd/), outil général pour l'analyse des systèmes biomoléculaires avec des paquets de simulation populaires.
 *   [PyRETIS](../pyretis.md), bibliothèque Python pour les simulations d'événements rares, avec une emphase sur l'échantillonnage d'interfaces de transition et d'interfaces de transition avec échange de réplication.
 
-Voyez la [liste des wheels disponibles](../../programming/available_python_wheels.md#wheels-disponibles) et la [commande `avail_wheels`](../python.md#wheels-disponibles) pour savoir ce qui est disponible.
+Voyez la [liste des wheels disponibles](../../programming/available_python_wheels.md) et la [commande `avail_wheels`](../python.md#wheels-disponibles) pour savoir ce qui est disponible.
 
 Si vous avez besoin d'autres paquets Python ou des versions plus récentes, [contactez le soutien technique](../../support/technical_support.md).
 

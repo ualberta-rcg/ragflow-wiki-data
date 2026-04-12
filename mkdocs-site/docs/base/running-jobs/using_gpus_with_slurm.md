@@ -94,25 +94,25 @@ The following table summarizes the available GPU models and their corresponding 
 | [Fir](../software/fir.md#node-characteristics)                     | H100-80gb     | 1/8   | nvidia_h100_80gb_hbm3_1g.10gb            |                                       |
 | [Fir](../software/fir.md#node-characteristics)                     | H100-80gb     | 2/8   | nvidia_h100_80gb_hbm3_2g.20gb            |                                       |
 | [Fir](../software/fir.md#node-characteristics)                     | H100-80gb     | 3/8   | nvidia_h100_80gb_hbm3_3g.40gb            |                                       |
-| [Narval](../clusters/narval.md#node-characteristics)               | A100-40gb     |       | a100                                     |                                       |
-| [Narval](../clusters/narval.md#node-characteristics)               | A100-40gb     | 1/8   | a100_1g.5gb                              |                                       |
-| [Narval](../clusters/narval.md#node-characteristics)               | A100-40gb     | 2/8   | a100_2g.10gb                             |                                       |
-| [Narval](../clusters/narval.md#node-characteristics)               | A100-40gb     | 2/8   | a100_3g.20gb                             |                                       |
-| [Narval](../clusters/narval.md#node-characteristics)               | A100-40gb     | 4/8   | a100_4g.20gb                             |                                       |
+| [Narval](../clusters/narval.md)               | A100-40gb     |       | a100                                     |                                       |
+| [Narval](../clusters/narval.md)               | A100-40gb     | 1/8   | a100_1g.5gb                              |                                       |
+| [Narval](../clusters/narval.md)               | A100-40gb     | 2/8   | a100_2g.10gb                             |                                       |
+| [Narval](../clusters/narval.md)               | A100-40gb     | 2/8   | a100_3g.20gb                             |                                       |
+| [Narval](../clusters/narval.md)               | A100-40gb     | 4/8   | a100_4g.20gb                             |                                       |
 | [Nibi](../clusters/nibi.md#node-characteristics)                   | H100-80gb     |       | h100                                     |                                       |
 | [Nibi](../clusters/nibi.md#node-characteristics)                   | H100-80gb     | 1/8   | nvidia_h100_80gb_hbm3_1g.10gb            | h100_1g.10gb h100_1.10 h100_10gb      |
 | [Nibi](../clusters/nibi.md#node-characteristics)                   | H100-80gb     | 2/8   | nvidia_h100_80gb_hbm3_2g.20gb            | h100_2g.20gb h100_2.20 h100_20gb      |
 | [Nibi](../clusters/nibi.md#node-characteristics)                   | H100-80gb     | 3/8   | nvidia_h100_80gb_hbm3_3g.40gb            | h100_3g.40gb h100_3.40 h100_40gb      |
 | [Nibi](../clusters/nibi.md#node-characteristics)                   | MI300A-128gb  |       | mi300a                                   |                                       |
-| [Rorqual](../clusters/rorqual.md#node-characteristics)             | H100-80gb     |       | h100                                     |                                       |
-| [Rorqual](../clusters/rorqual.md#node-characteristics)             | H100-80gb     | 1/8   | nvidia_h100_80gb_hbm3_1g.10gb            | h100_1g.10gb h100_1.10 h100_10gb      |
-| [Rorqual](../clusters/rorqual.md#node-characteristics)             | H100-80gb     | 2/8   | nvidia_h100_80gb_hbm3_2g.20gb            | h100_2g.20gb h100_2.20 h100_20gb      |
-| [Rorqual](../clusters/rorqual.md#node-characteristics)             | H100-80gb     | 3/8   | nvidia_h100_80gb_hbm3_3g.40gb            | h100_3g.40gb h100_3.40 h100_40gb      |
+| [Rorqual](../clusters/rorqual.md)             | H100-80gb     |       | h100                                     |                                       |
+| [Rorqual](../clusters/rorqual.md)             | H100-80gb     | 1/8   | nvidia_h100_80gb_hbm3_1g.10gb            | h100_1g.10gb h100_1.10 h100_10gb      |
+| [Rorqual](../clusters/rorqual.md)             | H100-80gb     | 2/8   | nvidia_h100_80gb_hbm3_2g.20gb            | h100_2g.20gb h100_2.20 h100_20gb      |
+| [Rorqual](../clusters/rorqual.md)             | H100-80gb     | 3/8   | nvidia_h100_80gb_hbm3_3g.40gb            | h100_3g.40gb h100_3.40 h100_40gb      |
 | [Trillium](../clusters/trillium.md#node-characteristics)           | H100-80gb     |       | h100                                     |                                       |
 | [Killarney](../clusters/killarney.md#killarney-hardware-specifications) | H100-80gb     |       | h100                                     |                                       |
 | [Killarney](../clusters/killarney.md#killarney-hardware-specifications) | L40S-48gb     |       | l40s                                     |                                       |
-| [tamIA](../clusters/tamia.md#node-characteristics)                 | H100-80gb     |       | h100                                     |                                       |
-| [tamIA](../clusters/tamia.md#node-characteristics)                 | H200          |       | h200                                     |                                       |
+| [tamIA](../clusters/tamia.md)                 | H100-80gb     |       | h100                                     |                                       |
+| [tamIA](../clusters/tamia.md)                 | H200          |       | h200                                     |                                       |
 | [Vulcan](../clusters/vulcan.md#vulcan-hardware-specifications)     | L40S-48gb     |       | l40s                                     |                                       |
 
 GPU model specifiers (including MIG specifiers) available on any given cluster can be obtained from Slurm with the following command. This may be useful if the table above has not been updated with the latest changes.

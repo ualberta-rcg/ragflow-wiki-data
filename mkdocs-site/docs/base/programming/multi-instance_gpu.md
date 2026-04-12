@@ -119,7 +119,7 @@ nvidia-smi
 
 ## Finding which of your jobs should use an instance
 
-You can find information on current and past jobs on the [Narval usage portal (writing in progress)](portail.md).
+You can find information on current and past jobs on the Narval usage portal (writing in progress).
 
 Power consumption is a good indicator of the total computing power requested from the GPU. For example, the following job requested a full A100 GPU with a maximum TDP of 400W, but only used 100W on average, which is only 50W more than the idle electric consumption:
 
@@ -129,4 +129,4 @@ The final metrics to consider are the maximum amount of GPU memory and the avera
 
 It was also launched using a single CPU core. When taking into account these three last metrics, we can confirm that the job should easily run on a 3g.20GB or 4g.20GB GPU instance with power and memory to spare.
 
-Another way to monitor the usage of a running job is by [attaching to the node](../running-jobs/running_jobs.md#attaching-to-a-running-job) where the job is currently running and then by using `nvidia-smi` to read the GPU metrics in real time. This will not provide maximum and average values for memory and power usage of the entire job, but it may be helpful to identify and troubleshoot underperforming jobs.
+Another way to monitor the usage of a running job is by [attaching to the node](../running-jobs/running_jobs.md) where the job is currently running and then by using `nvidia-smi` to read the GPU metrics in real time. This will not provide maximum and average values for memory and power usage of the entire job, but it may be helpful to identify and troubleshoot underperforming jobs.

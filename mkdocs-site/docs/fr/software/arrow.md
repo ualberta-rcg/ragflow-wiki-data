@@ -178,7 +178,7 @@ Pour plus d'information, consultez la [documentation Arrow sur R](https://arrow.
 ## Dépannage 
 
 ### Ceci est une erreur normale générée par cette roue factice.
-Consultez [Ceci est une erreur normale générée par cette roue factice](dummywheel.md#ceci-est-une-erreur-normale-generee-par-cette-roue-factice).
+Consultez [Ceci est une erreur normale générée par cette roue factice](dummywheel.md).
 
 ### ModuleNotFoundError: No module named 'pyarrow'
 Lors de l'importation de `pyarrow`, l'erreur suivante peut survenir :

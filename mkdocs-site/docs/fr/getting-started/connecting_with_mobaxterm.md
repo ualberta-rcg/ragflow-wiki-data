@@ -36,7 +36,7 @@ status:
 ---
 
 !!! tip "Fonctionnalités avancées de MobaXterm"
-MobaXterm, comparé à PuTTY ([Connexion à un serveur avec PuTTY](connexion-avec-putty.md)), offre des fonctionnalités supplémentaires notables. Il intègre un client SFTP et un serveur X11, vous permettant d'exécuter des programmes graphiques à distance sans nécessiter de serveurs additionnels. De plus, MobaXterm peut utiliser vos sessions PuTTY existantes, vous évitant de reconfigurer vos paramètres.
+MobaXterm, comparé à PuTTY (Connexion à un serveur avec PuTTY), offre des fonctionnalités supplémentaires notables. Il intègre un client SFTP et un serveur X11, vous permettant d'exécuter des programmes graphiques à distance sans nécessiter de serveurs additionnels. De plus, MobaXterm peut utiliser vos sessions PuTTY existantes, vous évitant de reconfigurer vos paramètres.
 
 Pour vous connecter à un serveur auquel vous n'êtes pas encore connecté avec MobaXterm ou PuTTY : sous *Sessions* -> *Nouvelle session*, sélectionnez *SSH*. Entrez ensuite l'adresse du serveur et votre nom d'utilisateur (s'il y a lieu, cochez *Spécifier le nom d'utilisateur*). Cliquez sur *OK*.
 
@@ -55,4 +55,4 @@ Pour activer la redirection X11 et permettre l'utilisation d'applications graphi
 
 ## Paire de clés SSH
 
-Dans le panneau de gauche, cliquez sur le nom de la session avec le bouton droit de la souris, puis sélectionnez *Modifier la session*; ceci affiche la fenêtre *Paramètres de la session*. Sélectionnez *Paramètres SSH avancés* et cochez *Utiliser une clé privée*. Pour sélectionner la clé privée que vous souhaitez utiliser, cliquez sur l'icône de moniteur dans la partie droite de la fenêtre; ceci affiche la liste des clés parmi lesquelles faire votre choix. Pour créer une paire de clés, consultez [Générer des clés SSH sous Windows](generer-des-cles-ssh-sous-windows.md).
+Dans le panneau de gauche, cliquez sur le nom de la session avec le bouton droit de la souris, puis sélectionnez *Modifier la session*; ceci affiche la fenêtre *Paramètres de la session*. Sélectionnez *Paramètres SSH avancés* et cochez *Utiliser une clé privée*. Pour sélectionner la clé privée que vous souhaitez utiliser, cliquez sur l'icône de moniteur dans la partie droite de la fenêtre; ceci affiche la liste des clés parmi lesquelles faire votre choix. Pour créer une paire de clés, consultez Générer des clés SSH sous Windows.

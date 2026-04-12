@@ -178,7 +178,7 @@ Ensuite, modifiez votre variable `$PATH` pour qu'elle pointe vers le sous-réper
 export PATH=~/meta-farm/bin:$PATH
 ```
 
-Puis, procédez comme indiqué dans le [guide de démarrage rapide](meta-farm.md#demarrage-rapide) de META à partir de l'étape `farm_init.run`.
+Puis, procédez comme indiqué dans le [guide de démarrage rapide](meta-farm.md) de META à partir de l'étape `farm_init.run`.
 
 ### Transmettre des arguments sbatch additionnels
 
@@ -192,7 +192,7 @@ submit.run -1 --mem 4G
 
 ### Applications multifils
 
-Pour les [applications multifils](running_jobs.md#applications-multifils-ou-openmp) (telles que celles qui utilisent [OpenMP](https://docs.alliancecan.ca/wiki/OpenMP), par exemple), ajoutez les lignes suivantes à `job_script.sh` :
+Pour les [applications multifils](running_jobs.md) (telles que celles qui utilisent [OpenMP](https://docs.alliancecan.ca/wiki/OpenMP), par exemple), ajoutez les lignes suivantes à `job_script.sh` :
 
 ```bash
 #SBATCH --cpus-per-task=N

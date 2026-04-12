@@ -82,7 +82,7 @@ Les principales composantes sont :
 
 ## Images Apptainer
 
-Pour créer une image Apptainer (auparavant [Singularity](../containers/apptainer.md#utilisez-plutot-apptainer)) pour RAPIDS, il faut d'abord trouver et choisir une image Docker fournie par NVIDIA.
+Pour créer une image Apptainer (auparavant [Singularity](../containers/apptainer.md)) pour RAPIDS, il faut d'abord trouver et choisir une image Docker fournie par NVIDIA.
 
 ### Trouver une image Docker
 
@@ -144,7 +144,7 @@ Apptainer> jupyter-lab --ip $(hostname -f) --no-browser
 !!! note
     À compter de la version 23.08, RAPIDS n'a pas besoin d'être activé après le démarrage de Conda, puisque tous les paquets sont inclus dans l'environnement Conda de base qui est activé par défaut. Par exemple, vous pouvez lancer le serveur Jupyter Notebook directement dans l'interpréteur du conteneur.
 
-Si un nœud de calcul n'est pas connecté directement à Internet, il faut configurer un tunnel SSH pour effectuer la redirection de port entre votre ordinateur et le nœud GPU. Pour plus de détails, consultez [comment se connecter à Jupyter Notebook](../../getting-started/advanced_jupyter_configuration.md#se-connecter-a-jupyterlab).
+Si un nœud de calcul n'est pas connecté directement à Internet, il faut configurer un tunnel SSH pour effectuer la redirection de port entre votre ordinateur et le nœud GPU. Pour plus de détails, consultez [comment se connecter à Jupyter Notebook](../../getting-started/advanced_jupyter_configuration.md).
 
 ### Soumettre une tâche RAPIDS à l'ordonnanceur
 

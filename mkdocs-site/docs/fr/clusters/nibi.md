@@ -189,7 +189,7 @@ Après avoir rempli le formulaire avec les détails, cliquez sur *Lancer* pour s
 
 Pour les détails sur la préconfiguration, voir [Interface JupyterLab](../interactive/jupyterlab.md#interface-jupyterlab).
 
-**Option 2** : travailler dans un [environnement virtuel Python](../software/python.md#creer-et-utiliser-un-environnement-virtuel-python) que vous avez créé
+**Option 2** : travailler dans un [environnement virtuel Python](../software/python.md) que vous avez créé
 
 Quand la connexion au [portail Nibi Open OnDemand](https://ondemand.sharcnet.ca) est établie, cliquez sur *Nœud de calcul* dans le menu du haut et sélectionnez *Bureau de calcul*. Une page sera affichée dans laquelle un formulaire vous permet de demander une nouvelle session Bureau de calcul.
 

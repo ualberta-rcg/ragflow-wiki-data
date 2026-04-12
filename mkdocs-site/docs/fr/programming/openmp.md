@@ -88,7 +88,7 @@ Il n'est cependant pas possible d'exécuter *le même fil sur plusieurs processe
 Un autre point important concernant les fils est la synchronisation. Lorsque plusieurs fils d'un même programme effectuent des calculs en même temps, on ne peut absolument pas présumer de l'ordre dans lequel ils vont s'effectuer. Si un ordre déterminé est nécessaire pour assurer l'intégrité du code, le programmeur utilisera les directives de synchronisation d'OpenMP. La méthode exacte de distribution sur les fils demeure inconnue du programmeur, mais il existe toutefois des fonctionnalités de contrôle (voir [affinité processeur](https://en.wikipedia.org/wiki/Processor_affinity)).
 
 !!! tip "Conseil"
-    Pour paralléliser un programme avec OpenMP ou toute autre technique, il importe de considérer la capacité du programme à s'exécuter en parallèle, ce que nous appellerons sa [scalabilité](scalabilite.md). Après avoir parallélisé votre logiciel et que sa qualité vous satisfait, nous vous recommandons d'effectuer une analyse de sa scalabilité pour en comprendre la performance.
+    Pour paralléliser un programme avec OpenMP ou toute autre technique, il importe de considérer la capacité du programme à s'exécuter en parallèle, ce que nous appellerons sa scalabilité. Après avoir parallélisé votre logiciel et que sa qualité vous satisfait, nous vous recommandons d'effectuer une analyse de sa scalabilité pour en comprendre la performance.
 
 Pour des renseignements sur l'utilisation d'OpenMP sous Linux, consultez ce [tutoriel](http://www.admin-magazine.com/HPC/Articles/Programming-with-OpenMP).
 

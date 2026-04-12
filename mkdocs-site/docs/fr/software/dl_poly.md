@@ -58,7 +58,7 @@ DL_POLY est un logiciel classique de simulation en mécanique moléculaire. Sa c
 
 ## Licence
 
-**DL_POLY** est maintenant [*open source*](https://gitlab.com/DL%20POLY%20Classic/dl%20poly) et il n'est pas nécessaire de vous enregistrer. Le nouveau module **dl_poly4/5.1.0** est installé sous **StdEnv/2023** et est disponible à toutes et à tous. Cependant, si vous voulez utiliser une version antérieure (**dl_poly4/4.10.0** et/ou **dl_poly4/4.08**), écrivez au [soutien technique](../support/technical_support.md#fr) et demandez de vous ajouter à un groupe POSIX qui contrôle l'accès à DL_POLY4. Il n'est pas nécessaire de vous enregistrer sur le site web de DL_POLY.
+**DL_POLY** est maintenant [*open source*](https://gitlab.com/DL%20POLY%20Classic/dl%20poly) et il n'est pas nécessaire de vous enregistrer. Le nouveau module **dl_poly4/5.1.0** est installé sous **StdEnv/2023** et est disponible à toutes et à tous. Cependant, si vous voulez utiliser une version antérieure (**dl_poly4/4.10.0** et/ou **dl_poly4/4.08**), écrivez au [soutien technique](../support/technical_support.md) et demandez de vous ajouter à un groupe POSIX qui contrôle l'accès à DL_POLY4. Il n'est pas nécessaire de vous enregistrer sur le site web de DL_POLY.
 
 ## Modules
 
@@ -82,7 +82,7 @@ L’interface graphique Java n’est pas offerte.
 
 ## Scripts et exemples
 
-Les fichiers d’entrée CONTROL et FIELD proviennent de l’exemple TEST01 téléchargé à partir de [exemples DL_POLY](ftp://ftp.dl.ac.uk/ccp5/DL_POLY/DL_POLY_4.0/DATA/).
+Les fichiers d’entrée CONTROL et FIELD proviennent de l’exemple TEST01 téléchargé à partir de exemples DL_POLY.
 
 Pour lancer une simulation, il faut au moins les trois fichiers suivants :
 

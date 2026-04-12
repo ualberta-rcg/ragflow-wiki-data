@@ -147,9 +147,9 @@ A job script requesting whole nodes should look like this:
 !!! warning "Avoid `--mem=0` for specific memory needs"
     If you need more memory per node than the smallest node provides (e.g. more than 748 GiB at Nibi) then you **should not** use `--mem=0`, but request the amount explicitly. Furthermore, some memory on each node is reserved for the operating system. To find the largest amount your job can request and still qualify for a given node type, see the *Available memory* column of the *Node characteristics* table for each cluster.
     *   [Fir node characteristics](../software/fir.md#node-characteristics)
-    *   [Narval node characteristics](../clusters/narval.md#node-characteristics)
+    *   [Narval node characteristics](../clusters/narval.md)
     *   [Nibi node characteristics](../clusters/nibi.md#node-characteristics)
-    *   [Rorqual node characteristics](../clusters/rorqual.md#node-characteristics)
+    *   [Rorqual node characteristics](../clusters/rorqual.md)
 
 ### Few cores, single node
 

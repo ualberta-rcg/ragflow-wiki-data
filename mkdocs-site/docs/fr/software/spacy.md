@@ -48,14 +48,14 @@ La commande suivante montre le plus récent build de `spaCy`.
 avail_wheels spacy thinc thinc_gpu_ops
 ```
 
-Voyez [Lister les *wheels* disponibles](python/lister-les-wheels-disponibles.md).
+Voyez Lister les *wheels* disponibles.
 
 ### *Wheels* précompilés
 
 L’option privilégiée est de l’installer avec un [wheel](https://pythonwheels.com/) Python précompilé.
 
 1.  Chargez le module `python/3.6`.
-2.  Créez et activez un [environnement virtuel](python/creer-et-utiliser-un-environnement-virtuel.md).
+2.  Créez et activez un environnement virtuel.
 3.  Installez `spaCy` dans l’environnement virtuel avec `pip install`.
     *   Pour les CPU et les GPU :
         ```bash

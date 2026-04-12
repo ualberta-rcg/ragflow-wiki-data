@@ -306,7 +306,7 @@ Le programme [LS-PrePost](https://www.lstc.com/products/ls-prepost) permet le pr
 
 ## Nœuds VDI
 1.  Avec le navigateur de votre ordinateur, connectez-vous à un système OnDemand avec l'une des URL suivantes :
-    *   [NIBI](../clusters/nibi.md#acces-via-ondemand) : `https://ondemand.sharcnet.ca`
+    *   [NIBI](../clusters/nibi.md) : `https://ondemand.sharcnet.ca`
     *   FIR : `https://jupyterhub.fir.alliancecan.ca`
     *   RORQUAL : `https://jupyterhub.rorqual.alliancecan.ca`
     *   TRILLIUM : `https://ondemand.scinet.utoronto.ca`

@@ -147,7 +147,7 @@ On your computer, open a new terminal window and run the following `sshuttle` co
 sshuttle --dns -Nr userid@machine_name
 ```
 
-Then, copy and paste the application's URL into your browser. If your application is a [Jupyter notebook](../software/jupyter.md#starting-jupyter-notebook), for example, you are given a URL with a token:
+Then, copy and paste the application's URL into your browser. If your application is a [Jupyter notebook](../software/jupyter.md), for example, you are given a URL with a token:
 ```text
  http://fc3281.int.fir.alliancecan.ca:8888/?token=7ed7059fad64446f837567e32af8d20efa72e72476eb72ca
 ```
@@ -158,7 +158,7 @@ An SSH tunnel can be created from Windows using [MobaXTerm](connecting_with_moba
 
 Open two sessions in MobaXTerm.
 
-*   Session 1 should be a connection to a cluster. Start your job there following the instructions for your application, such as [Jupyter Notebook](../software/jupyter.md#starting-jupyter-notebook). You should be given a URL that includes a host name and a port, such as `fc3281.int.fir.alliancecan.ca:8888` for example.
+*   Session 1 should be a connection to a cluster. Start your job there following the instructions for your application, such as [Jupyter Notebook](../software/jupyter.md). You should be given a URL that includes a host name and a port, such as `fc3281.int.fir.alliancecan.ca:8888` for example.
 
 *   Session 2 should be a local terminal in which we will set up the SSH tunnel. Run the following command, replacing this example host name with the one from the URL you received in Session 1.
 
@@ -168,7 +168,7 @@ ssh -L 8888:fc3281.int.fir.alliancecan.ca:8888 someuser@fir.alliancecan.ca
 
 This command forwards connections to **local port** 8888 to port 8888 on fc3281.int.fir.alliancecan.ca, the **remote port**. The local port number, the first one, does not *need* to match the remote port number, the second one, but it is conventional and reduces confusion.
 
-Modify the URL you were given in Session 1 by replacing the host name with `localhost`. Again using an example from [Jupyter Notebook](../software/jupyter.md#starting-jupyter-notebook), this would be the URL to paste into a browser:
+Modify the URL you were given in Session 1 by replacing the host name with `localhost`. Again using an example from [Jupyter Notebook](../software/jupyter.md), this would be the URL to paste into a browser:
 ```text
  http://localhost:8888/?token=7ed7059fad64446f837567e32af8d20efa72e72476eb72ca
 ```

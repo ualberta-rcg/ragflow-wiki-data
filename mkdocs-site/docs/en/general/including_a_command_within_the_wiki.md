@@ -47,7 +47,7 @@ cd src; make && make install; cd ..
 ## Special characters `{{=}}` and `{{!}}`
 Since `{{Command}}` is a template, the "=" and "|" signs are interpreted by the wiki.
 
-To include an equality sign, use the [meta-template `{{=}}`](template-equals.md). For example, the code:
+To include an equality sign, use the meta-template `{{=}}`. For example, the code:
 ```text
 {{Command|./configure --prefix{{=}}$HOME && make && make install}}
 ```

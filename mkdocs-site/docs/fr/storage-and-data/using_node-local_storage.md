@@ -70,7 +70,7 @@ Cependant, ceci pourrait ne pas fonctionner avec une grande quantité de donnée
 
 Un cas particulier se présente avec du code comme donnée en entrée. Pour exécuter une application, l'interpréteur (*shell*) démarré par Slurm doit ouvrir au moins un des fichiers de cette application dont la lecture s'effectue généralement sur l'espace de stockage du réseau. Il est rare qu'une application ne soit lancée qu'avec un seul fichier; en effet, la plupart des applications font aussi appel à plusieurs fichiers, par exemple des bibliothèques.
 
-Nous remarquons en particulier que les applications exécutées dans un environnement virtuel [Python](../software/python.md) génèrent un très grand nombre de transactions I/O, plus qu'il n'en faut d'ailleurs pour créer l'environnement virtuel lui-même. C'est pourquoi notre recommandation est de [créer un environnement virtuel dans vos tâches](../software/python.md#creer-un-environnement-virtuel-dans-vos-taches) avec `$SLURM_TMPDIR`.
+Nous remarquons en particulier que les applications exécutées dans un environnement virtuel [Python](../software/python.md) génèrent un très grand nombre de transactions I/O, plus qu'il n'en faut d'ailleurs pour créer l'environnement virtuel lui-même. C'est pourquoi notre recommandation est de [créer un environnement virtuel dans vos tâches](../software/python.md) avec `$SLURM_TMPDIR`.
 
 ## Données en sortie
 
@@ -133,6 +133,6 @@ Pour les grappes d'usage général, la quantité d'espace disponible dépend de 
 | [Nibi](../clusters/nibi.md) | 3T | 3T, 11T |
 | [Rorqual](../clusters/rorqual.md) | 375G | 480G, 3.84T |
 
-Si votre tâche réserve des [nœuds entiers](../running-jobs/advanced_mpi_scheduling.md#noeuds-entiers), il est raisonnable de penser qu'autant d'espace `$SLURM_TMPDIR` sera disponible sur chaque nœud. Par contre, si votre tâche demande moins qu'un nœud entier, les autres tâches pourront aussi écrire dans le même système de fichiers (mais non dans le même répertoire) et ainsi limiter l'espace disponible pour votre tâche.
+Si votre tâche réserve des [nœuds entiers](../running-jobs/advanced_mpi_scheduling.md), il est raisonnable de penser qu'autant d'espace `$SLURM_TMPDIR` sera disponible sur chaque nœud. Par contre, si votre tâche demande moins qu'un nœud entier, les autres tâches pourront aussi écrire dans le même système de fichiers (mais non dans le même répertoire) et ainsi limiter l'espace disponible pour votre tâche.
 
 À chacun des sites, certains nœuds ont plus d'espace disque local qu'indiqué dans le tableau; voyez la section *Caractéristiques des nœuds* pour chacune des grappes ([Fir](../software/fir.md), [Narval](../clusters/narval.md), [Nibi](../clusters/nibi.md), [Rorqual](../clusters/rorqual.md)).

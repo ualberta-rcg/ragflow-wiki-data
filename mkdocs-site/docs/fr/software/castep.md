@@ -57,7 +57,7 @@ Vous devriez pouvoir charger le module avec :
 [name@server ~]$ module load castep
 ```
 
-Sur un nœud de calcul, l'exécutable CASTEP peut être utilisé comme une [application MPI](../running-jobs/running_jobs.md#taches-mpi) :
+Sur un nœud de calcul, l'exécutable CASTEP peut être utilisé comme une [application MPI](../running-jobs/running_jobs.md) :
 
 ```bash
 [name@server ~]$ srun castep.mpi seedname

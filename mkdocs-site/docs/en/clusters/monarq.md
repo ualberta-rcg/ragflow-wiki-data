@@ -162,7 +162,7 @@ The quantum logic gates of the MonarQ processor are called through a [Snowflurry
 *   [Foire aux questions (FAQ)](https://docs.google.com/document/d/13sfHwJTo5tcmzCZQqeDmAw005v8I5iFeKp3Xc_TdT3U/edit?tab=t.0)
 
 ## Other tools
-*   [Quantum transpilation](quantum-transpilation.md)
+*   Quantum transpilation
 
 ## Applications
 MonarQ is suited for computations requiring small quantities of high-fidelity qubits, making it an ideal tool to develop and test quantum algorithms. Other possible applications include modelling small quantum systems; testing new methods and techniques for quantum programming and error correction; and more generally, fundamental research in quantum computing.

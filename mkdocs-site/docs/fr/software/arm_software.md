@@ -177,4 +177,4 @@ Quand vous aurez terminé avec DDT, vous pourrez, au choix, revenir aux permissi
 ## Pour plus d'information
 
 *   ["Debugging your code with DDT"](https://youtu.be/Q8HwLg22BpY) (vidéo d'une durée de 55 minutes)
-*   [*Parallel debugging with DDT*](parallel-debugging-with-ddt.md) (court tutoriel)
+*   *Parallel debugging with DDT* (court tutoriel)

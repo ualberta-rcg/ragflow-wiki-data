@@ -142,7 +142,7 @@ Les permissions Linux offrent une couche de protection à votre recherche. Évit
 
 **Erreur n° 1** : Permettre l'accès général à un fichier avec la commande `chmod 777 name_of_file`.
 
-Assurez-vous de bien comprendre le [fonctionnement des permissions Linux](../storage-and-data/sharing_data.md#permissions-des-syst%C3%A8mes-de-fichiers) et de limiter l'accès à vos fichiers en cas de besoin seulement.
+Assurez-vous de bien comprendre le [fonctionnement des permissions Linux](../storage-and-data/sharing_data.md) et de limiter l'accès à vos fichiers en cas de besoin seulement.
 
 **Erreur n° 2** : Ignorer le *sticky bit*, ce qui peut mener à la suppression de vos fichiers par un autre utilisateur ou utilisatrice.
 
@@ -150,4 +150,4 @@ Dans le cas de fichiers partagés où plusieurs ont les permissions de lecture e
 
 **Erreur n° 3** : Permettre l'accès à plusieurs personnes individuellement plutôt qu'à un groupe.
 
-La [gestion des listes de contrôle d'accès](../storage-and-data/sharing_data.md#listes-de-contr%C3%B4le-d%27acc%C3%A8s) peut devenir rapidement complexe. La meilleure pratique est de donner des permissions à un groupe plutôt qu'à plusieurs personnes.
+La [gestion des listes de contrôle d'accès](../storage-and-data/sharing_data.md) peut devenir rapidement complexe. La meilleure pratique est de donner des permissions à un groupe plutôt qu'à plusieurs personnes.

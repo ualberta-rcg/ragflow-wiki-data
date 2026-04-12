@@ -227,7 +227,7 @@ comsol batch -inputfile $INPUTFILE -outputfile $OUTPUTFILE -np $SLURM_CPUS_ON_NO
 
 ## Mode graphique
 
-Pour exécuter COMSOL en mode graphique, ouvrez une session de bureau à distance sur un système [OnDemand](../clusters/nibi.md#acces-via-open-ondemand-ood) ou JupyterLab en cliquant sur les liens ci-dessous.
+Pour exécuter COMSOL en mode graphique, ouvrez une session de bureau à distance sur un système [OnDemand](../clusters/nibi.md) ou JupyterLab en cliquant sur les liens ci-dessous.
 
 !!! note "Remarque"
     L'ancienne méthode utilisant un client/serveur [TigerVNC](../interactive/vnc.md) devrait toujours fonctionner, mais elle n'est plus recommandée ni prise en charge. Quelle que soit la méthode utilisée, le fichier `~/.licenses/comsol.lic` doit être configuré au préalable. Veuillez noter que la commande `module avail comsol` affichera les versions de COMSOL disponibles dans la version de StdEnv actuellement chargée (par exemple, `StdEnv/2023`). Si vous constatez que les éléments du menu supérieur sont grisés et non sélectionnables après avoir démarré COMSOL en mode interface graphique, votre fichier *~/.comsol* est peut-être corrompu; essayez donc de le supprimer.
@@ -235,7 +235,7 @@ Pour exécuter COMSOL en mode graphique, ouvrez une session de bureau à distanc
 ### OnDemand
 
 1.  Sur votre bureau, démarrez une session OnDemand en cliquant sur une des URL ci-dessous :
-    *   [Nibi](../clusters/nibi.md#acces-via-open-ondemand-ood) : `https://ondemand.sharcnet.ca`
+    *   [Nibi](../clusters/nibi.md) : `https://ondemand.sharcnet.ca`
     *   TRILLIUM : `https://ondemand.scinet.utoronto.ca`
 2.  Sur le bureau, ouvrez une nouvelle fenêtre de terminal et lancez les commandes correspondantes pour :
     *   **COMSOL 6.2 (ou versions plus récentes)**

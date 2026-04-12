@@ -132,7 +132,7 @@ When in doubt, imitate the masters. Look at an existing page you like and follow
 *   Capitalize only the first word and [proper nouns](http://blog.apastyle.org/apastyle/2012/02/do-i-capitalize-this-word.html) in titles and headings. Following [Wikipedia](https://en.wikipedia.org/wiki/Wikipedia:Naming_conventions_(capitalization)), we prefer the [APA sentence case](http://blog.apastyle.org/apastyle/2012/03/title-case-and-sentence-case-capitalization-in-apa-style.html) for all titles, including page titles.
 
 ### Templates
-There are multiple [templates](special-uncategorizedtemplates.md) available. Please use them as appropriate. Of particular interest are templates for [Including a command within the wiki](including_a_command_within_the_wiki.md) and for [Including a source code file within the wiki](including_a_source_code_file_within_the_wiki.md).
+There are multiple templates available. Please use them as appropriate. Of particular interest are templates for [Including a command within the wiki](including_a_command_within_the_wiki.md) and for [Including a source code file within the wiki](including_a_source_code_file_within_the_wiki.md).
 
 ## Translation
 
@@ -143,7 +143,7 @@ Marking a page for translation will trigger an analysis of the content of the wi
 ### Mark a new page for translation
 When you have written a page, you should tag it for translation. Here are the steps to do so:
 
-1.  First, if the original language of the page is French, change it on [Special:PageLanguage](special-pagelanguage.md)
+1.  First, if the original language of the page is French, change it on Special:PageLanguage
 2.  Ensure that the content to be translated is enclosed within `<translate> </translate>` tags.
 3.  Conversely, please enclose code blocks in `</translate> <translate>` tags so that they are excluded from translation.
 4.  Likewise, try to exclude wiki markup (tables, tags, etc) from translation.
@@ -187,9 +187,9 @@ Here are some suggestions:
 ### Translating the sidebar
 To add an item that is to be translated in the sidebar, use the following steps:
 
-1.  add the new content to [MediaWiki:Sidebar](mediawiki-sidebar.md). Any item which should be translated should be added as either `some-tag` or, if it is a link, `{{(}}{{(}}int:some-tag{{)}}{{)}}`
-2.  add the tags to [MediaWiki:Sidebar-messages](mediawiki-sidebar-messages.md)
-3.  define the content of the tag in English on [MediaWiki:some-tag](mediawiki-some-tag.md) (replace `some-tag` by the actual tag)
+1.  add the new content to MediaWiki:Sidebar. Any item which should be translated should be added as either `some-tag` or, if it is a link, `{{(}}{{(}}int:some-tag{{)}}{{)}}`
+2.  add the tags to MediaWiki:Sidebar-messages
+3.  define the content of the tag in English on MediaWiki:some-tag (replace `some-tag` by the actual tag)
 4.  translate the content of the tag on [this page](https://docs.alliancecan.ca/mediawiki/index.php?title=Special:Translate&language=fr&group=wiki-sidebar&filter=%21translated&action=translate)
 
 ## "Available Software" Page

@@ -40,7 +40,7 @@ This is the primary source for users with questions on equipment and services of
 
 The focus here is on national services and systems. For documentation on services and systems managed by our regional partners, please use the links provided below.
 
-This wiki is a constant work-in-progress and some links might take you to pages which do not yet have content; such pages display [like this](like-this.md). Our staff works constantly to improve and expand the available documentation; note however that any of our users is free to add new material and edit existing content.
+This wiki is a constant work-in-progress and some links might take you to pages which do not yet have content; such pages display like this. Our staff works constantly to improve and expand the available documentation; note however that any of our users is free to add new material and edit existing content.
 
 ## Systems and services
 **Systems**
@@ -75,7 +75,7 @@ FAQ: [Frequently Asked Questions](../getting-started/frequently_asked_questions.
 * [Storage and file management](../storage-and-data/storage_and_file_management.md)
   * [Transferring data](../getting-started/transferring_data.md)
   * [Scratch purging policy](../storage-and-data/scratch_purging_policy.md)
-* [Best practices for data migration](best-practices-for-data-migration.md)
+* Best practices for data migration
 * [Using modules](../programming/utiliser_des_modules.md) and [Standard software environments](../programming/standard_software_environments.md) to access software
 * **[Running jobs](../running-jobs/running_jobs.md)**
 * [Installing software yourself](../getting-started/installing_software_in_your_home_directory.md)

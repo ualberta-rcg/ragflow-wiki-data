@@ -41,7 +41,7 @@ OpenACC makes it relatively easy to offload vectorized code to accelerators such
 Similar to [OpenMP](openmp.md), OpenACC can convert a `for` loop into parallel code that would run on an accelerator. This can be achieved with compiler directives `#pragma acc ...` before structured blocks of code like, for example, a `for` loop. All supported `pragma` directives are described in the [OpenACC specification](https://www.openacc.org/specification).
 
 ## Code examples
-OpenACC can be used in [Fortran](fortran.md), [C](c.md) and [C++](cpp.md), which we illustrate here using a simple program that computes a decimal approximation to π based on a definite integral which is equal to arctan(1), i.e. π/4.
+OpenACC can be used in [Fortran](fortran.md), [C](c.md) and C++, which we illustrate here using a simple program that computes a decimal approximation to π based on a definite integral which is equal to arctan(1), i.e. π/4.
 
 ```c title="pi.c"
 #include <stdio.h>

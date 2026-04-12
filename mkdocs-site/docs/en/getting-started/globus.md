@@ -297,7 +297,7 @@ The Globus command-line interface is a Python module which can be installed usin
    ```bash
    $ source $HOME/.globus-cli-virtualenv/bin/activate
    ```
-3. Install Globus CLI into the virtual environment (see [installing modules](../software/python.md#installing-modules)).
+3. Install Globus CLI into the virtual environment (see [installing modules](../software/python.md)).
    ```bash
    $ pip install globus-cli
    ```

@@ -78,7 +78,7 @@ PennyLane est un projet à code source ouvert avec une communauté active de dé
 Un [transpileur quantique](transpileur_quantique.md) est également disponible à partir de PennyLane afin d'optimiser ses circuits pour [MonarQ](../../clusters/monarq.md).
 
 ## Création de l'environnement virtuel
-[Créons un environnement virtuel Python](../python.md#creer-et-utiliser-un-environnement-virtuel) pour utiliser PennyLane.
+[Créons un environnement virtuel Python](../python.md) pour utiliser PennyLane.
 
 ```bash
 module load python/3.11

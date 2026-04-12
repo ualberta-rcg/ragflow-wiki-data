@@ -36,7 +36,7 @@ status:
 ---
 
 # Getting Access to Files
-To access the new systems, please use your Compute Canada credentials. For more information, please see [this page](migration2016-user-accounts-and-groups.md).
+To access the new systems, please use your Compute Canada credentials. For more information, please see this page.
 
 ## Globus Access
 You can transfer files from your personal computer or another Compute Canada system using the Globus transfer service with the endpoint `computecanada#new-endpoint` as the source or destination. Globus is a fast, easy, secure way to transfer files designed for researchers. You can find more information about it on our [Globus](../getting-started/globus.md) page.

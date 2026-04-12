@@ -50,7 +50,7 @@ status:
 ---
 
 *Parent page: [Storage and file management](storage_and_file_management.md)*
-*See also: [Disk quota exceeded error on /project filesystems](../getting-started/frequently_asked_questions.md#disk-quota-exceeded-error-on-project-filesystems)*
+*See also: [Disk quota exceeded error on /project filesystems](../getting-started/frequently_asked_questions.md)*
 
 The project filesystem on our compute clusters is organized on the basis of **groups**. The normal method to access the project space is by means of symbolic links which exist in your home directory. These will have the form `$HOME/projects/group_name` apart from the clusters [Rorqual](../clusters/rorqual.md) and [Trillium](../clusters/trillium.md) where the path will take the form `$HOME/links/projects/group_name`.
 
@@ -99,7 +99,7 @@ newgrp rrg-profname-ab
 and then to copy any data to the appropriate project directory. This will only change your default group for this particular session however - at your next login you will need to reuse the `newgrp` command if you wish to change the default group again.
 
 !!! warning "Disk quota exceeded errors"
-    Note that if you are getting *disk quota exceeded* error messages (see [Disk quota exceeded error on /project filesystems](../getting-started/frequently_asked_questions.md#disk-quota-exceeded-error-on-project-filesystems)), this may well be due to files being associated with the wrong group, notably your personal group, i.e. the one with the same name as your username and which has a quota of only 2 MB. To find and fix the group membership of such files you can use the command:
+    Note that if you are getting *disk quota exceeded* error messages (see [Disk quota exceeded error on /project filesystems](../getting-started/frequently_asked_questions.md)), this may well be due to files being associated with the wrong group, notably your personal group, i.e. the one with the same name as your username and which has a quota of only 2 MB. To find and fix the group membership of such files you can use the command:
 
     ```bash
     find <directory name> -group $USER -print0 | xargs -0 chgrp -h <group>

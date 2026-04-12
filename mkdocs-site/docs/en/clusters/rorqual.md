@@ -117,7 +117,7 @@ Each job should have a duration of at least one hour (at least five minutes for 
 | PROJECT       | Lustre filesystem, 62 PB                                                                                                                                                             |
 |               | * Accessible via symbolic link `$HOME/links/projects/nom-du-projet`                                                                                                                  |
 |               | * Designed for sharing data among the members of a research group and for storing large amounts of data                                                                                |
-|               | * Large and adjustable per group [quotas](../storage-and-data/storage_and_file_management.md#quotas-et-politiques)                                                                                       |
+|               | * Large and adjustable per group [quotas](../storage-and-data/storage_and_file_management.md)                                                                                       |
 |               | * Daily backup                                                                                                                                                                       |
 
 For transferring data via [Globus](../getting-started/globus.md), use the endpoint specified at the top of this page; for tools like [rsync](../getting-started/transferring_data.md#rsync) and [scp](../getting-started/transferring_data.md#scp), please use the login node.

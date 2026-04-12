@@ -77,7 +77,7 @@ La fenêtre affichée est semblable dans les deux cas. Elle peut servir à gén�
 !!! note "Recommandation"
     Nous vous encourageons à enregistrer votre clé publique SSH dans la CCDB, ce qui vous permettra de l'utiliser pour vous connecter à toutes nos grappes.
 
-Copiez le contenu de la zone de texte *Clé publique à coller dans OpenSSH ...* et collez-la dans la zone de texte [dans la CCDB, option Mon compte -> Gérer vos clés SSH](https://ccdb.computecanada.ca/ssh_authorized_keys). Pour plus d'information, voyez le paragraphe [*Par la base de données CCDB*](ssh_keys.md#par-la-base-de-donnees-ccdb).
+Copiez le contenu de la zone de texte *Clé publique à coller dans OpenSSH ...* et collez-la dans la zone de texte [dans la CCDB, option Mon compte -> Gérer vos clés SSH](https://ccdb.computecanada.ca/ssh_authorized_keys). Pour plus d'information, voyez le paragraphe [*Par la base de données CCDB*](ssh_keys.md).
 
 ### Installation locale
 
@@ -90,7 +90,7 @@ Vous pouvez aussi utiliser l'outil `ssh-copy-id` s'il est disponible sur votre o
 
 ## Se connecter avec une paire de clés
 
-Testez la nouvelle clé en vous connectant au serveur avec SSH; voyez comment [avec PuTTY](connecting_with_putty.md#paire-de-cles-ssh); [avec MobaXTerm](connecting_with_mobaxterm.md#paire-de-cles-ssh); ou [avec WinSCP](https://winscp.net/eng/docs/ui_login_authentication).
+Testez la nouvelle clé en vous connectant au serveur avec SSH; voyez comment [avec PuTTY](connecting_with_putty.md); [avec MobaXTerm](connecting_with_mobaxterm.md); ou [avec WinSCP](https://winscp.net/eng/docs/ui_login_authentication).
 
 Pour une démonstration avec PuTTY, voyez la vidéo YouTube [Easily setup PuTTY SSH keys for passwordless logins using Pageant](https://www.youtube.com/watch?v=2nkAQ9M6ZF8).
 

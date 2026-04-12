@@ -106,7 +106,7 @@ OPENCV_IO_ENABLE_OPENEXR=1 python <file>
 
 ## Ceci est une erreur normale générée par ce wheel factice.
 
-Voir [Ceci est une erreur normale générée par ce wheel factice](dummywheel.md#ceci-est-une-erreur-normale-generée-par-ce-wheel-factice).
+Voir [Ceci est une erreur normale générée par ce wheel factice](dummywheel.md).
 
 ## ModuleNotFoundError : Aucun module nommé 'cv2'
 

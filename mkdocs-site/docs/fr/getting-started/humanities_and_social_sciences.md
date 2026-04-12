@@ -58,7 +58,7 @@ La recherche en sciences humaines et sociales utilise des outils de calcul, des 
 *   le développement de compétences de calcul chez les chercheuses et chercheurs du domaine.
 
 !!! tip "Contacter l'équipe SHS"
-    En soutien à la recherche en sciences humaines et sociales, l'[Alliance de recherche numérique du Canada](https://alliancecan.ca/fr) a mis en place une équipe de professionnels. Vous pouvez les [joindre par courriel](../support/technical_support.md#demandes-d-assistance) en ajoutant ***(SHS)*** au début de l'objet du message. Vous pouvez également communiquer directement avec les membres de nos équipes listés ci-dessous.
+    En soutien à la recherche en sciences humaines et sociales, l'[Alliance de recherche numérique du Canada](https://alliancecan.ca/fr) a mis en place une équipe de professionnels. Vous pouvez les [joindre par courriel](../support/technical_support.md) en ajoutant ***(SHS)*** au début de l'objet du message. Vous pouvez également communiquer directement avec les membres de nos équipes listés ci-dessous.
 
 ## Membres de l'équipe
 

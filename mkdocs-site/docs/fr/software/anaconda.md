@@ -70,7 +70,7 @@ La première étape que vous devriez faire est de contacter notre [soutien techn
 
 ### Transitionner de Conda vers virtualenv
 
-[Virtualenv](python.md#creating-and-using-a-virtual-environment) vous offre toutes les fonctionnalités dont vous avez besoin pour utiliser Python sur nos grappes. Ceci devrait être le premier choix que vous explorez. Voici comment passer à virtualenv si vous utilisez Anaconda sur votre ordinateur personnel :
+[Virtualenv](python.md) vous offre toutes les fonctionnalités dont vous avez besoin pour utiliser Python sur nos grappes. Ceci devrait être le premier choix que vous explorez. Voici comment passer à virtualenv si vous utilisez Anaconda sur votre ordinateur personnel :
 
 1.  Listez les dépendances (requis) de l'application que vous voulez utiliser. Afin de ce faire, vous pouvez :
     *   Exécuter `` `pip show <nom_paquet>` `` depuis votre environnement virtuel (si le paquet existe sur [PyPI](https://pypi.org/)).
@@ -78,7 +78,7 @@ La première étape que vous devriez faire est de contacter notre [soutien techn
     *   Ou, vérifier la variable `` `install_requires` `` du fichier `` `setup.py` `` qui énumère les requis.
 2.  Trouvez quelles dépendances sont des paquets Python, et lesquelles sont des librairies fournies par Anaconda. Par exemple, CUDA et CuDNN sont des librairies disponibles sur l'Anaconda Cloud, mais que vous ne devez pas installer vous-même sur nos grappes. Elles sont déjà installées.
 3.  Retirez de la liste de dépendance tout ce qui n'est pas un paquet Python (par exemple, retirez `` `cudatoolkit` `` et `` `cudnn` ``).
-4.  Utilisez un [virtualenv](python.md#creating-and-using-a-virtual-environment), dans lequel vous installerez ces dépendances.
+4.  Utilisez un [virtualenv](python.md), dans lequel vous installerez ces dépendances.
 
 Votre application devrait fonctionner. Si ce n'est pas le cas, n'hésitez pas à contacter notre [soutien technique](../support/technical_support.md).
 

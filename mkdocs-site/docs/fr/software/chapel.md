@@ -54,7 +54,7 @@ Chapel est un langage de programmation parallèle compilé de haut niveau à usa
 
 Ces abstractions de haut niveau font de Chapel l'outil idéal pour apprendre la programmation parallèle en calcul de haute performance. Ce langage est incroyablement intuitif et vise à fusionner la facilité d'utilisation de [Python](python.md) avec les performances des langages compilés traditionnels tels que [C](../programming/c.md) et [Fortran](../programming/fortran.md). Les blocs parallèles qui nécessitent généralement des dizaines de lignes de code [MPI](mpi.md) peuvent être exprimés en seulement quelques lignes de code Chapel. Chapel est *open source* et peut fonctionner sur n'importe quel système d'exploitation de type Unix, avec une prise en charge matérielle allant des ordinateurs portables aux grands systèmes de CHP.
 
-Chapel a une base d'utilisateurs relativement petite, de sorte que de nombreuses bibliothèques existantes pour [C](../programming/c.md), [C++](cpp.md) et [Fortran](../programming/fortran.md) n'ont pas encore été implémentées en Chapel. Espérons que cela changera dans les années à venir si l'adoption de Chapel continue de prendre de l'ampleur au sein de la communauté de CHP.
+Chapel a une base d'utilisateurs relativement petite, de sorte que de nombreuses bibliothèques existantes pour [C](../programming/c.md), C++ et [Fortran](../programming/fortran.md) n'ont pas encore été implémentées en Chapel. Espérons que cela changera dans les années à venir si l'adoption de Chapel continue de prendre de l'ampleur au sein de la communauté de CHP.
 
 Pour plus d'information, consultez [nos webinaires Chapel](https://westgrid.github.io/trainingMaterials/programming/#chapel).
 

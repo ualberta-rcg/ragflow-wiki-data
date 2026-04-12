@@ -53,7 +53,7 @@ Les wheels factices sont présents dans l'entrepôt de wheels pour servir de sub
 
 Des exemples incluent :
 *   [pyarrow (Arrow)](arrow.md#pyarrow)
-*   [opencv_python (OpenCV)](opencv.md#python-bindings)
+*   [opencv_python (OpenCV)](opencv.md)
 *   [MPI4py](../programming/mpi4py.md)
 
 Lorsqu'un wheel factice est sélectionné par pip, il lèvera l'erreur ci-dessous car pip n'a pas pu trouver de correspondance pour cette exigence.

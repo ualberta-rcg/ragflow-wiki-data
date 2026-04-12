@@ -165,7 +165,7 @@ stoprule=yes stopval=0.005 relburnin=yes burninfrac=0.1 printfreq=1000
 append=yes checkfreq=1000;
 ```
 
-Créez ensuite le script pour la tâche. Dans cet exemple, nous utilisons un vecteur de tâches. Dans ce cas-ci, nous n'avons besoin que d'un (1) script et une (1) seule commande `sbatch` pour lancer les deux (2) tâches et ainsi l'ensemble des calculs. Voir [Vecteur de tâches](vecteur-de-taches.md) pour plus d'information au sujet du paramètre `--array`
+Créez ensuite le script pour la tâche. Dans cet exemple, nous utilisons un vecteur de tâches. Dans ce cas-ci, nous n'avons besoin que d'un (1) script et une (1) seule commande `sbatch` pour lancer les deux (2) tâches et ainsi l'ensemble des calculs. Voir Vecteur de tâches pour plus d'information au sujet du paramètre `--array`
 et de la variable `$SLURM_ARRAY_TASK_ID`.
 
 ```bash linenums="1" title="submit-mrbayes-cp.sh"

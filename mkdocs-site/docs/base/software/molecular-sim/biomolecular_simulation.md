@@ -90,7 +90,7 @@ This list contains a selection of useful wheels, but is not to be considered com
 *   [ParmEd](http://parmed.github.io/ParmEd/) is a general tool for aiding in investigations of biomolecular systems using popular molecular simulation packages.
 *   [PyRETIS](../pyretis.md) is a Python library for rare event molecular simulations with emphasis on methods based on transition interface sampling and replica exchange transition interface sampling.
 
-Please check the [list of available wheels](../../programming/available_python_wheels.md) and use the [avail_wheels command](../python.md#listing-available-wheels) on our clusters to see what is available.
+Please check the [list of available wheels](../../programming/available_python_wheels.md) and use the [avail_wheels command](../python.md) on our clusters to see what is available.
 
 If you require additional Python packages or newer versions, please [contact Support](../../support/technical_support.md).
 

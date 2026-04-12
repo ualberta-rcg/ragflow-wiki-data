@@ -48,7 +48,7 @@ To see the latest version of `spaCy` that we have built:
 avail_wheels spacy thinc thinc_gpu_ops
 ```
 
-For more information on listing wheels, see [listing available wheels](python.md#listing-available-wheels).
+For more information on listing wheels, see [listing available wheels](python.md).
 
 ### Pre-build
 

@@ -69,7 +69,7 @@ Sélectionnez une version (6.0.0 ou plus) dans la [liste des versions](https://s
 ## Installation avec EasyBuild dans votre répertoire /home
 
 !!! note
-    L’installation pourrait échouer par manque de mémoire, car les nœuds de connexion sont limités en termes de taille des paquets de mémoire. Pour contourner ce problème, vous devrez probablement utiliser une [tâche interactive](../../running-jobs/running_jobs.md#taches-interactives) et demander environ 8 Go.
+    L’installation pourrait échouer par manque de mémoire, car les nœuds de connexion sont limités en termes de taille des paquets de mémoire. Pour contourner ce problème, vous devrez probablement utiliser une [tâche interactive](../../running-jobs/running_jobs.md) et demander environ 8 Go.
 
 La procédure suivante installe FreeSurfer 6.0.0 dans `/home/$USER/.local/easybuild/software/2020/Core/freesurfer/6.0.0/`.
 

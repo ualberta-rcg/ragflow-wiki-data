@@ -57,7 +57,7 @@ status:
 
 Par le passé, vous deviez d'abord vous enregistrer et attendre la confirmation de l'équipe de développement, mais maintenant l'enregistrement n'est plus nécessaire. Cependant, les modules qui sont installés sur nos grappes sont protégés par un groupe POSIX.
 
-Pour pouvoir utiliser [CPMD](http://cpmd.org) sur nos grappes, écrivez au [soutien technique](../support/technical_support.md#fr) pour que nous vous ajoutions au groupe POSIX.
+Pour pouvoir utiliser [CPMD](http://cpmd.org) sur nos grappes, écrivez au [soutien technique](../support/technical_support.md) pour que nous vous ajoutions au groupe POSIX.
 
 ## Module
 

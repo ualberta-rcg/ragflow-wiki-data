@@ -55,7 +55,7 @@ JupyterHub provides a preconfigured version of JupyterLab and/or Jupyter Noteboo
 
 !!! warning "Running notebooks"
     Jupyter Lab and notebooks are meant for **short** interactive tasks such as testing, debugging or quickly visualize data (few minutes). Running longer analysis must be done in a [non-interactive job (sbatch)](../running-jobs/running_jobs.md#use-sbatch-to-submit-jobs).
-    See also [how to run notebooks as python scripts below](jupyterhub.md#running-notebooks-as-python-scripts).
+    See also [how to run notebooks as python scripts below](jupyterhub.md).
 
 ## Alliance initiatives
 

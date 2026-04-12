@@ -97,7 +97,7 @@ The GCC compiler's `-O3` option includes possibly unsafe optimizations for some 
 ##### Linking with older previously compiled binaries
 The transition from GCC version 4.9 to version 5.1 introduced a major change to its ABI. If all source code, including all dependent libraries, is recompiled using the same version of the compiler, then there will be no issues. If different compilers are used, the ABI change may cause linking to fail. The latter is likely to occur if you are linking to precompiled libraries provided in a vendor's product. If this occurs, you can use GCC's Dual ABI [^1] feature to tell GCC to use the old ABI in order for your application to link properly with those legacy libraries, e.g., you would pass `-D_GLIBCXX_USE_CXX11_ABI=0` to GCC if using GCC v5.1 or higher to link to libraries built using the older ABI.
 
-An example of how the ABI is affected by various GCC command-line options is detailed here: [GCC C++ Dual ABI](gcc-cpp-dual-abi.md).
+An example of how the ABI is affected by various GCC command-line options is detailed here: GCC C++ Dual ABI.
 
 Generally speaking, the C++ ABI is frequently updated. One should assume each major compiler release might break the C++ ABI enough that older binaries will have trouble linking C++ code. The solution is typically to keep using the same compiler, or, recompile the older binaries from source with the newer compiler. With GCC, such options can be controlled, e.g., see [this page](https://gcc.gnu.org/onlinedocs/gcc/C_002b_002b-Dialect-Options.html) on `-fabi-version`.
 

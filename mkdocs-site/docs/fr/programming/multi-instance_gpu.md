@@ -129,7 +129,7 @@ nvidia-smi
 
 ## Quand migrer une tâche sur une instance
 
-L'historique de vos tâches est disponible sur [le portail d'utilisation de Narval (préparation en cours)](portail.md).
+L'historique de vos tâches est disponible sur le portail d'utilisation de Narval (préparation en cours).
 
 La consommation d’énergie est un bon indicateur de la puissance de calcul totale demandée au GPU. Par exemple, le travail suivant nécessitait un GPU A100 entier avec une enveloppe thermique (TDP) maximale de 400 W, mais n'utilisait que 100 W en moyenne, soit seulement 50 W de plus que la consommation au repos.
 
@@ -139,4 +139,4 @@ Il faut aussi tenir compte de la quantité maximale de mémoire GPU et de la qua
 
 La tâche a aussi été lancée en utilisant un seul cœur de processeur. En tenant compte de ces trois métriques, nous voyons que la tâche pourrait facilement s'exécuter sur une instance de 3 g.20 Go ou de 4 g.20 Go avec de la puissance et de la mémoire à revendre.
 
-Un autre moyen de [surveiller l'utilisation d'une tâche en cours d'exécution](../running-jobs/running_jobs.md#surveillance-dune-tache-en-cours) consiste à se connecter au nœud sur lequel la tâche se trouve et utiliser `nvidia-smi` pour lire les métriques du GPU en temps réel. Cela ne fournira pas de valeurs maximales et moyennes pour la mémoire et la puissance de toute la tâche, mais pourrait être utile pour identifier une sous-utilisation du GPU.
+Un autre moyen de [surveiller l'utilisation d'une tâche en cours d'exécution](../running-jobs/running_jobs.md) consiste à se connecter au nœud sur lequel la tâche se trouve et utiliser `nvidia-smi` pour lire les métriques du GPU en temps réel. Cela ne fournira pas de valeurs maximales et moyennes pour la mémoire et la puissance de toute la tâche, mais pourrait être utile pour identifier une sous-utilisation du GPU.

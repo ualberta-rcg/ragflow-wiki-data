@@ -97,7 +97,7 @@ By means of these test jobs, you should gain some familiarity with how long cert
     * If your computation requires less than an hour, you should consider using tools like [GLOST](glost.md), [META](meta-farm.md) or [GNU Parallel](gnu_parallel.md) to regroup several of your computations into a single Slurm job with a duration of at least an hour. Hundreds or thousands of very short jobs place undue stress on the scheduler.
 * It is equally important that your estimate of the **job duration be relatively accurate**.
     * Asking for five days when the computation in reality finishes after just sixteen hours leads to your job spending much more time waiting to start than it would had you given a more accurate estimate of the duration.
-* **Use [monitoring tools](running_jobs.md#completed-jobs)** to see how long completed jobs took.
+* **Use [monitoring tools](running_jobs.md)** to see how long completed jobs took.
     * For example, the `Job Wall-clock time` field in the output of the `seff` command:
 
 ```bash

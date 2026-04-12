@@ -76,7 +76,7 @@ La commande ci-haut ne compresse pas les données. Si vous croyez que ce serait 
 
 ## Étape 3 : Préparation de l'environnement virtuel
 
-[Créez un environnement virtuel](../python.md#creer-et-utiliser-un-environnement-virtuel) dans votre espace personnel.
+[Créez un environnement virtuel](../python.md) dans votre espace personnel.
 
 Pour les détails d'installation et d'utilisation des différents frameworks d'apprentissage automatique, référez-vous à notre documentation :
 
@@ -85,7 +85,7 @@ Pour les détails d'installation et d'utilisation des différents frameworks d'a
 
 ## Étape 4 : Tâche interactive (salloc)
 
-Nous vous recommandons d'essayer votre tâche dans une [tâche interactive](../../running-jobs/running_jobs.md#taches-interactives) avant de la soumettre avec un script (voir la section suivante). Vous pourrez ainsi diagnostiquer plus rapidement les problèmes. Voici un exemple de la commande pour soumettre une tâche interactive :
+Nous vous recommandons d'essayer votre tâche dans une [tâche interactive](../../running-jobs/running_jobs.md) avant de la soumettre avec un script (voir la section suivante). Vous pourrez ainsi diagnostiquer plus rapidement les problèmes. Voici un exemple de la commande pour soumettre une tâche interactive :
 
 ```bash
 $ salloc --account=def-someuser --gres=gpu:1 --cpus-per-task=3 --mem=32000M --time=1:00:00
@@ -95,7 +95,7 @@ Une fois la tâche lancée :
 
 *   Activez votre environnement virtuel Python.
 *   Tentez d'exécuter votre programme.
-*   Installez les paquets manquants, si nécessaire. Les nœuds de calcul n'ayant pas d'accès à Internet, vous devrez faire l'installation à partir d'un nœud de connexion. Référez-vous à notre [documentation sur les environnements virtuels Python](../python.md#creer-et-utiliser-un-environnement-virtuel) pour plus de détails.
+*   Installez les paquets manquants, si nécessaire. Les nœuds de calcul n'ayant pas d'accès à Internet, vous devrez faire l'installation à partir d'un nœud de connexion. Référez-vous à notre [documentation sur les environnements virtuels Python](../python.md) pour plus de détails.
 *   Notez les étapes qui ont été nécessaires pour faire fonctionner votre programme.
 
 !!! info "Recommandation importante : Stockage local"
@@ -103,7 +103,7 @@ Une fois la tâche lancée :
 
 ## Étape 5 : Tâche scriptée (sbatch)
 
-Vous devez [soumettre vos tâches](../../running-jobs/running_jobs.md#soumettre-des-taches-avec-sbatch) à l'aide de scripts `sbatch`, afin qu'elles puissent être entièrement automatisées. Les tâches interactives servent uniquement à préparer et à déboguer des tâches qui seront ensuite exécutées entièrement et/ou à grande échelle en utilisant `sbatch`.
+Vous devez [soumettre vos tâches](../../running-jobs/running_jobs.md) à l'aide de scripts `sbatch`, afin qu'elles puissent être entièrement automatisées. Les tâches interactives servent uniquement à préparer et à déboguer des tâches qui seront ensuite exécutées entièrement et/ou à grande échelle en utilisant `sbatch`.
 
 ### Éléments importants d'un script `sbatch`
 

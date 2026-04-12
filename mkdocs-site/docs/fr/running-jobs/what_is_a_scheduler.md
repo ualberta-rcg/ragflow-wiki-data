@@ -122,7 +122,7 @@ echo 'Hello, world!'
 Le même fichier comprendrait aussi les erreurs, tout comme si les commandes étaient données interactivement. Il est cependant possible de séparer le canal stderr (pour *erreur standard*) du canal stdout (pour *sortie standard*) en utilisant l'option `-e` pour spécifier les noms des fichiers.
 
 ## Comptes et projets
-Les renseignements sur la tâche sont enregistrés pour que nous puissions faire un suivi de la qualité de nos services et faire rapport de la bonne utilisation des fonds aux organismes subventionnaires; ces renseignements relatifs aux tâches comprennent le temps en file d'attente, la durée d'exécution et le nombre de cœurs utilisés. Chaque tâche doit être associée à un nom de compte correspondant à un projet; voir la rubrique [RAP (projet d'allocation de ressources)](../getting-started/frequently_asked_questions_about_the_ccdb.md#rap-projet-dallocation-de-ressources).
+Les renseignements sur la tâche sont enregistrés pour que nous puissions faire un suivi de la qualité de nos services et faire rapport de la bonne utilisation des fonds aux organismes subventionnaires; ces renseignements relatifs aux tâches comprennent le temps en file d'attente, la durée d'exécution et le nombre de cœurs utilisés. Chaque tâche doit être associée à un nom de compte correspondant à un projet; voir la rubrique [RAP (projet d'allocation de ressources)](../getting-started/frequently_asked_questions_about_the_ccdb.md).
 
 ```bash
 #SBATCH --account=def-user-ab

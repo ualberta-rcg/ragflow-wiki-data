@@ -83,7 +83,7 @@ Nous décrivons ici les étapes pour configurer une interface de bureau avec VNC
     ```
     Lorsque vous démarrez le serveur VNC pour la première fois, vous serez invité à entrer un mot de passe qui vous servira à vous connecter au bureau VNC, puis à confirmer si vous souhaitez un mot de passe en lecture seule (entrez "n"). Il n’est pas nécessaire que le mot de passe soit pour lecture seulement. Pour modifier votre mot de passe, utilisez la commande `vncpasswd`.
 
-4.  Testez la connexion en ouvrant le port 5901 (pour savoir comment ouvrir un port vers votre instance OpenStack, voir [Groupes de sécurité](managing_your_cloud_resources_with_openstack.md#groupes-de-securite)) et connectez-vous avec un client VNC, par exemple [TigerVNC](https://tigervnc.org/).
+4.  Testez la connexion en ouvrant le port 5901 (pour savoir comment ouvrir un port vers votre instance OpenStack, voir [Groupes de sécurité](managing_your_cloud_resources_with_openstack.md)) et connectez-vous avec un client VNC, par exemple [TigerVNC](https://tigervnc.org/).
 
     !!! warning "Connexion non sécuritaire"
         Cette option n’est pas sécuritaire parce que les données entrant et sortant de l’instance ne seront pas chiffrées. Par contre, cette étape vous permet de tester la connexion client-serveur avant de vous connecter de façon sécuritaire via un tunnel SSH; vous pouvez ignorer cette étape si vous savez comment configurer un tunnel SSH correctement.
@@ -100,7 +100,7 @@ Nous décrivons ici les étapes pour configurer une interface de bureau avec VNC
 
 6.  Fermez le port 5901.
     !!! tip "Sécurité des ports"
-        Ce port ne sert plus après que la connexion avec le serveur VNC est établie via un tunnel SSH et il est recommandé de [supprimer cette règle dans vos groupes de sécurité](managing_your_cloud_resources_with_openstack.md#groupes-de-securite).
+        Ce port ne sert plus après que la connexion avec le serveur VNC est établie via un tunnel SSH et il est recommandé de [supprimer cette règle dans vos groupes de sécurité](managing_your_cloud_resources_with_openstack.md).
 
 7.  Quand vous n’avez plus besoin du bureau, arrêtez le serveur VNC avec
     ```bash

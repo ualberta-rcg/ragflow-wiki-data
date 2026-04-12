@@ -130,7 +130,7 @@ Vous pouvez aussi créer une image [Apptainer](containers/apptainer.md) avec une
 
 ## Appeler Python avec PyCall.jl
 
-Le paquet PyCall.jl peut servir d'interface entre Julia et Python; dans ce cas, la variable d'environnement `PYTHON` doit être définie comme étant l'exécutable Python dans votre environnement virtuel Python. Sur nos grappes, nous recommandons [l'utilisation d'environnements Python](python.md#creer-et-utiliser-un-environnement-virtuel). Une fois qu'un environnement est activé, vous pouvez l'utiliser dans PyCall.jl.
+Le paquet PyCall.jl peut servir d'interface entre Julia et Python; dans ce cas, la variable d'environnement `PYTHON` doit être définie comme étant l'exécutable Python dans votre environnement virtuel Python. Sur nos grappes, nous recommandons [l'utilisation d'environnements Python](python.md). Une fois qu'un environnement est activé, vous pouvez l'utiliser dans PyCall.jl.
 
 ```bash
 source "$HOME/myenv/bin/activate"
@@ -213,7 +213,7 @@ MPI.Barrier(comm)
 ## Configurer le comportement des fils
 
 Vous pouvez limiter le nombre de fils utilisés par Julia en configurant JULIA_NUM_THREADS=k; par exemple pour un processus unique pour une tâche de 12 CPU par tâche, k serait égal à 12.
-Il est habituel que le nombre de fils soit égal au nombre de processeurs; ceci est toutefois abordé dans la page [Scalabilité](scalabilite.md).
+Il est habituel que le nombre de fils soit égal au nombre de processeurs; ceci est toutefois abordé dans la page Scalabilité.
 De plus, vous pouvez *attacher* des fils à un cœur en configurant
 `JULIA_EXCLUSIVE` à une valeur autre que zéro. Comme décrit dans la [documentation](https://docs.julialang.org/en/v1/manual/environment-variables/#JULIA_EXCLUSIVE), ceci enlève au système d'exploitation l'attribution des fils en les attachant aux cœurs en fonction de leur affinité. Dépendant des calculs effectués par les fils, ceci peut améliorer la performance quand il y a des informations précises sur les modes d'accès aux caches ou que le système d'exploitation attribue les fils de manière non voulue. La configuration de `JULIA_EXCLUSIVE` fonctionne uniquement si votre tâche a un accès exclusif aux nœuds et que tous les cœurs CPU ont été alloués à votre tâche. Puisque l'ordonnanceur Slurm attache les processus et les fils aux cœurs CPU, le fait de demander à Julia de *réattacher* les fils n'améliorera peut-être pas la performance.
 

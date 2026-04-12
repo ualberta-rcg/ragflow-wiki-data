@@ -97,7 +97,7 @@ Après quelques secondes, la page des volumes est rafraîchie et montre le nouve
 
 *   Formater un volume signifie le préparer pour y enregistrer des fichiers et des répertoires.
 *   Avant de pouvoir utiliser un nouveau volume, il faut le formater.
-*   Voyez les directives sur [Linux](../storage-and-data/using_a_new_empty_volume_on_a_linux_vm.md) ou [Windows](using-a-new-empty-volume-on-a-windows-vm.md).
+*   Voyez les directives sur [Linux](../storage-and-data/using_a_new_empty_volume_on_a_linux_vm.md) ou Windows.
 
 ### Monter un volume
 
@@ -149,7 +149,7 @@ Créer une image depuis un volume permet de télécharger l'image pour servir de
 Pour créer l'image d'un volume, elle doit d'abord être détachée de l'instance. Dans le cas d'un volume de démarrage (*boot volume*), l'image ne peut être détachée que si l'instance est supprimée. Assurez-vous que la case **Supprimer le volume lors de la suppression de l'instance** n'a pas été cochée à la création de l'instance.
 
 !!! note "Gestion des grandes images"
-    Les grandes images (plus de 10-20 Gio) peuvent prendre beaucoup de temps à créer, téléverser ou d'autres opérations. Une solution serait de [séparer les données](backing_up_your_vm.md#exemple-dune-strategie-de-sauvegarde) si possible.
+    Les grandes images (plus de 10-20 Gio) peuvent prendre beaucoup de temps à créer, téléverser ou d'autres opérations. Une solution serait de [séparer les données](backing_up_your_vm.md) si possible.
 
 ### Utiliser le tableau de bord
 
@@ -170,7 +170,7 @@ où :
 *   `<volume_name>` peut se trouver en cliquant sur le nom du volume à partir du tableau de bord OpenStack.
 *   `<image_name>` est le nom que vous donnez à l'image.
 
-Vous pouvez ensuite [télécharger l'image](working_with_images.md#telecharger-une-image).
+Vous pouvez ensuite [télécharger l'image](working_with_images.md).
 
 ## Cloner un volume
 
@@ -187,7 +187,7 @@ openstack volume create --source <source-volume-id> --size <size-of-new-volume> 
 ## Détacher un volume
 
 !!! warning "Précautions avant de détacher un volume"
-    Avant de détacher un volume, il est important de vérifier si des fichiers de ce volume sont utilisés par le système d'exploitation ou des applications actives dans votre instance. Si c'est le cas, le volume détaché pourrait être corrompu ou les applications pourraient avoir des comportements inattendus. Il est donc recommandé de fermer l'instance ou de [démonter le volume](../storage-and-data/using_a_new_empty_volume_on_a_linux_vm.md#demonter-un-volume-ou-autre-peripherique).
+    Avant de détacher un volume, il est important de vérifier si des fichiers de ce volume sont utilisés par le système d'exploitation ou des applications actives dans votre instance. Si c'est le cas, le volume détaché pourrait être corrompu ou les applications pourraient avoir des comportements inattendus. Il est donc recommandé de fermer l'instance ou de [démonter le volume](../storage-and-data/using_a_new_empty_volume_on_a_linux_vm.md).
 
 Pour détacher un volume, connectez-vous à OpenStack (voir la [liste des liens à nos ressources infonuagiques](cloud.md#ressources-infonuagiques)) et sélectionnez le projet qui contient le volume à détacher. Sélectionnez **Volumes** > **Volumes** pour faire afficher les volumes. La colonne **Attaché à** indique ce à quoi chaque volume est attaché.
 

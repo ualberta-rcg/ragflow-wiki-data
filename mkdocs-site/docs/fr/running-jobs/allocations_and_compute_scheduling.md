@@ -166,7 +166,7 @@ status:
   qa_generated: false
 ---
 
-*Page enfant de [Politique d'ordonnancement des tâches](politique-dordonnancement-des-taches.md)*
+*Page enfant de Politique d'ordonnancement des tâches*
 
 # Allocations pour le calcul haute performance
 
@@ -309,34 +309,34 @@ Les différents bundles UGR-cœur-mémoire et GPU-cœur-mémoire des systèmes d
 
 | Grappe | Cœurs par UGR | Mémoire par UGR (en GB) |
 | :----- | :------------ | :---------------------- |
-| [Fir](../software/fir.md#caracteristiques-des-noeuds) | 0.98 | 23.6 |
-| [Narval](../clusters/narval.md#caracteristiques-des-noeuds) | 3.00 | 31.1 |
-| [Nibi](../clusters/nibi.md#caracteristiques-des-noeuds) | 1.15 | 20.5 |
-| [Rorqual](../clusters/rorqual.md#caracteristiques-des-noeuds) | 1.31 | 10.2 |
-| [Trillium](../clusters/trillium.md#caracteristiques-des-noeuds) | 1.97 | 15.4 |
+| [Fir](../software/fir.md) | 0.98 | 23.6 |
+| [Narval](../clusters/narval.md) | 3.00 | 31.1 |
+| [Nibi](../clusters/nibi.md) | 1.15 | 20.5 |
+| [Rorqual](../clusters/rorqual.md) | 1.31 | 10.2 |
+| [Trillium](../clusters/trillium.md) | 1.97 | 15.4 |
 
 Caractéristiques des bundles
 
 | Grappe | Modèle ou instance | UGR par GPU | Bundle par GPU | Recommandation par GPU |
 | :----- | :----------------- | :---------- | :------------- | :--------------------- |
-| [Fir](../software/fir.md#caracteristiques-des-noeuds) | **H100-80gb** | **12.2** | **12 cœurs, 288GB** | **12 cœurs, 280GB** |
+| [Fir](../software/fir.md) | **H100-80gb** | **12.2** | **12 cœurs, 288GB** | **12 cœurs, 280GB** |
 | | H100-1g.10gb | 1.74 | 1.7 cœurs, 41GB | 1 cœurs, 35GB |
 | | H100-2g.20gb | 3.48 | 3.4 cœurs, 82GB | 3 cœurs, 70GB |
 | | H100-3g.40gb | 6.1 | 6 cœurs, 144GB | 6 cœurs, 140GB |
-| [Narval](../clusters/narval.md#caracteristiques-des-noeuds) | **A100-40gb** | **4.0** | **12 cœurs, 124.5GB** | **12 cœurs, 124GB** |
+| [Narval](../clusters/narval.md) | **A100-40gb** | **4.0** | **12 cœurs, 124.5GB** | **12 cœurs, 124GB** |
 | | A100-1g.5gb | 0.57 | 1.7 cœurs, 17.7GB | 1 cœur, 15GB |
 | | A100-2g.10gb | 1.14 | 3.4 cœurs, 35.4GB | 3 cœurs, 31GB |
 | | A100-3g.20gb | 2.0 | 6.0 cœurs, 62.2GB | 6 cœurs, 62GB |
 | | A100-4g.20gb | 2.3 | 6.9 cœurs, 71.5GB | 6 cœurs, 62GB |
-| [Nibi](../clusters/nibi.md#caracteristiques-des-noeuds) | **H100-80gb** | **12.2** | **14 cœurs, 250GB** | **14 cœurs, 250GB** |
+| [Nibi](../clusters/nibi.md) | **H100-80gb** | **12.2** | **14 cœurs, 250GB** | **14 cœurs, 250GB** |
 | | H100-1g.10gb | 1.74 | 2 cœurs, 35.7GB | 2 cœurs, 31GB |
 | | H100-2g.20gb | 3.48 | 4 cœurs, 71.4GB | 4 cœurs, 62GB |
 | | H100-3g.40gb | 6.1 | 7 cœurs, 125GB | 6 cœurs, 124GB |
-| [Rorqual](../clusters/rorqual.md#caracteristiques-des-noeuds) | **H100-80gb** | **12.2** | **16 cœurs, 124.5GB** | **16 cœurs, 124GB** |
+| [Rorqual](../clusters/rorqual.md) | **H100-80gb** | **12.2** | **16 cœurs, 124.5GB** | **16 cœurs, 124GB** |
 | | H100-1g.10gb | 1.74 | 2.3 cœurs, 17.7GB | 2 cœurs, 15GB |
 | | H100-2g.20gb | 3.48 | 4.5 cœurs, 35.4GB | 4 cœurs, 31GB |
 | | H100-3g.40gb | 6.1 | 8 cœurs, 62.2GB | 8 cœurs, 62GB |
-| [Trillium](../clusters/trillium.md#caracteristiques-des-noeuds) | **H100-80gb** | **12.2** | **24 cœurs, 188GB** | **24 cœurs, 188GB** |
+| [Trillium](../clusters/trillium.md) | **H100-80gb** | **12.2** | **24 cœurs, 188GB** | **24 cœurs, 188GB** |
 
 **Remarque :** Si l'ordonnanceur établit la priorité sur la base de l'utilisation calculée avec les bundles, une demande de plusieurs GPU sur un même nœud doit aussi tenir compte des ratios physiques.
 

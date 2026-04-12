@@ -110,7 +110,7 @@ On a distributed filesystem, data should be stored in large single-file archives
 ## Long running computations
 
 !!! tip "Checkpointing Long-Running Computations"
-    If your computations are long, you should use checkpointing. For example, if your training time is 3 days, you should split it into 3 chunks of 24 hours. This will prevent you from losing all the work in case of an outage, and give you an advantage in terms of priority (more nodes are available for short jobs). Most machine learning libraries natively support checkpointing; the typical case is covered in our [tutorial](tutoriel_apprentissage_machine.md#checkpointing-a-long-running-job). If your program does not natively support this, we provide a [general checkpointing solution](../../running-jobs/points_de_contrôle.md).
+    If your computations are long, you should use checkpointing. For example, if your training time is 3 days, you should split it into 3 chunks of 24 hours. This will prevent you from losing all the work in case of an outage, and give you an advantage in terms of priority (more nodes are available for short jobs). Most machine learning libraries natively support checkpointing; the typical case is covered in our [tutorial](tutoriel_apprentissage_machine.md). If your program does not natively support this, we provide a [general checkpointing solution](../../running-jobs/points_de_contrôle.md).
 
 For more examples, please see
 

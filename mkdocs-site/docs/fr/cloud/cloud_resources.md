@@ -148,4 +148,4 @@ Sur les nuages de l'Alliance, nous fournissons des images pour les distributions
 !!! warning "Attention : Fin de vie (EOL) des images"
     Puisqu'il n'y a plus de soutien ni de mise à jour quand une version atteint sa fin de vie (*EOL* pour *end of life*), nous vous recommandons de migrer vos systèmes et plateformes à une version plus récente pour que vous puissiez recevoir les rustines et les avis de sécurité. Les images pour les distributions qui ont atteint leur fin de vie seront supprimées; même si vous ne devriez pas le faire, rien ne vous empêche d'exécuter une machine virtuelle avec une ancienne distribution Linux. Cependant, les images ne seront pas disponibles pour créer de nouvelles machines virtuelles.
 
-Pour plus d'information, voir [Travailler avec des images](working_with_images.md#images).
+Pour plus d'information, voir [Travailler avec des images](working_with_images.md).

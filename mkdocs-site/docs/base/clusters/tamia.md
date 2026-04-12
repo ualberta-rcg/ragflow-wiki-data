@@ -171,14 +171,14 @@ tamIA leverages a shared Lustre file system for **HOME**, **SCRATCH**, and **PRO
 
 *   **Primary purpose:** Storing user configurations, small personal scripts, and frequently accessed small files.
 *   **Capacity:** This space is small and cannot be expanded. For larger storage needs, you must use your `PROJECT` space.
-*   **Quotas:** Small, fixed per-user quotas. For detailed information on quotas and policies, refer to [Storage and file management](../storage-and-data/storage_and_file_management.md#quotas-and-policies).
+*   **Quotas:** Small, fixed per-user quotas. For detailed information on quotas and policies, refer to [Storage and file management](../storage-and-data/storage_and_file_management.md).
 *   **Backup:** There is currently no automatic backup. (Planned for Spring 2026).
 
 #### SCRATCH
 
 *   **Primary purpose:** Large space intended for temporary files generated during computations.
 *   **Capacity:** Large.
-*   **Quotas:** Large, fixed per-user quotas. For detailed information on quotas and policies, refer to [Storage and file management](../storage-and-data/storage_and_file_management.md#quotas-and-policies).
+*   **Quotas:** Large, fixed per-user quotas. For detailed information on quotas and policies, refer to [Storage and file management](../storage-and-data/storage_and_file_management.md).
 *   **Backup:** No automatic backup system.
 *   **Purging:** There is an [automatic purging](../storage-and-data/scratch_purging_policy.md) of old files in this space.
 
@@ -186,7 +186,7 @@ tamIA leverages a shared Lustre file system for **HOME**, **SCRATCH**, and **PRO
 
 *   **Primary purpose:** Designed for sharing data among group members and for storing large amounts of data. This is the recommended space for your primary research data.
 *   **Capacity:** Large and adjustable.
-*   **Quotas:** Large, adjustable per-project quotas. For detailed information on quotas and policies, refer to [Storage and file management](../storage-and-data/storage_and_file_management.md#quotas-and-policies).
+*   **Quotas:** Large, adjustable per-project quotas. For detailed information on quotas and policies, refer to [Storage and file management](../storage-and-data/storage_and_file_management.md).
 *   **Backup:** There is an automatic daily backup.
 
 ### Data Transfer

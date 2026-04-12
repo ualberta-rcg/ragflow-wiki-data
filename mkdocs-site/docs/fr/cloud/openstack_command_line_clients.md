@@ -66,7 +66,7 @@ status:
   qa_generated: false
 ---
 
-Appartenant à : [Gestion de vos ressources infonuagiques avec OpenStack](gestion-vos-ressources-infonuagiques-avec-openstack.md)
+Appartenant à : Gestion de vos ressources infonuagiques avec OpenStack
 
 L'[OpenStackClient](http://docs.openstack.org/developer/python-openstackclient/) permet d'utiliser plusieurs fonctions du tableau de bord OpenStack, ainsi que d'autres fonctions qui ne sont pas disponibles par l'interface graphique. Pour l'utiliser sur tout type de machine, virtuelle ou autre, il suffit d'installer le client et de disposer d'une connexion Internet. Les exemples de cette page sont sous Linux.
 

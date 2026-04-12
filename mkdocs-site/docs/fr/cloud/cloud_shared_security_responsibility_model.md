@@ -41,7 +41,7 @@ Plusieurs plateformes infonuagiques font partie de l’infrastructure de calcul 
 Les responsabilités des groupes de recherche sont :
 * la mise en place de mesures de contrôle adéquates pour la protection de la confidentialité, de l’intégrité et de la disponibilité de leurs données de recherche;
 * l’installation et la configuration de leurs instances, y compris les systèmes d’exploitation, les services et les logiciels;
-* la maintenance et les [mises à jour](security_considerations_when_running_a_vm.md#mise-a-jour-d-une-instance-virtuelle) périodiques de leurs instances;
+* la maintenance et les [mises à jour](security_considerations_when_running_a_vm.md) périodiques de leurs instances;
 * la mise en application de règles pour les groupes de sécurité afin de limiter les services exposés à l’Internet;
 * l'implémentation et les tests de procédures de sauvegarde et de restauration;
 * le chiffrement des données en transit ou au repos;

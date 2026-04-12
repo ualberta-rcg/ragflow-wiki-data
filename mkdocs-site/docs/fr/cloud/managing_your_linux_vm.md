@@ -35,7 +35,7 @@ status:
   qa_generated: false
 ---
 
-Linux est très utilisé pour les machines virtuelles. Les distributions souvent employées sont AlmaLinux, CentOS, Debian, Fedora et Ubuntu. Vous trouverez ici de l'assistance pour les tâches communes. Il est aussi possible d'utiliser [le système d'exploitation Windows](cloud_quick_start.md#windows).
+Linux est très utilisé pour les machines virtuelles. Les distributions souvent employées sont AlmaLinux, CentOS, Debian, Fedora et Ubuntu. Vous trouverez ici de l'assistance pour les tâches communes. Il est aussi possible d'utiliser [le système d'exploitation Windows](cloud_quick_start.md).
 
 # Gestion des utilisateurs sous Linux
 

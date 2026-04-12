@@ -206,7 +206,7 @@ You can use [SSH](../getting-started/ssh.md) by opening a terminal window (e.g. 
 Here, `/PATH/TO/SSH_PRIVATE_KEY` is the path to your private SSH key and `MYALLIANCEUSERNAME` is your username on the CCDB.
 
 !!! note
-    *   The first time you login, you should make sure you are actually accessing Trillium by checking if the [login node ssh host key fingerprint](../getting-started/ssh_security_improvements.md#trillium) matches.
+    *   The first time you login, you should make sure you are actually accessing Trillium by checking if the [login node ssh host key fingerprint](../getting-started/ssh_security_improvements.md) matches.
     *   The Trillium login nodes are where you develop, edit, compile, prepare and submit jobs.
     *   The CPU login nodes and the GPU login node are not part of the compute nodes but they have the same architecture, operating system, and software stack as the CPU and GPU compute nodes, respectively.
     *   You can ssh from one login node to another using their internal hostnames `tri-login01, ..., tri-login06` and `trig-login01` (the latter is the GPU login node).
@@ -287,7 +287,7 @@ Properly managing your software environment is key to avoiding conflicts and ens
 
 *   Be explicit about module versions. Short names like `gcc` will load the system default (e.g., `gcc/12.3`), which may change in the future. Specify full versions (e.g., `gcc/13.3`) for long-term reproducibility.
 
-*   Resolve dependencies with `module spider`. Some modules depend on others. Use `module spider <module-name>` to discover which modules are required and how to load them in the correct order. For more, see [Sub-command spider](../programming/utiliser_des_modules.md#sub-command-spider).
+*   Resolve dependencies with `module spider`. Some modules depend on others. Use `module spider <module-name>` to discover which modules are required and how to load them in the correct order. For more, see [Sub-command spider](../programming/utiliser_des_modules.md).
 
 ### Using commercial software
 

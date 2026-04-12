@@ -92,7 +92,7 @@ We provide modules for Amber, AmberTools, and Amber-PMEMD in our [software stack
 !!! note "Amber-PMEMD Module"
     The `amber-pmemd` module does not include AmberTools. To use both, load the `ambertools` module as well.
 
-To see a list of installed versions and which other modules they depend on, you can use the `module spider` [command](../programming/modules.md#sub-command-spider) or check the [Available software](../programming/available_software.md) page.
+To see a list of installed versions and which other modules they depend on, you can use the `module spider` [command](../programming/modules.md) or check the [Available software](../programming/available_software.md) page.
 
 ## Using AMBER on H100 GPU Clusters
 

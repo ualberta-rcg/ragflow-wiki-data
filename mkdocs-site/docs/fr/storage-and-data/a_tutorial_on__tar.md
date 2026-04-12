@@ -172,7 +172,7 @@ status:
   qa_generated: false
 ---
 
-*Page enfant de [Archivage et compression de fichiers](archivage-et-compression-de-fichiers.md)*
+*Page enfant de Archivage et compression de fichiers*
 
 ## Archiver des fichiers et des répertoires
 

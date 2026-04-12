@@ -81,8 +81,8 @@ Final check for MediaWiki specific syntax and MkDocs material best practices.
 
 - `== headers ==` become `## headers` - Done
 - `'''bold'''` becomes `**bold**`, `''italic''` becomes `*italic*` - Done (`<b>` also converted to `**`)
-- `[[Page|Text]]` becomes `[Text](page.md)` (lowercase, hyphens for spaces) - Done (e.g., `technical-support.md`, `storage-and-file-management.md`)
-- `[url text]` becomes `[text](url)` - Done
+- `[[Page|Text]]` becomes `Text` (lowercase, hyphens for spaces) - Done (e.g., `technical-support.md`, `storage-and-file-management.md`)
+- `[url text]` becomes `text` - Done
 - `<code>x</code>` becomes `` `x` `` - Done
 - `{{Command|...}}` becomes ```bash code blocks - Not present in source.
 - `{{File|name=X|contents=Y}}` becomes labeled code blocks - Not present in source.

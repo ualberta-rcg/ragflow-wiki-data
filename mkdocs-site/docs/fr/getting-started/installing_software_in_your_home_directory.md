@@ -111,7 +111,7 @@ Dans certains cas cependant, particulièrement avec `cmake`, il peut être néce
 
 ## BLAS/LAPACK et MKL
 
-Voyez notre page wiki [BLAS et LAPACK](blas-et-lapack.md).
+Voyez notre page wiki BLAS et LAPACK.
 
 ## apt-get et yum
 
@@ -152,4 +152,4 @@ Dans la plupart des cas, vous pouvez compiler avec un nœud de connexion. Toutef
 *   avec un GPU, ou
 *   avec un CPU Skylake,
 
-vous devriez démarrer une [tâche interactive](../running-jobs/running_jobs.md#taches-interactives) dans un serveur qui possède le matériel approprié et compiler de cet endroit.
+vous devriez démarrer une [tâche interactive](../running-jobs/running_jobs.md) dans un serveur qui possède le matériel approprié et compiler de cet endroit.

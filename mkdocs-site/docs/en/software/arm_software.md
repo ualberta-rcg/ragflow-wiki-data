@@ -192,4 +192,4 @@ After you are done using DDT, you can if you like restore permissions to what th
 ## See also
 
 *   ["Debugging your code with DDT"](https://youtu.be/Q8HwLg22BpY), video, 55 minutes.
-*   [A short DDT tutorial.](parallel-debugging-with-ddt.md)
+*   A short DDT tutorial.

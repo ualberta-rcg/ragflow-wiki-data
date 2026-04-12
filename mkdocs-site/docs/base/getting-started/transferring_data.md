@@ -135,7 +135,7 @@ For more information about Globus please see [Globus](globus.md).
 [Rsync](https://en.wikipedia.org/wiki/Rsync) is a popular tool for ensuring that two separate datasets are the same but can be quite slow if there are a lot of files or there is a lot of latency between the two sites, i.e. they are geographically apart or on different networks. Running `rsync` will check the modification time and size of each file, and will only transfer the file if one or the other does not match. If you expect modification times not to match on the two systems, you can use the `-c` option, which will compute checksums at the source and destination, and transfer only if the checksums do not match. 
 
 !!! note
-    When transferring files into the `/project` file systems, do not use `-p` and `-g` flags since the quotas in `/project` are enforced based on group ownership, and thus preserving the group ownership will lead to the [Disk quota exceeded](frequently_asked_questions.md#disk-quota-exceeded-error-on-project-filesystems) error message. Since `-a` includes `-p` and `-g` by default, the `--no-g --no-p` options should be added, like so
+    When transferring files into the `/project` file systems, do not use `-p` and `-g` flags since the quotas in `/project` are enforced based on group ownership, and thus preserving the group ownership will lead to the [Disk quota exceeded](frequently_asked_questions.md) error message. Since `-a` includes `-p` and `-g` by default, the `--no-g --no-p` options should be added, like so
 ```bash
 rsync -avzh --no-g --no-p LOCALNAME someuser@nibi.alliancecan.ca:projects/def-professor/someuser/somedir/
 ```
@@ -231,7 +231,7 @@ Many other examples of the use of SCP are shown [here](http://www.hypexr.org/lin
 
 SCP supports the option `-r` to recursively transfer a set of directories and files.
 !!! warning "Important Note"
-    We **recommend against using `scp -r`** to transfer data into `/project` because the setgid bit is turned off in the created directories, which may lead to [Disk quota exceeded error on /project filesystems](frequently_asked_questions.md#disk-quota-exceeded-error-on-project-filesystems) or similar errors if files are later created there.
+    We **recommend against using `scp -r`** to transfer data into `/project` because the setgid bit is turned off in the created directories, which may lead to [Disk quota exceeded error on /project filesystems](frequently_asked_questions.md) or similar errors if files are later created there.
 
 !!! note
     If you chose a custom SSH key name, _i.e._ something other than the default names: `id_dsa`, `id_ecdsa`, `id_ed25519` and `id_rsa`, you will need to use the `-i` option of scp and specify the path to your private key before the file paths via

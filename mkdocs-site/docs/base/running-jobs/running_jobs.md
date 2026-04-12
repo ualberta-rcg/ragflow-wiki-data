@@ -169,7 +169,7 @@ Memory may be requested with `--mem-per-cpu` (memory per core) or `--mem` (memor
 
 A common source of confusion comes from the fact that some memory on a node is not available to the job (reserved for the OS, etc.). The effect of this is that each node type has a maximum amount available to jobs; for instance, nominally "128G" nodes are typically configured to permit 125G of memory to user jobs. If you request more memory than a node-type provides, your job will be constrained to run on higher-memory nodes, which may be fewer in number.
 
-Adding to this confusion, Slurm interprets K, M, G, etc., as [binary prefixes](https://en.wikipedia.org/wiki/Binary_prefix), so `--mem=125G` is equivalent to `--mem=128000M`. See the *Available memory* column in the *Node characteristics* table for each GP cluster for the Slurm specification of the maximum memory you can request on each node: [Fir](../software/fir.md#node-characteristics), [Narval](../clusters/narval.md#node-characteristics), [Nibi](../clusters/nibi.md#node-characteristics), [Rorqual](../clusters/rorqual.md#node-characteristics).
+Adding to this confusion, Slurm interprets K, M, G, etc., as [binary prefixes](https://en.wikipedia.org/wiki/Binary_prefix), so `--mem=125G` is equivalent to `--mem=128000M`. See the *Available memory* column in the *Node characteristics* table for each GP cluster for the Slurm specification of the maximum memory you can request on each node: [Fir](../software/fir.md#node-characteristics), [Narval](../clusters/narval.md), [Nibi](../clusters/nibi.md#node-characteristics), [Rorqual](../clusters/rorqual.md).
 
 ## Use `squeue` or `sq` to list jobs
 
@@ -336,7 +336,7 @@ Here are two recommended methods of automatic restarting:
 *   Using SLURM **job arrays**.
 *   Resubmitting from the end of the job script.
 
-Our [Machine Learning tutorial](../software/ai-ml/tutoriel_apprentissage_machine.md) covers [resubmitting for long machine learning jobs](../software/ai-ml/tutoriel_apprentissage_machine.md#checkpointing-a-long-running-job).
+Our [Machine Learning tutorial](../software/ai-ml/tutoriel_apprentissage_machine.md) covers [resubmitting for long machine learning jobs](../software/ai-ml/tutoriel_apprentissage_machine.md).
 
 ### Restarting using job arrays
 

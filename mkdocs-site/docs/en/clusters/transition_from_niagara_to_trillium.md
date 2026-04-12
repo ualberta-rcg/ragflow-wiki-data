@@ -86,7 +86,7 @@ You can log in to the CPU subcluster of Trillium by SSHing to `trillium.alliance
 $ ssh USERNAME@trillium.alliancecan.ca
 ```
 
-The first time you log in, please make sure you are actually accessing Trillium by checking if the [login node SSH host key fingerprint](../getting-started/ssh_security_improvements.md#trillium) matches. As was the case on Niagara and Mist, you will need to use [SSH Keys](../getting-started/ssh_keys.md) and have MFA enabled on your CCDB account. This will get you onto one of six CPU login nodes called tri-login01-6. These login nodes do not have GPUs and **can only submit jobs to CPU compute nodes**.
+The first time you log in, please make sure you are actually accessing Trillium by checking if the [login node SSH host key fingerprint](../getting-started/ssh_security_improvements.md) matches. As was the case on Niagara and Mist, you will need to use [SSH Keys](../getting-started/ssh_keys.md) and have MFA enabled on your CCDB account. This will get you onto one of six CPU login nodes called tri-login01-6. These login nodes do not have GPUs and **can only submit jobs to CPU compute nodes**.
 
 To access the GPU subcluster of Trillium, you should log into `trillium-gpu.alliancecan.ca` (also with SSH keys and MFA):
 

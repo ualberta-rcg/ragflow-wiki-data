@@ -83,7 +83,7 @@ Pour vous connecter à la sous-grappe de CPU via SSH, utilisez :
 ```bash
 $ ssh USERNAME@trillium.alliancecan.ca
 ```
-À votre première connexion, assurez-vous que vous êtes bien sur Trillium en vérifiant si [l'empreinte de la clé hôte du nœud de connexion](ssh-security-improvements/fr.md#trillium) correspond. Comme c'était le cas avec Niagara et Mist, vous devez avoir activé l'authentification multifacteur et utiliser une [clé SSH](ssh-keys/fr.md) enregistrée pour votre compte. Vous aurez ainsi accès à l'un des six nœuds de connexion CPU nommés tri-login01-6. Ces nœuds n'ont pas de GPU **et peuvent traiter uniquement des tâches sur des nœuds de CPU**.
+À votre première connexion, assurez-vous que vous êtes bien sur Trillium en vérifiant si l'empreinte de la clé hôte du nœud de connexion correspond. Comme c'était le cas avec Niagara et Mist, vous devez avoir activé l'authentification multifacteur et utiliser une clé SSH enregistrée pour votre compte. Vous aurez ainsi accès à l'un des six nœuds de connexion CPU nommés tri-login01-6. Ces nœuds n'ont pas de GPU **et peuvent traiter uniquement des tâches sur des nœuds de CPU**.
 
 Pour vous connecter à la sous-grappe de GPU `trillium-gpu.alliancecan.ca`, utilisez la commande ci-dessous. L'authentification multifacteur et une clé SSH enregistrée sont aussi requises.
 
@@ -116,7 +116,7 @@ Trillium offre deux sous-grappes homogènes, soit la sous-grappe de CPU et la so
 ### CPU
 Chacun des nœuds de calcul possède 192 cœurs (contrairement aux 40 de Niagara) et 755 Go de mémoire (188 Go sur Niagara). Les CPU sont des AMD Zen 5, aussi connus sous le nom de Turin (CPU Intel Skylake et Cascaselake sur Niagara). La sous-grappe possède 1224 nœuds de calcul et un total de 235 008 cœurs.
 
-Si vous compiliez du code avec Intel MKL pour les routines mathématiques et d'algèbre linéaire, nous vous suggérons de passer à [Flexiblas](blas-and-lapack/fr.md) ou d'utiliser directement les bibliothèques AOCL de AMD; celles-ci sont disponibles dans les modules `aocl-blas` et `aocl-lapack`.
+Si vous compiliez du code avec Intel MKL pour les routines mathématiques et d'algèbre linéaire, nous vous suggérons de passer à Flexiblas ou d'utiliser directement les bibliothèques AOCL de AMD; celles-ci sont disponibles dans les modules `aocl-blas` et `aocl-lapack`.
 
 ### GPU
 Chaque nœud de calcul de la sous-grappe de GPU dispose de 4 GPU, 96 cœurs et de 755 Go de mémoire disponible. Les processeurs sont des AMD Zen 4 (aussi appelés Genoa), tandis que les GPU sont des NVIDIA H100 (les GPU de Mist étaient des V100). Il y a 61 nœuds de calcul GPU et un total de 244 GPU.
@@ -200,6 +200,6 @@ Même si tous vos fichiers ont été copiés, vos environnements virtuels ne fon
 Comme il n'y a plus de module `anaconda`, vous devrez utiliser plutôt un environnement virtuel.
 
 ## Formation, documentation et soutien
-*   Information sur comment démarrer : [Trillium : Guide de démarrage](trillium-quickstart/fr.md)
+*   Information sur comment démarrer : Trillium : Guide de démarrage
 *   Soutien technique : [trillium@tech.alliancecan.ca](mailto:trillium@tech.alliancecan.ca)
 *   Autoformation : [Intro to SciNet and Trillium](https://education.scinet.utoronto.ca/course/view.php?id=1389) (en anglais)

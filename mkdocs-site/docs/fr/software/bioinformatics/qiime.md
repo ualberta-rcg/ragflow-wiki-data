@@ -152,7 +152,7 @@ apptainer exec -B $PWD:/home -B /scratch/someuser:/outputs \
   --o-classifier /outputs/some_output_classifier.qza
 ```
 
-Notez qu'il est important d'utiliser l'option [bind](../containers/apptainer.md#bind-mount) (`-B`) avec chacun des répertoires avec lesquels vous voulez travailler quand des programmes sont exécutés dans votre conteneur. Pour plus d'information, voyez ce [webinaire Apptainer](https://www.youtube.com/watch?v=bpmrfVqBowY).
+Notez qu'il est important d'utiliser l'option [bind](../containers/apptainer.md) (`-B`) avec chacun des répertoires avec lesquels vous voulez travailler quand des programmes sont exécutés dans votre conteneur. Pour plus d'information, voyez ce [webinaire Apptainer](https://www.youtube.com/watch?v=bpmrfVqBowY).
 
 La première fois que des données sont importées en format QIIME, vous pourriez recevoir un message semblable à :
 

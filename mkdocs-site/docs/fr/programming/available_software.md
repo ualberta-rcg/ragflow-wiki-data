@@ -64,7 +64,7 @@ status:
   qa_generated: false
 ---
 
-Le tableau présenté ci-dessous montre la liste des logiciels disponibles sur la plateforme nationale. Cette liste est modifiée à l'ajout de tout nouveau logiciel. Pour demander l'installation ou la mise à jour d'un logiciel ou d'une bibliothèque, communiquez avec le [soutien technique](../support/technical_support.md). Pour utiliser notre environnement logiciel sur votre propre ordinateur, voyez notre [page wiki CVMFS](acces-a-cvmfs.md).
+Le tableau présenté ci-dessous montre la liste des logiciels disponibles sur la plateforme nationale. Cette liste est modifiée à l'ajout de tout nouveau logiciel. Pour demander l'installation ou la mise à jour d'un logiciel ou d'une bibliothèque, communiquez avec le [soutien technique](../support/technical_support.md). Pour utiliser notre environnement logiciel sur votre propre ordinateur, voyez notre page wiki CVMFS.
 
 !!! warning "Disponibilité"
     **Certains logiciels ne sont peut-être pas disponibles dans l'environnement standard `StdEnv` que vous avez chargé.**
@@ -78,7 +78,7 @@ Pour utiliser un logiciel qui n'est pas déjà installé par défaut, vous devez
 
 *   La plupart des modules Python ne sont pas installés en tant que modules (Lmod), mais en tant que [paquets binaires](available_python_wheels.md) (_wheels_) localisés sous `/cvmfs/soft.computecanada.ca/custom/python/wheelhouse/`; [TensorFlow](../software/tensorflow.md) en est un exemple. Voyez la page [Python](../software/python.md) pour des détails sur comment lister les paquets Python et les installer.
 *   De même, la plupart des paquets R et Perl ne sont pas installés. Nous vous recommandons de les installer dans votre environnement personnel ou dans celui de votre groupe. Voyez les pages [R](../software/r.md) et [Perl](../software/perl.md) pour des détails sur l'installation des paquets.
-*   Voyez la page [Algèbre symbolique](logiciels-dalgebre-symbolique.md) où il est question de SageMath.
+*   Voyez la page Algèbre symbolique où il est question de SageMath.
 *   Notez que [Docker](https://www.docker.com/) n'est pas disponible sur nos grappes, mais que [Apptainer](../software/containers/apptainer.md) peut être utilisé en chargeant le module `apptainer`. Pour convertir les contenants Docker, consultez [la documentation Apptainer](https://apptainer.org/docs/).
 *   Certains logiciels listés dans le tableau ci-dessous sont sous licence et donc non accessibles directement; vous pouvez en demander l'accès au besoin. En tentant de charger le module d'un tel logiciel, vous recevrez les consignes sur comment en obtenir l'accès.
 *   La plupart des paquets listés se trouvent sur toutes nos grappes. Certains cependant ne sont disponibles que sur un site en particulier en raison des restrictions liées à l'octroi des licences; voir [Modules disponibles uniquement sur certaines grappes](#modules-disponibles-uniquement-sur-certaines-grappes) ci-dessous.
@@ -101,9 +101,9 @@ Les types sont :
 *   mpi ([MPI](../software/mpi.md))
 *   phys (physique et génie)
 *   tools (langages et bibliothèques)
-*   vis ([visualisation](visualisation.md)).
+*   vis (visualisation).
 
-Les logiciels pour les architectures obsolètes se trouvent respectivement dans [AVX](modules-avx.md) et [SSE3](modules-sse3.md).
+Les logiciels pour les architectures obsolètes se trouvent respectivement dans AVX et SSE3.
 
 === "AVX512 (Fir, Nibi, Rorqual, Trillium, Killarney, tamIA, Vulcan)"
     <!-- Le contenu du tableau des modules AVX512 serait ici -->

@@ -70,7 +70,7 @@ Host narval beluga graham cedar
   [...]
 ```
 
-Note that you need to install your public [SSH key](ssh_keys.md) on each cluster separately or use [CCDB](ssh-keys#using-ccdb.md).
+Note that you need to install your public [SSH key](ssh_keys.md) on each cluster separately or use CCDB.
 
 Note that other options of the `ssh` commands have corresponding parameters that you can put in your `~/.ssh/config` file on your machine. In particular, the command line options
 *   `-X` (X11 forwarding)

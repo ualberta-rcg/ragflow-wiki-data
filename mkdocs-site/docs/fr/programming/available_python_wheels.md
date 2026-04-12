@@ -47,7 +47,7 @@ Certains wheels ne paraissent pas dans les tableaux parce qu'ils font partie de 
 * [pyarrow (Arrow)](../software/arrow.md#pyarrow)
 * pyqt5 (QT)
 * petsc4py (PETSc)
-* [opencv_python (OpenCV)](../software/opencv.md#python-bindings)
+* [opencv_python (OpenCV)](../software/opencv.md)
 
 Pour trouver ces extensions, lancez la commande
 ```bash

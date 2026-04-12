@@ -79,7 +79,7 @@ Our [Wheelhouse](../../programming/available_python_wheels.md) contains a number
 
 This list contains a selection of useful wheels, but is not to be considered complete:
 
-*   [ACPYPE: AnteChamber PYthon Parser interfacE](acpype.md) is a tool to generate topologies for chemical compounds.
+*   ACPYPE: AnteChamber PYthon Parser interfacE is a tool to generate topologies for chemical compounds.
 *   [MDAnalysis](https://www.mdanalysis.org/) is an object-oriented Python library to analyze trajectories from molecular dynamics (MD) simulations in many popular formats.
 *   [MDTraj](http://mdtraj.org/) can also read, write and analyze MD trajectories with only a few lines of Python code with wide MD format support.
 *   [Biopython](https://biopython.org/) is a set of freely available tools for biological computation.
@@ -90,7 +90,7 @@ This list contains a selection of useful wheels, but is not to be considered com
 *   [ParmEd](http://parmed.github.io/ParmEd/) is a general tool for aiding in investigations of biomolecular systems using popular molecular simulation packages.
 *   [PyRETIS](../pyretis.md) is a Python library for rare event molecular simulations with emphasis on methods based on transition interface sampling and replica exchange transition interface sampling.
 
-Please check the [list of available wheels](../../programming/available_python_wheels.md) and use the [avail_wheels command](../python.md#listing-available-wheels) on our clusters to see what is available.
+Please check the [list of available wheels](../../programming/available_python_wheels.md) and use the [avail_wheels command](../python.md) on our clusters to see what is available.
 
 If you require additional Python packages or newer versions, please [contact Support](../../support/technical_support.md).
 

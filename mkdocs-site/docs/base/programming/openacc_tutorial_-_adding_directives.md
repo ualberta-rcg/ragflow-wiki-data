@@ -398,7 +398,7 @@ One graphical profiler available for OpenACC applications is the
 It's a cross-platform analyzing tool **for codes written with OpenACC and CUDA C/C++ instructions**.
 Consequently, if the executable is not using the GPU, you will get no result from this profiler.
 
-When [X11 is forwarded to an X-Server](../software/visualization.md#remote-windows-with-x11-forwarding), or when using a [Linux desktop environment](../interactive/vnc.md) (also via [JupyterHub](../interactive/jupyterhub.md#desktop) with two (2) CPU cores, 5000M of memory and one (1) GPU),
+When [X11 is forwarded to an X-Server](../software/visualization.md#remote-windows-with-x11-forwarding), or when using a [Linux desktop environment](../interactive/vnc.md) (also via [JupyterHub](../interactive/jupyterhub.md) with two (2) CPU cores, 5000M of memory and one (1) GPU),
 it is possible to launch the NVVP from a terminal:
 ```bash
 module load cuda/11.7 java/1.8

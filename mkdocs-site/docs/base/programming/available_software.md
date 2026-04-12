@@ -54,7 +54,7 @@ A current list of the software available on our national systems is below. This 
 !!! warning "Availability"
     **Some software listed below may not be available in the specific StdEnv you have loaded.**
 
-    `StdEnv/2020` is now deprecated/hidden on the newer systems. See [StdEnv/2020](standard_software_environments.md#std_env-2020)
+    `StdEnv/2020` is now deprecated/hidden on the newer systems. See [StdEnv/2020](standard_software_environments.md)
 
 ## Notes
 Except for basic system programs, you access most software by loading a **module**. See [Using modules](modules.md) for more on how to use the Lmod module system. Note that some prerequisite modules are loaded by default. 

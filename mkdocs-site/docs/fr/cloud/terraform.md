@@ -320,7 +320,7 @@ Les valeurs pour `image_id` et `flavor_id` sont l’une des raisons pour lesquel
 
 Si vous utilisez Horizon (l'interface Web d'OpenStack), cela est en partie possible; voir [UUID des images et gabarits sous Horizon](#uuid-des-images-et-gabarits-sous-horizon) en annexe.
 
-Notez qu'aucun volume n'est fourni. Une instance de calcul sur nos nuages aura déjà un volume qui lui est associé, mais une instance persistante échouera probablement à moins qu'il n'y ait assez d'espace vide dans l'image elle-même. Il est recommandé de [créer un volume de démarrage](working_with_volumes.md#demarrer-depuis-un-volume) pour les machines virtuelles qui utilisent des versions persistantes.
+Notez qu'aucun volume n'est fourni. Une instance de calcul sur nos nuages aura déjà un volume qui lui est associé, mais une instance persistante échouera probablement à moins qu'il n'y ait assez d'espace vide dans l'image elle-même. Il est recommandé de [créer un volume de démarrage](working_with_volumes.md) pour les machines virtuelles qui utilisent des versions persistantes.
 
 ### Tester
 

@@ -144,7 +144,7 @@ En conditions d'exécution normale, Gaussian termine comme suit :
 Si la tâche échoue sans produire de message d’erreur et que le rapport de sortie semble autrement normal, ceci peut éventuellement indiquer que :
 *   Votre quota a été dépassé (voir [Quotas et politiques](../../storage-and-data/storage_and_file_management.md#quotas-et-politiques));
 *   Le temps d’exécution a été plus long que le temps demandé à [l'ordonnanceur](../../running-jobs/running_jobs.md) (`--time=HH:MM:SS`);
-*   La mémoire demandée est insuffisante (voir [Suivi des tâches](../../running-jobs/running_jobs.md#suivi-des-taches)); ou
+*   La mémoire demandée est insuffisante (voir [Suivi des tâches](../../running-jobs/running_jobs.md)); ou
 *   Votre tâche produit des données dont la taille dépasse la capacité du disque local des nœuds de calcul.
 
 ## Écriture erronée

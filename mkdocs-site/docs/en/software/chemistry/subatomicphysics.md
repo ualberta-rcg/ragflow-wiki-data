@@ -54,7 +54,7 @@ status:
 
 This page is maintained by the Compute Canada Subatomic Physics National Team and was last updated July 2021.
 
-There is a reference page for the [Astronomy and High Energy Physics Interactive Analysis Facility](astronomy-and-high-energy-physics-interactive-analysis-facility.md).
+There is a reference page for the Astronomy and High Energy Physics Interactive Analysis Facility.
 
 Many of the subatomic experimental physics groups are relying on CVMFS repositories from CERN or the Open Science Grid and specific repositories for each experiment.
 

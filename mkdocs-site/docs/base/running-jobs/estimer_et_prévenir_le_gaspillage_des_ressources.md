@@ -140,7 +140,7 @@ status:
 
 To minimize resource waste on our clusters, we present the most common errors observed among our users, along with the corrective actions to apply. Examples are divided into three categories: CPU, GPU, and memory.
 
-The various graphs are from the Narval and Béluga portals and are presented on the following page: [Portal](portal.md).
+The various graphs are from the Narval and Béluga portals and are presented on the following page: Portal.
 
 ## CPU
 

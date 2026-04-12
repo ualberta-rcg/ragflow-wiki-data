@@ -76,7 +76,7 @@ Soyez certains que nos équipes déploient tous les efforts possibles pour assur
 Si vous éprouvez des problèmes de performance qui pourraient être dus aux présentes mises à jour, contactez le [soutien technique](../support/technical_support.md). Nous apprécions recevoir les données que vous pouvez nous fournir sur les variations de performance avant et après l'application des correctifs. Notez cependant que des modifications au code pourraient être requises pour contrer la baisse de performance, ce qui peut parfois être impossible.
 
 ### Instances virtuelles
-Notre recommandation est d'effectuer des mises à jour fréquentes du système d'exploitation. Pour les différentes distributions Linux, voyez [Mise à jour d'une instance virtuelle](../cloud/security_considerations_when_running_a_vm.md#mise-a-jour-dune-instance-virtuelle).
+Notre recommandation est d'effectuer des mises à jour fréquentes du système d'exploitation. Pour les différentes distributions Linux, voyez [Mise à jour d'une instance virtuelle](../cloud/security_considerations_when_running_a_vm.md).
 
 ## Références
 *   [Site web US-CERT](https://www.us-cert.gov/ncas/alerts/TA18-004A), comprend des liens vers les sites des fournisseurs offrant des correctifs

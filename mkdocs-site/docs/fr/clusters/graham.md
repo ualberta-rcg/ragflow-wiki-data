@@ -161,7 +161,7 @@ Tous les nœuds de Graham sont dotés de la fonctionnalité [Turbo Boost](https:
 | 11 | 64 | 128 Go ou 131072 Mo | 1 x AMD EPYC 7713 | 1.8 To SATA SSD | 4 x NVIDIA RTX A5000 Ampere |
 | 6 | 32 | 1024 Go ou 1048576 Mo | 1 x AMD EPYC 7543 | 8x2 To NVMe | - |
 
-La plupart des applications fonctionneront soit avec des nœuds Broadwell, Skylake ou Cascade Lake et les différences en termes de performance devraient être minimes à comparer avec les temps d'attente. Nous recommandons donc de ne pas sélectionner un type de nœud particulier pour vos tâches. Si nécessaire, pour les tâches qui doivent être exécutées avec un CPU Cascade Lake, utilisez `--constraint=cascade` (voir [comment spécifier l'architecture CPU](../running-jobs/running_jobs.md#particularites-de-certaines-grappes)).
+La plupart des applications fonctionneront soit avec des nœuds Broadwell, Skylake ou Cascade Lake et les différences en termes de performance devraient être minimes à comparer avec les temps d'attente. Nous recommandons donc de ne pas sélectionner un type de nœud particulier pour vos tâches. Si nécessaire, pour les tâches qui doivent être exécutées avec un CPU Cascade Lake, utilisez `--constraint=cascade` (voir [comment spécifier l'architecture CPU](../running-jobs/running_jobs.md)).
 
 Pour le stockage local sur nœud, il est recommandé d'utiliser le répertoire temporaire `$SLURM_TMPDIR` généré par [Slurm](../running-jobs/running_jobs.md). Ce répertoire avec son contenu est supprimé à la fin de l'exécution de la tâche.
 
@@ -220,7 +220,7 @@ module load StdEnv/2023
 nvidia-smi
 ```
 
-Les nœuds Volta de Graham ont un disque local rapide qui devrait être utilisé si la tâche exige beaucoup d'opérations E/S (I/O). Dans la tâche, la variable d'environnement `$SLURM_TMPDIR` donne la localisation du répertoire temporaire sur le disque. Vous pouvez y copier vos fichiers de données au début du script avant d'exécuter le programme, et y copier vos fichiers de sortie à la fin du script. Comme tous les fichiers contenus dans `$SLURM_TMPDIR` sont supprimés quand la tâche est terminée, vous n'avez pas à le faire. Vous pouvez même [créer des environnements virtuels Python](../software/python.md#creer-un-environnement-virtuel-dans-vos-taches) dans cet espace temporaire pour améliorer l'efficacité.
+Les nœuds Volta de Graham ont un disque local rapide qui devrait être utilisé si la tâche exige beaucoup d'opérations E/S (I/O). Dans la tâche, la variable d'environnement `$SLURM_TMPDIR` donne la localisation du répertoire temporaire sur le disque. Vous pouvez y copier vos fichiers de données au début du script avant d'exécuter le programme, et y copier vos fichiers de sortie à la fin du script. Comme tous les fichiers contenus dans `$SLURM_TMPDIR` sont supprimés quand la tâche est terminée, vous n'avez pas à le faire. Vous pouvez même [créer des environnements virtuels Python](../software/python.md) dans cet espace temporaire pour améliorer l'efficacité.
 
 ### Nœuds GPU Turing
 

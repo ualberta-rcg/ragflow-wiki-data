@@ -40,7 +40,7 @@ status:
 
 ## Installation
 
-L'Alliance de recherche numérique du Canada (l'Alliance) propose des *wheels* Python précompilés pour PyRETIS ([voir les *wheels* disponibles](../programming/available_python_wheels.md)) qui sont compatibles avec certaines versions de Python et peuvent être installés dans un [environnement virtuel Python](python.md#creer-et-utiliser-un-environnement-virtuel).
+L'Alliance de recherche numérique du Canada (l'Alliance) propose des *wheels* Python précompilés pour PyRETIS ([voir les *wheels* disponibles](../programming/available_python_wheels.md)) qui sont compatibles avec certaines versions de Python et peuvent être installés dans un [environnement virtuel Python](python.md).
 
 En date de juillet 2020, PyRETIS 2.5.0 est compatible avec les versions Python 3.6 et 3.7. Selon [les directives d'installation](http://www.pyretis.org/v2.5.0/user/install.html), la dépendance [MDTraj](http://mdtraj.org/) doit être installée **après** PyRETIS.
 

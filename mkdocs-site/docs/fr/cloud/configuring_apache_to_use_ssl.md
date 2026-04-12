@@ -50,7 +50,7 @@ status:
   qa_generated: false
 ---
 
-*Page enfant de [Création d'un serveur web sur un nuage](creation-d-un-serveur-web-sur-un-nuage.md)*
+*Page enfant de Création d'un serveur web sur un nuage*
 
 Le terme SSL réfère à la fois au protocole *Transport Layer Security (TLS)* et à son prédécesseur *Secure Sockets Layer (SSL)*. Ils servent au chiffrement des données communiquées sur les réseaux. Le chiffrement protège les données critiques qui transitent sur l'Internet, par exemple les mots de passe. Cependant, même si le serveur web envoie au client de l'information qui n'est pas sensible, le chiffrement empêchera une tierce partie d'intercepter et de modifier les données avant qu'elles se rendent à destination. Dans la plupart des cas, les certificats SSL sont utiles pour chiffrer les données à provenance ou à destination d'un serveur web via l'Internet.
 

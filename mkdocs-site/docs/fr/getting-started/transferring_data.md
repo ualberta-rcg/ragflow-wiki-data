@@ -148,7 +148,7 @@ L'utilitaire [rsync](https://fr.wikipedia.org/wiki/Rsync) vérifie la similitude
 `rsync` compare les dates de modification et la taille des fichiers et fait le transfert uniquement si l'un des paramètres ne concorde pas.
 Si les dates de modification sont susceptibles de différer, l'option `-c` analyse les sommes de contrôle à la source et à la destination et transfère uniquement les fichiers dont les valeurs ne concordent pas.
 
-Quand vous transférez des données vers les systèmes de fichiers `/project`, n'utilisez pas les options `-p` et `-g`. Les quotas pour `/project` sont calculés selon la propriété de groupe et le fait de conserver la même propriété pourrait produire le message d'erreur [_Disk quota exceeded_](frequently_asked_questions.md#message-disk-quota-exceeded). Puisque `-a` inclut par défaut à la fois `-p` et `-g`, il faut ajouter les options `--no-g --no-p` comme suit :
+Quand vous transférez des données vers les systèmes de fichiers `/project`, n'utilisez pas les options `-p` et `-g`. Les quotas pour `/project` sont calculés selon la propriété de groupe et le fait de conserver la même propriété pourrait produire le message d'erreur [_Disk quota exceeded_](frequently_asked_questions.md). Puisque `-a` inclut par défaut à la fois `-p` et `-g`, il faut ajouter les options `--no-g --no-p` comme suit :
 
 ```bash
 rsync -avzh --no-g --no-p LOCALNAME someuser@nibi.alliancecan.ca:projects/def-professor/someuser/somedir/
@@ -255,7 +255,7 @@ scp username@fir.alliancecan.ca:projects/def-jdoe/username/results/output.dat .
 ```
 [Voyez d'autres exemples](http://www.hypexr.org/linux_scp_help.php). Prenez note que vous lancez toujours la commande `scp` à partir de votre ordinateur et non à partir de la grappe : la connexion SCP doit toujours être initiée à partir de votre ordinateur, peu importe la direction dans laquelle vous transférez les données.
 
-L'option `-r` permet de faire un transfert récursif d'un groupe de répertoires et fichiers. **Il n'est pas recommandé d'utiliser `scp -r`** pour transférer des données vers `/project` parce que le bit `setGID` est désactivé dans les répertoires ainsi créés, ce qui peut générer des erreurs semblables à [Message *Disk quota exceeded*](frequently_asked_questions.md#message-disk-quota-exceeded) lors de la création ultérieure de fichiers.
+L'option `-r` permet de faire un transfert récursif d'un groupe de répertoires et fichiers. **Il n'est pas recommandé d'utiliser `scp -r`** pour transférer des données vers `/project` parce que le bit `setGID` est désactivé dans les répertoires ainsi créés, ce qui peut générer des erreurs semblables à [Message *Disk quota exceeded*](frequently_asked_questions.md) lors de la création ultérieure de fichiers.
 
 !!! warning "Attention : Utilisation des clés SSH avec `scp`"
     Si vous utilisez un nom de clé SSH personnalisé, *c'est-à-dire* autre chose que les noms par défaut `id_dsa`, `id_ecdsa`, `id_ed25519` et `id_rsa`, vous devez utiliser l'option `scp -i`, suivie du chemin vers votre clé privée, ainsi :

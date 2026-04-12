@@ -94,7 +94,7 @@ Each job on Narval should have a duration of at least one hour (five minutes for
 | :------ | :---------- |
 | HOME<br>Lustre filesystem, 64 TB of space | Location of home directories, each of which has a small fixed quota. You should use the `project` space for larger storage needs. Small per user [quota](../storage-and-data/storage_and_file_management.md#filesystem-quotas-and-policies). There is a daily backup of the home directories. |
 | SCRATCH<br>Lustre filesystem, 5.7 PB of space | Large space for storing temporary files during computations. No backup system in place. Large [quota](../storage-and-data/storage_and_file_management.md#filesystem-quotas-and-policies) per user. There is an [automated purge](../storage-and-data/scratch_purging_policy.md) of older files in this space. |
-| PROJECT<br>Lustre filesystem, 35 PB of space | This space is designed for sharing data among the members of a research group and for storing large amounts of data. Large and adjustable per group [quota](../storage-and-data/storage_and_file_management.md#quotas-et-politiques). There is a daily backup of the project space. |
+| PROJECT<br>Lustre filesystem, 35 PB of space | This space is designed for sharing data among the members of a research group and for storing large amounts of data. Large and adjustable per group [quota](../storage-and-data/storage_and_file_management.md). There is a daily backup of the project space. |
 
 For transferring data via [Globus](../getting-started/globus.md), you should use the endpoint specified at the top of this page, while for tools like [rsync](../getting-started/transferring_data.md#rsync) and [scp](../getting-started/transferring_data.md#scp) you can use a login node.
 

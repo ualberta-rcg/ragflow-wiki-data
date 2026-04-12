@@ -41,7 +41,7 @@ Pour déplacer des données d’une grappe à l’autre, nous vous recommandons 
 
 ## Accès à nos grappes
 
-L'accès à nos grappes se fait par [SSH](ssh.md); il suffit d'utiliser le nom particulier de la grappe à laquelle vous voulez accéder. Votre nom d'utilisateur et votre mot de passe serviront à vous connecter à toutes nos grappes. Par contre, l'accès à Niagara nécessite une étape supplémentaire qui est [décrite dans la section *Accès* de la page pour Niagara](../clusters/national_systems.md#accès).
+L'accès à nos grappes se fait par [SSH](ssh.md); il suffit d'utiliser le nom particulier de la grappe à laquelle vous voulez accéder. Votre nom d'utilisateur et votre mot de passe serviront à vous connecter à toutes nos grappes. Par contre, l'accès à Niagara nécessite une étape supplémentaire qui est [décrite dans la section *Accès* de la page pour Niagara](../clusters/national_systems.md).
 
 ## Systèmes de fichiers
 
@@ -50,7 +50,7 @@ Il faut aussi savoir que les [quotas et politiques](../storage-and-data/storage_
 
 ## Logiciel
 
-Dans les grappes d’usage général, plusieurs [modules](../programming/utiliser_des_modules.md) sont disponibles à tous les utilisateurs et distribués par CVMFS. Pour cette raison, vous ne devriez pas remarquer de grandes différences entre les logiciels disponibles si vous utilisez les mêmes [environnements logiciels standards](../programming/standard_software_environments.md). Par contre, les [environnements virtuels Python](../software/python.md#créer-et-utiliser-un-environnement-virtuel) et les paquets [R](../software/r.md#installation-des-paquets-r) et [Perl](../software/perl.md#installer-des-paquets) que vous aurez installés dans un répertoire d’une grappe devront être installés de nouveau sur la nouvelle grappe en suivant les mêmes étapes que lors de l’installation sur la grappe d’origine. De même, si vous avez personnalisé votre environnement sur une grappe en modifiant le fichier `$HOME/.bashrc`, vous devrez modifier le même fichier sur la nouvelle grappe. Si vous avez installé un logiciel particulier dans vos répertoires, vous devrez aussi les installer de nouveau sur la nouvelle grappe puisque, comme mentionné ci-dessus, les systèmes de fichiers de grappes différentes ne dépendent pas les uns sur les autres.
+Dans les grappes d’usage général, plusieurs [modules](../programming/utiliser_des_modules.md) sont disponibles à tous les utilisateurs et distribués par CVMFS. Pour cette raison, vous ne devriez pas remarquer de grandes différences entre les logiciels disponibles si vous utilisez les mêmes [environnements logiciels standards](../programming/standard_software_environments.md). Par contre, les [environnements virtuels Python](../software/python.md#créer-et-utiliser-un-environnement-virtuel) et les paquets [R](../software/r.md#installation-des-paquets-r) et [Perl](../software/perl.md) que vous aurez installés dans un répertoire d’une grappe devront être installés de nouveau sur la nouvelle grappe en suivant les mêmes étapes que lors de l’installation sur la grappe d’origine. De même, si vous avez personnalisé votre environnement sur une grappe en modifiant le fichier `$HOME/.bashrc`, vous devrez modifier le même fichier sur la nouvelle grappe. Si vous avez installé un logiciel particulier dans vos répertoires, vous devrez aussi les installer de nouveau sur la nouvelle grappe puisque, comme mentionné ci-dessus, les systèmes de fichiers de grappes différentes ne dépendent pas les uns sur les autres.
 
 ## Pour soumettre des tâches
 

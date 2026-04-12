@@ -246,7 +246,7 @@ The RStudio session will end when the JupyterLab session ends.
 
 #### MLflow
 
-[MLflow](https://mlflow.org/) is an open-source platform, purpose-built to assist machine learning practitioners and teams in handling the complexities of the machine learning process. MLflow focuses on the full lifecycle for machine learning projects, ensuring that each phase is manageable, traceable, and reproducible. We load a default version of MLflow by default, but you may use a different version of it by loading a `mlflow` module. Please see our [MLflow](mlflow.md) page for more information on how to use MLflow to track your AI experiments.
+[MLflow](https://mlflow.org/) is an open-source platform, purpose-built to assist machine learning practitioners and teams in handling the complexities of the machine learning process. MLflow focuses on the full lifecycle for machine learning projects, ensuring that each phase is manageable, traceable, and reproducible. We load a default version of MLflow by default, but you may use a different version of it by loading a `mlflow` module. Please see our MLflow page for more information on how to use MLflow to track your AI experiments.
 
 #### OpenRefine
 
@@ -352,7 +352,7 @@ Loading a `cuda` or a `nvhpc` module will add a launcher to start the graphical 
 
 #### Octave
 
-[GNU Octave](https://octave.org/) is an open-source scientific programming language largely compatible with MATLAB. Loading an `octave` module will add a launcher to start the graphical user interface for Octave through a VNC session. See our page on [Octave](octave.md) for more details on using this software package.
+[GNU Octave](https://octave.org/) is an open-source scientific programming language largely compatible with MATLAB. Loading an `octave` module will add a launcher to start the graphical user interface for Octave through a VNC session. See our page on Octave for more details on using this software package.
 
 #### ParaView
 
@@ -360,7 +360,7 @@ Loading a `cuda` or a `nvhpc` module will add a launcher to start the graphical 
 
 #### QGIS
 
-[QGIS](https://qgis.org/) is a powerful open-source software for visualizing and processing geographic information systems (GIS) data. Loading a `qgis` module will add a launcher to start the QGIS graphical user interface through a VNC session. See our page on [QGIS](qgis.md) for more details on this software package.
+[QGIS](https://qgis.org/) is a powerful open-source software for visualizing and processing geographic information systems (GIS) data. Loading a `qgis` module will add a launcher to start the QGIS graphical user interface through a VNC session. See our page on QGIS for more details on this software package.
 
 #### StarCCM+
 

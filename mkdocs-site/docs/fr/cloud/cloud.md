@@ -90,7 +90,7 @@ Si Apptainer ou le traitement par lots ne satisfont pas vos exigences, optez pou
 Pour chacun de vos projets, vous êtes responsable de
 *   [Créer et gérer vos instances](managing_your_cloud_resources_with_openstack.md)
 *   [Assurer la sécurité et la mise à jour des logiciels de vos instances](cloud_shared_security_responsibility_model.md)
-*   [Définir les groupes de sécurité pour l'accès à votre réseau](managing_your_cloud_resources_with_openstack.md#groupes-de-securite)
+*   [Définir les groupes de sécurité pour l'accès à votre réseau](managing_your_cloud_resources_with_openstack.md)
 *   [Créer les comptes des utilisateurs](managing_your_linux_vm.md)
 *   [Appliquer les meilleures pratiques](vm_best_practices.md)
 *   [Assurer la sécurité de vos instances](security_considerations_when_running_a_vm.md)
@@ -111,7 +111,7 @@ Si vous avez plus d'expérience, vous pouvez
 ## Ressources infonuagiques
 
 *   [Nuage Béluga](https://beluga.cloud.computecanada.ca)
-*   [Nuage Arbutus](https://arbutus.cloud.computecanada.ca); [voir la documentation](arbutus-user-documentation.md)
+*   [Nuage Arbutus](https://arbutus.cloud.computecanada.ca); voir la documentation
 *   [Nibi](https://nibi.cloud.alliancecan.ca)
 *   [Nuage Cedar](http://cedar.cloud.computecanada.ca)
 

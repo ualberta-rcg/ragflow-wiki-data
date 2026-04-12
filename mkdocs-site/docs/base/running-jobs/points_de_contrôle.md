@@ -101,6 +101,6 @@ echo "Job finished with exit code $? at: $(date)"
 ```
 
 ## Resubmitting a Long-Running Job
-If a long computation is expected to be broken down into several Slurm tasks, the [two recommended methods](running_jobs.md#resubmitting-a-long-running-job) are:
-*   [using Slurm job arrays](running_jobs.md#restarting-with-job-arrays);
-*   [resubmitting from the end of the script](running_jobs.md#resubmitting-from-a-script).
+If a long computation is expected to be broken down into several Slurm tasks, the [two recommended methods](running_jobs.md) are:
+*   [using Slurm job arrays](running_jobs.md);
+*   [resubmitting from the end of the script](running_jobs.md).

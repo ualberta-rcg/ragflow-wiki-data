@@ -53,7 +53,7 @@ status:
 # Installing our wheel
 
 The preferred option is to install it using our provided Python [wheel](https://pythonwheels.com/) as follows:
-1. Load a Python [module](../programming/utiliser_des_modules.md#sub-command-load), thus `module load python/3.11`.
+1. Load a Python [module](../programming/utiliser_des_modules.md), thus `module load python/3.11`.
 2. Create and start a [virtual environment](python.md#creating-and-using-a-virtual-environment).
 3. Install `dask`, and optionally `dask-distributed` in the virtual environment with `pip install`.
 

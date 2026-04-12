@@ -101,4 +101,4 @@ ModuleNotFoundError: No module named 'rdkit'
     *   Vérifiez quelles versions de Python sont compatibles avec le module RDKit chargé avec `module spider rdkit/X.Y.Z`. Une fois qu'un module Python compatible est chargé, vérifiez que `python -c 'import rdkit'` fonctionne.
     *   Chargez le module avant d'activer votre environnement virtuel; voir [Dépendance ci-dessus](#dépendance).
 
-Voir aussi [ModuleNotFoundError: No module named 'X'](../python.md#message-modulenotfounderror-no-module-named-x).
+Voir aussi [ModuleNotFoundError: No module named 'X'](../python.md).

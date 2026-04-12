@@ -109,7 +109,7 @@ Si vous voulez porter un programme TensorFlow sur une de nos grappes, nous vous 
 ## Installation
 
 Les directives suivantes servent à installer TensorFlow dans votre répertoire *home* à l'aide des [*wheels* Python](http://pythonwheels.com/) qui se trouvent dans `/cvmfs/soft.computecanada.ca/custom/python/wheelhouse/`.
-Le wheel TensorFlow sera installé dans un [environnement virtuel Python](../python/#creer-et-utiliser-un-environnement-virtuel) avec la commande `pip`.
+Le wheel TensorFlow sera installé dans un environnement virtuel Python avec la commande `pip`.
 
 === "TF 2.x"
 
@@ -263,11 +263,11 @@ Tensor("Const:0", shape=(), dtype=float32) Tensor("Const_1:0", shape=(), dtype=f
 7.0
 ```
 
-TensorFlow fonctionne sur tous les types de nœuds GPU. Pour plus d'information, voir [cette page](../using-gpus-with-slurm/).
+TensorFlow fonctionne sur tous les types de nœuds GPU. Pour plus d'information, voir cette page.
 
 ## Suivi
 
-Il est possible de se connecter à un nœud sur lequel une tâche est en cours pour y exécuter des processus. On peut ainsi faire le suivi des ressources utilisées par TensorFlow et visualiser le déroulement de l'entraînement. Pour des exemples, consultez [Surveillance d'une tâche en cours](../running-jobs/index.md#surveillance-dune-tache-en-cours).
+Il est possible de se connecter à un nœud sur lequel une tâche est en cours pour y exécuter des processus. On peut ainsi faire le suivi des ressources utilisées par TensorFlow et visualiser le déroulement de l'entraînement. Pour des exemples, consultez [Surveillance d'une tâche en cours](../running-jobs/index.md).
 
 ### TensorBoard
 

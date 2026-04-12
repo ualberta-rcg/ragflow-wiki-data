@@ -201,6 +201,6 @@ Au besoin, vous pouvez sélectionner les ceux et celles qui peuvent utiliser vot
 
 !!! warning
     *   Les membres ajoutés au projet ont automatiquement accès aux ressources. En tout temps, il est possible de supprimer des membres de la liste ou de donner ou enlever à un membre la responsabilité de Gestionnaire.
-    *   Les membres de votre projet infonuagique ont accès complet à vos projets OpenStack. Pour l'information sur ces projets, consultez [Projets](openstack.md#projets) dans la page OpenStack.
+    *   Les membres de votre projet infonuagique ont accès complet à vos projets OpenStack. Pour l'information sur ces projets, consultez Projets dans la page OpenStack.
 
 Pour savoir comment vous connecter et utiliser un nuage en particulier, consultez [Service infonuagique](../cloud/cloud.md). Si vous avez besoin d'aide, contactez le [soutien technique](../support/technical_support.md).

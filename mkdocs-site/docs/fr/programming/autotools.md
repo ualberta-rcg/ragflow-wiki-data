@@ -62,7 +62,7 @@ make install --prefix=$HOME/LOGICIEL
 ```
 
 Dans certains cas, il faut utiliser l'option `--prefix` plutôt que `make`; référez-vous à la documentation du logiciel que vous voulez installer.
-Pour indiquer au système les chemins vers notre nouveau logiciel, il faut [créer un module](creer-un-module-en.md).
+Pour indiquer au système les chemins vers notre nouveau logiciel, il faut créer un module.
 
 Une compilation de base d'un programme utilisant *Autoconf* peut être aussi simple que :
 

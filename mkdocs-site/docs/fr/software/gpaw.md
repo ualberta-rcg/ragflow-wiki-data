@@ -57,7 +57,7 @@ status:
 
 ## Créer un environnement virtuel GPAW
 
-Nous offrons des [wheels Python](../programming/available_python_wheels.md) précompilés pour GPAW qui peuvent être installés dans un [environnement virtuel Python](python.md#creer-et-utiliser-un-environnement-virtuel-python).
+Nous offrons des [wheels Python](../programming/available_python_wheels.md) précompilés pour GPAW qui peuvent être installés dans un [environnement virtuel Python](python.md).
 
 1.  Vérifiez quelles versions sont disponibles.
     ```bash

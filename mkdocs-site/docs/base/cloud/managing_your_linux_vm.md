@@ -35,7 +35,7 @@ status:
   qa_generated: false
 ---
 
-The majority of researchers use the Linux Operating System on their VMs. Common Linux distributions used are AlmaLunix, CentOS, Debian, Fedora, and Ubuntu. This page will help you with some common tasks to manage your Linux VM. VMs can also run the Microsoft Windows operating system. Some Windows management tasks are described [here](cloud_quick_start.md#windows).
+The majority of researchers use the Linux Operating System on their VMs. Common Linux distributions used are AlmaLunix, CentOS, Debian, Fedora, and Ubuntu. This page will help you with some common tasks to manage your Linux VM. VMs can also run the Microsoft Windows operating system. Some Windows management tasks are described [here](cloud_quick_start.md).
 
 # Linux VM user management
 There are a number of ways to allow more than one person to log into a VM. We recommend creating new user accounts and adding public [SSH Keys](../getting-started/ssh_keys.md) to these accounts.

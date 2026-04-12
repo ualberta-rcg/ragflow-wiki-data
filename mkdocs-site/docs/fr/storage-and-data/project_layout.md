@@ -65,7 +65,7 @@ status:
 ---
 
 *Page enfant de : [Stockage et gestion de fichiers](storage_and_file_management.md)*
-Voir aussi [Message *Disk quota exceeded*](../getting-started/frequently_asked_questions.md#message-disk-quota-exceeded)
+Voir aussi [Message *Disk quota exceeded*](../getting-started/frequently_asked_questions.md)
 
 Sur nos grappes de calcul, les espaces `/project` sont organisés selon des *groupes*.
 L'accès à `/project` se fait habituellement par des liens symboliques à partir de votre répertoire `/home`.
@@ -118,7 +118,7 @@ newgrp rrg-profname-ab
 
 Copiez ensuite les données vers le répertoire `/project` approprié. Cependant, le groupe par défaut est modifié uniquement pour cette session; vous devrez utiliser `newgrp` à nouveau pour changer le groupe par défaut à votre prochaine connexion.
 
-Si vous recevez des messages d'erreur *Disk quota exceeded* (voir [Message *Disk quota exceeded*](../getting-started/frequently_asked_questions.md#message-disk-quota-exceeded)), ceci peut très bien être dû au fait que des fichiers sont associés au mauvais groupe, notamment votre groupe personnel, c'est-à-dire le groupe qui porte le même nom que votre nom d'utilisateur et qui a un quota de seulement 2 Mo. Pour trouver et résoudre un problème de propriété de groupe pour ces fichiers, vous pouvez utiliser la commande :
+Si vous recevez des messages d'erreur *Disk quota exceeded* (voir [Message *Disk quota exceeded*](../getting-started/frequently_asked_questions.md)), ceci peut très bien être dû au fait que des fichiers sont associés au mauvais groupe, notamment votre groupe personnel, c'est-à-dire le groupe qui porte le même nom que votre nom d'utilisateur et qui a un quota de seulement 2 Mo. Pour trouver et résoudre un problème de propriété de groupe pour ces fichiers, vous pouvez utiliser la commande :
 
 ```bash
 find <nom-du-répertoire> -group $USER -print0 | xargs -0 chgrp -h <groupe>

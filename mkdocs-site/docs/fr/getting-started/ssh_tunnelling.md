@@ -151,7 +151,7 @@ Sur votre ordinateur, ouvrez une nouvelle fenêtre de terminal et lancez la comm
 sshuttle --dns -Nr userid@machine_name
 ```
 
-Copiez et collez l’URL de l'application dans votre fureteur. Si votre application est [Jupyter Notebook](../software/jupyter.md#lancer-jupyter-notebook) par exemple, l'URL comprendra un *token* :
+Copiez et collez l’URL de l'application dans votre fureteur. Si votre application est [Jupyter Notebook](../software/jupyter.md) par exemple, l'URL comprendra un *token* :
 
 ```text
  http://fc3281.int.fir.alliancecan.ca:8888/?token=7ed7059fad64446f837567e32af8d20efa72e72476eb72ca
@@ -163,7 +163,7 @@ Un tunnel SSH peut être créé avec [MobaXTerm](connecting_with_mobaxterm.md) c
 
 Lancez deux sessions MobaXterm.
 
-*La session 1* devrait servir à la connexion à la grappe. Lancez ici votre tâche selon les directives de votre application, par exemple avec [Jupyter Notebook](../software/jupyter.md#lancer-jupyter-notebook). Vous devriez recevoir une URL qui contient le nom et un port du nœud hôte, par exemple `fc3281.int.fir.alliancecan.ca:8888`.
+*La session 1* devrait servir à la connexion à la grappe. Lancez ici votre tâche selon les directives de votre application, par exemple avec [Jupyter Notebook](../software/jupyter.md). Vous devriez recevoir une URL qui contient le nom et un port du nœud hôte, par exemple `fc3281.int.fir.alliancecan.ca:8888`.
 
 *La session 2* est un terminal local dans lequel le tunnel SSH sera mis en place. Lancez la prochaine commande en remplaçant le nom du nœud par l'URL obtenue dans la session 1.
 
@@ -174,7 +174,7 @@ ssh -L 8888:fc3281.int.fir.alliancecan.ca:8888 someuser@fir.alliancecan.ca
 Cette commande effectue une redirection des connexions au port local `8888` vers le port `8888` sur `fc3281.int.fir.alliancecan.ca`, nom donné au **port distant**. Il n'est pas nécessaire que les numéros soient identiques, mais il s'agit d'une convention qui permet d'identifier facilement le port local et le port distant.
 
 Modifiez l'URL obtenue dans la session 1 en remplaçant le nom du nœud par `localhost`.
-Suivant l'exemple avec [Jupyter Notebook](../software/jupyter.md#lancer-jupyter-notebook), l'URL à copier dans le fureteur est :
+Suivant l'exemple avec [Jupyter Notebook](../software/jupyter.md), l'URL à copier dans le fureteur est :
 
 ```text
  http://localhost:8888/?token=7ed7059fad64446f837567e32af8d20efa72e72476eb72ca

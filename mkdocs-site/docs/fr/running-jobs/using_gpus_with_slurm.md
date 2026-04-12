@@ -86,30 +86,30 @@ Pour l'information générale sur l'ordonnancement des tâches, consultez [Exéc
 
 | Grappe | Modèle | Multi-instances (MIG) | Identifiant pour Slurm | Synonyme pour Slurm |
 | :----- | :----- | :-------------------- | :--------------------- | :------------------ |
-| [Fir](../software/fir.md#caracteristiques-des-noeuds) | H100-80gb | | h100 | |
-| [Fir](../software/fir.md#caracteristiques-des-noeuds) | H100-80gb | 1/8 | nvidia_h100_80gb_hbm3_1g.10gb | |
-| [Fir](../software/fir.md#caracteristiques-des-noeuds) | H100-80gb | 2/8 | nvidia_h100_80gb_hbm3_2g.20gb | |
-| [Fir](../software/fir.md#caracteristiques-des-noeuds) | H100-80gb | 3/8 | nvidia_h100_80gb_hbm3_3g.40gb | |
-| [Narval](../clusters/narval.md#caracteristiques-des-noeuds) | A100-40gb | | a100 | |
-| [Narval](../clusters/narval.md#caracteristiques-des-noeuds) | A100-40gb | 1/8 | a100_1g.5gb | |
-| [Narval](../clusters/narval.md#caracteristiques-des-noeuds) | A100-40gb | 2/8 | a100_2g.10gb | |
-| [Narval](../clusters/narval.md#caracteristiques-des-noeuds) | A100-40gb | 2/8 | a100_3g.20gb | |
-| [Narval](../clusters/narval.md#caracteristiques-des-noeuds) | A100-40gb | 4/8 | a100_4g.20gb | |
-| [Nibi](../clusters/nibi.md#caracteristiques-des-noeuds) | H100-80gb | | h100 | |
-| [Nibi](../clusters/nibi.md#caracteristiques-des-noeuds) | H100-80gb | 1/8 | nvidia_h100_80gb_hbm3_1g.10gb | h100_1g.10gb h100_1.10 h100_10gb |
-| [Nibi](../clusters/nibi.md#caracteristiques-des-noeuds) | H100-80gb | 2/8 | nvidia_h100_80gb_hbm3_2g.20gb | h100_2g.20gb h100_2.20 h100_20gb |
-| [Nibi](../clusters/nibi.md#caracteristiques-des-noeuds) | H100-80gb | 3/8 | nvidia_h100_80gb_hbm3_3g.40gb | h100_3g.40gb h100_3.40 h100_40gb |
-| [Nibi](../clusters/nibi.md#caracteristiques-des-noeuds) | MI300A-128gb | | mi300a | |
-| [Rorqual](../clusters/rorqual.md#caracteristiques-des-noeuds) | H100-80gb | | h100 | |
-| [Rorqual](../clusters/rorqual.md#caracteristiques-des-noeuds) | H100-80gb | 1/8 | nvidia_h100_80gb_hbm3_1g.10gb | h100_1g.10gb h100_1.10 h100_10gb |
-| [Rorqual](../clusters/rorqual.md#caracteristiques-des-noeuds) | H100-80gb | 2/8 | nvidia_h100_80gb_hbm3_2g.20gb | h100_2g.20gb h100_2.20 h100_20gb |
-| [Rorqual](../clusters/rorqual.md#caracteristiques-des-noeuds) | H100-80gb | 3/8 | nvidia_h100_80gb_hbm3_3g.40gb | h100_3g.40gb h100_3.40 h100_40gb |
-| [Trillium](../clusters/trillium.md#node-characteristics) | H100-80gb | | h100 | |
-| [Rorqual](../clusters/rorqual.md#caracteristiques-des-noeuds) | H100-80gb | | h100 | |
-| [Rorqual](../clusters/rorqual.md#caracteristiques-des-noeuds) | L40S-48gb | | l40s | |
-| [tamIA](../clusters/tamia.md#caracteristiques-des-noeuds) | H100-80gb | | h100 | |
-| [tamIA](../clusters/tamia.md#caracteristiques-des-noeuds) | H200 | | h200 | |
-| [Vulcan](../clusters/vulcan.md#materiel) | L40S-48gb | | l40s | |
+| [Fir](../software/fir.md) | H100-80gb | | h100 | |
+| [Fir](../software/fir.md) | H100-80gb | 1/8 | nvidia_h100_80gb_hbm3_1g.10gb | |
+| [Fir](../software/fir.md) | H100-80gb | 2/8 | nvidia_h100_80gb_hbm3_2g.20gb | |
+| [Fir](../software/fir.md) | H100-80gb | 3/8 | nvidia_h100_80gb_hbm3_3g.40gb | |
+| [Narval](../clusters/narval.md) | A100-40gb | | a100 | |
+| [Narval](../clusters/narval.md) | A100-40gb | 1/8 | a100_1g.5gb | |
+| [Narval](../clusters/narval.md) | A100-40gb | 2/8 | a100_2g.10gb | |
+| [Narval](../clusters/narval.md) | A100-40gb | 2/8 | a100_3g.20gb | |
+| [Narval](../clusters/narval.md) | A100-40gb | 4/8 | a100_4g.20gb | |
+| [Nibi](../clusters/nibi.md) | H100-80gb | | h100 | |
+| [Nibi](../clusters/nibi.md) | H100-80gb | 1/8 | nvidia_h100_80gb_hbm3_1g.10gb | h100_1g.10gb h100_1.10 h100_10gb |
+| [Nibi](../clusters/nibi.md) | H100-80gb | 2/8 | nvidia_h100_80gb_hbm3_2g.20gb | h100_2g.20gb h100_2.20 h100_20gb |
+| [Nibi](../clusters/nibi.md) | H100-80gb | 3/8 | nvidia_h100_80gb_hbm3_3g.40gb | h100_3g.40gb h100_3.40 h100_40gb |
+| [Nibi](../clusters/nibi.md) | MI300A-128gb | | mi300a | |
+| [Rorqual](../clusters/rorqual.md) | H100-80gb | | h100 | |
+| [Rorqual](../clusters/rorqual.md) | H100-80gb | 1/8 | nvidia_h100_80gb_hbm3_1g.10gb | h100_1g.10gb h100_1.10 h100_10gb |
+| [Rorqual](../clusters/rorqual.md) | H100-80gb | 2/8 | nvidia_h100_80gb_hbm3_2g.20gb | h100_2g.20gb h100_2.20 h100_20gb |
+| [Rorqual](../clusters/rorqual.md) | H100-80gb | 3/8 | nvidia_h100_80gb_hbm3_3g.40gb | h100_3g.40gb h100_3.40 h100_40gb |
+| [Trillium](../clusters/trillium.md) | H100-80gb | | h100 | |
+| [Rorqual](../clusters/rorqual.md) | H100-80gb | | h100 | |
+| [Rorqual](../clusters/rorqual.md) | L40S-48gb | | l40s | |
+| [tamIA](../clusters/tamia.md) | H100-80gb | | h100 | |
+| [tamIA](../clusters/tamia.md) | H200 | | h200 | |
+| [Vulcan](../clusters/vulcan.md) | L40S-48gb | | l40s | |
 
 La commande ci-dessous présente les identifiants de GPU (et MIG) disponibles sur chacune des grappes. Cette commande est utile si le tableau plus haut n'a pas été mis à jour récemment.
 

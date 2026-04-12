@@ -298,7 +298,7 @@ ADF can be run interactively in graphical mode on a Graham compute node (3hr tim
 ADF can be run interactively in graphical mode on gra-vdi (no connection time limit) over TigerVNC with these steps:
 
 1.  [Install a TigerVNC](../interactive/vnc.md#setup) client on your desktop
-2.  [Connect](../interactive/vnc.md#vdi-nodes) to `gra-vdi.computecanada.ca` with vncviewer
+2.  [Connect](../interactive/vnc.md) to `gra-vdi.computecanada.ca` with vncviewer
 3.  `module load clumod`
 4.  `module load adf`
 5.  `adfinput`

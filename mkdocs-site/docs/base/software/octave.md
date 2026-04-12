@@ -67,7 +67,7 @@ octave --no-gui octave_2d_plot.m
     Octave relies on the Gnuplot package to generate plots.
 
 ### Running MATLAB code
-Octave can often be used as a drop-in replacement for running MATLAB scripts, like the `cosplot.m` example on our [MATLAB](matlab.md#running-a-matlab-code) page:
+Octave can often be used as a drop-in replacement for running MATLAB scripts, like the `cosplot.m` example on our [MATLAB](matlab.md) page:
 ```bash title="octave_job_1.sh"
 #!/bin/bash -l
 #SBATCH --time=0-00:10

@@ -104,7 +104,7 @@ DeepSpeed is a deep learning training optimization library, providing the means 
 ## Installing DeepSpeed
 
 Our recommendation is to install it using our provided Python [wheel](https://pythonwheels.com/) as follows:
-1.  Load a Python [module](../../programming/utiliser_des_modules.md#sub-command-load), thus `module load python`
+1.  Load a Python [module](../../programming/utiliser_des_modules.md), thus `module load python`
 2.  Create and start a [virtual environment](../python.md#creating-and-using-a-virtual-environment).
 3.  Install both PyTorch and DeepSpeed in the virtual environment with `pip install`.
 
@@ -115,7 +115,7 @@ pip install --no-index torch deepspeed
 
 ## Multi-GPU and Multi-Node Jobs with DeepSpeed
 
-In the example that follows, we use `deepspeed` to reproduce our [PyTorch tutorial](../pytorch.md#pytorch-with-multiple-gpus) on how to train a model with multiple GPUs distributed over multiple nodes. Notable differences are:
+In the example that follows, we use `deepspeed` to reproduce our [PyTorch tutorial](../pytorch.md) on how to train a model with multiple GPUs distributed over multiple nodes. Notable differences are:
 
 1.  Here we define and configure several common elements of the training task (such as optimizer, learning rate scheduler, batch size and more) in a config file, rather than using code in the main Python script.
 2.  We also define DeepSpeed-specific configurations, such as what modality of ZeRO to utilize, in a config file.

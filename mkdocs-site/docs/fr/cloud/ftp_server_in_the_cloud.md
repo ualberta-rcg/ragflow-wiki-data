@@ -59,7 +59,7 @@ Si vous devez utiliser FTP, consultez un des guides suivants, selon le système 
 *   [Ubuntu](https://help.ubuntu.com/lts/serverguide/ftp-server.html)
 *   [CentOS 6](https://www.digitalocean.com/community/tutorials/how-to-set-up-vsftpd-on-centos-6--2)
 
-Les ports d'une instance utilisés par FTP doivent être ouverts; voyez [Groupes de sécurité](managing_your_cloud_resources_with_openstack.md#groupes-de-securite) pour savoir comment ouvrir les ports. FTP utilise le port 21 pour lancer la requête de transfert de fichiers, mais le transfert comme tel peut s'effectuer sur un port aléatoire au-delà du port 1025; les détails varient toutefois selon le mode d'opération de FTP (par exemple, le port 20 pourrait être utilisé). Ceci signifie que, pour permettre un accès FTP à votre instance, vous devez ouvrir le port 21, possiblement le port 20 et probablement les ports au-delà de 1025.
+Les ports d'une instance utilisés par FTP doivent être ouverts; voyez [Groupes de sécurité](managing_your_cloud_resources_with_openstack.md) pour savoir comment ouvrir les ports. FTP utilise le port 21 pour lancer la requête de transfert de fichiers, mais le transfert comme tel peut s'effectuer sur un port aléatoire au-delà du port 1025; les détails varient toutefois selon le mode d'opération de FTP (par exemple, le port 20 pourrait être utilisé). Ceci signifie que, pour permettre un accès FTP à votre instance, vous devez ouvrir le port 21, possiblement le port 20 et probablement les ports au-delà de 1025.
 
 !!! warning "Risque de sécurité lié aux ports ouverts"
     Chaque port ouvert représente un risque de sécurité et les protocoles autres que FTP sont à privilégier.

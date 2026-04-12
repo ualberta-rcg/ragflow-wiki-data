@@ -65,6 +65,6 @@ Cependant, si vous avez accès au code source de l'application et/ou que vous en
     *   Une fois l'écriture atomique complétée, on peut décider de supprimer ou non des vieux points de contrôle
 
 ## Resoumettre une tâche pour un calcul de longue durée
-Si on prévoit qu'un long calcul sera morcelé en plusieurs tâches Slurm, les [deux méthodes recommandées](running_jobs.md#resoumettre-une-tache-pour-un-calcul-de-longue-duree) sont:
-*   [l'utilisation de vecteurs de tâches (*job arrays*) Slurm](running_jobs.md#redemarrage-avec-des-vecteurs-de-taches);
-*   [la resoumission à partir de la fin du script](running_jobs.md#resoumettre-a-partir-dun-script).
+Si on prévoit qu'un long calcul sera morcelé en plusieurs tâches Slurm, les [deux méthodes recommandées](running_jobs.md) sont:
+*   [l'utilisation de vecteurs de tâches (*job arrays*) Slurm](running_jobs.md);
+*   [la resoumission à partir de la fin du script](running_jobs.md).

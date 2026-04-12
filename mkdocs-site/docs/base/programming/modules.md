@@ -60,4 +60,4 @@ The main [Available software](available_software.md) page is a good starting poi
 * [Standard software environments](standard_software_environments.md): as of April 1, 2021, `StdEnv/2020` is the default collection of Lmod modules
 * Lmod [modules specific to Niagara](modules_specific_to_niagara.md)
 * Tables of Lmod modules optimized for [AVX](modules_avx.md), **[AVX2](modules_avx2.md)** and **[AVX512](modules_avx512.md)** [CPU instructions](standard_software_environments.md#performance-improvements)
-* [Category *Software*](category-software.md): a list of different software pages in this wiki, including commercial or licensed software
+* Category *Software*: a list of different software pages in this wiki, including commercial or licensed software

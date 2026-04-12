@@ -91,7 +91,7 @@ Jupyter Notebook fonctionne sur un nœud de calcul ou sur un nœud de connexion 
 
 ## Installation
 
-Ces directives permettent d'installer Jupyter Notebook avec la commande `pip` dans un [environnement virtuel Python](../software/python.md#creer-et-utiliser-un-environnement-virtuel) dans votre répertoire personnel (*home*). Les directives sont valides pour la version 3.6 de Python, mais vous pouvez installer l'application pour d'autres versions en chargeant le module Python approprié.
+Ces directives permettent d'installer Jupyter Notebook avec la commande `pip` dans un [environnement virtuel Python](../software/python.md) dans votre répertoire personnel (*home*). Les directives sont valides pour la version 3.6 de Python, mais vous pouvez installer l'application pour d'autres versions en chargeant le module Python approprié.
 
 1. Chargez le module Python.
    ```bash

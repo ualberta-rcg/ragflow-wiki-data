@@ -236,7 +236,7 @@ Vous pouvez utiliser [SSH](../getting-started/ssh.md) en ouvrant une fenêtre de
     où `/PATH/TO/SSH_PRIVATE_KEY` est le chemin de votre clé SSH privée et `MYALLIANCEUSERNAME` est votre nom d'utilisateur CCDB.
 
 !!! note "Remarques"
-    *   À votre première connexion, assurez-vous que vous êtes bien sur Trillium en vérifiant si [l'empreinte de la clé hôte du nœud de connexion](../getting-started/ssh_security_improvements.md#trillium) correspond.
+    *   À votre première connexion, assurez-vous que vous êtes bien sur Trillium en vérifiant si [l'empreinte de la clé hôte du nœud de connexion](../getting-started/ssh_security_improvements.md) correspond.
     *   Les nœuds de connexion de Trillium vous permettent de développer, de modifier, de compiler, de préparer et de soumettre des tâches.
     *   Les nœuds de connexion CPU et GPU ne font pas partie des nœuds de calcul, mais ils ont la même architecture, le même système d'exploitation et la même pile logicielle que les nœuds de calcul CPU et GPU.
     *   Vous pouvez vous connecter via SSH d'un nœud de connexion à un autre en utilisant leurs noms d'hôte internes `tri-login01, ..., tri-login06` et `trig-login01` (ce dernier étant le nœud de connexion GPU).

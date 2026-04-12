@@ -379,7 +379,7 @@ Les résultats sont corrects, toutefois, loin de gagner en vitesse, l'opération
 ### NVIDIA Visual Profiler
 [NVIDIA Visual Profiler (NVVP)](https://developer.nvidia.com/nvidia-visual-profiler) est un profileur graphique pour les applications OpenACC. C'est un outil d'analyse pour les **codes écrits avec les directives OpenACC et CUDA C/C++**. En conséquence, si l'exécutable n'utilise pas le GPU, ce profileur ne fournira aucun résultat.
 
-Quand [X11 est redirigé vers un serveur X-Server](../software/visualization.md#fenetres-a-distance-avec-redirection-x11) ou quand vous utilisez un [environnement bureau Linux](../interactive/vnc.md) (aussi via [JupyterHub](../interactive/jupyterhub.md#bureau) avec 2 cœurs CPU, 5000M de mémoire et 1 GPU), vous pouvez lancer NVVP à partir d'un terminal:
+Quand [X11 est redirigé vers un serveur X-Server](../software/visualization.md) ou quand vous utilisez un [environnement bureau Linux](../interactive/vnc.md) (aussi via [JupyterHub](../interactive/jupyterhub.md) avec 2 cœurs CPU, 5000M de mémoire et 1 GPU), vous pouvez lancer NVVP à partir d'un terminal:
 
 ```bash
 module load cuda/11.7 java/1.8

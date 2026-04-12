@@ -98,7 +98,7 @@ Pour les commandes qui s'appliquent aux modules, voir [Utiliser des modules](../
 ### Soumettre des tâches
 Les grappes nationales utilisent l'ordonnanceur Slurm; pour des renseignements sur la soumission d'une tâche, consultez [Exécuter des tâches](../running-jobs/running_jobs.md).
 
-Puisque seule la version avec multiprocesseur à mémoire partagée de Gaussian est prise en charge, vos tâches ne peuvent utiliser qu'un seul nœud et jusqu'au maximum de cœurs par nœud. Cependant, en raison de la scalabilité de Gaussian, nous vous recommandons *de ne pas utiliser plus de 32 CPU par tâche si vous ne pouvez pas prouver qu'ils seront bien utilisés.* Nibi et Fir ont 192 CPU par nœud; nous vous demandons de ne pas utiliser des nœuds entiers puisque ce ne serait pas efficace. Si vos tâches nécessitent plus de mémoire que ce que vous pouvez obtenir sur un seul nœud, sachez que chacune des grappes offre quelques nœuds avec plus de mémoire. Pour connaître le nombre de nœuds sur une grappe et leur capacité, consultez [Fir](fir.md#caracteristiques_des_noeuds) et [Nibi](../clusters/nibi.md#caracteristiques_des_noeuds).
+Puisque seule la version avec multiprocesseur à mémoire partagée de Gaussian est prise en charge, vos tâches ne peuvent utiliser qu'un seul nœud et jusqu'au maximum de cœurs par nœud. Cependant, en raison de la scalabilité de Gaussian, nous vous recommandons *de ne pas utiliser plus de 32 CPU par tâche si vous ne pouvez pas prouver qu'ils seront bien utilisés.* Nibi et Fir ont 192 CPU par nœud; nous vous demandons de ne pas utiliser des nœuds entiers puisque ce ne serait pas efficace. Si vos tâches nécessitent plus de mémoire que ce que vous pouvez obtenir sur un seul nœud, sachez que chacune des grappes offre quelques nœuds avec plus de mémoire. Pour connaître le nombre de nœuds sur une grappe et leur capacité, consultez [Fir](fir.md) et [Nibi](../clusters/nibi.md).
 
 En plus du fichier d'entrée *name.com*, vous devez préparer un script décrivant les ressources de calcul pour la tâche; ce script doit être dans le même répertoire que le fichier d'entrée.
 
@@ -192,7 +192,7 @@ où la version est g03.d10, g09.e01, g16.a03 ou g16.b01.
 ## Remarques
 1.  NBO7 est inclus uniquement dans la version g16.c01 avec l'emploi des mots-clés nbo6 et nbo7.
 2.  NBO6 est inclus dans les versions g09.e01 et g16.b01.
-3.  Voir les diapositives du webinaire [Running Gaussian16 and NBO7 effectively on Nibi and Fir](Gauss_NBO_2026_2.pdf) (2026).
+3.  Voir les diapositives du webinaire Running Gaussian16 and NBO7 effectively on Nibi and Fir (2026).
 
 ## Erreurs
 Vous trouverez la solution à plusieurs erreurs dans [Gaussian – Messages d’erreur](chemistry/gaussian_error_messages.md).

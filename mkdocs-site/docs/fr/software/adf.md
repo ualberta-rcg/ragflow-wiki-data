@@ -292,7 +292,7 @@ Avec des applications comme ADF-GUI, la redirection X11 via une connexion SSH ex
 Sur un nœud de calcul de Graham, ADF peut être utilisé interactivement en mode graphique avec TigerVNC pour une durée maximale de 3 heures.
 
 1.  [Installez un client TigerVNC](../interactive/vnc.md#configuration) sur votre ordinateur.
-2.  [Connectez-vous à un nœud de calcul](../interactive/vnc.md#noeuds-de-calcul) avec `vncviewer`.
+2.  [Connectez-vous à un nœud de calcul](../interactive/vnc.md) avec `vncviewer`.
 3.  `module load adf`
 4.  `adfinput`
 
@@ -301,7 +301,7 @@ Sur un nœud de calcul de Graham, ADF peut être utilisé interactivement en mod
 Sur gra-vdi, ADF peut être utilisé interactivement en mode graphique, sans limite de durée.
 
 1.  [Installez un client TigerVNC](../interactive/vnc.md#configuration) sur votre ordinateur.
-2.  [Connectez-vous à gra-vdi.computecanada.ca](../interactive/vnc.md#noeuds-vdi) avec `vncviewer`.
+2.  [Connectez-vous à gra-vdi.computecanada.ca](../interactive/vnc.md) avec `vncviewer`.
 3.  `module load clumod`
 4.  `module load adf`
 5.  `adfinput`

@@ -70,7 +70,7 @@ Host narval beluga graham cedar
   [...]
 ```
 
-Notez qu'il faut installer votre [clé SSH publique](ssh_keys.md) sur chacune des grappes, ou utiliser plutôt [la CCDB](ssh_keys.md#par-la-ccdb).
+Notez qu'il faut installer votre [clé SSH publique](ssh_keys.md) sur chacune des grappes, ou utiliser plutôt [la CCDB](ssh_keys.md).
 
 D'autres options de la commande `ssh` ont des paramètres correspondants qui peuvent être entrés dans le fichier `~/.ssh/config` de votre ordinateur. En particulier :
 

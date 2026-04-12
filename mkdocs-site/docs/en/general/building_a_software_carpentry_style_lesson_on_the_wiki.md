@@ -38,7 +38,7 @@ status:
 It may be interesting to use our wiki to host Software Carpentry-style lessons. Software Carpentry lessons, such as [this one](http://swcarpentry.github.io/shell-novice/), are usually hosted on GitHub. They can be written with a Markdown syntax and provide many pre-formatted styles. Hosting a lesson on a wiki also offers the advantage of supporting translation. In order to facilitate the writing of such a lesson, a few templates may be useful, and are listed below.
 
 ## Prerequisites
-The typical SWC prerequisites box can be obtained using the [Prerequisites](template-prerequisites.md) template. For example, the following code
+The typical SWC prerequisites box can be obtained using the Prerequisites template. For example, the following code
 
 ```markdown
 {{Prerequisites
@@ -53,7 +53,7 @@ results in the following box
     This lesson requires you to first know X.
 
 ## Getting ready
-The SWC "getting ready" box can be obtained using the [Getready](template-getready.md) template. For example, the following code
+The SWC "getting ready" box can be obtained using the Getready template. For example, the following code
 
 ```markdown
 {{Getready
@@ -68,7 +68,7 @@ results in the following box
     You should download the following files prior to starting the lesson.
 
 ## Learning Objectives
-The SWC "objectives" box can be obtained using the [Objectives](template-objectives.md) template. For example, the following code
+The SWC "objectives" box can be obtained using the Objectives template. For example, the following code
 
 ```markdown
 {{Objectives
@@ -85,7 +85,7 @@ results in the following box
     * You will also learn B
 
 ## Callouts
-The SWC "callout" box can be obtained using the [Callout](template-callout.md) template. For example, the following code
+The SWC "callout" box can be obtained using the Callout template. For example, the following code
 
 ```markdown
 {{Callout
@@ -100,7 +100,7 @@ results in the following box
     You can use the `<TAB>` key to auto complete.
 
 ## Challenge
-The SWC "challenge" box can be obtained using the [Challenge](template-challenge.md) template. For example, the following code
+The SWC "challenge" box can be obtained using the Challenge template. For example, the following code
 
 ```markdown
 {{Challenge

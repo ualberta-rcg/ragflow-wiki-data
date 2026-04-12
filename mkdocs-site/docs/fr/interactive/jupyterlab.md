@@ -114,7 +114,7 @@ status:
 JupyterLab est l'interface utilisateur générale recommandée pour JupyterHub.
 À partir d'un serveur JupyterLab, vous pouvez gérer vos fichiers et vos répertoires distants et lancer des applications Jupyter comme un terminal, des notebooks (Python 3), RStudio et un bureau Linux.
 
-Vous pouvez ajouter vos propres noyaux (*kernels*) qui seront affichés comme des applications. Pour configurer ces noyaux, voir [Ajouter des noyaux](jupyternotebook.md#ajouter-des-noyaux).
+Vous pouvez ajouter vos propres noyaux (*kernels*) qui seront affichés comme des applications. Pour configurer ces noyaux, voir [Ajouter des noyaux](jupyternotebook.md).
 
 ## Lancer JupyterLab
 Il existe plusieurs façons de lancer JupyterLab.
@@ -157,7 +157,7 @@ Cette option permet d'arrêter les sessions de noyau et de terminal.
 Si votre tâche utilise des GPU, cette option vous donne accès à certaines options de surveillance des ressources.
 
 #### Modules logiciels (*Software Modules*)
-C'est ici que vous pouvez charger ou décharger les [modules logiciels](../programming/available_software.md) disponibles dans notre environnement. Selon les modules chargés, des icônes redirigeant vers les [applications Jupyter](jupyterlab.md#applications-preconstruites) correspondantes apparaîtront sous l'onglet *Lanceur*. Par défaut, nous chargeons plusieurs modules pour vous donner accès aux outils de base.
+C'est ici que vous pouvez charger ou décharger les [modules logiciels](../programming/available_software.md) disponibles dans notre environnement. Selon les modules chargés, des icônes redirigeant vers les [applications Jupyter](jupyterlab.md) correspondantes apparaîtront sous l'onglet *Lanceur*. Par défaut, nous chargeons plusieurs modules pour vous donner accès aux outils de base.
 
 Le champ de recherche permet de rechercher n'importe quel [module disponible](../programming/available_software.md) et d'afficher le résultat dans le sous-panneau *Modules disponibles*. Remarque : Certains modules sont masqués jusqu'au chargement de leurs dépendances. Nous vous recommandons de rechercher d'abord un module spécifique avec `module spider module_name` à partir d'un terminal.
 
@@ -228,7 +228,7 @@ La session se terminera en même temps que la session JupyterLab.
     Notez que le simple fait de quitter RStudio ou de fermer les onglets RStudio et JupyterHub dans votre navigateur ne libère pas les ressources (CPU, mémoire, GPU) ni ne met fin à la tâche Slurm sous-jacente. **Veuillez fermer votre session via le menu `Fichier > Déconnexion` dans l'onglet du navigateur JupyterLab**.
 
 #### MLflow
-[MLflow](https://mlflow.org/) est une plateforme libre conçue pour aider les praticiens et les équipes d'apprentissage automatique à gérer la complexité du processus. MLflow se concentre sur le cycle de vie complet des projets d'apprentissage automatique, garantissant que chaque phase soit gérable, traçable et reproductible. Une version par défaut de MLflow est chargée, mais vous pouvez en utiliser une autre en chargeant le module `mlflow`. Consultez notre page [MLflow](mlflow.md) pour plus d'informations sur l'utilisation de MLflow pour le suivi de vos expériences d'IA.
+[MLflow](https://mlflow.org/) est une plateforme libre conçue pour aider les praticiens et les équipes d'apprentissage automatique à gérer la complexité du processus. MLflow se concentre sur le cycle de vie complet des projets d'apprentissage automatique, garantissant que chaque phase soit gérable, traçable et reproductible. Une version par défaut de MLflow est chargée, mais vous pouvez en utiliser une autre en chargeant le module `mlflow`. Consultez notre page MLflow pour plus d'informations sur l'utilisation de MLflow pour le suivi de vos expériences d'IA.
 
 #### OpenRefine
 [OpenRefine](https://openrefine.org/) est un outil puissant, gratuit et libre permettant de nettoyer les données désordonnées, de les transformer et de les enrichir pour leur apporter plus de valeur.
@@ -276,7 +276,7 @@ Pour coller, appuyez sur Ctrl+V.
 Si [Globus](../getting-started/globus.md) est disponible sur la grappe que vous utilisez, vous verrez peut-être cette icône. Cela ouvrira votre navigateur et la collection Globus correspondante.
 
 #### Metrix
-Si le [portail de tâches Metrix](portail.md) est disponible sur la grappe que vous utilisez, cette icône ouvrira une page qui montre les statistiques de votre tâche.
+Si le portail de tâches Metrix est disponible sur la grappe que vous utilisez, cette icône ouvrira une page qui montre les statistiques de votre tâche.
 
 ### Applications disponibles après le chargement d'un module
 Plusieurs modules que nous fournissons affichent également une icône de lancement d'une application lors de son chargement, même si elles ne sont pas chargées par défaut.
@@ -313,13 +313,13 @@ Charger un module `comsol` ajoutera une icône de lancement permettant de démar
 Le chargement d'un module `cuda` ou `nvhpc` crée une icône pour lancer l'interface utilisateur graphique dans une session VNC.
 
 #### Octave
-[GNU Octave](https://octave.org/) est un langage de programmation scientifique libre largement compatible avec MATLAB. Le chargement d'un module `octave` ajoute une icône pour lancer l'interface utilisateur graphique d'Octave via une session VNC. Consultez notre page sur [Octave](octave.md) pour plus de détails sur l'utilisation de ce logiciel.
+[GNU Octave](https://octave.org/) est un langage de programmation scientifique libre largement compatible avec MATLAB. Le chargement d'un module `octave` ajoute une icône pour lancer l'interface utilisateur graphique d'Octave via une session VNC. Consultez notre page sur Octave pour plus de détails sur l'utilisation de ce logiciel.
 
 #### ParaView
 [ParaView](https://www.paraview.org/) est un puissant logiciel libre de visualisation. Le chargement d'un module `paraview` ajoute une icône pour lancer l'interface utilisateur graphique ParaView via une session VNC. Consultez notre page [ParaView](../software/paraview.md) pour plus de détails sur l'utilisation de ce logiciel.
 
 #### QGIS
-[QGIS](https://qgis.org/) est un puissant logiciel libre de visualisation et de traitement de données de systèmes d'information géographique (SIG). Le chargement d'un module `qgis` ajoute une icône pour lancer l'interface graphique de QGIS via une session VNC. Consultez notre page [QGIS](qgis.md) pour plus de détails sur ce logiciel.
+[QGIS](https://qgis.org/) est un puissant logiciel libre de visualisation et de traitement de données de systèmes d'information géographique (SIG). Le chargement d'un module `qgis` ajoute une icône pour lancer l'interface graphique de QGIS via une session VNC. Consultez notre page QGIS pour plus de détails sur ce logiciel.
 
 #### StarCCM+
 [Star-CCM+](https://plm.sw.siemens.com/en-US/simcenter/fluids-thermal-simulation/star-ccm/) de Siemens est un logiciel commercial de simulation numérique pour la dynamique des fluides. Il est disponible en chargeant l'un des modules `starccm` ou `starccm-mixed`, qui ajoute une icône pour lancer l'interface graphique de StarCCM+ via une session VNC. Comme pour tous les logiciels commerciaux, vous devrez fournir votre propre licence. Consultez notre page [Star-CCM+](../software/star-ccm.md) pour plus de détails sur l'utilisation de ce logiciel.
@@ -363,7 +363,7 @@ Pour ouvrir un notebook Python dans le répertoire courant du *Navigateur de fic
     jupyter nbconvert --to python my-current-notebook.ipynb
     ```
 
-3.  Créez [une tâche non interactive](../running-jobs/running_jobs.md#soumettre-des-taches-avec-sbatch) et soumettez-la.
+3.  Créez [une tâche non interactive](../running-jobs/running_jobs.md) et soumettez-la.
 
 Dans le script de soumission, exécutez le notebook converti avec
 ```bash

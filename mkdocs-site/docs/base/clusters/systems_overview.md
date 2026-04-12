@@ -66,7 +66,7 @@ Vulcan nodes are equipped with 1 Gigabit Ethernet (GbE) for management and acces
 
 Vulcan uses the [Slurm workload manager](https://slurm.schedmd.com/documentation.html) for resource allocation and job scheduling. Users submit jobs to Slurm, which then manages their execution on the available nodes.
 
-For more information, see [Using Slurm on Vulcan](using-slurm-on-vulcan.md).
+For more information, see Using Slurm on Vulcan.
 
 ### Access
 

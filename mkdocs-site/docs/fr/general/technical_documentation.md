@@ -55,12 +55,12 @@ status:
 
 Pour les renseignements sur les équipements et services gérés par nos partenaires régionaux, utilisez les liens de la section *Partenaires et services régionaux* ci-dessous.
 
-Le contenu de ce site se développe de manière évolutive et il est possible que certains liens conduisent à des pages semblables à [celle-ci](celle-ci.md), pour lesquelles le contenu n'est pas encore publié. Le maintien de la documentation est un effort continuel de la part de nos équipes techniques qui veillent à l'enrichir et à l'améliorer; cependant, tous nos utilisateurs sont invités à y collaborer.
+Le contenu de ce site se développe de manière évolutive et il est possible que certains liens conduisent à des pages semblables à celle-ci, pour lesquelles le contenu n'est pas encore publié. Le maintien de la documentation est un effort continuel de la part de nos équipes techniques qui veillent à l'enrichir et à l'améliorer; cependant, tous nos utilisateurs sont invités à y collaborer.
 
 ## Systèmes et services
 Systèmes :
 * [Renouvellement d'infrastructure](../clusters/infrastructure_renewal.md) en 2025
-* **[Grappes d'usage général](../clusters/national_systems.md#grappes-d-usage-general)**, pour des tâches CPU ou GPU
+* **[Grappes d'usage général](../clusters/national_systems.md)**, pour des tâches CPU ou GPU
   * [Fir](../software/fir.md), [Nibi](../clusters/nibi.md), [Narval](../clusters/narval.md) et [Rorqual](../clusters/rorqual.md)
 * [Trillium](../clusters/trillium.md), grappe conçue pour les tâches parallèles intensives
 * Grappes GPU, qui font partie de l'Environnement de calcul pan-canadien pour l'intelligence artificielle (ECPIA):

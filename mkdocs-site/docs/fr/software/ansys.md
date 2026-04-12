@@ -1032,7 +1032,7 @@ fi
 
 ### Workbench
 Initialisez le fichier de projet avant de le soumettre pour la première fois.
-1.  Connectez-vous à la grappe avec [TigerVNC](../interactive/vnc.md#noeuds-de-calcul).
+1.  Connectez-vous à la grappe avec [TigerVNC](../interactive/vnc.md).
 2.  Dans le même répertoire où se trouve le fichier de projet (`YOURPROJECT.wbpj`), [lancez Workbench](ansys.md#workbench) avec la même version du module Ansys qui a servi à créer le projet.
 3.  Dans Workbench, ouvrez le projet avec *Fichier -> Ouvrir*.
 4.  Dans la fenêtre principale, faites un clic droit sur *Configuration* et sélectionnez *Effacer toutes les données générées*.

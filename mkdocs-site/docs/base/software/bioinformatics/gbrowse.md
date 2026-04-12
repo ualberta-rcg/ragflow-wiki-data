@@ -142,4 +142,4 @@ In this example `*DATABASE*` is the name of your database and `example_genomic_s
 !!! warning "Avoid Head Node"
     We remind you that the above commands should be run via the [job scheduler](../../running-jobs/running_jobs.md). Do not run these on the head node!
 
-Once you uploaded your data to your database, you need to grant view access to the `*SHARED*` account so that GBrowse is able to access your database for reading. Please see [How to share your MySQL data](../../cloud/database_servers.md#how-to-share-your-mysql-data).
+Once you uploaded your data to your database, you need to grant view access to the `*SHARED*` account so that GBrowse is able to access your database for reading. Please see [How to share your MySQL data](../../cloud/database_servers.md).

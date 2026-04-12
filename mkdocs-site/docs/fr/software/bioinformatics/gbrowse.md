@@ -140,4 +140,4 @@ Voici un exemple d’un fichier d'en-tête :
 !!! warning "Attention"
     N’exécutez pas ce fichier sur un nœud principal, mais exécutez ces commandes en passant par [l'ordonnanceur](../../running-jobs/running_jobs.md).
 
-Une fois que les données sont téléversées dans la base de données, vous devez accorder l'accès en lecture au compte partagé (`*SHARED*`) pour que GBrowse puisse lire la base de données; voyez [Partager vos données MySQL](../../cloud/database_servers.md#partager-vos-donnees-mysql).
+Une fois que les données sont téléversées dans la base de données, vous devez accorder l'accès en lecture au compte partagé (`*SHARED*`) pour que GBrowse puisse lire la base de données; voyez [Partager vos données MySQL](../../cloud/database_servers.md).

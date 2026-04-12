@@ -101,7 +101,7 @@ status:
 ---
 
 !!! warning "Essayez d'abord JupyterLab"
-    Cette page présente des fonctions avancées de VNC. Dans plusieurs cas, il est plus simple d'utiliser VNC dans votre navigateur et [Desktop](jupyterlab.md#desktop). Employez cette méthode avant d'utiliser les instructions données ci-dessous.
+    Cette page présente des fonctions avancées de VNC. Dans plusieurs cas, il est plus simple d'utiliser VNC dans votre navigateur et [Desktop](jupyterlab.md). Employez cette méthode avant d'utiliser les instructions données ci-dessous.
 
 Pour démarrer à distance l'interface graphique d'un programme, on utilise généralement le protocole X11 via SSH. Cependant, les performances de cette méthode sont souvent insuffisantes pour effectuer des rotations graphiques complexes et fluides. Une meilleure option est d'utiliser [VNC](https://fr.wikipedia.org/wiki/Virtual_Network_Computing) pour se connecter à un ordinateur à distance.
 
@@ -198,7 +198,7 @@ Si votre programme requiert des limites de mémoire et/ou de temps processeur su
 
 #### 1) Démarrez un serveur VNC
 
-Avant de démarrer votre serveur VNC, connectez-vous à une grappe (par exemple Nibi) et créez une allocation sur un nœud de connexion avec la commande `salloc` (limite de 24 heures). Par exemple, pour demander une [tâche interactive](../running-jobs/running_jobs.md#taches-interactives) qui utilise 4 CPU et 16Go de mémoire, vous pourriez utiliser
+Avant de démarrer votre serveur VNC, connectez-vous à une grappe (par exemple Nibi) et créez une allocation sur un nœud de connexion avec la commande `salloc` (limite de 24 heures). Par exemple, pour demander une [tâche interactive](../running-jobs/running_jobs.md) qui utilise 4 CPU et 16Go de mémoire, vous pourriez utiliser
 
 ```bash
 l4(login node):~ % salloc --time=1:00:00 --cpus-per-task=4 --mem=16000 --account=def-piusername

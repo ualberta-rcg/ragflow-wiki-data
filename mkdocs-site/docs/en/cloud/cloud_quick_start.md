@@ -221,7 +221,7 @@ The *Launch Instance* window has the following options:
 
 7.  *Key Pair:* From the *Available* list, select the SSH key pair you created earlier by clicking the upwards arrow on the far right of its row. If you do not have a key pair, you can create or import one from this window using the buttons at the top of the window (please [see above](#ssh-key-pair)). For more detailed information on managing and using key pairs, see [SSH Keys](../getting-started/ssh_keys.md).
 
-8.  *Configuration:* Do not change this now. For more information on customization scripts, see [Using CloudInit](automating_vm_creation.md#using-cloudinit).
+8.  *Configuration:* Do not change this now. For more information on customization scripts, see [Using CloudInit](automating_vm_creation.md).
 
 9.  *Server Groups:* Do not change this now.
 

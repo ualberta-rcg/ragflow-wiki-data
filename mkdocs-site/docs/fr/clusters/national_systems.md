@@ -81,9 +81,9 @@ Notre service infonuagique est offert selon le modèle IaaS (*Infrastructure as 
 | Nuage | Sous-systèmes | Description | État |
 |---|---|---|---|
 | [Nuage Arbutus](../cloud/cloud_resources.md#nuage-arbutus) | * arbutus-compute-cloud<br>* arbutus-persistent-cloud<br>* arbutus-dcache | * vCPU, VGPU, RAM<br>* Disque local éphémère<br>* Stockage de volumes et instantanés<br>* Stockage sur des systèmes de fichiers partagés<br>* Stockage objet<br>* Adresses IP flottantes<br>* Stockage dCache | En production |
-| [Nuage Béluga](../cloud/cloud_resources.md#nuage-beluga) | * beluga-compute-cloud<br>* beluga-persistent-cloud | * vCPU, RAM<br>* Disque local éphémère<br>* Stockage de volumes et instantanés<br>* Adresses IP flottantes | En production |
+| [Nuage Béluga](../cloud/cloud_resources.md) | * beluga-compute-cloud<br>* beluga-persistent-cloud | * vCPU, RAM<br>* Disque local éphémère<br>* Stockage de volumes et instantanés<br>* Adresses IP flottantes | En production |
 | [Nuage Cedar](../cloud/cloud_resources.md#nuage-cedar) | * cedar-persistent-cloud<br>* cedar-compute-cloud | * vCPU, RAM<br>* Disque local éphémère<br>* Stockage de volumes et instantanés<br>* Adresses IP flottantes | En production |
-| [Nuage Graham](../cloud/cloud_resources.md#nuage-graham) | * graham-persistent-cloud | * vCPU, RAM<br>* Disque local éphémère<br>* Stockage de volumes et instantanés<br>* Adresses IP flottantes | En production |
+| [Nuage Graham](../cloud/cloud_resources.md) | * graham-persistent-cloud | * vCPU, RAM<br>* Disque local éphémère<br>* Stockage de volumes et instantanés<br>* Adresses IP flottantes | En production |
 
 ## Grappes EIPIA
 

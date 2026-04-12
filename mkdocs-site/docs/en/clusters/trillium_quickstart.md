@@ -198,7 +198,7 @@ ssh -i /PATH/TO/SSH_PRIVATE_KEY MYALLIANCEUSERNAME@trillium-gpu.scinet.utoronto.
 Here, `/PATH/TO/SSH_PRIVATE_KEY` is the path to your private SSH key and `MYALLIANCEUSERNAME` is your username on the CCDB.
 
 !!! note
-    *   The first time you login, you should make sure you are actually accessing Trillium by checking if the [login node ssh host key fingerprint](../getting-started/ssh_security_improvements.md#trillium) matches.
+    *   The first time you login, you should make sure you are actually accessing Trillium by checking if the [login node ssh host key fingerprint](../getting-started/ssh_security_improvements.md) matches.
     *   The Trillium login nodes are where you develop, edit, compile, prepare and submit jobs.
     *   The CPU login nodes and the GPU login node are not part of the compute nodes but they have the same architecture, operating system, and software stack as the CPU and GPU compute nodes, respectively.
     *   You can ssh from one login node to another using their internal hostnames `tri-login01, ..., tri-login06` and `trig-login01` (the latter is the GPU login node).

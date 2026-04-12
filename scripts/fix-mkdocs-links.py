@@ -40,7 +40,7 @@ STATE_FILE = REPO_ROOT / "config" / "processing-state.json"
 
 BATCH_SIZE = int(os.environ.get("BATCH_SIZE", "0"))
 FORCE_ALL = os.environ.get("LINKFIX_FORCE_ALL", "false").lower() == "true"
-LINKFIX_VERSION = "4"
+LINKFIX_VERSION = "5"
 
 # Legacy/broken wiki slugs -> preferred canonical stems in this repo.
 # Keys and values are normalized with normalize_stem().
@@ -102,6 +102,39 @@ def build_lang_basename_index() -> dict[str, dict[str, list[Path]]]:
         lang = rel.parts[0]
         index[lang][normalize_stem(md.stem)].append(md)
     return index
+
+
+def extract_anchors(md_path: Path) -> set[str]:
+    """Extract all heading anchors from a markdown file."""
+    anchors = set()
+    try:
+        text = md_path.read_text(encoding="utf-8")
+        # Match ATX headings: # Heading, ## Heading, etc.
+        for match in re.finditer(r"^#{1,6}\s+(.+)$", text, re.MULTILINE):
+            heading = match.group(1).strip()
+            # Convert heading to anchor (simplified slug)
+            anchor = heading.lower()
+            anchor = re.sub(r"[^\w\s-]", "", anchor)  # Remove special chars except hyphen
+            anchor = re.sub(r"[\s_]+", "-", anchor)   # Spaces/underscores to hyphens
+            anchor = anchor.strip("-")
+            if anchor:
+                anchors.add(anchor)
+    except Exception:
+        pass
+    return anchors
+
+
+def build_anchor_index() -> dict[Path, set[str]]:
+    """Build index of all anchors in all markdown files."""
+    index: dict[Path, set[str]] = {}
+    for md in DOCS_DIR.rglob("*.md"):
+        index[md] = extract_anchors(md)
+    return index
+
+
+def build_file_index() -> set[Path]:
+    """Build set of all existing markdown files."""
+    return set(DOCS_DIR.rglob("*.md"))
 
 
 def load_state() -> dict:
@@ -343,6 +376,83 @@ def main() -> int:
     print(f"  Files changed: {changed_files}")
     print(f"  Links fixed: {links_fixed}")
     print(f"  Unresolved links (left unchanged): {unresolved}")
+
+    # === Final cleanup pass: remove dead links and strip bad anchors ===
+    print(f"\n--- Final cleanup pass ---")
+    
+    file_index = build_file_index()
+    anchor_index = build_anchor_index()
+    
+    links_removed = 0
+    anchors_stripped = 0
+    cleanup_files_changed = 0
+    
+    for md in DOCS_DIR.rglob("*.md"):
+        text = md.read_text(encoding="utf-8")
+        original_text = text
+        src_parent = md.parent
+        
+        def cleanup_link(match: re.Match[str]) -> str:
+            nonlocal links_removed, anchors_stripped
+            label, target = match.group(1), match.group(2)
+            
+            # Skip external links
+            if is_external(target):
+                return match.group(0)
+            
+            # Parse anchor
+            if "#" in target:
+                path_part, anchor = target.split("#", 1)
+            else:
+                path_part, anchor = target, ""
+            
+            # Skip anchor-only links
+            if not path_part:
+                return match.group(0)
+            
+            # Resolve target path
+            if path_part.endswith("/"):
+                check_path = path_part + "index.md"
+            elif not path_part.endswith(".md"):
+                check_path = path_part + ".md"
+            else:
+                check_path = path_part
+            
+            target_file = (src_parent / check_path).resolve()
+            
+            # Check if target file exists
+            if target_file not in file_index and not target_file.exists():
+                # Dead link - convert to plain text
+                links_removed += 1
+                return label
+            
+            # File exists - check anchor if present
+            if anchor and target_file in anchor_index:
+                # Normalize anchor for comparison
+                norm_anchor = anchor.lower()
+                norm_anchor = re.sub(r"[^\w\s-]", "", norm_anchor)
+                norm_anchor = re.sub(r"[\s_]+", "-", norm_anchor)
+                norm_anchor = norm_anchor.strip("-")
+                
+                page_anchors = anchor_index.get(target_file, set())
+                
+                # Check if anchor exists (also try exact match)
+                if norm_anchor not in page_anchors and anchor not in page_anchors:
+                    # Bad anchor - strip it, keep link to page
+                    anchors_stripped += 1
+                    return f"[{label}]({path_part})"
+            
+            return match.group(0)
+        
+        new_text = LINK_RE.sub(cleanup_link, text)
+        if new_text != original_text:
+            md.write_text(new_text, encoding="utf-8")
+            cleanup_files_changed += 1
+    
+    print(f"  Files changed: {cleanup_files_changed}")
+    print(f"  Dead links removed: {links_removed}")
+    print(f"  Bad anchors stripped: {anchors_stripped}")
+    
     return 0
 
 

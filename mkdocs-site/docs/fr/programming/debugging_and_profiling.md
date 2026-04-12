@@ -76,7 +76,7 @@ Voir [Pgprof](../software/pgprof.md).
 
 ### Profileur Nvidia en ligne de commande (nvprof)
 
-Voir [nvprof](nvprof.md).
+Voir nvprof.
 
 ### Valgrind
 

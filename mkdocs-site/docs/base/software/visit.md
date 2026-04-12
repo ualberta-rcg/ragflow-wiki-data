@@ -101,7 +101,7 @@ In the same setup window, click on the *Launch Profiles* tab. You should see two
 Save the settings with *Options -> Save Settings* and then exit VisIt on your laptop for settings to take effect.
 
 !!! tip "Multifactor Authentication"
-    If your account has multifactor authentication enabled, you will need to [configure your SSH client with ControlMaster](../getting-started/multifactor_authentication.md#configuring-your-ssh-client-with-controlmaster) and make sure to use the full host name for Host, e.g.
+    If your account has multifactor authentication enabled, you will need to [configure your SSH client with ControlMaster](../getting-started/multifactor_authentication.md) and make sure to use the full host name for Host, e.g.
 
     ```bash
     Host fir.alliancecan.ca

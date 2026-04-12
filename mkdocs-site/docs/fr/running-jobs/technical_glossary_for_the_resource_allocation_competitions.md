@@ -131,7 +131,7 @@ status:
 Les ressources infonuagiques et les ressources de stockage sont allouées différemment des ressources de calcul CPU et GPU.
 
 * Un groupe de recherche obtient un maximum de ressources de stockage pour sa consommation exclusive pendant la durée de la période d’allocation. Pour l'allocation de ressources infonuagiques, la quantité de vCPU et d'espace de stockage alloués ne peut être dépassée au cours de la période d'allocation.
-* Les CPU et les GPU alloués ne le sont pas en quantités maximales, mais plutôt en quantités cibles dont la disponibilité est soumise à la priorisation par l’ordonnanceur. Une allocation de *n* cœurs CPU signifie que le groupe de recherche peut s’attendre à pouvoir accéder à ce nombre de cœurs CPU tout au long de la durée de la période d’allocation. Il demeure possible d’utiliser plus de ressources pourvu qu’elles ne soient pas utilisées par d’autres groupes. Les périodes de sous-utilisation, par exemple lorsque les activités de recherche sont ralenties ou que le matériel est en panne ou en maintenance, ne sont pas compensées. Pour en savoir plus sur les allocations de calcul, voyez [Allocations et ordonnancement](allocations-et-ordonnancement.md).
+* Les CPU et les GPU alloués ne le sont pas en quantités maximales, mais plutôt en quantités cibles dont la disponibilité est soumise à la priorisation par l’ordonnanceur. Une allocation de *n* cœurs CPU signifie que le groupe de recherche peut s’attendre à pouvoir accéder à ce nombre de cœurs CPU tout au long de la durée de la période d’allocation. Il demeure possible d’utiliser plus de ressources pourvu qu’elles ne soient pas utilisées par d’autres groupes. Les périodes de sous-utilisation, par exemple lorsque les activités de recherche sont ralenties ou que le matériel est en panne ou en maintenance, ne sont pas compensées. Pour en savoir plus sur les allocations de calcul, voyez Allocations et ordonnancement.
 
 ## Traitement par lots
 **grappe** (en anglais, *cluster*) : Groupe de nœuds de calcul interconnectés qui est géré par un programme d'ordonnancement.
@@ -140,7 +140,7 @@ Les ressources infonuagiques et les ressources de stockage sont allouées diffé
 
 **cœur-année** (en anglais, *core year*) : Mesure qui équivaut à utiliser un cœur CPU de façon continue pendant une année complète. L’utilisation de 12 cœurs pendant un mois et celle de 365 cœurs pendant une seule journée équivalent toutes deux à l’utilisation d’un cœur-année. Les ressources de calcul sont allouées sur la base de cœurs-années.
 
-**équivalent-cœur** (en anglais, *core-equivalent*) : Un équivalent-cœur se compose d’un cœur simple et d’une certaine quantité de mémoire; pour le nommer, nous utilisons souvent le terme *bundle*. En plus du cœur, le *bundle* contient aussi la mémoire considérée comme étant associée à ce cœur. Pour en savoir plus, voyez [Allocations et ordonnancement des tâches de calcul](allocations-et-ordonnancement-des-taches-de-calcul.md).
+**équivalent-cœur** (en anglais, *core-equivalent*) : Un équivalent-cœur se compose d’un cœur simple et d’une certaine quantité de mémoire; pour le nommer, nous utilisons souvent le terme *bundle*. En plus du cœur, le *bundle* contient aussi la mémoire considérée comme étant associée à ce cœur. Pour en savoir plus, voyez Allocations et ordonnancement des tâches de calcul.
 
 **GPU-année** : Mesure qui équivaut à l'utilisation continue de 1 GPU pour une année complète ou de 12 GPU pour un mois.
 

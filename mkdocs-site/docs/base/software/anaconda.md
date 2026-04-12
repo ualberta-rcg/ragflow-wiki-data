@@ -85,6 +85,6 @@ Your application should now work. If not, do not hesitate to contact our [techni
 
 ### Using Apptainer
 
-In some situations, the complexity of software dependencies requires a solution where the environment can be fully controlled. For these situations, we recommend the [Apptainer](containers/apptainer.md#working-with-conda) tool: note that a Docker image can be converted into an Apptainer image. The only drawback of Apptainer is that images consume a lot of disk space, so if your research group plans to use multiple images, it would be wise to group them together in a single directory within the group's project space to avoid duplication.
+In some situations, the complexity of software dependencies requires a solution where the environment can be fully controlled. For these situations, we recommend the [Apptainer](containers/apptainer.md) tool: note that a Docker image can be converted into an Apptainer image. The only drawback of Apptainer is that images consume a lot of disk space, so if your research group plans to use multiple images, it would be wise to group them together in a single directory within the group's project space to avoid duplication.
 
 [Using Conda in Apptainer](containers/using_conda_in_apptainer.md)

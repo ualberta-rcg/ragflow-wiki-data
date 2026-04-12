@@ -72,9 +72,9 @@ Each job should have a minimum duration of one hour (or at least five minutes fo
 
 | Filesystem | Description |
 | :--------- | :---------- |
-| HOME <br> Lustre Filesystem, 105 TB total space | * This space is small and cannot be expanded; you will need to use your `project` space for large storage needs.<br>* Small fixed per-user [quotas](../storage-and-data/storage_and_file_management.md#quotas-and-policies).<br>* Automatic daily backup. |
-| SCRATCH <br> Lustre Filesystem, 2.6 PB total space | * Large space for storing temporary files during computations.<br>* No automatic backup system.<br>* Large fixed per-user [quotas](../storage-and-data/storage_and_file_management.md#quotas-and-policies).<br>* Automatic [purging](../storage-and-data/scratch_purging_policy.md) of old files in this space. |
-| PROJECT <br> Lustre Filesystem, 25 PB total space | * This space is designed for sharing data among group members and for storing large amounts of data.<br>* Large adjustable per-project [quotas](../storage-and-data/storage_and_file_management.md#quotas-and-policies).<br>* Automatic daily backup. |
+| HOME <br> Lustre Filesystem, 105 TB total space | * This space is small and cannot be expanded; you will need to use your `project` space for large storage needs.<br>* Small fixed per-user [quotas](../storage-and-data/storage_and_file_management.md).<br>* Automatic daily backup. |
+| SCRATCH <br> Lustre Filesystem, 2.6 PB total space | * Large space for storing temporary files during computations.<br>* No automatic backup system.<br>* Large fixed per-user [quotas](../storage-and-data/storage_and_file_management.md).<br>* Automatic [purging](../storage-and-data/scratch_purging_policy.md) of old files in this space. |
+| PROJECT <br> Lustre Filesystem, 25 PB total space | * This space is designed for sharing data among group members and for storing large amounts of data.<br>* Large adjustable per-project [quotas](../storage-and-data/storage_and_file_management.md).<br>* Automatic daily backup. |
 
 For data transfers via Globus, the `computecanada#beluga-dtn` endpoint should be used, while for tools like rsync and scp, a login node can be used.
 

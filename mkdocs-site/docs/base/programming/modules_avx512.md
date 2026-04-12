@@ -484,7 +484,7 @@ status:
 | [bmtagger](https://www.google.ca/search?q=bmtagger) | - | 3.101 | !!! note "Full Details"
     Best Match Tagger for removing human reads from metagenomics datasets
 
-    [Homepage](ftp://ftp.ncbi.nlm.nih.gov/pub/agarwala/bmtagger/) |
+    Homepage |
 | [bolt-lmm](https://data.broadinstitute.org/alkesgroup/BOLT-LMM/) | bio | 2.3.4, 2.4 | !!! note "Full Details"
     The BOLT-LMM software package currently consists of two main algorithms, the BOLT-LMM algorithm for mixed model association testing, and the BOLT-REML algorithm for variance components analysis (i.e., partitioning of SNP-heritability and estimation of genetic correlations). The BOLT-LMM algorithm computes statistics for testing association between phenotype and genotypes using a linear mixed model (LMM). The BOLT-REML algorithm estimates heritability explained by genotyped SNPs and genetic correlations among multiple traits measured on the same set of individuals. Like the GCTA software.
 

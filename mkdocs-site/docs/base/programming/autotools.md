@@ -56,7 +56,7 @@ Finally, `make install` installs the files at the right places. If you do not wa
 mkdir $HOME/SOFTWARE
 make install --prefix=$HOME/SOFTWARE
 ```
-In other cases you must supply the `--prefix` option to `./configure` instead of to `make`; see the documentation for the particular software you are trying to install. You may also wish to [create a module](creer-un-module.md) to show the system the paths to your newly installed software.
+In other cases you must supply the `--prefix` option to `./configure` instead of to `make`; see the documentation for the particular software you are trying to install. You may also wish to create a module to show the system the paths to your newly installed software.
 
 A basic compilation of a program using `autoconf` can thus be as simple as
 ```bash

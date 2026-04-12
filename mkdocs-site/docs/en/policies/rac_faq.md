@@ -310,4 +310,4 @@ For compute allocations, generally speaking, we allocate our batch processing pr
 Each annual RAC is handled as a separate application round. The current projects may have an advantage if they can demonstrate usage and success stories, but not an advantage by policy.
 
 ### Can I use the resources without an allocation?
-Yes. Please visit the [How to Access ARC Resources](how-to-access-arc-resources.md) page for more details.
+Yes. Please visit the How to Access ARC Resources page for more details.

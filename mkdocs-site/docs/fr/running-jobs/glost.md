@@ -89,7 +89,7 @@ status:
 
 ## Introduction
 
-[GLOST](https://github.com/cea-hpc/glost) (pour *Greedy Launcher Of Small Tasks*) est un outil pour exécuter un grand nombre de tâches séquentielles de courte durée ou de durée variable, ou avec des balayages de paramètres. Son fonctionnement est semblable à celui de [GNU Parallel](gnu_parallel.md) ou d’un [vecteur de tâches](vecteurs-de-taches.md), mais avec une syntaxe simplifiée.
+[GLOST](https://github.com/cea-hpc/glost) (pour *Greedy Launcher Of Small Tasks*) est un outil pour exécuter un grand nombre de tâches séquentielles de courte durée ou de durée variable, ou avec des balayages de paramètres. Son fonctionnement est semblable à celui de [GNU Parallel](gnu_parallel.md) ou d’un vecteur de tâches, mais avec une syntaxe simplifiée.
 
 GLOST utilise l’enveloppe (*wrapper*) `glost_launch` et les commandes [MPI](../software/mpi.md) `srun`, `mpiexec` et `mpirun`. Un fichier texte nommé **list_glost_tasks.txt** regroupe les tâches et est employé comme argument pour l’enveloppe `glost_launch`.
 
@@ -104,7 +104,7 @@ Le principe est de grouper plusieurs tâches séquentielles et de les faire exé
 Vous pourriez considérer d'utiliser plutôt le paquet logiciel [META](meta-farm.md) développé par une de nos équipes et qui comporte d'importants avantages par rapport à GLOST. Avec META, le temps d'attente total peut être beaucoup plus court; la surcharge imposée est moindre (moins de cycles CPU gaspillés); un mécanisme pratique permet de resoumettre les calculs qui ont échoué ou qui n'ont jamais été exécutés; et META peut traiter autant les tâches séquentielles que les tâches multifils, MPI, GPU et hybrides.
 
 !!! note "Remarque"
-    Lisez cette page au complet pour savoir si cet outil peut servir dans vos travaux. Si c’est le cas, vous pourrez demander l'assistance de [l'équipe technique](support-technique.md) pour modifier vos processus.
+    Lisez cette page au complet pour savoir si cet outil peut servir dans vos travaux. Si c’est le cas, vous pourrez demander l'assistance de l'équipe technique pour modifier vos processus.
 
 ## Avantages
 
@@ -344,6 +344,6 @@ Les exemples copiés seront enregistrés dans le répertoire Glost_Examples.
 
 *   [META-Farm](meta-farm.md)
 *   [GNU Parallel](gnu_parallel.md)
-*   [Vecteurs de tâches](vecteurs-de-taches.md)
+*   Vecteurs de tâches
 *   [MPI](../software/mpi.md)
 *   [Exécuter des tâches](running_jobs.md)

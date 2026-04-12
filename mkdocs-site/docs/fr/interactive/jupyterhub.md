@@ -66,8 +66,8 @@ JupyterHub est le meilleur système pour que plusieurs personnes puissent utilis
 JupyterHub offre une version préconfigurée de JupyterLab et/ou Jupyter Notebook; pour plus d'information sur les options de configuration, consultez [la page Jupyter](../software/jupyter.md).
 
 !!! warning "Exécution de notebooks"
-    Jupyter Lab et les notebooks conviennent à vos tâches interactives **brèves** pour tester, déboguer ou visualiser rapidement les données (quelques minutes). Pour des analyses plus longues, il faut utiliser [une tâche non interactive avec sbatch](../running-jobs/running_jobs.md#soumettre-des-taches-avec-sbatch).
-    Voir aussi [Exécution de notebooks en scripts Python](../getting-started/advanced_jupyter_configuration.md#execution-de-notebooks-en-scripts-python) ci-dessous.
+    Jupyter Lab et les notebooks conviennent à vos tâches interactives **brèves** pour tester, déboguer ou visualiser rapidement les données (quelques minutes). Pour des analyses plus longues, il faut utiliser [une tâche non interactive avec sbatch](../running-jobs/running_jobs.md).
+    Voir aussi [Exécution de notebooks en scripts Python](../getting-started/advanced_jupyter_configuration.md) ci-dessous.
 
 ## Initiatives de l'Alliance
 
@@ -97,7 +97,7 @@ Une fois la connexion établie et selon la configuration de JupyterHub, le navig
 **a)** un serveur Jupyter précédemment lancé,
 **b)** un nouveau serveur Jupyter possédant des options par défaut, ou
 **c)** un formulaire permettant de configurer les options du serveur Jupyter avant d'appuyer sur le bouton *Démarrer*.
-Dans tous les cas, c'est l'équivalent d'accéder aux ressources demandées via [une tâche interactive](../running-jobs/running_jobs.md#taches-interactives) sur la grappe correspondante.
+Dans tous les cas, c'est l'équivalent d'accéder aux ressources demandées via [une tâche interactive](../running-jobs/running_jobs.md) sur la grappe correspondante.
 
 **Important :** Sur chaque grappe, une seule tâche interactive à la fois obtient une plus haute priorité pour commencer à l'intérieur de quelques secondes ou quelques minutes. Ceci inclut les tâches exécutées via `salloc`, `srun` et les tâches JupyterHub. Si vous avez une autre tâche interactive en exécution sur la grappe où se trouve JupyterHub, votre nouvelle session Jupyter pourrait ne pas commencer avant la limite de 5 minutes.
 
@@ -130,7 +130,7 @@ La description de l'interface JupyterLab se trouve maintenant à la [page Jupyte
 
 Les erreurs avec JupyterHub sont généralement causées par l'ordonnanceur de tâches sous-jacent qui ne répond pas ou qui est incapable de trouver les ressources appropriées pour votre session, par exemple
 
-*   Au lancement d'une nouvelle session, JupyterHub soumet automatiquement à la grappe une nouvelle [tâche interactive](../running-jobs/running_jobs.md#taches-interactives). Si la tâche ne démarre pas dans les cinq prochaines minutes, ce message est affiché et la session est annulée.
+*   Au lancement d'une nouvelle session, JupyterHub soumet automatiquement à la grappe une nouvelle [tâche interactive](../running-jobs/running_jobs.md). Si la tâche ne démarre pas dans les cinq prochaines minutes, ce message est affiché et la session est annulée.
     *   Comme c'est le cas pour toutes les tâches interactives sur une grappe, le fait de demander plus de temps d'exécution peut entraîner une attente plus longue avant que la tâche puisse démarrer, ce qui peut aussi se produire quand vous demandez un GPU ou trop de cœurs CPU. Assurez-vous de demander uniquement les ressources dont vous avez besoin.
     *   Si vous avez une autre tâche interactive sur la même grappe, votre session Jupyter sera placée en file d'attente avec les autres tâches en lots. Si c'est possible, arrêtez ou annulez les autres tâches interactives avant d'utiliser JupyterHub.
     *   Il est possible qu'aucune ressource ne soit disponible à ce moment. Vérifiez si un problème est rapporté dans la page de l'[État des systèmes](https://status.alliancecan.ca/) et essayez de nouveau plus tard.

@@ -66,7 +66,7 @@ The main components are:
 
 # Apptainer images
 
-To build an Apptainer (formerly called [Singularity](../containers/apptainer.md#please-use-apptainer-instead)) image for RAPIDS, the first thing to do is to find and select a Docker image provided by NVIDIA.
+To build an Apptainer (formerly called [Singularity](../containers/apptainer.md)) image for RAPIDS, the first thing to do is to find and select a Docker image provided by NVIDIA.
 
 ## Finding a Docker image
 

@@ -104,7 +104,7 @@ En cliquant sur **Launch Profiles**, les profils **login** et **slurm** devraien
 
 Enregistrez les paramètres en cliquant sur **Options -> Save Settings** et quittez VisIt pour activer la configuration.
 
-Si l'authentification multifacteur est configurée pour votre compte, vous devez [configurer votre client SSH avec ControlMaster](../getting-started/multifactor_authentication.md#configurer-votre-client-ssh-client-avec-controlmaster) et vous assurer que `Host` utilise le nom complet de l'hôte, par exemple :
+Si l'authentification multifacteur est configurée pour votre compte, vous devez [configurer votre client SSH avec ControlMaster](../getting-started/multifactor_authentication.md) et vous assurer que `Host` utilise le nom complet de l'hôte, par exemple :
 
 ```ini
 Host fir.alliancecan.ca

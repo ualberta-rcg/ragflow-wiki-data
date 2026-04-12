@@ -55,7 +55,7 @@ A current list of the software available on our national systems is below. This 
 !!! warning "Availability"
     **Some software listed below may not be available in the specific StdEnv you have loaded.**
 
-    `StdEnv/2020` is now deprecated/hidden on the newer systems. See [StdEnv/2020](standard_software_environments.md#std_env_2020)
+    `StdEnv/2020` is now deprecated/hidden on the newer systems. See [StdEnv/2020](standard_software_environments.md)
 
 ## Notes
 Except for basic system programs, you access most software by loading a **module**. See [Using modules](modules.md) for more on how to use the Lmod module system. Note that some prerequisite modules are loaded by default.
@@ -73,11 +73,11 @@ Here are a few things to know about the available software:
 ## List of globally-installed modules
 The table below lists software for which an environment module has been installed on our systems. In simple cases, the module name listed in the *Module* column can be used with the `module load` command to configure your environment. In more complicated cases, some prerequisite modules may also need to be loaded. Click on the corresponding *[Expand]* link in the *Description* column for a list of prerequisites and brief notes about the software. If more extensive documentation about a package is available, there will be a link in the *Documentation* column. Click the double arrows in the column heading to sort in ascending or descending order for a given column. In particular, sorting by software type might be of interest. The *Type* column shows the software tagged as: ai (artificial intelligence), bio (biology, bioinformatics), chem (chemistry), geo (earth sciences), io (input/output), math (mathematics), mpi ([MPI](../software/mpi.md)), phys (physics and engineering), tools (languages and libraries), vis ([visualization](../software/visualization.md)).
 
-Software for legacy architectures can be found on their respective pages: [AVX](modules-avx.md) and [SSE3](modules-sse3.md).
+Software for legacy architectures can be found on their respective pages: AVX and SSE3.
 
 For a comprehensive list of globally installed modules for specific architectures, please refer to the following links:
-*   [AVX512 Modules (Fir, Nibi, Rorqual, Trillium, Killarney, tamIA, Vulcan)](modules-avx512.md)
-*   [AVX2 Modules (Narval)](modules-avx2.md)
+*   AVX512 Modules (Fir, Nibi, Rorqual, Trillium, Killarney, tamIA, Vulcan)
+*   AVX2 Modules (Narval)
 
 ## Site-specific software
 Most application software is installed in CVMFS, a distributed file system which makes central management of the many packages easier. Certain packages, however, are not installed in CVMFS but are installed only at some sites, or are installed separately at each site. This is usually due to license restrictions on the package in question. Such packages are listed in the following table.

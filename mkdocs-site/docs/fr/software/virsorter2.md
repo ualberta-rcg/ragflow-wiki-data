@@ -59,7 +59,7 @@ Le code source et la documentation pour VirSorter2 se trouvent sur leur [page Gi
 N’oubliez pas de [citer VirSorter2](https://microbiomejournal.biomedcentral.com/articles/10.1186/s40168-020-00990-y#citeas) si vous l’utilisez pour vos analyses.
 
 ## Installation dans un environnement virtuel Python
-Les étapes ci-dessous servent à installer VirSorter2 dans votre répertoire `$HOME` avec nos [wheels Python](http://pythonwheels.com/) préconstruits. Les wheels personnalisés se trouvent dans `/cvmfs/soft.computecanada.ca/custom/python/wheelhouse/`. Pour installer un wheel VirSorter2 dans un [environnement virtuel Python](python.md#creer-et-utiliser-un-environnement-virtuel-python), nous utilisons la commande `pip`.
+Les étapes ci-dessous servent à installer VirSorter2 dans votre répertoire `$HOME` avec nos [wheels Python](http://pythonwheels.com/) préconstruits. Les wheels personnalisés se trouvent dans `/cvmfs/soft.computecanada.ca/custom/python/wheelhouse/`. Pour installer un wheel VirSorter2 dans un [environnement virtuel Python](python.md), nous utilisons la commande `pip`.
 
 1.  Chargez les modules nécessaires.
     ```bash

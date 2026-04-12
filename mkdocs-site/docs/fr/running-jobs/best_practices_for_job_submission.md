@@ -109,7 +109,7 @@ En effectuant ces tests, vous vous familiariserez avec la durée et la mémoire 
     *   Si vos calculs s’effectuent en moins d’une heure, nous vous suggérons d’utiliser des outils comme [GLOST](glost.md), [META](meta-farm.md) ou [GNU Parallel](gnu_parallel.md) pour grouper plusieurs calculs dans une même tâche d’une durée d’au moins une heure. L’ordonnanceur sera ainsi moins sollicité que par des centaines ou des milliers de très courtes tâches.
 *   Il est aussi important que votre **estimation de la durée de la tâche soit relativement précise**.
     *   Si vous indiquez une durée de cinq jours quand les calculs prennent 16 heures, votre tâche sera beaucoup plus longtemps en attente que si vous demandez une durée plus précise.
-*   **Utilisez des [outils de surveillance](running_jobs.md#taches-termines) pour connaître la durée réelle d’une tâche**
+*   **Utilisez des [outils de surveillance](running_jobs.md) pour connaître la durée réelle d’une tâche**
     *   avec par exemple la valeur du champ `Job Wall-clock time` dans le résultat de la commande `seff`.
 
 ```bash
@@ -185,6 +185,6 @@ Puisqu'il y a peu de nœuds GPU, les tâches qui requièrent leur utilisation at
 ## Économiser les ressources
 
 *   En règle générale, la commande `sleep` ne devrait pas se trouver dans un script de tâche.
-*   Nous recommandons fortement d’éviter d’utiliser [Conda](../software/anaconda.md) et ses variantes sur nos grappes; utilisez plutôt des solutions comme un [environnement virtuel Python](../software/python.md#creer-et-utiliser-un-environnement-virtuel) ou [Apptainer](../software/containers/apptainer.md).
+*   Nous recommandons fortement d’éviter d’utiliser [Conda](../software/anaconda.md) et ses variantes sur nos grappes; utilisez plutôt des solutions comme un [environnement virtuel Python](../software/python.md) ou [Apptainer](../software/containers/apptainer.md).
 
 *   Les opérations de lecture et d’écriture devraient être optimisées par l’[utilisation du stockage local](../storage-and-data/using_node-local_storage.md) sur les nœuds de calcul.

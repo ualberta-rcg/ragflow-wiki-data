@@ -180,7 +180,7 @@ where version is either g03.d10, g09.e01, or g16.b01
 ## Notes
 1.  NBO7 is included in g16.c01 version only, both `nbo6` and `nbo7` keywords will run NBO7 in g16.c01
 2.  NBO6 is available in g09.e01 and g16.b01 versions.
-3.  You can find a webinar slides: [Running Gaussian16 and NBO7 effectively on Nibi and Fir (2026)](./gauss-nbo-2026-2.pdf)
+3.  You can find a webinar slides: Running Gaussian16 and NBO7 effectively on Nibi and Fir (2026)
 
 ## Errors
 Some of the error messages produced by Gaussian have been collected, with suggestions for their resolution. See [Gaussian error messages](chemistry/gaussian_error_messages.md).

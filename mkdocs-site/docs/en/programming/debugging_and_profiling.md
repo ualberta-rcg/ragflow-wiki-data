@@ -77,7 +77,7 @@ Please see the [Pgprof page](../software/pgprof.md).
 
 ### Nvidia command-line profiler (nvprof)
 
-Please see the [nvprof page](nvprof.md).
+Please see the nvprof page.
 
 ### Valgrind
 

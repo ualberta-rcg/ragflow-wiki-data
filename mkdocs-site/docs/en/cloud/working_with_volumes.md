@@ -102,7 +102,7 @@ Attaching should complete in a few seconds. Then the volumes page will show the 
 *   **Formatting** erases all existing information on a volume and therefore should be done with care.
 *   Formatting is the process of preparing a volume to store directories and files.
 *   Before a newly created and attached volume can be used, it must be formatted.
-*   See instructions for doing this on a [Linux](../storage-and-data/using_a_new_empty_volume_on_a_linux_vm.md) or [Windows](using-a-new-empty-volume-on-a-windows-vm.md) VM.
+*   See instructions for doing this on a [Linux](../storage-and-data/using_a_new_empty_volume_on_a_linux_vm.md) or Windows VM.
 
 ### Mounting a volume
 

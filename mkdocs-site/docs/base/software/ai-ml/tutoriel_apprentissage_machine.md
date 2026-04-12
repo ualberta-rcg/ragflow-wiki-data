@@ -75,7 +75,7 @@ The command above does not compress the data. If you believe it would be appropr
 
 ## Step 3: Preparing the Virtual Environment
 
-[Create a virtual environment](../python.md#create-and-use-a-virtual-environment) in your home directory.
+[Create a virtual environment](../python.md) in your home directory.
 
 For details on installing and using different machine learning frameworks, refer to our documentation:
 
@@ -94,7 +94,7 @@ Once in the job:
 
 *   Activate your Python virtual environment
 *   Attempt to run your program
-*   Install missing packages if necessary. Since compute nodes do not have Internet access, you will need to perform the installation from a login node. Refer to our [Python virtual environments documentation](../python.md#create-and-use-a-virtual-environment) for more details.
+*   Install missing packages if necessary. Since compute nodes do not have Internet access, you will need to perform the installation from a login node. Refer to our [Python virtual environments documentation](../python.md) for more details.
 *   Note the steps that were necessary to get your program working
 
 !!! tip
@@ -102,7 +102,7 @@ Once in the job:
 
 ## Step 5: Scripted Job (sbatch)
 
-You must [submit your jobs](../../running-jobs/running_jobs.md#submit-jobs-with-sbatch) using `sbatch` scripts so that they can be fully automated. Interactive jobs are only used to prepare and debug jobs that will then be executed entirely and/or at scale using `sbatch`.
+You must [submit your jobs](../../running-jobs/running_jobs.md) using `sbatch` scripts so that they can be fully automated. Interactive jobs are only used to prepare and debug jobs that will then be executed entirely and/or at scale using `sbatch`.
 
 ### Important Elements of an `sbatch` Script
 

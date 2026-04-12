@@ -68,7 +68,7 @@ Cependant, vous pouvez créer un environnement Conda dans un conteneur Apptainer
 
 Plusieurs de ces logiciels sont disponibles sous forme de paquets Python. Les paquets adaptés à nos systèmes se trouvent sur [notre page Wheels Python](../../programming/available_python_wheels.md).
 Vous trouverez d'autres paquets sur l'internet.
-Pour plus d'information, voir [notre page Python](../python.md#creer-et-utiliser-un-environnement-virtuel).
+Pour plus d'information, voir [notre page Python](../python.md).
 
 ## Données
 
