@@ -4,53 +4,17 @@
   "chunk_index": 15,
   "qa_pairs": [
     {
-      "question": "What is the initial step to create an Apptainer image from a Dockerfile?",
-      "answer": "The initial step is to build a Docker image from the Dockerfile using the command `docker build -f Dockerfile -t your-tag-name`."
+      "question": "What is the process for creating an Apptainer image from a Dockerfile?",
+      "answer": "To create an Apptainer image from a Dockerfile, you first build a Docker image using the Dockerfile, then save that Docker image as a tarball. After saving, the temporary Docker image is removed. Finally, an Apptainer SIF file is built from the Docker tarball, and the tarball itself is removed. This process requires Docker and Apptainer to be installed on a system where you have appropriate privileges, and it cannot be performed on Alliance compute clusters."
     },
     {
-      "question": "After building a Docker image, what is the next step in creating an Apptainer image from a Dockerfile?",
-      "answer": "After building the Docker image, you need to save it as a tarball using the command `docker save your-tag-name -o your-tarball-name.tar`."
+      "question": "What are the system and permission requirements for converting a Dockerfile into an Apptainer image?",
+      "answer": "You need a system with both Docker and Apptainer installed to convert a Dockerfile into an Apptainer image. Additionally, you must have sufficient access to Docker (e.g., `sudo` or root access, or be in the `docker` group) and Apptainer (e.g., `sudo`, root access, or `--fakeroot` access). It's important to note that these instructions will not work on Alliance compute clusters."
     },
     {
-      "question": "How do you remove a temporary Docker image after saving it as a tarball?",
-      "answer": "You can remove the temporary Docker image by running the command `docker image rm your-tag-name`."
-    },
-    {
-      "question": "What command is used to build an Apptainer SIF file from a Docker tarball?",
-      "answer": "The command `apptainer build --fakeroot your-sif-name.sif docker-archive://your-tarball-name.tar` is used to build an Apptainer SIF file from a Docker tarball."
-    },
-    {
-      "question": "What does `your-tag-name` represent when creating an Apptainer image from a Dockerfile?",
-      "answer": "`your-tag-name` is a user-defined name that identifies the container created in Docker."
-    },
-    {
-      "question": "What does `your-tarball-name.tar` represent in the process of creating an Apptainer image from a Dockerfile?",
-      "answer": "`your-tarball-name.tar` is a filename created by the user where Docker will save the generated content of the container."
-    },
-    {
-      "question": "What does `your-sif-name.sif` refer to when converting a Dockerfile to an Apptainer image?",
-      "answer": "`your-sif-name.sif` is the desired name for the Apptainer SIF file that will be created for the Apptainer container."
-    },
-    {
-      "question": "What is the purpose of the `--fakeroot` option when building an Apptainer SIF file from a Docker archive?",
-      "answer": "The `--fakeroot` option is used for building and manipulating images, and it might be optional; if `sudo` is needed instead, it should be omitted, and the line prefixed with `sudo`."
-    },
-    {
-      "question": "What systems are required to create an Apptainer container from a Dockerfile using these instructions?",
-      "answer": "These instructions require a computer with both Docker and Apptainer installed, where the user has sufficient permissions."
-    },
-    {
-      "question": "Can these instructions for creating an Apptainer container from a Dockerfile be used on compute clusters?",
-      "answer": "No, these instructions will not work on compute clusters."
-    },
-    {
-      "question": "What is the final step after successfully creating an Apptainer SIF file from a Dockerfile on your local system?",
-      "answer": "The final step is to transfer the SIF file to the appropriate cluster(s) in order to use it."
-    },
-    {
-      "question": "What is the purpose of the `rm your-tarball-name.tar` command?",
-      "answer": "The `rm your-tarball-name.tar` command is used to remove the temporary Docker tarball after the Apptainer SIF file has been created."
+      "question": "What are the specific command-line steps to build an Apptainer SIF image from a Dockerfile?",
+      "answer": "The specific command-line steps to build an Apptainer SIF image from a Dockerfile are:\n1. `docker build -f Dockerfile -t your-tag-name`\n2. `docker save your-tag-name -o your-tarball-name.tar`\n3. `docker image rm your-tag-name`\n4. `apptainer build --fakeroot your-sif-name.sif docker-archive://your-tarball-name.tar` (note: `--fakeroot` might be optional or `sudo` might be needed)\n5. `rm your-tarball-name.tar`\nThese commands should be executed on a computer with Docker and Apptainer installed, where you possess the necessary permissions."
     }
   ],
-  "generated_at": "2026-04-11T17:33:28.007736+00:00"
+  "generated_at": "2026-04-12T19:21:09.267238+00:00"
 }

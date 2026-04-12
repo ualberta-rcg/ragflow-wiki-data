@@ -4,65 +4,17 @@
   "chunk_index": 9,
   "qa_pairs": [
     {
-      "question": "What special configuration is required for running MPI programs within an Apptainer container across multiple nodes?",
-      "answer": "Running MPI programs within an Apptainer container across nodes likely requires special configuration because MPI exploits cluster interconnection hardware to communicate amongst nodes much more efficiently. This is automatically done, except when running MPI programs across cluster nodes."
+      "question": "What special configuration is required to run MPI programs within an Apptainer container across multiple cluster nodes?",
+      "answer": "Running MPI programs within an Apptainer container across nodes likely requires special configuration because MPI exploits cluster interconnection hardware to communicate amongst nodes much more efficiently. If the program is not set up properly and the scheduler runs it over multiple nodes (without explicitly setting the maximum number of cluster nodes to `1`), it is possible it will fail to run."
     },
     {
-      "question": "Is special configuration needed for MPI programs running on a single shared-memory node within an Apptainer container?",
-      "answer": "No, special configuration is not needed when all MPI processes are running on a single shared-memory node. There will be no issues running MPI programs within an Apptainer container in this scenario, for example, when the Slurm option `--nodes=1` is used with an `sbatch` script."
+      "question": "When using Apptainer with isolation options like `-C` or `-c`, how can users access their external disk space?",
+      "answer": "When Apptainer is used with the `-C` or `-c` options, users cannot access their disk space from inside the container. The remedy for this is to explicitly bind mount the disk space they wish to access using the `-B` option, such as `-B .` to bind mount the current directory, or `-B /project -B /scratch` for top-level filesystems."
     },
     {
-      "question": "What could happen if an MPI program running in an Apptainer container is not explicitly configured for multi-node execution, but the scheduler assigns it to multiple nodes?",
-      "answer": "If an MPI program running from within an Apptainer container has not been set up to properly run across multiple nodes, it is possible it will fail to run if the scheduler chooses to run it over multiple nodes (which can happen unless the maximum number of cluster nodes used is explicitly set to `1`)."
-    },
-    {
-      "question": "What are the two main features often used in Apptainer containers?",
-      "answer": "The two main features often used in Apptainer are bind mounts, to access disk space originating outside of the container, and persistent overlays, to overlay a writable filesystem on an otherwise immutable (i.e., read-only) container image."
-    },
-    {
-      "question": "Why might a user be unable to access their disk space when using Apptainer with the `-C` or `-c` options?",
-      "answer": "When Apptainer is used with the `-C` or `-c` options, users cannot access their disk space inside the container because these options isolate the container from filesystems."
-    },
-    {
-      "question": "How can a user access disk space from outside the container when using Apptainer with isolation options like `-C` or `-c`?",
-      "answer": "To access disk space from outside the container when using isolation options like `-C` or `-c`, the user must explicitly bind mount the disk space they wish to access."
-    },
-    {
-      "question": "How would you bind mount the current directory into an Apptainer container?",
-      "answer": "To bind mount the current directory, you would use the option `-B .` in your Apptainer command, for example: `apptainer run -C -B . -W $SLURM_TMPDIR a-container.sif wc -l ./my_data_file.txt`."
-    },
-    {
-      "question": "Is it possible to specify multiple bind mounts in a single Apptainer command?",
-      "answer": "Yes, it is possible to specify multiple bind mounts in a single Apptainer command. It is often easier to specify the top directories of the filesystems one wishes to access."
-    },
-    {
-      "question": "What Apptainer options would you use to mount the `/project` and `/scratch` filesystems into a container on our clusters?",
-      "answer": "You would use `-B /project` to mount the project filesystem and `-B /scratch` to mount the scratch filesystem, for example: `apptainer run -C -B /project -B /scratch -W $SLURM_TMPDIR a-container.sif wc -l ./my_data_file.txt`."
-    },
-    {
-      "question": "In what situations is it especially useful to bind mount top-level filesystems like `/project` and `/scratch`?",
-      "answer": "It is especially useful to bind mount top-level filesystems when you need to access others' files on your research team in other locations, or when you need to access files/directories, some of which are `symlinks` to different locations that would or might otherwise be broken."
-    },
-    {
-      "question": "What script can be run to obtain the necessary bind mount options for `/home`, `/project`, and `/scratch` on a specific cluster?",
-      "answer": "The script `/home/preney/public/apptainer-scripts/get-apptainer-options.sh` can be run to obtain the bind mount options needed for `/home`, `/project`, and `/scratch` on a particular cluster."
-    },
-    {
-      "question": "Can a bind mount map a file or directory to a different location inside the container?",
-      "answer": "Yes, a bind mount can map any file or directory to a different location inside the container. For example, `-B ./my_data_file.txt:/special/input.dat` maps the file `my_data_file.txt` to be the file `/special/input.dat` inside the container."
-    },
-    {
-      "question": "When is it useful to bind mount a file or directory to a different location inside the container?",
-      "answer": "This feature is useful when programs or scripts inside the container have hard-coded paths to files and directories that must be located in certain locations."
-    },
-    {
-      "question": "What is the recommended way to bind mount the `/home` filesystem in an Apptainer container, and why?",
-      "answer": "The recommended way to bind mount the `/home` filesystem is to use an alternate destination directory, such as `-B /home:/cluster_home`. This ensures that configuration files and programs in your home directory do not interfere with the software in your container."
-    },
-    {
-      "question": "What type of filesystem paths should not be mounted inside Apptainer containers, and why?",
-      "answer": "CVMFS paths should not be mounted inside Apptainer containers, as this is fraught with perils and defeats many reasons to use a container. The programs that have to run inside a container need to be completely inside the container, without introducing even more programs if they are not needed."
+      "question": "What is the recommended method for bind-mounting the `/home` filesystem into an Apptainer container, and what is its purpose?",
+      "answer": "If you need to bind-mount the `/home` filesystem in your container, use an alternate destination directory, such as `-B /home:/cluster_home`. This ensures that configuration files and programs in your host home directory do not interfere with the software in your container."
     }
   ],
-  "generated_at": "2026-04-11T17:32:27.523038+00:00"
+  "generated_at": "2026-04-12T19:20:30.702524+00:00"
 }

@@ -4,89 +4,17 @@
   "chunk_index": 4,
   "qa_pairs": [
     {
-      "question": "What does the command `apptainer run -C -B /project -W /path/to/a/workdir myimage.sif myprogram` do?",
-      "answer": "This command runs `myprogram` inside `myimage.sif`, isolating it from all filesystems, binding the `/project` directory, and setting the working directory to `/path/to/a/workdir`."
+      "question": "How do I specify a working directory for an Apptainer container, and what is the recommended practice on Alliance clusters for `salloc` or `sbatch` jobs?",
+      "answer": "You can specify a working directory using the `-W` or `--workdir` option followed by a path. When using Apptainer in an `salloc` or `sbatch` job, or with JupyterHub on Alliance clusters, it is recommended to use `${SLURM_TMPDIR}` for the working directory's location, for example, `-W ${SLURM_TMPDIR}`."
     },
     {
-      "question": "What does the `-W` option specify in an `apptainer run` command?",
-      "answer": "The `-W` or `--workdir` option tells Apptainer to use a real disk location for its working directory (workdir) to store temporary files."
+      "question": "What options should I use to enable GPU support when running software inside an Apptainer container?",
+      "answer": "To enable GPU support, you must pass the `--nv` option for NVIDIA hardware or `--rocm` for AMD hardware to your Apptainer commands. These options ensure the appropriate `/dev` entries are bind mounted and GPU-related libraries are located and bound, setting the `LD_LIBRARY_PATH` accordingly. For OpenCL specifically, you should also include the bind mount: `-B /etc/OpenCL`."
     },
     {
-      "question": "Can a `workdir` specified with the `-W` option be removed?",
-      "answer": "Yes, a `workdir` can be removed if there are no live containers using it."
-    },
-    {
-      "question": "What location should be used for Apptainer's working directory in an `salloc`, `sbatch` job, or with `JupyterHub` on clusters?",
-      "answer": "When using Apptainer in an `salloc`, in an `sbatch` job, or when using JupyterHub on our clusters, use `${SLURM_TMPDIR}` for the working directory's location, e.g., `-W ${SLURM_TMPDIR}`."
-    },
-    {
-      "question": "Should Apptainer programs be run on a login node?",
-      "answer": "No, one should not be running programs (including Apptainer) on a login node; use an interactive `salloc` job instead."
-    },
-    {
-      "question": "Why is it important to consult the 'Bind mounts' section when using bind mounts for `/home`, `/project`, and `/scratch`?",
-      "answer": "Not all of our clusters are the same concerning the exact bind mounts needed to access `/home`, `/project`, and `/scratch`."
-    },
-    {
-      "question": "What options are required when running software inside a container that uses NVIDIA GPUs?",
-      "answer": "When running software inside a container that requires the use of GPUs, ensure that you pass the `--nv` (for NVIDIA hardware) to Apptainer commands."
-    },
-    {
-      "question": "What options are required when running software inside a container that uses AMD GPUs?",
-      "answer": "When running software inside a container that requires the use of GPUs, ensure that you pass the `--rocm` (for AMD hardware) to Apptainer commands."
-    },
-    {
-      "question": "What do the `--nv` and `--rocm` options ensure when using GPUs with Apptainer?",
-      "answer": "These options ensure the appropriate `/dev` entries are bind mounted inside the container, locate and bind GPU-related libraries on the host, and set the `LD_LIBRARY_PATH` environment variable to enable the aforementioned libraries to work inside the container."
-    },
-    {
-      "question": "What must be ensured about an application itself when using GPUs inside an Apptainer container?",
-      "answer": "Ensure the application using the GPU inside the container was properly compiled to use the GPU and its libraries."
-    },
-    {
-      "question": "What additional bind mount is necessary when using OpenCL inside an Apptainer container?",
-      "answer": "When needing to use OpenCL inside the container, besides using the `--nv` or `--rocm` options, use the following bind mount: `-B /etc/OpenCL`."
-    },
-    {
-      "question": "What configuration is typically required for running MPI programs within an Apptainer container across nodes?",
-      "answer": "Running MPI programs within an Apptainer container across nodes likely will require special configuration."
-    },
-    {
-      "question": "Where can users find more information about running MPI programs inside a container?",
-      "answer": "Users can find more information in the 'Running MPI Programs' section below and in the official Apptainer documentation at http://apptainer.org/docs/user/main/mpi.html."
-    },
-    {
-      "question": "How can users view the `%help` section of an Apptainer container?",
-      "answer": "To see the `%help` section of a container, users should run `apptainer run-help your-container-name.sif`."
-    },
-    {
-      "question": "How can users get help for a specific 'app' defined within an Apptainer container?",
-      "answer": "To get help for a specific 'app', users should run `apptainer run-help --app appname your-container-name.sif`."
-    },
-    {
-      "question": "How can users see a list of 'apps' installed in their Apptainer container?",
-      "answer": "To see a list of apps installed in a container, users should run `apptainer inspect --list-apps your-container-name.sif`."
-    },
-    {
-      "question": "What is the key difference between the `apptainer run` and `apptainer exec` commands?",
-      "answer": "The `apptainer run` command first runs the `%runscript` defined for that container (if there is one), and then runs the specific command you specified, whereas `apptainer exec` will not run the `%runscript`."
-    },
-    {
-      "question": "Which command is recommended for running software in an Apptainer container?",
-      "answer": "We suggest that you always use `apptainer run`."
-    },
-    {
-      "question": "What example command is provided for compiling a C++ program inside an Apptainer container?",
-      "answer": "An example command for compiling a C++ program called `myprog.cpp` inside a container is `apptainer run your-container-name.sif g++ -O2 -march=broadwell ./myprog.cpp`."
-    },
-    {
-      "question": "What example command is provided for running a compiled C++ program inside an Apptainer container?",
-      "answer": "An example command for running a compiled C++ program (`./a.out`) inside a container is `apptainer run your-container-name.sif ./a.out`."
-    },
-    {
-      "question": "What additional options should be used with `apptainer run` on clusters?",
-      "answer": "On our clusters, users will want to use additional options like `-C`, `-c`, `-e`, `-W`, and various bind mount options to make their disk space available to programs running in the container."
+      "question": "What is the difference between the `apptainer run` and `apptainer exec` commands, and which one is recommended?",
+      "answer": "When `apptainer run` launches a container, it first executes the `%runscript` defined for that container (if one exists), and then runs the specific command you provide. The `apptainer exec` command, however, will not run the `%runscript` and only executes the specified command. It is suggested that you always use `apptainer run`."
     }
   ],
-  "generated_at": "2026-04-11T17:31:34.205155+00:00"
+  "generated_at": "2026-04-12T19:19:54.422008+00:00"
 }

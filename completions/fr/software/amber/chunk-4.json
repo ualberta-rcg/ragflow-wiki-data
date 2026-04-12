@@ -4,81 +4,17 @@
   "chunk_index": 4,
   "qa_pairs": [
     {
-      "question": "Quelles applications sont incluses avec les modules Amber pour l'utilisation avec un CPU?",
-      "answer": "Les modules Amber pour l'utilisation avec un CPU offrent les applications disponibles avec AmberTools/20, en plus de pmemd (séquentiel) et pmemd.MPI (parallèle)."
+      "question": "Quelles sont les applications `pmemd` disponibles, et comment se distinguent-elles selon l'utilisation de CPU ou de GPU, ainsi que le mode séquentiel ou parallèle?",
+      "answer": "Les modules optimisés pour les CPU offrent les applications `pmemd` (séquentiel) et `pmemd.MPI` (parallèle). Les modules pour GPU ajoutent `pmemd.cuda` (pour un seul GPU) et `pmemd.cuda.MPI` (pour plusieurs GPU)."
     },
     {
-      "question": "Quels exécutables supplémentaires sont offerts par les modules Amber conçus pour l'utilisation avec un GPU?",
-      "answer": "Les modules Amber pour l'utilisation avec un GPU ajoutent pmemd.cuda (pour un seul GPU) et pmemd.cuda.MPI (pour plusieurs GPU)."
+      "question": "Quels sont les problèmes connus liés à l'exécutable `MMPBSA.py` dans les modules Amber?",
+      "answer": "Le module `amber/20.12-20.15` n'offre pas l'exécutable `MMPBSA.py.MPI`. De plus, les versions `MMPBSA.py` des modules `amber/18-10-18.11` et `amber/18.14-18.17` ne peuvent pas effectuer les calculs PB; il faut plutôt utiliser les modules `amber/20` plus récents pour ces calculs."
     },
     {
-      "question": "Quel est un problème connu du module amber/20.12-20.15?",
-      "answer": "Le module amber/20.12-20.15 n'offre pas l'exécutable MMPBSA.py.MPI."
-    },
-    {
-      "question": "Pourquoi les modules amber/18-10-18.11 et amber/18.14-18.17 posent-ils problème avec MMPBSA.py?",
-      "answer": "MMPBSA.py des modules amber/18-10-18.11 et amber/18.14-18.17 ne peut pas effectuer les calculs PB."
-    },
-    {
-      "question": "Quels modules Amber sont recommandés pour les calculs PB afin d'éviter les problèmes connus?",
-      "answer": "Pour éviter les problèmes connus avec les calculs PB, il est recommandé d'utiliser les modules amber/20 plus récents."
-    },
-    {
-      "question": "Quel module devrait-on utiliser pour les simulations Amber avec un seul GPU sur la grappe Narval?",
-      "answer": "Pour les simulations avec un seul GPU sur Narval, il faut utiliser le module amber/20.12-20.15."
-    },
-    {
-      "question": "Pourquoi les modules Amber compilés avec CUDA < 11.4 ne fonctionnent-ils pas sur un GPU A100?",
-      "answer": "Les modules compilés avec une version CUDA inférieure à 11.4 ne fonctionnent pas sur un GPU A100."
-    },
-    {
-      "question": "Quel est un exemple de script SLURM pour une tâche de calcul Amber utilisant un seul GPU?",
-      "answer": "Un exemple de script SLURM pour une tâche de calcul utilisant un seul GPU est:\n```bash\n#!/bin/bash\n#SBATCH --ntasks=1\n#SBATCH --gpus-per-node=1\n#SBATCH --mem-per-cpu=2000\n#SBATCH --time=10:00:00\n\nmodule purge\nmodule load StdEnv/2023 gcc/12.3 openmpi/4.1.5 cuda/12.6 amber-pmemd/24.3\n\npmemd.cuda -O -i input.in -p topol.parm7 -c coord.rst7 -o output.mdout -r restart.rst7\n```"
-    },
-    {
-      "question": "Quels modules faut-il charger pour une simulation Amber avec un seul GPU en se basant sur l'exemple de script?",
-      "answer": "Il faut charger les modules `StdEnv/2023`, `gcc/12.3`, `openmpi/4.1.5`, `cuda/12.6` et `amber-pmemd/24.3`."
-    },
-    {
-      "question": "Quelle commande est utilisée pour exécuter une simulation pmemd.cuda dans l'exemple de script pour un seul GPU?",
-      "answer": "La commande utilisée est `pmemd.cuda -O -i input.in -p topol.parm7 -c coord.rst7 -o output.mdout -r restart.rst7`."
-    },
-    {
-      "question": "Combien de nœuds et de tâches par nœud sont demandés pour une tâche MPI parallèle avec CPU sur Narval, selon le script d'exemple?",
-      "answer": "Pour une tâche MPI parallèle avec CPU sur Narval, l'exemple de script demande 4 nœuds (`#SBATCH --nodes=4`) et 64 tâches par nœud (`#SBATCH --ntasks-per-node=64`)."
-    },
-    {
-      "question": "Quelle est la mémoire par CPU et la durée demandées pour une tâche MPI parallèle avec CPU sur Narval?",
-      "answer": "La mémoire par CPU est de 2000 Mo (`#SBATCH --mem-per-cpu=2000`) et la durée est d'une heure (`#SBATCH --time=1:00:00`) pour une tâche MPI parallèle avec CPU sur Narval."
-    },
-    {
-      "question": "Quels modules sont chargés pour une tâche MPI parallèle avec CPU sur Narval, d'après l'exemple de script?",
-      "answer": "Les modules chargés sont `StdEnv/2023`, `gcc/12.3`, `openmpi/4.1.5`, `cuda/12.6` et `amber-pmemd/24.3`."
-    },
-    {
-      "question": "Quelle est la commande pour exécuter pmemd.MPI dans une tâche MPI parallèle avec CPU sur Narval?",
-      "answer": "La commande est `srun pmemd.MPI -O -i input.in -p topol.parm7 -c coord.rst7 -o output.mdout -r restart.rst7`."
-    },
-    {
-      "question": "Combien de nœuds et de tâches par nœud sont demandés pour une tâche MPI parallèle avec CPU sur Rorqual?",
-      "answer": "Pour une tâche MPI parallèle avec CPU sur Rorqual, 1 nœud (`#SBATCH --nodes=1`) et 192 tâches par nœud (`#SBATCH --ntasks-per-node=192`) sont demandés."
-    },
-    {
-      "question": "Combien de nœuds et de tâches par nœud sont demandés pour une tâche MPI parallèle avec CPU sur Fir?",
-      "answer": "Pour une tâche MPI parallèle avec CPU sur Fir, 1 nœud (`#SBATCH --nodes=1`) et 192 tâches par nœud (`#SBATCH --ntasks-per-node=192`) sont demandés."
-    },
-    {
-      "question": "Combien de nœuds et de tâches par nœud sont demandés pour une tâche MPI parallèle avec CPU sur Nibi?",
-      "answer": "Pour une tâche MPI parallèle avec CPU sur Nibi, 1 nœud (`#SBATCH --nodes=1`) et 192 tâches par nœud (`#SBATCH --ntasks-per-node=192`) sont demandés."
-    },
-    {
-      "question": "Combien de nœuds et de tâches par nœud sont demandés pour une tâche MPI parallèle avec CPU sur Trillium?",
-      "answer": "Pour une tâche MPI parallèle avec CPU sur Trillium, 1 nœud (`#SBATCH --nodes=1`) et 192 tâches par nœud (`#SBATCH --ntasks-per-node=192`) sont demandés."
-    },
-    {
-      "question": "Est-ce que les configurations SLURM pour les tâches MPI parallèles avec CPU sont les mêmes pour Rorqual, Fir, Nibi et Trillium, d'après les exemples de scripts?",
-      "answer": "Oui, les configurations SLURM (nœuds, tâches par nœud, mémoire par CPU et temps) sont identiques pour Rorqual, Fir, Nibi et Trillium dans les exemples fournis."
+      "question": "Quel module est recommandé pour les simulations avec un seul GPU sur Narval, surtout quand on utilise des GPU A100?",
+      "answer": "Pour les simulations avec un seul GPU sur Narval, il est recommandé d'utiliser le module `amber/20.12-20.15`. C'est important, car les modules compilés avec une version de CUDA inférieure à 11.4 ne fonctionnent pas sur les GPU A100."
     }
   ],
-  "generated_at": "2026-04-11T15:04:25.492240+00:00"
+  "generated_at": "2026-04-12T19:18:38.444822+00:00"
 }
