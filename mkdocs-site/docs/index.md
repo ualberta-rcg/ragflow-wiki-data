@@ -5,12 +5,10 @@ title: Home
 <div class="hero" markdown>
 
 ```
-            Welcome to Vulcan
-            | |
-__   ___   _| | ___ __ _ _ __      Support:       support@tech.alliancecan.ca
-\ \ / / | | | |/ __/ _` | '_ \     Documentation:         docs.alliancecan.ca
- \ V /| |_| | | (_| (_| | | | |    Portal: portal.vulcan.alliancecan.ca
-  \_/  \__,_|_|\___\__,_|_| |_|    OOD:           vulcan.alliancecan.ca
+              __   ___   _ | | ___ __ _ _ __
+              \ \ / / | | | |/ __/ _` | '_ \
+               \ V /| |_| | | (_| (_| | | | |
+                \_/  \__,_|_|\___\__,_|_| |_|
 ```
 
 </div>
@@ -33,11 +31,18 @@ __   ___   _| | ___ __ _ _ __      Support:       support@tech.alliancecan.ca
 
 | Resource | Link |
 |----------|------|
-| **Support** | [support@tech.alliancecan.ca](mailto:support@tech.alliancecan.ca) |
+| **Alliance Support** | [support@tech.alliancecan.ca](mailto:support@tech.alliancecan.ca) |
+| **U of A RCG Support** | [rschsppt+vulcan@ualberta.ca](mailto:rschsppt+vulcan@ualberta.ca) |
 | **Alliance Docs** | [docs.alliancecan.ca](https://docs.alliancecan.ca/) |
 | **Vulcan Portal** | [portal.vulcan.alliancecan.ca](https://portal.vulcan.alliancecan.ca) |
-| **Open OnDemand** | [vulcan.alliancecan.ca](https://vulcan.alliancecan.ca) |
+| **Vulcan Login / OOD** | [vulcan.alliancecan.ca](https://vulcan.alliancecan.ca) |
 | **CCDB Account** | [ccdb.alliancecan.ca](https://ccdb.alliancecan.ca/) |
+
+| Organization | Links |
+|--------------|-------|
+| **AMII** | [amii.ca](https://www.amii.ca/) &middot; [GitHub](https://github.com/Amii-Open-Source) &middot; [amiithinks](https://github.com/amiithinks) |
+| **U of A RCG** | [Research Computing](https://www.ualberta.ca/en/information-services-and-technology/research-computing/index.html) &middot; [GitHub](https://github.com/ualberta-rcg) |
+| **Alliance** | [alliancecan.ca](https://alliancecan.ca/) &middot; [CCDB](https://ccdb.alliancecan.ca/) |
 
 ---
 
@@ -86,7 +91,7 @@ __   ___   _| | ___ __ _ _ __      Support:       support@tech.alliancecan.ca
 | **Lunaris** | :material-check-circle:{ style="color: green" } Operational |
 | **tamIA** | :material-check-circle:{ style="color: green" } Operational |
 
-<small>*Auto-generated from [status.alliancecan.ca](https://status.alliancecan.ca) &mdash; updated 2026-04-12 19:58 UTC. See that page for current incident details.*</small>
+<small>*Auto-generated from [status.alliancecan.ca](https://status.alliancecan.ca) &mdash; updated 2026-04-12 20:31 UTC. See that page for current incident details.*</small>
 
 ---
 
@@ -107,7 +112,7 @@ Events from the [Alliance training calendar](https://explora.alliancecan.ca/even
 | Apr 16 | GPU Python: Numba JIT compilation to CUDA kernels [course] | [Register](https://forms.gle/E6XyX4Q3H6hXDwUM7) |
 | Apr 17 | The Secret Life of Data | [Register](https://ualberta.libcal.com/event/4012303) |
 
-<small>*Auto-generated from [explora.alliancecan.ca/events](https://explora.alliancecan.ca/events) &mdash; updated 2026-04-12 19:58 UTC.*</small>
+<small>*Auto-generated from [explora.alliancecan.ca/events](https://explora.alliancecan.ca/events) &mdash; updated 2026-04-12 20:31 UTC.*</small>
 
 ---
 

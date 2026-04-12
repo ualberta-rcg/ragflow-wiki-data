@@ -279,6 +279,9 @@ Low-value pages are automatically skipped during sync and conversion (`scripts/s
 * [RAGFlow](https://ragflow.io/)
 * [MkDocs Material](https://squidfunk.github.io/mkdocs-material/)
 * [Research Computing Group](https://www.ualberta.ca/en/information-services-and-technology/research-computing/index.html)
+* [AMII](https://www.amii.ca/) — [Amii-Open-Source](https://github.com/Amii-Open-Source) — [amiithinks](https://github.com/amiithinks)
+* [U of A RCG GitHub](https://github.com/ualberta-rcg)
+* [Vulcan Login / OOD](https://vulcan.alliancecan.ca) — [Vulcan Portal](https://portal.vulcan.alliancecan.ca)
 
 ---
 
