@@ -221,7 +221,7 @@ R -e 'install.packages("sp", repos="https://cloud.r-project.org/")'
 Dans le script de soumission, vous devez ensuite charger le module R que vous voulez et configurer le répertoire local pour la bibliothèque avec `export R_LIBS=~/.local/R/$EBVERSIONR/`.
 
 ### Dépendances
-Certains paquets utilisent des bibliothèques qui sont déjà installées sur nos grappes. Si la bibliothèque se trouve dans la liste des [logiciels disponibles](logiciels-disponibles.md), chargez le [module](../programming/utiliser_des_modules.md) approprié avant d'installer le paquet.
+Certains paquets utilisent des bibliothèques qui sont déjà installées sur nos grappes. Si la bibliothèque se trouve dans la liste des [logiciels disponibles](../programming/available_software.md), chargez le [module](../programming/utiliser_des_modules.md) approprié avant d'installer le paquet.
 
 Par exemple, le paquet `rgdal` utilise la bibliothèque `gdal`. En lançant la commande `module spider gdal/2.2.1` nous voyons que les modules `nixpkgs` et `gcc` sont requis. Pour savoir comment charger ce module, entrez la commande `module spider gdal/3.9.1`.
 

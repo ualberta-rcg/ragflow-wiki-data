@@ -53,7 +53,7 @@ All clusters have large, high-performance storage attached. For details about st
 | [Fir](../software/fir.md)       | General-purpose | * fir-compute<br>* fir-gpu<br>* fir-storage         | In production |
 | [Graham](graham.md) | General-purpose | * graham-compute<br>* graham-gpu<br>* graham-storage | End of life   |
 | [Narval](narval.md) | General-purpose | * narval-compute<br>* narval-gpu<br>* narval-storage | In production |
-| [Niagara](niagara.md) | Large parallel | * niagara-compute<br>* niagara-storage<br>* hpss-storage | End of life   |
+| [Niagara](national_systems.md) | Large parallel | * niagara-compute<br>* niagara-storage<br>* hpss-storage | End of life   |
 | [Nibi](nibi.md)     | General-purpose | * nibi-compute<br>* nibi-storage<br>* nibi-storage | In production |
 | [Rorqual](rorqual.md) | General-purpose | * rorqual-compute<br>* rorqual-gpu<br>* rorqual-storage | In production |
 | [Trillium](trillium.md) | Large parallel | * trillium-compute<br>* trillium-gpu<br>* trillium-storage | In production |

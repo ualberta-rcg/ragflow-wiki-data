@@ -41,7 +41,7 @@ Large Language Models (LLMs) are generative models capable of generating sophist
 
 At the time of this writing, [The Hugging Face Hub](https://huggingface.co/models) is the most common repository for LLMs.
 
-The `huggingface_hub` Python package contains a command-line interface (CLI) which can be used to download models. For example, to download the model `Zephyr-7b-beta`, first install `huggingface_hub` in a [virtual environment](virtualenv.md), then **on a login node** run:
+The `huggingface_hub` Python package contains a command-line interface (CLI) which can be used to download models. For example, to download the model `Zephyr-7b-beta`, first install `huggingface_hub` in a [virtual environment](../python.md), then **on a login node** run:
 
 ```bash
 HF_HUB_DISABLE_XET=1 hf download --max-workers=1 HuggingFaceH4/zephyr-7b-beta

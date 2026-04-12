@@ -42,7 +42,7 @@ While our clusters have a relatively high degree of uniformity, particularly the
 
 ## Access
 
-Each cluster is accessible via [SSH](ssh.md), simply by changing the name of the cluster to the appropriate value; your username and password are the same across all of the clusters. Note that accessing [Niagara](niagara.md) does require a [further step](niagara.md#access-to-niagara).
+Each cluster is accessible via [SSH](ssh.md), simply by changing the name of the cluster to the appropriate value; your username and password are the same across all of the clusters. Note that accessing [Niagara](../clusters/national_systems.md) does require a [further step](../clusters/national_systems.md#access-to-niagara).
 
 ## Filesystems
 

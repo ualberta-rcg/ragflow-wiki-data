@@ -106,7 +106,7 @@ More experienced users can
 More detailed instructions are available for some of the common cloud use cases, including
 * [Configure a data or web server](configuring_a_data_or_web_server.md)
 * [Using vGPUs (standard shared GPU allocation) in the cloud](using_cloud_vgpus.md)
-* [Using PCI-e passthrough GPUs in the cloud](using-cloud-gpu.md)
+* [Using PCI-e passthrough GPUs in the cloud](cloud.md)
 * [Setting up GUI Desktop on a VM](setting_up_gui_desktop_on_a_vm.md)
 * [Using IPv6 in Arbutus cloud](using_ipv6_in_cloud.md)
 

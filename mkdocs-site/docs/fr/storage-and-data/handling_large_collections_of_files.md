@@ -87,7 +87,7 @@ Les disques locaux reliés aux nœuds de calcul sont des SSD SATA ou plus; de fa
     La capacité réelle d'espace disque local n'est pas la même pour toutes les grappes et elle peut varier à l'intérieur d'une même grappe.
 
 *   [Béluga](../clusters/béluga.md) offre environ 370Go de disque local pour les nœuds CPU; les nœuds GPU ont un disque NVMe de 1.6To pour aider avec les jeux de données image en intelligence artificielle qui possèdent des millions de petits fichiers.
-*   [Niagara](niagara.md) n'offre pas de stockage local sur ses nœuds de calcul.
+*   [Niagara](../clusters/national_systems.md) n'offre pas de stockage local sur ses nœuds de calcul.
 *   Dans le cas des autres grappes, vous pouvez supposer que l'espace disque disponible est d'au moins 190Go.
 
 Vous pouvez accéder au disque local de l'intérieur d'une tâche en utilisant la variable d'environnement `$SLURM_TMPDIR`. Une approche serait alors de conserver votre ensemble de données dans un seul fichier archive `tar` dans l'espace /project et de le copier ensuite sur le disque local au début de votre tâche, l'extraire et utiliser les données au cours de la tâche. S'il y a eu des changements, vous pourrez archiver le contenu dans un fichier `tar` et le recopier dans l'espace /project.

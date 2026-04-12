@@ -104,7 +104,7 @@ Si vous avez plus d'expérience, vous pouvez
 ## Cas d'utilisation
 *   [Configurer un serveur de données ou un serveur Web](configuring_a_data_or_web_server.md)
 *   [Utiliser les vGPU](using_cloud_vgpus.md)
-*   [Utiliser les GPU](using-cloud-gpu.md)
+*   [Utiliser les GPU](cloud.md)
 *   [Utiliser une interface graphique](setting_up_gui_desktop_on_a_vm.md)
 *   [Utiliser IPv6 dans le nuage Arbutus](using_ipv6_in_cloud.md)
 

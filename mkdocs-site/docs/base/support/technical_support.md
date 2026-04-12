@@ -76,7 +76,7 @@ To help us help you better, please include the following information in your sup
 * Job submission script: you can either give the full path of the script on the cluster; copy and paste the script; or attach the script file
 * File or files which contain the error message(s): give the full path of the file(s); copy and paste the file(s); or attach the error message(s) file(s)
 * Commands that you were executing
-* Avoid sending screenshots or other large image attachments except when necessary - the plain text of your commands, job script, etc. is usually more helpful. See [Copy and paste](faq.md#copy-and-paste) if you have trouble with this.
+* Avoid sending screenshots or other large image attachments except when necessary - the plain text of your commands, job script, etc. is usually more helpful. See [Copy and paste](../getting-started/frequently_asked_questions.md#copy-and-paste) if you have trouble with this.
 * Software (name and version) you were trying to use
 * When did the problem happen?
 * If you want us to access, copy or edit your files, or inspect your account and possibly make changes there, say so explicitly in your email. For example, instead of attaching files to an email, you may indicate where they are located in your account and give us permission to access them. If you have already granted us permission via the CCDB interface to access your files, then you do not need to do it again in your support request.

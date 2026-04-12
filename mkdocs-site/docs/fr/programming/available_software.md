@@ -69,20 +69,20 @@ Le tableau présenté ci-dessous montre la liste des logiciels disponibles sur l
 !!! warning "Disponibilité"
     **Certains logiciels ne sont peut-être pas disponibles dans l'environnement standard `StdEnv` que vous avez chargé.**
 
-    `StdEnv/2020` est maintenant caché ou obsolète sur les nouveaux systèmes (voir [StdEnv/2020](environnements-logiciels-standards.md#stdenv2020)).
+    `StdEnv/2020` est maintenant caché ou obsolète sur les nouveaux systèmes (voir [StdEnv/2020](standard_software_environments.md#stdenv2020)).
 
 ## Notes
 Pour utiliser un logiciel qui n'est pas déjà installé par défaut, vous devez charger le module qui s'applique. Pour plus d'information sur comment utiliser le système de modules Lmod, consultez [Utiliser des modules](utiliser_des_modules.md). Prenez note que certains modules prérequis sont chargés par défaut.
 
 **Points à retenir à propos des logiciels disponibles**
 
-*   La plupart des modules Python ne sont pas installés en tant que modules (Lmod), mais en tant que [paquets binaires](paquets-binaires-python-disponibles.md) (_wheels_) localisés sous `/cvmfs/soft.computecanada.ca/custom/python/wheelhouse/`; [TensorFlow](../software/tensorflow.md) en est un exemple. Voyez la page [Python](../software/python.md) pour des détails sur comment lister les paquets Python et les installer.
+*   La plupart des modules Python ne sont pas installés en tant que modules (Lmod), mais en tant que [paquets binaires](available_python_wheels.md) (_wheels_) localisés sous `/cvmfs/soft.computecanada.ca/custom/python/wheelhouse/`; [TensorFlow](../software/tensorflow.md) en est un exemple. Voyez la page [Python](../software/python.md) pour des détails sur comment lister les paquets Python et les installer.
 *   De même, la plupart des paquets R et Perl ne sont pas installés. Nous vous recommandons de les installer dans votre environnement personnel ou dans celui de votre groupe. Voyez les pages [R](../software/r.md) et [Perl](../software/perl.md) pour des détails sur l'installation des paquets.
 *   Voyez la page [Algèbre symbolique](logiciels-dalgebre-symbolique.md) où il est question de SageMath.
 *   Notez que [Docker](https://www.docker.com/) n'est pas disponible sur nos grappes, mais que [Apptainer](../software/containers/apptainer.md) peut être utilisé en chargeant le module `apptainer`. Pour convertir les contenants Docker, consultez [la documentation Apptainer](https://apptainer.org/docs/).
 *   Certains logiciels listés dans le tableau ci-dessous sont sous licence et donc non accessibles directement; vous pouvez en demander l'accès au besoin. En tentant de charger le module d'un tel logiciel, vous recevrez les consignes sur comment en obtenir l'accès.
 *   La plupart des paquets listés se trouvent sur toutes nos grappes. Certains cependant ne sont disponibles que sur un site en particulier en raison des restrictions liées à l'octroi des licences; voir [Modules disponibles uniquement sur certaines grappes](#modules-disponibles-uniquement-sur-certaines-grappes) ci-dessous.
-*   Les paquets listés sont disponibles dans un ou plusieurs de nos environnements logiciels standards. Dans certains cas peu fréquents, vous devrez charger un environnement logiciel différent pour avoir accès à un paquet en particulier; voyez [Environnements logiciels standards](environnements-logiciels-standards.md).
+*   Les paquets listés sont disponibles dans un ou plusieurs de nos environnements logiciels standards. Dans certains cas peu fréquents, vous devrez charger un environnement logiciel différent pour avoir accès à un paquet en particulier; voyez [Environnements logiciels standards](standard_software_environments.md).
 *   Plusieurs paquets reliés au système d’exploitation comme [Autotools](autotools.md), [Make](make.md) et [Git](../software/git.md) ne sont pas installés en tant que modules, mais font partie de l'environnement par défaut; ils ne paraissent pas dans le tableau.
 
 ## Modules disponibles sur toutes les grappes

@@ -40,7 +40,7 @@ STATE_FILE = REPO_ROOT / "config" / "processing-state.json"
 
 BATCH_SIZE = int(os.environ.get("BATCH_SIZE", "0"))
 FORCE_ALL = os.environ.get("LINKFIX_FORCE_ALL", "false").lower() == "true"
-LINKFIX_VERSION = "3"
+LINKFIX_VERSION = "4"
 
 # Legacy/broken wiki slugs -> preferred canonical stems in this repo.
 # Keys and values are normalized with normalize_stem().
@@ -54,6 +54,31 @@ STEM_ALIASES: dict[str, list[str]] = {
     "soutientechnique": ["technicalsupport"],
     "executerdestaches": ["runningjobs"],
     "storageetgestiondefichiers": ["storageandfilemanagement"],
+    # Singularity was renamed to Apptainer
+    "singularity": ["apptainer"],
+    # Common cloud page aliases
+    "cccloud": ["cloud"],
+    "usingcloudgpu": ["usinggpuswithslurm", "cloud"],
+    "creatingalinuxvm": ["cloudquickstart"],
+    # niagara decommissioned - point to trillium or national_systems
+    "niagara": ["trillium", "nationalsystems"],
+    "datamanagentatniagara": ["storageandfilemanagement"],
+    # Common French aliases
+    "logicielsdisponibles": ["availablesoftware"],
+    "environnementslogicielsstandards": ["standardsoftwareenvironments"],
+    "paquetsbinairespythondisponibles": ["availablepythonwheels"],
+    # VNC/interactive
+    "vncserverpassword": ["vnc"],
+    "multipleconnections": ["vnc"],
+    # Checkpoints
+    "checkpoints": ["pointsdecontrole", "runningjobs"],
+    # Policy pages
+    "policydefinitions": ["policy"],
+    "resourceallocationcompetitiongeneralpolicy": ["policy"],
+    # Misc
+    "sftp": ["transferringdata", "globus"],
+    "virtualenv": ["python"],
+    "faq": ["frequentlyaskedquestions"],
 }
 
 # Non-image markdown links: [text](target)

@@ -50,4 +50,4 @@ export TESSDATA_PREFIX=~/tessdata
 Tesseract can be used from Python using the wrapper package "pytesseract".
 
 !!! tip
-    We recommend you install this in a [Virtualenv](virtualenv.md).
+    We recommend you install this in a [Virtualenv](python.md).

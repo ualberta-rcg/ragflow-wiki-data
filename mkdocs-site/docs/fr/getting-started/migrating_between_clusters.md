@@ -41,7 +41,7 @@ Pour déplacer des données d’une grappe à l’autre, nous vous recommandons 
 
 ## Accès à nos grappes
 
-L'accès à nos grappes se fait par [SSH](ssh.md); il suffit d'utiliser le nom particulier de la grappe à laquelle vous voulez accéder. Votre nom d'utilisateur et votre mot de passe serviront à vous connecter à toutes nos grappes. Par contre, l'accès à Niagara nécessite une étape supplémentaire qui est [décrite dans la section *Accès* de la page pour Niagara](niagara.md#accès).
+L'accès à nos grappes se fait par [SSH](ssh.md); il suffit d'utiliser le nom particulier de la grappe à laquelle vous voulez accéder. Votre nom d'utilisateur et votre mot de passe serviront à vous connecter à toutes nos grappes. Par contre, l'accès à Niagara nécessite une étape supplémentaire qui est [décrite dans la section *Accès* de la page pour Niagara](../clusters/national_systems.md#accès).
 
 ## Systèmes de fichiers
 

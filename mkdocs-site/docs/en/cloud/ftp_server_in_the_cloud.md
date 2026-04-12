@@ -44,11 +44,11 @@ If you have the freedom to choose an alternative to FTP, consider the following 
     *   ...for read-only access: Use HTTP (see [Creating a web server on a cloud](creating_a_web_server_on_a_cloud.md)).
     *   ...for read/write access: The security risks of accepting anonymous incoming file transfers are very great. Please [contact us](../support/technical_support.md) and describe your use case so we can help you find a secure solution.
 *   If you plan to authenticate FTP users (that is, require usernames and passwords)...
-    *   ...a safer and easier alternative is [SFTP](sftp.md).
+    *   ...a safer and easier alternative is [SFTP](../getting-started/globus.md).
     *   Another alternative is [FTPS](https://en.wikipedia.org/wiki/FTPS), which is an extension of FTP which uses [TLS](https://en.wikipedia.org/wiki/Transport_Layer_Security) to encrypt data sent and received.
 
 !!! warning
-    When authenticating users via passwords, the transmitted data should be encrypted or else an eavesdropper could discover the password. We strongly recommend that you not allow password logins to your VM, as automated brute-force attempts to crack passwords can be expected on any machine connected to the internet. Instead, use SSH-key authentication (see [SSH Keys](../getting-started/ssh_keys.md)). [SFTP](sftp.md) can be configured to use SSH-key authentication.
+    When authenticating users via passwords, the transmitted data should be encrypted or else an eavesdropper could discover the password. We strongly recommend that you not allow password logins to your VM, as automated brute-force attempts to crack passwords can be expected on any machine connected to the internet. Instead, use SSH-key authentication (see [SSH Keys](../getting-started/ssh_keys.md)). [SFTP](../getting-started/globus.md) can be configured to use SSH-key authentication.
 
 ## Setting up FTP
 If you do not have freedom to choose an alternative to FTP, see the guide which best matches your operating system:

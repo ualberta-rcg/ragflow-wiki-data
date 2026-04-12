@@ -110,7 +110,7 @@ Alliance accounts are *per person:* Account sharing is strictly forbidden. Each 
 
 # Information on each resource
 
-For more information, please click on the tab below corresponding to where you have been granted resources. **General-purpose clusters** are [Béluga](../clusters/béluga.md), [Cedar](../clusters/cedar.md), and [Graham](../clusters/graham.md). More than one tab may apply if, for example, you have been granted an allocation on both [Niagara](niagara.md) and a general-purpose cluster.
+For more information, please click on the tab below corresponding to where you have been granted resources. **General-purpose clusters** are [Béluga](../clusters/béluga.md), [Cedar](../clusters/cedar.md), and [Graham](../clusters/graham.md). More than one tab may apply if, for example, you have been granted an allocation on both [Niagara](../clusters/national_systems.md) and a general-purpose cluster.
 
 === "General-purpose clusters"
 

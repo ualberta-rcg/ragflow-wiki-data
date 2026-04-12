@@ -108,7 +108,7 @@ Un compte avec l'Alliance est détenu **par une personne**. Il est formellement 
 
 # Caractéristiques des grappes
 
-Les grappes d'usage général sont [Béluga](../clusters/béluga.md), [Cedar](../clusters/cedar.md) et [Graham](../clusters/graham.md). Il se peut que les ressources qui vous sont allouées soient situées sur plus d'un type de grappe, par exemple sur [Niagara](niagara.md) et sur une grappe d'usage général.
+Les grappes d'usage général sont [Béluga](../clusters/béluga.md), [Cedar](../clusters/cedar.md) et [Graham](../clusters/graham.md). Il se peut que les ressources qui vous sont allouées soient situées sur plus d'un type de grappe, par exemple sur [Niagara](../clusters/national_systems.md) et sur une grappe d'usage général.
 
 === "Grappes d'usage général"
 

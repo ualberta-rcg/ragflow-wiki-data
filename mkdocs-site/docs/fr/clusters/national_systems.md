@@ -69,7 +69,7 @@ Toutes les grappes disposent de stockage de haute performance. Dans le tableau c
 | [Fir](../software/fir.md) | Usage général | * fir-compute<br>* fir-gpu<br>* fir-storage | En production |
 | [Graham](graham.md) | Usage général | * graham-compute<br>* graham-gpu<br>* graham-storage | En fin de vie |
 | [Narval](narval.md) | Usage général | * narval-compute<br>* narval-gpu<br>* narval-storage | En production |
-| [Niagara](niagara.md) | Tâches massivement parallèles | * niagara-compute<br>* niagara-storage<br>* hpss-storage | En fin de vie |
+| [Niagara](national_systems.md) | Tâches massivement parallèles | * niagara-compute<br>* niagara-storage<br>* hpss-storage | En fin de vie |
 | [Nibi](nibi.md) | Usage général | * nibi-compute<br>* nibi-storage<br>* nibi-storage | En production |
 | [Rorqual](rorqual.md) | Usage général | * rorqual-compute<br>* rorqual-gpu<br>* rorqual-storage | En production |
 | [Trillium](trillium.md) | Tâches massivement parallèles | * trillium-compute<br>* trillium-gpu<br>* trillium-storage | En production |

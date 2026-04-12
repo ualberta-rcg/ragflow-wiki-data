@@ -37,7 +37,7 @@ status:
 
 *Parent page: [Cloud](cloud.md)*
 
-On the [cloud](cc-cloud.md), you are responsible for the security of your virtual machines.
+On the [cloud](cloud.md), you are responsible for the security of your virtual machines.
 
 This document is not a complete guide, but will set out some things you need to consider when creating a VM on the cloud.
 

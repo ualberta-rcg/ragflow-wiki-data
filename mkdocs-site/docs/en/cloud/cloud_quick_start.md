@@ -550,7 +550,7 @@ QJX/qgGp0=
 ## Where to go from here
 
 *   Learn about [security considerations when running a VM](security_considerations_when_running_a_vm.md)
-*   Learn about [creating a Linux VM](creating-a-linux-vm.md)
+*   Learn about [creating a Linux VM](cloud_quick_start.md)
 *   Learn more about working with [OpenStack](managing_your_cloud_resources_with_openstack.md)
 *   [Cloud Technical Glossary](cloud_technical_glossary.md)
 *   [Automating VM creation](automating_vm_creation.md)

@@ -82,7 +82,7 @@ Les principales composantes sont :
 
 ## Images Apptainer
 
-Pour créer une image Apptainer (auparavant [Singularity](singularity.md#utilisez-plutot-apptainer)) pour RAPIDS, il faut d'abord trouver et choisir une image Docker fournie par NVIDIA.
+Pour créer une image Apptainer (auparavant [Singularity](../containers/apptainer.md#utilisez-plutot-apptainer)) pour RAPIDS, il faut d'abord trouver et choisir une image Docker fournie par NVIDIA.
 
 ### Trouver une image Docker
 

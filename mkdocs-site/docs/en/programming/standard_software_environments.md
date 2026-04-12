@@ -119,7 +119,7 @@ it will tell you that you can get this by loading the `qt/5.12.8` module.
 !!! warning "Deprecated"
     This environment is no longer supported.
 
-This is the second version of our software environment. It was released in 2018 with the deployment of [Béluga](../clusters/béluga.md), and shortly after the deployment of [Niagara](niagara.md). Defaults were upgraded to GCC 7.3.0, Intel 2018.3, and Open MPI 3.1.2. This is the first version to support AVX512 instructions.
+This is the second version of our software environment. It was released in 2018 with the deployment of [Béluga](../clusters/béluga.md), and shortly after the deployment of [Niagara](../clusters/national_systems.md). Defaults were upgraded to GCC 7.3.0, Intel 2018.3, and Open MPI 3.1.2. This is the first version to support AVX512 instructions.
 
 To activate this environment, use the command
 ```bash
@@ -130,7 +130,7 @@ module load StdEnv/2018.3
 !!! warning "Deprecated"
     This environment is no longer supported.
 
-This is the initial version of our software environment released in 2016 with the deployment of [Cedar](../clusters/cedar.md) and [Graham](../clusters/graham.md). It features GCC 5.4.0 and Intel 2016.4 as default compilers, and Open MPI 2.1.1 as its default implementation of MPI. Most of the software compiled with this environment does not support AVX512 instructions provided by the Skylake processors on [Béluga](../clusters/béluga.md), [Niagara](niagara.md), as well as on the most recent additions to Cedar and Graham.
+This is the initial version of our software environment released in 2016 with the deployment of [Cedar](../clusters/cedar.md) and [Graham](../clusters/graham.md). It features GCC 5.4.0 and Intel 2016.4 as default compilers, and Open MPI 2.1.1 as its default implementation of MPI. Most of the software compiled with this environment does not support AVX512 instructions provided by the Skylake processors on [Béluga](../clusters/béluga.md), [Niagara](../clusters/national_systems.md), as well as on the most recent additions to Cedar and Graham.
 
 To activate this environment, use the command
 ```bash

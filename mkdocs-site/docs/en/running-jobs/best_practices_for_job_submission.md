@@ -120,7 +120,7 @@ By means of these test jobs, you should gain some familiarity with how long cert
     **Increase the estimated duration by 5% or 10%**, just in case.
     *   It's natural to leave a certain amount of room for error in the estimate, but otherwise it's in your interest for your estimate of the job's duration to be as accurate as possible.
 *   !!! tip
-    Longer jobs, such as those with a duration exceeding 48 hours, should **consider using [checkpoints](checkpoints.md)** if the software permits this.
+    Longer jobs, such as those with a duration exceeding 48 hours, should **consider using [checkpoints](points_de_contrôle.md)** if the software permits this.
     *   With a checkpoint, the program writes a snapshot of its state to a diskfile and the program can then be restarted from this diskfile, at that precise point in the calculation. In this way, even if there is a power outage or some other interruption of the compute node(s) being used by your job, you won't necessarily lose much work if your program writes a checkpoint file every six or eight hours.
 
 ### Memory consumption

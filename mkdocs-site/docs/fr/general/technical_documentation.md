@@ -66,7 +66,7 @@ Systèmes :
 * Grappes GPU, qui font partie de l'Environnement de calcul pan-canadien pour l'intelligence artificielle (ECPIA):
   * [Killarney](../clusters/killarney.md), [tamIA](../clusters/tamia.md), [Vulcan](../clusters/vulcan.md)
 * Grappes obsolètes, en fin de vie ou retirées:
-  * [Béluga](../clusters/béluga.md), [Cedar](../clusters/cedar.md), [Graham](../clusters/graham.md), [Niagara](niagara.md)
+  * [Béluga](../clusters/béluga.md), [Cedar](../clusters/cedar.md), [Graham](../clusters/graham.md), [Niagara](../clusters/national_systems.md)
 
 Services :
 * [Logiciels disponibles](../programming/available_software.md)

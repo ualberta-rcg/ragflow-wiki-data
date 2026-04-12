@@ -41,13 +41,13 @@ Compute Canada policy.
 
 ## CC Policies
 
-1.  [Policy Definitions](policy-definitions.md)
+1.  [Policy Definitions](policy.md)
 2.  [Terms of Use](https://www.computecanada.ca/wp-content/uploads/2021/04/Terms-of-Use.pdf)
 3.  [Access Policy](https://www.computecanada.ca/research-portal/accessing-resources/access-policy/)
 4.  [Privacy Policy](https://www.computecanada.ca/privacy-policy/)
 5.  [Security Policy](https://www.computecanada.ca/research-portal/information-security/security-policy/)
 6.  [Information Security Management System Policy](https://www.computecanada.ca/research-portal/information-security/isms-policy/)
-7.  [Resource Allocation Competition General Policy](resource-allocation-competition-general-policy.md) (Draft)
+7.  [Resource Allocation Competition General Policy](policy.md) (Draft)
 8.  [Scratch Purging Policy](../storage-and-data/scratch_purging_policy.md)
 
 ## Useful Links

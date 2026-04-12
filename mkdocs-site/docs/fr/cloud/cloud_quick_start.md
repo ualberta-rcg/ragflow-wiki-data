@@ -534,7 +534,7 @@ Format ssh.com sans phrase de passe :
 ## Pour plus d'information
 
 *   [Sécurité des instances virtuelles](security_considerations_when_running_a_vm.md)
-*   [Création d'une instance sous Linux](creating-a-linux-vm.md)
+*   [Création d'une instance sous Linux](cloud_quick_start.md)
 *   [Gestion des ressources infonuagiques avec OpenStack](managing_your_cloud_resources_with_openstack.md)
 *   [Glossaire technique de l'infonuagique](cloud_technical_glossary.md)
 *   [Automatiser les instances](automating_vm_creation.md)

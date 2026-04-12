@@ -80,7 +80,7 @@ du -sh * | sort -hr | head -10
 Local disks attached to compute nodes are at least SATA SSD or better, and, in general, will have a performance that is considerably better than the project or scratch filesystems. Note that a local disk is shared by all running jobs on that node without being allocated by the scheduler. The actual amount of local disk space varies from one cluster to another (and might also vary within a given cluster). For example,
 
 *   [Béluga](../clusters/béluga.md) offers roughly 370GB of local disk for the CPU nodes, the GPU nodes have a 1.6TB NVMe disk (to help with the AI image datasets with their millions of small files).
-*   [Niagara](niagara.md) does not have local storage on the compute nodes (but see [Data management at Niagara](data-management-at-niagara.md#slurm_tmpdir-ram))
+*   [Niagara](../clusters/national_systems.md) does not have local storage on the compute nodes (but see [Data management at Niagara](data-management-at-niagara.md#slurm_tmpdir-ram))
 *   For other clusters you can assume the available disk size to be at least 190GB
 
 You can access this local disk inside of a job using the environment variable `$SLURM_TMPDIR`. One approach therefore would be to keep your dataset archived as a single `tar` file in the project space and then copy it to the local disk at the beginning of your job, extract it and use the dataset during the job. If any changes were made, at the job's end you could again archive the contents to a `tar` file and copy it back to the project space.
