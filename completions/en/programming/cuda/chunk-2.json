@@ -4,37 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "What are common errors related to compute capability when working with NVIDIA GPUs?",
-      "answer": "Two common errors are `nvcc fatal : Unsupported gpu architecture 'compute_XX'` and `no kernel image is available for execution on the device (209)`."
+      "question": "How can I fix 'Unsupported gpu architecture' or 'no kernel image' errors when compiling a CUDA program with `nvcc`?",
+      "answer": "If you encounter these errors while compiling with `nvcc`, you can add the correct flag to your `nvcc` call: `-gencode arch=compute_XX,code=[sm_XX,compute_XX]`. The 'XX' value should represent the compute capability of the NVIDIA GPU you plan to use, with the decimal point omitted (for example, '80' for a GPU with '8.0' compute capability)."
     },
     {
-      "question": "How can I fix compute capability errors when compiling with `nvcc`?",
-      "answer": "You can fix these errors by adding the flag `-gencode arch=compute_XX,code=[sm_XX,compute_XX]` to your `nvcc` call."
+      "question": "What flag should be used with `cmake` to address compute capability issues in CUDA applications?",
+      "answer": "When using `cmake`, you can provide the flag `-DCMAKE_CUDA_ARCHITECTURES=XX` to resolve compute capability errors. The 'XX' value should be the compute capability of the NVIDIA GPU that will run the application, obtained by omitting the decimal point (e.g., '80' for a compute capability of '8.0')."
     },
     {
-      "question": "How can I fix compute capability errors if I am using `cmake`?",
-      "answer": "If you are using `cmake`, you should provide the flag `cmake .. -DCMAKE_CUDA_ARCHITECTURES=XX`."
-    },
-    {
-      "question": "What does 'XX' represent in the `nvcc` and `cmake` flags for compute capability?",
-      "answer": "'XX' represents the compute capability of the Nvidia GPU that you expect to run the application on."
-    },
-    {
-      "question": "How do I determine the correct value for 'XX' to use in the compute capability flags?",
-      "answer": "To find the correct value for 'XX', consult the NVIDIA GPU Compute Capability documentation and omit the decimal point from the listed capability."
-    },
-    {
-      "question": "What is the compute capability of a Narval A100 node?",
-      "answer": "The NVidia table indicates that a Narval A100 node has a compute capability of \"8.0\"."
-    },
-    {
-      "question": "What `nvcc` flag should I use if I plan to run my code on a Narval A100 node?",
-      "answer": "If you are running code on a Narval A100 node, the correct `nvcc` flag to use is `-gencode arch=compute_80,code=[sm_80,compute_80]`."
-    },
-    {
-      "question": "What `cmake` flag should I provide for an application intended to run on a Narval A100 node?",
-      "answer": "For an application running on a Narval A100 node, the flag to supply to `cmake` is `cmake .. -DCMAKE_CUDA_ARCHITECTURES=80`."
+      "question": "How do I determine the 'XX' value for the compute capability flags when troubleshooting CUDA compilation errors?",
+      "answer": "To find the 'XX' value, you need to look up the compute capability of your NVIDIA GPU (e.g., on the NVIDIA CUDA GPU Compute Capability page) and then simply omit the decimal point. For example, if a Narval A100 node has a compute capability of \"8.0\", the correct 'XX' value to use would be \"80\"."
     }
   ],
-  "generated_at": "2026-04-11T19:15:57.398878+00:00"
+  "generated_at": "2026-04-12T20:00:40.074123+00:00"
 }

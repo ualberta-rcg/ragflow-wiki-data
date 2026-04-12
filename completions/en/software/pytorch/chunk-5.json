@@ -4,69 +4,17 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "How do I prepare the CIFAR10 dataset for the PyTorch CPU performance test?",
-      "answer": "To prepare the CIFAR10 dataset, you first need to create a 'data' directory and change into it using `mkdir -p data && cd data`. Then, download the dataset with `wget https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz`, extract it with `tar zxf cifar-10-python.tar.gz`, and finally navigate back to the parent directory using `cd ..`."
+      "question": "How should I prepare the CIFAR10 dataset to run the provided PyTorch CPU example?",
+      "answer": "To prepare the CIFAR10 dataset, you need to first create a directory named `data`, then navigate into it. From there, use `wget` to download `https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz` and then `tar zxf` to extract its contents."
     },
     {
-      "question": "What is the purpose of the `pytorch-multi-cpu.sh` script?",
-      "answer": "The `pytorch-multi-cpu.sh` script demonstrates how to run a PyTorch training job on multiple CPUs, showcasing PyTorch's native support for parallelism without requiring code changes to the Python script itself."
+      "question": "Why is it not always advisable to use a GPU for PyTorch model training on an HPC cluster?",
+      "answer": "It is not always advisable to use a GPU on HPC clusters if your code cannot make reasonable use of its compute capacity. Training very small models is often faster on one or more CPUs, and using a GPU unnecessarily blocks resources that other users might need, while also consuming your group's allocation."
     },
     {
-      "question": "Which SBATCH parameters are configured in the `pytorch-multi-cpu.sh` script?",
-      "answer": "The `pytorch-multi-cpu.sh` script configures SBATCH parameters for one node, one task per node, one CPU per task (with an option to change this), 8GB of memory, a time limit of 5 minutes, and output to `%N-%j.out`, along with an account specification."
-    },
-    {
-      "question": "How can I adjust the number of CPUs used by a PyTorch job in the `pytorch-multi-cpu.sh` script?",
-      "answer": "You can adjust the number of CPUs by changing the `#SBATCH --cpus-per-task=1` parameter to a different value like 2, 4, or 6, to observe its effect on performance."
-    },
-    {
-      "question": "How is a Python virtual environment set up and PyTorch installed in the `pytorch-multi-cpu.sh` script?",
-      "answer": "The script loads a Python module, creates a virtual environment without downloading (`virtualenv --no-download $SLURM_TMPDIR/env`), activates it (`source $SLURM_TMPDIR/env/bin/activate`), and then installs PyTorch and torchvision using `pip install torch torchvision --no-index`."
-    },
-    {
-      "question": "What environment variable is set in `pytorch-multi-cpu.sh` to control CPU parallelism?",
-      "answer": "The `OMP_NUM_THREADS` environment variable is exported and set to the value of `$SLURM_CPUS_PER_TASK` (`export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK`) to control CPU parallelism."
-    },
-    {
-      "question": "Is it always recommended to use a GPU for model training on HPC clusters if one is available?",
-      "answer": "No, it is not always recommended. You should not request a GPU if your code is not capable of making reasonable use of its compute capacity, especially on HPC clusters where resources are shared."
-    },
-    {
-      "question": "What are the primary sources of performance advantage for GPUs in Deep Learning tasks?",
-      "answer": "GPUs gain performance from two main sources: their ability to parallelize key numerical operations like multiply-accumulate over thousands of compute cores, and a much higher memory bandwidth compared to CPUs, allowing efficient processing of large data volumes."
-    },
-    {
-      "question": "What kind of learning tasks are best suited for running on a GPU?",
-      "answer": "For a learning task to be worth running on a GPU, it must be composed of elements that scale out with massive parallelism, in terms of the number of operations, the amount of data required, or ideally both. This typically means large models, large inputs, or both."
-    },
-    {
-      "question": "What GPU-specific libraries does PyTorch utilize for parallel implementations of Deep Learning operators?",
-      "answer": "PyTorch uses GPU-specific libraries such as CUDNN or MIOpen for parallel implementations of Deep Learning operators like matrix multiplication and convolution, depending on the hardware platform."
-    },
-    {
-      "question": "Which two parameters are crucial for optimizing GPU performance in the PyTorch example?",
-      "answer": "The two crucial parameters for optimizing GPU performance in the example are `batch_size` and `num_workers`."
-    },
-    {
-      "question": "How does increasing the `batch_size` affect GPU performance?",
-      "answer": "Increasing the `batch_size` influences GPU performance by enlarging the size of inputs at each iteration, thereby utilizing more of the GPU's compute capacity."
-    },
-    {
-      "question": "How does the `num_workers` parameter impact GPU performance?",
-      "answer": "The `num_workers` parameter influences performance by streamlining the movement of inputs from the host's (CPU's) memory to the GPU's memory, which reduces the amount of time the GPU remains idle waiting for data."
-    },
-    {
-      "question": "What is the first key recommendation for optimizing compute performance on a GPU?",
-      "answer": "Increase your `batch_size` to as much as you can fit into the GPU's memory to optimize your compute performance."
-    },
-    {
-      "question": "What is the second key recommendation for streamlining data feeding to a GPU?",
-      "answer": "Use a `DataLoader` with as many workers as you have `cpus-per-task` to streamline feeding data to the GPU."
-    },
-    {
-      "question": "If a small batch size is preferred for an application, how can GPU utilization be maximized?",
-      "answer": "If a small batch size is preferred, users should refer to the 'Single GPU Data Parallelism' section to learn how to maximize GPU utilization with small inputs."
+      "question": "What are the two main parameters to adjust for optimizing PyTorch's performance when running on a GPU?",
+      "answer": "To optimize GPU performance, you should increase your `batch_size` to as much as you can fit in the GPU's memory. Secondly, use a `DataLoader` with as many `num_workers` as you have `cpus-per-task` to streamline feeding data to the GPU."
     }
   ],
-  "generated_at": "2026-04-12T05:40:59.351626+00:00"
+  "generated_at": "2026-04-12T20:02:38.805016+00:00"
 }

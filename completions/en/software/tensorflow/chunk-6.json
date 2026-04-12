@@ -4,53 +4,17 @@
   "chunk_index": 6,
   "qa_pairs": [
     {
-      "question": "What is the primary benefit of creating model checkpoints during TensorFlow training?",
-      "answer": "Checkpoints help by creating snapshots of your model at various points, which allows for breaking long jobs into shorter ones, faster allocation on the cluster, and preventing loss of progress due to errors or node failures."
+      "question": "How do you configure TensorFlow for multi-GPU training across multiple nodes using the `MultiWorkerMirroredStrategy` in a SLURM environment?",
+      "answer": "To configure TensorFlow for multi-GPU training across multiple nodes with the `MultiWorkerMirroredStrategy` in a SLURM environment, you should use `tf.distribute.cluster_resolver.SlurmClusterResolver()` to get cluster information from SLURM and specify `tf.distribute.experimental.CommunicationImplementation.NCCL` for inter-GPU communication. The SLURM job script needs to request the required number of nodes and GPUs, and scripts like `config_env.sh` and `launch_training.sh` are used to set up the environment and run the Python training script."
     },
     {
-      "question": "How can I configure Keras to create model checkpoints at the end of each training epoch?",
-      "answer": "You can use the `callbacks` parameter of the `model.fit()` method, setting it to `[tf.keras.callbacks.ModelCheckpoint(filepath=\"./ckpt\",save_freq=\"epoch\")]` and ensuring the specified `filepath` exists."
+      "question": "What is the importance of creating model checkpoints during TensorFlow training?",
+      "answer": "Creating model checkpoints is important because it allows you to save a snapshot of your model at various points during training. This practice helps in breaking down long training jobs into multiple shorter ones, which can be allocated more efficiently on a cluster. It also serves as a safeguard against losing progress due to unexpected errors or node failures, as the model can be loaded from the last saved checkpoint."
     },
     {
-      "question": "What is the `filepath` parameter used for in `tf.keras.callbacks.ModelCheckpoint`?",
-      "answer": "The `filepath` parameter specifies the location on disk where the model checkpoint will be saved."
-    },
-    {
-      "question": "What is the recommended TensorFlow strategy for utilising multiple GPUs across multiple compute nodes?",
-      "answer": "The `MultiWorkerMirroredStrategy()` from TensorFlow's `tf.distribute` API is recommended for utilising multiple GPUs across multiple compute nodes."
-    },
-    {
-      "question": "Which SBatch parameters are crucial for a multi-node TensorFlow job using GPUs?",
-      "answer": "Crucial SBatch parameters include `--nodes` to request multiple nodes, `--gres=gpu:X` to request GPUs per node, `--ntasks-per-node` to specify processes per GPU, `--mem` for memory per node, and `--time` for the job's duration."
-    },
-    {
-      "question": "How is the virtual environment configured and TensorFlow installed for a multi-node job, according to the `config_env.sh` script?",
-      "answer": "The `config_env.sh` script loads the Python module, creates a virtual environment in `$SLURM_TMPDIR/ENV` without downloading packages, activates it, upgrades pip without index, and then installs TensorFlow without an index."
-    },
-    {
-      "question": "What is the role of `SlurmClusterResolver()` in a multi-node TensorFlow setup?",
-      "answer": "`SlurmClusterResolver()` is used to enable TensorFlow to automatically acquire all necessary job information directly from SLURM, simplifying the configuration of master and worker nodes."
-    },
-    {
-      "question": "Which communication backend is specified for inter-GPU communication when using `MultiWorkerMirroredStrategy()` across multiple nodes?",
-      "answer": "Nvidia's NCCL backend is specified for inter-GPU communication using `tf.distribute.experimental.CommunicationImplementation.NCCL` within the `CommunicationOptions`."
-    },
-    {
-      "question": "What environment variable should be set to use the NCCL backend for inter-GPU communication in a multi-node TensorFlow job?",
-      "answer": "The `NCCL_BLOCKING_WAIT` environment variable should be set to `1` (`export NCCL_BLOCKING_WAIT=1`) if you wish to use the NCCL backend."
-    },
-    {
-      "question": "What modules are loaded in the `tensorflow-multiworker.sh` script for a multi-node TensorFlow job?",
-      "answer": "The `tensorflow-multiworker.sh` script loads `gcc/9.3.0` and `cuda/11.8` modules."
-    },
-    {
-      "question": "What is the purpose of `export XLA_FLAGS=--xla_gpu_cuda_data_dir=$CUDA_HOME` in the multi-node job script?",
-      "answer": "This command sets the `XLA_FLAGS` environment variable to point to the CUDA data directory, which may be required by TensorFlow's XLA compiler."
-    },
-    {
-      "question": "How can one ensure the CIFAR10 dataset is available for the `tensorflow-multiworker.py` script?",
-      "answer": "You can run the dataset download line on a login node prior to submitting your job, or manually download the data from `https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz`, rename it to `cifar-10-batches-py.tar.gz`, and place it under `~/.keras/datasets`."
+      "question": "How do you create a model checkpoint at the end of each training epoch when using Keras in TensorFlow?",
+      "answer": "To create a model checkpoint at the end of every training epoch when using Keras, you should utilize the `callbacks` parameter within the `model.fit()` method. You can achieve this by passing an instance of `tf.keras.callbacks.ModelCheckpoint` with the desired `filepath` and setting `save_freq=\"epoch\"`, ensuring the specified path for the checkpoint exists."
     }
   ],
-  "generated_at": "2026-04-12T09:01:44.690480+00:00"
+  "generated_at": "2026-04-12T20:05:14.142756+00:00"
 }

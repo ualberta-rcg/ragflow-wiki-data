@@ -4,93 +4,17 @@
   "chunk_index": 12,
   "qa_pairs": [
     {
-      "question": "What is the primary purpose of the `Net` class defined within the PyTorch Lightning example?",
-      "answer": "The `Net` class defines a convolutional neural network architecture inheriting from `pl.LightningModule`, featuring two convolutional layers, two pooling layers, and three fully connected layers."
+      "question": "How can one configure PyTorch Lightning's `Trainer` for multi-GPU distributed data parallelism?",
+      "answer": "You can configure PyTorch Lightning's `Trainer` by setting `accelerator=\"gpu\"`, specifying `devices` (e.g., `devices=2`), `num_nodes` (e.g., `num_nodes=1`), and `strategy='ddp'`. It's also recommended to set `enable_progress_bar=False` to prevent issues from frequent log updates."
     },
     {
-      "question": "How does the `forward` method in the PyTorch Lightning `Net` class process input `x`?",
-      "answer": "The `forward` method applies two convolutional layers followed by ReLU activations and max-pooling, reshapes the tensor, and then passes it through three fully connected layers with ReLU activations between the first two."
+      "question": "In what specific scenario is it recommended to utilize Single GPU Data Parallelism, particularly for models that might otherwise be considered too small for a GPU?",
+      "answer": "Single GPU Data Parallelism is recommended when you have a relatively small model that doesn't fully occupy GPU memory or compute capacity, but you also have a very large dataset and prefer to train with a small batch size. This approach allows fitting multiple model replicas on a single GPU to increase resource utilization and achieve a speed-up."
     },
     {
-      "question": "What does the `training_step` method accomplish in the PyTorch Lightning `Net` model?",
-      "answer": "The `training_step` method takes a batch of data, performs a forward pass, calculates the cross-entropy loss between the model's output and the targets, and returns the loss."
-    },
-    {
-      "question": "How are optimizers configured for the PyTorch Lightning `Net` model?",
-      "answer": "Optimizers are configured by overriding the `configure_optimizers` method, which returns a `torch.optim.Adam` optimizer initialized with the model's parameters and a learning rate (`args.lr`)."
-    },
-    {
-      "question": "How is the PyTorch Lightning `Trainer` initialized for multi-GPU training in the provided example?",
-      "answer": "The `Trainer` is initialized with `accelerator=\"gpu\"`, `devices=2`, `num_nodes=1`, `strategy='ddp'` (DistributedDataParallel), `max_epochs` based on `args.max_epochs`, and `enable_progress_bar=False`."
-    },
-    {
-      "question": "Why is `enable_progress_bar` set to `False` when initializing the PyTorch Lightning `Trainer`?",
-      "answer": "`enable_progress_bar` is set to `False` to avoid potential issues caused by updating logs too frequently with a progress bar."
-    },
-    {
-      "question": "How is the training data loaded for the PyTorch Lightning model in the example?",
-      "answer": "The CIFAR10 dataset is loaded from `./data` (without downloading if already present) using `torchvision.transforms` for pre-processing, and then wrapped in a `DataLoader` with `batch_size` and `num_workers` arguments from `args`."
-    },
-    {
-      "question": "What `batch_size` is used when running the `pytorch-ddp-test-pl.py` script according to its associated shell script?",
-      "answer": "The `pytorch-ddp-test-pl.sh` script passes a `batch_size` of `256` to the Python script."
-    },
-    {
-      "question": "How do you start the training process with a PyTorch Lightning `Trainer`?",
-      "answer": "The training process is initiated by calling `trainer.fit(net, train_loader)`."
-    },
-    {
-      "question": "When is it generally not recommended to use a GPU for model training, according to the document?",
-      "answer": "It is generally not recommended to use a GPU for model training when the model is fairly small, does not occupy a large portion of GPU memory, and cannot utilize a reasonable amount of its compute capacity."
-    },
-    {
-      "question": "In what specific scenario does Data Parallelism on a single GPU become a viable option for a small model?",
-      "answer": "Data Parallelism on a single GPU becomes a viable option for a small model when there is a very large dataset and training needs to be performed with a small batch size."
-    },
-    {
-      "question": "What is Nvidia's Multi-Process Service (MPS), and how is it utilized for single GPU Data Parallelism?",
-      "answer": "Nvidia's Multi-Process Service (MPS) is used to efficiently place multiple model replicas on one GPU, thereby increasing resource usage and achieving a speed-up even with small models."
-    },
-    {
-      "question": "Which other technology is employed alongside Nvidia MPS to efficiently manage multiple model replicas on a single GPU?",
-      "answer": "Message Passing Interface (MPI) is used along with Nvidia MPS to efficiently place multiple model replicas on one GPU."
-    },
-    {
-      "question": "What are the observed characteristics of the example task for single GPU Data Parallelism, in terms of resource usage?",
-      "answer": "The example task, with a batch size of 512 images, takes up approximately 1GB of GPU memory space and uses only about 6% of the GPU's compute capacity during training."
-    },
-    {
-      "question": "Why is the example model for single GPU Data Parallelism considered \"not advisable\" for training on an HPC cluster's GPU without Data Parallelism?",
-      "answer": "It is not advisable because the model is small, consuming minimal GPU memory and compute capacity (e.g., 1GB memory, 6% compute), meaning it would inefficiently block a valuable resource better suited for larger computations."
-    },
-    {
-      "question": "What is the purpose of the `pytorch-gpu-mps.sh` script?",
-      "answer": "The `pytorch-gpu-mps.sh` script demonstrates how to run a PyTorch application using Single GPU Data Parallelism with Nvidia's Multi-Process Service (MPS) on an HPC cluster."
-    },
-    {
-      "question": "How many GPUs does the `pytorch-gpu-mps.sh` script request via SLURM?",
-      "answer": "The script requests 1 GPU using the `#SBATCH --gres=gpu:1` directive."
-    },
-    {
-      "question": "How is the number of model replicas specified in the `pytorch-gpu-mps.sh` script?",
-      "answer": "The number of model replicas is specified by the `#SBATCH --tasks-per-node=8` directive, indicating 8 replicas will be placed on the GPU."
-    },
-    {
-      "question": "How are the environment variables for Nvidia MPS directories configured in `pytorch-gpu-mps.sh`?",
-      "answer": "`CUDA_MPS_PIPE_DIRECTORY` is set to `/tmp/nvidia-mps` and `CUDA_MPS_LOG_DIRECTORY` is set to `/tmp/nvidia-log`."
-    },
-    {
-      "question": "How is Nvidia MPS activated in the `pytorch-gpu-mps.sh` script?",
-      "answer": "Nvidia MPS is activated by running the command `nvidia-cuda-mps-control -d` after setting the necessary environment variables."
-    },
-    {
-      "question": "What is the role of the `srun` command in `pytorch-gpu-mps.sh` for executing the Python script?",
-      "answer": "The `srun` command is used to launch the `cifar10-gpu-mps.py` Python script, distributing the tasks as specified by the `--cpus-per-task` parameter, which is set by the SLURM variable `$SLURM_CPUS_PER_TASK`."
-    },
-    {
-      "question": "What is the specified root directory for the CIFAR10 dataset in the `cifar10-gpu-mps.py` script?",
-      "answer": "The specified root directory for the CIFAR10 dataset in `cifar10-gpu-mps.py` is `'~/data'`."
+      "question": "What technologies are employed to enable multiple PyTorch model replicas to run efficiently on a single GPU for Data Parallelism?",
+      "answer": "To efficiently place multiple PyTorch model replicas on a single GPU for Data Parallelism, Nvidia's Multi-Process Service (MPS) is used in conjunction with MPI (Message Passing Interface)."
     }
   ],
-  "generated_at": "2026-04-12T05:42:44.266576+00:00"
+  "generated_at": "2026-04-12T20:03:17.409094+00:00"
 }

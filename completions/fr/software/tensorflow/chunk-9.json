@@ -4,65 +4,13 @@
   "chunk_index": 9,
   "qa_pairs": [
     {
-      "question": "Quels sont les différents types de couches utilisées pour bâtir le modèle Keras séquentiel dans l'exemple pour nœud unique avec la stratégie miroir?",
-      "answer": "Le modèle Keras séquentiel dans cet exemple utilise des couches de convolution 2D (`Conv2D`), d'activation (`Activation`), de regroupement maximal (`MaxPooling2D`), de décroissance (`Dropout`), d'aplatissement (`Flatten`) et des couches denses (`Dense`)."
+      "question": "Pourquoi est-ce une bonne idée de créer des points de contrôle (checkpoints) quand on entraîne un modèle TensorFlow, pis comment on fait ça avec Keras?",
+      "answer": "Créer des points de contrôle, c'est super important pour ne pas perdre son avancement en cas d'erreurs inattendues ou de panne de matériel. Ça permet aussi de découper les longues tâches en plus petits morceaux, ce qui peut aider à l'allocation sur la grappe. Avec Keras, on utilise le paramètre `callbacks` de la méthode `model.fit()`, en spécifiant `tf.keras.callbacks.ModelCheckpoint` pour sauvegarder le modèle à des moments précis, comme à la fin de chaque époque."
     },
     {
-      "question": "Comment le modèle Keras est-il compilé dans l'exemple de code `tensorflow-singleworker.py`?",
-      "answer": "Le modèle est compilé en utilisant `tf.keras.losses.SparseCategoricalCrossentropy` comme fonction de perte, `tf.keras.optimizers.SGD` avec un taux d'apprentissage spécifié par `args.lr` comme optimiseur, et `accuracy` comme métrique d'évaluation."
-    },
-    {
-      "question": "Que dois-je faire si le jeu de données CIFAR10 n'est pas déjà sauvegardé dans le répertoire `~/.keras/datasets`?",
-      "answer": "Si le jeu de données CIFAR10 n'est pas déjà présent, vous devriez exécuter la ligne qui le télécharge (`tf.keras.datasets.cifar10.load_data()`) sur un nœud de connexion avant de soumettre votre tâche, ou le télécharger manuellement depuis `https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz`, le renommer en `cifar-10-batches-py.tar.gz` et le placer sous `~/.keras/datasets`."
-    },
-    {
-      "question": "Où le jeu de données CIFAR10 devrait-il être stocké pour que Keras puisse le trouver automatiquement?",
-      "answer": "Le jeu de données CIFAR10 devrait être stocké dans le répertoire `~/.keras/datasets`."
-    },
-    {
-      "question": "Pourquoi est-il une bonne idée de créer des points de contrôle durant l'entraînement d'un modèle TensorFlow?",
-      "answer": "C'est une bonne idée de créer des points de contrôle pour sauvegarder l'état de votre modèle à des moments précis de l'entraînement, ce qui permet de diviser des tâches longues en plus petites pour une allocation plus rapide sur une grappe et d'éviter de perdre votre travail en cas d'erreurs inattendues ou de panne matérielle."
-    },
-    {
-      "question": "Qu'est-ce qu'un point de contrôle dans le contexte de l'entraînement d'un modèle?",
-      "answer": "Un point de contrôle est un enregistrement sur disque qui contient le portrait de votre modèle à un moment précis du processus d'entraînement, soit après un certain nombre d'itérations ou d'époques, et qui peut être récupéré plus tard."
-    },
-    {
-      "question": "Quelle est la manière recommandée de créer des points de contrôle lors d'un entraînement avec Keras?",
-      "answer": "Avec Keras, on recommande d'utiliser le paramètre `callbacks` de la méthode `model.fit()`, en instanciant `tf.keras.callbacks.ModelCheckpoint`."
-    },
-    {
-      "question": "Comment faire pour que Keras crée un point de contrôle à la fin de chaque époque d'entraînement?",
-      "answer": "Pour créer un point de contrôle à la fin de chaque époque, il faut configurer un rappel `tf.keras.callbacks.ModelCheckpoint` avec `save_freq=\"epoch\"` et le passer à la méthode `model.fit()` via le paramètre `callbacks`. Assurez-vous aussi que le chemin spécifié (`filepath`) existe."
-    },
-    {
-      "question": "Où puis-je trouver plus d'informations sur la création de points de contrôle avec une boucle d'entraînement personnalisée?",
-      "answer": "Vous pouvez consulter la documentation officielle de TensorFlow sur les points de contrôle (`https://www.tensorflow.org/guide/checkpoint#writing_checkpoints`)."
-    },
-    {
-      "question": "Quelle erreur peut survenir quand on utilise la bibliothèque scikit-image avec TensorFlow?",
-      "answer": "Lorsque vous utilisez la bibliothèque scikit-image, vous pourriez recevoir l'erreur `OMP: Error #15: Initializing libiomp5.so, but found libiomp5.so already initialized.`"
-    },
-    {
-      "question": "Quelle est la cause de l'erreur `OMP: Error #15` qui apparaît avec scikit-image et TensorFlow?",
-      "answer": "Cette erreur survient lorsque la bibliothèque TensorFlow tente de charger une version de OMP (OpenMP) qui est incompatible avec une version de OMP déjà chargée ou avec celle du système."
-    },
-    {
-      "question": "Comment puis-je contourner l'erreur `OMP: Error #15` lors de l'utilisation de scikit-image avec TensorFlow?",
-      "answer": "Pour contourner cette erreur, vous devez exécuter une série de commandes qui identifient le chemin correct de `libiomp5.so` et créent un lien symbolique vers ce fichier, permettant ainsi à l'installation de TensorFlow d'utiliser la bonne version."
-    },
-    {
-      "question": "Quel problème peut survenir si la bibliothèque `libcupti.so` n'est pas disponible pour TensorFlow?",
-      "answer": "Si la bibliothèque `libcupti.so` n'est pas disponible, des fonctions de suivi de TensorFlow pourraient échouer, générant une erreur comme `Couldn't open CUDA library libcupti.so.9.0.`."
-    },
-    {
-      "question": "Comment corriger l'erreur `Couldn't open CUDA library libcupti.so`?",
-      "answer": "Pour corriger cette erreur, vous devez d'abord charger le module CUDA approprié (par exemple, `module load cuda/9.0.xxx`) et ensuite exporter la variable d'environnement `LD_LIBRARY_PATH` pour y inclure le répertoire `extras/CUPTI/lib64` de votre installation CUDA (`export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CUDA_HOME/extras/CUPTI/lib64/`)."
-    },
-    {
-      "question": "Comment puis-je connaître la version de CUDA à charger si j'obtiens une erreur `libcupti.so` manquant?",
-      "answer": "Vous pouvez trouver la version appropriée de CUDA en utilisant la commande `module av cuda`."
+      "question": "J'ai un message d'erreur qui dit \"Couldn't open CUDA library libcupti.so\". Qu'est-ce qui cause ça et quelle est la solution?",
+      "answer": "Cette erreur survient parce que la bibliothèque `libcupti.so`, nécessaire pour certaines fonctions de suivi de TensorFlow, n'est pas accessible. Pour la régler, il faut charger le bon module `cuda` (par exemple, `module load cuda/9.0.xxx`) et ensuite ajouter le chemin vers `CUDA_HOME/extras/CUPTI/lib64/` à la variable d'environnement `LD_LIBRARY_PATH` avant de lancer votre script."
     }
   ],
-  "generated_at": "2026-04-12T09:04:25.913571+00:00"
+  "generated_at": "2026-04-12T20:06:51.899642+00:00"
 }

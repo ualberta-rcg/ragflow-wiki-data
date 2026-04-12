@@ -4,89 +4,17 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "What is the purpose of the `OMP_STACKSIZE` environment variable?",
-      "answer": "The `OMP_STACKSIZE` environment variable is used to specify the size of the stack for each thread created by the OpenMP runtime."
+      "question": "What is the function of the `OMP_STACKSIZE` environment variable, and what happens if it's not adequately set?",
+      "answer": "The `OMP_STACKSIZE` environment variable specifies the stack size for each thread created by the OpenMP runtime, excluding the main OpenMP thread which uses the stack size from the execution shell. If `OMP_STACKSIZE` isn't set, its implicit value is 4M. Should your OpenMP code not have sufficient stack memory, it might result in a segmentation fault error."
     },
     {
-      "question": "Which threads does the `OMP_STACKSIZE` variable apply to?",
-      "answer": "`OMP_STACKSIZE` applies to each additional thread created at runtime. The main OpenMP thread, which executes the sequential part of the program, receives its stack size from the execution shell."
+      "question": "Why is it important to configure thread affinity variables such as `OMP_PROC_BIND`, `KMP_AFFINITY`, and `GOMP_CPU_AFFINITY` for OpenMP programmes, especially in NUMA architectures?",
+      "answer": "It is crucial to set the `OMP_PROC_BIND` variable and affinity variables like `KMP_AFFINITY` for Intel compilers or `GOMP_CPU_AFFINITY` for GNU compilers to achieve optimal performance, particularly concerning memory access. These settings prevent the operating system from moving OpenMP threads between processors, which is highly significant in Non-Uniform Memory Access (NUMA) architectures found in most modern computers."
     },
     {
-      "question": "What is the implied value of `OMP_STACKSIZE` if it is not explicitly set?",
-      "answer": "If `OMP_STACKSIZE` is not set, its implied value will be 4M."
-    },
-    {
-      "question": "What could happen if an OpenMP program doesn't have enough stack memory?",
-      "answer": "If an OpenMP program does not have enough stack memory, it might crash with a segmentation fault error message."
-    },
-    {
-      "question": "Where can I find an exhaustive list of environment variables for Intel compilers?",
-      "answer": "For an exhaustive list of environment variables for Intel compilers, you can refer to the web site at http://software.intel.com/sites/products/documentation/doclib/stdxe/2013/composerxe/compiler/cpp-lin/GUID-E1EC94AE-A13D-463E-B3C3-6D7A7205F5A1.htm."
-    },
-    {
-      "question": "Where can I find an exhaustive list of environment variables for GNU compilers?",
-      "answer": "For an exhaustive list of environment variables for GNU compilers, you can refer to the web site at http://gcc.gnu.org/onlinedocs/libgomp/Environment-Variables.html."
-    },
-    {
-      "question": "What prefix do environment variables specific to the Intel compiler use?",
-      "answer": "Environment variables specific to the Intel compiler start with `KMP_`."
-    },
-    {
-      "question": "What prefix do environment variables specific to the GNU compiler use?",
-      "answer": "Environment variables specific to the GNU compiler start with `GOMP_`."
-    },
-    {
-      "question": "Which environment variables are important for optimal memory access performance and preventing OpenMP thread movement?",
-      "answer": "For optimal performance regarding memory access, it is important to set the `OMP_PROC_BIND` variable, as well as the affinity variables: `KMP_AFFINITY` for Intel compilers and `GOMP_CPU_AFFINITY` for GNU compilers."
-    },
-    {
-      "question": "Why is it important to prevent the movement of OpenMP threads between processors?",
-      "answer": "Preventing the movement of OpenMP threads between processors by the operating system is important for optimal memory access performance, especially in a NUMA (Non-Uniform Memory Access) architecture, which is found in most modern computers."
-    },
-    {
-      "question": "How do you compile the C 'Hello world' OpenMP example using GCC?",
-      "answer": "You compile the C 'Hello world' OpenMP example using GCC with the command: `gcc -O3 -fopenmp ompHello.c -o ompHello`."
-    },
-    {
-      "question": "How do you run the C 'Hello world' OpenMP example to utilize 4 threads?",
-      "answer": "To run the C 'Hello world' OpenMP example with 4 threads, you first set the environment variable `OMP_NUM_THREADS` to 4 using `export OMP_NUM_THREADS=4`, and then execute the compiled program with `./ompHello`."
-    },
-    {
-      "question": "How do you compile the Fortran 90 'Hello world' OpenMP example using GFortran?",
-      "answer": "You compile the Fortran 90 'Hello world' OpenMP example using GFortran with the command: `gfortran -O3 -fopenmp ompHello.f90 -o fomphello`."
-    },
-    {
-      "question": "How do you run the Fortran 90 'Hello world' OpenMP example to utilize 4 threads?",
-      "answer": "To run the Fortran 90 'Hello world' OpenMP example with 4 threads, you first set the environment variable `OMP_NUM_THREADS` to 4 using `export OMP_NUM_THREADS=4`, and then execute the compiled program with `./fomphello`."
-    },
-    {
-      "question": "Where can I find a comprehensive tutorial on OpenMP?",
-      "answer": "Lawrence Livermore National Labs provides a comprehensive tutorial on OpenMP at https://computing.llnl.gov/tutorials/openMP."
-    },
-    {
-      "question": "Who publishes the formal specifications and reference cards for OpenMP?",
-      "answer": "OpenMP.org publishes the formal specifications, handy reference cards for C/C++ and Fortran interfaces, and examples."
-    },
-    {
-      "question": "Where can I find the formal specifications for OpenMP?",
-      "answer": "The formal specifications for OpenMP are published at http://www.openmp.org/specifications/."
-    },
-    {
-      "question": "Where can I find reference cards for the OpenMP C/C++ interface?",
-      "answer": "Reference cards for the OpenMP C/C++ interface can be found at http://www.openmp.org/wp-content/uploads/OpenMP-4.0-C.pdf."
-    },
-    {
-      "question": "Where can I find reference cards for the OpenMP Fortran interface?",
-      "answer": "Reference cards for the OpenMP Fortran interface can be found at http://www.openmp.org/wp-content/uploads/OpenMP-4.0-Fortran.pdf."
-    },
-    {
-      "question": "Where can I find examples for OpenMP?",
-      "answer": "OpenMP examples are available at http://www.openmp.org/wp-content/uploads/openmp-examples-4.0.2.pdf."
-    },
-    {
-      "question": "Where can I find information on how to submit an OpenMP job?",
-      "answer": "For an example of how to submit an OpenMP job, you can refer to the 'Running jobs' section, specifically 'Running jobs#Threaded or OpenMP job'."
+      "question": "How do you compile and execute a basic OpenMP C program, like the provided 'Hello world' example, to utilize four threads?",
+      "answer": "To compile a C OpenMP program, you would use a command such as `gcc -O3 -fopenmp ompHello.c -o ompHello`. To run it with four threads, you must first set the `OMP_NUM_THREADS` environment variable to 4 using `export OMP_NUM_THREADS=4`, then execute the compiled program by typing `./ompHello`."
     }
   ],
-  "generated_at": "2026-04-12T04:35:26.383493+00:00"
+  "generated_at": "2026-04-12T20:01:40.469562+00:00"
 }

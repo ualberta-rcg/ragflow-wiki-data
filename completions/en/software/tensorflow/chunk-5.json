@@ -4,65 +4,17 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "What high-level API does TensorFlow offer for using multiple GPUs?",
-      "answer": "TensorFlow offers the high-level API `tf.distribute` for making use of multiple GPUs."
+      "question": "What is the primary purpose of the `tf.distribute` API in TensorFlow?",
+      "answer": "The `tf.distribute` API in TensorFlow provides various strategies to leverage multiple GPUs for machine learning tasks."
     },
     {
-      "question": "Which specific strategy for multi-GPU usage is discussed using Keras for simplicity?",
-      "answer": "The Mirrored strategy is discussed for multi-GPU usage, with code examples provided using Keras."
+      "question": "When using TensorFlow's `MirroredStrategy` for multi-GPU setups on a single node, what is the default backend for inter-GPU communication?",
+      "answer": "When using `MirroredStrategy` for multi-GPU setups on a single node, NCCL is the default backend for inter-GPU communication, so it doesn't need to be explicitly specified."
     },
     {
-      "question": "How many nodes and GPUs are requested for a single-node MirroredStrategy job, according to the example script?",
-      "answer": "The example script for a single-node MirroredStrategy job requests 1 node and 4 GPUs."
-    },
-    {
-      "question": "What environment variable can be set if a user wishes to use the NCCL backend for inter-GPU communication in a single-node MirroredStrategy setup?",
-      "answer": "The `NCCL_BLOCKING_WAIT=1` environment variable can be set if a user wishes to use the NCCL backend for inter-GPU communication in a single-node MirroredStrategy setup."
-    },
-    {
-      "question": "What is the name of the Python script used in the single-node MirroredStrategy example?",
-      "answer": "The Python script used in the single-node MirroredStrategy example is named `tensorflow-singleworker.py`."
-    },
-    {
-      "question": "What TensorFlow distribution strategy is employed within the `tensorflow-singleworker.py` script?",
-      "answer": "The `tf.distribute.MirroredStrategy()` is employed within the `tensorflow-singleworker.py` script."
-    },
-    {
-      "question": "What dataset is used as an example for training in the `tensorflow-singleworker.py` script?",
-      "answer": "The CIFAR10 dataset is used as an example for training in the `tensorflow-singleworker.py` script."
-    },
-    {
-      "question": "Where can users download the CIFAR10 dataset manually if it's not present locally?",
-      "answer": "Users can manually download the CIFAR10 dataset from `https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz`, rename it to \"cifar-10-batches-py.tar.gz\", and place it under `~/.keras/datasets`."
-    },
-    {
-      "question": "What is the key difference in distribution strategy when using multiple nodes compared to a single node in TensorFlow?",
-      "answer": "The most notable difference when using multiple nodes is the use of `MultiWorkerMirroredStrategy()` instead of `MirroredStrategy()`."
-    },
-    {
-      "question": "How does TensorFlow obtain job information from SLURM when executing across multiple nodes?",
-      "answer": "TensorFlow obtains job information from SLURM by using `SlurmClusterResolver()`."
-    },
-    {
-      "question": "Why is `CommunicationImplementation.NCCL` explicitly added to the distribution strategy for multiple nodes, unlike in the single-node case?",
-      "answer": "`CommunicationImplementation.NCCL` is explicitly added for multiple nodes to specify the use of Nvidia's NCCL backend for inter-GPU communications, as NCCL is the default backend with `MirroredStrategy()` but not for `MultiWorkerMirroredStrategy()`."
-    },
-    {
-      "question": "How many nodes and GPUs per node are requested in the example `tensorflow-multiworker.sh` script?",
-      "answer": "The example `tensorflow-multiworker.sh` script requests 2 nodes, with 2 GPUs per node."
-    },
-    {
-      "question": "What command is used to configure the environment across multiple nodes in the `tensorflow-multiworker.sh` script?",
-      "answer": "The `srun -N $SLURM_NNODES -n $SLURM_NNODES config_env.sh` command is used to configure the environment across multiple nodes in the `tensorflow-multiworker.sh` script."
-    },
-    {
-      "question": "Which modules are loaded at the beginning of the `tensorflow-multiworker.sh` script for a multi-node TensorFlow job?",
-      "answer": "The `gcc/9.3.0` and `cuda/11.8` modules are loaded at the beginning of the `tensorflow-multiworker.sh` script."
-    },
-    {
-      "question": "What environment variables related to NCCL and XLA are exported in the `tensorflow-multiworker.sh` script?",
-      "answer": "The `NCCL_BLOCKING_WAIT=1` and `XLA_FLAGS=--xla_gpu_cuda_data_dir=$CUDA_HOME` environment variables are exported in the `tensorflow-multiworker.sh` script."
+      "question": "What are the key differences when employing `MultiWorkerMirroredStrategy` for TensorFlow distributed across multiple nodes compared to a single-node setup?",
+      "answer": "For multiple nodes, the `MultiWorkerMirroredStrategy()` is used, which notably requires `SlurmClusterResolver()` to obtain job information from SLURM and explicitly adding `CommunicationImplementation.NCCL` to the distribution strategy for inter-GPU communications, unlike the single-node `MirroredStrategy` where NCCL is the default."
     }
   ],
-  "generated_at": "2026-04-12T09:01:30.209783+00:00"
+  "generated_at": "2026-04-12T20:05:07.015037+00:00"
 }

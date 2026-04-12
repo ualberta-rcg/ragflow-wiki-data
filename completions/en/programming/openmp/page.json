@@ -7,77 +7,65 @@
       "answer": "OpenMP (Open Multi-Processing) is an application programming interface (API) designed for shared memory parallel computing."
     },
     {
-      "question": "What programming languages and platforms does OpenMP support?",
+      "question": "What programming languages and operating systems does OpenMP support?",
       "answer": "OpenMP is available for C/C++ and Fortran programming languages and is supported on numerous platforms, including Linux and Windows."
     },
     {
-      "question": "What components make up the OpenMP API?",
+      "question": "What are the main components of the OpenMP API?",
       "answer": "The OpenMP API consists of a set of directives, a software library, and environment variables."
     },
     {
-      "question": "How does OpenMP allow for parallel execution while preserving the structure of serial code?",
-      "answer": "OpenMP uses non-intrusive directives that control parallel execution; a compiler without OpenMP support can still compile the program serially."
+      "question": "How do OpenMP directives help in developing parallel applications?",
+      "answer": "Directives control whether a section of a program executes in parallel and distribute work among subtasks, while allowing the preservation of the serial code structure."
     },
     {
-      "question": "In the context of OpenMP, what is a 'thread'?",
-      "answer": "A thread in OpenMP is considered a lightweight process or 'virtual processor' and is formally defined as the smallest unit of work that an operating system can schedule."
+      "question": "What is a 'thread' in OpenMP?",
+      "answer": "A thread is like a lightweight process or a 'virtual processor,' defined as the smallest unit of work an operating system can schedule."
     },
     {
-      "question": "Is the number of OpenMP threads directly tied to the number of physical cores in a computer?",
-      "answer": "No, the number of threads is independent of the number of physical cores; the operating system decides how to share the cores' time between threads."
+      "question": "What is the relationship between OpenMP threads and physical processor cores?",
+      "answer": "The number of threads is independent of the number of physical cores. The operating system shares core time between threads, and it's common practice to match the number of threads to available cores."
     },
     {
-      "question": "Why is synchronization important when using multiple threads in an OpenMP program?",
-      "answer": "Synchronization is important because when multiple threads compute simultaneously, the order of operations is not guaranteed, and OpenMP synchronization directives are needed if the order affects correctness."
+      "question": "Why is synchronization important when using multiple OpenMP threads?",
+      "answer": "Synchronization is crucial because when multiple threads compute simultaneously, the order of operations is not guaranteed. Programmers must use OpenMP synchronization directives if order matters for correctness."
     },
     {
-      "question": "What is software scalability, and why is it important for OpenMP programs?",
-      "answer": "Software scalability refers to how well a program can run in parallel. It is important to perform a scaling analysis after parallelizing with OpenMP to understand its parallel performance."
+      "question": "How are OpenMP programs typically compiled?",
+      "answer": "OpenMP programs are compiled by adding a specific command-line option to the compilation flags, such as `-fopenmp` for GCC or `-qopenmp`/`-fopenmp`/`-openmp` for Intel compilers."
     },
     {
-      "question": "How does one compile an OpenMP program?",
-      "answer": "Compiling an OpenMP program usually involves adding a command-line option to the compilation flags, such as '-fopenmp' for GNU compilers."
+      "question": "How are OpenMP directives inserted into C/C++ and Fortran programs?",
+      "answer": "In C/C++, directives are inserted using a `#pragma omp directive` construct, while in Fortran, they use sentinels like `!$OMP directive`."
     },
     {
-      "question": "How are OpenMP directives inserted into Fortran programs?",
-      "answer": "In Fortran, OpenMP directives are inserted using sentinels, which are keywords like '!$OMP' placed immediately after a symbol that marks a comment."
+      "question": "What is the purpose of the `OMP_NUM_THREADS` environment variable?",
+      "answer": "`OMP_NUM_THREADS` specifies the number of threads available to the OpenMP program, commonly set to the number of reserved cores."
     },
     {
-      "question": "How are OpenMP directives inserted into C or C++ programs?",
-      "answer": "In C and C++, OpenMP directives are inserted using a pragma construct, specifically '#pragma omp directive'."
+      "question": "How does the `OMP_SCHEDULE` environment variable affect OpenMP program execution?",
+      "answer": "`OMP_SCHEDULE` controls how loops and parallel sections are distributed among threads, with possible values like `static,n`, `dynamic,n`, `guided,n`, or `auto`."
     },
     {
-      "question": "What is the purpose of the `#pragma omp parallel` directive in C/C++?",
-      "answer": "The `#pragma omp parallel` directive in C/C++ defines a parallel region, causing the enclosed structured-block to be executed by multiple threads."
+      "question": "What is the primary advantage of dynamic or guided scheduling for OpenMP loops?",
+      "answer": "Dynamic and guided scheduling theoretically allow for better load-balancing among threads by dynamically adjusting the work assigned."
     },
     {
-      "question": "What are some of the key environment variables that influence an OpenMP program's execution?",
-      "answer": "Key environment variables include OMP_NUM_THREADS, OMP_SCHEDULE, OMP_DYNAMIC, OMP_STACKSIZE, and OMP_NESTED."
+      "question": "What is the purpose of the `OMP_STACKSIZE` environment variable?",
+      "answer": "`OMP_STACKSIZE` specifies the stack size for each additional thread created by the OpenMP runtime, defaulting to 4M if not set."
     },
     {
-      "question": "What is the primary function of the OMP_NUM_THREADS environment variable?",
-      "answer": "OMP_NUM_THREADS specifies the number of threads that an OpenMP program should use, typically set to match the number of reserved cores per machine."
+      "question": "Why is it important to set processor affinity variables in OpenMP applications, especially on NUMA architectures?",
+      "answer": "Setting affinity variables like `OMP_PROC_BIND` or `KMP_AFFINITY` prevents OpenMP threads from moving between processors, which is important for optimal memory access performance in NUMA architectures."
     },
     {
-      "question": "How does the OMP_SCHEDULE environment variable affect OpenMP programs?",
-      "answer": "OMP_SCHEDULE controls how loops and parallel sections are distributed among threads, with possible values like 'static,n', 'dynamic,n', 'guided,n', or 'auto'."
+      "question": "Can a program with OpenMP directives still compile and run if the compiler doesn't support OpenMP?",
+      "answer": "Yes, OpenMP directives are usually non-intrusive, so a compiler without OpenMP support can still compile the program, allowing it to run serially."
     },
     {
-      "question": "What is a potential drawback of using 'dynamic', 'guided', or 'auto' scheduling with OMP_SCHEDULE?",
-      "answer": "A potential drawback is that the programmer does not know in advance which core a thread executes on or what memory it accesses, which can hinder predicting memory-core affinity, especially in NUMA architectures."
-    },
-    {
-      "question": "What does the OMP_STACKSIZE environment variable control?",
-      "answer": "OMP_STACKSIZE specifies the stack size for each thread created by the OpenMP runtime, defaulting to 4M if not explicitly set; insufficient size can lead to segmentation faults."
-    },
-    {
-      "question": "Why is it important to set thread affinity variables such as OMP_PROC_BIND, KMP_AFFINITY, or GOMP_CPU_AFFINITY?",
-      "answer": "Setting these variables is important for optimal memory access performance in NUMA architectures, as it prevents the operating system from moving OpenMP threads between processors."
-    },
-    {
-      "question": "How would you compile and run the provided C 'Hello world' OpenMP example using GCC?",
-      "answer": "To compile, you'd use `gcc -O3 -fopenmp ompHello.c -o ompHello`. To run, you'd set `export OMP_NUM_THREADS=4` and then execute `./ompHello`."
+      "question": "What should a programmer consider after parallelizing software with OpenMP, concerning performance?",
+      "answer": "After ensuring correctness, a programmer should perform a scaling analysis to understand the software's parallel performance and scalability."
     }
   ],
-  "generated_at": "2026-04-12T04:34:14.452806+00:00"
+  "generated_at": "2026-04-12T20:01:03.673362+00:00"
 }

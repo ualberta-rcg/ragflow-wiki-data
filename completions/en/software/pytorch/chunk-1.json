@@ -4,97 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "What is PyTorch?",
-      "answer": "PyTorch is a Python package offering two high-level features: tensor computation with strong GPU acceleration (similar to NumPy) and deep neural networks built on a tape-based autograd system."
+      "question": "What is PyTorch and what are its primary features?",
+      "answer": "PyTorch is a Python package that offers two main high-level features: tensor computation (similar to NumPy) with strong GPU acceleration, and deep neural networks built on a tape-based autograd system."
     },
     {
-      "question": "What are the main high-level features provided by PyTorch?",
-      "answer": "PyTorch provides tensor computation (like NumPy) with strong GPU acceleration and deep neural networks built on a tape-based autograd system."
+      "question": "What is the recommended installation method for PyTorch on the clusters?",
+      "answer": "The preferred method to install PyTorch is using a Python wheel. This involves loading a Python module, creating and activating a virtual environment, and then installing PyTorch within that environment using `pip install --no-index torch`. Note that for H100 GPUs, Torch 2.5.1 or higher is required."
     },
     {
-      "question": "If I am porting a PyTorch program to one of your clusters, what should I do?",
-      "answer": "You should follow our tutorial on machine learning for porting a PyTorch program to one of our clusters."
-    },
-    {
-      "question": "Is PyTorch directly related to Torch?",
-      "answer": "PyTorch has a distant connection with Torch, but for all practical purposes, you can treat them as separate projects."
-    },
-    {
-      "question": "What is LibTorch?",
-      "answer": "LibTorch is an offering from PyTorch developers that allows for implementing extensions to PyTorch using C++ and developing pure C++ machine learning applications."
-    },
-    {
-      "question": "How can Python-written PyTorch models be used in pure C++ applications?",
-      "answer": "Models written in Python using PyTorch can be converted and used in pure C++ through TorchScript."
-    },
-    {
-      "question": "How can I check the latest available version of PyTorch on your systems?",
-      "answer": "You can see the latest built version of PyTorch by using the command `avail_wheels torch`."
-    },
-    {
-      "question": "What is the preferred method for installing PyTorch using a Python wheel?",
-      "answer": "The preferred option is to load a Python module, create and start a virtual environment, and then install PyTorch in that environment using `pip install`."
-    },
-    {
-      "question": "Which specific PyTorch version is needed for H100 GPUs?",
-      "answer": "With H100 GPUs, Torch 2.5.1 and higher is required."
-    },
-    {
-      "question": "What command should I use to install PyTorch for GPU and CPU in a virtual environment?",
-      "answer": "You should use `pip install --no-index torch` within your virtual environment."
-    },
-    {
-      "question": "Can I install additional PyTorch-related packages?",
-      "answer": "Yes, in addition to `torch`, you can install `torchvision`, `torchtext`, and `torchaudio` using `pip install --no-index torch torchvision torchtext torchaudio`."
-    },
-    {
-      "question": "What resources does the example job submission script `pytorch-test.sh` request?",
-      "answer": "The example script `pytorch-test.sh` requests 1 GPU, 6 CPUs per task, 32000M of memory, and a time limit of 3 hours."
-    },
-    {
-      "question": "How do I submit the example PyTorch job script?",
-      "answer": "You can submit the PyTorch job using the command `sbatch pytorch-test.sh`."
-    },
-    {
-      "question": "What does the `pytorch-test.py` script demonstrate when CUDA is available?",
-      "answer": "If CUDA is available, the `pytorch-test.py` script moves two tensors, `x` and `y`, to the CUDA device and prints their sum."
-    },
-    {
-      "question": "What is Nvidia's TensorFloat-32 (TF32) Mode?",
-      "answer": "TF32 Mode is a feature introduced in PyTorch version 1.7.0, available on Ampere and later Nvidia GPU architectures, designed to speed up tensor operations."
-    },
-    {
-      "question": "Which Nvidia GPU architectures support TF32 Mode?",
-      "answer": "TF32 Mode is available on Ampere and later Nvidia GPU architectures."
-    },
-    {
-      "question": "What performance improvements can TF32 Mode offer?",
-      "answer": "TF32 Mode has been shown to yield up to 20x speed-ups compared to equivalent single-precision (FP32) operations."
-    },
-    {
-      "question": "What is the trade-off for the performance gains offered by TF32 Mode?",
-      "answer": "The performance gains from TF32 Mode come at the cost of potentially decreased accuracy in operation results, which can be problematic with ill-conditioned matrices or long sequences of tensor operations."
-    },
-    {
-      "question": "What is the default setting for TF32 in PyTorch versions 1.12.0 and higher?",
-      "answer": "Starting with PyTorch version 1.12.0, TF32 is disabled by default for matrix multiplications but remains enabled by default for convolutions."
-    },
-    {
-      "question": "What are two key points users should be aware of when switching between PyTorch versions for GPU-enabled code on A100, H100, or newer GPUs?",
-      "answer": "Users may notice a significant slowdown and may get different results when running the exact same GPU-enabled code with `torch < 1.12.0` compared to `torch >= 1.12.0`."
-    },
-    {
-      "question": "How can I enable or disable TF32 for matrix multiplications in PyTorch version 1.12.0 or higher?",
-      "answer": "You can enable or disable TF32 for matrix multiplications by setting `torch.backends.cuda.matmul.allow_tf32` to `True` or `False` accordingly."
-    },
-    {
-      "question": "How can I control TF32 for convolutions in PyTorch version 1.12.0 or higher?",
-      "answer": "You can enable or disable TF32 for convolutions by setting `torch.backends.cudnn.allow_tf32` to `True` or `False` accordingly."
-    },
-    {
-      "question": "Where can I find more official information about TF32 on Ampere GPUs?",
-      "answer": "More information can be found in PyTorch's official documentation at `https://pytorch.org/docs/stable/notes/cuda.html#tf32-on-ampere`."
+      "question": "What is Nvidia's TensorFloat-32 (TF32) mode in PyTorch, and how have its default settings changed?",
+      "answer": "Nvidia's TensorFloat-32 (TF32) mode, available on Ampere and newer Nvidia GPUs, was introduced in PyTorch 1.7.0, offering up to 20x speed-ups over single precision (FP32) operations at the potential cost of accuracy. It was enabled by default in PyTorch versions 1.7.x up to 1.11.x. However, from PyTorch 1.12.0 onwards, TF32 is disabled by default for matrix multiplications but remains enabled for convolutions."
     }
   ],
-  "generated_at": "2026-04-12T05:40:26.146418+00:00"
+  "generated_at": "2026-04-12T20:02:08.548905+00:00"
 }

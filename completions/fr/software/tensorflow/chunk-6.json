@@ -4,49 +4,17 @@
   "chunk_index": 6,
   "qa_pairs": [
     {
-      "question": "Quelle est la principale différence pour utiliser des GPU distribués sur plusieurs nœuds comparativement à un seul nœud avec TensorFlow?",
-      "answer": "La différence principale est l'emploi de `MultiWorkerMirroredStrategy()` au lieu de la stratégie utilisée pour un nœud simple."
+      "question": "Comment configurer TensorFlow pour de l'entraînement distribué sur plusieurs nœuds avec des GPU?",
+      "answer": "Pour utiliser des GPU distribués sur plusieurs nœuds, la principale différence est d'employer la stratégie `MultiWorkerMirroredStrategy()`. Il faut aussi utiliser `SlurmClusterResolver()` pour que TensorFlow obtienne par Slurm l'information sur la tâche, puis ajouter `CommunicationImplementation.NCCL` pour indiquer que l'on veut utiliser la bibliothèque NCCL de NVIDIA pour les communications entre les GPU."
     },
     {
-      "question": "Quel résolveur est utilisé pour obtenir l'information sur les tâches Slurm dans une configuration multi-nœuds TensorFlow?",
-      "answer": "On utilise `SlurmClusterResolver()` pour dire à TensorFlow d'obtenir par Slurm l'information sur la tâche."
+      "question": "Quelle est la différence majeure entre la stratégie miroir pour un nœud simple et celle pour plusieurs nœuds dans TensorFlow?",
+      "answer": "La différence principale, c'est l'emploi de `MultiWorkerMirroredStrategy()` pour les nœuds multiples, alors qu'on utilise `MirroredStrategy()` pour un nœud simple. De plus, pour les nœuds multiples, on doit explicitement spécifier `CommunicationImplementation.NCCL` pour la communication inter-GPU, ce qui n'est pas nécessaire pour un nœud simple puisque NCCL est inclus par défaut."
     },
     {
-      "question": "Quelle bibliothèque de communication est requise explicitement pour les communications entre les GPU quand on utilise la `MultiWorkerMirroredStrategy` sur plusieurs nœuds?",
-      "answer": "Il faut ajouter `CommunicationImplementation.NCCL` à la stratégie de distribution pour indiquer que nous voulons utiliser la bibliothèque NCCL de NVIDIA pour les communications entre les GPU, ce qui n'est pas par défaut comme avec `MirroredStrategy()` sur un nœud simple."
-    },
-    {
-      "question": "Quelle variable d'environnement doit être configurée pour le backend NCCL pour la communication inter-GPU dans une tâche TensorFlow sur plusieurs nœuds?",
-      "answer": "La variable d'environnement `NCCL_BLOCKING_WAIT` doit être exportée et mise à `1` (`export NCCL_BLOCKING_WAIT=1`)."
-    },
-    {
-      "question": "Quels sont les paramètres SBATCH configurés dans le script `tensorflow-multiworker.sh` pour la demande de nœuds, de GPU, de tâches par nœud, de mémoire et de temps?",
-      "answer": "Le script `tensorflow-multiworker.sh` demande 2 nœuds (`--nodes 2`), 2 GPU par nœud (`--gres=gpu:2`), 2 tâches par nœud (`--ntasks-per-node=2`), 8 Go de mémoire (`--mem=8G`) et un temps d'exécution de 30 minutes (`--time=0-00:30`)."
-    },
-    {
-      "question": "À quoi sert le script `config_env.sh` dans la configuration multi-nœuds TensorFlow?",
-      "answer": "Le script `config_env.sh` charge le module Python, crée un environnement virtuel dans `$SLURM_TMPDIR/ENV`, l'active, met à jour pip et installe TensorFlow sans index."
-    },
-    {
-      "question": "Que fait le script `launch_training.sh` dans l'exemple de configuration multi-nœuds TensorFlow?",
-      "answer": "Le script `launch_training.sh` active l'environnement virtuel situé dans `$SLURM_TMPDIR/ENV` et ensuite exécute le script Python `tensorflow-multiworker.py`."
-    },
-    {
-      "question": "Comment la `MultiWorkerMirroredStrategy` est-elle initialisée dans le script Python `tensorflow-multiworker.py` pour une configuration multi-nœuds?",
-      "answer": "Elle est initialisée en passant un `tf.distribute.cluster_resolver.SlurmClusterResolver()` et un `tf.distribute.experimental.CommunicationOptions(implementation=tf.distribute.experimental.CommunicationImplementation.NCCL)` au constructeur de `MultiWorkerMirroredStrategy`."
-    },
-    {
-      "question": "Quel jeu de données est utilisé dans l'exemple de script Python `tensorflow-multiworker.py`, et quelles sont les directives pour l'obtenir?",
-      "answer": "Le script utilise le jeu de données CIFAR10. Il est recommandé de l'exécuter sur un nœud de connexion avant de soumettre la tâche pour le télécharger, ou de le télécharger manuellement depuis `https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz`, le renommer en \"cifar-10-batches-py.tar.gz\" et le placer dans `~/.keras/datasets`."
-    },
-    {
-      "question": "Quels modules sont chargés dans le script `tensorflow-multiworker.sh` avant d'exécuter la tâche d'entraînement multi-nœuds?",
-      "answer": "Les modules `gcc/9.3.0` et `cuda/11.8` sont chargés."
-    },
-    {
-      "question": "À quoi sert la ligne `export XLA_FLAGS=--xla_gpu_cuda_data_dir=$CUDA_HOME` dans le script `tensorflow-multiworker.sh`?",
-      "answer": "Cette ligne exporte un drapeau XLA pour indiquer le répertoire des données CUDA utilisé par XLA GPU."
+      "question": "Pourquoi doit-on ajouter `CommunicationImplementation.NCCL` quand on utilise `MultiWorkerMirroredStrategy()` pour entraîner sur plusieurs nœuds?",
+      "answer": "On doit ajouter `CommunicationImplementation.NCCL` pour indiquer que l'on veut utiliser la bibliothèque NCCL de NVIDIA pour les communications entre les GPU. Ce n'est pas nécessaire pour un nœud simple puisque NCCL se trouve par défaut avec `MirroredStrategy()`."
     }
   ],
-  "generated_at": "2026-04-12T09:03:53.941011+00:00"
+  "generated_at": "2026-04-12T20:06:28.784617+00:00"
 }
