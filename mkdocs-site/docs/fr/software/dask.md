@@ -54,7 +54,7 @@ status:
 La meilleure option est d'installer avec [Python wheels](https://pythonwheels.com/) comme suit :
 
 1.  Chargez un [module](../programming/utiliser_des_modules.md#sous-commande-load) Python avec `module load python`.
-2.  Créez et démarrez un [environnement virtuel](python.md#créer-et-utiliser-un-environnement-virtuel).
+2.  Créez et démarrez un [environnement virtuel](python.md).
 3.  Dans l'environnement virtuel, utilisez `pip install` pour installer `dask` et en option `dask-distributed`.
 
 ```bash

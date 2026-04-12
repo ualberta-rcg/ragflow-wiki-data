@@ -117,7 +117,7 @@ Si vous recherchez un environnement Jupyter préconfiguré, consultez la page [J
 
 ## Installer JupyterLab
 
-Ces directives installent JupyterLab avec la commande `pip` dans un [environnement virtuel Python](../software/python.md#créer-et-utiliser-un-environnement-virtuel).
+Ces directives installent JupyterLab avec la commande `pip` dans un [environnement virtuel Python](../software/python.md).
 
 1.  Si vous n'avez pas déjà un environnement virtuel Python, créez-en un, puis activez-le.
     1.  Chargez le module Python par défaut (comme démontré ci-dessous) ou chargez une version spécifique (voir les versions disponibles avec `module avail python`).
@@ -308,7 +308,7 @@ Comme pour la procédure d'installation ci-dessus, il faut installer les paquets
 
 ### Noyau Python
 
-Dans un terminal avec une session active sur un serveur distant, vous pouvez configurer un [environnement virtuel Python](../software/python.md#créer-et-utiliser-un-environnement-virtuel) avec tous les [modules Python](../programming/available_python_wheels.md) nécessaires et un noyau Python adapté à JupyterLab.
+Dans un terminal avec une session active sur un serveur distant, vous pouvez configurer un [environnement virtuel Python](../software/python.md) avec tous les [modules Python](../programming/available_python_wheels.md) nécessaires et un noyau Python adapté à JupyterLab.
 La configuration la plus simple de Jupyter dans un nouvel environnement virtuel Python se fait comme suit :
 
 1.  Si vous n'avez pas déjà un environnement virtuel Python, créez-en un, puis activez-le.
@@ -408,7 +408,7 @@ L'installation de paquets R ne peut se faire à partir de notebooks parce qu'il 
 
 Pour des tâches ou des analyses plus longues, soumettez [une tâche interactive](../running-jobs/running_jobs.md#soumettre-des-tâches-avec-sbatch). Il faut alors convertir le notebook en un script Python, créer le script et le soumettre.
 
-1.  Dans un nœud de connexion, créez et activez [un environnement virtuel](../software/python.md#créer-et-utiliser-un-environnement-virtuel), installez ensuite `nbconvert` si ce n'est pas déjà installé.
+1.  Dans un nœud de connexion, créez et activez [un environnement virtuel](../software/python.md), installez ensuite `nbconvert` si ce n'est pas déjà installé.
     ```bash
     (venv) [name@server ~]$ pip install --no-index nbconvert
     ```

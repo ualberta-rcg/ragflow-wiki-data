@@ -4,85 +4,13 @@
   "chunk_index": 16,
   "qa_pairs": [
     {
-      "question": "Quelle est la fonction de la commande `q` dans le débogueur Python PDB?",
-      "answer": "La commande `q` (pour « quit ») dans le débogueur Python PDB permet de quitter le débogueur et d'arrêter le programme en cours d'exécution."
+      "question": "Comment on peut inspecter un script Python qui semble être figé durant l'exécution d'une tâche sans devoir le modifier avant ?",
+      "answer": "Pour ça, tu peux utiliser `py-spy`. Il faut d'abord l'installer dans un environnement virtuel dans ton `répertoire /home`. Ensuite, tu te connectes à ta tâche en cours avec `srun --overlap --pty --jobid JOBID bash`, tu trouves l'ID du processus Python avec `htop -u $USER`, tu actives ton environnement virtuel où `py-spy` est installé, et tu lances `py-spy top --pid PID` pour voir en temps réel les endroits où le code utilise beaucoup de temps, ou `py-spy dump --pid PID` pour avoir une trace complète de l'état du code."
     },
     {
-      "question": "Quelles sont les commandes PDB les plus couramment utilisées pour déboguer un fichier?",
-      "answer": "Pour déboguer un fichier, on utilise généralement les commandes PDB `w`, `s`, `l`, `p` et `n`."
-    },
-    {
-      "question": "Où peut-on trouver plus d'information sur le débogueur Python?",
-      "answer": "Pour plus d'information sur le débogueur Python, il faut consulter la documentation officielle de Python, plus précisément la section « The Python Debugger »."
-    },
-    {
-      "question": "À partir de quelle version de Python est-il possible de s'attacher à un processus en cours pour lancer PDB?",
-      "answer": "Il est possible de s'attacher à un processus en cours et de lancer PDB à partir de Python 3.14 et des versions plus récentes."
-    },
-    {
-      "question": "Quelle commande permet de s'attacher à un processus Python en cours avec PDB?",
-      "answer": "Pour s'attacher à un processus Python en cours avec PDB, il faut lancer la commande `python -m pdb --pid <process id>` dans un autre terminal."
-    },
-    {
-      "question": "Quel module Python peut aider à obtenir une trace de l'origine d'un problème si un script reste suspendu après une certaine durée?",
-      "answer": "Le module `faulthandler` peut être utilisé pour modifier un script Python afin d'obtenir une trace de l'origine d'un problème si le script reste suspendu après une certaine durée."
-    },
-    {
-      "question": "Quel outil permet d'inspecter un processus Python pendant l'exécution d'une tâche sans avoir à le modifier au préalable?",
-      "answer": "L'outil `py-spy` permet d'inspecter un processus Python pendant l'exécution d'une tâche sans avoir à le modifier au préalable."
-    },
-    {
-      "question": "Comment visionner en direct les endroits où un code Python utilise beaucoup de temps avec `py-spy`?",
-      "answer": "Après avoir installé `py-spy` dans un environnement virtuel et s'être connecté à la tâche, il faut lancer `py-spy top --pid PID` pour visionner en direct les endroits où le code utilise beaucoup de temps."
-    },
-    {
-      "question": "Comment obtenir une trace de l'état d'un code Python en cours d'exécution avec `py-spy`?",
-      "answer": "Pour obtenir une trace de l'état d'un code Python en cours d'exécution avec `py-spy`, il faut lancer la commande `py-spy dump --pid PID`."
-    },
-    {
-      "question": "Quel type d'erreur peut survenir si la version de Python chargée n'est pas supportée par un paquet qu'on tente d'installer?",
-      "answer": "Si la version de Python chargée n'est pas supportée par un paquet, on pourrait obtenir une erreur du type `ERROR: Package 'X' requires a different Python: 3.6.10 not in '>=3.7'`."
-    },
-    {
-      "question": "Comment résoudre l'erreur « Package 'X' requires a different Python »?",
-      "answer": "Pour résoudre l'erreur « Package 'X' requires a different Python », on peut soit utiliser une version de Python plus récente (comme le dernier module disponible), soit installer une version moins récente du paquet X."
-    },
-    {
-      "question": "Quel type d'erreur indique un problème d'incompatibilité entre un paquet qu'on tente d'installer et une dépendance existante?",
-      "answer": "Une erreur comme `ERROR: Package has requirement X, but you'll have Y which is incompatible.` indique un problème d'incompatibilité entre un paquet et une dépendance existante."
-    },
-    {
-      "question": "Comment peut-on résoudre les problèmes d'incompatibilité de paquets en utilisant le nouveau résolveur de dépendances?",
-      "answer": "Pour résoudre les problèmes d'incompatibilité de paquets en utilisant le nouveau résolveur de dépendances, il faut installer la plus récente version de `pip` ou une version supérieure à 21.3."
-    },
-    {
-      "question": "Quelle commande permet de mettre à jour `pip` vers sa plus récente version sans utiliser l'index PyPI?",
-      "answer": "La commande `pip install --no-index --upgrade pip` permet de mettre à jour `pip` vers sa plus récente version sans utiliser l'index PyPI."
-    },
-    {
-      "question": "Que signifie l'erreur « No matching distribution found for X » lors de l'installation d'un paquet Python?",
-      "answer": "L'erreur « No matching distribution found for X » signifie que `pip` n'a trouvé aucun paquet à installer qui rencontre les exigences spécifiées (nom, version ou tags)."
-    },
-    {
-      "question": "Quelles sont les premières vérifications à faire lorsqu'on rencontre l'erreur « No matching distribution found for X »?",
-      "answer": "Quand l'erreur « No matching distribution found for X » survient, il faut s'assurer que le nom et la version du paquet sont corrects."
-    },
-    {
-      "question": "Quels types de wheels sont ignorés par `pip` lorsqu'il cherche des paquets?",
-      "answer": "Les wheels de type `manylinux_x_y` sont ignorés par `pip`."
-    },
-    {
-      "question": "Comment peut-on vérifier si un paquet est disponible en cas d'erreur « No matching distribution found for X »?",
-      "answer": "En cas d'erreur « No matching distribution found for X », on peut vérifier la disponibilité du paquet avec la commande `avail_wheels` ou en consultant la page « Wheels disponibles »."
-    },
-    {
-      "question": "Quelle est la meilleure pratique pour installer plusieurs paquets Python?",
-      "answer": "La meilleure pratique pour installer plusieurs paquets Python est de les installer avec une seule commande lorsque c'est possible."
-    },
-    {
-      "question": "Pourquoi est-il préférable d'installer plusieurs paquets en une seule commande `pip`?",
-      "answer": "Il est préférable d'installer plusieurs paquets en une seule commande afin que `pip` puisse résoudre plus facilement les problèmes de dépendance."
+      "question": "J'ai eu une erreur en essayant d'installer un paquet Python qui disait « Package 'X' requires a different Python: X.Y.Z not in '>=X.Y' ». Qu'est-ce que ça veut dire et comment je peux régler ça ?",
+      "answer": "Ça veut dire que la version de Python que tu utilises présentement n'est pas supportée par le paquet que tu essaies d'installer. La solution, c'est d'utiliser une version de Python plus récente, comme le dernier module disponible, ou bien d'installer une version plus ancienne du paquet en question pour qu'elle soit compatible."
     }
   ],
-  "generated_at": "2026-04-12T05:59:41.092115+00:00"
+  "generated_at": "2026-04-12T18:23:01.563052+00:00"
 }

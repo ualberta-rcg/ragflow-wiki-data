@@ -4,49 +4,17 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "What kind of information should a `params.input` file contain when used with GNU Parallel for single-GPU jobs?",
-      "answer": "A `params.input` file should list input parameters, with each parameter on a separate line, such as `code1.py`, `code2.py`, etc."
+      "question": "How can I disable the NVIDIA Data Center GPU Manager (DCGM) to enable GPU profiling on Narval or Rorqual?",
+      "answer": "To disable the NVIDIA Data Center GPU Manager (DCGM) for GPU profiling on Narval or Rorqual, you must set the `DISABLE_DCGM` environment variable to `1` during job submission. An example command would be: `DISABLE_DCGM=1 salloc --account=def-someuser --gpus-per-node=a100:1 --mem=4000M --time=03:00`."
     },
     {
-      "question": "What is the purpose of the `-j4` parameter in a GNU Parallel command?",
-      "answer": "The `-j4` parameter in GNU Parallel indicates that a maximum of four concurrent tasks can be run, launching another task as soon as one finishes."
+      "question": "After submitting a job with DCGM disabled for profiling, how do I confirm that DCGM is no longer running on the node?",
+      "answer": "After submitting your interactive job with DCGM disabled, you should wait until DCGM is no longer active on the node by using the command: `while [ ! -z \"$(dcgmi -v | grep 'Hostengine build info:')\" ]; do  sleep 5; done`. Once this command completes, you can proceed to launch your profiler."
     },
     {
-      "question": "How is `CUDA_VISIBLE_DEVICES` used to manage GPU access with GNU Parallel?",
-      "answer": "`CUDA_VISIBLE_DEVICES` is used to ensure that two tasks do not attempt to use the same GPU simultaneously."
-    },
-    {
-      "question": "What is the benefit of using GNU Parallel with a `params.input` file for single-GPU jobs?",
-      "answer": "This method allows you to run multiple tasks within a single job submission, increasing efficiency."
-    },
-    {
-      "question": "On which clusters is GPU profiling possible, and what is required for it?",
-      "answer": "GPU profiling is possible on Narval and Rorqual, but it requires disabling the NVIDIA Data Center GPU Manager (DCGM)."
-    },
-    {
-      "question": "How do you disable the NVIDIA Data Center GPU Manager (DCGM) during job submission for profiling?",
-      "answer": "You disable DCGM during job submission by setting the `DISABLE_DCGM` environment variable, for example: `DISABLE_DCGM=1 salloc --account=def-someuser --gpus-per-node=a100:1 --mem=4000M --time=03:00`."
-    },
-    {
-      "question": "What command can be used in an interactive job to confirm that DCGM has been disabled on the node?",
-      "answer": "To confirm DCGM is disabled, you can use the command: `while [ ! -z \"$(dcgmi -v | grep 'Hostengine build info:')\" ]; do sleep 5; done`."
-    },
-    {
-      "question": "What should be done after DCGM is disabled when profiling GPU tasks?",
-      "answer": "After DCGM is disabled, you should launch your profiler."
-    },
-    {
-      "question": "Where can users find more detailed information about profilers?",
-      "answer": "More details on profilers can be found on the 'Debugging and profiling' page."
-    },
-    {
-      "question": "Which clusters currently do not support the described GPU profiling technique?",
-      "answer": "GPU profiling using this technique is not yet available on Fir and Nibi."
-    },
-    {
-      "question": "What is NVTOP?",
-      "answer": "NVTOP is a htop-like monitor specifically for GPUs."
+      "question": "On which clusters is GPU profiling, requiring the disabling of DCGM, currently available?",
+      "answer": "GPU profiling that requires disabling DCGM is currently possible only on Narval and Rorqual. It is not yet available on Fir and Nibi."
     }
   ],
-  "generated_at": "2026-04-12T10:04:21.561422+00:00"
+  "generated_at": "2026-04-12T18:27:55.290186+00:00"
 }

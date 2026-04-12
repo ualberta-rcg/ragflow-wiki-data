@@ -3,81 +3,65 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What are SSH keys and how do they enhance security?",
-      "answer": "SSH keys utilize public key cryptography, consisting of a secret private key and a freely distributed public key, to provide asymmetric encryption, verify identities, establish encrypted sessions, and authenticate server and user logins, making connections significantly more secure than using passwords."
+      "question": "What are SSH keys based on for their security?",
+      "answer": "SSH keys are based on public key cryptography (PK), which is sometimes described as asymmetric encryption."
     },
     {
-      "question": "What is the main difference between the private and public parts of an SSH key pair?",
-      "answer": "The private key must be kept secret and is used for decoding messages or proving identity, while the public key can be freely distributed and is used to encode messages or verify identities."
+      "question": "How do SSH keys enhance security when connecting to systems?",
+      "answer": "SSH keys ensure connection to an authentic server, establish an encrypted session for secure traffic, and allow the remote server to verify a user's identity for login."
     },
     {
-      "question": "Why is using SSH keys recommended over passwords for connecting to Alliance systems?",
-      "answer": "Using public key cryptography (PK) with SSH keys is strongly recommended because it is almost always more secure than using a password for connecting to Alliance systems."
+      "question": "Why is using public key cryptography (PK) recommended for connecting to systems?",
+      "answer": "Using PK is strongly recommended because it is almost always more secure and more convenient than using a password."
     },
     {
-      "question": "What is a passphrase and why is it important when generating an SSH key pair?",
-      "answer": "A passphrase is a string used to encrypt the private key, offering protection if the private key file is stolen. It's important to use a strong, memorable passphrase of 15 characters or more."
+      "question": "What is the first step required to use SSH keys?",
+      "answer": "To use SSH keys, you must generate a key pair on your own secure system and install the public key on the systems you intend to connect with."
     },
     {
-      "question": "Where should I generate my SSH key pair?",
-      "answer": "You should generate your SSH key pair on your own system or on a system you believe is secure, and never on a shared computer."
+      "question": "What is a passphrase, and why is it important when generating an SSH key pair?",
+      "answer": "A passphrase is a string used to encrypt the private key, offering protection if the private key file is stolen; a strong, memorable passphrase of 15 characters or more is recommended."
     },
     {
-      "question": "What are the different methods for generating an SSH key pair based on the operating system?",
-      "answer": "The specific process depends on your operating system; for Windows PuTTY or MobaXterm clients, see 'Generating SSH keys in Windows', and for Unix-like environments (Linux, Mac, WSL, Cygwin), see 'Using SSH keys in Linux'. OpenStack also provides a method for cloud users."
+      "question": "Where can users find specific instructions for generating SSH keys?",
+      "answer": "Users can find specific instructions for Windows PuTTY or MobaXterm clients, Unix-like environments (Linux, Mac, Windows Subsystem for Linux, or Cygwin), and OpenStack cloud systems via linked guides."
     },
     {
-      "question": "What is the primary method for installing an SSH public key on Alliance systems?",
-      "answer": "The primary method is to upload your SSH public key through the CCDB interface, accessible at `https://ccdb.alliancecan.ca/ssh_authorized_keys`."
+      "question": "What is the primary method for installing an SSH public key on Alliance HPC systems?",
+      "answer": "The primary method for installing an SSH public key on Alliance HPC systems is to upload it to the CCDB via https://ccdb.alliancecan.ca/ssh_authorized_keys."
     },
     {
-      "question": "How do I retrieve my SSH public key to upload it to CCDB?",
-      "answer": "On Windows, you can open the public key file with Notepad. On Linux/MacOS, use `cat .ssh/id_rsa.pub` on the command line. For PuTTY/MobaXterm, use their key generators to extract the 'Public key for pasting into OpenSSH authorized_keys' content."
+      "question": "What is the required format for an SSH public key when uploading it to the CCDB?",
+      "answer": "The public key should be a very long single line, typically starting with 'ssh-rsa' or 'ssh-ed25519'. Keys generated with PuTTY may need conversion using PuTTY Key Generator."
     },
     {
-      "question": "What is the purpose of providing a description for my SSH key in the CCDB form?",
-      "answer": "Providing a description for your SSH key in the CCDB form helps you keep track of them, especially if you have multiple keys."
+      "question": "Do keys installed via CCDB work for OpenStack cloud systems?",
+      "answer": "No, our OpenStack cloud systems cannot access keys entered in the CCDB."
     },
     {
-      "question": "Can SSH keys uploaded to CCDB be used to log in to OpenStack cloud systems?",
-      "answer": "No, our OpenStack cloud systems cannot access the keys entered in the CCDB."
+      "question": "What is an alternative method for installing an SSH key on a specific system rather than all HPC systems?",
+      "answer": "An alternative is to manually copy your public key into the `~/.ssh/authorized_keys` file on the target system, often using the `ssh-copy-id` command."
     },
     {
-      "question": "What is an alternative method for installing an SSH key on a specific system instead of using CCDB?",
-      "answer": "You can install a key on a specific system by adding your public key to the `~/.ssh/authorized_keys` file in your home directory on that system, often using the `ssh-copy-id` command."
-    },
-    {
-      "question": "Why is using an SSH key agent recommended?",
-      "answer": "Using an SSH key agent is recommended because it allows you to enter your passphrase only once when starting the agent, after which the agent supplies the private key for new connections, avoiding repeated entry and not storing the unencrypted key on permanent storage."
-    },
-    {
-      "question": "What are some optional settings available when generating an SSH key with `ssh-keygen`?",
-      "answer": "Optional settings include specifying a comment (`-C`), choosing a custom key file name (`-f`), selecting a different key type (`-t`), or strengthening certain key types like RSA by setting a longer key length (`-b 4096`)."
+      "question": "What is the benefit of using an SSH key agent?",
+      "answer": "An SSH key agent allows you to enter your private key's passphrase only once when starting the agent, making it more convenient and avoiding storing the unencrypted private key on permanent storage."
     },
     {
       "question": "How can SSH key constraints enhance security?",
-      "answer": "SSH key constraints allow you to limit what a public key is allowed to do, such as restricting it to specific commands or allowing connections only from particular hosts, which minimizes the danger if the key is compromised."
+      "answer": "Key constraints limit what a public key is allowed to do, such as restricting it to specific commands, SFTP-only access, or connections from particular hosts, thereby minimizing danger if the key is compromised."
     },
     {
-      "question": "What are the best practices for managing SSH key pairs?",
-      "answer": "Best practices include ensuring keys are unique to a user, storing private keys securely, always encrypting private keys with a strong passphrase (15+ characters), never sharing or copying private keys, using dedicated keys for different devices, naming keys, and utilizing `ssh-agent` and key constraints."
+      "question": "What are some best practices for managing SSH key pairs?",
+      "answer": "Best practices include using unique keys per user, storing private keys securely, encrypting private keys with strong passphrases, never sharing or copying private keys, using a key agent, and applying key constraints."
     },
     {
-      "question": "Why might an SSH key be revoked by the Digital Research Alliance of Canada?",
-      "answer": "An SSH key may be revoked due to identified key sharing or if it's believed the private component has been compromised through improper key management, theft, or a security breach."
+      "question": "What are common reasons an SSH key might be revoked?",
+      "answer": "SSH keys may be revoked due to identified key sharing, improper key management, theft, or a security breach, all of which compromise the private component of the key."
     },
     {
-      "question": "What is the Key Revocation List (KRL) maintained by the Digital Research Alliance of Canada?",
-      "answer": "The Key Revocation List (KRL) is a registry of SSH keys that are no longer trusted or considered invalid, preventing any key on the list from being used to access Alliance services."
-    },
-    {
-      "question": "What actions should I take if my SSH key has been revoked?",
-      "answer": "If your SSH key has been revoked, you must immediately replace it with a new one to securely connect to Alliance services and remove the revoked key from all services (Alliance or other) to prevent unauthorized access."
-    },
-    {
-      "question": "Who should I contact if I believe my SSH key has been listed on the KRL in error?",
-      "answer": "If you believe your SSH key has been listed on the Key Revocation List in error, or have concerns, you should contact the Alliance's Technical support for assistance."
+      "question": "What immediate actions should be taken if an SSH key is discovered to be revoked?",
+      "answer": "If an SSH key is revoked, it is imperative to replace it with a new one and remove the revoked key from all services (Alliance or other) to prevent unauthorized access or data breaches."
     }
   ],
-  "generated_at": "2026-04-12T07:22:17.229953+00:00"
+  "generated_at": "2026-04-12T18:25:00.599088+00:00"
 }

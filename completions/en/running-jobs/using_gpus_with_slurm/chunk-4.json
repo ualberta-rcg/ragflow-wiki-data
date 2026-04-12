@@ -4,33 +4,13 @@
   "chunk_index": 4,
   "qa_pairs": [
     {
-      "question": "When is using GNU Parallel recommended for packing single-GPU jobs within a SLURM job?",
-      "answer": "GNU Parallel is recommended if you need to run four single-GPU programs or two 2-GPU programs for longer than 24 hours."
+      "question": "When is GNU Parallel recommended for packing single-GPU jobs, and what is its primary benefit in this context?",
+      "answer": "GNU Parallel is recommended if you need to run four single-GPU programs or two 2-GPU programs for longer than 24 hours within one Slurm job. Its primary benefit is enabling the execution of multiple concurrent tasks from a single submission."
     },
     {
-      "question": "Can you provide a simple command example for packing single-GPU jobs using GNU Parallel?",
-      "answer": "A simple example is `cat params.input | parallel -j4 'CUDA_VISIBLE_DEVICES=$(({%} - 1)) python {} &> {#}.out'`."
-    },
-    {
-      "question": "In the GNU Parallel example for packing single-GPU jobs, how is the GPU ID calculated?",
-      "answer": "In this example, the GPU ID is calculated by subtracting 1 from the slot ID `{%}`."
-    },
-    {
-      "question": "What does `{#}` represent in the GNU Parallel command for packing single-GPU jobs?",
-      "answer": "In this example, `{#}` represents the job ID, starting from 1."
-    },
-    {
-      "question": "What is the purpose of the `-j4` parameter in the GNU Parallel command described?",
-      "answer": "The `-j4` parameter means that GNU Parallel can run a maximum of four concurrent tasks, launching another as soon as one ends."
-    },
-    {
-      "question": "Why is `CUDA_VISIBLE_DEVICES` used in the GNU Parallel example for packing single-GPU jobs?",
-      "answer": "CUDA_VISIBLE_DEVICES is used to ensure that two tasks do not try to use the same GPU at the same time."
-    },
-    {
-      "question": "How should a `params.input` file be structured for use with the GNU Parallel example provided?",
-      "answer": "A `params.input` file should include input parameters in each line, such as `code1.py`, `code2.py`, `code3.py`, and `code4.py`."
+      "question": "Can you provide a basic example of using GNU Parallel for single-GPU jobs and explain how it ensures tasks don't try to use the same GPU?",
+      "answer": "A basic example is `cat params.input | parallel -j4 'CUDA_VISIBLE_DEVICES=$(({%} - 1)) python {} &> {#}.out'`. This command uses `CUDA_VISIBLE_DEVICES=$(({%} - 1))` to calculate a unique GPU ID for each task by subtracting 1 from the slot ID, ensuring that tasks do not try to use the same GPU concurrently. The `-j4` parameter specifies a maximum of four concurrent tasks."
     }
   ],
-  "generated_at": "2026-04-12T10:04:15.135192+00:00"
+  "generated_at": "2026-04-12T18:27:50.240448+00:00"
 }

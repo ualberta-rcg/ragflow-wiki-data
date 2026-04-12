@@ -3,93 +3,69 @@
   "level": "page",
   "qa_pairs": [
     {
-      "question": "What is the primary method for submitting jobs to the clusters?",
-      "answer": "All jobs must be submitted via the scheduler, except for very small tasks (under 10 CPU-minutes and 4GB RAM) which can run on a login node."
+      "question": "What is the primary purpose of this page?",
+      "answer": "This page provides guidance on submitting jobs to clusters for users already familiar with job scheduling and job scripts."
     },
     {
-      "question": "Which job scheduler is used on the clusters?",
-      "answer": "The Slurm Workload Manager is used as the job scheduler on these clusters."
+      "question": "Which job scheduler is used on the clusters, and what is the fundamental rule for submitting jobs?",
+      "answer": "The Slurm Workload Manager is used, and all jobs must be submitted via the scheduler, with exceptions only for tasks consuming less than 10 CPU-minutes and 4 gigabytes of RAM."
     },
     {
-      "question": "What command is used to submit a job to Slurm?",
-      "answer": "The `sbatch` command is used to submit a job."
+      "question": "What command is used to submit a job to the Slurm scheduler?",
+      "answer": "The `sbatch` command is used to submit jobs, typically with a job script."
     },
     {
-      "question": "What are the minimum required directives in a Slurm job script?",
-      "answer": "You must supply at least a time limit (`--time`) for each job, and potentially an account name (`--account`)."
+      "question": "What are the minimum requirements for directives in a Slurm job script?",
+      "answer": "You must supply at least a time limit (`--time`) for each job, and often an account name (`--account`)."
     },
     {
-      "question": "How can one specify job directives, besides within the job script?",
-      "answer": "Directives can also be specified as command-line arguments to `sbatch`."
+      "question": "How can users specify job directives, and what is the order of precedence?",
+      "answer": "Directives can be in the job script prefixed with `#SBATCH` or as command-line arguments to `sbatch`. Command-line arguments override script directives, which in turn override environment variables like `SBATCH_ACCOUNT`."
     },
     {
-      "question": "What is the default memory allocation on general-purpose (GP) clusters if not specified?",
-      "answer": "On general-purpose (GP) clusters, a default of 256 MB of memory per core will be allocated."
+      "question": "How is memory requested in a Slurm job script, and what is the default on general-purpose (GP) clusters?",
+      "answer": "Memory can be requested with `--mem-per-cpu` or `--mem`. On GP clusters, the default is 256 MB per core."
     },
     {
-      "question": "How does Slurm interpret memory units like K, M, G?",
-      "answer": "Slurm interprets K, M, G, etc., as binary prefixes."
+      "question": "What is the command to list a user's own jobs, and what are the two most common job states?",
+      "answer": "The `sq` command lists only your own jobs. The two most common states are 'PD' for pending and 'R' for running."
     },
     {
-      "question": "What command is used to check the status of your submitted jobs?",
-      "answer": "The `sq` command can be used to list only your own jobs, while `squeue` lists all jobs in the system."
+      "question": "Where does job output go by default?",
+      "answer": "By default, output is placed in a file named `slurm-jobID.out` in the directory from which the job was submitted."
     },
     {
-      "question": "Where does the output of a submitted job go by default?",
-      "answer": "By default, output is placed in a file named \"slurm-\" followed by the job ID number and \".out\" (e.g., `slurm-123456.out`), in the directory from which the job was submitted."
+      "question": "Why is it necessary to specify an account name for a job, and how can a user find their account name?",
+      "answer": "Every job must have an associated account name corresponding to a Resource Allocation Project (RAP). Users can find their group name, which serves as the account name, by logging into CCDB and checking 'My Projects -> My Resources and Allocations'."
     },
     {
-      "question": "How can you direct standard error output to a separate file?",
-      "answer": "To send the standard error channel (stderr) to a separate file, use the `--error` directive."
+      "question": "What is an array job, and how is it useful for submitting multiple related tasks?",
+      "answer": "An array job (or task array) allows submitting a set of jobs with one command, where individual jobs are distinguished by the `$SLURM_ARRAY_TASK_ID` environment variable, ideal for parametric studies or repeated tasks."
     },
     {
-      "question": "What is required for every job in terms of accounts?",
-      "answer": "Every job must have an associated account name corresponding to a Resource Allocation Project (RAP)."
+      "question": "How do you request resources for an OpenMP or threaded job?",
+      "answer": "For an OpenMP job, you typically use the `--cpus-per-task` directive to request multiple cores for a single process and set the `OMP_NUM_THREADS` environment variable to `$SLURM_CPUS_PER_TASK`."
     },
     {
-      "question": "How can a user find the correct account name for a Resource Allocation Project (RAP)?",
-      "answer": "Log in to CCDB and navigate to 'My Projects -> My Resources and Allocations', then look under the 'Group Name' column."
+      "question": "When are interactive jobs useful, and what command is used to start one?",
+      "answer": "Interactive jobs are useful for data exploration, interactive console tools, or significant software development/debugging. The `salloc` command is used to start an interactive session."
     },
     {
-      "question": "What is an array job?",
-      "answer": "An array job (or task array) allows users to submit a set of jobs with a single command, where individual jobs are distinguished by the `$SLURM_ARRAY_TASK_ID` environment variable."
+      "question": "How can a user cancel a running or pending job?",
+      "answer": "The `scancel` command is used to cancel jobs, either by job ID (e.g., `scancel <jobid>`) or all jobs for a user (e.g., `scancel -u $USER`)."
     },
     {
-      "question": "What is required for an application to use OpenMP in a job script?",
-      "answer": "The application must be compiled with the appropriate flag (e.g., `gcc -fopenmp`) and the `OMP_NUM_THREADS` environment variable should be set in the job script."
+      "question": "What are two recommended methods for automatically restarting long-running computations that use checkpointing?",
+      "answer": "Two recommended methods are using Slurm job arrays with a fixed number of restarts or implementing resubmission from the end of the job script itself, provided the application supports checkpointing."
     },
     {
-      "question": "When are interactive jobs useful?",
-      "answer": "Interactive jobs are useful for data exploration, interactive console tools (like R and iPython), significant software development, debugging, or compiling."
+      "question": "What is a common cause of issues with job scripts prepared on Windows, and how can it be resolved?",
+      "answer": "Hidden characters due to Windows end-of-line characters are a common issue. It can be resolved by using `dos2unix` after uploading the script to the cluster."
     },
     {
-      "question": "What command is used to start an interactive session on a compute node?",
-      "answer": "The `salloc` command is used to start an interactive session on a compute node."
-    },
-    {
-      "question": "How can you cancel a submitted job?",
-      "answer": "Use the `scancel` command with the job ID (e.g., `scancel <jobid>`), or `scancel -u $USER` to cancel all your jobs."
-    },
-    {
-      "question": "What is checkpointing, and why is it important for long-running computations?",
-      "answer": "Checkpointing allows an application to save its state to a file, enabling the computation to restart and continue from that saved state, which is crucial for jobs that exceed system time limits."
-    },
-    {
-      "question": "What are two recommended methods for automatic restarting of long-running computations?",
-      "answer": "The two recommended methods are using Slurm job arrays or resubmitting from the end of the job script."
-    },
-    {
-      "question": "What is the recommended approach for module management within job scripts?",
-      "answer": "It's best practice to include `module purge` in your job script before loading required modules to ensure a consistent environment and prevent inherited settings from causing issues."
-    },
-    {
-      "question": "Why might a job appear to hang or have incomplete output?",
-      "answer": "Slurm performs aggressive output buffering, which aggregates many output lines before flushing them to the log file; often, the output is only fully written after the job completes."
-    },
-    {
-      "question": "What is the maximum job duration on clusters like Beluga, Fir, Narval, Nibi, and Rorqual?",
-      "answer": "On these clusters, no jobs are permitted longer than 168 hours (7 days), and production jobs should have a duration of at least an hour."
+      "question": "What troubleshooting step is recommended to prevent environment variable inheritance from affecting job scripts?",
+      "answer": "It is best to include the line `module purge` in your job script before loading required modules to ensure a consistent state, or use the `--export=none` directive when submitting jobs."
     }
   ],
-  "generated_at": "2026-04-12T07:07:58.007569+00:00"
+  "generated_at": "2026-04-12T18:23:42.389244+00:00"
 }

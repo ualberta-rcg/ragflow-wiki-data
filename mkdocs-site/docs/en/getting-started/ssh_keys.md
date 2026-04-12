@@ -5,69 +5,67 @@ lang: "en"
 
 source_wiki_title: "SSH Keys/en"
 source_hash: "464bb4a32f0864149d779acd94feb987"
-last_synced: "2026-04-10T15:28:10.183781+00:00"
-last_processed: "2026-04-11T11:14:51.973780+00:00"
+last_synced: "2026-04-12T15:59:52.668416+00:00"
+last_processed: "2026-04-12T18:14:34.597505+00:00"
 
 tags:
   - connecting
 
 keywords:
-  - "key pairs"
-  - "/home directory"
-  - "CCDB"
-  - "ssh-rsa"
-  - "key constraints"
-  - "PuTTY Key Generator"
-  - "SSH public key"
   - "pty allocation"
-  - "restrict keyword"
-  - "sshd man page"
-  - "public key cryptography"
+  - "SSH key agent"
+  - "key constraints"
+  - "ssh-rsa"
   - "~/.ssh/authorized_keys"
-  - "specific system"
-  - "security best practices"
+  - "Key pair"
   - "public key"
+  - "ssh-keygen"
+  - "base64 string"
+  - "SSH key"
+  - "authorized_keys"
+  - "key pairs"
+  - "install a key"
+  - "sshd man page"
+  - "CCDB"
+  - "specific system"
+  - "long single line"
+  - "SSH key constraints"
+  - "authorized_keys file"
+  - "security"
+  - "SSH keys"
+  - "Passphrase"
+  - "OpenSSH"
+  - "Key Revocation List"
+  - "Public key cryptography"
+  - "restrict keyword"
+  - "SSH public key"
+  - "/home directory"
   - "private key"
   - "interactive session"
-  - "PEM format"
-  - "long single line"
-  - "passphrase"
-  - "Key Revocation List"
-  - "SSH key agent"
-  - "cryptographic key"
-  - "authorized_keys"
-  - "ssh-keygen"
-  - "key pair"
-  - "base64 string"
-  - "SSH keys"
-  - "install a key"
-  - "SSH key constraints"
+  - "PuTTY Key Generator"
 
 questions:
-  - "How does public key cryptography work to secure SSH connections and verify user identities?"
-  - "What are the recommended security practices when generating an SSH key pair and its passphrase?"
-  - "What are the steps to retrieve and install an SSH public key on a target system using the CCDB?"
-  - "What type of cryptographic key is represented by the example string in the text?"
-  - "According to the text, what is the expected visual format or layout of this data?"
-  - "What specific algorithm identifier appears at the very beginning of the provided string?"
+  - "How does public key cryptography work within SSH to secure connections and verify user identities?"
+  - "What are the recommended security practices and steps for generating a new SSH key pair?"
+  - "How can a user install their SSH public key onto a destination system using the CCDB platform?"
+  - "What type of cryptographic key is shown in the example text?"
+  - "How is the structure or format of the provided string described in the text?"
+  - "What specific algorithm prefix initiates the long string of characters?"
   - "How do you convert an SSH public key from formats like PuTTY or PEM into the required OpenSSH format?"
   - "What is the procedure for uploading a public key to the CCDB, and how long does it take to propagate to the clusters?"
-  - "How can you configure an SSH key to grant access only to a specific system, and what warning is associated with this method?"
-  - "What is the recommended method for copying an SSH key to a server, and why must users be careful with file permissions when doing so?"
-  - "How does an SSH key agent balance convenience and security when managing encrypted private keys?"
-  - "In what ways can SSH key constraints be applied to restrict a key's capabilities, such as limiting allowed commands or connecting hosts?"
-  - "Why might a user want to install a key exclusively on a specific system?"
-  - "What is the exact file path and directory where a public key should be copied to restrict its access to a single system?"
-  - "How does the example of the system named \"Fir\" demonstrate the process of setting up a system-specific key?"
+  - "How can you configure an SSH key to grant access only to a specific system instead of all HPC systems?"
+  - "Why is it recommended to use an SSH key agent instead of leaving a private key unencrypted?"
+  - "What are the different options and parameters available when generating a new SSH key using the ssh-keygen command?"
+  - "How can public key constraints be applied to restrict the commands a key can execute or the hosts from which it can connect?"
+  - "Why might a user choose to install a key exclusively on a specific system?"
+  - "How can you restrict a key's functionality so that it only works on one particular system?"
+  - "What specific file path is used in the example to install a public key on the system named Fir?"
   - "What are the recommended best practices for securely managing and storing SSH private keys?"
   - "For what reasons might an SSH key be revoked and added to the Key Revocation List (KRL)?"
   - "What immediate actions must a user take if they discover their SSH key has been revoked?"
-  - "What effect does the `restrict` keyword have on pty allocation and interactive sessions?"
-  - "How can you configure a source-constrained interactive session to allow pty allocation while using the `restrict` keyword?"
-  - "Where can a user find comprehensive documentation regarding the various SSH key constraints?"
-  - "What are the recommended best practices for securely managing and storing SSH private keys?"
-  - "For what reasons might an SSH key be revoked and added to the Key Revocation List (KRL)?"
-  - "What immediate actions must a user take if they discover their SSH key has been revoked?"
+  - "What effect does the `restrict` keyword have on `pty allocation` and the behavior of interactive sessions?"
+  - "How can a user explicitly allow `pty allocation` for a specific source while still using the `restrict` keyword?"
+  - "Where can one find the official documentation detailing the various SSH key constraints?"
 
 status:
   downloaded: true
@@ -124,8 +122,7 @@ You should follow the steps:
 
 **STEP 1** - Go to CCDB as indicated below
 
-<https://ccdb.alliancecan.ca/ssh_authorized_keys>
-
+https://ccdb.alliancecan.ca/ssh_authorized_keys
 Or via the CCDB menu:
 
 **STEP 2** - Grab your SSH public key
@@ -133,23 +130,31 @@ Or via the CCDB menu:
 Since the public key is plain text, you can examine it under Windows by opening the file with Notepad. Under Linux/MacOS enter `cat .ssh/id_rsa.pub` on the command line.
 
 In both cases, you will see something like this, as a very long single line:
-```
-ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC3qeojDkUShnPTq9pI3cCZe+jgD6RKA/6CPsJIWZ8MqbX6wkk6hHgKqKd2/9d7cj8e03Cfv4JLoD++P9fUPE3UyYrP/uVi4zytp5rmIZI4Qo1LvD1Obs0e78y0Dp7pfG1EHTYdn0p8zHa0lNLOrZMmzDP0UMVdf4WKuv3Th2K/35yQ7DVIei6X/33Dcmsqd8bTXq7aFlw2y4sa/CHs314G6WYuJ9cTXtsWDlc9oWJuOVqILJLeGQpl3BVEM9aKcYksqLMV1UlZF8bHbry0PKCnrJrNMzVulWfnmSOZ+lPcV32OsDRkFaKsdxPy+PxywieC86mxy1v216jeOdHnhLfOJc/VYDqf4egxReSCb3WOucHBB5J1jtDt47GuamKs+F2T7obqCb0J6oTyzgVFRIdryxwvh5fQF5jk3LsBGsbhe9GYwDAk54GV6I0rWnXp56mJZjO4JCRQGbwLAJVxH4a3UrBmba2pRcZxEZmbIcBBSjb9KPECtaxiY/aty39077DCmcLCmzeOgBdh0zIkdBYu+OJ65MFKMxzoJWPDbZIcbSRGHEVhDnBZMNj1OiJS+E2DA+F0tPH7J+xox1vUoXGAI0cNv+s/nlVRuOZoZjhk6s7tLXeVcToc+Y9Wqx8fdL7D4FegWwB9lsVhpfC4NaA9R8AoOfJUwHSNqUc6SfIt7w== user@machine
+```text
+ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC3qeojDkUShnPTq9pI3cCZe+jgD6RKA/6CPsJIWZ8MqbX6wkk6
+ hHgKqKd2/9d7cj8e03Cfv4JLoD++P9fUPE3UyYrP/uVi4zytp5rmIZI4Qo1LvD1Obs0e78y0Dp7pfG1EHTYdn0p8
+ zHa0lNLOrZMmzDP0UMVdf4WKuv3Th2K/35yQ7DVIei6X/33Dcmsqd8bTXq7aFlw2y4sa/CHs314G6WYuJ9cTXtsW
+ Dlc9oWJuOVqILJLeGQpl3BVEM9aKcYksqLMV1UlZF8bHbry0PKCnrJrNMzVulWfnmSOZ+lPcV32OsDRkFaKsdxPy
+ +PxywieC86mxy1v216jeOdHnhLfOJc/VYDqf4egxReSCb3WOucHBB5J1jtDt47GuamKs+F2T7obqCb0J6oTyzgVF
+ RIZryxwvh5fQF5jk3LsBGsbhe9GYwDAk54GV6I0rWnXp56mJZjO4JCRQGbwLAJVxH4a4UrGmba2pRcZxEZmbIcBB
+ Sjb9KPECtaxiY/aty39077DCmcLCmzeOgBdh0zIkdBYu+OJ65MFKMxzoJWPDbZIcbSRGHEVhDnBZMNj1OiJS+E2D
+ A+F0tPH7J+xox1vUoXGAI0cNv+s/nlVRuOZoZjhk6s7tLXeVcToc+Y9Wqx8fdL7D4FegWwB9lsVhpfC4NaA9R8Ao
+ OfJUwHSNqUc6SfIt7w== user@machine
 ```
 
 Note that you must generate your own pair of public and private keys; you cannot copy the above example for your own use.
-If the format observed is different (which is the case when the key is generated with PuTTY for instance), you can open PuTTY Key Generator or MobaxTerm SSH Key Generator, go to *File --> Load private key* and grab the content under *Public key for pasting into OpenSSH authorized_keys* as shown in [this image](https://docs.alliancecan.ca/wiki/File:Puttygen2.png).
+If the format observed is different (which is the case when the key is generated with PuTTY for instance), you can open PuTTY Key Generator or MobaxTerm SSH Key Generator, go to *File --> Load private key* and grab the content under *Public key for pasting into OpenSSH authorized_keys*.
 
 For instance, this is a public key in PEM format that would need to be converted before going to STEP 3:
-```
------BEGIN RSA PUBLIC KEY-----
-MIIBCgKCAQEAxFm+Fbs+szeV2Vg2T5ufg8az0jD9DD/A0iNLKef2/0gPULn1ebFQ
-SvQwts5ZGcza9t6l7fSKObz8FiAwXn+mdmXrxx3fQIepWa2FeCNbTkiKTTpNmERw
-H0v3RR3DpJd8cpg5jdJbINlqDUPdqXxZDPIyZuHbEYUiSrb1v5zscVdgVqhJYi9O
-OiEj7dPOLp1ko6s7TSgY8ejGnbmUL/gl+/dfhMNKdhLXMXWByucF1577rfAz3qPn
-4JMWrG5TCH7Jj8NpIxFhkV9Qjy40Ml81yDqMlbuE9CUZzVhATe8MdIvcXUQej8yl
-ddmNnAXmfTDwUd5cJ/VSMaKeq6Gjd/XDmwIDAQAB
------END RSA PUBLIC KEY-----
+```text
+ -----BEGIN RSA PUBLIC KEY-----
+ MIIBCgKCAQEAxFm+Fbs+szeV2Vg2T5ufg8az0jD9DD/A0iNLKef2/0gPULn1ebFQ
+ SvQwts5ZGcza9t6l7fSKObz8FiAwXn+mdmXrxx3fQIepWa2FeCNbTkiKTTpNmERw
+ H0v3RR3DpJd8cpg5jdJbINlqDUPdqXxZDPIyZuHbEYUiSrb1v5zscVdgVqhJYi9O
+ OiEj7dPOLp1ko6s7TSgY8ejGnbmUL/gl+/dfhMNKdhLXMXWByucF1577rfAz3qPn
+ 4JMWrG5TCH7Jj8NpIxFhkV9Qjy40Ml81yDqMlbuE9CUZzVhATe8MdIvcXUQej8yl
+ ddmNnAXmfTDwUd5cJ/VSMaKeq6Gjd/XDmwIDAQAB
+ -----END RSA PUBLIC KEY-----
 ```
 
 **STEP 3** - Upload your SSH public key into CCDB form
@@ -179,6 +184,7 @@ On our systems (or any other with OpenSSH) the `ssh-copy-id` command is the most
 ```bash
 ssh-copy-id -i alliance-key username@fir.alliancecan.ca
 ```
+
 The `authorized_keys` mechanism is standard, and almost universally used on the internet. It is however somewhat fragile:
 Specifically, SSH is quite picky about the permissions on the `authorized_keys` file, as well as your /home directory and the `.ssh` subdirectory.
 This is described further in [using SSH keys in Linux](using_ssh_keys_in_linux.md).
@@ -204,10 +210,7 @@ ssh-keygen -C 'Alliance systems'
 ```bash
 ssh-keygen -f alliance-key
 ```
-This produces a file `alliance-key` containing the private part, and `alliance-key.pub` for the public part. If you do this, though, you may have to use the `-i` option to specify the name of the key when logging in, like this:
-```bash
-ssh -i alliance-key user@host
-```
+This produces a file `alliance-key` containing the private part, and `alliance-key.pub` for the public part. If you do this, though, you may have to use the `-i` option to specify the name of the key when logging in, like this: `ssh -i alliance-key user@host`
 * There are sometimes reasons to choose a different key type (rather than the RSA default).
 ```bash
 ssh-keygen -t ed25519
@@ -222,22 +225,22 @@ ssh-keygen -t rsa-sha2-512 -b 4096
 The public key syntax permits you to provide a number of very useful constraints that limit what the key is allowed to do.
 By default, a public key installed without constraints can do anything.
 For instance, this public key
-```
+```text
 restrict,command="squeue --me" ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGhczaUoV6SzR2VEf9Rp4/P9xHVU8S72CKHrwKU+Yntx
 ```
 can only perform one simple operation (showing whether you have any jobs in Slurm). An interesting example is
-```
+```text
 restrict,command="/usr/libexec/openssh/sftp-server" ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGhczaUoV6SzR2VEf9Rp4/P9xHVU8S72CKHrwKU+Yntx
 ```
 which allows the key to be used only for SFTP, which is how sshfs works.
 
 The key constraint can also limit which hosts can connect using the key.
-```
+```text
 restrict,from="d24-141-114-17.home.cgocable.net" ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGhczaUoV6SzR2VEf9Rp4/P9xHVU8S72CKHrwKU+Yntx
 ```
 Limiting by hosts is a powerful way to minimize the danger posed by a key being compromised. In this case, the `restrict` keyword
 turns off `pty allocation`, which makes an interactive session behave peculiarly. For a source-constrained interactive session
-```
+```text
 restrict,from="d24-141-114-17.home.cgocable.net",pty ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGhczaUoV6SzR2VEf9Rp4/P9xHVU8S72CKHrwKU+Yntx
 ```
 allows pty allocation.
@@ -253,13 +256,10 @@ There are a large number of these key constraints, which are documented in the *
 * Do not copy your private key to a remote system. Your private key should not leave your workstation!
 * If you have several laptops, you can create dedicated SSH key pairs for each of them.
 * If you have several pairs, you may wish to name the keys. For example, `Laptop_RSA4096`.
-    * If you name a key you must use the `-i` option to specify the key name when logging in, like this:
-    ```bash
-    ssh -i Laptop_RSA4096 username@host
-    ```
+    * If you name a key you must use the `-i` option to specify the key name when logging in, like this: `ssh -i Laptop_RSA4096 username@host`
 * Use `ssh-agent` to make encrypted keys convenient.
 * If you use agent forwarding, use `ssh-askpass` too.
-* Apply [constraints](ssh_keys.md#ssh-key-constraints) to your public key to limit its scope.
+* Apply [constraints](#ssh-key-constraints) to your public key to limit its scope.
 
 Here are some links to short videos on setting up SSH keys:
 * [Faster and more secure SSH](https://www.youtube.com/watch?v=mRdqM1dgf3Q&feature=youtu.be)

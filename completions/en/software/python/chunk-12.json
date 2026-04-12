@@ -4,29 +4,13 @@
   "chunk_index": 12,
   "qa_pairs": [
     {
-      "question": "What is the name of the Python function defined in this code snippet and what does it calculate?",
-      "answer": "The function is named `cube(x)` and it calculates `x` raised to the power of 3 (i.e., `x**3`)."
+      "question": "How can one dynamically determine the number of processes for a Python `multiprocessing` Pool when running a job on a cluster with SLURM?",
+      "answer": "To dynamically determine the number of processes for a Python `multiprocessing` Pool on a SLURM-managed cluster, you should retrieve the value from the `SLURM_CPUS_PER_TASK` environment variable. This can be done using `os.environ.get('SLURM_CPUS_PER_TASK', default=1)` to set the `processes` argument for the `mp.Pool` constructor. This ensures the application uses the allocated CPU cores efficiently."
     },
     {
-      "question": "How is the number of CPUs determined for the multiprocessing pool in this example?",
-      "answer": "The number of CPUs (`ncpus`) is determined by retrieving the value of the `SLURM_CPUS_PER_TASK` environment variable using `os.environ.get()`, with a default value of 1 if the variable is not found."
-    },
-    {
-      "question": "Which Python modules are imported for the parallel processing operation shown?",
-      "answer": "The `multiprocessing` module (aliased as `mp`) and the `os` module are imported."
-    },
-    {
-      "question": "What is the list of numbers being processed as 'data' in this Python example?",
-      "answer": "The list of numbers being processed is `[1, 2, 3, 4, 5, 6]`."
-    },
-    {
-      "question": "How are the results collected when `pool.apply_async` is used in the 'Using a loop' example?",
-      "answer": "The results are collected by iterating through the `results` list and calling the `.get()` method on each item, specifically `cubes = [p.get() for p in results]`."
-    },
-    {
-      "question": "What object is created using the line `pool = mp.Pool(processes=ncpus)`?",
-      "answer": "A multiprocessing pool object, named `pool`, is created, configured to use the number of processes specified by `ncpus`."
+      "question": "What Python module and class are recommended for parallel programming within a single compute node, and how should the number of processes be configured?",
+      "answer": "The `multiprocessing` module, specifically the `Pool` class, is recommended for parallel programming within a single compute node. The number of processes for the `Pool` should be configured based on the number of CPU cores allocated to your job. On a SLURM cluster, this count can be obtained from the `SLURM_CPUS_PER_TASK` environment variable (e.g., `ncpus = int(os.environ.get('SLURM_CPUS_PER_TASK', default=1))`)."
     }
   ],
-  "generated_at": "2026-04-12T05:55:19.356693+00:00"
+  "generated_at": "2026-04-12T18:20:08.747599+00:00"
 }

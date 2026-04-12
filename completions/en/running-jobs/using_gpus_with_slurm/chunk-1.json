@@ -4,81 +4,17 @@
   "chunk_index": 1,
   "qa_pairs": [
     {
-      "question": "What is the recommended Slurm directive for requesting one or more GPUs for a job?",
-      "answer": "The recommended Slurm directive to request one or more GPUs is `--gpus-per-node=<model_specifier>:<number>`. For example, `--gpus-per-node=a100:1` requests a single A100 GPU."
+      "question": "What is the recommended method for requesting GPUs for a Slurm job?",
+      "answer": "The recommended way to request one or more GPUs for a Slurm job is to use the `--gpus-per-node=<model_specifier>:<number>` form. For example, `--gpus-per-node=a100:1` requests a single A100 GPU per node. Although `--gres=gpu:<model_specifier>:<number>` can also be used, it's recommended to replace it in your scripts with `--gpus-per-node` as it may not be supported in the future."
     },
     {
-      "question": "Can you provide an example of how to request a single A100 GPU for a Slurm job?",
-      "answer": "To request a single A100 GPU, you would use the directive `--gpus-per-node=a100:1`."
+      "question": "Where can I find information about the available GPU models and their Slurm specifiers?",
+      "answer": "The document provides a table in the 'Available GPUs' section that summarizes the available GPU models and their corresponding Slurm specifiers, including Multi-Instance GPU (MIG) specifiers and synonyms. For instance, an A100-40GB GPU on Narval can be requested with `a100`. You can also obtain up-to-date GPU model specifiers from Slurm using the command: `sinfo -o \"%G\"|grep gpu|sed 's/gpu://g'|sed 's/),/\\n/g'|cut -d: -f1|sort|uniq`."
     },
     {
-      "question": "What is an alternative, but less recommended, form for requesting GPUs that may be deprecated in the future?",
-      "answer": "The alternative form `--gres=gpu:<model_specifier>:<number>` can also be used, but it may not be supported in the future. It is recommended to replace it with `--gpus-per-node` in scripts."
-    },
-    {
-      "question": "What are some other Slurm directives available for requesting GPU resources?",
-      "answer": "Slurm supports other directives for requesting GPU resources such as `--gpus`, `--gpus-per-socket`, `--gpus-per-task`, `--mem-per-gpu`, and `--ntasks-per-gpu`."
-    },
-    {
-      "question": "Where can users find more information about Slurm directives like `--gpus` or `--mem-per-gpu`?",
-      "answer": "For more information about these directives, users should refer to the Slurm documentation for `sbatch`. If they experience unexpected results with untested directives, they should contact technical support."
-    },
-    {
-      "question": "Which GPU models are available on the Fir cluster and what are their Slurm specifiers?",
-      "answer": "The Fir cluster offers H100-80gb GPUs. Its Slurm specifiers are `h100` for the full GPU, and for MIG instances: `nvidia_h100_80gb_hbm3_1g.10gb` (1/8), `nvidia_h100_80gb_hbm3_2g.20gb` (2/8), and `nvidia_h100_80gb_hbm3_3g.40gb` (3/8)."
-    },
-    {
-      "question": "What GPU models are available on the Narval cluster and what are their Slurm specifiers?",
-      "answer": "The Narval cluster has A100-40gb GPUs. Its Slurm specifiers are `a100` for the full GPU, and for MIG instances: `a100_1g.5gb` (1/8), `a100_2g.10gb` (2/8), `a100_3g.20gb` (2/8), and `a100_4g.20gb` (4/8)."
-    },
-    {
-      "question": "Which GPU models are available on the Nibi cluster, including their Slurm specifiers and synonyms for MIG instances?",
-      "answer": "The Nibi cluster provides H100-80gb GPUs with specifiers: `h100` (full GPU), `nvidia_h100_80gb_hbm3_1g.10gb` (1/8 MIG, synonyms: `h100_1g.10gb`, `h100_1.10`, `h100_10gb`), `nvidia_h100_80gb_hbm3_2g.20gb` (2/8 MIG, synonyms: `h100_2g.20gb`, `h100_2.20`, `h100_20gb`), `nvidia_h100_80gb_hbm3_3g.40gb` (3/8 MIG, synonyms: `h100_3g.40gb`, `h100_3.40`, `h100_40gb`). Nibi also has MI300A-128gb GPUs with the specifier `mi300a`."
-    },
-    {
-      "question": "What GPU models are available on the Rorqual cluster, and what are their Slurm specifiers and synonyms?",
-      "answer": "The Rorqual cluster offers H100-80gb GPUs with specifiers: `h100` (full GPU), `nvidia_h100_80gb_hbm3_1g.10gb` (1/8 MIG, synonyms: `h100_1g.10gb`, `h100_1.10`, `h100_10gb`), `nvidia_h100_80gb_hbm3_2g.20gb` (2/8 MIG, synonyms: `h100_2g.20gb`, `h100_2.20`, `h100_20gb`), and `nvidia_h100_80gb_hbm3_3g.40gb` (3/8 MIG, synonyms: `h100_3g.40gb`, `h100_3.40`, `h100_40gb`)."
-    },
-    {
-      "question": "Which GPU model is found on the Trillium cluster?",
-      "answer": "The Trillium cluster has H100-80gb GPUs, which use the `h100` specifier."
-    },
-    {
-      "question": "What GPU models are available on the Killarney cluster?",
-      "answer": "The Killarney cluster features H100-80gb GPUs (specifier: `h100`) and L40S-48gb GPUs (specifier: `l40s`)."
-    },
-    {
-      "question": "What GPU models are available on the TamIA cluster?",
-      "answer": "The TamIA cluster provides H100-80gb GPUs (specifier: `h100`) and H200 GPUs (specifier: `h200`)."
-    },
-    {
-      "question": "Which GPU model is available on the Vulcan cluster?",
-      "answer": "The Vulcan cluster offers L40S-48gb GPUs, specified as `l40s`."
-    },
-    {
-      "question": "How can I obtain the available GPU model specifiers on a cluster using a Slurm command?",
-      "answer": "You can get available GPU model specifiers using the command: `sinfo -o \"%G\"|grep gpu|sed 's/gpu://g'|sed 's/),/\\n/g'|cut -d: -f1|sort|uniq`."
-    },
-    {
-      "question": "Does the `sinfo` command mentioned above provide all available GPU specifiers, including short synonyms?",
-      "answer": "No, the `sinfo` command will not provide the short synonyms available for some of the MIG specifiers at certain sites."
-    },
-    {
-      "question": "If a GPU model is listed as available, does that guarantee I can use it in my jobs?",
-      "answer": "No, the presence of a GPU model does not guarantee you will be able to use it, as there may be further restrictions based on factors such as your research group."
-    },
-    {
-      "question": "What is the strong recommendation regarding specifying GPU models in job scripts, and why?",
-      "answer": "It is strongly recommended that you always provide a specific GPU model specifier in your job scripts. This is because if you do not, your job may be rejected or sent to an arbitrary GPU instance, which most programs cannot use efficiently."
-    },
-    {
-      "question": "How are GPUs on the Arbutus cluster scheduled?",
-      "answer": "GPUs at Arbutus cannot be scheduled via Slurm; they are treated as cloud resources, and more details can be found in the Cloud resources documentation."
-    },
-    {
-      "question": "What is Multi-Instance GPU (MIG) technology?",
-      "answer": "MIG is a technology that partitions a GPU into multiple instances, allowing jobs to use a part of a GPU instead of the entire unit."
+      "question": "What are the potential consequences if I don't provide a specific GPU model specifier for my Slurm job?",
+      "answer": "If you do not supply a model specifier, your job may be rejected or sent to an arbitrary GPU instance. Since very few programs can efficiently use an arbitrary GPU, it is strongly recommended that you always provide a specific GPU model specifier in your job scripts."
     }
   ],
-  "generated_at": "2026-04-12T10:03:35.823889+00:00"
+  "generated_at": "2026-04-12T18:27:31.187965+00:00"
 }

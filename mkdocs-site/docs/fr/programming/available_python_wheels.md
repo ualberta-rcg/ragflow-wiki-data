@@ -40,7 +40,7 @@ Vous trouverez à la dernière section les [*wheels* Python](https://pythonwheel
 !!! warning "Disponibilité"
     **Certains wheels ne sont peut-être pas disponibles dans l'environnement standard que vous avez chargé.**
 
-    Pour connaître les wheels qui peuvent être installés dans votre StdEnv actif, utilisez la commande `avail_wheels` décrite dans [Wheels disponibles](../software/python.md#wheels-disponibles).
+    Pour connaître les wheels qui peuvent être installés dans votre StdEnv actif, utilisez la commande `avail_wheels` décrite dans [Wheels disponibles](../software/python.md).
 
 ## Wheels faisant partie d'un module
 Certains wheels ne paraissent pas dans les tableaux parce qu'ils font partie de modules, par exemple :

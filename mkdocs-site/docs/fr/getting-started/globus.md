@@ -304,7 +304,7 @@ Cliquez sur un nom d'utilisateur pour modifier son rôle ou son statut. Les rôl
 ## Interface en ligne de commande (CLI)
 ### Installation
 L'interface en ligne de commande Globus est un module Python qui s'installe avec pip. Voici la procédure d'installation sur une de nos grappes :
-1.  Créez un environnement virtuel pour y installer l'interface (voir [Créer et utiliser un environnement virtuel](../software/python.md#créer-et-utiliser-un-environnement-virtuel)).
+1.  Créez un environnement virtuel pour y installer l'interface (voir [Créer et utiliser un environnement virtuel](../software/python.md)).
     ```bash
     virtualenv $HOME/.globus-cli-virtualenv
     ```

@@ -4,45 +4,17 @@
   "chunk_index": 19,
   "qa_pairs": [
     {
-      "question": "Pourquoi mon environnement virtuel qui fonctionnait hier ne marche plus aujourd'hui?",
-      "answer": "Ça arrive souvent à cause des mises à jour fréquentes des paquets, ce qui rend la reproduction difficile. Aussi, si votre environnement virtuel est dans le répertoire $SCRATCH, il risque d'être en partie détruit par la purge automatique de ce système de fichiers."
+      "question": "Pourquoi mon environnement virtuel qui fonctionnait hier ne marche plus aujourd'hui, et comment je peux régler ça?",
+      "answer": "Les environnements virtuels peuvent cesser de fonctionner à cause des mises à jour fréquentes des paquets qui peuvent rendre un environnement non reproductible. Si votre environnement a été créé dans votre répertoire $SCRATCH, il risque d'avoir été partiellement détruit lors de la purge automatique des fichiers. Pour corriger ce problème, vous devriez 'geler' les paquets et leurs versions avec des commandes comme `pip install --no-index 'package1==X.Y' 'package2==X.Y.Z'` et ensuite créer un fichier de requis (requirements.txt) qui sera utilisé pour installer ces paquets dans vos tâches."
     },
     {
-      "question": "Comment puis-je empêcher que mon environnement virtuel ne devienne inutilisable à cause des mises à jour des paquets?",
-      "answer": "Pour prévenir les problèmes, il faut geler les versions de vos paquets en les spécifiant lors de l'installation (par exemple, avec `pip install --no-index 'package1==X.Y'`). Ensuite, vous devriez créer un fichier de requis (requirements.txt) qui sera utilisé pour installer ces paquets dans vos tâches."
+      "question": "J'ai un message d'erreur \"X is not a supported wheel on this platform\" quand j'essaie d'installer un paquet. Qu'est-ce que ça signifie et pourquoi ça arrive?",
+      "answer": "Ce message d'erreur indique que le paquet que vous tentez d'installer est incompatible ou n'est pas pris en charge par nos systèmes. Les deux cas les plus fréquents sont l'installation d'un paquet de type `manylinux` ou d'un paquet Python qui a été construit pour une autre version de Python que celle que vous utilisez (par exemple, vous tentez d'installer un paquet fait pour Python 3.11 alors que vous avez Python 3.9). Il est à noter que certains paquets `manylinux` sont disponibles parmi nos \"wheels\" Python."
     },
     {
-      "question": "Que signifie l'erreur 'X is not a supported wheel on this platform' lors de l'installation d'un paquet?",
-      "answer": "Cette erreur indique que le paquet n'est pas compatible ou n'est pas pris en charge par nos systèmes. Deux raisons courantes sont l'installation d'un paquet `manylinux` ou l'utilisation d'un paquet Python construit pour une version de Python différente de celle que vous utilisez (par exemple, installer un paquet pour Python 3.11 avec Python 3.9)."
-    },
-    {
-      "question": "Quelles sont les causes courantes de l'erreur 'AttributeError: module ‘numpy’ has no attribute ‘X’'?",
-      "answer": "Cette erreur survient souvent parce que la dernière version de Numpy est installée, et plusieurs attributs qui existaient avant Numpy v1.20 ont été déclarés obsolètes et ne sont plus offerts depuis la v1.24."
-    },
-    {
-      "question": "Comment résoudre l'erreur 'AttributeError: module ‘numpy’ has no attribute ‘X’'?",
-      "answer": "Pour résoudre cette erreur, vous devriez installer une version antérieure de Numpy en utilisant la commande `pip install --no-index 'numpy<1.24'`."
-    },
-    {
-      "question": "Pourquoi je reçois l'erreur 'ModuleNotFoundError: No module named 'X''?",
-      "answer": "Un module Python peut ne pas être trouvé parce que le paquet n'est pas installé ou n'est pas visible pour l'interpréteur Python, le nom du module ne correspond pas au nom réel, ou l'environnement virtuel est défectueux."
-    },
-    {
-      "question": "Comment éviter les problèmes de 'ModuleNotFoundError'?",
-      "answer": "Pour éviter cette erreur, il est recommandé d'éviter de modifier les variables d'environnement `PYTHONPATH` ou `PATH`, et de charger tous les modules nécessaires avant d'activer votre environnement virtuel."
-    },
-    {
-      "question": "Si j'ai toujours l'erreur 'ModuleNotFoundError', comment puis-je déboguer ça?",
-      "answer": "Vous pouvez vérifier si le paquet est installé avec `pip list`, vous assurer que le nom que vous entrez correspond exactement au nom du module, et vérifier si le module est importé au bon niveau. En cas de doute, il est préférable de recommencer avec un nouvel environnement virtuel."
-    },
-    {
-      "question": "Qu'est-ce qui cause l'erreur 'ImportError: numpy.core.multiarray failed to import'?",
-      "answer": "Ce message apparaît lorsque vous tentez d'importer un module Python qui dépend de Numpy, et qu'une version incompatible de Numpy est installée ou utilisée. Un cas typique est la version 2.0 de Numpy qui brise l'ABI (Application Binary Interface)."
-    },
-    {
-      "question": "Comment corriger l'erreur 'ImportError: numpy.core.multiarray failed to import'?",
-      "answer": "Pour corriger cette erreur, vous devez installer une version compatible de Numpy. Par exemple, si vous utilisez un wheel construit avec une version 1.x mais installé avec une version 2.x, vous devriez installer une version antérieure avec `pip install --no-index 'numpy<2.0'`."
+      "question": "J'obtiens l'erreur \"ModuleNotFoundError: No module named 'X'\" lorsque j'importe un module Python. Quelles en sont les causes les plus fréquentes et comment puis-je y remédier?",
+      "answer": "Cette erreur survient souvent pour plusieurs raisons, notamment que le paquet n'est pas installé ou qu'il n'est pas visible par l'interpréteur Python, que le nom du module que vous essayez d'importer ne correspond pas au nom réel, ou que votre environnement virtuel est défectueux. Pour éviter ces problèmes, il est recommandé de ne pas modifier les variables d'environnement `PYTHONPATH` ou `PATH`, et de charger tous les modules d'environnement avant d'activer votre environnement virtuel. Si le problème persiste, vérifiez l'installation du paquet avec `pip list`, assurez-vous que le nom du module correspond exactement (majuscules, minuscules, traits de soulignement) et que le module est importé au bon niveau depuis son répertoire source. En cas de doute, la meilleure approche est de recommencer avec un nouvel environnement virtuel."
     }
   ],
-  "generated_at": "2026-04-12T06:00:03.462296+00:00"
+  "generated_at": "2026-04-12T18:23:17.722020+00:00"
 }

@@ -4,49 +4,13 @@
   "chunk_index": 10,
   "qa_pairs": [
     {
-      "question": "What is the primary purpose of the Python `multiprocessing` module?",
-      "answer": "The `multiprocessing` module in Python is used to perform parallel programming, which helps in achieving faster results by distributing computations."
+      "question": "What Python module is recommended for parallel programming on the clusters to speed up calculations?",
+      "answer": "The `multiprocessing` module, specifically its `Pool` class, is a common way to achieve parallel programming in Python on the clusters. It helps control the number of processes and apply calculations across multiple data points."
     },
     {
-      "question": "Which class within the `multiprocessing` module is particularly useful for parallel tasks?",
-      "answer": "The `Pool` class within the `multiprocessing` module is particularly useful as it allows control over the number of processes started in parallel and can apply the same calculation to multiple data points."
-    },
-    {
-      "question": "Can you provide a basic Python code example using `multiprocessing.Pool` to calculate the cube of numbers in parallel?",
-      "answer": "Yes, a basic example using `Pool.map` would be:\n```python\nimport multiprocessing as mp\n\ndef cube(x):\n    return x**3\n\npool = mp.Pool(processes=4)\ndata = [1, 2, 3, 4, 5, 6]\ncubes = pool.map(cube, data)\nprint(cubes)\n```"
-    },
-    {
-      "question": "Why is it important to use the correct number of processes in a parallel Python job on a cluster?",
-      "answer": "It is crucial to use the correct number of processes that match the cores allocated to your job. Launching more processes than allocated cores can slow down calculations and overload the compute node, while launching fewer processes results in wasted and idle resources."
-    },
-    {
-      "question": "How can a Python script dynamically determine the number of CPUs allocated by the job scheduler?",
-      "answer": "A Python script can dynamically determine the number of allocated CPUs by reading the `SLURM_CPUS_PER_TASK` environment variable. For example: `ncpus = int(os.environ.get('SLURM_CPUS_PER_TASK', default=1))`."
-    },
-    {
-      "question": "What kind of SLURM job submission script header would be used to allocate 32 CPUs per task for a parallel Python program?",
-      "answer": "A SLURM job submission script header to allocate 32 CPUs per task would look like this:\n```bash\n#SBATCH --ntasks-per-node=1\n#SBATCH --cpus-per-task=32\n\npython cubes_parallel.py\n```"
-    },
-    {
-      "question": "What is the main limitation of the Python `multiprocessing` module regarding compute nodes?",
-      "answer": "The `multiprocessing` module is restricted to using a single compute node, meaning the speedup for a program is usually limited to the total number of CPU cores available in that one node."
-    },
-    {
-      "question": "What are some alternatives for parallel programming in Python if a job needs to utilize multiple compute nodes?",
-      "answer": "If a job requires utilizing multiple compute nodes, alternatives such as mpi4py or PySpark should be considered."
-    },
-    {
-      "question": "What initial step is recommended for improving Python program performance before parallelizing it?",
-      "answer": "It is recommended to first ensure the Python program is written efficiently, as this can greatly improve its performance."
-    },
-    {
-      "question": "Who should users contact if they need assistance in making their Python code more efficient?",
-      "answer": "Users who are unsure if their Python code is efficient should contact technical support to have their code reviewed."
-    },
-    {
-      "question": "What potential conflict should be aware of if an external library is called within a parallel Python script using `multiprocessing`?",
-      "answer": "If an external library is called, you should verify if its functions are themselves parallel. If they also take all available cores, this could lead to your `multiprocessing` code slowing down or overloading the compute node."
+      "question": "How should users ensure their Python parallel programs efficiently utilize allocated CPU cores on a cluster?",
+      "answer": "Users must ensure the number of processes in their Python parallel programs matches the cores allocated to their job. Launching too many processes can slow down or overload the compute node, while too few results in wasted resources. It's recommended to dynamically set the number of processes based on the `SLURM_CPUS_PER_TASK` environment variable to utilize all allocated cores."
     }
   ],
-  "generated_at": "2026-04-12T05:55:02.720379+00:00"
+  "generated_at": "2026-04-12T18:19:55.114268+00:00"
 }

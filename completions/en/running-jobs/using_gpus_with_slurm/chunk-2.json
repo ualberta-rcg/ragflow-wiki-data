@@ -4,93 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "Which GPU model and its corresponding specifier are available on the Vulcan cluster?",
-      "answer": "The Vulcan cluster offers the L40S-48gb GPU model with the Slurm specifier `l40s`."
+      "question": "How can I determine which GPU model specifiers are available on a Slurm cluster, including Multi-Instance GPU (MIG) specifiers?",
+      "answer": "You can obtain a list of available GPU model specifiers from Slurm by using the command: `sinfo -o \"%G\"|grep gpu|sed 's/gpu://g'|sed 's/),/\\n/g'|cut -d: -f1|sort|uniq`. This is especially useful if the documented table of available GPUs hasn't been updated with the latest changes. However, this command will not provide short synonyms for some MIG specifiers."
     },
     {
-      "question": "How can I obtain a list of available GPU model specifiers from Slurm?",
-      "answer": "You can obtain available GPU model specifiers from Slurm by running the command: `sinfo -o \"%G\"|grep gpu|sed 's/gpu://g'|sed 's/),/\\n/g'|cut -d: -f1|sort|uniq`."
+      "question": "Why is it important to always provide a specific GPU model specifier when submitting a Slurm job?",
+      "answer": "It is strongly recommended to always provide a specific GPU model specifier in your Slurm job scripts because if you don't, your job may either be rejected or sent to an arbitrary GPU instance. As very few programs can use an arbitrary GPU efficiently, specifying a model helps ensure your job runs successfully and optimizes resource allocation."
     },
     {
-      "question": "Does the command to list GPU specifiers also include short synonyms for MIG specifiers?",
-      "answer": "No, the `sinfo` command used to list GPU specifiers will not provide the short synonyms available for some of the MIG specifiers at certain sites."
-    },
-    {
-      "question": "What should I do if the presence of a GPU model doesn't guarantee I can use its specifier in my jobs?",
-      "answer": "If there are further restrictions, such as those based on your research group, you should consult the site-specific page by clicking on the cluster name in the table or contact technical support."
-    },
-    {
-      "question": "What is the consequence of not providing a specific GPU model specifier in my job script?",
-      "answer": "If you do not supply a model specifier, your job may be rejected or sent to an arbitrary GPU instance, which is generally inefficient."
-    },
-    {
-      "question": "Why is it highly recommended to always include a specific GPU model specifier in job scripts?",
-      "answer": "It is strongly recommended because very few programs can use an arbitrary GPU efficiently, ensuring your job gets appropriate resources."
-    },
-    {
-      "question": "Can GPUs on the Arbutus cluster be scheduled using Slurm?",
-      "answer": "No, GPUs available at Arbutus are cloud resources and cannot be scheduled via Slurm."
-    },
-    {
-      "question": "What is Multi-Instance GPU (MIG) technology?",
-      "answer": "MIG is a technology that partitions a GPU into multiple instances, allowing your jobs to potentially use a MIG instance instead of an entire GPU."
-    },
-    {
-      "question": "What is the default number of CPU cores associated with each GPU instance in a job?",
-      "answer": "The default number of CPU cores associated with each GPU instance is 1."
-    },
-    {
-      "question": "Where can I find the recommended maximum numbers of CPU cores and system memory per GPU instance?",
-      "answer": "The recommended maximum numbers of CPU cores and gigabytes of system memory per GPU instance are listed in the table of bundle characteristics under Allocations and compute scheduling."
-    },
-    {
-      "question": "How would you specify an A100 GPU and 4000MB of memory for a single-core Slurm job?",
-      "answer": "For a single-core job, you would use `#SBATCH --gpus-per-node=a100:1` and `#SBATCH --mem=4000M`."
-    },
-    {
-      "question": "Which Slurm directive is used to request multiple CPU cores for a multi-threaded GPU job on a single node?",
-      "answer": "You would use the `#SBATCH --cpus-per-task=<number>` directive, for example, `#SBATCH --cpus-per-task=6`."
-    },
-    {
-      "question": "What environment variable should be set for a multi-threaded GPU job to utilize the requested CPU cores?",
-      "answer": "You should set the `OMP_NUM_THREADS` environment variable, for example: `export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK`."
-    },
-    {
-      "question": "What is the recommended maximum number of CPU cores per full GPU on the Fir cluster?",
-      "answer": "On Fir, it is recommended to use no more than 12 CPU cores per full GPU."
-    },
-    {
-      "question": "What is the recommended maximum number of CPU cores per full GPU on the Narval cluster?",
-      "answer": "On Narval, it is recommended to use no more than 12 CPU cores per full GPU."
-    },
-    {
-      "question": "What is the recommended maximum number of CPU cores per full GPU on the Nibi cluster?",
-      "answer": "On Nibi, it is recommended to use no more than 14 CPU cores per full GPU."
-    },
-    {
-      "question": "What is the recommended maximum number of CPU cores per full GPU on the Rorqual cluster?",
-      "answer": "On Rorqual, it is recommended to use no more than 16 CPU cores per full GPU."
-    },
-    {
-      "question": "How would you request a total of 8 A100 GPUs and 6 CPU cores per task for an MPI job in Slurm?",
-      "answer": "You would use `#SBATCH --gpus=a100:8` and `#SBATCH --cpus-per-task=6` for such an MPI job."
-    },
-    {
-      "question": "If an application can efficiently use an entire node and its associated GPUs, what is a potential benefit when requesting resources from Slurm?",
-      "answer": "If your application can efficiently use an entire node and its associated GPUs, you will probably experience shorter wait times if you ask Slurm for a whole node."
-    },
-    {
-      "question": "What tool is recommended for packing multiple single-GPU jobs or two-GPU jobs into one Slurm submission if they run for over 24 hours?",
-      "answer": "GNU Parallel is recommended for packing multiple single-GPU jobs or two-GPU jobs into one Slurm submission for jobs running longer than 24 hours."
-    },
-    {
-      "question": "In a GNU Parallel command for packing jobs, what does the `-j4` parameter indicate?",
-      "answer": "The `-j4` parameter in a GNU Parallel command indicates that a maximum of four concurrent tasks will be run."
-    },
-    {
-      "question": "How does GNU Parallel manage GPU access for packed jobs to prevent multiple tasks from using the same GPU simultaneously?",
-      "answer": "GNU Parallel uses `CUDA_VISIBLE_DEVICES` to ensure that two tasks do not try to use the same GPU at the same time."
+      "question": "What are Multi-Instance GPUs (MIGs)?",
+      "answer": "Multi-Instance GPUs (MIGs) are a technology that allows a single GPU to be partitioned into multiple isolated instances. This enables your jobs to potentially utilize a MIG instance, which is a portion of a GPU, rather than requiring an entire GPU."
     }
   ],
-  "generated_at": "2026-04-12T10:03:57.620179+00:00"
+  "generated_at": "2026-04-12T18:27:38.601987+00:00"
 }

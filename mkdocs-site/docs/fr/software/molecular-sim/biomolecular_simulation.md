@@ -75,7 +75,7 @@ Les paquets logiciels suivants sont disponibles avec nos ressources.
 
 ### Wheels Python
 
-Calcul Canada offre des [wheels Python](../../programming/available_python_wheels.md) qui peuvent être installés dans des [environnements virtuels Python](../python.md#créer-et-utiliser-un-environnement-virtuel); ces wheels sont très utiles en simulation biomoléculaire et dynamique moléculaire.
+Calcul Canada offre des [wheels Python](../../programming/available_python_wheels.md) qui peuvent être installés dans des [environnements virtuels Python](../python.md); ces wheels sont très utiles en simulation biomoléculaire et dynamique moléculaire.
 
 La liste suivante contient une sélection des wheels les plus utiles, mais ne doit pas être considérée comme complète :
 
@@ -90,7 +90,7 @@ La liste suivante contient une sélection des wheels les plus utiles, mais ne do
 *   [ParmEd](http://parmed.github.io/ParmEd/), outil général pour l'analyse des systèmes biomoléculaires avec des paquets de simulation populaires.
 *   [PyRETIS](../pyretis.md), bibliothèque Python pour les simulations d'événements rares, avec une emphase sur l'échantillonnage d'interfaces de transition et d'interfaces de transition avec échange de réplication.
 
-Voyez la [liste des wheels disponibles](../../programming/available_python_wheels.md) et la [commande `avail_wheels`](../python.md#wheels-disponibles) pour savoir ce qui est disponible.
+Voyez la [liste des wheels disponibles](../../programming/available_python_wheels.md) et la [commande `avail_wheels`](../python.md) pour savoir ce qui est disponible.
 
 Si vous avez besoin d'autres paquets Python ou des versions plus récentes, [contactez le soutien technique](../../support/technical_support.md).
 

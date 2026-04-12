@@ -76,7 +76,7 @@ pykeops  2.2.3      py3       generic
     module load StdEnv/2023 python/3.11
     ```
 
-2.  Créez et activez un [environnement virtuel Python](python.md#créer-et-utiliser-un-environnement-virtuel).
+2.  Créez et activez un [environnement virtuel Python](python.md).
 
     ```bash
     virtualenv --no-download ~/pykeops_env

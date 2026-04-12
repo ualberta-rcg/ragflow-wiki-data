@@ -4,25 +4,13 @@
   "chunk_index": 15,
   "qa_pairs": [
     {
-      "question": "How can I debug a hanging Python script by allowing a traceback dump after a timeout?",
-      "answer": "You can edit your script to use the `faulthandler` module, specifically calling `faulthandler.dump_traceback_later()`, to dump a traceback after a timeout."
+      "question": "How can I obtain a traceback for a Python script that is hanging?",
+      "answer": "You can use the `faulthandler` module by editing your script to include `faulthandler.dump_traceback_later()` to dump a traceback after a timeout. Alternatively, to inspect a running Python process without modifying the script, you can use `py-spy`. After installing `py-spy` in a virtual environment and attaching to the running job, find its process ID (PID) using `htop -u $USER`, and then execute `py-spy dump --pid PID` to get a traceback."
     },
     {
-      "question": "What tool can be used to inspect a Python process while a job is running, without modifying the script beforehand?",
-      "answer": "You can use `py-spy` to inspect a running Python process without modifying the script beforehand."
-    },
-    {
-      "question": "What are the steps to use `py-spy` for inspecting a running Python job?",
-      "answer": "To inspect a running Python job with `py-spy`, you need to:\n1. Install `py-spy` in a virtual environment in your home directory.\n2. Attach to the running job using `srun --overlap --pty --jobid JOBID bash`.\n3. Use `htop -u $USER` to find the process ID of your Python script.\n4. Activate the virtual environment where `py-spy` is installed.\n5. Run `py-spy top --pid PID` for live feedback about where your code is spending time.\n6. Run `py-spy dump --pid PID` to get a traceback of where your code is currently at."
-    },
-    {
-      "question": "How do I find the process ID (PID) of my Python script when using `py-spy` to inspect a running job?",
-      "answer": "You can find the process ID (PID) of your Python script by using the command `htop -u $USER` after attaching to the running job."
-    },
-    {
-      "question": "What `py-spy` commands provide live feedback and a traceback of a running Python process?",
-      "answer": "To get live feedback on where your code is spending time, run `py-spy top --pid PID`. To get a traceback of where your code is currently at, run `py-spy dump --pid PID`."
+      "question": "What tools can I use to inspect a running Python process to understand its performance or current state without modifying the script?",
+      "answer": "You can use `py-spy` to inspect a running Python process. After installing `py-spy` in a virtual environment, attaching to the job using `srun --overlap --pty --jobid JOBID bash`, and identifying the Python script's process ID (PID) with `htop -u $USER`, you can: run `py-spy top --pid PID` for live feedback on where the code is spending time, or run `py-spy dump --pid PID` to get a traceback of the code's current position."
     }
   ],
-  "generated_at": "2026-04-12T05:55:46.387491+00:00"
+  "generated_at": "2026-04-12T18:20:31.447737+00:00"
 }

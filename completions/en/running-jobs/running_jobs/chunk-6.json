@@ -4,73 +4,17 @@
   "chunk_index": 6,
   "qa_pairs": [
     {
-      "question": "Where can I find information on monitoring jobs?",
-      "answer": "For information on monitoring jobs, refer to the 'Monitoring jobs' section."
+      "question": "How can I cancel a specific job or multiple jobs on the cluster?",
+      "answer": "You can cancel a specific job by using `scancel` followed by its job ID (e.g., `scancel <jobid>`). To cancel all your jobs, use `scancel -u $USER`. If you only want to cancel your pending jobs, you can use `scancel -t PENDING -u $USER`."
     },
     {
-      "question": "How do I cancel a specific Slurm job?",
-      "answer": "You can cancel a specific Slurm job using the `scancel` command followed by the job ID, for example: `scancel <jobid>`."
+      "question": "What is required for an application to support long-running computations that might exceed system time limits?",
+      "answer": "For an application to support long-running computations that exceed system time limits, it must support checkpointing. This means the application should be able to save its state to a checkpoint file and then restart from that saved state to continue the computation."
     },
     {
-      "question": "How can I cancel all my active and pending jobs?",
-      "answer": "To cancel all your jobs, use the command `scancel -u $USER`."
-    },
-    {
-      "question": "How do I cancel only my pending jobs?",
-      "answer": "You can cancel only your pending jobs using the command `scancel -t PENDING -u $USER`."
-    },
-    {
-      "question": "What is required for an application to handle long computations that exceed system time limits?",
-      "answer": "The application must support checkpointing, meaning it should be able to save its state to a file and then restart and continue the computation from that saved state."
-    },
-    {
-      "question": "What is a checkpoint file?",
-      "answer": "A checkpoint file is a file where an application saves its state, allowing it to restart and continue a computation from that saved state."
-    },
-    {
-      "question": "When should automation techniques be used for restarting calculations?",
-      "answer": "Automation techniques should be employed for restarting calculations when workflows require frequent restarts, rather than rare manual restarts."
-    },
-    {
-      "question": "What are the two recommended methods for automatically restarting long-running computations?",
-      "answer": "The two recommended methods for automatic restarting are using SLURM job arrays and resubmitting from the end of the job script."
-    },
-    {
-      "question": "Where can I find a tutorial on resubmitting jobs for long machine learning computations?",
-      "answer": "The Machine Learning tutorial covers resubmitting for long machine learning jobs under its checkpointing section."
-    },
-    {
-      "question": "How can I submit a collection of identical jobs using a job array, ensuring only one runs at a given time?",
-      "answer": "You can submit a collection of identical jobs using the `--array=1-100%10` syntax, which ensures only one job of them will run at any given time."
-    },
-    {
-      "question": "What considerations are important when writing a script to restart a job using job arrays?",
-      "answer": "The script should be written to ensure that the last checkpoint is always used for the next job, and the number of restarts is fixed by the `--array` argument."
-    },
-    {
-      "question": "How would one handle a molecular dynamics simulation requiring 1,000,000 steps if it exceeds the cluster's time limit?",
-      "answer": "Such a simulation can be split into 10 smaller jobs of 100,000 steps each, run one after another using a job array."
-    },
-    {
-      "question": "What is demonstrated by the `job_array_restart.sh` example script?",
-      "answer": "The `job_array_restart.sh` example script demonstrates a SLURM script for a multi-step job that uses a job array to restart a simulation from a checkpoint file if it exists, or start a new simulation otherwise."
-    },
-    {
-      "question": "How does the 'resubmission from the job script' method work for long-running computations?",
-      "answer": "In this method, a job submits itself to run a chunk of the calculation and saves a checkpoint. Before the allocated run-time elapses, the script checks if the calculation is complete. If not, it submits a copy of itself to continue working."
-    },
-    {
-      "question": "What command is used within a job script to resubmit itself for continued work?",
-      "answer": "The command used within a job script to resubmit itself is `sbatch ${BASH_SOURCE[0]}`."
-    },
-    {
-      "question": "What type of test should be used in a resubmission script to determine if a follow-up job should be submitted?",
-      "answer": "The test to determine whether to submit a follow-up job should be a positive test, abbreviated as `work_should_continue`."
-    },
-    {
-      "question": "Why is it important to use a positive test (e.g., `work_should_continue`) instead of a negative test for a stopping condition when resubmitting jobs from a script?",
-      "answer": "Using a positive test prevents an indefinite chain of jobs if an unforeseen error arises and the stopping condition is never met, which could result in jobs continuing indefinitely while doing nothing useful."
+      "question": "What are the two recommended methods for automating the restart of long-running computations on our clusters?",
+      "answer": "The two recommended methods for automating restarts are using SLURM job arrays and implementing resubmission directly from the end of the job script. Both approaches rely on the application's ability to checkpoint its progress."
     }
   ],
-  "generated_at": "2026-04-12T07:09:06.826968+00:00"
+  "generated_at": "2026-04-12T18:24:17.935159+00:00"
 }

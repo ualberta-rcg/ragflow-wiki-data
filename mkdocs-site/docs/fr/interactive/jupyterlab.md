@@ -333,7 +333,7 @@ Si votre notebook requiert l'un des paquets Python scientifiques suivants, avant
 *   `numpy`
 *   `pandas`
 *   `scipy`
-*   Pour plus d'information, voir [Pile logicielle SciPy](../software/python.md#pile-logicielle-scipy)
+*   Pour plus d'information, voir [Pile logicielle SciPy](../software/python.md)
 
 !!! note "Installation de paquets Python"
     Vous pouvez également installer les paquets nécessaires en exécutant, par exemple, la commande suivante dans une cellule : `pip install --no-index numpy`.

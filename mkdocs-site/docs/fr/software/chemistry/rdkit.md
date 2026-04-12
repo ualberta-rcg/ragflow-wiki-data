@@ -87,7 +87,7 @@ Quand un autre wheel dépend de `rdkit`, la dépendance doit être satisfaite.
     ```
     Si aucune erreur ne survient, le problème devrait être réglé.
 
-4.  [Créez un environnement virtuel](../python.md#créer-et-utiliser-un-environnement-virtuel) et installez les paquets.
+4.  [Créez un environnement virtuel](../python.md) et installez les paquets.
 
 ## Dépannage
 

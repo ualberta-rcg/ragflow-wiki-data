@@ -4,85 +4,17 @@
   "chunk_index": 13,
   "qa_pairs": [
     {
-      "question": "What are the limitations of the Python `multiprocessing` module for parallel programming?",
-      "answer": "The `multiprocessing` module is restricted to using a single compute node, so the speedup achievable by your program is usually limited to the total number of CPU cores available in that single node."
+      "question": "When using Python's `multiprocessing` module for parallel programming on a cluster, what important considerations should be kept in mind to ensure efficient resource utilization and prevent issues?",
+      "answer": "When using the `multiprocessing` module, it's crucial to match the number of processes you start to the number of CPU cores allocated to your job to avoid slowdowns or overloaded nodes. Additionally, if your code calls external libraries like NumPy, verify if their functions are also parallel, and if so, control their thread usage to prevent conflicts with your `multiprocessing` processes. The `multiprocessing` module is limited to a single compute node; for multi-node parallelization, consider `mpi4py` or `PySpark`."
     },
     {
-      "question": "What alternatives should I consider if I need to perform parallel programming with Python across multiple nodes?",
-      "answer": "If you need to go beyond a single node for parallel programming with Python, you should consider using `mpi4py` or `PySpark`."
+      "question": "How can I debug a Python script interactively on the clusters using `pdb`, and what are some common commands?",
+      "answer": "To debug a Python script interactively, add `import pdb; pdb.set_trace()` or `breakpoint()` at the desired location in your code. Then, run your script (e.g., `python your_script.py`) in a small interactive job. Once in the debugger, useful commands include `w` (to print a stack trace), `b` (to set breakpoints), `s` (to step into functions), `n` (to execute the next line in the current function), `r` (to continue until the current function returns), `c` (to continue until a breakpoint), `p exp` (to evaluate an expression), `l` (to list source code), and `q` (to quit the debugger)."
     },
     {
-      "question": "What should I do before attempting to parallelize my Python program?",
-      "answer": "You should first ensure that your Python program is written efficiently, as this can greatly improve its performance."
-    },
-    {
-      "question": "Who can I contact if I'm unsure if my Python code is efficient?",
-      "answer": "You can contact technical support to have them look at your code if you're unsure about its efficiency."
-    },
-    {
-      "question": "What is important to verify if my parallel Python code calls external libraries like NumPy?",
-      "answer": "You should verify whether the functions called by your code in external libraries are themselves parallel. If they are, you need to control how many threads they will take to avoid slowing down your code or overloading the compute node."
-    },
-    {
-      "question": "What are some simple methods for debugging Python code?",
-      "answer": "Simple methods for debugging Python code include adding `print` statements or assertions (`assert`)."
-    },
-    {
-      "question": "How can I use the `pdb` debugger in an interactive job?",
-      "answer": "To use `pdb`, add `import pdb; pdb.set_trace()` to the beginning of your file, or `breakpoint()` at the desired location, then run your code with `python ...` in a small interactive job. You will then enter the debugger."
-    },
-    {
-      "question": "Which `pdb` commands are typically used for debugging a file?",
-      "answer": "Typically, the `w` (where), `s` (step), `l` (list), `p` (print expression), and `n` (next) commands are used for debugging a file with `pdb`."
-    },
-    {
-      "question": "How do I print a stack trace in the `pdb` debugger?",
-      "answer": "You can print a stack trace in `pdb` using the `w` (or `here`) command."
-    },
-    {
-      "question": "How can I set a breakpoint at a specific line in `pdb`?",
-      "answer": "To set a breakpoint at a specific line, use the `b` (or `break`) command followed by the line number, for example, `b 10`."
-    },
-    {
-      "question": "What does the `s` command do in `pdb`?",
-      "answer": "The `s` (or `step`) command executes the current line and stops at the first possible occasion, either in a called function or on the next line in the current function."
-    },
-    {
-      "question": "What does the `n` command do in `pdb`?",
-      "answer": "The `n` (or `next`) command continues execution until the next line in the current function is reached or the function returns."
-    },
-    {
-      "question": "How do I continue execution until the current function returns in `pdb`?",
-      "answer": "You can continue execution until the current function returns using the `r` (or `return`) command in `pdb`."
-    },
-    {
-      "question": "How can I continue execution in `pdb` until the next breakpoint is encountered?",
-      "answer": "Use the `c` (or `cont(inue)`) command to continue execution until a breakpoint is encountered."
-    },
-    {
-      "question": "How do I evaluate an expression and print its value in `pdb`?",
-      "answer": "To evaluate an expression and print its value, use the `p` command followed by the expression, for example, `p my_variable`."
-    },
-    {
-      "question": "What command allows me to list the source code for the current file in `pdb`?",
-      "answer": "The `l` (or `list`) command allows you to list the source code for the current file in `pdb`."
-    },
-    {
-      "question": "How do I quit the `pdb` debugger?",
-      "answer": "To quit the debugger and abort the program, use the `q` (or `quit`) command."
-    },
-    {
-      "question": "How can I attach the `pdb` debugger to a running Python process?",
-      "answer": "With Python 3.14 and higher, you can attach to a running process by executing `python -m pdb --pid <process id>` in a different terminal."
-    },
-    {
-      "question": "What module can I use to help diagnose a hanging Python script by dumping a traceback?",
-      "answer": "You can use the `faulthandler` module, specifically `faulthandler.dump_traceback_later()`, to edit your script and dump a traceback after a timeout."
-    },
-    {
-      "question": "How can I inspect a running Python process without modifying the script beforehand to troubleshoot a hanging script?",
-      "answer": "You can use `py-spy` to inspect a running Python process. First, install `py-spy` in a virtual environment, then attach to the running job using `srun --overlap --pty --jobid JOBID bash`. Find the process ID with `htop -u $USER`, activate the virtual environment with `py-spy`, and then run `py-spy top --pid PID` for live feedback or `py-spy dump --pid PID` for a traceback."
+      "question": "What methods can be used to diagnose a Python script that is hanging during execution on the cluster?",
+      "answer": "If a Python script is hanging, you can use the `faulthandler` module by adding `faulthandler.dump_traceback_later()` to your script to dump a traceback after a timeout. Alternatively, you can use `py-spy` without modifying your script: install it in a virtual environment, attach to the running job, find the Python process ID using `htop -u $USER`, then activate your `py-spy` virtual environment and run `py-spy top --pid PID` for live feedback or `py-spy dump --pid PID` to get a current traceback."
     }
   ],
-  "generated_at": "2026-04-12T05:55:29.443040+00:00"
+  "generated_at": "2026-04-12T18:20:15.693824+00:00"
 }

@@ -170,13 +170,13 @@ Pour connaître la plus récente version de Snap ML que nous avons construite, e
 ```bash
 avail_wheels "snapml"
 ```
-Pour plus d'information, voir [Wheels disponibles](../python.md#wheels-disponibles).
+Pour plus d'information, voir [Wheels disponibles](../python.md).
 
 ### Installer le wheel
 
 L'option à privilégier est d'utiliser le [wheel Python](https://pythonwheels.com/) comme suit :
 1. [Chargez un module](../../programming/utiliser_des_modules.md#sous-commande-load) Python avec `module load python`.
-2. Créez et activez un [environnement virtuel Python](../python.md#créer-et-utiliser-un-environnement-virtuel).
+2. Créez et activez un [environnement virtuel Python](../python.md).
 3. Installez Snap ML dans l'environnement virtuel avec `pip install`. 
 
 ```bash

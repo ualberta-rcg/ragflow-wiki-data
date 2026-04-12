@@ -4,89 +4,17 @@
   "chunk_index": 4,
   "qa_pairs": [
     {
-      "question": "How do I install an SSH key on a specific system rather than on all HPC systems?",
-      "answer": "You can install an SSH key only on a specific system by adding the public key to the `~/.ssh/authorized_keys` file in your home directory on that particular system."
+      "question": "How can I install an SSH public key on a specific system if I don't want to use the CCDB method?",
+      "answer": "You can install an SSH public key on a specific system by adding it to the `~/.ssh/authorized_keys` file in your home directory on that system. The `ssh-copy-id` command is the most convenient way to do this, for example: `ssh-copy-id -i alliance-key username@fir.alliancecan.ca`. Be aware that SSH is very particular about the permissions on the `authorized_keys` file, your `/home` directory, and the `.ssh` subdirectory."
     },
     {
-      "question": "What is the most convenient command to copy a public key to an `authorized_keys` file on a system like Fir?",
-      "answer": "The most convenient command is `ssh-copy-id -i alliance-key username@fir.alliancecan.ca`, assuming your private key is named `alliance-key`."
+      "question": "What is the benefit of using an SSH key agent?",
+      "answer": "An SSH key agent improves convenience and security by allowing you to enter your private key's passphrase only once when starting the agent. After that, the agent supplies the private key for new connections, eliminating the need to repeatedly enter the passphrase and avoiding the storage of an unencrypted private key on permanent storage, which could be vulnerable to theft or copying."
     },
     {
-      "question": "Are there any known fragilities or specific requirements for the `authorized_keys` mechanism?",
-      "answer": "Yes, SSH is quite particular about the permissions on the `authorized_keys` file, your `/home` directory, and the `.ssh` subdirectory. This mechanism is somewhat fragile."
-    },
-    {
-      "question": "Why is it recommended to use an SSH key agent?",
-      "answer": "It is recommended to use an SSH key agent because it avoids the inconvenience of having to enter your passphrase every time you use the key, without leaving the private key unencrypted. It also prevents storing the unencrypted private key on permanent storage, making it less vulnerable."
-    },
-    {
-      "question": "How does an SSH key agent work?",
-      "answer": "You type your passphrase when starting up the agent, after which the agent supplies the private key for any new connections, so you don't have to re-enter it each time."
-    },
-    {
-      "question": "Where should the operation of generating an SSH key be performed?",
-      "answer": "This operation should be performed on your own computer, not on a shared computer such as a cluster."
-    },
-    {
-      "question": "Are the default settings usually sufficient when generating an SSH key?",
-      "answer": "Yes, when you generate a key, the default settings are usually sufficient."
-    },
-    {
-      "question": "How can I add a comment to my SSH key during generation?",
-      "answer": "You can specify a comment for the key using the command `ssh-keygen -C 'Alliance systems'`."
-    },
-    {
-      "question": "How do I choose a specific name for my key file when generating an SSH key?",
-      "answer": "You can choose the name of the key file using the command `ssh-keygen -f alliance-key`. This will create `alliance-key` for the private part and `alliance-key.pub` for the public part."
-    },
-    {
-      "question": "If I choose a specific name for my SSH key file, how do I specify it when logging in?",
-      "answer": "You must use the `-i` option to specify the name of the key when logging in, for example: `ssh -i alliance-key user@host`."
-    },
-    {
-      "question": "How can I generate an SSH key with a different key type, such as `ed25519`?",
-      "answer": "You can choose a different key type using the command `ssh-keygen -t ed25519`."
-    },
-    {
-      "question": "How can I strengthen RSA key types by setting a longer key length?",
-      "answer": "You can strengthen RSA key types by setting a longer key length using the command `ssh-keygen -t rsa-sha2-512 -b 4096`."
-    },
-    {
-      "question": "What is the purpose of SSH key constraints?",
-      "answer": "The public key syntax permits you to provide a number of very useful constraints that limit what the key is allowed to do."
-    },
-    {
-      "question": "What happens if a public key is installed without any constraints?",
-      "answer": "By default, a public key installed without constraints can do anything."
-    },
-    {
-      "question": "How can I limit an SSH key to only perform a specific command, like showing my jobs in Slurm?",
-      "answer": "You can add a constraint like `restrict,command=\"squeue --me\"` to your public key, for example: `restrict,command=\"squeue --me\" ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGhczaUoV6SzR2VEf9Rp4/P9xHVU8S72CKHrwKU+Yntx`."
-    },
-    {
-      "question": "How can I configure an SSH key to be used only for SFTP?",
-      "answer": "You can configure a key for SFTP only using a constraint like `restrict,command=\"/usr/libexec/openssh/sftp-server\"`, for example: `restrict,command=\"/usr/libexec/openssh/sftp-server\" ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGhczaUoV6SzR2VEf9Rp4/P9xHVU8S72CKHrwKU+Yntx`."
-    },
-    {
-      "question": "Can SSH key constraints limit which hosts can connect using the key?",
-      "answer": "Yes, the key constraint can also limit which hosts can connect using the key."
-    },
-    {
-      "question": "What is a powerful way to minimize the danger posed by a compromised SSH key?",
-      "answer": "Limiting by hosts using key constraints is a powerful way to minimize the danger posed by a key being compromised."
-    },
-    {
-      "question": "What is the effect of the `restrict` keyword on `pty allocation`?",
-      "answer": "The `restrict` keyword, when used in a key constraint, turns off `pty allocation`, which can make an interactive session behave peculiarly."
-    },
-    {
-      "question": "How can I allow `pty allocation` for an interactive session that has source constraints?",
-      "answer": "You can allow `pty allocation` for a source-constrained interactive session by adding `pty` to the constraint, for example: `restrict,from=\"d24-141-114-17.home.cgocable.net\",pty ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGhczaUoV6SzR2VEf9Rp4/P9xHVU8S72CKHrwKU+Yntx`."
-    },
-    {
-      "question": "Where can I find more documentation on SSH key constraints?",
-      "answer": "You can find more documentation on SSH key constraints in the `sshd man` page (by typing `man sshd` on a Linux system)."
+      "question": "What are SSH key constraints and how do they enhance security?",
+      "answer": "SSH key constraints are options that can be applied to a public key to limit its capabilities. For instance, a key can be restricted to execute only specific commands (e.g., `squeue --me` or for SFTP-only access) or to allow connections only from particular hosts. This significantly reduces the danger posed if a key is compromised, as its scope of use is minimized."
     }
   ],
-  "generated_at": "2026-04-12T07:23:02.703203+00:00"
+  "generated_at": "2026-04-12T18:25:27.872446+00:00"
 }

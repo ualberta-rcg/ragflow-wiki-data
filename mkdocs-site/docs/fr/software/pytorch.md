@@ -190,7 +190,7 @@ Pour connaître la dernière version de PyTorch, utilisez
 ```bash
 avail_wheels torch
 ```
-Pour plus d'information, voyez [Wheels disponibles](python.md#wheels-disponibles).
+Pour plus d'information, voyez [Wheels disponibles](python.md).
 
 ### Installation du wheel
 

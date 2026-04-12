@@ -42,7 +42,7 @@ Si vous voulez porter un programme Keras sur l'une de nos grappes, il serait bon
 
 ## Installation
 
-1.  Installez [TensorFlow](tensorflow.md), CNTK ou Theano dans un [environnement virtuel Python](python.md#créer-et-utiliser-un-environnement-virtuel).
+1.  Installez [TensorFlow](tensorflow.md), CNTK ou Theano dans un [environnement virtuel Python](python.md).
 2.  Activez l'environnement virtuel (dans notre exemple, `$HOME/tensorflow`).
     ```bash
     source $HOME/tensorflow/bin/activate
