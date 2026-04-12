@@ -32,10 +32,10 @@ status:
   qa_generated: false
 ---
 
-*Sous-page de: [Stockage et gestion de fichiers](storage-et-gestion-de-fichiers.md)*
+*Sous-page de: [Stockage et gestion de fichiers](storage_and_file_management.md)*
 
 !!! info "Archivage de fichiers"
-    [Archiver](https://fr.wikipedia.org/wiki/Archive_(informatique)) signifie créer un fichier qui contient plusieurs petits fichiers. Le fait de créer un fichier archive peut améliorer l'efficacité du stockage et vous aider à [respecter les quotas](storage-et-gestion-de-fichiers.md#quotas-et-politiques). L'archivage peut aussi rendre plus efficace le [transfert de fichiers](../clusters/general_directives_for_migration.md). Par exemple, le protocole [scp](https://fr.wikipedia.org/wiki/Secure_copy) (*secure copy protocol*) transfère plus rapidement un fichier archive de taille raisonnable que des milliers de petits fichiers totalisant la même taille.
+    [Archiver](https://fr.wikipedia.org/wiki/Archive_(informatique)) signifie créer un fichier qui contient plusieurs petits fichiers. Le fait de créer un fichier archive peut améliorer l'efficacité du stockage et vous aider à [respecter les quotas](storage_and_file_management.md#quotas-et-politiques). L'archivage peut aussi rendre plus efficace le [transfert de fichiers](../clusters/general_directives_for_migration.md). Par exemple, le protocole [scp](https://fr.wikipedia.org/wiki/Secure_copy) (*secure copy protocol*) transfère plus rapidement un fichier archive de taille raisonnable que des milliers de petits fichiers totalisant la même taille.
 
 !!! info "Compression de fichiers"
     [Compresser](https://fr.wikipedia.org/wiki/Compression_de_donn%C3%A9es) signifie modifier le code d'un fichier pour en réduire le nombre de bits. Les avantages sont évidents en ce qui concerne le stockage à long terme des données. Dans le cas du [transfert de données](../clusters/general_directives_for_migration.md), il faut comparer le temps de compression au temps nécessaire pour déplacer une quantité moindre de bits; voyez [ce texte](https://bluewaters.ncsa.illinois.edu/data-transfer-doc) du National Center for Supercomputing Applications.

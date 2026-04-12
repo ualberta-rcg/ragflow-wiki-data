@@ -58,7 +58,7 @@ A current list of the software available on our national systems is below. This 
     `StdEnv/2020` is now deprecated/hidden on the newer systems. See [StdEnv/2020](standard_software_environments.md#std_env_2020)
 
 ## Notes
-Except for basic system programs, you access most software by loading a **module**. See [Using modules](using-modules.md) for more on how to use the Lmod module system. Note that some prerequisite modules are loaded by default.
+Except for basic system programs, you access most software by loading a **module**. See [Using modules](modules.md) for more on how to use the Lmod module system. Note that some prerequisite modules are loaded by default.
 
 Here are a few things to know about the available software:
 *   Most [Python](../software/python.md) modules are not installed as (Lmod) modules. They are instead provided as binary [wheels](available_python_wheels.md), stored on our systems under `/cvmfs/soft.computecanada.ca/custom/python/wheelhouse/`. One such package is [TensorFlow](../software/tensorflow.md). For instructions on how to install or list Python packages, see the [Python](../software/python.md) page.

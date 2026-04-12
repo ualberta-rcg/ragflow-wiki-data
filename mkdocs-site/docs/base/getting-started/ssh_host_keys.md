@@ -44,7 +44,7 @@ status:
   qa_generated: false
 ---
 
-## [Béluga](beluga.md)
+## [Béluga](../clusters/béluga.md)
 **ED25519:**
 * `SHA256:lwmU2AS/oQ0Z2M1a31yRAxlKPcMlQuBPFP+ji/HorHQ`
 * `MD5:2d:d7:cc:d0:85:f9:33:c1:44:80:38:e7:68:ce:38:ce`

@@ -161,7 +161,7 @@ Ce tutoriel aborde les défis liés à la gestion de grandes quantités de donn�
 Bon nombre des problèmes actuels nécessitent de grandes exécutions parallèles sur des machines à mémoire distribuée (grappes) de grande taille. De manière générale, trois activités d'E/S importantes sont impliquées dans ces calculs :
 
 1.  L'application doit lire l'ensemble de données initial ou les conditions de départ à partir d'un ou plusieurs fichiers.
-2.  L'état de l'application peut devoir être écrit dans un fichier pour redémarrer l'application en cas de défaillance. C'est ce qu'on appelle la [création de points de contrôle](points-de-controle.md).
+2.  L'état de l'application peut devoir être écrit dans un fichier pour redémarrer l'application en cas de défaillance. C'est ce qu'on appelle la [création de points de contrôle](../running-jobs/points_de_contrôle.md).
 3.  Les résultats doivent être stockés pour des exécutions ultérieures ou pour le post-traitement.
 
 La figure ci-dessous illustre un aperçu simple du problème du goulot d'étranglement des E/S lors de l'utilisation de nombreux processeurs dans une tâche parallèle. [La loi d'Amdahl](https://fr.wikipedia.org/wiki/Loi_d%27Amdahl) stipule que l'accélération d'un programme parallèle est limitée par le temps nécessaire à la fraction séquentielle du programme. Ainsi, si la partie E/S de l'application fonctionne de manière séquentielle comme illustré, la performance du code ne sera pas aussi bonne qu'espérée.

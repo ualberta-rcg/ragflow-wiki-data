@@ -128,7 +128,7 @@ Where `anananan-anan-anana-anan-ananananana` is substituted with the UUID of the
 For more details about how to edit this file, see this [Ubuntu community help page](https://help.ubuntu.com/community/Fstab).
 
 ## Booting from a volume
-If you want to run a persistent machine, it is safest to boot from a volume. When you boot a VM from an image rather than a volume, the VM is stored on the local disk of the actual machine running the VM. If something goes wrong with that machine or its disk, the VM may be lost. Volume storage has redundancy, which protects the VM from hardware failure. Typically, when booting from a volume, VM flavours starting with the letter `p` are used (see [Virtual machine flavours](virtual-machine-flavours.md)).
+If you want to run a persistent machine, it is safest to boot from a volume. When you boot a VM from an image rather than a volume, the VM is stored on the local disk of the actual machine running the VM. If something goes wrong with that machine or its disk, the VM may be lost. Volume storage has redundancy, which protects the VM from hardware failure. Typically, when booting from a volume, VM flavours starting with the letter `p` are used (see [Virtual machine flavours](virtual_machine_flavors.md)).
 
 There are several ways to boot a VM from a volume. You can:
 *   boot from an image, creating a new volume, or

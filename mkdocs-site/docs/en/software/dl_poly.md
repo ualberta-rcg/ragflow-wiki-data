@@ -61,7 +61,7 @@ There is a mailing list [here](https://www.jiscmail.ac.uk/cgi-bin/webadmin?A0=DL
 
 # Modules
 
-To see which versions of DL_POLY are installed on our systems, run `module spider dl_poly4`. See [Using modules](using-modules.md) for more about `module` subcommands.
+To see which versions of DL_POLY are installed on our systems, run `module spider dl_poly4`. See [Using modules](../programming/modules.md) for more about `module` subcommands.
 
 To load the version **5.x**, use:
 

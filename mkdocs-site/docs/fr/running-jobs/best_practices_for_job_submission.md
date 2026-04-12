@@ -132,7 +132,7 @@ Memory Efficiency: 11.68% of 128.00 GB (8.00 GB/core)
 
 *   **Ajoutez une marge de 5 ou 10 % de temps à la durée estimée**.
     *   C’est normal de laisser une marge d’erreur dans vos estimations, mais vous gagnerez à indiquer la durée la plus précise possible.
-*   Pour les tâches qui ont une durée de plus de 48 heures, envisagez l’utilisation de [points de contrôle](points-de-controle.md) si votre logiciel le permet.
+*   Pour les tâches qui ont une durée de plus de 48 heures, envisagez l’utilisation de [points de contrôle](points_de_contrôle.md) si votre logiciel le permet.
     *   Un instantané de l’état du programme est sauvegardé sur disque à chaque point de contrôle. Si un problème survient, par exemple une panne ou une quelconque interruption, le programme peut être repris dans l’état où il se trouvait au dernier point de contrôle. Vous perdrez relativement peu de travail avec des points de contrôle aux 6 ou 8 heures.
 
 ## Consommation de la mémoire

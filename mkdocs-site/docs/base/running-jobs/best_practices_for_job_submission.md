@@ -94,7 +94,7 @@ By means of these test jobs, you should gain some familiarity with how long cert
 ## Job duration
 
 * For jobs which are not tests, the duration should be **at least one hour**.
-    * If your computation requires less than an hour, you should consider using tools like [GLOST](glost.md), [META](meta-a-package-for-job-farming.md) or [GNU Parallel](gnu_parallel.md) to regroup several of your computations into a single Slurm job with a duration of at least an hour. Hundreds or thousands of very short jobs place undue stress on the scheduler.
+    * If your computation requires less than an hour, you should consider using tools like [GLOST](glost.md), [META](meta-farm.md) or [GNU Parallel](gnu_parallel.md) to regroup several of your computations into a single Slurm job with a duration of at least an hour. Hundreds or thousands of very short jobs place undue stress on the scheduler.
 * It is equally important that your estimate of the **job duration be relatively accurate**.
     * Asking for five days when the computation in reality finishes after just sixteen hours leads to your job spending much more time waiting to start than it would had you given a more accurate estimate of the duration.
 * **Use [monitoring tools](running_jobs.md#completed-jobs)** to see how long completed jobs took.
@@ -120,7 +120,7 @@ Memory Efficiency: 11.68% of 128.00 GB (8.00 GB/core)
 
 * **Increase the estimated duration by 5% or 10%**, just in case.
     * It's natural to leave a certain amount of room for error in the estimate, but otherwise it's in your interest for your estimate of the job's duration to be as accurate as possible.
-* Longer jobs, such as those with a duration exceeding 48 hours, should **consider using [checkpoints](points-de-controle.md)** if the software permits this.
+* Longer jobs, such as those with a duration exceeding 48 hours, should **consider using [checkpoints](points_de_contrôle.md)** if the software permits this.
     * With a checkpoint, the program writes a snapshot of its state to a diskfile and the program can then be restarted from this diskfile, at that precise point in the calculation. In this way, even if there is a power outage or some other interruption of the compute node(s) being used by your job, you won't necessarily lose much work if your program writes a checkpoint file every six or eight hours.
 
 ## Memory consumption

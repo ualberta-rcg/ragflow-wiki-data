@@ -52,7 +52,7 @@ status:
 | **Apache HTTP Server** | A Web server software. See [https://en.wikipedia.org/wiki/Apache_HTTP_Server](https://en.wikipedia.org/wiki/Apache_HTTP_Server). |
 | **CALM** (cloud account lifecycle management) | Our process for managing the allocation of cloud resources. |
 | **Ceph** | The distributed data storage platform for our clouds; includes volume storage. |
-| **[CephFS](arbutus-cephfs.md)** (Ceph File System) | A filesystem with Ceph storage, which allows data to be mounted simultaneously on multiple OpenStack instances. Currently only available with Arbutus. See [https://docs.ceph.com/en/latest/cephfs/](https://docs.ceph.com/en/latest/cephfs/). |
+| **[CephFS](cephfs.md)** (Ceph File System) | A filesystem with Ceph storage, which allows data to be mounted simultaneously on multiple OpenStack instances. Currently only available with Arbutus. See [https://docs.ceph.com/en/latest/cephfs/](https://docs.ceph.com/en/latest/cephfs/). |
 | **cloud** | When referring to our cloud services, short form of *IaaS cloud*. |
 | **compute cloud** | Type of resource allocated to support OpenStack instances intended to run for a limited time, usually with a very high sustained usage of CPU and memory. Flavours for these resources have labels beginning with c\*. Currently only available on Arbutus, Béluga and Cedar. Compare with *persistent cloud*. |
 | **[CVMFS](../software/cvmfs/cvmfs.md)** (CernVM File System) | A read-only content distribution system often used to manage software. |

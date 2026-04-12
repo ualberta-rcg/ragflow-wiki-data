@@ -127,7 +127,7 @@ module load vasp/6.4.2
     module load StdEnv/2023 intel/2023.2.1 intelmpi/2021.9.0
     module load vasp/6.4.2
     ```
-See [Using modules](using-modules.md) for more information.
+See [Using modules](../programming/modules.md) for more information.
 
 To use VASP on [Trillium](../clusters/trillium.md), modules may be loaded as follows:
 

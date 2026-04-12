@@ -299,6 +299,6 @@ parallel -j $SLURM_CPUS_PER_TASK my_simulator --alpha {1} --beta {2} ::: {1..10}
 ```
 
 ## Related topics
-* [META](meta-a-package-for-job-farming.md)
+* [META](meta-farm.md)
 * [GLOST](glost.md)
 * [Job arrays](job_arrays.md)

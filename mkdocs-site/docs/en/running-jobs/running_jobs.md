@@ -314,7 +314,7 @@ $ scancel -t PENDING -u $USER
 ## Resubmitting jobs for long-running computations
 
 When a computation is going to require a long time to complete, so long that it cannot be done within the time limits on the system,
-the application you are running must support [checkpointing](points-de-controle.md). The application should be able to save its state to a file, called a *checkpoint file*, and
+the application you are running must support [checkpointing](points_de_contrôle.md). The application should be able to save its state to a file, called a *checkpoint file*, and
 then it should be able to restart and continue the computation from that saved state.
 
 For many users restarting a calculation will be rare and may be done manually,
@@ -500,7 +500,7 @@ $ module spider quantumespresso/6.1
 In this case adding the line `module load nixpkgs/16.09 intel/2016.4 openmpi/2.1.1` to your job script before loading quantumespresso/6.1 will solve the problem.
 
 ### Jobs inherit environment variables
-By default a job will inherit the environment variables of the shell where the job was submitted. The [module](using-modules.md) command, which is used to make various software packages available, changes and sets environment variables. Changes will propagate to any job submitted from the shell and thus could affect the job's ability to load modules if there are missing prerequisites. It is best to include the line `module purge` in your job script before loading all the required modules to ensure a consistent state for each job submission and avoid changes made in your shell affecting your jobs.
+By default a job will inherit the environment variables of the shell where the job was submitted. The [module](../programming/modules.md) command, which is used to make various software packages available, changes and sets environment variables. Changes will propagate to any job submitted from the shell and thus could affect the job's ability to load modules if there are missing prerequisites. It is best to include the line `module purge` in your job script before loading all the required modules to ensure a consistent state for each job submission and avoid changes made in your shell affecting your jobs.
 
 Inheriting environment settings from the submitting shell can sometimes lead to hard-to-diagnose problems. If you wish to suppress this inheritance, use the `--export=none` directive when submitting jobs.
 

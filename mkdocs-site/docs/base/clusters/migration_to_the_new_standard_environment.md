@@ -75,7 +75,7 @@ to your job scripts. This command does not need to be deleted to use `StdEnv/202
     Loading modules in your `.bashrc` is **not recommended**. Instead, explicitly load modules in your job scripts.
 
 ## I don't use the HPC clusters but cloud resources only. Do I need to worry about this?
-No, this change will only affect the [available software](../programming/available_software.md) accessed by [using environment modules](using-modules.md).
+No, this change will only affect the [available software](../programming/available_software.md) accessed by [using environment modules](../programming/modules.md).
 
 ## I can no longer load a module that I previously used
 More recent versions of most applications are installed in the new environment. To see the available versions, run the `module avail` command. For example,

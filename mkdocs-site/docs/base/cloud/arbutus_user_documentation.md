@@ -49,7 +49,7 @@ While we have a lot of specific documentation for Arbutus, some of this may tran
 
 #### Storage
 
-*   [Arbutus CephFS](arbutus-cephfs.md)
+*   [Arbutus CephFS](cephfs.md)
 *   [Arbutus object storage](arbutus_object_storage.md)
 
 #### General

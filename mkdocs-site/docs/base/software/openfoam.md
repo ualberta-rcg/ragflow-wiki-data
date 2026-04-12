@@ -62,13 +62,13 @@ The OpenFOAM development community consists of:
 *   OpenCFD Ltd., with website [openfoam.com](https://www.openfoam.com/)
 Up to version 2.3.1, released in December 2014, the release histories appear to be the same. On our clusters, module names after 2.3.1 which begin with "v" are derived from the .com branch (for example, `openfoam/v1706`); those beginning with a digit are derived from the .org branch (for example, `openfoam/4.1`).
 
-See [Using modules](using-modules.md) for more on module commands.
+See [Using modules](../programming/modules.md) for more on module commands.
 
 ## Documentation
 [OpenFOAM.com documentation](https://www.openfoam.com/documentation/) and [CFD Direct user guide](https://cfd.direct/openfoam/user-guide/).
 
 ## Usage
-OpenFOAM requires substantial preparation of your environment. In order to run OpenFOAM commands (such as `paraFoam`, `blockMesh`, etc.), you must load a [module file](using-modules.md).
+OpenFOAM requires substantial preparation of your environment. In order to run OpenFOAM commands (such as `paraFoam`, `blockMesh`, etc.), you must load a [module file](../programming/modules.md).
 
 Here is an example of a serial submission script for OpenFOAM 5.0:
 ```bash linenums="1" title="submit.sh"

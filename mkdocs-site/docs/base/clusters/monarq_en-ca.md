@@ -181,7 +181,7 @@ python my_circuit.py
 
 ## Other Tools
 
-*   [Quantum Transpiler](quantum-transpiler.md)
+*   [Quantum Transpiler](../software/quantum/transpileur_quantique.md)
 
 ## Applications
 

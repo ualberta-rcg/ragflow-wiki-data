@@ -231,7 +231,7 @@ litai10:~$ ./fomphello
  Hello world from thread           3 out of           4
 ```
 
-Pour savoir comment soumettre une tâche OpenMP, consultez la section Tâche multifil ou tâche OpenMP de la page [Exécuter des tâches](executer-des-taches.md).
+Pour savoir comment soumettre une tâche OpenMP, consultez la section Tâche multifil ou tâche OpenMP de la page [Exécuter des tâches](../running-jobs/running_jobs.md).
 
 ## Références
 *   Lawrence Livermore National Laboratory : [documentation OpenMP](https://computing.llnl.gov/tutorials/openMP).

@@ -73,7 +73,7 @@ PennyLane is an open-source project with an active community of developers and u
 ## Using PennyLane with MonarQ
 [MonarQ](../../clusters/monarq.md) is designed to be programmed with [Snowflurry](snowflurry.md), a software library programmed in Julia and developed by Anyon Systems. However, thanks to the PennyLane-CalculQuebec plugin, PennyLane circuits can be created using Snowflurry in the backend. This allows circuits to be executed on [MonarQ](../../clusters/monarq.md) while benefiting from the features and development environment offered by PennyLane. See the [PennyLane-CalculQuebec](https://github.com/calculquebec/pennylane-snowflurry) documentation for installation and usage guides.
 
-A [quantum transpiler](quantum-transpiler.md) is also available from PennyLane to optimize its circuits for MonarQ.
+A [quantum transpiler](transpileur_quantique.md) is also available from PennyLane to optimize its circuits for MonarQ.
 
 ## Creating the Virtual Environment
 [Let's create a Python virtual environment](../python.md#creating-and-using-a-virtual-environment) to use PennyLane.

@@ -123,7 +123,7 @@ SERVER <ip address> ANY <port>
 USE_SERVER
 ```
 
-et placer ce fichier dans le répertoire `$HOME/.licenses/` où l'adresse IP et le numéro du port correspondent aux valeurs du serveur de licence de votre établissement. Notre équipe technique devra alors contacter le personnel technique qui gère votre licence pour que votre serveur puisse se connecter à nos nœuds de calcul. Pour organiser ceci, contactez le [soutien technique](soutien-technique.md).
+et placer ce fichier dans le répertoire `$HOME/.licenses/` où l'adresse IP et le numéro du port correspondent aux valeurs du serveur de licence de votre établissement. Notre équipe technique devra alors contacter le personnel technique qui gère votre licence pour que votre serveur puisse se connecter à nos nœuds de calcul. Pour organiser ceci, contactez le [soutien technique](../support/technical_support.md).
 
 Consultez la documentation technique [http://www.mathworks.com/support](http://www.mathworks.com/support) et l'information sur le produit [http://www.mathworks.com](http://www.mathworks.com).
 
@@ -150,7 +150,7 @@ Pour la liste des boîtes à outils disponibles avec la licence et la grappe sur
 ## Exécuter un programme séquentiel MATLAB
 
 !!! important "Important"
-    Pour tous les calculs d'envergure (durée de plus de cinq minutes ou mémoire d'un Go), la tâche doit être soumise à l'ordonnanceur comme démontré dans l'exemple suivant. Pour plus d'information, consultez [Exécuter des tâches](executer-des-taches.md).
+    Pour tous les calculs d'envergure (durée de plus de cinq minutes ou mémoire d'un Go), la tâche doit être soumise à l'ordonnanceur comme démontré dans l'exemple suivant. Pour plus d'information, consultez [Exécuter des tâches](../running-jobs/running_jobs.md).
 
 Voici un exemple de code :
 
@@ -253,7 +253,7 @@ Références :
 ## Utiliser les bibliothèques Compiler et Runtime
 
 !!! important "Important"
-    Comme pour toutes les tâches aux exigences élevées, le code MCR doit toujours être inclus dans une tâche soumise à l'ordonnanceur; consultez [Exécuter des tâches](executer-des-taches.md).
+    Comme pour toutes les tâches aux exigences élevées, le code MCR doit toujours être inclus dans une tâche soumise à l'ordonnanceur; consultez [Exécuter des tâches](../running-jobs/running_jobs.md).
 
 Vous pouvez aussi compiler votre code avec MATLAB Compiler, un des modules dont nous sommes fournisseurs d'hébergement. Consultez la [documentation MATLAB Compiler](https://www.mathworks.com/help/compiler/index.html). Pour l'instant, mcc est disponible pour les versions 2014a, 2018a et suivantes.
 

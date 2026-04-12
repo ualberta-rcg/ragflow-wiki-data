@@ -135,7 +135,7 @@ This tutorial will discuss issues in handling large amounts of data in HPC, and 
 
 Many of today’s problems require large parallel runs on large distributed-memory machines (clusters). Broadly there are three important I/O activities in these calculations:
 1. The application must read the initial dataset or conditions from one or more files.
-2. The application state may need to be written to a file for restarting the application in case of some kind of failure. This is called [checkpointing](points-de-controle.md).
+2. The application state may need to be written to a file for restarting the application in case of some kind of failure. This is called [checkpointing](../running-jobs/points_de_contrôle.md).
 3. Results need to be stored for follow-up runs or post-processing.
 
 The figure below shows a simple sketch of the I/O bottleneck problem when using many CPUs in a parallel job. [Amdahl’s law](https://en.wikipedia.org/wiki/Amdahl%27s_law) says the speedup of a parallel program is limited by the time needed for the sequential fraction of the program. So if the I/O part in the application works sequentially as shown, the performance of the code will not be as great as desired.

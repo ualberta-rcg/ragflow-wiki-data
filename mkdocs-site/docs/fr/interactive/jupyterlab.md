@@ -322,7 +322,7 @@ Le chargement d'un module `cuda` ou `nvhpc` crée une icône pour lancer l'inter
 [QGIS](https://qgis.org/) est un puissant logiciel libre de visualisation et de traitement de données de systèmes d'information géographique (SIG). Le chargement d'un module `qgis` ajoute une icône pour lancer l'interface graphique de QGIS via une session VNC. Consultez notre page [QGIS](qgis.md) pour plus de détails sur ce logiciel.
 
 #### StarCCM+
-[Star-CCM+](https://plm.sw.siemens.com/en-US/simcenter/fluids-thermal-simulation/star-ccm/) de Siemens est un logiciel commercial de simulation numérique pour la dynamique des fluides. Il est disponible en chargeant l'un des modules `starccm` ou `starccm-mixed`, qui ajoute une icône pour lancer l'interface graphique de StarCCM+ via une session VNC. Comme pour tous les logiciels commerciaux, vous devrez fournir votre propre licence. Consultez notre page [Star-CCM+](star-ccm+.md) pour plus de détails sur l'utilisation de ce logiciel.
+[Star-CCM+](https://plm.sw.siemens.com/en-US/simcenter/fluids-thermal-simulation/star-ccm/) de Siemens est un logiciel commercial de simulation numérique pour la dynamique des fluides. Il est disponible en chargeant l'un des modules `starccm` ou `starccm-mixed`, qui ajoute une icône pour lancer l'interface graphique de StarCCM+ via une session VNC. Comme pour tous les logiciels commerciaux, vous devrez fournir votre propre licence. Consultez notre page [Star-CCM+](../software/star-ccm.md) pour plus de détails sur l'utilisation de ce logiciel.
 
 ## Informations additionnelles sur l'exécution des notebooks
 

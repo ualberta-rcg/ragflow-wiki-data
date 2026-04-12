@@ -157,7 +157,7 @@ The Resource Allocation Competition (RAC) enables faculty members and their rese
     *   You must use the most up-to-date version of the [application template](#application-document), which is provided in this guide. Failing to do so may result in the rejection of your application.
     *   Consult the evaluation criteria available in [Appendix A](#appendix-a-resources-for-research-groups-evaluation-criteria) and [Appendix B](#appendix-b-research-platforms-and-portals-evaluation-criteria) of this document.
 
-You may also wish to consult the [RAC Frequently Asked Questions](rac-frequently-asked-questions.md) page and [Technical glossary](../running-jobs/technical_glossary_for_the_resource_allocation_competitions.md).
+You may also wish to consult the [RAC Frequently Asked Questions](../getting-started/frequently_asked_questions.md) page and [Technical glossary](../running-jobs/technical_glossary_for_the_resource_allocation_competitions.md).
 
 If you don't know which application process is best for your project, please email allocations@tech.alliancecan.ca.
 

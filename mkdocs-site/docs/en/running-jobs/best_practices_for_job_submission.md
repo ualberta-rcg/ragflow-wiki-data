@@ -93,7 +93,7 @@ By means of these test jobs, you should gain some familiarity with how long cert
 
 *   !!! tip
     For jobs which are not tests, the duration should be **at least one hour**.
-    *   If your computation requires less than an hour, you should consider using tools like [GLOST](glost.md), [META](meta-a-package-for-job-farming.md) or [GNU Parallel](gnu_parallel.md) to regroup several of your computations into a single Slurm job with a duration of at least an hour. Hundreds or thousands of very short jobs place undue stress on the scheduler.
+    *   If your computation requires less than an hour, you should consider using tools like [GLOST](glost.md), [META](meta-farm.md) or [GNU Parallel](gnu_parallel.md) to regroup several of your computations into a single Slurm job with a duration of at least an hour. Hundreds or thousands of very short jobs place undue stress on the scheduler.
 *   !!! tip
     It is equally important that your estimate of the **job duration be relatively accurate**.
     *   Asking for five days when the computation in reality finishes after just sixteen hours leads to your job spending much more time waiting to start than it would had you given a more accurate estimate of the duration.

@@ -79,7 +79,7 @@ Bien qu'il soit possible de télécharger des métriques de base vers Weights&Bi
 
 Vous pouvez quand même utiliser wandb en activant les modes [`offline`](https://docs.wandb.ai/library/cli#wandb-offline) ou [`dryrun`](https://docs.wandb.ai/library/init#save-logs-offline). Avec ces modes, wandb écrit toutes les métriques, journalisations et artéfacts sur le disque local, sans synchronisation avec le service Internet Weights&Biases. Une fois les tâches terminées, vous pouvez faire la synchronisation avec la commande [`wandb sync`](https://docs.wandb.ai/ref/cli#wandb-sync) sur le nœud de connexion.
 
-Remarquez que le produit [Comet.ml](comet.ml.md) est très semblable à Weights & Biases et qu'il fonctionne sur Narval, Rorqual et TamIA.
+Remarquez que le produit [Comet.ml](comet_ml.md) est très semblable à Weights & Biases et qu'il fonctionne sur Narval, Rorqual et TamIA.
 
 ## Exemple
 

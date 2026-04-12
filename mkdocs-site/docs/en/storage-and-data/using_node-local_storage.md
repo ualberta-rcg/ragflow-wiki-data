@@ -76,7 +76,7 @@ We particularly find that using an application in a [Python](../software/python.
 
 Output data must be copied from `$SLURM_TMPDIR` back to some permanent storage before the job ends. If a job times out, then the last few lines of the job script might not be executed. This can be addressed three ways:
 *   request enough runtime to let the application finish, although we understand that this isn't always possible;
-*   write [checkpoints](points-de-controle.md) to network storage, not to `$SLURM_TMPDIR`;
+*   write [checkpoints](../running-jobs/points_de_contrôle.md) to network storage, not to `$SLURM_TMPDIR`;
 *   write a signal trapping function.
 
 ### Signal trapping

@@ -257,7 +257,7 @@ The table below summarized the available space and policies for each location:
 
 ### Software
 
-Trillium uses the [environment modules](using-modules.md) system to manage compilers, libraries, and other software packages. Modules dynamically modify your environment (e.g., `PATH`, `LD_LIBRARY_PATH`) so you can access different versions of software without conflicts.
+Trillium uses the [environment modules](../programming/modules.md) system to manage compilers, libraries, and other software packages. Modules dynamically modify your environment (e.g., `PATH`, `LD_LIBRARY_PATH`) so you can access different versions of software without conflicts.
 
 Commonly used module commands:
 
@@ -654,7 +654,7 @@ srun python train_distributed.py
 !!! tip
     *   Do not use `--mem` — memory is fixed per GPU (192 GB) or per node (768 GB).
     *   Always specify node count, and `--gpus-per-node=4` for whole-node or multi-node jobs.
-    *   Load only the modules you need — see [Using modules](using-modules.md).
+    *   Load only the modules you need — see [Using modules](../programming/modules.md).
     *   Be explicit with software versions for reproducibility (e.g., `cuda/12.6` rather than just `cuda`).
     *   Test on a single GPU before scaling to multiple GPUs or nodes.
     *   Monitor usage with `nvidia-smi` to ensure GPUs are fully utilized.

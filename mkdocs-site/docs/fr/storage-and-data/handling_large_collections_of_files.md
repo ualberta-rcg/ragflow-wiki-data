@@ -86,7 +86,7 @@ Les disques locaux reliés aux nœuds de calcul sont des SSD SATA ou plus; de fa
 !!! note "Capacité du disque local"
     La capacité réelle d'espace disque local n'est pas la même pour toutes les grappes et elle peut varier à l'intérieur d'une même grappe.
 
-*   [Béluga](beluga.md) offre environ 370Go de disque local pour les nœuds CPU; les nœuds GPU ont un disque NVMe de 1.6To pour aider avec les jeux de données image en intelligence artificielle qui possèdent des millions de petits fichiers.
+*   [Béluga](../clusters/béluga.md) offre environ 370Go de disque local pour les nœuds CPU; les nœuds GPU ont un disque NVMe de 1.6To pour aider avec les jeux de données image en intelligence artificielle qui possèdent des millions de petits fichiers.
 *   [Niagara](niagara.md) n'offre pas de stockage local sur ses nœuds de calcul.
 *   Dans le cas des autres grappes, vous pouvez supposer que l'espace disque disponible est d'au moins 190Go.
 

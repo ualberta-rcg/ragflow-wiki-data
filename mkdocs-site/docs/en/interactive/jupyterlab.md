@@ -364,7 +364,7 @@ Loading a `cuda` or a `nvhpc` module will add a launcher to start the graphical 
 
 #### StarCCM+
 
-Siemens's [Star-CCM+](https://plm.sw.siemens.com/en-US/simcenter/fluids-thermal-simulation/star-ccm/) is a commercial computational fluid dynamic simulation software. It is available by loading one of the `starccm` or the `starccm-mixed` modules, which will add a launcher to start the StarCCM+ graphical user interface through a VNC session. As for all commercial packages, you will need to provide your own license. See our page on [Star-CCM+](star-ccm+.md) for more details on using this software.
+Siemens's [Star-CCM+](https://plm.sw.siemens.com/en-US/simcenter/fluids-thermal-simulation/star-ccm/) is a commercial computational fluid dynamic simulation software. It is available by loading one of the `starccm` or the `starccm-mixed` modules, which will add a launcher to start the StarCCM+ graphical user interface through a VNC session. As for all commercial packages, you will need to provide your own license. See our page on [Star-CCM+](../software/star-ccm.md) for more details on using this software.
 
 ## Additional information on running Python notebooks
 

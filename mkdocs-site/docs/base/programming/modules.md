@@ -42,7 +42,7 @@ The term "module" may sometimes have a more specific meaning depending on the co
 
 ### Lmod modules
 
-Also called "environment modules", Lmod modules are used to alter your (shell) environment so as to enable you to use a particular software package, or to use a non-default version of certain common software packages such as compilers. See [Using modules](using-modules.md).
+Also called "environment modules", Lmod modules are used to alter your (shell) environment so as to enable you to use a particular software package, or to use a non-default version of certain common software packages such as compilers. See [Using modules](modules.md).
 
 ### Python modules
 

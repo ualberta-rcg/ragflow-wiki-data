@@ -181,7 +181,7 @@ python my_circuit.py
 *   [Frequently Asked Questions (FAQ)](https://docs.google.com/document/d/13sfHwJTo5tcmzCZQqeDmAw005v8I5iFeKp3Xc_TdT3U/edit?tab=t.0)
 
 ## Other Tools
-*   [Quantum Transpiler](quantum-transpiler.md)
+*   [Quantum Transpiler](../software/quantum/transpileur_quantique.md)
 
 ## Applications
 MonarQ is suited for calculations requiring small quantities of high-fidelity qubits, making it an ideal tool for the development and testing of quantum algorithms. Other possible applications include modeling small quantum systems; testing new methods and techniques for quantum programming and error correction; and more generally, fundamental research in quantum computing.

@@ -194,7 +194,7 @@ ssh-add
 ```
 Assuming you installed your key pair in one of the standard locations, the `ssh-add` command should be able to find it, though if necessary you can explicitly add the full path to the private key as an argument to `ssh-add`. Using the `ssh-add -l` option will show which private keys are currently accessible to the `ssh-agent`.
 
-While using `ssh-agent` will allow automatically negotiate the key exchange between your personal computer and the cluster, if you need to use your private key on the cluster itself, for example when interacting with a remote GitHub repository, you will need to enable *agent forwarding*. To enable this on the [Béluga](beluga.md) cluster, you can add the following lines to your `$HOME/.ssh/config` file on your personal computer:
+While using `ssh-agent` will allow automatically negotiate the key exchange between your personal computer and the cluster, if you need to use your private key on the cluster itself, for example when interacting with a remote GitHub repository, you will need to enable *agent forwarding*. To enable this on the [Béluga](../clusters/béluga.md) cluster, you can add the following lines to your `$HOME/.ssh/config` file on your personal computer:
 ```text title="config"
 Host beluga.computecanada.ca
     ForwardAgent yes

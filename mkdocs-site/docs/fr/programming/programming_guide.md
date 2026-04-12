@@ -35,7 +35,7 @@ status:
 * [Gestion de code source](version_control.md)
 * Langages, compilateurs et interpréteurs
   * [C](c.md)
-  * [C++](c++.md)
+  * [C++](c.md)
   * [Chapel](../software/chapel.md)
   * [Fortran](fortran.md)
   * [Java](../software/java.md)
@@ -52,7 +52,7 @@ status:
   * [OpenMP](openmp.md)
   * [MPI](../software/mpi.md)
   * [Pthreads](pthreads.md)
-  * [META](meta-a-package-for-job-farming.md)
+  * [META](../running-jobs/meta-farm.md)
   * [GNU Parallel](../running-jobs/gnu_parallel.md)
   * [GLOST](../running-jobs/glost.md)
   * [Apache Spark](../software/apache_spark.md)

@@ -99,7 +99,7 @@ GLOST est particulièrement utile dans les cas suivants :
 *   plusieurs tâches séquentielles de courte durée;
 *   tâches séquentielles avec paramètres variables (balayage de paramètres).
 
-Le principe est de grouper plusieurs tâches séquentielles et de les faire exécuter dans une tâche MPI pouvant utiliser plusieurs cœurs (un ou plusieurs nœuds). Avec moins de tâches dans la file d'attente, [l'ordonnanceur](executer-des-taches.md) sera moins sollicité.
+Le principe est de grouper plusieurs tâches séquentielles et de les faire exécuter dans une tâche MPI pouvant utiliser plusieurs cœurs (un ou plusieurs nœuds). Avec moins de tâches dans la file d'attente, [l'ordonnanceur](running_jobs.md) sera moins sollicité.
 
 Vous pourriez considérer d'utiliser plutôt le paquet logiciel [META](meta-farm.md) développé par une de nos équipes et qui comporte d'importants avantages par rapport à GLOST. Avec META, le temps d'attente total peut être beaucoup plus court; la surcharge imposée est moindre (moins de cycles CPU gaspillés); un mécanisme pratique permet de resoumettre les calculs qui ont échoué ou qui n'ont jamais été exécutés; et META peut traiter autant les tâches séquentielles que les tâches multifils, MPI, GPU et hybrides.
 
@@ -346,4 +346,4 @@ Les exemples copiés seront enregistrés dans le répertoire Glost_Examples.
 *   [GNU Parallel](gnu_parallel.md)
 *   [Vecteurs de tâches](vecteurs-de-taches.md)
 *   [MPI](../software/mpi.md)
-*   [Exécuter des tâches](executer-des-taches.md)
+*   [Exécuter des tâches](running_jobs.md)

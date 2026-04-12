@@ -92,7 +92,7 @@ Combinations of potentials can be used for hybrid systems, e.g. water on metal, 
 
 ## Versions and packages
 
-To see which versions of LAMMPS are installed on our systems, run `module spider lammps`. See [Using modules](using-modules.md) for more about `module` subcommands.
+To see which versions of LAMMPS are installed on our systems, run `module spider lammps`. See [Using modules](../programming/modules.md) for more about `module` subcommands.
 
 LAMMPS version numbers are based on their release dates, and have the format YYYYMMDD. You should run:
 

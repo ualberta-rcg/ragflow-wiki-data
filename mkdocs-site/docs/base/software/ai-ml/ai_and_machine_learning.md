@@ -110,7 +110,7 @@ On a distributed filesystem, data should be stored in large single-file archives
 ## Long running computations
 
 !!! tip "Checkpointing Long-Running Computations"
-    If your computations are long, you should use checkpointing. For example, if your training time is 3 days, you should split it into 3 chunks of 24 hours. This will prevent you from losing all the work in case of an outage, and give you an advantage in terms of priority (more nodes are available for short jobs). Most machine learning libraries natively support checkpointing; the typical case is covered in our [tutorial](tutoriel_apprentissage_machine.md#checkpointing-a-long-running-job). If your program does not natively support this, we provide a [general checkpointing solution](points-de-controle.md).
+    If your computations are long, you should use checkpointing. For example, if your training time is 3 days, you should split it into 3 chunks of 24 hours. This will prevent you from losing all the work in case of an outage, and give you an advantage in terms of priority (more nodes are available for short jobs). Most machine learning libraries natively support checkpointing; the typical case is covered in our [tutorial](tutoriel_apprentissage_machine.md#checkpointing-a-long-running-job). If your program does not natively support this, we provide a [general checkpointing solution](../../running-jobs/points_de_contrôle.md).
 
 For more examples, please see
 
@@ -127,11 +127,11 @@ For more examples, please see
     *   Training many variants of the same method
     *   Running many optimization processes of similar duration
 
-    ... you should consider grouping many jobs into one. [META](meta-a-package-for-job-farming.md), [GLOST](../../running-jobs/glost.md), and [GNU Parallel](../../running-jobs/gnu_parallel.md) are available to help you with this.
+    ... you should consider grouping many jobs into one. [META](../../running-jobs/meta-farm.md), [GLOST](../../running-jobs/glost.md), and [GNU Parallel](../../running-jobs/gnu_parallel.md) are available to help you with this.
 
 ## Experiment tracking and hyperparameter optimization
 
-[Weights & Biases (wandb)](weights-and-biases-wandb.md) and [Comet.ml](comet.ml.md) can help you get the most out of your compute allocation, by
+[Weights & Biases (wandb)](weights___biases__wandb.md) and [Comet.ml](comet_ml.md) can help you get the most out of your compute allocation, by
 
 *   allowing easier tracking and analysis of training runs;
 *   providing Bayesian hyperparameter search.

@@ -120,7 +120,7 @@ vous saurez que vous pouvez obtenir le module `qt/5.12.8`.
 !!! warning "Obsolète"
     Cet environnement n'est plus pris en charge.
 
-Cette deuxième version de notre environnement logiciel a été installée en 2018, avec la mise en service de la grappe [Béluga](beluga.md), peu après le déploiement de [Niagara](niagara.md). Les compilateurs par défaut sont passés à GCC 7.3.0 et Intel 2018.3. L’implémentation MPI par défaut est passée à Open MPI 3.1.2. Il s’agit de la première version à offrir le support des instructions AVX512.
+Cette deuxième version de notre environnement logiciel a été installée en 2018, avec la mise en service de la grappe [Béluga](../clusters/béluga.md), peu après le déploiement de [Niagara](niagara.md). Les compilateurs par défaut sont passés à GCC 7.3.0 et Intel 2018.3. L’implémentation MPI par défaut est passée à Open MPI 3.1.2. Il s’agit de la première version à offrir le support des instructions AVX512.
 
 Activez cet environnement avec la commande :
 ```bash
@@ -131,7 +131,7 @@ module load StdEnv/2018.3
 !!! warning "Obsolète"
     Cet environnement n'est plus supporté.
 
-Cette première version de notre environnement logiciel a été installée en 2016 avec la mise en service des grappes [Cedar](../clusters/cedar.md) et [Graham](../clusters/graham.md). Les compilateurs par défaut sont GCC 5.4.0 et Intel 2016.4. L’implémentation MPI par défaut est Open MPI 2.1.1. La plupart des logiciels compilés dans cet environnement ne supportent pas les instructions AVX512, contrairement aux processeurs Skylake de [Béluga](beluga.md), [Niagara](niagara.md) et aux récents ajouts à Cedar et Graham.
+Cette première version de notre environnement logiciel a été installée en 2016 avec la mise en service des grappes [Cedar](../clusters/cedar.md) et [Graham](../clusters/graham.md). Les compilateurs par défaut sont GCC 5.4.0 et Intel 2016.4. L’implémentation MPI par défaut est Open MPI 2.1.1. La plupart des logiciels compilés dans cet environnement ne supportent pas les instructions AVX512, contrairement aux processeurs Skylake de [Béluga](../clusters/béluga.md), [Niagara](niagara.md) et aux récents ajouts à Cedar et Graham.
 
 Activez cet environnement avec la commande :
 ```bash

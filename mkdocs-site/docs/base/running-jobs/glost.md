@@ -99,7 +99,7 @@ status:
 
 The idea behind using GLOST consists of bundling serial jobs and running them as an MPI job. It can use multiple cores (one or more nodes). This will considerably reduce the number of jobs on the queue, and therefore, reduce the stress on the [scheduler](running_jobs.md).
 
-As an alternative, you may also want to consider the [META](meta-a-package-for-job-farming.md) software package developed by our staff, which has some important advantages over GLOST. In particular, with META the queue wait time may be significantly shorter than with GLOST, and META overheads are smaller (fewer wasted CPU cycles). In addition, META has a convenient mechanism for re-submitting all the computations that never ran or failed. Finally, unlike GLOST, META can be used for all kinds of jobs; serial, multi-threaded, MPI, GPU, or hybrid.
+As an alternative, you may also want to consider the [META](meta-farm.md) software package developed by our staff, which has some important advantages over GLOST. In particular, with META the queue wait time may be significantly shorter than with GLOST, and META overheads are smaller (fewer wasted CPU cycles). In addition, META has a convenient mechanism for re-submitting all the computations that never ran or failed. Finally, unlike GLOST, META can be used for all kinds of jobs; serial, multi-threaded, MPI, GPU, or hybrid.
 
 !!! note
     Please read this document until the end and if you think that your workflow can fit within this framework, contact [Technical support](../support/technical_support.md) to help you change your workflow.
@@ -114,7 +114,7 @@ Using GLOST, the user will submit and handle few MPI jobs rather than hundreds o
 
 ## Modules
 
-GLOST uses OpenMPI to run a set of serial tasks as an MPI job. For each OpenMPI version, a corresponding module of GLOST is installed. To use it, make sure to load OpenMPI and GLOST modules. For more information, please refer to the page [using modules](using-modules.md). To see the current installed modules on our systems, use `module spider glost`. Before submitting a job, make sure that you can load GLOST along with the other modules that are required to run your application.
+GLOST uses OpenMPI to run a set of serial tasks as an MPI job. For each OpenMPI version, a corresponding module of GLOST is installed. To use it, make sure to load OpenMPI and GLOST modules. For more information, please refer to the page [using modules](../programming/modules.md). To see the current installed modules on our systems, use `module spider glost`. Before submitting a job, make sure that you can load GLOST along with the other modules that are required to run your application.
 
 ```bash
 $  module spider glost/0.3.1

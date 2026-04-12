@@ -79,7 +79,7 @@ For more information, see [Available wheels](python.md#available-wheels).
 ## Installing our wheel
 
 The preferred option is to install it using the Python [wheel](https://pythonwheels.com/) as follows:
-1.  Load a Python [module](utiliser-des-modules-en.md#sub-command-load), thus `module load python`
+1.  Load a Python [module](../programming/utiliser_des_modules.md#sub-command-load), thus `module load python`
 2.  Create and start a [virtual environment](python.md#creating-and-using-a-virtual-environment).
 3.  Install Ray in the virtual environment with `pip install`.
 

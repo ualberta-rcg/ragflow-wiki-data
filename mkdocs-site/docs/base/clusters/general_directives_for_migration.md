@@ -69,11 +69,11 @@ It is a good practice to look at your files regularly and see what can be delete
 *   If you find any large files named like `core.12345` and you don't know that they are, they are probably [core dumps](https://en.wikipedia.org/wiki/Core_dump) and can be deleted.
 
 ### Archive and compress
-Most file transfer programs move one file of a reasonable size more efficiently than thousands of small files of equal total size. If you have directories or directory trees containing many small files, use [tar](archiving-and-and-compressing-files.md) to combine (archive) them.
+Most file transfer programs move one file of a reasonable size more efficiently than thousands of small files of equal total size. If you have directories or directory trees containing many small files, use [tar](../storage-and-data/archiving_and_compressing_files.md) to combine (archive) them.
 
 Large files can benefit from compression in some cases, especially text files which can usually be compressed a great deal. Compressing a file **only** for the purpose of transferring it, and then decompressing it at the end of the transfer will not necessarily save time. It depends on how much the file can be compressed, how long it takes to compress it, and the transfer bandwidth. The calculation is described under *Data Compression and transfer discussion* in [this document](https://bluewaters.ncsa.illinois.edu/data-transfer-doc) from the US National Center for Supercomputing Applications.
 
-If you decide compression is worthwhile, you can again use [tar](archiving-and-and-compressing-files.md) for this, or [gzip](https://www.gnu.org/software/gzip/manual/gzip.html).
+If you decide compression is worthwhile, you can again use [tar](../storage-and-data/archiving_and_compressing_files.md) for this, or [gzip](https://www.gnu.org/software/gzip/manual/gzip.html).
 
 ### Avoid duplication
 Try not to move the same data twice. If you are migrating from more than one existing system to one new system and you have data duplicated on the sources, choose one and only move the duplicate data from that one.

@@ -55,7 +55,7 @@ status:
 ```bash
 module spider mrbayes
 ```
-For more on finding and selecting a version of MrBayes using `module` commands see [Using modules](using-modules.md)
+For more on finding and selecting a version of MrBayes using `module` commands see [Using modules](../../programming/modules.md)
 
 ## Examples
 

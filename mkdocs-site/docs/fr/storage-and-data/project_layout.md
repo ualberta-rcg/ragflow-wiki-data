@@ -64,7 +64,7 @@ status:
   qa_generated: false
 ---
 
-*Page enfant de : [Stockage et gestion de fichiers](storage-et-gestion-de-fichiers.md)*
+*Page enfant de : [Stockage et gestion de fichiers](storage_and_file_management.md)*
 Voir aussi [Message *Disk quota exceeded*](../getting-started/frequently_asked_questions.md#message-disk-quota-exceeded)
 
 Sur nos grappes de calcul, les espaces `/project` sont organisés selon des *groupes*.

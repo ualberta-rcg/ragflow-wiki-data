@@ -51,7 +51,7 @@ This wiki is a constant work-in-progress and some links might take you to pages 
 * GPU clusters which are part of the Pan-Canadian AI Compute Environment (PAICE)
   * [Killarney](../clusters/killarney.md), [tamIA](../clusters/tamia.md), [Vulcan](../clusters/vulcan.md)
 * Legacy clusters that are at the end of their life or retired:
-  * [Béluga](beluga.md), [Cedar](../clusters/cedar.md), [Graham](../clusters/graham.md), [Niagara](niagara.md)
+  * [Béluga](../clusters/béluga.md), [Cedar](../clusters/cedar.md), [Graham](../clusters/graham.md), [Niagara](niagara.md)
 
 **Services**
 * [Available software](../programming/available_software.md)

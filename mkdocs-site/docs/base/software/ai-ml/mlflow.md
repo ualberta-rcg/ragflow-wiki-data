@@ -35,7 +35,7 @@ status:
   qa_generated: false
 ---
 
-MLflow is an open-source **experiment tracking** and **observability** platform for AI and Machine Learning development. Contrary to to other similar platforms such as [WandB](weights-and-biases-wandb.md) and [Comet.ml](comet.ml.md), it is possible to run MLflow locally on our systems and track experiments without internet connection and without any data ever leaving the cluster.
+MLflow is an open-source **experiment tracking** and **observability** platform for AI and Machine Learning development. Contrary to to other similar platforms such as [WandB](weights___biases__wandb.md) and [Comet.ml](comet_ml.md), it is possible to run MLflow locally on our systems and track experiments without internet connection and without any data ever leaving the cluster.
 
 ## On JupyterHub
 

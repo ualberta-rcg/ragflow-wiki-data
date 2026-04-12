@@ -125,7 +125,7 @@ Avec un système de fichiers distribué, les données devraient être rassemblé
 ## Calculs de longue durée
 
 Si vos calculs exigent beaucoup de temps, il est recommandé d'utiliser des points de contrôle (*checkpoints*); par exemple, plutôt que trois jours d'entraînement, vous pourriez avoir trois blocs de 24 heures chacun. De cette manière, votre travail ne serait pas perdu en cas de panne et vous pourriez bénéficier d'une meilleure priorisation de vos tâches puisqu'il y a plus de nœuds qui sont réservés pour les tâches courtes.
-Votre bibliothèque préférée supporte probablement les *checkpoints*; voyez le cas type présenté dans [notre tutoriel](tutoriel_apprentissage_machine.md). Si votre programme ne le permet pas, consultez la [solution générique](points-de-controle.md).
+Votre bibliothèque préférée supporte probablement les *checkpoints*; voyez le cas type présenté dans [notre tutoriel](tutoriel_apprentissage_machine.md). Si votre programme ne le permet pas, consultez la [solution générique](../../running-jobs/points_de_contrôle.md).
 
 Voir les autres exemples dans
 
@@ -145,7 +145,7 @@ vous devriez grouper plusieurs tâches pour n'en former qu'une avec un outil com
 
 ## Suivi de l'expérimentation et optimisation des hyperparamètres
 
-[Weights & Biases (wandb)](weights-and-biases-wandb.md) et [Comet.ml](comet.ml.md) peuvent vous aider à optimiser votre allocation de calcul en
+[Weights & Biases (wandb)](weights___biases__wandb.md) et [Comet.ml](comet_ml.md) peuvent vous aider à optimiser votre allocation de calcul en
 
 *   facilitant le suivi et l'analyse des processus d'apprentissage,
 *   permettant une optimisation bayésienne d'hyperparamètres.

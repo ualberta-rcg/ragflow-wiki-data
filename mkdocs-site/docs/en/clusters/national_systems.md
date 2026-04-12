@@ -48,7 +48,7 @@ All clusters have large, high-performance storage attached. For details about st
 
 | Name and link | Type          | Sub-systems                                          | Status        |
 | :------------ | :------------ | :--------------------------------------------------- | :------------ |
-| [Béluga](beluga.md) | General-purpose | * beluga-compute<br>* beluga-gpu<br>* beluga-storage | End of life   |
+| [Béluga](béluga.md) | General-purpose | * beluga-compute<br>* beluga-gpu<br>* beluga-storage | End of life   |
 | [Cedar](cedar.md)   | General-purpose | * cedar-compute<br>* cedar-gpu<br>* cedar-storage   | End of life   |
 | [Fir](../software/fir.md)       | General-purpose | * fir-compute<br>* fir-gpu<br>* fir-storage         | In production |
 | [Graham](graham.md) | General-purpose | * graham-compute<br>* graham-gpu<br>* graham-storage | End of life   |

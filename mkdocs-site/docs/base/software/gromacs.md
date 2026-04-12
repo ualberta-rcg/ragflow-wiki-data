@@ -329,7 +329,7 @@ or
 $ module load  StdEnv/2020  gcc/9.3.0  cuda/11.4  openmpi/4.0.3  gromacs/2023.2 
 ```
 
-For more information on environment modules, please refer to the [Using modules](using-modules.md) page.
+For more information on environment modules, please refer to the [Using modules](../programming/modules.md) page.
 
 ## Suffixes
 

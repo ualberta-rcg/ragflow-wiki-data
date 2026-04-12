@@ -267,7 +267,7 @@ TensorFlow fonctionne sur tous les types de nœuds GPU. Pour plus d'information,
 
 ## Suivi
 
-Il est possible de se connecter à un nœud sur lequel une tâche est en cours pour y exécuter des processus. On peut ainsi faire le suivi des ressources utilisées par TensorFlow et visualiser le déroulement de l'entraînement. Pour des exemples, consultez [Surveillance d'une tâche en cours](../running-jobs/#surveillance-dune-tache-en-cours).
+Il est possible de se connecter à un nœud sur lequel une tâche est en cours pour y exécuter des processus. On peut ainsi faire le suivi des ressources utilisées par TensorFlow et visualiser le déroulement de l'entraînement. Pour des exemples, consultez [Surveillance d'une tâche en cours](../running-jobs/index.md#surveillance-dune-tache-en-cours).
 
 ### TensorBoard
 

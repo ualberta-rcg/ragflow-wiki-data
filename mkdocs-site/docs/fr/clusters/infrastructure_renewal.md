@@ -107,7 +107,7 @@ Près de 80 % de nos équipements qui approchent de leur fin de vie seront rempl
 | **Documentation** | **Système remplacé** |
 | :---------------- | :------------------- |
 | [Arbutus](arbutus.md) | [nuage](../cloud/cloud.md) (aucun changement à cette infrastructure virtuelle) |
-| [Rorqual](rorqual.md) | [Béluga](beluga.md) |
+| [Rorqual](rorqual.md) | [Béluga](béluga.md) |
 | [Fir](../software/fir.md) | [Cedar](cedar.md) |
 | [Trillium](trillium.md) | Niagara et [Mist](../software/mist.md) |
 | [Nibi](nibi.md) | [Graham](graham.md) |

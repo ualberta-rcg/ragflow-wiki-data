@@ -178,7 +178,7 @@ module load StdEnv/2023 r/4.5.0  # Adjust version as needed
 Rscript computation.R
 ```
 
-Pour plus d'information, consultez [Exécuter des tâches](executer-des-taches.md).
+Pour plus d'information, consultez [Exécuter des tâches](../running-jobs/running_jobs.md).
 
 ## Installation des paquets R
 
@@ -361,7 +361,7 @@ R CMD BATCH --no-save --no-restore test_foreach.R
 sbatch job_foreach.sh
 ```
 
-Pour plus d'information sur comment soumettre des tâches, consultez [Exécuter des tâches](executer-des-taches.md).
+Pour plus d'information sur comment soumettre des tâches, consultez [Exécuter des tâches](../running-jobs/running_jobs.md).
 
 ### doParallel et makeCluster
 #### Utilisation
@@ -422,7 +422,7 @@ sont placés sur des nœuds différents, ajoutez la ligne `#SBATCH --ntasks-per-
 sbatch job_makecluster.sh
 ```
 
-Pour plus d'information sur comment soumettre une tâche, voyez [Exécuter des tâches](executer-des-taches.md).
+Pour plus d'information sur comment soumettre une tâche, voyez [Exécuter des tâches](../running-jobs/running_jobs.md).
 
 ### Rmpi
 
@@ -502,6 +502,6 @@ mpirun -np 1 R CMD BATCH test.R test.txt
 sbatch job.sh
 ```
 
-Pour plus d'information sur comment soumettre des tâches, consultez [Exécuter des tâches](executer-des-taches.md).
+Pour plus d'information sur comment soumettre des tâches, consultez [Exécuter des tâches](../running-jobs/running_jobs.md).
 
 [^1]: https://stat.ethz.ch/R-manual/R-devel/library/parallel/doc/parallel.pdf

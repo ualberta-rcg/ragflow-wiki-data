@@ -94,7 +94,7 @@ The infrastructure renewal has replaced nearly 80% of the equipment that had bee
 | Documentation | Old System to be Replaced |
 | :------------ | :------------------------ |
 | [Arbutus](arbutus.md) | [Cloud](../cloud/cloud.md) (as a virtual infrastructure there is no change to the cloud interface.) |
-| [Rorqual](rorqual.md) | [Béluga](beluga.md) |
+| [Rorqual](rorqual.md) | [Béluga](béluga.md) |
 | [Fir](../software/fir.md) | [Cedar](cedar.md) |
 | [Trillium](trillium.md) | Niagara & [Mist](../software/mist.md) |
 | [Nibi](nibi.md) | [Graham](graham.md) |

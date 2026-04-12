@@ -104,7 +104,7 @@ En cliquant sur **Launch Profiles**, les profils **login** et **slurm** devraien
 
 Enregistrez les paramètres en cliquant sur **Options -> Save Settings** et quittez VisIt pour activer la configuration.
 
-Si l'authentification multifacteur est configurée pour votre compte, vous devez [configurer votre client SSH avec ControlMaster](multifactor-authentication-fr.md#configurer-votre-client-ssh-client-avec-controlmaster) et vous assurer que `Host` utilise le nom complet de l'hôte, par exemple :
+Si l'authentification multifacteur est configurée pour votre compte, vous devez [configurer votre client SSH avec ControlMaster](../getting-started/multifactor_authentication.md#configurer-votre-client-ssh-client-avec-controlmaster) et vous assurer que `Host` utilise le nom complet de l'hôte, par exemple :
 
 ```ini
 Host fir.alliancecan.ca
@@ -163,7 +163,7 @@ Lorsque vous avez terminé, enregistrez les modifications avec **Options -> Save
 
 ### Prérequis
 
-La page [Cloud : Guide de démarrage](cloud-quick-start-fr.md) décrit la création d'une instance. Une fois connecté à l’instance, vous devrez installer certains paquets pour pouvoir compiler ParaView et VisIt; par exemple, sur une instance CentOS :
+La page [Cloud : Guide de démarrage](../cloud/cloud_quick_start.md) décrit la création d'une instance. Une fois connecté à l’instance, vous devrez installer certains paquets pour pouvoir compiler ParaView et VisIt; par exemple, sur une instance CentOS :
 
 ```bash
 sudo yum install xauth wget gcc gcc-c++ ncurses-devel python-devel libxcb-devel

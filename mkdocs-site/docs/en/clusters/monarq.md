@@ -86,7 +86,7 @@ There are several specialized software libraries for quantum computing and the d
 
 *   [PennyLane](../software/quantum/pennylane.md), for Python commands
 *   [Snowflurry](../software/quantum/snowflurry.md), for Julia commands
-*   [Qiskit](qiskit-fr.md), for Python commands
+*   [Qiskit](../software/quantum/qiskit.md), for Python commands
 
 The quantum logic gates of the MonarQ processor are called through a [Snowflurry](../software/quantum/snowflurry.md) software library written in Julia. Although MonarQ is natively compatible with Snowflurry, there is a [PennyLane-Snowflurry](https://github.com/calculquebec/pennylane-snowflurry) plugin developed by Calcul Québec that allows you to execute circuits on MonarQ while benefiting from the features and development environment offered by [PennyLane](../software/quantum/pennylane.md).
 

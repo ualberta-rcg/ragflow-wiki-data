@@ -79,7 +79,7 @@ du -sh * | sort -hr | head -10
 
 Local disks attached to compute nodes are at least SATA SSD or better, and, in general, will have a performance that is considerably better than the project or scratch filesystems. Note that a local disk is shared by all running jobs on that node without being allocated by the scheduler. The actual amount of local disk space varies from one cluster to another (and might also vary within a given cluster). For example,
 
-*   [Béluga](beluga.md) offers roughly 370GB of local disk for the CPU nodes, the GPU nodes have a 1.6TB NVMe disk (to help with the AI image datasets with their millions of small files).
+*   [Béluga](../clusters/béluga.md) offers roughly 370GB of local disk for the CPU nodes, the GPU nodes have a 1.6TB NVMe disk (to help with the AI image datasets with their millions of small files).
 *   [Niagara](niagara.md) does not have local storage on the compute nodes (but see [Data management at Niagara](data-management-at-niagara.md#slurm_tmpdir-ram))
 *   For other clusters you can assume the available disk size to be at least 190GB
 

@@ -82,7 +82,7 @@ to your job scripts before loading any other modules.
     Loading modules in your `.bashrc` is **not recommended**. Instead, explicitly load modules in your job scripts.
 
 ## I don't use the HPC clusters but cloud resources only. Do I need to worry about this?
-No, this change will only affect the [Available software](../programming/available_software.md) accessed by [using environment modules](using-modules.md).
+No, this change will only affect the [Available software](../programming/available_software.md) accessed by [using environment modules](../programming/modules.md).
 
 ## I can no longer load a module that I previously used
 !!! note

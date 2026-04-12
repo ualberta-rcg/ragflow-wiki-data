@@ -347,7 +347,7 @@ $ scancel -t PENDING -u $USER
 
 ## Resoumettre une tâche pour un calcul de longue durée
 
-Pour les calculs nécessitant une durée plus longue que la limite de temps du système, l'application doit pouvoir gérer des [points de contrôle](points-de-controle.md) (*checkpointing*). Elle doit aussi permettre la sauvegarde de son état intégral dans un fichier de point de contrôle (*checkpoint file*) et pouvoir redémarrer et poursuivre le calcul à partir du dernier état.
+Pour les calculs nécessitant une durée plus longue que la limite de temps du système, l'application doit pouvoir gérer des [points de contrôle](points_de_contrôle.md) (*checkpointing*). Elle doit aussi permettre la sauvegarde de son état intégral dans un fichier de point de contrôle (*checkpoint file*) et pouvoir redémarrer et poursuivre le calcul à partir du dernier état.
 
 Plusieurs utilisateurs auront peu d'occasions de redémarrer un calcul, et ceci peut se faire manuellement. Dans certains cas cependant, des redémarrages fréquents sont requis et une certaine forme d'automatisation peut être appliquée.
 

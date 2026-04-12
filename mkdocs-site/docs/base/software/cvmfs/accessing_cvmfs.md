@@ -92,7 +92,7 @@ status:
 ---
 
 # Introduction
-We provide repositories of software and data via a file system called the [CERN Virtual Machine File System](cvmfs.md) (CVMFS). On our systems, CVMFS is already set up for you, so the repositories are automatically available for your use. For more information on using our software environment, please refer to wiki pages [Available software](../../programming/available_software.md), [Using modules](using-modules.md), [Python](../python.md), [R](../r.md) and [Installing software in your home directory](../../getting-started/installing_software_in_your_home_directory.md).
+We provide repositories of software and data via a file system called the [CERN Virtual Machine File System](cvmfs.md) (CVMFS). On our systems, CVMFS is already set up for you, so the repositories are automatically available for your use. For more information on using our software environment, please refer to wiki pages [Available software](../../programming/available_software.md), [Using modules](../../programming/modules.md), [Python](../python.md), [R](../r.md) and [Installing software in your home directory](../../getting-started/installing_software_in_your_home_directory.md).
 
 The purpose of this page is to describe how you can install and configure CVMFS on *your* computer or cluster, so that you can access the same repositories (and software environment) on your system that are available on ours.
 

@@ -133,7 +133,7 @@ The InfiniBand network is non-blocking for compute servers and is composed of tw
 
 ### Software environments
 
-[`StdEnv/2023`](standard-software-environments-fr.md) is the standard environment on tamIA.
+[`StdEnv/2023`](../programming/standard_software_environments.md) is the standard environment on tamIA.
 
 ### GPU jobs
 

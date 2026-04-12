@@ -183,7 +183,7 @@ Assuming you executed `git clone` inside your home directory, do this:
 $ export PATH=~/meta-farm/bin:$PATH
 ```
 
-Then proceed as shown in the META [Quick start](meta-a-package-for-job-farming.md#quick-start) from the `farm_init.run` step.
+Then proceed as shown in the META [Quick start](meta-farm.md#quick-start) from the `farm_init.run` step.
 
 ### Passing additional sbatch arguments
 
@@ -479,4 +479,4 @@ This is not an error message. This is how each meta-job normally finishes, when 
 This can only happen if you used the `-auto` switch when submitting the farm.
 Find the failed cases with `Status.run -f`, fix the issue(s) causing the cases to fail, then run `resubmit.run`.
 
-*Parent page:* [META: A package for job farming](meta-a-package-for-job-farming.md)
+*Parent page:* [META: A package for job farming](meta-farm.md)

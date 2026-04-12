@@ -120,7 +120,7 @@ In addition to the different keywords required to run a given simulation, you sh
 ## Using the software
 To see which versions of ORCA are currently available, type `module spider orca`. For detailed information about a specific version, including the other modules that must be loaded first, use the module's full name. For example, `module spider orca/4.0.1.2`.
 
-See [Using modules](using-modules.md) for general guidance.
+See [Using modules](../programming/modules.md) for general guidance.
 
 ### Job submission
 For a general discussion about submitting jobs, see [Running jobs](../running-jobs/running_jobs.md).

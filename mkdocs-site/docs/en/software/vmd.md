@@ -55,7 +55,7 @@ vmd
 
 This should open VMD graphical windows.
 
-See [Using Modules](using-modules.md) for more on the `module` command, including how to find and use other pre-installed versions.
+See [Using Modules](../programming/modules.md) for more on the `module` command, including how to find and use other pre-installed versions.
 
 ## Installing Version 1.9.4 Alpha
 

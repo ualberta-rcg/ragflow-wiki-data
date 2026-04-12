@@ -194,7 +194,7 @@ ssh-add
 ```
 En supposant que vous ayez installé votre paire de clés dans l'un des emplacements habituels, la commande `ssh-add` devrait la trouver, mais si nécessaire, vous pouvez explicitement ajouter le chemin complet de la clé privée en tant qu'argument à `ssh-add`. L'option `ssh-add -l` affiche les clés privées qui ont été ajoutées à l'agent ssh.
 
-Le programme `ssh-agent` permet de négocier automatiquement l'échange de clés entre votre ordinateur personnel et la grappe, mais si vous devez utiliser votre clé privée sur la grappe elle-même, par exemple lors de l'interaction avec un référentiel GitHub distant, vous devrez activer le transfert d’agent. Pour activer cette fonction sur une grappe ([Béluga](beluga.md) dans l'exemple), ajoutez les lignes suivantes à votre fichier `$HOME/.ssh/config` sur votre ordinateur local.
+Le programme `ssh-agent` permet de négocier automatiquement l'échange de clés entre votre ordinateur personnel et la grappe, mais si vous devez utiliser votre clé privée sur la grappe elle-même, par exemple lors de l'interaction avec un référentiel GitHub distant, vous devrez activer le transfert d’agent. Pour activer cette fonction sur une grappe ([Béluga](../clusters/béluga.md) dans l'exemple), ajoutez les lignes suivantes à votre fichier `$HOME/.ssh/config` sur votre ordinateur local.
 ```text title="config"
 Host beluga.computecanada.ca
     ForwardAgent yes

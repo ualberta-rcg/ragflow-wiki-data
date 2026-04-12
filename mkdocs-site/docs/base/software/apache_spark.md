@@ -174,7 +174,7 @@ spark.history.fs.logDirectory  /home/<userid>/.spark/<spark version>/eventlog
 
 ### Visualization
 
-Create an [SSH tunnel](ssh-tunnelling-fr.md) between your computer and the compute cluster.
+Create an [SSH tunnel](../getting-started/ssh_tunnelling.md) between your computer and the compute cluster.
 
 Load the Spark module:
 

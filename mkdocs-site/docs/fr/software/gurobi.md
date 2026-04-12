@@ -106,7 +106,7 @@ status:
 ## Limites de la licence
 
 Nous dispensons le soutien technique pour la licence gratuite disponible sur [Nibi](../clusters/nibi.md), [Fir](fir.md), [Rorqual](../clusters/rorqual.md) et [Trillium](../clusters/trillium.md). Cette licence permet 4096 utilisations simultanées (avec jetons) et l'optimisation distribuée sur un maximum de 100 nœuds. Plusieurs tâches peuvent être exécutées en simultané.
-Vous devez cependant accepter certaines conditions. Faites parvenir un courriel au [soutien technique](soutien-technique.md) avec l'entente (*Entente d'utilisation académique*) dûment complétée; vous pourrez ensuite utiliser les applications après un délai de quelques jours.
+Vous devez cependant accepter certaines conditions. Faites parvenir un courriel au [soutien technique](../support/technical_support.md) avec l'entente (*Entente d'utilisation académique*) dûment complétée; vous pourrez ensuite utiliser les applications après un délai de quelques jours.
 
 ### Entente d'utilisation académique
 
@@ -127,7 +127,7 @@ gurobi_cl 1> /dev/null && echo Success || echo Fail
 
 Si vous obtenez **Success**, vous pouvez utiliser Gurobi immédiatement. Si vous obtenez **Fail**, vérifiez s'il existe un fichier nommé *~/.license/gurobi*; si c'est le cas, supprimez ce fichier, chargez le module Gurobi de nouveau et refaites le test.
 Si vous obtenez encore **Fail**, vérifiez si une variable d'environnement définit GUROBI dans vos fichiers *~/.bashrc* ou *~/.bash_profile*; si c'est le cas, supprimez la ou les lignes correspondantes ou mettez-les en commentaire, déconnectez-vous et connectez-vous de nouveau, chargez le module Gurobi de nouveau et refaites le test.
-Si vous obtenez toujours **Fail**, contactez le [soutien technique](soutien-technique.md) pour de l'assistance.
+Si vous obtenez toujours **Fail**, contactez le [soutien technique](../support/technical_support.md) pour de l'assistance.
 
 ### Minimiser l'utilisation des licences
 
