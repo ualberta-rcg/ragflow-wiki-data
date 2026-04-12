@@ -72,7 +72,7 @@ Avec les deux modes, le travail se fait généralement en deux étapes :
 2.  **analyse**, par la visualisation des données obtenues à la première étape.
 
 ## Modules d'environnement
-Pour utiliser PGPROF, vous devez charger le [module](utiliser-des-modules.md) approprié.
+Pour utiliser PGPROF, vous devez charger le [module](../programming/utiliser_des_modules.md) approprié.
 
 Comme PGPROF fait partie du paquet pour le compilateur PGI, lancez la commande `module avail pgi` pour connaître les versions disponibles pour les modules de compilation, MPI et CUDA que vous avez déjà chargés. Pour la liste des modules PGI disponibles, lancez `module -r spider '.*pgi.*'`.
 En date de décembre 2018, les modules disponibles sont :
@@ -180,7 +180,7 @@ En mode graphique, la collecte et l’analyse des données peuvent souvent se fa
 **Collecte de données**
 *   Lancez le profileur PGI.
     !!! note "Exécution de l'interface graphique"
-        Comme l’interface utilisateur de PGPROF est basée sur Java, elle devrait être exécutée sur le nœud de calcul dans la session interactive plutôt que sur le nœud de connexion puisque que dernier n’a pas suffisamment de mémoire (voir [Java](java.md#pièges) pour plus d’information). Pour activer la redirection X11, la session interactive peut être démarrée avec `salloc --x11 ...` (voir [Tâches interactives](running-jobs.md#tâches-interactives) pour plus d'information).
+        Comme l’interface utilisateur de PGPROF est basée sur Java, elle devrait être exécutée sur le nœud de calcul dans la session interactive plutôt que sur le nœud de connexion puisque que dernier n’a pas suffisamment de mémoire (voir [Java](java.md#pièges) pour plus d’information). Pour activer la redirection X11, la session interactive peut être démarrée avec `salloc --x11 ...` (voir [Tâches interactives](../running-jobs/running_jobs.md#tâches-interactives) pour plus d'information).
 *   Démarrez une nouvelle session, avec *Fichier > Nouvelle session*.
 *   Sélectionnez le fichier exécutable à profiler et ajoutez les arguments de profilage, s’il y a lieu.
 *   Cliquez sur *Suivant*, puis *Terminer*.

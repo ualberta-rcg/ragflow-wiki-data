@@ -25,12 +25,16 @@ python3 scripts/download-status.py 2>&1 | tee -a "$LOGFILE"
 log "Step 3 complete"
 
 log "Step 4/6: Sync ALL docs to RAGFlow (BATCH_SIZE=0)"
-BATCH_SIZE=0 python3 scripts/sync-ragflow.py 2>&1 | tee -a "$LOGFILE"
+BATCH_SIZE=0 python3 scripts/sync-ragflow.py --allow-failures 2>&1 | tee -a "$LOGFILE"
 log "Step 4 complete"
 
 log "Step 5/6: Convert ALL docs to MkDocs (BATCH_SIZE=0)"
 BATCH_SIZE=0 python3 scripts/convert-to-mkdocs.py 2>&1 | tee -a "$LOGFILE"
 log "Step 5 complete"
+
+log "Step 5.5/6: Fix internal MkDocs links"
+BATCH_SIZE=0 python3 scripts/fix-mkdocs-links.py 2>&1 | tee -a "$LOGFILE"
+log "Step 5.5 complete"
 
 log "Step 6/6: Regenerate homepage"
 python3 scripts/generate-homepage.py 2>&1 | tee -a "$LOGFILE"

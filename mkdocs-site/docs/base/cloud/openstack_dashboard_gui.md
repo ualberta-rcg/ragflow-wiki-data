@@ -38,7 +38,7 @@ status:
 ## OpenStack dashboard GUI
 The OpenStack dashboard GUI allows you to manage various aspects of your OpenStack cloud project. This includes creating and managing virtual machines (VMs) and networks. The GUI is based on software from the OpenStack project called Horizon. The GUI can be used from any machine, virtual or otherwise, and only requires an internet connection and a web browser. For example, the dashboard shows a project's used resources and available quota.
 
-The [OpenStack command line clients](openstack-command-line-clients.md) allow you to perform functionality that the dashboard does not.
+The [OpenStack command line clients](openstack_command_line_clients.md) allow you to perform functionality that the dashboard does not.
 
 ## Dashboard GUI
 The URL to access the dashboard GUI varies by site:

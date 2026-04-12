@@ -59,7 +59,7 @@ Researchers coming from government, non-profits, and industry may also be eligib
     *   If you already have a CCDB account, even if it is deactivated, you do not need to apply for a new account again. Read the [Account Renewals FAQ](account-renewals-faq.md).
 
 ## User roles
-The CCDB has 12 classifications of roles, which can be seen on the registration page. Visit the [User Roles](user-roles-to-access-resources-and-services-of-the-alliance-federation.md) page for descriptions and key characteristics of each available role.
+The CCDB has 12 classifications of roles, which can be seen on the registration page. Visit the [User Roles](user_roles_to_access_resources_and_services_of_the_alliance_federation.md) page for descriptions and key characteristics of each available role.
 
 Principal Investigators (PIs) must register with the CCDB first. The approval process can take up to 2 business days. When a CCDB registration has been approved, a confirmation email will be sent that includes your Role Identifier (CCRI). Once a PI has their CCRI, all of their Group Members can register in the CCDB.
 

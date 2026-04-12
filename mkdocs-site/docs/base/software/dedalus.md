@@ -109,8 +109,8 @@ deactivate && rm -r ~/dedalus_env
 ## Running Dedalus
 You can run Dedalus distributed across multiple nodes or cores.
 For efficient MPI scheduling, please see:
-* [MPI job](running-jobs.md#mpi-job)
-* [Advanced MPI scheduling](advanced-mpi-scheduling.md)
+* [MPI job](../running-jobs/running_jobs.md#mpi-job)
+* [Advanced MPI scheduling](../running-jobs/advanced_mpi_scheduling.md)
 
 1. Write your job submission script.
 
@@ -183,7 +183,7 @@ srun python $SCRATCH/myscript.py;
 2. Submit your job to the scheduler.
 
 Before submitting your job, it is important to test that your submission script will start without errors.
-You can do a quick test in an [interactive job](running-jobs.md#interactive-jobs).
+You can do a quick test in an [interactive job](../running-jobs/running_jobs.md#interactive-jobs).
 
 ```bash
 sbatch submit-dedalus.sh

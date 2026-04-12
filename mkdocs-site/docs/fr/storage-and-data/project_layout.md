@@ -65,11 +65,11 @@ status:
 ---
 
 *Page enfant de : [Stockage et gestion de fichiers](storage-et-gestion-de-fichiers.md)*
-Voir aussi [Message *Disk quota exceeded*](frequently-asked-questions.md#message-disk-quota-exceeded)
+Voir aussi [Message *Disk quota exceeded*](../getting-started/frequently_asked_questions.md#message-disk-quota-exceeded)
 
 Sur nos grappes de calcul, les espaces `/project` sont organisés selon des *groupes*.
 L'accès à `/project` se fait habituellement par des liens symboliques à partir de votre répertoire `/home`.
-Les liens symboliques se présentent sous le format `$HOME/projects/group_name`, à l'exception des grappes [Rorqual](rorqual.md) et [Trillium](trillium.md) où le chemin est semblable à `$HOME/links/projects/group_name`.
+Les liens symboliques se présentent sous le format `$HOME/projects/group_name`, à l'exception des grappes [Rorqual](../clusters/rorqual.md) et [Trillium](../clusters/trillium.md) où le chemin est semblable à `$HOME/links/projects/group_name`.
 
 Dans l’espace réservé à un groupe, la chercheuse ou le chercheur principal est propriétaire du répertoire et les membres du groupe ont des permissions de lecture et écriture pour ce répertoire. Cependant, pour tout nouveau fichier enregistré dans le répertoire, les membres du groupe ont par défaut un droit de lecture seulement. Pour que les membres puissent avoir un droit en écriture, la meilleure approche est de créer un répertoire particulier, ainsi :
 
@@ -85,7 +85,7 @@ setfacl -d -m g::rwx $HOME/projects/def-profname/group_writable
 
 Sur le partage de données, la propriété de fichiers et les listes de contrôle d’accès (ACLs), voyez [Partage de données](https://docs.computecanada.ca/wiki/Sharing_data/fr).
 
-Par défaut, un espace `/project` a un quota de 1 To et 500 000 fichiers; l’espace peut être augmenté jusqu’à 40 To sur demande auprès du [soutien technique](technical-support.md). Si votre groupe dispose de quotas plus élevés par suite du [concours pour l’allocation de ressources](https://alliancecan.ca/fr/services/calcul-informatique-de-pointe/acces-aux-ressources/concours-pour-lallocation-de-ressources), vous connaissez le quota qui vous est alloué pour l’année.
+Par défaut, un espace `/project` a un quota de 1 To et 500 000 fichiers; l’espace peut être augmenté jusqu’à 40 To sur demande auprès du [soutien technique](../support/technical_support.md). Si votre groupe dispose de quotas plus élevés par suite du [concours pour l’allocation de ressources](https://alliancecan.ca/fr/services/calcul-informatique-de-pointe/acces-aux-ressources/concours-pour-lallocation-de-ressources), vous connaissez le quota qui vous est alloué pour l’année.
 
 !!! note "Important"
     Veuillez noter que l'espace de stockage alloué dépend de la grappe et ne peut, en principe, être utilisé sur une autre grappe.
@@ -118,7 +118,7 @@ newgrp rrg-profname-ab
 
 Copiez ensuite les données vers le répertoire `/project` approprié. Cependant, le groupe par défaut est modifié uniquement pour cette session; vous devrez utiliser `newgrp` à nouveau pour changer le groupe par défaut à votre prochaine connexion.
 
-Si vous recevez des messages d'erreur *Disk quota exceeded* (voir [Message *Disk quota exceeded*](frequently-asked-questions.md#message-disk-quota-exceeded)), ceci peut très bien être dû au fait que des fichiers sont associés au mauvais groupe, notamment votre groupe personnel, c'est-à-dire le groupe qui porte le même nom que votre nom d'utilisateur et qui a un quota de seulement 2 Mo. Pour trouver et résoudre un problème de propriété de groupe pour ces fichiers, vous pouvez utiliser la commande :
+Si vous recevez des messages d'erreur *Disk quota exceeded* (voir [Message *Disk quota exceeded*](../getting-started/frequently_asked_questions.md#message-disk-quota-exceeded)), ceci peut très bien être dû au fait que des fichiers sont associés au mauvais groupe, notamment votre groupe personnel, c'est-à-dire le groupe qui porte le même nom que votre nom d'utilisateur et qui a un quota de seulement 2 Mo. Pour trouver et résoudre un problème de propriété de groupe pour ces fichiers, vous pouvez utiliser la commande :
 
 ```bash
 find <nom-du-répertoire> -group $USER -print0 | xargs -0 chgrp -h <groupe>
@@ -154,12 +154,12 @@ En supposant maintenant que Sue ait obtenu des ressources avec de l'espace de st
 
 Ce répertoire servirait à stocker et partager les données pour un projet dans le cadre du concours.
 
-Pour partager un fichier avec une utilisatrice qui n’est pas parrainée par la chercheuse principale, par exemple Heather, le plus simple est de configurer les permissions pour que celle-ci puisse lire le répertoire ou le fichier, habituellement par une liste de contrôle des accès (ACL); pour les détails, voyez la page [Partage de données](sharing-data.md). Notez que les permissions pour les systèmes de fichiers peuvent être modifiées pour tous les répertoires ou fichiers, et non seulement pour ceux de votre espace `/project`. Vous pouvez partager un répertoire de votre espace `/scratch` ou encore un seul sous-répertoire particulier de votre espace `/project`.
+Pour partager un fichier avec une utilisatrice qui n’est pas parrainée par la chercheuse principale, par exemple Heather, le plus simple est de configurer les permissions pour que celle-ci puisse lire le répertoire ou le fichier, habituellement par une liste de contrôle des accès (ACL); pour les détails, voyez la page [Partage de données](sharing_data.md). Notez que les permissions pour les systèmes de fichiers peuvent être modifiées pour tous les répertoires ou fichiers, et non seulement pour ceux de votre espace `/project`. Vous pouvez partager un répertoire de votre espace `/scratch` ou encore un seul sous-répertoire particulier de votre espace `/project`.
 
 !!! tip "Bonne pratique"
     Il est recommandé de limiter le partage des fichiers aux espaces `/project` et `/scratch`.
 
-N’oubliez pas que Heather devra probablement avoir accès à plus d’un niveau de la structure du système de fichiers; il faut lui accorder les permissions de lecture et d’écriture pour chacun des répertoires entre `~/projects/def-sue` et le répertoire où sont situés les fichiers à partager. Nous avons supposé que Heather détient un compte sur la grappe en question, mais il est aussi possible de partager des données avec des chercheuses et chercheurs qui n’ont pas de compte avec l'Alliance, en créant un [point de chute commun](globus.md#partage-de-fichiers-avec-globus) dans Globus.
+N’oubliez pas que Heather devra probablement avoir accès à plus d’un niveau de la structure du système de fichiers; il faut lui accorder les permissions de lecture et d’écriture pour chacun des répertoires entre `~/projects/def-sue` et le répertoire où sont situés les fichiers à partager. Nous avons supposé que Heather détient un compte sur la grappe en question, mais il est aussi possible de partager des données avec des chercheuses et chercheurs qui n’ont pas de compte avec l'Alliance, en créant un [point de chute commun](../getting-started/globus.md#partage-de-fichiers-avec-globus) dans Globus.
 
 Bien sûr, si Heather devient une collaboratrice régulière de Sue, cette dernière pourrait la parrainer et lui accorder les mêmes accès que ceux accordés à Bob.
 

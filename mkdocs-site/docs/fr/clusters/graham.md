@@ -81,7 +81,7 @@ status:
 ---
 
 !!! warning "Attention"
-    Graham a été remplacée par une nouvelle grappe nommée [Nibi](nibi.md). Pendant la période de transition, les informations sur la capacité de chacun des systèmes ainsi que les arrêts ou les réductions de service seront disponibles sur la page [Renouvellement de l'infrastructure](infrastructure-renewal.md).
+    Graham a été remplacée par une nouvelle grappe nommée [Nibi](nibi.md). Pendant la période de transition, les informations sur la capacité de chacun des systèmes ainsi que les arrêts ou les réductions de service seront disponibles sur la page [Renouvellement de l'infrastructure](infrastructure_renewal.md).
 
 | Caractéristique                   | Valeur                                                              |
 | :-------------------------------- | :------------------------------------------------------------------ |
@@ -96,13 +96,13 @@ Les systèmes de fichiers parallèles et le stockage persistant (souvent nommé 
 
 Un système de refroidissement liquide utilise des échangeurs de chaleur à même les portes arrière.
 
-*   [Introduction à Graham](getting-started.md)
-*   [Exécuter des tâches](running-jobs.md)
-*   [Transférer des données](transferring-data.md)
+*   [Introduction à Graham](../getting-started/getting_started.md)
+*   [Exécuter des tâches](../running-jobs/running_jobs.md)
+*   [Transférer des données](../getting-started/transferring_data.md)
 
 ## Particularités
 
-*   Selon notre politique, les nœuds de calcul de Graham n'ont pas accès à l'internet. Pour y faire exception, contactez le [soutien technique](technical-support.md) avec les renseignements suivants:
+*   Selon notre politique, les nœuds de calcul de Graham n'ont pas accès à l'internet. Pour y faire exception, contactez le [soutien technique](../support/technical_support.md) avec les renseignements suivants:
 
 ```
 Adresse IP :
@@ -122,9 +122,9 @@ Avant de mettre fin au lien internet, nous communiquerons avec la personne-resso
 
 | Espace de stockage    | Caractéristiques                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
 | :-------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **espace /home**<br>Volume total de 133 To | * localisation des répertoires /home<br>* chaque répertoire /home a un petit [quota](storage-and-file-management.md#quotas-et-politiques) fixe<br>* non alloué via le [service d'accès rapide](https://alliancecan.ca/fr/services/calcul-informatique-de-pointe/acces-aux-ressources/service-dacces-rapide) ou le [concours d'allocation de ressources](https://alliancecan.ca/fr/services/calcul-informatique-de-pointe/acces-aux-ressources/concours-pour-lallocation-de-ressources); le stockage de grande envergure se fait sur l'espace /project<br>* est sauvegardé chaque jour |
-| **espace /scratch**<br>Volume total de 3.2 Po<br>Système de fichiers parallèle de haute performance | * stockage /scratch actif ou temporaire<br>* non alloué<br>* grand [quota](storage-and-file-management.md#quotas-et-politiques) fixe, par utilisateur<br>* les données inactives sont purgées                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
-| **espace /project**<br>Volume total de 16 Po<br>Stockage persistant externe | * allocations via le [service d'accès rapide](https://alliancecan.ca/fr/services/calcul-informatique-de-pointe/acces-aux-ressources/service-dacces-rapide) ou le [concours d'allocation de ressources](https://alliancecan.ca/fr/services/calcul-informatique-de-pointe/acces-aux-ressources/concours-pour-lallocation-de-ressources)<br>* ne convient pas aux tâches d'écriture et de lecture en parallèle; utiliser l'espace /scratch<br>* grand [quota](storage-and-file-management.md#quotas-et-politiques) ajustable par projet<br>* est sauvegardé chaque jour |
+| **espace /home**<br>Volume total de 133 To | * localisation des répertoires /home<br>* chaque répertoire /home a un petit [quota](../storage-and-data/storage_and_file_management.md#quotas-et-politiques) fixe<br>* non alloué via le [service d'accès rapide](https://alliancecan.ca/fr/services/calcul-informatique-de-pointe/acces-aux-ressources/service-dacces-rapide) ou le [concours d'allocation de ressources](https://alliancecan.ca/fr/services/calcul-informatique-de-pointe/acces-aux-ressources/concours-pour-lallocation-de-ressources); le stockage de grande envergure se fait sur l'espace /project<br>* est sauvegardé chaque jour |
+| **espace /scratch**<br>Volume total de 3.2 Po<br>Système de fichiers parallèle de haute performance | * stockage /scratch actif ou temporaire<br>* non alloué<br>* grand [quota](../storage-and-data/storage_and_file_management.md#quotas-et-politiques) fixe, par utilisateur<br>* les données inactives sont purgées                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| **espace /project**<br>Volume total de 16 Po<br>Stockage persistant externe | * allocations via le [service d'accès rapide](https://alliancecan.ca/fr/services/calcul-informatique-de-pointe/acces-aux-ressources/service-dacces-rapide) ou le [concours d'allocation de ressources](https://alliancecan.ca/fr/services/calcul-informatique-de-pointe/acces-aux-ressources/concours-pour-lallocation-de-ressources)<br>* ne convient pas aux tâches d'écriture et de lecture en parallèle; utiliser l'espace /scratch<br>* grand [quota](../storage-and-data/storage_and_file_management.md#quotas-et-politiques) ajustable par projet<br>* est sauvegardé chaque jour |
 
 ## Interconnexion haute performance
 
@@ -142,7 +142,7 @@ Pour les tâches plus imposantes, le facteur de blocage est de 8:1; même pour l
 
 ## Visualisation
 
-Graham offre des nœuds dédiés pour la visualisation qui permettent uniquement les connexions VNC (**gra-vdi.alliancecan.ca**). Pour l'information sur comment les utiliser, voyez la page [VNC](vnc.md).
+Graham offre des nœuds dédiés pour la visualisation qui permettent uniquement les connexions VNC (**gra-vdi.alliancecan.ca**). Pour l'information sur comment les utiliser, voyez la page [VNC](../interactive/vnc.md).
 
 ## Caractéristiques des nœuds
 
@@ -161,9 +161,9 @@ Tous les nœuds de Graham sont dotés de la fonctionnalité [Turbo Boost](https:
 | 11 | 64 | 128 Go ou 131072 Mo | 1 x AMD EPYC 7713 | 1.8 To SATA SSD | 4 x NVIDIA RTX A5000 Ampere |
 | 6 | 32 | 1024 Go ou 1048576 Mo | 1 x AMD EPYC 7543 | 8x2 To NVMe | - |
 
-La plupart des applications fonctionneront soit avec des nœuds Broadwell, Skylake ou Cascade Lake et les différences en termes de performance devraient être minimes à comparer avec les temps d'attente. Nous recommandons donc de ne pas sélectionner un type de nœud particulier pour vos tâches. Si nécessaire, pour les tâches qui doivent être exécutées avec un CPU Cascade Lake, utilisez `--constraint=cascade` (voir [comment spécifier l'architecture CPU](running-jobs.md#particularites-de-certaines-grappes)).
+La plupart des applications fonctionneront soit avec des nœuds Broadwell, Skylake ou Cascade Lake et les différences en termes de performance devraient être minimes à comparer avec les temps d'attente. Nous recommandons donc de ne pas sélectionner un type de nœud particulier pour vos tâches. Si nécessaire, pour les tâches qui doivent être exécutées avec un CPU Cascade Lake, utilisez `--constraint=cascade` (voir [comment spécifier l'architecture CPU](../running-jobs/running_jobs.md#particularites-de-certaines-grappes)).
 
-Pour le stockage local sur nœud, il est recommandé d'utiliser le répertoire temporaire `$SLURM_TMPDIR` généré par [Slurm](running-jobs.md). Ce répertoire avec son contenu est supprimé à la fin de l'exécution de la tâche.
+Pour le stockage local sur nœud, il est recommandé d'utiliser le répertoire temporaire `$SLURM_TMPDIR` généré par [Slurm](../running-jobs/running_jobs.md). Ce répertoire avec son contenu est supprimé à la fin de l'exécution de la tâche.
 
 Remarquez que la quantité de mémoire disponible est moindre que la valeur arrondie suggérée par la configuration matérielle. Par exemple, les nœuds de type base 128 Go ont effectivement 128 Go de mémoire vive, mais une certaine quantité est utilisée en permanence par le noyau (*kernel*) et le système d'exploitation. Pour éviter la perte de temps encourue par le *swapping* ou le *paging*, l'ordonnanceur n'allouera jamais une tâche dont les exigences dépassent la quantité de mémoire disponible indiquée dans le tableau ci-dessus. Notez aussi que la mémoire allouée pour la tâche doit être suffisante pour les lectures et écritures dans la mémoire tampon qui sont effectuées par le noyau et le système de fichiers; lorsque ces opérations sont nombreuses, il est préférable de demander plus de mémoire que la quantité totale requise par les processus.
 
@@ -220,7 +220,7 @@ module load StdEnv/2023
 nvidia-smi
 ```
 
-Les nœuds Volta de Graham ont un disque local rapide qui devrait être utilisé si la tâche exige beaucoup d'opérations E/S (I/O). Dans la tâche, la variable d'environnement `$SLURM_TMPDIR` donne la localisation du répertoire temporaire sur le disque. Vous pouvez y copier vos fichiers de données au début du script avant d'exécuter le programme, et y copier vos fichiers de sortie à la fin du script. Comme tous les fichiers contenus dans `$SLURM_TMPDIR` sont supprimés quand la tâche est terminée, vous n'avez pas à le faire. Vous pouvez même [créer des environnements virtuels Python](python.md#creer-un-environnement-virtuel-dans-vos-taches) dans cet espace temporaire pour améliorer l'efficacité.
+Les nœuds Volta de Graham ont un disque local rapide qui devrait être utilisé si la tâche exige beaucoup d'opérations E/S (I/O). Dans la tâche, la variable d'environnement `$SLURM_TMPDIR` donne la localisation du répertoire temporaire sur le disque. Vous pouvez y copier vos fichiers de données au début du script avant d'exécuter le programme, et y copier vos fichiers de sortie à la fin du script. Comme tous les fichiers contenus dans `$SLURM_TMPDIR` sont supprimés quand la tâche est terminée, vous n'avez pas à le faire. Vous pouvez même [créer des environnements virtuels Python](../software/python.md#creer-un-environnement-virtuel-dans-vos-taches) dans cet espace temporaire pour améliorer l'efficacité.
 
 ### Nœuds GPU Turing
 

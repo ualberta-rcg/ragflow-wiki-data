@@ -70,7 +70,7 @@ Here is a demo explaining all the steps you should take when you want to use sof
 ## How to find if a software is available on the clusters?
 
 ### Modules
-You will find all information about [available software](available-software.md) here. In short, some of the software is available by loading the appropriate module.
+You will find all information about [available software](../programming/available_software.md) here. In short, some of the software is available by loading the appropriate module.
 
 To find the module you do:
 
@@ -90,7 +90,7 @@ module spider nameOfYourSoftware/10.2
 
 In our example, we would not get any output for CheckV because it is a Python wheel.
 
-Python modules are provided as [available Python wheels](available-python-wheels.md).
+Python modules are provided as [available Python wheels](../programming/available_python_wheels.md).
 
 You can find them by typing:
 ```bash
@@ -106,7 +106,7 @@ First steps would be to have a look at the documentation of the software. You ca
 !!! warning "Conda environments"
     Note that you **cannot** use Conda environments on the clusters due to [Anaconda](anaconda.md) limitations.
 
-We have a wiki page that explains how you can [installing software in your home directory](installing-software-in-your-home-directory.md) or you can email [Technical support](technical-support.md) to get some help to either install it in your account or on the clusters.
+We have a wiki page that explains how you can [installing software in your home directory](../getting-started/installing_software_in_your_home_directory.md) or you can email [Technical support](../support/technical_support.md) to get some help to either install it in your account or on the clusters.
 
 For Python wheels, you can search them on the [PyPI](https://pypi.org/) website, which is a collection of wheels made available for everyone. We will get into more details in the following section, but you can install them in your virtual environment with this command: `pip install nameOfTheWheel`.
 
@@ -210,9 +210,9 @@ wget https://bitbucket.org/berkeleylab/checkv/raw/3f185b5841e8c109848cd0b001df71
 First step for running your job: use an interactive session.
 
 Still need to demystify #SBATCH parameters?
-If you need to refresh your SBATCH parameter knowledge, we recommend having a look at the [Slurm SBATCH command page](https://slurm.schedmd.com/sbatch.html) and the [running jobs](running-jobs.md) wiki page.
+If you need to refresh your SBATCH parameter knowledge, we recommend having a look at the [Slurm SBATCH command page](https://slurm.schedmd.com/sbatch.html) and the [running jobs](../running-jobs/running_jobs.md) wiki page.
 
-To learn more about interactive jobs, you can have a look at the wiki page [running jobs#interactive-job](running-jobs.md#interactive-job).
+To learn more about interactive jobs, you can have a look at the wiki page [running jobs#interactive-job](../running-jobs/running_jobs.md#interactive-job).
 
 **1. Gather information on the command line and the software.**
 
@@ -324,7 +324,7 @@ checkv end_to_end test_sequences.fna $SCRATCH/checkv_output -t ${SLURM_CPUS_PER_
 
 ### Useful commands to adjust resources.
 
-To have the whole picture about commands involved in job monitoring, please have a look at this wiki page: [Monitoring jobs](running-jobs.md#monitoring-jobs).
+To have the whole picture about commands involved in job monitoring, please have a look at this wiki page: [Monitoring jobs](../running-jobs/running_jobs.md#monitoring-jobs).
 
 **1. Seff command.**
 

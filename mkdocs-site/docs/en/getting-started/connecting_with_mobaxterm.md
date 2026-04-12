@@ -35,7 +35,7 @@ status:
   qa_generated: false
 ---
 
-Connecting with [MobaXterm](http://mobaxterm.mobatek.net/) works in basically the same way as PuTTY (see [Connecting with PuTTY](connecting-with-putty.md)); however, there is more functionality combined into MobaXterm than PuTTY. MobaXterm has a built-in SFTP client to transfer files as well as a built-in X11 server to allow you to run graphical programs remotely without the need to install a third-party X11 server. If you have already been using PuTTY and have saved sessions, MobaXterm will use these saved sessions so that you do not have to re-enter the settings.
+Connecting with [MobaXterm](http://mobaxterm.mobatek.net/) works in basically the same way as PuTTY (see [Connecting with PuTTY](connecting_with_putty.md)); however, there is more functionality combined into MobaXterm than PuTTY. MobaXterm has a built-in SFTP client to transfer files as well as a built-in X11 server to allow you to run graphical programs remotely without the need to install a third-party X11 server. If you have already been using PuTTY and have saved sessions, MobaXterm will use these saved sessions so that you do not have to re-enter the settings.
 
 To connect to a machine which you have not previously connected to using MobaXterm or PuTTY, go to `Sessions` > `New session`, select an "SSH" session, type in the remote host address and your USERNAME (note you may need to check the "Specify username" checkbox). Then click "OK". MobaXterm will then save that session information you just entered for future connections, and also open an SSH connection to the specified host, which will then request your password. Once your password is entered successfully, you will now have a terminal you can type commands at as well as an SFTP client in the left pane which you can use to view files on the remote machine as well as transfer files to and from the remote machine by dragging and dropping files.
 
@@ -49,4 +49,4 @@ To enable X11 forwarding to allow the use of graphical applications from the hos
 
 ## Using a Key Pair
 
-Right-click on the session in the left "Sessions" pane and select "Edit Session". In the session settings window, select "Advanced SSH settings" and check the "Use private key" checkbox. You can then click on the icon at the right of the text box to browse the file system and select a private key file to use. To create a key pair, see [Generating SSH keys in Windows](generating-ssh-keys-in-windows.md).
+Right-click on the session in the left "Sessions" pane and select "Edit Session". In the session settings window, select "Advanced SSH settings" and check the "Use private key" checkbox. You can then click on the icon at the right of the text box to browse the file system and select a private key file to use. To create a key pair, see [Generating SSH keys in Windows](generating_ssh_keys_in_windows.md).

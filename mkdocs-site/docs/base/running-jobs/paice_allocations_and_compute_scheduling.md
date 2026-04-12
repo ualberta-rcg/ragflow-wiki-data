@@ -37,7 +37,7 @@ status:
 
 ## Overview
 
-The Pan Canadian AI Environment (PAICE) clusters, which consists of [Vulcan](vulcan.md), [Killarney](killarney.md) and [TamIA](tamia.md) borrow strongly from the Alliance's traditional [Allocations and compute scheduling](allocations-and-compute-scheduling.md) methodologies, but differ in how resource allocations are assigned.
+The Pan Canadian AI Environment (PAICE) clusters, which consists of [Vulcan](../clusters/vulcan.md), [Killarney](../clusters/killarney.md) and [TamIA](../clusters/tamia.md) borrow strongly from the Alliance's traditional [Allocations and compute scheduling](allocations_and_compute_scheduling.md) methodologies, but differ in how resource allocations are assigned.
 
 The PAICE sites do not participate in the Resource Allocation Competition (RAC) and instead derive cluster computational allocations by grouping Projects into one of four groups, which are then allocated resources on the three clusters.
 
@@ -53,7 +53,7 @@ There are 4 Tiers of users identified:
 Users are assigned to an AI-specific Slurm Account and POSIX group with the prefix of `aip-` versus the more familiar `rrg-` or `rrp-` used on the non-PAICE sites.
 
 !!! note
-    Users must utilize this `aip-` naming structure in their job submissions and [storage allocations](storage-and-file-management.md) while using the PAICE clusters.
+    Users must utilize this `aip-` naming structure in their job submissions and [storage allocations](../storage-and-data/storage_and_file_management.md) while using the PAICE clusters.
 
 ## Scheduling Calculations
 
@@ -68,4 +68,4 @@ Each of the above Tiers are assigned a FairShare value that is proportional to t
 
 A Tier's allocation percentage will be further equally divided among the Projects assigned to the Tier and are expressed as the FairShare value in the scheduler's Project/Account.
 
-Aside from this method of assigning Shares to an Account, the same methodology of scheduler job priority management that is outlined in [Allocations and compute scheduling](allocations-and-compute-scheduling.md) is in effect on the PAICE clusters.
+Aside from this method of assigning Shares to an Account, the same methodology of scheduler job priority management that is outlined in [Allocations and compute scheduling](allocations_and_compute_scheduling.md) is in effect on the PAICE clusters.

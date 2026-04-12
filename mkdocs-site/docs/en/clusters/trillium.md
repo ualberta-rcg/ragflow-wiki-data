@@ -47,10 +47,10 @@ status:
 
 Trillium is a large parallel cluster built by Lenovo Canada and hosted by SciNet at the University of Toronto.
 
-The [Trillium Quickstart](trillium-quickstart.md) has specific instructions for Trillium, where the user experience is similar to that on the other national clusters, but still slightly different.
+The [Trillium Quickstart](trillium_quickstart.md) has specific instructions for Trillium, where the user experience is similar to that on the other national clusters, but still slightly different.
 
 !!! note "Transitioning from Niagara"
-    Current users transitioning from Niagara are strongly encouraged to peruse the documentation on the [Transition from Niagara to Trillium](transition-from-niagara-to-trillium.md).
+    Current users transitioning from Niagara are strongly encouraged to peruse the documentation on the [Transition from Niagara to Trillium](transition_from_niagara_to_trillium.md).
 
 ## Installation and Transition
 Due to limits on available power and cooling capacity there will be an interim period in which a significant portion of the old Niagara will be shut down in order to provide power for the new system's acceptance testing and transition. We'll update you when we have a better idea of Trillium's installation schedule.

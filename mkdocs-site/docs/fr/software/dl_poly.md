@@ -58,11 +58,11 @@ DL_POLY est un logiciel classique de simulation en mécanique moléculaire. Sa c
 
 ## Licence
 
-**DL_POLY** est maintenant [*open source*](https://gitlab.com/DL%20POLY%20Classic/dl%20poly) et il n'est pas nécessaire de vous enregistrer. Le nouveau module **dl_poly4/5.1.0** est installé sous **StdEnv/2023** et est disponible à toutes et à tous. Cependant, si vous voulez utiliser une version antérieure (**dl_poly4/4.10.0** et/ou **dl_poly4/4.08**), écrivez au [soutien technique](technical-support.md#fr) et demandez de vous ajouter à un groupe POSIX qui contrôle l'accès à DL_POLY4. Il n'est pas nécessaire de vous enregistrer sur le site web de DL_POLY.
+**DL_POLY** est maintenant [*open source*](https://gitlab.com/DL%20POLY%20Classic/dl%20poly) et il n'est pas nécessaire de vous enregistrer. Le nouveau module **dl_poly4/5.1.0** est installé sous **StdEnv/2023** et est disponible à toutes et à tous. Cependant, si vous voulez utiliser une version antérieure (**dl_poly4/4.10.0** et/ou **dl_poly4/4.08**), écrivez au [soutien technique](../support/technical_support.md#fr) et demandez de vous ajouter à un groupe POSIX qui contrôle l'accès à DL_POLY4. Il n'est pas nécessaire de vous enregistrer sur le site web de DL_POLY.
 
 ## Modules
 
-Pour connaître les versions disponibles, lancez `module spider dl_poly4`. La commande `module` est décrite dans la page [Utiliser des modules](utiliser-des-modules.md).
+Pour connaître les versions disponibles, lancez `module spider dl_poly4`. La commande `module` est décrite dans la page [Utiliser des modules](../programming/utiliser_des_modules.md).
 
 Chargez la version 5.x avec :
 

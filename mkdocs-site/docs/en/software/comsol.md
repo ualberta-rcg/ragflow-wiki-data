@@ -85,7 +85,7 @@ We recommend that you consult the documentation included with the software under
 
 # Licensing
 
-We are a hosting provider for COMSOL. This means that we have COMSOL software installed on our clusters, but we do not provide a generic license accessible to everyone. Many institutions, faculties, and departments already have licenses that can be used on our clusters. Alternatively, you can purchase a license from [CMC](https://account.cmc.ca/en/WhatWeOffer/Products/CMC-00200-00368.aspx) for use anywhere in Canada. Once the legal aspects are worked out for licensing, there will be remaining technical aspects. The license server on your end will need to be reachable by our compute nodes. This will require our technical team to get in touch with the technical people managing your license software. If you have purchased a CMC license and will be connecting to the CMC license server, this has already been done. Once the license server work is done and your *~/.licenses/comsol.lic* has been created, you can load any COMSOL module and begin using the software. If this is not the case, please contact our [technical support](technical-support.md).
+We are a hosting provider for COMSOL. This means that we have COMSOL software installed on our clusters, but we do not provide a generic license accessible to everyone. Many institutions, faculties, and departments already have licenses that can be used on our clusters. Alternatively, you can purchase a license from [CMC](https://account.cmc.ca/en/WhatWeOffer/Products/CMC-00200-00368.aspx) for use anywhere in Canada. Once the legal aspects are worked out for licensing, there will be remaining technical aspects. The license server on your end will need to be reachable by our compute nodes. This will require our technical team to get in touch with the technical people managing your license software. If you have purchased a CMC license and will be connecting to the CMC license server, this has already been done. Once the license server work is done and your *~/.licenses/comsol.lic* has been created, you can load any COMSOL module and begin using the software. If this is not the case, please contact our [technical support](../support/technical_support.md).
 
 ## Configuring your own license file
 
@@ -101,7 +101,7 @@ Where `<server>` is your license server hostname and `<port>` is the flex port n
 
 ### Local license setup
 
-For researchers wanting to use a new local institutional license server, firewall changes will need to be done to the network on both the Alliance (system/cluster) side and the institutional (server) side. To arrange this, send an email to [technical support](technical-support.md) containing 1) the COMSOL lmgrd TCP flex port number (typically 1718 default) and 2) the static LMCOMSOL TCP vendor port number (typically 1719 default) and finally 3) the fully qualified hostname of your COMSOL license server. Once this is complete, create a corresponding *comsol.lic* text file as shown above.
+For researchers wanting to use a new local institutional license server, firewall changes will need to be done to the network on both the Alliance (system/cluster) side and the institutional (server) side. To arrange this, send an email to [technical support](../support/technical_support.md) containing 1) the COMSOL lmgrd TCP flex port number (typically 1718 default) and 2) the static LMCOMSOL TCP vendor port number (typically 1719 default) and finally 3) the fully qualified hostname of your COMSOL license server. Once this is complete, create a corresponding *comsol.lic* text file as shown above.
 
 ### CMC license setup
 
@@ -132,7 +132,7 @@ To determine the number of licenses checked out by your running COMSOL job(s) it
 
 ## Installed products
 
-To check which [modules and products](https://www.comsol.com/products) are available for use, start COMSOL in [graphical mode](#graphical-use) and then click *Options -> Licensed and Used Products* on the upper pull-down menu. For a more detailed explanation, click [here](https://doc.comsol.com/6.0/docserver/#!/com.comsol.help.comsol/comsol_ref_customizing.16.09.html). If a module/product is missing or reports being unlicensed, contact [technical support](technical-support.md) as a reinstall of the CVMFS module you are using may be required.
+To check which [modules and products](https://www.comsol.com/products) are available for use, start COMSOL in [graphical mode](#graphical-use) and then click *Options -> Licensed and Used Products* on the upper pull-down menu. For a more detailed explanation, click [here](https://doc.comsol.com/6.0/docserver/#!/com.comsol.help.comsol/comsol_ref_customizing.16.09.html). If a module/product is missing or reports being unlicensed, contact [technical support](../support/technical_support.md) as a reinstall of the CVMFS module you are using may be required.
 
 ## Installed versions
 
@@ -226,7 +226,7 @@ comsol batch -inputfile $INPUTFILE -outputfile $OUTPUTFILE -np $SLURM_CPUS_ON_NO
 
 # Graphical use
 
-To run COMSOL in graphical mode open a remote desktop on an [OnDemand](https://docs.alliancecan.ca/wiki/Nibi#Access_through_Open_OnDemand_(OOD)) or JupyterLab system by clicking one of the following links. Note that the old approach of using a [TigerVNC](vnc.md) client/server pair should still work but is no longer recommended or supported. For either approach `~/.licenses/comsol.lic` must first be configured. Note that running command `module avail comsol` will display which COMSOL versions are available within the StdEnv version that you currently have loaded ie) `StdEnv/2023`. If you find the upper menu items are greyed out and not clickable after starting COMSOL in GUI mode then your *~/.comsol* maybe corrupted so try deleting it.
+To run COMSOL in graphical mode open a remote desktop on an [OnDemand](https://docs.alliancecan.ca/wiki/Nibi#Access_through_Open_OnDemand_(OOD)) or JupyterLab system by clicking one of the following links. Note that the old approach of using a [TigerVNC](../interactive/vnc.md) client/server pair should still work but is no longer recommended or supported. For either approach `~/.licenses/comsol.lic` must first be configured. Note that running command `module avail comsol` will display which COMSOL versions are available within the StdEnv version that you currently have loaded ie) `StdEnv/2023`. If you find the upper menu items are greyed out and not clickable after starting COMSOL in GUI mode then your *~/.comsol* maybe corrupted so try deleting it.
 
 ## OnDemand
 

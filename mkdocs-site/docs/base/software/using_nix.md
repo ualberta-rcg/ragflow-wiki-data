@@ -198,7 +198,7 @@ git-minimal-2.19.3
 !!! tip "Pro tips"
     *   `nix-env --rollback` moves up one generation.
     *   `nix-env --delete-generations <time>` deletes environments older than `<time>` (e.g., `30d`).
-    *   See our [nix-env page](using-nix-nix-env.md) for a much more in-depth discussion of using `nix-env`.
+    *   See our [nix-env page](using_nix__nix-env.md) for a much more in-depth discussion of using `nix-env`.
 
 # Creating compositions
 

@@ -130,7 +130,7 @@ All clusters have a Globus collection name specified in the table on top of thei
 
 | General-purpose | Large parallel | AI oriented |
 | :-------------- | :------------- | :---------- |
-| [Fir](fir.md)<br>[Narval](narval.md)<br>[Nibi](nibi.md)<br>[Rorqual](rorqual.md) | [Trillium](trillium.md) | [Killarney](killarney.md)<br>[TamIA](tamia.md)<br>[Vulcan](vulcan.md) |
+| [Fir](../software/fir.md)<br>[Narval](../clusters/narval.md)<br>[Nibi](../clusters/nibi.md)<br>[Rorqual](../clusters/rorqual.md) | [Trillium](../clusters/trillium.md) | [Killarney](../clusters/killarney.md)<br>[TamIA](../clusters/tamia.md)<br>[Vulcan](../clusters/vulcan.md) |
 
 You may be prompted to authenticate to access the collection, depending on which site it is hosted. For example, if you are activating a collection hosted on Nibi, you will be asked for your Alliance username and password. The authentication of a collection remains valid for some time, typically one week for Alliance collections, while personal collections do not expire.
 
@@ -195,10 +195,10 @@ Verify in the table below that the system hosting your files has sharing enabled
 
 | System | Sharing enabled |
 | :----- | :-------------- |
-| [Trillium](trillium.md) | No. |
-| [General-purpose clusters](national-systems.md#compute-clusters) | Yes, in: `/home` (except Rorqual). No, in: `/scratch` (except Narval). `/project`, on demand (see below). |
+| [Trillium](../clusters/trillium.md) | No. |
+| [General-purpose clusters](../clusters/national_systems.md#compute-clusters) | Yes, in: `/home` (except Rorqual). No, in: `/scratch` (except Narval). `/project`, on demand (see below). |
 
-On [general-purpose clusters](national-systems.md#compute-clusters), Globus sharing is enabled for the `/home` directory, except on the Rorqual cluster. If you would like to test a Globus share you can create one in your `/home` directory.
+On [general-purpose clusters](../clusters/national_systems.md#compute-clusters), Globus sharing is enabled for the `/home` directory, except on the Rorqual cluster. If you would like to test a Globus share you can create one in your `/home` directory.
 
 By default, we disable sharing on `/project` to prevent users accidentally sharing other users' files. To enable sharing on `/project`, **the PI needs to contact [globus@tech.alliancecan.ca](mailto:globus@tech.alliancecan.ca) with**:
 
@@ -295,7 +295,7 @@ Click on a user to modify their membership. You can change their role and status
 ## Command line interface (CLI)
 ### Installing
 The Globus command line interface is a Python module which can be installed using pip. Below are the steps to install Globus CLI on one of our clusters.
-1.  Create a virtual environment to install the Globus CLI into (see [creating and using a virtual environment](python.md#creating-and-using-a-virtual-environment)).
+1.  Create a virtual environment to install the Globus CLI into (see [creating and using a virtual environment](../software/python.md#creating-and-using-a-virtual-environment)).
     ```bash
     $ virtualenv $HOME/.globus-cli-virtualenv
     ```
@@ -303,7 +303,7 @@ The Globus command line interface is a Python module which can be installed usin
     ```bash
     $ source $HOME/.globus-cli-virtualenv/bin/activate
     ```
-3.  Install Globus CLI into the virtual environment (see [installing modules](python.md#installing-modules)).
+3.  Install Globus CLI into the virtual environment (see [installing modules](../software/python.md#installing-modules)).
     ```bash
     $ pip install globus-cli
     ```
@@ -339,7 +339,7 @@ Server is designed for headless (command line only, no GUI) installations and ha
 ## Object storage on Arbutus
 
 **Please note that these instructions now refer to accessing Legacy Arbutus Object Storage only.** Accessing the object storage requires a cloud project with object storage allocated. The steps below are only needed once.
-To access the Arbutus object storage, generate the storage **access ID** and **secret key** with the [OpenStack command line client](openstack-command-line-clients.md).
+To access the Arbutus object storage, generate the storage **access ID** and **secret key** with the [OpenStack command line client](../cloud/openstack_command_line_clients.md).
 1.  Import your credentials with `source <project name>-openrc.sh`.
 2.  Create the storage access ID and secret key with `openstack ec2 credentials create`.
 3.  Log into the [Globus portal](#using-globus) at [https://www.globus.org/](https://www.globus.org/).

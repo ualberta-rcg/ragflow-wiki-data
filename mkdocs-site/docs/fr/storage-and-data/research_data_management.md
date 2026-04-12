@@ -92,7 +92,7 @@ Nous présentons ici des ressources spécialisées pour la gestion des données 
 ### Métadonnées
 
 *   [RDA Metadata Standards Catalog](https://rdamsc.bath.ac.uk/)
-*   [Fichiers README](readme-files.md)
+*   [Fichiers README](readme_files.md)
 
 ### Identifiants numériques persistants
 

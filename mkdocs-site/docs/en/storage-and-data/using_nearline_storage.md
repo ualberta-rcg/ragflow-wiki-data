@@ -74,8 +74,8 @@ Nearline is a tape-based filesystem intended for **inactive data**. Datasets whi
 
 Retrieving small files from tape is inefficient, while extremely large files pose other problems. Please observe these guidelines when storing files in /nearline:
 
-*   Files smaller than ~10GB should be combined into archive files (*tarballs*) using [tar](a-tutorial-on-tar.md) or a [similar tool](archiving-and-compressing-files.md).
-*   Files larger than 4TB should be split in chunks of 1TB using the [split command](a-tutorial-on-tar.md#splitting-files) or a similar tool.
+*   Files smaller than ~10GB should be combined into archive files (*tarballs*) using [tar](a_tutorial_on__tar.md) or a [similar tool](archiving_and_compressing_files.md).
+*   Files larger than 4TB should be split in chunks of 1TB using the [split command](a_tutorial_on__tar.md#splitting-files) or a similar tool.
 *   **DO NOT SEND SMALL FILES TO NEARLINE, except for indexes (see *Create an index* below).**
 
 ### Do not compress your data
@@ -85,7 +85,7 @@ Retrieving small files from tape is inefficient, while extremely large files pos
 
 ### Use tar or dar
 
-Use [tar](a-tutorial-on-tar.md) or [dar](dar.md) to create an archive file.
+Use [tar](a_tutorial_on__tar.md) or [dar](dar.md) to create an archive file.
 
 Keep the source files in their original filesystem. Do NOT copy the source files to /nearline before creating the archive.
 
@@ -124,7 +124,7 @@ tar tvvf /nearline/def-sponsor/user/mycollection.tar > /nearline/def-sponsor/use
 ### Use a terminal multiplexer
 
 !!! tip "Use a terminal multiplexer"
-    Archiving large file collections can take several hours or even days. Your SSH session might be interrupted before your program finishes, or you might want to close your session, keep your program running in the background, and come back to it later. Run `tar` or `dar` in [a terminal multiplexer](prolonging-terminal-sessions.md#terminal-multiplexers) such as `tmux` to manage these issues.
+    Archiving large file collections can take several hours or even days. Your SSH session might be interrupted before your program finishes, or you might want to close your session, keep your program running in the background, and come back to it later. Run `tar` or `dar` in [a terminal multiplexer](../running-jobs/prolonging_terminal_sessions.md#terminal-multiplexers) such as `tmux` to manage these issues.
 
 ### Use `dar` in non-interactive mode
 
@@ -152,7 +152,7 @@ When a file has been moved entirely to tape (that is, when it is *virtualized*) 
 ### Transferring data from /nearline
 
 !!! warning "Expect longer transfer times"
-    While [transferring data](transferring-data.md) with [Globus](globus.md) or any other tool, the data that was on tape gets automatically restored on disk upon reading it. Since tape access is relatively slow, each file restoration can hang the transfer for a few minutes to a few hours. Therefore, users should expect longer transfer times from /nearline.
+    While [transferring data](../getting-started/transferring_data.md) with [Globus](../getting-started/globus.md) or any other tool, the data that was on tape gets automatically restored on disk upon reading it. Since tape access is relatively slow, each file restoration can hang the transfer for a few minutes to a few hours. Therefore, users should expect longer transfer times from /nearline.
 
 For an overview of the state of all files saved on /nearline, **some clusters** support the following command:
 ```bash
@@ -194,7 +194,7 @@ You can explicitly force a file to be recalled from tape without actually readin
 
     To use /nearline, just put files into your `~/nearline/PROJECT` directory. After a period of time (24 hours as of February 2019), they will be copied onto tape. If the file remains unchanged for another period (24 hours as of February 2019), the copy on disk will be removed, making the file virtualized on tape. 
 
-    If you accidentally (or deliberately) delete a file from `~/nearline`, the tape copy will be retained for up to 60 days. To restore such a file contact [technical support](technical-support.md) with the full path for the file(s) and desired version (by date), just as you would for restoring a [backup](storage-and-file-management.md#filesystem-quotas-and-policies). Note that since you will need the full path for the file, it is important for you to retain a copy of the complete directory structure of your /nearline space. For example, you can run the command `ls -R > ~/nearline_contents.txt` from the `~/nearline/PROJECT` directory so that you have a copy of the location of all the files.
+    If you accidentally (or deliberately) delete a file from `~/nearline`, the tape copy will be retained for up to 60 days. To restore such a file contact [technical support](../support/technical_support.md) with the full path for the file(s) and desired version (by date), just as you would for restoring a [backup](storage_and_file_management.md#filesystem-quotas-and-policies). Note that since you will need the full path for the file, it is important for you to retain a copy of the complete directory structure of your /nearline space. For example, you can run the command `ls -R > ~/nearline_contents.txt` from the `~/nearline/PROJECT` directory so that you have a copy of the location of all the files.
 
 === "Nibi"
     /nearline service similar to that on Béluga, except:
@@ -212,4 +212,4 @@ You can explicitly force a file to be recalled from tape without actually readin
 
     2.  To manage a small number of files in HPSS, you can use the VFS (*Virtual File System*) node, which is accessed with the command `salloc --time=1:00:00 -pvfsshort`. Your HPSS files can be found in the `$ARCHIVE` directory, which is like `$PROJECT` but with `/project` replaced by `/archive`. 
 
-    3.  By using [Globus](globus.md) for transfers to and from HPSS using the endpoint **alliancecan#hpss**. This is useful for occasional usage and for transfers to and from other sites.
+    3.  By using [Globus](../getting-started/globus.md) for transfers to and from HPSS using the endpoint **alliancecan#hpss**. This is useful for occasional usage and for transfers to and from other sites.

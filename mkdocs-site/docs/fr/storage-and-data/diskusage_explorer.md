@@ -38,9 +38,9 @@ status:
 ## Contenu des répertoires
 
 !!! attention "Important"
-    Pour l'instant, cet outil est seulement disponible sur [Narval](narval.md).
+    Pour l'instant, cet outil est seulement disponible sur [Narval](../clusters/narval.md).
 
-L'outil Diskusage Explorer vous permet d'obtenir le détail de l'utilisation de l'espace dans vos répertoires `/home`, `/scratch` et `/project`. Cette information est mise à jour quotidiennement et est triée selon un format [SQLite](sqlite.md) pour un accès rapide.
+L'outil Diskusage Explorer vous permet d'obtenir le détail de l'utilisation de l'espace dans vos répertoires `/home`, `/scratch` et `/project`. Cette information est mise à jour quotidiennement et est triée selon un format [SQLite](../software/sqlite.md) pour un accès rapide.
 
 Dans notre exemple, nous verrons la consommation de l'espace disque du répertoire `def-professor` dans `/project`.
 
@@ -71,7 +71,7 @@ La commande `man duc` affiche une page du manuel.
 
 Nous recommandons d'utiliser le mode texte ncurses standard sur nos nœuds de connexion, mais `diskusage_explorer` inclut aussi une belle interface graphique.
 
-Assurez-vous d'abord que votre connexion [SSH](ssh.md) fait en sorte que l'affichage des applications d'interfaces se fait correctement. Vous pouvez alors utiliser une interface graphique avec la commande
+Assurez-vous d'abord que votre connexion [SSH](../getting-started/ssh.md) fait en sorte que l'affichage des applications d'interfaces se fait correctement. Vous pouvez alors utiliser une interface graphique avec la commande
 
 ```bash
 duc gui -d /project/.duc_databases/def-professor.sqlite /project/def-professor

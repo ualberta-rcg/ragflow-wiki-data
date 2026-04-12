@@ -149,7 +149,7 @@ status:
   qa_generated: false
 ---
 
-*Parent page: [Job scheduling policies](job-scheduling-policies.md)*
+*Parent page: [Job scheduling policies](job_scheduling_policies.md)*
 
 # Allocations for high-performance computing
 
@@ -164,7 +164,7 @@ The time period of an allocation when it is granted is a reference value, used f
 
 ## From compute allocations to job scheduling
 
-Compute-related resources granted by core-year and GPU-year allocations require research groups to submit what are referred to as *jobs* to a *scheduler*. A job is a combination of a computer program (an application) and a list of resources that the application is expected to use. The [scheduler](what-is-a-scheduler.md) is a program that calculates the priority of each job submitted and provides the needed resources based on the priority of each job and the available resources.
+Compute-related resources granted by core-year and GPU-year allocations require research groups to submit what are referred to as *jobs* to a *scheduler*. A job is a combination of a computer program (an application) and a list of resources that the application is expected to use. The [scheduler](what_is_a_scheduler.md) is a program that calculates the priority of each job submitted and provides the needed resources based on the priority of each job and the available resources.
 
 The scheduler uses prioritization algorithms to meet the allocation targets of all groups and it is based on a research group’s recent usage of the system as compared to their allocated usage on that system. The past of the allocation period is taken into account but the most weight is put on recent usage (or non-usage). The point of this is to allow a research group that matches their actual usage with their allocated amounts to operate roughly continuously at that level. This smooths resource usage over time across all groups and resources, allowing for it to be theoretically possible for all research groups to hit their allocation targets.
 
@@ -176,7 +176,7 @@ It is even possible that you could end a month or even a year having run more wo
 
 # Reference GPU Units (RGUs)
 
-The performance of GPUs has dramatically increased in recent years and continues to do so. Until RAC 2023 we treated all GPUs as equivalent to each other for allocation purposes. This caused problems both in the allocation process and while running jobs, so in the 2024 RAC year we introduced the *reference GPU unit*, or **RGU**, to rank all GPU models in production and alleviate these problems. Since the 2025 RAC year we also have to deal with new complexity involving [multi-instance GPU](multi-instance-gpu.md) technology.
+The performance of GPUs has dramatically increased in recent years and continues to do so. Until RAC 2023 we treated all GPUs as equivalent to each other for allocation purposes. This caused problems both in the allocation process and while running jobs, so in the 2024 RAC year we introduced the *reference GPU unit*, or **RGU**, to rank all GPU models in production and alleviate these problems. Since the 2025 RAC year we also have to deal with new complexity involving [multi-instance GPU](../programming/multi-instance_gpu.md) technology.
 
 Because roughly half of our users primarily use single-precision floating-point operations ([FP32](https://en.wikipedia.org/wiki/Single-precision_floating-point_format)), the other half use half-precision floating-point operations ([FP16](https://en.wikipedia.org/wiki/Half-precision_floating-point_format)), and a significant portion of all users are constrained by the amount of memory on the GPU, we chose the following evaluation criteria and corresponding weights to rank the different GPU models:
 
@@ -202,7 +202,7 @@ We currently use the NVidia **A100-40gb** GPU as the reference model and assign 
 | P100-16gb    | 0.48       | 0.03       | 0.4          | 1.1                  | No            | No             | No                  |
 | P100-12gb    | 0.48       | 0.03       | 0.3          | 1.0                  | No            | No             | No                  |
 
-With the 2025 [infrastructure renewal](infrastructure-renewal.md), it will become possible to schedule a fraction of a GPU using [multi-instance GPU](multi-instance-gpu.md) technology. Different jobs, potentially belonging to different users, can run on the same GPU at the same time. Following [NVidia's terminology](https://docs.nvidia.com/datacenter/tesla/mig-user-guide/#terminology), a fraction of a GPU allocated to a single job is called a *GPU instance*, also sometimes called a *MIG instance*.
+With the 2025 [infrastructure renewal](../clusters/infrastructure_renewal.md), it will become possible to schedule a fraction of a GPU using [multi-instance GPU](../programming/multi-instance_gpu.md) technology. Different jobs, potentially belonging to different users, can run on the same GPU at the same time. Following [NVidia's terminology](https://docs.nvidia.com/datacenter/tesla/mig-user-guide/#terminology), a fraction of a GPU allocated to a single job is called a *GPU instance*, also sometimes called a *MIG instance*.
 
 The following table lists the GPU models and instances that can be selected in the CCDB form for RAC 2026. RGU values for GPU instances have been estimated from whole-GPU performance numbers and the fraction of the GPU which comprises the instance.
 
@@ -270,34 +270,34 @@ Alliance systems have the following RGU-core-memory bundle characteristics (only
 
 | Cluster                                      | Cores per RGU | Memory per RGU (GB) |
 | :------------------------------------------: | :-----------: | :-----------------: |
-| [Fir](fir.md#node-characteristics)           | 0.98          | 23.6                |
-| [Narval](narval.md#node-characteristics)     | 3.00          | 31.1                |
-| [Nibi](nibi.md#node-characteristics)         | 1.15          | 20.5                |
-| [Rorqual](rorqual.md#node-characteristics)   | 1.31          | 10.2                |
-| [Trillium](trillium.md#node-characteristics) | 1.97          | 15.4                |
+| [Fir](../software/fir.md#node-characteristics)           | 0.98          | 23.6                |
+| [Narval](../clusters/narval.md#node-characteristics)     | 3.00          | 31.1                |
+| [Nibi](../clusters/nibi.md#node-characteristics)         | 1.15          | 20.5                |
+| [Rorqual](../clusters/rorqual.md#node-characteristics)   | 1.31          | 10.2                |
+| [Trillium](../clusters/trillium.md#node-characteristics) | 1.97          | 15.4                |
 
 And the following GPU-core-memory bundle characteristics:
 
 | Cluster                                      | Model or instance | RGU per GPU | Bundle per GPU       | Recommended per GPU  |
 | :------------------------------------------: | :---------------: | :---------: | :------------------: | :------------------: |
-| [Fir](fir.md#node-characteristics)           | **H100-80gb**     | **12.2**    | **12 cores, 288 GB** | **12 cores, 280 GB** |
-| [Fir](fir.md#node-characteristics)           | H100-1g.10gb      | 1.74        | 1.7 cores, 41 GB     | 1 core, 35 GB        |
-| [Fir](fir.md#node-characteristics)           | H100-2g.20gb      | 3.48        | 3.4 cores, 82 GB     | 3 cores, 70 GB       |
-| [Fir](fir.md#node-characteristics)           | H100-3g.40gb      | 6.1         | 6 cores, 144 GB      | 6 cores, 140 GB      |
-| [Narval](narval.md#node-characteristics)     | **A100-40gb**     | **4.0**     | **12 cores, 124.5 GB** | **12 cores, 124 GB** |
-| [Narval](narval.md#node-characteristics)     | A100-1g.5gb       | 0.57        | 1.7 cores, 17.7 GB   | 1 core, 15 GB        |
-| [Narval](narval.md#node-characteristics)     | A100-2g.10gb      | 1.14        | 3.4 cores, 35.4 GB   | 3 cores, 31 GB       |
-| [Narval](narval.md#node-characteristics)     | A100-3g.20gb      | 2.0         | 6.0 cores, 62.2 GB   | 6 cores, 62 GB       |
-| [Narval](narval.md#node-characteristics)     | A100-4g.20gb      | 2.3         | 6.9 cores, 71.5 GB   | 6 cores, 62 GB       |
-| [Nibi](nibi.md#node-characteristics)         | **H100-80gb**     | **12.2**    | **14 cores, 250 GB** | **14 cores, 250 GB** |
-| [Nibi](nibi.md#node-characteristics)         | H100-1g.10gb      | 1.74        | 2 cores, 35.7 GB     | 2 cores, 31 GB       |
-| [Nibi](nibi.md#node-characteristics)         | H100-2g.20gb      | 3.48        | 4 cores, 71.4 GB     | 4 cores, 62 GB       |
-| [Nibi](nibi.md#node-characteristics)         | H100-3g.40gb      | 6.1         | 7 cores, 125 GB      | 6 cores, 124 GB      |
-| [Rorqual](rorqual.md#node-characteristics)   | **H100-80gb**     | **12.2**    | **16 cores, 124.5 GB** | **16 cores, 124 GB** |
-| [Rorqual](rorqual.md#node-characteristics)   | H100-1g.10gb      | 1.74        | 2.3 cores, 17.7 GB   | 2 cores, 15 GB       |
-| [Rorqual](rorqual.md#node-characteristics)   | H100-2g.20gb      | 3.48        | 4.5 cores, 35.4 GB   | 4 cores, 31 GB       |
-| [Rorqual](rorqual.md#node-characteristics)   | H100-3g.40gb      | 6.1         | 8 cores, 62.2 GB     | 8 cores, 62 GB       |
-| [Trillium](trillium.md#node-characteristics) | **H100-80gb**     | **12.2**    | **24 cores, 188 GB** | **24 cores, 188 GB** |
+| [Fir](../software/fir.md#node-characteristics)           | **H100-80gb**     | **12.2**    | **12 cores, 288 GB** | **12 cores, 280 GB** |
+| [Fir](../software/fir.md#node-characteristics)           | H100-1g.10gb      | 1.74        | 1.7 cores, 41 GB     | 1 core, 35 GB        |
+| [Fir](../software/fir.md#node-characteristics)           | H100-2g.20gb      | 3.48        | 3.4 cores, 82 GB     | 3 cores, 70 GB       |
+| [Fir](../software/fir.md#node-characteristics)           | H100-3g.40gb      | 6.1         | 6 cores, 144 GB      | 6 cores, 140 GB      |
+| [Narval](../clusters/narval.md#node-characteristics)     | **A100-40gb**     | **4.0**     | **12 cores, 124.5 GB** | **12 cores, 124 GB** |
+| [Narval](../clusters/narval.md#node-characteristics)     | A100-1g.5gb       | 0.57        | 1.7 cores, 17.7 GB   | 1 core, 15 GB        |
+| [Narval](../clusters/narval.md#node-characteristics)     | A100-2g.10gb      | 1.14        | 3.4 cores, 35.4 GB   | 3 cores, 31 GB       |
+| [Narval](../clusters/narval.md#node-characteristics)     | A100-3g.20gb      | 2.0         | 6.0 cores, 62.2 GB   | 6 cores, 62 GB       |
+| [Narval](../clusters/narval.md#node-characteristics)     | A100-4g.20gb      | 2.3         | 6.9 cores, 71.5 GB   | 6 cores, 62 GB       |
+| [Nibi](../clusters/nibi.md#node-characteristics)         | **H100-80gb**     | **12.2**    | **14 cores, 250 GB** | **14 cores, 250 GB** |
+| [Nibi](../clusters/nibi.md#node-characteristics)         | H100-1g.10gb      | 1.74        | 2 cores, 35.7 GB     | 2 cores, 31 GB       |
+| [Nibi](../clusters/nibi.md#node-characteristics)         | H100-2g.20gb      | 3.48        | 4 cores, 71.4 GB     | 4 cores, 62 GB       |
+| [Nibi](../clusters/nibi.md#node-characteristics)         | H100-3g.40gb      | 6.1         | 7 cores, 125 GB      | 6 cores, 124 GB      |
+| [Rorqual](../clusters/rorqual.md#node-characteristics)   | **H100-80gb**     | **12.2**    | **16 cores, 124.5 GB** | **16 cores, 124 GB** |
+| [Rorqual](../clusters/rorqual.md#node-characteristics)   | H100-1g.10gb      | 1.74        | 2.3 cores, 17.7 GB   | 2 cores, 15 GB       |
+| [Rorqual](../clusters/rorqual.md#node-characteristics)   | H100-2g.20gb      | 3.48        | 4.5 cores, 35.4 GB   | 4 cores, 31 GB       |
+| [Rorqual](../clusters/rorqual.md#node-characteristics)   | H100-3g.40gb      | 6.1         | 8 cores, 62.2 GB     | 8 cores, 62 GB       |
+| [Trillium](../clusters/trillium.md#node-characteristics) | **H100-80gb**     | **12.2**    | **24 cores, 188 GB** | **24 cores, 188 GB** |
 
 !!! note
     While the scheduler will compute the priority based on the usage calculated with the above bundles, users requesting multiple GPUs per node also have to take into account the physical ratios.
@@ -310,7 +310,7 @@ And the following GPU-core-memory bundle characteristics:
 *   SLURM account
 
 ## Displaying a specified account
-If you have access to more than one [Slurm account](running-jobs.md#accounts-and-projects), the *Select user’s account* pull-down menu of the *SLURM account* panel lets you select which project account will be displayed in the figure window. If the *Select user’s account* is left empty the figure will display all of your usage across accounts on the specified cluster during the selected time period. The *Select user’s account* pull-down menu is populated by a list of all the accounts that have job records on the selected cluster during the selected time interval. Other accounts that you have access to but do not have usage on the selected cluster during the selected time interval will also appear in the pull-down menu but will be grayed out and not selectable as they would not generate a figure. When you select a single project account the figure is updated and the summary panel titled *Allocation Information* is populated with details of the project account. The height of each bar in the histogram figure corresponds to the metric for that day (e.g. CPU-equivalent days) across all users in the account on the system. The top seven users are displayed in unique colours stacked on top of the summed metric for all other users in gray. You can navigate the figure using [Plotly](https://plotly.com/graphing-libraries/) tools (zoom, pan, etc.) whose icons appear at the top-right when you hover your mouse over the figure window. You can also use the legend on the right-hand side to manipulate the figure. Single-clicking an item will toggle the item's presence in the figure, and double-clicking the item will toggle off or on all the other items in the figure.
+If you have access to more than one [Slurm account](running_jobs.md#accounts-and-projects), the *Select user’s account* pull-down menu of the *SLURM account* panel lets you select which project account will be displayed in the figure window. If the *Select user’s account* is left empty the figure will display all of your usage across accounts on the specified cluster during the selected time period. The *Select user’s account* pull-down menu is populated by a list of all the accounts that have job records on the selected cluster during the selected time interval. Other accounts that you have access to but do not have usage on the selected cluster during the selected time interval will also appear in the pull-down menu but will be grayed out and not selectable as they would not generate a figure. When you select a single project account the figure is updated and the summary panel titled *Allocation Information* is populated with details of the project account. The height of each bar in the histogram figure corresponds to the metric for that day (e.g. CPU-equivalent days) across all users in the account on the system. The top seven users are displayed in unique colours stacked on top of the summed metric for all other users in gray. You can navigate the figure using [Plotly](https://plotly.com/graphing-libraries/) tools (zoom, pan, etc.) whose icons appear at the top-right when you hover your mouse over the figure window. You can also use the legend on the right-hand side to manipulate the figure. Single-clicking an item will toggle the item's presence in the figure, and double-clicking the item will toggle off or on all the other items in the figure.
 
 ## Options in the figure legend
 The legend of the usage figure provides display options. Specifically, additional variables can be enable or disabled from the figure legend. Beyond displaying the colour affiliation of each user displayed in the usage figure, the legend provides access to displaying *SLURM Raw Usage*, *SLURM Raw Shares*, *CCDB allocation*, the resources pending for *Queued jobs* and the daily *Total*. *SLURM Raw Usage* and *SLURM Raw Shares* is obtained from a poll of *sshare* for each account on the clusters. *CCDB allocation* is the account profile at CCDB representation of the *SLURM Raw Shares*. *Queued jobs* is a metric that represents the quantity of resources belonging to jobs that are pending in the job queue and is represented with narrow gray bars for each day in the figure window. *Total* adds text at the top of each bar indicating the daily total of the metric across users for the day. By single clicking any of the items in the legend the specific item is toggled in the figure window. By double clicking any of the items in the legend all other items in the figure are toggled on or off.
@@ -354,7 +354,7 @@ The first tab bar offers these options:
 **By Compute Resource**: cluster on which jobs are submitted;
 **By Resource Allocation Project**: projects to which jobs are submitted;
 **By Submitter**: user that submits the jobs;
-**Storage usage**: is discussed in [Storage and file management](storage-and-file-management.md).
+**Storage usage**: is discussed in [Storage and file management](../storage-and-data/storage_and_file_management.md).
 
 ## Usage by compute resource
 

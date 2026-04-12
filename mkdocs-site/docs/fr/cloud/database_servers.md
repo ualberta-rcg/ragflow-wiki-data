@@ -79,7 +79,7 @@ status:
 Les serveurs de bases de données MySQL et Postgres sont disponibles sur Cedar et Graham.
 
 !!! warning "REMARQUE"
-    À compter du 13 janvier 2025, la capacité de la grappe Graham sera réduite à 25 % (voir [Réduction de la capacité](graham.md#réduction-de-la-capacité)) jusqu'à ce que le nouveau système [Nibi](nibi.md) soit disponible. Aucun serveur de bases de données ne sera offert pendant la transition.
+    À compter du 13 janvier 2025, la capacité de la grappe Graham sera réduite à 25 % (voir [Réduction de la capacité](../clusters/graham.md#réduction-de-la-capacité)) jusqu'à ce que le nouveau système [Nibi](../clusters/nibi.md) soit disponible. Aucun serveur de bases de données ne sera offert pendant la transition.
 
 | Information | Cedar, MySQL | Cedar, Postgres | Graham, MySQL |
 | :---------- | :----------- | :-------------- | :------------ |
@@ -99,14 +99,14 @@ Pour des raisons de sécurité, vous ne pouvez pas vous connecter directement au
 
 ### Compte et connexion
 
-Vous devez détenir un compte MySQL pour avoir le privilège requis pour créer une base de données. Pour obtenir un compte sur le serveur MySQL de Cedar, contactez le [soutien technique](technical-support.md) en indiquant
+Vous devez détenir un compte MySQL pour avoir le privilège requis pour créer une base de données. Pour obtenir un compte sur le serveur MySQL de Cedar, contactez le [soutien technique](../support/technical_support.md) en indiquant
 
 *   le nom d'utilisateur pour votre compte avec l'Alliance et
 *   l'espace nécessaire pour la base de données de votre projet.
 
 Nous créerons un compte MySQL pour lequel le nom d'utilisateur sera celui de votre compte avec l'Alliance ainsi qu'une chaîne de 16 nombres aléatoires comme mot de passe. Un fichier nommé `.my.cnf` sera enregistré dans votre répertoire /home contenant le nom d'utilisateur, le mot de passe, le nom du serveur de base de données et d'autres renseignements nécessaires pour vous connecter. Ce fichier est confidentiel. Son contenu ne peut pas être modifié, mais le fichier peut être lu ou supprimé. En supprimant ce fichier, vous perdrez l’accès à votre base de données.
 
-Lancez le client `mysql` pour vous connecter au serveur MySQL. Une version moins récente du client est disponible sans que vous ayez à [charger un module](utiliser-des-modules.md), mais vous n'aurez pas les dernières fonctionnalités du serveur. Nous vous recommandons de charger une version plus récente du client avec
+Lancez le client `mysql` pour vous connecter au serveur MySQL. Une version moins récente du client est disponible sans que vous ayez à [charger un module](../programming/utiliser_des_modules.md), mais vous n'aurez pas les dernières fonctionnalités du serveur. Nous vous recommandons de charger une version plus récente du client avec
 
 ```bash
 [name@server ~]$ module load mariadb
@@ -123,7 +123,7 @@ MariaDB [(none)]> quit
 
 N'utilisez pas les options `-p` ou `-h` en argument en lançant `mysql`. Le mot de passe et le nom du serveur proviendront automatiquement du fichier `.my.cnf`.
 
-Vous pouvez soumettre une commande SQL à partir du nœud de connexion puisque l'utilisation du CPU provient pour une grande part du côté du serveur de base de données. Toutefois, si votre script contient plusieurs commandes SQL et utilise beaucoup le CPU, il doit faire partie d'une tâche soumise à l'ordonnanceur; voyez [Exécuter des tâches](running-jobs.md) pour plus d'information.
+Vous pouvez soumettre une commande SQL à partir du nœud de connexion puisque l'utilisation du CPU provient pour une grande part du côté du serveur de base de données. Toutefois, si votre script contient plusieurs commandes SQL et utilise beaucoup le CPU, il doit faire partie d'une tâche soumise à l'ordonnanceur; voyez [Exécuter des tâches](../running-jobs/running_jobs.md) pour plus d'information.
 
 ### Configuration
 
@@ -188,18 +188,18 @@ Le serveur PostgreSQL est l'instance `cedar-pgsql-vm` (nom long, cedar-pgsql-vm.
 
 Pour des raisons de sécurité, vous ne pouvez pas vous connecter directement au serveur de base de données via SSH.
 
-Pour obtenir un compte sur le serveur PostgreSQL de Cedar, contactez le [soutien technique](technical-support.md) en indiquant
+Pour obtenir un compte sur le serveur PostgreSQL de Cedar, contactez le [soutien technique](../support/technical_support.md) en indiquant
 *   votre nom d'utilisateur,
 *   l'espace nécessaire pour la base de données de votre projet,
 *   si vous avez besoin de l'extension PostGIS.
 
 ### Compte et connexion
 
-Nous créerons un compte PostgreSQL pour lequel le nom d'utilisateur sera celui de votre compte avec l'Alliance. Vous aurez accès à une base de données dont le nom sera *<nom d'utilisateur>_db*. Vous ne pouvez pas créer une base de données, mais si vous en avez besoin de plus d'une, écrivez au [soutien technique](technical-support.md).
+Nous créerons un compte PostgreSQL pour lequel le nom d'utilisateur sera celui de votre compte avec l'Alliance. Vous aurez accès à une base de données dont le nom sera *<nom d'utilisateur>_db*. Vous ne pouvez pas créer une base de données, mais si vous en avez besoin de plus d'une, écrivez au [soutien technique](../support/technical_support.md).
 
 Vous n'avez pas besoin d'un mot de passe pour accéder à votre compte PostgreSQL sur Cedar. Pour des raisons de sécurité, le mot de passe pour votre compte avec l'Alliance ne doit JAMAIS être requis ou utilisé dans un script. Les utilisateurs n'ont ainsi pas d'accès direct aux bases de données des autres utilisateurs.
 
-Lancez le client `psql` pour vous connecter au serveur PostgreSQL. Une version moins récente du client est disponible sans que vous ayez à [charger un module](utiliser-des-modules.md), mais vous n'aurez pas les dernières fonctionnalités de la version 10. Nous vous recommandons le charger une version plus récente avec
+Lancez le client `psql` pour vous connecter au serveur PostgreSQL. Une version moins récente du client est disponible sans que vous ayez à [charger un module](../programming/utiliser_des_modules.md), mais vous n'aurez pas les dernières fonctionnalités de la version 10. Nous vous recommandons le charger une version plus récente avec
 
 ```bash
 [name@server ~]$ module load postgresql
@@ -270,7 +270,7 @@ david_db=> \q
 
 ## Serveur MySQL sur Graham
 
-Les étapes pour obtenir et utiliser un compte sur le serveur MySQL de Graham sont semblables à [celles décrites ci-dessus pour Cedar](database-servers.md#serveur-mysql-sur-cedar), sauf qu'il faut remplacer le module avec
+Les étapes pour obtenir et utiliser un compte sur le serveur MySQL de Graham sont semblables à [celles décrites ci-dessus pour Cedar](database_servers.md#serveur-mysql-sur-cedar), sauf qu'il faut remplacer le module avec
 
 ```bash
 [name@server ~]$ module load mysql
@@ -282,7 +282,7 @@ Les étapes pour obtenir et utiliser un compte sur le serveur MySQL de Graham so
 
 Si vous avez besoin de plus qu'une instance pour traiter votre base de données, vous pouvez utiliser MySQL/MariaDB ou Postgres sur un ordinateur physique.
 Les copies de sauvegarde se font chaque jour et sont conservées pour trois mois.
-Pour y accéder, contactez le [soutien technique](technical-support.md).
+Pour y accéder, contactez le [soutien technique](../support/technical_support.md).
 
 !!! note "IMPORTANT"
     Dans votre demande, indiquez le réseau client ou l'adresse IP à partir de laquelle vous voulez accéder à la base de données.

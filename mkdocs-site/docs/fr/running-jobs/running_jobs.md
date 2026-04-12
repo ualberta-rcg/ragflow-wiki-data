@@ -136,7 +136,7 @@ status:
   qa_generated: false
 ---
 
-Cette page présente l'information sur comment soumettre des tâches sur nos grappes; elle s'adresse à ceux et celles qui connaissent les concepts de préparation de scripts et d'ordonnancement des tâches. Si vous n'avez jamais travaillé sur une grappe partagée de grande taille, nous vous recommandons de lire d'abord [Qu'est-ce qu'un ordonnanceur?](what-is-a-scheduler.md).
+Cette page présente l'information sur comment soumettre des tâches sur nos grappes; elle s'adresse à ceux et celles qui connaissent les concepts de préparation de scripts et d'ordonnancement des tâches. Si vous n'avez jamais travaillé sur une grappe partagée de grande taille, nous vous recommandons de lire d'abord [Qu'est-ce qu'un ordonnanceur?](what_is_a_scheduler.md).
 
 !!! attention "Règle importante"
     **Toutes les tâches doivent être soumises via l'ordonnanceur.**
@@ -165,7 +165,7 @@ echo 'Hello, world!'
 sleep 30
 ```
 
-Sur les superordinateurs d'usage général, cette tâche réserve un (1) cœur et 256Mo de mémoire pendant 15 minutes. Sur [Trillium](trillium.md), la tâche réserve le nœud entier avec toute sa mémoire.
+Sur les superordinateurs d'usage général, cette tâche réserve un (1) cœur et 256Mo de mémoire pendant 15 minutes. Sur [Trillium](../clusters/trillium.md), la tâche réserve le nœud entier avec toute sa mémoire.
 Les directives (ou *options*) comprises dans le script ont le préfixe `#SBATCH` et doivent précéder toutes les commandes exécutables. La [page sbatch](https://slurm.schedmd.com/sbatch.html) décrit toutes les directives disponibles. Pour chaque tâche, notre politique demande de fournir au moins une durée (`--time`) et un nom de compte (`--account`); voyez la section [Comptes et projets](#comptes-et-projets) ci-après.
 
 Les directives peuvent aussi être des arguments en ligne de commande pour `sbatch`. Par exemple :
@@ -174,17 +174,17 @@ Les directives peuvent aussi être des arguments en ligne de commande pour `sbat
 $ sbatch --time=00:30:00 simple_job.sh
 ```
 
-soumet le script présenté plus haut en limitant la durée à 30 minutes. Les formats de date valides sont minutes, minutes:secondes, heures:minutes:secondes, jours-heures, jours-heures:minutes, jours-heures:minutes:secondes. Sachez que la durée a une incidence importante sur le temps d'attente avant que la tâche soit exécutée. En effet, les tâches de longue durée sont [susceptibles d'être exécutées sur moins de nœuds](job-scheduling-policies.md).
+soumet le script présenté plus haut en limitant la durée à 30 minutes. Les formats de date valides sont minutes, minutes:secondes, heures:minutes:secondes, jours-heures, jours-heures:minutes, jours-heures:minutes:secondes. Sachez que la durée a une incidence importante sur le temps d'attente avant que la tâche soit exécutée. En effet, les tâches de longue durée sont [susceptibles d'être exécutées sur moins de nœuds](job_scheduling_policies.md).
 
-L'exécution d'un script qui soumet plusieurs tâches à de courts intervalles risque d'affecter la disponibilité de l'ordonnanceur Slurm pour les autres utilisateurs et utilisatrices (voir l'information sur le message d'erreur [Batch job submission failed: Socket timed out on send/recv operation](frequently-asked-questions.md#sbatch-error-batch-job-submission-failed-socket-timed-out-on-sendrecv-operation)). Utilisez plutôt un [vecteur de tâches](#redemarrage-avec-des-vecteurs-de-taches) ou espacez les appels à `sbatch` de une seconde ou plus avec la commande `sleep`.
+L'exécution d'un script qui soumet plusieurs tâches à de courts intervalles risque d'affecter la disponibilité de l'ordonnanceur Slurm pour les autres utilisateurs et utilisatrices (voir l'information sur le message d'erreur [Batch job submission failed: Socket timed out on send/recv operation](../getting-started/frequently_asked_questions.md#sbatch-error-batch-job-submission-failed-socket-timed-out-on-sendrecv-operation)). Utilisez plutôt un [vecteur de tâches](#redemarrage-avec-des-vecteurs-de-taches) ou espacez les appels à `sbatch` de une seconde ou plus avec la commande `sleep`.
 
 ### Mémoire
 
-La quantité de mémoire peut être demandée avec `--mem-per-cpu` (mémoire par cœur) ou `--mem` (mémoire par nœud). Avec les grappes d'usage général, 256Mo par cœur sont alloués par défaut. Avec [Trillium](trillium.md), il n'est pas nécessaire de spécifier la quantité de mémoire car seuls les nœuds entiers sont alloués avec toute la mémoire disponible.
+La quantité de mémoire peut être demandée avec `--mem-per-cpu` (mémoire par cœur) ou `--mem` (mémoire par nœud). Avec les grappes d'usage général, 256Mo par cœur sont alloués par défaut. Avec [Trillium](../clusters/trillium.md), il n'est pas nécessaire de spécifier la quantité de mémoire car seuls les nœuds entiers sont alloués avec toute la mémoire disponible.
 
 Une source commune de confusion est qu'une certaine quantité de la mémoire du nœud n'est pas disponible pour la tâche, étant réservée pour le système d'exploitation, etc. Chaque type de nœud a donc une quantité maximum à la disposition des tâches; par exemple, les nœuds de 128Go sont configurés de façon à offrir 125Go pour l'exécution des tâches soumises. Si vous demandez plus que cette quantité, votre tâche devra être exécutée avec des nœuds de plus de mémoire qui pourraient être moins nombreux.
 
-Pour compliquer davantage, K, M, G, etc. sont interprétés par Slurm comme étant des [préfixes binaires](https://fr.wikipedia.org/wiki/Pr%C3%A9fixe_binaire); ainsi `--mem=125G` équivaut à `--mem=128000M`. La quantité de mémoire que vous pouvez demander est indiquée dans le tableau *Caractéristiques des nœuds* pour [Fir](fir.md#caracteristiques-des-noeuds), [Narval](narval.md#caracteristiques-des-noeuds), [Graham](graham.md#caracteristiques-des-noeuds), [Narval](narval.md#caracteristiques-des-noeuds) et [Nibi](nibi.md#caracteristiques-des-noeuds).
+Pour compliquer davantage, K, M, G, etc. sont interprétés par Slurm comme étant des [préfixes binaires](https://fr.wikipedia.org/wiki/Pr%C3%A9fixe_binaire); ainsi `--mem=125G` équivaut à `--mem=128000M`. La quantité de mémoire que vous pouvez demander est indiquée dans le tableau *Caractéristiques des nœuds* pour [Fir](../software/fir.md#caracteristiques-des-noeuds), [Narval](../clusters/narval.md#caracteristiques-des-noeuds), [Graham](../clusters/graham.md#caracteristiques-des-noeuds), [Narval](../clusters/narval.md#caracteristiques-des-noeuds) et [Nibi](../clusters/nibi.md#caracteristiques-des-noeuds).
 
 ## Lister les tâches avec `squeue` ou `sq`
 
@@ -201,20 +201,20 @@ En sortie, la colonne ST montre l'état de chaque tâche. Les états les plus co
 
 Pour plus d'information sur les résultats fournis par `sq` et `squeue`, et comment modifier les résultats, consultez la [documentation pour squeue](https://slurm.schedmd.com/squeue.html). `sq` est une commande créée pour nos environnements.
 
-**N'exécutez pas** à plusieurs reprises et à de courts intervalles les commandes `squeue` ou `sq` à partir d'un script ou d'une application. Ceci surcharge Slurm et risque fort de nuire à sa performance ou à son bon fonctionnement. Pour savoir quand une tâche commence et se termine, voyez plutôt [Notifications par courriel](monitoring-jobs.md#notification-par-courriel).
+**N'exécutez pas** à plusieurs reprises et à de courts intervalles les commandes `squeue` ou `sq` à partir d'un script ou d'une application. Ceci surcharge Slurm et risque fort de nuire à sa performance ou à son bon fonctionnement. Pour savoir quand une tâche commence et se termine, voyez plutôt [Notifications par courriel](monitoring_jobs.md#notification-par-courriel).
 
 ## Enregistrer le résultat
 
 Par défaut, le résultat est écrit dans un fichier dont le nom commence par *slurm-*, suivi de l'ID de la tâche et du suffixe *.out*, par exemple `slurm-123456.out`. La présence de l'ID dans le nom du fichier s'avère pratique pour le débogage. Le fichier est placé dans le répertoire à partir duquel la tâche a été soumise.
 
 Si vous avez besoin de spécifier un endroit ou un nom différent, utilisez la commande `--output`.
-Le nom du fichier peut contenir certains symboles de remplacement, par exemple l'ID de la tâche, le nom de la tâche ou l'ID du [vecteur de tâches](job-arrays.md). Voyez la [page sbatch](https://slurm.schedmd.com/sbatch.html) pour la liste complète.
+Le nom du fichier peut contenir certains symboles de remplacement, par exemple l'ID de la tâche, le nom de la tâche ou l'ID du [vecteur de tâches](job_arrays.md). Voyez la [page sbatch](https://slurm.schedmd.com/sbatch.html) pour la liste complète.
 
 Les erreurs paraissent normalement dans le même fichier que le résultat standard en sortie, tout comme si les commandes étaient données interactivement. Pour diriger le canal standard d'erreurs (stderr pour *standard error*) vers un autre fichier, utilisez `--error`.
 
 ## Comptes et projets
 
-Chaque tâche doit être associée à un nom de compte correspondant à un [RAP (pour *Resource Allocation Project*)](frequently-asked-questions-about-the-ccdb.md#quest-ce-quun-rap). Si vous êtes membre d'un seul compte, l'ordonnanceur associe automatiquement vos tâches à ce compte.
+Chaque tâche doit être associée à un nom de compte correspondant à un [RAP (pour *Resource Allocation Project*)](../getting-started/frequently_asked_questions_about_the_ccdb.md#quest-ce-quun-rap). Si vous êtes membre d'un seul compte, l'ordonnanceur associe automatiquement vos tâches à ce compte.
 
 Si vous recevez un des messages suivants en soumettant une tâche, vous avez accès à plus d'un compte.
 
@@ -270,7 +270,7 @@ Un lot de tâches (*task array* ou *array job*) sert à soumettre un ensemble de
 ./myapplication $SLURM_ARRAY_TASK_ID
 ```
 
-Voyez d'autres exemples à la page [Vecteurs de tâches](job-arrays.md) et la documentation détaillée [Slurm de SchedMD.com](https://slurm.schedmd.com/job_array.html).
+Voyez d'autres exemples à la page [Vecteurs de tâches](job_arrays.md) et la documentation détaillée [Slurm de SchedMD.com](https://slurm.schedmd.com/job_array.html).
 
 ### Tâche multifil ou tâche OpenMP
 
@@ -285,7 +285,7 @@ export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
 ./ompHello
 ```
 
-Pour plus d'information, consultez la page [OpenMP](openmp.md).
+Pour plus d'information, consultez la page [OpenMP](../programming/openmp.md).
 
 ### Tâche MPI
 
@@ -301,11 +301,11 @@ Le prochain script lance quatre processus MPI, chacun nécessitant 1024Mo de mé
 srun ./mpi_program               # mpirun or mpiexec also work
 ```
 
-Les tâches intensives avec MPI peuvent utiliser plus d'un nœud. Il est aussi possible d'avoir des tâches hybrides qui sont à la fois exécutées en MPI et en fils multiples. Pour plus d'information sur les tâches distribuées en parallèle, consultez [Contrôle de l'ordonnancement avec MPI](advanced-mpi-scheduling.md).
+Les tâches intensives avec MPI peuvent utiliser plus d'un nœud. Il est aussi possible d'avoir des tâches hybrides qui sont à la fois exécutées en MPI et en fils multiples. Pour plus d'information sur les tâches distribuées en parallèle, consultez [Contrôle de l'ordonnancement avec MPI](advanced_mpi_scheduling.md).
 
 ### Tâche GPU (avec processeur graphique)
 
-Pour des informations et des exemples de comment demander les ressources GPU, voir [Ordonnancement Slurm des tâches avec GPU](using-gpus-with-slurm.md).
+Pour des informations et des exemples de comment demander les ressources GPU, voir [Ordonnancement Slurm des tâches avec GPU](using_gpus_with_slurm.md).
 
 ## Tâches interactives
 
@@ -324,11 +324,11 @@ $ exit            # terminate the allocation
 salloc: Relinquishing job allocation 1234567
 ```
 
-Il est aussi possible d'exécuter des applications graphiques en mode interactif sur un nœud de calcul en ajoutant l'indicateur **--x11** à la commande `salloc`. Pour ce faire, il faut d'abord activer la redirection X11 (*Enable X11 forwarding*); consultez la page [SSH](ssh.md). Prenez note qu'une tâche interactive d'une durée de moins de trois (3) heures est susceptible d'être lancée peu de temps après sa soumission puisque nous leur avons dédié des nœuds de test. Les tâches de plus de trois (3) heures sont exécutées sur les nœuds réguliers d'une grappe et peuvent être en attente pour plusieurs heures et même plusieurs jours avant d'être lancées à un moment imprévisible et possiblement inopportun.
+Il est aussi possible d'exécuter des applications graphiques en mode interactif sur un nœud de calcul en ajoutant l'indicateur **--x11** à la commande `salloc`. Pour ce faire, il faut d'abord activer la redirection X11 (*Enable X11 forwarding*); consultez la page [SSH](../getting-started/ssh.md). Prenez note qu'une tâche interactive d'une durée de moins de trois (3) heures est susceptible d'être lancée peu de temps après sa soumission puisque nous leur avons dédié des nœuds de test. Les tâches de plus de trois (3) heures sont exécutées sur les nœuds réguliers d'une grappe et peuvent être en attente pour plusieurs heures et même plusieurs jours avant d'être lancées à un moment imprévisible et possiblement inopportun.
 
 ## Suivi des tâches
 
-Voir [la page wiki Performance des tâches](monitoring-jobs.md).
+Voir [la page wiki Performance des tâches](monitoring_jobs.md).
 
 ## Annuler une tâche
 
@@ -355,7 +355,7 @@ Les deux méthodes recommandées sont :
 *   l'utilisation de vecteurs de tâches (*job arrays*) Slurm;
 *   la resoumission à partir de la fin du script.
 
-Consultez l'information sur le [morcellement d'une longue tâche](tutoriel-apprentissage-machine.md#morcellement-dune-longue-tache) dans notre [tutoriel en apprentissage machine](tutoriel-apprentissage-machine.md).
+Consultez l'information sur le [morcellement d'une longue tâche](../software/ai-ml/tutoriel_apprentissage_machine.md#morcellement-dune-longue-tache) dans notre [tutoriel en apprentissage machine](../software/ai-ml/tutoriel_apprentissage_machine.md).
 
 ### Redémarrage avec des vecteurs de tâches
 
@@ -454,7 +454,7 @@ Comme nous l'avons déjà mentionné, [les lots de tâches](#lot-de-taches) peuv
 
 Les outils suivants sont disponibles sur nos grappes :
 *   [META-Farm](meta-farm.md)
-*   [GNU Parallel](gnu-parallel.md)
+*   [GNU Parallel](gnu_parallel.md)
 *   [GLOST](glost.md)
 
 ### Ne pas spécifier de partition
@@ -469,7 +469,7 @@ Les politiques d'ordonnancement ne sont pas les mêmes sur toutes nos grappes.
     La durée maximale d'une tâche est de 168 heures (7 jours) et le nombre maximum de tâches en exécution ou en attente dans la queue est de 1000 par utilisateur. La durée d'une tâche en production devrait être d'au moins une heure.
 
 === "Trillium"
-    Voir [Restrictions particulières à Trillium](trillium-quickstart.md#restrictions-particulieres-a-trillium).
+    Voir [Restrictions particulières à Trillium](../clusters/trillium_quickstart.md#restrictions-particulieres-a-trillium).
 
 ## Dépannage
 
@@ -538,7 +538,7 @@ Pour résoudre ce problème, ajoutez au script la ligne `module load nixpkgs/16.
 
 ### Propagation de variables d’environnement
 
-Par défaut, une tâche hérite des variables d’environnement de l’interpréteur (*shell*) duquel elle a été lancée. La commande de [chargement d’un module](utiliser-des-modules.md) modifie et configure les variables d’environnement qui se propagent ensuite aux tâches soumises à partir de l’interpréteur. Une tâche pourrait donc se trouver incapable de charger des modules si toutes les conditions ne sont pas satisfaites. Il est donc recommandé d’ajouter au script la ligne `module purge` avant le chargement des modules dont vous avez besoin pour faire en sorte que les tâches soient soumises de manière uniforme et qu’elles ne soient pas affectées par les modifications faites dans l’interpréteur.
+Par défaut, une tâche hérite des variables d’environnement de l’interpréteur (*shell*) duquel elle a été lancée. La commande de [chargement d’un module](../programming/utiliser_des_modules.md) modifie et configure les variables d’environnement qui se propagent ensuite aux tâches soumises à partir de l’interpréteur. Une tâche pourrait donc se trouver incapable de charger des modules si toutes les conditions ne sont pas satisfaites. Il est donc recommandé d’ajouter au script la ligne `module purge` avant le chargement des modules dont vous avez besoin pour faire en sorte que les tâches soient soumises de manière uniforme et qu’elles ne soient pas affectées par les modifications faites dans l’interpréteur.
 
 Les problèmes sont quelquefois difficiles à diagnostiquer quand les paramètres de l'environnement sont hérités de l'interpréteur qui soumet la tâche; la directive `--export=none` empêche ce type d'héritage.
 
@@ -548,8 +548,8 @@ Il arrive qu'aucun résultat (ou seulement une partie) ne soit enregistré dans 
 
 ## État des tâches et priorité
 
-*   Consultez [Politique d'ordonnancement des tâches](job-scheduling-policies.md) pour des renseignements sur la politique de priorisation des tâches et connaître les éléments pouvant influer sur l'ordonnancement de vos tâches.
-*   Si des tâches **dans votre groupe de recherche** sont en concurrence entre elles, consultez [Gestion des comptes Slurm](managing-slurm-accounts.md).
+*   Consultez [Politique d'ordonnancement des tâches](job_scheduling_policies.md) pour des renseignements sur la politique de priorisation des tâches et connaître les éléments pouvant influer sur l'ordonnancement de vos tâches.
+*   Si des tâches **dans votre groupe de recherche** sont en concurrence entre elles, consultez [Gestion des comptes Slurm](managing_slurm_accounts.md).
 
 ## Pour plus d'information
 

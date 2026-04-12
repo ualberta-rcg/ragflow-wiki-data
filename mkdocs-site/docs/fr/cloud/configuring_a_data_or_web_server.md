@@ -34,8 +34,8 @@ status:
 
 *Page enfant de [Service infonuagique de Calcul Canada](cloud.md)*
 
-Les instances (machines virtuelles ou VMs) utilisées pour fournir des données génériques ou du contenu Web sont configurées selon les gabarits de type persistant (voir [Gabarits d'instances](virtual-machine-flavors.md)) et sont [démarrées depuis un volume](working-with-volumes.md#démarrer-depuis-un-volume).
+Les instances (machines virtuelles ou VMs) utilisées pour fournir des données génériques ou du contenu Web sont configurées selon les gabarits de type persistant (voir [Gabarits d'instances](virtual_machine_flavors.md)) et sont [démarrées depuis un volume](working_with_volumes.md#démarrer-depuis-un-volume).
 
 !!! tip "Ressources additionnelles"
-    *   Pour créer un serveur de données partagées, consultez [Serveurs FTP dans notre environnement infonuagique](ftp-server-in-the-cloud.md) où il est aussi question de HTTP et SFTP.
+    *   Pour créer un serveur de données partagées, consultez [Serveurs FTP dans notre environnement infonuagique](ftp_server_in_the_cloud.md) où il est aussi question de HTTP et SFTP.
     *   Pour créer un serveur web, consultez [Création d'un serveur web dans notre environnement infonuagique](creating-a-webserver-on-the-cloud.md).

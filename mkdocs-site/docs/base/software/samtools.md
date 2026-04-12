@@ -69,7 +69,7 @@ Version: 1.20 (using htslib 1.20)
 Usage:   samtools <command> [options]
 ```
 
-For more on the `module` command, including how to find other versions of samtools, see [Using modules](utiliser-des-modules.md)
+For more on the `module` command, including how to find other versions of samtools, see [Using modules](../programming/utiliser_des_modules.md)
 
 ## General usage
 

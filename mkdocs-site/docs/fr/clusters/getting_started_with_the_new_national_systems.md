@@ -48,4 +48,4 @@ D'autres présentations sont aussi disponibles sur les sujets suivants :
 * [Common mistakes to avoid](https://www.youtube.com/watch?v=TOYsh0TPy2U) : erreurs à éviter
 * [Accessing the environment](https://www.youtube.com/watch?v=VONgiHWc-gE) : accès à l'environnement, de la connexion au transfert de données
 
-Si vous avez besoin d'aide, consultez [la page Soutien technique](technical-support.md).
+Si vous avez besoin d'aide, consultez [la page Soutien technique](../support/technical_support.md).

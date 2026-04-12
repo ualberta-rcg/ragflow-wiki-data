@@ -69,7 +69,7 @@ GDB is an acronym saying *GDB: The GNU Project Debugger*
 With a debugger, it is possible to quickly find the cause of a problem in a piece of software.
 Often it is used to resolve [segmentation faults](https://en.wikipedia.org/wiki/Segmentation_fault).
 If you desire to resolve a problem relating to memory (for example, a
-[memory leak](https://en.wikipedia.org/wiki/Memory_leak)), we recommend using [Valgrind](debugging-and-profiling.md#valgrind).
+[memory leak](https://en.wikipedia.org/wiki/Memory_leak)), we recommend using [Valgrind](debugging_and_profiling.md#valgrind).
 
 ## Use cases
 ### Finding a bug with the debugger

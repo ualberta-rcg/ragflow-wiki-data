@@ -35,13 +35,13 @@ status:
   qa_generated: false
 ---
 
-Developed by Google, [CirQ](https://quantumai.google/cirq) is an open-source quantum computing library to build, optimize, simulate, and run quantum circuits. More specifically, CirQ allows for the simulation of circuits on particular qubit configurations, which can optimize a circuit for a certain qubit architecture. Information on the features can be found in the CirQ [documentation](https://quantumai.google/cirq) and [GitHub](https://github.com/quantumlib/Cirq). Like [Snowflurry](snowflurry.md), CirQ can be used to run quantum circuits on the [MonarQ](monarq.md) quantum computer.
+Developed by Google, [CirQ](https://quantumai.google/cirq) is an open-source quantum computing library to build, optimize, simulate, and run quantum circuits. More specifically, CirQ allows for the simulation of circuits on particular qubit configurations, which can optimize a circuit for a certain qubit architecture. Information on the features can be found in the CirQ [documentation](https://quantumai.google/cirq) and [GitHub](https://github.com/quantumlib/Cirq). Like [Snowflurry](snowflurry.md), CirQ can be used to run quantum circuits on the [MonarQ](../../clusters/monarq.md) quantum computer.
 
 ## Installation
-The CirQ simulator is available on all of our clusters. To have access, you must load the [Python](python.md) language.
+The CirQ simulator is available on all of our clusters. To have access, you must load the [Python](../python.md) language.
 
 !!! note
-    It is preferable to work in a [Python virtual environment](python.md).
+    It is preferable to work in a [Python virtual environment](../python.md).
 
 ```bash
 module load python/3.11
@@ -76,7 +76,7 @@ pip install --no-index --requirement ~/cirq-1.4.1-reqs.txt
 python cirq_example.py
 ```
 
-You can then [submit your job to the scheduler](running-jobs.md).
+You can then [submit your job to the scheduler](../../running-jobs/running_jobs.md).
 
 ## Use case: Bell states
 Bell states are the simplest states that allow for the explanation of both superposition and entanglement on qubits.

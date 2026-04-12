@@ -56,7 +56,7 @@ status:
 
 ### Soumettre une tâche
 
-Pour savoir comment soumettre une tâche et en faire le suivi, consultez [Exécuter des tâches](running-jobs.md).
+Pour savoir comment soumettre une tâche et en faire le suivi, consultez [Exécuter des tâches](../running-jobs/running_jobs.md).
 
 La première étape est de préparer un fichier d'entrée GAMESS qui contient la géométrie moléculaire et le calcul à effectuer.
 Consultez [la documentation GAMESS](http://www.msg.ameslab.gov/gamess/documentation.html) et en particulier [la section 2](http://www.msg.ameslab.gov/gamess/GAMESS_Manual/input.pdf) qui décrit le format du fichier et les mots-clés.
@@ -108,7 +108,7 @@ Les fichiers de sortie supplémentaires sont copiés à l'endroit désigné par 
 
 Les calculs peuvent s'effectuer sur plus d'un processeur. Le paramètre `--cpus-per-task` définit le nombre de processeurs disponibles pour le calcul.
 
-Comme la parallélisation se fait par [sockets](https://en.wikipedia.org/wiki/Unix_domain_socket), GAMESS ne peut utiliser que les cœurs de processeur qui se trouvent sur le même nœud de calcul. Le nombre de cœurs de processeur maximum pour une tâche dépend donc de la taille des nœuds dans la grappe, soit 32 cœurs de processeur par nœud sur [Graham](graham.md).
+Comme la parallélisation se fait par [sockets](https://en.wikipedia.org/wiki/Unix_domain_socket), GAMESS ne peut utiliser que les cœurs de processeur qui se trouvent sur le même nœud de calcul. Le nombre de cœurs de processeur maximum pour une tâche dépend donc de la taille des nœuds dans la grappe, soit 32 cœurs de processeur par nœud sur [Graham](../clusters/graham.md).
 
 Les calculs en chimie quantique sont reconnus pour ne pas se transposer sur plusieurs processeurs aussi bien qu'en mécanique moléculaire classique, ce qui signifie qu'ils ne sont pas efficaces avec un grand nombre de processeurs. Le nombre précis de processeurs pouvant être utilisés avec efficacité dépend du niveau théorique et de la quantité d'atomes et de fonctions de base.
 

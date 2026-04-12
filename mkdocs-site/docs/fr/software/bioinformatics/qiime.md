@@ -103,7 +103,7 @@ qiime tools import --input-path /data/input.fasta --output-path /data/output.fas
 
 ## Installation
 
-L’installation peut se faire en utilisant [Apptainer](apptainer.md) ou [EasyBuild](easybuild.md). Il est préférable d'utiliser Apptainer pour éviter que plusieurs milliers de fichiers soient générés dans votre répertoire `/home`, ce qui risquerait de dépasser le quota sur le nombre de fichiers.
+L’installation peut se faire en utilisant [Apptainer](../containers/apptainer.md) ou [EasyBuild](../../programming/easybuild.md). Il est préférable d'utiliser Apptainer pour éviter que plusieurs milliers de fichiers soient générés dans votre répertoire `/home`, ce qui risquerait de dépasser le quota sur le nombre de fichiers.
 
 ### Utilisation avec Apptainer
 
@@ -117,13 +117,13 @@ apptainer build qiime2-2021.11.sif docker://quay.io/qiime2/core:2021.11
 
 Cette étape du *build* pourrait prendre plus d'une heure, mais il ne faut l'effectuer qu'une seule fois. Sauvegardez le fichier image (dans notre exemple `qiime2-2021.11.sif`) pour pouvoir le réutiliser plus tard.
 
-Exécutez ensuite votre programme comme décrit dans la [page Apptainer](apptainer.md). De façon générale, chaque commande QIIME est exécutée dans un énoncé `apptainer exec` comme suit :
+Exécutez ensuite votre programme comme décrit dans la [page Apptainer](../containers/apptainer.md). De façon générale, chaque commande QIIME est exécutée dans un énoncé `apptainer exec` comme suit :
 
 ```bash
 apptainer exec qiime2-2021.11.sif <votre commande QIIME>
 ```
 
-Votre script [SBATCH](running-jobs.md) ressemblerait à :
+Votre script [SBATCH](../../running-jobs/running_jobs.md) ressemblerait à :
 
 ```bash
 #!/bin/bash
@@ -152,7 +152,7 @@ apptainer exec -B $PWD:/home -B /scratch/someuser:/outputs \
   --o-classifier /outputs/some_output_classifier.qza
 ```
 
-Notez qu'il est important d'utiliser l'option [bind](apptainer.md#bind-mount) (`-B`) avec chacun des répertoires avec lesquels vous voulez travailler quand des programmes sont exécutés dans votre conteneur. Pour plus d'information, voyez ce [webinaire Apptainer](https://www.youtube.com/watch?v=bpmrfVqBowY).
+Notez qu'il est important d'utiliser l'option [bind](../containers/apptainer.md#bind-mount) (`-B`) avec chacun des répertoires avec lesquels vous voulez travailler quand des programmes sont exécutés dans votre conteneur. Pour plus d'information, voyez ce [webinaire Apptainer](https://www.youtube.com/watch?v=bpmrfVqBowY).
 
 La première fois que des données sont importées en format QIIME, vous pourriez recevoir un message semblable à :
 

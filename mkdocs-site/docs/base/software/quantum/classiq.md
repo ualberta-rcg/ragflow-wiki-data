@@ -40,7 +40,7 @@ status:
 The software can be used via their online platform, [platform.classiq.io](https://platform.classiq.io/). Execution of quantum programs designed and optimized with Classiq can be run on multiple provider backends. Classiq also provides a [Python SDK](https://docs.classiq.io/latest/sdk-reference/) that can be used on other platforms.
 
 !!! note "Note"
-    While Classiq is largely hardware independent for execution, synthesizing (compiling) quantum programs with Classiq requires use of the Classiq platform via their API and requires authentication. Therefore, even if using local execution, synthesis can only be done on compute nodes with internet access. As such, [Fir](fir.md) and [Nibi](nibi.md) are suitable choices for using Classiq.
+    While Classiq is largely hardware independent for execution, synthesizing (compiling) quantum programs with Classiq requires use of the Classiq platform via their API and requires authentication. Therefore, even if using local execution, synthesis can only be done on compute nodes with internet access. As such, [Fir](../fir.md) and [Nibi](../../clusters/nibi.md) are suitable choices for using Classiq.
 
 ## Installation
 

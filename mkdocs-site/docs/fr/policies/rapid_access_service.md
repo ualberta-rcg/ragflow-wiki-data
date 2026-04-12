@@ -55,9 +55,9 @@ status:
 ## Ressources pour le calcul de haute performance
 
 ### Stockage
-Certaines [ressources de stockage](storage-and-file-management.md) sont mises à la disposition des chercheurs principaux et de leurs utilisateurs parrainés dans le RAP par défaut dès la création d'un compte Alliance dans CCDB. Elles seront prêtes à être utilisées dès que l'accès au système correspondant sera demandé ici : https://ccdb.alliancecan.ca/me/access_systems. Consultez cette page pour plus de détails sur les ressources de stockage disponibles par défaut.
+Certaines [ressources de stockage](../storage-and-data/storage_and_file_management.md) sont mises à la disposition des chercheurs principaux et de leurs utilisateurs parrainés dans le RAP par défaut dès la création d'un compte Alliance dans CCDB. Elles seront prêtes à être utilisées dès que l'accès au système correspondant sera demandé ici : https://ccdb.alliancecan.ca/me/access_systems. Consultez cette page pour plus de détails sur les ressources de stockage disponibles par défaut.
 
-Les chercheuses principales et chercheurs principaux peuvent demander au plus 40 To d’espace de stockage /project et 100 To d’espace de stockage /nearline, sans avoir besoin de présenter une demande au concours pour l’allocation de ressources. Les ressources de stockage peuvent être sur une même grappe d’usage général ou être distribuées sur plusieurs, mais *le total ne doit pas dépasser 40 To d’espace /project et 100 To d’espace /nearline*. Les ressources allouées via le service d’accès rapide se trouveront dans le [RAP par défaut](frequently-asked-questions-about-the-ccdb.md#rap-resource-allocation-project).
+Les chercheuses principales et chercheurs principaux peuvent demander au plus 40 To d’espace de stockage /project et 100 To d’espace de stockage /nearline, sans avoir besoin de présenter une demande au concours pour l’allocation de ressources. Les ressources de stockage peuvent être sur une même grappe d’usage général ou être distribuées sur plusieurs, mais *le total ne doit pas dépasser 40 To d’espace /project et 100 To d’espace /nearline*. Les ressources allouées via le service d’accès rapide se trouveront dans le [RAP par défaut](../getting-started/frequently_asked_questions_about_the_ccdb.md#rap-resource-allocation-project).
 
 | Grappe                     | Stockage /project                                   | Stockage /nearline                                  |
 | :------------------------- | :-------------------------------------------------- | :-------------------------------------------------- |
@@ -73,7 +73,7 @@ Via le RAP par défaut, les groupes de recherche qui ont un compte avec l’Alli
 
 La plupart des groupes peuvent satisfaire leurs besoins en CPU en soumettant des tâches de façon opportuniste avec leur RAP par défaut, sans avoir à présenter une demande au concours pour l’allocation de ressources. Les tâches qui nécessitent beaucoup de mémoire peuvent prendre plus de temps à être exécutées; dans ces cas, la meilleure option serait de présenter une demande au concours si le nombre total de ressources CPU excède le minimum requis pour présenter une demande.
 
-Veuillez prendre connaissance de la page [Allocation et ordonnancement des ressources de calcul](allocations-and-compute-scheduling.md) pour mieux comprendre comment les tâches sont ordonnancées sur nos grappes et comment l’utilisation des CPU est comptabilisée.
+Veuillez prendre connaissance de la page [Allocation et ordonnancement des ressources de calcul](../running-jobs/allocations_and_compute_scheduling.md) pour mieux comprendre comment les tâches sont ordonnancées sur nos grappes et comment l’utilisation des CPU est comptabilisée.
 
 ### GPU
 Les ressources GPU sont disponibles pour une utilisation opportuniste à tous les groupes de recherche qui possèdent un compte actif avec l’Alliance.

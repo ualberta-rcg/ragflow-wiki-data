@@ -37,9 +37,9 @@ status:
 
 ## Aperçu
 
-Notre équipe d'analystes en informatique quantique offre expertise, accompagnement et formation en informatique quantique et en informatique hybride classique-quantique. À compter de janvier 2025, Calcul Québec offre l’accès à un ordinateur quantique supraconducteur de 24 qubits, [MonarQ](monarq.md), disponible via la grappe [Narval](narval.md). Voir notre page [MonarQ](monarq.md) pour plus de détails.
+Notre équipe d'analystes en informatique quantique offre expertise, accompagnement et formation en informatique quantique et en informatique hybride classique-quantique. À compter de janvier 2025, Calcul Québec offre l’accès à un ordinateur quantique supraconducteur de 24 qubits, [MonarQ](../../clusters/monarq.md), disponible via la grappe [Narval](../../clusters/narval.md). Voir notre page [MonarQ](../../clusters/monarq.md) pour plus de détails.
 
-Pour démarrer avec MonarQ, référez-vous à [Premiers pas sur MonarQ](monarq.md#premiers-pas-sur-monarq).
+Pour démarrer avec MonarQ, référez-vous à [Premiers pas sur MonarQ](../../clusters/monarq.md#premiers-pas-sur-monarq).
 
 !!! info "Qu’est-ce que le calcul quantique?"
     Un ordinateur quantique exploite les caractéristiques des particules quantiques (qubits), notamment la superposition d'états; les interférences constructives et destructives; et l'intrication. Grâce à ces propriétés, un nouveau paradigme de calcul est en place, promettant une plus grande parallélisation pour la résolution de problèmes complexes qui restent insolubles pour les systèmes informatiques classiques.

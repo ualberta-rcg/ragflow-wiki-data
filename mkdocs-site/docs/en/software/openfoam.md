@@ -102,7 +102,7 @@ decomposePar
 srun interFoam -parallel
 ```
 
-Mesh preparation (`blockMesh`) may be fast enough to be done at the command line (see [Running jobs](running-jobs.md)). The solver (`icoFoam` and others) is usually the most expensive step and should always be submitted as a Slurm job except in very small test cases or tutorials.
+Mesh preparation (`blockMesh`) may be fast enough to be done at the command line (see [Running jobs](../running-jobs/running_jobs.md)). The solver (`icoFoam` and others) is usually the most expensive step and should always be submitted as a Slurm job except in very small test cases or tutorials.
 
 ## petscFoam solver
 OpenFOAM can be compiled with the external petscFoam solver. Our OpenFOAM modules don't include this solver but it can easily be compiled on any of our clusters.
@@ -199,7 +199,7 @@ cp $WM_PROJECT_DIR/etc/controlDict $HOME/.OpenFOAM/$WM_PROJECT_VERSION/
 
 There are a variety of other parameters which can be used to reduce the amount of output that OpenFOAM writes to disk as well as the frequency; these run-time parameters are documented for [version 6](https://cfd.direct/openfoam/user-guide/v6-controldict/) and [version 7](https://cfd.direct/openfoam/user-guide/v7-controldict/).
 
-For example, the `debugSwitches` dictionary in `$HOME/.OpenFOAM/$WM_PROJECT_VERSION/controlDict` can be altered to change the flags from values greater than zero to zero. Another solution would be to make use of the local scratch (`$SLURM_TMPDIR`), a disk attached directly to the compute node, discussed [here](handling-large-collections-of-files.md#local-disk).
+For example, the `debugSwitches` dictionary in `$HOME/.OpenFOAM/$WM_PROJECT_VERSION/controlDict` can be altered to change the flags from values greater than zero to zero. Another solution would be to make use of the local scratch (`$SLURM_TMPDIR`), a disk attached directly to the compute node, discussed [here](../storage-and-data/handling_large_collections_of_files.md#local-disk).
 
 ### Node-local scratch
-If your workflow involves the creation of many small files, you may benefit from making `$SLURM_TMPDIR` your working directory. See [Using node-local storage](using-node-local-storage.md) for more on this.
+If your workflow involves the creation of many small files, you may benefit from making `$SLURM_TMPDIR` your working directory. See [Using node-local storage](../storage-and-data/using_node-local_storage.md) for more on this.

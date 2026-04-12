@@ -70,6 +70,13 @@ jobs:
           source venv/bin/activate
           python scripts/convert-to-mkdocs.py
 
+      - name: Fix internal MkDocs links
+        env:
+          BATCH_SIZE: ${{ github.event.inputs.convert_batch_size || '0' }}
+        run: |
+          source venv/bin/activate
+          python scripts/fix-mkdocs-links.py
+
       - name: Regenerate homepage
         run: |
           source venv/bin/activate

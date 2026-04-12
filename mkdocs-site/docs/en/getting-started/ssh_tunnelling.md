@@ -71,12 +71,12 @@ In the context of the Alliance, SSH tunnelling is necessary in certain cases, be
 The following use cases require SSH tunnels:
 
 *   Running commercial software on a compute node that needs to contact a license server over the Internet;
-*   Running [visualization software](visualization.md) on a compute node that needs to be contacted by client software on a user's local computer;
+*   Running [visualization software](../software/visualization.md) on a compute node that needs to be contacted by client software on a user's local computer;
 *   Connecting to a database hosted on a cluster from somewhere other than that cluster's head node, e.g., your desktop.
 
 In the first case, the license server is outside of the compute cluster and is rarely under a user's control, whereas in the other cases, the server is on the compute node but the challenge is to connect to it from the outside. We will therefore consider these two situations below.
 
-While not strictly required to use SSH tunnelling, you may wish to be familiar with [SSH key pairs](ssh-keys.md).
+While not strictly required to use SSH tunnelling, you may wish to be familiar with [SSH key pairs](ssh_keys.md).
 
 ## Contacting a license server from a compute node
 
@@ -133,7 +133,7 @@ mpirun thesoftware .....
 
 ## Connecting to a program running on a compute node
 
-SSH tunnelling can also be used in our context to allow a user's computer to connect to a compute node on a cluster through an encrypted tunnel that is routed via the login node of this cluster. This technique allows graphical output of applications like a [Jupyter Notebook](jupyter.md) or [visualization software](visualization.md) to be displayed transparently on the user's local workstation even while they are running on a cluster's compute node. When connecting to a database server where the connection is only possible through the head node, SSH tunnelling can be used to bind an external port to the database server.
+SSH tunnelling can also be used in our context to allow a user's computer to connect to a compute node on a cluster through an encrypted tunnel that is routed via the login node of this cluster. This technique allows graphical output of applications like a [Jupyter Notebook](../software/jupyter.md) or [visualization software](../software/visualization.md) to be displayed transparently on the user's local workstation even while they are running on a cluster's compute node. When connecting to a database server where the connection is only possible through the head node, SSH tunnelling can be used to bind an external port to the database server.
 
 There is Network Address Translation (NAT) on both Nibi and Fir allowing users to access the Internet from the compute nodes.
 
@@ -147,7 +147,7 @@ On your computer, open a new terminal window and run the following `sshuttle` co
 sshuttle --dns -Nr userid@machine_name
 ```
 
-Then, copy and paste the application's URL into your browser. If your application is a [Jupyter notebook](jupyter.md#starting-jupyter-notebook), for example, you are given a URL with a token:
+Then, copy and paste the application's URL into your browser. If your application is a [Jupyter notebook](../software/jupyter.md#starting-jupyter-notebook), for example, you are given a URL with a token:
 
 ```
 http://fc3281.int.fir.alliancecan.ca:8888/?token=7ed7059fad64446f837567e32af8d20efa72e72476eb72ca
@@ -155,11 +155,11 @@ http://fc3281.int.fir.alliancecan.ca:8888/?token=7ed7059fad64446f837567e32af8d20
 
 ### From Windows
 
-An SSH tunnel can be created from Windows using [MobaXTerm](connecting-with-mobaxterm.md) as follows.
+An SSH tunnel can be created from Windows using [MobaXTerm](connecting_with_mobaxterm.md) as follows.
 
 Open two sessions in MobaXTerm.
 
-*   Session 1 should be a connection to a cluster. Start your job there following the instructions for your application, such as [Jupyter Notebook](jupyter.md#starting-jupyter-notebook). You should be given a URL that includes a host name and a port, such as `fc3281.int.fir.alliancecan.ca:8888` for example.
+*   Session 1 should be a connection to a cluster. Start your job there following the instructions for your application, such as [Jupyter Notebook](../software/jupyter.md#starting-jupyter-notebook). You should be given a URL that includes a host name and a port, such as `fc3281.int.fir.alliancecan.ca:8888` for example.
 
 *   Session 2 should be a local terminal in which we will set up the SSH tunnel. Run the following command, replacing this example host name with the one from the URL you received in Session 1.
 
@@ -169,7 +169,7 @@ ssh -L 8888:fc3281.int.fir.alliancecan.ca:8888 someuser@fir.alliancecan.ca
 
 This command forwards connections to **local port** 8888 to port 8888 on fc3281.int.fir.alliancecan.ca, the **remote port**. The local port number, the first one, does not *need* to match the remote port number, the second one, but it is conventional and reduces confusion.
 
-Modify the URL you were given in Session 1 by replacing the host name with `localhost`. Again using an example from [Jupyter Notebook](jupyter.md#starting-jupyter-notebook), this would be the URL to paste into a browser:
+Modify the URL you were given in Session 1 by replacing the host name with `localhost`. Again using an example from [Jupyter Notebook](../software/jupyter.md#starting-jupyter-notebook), this would be the URL to paste into a browser:
 
 ```
 http://localhost:8888/?token=7ed7059fad64446f837567e32af8d20efa72e72476eb72ca

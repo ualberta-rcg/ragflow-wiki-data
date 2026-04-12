@@ -75,7 +75,7 @@ status:
   qa_generated: false
 ---
 
-La plupart du temps, vous devriez soumettre les tâches MPI parallèles à mémoire distribuée selon l'exemple présenté à la section **Tâche MPI** de la page [Exécuter des tâches](running-jobs.md#tache-mpi). Il suffit d'utiliser `--ntasks` ou `-n` pour spécifier le nombre de processus et de laisser l'ordonnanceur faire la meilleure allocation, compte tenu de l'efficacité de la grappe.
+La plupart du temps, vous devriez soumettre les tâches MPI parallèles à mémoire distribuée selon l'exemple présenté à la section **Tâche MPI** de la page [Exécuter des tâches](running_jobs.md#tache-mpi). Il suffit d'utiliser `--ntasks` ou `-n` pour spécifier le nombre de processus et de laisser l'ordonnanceur faire la meilleure allocation, compte tenu de l'efficacité de la grappe.
 
 Si, par contre, vous voulez plus de contrôle sur l'allocation, prenez connaissance de la page [Support for Multi-core/Multi-thread Architectures](https://slurm.schedmd.com/mc_support.html) de SchedMD; on y décrit comment plusieurs options de la commande [`sbatch`](https://slurm.schedmd.com/sbatch.html) agissent sur l'ordonnancement des processus.
 
@@ -100,15 +100,15 @@ Nous avons ici 15 processus MPI. L'allocation des cœurs pourrait se faire sur 1
 
 Pour une tâche parallèle intensive qui peut utiliser efficacement 64 cœurs ou plus, vous devriez probablement demander des nœuds entiers; il est donc utile de savoir quels types de nœuds sont disponibles sur la grappe que vous utilisez.
 
-La plupart des nœuds de [Fir](fir.md), [Narval](narval.md), [Nibi](nibi.md), [Rorqual](rorqual.md) et [Trillium](trillium.md) sont configurés comme suit :
+La plupart des nœuds de [Fir](../software/fir.md), [Narval](../clusters/narval.md), [Nibi](../clusters/nibi.md), [Rorqual](../clusters/rorqual.md) et [Trillium](../clusters/trillium.md) sont configurés comme suit :
 
 | Grappe | Cœurs | Mémoire utilisable | Notes |
 | :----- | :---- | :----------------- | :---- |
-| [Fir](fir.md) | 192 | 750 Gio | certains sont réservés pour les tâches sur nœud entier |
-| [Narval](narval.md) | 64 | 249 Gio | certains sont réservés pour les tâches sur nœud entier |
-| [Nibi](nibi.md) | 192 | 748 Gio | aucun n'est réservé pour les tâches sur nœud entier |
-| [Rorqual](rorqual.md) | 192 | 750 Gio | certains sont réservés pour les tâches sur nœud entier |
-| [Trillium](trillium.md) | 192 | 749 Gio | Trillium permet uniquement des tâches sur nœud entier |
+| [Fir](../software/fir.md) | 192 | 750 Gio | certains sont réservés pour les tâches sur nœud entier |
+| [Narval](../clusters/narval.md) | 64 | 249 Gio | certains sont réservés pour les tâches sur nœud entier |
+| [Nibi](../clusters/nibi.md) | 192 | 748 Gio | aucun n'est réservé pour les tâches sur nœud entier |
+| [Rorqual](../clusters/rorqual.md) | 192 | 750 Gio | certains sont réservés pour les tâches sur nœud entier |
+| [Trillium](../clusters/trillium.md) | 192 | 749 Gio | Trillium permet uniquement des tâches sur nœud entier |
 
 Les tâches sur nœuds entiers peuvent être exécutées sur tous les nœuds. Dans le tableau ci-dessus, la note « Certains sont réservés pour les tâches sur nœuds entiers » signifie que les tâches par cœur sont interdites sur certains nœuds.
 
@@ -158,10 +158,10 @@ Voici un exemple d'un script demandant des nœuds entiers.
 Le fait de demander `--mem=0` indique à Slurm qu'il doit *réserver toute la mémoire disponible de chacun des nœuds assignés à la tâche*.
 
 Toutefois, si vous avez besoin de plus de mémoire par nœud que ce que le plus petit nœud peut offrir (par exemple, plus de 748 Gio sur Nibi), **vous ne devriez pas utiliser** `--mem=0`, mais demander une quantité explicite de mémoire. De plus, une partie de la mémoire de chaque nœud est réservée au système d'exploitation; dans la section *Caractéristiques des nœuds*, la colonne *Mémoire disponible* indique la plus grande quantité de mémoire qu'une tâche peut demander :
-*   [Fir](fir.md#caracteristiques-des-noeuds)
-*   [Narval](narval.md#caracteristiques-des-noeuds)
-*   [Nibi](nibi.md#caracteristiques-des-noeuds)
-*   [Rorqual](rorqual.md#caracteristiques-des-noeuds)
+*   [Fir](../software/fir.md#caracteristiques-des-noeuds)
+*   [Narval](../clusters/narval.md#caracteristiques-des-noeuds)
+*   [Nibi](../clusters/nibi.md#caracteristiques-des-noeuds)
+*   [Rorqual](../clusters/rorqual.md#caracteristiques-des-noeuds)
 
 ### Peu de cœurs, nœud unique
 
@@ -179,7 +179,7 @@ Vous pourriez aussi utiliser `--mem-per-cpu=3G`, mais la tâche serait annulée 
 
 ### Tâche intensive en parallèle, sans multiples de nœuds entiers
 
-Ce ne sont pas toutes les tâches qui sont effectuées de façon optimale sur des cœurs en multiples de 32, 40 ou 48. Le fait d'indiquer ou non un nombre précis de cœurs peut influer sur le *temps d'exécution* (ou la bonne utilisation de la ressource) ou le *temps d'attente* (ou la bonne utilisation du temps qui vous est imparti). Pour de l'aide sur comment évaluer ces facteurs, communiquez avec le [soutien technique](technical-support.md).
+Ce ne sont pas toutes les tâches qui sont effectuées de façon optimale sur des cœurs en multiples de 32, 40 ou 48. Le fait d'indiquer ou non un nombre précis de cœurs peut influer sur le *temps d'exécution* (ou la bonne utilisation de la ressource) ou le *temps d'attente* (ou la bonne utilisation du temps qui vous est imparti). Pour de l'aide sur comment évaluer ces facteurs, communiquez avec le [soutien technique](../support/technical_support.md).
 
 ## Tâches hybrides : MPI avec OpenMP ou MPI avec fils
 

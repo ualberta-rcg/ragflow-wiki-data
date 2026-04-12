@@ -45,11 +45,11 @@ While we have a lot of specific documentation for Arbutus, some of this may tran
 
 #### Openstack
 
-*   [VM recovery via cloud console](vm-recovery-via-cloud-console.md)
+*   [VM recovery via cloud console](vm_recovery_via_cloud_console.md)
 
 #### Storage
 
 *   [Arbutus CephFS](arbutus-cephfs.md)
-*   [Arbutus object storage](arbutus-object-storage.md)
+*   [Arbutus object storage](arbutus_object_storage.md)
 
 #### General

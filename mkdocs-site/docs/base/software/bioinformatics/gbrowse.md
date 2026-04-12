@@ -52,16 +52,16 @@ status:
 
 ## Introduction
 
-GBrowse is a combination of database and interactive web pages for manipulating and displaying annotations on genomes. It requires a web interface to display. GBrowse is installed on [Cedar](cedar.md). The web address of the installation is https://gateway.cedar.computecanada.ca.
+GBrowse is a combination of database and interactive web pages for manipulating and displaying annotations on genomes. It requires a web interface to display. GBrowse is installed on [Cedar](../../clusters/cedar.md). The web address of the installation is https://gateway.cedar.computecanada.ca.
 
 The Cedar installation differs in some ways from the standard GBrowse setup described at the official website: http://gmod.org/wiki/GBrowse, particularly with regard to authentication and authorization.
 
 ## Requesting access to GBrowse
 
 !!! warning "Shared Account Implications"
-    In order for GBrowse to be able to access your files and directories, our staff will create a shared account for each research group that requests access to GBrowse. While using GBrowse, any member of a research group can read GBrowse config files and input files belonging to any other member of that group. If you wish to use GBrowse, the Principal Investigator (PI) of your group must agree to this change from the usual file security practices. Have the PI write to our [technical support](technical-support.md) indicating that they want a GBrowse account to be created for the group, and that they understand the implications of a shared account.
+    In order for GBrowse to be able to access your files and directories, our staff will create a shared account for each research group that requests access to GBrowse. While using GBrowse, any member of a research group can read GBrowse config files and input files belonging to any other member of that group. If you wish to use GBrowse, the Principal Investigator (PI) of your group must agree to this change from the usual file security practices. Have the PI write to our [technical support](../../support/technical_support.md) indicating that they want a GBrowse account to be created for the group, and that they understand the implications of a shared account.
 
-You must also have a database account on Cedar. If you already have one, please give the name of the database in your email. If you do not already have a database account, please read [Database servers](database-servers.md) carefully and answer the questions given there for setting up a database.
+You must also have a database account on Cedar. If you already have one, please give the name of the database in your email. If you do not already have a database account, please read [Database servers](../../cloud/database_servers.md) carefully and answer the questions given there for setting up a database.
 
 ## Setting up GBrowse
 
@@ -140,6 +140,6 @@ In this example `*DATABASE*` is the name of your database and `example_genomic_s
 ```
 
 !!! warning "Avoid Head Node"
-    We remind you that the above commands should be run via the [job scheduler](running-jobs.md). Do not run these on the head node!
+    We remind you that the above commands should be run via the [job scheduler](../../running-jobs/running_jobs.md). Do not run these on the head node!
 
-Once you uploaded your data to your database, you need to grant view access to the `*SHARED*` account so that GBrowse is able to access your database for reading. Please see [How to share your MySQL data](database-servers.md#how-to-share-your-mysql-data).
+Once you uploaded your data to your database, you need to grant view access to the `*SHARED*` account so that GBrowse is able to access your database for reading. Please see [How to share your MySQL data](../../cloud/database_servers.md#how-to-share-your-mysql-data).

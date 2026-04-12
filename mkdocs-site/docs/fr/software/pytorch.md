@@ -175,7 +175,7 @@ PyTorch est un paquet Python qui offre deux fonctionnalités de haut niveau :
 * le calcul tensoriel (semblable à celui effectué par NumPy) avec forte accélération de GPU, et
 * des réseaux de neurones d’apprentissage profond dans un système de gradients conçu sur le modèle d’un magnétophone.
 
-Si vous voulez porter un programme PyTorch sur une de nos grappes, il serait bon de prendre connaissance [de ce tutoriel](tutoriel-apprentissage-machine.md).
+Si vous voulez porter un programme PyTorch sur une de nos grappes, il serait bon de prendre connaissance [de ce tutoriel](ai-ml/tutoriel_apprentissage_machine.md).
 
 ## Clarification
 
@@ -196,7 +196,7 @@ Pour plus d'information, voyez [Wheels disponibles](python.md#wheels-disponibles
 
 La meilleure option est d'installer avec [Python wheels](https://pythonwheels.com/) comme suit :
 
-1.  [Chargez un module](utiliser-des-modules.md#sous-commande-load) Python avec `module load python`.
+1.  [Chargez un module](../programming/utiliser_des_modules.md#sous-commande-load) Python avec `module load python`.
 2.  Créez et démarrez un [environnement virtuel](python.md#creer-et-utiliser-un-environnement-virtuel).
 3.  Installez PyTorch dans l'environnement virtuel avec `pip install`.
 
@@ -234,7 +234,7 @@ pip install torch --no-index
 python pytorch-test.py
 ```
 
-Pour plus d'information sur le nombre de CPU et la mémoire des GPU sur nos grappes, voir [Ratios dans les bundles](allocations-and-compute-scheduling.md#ratios-dans-les-bundles).
+Pour plus d'information sur le nombre de CPU et la mémoire des GPU sur nos grappes, voir [Ratios dans les bundles](../running-jobs/allocations_and_compute_scheduling.md#ratios-dans-les-bundles).
 
 Le script Python `pytorch-ddp-test.py` a la forme suivante :
 
@@ -1120,7 +1120,7 @@ Lancez le programme avec
 build/example
 ```
 
-Pour tester une application avec CUDA, demandez une [tâche interactive](running-jobs.md#tâches-interactives) avec [GPU](using-gpus-with-slurm.md).
+Pour tester une application avec CUDA, demandez une [tâche interactive](../running-jobs/running_jobs.md#tâches-interactives) avec [GPU](../running-jobs/using_gpus_with_slurm.md).
 
 ## rTorch
 

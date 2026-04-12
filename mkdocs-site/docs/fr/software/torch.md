@@ -45,7 +45,7 @@ Il y a une certaine ressemblance entre Torch et PyTorch. Les documents en réfé
 
 PyTorch offre une interface [Python](python.md) avec des logiciels qui possèdent des fonctionnalités similaires, mais PyTorch ne dépend pas de Torch. Voyez la page [PyTorch](pytorch.md).
 
-Pour utiliser Torch, vous devez charger un module [CUDA](cuda.md).
+Pour utiliser Torch, vous devez charger un module [CUDA](../programming/cuda.md).
 
 ```bash
 module load cuda torch
@@ -70,4 +70,4 @@ Si vous avez de la difficulté à trouver les paquets à l'exécution, ajoutez l
 eval $(luarocks path --bin)
 ```
 
-Certains paquets ne s'installent pas bien avec `luarocks`; si vous avez besoin d'assistance, contactez le [soutien technique](technical-support.md).
+Certains paquets ne s'installent pas bien avec `luarocks`; si vous avez besoin d'assistance, contactez le [soutien technique](../support/technical_support.md).

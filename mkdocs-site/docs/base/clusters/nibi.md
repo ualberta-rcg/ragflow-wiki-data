@@ -128,7 +128,7 @@ To request one or more full H100 GPUs, you need to use one of the following Slur
     * `--gpus-per-node=h100:4`
 * **For multiple full H100 GPUs** spread anywhere: `--gpus=h100:n` (replace n with the number of GPUs you want)
 
-Approximately half of the GPU nodes are configured with [MIG technology](multi-instance-gpu.md), and only 3 GPU instance sizes are available:
+Approximately half of the GPU nodes are configured with [MIG technology](../programming/multi-instance_gpu.md), and only 3 GPU instance sizes are available:
 
 * **H100-1g.10gb**: 1/8th of the computing power with 10GB GPU memory
 * **H100-2g.20gb**: 2/8th of the computing power with 20GB GPU memory
@@ -138,7 +138,7 @@ To request **one and only one GPU instance** for your compute job, use the corre
 * **H100-1g.10gb**: `--gpus=h100_1g.10gb:1`
 * **H100-2g.20gb**: `--gpus=h100_2g.20gb:1`
 * **H100-3g.40gb**: `--gpus=h100_3g.40gb:1`
-The maximum recommended number of CPU cores and system memory per GPU instance is listed [in this table](allocations-and-compute-scheduling.md#ratios-in-bundles).
+The maximum recommended number of CPU cores and system memory per GPU instance is listed [in this table](../running-jobs/allocations_and_compute_scheduling.md#ratios-in-bundles).
 
 ## Site specifics
 ### Internet access
@@ -148,7 +148,7 @@ All nodes on Nibi have Internet access; no special firewall permission or proxyi
 User directories are no longer created by default on `/project`. Users can always create their own directories in the group's `/project` using `mkdir`. This allows groups to decide how their `/project` is organised for sharing data amongst group members.
 
 ### Scratch quota
-An 1 TB soft quota on scratch applies to each user. This soft quota can be exceeded for up to 60 days after which no additional files may be written to scratch. Files may be written again once the user has removed or deleted enough files to bring their total scratch use under 1 TB. See the [Storage and file management](storage-and-file-management.md) for more information.
+An 1 TB soft quota on scratch applies to each user. This soft quota can be exceeded for up to 60 days after which no additional files may be written to scratch. Files may be written again once the user has removed or deleted enough files to bring their total scratch use under 1 TB. See the [Storage and file management](../storage-and-data/storage_and_file_management.md) for more information.
 
 ### Access through Open OnDemand (OOD)
 One can now access the Nibi cluster simply through a web browser. Nibi uses Open OnDemand (OOD), a web-based platform that simplifies cluster access by providing a web interface to the login nodes and a remote desktop environment. To log in to Nibi, go to https://ondemand.sharcnet.ca/, sign in with MFA; you will see a user-friendly interface offering options to open a Bash shell terminal or launch a remote desktop session.
@@ -156,15 +156,15 @@ One can now access the Nibi cluster simply through a web browser. Nibi uses Open
 ### Use of JupyterLab via OOD
 You can run JupyterLab interactively via the Nibi Open OnDemand [portal](https://ondemand.sharcnet.ca).
 
-**Option 1**: working with a pre-configured environment, same as from [JupyterHub](jupyterhub.md)
+**Option 1**: working with a pre-configured environment, same as from [JupyterHub](../interactive/jupyterhub.md)
 
 After logging in to the Nibi Open OnDemand [portal](https://ondemand.sharcnet.ca), click “Compute Node” from the top menu and select “Nibi JupyterLab.” This will open a page with a form where you can request a new Nibi JupyterLab session.
 
 After completing the form with your requirement details, click “Launch” to submit your request. Once the status of the requested Nibi JupyterLab changes to Running, click “Connect to Jupyter” to open JupyterLab in your web browser.
 
-More details about the pre-configured JupyterLab are described [here](jupyterlab.md#the-jupyterlab-interface).
+More details about the pre-configured JupyterLab are described [here](../interactive/jupyterlab.md#the-jupyterlab-interface).
 
-**Option 2**: working with a self-built [Python virtual environment](python.md#creating-and-using-a-virtual-environment)
+**Option 2**: working with a self-built [Python virtual environment](../software/python.md#creating-and-using-a-virtual-environment)
 
 After logging in to the Nibi Open OnDemand [portal](https://ondemand.sharcnet.ca), click “Compute Node” from the top menu and select “Compute Desktop.” This will open a page with a form where you can request a new Compute Desktop session.
 

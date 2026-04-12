@@ -32,29 +32,29 @@ status:
   qa_generated: false
 ---
 
-- [Version control](version-control.md)
+- [Version control](version_control.md)
 - Languages, compilers, and interpreters
   - [C](c.md)
   - [C++](c++.md)
-  - [Chapel](chapel.md)
+  - [Chapel](../software/chapel.md)
   - [Fortran](fortran.md)
-  - [Java](java.md)
-  - [Perl](perl.md)
-  - [Python](python.md)
-  - [Julia](julia.md)
-  - [R](r.md)
+  - [Java](../software/java.md)
+  - [Perl](../software/perl.md)
+  - [Python](../software/python.md)
+  - [Julia](../software/julia.md)
+  - [R](../software/r.md)
 - Accelerators
-  - [OpenACC](openacc-tutorial.md)
+  - [OpenACC](openacc_tutorial.md)
   - [CUDA](cuda.md)
   - [OpenMP](openmp.md)
-- [Available software](available-software.md)
+- [Available software](available_software.md)
 - Parallelization
   - [OpenMP](openmp.md)
-  - [MPI](mpi.md)
+  - [MPI](../software/mpi.md)
   - [Pthreads](pthreads.md)
   - [META](meta-a-package-for-job-farming.md)
-  - [GNU Parallel](gnu-parallel.md)
-  - [GLOST](glost.md)
-  - [Apache Spark](apache-spark.md)
-- [Debugging and profiling](debugging-and-profiling.md)
-- [Build tools](build-tools.md), e.g. make, autoconf
+  - [GNU Parallel](../running-jobs/gnu_parallel.md)
+  - [GLOST](../running-jobs/glost.md)
+  - [Apache Spark](../software/apache_spark.md)
+- [Debugging and profiling](debugging_and_profiling.md)
+- [Build tools](build_tools.md), e.g. make, autoconf

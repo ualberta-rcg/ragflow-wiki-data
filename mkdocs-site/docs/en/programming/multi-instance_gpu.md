@@ -59,7 +59,7 @@ Using GPU instances is less wasteful, and usage is billed accordingly. Jobs subm
 ## Choosing between a full GPU and a GPU instance
 Jobs that use less than half of the computing power of a full GPU and less than half of the available memory should be evaluated and tested on an instance. In most cases, these jobs will run just as fast and consume less than half of the computing resource.
 
-See section [Finding which of your jobs should use an instance](multi-instance-gpu.md#finding-which-of-your-jobs-should-use-an-instance) for more details.
+See section [Finding which of your jobs should use an instance](multi-instance_gpu.md#finding-which-of-your-jobs-should-use-an-instance) for more details.
 
 ## Limitations
 [The MIG technology does not support](https://docs.nvidia.com/datacenter/tesla/mig-user-guide/index.html#application-considerations) [CUDA Inter-Process Communication (IPC)](https://developer.nvidia.com/docs/drive/drive-os/6.0.8.1/public/drive-os-linux-sdk/common/topics/nvsci_nvsciipc/Inter-ProcessCommunication1.html), which optimizes data transfers between GPUs over NVLink and NVSwitch.
@@ -71,19 +71,19 @@ This limitation also reduces communication efficiency between instances.
     If you feel you need more than one MIG instance, then either:
     *   Request a larger instance (e.g. a 3g instead of three 1g instances).
     *   Request an entire GPU or multiple GPUs.
-    *   Use [MPS](hyper-q-mps.md) rather than MIG.
-    *   [Contact Support](technical-support.md) explaining the reason you want to try running on multiple MIGs, and we can help you do the experiment.
+    *   Use [MPS](../software/hyper-q___mps.md) rather than MIG.
+    *   [Contact Support](../support/technical_support.md) explaining the reason you want to try running on multiple MIGs, and we can help you do the experiment.
 
 Graphic APIs are not supported (for example, OpenGL, Vulkan, etc.); see [Application Considerations](https://docs.nvidia.com/datacenter/tesla/mig-user-guide/index.html#application-considerations).
 
-GPU jobs requiring many CPU cores may also require a full GPU instead of an instance. The maximum number of CPU cores per instance depends on [the number of cores per full GPU](allocations-and-compute-scheduling.md#ratios-in-bundles) and on the configured [MIG profiles](https://docs.nvidia.com/datacenter/tesla/mig-user-guide/index.html#a100-profiles). Both vary between clusters and between GPU nodes in a cluster.
+GPU jobs requiring many CPU cores may also require a full GPU instead of an instance. The maximum number of CPU cores per instance depends on [the number of cores per full GPU](../running-jobs/allocations_and_compute_scheduling.md#ratios-in-bundles) and on the configured [MIG profiles](https://docs.nvidia.com/datacenter/tesla/mig-user-guide/index.html#a100-profiles). Both vary between clusters and between GPU nodes in a cluster.
 
 ## Available configurations
 While there are [many possible MIG configurations and profiles](https://docs.nvidia.com/datacenter/tesla/mig-user-guide/index.html#supported-mig-profiles), the supported profiles are system dependent:
-*   [Narval, with NVIDIA A100-40gb GPUs](narval.md#gpu-instances)
-*   [Rorqual, with NVIDIA H100-80gb GPUs](rorqual.md#gpu-instances)
-*   [Nibi, with NVIDIA H100-80gb GPUS](nibi.md#gpu-instances)
-*   [Fir, with NVIDIA H100-80gb GPUS](fir.md#gpu-instances)
+*   [Narval, with NVIDIA A100-40gb GPUs](../clusters/narval.md#gpu-instances)
+*   [Rorqual, with NVIDIA H100-80gb GPUs](../clusters/rorqual.md#gpu-instances)
+*   [Nibi, with NVIDIA H100-80gb GPUS](../clusters/nibi.md#gpu-instances)
+*   [Fir, with NVIDIA H100-80gb GPUS](../software/fir.md#gpu-instances)
 
 The profile name describes the size of the instance.
 *   **H100-1g.10gb**: 1/8th of the computing power with 10GB GPU memory
@@ -98,7 +98,7 @@ To list all the flavours of MIGs (plus the full size GPU names) available on a g
 sinfo -o "%G"|grep gpu|sed 's/gpu://g'|sed 's/),/\n/g'|cut -d: -f1|sort|uniq
 ```
 
-The recommended maximum number of CPU cores and amount of system memory per instance are listed in the [table of ratios in bundles](allocations-and-compute-scheduling.md#ratios-in-bundles).
+The recommended maximum number of CPU cores and amount of system memory per instance are listed in the [table of ratios in bundles](../running-jobs/allocations_and_compute_scheduling.md#ratios-in-bundles).
 
 ## Job examples
 
@@ -135,5 +135,5 @@ The final metrics to consider are the maximum amount of GPU memory and the avera
 
 It was also launched using a single CPU core. When taking into account these three last metrics, we can confirm that the job should easily run on a 3g.20GB or 4g.20GB GPU instance with power and memory to spare.
 
-Another way to monitor the usage of a running job is by [attaching to the node](running-jobs.md#attaching-to-a-running-job) where the job is currently running and then by using `nvidia-smi` to read the GPU metrics in real time.
+Another way to monitor the usage of a running job is by [attaching to the node](../running-jobs/running_jobs.md#attaching-to-a-running-job) where the job is currently running and then by using `nvidia-smi` to read the GPU metrics in real time.
 This will not provide maximum and average values for memory and power usage of the entire job, but it may be helpful to identify and troubleshoot underperforming jobs.

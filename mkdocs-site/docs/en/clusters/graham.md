@@ -66,7 +66,7 @@ status:
 ---
 
 !!! warning "Note"
-Graham has been retired and replaced by a new system, [Nibi](nibi.md). Please check the [Infrastructure renewal](infrastructure-renewal.md) page for system capacity, reductions, and outages during the installation and transition to the new systems.
+Graham has been retired and replaced by a new system, [Nibi](nibi.md). Please check the [Infrastructure renewal](infrastructure_renewal.md) page for system capacity, reductions, and outages during the installation and transition to the new systems.
 
 | Availability: In production since June 2017 |
 | Login node: **graham.alliancecan.ca** |
@@ -79,15 +79,15 @@ The parallel filesystem and external persistent storage (called "NDC-Waterloo" i
 
 It is entirely liquid cooled, using rear-door heat exchangers.
 
-[Getting started with Graham](getting-started.md)
+[Getting started with Graham](../getting-started/getting_started.md)
 
-[How to run jobs](running-jobs.md)
+[How to run jobs](../running-jobs/running_jobs.md)
 
-[Transferring data](transferring-data.md)
+[Transferring data](../getting-started/transferring_data.md)
 
 ## Site-specific policies
 
-* By policy, Graham's compute nodes cannot access the internet. If you need an exception to this rule, contact [technical support](technical-support.md) with the following information:
+* By policy, Graham's compute nodes cannot access the internet. If you need an exception to this rule, contact [technical support](../support/technical_support.md) with the following information:
 
 ```
 IP: 
@@ -107,9 +107,9 @@ On or after the removal date we will follow up with the contact to confirm if th
 
 | | |
 |---|---|
-| **Home space**<br />133TB total volume | * Location of home directories.<br />* Each home directory has a small, fixed [quota](storage-and-file-management.md#filesystem-quotas-and-policies).<br />* Not allocated via [RAS](https://alliancecan.ca/en/services/advanced-research-computing/accessing-resources/rapid-access-service) or [RAC](https://alliancecan.ca/en/services/advanced-research-computing/accessing-resources/resource-allocation-competition). Larger requests go to Project space.<br />* Has daily backup. |
-| **Scratch space**<br />3.2PB total volume<br />Parallel high-performance filesystem | * For active or temporary (`/scratch`) storage.<br />* Not allocated.<br />* Large fixed [quota](storage-and-file-management.md#filesystem-quotas-and-policies) per user.<br />* Inactive data will be purged. |
-| **Project space**<br />16PB total volume<br />External persistent storage | * Allocated via [RAS](https://alliancecan.ca/en/services/advanced-research-computing/accessing-resources/rapid-access-service) or [RAC](https://alliancecan.ca/en/services/advanced-research-computing/accessing-resources/resource-allocation-competition).<br />* Not designed for parallel I/O workloads. Use Scratch space instead.<br />* Large adjustable [quota](storage-and-file-management.md#filesystem-quotas-and-policies) per project.<br />* Has daily backup. |
+| **Home space**<br />133TB total volume | * Location of home directories.<br />* Each home directory has a small, fixed [quota](../storage-and-data/storage_and_file_management.md#filesystem-quotas-and-policies).<br />* Not allocated via [RAS](https://alliancecan.ca/en/services/advanced-research-computing/accessing-resources/rapid-access-service) or [RAC](https://alliancecan.ca/en/services/advanced-research-computing/accessing-resources/resource-allocation-competition). Larger requests go to Project space.<br />* Has daily backup. |
+| **Scratch space**<br />3.2PB total volume<br />Parallel high-performance filesystem | * For active or temporary (`/scratch`) storage.<br />* Not allocated.<br />* Large fixed [quota](../storage-and-data/storage_and_file_management.md#filesystem-quotas-and-policies) per user.<br />* Inactive data will be purged. |
+| **Project space**<br />16PB total volume<br />External persistent storage | * Allocated via [RAS](https://alliancecan.ca/en/services/advanced-research-computing/accessing-resources/rapid-access-service) or [RAC](https://alliancecan.ca/en/services/advanced-research-computing/accessing-resources/resource-allocation-competition).<br />* Not designed for parallel I/O workloads. Use Scratch space instead.<br />* Large adjustable [quota](../storage-and-data/storage_and_file_management.md#filesystem-quotas-and-policies) per project.<br />* Has daily backup. |
 
 ## High-performance interconnect
 
@@ -127,7 +127,7 @@ For larger jobs the interconnect has a 8:1 blocking factor, i.e., even for jobs 
 
 ## Visualization on Graham
 
-Graham has dedicated visualization nodes available at **gra-vdi.alliancecan.ca** that allow only VNC connections. For instructions on how to use them, see the [VNC](vnc.md) page.
+Graham has dedicated visualization nodes available at **gra-vdi.alliancecan.ca** that allow only VNC connections. For instructions on how to use them, see the [VNC](../interactive/vnc.md) page.
 
 ## Node characteristics
 
@@ -146,9 +146,9 @@ In early 2025 Graham's capacity was reduced to make space for the installation o
 | 11 | 64 | 128G or 131072M | 1 x AMD EPYC 7713 | 1.8TB SATA SSD | 4 x NVIDIA RTX A5000 Ampere |
 | 6 | 32 | 1024G or 1048576M | 1 x AMD EPYC 7543 | 8x2TB NVMe | - |
 
-Most applications will run on either Skylake or Cascade Lake nodes, and performance differences are expected to be small compared to job waiting times. Therefore we recommend that you do not select a specific node type for your jobs. If it is necessary to constrain a CPU job, use `--constraint=cascade`. See [how to specify the CPU architecture](running-jobs.md#cluster-particularities).
+Most applications will run on either Skylake or Cascade Lake nodes, and performance differences are expected to be small compared to job waiting times. Therefore we recommend that you do not select a specific node type for your jobs. If it is necessary to constrain a CPU job, use `--constraint=cascade`. See [how to specify the CPU architecture](../running-jobs/running_jobs.md#cluster-particularities).
 
-Best practice for local on-node storage is to use the temporary directory generated by [Slurm](running-jobs.md), `$SLURM_TMPDIR`. Note that this directory and its contents will disappear upon job completion.
+Best practice for local on-node storage is to use the temporary directory generated by [Slurm](../running-jobs/running_jobs.md), `$SLURM_TMPDIR`. Note that this directory and its contents will disappear upon job completion.
 
 Note that the amount of available memory is less than the "round number" suggested by hardware configuration. For instance, "base" nodes do have 128 GiB of RAM, but some of it is permanently occupied by the kernel and OS. To avoid wasting time by swapping/paging, the scheduler will never allocate jobs whose memory requirements exceed the specified amount of "available" memory. Please also note that the memory allocated to the job must be sufficient for IO buffering performed by the kernel and filesystem - this means that an IO-intensive job will often benefit from requesting somewhat more memory than the aggregate size of processes.
 
@@ -201,7 +201,7 @@ module load StdEnv/2023
 nvidia-smi
 ```
 
-The Volta nodes have a fast local disk, which should be used for jobs if the amount of I/O performed by your job is significant. Inside the job, the location of the temporary directory on fast local disk is specified by the environment variable $SLURM_TMPDIR. You can copy your input files there at the start of your job script before you run your program and your output files out at the end of your job script. All the files in $SLURM_TMPDIR will be removed once the job ends, so you do not have to clean up that directory yourself. You can even create Python virtual environments in this temporary space for greater efficiency. Please see the [information on how to do this](python.md#creating-virtual-environments-inside-of-your-jobs).
+The Volta nodes have a fast local disk, which should be used for jobs if the amount of I/O performed by your job is significant. Inside the job, the location of the temporary directory on fast local disk is specified by the environment variable $SLURM_TMPDIR. You can copy your input files there at the start of your job script before you run your program and your output files out at the end of your job script. All the files in $SLURM_TMPDIR will be removed once the job ends, so you do not have to clean up that directory yourself. You can even create Python virtual environments in this temporary space for greater efficiency. Please see the [information on how to do this](../software/python.md#creating-virtual-environments-inside-of-your-jobs).
 
 ### Turing GPU nodes on Graham
 

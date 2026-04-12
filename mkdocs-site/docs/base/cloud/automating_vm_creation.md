@@ -51,7 +51,7 @@ status:
 
 *Parent page: [Cloud](cloud.md)*
 
-To automate the creation of cloud VMs, volumes, etc., the [OpenStack CLI](openstack-command-line-clients.md), [Heat](#using-heat-templates), [Terraform](terraform.md), or the OpenStack Python API can be used. Both the OpenStack CLI and Terraform are command line tools. While Heat is used through the OpenStack web dashboard, Horizon. To install and configure settings and software within the VM, [cloud-init](#using-cloud-init) is used.
+To automate the creation of cloud VMs, volumes, etc., the [OpenStack CLI](openstack_command_line_clients.md), [Heat](#using-heat-templates), [Terraform](terraform.md), or the OpenStack Python API can be used. Both the OpenStack CLI and Terraform are command line tools. While Heat is used through the OpenStack web dashboard, Horizon. To install and configure settings and software within the VM, [cloud-init](#using-cloud-init) is used.
 
 In addition to these tools to create and provision your VMs, you can also gain access to the Digital Research Alliance of Canada (the Alliance) software stack (CVMFS) that is available on our general purpose computing clusters, within your VM. See the [Enabling CVMFS on your VM](#enabling-cvmfs-on-your-vm) section below.
 
@@ -59,7 +59,7 @@ In addition to these tools to create and provision your VMs, you can also gain a
 CVMFS is a HTTP-based file system that provides a scalable, reliable, and low maintenance research software distribution service. At the client end, users just need to mount CVMFS and then use the software or libraries directly without worrying about compiling, building, or patching. All the software are pre-compiled for common OS flavours and even modularized so that users can simply load a software as a module.
 CVMFS has already been installed on Alliance cluster systems such as Cedar, Graham, and Beluga, while on cloud systems users need to enable it by hand, following these cloud instructions: [To enable CVMFS on CC Clouds](https://github.com/ComputeCanada/CVMFS/tree/main/cvmfs-cloud-scripts).
 
-For more information please see the [Compute Canada CVMFS documentation](accessing-cvmfs.md) and [CERN CVMFS documentation](https://cvmfs.readthedocs.io/en/stable/).
+For more information please see the [Compute Canada CVMFS documentation](../software/cvmfs/accessing_cvmfs.md) and [CERN CVMFS documentation](https://cvmfs.readthedocs.io/en/stable/).
 
 ## Using cloud-init
 Cloud-init files are used to initialize a particular VM and run within that VM. They can be thought of as a way to automate tasks you would perform at the command line while logged into your VM. They can be used to perform tasks such as updating the operating system, installing and configuring applications, creating files, running commands, and creating users and groups. Cloud-init can be used to set up other provisioning tools such as [Ansible](https://docs.ansible.com/) or [Puppet](https://puppet.com/) to continue with the software and VM configuration if desired.
@@ -67,10 +67,10 @@ Cloud-init files are used to initialize a particular VM and run within that VM. 
 Cloud-init configuration is specified using plain text in the [YAML](https://en.wikipedia.org/wiki/YAML) format. To see how to create cloud-init files see the official cloud-init [documentation](https://cloudinit.readthedocs.io/en/latest/). Cloud-init files can be used with the Horizon dashboard (OpenStack's web GUI), Terraform, the CLI, or the Python API. Here we describe how to use a cloud-init file with Horizon.
 
 ### Specifying a cloud-init File
-1.  Start as normal when launching an instance, by clicking under *Project*->*Compute*->*Instances* and specifying your VM's configuration as described in [Launching a VM](cloud-quick-start.md#launching-a-vm).
+1.  Start as normal when launching an instance, by clicking under *Project*->*Compute*->*Instances* and specifying your VM's configuration as described in [Launching a VM](cloud_quick_start.md#launching-a-vm).
 2.  !!! note
     **Before** clicking *Launch*, select the *Post-Creation* tab and specify your *Customization Script Source*, in this case a Cloud-init YAML file, by either copying and pasting into a text box (*Direct Input* method) or uploading from a file from your desktop computer (*File* method). Older versions of OpenStack, in particular IceHouse, only provide a text box to copy and paste your Cloud-init file into.
-3.  Once the usual selections for your VM, as described in [Launching a VM](cloud-quick-start.md#launching-a-vm), have been made and the Cloud-init YAML file is included, click *Launch* to create the VM. It may take some time for Cloud-init to complete depending on what has been specified in the Cloud-init YAML file.
+3.  Once the usual selections for your VM, as described in [Launching a VM](cloud_quick_start.md#launching-a-vm), have been made and the Cloud-init YAML file is included, click *Launch* to create the VM. It may take some time for Cloud-init to complete depending on what has been specified in the Cloud-init YAML file.
 
 ### Checking Cloud-init Progress
 To see the progress of Cloud-init on a VM, check the console log of the VM by:

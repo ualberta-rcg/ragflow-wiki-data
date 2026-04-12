@@ -69,7 +69,7 @@ status:
 | :------------------- | :----------------------------------------------------------------------------------------------- |
 | Disponibilité        | **31 mars 2025**                                                                                 |
 | Nœud de connexion    | **tamia.alliancecan.ca**                                                                         |
-| Nœud d'automatisation | [robot.tamia.ecpia.ca](automation-in-the-context-of-multifactor-authentication.md)               |
+| Nœud d'automatisation | [robot.tamia.ecpia.ca](../getting-started/automation_in_the_context_of_multifactor_authentication.md)               |
 | Collection Globus    | [Serveur Globus v5 de TamIA](https://app.globus.org/file-manager?origin_id=72c3bca0-9281-4742-b066-333ba0fdef72) |
 | Nœud de copie (rsync, scp, sftp,...) | **tamia.alliancecan.ca**                                                                         |
 | Portail              | [https://portail.tamia.ecpia.ca/](https://portail.tamia.ecpia.ca/)                                |
@@ -81,7 +81,7 @@ Cette grappe fait partie de [l'environnement de calcul pancanadien de l’IA (EC
 ## Particularités
 
 !!! warning "Accès Internet restreint"
-    Les nœuds de calcul de tamIA n'ont pas accès à l'Internet. Pour y faire exception, veuillez joindre le [soutien technique](technical-support.md) en expliquant ce dont vous avez besoin et pourquoi.
+    Les nœuds de calcul de tamIA n'ont pas accès à l'Internet. Pour y faire exception, veuillez joindre le [soutien technique](../support/technical_support.md) en expliquant ce dont vous avez besoin et pourquoi.
 
 !!! warning "Restriction sur VSCode"
     L'environnement de développement intégré [VSCode](https://code.visualstudio.com/) est **interdit** sur les nœuds **frontaux** (*login nodes*) en raison de sa lourde charge. Il est cependant autorisé sur les nœuds de calcul.
@@ -112,11 +112,11 @@ La grappe de calcul est accessible uniquement à partir du Canada.
 
 | Type de stockage                     | Détails                                                                                                                                                                                                                                                                                                                             |
 | :----------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **HOME**<br>Système de fichiers Lustre | * Cet espace est petit et ne peut pas être agrandi; vous devrez utiliser votre espace `project` pour les grands besoins en stockage.<br>* Petits [quotas](storage-and-file-management.md#quotas-et-politiques) fixes par utilisateur.<br>* Il n'y a actuellement aucune sauvegarde automatique. (Planifié pour le printemps 2026) |
-| **SCRATCH**<br>Système de fichiers Lustre | * Grand espace pour stocker les fichiers temporaires pendant les calculs.<br>* Pas de système de sauvegarde automatique.<br>* Grands [quotas](storage-and-file-management.md#quotas-et-politiques) fixes par utilisateur.<br>* Il y a une [purge automatique](scratch-purging-policy.md) des vieux fichiers dans cet espace. |
-| **PROJECT**<br>Système de fichiers Lustre | * Cet espace est conçu pour le partage de données entre membres d'un groupe et pour le stockage d'une grande quantité de données.<br>* Grands [quotas](storage-and-file-management.md#quotas-et-politiques) ajustables par projet.<br>* Il y a une sauvegarde automatique une fois par jour.                        |
+| **HOME**<br>Système de fichiers Lustre | * Cet espace est petit et ne peut pas être agrandi; vous devrez utiliser votre espace `project` pour les grands besoins en stockage.<br>* Petits [quotas](../storage-and-data/storage_and_file_management.md#quotas-et-politiques) fixes par utilisateur.<br>* Il n'y a actuellement aucune sauvegarde automatique. (Planifié pour le printemps 2026) |
+| **SCRATCH**<br>Système de fichiers Lustre | * Grand espace pour stocker les fichiers temporaires pendant les calculs.<br>* Pas de système de sauvegarde automatique.<br>* Grands [quotas](../storage-and-data/storage_and_file_management.md#quotas-et-politiques) fixes par utilisateur.<br>* Il y a une [purge automatique](../storage-and-data/scratch_purging_policy.md) des vieux fichiers dans cet espace. |
+| **PROJECT**<br>Système de fichiers Lustre | * Cet espace est conçu pour le partage de données entre membres d'un groupe et pour le stockage d'une grande quantité de données.<br>* Grands [quotas](../storage-and-data/storage_and_file_management.md#quotas-et-politiques) ajustables par projet.<br>* Il y a une sauvegarde automatique une fois par jour.                        |
 
-Au tout début de la présente page, un tableau indique plusieurs adresses de connexion. Pour les transferts de données par [Globus](globus.md), il faut utiliser le **Point de chute Globus**. Par contre, pour les outils comme [rsync](transferring-data.md#rsync) et [scp](transferring-data.md#scp), il faut utiliser l'adresse du **Nœud de copie**.
+Au tout début de la présente page, un tableau indique plusieurs adresses de connexion. Pour les transferts de données par [Globus](../getting-started/globus.md), il faut utiliser le **Point de chute Globus**. Par contre, pour les outils comme [rsync](../getting-started/transferring_data.md#rsync) et [scp](../getting-started/transferring_data.md#scp), il faut utiliser l'adresse du **Nœud de copie**.
 
 ## Réseautique haute performance
 
@@ -134,7 +134,7 @@ Le réseau InfiniBand est non bloquant pour les serveurs de calcul et est compos
 
 ### Environnements logiciels disponibles
 
-[L'environnement logiciel standard `StdEnv/2023`](standard-software-environments.md) est l'environnement par défaut sur tamIA.
+[L'environnement logiciel standard `StdEnv/2023`](../programming/standard_software_environments.md) est l'environnement par défaut sur tamIA.
 
 ### Tâches GPU
 

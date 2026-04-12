@@ -35,7 +35,7 @@ status:
   qa_generated: false
 ---
 
-À chaque tâche soumise à [l'ordonnanceur de tâches Slurm](running-jobs.md) est associé un projet d’allocation scientifique (**RAP** pour *Resource Allocation Project*). Le RAP est sélectionné avec l’option `--account` de `sbatch`. La priorité de la tâche sera déterminée par la part cible du compte comparée à l’utilisation récente, tel que décrit dans la [Politique d'ordonnancement des tâches](job-scheduling-policies.md).
+À chaque tâche soumise à [l'ordonnanceur de tâches Slurm](running_jobs.md) est associé un projet d’allocation scientifique (**RAP** pour *Resource Allocation Project*). Le RAP est sélectionné avec l’option `--account` de `sbatch`. La priorité de la tâche sera déterminée par la part cible du compte comparée à l’utilisation récente, tel que décrit dans la [Politique d'ordonnancement des tâches](job_scheduling_policies.md).
 
 Plusieurs membres d’un groupe de recherche peuvent utiliser le même compte RAP pour soumettre des tâches. L’utilisation des ressources est *facturée* au même compte; l’utilisation faite par chaque membre du groupe a ainsi un effet sur la priorité des tâches de tous les membres. Il peut donc être avantageux de coordonner la soumission des tâches pour améliorer le rendement du projet.
 
@@ -55,4 +55,4 @@ Ceci pourrait ne pas se produire si les différents utilisateurs soumettent des 
 *   Utiliser plusieurs comptes. Les tâches peuvent utiliser les ressources allouées par suite du concours et les ressources offertes par défaut. Les tâches exécutées dans un compte n’ont pas d’effet sur la juste part de l’autre compte.
 *   Dans un contexte de collaboration entre plusieurs groupes, chaque chercheuse principale ou chercheur principal peut obtenir son propre compte et les utilisateurs peuvent être répartis dans les différents RAP pour plus d’efficacité.
 
-Si ces stratégies ne sont pas efficaces, contactez le [soutien technique](technical-support.md) et demandez à l’analyste de consulter la documentation interne intitulée [*Un groupe en conflit avec lui-même*](https://wiki.computecanada.ca/staff/Support_FAQ#A_group_in_conflict_with_itself).
+Si ces stratégies ne sont pas efficaces, contactez le [soutien technique](../support/technical_support.md) et demandez à l’analyste de consulter la documentation interne intitulée [*Un groupe en conflit avec lui-même*](https://wiki.computecanada.ca/staff/Support_FAQ#A_group_in_conflict_with_itself).

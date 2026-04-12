@@ -63,13 +63,13 @@ status:
   qa_generated: false
 ---
 
-*Voir aussi la [page sur les messages d'erreur de Gaussian](gaussian-error-messages.md).*
+*Voir aussi la [page sur les messages d'erreur de Gaussian](chemistry/gaussian_error_messages.md).*
 
 Gaussian est une application de chimie computationnelle produite par [Gaussian, Inc.](http://gaussian.com/)
 
 ## Limites
 
-Gaussian est présentement disponible uniquement sur [Nibi](nibi.md) et [Fir](fir.md).
+Gaussian est présentement disponible uniquement sur [Nibi](../clusters/nibi.md) et [Fir](fir.md).
 
 Nos systèmes nationaux ne prennent pas en charge [l'exécution en parallèle grappe/réseau (*parallélisme Linda*)](https://gaussian.com/running/?tabid=4), mais uniquement
 [l'exécution en parallèle avec multiprocesseur à mémoire partagée](https://gaussian.com/running/?tabid=4).
@@ -77,7 +77,7 @@ Ainsi, une tâche Gaussian ne peut pas utiliser plus d'un nœud de calcul.
 
 ## Licence
 
-Pour utiliser l'application, vous devez accepter certaines conditions. Copiez les énoncés suivants dans un courriel et faites-le parvenir au [soutien technique](technical-support.md).
+Pour utiliser l'application, vous devez accepter certaines conditions. Copiez les énoncés suivants dans un courriel et faites-le parvenir au [soutien technique](../support/technical_support.md).
 1.  Je ne fais pas partie d'un groupe de recherche qui développe une application concurrente.
 2.  Je ne copierai pas Gaussian ni ne rendrai l'application disponible à un tiers.
 3.  Je [reconnaîtrai la collaboration de l'Alliance](https://alliancecan.ca/fr/services/calcul-informatique-de-pointe/reconnaissance-de-l'alliance) dans toute publication.
@@ -87,18 +87,18 @@ Si vous êtes un utilisateur parrainé par un chercheur principal, celui-ci doit
 Nous pourrons alors vous donner accès à Gaussian.
 
 ## Utiliser Gaussian sur Fir et Nibi
-Le module `gaussian` est installé sur [Nibi](nibi.md) et [Fir](fir.md). Pour connaître les versions disponibles, utiliser la commande `module spider` comme suit :
+Le module `gaussian` est installé sur [Nibi](../clusters/nibi.md) et [Fir](fir.md). Pour connaître les versions disponibles, utiliser la commande `module spider` comme suit :
 
 ```bash
 module spider gaussian
 ```
 
-Pour les commandes qui s'appliquent aux modules, voir [Utiliser des modules](utiliser-des-modules.md).
+Pour les commandes qui s'appliquent aux modules, voir [Utiliser des modules](../programming/utiliser_des_modules.md).
 
 ### Soumettre des tâches
-Les grappes nationales utilisent l'ordonnanceur Slurm; pour des renseignements sur la soumission d'une tâche, consultez [Exécuter des tâches](running-jobs.md).
+Les grappes nationales utilisent l'ordonnanceur Slurm; pour des renseignements sur la soumission d'une tâche, consultez [Exécuter des tâches](../running-jobs/running_jobs.md).
 
-Puisque seule la version avec multiprocesseur à mémoire partagée de Gaussian est prise en charge, vos tâches ne peuvent utiliser qu'un seul nœud et jusqu'au maximum de cœurs par nœud. Cependant, en raison de la scalabilité de Gaussian, nous vous recommandons *de ne pas utiliser plus de 32 CPU par tâche si vous ne pouvez pas prouver qu'ils seront bien utilisés.* Nibi et Fir ont 192 CPU par nœud; nous vous demandons de ne pas utiliser des nœuds entiers puisque ce ne serait pas efficace. Si vos tâches nécessitent plus de mémoire que ce que vous pouvez obtenir sur un seul nœud, sachez que chacune des grappes offre quelques nœuds avec plus de mémoire. Pour connaître le nombre de nœuds sur une grappe et leur capacité, consultez [Fir](fir.md#caracteristiques_des_noeuds) et [Nibi](nibi.md#caracteristiques_des_noeuds).
+Puisque seule la version avec multiprocesseur à mémoire partagée de Gaussian est prise en charge, vos tâches ne peuvent utiliser qu'un seul nœud et jusqu'au maximum de cœurs par nœud. Cependant, en raison de la scalabilité de Gaussian, nous vous recommandons *de ne pas utiliser plus de 32 CPU par tâche si vous ne pouvez pas prouver qu'ils seront bien utilisés.* Nibi et Fir ont 192 CPU par nœud; nous vous demandons de ne pas utiliser des nœuds entiers puisque ce ne serait pas efficace. Si vos tâches nécessitent plus de mémoire que ce que vous pouvez obtenir sur un seul nœud, sachez que chacune des grappes offre quelques nœuds avec plus de mémoire. Pour connaître le nombre de nœuds sur une grappe et leur capacité, consultez [Fir](fir.md#caracteristiques_des_noeuds) et [Nibi](../clusters/nibi.md#caracteristiques_des_noeuds).
 
 En plus du fichier d'entrée *name.com*, vous devez préparer un script décrivant les ressources de calcul pour la tâche; ce script doit être dans le même répertoire que le fichier d'entrée.
 
@@ -195,4 +195,4 @@ où la version est g03.d10, g09.e01, g16.a03 ou g16.b01.
 3.  Voir les diapositives du webinaire [Running Gaussian16 and NBO7 effectively on Nibi and Fir](Gauss_NBO_2026_2.pdf) (2026).
 
 ## Erreurs
-Vous trouverez la solution à plusieurs erreurs dans [Gaussian – Messages d’erreur](gaussian-error-messages.md).
+Vous trouverez la solution à plusieurs erreurs dans [Gaussian – Messages d’erreur](chemistry/gaussian_error_messages.md).

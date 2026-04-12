@@ -41,7 +41,7 @@ status:
 > *Quantum ESPRESSO has evolved into a distribution of independent and inter-operable codes in the spirit of an open-source project. The Quantum ESPRESSO distribution consists of a “historical” core set of components, and a set of plug-ins that perform more advanced tasks, plus a number of third-party packages designed to be inter-operable with the core components.* [Quantum ESPRESSO web site](http://www.quantum-espresso.org/)
 
 ## Usage
-To use Quantum ESPRESSO, you need to load a module (see [Using modules](utiliser-des-modules.md)). You can see available versions using `module avail quantumespresso` or `module spider quantumespresso`, and load one with (for example), `module load quantumespresso/6.6`.
+To use Quantum ESPRESSO, you need to load a module (see [Using modules](../programming/utiliser_des_modules.md)). You can see available versions using `module avail quantumespresso` or `module spider quantumespresso`, and load one with (for example), `module load quantumespresso/6.6`.
 
 ```bash title="qe_ex1.sh"
 #!/bin/bash
@@ -55,7 +55,7 @@ module load quantumespresso/6.6
 srun pw.x < si.scf.in > si.scf.out
 ```
 
-The above example requests 32 processes, which is more than needed for the silicon tutorial case. Please be aware that suitable selection of a process count is complicated, but it is your responsibility to choose an efficient number. See also [Advanced MPI scheduling](advanced-mpi-scheduling.md).
+The above example requests 32 processes, which is more than needed for the silicon tutorial case. Please be aware that suitable selection of a process count is complicated, but it is your responsibility to choose an efficient number. See also [Advanced MPI scheduling](../running-jobs/advanced_mpi_scheduling.md).
 
 ## Known problems
 

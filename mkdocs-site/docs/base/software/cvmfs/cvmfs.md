@@ -50,7 +50,7 @@ status:
   qa_generated: false
 ---
 
-This page describes the CERN Virtual Machine File System (CVMFS). We use CVMFS to distribute software, data and other content. Refer to [accessing CVMFS](accessing-cvmfs.md) for instructions on configuring a CVMFS client to access content, and to the official [documentation](https://cvmfs.readthedocs.io/) and [webpage](https://cernvm.cern.ch/fs/) for further information.
+This page describes the CERN Virtual Machine File System (CVMFS). We use CVMFS to distribute software, data and other content. Refer to [accessing CVMFS](accessing_cvmfs.md) for instructions on configuring a CVMFS client to access content, and to the official [documentation](https://cvmfs.readthedocs.io/) and [webpage](https://cernvm.cern.ch/fs/) for further information.
 
 ## Introduction
 CVMFS is a distributed read-only content distribution system, implemented as a POSIX filesystem in user space (FUSE) using HTTP transport. It was originally developed for the LHC (Large Hadron Collider) experiments at CERN to deliver software to virtual machines and to replace diverse shared software installation areas and package management systems at numerous computing sites. It is designed to deliver software in a fast, scalable and reliable fashion, and is now also used to distribute data. The scale of usage across dozens of projects involves ~10^10 files and directories, ~10^2 compute sites, and ~10^5 clients around the world. The [CernVM Monitor](https://cvmfs-monitor-frontend.web.cern.ch/) shows many research groups which use CVMFS and the stratum sites which replicate their repositories.

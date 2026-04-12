@@ -39,17 +39,17 @@ status:
 *   **Jupyter** : une implémentation d'applications Web et d’interfaces interactives de notebooks.
     *   *Google Colab* serait une autre implémentation du même type d'environnement.
 *   **Application Jupyter** : semblable à toute autre application, mais est affichée dans un onglet Web distinct. L'application peut accéder aux données stockées à distance sur le serveur; les calculs intensifs sont pris en charge par le serveur distant.
-*   [**JupyterHub** : un serveur Web hébergeant des portails et noyaux (*kernels*) Jupyter](jupyterhub.md).
+*   [**JupyterHub** : un serveur Web hébergeant des portails et noyaux (*kernels*) Jupyter](../interactive/jupyterhub.md).
 
 ## JupyterLab
 Portail Web avec interface moderne pour la gestion et l'exécution d'applications et la création de fichiers Notebook avec des noyaux (*kernels*) variés. Pour plus d'information, voyez :
-*   [**JupyterLab via JupyterHub**, un environnement JupyterLab préinstallé](jupyterhub.md#jupyterlab) avec un noyau Python par défaut et accès aux modules logiciels;
-*   [**JupyterLab à partir d'un environnement virtuel** : environnement personnalisé](advanced-jupyter-configuration.md) qui est lancé par une tâche Slurm.
+*   [**JupyterLab via JupyterHub**, un environnement JupyterLab préinstallé](../interactive/jupyterhub.md#jupyterlab) avec un noyau Python par défaut et accès aux modules logiciels;
+*   [**JupyterLab à partir d'un environnement virtuel** : environnement personnalisé](../getting-started/advanced_jupyter_configuration.md) qui est lancé par une tâche Slurm.
 
 ## Jupyter Notebook
 Portail Web moins récent pour la gestion et l'exécution d'applications et la création de fichiers Notebook avec des noyaux (*kernels*) variés. Pour plus d'information, voyez :
-*   [**Jupyter Notebook via JupyterHub**, un environnement Jupyter Notebook préinstallé](jupyterhub.md#interface-utilisateur) avec un noyau Python par défaut et accès aux modules logiciels;
-*   [**Jupyter Notebook à partir d'un environnement virtuel** : un environnement personnalisé](jupyternotebook.md) qui est lancé par une tâche Slurm.
+*   [**Jupyter Notebook via JupyterHub**, un environnement Jupyter Notebook préinstallé](../interactive/jupyterhub.md#interface-utilisateur) avec un noyau Python par défaut et accès aux modules logiciels;
+*   [**Jupyter Notebook à partir d'un environnement virtuel** : un environnement personnalisé](../interactive/jupyternotebook.md) qui est lancé par une tâche Slurm.
 
 ## Noyau (*kernel*)
 Service actif derrière l'interface Web :

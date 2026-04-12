@@ -72,7 +72,7 @@ If you wish to use prebuilt ORCA executables:
 1. You have to register at https://orcaforum.kofo.mpg.de/.
 2. You will receive a first email to verify the email address and activate the account. Follow the instructions in that email.
 3. Once the registration is complete, you will get a **second email** stating that the "registration for ORCA download and usage has been completed".
-4. [Contact us](technical-support.md) requesting access to ORCA with a copy of the **second email**.
+4. [Contact us](../support/technical_support.md) requesting access to ORCA with a copy of the **second email**.
 
 ## ORCA Versions
 
@@ -122,7 +122,7 @@ To see which versions of ORCA are currently available, type `module spider orca`
 See [Using modules](using-modules.md) for general guidance.
 
 ### Job Submission
-For a general discussion about submitting jobs, see [Running jobs](running-jobs.md).
+For a general discussion about submitting jobs, see [Running jobs](../running-jobs/running_jobs.md).
 
 !!! note
     If you run into MPI errors with some of the ORCA executables, you can try to define the following variables:
@@ -201,7 +201,7 @@ Additional notes from the contributor:
 The compiling command does not seem to apply to OpenMPI/2.1.x.
 
 ## Using NBO with ORCA
-To run NBO with ORCA, one needs to have access to NBO. On our clusters, NBO is not available as a separate module. However, it is possible to access it via the Gaussian modules which are installed on [Cedar](cedar.md) and [Graham](graham.md). Users interested to use NBO with ORCA should have access to ORCA and Gaussian. To get access to Gaussian, you can follow the steps discussed in this [page](gaussian.md#license-agreement).
+To run NBO with ORCA, one needs to have access to NBO. On our clusters, NBO is not available as a separate module. However, it is possible to access it via the Gaussian modules which are installed on [Cedar](../clusters/cedar.md) and [Graham](../clusters/graham.md). Users interested to use NBO with ORCA should have access to ORCA and Gaussian. To get access to Gaussian, you can follow the steps discussed in this [page](gaussian.md#license-agreement).
 
 ### Script Example
 The name of the input file (in this next example *orca_input.inp*) should contain the keyword **NBO**.

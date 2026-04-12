@@ -115,7 +115,7 @@ USE_SERVER
 
 ## Cluster Batch Job Submission
 
-Before submitting jobs on a cluster, you must set up a `~/.licenses/starccm.lic` file on each cluster where you will run jobs. If you have a PoD licence then the required firewall changes have already been done on all of the Alliance clusters. If however you will be using a local institutional licence server then you will need to submit a problem ticket to [technical support](technical-support.md) to request the one-time network firewall changes be made between the cluster(s) and your local licence server. If you have problems getting the licensing to work then try removing or renaming file `~/.flexlmrc` since previous search paths and/or licence server settings may be stored in it.
+Before submitting jobs on a cluster, you must set up a `~/.licenses/starccm.lic` file on each cluster where you will run jobs. If you have a PoD licence then the required firewall changes have already been done on all of the Alliance clusters. If however you will be using a local institutional licence server then you will need to submit a problem ticket to [technical support](../support/technical_support.md) to request the one-time network firewall changes be made between the cluster(s) and your local licence server. If you have problems getting the licensing to work then try removing or renaming file `~/.flexlmrc` since previous search paths and/or licence server settings may be stored in it.
 
 !!! note
     Temporary output files from Star-CCM+ jobs may accumulate in hidden directories named `~/.star-version_number`, consuming valuable quota space. These can be removed by periodically running `rm -ri ~/.starccm*` and replying yes when prompted.
@@ -362,7 +362,7 @@ To run starccm+ in graphical mode it is recommended to use an [OnDemand](https:/
 !!! warning
     These instructions are retained for legacy purposes only.
 
-1. Connect with a VncViewer client to a login or compute node by following [TigerVNC](vnc.md).
+1. Connect with a VncViewer client to a login or compute node by following [TigerVNC](../interactive/vnc.md).
 2. Open a new terminal window in your desktop and run one of:
    - **STAR-CCM+ 18.04.008 (or newer versions)**
      - `module load StdEnv/2023` (default)

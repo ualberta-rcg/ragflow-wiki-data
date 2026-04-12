@@ -86,12 +86,12 @@ This page is for advanced users. Please see [JupyterHub](jupyterhub.md) instead.
 You can run Jupyter Notebook on a compute node or on a login node (not recommended). Note that login nodes impose various user- and process-based limits, so applications running there may be killed if they consume too much CPU time or memory. To use a compute node you will have to submit a job requesting the number of CPUs (and optionally GPUs), the amount of memory, and the run time. Here, we give instructions to submit a Jupyter Notebook job.
 
 **Other information:**
-* Since Jupyter Notebook is the older Jupyter interface, please consider installing **[JupyterLab](advanced-jupyter-configuration.md)** instead.
-* If you are instead looking for a preconfigured Jupyter environment, please see the **[Jupyter](jupyter.md)** page.
+* Since Jupyter Notebook is the older Jupyter interface, please consider installing **[JupyterLab](../getting-started/advanced_jupyter_configuration.md)** instead.
+* If you are instead looking for a preconfigured Jupyter environment, please see the **[Jupyter](../software/jupyter.md)** page.
 
 ## Installing Jupyter Notebook
 
-These instructions install Jupyter Notebook with the `pip` command in a [Python virtual environment](python.md#creating-and-using-a-virtual-environment) in your home directory. The following instructions are for Python 3.6, but you can also install the application for a different version by loading a different Python module.
+These instructions install Jupyter Notebook with the `pip` command in a [Python virtual environment](../software/python.md#creating-and-using-a-virtual-environment) in your home directory. The following instructions are for Python 3.6, but you can also install the application for a different version by loading a different Python module.
 
 1.  Load the Python module.
     ```bash
@@ -193,7 +193,7 @@ module load rstudio-server
 
 ## Starting Jupyter Notebook
 
-To start the application, submit an interactive job. Adjust the parameters based on your needs. See [Running jobs](running-jobs.md) for more information.
+To start the application, submit an interactive job. Adjust the parameters based on your needs. See [Running jobs](../running-jobs/running_jobs.md) for more information.
 
 ```bash
 salloc --time=1:0:0 --ntasks=1 --cpus-per-task=2 --mem-per-cpu=1024M --account=def-yourpi srun $VIRTUAL_ENV/bin/notebook.sh
@@ -217,7 +217,7 @@ Copy/paste this URL into your browser when you connect for the first time,
 
 ## Connecting to Jupyter Notebook
 
-To access Jupyter Notebook running on a compute node from your web browser, you will need to create an [SSH tunnel](ssh-tunnelling.md) between the cluster and your computer since the compute nodes are not directly accessible from the Internet.
+To access Jupyter Notebook running on a compute node from your web browser, you will need to create an [SSH tunnel](../getting-started/ssh_tunnelling.md) between the cluster and your computer since the compute nodes are not directly accessible from the Internet.
 
 ### From Linux or MacOS X
 
@@ -239,7 +239,7 @@ Then, copy and paste the provided URL into your browser. In the above example, t
 
 ### From Windows
 
-An [SSH tunnel](ssh-tunnelling.md) can be created from Windows using [MobaXTerm](connecting-with-mobaxterm.md) as follows. This will also work from any Unix system (MacOS, Linux, etc).
+An [SSH tunnel](../getting-started/ssh_tunnelling.md) can be created from Windows using [MobaXTerm](../getting-started/connecting_with_mobaxterm.md) as follows. This will also work from any Unix system (MacOS, Linux, etc).
 
 1.  Open a new Terminal tab in MobaXTerm (Session 1) and connect to a cluster. Then follow the instructions in section [Starting Jupyter Notebook](#starting-jupyter-notebook). At this point, you should have on your screen an URL with the following form.
     ```
@@ -280,7 +280,7 @@ In the following sections, we provide a few examples of the kernel installation 
 
 ### Julia
 
-1.  Load the [Julia](julia.md) module.
+1.  Load the [Julia](../software/julia.md) module.
     ```bash
     module load julia
     ```

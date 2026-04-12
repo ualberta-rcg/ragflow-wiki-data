@@ -52,19 +52,19 @@ status:
 
 *Page enfant de [Service infonuagique](cloud.md)*
 
-Votre compte vous donne accès à une petite quantité de ressources de calcul, de stockage et de ressources infonuagiques. Avec le service d'accès rapide, vous pouvez utiliser immédiatement ces ressources pour expérimenter ou pour travailler. Le service d'accès rapide convient à plusieurs groupes de recherche. Si vous avez besoin d'une plus grande quantité de ressources, vous pouvez présenter une demande au [concours pour l'allocation de ressources](rac-application-guide.md). Les chercheuses principales et chercheurs principaux à qui des ressources ont été allouées par suite du concours peuvent aussi demander des ressources par le service d'accès rapide.
+Votre compte vous donne accès à une petite quantité de ressources de calcul, de stockage et de ressources infonuagiques. Avec le service d'accès rapide, vous pouvez utiliser immédiatement ces ressources pour expérimenter ou pour travailler. Le service d'accès rapide convient à plusieurs groupes de recherche. Si vous avez besoin d'une plus grande quantité de ressources, vous pouvez présenter une demande au [concours pour l'allocation de ressources](../policies/rac_application_guide.md). Les chercheuses principales et chercheurs principaux à qui des ressources ont été allouées par suite du concours peuvent aussi demander des ressources par le service d'accès rapide.
 
 Les ressources infonuagiques vous permettent de créer des **instances** (aussi appelées *machines virtuelles* ou *VM* pour *virtual machine*). Il existe deux options :
 *   **Instances de calcul** : celles-ci ont une durée de vie limitée dans le temps et font généralement un usage constant et intensif de CPU; elles sont parfois nommées *instances batch*. Dans certains cas, les activités de production exigent plusieurs instances de calcul. Ces dernières ont une durée de vie maximale d'**un mois**; une fois la limite atteinte, elles sont désactivées et vous devez faire le nettoyage de vos instances et télécharger les données qui doivent être conservées. Il est possible d'obtenir une prolongation de la durée de vie, selon la disponibilité des ressources.
 *   **Instances persistantes** : ces instances n'ont pas une durée de vie finie et servent entre autres pour les serveurs web ou les serveurs de bases de données. Règle générale, elles offrent un service persistant et utilisent moins de capacité CPU que les instances de calcul.
-*   **vGPU** : Arbutus a présentement des GPU H100 au gabarit **g1-8gb-c4-22gb** qui sont disponibles pour le service d'accès rapide. Ils ont 12Go de mémoire GPU, 3 vCPUs et 125Go de stockage éphémère. D'autres gabarits sont disponibles pour les allocations via concours et nous vous invitons à suggérer les combinaisons que vous jugez utiles. Pour plus d'information sur comment configurer une machine virtuelle pour utiliser des vGPU, voir [Utilisation de vGPU dans le cloud](using-cloud-vgpus.md).
+*   **vGPU** : Arbutus a présentement des GPU H100 au gabarit **g1-8gb-c4-22gb** qui sont disponibles pour le service d'accès rapide. Ils ont 12Go de mémoire GPU, 3 vCPUs et 125Go de stockage éphémère. D'autres gabarits sont disponibles pour les allocations via concours et nous vous invitons à suggérer les combinaisons que vous jugez utiles. Pour plus d'information sur comment configurer une machine virtuelle pour utiliser des vGPU, voir [Utilisation de vGPU dans le cloud](using_cloud_vgpus.md).
 
 ## Quantité maximale de ressources
 
 | Attributs | Instance de calcul[^both-renewal] | Instance persistante[^both-renewal] |
 |:----------|:----------------------------------|:------------------------------------|
 | Demande faite par | Chercheuse principale ou chercheur principal | Chercheuse principale ou chercheur principal |
-| vCPU (voir [Gabarits d'instances](virtual-machine-flavors.md)) | 80 | 25 |
+| vCPU (voir [Gabarits d'instances](virtual_machine_flavors.md)) | 80 | 25 |
 | vGPUs[^arbutusonly] | 1 | 1 |
 | Instances[^softquota] | 20 | 10 |
 | Volumes[^softquota] | 2 | 10 |

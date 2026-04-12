@@ -192,7 +192,7 @@ submit.run -1 --mem 4G
 
 ### Applications multifils
 
-Pour les [applications multifils](running-jobs.md#applications-multifils-ou-openmp) (telles que celles qui utilisent [OpenMP](https://docs.alliancecan.ca/wiki/OpenMP), par exemple), ajoutez les lignes suivantes à `job_script.sh` :
+Pour les [applications multifils](running_jobs.md#applications-multifils-ou-openmp) (telles que celles qui utilisent [OpenMP](https://docs.alliancecan.ca/wiki/OpenMP), par exemple), ajoutez les lignes suivantes à `job_script.sh` :
 
 ```bash
 #SBATCH --cpus-per-task=N
@@ -211,7 +211,7 @@ Pour les applications qui utilisent [MPI](https://docs.alliancecan.ca/wiki/MPI),
 #SBATCH --mem-per-cpu=M
 ```
 
-... où *N* est le nombre de cœurs de processeur à utiliser, et *M* est la mémoire à réserver pour chaque cœur, en mégaoctets. Vous pouvez également fournir `--ntasks=N` et `--mem-per-cpu=M` comme arguments à `(re)submit.run`. Voir la [planification MPI avancée](advanced-mpi-scheduling.md) pour plus d'informations sur des scénarios MPI plus complexes.
+... où *N* est le nombre de cœurs de processeur à utiliser, et *M* est la mémoire à réserver pour chaque cœur, en mégaoctets. Vous pouvez également fournir `--ntasks=N` et `--mem-per-cpu=M` comme arguments à `(re)submit.run`. Voir la [planification MPI avancée](advanced_mpi_scheduling.md) pour plus d'informations sur des scénarios MPI plus complexes.
 
 Ajoutez également `srun` avant le chemin de votre code à l'intérieur de `single_case.sh`, par exemple :
 
@@ -230,7 +230,7 @@ srun /path/to/mpi_code arg1 arg2
 
 ### Applications GPU
 
-Pour les applications qui utilisent des GPU, modifiez `job_script.sh` en suivant les directives de [Utiliser les GPU avec Slurm](using-gpus-with-slurm.md) :
+Pour les applications qui utilisent des GPU, modifiez `job_script.sh` en suivant les directives de [Utiliser les GPU avec Slurm](using_gpus_with_slurm.md) :
 
 ```bash
 #SBATCH --gres=gpu[[:type]:nombre]

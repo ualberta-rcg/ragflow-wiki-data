@@ -54,7 +54,7 @@ status:
 
 Un très grand nombre de fichiers, et particulièrement des fichiers de petite taille, cause d'importants problèmes à la performance des systèmes de fichiers et à la sauvegarde automatisée de `/home` et `/project`.
 
-Dans certains domaines, particulièrement en [intelligence artificielle et en apprentissage machine](ai-and-machine-learning.md), on doit souvent composer avec des centaines de milliers de fichiers comprenant parfois plusieurs centaines de kilo-octets. Dans ces cas, il faut tenir compte des limites d’objets imposées par les [quotas des systèmes de fichiers](storage-and-file-management.md#quotas-et-politiques).
+Dans certains domaines, particulièrement en [intelligence artificielle et en apprentissage machine](../software/ai-ml/ai_and_machine_learning.md), on doit souvent composer avec des centaines de milliers de fichiers comprenant parfois plusieurs centaines de kilo-octets. Dans ces cas, il faut tenir compte des limites d’objets imposées par les [quotas des systèmes de fichiers](storage_and_file_management.md#quotas-et-politiques).
 
 Nous présentons ici les avantages et les inconvénients de quelques solutions pour le stockage de ces grands ensembles de données.
 
@@ -130,11 +130,11 @@ Le système de fichiers `/tmp` peut être utilisé comme disque RAM sur les nœu
 
 #### dar
 
-Utilitaire d’archivage sur disque conçu pour améliorer l’outil [tar](a-tutorial-on-tar.md); voir le [tutoriel dar](dar.md).
+Utilitaire d’archivage sur disque conçu pour améliorer l’outil [tar](a_tutorial_on__tar.md); voir le [tutoriel dar](dar.md).
 
 #### HDF5
 
-Format de fichier binaire pour le stockage de plusieurs sortes de données dont les objets étendus comme les matrices et les images. Des outils pour la manipulation de ces fichiers sont disponibles avec plusieurs langages, tel Python ([h5py](https://www.h5py.org/)); voir [HDF5](hdf5.md).
+Format de fichier binaire pour le stockage de plusieurs sortes de données dont les objets étendus comme les matrices et les images. Des outils pour la manipulation de ces fichiers sont disponibles avec plusieurs langages, tel Python ([h5py](https://www.h5py.org/)); voir [HDF5](../software/hdf5.md).
 
 #### SQLite
 
@@ -145,9 +145,9 @@ Avec les API, vous pouvez interagir avec votre base de données SQLite dans des 
 Cette solution demande toutefois de créer une base de données SQLite; vous devez donc connaître SQL et pouvoir créer une base de données relationnelle simple.
 
 !!! warning "Performance de SQLite pour de grandes bases de données"
-    La performance de SQLite peut se dégrader avec de très grandes bases de données (à partir de plusieurs gigaoctets); vous pourriez alors préférer une approche plus traditionnelle et utiliser [MySQL](https://www.mysql.com) ou [PostgreSQL](https://www.postgresql.org) avec un [serveur de bases de données](database-servers.md).
+    La performance de SQLite peut se dégrader avec de très grandes bases de données (à partir de plusieurs gigaoctets); vous pourriez alors préférer une approche plus traditionnelle et utiliser [MySQL](https://www.mysql.com) ou [PostgreSQL](https://www.postgresql.org) avec un [serveur de bases de données](../cloud/database_servers.md).
 
-L'exécutable SQLite se nomme `sqlite3`. Il est disponible par le [module](utiliser-des-modules.md) `nixpkgs` qui est chargé par défaut sur nos systèmes.
+L'exécutable SQLite se nomme `sqlite3`. Il est disponible par le [module](../programming/utiliser_des_modules.md) `nixpkgs` qui est chargé par défaut sur nos systèmes.
 
 #### Compression parallèle
 

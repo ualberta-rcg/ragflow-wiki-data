@@ -36,7 +36,7 @@ status:
 ---
 
 ## What are the differences between StdEnv/2023 and the earlier environments?
-The differences are discussed in [Standard software environments](standard-software-environments.md).
+The differences are discussed in [Standard software environments](../programming/standard_software_environments.md).
 
 ## Can I change my default standard environment?
 After April 1, 2024, **`StdEnv/2023` will be the default environment for all clusters.** However, you can specify your own default environment at any time by modifying the `$HOME/.modulerc` file. For example, running the following command will set your default environment to `StdEnv/2020`:
@@ -75,7 +75,7 @@ to your job scripts. This command does not need to be deleted to use `StdEnv/202
     Loading modules in your `.bashrc` is **not recommended**. Instead, explicitly load modules in your job scripts.
 
 ## I don't use the HPC clusters but cloud resources only. Do I need to worry about this?
-No, this change will only affect the [available software](available-software.md) accessed by [using environment modules](using-modules.md).
+No, this change will only affect the [available software](../programming/available_software.md) accessed by [using environment modules](using-modules.md).
 
 ## I can no longer load a module that I previously used
 More recent versions of most applications are installed in the new environment. To see the available versions, run the `module avail` command. For example,

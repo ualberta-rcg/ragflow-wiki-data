@@ -39,15 +39,15 @@ La [mécanique des fluides numérique](https://fr.wikipedia.org/wiki/M%C3%A9cani
 
 ## OpenFOAM
 
-Suite de solveurs et d'outils open source. Plusieurs versions d'[OpenFOAM](openfoam.md) sont disponibles sur nos grappes sous forme de modules.
+Suite de solveurs et d'outils open source. Plusieurs versions d'[OpenFOAM](../software/openfoam.md) sont disponibles sur nos grappes sous forme de modules.
 
 ## Fluent
 
-Programme du commerce. Fait partie de la suite [Ansys](ansys.md) disponible sur nos grappes, mais vous devez fournir une licence.
+Programme du commerce. Fait partie de la suite [Ansys](../software/ansys.md) disponible sur nos grappes, mais vous devez fournir une licence.
 
 ## WRF
 
-Programme non commercial pour la dynamique des fluides atmosphériques. [WRF](wrf.md) est disponible sur nos grappes sous forme de module.
+Programme non commercial pour la dynamique des fluides atmosphériques. [WRF](../software/wrf.md) est disponible sur nos grappes sous forme de module.
 
 ## Techniques Lattice Boltzmann
 (à venir)

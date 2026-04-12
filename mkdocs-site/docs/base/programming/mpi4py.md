@@ -65,7 +65,7 @@ status:
 [MPI for Python](https://mpi4py.readthedocs.io/en/stable/) provides Python bindings for the Message Passing Interface (MPI) standard, allowing Python applications to exploit multiple processors on workstations, clusters and supercomputers.
 
 # Available versions
-`mpi4py` is available as a module, and not from the [wheelhouse](available-python-wheels.md) as typical Python packages are.
+`mpi4py` is available as a module, and not from the [wheelhouse](available_python_wheels.md) as typical Python packages are.
 You can find available version with
 ```bash
 module spider mpi4py
@@ -78,7 +78,7 @@ module spider mpi4py/X.Y.Z
 where `X.Y.Z` is the exact desired version, for instance `4.0.0`.
 
 # Famous first words: Hello World
-1. Run a short [interactive job](running-jobs.md#interactive-jobs).
+1. Run a short [interactive job](../running-jobs/running_jobs.md#interactive-jobs).
 ```bash
 salloc --account=<your account> --ntasks=5
 ```
@@ -130,13 +130,13 @@ python -c 'import mpi4py'
 ```
 If no errors are raised, then everything is OK!
 
-4. [Create a virtual environment and install your packages](python.md#creating-and-using-a-virtual-environment).
+4. [Create a virtual environment and install your packages](../software/python.md#creating-and-using-a-virtual-environment).
 
 # Running jobs
 You can run mpi jobs distributed across multiple nodes or cores.
 For efficient MPI scheduling, please see:
-* [MPI job](running-jobs.md#mpi-job)
-* [Advanced MPI scheduling](advanced-mpi-scheduling.md)
+* [MPI job](../running-jobs/running_jobs.md#mpi-job)
+* [Advanced MPI scheduling](../running-jobs/advanced_mpi_scheduling.md)
 
 ## CPU
 1. Write your python code, for instance, broadcasting a numpy array.
@@ -171,7 +171,7 @@ The example above is based on the [mpi4py tutorial](https://mpi4py.readthedocs.i
     #SBATCH --ntasks=4                # adjust this to match the number of tasks/processes to run
     #SBATCH --mem-per-cpu=4G          # adjust this according to the memory you need per process
 
-    # Run on cores across the system : [https://docs.alliancecan.ca/wiki/Advanced_MPI_scheduling#Few_cores,_any_number_of_nodes](advanced-mpi-scheduling.md#few-cores-any-number-of-nodes)
+    # Run on cores across the system : [https://docs.alliancecan.ca/wiki/Advanced_MPI_scheduling#Few_cores,_any_number_of_nodes](../running-jobs/advanced_mpi_scheduling.md#few-cores-any-number-of-nodes)
 
     # Load modules dependencies.
     module load StdEnv/2023 gcc mpi4py/4.0.0 python/3.12
@@ -203,7 +203,7 @@ The example above is based on the [mpi4py tutorial](https://mpi4py.readthedocs.i
     #SBATCH --ntasks-per-node=40      # adjust this to match the number of tasks/processes to run per node
     #SBATCH --mem-per-cpu=1G          # adjust this according to the memory you need per process
 
-    # Run on N whole nodes : [https://docs.alliancecan.ca/wiki/Advanced_MPI_scheduling#Whole_nodes](advanced-mpi-scheduling.md#whole-nodes)
+    # Run on N whole nodes : [https://docs.alliancecan.ca/wiki/Advanced_MPI_scheduling#Whole_nodes](../running-jobs/advanced_mpi_scheduling.md#whole-nodes)
 
     # Load modules dependencies.
     module load StdEnv/2023 gcc openmpi mpi4py/4.0.0 python/3.12
@@ -226,7 +226,7 @@ The example above is based on the [mpi4py tutorial](https://mpi4py.readthedocs.i
 
 3. Test your script.
 
-Before submitting your job, it is important to test that your submission script will start without errors. You can do a quick test in an [interactive job](running-jobs.md#interactive-jobs).
+Before submitting your job, it is important to test that your submission script will start without errors. You can do a quick test in an [interactive job](../running-jobs/running_jobs.md#interactive-jobs).
 
 4. Submit your job to the scheduler.
 ```bash
@@ -266,7 +266,7 @@ srun python use_cupy.py;
 3. Test your script.
 
 Before submitting your job, it is important to test that your submission script will start without errors.
-You can do a quick test in an [interactive job](running-jobs.md#interactive-jobs).
+You can do a quick test in an [interactive job](../running-jobs/running_jobs.md#interactive-jobs).
 
 4. Submit your job
 ```bash
@@ -283,4 +283,4 @@ Possible solutions:
 * check which Python versions are compatible with your loaded mpi4py module using `module spider mpi4py/X.Y.Z`. Once a compatible Python module is loaded, check that `python -c 'import mpi4py'` works.
 * load the module before activating your virtual environment: please see the [mpi4py as a package dependency](mpi4py.md#mpi4py-as-a-package-dependency) section above.
 
-See also [ModuleNotFoundError: No module named 'X'](python.md#modulenotfounderror-no-module-named-x).
+See also [ModuleNotFoundError: No module named 'X'](../software/python.md#modulenotfounderror-no-module-named-x).

@@ -81,7 +81,7 @@ This section summarizes configuration details.
 
 ## Environment modules
 
-The following [modules](utiliser-des-modules.md) providing NetCDF are available on our clusters via CVMFS:
+The following [modules](../programming/utiliser_des_modules.md) providing NetCDF are available on our clusters via CVMFS:
 * **netcdf**
   * for linking with programs containing C instructions only
 * **netcdf-c++**
@@ -106,7 +106,7 @@ module load netcdf/4.1.3
 ```
 
 ## Submission scripts
-Please refer to the page "[Running jobs](running-jobs.md)" for examples of job scripts for the Slurm workload manager. We recommend you include the `module load ...` command in your job script.
+Please refer to the page "[Running jobs](../running-jobs/running_jobs.md)" for examples of job scripts for the Slurm workload manager. We recommend you include the `module load ...` command in your job script.
 
 ## Linking code to NetCDF libraries
 Below are a few examples showing how to link NetCDF libraries to C and Fortran code:

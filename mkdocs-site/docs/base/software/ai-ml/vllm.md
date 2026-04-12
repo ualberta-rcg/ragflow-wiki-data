@@ -58,15 +58,15 @@ To see the latest version of vLLM that we have built:
 ```bash
 avail_wheels "vllm"
 ```
-For more information, see [Available wheels](python.md#available-wheels).
+For more information, see [Available wheels](../python.md#available-wheels).
 
 ### Installing our wheel
 The preferred option is to install it using the Python [wheel](https://pythonwheels.com/) as follows:
-1. Load dependencies, load a Python and OpenCV [modules](utiliser-des-modules.md#sub-command-load),
+1. Load dependencies, load a Python and OpenCV [modules](../../programming/utiliser_des_modules.md#sub-command-load),
 ```bash
 module load opencv/4.11 python/3.12
 ```
-2. Create and start a temporary [virtual environment](python.md#creating-and-using-a-virtual-environment).
+2. Create and start a temporary [virtual environment](../python.md#creating-and-using-a-virtual-environment).
 ```bash
 virtualenv --no-download ~/vllm_env
 source ~/vllm_env/bin/activate
@@ -156,7 +156,7 @@ for output in outputs:
 ### Multiple Nodes
 The following example revisits the single node example above, but splits the model across 4 GPUs over 2 separate nodes, i.e., 2 GPUs per node.
 
-Currently, vLLM relies on [Ray](ray.md) to manage splitting models over multiple nodes. The code example below contains the necessary steps to start a [multi-node Ray cluster](ray.md#multiple-nodes) and run vLLM on top of it:
+Currently, vLLM relies on [Ray](../ray.md) to manage splitting models over multiple nodes. The code example below contains the necessary steps to start a [multi-node Ray cluster](../ray.md#multiple-nodes) and run vLLM on top of it:
 
 ```bash title="vllm-multinode-example.sh"
 #!/bin/bash

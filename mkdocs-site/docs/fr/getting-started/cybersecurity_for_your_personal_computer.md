@@ -66,7 +66,7 @@ status:
 # Meilleures pratiques
 
 Vous voulez savoir comment garder votre ordinateur personnel en sécurité? Vous voulez savoir à quel point votre ordinateur est protégé?
-Vous trouverez ici quelques conseils pour améliorer la sécurité de votre ordinateur. Nous avons aussi préparé ce [court questionnaire](cybersecurity-personal-computer-health-check.md) pour vous permettre d’évaluer son niveau de sécurité.
+Vous trouverez ici quelques conseils pour améliorer la sécurité de votre ordinateur. Nous avons aussi préparé ce [court questionnaire](cybersecurity__personal_computer_health_check.md) pour vous permettre d’évaluer son niveau de sécurité.
 
 ## Mises à jour
 Activez la fonction de mise à jour automatique du système d'exploitation et de vos applications.
@@ -142,12 +142,12 @@ Les permissions Linux offrent une couche de protection à votre recherche. Évit
 
 **Erreur n° 1** : Permettre l'accès général à un fichier avec la commande `chmod 777 name_of_file`.
 
-Assurez-vous de bien comprendre le [fonctionnement des permissions Linux](sharing-data.md#permissions-des-syst%C3%A8mes-de-fichiers) et de limiter l'accès à vos fichiers en cas de besoin seulement.
+Assurez-vous de bien comprendre le [fonctionnement des permissions Linux](../storage-and-data/sharing_data.md#permissions-des-syst%C3%A8mes-de-fichiers) et de limiter l'accès à vos fichiers en cas de besoin seulement.
 
 **Erreur n° 2** : Ignorer le *sticky bit*, ce qui peut mener à la suppression de vos fichiers par un autre utilisateur ou utilisatrice.
 
-Dans le cas de fichiers partagés où plusieurs ont les permissions de lecture et d'écriture, il y a toujours le risque qu'une personne supprime les fichiers ou les répertoires d'une autre. Utilisez [la protection sticky bit](sharing-data.md#protection-sticky-bit) quand elle est appropriée.
+Dans le cas de fichiers partagés où plusieurs ont les permissions de lecture et d'écriture, il y a toujours le risque qu'une personne supprime les fichiers ou les répertoires d'une autre. Utilisez [la protection sticky bit](../storage-and-data/sharing_data.md#protection-sticky-bit) quand elle est appropriée.
 
 **Erreur n° 3** : Permettre l'accès à plusieurs personnes individuellement plutôt qu'à un groupe.
 
-La [gestion des listes de contrôle d'accès](sharing-data.md#listes-de-contr%C3%B4le-d%27acc%C3%A8s) peut devenir rapidement complexe. La meilleure pratique est de donner des permissions à un groupe plutôt qu'à plusieurs personnes.
+La [gestion des listes de contrôle d'accès](../storage-and-data/sharing_data.md#listes-de-contr%C3%B4le-d%27acc%C3%A8s) peut devenir rapidement complexe. La meilleure pratique est de donner des permissions à un groupe plutôt qu'à plusieurs personnes.

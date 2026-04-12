@@ -35,7 +35,7 @@ status:
   qa_generated: false
 ---
 
-[Interpretable AI](http://interpretable.ai) (IAI) is a suite of machine learning tools that aim for full transparency and understandability by humans. IAI provides a Python interface for their algorithms and can only be used under license. IAI provides a free license for academic use which can be accessed on Alliance systems. For licensing issues, please contact [technical support](technical-support.md).
+[Interpretable AI](http://interpretable.ai) (IAI) is a suite of machine learning tools that aim for full transparency and understandability by humans. IAI provides a Python interface for their algorithms and can only be used under license. IAI provides a free license for academic use which can be accessed on Alliance systems. For licensing issues, please contact [technical support](../../support/technical_support.md).
 
 ## Installation on Alliance clusters
 1. Go to the [IAI download page](https://docs.interpretable.ai/stable/download/) and download the latest release of IAI. Be sure to select "Linux" and the correct version of Julia (1.11.3 in these instructions).

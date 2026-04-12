@@ -67,7 +67,7 @@ status:
 | :---------------- | :----------------------------------------------------------------------------------------------- |
 | Availability      | **March 31, 2025**                                                                               |
 | Login Node        | **tamia.alliancecan.ca**                                                                         |
-| Automation Node   | [Automation Node](automation-in-the-context-of-multifactor-authentication.md): robot.tamia.ecpia.ca |
+| Automation Node   | [Automation Node](../getting-started/automation_in_the_context_of_multifactor_authentication.md): robot.tamia.ecpia.ca |
 | Globus Collection | [TamIA's Globus v5 Server](https://app.globus.org/file-manager?origin_id=72c3bca0-9281-4742-b066-333ba0fdef72) |
 | Copy Node         | **tamia.alliancecan.ca** (for rsync, scp, sftp,...)                                              |
 | Portal            | [https://portail.tamia.ecpia.ca/](https://portail.tamia.ecpia.ca/)                               |
@@ -77,7 +77,7 @@ tamIA is a cluster dedicated to the needs of the Canadian scientific community i
 This cluster is part of the [Pan-Canadian AI computing environment (ECPIA)](https://alliancecan.ca/en/services/advanced-research-computing/ai-computing-environment).
 
 ## Specifics
-*   Our policy is that tamIA compute nodes do not have internet access. To request an exception, please contact [technical support](technical-support.md) explaining what you need and why.
+*   Our policy is that tamIA compute nodes do not have internet access. To request an exception, please contact [technical support](../support/technical_support.md) explaining what you need and why.
 *   Note that the `crontab` tool is not available.
 *   Note that the *[VSCode](https://code.visualstudio.com/)* integrated development environment is **forbidden** on **front-end nodes** (*login nodes*) due to its heavy load. It is still permitted on compute nodes.
 *   Each job should have a minimum duration of at least one hour (at least five minutes for test jobs), and you cannot have more than 1000 jobs (running and pending) at a time.
@@ -126,7 +126,7 @@ TamIA
 | :---------------- | :----------------------------------------------------------------------------------------------- |
 | Availability | **March 31, 2025** |
 | Login Node | **tamia.alliancecan.ca** |
-| Automation Node | [Automation Node](automation-in-the-context-of-multifactor-authentication.md): robot.tamia.ecpia.ca |
+| Automation Node | [Automation Node](../getting-started/automation_in_the_context_of_multifactor_authentication.md): robot.tamia.ecpia.ca |
 | Globus Collection | [TamIA's Globus v5 Server](https://app.globus.org/file-manager?origin_id=72c3bca0-9281-4742-b066-333ba0fdef72) |
 | Copy Node | **tamia.alliancecan.ca** (for rsync, scp, sftp,...) |
 | Portal | [https://portail.tamia.ecpia.ca/](https://portail.tamia.ecpia.ca/) |
@@ -136,7 +136,7 @@ tamIA is a cluster dedicated to the needs of the Canadian scientific community i
 This cluster is part of the [Pan-Canadian AI computing environment (ECPIA)](https://alliancecan.ca/en/services/advanced-research-computing/ai-computing-environment).
 
 ## Specifics
-*   Our policy is that tamIA compute nodes do not have internet access. To request an exception, please contact [technical support](technical-support.md) explaining what you need and why.
+*   Our policy is that tamIA compute nodes do not have internet access. To request an exception, please contact [technical support](../support/technical_support.md) explaining what you need and why.
 *   Note that the `crontab` tool is not available.
 *   Note that the *[VSCode](https://code.visualstudio.com/)* integrated development environment is **forbidden** on **front-end nodes** (*login nodes*) due to its heavy load. It is still permitted on compute nodes.
 *   Each job should have a minimum duration of at least one hour (at least five minutes for test jobs), and you cannot have more than 1000 jobs (running and pending) at a time.
@@ -171,24 +171,24 @@ tamIA leverages a shared Lustre file system for **HOME**, **SCRATCH**, and **PRO
 
 *   **Primary purpose:** Storing user configurations, small personal scripts, and frequently accessed small files.
 *   **Capacity:** This space is small and cannot be expanded. For larger storage needs, you must use your `PROJECT` space.
-*   **Quotas:** Small, fixed per-user quotas. For detailed information on quotas and policies, refer to [Storage and file management](storage-and-file-management.md#quotas-and-policies).
+*   **Quotas:** Small, fixed per-user quotas. For detailed information on quotas and policies, refer to [Storage and file management](../storage-and-data/storage_and_file_management.md#quotas-and-policies).
 *   **Backup:** There is currently no automatic backup. (Planned for Spring 2026).
 
 #### SCRATCH
 
 *   **Primary purpose:** Large space intended for temporary files generated during computations.
 *   **Capacity:** Large.
-*   **Quotas:** Large, fixed per-user quotas. For detailed information on quotas and policies, refer to [Storage and file management](storage-and-file-management.md#quotas-and-policies).
+*   **Quotas:** Large, fixed per-user quotas. For detailed information on quotas and policies, refer to [Storage and file management](../storage-and-data/storage_and_file_management.md#quotas-and-policies).
 *   **Backup:** No automatic backup system.
-*   **Purging:** There is an [automatic purging](scratch-purging-policy.md) of old files in this space.
+*   **Purging:** There is an [automatic purging](../storage-and-data/scratch_purging_policy.md) of old files in this space.
 
 #### PROJECT
 
 *   **Primary purpose:** Designed for sharing data among group members and for storing large amounts of data. This is the recommended space for your primary research data.
 *   **Capacity:** Large and adjustable.
-*   **Quotas:** Large, adjustable per-project quotas. For detailed information on quotas and policies, refer to [Storage and file management](storage-and-file-management.md#quotas-and-policies).
+*   **Quotas:** Large, adjustable per-project quotas. For detailed information on quotas and policies, refer to [Storage and file management](../storage-and-data/storage_and_file_management.md#quotas-and-policies).
 *   **Backup:** There is an automatic daily backup.
 
 ### Data Transfer
 
-At the very beginning of this page, a table lists several connection addresses. For data transfers via [Globus](globus.md), use the **Globus Drop-off Point**. However, for tools like [rsync](transferring-data.md#rsync) and [scp](transferring-data.md#scp), use the **Copy Node** address.
+At the very beginning of this page, a table lists several connection addresses. For data transfers via [Globus](../getting-started/globus.md), use the **Globus Drop-off Point**. However, for tools like [rsync](../getting-started/transferring_data.md#rsync) and [scp](../getting-started/transferring_data.md#scp), use the **Copy Node** address.

@@ -113,7 +113,7 @@ status:
   qa_generated: false
 ---
 
-*Parent page: [Gaussian](gaussian.md)*
+*Parent page: [Gaussian](../gaussian.md)*
 This list was originally assembled by Professor Cory C. Pye.
 
 ## Normal termination of Gaussian
@@ -126,9 +126,9 @@ Normally Gaussian will terminate with a line such as
 ```
 
 If a job does not end with these lines and no other error message is produced, it usually means that:
-*   your disk quota was exceeded (see [File quotas and policies](storage-and-file-management.md#filesystem-quotas-and-policies));
-*   the job exceeded the time requested from the [scheduler](running-jobs.md) (`--time=HH:MM:SS`);
-*   the job exceeded the memory requested (`--mem=`) (see [Monitoring jobs](running-jobs.md#monitoring-jobs)); or
+*   your disk quota was exceeded (see [File quotas and policies](../../storage-and-data/storage_and_file_management.md#filesystem-quotas-and-policies));
+*   the job exceeded the time requested from the [scheduler](../../running-jobs/running_jobs.md) (`--time=HH:MM:SS`);
+*   the job exceeded the memory requested (`--mem=`) (see [Monitoring jobs](../../running-jobs/running_jobs.md#monitoring-jobs)); or
 *   the job produced more data that can fill up the local disk on the compute node.
 
 ## Erroneous Write

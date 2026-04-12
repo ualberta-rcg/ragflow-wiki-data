@@ -103,16 +103,16 @@ Host key verification failed.
 Killed by signal 1.
 ```
 
-This warning is displayed because the host keys on the cluster (in this case [Graham](graham.md)) were changed, and your SSH client software remembers the old host keys. (It does this to prevent ["man-in-the-middle" attacks](https://en.wikipedia.org/wiki/Man-in-the-middle_attack).) This will happen for your SSH client on each device from which you connect, so you may see it multiple times.
+This warning is displayed because the host keys on the cluster (in this case [Graham](../clusters/graham.md)) were changed, and your SSH client software remembers the old host keys. (It does this to prevent ["man-in-the-middle" attacks](https://en.wikipedia.org/wiki/Man-in-the-middle_attack).) This will happen for your SSH client on each device from which you connect, so you may see it multiple times.
 
 You may also get a warning regarding "DNS spoofing", which is related to the same change.
 
 ### MobaXterm, PuTTY, or WinSCP
 
-If you are using [MobaXterm](connecting-with-mobaxterm.md), [PuTTY](connecting-with-putty.md), or [WinSCP](https://winscp.net/eng/download.php) as your ssh (or scp) client under Windows, the warning will appear in a pop-up window and will allow you to accept the new host key by clicking "Yes".
+If you are using [MobaXterm](connecting_with_mobaxterm.md), [PuTTY](connecting_with_putty.md), or [WinSCP](https://winscp.net/eng/download.php) as your ssh (or scp) client under Windows, the warning will appear in a pop-up window and will allow you to accept the new host key by clicking "Yes".
 
 !!! warning
-    **Only click yes if the fingerprint matches one listed in [SSH host key fingerprints](#ssh-host-key-fingerprints)** at the bottom of this page. If the fingerprint does not match any on the list, do not accept the connection, and contact [Technical support](technical-support.md) with the details.
+    **Only click yes if the fingerprint matches one listed in [SSH host key fingerprints](#ssh-host-key-fingerprints)** at the bottom of this page. If the fingerprint does not match any on the list, do not accept the connection, and contact [Technical support](../support/technical_support.md) with the details.
 
 ### macOS, Linux, GitBash or Cygwin
 
@@ -146,7 +146,7 @@ Afterwards, the next time you ssh to the cluster you'll be asked to confirm the 
 ```
 
 !!! warning
-    **Only type yes if the fingerprint matches one listed in the [SSH host key fingerprints](#ssh-host-key-fingerprints)** at the bottom of this page. If the fingerprint does not match any on the list below, do not accept the connection, and contact [Technical support](technical-support.md) with the details.
+    **Only type yes if the fingerprint matches one listed in the [SSH host key fingerprints](#ssh-host-key-fingerprints)** at the bottom of this page. If the fingerprint does not match any on the list below, do not accept the connection, and contact [Technical support](../support/technical_support.md) with the details.
 
 ## Troubleshooting
 
@@ -156,7 +156,7 @@ See the list of [SSH host key fingerprints](#ssh-host-key-fingerprints).
 
 If you're being asked for a password, but were using SSH keys previously on the same system, it's likely because 1024-bit DSA & RSA keys have been disabled.
 
-You need to generate a new stronger key. The process for doing this depends on the operating system you use, either [Windows](generating-ssh-keys-in-windows.md) or [Linux/macOS](using-ssh-keys-in-linux.md). Those instructions also describe how to add your client's new public key to the remote host, so that you can authenticate with the key rather than needing to provide a password.
+You need to generate a new stronger key. The process for doing this depends on the operating system you use, either [Windows](generating_ssh_keys_in_windows.md) or [Linux/macOS](using_ssh_keys_in_linux.md). Those instructions also describe how to add your client's new public key to the remote host, so that you can authenticate with the key rather than needing to provide a password.
 
 ### I can't connect!
 
@@ -183,8 +183,8 @@ You can determine the exact version of your SSH client on OS X using the command
 *   OpenSSH 7.9p1, LibreSSL 2.7.3 (OS X 10.14.5)
 
 #### Windows clients
-*   [MobaXterm Home Edition](connecting-with-mobaxterm.md) v11.1
-*   [PuTTY](connecting-with-putty.md) 0.72
+*   [MobaXterm Home Edition](connecting_with_mobaxterm.md) v11.1
+*   [PuTTY](connecting_with_putty.md) 0.72
 *   Windows Services for Linux (WSL) v1
     *   Ubuntu 18.04 (OpenSSH_7.6p1 Ubuntu-4ubuntu0.3, OpenSSL 1.0.2n)
     *   openSUSE Leap 15.1 (OpenSSH_7.9p1, OpenSSL 1.1.0i-fips)
@@ -200,4 +200,4 @@ ssh-keyscan <hostname> | ssh-keygen -E md5 -l -f -
 ssh-keyscan <hostname> | ssh-keygen -E sha256 -l -f -
 ```
 
-Listed below are the SSH fingerprints for our clusters. If the fingerprint you get does not match any on the list below, do not accept the connection, and contact [Technical support](technical-support.md) with the details.
+Listed below are the SSH fingerprints for our clusters. If the fingerprint you get does not match any on the list below, do not accept the connection, and contact [Technical support](../support/technical_support.md) with the details.

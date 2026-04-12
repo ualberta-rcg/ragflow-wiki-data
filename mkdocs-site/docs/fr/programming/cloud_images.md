@@ -34,4 +34,4 @@ status:
 # Images Infonuagiques
 
 !!! info "Redirection"
-    Cette page a été déplacée. Veuillez consulter la [section sur les images des ressources infonuagiques](cloud-resources.md#images).
+    Cette page a été déplacée. Veuillez consulter la [section sur les images des ressources infonuagiques](../cloud/cloud_resources.md#images).

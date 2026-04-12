@@ -47,4 +47,4 @@ make -j6
 ./run_tests -j6
 ```
 
-Si vous éprouvez des difficultés, écrivez au [soutien technique](technical-support.md).
+Si vous éprouvez des difficultés, écrivez au [soutien technique](../support/technical_support.md).

@@ -53,7 +53,7 @@ status:
 # Best practices
 
 Don’t know how to keep your personal computer secure? Want to review the security level of your computer?
-Here are a few tips to enhance your computer’s security. If you’d like to evaluate its security level, you might like to take this [short quiz for a health check on your computer](cybersecurity-personal-computer-health-check.md).
+Here are a few tips to enhance your computer’s security. If you’d like to evaluate its security level, you might like to take this [short quiz for a health check on your computer](cybersecurity__personal_computer_health_check.md).
 
 ## Security updates
 Enable *Install Update Automatically* to allow timely installation of security updates on your operating system and software.
@@ -79,7 +79,7 @@ For more information, see [Private networks](https://www.getcybersafe.gc.ca/en/s
 
 !!! note
     The advice above is mainly for individuals wanting to refresh their cybersecurity awareness and improve cyber defence on their personal computers.
-    Computers at the workplace are typically managed and protected by the organization’s IT services team where different sets of security measures may be applied. You should follow your organization’s policy to protect computers at the workplace. [Check out our short quiz for a health check on your computer!](cybersecurity-personal-computer-health-check.md)
+    Computers at the workplace are typically managed and protected by the organization’s IT services team where different sets of security measures may be applied. You should follow your organization’s policy to protect computers at the workplace. [Check out our short quiz for a health check on your computer!](cybersecurity__personal_computer_health_check.md)
 
 # Password hygiene habits
 Despite many solutions that protect information and systems, stolen usernames and passwords (credentials) are still the most common way attackers gain unauthorized access. This is frequently the result of weak, guessable passwords and reused credentials that have been exposed.
@@ -127,12 +127,12 @@ Linux permissions are one layer of protection to safeguard your research. Here a
 
 ***Mistake 1***: Granting access to a file to the world via the command '`chmod 777 name_of_file`'.
 
-Make sure you understand [how Linux permissions work](sharing-data.md#filesystem-permissions) and restrict access to your files in our supercomputers to only those who need access to them.
+Make sure you understand [how Linux permissions work](../storage-and-data/sharing_data.md#filesystem-permissions) and restrict access to your files in our supercomputers to only those who need access to them.
 
 ***Mistake 2***: Not using the *sticky bit*, leading to the deletion of your files by someone else.
 
-When dealing with a shared directory where multiple users have read, write and execute permission, the issue of ensuring that an individual cannot delete the files or directories of another can arise. Make sure you are familiar with [the notion of sticky bit](sharing-data.md#the-sticky-bit) and use it when appropriate.
+When dealing with a shared directory where multiple users have read, write and execute permission, the issue of ensuring that an individual cannot delete the files or directories of another can arise. Make sure you are familiar with [the notion of sticky bit](../storage-and-data/sharing_data.md#the-sticky-bit) and use it when appropriate.
 
 ***Mistake 3***: Granting access to multiple individuals rather than groups.
 
-[Managing ACLs (Access Control Lists)](sharing-data.md#access-control-lists-acls) can quickly become complex. It is best practice to use groups rather than multiple individual accounts to grant permissions when possible.
+[Managing ACLs (Access Control Lists)](../storage-and-data/sharing_data.md#access-control-lists-acls) can quickly become complex. It is best practice to use groups rather than multiple individual accounts to grant permissions when possible.

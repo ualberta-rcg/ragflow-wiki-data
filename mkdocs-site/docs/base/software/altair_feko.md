@@ -51,4 +51,4 @@ setenv("ALTAIR_LICENSE_PATH", "<port>@<hostname>")
 and put this file in the folder `$HOME/.licenses/`.
 
 !!! note
-    Firewall configuration will need to be done on both our side and yours. Please get in touch with our [Technical support](technical-support.md) to arrange this.
+    Firewall configuration will need to be done on both our side and yours. Please get in touch with our [Technical support](../support/technical_support.md) to arrange this.

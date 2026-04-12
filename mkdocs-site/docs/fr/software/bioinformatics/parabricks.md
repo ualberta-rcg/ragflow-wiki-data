@@ -59,7 +59,7 @@ module load parabricks/2.5.0
 
 ## Exemple d'utilisation
 
-Avant d'utiliser Parabricks, prenez connaissance de la [documentation](https://www.nvidia.com/en-us/docs/parabricks/), incluant les pipelines et les outils autonomes. Pour savoir comment demander des GPU, lisez [Ordonnancement Slurm avec des tâches exécutées avec GPU](using-gpus-with-slurm.md). Quand vous aurez compris cette information, vous pourrez soumettre une tâche comme celle-ci :
+Avant d'utiliser Parabricks, prenez connaissance de la [documentation](https://www.nvidia.com/en-us/docs/parabricks/), incluant les pipelines et les outils autonomes. Pour savoir comment demander des GPU, lisez [Ordonnancement Slurm avec des tâches exécutées avec GPU](../../running-jobs/using_gpus_with_slurm.md). Quand vous aurez compris cette information, vous pourrez soumettre une tâche comme celle-ci :
 
 ```bash
 #!/bin/bash

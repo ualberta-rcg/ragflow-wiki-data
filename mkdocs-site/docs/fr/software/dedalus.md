@@ -108,8 +108,8 @@ où `X.Y.Z` est la version choisie (par exemple 3.0.2). Si aucun numéro n'est i
 ## Exécution
 
 Dedalus peut être exécuté en mode distribué sur plusieurs nœuds ou cœurs. Pour plus d'information, consultez :
-* [Tâche MPI](running-jobs.md#tache-mpi)
-* [Contrôle de l'ordonnancement avec MPI](advanced-mpi-scheduling.md)
+* [Tâche MPI](../running-jobs/running_jobs.md#tache-mpi)
+* [Contrôle de l'ordonnancement avec MPI](../running-jobs/advanced_mpi_scheduling.md)
 
 1. Préparez le script.
 
@@ -183,7 +183,7 @@ Dedalus peut être exécuté en mode distribué sur plusieurs nœuds ou cœurs. 
 2. Soumettez la tâche à l'ordonnanceur.
 
 !!! note
-    Avant de soumettre la tâche, il est important de tester le script pour détecter d'éventuelles erreurs. Faites un test rapide avec une [tâche interactive](running-jobs.md#taches-interactives).
+    Avant de soumettre la tâche, il est important de tester le script pour détecter d'éventuelles erreurs. Faites un test rapide avec une [tâche interactive](../running-jobs/running_jobs.md#taches-interactives).
 
 ```bash
 sbatch submit-dedalus.sh

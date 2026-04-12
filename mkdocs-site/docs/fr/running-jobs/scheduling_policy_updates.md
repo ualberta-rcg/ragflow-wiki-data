@@ -33,7 +33,7 @@ status:
 ---
 
 !!! info "En préparation"
-Cette page vise à consigner les modifications apportées aux [politiques d'ordonnancement de tâches](job-scheduling-policies.md) qui pourraient modifier le comportement des commandes de soumission de tâches (`sbatch`, `salloc`, `srun`).
+Cette page vise à consigner les modifications apportées aux [politiques d'ordonnancement de tâches](job_scheduling_policies.md) qui pourraient modifier le comportement des commandes de soumission de tâches (`sbatch`, `salloc`, `srun`).
 
 * Description du changement
   * Grappe : date

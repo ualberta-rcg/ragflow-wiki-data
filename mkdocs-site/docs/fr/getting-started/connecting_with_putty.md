@@ -48,5 +48,5 @@ La fonction de redirection X11 nécessite un serveur *X window* tel que [Xming](
 
 ## Paire de clés SSH
 Pour localiser la clé privée : sous *Catégorie > Connexion > SSH > Authentification*, cliquez sur le bouton *Parcourir*.
-PuTTY utilise les fichiers avec le suffixe .ppk; ces suffixes sont générés via PuTTYGen (voir [Generating SSH keys in Windows](generating-ssh-keys-in-windows.md) pour savoir comment créer ces clés).
+PuTTY utilise les fichiers avec le suffixe .ppk; ces suffixes sont générés via PuTTYGen (voir [Generating SSH keys in Windows](generating_ssh_keys_in_windows.md) pour savoir comment créer ces clés).
 Dans les versions plus récentes de PuTTY, vous devez cliquer sur le signe + près de *Authentification*, puis sélectionner *Identifiants* pour pouvoir chercher le *Fichier de clé privée pour l'authentification*. Dans cette plus récente interface, les champs *Certificat à utiliser* et *Plug-in pour fournir la réponse d'authentification* doivent être vides.

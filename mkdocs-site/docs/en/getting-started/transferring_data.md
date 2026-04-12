@@ -83,7 +83,7 @@ Please use **data transfer nodes**, also called **data mover nodes**, instead of
 [Globus](globus.md) automatically uses data transfer nodes.
 
 ## To and from your personal computer
-You will need software that supports secure transfer of files between your computer and our machines. The commands `scp` and `sftp` can be used in a command-line environment on **Linux** or **Mac** OS X computers. On **Microsoft Windows** platforms, [MobaXterm](https://docs.computecanada.ca/wiki/Connecting_with_MobaXTerm/en) offers both a graphical file transfer function and a [command-line](linux-introduction.md) interface via [SSH](ssh.md), while [WinSCP](http://winscp.net/eng/index.php) is another free program that supports file transfer. Setting up a connection to a machine using SSH keys with WinSCP can be done by following the steps in this [link](https://www.exavault.com/blog/import-ssh-keys-winscp). [PuTTY](https://docs.computecanada.ca/wiki/Connecting_with_PuTTY/en) comes with `pscp` and `psftp` which are essentially the same as the Linux and Mac command line programs.
+You will need software that supports secure transfer of files between your computer and our machines. The commands `scp` and `sftp` can be used in a command-line environment on **Linux** or **Mac** OS X computers. On **Microsoft Windows** platforms, [MobaXterm](https://docs.computecanada.ca/wiki/Connecting_with_MobaXTerm/en) offers both a graphical file transfer function and a [command-line](linux_introduction.md) interface via [SSH](ssh.md), while [WinSCP](http://winscp.net/eng/index.php) is another free program that supports file transfer. Setting up a connection to a machine using SSH keys with WinSCP can be done by following the steps in this [link](https://www.exavault.com/blog/import-ssh-keys-winscp). [PuTTY](https://docs.computecanada.ca/wiki/Connecting_with_PuTTY/en) comes with `pscp` and `psftp` which are essentially the same as the Linux and Mac command line programs.
 
 If it takes more than one minute to move your files to or from our servers, we recommend you install and try [Globus Personal Connect](globus.md#personal-computers). [Globus](globus.md) transfers can be set up and will run in the background.
 
@@ -91,9 +91,9 @@ If it takes more than one minute to move your files to or from our servers, we r
 [Globus](globus.md) is the preferred tool for transferring data between systems, and if it can be used, it should.
 
 However, other common tools can also be found for transferring data both inside and outside of our systems, including:
-* [SFTP](transferring-data.md#sftp)
-* [SCP](transferring-data.md#scp) or Secure Copy Protocol
-* [rsync](transferring-data.md#rsync)
+* [SFTP](transferring_data.md#sftp)
+* [SCP](transferring_data.md#scp) or Secure Copy Protocol
+* [rsync](transferring_data.md#rsync)
 
 !!! note
     If you want to transfer files between another of our clusters and Trillium use the SSH agent forwarding flag `-A` when logging into another cluster. For example, to copy files to Trillium from Fir, use:
@@ -131,7 +131,7 @@ For more information about Globus please see [Globus](globus.md).
 ### Rsync
 [Rsync](https://en.wikipedia.org/wiki/Rsync) is a popular tool for ensuring that two separate datasets are the same but can be quite slow if there are a lot of files or there is a lot of latency between the two sites, *i.e.* they are geographically apart or on different networks. Running `rsync` will check the modification time and size of each file, and will only transfer the file if one or the other does not match. If you expect modification times not to match on the two systems, you can use the `-c` option, which will compute checksums at the source and destination, and transfer only if the checksums do not match.
 
-When transferring files into the `/project` file systems, do not use `-p` and `-g` flags since the quotas in `/project` are enforced based on group ownership, and thus preserving the group ownership will lead to the [Disk quota exceeded](frequently-asked-questions.md#disk-quota-exceeded-error-on-project-filesystems) error message. Since `-a` includes `-p` and `-g` by default, the `--no-g --no-p` options should be added, like so
+When transferring files into the `/project` file systems, do not use `-p` and `-g` flags since the quotas in `/project` are enforced based on group ownership, and thus preserving the group ownership will lead to the [Disk quota exceeded](frequently_asked_questions.md#disk-quota-exceeded-error-on-project-filesystems) error message. Since `-a` includes `-p` and `-g` by default, the `--no-g --no-p` options should be added, like so
 ```bash
 rsync -avzh --no-g --no-p LOCALNAME someuser@nibi.alliancecan.ca:projects/def-professor/someuser/somedir/
 ```
@@ -199,7 +199,7 @@ USERNAME@ADDRESS's password:
 Connected to ADDRESS.
 sftp>
 ```
-or using an [SSH Key](ssh-keys.md) for authentication using the `-i` option
+or using an [SSH Key](ssh_keys.md) for authentication using the `-i` option
 ```console
 [name@server]$ sftp -i /home/name/.ssh/id_rsa USERNAME@ADDRESS
 Connected to ADDRESS.
@@ -211,17 +211,17 @@ which returns the `sftp>` prompt where commands to transfer files can be issued.
 There are also a number of graphical programs available for Windows, Linux and Mac OS, such as [WinSCP](https://winscp.net/eng/index.php) and [MobaXterm](http://mobaxterm.mobatek.net/) (Windows), [filezilla](https://filezilla-project.org) (Windows, Mac, and Linux), and [cyberduck](https://cyberduck.io/?l=en) (Mac and Windows).
 
 ## SCP
-SCP stands for [*Secure Copy Protocol*](https://en.wikipedia.org/wiki/Secure_copy). Like SFTP it uses the SSH protocol to encrypt data being transferred. It does not support synchronization like [Globus](globus.md) or [rsync](transferring-data.md#rsync). Some examples of the most common use of SCP include
+SCP stands for [*Secure Copy Protocol*](https://en.wikipedia.org/wiki/Secure_copy). Like SFTP it uses the SSH protocol to encrypt data being transferred. It does not support synchronization like [Globus](globus.md) or [rsync](transferring_data.md#rsync). Some examples of the most common use of SCP include
 ```bash
 scp foo.txt username@rorqual.alliancecan.ca:work/
 ```
-which will copy the file `foo.txt` from the current directory on my local computer to the directory `$HOME/work` on the cluster [Rorqual](rorqual.md). To copy a file, `output.dat` from my project space on the cluster [Fir](fir.md) to my local computer I can use a command like
+which will copy the file `foo.txt` from the current directory on my local computer to the directory `$HOME/work` on the cluster [Rorqual](../clusters/rorqual.md). To copy a file, `output.dat` from my project space on the cluster [Fir](../software/fir.md) to my local computer I can use a command like
 ```bash
 scp username@fir.alliancecan.ca:projects/def-jdoe/username/results/output.dat .
 ```
 Many other examples of the use of SCP are shown [here](http://www.hypexr.org/linux_scp_help.php). Note that you always execute this `scp` command on your local computer, not the remote cluster - the SCP connection, regardless of whether you are transferring data to or from the remote cluster, should always be initiated from your local computer.
 
-SCP supports the option `-r` to recursively transfer a set of directories and files. We **recommend against using `scp -r`** to transfer data into `/project` because the setgid bit is turned off in the created directories, which may lead to `Disk quota exceeded` or similar errors if files are later created there (see [Disk quota exceeded error on /project filesystems](frequently-asked-questions.md#disk-quota-exceeded-error-on-project-filesystems)).
+SCP supports the option `-r` to recursively transfer a set of directories and files. We **recommend against using `scp -r`** to transfer data into `/project` because the setgid bit is turned off in the created directories, which may lead to `Disk quota exceeded` or similar errors if files are later created there (see [Disk quota exceeded error on /project filesystems](frequently_asked_questions.md#disk-quota-exceeded-error-on-project-filesystems)).
 
 !!! note "Note"
     if you chose a custom SSH key name, *i.e.* something other than the default names: `id_dsa`, `id_ecdsa`, `id_ed25519` and `id_rsa`, you will need to use the `-i` option of scp and specify the path to your private key before the file paths via
@@ -242,7 +242,7 @@ find <directory_name> ! -readable -ls
 
 ### Unable to write new data
 
-* Double-check the [storage usage](storage-and-file-management.md#overview) and make sure enough space and enough files are available.
+* Double-check the [storage usage](../storage-and-data/storage_and_file_management.md#overview) and make sure enough space and enough files are available.
     * On some clusters, the filesystem automatically compresses your files and reports the space usage by the disk usage of the compressed data. On other clusters, the space usage is reported by the apparent size of your files. Therefore, 1 TB of compressed data on one cluster may become 2 TB of data on the next cluster.
     * Before transferring a dataset, it is possible to get its apparent size with the option `-b` of the `du` command:
     ```bash
@@ -251,4 +251,4 @@ find <directory_name> ! -readable -ls
     # 443087696       dataset  # Size of the compressed data
     # 1048576000      dataset  # Apparent size of the data
     ```
-* Double-check the [filesystem permissions](sharing-data.md) and make sure you have the write permission at the location where you are trying to transfer new files.
+* Double-check the [filesystem permissions](../storage-and-data/sharing_data.md) and make sure you have the write permission at the location where you are trying to transfer new files.

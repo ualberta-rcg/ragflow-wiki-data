@@ -103,7 +103,7 @@ export SLURM_ACCOUNT=def-pname
 Cette configuration contient des profils pour Fir, Narval, Nibi, Rorqual et Trillium. Si vous utilisez ce fichier de configuration sur Fir, vous devez charger le profil avec l'indicateur `-profile fir` de la commande `nextflow`. Sur les autres sites, le profil approprié est sélectionné automatiquement en fonction du nom de l'hôte. Il garantit qu'il n'y a pas plus de 100 tâches dans la file d'attente Slurm et que 60 tâches maximum sont soumises par minute. Il contient des informations spécifiques à la grappe qui sont nécessaires à Nextflow, par exemple que les machines Rorqual disposent de 192 cœurs et de 750 Go de RAM, avec une durée maximale d'une semaine (168 heures).
 
 !!! warning "Attention"
-    Il n'est pas recommandé d’exécuter des pipelines nf-core ou tout autre pipeline Nextflow générique sur Trillium. Ceux-ci devraient être exécutés sur [Trillium](trillium.md) uniquement s’ils ont été conçus spécifiquement pour Trillium.
+    Il n'est pas recommandé d’exécuter des pipelines nf-core ou tout autre pipeline Nextflow générique sur Trillium. Ceux-ci devraient être exécutés sur [Trillium](../clusters/trillium.md) uniquement s’ils ont été conçus spécifiquement pour Trillium.
 
 La configuration est liée au système sur lequel se fait l'exécution, mais elle est également liée au pipeline lui-même. Dans cet exemple rnaseq, `cpu = 1` est la valeur par défaut, mais certaines étapes du pipeline peuvent en utiliser plus. Cela peut devenir assez compliqué et les étiquettes dans le fichier `nf-core-rnaseq_3.21.0/3_21_0/conf/base.config` sont utilisées par le pipeline à l'interne pour identifier une étape avec une configuration autre que celle par défaut. Nous n'abordons pas ce sujet ici, mais sachez qu'en modifiant ces étiquettes, vous pourriez observer des différences importantes dans le temps de mise en file d'attente et le temps d'exécution du pipeline.
 
@@ -128,7 +128,7 @@ python -m pip install nf_core==2.13
 Pour faciliter la configuration, nous utilisons `pip` pour installer un paquet [Python](python.md). L'installation des outils nf-core peut être longue; cette étape peut prendre plusieurs minutes.
 
 ### Étape 3 : Télécharger les images de conteneur et le pipeline
-Définissez le nom du pipeline à tester, puis chargez Nextflow et l'utilitaire [Apptainer](apptainer.md). Nextflow s'intègre parfaitement à Apptainer. Comme indiqué précédemment, nous utilisons le pipeline `rna-seq` à titre d'exemple.
+Définissez le nom du pipeline à tester, puis chargez Nextflow et l'utilitaire [Apptainer](containers/apptainer.md). Nextflow s'intègre parfaitement à Apptainer. Comme indiqué précédemment, nous utilisons le pipeline `rna-seq` à titre d'exemple.
 
 ```bash
 export NFCORE_PL=rnaseq

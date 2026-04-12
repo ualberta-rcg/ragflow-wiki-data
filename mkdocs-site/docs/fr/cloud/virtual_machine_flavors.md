@@ -42,7 +42,7 @@ status:
 
     Voir [*NetApp OpenStack Deployment and Operations Guide*](http://netapp.github.io/openstack-deploy-ops-guide/icehouse/content/section_nova-key-concepts.html).
 
-Vous pouvez voir les gabarits que vous pouvez sélectionner pour votre projet dans le tableau de bord Horizon ou en entrant la commande ci-dessous avec le [client ligne de commande](openstack-command-line-clients.md).
+Vous pouvez voir les gabarits que vous pouvez sélectionner pour votre projet dans le tableau de bord Horizon ou en entrant la commande ci-dessous avec le [client ligne de commande](openstack_command_line_clients.md).
 
 ```bash
 openstack flavor list --sort-column RAM
@@ -65,6 +65,6 @@ Les gabarits ont des noms semblables à `c2-7.5gb-92`, `p1-0.75gb`, `g1-8gb-c4-2
 
 *   conviennent aux tâches dont la durée d'exécution est indéterminée;
 *   le disque racine n'est pas prédéfini;
-*   les gabarits devraient être [démarrés depuis un volume](working-with-volumes.md#démarrer-depuis-un-volume);
+*   les gabarits devraient être [démarrés depuis un volume](working_with_volumes.md#démarrer-depuis-un-volume);
 *   nous recommandons un volume d'au moins 20 Go pour le disque racine persistant;
 *   dans le cas d’Arbutus, ces gabarits sont sur des nœuds de calcul avec redondance élevée (disque et réseau) et ils surexploitent le CPU; ils conviennent donc aux serveurs web, aux serveurs de bases de données et aux instances qui font généralement peu usage du CPU ou encore ont un usage irrégulier.

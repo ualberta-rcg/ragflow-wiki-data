@@ -57,10 +57,10 @@ PennyLane offers several features to facilitate research and development in diff
 ## Unified quantum interface
 PennyLane provides a unified quantum interface that allows you to design quantum circuits and run them on different quantum simulators and hardware. PennyLane supports several popular quantum simulators, such as [Qiskit](qiskit.md), [CirQ](cirq.md), Strawberry Field, and QuTip. PennyLane also supports several quantum hardware, including Xanadu, IBM, Rigetti and IonQ quantum devices.
 
-Calcul Québec has developed a [PennyLane-CalculQuebec plugin](https://github.com/calculquebec/pennylane-snowflurry) that uses the PennyLane interface to design and run quantum circuits on [MonarQ](monarq.md).
+Calcul Québec has developed a [PennyLane-CalculQuebec plugin](https://github.com/calculquebec/pennylane-snowflurry) that uses the PennyLane interface to design and run quantum circuits on [MonarQ](../../clusters/monarq.md).
 
 ### Integration with machine learning libraries
-PennyLane seamlessly integrates with popular machine learning libraries such as [TensorFlow](tensorflow.md) and [PyTorch](pytorch.md), allowing you to use machine learning tools to build hybrid quantum machine learning models and optimize quantum circuits.
+PennyLane seamlessly integrates with popular machine learning libraries such as [TensorFlow](../tensorflow.md) and [PyTorch](../pytorch.md), allowing you to use machine learning tools to build hybrid quantum machine learning models and optimize quantum circuits.
 
 ### Quantum circuit optimization
 Using differentiable optimization techniques and combining classical and quantum differentiation methods, PennyLane optimizes quantum circuit parameters to solve a variety of problems.
@@ -72,12 +72,12 @@ PennyLane provides visualization tools to help understand how quantum circuits w
 PennyLane is an open-source project with an active community of developers and users. The project is constantly updated with new features and improvements, and anyone can contribute to the development of the platform.
 
 ## Using PennyLane with MonarQ
-[MonarQ](monarq.md) is designed to be programmed with [Snowflurry](snowflurry.md), a Julia-based software library developed by Anyon Systems. However, with the PennyLane-CalculQuebec plugin, PennyLane circuits can be created using Snowflurry in the background. This allows circuits to be run on [MonarQ](monarq.md) while still benefiting from the features and development environment offered by PennyLane. See the [PennyLane-CalculQuebec documentation for installation and usage guides](https://github.com/calculquebec/pennylane-snowflurry).
+[MonarQ](../../clusters/monarq.md) is designed to be programmed with [Snowflurry](snowflurry.md), a Julia-based software library developed by Anyon Systems. However, with the PennyLane-CalculQuebec plugin, PennyLane circuits can be created using Snowflurry in the background. This allows circuits to be run on [MonarQ](../../clusters/monarq.md) while still benefiting from the features and development environment offered by PennyLane. See the [PennyLane-CalculQuebec documentation for installation and usage guides](https://github.com/calculquebec/pennylane-snowflurry).
 
-A [quantum transpiler](transpileur-quantique.md) is also available to optimize PennyLane circuits on MonarQ.
+A [quantum transpiler](transpileur_quantique.md) is also available to optimize PennyLane circuits on MonarQ.
 
 ## Creating a virtual environment
-[Let’s create a virtual environment](python.md#creating-and-using-a-virtual-environment) to use PennyLane.
+[Let’s create a virtual environment](../python.md#creating-and-using-a-virtual-environment) to use PennyLane.
 
 ```bash
 module load python/3.11
@@ -120,7 +120,7 @@ pip install --no-index --requirement ~/pennylane_requirements.txt
 python pennylane_example.py
 ```
 
-You can now [submit the job to the scheduler](running-jobs.md).
+You can now [submit the job to the scheduler](../../running-jobs/running_jobs.md).
 
 ## Use case: Bell states
 Let's start by creating the virtual environment, as described above.

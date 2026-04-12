@@ -226,10 +226,10 @@ Les données pour l'analyse et les résultats finaux doivent être déplacées d
 *   Vous pouvez aussi aller aux nœuds de copie de l'extérieur en utilisant `login`/`scp`/`rsync`.
     *   `nia-datamover1.scinet.utoronto.ca`
     *   `nia-datamover2.scinet.utoronto.ca`
-*   Si vous faites souvent ceci, considérez utiliser [Globus](globus.md), un outil web pour le transfert de données.
+*   Si vous faites souvent ceci, considérez utiliser [Globus](../getting-started/globus.md), un outil web pour le transfert de données.
 
 ### Utiliser Globus
-Pour la documentation, consultez la [page wiki de Calcul Canada](globus.md) et la [page wiki de SciNet](https://docs.scinet.utoronto.ca/index.php/Globus).
+Pour la documentation, consultez la [page wiki de Calcul Canada](../getting-started/globus.md) et la [page wiki de SciNet](https://docs.scinet.utoronto.ca/index.php/Globus).
 
 Le point de chute Globus est :
 *   `alliancecan#trillium` pour Trillium
@@ -239,7 +239,7 @@ Le point de chute Globus est :
 HPSS est conçu pour le stockage de longue durée.
 
 *   [HPSS](https://docs.scinet.utoronto.ca/index.php/HPSS) est une solution de stockage sur bandes employée comme espace *nearline* par SciNet.
-*   L'espace de stockage sur HPSS est alloué dans le cadre du [concours d'allocation de ressources](resource-allocation-competition.md).
+*   L'espace de stockage sur HPSS est alloué dans le cadre du [concours d'allocation de ressources](../running-jobs/resource_allocation_competition.md).
 
 ## Propriété des fichiers et listes de contrôle d'accès
 

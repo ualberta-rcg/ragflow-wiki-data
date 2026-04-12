@@ -166,7 +166,7 @@ Les questions suivantes vous aideront à planifier la migration.
 *   Avez-vous utilisé un système de déploiement automatisé (par exemple, Terraform, Ansible) sur le nuage Ouest? **Si c'est le cas, les mêmes outils d'automatisation doivent être utilisés pour la migration.**
 *   Utilisez-vous des entrées DNS personnalisées? Ces entrées devront être mises à jour, car le nouveau nuage Arbutus utilise des plages d'adresses IP flottantes différentes de celles du système précédent.
 *   Pour gérer vos ressources infonuagiques, utilisez-vous le tableau de bord OpenStack (interface web Horizon) ou l'interface en ligne de commande (CLI) OpenStack? **Les migrations simples peuvent être effectuées via l'interface web; par contre, les migrations plus complexes peuvent nécessiter un accès à l'interface en ligne de commande.**
-*   Les membres de votre équipe ont-ils tous un compte OpenStack? Veuillez noter que le partage de compte est strictement interdit. **Toute personne ayant besoin d'un compte doit en [faire la demande ici sur CCDB](apply-for-a-ccdb-account.md).**
+*   Les membres de votre équipe ont-ils tous un compte OpenStack? Veuillez noter que le partage de compte est strictement interdit. **Toute personne ayant besoin d'un compte doit en [faire la demande ici sur CCDB](../getting-started/apply_for_a_ccdb_account.md).**
 *   Comment gérerez-vous les interruptions de service requises pour la migration? Selon l'étendue des éléments à migrer, **l'interruption peut durer de quelques heures à quelques jours. Qui doit en être informé? Quand votre projet est-il en mesure de gérer une interruption de service?**
 *   Vos ressources ont-elles été allouées via le service d'accès rapide? Si c'est le cas, **vous devrez soumettre une demande de migration à cloud@tech.alliancecan.ca.**
 *   Une fois la migration terminée, **veuillez soumettre un billet d'assistance pour demander le retrait de votre projet sur l'ancien système Arbutus.**
@@ -411,11 +411,11 @@ La méthode la plus simple est d'utiliser le client Globus Connect Personal avec
     *   Écrivez à globus@tech.alliancecan.ca.
     *   Répondez à l'invitation Globus Personal Plus et suivez les directives.
 2.  **Pour chacune des instances touchées par le transfert de données, activez Globus Connect Personal.**
-    *   Prenez connaissance de [Globus, Ordinateurs personnels](globus.md#ordinateurs-personnels) et de [https://www.globus.org/globus-connect-personal](https://www.globus.org/globus-connect-personal).
+    *   Prenez connaissance de [Globus, Ordinateurs personnels](../getting-started/globus.md#ordinateurs-personnels) et de [https://www.globus.org/globus-connect-personal](https://www.globus.org/globus-connect-personal).
     *   Utilisez les directives appropriées pour installer Globus Connect Personal dans chaque instance. Pour Linux, consultez [https://docs.globus.org/how-to/globus-connect-personal-linux/](https://docs.globus.org/how-to/globus-connect-personal-linux/).
     *   Modifiez la configuration de chacune des instances pour communiquer avec le service Globus.
         *   Vérifiez que chaque instance possède une adresse IP externe.
-        *   Vérifiez que le pare-feu des instances permet la [communication par les ports](https://docs.globus.org/how-to/configure-firewall-gcp/); voir aussi [Groupes de sécurité](managing-your-cloud-resources-with-openstack.md#groupes-de-sécurité).
+        *   Vérifiez que le pare-feu des instances permet la [communication par les ports](https://docs.globus.org/how-to/configure-firewall-gcp/); voir aussi [Groupes de sécurité](managing_your_cloud_resources_with_openstack.md#groupes-de-sécurité).
         *   L'utilisateur qui exécute Globus Connect Personal doit avoir accès aux données dans les systèmes de fichiers de stockage.
     *   Dans l'espace utilisateur, exécutez Globus Connect Personal en arrière-plan.
     *   Comme abonné Globus Connect Personal Plus (étape 1), créez un point de chute partagé pour une ou les deux instances.
@@ -424,14 +424,14 @@ La méthode la plus simple est d'utiliser le client Globus Connect Personal avec
 
 Pour plus d'information sur la configuration, consultez [https://computecanada.github.io/DHSI-cloud-course/globus/](https://computecanada.github.io/DHSI-cloud-course/globus/).
 
-En cas de difficulté, contactez le [soutien technique](technical-support.md) (globus@tech.alliancecan.ca). Il est fortement suggéré de soumettre aussi une demande d’assistance au service technique.
+En cas de difficulté, contactez le [soutien technique](../support/technical_support.md) (globus@tech.alliancecan.ca). Il est fortement suggéré de soumettre aussi une demande d’assistance au service technique.
 
 ### Petits volumes de données : rsync + ssh
 
 Pour les plus petits volumes, rsync + ssh offre de bonnes vitesses de transfert et, comme Globus, travaille de manière incrémentale. Voici un exemple de cas type :
 
 1.  Connectez-vous avec SSH à l’instance sur le nuage Ouest qui possède le volume principal. Prenez note du chemin absolu que vous voulez copier dans l’instance sur Arbutus.
-2.  Lancez rsync sur SSH. Dans l’exemple suivant, on suppose qu’il existe une connexion sans mot de passe via des [clés SSH](ssh-keys.md). Utilisez les valeurs appropriées.
+2.  Lancez rsync sur SSH. Dans l’exemple suivant, on suppose qu’il existe une connexion sans mot de passe via des [clés SSH](../getting-started/ssh_keys.md). Utilisez les valeurs appropriées.
     ```bash
     rsync -avzP -e 'ssh -i ~/.ssh/key.pem' /chemin/local/ utilisateur_distant@hôte_distant:/chemin/vers/les/fichiers/
     ```
@@ -506,7 +506,7 @@ Si vous ne savez pas quel outil utiliser, nous pouvons vous recommander `rclone`
 Exemple rclone :
 
 1.  Installez rclone : [https://rclone.org/install/](https://rclone.org/install/)
-2.  Créez des identifiants S3 dans l'ancien et le nouveau nuage Arbutus : [Stockage objet Arbutus](arbutus-object-storage.md)
+2.  Créez des identifiants S3 dans l'ancien et le nouveau nuage Arbutus : [Stockage objet Arbutus](arbutus_object_storage.md)
 3.  Créez un fichier de configuration pour rclone :
     *   Emplacement du fichier sur Linux/macOS : `~/.config/rclone/rclone.conf`
     *   Contenu du fichier, insérant vos valeurs d'accès et de secret pour chaque environnement :

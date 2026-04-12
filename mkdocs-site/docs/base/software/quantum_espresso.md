@@ -56,7 +56,7 @@ srun pw.x < si.scf.in > si.scf.out
 ```
 
 !!! note
-    The above example requests 32 processes, which is more than needed for the silicon tutorial case. Please be aware that suitable selection of a process count is complicated, but it is your responsibility to choose an efficient number. See also [Advanced MPI scheduling](advanced-mpi-scheduling.md).
+    The above example requests 32 processes, which is more than needed for the silicon tutorial case. Please be aware that suitable selection of a process count is complicated, but it is your responsibility to choose an efficient number. See also [Advanced MPI scheduling](../running-jobs/advanced_mpi_scheduling.md).
 
 ## Known problems
 

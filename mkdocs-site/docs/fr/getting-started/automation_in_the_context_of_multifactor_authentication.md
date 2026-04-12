@@ -81,10 +81,10 @@ Les flux de travail qui établissent sans intervention humaine des connexions à
 
 # Mesures de sécurité accrues
 ## Accès sur demande seulement
-Pour avoir accès aux nœuds spéciaux d'automatisation, écrivez au [soutien technique](technical-support.md). Décrivez le type d'automatisation, listez les commandes qui seront exécutées ainsi que les outils ou les bibliothèques pour gérer l'automatisation.
+Pour avoir accès aux nœuds spéciaux d'automatisation, écrivez au [soutien technique](../support/technical_support.md). Décrivez le type d'automatisation, listez les commandes qui seront exécutées ainsi que les outils ou les bibliothèques pour gérer l'automatisation.
 
 ## Accès via certaines clés SSH avec contraintes
-L'accès aux nœuds d'automatisation se fait uniquement via les [clés SSH téléversées dans CCDB](ssh-keys.md#using-ccdb). Les clés inscrites dans un fichier ``.ssh/authorized_keys`` ne sont pas acceptées. Veuillez respecter la règle **une clé SSH par utilisation**. Ne réutilisez pas la clé pour vous connecter interactivement; générez plutôt une clé expressément pour votre flux de travail automatisé. De plus, les clés SSH **doivent respecter** les contraintes suivantes :
+L'accès aux nœuds d'automatisation se fait uniquement via les [clés SSH téléversées dans CCDB](ssh_keys.md#using-ccdb). Les clés inscrites dans un fichier ``.ssh/authorized_keys`` ne sont pas acceptées. Veuillez respecter la règle **une clé SSH par utilisation**. Ne réutilisez pas la clé pour vous connecter interactivement; générez plutôt une clé expressément pour votre flux de travail automatisé. De plus, les clés SSH **doivent respecter** les contraintes suivantes :
 
 ### `restrict`
 Cette contrainte désactive la redirection de port (*port forwarding*), la redirection d'agent (*agent forwarding*) et la redirection X11. Le pseudotélétype (PTY) est aussi désactivé, puisqu'il bloquerait la plupart des flux interactifs. Nous posons ces conditions parce que les nœuds spéciaux ne doivent pas être utilisés pour les processus interactifs ou de longue durée; dans ces cas, il faut utiliser les nœuds réguliers.

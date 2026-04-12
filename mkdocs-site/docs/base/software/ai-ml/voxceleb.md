@@ -36,13 +36,13 @@ status:
 ---
 
 !!! important "Opt-in Service Required"
-    Compute Canada makes available on [Graham](graham.md) cluster a copy of the VoxCeleb dataset, stored in the `/datashare` space. For the time being, this dataset is available only on Graham and you must opt-in to access this dataset by agreeing that you have registered for a VoxCeleb license.
+    Compute Canada makes available on [Graham](../../clusters/graham.md) cluster a copy of the VoxCeleb dataset, stored in the `/datashare` space. For the time being, this dataset is available only on Graham and you must opt-in to access this dataset by agreeing that you have registered for a VoxCeleb license.
 
     By selecting this service you acknowledge that you have registered with the owner of the data (at https://www.robots.ox.ac.uk/~vgg/data/voxceleb/index.html#portfolio and have agreed to VoxCeleb’s terms of use (https://www.robots.ox.ac.uk/~vgg/data/voxceleb/files/license.txt)
 
     En sélectionnant ce service, vous reconnaissez que vous êtes inscrit auprès du propriétaire des données (à l'adresse https://www.robots.ox.ac.uk/~vgg/data/voxceleb/index.html#portfolio) et que vous avez accepté les conditions d'utilisation (https://www.robots.ox.ac.uk/~vgg/data/voxceleb/files/license.txt) d'VoxCeleb.
 
-This dataset is provided as is. For requests for updates or inclusion of more data, please contact our [Technical support](technical-support.md) with the subject `VoxCeleb dataset`, specifying why the add-on is important.
+This dataset is provided as is. For requests for updates or inclusion of more data, please contact our [Technical support](../../support/technical_support.md) with the subject `VoxCeleb dataset`, specifying why the add-on is important.
 
 ### Request access through the opt-in service
 

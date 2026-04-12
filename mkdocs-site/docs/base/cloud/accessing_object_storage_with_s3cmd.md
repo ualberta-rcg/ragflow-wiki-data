@@ -49,7 +49,7 @@ status:
   qa_generated: false
 ---
 
-This page contains instructions on how to set up and access [Arbutus object storage](arbutus-object-storage.md) with s3cmd, one of the [object storage clients](arbutus-object-storage-clients.md) available for this storage type.
+This page contains instructions on how to set up and access [Arbutus object storage](arbutus_object_storage.md) with s3cmd, one of the [object storage clients](arbutus_object_storage_clients.md) available for this storage type.
 
 ## Installing s3cmd
 Depending on your Linux distribution, the `s3cmd` command can be installed using the appropriate `yum` (RHEL, CentOS) or `apt` (Debian, Ubuntu) command:
@@ -181,4 +181,4 @@ s3cmd info s3://testbucket
 
 Other more sophisticated examples can be found in the s3cmd [help site](https://www.s3express.com/help/help.html) or s3cmd(1) man page.
 
-Instructions on [managing bucket policies](arbutus-object-storage.md#managing-data-container-bucket-policies-for-your-arbutus-object-store) for your object store, including examples using s3cmd are available on the main [object storage](arbutus-object-storage.md) page.
+Instructions on [managing bucket policies](arbutus_object_storage.md#managing-data-container-bucket-policies-for-your-arbutus-object-store) for your object store, including examples using s3cmd are available on the main [object storage](arbutus_object_storage.md) page.

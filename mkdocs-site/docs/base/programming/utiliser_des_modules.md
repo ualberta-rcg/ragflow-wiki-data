@@ -80,7 +80,7 @@ module help
 ```
 
 ### `spider` Sub-command
-The `spider` sub-command displays all modules located in the [current standard software environment](standard-software-environments.md).
+The `spider` sub-command displays all modules located in the [current standard software environment](standard_software_environments.md).
 ```bash
 module spider
 ```

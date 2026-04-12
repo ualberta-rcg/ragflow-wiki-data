@@ -36,7 +36,7 @@ status:
 ---
 
 ## Quelles sont les différences entre `StdEnv/2023` et les autres environnements standards?
-Référez-vous à la page [Environnements logiciels standards](standard-software-environments.md).
+Référez-vous à la page [Environnements logiciels standards](../programming/standard_software_environments.md).
 
 ## Puis-je changer mon environnement standard par défaut?
 Après le 1er avril 2024, **`StdEnv/2023` sera l'environnement par défaut pour toutes nos grappes**. Il reste toutefois possible de modifier le fichier `$HOME/.modulerc`. Par exemple, la commande suivante fera en sorte que votre environnement par défaut sera `StdEnv/2020`:
@@ -83,7 +83,7 @@ Les environnements moins récents resteront disponibles ainsi que les logiciels 
     Il n’est pas recommandé de charger des modules dans votre `.bashrc`. Chargez plutôt les modules via les scripts pour vos tâches.
 
 ## J'utilise uniquement des ressources infonuagiques; est-ce que le changement d'environnement me concerne?
-Non, ce changement ne touche que l'utilisation des [logiciels disponibles](available-software.md) qui sont [chargés via les modules](utiliser-des-modules.md).
+Non, ce changement ne touche que l'utilisation des [logiciels disponibles](../programming/available_software.md) qui sont [chargés via les modules](../programming/utiliser_des_modules.md).
 
 ## Je ne peux plus charger un module que j’utilisais avant le changement
 Le nouvel environnement contient des versions plus récentes de la plupart des applications. Pour connaître ces versions, lancez la commande `module avail`. Par exemple :

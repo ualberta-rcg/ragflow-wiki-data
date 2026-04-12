@@ -51,8 +51,8 @@ status:
   qa_generated: false
 ---
 
-[Snowflurry](https://github.com/SnowflurrySDK/Snowflurry.jl/) is an open-source quantum computing library developed in [Julia](julia.md) by [Anyon Systems](https://anyonsys.com/fr) that allows users to build, simulate, and execute quantum circuits.
-A related library called [SnowflurryPlots](https://github.com/SnowflurrySDK/SnowflurryPlots.jl/) allows for visualizing simulation results in a bar diagram. Useful for exploring quantum computing, its features are available in the [documentation](https://snowflurrysdk.github.io/Snowflurry.jl/dev/index.html), and the installation guide is available on the [GitHub](https://github.com/SnowflurrySDK/Snowflurry.jl) page. Similar to the [PennyLane](pennylane.md) library, Snowflurry can be used to run quantum circuits on the [MonarQ](monarq.md) quantum computer.
+[Snowflurry](https://github.com/SnowflurrySDK/Snowflurry.jl/) is an open-source quantum computing library developed in [Julia](../julia.md) by [Anyon Systems](https://anyonsys.com/fr) that allows users to build, simulate, and execute quantum circuits.
+A related library called [SnowflurryPlots](https://github.com/SnowflurrySDK/SnowflurryPlots.jl/) allows for visualizing simulation results in a bar diagram. Useful for exploring quantum computing, its features are available in the [documentation](https://snowflurrysdk.github.io/Snowflurry.jl/dev/index.html), and the installation guide is available on the [GitHub](https://github.com/SnowflurrySDK/Snowflurry.jl) page. Similar to the [PennyLane](pennylane.md) library, Snowflurry can be used to run quantum circuits on the [MonarQ](../../clusters/monarq.md) quantum computer.
 
 ## Installation
 The quantum computer simulator with [Snowflurry](https://github.com/SnowflurrySDK/Snowflurry.jl) is available on all our clusters. The [Julia](https://julialang.org/) programming language must be loaded before accessing Snowflurry with the command:

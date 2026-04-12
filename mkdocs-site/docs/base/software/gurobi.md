@@ -111,7 +111,7 @@ status:
 
 ## License limitations
 
-We support and provide a free license to use Gurobi on the [Nibi](nibi.md), [Narval](narval.md), [Fir](fir.md), [Rorqual](rorqual.md) and [Trillium](trillium.md) clusters. The license provides a total number of 4096 simultaneous uses (tokens in use) and permits distributed optimization with up to 100 nodes. A single user can run multiple simultaneous jobs. In order to use Gurobi, you must agree to certain conditions. Please [contact support](technical-support.md) and include a copy of the following completed agreement. You will then be added into our license file as a user within a few days.
+We support and provide a free license to use Gurobi on the [Nibi](../clusters/nibi.md), [Narval](../clusters/narval.md), [Fir](fir.md), [Rorqual](../clusters/rorqual.md) and [Trillium](../clusters/trillium.md) clusters. The license provides a total number of 4096 simultaneous uses (tokens in use) and permits distributed optimization with up to 100 nodes. A single user can run multiple simultaneous jobs. In order to use Gurobi, you must agree to certain conditions. Please [contact support](../support/technical_support.md) and include a copy of the following completed agreement. You will then be added into our license file as a user within a few days.
 
 ### Academic usage agreement
 
@@ -130,7 +130,7 @@ module load gurobi
 gurobi_cl 1> /dev/null && echo Success || echo Fail
 ```
 
-If it returns "Success" you can begin using Gurobi immediately. If the test returns "Fail" then check whether a file named *~/.license/gurobi* exists. If it does then remove it, reload the gurobi module and run the test again. If it still returns "Fail" check whether there are any environment variables containing GUROBI being defined in either of your *~/.bashrc* or *~/.bash_profile* files. If you find any, comment or remove the lines then logout and login again, reload the Gurobi module and run the test again. If you still get "Fail", [contact support](technical-support.md) for help.
+If it returns "Success" you can begin using Gurobi immediately. If the test returns "Fail" then check whether a file named *~/.license/gurobi* exists. If it does then remove it, reload the gurobi module and run the test again. If it still returns "Fail" check whether there are any environment variables containing GUROBI being defined in either of your *~/.bashrc* or *~/.bash_profile* files. If you find any, comment or remove the lines then logout and login again, reload the Gurobi module and run the test again. If you still get "Fail", [contact support](../support/technical_support.md) for help.
 
 ### Minimizing license checkouts
 
@@ -141,7 +141,7 @@ Note that all Gurobi license checkouts are handled by a single license server lo
 
 Some documentation on this subject for C++ programs may be found [here](https://support.gurobi.com/hc/en-us/articles/360013417731-How-do-I-release-a-shared-license), explaining how to create a single Gurobi environment which can then be used for all your models. Python users can consult this [page](https://support.gurobi.com/hc/en-us/articles/360013417731-How-do-I-release-a-shared-license), which discusses how to implement this same idea of using a single environment and thus a single license token with multiple models. Other programs that call Gurobi, such as R, can also easily trigger the problem when run in parallel, especially when many simultaneous parallel jobs are submitted and/or run.
 
-If you will be submitting many Gurobi jobs to the scheduler in a loop, use the following sample script (or equivalent) to ensure the jobs start gradually. Doing so will help minimize the license checkout rate and hence the load imposed on our Gurobi license server. The script uses the [Slurm](https://slurm.schedmd.com/sbatch.html) dependency `--after` option introduced in [Advanced Job Submission](advanced-job-submission.md). Currently, we request no more than 10,000 Gurobi license checkouts/jobs be performed on a cluster over a 24-hour period. If your Gurobi program uses an algorithm that requires checking out two licenses per job, this would translate into submitting no more than 5,000 jobs per day.
+If you will be submitting many Gurobi jobs to the scheduler in a loop, use the following sample script (or equivalent) to ensure the jobs start gradually. Doing so will help minimize the license checkout rate and hence the load imposed on our Gurobi license server. The script uses the [Slurm](https://slurm.schedmd.com/sbatch.html) dependency `--after` option introduced in [Advanced Job Submission](../running-jobs/advanced_job_submission.md). Currently, we request no more than 10,000 Gurobi license checkouts/jobs be performed on a cluster over a 24-hour period. If your Gurobi program uses an algorithm that requires checking out two licenses per job, this would translate into submitting no more than 5,000 jobs per day.
 
 ```bash
 [l2(nibi):~] cat submit.sh

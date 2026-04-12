@@ -25,7 +25,7 @@ status:
 
 | Module | Type | Versions | Description |
 |:------:|:----:|:--------:|:------------:|
-| [abaqus](http://www.simulia.com/products/abaqus_fea.html) | phys | 2021 | Documentation: [Abaqus](abaqus.md)<br>
+| [abaqus](http://www.simulia.com/products/abaqus_fea.html) | phys | 2021 | Documentation: [Abaqus](../software/abaqus.md)<br>
 <details>
 <summary>Description</summary>
 Finite Element Analysis software for modeling, visualization and best-in-class implicit and explicit dynamics FEA.
@@ -68,7 +68,7 @@ An open-source information retreival toolkit built on Lucene that aims to bridge
 Homepage: [https://github.com/castorini/anserini](https://github.com/castorini/anserini)
 URL: [https://github.com/castorini/anserini](https://github.com/castorini/anserini)
 </details> |
-| [ansys](http://www.ansys.com) | phys | 2019R3, 2020R2, 2021R1, 2021R2, 2022R1, 2022R2, 2023R1, 2023R2 | Documentation: [Ansys](ansys.md)<br>
+| [ansys](http://www.ansys.com) | phys | 2019R3, 2020R2, 2021R1, 2021R2, 2022R1, 2022R2, 2023R1, 2023R2 | Documentation: [Ansys](../software/ansys.md)<br>
 <details>
 <summary>Description</summary>
 ANSYS simulation software enables organizations to confidently predict how their products will operate in the real world. We believe that every product is a promise of something greater.
@@ -189,7 +189,7 @@ Basic Local Alignment Search Tool, or BLAST, is an algorithm for comparing prima
 Homepage: [http://blast.ncbi.nlm.nih.gov/](http://blast.ncbi.nlm.nih.gov/)
 URL: [http://blast.ncbi.nlm.nih.gov/](http://blast.ncbi.nlm.nih.gov/)
 </details> |
-| [blast+](https://blast.ncbi.nlm.nih.gov/) | bio | 2.12.0, 2.14.0 | Documentation: [BLAST](blast.md)<br>
+| [blast+](https://blast.ncbi.nlm.nih.gov/) | bio | 2.12.0, 2.14.0 | Documentation: [BLAST](../software/blast.md)<br>
 <details>
 <summary>Description</summary>
 Basic Local Alignment Search Tool, or BLAST, is an algorithm for comparing primary biological sequence information, such as the amino-acid sequences of different proteins or the nucleotides of DNA sequences.
@@ -407,14 +407,14 @@ A genomic linkage feature visualization tools based on Perl.
 Homepage: [https://sourceforge.net/projects/cvit/](https://sourceforge.net/projects/cvit/)
 URL: [https://sourceforge.net/projects/cvit/](https://sourceforge.net/projects/cvit/) Extensions: Config::IniFiles-3.000002, Data::Dumper-2.173, ExtUtils::PkgConfig-1.16, GD-2.71, GD::Arrow-0.01, GD::SVG-0.33, GD::Text-0.86, SVG-2.84, Test::Fork-0.02
 </details> |
-| [ddt-cpu](http://www.allinea.com) | tools | 20.2, 22.0.1 | Documentation: [ARM software](arm-software.md)<br>
+| [ddt-cpu](http://www.allinea.com) | tools | 20.2, 22.0.1 | Documentation: [ARM software](../software/arm_software.md)<br>
 <details>
 <summary>Description</summary>
 Profiler and debugger, combining Arm MAP and Arm DDT.
 Homepage: [http://www.allinea.com](http://www.allinea.com)
 URL: [http://www.allinea.com](http://www.allinea.com)
 </details> |
-| [ddt-gpu](http://www.allinea.com) | tools | 20.2, 22.0.1 | Documentation: [ARM software](arm-software.md)<br>
+| [ddt-gpu](http://www.allinea.com) | tools | 20.2, 22.0.1 | Documentation: [ARM software](../software/arm_software.md)<br>
 <details>
 <summary>Description</summary>
 Profiler and debugger, combining Arm MAP and Arm DDT, with support for CUDA.
@@ -529,14 +529,14 @@ While preserving all the simulation flexibility of simcoal2, fastsimcoal is now 
 Homepage: [http://cmpg.unibe.ch/software/fastsimcoal2/](http://cmpg.unibe.ch/software/fastsimcoal2/)
 URL: [http://cmpg.unibe.ch/software/fastsimcoal2/](http://cmpg.unibe.ch/software/fastsimcoal2/)
 </details> |
-| [fasttree](http://www.microbesonline.org/fasttree/) | bio | 2.1.11 | Documentation: [FastTree](fasttree.md)<br>
+| [fasttree](http://www.microbesonline.org/fasttree/) | bio | 2.1.11 | Documentation: [FastTree](../software/bioinformatics/fasttree.md)<br>
 <details>
 <summary>Description</summary>
 FastTree infers approximately-maximum-likelihood phylogenetic trees from alignments of nucleotide or protein sequences. FastTree can handle alignments with up to a million of sequences in a reasonable amount of time and memory.
 Homepage: [http://www.microbesonline.org/fasttree/](http://www.microbesonline.org/fasttree/)
 URL: [http://www.microbesonline.org/fasttree/](http://www.microbesonline.org/fasttree/)
 </details> |
-| [fasttree-double](http://www.microbesonline.org/fasttree/) | - | 2.1.11 | Documentation: [FastTree](fasttree.md)<br>
+| [fasttree-double](http://www.microbesonline.org/fasttree/) | - | 2.1.11 | Documentation: [FastTree](../software/bioinformatics/fasttree.md)<br>
 <details>
 <summary>Description</summary>
 FastTree infers approximately-maximum-likelihood phylogenetic trees from alignments of nucleotide or protein sequences. FastTree can handle alignments with up to a million of sequences in a reasonable amount of time and memory.
@@ -626,7 +626,7 @@ Library contains GRIB2 encoder/decoder ('C' version).
 Homepage: [https://www.nco.ncep.noaa.gov/pmb/codes/GRIB2/](https://www.nco.ncep.noaa.gov/pmb/codes/GRIB2/)
 URL: [https://www.nco.ncep.noaa.gov/pmb/codes/GRIB2/](https://www.nco.ncep.noaa.gov/pmb/codes/GRIB2/)
 </details> |
-| [gamess-us](https://www.msg.chem.iastate.edu/GAMESS/GAMESS.html) | chem | 20210930-R2P1, 2020.2 | Documentation: [GAMESS-US](gamess-us.md)<br>
+| [gamess-us](https://www.msg.chem.iastate.edu/GAMESS/GAMESS.html) | chem | 20210930-R2P1, 2020.2 | Documentation: [GAMESS-US](../software/gamess-us.md)<br>
 <details>
 <summary>Description</summary>
 The General Atomic and Molecular Electronic Structure System (GAMESS) is a general ab initio quantum chemistry package. This version of GAMESS is built with Intel compilers and IntelMPI. No LibXC or MSUCC modules.
@@ -752,7 +752,7 @@ Grace is a WYSIWYG 2D plotting tool for X Windows System and Motif.
 Homepage: [http://freecode.com/projects/grace](http://freecode.com/projects/grace)
 URL: [http://freecode.com/projects/grace](http://freecode.com/projects/grace)
 </details> |
-| [gromacs](http://www.gromacs.org) | chem | 2020.4, 2021.4, 2022.3 | Documentation: [GROMACS](gromacs.md)<br>
+| [gromacs](http://www.gromacs.org) | chem | 2020.4, 2021.4, 2022.3 | Documentation: [GROMACS](../software/gromacs.md)<br>
 <details>
 <summary>Description</summary>
 GROMACS is a versatile package to perform molecular dynamics, i.e. simulate the Newtonian equations of motion for systems with hundreds to millions of particles. This is a CPU only build, containing both MPI and threadMPI builds.
@@ -975,7 +975,7 @@ The JasPer Project is an open-source initiative to provide a free software-based
 Homepage: [https://www.ece.uvic.ca/~frodo/jasper/](https://www.ece.uvic.ca/~frodo/jasper/)
 URL: [https://www.ece.uvic.ca/~frodo/jasper/](https://www.ece.uvic.ca/~frodo/jasper/)
 </details> |
-| [java](http://openjdk.java.net) | tools | 11.0.16_8, 1.8.0_192, 11.0.2, 13.0.2, 14.0.2, 17.0.2 | Documentation: [Java](java.md)<br>
+| [java](http://openjdk.java.net) | tools | 11.0.16_8, 1.8.0_192, 11.0.2, 13.0.2, 14.0.2, 17.0.2 | Documentation: [Java](../software/java.md)<br>
 <details>
 <summary>Description</summary>
 Java Platform, Standard Edition (Java SE) lets you develop and deploy Java applications on desktops and servers.
@@ -1030,7 +1030,7 @@ Kraken is a system for assigning taxonomic labels to short DNA sequences, usuall
 Homepage: [https://github.com/DerrickWood/kraken2/wiki](https://github.com/DerrickWood/kraken2/wiki)
 URL: [https://github.com/DerrickWood/kraken2/wiki](https://github.com/DerrickWood/kraken2/wiki)
 </details> |
-| [lammps-omp](https://lammps.sandia.gov/) | chem | 20210929 | Documentation: [LAMMPS](lammps.md)<br>
+| [lammps-omp](https://lammps.sandia.gov/) | chem | 20210929 | Documentation: [LAMMPS](../software/lammps.md)<br>
 <details>
 <summary>Description</summary>
 LAMMPS is a classical molecular dynamics code, and an acronym for Large-scale Atomic/Molecular Massively Parallel Simulator. LAMMPS has potentials for solid-state materials (metals, semiconductors) and soft matter (biomolecules, polymers) and coarse-grained or mesoscopic systems. It can be used to model atoms or, more generically, as a parallel particle simulator at the atomic, meso, or continuum scale. LAMMPS runs on single processors or in parallel using message-passing techniques and a spatial-decomposition of the simulation domain. The code is designed to be easy to modify or extend with new functionality.
@@ -1223,7 +1223,7 @@ matio is an C library for reading and writing Matlab MAT files.
 Homepage: [https://sourceforge.net/projects/matio/](https://sourceforge.net/projects/matio/)
 URL: [https://sourceforge.net/projects/matio/](https://sourceforge.net/projects/matio/)
 </details> |
-| [matlab](http://www.mathworks.com/products/matlab) | tools | 2020a, 2020b.4, 2020b.6, 2021a.1, 2021a.5, 2021b.3, 2022a, 2022b.2, 2023a.3 | Documentation: [MATLAB](matlab.md)<br>
+| [matlab](http://www.mathworks.com/products/matlab) | tools | 2020a, 2020b.4, 2020b.6, 2021a.1, 2021a.5, 2021b.3, 2022a, 2022b.2, 2023a.3 | Documentation: [MATLAB](../software/matlab.md)<br>
 <details>
 <summary>Description</summary>
 MATLAB is a high-level language and interactive environment that enables you to perform computationally intensive tasks faster than with traditional programming languages such as C, C++, and Fortran.
@@ -1236,7 +1236,7 @@ Binary maven install, Apache Maven is a software project management and comprehe
 Homepage: [https://maven.apache.org/index.html](https://maven.apache.org/index.html)
 URL: [https://maven.apache.org/index.html](https://maven.apache.org/index.html)
 </details> |
-| [mcr](http://www.mathworks.com/products/compiler/mcr/) | tools | R2021b, R2022b, R2020b | Documentation: [MATLAB](matlab.md)<br>
+| [mcr](http://www.mathworks.com/products/compiler/mcr/) | tools | R2021b, R2022b, R2020b | Documentation: [MATLAB](../software/matlab.md)<br>
 <details>
 <summary>Description</summary>
 The MATLAB Runtime is a standalone set of shared libraries that enables the execution of compiled MATLAB applications or components on computers that do not have MATLAB installed.
@@ -1453,7 +1453,7 @@ OptiX is NVIDIA SDK for easy ray tracing performance. It provides a simple frame
 Homepage: [https://developer.nvidia.com/optix](https://developer.nvidia.com/optix)
 URL: [https://developer.nvidia.com/optix](https://developer.nvidia.com/optix)
 </details> |
-| [orca](http://cec.mpg.de/forum/) | chem | 4.2.1, 5.0.1, 5.0.2 | Documentation: [ORCA](orca.md)<br>
+| [orca](http://cec.mpg.de/forum/) | chem | 4.2.1, 5.0.1, 5.0.2 | Documentation: [ORCA](../software/orca.md)<br>
 <details>
 <summary>Description</summary>
 ORCA is a flexible, efficient and easy-to-use general purpose tool for quantum chemistry with specific emphasis on spectroscopic properties of open-shell molecules. It features a wide variety of standard quantum chemical methods ranging from semiempirical methods to DFT to single- and multireference correlated ab initio methods. It can also treat environmental and relativistic effects.
@@ -1514,7 +1514,7 @@ PEAR is an ultrafast, memory-efficient and highly accurate pair-end read merger.
 Homepage: [https://cme.h-its.org/exelixis/web/software/pear/](https://cme.h-its.org/exelixis/web/software/pear/)
 URL: [https://cme.h-its.org/exelixis/web/software/pear/](https://cme.h-its.org/exelixis/web/software/pear/)
 </details> |
-| [perl](https://www.perl.org/) | tools | 5.30.2 | Documentation: [Perl](perl.md)<br>
+| [perl](https://www.perl.org/) | tools | 5.30.2 | Documentation: [Perl](../software/perl.md)<br>
 <details>
 <summary>Description</summary>
 Larry Wall's Practical Extraction and Report Language
@@ -1605,7 +1605,7 @@ pytest: simple powerful testing with Python
 Homepage: [https://pytest.org](https://pytest.org)
 URL: [https://pytest.org](https://pytest.org) Compatible modules: python/3.7, python/3.8, python/3.9, python/3.10, python/3.11 Extensions: iniconfig-2.0.0, packaging-23.1, pluggy-1.2.0, py-1.11.0, pytest-7.4.0, tomli-2.0.1
 </details> |
-| [python](https://python.org/) | tools | 2.7.18, 3.6.10, 3.7.7, 3.7.9, 3.8.2, 3.8.10, 3.9.6, 3.10.2, 3.11.2, 3.11.5 | Documentation: [Python](python.md)<br>
+| [python](https://python.org/) | tools | 2.7.18, 3.6.10, 3.7.7, 3.7.9, 3.8.2, 3.8.10, 3.9.6, 3.10.2, 3.11.2, 3.11.5 | Documentation: [Python](../software/python.md)<br>
 <details>
 <summary>Description</summary>
 Python is a programming language that lets you work more quickly and integrate your systems more effectively.
@@ -1672,7 +1672,7 @@ QuantumATK is a complete atomistic simulation toolkit. QuantumATK addresses key 
 Homepage: [https://www.synopsys.com/silicon/quantumatk.html](https://www.synopsys.com/silicon/quantumatk.html)
 URL: [https://www.synopsys.com/silicon/quantumatk.html](https://www.synopsys.com/silicon/quantumatk.html)
 </details> |
-| [quantumespresso](https://www.quantum-espresso.org) | chem | 6.6 | Documentation: [Quantum ESPRESSO](quantum-espresso.md)<br>
+| [quantumespresso](https://www.quantum-espresso.org) | chem | 6.6 | Documentation: [Quantum ESPRESSO](../software/quantum_espresso.md)<br>
 <details>
 <summary>Description</summary>
 Quantum ESPRESSO is an integrated suite of computer codes for electronic-structure calculations and materials modeling at the nanoscale. It is based on density-functional theory, plane waves, and pseudopotentials (both norm-conserving and ultrasoft).
@@ -1691,7 +1691,7 @@ The QwtPolar library contains classes for displaying values on a polar coordinat
 Homepage: [http://qwtpolar.sourceforge.net/](http://qwtpolar.sourceforge.net/)
 URL: [http://qwtpolar.sourceforge.net/](http://qwtpolar.sourceforge.net/)
 </details> |
-| [r](https://www.r-project.org/) | tools | 4.0.2, 4.1.2, 4.2.1 | Documentation: [R](r.md)<br>
+| [r](https://www.r-project.org/) | tools | 4.0.2, 4.1.2, 4.2.1 | Documentation: [R](../software/r.md)<br>
 <details>
 <summary>Description</summary>
 R is a free software environment for statistical computing and graphics.
@@ -1770,7 +1770,7 @@ The ScaLAPACK (or Scalable LAPACK) library includes a subset of LAPACK routines 
 Homepage: [https://www.netlib.org/scalapack/](https://www.netlib.org/scalapack/)
 URL: [https://www.netlib.org/scalapack/](https://www.netlib.org/scalapack/)
 </details> |
-| [scipy-stack](http://python.org/) | math | 2020a, 2020b, 2021a, 2022a, 2023a, 2023b | Documentation: [Python](python.md)<br>
+| [scipy-stack](http://python.org/) | math | 2020a, 2020b, 2021a, 2022a, 2023a, 2023b | Documentation: [Python](../software/python.md)<br>
 <details>
 <summary>Description</summary>
 Bundle which contains the Scientific Python stack, including Cycler, mpmath, numpy, scipy, sympy, pandas, matplotlib, ipython_genutils, traitlets, ptyprocess, pathlib2, pickleshare, pexpect, simplegeneric, ipython, ipykernel, jupyter_client, jupyter_core, pyzmq, tornado, futures and ipyparallel.
@@ -1867,7 +1867,7 @@ SOCI is a database access library for C++ that makes the illusion of embedding S
 Homepage: [http://soci.sourceforge.net/](http://soci.sourceforge.net/)
 URL: [http://soci.sourceforge.net/](http://soci.sourceforge.net/)
 </details> |
-| [spark](http://spark.apache.org) | tools | 3.0.0, 3.3.0 | Documentation: [Apache Spark](apache-spark.md)<br>
+| [spark](http://spark.apache.org) | tools | 3.0.0, 3.3.0 | Documentation: [Apache Spark](../software/apache_spark.md)<br>
 <details>
 <summary>Description</summary>
 Spark is Hadoop MapReduce done in memory
@@ -1910,14 +1910,14 @@ SSW is a fast implementation of the Smith-Waterman algorithm, which uses the Sin
 Homepage: [https://github.com/mengyao/Complete-Striped-Smith-Waterman-Library](https://github.com/mengyao/Complete-Striped-Smith-Waterman-Library)
 URL: [https://github.com/mengyao/Complete-Striped-Smith-Waterman-Library](https://github.com/mengyao/Complete-Striped-Smith-Waterman-Library)
 </details> |
-| [starccm](http://mdx.plm.automation.siemens.com/star-ccm-plus) | phys | 15.04.010-R8, 16.02.008-R8, 16.02.009-R8, 16.04.007-R8, 16.04.012-R8, 16.06.008-R8, 17.02.007-R8, 17.02.008-R8, 17.04.007-R8, 17.04.008-R8, 17.06.007-R8, 17.06.008-R8, 18.02.008-R8, 18.04.008-R8, 18.06.006-R8 | Documentation: [StarCCM](starccm.md)<br>
+| [starccm](http://mdx.plm.automation.siemens.com/star-ccm-plus) | phys | 15.04.010-R8, 16.02.008-R8, 16.02.009-R8, 16.04.007-R8, 16.04.012-R8, 16.06.008-R8, 17.02.007-R8, 17.02.008-R8, 17.04.007-R8, 17.04.008-R8, 17.06.007-R8, 17.06.008-R8, 18.02.008-R8, 18.04.008-R8, 18.06.006-R8 | Documentation: [StarCCM](../software/star-ccm.md)<br>
 <details>
 <summary>Description</summary>
 Predicting the real-world performance of a product requires simulation tools that span a variety of engineering disciplines. STAR-CCM+ is an all-in-one solution that delivers accurate and efficient multidisciplinary technologies in a single integrated user interface. This version uses double precision.
 Homepage: [http://mdx.plm.automation.siemens.com/star-ccm-plus](http://mdx.plm.automation.siemens.com/star-ccm-plus)
 URL: [http://mdx.plm.automation.siemens.com/star-ccm-plus](http://mdx.plm.automation.siemens.com/star-ccm-plus)
 </details> |
-| [starccm-mixed](http://mdx.plm.automation.siemens.com/star-ccm-plus) | phys | 15.04.010, 16.02.008, 16.02.009, 16.04.007, 16.04.012, 16.06.008, 17.02.007, 17.02.008, 17.04.007, 17.04.008, 17.06.007, 17.06.008, 18.02.008, 18.04.008, 18.06.006 | Documentation: [StarCCM](starccm.md)<br>
+| [starccm-mixed](http://mdx.plm.automation.siemens.com/star-ccm-plus) | phys | 15.04.010, 16.02.008, 16.02.009, 16.04.007, 16.04.012, 16.06.008, 17.02.007, 17.02.008, 17.04.007, 17.04.008, 17.06.007, 17.06.008, 18.02.008, 18.04.008, 18.06.006 | Documentation: [StarCCM](../software/star-ccm.md)<br>
 <details>
 <summary>Description</summary>
 Predicting the real-world performance of a product requires simulation tools that span a variety of engineering disciplines. STAR-CCM+ is an all-in-one solution that delivers accurate and efficient multidisciplinary technologies in a single integrated user interface. This version uses mixed precision.

@@ -87,7 +87,7 @@ Avant d'utiliser COMSOL sur nos grappes, nous vous recommandons de consulter la 
 ## Votre licence
 
 Notre organisation assure l'hébergement du logiciel COMSOL. Dans ce contexte, COMSOL est installé sur nos grappes, mais nous n'avons pas une licence générique offrant un accès généralisé. Cependant, plusieurs établissements, facultés et départements détiennent des licences qui peuvent être utilisées sur nos grappes.
-Vous pouvez aussi acheter une licence auprès de [CMC](https://account.cmc.ca/en/WhatWeOffer/Products/CMC-00200-00368.aspx) pour utilisation au Canada. Une fois que l'aspect légal de votre licence est finalisé, il faut passer à l'aspect technique. Notre équipe technique communiquera avec votre gestionnaire de licence pour que nos nœuds de calcul puissent accéder à votre serveur de licence. Si vous avez acheté une licence de CMC et que vous voulez vous connecter au serveur de licence de CMC, cet aspect technique est déjà géré. Lorsque le serveur de licence est prêt et que vous avez créé *~/.licenses/comsol.lic*, chargez un module COMSOL que vous pourrez utiliser. Si cela ne fonctionne pas, contactez notre [soutien technique](technical-support.md).
+Vous pouvez aussi acheter une licence auprès de [CMC](https://account.cmc.ca/en/WhatWeOffer/Products/CMC-00200-00368.aspx) pour utilisation au Canada. Une fois que l'aspect légal de votre licence est finalisé, il faut passer à l'aspect technique. Notre équipe technique communiquera avec votre gestionnaire de licence pour que nos nœuds de calcul puissent accéder à votre serveur de licence. Si vous avez acheté une licence de CMC et que vous voulez vous connecter au serveur de licence de CMC, cet aspect technique est déjà géré. Lorsque le serveur de licence est prêt et que vous avez créé *~/.licenses/comsol.lic*, chargez un module COMSOL que vous pourrez utiliser. Si cela ne fonctionne pas, contactez notre [soutien technique](../support/technical_support.md).
 
 ### Configuration de votre fichier de licence
 
@@ -102,7 +102,7 @@ où `<server>` est votre serveur de licence et `<port>` est le numéro de port d
 
 ### Configuration d'une licence locale
 
-Si vous voulez utiliser un nouveau serveur de licence de votre établissement, des modifications devront être apportées du côté de l'Alliance et de celui de l'établissement. Pour ce faire, faites parvenir à notre [soutien technique](technical-support.md) 1. le numéro de port TCP lmgrd pour COMSOL (habituellement 1718 par défaut), 2. le numéro de port TCP statique LMCOMSOL du fournisseur (habituellement 1719 par défaut) et 3. le nom d’hôte entièrement qualifié de votre serveur de licence COMSOL.
+Si vous voulez utiliser un nouveau serveur de licence de votre établissement, des modifications devront être apportées du côté de l'Alliance et de celui de l'établissement. Pour ce faire, faites parvenir à notre [soutien technique](../support/technical_support.md) 1. le numéro de port TCP lmgrd pour COMSOL (habituellement 1718 par défaut), 2. le numéro de port TCP statique LMCOMSOL du fournisseur (habituellement 1719 par défaut) et 3. le nom d’hôte entièrement qualifié de votre serveur de licence COMSOL.
 Créez ensuite le fichier texte *comsol.lic* comme illustré plus haut.
 
 ### Configuration d'une licence CMC
@@ -133,7 +133,7 @@ module load ansys; $EBROOTANSYS/v$(echo ${EBVERSIONANSYS:2:2}${EBVERSIONANSYS:5:
 
 ## Produits installés
 
-Pour connaître les [modules et produits](https://www.comsol.com/products) que vous pouvez utiliser, démarrez COMSOL [en mode graphique](#mode-graphique) et cliquez sur *Options -> Produits sous licence et utilisés* dans le menu déroulant supérieur. Pour l'explication détaillée, [cliquez ici](https://doc.comsol.com/6.0/docserver/#!/com.comsol.help.comsol/comsol_ref_customizing.16.09.html). Si un module ou un produit manque ou si la licence n'existe pas, contactez le [soutien technique](technical-support.md), car il se pourrait que vous deviez réinstaller le module CVMFS que vous utilisez.
+Pour connaître les [modules et produits](https://www.comsol.com/products) que vous pouvez utiliser, démarrez COMSOL [en mode graphique](#mode-graphique) et cliquez sur *Options -> Produits sous licence et utilisés* dans le menu déroulant supérieur. Pour l'explication détaillée, [cliquez ici](https://doc.comsol.com/6.0/docserver/#!/com.comsol.help.comsol/comsol_ref_customizing.16.09.html). Si un module ou un produit manque ou si la licence n'existe pas, contactez le [soutien technique](../support/technical_support.md), car il se pourrait que vous deviez réinstaller le module CVMFS que vous utilisez.
 
 ## Versions installées
 
@@ -227,15 +227,15 @@ comsol batch -inputfile $INPUTFILE -outputfile $OUTPUTFILE -np $SLURM_CPUS_ON_NO
 
 ## Mode graphique
 
-Pour exécuter COMSOL en mode graphique, ouvrez une session de bureau à distance sur un système [OnDemand](nibi.md#acces-via-open-ondemand-ood) ou JupyterLab en cliquant sur les liens ci-dessous.
+Pour exécuter COMSOL en mode graphique, ouvrez une session de bureau à distance sur un système [OnDemand](../clusters/nibi.md#acces-via-open-ondemand-ood) ou JupyterLab en cliquant sur les liens ci-dessous.
 
 !!! note "Remarque"
-    L'ancienne méthode utilisant un client/serveur [TigerVNC](vnc.md) devrait toujours fonctionner, mais elle n'est plus recommandée ni prise en charge. Quelle que soit la méthode utilisée, le fichier `~/.licenses/comsol.lic` doit être configuré au préalable. Veuillez noter que la commande `module avail comsol` affichera les versions de COMSOL disponibles dans la version de StdEnv actuellement chargée (par exemple, `StdEnv/2023`). Si vous constatez que les éléments du menu supérieur sont grisés et non sélectionnables après avoir démarré COMSOL en mode interface graphique, votre fichier *~/.comsol* est peut-être corrompu; essayez donc de le supprimer.
+    L'ancienne méthode utilisant un client/serveur [TigerVNC](../interactive/vnc.md) devrait toujours fonctionner, mais elle n'est plus recommandée ni prise en charge. Quelle que soit la méthode utilisée, le fichier `~/.licenses/comsol.lic` doit être configuré au préalable. Veuillez noter que la commande `module avail comsol` affichera les versions de COMSOL disponibles dans la version de StdEnv actuellement chargée (par exemple, `StdEnv/2023`). Si vous constatez que les éléments du menu supérieur sont grisés et non sélectionnables après avoir démarré COMSOL en mode interface graphique, votre fichier *~/.comsol* est peut-être corrompu; essayez donc de le supprimer.
 
 ### OnDemand
 
 1.  Sur votre bureau, démarrez une session OnDemand en cliquant sur une des URL ci-dessous :
-    *   [Nibi](nibi.md#acces-via-open-ondemand-ood) : `https://ondemand.sharcnet.ca`
+    *   [Nibi](../clusters/nibi.md#acces-via-open-ondemand-ood) : `https://ondemand.sharcnet.ca`
     *   TRILLIUM : `https://ondemand.scinet.utoronto.ca`
 2.  Sur le bureau, ouvrez une nouvelle fenêtre de terminal et lancez les commandes correspondantes pour :
     *   **COMSOL 6.2 (ou versions plus récentes)**

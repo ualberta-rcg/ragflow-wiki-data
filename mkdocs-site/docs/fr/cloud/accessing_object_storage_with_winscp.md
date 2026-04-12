@@ -35,7 +35,7 @@ status:
   qa_generated: false
 ---
 
-Cette page contient les renseignements sur la configuration et l'accès au [stockage objet sur Arbutus](arbutus-object-storage.md) avec WinSCP, l'un des [clients pour le stockage de ce type](arbutus-object-storage-clients.md).
+Cette page contient les renseignements sur la configuration et l'accès au [stockage objet sur Arbutus](arbutus_object_storage.md) avec WinSCP, l'un des [clients pour le stockage de ce type](arbutus_object_storage_clients.md).
 
 ## Installation
 Installez WinSCP à partir de [https://winscp.net/](https://winscp.net/).

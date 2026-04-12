@@ -85,7 +85,7 @@ This Wiki is not the place for information that properly belongs in the purview 
 *   External links may be appropriate, see e.g., "Getting an Account".
 *   Is this about how to use an existing service, cluster, or application? If so, go ahead.
 
-If you still have any doubt, staff members should use the `#rsnt-documentation` channel in Slack. Non-staff contributors should contact [Technical support](technical-support.md).
+If you still have any doubt, staff members should use the `#rsnt-documentation` channel in Slack. Non-staff contributors should contact [Technical support](../support/technical_support.md).
 
 ## Style guidelines
 
@@ -140,7 +140,7 @@ When in doubt, imitate the masters. Look at an existing page you like and follow
 
 ### Templates
 
-There are multiple templates available. Please use them as appropriate. Of particular interest are templates for [Including a command within the wiki](including-a-command-within-the-wiki.md) and for [Including a source code file within the wiki](including-a-source-code-file-within-the-wiki.md).
+There are multiple templates available. Please use them as appropriate. Of particular interest are templates for [Including a command within the wiki](including_a_command_within_the_wiki.md) and for [Including a source code file within the wiki](including_a_source_code_file_within_the_wiki.md).
 
 ## Translation
 
@@ -203,6 +203,6 @@ To add an item that is to be translated in the sidebar, use the following steps:
 
 ## "Available software" page
 
-Tables on the [Available software](available-software.md) page are automatically generated from module files in CVMFS. In order to add a link to a new page from the "Documentation" column of those tables, add an entry to [https://github.com/ComputeCanada/wiki_module_bot/blob/main/module_wiki_page.json](https://github.com/ComputeCanada/wiki_module_bot/blob/main/module_wiki_page.json). Please add this change to the definitive copy of the file.
+Tables on the [Available software](../programming/available_software.md) page are automatically generated from module files in CVMFS. In order to add a link to a new page from the "Documentation" column of those tables, add an entry to [https://github.com/ComputeCanada/wiki_module_bot/blob/main/module_wiki_page.json](https://github.com/ComputeCanada/wiki_module_bot/blob/main/module_wiki_page.json). Please add this change to the definitive copy of the file.
 
 Changes may take six hours to propagate.

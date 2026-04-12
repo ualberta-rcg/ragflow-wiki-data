@@ -85,7 +85,7 @@ status:
 [Amber](https://ambermd.org/) is the collective name for a suite of programs that allow users to perform molecular dynamics simulations, particularly on biomolecules. None of the individual programs carry this name, but the various parts work reasonably well together and provide a powerful framework for many common calculations.
 
 ## Amber Modules
-We provide modules for Amber, AmberTools, and Amber-PMEMD in our [software stack](available-software.md).
+We provide modules for Amber, AmberTools, and Amber-PMEMD in our [software stack](../programming/available_software.md).
 
 *   **[AmberTools](https://ambermd.org/AmberTools.php)** (module `ambertools`) - Tools for preparing/analysing simulations, `QUICK` for GPU-accelerated DFT calculations and `sander` for molecular dynamics. Free and open source.
 *   **[Amber](https://ambermd.org/AmberMD.php)** (module `amber`) - Everything included in AmberTools, plus the advanced `pmemd` program for high-performance molecular dynamics simulations. 
@@ -94,7 +94,7 @@ We provide modules for Amber, AmberTools, and Amber-PMEMD in our [software stack
     !!! note "Note"
         The `amber-pmemd` module does not include AmberTools. To use both, load the `ambertools` module as well.
 
-To see a list of installed versions and which other modules they depend on, you can use the `module spider` [command](using-modules.md#sub-command-spider) or check the [Available software](available-software.md) page.
+To see a list of installed versions and which other modules they depend on, you can use the `module spider` [command](using-modules.md#sub-command-spider) or check the [Available software](../programming/available_software.md) page.
 
 ## Using AMBER on H100 GPU Clusters
 
@@ -274,7 +274,7 @@ module load StdEnv/2023 gcc/12.3 openmpi/4.1.5 cuda/12.6 ambertools/25.0
 srun MMPBSA.py.MPI -O -i mmpbsa.in -o mmpbsa.dat -sp solvated_complex.parm7 -cp complex.parm7 -rp receptor.parm7 -lp ligand.parm7 -y trajectory.nc
 ```
 
-You can modify scripts to fit your simulation requirements for computing resources. See [Running jobs](running-jobs.md) for more details.
+You can modify scripts to fit your simulation requirements for computing resources. See [Running jobs](../running-jobs/running_jobs.md) for more details.
 
 ## Performance and Benchmarking
 

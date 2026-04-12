@@ -50,15 +50,15 @@ status:
 
 ## Introduction
 
-GBrowse est un outil pour manipuler et visualiser des données génomiques par une interface web. Il est formé d’une base de données combinée à des pages web interactives. GBrowse est disponible sur [Cedar](cedar.md) et peut être installé à partir de [https://gateway.cedar.computecanada.ca](https://gateway.cedar.computecanada.ca).
+GBrowse est un outil pour manipuler et visualiser des données génomiques par une interface web. Il est formé d’une base de données combinée à des pages web interactives. GBrowse est disponible sur [Cedar](../../clusters/cedar.md) et peut être installé à partir de [https://gateway.cedar.computecanada.ca](https://gateway.cedar.computecanada.ca).
 
 Notre installation diffère de celle décrite sur la [page web GBrowse](http://gmod.org/wiki/GBrowse), particulièrement en ce qui a trait à l’autorisation et à l’authentification.
 
 ## Accéder à GBrowse
 
-Notre équipe technique créera un compte partagé pour chaque groupe de recherche demandant l’accès à GBrowse. Les données et les fichiers de configuration seront lisibles par tous les membres du groupe. Le chercheur principal ou la chercheuse principale doit écrire au [soutien technique](technical-support.md) pour demander la création du compte partagé et attester qu’il ou elle comprend les conditions d’utilisation d'un compte partagé.
+Notre équipe technique créera un compte partagé pour chaque groupe de recherche demandant l’accès à GBrowse. Les données et les fichiers de configuration seront lisibles par tous les membres du groupe. Le chercheur principal ou la chercheuse principale doit écrire au [soutien technique](../../support/technical_support.md) pour demander la création du compte partagé et attester qu’il ou elle comprend les conditions d’utilisation d'un compte partagé.
 
-Il faut aussi indiquer le nom de la base de données utilisée sur Cedar. Si vous n’avez pas de compte de base de données, consultez la page [Serveurs de bases de données](database-servers.md).
+Il faut aussi indiquer le nom de la base de données utilisée sur Cedar. Si vous n’avez pas de compte de base de données, consultez la page [Serveurs de bases de données](../../cloud/database_servers.md).
 
 ## Installation
 
@@ -138,6 +138,6 @@ Voici un exemple d’un fichier d'en-tête :
 ```
 
 !!! warning "Attention"
-    N’exécutez pas ce fichier sur un nœud principal, mais exécutez ces commandes en passant par [l'ordonnanceur](running-jobs.md).
+    N’exécutez pas ce fichier sur un nœud principal, mais exécutez ces commandes en passant par [l'ordonnanceur](../../running-jobs/running_jobs.md).
 
-Une fois que les données sont téléversées dans la base de données, vous devez accorder l'accès en lecture au compte partagé (`*SHARED*`) pour que GBrowse puisse lire la base de données; voyez [Partager vos données MySQL](database-servers.md#partager-vos-donnees-mysql).
+Une fois que les données sont téléversées dans la base de données, vous devez accorder l'accès en lecture au compte partagé (`*SHARED*`) pour que GBrowse puisse lire la base de données; voyez [Partager vos données MySQL](../../cloud/database_servers.md#partager-vos-donnees-mysql).

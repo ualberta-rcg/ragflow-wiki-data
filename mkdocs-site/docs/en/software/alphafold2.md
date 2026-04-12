@@ -180,7 +180,7 @@ You can also choose to download the databases locally into your `$SCRATCH` direc
     (alphafold_env) [name@server ~]$ download_all_data.sh $DOWNLOAD_DIR
     ```
 
-    Note that this step **cannot** be done from a compute node. It should be done on a data transfer node (DTN) on clusters that have them (see [Transferring data](transferring-data.md)). On clusters that have no DTN, use a login node instead. Since the download can take up to a full day, we suggest using a [terminal multiplexer](prolonging-terminal-sessions.md#terminal-multiplexers). You may encounter a `Client_loop: send disconnect: Broken pipe` error message. See [Troubleshooting](#troubleshooting) below.
+    Note that this step **cannot** be done from a compute node. It should be done on a data transfer node (DTN) on clusters that have them (see [Transferring data](../getting-started/transferring_data.md)). On clusters that have no DTN, use a login node instead. Since the download can take up to a full day, we suggest using a [terminal multiplexer](../running-jobs/prolonging_terminal_sessions.md#terminal-multiplexers). You may encounter a `Client_loop: send disconnect: Broken pipe` error message. See [Troubleshooting](#troubleshooting) below.
 
 === "Graham only"
 1.  Set `DOWNLOAD_DIR`.
@@ -467,6 +467,6 @@ Then, submit the job to the scheduler.
 ### Broken pipe error message
 When downloading the database, you may encounter a `Client_loop: send disconnect: Broken pipe` error message. It is hard to find the exact cause for this error message. It could be as simple as an unusually high number of users working on the login node, leaving less space for you to upload data.
 
-*   One solution is to use a [terminal multiplexer](prolonging-terminal-sessions.md#terminal-multiplexers). Note that you could still encounter this error message but less are the chances.
+*   One solution is to use a [terminal multiplexer](../running-jobs/prolonging_terminal_sessions.md#terminal-multiplexers). Note that you could still encounter this error message but less are the chances.
 *   A second solution is to use the database that is already present on the cluster. `/cvmfs/bio.data.computecanada.ca/content/databases/Core/alphafold2_dbs/2023_07/`.
 *   Another option is to download the full database in sections. To have access to the different download scripts, after loading the module and activated your virtual environment, you simply enter `download_` in your terminal and tap twice on the `tab` keyboard key to visualize all the scripts that are available. You can manually download sections of the database by using the available script, as for instance `download_pdb.sh`.

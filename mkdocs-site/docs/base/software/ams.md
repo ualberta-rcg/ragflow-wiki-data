@@ -67,13 +67,13 @@ The full SCM module products are available:
 * NBO6
 
 ## Running AMS on Nibi
-The `ams` module is installed on [Nibi](nibi.md). The license is an Academic Computing Centre license owned by SHARCNET. You may not use the Software for consulting services nor for purposes that have a commercial nature. To check what versions are available, use the `module spider` command as follows:
+The `ams` module is installed on [Nibi](../clusters/nibi.md). The license is an Academic Computing Centre license owned by SHARCNET. You may not use the Software for consulting services nor for purposes that have a commercial nature. To check what versions are available, use the `module spider` command as follows:
 
 ```bash
 name@server $ module spider ams
 ```
 
-For module commands, please see [Using modules](utiliser-des-modules.md).
+For module commands, please see [Using modules](../programming/utiliser_des_modules.md).
 
 ### Job submission
 

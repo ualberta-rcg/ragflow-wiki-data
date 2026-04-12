@@ -52,14 +52,14 @@ status:
 
 "CUDA® is a parallel computing platform and programming model developed by NVIDIA for general computing on graphical processing units (GPUs)." [NVIDIA CUDA Home Page](https://developer.nvidia.com/cuda-toolkit). CUDA is a registered trademark of NVIDIA.
 
-It is reasonable to think of CUDA as a set of libraries and associated C, C++, and Fortran compilers that enable you to write code for GPUs. See [OpenACC Tutorial](openacc-tutorial.md) for another set of GPU programming tools.
+It is reasonable to think of CUDA as a set of libraries and associated C, C++, and Fortran compilers that enable you to write code for GPUs. See [OpenACC Tutorial](openacc_tutorial.md) for another set of GPU programming tools.
 
 ## Quick start guide
 
 ### Compiling
-Here we show a simple example of how to use the CUDA C/C++ language compiler, `nvcc`, and run code created with it. For a longer tutorial in CUDA programming, see [CUDA tutorial](cuda-tutorial.md).
+Here we show a simple example of how to use the CUDA C/C++ language compiler, `nvcc`, and run code created with it. For a longer tutorial in CUDA programming, see [CUDA tutorial](../software/cuda_tutorial.md).
 
-First, load a CUDA [module](utiliser-des-modules.md).
+First, load a CUDA [module](utiliser_des_modules.md).
 ```bash
 $ module purge
 $ module load cuda
@@ -109,7 +109,7 @@ $ nvcc add.cu -o add
 ```
 
 ### Submitting jobs
-To run the program, create a Slurm job script as shown below. Be sure to replace `def-someuser` with your specific account (see [Accounts and projects](running-jobs.md#accounts-and-projects)). For options relating to scheduling jobs with GPUs see [Using GPUs with Slurm](using-gpus-with-slurm.md).
+To run the program, create a Slurm job script as shown below. Be sure to replace `def-someuser` with your specific account (see [Accounts and projects](../running-jobs/running_jobs.md#accounts-and-projects)). For options relating to scheduling jobs with GPUs see [Using GPUs with Slurm](../running-jobs/using_gpus_with_slurm.md).
 
 ```sh title="gpu_job.sh"
 #!/bin/bash
@@ -125,7 +125,7 @@ Submit your GPU job to the scheduler with
 $ sbatch gpu_job.sh
 Submitted batch job 3127733
 ```
-For more information about the `sbatch` command and running and monitoring jobs, see [Running jobs](running-jobs.md).
+For more information about the `sbatch` command and running and monitoring jobs, see [Running jobs](../running-jobs/running_jobs.md).
 
 Once your job has finished, you should see an output file similar to this:
 ```bash
@@ -140,7 +140,7 @@ If you have a program that needs to link some libraries included with CUDA, for 
 nvcc -lcublas -Xlinker=-rpath,$CUDA_PATH/lib64
 ```
 
-To learn more about how the above program works and how to make the use of GPU parallelism, see [CUDA tutorial](cuda-tutorial.md).
+To learn more about how the above program works and how to make the use of GPU parallelism, see [CUDA tutorial](../software/cuda_tutorial.md).
 
 ## Troubleshooting
 

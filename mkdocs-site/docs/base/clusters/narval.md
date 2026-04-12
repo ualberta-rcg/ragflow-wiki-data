@@ -77,7 +77,7 @@ Narval is a heterogeneous and versatile cluster designed for a wide variety of s
 ## Key Features
 
 !!! warning "Internet Access Restricted"
-    Narval compute nodes do not have internet access. To request an exception, please contact [technical support](technical-support.md) explaining your needs and reasons. Note that the `crontab` tool is not available.
+    Narval compute nodes do not have internet access. To request an exception, please contact [technical support](../support/technical_support.md) explaining your needs and reasons. Note that the `crontab` tool is not available.
 
 !!! note "Job Limits"
     *   Each job should have a minimum duration of one hour (at least five minutes for test jobs).
@@ -88,12 +88,12 @@ Narval is a heterogeneous and versatile cluster designed for a wide variety of s
 
 | Location                                | Features                                                                                                                                                                                                                                                           |
 | :-------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **HOME** <br> Lustre filesystem, 64 TB total space | *   This space is small and cannot be expanded; you will need to use your `project` space for large storage needs.<br>*   Small fixed [quotas per user](storage-and-file-management.md#quotas-and-policies).<br>*   Automatic daily backups.                                        |
-| **SCRATCH** <br> Lustre filesystem, 5.7 PB total space | *   Large space for temporary files during computations.<br>*   No automatic backups.<br>*   Large fixed [quotas per user](storage-and-file-management.md#quotas-and-policies).<br>*   [Automatic purging](scratch-purging-policy.md) of old files.                           |
-| **PROJECT** <br> Lustre filesystem, 35 PB total space | *   Designed for data sharing among group members and for storing large amounts of data.<br>*   Large adjustable [quotas per project](storage-and-file-management.md#quotas-and-policies).<br>*   Automatic daily backups.                                                   |
+| **HOME** <br> Lustre filesystem, 64 TB total space | *   This space is small and cannot be expanded; you will need to use your `project` space for large storage needs.<br>*   Small fixed [quotas per user](../storage-and-data/storage_and_file_management.md#quotas-and-policies).<br>*   Automatic daily backups.                                        |
+| **SCRATCH** <br> Lustre filesystem, 5.7 PB total space | *   Large space for temporary files during computations.<br>*   No automatic backups.<br>*   Large fixed [quotas per user](../storage-and-data/storage_and_file_management.md#quotas-and-policies).<br>*   [Automatic purging](../storage-and-data/scratch_purging_policy.md) of old files.                           |
+| **PROJECT** <br> Lustre filesystem, 35 PB total space | *   Designed for data sharing among group members and for storing large amounts of data.<br>*   Large adjustable [quotas per project](../storage-and-data/storage_and_file_management.md#quotas-and-policies).<br>*   Automatic daily backups.                                                   |
 
 !!! tip "Data Transfer"
-    For data transfers via [Globus](globus.md), use the **Globus Collection**. For tools like [rsync](transferring-data.md#rsync) and [scp](transferring-data.md#scp), use the **Copy Node** address, as specified in the information provided at the beginning of this page.
+    For data transfers via [Globus](../getting-started/globus.md), use the **Globus Collection**. For tools like [rsync](../getting-started/transferring_data.md#rsync) and [scp](../getting-started/transferring_data.md#scp), use the **Copy Node** address, as specified in the information provided at the beginning of this page.
 
 ## High-Performance Networking
 
@@ -124,10 +124,10 @@ Intel compilers can successfully compile applications for Narval's AMD processor
     If you have compiled code on a system using Intel processors and used options like `-xXXXX` (e.g., `-xCORE-AVX2`), the compiled applications will **not** work on Narval. Intel compilers add extra instructions to verify that the processor used is an Intel product. On Narval, the options `-xHOST` and `-march=native` are equivalent to `-march=pentium` (the old Pentium from 1993) and should **not** be used.
 
 #### Available Software Environments
-The [Standard software environment `StdEnv/2023`](standard-software-environments.md) is the default environment on Narval. Older versions (2016 and 2018) have been intentionally blocked. If you require software only available in an older version of the standard environment, please submit a request to [technical support](technical-support.md).
+The [Standard software environment `StdEnv/2023`](../programming/standard_software_environments.md) is the default environment on Narval. Older versions (2016 and 2018) have been intentionally blocked. If you require software only available in an older version of the standard environment, please submit a request to [technical support](../support/technical_support.md).
 
 #### BLAS and LAPACK Libraries
-The Intel MKL library works on AMD processors, but it is not optimal. We now recommend using FlexiBLAS. For more details, consult the [BLAS and LAPACK](blas-and-lapack.md) page.
+The Intel MKL library works on AMD processors, but it is not optimal. We now recommend using FlexiBLAS. For more details, consult the [BLAS and LAPACK](../programming/blas_and_lapack.md) page.
 
 ### GPU Instances
 
@@ -149,7 +149,7 @@ To request one or more full A100 GPUs, use one of the following Slurm options:
     ```
     (replace `n` with the desired number)
 
-Several Narval GPU nodes are configured with [MIG (Multi-Instance GPU) technology](multi-instance-gpu.md), and four GPU instance sizes are available:
+Several Narval GPU nodes are configured with [MIG (Multi-Instance GPU) technology](../programming/multi-instance_gpu.md), and four GPU instance sizes are available:
 
 *   **1g.5gb**: 1/8 of the computing power with 5 GB of GPU memory.
 *   **2g.10gb**: 2/8 of the computing power with 10 GB of GPU memory.
@@ -175,7 +175,7 @@ To request **one and only one** GPU instance for your computation job, here are 
     --gpus=a100_4g.20gb:1
     ```
 
-The maximum recommended quantities of **CPU cores and system memory** per GPU instance are listed in the [Characteristics of *bundles* table](allocations-and-compute-scheduling.md#ratios-in-bundles).
+The maximum recommended quantities of **CPU cores and system memory** per GPU instance are listed in the [Characteristics of *bundles* table](../running-jobs/allocations_and_compute_scheduling.md#ratios-in-bundles).
 
 ## Job Monitoring
 

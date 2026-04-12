@@ -66,7 +66,7 @@ Toutes les grappes disposent de stockage de haute performance. Dans le tableau c
 |---|---|---|---|
 | [Béluga](béluga.md) | Usage général | * beluga-compute<br>* beluga-gpu<br>* beluga-storage | En fin de vie |
 | [Cedar](cedar.md) | Usage général | * cedar-compute<br>* cedar-gpu<br>* cedar-storage | En fin de vie |
-| [Fir](fir.md) | Usage général | * fir-compute<br>* fir-gpu<br>* fir-storage | En production |
+| [Fir](../software/fir.md) | Usage général | * fir-compute<br>* fir-gpu<br>* fir-storage | En production |
 | [Graham](graham.md) | Usage général | * graham-compute<br>* graham-gpu<br>* graham-storage | En fin de vie |
 | [Narval](narval.md) | Usage général | * narval-compute<br>* narval-gpu<br>* narval-storage | En production |
 | [Niagara](niagara.md) | Tâches massivement parallèles | * niagara-compute<br>* niagara-storage<br>* hpss-storage | En fin de vie |
@@ -80,10 +80,10 @@ Notre service infonuagique est offert selon le modèle IaaS (*Infrastructure as 
 
 | Nuage | Sous-systèmes | Description | État |
 |---|---|---|---|
-| [Nuage Arbutus](cloud-resources.md#nuage-arbutus) | * arbutus-compute-cloud<br>* arbutus-persistent-cloud<br>* arbutus-dcache | * vCPU, VGPU, RAM<br>* Disque local éphémère<br>* Stockage de volumes et instantanés<br>* Stockage sur des systèmes de fichiers partagés<br>* Stockage objet<br>* Adresses IP flottantes<br>* Stockage dCache | En production |
-| [Nuage Béluga](cloud-resources.md#nuage-beluga) | * beluga-compute-cloud<br>* beluga-persistent-cloud | * vCPU, RAM<br>* Disque local éphémère<br>* Stockage de volumes et instantanés<br>* Adresses IP flottantes | En production |
-| [Nuage Cedar](cloud-resources.md#nuage-cedar) | * cedar-persistent-cloud<br>* cedar-compute-cloud | * vCPU, RAM<br>* Disque local éphémère<br>* Stockage de volumes et instantanés<br>* Adresses IP flottantes | En production |
-| [Nuage Graham](cloud-resources.md#nuage-graham) | * graham-persistent-cloud | * vCPU, RAM<br>* Disque local éphémère<br>* Stockage de volumes et instantanés<br>* Adresses IP flottantes | En production |
+| [Nuage Arbutus](../cloud/cloud_resources.md#nuage-arbutus) | * arbutus-compute-cloud<br>* arbutus-persistent-cloud<br>* arbutus-dcache | * vCPU, VGPU, RAM<br>* Disque local éphémère<br>* Stockage de volumes et instantanés<br>* Stockage sur des systèmes de fichiers partagés<br>* Stockage objet<br>* Adresses IP flottantes<br>* Stockage dCache | En production |
+| [Nuage Béluga](../cloud/cloud_resources.md#nuage-beluga) | * beluga-compute-cloud<br>* beluga-persistent-cloud | * vCPU, RAM<br>* Disque local éphémère<br>* Stockage de volumes et instantanés<br>* Adresses IP flottantes | En production |
+| [Nuage Cedar](../cloud/cloud_resources.md#nuage-cedar) | * cedar-persistent-cloud<br>* cedar-compute-cloud | * vCPU, RAM<br>* Disque local éphémère<br>* Stockage de volumes et instantanés<br>* Adresses IP flottantes | En production |
+| [Nuage Graham](../cloud/cloud_resources.md#nuage-graham) | * graham-persistent-cloud | * vCPU, RAM<br>* Disque local éphémère<br>* Stockage de volumes et instantanés<br>* Adresses IP flottantes | En production |
 
 ## Grappes EIPIA
 

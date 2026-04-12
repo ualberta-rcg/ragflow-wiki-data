@@ -48,7 +48,7 @@ status:
 ---
 
 ## Qu'est-ce qu'une tâche (*job*)?
-Notre expérience avec les ordinateurs passe le plus souvent par les interfaces utilisateur (GUI pour *interface utilisateur graphique*). Par des fenêtres, des menus et des boutons, nous n'avons qu'à cliquer pour obtenir une réaction. L'environnement n'est pas le même avec les serveurs de l'Alliance. D'abord, il ne s'agit pas de cliquer, mais d'entrer les commandes via une console, ce qui s'appelle une interface en ligne de commande; pour une description de ce type d'interface, consultez la page [Introduction à Linux](linux-introduction.md). Une autre différence importante est que vos programmes ne s'exécutent pas toujours immédiatement, mais sont placés dans une file d'attente; les tâches sont exécutées quand les cœurs CPU sont disponibles pour éviter le risque d'interférence et la baisse de performance.
+Notre expérience avec les ordinateurs passe le plus souvent par les interfaces utilisateur (GUI pour *interface utilisateur graphique*). Par des fenêtres, des menus et des boutons, nous n'avons qu'à cliquer pour obtenir une réaction. L'environnement n'est pas le même avec les serveurs de l'Alliance. D'abord, il ne s'agit pas de cliquer, mais d'entrer les commandes via une console, ce qui s'appelle une interface en ligne de commande; pour une description de ce type d'interface, consultez la page [Introduction à Linux](../getting-started/linux_introduction.md). Une autre différence importante est que vos programmes ne s'exécutent pas toujours immédiatement, mais sont placés dans une file d'attente; les tâches sont exécutées quand les cœurs CPU sont disponibles pour éviter le risque d'interférence et la baisse de performance.
 
 Utiliser cette interface comprend les étapes suivantes :
 - vous préparez un script qui indique le programme à exécuter, la source des données et la destination du résultat;
@@ -78,7 +78,7 @@ L'ordonnanceur accomplit plusieurs fonctions :
 Pour nos grappes, nous avons adopté la solution d'ordonnancement [Slurm Workload Manager](https://en.wikipedia.org/wiki/Slurm_Workload_Manager) (la version anglaise de cette page est plus étoffée). Ici, les exemples et la syntaxe sont pour Slurm.
 
 ## Demander des ressources
-Pour demander les ressources nécessaires à l'exécution d'un calcul, vous utilisez un script de tâche. Les paramètres d'une tâche sont le temps d'exécution et le nombre de processeurs. Dans l'exemple montré plus haut, le script demande une minute de temps d'exécution et puisqu'aucun nombre de processeurs n'est spécifié, un seul processeur sera alloué par défaut. Consultez les [exemples de scripts](running-jobs.md#exemples-de-scripts) pour d'autres types de requêtes avec processeurs multiples, quantité de mémoire et processeurs spéciaux comme les [GPUs](https://en.wikipedia.org/wiki/General-purpose_computing_on_graphics_processing_units) (la version anglaise de cette page est plus étoffée).
+Pour demander les ressources nécessaires à l'exécution d'un calcul, vous utilisez un script de tâche. Les paramètres d'une tâche sont le temps d'exécution et le nombre de processeurs. Dans l'exemple montré plus haut, le script demande une minute de temps d'exécution et puisqu'aucun nombre de processeurs n'est spécifié, un seul processeur sera alloué par défaut. Consultez les [exemples de scripts](running_jobs.md#exemples-de-scripts) pour d'autres types de requêtes avec processeurs multiples, quantité de mémoire et processeurs spéciaux comme les [GPUs](https://en.wikipedia.org/wiki/General-purpose_computing_on_graphics_processing_units) (la version anglaise de cette page est plus étoffée).
 
 !!! warning "Important : Bien spécifier les ressources"
     Il est crucial de bien spécifier les paramètres des ressources. Si les valeurs sont inférieures à celles exigées par les calculs et que la tâche dépasse le temps ou la mémoire spécifiée, elle sera arrêtée. Inversement, si les valeurs sont supérieures aux besoins, la tâche pourrait rester en file d'attente plus longtemps que nécessaire et son exécution utiliserait des ressources qui ne seraient donc pas disponibles pour d'autres tâches.
@@ -97,7 +97,7 @@ Submitted batch job 1234
 Hello, world!
 ```
 
-Suite à la commande `sq`, la colonne ST (*état*) indique l'état de la tâche (voir la section *Suivi des tâches* dans [Exécuter des tâches](running-jobs.md)). Les états les plus communs sont PD (*en attente*) et R (*en cours*). Si la tâche est complétée, la colonne ST (*état*) est vide.
+Suite à la commande `sq`, la colonne ST (*état*) indique l'état de la tâche (voir la section *Suivi des tâches* dans [Exécuter des tâches](running_jobs.md)). Les états les plus communs sont PD (*en attente*) et R (*en cours*). Si la tâche est complétée, la colonne ST (*état*) est vide.
 
 Remarquez que chaque tâche qui est soumise reçoit un identifiant unique; 1234 dans notre exemple. Si vous avez plusieurs tâches possédant le même nom, cet identifiant permet de les distinguer. Comme l'endroit où placer le résultat n'est pas spécifié, ce dernier est enregistré dans un fichier nommé avec l'identifiant de la tâche, ici `slurm-1234.out`.
 
@@ -122,7 +122,7 @@ echo 'Hello, world!'
 Le même fichier comprendrait aussi les erreurs, tout comme si les commandes étaient données interactivement. Il est cependant possible de séparer le canal stderr (pour *erreur standard*) du canal stdout (pour *sortie standard*) en utilisant l'option `-e` pour spécifier les noms des fichiers.
 
 ## Comptes et projets
-Les renseignements sur la tâche sont enregistrés pour que nous puissions faire un suivi de la qualité de nos services et faire rapport de la bonne utilisation des fonds aux organismes subventionnaires; ces renseignements relatifs aux tâches comprennent le temps en file d'attente, la durée d'exécution et le nombre de cœurs utilisés. Chaque tâche doit être associée à un nom de compte correspondant à un projet; voir la rubrique [RAP (projet d'allocation de ressources)](frequently-asked-questions-about-the-ccdb.md#rap-projet-dallocation-de-ressources).
+Les renseignements sur la tâche sont enregistrés pour que nous puissions faire un suivi de la qualité de nos services et faire rapport de la bonne utilisation des fonds aux organismes subventionnaires; ces renseignements relatifs aux tâches comprennent le temps en file d'attente, la durée d'exécution et le nombre de cœurs utilisés. Chaque tâche doit être associée à un nom de compte correspondant à un projet; voir la rubrique [RAP (projet d'allocation de ressources)](../getting-started/frequently_asked_questions_about_the_ccdb.md#rap-projet-dallocation-de-ressources).
 
 ```bash
 #SBATCH --account=def-user-ab

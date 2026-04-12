@@ -69,7 +69,7 @@ status:
 Simulation preparation and analysis is integrated into the [VMD](vmd.md) visualization package.
 
 ## Installation
-NAMD is installed by our software team and is available as a module. If a new version is required or if for some reason you need to do your own installation, please contact [Technical support](technical-support.md). You can also ask for details of how our NAMD modules were compiled.
+NAMD is installed by our software team and is available as a module. If a new version is required or if for some reason you need to do your own installation, please contact [Technical support](../support/technical_support.md). You can also ask for details of how our NAMD modules were compiled.
 
 ## Environment modules
 
@@ -79,7 +79,7 @@ To run jobs that span nodes, use UCX.
 
 ## Submission scripts
 
-Please refer to the [Running jobs](running-jobs.md) page for help on using the SLURM workload manager.
+Please refer to the [Running jobs](../running-jobs/running_jobs.md) page for help on using the SLURM workload manager.
 
 ### Threaded CPU jobs
 Below is a job script for a threaded simulation. You can increase the number for `--cpus-per-task` to use more cores, up to the maximum number of cores available on a cluster node. Check below in "Performance and benchmarking" section for advice on how to choose the number of cores to use.

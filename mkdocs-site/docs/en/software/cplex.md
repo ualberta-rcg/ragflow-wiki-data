@@ -175,4 +175,4 @@ python setup.py install
 ```
 
 !!! warning
-    The installation of these Python modules must be done on the login node because they are not available in our [software stack](available-python-wheels.md).
+    The installation of these Python modules must be done on the login node because they are not available in our [software stack](../programming/available_python_wheels.md).

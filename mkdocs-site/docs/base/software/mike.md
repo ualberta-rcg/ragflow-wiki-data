@@ -149,7 +149,7 @@ The following instructions assume that the installation archives are in one Zip-
     module load StdEnv/2020 intel/2020.1.217 intelmpi/2019.7.217
     ```
 
-3.  Run the following commands depending on the version of MIKE. They will extract the archives, run the `install.sh` installation scripts for each component and then [patch the binaries](installing-software-in-your-home-directory.md#installing-binary-packages) so that they can find the dynamic libraries of Intel MPI.
+3.  Run the following commands depending on the version of MIKE. They will extract the archives, run the `install.sh` installation scripts for each component and then [patch the binaries](../getting-started/installing_software_in_your_home_directory.md#installing-binary-packages) so that they can find the dynamic libraries of Intel MPI.
 
 === "MIKE 2025"
 
@@ -258,9 +258,9 @@ The following instructions assume that the installation archives are in one Zip-
 
 The instructions above assume specific filenames for the installation archives. When installing minor updates released in the same year, the filenames for the archives (e.g. in `tar -xzf MIKE_Zero_2023_rhel7_22.11.05.tgz`), as well as the directory names (e.g. in `cd $MIKE_TGZ/MIKE_Zero_2023_rhel7_22.11.05`) need to be adjusted accordingly. Future major releases of MIKE may use a newer version of Intel MPI, so the above instructions may need to be adapted accordingly. Try a module of the Intel MPI library with a matching Major version (i.e. year).
 
-Essentially the above instructions follow the official installation procedure with the exception that the installation of `MIKE_Zero_*_Prerequisites.tgz` (Intel MPI library) is skipped and a matching module is loaded instead. Furthermore the `setrpaths.sh` script is used to [patch the installed binaries](installing-software-in-your-home-directory.md#installing-binary-packages) to make them compatible with our software stack.
+Essentially the above instructions follow the official installation procedure with the exception that the installation of `MIKE_Zero_*_Prerequisites.tgz` (Intel MPI library) is skipped and a matching module is loaded instead. Furthermore the `setrpaths.sh` script is used to [patch the installed binaries](../getting-started/installing_software_in_your_home_directory.md#installing-binary-packages) to make them compatible with our software stack.
 
-If you run into problems adapting the recipe for newer versions of MIKE, contact our [Technical support](technical-support.md).
+If you run into problems adapting the recipe for newer versions of MIKE, contact our [Technical support](../support/technical_support.md).
 
 ### Create a module
 

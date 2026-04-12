@@ -100,7 +100,7 @@ Nous fournissons l'hébergement pour LS-DYNA; le logiciel est installé sur nos 
 
 ### Configuration initiale et test
 
-Si votre serveur de licences n'a jamais été utilisé sur la grappe où vos tâches seront exécutées, des modifications devront être apportées du côté de l'Alliance et de celui de l'établissement. Pour ce faire, faites parvenir à notre [soutien technique](technical-support.md) le numéro du port et l'adresse IP de votre serveur de licence flottante. Pour vérifier le fonctionnement du fichier de licence, lancez
+Si votre serveur de licences n'a jamais été utilisé sur la grappe où vos tâches seront exécutées, des modifications devront être apportées du côté de l'Alliance et de celui de l'établissement. Pour ce faire, faites parvenir à notre [soutien technique](../support/technical_support.md) le numéro du port et l'adresse IP de votre serveur de licence flottante. Pour vérifier le fonctionnement du fichier de licence, lancez
 
 ```bash
 module load ls-dyna
@@ -306,7 +306,7 @@ Le programme [LS-PrePost](https://www.lstc.com/products/ls-prepost) permet le pr
 
 ## Nœuds VDI
 1.  Avec le navigateur de votre ordinateur, connectez-vous à un système OnDemand avec l'une des URL suivantes :
-    *   [NIBI](nibi.md#acces-via-ondemand) : `https://ondemand.sharcnet.ca`
+    *   [NIBI](../clusters/nibi.md#acces-via-ondemand) : `https://ondemand.sharcnet.ca`
     *   FIR : `https://jupyterhub.fir.alliancecan.ca`
     *   RORQUAL : `https://jupyterhub.rorqual.alliancecan.ca`
     *   TRILLIUM : `https://ondemand.scinet.utoronto.ca`
@@ -318,7 +318,7 @@ Le programme [LS-PrePost](https://www.lstc.com/products/ls-prepost) permet le pr
     ```
 
 ## VncViewer
-1.  Avec un client VncViewer, connectez-vous à un nœud de calcul ou à un nœud de connexion avec [TigerVNC](vnc.md#connexion).
+1.  Avec un client VncViewer, connectez-vous à un nœud de calcul ou à un nœud de connexion avec [TigerVNC](../interactive/vnc.md#connexion).
 
 2.  Sur votre ordinateur, ouvrez une nouvelle fenêtre de terminal et lancez
     ```bash

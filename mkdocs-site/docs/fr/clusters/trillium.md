@@ -63,9 +63,9 @@ status:
 
 La grappe Trillium est conçue pour prendre en charge des tâches massivement parallèles. Construite par Lenovo Canada, elle est hébergée par SciNet à l'Université de Toronto.
 
-L'utilisation de Trillum est semblable à celle des autres grappes nationales avec cependant certaines particularités. Pour les détails, voir [Trillium : Guide de démarrage](trillium-quickstart.md).
+L'utilisation de Trillum est semblable à celle des autres grappes nationales avec cependant certaines particularités. Pour les détails, voir [Trillium : Guide de démarrage](trillium_quickstart.md).
 
-Si vous aviez accès à Niagara, nous vous encourageons fortement de prendre connaissance de la page [Transition de Niagara à Trillium](transition-from-niagara-to-trillium.md).
+Si vous aviez accès à Niagara, nous vous encourageons fortement de prendre connaissance de la page [Transition de Niagara à Trillium](transition_from_niagara_to_trillium.md).
 
 ## Installation et transition
 En raison de la capacité d'alimentation électrique et de refroidissement, une portion importante de la grappe Niagara sera fermée pendant une période intermédiaire afin d'effectuer les tests d'acceptation et la transition vers le nouveau système. Nous vous tiendrons au courant lorsque nous aurons une meilleure idée du calendrier d'installation de Trillium.

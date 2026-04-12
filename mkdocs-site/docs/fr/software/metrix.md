@@ -261,6 +261,6 @@ Voici la liste des dernières tâches effectuées au niveau de votre groupe.
 
 # Statistiques du cloud
 
-Le premier tableau « Vos instances » présente l'ensemble des machines virtuelles associées à un compte. La colonne « Saveur » fait référence au [type de machine virtuelle](virtual-machine-flavors.md). La colonne « UUID » correspond à un identifiant unique attribué à chaque machine virtuelle.
+Le premier tableau « Vos instances » présente l'ensemble des machines virtuelles associées à un compte. La colonne « Saveur » fait référence au [type de machine virtuelle](../cloud/virtual_machine_flavors.md). La colonne « UUID » correspond à un identifiant unique attribué à chaque machine virtuelle.
 
 Ensuite, chaque machine virtuelle dispose de ses propres statistiques d'utilisation (Cœurs CPU, Mémoire, Bande passante disque, IOPS disque et Bande passante réseau) affichables pour le dernier mois, la dernière semaine, le dernier jour ou la dernière heure.

@@ -69,7 +69,7 @@ status:
 ## Description
 Avec un débogueur, il est possible de trouver rapidement la cause d'un problème dans un logiciel.
 Le cas d'utilisation typique est de trouver les [erreurs de segmentation](https://fr.wikipedia.org/wiki/Erreur_de_segmentation).
-Si vous désirez trouver un problème de mémoire (par exemple, une [fuite de mémoire](https://fr.wikipedia.org/wiki/Fuite_de_m%C3%A9moire)), il est recommandé d'utiliser [Valgrind](valgrind.md).
+Si vous désirez trouver un problème de mémoire (par exemple, une [fuite de mémoire](https://fr.wikipedia.org/wiki/Fuite_de_m%C3%A9moire)), il est recommandé d'utiliser [Valgrind](../software/valgrind.md).
 
 ## Cas d'utilisation
 ### Trouver la cause d'une erreur de segmentation directement avec le débogueur

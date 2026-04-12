@@ -42,7 +42,7 @@ Les codes indépendants et interopérables sont distribués sur le modèle *open
 
 ## Utilisation
 
-Pour utiliser la suite Quantum ESPRESSO, vous devez charger un module (voir [Utiliser un module](utiliser-des-modules.md)).
+Pour utiliser la suite Quantum ESPRESSO, vous devez charger un module (voir [Utiliser un module](../programming/utiliser_des_modules.md)).
 Utilisez `module avail quantumespresso` ou `module spider quantumespresso` pour voir les versions disponibles.
 Chargez le module avec, par exemple, `module load quantumespresso/6.6`.
 
@@ -61,7 +61,7 @@ srun pw.x < si.scf.in > si.scf.out
 Dans cet exemple, on demande 32 processus, ce qui est plus que ce qui est nécessaire dans le cas du tutoriel avec le silicium.
 
 !!! tip
-    Rappelez-vous qu'il est compliqué de déterminer le nombre de processus à demander, mais que c'est vous qui devez choisir un nombre approprié. Voir aussi [Contrôle de l'ordonnancement avec MPI](advanced-mpi-scheduling.md).
+    Rappelez-vous qu'il est compliqué de déterminer le nombre de processus à demander, mais que c'est vous qui devez choisir un nombre approprié. Voir aussi [Contrôle de l'ordonnancement avec MPI](../running-jobs/advanced_mpi_scheduling.md).
 
 ## Problèmes connus
 

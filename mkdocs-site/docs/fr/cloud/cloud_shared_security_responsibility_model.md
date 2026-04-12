@@ -41,7 +41,7 @@ Plusieurs plateformes infonuagiques font partie de l’infrastructure de calcul 
 Les responsabilités des groupes de recherche sont :
 * la mise en place de mesures de contrôle adéquates pour la protection de la confidentialité, de l’intégrité et de la disponibilité de leurs données de recherche;
 * l’installation et la configuration de leurs instances, y compris les systèmes d’exploitation, les services et les logiciels;
-* la maintenance et les [mises à jour](security-considerations-when-running-a-vm.md#mise-a-jour-d-une-instance-virtuelle) périodiques de leurs instances;
+* la maintenance et les [mises à jour](security_considerations_when_running_a_vm.md#mise-a-jour-d-une-instance-virtuelle) périodiques de leurs instances;
 * la mise en application de règles pour les groupes de sécurité afin de limiter les services exposés à l’Internet;
 * l'implémentation et les tests de procédures de sauvegarde et de restauration;
 * le chiffrement des données en transit ou au repos;
@@ -64,5 +64,5 @@ Pour toute autre information, écrivez à cloud@tech.alliancecan.ca.
 
 ## Références
 * [Page wiki sur le service infonuagique de la Fédération de l'Alliance](cloud.md)
-* [Page wiki sur la sécurité des instances](security-considerations-when-running-a-vm.md)
+* [Page wiki sur la sécurité des instances](security_considerations_when_running_a_vm.md)
 * [Conditions d'utilisation](https://alliancecan.ca/sites/default/files/2022-03/1-Conditions-d%E2%80%99utilisation.pdf)

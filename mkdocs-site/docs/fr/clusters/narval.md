@@ -79,7 +79,7 @@ Narval est une grappe hétérogène et polyvalente conçue pour une grande vari�
 ## Particularités
 
 !!! warning "Accès Internet"
-    Notre politique veut que les nœuds de calcul de Narval n'aient pas accès à l'internet. Pour y faire exception, veuillez joindre le [soutien technique](technical-support.md) en expliquant ce dont vous avez besoin et pourquoi.
+    Notre politique veut que les nœuds de calcul de Narval n'aient pas accès à l'internet. Pour y faire exception, veuillez joindre le [soutien technique](../support/technical_support.md) en expliquant ce dont vous avez besoin et pourquoi.
 
 !!! note "Outil `crontab`"
     L'outil `crontab` n'est pas offert.
@@ -92,19 +92,19 @@ Chaque tâche devrait être d'une durée d’au moins une heure (au moins cinq m
 |:---|:---|
 | HOME <br> Système de fichiers Lustre, 64 To d’espace au total |
   * Cet espace est petit et ne peut pas être agrandi : vous devrez utiliser votre espace `project` pour les grands besoins en stockage.
-  * Petits [quotas](storage-and-file-management.md#quotas-et-politiques) fixes par utilisateur
+  * Petits [quotas](../storage-and-data/storage_and_file_management.md#quotas-et-politiques) fixes par utilisateur
   * Il y a une sauvegarde automatique une fois par jour.
 | SCRATCH <br> Système de fichiers Lustre, 5.7 Po d’espace au total |
   * Grand espace pour stocker les fichiers temporaires pendant les calculs.
   * Pas de système de sauvegarde automatique
-  * Grands [quotas](storage-and-file-management.md#quotas-et-politiques) fixes par utilisateur
-  * Il y a une [purge automatique](scratch-purging-policy.md) des vieux fichiers dans cet espace.
+  * Grands [quotas](../storage-and-data/storage_and_file_management.md#quotas-et-politiques) fixes par utilisateur
+  * Il y a une [purge automatique](../storage-and-data/scratch_purging_policy.md) des vieux fichiers dans cet espace.
 | PROJECT <br> Système de fichiers Lustre, 35 Po d’espace au total |
   * Cet espace est conçu pour le partage de données entre membres d'un groupe et pour le stockage de beaucoup de données.
-  * Grands [quotas](storage-and-file-management.md#quotas-et-politiques) ajustables par projet
+  * Grands [quotas](../storage-and-data/storage_and_file_management.md#quotas-et-politiques) ajustables par projet
   * Il y a une sauvegarde automatique une fois par jour.
 
-Au tout début de la présente page, un tableau indique plusieurs adresses de connexion. Pour les transferts de données par [Globus](globus.md), il faut utiliser le **Point de chute Globus**. Par contre, pour les outils comme [rsync](transferring-data.md#rsync) et [scp](transferring-data.md#scp), il faut utiliser l'adresse du **Nœud de copie**.
+Au tout début de la présente page, un tableau indique plusieurs adresses de connexion. Pour les transferts de données par [Globus](../getting-started/globus.md), il faut utiliser le **Point de chute Globus**. Par contre, pour les outils comme [rsync](../getting-started/transferring_data.md#rsync) et [scp](../getting-started/transferring_data.md#scp), il faut utiliser l'adresse du **Nœud de copie**.
 
 ## Réseautique haute performance
 
@@ -135,10 +135,10 @@ Les compilateurs Intel peuvent très bien compiler des applications pour les pro
     Si vous avez compilé un code sur un système utilisant des processeurs Intel et que vous avez utilisé une ou des options `-xXXXX`, telle que `-xCORE-AVX2`, les applications compilées ne fonctionneront pas sur Narval, car les compilateurs Intel ajoutent des instructions supplémentaires pour vérifier que le processeur utilisé est un produit Intel. Sur Narval, les options `-xHOST` et `-march=native` sont équivalentes à `-march=pentium` (l'ancien Pentium de 1993) et ne devraient **pas** être utilisés.
 
 #### Environnements logiciels disponibles
-[L'environnement logiciel standard `StdEnv/2023`](standard-software-environments.md) est l'environnement par défaut sur Narval. Les anciennes versions (2016 et 2018) ont été volontairement bloquées. Si vous avez besoin d'un logiciel qui n'est disponible que sur une ancienne version de l'environnement standard, nous vous invitons à envoyer une demande à [notre soutien technique](technical-support.md).
+[L'environnement logiciel standard `StdEnv/2023`](../programming/standard_software_environments.md) est l'environnement par défaut sur Narval. Les anciennes versions (2016 et 2018) ont été volontairement bloquées. Si vous avez besoin d'un logiciel qui n'est disponible que sur une ancienne version de l'environnement standard, nous vous invitons à envoyer une demande à [notre soutien technique](../support/technical_support.md).
 
 #### Bibliothèques BLAS et LAPACK
-La bibliothèque Intel MKL fonctionne sur les processeurs AMD, mais elle n'est pas optimale. Nous favorisons dorénavant l'utilisation de FlexiBLAS. Pour plus de détails, consulter la page [BLAS et LAPACK](blas-and-lapack.md).
+La bibliothèque Intel MKL fonctionne sur les processeurs AMD, mais elle n'est pas optimale. Nous favorisons dorénavant l'utilisation de FlexiBLAS. Pour plus de détails, consulter la page [BLAS et LAPACK](../programming/blas_and_lapack.md).
 
 ### Instances GPU
 
@@ -160,7 +160,7 @@ Pour demander un ou plusieurs GPU A100 complets, il faut utiliser une des option
     ```
     (remplacer `n` par le nombre voulu)
 
-Plusieurs nœuds GPU de Narval sont configurés avec la [technologie MIG](multi-instance-gpu.md) et quatre tailles d'instances GPU sont disponibles :
+Plusieurs nœuds GPU de Narval sont configurés avec la [technologie MIG](../programming/multi-instance_gpu.md) et quatre tailles d'instances GPU sont disponibles :
 
 *   **1g.5gb** : 1/8 de la puissance de calcul avec 5 Go de mémoire GPU.
 *   **2g.10gb** : 2/8 de la puissance de calcul avec 10 Go de mémoire GPU.
@@ -186,7 +186,7 @@ Pour demander **une et une seule** instance GPU pour votre tâche de calcul, voi
     --gpus=a100_4g.20gb:1
     ```
 
-Les quantités maximales recommandées de **cœurs CPU et de mémoire système** par instance GPU sont listées dans la [table des caractéristiques des *bundles*](allocations-and-compute-scheduling.md#ratios-dans-les-bundles).
+Les quantités maximales recommandées de **cœurs CPU et de mémoire système** par instance GPU sont listées dans la [table des caractéristiques des *bundles*](../running-jobs/allocations_and_compute_scheduling.md#ratios-dans-les-bundles).
 
 ## Suivi de vos tâches
 

@@ -35,7 +35,7 @@ status:
   qa_generated: false
 ---
 
-Connecting with [MobaXterm](http://mobaxterm.mobatek.net/) works in basically the same way as PuTTY (see [Connecting with PuTTY](connecting-with-putty.md)); however, there is more functionality combined into MobaXterm than PuTTY.
+Connecting with [MobaXterm](http://mobaxterm.mobatek.net/) works in basically the same way as PuTTY (see [Connecting with PuTTY](connecting_with_putty.md)); however, there is more functionality combined into MobaXterm than PuTTY.
 
 !!! note
     MobaXterm has a built-in SFTP client to transfer files as well as a built-in X11 server to allow you to run graphical programs remotely without the need to install a third-party X11 server. If you have already been using PuTTY and have saved sessions, MobaXterm will use these saved sessions so that you do not have to re-enter the settings.
@@ -74,4 +74,4 @@ To configure a session to use a private key for authentication:
 3.  Check the "Use private key" checkbox.
 4.  Click on the icon at the right of the text box to browse your file system and select a private key file to use.
 
-To create a key pair, see [Generating SSH keys in Windows](generating-ssh-keys-in-windows.md).
+To create a key pair, see [Generating SSH keys in Windows](generating_ssh_keys_in_windows.md).

@@ -86,12 +86,12 @@ L'application web Jupyter Notebook rend possibles la création et le partage de 
 Jupyter Notebook fonctionne sur un nœud de calcul ou sur un nœud de connexion (non recommandé). Dans le cas du nœud de connexion, diverses limites sont imposées tant pour l'utilisateur que pour les processus, et les applications sont parfois terminées quand elles utilisent trop de temps CPU ou de mémoire. Dans le cas du nœud de calcul, la tâche est soumise avec la spécification du nombre de CPU ou de GPU à utiliser, la quantité de mémoire et le temps d'exécution. Les directives qui suivent concernent la soumission d'une tâche Jupyter Notebook.
 
 **Autre information :**
-* Jupyter Notebook n'étant pas la plus récente interface de Jupyter, nous vous suggérons d'installer plutôt **[JupyterLab](advanced-jupyter-configuration.md)**.
-* Pour utiliser un environnement Jupyter préconfiguré, voyez la page **[Jupyter](jupyter.md)**.
+* Jupyter Notebook n'étant pas la plus récente interface de Jupyter, nous vous suggérons d'installer plutôt **[JupyterLab](../getting-started/advanced_jupyter_configuration.md)**.
+* Pour utiliser un environnement Jupyter préconfiguré, voyez la page **[Jupyter](../software/jupyter.md)**.
 
 ## Installation
 
-Ces directives permettent d'installer Jupyter Notebook avec la commande `pip` dans un [environnement virtuel Python](python.md#creer-et-utiliser-un-environnement-virtuel) dans votre répertoire personnel (*home*). Les directives sont valides pour la version 3.6 de Python, mais vous pouvez installer l'application pour d'autres versions en chargeant le module Python approprié.
+Ces directives permettent d'installer Jupyter Notebook avec la commande `pip` dans un [environnement virtuel Python](../software/python.md#creer-et-utiliser-un-environnement-virtuel) dans votre répertoire personnel (*home*). Les directives sont valides pour la version 3.6 de Python, mais vous pouvez installer l'application pour d'autres versions en chargeant le module Python approprié.
 
 1. Chargez le module Python.
    ```bash
@@ -192,7 +192,7 @@ Pour utiliser [RStudio Launcher](#rstudio-launcher), chargez le module RStudio S
 
 ## Lancer Jupyter Notebook
 
-Pour lancer l'application, soumettez une tâche interactive. Ajustez les paramètres selon vos besoins. Pour plus d'information, consultez [Exécuter des tâches](running-jobs.md).
+Pour lancer l'application, soumettez une tâche interactive. Ajustez les paramètres selon vos besoins. Pour plus d'information, consultez [Exécuter des tâches](../running-jobs/running_jobs.md).
 
 ```bash
 (jupyter_py3)_[name@server ~]$ salloc --time=1:0:0 --ntasks=1 --cpus-per-task=2 --mem-per-cpu=1024M --account=def-yourpi srun $VIRTUAL_ENV/bin/notebook.sh
@@ -216,7 +216,7 @@ Copy/paste this URL into your browser when you connect for the first time,
 
 ## Se connecter à Jupyter Notebook
 
-Puisque les nœuds de calcul ne sont pas directement accessibles par l'Internet, vous devez créer un [tunnel SSH](ssh-tunnelling.md) entre la grappe et votre poste de travail pour que votre fureteur web puisse avoir accès à Jupyter Notebook opérant sur un nœud de calcul.
+Puisque les nœuds de calcul ne sont pas directement accessibles par l'Internet, vous devez créer un [tunnel SSH](../getting-started/ssh_tunnelling.md) entre la grappe et votre poste de travail pour que votre fureteur web puisse avoir accès à Jupyter Notebook opérant sur un nœud de calcul.
 
 ### Sous Linux ou macOS X
 
@@ -237,7 +237,7 @@ Puis copiez-collez l'adresse URL dans votre fureteur. Avec l'exemple précédent
 
 ### Sous Windows
 
-Pour créer un [tunnel SSH](ssh-tunnelling.md), utilisez [MobaXTerm](connecting-with-mobaxterm.md) comme suit, ce qui fonctionne aussi avec Unix (macOS, Linux, etc.).
+Pour créer un [tunnel SSH](../getting-started/ssh_tunnelling.md), utilisez [MobaXTerm](../getting-started/connecting_with_mobaxterm.md) comme suit, ce qui fonctionne aussi avec Unix (macOS, Linux, etc.).
 
 1. Dans MobaXTerm, ouvrez un premier onglet *Terminal* (session 1) et connectez-vous à une grappe. Suivez ensuite les directives de la section [Lancer Jupyter Notebook](#lancer-jupyter-notebook) ci-dessus. L'adresse URL suivante devrait s'afficher.
    ```
@@ -278,7 +278,7 @@ Les prochaines sections présentent des exemples de procédures d'installation d
 
 ### Julia
 
-1. Chargez le module [Julia](julia.md).
+1. Chargez le module [Julia](../software/julia.md).
    ```bash
    module load julia
    ```

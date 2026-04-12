@@ -37,9 +37,9 @@ status:
 
 Nos nuages offrent les types de stockage suivants :
 
-*   **[Volume](working-with-volumes.md#volumes)** : unité de stockage infonuagique standard qui peut être attachée et détachée d’une instance.
+*   **[Volume](working_with_volumes.md#volumes)** : unité de stockage infonuagique standard qui peut être attachée et détachée d’une instance.
 *   **Disque de stockage éphémère** : disque local virtuel associé au cycle de vie d’une instance sur un disque local d'un hyperviseur (un disque local de gabarit C pourrait être perdu).
-*   **[Stockage objet](arbutus-object-storage.md)** : stockage non hiérarchique pour les données créées ou téléversées sous forme de fichier complet.
+*   **[Stockage objet](arbutus_object_storage.md)** : stockage non hiérarchique pour les données créées ou téléversées sous forme de fichier complet.
 *   **[Système de fichiers partagé](cephfs.md)** : espace de stockage privé connecté au réseau (similaire aux partages NFS/SMB); doit être configuré sur chaque instance où il est monté.
 
 ## Comparaison des types de stockage

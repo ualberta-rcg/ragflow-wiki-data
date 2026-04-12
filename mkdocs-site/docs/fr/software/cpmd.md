@@ -61,7 +61,7 @@ Pour pouvoir utiliser [CPMD](http://cpmd.org) sur nos grappes, écrivez au [sout
 
 ## Module
 
-Pour [charger le module](utiliser-des-modules.md), lancez :
+Pour [charger le module](../programming/utiliser_des_modules.md), lancez :
 
 ```bash
 module load StdEnv/2020

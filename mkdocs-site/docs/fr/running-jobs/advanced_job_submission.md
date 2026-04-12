@@ -39,9 +39,9 @@ status:
 
 Les outils suivants sont utiles lorsque vous devez traiter plusieurs fichiers avec ou sans différentes combinaisons de paramètres (*exploration de paramètres*) :
 
-*   **[Tableaux de tâches](job-arrays.md)** : pour soumettre plusieurs tâches similaires dans un seul script, une méthode idéale lorsque chaque tâche dépasse une heure et que le nombre de tâches est inférieur à mille;
-*   **[GNU Parallel](gnu-parallel.md)** : pour exécuter et gérer plusieurs calculs courts, y compris des explorations de paramètres, sur un seul nœud réservé via une tâche parallèle;
-*   **[GLOST](glost.md)** : le *Greedy Launcher Of Small Tasks* utilise [MPI](mpi.md) et une architecture gestionnaire-travailleur pour exécuter progressivement une longue liste de tâches séquentielles sur les cœurs de CPU réservés via une tâche parallèle;
+*   **[Tableaux de tâches](job_arrays.md)** : pour soumettre plusieurs tâches similaires dans un seul script, une méthode idéale lorsque chaque tâche dépasse une heure et que le nombre de tâches est inférieur à mille;
+*   **[GNU Parallel](gnu_parallel.md)** : pour exécuter et gérer plusieurs calculs courts, y compris des explorations de paramètres, sur un seul nœud réservé via une tâche parallèle;
+*   **[GLOST](glost.md)** : le *Greedy Launcher Of Small Tasks* utilise [MPI](../software/mpi.md) et une architecture gestionnaire-travailleur pour exécuter progressivement une longue liste de tâches séquentielles sur les cœurs de CPU réservés via une tâche parallèle;
 *   **[META](meta-farm.md)** : une suite de scripts conçue chez SHARCNET pour automatiser le calcul à haut débit (exécutant un grand nombre de calculs séquentiels, parallèles ou GPU connexes).
 
 ## Dépendances inter-tâches
@@ -60,7 +60,7 @@ sbatch --dependency=afterok:$JOBID1 job2.sh   # Dépend de la première tâche
 
 ## Tâches hétérogènes
 
-L'ordonnanceur Slurm supporte les [tâches hétérogènes](https://slurm.schedmd.com/heterogeneous_jobs.html). Cela pourrait être très utile si vous savez d'avance que votre application [MPI](mpi.md) nécessitera plus de cœurs de CPU et plus de mémoire pour le processus principal que pour les autres processus.
+L'ordonnanceur Slurm supporte les [tâches hétérogènes](https://slurm.schedmd.com/heterogeneous_jobs.html). Cela pourrait être très utile si vous savez d'avance que votre application [MPI](../software/mpi.md) nécessitera plus de cœurs de CPU et plus de mémoire pour le processus principal que pour les autres processus.
 
 Par exemple, si le processus principal nécessite 8 cœurs et un total de 32 Go de RAM, tandis que les autres processus ne nécessitent qu'un cœur et 1 Go de RAM, nous pouvons spécifier les deux types d'exigences dans un script de tâche :
 

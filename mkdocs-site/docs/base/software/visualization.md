@@ -172,11 +172,11 @@ if using the CPU for rendering or
 xvfb-run vglrun -d egl <name-of-application>
 ```
 
-if using the GPU for rendering, in which case you need to reserve one GPU with Slurm, see [Using GPUs with Slurm](using-gpus-with-slurm.md). Note that, depending on the workload, the GPU may not necessarily be faster than the CPU, so it's important to benchmark before committing to using the more expensive GPU.
+if using the GPU for rendering, in which case you need to reserve one GPU with Slurm, see [Using GPUs with Slurm](../running-jobs/using_gpus_with_slurm.md). Note that, depending on the workload, the GPU may not necessarily be faster than the CPU, so it's important to benchmark before committing to using the more expensive GPU.
 
 ### Start a remote desktop via VNC
 
-Frequently, it may be useful to start up graphical user interfaces for various software packages like Matlab. Doing so over X11-forwarding can result in a very slow connection to the server. Instead, we recommend using VNC to start and connect to a remote desktop. For more information, please see [the article on VNC](vnc.md).
+Frequently, it may be useful to start up graphical user interfaces for various software packages like Matlab. Doing so over X11-forwarding can result in a very slow connection to the server. Instead, we recommend using VNC to start and connect to a remote desktop. For more information, please see [the article on VNC](../interactive/vnc.md).
 
 ## Visualization training
 
@@ -227,4 +227,4 @@ This section will describe visualization workflows not included in the workshop/
 * [using ParaView](https://oldwiki.scinet.utoronto.ca/wiki/index.php/Using_Paraview)
 
 ## How to get visualization help
-Please contact [Technical support](technical-support.md).
+Please contact [Technical support](../support/technical_support.md).

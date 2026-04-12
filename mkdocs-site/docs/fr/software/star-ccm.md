@@ -115,7 +115,7 @@ USE_SERVER
 ```
 
 ## Soumettre des tâches en lot sur nos grappes
-Quand vous soumettez des tâches sur une grappe pour la première fois, vous devrez configurer votre environnement pour l’utilisation de votre licence. Si vous utilisez le serveur de licences distant à *paiement à l'usage* de Siemens, créez le fichier `~/.licenses/starccm.lic` comme décrit ci-dessus dans *Fichier pour une licence POD*; ceci devrait fonctionner immédiatement. Par contre, si vous utilisez un serveur de licences de votre établissement, créez d'abord le fichier `~/.licenses/starccm.lic` et soumettez une demande d'assistance au [soutien technique](technical-support.md). Nous vous aiderons à coordonner les modifications du pare-feu réseau nécessaires pour y accéder (en supposant que le serveur n'a jamais été configuré pour communiquer via la grappe de l'Alliance que vous voulez utiliser). Si vous rencontrez toujours des problèmes pour faire fonctionner la licence, essayez de supprimer ou de renommer le fichier `~/.flexlmrc` car les chemins de recherche et/ou les paramètres précédents du serveur de licences pourraient y être stockés.
+Quand vous soumettez des tâches sur une grappe pour la première fois, vous devrez configurer votre environnement pour l’utilisation de votre licence. Si vous utilisez le serveur de licences distant à *paiement à l'usage* de Siemens, créez le fichier `~/.licenses/starccm.lic` comme décrit ci-dessus dans *Fichier pour une licence POD*; ceci devrait fonctionner immédiatement. Par contre, si vous utilisez un serveur de licences de votre établissement, créez d'abord le fichier `~/.licenses/starccm.lic` et soumettez une demande d'assistance au [soutien technique](../support/technical_support.md). Nous vous aiderons à coordonner les modifications du pare-feu réseau nécessaires pour y accéder (en supposant que le serveur n'a jamais été configuré pour communiquer via la grappe de l'Alliance que vous voulez utiliser). Si vous rencontrez toujours des problèmes pour faire fonctionner la licence, essayez de supprimer ou de renommer le fichier `~/.flexlmrc` car les chemins de recherche et/ou les paramètres précédents du serveur de licences pourraient y être stockés.
 
 !!! warning "Attention"
     Notez que des fichiers de sortie de tâches déjà exécutées peuvent s'accumuler dans des répertoires cachés nommés `.star-version_number` et consommer ainsi votre quota. Ceux-ci peuvent être supprimés périodiquement en exécutant `rm -ri ~/.starccm*` et en répondant *oui* à l'invite.
@@ -311,7 +311,7 @@ Quand vous soumettez des tâches sur une grappe pour la première fois, vous dev
     ```
 
 ## Mode graphique
-Pour travailler en mode graphique, nous recommandons d'utiliser un système [OnDemand](nibi.md#accès-via-open-ondemand-ood) ou JupyterLab pour démarrer un bureau distant. En plus de configurer `~/.licenses/starccm.lic`, les groupes qui possèdent une licence POD devraient aussi exécuter `export LM_PROJECT='ID DE PROJET CD-ADAPCO'` avant `starccm+`, comme dans les exemples ci-dessous; selon le type de licence, il faut aussi ajouter d'autres options comme **-power**. La commande `module avail starccm-mixed` affiche les versions de Star-CCM+ qui sont disponibles dans l'environnement standard (StdEnv) que vous avez chargé. Autrement, la commande `module spider starccm-mixed` affiche toutes les versions de modules qui sont disponibles dans toutes les versions de modules StdEnv.
+Pour travailler en mode graphique, nous recommandons d'utiliser un système [OnDemand](../clusters/nibi.md#accès-via-open-ondemand-ood) ou JupyterLab pour démarrer un bureau distant. En plus de configurer `~/.licenses/starccm.lic`, les groupes qui possèdent une licence POD devraient aussi exécuter `export LM_PROJECT='ID DE PROJET CD-ADAPCO'` avant `starccm+`, comme dans les exemples ci-dessous; selon le type de licence, il faut aussi ajouter d'autres options comme **-power**. La commande `module avail starccm-mixed` affiche les versions de Star-CCM+ qui sont disponibles dans l'environnement standard (StdEnv) que vous avez chargé. Autrement, la commande `module spider starccm-mixed` affiche toutes les versions de modules qui sont disponibles dans toutes les versions de modules StdEnv.
 
 ### OnDemand
 1.  Sur votre ordinateur, connectez-vous à un système OnDemand en entrant une des adresses URL dans le navigateur :
@@ -331,7 +331,7 @@ Pour travailler en mode graphique, nous recommandons d'utiliser un système [OnD
         *   `starccm+ -mesa`
 
 ### VncViewer
-1.  [Connectez-vous à un nœud de connexion ou un nœud de calcul avec TigerVNC](vnc.md).
+1.  [Connectez-vous à un nœud de connexion ou un nœud de calcul avec TigerVNC](../interactive/vnc.md).
 2.  Sur votre ordinateur, ouvrez une nouvelle fenêtre de terminal et lancez une des commandes suivantes :
     *   **STAR-CCM+ 18.04.008 (ou versions plus récentes)**
         *   `module load StdEnv/2023` (par défaut)

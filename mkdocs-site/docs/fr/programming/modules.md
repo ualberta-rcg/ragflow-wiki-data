@@ -44,7 +44,7 @@ Selon le contexte, le terme *module* peut avoir sens différent. Nous décrivons
 
 ### Modules Lmod
 
-Aussi nommés *modules d'environnement*, les modules Lmod sont employés pour modifier votre environnement (*shell*) pour permettre l'utilisation d'un paquet logiciel ou d'une version d'un logiciel autre que celle offerte par défaut, par exemple pour les compilateurs (voir [Utiliser des modules](utiliser-des-modules.md)).
+Aussi nommés *modules d'environnement*, les modules Lmod sont employés pour modifier votre environnement (*shell*) pour permettre l'utilisation d'un paquet logiciel ou d'une version d'un logiciel autre que celle offerte par défaut, par exemple pour les compilateurs (voir [Utiliser des modules](utiliser_des_modules.md)).
 
 ### Modules Python
 

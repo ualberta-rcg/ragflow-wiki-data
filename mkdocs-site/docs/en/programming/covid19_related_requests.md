@@ -35,7 +35,7 @@ status:
   qa_generated: false
 ---
 
-In the context of the COVID-19 pandemic, Compute Canada is ready to help researchers working on this topic. If this is your case, when you contact [Technical support](technical-support.md), please be as specific as possible when describing your needs. Here are a few scenarios that could apply to you, and what information you should provide.
+In the context of the COVID-19 pandemic, Compute Canada is ready to help researchers working on this topic. If this is your case, when you contact [Technical support](../support/technical_support.md), please be as specific as possible when describing your needs. Here are a few scenarios that could apply to you, and what information you should provide.
 
 ## What to include when writing to us for support
 
@@ -74,7 +74,7 @@ Please provide us with the following:
 *   Specify if you need an increased quota of number of files.
 
 ### Specialised support
-If you require specialised support, please contact [Technical support](technical-support.md) with your question. Mention that this is for COVID-19 research and we will try to prioritize as best as we can.
+If you require specialised support, please contact [Technical support](../support/technical_support.md) with your question. Mention that this is for COVID-19 research and we will try to prioritize as best as we can.
 
 # Other available resources
 

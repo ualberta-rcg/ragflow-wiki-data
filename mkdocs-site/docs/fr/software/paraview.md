@@ -119,14 +119,14 @@ status:
 
 Nous décrivons ici comment visualiser à distance votre ensemble de données situé sur une de nos grappes. Votre flux de travail serait semblable à un des scénarios suivants :
 
-1.  Si votre ensemble de données n'est que de quelques Go (soit l'ensemble de données complet sans composante de temps, soit une seule étape d'une simulation qui dépend du temps), vous pouvez le visualiser de manière interactive en utilisant un petit nombre de CPU. Dans le flux de travail, vous démarrez une session de bureau à distance via [**JupyterHub ou Open OnDemand**](jupyterlab.md#lancer-jupyterlab), selon la grappe, et vous exécutez ParaView de manière interactive. Pour les détails, voir sous le flux de travail [**Courtes tâches interactives**](#courtes-taches-interactives).
-2.  Si vous souhaitez visualiser de manière interactive un ensemble de données plus grand, nous vous recommandons d'utiliser une configuration client-serveur où le client ParaView se trouve sur votre ordinateur et le serveur est en parallèle dans une [tâche soumise à une grappe par Slurm](running-jobs.md). La taille de l'ensemble de données dépend de la grappe : sur [Trillium](trillium.md#caracteristiques-des-noeuds), seules les tâches sur nœuds entiers par multiples de 192 cœurs sont autorisées. Votre ensemble de données doit donc être entre 50 Go et 100 Go pour exploiter efficacement les 192 cœurs. Sur [Fir](fir.md#caracteristiques-des-noeuds), [Narval](narval.md#caracteristiques-des-noeuds), [Nibi](nibi.md#caracteristiques-des-noeuds) et [Rorqual](rorqual.md#caracteristiques-des-noeuds), vous pouvez visualiser des ensembles de données beaucoup plus petits avec un seul cœur, même si l'utilisation de plusieurs cœurs en parallèle accélère le rendu. Cette configuration étant plus complexe, [JupyterHub ou Open OnDemand](jupyterlab.md#lancer-jupyterlab) est généralement recommandé pour les petits ensembles de données avant de tenter une configuration client-serveur. Pour les détails, voir sous le flux de travail [**Longues tâches interactives**](#longues-taches-interactives).
-3.  Idéalement, toutes les visualisations produites, comme la génération de 1 000 images pour une vidéo, devraient être scriptées et exécutées en lots, hors écran, sur les grappes, en effectuant le rendu directement dans des fichiers sans ouvrir de fenêtres interactives. Les [deux premiers flux de travail](#flux-de-travail) doivent être vus comme des étapes interactives pour configurer votre visualisation et l'enregistrer sous forme de script Python ParaView, qui peut ensuite être exécuté comme une [tâche en lots sur la grappe](running-jobs.md), soit séquentiellement, soit plus souvent en parallèle. Pour les détails, voir sous le flux de travail [**Production en lots**](#production-en-lots).
+1.  Si votre ensemble de données n'est que de quelques Go (soit l'ensemble de données complet sans composante de temps, soit une seule étape d'une simulation qui dépend du temps), vous pouvez le visualiser de manière interactive en utilisant un petit nombre de CPU. Dans le flux de travail, vous démarrez une session de bureau à distance via [**JupyterHub ou Open OnDemand**](../interactive/jupyterlab.md#lancer-jupyterlab), selon la grappe, et vous exécutez ParaView de manière interactive. Pour les détails, voir sous le flux de travail [**Courtes tâches interactives**](#courtes-taches-interactives).
+2.  Si vous souhaitez visualiser de manière interactive un ensemble de données plus grand, nous vous recommandons d'utiliser une configuration client-serveur où le client ParaView se trouve sur votre ordinateur et le serveur est en parallèle dans une [tâche soumise à une grappe par Slurm](../running-jobs/running_jobs.md). La taille de l'ensemble de données dépend de la grappe : sur [Trillium](../clusters/trillium.md#caracteristiques-des-noeuds), seules les tâches sur nœuds entiers par multiples de 192 cœurs sont autorisées. Votre ensemble de données doit donc être entre 50 Go et 100 Go pour exploiter efficacement les 192 cœurs. Sur [Fir](fir.md#caracteristiques-des-noeuds), [Narval](../clusters/narval.md#caracteristiques-des-noeuds), [Nibi](../clusters/nibi.md#caracteristiques-des-noeuds) et [Rorqual](../clusters/rorqual.md#caracteristiques-des-noeuds), vous pouvez visualiser des ensembles de données beaucoup plus petits avec un seul cœur, même si l'utilisation de plusieurs cœurs en parallèle accélère le rendu. Cette configuration étant plus complexe, [JupyterHub ou Open OnDemand](../interactive/jupyterlab.md#lancer-jupyterlab) est généralement recommandé pour les petits ensembles de données avant de tenter une configuration client-serveur. Pour les détails, voir sous le flux de travail [**Longues tâches interactives**](#longues-taches-interactives).
+3.  Idéalement, toutes les visualisations produites, comme la génération de 1 000 images pour une vidéo, devraient être scriptées et exécutées en lots, hors écran, sur les grappes, en effectuant le rendu directement dans des fichiers sans ouvrir de fenêtres interactives. Les [deux premiers flux de travail](#flux-de-travail) doivent être vus comme des étapes interactives pour configurer votre visualisation et l'enregistrer sous forme de script Python ParaView, qui peut ensuite être exécuté comme une [tâche en lots sur la grappe](../running-jobs/running_jobs.md), soit séquentiellement, soit plus souvent en parallèle. Pour les détails, voir sous le flux de travail [**Production en lots**](#production-en-lots).
 
 ## Utilisation de GPU
 
 !!! warning "Utilisation des GPU"
-    Dans tous les cas, **n'utilisez pas les GPU H100, car ils ne sont pas optimisés pour le rendu graphique**. Bien que les cartes H100 puissent exécuter des applications OpenGL et Vulkan, elles n'utilisent que 2 des 66 contrôleurs de fils d'exécution (ce nombre peut varier), ce qui entraîne une utilisation du GPU à environ 3 %. Cela est non seulement une utilisation inacceptable de la grappe, mais aussi produit des rendus à des vitesses comparables à celles d'un GPU d'ordinateur portable milieu de gamme. Notez que les [instances MIG](multi-instance-gpu.md#limites-de-la-technologie) (partitions statiques de GPU) ne peuvent pas exécuter d'API graphiques telles qu'OpenGL ou Vulkan.
+    Dans tous les cas, **n'utilisez pas les GPU H100, car ils ne sont pas optimisés pour le rendu graphique**. Bien que les cartes H100 puissent exécuter des applications OpenGL et Vulkan, elles n'utilisent que 2 des 66 contrôleurs de fils d'exécution (ce nombre peut varier), ce qui entraîne une utilisation du GPU à environ 3 %. Cela est non seulement une utilisation inacceptable de la grappe, mais aussi produit des rendus à des vitesses comparables à celles d'un GPU d'ordinateur portable milieu de gamme. Notez que les [instances MIG](../programming/multi-instance_gpu.md#limites-de-la-technologie) (partitions statiques de GPU) ne peuvent pas exécuter d'API graphiques telles qu'OpenGL ou Vulkan.
 
     Si un rendu GPU est absolument nécessaire (bien que cela ne soit envisageable que dans des cas très spécifiques), utilisez les nœuds AMD MI300A de Nibi ou des GPU NVIDIA plus anciens (par exemple T4) lorsqu'ils sont disponibles. Nous documenterons sur cette page toutes les options de rendu autres que sur H100.
 
@@ -136,14 +136,14 @@ Ouvrez le flux de travail qui décrit le type de votre flux de travail.
 
 ### Courtes tâches interactives
 
-Nous décrivons ici la visualisation interactive avec le bureau à distance via JupyterHub et Open OnDemand. Si vous utilisez [Fir](fir.md), [Rorqual](rorqual.md) ou [Narval](narval.md), veuillez consulter l'une des sections JupyterLab ci-dessous. Si vous utilisez [Nibi](nibi.md) ou [Trillium](trillium.md), veuillez faire défiler la page jusqu'à l'une des sections Open OnDemand ci-dessous.
+Nous décrivons ici la visualisation interactive avec le bureau à distance via JupyterHub et Open OnDemand. Si vous utilisez [Fir](fir.md), [Rorqual](../clusters/rorqual.md) ou [Narval](../clusters/narval.md), veuillez consulter l'une des sections JupyterLab ci-dessous. Si vous utilisez [Nibi](../clusters/nibi.md) ou [Trillium](../clusters/trillium.md), veuillez faire défiler la page jusqu'à l'une des sections Open OnDemand ci-dessous.
 
 ### Avec un seul cœur via JupyterLab
 
-Sur [Fir](fir.md), [Rorqual](rorqual.md) ou [Narval](narval.md), vous pouvez lancer une instance JupyterLab via un portail.
+Sur [Fir](fir.md), [Rorqual](../clusters/rorqual.md) ou [Narval](../clusters/narval.md), vous pouvez lancer une instance JupyterLab via un portail.
 
-1.  Connectez-vous à [**JupyterHub sur une des grappes**](jupyterhub.md#jupyterhub-sur-une-grappe) en utilisant votre compte avec l'Alliance.
-2.  Dans le formulaire [*Options du serveur*](jupyterhub.md#options-pour-le-serveur) :
+1.  Connectez-vous à [**JupyterHub sur une des grappes**](../interactive/jupyterhub.md#jupyterhub-sur-une-grappe) en utilisant votre compte avec l'Alliance.
+2.  Dans le formulaire [*Options du serveur*](../interactive/jupyterhub.md#options-pour-le-serveur) :
     *   sous *Compte*, sélectionnez un des comptes CPU (n'utilisez pas de GPU);
     *   sous *Configuration GPU*, sélectionnez **None**;
     *   sous *Nombre de cœurs*, sélectionnez **1**;
@@ -155,13 +155,13 @@ Sur [Fir](fir.md), [Rorqual](rorqual.md) ou [Narval](narval.md), vous pouvez lan
 
 Vous avez maintenant deux options, dont
 
-4.  Sur le côté gauche, sous l'onglet [*Modules logiciels*](jupyterlab.md#software-modules), chargez le module **paraview/6.0.0**.
-5.  Un bouton [*ParaView (VNC)*](jupyterlab.md#paraview) devrait s'afficher. Cliquez sur ce bouton pour démarrer ParaView dans un bureau virtuel.
+4.  Sur le côté gauche, sous l'onglet [*Modules logiciels*](../interactive/jupyterlab.md#software-modules), chargez le module **paraview/6.0.0**.
+5.  Un bouton [*ParaView (VNC)*](../interactive/jupyterlab.md#paraview) devrait s'afficher. Cliquez sur ce bouton pour démarrer ParaView dans un bureau virtuel.
     *   Si ParaView ne démarre pas automatiquement, cliquez sur le raccourci qui se trouve sur le bureau.
 
 Autrement, dans le tableau de bord de JupyterLab
 
-4.  Cliquez sur le [bouton de votre bureau préféré](jupyterlab.md#desktop) pour ouvrir une session dans un bureau virtuel.
+4.  Cliquez sur le [bouton de votre bureau préféré](../interactive/jupyterlab.md#desktop) pour ouvrir une session dans un bureau virtuel.
 5.  Dans ce bureau virtuel, lancez un terminal (habituellement via *Applications > Système ...*) et entrez
 
     ```bash
@@ -216,7 +216,7 @@ Pour vérifier que vous effectuez un rendu parallèle, vous pouvez colorer votre
 
 ### Avec un seul cœur via Open OnDemand
 
-Sur [Nibi](nibi.md) et [Trillium](trillium.md), vous pouvez lancer une instance Open OnDemand à partir d'un portail en utilisant votre compte avec l'Alliance. Connectez-vous à <https://ondemand.sharcnet.ca> (pour Nibi) ou à <https://ondemand.scinet.utoronto.ca> (pour Trillium).
+Sur [Nibi](../clusters/nibi.md) et [Trillium](../clusters/trillium.md), vous pouvez lancer une instance Open OnDemand à partir d'un portail en utilisant votre compte avec l'Alliance. Connectez-vous à <https://ondemand.sharcnet.ca> (pour Nibi) ou à <https://ondemand.scinet.utoronto.ca> (pour Trillium).
 
 Une fois la connexion établie, allez à *Bureau* dans le menu. Sur Nibi il se trouve sous *Nœuds de calcul | Bureau Nibi*. Spécifiez un compte Slurm pour CPU seulement ainsi que d'autres ressources (1 CPU), puis cliquez sur *Lancer*. Attendez que la tâche démarre (*Démarrage* devrait changer à *Exécution*), puis cliquez sur *Lancer le bureau Nibi*. Sur le bureau, ouvrez un terminal et entrez
 
@@ -270,7 +270,7 @@ Pour vérifier que vous effectuez un rendu parallèle, vous pouvez colorer votre
 
 ### Longues tâches interactives
 
-Nous décrivons ici la configuration client-serveur interactive sur tous nos clusters HPC ([Rorqual](rorqual.md), [Nibi](nibi.md), [Fir](fir.md), [Trillium](trillium.md) et [Narval](narval.md)), où un client s'exécute sur votre ordinateur et le serveur à distance sur la grappe.
+Nous décrivons ici la configuration client-serveur interactive sur tous nos clusters HPC ([Rorqual](../clusters/rorqual.md), [Nibi](../clusters/nibi.md), [Fir](fir.md), [Trillium](../clusters/trillium.md) et [Narval](../clusters/narval.md)), où un client s'exécute sur votre ordinateur et le serveur à distance sur la grappe.
 
 !!! note "Remarque 1"
     La même version majeure doit être installée sur le client local et sur l'ordinateur hôte à distance; dans le cas contraire, certaines incompatibilités peuvent empêcher la connexion client-serveur. Par exemple, pour utiliser la version 6.0.0 du serveur ParaView sur nos grappes, vous avez besoin de la version client 6.0.0 sur votre ordinateur.
@@ -341,7 +341,7 @@ Pour vérifier que vous effectuez un rendu parallèle, vous pouvez colorer votre
 
 ### Production en lots
 
-Pour des tâches de visualisation longues, intensives et automatisées, nous vous recommandons fortement de passer à une visualisation par lots hors écran. ParaView prend en charge les scripts Python en entrée, ce qui vous permet de programmer votre flux de travail de visualisation et de le lui soumettre via une tâche de calcul standard, possiblement parallèle, sur une grappe. Si vous avez besoin d'assistance, contactez le [soutien technique](technical-support.md).
+Pour des tâches de visualisation longues, intensives et automatisées, nous vous recommandons fortement de passer à une visualisation par lots hors écran. ParaView prend en charge les scripts Python en entrée, ce qui vous permet de programmer votre flux de travail de visualisation et de le lui soumettre via une tâche de calcul standard, possiblement parallèle, sur une grappe. Si vous avez besoin d'assistance, contactez le [soutien technique](../support/technical_support.md).
 
 Pour un rendu séquentiel, la procédure devrait ressembler à
 
@@ -382,7 +382,7 @@ Nous décrivons ici la configuration et le flux de travail pour exécuter un ser
 
 ## Prérequis
 
-La page [Cloud : Guide de démarrage](cloud-quick-start.md) décrit la création d'une machine virtuelle. Une fois connecté à la machine virtuelle, vous devrez installer certains paquets pour pouvoir compiler ParaView et VisIt; par exemple, sur une instance CentOS, entrez
+La page [Cloud : Guide de démarrage](../cloud/cloud_quick_start.md) décrit la création d'une machine virtuelle. Une fois connecté à la machine virtuelle, vous devrez installer certains paquets pour pouvoir compiler ParaView et VisIt; par exemple, sur une instance CentOS, entrez
 
 ```bash
 name@VM $ sudo yum install xauth wget gcc gcc-c++ ncurses-devel python-devel libxcb-devel

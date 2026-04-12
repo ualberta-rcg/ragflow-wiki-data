@@ -107,7 +107,7 @@ The key's randomart image is:
 ```
 
 When prompted, enter a passphrase. If you already have key pairs saved with the default names, you should enter a different file name for the new keys to avoid overwriting existing key pairs.
-More details on best practices can be found [here](ssh-keys.md#best-practices-for-key-pairs).
+More details on best practices can be found [here](ssh_keys.md#best-practices-for-key-pairs).
 
 ## Creating a key pair backed by a hardware security key
 Some sites now support the use of SSH keys backed by a hardware security key (e.g., YubiKey). If you need one of these keys, you can generate it with the `ssh-keygen` command:
@@ -148,7 +148,7 @@ You will be prompted to both enter a passphrase and activate a hardware security
 
 ## Installing via CCDB
 We encourage all users to leverage the new CCDB feature to install their SSH public key. This will make the key available to all our clusters.
-Grab the content of your public key (called *id_rsa.pub* in the above case) and upload it to CCDB as per step 3 of [these instructions](ssh-keys.md#using-ccdb).
+Grab the content of your public key (called *id_rsa.pub* in the above case) and upload it to CCDB as per step 3 of [these instructions](ssh_keys.md#using-ccdb).
 
 The simplest, safest way to install a key to a remote system is by using the `ssh-copy-id` command:
 ```bash

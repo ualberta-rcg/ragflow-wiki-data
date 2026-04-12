@@ -217,7 +217,7 @@ As is written at the bottom of this display, you can edit a value by pressing th
  USE_GSL_OMP                      OFF
  USE_OMP                          OFF
 ```
-As you can see, `ccmake` in advanced mode displays equally well the libraries that were found as those that were not found. If you would like to use a specific version of [BLAS](blas-and-lapack.md) for example, you will immediately know which one was found by CMake, and modify this if necessary. `ccmake` also displays the list of flags that are passed to the C, C++, and other compilers, to the linker, depending on the build type.
+As you can see, `ccmake` in advanced mode displays equally well the libraries that were found as those that were not found. If you would like to use a specific version of [BLAS](blas_and_lapack.md) for example, you will immediately know which one was found by CMake, and modify this if necessary. `ccmake` also displays the list of flags that are passed to the C, C++, and other compilers, to the linker, depending on the build type.
 
 ### Command line options
 All command line options that are displayed by `ccmake` can be modified on the command line, using the following syntax:

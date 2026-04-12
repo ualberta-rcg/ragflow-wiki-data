@@ -102,8 +102,8 @@ Transformers is a Python package that provides APIs and tools to easily download
 
 Our recommendation is to install it using our provided Python [wheel](https://pythonwheels.com/) as follows:
 
-1.  Load a Python [module](utiliser-des-modules.md#sub-command_load), thus `module load python`
-2.  Create and start a [virtual environment](python.md#creating-and-using-a-virtual-environment).
+1.  Load a Python [module](../../programming/utiliser_des_modules.md#sub-command_load), thus `module load python`
+2.  Create and start a [virtual environment](../python.md#creating-and-using-a-virtual-environment).
 3.  Install Transformers in the virtual environment with `pip install`.
 
 ```bash title="(venv) [name@server ~]"
@@ -202,8 +202,8 @@ Datasets is a Python package for easily accessing and sharing datasets for Audio
 
 Our recommendation is to install it using our provided Python [wheel](https://pythonwheels.com/) as follows:
 
-1.  Load a Python [module](utiliser-des-modules.md#sub-command_load), thus `module load python`
-2.  Create and start a [virtual environment](python.md#creating-and-using-a-virtual-environment).
+1.  Load a Python [module](../../programming/utiliser_des_modules.md#sub-command_load), thus `module load python`
+2.  Create and start a [virtual environment](../python.md#creating-and-using-a-virtual-environment).
 3.  Load the Arrow module. This will make the `pyarrow` package (a dependency of Datasets) available inside your virtualenv.
 4.  Install Datasets in the virtual environment with `pip install`.
 
@@ -243,8 +243,8 @@ With a single line of code, you get access to dozens of evaluation methods for d
 
 Our recommendation is to install it using our provided Python [wheel](https://pythonwheels.com/) as follows:
 
-1.  Load a Python [module](utiliser-des-modules.md#sub-command_load), thus `module load python`
-2.  Create and start a [virtual environment](python.md#creating-and-using-a-virtual-environment).
+1.  Load a Python [module](../../programming/utiliser_des_modules.md#sub-command_load), thus `module load python`
+2.  Create and start a [virtual environment](../python.md#creating-and-using-a-virtual-environment).
 3.  Load the Arrow module. This will make the `pyarrow` package (a dependency of Evaluate) available inside your virtualenv.
 4.  Install Evaluate in the virtual environment with `pip install`.
 
@@ -282,8 +282,8 @@ Accelerate is a package that enables any PyTorch code to be run across any distr
 
 Our recommendation is to install it using our provided Python [wheel](https://pythonwheels.com/) as follows:
 
-1.  Load a Python [module](utiliser-des-modules.md#sub-command_load), thus `module load python`
-2.  Create and start a [virtual environment](python.md#creating-and-using-a-virtual-environment).
+1.  Load a Python [module](../../programming/utiliser_des_modules.md#sub-command_load), thus `module load python`
+2.  Create and start a [virtual environment](../python.md#creating-and-using-a-virtual-environment).
 3.  Install Accelerate in the virtual environment with `pip install`.
 
 ```bash title="(venv) [name@server ~]"
@@ -292,7 +292,7 @@ pip install --no-index accelerate
 
 ### Multi-GPU & multi-node jobs with Accelerate
 
-In the example that follows, we use `accelerate` to reproduce our [PyTorch tutorial](pytorch.md#pytorch-with-multiple-gpus) on how to train a model with multiple GPUs distributed over multiple nodes. Notable differences are:
+In the example that follows, we use `accelerate` to reproduce our [PyTorch tutorial](../pytorch.md#pytorch-with-multiple-gpus) on how to train a model with multiple GPUs distributed over multiple nodes. Notable differences are:
 
 1.  Here we ask for only one task per node and we let `accelerate` handle starting the appropriate number of processes (one per GPU) on each node.
 2.  We pass the number of nodes in the job and the individual node IDs in the job to accelerate via the `machine_rank` and `num_machines` arguments respectively. Accelerate handles setting global and local ranks internally.

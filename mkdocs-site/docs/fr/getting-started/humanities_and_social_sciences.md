@@ -58,7 +58,7 @@ La recherche en sciences humaines et sociales utilise des outils de calcul, des 
 *   le développement de compétences de calcul chez les chercheuses et chercheurs du domaine.
 
 !!! tip "Contacter l'équipe SHS"
-    En soutien à la recherche en sciences humaines et sociales, l'[Alliance de recherche numérique du Canada](https://alliancecan.ca/fr) a mis en place une équipe de professionnels. Vous pouvez les [joindre par courriel](technical-support.md#demandes-d-assistance) en ajoutant ***(SHS)*** au début de l'objet du message. Vous pouvez également communiquer directement avec les membres de nos équipes listés ci-dessous.
+    En soutien à la recherche en sciences humaines et sociales, l'[Alliance de recherche numérique du Canada](https://alliancecan.ca/fr) a mis en place une équipe de professionnels. Vous pouvez les [joindre par courriel](../support/technical_support.md#demandes-d-assistance) en ajoutant ***(SHS)*** au début de l'objet du message. Vous pouvez également communiquer directement avec les membres de nos équipes listés ci-dessous.
 
 ## Membres de l'équipe
 
@@ -124,14 +124,14 @@ Des services sont offerts à tous les membres de la communauté de la recherche 
 
 *   **Promotion et rayonnement** - Participation à des conférences, présentations aux universitaires et autres groupes, participation active dans la communauté de la recherche pour mieux comprendre les besoins des chercheuses et chercheurs.
 *   **Collaboration** – Sites partout au Canada pouvant présenter et visionner des vidéoconférences de grande envergure.
-*   **[Infonuagique](cloud.md)** – Espace de développement de machines virtuelles offrant une adresse IP vers l’extérieur.
-*   **[Calcul informatique de pointe](getting-started.md)** – Capacité pouvant varier de celle d’un deuxième ordinateur personnel jusqu’à celle des superordinateurs avec des milliers de cœurs, plusieurs téraoctets de mémoire vive et diverses architectures.
-*   **[Soutien technique](technical-support.md)** – Assistance pour l'architecture de projet et les besoins en ressources par des analystes et consultants ayant des compétences variées, par exemple le choix d'applications spécialisées et l’optimisation de programmes.
+*   **[Infonuagique](../cloud/cloud.md)** – Espace de développement de machines virtuelles offrant une adresse IP vers l’extérieur.
+*   **[Calcul informatique de pointe](getting_started.md)** – Capacité pouvant varier de celle d’un deuxième ordinateur personnel jusqu’à celle des superordinateurs avec des milliers de cœurs, plusieurs téraoctets de mémoire vive et diverses architectures.
+*   **[Soutien technique](../support/technical_support.md)** – Assistance pour l'architecture de projet et les besoins en ressources par des analystes et consultants ayant des compétences variées, par exemple le choix d'applications spécialisées et l’optimisation de programmes.
 *   **[Globus](globus.md)** – Service sécurisé rapide et fiable pour le transfert de fichiers partagés.
-*   **[Nextcloud](nextcloud.md)** – Espace partagé de 50Go de type *Dropbox* réparti sur plusieurs appareils.
+*   **[Nextcloud](../cloud/nextcloud.md)** – Espace partagé de 50Go de type *Dropbox* réparti sur plusieurs appareils.
 *   **[Plateformes et portails de recherche](https://alliancecan.ca/fr/services/calcul-informatique-de-pointe/acces-aux-ressources/concours-pour-lallocation-de-ressources/guide-de-preparation-des-demandes-pour-le-concours-dallocation-des-ressources#heading-allocation-de-ressources-pour-les-plateformes-et-portails-de-recherche)** – Hébergement de données et outils spécialisés pour les communautés de recherche.
-*   **[Logiciels spécialisés](available-software.md)** – Plus de 900 applications et paquets intégrés aux grappes de calcul nationales.
-*   **[Stockage](storage-and-file-management.md)** – Solutions robustes pour le stockage à moyen ou long terme.
+*   **[Logiciels spécialisés](../programming/available_software.md)** – Plus de 900 applications et paquets intégrés aux grappes de calcul nationales.
+*   **[Stockage](../storage-and-data/storage_and_file_management.md)** – Solutions robustes pour le stockage à moyen ou long terme.
 *   **Formation** – Séances régulières de formation sur les compétences de base et cours adaptés sur demande. Consultez la liste des activités de formation ci-dessous.
     *   [Calendrier](https://alliancecan.ca/fr/formation)
         *   [ACENET](https://www.ace-net.ca/training/)
@@ -141,7 +141,7 @@ Des services sont offerts à tous les membres de la communauté de la recherche 
     *   Séances de formation en sciences humaines et sociales
         *   [Hiver 2021](https://hss-series.netlify.app/)
         *   [Hiver 2022](https://hss-series-2022.netlify.app/)
-*   **[Visualisation](visualization.md)** – Expert attitré en visualisation 3D
+*   **[Visualisation](../software/visualization.md)** – Expert attitré en visualisation 3D
 *   **[Applications Windows dans le nuage](https://docs.alliancecan.ca/wiki/Cloud_Quick_Start/fr#Cr%C3%A9er_votre_premi%C3%A8re_instance)**
 
 ## Autres ressources

@@ -49,10 +49,10 @@ status:
   qa_generated: false
 ---
 
-CirQ est une bibliothèque d'informatique quantique à code source ouvert développée en [Python](python.md) par Google, qui permet de construire, optimiser, simuler et exécuter des circuits quantiques. Plus particulièrement, CirQ permet de simuler des circuits sur des configurations spécifiques de qubits, ce qui peut optimiser un circuit pour une certaine architecture de qubits. L'information sur les fonctionnalités de la bibliothèque est disponible dans la [documentation](https://quantumai.google/cirq) et sur le [GitHub](https://github.com/quantumlib/Cirq) de CirQ. Tout comme [Snowflurry](snowflurry.md), CirQ peut être utilisée pour exécuter des circuits quantiques sur l'ordinateur quantique [MonarQ](monarq.md).
+CirQ est une bibliothèque d'informatique quantique à code source ouvert développée en [Python](../python.md) par Google, qui permet de construire, optimiser, simuler et exécuter des circuits quantiques. Plus particulièrement, CirQ permet de simuler des circuits sur des configurations spécifiques de qubits, ce qui peut optimiser un circuit pour une certaine architecture de qubits. L'information sur les fonctionnalités de la bibliothèque est disponible dans la [documentation](https://quantumai.google/cirq) et sur le [GitHub](https://github.com/quantumlib/Cirq) de CirQ. Tout comme [Snowflurry](snowflurry.md), CirQ peut être utilisée pour exécuter des circuits quantiques sur l'ordinateur quantique [MonarQ](../../clusters/monarq.md).
 
 ## Installation
-Le simulateur d'ordinateur quantique CirQ est disponible sur toutes nos grappes. Le langage de programmation [Python](python.md) doit être chargé avant d'y avoir accès. Il est préférable de travailler dans un [environnement virtuel Python](python.md#créer-et-utiliser-un-environnement-virtuel).
+Le simulateur d'ordinateur quantique CirQ est disponible sur toutes nos grappes. Le langage de programmation [Python](../python.md) doit être chargé avant d'y avoir accès. Il est préférable de travailler dans un [environnement virtuel Python](../python.md#créer-et-utiliser-un-environnement-virtuel).
 
 ```bash
 module load python/3.11
@@ -89,7 +89,7 @@ pip install --no-index --requirement ~/cirq-1.4.1-reqs.txt
 python cirq_example.py
 ```
 
-Vous pouvez ensuite [soumettre votre tâche à l'ordonnanceur](running-jobs.md).
+Vous pouvez ensuite [soumettre votre tâche à l'ordonnanceur](../../running-jobs/running_jobs.md).
 
 ## Exemple d'utilisation : États de Bell
 Les états de Bell sont les états les plus simples qui permettent d'expliquer à la fois la superposition et l'intrication sur des qubits.

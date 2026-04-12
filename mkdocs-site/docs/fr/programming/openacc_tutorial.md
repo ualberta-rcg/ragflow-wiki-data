@@ -49,11 +49,11 @@ SHARCNET offre un tutoriel de formation autonome; cliquez sur [Introduction à l
 
 ## Plan des leçons
 
-*   [Introduction](openacc-tutorial-introduction.md)
-*   [Profileurs](openacc-tutorial-profiling.md)
-*   [Ajouter des directives](openacc-tutorial-adding-directives.md)
-*   [Mouvement des données](openacc-tutorial-data-movement.md)
-*   [Optimiser les boucles](openacc-tutorial-optimizing-loops.md)
+*   [Introduction](openacc_tutorial_-_introduction.md)
+*   [Profileurs](openacc_tutorial_-_profiling.md)
+*   [Ajouter des directives](openacc_tutorial_-_adding_directives.md)
+*   [Mouvement des données](openacc_tutorial_-_data_movement.md)
+*   [Optimiser les boucles](openacc_tutorial_-_optimizing_loops.md)
 
 ## Références
 

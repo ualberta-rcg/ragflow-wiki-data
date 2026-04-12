@@ -83,13 +83,13 @@ Voir [Quand migrer une tâche sur une instance](#quand-migrer-une-tache-sur-une-
 !!! attention "Attention"
     Veuillez noter que les API graphiques ne sont pas prises en charge (par exemple OpenGL, Vulkan, etc.); voir [Application Considerations](https://docs.nvidia.com/datacenter/tesla/mig-user-guide/index.html#application-considerations).
 
-Les tâches avec GPU qui nécessitent de nombreux cœurs CPU par GPU peuvent également nécessiter un GPU entier au lieu d'une instance. Le nombre maximum de cœurs CPU par instance dépend du [nombre maximum de cœurs CPU par GPU entier](allocations-and-compute-scheduling.md#ratios-dans-les-bundles) et des [profils MIG qui sont configurés](https://docs.nvidia.com/datacenter/tesla/mig-user-guide/index.html#a100-profiles). Ces deux caractéristiques varient d'une grappe à l'autre et d'un nœud GPU à l'autre.
+Les tâches avec GPU qui nécessitent de nombreux cœurs CPU par GPU peuvent également nécessiter un GPU entier au lieu d'une instance. Le nombre maximum de cœurs CPU par instance dépend du [nombre maximum de cœurs CPU par GPU entier](../running-jobs/allocations_and_compute_scheduling.md#ratios-dans-les-bundles) et des [profils MIG qui sont configurés](https://docs.nvidia.com/datacenter/tesla/mig-user-guide/index.html#a100-profiles). Ces deux caractéristiques varient d'une grappe à l'autre et d'un nœud GPU à l'autre.
 
 ## Configurations disponibles
 
 [Plusieurs configurations et profils MIG sont possibles](https://docs.nvidia.com/datacenter/tesla/mig-user-guide/index.html#supported-mig-profiles), mais les profils suivants dépendent du système :
-*   [NVIDIA A100-40gb pour Narval](narval.md#instances-gpu)
-*   [NVIDIA H100-80gb pour Rorqual](rorqual.md#instances-gpu)
+*   [NVIDIA A100-40gb pour Narval](../clusters/narval.md#instances-gpu)
+*   [NVIDIA H100-80gb pour Rorqual](../clusters/rorqual.md#instances-gpu)
 *   Nibi:
     *   nvidia_h100_80gb_hbm3_1g.10gb
     *   nvidia_h100_80gb_hbm3_2g.20gb
@@ -103,7 +103,7 @@ Pour la liste de tous les gabarits (et le nom complet des GPU) sur une grappe en
 sinfo -o "%G"|grep gpu|sed 's/gpu://g'|sed 's/),/\n/g'|cut -d: -f1|sort|uniq
 ```
 
-Pour connaître le maximum recommandé de cœurs CPU et de mémoire système par instance, voir [le tableau des ratios](allocations-and-compute-scheduling.md#ratios-dans-les-bundles).
+Pour connaître le maximum recommandé de cœurs CPU et de mémoire système par instance, voir [le tableau des ratios](../running-jobs/allocations_and_compute_scheduling.md#ratios-dans-les-bundles).
 
 ## Exemples
 
@@ -139,4 +139,4 @@ Il faut aussi tenir compte de la quantité maximale de mémoire GPU et de la qua
 
 La tâche a aussi été lancée en utilisant un seul cœur de processeur. En tenant compte de ces trois métriques, nous voyons que la tâche pourrait facilement s'exécuter sur une instance de 3 g.20 Go ou de 4 g.20 Go avec de la puissance et de la mémoire à revendre.
 
-Un autre moyen de [surveiller l'utilisation d'une tâche en cours d'exécution](running-jobs.md#surveillance-dune-tache-en-cours) consiste à se connecter au nœud sur lequel la tâche se trouve et utiliser `nvidia-smi` pour lire les métriques du GPU en temps réel. Cela ne fournira pas de valeurs maximales et moyennes pour la mémoire et la puissance de toute la tâche, mais pourrait être utile pour identifier une sous-utilisation du GPU.
+Un autre moyen de [surveiller l'utilisation d'une tâche en cours d'exécution](../running-jobs/running_jobs.md#surveillance-dune-tache-en-cours) consiste à se connecter au nœud sur lequel la tâche se trouve et utiliser `nvidia-smi` pour lire les métriques du GPU en temps réel. Cela ne fournira pas de valeurs maximales et moyennes pour la mémoire et la puissance de toute la tâche, mais pourrait être utile pour identifier une sous-utilisation du GPU.

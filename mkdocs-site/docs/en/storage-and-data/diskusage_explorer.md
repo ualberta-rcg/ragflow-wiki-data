@@ -38,9 +38,9 @@ status:
 ## Content of folders
 
 !!! warning
-    This tool is currently only available on [Narval](narval.md).
+    This tool is currently only available on [Narval](../clusters/narval.md).
 
-You can get a breakdown by folder of how the disk space is being consumed in your `/home`, `/scratch` and `/project` spaces. That information is currently updated once a day and is stored in an [SQLite](sqlite.md) format for fast access.
+You can get a breakdown by folder of how the disk space is being consumed in your `/home`, `/scratch` and `/project` spaces. That information is currently updated once a day and is stored in an [SQLite](../software/sqlite.md) format for fast access.
 
 Here is how to explore your disk consumption, using the example of `/project` space `def-professor` as the particular directory to investigate.
 
@@ -72,7 +72,7 @@ A complete manual page is available with the `man duc` command.
 !!! note
     We recommend the use of the standard text-based ncurse mode on our cluster login nodes but `diskusage_explorer` does also include a nice graphical user interface (GUI).
 
-First, make sure that you are connected to the cluster in such a way that [SSH](ssh.md) is capable of correctly displaying GUI applications. You can then use a graphical interface by means of the command,
+First, make sure that you are connected to the cluster in such a way that [SSH](../getting-started/ssh.md) is capable of correctly displaying GUI applications. You can then use a graphical interface by means of the command,
 
 ```bash
 duc gui -d /project/.duc_databases/def-professor.sqlite  /project/def-professor

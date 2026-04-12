@@ -51,7 +51,7 @@ status:
   qa_generated: false
 ---
 
-In certain domains, notably [AI and Machine Learning](ai-and-machine-learning.md), it is common to have to manage very large collections of files, meaning hundreds of thousands or more. The individual files may be fairly small, e.g. less than a few hundred kilobytes. In these cases, a problem arises due to [filesystem quotas](storage-and-file-management.md#filesystem-quotas-and-policies) on our clusters that limit the number of filesystem objects. Very large numbers of files, particularly small ones, create significant problems for the performance of these shared filesystems as well as the automated backup of the home and project spaces.
+In certain domains, notably [AI and Machine Learning](../software/ai-ml/ai_and_machine_learning.md), it is common to have to manage very large collections of files, meaning hundreds of thousands or more. The individual files may be fairly small, e.g. less than a few hundred kilobytes. In these cases, a problem arises due to [filesystem quotas](storage_and_file_management.md#filesystem-quotas-and-policies) on our clusters that limit the number of filesystem objects. Very large numbers of files, particularly small ones, create significant problems for the performance of these shared filesystems as well as the automated backup of the home and project spaces.
 
 So how can a user or group of users store these necessary datasets on the cluster? In this page we will present a variety of different solutions, each with its own pros and cons, so you may judge for yourself which is appropriate for you.
 
@@ -118,17 +118,17 @@ The `/tmp` file system can be used as a RAM disk on the compute nodes. It is imp
 
 #### dar
 
-Disk archive utility, conceived of as a significant modernization of the venerable [tar](a-tutorial-on-tar.md) tool. For more information, see [Dar](dar.md).
+Disk archive utility, conceived of as a significant modernization of the venerable [tar](a_tutorial_on__tar.md) tool. For more information, see [Dar](dar.md).
 
 #### HDF5
 
-This is a high-performance binary file format that can be used to store a variety of different kinds of data, including extended objects such as matrices but also image data. There exist tools for manipulating HDF5 files in several common programming languages including Python (e.g. [h5py](https://www.h5py.org/)). For more information, see [HDF5](hdf5.md).
+This is a high-performance binary file format that can be used to store a variety of different kinds of data, including extended objects such as matrices but also image data. There exist tools for manipulating HDF5 files in several common programming languages including Python (e.g. [h5py](https://www.h5py.org/)). For more information, see [HDF5](../software/hdf5.md).
 
 #### SQLite
 
-The [SQLite software](https://www.sqlite.org) allows for the use of a relational database which resides entirely in a single file stored on disk, without the need for a database server. The data located in the file can be accessed using standard [SQL](https://en.wikipedia.org/wiki/SQL) (Structured Query Language) commands such as `SELECT` and there are APIs for several common programming languages. Using these APIs you can then interact with your SQLite database inside of a program written in C/C++, Python, R, Java and Perl. Modern relational databases contain datatypes for handling the storage of *binary blobs*, such as the contents of an image file, so storing a collection of 5 or 10 million small PNG or JPEG images inside of a single SQLite file may be much more practical than storing them as individual files. There is the overhead of creating the SQLite database and this approach assumes that you are familiar with SQL and designing a simple relational database with a small number of tables. Note as well that the performance of SQLite can start to degrade for very large database files, several gigabytes or more, in which case you may need to contemplate the use of a more traditional [database server](database-servers.md) using [MySQL](https://www.mysql.com) or [PostgreSQL](https://www.postgresql.org).
+The [SQLite software](https://www.sqlite.org) allows for the use of a relational database which resides entirely in a single file stored on disk, without the need for a database server. The data located in the file can be accessed using standard [SQL](https://en.wikipedia.org/wiki/SQL) (Structured Query Language) commands such as `SELECT` and there are APIs for several common programming languages. Using these APIs you can then interact with your SQLite database inside of a program written in C/C++, Python, R, Java and Perl. Modern relational databases contain datatypes for handling the storage of *binary blobs*, such as the contents of an image file, so storing a collection of 5 or 10 million small PNG or JPEG images inside of a single SQLite file may be much more practical than storing them as individual files. There is the overhead of creating the SQLite database and this approach assumes that you are familiar with SQL and designing a simple relational database with a small number of tables. Note as well that the performance of SQLite can start to degrade for very large database files, several gigabytes or more, in which case you may need to contemplate the use of a more traditional [database server](../cloud/database_servers.md) using [MySQL](https://www.mysql.com) or [PostgreSQL](https://www.postgresql.org).
 
-The SQLite executable is called `sqlite3`. It is available via the [module](utiliser-des-modules.md), which is loaded by default on our systems.
+The SQLite executable is called `sqlite3`. It is available via the [module](../programming/utiliser_des_modules.md), which is loaded by default on our systems.
 
 #### Parallel compression
 

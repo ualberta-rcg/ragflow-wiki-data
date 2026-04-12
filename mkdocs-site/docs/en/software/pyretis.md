@@ -40,7 +40,7 @@ status:
 
 ## Installing PyRETIS
 
-We provide pre-compiled Python Wheels for PyRETIS in our [Wheelhouse](available-python-wheels.md) that are compatible with different versions of Python and can be installed within a [virtual Python environment](python.md#creating-and-using-a-virtual-environment).
+We provide pre-compiled Python Wheels for PyRETIS in our [Wheelhouse](../programming/available_python_wheels.md) that are compatible with different versions of Python and can be installed within a [virtual Python environment](python.md#creating-and-using-a-virtual-environment).
 
 As of July 2020, PyRETIS 2.5.0 is compatible with Python versions 3.6 and 3.7. According to the [PyRETIS installation instructions](http://www.pyretis.org/v2.5.0/user/install.html) the dependency [MDTraj](http://mdtraj.org/) has to be installed **after** PyRETIS.
 

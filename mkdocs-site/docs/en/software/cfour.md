@@ -60,7 +60,7 @@ status:
 The Alliance has signed a [license](http://slater.chemie.uni-mainz.de/cfour/index.php?n=Main.Download) agreement with [Prof. Dr. J. Gauss](https://www.tc.uni-mainz.de/prof-dr-juergen-gauss/) who acts for the developers of the CFOUR Software. 
 
 !!! important "License Agreement for CFOUR"
-    In order to use the current installed version on the Alliance systems, each user must agree to certain conditions. Please [contact support](technical-support.md) with a copy of the following statement:
+    In order to use the current installed version on the Alliance systems, each user must agree to certain conditions. Please [contact support](../support/technical_support.md) with a copy of the following statement:
 
     1.  I will use CFOUR only for academic research.
     2.  I will not copy the CFOUR software, nor make it available to anyone else.
@@ -72,7 +72,7 @@ The Alliance has signed a [license](http://slater.chemie.uni-mainz.de/cfour/inde
 
 ## Module
 
-You can access the MPI version of CFOUR by loading a [module](utiliser-des-modules.md).
+You can access the MPI version of CFOUR by loading a [module](../programming/utiliser_des_modules.md).
 
 ```bash
 module load intel/2023.2.1  openmpi/4.1.5 cfour-mpi/2.1

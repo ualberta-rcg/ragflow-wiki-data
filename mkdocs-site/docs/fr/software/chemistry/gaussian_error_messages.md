@@ -131,7 +131,7 @@ status:
   qa_generated: false
 ---
 
-Page enfant de [Gaussian](gaussian.md)
+Page enfant de [Gaussian](../gaussian.md)
 Cette information a été initialement compilée par le professeur Cory C. Pye.
 
 ## Terminaison normale de Gaussian
@@ -142,9 +142,9 @@ En conditions d'exécution normale, Gaussian termine comme suit :
  Normal termination of Gaussian 16 at Tue Nov 14 15:31:56 2017.
 ```
 Si la tâche échoue sans produire de message d’erreur et que le rapport de sortie semble autrement normal, ceci peut éventuellement indiquer que :
-*   Votre quota a été dépassé (voir [Quotas et politiques](storage-and-file-management.md#quotas-et-politiques));
-*   Le temps d’exécution a été plus long que le temps demandé à [l'ordonnanceur](running-jobs.md) (`--time=HH:MM:SS`);
-*   La mémoire demandée est insuffisante (voir [Suivi des tâches](running-jobs.md#suivi-des-taches)); ou
+*   Votre quota a été dépassé (voir [Quotas et politiques](../../storage-and-data/storage_and_file_management.md#quotas-et-politiques));
+*   Le temps d’exécution a été plus long que le temps demandé à [l'ordonnanceur](../../running-jobs/running_jobs.md) (`--time=HH:MM:SS`);
+*   La mémoire demandée est insuffisante (voir [Suivi des tâches](../../running-jobs/running_jobs.md#suivi-des-taches)); ou
 *   Votre tâche produit des données dont la taille dépasse la capacité du disque local des nœuds de calcul.
 
 ## Écriture erronée

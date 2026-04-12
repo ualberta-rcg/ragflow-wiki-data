@@ -37,9 +37,9 @@ status:
 
 ## Summary
 
-Our team of quantum computing analysts provides expertise, support, and training on quantum computing and hybrid classical-quantum computing. As of January, Calcul Québec offers access to a 24-qubit superconducting quantum computer called [MonarQ](monarq.md), available via the [Narval](narval.md) cluster. See our page v for more details.
+Our team of quantum computing analysts provides expertise, support, and training on quantum computing and hybrid classical-quantum computing. As of January, Calcul Québec offers access to a 24-qubit superconducting quantum computer called [MonarQ](../../clusters/monarq.md), available via the [Narval](../../clusters/narval.md) cluster. See our page v for more details.
 
-See [Getting started with MonarQ](monarq.md#getting-started).
+See [Getting started with MonarQ](../../clusters/monarq.md#getting-started).
 
 **What is quantum computing?**
 

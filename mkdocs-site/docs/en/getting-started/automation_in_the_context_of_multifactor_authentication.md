@@ -68,10 +68,10 @@ An automated workflow which involves some outside machine connecting to a cluste
 
 # Increased Security Measures
 ## Available Only by Request
-If you need to make use of an automated workflow for your research, contact our [technical support](technical-support.md) and request access to an automation node. When contacting us, please explain in detail the type of automation you intend to use. Tell us what commands will be executed and what tools or libraries you will be using to manage the automation.
+If you need to make use of an automated workflow for your research, contact our [technical support](../support/technical_support.md) and request access to an automation node. When contacting us, please explain in detail the type of automation you intend to use. Tell us what commands will be executed and what tools or libraries you will be using to manage the automation.
 
 ## Available Only Through Constrained SSH Keys
-The only accepted means of authentication for the automation nodes is through [SSH keys uploaded to the CCDB](ssh-keys.md#using-ccdb). SSH keys written in your `.ssh/authorized_keys` file are not accepted. Please follow the rule of 'one SSH key per use.' Do not reuse the key for interactive login. Instead, generate a new SSH key specifically for your automation workflow. In addition, the SSH keys **must** obey the following constraints.
+The only accepted means of authentication for the automation nodes is through [SSH keys uploaded to the CCDB](ssh_keys.md#using-ccdb). SSH keys written in your `.ssh/authorized_keys` file are not accepted. Please follow the rule of 'one SSH key per use.' Do not reuse the key for interactive login. Instead, generate a new SSH key specifically for your automation workflow. In addition, the SSH keys **must** obey the following constraints.
 
 ### `restrict`
 This constraint disables port forwarding, agent forwarding, and X11 forwarding. It also disables the pseudo teletype (PTY), blocking most interactive workloads. This is required because these automation nodes are not intended to be used to start long-running or interactive processes. Regular login nodes must be used instead.

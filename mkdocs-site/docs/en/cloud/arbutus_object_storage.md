@@ -74,7 +74,7 @@ The best use of object storage is to store and export items which do not need hi
 
 All Arbutus projects are allocated a default 1TB of object storage. If more is required, you can either request an additional 9TB available through our [Rapid Access Service](https://alliancecan.ca/en/services/advanced-research-computing/accessing-resources/rapid-access-service). More than 10TB must be requested and allocated under the annual [Resource Allocation Competition](https://alliancecan.ca/en/services/advanced-research-computing/accessing-resources/resource-allocation-competition).
 
-Unlike a cluster computing environment, management of a project's object storage containers is self-service. This includes operations such as [backups](backing-up-your-vm.md) because the object store itself is not backed up. For more information about differences between object storage and other cloud storage types, see [Cloud storage options](cloud-storage-options.md).
+Unlike a cluster computing environment, management of a project's object storage containers is self-service. This includes operations such as [backups](backing_up_your_vm.md) because the object store itself is not backed up. For more information about differences between object storage and other cloud storage types, see [Cloud storage options](cloud_storage_options.md).
 
 We offer access to the OpenStack Object Store via two different protocols: Swift or Amazon Simple Storage Service (S3).
 
@@ -84,7 +84,7 @@ Swift is the default and is simpler since you do not have to manage credentials 
 
 ## Establishing access to your Arbutus Object Store
 
-In order to manage your Arbutus Object Store, you will need your own storage access ID and secret key. To generate these, use the [OpenStack command line client](openstack-command-line-clients.md):
+In order to manage your Arbutus Object Store, you will need your own storage access ID and secret key. To generate these, use the [OpenStack command line client](openstack_command_line_clients.md):
 
 ```bash
 openstack ec2 credentials create
@@ -92,10 +92,10 @@ openstack ec2 credentials create
 
 ### Accessing your Arbutus Object Store
 
-Setting access policies cannot be done via a web browser but must be done with a [SWIFT or S3-compatible client](arbutus-object-storage-clients.md). There are several ways to access your data containers:
+Setting access policies cannot be done via a web browser but must be done with a [SWIFT or S3-compatible client](arbutus_object_storage_clients.md). There are several ways to access your data containers:
 
-1.  You can use an [S3-compatible client](arbutus-object-storage-clients.md) (e.g. `s3cmd`).
-2.  You can use [Globus](globus.md#object-storage-on-arbutus).
+1.  You can use an [S3-compatible client](arbutus_object_storage_clients.md) (e.g. `s3cmd`).
+2.  You can use [Globus](../getting-started/globus.md#object-storage-on-arbutus).
 3.  If your object storage policies are set to public (not default), you can use a browser via an HTTPS endpoint:
 
 ```
@@ -105,14 +105,14 @@ https://object-arbutus.alliancecan.ca/PROJECT_ID:DATA_CONTAINER/FILENAME
 ## Managing your Arbutus Object Store
 
 The recommended way to manage buckets and objects in the Arbutus Object Store is by using the `s3cmd` tool, which is available in Linux.
-Our documentation provides specific instructions on [configuring and managing access](accessing-object-storage-with-s3cmd.md) with the `s3cmd` client.
-We can also use other [S3-compatible clients](arbutus-object-storage-clients.md) that are also compatible with Arbutus Object Store.
+Our documentation provides specific instructions on [configuring and managing access](accessing_object_storage_with_s3cmd.md) with the `s3cmd` client.
+We can also use other [S3-compatible clients](arbutus_object_storage_clients.md) that are also compatible with Arbutus Object Store.
 
 In addition, we can perform certain management tasks for our object storage using the [Containers](https://arbutus.cloud.computecanada.ca/project/containers) section under the **Object Store** tab in the [Arbutus OpenStack Dashboard](https://arbutus.cloud.computecanada.ca).
 
 This interface refers to *data containers*, which are also known as *buckets* in other object storage systems.
 
-Using the dashboard, we can create new data containers, upload files, and create directories. Alternatively, we can also create data containers using [S3-compatible clients](arbutus-object-storage-clients.md).
+Using the dashboard, we can create new data containers, upload files, and create directories. Alternatively, we can also create data containers using [S3-compatible clients](arbutus_object_storage_clients.md).
 
 > Please note that data containers are owned by the user who creates them and cannot be manipulated by others.
 > Therefore, you are responsible for managing your data containers and their contents within your cloud project.
@@ -132,7 +132,7 @@ To make a data container accessible to the public, we can change its policy to a
 !!! warning "Attention"
     Be careful with policies because an ill-conceived policy can lock you out of your data container.
 
-Currently, Arbutus Object Storage only supports a [subset](arbutus-object-storage.md#policy-subset) of the AWS specification for [data container policies](https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-iam-policies.html). The following example shows how to create, apply, and view a policy. The first step is to create a policy JSON file:
+Currently, Arbutus Object Storage only supports a [subset](arbutus_object_storage.md#policy-subset) of the AWS specification for [data container policies](https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-iam-policies.html). The following example shows how to create, apply, and view a policy. The first step is to create a policy JSON file:
 
 ```json
 {

@@ -50,14 +50,14 @@ status:
 
 [CUDA](https://developer.nvidia.com/cuda-toolkit) est une plateforme de calcul parallèle et un modèle de programmation développé par NVIDIA pour des calculs généraux utilisant le GPU.
 
-On peut voir CUDA comme étant un ensemble de bibliothèques et de compilateurs C, C++ et Fortran qui permettent de créer des programmes pour les GPU. Pour d'autres outils de programmation pour GPU, consultez le [Tutoriel OpenACC](openacc-tutorial.md).
+On peut voir CUDA comme étant un ensemble de bibliothèques et de compilateurs C, C++ et Fortran qui permettent de créer des programmes pour les GPU. Pour d'autres outils de programmation pour GPU, consultez le [Tutoriel OpenACC](openacc_tutorial.md).
 
 ## Un exemple simple
 
 ### Compilation
-Nous faisons exécuter ici du code créé avec le compilateur CUDA C/C++ `nvcc`. Ce même exemple plus détaillé se trouve à la page [Tutoriel CUDA](cuda-tutorial.md).
+Nous faisons exécuter ici du code créé avec le compilateur CUDA C/C++ `nvcc`. Ce même exemple plus détaillé se trouve à la page [Tutoriel CUDA](../software/cuda_tutorial.md).
 
-Chargez d'abord le [module](utiliser-des-modules.md) CUDA.
+Chargez d'abord le [module](utiliser_des_modules.md) CUDA.
 
 ```bash
 module purge
@@ -106,7 +106,7 @@ nvcc add.cu -o add
 ```
 
 ### Soumission de tâches
-Pour exécuter le programme, créez le script Slurm ci-dessous. Assurez-vous de remplacer `def-someuser` par votre nom de compte (voir [Comptes et projets](running-jobs.md#comptes-et-projets)). Pour les détails sur l'ordonnancement, consultez [Ordonnancement Slurm des tâches avec GPU](using-gpus-with-slurm.md).
+Pour exécuter le programme, créez le script Slurm ci-dessous. Assurez-vous de remplacer `def-someuser` par votre nom de compte (voir [Comptes et projets](../running-jobs/running_jobs.md#comptes-et-projets)). Pour les détails sur l'ordonnancement, consultez [Ordonnancement Slurm des tâches avec GPU](../running-jobs/using_gpus_with_slurm.md).
 ```bash
 #!/bin/bash
 #SBATCH --account=def-someuser
@@ -121,7 +121,7 @@ Soumettez la tâche à l'ordonnanceur.
 sbatch gpu_job.sh
 Submitted batch job 3127733
 ```
-Pour plus d'information sur la commande `sbatch`, l'exécution et le suivi des tâches, consultez [Exécuter des tâches](running-jobs.md).
+Pour plus d'information sur la commande `sbatch`, l'exécution et le suivi des tâches, consultez [Exécuter des tâches](../running-jobs/running_jobs.md).
 
 Le fichier en sortie sera semblable à ceci :
 ```bash
@@ -136,7 +136,7 @@ Si votre programme doit établir des liens avec des bibliothèques incluses avec
 nvcc -lcublas -Xlinker=-rpath,$CUDA_PATH/lib64
 ```
 
-Voyez le [Tutoriel CUDA](cuda-tutorial.md) pour plus de détails sur cet exemple et pour savoir comment utiliser le parallélisme avec les GPU.
+Voyez le [Tutoriel CUDA](../software/cuda_tutorial.md) pour plus de détails sur cet exemple et pour savoir comment utiliser le parallélisme avec les GPU.
 
 ## Dépannage
 

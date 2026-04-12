@@ -68,7 +68,7 @@ status:
 
 It will generate topologies for CNS/XPLOR, [GROMACS](gromacs.md), CHARMM and [AMBER](amber.md), that are based on General Amber Force Field (GAFF) and should be used only with compatible force fields like AMBER and its variants.
 
-We provide [Python wheels](available-python-wheels.md) for ACPYPE for [StdEnv/2020 and StdEnv/2023](standard-software-environments.md) in our wheelhouse that you should install into a [virtual environment](python.md#creating-and-using-a-virtual-environment).
+We provide [Python wheels](../programming/available_python_wheels.md) for ACPYPE for [StdEnv/2020 and StdEnv/2023](../programming/standard_software_environments.md) in our wheelhouse that you should install into a [virtual environment](python.md#creating-and-using-a-virtual-environment).
 
 !!! note
     Please note that you need to load the `openbabel` module before installing ACPYPE and anytime you want to use it.
@@ -180,7 +180,7 @@ As part of the topology generation, ACPYPE will run a short QM calculation to op
 
 For larger molecules or generating topologies for several molecules you should submit a job as shown above.
 
-First the [Python](python.md) and [Open Babel](open-babel.md) need to be loaded.
+First the [Python](python.md) and [Open Babel](open_babel.md) need to be loaded.
 We also download a structure file of Adenosine triphosphate (ATP) from [PubChem](https://pubchem.ncbi.nlm.nih.gov/):
 
 ```bash

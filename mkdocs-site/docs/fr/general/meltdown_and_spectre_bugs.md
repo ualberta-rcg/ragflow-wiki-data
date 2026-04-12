@@ -55,7 +55,7 @@ Les bogues Meltdown et Spectre sont reliés à l'exécution spéculative sous ce
 ### Sur la disponibilité
 Les correctifs ont nécessité la mise à jour du système d'exploitation et le redémarrage des nœuds. Dans le cas des nœuds de calcul, le redémarrage s'est effectué un nœud à la fois, sans impact sur les utilisateurs.
 
-Les mises à jour pour [Graham](graham.md) ont été effectuées entre le 5 et le 31 janvier. La plupart des nœuds étaient à jour en date du 13 janvier 2018.
+Les mises à jour pour [Graham](../clusters/graham.md) ont été effectuées entre le 5 et le 31 janvier. La plupart des nœuds étaient à jour en date du 13 janvier 2018.
 
 ### Sur la performance
 À l'instar de plusieurs groupes de partout au monde, les experts de Calcul Canada ont effectué des tests d'évaluation des performances suite à l'application des correctifs. Alors que certaines estimations montrent une baisse de performance allant de 30 à 50%, d’autres ne signalent qu’un impact minimal.
@@ -73,10 +73,10 @@ Soyez certains que nos équipes déploient tous les efforts possibles pour assur
 !!! warning "Responsabilité de l'utilisateur"
     Notez toutefois que les utilisateurs sont responsables de modifier le système d’exploitation pour **les instances virtuelles opérant sur les ressources infonuagiques** de Calcul Canada (voir ci-dessous).
 
-Si vous éprouvez des problèmes de performance qui pourraient être dus aux présentes mises à jour, contactez le [soutien technique](technical-support.md). Nous apprécions recevoir les données que vous pouvez nous fournir sur les variations de performance avant et après l'application des correctifs. Notez cependant que des modifications au code pourraient être requises pour contrer la baisse de performance, ce qui peut parfois être impossible.
+Si vous éprouvez des problèmes de performance qui pourraient être dus aux présentes mises à jour, contactez le [soutien technique](../support/technical_support.md). Nous apprécions recevoir les données que vous pouvez nous fournir sur les variations de performance avant et après l'application des correctifs. Notez cependant que des modifications au code pourraient être requises pour contrer la baisse de performance, ce qui peut parfois être impossible.
 
 ### Instances virtuelles
-Notre recommandation est d'effectuer des mises à jour fréquentes du système d'exploitation. Pour les différentes distributions Linux, voyez [Mise à jour d'une instance virtuelle](security-considerations-when-running-a-vm.md#mise-a-jour-dune-instance-virtuelle).
+Notre recommandation est d'effectuer des mises à jour fréquentes du système d'exploitation. Pour les différentes distributions Linux, voyez [Mise à jour d'une instance virtuelle](../cloud/security_considerations_when_running_a_vm.md#mise-a-jour-dune-instance-virtuelle).
 
 ## Références
 *   [Site web US-CERT](https://www.us-cert.gov/ncas/alerts/TA18-004A), comprend des liens vers les sites des fournisseurs offrant des correctifs

@@ -48,7 +48,7 @@ status:
   qa_generated: false
 ---
 
-*Parent page: [Running jobs](running-jobs.md)*
+*Parent page: [Running jobs](running_jobs.md)*
 
 If your work consists of a large number of tasks which differ only in some parameter, you can conveniently submit many tasks at once using a *job array*, also known as a *task array* or an *array job*. The individual tasks in the array are distinguished by an environment variable, `$SLURM_ARRAY_TASK_ID`, which Slurm sets to a different value for each task. You set the range of values with the `--array` parameter.
 
@@ -80,7 +80,7 @@ The script references `$SLURM_ARRAY_TASK_ID` to select an input file (named *pro
 Using a job array instead of a large number of separate serial jobs has advantages for you and other users. A waiting job array only produces one line of output in squeue, making it easier for you to read its output. The scheduler does not have to analyze job requirements for each task in the array separately, so it can run more efficiently too.
 
 !!! warning
-    Note that, other than the initial job-submission step with `sbatch`, the load on the scheduler is the same for an array job as for the equivalent number of non-array jobs. The cost of dispatching each array task is the same as dispatching a non-array job. You should not use a job array to submit tasks with very short run times, e.g. much less than an hour. Tasks with run times of only a few minutes should be grouped into longer jobs using [META](meta-a-package-for-job-farming.md), [GLOST](glost.md), [GNU Parallel](gnu-parallel.md), or a shell loop inside a job.
+    Note that, other than the initial job-submission step with `sbatch`, the load on the scheduler is the same for an array job as for the equivalent number of non-array jobs. The cost of dispatching each array task is the same as dispatching a non-array job. You should not use a job array to submit tasks with very short run times, e.g. much less than an hour. Tasks with run times of only a few minutes should be grouped into longer jobs using [META](meta-a-package-for-job-farming.md), [GLOST](glost.md), [GNU Parallel](gnu_parallel.md), or a shell loop inside a job.
 
 ## Example: Multiple directories
 

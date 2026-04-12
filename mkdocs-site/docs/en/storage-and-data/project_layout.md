@@ -51,10 +51,10 @@ status:
   qa_generated: false
 ---
 
-*Parent page: [Storage and file management](storage-and-file-management.md)*
-*See also: [Disk quota exceeded error on /project filesystems](frequently-asked-questions.md#disk-quota-exceeded-error-on-project-filesystems)*
+*Parent page: [Storage and file management](storage_and_file_management.md)*
+*See also: [Disk quota exceeded error on /project filesystems](../getting-started/frequently_asked_questions.md#disk-quota-exceeded-error-on-project-filesystems)*
 
-The project filesystem on our compute clusters is organized on the basis of *groups*. The normal method to access the project space is by means of symbolic links which exist in your home directory. These will have the form `$HOME/projects/group_name` apart from the clusters [Rorqual](rorqual.md) and [Trillium](trillium.md) where the path will take the form `$HOME/links/projects/group_name`.
+The project filesystem on our compute clusters is organized on the basis of *groups*. The normal method to access the project space is by means of symbolic links which exist in your home directory. These will have the form `$HOME/projects/group_name` apart from the clusters [Rorqual](../clusters/rorqual.md) and [Trillium](../clusters/trillium.md) where the path will take the form `$HOME/links/projects/group_name`.
 
 The permissions on the group space are such that it is owned by the principal investigator (PI) for this group and members have read and write permission on this directory. However by default a newly created file will only be readable by group members. If the group wishes to have writeable files, the best approach is to create a special directory for that, for example
 
@@ -68,9 +68,9 @@ followed by
 setfacl -d -m g::rwx $HOME/projects/def-profname/group_writable
 ```
 
-For more on sharing data, file ownership, and access control lists (ACLs), see [Sharing data](sharing-data.md).
+For more on sharing data, file ownership, and access control lists (ACLs), see [Sharing data](sharing_data.md).
 
-The project space is subject to a default quota of 1 TB and 500,000 files per group and which can be increased up to 40 TB of space upon request to [Technical support](technical-support.md). Certain groups may have been awarded significantly higher quotas through the annual [Resource Allocation Competition](https://alliancecan.ca/en/services/advanced-research-computing/accessing-resources/resource-allocation-competition). In this case, you will already have been notified of your group's quota for the coming year. Note that this storage allocation is specific to a particular cluster and cannot normally be transferred to another cluster.
+The project space is subject to a default quota of 1 TB and 500,000 files per group and which can be increased up to 40 TB of space upon request to [Technical support](../support/technical_support.md). Certain groups may have been awarded significantly higher quotas through the annual [Resource Allocation Competition](https://alliancecan.ca/en/services/advanced-research-computing/accessing-resources/resource-allocation-competition). In this case, you will already have been notified of your group's quota for the coming year. Note that this storage allocation is specific to a particular cluster and cannot normally be transferred to another cluster.
 
 To check current usage and available disk space, use
 
@@ -100,7 +100,7 @@ newgrp rrg-profname-ab
 
 and then to copy any data to the appropriate project directory. This will only change your default group for this particular session however - at your next login you will need to reuse the `newgrp` command if you wish to change the default group again.
 
-Note that if you are getting *disk quota exceeded* error messages (see [Disk quota exceeded error on /project filesystems](frequently-asked-questions.md#disk-quota-exceeded-error-on-project-filesystems)), this may well be due to files being associated with the wrong group, notably your personal group, i.e. the one with the same name as your username and which has a quota of only 2 MB. To find and fix the group membership of such files you can use the command
+Note that if you are getting *disk quota exceeded* error messages (see [Disk quota exceeded error on /project filesystems](../getting-started/frequently_asked_questions.md#disk-quota-exceeded-error-on-project-filesystems)), this may well be due to files being associated with the wrong group, notably your personal group, i.e. the one with the same name as your username and which has a quota of only 2 MB. To find and fix the group membership of such files you can use the command
 
 ```bash
 find <directory name> -group $USER -print0 | xargs -0 chgrp -h <group>
@@ -134,12 +134,12 @@ If Sue were to get a RAC award with storage (as is often the case these days), b
 `~/projects/rrg-sue-ab`
 They should use this directory to store and share data related to the research carried out under the RAC award.
 
-For sharing data with someone who doesn't have a role sponsored by Sue—let's say Heather—the simplest thing to do is to change the file permissions so that Heather can read a particular directory or file. See [Sharing data](sharing-data.md) for more details. The best idea is usually to use ACLs to let Heather read a directory. Note that these filesystem permissions can be changed for almost any directory or file, not just those in your `project` space—you could share a directory in your `scratch` too, or just a particular subdirectory of `projects`, if you have several (a default one, one for a RAC, *etc.*).
+For sharing data with someone who doesn't have a role sponsored by Sue—let's say Heather—the simplest thing to do is to change the file permissions so that Heather can read a particular directory or file. See [Sharing data](sharing_data.md) for more details. The best idea is usually to use ACLs to let Heather read a directory. Note that these filesystem permissions can be changed for almost any directory or file, not just those in your `project` space—you could share a directory in your `scratch` too, or just a particular subdirectory of `projects`, if you have several (a default one, one for a RAC, *etc.*).
 
 !!! tip "Best practice for file sharing"
     Restrict file sharing to `/project` and `/scratch`.
 
-One thing to keep in mind when sharing a directory is that Heather will need to be able to descend the entire filesystem structure down to this directory and so she will need to have read and execute permission on each of the directories between `~/projects/def-sue` and the directory containing the file(s) to be shared. We have implicitly assumed here that Heather has an account on the cluster but you can even share with researchers who don't have an Alliance account using a [Globus shared endpoint](globus.md#globus-sharing).
+One thing to keep in mind when sharing a directory is that Heather will need to be able to descend the entire filesystem structure down to this directory and so she will need to have read and execute permission on each of the directories between `~/projects/def-sue` and the directory containing the file(s) to be shared. We have implicitly assumed here that Heather has an account on the cluster but you can even share with researchers who don't have an Alliance account using a [Globus shared endpoint](../getting-started/globus.md#globus-sharing).
 
 If Heather is pursuing a serious and ongoing collaboration with Sue then it may naturally make sense for Sue to sponsor a role for Heather, thereby giving Heather access similar to Bob's, described earlier.
 

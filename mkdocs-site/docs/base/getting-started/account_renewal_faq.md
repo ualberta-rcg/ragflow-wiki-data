@@ -88,7 +88,7 @@ Your primary role must correspond to your main position, generally the one you w
 !!! note
     If you do not renew your primary role during the annual renewal period, your account will be deactivated.
 
-When new roles are activated they are automatically set as the primary role by default, but users can change their primary role at any time (see [Question 1.6](account-renewal-faq.md#can-primary-roles-be-changed) for details).
+When new roles are activated they are automatically set as the primary role by default, but users can change their primary role at any time (see [Question 1.6](account_renewal_faq.md#can-primary-roles-be-changed) for details).
 
 Primary roles are important because it helps us to manage accounts with multiple roles, facilitates communication with those users and helps with reporting.
 
@@ -118,7 +118,7 @@ If you are a faculty member with sponsored users and you allow your account to e
 If your account or those of your sponsored users are no longer needed, you can let them expire. Otherwise, you must request that they be renewed or apply for a new role if your situation or that of your sponsored user(s) have changed.
 
 ### What do I have to do to renew my account?
-You will receive an email during the account renewal period with a link to the account renewal form on the CCDB. Please update your contact information and Field of Research, fill out a short User Satisfaction Survey and update the status of your sponsored roles (e.g. students, postdocs, and so on). Please refer to [Question 1.7](account-renewal-faq.md#my-situation-has-changed-eg-i-am-moving-to-a-new-faculty-position-at-another-canadian-academic-institution-or-i-have-moved-from-masters-to-phd-etc-what-should-i-do) if the roles of any of your sponsored users have changed since last year.
+You will receive an email during the account renewal period with a link to the account renewal form on the CCDB. Please update your contact information and Field of Research, fill out a short User Satisfaction Survey and update the status of your sponsored roles (e.g. students, postdocs, and so on). Please refer to [Question 1.7](account_renewal_faq.md#my-situation-has-changed-eg-i-am-moving-to-a-new-faculty-position-at-another-canadian-academic-institution-or-i-have-moved-from-masters-to-phd-etc-what-should-i-do) if the roles of any of your sponsored users have changed since last year.
 
 University faculty who have sponsored other users will also be asked to update the status of these accounts (i.e. whether they are continuing or their work is done and the sponsorship has therefore ended).
 
@@ -139,7 +139,7 @@ You will receive an email during the account renewal period directing you to the
 
 If your sponsor has marked you as continuing, you may renew your account. You will receive an email during the account renewal period directing you to the account renewal form. Please update your contact information, complete the form and fill out a short user satisfaction survey. Once you have updated and confirmed all of the information, click on the **REQUEST ACCOUNT RENEWAL** button on the left side of the account renewals form to initiate the renewal request. Once done, your account will be renewed immediately or as soon as your sponsor renews their own account.
 
-If your sponsor has indicated that you have moved on, graduated, or changed positions, you will not be able to renew that particular role. Instead, you must apply for a new role that reflects your actual circumstances (new sponsor, institution, position, etc.). Read more [here](account-renewal-faq.md#my-situation-has-changed-eg-i-am-moving-to-a-new-faculty-position-at-another-canadian-academic-institution-or-i-have-moved-from-masters-to-phd-etc-what-should-i-do).
+If your sponsor has indicated that you have moved on, graduated, or changed positions, you will not be able to renew that particular role. Instead, you must apply for a new role that reflects your actual circumstances (new sponsor, institution, position, etc.). Read more [here](account_renewal_faq.md#my-situation-has-changed-eg-i-am-moving-to-a-new-faculty-position-at-another-canadian-academic-institution-or-i-have-moved-from-masters-to-phd-etc-what-should-i-do).
 
 ### I completed the renewal of my account on CCDB but my sponsored role is still deactivated. How can I reactivate it?
 If you completed the renewal of your account on CCDB but your role(s) still show as deactivated, that's because your sponsor has not yet renewed / reactivated their account.

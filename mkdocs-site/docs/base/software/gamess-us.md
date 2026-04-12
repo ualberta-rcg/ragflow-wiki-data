@@ -55,7 +55,7 @@ The General Atomic and Molecular Electronic Structure System (GAMESS) [GAMESS Ho
 ## Running GAMESS
 
 ### Job submission
-Compute Canada clusters use the Slurm scheduler. For more about submitting and monitoring jobs, see [Running jobs](running-jobs.md).
+Compute Canada clusters use the Slurm scheduler. For more about submitting and monitoring jobs, see [Running jobs](../running-jobs/running_jobs.md).
 
 The first step is to prepare a GAMESS input file containing the molecular geometry and a specification of the calculation to be carried out. Please refer to the [GAMESS Documentation](http://www.msg.ameslab.gov/gamess/documentation.html) and particularly Chapter 2 "Input Description" ([PDF available here](http://www.msg.ameslab.gov/gamess/GAMESS_Manual/input.pdf)) for a description of the file format and keywords.
 
@@ -104,7 +104,7 @@ Supplementary output files are written to a location defined by the `USERSCR` en
 ### Running GAMESS on multiple CPUs
 GAMESS calculations can make use of more than one CPU. The number of CPUs available for a calculation is determined by the `--cpus-per-task` setting in the job script.
 
-As GAMESS has been built using [sockets](https://en.wikipedia.org/wiki/Unix_domain_socket) for parallelization, it can only use CPU cores that are located on the same compute node. Therefore the maximum number of CPU cores that can be used for a job is dictated by the size of the nodes in the cluster, e.g. 32 CPU cores per node on [Graham](graham.md).
+As GAMESS has been built using [sockets](https://en.wikipedia.org/wiki/Unix_domain_socket) for parallelization, it can only use CPU cores that are located on the same compute node. Therefore the maximum number of CPU cores that can be used for a job is dictated by the size of the nodes in the cluster, e.g. 32 CPU cores per node on [Graham](../clusters/graham.md).
 
 Quantum chemistry calculations are known to not scale well to large numbers of CPUs as compared to e.g. classical molecular mechanics, which means that they can't use large numbers of CPUs efficiently. Exactly how many CPUs can be used efficiently depends on the number of atoms, the number of basis functions, and the level of theory.
 

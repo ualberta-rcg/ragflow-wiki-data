@@ -45,7 +45,7 @@ Our resources are all administered following best practices for academic researc
     Responsibility for data protection and data privacy rests ultimately with the researcher. Please see [our policies](https://alliancecan.ca/en/policies).
 
 !!! tip
-    Support staff can give guidance on handling of sensitive data, including advice on access control, encryption, storage, and transmission. Please contact [technical support](technical-support.md) for assistance.
+    Support staff can give guidance on handling of sensitive data, including advice on access control, encryption, storage, and transmission. Please contact [technical support](../support/technical_support.md) for assistance.
 
 ## How do you protect my data against hardware failure?
 

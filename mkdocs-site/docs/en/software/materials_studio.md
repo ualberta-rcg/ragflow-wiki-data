@@ -50,7 +50,7 @@ status:
   qa_generated: false
 ---
 
-The Alliance does not have permission to install Materials Studio centrally on all clusters. If you have a license, follow these instructions to install the application in your account. Please note that the current instructions are only valid for older standard software environments, so before beginning you will need to use a command like `module load StdEnv/2016.4` if you are using the default 2020 [standard software environment](standard-software-environments.md).
+The Alliance does not have permission to install Materials Studio centrally on all clusters. If you have a license, follow these instructions to install the application in your account. Please note that the current instructions are only valid for older standard software environments, so before beginning you will need to use a command like `module load StdEnv/2016.4` if you are using the default 2020 [standard software environment](../programming/standard_software_environments.md).
 
 ## Installing Materials Studio 2020
 
@@ -77,7 +77,7 @@ Once this command has completed, log out of the cluster and log back in. You sho
 module load materialsstudio/2020
 ```
 
-In order to be able to access the license server from the compute nodes, you will need to [contact technical support](technical-support.md) so that we can configure our firewall(s) to allow the software to connect to your licence server.
+In order to be able to access the license server from the compute nodes, you will need to [contact technical support](../support/technical_support.md) so that we can configure our firewall(s) to allow the software to connect to your licence server.
 
 ## Installing Materials Studio 2018
 
@@ -104,7 +104,7 @@ Once this command has completed, log out of the cluster and log back in. You sho
 module load materialsstudio/2018
 ```
 
-In order to be able to access the license server from the compute nodes, you will need to [contact technical support](technical-support.md) so that we can configure our firewall(s) to allow the software to connect to your licence server.
+In order to be able to access the license server from the compute nodes, you will need to [contact technical support](../support/technical_support.md) so that we can configure our firewall(s) to allow the software to connect to your licence server.
 
 ### Team installation
 
@@ -203,12 +203,12 @@ fi
 
 ## Installing earlier versions of Materials Studio
 
-If you require an earlier version of Materials Studio than 2018, you will need to install in into an [Apptainer](apptainer.md) container. This involves
+If you require an earlier version of Materials Studio than 2018, you will need to install in into an [Apptainer](containers/apptainer.md) container. This involves
 
 1.  creating an Apptainer container with a compatible distribution of Linux installed in it;
 2.  installing Materials Studio into that container;
 3.  uploading the Apptainer container to your account and using it there.
     *   !!! note "Note"
-        In order to be able to access the license server from the compute nodes, you will need to [contact technical support](technical-support.md) so that we can configure our firewall(s) to allow the software to connect to your license server.
+        In order to be able to access the license server from the compute nodes, you will need to [contact technical support](../support/technical_support.md) so that we can configure our firewall(s) to allow the software to connect to your license server.
 
 Please be aware that you might be restricted to whole-node (single-node) jobs as the version of MPI inside the container might not be able to be used across nodes.

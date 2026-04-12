@@ -35,11 +35,11 @@ status:
   qa_generated: false
 ---
 
-Linux est très utilisé pour les machines virtuelles. Les distributions souvent employées sont AlmaLinux, CentOS, Debian, Fedora et Ubuntu. Vous trouverez ici de l'assistance pour les tâches communes. Il est aussi possible d'utiliser [le système d'exploitation Windows](cloud-quick-start.md#windows).
+Linux est très utilisé pour les machines virtuelles. Les distributions souvent employées sont AlmaLinux, CentOS, Debian, Fedora et Ubuntu. Vous trouverez ici de l'assistance pour les tâches communes. Il est aussi possible d'utiliser [le système d'exploitation Windows](cloud_quick_start.md#windows).
 
 # Gestion des utilisateurs sous Linux
 
-Il existe quelques méthodes pour permettre à plusieurs personnes d'avoir accès à une machine virtuelle. Notre recommandation est de créer de nouveaux comptes d'utilisateur et de leur associer des [clés SSH](ssh-keys.md).
+Il existe quelques méthodes pour permettre à plusieurs personnes d'avoir accès à une machine virtuelle. Notre recommandation est de créer de nouveaux comptes d'utilisateur et de leur associer des [clés SSH](../getting-started/ssh_keys.md).
 
 ## Créer un compte d'utilisateur et ses clés
 
@@ -49,7 +49,7 @@ Pour créer un compte d'utilisateur sur Ubuntu, utilisez la commande suivante :
 sudo adduser --disabled-password USERNAME
 ```
 
-Pour pouvoir se connecter, le nouvel utilisateur devra avoir une paire de clés. Selon le système d'exploitation, voyez [Générer des clés SSH sous Windows](generating-ssh-keys-in-windows.md) ou [Créer une paire de clés](using-ssh-keys-in-linux.md#créer-une-paire-de-clés) sous Linux et Mac. Ajoutez ensuite la clé publique à `/home/USERNAME/.ssh/authorized_keys` pour la machine virtuelle et vérifiez que les permissions et le propriétaire sont corrects, comme indiqué aux étapes 2 et 3 de [Se connecter avec une paire de clés](using-ssh-keys-in-linux.md#se-connecter-avec-une-paire-de-clés).
+Pour pouvoir se connecter, le nouvel utilisateur devra avoir une paire de clés. Selon le système d'exploitation, voyez [Générer des clés SSH sous Windows](../getting-started/generating_ssh_keys_in_windows.md) ou [Créer une paire de clés](../getting-started/using_ssh_keys_in_linux.md#créer-une-paire-de-clés) sous Linux et Mac. Ajoutez ensuite la clé publique à `/home/USERNAME/.ssh/authorized_keys` pour la machine virtuelle et vérifiez que les permissions et le propriétaire sont corrects, comme indiqué aux étapes 2 et 3 de [Se connecter avec une paire de clés](../getting-started/using_ssh_keys_in_linux.md#se-connecter-avec-une-paire-de-clés).
 
 ## Privilèges admin
 
@@ -71,5 +71,5 @@ Pour plus d'information sur la commande `visudo` et sur comment modifier le fich
 
 Référez-vous aux pages suivantes :
 
-*   [Récupération des données d'une machine virtuelle compromise](recovering-data-from-a-compromised-vm.md)
-*   [Récupération d'une machine virtuelle via la console](vm-recovery-via-cloud-console.md)
+*   [Récupération des données d'une machine virtuelle compromise](recovering_data_from_a_compromised_vm.md)
+*   [Récupération d'une machine virtuelle via la console](vm_recovery_via_cloud_console.md)

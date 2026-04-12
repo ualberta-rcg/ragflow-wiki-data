@@ -54,6 +54,6 @@ However, if you have access to the source code of the software and/or if you are
 
 ## Resubmitting a Job for Long-Running Computations
 
-If you plan on breaking up a lengthy computation into several Slurm jobs, there are [two recommended methods](running-jobs.md#resubmitting-jobs-for-long-running-computations):
-*   [using Slurm job arrays](running-jobs.md#restarting-using-job-arrays);
-*   [resubmission from the end of the job script](running-jobs.md#resubmission-from-the-job-script).
+If you plan on breaking up a lengthy computation into several Slurm jobs, there are [two recommended methods](running_jobs.md#resubmitting-jobs-for-long-running-computations):
+*   [using Slurm job arrays](running_jobs.md#restarting-using-job-arrays);
+*   [resubmission from the end of the job script](running_jobs.md#resubmission-from-the-job-script).

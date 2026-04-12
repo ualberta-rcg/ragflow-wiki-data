@@ -67,18 +67,18 @@ status:
 
 *Parent page: [Cloud](cloud.md)*
 
-Images are files which contain the contents of a virtual disk. Images often contain a base operating system used to create a volume or an ephemeral disk from which a virtual machine boots. An ephemeral disk is a virtual disk file which resides on the host (or hypervisor) where the virtual machine runs. Ephemeral disk files are destroyed when a VM is destroyed, in contrast to [volumes](working-with-volumes.md). Images are portable in that they can be downloaded from the cloud, used to create a virtual machine using virtual box or similar on your laptop, and uploaded to another cloud and used to create a new virtual machine. This is not the case with volumes or ephemeral disks. Images come in a variety of formats. Some commonly encountered formats are: raw, qcow2, vmdk, and vdi.
+Images are files which contain the contents of a virtual disk. Images often contain a base operating system used to create a volume or an ephemeral disk from which a virtual machine boots. An ephemeral disk is a virtual disk file which resides on the host (or hypervisor) where the virtual machine runs. Ephemeral disk files are destroyed when a VM is destroyed, in contrast to [volumes](working_with_volumes.md). Images are portable in that they can be downloaded from the cloud, used to create a virtual machine using virtual box or similar on your laptop, and uploaded to another cloud and used to create a new virtual machine. This is not the case with volumes or ephemeral disks. Images come in a variety of formats. Some commonly encountered formats are: raw, qcow2, vmdk, and vdi.
 
 !!! warning
     If sharing your virtual machine images, be sure to remove sensitive information such as public/private keys, configuration files containing passwords, etc. If uploading an image created from a VirtualBox virtual machine to our clouds, it must have cloud-init installed and configured correctly (see OpenStack docs on [creating images manually](https://docs.openstack.org/image-guide/create-images-manually.html) for more details).
 
-For a list of images provided by our staff, see [images](cloud-resources.md#images).
+For a list of images provided by our staff, see [images](cloud_resources.md#images).
 
 # Creating an image from a VM
 The procedure for creating an image of a VM depends on whether it is booting from a volume (typically "p" flavours), or from an ephemeral disk (typically "c" flavours).
 
 ## If booting from an ephemeral disk
-The [OpenStack command line clients](openstack-command-line-clients.md) can be used with the command:
+The [OpenStack command line clients](openstack_command_line_clients.md) can be used with the command:
 ```bash
 openstack server image create <server-name>
 ```
@@ -88,7 +88,7 @@ where `<server-name>` should be replaced with the name of your server. This acti
     We recommend the VM be shut off (not deleted) before an image is created from it. If the VM is writing to disk while the image is being created, the filesystem may be captured in an inconsistent state.
 
 ## If booting from a volume
-See [Creating an image from a volume](working-with-volumes.md#creating-an-image-from-a-volume).
+See [Creating an image from a volume](working_with_volumes.md#creating-an-image-from-a-volume).
 
 # Sharing an image with another project
 Sharing an image with another project is a two-step process.
@@ -96,7 +96,7 @@ Sharing an image with another project is a two-step process.
 1.  A member of the project owning the image must share it with a second project.
 2.  A member of the second project must accept the newly shared image.
 
-To share an image a member in the project owning the image uses the [OpenStack](openstack-command-line-clients.md) command below.
+To share an image a member in the project owning the image uses the [OpenStack](openstack_command_line_clients.md) command below.
 ```console
 [name@server]$  glance member-create <IMAGE_ID> <MEMBER_ID>
 +------------+-------------+---------+
@@ -108,7 +108,7 @@ To share an image a member in the project owning the image uses the [OpenStack](
 where
 `<IMAGE_ID>` is the ID of the image to be shared, and `<MEMBER_ID>` is the ID of the project to share it with.
 
-To accept the shared image a member in the second project uses the [OpenStack](openstack-command-line-clients.md#separate-command-line-interfaces) command below.
+To accept the shared image a member in the second project uses the [OpenStack](openstack_command_line_clients.md#separate-command-line-interfaces) command below.
 ```console
 [name@server]$  glance member-update <IMAGE_ID> <MEMBER_ID> <MEMBER_STATUS>
 +------------+-------------+----------+
@@ -130,7 +130,7 @@ To check the status of image membership use the following command.
 ```
 
 # Downloading an image
-The first step is to install the OpenStack client and download the OpenStack RC file and source it (see [OpenStack command line clients](openstack-command-line-clients.md)).
+The first step is to install the OpenStack client and download the OpenStack RC file and source it (see [OpenStack command line clients](openstack_command_line_clients.md)).
 The OpenStack client can list the available images on your OpenStack project with
 ```bash
 openstack image list
@@ -162,7 +162,7 @@ openstack image save --file ./<file-name-for-image>.<format> <ID>
 where `<format>` matches the value in the *Disk format* column and `<ID>` matches the value in the *ID* column.
 
 # Uploading an image
-The first step is to install the OpenStack client and download the OpenStack RC file and source it (see [OpenStack command line clients](openstack-command-line-clients.md)).
+The first step is to install the OpenStack client and download the OpenStack RC file and source it (see [OpenStack command line clients](openstack_command_line_clients.md)).
 Then run the command
 ```bash
 openstack image create --file <path-to-local-file-image> --disk-format <format> <new-image-name>

@@ -84,7 +84,7 @@ status:
 The Alliance offers access to MySQL and Postgres database servers for researchers on both Cedar and Graham.
 
 !!! note
-    As of January 13, 2025, the Graham cluster will be operating at approximately 25% capacity (see [details here](graham.md#graham-reduction)) until [Nibi](nibi.md) is available. No database server will be provided on Graham during the transition to the new system.
+    As of January 13, 2025, the Graham cluster will be operating at approximately 25% capacity (see [details here](../clusters/graham.md#graham-reduction)) until [Nibi](../clusters/nibi.md) is available. No database server will be provided on Graham during the transition to the new system.
 
 | Information | Cedar - MySQL | Cedar - Postgres | Graham - MySQL |
 | :---------- | :------------ | :--------------- | :------------- |
@@ -104,14 +104,14 @@ For security, users cannot make an SSH connection to the database server directl
 
 ### MySQL account and connection
 
-If you need the privileges to create your own database, you will need a MySQL account. To get a MySQL account on the Cedar MySQL server, please send a request to our [Technical support](technical-support.md) with the following information:
+If you need the privileges to create your own database, you will need a MySQL account. To get a MySQL account on the Cedar MySQL server, please send a request to our [Technical support](../support/technical_support.md) with the following information:
 
 *   Your Alliance username
 *   Amount of database space needed for your project
 
 We will then create an MySQL account with the same username as your Alliance username and a 16 digit random string password. The username, password, database server name, and other information required to make a MySQL connection will be stored in a file called `.my.cnf` in your home directory. This file is confidential. You cannot change its contents but you can read it or delete it. If the file is deleted, you will lose access to your database.
 
-Run the "mysql" client to connect to the MySQL server. An older version of the client may be available without loading a [module](utiliser-des-modules.md), but it will not give you access the latest features on the MySQL server. We recommend issuing the following commands to load a more recent version of the client:
+Run the "mysql" client to connect to the MySQL server. An older version of the client may be available without loading a [module](../programming/utiliser_des_modules.md), but it will not give you access the latest features on the MySQL server. We recommend issuing the following commands to load a more recent version of the client:
 
 ```bash
 module load mariadb
@@ -128,7 +128,7 @@ MariaDB [(none)]> quit
 
 **Do not** use the `-p` or `-h` options as arguments when running `mysql`. The required password and server name are taken automatically from your `.my.cnf` file.
 
-It is acceptable to submit a long-running SQL command from the head node, as most of the CPU usage is taken from the database server side. However, if you run a script which issues SQL commands and uses lots of CPU, then it needs to be submitted as a job to the scheduler. See [Running jobs](running-jobs.md) for details.
+It is acceptable to submit a long-running SQL command from the head node, as most of the CPU usage is taken from the database server side. However, if you run a script which issues SQL commands and uses lots of CPU, then it needs to be submitted as a job to the scheduler. See [Running jobs](../running-jobs/running_jobs.md) for details.
 
 ### Set up your MySQL database
 
@@ -194,7 +194,7 @@ The Cedar PostgreSQL server runs as a VM called "cedar-pgsql-vm" (full name: ced
 
 For security, users cannot make an SSH connection to the database server directly.
 
-To get an account and database on the Cedar PostgreSQL server, send a request to our [Technical support](technical-support.md) with the following information:
+To get an account and database on the Cedar PostgreSQL server, send a request to our [Technical support](../support/technical_support.md) with the following information:
 
 *   Your Alliance username
 *   Amount of database space needed for your project
@@ -202,11 +202,11 @@ To get an account and database on the Cedar PostgreSQL server, send a request to
 
 ### PostgreSQL account and connection
 
-The PostgreSQL account we create for you will have the same username as your Alliance username. You will be given a database. The name of the database will typically be "<username>_db" where <username> is your Alliance username. You cannot create a database yourself. If you need more than one database, please send a request to [Technical support](technical-support.md).
+The PostgreSQL account we create for you will have the same username as your Alliance username. You will be given a database. The name of the database will typically be "<username>_db" where <username> is your Alliance username. You cannot create a database yourself. If you need more than one database, please send a request to [Technical support](../support/technical_support.md).
 
 You do not need to supply a password to access your PostgreSQL account. For security reasons your Alliance password must NEVER be required or used in a script. This also means that one user cannot access another user's database directly.
 
-Run the "psql" client to connect to the PostgreSQL server. An older version of the client may be available without loading a [module](utiliser-des-modules.md), but it will not give you access to the latest features of PostgreSQL. We recommend loading the following module to use a more recent version of the client:
+Run the "psql" client to connect to the PostgreSQL server. An older version of the client may be available without loading a [module](../programming/utiliser_des_modules.md), but it will not give you access to the latest features of PostgreSQL. We recommend loading the following module to use a more recent version of the client:
 
 ```bash
 module load postgresql
@@ -289,7 +289,7 @@ module load mysql
 
 ### Database as a Service (DBaaS)
 
-If a VM is not sufficient to run a database load, a managed database can be used instead, the current offering includes MySQL/MariaDB and Postgres on a physical system. The database systems as well as all databases are being backed up once a day. The backups are archived for 3 months. To request access, please contact [Technical support](technical-support.md).
+If a VM is not sufficient to run a database load, a managed database can be used instead, the current offering includes MySQL/MariaDB and Postgres on a physical system. The database systems as well as all databases are being backed up once a day. The backups are archived for 3 months. To request access, please contact [Technical support](../support/technical_support.md).
 
 !!! note
     Please provide in your request the client network or IP address you will access the database from.

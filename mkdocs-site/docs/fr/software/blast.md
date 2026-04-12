@@ -144,7 +144,7 @@ Par exemple, pour le fichier `seq.fa` de `100Mo`, vous pourriez lire des blocs d
 !!! warning "La taille des blocs est donc importante."
     On peut aussi laisser GNU Parallel décider, comme dans l'exemple ci-dessous.
 
-Voir aussi [Travailler avec des fichiers volumineux](gnu-parallel.md#travailler-avec-des-fichiers-volumineux) dans la page sur GNU Parallel.
+Voir aussi [Travailler avec des fichiers volumineux](../running-jobs/gnu_parallel.md#travailler-avec-des-fichiers-volumineux) dans la page sur GNU Parallel.
 
 #### Utiliser plusieurs cœurs dans un nœud
 ```bash title="blastn_gnu.sh"

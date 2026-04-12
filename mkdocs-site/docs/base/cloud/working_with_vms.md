@@ -51,16 +51,16 @@ To **lock** a VM, click on the "Lock Instance" option from the Actions drop-down
 To **unlock** a VM, select the "Unlock Instance" from the Actions drop-down menu on the dashboard.
 
 ## Resizing VMs
-It is possible to resize a VM by changing its flavour. However, there are some things to be aware of when choosing to resize a VM, which depends on whether you have a "p" flavour or a "c" flavour VM (see [Virtual machine flavours](virtual-machine-flavors.md)).
+It is possible to resize a VM by changing its flavour. However, there are some things to be aware of when choosing to resize a VM, which depends on whether you have a "p" flavour or a "c" flavour VM (see [Virtual machine flavours](virtual_machine_flavors.md)).
 
 !!! warning "Resizing VMs"
-    Resizing a VM may involve some risk as it is similar to deleting and recreating your VM with a new flavour. If in doubt, contact cloud [technical support](technical-support.md).
+    Resizing a VM may involve some risk as it is similar to deleting and recreating your VM with a new flavour. If in doubt, contact cloud [technical support](../support/technical_support.md).
 
 ### c flavours
 "c" flavours often have extra ephemeral drives, which will be resized when you choose a new "c" flavour. These ephemeral drives cannot become smaller, and as such "c" flavour VMs can only be resized to flavours with equal or larger ephemeral drives. After resizing, however, you will not immediately see a larger ephemeral drive within your VM (e.g., the [`df -h`](https://en.wikipedia.org/wiki/Df_(Unix)) command will not show the size increase). To see this extra space, you will need to resize your filesystem (see the [`resize2fs`](https://linux.die.net/man/8/resize2fs) command).
 
 !!! warning "Filesystem Resizing"
-    Filesystem resizes should be treated with caution and can take considerable time if the partitions are large. Before resizing a filesystem, it is recommended to create backups of its contents (see [backing up your VM](backing-up-your-vm.md)).
+    Filesystem resizes should be treated with caution and can take considerable time if the partitions are large. Before resizing a filesystem, it is recommended to create backups of its contents (see [backing up your VM](backing_up_your_vm.md)).
 
 ### p flavours
 Unlike "c" flavours, "p" flavours do not typically have extra ephemeral drives associated with them, so they can be resized to larger and smaller flavours.

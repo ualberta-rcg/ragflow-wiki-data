@@ -106,12 +106,12 @@ status:
 # JupyterLab
 JupyterLab is the recommended general-purpose user interface to use on a JupyterHub. From a JupyterLab server, you can manage your remote files and folders, and you can launch Jupyter applications like a terminal, (Python 3) notebooks, RStudio and a Linux desktop.
 
-You can add your own "kernels", which appear as application tiles described below. To configure such kernels, please see [Adding kernels](jupyter-notebook.md#adding-kernels).
+You can add your own "kernels", which appear as application tiles described below. To configure such kernels, please see [Adding kernels](jupyternotebook.md#adding-kernels).
 
 ## Launching JupyterLab
 There are a few ways to launch JupyterLab.
 
-The traditional way would be to use [JupyterHub](jupyter-hub.md#jupyterhub-on-clusters), but more recently, sites have deployed Open OnDemand which sometimes can launch the interface below. In the table below, the column "Fully-featured" indicates whether the JupyterLab interface available has all of the features described below. If there is a link, it is to that cluster's JupyterHub or Open OnDemand server.
+The traditional way would be to use [JupyterHub](jupyterhub.md#jupyterhub-on-clusters), but more recently, sites have deployed Open OnDemand which sometimes can launch the interface below. In the table below, the column "Fully-featured" indicates whether the JupyterLab interface available has all of the features described below. If there is a link, it is to that cluster's JupyterHub or Open OnDemand server.
 
 | Cluster   | JupyterHub Available | JupyterHub Fully-featured | Open OnDemand Available | Open OnDemand JupyterLab | Open OnDemand Fully-featured |
 | :-------- | :------------------- | :------------------------ | :---------------------- | :----------------------- | :--------------------------- |
@@ -125,11 +125,11 @@ The traditional way would be to use [JupyterHub](jupyter-hub.md#jupyterhub-on-cl
 | Vulcan    | No                   | No                        | [Yes](https://vulcan.alliancecan.ca/) | Yes                      | Yes                          |
 
 !!! warning
-    It is also possible to launch JupyterLab by [installing it yourself in a virtual environment](advanced-jupyter-configuration.md), but this is not recommended. You will also not benefit from any of the pre-configured applications described below.
+    It is also possible to launch JupyterLab by [installing it yourself in a virtual environment](../getting-started/advanced_jupyter_configuration.md), but this is not recommended. You will also not benefit from any of the pre-configured applications described below.
 
 ## The JupyterLab interface
 
-When you open JupyterLab in one of our most recent clusters, you will be presented with a dashboard pre-populated with a few launchers. Default launchers include Python 3.11, LibreQDA, Mate Desktop (VNC), OpenRefine, RStudio, VS Code and XFCE4 Desktop (VNC). In addition, you may find links to the cluster's [Globus](globus.md) collection, to the cluster's job portal, as well as links to relevant documentation pages. By loading modules, you will see new launchers appear in the dashboard (see below).
+When you open JupyterLab in one of our most recent clusters, you will be presented with a dashboard pre-populated with a few launchers. Default launchers include Python 3.11, LibreQDA, Mate Desktop (VNC), OpenRefine, RStudio, VS Code and XFCE4 Desktop (VNC). In addition, you may find links to the cluster's [Globus](../getting-started/globus.md) collection, to the cluster's job portal, as well as links to relevant documentation pages. By loading modules, you will see new launchers appear in the dashboard (see below).
 
 In the menu bar on the top, please note that in order to close your session, you may do so through the *File* menu:
 *   *Hub Control Panel*: if you want to manually stop the JupyterLab server and the corresponding job on the cluster. This is useful when you want to start a new JupyterLab server with more or less resources.
@@ -150,10 +150,10 @@ This is to stop kernel sessions and terminal sessions
 If your job uses GPUs, this will give you access to some resource monitoring options.
 
 #### *Software Modules*
-This is where you can load or unload [software modules](available-software.md) available in our environment. Depending on the modules loaded, icons directing to the corresponding [Jupyter applications](#prebuilt-applications) will appear in the *Launcher* tab. By default, we load a number of modules to provide you access to basic tools.
+This is where you can load or unload [software modules](../programming/available_software.md) available in our environment. Depending on the modules loaded, icons directing to the corresponding [Jupyter applications](#prebuilt-applications) will appear in the *Launcher* tab. By default, we load a number of modules to provide you access to basic tools.
 
 !!! note
-    The search box can search for any [available module](available-software.md) and show the result in the *Available Modules* subpanel. Some modules are hidden until their dependency is loaded: we recommend that you first look for a specific module with `module spider module_name` from a terminal.
+    The search box can search for any [available module](../programming/available_software.md) and show the result in the *Available Modules* subpanel. Some modules are hidden until their dependency is loaded: we recommend that you first look for a specific module with `module spider module_name` from a terminal.
 
 The next subpanel is the list of *Loaded Modules* in the whole JupyterLab session.
 
@@ -187,7 +187,7 @@ in a cell of your notebook and then restarting your kernel.
 #### VS Code
 VS Code (Visual Studio Code) is a code editor originally developed by Microsoft, but which is an open standard on which [code-server](https://github.com/coder/code-server) is based to make the application available through any browser.
 
-The version which we have installed comes with a large number of [extensions](https://github.com/ComputeCanada/easybuild-easyconfigs-installed-avx2/blob/main/2023/code-server/code-server-4.101.2.eb#L27) pre-installed. For more details, see our page on [Visual Studio Code](visual-studio-code.md).
+The version which we have installed comes with a large number of [extensions](https://github.com/ComputeCanada/easybuild-easyconfigs-installed-avx2/blob/main/2023/code-server/code-server-4.101.2.eb#L27) pre-installed. For more details, see our page on [Visual Studio Code](visual_studio_code.md).
 
 !!! note
     For a new session, the *VS Code* session can take up to 3 minutes to complete its startup.
@@ -209,7 +209,7 @@ It is possible to reopen an active LibreQDA session after the web browser tab wa
 The LibreQDA session will end when the JupyterLab session ends.
 
 #### RStudio
-[RStudio](https://posit.co/download/rstudio-desktop/) is an integrated development environment primarily use for the [R](r.md) language.
+[RStudio](https://posit.co/download/rstudio-desktop/) is an integrated development environment primarily use for the [R](../software/r.md) language.
 
 !!! warning
     We load a default version of the R software, but you may use a different one by loading another version of the `rstudio-server` modules. Please do so **before** launching RStudio, otherwise you may have to restart your JupyterLab session.
@@ -224,7 +224,7 @@ The RStudio session will end when the JupyterLab session ends.
     Note that simply quitting RStudio or closing the RStudio and JupyterHub tabs in your browser will not release the resources (CPU, memory, GPU) nor end the underlying Slurm job. **Please end your session with the menu item `File > Log Out` on the JupyterLab browser tab**.
 
 #### MLflow
-[MLflow](https://mlflow.org/) is an open-source platform, purpose-built to assist machine learning practitioners and teams in handling the complexities of the machine learning process. MLflow focuses on the full lifecycle for machine learning projects, ensuring that each phase is manageable, traceable, and reproducible. We load a default version of MLflow by default, but you may use a different version of it by loading a `mlflow` module. Please see our [MLflow](mlflow.md) page for more information on how to use MLflow to track your AI experiments.
+[MLflow](https://mlflow.org/) is an open-source platform, purpose-built to assist machine learning practitioners and teams in handling the complexities of the machine learning process. MLflow focuses on the full lifecycle for machine learning projects, ensuring that each phase is manageable, traceable, and reproducible. We load a default version of MLflow by default, but you may use a different version of it by loading a `mlflow` module. Please see our [MLflow](../software/ai-ml/mlflow.md) page for more information on how to use MLflow to track your AI experiments.
 
 #### OpenRefine
 [OpenRefine](https://openrefine.org/) is a powerful, free and open-source tool to clean up messy data, to transform it, and to extend it in order to add value to it.
@@ -239,12 +239,12 @@ It is possible to reopen an active OpenRefine session after the web browser tab 
 The OpenRefine session will end when the JupyterLab session ends.
 
 #### Tensorboard
-[Tensorboard](https://www.tensorflow.org/tensorboard) provides the visualization and tooling needed for machine learning experimentation. TensorBoard is a tool for providing the measurements and visualizations needed during the machine learning workflow. It enables tracking experiment metrics like loss and accuracy, visualizing the model graph, projecting embeddings to a lower dimensional space, and much more. We load a default version of `tensorboard`, but if a different module is available, you can change the version. See our page on [Tensorboard](tensorboard.md) for more details on using this software package.
+[Tensorboard](https://www.tensorflow.org/tensorboard) provides the visualization and tooling needed for machine learning experimentation. TensorBoard is a tool for providing the measurements and visualizations needed during the machine learning workflow. It enables tracking experiment metrics like loss and accuracy, visualizing the model graph, projecting embeddings to a lower dimensional space, and much more. We load a default version of `tensorboard`, but if a different module is available, you can change the version. See our page on [Tensorboard](../software/ai-ml/tensorboard.md) for more details on using this software package.
 
 #### Desktop
 Two different Desktop environments are available by default. [Mate Desktop](https://mate-desktop.org/), and [XFCE Desktop](https://www.xfce.org/). You may choose whichever you prefer. XFCE yields a more modern UI, while Mate is lighter to use. These launchers will open or reopen a remote Linux desktop interface in a new web browser tab.
 
-This is equivalent to running a [VNC server on a compute node](vnc.md#compute-nodes), then creating an [SSH tunnel](ssh-tunnelling.md) and finally using a [VNC client](vnc.md#setup), but you need nothing of all this with JupyterLab!
+This is equivalent to running a [VNC server on a compute node](vnc.md#compute-nodes), then creating an [SSH tunnel](../getting-started/ssh_tunnelling.md) and finally using a [VNC client](vnc.md#setup), but you need nothing of all this with JupyterLab!
 
 !!! note
     For a new session, the *Desktop* session can take up to 3 minutes to complete its startup.
@@ -270,10 +270,10 @@ The terminal allows copy-and-paste operations of text:
 *   Paste operation: press Ctrl+V.
 
 #### Globus
-If [Globus](globus.md) is available on the cluster you are using, you may see this icon. This will open your browser to the corresponding Globus collection.
+If [Globus](../getting-started/globus.md) is available on the cluster you are using, you may see this icon. This will open your browser to the corresponding Globus collection.
 
 #### Metrix
-If the [Metrix job portal](metrix.md) is available on the cluster you are using, this icon will open a page with the statistics of your job.
+If the [Metrix job portal](../software/metrix.md) is available on the cluster you are using, this icon will open a page with the statistics of your job.
 
 ### Applications available after loading a module
 Multiple of the modules we provide will also make a launcher available when they are loaded, even though they are not loaded by default.
@@ -282,28 +282,28 @@ Multiple of the modules we provide will also make a launcher available when they
 Loading a module `ijulia-kernel` will allow you to open a notebook with the Julia language.
 
 #### Ansys suite
-The [Ansys](ansys.md) suite has multiple tools which provide a graphical user interface. If you load one of the `ansys` modules, you will get a series of launcher, most of which work through a VNC connection in the browser.
+The [Ansys](../software/ansys.md) suite has multiple tools which provide a graphical user interface. If you load one of the `ansys` modules, you will get a series of launcher, most of which work through a VNC connection in the browser.
 
 In addition, Ansys Fluent has a web-based interface, which can be launched with the icon below.
 
 Note that for Ansys Fluent, a password is required to connect to it. That password is generated when you launch it, and written in your personal folder, in the file `$HOME/fluent_webserver_token`.
 
-Note that for Ansys, you will need to provide your own license, as explained in our [Ansys](ansys.md) page.
+Note that for Ansys, you will need to provide your own license, as explained in our [Ansys](../software/ansys.md) page.
 
 #### Ansys EDT
 [Ansys EDT](https://www.ansys.com/products/electronics) is in its own separate module. Loading the module `ansysedt` will make the corresponding launcher appear.
 
-Note that for Ansys EDT, you will need to provide your own license, as explained in our [Ansys EDT](ansys-edt.md) page.
+Note that for Ansys EDT, you will need to provide your own license, as explained in our [Ansys EDT](../software/ansysedt.md) page.
 
 #### COMSOL
 [COMSOL](http://www.comsol.com) is a general-purpose software for modelling engineering applications.
 
 Note that you will need to provide your own license file to use this software.
 
-Loading a `comsol` module will add a launcher to start the graphical user interface for COMSOL through a VNC session. See our page on [COMSOL](comsol.md) for more details on using this software package.
+Loading a `comsol` module will add a launcher to start the graphical user interface for COMSOL through a VNC session. See our page on [COMSOL](../software/comsol.md) for more details on using this software package.
 
 #### Matlab
-[MATLAB](https://www.mathworks.com/?s_tid=gn_logo) is available by loading a `matlab` module, which will add a launcher to start the software in a VNC session. Note that you will need to provide your own license file, as explained in our [MATLAB](matlab.md) page.
+[MATLAB](https://www.mathworks.com/?s_tid=gn_logo) is available by loading a `matlab` module, which will add a launcher to start the software in a VNC session. Note that you will need to provide your own license file, as explained in our [MATLAB](../software/matlab.md) page.
 
 #### NVidia Nsight Systems
 [NVidia Nsight Systems](https://developer.nvidia.com/nsight-systems) is a performance analysis tool developed primarily for profiling GPUs, but which can profile CPU code as well.
@@ -311,16 +311,16 @@ Loading a `comsol` module will add a launcher to start the graphical user interf
 Loading a `cuda` or a `nvhpc` module will add a launcher to start the graphical user interface in a VNC session.
 
 #### Octave
-[GNU Octave](https://octave.org/) is an open-source scientific programming language largely compatible with MATLAB. Loading an `octave` module will add a launcher to start the graphical user interface for Octave through a VNC session. See our page on [Octave](octave.md) for more details on using this software package.
+[GNU Octave](https://octave.org/) is an open-source scientific programming language largely compatible with MATLAB. Loading an `octave` module will add a launcher to start the graphical user interface for Octave through a VNC session. See our page on [Octave](../software/octave.md) for more details on using this software package.
 
 #### ParaView
-[ParaView](https://www.paraview.org/) is a powerful open-source visualisation software. Loading a `paraview` module will add a launcher to start the Paraview graphical user interface through a VNC session. See our page on [ParaView](paraview.md) for more details on using this software package.
+[ParaView](https://www.paraview.org/) is a powerful open-source visualisation software. Loading a `paraview` module will add a launcher to start the Paraview graphical user interface through a VNC session. See our page on [ParaView](../software/paraview.md) for more details on using this software package.
 
 #### QGIS
-[QGIS](https://qgis.org/) is a powerful open-source software for visualizing and processing geographic information systems (GIS) data. Loading a `qgis` module will add a launcher to start the QGIS graphical user interface through a VNC session. See our page on [QGIS](qgis.md) for more details on this software package.
+[QGIS](https://qgis.org/) is a powerful open-source software for visualizing and processing geographic information systems (GIS) data. Loading a `qgis` module will add a launcher to start the QGIS graphical user interface through a VNC session. See our page on [QGIS](../software/qgis.md) for more details on this software package.
 
 #### StarCCM+
-Siemens's [Star-CCM+](https://plm.sw.siemens.com/en-US/simcenter/fluids-thermal-simulation/star-ccm/) is a commercial computational fluid dynamic simulation software. It is available by loading one of the `starccm` or the `starccm-mixed` modules, which will add a launcher to start the StarCCM+ graphical user interface through a VNC session. As for all commercial packages, you will need to provide your own license. See our page on [Star-CCM+](star-ccm.md) for more details on using this software.
+Siemens's [Star-CCM+](https://plm.sw.siemens.com/en-US/simcenter/fluids-thermal-simulation/star-ccm/) is a commercial computational fluid dynamic simulation software. It is available by loading one of the `starccm` or the `starccm-mixed` modules, which will add a launcher to start the StarCCM+ graphical user interface through a VNC session. As for all commercial packages, you will need to provide your own license. See our page on [Star-CCM+](../software/star-ccm.md) for more details on using this software.
 
 ## Additional information on running Python notebooks
 
@@ -332,14 +332,14 @@ If any of the following scientific Python packages is required by your notebook,
 *   `numpy`
 *   `pandas`
 *   `scipy`
-*   See [SciPy stack](python.md#scipy-stack) for more on this
+*   See [SciPy stack](../software/python.md#scipy-stack) for more on this
 
 !!! note
     You may also install needed packages by running for example the following command inside a cell: `pip install --no-index numpy`.
     *   For some packages (like `plotly`, for example), you may need to restart the notebook's kernel before importing the package.
 
 !!! important
-    The installation of packages in the default Python kernel environment is temporary to the lifetime of the JupyterLab session; you will have to reinstall these packages the next time you start a new JupyterLab session. For a persistent Python environment, you must configure a **[custom Python kernel](advanced-jupyter-configuration.md#python-kernel)**.
+    The installation of packages in the default Python kernel environment is temporary to the lifetime of the JupyterLab session; you will have to reinstall these packages the next time you start a new JupyterLab session. For a persistent Python environment, you must configure a **[custom Python kernel](../getting-started/advanced_jupyter_configuration.md#python-kernel)**.
 
 To open an existing Python notebook:
 *   Go back to the *File Browser*.
@@ -364,7 +364,7 @@ To open a new Python notebook in the current *File Browser* directory:
     !jupyter nbconvert --to python my-current-notebook.ipynb
     ```
 
-3.  Create your [non-interactive submission script](running-jobs.md#use-sbatch-to-submit-jobs), and submit it.
+3.  Create your [non-interactive submission script](../running-jobs/running_jobs.md#use-sbatch-to-submit-jobs), and submit it.
 
 In your submission script, run your converted notebook with:
 ```bash
@@ -387,4 +387,4 @@ sbatch my-submit.sh
     ```
     to install the package that caused the error but note it **may not** work for all packages for instance `pyarrow`, `opencv`, `mpi4py`.
 
-In case of questions, please contact us: [Technical support](technical-support.md)
+In case of questions, please contact us: [Technical support](../support/technical_support.md)

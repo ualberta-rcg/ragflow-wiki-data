@@ -76,7 +76,7 @@ status:
 
 ## Introduction
 
-Dans ce tutoriel, nous présentons la composante de calcul hautement parallèle qu'est le processeur graphique (ou GPU pour *graphics processing unit*); le langage de programmation parallèle [CUDA](cuda.md); et quelques-unes des librairies numériques CUDA utilisées en calcul de haute performance.
+Dans ce tutoriel, nous présentons la composante de calcul hautement parallèle qu'est le processeur graphique (ou GPU pour *graphics processing unit*); le langage de programmation parallèle [CUDA](../programming/cuda.md); et quelques-unes des librairies numériques CUDA utilisées en calcul de haute performance.
 
 !!! info "Prérequis"
     Ce tutoriel montre comment utiliser CUDA pour accélérer des programmes en C ou C++; une bonne connaissance d'un de ces langages vous permettra d'en tirer le meilleur profit. Si CUDA sert aussi aux programmes en Fortran, nous nous limiterons ici à CUDA pour C/C++ et utiliserons le terme **CUDA C**. Il s'agit essentiellement de produire des fonctions en C/C++ pouvant être exécutées par les CPUs et les GPUs.

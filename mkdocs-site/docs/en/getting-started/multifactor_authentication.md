@@ -145,7 +145,7 @@ You can test your Yubikey setup by pressing the button on it any time while it i
 
 ## Using your second factor
 ### When connecting via SSH
-When you connect to a cluster using SSH, you will be prompted for your second factor after you first supply either your password or your [SSH key](ssh-keys.md). This prompt will look like this:
+When you connect to a cluster using SSH, you will be prompted for your second factor after you first supply either your password or your [SSH key](ssh_keys.md). This prompt will look like this:
 
 ```bash
 ssh cluster.computecanada.ca
@@ -193,11 +193,11 @@ Host HOSTNAME
 ```
 where you would replace `HOSTNAME` with the host name of the server for which you want this configuration. This setting allows a first SSH session to ask for the first and second factors, but subsequent SSH connections on the same device will reuse the connection of the first session (without asking for authentication), even up to 10 minutes after that first session was disconnected.
 
-Note that the above ControlMaster mechanism (a.k.a. Multiplexing) doesn't work with native Windows, in which case [Windows Subsystem for Linux](https://learn.microsoft.com/en-gb/windows/wsl/about) will be required. [See the link below](configuring-wsl-as-a-controlmaster-relay-server.md).
+Note that the above ControlMaster mechanism (a.k.a. Multiplexing) doesn't work with native Windows, in which case [Windows Subsystem for Linux](https://learn.microsoft.com/en-gb/windows/wsl/about) will be required. [See the link below](configuring_wsl_as_a_controlmaster_relay_server.md).
 
 #### Windows
 
-See [Configuring WSL as a ControlMaster relay server](configuring-wsl-as-a-controlmaster-relay-server.md).
+See [Configuring WSL as a ControlMaster relay server](configuring_wsl_as_a_controlmaster_relay_server.md).
 
 ### When authenticating to our account portal
 Once multifactor authentication is enabled on your account, you will be required to use it when connecting to our account portal. After entering your username and password, you will see a prompt similar to this, where you click on the option you want to use.
@@ -269,10 +269,10 @@ In addition, each time you navigate to a different folder on the left pane, anot
 Install version 0.72 or later.
 
 ### WinSCP
-Ensure that you are using [SSH Keys](ssh-keys.md).
+Ensure that you are using [SSH Keys](ssh_keys.md).
 
 ### PyCharm
-In order to connect to our clusters with PyCharm, you must setup your [SSH Keys](ssh-keys.md) before connecting.
+In order to connect to our clusters with PyCharm, you must setup your [SSH Keys](ssh_keys.md) before connecting.
 
 When you connect to a remote host in PyCharm, enter your username and the host you want to connect to. You will then be asked to enter a "One time password" during the authentication process. At this stage, use either your YubiKey or your generated password in Duo, depending on what you have setup in your account.
 
@@ -334,7 +334,7 @@ Yes. In this case, you need [to use a YubiKey](#use-a-yubikey).
 *   [WinSCP](#winscp)
 
 ### I need to have automated SSH connections to the clusters through my account. Can I use multifactor authentication ?
-We are currently deploying a set of login nodes dedicated to automated processes that require unattended SSH connections. More information about this can be found [here](automation-in-the-context-of-multifactor-authentication.md).
+We are currently deploying a set of login nodes dedicated to automated processes that require unattended SSH connections. More information about this can be found [here](automation_in_the_context_of_multifactor_authentication.md).
 
 ### Why have I received the message "Access denied. Duo Security does not provide services in your current location" ?
 Duo blocks authentications from users whose IP address originates in a country or a region subject to economic and trade sanctions: [Duo help](https://help.duo.com/s/article/7544?language=en_US).

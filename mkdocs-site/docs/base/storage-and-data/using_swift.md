@@ -39,7 +39,7 @@ status:
 
 The OpenStack Object Store project, known as Swift, offers cloud storage software so that you can store and retrieve lots of data with a simple API.
 
-If you require S3 access to it, please contact our [technical support](technical-support.md).
+If you require S3 access to it, please contact our [technical support](../support/technical_support.md).
 
 ## Using the Object Storage via Browser
 

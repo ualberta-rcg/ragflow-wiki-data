@@ -125,7 +125,7 @@ Exemple :
 
 ## Transférer des données avec WSL
 
-Un cas d'utilisation courant de WSL consiste à l'utiliser pour transférer des données vers les ressources de l'Alliance à l'aide de programmes tels que [FileZilla](https://filezilla-project.org/FileZilla). Souvent, la prise en charge de [l'authentification multifacteur](multifactor-authentication.md) est plus forte sous Linux (et par extension WSL) en raison de divers facteurs techniques. Vous pouvez facilement installer de tels programmes dans l'environnement Ubuntu WSL. Dans le cas de FileZilla :
+Un cas d'utilisation courant de WSL consiste à l'utiliser pour transférer des données vers les ressources de l'Alliance à l'aide de programmes tels que [FileZilla](https://filezilla-project.org/FileZilla). Souvent, la prise en charge de [l'authentification multifacteur](multifactor_authentication.md) est plus forte sous Linux (et par extension WSL) en raison de divers facteurs techniques. Vous pouvez facilement installer de tels programmes dans l'environnement Ubuntu WSL. Dans le cas de FileZilla :
 
 ```bash
 sudo apt install filezilla
@@ -135,4 +135,4 @@ L'application est maintenant installée et vous pouvez la lancer soit par la lig
 
 Lorsque vous parcourez le système de fichiers Linux à l'aide de tels outils, n'oubliez pas que vos fichiers Windows se trouvent par défaut sous `/mnt/{lettre de lecteur}` et que vous pouvez y accéder directement **sans** avoir à les copier d'abord dans l'environnement Linux.
 
-Pour plus d'information, consultez la page [Transfert de données](transferring-data.md).
+Pour plus d'information, consultez la page [Transfert de données](transferring_data.md).

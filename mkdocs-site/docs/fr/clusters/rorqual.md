@@ -83,7 +83,7 @@ status:
 | Disponibilité | 19 juin 2025 |
 | Nœud de connexion | `rorqual.alliancecan.ca` |
 | Nœud de copie (rsync, scp, sftp ...) | `rorqual.alliancecan.ca` |
-| [Nœud d'automatisation](automation-in-the-context-of-multifactor-authentication.md) | `robot.rorqual.alliancecan.ca` |
+| [Nœud d'automatisation](../getting-started/automation_in_the_context_of_multifactor_authentication.md) | `robot.rorqual.alliancecan.ca` |
 | Collection Globus | [alliancecan#rorqual](https://app.globus.org/file-manager?origin_id=f19f13f5-5553-40e3-ba30-6c151b9d35d4) |
 | JupyterHub | [jupyterhub.rorqual.alliancecan.ca](https://jupyterhub.rorqual.alliancecan.ca/) |
 | Portail | [metrix.rorqual.alliancecan.ca](https://metrix.rorqual.alliancecan.ca/) |
@@ -107,7 +107,7 @@ L'accès effectif à la grappe peut prendre **jusqu'à une heure** après avoir 
 ## Particularités
 
 !!! note
-    Notre politique veut que les nœuds de calcul de Rorqual n'aient pas accès à l'internet. Pour y faire exception, veuillez joindre le [soutien technique](technical-support.md) en expliquant ce dont vous avez besoin et pourquoi. Notez que l'outil `crontab` n'est pas offert.
+    Notre politique veut que les nœuds de calcul de Rorqual n'aient pas accès à l'internet. Pour y faire exception, veuillez joindre le [soutien technique](../support/technical_support.md) en expliquant ce dont vous avez besoin et pourquoi. Notez que l'outil `crontab` n'est pas offert.
 
 Chaque tâche devrait être d'une durée d’au moins une heure (au moins cinq minutes pour les tâches de test) et vous ne pouvez pas avoir plus de 1000 tâches (en exécution et en attente) à la fois. La durée maximale d'une tâche est de 7 jours (168 heures).
 
@@ -115,11 +115,11 @@ Chaque tâche devrait être d'une durée d’au moins une heure (au moins cinq m
 
 | | |
 | :------------------------------------------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| HOME <br> Système de fichiers Lustre, 116 To d’espace au total | *   Cet espace est petit et ne peut pas être agrandi : vous devrez utiliser votre espace `project` pour les grands besoins en stockage. <br> *   Petits [quotas](storage-and-file-management.md#quotas-et-politiques) fixes par utilisateur <br> *   Il y a une sauvegarde automatique une fois par jour. |
-| SCRATCH <br> Système de fichiers Lustre, 6.5 Po d’espace au total | *   Accessible via le lien symbolique `$HOME/links/scratch` <br> *   Grand espace pour stocker les fichiers temporaires pendant les calculs. <br> *   Pas de système de sauvegarde automatique <br> *   Grands [quotas](storage-and-file-management.md#quotas-et-politiques) fixes par utilisateur <br> *   Il y a une [purge automatique](scratch-purging-policy.md) des vieux fichiers dans cet espace. |
-| PROJECT <br> Système de fichiers Lustre, 62 Po d’espace au total | *   Accessible via le lien symbolique `$HOME/links/projects/nom-du-projet` <br> *   Cet espace est conçu pour le partage de données entre membres d'un groupe et pour le stockage de beaucoup de données. <br> *   Grands [quotas](storage-and-file-management.md#quotas-et-politiques) ajustables par projet <br> *   Il y a une sauvegarde automatique une fois par jour. |
+| HOME <br> Système de fichiers Lustre, 116 To d’espace au total | *   Cet espace est petit et ne peut pas être agrandi : vous devrez utiliser votre espace `project` pour les grands besoins en stockage. <br> *   Petits [quotas](../storage-and-data/storage_and_file_management.md#quotas-et-politiques) fixes par utilisateur <br> *   Il y a une sauvegarde automatique une fois par jour. |
+| SCRATCH <br> Système de fichiers Lustre, 6.5 Po d’espace au total | *   Accessible via le lien symbolique `$HOME/links/scratch` <br> *   Grand espace pour stocker les fichiers temporaires pendant les calculs. <br> *   Pas de système de sauvegarde automatique <br> *   Grands [quotas](../storage-and-data/storage_and_file_management.md#quotas-et-politiques) fixes par utilisateur <br> *   Il y a une [purge automatique](../storage-and-data/scratch_purging_policy.md) des vieux fichiers dans cet espace. |
+| PROJECT <br> Système de fichiers Lustre, 62 Po d’espace au total | *   Accessible via le lien symbolique `$HOME/links/projects/nom-du-projet` <br> *   Cet espace est conçu pour le partage de données entre membres d'un groupe et pour le stockage de beaucoup de données. <br> *   Grands [quotas](../storage-and-data/storage_and_file_management.md#quotas-et-politiques) ajustables par projet <br> *   Il y a une sauvegarde automatique une fois par jour. |
 
-Au tout début de la présente page, un tableau indique plusieurs adresses de connexion. Pour les transferts de données par [Globus](globus.md), il faut utiliser le **Point de chute Globus**. Par contre, pour les outils comme [rsync](transferring-data.md#rsync) et [scp](transferring-data.md#scp), il faut utiliser l'adresse du **Nœud de copie**.
+Au tout début de la présente page, un tableau indique plusieurs adresses de connexion. Pour les transferts de données par [Globus](../getting-started/globus.md), il faut utiliser le **Point de chute Globus**. Par contre, pour les outils comme [rsync](../getting-started/transferring_data.md#rsync) et [scp](../getting-started/transferring_data.md#scp), il faut utiliser l'adresse du **Nœud de copie**.
 
 ## Réseautique haute performance
 
@@ -149,7 +149,7 @@ Dans un nœud CPU, les 192 cœurs et les différents espaces mémoire ne sont pa
             *   Huit (8) cœurs par *chiplet*, chacun ayant sa propre mémoire cache L2 de 1 Mio et L1 de 32+32 Kio.
 
 Autrement dit, on a :
-*   Des groupes de 8 cœurs rapprochés qui se partagent une même mémoire cache L3, ce qui est idéal pour des [programmes parallèles multifils](running-jobs.md#tache-multifil-ou-tache-openmp) (par exemple, avec l'option `--cpus-per-task=8`)
+*   Des groupes de 8 cœurs rapprochés qui se partagent une même mémoire cache L3, ce qui est idéal pour des [programmes parallèles multifils](../running-jobs/running_jobs.md#tache-multifil-ou-tache-openmp) (par exemple, avec l'option `--cpus-per-task=8`)
 *   Des *nœuds NUMA* de 3×8 = 24 cœurs qui se partagent un trio de canaux de mémoire système.
 *   Un total de 2×4×3×8 = 192 cœurs par nœud.
 
@@ -186,7 +186,7 @@ Pour demander un ou plusieurs GPU H100 complets, il faut utiliser une des option
     *   `--gpus-per-node=h100:4`
 *   **Plusieurs H100-80gb** éparpillés n'importe où : `--gpus=h100:n` (remplacer `n` par le nombre voulu)
 
-Environ la moitié des nœuds GPU de Rorqual sont configurés avec la [technologie MIG](multi-instance-gpu.md) et seulement trois tailles d'instances GPU sont disponibles :
+Environ la moitié des nœuds GPU de Rorqual sont configurés avec la [technologie MIG](../programming/multi-instance_gpu.md) et seulement trois tailles d'instances GPU sont disponibles :
 
 *   **H100-1g.10gb** : 1/8 de la puissance de calcul avec 10 Go de mémoire GPU.
 *   **H100-2g.20gb** : 2/8 de la puissance de calcul avec 20 Go de mémoire GPU.
@@ -198,4 +198,4 @@ Pour demander **une et une seule** instance GPU pour votre tâche de calcul, voi
 *   **H100-2g.20gb** : `--gpus=h100_2g.20gb:1`
 *   **H100-3g.40gb** : `--gpus=h100_3g.40gb:1`
 
-Les quantités maximales recommandées de **cœurs CPU et de mémoire système** par instance GPU sont listées dans la [table des caractéristiques des *bundles*](allocations-and-compute-scheduling.md#ratios-dans-les-bundles).
+Les quantités maximales recommandées de **cœurs CPU et de mémoire système** par instance GPU sont listées dans la [table des caractéristiques des *bundles*](../running-jobs/allocations_and_compute_scheduling.md#ratios-dans-les-bundles).

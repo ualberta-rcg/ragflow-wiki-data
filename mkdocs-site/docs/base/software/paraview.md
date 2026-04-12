@@ -109,16 +109,16 @@ status:
 
 This page describes remote visualization of your dataset residing on one of the Alliance's HPC clusters. Your workflow will fall into one of these scenarios:
 
-1.  If your dataset is only a few GBs (either the entire dataset, if no time dependency, or each timestep in a time-dependent simulation), you can visualize it interactively using a small number of CPU cores. In this workflow, you start a remote desktop session – through **[JupyterHub or Open OnDemand](jupyterlab.md#launching-jupyterlab)**, depending on the cluster – and run ParaView interactively inside it. For more details, see the **["Small-scale interactive" tab](#workflows)**.
-2.  If you want to interactively visualize a larger dataset, we recommend using a client-server setup, where the ParaView client runs on your computer, and the server runs in parallel inside a [Slurm job on the HPC cluster](running-jobs.md). What counts as "large" depends on the cluster: on [Trillium](trillium.md#node-characteristics), only whole-node jobs in multiples of 192 cores are allowed, so your dataset should be 50–100 GB to utilize all 192 cores efficiently. On other clusters ([Fir](fir.md#node-characteristics), [Narval](narval.md#node-characteristics), [Nibi](nibi.md#node-characteristics), [Rorqual](rorqual.md#node-characteristics)), you can schedule by core, making it possible to visualize much smaller datasets – even on a single core – though using more cores in parallel speeds up rendering. This setup is more complex, so [JupyterHub or Open OnDemand](jupyterlab.md#launching-jupyterlab) is generally recommended for smaller datasets before attempting a client-server configuration. For more details, see the **["Large-scale interactive" tab](#workflows)**.
-3.  Ideally, all production visualizations – such as generating 1,000 frames for a movie – should be scripted and run as batch, off-screen jobs on the clusters, without opening interactive windows and rendering directly to files. The GUI workflows described in [the first or second tab](#workflows) should be considered as interactive steps to set up your visualization and save it as a ParaView Python script, which can then be executed as a [batch job on the cluster](running-jobs.md), either in serial or, more commonly, in parallel. For more details, see the **["Batch production" tab](#workflows)**.
+1.  If your dataset is only a few GBs (either the entire dataset, if no time dependency, or each timestep in a time-dependent simulation), you can visualize it interactively using a small number of CPU cores. In this workflow, you start a remote desktop session – through **[JupyterHub or Open OnDemand](../interactive/jupyterlab.md#launching-jupyterlab)**, depending on the cluster – and run ParaView interactively inside it. For more details, see the **["Small-scale interactive" tab](#workflows)**.
+2.  If you want to interactively visualize a larger dataset, we recommend using a client-server setup, where the ParaView client runs on your computer, and the server runs in parallel inside a [Slurm job on the HPC cluster](../running-jobs/running_jobs.md). What counts as "large" depends on the cluster: on [Trillium](../clusters/trillium.md#node-characteristics), only whole-node jobs in multiples of 192 cores are allowed, so your dataset should be 50–100 GB to utilize all 192 cores efficiently. On other clusters ([Fir](fir.md#node-characteristics), [Narval](../clusters/narval.md#node-characteristics), [Nibi](../clusters/nibi.md#node-characteristics), [Rorqual](../clusters/rorqual.md#node-characteristics)), you can schedule by core, making it possible to visualize much smaller datasets – even on a single core – though using more cores in parallel speeds up rendering. This setup is more complex, so [JupyterHub or Open OnDemand](../interactive/jupyterlab.md#launching-jupyterlab) is generally recommended for smaller datasets before attempting a client-server configuration. For more details, see the **["Large-scale interactive" tab](#workflows)**.
+3.  Ideally, all production visualizations – such as generating 1,000 frames for a movie – should be scripted and run as batch, off-screen jobs on the clusters, without opening interactive windows and rendering directly to files. The GUI workflows described in [the first or second tab](#workflows) should be considered as interactive steps to set up your visualization and save it as a ParaView Python script, which can then be executed as a [batch job on the cluster](../running-jobs/running_jobs.md), either in serial or, more commonly, in parallel. For more details, see the **["Batch production" tab](#workflows)**.
 
 ## Note on GPU rendering
 
 !!! warning
-    In all cases, please **do not use the clusters' H100 GPUs for visualization**, as they are not optimized for graphics rendering. While H100 cards can run OpenGL and Vulkan applications, they utilize only 2 of the 66 on-board thread controllers (this number may vary), resulting in roughly 3% GPU utilization. This not only leads to poor cluster utilization but also renders at speeds comparable to a mid-range laptop GPU. Note that [MIG instances](multi-instance-gpu.md#limitations) (static GPU partitions) cannot run graphics APIs such as OpenGL or Vulkan.
+    In all cases, please **do not use the clusters' H100 GPUs for visualization**, as they are not optimized for graphics rendering. While H100 cards can run OpenGL and Vulkan applications, they utilize only 2 of the 66 on-board thread controllers (this number may vary), resulting in roughly 3% GPU utilization. This not only leads to poor cluster utilization but also renders at speeds comparable to a mid-range laptop GPU. Note that [MIG instances](../programming/multi-instance_gpu.md#limitations) (static GPU partitions) cannot run graphics APIs such as OpenGL or Vulkan.
 
-    If GPU rendering is absolutely necessary – although this should only be done in very specific corner cases – use [Nibi's AMD MI300A nodes](nibi.md#node-characteristics) or older NVIDIA GPUs (e.g., T4) where available. We plan to benchmark and document all non-H100 rendering options on this page.
+    If GPU rendering is absolutely necessary – although this should only be done in very specific corner cases – use [Nibi's AMD MI300A nodes](../clusters/nibi.md#node-characteristics) or older NVIDIA GPUs (e.g., T4) where available. We plan to benchmark and document all non-H100 rendering options on this page.
 
 ## Workflows
 
@@ -126,14 +126,14 @@ Please use the tabs below to select your visualization workflow type.
 
 === "Small-scale interactive"
 
-This tab describes interactive visualization through remote desktop via JupyterHub and Open OnDemand. If you are on [Fir](fir.md), [Rorqual](rorqual.md) or [Narval](narval.md), please see one of the JupyterLab sections below. If you are on [Nibi](nibi.md) or [Trillium](trillium.md), please scroll down to one of the Open OnDemand sections below.
+This tab describes interactive visualization through remote desktop via JupyterHub and Open OnDemand. If you are on [Fir](fir.md), [Rorqual](../clusters/rorqual.md) or [Narval](../clusters/narval.md), please see one of the JupyterLab sections below. If you are on [Nibi](../clusters/nibi.md) or [Trillium](../clusters/trillium.md), please scroll down to one of the Open OnDemand sections below.
 
 ### Single-core visualization via JupyterLab
 
-On [Fir](fir.md), [Rorqual](rorqual.md), or [Narval](narval.md), you can launch a JupyterLab instance through a portal:
+On [Fir](fir.md), [Rorqual](../clusters/rorqual.md), or [Narval](../clusters/narval.md), you can launch a JupyterLab instance through a portal:
 
-1.  Sign in **[JupyterHub on one cluster](jupyterhub.md#jupyterhub-on-clusters)** with your Alliance account.
-2.  In the *[Server Options](jupyterhub.md#server-options)* form:
+1.  Sign in **[JupyterHub on one cluster](../interactive/jupyterhub.md#jupyterhub-on-clusters)** with your Alliance account.
+2.  In the *[Server Options](../interactive/jupyterhub.md#server-options)* form:
     *   under *Account* select one of the CPU accounts (do not use GPUs!);
     *   under *GPU configuration* select **None**;
     *   under *Number of Cores*, select **1**;
@@ -145,13 +145,13 @@ On [Fir](fir.md), [Rorqual](rorqual.md), or [Narval](narval.md), you can launch 
 
 After this, you have two options. One is:
 
-4.  On the left-hand side, under *[Software Modules](jupyterlab.md#software-modules)*, load **paraview/6.0.0** module.
-5.  A *[ParaView (VNC) button](jupyterlab.md#paraview)* should appear, click on it -- this starts ParaView in a virtual desktop.
+4.  On the left-hand side, under *[Software Modules](../interactive/jupyterlab.md#software-modules)*, load **paraview/6.0.0** module.
+5.  A *[ParaView (VNC) button](../interactive/jupyterlab.md#paraview)* should appear, click on it -- this starts ParaView in a virtual desktop.
     *   If ParaView does not start automatically, a shortcut button should be on the virtual desktop. Click on the button and wait for ParaView to start.
 
 Alternatively, in the JupyterLab dashboard you can:
 
-4.  Click on your *[preferred Desktop button](jupyterlab.md#desktop)* -- this opens a session in a virtual desktop.
+4.  Click on your *[preferred Desktop button](../interactive/jupyterlab.md#desktop)* -- this opens a session in a virtual desktop.
 5.  Inside this virtual desktop open a terminal (usually via *Applications > System ...*) and type the following:
 
     ```bash
@@ -208,7 +208,7 @@ To check that you are doing parallel rendering, you can colour your dataset by t
 
 ### Single-core visualization via Open OnDemand
 
-On [Nibi](nibi.md) or [Trillium](trillium.md), you can launch an Open OnDemand instance through a portal. Sign in to [https://ondemand.sharcnet.ca](https://ondemand.sharcnet.ca) (Nibi) or [https://ondemand.scinet.utoronto.ca](https://ondemand.scinet.utoronto.ca) (Trillium) with your Alliance account.
+On [Nibi](../clusters/nibi.md) or [Trillium](../clusters/trillium.md), you can launch an Open OnDemand instance through a portal. Sign in to [https://ondemand.sharcnet.ca](https://ondemand.sharcnet.ca) (Nibi) or [https://ondemand.scinet.utoronto.ca](https://ondemand.scinet.utoronto.ca) (Trillium) with your Alliance account.
 
 Once logged in, find "Desktop" in the menu. On Nibi you will find it under *Compute Nodes | Compute Desktop*. Specify a CPU-only Slurm account and other resources (1 CPU core) and click *Launch*. Wait for the job to start ("Starting" should change to "Running") and then click *Launch Compute Desktop*. Inside the desktop, open a terminal and type:
 
@@ -264,7 +264,7 @@ To check that you are doing parallel rendering, you can colour your dataset by t
 
 === "Large-scale interactive"
 
-This tab describes interactive client-server setup on all our HPC clusters ([Rorqual](rorqual.md), [Nibi](nibi.md), [Fir](fir.md), [Trillium](trillium.md), and [Narval](narval.md)), where a client runs on your computer, and the server runs on the remote cluster.
+This tab describes interactive client-server setup on all our HPC clusters ([Rorqual](../clusters/rorqual.md), [Nibi](../clusters/nibi.md), [Fir](fir.md), [Trillium](../clusters/trillium.md), and [Narval](../clusters/narval.md)), where a client runs on your computer, and the server runs on the remote cluster.
 
 !!! note "Note 1"
     ParaView requires the same major version on the local client and the remote host; this prevents incompatibility that typically shows as a failed handshake when establishing the client-server connection. For example, to use ParaView server version 6.0.0 on the cluster, you need client version 6.0.x on your computer.
@@ -337,7 +337,7 @@ To check that you are doing parallel rendering, you can colour your dataset by t
 
 === "Batch production"
 
-For large-scale and automated visualization, we strongly recommend switching from interactive client-server to off-screen batch visualization. ParaView supports Python scripting, so you can script your workflow and submit it as a regular, possibly parallel production job on a cluster. If you need any help with this, please contact [Technical support](technical-support.md).
+For large-scale and automated visualization, we strongly recommend switching from interactive client-server to off-screen batch visualization. ParaView supports Python scripting, so you can script your workflow and submit it as a regular, possibly parallel production job on a cluster. If you need any help with this, please contact [Technical support](../support/technical_support.md).
 
 With serial rendering, your workflow should look like this:
 
@@ -380,7 +380,7 @@ In this section, we describe the setup and workflow for running a ParaView serve
 
 ## Prerequisites
 
-The [Cloud Quick Start Guide](cloud-quick-start.md) explains how to launch a new virtual machine (VM). Once you log into the VM, you will need to install some additional packages to be able to compile ParaView or VisIt. For example, on a CentOS VM you can type:
+The [Cloud Quick Start Guide](../cloud/cloud_quick_start.md) explains how to launch a new virtual machine (VM). Once you log into the VM, you will need to install some additional packages to be able to compile ParaView or VisIt. For example, on a CentOS VM you can type:
 
 ```bash
 sudo yum install xauth wget gcc gcc-c++ ncurses-devel python-devel libxcb-devel

@@ -94,7 +94,7 @@ Ce wiki n'est pas l'endroit où afficher l'information qui relève de la respons
 
 Si vous avez encore des doutes :
 * si vous êtes à l'emploi de l'Alliance, utilisez le canal #rsnt-documentation dans Slack;
-* si vous n'êtes pas à l'emploi de l'Alliance, communiquez avec le [soutien technique](technical-support.md).
+* si vous n'êtes pas à l'emploi de l'Alliance, communiquez avec le [soutien technique](../support/technical_support.md).
 
 ## Guide de style
 Dans la mesure du possible, évitez de téléverser des fichiers PDF. Copiez plutôt le texte sélectionné à partir d'un PDF et modifiez-le ensuite selon les normes du wiki en incluant par exemple les liens internes menant vers d'autres pages ou sections.
@@ -134,7 +134,7 @@ Si vous doutez, imitez les maîtres. Utilisez le style d'une page existante. Si 
 * Laissez une ligne vide à la fin d'une section, avant le titre de la prochaine section.
 
 ### Gabarits
-Plusieurs gabarits sont disponibles. Veuillez les utiliser au besoin. Nous attirons votre attention particulièrement sur les gabarits pour [Inclure une commande dans une page wiki](including-a-command-within-the-wiki.md) et [Inclure un fichier de code source dans une page wiki](including-a-source-code-file-within-the-wiki.md).
+Plusieurs gabarits sont disponibles. Veuillez les utiliser au besoin. Nous attirons votre attention particulièrement sur les gabarits pour [Inclure une commande dans une page wiki](including_a_command_within_the_wiki.md) et [Inclure un fichier de code source dans une page wiki](including_a_source_code_file_within_the_wiki.md).
 
 ## Traduction
 !!! info "À propos de la traduction"
@@ -153,6 +153,6 @@ Une excellente pratique en programmation est d'ajouter des commentaires explicat
 Pensez toujours à insérer des commentaires dans le code, mais demandez-vous si cette information est assez importante pour être traduite.
 
 ## Liste des logiciels disponibles
-Les tableaux de la page wiki [Logiciels disponibles](available-software.md) sont générés à partir de fichiers de modules dans CVMFS. Pour ajouter un lien vers une nouvelle page dans la colonne *Documentation*, faites une nouvelle entrée dans [https://github.com/ComputeCanada/wiki_module_bot/blob/main/module_wiki_page.json](https://github.com/ComputeCanada/wiki_module_bot/blob/main/module_wiki_page.json). Ajoutez ensuite cette modification à la copie définitive du fichier.
+Les tableaux de la page wiki [Logiciels disponibles](../programming/available_software.md) sont générés à partir de fichiers de modules dans CVMFS. Pour ajouter un lien vers une nouvelle page dans la colonne *Documentation*, faites une nouvelle entrée dans [https://github.com/ComputeCanada/wiki_module_bot/blob/main/module_wiki_page.json](https://github.com/ComputeCanada/wiki_module_bot/blob/main/module_wiki_page.json). Ajoutez ensuite cette modification à la copie définitive du fichier.
 
 Les modifications peuvent prendre jusqu'à six heures avant d'être affichées dans la page wiki.

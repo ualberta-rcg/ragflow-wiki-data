@@ -64,7 +64,7 @@ Le débogage peut se faire en mode ligne de commande ou en mode graphique.
 
 ## Modules d'environnement
 
-Il faut d’abord charger le [module](utiliser-des-modules.md) pour le paquet PGI. Pour connaître les versions disponibles pour les modules du compilateur, de MPI et de CUDA que vous avez chargés, lancez `module avail pgi`. Pour connaître la liste complète des modules PGI disponibles, lancez `module -r spider '.*pgi.*'`. En date de décembre 2018, les versions disponibles sont
+Il faut d’abord charger le [module](utiliser_des_modules.md) pour le paquet PGI. Pour connaître les versions disponibles pour les modules du compilateur, de MPI et de CUDA que vous avez chargés, lancez `module avail pgi`. Pour connaître la liste complète des modules PGI disponibles, lancez `module -r spider '.*pgi.*'`. En date de décembre 2018, les versions disponibles sont
 *   pgi/13.10
 *   pgi/17.3
 Pour charger un module, lancez `module load pgi/version`; par exemple, pour la version 17.3, la commande est

@@ -56,7 +56,7 @@ status:
 module load StdEnv/2023 gcc python/3.11 symengine/0.11.2
 ```
 
-2. Créez et activez un [environnement virtuel Python](python.md#creer-et-utiliser-un-environnement-virtuel).
+2. Créez et activez un [environnement virtuel Python](../python.md#creer-et-utiliser-un-environnement-virtuel).
 ```bash
 virtualenv --no-download --clear ~/ENV && source ~/ENV/bin/activate
 ```
@@ -66,7 +66,7 @@ virtualenv --no-download --clear ~/ENV && source ~/ENV/bin/activate
 pip install --no-index --upgrade pip
 pip install --no-index qiskit==X.Y.Z qiskit_aer==X.Y.Z
 ```
-où `X.Y.Z` représente le numéro de la version, par exemple `1.4.0`. Pour installer la plus récente version disponible sur nos grappes, n'indiquez pas de version. Ici, nous n'avons importé que `qiskit` et `qiskit_aer`. Vous pouvez ajouter d'autres logiciels Qiskit en fonction de vos besoins en suivant la structure `qiskit_package==X.Y.Z` où `qiskit_package` représente le logiciel voulu, par exemple `qiskit-finance`. Les *wheels* présentement disponibles sont listés sur la page [Wheels Python](available-python-wheels.md).
+où `X.Y.Z` représente le numéro de la version, par exemple `1.4.0`. Pour installer la plus récente version disponible sur nos grappes, n'indiquez pas de version. Ici, nous n'avons importé que `qiskit` et `qiskit_aer`. Vous pouvez ajouter d'autres logiciels Qiskit en fonction de vos besoins en suivant la structure `qiskit_package==X.Y.Z` où `qiskit_package` représente le logiciel voulu, par exemple `qiskit-finance`. Les *wheels* présentement disponibles sont listés sur la page [Wheels Python](../../programming/available_python_wheels.md).
 
 4. Validez l’installation de Qiskit.
 ```bash
@@ -100,11 +100,11 @@ pip install --no-index --requirement ~/qiskit_requirements.txt
 # Modifiez le programme Qiskit.
 python qiskit_example.py
 ```
-Vous pouvez ensuite [soumettre votre tâche à l'ordonnanceur](running-jobs.md).
+Vous pouvez ensuite [soumettre votre tâche à l'ordonnanceur](../../running-jobs/running_jobs.md).
 
 ## Utiliser Qiskit avec MonarQ
 
-Il est possible d’utiliser directement [MonarQ](monarq.md) avec Qiskit via le plugiciel qiskit-calculquebec. Ce plugiciel permet de développer et d'exécuter des circuits Qiskit sur l’infrastructure de Calcul Québec.
+Il est possible d’utiliser directement [MonarQ](../../clusters/monarq.md) avec Qiskit via le plugiciel qiskit-calculquebec. Ce plugiciel permet de développer et d'exécuter des circuits Qiskit sur l’infrastructure de Calcul Québec.
 
 ### Installation des dépendances
 

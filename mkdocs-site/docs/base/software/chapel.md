@@ -51,9 +51,9 @@ status:
 
 Chapel is a general-purpose, compiled, high-level parallel programming language with built-in abstractions for shared- and distributed-memory parallelism. There are two styles of parallel programming in Chapel: (1) **task parallelism**, where parallelism is driven by *programmer-specified tasks*, and (2) **data parallelism**, where parallelism is driven by applying the same computation on subsets of data elements, which may be in the shared memory of a single node, or distributed over multiple nodes.
 
-These high-level abstractions make Chapel ideal for learning parallel programming for a novice HPC user. Chapel is incredibly intuitive, striving to merge the ease-of-use of [Python](python.md) and the performance of traditional compiled languages such as [C](c.md) and [Fortran](fortran.md). Parallel blocks that typically take tens of lines of [MPI](mpi.md) code can be expressed in only a few lines of Chapel code. Chapel is open source and can run on any Unix-like operating system, with hardware support from laptops to large HPC systems.
+These high-level abstractions make Chapel ideal for learning parallel programming for a novice HPC user. Chapel is incredibly intuitive, striving to merge the ease-of-use of [Python](python.md) and the performance of traditional compiled languages such as [C](../programming/c.md) and [Fortran](../programming/fortran.md). Parallel blocks that typically take tens of lines of [MPI](mpi.md) code can be expressed in only a few lines of Chapel code. Chapel is open source and can run on any Unix-like operating system, with hardware support from laptops to large HPC systems.
 
-Chapel has a relatively small user base, so many libraries that exist for [C](c.md), [C++](cpp.md), [Fortran](fortran.md) have not yet been implemented in Chapel. Hopefully, that will change in coming years if Chapel adoption continues to gain momentum in the HPC community.
+Chapel has a relatively small user base, so many libraries that exist for [C](../programming/c.md), [C++](cpp.md), [Fortran](../programming/fortran.md) have not yet been implemented in Chapel. Hopefully, that will change in coming years if Chapel adoption continues to gain momentum in the HPC community.
 
 For more information, please watch our [Chapel webinars](https://westgrid.github.io/trainingMaterials/programming/#chapel).
 
@@ -77,7 +77,7 @@ chpl test.chpl -o test
 ./test
 ```
 
-For production jobs, please write a [job submission script](running-jobs.md) and submit it with `sbatch`.
+For production jobs, please write a [job submission script](../running-jobs/running_jobs.md) and submit it with `sbatch`.
 
 ## Multi-locale Chapel
 
@@ -105,13 +105,13 @@ module load gcc/12.3 chapel-ucx/2.4.0
 salloc --time=0:30:0 --nodes=4 --cpus-per-task=3 --mem-per-cpu=3500 --account=def-someprof
 ```
 
-Once the [interactive job](running-jobs.md#interactive-jobs) starts, you can compile and run your code from the prompt on the first allocated compute node:
+Once the [interactive job](../running-jobs/running_jobs.md#interactive-jobs) starts, you can compile and run your code from the prompt on the first allocated compute node:
 ```bash
 chpl --fast probeLocales.chpl
 ./probeLocales -nl 4
 ```
 
-For production jobs, please write a [Slurm submission script](running-jobs.md) and submit your job with `sbatch` instead.
+For production jobs, please write a [Slurm submission script](../running-jobs/running_jobs.md) and submit your job with `sbatch` instead.
 
 ## Multi-locale Chapel with NVIDIA GPU support
 
@@ -148,10 +148,10 @@ module load gcc/12.3 cuda/12.2 chapel-ucx-cuda/2.4.0
 salloc --time=0:30:0 --mem-per-cpu=3500 --gpus-per-node=1 --account=def-someprof
 ```
 
-Once the [interactive job](running-jobs.md#interactive-jobs) starts, you can compile and run your code from the prompt on the allocated compute node:
+Once the [interactive job](../running-jobs/running_jobs.md#interactive-jobs) starts, you can compile and run your code from the prompt on the allocated compute node:
 ```bash
 chpl --fast probeGPU.chpl
 ./probeGPU -nl 1
 ```
 
-For production jobs, please write a [Slurm submission script](running-jobs.md) and submit your job with `sbatch` instead.
+For production jobs, please write a [Slurm submission script](../running-jobs/running_jobs.md) and submit your job with `sbatch` instead.

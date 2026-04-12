@@ -58,10 +58,10 @@ Les chercheuses et les chercheurs du gouvernement, d’entreprises à but non lu
 
 !!! note "Remarques"
     *   *Les instructions ci-dessous ne s’appliquent que si vous vous inscrivez à l’Alliance pour la première fois.*
-    *   Si vous avez déjà un compte auprès de l’Alliance, même s’il est désactivé, vous n’avez pas besoin de demander un nouveau compte. Lisez [la FAQ sur le renouvellement de compte](account-renewal-faq.md).
+    *   Si vous avez déjà un compte auprès de l’Alliance, même s’il est désactivé, vous n’avez pas besoin de demander un nouveau compte. Lisez [la FAQ sur le renouvellement de compte](account_renewal_faq.md).
 
 ## Rôles des utilisateurs
-CCDB a 12 catégories de rôle, qui peuvent être consultées sur la page d’inscription. Voir [Rôles pour accéder aux ressources et services de la Fédération](user-roles-to-access-resources-and-services-of-the-alliance-federation.md) pour obtenir une description et les principales caractéristiques de chaque rôle disponible.
+CCDB a 12 catégories de rôle, qui peuvent être consultées sur la page d’inscription. Voir [Rôles pour accéder aux ressources et services de la Fédération](user_roles_to_access_resources_and_services_of_the_alliance_federation.md) pour obtenir une description et les principales caractéristiques de chaque rôle disponible.
 
 Les CP doivent d’abord s’inscrire auprès de la CCDB. La procédure d’approbation peut prendre jusqu’à 2 jours ouvrables. Dès que l’inscription est approuvée, vous recevrez un courriel de confirmation avec votre RI (*Role Identifier*), un numéro unique qui identifie votre rôle. Dès qu’un chercheur principal a un RI, tous les membres du groupe peuvent s’inscrire à CCDB.
 

@@ -49,10 +49,10 @@ status:
   qa_generated: false
 ---
 
-[EasyBuild](https://easybuild.io/) is a tool for building, installing, and maintaining software on high-performance computing systems. We use it to build almost everything in our software repository, [CVMFS](accessing-cvmfs.md).
+[EasyBuild](https://easybuild.io/) is a tool for building, installing, and maintaining software on high-performance computing systems. We use it to build almost everything in our software repository, [CVMFS](../software/cvmfs/accessing_cvmfs.md).
 
 ## EasyBuild and Modules
-One of the key features of EasyBuild is that it automatically generates environment [modules](utiliser-des-modules.md) which can be used to make a software package available in your session. In addition to defining standard Linux environment variables such as `PATH`, `CPATH` and `LIBRARY_PATH`, EasyBuild also defines some environment variables specific to EasyBuild, two of which may be particularly interesting to users:
+One of the key features of EasyBuild is that it automatically generates environment [modules](utiliser_des_modules.md) which can be used to make a software package available in your session. In addition to defining standard Linux environment variables such as `PATH`, `CPATH` and `LIBRARY_PATH`, EasyBuild also defines some environment variables specific to EasyBuild, two of which may be particularly interesting to users:
 *   `EBROOT<name>`: Contains the full path to the location where the software `<name>` is installed.
 *   `EBVERSION<name>`: Contains the full version of the software `<name>` loaded by this module.
 
@@ -71,19 +71,19 @@ EasyBuild keeps a copy of the recipe used to install each software package, as w
 *   `$EBROOTPYTHON/easybuild/easybuild-Python-3.10.2-*.log`
 
 ## Using EasyBuild in Your Own Account
-EasyBuild can be used to install software packages in your own account. However, in most cases, it is preferable to ask our [technical support](technical-support.md) to install the software centrally for you. This is because that will ensure that the software package is available on all of our clusters. It will also avoid using your quota, and it will avoid causing undue load on the parallel filesystems.
+EasyBuild can be used to install software packages in your own account. However, in most cases, it is preferable to ask our [technical support](../support/technical_support.md) to install the software centrally for you. This is because that will ensure that the software package is available on all of our clusters. It will also avoid using your quota, and it will avoid causing undue load on the parallel filesystems.
 
 !!! warning "When to Use or Not Use EasyBuild to Install Software in Your Home"
     There are a few use cases in which you may want to use EasyBuild to install software in your own space:
     *   if you need a custom or modified build
     *   if you need to install a nightly build, or a version of a software which does not have a release number
-    *   if we are not allowed to install the package centrally for licensing reasons, such as some commercial software packages ([VASP](vasp.md) and [Materials Studio](materials-studio.md) in particular)
+    *   if we are not allowed to install the package centrally for licensing reasons, such as some commercial software packages ([VASP](../software/vasp.md) and [Materials Studio](../software/materials_studio.md) in particular)
 
     On the contrary, you **should not** install software packages in your own space for the following reasons:
     *   if you need a different release version
     *   if you need a software package built using a different compiler, MPI or CUDA implementation
 
-    When in doubt, please ask our [technical support](technical-support.md) for advice.
+    When in doubt, please ask our [technical support](../support/technical_support.md) for advice.
 
 ## What is a Recipe
 !!! note

@@ -68,7 +68,7 @@ Le [Genome Analysis Toolkit (GATK)](https://bio.tools/gatk) est une boîte à ou
 
 ## Charger un module
 
-Plusieurs versions sont disponibles sur nos grappes. Pour obtenir l'information sur la version, [lancez la commande](utiliser-des-modules.md) :
+Plusieurs versions sont disponibles sur nos grappes. Pour obtenir l'information sur la version, [lancez la commande](../../programming/utiliser_des_modules.md) :
 
 ```bash
 module spider gatk
@@ -170,11 +170,11 @@ La plupart des outils GATK (>=4) ne peuvent pas utiliser plusieurs cœurs par d�
 >
 > --- tiré de [GATK et SPARK](https://gatk.broadinstitute.org/hc/en-us/articles/360035890591-)
 
-Avec les commandes qui utilisent Spark, vous pouvez demander plusieurs CPU. Veuillez indiquer le nombre exact de CPU dans la commande Spark; par exemple, si vous demandez 10 CPU, utilisez `--spark-master local[10]` plutôt que `--spark-master local[*]`. Pour travailler en multinœuds, vous devez d'abord [déployer une grappe Spark](apache-spark.md) puis configurer les variables appropriées dans la commande GATK.
+Avec les commandes qui utilisent Spark, vous pouvez demander plusieurs CPU. Veuillez indiquer le nombre exact de CPU dans la commande Spark; par exemple, si vous demandez 10 CPU, utilisez `--spark-master local[10]` plutôt que `--spark-master local[*]`. Pour travailler en multinœuds, vous devez d'abord [déployer une grappe Spark](../apache_spark.md) puis configurer les variables appropriées dans la commande GATK.
 
 ## Travailler avec Apptainer
 
-Si vous obtenez des erreurs comme [IllegalArgumentException](https://gatk.broadinstitute.org/hc/en-us/community/posts/360067054832-GATK-4-1-7-0-error-java-lang-IllegalArgumentException-malformed-input-off-17635906-length-1) dans votre utilisation des modules installés sur nos grappes, nous vous recommandons d'essayer de travailler autrement en passant par [Apptainer](apptainer.md).
+Si vous obtenez des erreurs comme [IllegalArgumentException](https://gatk.broadinstitute.org/hc/en-us/community/posts/360067054832-GATK-4-1-7-0-error-java-lang-IllegalArgumentException-malformed-input-off-17635906-length-1) dans votre utilisation des modules installés sur nos grappes, nous vous recommandons d'essayer de travailler autrement en passant par [Apptainer](../containers/apptainer.md).
 
 Vous pouvez trouver [une image Docker ici](https://hub.docker.com/r/broadinstitute/gatk) ainsi que [d'autres versions sur cette page](https://hub.docker.com/r/broadinstitute/gatk/tags). Vous devez d'abord construire une image Apptainer à partir d'une image Docker. Pour obtenir les plus récentes versions, lancez les commandes suivantes sur la grappe :
 
@@ -190,7 +190,7 @@ module load apptainer
 apptainer build gatk_VERSION.sif docker://broadinstitute/gatk:VERSION
 ```
 
-Dans votre [script SBATCH](running-jobs.md), vous devriez utiliser quelque chose comme :
+Dans votre [script SBATCH](../../running-jobs/running_jobs.md), vous devriez utiliser quelque chose comme :
 
 ```bash
 module load apptainer

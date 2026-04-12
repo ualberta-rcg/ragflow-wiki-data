@@ -166,11 +166,11 @@ Most GATK (>=4) tools are not multicore by default. This means that you should r
 For the commands that do use Spark, you can request multiple CPUs.
 
 !!! note
-    Please provide the exact number of CPUs to the `spark` command. For example if you requested 10 CPUs, use `--spark-master local[10]` instead of `--spark-master local[*]`. If you want to use multiple nodes to scale the Spark cluster, you have to first [deploy a SPARK cluster](apache-spark.md) and then set the appropriate variables in the GATK command.
+    Please provide the exact number of CPUs to the `spark` command. For example if you requested 10 CPUs, use `--spark-master local[10]` instead of `--spark-master local[*]`. If you want to use multiple nodes to scale the Spark cluster, you have to first [deploy a SPARK cluster](../apache_spark.md) and then set the appropriate variables in the GATK command.
 
 ## Running GATK via Apptainer
 
-If you encounter errors like [IllegalArgumentException](https://gatk.broadinstitute.org/hc/en-us/community/posts/360067054832-GATK-4-1-7-0-error-java-lang-IllegalArgumentException-malformed-input-off-17635906-length-1) while using the installed modules on our clusters, we recommend that you try another workflow by using the program via [Apptainer](apptainer.md).
+If you encounter errors like [IllegalArgumentException](https://gatk.broadinstitute.org/hc/en-us/community/posts/360067054832-GATK-4-1-7-0-error-java-lang-IllegalArgumentException-malformed-input-off-17635906-length-1) while using the installed modules on our clusters, we recommend that you try another workflow by using the program via [Apptainer](../containers/apptainer.md).
 
 A Docker image of GATK can be found [here](https://hub.docker.com/r/broadinstitute/gatk) and other versions are available on this [page](https://hub.docker.com/r/broadinstitute/gatk/tags). You will need first to build an Apptainer image from the Docker image; to get the latest version for example, you can run the following commands on the cluster
 
@@ -186,7 +186,7 @@ module load apptainer
 apptainer build gatk_VERSION.sif docker://broadinstitute/gatk:VERSION
 ```
 
-In your [SBATCH](running-jobs.md) script, you should use something like this:
+In your [SBATCH](../../running-jobs/running_jobs.md) script, you should use something like this:
 
 ```bash
 module load apptainer

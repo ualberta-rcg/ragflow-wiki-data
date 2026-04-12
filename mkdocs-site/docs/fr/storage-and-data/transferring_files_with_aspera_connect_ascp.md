@@ -56,7 +56,7 @@ Dans les piles logicielles moins récentes, ce logiciel est disponible via un mo
 
 ## Aspera Connect/ascp 4+
 
-Pour utiliser Aspera Connect (auparavant nommé *ascp*), vous devez [l'installer dans un de vos répertoires locaux](installing-software-in-your-home-directory.md).
+Pour utiliser Aspera Connect (auparavant nommé *ascp*), vous devez [l'installer dans un de vos répertoires locaux](../getting-started/installing_software_in_your_home_directory.md).
 
 1.  Copiez le lien de la version la plus récente pour Linux à partir du [site web d'Aspera Connect](https://www.ibm.com/aspera/connect).
 2.  Rendez-vous dans le répertoire où vous souhaitez installer le logiciel, par exemple votre répertoire personnel (`/home`).

@@ -89,9 +89,9 @@ Le système de stockage est une plateforme NVME VastData avec une capacité util
 
 |           |                                                                               |
 | :-------- | :---------------------------------------------------------------------------- |
-| **`/home`** | * emplacement des répertoires /home<br/>* [quota fixe](storage-and-file-management.md#quotas-et-politiques) pour chaque répertoire<br/>* les demandes pour plus d'espace sont dirigées vers /project<br/>* sauvegarde quotidienne |
-| **`/scratch`** | * conçu pour le stockage actif ou temporaire<br/>* [grand quota fixe](storage-and-file-management.md#quotas-et-politiques) par utilisateur<br/>* les données inactives sont [purgées](scratch-purging-policy.md) |
-| **`/project`** | * [grand quota ajustable](storage-and-file-management.md#quotas-et-politiques) par projet<br/>* sauvegarde quotidienne |
+| **`/home`** | * emplacement des répertoires /home<br/>* [quota fixe](../storage-and-data/storage_and_file_management.md#quotas-et-politiques) pour chaque répertoire<br/>* les demandes pour plus d'espace sont dirigées vers /project<br/>* sauvegarde quotidienne |
+| **`/scratch`** | * conçu pour le stockage actif ou temporaire<br/>* [grand quota fixe](../storage-and-data/storage_and_file_management.md#quotas-et-politiques) par utilisateur<br/>* les données inactives sont [purgées](../storage-and-data/scratch_purging_policy.md) |
+| **`/project`** | * [grand quota ajustable](../storage-and-data/storage_and_file_management.md#quotas-et-politiques) par projet<br/>* sauvegarde quotidienne |
 
 ## Réseautique
 

@@ -59,7 +59,7 @@ Toutes nos ressources sont gérées selon les meilleures pratiques pour la reche
 
 La protection de la confidentialité des données est de la responsabilité des chercheurs et chercheuses. À ce titre, nous vous invitons à [prendre connaissance de nos politiques.](https://alliancecan.ca/fr/politiques)
 
-Vous pouvez [contacter notre équipe de soutien technique](technical-support.md) pour de l’assistance sur la gestion de vos données sensibles ainsi que pour des conseils sur le contrôle des accès, le chiffrement, le stockage et la transmission de vos données.
+Vous pouvez [contacter notre équipe de soutien technique](../support/technical_support.md) pour de l’assistance sur la gestion de vos données sensibles ainsi que pour des conseils sur le contrôle des accès, le chiffrement, le stockage et la transmission de vos données.
 
 ## Défaillance du matériel
 

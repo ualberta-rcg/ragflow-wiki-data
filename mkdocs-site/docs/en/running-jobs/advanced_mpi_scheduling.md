@@ -62,7 +62,7 @@ status:
   qa_generated: false
 ---
 
-Most users should submit MPI or distributed memory parallel jobs following the example given at [Running jobs](running-jobs.md#mpi-job). Simply request a number of processes with `--ntasks` or `-n` and trust the scheduler to allocate those processes in a way that balances the efficiency of your job with the overall efficiency of the cluster.
+Most users should submit MPI or distributed memory parallel jobs following the example given at [Running jobs](running_jobs.md#mpi-job). Simply request a number of processes with `--ntasks` or `-n` and trust the scheduler to allocate those processes in a way that balances the efficiency of your job with the overall efficiency of the cluster.
 
 If you want more control over how your job is allocated, then SchedMD's page on [multicore support](https://slurm.schedmd.com/mc_support.html) is a good place to begin. It describes how many of the options to the [`sbatch`](https://slurm.schedmd.com/sbatch.html) command interact to constrain the placement of processes.
 
@@ -86,15 +86,15 @@ This will run 15 MPI processes. The cores could be allocated on one node, on 15 
 
 If you have a large parallel job to run, that is, one that can efficiently use 64 cores or more, you should probably request whole nodes. To do so, it helps to know what node types are available at the cluster you are using.
 
-Typical nodes in [Fir](fir.md), [Narval](narval.md), [Nibi](nibi.md), [Rorqual](rorqual.md) and [Trillium](trillium.md) have the following CPU and memory configuration:
+Typical nodes in [Fir](../software/fir.md), [Narval](../clusters/narval.md), [Nibi](../clusters/nibi.md), [Rorqual](../clusters/rorqual.md) and [Trillium](../clusters/trillium.md) have the following CPU and memory configuration:
 
 | Cluster | Cores | Usable Memory | Notes |
 | :------ | :---- | :------------ | :---- |
-| [Fir](fir.md) | 192 | 750 GiB | Some are reserved for whole node jobs. |
-| [Narval](narval.md) | 64 | 249 GiB | Some are reserved for whole node jobs. |
-| [Nibi](nibi.md) | 192 | 748 GiB | No node specifically reserved for whole node jobs. |
-| [Rorqual](rorqual.md) | 192 | 750 GiB | Some are reserved for whole node jobs. |
-| [Trillium](trillium.md) | 192 | 749 GiB | Only whole-node jobs are possible at Trillium. |
+| [Fir](../software/fir.md) | 192 | 750 GiB | Some are reserved for whole node jobs. |
+| [Narval](../clusters/narval.md) | 64 | 249 GiB | Some are reserved for whole node jobs. |
+| [Nibi](../clusters/nibi.md) | 192 | 748 GiB | No node specifically reserved for whole node jobs. |
+| [Rorqual](../clusters/rorqual.md) | 192 | 750 GiB | Some are reserved for whole node jobs. |
+| [Trillium](../clusters/trillium.md) | 192 | 749 GiB | Only whole-node jobs are possible at Trillium. |
 
 Whole-node jobs are allowed to run on any node. In the table above, *Some are reserved for whole-node jobs* indicates that there are nodes on which by-core jobs are forbidden.
 
@@ -144,10 +144,10 @@ A job script requesting whole nodes should look like this:
 Requesting `--mem=0` is interpreted by Slurm to mean *reserve all the available memory on each node assigned to the job.*
 
 If you need more memory per node than the smallest node provides (e.g. more than 748 GiB at Nibi) then you **should not** use `--mem=0`, but request the amount explicitly. Furthermore, some memory on each node is reserved for the operating system. To find the largest amount your job can request and still qualify for a given node type, see the *Available memory* column of the *Node characteristics* table for each cluster.
-*   [Fir node characteristics](fir.md#node-characteristics)
-*   [Narval node characteristics](narval.md#node-characteristics)
-*   [Nibi node characteristics](nibi.md#node-characteristics)
-*   [Rorqual node characteristics](rorqual.md#node-characteristics)
+*   [Fir node characteristics](../software/fir.md#node-characteristics)
+*   [Narval node characteristics](../clusters/narval.md#node-characteristics)
+*   [Nibi node characteristics](../clusters/nibi.md#node-characteristics)
+*   [Rorqual node characteristics](../clusters/rorqual.md#node-characteristics)
 
 ### Few cores, single node
 
@@ -163,7 +163,7 @@ In this case, you could also say `--mem-per-cpu=3G`. The advantage of `--mem=45G
 
 ### Large parallel job, not a multiple of whole nodes
 
-Not every application runs with maximum efficiency on a multiple of 32 (or 40, or 48) cores. Choosing the number of cores to request—and whether or not to request whole nodes—may be a trade-off between *running* time (or efficient use of the computer) and *waiting* time (or efficient use of your time). If you want help evaluating these factors, please contact [Technical support](technical-support.md).
+Not every application runs with maximum efficiency on a multiple of 32 (or 40, or 48) cores. Choosing the number of cores to request—and whether or not to request whole nodes—may be a trade-off between *running* time (or efficient use of the computer) and *waiting* time (or efficient use of your time). If you want help evaluating these factors, please contact [Technical support](../support/technical_support.md).
 
 ## Hybrid jobs: MPI and OpenMP, or MPI and threads
 

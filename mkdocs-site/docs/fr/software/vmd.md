@@ -40,7 +40,7 @@ VMD est un programme de visualisation moléculaire permettant d'afficher, d'anim
 
 ## Version préinstallée
 
-Pour activer les fonctionnalités graphiques, connectez-vous à une grappe avec [VNC](vnc.md) en utilisant `ssh -X` ou `ssh -Y`. Nous recommandons VNC pour une meilleure performance.
+Pour activer les fonctionnalités graphiques, connectez-vous à une grappe avec [VNC](../interactive/vnc.md) en utilisant `ssh -X` ou `ssh -Y`. Nous recommandons VNC pour une meilleure performance.
 
 La version par défaut est présentement `1.9.4a57`.
 Pour l'utiliser :
@@ -50,7 +50,7 @@ module load vmd
 vmd
 ```
 
-Pour plus d'information sur la commande `module`, voir [Utiliser des modules](utiliser-des-modules.md), qui décrit aussi comment trouver et utiliser les autres versions préinstallées.
+Pour plus d'information sur la commande `module`, voir [Utiliser des modules](../programming/utiliser_des_modules.md), qui décrit aussi comment trouver et utiliser les autres versions préinstallées.
 
 ## Installation de la version Alpha 1.9.4
 

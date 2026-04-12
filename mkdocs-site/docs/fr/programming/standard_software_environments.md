@@ -51,10 +51,10 @@ status:
   qa_generated: false
 ---
 
-Pour plus d'information sur la migration vers les environnements standards, voyez la page [Migration vers le nouvel environnement standard](migration-to-the-new-standard-environment.md).
+Pour plus d'information sur la migration vers les environnements standards, voyez la page [Migration vers le nouvel environnement standard](../clusters/migration_to_the_new_standard_environment.md).
 
 ## Description
-Nos environnements logiciels sont rendus disponibles par un ensemble de [modules](utiliser-des-modules.md) qui vous permettent d'alterner entre différentes versions d'un paquet logiciel. Ces modules sont organisés selon une structure en arbre dont le tronc est composé des mêmes utilitaires que ceux offerts dans les environnements Linux. Les branches principales de ce tronc sont les versions des compilateurs auxquelles sont rattachées des sous-branches pour chaque version de MPI ou CUDA.
+Nos environnements logiciels sont rendus disponibles par un ensemble de [modules](utiliser_des_modules.md) qui vous permettent d'alterner entre différentes versions d'un paquet logiciel. Ces modules sont organisés selon une structure en arbre dont le tronc est composé des mêmes utilitaires que ceux offerts dans les environnements Linux. Les branches principales de ce tronc sont les versions des compilateurs auxquelles sont rattachées des sous-branches pour chaque version de MPI ou CUDA.
 
 Un environnement logiciel standard est composé d’une combinaison particulière de modules de compilation et de modules MPI groupés dans un module appelé `StdEnv`. Ces environnements sont communément utilisés par notre équipe technique pour construire d’autres logiciels.
 
@@ -99,7 +99,7 @@ module load StdEnv/2020
 #### Amélioration de la performance
 Les binaires générés avec le compilateur Intel supportent automatiquement les jeux d’instructions AVX2 et AVX512. Techniquement, ce sont des binaires multiarchitecture, aussi appelés [fat binaries](https://en.wikipedia.org/wiki/Fat_binary). Ceci signifie que quand vous utilisez une grappe comme Cedar ou Graham qui ont connu plusieurs générations de processeurs, vous n’avez plus besoin de charger manuellement un des modules `arch` si vous utilisez des paquets logiciels générés avec le compilateur Intel.
 
-Certains paquets logiciels installés auparavant avec GCC ou Intel se trouvent maintenant à un niveau plus bas de la hiérarchie, ce qui fait que le même module est visible peu importe le compilateur qui est chargé; c’est le cas par exemple pour les modules [R](r.md) et pour plusieurs paquets en bio-informatique pour lesquels le module `gcc` devait auparavant être chargé. Ceci a été rendu possible par des optimisations spécifiques aux architectures CPU que nous avons effectuées sous le niveau du compilateur.
+Certains paquets logiciels installés auparavant avec GCC ou Intel se trouvent maintenant à un niveau plus bas de la hiérarchie, ce qui fait que le même module est visible peu importe le compilateur qui est chargé; c’est le cas par exemple pour les modules [R](../software/r.md) et pour plusieurs paquets en bio-informatique pour lesquels le module `gcc` devait auparavant être chargé. Ceci a été rendu possible par des optimisations spécifiques aux architectures CPU que nous avons effectuées sous le niveau du compilateur.
 
 Nous avons aussi installé une version plus récente de [GNU C Library](https://en.wikipedia.org/wiki/GNU_C_Library) qui offre des fonctions mathématiques optimisées. Ceci a nécessité une plus récente version du noyau Linux (voir ci-dessous).
 
@@ -131,7 +131,7 @@ module load StdEnv/2018.3
 !!! warning "Obsolète"
     Cet environnement n'est plus supporté.
 
-Cette première version de notre environnement logiciel a été installée en 2016 avec la mise en service des grappes [Cedar](cedar.md) et [Graham](graham.md). Les compilateurs par défaut sont GCC 5.4.0 et Intel 2016.4. L’implémentation MPI par défaut est Open MPI 2.1.1. La plupart des logiciels compilés dans cet environnement ne supportent pas les instructions AVX512, contrairement aux processeurs Skylake de [Béluga](beluga.md), [Niagara](niagara.md) et aux récents ajouts à Cedar et Graham.
+Cette première version de notre environnement logiciel a été installée en 2016 avec la mise en service des grappes [Cedar](../clusters/cedar.md) et [Graham](../clusters/graham.md). Les compilateurs par défaut sont GCC 5.4.0 et Intel 2016.4. L’implémentation MPI par défaut est Open MPI 2.1.1. La plupart des logiciels compilés dans cet environnement ne supportent pas les instructions AVX512, contrairement aux processeurs Skylake de [Béluga](beluga.md), [Niagara](niagara.md) et aux récents ajouts à Cedar et Graham.
 
 Activez cet environnement avec la commande :
 ```bash

@@ -51,10 +51,10 @@ status:
 
 *JupyterHub is the best way to serve Jupyter Notebook for multiple users. It can be used in a class of students, a corporate data science group or scientific research group.*
 
-JupyterHub provides a preconfigured version of JupyterLab and/or Jupyter Notebook; for more configuration options, please check the [Jupyter](jupyter.md) page.
+JupyterHub provides a preconfigured version of JupyterLab and/or Jupyter Notebook; for more configuration options, please check the [Jupyter](../software/jupyter.md) page.
 
 !!! warning "Running notebooks"
-    Jupyter Lab and notebooks are meant for **short** interactive tasks such as testing, debugging or quickly visualize data (few minutes). Running longer analysis must be done in a [non-interactive job (sbatch)](running-jobs.md#use-sbatch-to-submit-jobs).
+    Jupyter Lab and notebooks are meant for **short** interactive tasks such as testing, debugging or quickly visualize data (few minutes). Running longer analysis must be done in a [non-interactive job (sbatch)](../running-jobs/running_jobs.md#use-sbatch-to-submit-jobs).
     See also [how to run notebooks as python scripts below](jupyterhub.md#running-notebooks-as-python-scripts).
 
 ## Alliance initiatives
@@ -67,23 +67,23 @@ On the following clusters, use your Alliance username and password to connect to
 
 | JupyterHub | Comments |
 |:---|:---|
-| **[Fir](https://jupyterhub.fir.alliancecan.ca/)** | Provides access to JupyterLab servers spawned through jobs on the [Fir](fir.md) cluster. |
-| **[Narval](https://jupyterhub.narval.alliancecan.ca/)** | Provides access to JupyterLab servers spawned through jobs on the [Narval](narval.md) cluster. |
-| **[Rorqual](https://jupyterhub.rorqual.alliancecan.ca/)** | Provides access to JupyterLab servers spawned through jobs on the [Rorqual](rorqual.md) cluster. |
+| **[Fir](https://jupyterhub.fir.alliancecan.ca/)** | Provides access to JupyterLab servers spawned through jobs on the [Fir](../software/fir.md) cluster. |
+| **[Narval](https://jupyterhub.narval.alliancecan.ca/)** | Provides access to JupyterLab servers spawned through jobs on the [Narval](../clusters/narval.md) cluster. |
+| **[Rorqual](https://jupyterhub.rorqual.alliancecan.ca/)** | Provides access to JupyterLab servers spawned through jobs on the [Rorqual](../clusters/rorqual.md) cluster. |
 
 Some clusters provide access to JupyterLab through Open OnDemand. See [JupyterLab](jupyterlab.md) for more information.
 
 !!! note "Important Network Limitation"
-    **The compute nodes running the Jupyter kernels do not have internet access**. This means that you can only transfer files from/to your own computer; you cannot download code or data from the internet (e.g. cannot do "git clone", cannot do "pip install" if the wheel is absent from our [wheelhouse](available-python-wheels.md)). You may also have problems if your code performs downloads or uploads (e.g. in machine learning where downloading data from the code is often done).
+    **The compute nodes running the Jupyter kernels do not have internet access**. This means that you can only transfer files from/to your own computer; you cannot download code or data from the internet (e.g. cannot do "git clone", cannot do "pip install" if the wheel is absent from our [wheelhouse](../programming/available_python_wheels.md)). You may also have problems if your code performs downloads or uploads (e.g. in machine learning where downloading data from the code is often done).
 
 ### JupyterHub for universities and schools
 
-* The [Pacific Institute for the Mathematical Sciences](https://www.pims.math.ca) in collaboration with the Alliance and [Cybera](http://www.cybera.ca) offer cloud-based hubs to universities and schools. Each institution can have its own hub where users authenticate with their credentials from that institution. The hubs are hosted on Alliance [clouds](cloud.md) and are essentially for training purposes. Institutions interested in obtaining their own hub can visit [Syzygy](http://syzygy.ca).
+* The [Pacific Institute for the Mathematical Sciences](https://www.pims.math.ca) in collaboration with the Alliance and [Cybera](http://www.cybera.ca) offer cloud-based hubs to universities and schools. Each institution can have its own hub where users authenticate with their credentials from that institution. The hubs are hosted on Alliance [clouds](../cloud/cloud.md) and are essentially for training purposes. Institutions interested in obtaining their own hub can visit [Syzygy](http://syzygy.ca).
 
 ## Server options
 
 *Server Options* form on Béluga's JupyterHub
-Once logged in, depending on the configuration of JupyterHub, the user's web browser is redirected to either **a)** a previously launched Jupyter server, **b)** a new Jupyter server with default options, or **c)** a form that allows a user to set different options for their Jupyter server before pressing the *Start* button. In all cases, it is equivalent to accessing requested resources via an [interactive job](running-jobs.md#interactive-jobs) on the corresponding cluster.
+Once logged in, depending on the configuration of JupyterHub, the user's web browser is redirected to either **a)** a previously launched Jupyter server, **b)** a new Jupyter server with default options, or **c)** a form that allows a user to set different options for their Jupyter server before pressing the *Start* button. In all cases, it is equivalent to accessing requested resources via an [interactive job](../running-jobs/running_jobs.md#interactive-jobs) on the corresponding cluster.
 
 !!! warning "Important"
     On each cluster, only one interactive job at a time gets a priority increase in order to start in a few seconds or minutes. That includes `salloc`, `srun`, and JupyterHub jobs. If you already have another interactive job running on the cluster hosting JupyterHub, your new Jupyter session may never start before the time limit of 5 minutes.
@@ -120,7 +120,7 @@ Most JupyterHub errors are caused by the underlying job scheduler which is eithe
 
 JupyterHub - Spawn failed: Timeout
 
-* When starting a new session, JupyterHub automatically submits on your behalf a new [interactive job](running-jobs.md#interactive-jobs) to the cluster. If the job does not start within five minutes, a "Timeout" error message is raised and the session is cancelled.
+* When starting a new session, JupyterHub automatically submits on your behalf a new [interactive job](../running-jobs/running_jobs.md#interactive-jobs) to the cluster. If the job does not start within five minutes, a "Timeout" error message is raised and the session is cancelled.
     * Just like any interactive job on any cluster, a longer requested time can cause a longer wait time in the queue. Requesting a GPU or too many CPU cores can also cause a longer wait time. Make sure to request only the resources you need for your session.
     * If you already have another interactive job on the same cluster, your Jupyter session will be waiting along with other regular batch jobs in the queue. If possible, stop or cancel any other interactive job before using JupyterHub.
     * There may be just no resource available at the moment. Check the [status page](https://status.alliancecan.ca/) for any issue and try again later.

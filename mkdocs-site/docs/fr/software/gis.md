@@ -40,7 +40,7 @@ Pour un aperçu de ces logiciels, consultez [Introduction aux concepts géospati
 *   [GDAL](gdal.md)
 *   SAGA
 
-Il est possible que d'autres systèmes soient ajoutés à [la liste des modules disponibles sur nos grappes](available-software.md#modules-disponibles-sur-toutes-les-grappes). Cliquez sur l'en-tête de la colonne *Type*; le type **geo** identifie ces systèmes.
+Il est possible que d'autres systèmes soient ajoutés à [la liste des modules disponibles sur nos grappes](../programming/available_software.md#modules-disponibles-sur-toutes-les-grappes). Cliquez sur l'en-tête de la colonne *Type*; le type **geo** identifie ces systèmes.
 
 Toutefois, cette liste ne présente pas les paquets [R](r.md) ni les paquets [Python](python.md); consultez ces pages pour localiser et installer ces paquets.
 

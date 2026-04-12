@@ -78,15 +78,15 @@ status:
   qa_generated: false
 ---
 
-*Parent page: [Running jobs](running-jobs.md)*
+*Parent page: [Running jobs](running_jobs.md)*
 
-You can do much work on our clusters by [submitting jobs](running-jobs.md) that specify only the number of cores and a runtime limit. However if you submit large numbers of jobs, or jobs that require large amounts of resources, you may be able to improve your productivity by understanding the policies affecting job scheduling.
+You can do much work on our clusters by [submitting jobs](running_jobs.md) that specify only the number of cores and a runtime limit. However if you submit large numbers of jobs, or jobs that require large amounts of resources, you may be able to improve your productivity by understanding the policies affecting job scheduling.
 
 ## Priority and fair-share
 
 The order in which jobs are considered for scheduling is determined by *priority*. Priority on our systems is determined using the "fair tree" algorithm, described [here](https://slurm.schedmd.com/fair_tree.html) and [here](https://slurm.schedmd.com/SC14/BYU_Fair_Tree.pdf).
 
-Each job is charged to a Resource Allocation Project (RAP). You specify the project with the `--account` argument to `sbatch`. The project might hold a grant of CPU or GPU time from a [Resource Allocation Competition](https://www.computecanada.ca/research-portal/accessing-resources/resource-allocation-competitions/), in which case the account code will probably begin with `rrg-` or `rpp-`. Or it could be a non-RAC project, also known as a Rapid Access Service project, in which case the account code will probably begin with `def-`. See [Accounts and Projects](running-jobs.md#accounts-and-projects) for how to determine what account codes you can use.
+Each job is charged to a Resource Allocation Project (RAP). You specify the project with the `--account` argument to `sbatch`. The project might hold a grant of CPU or GPU time from a [Resource Allocation Competition](https://www.computecanada.ca/research-portal/accessing-resources/resource-allocation-competitions/), in which case the account code will probably begin with `rrg-` or `rpp-`. Or it could be a non-RAC project, also known as a Rapid Access Service project, in which case the account code will probably begin with `def-`. See [Accounts and Projects](running_jobs.md#accounts-and-projects) for how to determine what account codes you can use.
 
 Every project has a target usage level. RAC projects have target levels determined by the number of CPU-years or GPU-years granted with each RAC award. Non-RAC projects (i.e. `def-` accounts) all have equal target levels, and that equal value is adjusted every few minutes based on the number of projects that are active on the cluster.
 
@@ -119,21 +119,21 @@ The project by itself, or the user within a project, is referred to as an "assoc
 
 A project which consistently uses its target amount will have a LevelFS near 1.0. If the project uses more than its target, then its LevelFS will be below 1.0 and the priority of new jobs belonging to that project will also be low. If the project uses less than its target usage then its LevelFS will be greater than 1.0 and new jobs will enjoy high priority.
 
-**See also:** [Allocations and compute scheduling](allocations-and-compute-scheduling.md).
+**See also:** [Allocations and compute scheduling](allocations_and_compute_scheduling.md).
 
 ## Whole nodes versus cores
 
-Applications which can efficiently use more cores than are found in a single node may benefit from being scheduled on **whole nodes**. Some clusters have nodes reserved for jobs which request one or more entire nodes. See [whole nodes](advanced-mpi-scheduling.md#whole-nodes) on the page [Advanced MPI scheduling](advanced-mpi-scheduling.md) for example scripts and further discussion.
+Applications which can efficiently use more cores than are found in a single node may benefit from being scheduled on **whole nodes**. Some clusters have nodes reserved for jobs which request one or more entire nodes. See [whole nodes](advanced_mpi_scheduling.md#whole-nodes) on the page [Advanced MPI scheduling](advanced_mpi_scheduling.md) for example scripts and further discussion.
 
 !!! warning
 
     Requesting an inefficient number of processors for a calculation simply in order to take advantage of whole-node scheduling will be construed as abuse of the system. For example, a program which takes just as long to run on 192 cores as on 64 cores should request 64 cores, not 192.
 
-If you have huge amounts of serial work and can efficiently use [META-Farm](meta-farm.md), [GNU Parallel](gnu-parallel.md), [GLOST](glost.md), or [other techniques](https://docs.scinet.utoronto.ca/index.php/Running_Serial_Jobs_on_Niagara) to pack serial processes onto a single node, you are also welcome to use whole-node scheduling.
+If you have huge amounts of serial work and can efficiently use [META-Farm](meta-farm.md), [GNU Parallel](gnu_parallel.md), [GLOST](glost.md), or [other techniques](https://docs.scinet.utoronto.ca/index.php/Running_Serial_Jobs_on_Niagara) to pack serial processes onto a single node, you are also welcome to use whole-node scheduling.
 
 ## Time limits
 
-[Trillium](trillium.md) accepts jobs of up to 24 hours run-time, [Fir](fir.md), [Narval](narval.md), [Nibi](nibi.md) and [Rorqual](rorqual.md) up to 7 days. These limits are subject to change at the discretion of each site's sysadmin team.
+[Trillium](../clusters/trillium.md) accepts jobs of up to 24 hours run-time, [Fir](../software/fir.md), [Narval](../clusters/narval.md), [Nibi](../clusters/nibi.md) and [Rorqual](../clusters/rorqual.md) up to 7 days. These limits are subject to change at the discretion of each site's sysadmin team.
 
 On the general-purpose clusters, longer jobs are restricted to use only a fraction of the cluster by *partitions*. There are partitions for jobs of
 *   3 hours or less,
@@ -153,7 +153,7 @@ Backfilling will primarily benefit jobs with short time limits, e.g. under 3 hou
 
 ## Percentage of the nodes you have access to
 
-This section aims at giving some insight into how the general-purpose clusters ([Fir](fir.md), [Narval](narval.md), [Nibi](nibi.md), [Rorqual](rorqual.md)) are partitioned.
+This section aims at giving some insight into how the general-purpose clusters ([Fir](../software/fir.md), [Narval](../clusters/narval.md), [Nibi](../clusters/nibi.md), [Rorqual](../clusters/rorqual.md)) are partitioned.
 
 First, the nodes are partitioned into four different categories:
 *   Base nodes, which have 4 or 8 GB of memory per core
@@ -233,14 +233,14 @@ The `partition-stats` utility does not give information about the number of core
 
 !!! warning
 
-    Running `partition-stats` is somewhat costly to the scheduler. Please do not write a script which automatically calls `partition-stats` repeatedly. If you have a workflow which you believe would benefit from automatic parsing of the information from `partition-stats`, please contact [Technical support](technical-support.md) and ask for guidance.
+    Running `partition-stats` is somewhat costly to the scheduler. Please do not write a script which automatically calls `partition-stats` repeatedly. If you have a workflow which you believe would benefit from automatic parsing of the information from `partition-stats`, please contact [Technical support](../support/technical_support.md) and ask for guidance.
 
 ## Number of jobs
 
 There may be a limit on the number of jobs you can have in the system at any one time.
 
-On [Narval](narval.md), [Nibi](nibi.md) and [Rorqual](rorqual.md), normal accounts can have no more than 1000 jobs in a pending or running state at any time. Each task of a [job array](job-arrays.md) counts as one job. The limit is applied using Slurm's [MaxSubmit](https://slurm.schedmd.com/sacctmgr.html) parameter.
+On [Narval](../clusters/narval.md), [Nibi](../clusters/nibi.md) and [Rorqual](../clusters/rorqual.md), normal accounts can have no more than 1000 jobs in a pending or running state at any time. Each task of a [job array](job_arrays.md) counts as one job. The limit is applied using Slurm's [MaxSubmit](https://slurm.schedmd.com/sacctmgr.html) parameter.
 
 ## Changes over time
 
-See [Scheduling policy updates](scheduling-policy-updates.md) to see changes which might affect the behaviour of your job scripts, and when the changes were implemented.
+See [Scheduling policy updates](scheduling_policy_updates.md) to see changes which might affect the behaviour of your job scripts, and when the changes were implemented.

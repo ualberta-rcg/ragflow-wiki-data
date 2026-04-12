@@ -74,12 +74,12 @@ Dans certains cas, il est nécessaire de mettre en place un tunnel puisque les n
 Un tunnel sera requis dans les cas suivants :
 
 * pour utiliser une application du commerce qui doit entrer en contact avec un serveur de licence via l’Internet;
-* pour utiliser une application de [visualisation](visualization.md) sur un nœud de calcul avec lequel une application client sur l’ordinateur local d’un utilisateur doit entrer en contact;
+* pour utiliser une application de [visualisation](../software/visualization.md) sur un nœud de calcul avec lequel une application client sur l’ordinateur local d’un utilisateur doit entrer en contact;
 * pour accéder à une base de données sur une grappe à partir d’un endroit autre que le nœud de connexion de cette grappe, par exemple votre ordinateur personnel.
 
 Dans le premier cas, le serveur de licence est situé à l’extérieur de la grappe et est rarement contrôlé par l’utilisateur alors que dans les autres cas, le serveur se trouve dans le nœud de calcul et la difficulté est de s’y connecter à partir de l’extérieur. Nous traitons ici des deux situations.
 
-Même si elles ne sont pas essentielles à l'utilisation de tunnels, vous pourriez vous familiariser avec les [clés SSH](ssh-keys.md).
+Même si elles ne sont pas essentielles à l'utilisation de tunnels, vous pourriez vous familiariser avec les [clés SSH](ssh_keys.md).
 
 ## Entrer en contact avec un serveur de licence à partir d’un nœud de calcul
 
@@ -137,7 +137,7 @@ mpirun thesoftware .....
 
 ## Se connecter à une application qui est exécutée sur un nœud de calcul
 
-Un tunnel crypté peut être mis en place dans un nœud de connexion d’une grappe pour connecter l’ordinateur d’un utilisateur à un nœud de calcul de cette grappe. L’ordinateur de l’utilisateur peut ainsi afficher de façon transparente des [visualisations](visualization.md) et des graphiques de [Jupyter Notebook](jupyter.md) exécutés dans un nœud de calcul de la grappe. Lorsque la seule façon d’accéder à un serveur de bases de données est par un nœud de connexion, un tunnel SSH peut transférer un port réseau arbitraire d’un nœud de calcul vers le nœud de connexion de la grappe et l’associer au serveur de bases de données.
+Un tunnel crypté peut être mis en place dans un nœud de connexion d’une grappe pour connecter l’ordinateur d’un utilisateur à un nœud de calcul de cette grappe. L’ordinateur de l’utilisateur peut ainsi afficher de façon transparente des [visualisations](../software/visualization.md) et des graphiques de [Jupyter Notebook](../software/jupyter.md) exécutés dans un nœud de calcul de la grappe. Lorsque la seule façon d’accéder à un serveur de bases de données est par un nœud de connexion, un tunnel SSH peut transférer un port réseau arbitraire d’un nœud de calcul vers le nœud de connexion de la grappe et l’associer au serveur de bases de données.
 
 Nibi et Fir effectuent une NAT (*network address translation*) pour que les utilisateurs puissent avoir accès à l’Internet à partir des nœuds de calcul.
 
@@ -151,7 +151,7 @@ Sur votre ordinateur, ouvrez une nouvelle fenêtre de terminal et lancez la comm
 sshuttle --dns -Nr userid@machine_name
 ```
 
-Copiez et collez l’URL de l'application dans votre fureteur. Si votre application est [Jupyter Notebook](jupyter.md#lancer-jupyter-notebook) par exemple, l'URL comprendra un *token* :
+Copiez et collez l’URL de l'application dans votre fureteur. Si votre application est [Jupyter Notebook](../software/jupyter.md#lancer-jupyter-notebook) par exemple, l'URL comprendra un *token* :
 
 ```text
  http://fc3281.int.fir.alliancecan.ca:8888/?token=7ed7059fad64446f837567e32af8d20efa72e72476eb72ca
@@ -159,11 +159,11 @@ Copiez et collez l’URL de l'application dans votre fureteur. Si votre applicat
 
 ### De Windows
 
-Un tunnel SSH peut être créé avec [MobaXTerm](connecting-with-mobaxterm.md) comme suit :
+Un tunnel SSH peut être créé avec [MobaXTerm](connecting_with_mobaxterm.md) comme suit :
 
 Lancez deux sessions MobaXterm.
 
-*La session 1* devrait servir à la connexion à la grappe. Lancez ici votre tâche selon les directives de votre application, par exemple avec [Jupyter Notebook](jupyter.md#lancer-jupyter-notebook). Vous devriez recevoir une URL qui contient le nom et un port du nœud hôte, par exemple `fc3281.int.fir.alliancecan.ca:8888`.
+*La session 1* devrait servir à la connexion à la grappe. Lancez ici votre tâche selon les directives de votre application, par exemple avec [Jupyter Notebook](../software/jupyter.md#lancer-jupyter-notebook). Vous devriez recevoir une URL qui contient le nom et un port du nœud hôte, par exemple `fc3281.int.fir.alliancecan.ca:8888`.
 
 *La session 2* est un terminal local dans lequel le tunnel SSH sera mis en place. Lancez la prochaine commande en remplaçant le nom du nœud par l'URL obtenue dans la session 1.
 
@@ -174,7 +174,7 @@ ssh -L 8888:fc3281.int.fir.alliancecan.ca:8888 someuser@fir.alliancecan.ca
 Cette commande effectue une redirection des connexions au port local `8888` vers le port `8888` sur `fc3281.int.fir.alliancecan.ca`, nom donné au **port distant**. Il n'est pas nécessaire que les numéros soient identiques, mais il s'agit d'une convention qui permet d'identifier facilement le port local et le port distant.
 
 Modifiez l'URL obtenue dans la session 1 en remplaçant le nom du nœud par `localhost`.
-Suivant l'exemple avec [Jupyter Notebook](jupyter.md#lancer-jupyter-notebook), l'URL à copier dans le fureteur est :
+Suivant l'exemple avec [Jupyter Notebook](../software/jupyter.md#lancer-jupyter-notebook), l'URL à copier dans le fureteur est :
 
 ```text
  http://localhost:8888/?token=7ed7059fad64446f837567e32af8d20efa72e72476eb72ca

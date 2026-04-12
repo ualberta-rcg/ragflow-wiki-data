@@ -47,7 +47,7 @@ If working with graphical-based programs, X11 forwarding should be enabled. To d
     Test that X11 forwarding is working by opening a PuTTY session and running a simple GUI-based program, such as typing the command `xclock`. If you see a pop-up window with a clock, X11 forwarding should be working.
 
 ## Using a key pair
-To set the private key PuTTY uses when connecting to a machine, go to Connection->SSH->Auth and click the *Browse* button to find the private key file to use. PuTTY uses files with a *.ppk* suffix, which are generated using PuTTYGen (see [Generating SSH keys in Windows](generating-ssh-keys-in-windows.md) for instructions on how to create such a key).
+To set the private key PuTTY uses when connecting to a machine, go to Connection->SSH->Auth and click the *Browse* button to find the private key file to use. PuTTY uses files with a *.ppk* suffix, which are generated using PuTTYGen (see [Generating SSH keys in Windows](generating_ssh_keys_in_windows.md) for instructions on how to create such a key).
 
 !!! note "Newer PuTTY Versions"
     In newer versions of PuTTY, you need to click the "+" sign next to *Auth* and then select *Credentials* to be able to browse for the *Private key file for authentication*. Note that the additional fields in that newer interface, i.e., *Certificate to use* and *Plugin to provide authentication response*, should be left blank.

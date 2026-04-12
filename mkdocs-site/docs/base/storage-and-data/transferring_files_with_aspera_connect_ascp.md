@@ -56,7 +56,7 @@ If the server you are trying to transfer data to is incompatible with this older
 
 ## Aspera Connect/ascp 4+
 
-In order to use Aspera Connect (formerly ascp) you will need to [install it in one of your local directories](installing-software-in-your-home-directory.md).
+In order to use Aspera Connect (formerly ascp) you will need to [install it in one of your local directories](../getting-started/installing_software_in_your_home_directory.md).
 
 1.  Copy the link for the latest Linux version of the software from the [Aspera Connect website](https://www.ibm.com/aspera/connect).
 2.  Go to the directory where you want to install the software, e.g. your `/home` directory.

@@ -38,7 +38,7 @@ status:
 ## Database as a Service (DBaaS)
 If a VM is not sufficient to run a database load, a managed database can be used instead, the current offering includes MySQL/MariaDB and Postgres on a physical system.
 The database systems as well as all databases are being backed up once a day. The backups are archived for 3 months.
-To request access, please contact [Technical support](technical-support.md).
+To request access, please contact [Technical support](../support/technical_support.md).
 
 !!! note "Required Information"
     Please provide in your request the client network or IP address you will access the database from.

@@ -194,7 +194,7 @@ If you prefer the `parallel loop` directive, the `vector` length is specified at
 If you actually make this change, you will see that, on a K20, the run time actually goes up, from about 10 seconds to about 15 seconds. This is because the compiler is doing something clever.
 
 ## Guided analysis with the NVidia Visual Profiler
-As instructed in the [third section](openacc-tutorial-adding-directives.md#how-is-ported-code-performing) of this tutorial, open the NVidia Visual Profiler and start a new session with the latest executable we have built. Then, follow the following steps:
+As instructed in the [third section](openacc_tutorial_-_adding_directives.md#how-is-ported-code-performing) of this tutorial, open the NVidia Visual Profiler and start a new session with the latest executable we have built. Then, follow the following steps:
 1. Go in in the "Analysis" tab, and click on "Examine GPU Usage". Once the analysis is run, the profiler gives you a series of warnings. This gives you indications on what it might be possible to improve upon.
 2. Then click on "Examine Individual Kernels". This will show you a list of kernels.
 3. Select the top one, and click on "Perform Kernel Analysis". The profiler will show you a more detailed analysis of this specific kernel, highlighting the most likely bottleneck. In this case, the performance is limited by memory latency.
@@ -257,4 +257,4 @@ There are two clauses which we did not use in the examples, and which may be use
 !!! question "Jacobi iterations"
     The `bonus` folder contains a code which solves the [Laplace Equation](https://en.wikipedia.org/wiki/Laplace%27s_equation) using the [Jacobi method](https://en.wikipedia.org/wiki/Jacobi_method). Use what you have learned in this tutorial to port it to GPU using OpenACC and see what performance gain you are able to get.
 
-[Back to the lesson plan](openacc-tutorial.md)
+[Back to the lesson plan](openacc_tutorial.md)

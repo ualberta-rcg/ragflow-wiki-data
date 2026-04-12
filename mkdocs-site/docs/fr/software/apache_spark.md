@@ -155,7 +155,7 @@ spark.history.fs.logDirectory  /home/<userid>/.spark/<spark version>/eventlog
 
 ### Visualisation
 
-Créer un [tunnel SSH](ssh-tunnelling.md) entre votre ordinateur et la grappe de calcul.
+Créer un [tunnel SSH](../getting-started/ssh_tunnelling.md) entre votre ordinateur et la grappe de calcul.
 
 Charger le module Spark :
 ```bash

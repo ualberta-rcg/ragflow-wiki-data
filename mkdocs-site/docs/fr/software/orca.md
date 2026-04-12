@@ -68,7 +68,7 @@ Pour utiliser les modules exécutables ORCA préconstruits :
 1.  Remplissez le formulaire d'inscription que vous trouverez sur [https://orcaforum.kofo.mpg.de/](https://orcaforum.kofo.mpg.de/).
 2.  Vous recevrez par courriel un premier message pour confirmer votre adresse de courriel et activer le compte; suivez les directives de ce courriel.
 3.  Quand votre inscription sera faite, vous recevrez **un deuxième courriel** avec la mention *registration for ORCA download and usage has been completed*.
-4.  Faites parvenir une copie du **deuxième courriel** au [soutien technique](technical-support.md).
+4.  Faites parvenir une copie du **deuxième courriel** au [soutien technique](../support/technical_support.md).
 
 ## Versions
 
@@ -122,10 +122,10 @@ En plus des mots clés qui sont nécessaires à l'exécution d'une simulation, a
 Pour connaître les versions disponibles, lancez `module spider orca`.
 Pour les détails en rapport avec un module spécifique (incluant les directives pour l'ordre dans lequel charger les modules requis), utilisez le nom complet du module, par exemple `module spider orca/4.0.1.2`.
 
-Pour les directives générales, consultez [Utiliser des modules](utiliser-des-modules.md).
+Pour les directives générales, consultez [Utiliser des modules](../programming/utiliser_des_modules.md).
 
 ### Soumettre des tâches
-Pour les directives générales, consultez [Exécuter des tâches](running-jobs.md).
+Pour les directives générales, consultez [Exécuter des tâches](../running-jobs/running_jobs.md).
 
 !!! note "Note importante"
     Si certains exécutables ORCA présentent des problèmes avec MPI, vous pouvez essayer de définir les variables suivantes :
@@ -198,7 +198,7 @@ Vous pouvez maintenant installer manuellement les binaires orca/4.2.0 à partir 
 
 ## Utilisation de NBO
 
-Vous devez avoir accès à NBO pour pouvoir l'utiliser avec ORCA. NBO n'est pas un module distinct sur nos grappes, mais il est possible d'y avoir accès via les modules Gaussian qui sont installés sur [Cedar](cedar.md) et [Graham](graham.md). Pour pouvoir utiliser NBO avec ORCA, vous devez donc avoir accès à ORCA et [aussi à Gaussian](gaussian.md#licence).
+Vous devez avoir accès à NBO pour pouvoir l'utiliser avec ORCA. NBO n'est pas un module distinct sur nos grappes, mais il est possible d'y avoir accès via les modules Gaussian qui sont installés sur [Cedar](../clusters/cedar.md) et [Graham](../clusters/graham.md). Pour pouvoir utiliser NBO avec ORCA, vous devez donc avoir accès à ORCA et [aussi à Gaussian](gaussian.md#licence).
 
 ### Exemple de script
 

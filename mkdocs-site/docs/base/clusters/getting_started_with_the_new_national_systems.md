@@ -32,7 +32,7 @@ status:
   qa_generated: false
 ---
 
-You can begin by consulting the [technical support](technical-support.md) page as well as viewing a series of short (5-10 minutes) webinars covering the basics of how to use the [Cedar](cedar.md) and [Graham](graham.md) national systems.
+You can begin by consulting the [technical support](../support/technical_support.md) page as well as viewing a series of short (5-10 minutes) webinars covering the basics of how to use the [Cedar](cedar.md) and [Graham](graham.md) national systems.
 
 The whole series can be accessed as a playlist on our YouTube site:
 
@@ -48,4 +48,4 @@ Alternatively, individual mini-webinars can be accessed through the links below:
 * [Common mistakes to avoid](https://www.youtube.com/watch?v=TOYsh0TPy2U): Save yourself time and discover the most common mistakes to avoid.
 * [Accessing the environment](https://www.youtube.com/watch?v=VONgiHWc-gE): This short video will tell you everything you need to know about accessing the environment, from logging in to transferring data.
 
-Need more help? [This link](technical-support.md) will show you how and where to get it.
+Need more help? [This link](../support/technical_support.md) will show you how and where to get it.

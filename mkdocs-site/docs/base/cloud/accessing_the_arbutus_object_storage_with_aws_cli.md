@@ -35,7 +35,7 @@ status:
   qa_generated: false
 ---
 
-This page contains instructions on how to set up and access [Arbutus object storage](arbutus-object-storage.md) with the AWS Command Line Interface (CLI), one of the [object storage clients](arbutus-object-storage-clients.md) available for this storage type.
+This page contains instructions on how to set up and access [Arbutus object storage](arbutus_object_storage.md) with the AWS Command Line Interface (CLI), one of the [object storage clients](arbutus_object_storage_clients.md) available for this storage type.
 
 !!! note "AWS CLI for Arbutus Object Storage"
     The AWS CLI offers better support for large (>5GB) files and includes the useful `sync` command, distinguishing it from other object storage clients. However, please be aware that not all features have not been tested.

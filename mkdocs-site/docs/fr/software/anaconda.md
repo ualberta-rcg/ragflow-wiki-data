@@ -52,7 +52,7 @@ Anaconda est une distribution de Python.
 
 !!! warning "Avant d'utiliser Anaconda"
     Nous sommes conscients qu'Anaconda est largement utilisé dans plusieurs domaines étudiés par nos utilisateurs (la science des données, l'IA, la bio-informatique, etc.). Anaconda est une solution intéressante pour simplifier la gestion de Python et de librairies sur un ordinateur personnel. Cependant, sur une grappe comme celles maintenues par l'Alliance, la gestion des librairies doit être faite par notre personnel, afin d'assurer une compatibilité et une performance maximales. De plus, l'utilisation d'Anaconda sur une grappe de calcul peut mener à plusieurs problèmes.
-    Avant d'utiliser Anaconda, nous vous demandons de contacter notre [soutien technique](technical-support.md) pour que nos experts puissent explorer les alternatives avec vous. Si vous choisissez d'utiliser Anaconda, notez que notre équipe ne pourra pas vous offrir de soutien si vous rencontrez des problèmes.
+    Avant d'utiliser Anaconda, nous vous demandons de contacter notre [soutien technique](../support/technical_support.md) pour que nos experts puissent explorer les alternatives avec vous. Si vous choisissez d'utiliser Anaconda, notez que notre équipe ne pourra pas vous offrir de soutien si vous rencontrez des problèmes.
 
 ## Pourquoi Anaconda n'est pas recommandé sur une grappe de calcul ?
 
@@ -66,7 +66,7 @@ Anaconda peut être problématique sur une grappe de calcul pour plusieurs raiso
 *   modifie `$HOME/.bashrc`, ce qui peut causer des conflits.
 
 ## Quelles sont les alternatives ?
-La première étape que vous devriez faire est de contacter notre [soutien technique](technical-support.md) afin que nos experts explorent avec vous la meilleure alternative pour votre besoin. Si vous préférez tenter par vous-même, deux options principales sont listées ci-dessous.
+La première étape que vous devriez faire est de contacter notre [soutien technique](../support/technical_support.md) afin que nos experts explorent avec vous la meilleure alternative pour votre besoin. Si vous préférez tenter par vous-même, deux options principales sont listées ci-dessous.
 
 ### Transitionner de Conda vers virtualenv
 
@@ -80,10 +80,10 @@ La première étape que vous devriez faire est de contacter notre [soutien techn
 3.  Retirez de la liste de dépendance tout ce qui n'est pas un paquet Python (par exemple, retirez `` `cudatoolkit` `` et `` `cudnn` ``).
 4.  Utilisez un [virtualenv](python.md#creating-and-using-a-virtual-environment), dans lequel vous installerez ces dépendances.
 
-Votre application devrait fonctionner. Si ce n'est pas le cas, n'hésitez pas à contacter notre [soutien technique](technical-support.md).
+Votre application devrait fonctionner. Si ce n'est pas le cas, n'hésitez pas à contacter notre [soutien technique](../support/technical_support.md).
 
 ### Utiliser Apptainer
 
-Dans certaines situations, la complexité des dépendances d'un logiciel exige une solution où l'on peut maîtriser entièrement l'environnement. Pour ces situations, on recommande l'outil [Apptainer](apptainer.md#travailler-avec-conda) : notez qu'une image Docker peut être convertie en image Apptainer. Le seul inconvénient d'Apptainer, c'est que les images consomment beaucoup d'espace disque, alors si votre groupe de recherche prévoit d'utiliser plusieurs images, il serait sage de les regrouper ensemble dans un seul répertoire de l'espace projet du groupe pour éviter les doublons.
+Dans certaines situations, la complexité des dépendances d'un logiciel exige une solution où l'on peut maîtriser entièrement l'environnement. Pour ces situations, on recommande l'outil [Apptainer](containers/apptainer.md#travailler-avec-conda) : notez qu'une image Docker peut être convertie en image Apptainer. Le seul inconvénient d'Apptainer, c'est que les images consomment beaucoup d'espace disque, alors si votre groupe de recherche prévoit d'utiliser plusieurs images, il serait sage de les regrouper ensemble dans un seul répertoire de l'espace projet du groupe pour éviter les doublons.
 
-Pour des instructions détaillées sur l'utilisation de Conda dans Apptainer, consultez la section dédiée [Travailler avec Conda](apptainer.md#travailler-avec-conda) sur la page Apptainer.
+Pour des instructions détaillées sur l'utilisation de Conda dans Apptainer, consultez la section dédiée [Travailler avec Conda](containers/apptainer.md#travailler-avec-conda) sur la page Apptainer.

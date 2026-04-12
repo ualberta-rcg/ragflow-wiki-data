@@ -57,7 +57,7 @@ status:
 module spider mrbayes
 ```
 
-Pour savoir comment trouver et sélectionner une version de MrBayes avec les commandes `module`, consultez [Utiliser des modules](utiliser-des-modules.md).
+Pour savoir comment trouver et sélectionner une version de MrBayes avec les commandes `module`, consultez [Utiliser des modules](../../programming/utiliser_des_modules.md).
 
 ## Exemples
 

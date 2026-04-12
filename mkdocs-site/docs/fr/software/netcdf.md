@@ -81,7 +81,7 @@ Nous abordons ici les détails de configuration.
 
 ### Modules d'environnement
 
-Les [modules](utiliser-des-modules.md) suivants sont disponibles via CVMFS :
+Les [modules](../programming/utiliser_des_modules.md) suivants sont disponibles via CVMFS :
 *   **netcdf**
     *   pour lier avec les programmes contenant uniquement des instructions en C
 *   **netcdf-c++**
@@ -106,7 +106,7 @@ module load netcdf/4.1.3
 ```
 
 ### Soumettre un script
-Consultez [Exécuter des tâches](running-jobs.md) pour des exemples de scripts soumis à l'ordonnanceur Slurm. Nous vous recommandons d'inclure la commande `module load ...` dans votre script.
+Consultez [Exécuter des tâches](../running-jobs/running_jobs.md) pour des exemples de scripts soumis à l'ordonnanceur Slurm. Nous vous recommandons d'inclure la commande `module load ...` dans votre script.
 
 ### Lier des programmes à des bibliothèques NetCDF
 Les exemples qui suivent montrent comment lier des bibliothèques NetCDF à des programmes en C et en Fortran.

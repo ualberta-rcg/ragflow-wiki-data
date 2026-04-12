@@ -50,9 +50,9 @@ status:
   qa_generated: false
 ---
 
-*Page enfant de [Gestion et types de stockage](storage-and-file-management.md)*
+*Page enfant de [Gestion et types de stockage](storage_and_file_management.md)*
 
-Sur nos grappes, le système de fichiers `/scratch` sert au stockage rapide et temporaire des données utilisées en cours d'exécution. Pour leur part, les données qui doivent être stockées à long terme et les données de référence sont enregistrées dans l'espace `/project` ou dans une des zones d'archivage; voir les [types de stockage](storage-and-file-management.md#types-de-stockage). Pour toujours garder suffisamment d'espace `/scratch`, les fichiers de plus de 60 jours sont supprimés périodiquement en fonction de leur âge. Notez que c'est l'âge d'un fichier qui détermine s'il sera purgé et non l'endroit où il se trouve dans `/scratch`; le fait de déplacer un fichier dans un autre répertoire de `/scratch` ne l'empêchera pas d'être supprimé.
+Sur nos grappes, le système de fichiers `/scratch` sert au stockage rapide et temporaire des données utilisées en cours d'exécution. Pour leur part, les données qui doivent être stockées à long terme et les données de référence sont enregistrées dans l'espace `/project` ou dans une des zones d'archivage; voir les [types de stockage](storage_and_file_management.md#types-de-stockage). Pour toujours garder suffisamment d'espace `/scratch`, les fichiers de plus de 60 jours sont supprimés périodiquement en fonction de leur âge. Notez que c'est l'âge d'un fichier qui détermine s'il sera purgé et non l'endroit où il se trouve dans `/scratch`; le fait de déplacer un fichier dans un autre répertoire de `/scratch` ne l'empêchera pas d'être supprimé.
 
 !!! note "Remarque"
     Nibi ne purge pas les fichiers comme les autres grappes ([voir ci-dessous](#nibi)).

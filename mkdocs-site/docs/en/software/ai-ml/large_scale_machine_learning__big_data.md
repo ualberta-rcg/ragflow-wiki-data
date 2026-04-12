@@ -161,13 +161,13 @@ To see the latest version of Snap ML that we have built:
 ```bash
 avail_wheels "snapml"
 ```
-For more information, see [Available wheels](python.md#available-wheels).
+For more information, see [Available wheels](../python.md#available-wheels).
 
 #### Installing the wheel
 
 The preferred option is to install it using the Python [wheel](https://pythonwheels.com/) as follows:
-1. Load a Python [module](utiliser-des-modules.md#sub-command-load), thus `module load python`
-2. Create and start a [virtual environment](python.md#creating-and-using-a-virtual-environment).
+1. Load a Python [module](../../programming/utiliser_des_modules.md#sub-command-load), thus `module load python`
+2. Create and start a [virtual environment](../python.md#creating-and-using-a-virtual-environment).
 3. Install SnapML in the virtual environment with `pip install`.
 
 ```bash
@@ -267,4 +267,4 @@ Snap ML features distributed implementations of many estimators. To run in distr
 
 ## Spark ML
 
-[Spark ML](https://spark.apache.org/docs/latest/ml-guide.html) is a machine learning library built on top of [Apache Spark](apache-spark.md). It enables users to scale out many machine learning methods to massive amounts of data, over multiple nodes, without worrying about distributing datasets or explicitly writing distributed/parallel code. The library also includes many useful tools for distributed linear algebra and statistics. Please see our tutorial on [submitting Spark jobs](apache-spark.md#usage) before trying out the examples on the official [Spark ML documentation](https://spark.apache.org/docs/latest/ml-guide.html).
+[Spark ML](https://spark.apache.org/docs/latest/ml-guide.html) is a machine learning library built on top of [Apache Spark](../apache_spark.md). It enables users to scale out many machine learning methods to massive amounts of data, over multiple nodes, without worrying about distributing datasets or explicitly writing distributed/parallel code. The library also includes many useful tools for distributed linear algebra and statistics. Please see our tutorial on [submitting Spark jobs](../apache_spark.md#usage) before trying out the examples on the official [Spark ML documentation](https://spark.apache.org/docs/latest/ml-guide.html).

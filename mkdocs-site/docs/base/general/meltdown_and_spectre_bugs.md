@@ -57,7 +57,7 @@ Meltdown and Spectre are bugs related to speculative execution in a variety of C
 ### Availability impacts
 Updates to patch the vulnerabilities required updating the operating system and rebooting the nodes. For compute nodes this was typically done in a rolling fashion, was largely transparent to users, and is now complete.
 
-Updates were applied at [Graham](graham.md) between 2018 January 5 and January 31. Most nodes were updated by January 13.
+Updates were applied at [Graham](../clusters/graham.md) between 2018 January 5 and January 31. Most nodes were updated by January 13.
 
 ### Performance impacts
 Many groups around the world have run benchmarks to evaluate the effects of the operating system patches on performance. Certain figures that have been cited are alarming (up to a 30% or even 50% performance hit), while others are very minimal.
@@ -74,13 +74,13 @@ All vulnerable equipment operated by Compute Canada has been patched. If and whe
 !!! warning "Your responsibility for Virtual Machines"
     Security-wise, please rest assured that Compute Canada team members are taking every action possible to ensure that systems we run are secure. **If you are operating your own virtual machine** in our cloud, you are however responsible for updating its operating system to include the latest security patches (see next subsection).
 
-Performance-wise, if you believe that your application may be severely impacted by the security patches, please contact our [Technical support](technical-support.md) team. We encourage you to bring forward comparative performance numbers of your application (job run times before and after the announcement, for example).
+Performance-wise, if you believe that your application may be severely impacted by the security patches, please contact our [Technical support](../support/technical_support.md) team. We encourage you to bring forward comparative performance numbers of your application (job run times before and after the announcement, for example).
 
 !!! tip
     Keep in mind however that mitigating the performance impact of the security patches is likely to require some modification to the code you are running, and may not always be possible.
 
 ### I have a virtual machine running on the Compute Canada Cloud
-Update your virtual machine's operating system to the latest version frequently to ensure it has the latest security patches to address these bugs. See [updating your VM](security-considerations-when-running-a-vm.md#updating-your-vm) for specific instructions on how to update Linux VMs.
+Update your virtual machine's operating system to the latest version frequently to ensure it has the latest security patches to address these bugs. See [updating your VM](../cloud/security_considerations_when_running_a_vm.md#updating-your-vm) for specific instructions on how to update Linux VMs.
 
 ## References
 * [Other general information about Spectre and Meltdown is available on the US-CERT web site](https://www.us-cert.gov/ncas/alerts/TA18-004A), which includes comprehensive links to vendor patch sites.

@@ -41,11 +41,11 @@ status:
 
 Typically AiiDA will run on a user's personal computer, a lab workstation, or a virtual machine in the cloud. From there, the user can have AiiDA submit jobs to clusters.
 
-To do this, AiiDA must be able to make many SSH connections to the clusters autonomously. This becomes a problem on clusters which require interactive [Multifactor authentication (MFA)](multifactor-authentication.md). The implementation of MFA support in AiiDA is still under development.
+To do this, AiiDA must be able to make many SSH connections to the clusters autonomously. This becomes a problem on clusters which require interactive [Multifactor authentication (MFA)](../getting-started/multifactor_authentication.md). The implementation of MFA support in AiiDA is still under development.
 
 # Automation in the context of multifactor authentication
 
-To allow AiiDA and other similar software to connect to Alliance clusters, we have set up so-called [automation nodes](automation-in-the-context-of-multifactor-authentication.md#automation-nodes-for-each-cluster) on each cluster. These allow SSH connections without MFA, subject to restrictions.
+To allow AiiDA and other similar software to connect to Alliance clusters, we have set up so-called [automation nodes](../getting-started/automation_in_the_context_of_multifactor_authentication.md#automation-nodes-for-each-cluster) on each cluster. These allow SSH connections without MFA, subject to restrictions.
 
 # Instructions on using AiiDA with Alliance clusters automation nodes
 
@@ -57,7 +57,7 @@ Users need to submit a ticket requesting access to automation nodes, explaining 
 
 ## Set up SSH key
 
-The first step is to [upload the public SSH key](ssh-keys.md#installing-your-key) to enable access to Alliance clusters. [Generate](ssh-keys.md#generating-an-ssh-key) this key on the machine which will be running AiiDA.
+The first step is to [upload the public SSH key](../getting-started/ssh_keys.md#installing-your-key) to enable access to Alliance clusters. [Generate](../getting-started/ssh_keys.md#generating-an-ssh-key) this key on the machine which will be running AiiDA.
 
 The uploaded key needs to specify the IP address that will be used to connect, as well as the working directory that AiiDA will be using (specified during AiiDA "computer setup" stage). If the IP of the machine running AiiDA changes, the user will need to upload a key with an updated IP address.
 
@@ -92,7 +92,7 @@ chmod u-w aiida_commands.sh
 
 ## Set up computer and code to use in AiiDA
 
-In AiiDA, set up a "computer" to use the desired cluster, using one of the [cluster automation nodes](automation-in-the-context-of-multifactor-authentication.md#automation-nodes-for-each-cluster) as hostname. Specify the SSH key defined above as the one to be used.
+In AiiDA, set up a "computer" to use the desired cluster, using one of the [cluster automation nodes](../getting-started/automation_in_the_context_of_multifactor_authentication.md#automation-nodes-for-each-cluster) as hostname. Specify the SSH key defined above as the one to be used.
 
 ## Setup on cluster
 

@@ -134,7 +134,7 @@ Example:
 
 # Transferring data using WSL
 
-A common use case of WSL is to use it for transferring data to Alliance resources using programs such as [FileZilla](https://filezilla-project.org/). Often, support for [multifactor authentication](multifactor-authentication.md) is stronger inside Linux (and by extension WSL) due to various technical factors. You can easily install such programs inside the Ubuntu WSL environment; in the case of FileZilla:
+A common use case of WSL is to use it for transferring data to Alliance resources using programs such as [FileZilla](https://filezilla-project.org/). Often, support for [multifactor authentication](multifactor_authentication.md) is stronger inside Linux (and by extension WSL) due to various technical factors. You can easily install such programs inside the Ubuntu WSL environment; in the case of FileZilla:
 
 ```bash
 [name@ubuntu-wsl ~]$ sudo apt install filezilla
@@ -144,4 +144,4 @@ The application is now installed and you can launch it from either from the Linu
 
 When you are browsing the filesystem of Linux using such tools, remember that your Windows files can be found under */mnt/{drive letter}* by default, and you can access them directly **without** needing to first copy them into the Linux environment.
 
-For more information about transferring data to Alliance resources, please refer to the [Transferring data](transferring-data.md) page.
+For more information about transferring data to Alliance resources, please refer to the [Transferring data](transferring_data.md) page.

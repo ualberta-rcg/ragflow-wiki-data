@@ -82,7 +82,7 @@ status:
 | Availability | June 19, 2025
 | Login node | **rorqual.alliancecan.ca**
 | Data transfer node (rsync, scp, sftp ...) | **rorqual.alliancecan.ca**
-| [Automation node](../automation-in-the-context-of-multifactor-authentication.md) | robot.rorqual.alliancecan.ca
+| [Automation node](../getting-started/automation_in_the_context_of_multifactor_authentication.md) | robot.rorqual.alliancecan.ca
 | Globus Collection | [alliancecan#rorqual](https://app.globus.org/file-manager?origin_id=f19f13f5-5553-40e3-ba30-6c151b9d35d4)
 | JupyterHub | [jupyterhub.rorqual.alliancecan.ca](https://jupyterhub.rorqual.alliancecan.ca/)
 | Portal | [metrix.rorqual.alliancecan.ca](https://metrix.rorqual.alliancecan.ca/)
@@ -106,7 +106,7 @@ To access the compute cluster, each researcher must [complete an access request]
 ## Specifics
 
 !!! warning
-    Our policy is that Rorqual compute nodes do not have internet access. To request an exception, please contact [technical support](../technical-support.md) explaining your needs and reasons. Note that the `crontab` tool is not available.
+    Our policy is that Rorqual compute nodes do not have internet access. To request an exception, please contact [technical support](../support/technical_support.md) explaining your needs and reasons. Note that the `crontab` tool is not available.
 
 Each job should be at least one hour long (at least five minutes for test jobs), and you cannot have more than 1000 jobs (running and pending) at a time. The maximum job duration is 7 days (168 hours).
 
@@ -114,11 +114,11 @@ Each job should be at least one hour long (at least five minutes for test jobs),
 
 | Filesystem | Description |
 | :--------- | :---------- |
-| HOME <br> Lustre filesystem, 116 TB total space | * This space is small and cannot be expanded: you will need to use your `project` space for large storage needs.<br>* Small, fixed [quotas](../storage-and-file-management.md#quotas-and-policies) per user<br>* There is an automatic daily backup. |
-| SCRATCH <br> Lustre filesystem, 6.5 PB total space | * Accessible via the symbolic link `$HOME/links/scratch`<br>* Large space for storing temporary files during computations.<br>* No automatic backup system<br>* Large, fixed [quotas](../storage-and-file-management.md#quotas-and-policies) per user<br>* There is an [automatic purging policy](../scratch-purging-policy.md) for old files in this space. |
-| PROJECT <br> Lustre filesystem, 62 PB total space | * Accessible via the symbolic link `$HOME/links/projects/project-name`<br>* This space is designed for data sharing among group members and for storing large amounts of data.<br>* Large, adjustable [quotas](../storage-and-file-management.md#quotas-and-policies) per project<br>* There is an automatic daily backup. |
+| HOME <br> Lustre filesystem, 116 TB total space | * This space is small and cannot be expanded: you will need to use your `project` space for large storage needs.<br>* Small, fixed [quotas](../storage-and-data/storage_and_file_management.md#quotas-and-policies) per user<br>* There is an automatic daily backup. |
+| SCRATCH <br> Lustre filesystem, 6.5 PB total space | * Accessible via the symbolic link `$HOME/links/scratch`<br>* Large space for storing temporary files during computations.<br>* No automatic backup system<br>* Large, fixed [quotas](../storage-and-data/storage_and_file_management.md#quotas-and-policies) per user<br>* There is an [automatic purging policy](../storage-and-data/scratch_purging_policy.md) for old files in this space. |
+| PROJECT <br> Lustre filesystem, 62 PB total space | * Accessible via the symbolic link `$HOME/links/projects/project-name`<br>* This space is designed for data sharing among group members and for storing large amounts of data.<br>* Large, adjustable [quotas](../storage-and-data/storage_and_file_management.md#quotas-and-policies) per project<br>* There is an automatic daily backup. |
 
-At the very beginning of this page, a table lists several connection addresses. For data transfers via [Globus](../globus.md), use the **Globus Endpoint**. However, for tools like [rsync](../transferring-data.md#rsync) and [scp](../transferring-data.md#scp), you must use the **Data transfer node** address.
+At the very beginning of this page, a table lists several connection addresses. For data transfers via [Globus](../getting-started/globus.md), use the **Globus Endpoint**. However, for tools like [rsync](../getting-started/transferring_data.md#rsync) and [scp](../getting-started/transferring_data.md#scp), you must use the **Data transfer node** address.
 
 ## High-Performance Networking
 *   InfiniBand Networking
@@ -146,7 +146,7 @@ In a CPU node, the 192 cores and different memory spaces are not equidistant, ca
             *   Eight (8) cores per *chiplet*, each with its own 1 MiB L2 and 32+32 KiB L1 cache.
 
 In other words, we have:
-*   Groups of 8 closely located cores that share the same L3 cache, which is ideal for [multithreaded parallel programs](../running-jobs.md#multithreaded-or-openmp-jobs) (for example, with the `--cpus-per-task=8` option).
+*   Groups of 8 closely located cores that share the same L3 cache, which is ideal for [multithreaded parallel programs](../running-jobs/running_jobs.md#multithreaded-or-openmp-jobs) (for example, with the `--cpus-per-task=8` option).
 *   NUMA *nodes* of 3×8 = 24 cores that share a trio of system memory channels.
 *   A total of 2×4×3×8 = 192 cores per node.
 
@@ -182,7 +182,7 @@ To request one or more full H100 GPUs, use one of the following Slurm options:
     *   `--gpus-per-node=h100:4`
 *   **Multiple H100-80gb** scattered anywhere: `--gpus=h100:n` (replace `n` with the desired number)
 
-Approximately half of Rorqual's GPU nodes are configured with [MIG technology](../multi-instance-gpu.md), and only three GPU instance sizes are available:
+Approximately half of Rorqual's GPU nodes are configured with [MIG technology](../programming/multi-instance_gpu.md), and only three GPU instance sizes are available:
 
 *   **H100-1g.10gb**: 1/8 of the compute power with 10 GB of GPU memory.
 *   **H100-2g.20gb**: 2/8 of the compute power with 20 GB of GPU memory.
@@ -194,4 +194,4 @@ To request **one and only one** GPU instance for your compute job, here are the 
 *   **H100-2g.20gb**: `--gpus=h100_2g.20gb:1`
 *   **H100-3g.40gb**: `--gpus=h100_3g.40gb:1`
 
-The maximum recommended amounts of **CPU cores and system memory** per GPU instance are listed in the [bundle characteristics table](../allocations-and-compute-scheduling.md#ratios-in-bundles).
+The maximum recommended amounts of **CPU cores and system memory** per GPU instance are listed in the [bundle characteristics table](../running-jobs/allocations_and_compute_scheduling.md#ratios-in-bundles).

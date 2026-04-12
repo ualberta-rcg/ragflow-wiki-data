@@ -81,7 +81,7 @@ status:
 [NAMD](http://www.ks.uiuc.edu/Research/namd/) is a parallel, object-oriented molecular dynamics code designed for high-performance simulation of large biomolecular systems. Simulation preparation and analysis is integrated into the [VMD](vmd.md) visualization package.
 
 ## Installation
-NAMD is installed by our software team and is available as a module. If a new version is required or if for some reason you need to do your own installation, please contact [Technical support](technical-support.md). You can also ask for details of how our NAMD modules were compiled.
+NAMD is installed by our software team and is available as a module. If a new version is required or if for some reason you need to do your own installation, please contact [Technical support](../support/technical_support.md). You can also ask for details of how our NAMD modules were compiled.
 
 ## Environment modules
 The latest version of NAMD is 3.0.2 (released August 27, 2025) and it has been installed on all clusters. It has a number of [improvements](https://www.ks.uiuc.edu/Research/namd/3.0.2/announce.html) over the previous version 3.0.1. The previous version 2.14 is also available, but it cannot run on H100 GPUs, so it should be used only on the Narval cluster if the GPU version is used.
@@ -89,7 +89,7 @@ The latest version of NAMD is 3.0.2 (released August 27, 2025) and it has been i
 To run jobs that span nodes, use UCX.
 
 ## Submission scripts
-Please refer to the [Running jobs](running-jobs.md) page for help on using the SLURM workload manager.
+Please refer to the [Running jobs](../running-jobs/running_jobs.md) page for help on using the SLURM workload manager.
 
 ### Threaded CPU jobs
 Below is a job script for a threaded simulation. You can increase the number for `--cpus-per-task` to use more cores, up to the maximum number of cores available on a cluster node. Check below in "Performance and benchmarking" section for advice on how to choose the number of cores to use.

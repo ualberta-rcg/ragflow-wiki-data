@@ -50,7 +50,7 @@ status:
 ---
 
 ## What's a job?
-On computers, we are most often familiar with graphical user interfaces (GUIs). There are windows, menus, buttons; we click here and there and the system responds. On our servers, the environment is different. To begin with, you control it by typing, not clicking. This is called a [command line interface](linux-introduction.md). Furthermore, a program you would like to run may not begin immediately, but may instead be put on a waiting list. When the necessary CPU cores are available it will begin; otherwise, jobs would interfere with each other, leading to performance loss.
+On computers, we are most often familiar with graphical user interfaces (GUIs). There are windows, menus, buttons; we click here and there and the system responds. On our servers, the environment is different. To begin with, you control it by typing, not clicking. This is called a [command line interface](../getting-started/linux_introduction.md). Furthermore, a program you would like to run may not begin immediately, but may instead be put on a waiting list. When the necessary CPU cores are available it will begin; otherwise, jobs would interfere with each other, leading to performance loss.
 
 You prepare a small text file called a *job script* that basically says what program to run, where to get the input, and where to put the output. You *submit* this job script to a piece of software called the *scheduler* which decides when and where it will run. Once the job has finished, you can retrieve the results of the calculation. Normally there is no interaction between you and the program while the job is running, although you can check on its progress if you wish.
 
@@ -75,7 +75,7 @@ The job scheduler is a piece of software with multiple responsibilities. It must
 On our clusters, these responsibilities are handled by the [Slurm Workload Manager](https://en.wikipedia.org/wiki/Slurm_Workload_Manager). All the examples and syntax shown on this page are for Slurm.
 
 ## Requesting resources
-You use the job script to ask for the resources needed to run your calculation. Among the resources associated with a job are *time* and *number of processors*. In the example above, the time requested is one minute, and there will be one processor allocated by default since no specific number is given. Please refer to [Examples of job scripts](running-jobs.md#examples-of-job-scripts) for other types of requests such as multiple processors, memory capacity, and special processors such as [GPUs](https://en.wikipedia.org/wiki/General-purpose_computing_on_graphics_processing_units).
+You use the job script to ask for the resources needed to run your calculation. Among the resources associated with a job are *time* and *number of processors*. In the example above, the time requested is one minute, and there will be one processor allocated by default since no specific number is given. Please refer to [Examples of job scripts](running_jobs.md#examples-of-job-scripts) for other types of requests such as multiple processors, memory capacity, and special processors such as [GPUs](https://en.wikipedia.org/wiki/General-purpose_computing_on_graphics_processing_units).
 
 !!! warning
     It is important to specify those parameters well. If you ask for less than the calculation needs, the job will be killed for exceeding the requested time or memory limit. If you ask for more than it needs, the job may wait longer than necessary before it starts, and once running it will needlessly prevent others from using those resources.
@@ -93,7 +93,7 @@ cat slurm-1234.out
 Hello, world!
 ```
 
-Look at the ST column in the output of [sq](running-jobs.md#monitoring-jobs) to determine the status of your jobs. The two most common states are PD for *pending* and R for *running*. When the job has finished, it no longer appears in the `sq` output.
+Look at the ST column in the output of [sq](running_jobs.md#monitoring-jobs) to determine the status of your jobs. The two most common states are PD for *pending* and R for *running*. When the job has finished, it no longer appears in the `sq` output.
 
 Notice that each job is assigned a *job ID*, a unique identification number printed when you submit the job --- 1234 in this example. You can have more than one job in the system at a time, and the ID number can be used to distinguish them even if they have the same name. And finally, because we didn't specify anywhere else to put it, the output is placed in a file named with the same job ID number, `slurm-1234.out`.
 
@@ -118,7 +118,7 @@ echo 'Hello, world!'
 Error output will normally appear in the same file, just as it would if you were typing commands interactively. If you wish, you can split the standard error channel (stderr) from the standard output channel (stdout) by specifying a file name with the `-e` option.
 
 ## Accounts and projects
-Information about your job, like how long it waited, how long it ran, and how many cores it used, is recorded so we can monitor our quality of service and so we can report to our funders how their money is spent. Every job must have an associated *account name* corresponding to a [resource allocation project](frequently-asked-questions-about-the-ccdb.md#resource-allocation-projects-rap).
+Information about your job, like how long it waited, how long it ran, and how many cores it used, is recorded so we can monitor our quality of service and so we can report to our funders how their money is spent. Every job must have an associated *account name* corresponding to a [resource allocation project](../getting-started/frequently_asked_questions_about_the_ccdb.md#resource-allocation-projects-rap).
 
 ```bash
 #SBATCH --account=def-user-ab

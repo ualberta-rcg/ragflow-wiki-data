@@ -86,7 +86,7 @@ python -c 'import rdkit'
 ```
 If no errors are raised, then everything is OK!
 
-4. [Create a virtual environment and install your packages](python.md#creating-and-using-a-virtual-environment).
+4. [Create a virtual environment and install your packages](../python.md#creating-and-using-a-virtual-environment).
 
 ## Troubleshooting
 
@@ -100,4 +100,4 @@ Possible solutions:
 * check which Python versions are compatible with your loaded RDKit module using `module spider rdkit/X.Y.Z`. Once a compatible Python module is loaded, check that `python -c 'import rdkit'` works.
 * load the module before activating your virtual environment: please see the [rdkit as a package dependency](#rdkit-as-a-python-package-dependency) section above.
 
-See also [ModuleNotFoundError: No module named 'X'](python.md#modulenotfounderror-no-module-named-x).
+See also [ModuleNotFoundError: No module named 'X'](../python.md#modulenotfounderror-no-module-named-x).

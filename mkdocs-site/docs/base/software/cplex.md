@@ -174,4 +174,4 @@ python setup.py install
 ```
 
 !!! note
-    The installation of CPLEX packages must be done on the head node, as they are not available on our [software stack](../available-python-wheels.md).
+    The installation of CPLEX packages must be done on the head node, as they are not available on our [software stack](../programming/available_python_wheels.md).

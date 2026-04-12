@@ -110,8 +110,8 @@ You should **provide a strong passphrase** that is memorable. We recommend 15 ch
 if the private key file is stolen.
 
 The specific process to generate an SSH key pair depends on the operating system you use. For the Windows PuTTY or MobaXterm clients,
-see [Generating SSH keys in Windows](generating-ssh-keys-in-windows.md). For a Unix-like environment (Linux, Mac, Windows Subsystem for Linux or Cygwin), see [Using SSH keys in Linux](using-ssh-keys-in-linux.md).
-In addition if you are using the cloud, OpenStack provides a method for creating key pairs: See the [SSH key pair](cloud-quick-start.md#ssh-key-pair) section on the Cloud Quick Start page.
+see [Generating SSH keys in Windows](generating_ssh_keys_in_windows.md). For a Unix-like environment (Linux, Mac, Windows Subsystem for Linux or Cygwin), see [Using SSH keys in Linux](using_ssh_keys_in_linux.md).
+In addition if you are using the cloud, OpenStack provides a method for creating key pairs: See the [SSH key pair](../cloud/cloud_quick_start.md#ssh-key-pair) section on the Cloud Quick Start page.
 
 ## Installing your key
 
@@ -181,7 +181,7 @@ ssh-copy-id -i alliance-key username@fir.alliancecan.ca
 ```
 The `authorized_keys` mechanism is standard, and almost universally used on the internet. It is however somewhat fragile:
 Specifically, SSH is quite picky about the permissions on the `authorized_keys` file, as well as your /home directory and the `.ssh` subdirectory.
-This is described further in [using SSH keys in Linux](using-ssh-keys-in-linux.md).
+This is described further in [using SSH keys in Linux](using_ssh_keys_in_linux.md).
 
 ## Using a key agent
 
@@ -195,7 +195,7 @@ This avoids storing the unencrypted private key on permanent storage, where it i
 !!! warning "Warning"
     Note that this operation should be performed on your own computer, *not* on a shared computer, such as a cluster.
 
-When you generate a key, the default settings are usually sufficient. However, here are a few options which may be of interest. We demonstrate these options here using `ssh-keygen` as described in [Using SSH keys in Linux](using-ssh-keys-in-linux.md), but the same options are available if you are using a graphical interface as described in [Generating SSH keys in Windows](generating-ssh-keys-in-windows.md).
+When you generate a key, the default settings are usually sufficient. However, here are a few options which may be of interest. We demonstrate these options here using `ssh-keygen` as described in [Using SSH keys in Linux](using_ssh_keys_in_linux.md), but the same options are available if you are using a graphical interface as described in [Generating SSH keys in Windows](generating_ssh_keys_in_windows.md).
 * You can specify a comment for the key, which may be helpful if you have multiple keys.
 ```bash
 ssh-keygen -C 'Alliance systems'
@@ -259,7 +259,7 @@ There are a large number of these key constraints, which are documented in the *
     ```
 * Use `ssh-agent` to make encrypted keys convenient.
 * If you use agent forwarding, use `ssh-askpass` too.
-* Apply [constraints](ssh-keys.md#ssh-key-constraints) to your public key to limit its scope.
+* Apply [constraints](ssh_keys.md#ssh-key-constraints) to your public key to limit its scope.
 
 Here are some links to short videos on setting up SSH keys:
 * [Faster and more secure SSH](https://www.youtube.com/watch?v=mRdqM1dgf3Q&feature=youtu.be)
@@ -283,5 +283,5 @@ If you discover that your SSH key has been revoked it is *imperative* that you t
 * Replace the revoked key with a new one to ensure that you can connect securely to Alliance services.
 * Remove the revoked key from *all* services (Alliance or other) to prevent unauthorized access or data breaches.
 
-If you believe that your SSH key has been listed on the Key Revocation List in error, or if you have concerns or questions related to key revocation and access to Alliance services, contact our [Technical support](technical-support.md) for assistance. They will be able to guide you through the resolution process and help ensure the continued security of your digital interactions with our services.
+If you believe that your SSH key has been listed on the Key Revocation List in error, or if you have concerns or questions related to key revocation and access to Alliance services, contact our [Technical support](../support/technical_support.md) for assistance. They will be able to guide you through the resolution process and help ensure the continued security of your digital interactions with our services.
 Security is of paramount importance, and swift action in response to a revoked SSH key is essential to maintain the integrity of digital research and collaboration.

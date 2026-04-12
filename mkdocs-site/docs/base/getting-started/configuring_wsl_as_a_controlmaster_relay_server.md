@@ -52,7 +52,7 @@ status:
 !!! warning "Disclaimer"
 This is still an experimental procedure (work in progress).
 
-If you have suggestions, please write to [technical support](technical-support.md).
+If you have suggestions, please write to [technical support](../support/technical_support.md).
 
 With this procedure you can leverage ControlMaster under WSL so you may log into the clusters with several apps under native Windows for a certain period without having to use multifactor authentication for every session.
 

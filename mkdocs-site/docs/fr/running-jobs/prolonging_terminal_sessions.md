@@ -49,7 +49,7 @@ status:
   qa_generated: false
 ---
 
-Pour soumettre et faire le suivi des tâches, modifier des fichiers et plusieurs autres opérations, vous aurez sans doute besoin de vous connecter à une grappe via [SSH](ssh.md). Il est parfois nécessaire de garder la connexion active pendant plusieurs heures, même plusieurs jours. Nous décrivons ici certaines techniques pour ce faire.
+Pour soumettre et faire le suivi des tâches, modifier des fichiers et plusieurs autres opérations, vous aurez sans doute besoin de vous connecter à une grappe via [SSH](../getting-started/ssh.md). Il est parfois nécessaire de garder la connexion active pendant plusieurs heures, même plusieurs jours. Nous décrivons ici certaines techniques pour ce faire.
 
 ## Configuration de SSH
 

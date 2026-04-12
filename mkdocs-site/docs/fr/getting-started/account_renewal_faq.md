@@ -132,7 +132,7 @@ Non. Les utilisatrices et utilisateurs que vous voulez parrainer avec votre nouv
 Si des ressources vous ont été allouées par suite du concours pour l’allocation de ressources, les personnes que vous parrainiez avec votre rôle précédent n’auront plus accès aux ressources du projet RAP (Resource Allocation Project) relié à l’allocation. Une fois que leurs rôles auront été activés, vous pourriez devoir les ajouter à votre projet RAP. Vous pouvez ajouter ou supprimer un membre de votre projet RAP dans CCDB sous l’onglet *Mon compte*, option *Gérer l’appartenance aux projets*.
 
 ### Dans le formulaire de renouvellement de mon compte, j’ai indiqué qu’un des membres de mon équipe n’est plus parrainé par moi. Est-ce que j’ai toujours accès aux fichiers de cette personne?
-Le consentement formel de la personne qui était parrainée peut être requis pour que vous puissiez avoir accès à ses fichiers; il est donc important de prendre des dispositions dès que possible au cas où il serait impossible de la rejoindre pour obtenir son accord. Pour plus d’information, voir [Accès aux fichiers des membres qui quittent l’équipe de projet](access-to-files-of-users-leaving-a-project.md).
+Le consentement formel de la personne qui était parrainée peut être requis pour que vous puissiez avoir accès à ses fichiers; il est donc important de prendre des dispositions dès que possible au cas où il serait impossible de la rejoindre pour obtenir son accord. Pour plus d’information, voir [Accès aux fichiers des membres qui quittent l’équipe de projet](access_to_files_of_users_leaving_a_project.md).
 
 ## Utilisatrices et utilisateurs parrainés
 

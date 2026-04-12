@@ -173,7 +173,7 @@ Command to run multiple genomes that would be saved in the genome directory (in 
 busco --offline --in genome/ --out TEST --lineage_dataset bacteria_odb10 --mode genome --cpu ${SLURM_CPUS_PER_TASK:-1} --download_path busco_download/
 ```
 
-The single genome command should take less than 60 seconds to complete. Production runs which take longer must be submitted to the [scheduler](running-jobs.md).
+The single genome command should take less than 60 seconds to complete. Production runs which take longer must be submitted to the [scheduler](../running-jobs/running_jobs.md).
 
 ##### BUSCO tips
 
@@ -329,7 +329,7 @@ export AUGUSTUS_CONFIG_PATH=$HOME/augustus_config
 run_BUSCO.py --in $EBROOTBUSCO/sample_data/target.fa --out TEST --lineage_path $EBROOTBUSCO/sample_data/example --mode genome
 ```
 
-The `run_BUSCO.py` command should take less than 60 seconds to complete. Production runs which take longer should be submitted to the [scheduler](running-jobs.md).
+The `run_BUSCO.py` command should take less than 60 seconds to complete. Production runs which take longer should be submitted to the [scheduler](../running-jobs/running_jobs.md).
 
 ## Troubleshooting
 ### Cannot write to Augustus config path

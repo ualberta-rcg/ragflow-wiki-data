@@ -114,7 +114,7 @@ module load hdf5/1.14.2
 ## Submission scripts
 
 !!! tip "Submission Scripts"
-    Please refer to the page "[Running jobs](running-jobs.md)" for examples of job scripts for the Slurm workload manager. We recommend you include the `module load ...` command in your job script.
+    Please refer to the page "[Running jobs](../running-jobs/running_jobs.md)" for examples of job scripts for the Slurm workload manager. We recommend you include the `module load ...` command in your job script.
 
 ## Linking code to HDF libraries
 

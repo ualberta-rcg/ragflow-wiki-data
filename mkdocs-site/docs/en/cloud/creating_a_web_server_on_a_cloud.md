@@ -55,15 +55,15 @@ status:
 This page describes the simplest case of creating a web server on our clouds using Ubuntu Linux and the Apache web server.
 
 ## Security considerations
-Any time you make a computer accessible to the public, security must be considered. *Accessible to the public* could mean allowing SSH connections, displaying HTML via HTTP, or using third-party software to provide a service (e.g., WordPress). Services such as SSH or HTTP are provided by programs called [daemons](https://en.wikipedia.org/wiki/Daemon_(computing)), which stay running all the time on the computer and respond to outside requests on specific [ports](https://en.wikipedia.org/wiki/Port_(computer_networking)). With [OpenStack](managing-your-cloud-resources-with-openstack.md), you can manage and restrict access to these ports, including granting access only to a specific [IP address](https://en.wikipedia.org/wiki/IP_address) or to ranges of IP addresses; see [Security groups](managing-your-cloud-resources-with-openstack.md#security-groups). Restricting access to your VM will improve its security. However, restricting access does not necessarily remove all security vulnerabilities. If we do not use some sort of encryption when sending data (e.g., passwords), an eavesdropper can read that information. [Transport Layer Security](https://en.wikipedia.org/wiki/Transport_Layer_Security) is the common way to encrypt this data, and any website which uses logins (e.g., WordPress, MediaWiki) should use it; see [Configuring Apache to use SSL](configuring-apache-to-use-ssl.md). It is also possible that data transmitted from your web server to a client could be modified on the way by a third party if you are not encrypting it. While this might not directly cause issues for your web server, it can for your clients. In most cases, it is recommended to use encryption on your web server.
+Any time you make a computer accessible to the public, security must be considered. *Accessible to the public* could mean allowing SSH connections, displaying HTML via HTTP, or using third-party software to provide a service (e.g., WordPress). Services such as SSH or HTTP are provided by programs called [daemons](https://en.wikipedia.org/wiki/Daemon_(computing)), which stay running all the time on the computer and respond to outside requests on specific [ports](https://en.wikipedia.org/wiki/Port_(computer_networking)). With [OpenStack](managing_your_cloud_resources_with_openstack.md), you can manage and restrict access to these ports, including granting access only to a specific [IP address](https://en.wikipedia.org/wiki/IP_address) or to ranges of IP addresses; see [Security groups](managing_your_cloud_resources_with_openstack.md#security-groups). Restricting access to your VM will improve its security. However, restricting access does not necessarily remove all security vulnerabilities. If we do not use some sort of encryption when sending data (e.g., passwords), an eavesdropper can read that information. [Transport Layer Security](https://en.wikipedia.org/wiki/Transport_Layer_Security) is the common way to encrypt this data, and any website which uses logins (e.g., WordPress, MediaWiki) should use it; see [Configuring Apache to use SSL](configuring_apache_to_use_ssl.md). It is also possible that data transmitted from your web server to a client could be modified on the way by a third party if you are not encrypting it. While this might not directly cause issues for your web server, it can for your clients. In most cases, it is recommended to use encryption on your web server.
 
 !!! warning
     You are responsible for the security of your virtual machines and should take this seriously.
 
 ## Installing Apache
 
-1.  Create a persistent virtual machine (see [Booting from a volume](working-with-volumes.md#booting-from-a-volume)) running Ubuntu Linux by following the [Cloud Quick Start](cloud-quick-start.md) instructions.
-2.  Open port 80 to allow HTTP requests into your VM by following [these instructions](cloud-quick-start.md#connecting-to-your-vm-with-ssh) but selecting HTTP from the drop-down box instead of SSH.
+1.  Create a persistent virtual machine (see [Booting from a volume](working_with_volumes.md#booting-from-a-volume)) running Ubuntu Linux by following the [Cloud Quick Start](cloud_quick_start.md) instructions.
+2.  Open port 80 to allow HTTP requests into your VM by following [these instructions](cloud_quick_start.md#connecting-to-your-vm-with-ssh) but selecting HTTP from the drop-down box instead of SSH.
 3.  While logged into your VM:
     1.  Update your `apt-get` repositories with the command
         ```bash
@@ -137,6 +137,6 @@ BandWidth all 12500000
 This should be placed between the `<VirtualHost></VirtualHost>` tags for your site. The default Apache site configuration is in the file `/etc/apache2/sites-enabled/000-default.conf`.
 
 ## Where to go from here
-*   [Configuring Apache to use SSL](configuring-apache-to-use-ssl.md)
+*   [Configuring Apache to use SSL](configuring_apache_to_use_ssl.md)
 *   [Apache2 documentation](http://httpd.apache.org/docs/2.0/)
 *   [w3schools HTML tutorial](http://www.w3schools.com/html/)

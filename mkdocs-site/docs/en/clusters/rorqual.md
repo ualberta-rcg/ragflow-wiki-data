@@ -71,7 +71,7 @@ status:
 | Availability                           | June 19, 2025                                                                                                                                                                           |
 | Login node                             | **rorqual.alliancecan.ca**                                                                                                                                                              |
 | Data transfer node (rsync, scp, sftp ...) | **rorqual.alliancecan.ca**                                                                                                                                                              |
-| Automation node                        | [robot.rorqual.alliancecan.ca](automation-in-the-context-of-multifactor-authentication.md)                                                                                              |
+| Automation node                        | [robot.rorqual.alliancecan.ca](../getting-started/automation_in_the_context_of_multifactor_authentication.md)                                                                                              |
 | Globus collection                      | **[alliancecan#rorqual](https://app.globus.org/file-manager?origin_id=f19f13f5-5553-40e3-ba30-6c151b9d35d4)**                                                                          |
 | JupyterHub                             | [jupyterhub.rorqual.alliancecan.ca](https://jupyterhub.rorqual.alliancecan.ca/)                                                                                                         |
 | Portal                                 | [metrix.rorqual.alliancecan.ca](https://metrix.rorqual.alliancecan.ca/)                                                                                                                 |
@@ -94,7 +94,7 @@ Each researcher must [request access in CCDB](https://ccdb.alliancecan.ca/me/acc
 
 ## Site-specific policies
 
-Rorqual's compute nodes cannot access the internet. If you need an exception to this rule, contact [technical support](technical-support.md) explaining what you need and why.
+Rorqual's compute nodes cannot access the internet. If you need an exception to this rule, contact [technical support](../support/technical_support.md) explaining what you need and why.
 
 The `crontab` tool is not offered.
 
@@ -106,21 +106,21 @@ Each job should have a duration of at least one hour (at least five minutes for 
 | :------------ | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | HOME          | Lustre filesystem, 116 TB                                                                                                                                                            |
 |               | * This small space cannot be increased; for larger storage needs, use the `/project` space                                                                                             |
-|               | * Small per user [quotas](storage-and-file-management.md#filesystem-quotas-and-policies)                                                                                             |
+|               | * Small per user [quotas](../storage-and-data/storage_and_file_management.md#filesystem-quotas-and-policies)                                                                                             |
 |               | * Daily automatic backup                                                                                                                                                             |
 | SCRATCH       | Lustre filesystem, 6.5 PB                                                                                                                                                            |
 |               | * Accessible via symbolic link `$HOME/links/scratch`                                                                                                                                 |
 |               | * Large space for storing temporary files during computations                                                                                                                        |
 |               | * No backup system in place                                                                                                                                                          |
-|               | * Large per user [quotas](storage-and-file-management.md#filesystem-quotas-and-policies)                                                                                             |
-|               | * Older files are [automatically purged](scratch-purging-policy.md)                                                                                                                  |
+|               | * Large per user [quotas](../storage-and-data/storage_and_file_management.md#filesystem-quotas-and-policies)                                                                                             |
+|               | * Older files are [automatically purged](../storage-and-data/scratch_purging_policy.md)                                                                                                                  |
 | PROJECT       | Lustre filesystem, 62 PB                                                                                                                                                             |
 |               | * Accessible via symbolic link `$HOME/links/projects/nom-du-projet`                                                                                                                  |
 |               | * Designed for sharing data among the members of a research group and for storing large amounts of data                                                                                |
-|               | * Large and adjustable per group [quotas](storage-and-file-management.md#quotas-et-politiques)                                                                                       |
+|               | * Large and adjustable per group [quotas](../storage-and-data/storage_and_file_management.md#quotas-et-politiques)                                                                                       |
 |               | * Daily backup                                                                                                                                                                       |
 
-For transferring data via [Globus](globus.md), use the endpoint specified at the top of this page; for tools like [rsync](transferring-data.md#rsync) and [scp](transferring-data.md#scp), please use the login node.
+For transferring data via [Globus](../getting-started/globus.md), use the endpoint specified at the top of this page; for tools like [rsync](../getting-started/transferring_data.md#rsync) and [scp](../getting-started/transferring_data.md#scp), please use the login node.
 
 ## High-performance interconnect
 *   InfiniBand interconnect
@@ -149,7 +149,7 @@ The 192 cores and the different memory spaces are not equidistant, which causes 
             *   8 cores per chiplet, each with its own 1 MiB L2 cache memory and 32+32 KiB L1 cache memory
 
 In other words, we have
-*   groups of 8 closely spaced cores sharing a single L3 cache, which is ideal for [multithreaded parallel programs](running-jobs.md#threaded-or-openmp-job) (for example, with the `--cpus-per-task=8` option)
+*   groups of 8 closely spaced cores sharing a single L3 cache, which is ideal for [multithreaded parallel programs](../running-jobs/running_jobs.md#threaded-or-openmp-job) (for example, with the `--cpus-per-task=8` option)
 *   NUMA nodes of 3x8 = 24 cores sharing a trio of system memory channels
 *   a total of 2x4x3x8 = 192 cores per node
 
@@ -185,7 +185,7 @@ To request one or more full H100 GPUs, you need to use one of the following Slur
     *   `--gpus-per-node=h100:4`
 *   **For multiple full H100 GPUs** spread anywhere: `--gpus=h100:n` (replace `n` with the number of GPUs you want)
 
-Approximately half of the GPU nodes are configured with [MIG technology](multi-instance-gpu.md), and only 3 GPU instance sizes are available:
+Approximately half of the GPU nodes are configured with [MIG technology](../programming/multi-instance_gpu.md), and only 3 GPU instance sizes are available:
 
 *   **H100-1g.10gb**: 1/8^th^ of the computing power with 10GB GPU memory
 *   **H100-2g.20gb**: 2/8^th^ of the computing power with 20GB GPU memory
@@ -197,4 +197,4 @@ To request **one and only one GPU instance** for your compute job, use the corre
 *   **H100-2g.20gb**: `--gpus=h100_2g.20gb:1`
 *   **H100-3g.40gb**: `--gpus=h100_3g.40gb:1`
 
-The maximum recommended number of **CPU cores and system memory** per GPU instance is listed in [this table](allocations-and-compute-scheduling.md#ratios-in-bundles).
+The maximum recommended number of **CPU cores and system memory** per GPU instance is listed in [this table](../running-jobs/allocations_and_compute_scheduling.md#ratios-in-bundles).

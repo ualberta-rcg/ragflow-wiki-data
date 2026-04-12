@@ -70,8 +70,8 @@ Nous décrivons ici les étapes de base pour démarrer avec Open OnDemand (OOD) 
 
 Open OnDemand est une plateforme web qui donne accès à un large éventail d'applications scientifiques et de ressources de calcul telles que Jupyter Lab, RStudio et VS Code. Elle vous permet d'interagir avec une de nos grappes via un navigateur web, sans avoir à installer de logiciel sur votre ordinateur local. Vous pourrez gérer des fichiers, soumettre et suivre des tâches, et exécuter des applications de manière interactive. Pour plus d'information sur ce projet, voir [le site web d'Open OnDemand](https://openondemand.org). Pour la documentation spécifique à chacune des grappes, voir
 
-*   [Trillium : Guide de démarrage Open OnDemand](trillium-open-ondemand-quickstart.md)
-*   [Nibi, Accès via Open OnDemand (OOD)](nibi.md#accès-via-open-ondemand-ood)
+*   [Trillium : Guide de démarrage Open OnDemand](trillium_open_ondemand_quickstart.md)
+*   [Nibi, Accès via Open OnDemand (OOD)](../clusters/nibi.md#accès-via-open-ondemand-ood)
 
 ## Se connecter au portail Open OnDemand
 
@@ -92,7 +92,7 @@ Un navigateur de fichiers permet de parcourir vos fichiers et répertoires du sy
 La taille maximale des fichiers à téléverser est présentement de 10 Go.
 
 !!! tip "Téléchargements de fichiers volumineux avec Globus"
-    Pour téléverser un fichier plus volumineux (> 10 Go) ou si vous rencontrez des problèmes de téléversement (par exemple, en raison d'une mauvaise connexion Internet), utilisez [Globus](globus.md).
+    Pour téléverser un fichier plus volumineux (> 10 Go) ou si vous rencontrez des problèmes de téléversement (par exemple, en raison d'une mauvaise connexion Internet), utilisez [Globus](../getting-started/globus.md).
     Un bouton Globus est disponible en haut à droite de l'explorateur de fichiers. Cliquez sur ce bouton pour faire afficher l'interface web de Globus où vous pourrez vous connecter avec votre nom d'utilisateur et votre mot de passe avec l'Alliance. Le chemin d'accès affiché le navigateur Open OnDemand sera identique à celui ouvert dans Globus.
 
 ## Soumettre une tâche

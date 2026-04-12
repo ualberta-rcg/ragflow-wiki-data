@@ -39,7 +39,7 @@ TensorBoard is a suite of web applications for inspecting and understanding your
 
 ## On JupyterHub
 
-On clusters where [JupyterHub](jupyterhub.md) is available, you can launch TensorBoard by clicking on the following icon on an active launcher tab:
+On clusters where [JupyterHub](../../interactive/jupyterhub.md) is available, you can launch TensorBoard by clicking on the following icon on an active launcher tab:
 This will open the application on a new tab on your web browser. Switch to that tab to start using TensorBoard.
 
 !!! note "TensorBoard Log Directory"

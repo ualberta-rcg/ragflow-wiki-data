@@ -167,7 +167,7 @@ Avant de commencer avec Terraform, vous avez besoin :
 
 Pour accéder au nuage, voir [Obtenir un projet dans l'environnement infonuagique](cloud.md#obtenir-un-projet-dans-lenvironnement-infonuagique). Si vous n'avez jamais utilisé OpenStack auparavant, vous devriez d'abord vous familiariser avec ce système en créant une machine virtuelle, en attachant un volume, en associant une IP flottante et en vous assurant que vous pouvez vous connecter à la machine virtuelle par la suite. Ce tutoriel suppose également que vous avez déjà créé une paire de clés SSH et que la clé publique a été importée dans OpenStack.
 
-Si vous ne savez pas encore comment faire cela, le [Guide de démarrage](cloud-quick-start.md) est une bonne introduction. La création de ces ressources à l'aide de l'interface web d'OpenStack vous permettra de comprendre le fonctionnement et l'utilité de Terraform.
+Si vous ne savez pas encore comment faire cela, le [Guide de démarrage](cloud_quick_start.md) est une bonne introduction. La création de ces ressources à l'aide de l'interface web d'OpenStack vous permettra de comprendre le fonctionnement et l'utilité de Terraform.
 
 ### Installer Terraform
 
@@ -320,7 +320,7 @@ Les valeurs pour `image_id` et `flavor_id` sont l’une des raisons pour lesquel
 
 Si vous utilisez Horizon (l'interface Web d'OpenStack), cela est en partie possible; voir [UUID des images et gabarits sous Horizon](#uuid-des-images-et-gabarits-sous-horizon) en annexe.
 
-Notez qu'aucun volume n'est fourni. Une instance de calcul sur nos nuages aura déjà un volume qui lui est associé, mais une instance persistante échouera probablement à moins qu'il n'y ait assez d'espace vide dans l'image elle-même. Il est recommandé de [créer un volume de démarrage](working-with-volumes.md#demarrer-depuis-un-volume) pour les machines virtuelles qui utilisent des versions persistantes.
+Notez qu'aucun volume n'est fourni. Une instance de calcul sur nos nuages aura déjà un volume qui lui est associé, mais une instance persistante échouera probablement à moins qu'il n'y ait assez d'espace vide dans l'image elle-même. Il est recommandé de [créer un volume de démarrage](working_with_volumes.md#demarrer-depuis-un-volume) pour les machines virtuelles qui utilisent des versions persistantes.
 
 ### Tester
 
@@ -810,7 +810,7 @@ Ce qui suit pourrait intéresser ceux qui veulent explorer plus en profondeur et
 *   [What is Terraform?](https://www.terraform.io/intro/index.html)
 *   [OpenStack Provider](https://www.terraform.io/docs/providers/openstack/index.html)
 *   [OpenStack compute instance v2](https://www.terraform.io/docs/providers/openstack/r/compute_instance_v2.html) : plusieurs cas d'usage pour la création d'instances dans OpenStack avec Terraform
-*   [La page wiki sur notre service infonuagique](cloud.md) et la page [Cloud : Guide de démarrage](cloud-quick-start.md)
+*   [La page wiki sur notre service infonuagique](cloud.md) et la page [Cloud : Guide de démarrage](cloud_quick_start.md)
 
 ### Exemples
 

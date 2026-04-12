@@ -55,7 +55,7 @@ The Alliance has signed a license agreement with Prof. Dr. Mihaly Kallay, who ac
 
 ## Module
 
-The MRCC version from "2023-08-28" is available on all clusters by loading a [module](utiliser-des-modules.md):
+The MRCC version from "2023-08-28" is available on all clusters by loading a [module](../programming/utiliser_des_modules.md):
 
 ```bash
 module load intel/2023.2.1 openmpi/4.1.5 mrcc/20230828

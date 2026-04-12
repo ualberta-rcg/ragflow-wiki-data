@@ -41,7 +41,7 @@ Here are some notes on how we expect the transition to go.
 ### Storage
 * There will be 30 days of overlap between 2020 and 2021 storage allocations, starting on April 1, 2021.
 * On a given system, the largest of the two quotas (2020, 2021) will be adopted during the transition period.
-* If an allocation has moved from one site to another, users are expected to transfer the data by themselves (via globus, scp, rsync, *etc.*; see [Transferring data](transferring-data.md)). For large amounts of data (*e.g.*, 200TB or more) please [contact support](technical-support.md) for advice or assistance on managing the transfer.
+* If an allocation has moved from one site to another, users are expected to transfer the data by themselves (via globus, scp, rsync, *etc.*; see [Transferring data](../getting-started/transferring_data.md)). For large amounts of data (*e.g.*, 200TB or more) please [contact support](../support/technical_support.md) for advice or assistance on managing the transfer.
 * Contributed storage systems have different dates of activation and decommissioning. For these, we'll be doing the SUM(2020, 2021) for quotas during the 30-day transition period.
 * For every other PI, we will use default quotas.
 * After the transition period, the quotas on the original sites from which data has been migrated will also be set to default. Users are expected to delete data from those original sites if the usage levels are above the new (default) quota.

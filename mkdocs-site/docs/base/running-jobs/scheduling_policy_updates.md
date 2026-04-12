@@ -35,7 +35,7 @@ status:
 # Scheduling policy updates
 
 !!! info "Not Yet Populated"
-    This page is intended to record when changes to [job scheduling policies](job-scheduling-policies.md) are made which might change the behaviour of job submission commands (`sbatch`, `salloc`, `srun`). As of now, specific updates are not yet available here.
+    This page is intended to record when changes to [job scheduling policies](job_scheduling_policies.md) are made which might change the behaviour of job submission commands (`sbatch`, `salloc`, `srun`). As of now, specific updates are not yet available here.
 
 * description of change
     * cluster: date

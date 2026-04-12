@@ -40,7 +40,7 @@ Dummy Wheel exists in the wheelhouse to provide placeholders for some popular Py
 Such examples are:
 * [pyarrow (Arrow)](arrow.md#pyarrow)
 * [opencv_python (OpenCV)](opencv.md#python-bindings)
-* [MPI4py](mpi4py.md)
+* [MPI4py](../programming/mpi4py.md)
 
 When a dummy wheel is selected by pip it will raise the error below since pip could not find a match for this requirement.
 

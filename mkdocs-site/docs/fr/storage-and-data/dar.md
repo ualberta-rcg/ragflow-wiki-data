@@ -63,7 +63,7 @@ status:
   qa_generated: false
 ---
 
-*Page enfant de : [Stockage et gestion de fichiers](storage-and-file-management.md)*
+*Page enfant de : [Stockage et gestion de fichiers](storage_and_file_management.md)*
 
 L’utilitaire *open source* `dar` (pour *Disk ARchive*) a été conçu pour remplacer l’outil Unix `tar` et peut être compilé par tout système de type Unix. Il est activement maintenu depuis son lancement en 2002.
 
@@ -72,7 +72,7 @@ Comme `tar`, il permet les types de sauvegarde complète, différentielle et inc
 ## Où trouver l’utilitaire
 
 Sur nos grappes, `dar` est disponible sur `/cvmfs`.
-Avec [StdEnv/2020](standard-software-environments.md) :
+Avec [StdEnv/2020](../programming/standard_software_environments.md) :
 
 ```bash
 [user_name@localhost]$ which dar
@@ -126,13 +126,13 @@ De la même manière qu’une archive est créée, vous pouvez passer plusieurs 
 
 #### Travailler avec le système de fichiers Lustre
 
-Certains attributs étendus sont automatiquement sauvegardés quand les fichiers archivés proviennent d'un [système de fichiers Lustre](https://www.lustre.org/) (habituellement dans `/home`, `/project` ou `/scratch` sur [une de nos grappes de calcul d'usage général](national-systems.md)). Pour connaître les attributs étendus assignés à chaque fichier archivé, utilisez l'indicateur `-alist-ea`.
+Certains attributs étendus sont automatiquement sauvegardés quand les fichiers archivés proviennent d'un [système de fichiers Lustre](https://www.lustre.org/) (habituellement dans `/home`, `/project` ou `/scratch` sur [une de nos grappes de calcul d'usage général](../clusters/national_systems.md)). Pour connaître les attributs étendus assignés à chaque fichier archivé, utilisez l'indicateur `-alist-ea`.
 
 ```bash
 dar -l all -alist-ea
 ```
 
-Nous voyons des énoncés comme `Extended Attribute: [lustre.lov]`. Avec cet attribut, les extractions de fichiers vers un endroit au format Lustre fonctionneront comme à l'habitude. Par contre, si vous tentez d'extraire un fichier pour le stocker localement sur un [nœud de calcul](using-node-local-storage.md) (soit dans `$SLURM_TMPDIR`), vous obtiendrez des messages d'erreur comme `Error while adding EA lustre.lov : Operation not supported`.
+Nous voyons des énoncés comme `Extended Attribute: [lustre.lov]`. Avec cet attribut, les extractions de fichiers vers un endroit au format Lustre fonctionneront comme à l'habitude. Par contre, si vous tentez d'extraire un fichier pour le stocker localement sur un [nœud de calcul](using_node-local_storage.md) (soit dans `$SLURM_TMPDIR`), vous obtiendrez des messages d'erreur comme `Error while adding EA lustre.lov : Operation not supported`.
 
 Pour éviter ces erreurs, l'indicateur `-u` peut exclure un type particulier d'attribut et quand même extraire les fichiers touchés, par exemple :
 

@@ -146,7 +146,7 @@ Before starting with Terraform, you need
 
 For access to the cloud, see [Getting a Cloud project](cloud.md#getting-a-cloud-project) on our wiki. If you’ve never used OpenStack before, you should familiarize yourself with it first by creating a VM, attaching a volume, associating a floating IP, and ensuring you can log in to the VM afterwards. This tutorial also assumes you already have an SSH key pair created and the public key stored with OpenStack.
 
-If you don’t yet know how to do these things, the [Cloud Quick Start](cloud-quick-start.md) guide will get you going. The experience of creating these resources using the web interface will lay a foundation for understanding both what Terraform is doing, and where it has value.
+If you don’t yet know how to do these things, the [Cloud Quick Start](cloud_quick_start.md) guide will get you going. The experience of creating these resources using the web interface will lay a foundation for understanding both what Terraform is doing, and where it has value.
 
 ### Terraform
 
@@ -300,7 +300,7 @@ The values for `image_id` and `flavor_id` are one reason I like to have a termin
 
 If using Horizon (the OpenStack web interface), this is semi-possible–see the [guide in the appendix](#finding-image-and-flavour-uuids-in-horizon).
 
-Note that no volumes are supplied. A compute instance on our clouds will already have an associated volume but a persistent instance will probably fail unless there is sufficient empty space in the image itself. It is [recommended that a boot volume be created](working-with-volumes.md#booting-from-a-volume) for VMs using persistent flavours.
+Note that no volumes are supplied. A compute instance on our clouds will already have an associated volume but a persistent instance will probably fail unless there is sufficient empty space in the image itself. It is [recommended that a boot volume be created](working_with_volumes.md#booting-from-a-volume) for VMs using persistent flavours.
 
 ### Trying it out
 
@@ -790,7 +790,7 @@ The following might be of interest to those exploring further and building on th
 *   [Introduction to Terraform](https://www.terraform.io/intro/index.html)
 *   [OpenStack provider](https://www.terraform.io/docs/providers/openstack/index.html)
 *   [OpenStack compute instance resource](https://www.terraform.io/docs/providers/openstack/r/compute_instance_v2.html): many examples of different use cases for creating VMs under OpenStack with Terraform.
-*   [Our cloud documentation](cloud.md) and the [Cloud Quick Start](cloud-quick-start.md) guide
+*   [Our cloud documentation](cloud.md) and the [Cloud Quick Start](cloud_quick_start.md) guide
 
 ### Examples
 

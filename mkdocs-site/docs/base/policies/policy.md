@@ -48,7 +48,7 @@ Compute Canada policy.
 5.  [Security Policy](https://www.computecanada.ca/research-portal/information-security/security-policy/)
 6.  [Information Security Management System Policy](https://www.computecanada.ca/research-portal/information-security/isms-policy/)
 7.  [Resource Allocation Competition General Policy](resource-allocation-competition-general-policy.md) (Draft)
-8.  [Scratch Purging Policy](scratch-purging-policy.md)
+8.  [Scratch Purging Policy](../storage-and-data/scratch_purging_policy.md)
 
 ## Useful Links
 

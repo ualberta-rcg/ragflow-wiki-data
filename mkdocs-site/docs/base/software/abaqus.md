@@ -197,7 +197,7 @@ Abaqus software modules are available on our clusters; however, you must provide
 prepend_path("ABAQUSLM_LICENSE_FILE","port@server")
 ```
 
-If your license has not been set up for use on an Alliance cluster, some additional configuration changes by the Alliance system administrator and your local system administrator will need to be done. Such changes are necessary to ensure the FlexLM and vendor TCP ports of your Abaqus server are reachable from all cluster compute nodes when jobs are run via the queue. For us to help you get this done, write to [technical support](technical-support.md). Please be sure to include the following three items:
+If your license has not been set up for use on an Alliance cluster, some additional configuration changes by the Alliance system administrator and your local system administrator will need to be done. Such changes are necessary to ensure the FlexLM and vendor TCP ports of your Abaqus server are reachable from all cluster compute nodes when jobs are run via the queue. For us to help you get this done, write to [technical support](../support/technical_support.md). Please be sure to include the following three items:
 
 *   FlexLM port number
 *   static vendor port number
@@ -773,7 +773,7 @@ It is recommended to use an OpenOnDemand or JupyterLab to run graphical applicat
 ### OnDemand
 
 1.  Start an OnDemand desktop session by clicking one of the following OnDemand links:
-    *   [Nibi](nibi.md#access-through-open-ondemand-ood): `https://ondemand.sharcnet.ca`
+    *   [Nibi](../clusters/nibi.md#access-through-open-ondemand-ood): `https://ondemand.sharcnet.ca`
     *   TRILLIUM: https://ondemand.scinet.utoronto.ca
 2.  Open a new terminal window within your desktop and load:
     ```bash
@@ -808,7 +808,7 @@ It is recommended to use an OpenOnDemand or JupyterLab to run graphical applicat
 
 This approach is considered obsolete; please use the above OnDemand/JupyterHub desktop instead.
 
-1.  Connect with a VncViewer client to a login or compute node without a GPU by following [TigerVNC](vnc.md)
+1.  Connect with a VncViewer client to a login or compute node without a GPU by following [TigerVNC](../interactive/vnc.md)
 2.  Open a new terminal window and enter the following
     ```bash
     module load abaqus/2026
@@ -822,7 +822,7 @@ This approach is considered obsolete; please use the above OnDemand/JupyterHub d
 ### SHARCNET license
 
 !!! note "SHARCNET License Status"
-    The SHARCNET license has been renewed until 17-Jan-2027 and is operational. It provides a small shared free pool consisting of 3 `cae` and 54 execute tokens for all researchers. Maximum usage limits are currently set at: 1 `cae`/user, 10 tokens/user and 15 tokens/group. These free tokens are available on a first come, first served basis and mainly intended for testing and light usage before deciding whether or not to purchase dedicated tokens. Costs for dedicated tokens (in 2021) were approximately CAD$110 per compute token and CAD$400 per GUI token: submit a ticket to request an official quote if interested. The free SHARCNET license can be used by any registered Alliance researcher, but only on SHARCNET hardware, and only after agreeing to the Academic License User Agreement below. Groups that purchase dedicated tokens to run on the SHARCNET license server may likewise ONLY use them on SHARCNET hardware (as dictated by the negotiated license agreement with Simulia) including the SHARCNET [OOD](nibi.md#access-through-open-ondemand-ood) system (to run Abaqus in graphical mode) or Nibi/Dusky clusters (for submitting compute batch jobs to the queue). Before you can use the license, you must contact [technical support](technical-support.md) and request access. In your email, 1) mention that it is for use on SHARCNET systems and 2) include a copy/paste of the following ``License Agreement`` statement with your full name and username entered in the indicated locations. Please note that every user must do this; it cannot be done one time only for a group; this includes PIs who have purchased their own dedicated tokens.
+    The SHARCNET license has been renewed until 17-Jan-2027 and is operational. It provides a small shared free pool consisting of 3 `cae` and 54 execute tokens for all researchers. Maximum usage limits are currently set at: 1 `cae`/user, 10 tokens/user and 15 tokens/group. These free tokens are available on a first come, first served basis and mainly intended for testing and light usage before deciding whether or not to purchase dedicated tokens. Costs for dedicated tokens (in 2021) were approximately CAD$110 per compute token and CAD$400 per GUI token: submit a ticket to request an official quote if interested. The free SHARCNET license can be used by any registered Alliance researcher, but only on SHARCNET hardware, and only after agreeing to the Academic License User Agreement below. Groups that purchase dedicated tokens to run on the SHARCNET license server may likewise ONLY use them on SHARCNET hardware (as dictated by the negotiated license agreement with Simulia) including the SHARCNET [OOD](../clusters/nibi.md#access-through-open-ondemand-ood) system (to run Abaqus in graphical mode) or Nibi/Dusky clusters (for submitting compute batch jobs to the queue). Before you can use the license, you must contact [technical support](../support/technical_support.md) and request access. In your email, 1) mention that it is for use on SHARCNET systems and 2) include a copy/paste of the following ``License Agreement`` statement with your full name and username entered in the indicated locations. Please note that every user must do this; it cannot be done one time only for a group; this includes PIs who have purchased their own dedicated tokens.
 
 #### License agreement
 ```text
@@ -899,10 +899,10 @@ The following shows the situation where a user submitted two 6-core jobs (each r
     roberpj c292 /dev/tty (v62.6) (license3.sharcnet.ca/27050 125) queued for 10 licenses
 ```
 
-To avoid license shortage problems when submitting multiple jobs when working with expensive Abaqus tokens, either use a [job dependency](running-jobs.md#cancellation-of-jobs-with-dependency-conditions-which-cannot-be-met), [job array](job-arrays.md), or at the very least set up a Slurm [email notification](monitoring-jobs.md#email-notification) to know when your job completes before manually submitting another one.
+To avoid license shortage problems when submitting multiple jobs when working with expensive Abaqus tokens, either use a [job dependency](../running-jobs/running_jobs.md#cancellation-of-jobs-with-dependency-conditions-which-cannot-be-met), [job array](../running-jobs/job_arrays.md), or at the very least set up a Slurm [email notification](../running-jobs/monitoring_jobs.md#email-notification) to know when your job completes before manually submitting another one.
 
 #### Specify job resources
-To ensure optimal usage of both your Abaqus tokens and our resources, it's important to carefully specify the required memory and ncpus in your Slurm script. The values can be determined by submitting a few short test jobs to the queue then checking their utilization. For **completed** jobs, use ``seff JobNumber`` to show the total *Memory Utilized* and *Memory Efficiency*. If the *Memory Efficiency* is less than ~90%, decrease the value of the ``#SBATCH --mem=`` setting in your Slurm script accordingly. Notice that the ``seff JobNumber`` command also shows the total *CPU (time) Utilized* and *CPU Efficiency*. If the *CPU Efficiency* is less than ~90%, perform scaling tests to determine the optimal number of CPUs for optimal performance and then update the value of ``#SBATCH --cpus-per-task=`` in your Slurm script. For **running** jobs, use the ``srun --overlap --jobid=29821580 --pty top -d 5 -u $USER`` command to watch the **%CPU**, **%MEM** and **RES** for each Abaqus parent process on the compute node. The **%CPU** and **%MEM** columns display the percent usage relative to the total available on the node while the **RES** column shows the per-process resident memory size (in human readable format for values over 1GB). Further information regarding how to [monitor jobs](monitoring-jobs.md) is available on our documentation wiki.
+To ensure optimal usage of both your Abaqus tokens and our resources, it's important to carefully specify the required memory and ncpus in your Slurm script. The values can be determined by submitting a few short test jobs to the queue then checking their utilization. For **completed** jobs, use ``seff JobNumber`` to show the total *Memory Utilized* and *Memory Efficiency*. If the *Memory Efficiency* is less than ~90%, decrease the value of the ``#SBATCH --mem=`` setting in your Slurm script accordingly. Notice that the ``seff JobNumber`` command also shows the total *CPU (time) Utilized* and *CPU Efficiency*. If the *CPU Efficiency* is less than ~90%, perform scaling tests to determine the optimal number of CPUs for optimal performance and then update the value of ``#SBATCH --cpus-per-task=`` in your Slurm script. For **running** jobs, use the ``srun --overlap --jobid=29821580 --pty top -d 5 -u $USER`` command to watch the **%CPU**, **%MEM** and **RES** for each Abaqus parent process on the compute node. The **%CPU** and **%MEM** columns display the percent usage relative to the total available on the node while the **RES** column shows the per-process resident memory size (in human readable format for values over 1GB). Further information regarding how to [monitor jobs](../running-jobs/monitoring_jobs.md) is available on our documentation wiki.
 
 #### Core token mapping
 ```text
@@ -929,4 +929,4 @@ prepend_path("LM_LICENSE_FILE","27000@license4.sharcnet.ca")
 prepend_path("ABAQUSLM_LICENSE_FILE","27000@license4.sharcnet.ca")
 ```
 
-Once configured, submit your job as described in the *Cluster job submission* section above. If there are any problems, submit a problem ticket to [technical support](technical-support.md). Specify that you are using the Abaqus Western license on Dusky and provide the failed job number along with a paste of any error messages as applicable.
+Once configured, submit your job as described in the *Cluster job submission* section above. If there are any problems, submit a problem ticket to [technical support](../support/technical_support.md). Specify that you are using the Abaqus Western license on Dusky and provide the failed job number along with a paste of any error messages as applicable.

@@ -38,7 +38,7 @@ status:
 [Rust](https://www.rust-lang.org/fr/) est un langage de programmation multiparadigme, de haut niveau et à usage général. Rust met l'accent sur les performances, la sécurité des types et la simultanéité. Rust assure la sécurité de la mémoire, ce qui signifie que toutes les références pointent vers une mémoire valide sans nécessiter l'utilisation d'un ramasse-miettes (*garbage collector*) ou d'un compteur de références présent dans d'autres langages sécurisés pour la mémoire.
 
 ## Module
-Le compilateur Rust est disponible sous forme de [module](utiliser-des-modules.md).
+Le compilateur Rust est disponible sous forme de [module](utiliser_des_modules.md).
 
 ```bash
 module spider rust

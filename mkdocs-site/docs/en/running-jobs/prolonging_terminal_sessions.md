@@ -49,7 +49,7 @@ status:
   qa_generated: false
 ---
 
-To work on our clusters, most users will need to use [SSH](ssh.md) to connect to the cluster for job submission and monitoring, editing files, and so forth. Keeping this SSH connection alive for a long period of time, ranging from hours to days, may be necessary for some users, and this page proposes a variety of techniques for keeping such a terminal session alive.
+To work on our clusters, most users will need to use [SSH](../getting-started/ssh.md) to connect to the cluster for job submission and monitoring, editing files, and so forth. Keeping this SSH connection alive for a long period of time, ranging from hours to days, may be necessary for some users, and this page proposes a variety of techniques for keeping such a terminal session alive.
 
 ## SSH configuration
 

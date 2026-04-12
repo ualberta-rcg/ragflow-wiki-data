@@ -48,10 +48,10 @@ status:
   qa_generated: false
 ---
 
-[CirQ](https://quantumai.google/cirq) is an open-source quantum computing library developed in [Python](python.md) by Google, which allows building, optimizing, simulating, and executing quantum circuits. More specifically, CirQ allows simulating circuits on specific qubit configurations, which can optimize a circuit for a certain qubit architecture. Information on the library's features is available in the [documentation](https://quantumai.google/cirq) and on CirQ's [GitHub](https://github.com/quantumlib/Cirq). Like [Snowflurry](snowflurry.md), CirQ can be used to execute quantum circuits on the [MonarQ](monarq.md) quantum computer.
+[CirQ](https://quantumai.google/cirq) is an open-source quantum computing library developed in [Python](../python.md) by Google, which allows building, optimizing, simulating, and executing quantum circuits. More specifically, CirQ allows simulating circuits on specific qubit configurations, which can optimize a circuit for a certain qubit architecture. Information on the library's features is available in the [documentation](https://quantumai.google/cirq) and on CirQ's [GitHub](https://github.com/quantumlib/Cirq). Like [Snowflurry](snowflurry.md), CirQ can be used to execute quantum circuits on the [MonarQ](../../clusters/monarq.md) quantum computer.
 
 ## Installation
-The CirQ quantum computer simulator is available on all our clusters. The [Python](python.md) programming language must be loaded before accessing it. It is preferable to work in a [Python virtual environment](python.md#create-and-use-a-virtual-environment).
+The CirQ quantum computer simulator is available on all our clusters. The [Python](../python.md) programming language must be loaded before accessing it. It is preferable to work in a [Python virtual environment](../python.md#create-and-use-a-virtual-environment).
 ```bash
 module load python/3.11
 virtualenv --no-download --clear ~/ENV && source ~/ENV/bin/activate
@@ -85,7 +85,7 @@ pip install --no-index --requirement ~/cirq-1.4.1-reqs.txt
 python cirq_example.py
 ```
 
-You can then [submit your job to the scheduler](running-jobs.md).
+You can then [submit your job to the scheduler](../../running-jobs/running_jobs.md).
 
 ## Example Usage: Bell States
 Bell states are the simplest states that allow explaining both superposition and entanglement on qubits.

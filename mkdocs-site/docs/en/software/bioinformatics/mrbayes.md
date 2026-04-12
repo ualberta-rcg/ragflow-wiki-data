@@ -57,7 +57,7 @@ status:
 module spider mrbayes
 ```
 
-For more on finding and selecting a version of MrBayes using `module` commands see [Using modules](utiliser-des-modules.md)
+For more on finding and selecting a version of MrBayes using `module` commands see [Using modules](../../programming/utiliser_des_modules.md)
 
 ## Examples
 
@@ -157,7 +157,7 @@ append=yes checkfreq=1000;
 
 Then create a job script. This example is a job array, which means that one script and 
 one `sbatch` command will be sufficient to launch two Slurm jobs, and therefore 
-both parts of the calculation. See [Job arrays](job-arrays.md) for more about the `--array` 
+both parts of the calculation. See [Job arrays](../../running-jobs/job_arrays.md) for more about the `--array` 
 parameter and the `$SLURM_ARRAY_TASK_ID` variable used here.
 
 ```bash title="submit-mrbayes-cp.sh"

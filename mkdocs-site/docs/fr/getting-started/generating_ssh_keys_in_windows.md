@@ -77,25 +77,25 @@ La fenêtre affichée est semblable dans les deux cas. Elle peut servir à gén�
 !!! note "Recommandation"
     Nous vous encourageons à enregistrer votre clé publique SSH dans la CCDB, ce qui vous permettra de l'utiliser pour vous connecter à toutes nos grappes.
 
-Copiez le contenu de la zone de texte *Clé publique à coller dans OpenSSH ...* et collez-la dans la zone de texte [dans la CCDB, option Mon compte -> Gérer vos clés SSH](https://ccdb.computecanada.ca/ssh_authorized_keys). Pour plus d'information, voyez le paragraphe [*Par la base de données CCDB*](ssh-keys.md#par-la-base-de-donnees-ccdb).
+Copiez le contenu de la zone de texte *Clé publique à coller dans OpenSSH ...* et collez-la dans la zone de texte [dans la CCDB, option Mon compte -> Gérer vos clés SSH](https://ccdb.computecanada.ca/ssh_authorized_keys). Pour plus d'information, voyez le paragraphe [*Par la base de données CCDB*](ssh_keys.md#par-la-base-de-donnees-ccdb).
 
 ### Installation locale
 
 Si pour quelque raison que ce soit vous ne voulez pas utiliser la fonctionnalité de la CCDB, vous pouvez téléverser votre clé publique sur *chacune* des grappes comme suit :
 
 1.  Copiez le contenu de la zone de texte *Clé publique à coller dans OpenSSH ...* et collez-le sur une seule ligne à la fin de `/home/USERNAME/.ssh/authorized_keys` sur la grappe à laquelle vous voulez vous connecter.
-2.  Vérifiez que les permissions pour les répertoires et les fichiers sont correctes et que le propriétaire est correct, comme décrit dans [ces directives](using-ssh-keys-in-linux.md#installation-locale).
+2.  Vérifiez que les permissions pour les répertoires et les fichiers sont correctes et que le propriétaire est correct, comme décrit dans [ces directives](using_ssh_keys_in_linux.md#installation-locale).
 
 Vous pouvez aussi utiliser l'outil `ssh-copy-id` s'il est disponible sur votre ordinateur personnel.
 
 ## Se connecter avec une paire de clés
 
-Testez la nouvelle clé en vous connectant au serveur avec SSH; voyez comment [avec PuTTY](connecting-with-putty.md#paire-de-cles-ssh); [avec MobaXTerm](connecting-with-mobaxterm.md#paire-de-cles-ssh); ou [avec WinSCP](https://winscp.net/eng/docs/ui_login_authentication).
+Testez la nouvelle clé en vous connectant au serveur avec SSH; voyez comment [avec PuTTY](connecting_with_putty.md#paire-de-cles-ssh); [avec MobaXTerm](connecting_with_mobaxterm.md#paire-de-cles-ssh); ou [avec WinSCP](https://winscp.net/eng/docs/ui_login_authentication).
 
 Pour une démonstration avec PuTTY, voyez la vidéo YouTube [Easily setup PuTTY SSH keys for passwordless logins using Pageant](https://www.youtube.com/watch?v=2nkAQ9M6ZF8).
 
 ## Convertir une clé OpenStack
 
-Une clé [OpenStack](managing-your-cloud-resources-with-openstack.md) possède l'extension `.pem`; elle peut être convertie en cliquant sur le bouton *Charger* dans PuTTYGen. Avec le filtre *Tous les fichiers (*.*)*, sélectionnez le fichier `.pem` téléchargé de OpenStack, puis cliquez sur *Ouvrir*. Vous pouvez au choix entrer une phrase de passe dans le champ *Phrase de passe de la clé* pour accéder à votre clé privée. Cliquez sur *Sauvegarder la clé privée*.
+Une clé [OpenStack](../cloud/managing_your_cloud_resources_with_openstack.md) possède l'extension `.pem`; elle peut être convertie en cliquant sur le bouton *Charger* dans PuTTYGen. Avec le filtre *Tous les fichiers (*.*)*, sélectionnez le fichier `.pem` téléchargé de OpenStack, puis cliquez sur *Ouvrir*. Vous pouvez au choix entrer une phrase de passe dans le champ *Phrase de passe de la clé* pour accéder à votre clé privée. Cliquez sur *Sauvegarder la clé privée*.
 
-Cette clé privée peut être utilisée avec PuTTY pour se connecter à une instance créée avec OpenStack. Pour plus d'information, consultez *Lancer une instance* dans la page [Cloud : Guide de démarrage](cloud-quick-start.md).
+Cette clé privée peut être utilisée avec PuTTY pour se connecter à une instance créée avec OpenStack. Pour plus d'information, consultez *Lancer une instance* dans la page [Cloud : Guide de démarrage](../cloud/cloud_quick_start.md).

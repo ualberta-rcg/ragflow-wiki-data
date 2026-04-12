@@ -42,7 +42,7 @@ status:
 Nous sommes fournisseur d'hébergement pour QuantumATK. Dans ce contexte, QuantumATK est installée sur nos grappes, mais nous n'avons pas une licence générique fournissant l'accès à tous nos utilisateurs. Cependant, plusieurs établissements, facultés et départements possèdent des licences qui peuvent être utilisées sur nos grappes.
 Les chercheurs peuvent aussi acheter une licence auprès de [CMC](https://account.cmc.ca/en/WhatWeOffer/Products/CMC-00200-00368.aspx) pour une utilisation au Canada. Il est aussi possible d'utiliser QuantumATK sur nos grappes avec une licence achetée directement de [Synopsys](https://solvnet.synopsys.com/SmartKeys).
 
-En ce qui a trait à l'aspect technique, nos nœuds de calcul doivent pouvoir communiquer avec votre serveur de licence. Si ce n'est déjà fait, notre équipe technique coordonnera ceci avec votre gestionnaire de licence; dans le cas de CMC, ce travail a été effectué. Quand tout sera en place, vous pourrez charger le module QuantumATK qui localisera de lui-même la licence. En cas de difficulté, contactez le [soutien technique](technical-support.md).
+En ce qui a trait à l'aspect technique, nos nœuds de calcul doivent pouvoir communiquer avec votre serveur de licence. Si ce n'est déjà fait, notre équipe technique coordonnera ceci avec votre gestionnaire de licence; dans le cas de CMC, ce travail a été effectué. Quand tout sera en place, vous pourrez charger le module QuantumATK qui localisera de lui-même la licence. En cas de difficulté, contactez le [soutien technique](../../support/technical_support.md).
 
 ## Configuration de votre fichier de licence
 Le module QuantumATK cherche l'information en rapport avec la licence à différents endroits, dont votre répertoire /home. Si vous avez votre propre serveur de licence, vous pouvez y accéder avec le fichier suivant :
@@ -52,7 +52,7 @@ SERVER <server> ANY <port>
 USE_SERVER
 ```
 
-Enregistrez ce fichier dans le répertoire `$HOME/.licenses/`, où `<server>` est votre serveur de licence et `<port>` est le numéro de port pour le serveur de licence. Les coupe-feu des deux parties doivent être configurés; pour ce faire, faites parvenir les renseignements sur le port de service et l'adresse IP de votre serveur de licence au [soutien technique](technical-support.md).
+Enregistrez ce fichier dans le répertoire `$HOME/.licenses/`, où `<server>` est votre serveur de licence et `<port>` est le numéro de port pour le serveur de licence. Les coupe-feu des deux parties doivent être configurés; pour ce faire, faites parvenir les renseignements sur le port de service et l'adresse IP de votre serveur de licence au [soutien technique](../../support/technical_support.md).
 
 Si vous détenez une licence CMC, utilisez les valeurs suivantes dans votre fichier `quantumatk.lic` :
 

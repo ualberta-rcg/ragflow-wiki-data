@@ -84,7 +84,7 @@ status:
 [Amber](https://ambermd.org/) désigne un ensemble d'applications pour effectuer des simulations de dynamique moléculaire, particulièrement avec les biomolécules. Chacune des applications porte un nom différent, mais l'ensemble fonctionne plutôt bien et constitue un outil puissant pour effectuer plusieurs calculs usuels.
 
 ## Modules Amber
-Nous fournissons les modules pour Amber, AmberTools et Amber-PMEMD dans notre [pile logicielle](available-software.md).
+Nous fournissons les modules pour Amber, AmberTools et Amber-PMEMD dans notre [pile logicielle](../programming/available_software.md).
 
 *   **[Amber](https://ambermd.org/AmberMD.php)** (module `amber`) : comprend tout ce qui se trouve dans AmberTools, plus le programme avancé *pmemd* pour les simulations de dynamique moléculaire haute performance (`QUICK` pour les calculs de DFT avec GPU et `sander` pour la dynamique moléculaire).
 *   **Amber-PMEMD** (module `amber-pmemd`, Amber 24+) : Moteur `pmemd` haute performance optimisé pour CPU et GPU.
@@ -95,7 +95,7 @@ Nous fournissons les modules pour Amber, AmberTools et Amber-PMEMD dans notre [p
 
 *   Le module `ambertools` pour [AmberTools](https://ambermd.org/AmberTools.php) offre des outils pour préparer et analyser les simulations. L'application `sander` est utilisée pour les simulations de dynamique moléculaire. Tous ces outils sont gratuits et *open source*.
 
-Pour la liste des versions installées et de leurs modules dépendants, lancez [la sous-commande `module spider`](https://docs.alliancecan.ca/wiki/Utiliser_des_modules#Sous-commande_spider) ou consultez la page [Logiciels disponibles](available-software.md).
+Pour la liste des versions installées et de leurs modules dépendants, lancez [la sous-commande `module spider`](https://docs.alliancecan.ca/wiki/Utiliser_des_modules#Sous-commande_spider) ou consultez la page [Logiciels disponibles](../programming/available_software.md).
 
 ## Utiliser AMBER sur les grappes de GPU H100
 
@@ -279,7 +279,7 @@ module load StdEnv/2023 gcc/12.3 openmpi/4.1.5 cuda/12.6 ambertools/25.0
 srun MMPBSA.py.MPI -O -i mmpbsa.in -o mmpbsa.dat -sp solvated_complex.parm7 -cp complex.parm7 -rp receptor.parm7 -lp ligand.parm7 -y trajectory.nc
 ```
 
-Pour les détails sur comment modifier vos scripts pour faire des simulations sur des ressources de calcul, voir [Exécuter des tâches](running-jobs.md).
+Pour les détails sur comment modifier vos scripts pour faire des simulations sur des ressources de calcul, voir [Exécuter des tâches](../running-jobs/running_jobs.md).
 
 ## Performance et étalonnage
 

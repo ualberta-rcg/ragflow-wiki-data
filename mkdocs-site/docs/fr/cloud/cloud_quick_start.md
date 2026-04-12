@@ -164,9 +164,9 @@ status:
 ## Avant de commencer
 
 1.  **Posséder un projet infonuagique**
-    **Vous devez posséder un projet infonuagique pour avoir accès à l'environnement infonuagique.** Si vous ne possédez pas de [projet infonuagique](managing-your-cloud-resources-with-openstack.md#projets), voyez [Obtenir un projet dans l'environnement infonuagique](cloud.md#obtenir-un-projet-dans-lenvironnement-infonuagique). Une fois qu'un projet infonuagique est associé à votre compte, vous recevrez un courriel de confirmation qui contient les détails sur comment accéder à votre projet; assurez-vous de savoir où trouver ces renseignements.
+    **Vous devez posséder un projet infonuagique pour avoir accès à l'environnement infonuagique.** Si vous ne possédez pas de [projet infonuagique](managing_your_cloud_resources_with_openstack.md#projets), voyez [Obtenir un projet dans l'environnement infonuagique](cloud.md#obtenir-un-projet-dans-lenvironnement-infonuagique). Une fois qu'un projet infonuagique est associé à votre compte, vous recevrez un courriel de confirmation qui contient les détails sur comment accéder à votre projet; assurez-vous de savoir où trouver ces renseignements.
 2.  **Utiliser un navigateur compatible**
-    L'accès aux projets infonuagiques se fait sans problème avec les navigateurs [Firefox](https://www.mozilla.org/en-US/firefox/new/) et [Chrome](https://www.google.com/chrome/). D'autres navigateurs aussi peuvent bien fonctionner, mais certains ne sont pas pris en charge par notre interface web et affichent le message `Danger: There was an error submitting the form. Please try again.`. C'est le cas notamment de Safari sous Mac; une mise à jour pourrait résoudre le problème, mais nous vous recommandons d'utiliser [Firefox](https://www.mozilla.org/en-US/firefox/new/) ou [Chrome](https://www.google.com/chrome/). Si vous avez toujours des problèmes, écrivez au [soutien technique](technical-support.md).
+    L'accès aux projets infonuagiques se fait sans problème avec les navigateurs [Firefox](https://www.mozilla.org/en-US/firefox/new/) et [Chrome](https://www.google.com/chrome/). D'autres navigateurs aussi peuvent bien fonctionner, mais certains ne sont pas pris en charge par notre interface web et affichent le message `Danger: There was an error submitting the form. Please try again.`. C'est le cas notamment de Safari sous Mac; une mise à jour pourrait résoudre le problème, mais nous vous recommandons d'utiliser [Firefox](https://www.mozilla.org/en-US/firefox/new/) ou [Chrome](https://www.google.com/chrome/). Si vous avez toujours des problèmes, écrivez au [soutien technique](../support/technical_support.md).
 
 ## Créer votre première instance
 
@@ -177,7 +177,7 @@ Votre projet infonuagique vous permettra de créer des instances (aussi appelée
 2.  **Consultez le tableau de bord OpenStack**
     OpenStack est la plateforme qui permet l'accès web aux nuages. Une fois la connexion établie, le tableau de bord OpenStack affiche les ressources de votre projet. Pour des renseignements sur le tableau de bord et la navigation OpenStack, consultez [la documentation officielle d'OpenStack](https://docs.openstack.org/horizon/latest/user/index.html).
 
-Vous trouverez ci-dessous les directives pour démarrer des instances Linux et Windows. **Le système d'exploitation est celui de l'instance et non celui de l'ordinateur que vous utilisez pour vous connecter.** Votre planification préalable devrait indiquer le système d'exploitation que vous utiliserez; en cas de doute, écrivez au [soutien technique](technical-support.md).
+Vous trouverez ci-dessous les directives pour démarrer des instances Linux et Windows. **Le système d'exploitation est celui de l'instance et non celui de l'ordinateur que vous utilisez pour vous connecter.** Votre planification préalable devrait indiquer le système d'exploitation que vous utiliserez; en cas de doute, écrivez au [soutien technique](../support/technical_support.md).
 
 /// tab | Linux
 
@@ -185,7 +185,7 @@ Vous trouverez ci-dessous les directives pour démarrer des instances Linux et W
 
 À la création d’une instance, l'authentification par mot de passe est désactivée pour des raisons de sécurité.
 
-OpenStack crée plutôt votre instance avec une clé SSH publique (*secure shell*) installée et pour vous connecter, vous devez utiliser cette paire de clés SSH. Si vous avez déjà utilisé des clés SSH, la clé publique peut provenir d'une paire de clés que vous avez déjà créée sur un autre nuage; si c'est le cas, voyez ci-dessous *Importer une paire de clés*. Si vous n'avez jamais utilisé une paire de clés SSH ou que vous ne voulez pas utiliser une paire existante, vous devez créer une paire de clés. Si vous travaillez sous Windows, voyez [Générer des clés SSH sous Windows](generating-ssh-keys-in-windows.md), autrement, voyez [Utiliser des clés SSH sous Linux](using-ssh-keys-in-linux.md). Pour plus d'information sur la création et la gestion des clés, consultez [Clés SSH](ssh-keys.md).
+OpenStack crée plutôt votre instance avec une clé SSH publique (*secure shell*) installée et pour vous connecter, vous devez utiliser cette paire de clés SSH. Si vous avez déjà utilisé des clés SSH, la clé publique peut provenir d'une paire de clés que vous avez déjà créée sur un autre nuage; si c'est le cas, voyez ci-dessous *Importer une paire de clés*. Si vous n'avez jamais utilisé une paire de clés SSH ou que vous ne voulez pas utiliser une paire existante, vous devez créer une paire de clés. Si vous travaillez sous Windows, voyez [Générer des clés SSH sous Windows](../getting-started/generating_ssh_keys_in_windows.md), autrement, voyez [Utiliser des clés SSH sous Linux](../getting-started/using_ssh_keys_in_linux.md). Pour plus d'information sur la création et la gestion des clés, consultez [Clés SSH](../getting-started/ssh_keys.md).
 
 #### Importer une clé publique
 
@@ -215,25 +215,25 @@ La fenêtre *Lancer Instance* présente plusieurs options :
 
 **Source**
 
-*   *Sélectionnez la source de démarrage* : Pour votre première instance, sélectionnez *Image*; voir l'information sur les autres options dans [Démarrer depuis un volume](working-with-volumes.md#demarrer-depuis-un-volume).
-*   *Créer un nouveau volume* : Cliquez sur *Oui*; les données de l'instance seront enregistrées dans le volume du nuage (stockage persistant). Pour plus d'information sur l'utilisation et la gestion des volumes, voir [Travailler avec des volumes](working-with-volumes.md).
-    *   *Taille du volume (Go)* : Entrez la taille planifiée; autrement, 30 Go est une taille raisonnable pour le système d'exploitation et une quantité modeste de données. Pour plus d'information sur l'utilisation et la gestion des volumes, voir [Travailler avec des volumes](working-with-volumes.md).
+*   *Sélectionnez la source de démarrage* : Pour votre première instance, sélectionnez *Image*; voir l'information sur les autres options dans [Démarrer depuis un volume](working_with_volumes.md#demarrer-depuis-un-volume).
+*   *Créer un nouveau volume* : Cliquez sur *Oui*; les données de l'instance seront enregistrées dans le volume du nuage (stockage persistant). Pour plus d'information sur l'utilisation et la gestion des volumes, voir [Travailler avec des volumes](working_with_volumes.md).
+    *   *Taille du volume (Go)* : Entrez la taille planifiée; autrement, 30 Go est une taille raisonnable pour le système d'exploitation et une quantité modeste de données. Pour plus d'information sur l'utilisation et la gestion des volumes, voir [Travailler avec des volumes](working_with_volumes.md).
     *   *Supprimer le volume après terminaison de l'instance* : Cliquez sur *Non* pour empêcher que le volume soit supprimé accidentellement. Cliquez sur *Oui* si vous voulez que le volume soit toujours supprimé avec l'instance.
 *   *Alloué* et *Disponible* : La liste sous *Disponible* montre les images que votre instance peut démarrer. Pour les débutants Linux, nous recommandons la plus récente image **Ubuntu**, mais vous pouvez sélectionner un des autres systèmes d'exploitation Linux. Pour sélectionner une image, cliquez sur la flèche à la fin de sa ligne et l'image sera déplacée sous *Alloué*. Il est important de se souvenir de l'image que vous avez sélectionnée, par exemple Ubuntu, Fedora, etc.
 
 **Gabarit**
 
-*   *Alloué* et *Disponible* : Le gabarit identifie le matériel utilisé par votre instance et donc la capacité de la mémoire et du traitement. La liste sous *Disponible* montre les gabarits pour l'image source de démarrage. Cliquez sur l'icône > au début de la ligne pour savoir si ce gabarit est conforme à l'allocation pour votre projet. Si cette ressource n'est pas suffisante, une alerte sera affichée. Sélectionnez un autre gabarit et cliquez sur la flèche à la fin de la ligne pour le déplacer vers la liste *Alloué*. Pour plus d'information, voir [Gabarits d'instances](virtual-machine-flavors.md).
+*   *Alloué* et *Disponible* : Le gabarit identifie le matériel utilisé par votre instance et donc la capacité de la mémoire et du traitement. La liste sous *Disponible* montre les gabarits pour l'image source de démarrage. Cliquez sur l'icône > au début de la ligne pour savoir si ce gabarit est conforme à l'allocation pour votre projet. Si cette ressource n'est pas suffisante, une alerte sera affichée. Sélectionnez un autre gabarit et cliquez sur la flèche à la fin de la ligne pour le déplacer vers la liste *Alloué*. Pour plus d'information, voir [Gabarits d'instances](virtual_machine_flavors.md).
 
 **Réseaux** : Changez les valeurs uniquement si nécessaire. Sur Arbutus, sélectionnez le réseau par défaut qui commence habituellement par *def-project-name*.
 
 **Ports réseaux** : Ne changez pas les valeurs pour l'instant.
 
-**Groupes de sécurité** : Le groupe de sécurité par défaut devrait paraître dans la liste *Alloué*. Si ce n'est pas le cas, déplacez-le de la liste *Disponible* en cliquant sur la flèche à la fin de la ligne. Pour plus d'information, voir [Groupes de sécurité](managing-your-cloud-resources-with-openstack.md#groupes-de-securite).
+**Groupes de sécurité** : Le groupe de sécurité par défaut devrait paraître dans la liste *Alloué*. Si ce n'est pas le cas, déplacez-le de la liste *Disponible* en cliquant sur la flèche à la fin de la ligne. Pour plus d'information, voir [Groupes de sécurité](managing_your_cloud_resources_with_openstack.md#groupes-de-securite).
 
-**Paires de clés** : Sous *Disponible*, sélectionnez la paire de clés SSH que vous avez créée plus tôt et déplacez-la vers la liste *Alloué* en cliquant sur la flèche à la fin de la ligne. Si vous n'avez pas de paire de clés, vous pouvez la créer ou l'importer en cliquant sur les boutons dans le haut de la fenêtre (voir [Paires de clés SSH ci-dessus](#paires-de-cles-ssh)). Pour l'information sur la gestion et l'utilisation des paires de clés, voir [Clés SSH](ssh-keys.md).
+**Paires de clés** : Sous *Disponible*, sélectionnez la paire de clés SSH que vous avez créée plus tôt et déplacez-la vers la liste *Alloué* en cliquant sur la flèche à la fin de la ligne. Si vous n'avez pas de paire de clés, vous pouvez la créer ou l'importer en cliquant sur les boutons dans le haut de la fenêtre (voir [Paires de clés SSH ci-dessus](#paires-de-cles-ssh)). Pour l'information sur la gestion et l'utilisation des paires de clés, voir [Clés SSH](../getting-started/ssh_keys.md).
 
-**Configuration** : Ne changez pas les valeurs pour l'instant; pour l'information sur la personnalisation des scripts, voir [Utilisation de cloud-init](automating-vm-creation.md#utilisation-de-cloud-init).
+**Configuration** : Ne changez pas les valeurs pour l'instant; pour l'information sur la personnalisation des scripts, voir [Utilisation de cloud-init](automating_vm_creation.md#utilisation-de-cloud-init).
 
 **Groupes de serveurs** : Ne changez pas les valeurs pour l'instant.
 
@@ -265,7 +265,7 @@ La page *Instances* montre la liste des instances avec les adresses IP correspon
 *   Cliquez sur le bouton **Ajouter** et la nouvelle règle sera affichée dans la liste des groupes de sécurité.
 
 !!! info "Points importants"
-    *   **Ne supprimez pas les règles de sécurité par défaut**; le fonctionnement de votre instance serait compromis (voir [Groupes de sécurité](managing-your-cloud-resources-with-openstack.md#groupes-de-securite)).
+    *   **Ne supprimez pas les règles de sécurité par défaut**; le fonctionnement de votre instance serait compromis (voir [Groupes de sécurité](managing_your_cloud_resources_with_openstack.md#groupes-de-securite)).
     *   **Ne modifiez pas les règles de sécurité**; pour ce faire, il faut les supprimer et les ajouter une fois modifiées. Si vous faites une erreur à la création d'une règle pour le groupe de sécurité, supprimez la règle en cliquant sur le bouton à gauche de la rangée dans la fenêtre des groupes de sécurité et ajoutez une nouvelle règle modifiée.
     *   Si vous changez l'endroit à partir duquel vous travaillez (et par le fait même votre adresse IP), vous devez ajouter la règle décrite ici pour la nouvelle adresse. Sachez que quand vous changez votre lieu de travail physique, par exemple pour travailler de la maison plutôt que du travail, vous changez aussi de réseau.
     *   Si vous n'avez pas d'adresse IP statique pour le réseau que vous utilisez, souvenez-vous que celle-ci peut changer. Si vous ne pouvez plus vous connecter à votre instance après un certain temps, vérifiez si votre adresse IP a changé en entrant [ipv4.icanhazip.com](http://ipv4.icanhazip.com) dans votre navigateur et vérifiez si elle correspond à ce qui se trouve dans votre règle de sécurité. Si votre adresse IP change souvent mais que les chiffres à l'extrême gauche restent les mêmes, il pourrait être plus raisonnable d'ajouter une plage d'adresses IP plutôt que d'avoir à modifier fréquemment les règles de sécurité. Pour déterminer une plage CIDR, [utilisez cet outil](https://www.ipaddressguide.com/cidr) ou consultez la [notation CIDR](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation).
@@ -298,7 +298,7 @@ Ces utilisateurs par défaut possèdent tous les privilèges sudo. La connexion 
 
 #### Connexion à partir de Windows
 
-La connexion SSH doit se faire par une application d'interface. Nous recommandons **MobaXterm** (voir les directives ci-dessous); vous pouvez aussi vous connecter par PuTTY (voir [Connexion à un serveur avec PuTTY](connecting-with-putty.md)).
+La connexion SSH doit se faire par une application d'interface. Nous recommandons **MobaXterm** (voir les directives ci-dessous); vous pouvez aussi vous connecter par PuTTY (voir [Connexion à un serveur avec PuTTY](../getting-started/connecting_with_putty.md)).
 
 [Téléchargez MobaXterm](http://mobaxterm.mobatek.net/).
 Pour vous connecter :
@@ -314,21 +314,21 @@ Pour vous connecter :
 
 ## Pour plus d'information
 
-*   [Introduction à Linux](linux-introduction.md), sur comment travailler en ligne de commande sous Linux
-*   [Sécurité des instances virtuelles](security-considerations-when-running-a-vm.md)
-*   [Configuration d'un serveur de données ou d'un serveur web](configuring-a-data-or-web-server.md)
-*   [Gestion des ressources infonuagiques avec OpenStack](managing-your-cloud-resources-with-openstack.md)
-*   [Glossaire technique de l'infonuagique](cloud-technical-glossary.md)
-*   [Automatiser la création d'instances](automating-vm-creation.md)
-*   [Sauvegarder une instance](backing-up-your-vm.md)
-*   [Soutien technique](technical-support.md)
+*   [Introduction à Linux](../getting-started/linux_introduction.md), sur comment travailler en ligne de commande sous Linux
+*   [Sécurité des instances virtuelles](security_considerations_when_running_a_vm.md)
+*   [Configuration d'un serveur de données ou d'un serveur web](configuring_a_data_or_web_server.md)
+*   [Gestion des ressources infonuagiques avec OpenStack](managing_your_cloud_resources_with_openstack.md)
+*   [Glossaire technique de l'infonuagique](cloud_technical_glossary.md)
+*   [Automatiser la création d'instances](automating_vm_creation.md)
+*   [Sauvegarder une instance](backing_up_your_vm.md)
+*   [Soutien technique](../support/technical_support.md)
 
 ///
 /// tab | Windows
 
 ### Demande d'accès à une image Windows
 
-Pour créer une instance Windows sur un de nos nuages, vous devez d'abord demander l'accès à une image Windows en écrivant au [soutien technique](technical-support.md).
+Pour créer une instance Windows sur un de nos nuages, vous devez d'abord demander l'accès à une image Windows en écrivant au [soutien technique](../support/technical_support.md).
 
 L'accès à une image Windows Server 2012 et un nom d'utilisateur vous seront fournis; cet accès est valide pour une période d'évaluation de 180 jours. Il pourrait être possible d'associer une licence Windows à une instance créée avec l'image d'évaluation, mais nous ne fournissons pas ces licences.
 
@@ -493,7 +493,7 @@ Une fois la connexion établie avec votre instance Windows,
 
 ### Remarques à propos des paires de clés
 
-Il existe différents formats pour les fichiers de clés et vous avez la possibilité de protéger ou non vos clés privées à l'aide de phrases de passe. Pour pouvoir décrypter le mot de passe pour votre instance Windows, votre clé privée doit être au format OpenSSH et ne pas être protégée avec une phrase de passe. Si votre paire de clés a été créée par OpenStack et que vous avez téléchargé le fichier de clés `.pem`, la clé privée sera déjà au format requis. Si vous avez créé votre paire de clés avec la [commande `ssh-keygen`](using-ssh-keys-in-linux.md) et que vous n'avez pas défini une phrase de passe, le format sera aussi fort probablement correct. Pour plus d'information sur les paires de clés, voyez la page [Clés SSH](ssh-keys.md).
+Il existe différents formats pour les fichiers de clés et vous avez la possibilité de protéger ou non vos clés privées à l'aide de phrases de passe. Pour pouvoir décrypter le mot de passe pour votre instance Windows, votre clé privée doit être au format OpenSSH et ne pas être protégée avec une phrase de passe. Si votre paire de clés a été créée par OpenStack et que vous avez téléchargé le fichier de clés `.pem`, la clé privée sera déjà au format requis. Si vous avez créé votre paire de clés avec la [commande `ssh-keygen`](../getting-started/using_ssh_keys_in_linux.md) et que vous n'avez pas défini une phrase de passe, le format sera aussi fort probablement correct. Pour plus d'information sur les paires de clés, voyez la page [Clés SSH](../getting-started/ssh_keys.md).
 
 Voici un exemple d'une clé privée appropriée au format OpenSSH, sans phrase de passe :
 
@@ -533,12 +533,12 @@ Format ssh.com sans phrase de passe :
 
 ## Pour plus d'information
 
-*   [Sécurité des instances virtuelles](security-considerations-when-running-a-vm.md)
+*   [Sécurité des instances virtuelles](security_considerations_when_running_a_vm.md)
 *   [Création d'une instance sous Linux](creating-a-linux-vm.md)
-*   [Gestion des ressources infonuagiques avec OpenStack](managing-your-cloud-resources-with-openstack.md)
-*   [Glossaire technique de l'infonuagique](cloud-technical-glossary.md)
-*   [Automatiser les instances](automating-vm-creation.md)
-*   [Sauvegarder une instance](backing-up-your-vm.md)
-*   [Soutien technique](technical-support.md)
+*   [Gestion des ressources infonuagiques avec OpenStack](managing_your_cloud_resources_with_openstack.md)
+*   [Glossaire technique de l'infonuagique](cloud_technical_glossary.md)
+*   [Automatiser les instances](automating_vm_creation.md)
+*   [Sauvegarder une instance](backing_up_your_vm.md)
+*   [Soutien technique](../support/technical_support.md)
 
 ///

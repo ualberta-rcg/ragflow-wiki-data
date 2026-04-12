@@ -37,7 +37,7 @@ status:
 
 ## Introduction
 
-This document describes how to let a virtual machine (VM) access [/project](project-layout.md) filesystems on the national systems. VMs hosted on our [Cloud](cloud.md) do not have direct access to the filesystems on the national HPC clusters. In order to access files stored on /project from a VM, please use SSHFS and observe the requirements mentioned below.
+This document describes how to let a virtual machine (VM) access [/project](../storage-and-data/project_layout.md) filesystems on the national systems. VMs hosted on our [Cloud](cloud.md) do not have direct access to the filesystems on the national HPC clusters. In order to access files stored on /project from a VM, please use SSHFS and observe the requirements mentioned below.
 
 ## SSHFS
 

@@ -62,7 +62,7 @@ status:
   qa_generated: false
 ---
 
-Un volume fournit un espace de stockage qui n'est pas détruit lorsqu'on termine l'instance à laquelle il est attaché. Dans nos environnements infonuagiques, le stockage est assuré par [Ceph](https://en.wikipedia.org/wiki/Ceph_(software)), soit avec triple réplication, soit avec [des codes d'effacement](https://en.wikipedia.org/wiki/Erasure_code) comme protection contre les défaillances matérielles. Dans [Arbutus](cloud-resources.md), le type de volume *Default* utilise des codes d'effacement et réduit les coûts de stockage additionnels de la triple réplication; le type de volume *OS or Database* utilise la triple réplication. Consultez [la documentation OpenStack sur les volumes](https://docs.openstack.org/cinder/latest/cli/cli-manage-volumes.html).
+Un volume fournit un espace de stockage qui n'est pas détruit lorsqu'on termine l'instance à laquelle il est attaché. Dans nos environnements infonuagiques, le stockage est assuré par [Ceph](https://en.wikipedia.org/wiki/Ceph_(software)), soit avec triple réplication, soit avec [des codes d'effacement](https://en.wikipedia.org/wiki/Erasure_code) comme protection contre les défaillances matérielles. Dans [Arbutus](cloud_resources.md), le type de volume *Default* utilise des codes d'effacement et réduit les coûts de stockage additionnels de la triple réplication; le type de volume *OS or Database* utilise la triple réplication. Consultez [la documentation OpenStack sur les volumes](https://docs.openstack.org/cinder/latest/cli/cli-manage-volumes.html).
 
 ## Créer un volume
 
@@ -97,7 +97,7 @@ Après quelques secondes, la page des volumes est rafraîchie et montre le nouve
 
 *   Formater un volume signifie le préparer pour y enregistrer des fichiers et des répertoires.
 *   Avant de pouvoir utiliser un nouveau volume, il faut le formater.
-*   Voyez les directives sur [Linux](using-a-new-empty-volume-on-a-linux-vm.md) ou [Windows](using-a-new-empty-volume-on-a-windows-vm.md).
+*   Voyez les directives sur [Linux](../storage-and-data/using_a_new_empty_volume_on_a_linux_vm.md) ou [Windows](using-a-new-empty-volume-on-a-windows-vm.md).
 
 ### Monter un volume
 
@@ -128,7 +128,7 @@ Pour plus d'information, voyez [cette page de la documentation Ubuntu](https://h
 
 ## Démarrer depuis un volume
 
-Pour créer un service persistant, il est recommandé de démarrer l'instance depuis un volume. Une instance démarrée depuis une image plutôt que d'un volume est stockée sur le disque local de la machine qui opère cette même instance. L'instance pourrait être perdue si un problème survient sur la machine ou sur son disque. Le stockage du volume procure une redondance qui protège l'instance des défaillances matérielles. De façon générale, les gabarits pour démarrer depuis un volume commencent par la lettre p (voir la page [Gabarits d'instances](virtual-machine-flavors.md)).
+Pour créer un service persistant, il est recommandé de démarrer l'instance depuis un volume. Une instance démarrée depuis une image plutôt que d'un volume est stockée sur le disque local de la machine qui opère cette même instance. L'instance pourrait être perdue si un problème survient sur la machine ou sur son disque. Le stockage du volume procure une redondance qui protège l'instance des défaillances matérielles. De façon générale, les gabarits pour démarrer depuis un volume commencent par la lettre p (voir la page [Gabarits d'instances](virtual_machine_flavors.md)).
 
 Démarrer une instance depuis un volume peut se faire :
 *   à partir d'une image en créant un nouveau volume;
@@ -149,7 +149,7 @@ Créer une image depuis un volume permet de télécharger l'image pour servir de
 Pour créer l'image d'un volume, elle doit d'abord être détachée de l'instance. Dans le cas d'un volume de démarrage (*boot volume*), l'image ne peut être détachée que si l'instance est supprimée. Assurez-vous que la case **Supprimer le volume lors de la suppression de l'instance** n'a pas été cochée à la création de l'instance.
 
 !!! note "Gestion des grandes images"
-    Les grandes images (plus de 10-20 Gio) peuvent prendre beaucoup de temps à créer, téléverser ou d'autres opérations. Une solution serait de [séparer les données](backing-up-your-vm.md#exemple-dune-strategie-de-sauvegarde) si possible.
+    Les grandes images (plus de 10-20 Gio) peuvent prendre beaucoup de temps à créer, téléverser ou d'autres opérations. Une solution serait de [séparer les données](backing_up_your_vm.md#exemple-dune-strategie-de-sauvegarde) si possible.
 
 ### Utiliser le tableau de bord
 
@@ -161,7 +161,7 @@ Pour créer l'image d'un volume, elle doit d'abord être détachée de l'instanc
 
 ### Utiliser le client en ligne de commande
 
-Un [client en ligne de commande](openstack-command-line-clients.md) peut faire ceci :
+Un [client en ligne de commande](openstack_command_line_clients.md) peut faire ceci :
 ```bash
 openstack image create --disk-format <format> --volume <volume_name> <image_name>
 ```
@@ -170,7 +170,7 @@ où :
 *   `<volume_name>` peut se trouver en cliquant sur le nom du volume à partir du tableau de bord OpenStack.
 *   `<image_name>` est le nom que vous donnez à l'image.
 
-Vous pouvez ensuite [télécharger l'image](working-with-images.md#telecharger-une-image).
+Vous pouvez ensuite [télécharger l'image](working_with_images.md#telecharger-une-image).
 
 ## Cloner un volume
 
@@ -179,7 +179,7 @@ Le clonage est le moyen recommandé pour la copie de volumes. Il est toujours po
 !!! warning "Recommandation pour le clonage"
     Nous recommandons fortement de terminer l'instance avant de cloner un volume pour éviter que l'état du volume cloné soit incohérent par rapport au volume source dans le cas où ce dernier aurait été modifié pendant la création du clone.
 
-Pour cloner un volume, utilisez [un client en ligne de commande](openstack-command-line-clients.md) et entrez :
+Pour cloner un volume, utilisez [un client en ligne de commande](openstack_command_line_clients.md) et entrez :
 ```bash
 openstack volume create --source <source-volume-id> --size <size-of-new-volume> <name-of-new-volume>
 ```
@@ -187,7 +187,7 @@ openstack volume create --source <source-volume-id> --size <size-of-new-volume> 
 ## Détacher un volume
 
 !!! warning "Précautions avant de détacher un volume"
-    Avant de détacher un volume, il est important de vérifier si des fichiers de ce volume sont utilisés par le système d'exploitation ou des applications actives dans votre instance. Si c'est le cas, le volume détaché pourrait être corrompu ou les applications pourraient avoir des comportements inattendus. Il est donc recommandé de fermer l'instance ou de [démonter le volume](using-a-new-empty-volume-on-a-linux-vm.md#demonter-un-volume-ou-autre-peripherique).
+    Avant de détacher un volume, il est important de vérifier si des fichiers de ce volume sont utilisés par le système d'exploitation ou des applications actives dans votre instance. Si c'est le cas, le volume détaché pourrait être corrompu ou les applications pourraient avoir des comportements inattendus. Il est donc recommandé de fermer l'instance ou de [démonter le volume](../storage-and-data/using_a_new_empty_volume_on_a_linux_vm.md#demonter-un-volume-ou-autre-peripherique).
 
 Pour détacher un volume, connectez-vous à OpenStack (voir la [liste des liens à nos ressources infonuagiques](cloud.md#ressources-infonuagiques)) et sélectionnez le projet qui contient le volume à détacher. Sélectionnez **Volumes** > **Volumes** pour faire afficher les volumes. La colonne **Attaché à** indique ce à quoi chaque volume est attaché.
 

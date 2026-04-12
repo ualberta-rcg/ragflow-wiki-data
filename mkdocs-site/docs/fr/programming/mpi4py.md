@@ -64,7 +64,7 @@ status:
 
 ## Versions disponibles
 
-Dans notre environnement, `mpi4py` est un module et non un paquet précompilé ([wheel](available-python-wheels.md)) comme la plupart des paquets Python. Pour trouver les versions disponibles, utilisez
+Dans notre environnement, `mpi4py` est un module et non un paquet précompilé ([wheel](available_python_wheels.md)) comme la plupart des paquets Python. Pour trouver les versions disponibles, utilisez
 
 ```bash
 module spider mpi4py
@@ -80,7 +80,7 @@ où `X.Y.Z` est le numéro de la version, par exemple `4.0.0`.
 
 ## Exemple avec Hello World
 
-1.  Démarrez une courte [tâche interactive](running-jobs.md#taches-interactives).
+1.  Démarrez une courte [tâche interactive](../running-jobs/running_jobs.md#taches-interactives).
 
     ```bash
     salloc --account=<your account> --ntasks=5
@@ -147,13 +147,13 @@ Quand un autre paquet dépend de `mpi4py`,
 
     Si aucune erreur ne survient, tout va bien.
 
-4.  [Créer un environnement virtuel](python.md#creer-et-utiliser-un-environnement-virtuel) et installez les paquets.
+4.  [Créer un environnement virtuel](../software/python.md#creer-et-utiliser-un-environnement-virtuel) et installez les paquets.
 
 ## Exécuter des tâches
 
 Les tâches MPI peuvent être distribuées sur plusieurs cœurs ou plusieurs nœuds. Pour plus d’information, voir
-*   [MPI job](running-jobs.md#mpi-job)
-*   [Advanced MPI scheduling](advanced-mpi-scheduling.md)
+*   [MPI job](../running-jobs/running_jobs.md#mpi-job)
+*   [Advanced MPI scheduling](../running-jobs/advanced_mpi_scheduling.md)
 
 ### Sur CPU
 
@@ -249,7 +249,7 @@ Les tâches MPI peuvent être distribuées sur plusieurs cœurs ou plusieurs nœ
 
 3.  Testez votre script.
 
-    Avant de soumettre la tâche, il est important de tester le script pour des erreurs possibles. Faites un test rapide avec une [tâche interactive](running-jobs.md#taches-interactives).
+    Avant de soumettre la tâche, il est important de tester le script pour des erreurs possibles. Faites un test rapide avec une [tâche interactive](../running-jobs/running_jobs.md#taches-interactives).
 
 4.  Soumettez votre tâche.
 
@@ -292,7 +292,7 @@ Les tâches MPI peuvent être distribuées sur plusieurs cœurs ou plusieurs nœ
 
 3.  Testez votre script.
 
-    Avant de soumettre la tâche, il est important de tester le script pour des erreurs possibles. Faites un test rapide avec une [tâche interactive](running-jobs.md#taches-interactives).
+    Avant de soumettre la tâche, il est important de tester le script pour des erreurs possibles. Faites un test rapide avec une [tâche interactive](../running-jobs/running_jobs.md#taches-interactives).
 
 4.  Soumettez votre tâche.
 
@@ -314,4 +314,4 @@ Solutions suggérées :
 *   avec `module spider mpi4py/X.Y.Z`, vérifiez quelles versions de Python sont compatibles avec le module mpi4py que vous avez chargé. Quand une version compatible est chargée, vérifiez si `python -c 'import mpi4py'` fonctionne;
 *   chargez le module avant d'activer votre environnement virtuel (voir [mpi4py comme dépendance d'un autre paquet](mpi4py.md#mpi4py-comme-dependance-dun-autre-paquet) ci-dessus).
 
-Voir aussi [Message ModuleNotFoundError: No module named 'X'](python.md#message-modulenotfounderror-no-module-named-x).
+Voir aussi [Message ModuleNotFoundError: No module named 'X'](../software/python.md#message-modulenotfounderror-no-module-named-x).

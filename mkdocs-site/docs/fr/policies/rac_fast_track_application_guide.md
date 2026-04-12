@@ -102,7 +102,7 @@ Le formulaire de demande accélérée comprend les sections suivantes :
 
     Certaines modifications sont acceptées :
 
-    *   Changement de l'emplacement d'une ressource (c.-à-d. demande de migration de l'allocation actuelle d'un système à un autre). Voir la [liste des systèmes disponibles](rac-available-resources.md).
+    *   Changement de l'emplacement d'une ressource (c.-à-d. demande de migration de l'allocation actuelle d'un système à un autre). Voir la [liste des systèmes disponibles](rac_available_resources.md).
     *   Une augmentation de 10 % pour les ressources de calcul et de stockage infonuagiques;
     *   Une augmentation d'au plus 10 % d'espace pour le stockage `/project`, `/nearline` et/ou `dCache`, jusqu’à un maximum de 50 To d’espace de stockage additionnel *selon la quantité spécifiée dans votre courriel d'invitation*; les ressources de stockage et leur utilisation peuvent empêcher l’allocation d’espace ou en limiter la quantité, par exemple
         *   Selon le courriel d'invitation, vous pouvez demander 100 To de stockage de projet et demander ensuite 10 To supplémentaires (votre nouvelle demande de stockage serait alors de 110 To);

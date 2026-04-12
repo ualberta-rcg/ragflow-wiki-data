@@ -35,19 +35,19 @@ status:
   qa_generated: false
 ---
 
-A current list of the [Python wheels](https://pythonwheels.com/) available from the wheelhouse on our national systems is presented below. This list changes as new wheels are added. You can request the installation or update of a particular wheel by contacting [technical support](technical-support.md).
+A current list of the [Python wheels](https://pythonwheels.com/) available from the wheelhouse on our national systems is presented below. This list changes as new wheels are added. You can request the installation or update of a particular wheel by contacting [technical support](../support/technical_support.md).
 
 !!! warning "Availability"
     **Some wheels may not be available in the specific StdEnv you have loaded.**
 
-    To find out which wheels can be installed in your active StdEnv, use the `avail_wheels` command described in [Available wheels](python.md#available-wheels).
+    To find out which wheels can be installed in your active StdEnv, use the `avail_wheels` command described in [Available wheels](../software/python.md#available-wheels).
 
 ## Listing wheels from modules
 Some wheels may not be listed, as they are part of modules. For example:
-*   [pyarrow (Arrow)](arrow.md#pyarrow)
+*   [pyarrow (Arrow)](../software/arrow.md#pyarrow)
 *   pyqt5 (QT)
 *   petsc4py (PETSc)
-*   [opencv_python (OpenCV)](opencv.md#python-bindings)
+*   [opencv_python (OpenCV)](../software/opencv.md#python-bindings)
 
 You can search for such extension with:
 ```bash

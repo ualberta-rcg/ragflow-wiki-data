@@ -41,7 +41,7 @@ The VMD web site is [here](https://www.ks.uiuc.edu/Research/vmd/).
 
 ## Using a pre-installed version
 
-Connect to a cluster using [VNC](vnc.md), `ssh -X`, or `ssh -Y`, in order to enable graphics.
+Connect to a cluster using [VNC](../interactive/vnc.md), `ssh -X`, or `ssh -Y`, in order to enable graphics.
 
 !!! tip
     We recommend using VNC for best performance.

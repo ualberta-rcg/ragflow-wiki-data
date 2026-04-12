@@ -130,7 +130,7 @@ As of April 1st, 2020 we have the following installation recipes available:
 | `Lumerical-2021-R2.5-2885-27742aa972.eb`          | `Lumerical-2021-R2.5-2885-27742aa972.tar.gz`       | `Lumerical-2021-*.tar.gz`         |
 | `Lumerical-2022-R1.3-3016-2c0580a.eb`             | `Lumerical-2022-R1.3-3016-2c0580a.tar.gz`          | `Lumerical-2022-*.tar.gz`         |
 
-If this does not work, please contact our [Technical support](technical-support.md) and we will adapt an installation recipe for your version.
+If this does not work, please contact our [Technical support](../support/technical_support.md) and we will adapt an installation recipe for your version.
 
 Once installed, you will need to log out and back into the server. To load the Lumerical module, use
 ```bash
@@ -164,7 +164,7 @@ For example, if `FDTD_Solutions-8.19.1466.tar` is downloaded in `$HOME/Downloads
 eb FDTD_Solutions-8.19.1438.eb --try-software-version=8.19.1466 --sourcepath=$HOME/Downloads --disable-enforce-checksums
 ```
 
-If this does not work, please contact our [Technical support](technical-support.md) and we will adapt an installation script for your version.
+If this does not work, please contact our [Technical support](../support/technical_support.md) and we will adapt an installation script for your version.
 
 Once installed, you will need to log out and back into the server. To load the FDTD module, use
 ```bash

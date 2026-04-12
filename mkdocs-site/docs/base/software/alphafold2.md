@@ -187,7 +187,7 @@ You can also choose to download the databases locally into your `$SCRATCH` direc
     (alphafold_env) [name@server ~]$ download_all_data.sh $DOWNLOAD_DIR
     ```
 
-    Note that this step **cannot** be done from a compute node. It should be done on a data transfer node (DTN) on clusters that have them (see [Transferring data](transferring-data.md)). On clusters that have no DTN, use a login node instead. Since the download can take up to a full day, we suggest using a [terminal multiplexer](prolonging-terminal-sessions.md#terminal-multiplexers). You may encounter a `Client_loop: send disconnect: Broken pipe` error message. See [Troubleshooting](#broken-pipe-error-message) below.
+    Note that this step **cannot** be done from a compute node. It should be done on a data transfer node (DTN) on clusters that have them (see [Transferring data](../getting-started/transferring_data.md)). On clusters that have no DTN, use a login node instead. Since the download can take up to a full day, we suggest using a [terminal multiplexer](../running-jobs/prolonging_terminal_sessions.md#terminal-multiplexers). You may encounter a `Client_loop: send disconnect: Broken pipe` error message. See [Troubleshooting](#broken-pipe-error-message) below.
 
 === "Graham only"
 
@@ -475,7 +475,7 @@ Then, submit the job to the scheduler.
 ### Broken pipe error message
 When downloading the database, you may encounter a `Client_loop: send disconnect: Broken pipe` error message. It is hard to find the exact cause for this error message. It could be as simple as an unusually high number of users working on the login node, leaving less space for you to upload data.
 
-*   One solution is to use a [terminal multiplexer](prolonging-terminal-sessions.md#terminal-multiplexers). Note that you could still encounter this error message but the chances are lower.
+*   One solution is to use a [terminal multiplexer](../running-jobs/prolonging_terminal_sessions.md#terminal-multiplexers). Note that you could still encounter this error message but the chances are lower.
 
 *   A second solution is to use the database that is already present on the cluster: `/cvmfs/bio.data.computecanada.ca/content/databases/Core/alphafold2_dbs/2023_07/`.
 

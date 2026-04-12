@@ -18,6 +18,7 @@ from datetime import datetime, timezone
 REPO_ROOT = Path(__file__).resolve().parent.parent
 EVENTS_FILE = REPO_ROOT / "docs" / "events" / "events.json"
 STATUS_FILE = REPO_ROOT / "docs" / "status" / "status_page.txt"
+MKDOCS_DOCS_DIR = REPO_ROOT / "mkdocs-site" / "docs"
 OUTPUT_FILE = REPO_ROOT / "mkdocs-site" / "docs" / "index.md"
 
 # HPC clusters we care about — ordered for the table.
@@ -134,6 +135,76 @@ def parse_events(events_json: list) -> str:
     return "\n".join(rows) if rows else "| | *No upcoming events listed* | |"
 
 
+def _titleize(name: str) -> str:
+    """Convert directory/file slug to readable title."""
+    return name.replace("_", " ").replace("-", " ").strip().title()
+
+
+def generate_directory_indexes():
+    """Generate index.md files for language category directories.
+
+    This ensures folder URLs like /en/getting-started/ resolve instead of 404.
+    Root language indexes (en/index.md, fr/index.md, base/index.md) are preserved.
+    """
+    for lang in ("en", "fr", "base"):
+        lang_dir = MKDOCS_DOCS_DIR / lang
+        if not lang_dir.exists():
+            continue
+
+        # Build deepest directories first, then parents.
+        all_dirs = sorted(
+            [p for p in lang_dir.rglob("*") if p.is_dir()],
+            key=lambda p: len(p.parts),
+            reverse=True,
+        )
+
+        for directory in all_dirs:
+            # Keep hand-crafted language landing pages intact.
+            if directory == lang_dir:
+                continue
+
+            md_files = sorted(
+                [p for p in directory.glob("*.md") if p.name != "index.md"]
+            )
+            child_dirs = sorted([p for p in directory.iterdir() if p.is_dir()])
+
+            rel_dir = directory.relative_to(MKDOCS_DOCS_DIR)
+            title = _titleize(directory.name)
+
+            lines = [
+                "---",
+                f"title: {title}",
+                "---",
+                "",
+                f"# {title}",
+                "",
+                f"Auto-generated index for `{rel_dir}`.",
+                "",
+            ]
+
+            if child_dirs:
+                lines.extend(["## Subcategories", ""])
+                for sub in child_dirs:
+                    lines.append(f"- [{_titleize(sub.name)}]({sub.name}/)")
+                lines.append("")
+
+            if md_files:
+                lines.extend(["## Pages", ""])
+                for md in md_files:
+                    lines.append(f"- [{_titleize(md.stem)}]({md.name})")
+                lines.append("")
+
+            if not child_dirs and not md_files:
+                lines.extend(
+                    [
+                        "_No pages in this section yet._",
+                        "",
+                    ]
+                )
+
+            (directory / "index.md").write_text("\n".join(lines), encoding="utf-8")
+
+
 def generate_homepage():
     # --- Load data ---
     events = []
@@ -153,6 +224,9 @@ def generate_homepage():
     now_str = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
     status_table = build_status_table(status_services)
     events_table = parse_events(events)
+
+    # Ensure language/category folder URLs resolve.
+    generate_directory_indexes()
 
     # --- Assemble page ---
     page = f"""\

@@ -131,7 +131,7 @@ Suppose you want to run the utility [`nvidia-smi`](https://developer.nvidia.com/
 srun --jobid 123456 --overlap --pty watch -n 30 nvidia-smi
 ```
 
-It is possible to launch multiple monitoring commands using [`tmux`](prolonging-terminal-sessions.md#tmux). The following command launches `htop` and `nvidia-smi` in separate panes to monitor the activity on a node assigned to the given job.
+It is possible to launch multiple monitoring commands using [`tmux`](prolonging_terminal_sessions.md#tmux). The following command launches `htop` and `nvidia-smi` in separate panes to monitor the activity on a node assigned to the given job.
 
 ```bash
 srun --jobid 123456 --overlap --pty tmux new-session -d 'htop -u $USER' \; split-window -h 'watch nvidia-smi' \; attach
@@ -144,4 +144,4 @@ srun --jobid 123456 --overlap --pty tmux new-session -d 'htop -u $USER' \; split
     The `srun` commands shown above work only to monitor a job submitted with `sbatch`. To monitor an interactive job, create multiple panes with `tmux` and start each process in its own pane.
 
 ## Monitoring a GPU job
-See [Monitor GPU usage](nvtop.md#monitor-gpu-usage)
+See [Monitor GPU usage](../programming/nvtop.md#monitor-gpu-usage)

@@ -53,12 +53,12 @@ status:
 
 This guide will walk you through the basic steps to get started with Open OnDemand (OOD) on our systems. Open OnDemand is a web-based platform that provides access to a wide range of scientific applications and computing resources, such as Jupyter Lab, R Studio, and VS Code. It allows you to interact with a cluster through a web browser instead of via a terminal, without the need to install any software on your local machine. You will be able to perform file management, submit/monitor jobs and run applications interactively. More information on this project can be found at [https://openondemand.org](https://openondemand.org). For cluster specific documentation please see:
 
-*   [Trillium Open OnDemand Quickstart](trillium-open-ondemand-quickstart.md)
-*   [Nibi Open OnDemand Quickstart](nibi.md#access-through-open-ondemand-ood)
+*   [Trillium Open OnDemand Quickstart](trillium_open_ondemand_quickstart.md)
+*   [Nibi Open OnDemand Quickstart](../clusters/nibi.md#access-through-open-ondemand-ood)
 
 ## Logging into the Open OnDemand portal
 
-To access the Open OnDemand portal, open a web browser and navigate to the OnDemand instance you would like to access, e.g. [Trillium](https://ondemand.scinet.utoronto.ca), [Vulcan](vulcan.md), [Nibi](https://ondemand.sharcnet.ca). You will be prompted to enter your Alliance username and password, followed by a second factor authentication via Duo or Yubikey. Once you have logged in, you will be taken to the Open OnDemand dashboard. From here you can access the various tools and applications available on the platform.
+To access the Open OnDemand portal, open a web browser and navigate to the OnDemand instance you would like to access, e.g. [Trillium](https://ondemand.scinet.utoronto.ca), [Vulcan](../clusters/vulcan.md), [Nibi](https://ondemand.sharcnet.ca). You will be prompted to enter your Alliance username and password, followed by a second factor authentication via Duo or Yubikey. Once you have logged in, you will be taken to the Open OnDemand dashboard. From here you can access the various tools and applications available on the platform.
 
 ## File management
 
@@ -72,7 +72,7 @@ The Open OnDemand platform provides a file browser that allows you to manage you
 
 ### Uploading files
 
-The current file size upload limit is 10GB; if you need to upload a file larger than this or are facing upload issues due to a bad internet connection for example, please try using [Globus](globus.md). There is a Globus button in the file browser at the top right, which will take you to the Globus web interface where you can log in with your Alliance username and password. The path navigated to in the Open OnDemand file browser will be the same path opened in Globus.
+The current file size upload limit is 10GB; if you need to upload a file larger than this or are facing upload issues due to a bad internet connection for example, please try using [Globus](../getting-started/globus.md). There is a Globus button in the file browser at the top right, which will take you to the Globus web interface where you can log in with your Alliance username and password. The path navigated to in the Open OnDemand file browser will be the same path opened in Globus.
 
 ## Job submission
 

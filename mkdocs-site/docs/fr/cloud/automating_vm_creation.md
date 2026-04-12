@@ -51,16 +51,16 @@ status:
 
 Page enfant de [Cloud](cloud.md)
 
-Pour automatiser la création d'instances infonuagiques, de volumes, etc., vous pouvez utiliser [OpenStack CLI](openstack-command-line-clients.md), [Heat](#utilisation-de-gabarits-heat), [Terraform](terraform.md) ou l'API Python pour OpenStack. OpenStack CLI et Terraform sont des outils de ligne de commande, alors que Heat s'utilise via l'interface Web Horizon d'OpenStack. Pour installer et configurer les paramètres et les logiciels dans l'instance, on utilise [cloud-init](#utilisation-de-cloud-init).
+Pour automatiser la création d'instances infonuagiques, de volumes, etc., vous pouvez utiliser [OpenStack CLI](openstack_command_line_clients.md), [Heat](#utilisation-de-gabarits-heat), [Terraform](terraform.md) ou l'API Python pour OpenStack. OpenStack CLI et Terraform sont des outils de ligne de commande, alors que Heat s'utilise via l'interface Web Horizon d'OpenStack. Pour installer et configurer les paramètres et les logiciels dans l'instance, on utilise [cloud-init](#utilisation-de-cloud-init).
 
 En plus de ces outils, vous pouvez aussi avoir accès à la pile logicielle de Calcul Canada (CVMFS) qui est disponible sur nos grappes d'usage général; voyez [*Utilisation de CVMFS*](#utilisation-de-cvmfs) ci-dessous.
 
 ## Utilisation de CVMFS
-CVMFS est un système de fichiers HTTP qui offre un service évolutif et fiable pour la distribution de logiciels de recherche. Du côté du client, les utilisateurs n'ont qu'à monter CVMFS et utiliser les logiciels et les bibliothèques directement, sans se soucier de compiler ou d'adapter le code. Les logiciels sont précompilés pour les systèmes d’exploitation fréquemment utilisés et peuvent être chargés via des modules (voir [Utiliser des modules](utiliser-des-modules.md)).
+CVMFS est un système de fichiers HTTP qui offre un service évolutif et fiable pour la distribution de logiciels de recherche. Du côté du client, les utilisateurs n'ont qu'à monter CVMFS et utiliser les logiciels et les bibliothèques directement, sans se soucier de compiler ou d'adapter le code. Les logiciels sont précompilés pour les systèmes d’exploitation fréquemment utilisés et peuvent être chargés via des modules (voir [Utiliser des modules](../programming/utiliser_des_modules.md)).
 
 CVMFS est installé sur les grappes Cedar, Graham et Béluga; l'installation sur un nuage se fait en suivant [ces directives](https://github.com/ComputeCanada/CVMFS/tree/main/cvmfs-cloud-scripts) (en anglais).
 
-Pour plus d'information, consultez [notre page wiki Accès à CVMFS](accessing-cvmfs.md) et la [documentation du CERN](https://cvmfs.readthedocs.io/en/stable/).
+Pour plus d'information, consultez [notre page wiki Accès à CVMFS](../software/cvmfs/accessing_cvmfs.md) et la [documentation du CERN](https://cvmfs.readthedocs.io/en/stable/).
 
 ## Utilisation de cloud-init
 Les fichiers cloud-init sont utilisés pour initialiser une instance en particulier et pour être exécutés à l'intérieur de cette même instance. C'est en quelque sorte un moyen d'automatiser des tâches que vous feriez en ligne de commande lorsque connecté à votre instance. Ces fichiers peuvent servir par exemple à mettre à jour le système d'exploitation, installer et configurer des applications, créer des fichiers, exécuter des commandes et créer des utilisateurs et des groupes. Cloud-init peut aussi configurer d'autres outils comme [Ansible](https://docs.ansible.com/) ou [Puppet](https://puppet.com/).
@@ -68,7 +68,7 @@ Les fichiers cloud-init sont utilisés pour initialiser une instance en particul
 La configuration de cloud-init est spécifiée en texte brut en format [YAML](https://fr.wikipedia.org/wiki/YAML). Pour savoir comment créer des fichiers, voyez la [documentation cloud-init](https://cloudinit.readthedocs.io/en/latest/). Ces fichiers peuvent être utilisés avec Terraform, le CLI, l'API Python et l'interface Web Horizon d'OpenStack. Nous décrivons ici l'utilisation de cloud-init avec Horizon.
 
 ### Spécifier le fichier cloud-init
-1.  Démarrez une instance de manière habituelle par **Projet > Calcul > Instances**, en cliquant sur **Démarrer l'instance**. Configurez l'instance tel que décrit dans la section [Lancer une instance](cloud-quick-start.md#lancer-une-instance).
+1.  Démarrez une instance de manière habituelle par **Projet > Calcul > Instances**, en cliquant sur **Démarrer l'instance**. Configurez l'instance tel que décrit dans la section [Lancer une instance](cloud_quick_start.md#lancer-une-instance).
 2.  **Avant** de cliquer sur **Démarrer**, sélectionnez l'onglet **Post-création** et entrez un fichier YAML cloud-init dans le champ **Source du script de personnalisation**, soit en faisant un copier-coller du fichier (méthode *Entrée directe*), soit en téléversant le fichier à partir de votre ordinateur (méthode *Fichier*). Dans des versions antérieures d'OpenStack, et en particulier IceHouse, le fichier cloud-init est copié dans une zone de texte. Retournez à l'onglet **Détails**.
 3.  Une fois que tous les champs sont remplis, cliquez sur **Démarrer** pour créer l'instance.
 La durée de l'opération peut être longue puisqu'elle dépend du contenu du fichier YAML.

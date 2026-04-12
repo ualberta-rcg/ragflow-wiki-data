@@ -108,7 +108,7 @@ cd myrepo
 git pull
 ```
 
-Ensuite, testez vos modifications dans une [tâche interactive](running-jobs.md#taches-interactives) de courte durée en utilisant des ressources minimales.
+Ensuite, testez vos modifications dans une [tâche interactive](../running-jobs/running_jobs.md#taches-interactives) de courte durée en utilisant des ressources minimales.
 
 ## Modifier des fichiers sur les systèmes
 
@@ -138,7 +138,7 @@ Si aucune des solutions ci-dessus ne convient à votre cas, vous pouvez configur
 
 ### Configuration SSH
 
-Si ce n'est pas déjà fait, [générez votre clé SSH](ssh-keys.md#generer-une-cle-ssh) et [ajoutez votre clé SSH *publique* sur la base de données RCG](ssh-keys.md#installer-votre-cle).
+Si ce n'est pas déjà fait, [générez votre clé SSH](../getting-started/ssh_keys.md#generer-une-cle-ssh) et [ajoutez votre clé SSH *publique* sur la base de données RCG](../getting-started/ssh_keys.md#installer-votre-cle).
 
 Ensuite, créez ou ajoutez un fichier de configuration SSH sur votre ordinateur local.
 
@@ -302,7 +302,7 @@ Mettez à jour votre configuration en ajoutant les lignes suivantes :
       User your_username
     ```
 
-1.  Dans un terminal externe, connecté au système via SSH, démarrez une nouvelle [tâche interactive](running-jobs.md#taches-interactives) (avec `salloc`) avec au moins 2000M de mémoire.
+1.  Dans un terminal externe, connecté au système via SSH, démarrez une nouvelle [tâche interactive](../running-jobs/running_jobs.md#taches-interactives) (avec `salloc`) avec au moins 2000M de mémoire.
     *   Notez le nom du nœud de calcul alloué.
     *   Si vous devez travailler avec des variables d'environnement `SLURM_*` dans VS Code, enregistrez-les toutes dans un fichier *source* :
         ```bash

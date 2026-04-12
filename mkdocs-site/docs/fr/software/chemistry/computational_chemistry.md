@@ -64,48 +64,48 @@ Les méthodes de mécanique moléculaire sont extrêmement utiles à l'étude de
 
 ### Logiciels
 
-* [ABINIT](abinit.md)
-* [ADF](adf.md)/[AMS](ams.md)
-* [AMBER](amber.md)
-* [CP2K](cp2k.md)
-* [CPMD](cpmd.md)
+* [ABINIT](../abinit.md)
+* [ADF](../adf.md)/[AMS](../ams.md)
+* [AMBER](../amber.md)
+* [CP2K](../cp2k.md)
+* [CPMD](../cpmd.md)
 * [Dalton](dalton.md)
 * [deMon](http://www.demon-software.com/public_html/program.html)
-* [DL_POLY](dl-poly.md)
-* [GAMESS-US](gamess-us.md)
-* [Gaussian](gaussian.md)
-* [GPAW](gpaw.md)
-* [GROMACS](gromacs.md)
+* [DL_POLY](../dl_poly.md)
+* [GAMESS-US](../gamess-us.md)
+* [Gaussian](../gaussian.md)
+* [GPAW](../gpaw.md)
+* [GROMACS](../gromacs.md)
 * [HOOMD-blue](http://glotzerlab.engin.umich.edu/hoomd-blue/)
-* [LAMMPS](lammps.md)
-* [MRCC](mrcc.md)
-* [NAMD](namd.md)
-* [NBO](https://nbo7.chem.wisc.edu/) est inclus dans plusieurs de nos modules [Gaussian](gaussian.md#remarques).
+* [LAMMPS](../lammps.md)
+* [MRCC](../mrcc.md)
+* [NAMD](../namd.md)
+* [NBO](https://nbo7.chem.wisc.edu/) est inclus dans plusieurs de nos modules [Gaussian](../gaussian.md#remarques).
 * [NWChem](http://www.nwchem-sw.org)
 * [OpenKIM](https://openkim.org/)
 * [OpenMM](https://simtk.org/home/openmm)
-* [ORCA](orca.md)
+* [ORCA](../orca.md)
 * [PLUMED](http://www.plumed-code.org)
 * [PSI4](http://www.psicode.org/)
-* [Quantum ESPRESSO](quantum-espresso.md)
+* [Quantum ESPRESSO](../quantum_espresso.md)
 * [Rosetta](https://www.rosettacommons.org)
 * [SIESTA](http://departments.icmab.es/leem/siesta)
-* [VASP](vasp.md)
+* [VASP](../vasp.md)
 * [XTB (Extended Tight Binding)](https://www.chemie.uni-bonn.de/pctc/mulliken-center/software/xtb)
 
-La liste à jour de toutes les versions offertes par Calcul Canada se trouve à la page [Logiciels disponibles](available-software.md).
+La liste à jour de toutes les versions offertes par Calcul Canada se trouve à la page [Logiciels disponibles](../../programming/available_software.md).
 
 ### Visualisation
 * [Molden](https://www.theochem.ru.nl/molden/), un outil de visualisation utilisé avec GAMESS, Gaussian et autres.
-* [VMD](visualization.md#vmd), logiciel libre pour visualiser, animer et analyser les grands systèmes moléculaires en mode tridimensionnel.
-* [VisIt](visualization.md#visit), un outil d'analyse et de visualisation tridimensionnelle (la [galerie](https://wci.llnl.gov/simulation/computer-codes/visit/gallery) présente des exemples du domaine de la chimie).
-Pour plus d'information, voyez la page [Visualisation](visualization.md).
+* [VMD](../visualization.md#vmd), logiciel libre pour visualiser, animer et analyser les grands systèmes moléculaires en mode tridimensionnel.
+* [VisIt](../visualization.md#visit), un outil d'analyse et de visualisation tridimensionnelle (la [galerie](https://wci.llnl.gov/simulation/computer-codes/visit/gallery) présente des exemples du domaine de la chimie).
+Pour plus d'information, voyez la page [Visualisation](../visualization.md).
 
 ### Autres outils
 * [CheMPS2](https://github.com/SebWouters/CheMPS2), une bibliothèque contenant une implémentation adaptée de la technique DMRG (*density matrix renormalization group*) pour la chimie quantique *ab initio*.
 * [Libxc](http://www.tddft.org/programs/octopus/wiki/index.php/Libxc), une bibliothèque pour le développement avec la théorie de la fonctionnelle de la densité.
 * [Open3DQSAR](http://open3dqsar.sourceforge.net/?Home), un outil pour l'exploration des pharmacophores par l'analyse chimiométrique des interactions entre molécules.
-* [Open Babel](open-babel.md), un ensemble d'outils pour l'exploration, la conversion, l'analyse et le stockage de données avec la modélisation moléculaire, la chimie, les matériaux solides et la biochimie.
+* [Open Babel](../open_babel.md), un ensemble d'outils pour l'exploration, la conversion, l'analyse et le stockage de données avec la modélisation moléculaire, la chimie, les matériaux solides et la biochimie.
 * [PCMSolver](https://pcmsolver.readthedocs.org), une bibliothèque pour le développement avec les méthodes PCM (*polarizable continuum model*); certaines applications offrent explicitement cette fonctionnalité.
 * [RDKit](rdkit.md) est un ensemble d'applications pour la chimie computationnelle et l'apprentissage machine qui sont écrites en C++ et en Python.
 * [Spglib](https://github.com/atztogo/spglib), une bibliothèque pour le développement relatif à la symétrie des cristaux.

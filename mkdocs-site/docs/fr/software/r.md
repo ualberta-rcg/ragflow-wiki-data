@@ -125,7 +125,7 @@ Pour charger un module R particulier, utilisez une variante de la commande
 module load r/4.5.0
 ```
 
-Pour plus d'information, consultez [Utiliser des modules](utiliser-des-modules.md).
+Pour plus d'information, consultez [Utiliser des modules](../programming/utiliser_des_modules.md).
 
 Vous pouvez maintenant démarrer l'interpréteur et entrer le code R dans cet environnement.
 
@@ -184,7 +184,7 @@ Pour plus d'information, consultez [Exécuter des tâches](executer-des-taches.m
 
 ### install.packages()
 
-Pour installer des paquets du [CRAN](https://cran.r-project.org/), vous pouvez utiliser `install.packages` dans une session R interactive sur un nœud de connexion. Puisque les nœuds de calcul de la plupart de nos grappes n'ont pas accès à l'internet, il n'est pas possible d'installer les paquets R dans une tâche en lots ou dans une tâche interactive. Parce que plusieurs paquets R sont développés avec la famille de compilateurs GNU, nous vous recommandons de [charger un module `gcc`](utiliser-des-modules.md) avant de les installer et de toujours utilisez la même version du `gcc`.
+Pour installer des paquets du [CRAN](https://cran.r-project.org/), vous pouvez utiliser `install.packages` dans une session R interactive sur un nœud de connexion. Puisque les nœuds de calcul de la plupart de nos grappes n'ont pas accès à l'internet, il n'est pas possible d'installer les paquets R dans une tâche en lots ou dans une tâche interactive. Parce que plusieurs paquets R sont développés avec la famille de compilateurs GNU, nous vous recommandons de [charger un module `gcc`](../programming/utiliser_des_modules.md) avant de les installer et de toujours utilisez la même version du `gcc`.
 
 ```bash
 module load gcc/12.3.0 r/4.5.0
@@ -221,11 +221,11 @@ R -e 'install.packages("sp", repos="https://cloud.r-project.org/")'
 Dans le script de soumission, vous devez ensuite charger le module R que vous voulez et configurer le répertoire local pour la bibliothèque avec `export R_LIBS=~/.local/R/$EBVERSIONR/`.
 
 ### Dépendances
-Certains paquets utilisent des bibliothèques qui sont déjà installées sur nos grappes. Si la bibliothèque se trouve dans la liste des [logiciels disponibles](logiciels-disponibles.md), chargez le [module](utiliser-des-modules.md) approprié avant d'installer le paquet.
+Certains paquets utilisent des bibliothèques qui sont déjà installées sur nos grappes. Si la bibliothèque se trouve dans la liste des [logiciels disponibles](logiciels-disponibles.md), chargez le [module](../programming/utiliser_des_modules.md) approprié avant d'installer le paquet.
 
 Par exemple, le paquet `rgdal` utilise la bibliothèque `gdal`. En lançant la commande `module spider gdal/2.2.1` nous voyons que les modules `nixpkgs` et `gcc` sont requis. Pour savoir comment charger ce module, entrez la commande `module spider gdal/3.9.1`.
 
-Si l'installation d'un paquet échoue, portez attention au message d'erreur qui pourrait indiquer d'autres modules qui seraient requis. Pour plus d'information sur les commandes de `module`, consultez [Utiliser des modules](utiliser-des-modules.md).
+Si l'installation d'un paquet échoue, portez attention au message d'erreur qui pourrait indiquer d'autres modules qui seraient requis. Pour plus d'information sur les commandes de `module`, consultez [Utiliser des modules](../programming/utiliser_des_modules.md).
 
 ### Téléchargement de paquets
 Si vous cherchez à installer un paquet que vous avez téléchargé, c'est-à-dire que vous n'avez pas utilisé `install.packages()`, vous pouvez l'installer comme suit. Par exemple, avec le paquet `archive_package.tgz`, vous exécuteriez la commande suivante dans l'interpréteur (*shell*)

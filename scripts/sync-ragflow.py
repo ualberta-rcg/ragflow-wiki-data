@@ -37,6 +37,7 @@ RAGFLOW_BASE_URL = os.environ.get("RAGFLOW_BASE_URL", "")
 BATCH_SIZE = int(os.environ.get("BATCH_SIZE", "5"))
 DRY_RUN = os.environ.get("DRY_RUN", "false").lower() == "true"
 PARSE_TIMEOUT = int(os.environ.get("PARSE_TIMEOUT", "300"))
+ALLOW_FAILURES = os.environ.get("ALLOW_FAILURES", "false").lower() == "true"
 
 
 def load_state():
@@ -262,7 +263,11 @@ def main():
                         help="Clear all ragflow_source_hash values, forcing full re-sync")
     parser.add_argument("--verify", action="store_true",
                         help="Check RAGFlow for missing docs before syncing")
+    parser.add_argument("--allow-failures", action="store_true",
+                        help="Exit 0 even if some docs fail (for long pipeline runs)")
     args = parser.parse_args()
+
+    allow_failures = ALLOW_FAILURES or args.allow_failures
 
     print("=" * 60)
     print("RAGFlow Sync Pipeline")
@@ -270,6 +275,7 @@ def main():
     print(f"RAGFlow URL: {RAGFLOW_BASE_URL}")
     print(f"Batch size: {BATCH_SIZE}")
     print(f"Dry run: {DRY_RUN}")
+    print(f"Allow failures: {allow_failures}")
     if args.force:
         print("Mode: FORCE (re-sync everything)")
     if args.verify:
@@ -345,6 +351,9 @@ def main():
     print(f"Processed: {processed}, Failed: {failed}")
     print("=" * 60)
 
+    if failed > 0 and allow_failures:
+        print("Continuing despite failures (--allow-failures enabled)")
+        return 0
     return 0 if failed == 0 else 1
 
 

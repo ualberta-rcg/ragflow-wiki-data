@@ -65,7 +65,7 @@ $ module load nixpkgs/16.09 intel/2016.4 openmpi/2.0.2 dalton/2017-alpha
 ```
 
 !!! note
-    Remarquez que `dalton/2017-alpha` dépend d’une version OpenMPI autre que la version par défaut. Pour de l’information sur la commande `module`, voyez [Utiliser des modules](utiliser-des-modules.md).
+    Remarquez que `dalton/2017-alpha` dépend d’une version OpenMPI autre que la version par défaut. Pour de l’information sur la commande `module`, voyez [Utiliser des modules](../../programming/utiliser_des_modules.md).
 
 ## Utilisation
 

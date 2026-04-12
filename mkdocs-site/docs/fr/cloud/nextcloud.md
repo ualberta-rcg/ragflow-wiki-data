@@ -66,7 +66,7 @@ status:
 Le service Nextcloud permet le stockage et le partage de données à la manière de Dropbox. Pour [se connecter au serveur](https://nextcloud.computecanada.ca/), utilisez le nom d'utilisateur et le mot de passe de votre compte avec l'Alliance. Vous pouvez consulter le [manuel de l'utilisateur](https://docs.nextcloud.com/server/19/Nextcloud_User_Manual.pdf) et la [documentation Nextcloud en ligne](https://docs.nextcloud.com/). Une fois la connexion établie, un autre document PDF est aussi disponible via votre compte. Les données entre les ordinateurs locaux et notre service Nextcloud sont toutes chiffrées.
 
 !!! note "Limite de stockage"
-    Le service Nextcloud est conçu pour les ensembles de données relativement modestes (jusqu'à 100 Go). Pour les grands ensembles de données, nous recommandons [Globus](globus.md).
+    Le service Nextcloud est conçu pour les ensembles de données relativement modestes (jusqu'à 100 Go). Pour les grands ensembles de données, nous recommandons [Globus](../getting-started/globus.md).
 
 Pour vous familiariser avec le service, voyez [la démo sur le site web de Nextcloud](https://try.nextcloud.com/).
 

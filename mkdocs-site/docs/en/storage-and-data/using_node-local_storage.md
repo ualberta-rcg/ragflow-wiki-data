@@ -50,9 +50,9 @@ status:
   qa_generated: false
 ---
 
-When [Slurm](running-jobs.md) starts a job, it creates a temporary directory on each node assigned to the job. It then sets the full path name of that directory in an environment variable called `$SLURM_TMPDIR`.
+When [Slurm](../running-jobs/running_jobs.md) starts a job, it creates a temporary directory on each node assigned to the job. It then sets the full path name of that directory in an environment variable called `$SLURM_TMPDIR`.
 
-Because this directory resides on local disk, input and output (I/O) to it is almost always faster than I/O to a [network storage](storage-and-file-management.md) (/project, /scratch, or /home). Specifically, local disk is better for frequent small I/O transactions than network storage. Any job doing a lot of input and output (which is most jobs!) may expect to run more quickly if it uses `$SLURM_TMPDIR` instead of network storage.
+Because this directory resides on local disk, input and output (I/O) to it is almost always faster than I/O to a [network storage](storage_and_file_management.md) (/project, /scratch, or /home). Specifically, local disk is better for frequent small I/O transactions than network storage. Any job doing a lot of input and output (which is most jobs!) may expect to run more quickly if it uses `$SLURM_TMPDIR` instead of network storage.
 
 The temporary character of `$SLURM_TMPDIR` makes it more trouble to use than network storage. Input must be copied from network storage to `$SLURM_TMPDIR` before it can be read, and output must be copied from `$SLURM_TMPDIR` back to network storage before the job ends to preserve it for later use.
 
@@ -70,7 +70,7 @@ This may not work if the input is too large, or if it must be read by processes 
 
 A special case of input is the application code itself. In order to run the application, the shell started by Slurm must open at least an application file, which it typically reads from network storage. But few applications these days consist of exactly one file; most also need several other files (such as libraries) in order to work.
 
-We particularly find that using an application in a [Python](python.md) virtual environment generates a large number of small I/O transactions—more than it takes to create the virtual environment in the first place. This is why we recommend [creating virtual environments inside your jobs](python.md#creating-virtual-environments-inside-of-your-jobs) using `$SLURM_TMPDIR`.
+We particularly find that using an application in a [Python](../software/python.md) virtual environment generates a large number of small I/O transactions—more than it takes to create the virtual environment in the first place. This is why we recommend [creating virtual environments inside your jobs](../software/python.md#creating-virtual-environments-inside-of-your-jobs) using `$SLURM_TMPDIR`.
 
 ## Output
 
@@ -119,17 +119,17 @@ srun --ntasks=$SLURM_NNODES --ntasks-per-node=1 tar -xvf archive.tar.gz -C $SLUR
 
 ## Amount of space
 
-At **[Trillium](trillium.md)**, `$SLURM_TMPDIR` is implemented as *RAMdisk*, so the amount of space available is limited by the memory on the node, less the amount of RAM used by your application.
+At **[Trillium](../clusters/trillium.md)**, `$SLURM_TMPDIR` is implemented as *RAMdisk*, so the amount of space available is limited by the memory on the node, less the amount of RAM used by your application.
 
 At the general-purpose clusters, the amount of space available depends on the cluster and the node to which your job is assigned.
 
 | Cluster | Space in `$SLURM_TMPDIR` | Size of Disks |
 | :------ | :----------------------- | :------------ |
-| [Fir](fir.md) | 7T | 7.84T |
-| [Narval](narval.md) | 800G | 960G, 3.84T |
-| [Nibi](nibi.md) | 3T | 3T, 11T |
-| [Rorqual](rorqual.md) | 375G | 480G, 3.84T |
+| [Fir](../software/fir.md) | 7T | 7.84T |
+| [Narval](../clusters/narval.md) | 800G | 960G, 3.84T |
+| [Nibi](../clusters/nibi.md) | 3T | 3T, 11T |
+| [Rorqual](../clusters/rorqual.md) | 375G | 480G, 3.84T |
 
-If your job reserves [whole nodes](advanced-mpi-scheduling.md#whole-nodes), then you can reasonably assume that this much space is available to you in `$SLURM_TMPDIR` on each node. However, if the job requests less than a whole node, then other jobs may also write to the same filesystem (but a different directory!), reducing the space available to your job.
+If your job reserves [whole nodes](../running-jobs/advanced_mpi_scheduling.md#whole-nodes), then you can reasonably assume that this much space is available to you in `$SLURM_TMPDIR` on each node. However, if the job requests less than a whole node, then other jobs may also write to the same filesystem (but a different directory!), reducing the space available to your job.
 
-Some nodes at each site have more local disk than shown above. See *Node characteristics* at the appropriate cluster's page ([Fir](fir.md), [Narval](narval.md), [Nibi](nibi.md), [Rorqual](rorqual.md)) for guidance.
+Some nodes at each site have more local disk than shown above. See *Node characteristics* at the appropriate cluster's page ([Fir](../software/fir.md), [Narval](../clusters/narval.md), [Nibi](../clusters/nibi.md), [Rorqual](../clusters/rorqual.md)) for guidance.

@@ -84,24 +84,24 @@ status:
 ---
 
 !!! warning "Not recommended"
-    The content of this page is for advanced users only. It is seldom tested, and is not recommended. Consider using our preconfigured [JupyterLab](jupyterlab.md) instead.
+    The content of this page is for advanced users only. It is seldom tested, and is not recommended. Consider using our preconfigured [JupyterLab](../interactive/jupyterlab.md) instead.
 
 ## Introduction
 
 !!! warning "Running notebooks"
-    Jupyter Lab and notebooks are meant for **short** interactive tasks such as testing, debugging or quickly visualize data (few minutes). Running longer analysis must be done in a [non-interactive job (sbatch)](running-jobs.md#use-sbatch-to-submit-jobs).
+    Jupyter Lab and notebooks are meant for **short** interactive tasks such as testing, debugging or quickly visualize data (few minutes). Running longer analysis must be done in a [non-interactive job (sbatch)](../running-jobs/running_jobs.md#use-sbatch-to-submit-jobs).
     See also [how to run notebooks as python scripts below](#running-notebooks-as-python-scripts).
 
 *   **Project Jupyter**: "a non-profit, open-source project, born out of the IPython Project in 2014 as it evolved to support interactive data science and scientific computing across all programming languages." [https://jupyter.org/about.html](https://jupyter.org/about.html)
 *   **JupyterLab**: "a web-based interactive development environment for notebooks, code, and data. Its flexible interface allows users to configure and arrange workflows in data science, scientific computing, computational journalism, and machine learning. A modular design allows for extensions that expand and enrich functionality." [https://jupyter.org/](https://jupyter.org/)
 
-A JupyterLab server should only run on a compute node or on a cloud instance; cluster login nodes are not a good choice because they impose various limits which can stop applications if they consume too much CPU time or memory. In the case of using a compute node, users can reserve compute resources by [submitting a job](running-jobs.md) that requests a specific number of CPUs (and optionally GPUs), an amount of memory and the run time. **In this page, we give detailed instructions on how to configure and submit a JupyterLab job on any national cluster.**
+A JupyterLab server should only run on a compute node or on a cloud instance; cluster login nodes are not a good choice because they impose various limits which can stop applications if they consume too much CPU time or memory. In the case of using a compute node, users can reserve compute resources by [submitting a job](../running-jobs/running_jobs.md) that requests a specific number of CPUs (and optionally GPUs), an amount of memory and the run time. **In this page, we give detailed instructions on how to configure and submit a JupyterLab job on any national cluster.**
 
-If you are instead looking for a preconfigured Jupyter environment, please check the [Jupyter](jupyter.md) page.
+If you are instead looking for a preconfigured Jupyter environment, please check the [Jupyter](../software/jupyter.md) page.
 
 ## Installing JupyterLab
 
-These instructions install JupyterLab with the `pip` command in a [Python virtual environment](python.md#creating-and-using-a-virtual-environment):
+These instructions install JupyterLab with the `pip` command in a [Python virtual environment](../software/python.md#creating-and-using-a-virtual-environment):
 
 1.  If you do not have an existing Python virtual environment, create one. Then, activate it:
     1.  Load a Python module, either the default one (as shown below) or a specific version (see available versions with `module avail python`):
@@ -148,7 +148,7 @@ module load nodejs
 pip install jupyterlmod
 jupyter labextension install jupyterlab-lmod
 ```
-Instructions on how to manage loaded *software* modules in the JupyterLab interface are provided in the [JupyterHub page](jupyterhub.md#jupyterlab).
+Instructions on how to manage loaded *software* modules in the JupyterLab interface are provided in the [JupyterHub page](../interactive/jupyterhub.md#jupyterlab).
 
 ### RStudio Server
 
@@ -188,7 +188,7 @@ jupyterlab-server==2.3.0+computecanada
 
 ### Starting JupyterLab
 
-To start a JupyterLab server, submit an interactive job with `salloc`. Adjust the parameters based on your needs. See [Running jobs](running-jobs.md) for more information.
+To start a JupyterLab server, submit an interactive job with `salloc`. Adjust the parameters based on your needs. See [Running jobs](../running-jobs/running_jobs.md) for more information.
 ```bash
 salloc --time=1:0:0 --ntasks=1 --cpus-per-task=2 --mem-per-cpu=1024M --account=def-yourpi srun $VIRTUAL_ENV/bin/jupyterlab.sh
 ```
@@ -208,7 +208,7 @@ salloc --time=1:0:0 --ntasks=1 --cpus-per-task=2 --mem-per-cpu=1024M --account=d
 
 ### Connecting to JupyterLab
 
-To access JupyterLab running on a compute node from your web browser, you will need to create an [SSH tunnel](ssh-tunnelling.md) from your computer through the cluster since the compute nodes are not directly accessible from the internet.
+To access JupyterLab running on a compute node from your web browser, you will need to create an [SSH tunnel](ssh_tunnelling.md) from your computer through the cluster since the compute nodes are not directly accessible from the internet.
 
 #### From Linux or macOS
 
@@ -225,7 +225,7 @@ http://node_name.int.cluster.alliancecan.ca:8888/lab?token=101c3688298e78ab554ef
 
 #### From Windows
 
-An [SSH tunnel](ssh-tunnelling.md) can be created from Windows using [MobaXTerm](connecting-with-mobaxterm.md) as follows. Note: this procedure also works from any terminal that supports the `ssh` command.
+An [SSH tunnel](ssh_tunnelling.md) can be created from Windows using [MobaXTerm](connecting_with_mobaxterm.md) as follows. Note: this procedure also works from any terminal that supports the `ssh` command.
 
 1.  Once JupyterLab is launched on a compute node (see [Starting JupyterLab](#starting-jupyterlab)), you can extract the `hostname:port` and the `token` from the first provided HTTP address. For example:
     ```text
@@ -266,7 +266,7 @@ Prerequisites:
 
 Once you have a Python virtual environment available and activated, you may configure the Julia kernel:
 
-1.  Load the **[Julia](julia.md)** module:
+1.  Load the **[Julia](../software/julia.md)** module:
     ```bash
     module load julia
     ```
@@ -294,10 +294,10 @@ As in the above installation procedure, it is required to install Julia packages
 
 ### Python kernel
 
-In a terminal with an active session on the remote server, you may configure a [Python virtual environment](python.md#creating-and-using-a-virtual-environment) with all the required [Python modules](available-python-wheels.md) and a custom Python kernel for JupyterLab. Here are the initial steps for the simplest Jupyter configuration in a new Python virtual environment:
+In a terminal with an active session on the remote server, you may configure a [Python virtual environment](../software/python.md#creating-and-using-a-virtual-environment) with all the required [Python modules](../programming/available_python_wheels.md) and a custom Python kernel for JupyterLab. Here are the initial steps for the simplest Jupyter configuration in a new Python virtual environment:
 
 1.  If you do not have a Python virtual environment, create one. Then, activate it:
-    1.  Start from a clean Bash environment (this is only required if you are using the Jupyter *Terminal* via [JupyterHub](jupyterhub.md) for the creation and configuration of the Python kernel):
+    1.  Start from a clean Bash environment (this is only required if you are using the Jupyter *Terminal* via [JupyterHub](../interactive/jupyterhub.md) for the creation and configuration of the Python kernel):
         ```bash
         env -i HOME=$HOME bash -l
         ```
@@ -334,7 +334,7 @@ For more information, see the [ipykernel documentation](http://ipython.readthedo
 
 Based on the Python virtual environment configured in the previous section:
 
-1.  If you are using the Jupyter *Terminal* via [JupyterHub](jupyterhub.md), make sure the activated Python virtual environment is running in a clean Bash environment. See the above section for details.
+1.  If you are using the Jupyter *Terminal* via [JupyterHub](../interactive/jupyterhub.md), make sure the activated Python virtual environment is running in a clean Bash environment. See the above section for details.
 2.  Install any required library. For example, `numpy`:
     ```bash
     pip install --no-index numpy
@@ -392,9 +392,9 @@ As in the above installation procedure, it is required to install R packages fro
 
 ## Running notebooks as Python scripts
 
-For longer run or analysis, we need to submit a [non-interactive job](running-jobs.md#use-sbatch-to-submit-jobs). We then need to convert our notebook to a Python script, create a submission script and submit it.
+For longer run or analysis, we need to submit a [non-interactive job](../running-jobs/running_jobs.md#use-sbatch-to-submit-jobs). We then need to convert our notebook to a Python script, create a submission script and submit it.
 
-1.  From the login node, create and activate a [virtual environment](python.md#creating-and-using-a-virtual-environment), then install `nbconvert` if not already available.
+1.  From the login node, create and activate a [virtual environment](../software/python.md#creating-and-using-a-virtual-environment), then install `nbconvert` if not already available.
     ```bash
     pip install --no-index nbconvert
     ```

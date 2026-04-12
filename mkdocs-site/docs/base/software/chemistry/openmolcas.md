@@ -63,10 +63,10 @@ The `OpenMolcas` module is installed on national clusters. To check what version
 module spider openmolcas
 ```
 
-For module commands, please see [Using modules](utiliser-des-modules.md).
+For module commands, please see [Using modules](../../programming/utiliser_des_modules.md).
 
 ### Job submission
-The national clusters use the Slurm scheduler; for details about submitting jobs, see [Running jobs](running-jobs.md).
+The national clusters use the Slurm scheduler; for details about submitting jobs, see [Running jobs](../../running-jobs/running_jobs.md).
 
 #### Example script for serial OpenMolcas job
 **Currently only serial job works for OpenMolcas.** OpenMolcas's parallel implementation uses Global Array which does not work on the clusters.

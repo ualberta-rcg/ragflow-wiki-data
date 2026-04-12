@@ -82,7 +82,7 @@ Narval is a general-purpose cluster designed for a variety of workloads. Built b
 By policy, Narval's compute nodes cannot access the internet.
 
 !!! note
-    If you need an exception to this rule, contact [technical support](technical-support.md) explaining what you need and why.
+    If you need an exception to this rule, contact [technical support](../support/technical_support.md) explaining what you need and why.
 
 Crontab is not offered on Narval.
 
@@ -92,11 +92,11 @@ Each job on Narval should have a duration of at least one hour (five minutes for
 
 | Storage | Description |
 | :------ | :---------- |
-| HOME<br>Lustre filesystem, 64 TB of space | Location of home directories, each of which has a small fixed quota. You should use the `project` space for larger storage needs. Small per user [quota](storage-and-file-management.md#filesystem-quotas-and-policies). There is a daily backup of the home directories. |
-| SCRATCH<br>Lustre filesystem, 5.7 PB of space | Large space for storing temporary files during computations. No backup system in place. Large [quota](storage-and-file-management.md#filesystem-quotas-and-policies) per user. There is an [automated purge](scratch-purging-policy.md) of older files in this space. |
-| PROJECT<br>Lustre filesystem, 35 PB of space | This space is designed for sharing data among the members of a research group and for storing large amounts of data. Large and adjustable per group [quota](storage-and-file-management.md#quotas-et-politiques). There is a daily backup of the project space. |
+| HOME<br>Lustre filesystem, 64 TB of space | Location of home directories, each of which has a small fixed quota. You should use the `project` space for larger storage needs. Small per user [quota](../storage-and-data/storage_and_file_management.md#filesystem-quotas-and-policies). There is a daily backup of the home directories. |
+| SCRATCH<br>Lustre filesystem, 5.7 PB of space | Large space for storing temporary files during computations. No backup system in place. Large [quota](../storage-and-data/storage_and_file_management.md#filesystem-quotas-and-policies) per user. There is an [automated purge](../storage-and-data/scratch_purging_policy.md) of older files in this space. |
+| PROJECT<br>Lustre filesystem, 35 PB of space | This space is designed for sharing data among the members of a research group and for storing large amounts of data. Large and adjustable per group [quota](../storage-and-data/storage_and_file_management.md#quotas-et-politiques). There is a daily backup of the project space. |
 
-For transferring data via [Globus](globus.md), you should use the endpoint specified at the top of this page, while for tools like [rsync](transferring-data.md#rsync) and [scp](transferring-data.md#scp) you can use a login node.
+For transferring data via [Globus](../getting-started/globus.md), you should use the endpoint specified at the top of this page, while for tools like [rsync](../getting-started/transferring_data.md#rsync) and [scp](../getting-started/transferring_data.md#scp) you can use a login node.
 
 ## High-performance interconnect
 
@@ -129,11 +129,11 @@ However, if you have compiled a program on a system which uses Intel processors 
 
 #### Software environments
 
-[StdEnv/2023](standard-software-environments.md) is the standard software environment on Narval; previous versions (2016 and 2018) have been blocked intentionally. If you need an application only available with an older standard environment, please write to [Technical support](technical-support.md).
+[StdEnv/2023](../programming/standard_software_environments.md) is the standard software environment on Narval; previous versions (2016 and 2018) have been blocked intentionally. If you need an application only available with an older standard environment, please write to [Technical support](../support/technical_support.md).
 
 #### BLAS and LAPACK libraries
 
-The Intel MKL library works with AMD processors, although not in an optimal way. We now favour the use of the FlexiBLAS library. For more details, please consult the page on [BLAS and LAPACK](blas-and-lapack.md).
+The Intel MKL library works with AMD processors, although not in an optimal way. We now favour the use of the FlexiBLAS library. For more details, please consult the page on [BLAS and LAPACK](../programming/blas_and_lapack.md).
 
 ### GPU instances
 
@@ -145,7 +145,7 @@ To request one or more full A100 GPUs, you need to use one of the following Slur
     *   `--gpus-per-node=a100:4`
 *   **For multiple full A100 GPUs** spread anywhere: `--gpus=a100:n` (replace `n` with the number of GPUs you want)
 
-Several GPU nodes are configured with [Multi-Instance GPU technology](multi-instance-gpu.md). Four sizes are available:
+Several GPU nodes are configured with [Multi-Instance GPU technology](../programming/multi-instance_gpu.md). Four sizes are available:
 
 *   **1g.5gb**: 1/8 compute capacity, GPU memory 5 GB
 *   **2g.10gb**: 2/8 compute capacity, GPU memory 10 GB
@@ -159,7 +159,7 @@ To request **one and only one** GPU instance for your compute job, options are:
 *   **3g.20gb**: `--gpus=a100_3g.20gb:1`
 *   **4g.20gb**: `--gpus=a100_4g.20gb:1`
 
-The maximum recommended number of **CPU cores and system memory** per GPU instance is listed in [this table](allocations-and-compute-scheduling.md#ratios-in-bundles).
+The maximum recommended number of **CPU cores and system memory** per GPU instance is listed in [this table](../running-jobs/allocations_and_compute_scheduling.md#ratios-in-bundles).
 
 ## Monitoring jobs
 

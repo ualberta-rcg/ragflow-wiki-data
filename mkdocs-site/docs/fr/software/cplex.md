@@ -184,4 +184,4 @@ Une fois l'environnement virtuel activé, vous devrez aller dans le répertoire 
 python setup.py install
 ```
 
-L'installation des paquets CPLEX doit se faire sur le nœud de connexion, puisqu'elles ne sont pas disponibles sur notre [pile logicielle](available-python-wheels.md).
+L'installation des paquets CPLEX doit se faire sur le nœud de connexion, puisqu'elles ne sont pas disponibles sur notre [pile logicielle](../programming/available_python_wheels.md).

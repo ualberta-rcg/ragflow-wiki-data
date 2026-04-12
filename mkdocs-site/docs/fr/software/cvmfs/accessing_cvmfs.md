@@ -107,7 +107,7 @@ status:
 ---
 
 ## Introduction
-Les répertoires de logiciels et de données que nous offrons sont accessibles via le [CVMFS (CERN Virtual Machine File System)](cvmfs.md). Puisque CVMFS est préconfiguré pour vous, vous pouvez utiliser ses répertoires directement. Pour plus d’information sur notre environnement logiciel, consultez les pages wiki [Logiciels disponibles](available-software.md), [Utiliser des modules](utiliser-des-modules.md), [Python](python.md), [R](r.md) et [Installation de logiciels dans votre répertoire /home](installing-software-in-your-home-directory.md).
+Les répertoires de logiciels et de données que nous offrons sont accessibles via le [CVMFS (CERN Virtual Machine File System)](cvmfs.md). Puisque CVMFS est préconfiguré pour vous, vous pouvez utiliser ses répertoires directement. Pour plus d’information sur notre environnement logiciel, consultez les pages wiki [Logiciels disponibles](../../programming/available_software.md), [Utiliser des modules](../../programming/utiliser_des_modules.md), [Python](../python.md), [R](../r.md) et [Installation de logiciels dans votre répertoire /home](../../getting-started/installing_software_in_your_home_directory.md).
 
 Nous décrivons ici comment installer et configurer CVMFS sur *votre propre ordinateur ou grappe*; vous aurez ainsi accès aux mêmes répertoires et environnements logiciels que ceux de nos systèmes.
 
@@ -259,7 +259,7 @@ Cette variable identifie les endroits où se trouvent les arbres de modules loca
 ```bash
 export RSNT_LOCAL_MODULEPATHS=/opt/software/easybuild/modules
 ```
-et installez ensuite votre recette [EasyBuild](easybuild.md) avec
+et installez ensuite votre recette [EasyBuild](../../programming/easybuild.md) avec
 ```bash
 eb --installpath /opt/software/easybuild <your recipe>.eb
 ```
@@ -292,7 +292,7 @@ Pour installer des modules additionnels, identifiez d'abord un chemin où instal
 export RSNT_LOCAL_MODULEPATHS=/opt/software/easybuild/modules
 ```
 
-Si vous voulez que vos utilisateurs puissent trouver cette branche, nous vous recommandons de définir cette variable d'environnement dans le profil commun de la grappe. Installez ensuite les paquets logiciels que vous voulez avec [EasyBuild](easybuild.md) :
+Si vous voulez que vos utilisateurs puissent trouver cette branche, nous vous recommandons de définir cette variable d'environnement dans le profil commun de la grappe. Installez ensuite les paquets logiciels que vous voulez avec [EasyBuild](../../programming/easybuild.md) :
 ```bash
 eb --installpath /opt/software/easybuild <some easyconfig recipe>
 ```
@@ -344,7 +344,7 @@ done
 [Il n'est pas recommandé d'utiliser `LD_LIBRARY_PATH`](https://gms.tf/ld_library_path-considered-harmful.html) ce qui pourrait nuire au fonctionnement de l'environnement.
 
 ### Bibliothèques introuvables
-Puisque nous ne définissons pas `LD_LIBRARY_PATH` et que nos bibliothèques ne sont pas installées dans des localisations Linux par défaut, les paquets binaires comme Anaconda ont souvent de la difficulté à trouver les bibliothèques dont ils ont besoin. Consultez notre [documentation sur l’installation de paquets binaires](installing-software-in-your-home-directory.md#installer-des-paquets-binaires).
+Puisque nous ne définissons pas `LD_LIBRARY_PATH` et que nos bibliothèques ne sont pas installées dans des localisations Linux par défaut, les paquets binaires comme Anaconda ont souvent de la difficulté à trouver les bibliothèques dont ils ont besoin. Consultez notre [documentation sur l’installation de paquets binaires](../../getting-started/installing_software_in_your_home_directory.md#installer-des-paquets-binaires).
 
 ### `dbus`
 Pour certaines applications, `dbus` doit être installé localement, sur le système d’exploitation hôte.

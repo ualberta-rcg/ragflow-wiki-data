@@ -55,4 +55,4 @@ Les comptes peuvent être réactivés à tout moment en se connectant à [CCDB](
 !!! note "Récupération de fichiers"
     Si vous ne voulez pas renouveler votre compte, mais souhaitez tout de même récupérer vos fichiers, demandez une prolongation temporaire en écrivant à support@tech.alliancecan.ca.
 
-Vous pouvez obtenir de plus amples renseignements sur les renouvellements de compte dans [FAQ pour le renouvellement de compte](account-renewal-faq.md) ou en écrivant à renouvellements@tech.alliancecan.ca.
+Vous pouvez obtenir de plus amples renseignements sur les renouvellements de compte dans [FAQ pour le renouvellement de compte](account_renewal_faq.md) ou en écrivant à renouvellements@tech.alliancecan.ca.

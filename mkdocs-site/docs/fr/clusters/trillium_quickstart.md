@@ -209,20 +209,20 @@ La grappe Trillium est conçue pour prendre en charge des tâches massivement pa
 
 Vous devez posséder un compte [CCDB](https://ccdb.alliancecan.ca) actif auprès de l'Alliance de recherche numérique du Canada. Vous pourrez ensuite demander l'accès à Trillium en sélectionnant *Ressources-->Accès aux systèmes-->onglet HPC*. Cliquez sur *Trillium* et sur *Je demande l'accès*. Il faut environ une heure pour que votre compte soit créé et que vous puissiez utiliser Trillium.
 
-Prenez bien connaissance de la présente page. La page [Foire aux questions](frequently-asked-questions.md) est aussi une ressource utile. Si vous avez besoin d'aide ou si vous avez des questions, n'hésitez pas à nous écrire à [trillium@tech.alliancecan.ca](mailto:trillium@tech.alliancecan.ca).
+Prenez bien connaissance de la présente page. La page [Foire aux questions](../getting-started/frequently_asked_questions.md) est aussi une ressource utile. Si vous avez besoin d'aide ou si vous avez des questions, n'hésitez pas à nous écrire à [trillium@tech.alliancecan.ca](mailto:trillium@tech.alliancecan.ca).
 
 ## Se connecter
 
 Il y a deux moyens de se connecter à Trillium :
 
-*   Via un navigateur avec Open OnDemand. Cette méthode est recommandée si vous ne connaissez pas bien Linux ou la ligne de commande. Voir [Trillium : Guide de démarrage Open OnDemand](trillium-open-ondemand-quickstart.md).
+*   Via un navigateur avec Open OnDemand. Cette méthode est recommandée si vous ne connaissez pas bien Linux ou la ligne de commande. Voir [Trillium : Guide de démarrage Open OnDemand](../interactive/trillium_open_ondemand_quickstart.md).
 *   Via un terminal avec ssh, comme décrit ci-dessous.
 
-Comme pour tous les systèmes de SciNet et de l'Alliance, l'accès s'effectue via [SSH](ssh.md). De plus, pour Trillium en particulier, l'authentification est uniquement autorisée via des clés SSH téléversées dans [CCDB](https://ccdb.alliancecan.ca). Pour savoir comment générer votre paire de clés SSH, téléverser et utiliser vos clés SSH, voir [Clés SSH](ssh-keys.md).
+Comme pour tous les systèmes de SciNet et de l'Alliance, l'accès s'effectue via [SSH](../getting-started/ssh.md). De plus, pour Trillium en particulier, l'authentification est uniquement autorisée via des clés SSH téléversées dans [CCDB](https://ccdb.alliancecan.ca). Pour savoir comment générer votre paire de clés SSH, téléverser et utiliser vos clés SSH, voir [Clés SSH](../getting-started/ssh_keys.md).
 
-Trillium utilise Rocky Linux 9.6, un système d'exploitation de type Linux. Vous devez connaître l'interpréteur Linux pour travailler sur Trillium. Si ce n'est pas le cas, nous vous conseillons de lire [Introduction à Linux](linux-introduction.md), de vous inscrire à une [formation sur l'interpréteur Linux](https://explora.alliancecan.ca/events?include_expired=true&keywords=Shell) ou de suivre un [tutoriel de formation autonome](self-paced-courses.md).
+Trillium utilise Rocky Linux 9.6, un système d'exploitation de type Linux. Vous devez connaître l'interpréteur Linux pour travailler sur Trillium. Si ce n'est pas le cas, nous vous conseillons de lire [Introduction à Linux](../getting-started/linux_introduction.md), de vous inscrire à une [formation sur l'interpréteur Linux](https://explora.alliancecan.ca/events?include_expired=true&keywords=Shell) ou de suivre un [tutoriel de formation autonome](../support/self-paced_courses.md).
 
-Vous pouvez utiliser [SSH](ssh.md) en ouvrant une fenêtre de terminal (par exemple, en vous [connectant avec PuTTY](connecting-with-putty.md) sous Windows, ou avec [MobaXTerm](connecting-with-mobaxterm.md)), puis en vous connectant via SSH aux nœuds de connexion Trillium avec vos identifiants CCDB.
+Vous pouvez utiliser [SSH](../getting-started/ssh.md) en ouvrant une fenêtre de terminal (par exemple, en vous [connectant avec PuTTY](../getting-started/connecting_with_putty.md) sous Windows, ou avec [MobaXTerm](../getting-started/connecting_with_mobaxterm.md)), puis en vous connectant via SSH aux nœuds de connexion Trillium avec vos identifiants CCDB.
 
 *   Pour vous connecter à l'un des nœuds de connexion de la sous-grappe de CPU, utilisez la commande
     ```bash
@@ -236,7 +236,7 @@ Vous pouvez utiliser [SSH](ssh.md) en ouvrant une fenêtre de terminal (par exem
     où `/PATH/TO/SSH_PRIVATE_KEY` est le chemin de votre clé SSH privée et `MYALLIANCEUSERNAME` est votre nom d'utilisateur CCDB.
 
 !!! note "Remarques"
-    *   À votre première connexion, assurez-vous que vous êtes bien sur Trillium en vérifiant si [l'empreinte de la clé hôte du nœud de connexion](ssh-security-improvements.md#trillium) correspond.
+    *   À votre première connexion, assurez-vous que vous êtes bien sur Trillium en vérifiant si [l'empreinte de la clé hôte du nœud de connexion](../getting-started/ssh_security_improvements.md#trillium) correspond.
     *   Les nœuds de connexion de Trillium vous permettent de développer, de modifier, de compiler, de préparer et de soumettre des tâches.
     *   Les nœuds de connexion CPU et GPU ne font pas partie des nœuds de calcul, mais ils ont la même architecture, le même système d'exploitation et la même pile logicielle que les nœuds de calcul CPU et GPU.
     *   Vous pouvez vous connecter via SSH d'un nœud de connexion à un autre en utilisant leurs noms d'hôte internes `tri-login01, ..., tri-login06` et `trig-login01` (ce dernier étant le nœud de connexion GPU).
@@ -272,7 +272,7 @@ trisetup
 ```
 Le contenu de `$HOME/links/projects` sera automatiquement mis à jour lorsque vous quitterez ou joindrez des projets.
 
-Sur [HPSS](using-nearline-storage.md) (le système /nearline qui sera attaché à Trillium), une variable d'environnement appelée `$ARCHIVE` pointera vers l'emplacement de votre répertoire de niveau supérieur, le cas échéant.
+Sur [HPSS](../storage-and-data/using_nearline_storage.md) (le système /nearline qui sera attaché à Trillium), une variable d'environnement appelée `$ARCHIVE` pointera vers l'emplacement de votre répertoire de niveau supérieur, le cas échéant.
 
 Le tableau ci-dessous indique l'espace disponible et les politiques pour chaque emplacement.
 
@@ -288,7 +288,7 @@ Le tableau ci-dessous indique l'espace disponible et les politiques pour chaque 
 
 ## Logiciels
 
-Trillium utilise des [modules d'environnement](utiliser-des-modules.md) pour gérer les compilateurs, les bibliothèques et autres progiciels. Les modules modifient dynamiquement votre environnement (par exemple, `PATH`, `LD_LIBRARY_PATH`) afin que vous puissiez accéder sans problème à différentes versions des logiciels.
+Trillium utilise des [modules d'environnement](../programming/utiliser_des_modules.md) pour gérer les compilateurs, les bibliothèques et autres progiciels. Les modules modifient dynamiquement votre environnement (par exemple, `PATH`, `LD_LIBRARY_PATH`) afin que vous puissiez accéder sans problème à différentes versions des logiciels.
 
 Commandes fréquemment utilisées :
 
@@ -318,13 +318,13 @@ Une bonne gestion de votre environnement logiciel est essentielle pour éviter l
 
 *   Soyez explicite quant aux versions des modules. Des noms courts comme `gcc` chargeront le module par défaut (par exemple `gcc/12.3`) qui pourrait éventuellement changer. Spécifiez les versions complètes (par exemple `gcc/13.3`) pour une reproductibilité à long terme.
 
-*   Résolvez les dépendances avec `module spider`. Certains modules dépendent d'autres modules. Utilisez `module spider <module-name>` pour savoir lesquels sont requis et comment les charger dans le bon ordre. Pour en savoir plus, voir [Sous-commande spider](utiliser-des-modules.md#sous-commande-spider).
+*   Résolvez les dépendances avec `module spider`. Certains modules dépendent d'autres modules. Utilisez `module spider <module-name>` pour savoir lesquels sont requis et comment les charger dans le bon ordre. Pour en savoir plus, voir [Sous-commande spider](../programming/utiliser_des_modules.md#sous-commande-spider).
 
 ## Applications commerciales
 
 Certains aspects sont à considérer si vous voulez utiliser des logiciels commerciaux sur Trillium.
 
-*   Vous pouvez utiliser des logiciels commerciaux sur Trillium si vous possédez une licence valide. Si le logiciel nécessite un serveur de licences, vous pouvez vous y connecter en toute sécurité via [un tunnel SSH](ssh-tunnelling.md).
+*   Vous pouvez utiliser des logiciels commerciaux sur Trillium si vous possédez une licence valide. Si le logiciel nécessite un serveur de licences, vous pouvez vous y connecter en toute sécurité via [un tunnel SSH](../getting-started/ssh_tunnelling.md).
 
 *   Nous ne fournissons pas de licence spécifique à chaque utilisateur. En raison du nombre et de la diversité de nos utilisateurs, nous ne pouvons pas offrir des licences pour des paquets individuels ou spécialisés.
 
@@ -342,7 +342,7 @@ Avant de soumettre votre tâche, il est important de tester votre code pour vous
     *   utiliser entre 1 et 4 CPU
     *   utiliser au plus 1 GPU
 
-*   Vous pouvez également exécuter le débogueur parallèle [ARM DDT](arm-software.md) sur les nœuds de connexion après l'avoir chargé avec `module load ddt-cpu` ou `module load ddt-gpu`.
+*   Vous pouvez également exécuter le débogueur parallèle [ARM DDT](../software/arm_software.md) sur les nœuds de connexion après l'avoir chargé avec `module load ddt-cpu` ou `module load ddt-gpu`.
 
 *   Pour les tests dépassant les limites du nœud de connexion ou nécessitant des ressources dédiées, demandez une tâche de débogage interactive à l'aide de la commande `debugjob` sur un nœud de connexion.
     ```bash
@@ -368,7 +368,7 @@ L'environnement de l'interpréteur pour une tâche de débogage est similaire à
     *   `N` est le nombre de nœuds
     *   `M` est le nombre d'heures d'exécution de la tâche
     *   `G` est le nombre de GPU par nœud (le cas échéant)
-    *   `--x11` est requis uniquement pour les applications graphiques (par exemple [ARM DDT](arm-software.md)).
+    *   `--x11` est requis uniquement pour les applications graphiques (par exemple [ARM DDT](../software/arm_software.md)).
 
 !!! note "Remarque"
     Les tâches soumises avec `salloc` peuvent prendre plus de temps à démarrer qu'avec `debugjob` et sont comptabilisées dans votre allocation.
@@ -377,7 +377,7 @@ L'environnement de l'interpréteur pour une tâche de débogage est similaire à
 
 Une fois que votre code ou votre flux de travail est compilé et testé sur les nœuds de connexion de Trillium et que son bon fonctionnement est confirmé, vous pouvez soumettre des tâches sur la grappe. Ces tâches s'exécuteront sur les nœuds de calcul de Trillium et leur exécution sera gérée par l'ordonnanceur.
 
-Trillium utilise SLURM comme ordonnanceur de tâches. Pour plus d'information sur l'interaction avec l'ordonnanceur, voyez [la page Slurm](running-jobs.md).
+Trillium utilise SLURM comme ordonnanceur de tâches. Pour plus d'information sur l'interaction avec l'ordonnanceur, voyez [la page Slurm](../running-jobs/running_jobs.md).
 
 Pour soumettre une tâche, utilisez la commande `sbatch` sur un nœud de connexion.
 ```bash
@@ -387,13 +387,13 @@ Les tâches avec CPU doivent être soumises depuis les nœuds de connexion CPU, 
 
 La commande `sbatch` place votre tâche dans la file d'attente. Le script doit contenir des lignes commençant par `#SBATCH` spécifiant les ressources nécessaires (les options les plus courantes sont présentées ci-dessous). L'ordonnanceur exécutera ce script sur les nœuds de calcul lorsque votre tâche aura passé au début de la file d'attente et que les ressources seront disponibles.
 
-La priorité d'une tâche dans la file d'attente dépend des ressources demandées, du temps déjà passé dans la file d'attente, de l'utilisation récente, ainsi que du compte SLURM avec lequel la tâche a été soumise. Les comptes SLURM correspondent aux [RAP (Resource Allocation Project)](frequently-asked-questions-about-the-ccdb.md#rap-resource-allocation-project) :
+La priorité d'une tâche dans la file d'attente dépend des ressources demandées, du temps déjà passé dans la file d'attente, de l'utilisation récente, ainsi que du compte SLURM avec lequel la tâche a été soumise. Les comptes SLURM correspondent aux [RAP (Resource Allocation Project)](../getting-started/frequently_asked_questions_about_the_ccdb.md#rap-resource-allocation-project) :
 *   Chaque chercheuse principale ou chercheur principal dispose d'au moins un RAP, le RAP par défaut du service d'accès rapide. Les membres parrainés ont accès au compte SLURM correspondant dont le nom commence par `def-`.
 *   Une chercheuse principale ou un chercheur principal disposant d'une allocation via concours dispose d'un RAP supplémentaire, auquel des utilisateurs peuvent être ajoutés. Le nom des comptes SLURM correspondants commence généralement par `rrg-` ou `rpp-`. Notez que les RAC sont liés à un système; par exemple, un RAC pour Nibi ne peut pas être utilisé sur Trillium.
 
 ## Restrictions particulières à Trillium
 
-Trillium étant conçue pour les tâches massivement parallèles, elle présente certaines différences par rapport aux grappes à usage général ([Fir](fir.md), [Nibi](nibi.md), [Narval](narval.md), [Rorqual](rorqual.md)), que nous allons maintenant aborder.
+Trillium étant conçue pour les tâches massivement parallèles, elle présente certaines différences par rapport aux grappes à usage général ([Fir](../software/fir.md), [Nibi](nibi.md), [Narval](narval.md), [Rorqual](rorqual.md)), que nous allons maintenant aborder.
 
 ### Les données de sortie doivent être écrites dans `/scratch`
 
@@ -411,11 +411,11 @@ Les tâches ne peuvent pas être soumises depuis les nœuds de calcul (ni depuis
 
 ### Ordonnancement pour nœud entier ou GPU entier
 
-Il n'est pas possible de demander un nombre particulier de cœurs sur Trillium. Sur la sous-grappe de CPU, toutes les tâches doivent utiliser des nœuds entiers. Ceci signifie que la taille minimale d'une tâche CPU est de 192 cœurs, que vous devez utiliser efficacement. Si vous exécutez des tâches séquentielles ou à faible nombre de cœurs, vous devez tout de même utiliser les 192 cœurs du nœud en regroupant plusieurs tâches indépendantes dans un seul script. Pour des exemples, consultez [GNU Parallel](gnu-parallel.md) et [cette section de la page META-Farm (fonctions avancées)](meta-farm-advanced-features-and-troubleshooting.md#mode-whole-node).
+Il n'est pas possible de demander un nombre particulier de cœurs sur Trillium. Sur la sous-grappe de CPU, toutes les tâches doivent utiliser des nœuds entiers. Ceci signifie que la taille minimale d'une tâche CPU est de 192 cœurs, que vous devez utiliser efficacement. Si vous exécutez des tâches séquentielles ou à faible nombre de cœurs, vous devez tout de même utiliser les 192 cœurs du nœud en regroupant plusieurs tâches indépendantes dans un seul script. Pour des exemples, consultez [GNU Parallel](../running-jobs/gnu_parallel.md) et [cette section de la page META-Farm (fonctions avancées)](../running-jobs/meta-farm__advanced_features_and_troubleshooting.md#mode-whole-node).
 
 Si votre tâche sous-utilise les cœurs, notre équipe peut vous aider à optimiser votre flux de travail, ou vous pouvez [nous contacter](mailto:trillium@tech.alliancecan.ca) pour obtenir de l'aide.
 
-Sur la sous-grappe de GPU, chaque nœud contient 4 GPU. L'ordonnanceur vous permet de demander soit un nombre entier de nœuds, soit un seul GPU. Ce dernier équivaut à un quart de nœud, avec 24 cœurs et environ 188 Gio de RAM. Il est important d'utiliser le GPU efficacement. Trillium ne prend pas en charge MIG comme sur les autres grappes (MIG permet de planifier une fraction de GPU), mais vous pouvez utiliser [HyperQ / MPS](hyper-q-mps.md) dans vos tâches.
+Sur la sous-grappe de GPU, chaque nœud contient 4 GPU. L'ordonnanceur vous permet de demander soit un nombre entier de nœuds, soit un seul GPU. Ce dernier équivaut à un quart de nœud, avec 24 cœurs et environ 188 Gio de RAM. Il est important d'utiliser le GPU efficacement. Trillium ne prend pas en charge MIG comme sur les autres grappes (MIG permet de planifier une fraction de GPU), mais vous pouvez utiliser [HyperQ / MPS](../software/hyper-q___mps.md) dans vos tâches.
 
 ### Quantité de mémoire allouée
 
@@ -442,7 +442,7 @@ Les options suivantes sont fréquemment utilisées :
 
 Ces options doivent être dans des lignes de commentaire distinctes en haut du script de tâche (mais après `#!/bin/bash`), préfixées par `#SBATCH`. Elles peuvent également être utilisées comme options de ligne de commande pour `salloc`. Vous trouverez ci-dessous quelques exemples de scripts de tâches.
 
-Pour plus d'information, voyez [Exécuter des tâches](running-jobs.md) et [la documentation sur SLURM](https://slurm.schedmd.com/sbatch.html).
+Pour plus d'information, voyez [Exécuter des tâches](../running-jobs/running_jobs.md) et [la documentation sur SLURM](https://slurm.schedmd.com/sbatch.html).
 
 ## Soumettre des tâches sur la sous-grappe de CPU
 
@@ -670,7 +670,7 @@ srun python train_distributed.py
 
 *   N'utilisez pas `--mem`; la mémoire est fixe par GPU (192 Go) ou par nœud (768 Go).
 *   Indiquez toujours le nombre de nœuds et `--gpus-per-node=4` pour les tâches sur un nœud entier ou sur plusieurs nœuds.
-*   Chargez uniquement les modules nécessaires (voir [Utiliser des modules](utiliser-des-modules.md)).
+*   Chargez uniquement les modules nécessaires (voir [Utiliser des modules](../programming/utiliser_des_modules.md)).
 *   Pour une meilleure reproductibilité, soyez explicite quant aux versions des logiciels (par exemple, `cuda/12.6` plutôt que simplement `cuda`).
 *   Testez sur un seul GPU avant de passer à plusieurs GPU ou nœuds.
 *   Surveillez l'utilisation avec `nvidia-smi` pour vous assurer que les GPU sont pleinement utilisés.
@@ -688,7 +688,7 @@ Une fois votre tâche soumise à la file d'attente, vous pouvez surveiller son �
 *   `jobperf JOBID` produit un instantané en temps réel de l'utilisation du CPU et de la mémoire pendant que la tâche est exécutée.
 *   `sacct` affiche des informations sur vos tâches passées, notamment l'heure de début, l'heure d'exécution, l'utilisation du nœud et l'état de sortie.
 
-Pour plus d'information sur le suivi des tâches, voir [la page sur Slurm](running-jobs.md).
+Pour plus d'information sur le suivi des tâches, voir [la page sur Slurm](../running-jobs/running_jobs.md).
 
 ### Suivi des tâches en cours et des tâches passées
 

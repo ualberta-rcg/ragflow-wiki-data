@@ -184,7 +184,7 @@ Pour pouvoir renouveler votre compte, votre CVC doit avoir été soumis au cours
     *   Si une erreur survient alors que vous avez réussi à soumettre votre CVC avec les bons paramètres, veuillez communiquer avec support@tech.alliancecan.ca pour obtenir de l’aide.
 5.  Déclarez vos contributions rendues possibles par nos ressources de calcul (voir les directives).
 
-Si vous avez d’autres questions sur la procédure de renouvellement, consultez notre [FAQ pour le renouvellement de compte](account-renewal-faq.md).
+Si vous avez d’autres questions sur la procédure de renouvellement, consultez notre [FAQ pour le renouvellement de compte](../getting-started/account_renewal_faq.md).
 
 ## Présentation d’une demande
 Les CVC à jour sont requis pour le chercheur principal, la chercheuse principale et TOUS les co-chercheuses et co-chercheurs qui participent à un projet faisant l’objet d’une demande d’allocation de ressources.
@@ -192,7 +192,7 @@ Les CVC à jour sont requis pour le chercheur principal, la chercheuse principal
 !!! important "Important"
     Puisque les membres du corps professoral ont fourni un CVC à jour au renouvellement de leur compte au printemps, les CVC de la plupart des chercheuses principales et chercheurs principaux en milieu académique seront encore à jour au moment de présenter une demande d’allocation de ressources à l’automne. La soumission du CVC n’est alors pas obligatoire, même si de nouvelles informations ont été ajoutées depuis le printemps.
 
-Pour plus d’information, voir [FAQ pour le renouvellement de compte](account-renewal-faq.md).
+Pour plus d’information, voir [FAQ pour le renouvellement de compte](../getting-started/account_renewal_faq.md).
 
 ### Chercheuse principale ou chercheur principal en milieu académique
 !!! note "Remarque"

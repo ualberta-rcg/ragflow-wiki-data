@@ -71,7 +71,7 @@ Version: 1.20 (using htslib 1.20)
 Usage:   samtools <command> [options]
 ```
 
-For more on the `module` command, including how to find other versions of samtools, see [Using modules](utiliser-des-modules.md)
+For more on the `module` command, including how to find other versions of samtools, see [Using modules](../programming/utiliser_des_modules.md)
 
 ## General usage
 SAMtools provides tools for manipulating alignments in SAM and BAM formats. A common task is to convert SAM files ("Sequence Alignment/Map") to BAM files. BAM files are compressed versions of SAM files and are much smaller in size; the "B" stands for "binary". BAM files are easy to manipulate and are ideal for storing large nucleotide sequence alignments.

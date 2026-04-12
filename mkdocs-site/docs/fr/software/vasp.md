@@ -83,7 +83,7 @@ VASP, pour *Vienna ab initio Simulation Package*, est un logiciel servant à mod
 
 VASP peut seulement être utilisé par les groupes de recherche ayant obtenu une licence auprès de son développeur, VASP Software GmbH. Votre chercheur principal (PI, professeur) doit s'inscrire sur le [site web de VASP](https://www.vasp.at/) et obtenir une licence.
 
-Quand vous avez votre licence et que vous voulez utiliser les binaires VASP disponibles sur les grappes [Fir](fir.md), [Nibi](nibi.md) ou [Trillium](trillium.md), écrivez au [soutien technique](technical-support.md) et indiquez :
+Quand vous avez votre licence et que vous voulez utiliser les binaires VASP disponibles sur les grappes [Fir](fir.md), [Nibi](../clusters/nibi.md) ou [Trillium](../clusters/trillium.md), écrivez au [soutien technique](../support/technical_support.md) et indiquez :
 *   les renseignements sur le détenteur de la licence (votre chercheur principal) :
     *   nom;
     *   courriel;
@@ -107,7 +107,7 @@ L'Université Simon-Fraser (Fir), l'Université de Waterloo (Nibi) et l'Universi
 
 ## Utilisation des modules VASP
 
-Pour charger une version préconstruite de VASP sur [Fir](fir.md) et [Nibi](nibi.md), les directives sont :
+Pour charger une version préconstruite de VASP sur [Fir](fir.md) et [Nibi](../clusters/nibi.md), les directives sont :
 
 ```bash
 # Pour vasp/5.4.4
@@ -124,7 +124,7 @@ module load vasp/6.4.2
     module load StdEnv/2023 intel/2023.2.1 intelmpi/2021.9.0
     module load vasp/6.4.2
     ```
-Pour plus d'information, consultez [Utiliser des modules](utiliser-des-modules.md).
+Pour plus d'information, consultez [Utiliser des modules](../programming/utiliser_des_modules.md).
 
 Pour utiliser VASP sur Trillium, chargez les modules comme suit :
 
@@ -143,7 +143,7 @@ module use /opt/software/commercial/modules
 module load vasp/6.4.2
 ```
 
-Pour l'information sur comment utiliser Trillium, voir [Trillium : Guide de démarrage](trillium-quickstart.md).
+Pour l'information sur comment utiliser Trillium, voir [Trillium : Guide de démarrage](../clusters/trillium_quickstart.md).
 
 ### Pseudopotentiels
 
@@ -169,7 +169,7 @@ Les deux extensions suivantes sont aussi incorporées :
 *   [Transition State Tools](http://theory.cm.utexas.edu/vtsttools/)
 *   [VASPsol](https://github.com/henniggroup/VASPsol)
 
-Si la version de VASP que vous voulez utiliser n'est pas offerte, vous pouvez soit la construire vous-même (voir ci-dessous) ou demander au [soutien technique](technical-support.md) de la construire et l’installer.
+Si la version de VASP que vous voulez utiliser n'est pas offerte, vous pouvez soit la construire vous-même (voir ci-dessous) ou demander au [soutien technique](../support/technical_support.md) de la construire et l’installer.
 
 ## Vasp-GPU
 
@@ -191,7 +191,7 @@ mpirun <VASP>
 ```
 
 *   Ce script demande quatre cœurs et 4096 Mo de mémoire (4x1024Mo).
-*   `<ACCOUNT>` est le nom du compte Slurm; pour connaître la valeur à entrer, consultez [Exécuter des tâches](running-jobs.md), section *Comptes et projets*.
+*   `<ACCOUNT>` est le nom du compte Slurm; pour connaître la valeur à entrer, consultez [Exécuter des tâches](../running-jobs/running_jobs.md), section *Comptes et projets*.
 *   `<VERSION>` est le numéro de version de VASP que vous voulez utiliser : 4.6, 5.4.1, 5.4.4 ou 6.1.0.
 *   `<VASP>` est le nom de l'exécutable; voyez la section *Programmes exécutables* ci-dessus pour les exécutables que vous pouvez choisir.
 
@@ -215,19 +215,19 @@ VASP utilise quatre fichiers d'entrée, soit INCAR, KPOINTS, POSCAR et POTCAR. I
 sbatch vasp_job.sh
 ```
 
-Si vous ignorez combien de mémoire votre tâche nécessite, préparez tous vos fichiers d’entrée et exécutez `makeparam` dans une [tâche interactive](running-jobs.md#taches-interactives). Utilisez ensuite la quantité de mémoire obtenue en résultat pour la prochaine exécution. Pour obtenir une meilleure estimation pour les tâches futures, vérifiez quelle est la taille maximale de la pile de mémoire pour les [tâches complétées](running-jobs.md#taches-completees) et utilisez cette valeur pour demander la quantité de mémoire par processeur.
+Si vous ignorez combien de mémoire votre tâche nécessite, préparez tous vos fichiers d’entrée et exécutez `makeparam` dans une [tâche interactive](../running-jobs/running_jobs.md#taches-interactives). Utilisez ensuite la quantité de mémoire obtenue en résultat pour la prochaine exécution. Pour obtenir une meilleure estimation pour les tâches futures, vérifiez quelle est la taille maximale de la pile de mémoire pour les [tâches complétées](../running-jobs/running_jobs.md#taches-completees) et utilisez cette valeur pour demander la quantité de mémoire par processeur.
 
-Si vous voulez utiliser 32 cœurs ou plus, consultez la [politique d'ordonnancement des tâches](job-scheduling-policies.md), section *Nœuds entiers ou cœurs*.
+Si vous voulez utiliser 32 cœurs ou plus, consultez la [politique d'ordonnancement des tâches](../running-jobs/job_scheduling_policies.md), section *Nœuds entiers ou cœurs*.
 
 ## Construire VASP par vous-même
 
-Si vous disposez d'une licence VASP et que vous avez accès à du code source VASP, vous pouvez installer plusieurs versions dans votre répertoire /home sur toutes nos grappes avec les commandes [EasyBuild](easybuild.md) suivantes.
+Si vous disposez d'une licence VASP et que vous avez accès à du code source VASP, vous pouvez installer plusieurs versions dans votre répertoire /home sur toutes nos grappes avec les commandes [EasyBuild](../programming/easybuild.md) suivantes.
 
 `eb -f [RECIPE NAME] --sourcepath=[SOURCEPATH]`
 
 où `[SOURCEPATH]` est le répertoire contenant le code source de VASP et `[RECIPE NAME]` est le nom de la recette. Le premier onglet du tableau ci-dessous affiche la liste des recettes disponibles ainsi que les fichiers sources requis correspondants. Dans ce tableau, VTSTtools et vaspSOL correspondent respectivement aux extensions Transition State Tools et VASPsol. Le deuxième onglet affiche la liste des bibliothèques incluses dans VASP. Vous pouvez télécharger le code source depuis le [site web de VASP](https://www.vasp.at/). L'exécution de la commande peut prendre plus d'une heure. Une fois l'opération terminée, vous pourrez charger et exécuter VASP à l'aide des commandes `module`, comme expliqué précédemment dans [Utilisation des modules VASP](#utilisation-des-modules-vasp).
 
-Pour construire une version personnalisée de VASP, voir [Installation de logiciels dans votre répertoire /home](installing-software-in-your-home-directory.md), [Installing VASP 5](https://www.vasp.at/wiki/index.php/Installing_VASP.5.X.X) ou [Installing VASP 6](https://www.vasp.at/wiki/index.php/Installing_VASP.6.X.X).
+Pour construire une version personnalisée de VASP, voir [Installation de logiciels dans votre répertoire /home](../getting-started/installing_software_in_your_home_directory.md), [Installing VASP 5](https://www.vasp.at/wiki/index.php/Installing_VASP.5.X.X) ou [Installing VASP 6](https://www.vasp.at/wiki/index.php/Installing_VASP.6.X.X).
 
 === "Spécification et implémentation de recettes"
 

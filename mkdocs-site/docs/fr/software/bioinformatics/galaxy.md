@@ -82,7 +82,7 @@ Le site [starthere.usegalaxy.ca](https://starthere.usegalaxy.ca) fournit toute l
 
 ## Demander une instance de Galaxy sur Cedar
 
-Chaque groupe de recherche peut obtenir une instance Galaxy sur la grappe Cedar. Puisque l’installation demande une configuration particulière, [contactez notre équipe technique](technical-support.md).
+Chaque groupe de recherche peut obtenir une instance Galaxy sur la grappe Cedar. Puisque l’installation demande une configuration particulière, [contactez notre équipe technique](../../support/technical_support.md).
 
 ### Structure du répertoire
 
@@ -114,7 +114,7 @@ La configuration du serveur se fait avec les fichiers du répertoire `config`. N
     Dans le fichier de configuration principal `galaxy.yml` :
     *   `http:` contient le numéro unique de votre port
     *   `database_connection` est le nom de votre base de données Galaxy et de votre serveur de base de données.
-    *   `virtualenv` est le chemin pour [l'environnement virtuel Python](python.md#creer-et-utiliser-un-environnement-virtuel) dans la passerelle
+    *   `virtualenv` est le chemin pour [l'environnement virtuel Python](../python.md#creer-et-utiliser-un-environnement-virtuel) dans la passerelle
     *   `file_path`, `new_file_path`, `tool_config_file`, `shed_tool_config_file`, `tool_dependency_dir`, `tool_data_path`, `visualization_plugins_directory`, `job_working_directory`, `cluster_files_directory`, `template_cache_path`, `citation_cache_data_dir`, `citation_cache_lock_dir` sont les chemins pour les outils, les *ToolSheds* et les dépendances.
 
 Vous pouvez modifier d'autres variables et fichiers dans ce répertoire.
@@ -123,7 +123,7 @@ Vous pouvez modifier d'autres variables et fichiers dans ce répertoire.
 
 Il y a deux manières d'utiliser les outils dans une instance de Galaxy :
 *   localement, sur la passerelle où le serveur de Galaxy est installé,
-*   en [soumettant une tâche](running-jobs.md) sur Cedar.
+*   en [soumettant une tâche](../../running-jobs/running_jobs.md) sur Cedar.
 
 ### Soumettre une tâche
 

@@ -37,9 +37,9 @@ status:
 
 ## Quantum Computing Services
 
-Our team of quantum computing analysts offers expertise, support, and training in quantum computing and hybrid classical-quantum computing. Starting January 2025, Calcul Québec offers access to a 24-qubit superconducting quantum computer, [MonarQ](monarq.md), available via the [Narval](narval.md) cluster. See our [MonarQ](monarq.md) page for more details.
+Our team of quantum computing analysts offers expertise, support, and training in quantum computing and hybrid classical-quantum computing. Starting January 2025, Calcul Québec offers access to a 24-qubit superconducting quantum computer, [MonarQ](../../clusters/monarq.md), available via the [Narval](../../clusters/narval.md) cluster. See our [MonarQ](../../clusters/monarq.md) page for more details.
 
-To get started with MonarQ, refer to [Getting Started with MonarQ](monarq.md#getting-started-with-monarq).
+To get started with MonarQ, refer to [Getting Started with MonarQ](../../clusters/monarq.md#getting-started-with-monarq).
 
 !!! info "What is quantum computing?"
     A quantum computer harnesses the characteristics of quantum particles (qubits), including superposition of states; constructive and destructive interference; and entanglement. Thanks to these properties, a new computing paradigm is in place, promising greater parallelization for solving complex problems that remain intractable for classical computing systems.

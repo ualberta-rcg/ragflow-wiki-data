@@ -123,7 +123,7 @@ status:
   qa_generated: false
 ---
 
-This page is intended for the user who is already familiar with the concepts of job scheduling and job scripts, and who wants guidance on submitting jobs to our clusters. If you have not worked on a large shared computer cluster before, you should probably read [What is a scheduler?](what-is-a-scheduler.md) first.
+This page is intended for the user who is already familiar with the concepts of job scheduling and job scripts, and who wants guidance on submitting jobs to our clusters. If you have not worked on a large shared computer cluster before, you should probably read [What is a scheduler?](what_is_a_scheduler.md) first.
 
 !!! warning
     **All jobs must be submitted via the scheduler!**
@@ -151,25 +151,25 @@ echo 'Hello, world!'
 sleep 30
 ```
 
-On general-purpose (GP) clusters, this job reserves 1 core and 256MB of memory for 15 minutes. On [Trillium](trillium.md), this job reserves the whole node with all its memory. Directives (or *options*) in the job script are prefixed with `#SBATCH` and must precede all executable commands. All available directives are described on the [sbatch page](https://slurm.schedmd.com/sbatch.html). Our policies require that you supply at least a time limit (`--time`) for each job. You may also need to supply an account name (`--account`). See [Accounts and projects](#accounts-and-projects) below.
+On general-purpose (GP) clusters, this job reserves 1 core and 256MB of memory for 15 minutes. On [Trillium](../clusters/trillium.md), this job reserves the whole node with all its memory. Directives (or *options*) in the job script are prefixed with `#SBATCH` and must precede all executable commands. All available directives are described on the [sbatch page](https://slurm.schedmd.com/sbatch.html). Our policies require that you supply at least a time limit (`--time`) for each job. You may also need to supply an account name (`--account`). See [Accounts and projects](#accounts-and-projects) below.
 
 You can also specify directives as command-line arguments to `sbatch`. So for example,
 
 ```bash
 $ sbatch --time=00:30:00 simple_job.sh
 ```
-will submit the above job script with a time limit of 30 minutes. The acceptable time formats include "minutes", "minutes:seconds", "hours:minutes:seconds", "days-hours", "days-hours:minutes" and "days-hours:minutes:seconds". Please note that the time limit will strongly affect how quickly the job is started, since longer jobs are [eligible to run on fewer nodes](job-scheduling-policies.md).
+will submit the above job script with a time limit of 30 minutes. The acceptable time formats include "minutes", "minutes:seconds", "hours:minutes:seconds", "days-hours", "days-hours:minutes" and "days-hours:minutes:seconds". Please note that the time limit will strongly affect how quickly the job is started, since longer jobs are [eligible to run on fewer nodes](job_scheduling_policies.md).
 
 !!! caution
-    Please be cautious if you use a script to submit multiple Slurm jobs in a short time. Submitting thousands of jobs at a time can cause Slurm to become [unresponsive](frequently-asked-questions.md#sbatch-error-batch-job-submission-failed-socket-timed-out-on-sendrecv-operation) to other users. Consider using an [array job](#array-job) instead, or use `sleep` to space out calls to `sbatch` by one second or more.
+    Please be cautious if you use a script to submit multiple Slurm jobs in a short time. Submitting thousands of jobs at a time can cause Slurm to become [unresponsive](../getting-started/frequently_asked_questions.md#sbatch-error-batch-job-submission-failed-socket-timed-out-on-sendrecv-operation) to other users. Consider using an [array job](#array-job) instead, or use `sleep` to space out calls to `sbatch` by one second or more.
 
 ### Memory
 
-Memory may be requested with `--mem-per-cpu` (memory per core) or `--mem` (memory per node). On general-purpose (GP) clusters, a default memory amount of 256 MB per core will be allocated unless you make some other request. On [Trillium](trillium.md), only whole nodes are allocated along with all available memory, so a memory specification is not required there.
+Memory may be requested with `--mem-per-cpu` (memory per core) or `--mem` (memory per node). On general-purpose (GP) clusters, a default memory amount of 256 MB per core will be allocated unless you make some other request. On [Trillium](../clusters/trillium.md), only whole nodes are allocated along with all available memory, so a memory specification is not required there.
 
 A common source of confusion comes from the fact that some memory on a node is not available to the job (reserved for the OS, etc.). The effect of this is that each node type has a maximum amount available to jobs; for instance, nominally "128G" nodes are typically configured to permit 125G of memory to user jobs. If you request more memory than a node-type provides, your job will be constrained to run on higher-memory nodes, which may be fewer in number.
 
-Adding to this confusion, Slurm interprets K, M, G, etc., as [binary prefixes](https://en.wikipedia.org/wiki/Binary_prefix), so `--mem=125G` is equivalent to `--mem=128000M`. See the *Available memory* column in the *Node characteristics* table for each GP cluster for the Slurm specification of the maximum memory you can request on each node: [Fir](fir.md#node-characteristics), [Narval](narval.md#node-characteristics), [Nibi](nibi.md#node-characteristics), [Rorqual](rorqual.md#node-characteristics).
+Adding to this confusion, Slurm interprets K, M, G, etc., as [binary prefixes](https://en.wikipedia.org/wiki/Binary_prefix), so `--mem=125G` is equivalent to `--mem=128000M`. See the *Available memory* column in the *Node characteristics* table for each GP cluster for the Slurm specification of the maximum memory you can request on each node: [Fir](../software/fir.md#node-characteristics), [Narval](../clusters/narval.md#node-characteristics), [Nibi](../clusters/nibi.md#node-characteristics), [Rorqual](../clusters/rorqual.md#node-characteristics).
 
 ## Use `squeue` or `sq` to list jobs
 
@@ -187,7 +187,7 @@ The ST column of the output shows the status of each job. The two most common st
 If you want to know more about the output of `sq` or `squeue`, or learn how to change the output, see the [online manual page for squeue](https://slurm.schedmd.com/squeue.html). `sq` is a local customization.
 
 !!! warning
-    **Do not** run `sq` or `squeue` from a script or program at high frequency (e.g. every few seconds). Responding to `squeue` adds load to Slurm, and may interfere with its performance or correct operation. See [Email notification](monitoring-jobs.md#email-notification) for a much better way to learn when your job starts or ends.
+    **Do not** run `sq` or `squeue` from a script or program at high frequency (e.g. every few seconds). Responding to `squeue` adds load to Slurm, and may interfere with its performance or correct operation. See [Email notification](monitoring_jobs.md#email-notification) for a much better way to learn when your job starts or ends.
 
 ## Where does the output go?
 
@@ -200,7 +200,7 @@ Error output will normally appear in the same file as standard output, just as i
 
 ## Accounts and projects
 
-Every job must have an associated account name corresponding to a [Resource Allocation Project](frequently-asked-questions-about-the-ccdb.md#what-is-a-rap) (RAP). If you are a member of only one account, the scheduler will automatically associate your jobs with that account.
+Every job must have an associated account name corresponding to a [Resource Allocation Project](../getting-started/frequently_asked_questions_about_the_ccdb.md#what-is-a-rap) (RAP). If you are a member of only one account, the scheduler will automatically associate your jobs with that account.
 
 If you receive one of the following messages when you submit a job, then you have access to more than one account:
 
@@ -250,7 +250,7 @@ Also known as a *task array*, an array job is a way to submit a whole set of job
 ./myapplication $SLURM_ARRAY_TASK_ID
 ```
 
-For more examples, see [Job arrays](job-arrays.md). See [Job Array Support](https://slurm.schedmd.com/job_array.html) for detailed documentation.
+For more examples, see [Job arrays](job_arrays.md). See [Job Array Support](https://slurm.schedmd.com/job_array.html) for detailed documentation.
 
 ### Threaded or OpenMP job
 This example script launches a single process with eight CPU cores. Bear in mind that for an application to use OpenMP it must be compiled with the appropriate flag, e.g. `gcc -fopenmp ...` or `icc -openmp ...`
@@ -266,7 +266,7 @@ export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
 ./ompHello
 ```
 
-For more on writing and running parallel programs with OpenMP, see [OpenMP](openmp.md).
+For more on writing and running parallel programs with OpenMP, see [OpenMP](../programming/openmp.md).
 
 ### MPI job
 
@@ -284,10 +284,10 @@ This example script launches four MPI processes, each with 1024 MB of memory. Th
 srun ./mpi_program               # mpirun or mpiexec also work
 ```
 
-Large MPI jobs may span more than one node. Hybrid MPI/threaded jobs are also possible. For more on these and other options relating to distributed parallel jobs, see [Advanced MPI scheduling](advanced-mpi-scheduling.md).
+Large MPI jobs may span more than one node. Hybrid MPI/threaded jobs are also possible. For more on these and other options relating to distributed parallel jobs, see [Advanced MPI scheduling](advanced_mpi_scheduling.md).
 
 ### GPU job
-Please see [Using GPUs with Slurm](using-gpus-with-slurm.md) for a discussion and examples of how to request GPU resources.
+Please see [Using GPUs with Slurm](using_gpus_with_slurm.md) for a discussion and examples of how to request GPU resources.
 
 ## Interactive jobs
 Though batch submission is the most common and most efficient way to take advantage of our clusters, interactive jobs are also supported. These can be useful for things like:
@@ -305,11 +305,11 @@ $ exit            # terminate the allocation
 salloc: Relinquishing job allocation 1234567
 ```
 
-It is also possible to run graphical programs interactively on a compute node by adding the **--x11** flag to your `salloc` command. In order for this to work, you must first connect to the cluster with X11 forwarding enabled (see the [SSH](ssh.md) page for instructions on how to do that). Note that an interactive job with a duration of three hours or less will likely start very soon after submission as we have dedicated test nodes for jobs of this duration. Interactive jobs that request more than three hours run on the cluster's regular set of nodes and may wait for many hours or even days before starting, at an unpredictable (and possibly inconvenient) hour.
+It is also possible to run graphical programs interactively on a compute node by adding the **--x11** flag to your `salloc` command. In order for this to work, you must first connect to the cluster with X11 forwarding enabled (see the [SSH](../getting-started/ssh.md) page for instructions on how to do that). Note that an interactive job with a duration of three hours or less will likely start very soon after submission as we have dedicated test nodes for jobs of this duration. Interactive jobs that request more than three hours run on the cluster's regular set of nodes and may wait for many hours or even days before starting, at an unpredictable (and possibly inconvenient) hour.
 
 ## Monitoring jobs
 
-See [Monitoring jobs](monitoring-jobs.md).
+See [Monitoring jobs](monitoring_jobs.md).
 
 ## Cancelling jobs
 
@@ -336,7 +336,7 @@ Here are two recommended methods of automatic restarting:
 *   Using SLURM **job arrays**.
 *   Resubmitting from the end of the job script.
 
-Our [Machine Learning tutorial](tutoriel-apprentissage-machine.md) covers [resubmitting for long machine learning jobs](tutoriel-apprentissage-machine.md#checkpointing-a-long-running-job).
+Our [Machine Learning tutorial](../software/ai-ml/tutoriel_apprentissage_machine.md) covers [resubmitting for long machine learning jobs](../software/ai-ml/tutoriel_apprentissage_machine.md#checkpointing-a-long-running-job).
 
 ### Restarting using job arrays
 
@@ -432,7 +432,7 @@ As described earlier, [array jobs](#array-job) can be used to automate job submi
 
 The following tools are available on our clusters:
 *   [META-Farm](meta-farm.md)
-*   [GNU Parallel](gnu-parallel.md)
+*   [GNU Parallel](gnu_parallel.md)
 *   [GLOST](glost.md)
 
 ### Do not specify a partition
@@ -447,7 +447,7 @@ There are certain differences in the job scheduling policies from one of our clu
     On these clusters, no jobs are permitted longer than 168 hours (7 days) and there is a limit of 1000 jobs, queued and running, per user. Production jobs should have a duration of at least an hour.
 
 === "Trillium"
-    See [Trillium specific restrictions](trillium-quickstart.md#trillium-specific-restrictions).
+    See [Trillium specific restrictions](../clusters/trillium_quickstart.md#trillium-specific-restrictions).
 
 ## Troubleshooting
 
@@ -521,8 +521,8 @@ Inheriting environment settings from the submitting shell can sometimes lead to 
 Sometimes a submitted job writes no output to the log file for an extended period of time, looking like it is hanging. A common reason for this is the aggressive buffering performed by the Slurm scheduler, which will aggregate many output lines before flushing them to the log file. Often the output file will only be written after the job completes; and if the job is cancelled (or runs out of time), part of the output may be lost. If you wish to monitor the progress of your submitted job as it runs, consider running an [interactive job](#interactive-jobs). This is also a good way to find how much time your job needs.
 
 ## Job status and priority
-*   For a discussion of how job priority is determined and how things like time limits may affect the scheduling of your jobs, see [Job scheduling policies](job-scheduling-policies.md).
-*   If jobs *within your research group* are competing with one another, please see [Managing Slurm accounts](managing-slurm-accounts.md).
+*   For a discussion of how job priority is determined and how things like time limits may affect the scheduling of your jobs, see [Job scheduling policies](job_scheduling_policies.md).
+*   If jobs *within your research group* are competing with one another, please see [Managing Slurm accounts](managing_slurm_accounts.md).
 
 ## Further reading
 *   Comprehensive [documentation](https://slurm.schedmd.com/documentation.html) is maintained by SchedMD, as well as some [tutorials](https://slurm.schedmd.com/tutorials.html).

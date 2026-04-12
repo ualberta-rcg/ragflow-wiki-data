@@ -50,7 +50,7 @@ status:
 ---
 
 !!! warning "Attention"
-Béluga a été remplacée par une nouvelle grappe nommée [Rorqual](rorqual.md). Pour permettre la mise en production complète de cette nouvelle grappe, **nous avons dû fermer tous les nœuds de calcul de Béluga**. Les nœuds de connexion et le système de stockage resteront accessibles. Pour suivre les étapes de fermeture progressive de Béluga, voir [cette page d'incident](https://status.alliancecan.ca/view_incident?incident=1379) et la page [Renouvellement de l'infrastructure](infrastructure-renewal.md).
+Béluga a été remplacée par une nouvelle grappe nommée [Rorqual](rorqual.md). Pour permettre la mise en production complète de cette nouvelle grappe, **nous avons dû fermer tous les nœuds de calcul de Béluga**. Les nœuds de connexion et le système de stockage resteront accessibles. Pour suivre les étapes de fermeture progressive de Béluga, voir [cette page d'incident](https://status.alliancecan.ca/view_incident?incident=1379) et la page [Renouvellement de l'infrastructure](infrastructure_renewal.md).
 
 | Détail                          | Valeur                                                                        |
 | :------------------------------ | :---------------------------------------------------------------------------- |
@@ -64,7 +64,7 @@ Béluga est une grappe hétérogène et polyvalente conçue pour les calculs ord
 
 ## Particularités
 
-Notre politique veut que les nœuds de calcul de Béluga n'aient pas accès à l'internet. Pour y faire exception, contactez le [soutien technique](technical-support.md) en expliquant ce dont vous avez besoin et pourquoi. Notez que l'outil `crontab` n'est pas offert.
+Notre politique veut que les nœuds de calcul de Béluga n'aient pas accès à l'internet. Pour y faire exception, contactez le [soutien technique](../support/technical_support.md) en expliquant ce dont vous avez besoin et pourquoi. Notez que l'outil `crontab` n'est pas offert.
 
 Chaque tâche devrait être d'une durée d’au moins une heure (au moins cinq minutes pour les tâches de test) et un utilisateur ne peut avoir plus de 1000 tâches (en exécution et en attente) à la fois. La durée maximale d'une tâche est 7 jours (168 heures).
 
@@ -72,9 +72,9 @@ Chaque tâche devrait être d'une durée d’au moins une heure (au moins cinq m
 
 | Type de stockage                                | Caractéristiques                                                                                                                                                                                                                                                                                              |
 | :---------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| HOME <br/> Système de fichiers Lustre, 105 To d’espace au total | * Cet espace est petit et ne peut pas être agrandi : vous devrez utiliser votre espace `project` pour les grands besoins en stockage.<br/> * Petits [quotas](storage-and-file-management.md#quotas-et-politiques) fixes par utilisateur.<br/> * Il y a une sauvegarde automatique une fois par jour.           |
-| SCRATCH <br/> Système de fichiers Lustre, 2.6 Po d’espace au total | * Grand espace pour stocker les fichiers temporaires pendant les calculs.<br/> * Pas de système de sauvegarde automatique.<br/> * Grands [quotas](storage-and-file-management.md#quotas-et-politiques) fixes par utilisateur.<br/> * Il y a une [purge automatique](scratch-purging-policy.md) des vieux fichiers de cet espace. |
-| PROJECT <br/> Système de fichiers Lustre, 25 Po d’espace au total | * Cet espace est conçu pour le partage de données entre membres d'un groupe et pour le stockage de beaucoup de données.<br/> * Grands [quotas](storage-and-file-management.md#quotas-et-politiques) ajustables par projet.<br/> * Il y a une sauvegarde automatique une fois par jour.                  |
+| HOME <br/> Système de fichiers Lustre, 105 To d’espace au total | * Cet espace est petit et ne peut pas être agrandi : vous devrez utiliser votre espace `project` pour les grands besoins en stockage.<br/> * Petits [quotas](../storage-and-data/storage_and_file_management.md#quotas-et-politiques) fixes par utilisateur.<br/> * Il y a une sauvegarde automatique une fois par jour.           |
+| SCRATCH <br/> Système de fichiers Lustre, 2.6 Po d’espace au total | * Grand espace pour stocker les fichiers temporaires pendant les calculs.<br/> * Pas de système de sauvegarde automatique.<br/> * Grands [quotas](../storage-and-data/storage_and_file_management.md#quotas-et-politiques) fixes par utilisateur.<br/> * Il y a une [purge automatique](../storage-and-data/scratch_purging_policy.md) des vieux fichiers de cet espace. |
+| PROJECT <br/> Système de fichiers Lustre, 25 Po d’espace au total | * Cet espace est conçu pour le partage de données entre membres d'un groupe et pour le stockage de beaucoup de données.<br/> * Grands [quotas](../storage-and-data/storage_and_file_management.md#quotas-et-politiques) ajustables par projet.<br/> * Il y a une sauvegarde automatique une fois par jour.                  |
 
 Pour les transferts de données par Globus, on devrait utiliser le point de chute `computecanada#beluga-dtn`, alors que pour les outils comme rsync et scp, on peut utiliser un nœud de connexion.
 

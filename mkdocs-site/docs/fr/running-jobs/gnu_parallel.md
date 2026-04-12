@@ -181,7 +181,7 @@ parallel --jobs $SLURM_NTASKS_PER_NODE --sshloginfile ./node_list_${SLURM_JOB_ID
 
 Nous créons ici un fichier qui contient la liste des nœuds pour indiquer à GNU parallel quels sont ceux à utiliser pour distribuer les tâches. L'option `--env` nous permet de transférer à tous les nœuds une variable d'environnement particulière et l'option `--workdir` fait en sorte que les tâches GNU parallel seront lancées dans le même répertoire que le nœud principal.
 
-Par exemple, quand plusieurs tâches [OpenMP](openmp.md) sont soumises ensemble avec `--nodes=N`, `--ntasks-per-node=5` et `--cpus-per-task=8`, la commande suivante va gérer tous les processus à démarrer sur tous les nœuds réservés, ainsi que le nombre de fils OpenMP par processus.
+Par exemple, quand plusieurs tâches [OpenMP](../programming/openmp.md) sont soumises ensemble avec `--nodes=N`, `--ntasks-per-node=5` et `--cpus-per-task=8`, la commande suivante va gérer tous les processus à démarrer sur tous les nœuds réservés, ainsi que le nombre de fils OpenMP par processus.
 
 ```bash
 export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
@@ -310,4 +310,4 @@ parallel -j $SLURM_CPUS_PER_TASK my_simulator --alpha {1} --beta {2} ::: {1..10}
 ## Voir aussi
 * [META](meta-a-package-for-job-farming.md)
 * [GLOST](glost.md)
-* [Vecteurs de tâches](job-arrays.md)
+* [Vecteurs de tâches](job_arrays.md)

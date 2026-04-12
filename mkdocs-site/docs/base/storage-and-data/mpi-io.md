@@ -51,7 +51,7 @@ status:
 ---
 
 ## Description
-**MPI-IO** is a family of [MPI](mpi.md) routines that makes it possible to do file read and write operations in parallel. MPI-IO is a part of the MPI-2 standard. The main advantage of MPI-IO is that it allows, in a simple and efficient fashion, to write and to read data that is partitioned on multiple processes, to and from a single file that is common to all processes. This is particularly useful when the manipulated data are vectors or matrices that are cut up in a structured manner between the different processes involved. This page gives a few guidelines on the use of MPI-IO and some references to more complete documentation.
+**MPI-IO** is a family of [MPI](../software/mpi.md) routines that makes it possible to do file read and write operations in parallel. MPI-IO is a part of the MPI-2 standard. The main advantage of MPI-IO is that it allows, in a simple and efficient fashion, to write and to read data that is partitioned on multiple processes, to and from a single file that is common to all processes. This is particularly useful when the manipulated data are vectors or matrices that are cut up in a structured manner between the different processes involved. This page gives a few guidelines on the use of MPI-IO and some references to more complete documentation.
 
 ## Using MPI-IO
 

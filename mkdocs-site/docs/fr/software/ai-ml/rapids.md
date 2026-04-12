@@ -144,11 +144,11 @@ Apptainer> jupyter-lab --ip $(hostname -f) --no-browser
 !!! note
     À compter de la version 23.08, RAPIDS n'a pas besoin d'être activé après le démarrage de Conda, puisque tous les paquets sont inclus dans l'environnement Conda de base qui est activé par défaut. Par exemple, vous pouvez lancer le serveur Jupyter Notebook directement dans l'interpréteur du conteneur.
 
-Si un nœud de calcul n'est pas connecté directement à Internet, il faut configurer un tunnel SSH pour effectuer la redirection de port entre votre ordinateur et le nœud GPU. Pour plus de détails, consultez [comment se connecter à Jupyter Notebook](advanced-jupyter-configuration.md#se-connecter-a-jupyterlab).
+Si un nœud de calcul n'est pas connecté directement à Internet, il faut configurer un tunnel SSH pour effectuer la redirection de port entre votre ordinateur et le nœud GPU. Pour plus de détails, consultez [comment se connecter à Jupyter Notebook](../../getting-started/advanced_jupyter_configuration.md#se-connecter-a-jupyterlab).
 
 ### Soumettre une tâche RAPIDS à l'ordonnanceur
 
-Quand votre code RAPIDS est prêt, vous pouvez soumettre une tâche à l'ordonnanceur. La bonne pratique consiste à [utiliser le disque local](using-node-local-storage.md) lorsque vous travaillez avec un conteneur sur un nœud de calcul.
+Quand votre code RAPIDS est prêt, vous pouvez soumettre une tâche à l'ordonnanceur. La bonne pratique consiste à [utiliser le disque local](../../storage-and-data/using_node-local_storage.md) lorsque vous travaillez avec un conteneur sur un nœud de calcul.
 
 ### Script de soumission
 

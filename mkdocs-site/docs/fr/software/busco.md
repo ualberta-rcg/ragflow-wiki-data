@@ -195,7 +195,7 @@ Pour plusieurs génomes, le répertoire genome/ doit se trouver dans le réperto
 busco --offline --in genome/ --out TEST --lineage_dataset bacteria_odb10 --mode genome --cpu ${SLURM_CPUS_PER_TASK:-1} --download_path busco_download/
 ```
 
-La commande pour un seul génome devrait être exécutée en moins de 60 secondes. Les tâches de production qui nécessitent plus de temps doivent être [soumises à l'ordonnanceur](running-jobs.md).
+La commande pour un seul génome devrait être exécutée en moins de 60 secondes. Les tâches de production qui nécessitent plus de temps doivent être [soumises à l'ordonnanceur](../running-jobs/running_jobs.md).
 
 #### Conseils pour BUSCO
 
@@ -351,7 +351,7 @@ export AUGUSTUS_CONFIG_PATH=$HOME/augustus_config
 run_BUSCO.py --in $EBROOTBUSCO/sample_data/target.fa --out TEST --lineage_path $EBROOTBUSCO/sample_data/example --mode genome
 ```
 
-La commande `run_BUSCO.py` devrait être exécutée en moins de 60 secondes. Les tâches de production qui nécessitent plus de temps doivent être [soumises à l'ordonnanceur](running-jobs.md).
+La commande `run_BUSCO.py` devrait être exécutée en moins de 60 secondes. Les tâches de production qui nécessitent plus de temps doivent être [soumises à l'ordonnanceur](../running-jobs/running_jobs.md).
 
 ## Dépannage
 ### Erreur : *Cannot write to Augustus config path*

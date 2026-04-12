@@ -42,7 +42,7 @@ Une étape importante en développement logiciel, particulièrement en Fortran e
 Nos grappes offrent un choix de débogueurs et de profileurs pour effectuer le travail en mode graphique par connexion X11 ou en mode ligne de commande.
 
 !!! attention "Environnement de débogage recommandé"
-    Le débogage devrait être effectué dans une [tâche interactive](running-jobs.md#tâches-interactives) et non sur un nœud de connexion. Il est strictement recommandé d'utiliser une tâche interactive pour vos sessions de débogage sur les grappes de calcul.
+    Le débogage devrait être effectué dans une [tâche interactive](../running-jobs/running_jobs.md#tâches-interactives) et non sur un nœud de connexion. Il est strictement recommandé d'utiliser une tâche interactive pour vos sessions de débogage sur les grappes de calcul.
 
 ### Débogueur GNU (gdb)
 
@@ -54,7 +54,7 @@ Voir [PGDBG](pgdbg.md).
 
 ### Débogueur ARM (ddt)
 
-Voir [ARM](arm-software.md).
+Voir [ARM](../software/arm_software.md).
 
 ### Profileur GNU (gprof)
 
@@ -72,7 +72,7 @@ La version courante est **2.5**. Vous trouverez plus d'information et des exempl
 
 ### Profileur PGI (pgprof)
 
-Voir [Pgprof](pgprof.md).
+Voir [Pgprof](../software/pgprof.md).
 
 ### Profileur Nvidia en ligne de commande (nvprof)
 
@@ -80,7 +80,7 @@ Voir [nvprof](nvprof.md).
 
 ### Valgrind
 
-Voir [Valgrind](valgrind.md).
+Voir [Valgrind](../software/valgrind.md).
 
 ## Autres références
 

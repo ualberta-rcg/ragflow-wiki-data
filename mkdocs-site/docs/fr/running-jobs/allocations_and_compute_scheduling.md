@@ -193,7 +193,7 @@ Il se pourrait qu’au cours d’un mois ou d’une année vous puissiez accompl
 
 # Unités GPU de référence (UGR)
 
-La performance des GPU a considérablement augmenté ces dernières années et continue sa progression. Par le passé et jusqu'au concours de 2023, nous considérions tous les GPU comme étant équivalents les uns aux autres. Ceci posait des problèmes à la fois dans le processus d'attribution et lors de l'exécution des tâches. Pour contrer ceci, nous avons créé pour l'année 2024 l'unité GPU de référence (UGR) qui permet de classer tous les modèles de GPU en production. Depuis la période d'allocation de 2025-2026, nous devons aussi tenir compte de [la technologie des GPU multi-instances](multi-instance-gpu.md) qui rend la situation un peu plus complexe.
+La performance des GPU a considérablement augmenté ces dernières années et continue sa progression. Par le passé et jusqu'au concours de 2023, nous considérions tous les GPU comme étant équivalents les uns aux autres. Ceci posait des problèmes à la fois dans le processus d'attribution et lors de l'exécution des tâches. Pour contrer ceci, nous avons créé pour l'année 2024 l'unité GPU de référence (UGR) qui permet de classer tous les modèles de GPU en production. Depuis la période d'allocation de 2025-2026, nous devons aussi tenir compte de [la technologie des GPU multi-instances](../programming/multi-instance_gpu.md) qui rend la situation un peu plus complexe.
 
 Parce qu'environ la moitié des tâches utilisent principalement des opérations à virgule flottante simple précision ([FP32](https://en.wikipedia.org/wiki/Single-precision_floating-point_format)), que les autres utilisent des opérations à virgule flottante demi-précision ([FP16](https://en.wikipedia.org/wiki/Half-precision_floating-point_format)), et que la plupart des utilisateurs sont limités par la quantité de mémoire des GPU, nous classons les modèles de GPU selon les critères d'évaluation avec leur poids correspondant :
 
@@ -219,7 +219,7 @@ Nous utilisons le GPU **A100-40gb** de NVidia comme modèle de référence, auqu
 | P100-16gb   | 0.48       | 0.03       | 0.4         | 1.1                 | non                 | non                 | non                    |
 | P100-12gb   | 0.48       | 0.03       | 0.3         | 1.0                 | non                 | non                 | non                    |
 
-Le [renouvellement de l'infrastructure](infrastructure-renewal.md) en 2025 permettra de planifier une fraction d'un GPU à l'aide de la [technologie GPU multi-instances](multi-instance-gpu.md). Différents travaux, appartenant potentiellement à différents utilisateurs, pourront s'exécuter sur le même GPU en même temps. Selon la terminologie de NVidia, une fraction d'un GPU allouée à un seul travail est appelée une *instance GPU*, (parfois *instance MIG*).
+Le [renouvellement de l'infrastructure](../clusters/infrastructure_renewal.md) en 2025 permettra de planifier une fraction d'un GPU à l'aide de la [technologie GPU multi-instances](../programming/multi-instance_gpu.md). Différents travaux, appartenant potentiellement à différents utilisateurs, pourront s'exécuter sur le même GPU en même temps. Selon la terminologie de NVidia, une fraction d'un GPU allouée à un seul travail est appelée une *instance GPU*, (parfois *instance MIG*).
 
 Le tableau suivant montre les modèles de GPU ou instances que vous pouvez sélectionner sur le formulaire dans CCDB pour votre demande d'allocation pour 2026. Les valeurs UGR des instances sont estimées à partir des valeurs de performance d'un GPU entier et de la fraction du GPU qu'occupe l'instance.
 
@@ -309,34 +309,34 @@ Les différents bundles UGR-cœur-mémoire et GPU-cœur-mémoire des systèmes d
 
 | Grappe | Cœurs par UGR | Mémoire par UGR (en GB) |
 | :----- | :------------ | :---------------------- |
-| [Fir](fir.md#caracteristiques-des-noeuds) | 0.98 | 23.6 |
-| [Narval](narval.md#caracteristiques-des-noeuds) | 3.00 | 31.1 |
-| [Nibi](nibi.md#caracteristiques-des-noeuds) | 1.15 | 20.5 |
-| [Rorqual](rorqual.md#caracteristiques-des-noeuds) | 1.31 | 10.2 |
-| [Trillium](trillium.md#caracteristiques-des-noeuds) | 1.97 | 15.4 |
+| [Fir](../software/fir.md#caracteristiques-des-noeuds) | 0.98 | 23.6 |
+| [Narval](../clusters/narval.md#caracteristiques-des-noeuds) | 3.00 | 31.1 |
+| [Nibi](../clusters/nibi.md#caracteristiques-des-noeuds) | 1.15 | 20.5 |
+| [Rorqual](../clusters/rorqual.md#caracteristiques-des-noeuds) | 1.31 | 10.2 |
+| [Trillium](../clusters/trillium.md#caracteristiques-des-noeuds) | 1.97 | 15.4 |
 
 Caractéristiques des bundles
 
 | Grappe | Modèle ou instance | UGR par GPU | Bundle par GPU | Recommandation par GPU |
 | :----- | :----------------- | :---------- | :------------- | :--------------------- |
-| [Fir](fir.md#caracteristiques-des-noeuds) | **H100-80gb** | **12.2** | **12 cœurs, 288GB** | **12 cœurs, 280GB** |
+| [Fir](../software/fir.md#caracteristiques-des-noeuds) | **H100-80gb** | **12.2** | **12 cœurs, 288GB** | **12 cœurs, 280GB** |
 | | H100-1g.10gb | 1.74 | 1.7 cœurs, 41GB | 1 cœurs, 35GB |
 | | H100-2g.20gb | 3.48 | 3.4 cœurs, 82GB | 3 cœurs, 70GB |
 | | H100-3g.40gb | 6.1 | 6 cœurs, 144GB | 6 cœurs, 140GB |
-| [Narval](narval.md#caracteristiques-des-noeuds) | **A100-40gb** | **4.0** | **12 cœurs, 124.5GB** | **12 cœurs, 124GB** |
+| [Narval](../clusters/narval.md#caracteristiques-des-noeuds) | **A100-40gb** | **4.0** | **12 cœurs, 124.5GB** | **12 cœurs, 124GB** |
 | | A100-1g.5gb | 0.57 | 1.7 cœurs, 17.7GB | 1 cœur, 15GB |
 | | A100-2g.10gb | 1.14 | 3.4 cœurs, 35.4GB | 3 cœurs, 31GB |
 | | A100-3g.20gb | 2.0 | 6.0 cœurs, 62.2GB | 6 cœurs, 62GB |
 | | A100-4g.20gb | 2.3 | 6.9 cœurs, 71.5GB | 6 cœurs, 62GB |
-| [Nibi](nibi.md#caracteristiques-des-noeuds) | **H100-80gb** | **12.2** | **14 cœurs, 250GB** | **14 cœurs, 250GB** |
+| [Nibi](../clusters/nibi.md#caracteristiques-des-noeuds) | **H100-80gb** | **12.2** | **14 cœurs, 250GB** | **14 cœurs, 250GB** |
 | | H100-1g.10gb | 1.74 | 2 cœurs, 35.7GB | 2 cœurs, 31GB |
 | | H100-2g.20gb | 3.48 | 4 cœurs, 71.4GB | 4 cœurs, 62GB |
 | | H100-3g.40gb | 6.1 | 7 cœurs, 125GB | 6 cœurs, 124GB |
-| [Rorqual](rorqual.md#caracteristiques-des-noeuds) | **H100-80gb** | **12.2** | **16 cœurs, 124.5GB** | **16 cœurs, 124GB** |
+| [Rorqual](../clusters/rorqual.md#caracteristiques-des-noeuds) | **H100-80gb** | **12.2** | **16 cœurs, 124.5GB** | **16 cœurs, 124GB** |
 | | H100-1g.10gb | 1.74 | 2.3 cœurs, 17.7GB | 2 cœurs, 15GB |
 | | H100-2g.20gb | 3.48 | 4.5 cœurs, 35.4GB | 4 cœurs, 31GB |
 | | H100-3g.40gb | 6.1 | 8 cœurs, 62.2GB | 8 cœurs, 62GB |
-| [Trillium](trillium.md#caracteristiques-des-noeuds) | **H100-80gb** | **12.2** | **24 cœurs, 188GB** | **24 cœurs, 188GB** |
+| [Trillium](../clusters/trillium.md#caracteristiques-des-noeuds) | **H100-80gb** | **12.2** | **24 cœurs, 188GB** | **24 cœurs, 188GB** |
 
 **Remarque :** Si l'ordonnanceur établit la priorité sur la base de l'utilisation calculée avec les bundles, une demande de plusieurs GPU sur un même nœud doit aussi tenir compte des ratios physiques.
 
@@ -351,7 +351,7 @@ Le portail [portal.alliancecan.ca/slurm](https://portal.alliancecan.ca/slurm) of
 ## Utilisation par un compte particulier
 
 Utilisation par un compte particulier
-Si vous avez accès à plusieurs [comptes Slurm](running-jobs.md#comptes-et-projets), sélectionnez celui qui vous intéresse dans la liste sous *Compte SLURM ---> Sélectionner le compte de l'utilisateur*. Si *Sélectionner le compte de l'utilisateur* est vide, l'image montre l'utilisation faite par tous vos comptes sur la grappe sélectionnée et au cours de la période spécifiée. Le menu déroulant *Sélectionner le compte de l'utilisateur* liste tous les comptes pour lesquels des tâches ont été exécutées au cours de la période. Les autres comptes auxquels vous avez accès mais qui n'ont pas utilisé la grappe sélectionnée au cours de la période spécifiée sont aussi listés; cependant, puisque ces comptes ne généreront pas d'image, ils sont grisés et ne peuvent pas être sélectionnés. Lorsque vous sélectionnez un seul compte de projet, l'image est mise à jour et les détails du compte sont affichés dans le panneau *Informations sur l'allocation*. La hauteur de chaque barre correspond à la mesure de ce jour (par exemple, les jours pour les équivalents CPU) pour tous les utilisateurs du compte dans le système sélectionné. L'utilisation par les sept principaux utilisateurs est représentée par une couleur spécifique à chacun. La couleur grise sur laquelle les autres couleurs sont empilées représente l'utilisation par tous les autres utilisateurs. Vous pouvez parcourir l'image avec les outils [Plotly](https://plotly.com/graphing-libraries/) (zoom, panoramique, etc.) dont les icônes paraissent en haut à droite quand votre souris survole l'image. Vous pouvez également utiliser la légende sur le côté droit pour manipuler l'image. Cliquez sur un des éléments dans l'image pour le cacher ou le montrer de nouveau. Double-cliquer sur un élément cache ou montre tous les autres éléments dans l'image.
+Si vous avez accès à plusieurs [comptes Slurm](running_jobs.md#comptes-et-projets), sélectionnez celui qui vous intéresse dans la liste sous *Compte SLURM ---> Sélectionner le compte de l'utilisateur*. Si *Sélectionner le compte de l'utilisateur* est vide, l'image montre l'utilisation faite par tous vos comptes sur la grappe sélectionnée et au cours de la période spécifiée. Le menu déroulant *Sélectionner le compte de l'utilisateur* liste tous les comptes pour lesquels des tâches ont été exécutées au cours de la période. Les autres comptes auxquels vous avez accès mais qui n'ont pas utilisé la grappe sélectionnée au cours de la période spécifiée sont aussi listés; cependant, puisque ces comptes ne généreront pas d'image, ils sont grisés et ne peuvent pas être sélectionnés. Lorsque vous sélectionnez un seul compte de projet, l'image est mise à jour et les détails du compte sont affichés dans le panneau *Informations sur l'allocation*. La hauteur de chaque barre correspond à la mesure de ce jour (par exemple, les jours pour les équivalents CPU) pour tous les utilisateurs du compte dans le système sélectionné. L'utilisation par les sept principaux utilisateurs est représentée par une couleur spécifique à chacun. La couleur grise sur laquelle les autres couleurs sont empilées représente l'utilisation par tous les autres utilisateurs. Vous pouvez parcourir l'image avec les outils [Plotly](https://plotly.com/graphing-libraries/) (zoom, panoramique, etc.) dont les icônes paraissent en haut à droite quand votre souris survole l'image. Vous pouvez également utiliser la légende sur le côté droit pour manipuler l'image. Cliquez sur un des éléments dans l'image pour le cacher ou le montrer de nouveau. Double-cliquer sur un élément cache ou montre tous les autres éléments dans l'image.
 
 ## Options de la légende
 
@@ -413,7 +413,7 @@ La première barre d’onglets offre les vues suivantes :
 *   **Par ressource de calcul**; nom de la grappe sur laquelle les tâches ont été soumises.
 *   **Par projet (RAPI)**; projets auxquels les tâches ont été soumises.
 *   **Par utilisateur**; utilisatrice ou utilisateur ayant soumis les tâches.
-*   **Utilisation du stockage**; voyez [Stockage et gestion des fichiers](storage-and-file-management.md).
+*   **Utilisation du stockage**; voyez [Stockage et gestion des fichiers](../storage-and-data/storage_and_file_management.md).
 
 ## Utilisation par ressource de calcul
 

@@ -96,9 +96,9 @@ The following metrics are available, among others:
 
 Several specialized software libraries exist for quantum computing and developing quantum algorithms. These libraries allow you to build circuits that are executed on simulators that mimic the performance and results obtained on a quantum computer such as MonarQ. They can be used on all Alliance clusters.
 
-*   [PennyLane](pennylane.md), Python software library
-*   [Snowflurry](snowflurry.md), Julia software library
-*   [Qiskit](qiskit.md), Python software library
+*   [PennyLane](../software/quantum/pennylane.md), Python software library
+*   [Snowflurry](../software/quantum/snowflurry.md), Julia software library
+*   [Qiskit](../software/quantum/qiskit.md), Python software library
 
 The quantum logic gates of the MonarQ processor are called via a [Snowflurry](https://github.com/SnowflurrySDK/Snowflurry.jl) software library, written in [Julia](https://julialang.org/). Although MonarQ is natively compatible with Snowflurry, a [PennyLane-CalculQuébec](https://github.com/calculquebec/pennylane-snowflurry) plugin developed by Calcul Québec allows circuits to be run on MonarQ while benefiting from the functionalities and development environment offered by [PennyLane](https://docs.alliancecan.ca/wiki/PennyLane).
 
@@ -109,7 +109,7 @@ The quantum logic gates of the MonarQ processor are called via a [Snowflurry](ht
 
 ### Step 1: Connect to [Narval](narval.md)
 *   MonarQ is only accessible from Narval, a Calcul Québec cluster. Access to Narval is via the connection node **narval.alliancecan.ca**.
-*   For help connecting to Narval, see the [SSH](ssh.md) page.
+*   For help connecting to Narval, see the [SSH](../getting-started/ssh.md) page.
 
 ### Step 2: Create the Environment
 *   Create a Python virtual environment (3.11 or later) to use PennyLane and the [PennyLane-CalculQuébec](https://github.com/calculquebec/pennylane-snowflurry) plugin. These are already installed on Narval, and you will only need to import the software libraries you wish to use.
@@ -175,7 +175,7 @@ python my_circuit.py
 ```
 *   The circuit's result is written to a file named starting with `slurm-`, followed by the job ID and the `.out` suffix, for example, *slurm-123456.out*.
 *   This file contains the result of our circuit in a dictionary `{'000': 496, '001': 0, '010': 0, '011': 0, '100': 0, '101': 0, '110': 0, '111': 504}`.
-*   For more information on how to submit jobs on Narval, see [Running Jobs](running-jobs.md).
+*   For more information on how to submit jobs on Narval, see [Running Jobs](../running-jobs/running_jobs.md).
 
 ## Common Questions
 *   [Frequently Asked Questions (FAQ)](https://docs.google.com/document/d/13sfHwJTo5tcmzCZQqeDmAw005v8I5iFeKp3Xc_TdT3U/edit?tab=t.0)

@@ -51,4 +51,4 @@ sage
 sage:
 ```
 
-Parmi les autres logiciels libres (*open source*) qui peuvent vous intéresser et qui sont [des modules](utiliser-des-modules.md) disponibles sur nos grappes, on trouve [Number Theory Library (NTL)](https://www.shoup.net/ntl/) (`ntl`), [SINGULAR](https://www.singular.uni-kl.de/) (`singular`), [Macaulay2](https://faculty.math.illinois.edu/Macaulay2/) (`m2`) et [PARI/GP](http://pari.math.u-bordeaux.fr/) (`pari-gp`).
+Parmi les autres logiciels libres (*open source*) qui peuvent vous intéresser et qui sont [des modules](../programming/utiliser_des_modules.md) disponibles sur nos grappes, on trouve [Number Theory Library (NTL)](https://www.shoup.net/ntl/) (`ntl`), [SINGULAR](https://www.singular.uni-kl.de/) (`singular`), [Macaulay2](https://faculty.math.illinois.edu/Macaulay2/) (`m2`) et [PARI/GP](http://pari.math.u-bordeaux.fr/) (`pari-gp`).

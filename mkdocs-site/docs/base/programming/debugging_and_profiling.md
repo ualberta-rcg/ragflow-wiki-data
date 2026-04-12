@@ -42,7 +42,7 @@ An important step in the software development process, particularly for compiled
 Our national clusters offer a variety of debugging and profiling tools, both command line and those with a graphical user interface, whose use requires an X11 connection.
 
 !!! note
-    Debugging sessions should be conducted using an [interactive job](running-jobs.md#interactive-jobs) and not run on a login node.
+    Debugging sessions should be conducted using an [interactive job](../running-jobs/running_jobs.md#interactive-jobs) and not run on a login node.
 
 ## GNU debugger (gdb)
 
@@ -54,7 +54,7 @@ Please see the [Pgdbg page](https://docs.alliancecan.ca/wiki/Pgdbg).
 
 ## ARM debugger (ddt)
 
-Please see the [ARM software page](arm-software.md).
+Please see the [ARM software page](../software/arm_software.md).
 
 ## GNU profiler (gprof)
 
@@ -72,7 +72,7 @@ The current version is **2.5**. More information can be found in the 2.x user gu
 
 ## PGI profiler (pgprof)
 
-Please see the [Pgprof page](pgprof.md).
+Please see the [Pgprof page](../software/pgprof.md).
 
 ## Nvidia command-line profiler (nvprof)
 
@@ -80,7 +80,7 @@ Please see the [nvprof page](nvprof.md).
 
 ## Valgrind
 
-Please see the [Valgrind page](valgrind.md).
+Please see the [Valgrind page](../software/valgrind.md).
 
 # External references
 

@@ -75,16 +75,16 @@ The command above does not compress the data. If you believe it would be appropr
 
 ## Step 3: Preparing the Virtual Environment
 
-[Create a virtual environment](python.md#create-and-use-a-virtual-environment) in your home directory.
+[Create a virtual environment](../python.md#create-and-use-a-virtual-environment) in your home directory.
 
 For details on installing and using different machine learning frameworks, refer to our documentation:
 
-*   [PyTorch](pytorch.md)
-*   [TensorFlow](tensorflow.md)
+*   [PyTorch](../pytorch.md)
+*   [TensorFlow](../tensorflow.md)
 
 ## Step 4: Interactive Job (salloc)
 
-We recommend trying your job in an [interactive job](running-jobs.md#interactive-jobs) before submitting it with a script (next section). This will allow you to diagnose problems more quickly. Here is an example command to submit an interactive job:
+We recommend trying your job in an [interactive job](../../running-jobs/running_jobs.md#interactive-jobs) before submitting it with a script (next section). This will allow you to diagnose problems more quickly. Here is an example command to submit an interactive job:
 
 ```bash
 salloc --account=def-someuser --gres=gpu:1 --cpus-per-task=3 --mem=32000M --time=1:00:00
@@ -94,15 +94,15 @@ Once in the job:
 
 *   Activate your Python virtual environment
 *   Attempt to run your program
-*   Install missing packages if necessary. Since compute nodes do not have Internet access, you will need to perform the installation from a login node. Refer to our [Python virtual environments documentation](python.md#create-and-use-a-virtual-environment) for more details.
+*   Install missing packages if necessary. Since compute nodes do not have Internet access, you will need to perform the installation from a login node. Refer to our [Python virtual environments documentation](../python.md#create-and-use-a-virtual-environment) for more details.
 *   Note the steps that were necessary to get your program working
 
 !!! tip
-    Now is a good time to ensure your job reads from and writes to the compute node's local storage (`$SLURM_TMPDIR`) as much as possible, and as little as possible to the [shared file systems (home, scratch, project)](storage-and-file-management.md).
+    Now is a good time to ensure your job reads from and writes to the compute node's local storage (`$SLURM_TMPDIR`) as much as possible, and as little as possible to the [shared file systems (home, scratch, project)](../../storage-and-data/storage_and_file_management.md).
 
 ## Step 5: Scripted Job (sbatch)
 
-You must [submit your jobs](running-jobs.md#submit-jobs-with-sbatch) using `sbatch` scripts so that they can be fully automated. Interactive jobs are only used to prepare and debug jobs that will then be executed entirely and/or at scale using `sbatch`.
+You must [submit your jobs](../../running-jobs/running_jobs.md#submit-jobs-with-sbatch) using `sbatch` scripts so that they can be fully automated. Interactive jobs are only used to prepare and debug jobs that will then be executed entirely and/or at scale using `sbatch`.
 
 ### Important Elements of an `sbatch` Script
 

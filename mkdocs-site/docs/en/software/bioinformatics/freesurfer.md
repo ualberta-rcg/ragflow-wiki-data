@@ -62,17 +62,17 @@ source $EBROOTFREESURFER/FreeSurferEnv.sh
 ```
 
 ## FreeSurfer 6.0 and newer versions
-Due to a change in the [license terms](https://surfer.nmr.mgh.harvard.edu/fswiki/FreeSurferSoftwareLicense), we **no longer** install the code as a central module. If needed, please install it in your `/home` directory or in your `/project` space with EasyBuild. Please follow the instructions below and if needed, contact [technical support](technical-support.md) for assistance.
+Due to a change in the [license terms](https://surfer.nmr.mgh.harvard.edu/fswiki/FreeSurferSoftwareLicense), we **no longer** install the code as a central module. If needed, please install it in your `/home` directory or in your `/project` space with EasyBuild. Please follow the instructions below and if needed, contact [technical support](../../support/technical_support.md) for assistance.
 
 ### Download the software
 Select a version (6.0.0 or newer) in the [download repository](https://surfer.nmr.mgh.harvard.edu/pub/dist/freesurfer/) and download the corresponding `freesurfer-Linux*vX.Y.Z.tar.gz` archive on your favourite cluster.
 
 ### Installation in your /home directory with EasyBuild
-The following procedure will install FreeSurfer 6.0.0 in `/home/$USER/.local/easybuild/software/2020/Core/freesurfer/6.0.0/`. The installation requires some memory and due to the restrictions of memory stack size on the login nodes on our clusters, the installation may fail because of the memory. To overcome this issue, you may need to use an [interactive job](running-jobs.md#interactive-jobs) by asking for enough memory (8 GB or so) to install the code.
+The following procedure will install FreeSurfer 6.0.0 in `/home/$USER/.local/easybuild/software/2020/Core/freesurfer/6.0.0/`. The installation requires some memory and due to the restrictions of memory stack size on the login nodes on our clusters, the installation may fail because of the memory. To overcome this issue, you may need to use an [interactive job](../../running-jobs/running_jobs.md#interactive-jobs) by asking for enough memory (8 GB or so) to install the code.
 
 1.  Go to the folder that contains the `freesurfer-Linux-centos6_x86_64-stable-pub-v6.0.0.tar.gz` archive.
 2.  Unload all modules with `module purge`.
-3.  Install with [EasyBuild](easybuild.md) using `eb FreeSurfer-6.0.0-centos6_x86_64.eb --disable-enforce-checksums`.
+3.  Install with [EasyBuild](../../programming/easybuild.md) using `eb FreeSurfer-6.0.0-centos6_x86_64.eb --disable-enforce-checksums`.
 4.  Register for the FreeSurfer license key [here](https://surfer.nmr.mgh.harvard.edu/registration.html).
 5.  Your user license will have to go in:
 
@@ -95,7 +95,7 @@ To load the private module: `module load freesurfer/6.0.0`
 As of August 2020, we were supporting up to version 6.0.1. You can check for [newer versions here](https://github.com/ComputeCanada/easybuild-easyconfigs/tree/computecanada-master/easybuild/easyconfigs/f/FreeSurfer).
 
 ### EasyBuild recipes
-You can check the EasyBuild recipes for FreeSurfer [online](https://github.com/ComputeCanada/easybuild-easyconfigs/tree/computecanada-master/easybuild/easyconfigs/f/FreeSurfer) on GitHub or via a command line, `eb -S FreeSurfer`, from any of our clusters. If the version you are looking for is not listed, you may try to install the program with the option `--try-software-version=<the new version>`. If that did not work, please contact [technical support](technical-support.md) for help.
+You can check the EasyBuild recipes for FreeSurfer [online](https://github.com/ComputeCanada/easybuild-easyconfigs/tree/computecanada-master/easybuild/easyconfigs/f/FreeSurfer) on GitHub or via a command line, `eb -S FreeSurfer`, from any of our clusters. If the version you are looking for is not listed, you may try to install the program with the option `--try-software-version=<the new version>`. If that did not work, please contact [technical support](../../support/technical_support.md) for help.
 
 ### Installation in a shared folder
 Using EasyBuild, it is possible to install the program in a shared location (like `/project`) and make the code available for any other member of the group. The following will install FreeSurfer under the directory `/home/$USER/projects/def-someuser/$USER/software` and the module under the user's directory `/home/$USER/.local/easybuild/modules/2020/Core/freesurfer`.
@@ -112,7 +112,7 @@ If it complains about **checksums**, add the option `--disable-enforce-checksums
 
 To make the program accessible for all members of the group, two more steps are required:
 
-*   You need to give all members of your group read and exec access to the installation directory `/home/$USER/projects/def-someuser/$USER`. To see how to give them access to this directory, please read [Changing the permissions of existing files](sharing-data.md#changing-the-permissions-of-existing-files).
+*   You need to give all members of your group read and exec access to the installation directory `/home/$USER/projects/def-someuser/$USER`. To see how to give them access to this directory, please read [Changing the permissions of existing files](../../storage-and-data/sharing_data.md#changing-the-permissions-of-existing-files).
 *   Each member of the group will need to put the module file in their own `/home` directories. The module file `6.0.1.lua` is located under the directory:
 
     ```text

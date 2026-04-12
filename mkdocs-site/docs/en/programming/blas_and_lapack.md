@@ -60,7 +60,7 @@ Unfortunately, testing which implementation performs best for a given code and g
 ## Which implementation should I use?
 
 !!! tip
-    For the past few years, we have been recommending using Intel MKL as a reference implementation. This recommendation was driven by the fact that we only had Intel processors in our clusters. This changed with the arrival of [Narval](narval.md), which is built with AMD processors. We now recommend using FlexiBLAS when compiling code. Our FlexiBLAS module is configured such that Intel MKL will be used except when using AMD processors, in which case BLIS will be used. This arrangement will usually offer optimal performance.
+    For the past few years, we have been recommending using Intel MKL as a reference implementation. This recommendation was driven by the fact that we only had Intel processors in our clusters. This changed with the arrival of [Narval](../clusters/narval.md), which is built with AMD processors. We now recommend using FlexiBLAS when compiling code. Our FlexiBLAS module is configured such that Intel MKL will be used except when using AMD processors, in which case BLIS will be used. This arrangement will usually offer optimal performance.
 
 ## How do I compile against FlexiBLAS?
 
@@ -74,7 +74,7 @@ The main benefit of using FlexiBLAS is the ability to change the implementation 
 flexiblas list
 ```
 
-On [Narval](narval.md), we have set `FLEXIBLAS=blis` to use BLIS by default, while on other clusters, `FLEXIBLAS` is left undefined, which defaults to using Intel MKL.
+On [Narval](../clusters/narval.md), we have set `FLEXIBLAS=blis` to use BLIS by default, while on other clusters, `FLEXIBLAS` is left undefined, which defaults to using Intel MKL.
 
 ## Using Intel MKL directly
 

@@ -83,7 +83,7 @@ Structure[^homepage] is a free software package for using multilocus genotype da
 ## Installed versions
 
 At the time of writing, Structure v2.3.4 has been installed (module: `structure/2.3.4`).
-Please look on page [Available software](available-software.md) for module `structure` for an up-to-date list of installed versions.
+Please look on page [Available software](../programming/available_software.md) for module `structure` for an up-to-date list of installed versions.
 
 ## Usage
 
@@ -110,7 +110,7 @@ The Structure software in itself is not able to run in parallel; however, as pop
 There is an example for running StrAuto jobs on HPC clusters using the Slurm Workload manager outlined in chapter 8 of the StrAuto User Guide[^strauto_doc].
 The example works best when the total number of Structure runs is a multiple of the number of requested tasks, as otherwise some of the allocated CPUs will sit idle while the last Structure runs are being executed. This may lead to a significant waste of computing resources.
 
-Moreover, the requested maximum job time needs to be sufficiently large to accommodate multiple subsequent Structure runs. While this can be a sensible choice for relatively short runs, jobs with long walltimes will typically have to wait longer until they are dispatched due to [job scheduling policies](job-scheduling-policies.md#time-limits).
+Moreover, the requested maximum job time needs to be sufficiently large to accommodate multiple subsequent Structure runs. While this can be a sensible choice for relatively short runs, jobs with long walltimes will typically have to wait longer until they are dispatched due to [job scheduling policies](../running-jobs/job_scheduling_policies.md#time-limits).
 Therefore, in cases where an individual Structure run takes more than just a few hours to finish, we recommend submitting each Structure run as an individual job to Slurm.
 
 ### Running a set of longer Structure runs

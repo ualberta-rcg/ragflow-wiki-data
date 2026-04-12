@@ -91,9 +91,9 @@ status:
   qa_generated: false
 ---
 
-*Page enfant de [Exécuter des tâches](running-jobs.md)*
+*Page enfant de [Exécuter des tâches](running_jobs.md)*
 
-Beaucoup de travail peut être accompli sur nos grappes en [soumettant des tâches](running-jobs.md) qui ne spécifient que le nombre de cœurs requis et la durée maximale d'exécution. Si par contre vous voulez soumettre plusieurs tâches ou des tâches qui nécessitent une grande quantité de ressources, vous gagnerez sans doute en productivité avec une bonne connaissance de notre politique d'ordonnancement.
+Beaucoup de travail peut être accompli sur nos grappes en [soumettant des tâches](running_jobs.md) qui ne spécifient que le nombre de cœurs requis et la durée maximale d'exécution. Si par contre vous voulez soumettre plusieurs tâches ou des tâches qui nécessitent une grande quantité de ressources, vous gagnerez sans doute en productivité avec une bonne connaissance de notre politique d'ordonnancement.
 
 ## Priorisation selon la juste part
 
@@ -103,7 +103,7 @@ Chaque tâche est facturée à un projet d'allocation de ressources. Le projet e
 *   Pour un projet auquel du temps CPU ou GPU a été alloué dans le cadre du [concours d'allocation de ressources](https://www.computecanada.ca/page-daccueil-du-portail-de-recherche/acces-aux-ressources/concours-dallocation-des-ressources/?lang=fr), le code du compte commence généralement par `rrg-` ou `rpp-`.
 *   Pour un projet utilisant le service d'accès rapide, le nom du compte commence généralement par `def-`.
 
-Pour savoir quel code utiliser, consultez la section *Comptes et projets* de la page [Exécuter des tâches](running-jobs.md).
+Pour savoir quel code utiliser, consultez la section *Comptes et projets* de la page [Exécuter des tâches](running_jobs.md).
 
 À chaque projet est attribuée une cible d'utilisation (*target usage level*).
 *   Les projets auxquels des ressources sont allouées via le concours ont une cible d'utilisation qui dépend de la quantité de CPU-années ou de GPU-années qui a été allouée.
@@ -141,19 +141,19 @@ La documentation Slurm nomme *association* le projet par lui-même ou l'utilisat
 
 Un projet pour lequel la cible est utilisée de façon régulière verra sa valeur pour *LevelFS* proche de 1.0. Si la cible est dépassée, *LevelFS* sera sous 1.0. et les nouvelles tâches pour le projet recevront aussi une basse priorité. Si l'utilisation est inférieure à la cible, *LevelFS* sera plus grand que 1.0 et les nouvelles tâches bénéficieront d'une priorité élevée.
 
-**Voir aussi** [Allocation et ordonnancement des tâches de calcul](allocations-and-compute-scheduling.md).
+**Voir aussi** [Allocation et ordonnancement des tâches de calcul](allocations_and_compute_scheduling.md).
 
 ## Nœuds entiers ou cœurs
 
-Les applications pouvant utiliser de façon efficace plus de cœurs qu'on trouve dans un nœud simple pourraient être mieux servies avec des nœuds entiers. Certaines grappes réservent des nœuds pour les tâches nécessitant plus qu'un nœud complet. Pour plus d'information et des exemples de scripts, voyez la section [Nœuds entiers](advanced-mpi-scheduling.md#nœuds-entiers) de la page [Contrôle de l'ordonnancement avec MPI](advanced-mpi-scheduling.md).
+Les applications pouvant utiliser de façon efficace plus de cœurs qu'on trouve dans un nœud simple pourraient être mieux servies avec des nœuds entiers. Certaines grappes réservent des nœuds pour les tâches nécessitant plus qu'un nœud complet. Pour plus d'information et des exemples de scripts, voyez la section [Nœuds entiers](advanced_mpi_scheduling.md#nœuds-entiers) de la page [Contrôle de l'ordonnancement avec MPI](advanced_mpi_scheduling.md).
 
 Prenez note que le fait de demander un nombre inefficace de processeurs dans le simple but de profiter de tout avantage conféré par l'ordonnancement pour un nœud entier sera interprété comme étant un abus injustifié des ressources. Par exemple, pour un programme ayant un temps d'exécution semblable sur 192 cœurs et 64 cœurs, la requête devrait être de 64 cœurs et non de 192 cœurs.
 
-Si vous avez une grande quantité de tâches en série et que vous pouvez bien utiliser [META-Farm](meta-farm.md), [GNU Parallel](gnu-parallel.md), [GLOST](glost.md) ou [d'autres techniques](https://docs.scinet.utoronto.ca/index.php/Running_Serial_Jobs_on_Niagara) pour rassembler ces tâches pour un seul nœud, nous vous invitons à le faire.
+Si vous avez une grande quantité de tâches en série et que vous pouvez bien utiliser [META-Farm](meta-farm.md), [GNU Parallel](gnu_parallel.md), [GLOST](glost.md) ou [d'autres techniques](https://docs.scinet.utoronto.ca/index.php/Running_Serial_Jobs_on_Niagara) pour rassembler ces tâches pour un seul nœud, nous vous invitons à le faire.
 
 ## Durée maximale
 
-[Trillium](trillium.md) peut accommoder des tâches avec des temps d'exécution pouvant aller jusqu'à 24 heures. La durée maximale avec [Fir](fir.md), [Narval](narval.md), [Nibi](nibi.md) et [Rorqual](rorqual.md) est de 7 jours. Ces durées sont à la discrétion des administrateurs de systèmes et elles sont sujettes à changement.
+[Trillium](../clusters/trillium.md) peut accommoder des tâches avec des temps d'exécution pouvant aller jusqu'à 24 heures. La durée maximale avec [Fir](../software/fir.md), [Narval](../clusters/narval.md), [Nibi](../clusters/nibi.md) et [Rorqual](../clusters/rorqual.md) est de 7 jours. Ces durées sont à la discrétion des administrateurs de systèmes et elles sont sujettes à changement.
 
 Avec les grappes d'usage général, les tâches de longue durée ne peuvent utiliser qu'une portion de la grappe par partitionnement. Il y a des partitions pour des tâches ayant des temps d'exécution de
 *   3 heures ou moins,
@@ -254,14 +254,14 @@ Les partitions sont organisées un peu comme des [poupées russes](https://fr.wi
 
 L'utilitaire `partition-stats` ne donne aucun renseignement sur le nombre de cœurs utilisés par les tâches en cours ou en attente; le nombre de cœurs libres dans les partitions par cœur des nœuds partiellement assignés; et la mémoire disponible associée avec les cœurs libres dans les partitions *par cœur*.
 
-Le fait d'exécuter `partition-stats` exige beaucoup de l'ordonnanceur. Évitez donc de faire des appels automatiques de façon répétitive dans vos scripts. Si vous croyez qu'il serait avantageux d'utiliser `partition-stats`, contactez le [soutien technique](technical-support.md) pour savoir comment procéder.
+Le fait d'exécuter `partition-stats` exige beaucoup de l'ordonnanceur. Évitez donc de faire des appels automatiques de façon répétitive dans vos scripts. Si vous croyez qu'il serait avantageux d'utiliser `partition-stats`, contactez le [soutien technique](../support/technical_support.md) pour savoir comment procéder.
 
 ## Nombre de tâches
 
 Il est possible qu'une limite soit imposée au nombre de tâches exécutées au même moment.
 
-Pour [Narval](narval.md), [Nibi](nibi.md) et [Rorqual](rorqual.md), un compte normal ne peut avoir plus de 1000 tâches en exécution ou en attente au même moment. Dans [un vecteur de tâches](job-arrays.md), chacune compte pour une tâche. Le paramètre Slurm [MaxSubmit](https://slurm.schedmd.com/sacctmgr.html) en fixe la limite.
+Pour [Narval](../clusters/narval.md), [Nibi](../clusters/nibi.md) et [Rorqual](../clusters/rorqual.md), un compte normal ne peut avoir plus de 1000 tâches en exécution ou en attente au même moment. Dans [un vecteur de tâches](job_arrays.md), chacune compte pour une tâche. Le paramètre Slurm [MaxSubmit](https://slurm.schedmd.com/sacctmgr.html) en fixe la limite.
 
 ## Changements à nos politiques d'ordonnancement
 
-La page [Mise à jour de nos politiques d'ordonnancement](scheduling-policy-updates.md) liste des changements susceptibles de modifier le résultat de vos scripts.
+La page [Mise à jour de nos politiques d'ordonnancement](scheduling_policy_updates.md) liste des changements susceptibles de modifier le résultat de vos scripts.

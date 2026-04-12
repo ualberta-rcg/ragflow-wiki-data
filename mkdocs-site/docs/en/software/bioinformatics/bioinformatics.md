@@ -44,17 +44,17 @@ A dedicated Bioinformatics National Team is available to assist with tool select
 
 ## Software
 
-See [Available software](available-software.md#list-of-globally-installed-modules) for a list of bioinformatics applications on our systems.
+See [Available software](../../programming/available_software.md#list-of-globally-installed-modules) for a list of bioinformatics applications on our systems.
 You can sort on *Type*, where bioinformatics software is categorized as *bio*.
 
 Much bioinformatics software can be installed via Conda.
-We do not support the use of Conda directly on Alliance systems for reasons you can read at [Anaconda](anaconda.md).
-However, you can build a Conda environment inside an Apptainer container. Check [here](apptainer.md#using-conda-in-apptainer) for more details.
+We do not support the use of Conda directly on Alliance systems for reasons you can read at [Anaconda](../anaconda.md).
+However, you can build a Conda environment inside an Apptainer container. Check [here](../containers/apptainer.md#using-conda-in-apptainer) for more details.
 
 Much bioinformatics software is available as Python packages.
-Python packages which have been customized for use on our systems are listed at [Available Python wheels](available-python-wheels.md).
+Python packages which have been customized for use on our systems are listed at [Available Python wheels](../../programming/available_python_wheels.md).
 Packages not found there may be obtained from the internet in the usual fashion.
-See [Python](python.md#creating-and-using-a-virtual-environment) for guidance on both these things.
+See [Python](../python.md#creating-and-using-a-virtual-environment) for guidance on both these things.
 
 ## Data
 
@@ -73,7 +73,7 @@ Additional datasets and databases may be found in the following locations:
 
 The Canadian Centre for Computational Genomics (C3G), is a bioinformatics core facility affiliated with McGill University.
 It collaborates with the Alliance to offer bespoke bioinformatics services and supports the bioinformatics community as members of the Alliance's Bioinformatics National Team.
-C3G maintains two [CVMFS](cvmfs.md) repositories:
+C3G maintains two [CVMFS](../cvmfs/cvmfs.md) repositories:
 * `soft.mugqic` contains many open-source bioinformatics tools installed as modules
 * `ref.mugqic` contains reference genomes and their indices and annotations for many common model organisms.
 For requests or questions about `mugqic` repositories, contact C3G at [tech.dev@computationalgenomics.ca](mailto:tech.dev@computationalgenomics.ca)

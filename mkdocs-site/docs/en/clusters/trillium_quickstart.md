@@ -168,20 +168,20 @@ Trillium is a large parallel cluster built by Lenovo Canada and hosted by SciNet
 
 You need an active [CCDB](https://ccdb.alliancecan.ca) account from the [Digital Research Alliance of Canada](https://alliancecan.ca/en). With that, you can then request access to Trillium on the [Access Systems](https://ccdb.alliancecan.ca/me/access_systems) page on the [CCDB](https://ccdb.alliancecan.ca) site. After clicking the "I request access" button, it usually takes about an hour for your account to be actually created and available on Trillium.
 
-Please read this present document carefully. The [Frequently Asked Questions](frequently-asked-questions.md) is also a useful resource. If at any time you require assistance, or if something is unclear, please do not hesitate to [contact us](mailto:trillium@tech.alliancecan.ca).
+Please read this present document carefully. The [Frequently Asked Questions](../getting-started/frequently_asked_questions.md) is also a useful resource. If at any time you require assistance, or if something is unclear, please do not hesitate to [contact us](mailto:trillium@tech.alliancecan.ca).
 
 ## Logging in
 
 There are two ways to access Trillium:
 
-1.  Via your browser with Open OnDemand. This is recommended for users who are not familiar with Linux or the command line. Please see our [Trillium Open OnDemand Quickstart](trillium-open-ondemand-quickstart.md) guide for more instructions on how to use Open OnDemand.
+1.  Via your browser with Open OnDemand. This is recommended for users who are not familiar with Linux or the command line. Please see our [Trillium Open OnDemand Quickstart](../interactive/trillium_open_ondemand_quickstart.md) guide for more instructions on how to use Open OnDemand.
 2.  Terminal access with ssh. Please read the following instructions.
 
-As with all SciNet and Alliance compute systems, access is done via [SSH](ssh.md) (secure shell). Furthermore, for Trillium specifically, authentication is only allowed via SSH keys that are uploaded to the [CCDB](https://ccdb.alliancecan.ca). [Please refer to this page](ssh-keys.md) on how to generate your SSH key pair, upload, and use SSH Keys.
+As with all SciNet and Alliance compute systems, access is done via [SSH](../getting-started/ssh.md) (secure shell). Furthermore, for Trillium specifically, authentication is only allowed via SSH keys that are uploaded to the [CCDB](https://ccdb.alliancecan.ca). [Please refer to this page](../getting-started/ssh_keys.md) on how to generate your SSH key pair, upload, and use SSH Keys.
 
-Trillium runs Rocky Linux 9.6, which is a type of Linux. You will need to be familiar with the Linux shell to work on Trillium. If you are not, it will be worth your time to review the [Linux introduction](linux-introduction.md), to attend a [Linux Shell course](https://explora.alliancecan.ca/events?include_expired=true&keywords=Shell), or to take some of our [Self-paced courses](self-paced-courses.md).
+Trillium runs Rocky Linux 9.6, which is a type of Linux. You will need to be familiar with the Linux shell to work on Trillium. If you are not, it will be worth your time to review the [Linux introduction](../getting-started/linux_introduction.md), to attend a [Linux Shell course](https://explora.alliancecan.ca/events?include_expired=true&keywords=Shell), or to take some of our [Self-paced courses](../support/self-paced_courses.md).
 
-You can use [SSH](ssh.md) by opening a terminal window (e.g. [Connecting with PuTTY](connecting-with-putty.md) on Windows or [Connecting with MobaXTerm](connecting-with-mobaxterm.md)), then SSH into the Trillium login nodes with your CCDB credentials.
+You can use [SSH](../getting-started/ssh.md) by opening a terminal window (e.g. [Connecting with PuTTY](../getting-started/connecting_with_putty.md) on Windows or [Connecting with MobaXTerm](../getting-started/connecting_with_mobaxterm.md)), then SSH into the Trillium login nodes with your CCDB credentials.
 
 *   Use this command to log into one of the login nodes of the CPU subcluster:
 
@@ -198,7 +198,7 @@ ssh -i /PATH/TO/SSH_PRIVATE_KEY MYALLIANCEUSERNAME@trillium-gpu.scinet.utoronto.
 Here, `/PATH/TO/SSH_PRIVATE_KEY` is the path to your private SSH key and `MYALLIANCEUSERNAME` is your username on the CCDB.
 
 !!! note
-    *   The first time you login, you should make sure you are actually accessing Trillium by checking if the [login node ssh host key fingerprint](ssh-security-improvements.md#trillium) matches.
+    *   The first time you login, you should make sure you are actually accessing Trillium by checking if the [login node ssh host key fingerprint](../getting-started/ssh_security_improvements.md#trillium) matches.
     *   The Trillium login nodes are where you develop, edit, compile, prepare and submit jobs.
     *   The CPU login nodes and the GPU login node are not part of the compute nodes but they have the same architecture, operating system, and software stack as the CPU and GPU compute nodes, respectively.
     *   You can ssh from one login node to another using their internal hostnames `tri-login01, ..., tri-login06` and `trig-login01` (the latter is the GPU login node).
@@ -232,7 +232,7 @@ trisetup
 
 The content of the `$HOME/links/projects` will automatically update when you leave or join projects.
 
-On [HPSS](using-nearline-storage.md), the nearline system to be attached to Trillium, there will also be an environment variable called `$ARCHIVE` to point at the location of your top directory there, if you have one.
+On [HPSS](../storage-and-data/using_nearline_storage.md), the nearline system to be attached to Trillium, there will also be an environment variable called `$ARCHIVE` to point at the location of your top directory there, if you have one.
 
 The table below summarized the available space and policies for each location:
 
@@ -279,13 +279,13 @@ Properly managing your software environment is key to avoiding conflicts and ens
 
 *   Be explicit about module versions. Short names like `gcc` will load the system default (e.g., `gcc/12.3`), which may change in the future. Specify full versions (e.g., `gcc/13.3`) for long-term reproducibility.
 
-*   Resolve dependencies with `module spider`. Some modules depend on others. Use `module spider <module-name>` to discover which modules are required and how to load them in the correct order. For more, see [Sub-command spider](utiliser-des-modules.md#sub-command-spider).
+*   Resolve dependencies with `module spider`. Some modules depend on others. Use `module spider <module-name>` to discover which modules are required and how to load them in the correct order. For more, see [Sub-command spider](../programming/utiliser_des_modules.md#sub-command-spider).
 
 ## Using commercial software
 
 You may be able to use commercial software on Trillium, but there are a few important considerations:
 
-*   Bring your own license. You can use commercial software on Trillium if you have a valid license. If the software requires a license server, you can connect to it securely using [SSH tunnelling](ssh-tunnelling.md).
+*   Bring your own license. You can use commercial software on Trillium if you have a valid license. If the software requires a license server, you can connect to it securely using [SSH tunnelling](../getting-started/ssh_tunnelling.md).
 
 *   We do not provide user-specific licenses. Due to the large and diverse user base, we cannot provide licenses for individual or specialized commercial packages.
 
@@ -304,7 +304,7 @@ Before submitting your job to the cluster, it's important to test your code to e
     *   Use only 1–4 CPU cores
     *   Use at most 1 GPU
 
-*   You can also run the parallel [ARM DDT](arm-software.md) debugger on the login nodes after loading it with `module load ddt-cpu` or `module load ddt-gpu`
+*   You can also run the parallel [ARM DDT](../software/arm_software.md) debugger on the login nodes after loading it with `module load ddt-cpu` or `module load ddt-gpu`
 
 *   For tests that exceed login node limits or require dedicated resources, request an interactive debug job using the `debugjob` command on a login node:
 
@@ -334,7 +334,7 @@ where
 *   `N` is the number of nodes
 *   `M` is the number of hours the job should run
 *   `G` is the number of GPUs per node (when applicable).
-*   `--x11` is required for graphical applications (e.g., when using [ARM DDT](arm-software.md)), but otherwise optional.
+*   `--x11` is required for graphical applications (e.g., when using [ARM DDT](../software/arm_software.md)), but otherwise optional.
 
 !!! note
     Jobs submitted with `salloc` may take longer to start than with debugjob and count towards your allocation.
@@ -343,7 +343,7 @@ where
 
 Once you have compiled and tested your code or workflow on the Trillium login nodes and confirmed that it behaves correctly, you are ready to submit jobs to the cluster. These jobs will run on Trillium's compute nodes, and their execution is managed by the scheduler.
 
-Trillium uses SLURM as its job scheduler. More advanced details of how to interact with the scheduler can be found on the [Slurm page](running-jobs.md).
+Trillium uses SLURM as its job scheduler. More advanced details of how to interact with the scheduler can be found on the [Slurm page](../running-jobs/running_jobs.md).
 
 To submit a job, use the `sbatch` command on a login node:
 
@@ -355,13 +355,13 @@ CPU compute jobs need to be submitted from the CPU login nodes, while GPU comput
 
 The `sbatch` command places your job into the queue. The job script should contain lines starting with `#SBATCH` that specify the resources that this script will need (the most common options will be given below). SLURM will begin execution of this script on compute nodes when your job is at the top of the priority queue and these resources are available.
 
-The priority of a job in the queue depends on requested resources, time spent in the queue, recent past usage, as well as on the SLURM account under which the job was submitted. SLURM accounts correspond to [Resource Allocation Projects](frequently-asked-questions-about-the-ccdb.md#resource-allocation-projects-rap), or RAPs:
+The priority of a job in the queue depends on requested resources, time spent in the queue, recent past usage, as well as on the SLURM account under which the job was submitted. SLURM accounts correspond to [Resource Allocation Projects](../getting-started/frequently_asked_questions_about_the_ccdb.md#resource-allocation-projects-rap), or RAPs:
 *   Each PI has at least one RAP, the RAS or default RAP. Users sponsored by that PI have access to the corresponding SLURM account, whose name starts with `def-`.
 *   PIs that have a RAC allocation have an additional RAC RAP, to which they can add users. The names of corresponding SLURM accounts typically start with `rrg-` or `rpp-`. Note that RACs are bound to a system, e.g. a RAC for Nibi cannot be used on Trillium.
 
 ## Trillium specific restrictions
 
-Because Trillium is designed as a system for large parallel jobs, there are some differences with the General Purpose clusters [Fir](fir.md), [Nibi](nibi.md), [Narval](narval.md), and [Rorqual](rorqual.md), which we will now discuss.
+Because Trillium is designed as a system for large parallel jobs, there are some differences with the General Purpose clusters [Fir](../software/fir.md), [Nibi](nibi.md), [Narval](narval.md), and [Rorqual](rorqual.md), which we will now discuss.
 
 ### Job output must be written to the scratch file system
 
@@ -379,11 +379,11 @@ Jobs cannot be submitted from compute nodes (nor datamover nodes). This prevents
 
 ### Whole node or whole GPU scheduling
 
-It is not possible to request a certain number of core on Trillium. On the CPU subcluster, all jobs must use full nodes. That means the minimum size of a CPU job has 192 cores are its disposal which you must use effectively. If you are running serial or low-core-count jobs you must still use all 192 cores on the node by bundling multiple independent tasks in one job script. For examples, see [GNU Parallel](gnu-parallel.md) and [this section of the META-Farm advanced page](meta-farm-advanced-features-and-troubleshooting.md#whole-node-mode).
+It is not possible to request a certain number of core on Trillium. On the CPU subcluster, all jobs must use full nodes. That means the minimum size of a CPU job has 192 cores are its disposal which you must use effectively. If you are running serial or low-core-count jobs you must still use all 192 cores on the node by bundling multiple independent tasks in one job script. For examples, see [GNU Parallel](../running-jobs/gnu_parallel.md) and [this section of the META-Farm advanced page](../running-jobs/meta-farm__advanced_features_and_troubleshooting.md#whole-node-mode).
 
 If your job underutilizes the cores, our support team may reach out to assist you in optimizing your workflow, or you can [contact us](mailto:trillium@tech.alliancecan.ca) to get assistance.
 
-On the GPU subcluster, each node contains 4 GPUs. The scheduler allows you to request either a whole number of nodes, or a single GPU. The latter amounts to a quarter node, with 24 cores and about 188GiB of RAM. It is important to use the GPU efficiently. Trillium does not support MIG as on the other clusters (MIG allows you to schedule a fraction of a GPU), but you can use [Hyper-Q / MPS](hyper-q-mps.md) within your jobs.
+On the GPU subcluster, each node contains 4 GPUs. The scheduler allows you to request either a whole number of nodes, or a single GPU. The latter amounts to a quarter node, with 24 cores and about 188GiB of RAM. It is important to use the GPU efficiently. Trillium does not support MIG as on the other clusters (MIG allows you to schedule a fraction of a GPU), but you can use [Hyper-Q / MPS](../software/hyper-q___mps.md) within your jobs.
 
 ### Memory requests are ignored
 
@@ -410,7 +410,7 @@ The following options are commonly used:
 
 These options should be put in separate comment lines at the top of the job script (but after `#!/bin/bash`), prefixed with `#SBATCH`. They can also be used as command line options for `salloc`. Some examples of job scripts are given below.
 
-More options and details can be found on the [Running jobs](running-jobs.md) page and in the [SLURM documentation](https://slurm.schedmd.com/sbatch.html).
+More options and details can be found on the [Running jobs](../running-jobs/running_jobs.md) page and in the [SLURM documentation](https://slurm.schedmd.com/sbatch.html).
 
 ## Submitting jobs on the CPU subcluster
 
@@ -661,7 +661,7 @@ Once your job is submitted to the queue, you can monitor its status and performa
 *   `jobperf JOBID` gives a live snapshot of the CPU and memory usage of your job while it is running.
 *   `sacct` shows information about your past jobs, including start time, run time, node usage, and exit status.
 
-More details on monitoring jobs can be found on the [Slurm page](running-jobs.md).
+More details on monitoring jobs can be found on the [Slurm page](../running-jobs/running_jobs.md).
 
 ## Monitoring running and past jobs
 

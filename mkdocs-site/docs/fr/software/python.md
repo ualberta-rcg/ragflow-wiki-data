@@ -181,7 +181,7 @@ Les sections suivantes présentent l'interpréteur Python et expliquent comment 
 ## Charger l'interpréteur
 
 ### Version par défaut
-Une version est disponible quand vous vous connectez à nos grappes, mais vous aurez souvent besoin d'une version différente, surtout si vous voulez installer des paquets. Trouvez la version de Python dont vous avez besoin et [chargez le module approprié](utiliser-des-modules.md). En cas de doute, vous pouvez utiliser la plus récente version disponible.mpi4py comme dépendance d'un autre paquet.
+Une version est disponible quand vous vous connectez à nos grappes, mais vous aurez souvent besoin d'une version différente, surtout si vous voulez installer des paquets. Trouvez la version de Python dont vous avez besoin et [chargez le module approprié](../programming/utiliser_des_modules.md). En cas de doute, vous pouvez utiliser la plus récente version disponible.mpi4py comme dépendance d'un autre paquet.
 
 ### Charger un module Python
 Pour connaître les versions disponibles, utilisez
@@ -196,11 +196,11 @@ module load python/X.Y
 où `X.Y` représente la version, par exemple `3.13`.
 
 ### Version prise en charge
-En règle générale dans l'écosystème Python, la transition vers des versions plus modernes s'accélère et plusieurs paquets ne supportent que les quelques dernières versions de Python 3.x. Dans notre cas, nous offrons uniquement des paquets préconstruits ([wheels Python](available-python-wheels.md)) pour les trois versions les plus récentes disponibles sur nos systèmes. Des problèmes de dépendance se présenteront quand vous tentez d'installer ces paquets avec les plus anciennes versions de Python. Voir [la section Dépannage](#message-package-x-requires-a-different-python-xyz-not-in-xy).
+En règle générale dans l'écosystème Python, la transition vers des versions plus modernes s'accélère et plusieurs paquets ne supportent que les quelques dernières versions de Python 3.x. Dans notre cas, nous offrons uniquement des paquets préconstruits ([wheels Python](../programming/available_python_wheels.md)) pour les trois versions les plus récentes disponibles sur nos systèmes. Des problèmes de dépendance se présenteront quand vous tentez d'installer ces paquets avec les plus anciennes versions de Python. Voir [la section Dépannage](#message-package-x-requires-a-different-python-xyz-not-in-xy).
 
 ### Pile logicielle SciPy
 
-En plus du module Python de base, le paquet [SciPy](https://www.scipy.org/) est aussi disponible comme [module d'environnement](utiliser-des-modules.md). Le module `scipy-stack` comprend
+En plus du module Python de base, le paquet [SciPy](https://www.scipy.org/) est aussi disponible comme [module d'environnement](../programming/utiliser_des_modules.md). Le module `scipy-stack` comprend
 * NumPy
 * SciPy
 * Matplotlib
@@ -376,7 +376,7 @@ wrapt==1.13.3+computecanada
 
 Ce fichier fait en sorte que votre environnement puisse être reproduit pour les autres tâches.
 
-Remarquez que les directives ci-dessus exigent que tous les paquets dont vous avez besoin soient disponibles dans les wheels Python que nous fournissons. Si ce n'est pas le cas, vous pouvez le prétélécharger (voir *Prétélécharger des paquets* ci-dessous). Si vous croyez que les wheels devraient être fournis, faites-en la demande au [soutien technique](technical-support.md)
+Remarquez que les directives ci-dessus exigent que tous les paquets dont vous avez besoin soient disponibles dans les wheels Python que nous fournissons. Si ce n'est pas le cas, vous pouvez le prétélécharger (voir *Prétélécharger des paquets* ci-dessous). Si vous croyez que les wheels devraient être fournis, faites-en la demande au [soutien technique](../support/technical_support.md)
 
 #### Créer un environnement virtuel dans vos tâches (plusieurs nœuds)
 
@@ -432,7 +432,7 @@ srun python myscript-mpi.py;
 ```
 
 ### Wheels disponibles
-Les wheels présentement disponibles sont listés sur la page [Wheels Python](available-python-wheels.md). Vous pouvez aussi utiliser la commande `avail_wheels` sur la grappe.
+Les wheels présentement disponibles sont listés sur la page [Wheels Python](../programming/available_python_wheels.md). Vous pouvez aussi utiliser la commande `avail_wheels` sur la grappe.
 Par défaut, cette commande montre seulement
 * la **plus récente version** d'un paquet en particulier, à moins qu'une version particulière n'ait été spécifiée;
 * les versions compatibles avec le module Python chargé ou l'environnement virtuel activé; autrement, toutes les versions sont affichées;
@@ -556,7 +556,7 @@ tabulate   0.8.10     py3       generic
 La procédure suivante prétélécharge le paquet `tensorboardX` sur un nœud de connexion et l'installe sur un nœud de calcul :
 
 1.  Lancez `pip download --no-deps tensorboardX` pour télécharger le paquet `tensorboardX-1.9-py2.py3-none-any.whl` (ou semblable) dans le répertoire de travail. La syntaxe pour `pip download` est la même que celle pour `pip install`.
-2.  Si le nom du fichier ne se termine pas par `none-any`, mais par `linux_x86_64` ou `manylinux*_x86_64`, il est possible que le wheel ne fonctionne pas correctement. Contactez le [soutien technique](technical-support.md) pour que nous le compilions et qu'il soit rendu disponible sur nos superordinateurs.
+2.  Si le nom du fichier ne se termine pas par `none-any`, mais par `linux_x86_64` ou `manylinux*_x86_64`, il est possible que le wheel ne fonctionne pas correctement. Contactez le [soutien technique](../support/technical_support.md) pour que nous le compilions et qu'il soit rendu disponible sur nos superordinateurs.
 3.  À l'installation, utilisez le chemin du fichier `pip install tensorboardX-1.9-py2.py3-none-any.whl`.
 
 ### Installer à partir d'un dépôt à distance (Github)
@@ -721,13 +721,13 @@ print(cubes)
 
 Remarquez que dans cet exemple, la fonction `cube` est en elle-même séquentielle. Il est possible qu'une fonction appelée d'une bibliothèque externe comme `numpy` soit en elle-même parallèle. Pour distribuer des processus avec la technique précédente, vérifiez d'abord si les fonctions appelées sont en elles-mêmes parallèles et si c'est le cas, vous devrez contrôler le nombre de fils qu'elles utiliseront. Si comme dans l'exemple les fonctions utilisent la totalité des cœurs disponibles (ici 32) et que vous lancez 32 processus, votre code sera plus lent et le nœud sera possiblement surchargé.
 
-Comme le module `multiprocessing` ne peut utiliser qu'un seul nœud de calcul, le gain en performance est habituellement limité au nombre de cœurs CPU du nœud. Si vous voulez dépasser cette limite et utiliser plusieurs nœuds, considérez mpi4py ou [PySpark](apache-spark.md#pyspark). Il existe [d'autres méthodes de parallélisation](https://wiki.python.org/moin/ParallelProcessing), mais elles ne peuvent pas toutes être utilisées avec nos grappes. Souvenez-vous toutefois qu'un code de qualité fournira toujours la meilleure performance; avant de le paralléliser, assurez-vous donc que votre code est optimal. Si vous doutez de l'efficacité de votre code, contactez le [soutien technique](technical-support.md).
+Comme le module `multiprocessing` ne peut utiliser qu'un seul nœud de calcul, le gain en performance est habituellement limité au nombre de cœurs CPU du nœud. Si vous voulez dépasser cette limite et utiliser plusieurs nœuds, considérez mpi4py ou [PySpark](apache_spark.md#pyspark). Il existe [d'autres méthodes de parallélisation](https://wiki.python.org/moin/ParallelProcessing), mais elles ne peuvent pas toutes être utilisées avec nos grappes. Souvenez-vous toutefois qu'un code de qualité fournira toujours la meilleure performance; avant de le paralléliser, assurez-vous donc que votre code est optimal. Si vous doutez de l'efficacité de votre code, contactez le [soutien technique](../support/technical_support.md).
 
 ## Anaconda
 Voir la page sur [Anaconda](anaconda.md).
 
 ## Jupyter
-Voir la page sur [Jupyter Notebook](jupyter-notebook.md).
+Voir la page sur [Jupyter Notebook](../interactive/jupyternotebook.md).
 
 ## Débogage
 
@@ -735,7 +735,7 @@ Déboguer votre code Python n'est pas toujours évident. Des méthodes simples, 
 
 Toutefois, il est souvent nécessaire d'explorer le code et son contexte plus en profondeur; l'utilisation d'un débogueur comme `pdb` est alors plus simple.
 
-Vous pouvez déboguer votre code Python grâce à [une petite tâche interactive](running-jobs.md#tâches-interactives).
+Vous pouvez déboguer votre code Python grâce à [une petite tâche interactive](../running-jobs/running_jobs.md#tâches-interactives).
 
 1.  Ajoutez `import pdb; pdb.set_trace()` au début de votre fichier ou ajoutez `breakpoint()` à l'endroit approprié.
 2.  Exécutez votre code (`python ...`).
@@ -807,7 +807,7 @@ ERROR: No matching distribution found for X
 Assurez-vous que le nom et la version sont corrects.
 Sachez aussi que les wheels `manylinux_x_y` sont ignorés.
 
-Vous pouvez aussi vérifier si le paquet est disponible avec la commande [avail_wheels](#wheels-disponibles) ou en consultant la page [Wheels disponibles](available-python-wheels.md).
+Vous pouvez aussi vérifier si le paquet est disponible avec la commande [avail_wheels](#wheels-disponibles) ou en consultant la page [Wheels disponibles](../programming/available_python_wheels.md).
 
 ### Installer plusieurs paquets
 Lorsque possible, il est préférable d'installer plusieurs paquets avec une seule commande.
@@ -841,7 +841,7 @@ Deux cas fréquents sont :
 * installation d'un paquet `manylinux`
 * ou un paquet Python construit pour une autre version de Python (par exemple, installer un paquet construit pour Python 3.11 quand vous avez Python 3.9).
 
-Certains paquets `manylinux` peuvent se trouver parmi nos [wheels Python](available-python-wheels.md).
+Certains paquets `manylinux` peuvent se trouver parmi nos [wheels Python](../programming/available_python_wheels.md).
 
 ### 'AttributeError: module ‘numpy’ has no attribute ‘X’'
 À l'installation d'un whell, la plus récente version de Numpy est installée si aucune version spécifique n'est demandée.

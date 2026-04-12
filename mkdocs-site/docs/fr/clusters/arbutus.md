@@ -58,4 +58,4 @@ Arbutus est un nuage IaaS (*Infrastructure-as-a-Service*) hébergé à l'Univers
 | 16    | 48    | 1024Go DDR4        | 1 x NVMe SSD, 3.84To | 2 x Intel Gold 6342 2.8 GHz, 36MB cache | 4 x NVidia H100 PCIe Gen5 (94Go) |
 | 10    | 48    | 128Go DDR5         | 1 x NVMe SSD, 3.84To | 2 x Intel Gold 6542Y 2.9 GHz, cache de 60Mo | 1 x NVidia L40s PCIe Gen4 (48Go) |
 
-Voir le sommaire du matériel sur la page [*Ressources infonuagiques*](cloud-resources.md#nuage-arbutus).
+Voir le sommaire du matériel sur la page [*Ressources infonuagiques*](../cloud/cloud_resources.md#nuage-arbutus).

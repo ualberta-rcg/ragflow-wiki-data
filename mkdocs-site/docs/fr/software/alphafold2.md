@@ -186,7 +186,7 @@ Vous pouvez aussi télécharger les bases de données localement dans votre rép
     ```
 
     !!! warning "Attention"
-        **Ceci ne doit pas se faire à partir d'un nœud de calcul.** Sur les grappes qui ont des nœuds de transfert de données (DTN), utilisez ce type de nœud (voir [la page Transfert de données](transferring-data.md)); autrement, utilisez un nœud de connexion. Puisque la durée du téléchargement peut prendre une journée complète, nous vous suggérons d'utiliser plutôt un [multiplexeur de terminal](prolonging-terminal-sessions.md#multiplexeur-de-terminal). Il est possible que vous obteniez le message d'erreur `Client_loop: send disconnect: Broken pipe`; voir [Dépannage](#dépannage) ci-dessous.
+        **Ceci ne doit pas se faire à partir d'un nœud de calcul.** Sur les grappes qui ont des nœuds de transfert de données (DTN), utilisez ce type de nœud (voir [la page Transfert de données](../getting-started/transferring_data.md)); autrement, utilisez un nœud de connexion. Puisque la durée du téléchargement peut prendre une journée complète, nous vous suggérons d'utiliser plutôt un [multiplexeur de terminal](../running-jobs/prolonging_terminal_sessions.md#multiplexeur-de-terminal). Il est possible que vous obteniez le message d'erreur `Client_loop: send disconnect: Broken pipe`; voir [Dépannage](#dépannage) ci-dessous.
 
 === "sur Graham uniquement"
 
@@ -480,7 +480,7 @@ Soumettez la tâche à l'ordonnanceur.
 ### Message d'erreur *Broken pipe*
 Au téléchargement de la base de données, vous pourriez obtenir le message d'erreur `Client_loop: send disconnect: Broken pipe`. Il est difficile de déterminer la cause exacte de ce message. Il pourrait tout simplement s'agir qu'un nombre élevé d'utilisateurs travaillent sur le nœud de connexion en même temps, ce qui vous laisse moins de place pour téléverser des données.
 
-*   Une solution est d'utiliser un [multiplexeur de terminal](prolonging-terminal-sessions.md#multiplexeur-de-terminal). Il n'est pas impossible d'obtenir le message d'erreur, mais les chances sont moindres.
+*   Une solution est d'utiliser un [multiplexeur de terminal](../running-jobs/prolonging_terminal_sessions.md#multiplexeur-de-terminal). Il n'est pas impossible d'obtenir le message d'erreur, mais les chances sont moindres.
 
 *   Une deuxième solution est d'utiliser la base de données qui se trouve sur la grappe : `/cvmfs/bio.data.computecanada.ca/content/databases/Core/alphafold2_dbs/2023_07/`.
 

@@ -73,7 +73,7 @@ La meilleure façon d’utiliser le stockage objet est de stocker et d’exporte
 
 Sur Arbutus, chaque projet dispose par défaut de 1 To de stockage objet. Si ceci est insuffisant, vous pouvez soit utiliser notre [service d'accès rapide](https://alliancecan.ca/fr/services/calcul-informatique-de-pointe/acces-aux-ressources/service-dacces-rapide). Si vous avez besoin de plus de 10 To, présentez une demande au prochain [concours pour l'allocation des ressources](https://alliancecan.ca/fr/services/calcul-informatique-de-pointe/acces-aux-ressources/concours-pour-l'allocation-des-ressources).
 
-Contrairement à un environnement de calcul sur une grappe, les fonctions d'administration du système pour le stockage objet d'un utilisateur sont la responsabilité de cet utilisateur, ce qui signifie que les opérations comme [la sauvegarde](backing-up-your-vm.md) doivent être effectuées par l'utilisateur. Pour plus d'information, voyez [Options de stockage infonuagique](cloud-storage-options.md).
+Contrairement à un environnement de calcul sur une grappe, les fonctions d'administration du système pour le stockage objet d'un utilisateur sont la responsabilité de cet utilisateur, ce qui signifie que les opérations comme [la sauvegarde](backing_up_your_vm.md) doivent être effectuées par l'utilisateur. Pour plus d'information, voyez [Options de stockage infonuagique](cloud_storage_options.md).
 
 Nous offrons deux protocoles différents pour accéder au Stockage objet dans OpenStack : Swift et Amazon Simple Storage Service (S3).
 
@@ -91,10 +91,10 @@ openstack ec2 credentials create
 
 ### Accès au Stockage objet
 
-Les politiques d'accès ne peuvent pas se faire via un navigateur web, mais par [un client compatible SWIFT ou S3](arbutus-object-storage-clients.md). L'accès aux conteneurs de données peut se faire de plusieurs façons :
+Les politiques d'accès ne peuvent pas se faire via un navigateur web, mais par [un client compatible SWIFT ou S3](arbutus_object_storage_clients.md). L'accès aux conteneurs de données peut se faire de plusieurs façons :
 
-1.  [via un client compatible avec S3](arbutus-object-storage-clients.md) (par exemple `s3cmd`);
-2.  [via Globus](globus.md#stockage-objet-sur-arbutus);
+1.  [via un client compatible avec S3](arbutus_object_storage_clients.md) (par exemple `s3cmd`);
+2.  [via Globus](../getting-started/globus.md#stockage-objet-sur-arbutus);
 3.  via un point HTTPS dans un navigateur, pourvu que vos politiques soient configurées comme étant publiques et non par défaut.
 
 ```
@@ -104,14 +104,14 @@ https://object-arbutus.alliancecan.ca/PROJECT_ID:DATA_CONTAINER/FILENAME
 ## Gestion du stockage objet sur Arbutus
 
 La manière recommandée de gérer les conteneurs et les objets dans le **Stockage d'Objet** d'Arbutus est d'utiliser l'outil `s3cmd`, qui est disponible sous Linux.
-Notre documentation fournit des instructions spécifiques sur la [configuration et la gestion des accès](accessing-object-storage-with-s3cmd.md) avec le client `s3cmd`.
-Il est également possible d'utiliser d'autres [clients compatibles S3](arbutus-object-storage-clients.md) qui sont également compatibles avec le stockage objet d'Arbutus.
+Notre documentation fournit des instructions spécifiques sur la [configuration et la gestion des accès](accessing_object_storage_with_s3cmd.md) avec le client `s3cmd`.
+Il est également possible d'utiliser d'autres [clients compatibles S3](arbutus_object_storage_clients.md) qui sont également compatibles avec le stockage objet d'Arbutus.
 
 De plus, nous pouvons effectuer certaines tâches de gestion pour notre stockage d'objets en utilisant la section [Conteneurs](https://arbutus.cloud.computecanada.ca/project/containers) sous l'onglet **Stockage d'Objet** dans le [Tableau de bord OpenStack d'Arbutus](https://arbutus.cloud.computecanada.ca).
 
 Cette interface fait référence aux *conteneurs de données*, également appelés *compartiments* dans d'autres systèmes de stockage objet.
 
-En utilisant le tableau de bord, nous pouvons créer de nouveaux conteneurs de données, téléverser des fichiers et créer des dossiers. Nous pouvons également créer des conteneurs de données en utilisant un [client compatible S3](arbutus-object-storage-clients.md).
+En utilisant le tableau de bord, nous pouvons créer de nouveaux conteneurs de données, téléverser des fichiers et créer des dossiers. Nous pouvons également créer des conteneurs de données en utilisant un [client compatible S3](arbutus_object_storage_clients.md).
 
 !!! note
     Veuillez noter que les conteneurs de données appartiennent à l'utilisateur qui les crée et ne peuvent pas être manipulés par d'autres utilisateurs.

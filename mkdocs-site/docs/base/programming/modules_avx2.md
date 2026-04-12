@@ -26,8 +26,8 @@ status:
 | Module | Type | Versions | Documentation |
 |---:|---:|---:|---:|
 | [4ti2](https://4ti2.github.io/) | - | 1.6.9 | |
-| [abaqus](https://www.3ds.com/products/simulia/abaqus) | phys | 2021, 2026 | [Abaqus](abaqus.md) |
-| [abinit](https://www.abinit.org/) | chem | 9.2.2, 9.6.2, 10.0.3, 10.2.3 | [ABINIT](abinit.md) |
+| [abaqus](https://www.3ds.com/products/simulia/abaqus) | phys | 2021, 2026 | [Abaqus](../software/abaqus.md) |
+| [abinit](https://www.abinit.org/) | chem | 9.2.2, 9.6.2, 10.0.3, 10.2.3 | [ABINIT](../software/abinit.md) |
 | [abricate](https://github.com/tseemann/abricate) | - | 1.0.0 | |
 | [abseil](https://abseil.io/) | - | 20230125.3 | |
 | [abyss](https://www.bcgsc.ca/platform/bioinfo/software/abyss) | bio | 2.1.5, 2.2.5, 2.3.7 | |
@@ -52,7 +52,7 @@ status:
 | [angsd](http://www.popgen.dk/angsd) | bio | 0.933, 0.935, 0.936, 0.939, 0.940 | |
 | [annovar](http://annovar.openbioinformatics.org/en/latest/) | bio | 20191024 | |
 | [anserini](https://github.com/castorini/anserini) | - | 0.9.4 | |
-| [ansys](http://www.ansys.com) | phys | 2025R2.04, 2025R1.02, 2024R2.04, 2024R1.03, 2019R3, 2020R2, 2021R1, 2021R2, 2022R1, 2022R2, 2023R1, 2023R2, 2024R1, 2025R1 | [Ansys](ansys.md) |
+| [ansys](http://www.ansys.com) | phys | 2025R2.04, 2025R1.02, 2024R2.04, 2024R1.03, 2019R3, 2020R2, 2021R1, 2021R2, 2022R1, 2022R2, 2023R1, 2023R2, 2024R1, 2025R1 | [Ansys](../software/ansys.md) |
 | [ansysedt](http://www.ansys.com) | - | 2024R2.1, 2021R2, 2023R2 | |
 | [ant](https://ant.apache.org/) | tools | 1.9.15, 1.10.8, 1.10.14 | |
 | [antlr](https://www.antlr2.org/) | - | 2.7.7 | |
@@ -123,7 +123,7 @@ status:
 | [blasr](https://github.com/PacificBiosciences/blasr) | bio | 5.3.3 | |
 | [blasr_libcpp](https://github.com/PacificBiosciences/blasr_libcpp) | bio | 5.3.4 | |
 | [blast](http://blast.ncbi.nlm.nih.gov/) | bio | 2.2.26 | |
-| [blast+](https://blast.ncbi.nlm.nih.gov/) | bio | 2.10.1, 2.11.0, 2.12.0, 2.13.0, 2.14.0, 2.14.1, 2.17.0 | [BLAST](blast.md) |
+| [blast+](https://blast.ncbi.nlm.nih.gov/) | bio | 2.10.1, 2.11.0, 2.12.0, 2.13.0, 2.14.0, 2.14.1, 2.17.0 | [BLAST](../software/blast.md) |
 | [blat](https://genome.ucsc.edu/goldenPath/help/blatSpec.html) | bio | 3.5, 3.7 | |
 | [blender](https://www.blender.org/) | vis | 2.92.0, 3.6.0, 4.0.2, 4.2.8 | |
 | [blis](https://github.com/flame/blis/) | - | 0.8.1, 0.9.0, 1.0, 2.0 | |
@@ -205,7 +205,7 @@ status:
 | [coretran](https://github.com/leonfoks/coretran#compile) | - | 1.0.1 | |
 | [corset](https://github.com/Oshlack/Corset/wiki) | bio | 1.09 | |
 | [cp2k](https://www.cp2k.org/) | chem | 7.1, 8.2, 9.1, 2023.1, 2025.2 | |
-| [cpmd](http://cpmd.org) | chem | 4.3 | [CPMD](cpmd.md) |
+| [cpmd](http://cpmd.org) | chem | 4.3 | [CPMD](../software/cpmd.md) |
 | [cppzmq](https://github.com/zeromq/cppzmq) | - | 4.7.1 | |
 | [cpu_features](https://github.com/google/cpu_features) | - | 0.6.0 | |
 | [cram](https://bitheap.org/cram) | - | 0.7 | |
@@ -237,12 +237,12 @@ status:
 | [db_file](https://perldoc.perl.org/DB_File.html) | - | 1.859 | |
 | [dcm2niix](https://github.com/rordenlab/dcm2niix) | bio | 1.0.20200331, 1.0.20210317, 1.0.20230411 | |
 | [dcmtk](https://dicom.offis.de/dcmtk) | - | 3.6.7 | |
-| [ddt-cpu](https://www.linaroforge.com) | tools | 20.2, 22.0.1, 23.1.1 | [ARM software](arm-software.md) |
-| [ddt-gpu](https://www.linaroforge.com) | tools | 20.2, 22.0.1, 23.1.1 | [ARM software](arm-software.md) |
+| [ddt-cpu](https://www.linaroforge.com) | tools | 20.2, 22.0.1, 23.1.1 | [ARM software](../software/arm_software.md) |
+| [ddt-gpu](https://www.linaroforge.com) | tools | 20.2, 22.0.1, 23.1.1 | [ARM software](../software/arm_software.md) |
 | [dealii](http://www.dealii.org/) | math | 9.2.0, 9.3.1, 9.4.1, 9.6.2 | |
 | [deepvariant](https://github.com/google/deepvariant) | - | 1.8.0 | |
 | [deepvariant-gpu](https://github.com/google/deepvariant) | - | 1.8.0 | |
-| [delft3d](https://svn.oss.deltares.nl) | geo | 62441 | [Delft3D](delft3d.md) |
+| [delft3d](https://svn.oss.deltares.nl) | geo | 62441 | [Delft3D](../software/delft3d.md) |
 | [delly](https://github.com/dellytools/delly/) | - | 0.8.5, 1.1.6, 1.1.8 | |
 | [detonate](http://deweylab.biostat.wisc.edu/detonate/) | bio | 1.11 | |
 | [dftbplus](https://www.dftb-plus.info) | chem | 21.1, 21.2, 24.1 | |
@@ -299,8 +299,8 @@ status:
 | [fastqc](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/) | bio | 0.11.9, 0.12.0, 0.12.1 | |
 | [fastsimcoal2](http://cmpg.unibe.ch/software/fastsimcoal2/) | bio | 2.6.0.3, 2.7.0.9 | |
 | [fastspar](https://github.com/scwatts/fastspar) | - | 1.0.0 | |
-| [fasttree](http://www.microbesonline.org/fasttree/) | bio | 2.1.11 | [FastTree](fasttree.md) |
-| [fasttree-double](http://www.microbesonline.org/fasttree/) | - | 2.1.11, 2.2.0 | [FastTree](fasttree.md) |
+| [fasttree](http://www.microbesonline.org/fasttree/) | bio | 2.1.11 | [FastTree](../software/bioinformatics/fasttree.md) |
+| [fasttree-double](http://www.microbesonline.org/fasttree/) | - | 2.1.11, 2.2.0 | [FastTree](../software/bioinformatics/fasttree.md) |
 | [fastx-toolkit](http://hannonlab.cshl.edu/fastx_toolkit/) | bio | 0.0.14 | |
 | [fcl](https://github.com/flexible-collision-library/fcl) | - | 0.7.0 | |
 | [fds](https://pages.nist.gov/fds-smv/) | - | 6.7.5, 6.7.6, 6.7.7, 6.7.8, 6.7.9, 6.8.0 | |
@@ -336,7 +336,7 @@ status:
 | [g2clib](https://github.com/NOAA-EMC/NCEPLIBS-g2c) | geo | 1.6.0, 1.8.0 | |
 | [g2lib](https://github.com/NOAA-EMC/NCEPLIBS-g2/) | geo | 3.1.0, 3.4.8 | |
 | [ga](http://hpc.pnl.gov/globalarrays/) | tools | 5.7.2 | |
-| [gamess-us](https://www.msg.chem.iastate.edu/GAMESS/GAMESS.html) | chem | 20210930-R2P1, 2020.2, 20220930-R2, 20230630-R1, 20230930-R2 | [GAMESS-US](gamess-us.md) |
+| [gamess-us](https://www.msg.chem.iastate.edu/GAMESS/GAMESS.html) | chem | 20210930-R2P1, 2020.2, 20220930-R2, 20230630-R1, 20230930-R2 | [GAMESS-US](../software/gamess-us.md) |
 | [gapcloser](https://sourceforge.net/projects/soapdenovo2/files/GapCloser/) | - | 1.12-r6 | |
 | [gappa](https://github.com/lczech/gappa) | - | 0.9.0 | |
 | [gate](http://www.opengatecollaboration.org/) | bio | 9.3, 9.4 | |
@@ -399,13 +399,13 @@ status:
 | [grass](https://grass.osgeo.org) | geo | 7.8.4, 8.2.1 | |
 | [grenedalf](https://github.com/lczech/grenedalf) | - | 0.6.3 | |
 | [groff](https://www.gnu.org/software/groff) | - | 1.22.4 | |
-| [gromacs](http://www.gromacs.org) | chem | 2016.6, 2020.4, 2020.6, 2021.2, 2021.4, 2021.6, 2022.2, 2022.3, 2023, 2023.2, 2023.3, 2023.5, 2024.1, 2024.4, 2024.6, 2025.4, 2026.1 | [GROMACS](gromacs.md) |
-| [gromacs-colvars](http://colvars.github.io/) | chem | 2020.6 | [GROMACS](gromacs.md) |
-| [gromacs-cp2k](https://www.cp2k.org/tools:gromacs) | chem | 2022.2 | [GROMACS](gromacs.md) |
-| [gromacs-ls](https://vanegaslab.org/software) | - | 2016.3 | [GROMACS](gromacs.md) |
-| [gromacs-plumed](http://www.gromacs.org) | chem | 2019.6, 2020.7, 2021.2, 2021.4, 2021.6, 2021.7, 2022.3, 2022.6, 2023.5 | [GROMACS](gromacs.md) |
+| [gromacs](http://www.gromacs.org) | chem | 2016.6, 2020.4, 2020.6, 2021.2, 2021.4, 2021.6, 2022.2, 2022.3, 2023, 2023.2, 2023.3, 2023.5, 2024.1, 2024.4, 2024.6, 2025.4, 2026.1 | [GROMACS](../software/gromacs.md) |
+| [gromacs-colvars](http://colvars.github.io/) | chem | 2020.6 | [GROMACS](../software/gromacs.md) |
+| [gromacs-cp2k](https://www.cp2k.org/tools:gromacs) | chem | 2022.2 | [GROMACS](../software/gromacs.md) |
+| [gromacs-ls](https://vanegaslab.org/software) | - | 2016.3 | [GROMACS](../software/gromacs.md) |
+| [gromacs-plumed](http://www.gromacs.org) | chem | 2019.6, 2020.7, 2021.2, 2021.4, 2021.6, 2021.7, 2022.3, 2022.6, 2023.5 | [GROMACS](../software/gromacs.md) |
 | [gromacs-ramd](https://kbbox.h-its.org/toolbox/methods/molecular-simulation/random-acceleration-molecular-dynamics-ramd/) | chem | 2024.1-RAMD-2.1, 2020.5-RAMD-2.0 | |
-| [gromacs-swaxs](https://cbjh.gitlab.io/gromacs-swaxs-docs/) | chem | 2021.7-0.5.1 | [GROMACS](gromacs.md) |
+| [gromacs-swaxs](https://cbjh.gitlab.io/gromacs-swaxs-docs/) | chem | 2021.7-0.5.1 | [GROMACS](../software/gromacs.md) |
 | [gsl](https://www.gnu.org/software/gsl/) | math | 1.16, 2.6, 2.7, 2.8 | |
 | [gsl-lite](https://github.com/gsl-lite/gsl-lite) | - | 0.40.0, 0.41.0 | |
 | [gts](http://gts.sourceforge.net/) | - | 20121130 | |
@@ -474,7 +474,7 @@ status:
 | [ivar](https://github.com/andersen-lab/ivar) | - | 1.4.2 | |
 | [jags](http://mcmc-jags.sourceforge.net/) | math | 4.3.0, 4.3.2 | |
 | [jasper](https://www.ece.uvic.ca/~frodo/jasper/) | vis | 2.0.16, 4.0.0, 4.2.4 | |
-| [java](http://openjdk.java.net) | tools | 1.8.0_192, 1.8.0_292, 11.0.16_8, 11.0.22, 13.0.2, 14.0.2, 17.0.2, 17.0.6, 21.0.1 | [Java](java.md) |
+| [java](http://openjdk.java.net) | tools | 1.8.0_192, 1.8.0_292, 11.0.16_8, 11.0.22, 13.0.2, 14.0.2, 17.0.2, 17.0.6, 21.0.1 | [Java](../software/java.md) |
 | [jbigkit](https://www.cl.cam.ac.uk/~mgk25/jbigkit/) | - | 2.1 | |
 | [jdftx](http://jdftx.org/index.html) | chem | 1.7.0 | |
 | [jellyfish](http://www.genome.umd.edu/jellyfish.html) | bio | 2.3.0, 2.3.1 | |
@@ -499,7 +499,7 @@ status:
 | [krakenuniq](https://github.com/fbreitwieser/krakenuniq) | - | 1.0.2, 1.0.4 | |
 | [kronatools](https://github.com/marbl/Krona/wiki/KronaTools) | - | 2.8, 2.8.1 | |
 | [kyotocabinet](https://dbmx.net/kyotocabinet/) | - | 1.2.80 | |
-| [lammps-omp](https://www.lammps.org) | chem | 20201029, 20210929, 20220623, 20230802, 20240829, 20250722 | [LAMMPS](lammps.md) |
+| [lammps-omp](https://www.lammps.org) | chem | 20201029, 20210929, 20220623, 20230802, 20240829, 20250722 | [LAMMPS](../software/lammps.md) |
 | [last](https://gitlab.com/mcfrith/last) | bio | 1145, 1642 | |
 | [lastz](https://www.bx.psu.edu/~rsharris/lastz/) | - | 1.04.03 | |
 | [latte](https://github.com/lanl/LATTE) | chem | 1.2.1 | |
@@ -561,8 +561,8 @@ status:
 | [llvm](https://llvm.org/) | tools | 8.0.1, 9.0.1, 11.1.0, 13.0.1, 14.0.3, 16.0.6, 18.1.8, 20.1.8, 21.1.5 | |
 | [lmdb](https://symas.com/lmdb) | - | 0.9.24, 0.9.31 | |
 | [lpsolve](https://sourceforge.net/projects/lpsolve/) | math | 5.5.2.5, 5.5.2.11 | |
-| [ls-dyna](http://www.lstc.com/products/ls-dyna) | phys | 12.0, 12.2.1, 13.0, 13.1.1 | [LS-DYNA](ls-dyna.md) |
-| [ls-dyna-mpi](http://www.lstc.com/products/ls-dyna) | phys | 12.0, 12.2.1, 13.0, 13.1.1 | [LS-DYNA](ls-dyna.md) |
+| [ls-dyna](http://www.lstc.com/products/ls-dyna) | phys | 12.0, 12.2.1, 13.0, 13.1.1 | [LS-DYNA](../software/ls-dyna.md) |
+| [ls-dyna-mpi](http://www.lstc.com/products/ls-dyna) | phys | 12.0, 12.2.1, 13.0, 13.1.1 | [LS-DYNA](../software/ls-dyna.md) |
 | [ls-opt](http://www.lstc.com/products/ls-opt) | phys | 7.0.0 | |
 | [ls-prepost](http://lstc.com/products/ls-prepost) | - | 4.8.11, 4.9.9 | |
 | [lsd2](https://github.com/tothuhien/lsd2) | - | 1.9.7, 2.3, 2.4.1 | |
@@ -587,11 +587,11 @@ status:
 | [mashmap](https://github.com/marbl/MashMap) | - | 3.1.3 | |
 | [masurca](http://www.genome.umd.edu/masurca.html) | bio | 3.4.1, 4.0.1, 4.0.3, 4.1.0 | |
 | [matio](https://sourceforge.net/projects/matio/) | io | 1.5.19, 1.5.26 | |
-| [matlab](http://www.mathworks.com/products/matlab) | tools | 2020a, 2020b, 2020b.4, 2020b.6, 2021a.1, 2021a.5, 2021b.3, 2022a, 2022b.2, 2023a.3, 2023b.2, 2024b.1, 2025b.1 | [MATLAB](matlab.md) |
+| [matlab](http://www.mathworks.com/products/matlab) | tools | 2020a, 2020b, 2020b.4, 2020b.6, 2021a.1, 2021a.5, 2021b.3, 2022a, 2022b.2, 2023a.3, 2023b.2, 2024b.1, 2025b.1 | [MATLAB](../software/matlab.md) |
 | [maven](https://maven.apache.org/index.html) | tools | 3.6.3, 3.9.6, 3.9.10 | |
 | [maxbin](https://downloads.jbei.org/data/microbial_communities/MaxBin/MaxBin.html) | bio | 2.2.7 | |
 | [mcl](http://micans.org/mcl/) | math | 14.137 | |
-| [mcr](https://www.mathworks.com/products/compiler/mcr/) | tools | R2022b, R2021b, R2020b, R2024b, R2024a, R2025b, R2025a | [MATLAB](matlab.md) |
+| [mcr](https://www.mathworks.com/products/compiler/mcr/) | tools | R2022b, R2021b, R2020b, R2024b, R2024a, R2025b, R2025a | [MATLAB](../software/matlab.md) |
 | [mctc-lib](https://grimme-lab.github.io/mctc-lib) | - | 0.3.1 | |
 | [mdi](https://github.com/MolSSI-MDI/MDI_Library) | - | 1.4.30 | |
 | [meep](https://meep.readthedocs.io/en/latest/) | phys | 1.16.1, 1.24.0, 1.25.0, 1.29.0 | |
@@ -654,7 +654,7 @@ status:
 | [mustang](http://www.csse.monash.edu.au/~karun/Site/mustang.html) | - | 3.2.4 | |
 | [mysql](http://www.mysql.com/) | tools | 5.7.36, 8.3.0 | |
 | [n2p2](https://compphysvienna.github.io/n2p2/) | - | 2.2.0 | |
-| [namd-multicore](http://www.ks.uiuc.edu/Research/namd/) | chem | 2.14, 3.0.1, 3.0.2 | [NAMD](namd.md) |
+| [namd-multicore](http://www.ks.uiuc.edu/Research/namd/) | chem | 2.14, 3.0.1, 3.0.2 | [NAMD](../software/namd.md) |
 | [namd-ofi](http://www.ks.uiuc.edu/Research/namd/) | chem | 2.14 | |
 | [namd-ofi-smp](http://www.ks.uiuc.edu/Research/namd/) | - | 2.14 | |
 | [namd-ucx](http://www.ks.uiuc.edu/Research/namd/) | chem | 2.14, 3.0.1, 3.0.2 | |
@@ -718,7 +718,7 @@ status:
 | [opencv](http://opencv.org/) | vis | 4.4.0, 4.5.1, 4.5.5, 4.6.0, 4.7.0, 4.8.0, 4.8.1, 4.9.0, 4.10.0, 4.10.0-2, 4.11.0, 4.12.0, 4.13.0 | |
 | [openexr](https://www.openexr.com/) | vis | 2.5.2, 3.1.5 | |
 | [openfast](https://openfast.readthedocs.io/en/main/index.html) | - | 3.1.0, 3.3.0, 3.5.0 | |
-| [openfoam](https://www.openfoam.com/) | phys | 8, 9, 10, 13, v2006, v2012, v2112, v2206, v2212, v2306, v2312, v2406, v2412 | [OpenFOAM](openfoam.md) |
+| [openfoam](https://www.openfoam.com/) | phys | 8, 9, 10, 13, v2006, v2012, v2112, v2206, v2212, v2306, v2312, v2406, v2412 | [OpenFOAM](../software/openfoam.md) |
 | [openfoam-extend](http://www.extend-project.de/) | phys | 4.1 | |
 | [openfst](https://www.openfst.org/twiki/bin/view/FST/WebHome) | - | 1.8.3, 1.8.4 | |
 | [openimagedenoise](https://github.com/OpenImageDenoise/oidn) | - | 1.2.2, 1.4.3, 2.0.1, 2.1.0 | |
@@ -741,7 +741,7 @@ status:
 | [opera-ms](https://github.com/CSB5/OPERA-MS) | - | 0.9.0-20200802 | |
 | [optix](https://developer.nvidia.com/optix) | - | 6.5.0, 7.7.0, 8.0.0 | |
 | [orad](https://support.illumina.com/downloads/dragen_decompression_software_v261_software-linux.html) | - | 2.6.1 | |
-| [orca](http://cec.mpg.de/forum/) | chem | 4.2.1, 5.0.1, 5.0.2, 5.0.3, 5.0.4, 6.0.0, 6.0.1, 6.1.0, 6.1.1 | [ORCA](orca.md) |
+| [orca](http://cec.mpg.de/forum/) | chem | 4.2.1, 5.0.1, 5.0.2, 5.0.3, 5.0.4, 6.0.0, 6.0.1, 6.1.0, 6.1.1 | [ORCA](../software/orca.md) |
 | [orthomcl](http://orthomcl.org/) | bio | 2.0.9 | |
 | [oskar](https://ska-telescope.gitlab.io/sim/oskar/) | - | 2.11.1 | |
 | [ospray](https://github.com/ospray/ospray) | - | 1.8.5, 2.2.0, 2.10.0, 2.12.0 | |
@@ -758,9 +758,9 @@ status:
 | [papi](https://icl.cs.utk.edu/projects/papi/) | tools | 6.0.0 | |
 | [parallelio](https://github.com/NCAR/ParallelIO) | - | 2.5.4, 2.6.3 | |
 | [parasail](https://github.com/jeffdaily/parasail) | - | 2.5, 2.6.2 | |
-| [paraview](https://www.paraview.org) | vis | 5.8.0, 5.9.1, 5.10.0, 5.11.0, 5.11.2, 5.13.1, 6.0.0 | [Visualization](visualization.md) |
-| [paraview-offscreen](https://www.paraview.org) | vis | 5.8.0, 5.9.1, 5.10.0, 5.11.0 | [Visualization](visualization.md) |
-| [paraview-offscreen-gpu](https://www.paraview.org) | vis | 5.8.0, 5.9.1, 5.10.0, 5.11.0 | [Visualization](visualization.md) |
+| [paraview](https://www.paraview.org) | vis | 5.8.0, 5.9.1, 5.10.0, 5.11.0, 5.11.2, 5.13.1, 6.0.0 | [Visualization](../software/visualization.md) |
+| [paraview-offscreen](https://www.paraview.org) | vis | 5.8.0, 5.9.1, 5.10.0, 5.11.0 | [Visualization](../software/visualization.md) |
+| [paraview-offscreen-gpu](https://www.paraview.org) | vis | 5.8.0, 5.9.1, 5.10.0, 5.11.0 | [Visualization](../software/visualization.md) |
 | [pari-gp](https://pari.math.u-bordeaux.fr) | - | 2.13.0, 2.15.5 | |
 | [parmetis](http://glaros.dtc.umn.edu/gkhome/metis/parmetis/overview) | math | 4.0.3 | |
 | [parmgridgen](http://www-users.cs.umn.edu/~moulitsa/software.html) | math | 1.0 | |
@@ -777,7 +777,7 @@ status:
 | [pear](https://cme.h-its.org/exelixis/web/software/pear/) | bio | 0.9.11 | |
 | [penncnv](https://penncnv.openbioinformatics.org/) | bio | 1.0.5 | |
 | [percolator](https://github.com/percolator/percolator) | bio | 3.06, 3.8 | |
-| [perl](https://www.perl.org/) | tools | 5.30.2, 5.36.1 | [Perl](perl.md) |
+| [perl](https://www.perl.org/) | tools | 5.30.2, 5.36.1 | [Perl](../software/perl.md) |
 | [petsc](https://petsc.org/release/) | tools | 3.12.4, 3.13.3, 3.13.6, 3.14.1, 3.15.0, 3.17.1, 3.19.2, 3.20.0, 3.21.6, 3.23.4 | |
 | [petsc-64bits](https://petsc.org/release/) | tools | 3.17.1, 3.19.2, 3.21.6, 3.23.4 | |
 | [petsc-complex](http://www.mcs.anl.gov/petsc) | tools | 3.20.0 | |
@@ -838,7 +838,7 @@ status:
 | [pyne](http://pyne.io/) | - | 0.7.3, 0.7.7 | |
 | [pypy](https://pypy.org/index.html) | tools | 5.8.0, 7.3.3 | |
 | [pytest](https://pytest.org) | - | 6.1.2, 6.2.5, 7.0.1, 7.4.0, 8.2.2, 8.4.1, 9.0.2 | |
-| [python](https://python.org/) | tools | 2.7.18, 3.6.10, 3.7.7, 3.7.9, 3.8.2, 3.8.10, 3.9.6, 3.10.2, 3.10.13, 3.11.2, 3.11.5, 3.12.4, 3.13.2, 3.14.2 | [Python](python.md) |
+| [python](https://python.org/) | tools | 2.7.18, 3.6.10, 3.7.7, 3.7.9, 3.8.2, 3.8.10, 3.9.6, 3.10.2, 3.10.13, 3.11.2, 3.11.5, 3.12.4, 3.13.2, 3.14.2 | [Python](../software/python.md) |
 | [python-build-bundle](http://python.org/) | - | 2022a, 2023a, 2023b, 2024a, 2025a, 2025b, 2026a | |
 | [q6](https://github.com/qusers/Q6) | - | 6.0 | |
 | [qca](https://userbase.kde.org/QCA) | geo | 2.3.0, 2.3.5, 2.3.7 | |
@@ -856,12 +856,12 @@ status:
 | [qtltools](https://qtltools.github.io/qtltools/) | - | 1.3.1 | |
 | [qualimap](http://qualimap.bioinfo.cipf.es/) | - | 2.3 | |
 | [quantumatk](https://www.synopsys.com/silicon/quantumatk.html) | - | 2019.12, 2020.09, 2022.03, 2024.09 | |
-| [quantumespresso](https://www.quantum-espresso.org) | chem | 6.5, 6.6, 6.7, 6.8, 7.0, 7.1, 7.2, 7.3.1, 7.5 | [Quantum ESPRESSO](quantum-espresso.md) |
+| [quantumespresso](https://www.quantum-espresso.org) | chem | 6.5, 6.6, 6.7, 6.8, 7.0, 7.1, 7.2, 7.3.1, 7.5 | [Quantum ESPRESSO](../software/quantum_espresso.md) |
 | [quast](https://github.com/ablab/quast) | - | 5.0.2, 5.2.0 | |
 | [quest](https://quest.qtechtheory.org/) | - | 4.2.0 | |
 | [qwt](https://qwt.sourceforge.io/) | tools | 6.1.4, 6.2.0 | |
 | [qwtpolar](http://qwtpolar.sourceforge.net/) | tools | 1.1.1 | |
-| [r](https://www.r-project.org/) | tools | 4.0.0, 4.0.2, 4.0.5, 4.1.0, 4.1.2, 4.2.1, 4.2.2, 4.3.1, 4.4.0, 4.5.0 | [R](r.md) |
+| [r](https://www.r-project.org/) | tools | 4.0.0, 4.0.2, 4.0.5, 4.1.0, 4.1.2, 4.2.1, 4.2.2, 4.3.1, 4.4.0, 4.5.0 | [R](../software/r.md) |
 | [r-bundle-bioconductor](https://bioconductor.org) | bio | 3.12, 3.14, 3.16, 3.17, 3.18, 3.20, 3.21 | |
 | [r2r](https://sourceforge.net/projects/weinberg-r2r/files/latest/download/) | - | 1.0.6 | |
 | [racket](https://racket-lang.org/) | - | 7.8 | |
@@ -924,7 +924,7 @@ status:
 | [scalapack](https://www.netlib.org/scalapack/) | math | 2.1.0, 2.2.0 | |
 | [scalasca](https://www.scalasca.org/) | - | 2.5 | |
 | [scipoptsuite](https://scipopt.org/) | - | 9.0.0 | |
-| [scipy-stack](http://python.org/) | math | 2020a, 2020b, 2021a, 2022a, 2023a, 2023b, 2024a, 2024b, 2025a, 2026a | [Python](python.md) |
+| [scipy-stack](http://python.org/) | math | 2020a, 2020b, 2021a, 2022a, 2023a, 2023b, 2024a, 2024b, 2025a, 2026a | [Python](../software/python.md) |
 | [score-p](https://www.score-p.org) | - | 6.0 | |
 | [scotch](https://www.labri.fr/perso/pelegrin/scotch/) | math | 6.0.9, 7.0.3 | |
 | [scotch-no-thread](https://www.labri.fr/perso/pelegrin/scotch/) | - | 6.1.2, 7.0.3 | |
@@ -978,7 +978,7 @@ status:
 | [sortmerna](http://bioinfo.lifl.fr/RNA/sortmerna/) | bio | 4.2.0, 4.3.4, 4.3.6 | |
 | [soundtouch](https://www.surina.net/soundtouch/) | - | 2.3.3 | |
 | [spades](http://cab.spbu.ru/software/spades/) | bio | 3.14.1, 3.15.1, 3.15.3, 3.15.4, 4.0.0, 4.2.0 | |
-| [spark](http://spark.apache.org) | tools | 3.0.0, 3.3.0, 3.5.6 | [Apache Spark](apache-spark.md) |
+| [spark](http://spark.apache.org) | tools | 3.0.0, 3.3.0, 3.5.6 | [Apache Spark](../software/apache_spark.md) |
 | [sparsehash](https://github.com/sparsehash/sparsehash) | - | 2.0.4 | |
 | [spdlog](https://github.com/gabime/spdlog) | - | 1.9.2, 1.11.0 | |
 | [spectra](https://spectralib.org/) | - | 0.9.0, 1.0.1 | |
@@ -992,8 +992,8 @@ status:
 | [stacks](http://creskolab.uoregon.edu/stacks/) | bio | 2.53, 2.55, 2.57, 2.59, 2.60, 2.62, 2.64, 2.66, 2.67 | |
 | [star](https://github.com/alexdobin/STAR) | bio | 2.7.5a, 2.7.8a, 2.7.9a, 2.7.11a, 2.7.11b | |
 | [star-fusion](https://github.com/STAR-Fusion/STAR-Fusion) | - | 1.10.0 | |
-| [starccm](http://mdx.plm.automation.siemens.com/star-ccm-plus) | phys | 15.04.010-R8, 16.02.008-R8, 16.02.009-R8, 16.04.007-R8, 16.04.012-R8, 16.06.008-R8, 17.02.007-R8, 17.02.008-R8, 17.04.007-R8, 17.04.008-R8, 17.06.007-R8, 17.06.008-R8, 18.02.008-R8, 18.04.008-R8, 18.04.009-R8, 18.06.006-R8, 18.06.007-R8, 19.04.007-R8, 19.04.009-R8, 19.06.009-R8, 20.02.008-R8, 20.04.007-R8, 20.04.008-R8, 20.06.010-R8 | [StarCCM](starccm.md) |
-| [starccm-mixed](http://mdx.plm.automation.siemens.com/star-ccm-plus) | phys | 15.04.010, 16.02.008, 16.02.009, 16.04.007, 16.04.012, 16.06.008, 17.02.007, 17.02.008, 17.04.007, 17.04.008, 17.06.007, 17.06.008, 18.02.008, 18.04.008, 18.04.009, 18.06.006, 18.06.007, 19.04.007, 19.04.009, 19.06.009, 20.02.008, 20.04.007, 20.04.008, 20.06.010 | [StarCCM](starccm.md) |
+| [starccm](http://mdx.plm.automation.siemens.com/star-ccm-plus) | phys | 15.04.010-R8, 16.02.008-R8, 16.02.009-R8, 16.04.007-R8, 16.04.012-R8, 16.06.008-R8, 17.02.007-R8, 17.02.008-R8, 17.04.007-R8, 17.04.008-R8, 17.06.007-R8, 17.06.008-R8, 18.02.008-R8, 18.04.008-R8, 18.04.009-R8, 18.06.006-R8, 18.06.007-R8, 19.04.007-R8, 19.04.009-R8, 19.06.009-R8, 20.02.008-R8, 20.04.007-R8, 20.04.008-R8, 20.06.010-R8 | [StarCCM](../software/star-ccm.md) |
+| [starccm-mixed](http://mdx.plm.automation.siemens.com/star-ccm-plus) | phys | 15.04.010, 16.02.008, 16.02.009, 16.04.007, 16.04.012, 16.06.008, 17.02.007, 17.02.008, 17.04.007, 17.04.008, 17.06.007, 17.06.008, 18.02.008, 18.04.008, 18.04.009, 18.06.006, 18.06.007, 19.04.007, 19.04.009, 19.06.009, 20.02.008, 20.04.007, 20.04.008, 20.06.010 | [StarCCM](../software/star-ccm.md) |
 | [statistics-r](https://metacpan.org/pod/Statistics::R) | - | 0.34 | |
 | [stringtie](https://ccb.jhu.edu/software/stringtie/) | bio | 2.1.3, 2.1.5, 2.2.1, 2.2.3, 3.0.1 | |
 | [structure](http://web.stanford.edu/group/pritchardlab/software/structure) | bio | 2.3.4 | |
@@ -1052,7 +1052,7 @@ status:
 | [usd](https://graphics.pixar.com/usd/docs/index.html) | - | 21.05 | |
 | [valgrind-mpi](https://valgrind.org) | tools | 3.16.1, 3.21.0 | |
 | [varscan](https://github.com/dkoboldt/varscan) | - | 2.4.2, 2.4.6 | |
-| [vasp](http://theory.cm.utexas.edu/vtsttools/) | chem | 5.4.4, 6.1.2, 6.4.2 | [VASP](vasp.md) |
+| [vasp](http://theory.cm.utexas.edu/vtsttools/) | chem | 5.4.4, 6.1.2, 6.4.2 | [VASP](../software/vasp.md) |
 | [vaspkit](https://vaspkit.com/) | - | 1.5.1 | |
 | [vcflib](https://github.com/vcflib/vcflib) | - | 1.0.1, 1.0.3, 1.0.9 | |
 | [vcftools](https://vcftools.github.io) | bio | 0.1.16 | |

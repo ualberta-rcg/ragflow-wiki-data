@@ -56,7 +56,7 @@ status:
 module load StdEnv/2023 gcc python/3.11 symengine/0.11.2
 ```
 
-2. Create and activate a [Python virtual environment](python.md#create-and-use-a-python-virtual-environment).
+2. Create and activate a [Python virtual environment](../python.md#create-and-use-a-python-virtual-environment).
 ```bash
 virtualenv --no-download --clear ~/ENV && source ~/ENV/bin/activate
 ```
@@ -66,7 +66,7 @@ virtualenv --no-download --clear ~/ENV && source ~/ENV/bin/activate
 pip install --no-index --upgrade pip
 pip install --no-index qiskit==X.Y.Z qiskit_aer==X.Y.Z
 ```
-where `X.Y.Z` represents the version number, for example `1.4.0`. To install the latest version available on our clusters, do not specify a version. Here, we have only imported `qiskit` and `qiskit_aer`. You can add other Qiskit packages according to your needs by following the structure `qiskit_package==X.Y.Z` where `qiskit_package` represents the desired package, for example `qiskit-finance`. Currently available wheels are listed on the [Python Wheels](available-python-wheels.md) page.
+where `X.Y.Z` represents the version number, for example `1.4.0`. To install the latest version available on our clusters, do not specify a version. Here, we have only imported `qiskit` and `qiskit_aer`. You can add other Qiskit packages according to your needs by following the structure `qiskit_package==X.Y.Z` where `qiskit_package` represents the desired package, for example `qiskit-finance`. Currently available wheels are listed on the [Python Wheels](../../programming/available_python_wheels.md) page.
 
 4. Validate the Qiskit installation.
 ```bash
@@ -100,11 +100,11 @@ pip install --no-index --requirement ~/qiskit_requirements.txt
 # Run the Qiskit program.                                                                                                                                                                       
 python qiskit_example.py
 ```
-You can then [submit your job to the scheduler](running-jobs.md).
+You can then [submit your job to the scheduler](../../running-jobs/running_jobs.md).
 
 ## Use Qiskit with MonarQ
 
-It is possible to use [MonarQ](monarq.md) directly with Qiskit via the qiskit-calculquebec plugin. This plugin allows for developing and executing Qiskit circuits on Calcul Québec's infrastructure.
+It is possible to use [MonarQ](../../clusters/monarq.md) directly with Qiskit via the qiskit-calculquebec plugin. This plugin allows for developing and executing Qiskit circuits on Calcul Québec's infrastructure.
 
 ### Install Dependencies
 

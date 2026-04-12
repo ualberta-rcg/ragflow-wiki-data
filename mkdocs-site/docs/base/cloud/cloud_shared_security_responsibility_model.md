@@ -44,7 +44,7 @@ Canada’s advanced research computing environment includes several cloud platfo
 Research teams are responsible for the following:
 *   implementing security controls to protect the confidentiality, integrity, and availability of their research data;
 *   installing, configuring, and managing their virtual machines, as well as their operating systems, services and applications;
-*   [applying updates](security-considerations-when-running-a-vm.md#updating-your-vm) and security patches on a timely basis;
+*   [applying updates](security_considerations_when_running_a_vm.md#updating-your-vm) and security patches on a timely basis;
 *   configuring security group rules that limit the services exposed to the Internet;
 *   implementing and testing backup and recovery procedures;
 *   encrypting sensitive data in transit and/or at rest;
@@ -70,5 +70,5 @@ Compliance is a shared responsibility between our cloud support team and the res
 ## Further resources
 For more information please see the following resources:
 *   [Alliance Federation’s cloud service description](cloud.md)
-*   [Cloud security considerations for research teams](security-considerations-when-running-a-vm.md)
+*   [Cloud security considerations for research teams](security_considerations_when_running_a_vm.md)
 *   [Alliance Federation Terms of Use](https://alliancecan.ca/sites/default/files/2022-03/1-terms-of-use.pdf)

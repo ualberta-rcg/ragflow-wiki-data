@@ -39,17 +39,17 @@ status:
 * **Jupyter**: an implementation of Web applications and notebook rendering
   * *Google Colab* would be another implementation of the same kind of environment
 * **Jupyter Application**: like a regular application, but is displayed in a separate Web browser tab. The application has access to the data stored remotely on the server, and the heavy computations are also handled by the remote server
-* [**JupyterHub**: a Web server hosting Jupyter portals and kernels](jupyterhub.md)
+* [**JupyterHub**: a Web server hosting Jupyter portals and kernels](../interactive/jupyterhub.md)
 
 ## JupyterLab
 A Web portal with a modern interface for managing and running applications, as well as rendering notebook files of various kernels. For more details:
-* [**JupyterLab via JupyterHub**: a pre-installed JupyterLab environment](jupyterhub.md#jupyterlab), with a default Python kernel and the access to software modules
-* [**JupyterLab from a virtual environment**: a self-made environment](advanced-jupyter-configuration.md) to be launched by a Slurm job
+* [**JupyterLab via JupyterHub**: a pre-installed JupyterLab environment](../interactive/jupyterhub.md#jupyterlab), with a default Python kernel and the access to software modules
+* [**JupyterLab from a virtual environment**: a self-made environment](../getting-started/advanced_jupyter_configuration.md) to be launched by a Slurm job
 
 ## Jupyter Notebook
 An older Web portal for managing and running applications, as well as rendering notebook files of various kernels. For more details:
-* [**Jupyter Notebook via JupyterHub**: a pre-installed Jupyter Notebook environment](jupyterhub.md#user-interface), with a default Python kernel and the access to software modules
-* [**Jupyter Notebook from a virtual environment**: a self-made environment](jupyter-notebook.md) to be launched by a Slurm job
+* [**Jupyter Notebook via JupyterHub**: a pre-installed Jupyter Notebook environment](../interactive/jupyterhub.md#user-interface), with a default Python kernel and the access to software modules
+* [**Jupyter Notebook from a virtual environment**: a self-made environment](../interactive/jupyternotebook.md) to be launched by a Slurm job
 
 ## Kernel
 The active service behind the Web interface. There are:

@@ -85,7 +85,7 @@ status:
 
 ## Versions installées
 
-Consultez la liste des [logiciels disponibles](available-software.md) pour connaître la version à jour du module *structure* (par exemple, `structure/2.3.4` en date de janvier 2019).
+Consultez la liste des [logiciels disponibles](../programming/available_software.md) pour connaître la version à jour du module *structure* (par exemple, `structure/2.3.4` en date de janvier 2019).
 
 ## Utilisation
 
@@ -114,7 +114,7 @@ structure -i data_file1  -o results1
 
 Le chapitre 8 du manuel de l’utilisateur pour StrAuto[^9] montre un exemple de tâches exécutées sur des grappes de CHP avec l’ordonnanceur Slurm. Cet exemple fonctionne mieux lorsque le nombre total de processus est un multiple du nombre de cœurs demandés. Si ce n’est pas le cas, certains des CPU qui ont été alloués ne seront pas utilisés pendant que les derniers processus *structure* sont exécutés, ce qui n’est pas une utilisation maximale des ressources de calcul.
 
-De plus, le temps d’exécution demandé doit être suffisant pour tenir compte des multiples processus *structure* qui vont suivre. Ceci est un choix raisonnable dans le cas de processus qui exigent un temps d’exécution relativement court, mais les tâches plus longues resteront plus longtemps en attente en raison de la [politique d'ordonnancement](job-scheduling-policies.md#durée-maximale).
+De plus, le temps d’exécution demandé doit être suffisant pour tenir compte des multiples processus *structure* qui vont suivre. Ceci est un choix raisonnable dans le cas de processus qui exigent un temps d’exécution relativement court, mais les tâches plus longues resteront plus longtemps en attente en raison de la [politique d'ordonnancement](../running-jobs/job_scheduling_policies.md#durée-maximale).
 
 ### Exécution de processus de longue durée
 

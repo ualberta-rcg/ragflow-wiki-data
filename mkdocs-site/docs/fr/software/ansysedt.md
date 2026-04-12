@@ -66,7 +66,7 @@ status:
 
 # Licence
 
-AnsysEDT est hébergé sur nos grappes, mais nous n'avons pas une licence qui permet un accès généralisé. Toutefois, plusieurs établissements, facultés et départements possèdent des serveurs de licences qui peuvent être utilisés dépendant de l'aspect légal de leur utilisation. En ce qui a trait à l'aspect technique, nos nœuds de calcul doivent pouvoir communiquer avec votre serveur de licence. Quand tout sera en place, vous pourrez charger le module ansysEDT qui localisera de lui-même la licence. En cas de difficulté, communiquez avec le [soutien technique](technical-support.md).
+AnsysEDT est hébergé sur nos grappes, mais nous n'avons pas une licence qui permet un accès généralisé. Toutefois, plusieurs établissements, facultés et départements possèdent des serveurs de licences qui peuvent être utilisés dépendant de l'aspect légal de leur utilisation. En ce qui a trait à l'aspect technique, nos nœuds de calcul doivent pouvoir communiquer avec votre serveur de licence. Quand tout sera en place, vous pourrez charger le module ansysEDT qui localisera de lui-même la licence. En cas de difficulté, communiquez avec le [soutien technique](../support/technical_support.md).
 
 ## Configurer votre propre fichier de licence
 Pour indiquer votre licence ansysedt, créez un fichier nommé `$HOME/.licenses/ansys.lic` qui contient deux lignes. Pour les détails, voir [Configurez votre propre fichier de licence](ansys.md#configurez-votre-propre-fichier-de-licence).

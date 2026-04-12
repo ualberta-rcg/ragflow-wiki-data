@@ -105,7 +105,7 @@ status:
   qa_generated: false
 ---
 
-Cette page décrit le service Open OnDemand sur Trillium. Pour l'information générale sur les instances Open OnDemand sur nos grappes, voir [Open OnDemand](open-on-demand.md).
+Cette page décrit le service Open OnDemand sur Trillium. Pour l'information générale sur les instances Open OnDemand sur nos grappes, voir [Open OnDemand](open_ondemand.md).
 
 ## Porter un environnement virtuel sur Open OnDemand
 
@@ -136,7 +136,7 @@ Les quotas de stockage peuvent aussi être affichés en cliquant sur le lien **Q
 
 ### Téléverser des fichiers
 
-La taille maximale des fichiers à téléverser est présentement de 10 Go. Pour téléverser un fichier plus volumineux ou si vous rencontrez des problèmes de téléversement (par exemple, en raison d'une mauvaise connexion Internet), utilisez [Globus](globus.md). Un bouton **Globus** est disponible en haut à droite de l'explorateur de fichiers. Cliquez sur ce bouton pour faire afficher l'interface web de Globus où vous pourrez vous connecter avec votre nom d'utilisateur et votre mot de passe avec l'Alliance. Le chemin d'accès affiché dans le navigateur Open OnDemand sera identique à celui ouvert dans Globus.
+La taille maximale des fichiers à téléverser est présentement de 10 Go. Pour téléverser un fichier plus volumineux ou si vous rencontrez des problèmes de téléversement (par exemple, en raison d'une mauvaise connexion Internet), utilisez [Globus](../getting-started/globus.md). Un bouton **Globus** est disponible en haut à droite de l'explorateur de fichiers. Cliquez sur ce bouton pour faire afficher l'interface web de Globus où vous pourrez vous connecter avec votre nom d'utilisateur et votre mot de passe avec l'Alliance. Le chemin d'accès affiché dans le navigateur Open OnDemand sera identique à celui ouvert dans Globus.
 
 ## Soumettre une tâche
 

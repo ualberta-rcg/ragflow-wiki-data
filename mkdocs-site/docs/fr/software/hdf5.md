@@ -92,7 +92,7 @@ Références :
 Nous abordons ici les détails de configuration.
 
 ## Modules d'environnement
-Les [modules](utiliser-des-modules.md) suivants sont disponibles sur nos grappes :
+Les [modules](../programming/utiliser_des_modules.md) suivants sont disponibles sur nos grappes :
 *   **hdf**
     *   version 4.1 et précédentes
 *   **hdf5**
@@ -110,7 +110,7 @@ module load hdf5/1.14.2
 
 ## Scripts de soumission de tâche
 
-Pour des exemples de scripts pour l'ordonnanceur Slurm, consultez [Exécuter des tâches](running-jobs.md). Nous vous recommandons d'utiliser la commande `module load ...` dans votre script.
+Pour des exemples de scripts pour l'ordonnanceur Slurm, consultez [Exécuter des tâches](../running-jobs/running_jobs.md). Nous vous recommandons d'utiliser la commande `module load ...` dans votre script.
 
 ## Lier à des bibliothèques HDF
 Voici des exemples en mode séquentiel et en mode parallèle :

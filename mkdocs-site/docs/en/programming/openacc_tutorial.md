@@ -48,11 +48,11 @@ A self-paced course on this topic is available from SHARCNET: [Introduction to G
     This tutorial is based on examples. You can download all of the examples in this [Github repository](https://github.com/calculquebec/cq-formation-openacc).
 
 ## Lesson plan
-*   [Introduction](openacc-tutorial-introduction.md)
-*   [Gathering a profile and getting compiler information](openacc-tutorial-profiling.md)
-*   [Expressing parallelism with OpenACC directives](openacc-tutorial-adding-directives.md)
-*   [Expressing data movement](openacc-tutorial-data-movement.md)
-*   [Optimizing loops](openacc-tutorial-optimizing-loops.md)
+*   [Introduction](openacc_tutorial_-_introduction.md)
+*   [Gathering a profile and getting compiler information](openacc_tutorial_-_profiling.md)
+*   [Expressing parallelism with OpenACC directives](openacc_tutorial_-_adding_directives.md)
+*   [Expressing data movement](openacc_tutorial_-_data_movement.md)
+*   [Optimizing loops](openacc_tutorial_-_optimizing_loops.md)
 
 ## External references
 Here are some useful external references:

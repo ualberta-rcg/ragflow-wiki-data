@@ -103,7 +103,7 @@ export SLURM_ACCOUNT=def-pname
 
 This configuration contains profiles for Fir, Narval, Nibi, Rorqual, and Trillium. If you use this configuration file at Fir you must load the profile using the `-profile fir` flag to the `nextflow` command. At other sites the appropriate profile is automatically selected based on the host name. It ensures that there are no more than 100 jobs in the Slurm queue and that no more than 60 jobs are submitted per minute. It contains cluster-specific information that Nextflow needs, for example that Rorqual machines have 192 cores and 750 GB of RAM with a maximum time limit of one week (168 hours).
 
-**We discourage you from running nf-core pipelines or any other generic Nextflow pipeline on Trillium.** We recommend running a pipeline on [Trillium](trillium.md) only if it was designed specifically for Trillium.
+**We discourage you from running nf-core pipelines or any other generic Nextflow pipeline on Trillium.** We recommend running a pipeline on [Trillium](../clusters/trillium.md) only if it was designed specifically for Trillium.
 
 The configuration is linked to the system you are running on, but it is also related to the pipeline itself. In this rnaseq example `cpu = 1` is the default value, but steps in the pipeline can have more than that. This can get quite complicated and labels in the `nf-core-rnaseq_3.21.0/3_21_0/conf/base.config` file are used by the pipeline to identify steps with non-default configurations. We do not cover this more advanced topic here, but note that tweaking these labels could make a big difference in the queuing and execution time of your pipeline.
 
@@ -125,7 +125,7 @@ python -m pip install nf_core==2.13
 We use `pip` to install a [Python](python.md) package to help with the setup. The nf-core tools can be slow to install; this step may take several minutes.
 
 ### Step 3. Download the container images and the pipeline
-Set the name of the pipeline to be tested, and load Nextflow and the container utility [Apptainer](apptainer.md).
+Set the name of the pipeline to be tested, and load Nextflow and the container utility [Apptainer](containers/apptainer.md).
 Nextflow integrates well with Apptainer.
 As noted above, we are using the `rna-seq` pipeline as an example.
 

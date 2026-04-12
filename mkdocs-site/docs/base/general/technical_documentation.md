@@ -44,56 +44,56 @@ This wiki is a constant work-in-progress and some links might take you to pages 
 
 ## Systems and services
 **Systems**
-* 2025 [infrastructure renewal](infrastructure-renewal.md)
-* **[General-purpose clusters](national-systems.md#compute-clusters)**, for CPU or GPU jobs:
-  * [Fir](fir.md), [Nibi](nibi.md), [Narval](narval.md), [Rorqual](rorqual.md)
-* [Trillium](trillium.md), a cluster designed for large parallel jobs
+* 2025 [infrastructure renewal](../clusters/infrastructure_renewal.md)
+* **[General-purpose clusters](../clusters/national_systems.md#compute-clusters)**, for CPU or GPU jobs:
+  * [Fir](../software/fir.md), [Nibi](../clusters/nibi.md), [Narval](../clusters/narval.md), [Rorqual](../clusters/rorqual.md)
+* [Trillium](../clusters/trillium.md), a cluster designed for large parallel jobs
 * GPU clusters which are part of the Pan-Canadian AI Compute Environment (PAICE)
-  * [Killarney](killarney.md), [tamIA](tamia.md), [Vulcan](vulcan.md)
+  * [Killarney](../clusters/killarney.md), [tamIA](../clusters/tamia.md), [Vulcan](../clusters/vulcan.md)
 * Legacy clusters that are at the end of their life or retired:
-  * [Béluga](beluga.md), [Cedar](cedar.md), [Graham](graham.md), [Niagara](niagara.md)
+  * [Béluga](beluga.md), [Cedar](../clusters/cedar.md), [Graham](../clusters/graham.md), [Niagara](niagara.md)
 
 **Services**
-* [Available software](available-software.md)
-* **[Cloud](cloud.md)** computing service
-* [Database servers](database-servers.md)
-* [Globus](globus.md) file transfer service
-* [Nextcloud](nextcloud.md) cloud storage service
+* [Available software](../programming/available_software.md)
+* **[Cloud](../cloud/cloud.md)** computing service
+* [Database servers](../cloud/database_servers.md)
+* [Globus](../getting-started/globus.md) file transfer service
+* [Nextcloud](../cloud/nextcloud.md) cloud storage service
 * **[Research Data Management](https://alliancecan.ca/en/services/research-data-management)**
 * **[Research Software](https://alliancecan.ca/en/services/research-software)**
-* [Quantum computing services](services-d-informatique-quantique.md)
+* [Quantum computing services](../software/quantum/services_d_informatique_quantique.md)
 
 The [Service status page](https://status.alliancecan.ca/) describes current and planned outages of clusters and services.
-FAQ: [Frequently Asked Questions](frequently-asked-questions.md)
+FAQ: [Frequently Asked Questions](../getting-started/frequently_asked_questions.md)
 
 ## How-to guides
-* **[Getting started](getting-started.md)**
-  * [Trillium Quick Start Guide](trillium-quickstart.md)
-  * [Cloud Quick Start Guide](cloud-quick-start.md)
-  * [SSH](ssh.md) - How to connect to our compute clusters
-  * [Linux introduction](linux-introduction.md)
-* [Storage and file management](storage-and-file-management.md)
-  * [Transferring data](transferring-data.md)
-  * [Scratch purging policy](scratch-purging-policy.md)
+* **[Getting started](../getting-started/getting_started.md)**
+  * [Trillium Quick Start Guide](../clusters/trillium_quickstart.md)
+  * [Cloud Quick Start Guide](../cloud/cloud_quick_start.md)
+  * [SSH](../getting-started/ssh.md) - How to connect to our compute clusters
+  * [Linux introduction](../getting-started/linux_introduction.md)
+* [Storage and file management](../storage-and-data/storage_and_file_management.md)
+  * [Transferring data](../getting-started/transferring_data.md)
+  * [Scratch purging policy](../storage-and-data/scratch_purging_policy.md)
 * [Best practices for data migration](best-practices-for-data-migration.md)
-* [Using modules](utiliser-des-modules.md) and [Standard software environments](standard-software-environments.md) to access software
-* **[Running jobs](running-jobs.md)**
-* [Installing software yourself](installing-software-in-your-home-directory.md)
-* [Programming guide](programming-guide.md)
-* [Self-paced courses](self-paced-courses.md)
-* [Visualization](visualization.md)
-* How to get [technical support](technical-support.md)
+* [Using modules](../programming/utiliser_des_modules.md) and [Standard software environments](../programming/standard_software_environments.md) to access software
+* **[Running jobs](../running-jobs/running_jobs.md)**
+* [Installing software yourself](../getting-started/installing_software_in_your_home_directory.md)
+* [Programming guide](../programming/programming_guide.md)
+* [Self-paced courses](../support/self-paced_courses.md)
+* [Visualization](../software/visualization.md)
+* How to get [technical support](../support/technical_support.md)
 
 ## Discipline guides
-* [AI and Machine Learning](ai-and-machine-learning.md)
-* [Bioinformatics](bioinformatics.md)
-* [Biomolecular simulation](biomolecular-simulation.md)
-* [Computational chemistry](computational-chemistry.md)
-* [Computational fluid dynamics (CFD)](computational-fluid-dynamics.md)
-* [Geographic information systems (GIS)](gis.md)
-* [Humanities and Social Sciences](humanities-and-social-sciences.md)
-* [Research Data Management](research-data-management.md)
-* [Subatomic physics](subatomic-physics.md)
+* [AI and Machine Learning](../software/ai-ml/ai_and_machine_learning.md)
+* [Bioinformatics](../software/bioinformatics/bioinformatics.md)
+* [Biomolecular simulation](../software/molecular-sim/biomolecular_simulation.md)
+* [Computational chemistry](../software/chemistry/computational_chemistry.md)
+* [Computational fluid dynamics (CFD)](../programming/computational_fluid_dynamics.md)
+* [Geographic information systems (GIS)](../software/gis.md)
+* [Humanities and Social Sciences](../getting-started/humanities_and_social_sciences.md)
+* [Research Data Management](../storage-and-data/research_data_management.md)
+* [Subatomic physics](../software/chemistry/subatomicphysics.md)
 
 ## Regional partners and services
 * [Western training](https://training.westdri.ca/)

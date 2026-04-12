@@ -142,7 +142,7 @@ Vous devez attacher le réseau CephFS à l'instance.
 **Sur le web**
 Pour chaque instance, sélectionnez *Instance --> Action --> Attacher une interface --> Réseau CephFS*. Ne cochez pas la case *Adresse IP fixe*.
 
-**Avec le [client OpenStack](openstack-command-line-clients.md)**
+**Avec le [client OpenStack](openstack_command_line_clients.md)**
 Faites afficher la liste des serveurs et sélectionnez l'identifiant de celui que vous voulez attacher au réseau CephFS.
 ```bash
 $ openstack  server list 

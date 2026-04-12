@@ -55,10 +55,10 @@ This page describes how to
 *   allocate virtual GPU (vGPU) resources to a virtual machine (VM),
 *   install the necessary drivers and
 *   check whether the vGPU can be used.
-Access to repositories as well as to the vGPUs is currently only available within [the Arbutus cloud](arbutus.md).
+Access to repositories as well as to the vGPUs is currently only available within [the Arbutus cloud](../clusters/arbutus.md).
 
 !!! note
-    Please note that the documentation below only covers the vGPU driver installation. The [CUDA toolkit](https://developer.nvidia.com/cuda-toolkit-archive) is not pre-installed but you can install it directly from NVIDIA or load it from [the CVMFS software stack](accessing-cvmfs.md).
+    Please note that the documentation below only covers the vGPU driver installation. The [CUDA toolkit](https://developer.nvidia.com/cuda-toolkit-archive) is not pre-installed but you can install it directly from NVIDIA or load it from [the CVMFS software stack](../software/cvmfs/accessing_cvmfs.md).
 
 !!! warning
     If you choose to install the toolkit directly from NVIDIA, please ensure that the vGPU driver is not overwritten with the one from the CUDA package.

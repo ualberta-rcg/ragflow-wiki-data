@@ -56,10 +56,10 @@ PennyLane offers several features to facilitate research and development in the 
 ### Unified Quantum Interface
 PennyLane provides a unified interface that allows users to design quantum circuits and execute them on different quantum simulators and hardware. The platform supports several popular quantum simulators, such as [Qiskit](qiskit.md), [CirQ](cirq.md), Strawberry Fields, and QuTip. PennyLane also supports several quantum hardware platforms, including quantum devices from Xanadu, IBM, Rigetti, and IonQ.
 
-Calcul Québec has developed the [PennyLane-CalculQuebec](https://github.com/calculquebec/pennylane-snowflurry) plugin, which uses the PennyLane interface to design and execute quantum circuits on [MonarQ](monarq.md).
+Calcul Québec has developed the [PennyLane-CalculQuebec](https://github.com/calculquebec/pennylane-snowflurry) plugin, which uses the PennyLane interface to design and execute quantum circuits on [MonarQ](../../clusters/monarq.md).
 
 ### Integration with Machine Learning Libraries
-PennyLane integrates seamlessly with popular machine learning libraries such as [TensorFlow](tensorflow.md) and [PyTorch](pytorch.md), allowing you to use machine learning tools to build hybrid quantum machine learning models and optimize quantum circuits.
+PennyLane integrates seamlessly with popular machine learning libraries such as [TensorFlow](../tensorflow.md) and [PyTorch](../pytorch.md), allowing you to use machine learning tools to build hybrid quantum machine learning models and optimize quantum circuits.
 
 ### Quantum Circuit Optimization
 By using differentiable optimization techniques and combining classical and quantum differentiation methods, PennyLane optimizes the parameters of quantum circuits to solve various problems.
@@ -71,12 +71,12 @@ PennyLane provides visualization tools to facilitate understanding of how quantu
 PennyLane is an open-source project with an active community of developers and users. The project is constantly updated with new features and improvements, and everyone can contribute to the platform's development.
 
 ## Using PennyLane with MonarQ
-[MonarQ](monarq.md) is designed to be programmed with [Snowflurry](snowflurry.md), a software library programmed in Julia and developed by Anyon Systems. However, thanks to the PennyLane-CalculQuebec plugin, PennyLane circuits can be created using Snowflurry in the backend. This allows circuits to be executed on [MonarQ](monarq.md) while benefiting from the features and development environment offered by PennyLane. See the [PennyLane-CalculQuebec](https://github.com/calculquebec/pennylane-snowflurry) documentation for installation and usage guides.
+[MonarQ](../../clusters/monarq.md) is designed to be programmed with [Snowflurry](snowflurry.md), a software library programmed in Julia and developed by Anyon Systems. However, thanks to the PennyLane-CalculQuebec plugin, PennyLane circuits can be created using Snowflurry in the backend. This allows circuits to be executed on [MonarQ](../../clusters/monarq.md) while benefiting from the features and development environment offered by PennyLane. See the [PennyLane-CalculQuebec](https://github.com/calculquebec/pennylane-snowflurry) documentation for installation and usage guides.
 
 A [quantum transpiler](quantum-transpiler.md) is also available from PennyLane to optimize its circuits for MonarQ.
 
 ## Creating the Virtual Environment
-[Let's create a Python virtual environment](python.md#creating-and-using-a-virtual-environment) to use PennyLane.
+[Let's create a Python virtual environment](../python.md#creating-and-using-a-virtual-environment) to use PennyLane.
 ```bash
 module load python/3.11
 virtualenv --no-download --clear ~/ENV && source ~/ENV/bin/activate
@@ -114,7 +114,7 @@ pip install --no-index --requirement ~/pennylane_requirements.txt
 # Run your PennyLane program.
 python pennylane_example.py
 ```
-You can then submit your job to [the scheduler](running-jobs.md).
+You can then submit your job to [the scheduler](../../running-jobs/running_jobs.md).
 
 ## Usage Example: Bell States
 Let's start by creating the virtual environment, as described above.

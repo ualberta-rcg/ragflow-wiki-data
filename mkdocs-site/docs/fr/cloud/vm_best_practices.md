@@ -43,7 +43,7 @@ Certains utilisateurs ayant rapporté des difficultés avec des instances infonu
 La mise à jour de paquets est recommandée pour des raisons de sécurité et elle se fait souvent sans difficulté. Si la mise à niveau d'un système d'exploitation est aussi de bonne pratique, elle peut pour sa part causer certains problèmes.
 
 !!! warning "Sauvegarde avant mise à jour"
-    Avant de procéder à la mise à jour de votre système d'exploitation (par exemple de Ubuntu 20.0 à Ubuntu 22.0), faites une [copie de sauvegarde de votre instance](backing-up-your-vm.md) que vous pourrez utiliser si nécessaire.
+    Avant de procéder à la mise à jour de votre système d'exploitation (par exemple de Ubuntu 20.0 à Ubuntu 22.0), faites une [copie de sauvegarde de votre instance](backing_up_your_vm.md) que vous pourrez utiliser si nécessaire.
 
 ## Volumes
 

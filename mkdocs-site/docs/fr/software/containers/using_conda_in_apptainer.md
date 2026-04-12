@@ -35,7 +35,7 @@ status:
 Avant d'entamer ce tutoriel, prenez note de quelques points importants :
 
 !!! info "Meilleures pratiques"
-    Même dans un conteneur, Conda ne devrait pas être votre solution préférée. Accordez plutôt la priorité aux [modules](modules.md) de notre [pile logicielle](available-software.md) et aux [wheels Python](python.md) parmi [ceux qui sont disponibles](available-python-wheels.md). Ces modules et wheels sont optimisés en fonction de nos systèmes et nous pouvons fournir une meilleure assistance au besoin. Pour faire ajouter un module ou un paquet, contactez le [soutien technique](technical-support.md).
+    Même dans un conteneur, Conda ne devrait pas être votre solution préférée. Accordez plutôt la priorité aux [modules](../../programming/modules.md) de notre [pile logicielle](../../programming/available_software.md) et aux [wheels Python](../python.md) parmi [ceux qui sont disponibles](../../programming/available_python_wheels.md). Ces modules et wheels sont optimisés en fonction de nos systèmes et nous pouvons fournir une meilleure assistance au besoin. Pour faire ajouter un module ou un paquet, contactez le [soutien technique](../../support/technical_support.md).
 
 !!! warning "Conditions d'utilisation"
     Dans ce tutoriel, nous utilisons le gestionnaire de paquets [micromamba](https://mamba.readthedocs.io/en/latest/user_guide/micromamba.html) au lieu de Conda. Si vous voulez utiliser Conda, vous devez tenir compte des [conditions d'utilisation d'Anaconda](https://legal.anaconda.com/policies/en?name=terms-of-service#terms-of-service) et peut-être [détenir une licence commerciale](https://www.anaconda.com/pricing/terms-of-service-faqs).

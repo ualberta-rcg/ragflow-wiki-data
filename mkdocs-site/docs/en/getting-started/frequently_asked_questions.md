@@ -80,7 +80,7 @@ More about this setting here: [Customize save in Emacs](https://www.gnu.org/sava
 
 ## *sbatch: error: Batch job submission failed: Socket timed out on send/recv operation*
 
-You may see this message when the load on the [Slurm](running-jobs.md) manager or scheduler process is too high. We are working both to improve Slurm's tolerance of that and to identify and eliminate the sources of load spikes, but that is a long-term project.
+You may see this message when the load on the [Slurm](../running-jobs/running_jobs.md) manager or scheduler process is too high. We are working both to improve Slurm's tolerance of that and to identify and eliminate the sources of load spikes, but that is a long-term project.
 
 !!! tip
     The best advice we have currently is to wait a minute or so. Then run `squeue -u $USER` and see if the job you were trying to submit appears: in some cases the error message is delivered even though the job was accepted by Slurm. If it doesn't appear, simply submit it again.
@@ -92,7 +92,7 @@ You can see why your jobs are in the `PD` (pending) state by running the `squeue
 The `(REASON)` column typically has the values `Resources` or `Priority`.
 
 *   `Resources`: The cluster is simply very busy and you will have to be patient or perhaps consider if you can submit a job that asks for fewer resources (e.g., CPUs/nodes, GPUs, memory, time).
-*   `Priority`: Your job is waiting to start due to its lower priority. This is because you and other members of your research group have been over-consuming your fair share of the cluster resources in the recent past, something you can track using the command `sshare` as explained in [Job scheduling policies](job-scheduling-policies.md). The `LevelFS` column gives you information about your over- or under-consumption of cluster resources: when `LevelFS` is greater than one, you are consuming fewer resources than your fair share, while if it is less than one you are consuming more. The more you overconsume resources, the closer the value gets to zero and the more your pending jobs decrease in priority. There is a memory effect to this calculation so the scheduler gradually "forgets" about any potential over- or under-consumption of resources from months past. Finally, note that the value of `LevelFS` is unique to the specific cluster.
+*   `Priority`: Your job is waiting to start due to its lower priority. This is because you and other members of your research group have been over-consuming your fair share of the cluster resources in the recent past, something you can track using the command `sshare` as explained in [Job scheduling policies](../running-jobs/job_scheduling_policies.md). The `LevelFS` column gives you information about your over- or under-consumption of cluster resources: when `LevelFS` is greater than one, you are consuming fewer resources than your fair share, while if it is less than one you are consuming more. The more you overconsume resources, the closer the value gets to zero and the more your pending jobs decrease in priority. There is a memory effect to this calculation so the scheduler gradually "forgets" about any potential over- or under-consumption of resources from months past. Finally, note that the value of `LevelFS` is unique to the specific cluster.
 
 ## Why do my jobs show "Nodes required for job are DOWN, DRAINED or RESERVED for jobs in higher priority partitions" or "ReqNodeNotAvailable"?
 
@@ -106,7 +106,7 @@ They mean one or more of the nodes Slurm considered for the job are down, or del
 
 We don't show the start time by default with `squeue`, but it can be printed with an option. The start times Slurm forecasts depend on rapidly changing conditions, and are therefore not very useful.
 
-[Slurm](running-jobs.md) computes START_TIME for high-priority pending jobs. These expected start times are computed from currently available information:
+[Slurm](../running-jobs/running_jobs.md) computes START_TIME for high-priority pending jobs. These expected start times are computed from currently available information:
 
 *   What resources will be freed by running jobs that complete; and
 *   what resources will be needed by other, higher-priority jobs waiting to run.
@@ -131,7 +131,7 @@ In some instances a program which crashes or otherwise exits abnormally will lea
 
 ## How to fix library not found error
 
-When installing precompiled binary packages in your `$HOME`, they may fail with an error such as `/lib64/libc.so.6: version 'GLIBC_2.18' not found` at runtime. See [Installing binary packages](installing-software-in-your-home-directory.md#installing-binary-packages) for how to fix this kind of issue.
+When installing precompiled binary packages in your `$HOME`, they may fail with an error such as `/lib64/libc.so.6: version 'GLIBC_2.18' not found` at runtime. See [Installing binary packages](installing_software_in_your_home_directory.md#installing-binary-packages) for how to fix this kind of issue.
 
 ## How do you handle sensitive research data?
 
@@ -142,4 +142,4 @@ Our resources are all administered following best practices for shared research 
 !!! warning "Data Responsibility"
     Responsibility for data protection and data privacy rests ultimately with the researcher. Please see Privacy and Data Protection Policy section 5.2, and Terms of Use paragraph 3.12, at your [Agreements page](https://ccdb.computecanada.ca/agreements/user_index).
 
-See [Data protection, privacy, and confidentiality](data-protection-privacy-and-confidentiality.md) for more on this topic.
+See [Data protection, privacy, and confidentiality](../storage-and-data/data_protection__privacy__and_confidentiality.md) for more on this topic.

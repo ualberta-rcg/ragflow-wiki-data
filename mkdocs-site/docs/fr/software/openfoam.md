@@ -66,7 +66,7 @@ Les versions semblent identiques jusqu'à 2.3.1 (décembre 2014). Pour les versi
 * Les modules dont le nom commence par la lettre v sont dérivés de la branche .com (par exemple, `` `openfoam/v1706` ``) ;
 * Les modules dont le nom commence par un chiffre sont dérivés de la branche .org (par exemple, `` `openfoam/4.1` ``).
 
-Pour plus d'information sur les commandes, consultez [Utiliser des modules](utiliser-des-modules.md).
+Pour plus d'information sur les commandes, consultez [Utiliser des modules](../programming/utiliser_des_modules.md).
 
 ## Documentation
 
@@ -75,7 +75,7 @@ Pour plus d'information sur les commandes, consultez [Utiliser des modules](util
 
 ## Utilisation
 
-Votre environnement nécessite beaucoup de préparation. Pour pouvoir exécuter les commandes OpenFOAM (`` `paraFoam` ``, `` `blockMesh` ``, etc.), vous devez charger un [module](utiliser-des-modules.md).
+Votre environnement nécessite beaucoup de préparation. Pour pouvoir exécuter les commandes OpenFOAM (`` `paraFoam` ``, `` `blockMesh` ``, etc.), vous devez charger un [module](../programming/utiliser_des_modules.md).
 
 Le script suivant est pour une tâche séquentielle avec OpenFOAM 5.0 :
 ````bash title="submit.sh"
@@ -107,7 +107,7 @@ decomposePar
 srun interFoam -parallel
 ````
 
-La préparation du maillage (`` `blockMesh` ``) peut être assez rapide pour se faire en ligne de commande (voir [Exécuter des tâches](running-jobs.md)). L'étape la plus exigeante est habituellement celle du solveur (entre autres `` `icoFoam` ``) ; ces tâches devraient toujours être soumises à l'ordonnanceur, sauf pour de très petits cas ou des tutoriels.
+La préparation du maillage (`` `blockMesh` ``) peut être assez rapide pour se faire en ligne de commande (voir [Exécuter des tâches](../running-jobs/running_jobs.md)). L'étape la plus exigeante est habituellement celle du solveur (entre autres `` `icoFoam` ``) ; ces tâches devraient toujours être soumises à l'ordonnanceur, sauf pour de très petits cas ou des tutoriels.
 
 ## Solveur petscFoam
 
@@ -203,8 +203,8 @@ cp $WM_PROJECT_DIR/etc/controlDict $HOME/.OpenFOAM/$WM_PROJECT_VERSION/
 
 Plusieurs autres paramètres peuvent diminuer la quantité et la fréquence des écritures sur disque ; voir la documentation pour la [version 6](https://cfd.direct/openfoam/user-guide/v6-controldict/) et la [version 7](https://cfd.direct/openfoam/user-guide/v7-controldict/).
 
-Par exemple, le dictionnaire `` `debugSwitches` `` dans `` `$HOME/.OpenFOAM/$WM_PROJECT_VERSION/controlDict` `` peut être modifié pour que les valeurs des indicateurs qui sont plus grandes que zéro soient égales à zéro. Une autre solution serait d'utiliser l'espace scratch local (`` `$SLURM_TMPDIR` ``) qui est un disque attaché directement au nœud de calcul ; voir la [section Disque local dans la page Travailler avec un grand nombre de fichiers](handling-large-collections-of-files.md#disque-local).
+Par exemple, le dictionnaire `` `debugSwitches` `` dans `` `$HOME/.OpenFOAM/$WM_PROJECT_VERSION/controlDict` `` peut être modifié pour que les valeurs des indicateurs qui sont plus grandes que zéro soient égales à zéro. Une autre solution serait d'utiliser l'espace scratch local (`` `$SLURM_TMPDIR` ``) qui est un disque attaché directement au nœud de calcul ; voir la [section Disque local dans la page Travailler avec un grand nombre de fichiers](../storage-and-data/handling_large_collections_of_files.md#disque-local).
 
 ### Espace /scratch local sur un nœud de calcul
 
-Si votre flux de travail crée plusieurs petits fichiers, il serait préférable d'utiliser `` `$SLURM_TMPDIR` `` comme répertoire de travail. Pour plus d'information, voir [Stockage local sur les nœuds de calcul](using-node-local-storage.md).
+Si votre flux de travail crée plusieurs petits fichiers, il serait préférable d'utiliser `` `$SLURM_TMPDIR` `` comme répertoire de travail. Pour plus d'information, voir [Stockage local sur les nœuds de calcul](../storage-and-data/using_node-local_storage.md).

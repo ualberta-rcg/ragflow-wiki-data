@@ -32,6 +32,6 @@ status:
   qa_generated: false
 ---
 
-* [Introduction to the new national systems](getting-started-with-the-new-national-systems.md) in the form of YouTube tutorials
+* [Introduction to the new national systems](../clusters/getting_started_with_the_new_national_systems.md) in the form of YouTube tutorials
 * [Training schedule](https://www.computecanada.ca/page-daccueil-du-portail-de-recherche/research-support/training/?lang=en) on the Compute Canada website
 * [List of past events](past-events.md), including slides and exercise materials

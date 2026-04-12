@@ -161,7 +161,7 @@ parallel --jobs $SLURM_NTASKS_PER_NODE --sshloginfile ./node_list_${SLURM_JOB_ID
 ```
 In this case, we create a file containing the list of nodes, and we use this file to tell GNU Parallel which nodes to use for the distribution of tasks. The `--env` option allows us to transfer a named environment variable to all the nodes while the `--workdir` option ensures that the GNU Parallel tasks will start in the same directory as the main node.
 
-For example, when a long list of [OpenMP](openmp.md) tasks are executed as a single job submitted with `--nodes=N`, `--ntasks-per-node=5` and `--cpus-per-task=8`, the following command will take into account all processes to be started on all reserved nodes and the number of OpenMP threads per process:
+For example, when a long list of [OpenMP](../programming/openmp.md) tasks are executed as a single job submitted with `--nodes=N`, `--ntasks-per-node=5` and `--cpus-per-task=8`, the following command will take into account all processes to be started on all reserved nodes and the number of OpenMP threads per process:
 
 ```bash
 export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
@@ -288,4 +288,4 @@ parallel -j $SLURM_CPUS_PER_TASK my_simulator --alpha {1} --beta {2} ::: {1..10}
 ## Related topics
 * [META](meta-a-package-for-job-farming.md)
 * [GLOST](glost.md)
-* [Job arrays](job-arrays.md)
+* [Job arrays](job_arrays.md)

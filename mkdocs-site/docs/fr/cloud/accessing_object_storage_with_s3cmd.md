@@ -47,7 +47,7 @@ status:
   qa_generated: false
 ---
 
-Cette page contient les renseignements sur la configuration et l'accès au [stockage objet sur Arbutus](arbutus-object-storage.md) avec s3cmd, l'un des [clients pour le stockage de ce type](arbutus-object-storage-clients.md).
+Cette page contient les renseignements sur la configuration et l'accès au [stockage objet sur Arbutus](arbutus_object_storage.md) avec s3cmd, l'un des [clients pour le stockage de ce type](arbutus_object_storage_clients.md).
 
 ## Installation
 Dépendant de votre distribution Linux, la commande `s3cmd` est installée avec `yum` (RHEL, CentOS) ou `apt` (Debian, Ubuntu).
@@ -180,4 +180,4 @@ $ s3cmd info s3://compartimentdetest
 
 Pour d’autres exemples plus avancés, voir le [site d’aide de s3cmd](https://www.s3express.com/help/help.html) ou la page man de s3cmd(1).
 
-Voir la page [Stockage objet sur Arbutus](arbutus-object-storage.md) pour des exemples et pour les [directives sur la gestion des politiques de conteneurs (compartiments) pour votre stockage objet Arbutus](arbutus-object-storage.md#gestion-des-politiques-de-conteneurs-compartiments-pour-votre-stockage-objet-arbutus).
+Voir la page [Stockage objet sur Arbutus](arbutus_object_storage.md) pour des exemples et pour les [directives sur la gestion des politiques de conteneurs (compartiments) pour votre stockage objet Arbutus](arbutus_object_storage.md#gestion-des-politiques-de-conteneurs-compartiments-pour-votre-stockage-objet-arbutus).

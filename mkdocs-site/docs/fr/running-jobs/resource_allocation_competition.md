@@ -51,17 +51,17 @@ status:
   qa_generated: false
 ---
 
-Le concours pour l’allocation de ressources offre aux professeures et professeurs la possibilité de recevoir plus de ressources de calcul et de stockage que ne le permet le [service d’accès rapide](rapid-access-service.md).
+Le concours pour l’allocation de ressources offre aux professeures et professeurs la possibilité de recevoir plus de ressources de calcul et de stockage que ne le permet le [service d’accès rapide](../policies/rapid_access_service.md).
 
 Si vous ne savez pas quel type de demande convient à votre projet, écrivez à [allocations@tech.alliancecan.ca](mailto:allocations@tech.alliancecan.ca).
 
-Vous pouvez aussi prendre connaissance de la [foire aux questions au sujet du concours](rac-faq.md) et de la [terminologie](technical-glossary-for-the-resource-allocation-competitions.md).
+Vous pouvez aussi prendre connaissance de la [foire aux questions au sujet du concours](../policies/rac_faq.md) et de la [terminologie](technical_glossary_for_the_resource_allocation_competitions.md).
 
 ## Dates à retenir
 
 | **Événement** | **Date** |
 | :------------ | :------- |
-| **[Guide de préparation des demandes de ressources aux groupes de recherche](rac-application-guide.md)**<br> * Y compris les demandes via le processus accéléré<br>**[Guide de préparation des demandes de ressources aux plateformes et portails de recherche](rac-application-guide.md)**<br> * Y compris le dépôt des rapports sur l’avancement des projets de plateformes et portails de recherche | du 23 septembre au 4 novembre 2025 (minuit, HNE)<br> *(la date limite ne peut pas être modifiée)* |
+| **[Guide de préparation des demandes de ressources aux groupes de recherche](../policies/rac_application_guide.md)**<br> * Y compris les demandes via le processus accéléré<br>**[Guide de préparation des demandes de ressources aux plateformes et portails de recherche](../policies/rac_application_guide.md)**<br> * Y compris le dépôt des rapports sur l’avancement des projets de plateformes et portails de recherche | du 23 septembre au 4 novembre 2025 (minuit, HNE)<br> *(la date limite ne peut pas être modifiée)* |
 | Séance d'information générale sur le concours | en anglais le 24 septembre – [Présentation](https://docs.google.com/presentation/d/1DNKC_jDaMQnGyC8oI0kXH_WyTia6xvZ8DkSofRuKlfo/edit?usp=drive_link), [Enregistrement](https://drive.google.com/file/d/1Rcaw0wXyycnoTnOd9i6Dqzv7Bjyln9fB/view?usp=drive_link) |
 | Séance d'information générale sur le concours | en français le 29 septembre – [Présentation](https://docs.google.com/presentation/d/1xs5yEf5FunOa4omgb5NyCVxEwHlY72unzXJUYm0zM28/edit?usp=drive_link), [Enregistrement](https://drive.google.com/file/d/1dFFUcQgt6nrjhYhsTXdMUc6zqXcG5-cI/view?usp=drive_link) |
 | Séance d’information sur les demandes de ressources GPU | en anglais le 1er octobre - [Présentation](https://docs.google.com/presentation/d/151nG5ReL8tKQu--wumJ9235uy8tgDhjMo0i3baWtjU/edit?slide=id.g27bcdee3b37_0_318#slide=id.g27bcdee3b37_0_318), [Enregistrement](https://drive.google.com/file/d/1kPLQyHO30cFHDhZh6n80XGiLo9TqaxCJ/view?usp=drive_link) |
@@ -72,14 +72,14 @@ Vous pouvez aussi prendre connaissance de la [foire aux questions au sujet du co
 
 ## Documentation recommandée
 
-*   [Guide de préparation des demandes pour le concours d’allocation de ressources](rac-application-guide.md) (pour les groupes de recherche et les projets de plateformes et portail de recherche)
-    *   [Guide de préparation des demandes accélérées](rac-fast-track-application-guide.md)
-    *   [Rapport annuel sur l’avancement des projets de plateformes et portails de recherche](rpp-annual-progress-report-guidelines.md)
-*   [Ressources disponibles par le concours d'allocation de ressources](rac-available-resources.md)
-*   [FAQ pour le concours d'allocation de ressources](rac-faq.md)
-*   [Guide de rédaction du CV commun canadien pour l'Alliance](alliance-ccv-submission-guide.md)
-*   [Service d'accès rapide](rapid-access-service.md)
+*   [Guide de préparation des demandes pour le concours d’allocation de ressources](../policies/rac_application_guide.md) (pour les groupes de recherche et les projets de plateformes et portail de recherche)
+    *   [Guide de préparation des demandes accélérées](../policies/rac_fast_track_application_guide.md)
+    *   [Rapport annuel sur l’avancement des projets de plateformes et portails de recherche](../policies/rpp_annual_progress_report_guidelines.md)
+*   [Ressources disponibles par le concours d'allocation de ressources](../policies/rac_available_resources.md)
+*   [FAQ pour le concours d'allocation de ressources](../policies/rac_faq.md)
+*   [Guide de rédaction du CV commun canadien pour l'Alliance](../general/alliance_ccv_submission_guide.md)
+*   [Service d'accès rapide](../policies/rapid_access_service.md)
 
 ## Concours antérieurs
 
-Consultez le [Rapport annuel pour le concours d'allocation de ressources](rac-annual-reports.md).
+Consultez le [Rapport annuel pour le concours d'allocation de ressources](../policies/rac_annual_reports.md).

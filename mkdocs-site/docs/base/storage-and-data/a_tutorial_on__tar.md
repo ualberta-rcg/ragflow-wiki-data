@@ -186,7 +186,7 @@ status:
   qa_generated: false
 ---
 
-*Parent page: [Archiving and compressing files](archiving-and-compressing-files.md)*
+*Parent page: [Archiving and compressing files](archiving_and_compressing_files.md)*
 
 ## Using `tar` to archive files and directories
 

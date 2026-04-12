@@ -67,7 +67,7 @@ status:
   qa_generated: false
 ---
 
-A volume provides storage which is not destroyed when a VM is terminated. On our clouds, volumes use [Ceph](https://en.wikipedia.org/wiki/Ceph_(software)) storage with either a 3-fold replication factor or [erasure codes](https://en.wikipedia.org/wiki/Erasure_code) to provide safety against hardware failure. On [Arbutus](cloud-resources.md), the *rbd1* volume type is stored on spinning disk hard drives and uses erasure codes to provide data safety while reducing the extra storage costs of 3-fold replication. The *high_performance* volume type is stored on solid state NVMe drives and uses the less storage efficient but higher performance 3-fold replication factor. More documentation about OpenStack volumes can be found [here](https://docs.openstack.org/cinder/latest/cli/cli-manage-volumes.html).
+A volume provides storage which is not destroyed when a VM is terminated. On our clouds, volumes use [Ceph](https://en.wikipedia.org/wiki/Ceph_(software)) storage with either a 3-fold replication factor or [erasure codes](https://en.wikipedia.org/wiki/Erasure_code) to provide safety against hardware failure. On [Arbutus](cloud_resources.md), the *rbd1* volume type is stored on spinning disk hard drives and uses erasure codes to provide data safety while reducing the extra storage costs of 3-fold replication. The *high_performance* volume type is stored on solid state NVMe drives and uses the less storage efficient but higher performance 3-fold replication factor. More documentation about OpenStack volumes can be found [here](https://docs.openstack.org/cinder/latest/cli/cli-manage-volumes.html).
 
 ## Creating a volume
 
@@ -102,7 +102,7 @@ Attaching should complete in a few seconds. Then the volumes page will show the 
 *   **Formatting** erases all existing information on a volume and therefore should be done with care.
 *   Formatting is the process of preparing a volume to store directories and files.
 *   Before a newly created and attached volume can be used, it must be formatted.
-*   See instructions for doing this on a [Linux](using-a-new-empty-volume-on-a-linux-vm.md) or [Windows](using-a-new-empty-volume-on-a-windows-vm.md) VM.
+*   See instructions for doing this on a [Linux](../storage-and-data/using_a_new_empty_volume_on_a_linux_vm.md) or [Windows](using-a-new-empty-volume-on-a-windows-vm.md) VM.
 
 ### Mounting a volume
 
@@ -148,7 +148,7 @@ Creating an image from a volume allows you to download the image. Do this if you
 
 To create an image of a volume, it must first be detached from a VM. If it is a boot (root) volume, it can only be detached from a VM if the VM is terminated/deleted; however, make sure you have not checked *Delete Volume on Instance Delete* when creating the VM.
 
-Large images (more than 10-20GB) may be very slow to create, upload, and otherwise manage. You may want to consider [separating data](backing-up-your-vm.md#an-example-backup-strategy) if possible.
+Large images (more than 10-20GB) may be very slow to create, upload, and otherwise manage. You may want to consider [separating data](backing_up_your_vm.md#an-example-backup-strategy) if possible.
 
 ### Using the dashboard
 
@@ -160,7 +160,7 @@ Large images (more than 10-20GB) may be very slow to create, upload, and otherwi
 
 ### Using the command line client
 
-The [command line client](openstack-command-line-clients.md) can do this:
+The [command line client](openstack_command_line_clients.md) can do this:
 
 ```bash
 openstack image create --disk-format <format> --volume <volume_name> <image_name>
@@ -171,7 +171,7 @@ where
 *   `<volume_name>` can be found from the OpenStack dashboard by clicking on the volume name, and
 *   `<image_name>` is a name you choose for the image.
 
-You can then [download the image](working-with-images.md#downloading-an-image).
+You can then [download the image](working_with_images.md#downloading-an-image).
 
 ## Cloning a volume
 
@@ -180,7 +180,7 @@ Cloning is the recommended method for copying volumes. While it is possible to m
 !!! warning
     It is highly recommended to shut down your VM before creating a clone of the volume as the newly created volume may be left in an inconsistent state if there was writing to the source volume during the time the clone was created.
 
-To create a clone you must use the [command line client](openstack-command-line-clients.md) with this command
+To create a clone you must use the [command line client](openstack_command_line_clients.md) with this command
 
 ```bash
 openstack volume create --source <source-volume-id> --size <size-of-new-volume> <name-of-new-volume>
@@ -189,7 +189,7 @@ openstack volume create --source <source-volume-id> --size <size-of-new-volume> 
 ## Detaching a volume
 
 !!! warning
-    Before detaching a volume, it is important to make sure that the operating system and other programs running on your VM are not accessing files on this volume. If so, the detached volume can be left in a corrupted state or the programs could show unexpected behaviours. To avoid this, you can either shut down the VM before you detach the volume or [unmount the volume](using-a-new-empty-volume-on-a-linux-vm.md#unmounting-a-volume-or-device).
+    Before detaching a volume, it is important to make sure that the operating system and other programs running on your VM are not accessing files on this volume. If so, the detached volume can be left in a corrupted state or the programs could show unexpected behaviours. To avoid this, you can either shut down the VM before you detach the volume or [unmount the volume](../storage-and-data/using_a_new_empty_volume_on_a_linux_vm.md#unmounting-a-volume-or-device).
 
 To detach a volume, log in to the OpenStack dashboard (see the [list of links to our cloud systems](cloud.md#cloud-systems)) and select the project containing the volume you wish to detach. Selecting *Volumes -> Volumes* displays the project’s volumes. For each volume, the *Attached to* column indicates where the volume is attached.
 

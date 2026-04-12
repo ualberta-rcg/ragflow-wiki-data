@@ -51,7 +51,7 @@ status:
 ---
 
 !!! warning "Attention"
-The Béluga cluster has been replaced by [Rorqual](rorqual.md). In order to enable full production on Rorqual, **all Béluga compute nodes were closed**. However, Béluga's storage system and its login nodes remain accessible. Information on Béluga's progressive shutdown can be found on [this incident page](https://status.alliancecan.ca/view_incident?incident=1379) and on the wiki page [Infrastructure renewal](infrastructure-renewal.md).
+The Béluga cluster has been replaced by [Rorqual](rorqual.md). In order to enable full production on Rorqual, **all Béluga compute nodes were closed**. However, Béluga's storage system and its login nodes remain accessible. Information on Béluga's progressive shutdown can be found on [this incident page](https://status.alliancecan.ca/view_incident?incident=1379) and on the wiki page [Infrastructure renewal](infrastructure_renewal.md).
 
 | |
 | :------------------------------------------------------ |
@@ -65,7 +65,7 @@ Béluga is a general purpose cluster designed for a variety of workloads and sit
 
 ## Site-specific policies
 
-By policy, Béluga's compute nodes cannot access the internet. If you need an exception to this rule, contact [technical support](technical-support.md) explaining what you need and why.
+By policy, Béluga's compute nodes cannot access the internet. If you need an exception to this rule, contact [technical support](../support/technical_support.md) explaining what you need and why.
 
 Crontab is not offered on Béluga.
 
@@ -75,9 +75,9 @@ Each job on Béluga should have a duration of at least one hour (five minutes fo
 
 | | |
 | :----------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| HOME <br> Lustre filesystem, 105 TB of space | * Location of home directories, each of which has a small fixed quota. <br> * You should use the `project` space for larger storage needs. <br> * Small fixed [quota](storage-and-file-management.md#filesystem-quotas-and-policies) per user. <br> * There is a daily backup of the home directories. |
-| SCRATCH <br> Lustre filesystem, 2.6 PB of space | * Large space for storing temporary files during computations. <br> * No backup system in place. <br> * Large fixed [quota](storage-and-file-management.md#filesystem-quotas-and-policies) per user. <br> * There is an [automated purge](scratch-purging-policy.md) of older files in this space. |
-| PROJECT <br> Lustre filesystem, 25 PB of space | * This space is designed for sharing data among the members of a research group and for storing large amounts of data. <br> * Large adjustable [quota](storage-and-file-management.md#filesystem-quotas-and-policies) per group. <br> * There is a daily backup of the project space. |
+| HOME <br> Lustre filesystem, 105 TB of space | * Location of home directories, each of which has a small fixed quota. <br> * You should use the `project` space for larger storage needs. <br> * Small fixed [quota](../storage-and-data/storage_and_file_management.md#filesystem-quotas-and-policies) per user. <br> * There is a daily backup of the home directories. |
+| SCRATCH <br> Lustre filesystem, 2.6 PB of space | * Large space for storing temporary files during computations. <br> * No backup system in place. <br> * Large fixed [quota](../storage-and-data/storage_and_file_management.md#filesystem-quotas-and-policies) per user. <br> * There is an [automated purge](../storage-and-data/scratch_purging_policy.md) of older files in this space. |
+| PROJECT <br> Lustre filesystem, 25 PB of space | * This space is designed for sharing data among the members of a research group and for storing large amounts of data. <br> * Large adjustable [quota](../storage-and-data/storage_and_file_management.md#filesystem-quotas-and-policies) per group. <br> * There is a daily backup of the project space. |
 
 For transferring data via Globus, you should use the endpoint `computecanada#beluga-dtn`, while for tools like rsync and scp you can use a login node.
 

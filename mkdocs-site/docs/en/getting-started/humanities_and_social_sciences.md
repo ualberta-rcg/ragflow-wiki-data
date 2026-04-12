@@ -61,7 +61,7 @@ There are three elements of the current landscape that place the HSS in a positi
 *   growing research computing competency among humanities researchers.
 
 To support researchers in the HSS, the [Digital Research Alliance of Canada](https://alliancecan.ca/en) has a dedicated team of professionals.
-For more information, please contact the HSS Team using the [support email address found on this page](technical-support.md#ask-support), adding **(HSS)** at the beginning of the subject.
+For more information, please contact the HSS Team using the [support email address found on this page](../support/technical_support.md#ask-support), adding **(HSS)** at the beginning of the subject.
 Alternatively, you are welcome to request a specific staff member, consult the list of names below to find the appropriate person to contact.
 
 ## Who We Are
@@ -121,14 +121,14 @@ National services are available to all members of the research community with do
 
 *   **Advocacy and Outreach** - Members attend conferences, make presentations to academic and other groups, and actively participate in the scholarly community in order to better understand our user needs. 
 *   **Collaboration Services** – Sites located across Canada are capable of both delivering and viewing large video conferences.
-*   **[Cloud](cloud.md)** – Virtual-machine development space that includes an outward-facing IP address.
-*   **[Computation](getting-started.md)** – Expandable power ranging from the equivalent of a second desktop to supercomputers with thousands of cores, terabytes of RAM, and a variety of system architectures.
-*   **[General Analyst/Consultant Support](technical-support.md)** – Consultations regarding project architecture and resource needs with technical experts with skills ranging from specialty software selection to program optimization.
+*   **[Cloud](../cloud/cloud.md)** – Virtual-machine development space that includes an outward-facing IP address.
+*   **[Computation](getting_started.md)** – Expandable power ranging from the equivalent of a second desktop to supercomputers with thousands of cores, terabytes of RAM, and a variety of system architectures.
+*   **[General Analyst/Consultant Support](../support/technical_support.md)** – Consultations regarding project architecture and resource needs with technical experts with skills ranging from specialty software selection to program optimization.
 *   **[Globus](globus.md)** – Fast, secure, sharing and fire-and-forget file transfers.
-*   **[Nextcloud](nextcloud.md)** – 50Gb of shareable, Dropbox-like space available across multiple devices.
+*   **[Nextcloud](../cloud/nextcloud.md)** – 50Gb of shareable, Dropbox-like space available across multiple devices.
 *   **[Platforms and Portals](https://alliancecan.ca/en/services/advanced-research-computing/accessing-resources/resource-allocation-competition/resource-allocation-competition-application-guide#heading-research-platforms-and-portals-rpp)** – Hosting for specialized data and tools for entire research communities.
-*   **[Specialized Software](available-software.md)** – More than 900 software programs and packages already integrated with national compute clusters.
-*   **[Storage](storage-and-file-management.md)** – Robust storage solutions for backup and mid- to long-term storage.
+*   **[Specialized Software](../programming/available_software.md)** – More than 900 software programs and packages already integrated with national compute clusters.
+*   **[Storage](../storage-and-data/storage_and_file_management.md)** – Robust storage solutions for backup and mid- to long-term storage.
 *   **Training** – Training sessions covering core skills offered regularly and custom courses available on request. Please see below for all training opportunities, including those pertinent to Humanities and Social Sciences for your specific region.
     *   [Training calendar](https://alliancecan.ca/en/training)
         *   [ACENET Training Resources](https://www.ace-net.ca/training/)
@@ -140,8 +140,8 @@ National services are available to all members of the research community with do
         *   [2022 Edition](https://hss-series-2022.netlify.app/)
         *   [2023 Edition](https://hss23.netlify.app/)
         *   [2024 Edition](https://hss24.netlify.app/)
-*   **[Visualization Support](visualization.md)** – Dedicated 3D visualization expert available
-*   **[Windows in the Cloud](cloud-quick-start.md#creating-your-first-virtual-machine)** - run Windows applications in the cloud.
+*   **[Visualization Support](../software/visualization.md)** – Dedicated 3D visualization expert available
+*   **[Windows in the Cloud](../cloud/cloud_quick_start.md#creating-your-first-virtual-machine)** - run Windows applications in the cloud.
 
 ## Other Resources for Canadian Digital Humanities Scholars
 *   [Alliance of Digital Humanities Organizations (ADHO)](https://adho.org/)

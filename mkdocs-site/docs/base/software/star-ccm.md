@@ -109,7 +109,7 @@ USE_SERVER
 ```
 
 ## Cluster batch job submission
-Before submitting jobs on a cluster, you must set up a `~/.licenses/starccm.lic` file on each cluster where you will run jobs. If you have a PoD license, then the required firewall changes have already been done on all of the Alliance clusters. If, however, you will be using a local institutional license server, then you will need to submit a problem ticket to [technical support](technical-support.md) to request the one-time network firewall changes be made between the cluster(s) and your local license server.
+Before submitting jobs on a cluster, you must set up a `~/.licenses/starccm.lic` file on each cluster where you will run jobs. If you have a PoD license, then the required firewall changes have already been done on all of the Alliance clusters. If, however, you will be using a local institutional license server, then you will need to submit a problem ticket to [technical support](../support/technical_support.md) to request the one-time network firewall changes be made between the cluster(s) and your local license server.
 
 !!! tip
     If you have problems getting the licensing to work, then try removing or renaming file `~/.flexlmrc` since previous search paths and/or license server settings may be stored in it.
@@ -321,11 +321,11 @@ Before submitting jobs on a cluster, you must set up a `~/.licenses/starccm.lic`
     ```
 
 ## Graphical use
-To run Star-CCM+ in graphical mode, it is recommended to use an [OnDemand](nibi.md#access-through-open-ondemand-ood) or JupyterLab system to start a remote desktop. In addition to configuring `~/.licenses/starccm.lic`, research groups with a PoD license should also run `export LM_PROJECT='22digit-PoD-License-Key'` before starting `starccm+` as shown below. Additional command line options such as **-power** may also need to be appended depending on your license type. Note that running `module avail starccm` will display all *mixed* and *R8* versions that are available to load within the StdEnv/version you currently have loaded (e.g., 2020 or 2023). Alternatively, running `module spider starccm` will show all *mixed* and *R8* module versions available to load within both StdEnv module versions that could be loaded (e.g., 2020 and 2023).
+To run Star-CCM+ in graphical mode, it is recommended to use an [OnDemand](../clusters/nibi.md#access-through-open-ondemand-ood) or JupyterLab system to start a remote desktop. In addition to configuring `~/.licenses/starccm.lic`, research groups with a PoD license should also run `export LM_PROJECT='22digit-PoD-License-Key'` before starting `starccm+` as shown below. Additional command line options such as **-power** may also need to be appended depending on your license type. Note that running `module avail starccm` will display all *mixed* and *R8* versions that are available to load within the StdEnv/version you currently have loaded (e.g., 2020 or 2023). Alternatively, running `module spider starccm` will show all *mixed* and *R8* module versions available to load within both StdEnv module versions that could be loaded (e.g., 2020 and 2023).
 
 ### OnDemand
 1. To start an OnDemand desktop session, click one of the following OnDemand links:
-    *   [NIBI](nibi.md#access-through-open-ondemand-ood): [https://ondemand.sharcnet.ca](https://ondemand.sharcnet.ca)
+    *   [NIBI](../clusters/nibi.md#access-through-open-ondemand-ood): [https://ondemand.sharcnet.ca](https://ondemand.sharcnet.ca)
     *   TRILLIUM: [https://ondemand.scinet.utoronto.ca](https://ondemand.scinet.utoronto.ca)
 2. Open a new terminal window in your desktop and run one of:
     *   **STAR-CCM+ 18.04.008 (or newer versions)**
@@ -357,7 +357,7 @@ To run Star-CCM+ in graphical mode, it is recommended to use an [OnDemand](nibi.
 !!! warning "Legacy Instructions"
     These instructions are retained for legacy purposes only.
 
-1.  Connect with a VncViewer client to a login or compute node by following [TigerVNC](vnc.md).
+1.  Connect with a VncViewer client to a login or compute node by following [TigerVNC](../interactive/vnc.md).
 2.  Open a new terminal window in your desktop and run one of:
     *   **STAR-CCM+ 18.04.008 (or newer versions)**
         *   `module load StdEnv/2023` (default)

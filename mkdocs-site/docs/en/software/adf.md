@@ -68,17 +68,17 @@ Compute Canada users have access to the following products:
 *   NBO6
 
 ## Running SCM on Graham
-The `adf` module is installed only on [Graham](graham.md) due to license restrictions. To check what versions are available, use the `module spider` command as follows:
+The `adf` module is installed only on [Graham](../clusters/graham.md) due to license restrictions. To check what versions are available, use the `module spider` command as follows:
 
 ```console
 [name@server $] module spider adf
 ```
 
-For module commands, please see [Using modules](utiliser-des-modules.md).
+For module commands, please see [Using modules](../programming/utiliser_des_modules.md).
 
 ### Job submission
 
-Graham uses the Slurm scheduler; for details about submitting jobs, see [Running jobs](running-jobs.md).
+Graham uses the Slurm scheduler; for details about submitting jobs, see [Running jobs](../running-jobs/running_jobs.md).
 
 #### Single ADF or BAND run
 This `mysub.sh` script is for a whole-node job. The last two lines load version 2019.305 and call ADF directly.
@@ -282,14 +282,14 @@ Example input/output for ADF can be found on Graham under `/home/jemmyhu/tests/t
 The same procedure applies to BAND jobs; see `band_test.inp` and `band_test.sh` examples under `/home/jemmyhu/tests/test_ADF/2019.305/test_band/`.
 
 ## Running SCM-GUI
-Rendering over an SSH connection with X11 forwarding is very slow for GUI applications such as ADF-GUI. We recommend you use [VNC](vnc.md) to connect if you will be running ADF-GUI.
+Rendering over an SSH connection with X11 forwarding is very slow for GUI applications such as ADF-GUI. We recommend you use [VNC](../interactive/vnc.md) to connect if you will be running ADF-GUI.
 
 ### Graham
 
 ADF can be run interactively in graphical mode on a Graham compute node (3hr time limit) over TigerVNC with these steps:
 
-1.  [Install a TigerVNC](vnc.md#setup) client on your desktop
-2.  [Connect](vnc.md#compute-nodes) to a compute node with vncviewer
+1.  [Install a TigerVNC](../interactive/vnc.md#setup) client on your desktop
+2.  [Connect](../interactive/vnc.md#compute-nodes) to a compute node with vncviewer
 3.  `module load adf`
 4.  `adfinput`
 
@@ -297,8 +297,8 @@ ADF can be run interactively in graphical mode on a Graham compute node (3hr tim
 
 ADF can be run interactively in graphical mode on gra-vdi (no connection time limit) over TigerVNC with these steps:
 
-1.  [Install a TigerVNC](vnc.md#setup) client on your desktop
-2.  [Connect](vnc.md#vdi-nodes) to `gra-vdi.computecanada.ca` with vncviewer
+1.  [Install a TigerVNC](../interactive/vnc.md#setup) client on your desktop
+2.  [Connect](../interactive/vnc.md#vdi-nodes) to `gra-vdi.computecanada.ca` with vncviewer
 3.  `module load clumod`
 4.  `module load adf`
 5.  `adfinput`

@@ -71,7 +71,7 @@ Une image est un fichier dont le contenu est le même que celui d'un disque virt
 
 Lorsque vous partagez vos images, assurez-vous d'y retirer l'information sensible comme les clés publiques et privées, les fichiers de configuration qui contiennent des mots de passe, etc. Lorsqu'une image créée d'une instance VirtualBox est téléchargée sur un de nos nuages, `cloud-init` doit avoir été installé et configuré correctement; voyez [la documentation d'OpenStack](https://docs.openstack.org/image-guide/create-images-manually.html).
 
-Voyez la [liste des images](cloud-resources.md#images) fournies par l'équipe de soutien technique.
+Voyez la [liste des images](cloud_resources.md#images) fournies par l'équipe de soutien technique.
 
 ## Créer une image depuis une instance
 
@@ -79,7 +79,7 @@ La procédure est différente selon que l'instance démarre depuis un disque ép
 
 ### Démarrer depuis un disque éphémère
 
-Vous pouvez utiliser un [client ligne de commande OpenStack](openstack-command-line-clients.md) avec la commande
+Vous pouvez utiliser un [client ligne de commande OpenStack](openstack_command_line_clients.md) avec la commande
 ```bash
 openstack server image create <server-name>
 ```
@@ -87,7 +87,7 @@ où `<server-name>` est remplacé par le nom de votre serveur. Ceci inclura uniq
 
 ### Démarrer depuis un volume
 
-Voir [Créer une image depuis un volume](working-with-volumes.md#créer-une-image-depuis-un-volume).
+Voir [Créer une image depuis un volume](working_with_volumes.md#créer-une-image-depuis-un-volume).
 
 ## Partager une image avec un autre projet
 
@@ -96,7 +96,7 @@ C'est un processus en deux étapes :
 1.  Un membre du projet auquel l'image appartient doit partager l'image avec l'autre projet.
 2.  Un membre de l'autre projet doit accepter la nouvelle image qui est partagée.
 
-Le membre du projet propriétaire utilise la commande [OpenStack](openstack-command-line-clients.md)
+Le membre du projet propriétaire utilise la commande [OpenStack](openstack_command_line_clients.md)
 ```console
 [name@server]$  glance member-create <IMAGE_ID> <MEMBER_ID>
 +------------+-------------+---------+
@@ -107,7 +107,7 @@ Le membre du projet propriétaire utilise la commande [OpenStack](openstack-comm
 ```
 où `<IMAGE_ID>` est l'identifiant de l'image à partager et `<MEMBER_ID>` est l'identifiant du projet avec lequel partager l'image.
 
-Pour accepter l'image partagée, le membre du deuxième projet utilise la commande [OpenStack](openstack-command-line-clients.md#autres-interfaces) suivante
+Pour accepter l'image partagée, le membre du deuxième projet utilise la commande [OpenStack](openstack_command_line_clients.md#autres-interfaces) suivante
 ```console
 [name@server]$  glance member-update <IMAGE_ID> <MEMBER_ID> <MEMBER_STATUS>
 +------------+-------------+----------+
@@ -130,7 +130,7 @@ Pour vérifier l'état de propriété de l'image, utilisez la commande
 
 ## Télécharger une image
 
-Il faut d'abord installer le client OpenStack, puis télécharger le fichier RC OpenStack et le définir comme source (voir [OpenStack : Clients ligne de commande](openstack-command-line-clients.md)).
+Il faut d'abord installer le client OpenStack, puis télécharger le fichier RC OpenStack et le définir comme source (voir [OpenStack : Clients ligne de commande](openstack_command_line_clients.md)).
 Le client OpenStack produit la liste des images disponibles de votre projet avec
 ```bash
 openstack image list
@@ -162,7 +162,7 @@ où `<format>` correspond à la valeur dans la colonne *Disk Format* et `<ID>` c
 
 ## Téléverser une image
 
-Installez d'abord le client OpenStack, puis téléchargez et exécutez le fichier OpenStack RC (voir la section « Connecter le client ligne de commande à OpenStack » dans [Client ligne de commande](openstack-command-line-clients.md#connecter-le-client-ligne-de-commande-à-openstack)).
+Installez d'abord le client OpenStack, puis téléchargez et exécutez le fichier OpenStack RC (voir la section « Connecter le client ligne de commande à OpenStack » dans [Client ligne de commande](openstack_command_line_clients.md#connecter-le-client-ligne-de-commande-à-openstack)).
 Lancez la commande
 ```bash
 openstack image create --file <path-to-local-file-image> --disk-format <format> <new-image-name>

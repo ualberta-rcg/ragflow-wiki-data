@@ -57,7 +57,7 @@ Input files mentioned in the [ABINIT tutorial](https://docs.abinit.org/tutorial/
 
 ## Example job script
 
-ABINIT calculations other than the most trivial tests or tutorial examples should be run via the job scheduler, [Slurm](running-jobs.md). Below is an example job script for running ABINIT, which uses 64 CPU cores on two nodes for 48 hours, requiring 1024 MB of memory per core. You should be able to adapt this to your own needs and the particular cluster you are using.
+ABINIT calculations other than the most trivial tests or tutorial examples should be run via the job scheduler, [Slurm](../running-jobs/running_jobs.md). Below is an example job script for running ABINIT, which uses 64 CPU cores on two nodes for 48 hours, requiring 1024 MB of memory per core. You should be able to adapt this to your own needs and the particular cluster you are using.
 
 ```sh linenums="1" title="abinit_job.sh"
 #!/bin/bash

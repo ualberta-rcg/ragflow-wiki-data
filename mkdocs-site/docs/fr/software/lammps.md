@@ -64,7 +64,7 @@ status:
   qa_generated: false
 ---
 
-*Page enfant de [Simulation biomoléculaire](biomolecular-simulation.md)*
+*Page enfant de [Simulation biomoléculaire](molecular-sim/biomolecular_simulation.md)*
 
 ## Généralités
 
@@ -74,7 +74,7 @@ LAMMPS (pour *large-scale atomic/molecular massively parallel simulator*) est un
 *   [Documentation](http://lammps.sandia.gov/doc/Manual.html)
 *   [Liste de messagerie](http://lammps.sandia.gov/mail.html)
 
-La parallélisation se fait avec [MPI](mpi.md) et [OpenMP](openmp.md) et LAMMPS peut être exécuté sur [GPU](using-gpus-with-slurm.md).
+La parallélisation se fait avec [MPI](mpi.md) et [OpenMP](../programming/openmp.md) et LAMMPS peut être exécuté sur [GPU](../running-jobs/using_gpus_with_slurm.md).
 
 ## Champs de force
 
@@ -90,7 +90,7 @@ Les potentiels peuvent aussi être combinés dans des systèmes hybrides, par ex
 
 ## Versions et paquets
 
-Pour connaître les versions disponibles, lancez `module spider lammps` (voir [Utiliser des modules](utiliser-des-modules.md)).
+Pour connaître les versions disponibles, lancez `module spider lammps` (voir [Utiliser des modules](../programming/utiliser_des_modules.md)).
 
 Les numéros de version de LAMMPS comprennent la date de sortie au format AAAAMMJJ. Exécutez
 
@@ -106,7 +106,7 @@ Il peut y avoir plusieurs modules pour une même version. Par exemple, la versio
 *   `lammps-omp/20170331` USER-OMP (compatible OpenMP)
 *   `lammps-user-intel/20170331` USER-INTEL
 
-Ces versions fonctionnent aussi avec GPU; le module [CUDA](cuda.md) doit être chargé avant le module LAMMPS.
+Ces versions fonctionnent aussi avec GPU; le module [CUDA](../programming/cuda.md) doit être chargé avant le module LAMMPS.
 
 ```bash
 module load cuda
@@ -134,7 +134,7 @@ Il existe différents modules pour la même version, dépendant des paquets qui 
 
 Pour certains modules LAMMPS, nous fournissons le fichier `list-packages.txt` qui liste les paquets activés (*Supported*) et non activés (*Not Supported*). Une fois que vous avez chargé un module, lancez `cat ${EBROOTLAMMPS}/list-packages.txt` pour en connaître le contenu.
 
-Si `list-packages.txt` est introuvable, vous pourriez être capable de déterminer quels sont les paquets disponibles en ouvrant le fichier de recette [EasyBuild](easybuild.md) avec `$EBROOTLAMMPS/easybuild/LAMMPS*.eb`. Les paquets disponibles se trouvent dans le bloc `general_packages`.
+Si `list-packages.txt` est introuvable, vous pourriez être capable de déterminer quels sont les paquets disponibles en ouvrant le fichier de recette [EasyBuild](../programming/easybuild.md) avec `$EBROOTLAMMPS/easybuild/LAMMPS*.eb`. Les paquets disponibles se trouvent dans le bloc `general_packages`.
 
 ## Exemples de fichiers d'entrée
 

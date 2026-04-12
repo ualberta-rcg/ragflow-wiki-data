@@ -95,11 +95,11 @@ Among others, the following metrics are available:
 
 Several specialized software libraries exist for quantum computing and developing quantum algorithms. These libraries allow for the construction of circuits that are executed on simulators imitating the performance and results obtained on a quantum computer like MonarQ. They can be used on all Alliance clusters.
 
-*   [PennyLane](pennylane.md), Python command library
-*   [Snowflurry](snowflurry.md), Julia command library
-*   [Qiskit](qiskit.md), Python command library
+*   [PennyLane](../software/quantum/pennylane.md), Python command library
+*   [Snowflurry](../software/quantum/snowflurry.md), Julia command library
+*   [Qiskit](../software/quantum/qiskit.md), Python command library
 
-MonarQ's quantum logic gates are called through the [Snowflurry](https://github.com/SnowflurrySDK/Snowflurry.jl) software library, written in [Julia](https://julialang.org/). Although MonarQ is natively compatible with Snowflurry, a [PennyLane-CalculQuébec](https://github.com/calculquebec/pennylane-snowflurry) plugin developed by Calcul Québec allows for executing circuits on MonarQ while benefiting from the features and development environment offered by [PennyLane](pennylane.md).
+MonarQ's quantum logic gates are called through the [Snowflurry](https://github.com/SnowflurrySDK/Snowflurry.jl) software library, written in [Julia](https://julialang.org/). Although MonarQ is natively compatible with Snowflurry, a [PennyLane-CalculQuébec](https://github.com/calculquebec/pennylane-snowflurry) plugin developed by Calcul Québec allows for executing circuits on MonarQ while benefiting from the features and development environment offered by [PennyLane](../software/quantum/pennylane.md).
 
 ## Getting Started with MonarQ
 
@@ -107,7 +107,7 @@ MonarQ's quantum logic gates are called through the [Snowflurry](https://github.
 
 *   **Step 1: Connect to [Narval](narval.md)**
     *   MonarQ is only accessible from Narval, a Calcul Québec cluster. Access to Narval is via the connection node `narval.alliancecan.ca`.
-    *   For help connecting to Narval, consult the [SSH](ssh.md) page.
+    *   For help connecting to Narval, consult the [SSH](../getting-started/ssh.md) page.
 
 *   **Step 2: Create the environment**
     *   Create a Python virtual environment (3.11 or later) to use PennyLane and the [PennyLane-CalculQuébec](https://github.com/calculquebec/pennylane-snowflurry) plugin. These are already installed on Narval, and you will only need to import the software libraries you wish to use.
@@ -173,7 +173,7 @@ python my_circuit.py
 
 *   The circuit's result is written to a file whose name starts with `slurm-`, followed by the job ID and the `.out` suffix, for example, *slurm-123456.out*.
 *   In this file, you will find the result of our circuit in a dictionary `{'000': 496, '001': 0, '010': 0, '011': 0, '100': 0, '101': 0, '110': 0, '111': 504}`.
-*   For more information on how to submit jobs on Narval, see [Running Jobs](running-jobs.md).
+*   For more information on how to submit jobs on Narval, see [Running Jobs](../running-jobs/running_jobs.md).
 
 ## Common Questions
 

@@ -67,7 +67,7 @@ $ module load nixpkgs/16.09 intel/2016.4 openmpi/2.0.2 dalton/2017-alpha
 
 !!! note "Open MPI dependency"
     `dalton/2017-alpha` depends on a non-default version of Open MPI.
-    For more on the `module` command see [Using modules](utiliser-des-modules.md).
+    For more on the `module` command see [Using modules](../../programming/utiliser_des_modules.md).
 
 ## Usage
 

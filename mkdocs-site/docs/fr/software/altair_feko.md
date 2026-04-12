@@ -48,4 +48,4 @@ Le module FEKO cherche l'information en rapport avec la licence à différents e
 setenv("ALTAIR_LICENSE_PATH", "<port>@<hostname>")
 ```
 
-Enregistrez ce fichier dans le répertoire `$HOME/.licenses/`. Les pare-feu des deux parties doivent être configurés; contactez le [soutien technique](technical-support.md) à ce sujet.
+Enregistrez ce fichier dans le répertoire `$HOME/.licenses/`. Les pare-feu des deux parties doivent être configurés; contactez le [soutien technique](../support/technical_support.md) à ce sujet.

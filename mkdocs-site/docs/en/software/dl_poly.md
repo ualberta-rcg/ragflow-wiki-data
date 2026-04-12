@@ -57,7 +57,7 @@ There is a mailing list [here](https://www.jiscmail.ac.uk/cgi-bin/webadmin?A0=DL
 
 # License limitations
 
-**DL_POLY** is now [open source](https://gitlab.com/DL%20POLY%20Classic/dl%20poly) and it does not require registration. A new module **dl_poly4/5.1.0** is already installed under **StdEnv/2023** and it is accessible for all users. However, if you would like to use the previous versions (**dl_poly4/4.10.0** and/or **dl_poly4/4.08**), you should contact [support](technical-support.md) and ask to be added to the POSIX group that controls access to DL_POLY4. There is no need to register on DL_POLY website.
+**DL_POLY** is now [open source](https://gitlab.com/DL%20POLY%20Classic/dl%20poly) and it does not require registration. A new module **dl_poly4/5.1.0** is already installed under **StdEnv/2023** and it is accessible for all users. However, if you would like to use the previous versions (**dl_poly4/4.10.0** and/or **dl_poly4/4.08**), you should contact [support](../support/technical_support.md) and ask to be added to the POSIX group that controls access to DL_POLY4. There is no need to register on DL_POLY website.
 
 # Modules
 

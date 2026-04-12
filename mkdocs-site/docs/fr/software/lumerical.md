@@ -128,7 +128,7 @@ En date du 1er avril 2020, les recettes suivantes sont disponibles :
 | `Lumerical-2021-R2.5-2885-27742aa972.eb`        | `Lumerical-2021-R2.5-2885-27742aa972.tar.gz`  | `Lumerical-2021-*.tar.gz`  |
 | `Lumerical-2022-R1.3-3016-2c0580a.eb`           | `Lumerical-2022-R1.3-3016-2c0580a.tar.gz`     | `Lumerical-2022-*.tar.gz`  |
 
-Si ces directives ne fonctionnent pas, contactez le [soutien technique](technical-support.md) et nous adapterons une recette pour l'installation de votre version.
+Si ces directives ne fonctionnent pas, contactez le [soutien technique](../support/technical_support.md) et nous adapterons une recette pour l'installation de votre version.
 
 Une fois l'installation terminée, vous devez vous déconnecter et vous reconnecter au serveur. Chargez ensuite le module Lumerical avec
 ```bash
@@ -160,7 +160,7 @@ Par exemple, si `FDTD_Solutions-8.19.1466.tar` a été téléchargé dans `$HOME
 ```bash
 eb FDTD_Solutions-8.19.1438.eb --try-software-version=8.19.1466 --sourcepath=$HOME/Downloads --disable-enforce-checksums
 ```
-En cas de difficulté, communiquez avec le [soutien technique](technical-support.md) qui adaptera un script d'installation pour votre version.
+En cas de difficulté, communiquez avec le [soutien technique](../support/technical_support.md) qui adaptera un script d'installation pour votre version.
 
 Après l'installation, il faut se déconnecter du serveur et se connecter de nouveau. Pour charger le module, utilisez
 ```bash

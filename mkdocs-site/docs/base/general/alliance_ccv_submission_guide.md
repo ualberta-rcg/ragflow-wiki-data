@@ -162,7 +162,7 @@ To renew your account, your CCV must have been submitted in the last 300 days.
     *   If you are absolutely sure that your CCV submission was successful and the parameters you have entered are correct, yet you receive an error on CCDB, please contact support@tech.alliancecancomputecanada.ca for assistance.
 5.  Report contributions enabled by Alliance resources (see here for instructions).
 
-If you have further questions about the renewals process, please visit our [Renewals FAQ](account-renewal-faq.md) page.
+If you have further questions about the renewals process, please visit our [Renewals FAQ](../getting-started/account_renewal_faq.md) page.
 
 ## Apply to the Resource Allocation Competitions
 An updated CCV is required for the Academic Principal Investigator (PI) and ALL the co-PIs of a RAC application.
@@ -170,7 +170,7 @@ An updated CCV is required for the Academic Principal Investigator (PI) and ALL 
 !!! important
     Since faculty are required to update their CCV to renew Alliance accounts in the spring, most Academic PIs will have an updated their CCV when submitting a RAC application in the fall. In this case, submitting a new CCV (e.g., because new information was added to the CCV since the spring) is at the discretion of the PI.
 
-If you have further questions, please visit the [Resource Allocation Competitions](account-renewal-faq.md) (RAC) page.
+If you have further questions, please visit the [Resource Allocation Competitions](../getting-started/account_renewal_faq.md) (RAC) page.
 
 ### Academic Principal Investigator of a RAC application
 !!! note

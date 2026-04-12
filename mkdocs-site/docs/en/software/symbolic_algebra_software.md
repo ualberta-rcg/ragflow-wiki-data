@@ -57,4 +57,4 @@ Some well-known symbolic algebra software packages are the commercial products [
     sage:
     ```
 
-Additional open-source software that may be of interest and which is available on the clusters as a [module](utiliser-des-modules.md) includes the [Number Theory Library (NTL)](https://www.shoup.net/ntl/) (`ntl`), [SINGULAR](https://www.singular.uni-kl.de/) (`singular`), [Macaulay2](https://faculty.math.illinois.edu/Macaulay2/) (`m2`) and [PARI/GP](http://pari.math.u-bordeaux.fr/) (`pari-gp`).
+Additional open-source software that may be of interest and which is available on the clusters as a [module](../programming/utiliser_des_modules.md) includes the [Number Theory Library (NTL)](https://www.shoup.net/ntl/) (`ntl`), [SINGULAR](https://www.singular.uni-kl.de/) (`singular`), [Macaulay2](https://faculty.math.illinois.edu/Macaulay2/) (`m2`) and [PARI/GP](http://pari.math.u-bordeaux.fr/) (`pari-gp`).

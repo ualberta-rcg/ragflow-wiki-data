@@ -115,7 +115,7 @@ This page discusses how to install SAIGE package 1.0.0.
     sed -i 's/llapack/lflexiblas/' src/Makevars
     ```
 
-    First, remove the *configure* file to avoid installing already available dependencies. Then, change the library name to correctly link to the *Makevars* file to make sure that the linking options will use FlexiBLAS. Doing so will prevent the *unable to find -llapack* error message displayed at installation. Read more information on [FlexiBLAS, BLAS and LAPACK](blas-and-lapack.md).
+    First, remove the *configure* file to avoid installing already available dependencies. Then, change the library name to correctly link to the *Makevars* file to make sure that the linking options will use FlexiBLAS. Doing so will prevent the *unable to find -llapack* error message displayed at installation. Read more information on [FlexiBLAS, BLAS and LAPACK](../programming/blas_and_lapack.md).
 
 6.  Compile and install.
 

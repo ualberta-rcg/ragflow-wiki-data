@@ -92,7 +92,7 @@ status:
 ---
 
 # Introduction
-We provide repositories of software and data via a file system called the [CERN Virtual Machine File System](cvmfs.md) (CVMFS). On our systems, CVMFS is already set up for you, so the repositories are automatically available for your use. For more information on using our software environment, please refer to wiki pages [Available software](available-software.md), [Using modules](using-modules.md), [Python](python.md), [R](r.md) and [Installing software in your home directory](installing-software-in-your-home-directory.md).
+We provide repositories of software and data via a file system called the [CERN Virtual Machine File System](cvmfs.md) (CVMFS). On our systems, CVMFS is already set up for you, so the repositories are automatically available for your use. For more information on using our software environment, please refer to wiki pages [Available software](../../programming/available_software.md), [Using modules](using-modules.md), [Python](../python.md), [R](../r.md) and [Installing software in your home directory](../../getting-started/installing_software_in_your_home_directory.md).
 
 The purpose of this page is to describe how you can install and configure CVMFS on *your* computer or cluster, so that you can access the same repositories (and software environment) on your system that are available on ours.
 
@@ -240,7 +240,7 @@ This environment variable allows to define locations for local module trees, whi
 ```bash
 export RSNT_LOCAL_MODULEPATHS=/opt/software/easybuild/modules
 ```
-and then install your [EasyBuild](easybuild.md) recipe using
+and then install your [EasyBuild](../../programming/easybuild.md) recipe using
 ```bash
 eb --installpath /opt/software/easybuild <your recipe>.eb
 ```
@@ -273,7 +273,7 @@ To do so, first identify a path where you want to install local software. For ex
 export RSNT_LOCAL_MODULEPATHS=/opt/software/easybuild/modules
 ```
 
-If you want this branch of the software hierarchy to be found by your users, we recommend you define this environment variable in the cluster's common profile. Then, install the software packages you want using [EasyBuild](easybuild.md):
+If you want this branch of the software hierarchy to be found by your users, we recommend you define this environment variable in the cluster's common profile. Then, install the software packages you want using [EasyBuild](../../programming/easybuild.md):
 ```bash
 eb --installpath /opt/software/easybuild <some easyconfig recipe>
 ```
@@ -325,7 +325,7 @@ done
 Our software environment is designed to use [RUNPATH](https://en.wikipedia.org/wiki/Rpath). Defining `LD_LIBRARY_PATH` is [not recommended](https://gms.tf/ld_library_path-considered-harmful.html) and can lead to the environment not working.
 
 ## Missing libraries
-Because we do not define `LD_LIBRARY_PATH`, and because our libraries are not installed in default Linux locations, binary packages, such as Anaconda, will often not find libraries that they would usually expect. Please see our documentation on [Installing binary packages](installing-software-in-your-home-directory.md#installing-binary-packages).
+Because we do not define `LD_LIBRARY_PATH`, and because our libraries are not installed in default Linux locations, binary packages, such as Anaconda, will often not find libraries that they would usually expect. Please see our documentation on [Installing binary packages](../../getting-started/installing_software_in_your_home_directory.md#installing-binary-packages).
 
 ## `dbus`
 For some applications, `dbus` needs to be installed. This needs to be installed locally, on the host operating system.

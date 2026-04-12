@@ -47,7 +47,7 @@ status:
 This cluster is part of the Pan-Canadian AI Compute Environment (PAICE).
 
 ## Site-specific policies
-Internet access is not generally available from the compute nodes. A globally available Squid proxy is enabled by default with certain domains whitelisted. Contact [technical support](technical-support.md) if you are not able to connect to a domain and we will evaluate whether it belongs on the whitelist.
+Internet access is not generally available from the compute nodes. A globally available Squid proxy is enabled by default with certain domains whitelisted. Contact [technical support](../support/technical_support.md) if you are not able to connect to a domain and we will evaluate whether it belongs on the whitelist.
 
 Maximum duration of jobs is 7 days.
 
@@ -112,7 +112,7 @@ Looks good.| Availability         | April 15, 2025                              
 This cluster is part of the Pan-Canadian AI Compute Environment (PAICE).
 
 ## Site-specific policies
-Internet access is not generally available from the compute nodes. A globally available Squid proxy is enabled by default with certain domains whitelisted. Contact [technical support](technical-support.md) if you are not able to connect to a domain and we will evaluate whether it belongs on the whitelist.
+Internet access is not generally available from the compute nodes. A globally available Squid proxy is enabled by default with certain domains whitelisted. Contact [technical support](../support/technical_support.md) if you are not able to connect to a domain and we will evaluate whether it belongs on the whitelist.
 
 Maximum duration of jobs is 7 days.
 
@@ -153,7 +153,7 @@ If you are a PI and need to sponsor other researchers you will have to add them 
 This cluster is part of the Pan-Canadian AI Compute Environment (PAICE).
 
 ## Site-specific policies
-Internet access is not generally available from the compute nodes. A globally available Squid proxy is enabled by default with certain domains whitelisted. Contact [technical support](technical-support.md) if you are not able to connect to a domain and we will evaluate whether it belongs on the whitelist.
+Internet access is not generally available from the compute nodes. A globally available Squid proxy is enabled by default with certain domains whitelisted. Contact [technical support](../support/technical_support.md) if you are not able to connect to a domain and we will evaluate whether it belongs on the whitelist.
 
 Maximum duration of jobs is 7 days.
 
@@ -184,14 +184,14 @@ If you are a PI and need to sponsor other researchers you will have to add them 
 | Storage Type    | Description                                                  |
 | :-------------- | :----------------------------------------------------------- |
 | **Home space**  | *   Location of /home directories.                           |
-|                 | *   Each /home directory has a small fixed [quota](storage-and-file-management.md#filesystem-quotas-and-policies). |
+|                 | *   Each /home directory has a small fixed [quota](../storage-and-data/storage_and_file_management.md#filesystem-quotas-and-policies). |
 |                 | *   Not allocated via [RAS](https://alliancecan.ca/en/services/advanced-research-computing/accessing-resources/rapid-access-service) or [RAC](https://alliancecan.ca/en/services/advanced-research-computing/accessing-resources/resource-allocation-competition). Larger requests go to the /project space. |
 |                 | *   Has daily backup                                         |
 | **Scratch space** | *   For active or temporary (scratch) storage.             |
 |                 | *   Not allocated.                                           |
-|                 | *   Large fixed [quota](storage-and-file-management.md#filesystem-quotas-and-policies) per user. |
-|                 | *   Inactive data will be [purged](scratch-purging-policy.md). |
-| **Project space** | *   Large adjustable [quota](storage-and-file-management.md#filesystem-quotas-and-policies) per project. |
+|                 | *   Large fixed [quota](../storage-and-data/storage_and_file_management.md#filesystem-quotas-and-policies) per user. |
+|                 | *   Inactive data will be [purged](../storage-and-data/scratch_purging_policy.md). |
+| **Project space** | *   Large adjustable [quota](../storage-and-data/storage_and_file_management.md#filesystem-quotas-and-policies) per project. |
 |                 | *   Has daily backup.                                        |
 
 ## Network interconnects

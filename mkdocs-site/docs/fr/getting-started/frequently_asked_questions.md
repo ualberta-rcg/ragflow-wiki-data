@@ -100,7 +100,7 @@ Pour plus d'information, voir [Customize save in Emacs](https://www.gnu.org/sava
 
 ## Message d'erreur *sbatch: error: Batch job submission failed: Socket timed out on send/recv operation*
 
-Vous pourriez recevoir ce message d'erreur si l'ordonnanceur est surchargé (voir la page [Exécuter des tâches](running-jobs.md)). Nous tentons toujours d'augmenter la tolérance de Slurm à cet effet et d'éliminer les sources de surcharge ponctuelle, mais ceci est un projet de longue haleine. Notre recommandation est d'attendre environ une minute, puis d'utiliser `squeue -u $USER` pour voir si la tâche soumise paraît. Si la tâche n'est pas listée, soumettez-la de nouveau.
+Vous pourriez recevoir ce message d'erreur si l'ordonnanceur est surchargé (voir la page [Exécuter des tâches](../running-jobs/running_jobs.md)). Nous tentons toujours d'augmenter la tolérance de Slurm à cet effet et d'éliminer les sources de surcharge ponctuelle, mais ceci est un projet de longue haleine. Notre recommandation est d'attendre environ une minute, puis d'utiliser `squeue -u $USER` pour voir si la tâche soumise paraît. Si la tâche n'est pas listée, soumettez-la de nouveau.
 
 !!! note
     Ce message survient dans certains cas même lorsque Slurm a accepté la tâche.
@@ -112,7 +112,7 @@ Vous pouvez savoir pourquoi vos tâches ont le statut `PD` (*pending* pour en at
 La colonne `(REASON)` contient `Resources` ou `Priority`.
 
 *   `Resources` : la grappe est très occupée; vous pouvez soit attendre, soit soumettre une tâche qui exige moins de ressources en termes de CPU/nœud, GPU, mémoire ou temps d’exécution.
-*   `Priority` : la tâche est en attente en raison de sa basse priorité, ce qui survient lorsque vous et les autres membres du groupe avez utilisé plus que votre juste part des ressources récemment; vous pouvez faire le suivi de votre utilisation des ressources avec la commande `sshare` (voir [Politique d’ordonnancement des tâches](job-scheduling-policies.md)).
+*   `Priority` : la tâche est en attente en raison de sa basse priorité, ce qui survient lorsque vous et les autres membres du groupe avez utilisé plus que votre juste part des ressources récemment; vous pouvez faire le suivi de votre utilisation des ressources avec la commande `sshare` (voir [Politique d’ordonnancement des tâches](../running-jobs/job_scheduling_policies.md)).
 
 ## Messages *Nodes required for job are DOWN, DRAINED or RESERVED for jobs in higher priority partitions* ou *ReqNodeNotAvailable*
 
@@ -122,7 +122,7 @@ Il est possible qu'un de ces messages s’affiche dans le champ *Reason* du fich
 
 Par défaut, la commande `squeue` ne montre pas le moment où une tâche doit être lancée, mais il est possible de le savoir avec une option. Comme les conditions sont constamment en changement, le moment prévu par Slurm pour le lancement d’une tâche n’est jamais exact et donc pas très utile.
 
-L'ordonnanceur [Slurm](running-jobs.md) calcule un moment de début (**START_TIME**) dans le futur pour les tâches en attente qui sont de haute priorité sur la base :
+L'ordonnanceur [Slurm](../running-jobs/running_jobs.md) calcule un moment de début (**START_TIME**) dans le futur pour les tâches en attente qui sont de haute priorité sur la base :
 
 *   des ressources qui seront libérées à la fin des tâches en cours, et
 *   des ressources qui seront demandées par les tâches en attente dont la priorité est plus élevée.
@@ -144,7 +144,7 @@ Dans certains cas, un fichier binaire avec l'extension *.core* est créé quand 
 
 ## Bibliothèque introuvable
 
-À l'exécution, les paquets binaires précompilés qui sont installés dans votre répertoire `$HOME` peuvent produire une erreur semblable à `/lib64/libc.so.6: version 'GLIBC_2.18' not found`. Pour la solution, voir [Installer des paquets binaires](installing-software-in-your-home-directory.md#installer-des-paquets-binaires).
+À l'exécution, les paquets binaires précompilés qui sont installés dans votre répertoire `$HOME` peuvent produire une erreur semblable à `/lib64/libc.so.6: version 'GLIBC_2.18' not found`. Pour la solution, voir [Installer des paquets binaires](installing_software_in_your_home_directory.md#installer-des-paquets-binaires).
 
 ## Quelles sont vos mesures pour la gestion des données sensibles?
 
@@ -152,4 +152,4 @@ Nos grappes ne sont pas spécifiquement conçues pour garantir la sécurité des
 
 Nous appliquons cependant les meilleures pratiques pour les systèmes partagés et accordons beaucoup d’attention à l’intégrité, la confidentialité et la disponibilité des données. Toutefois, certains ensembles de données doivent être traités avec des ressources qui sont certifiées selon des standards de sécurité particuliers et il est de la responsabilité des chercheuses et chercheurs de voir à ce que ces exigences soient respectées. À cet effet, veuillez prendre connaissance de [l’article 5.2 de notre Politique de protection des données et des renseignements personnels et du paragraphe 3.2 des Conditions d’utilisation](https://ccdb.computecanada.ca/agreements/user_index).
 
-Pour plus d'information, voir [Protection des données, confidentialité et respect de la vie privée](data-protection-privacy-and-confidentiality.md).
+Pour plus d'information, voir [Protection des données, confidentialité et respect de la vie privée](../storage-and-data/data_protection__privacy__and_confidentiality.md).

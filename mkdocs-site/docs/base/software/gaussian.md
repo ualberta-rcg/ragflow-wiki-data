@@ -66,20 +66,20 @@ status:
   qa_generated: false
 ---
 
-*See also [Gaussian error messages](gaussian-error-messages.md).*
+*See also [Gaussian error messages](chemistry/gaussian_error_messages.md).*
 
 Gaussian is a computational chemistry application produced by [Gaussian, Inc.](http://gaussian.com/)
 
 ## Limitations
 
-We currently support Gaussian on [Nibi](nibi.md) and [Fir](fir.md).
+We currently support Gaussian on [Nibi](../clusters/nibi.md) and [Fir](fir.md).
 
 [Cluster/network parallel execution](https://gaussian.com/running/?tabid=4) of Gaussian, also known as "Linda parallelism", is not supported at any of our national systems. Only ["shared-memory multiprocessor parallel execution"](https://gaussian.com/running/?tabid=4) is supported.
 Therefore no Gaussian job can use more than a single compute node.
 
 ## License agreement
 
-In order to use Gaussian you must agree to certain conditions. Please [contact support](technical-support.md) with a copy of the following statement:
+In order to use Gaussian you must agree to certain conditions. Please [contact support](../support/technical_support.md) with a copy of the following statement:
 1.  I am not a member of a research group developing software competitive to Gaussian.
 2.  I will not copy the Gaussian software, nor make it available to anyone else.
 3.  I will properly acknowledge Gaussian Inc. and [the Alliance](https://alliancecan.ca/en/services/advanced-research-computing/acknowledging-alliance) in publications.
@@ -89,18 +89,18 @@ If you are a sponsored user, your sponsor (PI) must also have such a statement o
 We will then grant you access to Gaussian.
 
 ## Running Gaussian on Fir and Nibi
-The `gaussian` module is installed on [Nibi](nibi.md) and [Fir](fir.md). To check what versions are available use the `module spider` command as follows:
+The `gaussian` module is installed on [Nibi](../clusters/nibi.md) and [Fir](fir.md). To check what versions are available use the `module spider` command as follows:
 
 ```bash
 module spider gaussian
 ```
 
-For module commands, please see [Using modules](utiliser-des-modules.md).
+For module commands, please see [Using modules](../programming/utiliser_des_modules.md).
 
 ### Job submission
-The national clusters use the Slurm scheduler; for details about submitting jobs, see [Running jobs](running-jobs.md).
+The national clusters use the Slurm scheduler; for details about submitting jobs, see [Running jobs](../running-jobs/running_jobs.md).
 
-Since only the "shared-memory multiprocessor" parallel version of Gaussian is supported, your jobs can use only one node and up to the maximum cores per node. However due to the scalability of Gaussian, we recommend that you *use no more than 32 CPUs per job unless you have good evidence that you can use them efficiently!* The new clusters Nibi and Fir have 192 CPUs per node. Please do not simply run full-node Gaussian jobs on these clusters; it will be inefficient. If your jobs are limited by the amount of available memory on a single node, be aware that there are a few nodes at each site with more than the usual amount of memory. Please refer to the pages [Fir](fir.md#node-characteristics) and [Nibi](nibi.md#node-characteristics) for the number and capacity of such nodes.
+Since only the "shared-memory multiprocessor" parallel version of Gaussian is supported, your jobs can use only one node and up to the maximum cores per node. However due to the scalability of Gaussian, we recommend that you *use no more than 32 CPUs per job unless you have good evidence that you can use them efficiently!* The new clusters Nibi and Fir have 192 CPUs per node. Please do not simply run full-node Gaussian jobs on these clusters; it will be inefficient. If your jobs are limited by the amount of available memory on a single node, be aware that there are a few nodes at each site with more than the usual amount of memory. Please refer to the pages [Fir](fir.md#node-characteristics) and [Nibi](../clusters/nibi.md#node-characteristics) for the number and capacity of such nodes.
 
 Besides your input file (in our example, "name.com"), you have to prepare a job script to define the compute resources for the job; both input file and job script must be in the same directory.
 
@@ -203,4 +203,4 @@ where version is either g03.d10, g09.e01, or g16.b01
 2.  NBO6 is available in g09.e01 and g16.b01 versions.
 
 ## Errors
-Some of the error messages produced by Gaussian have been collected, with suggestions for their resolution. See [Gaussian error messages](gaussian-error-messages.md).
+Some of the error messages produced by Gaussian have been collected, with suggestions for their resolution. See [Gaussian error messages](chemistry/gaussian_error_messages.md).

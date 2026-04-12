@@ -78,7 +78,7 @@ status:
 Les simulations sont préparées et analysées dans le logiciel de visualisation [VMD](vmd.md).
 
 ## Installation
-Le logiciel est installé par notre équipe technique et est disponible via des modules. Si vous avez besoin d'une version plus récente, que vous devez faire vous-même l'installation ou que vous avez des questions, contactez le [soutien technique](technical-support.md).
+Le logiciel est installé par notre équipe technique et est disponible via des modules. Si vous avez besoin d'une version plus récente, que vous devez faire vous-même l'installation ou que vous avez des questions, contactez le [soutien technique](../support/technical_support.md).
 
 ## Modules d'environnement
 La plus récente version 3.0.2 (27 août 2025) est installée sur toutes nos grappes; elle comporte [plusieurs améliorations](https://www.ks.uiuc.edu/Research/namd/3.0.2/announce.html) en comparaison de la version 3.0.1. La version 2.14 est aussi disponible, mais elle ne peut pas être utilisée avec des GPU H100. Vous pouvez utiliser la version GPU seulement sur Narval.
@@ -86,7 +86,7 @@ La plus récente version 3.0.2 (27 août 2025) est installée sur toutes nos gra
 Pour les tâches exécutées sur plusieurs nœuds, utilisez UCX.
 
 ## Scripts de soumission des tâches
-L'information sur l'ordonnanceur Slurm se trouve à la page [Exécuter des tâches](running-jobs.md).
+L'information sur l'ordonnanceur Slurm se trouve à la page [Exécuter des tâches](../running-jobs/running_jobs.md).
 
 ### Tâches multifils avec CPU
 Le script suivant est pour une simulation multifil. Pour utiliser plus de cœurs, augmentez la valeur de `--cpus-per-task`, sans dépasser le nombre de cœurs disponibles sur le nœud. Pour déterminer le nombre de cœurs à utiliser, voyez *Performance et étalonnage* plus loin.

@@ -63,7 +63,7 @@ Below are a few common methods to back up or preserve the state of your virtual 
 Many of the backup strategies for physical machines still apply to virtual machines. For example, tools such as [rsync](https://rsync.samba.org/), [duplicity](https://nongnu.org/duplicity/), [borg](https://borgbackup.readthedocs.io/), or [restic](https://restic.readthedocs.io/) can be used to perform backups of the data within your VM to remote locations.
 
 ## Setup automation
-Provisioning tools such as [ansible](https://www.ansible.com/), [puppet](https://puppet.com/), [chef](https://www.chef.io/), and [saltstack](https://saltstack.com/) can be used to automate setup and configuration of software and operating systems. Recreating your virtual machine then becomes a trivial matter given the right specification files for a given provisioning tool. These specification files can be managed with version control tools like [git](https://git-scm.com/). Provisioning tools can be combined with orchestration tools such as Heat and Terraform (see [Automating VM creation](automating-vm-creation.md)) to automate the entire process of virtual machine creation and software configuration. Any data which is generated or created outside this automation would then need to be backed up using one of the [file backup](#file-backup) methods.
+Provisioning tools such as [ansible](https://www.ansible.com/), [puppet](https://puppet.com/), [chef](https://www.chef.io/), and [saltstack](https://saltstack.com/) can be used to automate setup and configuration of software and operating systems. Recreating your virtual machine then becomes a trivial matter given the right specification files for a given provisioning tool. These specification files can be managed with version control tools like [git](https://git-scm.com/). Provisioning tools can be combined with orchestration tools such as Heat and Terraform (see [Automating VM creation](automating_vm_creation.md)) to automate the entire process of virtual machine creation and software configuration. Any data which is generated or created outside this automation would then need to be backed up using one of the [file backup](#file-backup) methods.
 
 ## OpenStack backup methods
 OpenStack has two different storage options: Volumes, which are protected by 3 times replication, and ephemeral storage local to the VM. The 3 times replication of Volumes is to protect against hardware failure and does not protect against accidental deletion or data loss from malicious intent. Data stored on node local ephemeral storage can suffer data loss due to hardware failure and should not be relied upon for any critical data and is best suited to temporary or working data.
@@ -71,7 +71,7 @@ OpenStack has two different storage options: Volumes, which are protected by 3 t
 OpenStack provides tools to create disk images and snapshots of your virtual machines. The two main VM flavours - persistent (p) and compute (c) - have different behaviours, so we recommend different procedures for backing up each flavour.
 
 ### Persistent VMs
-Persistent VMs are designed to boot from volumes (see [booting from a volume](working-with-volumes.md#booting-from-a-volume)), thus creating a copy of the volume(s) the VM has attached to it will produce a backup. However, this would not preserve things like VM flavour, public IP, and security rules. The best way to create a copy of a volume for backup purposes is to create an image from that volume. An image can be [downloaded](working-with-images.md#downloading-an-image) and reused to create multiple new VMs, can be [accessed by VirtualBox](working-with-images.md#creating-a-virtualbox-vm-from-a-cloud-image) on your desktop or laptop, and [uploaded](working-with-images.md#uploading-an-image) to other clouds.
+Persistent VMs are designed to boot from volumes (see [booting from a volume](working_with_volumes.md#booting-from-a-volume)), thus creating a copy of the volume(s) the VM has attached to it will produce a backup. However, this would not preserve things like VM flavour, public IP, and security rules. The best way to create a copy of a volume for backup purposes is to create an image from that volume. An image can be [downloaded](working_with_images.md#downloading-an-image) and reused to create multiple new VMs, can be [accessed by VirtualBox](working_with_images.md#creating-a-virtualbox-vm-from-a-cloud-image) on your desktop or laptop, and [uploaded](working_with_images.md#uploading-an-image) to other clouds.
 
 To be able to create an image from a volume, that volume must be detached from the VM. In addition, if the volume is the root volume of the VM it cannot be detached unless the VM is deleted. If you are sure that when you created the VM you did not check the box "Delete Volume on Instance Delete", then you can delete your VM knowing you will not lose any data. However, if you are unsure whether or not you checked this box, OpenStack unfortunately doesn't tell you if this box was checked when you created a VM.
 
@@ -100,8 +100,8 @@ Very large disk images (larger than 10-20 GB) can become difficult to manage wit
     Finally, and most importantly, **test restoring from your backup**. If you can't restore from your backup it isn't very useful.
 
 ## See also
-*   [OpenStack command line clients](openstack-command-line-clients.md)
-*   [Creating an image from a VM](working-with-images.md#creating-an-image-from-a-vm)
-*   [Downloading an image](working-with-images.md#downloading-an-image)
-*   [Uploading an image](working-with-images.md#uploading-an-image)
-*   [Synchronizing files](transferring-data.md#synchronizing-files)
+*   [OpenStack command line clients](openstack_command_line_clients.md)
+*   [Creating an image from a VM](working_with_images.md#creating-an-image-from-a-vm)
+*   [Downloading an image](working_with_images.md#downloading-an-image)
+*   [Uploading an image](working_with_images.md#uploading-an-image)
+*   [Synchronizing files](../getting-started/transferring_data.md#synchronizing-files)

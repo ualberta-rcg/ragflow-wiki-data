@@ -31,13 +31,13 @@ status:
     A software package for algebraic, geometric and combinatorial problems on linear spaces
 
     [Homepage](https://4ti2.github.io/) |
-| [abaqus](https://www.3ds.com/products/simulia/abaqus) | phys | 2021, 2026 | [Abaqus](abaqus.md)
+| [abaqus](https://www.3ds.com/products/simulia/abaqus) | phys | 2021, 2026 | [Abaqus](../software/abaqus.md)
 
 !!! note "Full Details"
     Finite Element Analysis (FEA) software for advanced engineering simulations involving stress analysis, conductive and convective heat transfer, mass diffusion, acoustics, piezoelectricity, electrochemistry independently, sequentially coupled, fully coupled using implicit and explicit robust solvers. This module contains the initial release Abaqus 2026 Golden with SIMULIA Abaqus, Isight, fe-safe, Tosca.
 
     [Homepage](https://www.3ds.com/products/simulia/abaqus) |
-| [abinit](https://www.abinit.org/) | chem | 9.2.2, 9.6.2, 10.0.3, 10.2.3, 10.4.7 | [ABINIT](abinit.md)
+| [abinit](https://www.abinit.org/) | chem | 9.2.2, 9.6.2, 10.0.3, 10.2.3, 10.4.7 | [ABINIT](../software/abinit.md)
 
 !!! note "Full Details"
     ABINIT is a package whose main program allows one to find the total energy, charge density and electronic structure of systems made of electrons and nuclei (molecules and periodic solids) within Density Functional Theory (DFT), using pseudopotentials and a planewave or wavelet basis.
@@ -139,7 +139,7 @@ status:
     An open-source information retreival toolkit built on Lucene that aims to bridge the gap between academic information retrieval and the practice of building real-world search applications. Usage: Binaries located in Anserini's `target/appassembler/bin` are on path. Anserini's folders `bin`, `collections`, `docs`, `indexes`, `logs`, `runs`, `src`, `target`, `tools`, as well as the files `pom.xml` and `README.md` are available at `$EBROOTANSERINI`. Eg. Indexing command for help: `IndexCollection -h`
 
     [Homepage](https://github.com/castorini/anserini) |
-| [ansys](http://www.ansys.com) | phys | 2025R1.02, 2024R1.03, 2025R2.04, 2024R2.04, 2019R3, 2020R2, 2021R1, 2021R2, 2022R1, 2022R2, 2023R1, 2023R2, 2024R2, 2025R2 | [Ansys](ansys.md)
+| [ansys](http://www.ansys.com) | phys | 2025R1.02, 2024R1.03, 2025R2.04, 2024R2.04, 2019R3, 2020R2, 2021R1, 2021R2, 2022R1, 2022R2, 2023R1, 2023R2, 2024R2, 2025R2 | [Ansys](../software/ansys.md)
 
 !!! note "Full Details"
     ANSYS simulation software enables organizations to confidently predict how their products will operate in the real world. We believe that every product is a promise of something greater.
@@ -451,7 +451,7 @@ status:
     Basic Local Alignment Search Tool, or BLAST, is an algorithm for comparing primary biological sequence information, such as the amino-acid sequences of different proteins or the nucleotides of DNA sequences.
 
     [Homepage](http://blast.ncbi.nlm.nih.gov/) |
-| [blast+](https://blast.ncbi.nlm.nih.gov/) | bio | 2.10.1, 2.11.0, 2.12.0, 2.13.0, 2.14.1, 2.15.0, 2.17.0 | [BLAST](blast.md)
+| [blast+](https://blast.ncbi.nlm.nih.gov/) | bio | 2.10.1, 2.11.0, 2.12.0, 2.13.0, 2.14.1, 2.15.0, 2.17.0 | [BLAST](../software/blast.md)
 
 !!! note "Full Details"
     Basic Local Alignment Search Tool, or BLAST, is an algorithm for comparing primary biological sequence information, such as the amino-acid sequences of different proteins or the nucleotides of DNA sequences.
@@ -860,7 +860,7 @@ status:
     CP2K is a freely available (GPL) program, written in Fortran 95, to perform atomistic and molecular simulations of solid state, liquid, molecular and biological systems. It provides a general framework for different methods such as e.g. density functional theory (DFT) using a mixed Gaussian and plane waves approach (GPW), and classical pair and many-body potentials.
 
     [Homepage](https://www.cp2k.org/) |
-| [cpmd](http://cpmd.org) | chem | 4.3 | [CPMD](cpmd.md)
+| [cpmd](http://cpmd.org) | chem | 4.3 | [CPMD](../software/cpmd.md)
 
 !!! note "Full Details"
     The CPMD code is a parallelized plane wave / pseudopotential implementation of Density Functional Theory, particularly designed for ab-initio molecular dynamics.
@@ -1019,13 +1019,13 @@ status:
     DCMTK is a collection of libraries and applications implementing large parts the DICOM standard. It includes software for examining, constructing and converting DICOM image files, handling offline media, sending and receiving images over a network connection, as well as demonstrative image storage and worklist servers.
 
     [Homepage](https://dicom.offis.de/dcmtk) |
-| [ddt-cpu](https://www.linaroforge.com) | tools | 20.2, 22.0.1, 23.1.1 | [ARM software](arm-software.md)
+| [ddt-cpu](https://www.linaroforge.com) | tools | 20.2, 22.0.1, 23.1.1 | [ARM software](../software/arm_software.md)
 
 !!! note "Full Details"
     Profiler and debugger, combining MAP and DDT.
 
     [Homepage](https://www.linaroforge.com) |
-| [ddt-gpu](https://www.linaroforge.com) | tools | 20.2, 22.0.1, 23.1.1 | [ARM software](arm-software.md)
+| [ddt-gpu](https://www.linaroforge.com) | tools | 20.2, 22.0.1, 23.1.1 | [ARM software](../software/arm_software.md)
 
 !!! note "Full Details"
     Profiler and debugger, combining MAP and DDT, with support for CUDA.
@@ -1043,7 +1043,7 @@ status:
     DeepVariant is a deep learning-based variant caller that takes aligned reads (in BAM or CRAM format), produces pileup image tensors from them, classifies each tensor using a convolutional neural network, and finally reports the results in a standard VCF or gVCF file. DeepVariant supports germline variant-calling in diploid organisms.
 
     [Homepage](https://github.com/google/deepvariant) |
-| [delft3d](https://svn.oss.deltares.nl) | geo | 62441 | [Delft3D](delft3d.md)
+| [delft3d](https://svn.oss.deltares.nl) | geo | 62441 | [Delft3D](../software/delft3d.md)
 
 !!! note "Full Details"
     Delft3D is a powerful modelling suite focusing primarily on coastal, estuarine, river, rural and urban environments Delft3D FM Suite can simulate storm surges, hurricanes, tsunamis, detailed flows and water levels, waves, sediment transport and morphology, water quality and ecology, and is capable of handling the interactions between these processes.
@@ -1292,13 +1292,13 @@ status:
     FastSpar is a C++ implementation of the SparCC algorithm which is up to several thousand times faster than the original Python2 release and uses much less memory. The FastSpar implementation provides threading support and a p-value estimator which accounts for the possibility of repetitious data permutations (see this paper for further details).
 
     [Homepage](https://github.com/scwatts/fastspar) |
-| [fasttree](http://www.microbesonline.org/fasttree/) | bio | 2.1.11 | [FastTree](fasttree.md)
+| [fasttree](http://www.microbesonline.org/fasttree/) | bio | 2.1.11 | [FastTree](../software/bioinformatics/fasttree.md)
 
 !!! note "Full Details"
     FastTree infers approximately-maximum-likelihood phylogenetic trees from alignments of nucleotide or protein sequences. FastTree can handle alignments with up to a million of sequences in a reasonable amount of time and memory.
 
     [Homepage](http://www.microbesonline.org/fasttree/) |
-| [fasttree-double](http://www.microbesonline.org/fasttree/) | - | 2.1.11, 2.2.0 | [FastTree](fasttree.md)
+| [fasttree-double](http://www.microbesonline.org/fasttree/) | - | 2.1.11, 2.2.0 | [FastTree](../software/bioinformatics/fasttree.md)
 
 !!! note "Full Details"
     FastTree infers approximately-maximum-likelihood phylogenetic trees from alignments of nucleotide or protein sequences. FastTree can handle alignments with up to a million of sequences in a reasonable amount of time and memory.
@@ -1451,7 +1451,7 @@ status:
     Global Arrays (GA) is a Partitioned Global Address Space (PGAS) programming model. It provides primitives for one-sided communication (Get, Put, Accumulate) and Atomic Operations (read increment). It supports blocking and non-blocking primtives, and supports location consistency. I8 version.
 
     [Homepage](http://hpc.pnl.gov/globalarrays/) |
-| [gamess-us](https://www.msg.chem.iastate.edu/GAMESS/GAMESS.html) | chem | 20210930-R2P1, 2020.2, 20220930-R2, 20230630-R1, 20230930-R2 | [GAMESS-US](gamess-us.md)
+| [gamess-us](https://www.msg.chem.iastate.edu/GAMESS/GAMESS.html) | chem | 20210930-R2P1, 2020.2, 20220930-R2, 20230630-R1, 20230930-R2 | [GAMESS-US](../software/gamess-us.md)
 
 !!! note "Full Details"
     The General Atomic and Molecular Electronic Structure System (GAMESS) is a general ab initio quantum chemistry package. This version of GAMESS-US is built with Intel compilers, mixed DDI, and OpenMPI 4.1.
@@ -1722,43 +1722,43 @@ status:
     Groff (GNU troff) is a typesetting system that reads plain text mixed with formatting commands and produces formatted output.
 
     [Homepage](https://www.gnu.org/software/groff) |
-| [gromacs](http://www.gromacs.org) | chem | 2016.6, 2020.4, 2020.6, 2021.2, 2021.4, 2021.6, 2022.2, 2022.3, 2023, 2023.2, 2023.3, 2023.5, 2024.1, 2024.4, 2024.6, 2025.4, 2026.1 | [GROMACS](gromacs.md)
+| [gromacs](http://www.gromacs.org) | chem | 2016.6, 2020.4, 2020.6, 2021.2, 2021.4, 2021.6, 2022.2, 2022.3, 2023, 2023.2, 2023.3, 2023.5, 2024.1, 2024.4, 2024.6, 2025.4, 2026.1 | [GROMACS](../software/gromacs.md)
 
 !!! note "Full Details"
     GROMACS is a versatile package to perform molecular dynamics, i.e. simulate the Newtonian equations of motion for systems with hundreds to millions of particles. This is a GPU enabled build, containing both MPI and threadMPI builds.
 
     [Homepage](http://www.gromacs.org) |
-| [gromacs-colvars](http://colvars.github.io/ gromacs-colvars) | chem | 2020.6 | [GROMACS](gromacs.md)
+| [gromacs-colvars](http://colvars.github.io/ gromacs-colvars) | chem | 2020.6 | [GROMACS](../software/gromacs.md)
 
 !!! note "Full Details"
     GROMACS is a versatile package to perform molecular dynamics. This version has been patched with 'Colvars', a collective variables module for molecular simulation programs. This is a CPU only build, containing both MPI and threadMPI builds. - CC-Wiki: GROMACS
 
     [Homepage](http://colvars.github.io/) |
-| [gromacs-cp2k](https://www.cp2k.org/tools:gromacs) | chem | 2022.2 | [GROMACS](gromacs.md)
+| [gromacs-cp2k](https://www.cp2k.org/tools:gromacs) | chem | 2022.2 | [GROMACS](../software/gromacs.md)
 
 !!! note "Full Details"
     GROMACS is a versatile package to perform molecular dynamics, i.e. simulate the Newtonian equations of motion for systems with hundreds to millions of particles. This version has been compiled with CP2K for QM/MM calculations. Note: only 'gmx_mpi' and 'gmx_mpi_d' executables are available. See also: [https://www.cp2k.org/tools:gromacs](https://www.cp2k.org/tools:gromacs) - CC-Wiki: GROMACS
 
     [Homepage](http://www.gromacs.org) |
-| [gromacs-ls](https://vanegaslab.org/software) | - | 2016.3 | [GROMACS](gromacs.md)
+| [gromacs-ls](https://vanegaslab.org/software) | - | 2016.3 | [GROMACS](../software/gromacs.md)
 
 !!! note "Full Details"
     GROMACS-LS is a modified version of GROMACS that has been modified to enable the calculation of local stress fields from molecular dynamics simulations. This is a CPU only build. Note that GROMACS-LS does not support MPI, GPUs(CUDA) or Hardware accelleration (SIMD) and is therefore much slower than unmodified versions of GROMACS. CC-Wiki: GROMACS
 
     [Homepage](https://vanegaslab.org/software) |
-| [gromacs-plumed](http://www.gromacs.org) | chem | 2019.6, 2020.7, 2021.2, 2021.4, 2021.6, 2021.7, 2022.3, 2022.6, 2023.5 | [GROMACS](gromacs.md)
+| [gromacs-plumed](http://www.gromacs.org) | chem | 2019.6, 2020.7, 2021.2, 2021.4, 2021.6, 2021.7, 2022.3, 2022.6, 2023.5 | [GROMACS](../software/gromacs.md)
 
 !!! note "Full Details"
     GROMACS is a versatile package to perform molecular dynamics. This version contains the PLUMED patches in order to run metadynamics. - CC-Wiki: GROMACS
 
     [Homepage](http://www.gromacs.org) |
-| [gromacs-ramd](https://kbbox.h-its.org/toolbox/methods/molecular-simulation/random-acceleration-molecular-dynamics-ramd/) | chem | 2024.1-RAMD-2.1, 2020.5-RAMD-2.0 | [GROMACS](gromacs.md)
+| [gromacs-ramd](https://kbbox.h-its.org/toolbox/methods/molecular-simulation/random-acceleration-molecular-dynamics-ramd/) | chem | 2024.1-RAMD-2.1, 2020.5-RAMD-2.0 | [GROMACS](../software/gromacs.md)
 
 !!! note "Full Details"
     GROMACS is a versatile package to perform molecular dynamics. This version has been modified to support RAMD, which is used to identify ligand exit routes from the buried binding pockets of receptors and investigate the mechanism of ligand dissociation. [https://kbbox.h-its.org/toolbox/methods/molecular-simulation/random-acceleration-molecular-dynamics-ramd/](https://kbbox.h-its.org/toolbox/methods/molecular-simulation/random-acceleration-molecular-dynamics-ramd/) This is a CPU only build, containing both MPI and threadMPI builds. CC-Wiki: GROMACS
 
     [Homepage](https://github.com/HITS-MCM/gromacs-ramd) |
-| [gromacs-swaxs](https://cbjh.gitlab.io/gromacs-swaxs-docs/) | chem | 2021.7-0.5.1 | [GROMACS](gromacs.md)
+| [gromacs-swaxs](https://cbjh.gitlab.io/gromacs-swaxs-docs/) | chem | 2021.7-0.5.1 | [GROMACS](../software/gromacs.md)
 
 !!! note "Full Details"
     Modified GROMACS for small-angle scattering calculations (SAXS/WAXS/SANS). This is a GPU enabled build, containing both MPI and threadMPI builds. - CC-Wiki: GROMACS
@@ -2187,7 +2187,7 @@ status:
     The JasPer Project is an open-source initiative to provide a free software-based reference implementation of the codec specified in the JPEG-2000 Part-1 standard.
 
     [Homepage](https://www.ece.uvic.ca/~frodo/jasper/) |
-| [java](http://openjdk.java.net) | tools | 1.8.0_192, 1.8.0_292, 11.0.16_8, 11.0.22, 13.0.2, 14.0.2, 17.0.2, 17.0.6, 21.0.1 | [Java](java.md)
+| [java](http://openjdk.java.net) | tools | 1.8.0_192, 1.8.0_292, 11.0.16_8, 11.0.22, 13.0.2, 14.0.2, 17.0.2, 17.0.6, 21.0.1 | [Java](../software/java.md)
 
 !!! note "Full Details"
     Java Platform, Standard Edition (Java SE) lets you develop and deploy Java applications on desktops and servers.
@@ -2295,7 +2295,7 @@ status:
     Kyoto Cabinet is a library of routines for managing a database.
 
     [Homepage](https://dbmx.net/kyotocabinet/) |
-| [lammps-omp](https://www.lammps.org) | chem | 20201029, 20210929, 20220623, 20230802, 20240829, 20250722 | [LAMMPS](lammps.md)
+| [lammps-omp](https://www.lammps.org) | chem | 20201029, 20210929, 20220623, 20230802, 20240829, 20250722 | [LAMMPS](../software/lammps.md)
 
 !!! note "Full Details"
     LAMMPS is a classical molecular dynamics code, and an acronym for Large-scale Atomic/Molecular Massively Parallel Simulator. LAMMPS has potentials for solid-state materials (metals, semiconductors) and soft matter (biomolecules, polymers) and coarse-grained or mesoscopic systems. It can be used to model atoms or, more generically, as a parallel particle simulator at the atomic, meso, or continuum scale. LAMMPS runs on single processors or in parallel using message-passing techniques and a spatial-decomposition of the simulation domain. The code is designed to be easy to modify or extend with new functionality.

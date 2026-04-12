@@ -34,7 +34,7 @@ status:
 
 *Page enfant de [SSH](ssh.md)*
 
-Sous Linux et macOS, vous pouvez modifier votre fichier local de configuration SSH pour changer le comportement de `ssh` et simplifier la procédure de connexion. Par exemple, pour vous connecter à `narval.alliancecan.ca` comme `username` avec une [clé SSH](using-ssh-keys-in-linux.md), vous pourriez devoir utiliser la commande :
+Sous Linux et macOS, vous pouvez modifier votre fichier local de configuration SSH pour changer le comportement de `ssh` et simplifier la procédure de connexion. Par exemple, pour vous connecter à `narval.alliancecan.ca` comme `username` avec une [clé SSH](using_ssh_keys_in_linux.md), vous pourriez devoir utiliser la commande :
 
 ```bash
 ssh -i ~/.ssh/your_private_key username@narval.alliancecan.ca
@@ -55,7 +55,7 @@ Vous pouvez maintenant vous connecter à Narval en entrant :
 ssh narval
 ```
 
-Ceci change aussi le comportement de `sftp`, `scp` et `rsync` et vous pouvez maintenant [transférer des fichiers](transferring-data.md) en entrant, par exemple :
+Ceci change aussi le comportement de `sftp`, `scp` et `rsync` et vous pouvez maintenant [transférer des fichiers](transferring_data.md) en entrant, par exemple :
 
 ```bash
 scp local_file narval:work/
@@ -70,7 +70,7 @@ Host narval beluga graham cedar
   [...]
 ```
 
-Notez qu'il faut installer votre [clé SSH publique](ssh-keys.md) sur chacune des grappes, ou utiliser plutôt [la CCDB](ssh-keys.md#par-la-ccdb).
+Notez qu'il faut installer votre [clé SSH publique](ssh_keys.md) sur chacune des grappes, ou utiliser plutôt [la CCDB](ssh_keys.md#par-la-ccdb).
 
 D'autres options de la commande `ssh` ont des paramètres correspondants qui peuvent être entrés dans le fichier `~/.ssh/config` de votre ordinateur. En particulier :
 

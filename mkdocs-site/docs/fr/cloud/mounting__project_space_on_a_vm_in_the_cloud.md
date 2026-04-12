@@ -37,7 +37,7 @@ status:
 
 ## Introduction
 
-Nous décrivons ici comment une instance virtuelle peut accéder aux systèmes de fichiers de [l'espace projet](project-layout.md). Avec nos [nuages](cloud.md), les instances infonuagiques ne peuvent directement accéder les grappes de CHP. Pour avoir accès aux fichiers de l'espace projet à partir d'une instance virtuelle, utilisez SSHFS et respectez les exigences particulières.
+Nous décrivons ici comment une instance virtuelle peut accéder aux systèmes de fichiers de [l'espace projet](../storage-and-data/project_layout.md). Avec nos [nuages](cloud.md), les instances infonuagiques ne peuvent directement accéder les grappes de CHP. Pour avoir accès aux fichiers de l'espace projet à partir d'une instance virtuelle, utilisez SSHFS et respectez les exigences particulières.
 
 ## SSHFS
 

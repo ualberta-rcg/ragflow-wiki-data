@@ -35,7 +35,7 @@ status:
 !!! note "Not Yet Available"
     This page is currently awaiting its first policy update entries.
 
-This page is intended to record when changes to [job scheduling policies](job-scheduling-policies.md) are made, which might change the behaviour of job submission commands (`sbatch`, `salloc`, `srun`).
+This page is intended to record when changes to [job scheduling policies](job_scheduling_policies.md) are made, which might change the behaviour of job submission commands (`sbatch`, `salloc`, `srun`).
 
 - description of change
   - cluster: date

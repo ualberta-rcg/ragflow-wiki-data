@@ -35,19 +35,19 @@ status:
   qa_generated: false
 ---
 
-Vous trouverez à la dernière section les [*wheels* Python](https://pythonwheels.com/) qui sont disponibles sur nos grappes nationales. Ces listes sont mises à jour quand un nouveau wheel est ajouté. Pour demander l'ajout ou la mise à jour d'un wheel, contactez le [soutien technique](technical-support.md).
+Vous trouverez à la dernière section les [*wheels* Python](https://pythonwheels.com/) qui sont disponibles sur nos grappes nationales. Ces listes sont mises à jour quand un nouveau wheel est ajouté. Pour demander l'ajout ou la mise à jour d'un wheel, contactez le [soutien technique](../support/technical_support.md).
 
 !!! warning "Disponibilité"
     **Certains wheels ne sont peut-être pas disponibles dans l'environnement standard que vous avez chargé.**
 
-    Pour connaître les wheels qui peuvent être installés dans votre StdEnv actif, utilisez la commande `avail_wheels` décrite dans [Wheels disponibles](python.md#wheels-disponibles).
+    Pour connaître les wheels qui peuvent être installés dans votre StdEnv actif, utilisez la commande `avail_wheels` décrite dans [Wheels disponibles](../software/python.md#wheels-disponibles).
 
 ## Wheels faisant partie d'un module
 Certains wheels ne paraissent pas dans les tableaux parce qu'ils font partie de modules, par exemple :
-* [pyarrow (Arrow)](arrow.md#pyarrow)
+* [pyarrow (Arrow)](../software/arrow.md#pyarrow)
 * pyqt5 (QT)
 * petsc4py (PETSc)
-* [opencv_python (OpenCV)](opencv.md#python-bindings)
+* [opencv_python (OpenCV)](../software/opencv.md#python-bindings)
 
 Pour trouver ces extensions, lancez la commande
 ```bash

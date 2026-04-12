@@ -38,7 +38,7 @@ status:
 !!! warning "Information périmée"
 Ce document contient des informations qui pourraient ne plus être à jour.
 
-Dans le contexte de la pandémie, Calcul Canada offre son soutien aux chercheurs qui travaillent sur la COVID-19. Si c'est votre cas, veuillez contacter le [soutien technique](technical-support.md) avec une description de vos besoins en ressources, selon les directives décrites ci-dessous.
+Dans le contexte de la pandémie, Calcul Canada offre son soutien aux chercheurs qui travaillent sur la COVID-19. Si c'est votre cas, veuillez contacter le [soutien technique](../support/technical_support.md) avec une description de vos besoins en ressources, selon les directives décrites ci-dessous.
 
 ## Renseignements à fournir
 **La demande devrait être faite par un chercheur principal.**
@@ -53,7 +53,7 @@ Dans le contexte de la pandémie, Calcul Canada offre son soutien aux chercheurs
     Pour accélérer le traitement de vos tâches sur les systèmes de Calcul Canada :
 
     *   Soumettez d'abord vos tâches.
-    *   Écrivez au [soutien technique](technical-support.md) en indiquant la liste des identifiants des tâches à prioriser.
+    *   Écrivez au [soutien technique](../support/technical_support.md) en indiquant la liste des identifiants des tâches à prioriser.
 
 #### Allocation à court terme
 
@@ -76,7 +76,7 @@ Indiquez les renseignements suivants :
 *   quota plus élevé du nombre de fichiers.
 
 ### Soutien spécialisé
-Adressez vos questions au [soutien technique](technical-support.md) en mentionnant que votre demande est en lien avec la COVID-19; nous vous répondrons le plus rapidement possible.
+Adressez vos questions au [soutien technique](../support/technical_support.md) en mentionnant que votre demande est en lien avec la COVID-19; nous vous répondrons le plus rapidement possible.
 
 ## Autres sources de soutien à la recherche
 

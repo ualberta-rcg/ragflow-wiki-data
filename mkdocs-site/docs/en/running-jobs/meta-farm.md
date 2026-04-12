@@ -125,7 +125,7 @@ status:
 ---
 
 ## What's new
-* Version 1.0.3 (released in March 2025) adds support for the Trillium cluster. This is achieved via the introduction of the new WHOLE_NODE mode (can be set in config.h; it is disabled by default), and a few other accommodations. The Whole Node mode operates by packaging serial farm jobs into whole node jobs. The WHOLE_NODE mode is discussed in detail here: [META-Farm: Advanced features and troubleshooting](meta-farm-advanced-features-and-troubleshooting.md).
+* Version 1.0.3 (released in March 2025) adds support for the Trillium cluster. This is achieved via the introduction of the new WHOLE_NODE mode (can be set in config.h; it is disabled by default), and a few other accommodations. The Whole Node mode operates by packaging serial farm jobs into whole node jobs. The WHOLE_NODE mode is discussed in detail here: [META-Farm: Advanced features and troubleshooting](meta-farm__advanced_features_and_troubleshooting.md).
 
 ## Overview
 
@@ -189,14 +189,14 @@ farm_init.run Farm_name
 * Copy your executable and input files to the farm directory. (You may skip this step if you plan to use full paths everywhere.)
 * Edit the `table.dat` file inside the farm directory. This is a text file describing one case (one independent computation) per line. For examples, see one or more of
     * [single_case.sh](#single_case.sh)
-    * [Example: Numbered input files](meta-farm-advanced-features-and-troubleshooting.md#example-numbered-input-files) (advanced)
-    * [Example: Input file must have the same name](meta-farm-advanced-features-and-troubleshooting.md#example-input-file-must-have-the-same-name) (advanced)
-    * [Using all the columns in the cases table explicitly](meta-farm-advanced-features-and-troubleshooting.md#using-all-the-columns-in-the-cases-table-explicitly) (advanced)
+    * [Example: Numbered input files](meta-farm__advanced_features_and_troubleshooting.md#example-numbered-input-files) (advanced)
+    * [Example: Input file must have the same name](meta-farm__advanced_features_and_troubleshooting.md#example-input-file-must-have-the-same-name) (advanced)
+    * [Using all the columns in the cases table explicitly](meta-farm__advanced_features_and_troubleshooting.md#using-all-the-columns-in-the-cases-table-explicitly) (advanced)
 * Modify the `single_case.sh` script if needed. In many cases you don't have to make any changes. For more information see one or more of
     * [single_case.sh](#single_case.sh)
     * [STATUS and handling errors](#status-and-handling-errors)
-    * [Example: Input file must have the same name](meta-farm-advanced-features-and-troubleshooting.md#example-input-file-must-have-the-same-name) (advanced)
-    * [Using all the columns in the cases table explicitly](meta-farm-advanced-features-and-troubleshooting.md#using-all-the-columns-in-the-cases-table-explicitly) (advanced)
+    * [Example: Input file must have the same name](meta-farm__advanced_features_and_troubleshooting.md#example-input-file-must-have-the-same-name) (advanced)
+    * [Using all the columns in the cases table explicitly](meta-farm__advanced_features_and_troubleshooting.md#using-all-the-columns-in-the-cases-table-explicitly) (advanced)
 * Modify the `job_script.sh` file to suit your needs as described at [job_script.sh](#job_script.sh) below. In particular, use a correct account name, and set an appropriate job runtime. For more about runtimes, see [Estimating the runtime and number of metajobs](#estimating-the-runtime-and-number-of-metajobs).
 * Inside the farm directory, execute
 
@@ -252,9 +252,9 @@ $ submit.run N [-auto] [optional_sbatch_arguments]
 
 If *N*=-1, you are requesting the SIMPLE mode (submit as many jobs as there are lines in table.dat). If *N* is a positive integer, you are requesting the META mode (multiple cases per job), with *N* being the number of metajobs requested. Any other value for *N* is not valid.
 
-If the optional switch `-auto` is present, the farm will resubmit itself automatically at the end, more than once if necessary, until all the cases from table.dat have been processed. This feature is described at [Resubmitting failed cases automatically](meta-farm-advanced-features-and-troubleshooting.md#resubmitting-failed-cases-automatically).
+If the optional switch `-auto` is present, the farm will resubmit itself automatically at the end, more than once if necessary, until all the cases from table.dat have been processed. This feature is described at [Resubmitting failed cases automatically](meta-farm__advanced_features_and_troubleshooting.md#resubmitting-failed-cases-automatically).
 
-If a file named `final.sh` is present in the farm directory, `submit.run` will treat it as a job script for a post-processing job and it will be launched automatically once all the cases from table.dat have been successfully processed. See [Running a post-processing job automatically](meta-farm-advanced-features-and-troubleshooting.md#running-a-post-processing-job-automatically) for more details.
+If a file named `final.sh` is present in the farm directory, `submit.run` will treat it as a job script for a post-processing job and it will be launched automatically once all the cases from table.dat have been successfully processed. See [Running a post-processing job automatically](meta-farm__advanced_features_and_troubleshooting.md#running-a-post-processing-job-automatically) for more details.
 
 If you supply any other arguments, they will be passed on to the Slurm command `sbatch` used to launch all metajobs for this farm.
 
@@ -435,7 +435,7 @@ You cannot run `resubmit.run` until all the jobs from the original run are done 
 
 If some cases still fail or do not run, you can resubmit the farm as many times as needed. Of course, if certain cases fail repeatedly, there must a be a problem with either the program you are running or its input. In this case you may wish to use the command `Status.run` (capital S!) which displays the statuses for all computed cases. With the optional argument `-f`, `Status.run` will sort the output according to the exit status, showing cases with non-zero status at the bottom to make them easier to spot.
 
-Similarly to `submit.run`, if the optional switch `-auto` is present, the farm will resubmit itself automatically at the end, more than once if necessary. This advanced feature is described at [Resubmitting failed cases automatically](meta-farm-advanced-features-and-troubleshooting.md#resubmitting-failed-cases-automatically).
+Similarly to `submit.run`, if the optional switch `-auto` is present, the farm will resubmit itself automatically at the end, more than once if necessary. This advanced feature is described at [Resubmitting failed cases automatically](meta-farm__advanced_features_and_troubleshooting.md#resubmitting-failed-cases-automatically).
 
 ## Large number of cases (META mode)
 The SIMPLE (one case per job) mode works fine when the number of cases is fairly small (<500).
@@ -470,7 +470,7 @@ Not all of the requested metajobs will necessarily run, depending on how busy th
 
 How should you figure out the optimum number of metajobs, and the runtime to be used in `job_script.sh`?
 
-First you need to figure out the average runtime for an individual case (a single line in table.dat). Supposing your application program is not parallel, allocate a single CPU core with [salloc](running-jobs.md#interactive-jobs), then execute `single_case.sh` there for a few different cases. Measure the total runtime and divide that by the number of cases you ran to get an estimate of the average case runtime. This can be done with a shell `for` loop:
+First you need to figure out the average runtime for an individual case (a single line in table.dat). Supposing your application program is not parallel, allocate a single CPU core with [salloc](running_jobs.md#interactive-jobs), then execute `single_case.sh` there for a few different cases. Measure the total runtime and divide that by the number of cases you ran to get an estimate of the average case runtime. This can be done with a shell `for` loop:
 
 ```bash
 $  N=10; time for ((i=1; i<=$N; i++)); do  ./single_case.sh table.dat $i  ; done
@@ -488,7 +488,7 @@ The runtime you choose should be significantly larger than the average runtime o
 It must definitely be larger than the longest runtime you expect for an individual case.
 On the other hand it should not be too large; say, no more than 3 days.
 The longer a job's runtime is, the longer it will usually wait to be scheduled.
-On Alliance general-purpose clusters, a good choice would be 12h or 24h due to [scheduling policies](job-scheduling-policies.md#time-limits).
+On Alliance general-purpose clusters, a good choice would be 12h or 24h due to [scheduling policies](job_scheduling_policies.md#time-limits).
 Once you have settled on a runtime, divide the total number of CPU-hours by the runtime you have chosen (in hours) to get the required number of metajobs.
 Round up this number to the next integer.
 
@@ -511,7 +511,7 @@ $  resubmit.run 1000
 ...
 ```
 
-If this seems rather tedious, consider using an advanced feature of the META package for such large farms: [Resubmitting failed cases automatically](meta-farm-advanced-features-and-troubleshooting.md#resubmitting-failed-cases-automatically). This will fully automate the farm resubmission steps.
+If this seems rather tedious, consider using an advanced feature of the META package for such large farms: [Resubmitting failed cases automatically](meta-farm__advanced_features_and_troubleshooting.md#resubmitting-failed-cases-automatically). This will fully automate the farm resubmission steps.
 
 ## Words of caution
 
@@ -546,9 +546,9 @@ STATUS=$?
 
 ## If more help is needed
 
-See [Advanced features and troubleshooting](meta-farm-advanced-features-and-troubleshooting.md) for more detailed discussion of some features, and for troubleshooting suggestions.
+See [Advanced features and troubleshooting](meta-farm__advanced_features_and_troubleshooting.md) for more detailed discussion of some features, and for troubleshooting suggestions.
 
-If you need more help, contact [technical support](technical-support.md), mentioning the name of the package (META), and the name of the staff member who wrote the software (Sergey Mashchenko).
+If you need more help, contact [technical support](../support/technical_support.md), mentioning the name of the package (META), and the name of the staff member who wrote the software (Sergey Mashchenko).
 
 ## Glossary
 * **case**: One independent computation. The file `table.dat` should list one case per line.

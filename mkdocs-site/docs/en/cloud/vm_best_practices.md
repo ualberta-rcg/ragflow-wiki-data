@@ -42,7 +42,7 @@ This page provides some guidance based on user experiences with Compute Canada's
 ## Upgrades
 
 !!! warning "Operating System Upgrades"
-    Updating packages is often a safe operation and is recommended for security reasons. Upgrading from one major version of an operating system to the next is also a good security measure; however, performing a major operating system upgrade can often cause problems. Before doing any major operating system upgrades (e.g. Ubuntu 20.0 to Ubuntu 22.0), create a [backup](backing-up-your-vm.md) of your VM so that if the process fails for some reason, you will be able to recover from it.
+    Updating packages is often a safe operation and is recommended for security reasons. Upgrading from one major version of an operating system to the next is also a good security measure; however, performing a major operating system upgrade can often cause problems. Before doing any major operating system upgrades (e.g. Ubuntu 20.0 to Ubuntu 22.0), create a [backup](backing_up_your_vm.md) of your VM so that if the process fails for some reason, you will be able to recover from it.
 
 ## Volumes
 

@@ -178,13 +178,13 @@ Les grappes de calcul haute performance utilisent habituellement Apptainer. En r
 ## Autres sujets
 ### Généralités
 *   Vous devez d’abord avoir une **image** de votre conteneur, c'est-à-dire un fichier .sif ou un répertoire servant de bac à sable (*sandbox*). Si ce n’est pas le cas, voir [Construire une image Apptainer ci-dessous](#construire-une-image-apptainer).
-*   En plus d’avoir installé Apptainer, vous avez aussi besoin d’installer ou de construire tous les logiciels nécessaires pour travailler dans le conteneur. [Plusieurs logiciels sont déjà installés sur nos grappes](available-software.md) et vous pouvez les utiliser sans créer de conteneur.
+*   En plus d’avoir installé Apptainer, vous avez aussi besoin d’installer ou de construire tous les logiciels nécessaires pour travailler dans le conteneur. [Plusieurs logiciels sont déjà installés sur nos grappes](../../programming/available_software.md) et vous pouvez les utiliser sans créer de conteneur.
 
 ### `sudo`
 Les sites web et la documentation font souvent référence à `sudo` pour l’obtention de permissions de superutilisateur (*root*), mais ceci n’est pas possible sur nos grappes. Si vous devez utiliser `sudo`, vos options sont :
 
 *   Installez Linux, Apptainer et `sudo` dans une machine virtuelle sur un ordinateur que vous contrôlez, ce qui vous donnera un accès `sudo`. Construisez votre ou vos images dans cette machine et téléversez-les sur une de nos grappes.
-*   Au besoin, demandez l’assistance du [soutien technique](technical-support.md) pour construire votre image. S’il n’est pas possible de le faire pour vous avec `sudo`, nous pourrons peut-être vous proposer d’autres solutions.
+*   Au besoin, demandez l’assistance du [soutien technique](../../support/technical_support.md) pour construire votre image. S’il n’est pas possible de le faire pour vous avec `sudo`, nous pourrons peut-être vous proposer d’autres solutions.
 *   À partir de la version 1.1.x, le support pour l’utilisation implicite ou explicite de `--fakeroot` rend possible des choses qui n’étaient pas possibles avec les versions antérieures ou avec Singularity, par exemple la possibilité de construire des images à partir de fichiers de définition .def ou de construire des images sans avoir recours à `sudo`. Ceci dit, il faut se rappeler que ce ne sont pas toutes les images qui peuvent être construites sans `sudo` ou sans les permissions *root*.
 
 ### Construire des images ou des overlays
@@ -226,7 +226,7 @@ apptainer run -C -B /project -W /path/to/a/workdir myimage.sif myprogram
 
 où
 *   l'option `workdir` peut être supprimée si aucun conteneur actif ne l’utilise.
-*   quand Apptainer est utilisé dans une tâche lancée avec `salloc`, `sbatch`, ou [JupyterHub](jupyterhub.md) sur nos grappes, le répertoire de travail doit être `${SLURM_TMPDIR}`, par exemple `-W ${SLURM_TMPDIR}`.
+*   quand Apptainer est utilisé dans une tâche lancée avec `salloc`, `sbatch`, ou [JupyterHub](../../interactive/jupyterhub.md) sur nos grappes, le répertoire de travail doit être `${SLURM_TMPDIR}`, par exemple `-W ${SLURM_TMPDIR}`.
     *   !!! note "Note"
         Aucun programme intensif (incluant Apptainer) ne doit être exécuté sur les nœuds de connexion. Utilisez plutôt `salloc` pour démarrer une tâche interactive.
 *   les bind mounts ne fonctionnent pas de la même manière sur toutes nos grappes; consultez [Bind mounts et overlays persistants ci-dessous](#bind-mounts-et-overlays-persistants) pour savoir comment accéder à `/home`, `/project`, et `/scratch`.
@@ -349,7 +349,7 @@ Apptainer est conçu pour exécuter correctement des démons pour des tâches de
     N’exécutez pas manuellement un démon sans utiliser `apptainer instance` et les autres commandes reliées. Apptainer fonctionne bien avec d’autres outils comme l’ordonnanceur Slurm employé sur nos grappes. Quand une tâche plante, est annulée ou se termine de toute autre façon, les démons lancés avec `apptainer instance` ne seront pas bloqués et ne laisseront pas de processus défunts. Aussi, la commande `apptainer instance` vous permet de contrôler les démons et les programmes qui sont exécutés dans un même conteneur.
 
 !!! note "Remarque 2"
-    Les démons ne sont exécutés que lorsque la tâche est en marche. Si l'ordonnanceur annule la tâche, tous les démons qui lui sont rattachés seront aussi annulés. Si vous avez besoin de démons qui restent actifs au-delà du temps d’exécution, vous pouvez à la place les exécuter dans une machine virtuelle, dans un nuage; contactez alors le [soutien technique](technical-support.md).
+    Les démons ne sont exécutés que lorsque la tâche est en marche. Si l'ordonnanceur annule la tâche, tous les démons qui lui sont rattachés seront aussi annulés. Si vous avez besoin de démons qui restent actifs au-delà du temps d’exécution, vous pouvez à la place les exécuter dans une machine virtuelle, dans un nuage; contactez alors le [soutien technique](../../support/technical_support.md).
 
 ## Travailler avec des programmes MPI
 
@@ -449,9 +449,9 @@ $ rm -rf mynewimage.dir
 
 L’utilisation d’un fichier `SIF` est recommandée car la performance à partir de l’image du conteneur est plus rapide que lorsque chaque fichier est stocké séparément dans les systèmes de fichiers de nos grappes, qui sont optimisés pour traiter des fichiers de grande taille et pour les opérations parallèles de lecture et d’écriture. Aussi, contrairement à une image SIF, un bac à sable aura un impact important sur le nombre de fichiers que vous stockez, alors que ce nombre est limité par un quota. (Certaines images peuvent contenir des milliers de fichiers et de répertoires.)
 
-Les permissions *root* sont requises pour l’utilisation des gestionnaires de paquets des distributions Linux; un simple utilisateur ne peut donc pas construire des images sur nos grappes de calcul avec Apptainer 1.0.x et les versions Singularity précédentes. Au besoin, écrivez au [soutien technique](technical-support.md) pour de l’assistance dans la création de votre image ou utilisez un ordinateur où Apptainer est installé et où vous avez les permissions *root*.
+Les permissions *root* sont requises pour l’utilisation des gestionnaires de paquets des distributions Linux; un simple utilisateur ne peut donc pas construire des images sur nos grappes de calcul avec Apptainer 1.0.x et les versions Singularity précédentes. Au besoin, écrivez au [soutien technique](../../support/technical_support.md) pour de l’assistance dans la création de votre image ou utilisez un ordinateur où Apptainer est installé et où vous avez les permissions *root*.
 
-L’option `--fakeroot` d’Apptainer est utilisée pour créer et manipuler des images. Avec les versions antérieures à 1.1, il faut contacter le [soutien technique](technical-support.md) et demander qu’un administrateur accorde la permission d’utiliser `--fakeroot` sur la grappe utilisée, ce qui n’est pas toujours possible. Avec Apptainer version 1.1, `--fakeroot` peut être utilisée sans permission supplémentaire.
+L’option `--fakeroot` d’Apptainer est utilisée pour créer et manipuler des images. Avec les versions antérieures à 1.1, il faut contacter le [soutien technique](../../support/technical_support.md) et demander qu’un administrateur accorde la permission d’utiliser `--fakeroot` sur la grappe utilisée, ce qui n’est pas toujours possible. Avec Apptainer version 1.1, `--fakeroot` peut être utilisée sans permission supplémentaire.
 
 Certains conteneurs ne peuvent être créés si vous n’avez pas les permissions *root*. De tels conteneurs ne peuvent pas être construits sur nos grappes.
 

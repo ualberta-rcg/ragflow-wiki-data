@@ -35,7 +35,7 @@ status:
   qa_generated: false
 ---
 
-Each job submitted to the [job scheduler Slurm](running-jobs.md) has an associated Resource Allocation Project (RAP) which is selected with the `--account` option to `sbatch`. The scheduling priority of the job will be determined by the target share of the account relative to the account's recent usage, as described at [Job scheduling policies](job-scheduling-policies.md).
+Each job submitted to the [job scheduler Slurm](running_jobs.md) has an associated Resource Allocation Project (RAP) which is selected with the `--account` option to `sbatch`. The scheduling priority of the job will be determined by the target share of the account relative to the account's recent usage, as described at [Job scheduling policies](job_scheduling_policies.md).
 
 A research group may have many individual users submitting jobs to a given RAP account. The usage of all the users within the RAP is charged to a single account, thus each user affects the priority of jobs submitted by all the users in the group. Because of this, there are circumstances when active coordination among users may improve the project's throughput.
 
@@ -53,4 +53,4 @@ Several of the strategies are things that can be discussed by the group in lab m
     *   Use multiple accounts. A group that has a RAC award can submit jobs to both the RAC account and the default account; jobs running under one account will not affect the fairshare of the other account.
     *   If the research involves collaboration between different research groups, each Principal Investigator (PI) involved in the research can obtain their own account and the users' work can be divided appropriately among the separate Resource Allocation Projects.
 
-If the above strategies are ineffective, please [contact an analyst](technical-support.md). The analyst might wish to consult [A group in conflict with itself](https://wiki.computecanada.ca/staff/Support_FAQ#A_group_in_conflict_with_itself) in the staff-facing documentation for further suggestions.
+If the above strategies are ineffective, please [contact an analyst](../support/technical_support.md). The analyst might wish to consult [A group in conflict with itself](https://wiki.computecanada.ca/staff/Support_FAQ#A_group_in_conflict_with_itself) in the staff-facing documentation for further suggestions.

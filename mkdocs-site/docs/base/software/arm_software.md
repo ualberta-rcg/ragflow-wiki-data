@@ -58,7 +58,7 @@ The following modules are available on Nibi and Trillium (requires StdEnv module
 *   `ddt-cpu`, for CPU debugging and profiling;
 *   `ddt-gpu`, for GPU or mixed CPU/GPU debugging.
 
-As this is a GUI application, log in using `ssh -Y`, and use an [SSH client](ssh.md) like [MobaXTerm](connecting-with-mobaxterm.md) (Windows) or [XQuartz](https://www.xquartz.org/) (Mac) to ensure proper X11 tunnelling.
+As this is a GUI application, log in using `ssh -Y`, and use an [SSH client](../getting-started/ssh.md) like [MobaXTerm](../getting-started/connecting_with_mobaxterm.md) (Windows) or [XQuartz](https://www.xquartz.org/) (Mac) to ensure proper X11 tunnelling.
 
 Both DDT and MAP are normally used interactively through their GUI, which is normally accomplished using the `salloc` command (see below for details). MAP can also be used non-interactively, in which case it can be submitted to the scheduler with the `sbatch` command.
 
@@ -147,7 +147,7 @@ The current license limits the use of DDT/MAP to a maximum of 64 CPU cores acros
 
 The instructions above use X11 forwarding. X11 is very sensitive to packet latency. As a result, unless you happen to be on the same campus as the computer cluster, the DDT interface will likely be laggy and frustrating to use. This can be fixed by running DDT under VNC.
 
-To do this, follow the directions on our [VNC page](vnc.md) to set up a VNC session. If your VNC session is on the compute node, then you can directly start your program under DDT as above. If your VNC session is on the login node or you are using the Graham VDI node, then you need to manually launch the job as follows. From the DDT startup screen:
+To do this, follow the directions on our [VNC page](../interactive/vnc.md) to set up a VNC session. If your VNC session is on the compute node, then you can directly start your program under DDT as above. If your VNC session is on the login node or you are using the Graham VDI node, then you need to manually launch the job as follows. From the DDT startup screen:
 
 *   pick the *manually launch backend yourself* job start option,
 *   enter the appropriate information for your job and press the *listen* button, and
@@ -183,9 +183,9 @@ This will then give you the command you need to run to start your job. Allocate 
     chmod go-rx /home/$USER
     ```
 
-    After you are done using DDT, you can, if you like, restore permissions to what they were (assuming you recorded them). More information on how to do this can be found on page [Sharing data](sharing-data.md).
+    After you are done using DDT, you can, if you like, restore permissions to what they were (assuming you recorded them). More information on how to do this can be found on page [Sharing data](../storage-and-data/sharing_data.md).
 
 ## See also
 
 *   ["Debugging your code with DDT"](https://youtu.be/Q8HwLg22BpY), video, 55 minutes.
-*   [A short DDT tutorial.](parallel-debugging-with-ddt.md)
+*   [A short DDT tutorial.](../tutorials/parallel_debugging_with_ddt.md)

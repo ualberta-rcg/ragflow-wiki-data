@@ -139,7 +139,7 @@ This solution helps alleviate the issue of too many small files in a parallel fi
 
 As an example, if your `seq.fa` file is `3MB`, you could read blocks of `1MB` and GNU Parallel will create 3 jobs, thus using 3 cores. If we would have requested 10 cores in our task, we would have wasted 7 cores. Therefore, **the block size is important**. We can also let GNU Parallel decide, as done below.
 
-See also [Handling large files](gnu-parallel.md#handling-large-files) in the GNU Parallel page.
+See also [Handling large files](../running-jobs/gnu_parallel.md#handling-large-files) in the GNU Parallel page.
 
 #### Running with multiple cores on one node
 ```bash tab="blastn_gnu.sh"

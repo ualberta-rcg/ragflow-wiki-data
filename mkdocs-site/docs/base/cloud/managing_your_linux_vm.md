@@ -35,17 +35,17 @@ status:
   qa_generated: false
 ---
 
-The majority of researchers use the Linux Operating System on their VMs. Common Linux distributions used are AlmaLunix, CentOS, Debian, Fedora, and Ubuntu. This page will help you with some common tasks to manage your Linux VM. VMs can also run the Microsoft Windows operating system. Some Windows management tasks are described [here](cloud-quick-start.md#windows).
+The majority of researchers use the Linux Operating System on their VMs. Common Linux distributions used are AlmaLunix, CentOS, Debian, Fedora, and Ubuntu. This page will help you with some common tasks to manage your Linux VM. VMs can also run the Microsoft Windows operating system. Some Windows management tasks are described [here](cloud_quick_start.md#windows).
 
 # Linux VM user management
-There are a number of ways to allow more than one person to log into a VM. We recommend creating new user accounts and adding public [SSH Keys](ssh-keys.md) to these accounts.
+There are a number of ways to allow more than one person to log into a VM. We recommend creating new user accounts and adding public [SSH Keys](../getting-started/ssh_keys.md) to these accounts.
 
 ## Creating a user account and keys
 A new user account can be created on Ubuntu with the command
 ```bash
 sudo adduser --disabled-password USERNAME
 ```
-To be able to connect, the new user will need to have a key pair, see [generating SSH keys in Windows](generating-ssh-keys-in-windows.md) or [creating a key pair in Linux or Mac](using-ssh-keys-in-linux.md#creating-a-key-pair) depending on the operating system they will be connecting from. Then, their public key must be added to `/home/USERNAME/.ssh/authorized_keys` on the VM, ensuring permissions and ownership are correct as described in steps 2 and 3 of [Connecting using a key pair](using-ssh-keys-in-linux.md#connecting-using-a-key-pair).
+To be able to connect, the new user will need to have a key pair, see [generating SSH keys in Windows](../getting-started/generating_ssh_keys_in_windows.md) or [creating a key pair in Linux or Mac](../getting-started/using_ssh_keys_in_linux.md#creating-a-key-pair) depending on the operating system they will be connecting from. Then, their public key must be added to `/home/USERNAME/.ssh/authorized_keys` on the VM, ensuring permissions and ownership are correct as described in steps 2 and 3 of [Connecting using a key pair](../getting-started/using_ssh_keys_in_linux.md#connecting-using-a-key-pair).
 
 ## Granting admin privileges
 In Ubuntu, administrative or root user privileges can be given to a new user with the command
@@ -60,5 +60,5 @@ can be added. For more detailed information about the `visudo` command and how t
 
 ## Dealing with system and security issues
 See our guides for how to
-*   [recover data from a compromised VM](recovering-data-from-a-compromised-vm.md)
-*   [recover your VM from the dashboard](vm-recovery-via-cloud-console.md)
+*   [recover data from a compromised VM](recovering_data_from_a_compromised_vm.md)
+*   [recover your VM from the dashboard](vm_recovery_via_cloud_console.md)

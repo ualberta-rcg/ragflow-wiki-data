@@ -63,7 +63,7 @@ status:
   qa_generated: false
 ---
 
-*Parent page: [Managing your cloud resources with OpenStack](managing-your-cloud-resources-with-openstack.md)*
+*Parent page: [Managing your cloud resources with OpenStack](managing_your_cloud_resources_with_openstack.md)*
 
 The [OpenStack command line tool](http://docs.openstack.org/developer/python-openstackclient/) allows you to perform many of the actions provided by the OpenStack dashboard GUI, as well as providing some functionality which the dashboard does not. The command line client can be used from any machine, virtual or otherwise, and only requires having an internet connection and the client installed. The discussion below assumes that it is being used on a Linux machine.
 

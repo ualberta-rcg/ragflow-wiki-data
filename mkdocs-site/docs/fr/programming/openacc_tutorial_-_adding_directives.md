@@ -199,7 +199,7 @@ Voici un exemple de cette directive:
 }
 ```
 
-Il est rare que le code soit aussi simple et il faut se baser sur la [rétroaction du compilateur](openacc-tutorial-profiling.md#renseignements-sur-le-compilateur) pour trouver les portions qu'il a négligé de paralléliser.
+Il est rare que le code soit aussi simple et il faut se baser sur la [rétroaction du compilateur](openacc_tutorial_-_profiling.md#renseignements-sur-le-compilateur) pour trouver les portions qu'il a négligé de paralléliser.
 
 !!! info "Description ou prescription"
     Si vous avez déjà utilisé [OpenMP](openmp.md), vous retrouverez dans OpenACC le principe de `directives`. Il existe cependant d'importantes différences entre les directives OpenMP et OpenACC:
@@ -379,7 +379,7 @@ Les résultats sont corrects, toutefois, loin de gagner en vitesse, l'opération
 ### NVIDIA Visual Profiler
 [NVIDIA Visual Profiler (NVVP)](https://developer.nvidia.com/nvidia-visual-profiler) est un profileur graphique pour les applications OpenACC. C'est un outil d'analyse pour les **codes écrits avec les directives OpenACC et CUDA C/C++**. En conséquence, si l'exécutable n'utilise pas le GPU, ce profileur ne fournira aucun résultat.
 
-Quand [X11 est redirigé vers un serveur X-Server](visualization.md#fenetres-a-distance-avec-redirection-x11) ou quand vous utilisez un [environnement bureau Linux](vnc.md) (aussi via [JupyterHub](jupyterhub.md#bureau) avec 2 cœurs CPU, 5000M de mémoire et 1 GPU), vous pouvez lancer NVVP à partir d'un terminal:
+Quand [X11 est redirigé vers un serveur X-Server](../software/visualization.md#fenetres-a-distance-avec-redirection-x11) ou quand vous utilisez un [environnement bureau Linux](../interactive/vnc.md) (aussi via [JupyterHub](../interactive/jupyterhub.md#bureau) avec 2 cœurs CPU, 5000M de mémoire et 1 GPU), vous pouvez lancer NVVP à partir d'un terminal:
 
 ```bash
 module load cuda/11.7 java/1.8
@@ -405,7 +405,7 @@ Pour faire ceci, suivez ces étapes:
 3.  Dans le champ *File:*, cherchez l'exécutable (nommé dans notre exemple `challenge`).
 4.  Cliquez sur *Next* jusqu'à ce que vous puissiez cliquer sur *Finish*.
 
-Le programme est exécuté et on obtient un tableau chronologique du déroulement (voir l'image). On remarque que le transfert de données entre le départ et l'arrivée occupe la plus grande partie du temps d'exécution, ce qui est fréquent quand du code est porté d'un CPU vers un GPU. Nous verrons comment ceci peut être amélioré dans la prochaine partie, [Mouvement des données](openacc-tutorial-data-movement.md).
+Le programme est exécuté et on obtient un tableau chronologique du déroulement (voir l'image). On remarque que le transfert de données entre le départ et l'arrivée occupe la plus grande partie du temps d'exécution, ce qui est fréquent quand du code est porté d'un CPU vers un GPU. Nous verrons comment ceci peut être amélioré dans la prochaine partie, [Mouvement des données](openacc_tutorial_-_data_movement.md).
 
 ## La directive `parallel loop`
 Avec la directive `kernels`, c'est le compilateur qui fait toute l'analyse; ceci est une approche *descriptive* pour porter du code. OpenACC offre aussi une approche *prescriptive* avec la directive `parallel` qui peut être combinée à la directive `loop` ainsi:
@@ -478,4 +478,4 @@ Les deux approches sont valides et leur performance est comparable.
     1.  Modifiez les fonctions `matvec`, `waxpby` et `dot`. Vous pouvez utiliser soit `kernels`, soit `parallel loop`. La solution se trouve dans les répertoires `step1.` de [Github](https://github.com/calculquebec/cq-formation-openacc).
     2.  Modifiez le `Makefile` en ajoutant `-acc -gpu=managed` et `-Minfo=accel` aux indicateurs pour le compilateur.
 
-[<- Page précédente, Profileurs](openacc-tutorial-profiling.md) | [^- Retour au début du tutoriel](openacc-tutorial.md) | [Page suivante, Mouvement des données ->](openacc-tutorial-data-movement.md)
+[<- Page précédente, Profileurs](openacc_tutorial_-_profiling.md) | [^- Retour au début du tutoriel](openacc_tutorial.md) | [Page suivante, Mouvement des données ->](openacc_tutorial_-_data_movement.md)

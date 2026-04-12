@@ -158,4 +158,4 @@ lmm_stripe_offset: 10
 
 ## Pour plus d'information
 
-*   [Archivage et compression de fichiers](archiving-and-compressing-files.md)
+*   [Archivage et compression de fichiers](archiving_and_compressing_files.md)

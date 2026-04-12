@@ -41,9 +41,9 @@ status:
 ## HPC resources
 
 ### Storage
-Some [storage resources](storage-and-file-management.md) are made available in the Default RAP to PIs and their sponsored users immediately after creating an Alliance account on CCDB and they will be ready for utilization as soon as access to the corresponding system is requested here: [https://ccdb.alliancecan.ca/me/access_systems](https://ccdb.alliancecan.ca/me/access_systems). Visit this page for more details about the storage resources available by default.
+Some [storage resources](../storage-and-data/storage_and_file_management.md) are made available in the Default RAP to PIs and their sponsored users immediately after creating an Alliance account on CCDB and they will be ready for utilization as soon as access to the corresponding system is requested here: [https://ccdb.alliancecan.ca/me/access_systems](https://ccdb.alliancecan.ca/me/access_systems). Visit this page for more details about the storage resources available by default.
 
-When the resources mentioned above are not sufficient, PIs can request additional storage resources in any General Purpose cluster without submitting a RAC application, up to a maximum of 40 TB of project storage and 100 TB of nearline storage. These resources can be requested all in one cluster or split across multiple ones, *but the total amount across all clusters must not exceed 40 TB of project storage or 100 TB of nearline storage*. Resources allocated via RAS will be available in the Default [Resource Allocation Project](frequently-asked-questions-about-the-ccdb.md#resource-allocation-projects-rap) (RAP).
+When the resources mentioned above are not sufficient, PIs can request additional storage resources in any General Purpose cluster without submitting a RAC application, up to a maximum of 40 TB of project storage and 100 TB of nearline storage. These resources can be requested all in one cluster or split across multiple ones, *but the total amount across all clusters must not exceed 40 TB of project storage or 100 TB of nearline storage*. Resources allocated via RAS will be available in the Default [Resource Allocation Project](../getting-started/frequently_asked_questions_about_the_ccdb.md#resource-allocation-projects-rap) (RAP).
 
 | Cluster | Project storage | Nearline storage |
 | :------ | :-------------- | :--------------- |
@@ -59,7 +59,7 @@ Research groups with an Alliance account needing CPU resources **may** be able t
 
 Most research groups are able to meet their need for CPU resources by submitting jobs opportunistically with their Default RAP and without having to apply for the RAC. Jobs with large memory requirements may take longer to run: in those cases, applying for RAC may be the best option if the amount of CPU resources needed exceeds the minimum required to apply.
 
-Please read about [Allocations and compute scheduling](allocations-and-compute-scheduling.md). This information can help you better understand how jobs are scheduled in our clusters and how CPU usage is charged.
+Please read about [Allocations and compute scheduling](../running-jobs/allocations_and_compute_scheduling.md). This information can help you better understand how jobs are scheduled in our clusters and how CPU usage is charged.
 
 ### GPU
 GPU resources are available for opportunistic use to all research groups with an active Alliance account.
@@ -69,7 +69,7 @@ The demand for GPUs is increasing quickly with the advances in Artificial Intell
 We cannot therefore guarantee any amount of resources available to each group for opportunistic use, especially during times of high demand. Users with a RAC award should be able to consistently use their allocated amount.
 
 ## Cloud resources
-Access to modest amounts of cloud resources, within the limits detailed in the [cloud RAS documentation](cloud-ras-allocations.md), can be requested at any time. PIs must complete this [form](https://docs.google.com/forms/d/e/1FAIpQLSeU_BoRk5cEz3AvVLf3e9yZJq-OvcFCQ-mg7p4AWXmUkd5rTw/viewform) with details about cloud resource needed.
+Access to modest amounts of cloud resources, within the limits detailed in the [cloud RAS documentation](../cloud/cloud_ras_allocations.md), can be requested at any time. PIs must complete this [form](https://docs.google.com/forms/d/e/1FAIpQLSeU_BoRk5cEz3AvVLf3e9yZJq-OvcFCQ-mg7p4AWXmUkd5rTw/viewform) with details about cloud resource needed.
 
 Other users with an Alliance account may also be granted access these resources.
 

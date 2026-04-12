@@ -268,5 +268,5 @@ The results indicate that some of these tests improve speed using managed memory
     2.  Change your compiler flags to `-ta=tesla` (not managed)
     3.  Check if you are getting the same results and performance as before.
 
-[Onward to the next unit: Optimizing loops](openacc-tutorial-optimizing-loops.md)
-[Back to the lesson plan](openacc-tutorial.md)
+[Onward to the next unit: Optimizing loops](openacc_tutorial_-_optimizing_loops.md)
+[Back to the lesson plan](openacc_tutorial.md)

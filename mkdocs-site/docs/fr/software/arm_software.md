@@ -59,7 +59,7 @@ Les modules suivants sont disponibles sur Nibi et Trillium (quand le module StdE
 *   ddt-cpu pour déboguer et profiler le code sur le CPU;
 *   ddt-gpu pour déboguer le code sur les GPU ou sur CPU/GPU.
 
-Puisqu'il s'agit d'une application avec une interface graphique, connectez-vous avec `ssh -Y` et utilisez un [client SSH](ssh.md) comme [MobaXTerm](connecting-with-mobaxterm.md) (sous Windows) ou [XQuartz](https://www.xquartz.org/) (sous Mac) pour assurer la redirection X11.
+Puisqu'il s'agit d'une application avec une interface graphique, connectez-vous avec `ssh -Y` et utilisez un [client SSH](../getting-started/ssh.md) comme [MobaXTerm](../getting-started/connecting_with_mobaxterm.md) (sous Windows) ou [XQuartz](https://www.xquartz.org/) (sous Mac) pour assurer la redirection X11.
 
 On utilise généralement DDT et MAP de façon interactive via l'interface utilisateur avec la commande `salloc`. Le profileur MAP peut aussi être utilisé de façon non interactive en soumettant des tâches à l'ordonnanceur avec la commande `sbatch`.
 
@@ -140,7 +140,7 @@ Avec la licence actuelle, DDT/MAP peuvent utiliser concurremment jusqu'à 64 CPU
 !!! tip
     Les directives ci-dessus utilisent la redirection X-11 qui s'avère très sensible au problème de latence des paquets. Si vous n'êtes pas sur le même campus que le supercalculateur, l'interface de DDT sera probablement lente et occasionnera de la frustration. Pour remédier à ce problème, utilisez DDT sous VNC.
 
-Pour ce faire, [préparez une session VNC](vnc.md). Si votre session VNC se trouve sur le nœud de calcul, vous pouvez démarrer votre programme ddt directement, comme décrit ci-dessus. Si votre session VNC se trouve sur le nœud de connexion ou si vous utilisez le nœud VDI de Graham, vous devez lancer la tâche à partir de l'écran de démarrage de DDT comme suit :
+Pour ce faire, [préparez une session VNC](../interactive/vnc.md). Si votre session VNC se trouve sur le nœud de calcul, vous pouvez démarrer votre programme ddt directement, comme décrit ci-dessus. Si votre session VNC se trouve sur le nœud de connexion ou si vous utilisez le nœud VDI de Graham, vous devez lancer la tâche à partir de l'écran de démarrage de DDT comme suit :
 
 *   sélectionnez l'option « Lancer le *backend* vous-même manuellement » pour le lancement de la tâche;
 *   entrez les renseignements de votre tâche et cliquez sur le bouton « Écouter »;
@@ -172,7 +172,7 @@ La commande suivante supprimera les permissions de lecture et exécution pour le
 ```bash
 chmod go-rx /home/$USER
 ```
-Quand vous aurez terminé avec DDT, vous pourrez, au choix, revenir aux permissions antérieures (en supposant que vous les avez notées). Pour plus d'information, consultez [Partage de données](sharing-data.md).
+Quand vous aurez terminé avec DDT, vous pourrez, au choix, revenir aux permissions antérieures (en supposant que vous les avez notées). Pour plus d'information, consultez [Partage de données](../storage-and-data/sharing_data.md).
 
 ## Pour plus d'information
 

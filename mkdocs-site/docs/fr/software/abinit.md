@@ -38,7 +38,7 @@ status:
 
 [ABINIT](https://www.abinit.org) est une suite logicielle pour le calcul des propriétés optiques, mécaniques, vibrationnelles et autres propriétés observables des matériaux. Avec les équations de la théorie de la fonctionnelle de la densité (DFT), il est possible d’évoluer vers des applications plus avancées avec les théories des perturbations basées sur la DGT et plusieurs fonctions N-corps de Green (GW et DMFT). ABINIT peut calculer les molécules, les nanostructures et les solides, peu importe leur composition chimique. La suite offre plusieurs tables complètes et fiables de potentiels atomiques.
 
-Pour connaître les versions disponibles, utilisez la commande `module spider abinit`. Exécutez ensuite la même commande avec un numéro de version (par exemple `module spider abinit/8.4.4`) pour savoir si d’autres modules doivent être chargés au préalable. Pour plus d’information, consultez [Utiliser des modules](utiliser-des-modules.md).
+Pour connaître les versions disponibles, utilisez la commande `module spider abinit`. Exécutez ensuite la même commande avec un numéro de version (par exemple `module spider abinit/8.4.4`) pour savoir si d’autres modules doivent être chargés au préalable. Pour plus d’information, consultez [Utiliser des modules](../programming/utiliser_des_modules.md).
 
 ## Données atomiques
 
@@ -59,7 +59,7 @@ et
 
 ## Exemple de script de tâche
 
-Les calculs plus substantiels que les tests ou les exercices du tutoriel devraient être soumis à l’ordonnanceur [Slurm](running-jobs.md). Le script suivant est un exemple d’une tâche qui utilise 64 cœurs CPU sur deux nœuds pendant 48 heures, nécessitant 1024 Mo de mémoire par cœur. Cet exemple peut être adapté selon vos cas particuliers.
+Les calculs plus substantiels que les tests ou les exercices du tutoriel devraient être soumis à l’ordonnanceur [Slurm](../running-jobs/running_jobs.md). Le script suivant est un exemple d’une tâche qui utilise 64 cœurs CPU sur deux nœuds pendant 48 heures, nécessitant 1024 Mo de mémoire par cœur. Cet exemple peut être adapté selon vos cas particuliers.
 
 ```sh title="abinit_job.sh"
 #!/bin/bash

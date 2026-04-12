@@ -34,9 +34,9 @@ status:
 
 The existing storage types available in our clouds are:
 
-*   **[Volume storage](working-with-volumes.md)**: The standard storage unit for cloud computing; can be attached to and detached from an instance.
+*   **[Volume storage](working_with_volumes.md)**: The standard storage unit for cloud computing; can be attached to and detached from an instance.
 *   **Ephemeral/Disk storage**: Virtual local disk storage tied to the lifecycle of a single instance on a hypervisor's local disk ("c" flavour local disk can be lost)
-*   **[Object storage](arbutus-object-storage.md)**: Non-hierarchical storage where data is created or uploaded in whole-file form.
+*   **[Object storage](arbutus_object_storage.md)**: Non-hierarchical storage where data is created or uploaded in whole-file form.
 *   **[Shared filesystem storage](arbutus-cephfs.md)**: Private network attached storage space (similar to NFS/SMB shares); must be configured on each instance where it is mounted.
 
 Attributes of each storage type are compared in the following table:

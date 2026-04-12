@@ -150,7 +150,7 @@ Pour demander un ou plusieurs GPU H100 complets, utilisez une des options Slurm 
     *   `--gpus-per-node=h100:4`
 *   **plusieurs GPU H100 complets** distribués arbitrairement : `--gpus=h100:n` (remplacer n par le nombre de GPU que vous voulez)
 
-Environ la moitié des nœuds GPU utilisent [la technologie MIG](multi-instance-gpu.md). Trois tailles d'instances sont disponibles :
+Environ la moitié des nœuds GPU utilisent [la technologie MIG](../programming/multi-instance_gpu.md). Trois tailles d'instances sont disponibles :
 
 *   **H100-1g.10gb**: 1/8^e^ de la puissance de calcul, mémoire GPU de 10 Go
 *   **H100-2g.20gb**: 2/8^e^ de la puissance de calcul, mémoire GPU de 20 Go
@@ -162,7 +162,7 @@ Pour demander **une et une seule instance GPU** pour une tâche de calcul, utili
 *   **H100-2g.20gb** : `--gpus=h100_2g.20gb:1`
 *   **H100-3g.40gb** : `--gpus=h100_3g.40gb:1`
 
-Pour le nombre maximum de cœurs CPU et le maximum de mémoire recommandés par instance GPU, voir [Ratios dans les bundles](allocations-and-compute-scheduling.md#ratios-dans-les-bundles).
+Pour le nombre maximum de cœurs CPU et le maximum de mémoire recommandés par instance GPU, voir [Ratios dans les bundles](../running-jobs/allocations_and_compute_scheduling.md#ratios-dans-les-bundles).
 
 ## Particularités
 ### Accès à l'internet
@@ -173,7 +173,7 @@ Les répertoires des utilisateurs ne sont plus créés par défaut dans `/projec
 
 ### Quota pour l'espace /scratch
 !!! warning
-    Un quota souple de 1 TB sur `/scratch` s'applique à chaque utilisateur. Ce quota souple peut être dépassé pendant 60 jours maximum, après quoi aucun fichier supplémentaire ne peut être écrit sur `/scratch`. Les fichiers peuvent être réécrits une fois que l'utilisateur a supprimé suffisamment de fichiers pour ramener son utilisation `/scratch` totale sous 1 TB. Pour plus d'information, voir [Stockage et gestion de fichiers](storage-and-file-management.md).
+    Un quota souple de 1 TB sur `/scratch` s'applique à chaque utilisateur. Ce quota souple peut être dépassé pendant 60 jours maximum, après quoi aucun fichier supplémentaire ne peut être écrit sur `/scratch`. Les fichiers peuvent être réécrits une fois que l'utilisateur a supprimé suffisamment de fichiers pour ramener son utilisation `/scratch` totale sous 1 TB. Pour plus d'information, voir [Stockage et gestion de fichiers](../storage-and-data/storage_and_file_management.md).
 
 ### Accès via Open OnDemand (OOD)
 Il est possible d'accéder à la grappe Nibi simplement via un navigateur web. Nibi utilise Open OnDemand (OOD), une plateforme web qui simplifie l'accès en fournissant une interface web aux nœuds de connexion et un environnement de bureau à distance. Pour vous connecter à Nibi, rendez-vous sur [https://ondemand.sharcnet.ca/](https://ondemand.sharcnet.ca/) et connectez-vous avec l'authentification multifacteur. Une interface conviviale s'affichera, proposant des options pour ouvrir un terminal Bash ou lancer une session de bureau à distance.
@@ -181,15 +181,15 @@ Il est possible d'accéder à la grappe Nibi simplement via un navigateur web. N
 ### Utilisation de JupyterLab via OOD
 Vous pouvez exécuter JupyterLab de manière interactive via le [portail Nibi Open OnDemand](https://ondemand.sharcnet.ca).
 
-**Option 1** : travailler dans un environnement préconfiguré, le même que pour [JupyterHub](jupyterhub.md)
+**Option 1** : travailler dans un environnement préconfiguré, le même que pour [JupyterHub](../interactive/jupyterhub.md)
 
 Quand la connexion au [portail Nibi Open OnDemand](https://ondemand.sharcnet.ca) est établie, cliquez sur *Nœud de calcul* dans le menu du haut et sélectionnez *Nibi JupyterLab*. Une page sera affichée dans laquelle un formulaire vous permet de demander une nouvelle session Nibi JupyterLab.
 
 Après avoir rempli le formulaire avec les détails, cliquez sur *Lancer* pour soumettre votre demande. Quand l'état des modifications pour Nibi JupyterLab passe à *En cours*, cliquez sur *Se connecter à Jupyter* pour ouvrir JupyterLab dans le navigateur web.
 
-Pour les détails sur la préconfiguration, voir [Interface JupyterLab](jupyterlab.md#interface-jupyterlab).
+Pour les détails sur la préconfiguration, voir [Interface JupyterLab](../interactive/jupyterlab.md#interface-jupyterlab).
 
-**Option 2** : travailler dans un [environnement virtuel Python](python.md#creer-et-utiliser-un-environnement-virtuel-python) que vous avez créé
+**Option 2** : travailler dans un [environnement virtuel Python](../software/python.md#creer-et-utiliser-un-environnement-virtuel-python) que vous avez créé
 
 Quand la connexion au [portail Nibi Open OnDemand](https://ondemand.sharcnet.ca) est établie, cliquez sur *Nœud de calcul* dans le menu du haut et sélectionnez *Bureau de calcul*. Une page sera affichée dans laquelle un formulaire vous permet de demander une nouvelle session Bureau de calcul.
 

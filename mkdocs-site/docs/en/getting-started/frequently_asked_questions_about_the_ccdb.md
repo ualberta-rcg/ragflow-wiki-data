@@ -143,7 +143,7 @@ There are three RAP membership permission levels:
 
 RAP membership is represented as a group in LDAP. It defines a group of users that are authorized to submit jobs against the RAPI (which is the ID of the RAP) and share files within the same Unix group.
 
-For detailed instructions about how to add members to a RAC RAP, please visit the [Using a resource allocation page](using-a-resource-allocation.md#information-on-each-resource).
+For detailed instructions about how to add members to a RAC RAP, please visit the [Using a resource allocation page](../running-jobs/using_a_resource_allocation.md#information-on-each-resource).
 
 # Registering for an account
 
@@ -173,7 +173,7 @@ Sponsored roles fall into two groups: internal and external. The difference is i
 
 An external collaborator is anyone working with the group whom the PI is willing to sponsor. However, please note that external collaborators must specify an institution different from that of the PI.
 
-The full list of roles is available on this [page](user-roles-to-access-resources-and-services-of-the-alliance-federation.md).
+The full list of roles is available on this [page](user_roles_to_access_resources_and_services_of_the_alliance_federation.md).
 
 ## What happens after I submit my request?
 

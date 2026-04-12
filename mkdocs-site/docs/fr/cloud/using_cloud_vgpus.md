@@ -55,7 +55,7 @@ Cette page décrit comment
 * allouer des ressources de GPU virtuel (vGPU) à une machine virtuelle (VM),
 * installer les pilotes nécessaires et
 * vérifier si le vGPU peut être utilisé.
-L'accès aux dépôts de données ainsi qu'aux vGPU n'est actuellement disponible que sur [le nuage Arbutus](arbutus.md). Veuillez noter que la documentation ci-dessous ne couvre que l'installation du pilote vGPU. La [boîte à outils CUDA](https://developer.nvidia.com/cuda-toolkit-archive) n'est pas préinstallée, mais vous pouvez l'installer directement à partir de NVIDIA ou la charger de [la pile logicielle dans CVMFS](accessing-cvmfs.md).
+L'accès aux dépôts de données ainsi qu'aux vGPU n'est actuellement disponible que sur [le nuage Arbutus](../clusters/arbutus.md). Veuillez noter que la documentation ci-dessous ne couvre que l'installation du pilote vGPU. La [boîte à outils CUDA](https://developer.nvidia.com/cuda-toolkit-archive) n'est pas préinstallée, mais vous pouvez l'installer directement à partir de NVIDIA ou la charger de [la pile logicielle dans CVMFS](../software/cvmfs/accessing_cvmfs.md).
 Si vous choisissez d'installer la boîte à outils directement de NVIDIA, assurez-vous que le pilote vGPU n'est pas écrasé par celui de CUDA.
 
 ## Gabarits pris en charge

@@ -76,7 +76,7 @@ Using PGPROF usually consists of two steps:
 Both steps can be accomplished in either command-line mode or graphical mode.
 
 ## Environment modules
-Before you start profiling with PGPROF, the appropriate [module](utiliser-des-modules.md) needs to be loaded.
+Before you start profiling with PGPROF, the appropriate [module](../programming/utiliser_des_modules.md) needs to be loaded.
 
 PGPROF is part of the PGI compiler package, so run `module avail pgi` to see what versions are currently available with the compiler, MPI, and CUDA modules you have loaded. For a comprehensive list of PGI modules, run `module -r spider '.*pgi.*'`.
 As of December 2018, these were:
@@ -180,7 +180,7 @@ There are several steps that need to be done to collect and visualize performanc
 
 **Data collection**
 *   Launch the PGI profiler.
-    *   Since PGPROF's GUI is based on Java, it should be executed on the compute node in the interactive session rather than on the login node, as the latter does not have enough memory (see [Java](java.md#pitfalls) for more details). An interactive session can be started with `salloc --x11 ...` to enable X11 forwarding (see [Interactive jobs](running-jobs.md#interactive-jobs) for more details).
+    *   Since PGPROF's GUI is based on Java, it should be executed on the compute node in the interactive session rather than on the login node, as the latter does not have enough memory (see [Java](java.md#pitfalls) for more details). An interactive session can be started with `salloc --x11 ...` to enable X11 forwarding (see [Interactive jobs](../running-jobs/running_jobs.md#interactive-jobs) for more details).
 *   In order to start a new session, open the *File* menu and click on *New Session*.
 *   Select the executable file you want to profile and then add any arguments appropriate for your profiling.
 *   Click *Next*, then *Finish*.

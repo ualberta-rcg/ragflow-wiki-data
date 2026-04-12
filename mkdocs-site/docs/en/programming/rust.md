@@ -38,7 +38,7 @@ status:
 [Rust](https://www.rust-lang.org/) is a multi-paradigm, high-level, general-purpose programming language. Rust emphasizes performance, type safety, and concurrency. Rust enforces memory safety — that is, that all references point to valid memory — without requiring the use of a garbage collector or reference counting present in other memory-safe languages.
 
 ## Module
-The Rust compiler is available as a [module](utiliser-des-modules.md).
+The Rust compiler is available as a [module](utiliser_des_modules.md).
 
 ```bash
 module spider rust

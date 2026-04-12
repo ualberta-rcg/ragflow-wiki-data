@@ -59,17 +59,17 @@ The sections below list links relevant to AI practitioners, and good practices t
 
 A self-paced course on this topic is available from SHARCNET: [Introduction to Machine Learning](https://training.sharcnet.ca/courses/enrol/index.php?id=180).
 
-If you are ready to port your program for using on one of our clusters, please take [our tutorial](tutoriel-apprentissage-machine.md).
+If you are ready to port your program for using on one of our clusters, please take [our tutorial](tutoriel_apprentissage_machine.md).
 
 A user-made tutorial showing all the steps necessary for setting up your local and Alliance environments for deep learning in Python is available [here](https://prashp.gitlab.io/post/compute-canada-tut/).
 
 ## Python
 
-Python is very popular in the field of machine learning. If you (plan to) use it on our clusters, please refer to [our documentation about Python](python.md) to get important information about Python versions, virtual environments on login or on compute nodes, `multiprocessing`, Anaconda, Jupyter, etc.
+Python is very popular in the field of machine learning. If you (plan to) use it on our clusters, please refer to [our documentation about Python](../python.md) to get important information about Python versions, virtual environments on login or on compute nodes, `multiprocessing`, Anaconda, Jupyter, etc.
 
 ### Avoid Anaconda
 
-We ask our users to avoid using Anaconda, and use virtualenv instead. Reasons are explained on the [Anaconda](anaconda.md) page.
+We ask our users to avoid using Anaconda, and use virtualenv instead. Reasons are explained on the [Anaconda](../anaconda.md) page.
 
 !!! tip "Switching to virtualenv"
     Switching to virtualenv is easy in most cases. Just install all the same packages, except CUDA, CuDNN and other low-level libraries, which are already installed on our clusters.
@@ -78,45 +78,45 @@ We ask our users to avoid using Anaconda, and use virtualenv instead. Reasons ar
 
 Please refer to the page of your machine learning package of choice for useful information about how to install, common pitfalls, etc.:
 
-*   [TensorFlow](tensorflow.md)
-*   [PyTorch](pytorch.md)
-*   [Keras](keras.md)
-*   [Torch](torch.md)
-*   [SpaCy](spacy.md)
-*   [Scikit-Learn](large-scale-machine-learning-big-data.md#scikit-learn)
-*   [SnapML](large-scale-machine-learning-big-data.md#snap-ml)
+*   [TensorFlow](../tensorflow.md)
+*   [PyTorch](../pytorch.md)
+*   [Keras](../keras.md)
+*   [Torch](../torch.md)
+*   [SpaCy](../spacy.md)
+*   [Scikit-Learn](large_scale_machine_learning__big_data.md#scikit-learn)
+*   [SnapML](large_scale_machine_learning__big_data.md#snap-ml)
 
 ## Managing your datasets
 
 ### Storage and file management
 
-Our clusters have a wide range of storage options to cover the needs of our very diverse users. These storage solutions range from high-speed temporary local storage to different kinds of long-term storage, so you can choose the storage medium that best corresponds to your needs and usage patterns. Please refer to our documentation on [Storage and file management](storage-and-file-management.md).
+Our clusters have a wide range of storage options to cover the needs of our very diverse users. These storage solutions range from high-speed temporary local storage to different kinds of long-term storage, so you can choose the storage medium that best corresponds to your needs and usage patterns. Please refer to our documentation on [Storage and file management](../../storage-and-data/storage_and_file_management.md).
 
 ### Choosing the right storage type for your dataset
 
 *   If your dataset is around 10 GB or less, it can probably fit in the memory, depending on how much memory your job has. You should not read data from disk during your machine learning tasks.
-*   If your dataset is around 100 GB or less, it can fit in the local storage of the compute node; please transfer it there at the beginning of the job. This storage is orders of magnitude faster and more reliable than shared storage (home, project, scratch). A temporary directory is available for each job at `$SLURM_TMPDIR`. An example is given in [our tutorial](tutoriel-apprentissage-machine.md). A caveat of local node storage is that a job from another user might be using it fully, leaving you no space (we are currently studying this problem). However, you might also get lucky and have a whole terabyte at your disposal.
+*   If your dataset is around 100 GB or less, it can fit in the local storage of the compute node; please transfer it there at the beginning of the job. This storage is orders of magnitude faster and more reliable than shared storage (home, project, scratch). A temporary directory is available for each job at `$SLURM_TMPDIR`. An example is given in [our tutorial](tutoriel_apprentissage_machine.md). A caveat of local node storage is that a job from another user might be using it fully, leaving you no space (we are currently studying this problem). However, you might also get lucky and have a whole terabyte at your disposal.
 *   If your dataset is larger, you may have to leave it in the shared storage. You can leave your datasets permanently in your project space. Scratch space can be faster, but it is not for permanent storage. Also, all shared storage (home, project, scratch) is for storing and reading at low frequencies (e.g., 1 large chunk every 10 seconds, rather than 10 small chunks every second).
 
 ### Datasets containing lots of small files (e.g., image datasets)
 
 In machine learning, it is common to have to manage very large collections of files, meaning hundreds of thousands or more. The individual files may be fairly small, e.g., less than a few hundred kilobytes. In these cases, problems arise:
 
-*   filesystem [quotas](storage-and-file-management.md#filesystem-quotas-and-policies) on our clusters limit the number of filesystem objects;
+*   filesystem [quotas](../../storage-and-data/storage_and_file_management.md#filesystem-quotas-and-policies) on our clusters limit the number of filesystem objects;
 *   your software could be significantly slowed down from streaming lots of small files from `/project` (or `/scratch`) to a compute node.
 
-On a distributed filesystem, data should be stored in large single-file archives. On this subject, please refer to [Handling large collections of files](handling-large-collections-of-files.md).
+On a distributed filesystem, data should be stored in large single-file archives. On this subject, please refer to [Handling large collections of files](../../storage-and-data/handling_large_collections_of_files.md).
 
 ## Long running computations
 
 !!! tip "Checkpointing Long-Running Computations"
-    If your computations are long, you should use checkpointing. For example, if your training time is 3 days, you should split it into 3 chunks of 24 hours. This will prevent you from losing all the work in case of an outage, and give you an advantage in terms of priority (more nodes are available for short jobs). Most machine learning libraries natively support checkpointing; the typical case is covered in our [tutorial](tutoriel-apprentissage-machine.md#checkpointing-a-long-running-job). If your program does not natively support this, we provide a [general checkpointing solution](points-de-controle.md).
+    If your computations are long, you should use checkpointing. For example, if your training time is 3 days, you should split it into 3 chunks of 24 hours. This will prevent you from losing all the work in case of an outage, and give you an advantage in terms of priority (more nodes are available for short jobs). Most machine learning libraries natively support checkpointing; the typical case is covered in our [tutorial](tutoriel_apprentissage_machine.md#checkpointing-a-long-running-job). If your program does not natively support this, we provide a [general checkpointing solution](points-de-controle.md).
 
 For more examples, please see
 
-[Checkpointing with PyTorch](pytorch.md#creating-model-checkpoints)
+[Checkpointing with PyTorch](../pytorch.md#creating-model-checkpoints)
 
-[Checkpointing with TensorFlow](tensorflow.md#creating-model-checkpoints)
+[Checkpointing with TensorFlow](../tensorflow.md#creating-model-checkpoints)
 
 ## Running many similar jobs
 
@@ -127,7 +127,7 @@ For more examples, please see
     *   Training many variants of the same method
     *   Running many optimization processes of similar duration
 
-    ... you should consider grouping many jobs into one. [META](meta-a-package-for-job-farming.md), [GLOST](glost.md), and [GNU Parallel](gnu-parallel.md) are available to help you with this.
+    ... you should consider grouping many jobs into one. [META](meta-a-package-for-job-farming.md), [GLOST](../../running-jobs/glost.md), and [GNU Parallel](../../running-jobs/gnu_parallel.md) are available to help you with this.
 
 ## Experiment tracking and hyperparameter optimization
 
@@ -138,7 +138,7 @@ For more examples, please see
 
 ## Large-scale machine learning (big data)
 
-Modern deep learning packages like PyTorch and TensorFlow include utilities to handle large-scale training natively and tutorials on how to do it abound. Scaling classic machine learning (i.e., not deep learning) methods, however, is not as widely discussed and can often be a frustrating problem to solve. [This guide](large-scale-machine-learning-big-data.md) contains ideas and practical options, along with tutorials, to tackle training classic ML models on very large datasets.
+Modern deep learning packages like PyTorch and TensorFlow include utilities to handle large-scale training natively and tutorials on how to do it abound. Scaling classic machine learning (i.e., not deep learning) methods, however, is not as widely discussed and can often be a frustrating problem to solve. [This guide](large_scale_machine_learning__big_data.md) contains ideas and practical options, along with tutorials, to tackle training classic ML models on very large datasets.
 
 ## Troubleshooting
 

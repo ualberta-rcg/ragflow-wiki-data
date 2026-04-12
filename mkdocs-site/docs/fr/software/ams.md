@@ -66,16 +66,16 @@ Tous les produits du module SCM sont disponibles :
 * NBO6
 
 ## Utiliser AMS sur Nibi
-Le module `ams` est installé sur [Nibi](nibi.md). SHARCNET est propriétaire de cette licence qui est réservée aux centres de calcul universitaires; cette licence ne peut être utilisée pour des services de consultation ou pour tout autre usage de nature commerciale. Pour connaître les versions disponibles, lancez la commande :
+Le module `ams` est installé sur [Nibi](../clusters/nibi.md). SHARCNET est propriétaire de cette licence qui est réservée aux centres de calcul universitaires; cette licence ne peut être utilisée pour des services de consultation ou pour tout autre usage de nature commerciale. Pour connaître les versions disponibles, lancez la commande :
 
 ```bash
 module spider ams
 ```
 
-Pour les commandes en rapport avec les modules, voyez [Utiliser des modules](utiliser-des-modules.md).
+Pour les commandes en rapport avec les modules, voyez [Utiliser des modules](../programming/utiliser_des_modules.md).
 
 ### Soumettre une tâche
-Les tâches soumises sur nos grappes sont ordonnancées par Slurm; pour les détails, consultez [Exécuter des tâches](running-jobs.md).
+Les tâches soumises sur nos grappes sont ordonnancées par Slurm; pour les détails, consultez [Exécuter des tâches](../running-jobs/running_jobs.md).
 
 #### Exemples de scripts pour une tâche AMS
 Le script suivant demande 32 CPU sur un nœud. Veuillez utiliser un nombre raisonnable de CPU au lieu de simplement exécuter une tâche sur un nœud complet de Nibi, à moins que vous n'ayez démontré que votre tâche peut utiliser efficacement 192 CPU.

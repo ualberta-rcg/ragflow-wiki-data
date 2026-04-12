@@ -100,24 +100,24 @@ status:
 ---
 
 !!! warning "Contenu non recommandé"
-    Cette page s'adresse aux utilisateurs d'expérience; l'information qu'elle présente est rarement testée et n'est donc pas recommandée. Utilisez plutôt [JupyterLab](jupyterlab.md).
+    Cette page s'adresse aux utilisateurs d'expérience; l'information qu'elle présente est rarement testée et n'est donc pas recommandée. Utilisez plutôt [JupyterLab](../interactive/jupyterlab.md).
 
 ## Introduction
 
 !!! warning "Exécution de notebooks"
-    Jupyter Lab et les notebooks conviennent à tes tâches interactives **brèves** pour tester, déboguer ou visualiser rapidement les données (quelques minutes). Pour des analyses plus longues, il faut utiliser [une tâche non interactive avec sbatch](running-jobs.md#soumettre-des-tâches-avec-sbatch).
+    Jupyter Lab et les notebooks conviennent à tes tâches interactives **brèves** pour tester, déboguer ou visualiser rapidement les données (quelques minutes). Pour des analyses plus longues, il faut utiliser [une tâche non interactive avec sbatch](../running-jobs/running_jobs.md#soumettre-des-tâches-avec-sbatch).
     Voir aussi [Exécution de notebooks en scripts Python](#exécution-de-notebooks-en-scripts-python) ci-dessous.
 
 *   **Project Jupyter** est un projet open-source sans but lucratif issu en 2014 du IPython Project pour que tous les langages de programmation puissent être utilisés pour la science des données interactives et le calcul scientifique.
 *   **JupyterLab** est un environnement de développement web interactif pour les notebooks, le code et les données. La souplesse de son interface permet la configuration et l'utilisation des flux de travail en science des données, en calcul scientifique, en journalisme computationnel et en apprentissage automatique. Sa conception modulaire permet l'ajout d'extensions qui enrichissent ses fonctionnalités.
 
-Un serveur JupyterLab devrait toujours se trouver sur un nœud de calcul ou sur une instance infonuagique. Les nœuds de connexion ne sont pas un bon choix parce qu'ils imposent des limites qui peuvent interrompre une application qui consommerait trop de temps CPU ou de mémoire vive. Pour obtenir un nœud de calcul, vous pouvez réserver des ressources en [soumettant une tâche](running-jobs.md) qui demande un nombre prédéterminé de CPU ou de GPU, une certaine quantité de mémoire et un temps limite d'exécution. **Nous décrivons ici comment configurer et soumettre une tâche JupyterLab sur nos grappes nationales.**
+Un serveur JupyterLab devrait toujours se trouver sur un nœud de calcul ou sur une instance infonuagique. Les nœuds de connexion ne sont pas un bon choix parce qu'ils imposent des limites qui peuvent interrompre une application qui consommerait trop de temps CPU ou de mémoire vive. Pour obtenir un nœud de calcul, vous pouvez réserver des ressources en [soumettant une tâche](../running-jobs/running_jobs.md) qui demande un nombre prédéterminé de CPU ou de GPU, une certaine quantité de mémoire et un temps limite d'exécution. **Nous décrivons ici comment configurer et soumettre une tâche JupyterLab sur nos grappes nationales.**
 
-Si vous recherchez un environnement Jupyter préconfiguré, consultez la page [Jupyter](jupyter.md).
+Si vous recherchez un environnement Jupyter préconfiguré, consultez la page [Jupyter](../software/jupyter.md).
 
 ## Installer JupyterLab
 
-Ces directives installent JupyterLab avec la commande `pip` dans un [environnement virtuel Python](python.md#créer-et-utiliser-un-environnement-virtuel).
+Ces directives installent JupyterLab avec la commande `pip` dans un [environnement virtuel Python](../software/python.md#créer-et-utiliser-un-environnement-virtuel).
 
 1.  Si vous n'avez pas déjà un environnement virtuel Python, créez-en un, puis activez-le.
     1.  Chargez le module Python par défaut (comme démontré ci-dessous) ou chargez une version spécifique (voir les versions disponibles avec `module avail python`).
@@ -164,7 +164,7 @@ Les commandes suivantes installeront et activeront l'extension Jupyter Lmod dans
 (jupyter_py3) [name@server ~]$ pip install jupyterlmod
 (jupyter_py3) [name@server ~]$ jupyter labextension install jupyterlab-lmod
 ```
-Vous trouverez dans la page [JupyterHub](jupyterhub.md#jupyterlab) les directives pour gérer les *modules chargés* dans l'interface JupyterLab.
+Vous trouverez dans la page [JupyterHub](../interactive/jupyterhub.md#jupyterlab) les directives pour gérer les *modules chargés* dans l'interface JupyterLab.
 
 ### RStudio Server
 
@@ -203,7 +203,7 @@ jupyterlab-server==2.3.0+computecanada
 
 ### Lancer JupyterLab
 
-Pour démarrer un serveur JupyterLab, soumettez une tâche interactive avec `salloc`. Ajustez les paramètres selon vos besoins. Pour plus d'information, voyez [Exécuter des tâches](running-jobs.md).
+Pour démarrer un serveur JupyterLab, soumettez une tâche interactive avec `salloc`. Ajustez les paramètres selon vos besoins. Pour plus d'information, voyez [Exécuter des tâches](../running-jobs/running_jobs.md).
 ```bash
 (jupyter_py3) [name@server ~]$ salloc --time=1:0:0 --ntasks=1 --cpus-per-task=2 --mem-per-cpu=1024M --account=def-yourpi srun $VIRTUAL_ENV/bin/jupyterlab.sh
 ```
@@ -223,7 +223,7 @@ Pour démarrer un serveur JupyterLab, soumettez une tâche interactive avec `sal
 
 ### Se connecter à JupyterLab
 
-Pour avoir accès au serveur JupyterLab dans un nœud de calcul à partir de votre navigateur web, vous devez créer un [tunnel SSH](ssh-tunnelling.md) de votre ordinateur vers la grappe puisque les nœuds de calcul ne sont pas accessibles directement à partir de l'internet.
+Pour avoir accès au serveur JupyterLab dans un nœud de calcul à partir de votre navigateur web, vous devez créer un [tunnel SSH](ssh_tunnelling.md) de votre ordinateur vers la grappe puisque les nœuds de calcul ne sont pas accessibles directement à partir de l'internet.
 
 #### Sous Linux ou macOS
 
@@ -240,7 +240,7 @@ http://node_name.int.cluster.alliancecan.ca:8888/lab?token=101c3688298e78ab554ef
 
 #### Sous Windows
 
-Pour créer un [tunnel SSH](ssh-tunnelling.md) à partir de Windows, utilisez [MobaXTerm](connecting-with-mobaxterm.md) ou n’importe quel terminal qui supporte la commande `ssh`.
+Pour créer un [tunnel SSH](ssh_tunnelling.md) à partir de Windows, utilisez [MobaXTerm](connecting_with_mobaxterm.md) ou n’importe quel terminal qui supporte la commande `ssh`.
 
 1.  Une fois que JupyterLab est lancé sur un nœud de calcul (voir [Lancer JupyterLab](#lancer-jupyterlab)), vous pouvez extraire le `hostname:port` et le `token` de la première adresse HTTP fournie, par exemple
     ```text
@@ -280,7 +280,7 @@ Prérequis :
 
 Une fois que l'environnement virtuel Python est disponible et activé, vous pouvez configurer le noyau Julia.
 
-1.  Chargez le module **[Julia](julia.md)**.
+1.  Chargez le module **[Julia](../software/julia.md)**.
     ```bash
     (jupyter_py3) [name@server ~]$ module load julia
     ```
@@ -308,11 +308,11 @@ Comme pour la procédure d'installation ci-dessus, il faut installer les paquets
 
 ### Noyau Python
 
-Dans un terminal avec une session active sur un serveur distant, vous pouvez configurer un [environnement virtuel Python](python.md#créer-et-utiliser-un-environnement-virtuel) avec tous les [modules Python](available-python-wheels.md) nécessaires et un noyau Python adapté à JupyterLab.
+Dans un terminal avec une session active sur un serveur distant, vous pouvez configurer un [environnement virtuel Python](../software/python.md#créer-et-utiliser-un-environnement-virtuel) avec tous les [modules Python](../programming/available_python_wheels.md) nécessaires et un noyau Python adapté à JupyterLab.
 La configuration la plus simple de Jupyter dans un nouvel environnement virtuel Python se fait comme suit :
 
 1.  Si vous n'avez pas déjà un environnement virtuel Python, créez-en un, puis activez-le.
-    1.  Commencez à partir d'un environnement Bash vierge (ceci n'est nécessaire que si vous utilisez le *Terminal* Jupyter via [JupyterHub](jupyterhub.md) pour créer et configurer le noyau Python).
+    1.  Commencez à partir d'un environnement Bash vierge (ceci n'est nécessaire que si vous utilisez le *Terminal* Jupyter via [JupyterHub](../interactive/jupyterhub.md) pour créer et configurer le noyau Python).
         ```bash
         env -i HOME=$HOME bash -l
         ```
@@ -349,7 +349,7 @@ Pour plus d'information, consultez la [documentation IPython kernel](http://ipyt
 
 Selon l'environnement virtuel Python configuré dans la section précédente :
 
-Dans un *Terminal* Jupyter via [JupyterHub](jupyterhub.md), assurez-vous que l'environnement virtuel Python est activé et se trouve dans un environnement Bash vierge. Voir la section ci-dessus pour les détails.
+Dans un *Terminal* Jupyter via [JupyterHub](../interactive/jupyterhub.md), assurez-vous que l'environnement virtuel Python est activé et se trouve dans un environnement Bash vierge. Voir la section ci-dessus pour les détails.
 1.  Installez une bibliothèque qui serait requise, par exemple `numpy`.
     ```bash
     (jupyter_py3) [name@server ~]$ pip install --no-index numpy
@@ -406,9 +406,9 @@ L'installation de paquets R ne peut se faire à partir de notebooks parce qu'il 
 
 ## Exécution de notebooks en scripts Python
 
-Pour des tâches ou des analyses plus longues, soumettez [une tâche interactive](running-jobs.md#soumettre-des-tâches-avec-sbatch). Il faut alors convertir le notebook en un script Python, créer le script et le soumettre.
+Pour des tâches ou des analyses plus longues, soumettez [une tâche interactive](../running-jobs/running_jobs.md#soumettre-des-tâches-avec-sbatch). Il faut alors convertir le notebook en un script Python, créer le script et le soumettre.
 
-1.  Dans un nœud de connexion, créez et activez [un environnement virtuel](python.md#créer-et-utiliser-un-environnement-virtuel), installez ensuite `nbconvert` si ce n'est pas déjà installé.
+1.  Dans un nœud de connexion, créez et activez [un environnement virtuel](../software/python.md#créer-et-utiliser-un-environnement-virtuel), installez ensuite `nbconvert` si ce n'est pas déjà installé.
     ```bash
     (venv) [name@server ~]$ pip install --no-index nbconvert
     ```

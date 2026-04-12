@@ -52,9 +52,9 @@ status:
 
 Chapel est un langage de programmation parallèle compilé de haut niveau à usage général, doté d'abstractions intégrées pour le parallélisme à mémoire partagée et distribuée. Chapel offre deux styles de programmation parallèle : (1) le **parallélisme de tâches**, où le parallélisme est spécifié par programme, et (2) le **parallélisme de données**, où le parallélisme s'effectue en réalisant les mêmes calculs sur des sous-ensembles de données qui peuvent se trouver dans la mémoire partagée d'un seul nœud ou être distribués sur plusieurs nœuds.
 
-Ces abstractions de haut niveau font de Chapel l'outil idéal pour apprendre la programmation parallèle en calcul de haute performance. Ce langage est incroyablement intuitif et vise à fusionner la facilité d'utilisation de [Python](python.md) avec les performances des langages compilés traditionnels tels que [C](c.md) et [Fortran](fortran.md). Les blocs parallèles qui nécessitent généralement des dizaines de lignes de code [MPI](mpi.md) peuvent être exprimés en seulement quelques lignes de code Chapel. Chapel est *open source* et peut fonctionner sur n'importe quel système d'exploitation de type Unix, avec une prise en charge matérielle allant des ordinateurs portables aux grands systèmes de CHP.
+Ces abstractions de haut niveau font de Chapel l'outil idéal pour apprendre la programmation parallèle en calcul de haute performance. Ce langage est incroyablement intuitif et vise à fusionner la facilité d'utilisation de [Python](python.md) avec les performances des langages compilés traditionnels tels que [C](../programming/c.md) et [Fortran](../programming/fortran.md). Les blocs parallèles qui nécessitent généralement des dizaines de lignes de code [MPI](mpi.md) peuvent être exprimés en seulement quelques lignes de code Chapel. Chapel est *open source* et peut fonctionner sur n'importe quel système d'exploitation de type Unix, avec une prise en charge matérielle allant des ordinateurs portables aux grands systèmes de CHP.
 
-Chapel a une base d'utilisateurs relativement petite, de sorte que de nombreuses bibliothèques existantes pour [C](c.md), [C++](cpp.md) et [Fortran](fortran.md) n'ont pas encore été implémentées en Chapel. Espérons que cela changera dans les années à venir si l'adoption de Chapel continue de prendre de l'ampleur au sein de la communauté de CHP.
+Chapel a une base d'utilisateurs relativement petite, de sorte que de nombreuses bibliothèques existantes pour [C](../programming/c.md), [C++](cpp.md) et [Fortran](../programming/fortran.md) n'ont pas encore été implémentées en Chapel. Espérons que cela changera dans les années à venir si l'adoption de Chapel continue de prendre de l'ampleur au sein de la communauté de CHP.
 
 Pour plus d'information, consultez [nos webinaires Chapel](https://westgrid.github.io/trainingMaterials/programming/#chapel).
 
@@ -78,7 +78,7 @@ chpl test.chpl -o test
 ./test
 ```
 
-Pour les tâches de production, veuillez préparer un [script de soumission de tâche](running-jobs.md) et le soumettre avec `sbatch`.
+Pour les tâches de production, veuillez préparer un [script de soumission de tâche](../running-jobs/running_jobs.md) et le soumettre avec `sbatch`.
 
 ## Calculs distribués
 
@@ -106,14 +106,14 @@ module load gcc/12.3 chapel-ucx/2.4.0
 salloc --time=0:30:0 --nodes=4 --cpus-per-task=3 --mem-per-cpu=3500 --account=def-someprof
 ```
 
-Une fois que la [tâche interactive](running-jobs.md#tâches-interactives) est lancée, vous pouvez compiler et exécuter votre code à partir de l'invite sur le premier nœud de calcul alloué.
+Une fois que la [tâche interactive](../running-jobs/running_jobs.md#tâches-interactives) est lancée, vous pouvez compiler et exécuter votre code à partir de l'invite sur le premier nœud de calcul alloué.
 
 ```bash
 chpl --fast probeLocales.chpl -o probeLocales
 ./probeLocales -nl 4
 ```
 
-Pour les tâches de production, veuillez préparer un [script de soumission de tâche](running-jobs.md) et soumettre la tâche avec `sbatch`.
+Pour les tâches de production, veuillez préparer un [script de soumission de tâche](../running-jobs/running_jobs.md) et soumettre la tâche avec `sbatch`.
 
 ## Calcul distribué avec les GPU NVIDIA
 
@@ -150,11 +150,11 @@ module load gcc/12.3 cuda/12.2 chapel-ucx-cuda/2.4.0
 salloc --time=0:30:0 --mem-per-cpu=3500 --gpus-per-node=1 --account=def-someprof
 ```
 
-Une fois que la [tâche interactive](running-jobs.md#tâches-interactives) est lancée, vous pouvez compiler et exécuter votre code à partir de l'invite sur le nœud de calcul alloué.
+Une fois que la [tâche interactive](../running-jobs/running_jobs.md#tâches-interactives) est lancée, vous pouvez compiler et exécuter votre code à partir de l'invite sur le nœud de calcul alloué.
 
 ```bash
 chpl --fast probeGPU.chpl
 ./probeGPU -nl 1
 ```
 
-Pour les tâches de production, veuillez préparer un [script de soumission de tâche](running-jobs.md) et soumettre la tâche avec `sbatch`.
+Pour les tâches de production, veuillez préparer un [script de soumission de tâche](../running-jobs/running_jobs.md) et soumettre la tâche avec `sbatch`.

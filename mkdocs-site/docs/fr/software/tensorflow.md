@@ -104,7 +104,7 @@ status:
 
 [TensorFlow](https://www.tensorflow.org/) est une bibliothèque logicielle *open source* d'apprentissage machine.
 
-Si vous voulez porter un programme TensorFlow sur une de nos grappes, nous vous recommandons de prendre connaissance du [tutoriel sur l'apprentissage machine](tutoriel-apprentissage-machine.md).
+Si vous voulez porter un programme TensorFlow sur une de nos grappes, nous vous recommandons de prendre connaissance du [tutoriel sur l'apprentissage machine](ai-ml/tutoriel_apprentissage_machine.md).
 
 ## Installation
 

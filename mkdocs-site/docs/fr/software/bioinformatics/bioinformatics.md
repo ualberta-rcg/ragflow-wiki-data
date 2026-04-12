@@ -60,15 +60,15 @@ Une équipe nationale dédiée à la bio-informatique est disponible pour vous a
 
 ## Logiciels disponibles
 
-Voyez [la liste des modules disponibles sur nos grappes](available-software.md#modules-disponibles-sur-toutes-les-grappes). Cliquez sur l'entête de la colonne *Type*; le type *bio* identifie les applications en bio-informatique.
+Voyez [la liste des modules disponibles sur nos grappes](../../programming/available_software.md#modules-disponibles-sur-toutes-les-grappes). Cliquez sur l'entête de la colonne *Type*; le type *bio* identifie les applications en bio-informatique.
 
 De nombreux logiciels peuvent être installés via Conda.
-Nous ne prenons pas directement en charge l'utilisation de Conda sur nos systèmes pour des raisons expliquées à la page [Anaconda](anaconda.md).
-Cependant, vous pouvez créer un environnement Conda dans un conteneur Apptainer; voir [Travailler avec Conda](apptainer.md#travailler-avec-conda) pour les détails.
+Nous ne prenons pas directement en charge l'utilisation de Conda sur nos systèmes pour des raisons expliquées à la page [Anaconda](../anaconda.md).
+Cependant, vous pouvez créer un environnement Conda dans un conteneur Apptainer; voir [Travailler avec Conda](../containers/apptainer.md#travailler-avec-conda) pour les détails.
 
-Plusieurs de ces logiciels sont disponibles sous forme de paquets Python. Les paquets adaptés à nos systèmes se trouvent sur [notre page Wheels Python](available-python-wheels.md).
+Plusieurs de ces logiciels sont disponibles sous forme de paquets Python. Les paquets adaptés à nos systèmes se trouvent sur [notre page Wheels Python](../../programming/available_python_wheels.md).
 Vous trouverez d'autres paquets sur l'internet.
-Pour plus d'information, voir [notre page Python](python.md#creer-et-utiliser-un-environnement-virtuel).
+Pour plus d'information, voir [notre page Python](../python.md#creer-et-utiliser-un-environnement-virtuel).
 
 ## Données
 
@@ -86,7 +86,7 @@ Pour d'autres bases de données et ensembles de données, voir
 ## Ressource externe de soutien
 
 Affilié à l'Université McGill, le Centre canadien de génomique computationnelle (C3G) collabore avec l'Alliance pour offrir des services de bio-informatique sur mesure et soutient la communauté de recherche en tant que membre de l'équipe nationale de bio-informatique de l'Alliance.
-Le C3G maintient deux référentiels [CVFMS](cvmfs.md):
+Le C3G maintient deux référentiels [CVFMS](../cvmfs/cvmfs.md):
 * `soft.mugqic` qui contient de nombreux outils de bio-informatiques *open source* installés sous forme de modules,
 * `ref.mugqic` qui contient des génomes de référence et leurs indices et annotations pour de nombreux organismes modèles courants.
 Pour toute demande ou question concernant les référentiels `mugqic`, contactez le C3G à [tech.dev@computationalgenomics.ca](mailto:tech.dev@computationalgenomics.ca)

@@ -66,10 +66,10 @@ status:
 Veuillez choisir l'adresse qui correspond le mieux à votre besoin :
 *   [comptes@tech.alliancecan.ca](mailto:comptes@tech.alliancecan.ca) -- pour des questions sur les comptes
 *   [renouvellements@tech.alliancecan.ca](mailto:renouvellements@tech.alliancecan.ca) -- pour des questions sur le renouvellement des comptes
-*   [globus@tech.alliancecan.ca](mailto:globus@tech.alliancecan.ca) -- pour des questions sur les services de transfert de fichiers **[Globus](globus.md)**
-*   [nuage@tech.alliancecan.ca](mailto:nuage@tech.alliancecan.ca) -- pour des questions sur comment utiliser **[nos ressources infonuagiques](cloud.md)**
+*   [globus@tech.alliancecan.ca](mailto:globus@tech.alliancecan.ca) -- pour des questions sur les services de transfert de fichiers **[Globus](../getting-started/globus.md)**
+*   [nuage@tech.alliancecan.ca](mailto:nuage@tech.alliancecan.ca) -- pour des questions sur comment utiliser **[nos ressources infonuagiques](../cloud/cloud.md)**
 *   [allocations@tech.alliancecan.ca](mailto:allocations@tech.alliancecan.ca) -- pour des questions sur le [Concours pour l’allocation de ressources](https://alliancecan.ca/fr/services/calcul-informatique-de-pointe/acces-aux-ressources/concours-pour-lallocation-de-ressources) (CAR)
-*   [trillium@tech.alliancecan.ca](mailto:trillium@tech.alliancecan.ca) -- pour des questions sur la grappe [Trillium](trillium.md)
+*   [trillium@tech.alliancecan.ca](mailto:trillium@tech.alliancecan.ca) -- pour des questions sur la grappe [Trillium](../clusters/trillium.md)
 *   **[support@tech.alliancecan.ca](mailto:support@tech.alliancecan.ca)** -- pour toute autre question
 
 ## Renseignements à fournir avec une requête
@@ -82,7 +82,7 @@ Afin de nous aider à mieux vous servir, veuillez inclure les renseignements sui
 *   les commandes actives au moment où le problème est survenu
 *   le nom et la version du logiciel que vous vouliez utiliser
 *   la date et l'heure auxquelles le problème est survenu
-*   évitez de joindre des captures d'écran ou autres fichiers de graphiques si ce n'est pas nécessaire; la version en texte brut est habituellement plus utile (commandes, scripts, etc.); pour plus d'information, voir [Copier-Coller](frequently-asked-questions.md#copier-coller)
+*   évitez de joindre des captures d'écran ou autres fichiers de graphiques si ce n'est pas nécessaire; la version en texte brut est habituellement plus utile (commandes, scripts, etc.); pour plus d'information, voir [Copier-Coller](../getting-started/frequently_asked_questions.md#copier-coller)
 *   énoncez clairement vos attentes dans votre courriel en mentionnant si nous devons accéder à vos données, copier ou modifier vos fichiers, examiner et possiblement modifier votre compte, etc. Par exemple, plutôt que de joindre des fichiers à votre courriel, vous pouvez nous indiquer où ils se trouvent dans votre compte et nous accorder la permission d'y accéder (si nous avons déjà accès à vos fichiers via la base de données CCDB, il n'est pas nécessaire de nous accorder à nouveau la permission d'accès)
 
 ## Points importants

@@ -91,8 +91,8 @@ status:
 
 # Introduction
 
-[GLOST](https://github.com/cea-hpc/glost), the Greedy Launcher Of Small Tasks, is a tool for running many sequential jobs of short or variable duration, or for doing parameter sweeps. It works like [GNU parallel](gnu-parallel.md) or [job arrays](job-arrays.md) but with a simpler syntax.
-GLOST uses a wrapper called `glost_launch` and [MPI](mpi.md) commands `srun`, `mpiexec`, and `mpirun`. Jobs are grouped into one text file, **list_glost_tasks.txt**, which is used as an argument for `glost_launch`.
+[GLOST](https://github.com/cea-hpc/glost), the Greedy Launcher Of Small Tasks, is a tool for running many sequential jobs of short or variable duration, or for doing parameter sweeps. It works like [GNU parallel](gnu_parallel.md) or [job arrays](job_arrays.md) but with a simpler syntax.
+GLOST uses a wrapper called `glost_launch` and [MPI](../software/mpi.md) commands `srun`, `mpiexec`, and `mpirun`. Jobs are grouped into one text file, **list_glost_tasks.txt**, which is used as an argument for `glost_launch`.
 
 **GLOST** can be used in the following situations:
 
@@ -100,12 +100,12 @@ GLOST uses a wrapper called `glost_launch` and [MPI](mpi.md) commands `srun`, `m
 *   large number of short serial jobs,
 *   serial jobs with different parameters (parameter sweep).
 
-The idea behind using GLOST consists of bundling serial jobs and running them as an MPI job. It can use multiple cores (one or more nodes). This will considerably reduce the number of jobs on the queue, and therefore, reduce the stress on the [scheduler](running-jobs.md).
+The idea behind using GLOST consists of bundling serial jobs and running them as an MPI job. It can use multiple cores (one or more nodes). This will considerably reduce the number of jobs on the queue, and therefore, reduce the stress on the [scheduler](running_jobs.md).
 
 As an alternative, you may also want to consider the [META](meta-a-package-for-job-farming.md) software package developed by our staff, which has some important advantages over GLOST. In particular, with META the queue wait time may be significantly shorter than with GLOST, and META overheads are smaller (fewer wasted CPU cycles). In addition, META has a convenient mechanism for resubmitting all the computations that never ran or failed. Finally, unlike GLOST, META can be used for all kinds of jobs; serial, multi-threaded, MPI, GPU, or hybrid.
 
 !!! note
-    Please read this document until the end and if you think that your workflow can fit within this framework, contact [Technical support](technical-support.md) to help you change your workflow.
+    Please read this document until the end and if you think that your workflow can fit within this framework, contact [Technical support](../support/technical_support.md) to help you change your workflow.
 
 # Advantage of using GLOST
 
@@ -355,7 +355,7 @@ The copy of the examples will be saved under the directory: Glost_Examples
 # Related links
 
 *   [META](meta-a-package-for-job-farming.md)
-*   [GNU Parallel](gnu-parallel.md)
-*   [Job arrays](job-arrays.md)
-*   [MPI jobs](mpi.md)
-*   [Running jobs](running-jobs.md)
+*   [GNU Parallel](gnu_parallel.md)
+*   [Job arrays](job_arrays.md)
+*   [MPI jobs](../software/mpi.md)
+*   [Running jobs](running_jobs.md)

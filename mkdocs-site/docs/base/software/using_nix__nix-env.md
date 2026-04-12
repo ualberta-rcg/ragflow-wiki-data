@@ -48,7 +48,7 @@ status:
   qa_generated: false
 ---
 
-This page details using the legacy `nix-env` command to manage a per-user environment. For an overview of Nix, start with our [using nix page](using-nix.md).
+This page details using the legacy `nix-env` command to manage a per-user environment. For an overview of Nix, start with our [using nix page](using_nix.md).
 
 ## Querying, installing and removing compositions
 

@@ -62,7 +62,7 @@ module load parabricks/2.5.0
 
 ## Example of use
 
-Before you use Parabricks, make sure you have gone through the [Parabricks documentation](https://www.nvidia.com/en-us/docs/parabricks/), including their standalone tools and pipelines. Also make sure you know [how to request GPUs in Compute Canada clusters](using-gpus-with-slurm.md). Once you understand the above, you can submit a job like:
+Before you use Parabricks, make sure you have gone through the [Parabricks documentation](https://www.nvidia.com/en-us/docs/parabricks/), including their standalone tools and pipelines. Also make sure you know [how to request GPUs in Compute Canada clusters](../../running-jobs/using_gpus_with_slurm.md). Once you understand the above, you can submit a job like:
 
 ```bash
 #!/bin/bash

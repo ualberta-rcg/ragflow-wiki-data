@@ -65,7 +65,7 @@ status:
   qa_generated: false
 ---
 
-*Parent page: [Storage and file management](storage-and-file-management.md)*
+*Parent page: [Storage and file management](storage_and_file_management.md)*
 
 The [`dar`](http://dar.linux.free.fr) (stands for Disk ARchive) utility was written from the ground up as a modern replacement to the classical Unix `tar` tool. First released in 2002, `dar` is open source, is actively maintained, and can be compiled on any Unix-like system.
 
@@ -73,7 +73,7 @@ Similar to `tar`, `dar` supports full / differential / incremental backups. Unli
 
 ## Where to find `dar`
 
-On our clusters, `dar` is available on `/cvmfs`. With [StdEnv/2020](standard-software-environments.md):
+On our clusters, `dar` is available on `/cvmfs`. With [StdEnv/2020](../programming/standard_software_environments.md):
 
 ```bash
 [user_name@localhost]$ which dar
@@ -126,7 +126,7 @@ Similar to creating an archive, you can pass multiple directories and files by u
 #### A note about the Lustre filesystem
 
 !!! warning "Lustre Filesystem Extended Attributes"
-    If the archived files are coming from a [Lustre filesystem](https://www.lustre.org/) (typically in `/home`, `/project` or `/scratch` on [our *general-purpose* compute clusters](national-systems.md)), some *extended attributes* are saved automatically.
+    If the archived files are coming from a [Lustre filesystem](https://www.lustre.org/) (typically in `/home`, `/project` or `/scratch` on [our *general-purpose* compute clusters](../clusters/national_systems.md)), some *extended attributes* are saved automatically.
     To see which extended attributes are assigned to each archived file, use the `-alist-ea` flag:
 
     ```bash
@@ -134,7 +134,7 @@ Similar to creating an archive, you can pass multiple directories and files by u
     ```
 
     You may see strings like: `Extended Attribute: [lustre.lov]`.
-    With this attribute, any file extraction to a location formatted in Lustre will still work as usual. But if one tries to extract files to the [node local storage](using-node-local-storage.md) (also known as `$SLURM_TMPDIR`), the extraction will show error messages like: `Error while adding EA lustre.lov : Operation not supported`.
+    With this attribute, any file extraction to a location formatted in Lustre will still work as usual. But if one tries to extract files to the [node local storage](using_node-local_storage.md) (also known as `$SLURM_TMPDIR`), the extraction will show error messages like: `Error while adding EA lustre.lov : Operation not supported`.
 
     To avoid these error messages, the `-u` flag can be used to exclude a specific type of attribute, while the "affected" files are still extracted. For example:
 

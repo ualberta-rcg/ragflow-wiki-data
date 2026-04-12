@@ -92,17 +92,17 @@ The infrastructure renewal has replaced nearly 80% of the equipment that had bee
 
 | Documentation | Old System to be Replaced |
 | :------------ | :---------------------- |
-| [Arbutus](arbutus.md) | [Cloud](cloud.md) (as a virtual infrastructure there is no change to the cloud interface.) |
+| [Arbutus](arbutus.md) | [Cloud](../cloud/cloud.md) (as a virtual infrastructure there is no change to the cloud interface.) |
 | [Rorqual](rorqual.md) | [Béluga](beluga.md) |
-| [Fir](fir.md) | [Cedar](cedar.md) |
-| [Trillium](trillium.md) | Niagara & [Mist](mist.md) |
+| [Fir](../software/fir.md) | [Cedar](cedar.md) |
+| [Trillium](trillium.md) | Niagara & [Mist](../software/mist.md) |
 | [Nibi](nibi.md) | [Graham](graham.md) |
 
 # System capacity, reductions and outages
 
 During the installation and the transition to the new infrastructure, outages and reductions will be unavoidable due to constraints on space and electrical power. We recommend that you consider the possibility of outages when you plan research programs, graduate examinations, etc.
 
-For a list of completed events, please see [Infrastructure renewal completed events](infrastructure-renewal-completed-events.md).
+For a list of completed events, please see [Infrastructure renewal completed events](infrastructure_renewal_completed_events.md).
 
 | Start Time | End Time | Status | System | Type | Description |
 | :--------- | :------- | :----- | :----- | :--- | :---------- |
@@ -110,12 +110,12 @@ For a list of completed events, please see [Infrastructure renewal completed eve
 | January 2026 | June 20, 2026 | In Progress | Béluga | Decommissioning | The **Béluga** compute service, which was stopped with the deployment of **Rorqual**, will not return to service. No restoration or reactivation is planned.  **Storage shutdown** * **January 2026** – Storage quotas on `/project`, `/home`, `/scratch`, and `/nearline` will be reduced to allow data deletion or archiving only. This provides a six-month window to extract and migrate files. * **February 28, 2026** – The temporary storage system (`/scratch`) will be decommissioned. All critical files must be moved before this date. * **June 20, 2026** – Access to all remaining data will end.  !!! note     Béluga Cloud (`beluga-cloud`) is a separate infrastructure and is not impacted by the decommissioning of the Béluga compute cluster. |
 | Sept 30, 2025 | Sept 30, 2025 | Completed | Niagara | End of Service | On September 30, 2025, the **Niagara** compute cluster was retired. For migration guidance, see: [Transition from Niagara to Trillium](https://docs.alliancecan.ca/wiki/Transition_from_Niagara_to_Trillium). |
 | Sept 16, 2025 | Sept 30, 2025 | Completed | Mist | End of Service | On September 16, 2025, the **Mist** compute cluster was retired. Please transition new work to **Trillium**. See: [Trillium Quickstart](https://docs.alliancecan.ca/wiki/Trillium_Quickstart). |
-| Sept 12, 2025 | Sept 12, 2025 | Completed | Cedar | End of Service | On September 12, 2025, the **Cedar** compute cluster was retired.  **Data Access** * Files stored on **Cedar** are already available on **Fir** because the two clusters share the same file systems. No action is required regarding your stored files.  Starting September 12, please submit your jobs to another cluster on our [new national infrastructure](national-systems.md), including **Fir**. |
-| Sept 1, 2025 | Sept 2, 2025 | Completed | Graham | End of Service | On September 1, 2025, the **Graham** compute cluster was retired.  **Data Access** * Files stored on **Graham** are already available on **Nibi** because the two clusters share the same file systems. No action is required regarding your stored files.  Starting September 1, please submit your jobs to another cluster on our [new national infrastructure](national-systems.md), including **Nibi**. |
+| Sept 12, 2025 | Sept 12, 2025 | Completed | Cedar | End of Service | On September 12, 2025, the **Cedar** compute cluster was retired.  **Data Access** * Files stored on **Cedar** are already available on **Fir** because the two clusters share the same file systems. No action is required regarding your stored files.  Starting September 12, please submit your jobs to another cluster on our [new national infrastructure](national_systems.md), including **Fir**. |
+| Sept 1, 2025 | Sept 2, 2025 | Completed | Graham | End of Service | On September 1, 2025, the **Graham** compute cluster was retired.  **Data Access** * Files stored on **Graham** are already available on **Nibi** because the two clusters share the same file systems. No action is required regarding your stored files.  Starting September 1, please submit your jobs to another cluster on our [new national infrastructure](national_systems.md), including **Nibi**. |
 
 # Resource Allocation Competition (RAC)
 
-The [Resource Allocation Competition](resource-allocation-competition.md) will be impacted by this transition, but the application process remains the same.
+The [Resource Allocation Competition](../running-jobs/resource_allocation_competition.md) will be impacted by this transition, but the application process remains the same.
 2024/25 allocations will remain in effect on retiring clusters while each cluster remains in service. The 2025/26 allocations will be implemented everywhere once all new clusters are in service.
 Because the old clusters will mostly be out of service before all new ones are available, if you hold both a 2024 and a 2025 RAC award you will experience a period when neither award is available to you. You will be able to compute with your default allocation (`def-xxxxxx`) on each new cluster as soon as it goes into service, but the 2025 RAC allocations will only become available when all new clusters are in service.
 
@@ -130,7 +130,7 @@ Discover more training opportunities through [Explora](https://explora.alliancec
 | [Migrating to the upgraded national systems](https://youtu.be/nRX8zTIVEXk) | SHARCNET | Sergey Mashchenko | Wednesday, July 30, 2025, 12:00pm EDT | Most of the Alliance national systems have been undergoing a major upgrade during this spring and summer. They have been effectively rebuilt from scratch using up-to-date hardware, bringing a significant increase in computing capacity, memory, and storage to the users. The upgraded clusters have new names: Graham became Nibi, Beluga - Rorqual, Cedar - Fir, Niagara - Trillium. (The remaining cluster - Narval - is not having an upgrade this cycle.) Some of the upgraded systems are already online, not at a full capacity yet. The plan is to make all of them available by the end of July.  This webinar is to address the concerns and questions the users of the existing systems might have. How will the upgrade affect my workflow? Are there significant changes to the way the job scheduling and file systems operate in the new clusters? How to make the best use of the increased computing capacity of the upgraded clusters, in particular in regards of the computing nodes becoming much "fatter" (many more cpu cores per node)? As the most significant change will happen to the way the GPU computing is done, the webinar will cover this in detail.  There will be time for questions at the end, please bring your questions and concerns. | Prospective users of the upgraded systems | Webinar; recordings and materials from previous SHARCNET webinars are available at [youtube.sharcnet.ca](http://youtube.sharcnet.ca). | Past |
 | Workflow Hacks for Large Datasets in HPC | Simon Fraser University (SFU) / West DRI | Alex Razoumov | Tuesday, May 20, 2025, 10:00 AM PT | Over the years, we have delivered webinars on tools that can significantly enhance research workflows involving large datasets. In this session, we will highlight some of these valuable tools: * **In-situ visualization:** enables interactive rendering of large in-memory arrays without the need to store them to disk. * **Lossy 3D data compression:** reduces the size of 3D datasets by up to 100X with no visible artifacts, making it ideal for storage and archival. * **Distributed storage:** helps manage vast amounts of data across multiple locations. * **DAR (Disk ARchiver):** a modern, high-performance alternative to TAR that offers indexing, differential archives, and faster extraction. | Users working with large datasets | Webinar; Records and materials from previous related webinars are freely available at [training.westdri.ca](https://training.westdri.ca). | Past |
 | [Mastering GPU Efficiency](https://training.sharcnet.ca/courses/enrol/index.php?id=210) | SHARCNET | Sergey Mashchenko | Available Anytime | This online self-paced course provides basic training for [Alliance](https://training.sharcnet.ca/courses/mod/glossary/showentry.php?eid=112&displayformat=dictionary) users on using GPUs on our [national systems](https://training.sharcnet.ca/courses/mod/glossary/showentry.php?eid=86&displayformat=dictionary). Modern GPUs (such as NVIDIA A100 and H100) are massively parallel and very expensive devices. Most of GPU jobs are incapable of utilizing these GPUs efficiently, either due to the problem size being too small to saturate the GPU, or due to the intermittent (bursty) GPU utilization pattern. This course will teach you how to measure the GPU utilization of your jobs on our clusters, and show how to use the two NVIDIA technologies - MPS (Multi-Process Service) and MIG (Multi-Instance GPU) - to improve GPU utilization. | Prospective users of the upgraded systems | 1-hour self-paced online course with a certificate of completion | [Access the course here/Alliance CCDB account is required](https://training.sharcnet.ca/courses/enrol/index.php?id=210) |
-| Introduction to the Fir cluster | Simon Fraser University (SFU) / West DRI | Alex Razoumov | September 16, 2025 | SFU’s newest cluster, Fir, became available during August 2025. In this webinar, we will give an overview of the cluster and its hardware, walk through the filesystems and their recommended usage, and talk about job submission policies and overall best practices for using the cluster. | Prospective users of the [Fir](fir.md) cluster | Webinar; Records and materials from previous related webinars are available at [West DRI – Getting Started (HPC)](https://training.westdri.ca/getting-started/#high-performance-computing). | Past |
+| Introduction to the Fir cluster | Simon Fraser University (SFU) / West DRI | Alex Razoumov | September 16, 2025 | SFU’s newest cluster, Fir, became available during August 2025. In this webinar, we will give an overview of the cluster and its hardware, walk through the filesystems and their recommended usage, and talk about job submission policies and overall best practices for using the cluster. | Prospective users of the [Fir](../software/fir.md) cluster | Webinar; Records and materials from previous related webinars are available at [West DRI – Getting Started (HPC)](https://training.westdri.ca/getting-started/#high-performance-computing). | Past |
 | [Survival guide for the upcoming GPU upgrades](https://youtu.be/pxY3G3BhwyA) | SHARCNET | Sergey Mashchenko | Wednesday, November 20, 2024, 12:00 PM to 1:00 PM ET | In the coming months, national systems will be undergoing significant upgrades. In particular, older GPUs (P100, V100) will be replaced with the newest H100 GPUs from NVIDIA. The total GPU computing power of the upgraded systems will grow by a factor of 3.5, but the number of GPUs will decrease significantly (from 3200 to 2100). This will present a significant challenge for users, as the usual practice of using a whole GPU for each process or MPI rank will no longer be feasible in most cases. Fortunately, NVIDIA provides two powerful technologies that can be used to mitigate this situation: MPS (Multi-Process Service) and MIG (Multi-Instance GPU). The presentation will walk the audience through both technologies and discuss the ways they can be used on the clusters. The discussion will include how to determine which approach will work best for specific code, and a live demonstration will be given at the end. | Prospective users of the upgraded systems. Users intending to use a substantial amount of H100 resources (e.g., more than one GPU at a time, and/or over 24 hours runtime) | 1-hour [presentation](https://youtu.be/pxY3G3BhwyA) and [slides](https://helpwiki.sharcnet.ca/wiki/images/1/1d/MIG_MPS.pdf) | Past |
 
 # Frequently asked questions
@@ -143,7 +143,7 @@ Data migration to the new systems is the responsibility of each National Host Si
 
 No, your files will not be deleted. During renewal activities, each National Host Site will migrate /project and /home data from the existing storage system to the new storage system once it is installed. These migrations typically occur during outages, but specific details may vary by National Host Site. Each National Host Site will keep users informed of any specific, user-visible effects.
 Additionally, tape systems for backups and /nearline data are not being replaced, so backups and /nearline data will remain unchanged.
-For further technical questions, please email [technical support](technical-support.md). This goes directly to our ticketing system, where a support expert can provide a detailed response.
+For further technical questions, please email [technical support](../support/technical_support.md). This goes directly to our ticketing system, where a support expert can provide a detailed response.
 
 ## When will outages occur?
 
@@ -151,7 +151,7 @@ Each National Host Site will have its own schedule for outages as the installati
 
 ## Whom can I contact for questions about the transition?
 
-Contact our [technical support](technical-support.md). They will try their best to answer any questions they can.
+Contact our [technical support](../support/technical_support.md). They will try their best to answer any questions they can.
 
 ## Will my jobs and applications still be able to run on the new system?
 
@@ -159,7 +159,7 @@ Generally yes, but the new CPUs and GPUs may require recompilation or reconfigur
 
 ## Will the software from the current systems still be available?
 
-Yes, our [standard software environment](standard-software-environments.md) will be available on the new systems.
+Yes, our [standard software environment](../programming/standard_software_environments.md) will be available on the new systems.
 
 ## Will commercial, licensed software be migrated to the new systems?
 

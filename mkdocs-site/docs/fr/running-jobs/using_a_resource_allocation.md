@@ -98,9 +98,9 @@ Il y a deux principaux types de RAP :
 
 Il est possible d'obtenir plus d'une allocation. Chaque allocation est identifiée par le nom de la ressource (par exemple `graham-cpu`, `graham-gpu` ou `ndc-waterloo`) et sa quantité; le format est `abc-123-aa-001`.
 
-Les RAPI, noms de groupe et allocations sont affichés dans [le portail CCDB](https://ccdb.alliancecan.ca). Pour plus de détails, voyez [Comptes et projets](running-jobs.md#comptes-et-projets).
+Les RAPI, noms de groupe et allocations sont affichés dans [le portail CCDB](https://ccdb.alliancecan.ca). Pour plus de détails, voyez [Comptes et projets](running_jobs.md#comptes-et-projets).
 
-Pour les détails sur le RAP, consultez la [foire aux questions sur la CCDB](frequently-asked-questions-about-the-ccdb.md).
+Pour les détails sur le RAP, consultez la [foire aux questions sur la CCDB](../getting-started/frequently_asked_questions_about_the_ccdb.md).
 
 ## Utilisateurs parrainés
 
@@ -108,7 +108,7 @@ Un compte avec l'Alliance est détenu **par une personne**. Il est formellement 
 
 # Caractéristiques des grappes
 
-Les grappes d'usage général sont [Béluga](beluga.md), [Cedar](cedar.md) et [Graham](graham.md). Il se peut que les ressources qui vous sont allouées soient situées sur plus d'un type de grappe, par exemple sur [Niagara](niagara.md) et sur une grappe d'usage général.
+Les grappes d'usage général sont [Béluga](beluga.md), [Cedar](../clusters/cedar.md) et [Graham](../clusters/graham.md). Il se peut que les ressources qui vous sont allouées soient situées sur plus d'un type de grappe, par exemple sur [Niagara](niagara.md) et sur une grappe d'usage général.
 
 === "Grappes d'usage général"
 
@@ -129,21 +129,21 @@ Les membres d'un RAP constituent un groupe pour LDAP. Il s'agit du groupe d'util
 
 En soumettant une tâche de calcul à l’ordonnanceur, l’utilisateur doit indiquer le nom de son groupe pour l’option `--account`. Dans le cas de tâches pour les projets présentés aux concours d’allocation de ressources, le nom de groupe est celui qui correspond à l’allocation, par exemple `--account=rrg-nom-ab`. Pour les autres projets, le nom de groupe par défaut doit être utilisé, soit `--account=def-nom`.
 
-Pour plus de détails, voyez [Comptes et projets](running-jobs.md#comptes-et-projets).
+Pour plus de détails, voyez [Comptes et projets](running_jobs.md#comptes-et-projets).
 
 ### Utiliser une allocation de stockage
 
-Pour transférer de larges quantités de données à une de nos grappes, nous recommandons fortement d’utiliser [Globus](globus.md).
+Pour transférer de larges quantités de données à une de nos grappes, nous recommandons fortement d’utiliser [Globus](../getting-started/globus.md).
 
 #### `/project`
 
-Une allocation de stockage `/project` dans une grappe d'usage général se présente comme un répertoire au format `/project/<nom>`, par exemple `/project/rrg-nom-ab`; un quota lui est associé pour déterminer la quantité de données qui peuvent y être stockées. Les fichiers pour le projet décrit dans la demande d'allocation de ressources devraient y être enregistrés par tous les utilisateurs parrainés. Pour plus d'information, consultez [Répertoire project](project-layout.md) et [Partage de données](sharing-data.md).
+Une allocation de stockage `/project` dans une grappe d'usage général se présente comme un répertoire au format `/project/<nom>`, par exemple `/project/rrg-nom-ab`; un quota lui est associé pour déterminer la quantité de données qui peuvent y être stockées. Les fichiers pour le projet décrit dans la demande d'allocation de ressources devraient y être enregistrés par tous les utilisateurs parrainés. Pour plus d'information, consultez [Répertoire project](../storage-and-data/project_layout.md) et [Partage de données](../storage-and-data/sharing_data.md).
 
 Vous disposerez aussi par défaut d'un espace /project au format `/project/def-<nomchercheurprincipal>`. Si les données sont en rapport avec le projet décrit dans la demande, vous pourriez vouloir déplacer les données de `/project` vers le répertoire `/project` pour les plateformes et portails ou pour les groupes de recherche.
 
 #### `/nearline`
 
-Consultez [Stockage nearline](using-nearline-storage.md).
+Consultez [Stockage nearline](../storage-and-data/using_nearline_storage.md).
 
 === "Niagara"
 
@@ -164,11 +164,11 @@ Les utilisateurs pour un RAP sont groupés sous LDAP (*Lightweight Directory Acc
 
 Les tâches soumises à l’ordonnanceur sont assignées à l’allocation du chercheur principal. Dans le cas où l’utilisateur collabore avec plusieurs chercheurs principaux (donc à des groupes différents), le nom du groupe particulier doit être employé pour l’option `--account`.
 
-Pour plus de détails, voyez [Comptes et projets](running-jobs.md#comptes-et-projets).
+Pour plus de détails, voyez [Comptes et projets](running_jobs.md#comptes-et-projets).
 
 ### Utiliser une allocation de stockage
 
-Pour transférer de larges quantités de données à une grappe de Calcul Canada, nous recommandons fortement d’utiliser [Globus](globus.md).
+Pour transférer de larges quantités de données à une grappe de Calcul Canada, nous recommandons fortement d’utiliser [Globus](../getting-started/globus.md).
 
 #### `/project`
 
@@ -176,7 +176,7 @@ Pour repérer votre allocation de stockage `/project`, utilisez la variable d'en
 
 #### `/nearline`
 
-Les allocations `/nearline` se trouvent dans HPSS. Consultez [Stockage nearline](using-nearline-storage.md)
+Les allocations `/nearline` se trouvent dans HPSS. Consultez [Stockage nearline](../storage-and-data/using_nearline_storage.md)
 
 === "Nuages"
 
@@ -203,4 +203,4 @@ Au besoin, vous pouvez sélectionner les ceux et celles qui peuvent utiliser vot
     *   Les membres ajoutés au projet ont automatiquement accès aux ressources. En tout temps, il est possible de supprimer des membres de la liste ou de donner ou enlever à un membre la responsabilité de Gestionnaire.
     *   Les membres de votre projet infonuagique ont accès complet à vos projets OpenStack. Pour l'information sur ces projets, consultez [Projets](openstack.md#projets) dans la page OpenStack.
 
-Pour savoir comment vous connecter et utiliser un nuage en particulier, consultez [Service infonuagique](cloud.md). Si vous avez besoin d'aide, contactez le [soutien technique](technical-support.md).
+Pour savoir comment vous connecter et utiliser un nuage en particulier, consultez [Service infonuagique](../cloud/cloud.md). Si vous avez besoin d'aide, contactez le [soutien technique](../support/technical_support.md).

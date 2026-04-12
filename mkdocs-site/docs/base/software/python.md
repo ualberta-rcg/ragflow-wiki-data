@@ -157,7 +157,7 @@ The following sections discuss the Python interpreter, and how to install and us
 ## Loading an interpreter
 
 ### Default Python version
-When you log into our clusters, a default Python version will be available, but that is generally not the one that you should use, especially if you need to install any Python packages. You should try to find out which version of Python is required to run your Python programs and load the appropriate [module](utiliser-des-modules.md). If you are not sure which version you need, then it is reasonable to use the latest version available.
+When you log into our clusters, a default Python version will be available, but that is generally not the one that you should use, especially if you need to install any Python packages. You should try to find out which version of Python is required to run your Python programs and load the appropriate [module](../programming/utiliser_des_modules.md). If you are not sure which version you need, then it is reasonable to use the latest version available.
 
 ### Loading a Python module
 To discover the versions of Python available:
@@ -172,10 +172,10 @@ module load python/X.Y
 where `X.Y` represent the version, for example `3.13`.
 
 ### Python version supported
-In general in the Python ecosystem, the transition to more modern versions of python is accelerating, with many packages only supporting the latest few versions of Python 3.x. In our case, we provide prebuilt Python packages in our [wheelhouse](available-python-wheels.md) only for the 3 most recent Python versions available on the systems. This will result in dependencies issues when trying to install those packages with older versions of Python. See [Troubleshooting](#package-x-requires-a-different-python-xyz-not-in-xy).
+In general in the Python ecosystem, the transition to more modern versions of python is accelerating, with many packages only supporting the latest few versions of Python 3.x. In our case, we provide prebuilt Python packages in our [wheelhouse](../programming/available_python_wheels.md) only for the 3 most recent Python versions available on the systems. This will result in dependencies issues when trying to install those packages with older versions of Python. See [Troubleshooting](#package-x-requires-a-different-python-xyz-not-in-xy).
 
 ### SciPy stack
-In addition to the base Python module, the [SciPy](https://www.scipy.org/) package is also available as an [environment module](utiliser-des-modules.md). The `scipy-stack` module includes:
+In addition to the base Python module, the [SciPy](https://www.scipy.org/) package is also available as an [environment module](../programming/utiliser_des_modules.md). The `scipy-stack` module includes:
 * NumPy
 * SciPy
 * Matplotlib
@@ -334,7 +334,7 @@ wrapt==1.13.3+computecanada
 
 This file will ensure that your environment is reproducible between jobs.
 
-Note that the above instructions require all of the packages you need to be available in the python wheels that we provide (see "Available wheels" below). If the wheel is not available in our wheelhouse, you can pre-download it (see "Pre-downloading packages" section below). If you think that the missing wheel should be included in our wheelhouse, please contact [Technical support](technical-support.md) to make a request.
+Note that the above instructions require all of the packages you need to be available in the python wheels that we provide (see "Available wheels" below). If the wheel is not available in our wheelhouse, you can pre-download it (see "Pre-downloading packages" section below). If you think that the missing wheel should be included in our wheelhouse, please contact [Technical support](../support/technical_support.md) to make a request.
 
 #### Creating virtual environments inside of your jobs (multi-nodes)
 
@@ -390,7 +390,7 @@ srun python myscript-mpi.py;
 ```
 
 ### Available wheels
-Currently available wheels are listed on the [Available Python wheels](available-python-wheels.md) page. You can also run the command `avail_wheels` on the cluster.
+Currently available wheels are listed on the [Available Python wheels](../programming/available_python_wheels.md) page. You can also run the command `avail_wheels` on the cluster.
 By default, it will:
 * only show you the **latest version** of a specific package (unless versions are given);
 * only show you versions that are compatible with the python module (if one loaded) or virtual environment (if activated), otherwise all versions will be shown;
@@ -523,7 +523,7 @@ tabulate   0.8.10     py3       generic
 Here is how to pre-download a package called `tensorboardX` on a login node, and install it on a compute node:
 
 1. Run `pip download --no-deps tensorboardX`. This will download the package as `tensorboardX-1.9-py2.py3-none-any.whl` (or similar) in the working directory. The syntax of `pip download` is the same as `pip install`.
-2. If the filename does not end with `none-any`, and ends with something like `linux_x86_64` or `manylinux*_x86_64`, the wheel might not function correctly. You should contact [Technical support](technical-support.md) so that we compile the wheel and make it available on our systems.
+2. If the filename does not end with `none-any`, and ends with something like `linux_x86_64` or `manylinux*_x86_64`, the wheel might not function correctly. You should contact [Technical support](../support/technical_support.md) so that we compile the wheel and make it available on our systems.
 3. Then, when installing, use the path for file `pip install tensorboardX-1.9-py2.py3-none-any.whl`.
 
 ### Installing from a remote repository (Github)
@@ -729,7 +729,7 @@ and then, your code would become the following:
 
 Note that in the above example, the function `cube` itself is sequential. If you are calling some external library, such as `numpy`, it is possible that the functions called by your code are themselves parallel. If you want to distribute processes with the technique above, you should verify whether the functions you call are themselves parallel, and if they are, you need to control how many threads they will take themselves. If, for example, they take all the cores available (32 in the above example), and you are yourself starting 32 processes, this will slow down your code and possibly overload the node as well.
 
-Note that the `multiprocessing` module is restricted to using a single compute node, so the speedup achievable by your program is usually limited to the total number of CPU cores in that node. If you want to go beyond this limit and use multiple nodes, consider using mpi4py or [PySpark](apache-spark.md#pyspark). Other methods of parallelizing Python (not all of them necessarily supported on our clusters) are listed [here](https://wiki.python.org/moin/ParallelProcessing). Also note that you can greatly improve the performance of your Python program by ensuring it is written efficiently, so that should be done first before parallelizing. If you are not sure if your Python code is efficient, please contact [technical support](technical-support.md) and have them look at your code.
+Note that the `multiprocessing` module is restricted to using a single compute node, so the speedup achievable by your program is usually limited to the total number of CPU cores in that node. If you want to go beyond this limit and use multiple nodes, consider using mpi4py or [PySpark](apache_spark.md#pyspark). Other methods of parallelizing Python (not all of them necessarily supported on our clusters) are listed [here](https://wiki.python.org/moin/ParallelProcessing). Also note that you can greatly improve the performance of your Python program by ensuring it is written efficiently, so that should be done first before parallelizing. If you are not sure if your Python code is efficient, please contact [technical support](../support/technical_support.md) and have them look at your code.
 
 ## Anaconda
 Please see [Anaconda](anaconda.md).
@@ -743,7 +743,7 @@ Debugging your python code might not be obvious. Simple methods such as adding `
 
 But often, it is required to dig a bit deeper in the code and its context, using a debugger such as `pdb` is then easier.
 
-You can debug your Python code, in [a small interactive job](running-jobs.md#interactive-jobs):
+You can debug your Python code, in [a small interactive job](../running-jobs/running_jobs.md#interactive-jobs):
 
 1. Add `import pdb; pdb.set_trace()` to the beginning of your file, or add `breakpoint()` at the desired location.
 2. Run your code: `python ...`
@@ -819,7 +819,7 @@ ERROR: No matching distribution found for X
 Verify that the name and version are correct.
 Note also that `manylinux_x_y` wheels are discarded.
 
-You can also verify that the package is available from the wheelhouse with the [avail_wheels](#available-wheels) command or by searching on [Available Python wheels](available-python-wheels.md) page.
+You can also verify that the package is available from the wheelhouse with the [avail_wheels](#available-wheels) command or by searching on [Available Python wheels](../programming/available_python_wheels.md) page.
 
 ### Installing many packages
 When installing multiple packages, it is best to install them in one command when possible:
@@ -849,7 +849,7 @@ Two common cases are:
 * trying to install a `manylinux` package
 * or a python package built for a different Python version (e.g. installing a package built for python 3.11 when you have python 3.9).
 
-Some `manylinux` package can be made available through the [wheelhouse](available-python-wheels.md).
+Some `manylinux` package can be made available through the [wheelhouse](../programming/available_python_wheels.md).
 
 ### AttributeError: module ‘numpy’ has no attribute ‘X’
 When installing `numpy` without specifying a version number, the latest available version will be installed.

@@ -79,7 +79,7 @@ Below, we outline steps for setting a remote desktop with VNC.
     sudo apt install -y tigervnc-common tigervnc-standalone-server
     ```
 
-    This command will install the TigerVNC server and some supporting software. For details about using VNC servers and clients, see our docs on [VNC](vnc.md).
+    This command will install the TigerVNC server and some supporting software. For details about using VNC servers and clients, see our docs on [VNC](../interactive/vnc.md).
 3.  **Start the VNC server.**
 
     ```bash
@@ -98,13 +98,13 @@ Below, we outline steps for setting a remote desktop with VNC.
 
     The `vncpasswd` command can later be used to change your password.
 4.  **Test your connection by opening port `5901`.**
-    (See [security groups](managing-your-cloud-resources-with-openstack.md#security-groups) for more information about opening ports to your VMs with OpenStack.)
+    (See [security groups](managing_your_cloud_resources_with_openstack.md#security-groups) for more information about opening ports to your VMs with OpenStack.)
     Connect using a VNC viewer, for example [TigerVNC](https://tigervnc.org/).
 
     !!! warning
         This is not a secure connection; data sent to and from your VM will not be encrypted. This step is only meant to test your server-client connection before connecting securely with an SSH tunnel (the next step). If you are confident in your ability to set up an SSH tunnel, you may skip this step.
 5.  **Connect using an SSH tunnel.**
-    (See [SSH tunnelling](ssh-tunnelling.md) for more information.) There is [an example of creating an SSH tunnel to a VNC server running on a compute node of one of our clusters](vnc.md#compute-nodes).
+    (See [SSH tunnelling](../getting-started/ssh_tunnelling.md) for more information.) There is [an example of creating an SSH tunnel to a VNC server running on a compute node of one of our clusters](../interactive/vnc.md#compute-nodes).
 
     Below are instructions for connecting using an SSH tunnel for Linux or macOS:
     *   Open your terminal.
@@ -116,7 +116,7 @@ Below, we outline steps for setting a remote desktop with VNC.
     *   In the VNC server field, enter: `localhost:5901`.
     *   Your GUI desktop for your remote session should now open.
 6.  **Close port `5901`.**
-    Once you are connected to your VNC server using an SSH tunnel, you no longer require port 5901 open, so it is recommended that you remove this rule from your security groups. (See [security groups](managing-your-cloud-resources-with-openstack.md#security-groups) for more information.)
+    Once you are connected to your VNC server using an SSH tunnel, you no longer require port 5901 open, so it is recommended that you remove this rule from your security groups. (See [security groups](managing_your_cloud_resources_with_openstack.md#security-groups) for more information.)
 7.  Once you are finished using the remote desktop, you may stop the VNC server with:
 
     ```bash

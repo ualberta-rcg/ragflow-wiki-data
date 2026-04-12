@@ -140,10 +140,10 @@ Toutes nos grappes ont une collection Globus dont le nom se trouve dans le haut 
 
 | Usage général | Pour les tâches massivement parallèles | Pour l'IA |
 | :------------ | :------------------------------------ | :-------- |
-| * [Fir](fir.md) | * [Trillium](trillium.md) | * [Killarney](killarney.md) |
-| * [Narval](narval.md) | | * [TamIA](tamia.md) |
-| * [Nibi](nibi.md) | | * [Vulcan](vulcan.md) |
-| * [Rorqual](rorqual.md) | | |
+| * [Fir](../software/fir.md) | * [Trillium](../clusters/trillium.md) | * [Killarney](../clusters/killarney.md) |
+| * [Narval](../clusters/narval.md) | | * [TamIA](../clusters/tamia.md) |
+| * [Nibi](../clusters/nibi.md) | | * [Vulcan](../clusters/vulcan.md) |
+| * [Rorqual](../clusters/rorqual.md) | | |
 
 Dépendant du site où se trouve la collection, vous pourriez devoir vous authentifier. Par exemple, si vous activez une collection qui se trouve sur Nibi, vous devrez entrer votre identifiant et votre mot de passe. L'authentification d'une de nos collections reste habituellement valide pour une semaine alors que celle des collections personnelles n'a pas d'échéance.
 
@@ -206,10 +206,10 @@ Dans le tableau suivant, vérifiez si le système qui héberge les fichiers peut
 
 | Système | Partage |
 | :------ | :------ |
-| [Trillium](trillium.md) | non |
-| [Grappes d'usage général](national-systems.md#grappes-de-calcul) | dans <ul><li>``/home``, oui (sauf pour Rorqual)</li><li>``/scratch``, non (sauf pour Narval)</li><li>``/project``, sur demande (voir ci-dessous)</li></ul> |
+| [Trillium](../clusters/trillium.md) | non |
+| [Grappes d'usage général](../clusters/national_systems.md#grappes-de-calcul) | dans <ul><li>``/home``, oui (sauf pour Rorqual)</li><li>``/scratch``, non (sauf pour Narval)</li><li>``/project``, sur demande (voir ci-dessous)</li></ul> |
 
-Sur nos [grappes d'usage général](national-systems.md#grappes-de-calcul), le partage est disponible pour le répertoire /home, sauf pour la grappe Rorqual. Vous pouvez tester la fonction de partage dans votre répertoire /home.
+Sur nos [grappes d'usage général](../clusters/national_systems.md#grappes-de-calcul), le partage est disponible pour le répertoire /home, sauf pour la grappe Rorqual. Vous pouvez tester la fonction de partage dans votre répertoire /home.
 
 Par défaut, le partage sur /project n'est pas activé pour empêcher les utilisateurs de partager accidentellement des fichiers d'autres utilisateurs. Pour que le partage soit activé, la chercheuse principale ou le chercheur principal doit écrire à [globus@tech.alliancecan.ca](mailto:globus@tech.alliancecan.ca) et indiquer **
 * que le partage par Globus doit être activé,
@@ -304,7 +304,7 @@ Cliquez sur un nom d'utilisateur pour modifier son rôle ou son statut. Les rôl
 ## Interface en ligne de commande (CLI)
 ### Installation
 L'interface en ligne de commande Globus est un module Python qui s'installe avec pip. Voici la procédure d'installation sur une de nos grappes :
-1.  Créez un environnement virtuel pour y installer l'interface (voir [Créer et utiliser un environnement virtuel](python.md#créer-et-utiliser-un-environnement-virtuel)).
+1.  Créez un environnement virtuel pour y installer l'interface (voir [Créer et utiliser un environnement virtuel](../software/python.md#créer-et-utiliser-un-environnement-virtuel)).
     ```bash
     virtualenv $HOME/.globus-cli-virtualenv
     ```
@@ -312,7 +312,7 @@ L'interface en ligne de commande Globus est un module Python qui s'installe avec
     ```bash
     source $HOME/.globus-cli-virtualenv/bin/activate
     ```
-3.  Installez l'interface (voir [Installer des modules](python.md#installer-des-modules)).
+3.  Installez l'interface (voir [Installer des modules](../software/python.md#installer-des-modules)).
     ```bash
     pip install globus-cli
     ```
@@ -349,7 +349,7 @@ Globus Connect Server est conçu pour des environnements en ligne de commande (s
 ## Stockage objet sur Arbutus
 
 Pour utiliser le stockage objet sur Arbutus, votre projet infonuagique doit avoir une allocation de stockage. La procédure suivante est faite une seule fois.
-Vous devez d'abord générer l'identifiant (*ID d'accès*) et la clé secrète avec un [client en ligne de commande OpenStack](openstack-command-line-clients.md).
+Vous devez d'abord générer l'identifiant (*ID d'accès*) et la clé secrète avec un [client en ligne de commande OpenStack](../cloud/openstack_command_line_clients.md).
 1.  Importez vos identifiants avec ``source <nom_du_projet>-openrc.sh``.
 2.  Créez la clé d'accès et la clé secrète avec ``openstack ec2 credentials create``.
 3.  Connectez-vous au [portail Globus](globus.md) avec [https://www.globus.org/](https://www.globus.org/).

@@ -52,7 +52,7 @@ status:
 ---
 
 !!! warning "Attention"
-Béluga has been replaced by a new cluster called [Rorqual](rorqual.md). To enable the full production rollout of this new cluster, **we had to shut down all Béluga compute nodes**. The login nodes and storage system will remain accessible. To follow the progressive shutdown steps for Béluga, see [this incident page](https://status.alliancecan.ca/view_incident?incident=1379) and the [Infrastructure Renewal](infrastructure-renewal.md) page.
+Béluga has been replaced by a new cluster called [Rorqual](rorqual.md). To enable the full production rollout of this new cluster, **we had to shut down all Béluga compute nodes**. The login nodes and storage system will remain accessible. To follow the progressive shutdown steps for Béluga, see [this incident page](https://status.alliancecan.ca/view_incident?incident=1379) and the [Infrastructure Renewal](infrastructure_renewal.md) page.
 
 | Availability | March 2019 |
 | :----------- | :--------- |
@@ -64,7 +64,7 @@ Béluga has been replaced by a new cluster called [Rorqual](rorqual.md). To enab
 Béluga is a heterogeneous, general-purpose cluster designed for ordinary computations; it is located at the [École de technologie supérieure](http://www.etsmtl.ca/). Its name refers to the [beluga whale](https://fr.wikipedia.org/wiki/B%C3%A9luga_(c%C3%A9tac%C3%A9)), a marine mammal living in the waters of the St. Lawrence River.
 
 ## Specifics
-Our policy dictates that Béluga compute nodes do not have internet access. To request an exception, contact [technical support](technical-support.md) explaining your needs and reasons. Note that the `crontab` tool is not available.
+Our policy dictates that Béluga compute nodes do not have internet access. To request an exception, contact [technical support](../support/technical_support.md) explaining your needs and reasons. Note that the `crontab` tool is not available.
 
 Each job should have a minimum duration of one hour (or at least five minutes for test jobs), and a user cannot have more than 1000 jobs (running and pending) at a time. The maximum job duration is 7 days (168 hours).
 
@@ -72,9 +72,9 @@ Each job should have a minimum duration of one hour (or at least five minutes fo
 
 | Filesystem | Description |
 | :--------- | :---------- |
-| HOME <br> Lustre Filesystem, 105 TB total space | * This space is small and cannot be expanded; you will need to use your `project` space for large storage needs.<br>* Small fixed per-user [quotas](storage-and-file-management.md#quotas-and-policies).<br>* Automatic daily backup. |
-| SCRATCH <br> Lustre Filesystem, 2.6 PB total space | * Large space for storing temporary files during computations.<br>* No automatic backup system.<br>* Large fixed per-user [quotas](storage-and-file-management.md#quotas-and-policies).<br>* Automatic [purging](scratch-purging-policy.md) of old files in this space. |
-| PROJECT <br> Lustre Filesystem, 25 PB total space | * This space is designed for sharing data among group members and for storing large amounts of data.<br>* Large adjustable per-project [quotas](storage-and-file-management.md#quotas-and-policies).<br>* Automatic daily backup. |
+| HOME <br> Lustre Filesystem, 105 TB total space | * This space is small and cannot be expanded; you will need to use your `project` space for large storage needs.<br>* Small fixed per-user [quotas](../storage-and-data/storage_and_file_management.md#quotas-and-policies).<br>* Automatic daily backup. |
+| SCRATCH <br> Lustre Filesystem, 2.6 PB total space | * Large space for storing temporary files during computations.<br>* No automatic backup system.<br>* Large fixed per-user [quotas](../storage-and-data/storage_and_file_management.md#quotas-and-policies).<br>* Automatic [purging](../storage-and-data/scratch_purging_policy.md) of old files in this space. |
+| PROJECT <br> Lustre Filesystem, 25 PB total space | * This space is designed for sharing data among group members and for storing large amounts of data.<br>* Large adjustable per-project [quotas](../storage-and-data/storage_and_file_management.md#quotas-and-policies).<br>* Automatic daily backup. |
 
 For data transfers via Globus, the `computecanada#beluga-dtn` endpoint should be used, while for tools like rsync and scp, a login node can be used.
 

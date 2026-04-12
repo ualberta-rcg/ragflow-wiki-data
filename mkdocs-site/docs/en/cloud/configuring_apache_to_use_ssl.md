@@ -51,7 +51,7 @@ status:
   qa_generated: false
 ---
 
-*Parent page: [Creating a web server on a cloud](creating-a-web-server-on-a-cloud.md)*
+*Parent page: [Creating a web server on a cloud](creating_a_web_server_on_a_cloud.md)*
 
 Transport Layer Security (TLS) and formerly Secure Sockets Layer (SSL) are both often referred to as SSL and allow encrypted communications over computer networks. It is important to use encryption when sending any sensitive information, such as passwords, over the internet. However, even if not sending sensitive information, encrypting the data sent from the web server to the client will prevent third parties from intercepting the data and modifying it before it continues on to the client. In almost all situations, it is a good idea to use SSL certificates to encrypt data transmitted to and from a web server over the internet.
 
@@ -71,7 +71,7 @@ This section describes the procedure for creating a self-signed SSL certificate 
 The following steps assume you are using the Ubuntu operating system. If using another Linux operating system, the steps will be similar, but the details will likely be different such as commands and locations and names of configuration files.
 
 1.  **Activate the SSL module**
-    Once Apache has been installed (see [Installing Apache](creating-a-web-server-on-a-cloud.md#install-apache2)), the SSL module must be enabled with
+    Once Apache has been installed (see [Installing Apache](creating_a_web_server_on_a_cloud.md#install-apache2)), the SSL module must be enabled with
     ```bash
     sudo a2enmod ssl
     sudo service apache2 restart

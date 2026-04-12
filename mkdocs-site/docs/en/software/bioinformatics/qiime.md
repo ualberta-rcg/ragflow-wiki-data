@@ -101,7 +101,7 @@ qiime tools import --input-path /data/input.fasta --output-path /data/output.fas
 :octicons-file-code-16: `qiime2-example.sh`
 
 ## Installation
-QIIME2 can be installed using [Apptainer](apptainer.md) or [EasyBuild](easybuild.md). Apptainer is strongly preferred since it does not generate many thousands of files in your /home directory, potentially causing you to exceed the disk quota limit on the number of files.
+QIIME2 can be installed using [Apptainer](../containers/apptainer.md) or [EasyBuild](../../programming/easybuild.md). Apptainer is strongly preferred since it does not generate many thousands of files in your /home directory, potentially causing you to exceed the disk quota limit on the number of files.
 
 ### Using Apptainer
 
@@ -114,13 +114,13 @@ apptainer build qiime2-2021.11.sif docker://quay.io/qiime2/core:2021.11
 
 This build step may take over an hour, but you only need to do this once. Save the image file (`qiime2-2021.11.sif` in this example) for later re-use.
 
-Then run your code as described in the [Apptainer](apptainer.md) page. You will typically run each QIIME command in an `apptainer exec` statement:
+Then run your code as described in the [Apptainer](../containers/apptainer.md) page. You will typically run each QIIME command in an `apptainer exec` statement:
 
 ```bash
 apptainer exec qiime2-2021.11.sif <your QIIME command>
 ```
 
-So your [SBATCH](running-jobs.md) script might look something like this:
+So your [SBATCH](../../running-jobs/running_jobs.md) script might look something like this:
 
 ```bash
 #!/bin/bash
@@ -149,7 +149,7 @@ apptainer exec -B $PWD:/home -B /scratch/someuser:/outputs \
   --o-classifier /outputs/some_output_classifier.qza
 ```
 
-Note that it is important to use the [bind](apptainer.md#bind-mounts) option (`-B`) with each folder you want to work with when you run programs in your container. For more information about Apptainer, you can watch this [Apptainer webinar](https://www.youtube.com/watch?v=bpmrfVqBowY).
+Note that it is important to use the [bind](../containers/apptainer.md#bind-mounts) option (`-B`) with each folder you want to work with when you run programs in your container. For more information about Apptainer, you can watch this [Apptainer webinar](https://www.youtube.com/watch?v=bpmrfVqBowY).
 
 On first importing data into QIIME format, you may receive an error ending with a message like this:
 

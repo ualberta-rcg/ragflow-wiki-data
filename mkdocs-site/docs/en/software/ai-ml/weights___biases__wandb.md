@@ -82,7 +82,7 @@ Other groups are known to have made arrangements with Weights & Biases to bypass
 You can still use wandb by enabling the [`offline` mode](https://docs.wandb.ai/library/cli#wandb-offline). In this mode, wandb will write all metrics, logs and artifacts to the local disk and will not attempt to sync anything to the Weights&Biases service on the internet. After your jobs finish running, you can sync their wandb content to the online service by running the command [`wandb sync`](https://docs.wandb.ai/ref/cli#wandb-sync) on the login node.
 
 !!! note
-    [Comet.ml](comet-ml.md) is a product very similar to Weights & Biases, and works on Narval, Rorqual and TamIA.
+    [Comet.ml](comet_ml.md) is a product very similar to Weights & Biases, and works on Narval, Rorqual and TamIA.
 
 ## Example
 

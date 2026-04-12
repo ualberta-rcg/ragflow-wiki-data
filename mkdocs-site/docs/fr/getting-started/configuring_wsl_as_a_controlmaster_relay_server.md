@@ -53,12 +53,12 @@ status:
 !!! warning "Important"
     Cette page est une ébauche; nous travaillons à sa version finale.
 
-    Si vous avez des suggestions, écrivez au [soutien technique](technical-support.md).
+    Si vous avez des suggestions, écrivez au [soutien technique](../support/technical_support.md).
 
 Cette procédure permet d'utiliser ControlMaster de WSL pour vous connecter aux grappes avec plusieurs applications Windows natives pour une certaine durée, sans avoir à vous authentifier pour chaque session.
 
 ## Installer Linux sur Windows avec WSL
-Voir [Travailler avec Windows Subsystem for Linux (WSL)](windows-subsystem-for-linux-wsl.md)
+Voir [Travailler avec Windows Subsystem for Linux (WSL)](windows_subsystem_for_linux__wsl.md)
 
 Dans les fichiers de configuration :
 *   la distribution est Ubuntu

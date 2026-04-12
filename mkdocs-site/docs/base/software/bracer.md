@@ -60,7 +60,7 @@ The following will install parts of BraCeR in the following locations:
 *   Virtual Python environment: `$HOME/venv_bracer`
 *   Transcriptome databases for Kallisto: `/scratch/$USER/GRCh38` and `/scratch/$USER/GRCm38`
 
-However, it could also be structured differently. Please refer to our [Storage and file management](storage-and-file-management.md#storage_types) page for a comparison of the different storage types available.
+However, it could also be structured differently. Please refer to our [Storage and file management](../storage-and-data/storage_and_file_management.md#storage_types) page for a comparison of the different storage types available.
 
 ```bash
 # BraCeR installation instructions as of August 2022.

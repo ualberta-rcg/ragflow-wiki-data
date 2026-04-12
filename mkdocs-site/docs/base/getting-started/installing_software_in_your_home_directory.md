@@ -86,7 +86,7 @@ Sometimes this will work exactly as prescribed, but sometimes it will fail at `m
 ./configure --prefix=/my/project/directory/some-package && make && make install
 ```
 
-If other errors arise, contact [support](mailto:support@computecanada.ca). For more information, see [Make](make.md), [Autotools](autotools.md), and [CMake](cmake.md).
+If other errors arise, contact [support](mailto:support@computecanada.ca). For more information, see [Make](../programming/make.md), [Autotools](../programming/autotools.md), and [CMake](../programming/cmake.md).
 
 ## Using libraries
 Normally, the simplest way to make use of a library on an Alliance system is to first load the corresponding module.
@@ -109,13 +109,13 @@ Loading a library [module](using-modules.md) will set environment variables `CPA
 In some cases, however, particularly with `cmake`, it may be necessary to specify explicitly the location of the library provided by the module. The preferred and the most robust way to do so is to use an EasyBuild environment variable, `EBROOT...`, instead of manually typing a path. This will allow you to switch easily between toolchains without modifying the compilation instructions, and will also reduce the risk of linking a mismatched library. For example, if you need to specify the location of the GSL library, the option you provide to `cmake` might look like `-DGSL_DIR=$EBROOTGSL`. The `EBROOT...` environment variables adhere to the same construction pattern: `EBROOT` followed by the name of the package, for example `EBROOTGCC`.
 
 ## BLAS/LAPACK and MKL
-Please refer to our dedicated page on [BLAS and LAPACK](blas-and-lapack.md).
+Please refer to our dedicated page on [BLAS and LAPACK](../programming/blas_and_lapack.md).
 
 ## Apt-get and yum
 If the software includes instructions to run `apt-get` or `yum`, it is unlikely that you will be able to install it using those instructions. Look for instructions that say "to build from source", or contact [support](mailto:support@computecanada.ca) for assistance.
 
 ## Python, R, and Perl packages
-[Python](python.md), [R](r.md), and [Perl](perl.md) are languages with large libraries of extension packages, and package managers that can easily install almost any desired extension in your home directory. See the page for each language to find out if the package you're looking for is already available on our systems. If it is not, you should also find detailed guidance there on using that language's package manager to install it for yourself.
+[Python](../software/python.md), [R](../software/r.md), and [Perl](../software/perl.md) are languages with large libraries of extension packages, and package managers that can easily install almost any desired extension in your home directory. See the page for each language to find out if the package you're looking for is already available on our systems. If it is not, you should also find detailed guidance there on using that language's package manager to install it for yourself.
 
 ## Installing binary packages
 If you install pre-compiled binaries in your home directory, they may fail using errors such as `/lib64/libc.so.6: version 'GLIBC_2.18' not found`. Often such binaries can be patched using our `setrpaths.sh` script, using the syntax `setrpaths.sh --path path [--add_origin]` where path refers to the directory where you installed that software. This script will make sure that the binaries use the correct interpreter, and search for the libraries they are dynamically linked to in the correct folder. The option `--add_origin` will also add $ORIGIN to the RUNPATH. This is sometimes helpful if the library cannot find other libraries in the same folder as itself.
@@ -126,7 +126,7 @@ If you install pre-compiled binaries in your home directory, they may fail using
 ## The Alliance software stack
 Almost all software that is used on the new clusters is distributed centrally, using the CVMFS file system. What this means in practice is that this software is not installed under `/usr/bin`, `/usr/include`, and so on, as it would be in a typical Linux distribution, but instead somewhere under `/cvmfs/soft.computecanada.ca`, and is identical on all new clusters.
 
-The core of this [software stack](standard-software-environments.md) is provided by the `gentoo/2023` module, which is loaded by default. This stack, internally managed using the Gentoo package manager, is located at `/cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr`. The environment variable `$EBROOTGENTOO` should be used to refer to this path.
+The core of this [software stack](../programming/standard_software_environments.md) is provided by the `gentoo/2023` module, which is loaded by default. This stack, internally managed using the Gentoo package manager, is located at `/cvmfs/soft.computecanada.ca/gentoo/2023/x86-64-v3/usr`. The environment variable `$EBROOTGENTOO` should be used to refer to this path.
 Under this location, you can find all of the common packages typically included with Linux distributions, for instance `make`, `ls`, `cat`, `grep`, and so on. Typically, when you compile some software, the compiler and linker will automatically look for header files and libraries in the right location (via the environment variables `$CPATH` and `$LIBRARY_PATH`, respectively).
 Some software, however, has been hard-coded to look under `/usr`. If that is the case, the compilation will typically fail, and needs to be explicitly told about `$EBROOTGENTOO`. Sometimes that means adjusting a Makefile, sometimes it needs to be specified in a certain `--with-` flag for the configure script, or a configuration file needs to be edited. If you are not sure how to do this, please do not hesitate to ask for help.
 
@@ -143,4 +143,4 @@ If a header file or library that would usually be provided by an RPM or other pa
 In most situations, you can compile on the login nodes. However, if the code needs to be built on a node
 * with a GPU, or
 * with a Skylake CPU,
-then you should start an [interactive job](running-jobs.md#interactive-jobs) on a host with the hardware you need, and compile from there.
+then you should start an [interactive job](../running-jobs/running_jobs.md#interactive-jobs) on a host with the hardware you need, and compile from there.

@@ -269,5 +269,5 @@ Les résultats démontrent que certains tests avec mémoire autogérée amélior
     2.  Modifiez les indicateurs du compilateur en `-ta=tesla` (non géré).
     3.  Vérifiez si les résultats et la performance sont les mêmes qu'avant.
 
-[Page suivante, Optimisation des boucles](openacc-tutorial-optimizing-loops.md)
-[Retour au début du tutoriel](openacc-tutorial.md)
+[Page suivante, Optimisation des boucles](openacc_tutorial_-_optimizing_loops.md)
+[Retour au début du tutoriel](openacc_tutorial.md)

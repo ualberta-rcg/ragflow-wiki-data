@@ -104,7 +104,7 @@ The Alliance is a hosting provider for LS-DYNA. This means that we have LS-DYNA 
 
 ## Initial setup and testing
 
-If your (existing or new) license server has never been used on the cluster where you plan to run jobs, firewall changes will first need to be done on both the cluster side and server side. This will typically require involvement from both our technical team and the technical people managing your license software. To arrange this, send an email containing the service port and IP address of your floating license server to [technical support](technical-support.md). To check if your license file is working run the following commands:
+If your (existing or new) license server has never been used on the cluster where you plan to run jobs, firewall changes will first need to be done on both the cluster side and server side. This will typically require involvement from both our technical team and the technical people managing your license software. To arrange this, send an email containing the service port and IP address of your floating license server to [technical support](../support/technical_support.md). To check if your license file is working run the following commands:
 
 ```bash
 module load ls-dyna
@@ -317,7 +317,7 @@ LSTC provides [LS-PrePost](https://www.lstc.com/products/ls-prepost) for pre- an
     ```
 
 ## VncViewer
-1.  Connect with a VncViewer client to a login or compute node by following [TigerVNC](vnc.md)
+1.  Connect with a VncViewer client to a login or compute node by following [TigerVNC](../interactive/vnc.md)
 2.  Open a new terminal window in your desktop and run:
     ```bash
     module load StdEnv/2020

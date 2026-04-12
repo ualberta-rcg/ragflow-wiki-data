@@ -38,7 +38,7 @@ status:
 
 [Keras](https://fr.wikipedia.org/wiki/Keras) est une bibliothèque open source écrite en Python qui permet d'interagir avec les algorithmes de réseaux de neurones profonds et d'apprentissage machine, notamment TensorFlow, CNTK et Theano.
 
-Si vous voulez porter un programme Keras sur l'une de nos grappes, il serait bon de prendre connaissance du [tutoriel sur le sujet](tutoriel-apprentissage-machine.md).
+Si vous voulez porter un programme Keras sur l'une de nos grappes, il serait bon de prendre connaissance du [tutoriel sur le sujet](ai-ml/tutoriel_apprentissage_machine.md).
 
 ## Installation
 

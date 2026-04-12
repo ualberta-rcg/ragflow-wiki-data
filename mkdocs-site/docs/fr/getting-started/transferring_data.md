@@ -95,8 +95,8 @@ Pour transférer des données à partir ou en direction des grappes, veuillez ut
 ## Entre un ordinateur personnel et nos équipements
 Pour télécharger ou téléverser des fichiers entre votre ordinateur et notre infrastructure, vous devez utiliser un logiciel offrant une fonctionnalité de transfert sécurisé.
 *   Sur un environnement en ligne de commande sous Linux ou Mac OS X, utilisez les commandes `scp` et `sftp`.
-*   Sous Windows, [MobaXterm](connecting-with-mobaxterm.md) offre des fonctions de transfert de fichiers et une interface en ligne de commande via [SSH](ssh.md); un autre programme gratuit pour le transfert de données est [WinSCP](https://winscp.net/eng/docs/lang:fr). Pour configurer une connexion via clés SSH avec WinSCP, voyez [ces directives](https://www.exavault.com/blog/import-ssh-keys-winscp).
-Les commandes `pscp` et `psftp` de [PuTTY](connecting-with-putty.md) fonctionnent sensiblement comme les commandes sous Linux et Mac.
+*   Sous Windows, [MobaXterm](connecting_with_mobaxterm.md) offre des fonctions de transfert de fichiers et une interface en ligne de commande via [SSH](ssh.md); un autre programme gratuit pour le transfert de données est [WinSCP](https://winscp.net/eng/docs/lang:fr). Pour configurer une connexion via clés SSH avec WinSCP, voyez [ces directives](https://www.exavault.com/blog/import-ssh-keys-winscp).
+Les commandes `pscp` et `psftp` de [PuTTY](connecting_with_putty.md) fonctionnent sensiblement comme les commandes sous Linux et Mac.
 
 !!! tip "Transferts de longue durée"
     S'il faut plus d'une minute pour transférer des fichiers entre votre ordinateur et nos serveurs, nous vous suggérons d'installer *Globus Connect Personal* et d'en faire l'essai; consultez la section [Ordinateurs personnels](globus.md#ordinateurs-personnels). Le transfert avec Globus peut être configuré et fonctionner en arrière-plan, sans intervention.
@@ -148,7 +148,7 @@ L'utilitaire [rsync](https://fr.wikipedia.org/wiki/Rsync) vérifie la similitude
 `rsync` compare les dates de modification et la taille des fichiers et fait le transfert uniquement si l'un des paramètres ne concorde pas.
 Si les dates de modification sont susceptibles de différer, l'option `-c` analyse les sommes de contrôle à la source et à la destination et transfère uniquement les fichiers dont les valeurs ne concordent pas.
 
-Quand vous transférez des données vers les systèmes de fichiers `/project`, n'utilisez pas les options `-p` et `-g`. Les quotas pour `/project` sont calculés selon la propriété de groupe et le fait de conserver la même propriété pourrait produire le message d'erreur [_Disk quota exceeded_](frequently-asked-questions.md#message-disk-quota-exceeded). Puisque `-a` inclut par défaut à la fois `-p` et `-g`, il faut ajouter les options `--no-g --no-p` comme suit :
+Quand vous transférez des données vers les systèmes de fichiers `/project`, n'utilisez pas les options `-p` et `-g`. Les quotas pour `/project` sont calculés selon la propriété de groupe et le fait de conserver la même propriété pourrait produire le message d'erreur [_Disk quota exceeded_](frequently_asked_questions.md#message-disk-quota-exceeded). Puisque `-a` inclut par défaut à la fois `-p` et `-g`, il faut ajouter les options `--no-g --no-p` comme suit :
 
 ```bash
 rsync -avzh --no-g --no-p LOCALNAME someuser@nibi.alliancecan.ca:projects/def-professor/someuser/somedir/
@@ -227,7 +227,7 @@ USERNAME@ADDRESS's password:
 Connected to ADDRESS.
 sftp>
 ```
-L'authentification avec l'option `-i` peut se faire en utilisant une [clé SSH](ssh-keys.md).
+L'authentification avec l'option `-i` peut se faire en utilisant une [clé SSH](ssh_keys.md).
 
 ```console
 [name@server]$ sftp -i /home/name/.ssh/id_rsa USERNAME@ADDRESS
@@ -248,14 +248,14 @@ SCP est l'abréviation de [protocole de copie sécurisée](https://fr.wikipedia.
 ```bash
 scp foo.txt username@rorqual.alliancecan.ca:work/
 ```
-Cette commande transfère le fichier `foo.txt` qui se trouve dans le répertoire courant de mon ordinateur vers le répertoire `$HOME/work` de la grappe [Rorqual](rorqual.md). Pour transférer le fichier `output.dat` qui se trouve dans mon espace /project de la grappe [Fir](fir.md) vers mon ordinateur local, je pourrais utiliser une commande comme :
+Cette commande transfère le fichier `foo.txt` qui se trouve dans le répertoire courant de mon ordinateur vers le répertoire `$HOME/work` de la grappe [Rorqual](../clusters/rorqual.md). Pour transférer le fichier `output.dat` qui se trouve dans mon espace /project de la grappe [Fir](../software/fir.md) vers mon ordinateur local, je pourrais utiliser une commande comme :
 
 ```bash
 scp username@fir.alliancecan.ca:projects/def-jdoe/username/results/output.dat .
 ```
 [Voyez d'autres exemples](http://www.hypexr.org/linux_scp_help.php). Prenez note que vous lancez toujours la commande `scp` à partir de votre ordinateur et non à partir de la grappe : la connexion SCP doit toujours être initiée à partir de votre ordinateur, peu importe la direction dans laquelle vous transférez les données.
 
-L'option `-r` permet de faire un transfert récursif d'un groupe de répertoires et fichiers. **Il n'est pas recommandé d'utiliser `scp -r`** pour transférer des données vers `/project` parce que le bit `setGID` est désactivé dans les répertoires ainsi créés, ce qui peut générer des erreurs semblables à [Message *Disk quota exceeded*](frequently-asked-questions.md#message-disk-quota-exceeded) lors de la création ultérieure de fichiers.
+L'option `-r` permet de faire un transfert récursif d'un groupe de répertoires et fichiers. **Il n'est pas recommandé d'utiliser `scp -r`** pour transférer des données vers `/project` parce que le bit `setGID` est désactivé dans les répertoires ainsi créés, ce qui peut générer des erreurs semblables à [Message *Disk quota exceeded*](frequently_asked_questions.md#message-disk-quota-exceeded) lors de la création ultérieure de fichiers.
 
 !!! warning "Attention : Utilisation des clés SSH avec `scp`"
     Si vous utilisez un nom de clé SSH personnalisé, *c'est-à-dire* autre chose que les noms par défaut `id_dsa`, `id_ecdsa`, `id_ed25519` et `id_rsa`, vous devez utiliser l'option `scp -i`, suivie du chemin vers votre clé privée, ainsi :
@@ -276,7 +276,7 @@ find <directory_name> ! -readable -ls
 
 ### Problème d'écriture de nouvelles données
 
-*   Vérifiez encore [l'utilisation du stockage](storage-and-file-management.md#introduction) pour vous assurer qu'assez d'espace et assez de fichiers sont disponibles.
+*   Vérifiez encore [l'utilisation du stockage](../storage-and-data/storage_and_file_management.md#introduction) pour vous assurer qu'assez d'espace et assez de fichiers sont disponibles.
     *   Sur certaines grappes, le système de fichiers compresse les données automatiquement et indique l'espace disque utilisé par les données compressées. Sur d'autres grappes, l'espace disque utilisé représente la taille apparente des fichiers. Ceci explique pourquoi 1To de données compressées sur une grappe devient 2To de données sur une autre grappe.
     *   Avant de transférer un ensemble de données, vous pouvez connaître sa taille apparente avec l'option `-b` de la commande `du`.
 
@@ -286,4 +286,4 @@ find <directory_name> ! -readable -ls
     $ du -b dataset
     1048576000      dataset  # Taille apparente des données
     ```
-*   Vérifiez encore [les permissions des systèmes de fichiers](sharing-data.md) pour vous assurer que vous avez la permission d'écriture à l'endroit où vous transférez les nouveaux fichiers.
+*   Vérifiez encore [les permissions des systèmes de fichiers](../storage-and-data/sharing_data.md) pour vous assurer que vous avez la permission d'écriture à l'endroit où vous transférez les nouveaux fichiers.

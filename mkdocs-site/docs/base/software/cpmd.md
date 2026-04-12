@@ -58,11 +58,11 @@ status:
 In the past, access to CPMD required registration and confirmation with the developers, but registration on their website is no longer needed. However, the modules installed on our clusters are still protected by a POSIX group.
 
 !!! note
-    Before you can start using [CPMD](http://cpmd.org) on our clusters, [send us a support request](technical-support.md) and ask to be added to the POSIX group that will allow you to access the software.
+    Before you can start using [CPMD](http://cpmd.org) on our clusters, [send us a support request](../support/technical_support.md) and ask to be added to the POSIX group that will allow you to access the software.
 
 ## Module
 
-You can access CPMD by loading a [module](utiliser-des-modules.md).
+You can access CPMD by loading a [module](../programming/utiliser_des_modules.md).
 
 ```bash
 module load StdEnv/2020

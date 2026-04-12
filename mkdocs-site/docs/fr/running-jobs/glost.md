@@ -89,9 +89,9 @@ status:
 
 ## Introduction
 
-[GLOST](https://github.com/cea-hpc/glost) (pour *Greedy Launcher Of Small Tasks*) est un outil pour exécuter un grand nombre de tâches séquentielles de courte durée ou de durée variable, ou avec des balayages de paramètres. Son fonctionnement est semblable à celui de [GNU Parallel](gnu-parallel.md) ou d’un [vecteur de tâches](vecteurs-de-taches.md), mais avec une syntaxe simplifiée.
+[GLOST](https://github.com/cea-hpc/glost) (pour *Greedy Launcher Of Small Tasks*) est un outil pour exécuter un grand nombre de tâches séquentielles de courte durée ou de durée variable, ou avec des balayages de paramètres. Son fonctionnement est semblable à celui de [GNU Parallel](gnu_parallel.md) ou d’un [vecteur de tâches](vecteurs-de-taches.md), mais avec une syntaxe simplifiée.
 
-GLOST utilise l’enveloppe (*wrapper*) `glost_launch` et les commandes [MPI](mpi.md) `srun`, `mpiexec` et `mpirun`. Un fichier texte nommé **list_glost_tasks.txt** regroupe les tâches et est employé comme argument pour l’enveloppe `glost_launch`.
+GLOST utilise l’enveloppe (*wrapper*) `glost_launch` et les commandes [MPI](../software/mpi.md) `srun`, `mpiexec` et `mpirun`. Un fichier texte nommé **list_glost_tasks.txt** regroupe les tâches et est employé comme argument pour l’enveloppe `glost_launch`.
 
 GLOST est particulièrement utile dans les cas suivants :
 
@@ -116,7 +116,7 @@ Avec GLOST, l’utilisateur soumet et traite quelques tâches MPI plutôt que de
 
 ## Modules
 
-GLOST utilise OpenMPI pour grouper des tâches séquentielles dans une tâche MPI. Vous devez charger OpenMPI et le module GLOST correspondant. Pour plus d’information, consultez [Utiliser des modules](utiliser-des-modules.md). Pour voir les modules GLOST disponibles, utilisez la commande `module spider glost`. Avant de soumettre une tâche, assurez-vous de pouvoir charger GLOST et les autres modules nécessaires à l’exécution de votre application.
+GLOST utilise OpenMPI pour grouper des tâches séquentielles dans une tâche MPI. Vous devez charger OpenMPI et le module GLOST correspondant. Pour plus d’information, consultez [Utiliser des modules](../programming/utiliser_des_modules.md). Pour voir les modules GLOST disponibles, utilisez la commande `module spider glost`. Avant de soumettre une tâche, assurez-vous de pouvoir charger GLOST et les autres modules nécessaires à l’exécution de votre application.
 
 ```bash
 $  module spider glost/0.3.1
@@ -343,7 +343,7 @@ Les exemples copiés seront enregistrés dans le répertoire Glost_Examples.
 ## Références
 
 *   [META-Farm](meta-farm.md)
-*   [GNU Parallel](gnu-parallel.md)
+*   [GNU Parallel](gnu_parallel.md)
 *   [Vecteurs de tâches](vecteurs-de-taches.md)
-*   [MPI](mpi.md)
+*   [MPI](../software/mpi.md)
 *   [Exécuter des tâches](executer-des-taches.md)

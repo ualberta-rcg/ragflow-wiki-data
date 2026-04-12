@@ -43,11 +43,11 @@ status:
 ## Using the GUI
 Using the Slicer GUI requires X11 forwarding, which you should make sure is enabled.
 
-You can find information on how to connect with MobaXTerm and use X11 fowarding at [Connecting with MobaXTerm](connecting-with-mobaxterm.md).
+You can find information on how to connect with MobaXTerm and use X11 fowarding at [Connecting with MobaXTerm](../getting-started/connecting_with_mobaxterm.md).
 
 ### Use an interactive node
 
-Runtime is limited on the login nodes, so you should request an [interactive job](running-jobs.md#interactive-jobs) to have more time for exploring and visualizing your data. Additionally, by doing so, you will be able to use more cores for faster processing.
+Runtime is limited on the login nodes, so you should request an [interactive job](../running-jobs/running_jobs.md#interactive-jobs) to have more time for exploring and visualizing your data. Additionally, by doing so, you will be able to use more cores for faster processing.
 
 Request an interactive job, ie.
 ```bash

@@ -154,7 +154,7 @@ stoprule=yes stopval=0.005 relburnin=yes burninfrac=0.1 printfreq=1000
 append=yes checkfreq=1000;
 ```
 
-Then create a job script. This example is a job array, which means that one script and one `sbatch` command will be sufficient to launch two Slurm jobs, and therefore both parts of the calculation. See [Job arrays](job-arrays.md) for more about the `--array` parameter and the `$SLURM_ARRAY_TASK_ID` variable used here.
+Then create a job script. This example is a job array, which means that one script and one `sbatch` command will be sufficient to launch two Slurm jobs, and therefore both parts of the calculation. See [Job arrays](../../running-jobs/job_arrays.md) for more about the `--array` parameter and the `$SLURM_ARRAY_TASK_ID` variable used here.
 
 ```bash title="submit-mrbayes-cp.sh"
 #!/bin/bash

@@ -39,9 +39,9 @@ status:
 
 The following tools are helpful when you need to process multiple files with or without different parameter combinations (*parameter sweep*):
 
-*   **[Job Arrays](job-arrays.md)**: to submit several similar jobs in one single script, an ideal method when each job exceeds one hour and the number of jobs is under one thousand;
-*   **[GNU Parallel](gnu-parallel.md)**: to run and manage several short calculations, including parameter sweeps, on a single node reserved via a parallel job;
-*   **[GLOST](glost.md)**: the *Greedy Launcher Of Small Tasks* uses [MPI](mpi.md) and a manager-worker architecture to progressively run a long list of serial jobs on the CPU cores reserved via a parallel job;
+*   **[Job Arrays](job_arrays.md)**: to submit several similar jobs in one single script, an ideal method when each job exceeds one hour and the number of jobs is under one thousand;
+*   **[GNU Parallel](gnu_parallel.md)**: to run and manage several short calculations, including parameter sweeps, on a single node reserved via a parallel job;
+*   **[GLOST](glost.md)**: the *Greedy Launcher Of Small Tasks* uses [MPI](../software/mpi.md) and a manager-worker architecture to progressively run a long list of serial jobs on the CPU cores reserved via a parallel job;
 *   **[META](meta-farm.md)**: a suite of scripts designed in SHARCNET to automate high-throughput computing (running a large number of related serial, parallel, or GPU calculations).
 
 ## Inter-job dependencies
@@ -60,7 +60,7 @@ sbatch --dependency=afterok:$JOBID1 job2.sh   # Depends on the first job
 
 ## Heterogeneous jobs
 
-The Slurm scheduler supports [heterogeneous jobs](https://slurm.schedmd.com/heterogeneous_jobs.html). This could be very useful if you know in advance that your [MPI](mpi.md) application will require more CPU cores and more memory for the main process than for the other processes.
+The Slurm scheduler supports [heterogeneous jobs](https://slurm.schedmd.com/heterogeneous_jobs.html). This could be very useful if you know in advance that your [MPI](../software/mpi.md) application will require more CPU cores and more memory for the main process than for the other processes.
 
 For example, if the main process requires 8 cores and a total of 32GB of RAM, while the other processes only require 1 core and 1GB of RAM, we can specify both types of requirements in a job script:
 

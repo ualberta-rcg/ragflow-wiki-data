@@ -73,7 +73,7 @@ This software runs on your VM and allows you to use the GUI desktop you installe
 sudo apt install -y tigervnc-common tigervnc-standalone-server
 ```
 
-This command will install the TigerVNC server and some supporting software. For details about using VNC servers and clients, see our documentation on [VNC](vnc.md).
+This command will install the TigerVNC server and some supporting software. For details about using VNC servers and clients, see our documentation on [VNC](../interactive/vnc.md).
 
 ## 3. Start the VNC Server
 
@@ -84,14 +84,14 @@ When you run `vncserver` for the first time, you will be prompted to set a passw
 
 ## 4. Test Your Connection
 
-To test your connection, you can open port `5901` (see [security groups](managing-your-cloud-resources-with-openstack.md#security-groups) for more information about opening ports to your VMs with OpenStack) and connect using a VNC viewer, for example [TigerVNC](https://tigervnc.org/).
+To test your connection, you can open port `5901` (see [security groups](managing_your_cloud_resources_with_openstack.md#security-groups) for more information about opening ports to your VMs with OpenStack) and connect using a VNC viewer, for example [TigerVNC](https://tigervnc.org/).
 
 !!! warning "Insecure Connection"
     This is not a secure connection; data sent to and from your VM will not be encrypted. This step is only meant to test your server-client connection before connecting securely with an SSH tunnel (the next step). If you are confident in your ability to set up an SSH tunnel, you may skip this step.
 
 ## 5. Connect Using an SSH Tunnel
 
-See [SSH tunnelling](ssh-tunnelling.md) for general information. There is [an example of creating an SSH tunnel to a VNC server running on a compute node of one of our clusters](vnc.md#compute-nodes).
+See [SSH tunnelling](../getting-started/ssh_tunnelling.md) for general information. There is [an example of creating an SSH tunnel to a VNC server running on a compute node of one of our clusters](../interactive/vnc.md#compute-nodes).
 
 Below are instructions for connecting using an SSH tunnel for Linux or macOS:
 1. Open your terminal.
@@ -106,7 +106,7 @@ Below are instructions for connecting using an SSH tunnel for Linux or macOS:
 ## 6. Close Port 5901
 
 !!! warning "Security Recommendation"
-    Once you are connected to your VNC server using an SSH tunnel, you no longer require port `5901` to be open. It is recommended that you remove this rule from your security groups (see [security groups](managing-your-cloud-resources-with-openstack.md#security-groups) for more information).
+    Once you are connected to your VNC server using an SSH tunnel, you no longer require port `5901` to be open. It is recommended that you remove this rule from your security groups (see [security groups](managing_your_cloud_resources_with_openstack.md#security-groups) for more information).
 
 ## 7. Stop the VNC Server
 

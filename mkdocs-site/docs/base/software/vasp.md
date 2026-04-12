@@ -86,7 +86,7 @@ status:
 VASP can only be used by research groups that have been licensed by the developers, VASP Software GmbH. Your PI (principal investigator, professor) must register at the [VASP website](https://www.vasp.at/) and obtain a license.
 
 !!! note "Requesting Access to Prebuilt VASP"
-    Once you have a license, if you wish to use the prebuilt VASP binaries on [Fir](fir.md), [Nibi](nibi.md), or [Trillium](trillium.md), contact [Technical support](technical-support.md) requesting access to VASP with the following information:
+    Once you have a license, if you wish to use the prebuilt VASP binaries on [Fir](fir.md), [Nibi](../clusters/nibi.md), or [Trillium](../clusters/trillium.md), contact [Technical support](../support/technical_support.md) requesting access to VASP with the following information:
     * Include license holder (your PI) information:
         * Name
         * Email address
@@ -108,7 +108,7 @@ Simon Fraser University, the University of Waterloo, and the University of Toron
 
 ## Using Prebuilt VASP
 
-To load prebuilt VASP on [Fir](fir.md) and [Nibi](nibi.md), please do the following:
+To load prebuilt VASP on [Fir](fir.md) and [Nibi](../clusters/nibi.md), please do the following:
 
 For **vasp/5.4.4**
 ```bash
@@ -129,7 +129,7 @@ module load vasp/6.4.2
     ```
 See [Using modules](using-modules.md) for more information.
 
-To use VASP on [Trillium](trillium.md), modules may be loaded as follows:
+To use VASP on [Trillium](../clusters/trillium.md), modules may be loaded as follows:
 
 For **vasp/5.4.4**
 ```bash
@@ -145,7 +145,7 @@ module load StdEnv/2023 intel/2023.2.1 intelmpi/2021.9.0 hdf5/1.14.2
 module use /opt/software/commercial/modules
 module load vasp/6.4.2
 ```
-For general usage of Trillium, please see the [Trillium Quickstart](trillium-quickstart.md) page.
+For general usage of Trillium, please see the [Trillium Quickstart](../clusters/trillium_quickstart.md) page.
 
 ### Pseudopotential files
 All pseudopotentials have been downloaded from the official VASP website and untarred. They are all located in `$EBROOTVASP/pseudopotentials/` on Cedar and Graham and can be accessed once the VASP module is loaded.
@@ -170,7 +170,7 @@ Two extensions have also been incorporated:
 * [Transition State Tools](http://theory.cm.utexas.edu/vtsttools/)
 * [VASPsol](https://github.com/henniggroup/VASPsol)
 
-If you need a version of VASP that does not appear here, you can either build it yourself (see below) or [write to us](technical-support.md) and ask that it be built and installed.
+If you need a version of VASP that does not appear here, you can either build it yourself (see below) or [write to us](../support/technical_support.md) and ask that it be built and installed.
 
 ## Vasp-GPU
 !!! tip "VASP-GPU Benchmark"
@@ -191,7 +191,7 @@ mpirun <VASP>
 ```
 
 * The above job script requests four CPU cores and 4096MB memory (4x1024MB).
-* `<ACCOUNT>` is a Slurm account name; see [Accounts and projects](running-jobs.md#accounts-and-projects) to know what to enter there.
+* `<ACCOUNT>` is a Slurm account name; see [Accounts and projects](../running-jobs/running_jobs.md#accounts-and-projects) to know what to enter there.
 * `<VERSION>` is the number for the VASP version you want to use: 4.6, 5.4.1, 5.4.4 or 6.1.0.
 * Use `module spider vasp/<VERSION>` to see how you can change this particular version.
 * `<VASP>` is the name of the executable. Refer to section *Executable programs* above for the executables you can select for each version.
@@ -208,7 +208,7 @@ mpirun <VASP>
 ```
 
 * The above job script requests one CPU core and 1024MB memory.
-* The above job script requests one GPU type p100 which is only available on Cedar. For other clusters, please see the [GPU types available](using-gpus-with-slurm.md#available-hardware).
+* The above job script requests one GPU type p100 which is only available on Cedar. For other clusters, please see the [GPU types available](../running-jobs/using_gpus_with_slurm.md#available-hardware).
 * The above uses `mpirun` to run VASP.
 
 VASP uses four input files named as INCAR, KPOINTS, POSCAR, POTCAR. It is best to prepare VASP input files in a separate directory for each job. To submit the job from that directory, use:
@@ -217,19 +217,19 @@ sbatch vasp_job.sh
 ```
 
 !!! tip "Estimating Memory Requirements"
-    If you do not know how much memory you need for your job, prepare all your input files and then run `makeparam` in an [interactive job submission](running-jobs.md#interactive-jobs). Then use the result as required memory for the next run. However, for a more accurate estimate for future jobs, check the maximum stack size used by [completed jobs](running-jobs.md#completed-jobs) and use this as the memory requirement per processor for the next job.
+    If you do not know how much memory you need for your job, prepare all your input files and then run `makeparam` in an [interactive job submission](../running-jobs/running_jobs.md#interactive-jobs). Then use the result as required memory for the next run. However, for a more accurate estimate for future jobs, check the maximum stack size used by [completed jobs](../running-jobs/running_jobs.md#completed-jobs) and use this as the memory requirement per processor for the next job.
 
-If you want to use 32 or more cores, please read about [whole-node scheduling](job-scheduling-policies.md#whole-nodes-versus-cores).
+If you want to use 32 or more cores, please read about [whole-node scheduling](../running-jobs/job_scheduling_policies.md#whole-nodes-versus-cores).
 
 ## Building VASP yourself
 
-If you are licensed to use VASP and have access to VASP source code, you can install various versions of VASP in your /home directory on all our clusters using the following [EasyBuild](easybuild.md) commands.
+If you are licensed to use VASP and have access to VASP source code, you can install various versions of VASP in your /home directory on all our clusters using the following [EasyBuild](../programming/easybuild.md) commands.
 
 `eb -f [RECIPE NAME] --sourcepath=[SOURCEPATH]`
 
 where `[SOURCEPATH]` is the directory containing the VASP source code and `[RECIPE NAME]` is the name of the recipe. The first tab of table below shows the list of available recipes along with the corresponding required source files. In this table VTSTtools and vaspSOL are Transition State Tools and VASPsol extensions respectively. Second tabs of this table shows the list of the libraries that are included to vasp. You may download the source code from the [VASP website](https://www.vasp.at/). Running the command will take some time, perhaps more than an hour. Once it is done, you will be able to load and run VASP using `module` commands just as explained above in [Using prebuilt VASP](#using-prebuilt-vasp).
 
-Alternatively to build a custom version of VASP, please see [Installing software in your home directory](installing-software-in-your-home-directory.md) and [Installing VASP 5](https://www.vasp.at/wiki/index.php/Installing_VASP.5.X.X) or [Installing VASP 6](https://www.vasp.at/wiki/index.php/Installing_VASP.6.X.X).
+Alternatively to build a custom version of VASP, please see [Installing software in your home directory](../getting-started/installing_software_in_your_home_directory.md) and [Installing VASP 5](https://www.vasp.at/wiki/index.php/Installing_VASP.5.X.X) or [Installing VASP 6](https://www.vasp.at/wiki/index.php/Installing_VASP.6.X.X).
 
 === "Recipe specification and implementation"
 

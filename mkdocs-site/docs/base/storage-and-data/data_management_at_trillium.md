@@ -216,10 +216,10 @@ Data for analysis and final results need to be moved to and from Trillium. There
     *   Alternatively, you may also login/scp/rsync directly to the datamovers from the outside:
         *   `nia-datamover1.scinet.utoronto.ca`
         *   `nia-datamover2.scinet.utoronto.ca`
-    *   If you do this often, consider using [Globus](globus.md), a web-based tool for data transfer.
+    *   If you do this often, consider using [Globus](../getting-started/globus.md), a web-based tool for data transfer.
 
 ### Using Globus
-Please check the comprehensive documentation [here](globus.md) and [here](https://docs.scinet.utoronto.ca/index.php/Globus).
+Please check the comprehensive documentation [here](../getting-started/globus.md) and [here](https://docs.scinet.utoronto.ca/index.php/Globus).
 
 The Trillium "endpoint" for Globus is "alliancecan#trillium"
 The HPSS "endpoint" for Globus is "alliancecan#hpss"
@@ -228,7 +228,7 @@ The HPSS "endpoint" for Globus is "alliancecan#hpss"
 HPSS is for long-term storage of data.
 
 *   [HPSS](https://docs.scinet.utoronto.ca/index.php/HPSS) is a tape-based storage solution, and is SciNet's nearline a.k.a. archive facility.
-*   Storage space on HPSS is allocated through the annual [Resource Allocation Competition](resource-allocation-competition.md).
+*   Storage space on HPSS is allocated through the annual [Resource Allocation Competition](../running-jobs/resource_allocation_competition.md).
 
 ## File ownership management and access control lists
 *   By default, at SciNet, users within the same group already have read permission to each other's files (not write).

@@ -53,18 +53,18 @@ SSH keys can be a good way to authenticate to your account without typing your p
 !!! warning "Private Key Security"
     Treat the private key as a security token, even when encrypted with a passphrase. Avoid putting a private key on any shared machine. Placing an unencrypted private key on the clusters is a huge security hole.
 
-For technical details on implementing SSH keys for your account, please see [this page](ssh-keys.md).
+For technical details on implementing SSH keys for your account, please see [this page](ssh_keys.md).
 
 ## Multifactor authentication
 Multifactor authentication (MFA) allows you to protect your account with more than a password or an SSH key. Once your account is configured to use MFA, you will need to enter your username and password or SSH key as usual, and then perform a second action (the second factor) to access most of our services.
 
 !!! tip "Activate MFA"
-    It is highly recommended to activate MFA on your account. Please see the [Multifactor authentication](multifactor-authentication.md) page for more details.
+    It is highly recommended to activate MFA on your account. Please see the [Multifactor authentication](multifactor_authentication.md) page for more details.
 
 # General best practices
 
 ## Sharing data
-When sharing data among collaborators, it may seem convenient to change filesystem permissions to allow everyone to read or write some files. This can compromise your account if not done properly. Please see our [Sharing data](sharing-data.md) page.
+When sharing data among collaborators, it may seem convenient to change filesystem permissions to allow everyone to read or write some files. This can compromise your account if not done properly. Please see our [Sharing data](../storage-and-data/sharing_data.md) page.
 
 ## For the system you log in from
 

@@ -82,7 +82,7 @@ In the same setup window, click on the *Launch Profiles* tab. You should see two
 
 Save the settings with *Options -> Save Settings* and then exit VisIt on your laptop for settings to take effect.
 
-If your account has multifactor authentication enabled, you will need to [configure your SSH client with ControlMaster](multifactor-authentication.md#configuring-your-ssh-client-with-controlmaster) and make sure to use the full host name for Host, e.g.
+If your account has multifactor authentication enabled, you will need to [configure your SSH client with ControlMaster](../getting-started/multifactor_authentication.md#configuring-your-ssh-client-with-controlmaster) and make sure to use the full host name for Host, e.g.
 
 ```
 Host fir.alliancecan.ca
@@ -140,7 +140,7 @@ Finally, after you are done with these changes, go to the *Options* menu and sel
 
 #### Prerequisites
 
-The [Cloud Quick Start Guide](cloud-quick-start.md) explains how to launch a new virtual machine (VM). Once you log into the VM, you will need to install some additional packages to be able to compile ParaView or VisIt. For example, on a CentOS VM you can type:
+The [Cloud Quick Start Guide](../cloud/cloud_quick_start.md) explains how to launch a new virtual machine (VM). Once you log into the VM, you will need to install some additional packages to be able to compile ParaView or VisIt. For example, on a CentOS VM you can type:
 
 ```bash
 sudo yum install xauth wget gcc gcc-c++ ncurses-devel python-devel libxcb-devel

@@ -133,7 +133,7 @@ Therefore, **a proper test environment should have at least 4GB of available mem
 !!! tip "Which profiler?"
     For the purpose of this tutorial, we use two profilers:
     * **[NVIDIA `nvprof`](https://docs.nvidia.com/cuda/profiler-users-guide/)** - a command line text-based profiler that can analyze non-GPU codes.
-    * **[NVIDIA Visual Profiler `nvvp`](openacc-tutorial---adding-directives.md#nvidia-visual-profiler)** - a graphical cross-platform analyzing tool for the codes written with OpenACC and CUDA C/C++ instructions.
+    * **[NVIDIA Visual Profiler `nvvp`](openacc_tutorial_-_adding_directives.md#nvidia-visual-profiler)** - a graphical cross-platform analyzing tool for the codes written with OpenACC and CUDA C/C++ instructions.
     Since our previously built `cg.x` is not yet using the GPU, we will start the analysis with the `nvprof` profiler.
 
 ### NVIDIA `nvprof` Command Line Profiler
@@ -360,4 +360,4 @@ Given the code above, we search for data dependencies:
 
 Now that the code analysis is done, we are ready to add directives to the compiler.
 
-[<- Previous unit: *Introduction*](openacc-tutorial---introduction.md) | [^- Back to the lesson plan](openacc-tutorial.md) | [Onward to the next unit: *Adding directives* ->](openacc-tutorial---adding-directives.md)
+[<- Previous unit: *Introduction*](openacc_tutorial_-_introduction.md) | [^- Back to the lesson plan](openacc_tutorial.md) | [Onward to the next unit: *Adding directives* ->](openacc_tutorial_-_adding_directives.md)

@@ -89,7 +89,7 @@ status:
 
 [TensorFlow](https://www.tensorflow.org/) is *an open-source software library for Machine Intelligence*.
 
-If you are porting a TensorFlow program to an Alliance cluster, you should follow [our tutorial on machine learning](tutoriel-apprentissage-machine.md).
+If you are porting a TensorFlow program to an Alliance cluster, you should follow [our tutorial on machine learning](ai-ml/tutoriel_apprentissage_machine.md).
 
 ## Installing TensorFlow
 
@@ -265,11 +265,11 @@ Once the job has completed (should take less than a minute), you should see an o
   </div>
 </div>
 
-TensorFlow can run on all GPU node types. See [Using GPUs with SLURM](using-gpus-with-slurm.md) for more information.
+TensorFlow can run on all GPU node types. See [Using GPUs with SLURM](../running-jobs/using_gpus_with_slurm.md) for more information.
 
 ## Monitoring
 
-It is possible to connect to the node running a job and execute processes. This can be used to monitor resources used by TensorFlow and to visualize the progress of the training. See [Attaching to a running job](running-jobs.md#attaching-to-a-running-job) for examples.
+It is possible to connect to the node running a job and execute processes. This can be used to monitor resources used by TensorFlow and to visualize the progress of the training. See [Attaching to a running job](../running-jobs/running_jobs.md#attaching-to-a-running-job) for examples.
 
 ### TensorBoard
 

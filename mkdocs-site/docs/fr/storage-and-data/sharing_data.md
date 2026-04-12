@@ -101,16 +101,16 @@ status:
   qa_generated: false
 ---
 
-*Page enfant de [Gestion du stockage et des fichiers](storage-and-file-management.md)*
+*Page enfant de [Gestion du stockage et des fichiers](storage_and_file_management.md)*
 
 !!! warning "Avertissement : Sécurité des données"
     **N'utilisez jamais la commande `chmod -R 777` dans vos répertoires, et surtout pas dans votre répertoire `/home`. Ce serait un ÉNORME risque pour la sécurité de vos données et c'est inacceptable sur des systèmes partagés tels que nos grappes de calcul. De plus, cette commande n'est jamais réellement nécessaire.**
 
 Il arrive fréquemment de devoir partager ses données avec un collègue ou avec un autre groupe de recherche, et nos grappes offrent tous les moyens pour ce faire.
 
-Pour partager des données avec un membre d'un groupe de recherche dont vous faites partie, la meilleure approche est d'utiliser [l'espace /project](project-layout.md) disponible aux membres du groupe. Si vous devez créer un groupe qui utilisera une des grappes nationales, communiquez avec le [soutien technique](technical-support.md), car les utilisateurs ne peuvent pas créer leurs propres groupes.
+Pour partager des données avec un membre d'un groupe de recherche dont vous faites partie, la meilleure approche est d'utiliser [l'espace /project](project_layout.md) disponible aux membres du groupe. Si vous devez créer un groupe qui utilisera une des grappes nationales, communiquez avec le [soutien technique](../support/technical_support.md), car les utilisateurs ne peuvent pas créer leurs propres groupes.
 
-Pour partager des données avec une personne qui ne détient pas de compte sur la grappe que vous utiliserez, vous pouvez créer un [point de chute commun](globus.md#partage-de-fichiers-avec-globus) dans Globus.
+Pour partager des données avec une personne qui ne détient pas de compte sur la grappe que vous utiliserez, vous pouvez créer un [point de chute commun](../getting-started/globus.md#partage-de-fichiers-avec-globus) dans Globus.
 
 Pour partager des données avec un autre utilisateur qui détient un compte sur la même grappe, mais qui ne fait pas partie du même groupe, le moyen le plus simple est de vous servir des permissions du système de fichiers en question, ce qui est le sujet principal ici.
 
@@ -168,7 +168,7 @@ accorde à tous les utilisateurs de votre groupe les permissions d'écriture, de
 
 ### Protection *sticky bit*
 
-Comme c'est souvent le cas lorsqu'un professeur travaille avec plusieurs étudiants et collaborateurs, [l'espace /project](project-layout.md) se trouve dans un répertoire partagé par plusieurs utilisateurs qui ont des permissions de lecture, d'écriture ou d'exécution : il faut donc s'assurer que les fichiers et les répertoires ne puissent être supprimés par un autre utilisateur que leur propriétaire. Le système de fichiers sous Unix comporte la fonctionnalité [sticky bit](https://en.wikipedia.org/wiki/Sticky_bit) qui empêche qu'un fichier soit supprimé ou renommé par un autre utilisateur que le propriétaire du fichier ou du répertoire. Sans ce *sticky bit*, les utilisateurs qui ont des permissions de lecture et d'écriture pour un répertoire peuvent renommer ou supprimer tous les fichiers du répertoire, même s'ils n'en sont pas les propriétaires.
+Comme c'est souvent le cas lorsqu'un professeur travaille avec plusieurs étudiants et collaborateurs, [l'espace /project](project_layout.md) se trouve dans un répertoire partagé par plusieurs utilisateurs qui ont des permissions de lecture, d'écriture ou d'exécution : il faut donc s'assurer que les fichiers et les répertoires ne puissent être supprimés par un autre utilisateur que leur propriétaire. Le système de fichiers sous Unix comporte la fonctionnalité [sticky bit](https://en.wikipedia.org/wiki/Sticky_bit) qui empêche qu'un fichier soit supprimé ou renommé par un autre utilisateur que le propriétaire du fichier ou du répertoire. Sans ce *sticky bit*, les utilisateurs qui ont des permissions de lecture et d'écriture pour un répertoire peuvent renommer ou supprimer tous les fichiers du répertoire, même s'ils n'en sont pas les propriétaires.
 Pour positionner les permissions `rwxrwxr--` et le *sticky bit* sur un répertoire, utilisez la commande `chmod` ainsi :
 
 ```bash
@@ -381,7 +381,7 @@ Vous aurez besoin d'un groupe dans des cas particuliers de partage de données.
 
 La procédure suivante décrit la création du groupe `wg-datasharing`.
 
-1.  Écrivez au [soutien technique](technical-support.md) pour demander la création du groupe; indiquez le nom du groupe et dites que vous en êtes le propriétaire.
+1.  Écrivez au [soutien technique](../support/technical_support.md) pour demander la création du groupe; indiquez le nom du groupe et dites que vous en êtes le propriétaire.
 2.  Quand vous recevez la confirmation de la création du groupe, allez à [ccdb.computecanada.ca/services/](https://ccdb.computecanada.ca/services/).
 3.  Cliquez sur le nom du groupe en question pour faire afficher les détails de ce groupe.
 4.  Ajoutez un membre (par exemple, Victor Van Doom avec son identifiant CCI vdv-888).

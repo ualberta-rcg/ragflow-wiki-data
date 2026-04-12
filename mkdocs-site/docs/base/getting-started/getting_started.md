@@ -53,51 +53,51 @@ status:
 
 ## What do you want to do?
 *   If you don't already have an account, see
-    *   [Apply for a CCDB account](apply-for-a-ccdb-account.md)
-    *   [Multifactor authentication](multifactor-authentication.md)
-    *   [Frequently Asked Questions about the CCDB](frequently-asked-questions-about-the-ccdb.md)
+    *   [Apply for a CCDB account](apply_for_a_ccdb_account.md)
+    *   [Multifactor authentication](multifactor_authentication.md)
+    *   [Frequently Asked Questions about the CCDB](frequently_asked_questions_about_the_ccdb.md)
 *   If you are an experienced HPC user and are ready to log into a cluster, you probably want to know
     *   [what systems are available](#what-systems-are-available);
-    *   [what software is available](available-software.md);
-    *   [how environment modules work](utiliser-des-modules.md);
-    *   [how to submit jobs](running-jobs.md);
-    *   [how filesystems are organized](storage-and-file-management.md).
+    *   [what software is available](../programming/available_software.md);
+    *   [how environment modules work](../programming/utiliser_des_modules.md);
+    *   [how to submit jobs](../running-jobs/running_jobs.md);
+    *   [how filesystems are organized](../storage-and-data/storage_and_file_management.md).
 *   If you are new to HPC, you can
     *   [read about how to connect to our HPC systems with SSH](ssh.md);
-    *   [read an introduction to Linux systems](linux-introduction.md);
-    *   [read about how to transfer files to and from our systems](transferring-data.md);
+    *   [read an introduction to Linux systems](linux_introduction.md);
+    *   [read about how to transfer files to and from our systems](transferring_data.md);
 *   If you want to know which software and hardware are available for a specific discipline, a series of discipline guides is in preparation. At this time, you can consult the guides on
-    *   [AI and Machine Learning](ai-and-machine-learning.md)
-    *   [Bioinformatics](bioinformatics.md)
-    *   [Biomolecular simulation](biomolecular-simulation.md)
-    *   [Computational chemistry](computational-chemistry.md)
-    *   [Computational fluid dynamics](computational-fluid-dynamics.md) ([CFD](cfd.md))
-    *   [Geographic information systems](geographic-information-systems.md) ([GIS](gis.md))
-    *   [Visualization](visualization.md)
+    *   [AI and Machine Learning](../software/ai-ml/ai_and_machine_learning.md)
+    *   [Bioinformatics](../software/bioinformatics/bioinformatics.md)
+    *   [Biomolecular simulation](../software/molecular-sim/biomolecular_simulation.md)
+    *   [Computational chemistry](../software/chemistry/computational_chemistry.md)
+    *   [Computational fluid dynamics](../programming/computational_fluid_dynamics.md) ([CFD](cfd.md))
+    *   [Geographic information systems](geographic-information-systems.md) ([GIS](../software/gis.md))
+    *   [Visualization](../software/visualization.md)
 *   If you have hundreds of gigabytes of data to move across the network, [read about the Globus file transfer service](globus.md).
-*   Python users can learn how to [install modules in a virtual environment](python.md#creating-and-using-a-virtual-environment).
-*   R users can learn how to [install packages](r.md).
-*   If you want to experiment with software that doesn’t run well on our HPC clusters, [read about our cloud resources](cloud.md).
+*   Python users can learn how to [install modules in a virtual environment](../software/python.md#creating-and-using-a-virtual-environment).
+*   R users can learn how to [install packages](../software/r.md).
+*   If you want to experiment with software that doesn’t run well on our HPC clusters, [read about our cloud resources](../cloud/cloud.md).
 
-For any other questions, you might try the *Search* box in the upper right corner of this page, the main page for [our technical documentation](technical-documentation.md) or [contact us by email](technical-support.md).
+For any other questions, you might try the *Search* box in the upper right corner of this page, the main page for [our technical documentation](../general/technical_documentation.md) or [contact us by email](../support/technical_support.md).
 
 ## Username and password
 Your password to log in to all new national systems is [the same one you use to log into CCDB](https://ccdb.alliancecan.ca/). Your **username** will be displayed at the top of the page once you've logged in.
 
 ## What systems are available?
 
-You can [request access](https://ccdb.alliancecan.ca/me/access_systems) to any or all of our systems: [Arbutus](cloud-resources.md), [Fir](fir.md), [Narval](narval.md), [Nibi](nibi.md), [Rorqual](rorqual.md), and [Trillium](trillium.md).
+You can [request access](https://ccdb.alliancecan.ca/me/access_systems) to any or all of our systems: [Arbutus](../cloud/cloud_resources.md), [Fir](../software/fir.md), [Narval](../clusters/narval.md), [Nibi](../clusters/nibi.md), [Rorqual](../clusters/rorqual.md), and [Trillium](../clusters/trillium.md).
 
-*   [Arbutus](cloud-resources.md) is a cloud site, which allows users to launch and customize virtual machines. See [Cloud](cloud.md) for how to obtain access to Arbutus.
+*   [Arbutus](../cloud/cloud_resources.md) is a cloud site, which allows users to launch and customize virtual machines. See [Cloud](../cloud/cloud.md) for how to obtain access to Arbutus.
 
-*   [Fir](fir.md), [Narval](narval.md), [Nibi](nibi.md), and [Rorqual](rorqual.md) are **general-purpose clusters** (or supercomputers) composed of a variety of nodes including large memory nodes and nodes with accelerators such as GPUs. You can log into any of these using [SSH](ssh.md). A /home directory will be automatically created for you the first time you log in.
+*   [Fir](../software/fir.md), [Narval](../clusters/narval.md), [Nibi](../clusters/nibi.md), and [Rorqual](../clusters/rorqual.md) are **general-purpose clusters** (or supercomputers) composed of a variety of nodes including large memory nodes and nodes with accelerators such as GPUs. You can log into any of these using [SSH](ssh.md). A /home directory will be automatically created for you the first time you log in.
 
-*   [Trillium](trillium.md) is a homogeneous cluster (or supercomputer) designed for **large parallel** jobs (>1000 cores).
+*   [Trillium](../clusters/trillium.md) is a homogeneous cluster (or supercomputer) designed for **large parallel** jobs (>1000 cores).
 
 In this documentation, we generally use the term “cluster” instead of “supercomputer” since it better reflects the architecture of our systems: A large number of individual computers, or “nodes”, linked together as a unit, or “cluster”.
 
 ## What system should I use?
-This question is hard to answer because of the range of needs we serve and the wide variety of resources we have available. If the descriptions above are insufficient, contact our [technical support](technical-support.md).
+This question is hard to answer because of the range of needs we serve and the wide variety of resources we have available. If the descriptions above are insufficient, contact our [technical support](../support/technical_support.md).
 
 In order to identify the best resource to use, we may ask specific questions, such as:
 *   What software do you want to use?

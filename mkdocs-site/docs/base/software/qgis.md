@@ -143,7 +143,7 @@ python qgis_code.py
     sbatch job.sh
     ```
 
-For more on submitting jobs, see the [Running jobs](running-jobs.md) page.
+For more on submitting jobs, see the [Running jobs](../running-jobs/running_jobs.md) page.
 
 ## Using the GUI
 You may want to visualize large datasets without having to download them to your desktop. QGIS offers the possibility to use multiple cores to render the maps but you should not use this option on the login nodes which are shared with multiple users. Instead, you should use interactive nodes to do the visualization.
@@ -151,7 +151,7 @@ You may want to visualize large datasets without having to download them to your
 Using the QGIS GUI requires X11 forwarding, which you should make sure is enabled.
 
 ### MobaXTerm (Windows)
-You can find information on how to connect with MobaXTerm and use X11 forwarding on the [Connecting with MobaXTerm](connecting-with-mobaxterm.md) page.
+You can find information on how to connect with MobaXTerm and use X11 forwarding on the [Connecting with MobaXTerm](../getting-started/connecting_with_mobaxterm.md) page.
 
 1.  In the main window, click "Sessions" and a new window will pop up. Select "SSH".
 2.  In "Remote host", write the name of the server you plan to use, for example "cedar.computecanada.ca".

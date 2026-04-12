@@ -148,10 +148,10 @@ status:
 
 1.  **Have a cloud project**
     !!! danger "No Cloud Access Without a Project"
-        You cannot access a cloud without first having a cloud project. If you do not already have a [cloud project](managing-your-cloud-resources-with-openstack.md#projects), see [Getting a cloud project](cloud.md#getting-a-cloud-project). Once a cloud project is associated with your account, you will receive a confirmation email which will have important details you will need to access your project and get started with the cloud. Make sure you have this confirmation email ready.
+        You cannot access a cloud without first having a cloud project. If you do not already have a [cloud project](managing_your_cloud_resources_with_openstack.md#projects), see [Getting a cloud project](cloud.md#getting-a-cloud-project). Once a cloud project is associated with your account, you will receive a confirmation email which will have important details you will need to access your project and get started with the cloud. Make sure you have this confirmation email ready.
 
 2.  **Have a compatible browser**
-    The web interface for accessing your cloud project works well with both the [Firefox](https://www.mozilla.org/en-US/firefox/new/) and [Chrome](https://www.google.com/chrome/) web browsers. Other browsers may also work; however, some have shown the error message `Danger: There was an error submitting the form. Please try again.` which suggests that your browser is not supported by our system. This error message was noticed with certain versions of the Safari web browser on Macs; upgrading Safari may help, but we recommend that you use [Firefox](https://www.mozilla.org/en-US/firefox/new/) or [Chrome](https://www.google.com/chrome/). If you are still having issues, email [technical support](technical-support.md).
+    The web interface for accessing your cloud project works well with both the [Firefox](https://www.mozilla.org/en-US/firefox/new/) and [Chrome](https://www.google.com/chrome/) web browsers. Other browsers may also work; however, some have shown the error message `Danger: There was an error submitting the form. Please try again.` which suggests that your browser is not supported by our system. This error message was noticed with certain versions of the Safari web browser on Macs; upgrading Safari may help, but we recommend that you use [Firefox](https://www.mozilla.org/en-US/firefox/new/) or [Chrome](https://www.google.com/chrome/). If you are still having issues, email [technical support](../support/technical_support.md).
 
 ## Creating your first virtual machine
 
@@ -166,7 +166,7 @@ Your project will allow you to create virtual machines (also referred to as *ins
 Below there are instructions on starting a Windows VM or a Linux VM, depending on which tab you select.
 
 !!! note "Operating System for the VM"
-    Remember this is the operating system for the virtual machine or *instance* you are creating, not the operating system of the physical computer you are using to connect. It should be clear from your project pre-planning whether you will be using Linux or Windows for your VM operating system, but if you are unsure, please email [technical support](technical-support.md).
+    Remember this is the operating system for the virtual machine or *instance* you are creating, not the operating system of the physical computer you are using to connect. It should be clear from your project pre-planning whether you will be using Linux or Windows for your VM operating system, but if you are unsure, please email [technical support](../support/technical_support.md).
 
 === "Linux"
 
@@ -174,7 +174,7 @@ Below there are instructions on starting a Windows VM or a Linux VM, depending o
 
 When you create a virtual machine, password authentication is disabled for security reasons.
 
-Instead, OpenStack creates your VM with one SSH (Secure Shell) public key installed, and you can only log in using this SSH key pair. If you have used SSH keys before, the SSH public key can come from a key pair which you have already created on some other machine. In this case, follow the instructions below for **Importing an existing key pair**. If you have not used SSH key pairs before or do not currently have a pair you want to use, you will need to create a key pair. If you are using a Windows machine, see the [Generating SSH keys in Windows](generating-ssh-keys-in-windows.md) page; otherwise, follow the [Linux/Mac instructions](using-ssh-keys-in-linux.md). For more information on creating and managing your key pairs, see the [SSH Keys](ssh-keys.md) page in our wiki.
+Instead, OpenStack creates your VM with one SSH (Secure Shell) public key installed, and you can only log in using this SSH key pair. If you have used SSH keys before, the SSH public key can come from a key pair which you have already created on some other machine. In this case, follow the instructions below for **Importing an existing key pair**. If you have not used SSH key pairs before or do not currently have a pair you want to use, you will need to create a key pair. If you are using a Windows machine, see the [Generating SSH keys in Windows](../getting-started/generating_ssh_keys_in_windows.md) page; otherwise, follow the [Linux/Mac instructions](../getting-started/using_ssh_keys_in_linux.md). For more information on creating and managing your key pairs, see the [SSH Keys](../getting-started/ssh_keys.md) page in our wiki.
 
 #### Importing an existing key pair
 
@@ -201,9 +201,9 @@ The *Launch Instance* window has the following options:
     *   *Count:* This indicates the number of virtual machines to create. Unless you have specifically planned for multiple machines, leave this set at 1.
 
 2.  *Source*
-    *   *Select Boot Source:* Because it is your first VM, select *Image* as the boot source. For information about other options, see [Booting from a volume](working-with-volumes.md#booting-from-a-volume).
-    *   *Create New Volume:* Click *Yes*; your VM's data will be stored in the cloud volume (or persistent storage). For more information on volume usage and management, see [Working with volumes](working-with-volumes.md).
-    *   *Volume Size (GB):* If you have a pre-planned volume size, use that; otherwise, 30 GB is reasonable for the operating system and some modest data needs. For more information on volume usage and management, see [Working with volumes](working-with-volumes.md).
+    *   *Select Boot Source:* Because it is your first VM, select *Image* as the boot source. For information about other options, see [Booting from a volume](working_with_volumes.md#booting-from-a-volume).
+    *   *Create New Volume:* Click *Yes*; your VM's data will be stored in the cloud volume (or persistent storage). For more information on volume usage and management, see [Working with volumes](working_with_volumes.md).
+    *   *Volume Size (GB):* If you have a pre-planned volume size, use that; otherwise, 30 GB is reasonable for the operating system and some modest data needs. For more information on volume usage and management, see [Working with volumes](working_with_volumes.md).
     *   *Delete Volume on Instance Delete:* Click on *No* to help prevent your volume from being deleted accidentally; however, if you are confident you always want your volume deleted when your instance is deleted, click on *Yes*.
     *   *Allocated* and *Available* lists: The list at the bottom of the window shows the available images your VM can boot. For a beginner on Linux, we recommend the most recent **Ubuntu** image, but if you prefer, you can choose any one of the other Linux operating systems. To select an image, click on the upwards pointing arrow on the far right of the row containing your desired image. That row should now show up in the *Allocated* list above.
 
@@ -211,17 +211,17 @@ The *Launch Instance* window has the following options:
         It is important for later to remember which image you chose (e.g., Ubuntu, Fedora, etc.).
 
 3.  *Flavor*
-    *   *Allocated* and *Available* lists: The flavour determines what type of hardware is used for your VM, which determines how much memory and processing capabilities it has. The *Available* list shows all the flavours available for your chosen boot image. Click on the > icon at the far left of a row to see how that particular flavour matches up with what you have been allocated for your project. If there is an alert icon on one of the specifications, that means that your project does not have enough of that resource to support that flavour. Choose a flavour that your project can support (i.e., does not issue an alert) and click on the upwards arrow on the far right of that row. That flavour should now show up in the *Allocated* list. For more details, see [Virtual machine flavours](virtual-machine-flavors.md).
+    *   *Allocated* and *Available* lists: The flavour determines what type of hardware is used for your VM, which determines how much memory and processing capabilities it has. The *Available* list shows all the flavours available for your chosen boot image. Click on the > icon at the far left of a row to see how that particular flavour matches up with what you have been allocated for your project. If there is an alert icon on one of the specifications, that means that your project does not have enough of that resource to support that flavour. Choose a flavour that your project can support (i.e., does not issue an alert) and click on the upwards arrow on the far right of that row. That flavour should now show up in the *Allocated* list. For more details, see [Virtual machine flavours](virtual_machine_flavors.md).
 
 4.  *Networks:* Do not change this unless required. On Arbutus, select your project network by default (usually starting with *def-project-name*).
 
 5.  *Network Ports:* Do not change this now.
 
-6.  *Security Groups:* The default security group should be in the *Allocated* list. If it is not, move it from *Available* to *Allocated* using the upwards arrow located on the far right of the group's row. For more information, see [Security Groups](managing-your-cloud-resources-with-openstack.md#security-groups).
+6.  *Security Groups:* The default security group should be in the *Allocated* list. If it is not, move it from *Available* to *Allocated* using the upwards arrow located on the far right of the group's row. For more information, see [Security Groups](managing_your_cloud_resources_with_openstack.md#security-groups).
 
-7.  *Key Pair:* From the *Available* list, select the SSH key pair you created earlier by clicking the upwards arrow on the far right of its row. If you do not have a key pair, you can create or import one from this window using the buttons at the top of the window (please [see above](#ssh-key-pair)). For more detailed information on managing and using key pairs, see [SSH Keys](ssh-keys.md).
+7.  *Key Pair:* From the *Available* list, select the SSH key pair you created earlier by clicking the upwards arrow on the far right of its row. If you do not have a key pair, you can create or import one from this window using the buttons at the top of the window (please [see above](#ssh-key-pair)). For more detailed information on managing and using key pairs, see [SSH Keys](../getting-started/ssh_keys.md).
 
-8.  *Configuration:* Do not change this now. For more information on customization scripts, see [Using CloudInit](automating-vm-creation.md#using-cloudinit).
+8.  *Configuration:* Do not change this now. For more information on customization scripts, see [Using CloudInit](automating_vm_creation.md#using-cloudinit).
 
 9.  *Server Groups:* Do not change this now.
 
@@ -253,7 +253,7 @@ On the *Instances* page is a list of VMs with their IP address(es) displayed in 
 3.  Important notes
 
     !!! warning "Do Not Remove Default Security Rules"
-        Do not remove the default security rules as this will affect the ability of your VM to function properly (see [Security Groups](managing-your-cloud-resources-with-openstack.md#security-groups)).
+        Do not remove the default security rules as this will affect the ability of your VM to function properly (see [Security Groups](managing_your_cloud_resources_with_openstack.md#security-groups)).
 
     !!! warning "Security Rules Cannot Be Edited"
         Security rules cannot be edited; they can only be deleted and re-added. If you make a mistake when creating a security group rule, you need to delete it using the *Delete Rule* button on the far left of the row for that rule in the security groups screen, and then re-add it correctly from scratch using the *+Add Rule* button.
@@ -291,7 +291,7 @@ These default users have full sudo privileges. Connecting directly to the root a
 
 ### Connecting from a Windows machine
 
-If you want to use a Windows computer to connect to your VM, you will need to have an interface application to handle the SSH connection. We recommend **MobaXTerm**, and will show the instructions for connecting with MobaXTerm below. If you want to connect using PuTTY instead, see [Connecting with PuTTY](connecting-with-putty.md).
+If you want to use a Windows computer to connect to your VM, you will need to have an interface application to handle the SSH connection. We recommend **MobaXTerm**, and will show the instructions for connecting with MobaXTerm below. If you want to connect using PuTTY instead, see [Connecting with PuTTY](../getting-started/connecting_with_putty.md).
 
 To download MobaXterm, [click here](http://mobaxterm.mobatek.net/).
 
@@ -308,20 +308,20 @@ To connect to your VM using MobaXterm, follow these instructions:
 
 ## Where to go from here
 
-*   Learn about using the [Linux command line](linux-introduction.md) in your VM
-*   Learn about [security considerations when running a VM](security-considerations-when-running-a-vm.md)
-*   See [configuring a data or web server](configuring-a-data-or-web-server.md)
-*   Learn more about working with [OpenStack](managing-your-cloud-resources-with-openstack.md)
-*   [Cloud Technical Glossary](cloud-technical-glossary.md)
-*   [Automating VM creation](automating-vm-creation.md)
-*   [Backing up your VM](backing-up-your-vm.md)
-*   For questions about our cloud service, email [technical support](technical-support.md).
+*   Learn about using the [Linux command line](../getting-started/linux_introduction.md) in your VM
+*   Learn about [security considerations when running a VM](security_considerations_when_running_a_vm.md)
+*   See [configuring a data or web server](configuring_a_data_or_web_server.md)
+*   Learn more about working with [OpenStack](managing_your_cloud_resources_with_openstack.md)
+*   [Cloud Technical Glossary](cloud_technical_glossary.md)
+*   [Automating VM creation](automating_vm_creation.md)
+*   [Backing up your VM](backing_up_your_vm.md)
+*   For questions about our cloud service, email [technical support](../support/technical_support.md).
 
 === "Windows"
 
 ## Request access to a Windows image
 
-To create a Windows VM on one of our clouds, you must first request access to a Windows image by emailing [technical support](technical-support.md).
+To create a Windows VM on one of our clouds, you must first request access to a Windows image by emailing [technical support](../support/technical_support.md).
 
 You will be provided access to a Windows Server 2012 Evaluation image and a username to use when connecting. The evaluation period is 180 days. It may be possible to apply a Windows license to a running VM created from this evaluation image; however, we do not provide these licenses.
 
@@ -351,7 +351,7 @@ A form is displayed where you define your virtual machine.
     *   *Instance Name*: Enter a name for your virtual machine. For details on naming rules, see [restrictions on valid host names](https://en.wikipedia.org/wiki/Hostname).
     *   *Flavor*: The flavour defines virtual machine hardware specifications; choose the `p2-3gb` flavour.
 
-        The Windows image is quite large and requires a large bootable drive. C-flavours, as described [here](virtual-machine-flavors.md), only have root drives of 20 GB; choosing a "p" flavour allows for larger root volumes. The smallest "p" flavour has 1.5 GB of RAM and from experience this is too little to run Windows well. Choosing a slightly larger flavour, such as `p2-3gb`, improves the performance of the VM.
+        The Windows image is quite large and requires a large bootable drive. C-flavours, as described [here](virtual_machine_flavors.md), only have root drives of 20 GB; choosing a "p" flavour allows for larger root volumes. The smallest "p" flavour has 1.5 GB of RAM and from experience this is too little to run Windows well. Choosing a slightly larger flavour, such as `p2-3gb`, improves the performance of the VM.
 
     *   *Instance Count*: Number of virtual machines to create.
     *   *Instance Boot Source*: What source should be used to boot the VM; choose *Boot from Image (creates new volume)*.
@@ -508,7 +508,7 @@ Once you have installed and launched Remmina to connect to your Windows VM:
 
 ## Comments on key pairs
 
-There are a couple different formats for key files and you can also choose to protect your private keys with passphrases or not. In order to be able to decrypt the Windows VM password, your private key must be in OpenSSH format and not have a passphrase. If you created your key pair with OpenStack and downloaded the `.pem` key file, it will already be in the correct format. If you used the [**ssh-keygen** command](using-ssh-keys-in-linux.md) to create your key pair and did not specify a passphrase, it will also likely be in the correct format. For more general information about key pairs, see the [SSH Keys](ssh-keys.md) page.
+There are a couple different formats for key files and you can also choose to protect your private keys with passphrases or not. In order to be able to decrypt the Windows VM password, your private key must be in OpenSSH format and not have a passphrase. If you created your key pair with OpenStack and downloaded the `.pem` key file, it will already be in the correct format. If you used the [**ssh-keygen** command](../getting-started/using_ssh_keys_in_linux.md) to create your key pair and did not specify a passphrase, it will also likely be in the correct format. For more general information about key pairs, see the [SSH Keys](../getting-started/ssh_keys.md) page.
 
 An example of an acceptable private key in the OpenSSH format without a passphrase:
 
@@ -549,10 +549,10 @@ QJX/qgGp0=
 
 ## Where to go from here
 
-*   Learn about [security considerations when running a VM](security-considerations-when-running-a-vm.md)
+*   Learn about [security considerations when running a VM](security_considerations_when_running_a_vm.md)
 *   Learn about [creating a Linux VM](creating-a-linux-vm.md)
-*   Learn more about working with [OpenStack](managing-your-cloud-resources-with-openstack.md)
-*   [Cloud Technical Glossary](cloud-technical-glossary.md)
-*   [Automating VM creation](automating-vm-creation.md)
-*   [Backing up your VM](backing-up-your-vm.md)
-*   For questions about our cloud service, email [technical support](technical-support.md).
+*   Learn more about working with [OpenStack](managing_your_cloud_resources_with_openstack.md)
+*   [Cloud Technical Glossary](cloud_technical_glossary.md)
+*   [Automating VM creation](automating_vm_creation.md)
+*   [Backing up your VM](backing_up_your_vm.md)
+*   For questions about our cloud service, email [technical support](../support/technical_support.md).

@@ -86,7 +86,7 @@ You can log in to the CPU subcluster of Trillium by SSHing to `trillium.alliance
 $ ssh USERNAME@trillium.alliancecan.ca
 ```
 
-The first time you log in, please make sure you are actually accessing Trillium by checking if the [login node SSH host key fingerprint](ssh-security-improvements.md#trillium) matches. As was the case on Niagara and Mist, you will need to use [SSH Keys](ssh-keys.md) and have MFA enabled on your CCDB account. This will get you onto one of six CPU login nodes called tri-login01-6. These login nodes do not have GPUs and **can only submit jobs to CPU compute nodes**.
+The first time you log in, please make sure you are actually accessing Trillium by checking if the [login node SSH host key fingerprint](../getting-started/ssh_security_improvements.md#trillium) matches. As was the case on Niagara and Mist, you will need to use [SSH Keys](../getting-started/ssh_keys.md) and have MFA enabled on your CCDB account. This will get you onto one of six CPU login nodes called tri-login01-6. These login nodes do not have GPUs and **can only submit jobs to CPU compute nodes**.
 
 To access the GPU subcluster of Trillium, you should log into `trillium-gpu.alliancecan.ca` (also with SSH keys and MFA):
 
@@ -120,7 +120,7 @@ Trillium consists of two homogeneous subclusters, a CPU subcluster and a GPU sub
 
 Each compute node of the CPU subcluster has 192 cores (Niagara had 40) and 755 GB of available memory (Niagara had 188 GB). The CPUs are AMD Zen 5 chips - a.k.a. Turin (Niagara had Intel Skylake and Cascaselake chips). There are 1224 compute nodes in the Trillium CPU subcluster, for a total of 235,008 cores.
 
-If you were compiling code that used math and linear algebra routines from the Intel MKL, we suggest you switch to [Flexiblas](blas-and-lapack.md), or use the AMD AOCL libraries directly; these are available in the `aocl-blas` and `aocl-lapack` modules.
+If you were compiling code that used math and linear algebra routines from the Intel MKL, we suggest you switch to [Flexiblas](../programming/blas_and_lapack.md), or use the AMD AOCL libraries directly; these are available in the `aocl-blas` and `aocl-lapack` modules.
 
 ### GPUs
 
@@ -214,6 +214,6 @@ If you had Anaconda virtual environments, you will find that there is no Anacond
 
 ## Training, documentation, and support
 
-*   New quickstart: [Trillium Quickstart](trillium-quickstart.md)
+*   New quickstart: [Trillium Quickstart](trillium_quickstart.md)
 *   Support email: [trillium@tech.alliancecan.ca](mailto:trillium@tech.alliancecan.ca)
 *   Self-guided "[Intro to SciNet and Trillium](https://education.scinet.utoronto.ca/course/view.php?id=1389)"

@@ -137,7 +137,7 @@ Une fois l'exécutable `cg.x` créé, nous allons profiler son code source. Le p
     Dans ce tutoriel, nous utilisons deux profileurs :
 
     *   **[`nvprof` de NVIDIA](https://docs.nvidia.com/cuda/profiler-users-guide/)**, un profileur en ligne de commande capable d'analyser des codes non GPU
-    *   **[`nvvp` (NVIDIA Visual Profiler)](openacc-tutorial-adding-directives.md#nvidia-visual-profiler)**, un outil d'analyse multiplateforme pour des programmes écrits avec OpenACC et CUDA C/C++.
+    *   **[`nvvp` (NVIDIA Visual Profiler)](openacc_tutorial_-_adding_directives.md#nvidia-visual-profiler)**, un outil d'analyse multiplateforme pour des programmes écrits avec OpenACC et CUDA C/C++.
     Puisque `cg.x` que nous avons construit n'utilise pas encore le GPU, nous allons commencer l'analyse avec le profileur `nvprof`.
 
 ### Profileur en ligne de commande NVIDIA nvprof
@@ -362,4 +362,4 @@ On trouvera les dépendances de données en se posant les questions suivantes :
 
 Maintenant que le code est analysé, nous pouvons ajouter des directives au compilateur.
 
-[<- Page précédente, *Introduction*](openacc-tutorial-introduction.md) | [^- Retour au début du tutoriel](openacc-tutorial.md) | [Page suivante, *Ajouter des directives* ->](openacc-tutorial-adding-directives.md)
+[<- Page précédente, *Introduction*](openacc_tutorial_-_introduction.md) | [^- Retour au début du tutoriel](openacc_tutorial.md) | [Page suivante, *Ajouter des directives* ->](openacc_tutorial_-_adding_directives.md)

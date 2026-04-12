@@ -169,7 +169,7 @@ Vous pouvez exécuter PyKeOps sur un CPU ou un GPU.
     ```
     ```
 
-2.  Pour savoir si votre script contient des erreurs, testez-le avec une [tâche interactive](running-jobs.md#tâches-interactives).
+2.  Pour savoir si votre script contient des erreurs, testez-le avec une [tâche interactive](../running-jobs/running_jobs.md#tâches-interactives).
 
 3.  Soumettez la tâche à l'ordonnanceur.
 

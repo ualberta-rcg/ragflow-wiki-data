@@ -57,7 +57,7 @@ You should be able to load the module with:
 module load castep
 ```
 
-On a compute node, the CASTEP executable can be used like an [MPI application](running-jobs.md#mpi-job):
+On a compute node, the CASTEP executable can be used like an [MPI application](../running-jobs/running_jobs.md#mpi-job):
 
 ```bash
 srun castep.mpi seedname

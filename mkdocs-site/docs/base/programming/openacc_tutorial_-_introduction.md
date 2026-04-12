@@ -97,4 +97,4 @@ Much similarly, we can split the task of porting a code to accelerators into the
 
 OpenACC can be a rather *descriptive* language. This means that the programmer can tell the compiler that he thinks a given portion of the code can be parallelized, and let the compiler figure out exactly how to do it. This is done by adding a few directives to the code (i.e. *express parallelism* in the above list). However, the quality of the compiler will greatly change the achieved performance. Even with the best compilers, there may be unnecessary data movement that needs to get taken out. This is what the programmer will do in the *express data movement* phase. Finally, the programmer may have information that is not available to the compiler which would allow him to achieve better performance by tuning the loops. This is what is done in the *optimize loops* step.
 
-[^- Back to the lesson plan](openacc-tutorial.md) | [Onward to the next unit: *Profiling* ->](openacc-tutorial-profiling.md)
+[^- Back to the lesson plan](openacc_tutorial.md) | [Onward to the next unit: *Profiling* ->](openacc_tutorial_-_profiling.md)

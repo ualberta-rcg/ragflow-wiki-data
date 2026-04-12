@@ -278,7 +278,7 @@ The following versions have been installed:
 | gromacs/2020.4 | `StdEnv/2020 gcc/9.3.0 openmpi/4.0.3 gromacs/2020.4` | `StdEnv/2020 gcc/9.3.0 cuda/11.0 openmpi/4.0.3 gromacs/2020.4` | GCC & MKL |
 === "StdEnv/2018.3"
 !!! warning "Deprecated"
-    This [software environment](standard-software-environments.md) is no longer supported.
+    This [software environment](../programming/standard_software_environments.md) is no longer supported.
 | GROMACS version | modules for running on CPUs | modules for running on GPUs (CUDA) | Notes |
 | :-------------- | :-------------------------- | :--------------------------------- | :---- |
 | gromacs/2020.2 | `StdEnv/2018.3 gcc/7.3.0 openmpi/3.1.2 gromacs/2020.2` | `StdEnv/2018.3 gcc/7.3.0 cuda/10.0.130 openmpi/3.1.2 gromacs/2020.2` | GCC & MKL |
@@ -287,7 +287,7 @@ The following versions have been installed:
 | gromacs/2018.7 | `StdEnv/2018.3 gcc/7.3.0 openmpi/3.1.2 gromacs/2018.7` | `StdEnv/2018.3 gcc/7.3.0 cuda/10.0.130 openmpi/3.1.2 gromacs/2018.7` | GCC & MKL |
 === "StdEnv/2016.4"
 !!! warning "Deprecated"
-    This [software environment](standard-software-environments.md) is no longer supported.
+    This [software environment](../programming/standard_software_environments.md) is no longer supported.
 | GROMACS version | modules for running on CPUs | modules for running on GPUs (CUDA) | Notes |
 | :-------------- | :-------------------------- | :--------------------------------- | :---- |
 | gromacs/2018.3 | `StdEnv/2016.4 gcc/6.4.0 openmpi/2.1.1 gromacs/2018.3` | `StdEnv/2016.4 gcc/6.4.0 cuda/9.0.176 openmpi/2.1.1 gromacs/2018.3` | GCC & FFTW |
@@ -307,7 +307,7 @@ The following versions have been installed:
 *   GROMACS versions 2020.0 up to and including 2021.5 contain a bug when used on GPUs of Volta or newer generations (i.e. V100, T4, A100, and H100) with `mdrun` option `-update gpu` that could have perturbed the virial calculation and, in turn, led to incorrect pressure coupling. The GROMACS developers state in the 2021.6 Release Notes:[^1]
     > ''The GPU update is not enabled by default, so the error can only appear in simulations where it [the `-update gpu` option] was manually selected, and even in this case the error might be rare since we have not observed it in practice in the testing we have performed.''
     Further discussion of this bug can be found in the GitLab issue #4393 of the GROMACS project.[^2]
-*   Version 2020.4 and newer have been compiled for the new [Standard software environment](standard-software-environments.md) `StdEnv/2020`.
+*   Version 2020.4 and newer have been compiled for the new [Standard software environment](../programming/standard_software_environments.md) `StdEnv/2020`.
 *   Version 2018.7 and newer have been compiled with GCC compilers and the MKL-library, as they run a bit faster.
 *   Older versions have been compiled with either with GCC compilers and FFTW or Intel compilers, using Intel MKL and Open MPI 2.1.1 libraries from the default environment as indicated in the table above.
 *   CPU (non-GPU) versions are available in both single- and double precision, with the exception of 2019.3 (**†**), where double precision is not available for AVX512.
@@ -349,7 +349,7 @@ GROMACS 5 and newer releases consist of only four binaries that contain the full
     *   `mdrun_mpi_d`
 
 ## Submission scripts
-Please refer to the page [Running jobs](running-jobs.md) for help on using the SLURM workload manager.
+Please refer to the page [Running jobs](../running-jobs/running_jobs.md) for help on using the SLURM workload manager.
 
 ### Serial jobs
 Here's a simple job script for serial mdrun:
@@ -448,7 +448,7 @@ srun --cpus-per-task=$OMP_NUM_THREADS gmx_mpi mdrun -deffnm md
 
 ### GPU job
 
-Please read [Using GPUs with Slurm](using-gpus-with-slurm.md) for general information on using GPUs on our systems.
+Please read [Using GPUs with Slurm](../running-jobs/using_gpus_with_slurm.md) for general information on using GPUs on our systems.
 
 This is a job script for mdrun using 4 OpenMP threads and one GPU:
 
@@ -473,7 +473,7 @@ Note that using more than a single GPU usually leads to poor efficiency. Careful
     > ''The GPU update is not enabled by default, so the error can only appear in simulations where it was manually selected, and even in this case the error might be rare since we have not observed it in practice in the testing we have performed.''
     Further discussion of this bug can be found in the GitLab issue #4393 of the GROMACS project.[^2]
 *   Our clusters have differently configured GPU nodes.
-    On the page [Using GPUs with Slurm#Available GPUs](using-gpus-with-slurm.md#available-gpus) you can find more information about the different node configurations (GPU models and number of GPUs and CPUs per node).
+    On the page [Using GPUs with Slurm#Available GPUs](../running-jobs/using_gpus_with_slurm.md#available-gpus) you can find more information about the different node configurations (GPU models and number of GPUs and CPUs per node).
 *   GROMACS imposes a number of constraints for choosing the number of GPUs, tasks (MPI ranks), and OpenMP threads.
     For GROMACS 2018.2 the constraints are:
     *   The number of `--tasks-per-node` always needs to be the same as, or a multiple of the number of GPUs (`--gpus-per-node`).
@@ -516,13 +516,13 @@ srun gmx_mpi mdrun -ntomp ${SLURM_CPUS_PER_TASK:-1} -deffnm md \
 ```
 ```
 
-The second solution is to use a [MIG](multi-instance-gpu.md) instance (a fraction of a GPU) rather than a full GPU. This is the preferred solution if you have a single simulation or if your simulations are dissimilar, for instance:
+The second solution is to use a [MIG](../programming/multi-instance_gpu.md) instance (a fraction of a GPU) rather than a full GPU. This is the preferred solution if you have a single simulation or if your simulations are dissimilar, for instance:
 
 *   Systems with different sizes (more than a 10% difference in the numbers of atoms)
 *   Systems with different shapes or compositions, such as a membrane-bound versus a soluble protein
 
 !!! warning
-    Note that [Hyper-Q / MPS](hyper-q-mps.md) should never be used with GROMACS. The built-in `-multidir` option achieves the same functionality more efficiently.
+    Note that [Hyper-Q / MPS](hyper-q___mps.md) should never be used with GROMACS. The built-in `-multidir` option achieves the same functionality more efficiently.
 
 ## System preparation
 In order to run a simulation, one needs to create a `tpr` file (portable binary run input file). This file contains the starting structure of the simulation, the molecular topology, and all the simulation parameters.
@@ -536,7 +536,7 @@ In order to run a simulation, one needs to create a `tpr` file (portable binary 
 
 ## Running simulations
 
-MD Simulations often take much longer than the maximum walltime for a job to complete and therefore need to be restarted. To minimize the time a job needs to wait before it starts, you should maximize [the number of nodes you have access to](job-scheduling-policies.md#percentage-of-the-nodes-you-have-access-to) by choosing a shorter running time for your job. Requesting a walltime of 24 hours or 72 hours (three days) is often a good trade-off between waiting time and running time.
+MD Simulations often take much longer than the maximum walltime for a job to complete and therefore need to be restarted. To minimize the time a job needs to wait before it starts, you should maximize [the number of nodes you have access to](../running-jobs/job_scheduling_policies.md#percentage-of-the-nodes-you-have-access-to) by choosing a shorter running time for your job. Requesting a walltime of 24 hours or 72 hours (three days) is often a good trade-off between waiting time and running time.
 
 You should use the `mdrun` parameter `-maxh` to tell the program the requested walltime so that it gracefully finishes the current timestep when reaching 99% of this walltime. This causes `mdrun` to create a new checkpoint file at this final timestep and gives it the chance to properly close all output files (trajectories, energy- and log-files, etc.).
 
@@ -578,9 +578,9 @@ srun  gmx_mpi  mdrun  -deffnm md  -maxh 24.0  -cpi md.cpt
 
 ### Checkpointing simulations
 
-You can use GROMACS’ ability to restart a simulation to split a long simulation over multiple short jobs. Shorter jobs wait less in the queue. In particular, those that request 3 hours or less are eligible for backfill scheduling. (See our [job scheduling policies](job-scheduling-policies.md).) This is especially useful if your research group has only a default resource allocation (e.g. `def-sponsor`) on the cluster, but will benefit even those with competitive resource allocations (e.g. `rrg-sponsor`).
+You can use GROMACS’ ability to restart a simulation to split a long simulation over multiple short jobs. Shorter jobs wait less in the queue. In particular, those that request 3 hours or less are eligible for backfill scheduling. (See our [job scheduling policies](../running-jobs/job_scheduling_policies.md).) This is especially useful if your research group has only a default resource allocation (e.g. `def-sponsor`) on the cluster, but will benefit even those with competitive resource allocations (e.g. `rrg-sponsor`).
 
-By using a [job array](job-arrays.md), you can automate checkpointing. With an array job script such as the following, a single `sbatch` call submits multiple short jobs, but only the first one is eligible to start. As soon as this first job has completed, the next one becomes eligible to start and resume your simulation. This process repeats until all jobs are complete or the simulation is finished, at which point any remaining pending jobs are automatically cancelled.
+By using a [job array](../running-jobs/job_arrays.md), you can automate checkpointing. With an array job script such as the following, a single `sbatch` call submits multiple short jobs, but only the first one is eligible to start. As soon as this first job has completed, the next one becomes eligible to start and resume your simulation. This process repeats until all jobs are complete or the simulation is finished, at which point any remaining pending jobs are automatically cancelled.
 
 ```tabs
 === "Whole nodes (Narval)"
@@ -730,7 +730,7 @@ These commands will typically read the trajectory (in the `XTC`, `TNG` or `TRR` 
 
 ## Using Python
 
-[MDAnalysis](https://www.mdanalysis.org/) and [MDTraj](https://www.mdtraj.org/) are two [Python](python.md) packages that we provide as [precompiled Python wheels](available-python-wheels.md). They can read and write trajectory and coordinate files of GROMACS (`TRR` and `XTC`) and many other MD packages and also include a variety of commonly used analysis functions. `MDAnalysis` can also read topology information from GROMACS `TPR` files, though often not those created by the latest versions of GROMACS.
+[MDAnalysis](https://www.mdanalysis.org/) and [MDTraj](https://www.mdtraj.org/) are two [Python](python.md) packages that we provide as [precompiled Python wheels](../programming/available_python_wheels.md). They can read and write trajectory and coordinate files of GROMACS (`TRR` and `XTC`) and many other MD packages and also include a variety of commonly used analysis functions. `MDAnalysis` can also read topology information from GROMACS `TPR` files, though often not those created by the latest versions of GROMACS.
 
 Both packages feature a versatile atom-selection language and expose the coordinates of the trajectories, which makes it very easy to write custom analysis tools that can be tailored to a specific problem and integrate well with Python's data-science packages like `NumPy`, `SciPy`, and `Pandas`, as well as plotting libraries like `Matplotlib`/`Pyplot` and `Seaborn`.
 
@@ -760,7 +760,7 @@ Also note that `gromacs` modules version 2025 and newer have native PLUMED suppo
 | v2019.6 | v2.6.2 | `StdEnv/2020 gcc/9.3.0 openmpi/4.0.3 gromacs-plumed/2019.6` | `StdEnv/2020 gcc/9.3.0 cuda/11.0 openmpi/4.0.3 gromacs-plumed/2019.6` | GCC & MKL |
 === "StdEnv/2018 and StdEnv/2016"
 !!! warning "Deprecated"
-    These [software environments](standard-software-environments.md) are no longer supported.
+    These [software environments](../programming/standard_software_environments.md) are no longer supported.
 | GROMACS | PLUMED | modules for running on CPUs | modules for running on GPUs (CUDA) | Notes |
 | :------ | :----- | :-------------------------- | :--------------------------------- | :---- |
 | v2019.6 | v2.5.4 | `StdEnv/2018.3 gcc/7.3.0 openmpi/3.1.2 gromacs-plumed/2019.6` | `StdEnv/2018.3 gcc/7.3.0 cuda/10.0.130 openmpi/3.1.2 gromacs-plumed/2019.6` | GCC & MKL |
@@ -852,7 +852,7 @@ Please refer to the [GROMACS-SWAXS Documentation](https://cbjh.gitlab.io/gromacs
 ## G_MMPBSA
 
 !!! warning "Deprecated"
-    The [software environment](standard-software-environments.md) StdEnv/2016.4 is no longer supported. `g_mmpbsa` has not been updated since April 2016. Consider using `gmx_MMPBSA`[^21] instead.
+    The [software environment](../programming/standard_software_environments.md) StdEnv/2016.4 is no longer supported. `g_mmpbsa` has not been updated since April 2016. Consider using `gmx_MMPBSA`[^21] instead.
 
 `G_MMPBSA`[^22] is a tool that calculates components of binding energy using MM-PBSA method except the entropic term and energetic contribution of each residue to the binding using energy decomposition scheme.
 
@@ -955,7 +955,7 @@ source venv_gmxMMPBSA/bin/activate
 ```
 
 # Links
-[Biomolecular simulation](biomolecular-simulation.md)
+[Biomolecular simulation](molecular-sim/biomolecular_simulation.md)
 
 *   Project resources
     *   Main Website: <http://www.gromacs.org/>

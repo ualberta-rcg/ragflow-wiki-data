@@ -39,7 +39,7 @@ MLflow is an open-source **experiment tracking** and **observability** platform 
 
 ## On JupyterHub
 
-On clusters where [JupyterHub](jupyterhub.md) is available, you can launch MLflow by clicking on the following icon on an active launcher tab:
+On clusters where [JupyterHub](../../interactive/jupyterhub.md) is available, you can launch MLflow by clicking on the following icon on an active launcher tab:
 
 This will open the application on a new tab on your web browser. Switch to that tab to start using MLflow.
 
@@ -48,7 +48,7 @@ Upon launching MLflow on JupyterHub, a new file named `mlruns.db` will be create
 !!! warning
     Note that, since MLFlow will be using a Sqlite database as a backend to store metrics, it is **not recommended to track more than one experiment at a time** when using MLFlow on JupyterHub. Sqlite is not designed to have multiple processes write to the same database at the same time safely - attempting to do so may result in deadlocks and lead to your code hanging until the end of your session.
 
-To track an experiment in real time on JupyterHub, first you will need to install the `mlflow` package. To do this, load the [Arrow](arrow.md) module by clicking on the modules menu (the cube-looking icon on the left-hand side menu), searching for the name "arrow", selecting the desired version of the module and clicking on "load".
+To track an experiment in real time on JupyterHub, first you will need to install the `mlflow` package. To do this, load the [Arrow](../arrow.md) module by clicking on the modules menu (the cube-looking icon on the left-hand side menu), searching for the name "arrow", selecting the desired version of the module and clicking on "load".
 
 Next, you can install the `mlflow` package directly in a cell on your notebook with:
 

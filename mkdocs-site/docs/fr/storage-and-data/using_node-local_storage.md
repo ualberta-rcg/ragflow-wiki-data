@@ -50,9 +50,9 @@ status:
   qa_generated: false
 ---
 
-Quand [l'ordonnanceur Slurm démarre une tâche](running-jobs.md), un répertoire temporaire est créé sur chacun des nœuds qui sont assignés à cette tâche. Par la variable d'environnement `SLURM_TMPDIR`, Slurm configure ensuite le chemin complet pour ce répertoire.
+Quand [l'ordonnanceur Slurm démarre une tâche](../running-jobs/running_jobs.md), un répertoire temporaire est créé sur chacun des nœuds qui sont assignés à cette tâche. Par la variable d'environnement `SLURM_TMPDIR`, Slurm configure ensuite le chemin complet pour ce répertoire.
 
-Parce que ce répertoire se trouve sur un disque local, les opérations en entrée et en sortie (I/O) sont presque toujours plus rapides qu'avec le [stockage sur le réseau](storage-and-file-management.md) (`/project`, `/scratch` et `/home`). En particulier, le stockage sur disque local est à privilégier pour les transactions fréquentes de petites quantités de données. Toutes les tâches qui font beaucoup de lecture et d'écriture (ce qui est le cas pour la plupart des tâches) seront probablement exécutées plus rapidement en utilisant `$SLURM_TMPDIR` plutôt que le stockage sur le réseau.
+Parce que ce répertoire se trouve sur un disque local, les opérations en entrée et en sortie (I/O) sont presque toujours plus rapides qu'avec le [stockage sur le réseau](storage_and_file_management.md) (`/project`, `/scratch` et `/home`). En particulier, le stockage sur disque local est à privilégier pour les transactions fréquentes de petites quantités de données. Toutes les tâches qui font beaucoup de lecture et d'écriture (ce qui est le cas pour la plupart des tâches) seront probablement exécutées plus rapidement en utilisant `$SLURM_TMPDIR` plutôt que le stockage sur le réseau.
 
 De par sa nature temporaire, `$SLURM_TMPDIR` est plus compliqué à utiliser que le stockage sur le réseau. Les données en entrée doivent être copiées du réseau à `$SLURM_TMPDIR` avant qu'elles puissent être lues et les données en sortie doivent être copiées de `$SLURM_TMPDIR` au réseau avant que la tâche soit terminée pour que ces données soient conservées.
 
@@ -70,7 +70,7 @@ Cependant, ceci pourrait ne pas fonctionner avec une grande quantité de donnée
 
 Un cas particulier se présente avec du code comme donnée en entrée. Pour exécuter une application, l'interpréteur (*shell*) démarré par Slurm doit ouvrir au moins un des fichiers de cette application dont la lecture s'effectue généralement sur l'espace de stockage du réseau. Il est rare qu'une application ne soit lancée qu'avec un seul fichier; en effet, la plupart des applications font aussi appel à plusieurs fichiers, par exemple des bibliothèques.
 
-Nous remarquons en particulier que les applications exécutées dans un environnement virtuel [Python](python.md) génèrent un très grand nombre de transactions I/O, plus qu'il n'en faut d'ailleurs pour créer l'environnement virtuel lui-même. C'est pourquoi notre recommandation est de [créer un environnement virtuel dans vos tâches](python.md#creer-un-environnement-virtuel-dans-vos-taches) avec `$SLURM_TMPDIR`.
+Nous remarquons en particulier que les applications exécutées dans un environnement virtuel [Python](../software/python.md) génèrent un très grand nombre de transactions I/O, plus qu'il n'en faut d'ailleurs pour créer l'environnement virtuel lui-même. C'est pourquoi notre recommandation est de [créer un environnement virtuel dans vos tâches](../software/python.md#creer-un-environnement-virtuel-dans-vos-taches) avec `$SLURM_TMPDIR`.
 
 ## Données en sortie
 
@@ -122,17 +122,17 @@ srun --ntasks=$SLURM_NNODES --ntasks-per-node=1 tar -xvf archive.tar.gz -C $SLUR
 
 ## Espace disponible
 
-Dans le cas de [Trillium](trillium.md), `$SLURM_TMPDIR` est implémenté comme *RAMdisk*; l'espace disponible est donc limité par la mémoire du nœud, moins la capacité de RAM utilisée par votre application.
+Dans le cas de [Trillium](../clusters/trillium.md), `$SLURM_TMPDIR` est implémenté comme *RAMdisk*; l'espace disponible est donc limité par la mémoire du nœud, moins la capacité de RAM utilisée par votre application.
 
 Pour les grappes d'usage général, la quantité d'espace disponible dépend de la grappe et du nœud auquel votre tâche est assignée.
 
 | Grappe | Capacité `$SLURM_TMPDIR` | Capacité des disques |
 | :----- | :----------------------- | :------------------- |
-| [Fir](fir.md) | 7T | 7.84T |
-| [Narval](narval.md) | 800G | 960G, 3.84T |
-| [Nibi](nibi.md) | 3T | 3T, 11T |
-| [Rorqual](rorqual.md) | 375G | 480G, 3.84T |
+| [Fir](../software/fir.md) | 7T | 7.84T |
+| [Narval](../clusters/narval.md) | 800G | 960G, 3.84T |
+| [Nibi](../clusters/nibi.md) | 3T | 3T, 11T |
+| [Rorqual](../clusters/rorqual.md) | 375G | 480G, 3.84T |
 
-Si votre tâche réserve des [nœuds entiers](advanced-mpi-scheduling.md#noeuds-entiers), il est raisonnable de penser qu'autant d'espace `$SLURM_TMPDIR` sera disponible sur chaque nœud. Par contre, si votre tâche demande moins qu'un nœud entier, les autres tâches pourront aussi écrire dans le même système de fichiers (mais non dans le même répertoire) et ainsi limiter l'espace disponible pour votre tâche.
+Si votre tâche réserve des [nœuds entiers](../running-jobs/advanced_mpi_scheduling.md#noeuds-entiers), il est raisonnable de penser qu'autant d'espace `$SLURM_TMPDIR` sera disponible sur chaque nœud. Par contre, si votre tâche demande moins qu'un nœud entier, les autres tâches pourront aussi écrire dans le même système de fichiers (mais non dans le même répertoire) et ainsi limiter l'espace disponible pour votre tâche.
 
-À chacun des sites, certains nœuds ont plus d'espace disque local qu'indiqué dans le tableau; voyez la section *Caractéristiques des nœuds* pour chacune des grappes ([Fir](fir.md), [Narval](narval.md), [Nibi](nibi.md), [Rorqual](rorqual.md)).
+À chacun des sites, certains nœuds ont plus d'espace disque local qu'indiqué dans le tableau; voyez la section *Caractéristiques des nœuds* pour chacune des grappes ([Fir](../software/fir.md), [Narval](../clusters/narval.md), [Nibi](../clusters/nibi.md), [Rorqual](../clusters/rorqual.md)).

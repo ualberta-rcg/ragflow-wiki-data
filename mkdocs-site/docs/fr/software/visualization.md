@@ -174,7 +174,7 @@ si vous travaillez avec un CPU
 xvfb-run vglrun -d egl <name-of-application>
 ```
 
-si vous travaillez avec un GPU. Dans ce cas, vous devez réserver un GPU (voir [Ordonnancement Slurm des tâches exécutées avec GPU](using-gpus-with-slurm.md)).
+si vous travaillez avec un GPU. Dans ce cas, vous devez réserver un GPU (voir [Ordonnancement Slurm des tâches exécutées avec GPU](../running-jobs/using_gpus_with_slurm.md)).
 
 !!! note "Performance des GPU"
     Si le GPU est surchargé, il pourrait ne pas être plus rapide qu'un CPU. L'étalonnage est donc important pour éviter d'utiliser des GPU qui sont plus coûteux.
@@ -184,7 +184,7 @@ si vous travaillez avec un GPU. Dans ce cas, vous devez réserver un GPU (voir [
 !!! tip "Recommandation pour MATLAB et applications similaires"
     Il peut souvent être utile de démarrer une interface utilisateur graphique pour certaines applications comme MATLAB. Cependant, le faire par redirection X peut ralentir considérablement la connexion au serveur. Nous recommandons d'utiliser VNC pour démarrer et se connecter à distance à ces applications.
 
-Pour plus d'information, voyez la [page VNC](vnc.md).
+Pour plus d'information, voyez la [page VNC](../interactive/vnc.md).
 
 ## Formation
 
@@ -235,4 +235,4 @@ Vous pouvez ajouter ici vos propres scripts et autres renseignements qui ne se t
 *   [utiliser ParaView](https://oldwiki.scinet.utoronto.ca/wiki/index.php/Using_Paraview)
 
 ## Dépannage
-Contactez le [soutien technique](technical-support.md).
+Contactez le [soutien technique](../support/technical_support.md).

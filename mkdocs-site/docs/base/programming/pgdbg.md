@@ -64,7 +64,7 @@ Using PGDBG usually consists of two steps:
 The actual debugging can be accomplished in either command-line mode or graphical mode.
 
 ### Environment modules
-Before you start profiling with PGDBG, the appropriate [module](utiliser-des-modules.md) needs to be loaded.
+Before you start profiling with PGDBG, the appropriate [module](utiliser_des_modules.md) needs to be loaded.
 PGDBG is part of the PGI compiler package, so run `module avail pgi` to see what versions are currently available with the compiler, MPI, and CUDA modules you have loaded. For a comprehensive list of PGI modules, run `module -r spider '.*pgi.*'`.
 
 As of December 2018, these were:

@@ -57,7 +57,7 @@ En plus de l'implémentation de référence de Netlib, il existe plusieurs autre
     Malheureusement, il faut habituellement recompiler un logiciel pour savoir quelle implémentation est la plus performante pour un code particulier et une configuration matérielle précise. Ceci est problématique quand on veut créer un environnement logiciel portable pouvant fonctionner sur plusieurs grappes. Pour y remédier, vous pouvez utiliser [FlexiBLAS](https://www.mpi-magdeburg.mpg.de/projects/flexiblas), une couche d'abstraction qui permet de changer l'implémentation de BLAS et de LAPACK au moment de l'exécution plutôt que pendant la compilation.
 
 ## Choisir une implémentation
-Depuis quelques années, nous recommandions d'utiliser Intel MKL comme implémentation de référence étant donné que nos grappes n'avaient que des processeurs Intel. Depuis la mise en service de [Narval](narval.md) qui possède des processeurs AMD, nous recommandons maintenant de compiler le code avec FlexiBLAS. La configuration de notre module FlexiBLAS fait en sorte que BLIS est utilisé en présence de processeurs AMD et Intel MKL en présence d'autres types de processeurs, ce qui offre habituellement la performance optimale.
+Depuis quelques années, nous recommandions d'utiliser Intel MKL comme implémentation de référence étant donné que nos grappes n'avaient que des processeurs Intel. Depuis la mise en service de [Narval](../clusters/narval.md) qui possède des processeurs AMD, nous recommandons maintenant de compiler le code avec FlexiBLAS. La configuration de notre module FlexiBLAS fait en sorte que BLIS est utilisé en présence de processeurs AMD et Intel MKL en présence d'autres types de processeurs, ce qui offre habituellement la performance optimale.
 
 ## Compiler avec FlexiBLAS
 Puisque FlexiBLAS est relativement récent, ce ne sont pas tous les systèmes qui vont le reconnaître par défaut. Il est généralement possible de pallier à ceci en configurant les options d'édition pour utiliser `-lflexiblas` pour BLAS et pour LAPACK. Ces options sont habituellement dans votre Makefile, autrement vous pouvez les passer comme paramètres à `configure` ou `cmake`. Les versions de CMake à partir de 3.19 peuvent trouver FlexiBLAS automatiquement; pour utiliser une de ces versions, chargez le module `cmake/3.20.1` ou `cmake/3.21.4`.
@@ -69,7 +69,7 @@ L'avantage principal de FlexiBLAS est de pouvoir changer l'implémentation en ar
 flexiblas list
 ```
 
-Sur [Narval](narval.md), nous avons configuré `FLEXIBLAS=blis` pour utiliser BLIS par défaut. Sur les autres grappes, `FLEXIBLAS` n'est pas défini et Intel MKL est utilisé par défaut.
+Sur [Narval](../clusters/narval.md), nous avons configuré `FLEXIBLAS=blis` pour utiliser BLIS par défaut. Sur les autres grappes, `FLEXIBLAS` n'est pas défini et Intel MKL est utilisé par défaut.
 
 ## Utiliser directement Intel MKL
 Même si nous recommandons d'utiliser FlexiBLAS, il est toujours possible d'utiliser directement Intel MKL. Avec un compilateur Intel (par exemple `ifort`, `icc`, `icpc`), la solution est de remplacer `-lblas` et `-llapack` dans les options du compilateur et de l'éditeur (*linker*) avec :

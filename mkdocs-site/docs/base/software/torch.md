@@ -46,7 +46,7 @@ Torch has a distant relationship to PyTorch. [PyTorch](pytorch.md) provides a [P
     *   https://www.quora.com/What-are-the-differences-between-Torch-and-Pytorch
     *   https://discuss.pytorch.org/t/torch-autograd-vs-pytorch-autograd/1671/4
 
-Torch depends on [CUDA](cuda.md). In order to use Torch you must first load a CUDA module, like so:
+Torch depends on [CUDA](../programming/cuda.md). In order to use Torch you must first load a CUDA module, like so:
 
 ```bash
 module load cuda torch
@@ -70,4 +70,4 @@ eval $(luarocks path --bin)
 !!! tip "LuaRocks Path Configuration"
     For more details on managing LuaRocks paths, see the LuaRocks wiki on [Rocks trees and the Lua libraries path](https://github.com/luarocks/luarocks/wiki/Using-LuaRocks#Rocks_trees_and_the_Lua_libraries_path).
 
-By experience, we often find packages that do not install well with `luarocks`. If you have a package that is not installed in the default module and need help installing it, please contact our [Technical support](technical-support.md).
+By experience, we often find packages that do not install well with `luarocks`. If you have a package that is not installed in the default module and need help installing it, please contact our [Technical support](../support/technical_support.md).

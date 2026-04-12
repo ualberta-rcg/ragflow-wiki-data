@@ -70,17 +70,17 @@ Les produits suivants sont disponibles :
 
 ## Utiliser SCM sur Graham
 
-Le module `adf` est seulement installé sur [Graham](graham.md) en raison de restrictions liées à l'octroi des licences. Pour connaître les versions disponibles, lancez la commande
+Le module `adf` est seulement installé sur [Graham](../clusters/graham.md) en raison de restrictions liées à l'octroi des licences. Pour connaître les versions disponibles, lancez la commande
 
 ```bash
 module spider adf
 ```
 
-Pour les commandes en rapport avec les modules, voyez [Utiliser des modules](utiliser-des-modules.md).
+Pour les commandes en rapport avec les modules, voyez [Utiliser des modules](../programming/utiliser_des_modules.md).
 
 ### Soumettre une tâche
 
-Les tâches soumises sur Graham sont ordonnancées par Slurm; pour les détails, consultez [Exécuter des tâches](running-jobs.md).
+Les tâches soumises sur Graham sont ordonnancées par Slurm; pour les détails, consultez [Exécuter des tâches](../running-jobs/running_jobs.md).
 
 #### Tâche unique
 
@@ -285,14 +285,14 @@ Pour des exemples de fichiers `.inp` et `.sh` avec BAND, voyez sur Graham :
 
 ## Utiliser SCM-GUI
 
-Avec des applications comme ADF-GUI, la redirection X11 via une connexion SSH exige beaucoup de temps pour produire les rendus. Nous recommandons de vous connecter avec [VNC](vnc.md).
+Avec des applications comme ADF-GUI, la redirection X11 via une connexion SSH exige beaucoup de temps pour produire les rendus. Nous recommandons de vous connecter avec [VNC](../interactive/vnc.md).
 
 ### Graham
 
 Sur un nœud de calcul de Graham, ADF peut être utilisé interactivement en mode graphique avec TigerVNC pour une durée maximale de 3 heures.
 
-1.  [Installez un client TigerVNC](vnc.md#configuration) sur votre ordinateur.
-2.  [Connectez-vous à un nœud de calcul](vnc.md#noeuds-de-calcul) avec `vncviewer`.
+1.  [Installez un client TigerVNC](../interactive/vnc.md#configuration) sur votre ordinateur.
+2.  [Connectez-vous à un nœud de calcul](../interactive/vnc.md#noeuds-de-calcul) avec `vncviewer`.
 3.  `module load adf`
 4.  `adfinput`
 
@@ -300,8 +300,8 @@ Sur un nœud de calcul de Graham, ADF peut être utilisé interactivement en mod
 
 Sur gra-vdi, ADF peut être utilisé interactivement en mode graphique, sans limite de durée.
 
-1.  [Installez un client TigerVNC](vnc.md#configuration) sur votre ordinateur.
-2.  [Connectez-vous à gra-vdi.computecanada.ca](vnc.md#noeuds-vdi) avec `vncviewer`.
+1.  [Installez un client TigerVNC](../interactive/vnc.md#configuration) sur votre ordinateur.
+2.  [Connectez-vous à gra-vdi.computecanada.ca](../interactive/vnc.md#noeuds-vdi) avec `vncviewer`.
 3.  `module load clumod`
 4.  `module load adf`
 5.  `adfinput`

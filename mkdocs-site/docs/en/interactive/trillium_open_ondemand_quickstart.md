@@ -91,7 +91,7 @@ status:
   qa_generated: false
 ---
 
-This page is specifically for the Open OnDemand service attached to Trillium. General information on the Open OnDemand instances in the clusters of the Alliance can be found on [Open OnDemand](open-ondemand.md).
+This page is specifically for the Open OnDemand service attached to Trillium. General information on the Open OnDemand instances in the clusters of the Alliance can be found on [Open OnDemand](open_ondemand.md).
 
 ## Porting existing virtual environments to Open OnDemand
 

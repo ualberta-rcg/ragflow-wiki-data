@@ -89,7 +89,7 @@ Conversely, one thread can *not* be executed by two processors at the same time,
 
 Another important point concerning threads is synchronization. When multiple threads in a program do computations at the same time, one must assume nothing about the order in which things happen. If the order matters for the correctness of the code, then the programmer must use OpenMP synchronization directives to achieve that. Also, the precise distribution of threads over cores is unknown to the programmer (although thread [affinity](https://en.wikipedia.org/wiki/Processor_affinity) capabilities are available to control that).
 
-When parallelizing a program using OpenMP (or any other technique) it's important to also consider how well the program is able to run in parallel, known as the software's [scalability](scalability.md). After you've parallelized your software and are satisfied about its correctness, we recommend that you perform a scaling analysis in order to understand its parallel performance.
+When parallelizing a program using OpenMP (or any other technique) it's important to also consider how well the program is able to run in parallel, known as the software's [scalability](../running-jobs/scalability.md). After you've parallelized your software and are satisfied about its correctness, we recommend that you perform a scaling analysis in order to understand its parallel performance.
 
 The following link points to a [tutorial for getting started with OpenMP under Linux](http://www.admin-magazine.com/HPC/Articles/Programming-with-OpenMP).
 
@@ -227,7 +227,7 @@ litai10:~$ ./fomphello
  Hello world from thread           3 out of           4
 ```
 
-For an example of how to submit an OpenMP job, see [Running jobs](running-jobs.md#threaded-or-openmp-job).
+For an example of how to submit an OpenMP job, see [Running jobs](../running-jobs/running_jobs.md#threaded-or-openmp-job).
 
 ## References
 Lawrence Livermore National Labs has a comprehensive [tutorial on OpenMP](https://computing.llnl.gov/tutorials/openMP).

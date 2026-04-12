@@ -39,7 +39,7 @@ status:
 
 !!! warning "Bonnes pratiques d'emplacement et d'écriture des fichiers SQLite"
 
-    Les bases de données SQLite, comme toutes les autres, ne devraient pas être utilisées dans des systèmes de fichiers partagés comme /home, /scratch et /project. Au début d'une tâche, vous devriez en principe copier le fichier SQLite sur l'espace local `$SLURM_TMPDIR` où vous pourrez utiliser la base de données sans problème, tout en bénéficiant de la meilleure performance. Notez que SQLite ne prévoit pas l'emploi de plusieurs fils ou processus qui écrivent dans la base de données en même temps; pour ce faire, vous devriez utiliser une [solution client-serveur](database-servers.md).
+    Les bases de données SQLite, comme toutes les autres, ne devraient pas être utilisées dans des systèmes de fichiers partagés comme /home, /scratch et /project. Au début d'une tâche, vous devriez en principe copier le fichier SQLite sur l'espace local `$SLURM_TMPDIR` où vous pourrez utiliser la base de données sans problème, tout en bénéficiant de la meilleure performance. Notez que SQLite ne prévoit pas l'emploi de plusieurs fils ou processus qui écrivent dans la base de données en même temps; pour ce faire, vous devriez utiliser une [solution client-serveur](../cloud/database_servers.md).
 
 ## Utiliser SQLite directement
 
@@ -119,4 +119,4 @@ Le moyen habituel d'interagir avec une BD SQLite (ou toute autre) est d'utiliser
 
 ## Limites
 
-Comme son nom le suggère, SQLite est facile d'utilisation et conçu pour les bases de données relativement simples dont la taille n’excède pas quelques centaines de Go et dont le [modèle entités-associations](https://fr.wikipedia.org/wiki/Mod%C3%A8le_entit%C3%A9-association) n'est pas trop complexe. Au fur et à mesure que la taille et la complexité de votre BD augmentent, vous pourriez remarquer une baisse de performance; si c’est le cas, il serait temps de trouver un [outil plus sophistiqué sur le modèle client-serveur](database-servers.md). Vous trouverez sur le site web SQLite des [critères de sélection entre SQLite et les SGBDR client-serveur](https://www.sqlite.org/whentouse.html).
+Comme son nom le suggère, SQLite est facile d'utilisation et conçu pour les bases de données relativement simples dont la taille n’excède pas quelques centaines de Go et dont le [modèle entités-associations](https://fr.wikipedia.org/wiki/Mod%C3%A8le_entit%C3%A9-association) n'est pas trop complexe. Au fur et à mesure que la taille et la complexité de votre BD augmentent, vous pourriez remarquer une baisse de performance; si c’est le cas, il serait temps de trouver un [outil plus sophistiqué sur le modèle client-serveur](../cloud/database_servers.md). Vous trouverez sur le site web SQLite des [critères de sélection entre SQLite et les SGBDR client-serveur](https://www.sqlite.org/whentouse.html).

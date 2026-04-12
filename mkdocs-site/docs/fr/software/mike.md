@@ -140,7 +140,7 @@ Les directives suivantes supposent que les archives d'installation sont dans un 
     ```
 ```
 
-3. Lancez les commandes suivantes, selon la version de MIKE. Ceci fera l'extraction des archives. Exécutez les scripts d'installation *install.sh* pour chaque composant, ensuite [modifiez les binaires](installing-software-in-your-home-directory.md#installer-des-paquets-binaires) pour qu'ils trouvent les bibliothèques dynamiques d'Intel MPI.
+3. Lancez les commandes suivantes, selon la version de MIKE. Ceci fera l'extraction des archives. Exécutez les scripts d'installation *install.sh* pour chaque composant, ensuite [modifiez les binaires](../getting-started/installing_software_in_your_home_directory.md#installer-des-paquets-binaires) pour qu'ils trouvent les bibliothèques dynamiques d'Intel MPI.
 
 ```tabs
 === "MIKE 2025"
@@ -246,9 +246,9 @@ Les instructions ci-dessus supposent que les archives d'installation ont des nom
 et les noms des répertoires (par exemple dans `cd $MIKE_TGZ/MIKE_Zero_2023_rhel7_22.11.05`) ont besoin d'être ajustés en conséquence.
 Les prochaines versions majeures de MIKE pourraient utiliser des versions différentes de MPI et il faudrait alors modifier les directives en conséquence. Essayez un module de bibliothèque Intel MPI avec une version majeure correspondante (année).
 
-Les directives ci-dessus suivent la procédure d'installation officielle, à l'exception du fait que l'installation de `MIKE_Zero_*_Prerequisites.tgz` (bibliothèque Intel MPI) est omise et qu'un module correspondant est chargé à sa place. De plus, le script `setrpaths.sh` est utilisé pour [installer des paquets binaires](installing-software-in-your-home-directory.md#installer-des-paquets-binaires) afin de les rendre compatibles avec notre pile logicielle.
+Les directives ci-dessus suivent la procédure d'installation officielle, à l'exception du fait que l'installation de `MIKE_Zero_*_Prerequisites.tgz` (bibliothèque Intel MPI) est omise et qu'un module correspondant est chargé à sa place. De plus, le script `setrpaths.sh` est utilisé pour [installer des paquets binaires](../getting-started/installing_software_in_your_home_directory.md#installer-des-paquets-binaires) afin de les rendre compatibles avec notre pile logicielle.
 
-Si vous avez des difficultés à adapter la recette pour les versions plus récentes de MIKE, écrivez au [soutien technique](technical-support.md).
+Si vous avez des difficultés à adapter la recette pour les versions plus récentes de MIKE, écrivez au [soutien technique](../support/technical_support.md).
 
 ### Créer un module
 

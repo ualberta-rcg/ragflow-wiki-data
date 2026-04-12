@@ -70,26 +70,26 @@ Both of these methods will cause a window to be displayed which can be used to g
 
 ## Installing via CCDB
 
-We encourage you to register your SSH public key with the CCDB. This will let you to use it to log in to any of our HPC clusters. Copy the contents of the box titled "Public key for pasting into OpenSSH ..." and paste it into the box at [CCDB -> Manage SSH Keys](https://ccdb.computecanada.ca/ssh_authorized_keys). For more about this, see [SSH Keys: Using CCDB](ssh-keys.md#using-ccdb).
+We encourage you to register your SSH public key with the CCDB. This will let you to use it to log in to any of our HPC clusters. Copy the contents of the box titled "Public key for pasting into OpenSSH ..." and paste it into the box at [CCDB -> Manage SSH Keys](https://ccdb.computecanada.ca/ssh_authorized_keys). For more about this, see [SSH Keys: Using CCDB](ssh_keys.md#using-ccdb).
 
 ## Installing locally
 
 If for some reason you do not want to use the CCDB method, you may upload your public key onto *each* cluster as follows:
 
 1. Copy the contents of the box titled "Public key for pasting into OpenSSH ..." and paste it as a single line at the end of `/home/USERNAME/.ssh/authorized_keys` on the cluster you wish to connect to.
-2. Ensure the permissions and ownership of the `~/.ssh` directory and files therein are correct, as described in [these instructions](using-ssh-keys-in-linux.md#installing-locally).
+2. Ensure the permissions and ownership of the `~/.ssh` directory and files therein are correct, as described in [these instructions](using_ssh_keys_in_linux.md#installing-locally).
 
 You may also use `ssh-copy-id` for this purpose, if it is available on your personal computer.
 
 # Connecting using a key pair
 
 Test the new key by connecting to the server using SSH.
-See [connecting with PuTTY using a key pair](connecting-with-putty.md#using-a-key-pair); [connecting with MobaXTerm using a key pair](connecting-with-mobaxterm.md#using-a-key-pair); or [connecting with WinSCP](https://winscp.net/eng/docs/ui_login_authentication).
+See [connecting with PuTTY using a key pair](connecting_with_putty.md#using-a-key-pair); [connecting with MobaXTerm using a key pair](connecting_with_mobaxterm.md#using-a-key-pair); or [connecting with WinSCP](https://winscp.net/eng/docs/ui_login_authentication).
 
 Key generation and usage with PuTTY is demonstrated in this video: [Easily setup PuTTY SSH keys for passwordless logins using Pageant](https://www.youtube.com/watch?v=2nkAQ9M6ZF8).
 
 # Converting an OpenStack key
 
-When a key is created on [OpenStack](managing-your-cloud-resources-with-openstack.md) you obtain a key with a ".pem" extension. This key can be converted to a format used by PuTTY by clicking the "Load" button in PuTTYGen. Then select the "All Files (*.*)" filter, select the ".pem" file you downloaded from OpenStack, and click "Open". You should also add a "Key passphrase" at this point to use when accessing your private key and then click "Save private key".
+When a key is created on [OpenStack](../cloud/managing_your_cloud_resources_with_openstack.md) you obtain a key with a ".pem" extension. This key can be converted to a format used by PuTTY by clicking the "Load" button in PuTTYGen. Then select the "All Files (*.*)" filter, select the ".pem" file you downloaded from OpenStack, and click "Open". You should also add a "Key passphrase" at this point to use when accessing your private key and then click "Save private key".
 
-This private key can be used with PuTTY to connect to a VM created with OpenStack. For more about this, see "Launching a VM" on the [Cloud Quick Start](cloud-quick-start.md) page.
+This private key can be used with PuTTY to connect to a VM created with OpenStack. For more about this, see "Launching a VM" on the [Cloud Quick Start](../cloud/cloud_quick_start.md) page.

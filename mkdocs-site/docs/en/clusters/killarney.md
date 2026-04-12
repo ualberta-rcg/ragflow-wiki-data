@@ -74,17 +74,17 @@ For the PI to sponsor researchers in their AIP RAP, the PI must:
 
 ### Home space
 * Location of /home directories.
-* Each /home directory has a small fixed [quota](storage-and-file-management.md#filesystem-quotas-and-policies).
+* Each /home directory has a small fixed [quota](../storage-and-data/storage_and_file_management.md#filesystem-quotas-and-policies).
 * Larger requests go to the /project space.
 * Has daily backup
 
 ### Scratch space
 * For active or temporary (scratch) storage.
-* Large fixed [quota](storage-and-file-management.md#filesystem-quotas-and-policies) per user.
-* Inactive data will be [purged](scratch-purging-policy.md).
+* Large fixed [quota](../storage-and-data/storage_and_file_management.md#filesystem-quotas-and-policies) per user.
+* Inactive data will be [purged](../storage-and-data/scratch_purging_policy.md).
 
 ### Project space
-* Large adjustable [quota](storage-and-file-management.md#filesystem-quotas-and-policies) per project.
+* Large adjustable [quota](../storage-and-data/storage_and_file_management.md#filesystem-quotas-and-policies) per project.
 * Has daily backup.
 
 ## Network interconnects

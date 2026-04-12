@@ -35,7 +35,7 @@ status:
   qa_generated: false
 ---
 
-Cette page contient les renseignements sur la configuration et l'accès au [stockage objet sur Arbutus](arbutus-object-storage.md) avec AWS CLI, l'un des [clients pour le stockage de ce type](arbutus-object-storage-clients.md).
+Cette page contient les renseignements sur la configuration et l'accès au [stockage objet sur Arbutus](arbutus_object_storage.md) avec AWS CLI, l'un des [clients pour le stockage de ce type](arbutus_object_storage_clients.md).
 
 !!! note "Avantages d'AWS CLI"
     En comparaison des autres clients utilisés pour le stockage objet, AWS CLI offre un meilleur support pour les grands fichiers (>5 Go) en plus de la commande `sync` qui est très utile. Notez cependant que nous n'avons pas testé toutes les fonctionnalités.

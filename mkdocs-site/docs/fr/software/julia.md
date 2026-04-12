@@ -76,7 +76,7 @@ status:
   qa_generated: false
 ---
 
-[Julia](https://julialang.org) est un langage de programmation conçu pour être performant, facile d'utilisation et portable. Sur nos grappes, vous pouvez l'utiliser en installant un [module](utiliser-des-modules.md).
+[Julia](https://julialang.org) est un langage de programmation conçu pour être performant, facile d'utilisation et portable. Sur nos grappes, vous pouvez l'utiliser en installant un [module](../programming/utiliser_des_modules.md).
 
 ## Installer des paquets
 
@@ -99,7 +99,7 @@ Pkg.add("JLD")
 using JLD
 ```
 
-En supprimant la ligne `Libdl.DL_LOAD_PATH` dans cet exemple, il n'y aurait pas de problème sur Graham parce que la bibliothèque HDF5 est installée pour tout le système, ce qui n'est pas le cas avec Cedar. La meilleure solution pour tous nos systèmes est donc d'utiliser le contenu de l'exemple. Chargez d'abord le [module](utiliser-des-modules.md) approprié et utilisez la variable d'environnement définie par le module (ici `HDF5_DIR`) pour étendre `Libdl.DL_LOAD_PATH`. Ceci fonctionne de la même manière sur tous les systèmes.
+En supprimant la ligne `Libdl.DL_LOAD_PATH` dans cet exemple, il n'y aurait pas de problème sur Graham parce que la bibliothèque HDF5 est installée pour tout le système, ce qui n'est pas le cas avec Cedar. La meilleure solution pour tous nos systèmes est donc d'utiliser le contenu de l'exemple. Chargez d'abord le [module](../programming/utiliser_des_modules.md) approprié et utilisez la variable d'environnement définie par le module (ici `HDF5_DIR`) pour étendre `Libdl.DL_LOAD_PATH`. Ceci fonctionne de la même manière sur tous les systèmes.
 
 Notez que le paquet JLD que nous utilisons ici a été remplacé par [JLD2](https://juliapackages.com/p/jld2) qui ne nécessite plus une bibliothèque HDF5 installée sur le système, ce qui le rend plus portable.
 
@@ -126,7 +126,7 @@ Ceci utilisera de préférence le répertoire `/project/def-bob/alice/julia`. Le
 rm -rf $HOME/.julia
 ```
 
-Vous pouvez aussi créer une image [Apptainer](apptainer.md) avec une version particulière de Julia et un choix de paquets, tout en redirigeant JULIA_DEPOT_PATH dans le conteneur. Vous perdez ainsi l’avantage offert par les modules Julia que nous avons optimisés, par contre la performance des entrées/sorties sera potentiellement meilleure puisque le fichier du conteneur (.sif) rassemble un très grand nombre de petits fichiers. La reproductibilité est aussi améliorée car le conteneur fonctionnera tel quel, n’importe où. De plus, puisque vous avez plein contrôle sur la création du conteneur, vous pourrez tester les versions construites chaque soir (*nightly builds*) sans devoir modifier votre installation locale de Julia ou encore rassembler vos propres dépendances.
+Vous pouvez aussi créer une image [Apptainer](containers/apptainer.md) avec une version particulière de Julia et un choix de paquets, tout en redirigeant JULIA_DEPOT_PATH dans le conteneur. Vous perdez ainsi l’avantage offert par les modules Julia que nous avons optimisés, par contre la performance des entrées/sorties sera potentiellement meilleure puisque le fichier du conteneur (.sif) rassemble un très grand nombre de petits fichiers. La reproductibilité est aussi améliorée car le conteneur fonctionnera tel quel, n’importe où. De plus, puisque vous avez plein contrôle sur la création du conteneur, vous pourrez tester les versions construites chaque soir (*nightly builds*) sans devoir modifier votre installation locale de Julia ou encore rassembler vos propres dépendances.
 
 ## Appeler Python avec PyCall.jl
 

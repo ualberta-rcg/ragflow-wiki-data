@@ -170,13 +170,13 @@ Pour connaître la plus récente version de Snap ML que nous avons construite, e
 ```bash
 avail_wheels "snapml"
 ```
-Pour plus d'information, voir [Wheels disponibles](python.md#wheels-disponibles).
+Pour plus d'information, voir [Wheels disponibles](../python.md#wheels-disponibles).
 
 ### Installer le wheel
 
 L'option à privilégier est d'utiliser le [wheel Python](https://pythonwheels.com/) comme suit :
-1. [Chargez un module](utiliser-des-modules.md#sous-commande-load) Python avec `module load python`.
-2. Créez et activez un [environnement virtuel Python](python.md#créer-et-utiliser-un-environnement-virtuel).
+1. [Chargez un module](../../programming/utiliser_des_modules.md#sous-commande-load) Python avec `module load python`.
+2. Créez et activez un [environnement virtuel Python](../python.md#créer-et-utiliser-un-environnement-virtuel).
 3. Installez Snap ML dans l'environnement virtuel avec `pip install`. 
 
 ```bash
@@ -276,4 +276,4 @@ Snap ML offre des implémentations distribuées de plusieurs estimateurs. Pour u
 
 ## Spark ML
 
-[Spark ML](https://spark.apache.org/docs/latest/ml-guide.html) est une bibliothèque basée sur [Apache Spark](apache-spark.md) qui permet la mise à l'échelle de plusieurs méthodes d'apprentissage machine pour d'énormes quantités de données et sur plusieurs nœuds, sans qu'il soit nécessaire de distribuer des ensembles de données ou de créer du code distribué ou parallèle. Elle inclut plusieurs outils utiles en algèbre linéaire et en statistique. Avant de reproduire les exemples de la [documentation Spark ML](https://spark.apache.org/docs/latest/ml-guide.html), consultez notre [tutoriel sur la soumission de tâches Spark](apache-spark.md#utilisation).
+[Spark ML](https://spark.apache.org/docs/latest/ml-guide.html) est une bibliothèque basée sur [Apache Spark](../apache_spark.md) qui permet la mise à l'échelle de plusieurs méthodes d'apprentissage machine pour d'énormes quantités de données et sur plusieurs nœuds, sans qu'il soit nécessaire de distribuer des ensembles de données ou de créer du code distribué ou parallèle. Elle inclut plusieurs outils utiles en algèbre linéaire et en statistique. Avant de reproduire les exemples de la [documentation Spark ML](https://spark.apache.org/docs/latest/ml-guide.html), consultez notre [tutoriel sur la soumission de tâches Spark](../apache_spark.md#utilisation).

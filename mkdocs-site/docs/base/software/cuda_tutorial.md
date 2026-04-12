@@ -65,7 +65,7 @@ status:
 
 ## Introduction
 
-This tutorial introduces the graphics processing unit (GPU) as a massively parallel computing device; the [CUDA](cuda.md) parallel programming language; and some of the CUDA numerical libraries for high performance computing.
+This tutorial introduces the graphics processing unit (GPU) as a massively parallel computing device; the [CUDA](../programming/cuda.md) parallel programming language; and some of the CUDA numerical libraries for high performance computing.
 
 !!! info "Prerequisites"
     This tutorial uses CUDA to accelerate C or C++ code: a working knowledge of one of these languages is therefore required to gain the most benefit. Even though Fortran is also supported by CUDA, for the purpose of this tutorial we only cover CUDA C/C++. From here on, we use term **CUDA C** to refer to CUDA C/C++. *CUDA C* is essentially a C/C++ that allows one to execute functions on both GPUs and CPUs.

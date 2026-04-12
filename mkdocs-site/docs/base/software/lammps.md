@@ -64,7 +64,7 @@ status:
   qa_generated: false
 ---
 
-*Parent page: [Biomolecular simulation](biomolecular-simulation.md)*
+*Parent page: [Biomolecular simulation](molecular-sim/biomolecular_simulation.md)*
 
 ## General
 
@@ -74,7 +74,7 @@ status:
 *   Documentation: [Online Manual](http://lammps.sandia.gov/doc/Manual.html).
 *   Mailing List: <http://lammps.sandia.gov/mail.html>
 
-LAMMPS is parallelized with [MPI](mpi.md) and [OpenMP](openmp.md), and can run on [GPU](using-gpus-with-slurm.md)s.
+LAMMPS is parallelized with [MPI](mpi.md) and [OpenMP](../programming/openmp.md), and can run on [GPU](../running-jobs/using_gpus_with_slurm.md)s.
 
 ## Force fields
 
@@ -106,7 +106,7 @@ For each release installed, one or more modules are available. For example, the 
 *   Built with USER-OMP support: `lammps-omp/20170331`
 *   Built with USER-INTEL support: `lammps-user-intel/20170331`
 
-These versions are also available with GPU support. In order to use the GPU-enabled version, load the [CUDA](cuda.md) module before loading the LAMMPS module:
+These versions are also available with GPU support. In order to use the GPU-enabled version, load the [CUDA](../programming/cuda.md) module before loading the LAMMPS module:
 
 ```bash
 module load cuda
@@ -130,7 +130,7 @@ The reason there are different modules for the same release is the difference in
 
 For some LAMMPS modules we provide a file `list-packages.txt` listing the enabled ("Supported") and disabled ("Not Supported") packages. Once you have loaded a particular module, run `cat ${EBROOTLAMMPS}/list-packages.txt` to see the contents.
 
-If `list-packages.txt` is not found, you may be able to determine which packages are available by examining the [EasyBuild](easybuild.md) recipe file, `$EBROOTLAMMPS/easybuild/LAMMPS*.eb`. The list of enabled packages will appear in the block labelled `general_packages`.
+If `list-packages.txt` is not found, you may be able to determine which packages are available by examining the [EasyBuild](../programming/easybuild.md) recipe file, `$EBROOTLAMMPS/easybuild/LAMMPS*.eb`. The list of enabled packages will appear in the block labelled `general_packages`.
 
 ## Example of input file
 

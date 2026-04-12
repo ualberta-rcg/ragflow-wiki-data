@@ -63,10 +63,10 @@ status:
 Please choose the address that corresponds best to your question or issue:
 * [accounts@tech.alliancecan.ca](mailto:accounts@tech.alliancecan.ca) -- Questions about accounts
 * [renewals@tech.alliancecan.ca](mailto:renewals@tech.alliancecan.ca) -- Questions about account renewals
-* [globus@tech.alliancecan.ca](mailto:globus@tech.alliancecan.ca) -- Questions about **[Globus](globus.md)** file transfer services
-* [cloud@tech.alliancecan.ca](mailto:cloud@tech.alliancecan.ca) -- Questions about using **[Cloud](cloud.md)** resources
+* [globus@tech.alliancecan.ca](mailto:globus@tech.alliancecan.ca) -- Questions about **[Globus](../getting-started/globus.md)** file transfer services
+* [cloud@tech.alliancecan.ca](mailto:cloud@tech.alliancecan.ca) -- Questions about using **[Cloud](../cloud/cloud.md)** resources
 * [allocations@tech.alliancecan.ca](mailto:allocations@tech.alliancecan.ca) -- Questions about the [Resource Allocation Competition](https://alliancecan.ca/en/services/advanced-research-computing/accessing-resources/resource-allocation-competition) (RAC)
-* [trillium@tech.alliancecan.ca](mailto:trillium@tech.alliancecan.ca) -- For questions or issues regarding the [Trillium](trillium.md) cluster specifically
+* [trillium@tech.alliancecan.ca](mailto:trillium@tech.alliancecan.ca) -- For questions or issues regarding the [Trillium](../clusters/trillium.md) cluster specifically
 * **[support@tech.alliancecan.ca](mailto:support@tech.alliancecan.ca)** -- For any other question or issue
 
 ## Information required

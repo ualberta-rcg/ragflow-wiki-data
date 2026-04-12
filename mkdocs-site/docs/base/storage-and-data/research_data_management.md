@@ -93,7 +93,7 @@ Below is a list of resources for research data management.
 ### Metadata
 
 * [RDA Metadata Standards Catalog](https://rdamsc.bath.ac.uk/)
-* [README files](readme-files.md)
+* [README files](readme_files.md)
 
 ### Persistent identifiers
 

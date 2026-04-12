@@ -50,7 +50,7 @@ All clusters have large, high-performance storage attached. For details about st
 |---|---|---|---|
 | [Béluga](béluga.md) | General-purpose | * beluga-compute<br/>* beluga-gpu<br/>* beluga-storage | End of life |
 | [Cedar](cedar.md) | General-purpose | * cedar-compute<br/>* cedar-gpu<br/>* cedar-storage | End of life |
-| [Fir](fir.md) | General-purpose | * fir-compute<br/>* fir-gpu<br/>* fir-storage | In production |
+| [Fir](../software/fir.md) | General-purpose | * fir-compute<br/>* fir-gpu<br/>* fir-storage | In production |
 | [Graham](graham.md) | General-purpose | * graham-compute<br/>* graham-gpu<br/>* graham-storage | End of life |
 | [Narval](narval.md) | General-purpose | * narval-compute<br/>* narval-gpu<br/>* narval-storage | In production |
 | [Niagara](niagara.md) | Large parallel | * niagara-compute<br/>* niagara-storage<br/>* hpss-storage | End of life |
@@ -63,10 +63,10 @@ Our cloud systems are offering an Infrastructure as a Service (IaaS) based on Op
 
 | Name and link | Sub-systems | Description | Status |
 |---|---|---|---|
-| [Arbutus cloud](cloud-resources.md#arbutus-cloud) | * arbutus-compute-cloud<br/>* arbutus-persistent-cloud<br/>* arbutus-dcache | * VCPU, VGPU, RAM<br/>* Local ephemeral disk<br/>* Volume and snapshot storage<br/>* Shared filesystem storage (backed up)<br/>* Object storage<br/>* Floating IPs<br/>* dCache storage | In production |
-| [Béluga cloud](cloud-resources.md#béluga-cloud) | * beluga-compute-cloud<br/>* beluga-persistent-cloud | * VCPU, RAM<br/>* Local ephemeral disk<br/>* Volume and snapshot storage<br/>* Floating IPs | In production |
-| [Cedar cloud](cloud-resources.md#cedar-cloud) | * cedar-persistent-cloud<br/>* cedar-compute-cloud | * VCPU, RAM<br/>* Local ephemeral disk<br/>* Volume and snapshot storage<br/>* Floating IPs | In production |
-| [Graham cloud](cloud-resources.md#graham-cloud) | * graham-persistent-cloud | * VCPU, RAM<br/>* Local ephemeral disk<br/>* Volume and snapshot storage<br/>* Floating IPs | In production |
+| [Arbutus cloud](../cloud/cloud_resources.md#arbutus-cloud) | * arbutus-compute-cloud<br/>* arbutus-persistent-cloud<br/>* arbutus-dcache | * VCPU, VGPU, RAM<br/>* Local ephemeral disk<br/>* Volume and snapshot storage<br/>* Shared filesystem storage (backed up)<br/>* Object storage<br/>* Floating IPs<br/>* dCache storage | In production |
+| [Béluga cloud](../cloud/cloud_resources.md#béluga-cloud) | * beluga-compute-cloud<br/>* beluga-persistent-cloud | * VCPU, RAM<br/>* Local ephemeral disk<br/>* Volume and snapshot storage<br/>* Floating IPs | In production |
+| [Cedar cloud](../cloud/cloud_resources.md#cedar-cloud) | * cedar-persistent-cloud<br/>* cedar-compute-cloud | * VCPU, RAM<br/>* Local ephemeral disk<br/>* Volume and snapshot storage<br/>* Floating IPs | In production |
+| [Graham cloud](../cloud/cloud_resources.md#graham-cloud) | * graham-persistent-cloud | * VCPU, RAM<br/>* Local ephemeral disk<br/>* Volume and snapshot storage<br/>* Floating IPs | In production |
 
 ## PAICE clusters
 

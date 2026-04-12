@@ -50,7 +50,7 @@ status:
   qa_generated: false
 ---
 
-[MetaPhlAn](https://github.com/biobakery/MetaPhlAn) est un outil informatique permettant de profiler la composition des communautés microbiennes (bactéries, archées et eucaryotes) à partir de données de séquençage métagénomique (c'est-à-dire non 16S) au niveau de l'espèce. Avec StrainPhlAn, il est possible d'effectuer un profilage microbien précis au niveau de la souche. Bien que la pile logicielle de nos grappes contienne des modules pour quelques versions plus anciennes (2.2.0 et 2.8), nous attendons désormais des utilisateurs qu'ils installent les versions récentes à l'aide d'un [environnement virtuel Python](python.md#creer-etd-utiliser-un-environnement-virtuel).
+[MetaPhlAn](https://github.com/biobakery/MetaPhlAn) est un outil informatique permettant de profiler la composition des communautés microbiennes (bactéries, archées et eucaryotes) à partir de données de séquençage métagénomique (c'est-à-dire non 16S) au niveau de l'espèce. Avec StrainPhlAn, il est possible d'effectuer un profilage microbien précis au niveau de la souche. Bien que la pile logicielle de nos grappes contienne des modules pour quelques versions plus anciennes (2.2.0 et 2.8), nous attendons désormais des utilisateurs qu'ils installent les versions récentes à l'aide d'un [environnement virtuel Python](../python.md#creer-etd-utiliser-un-environnement-virtuel).
 
 Pour plus d'information, voir [le site wiki de MetaPhlan](https://github.com/biobakery/MetaPhlAn/wiki/MetaPhlAn-4).
 

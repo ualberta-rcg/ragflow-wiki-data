@@ -67,7 +67,7 @@ module help
 ```
 
 ### Sub-command `spider`
-The `spider` sub-command searches the complete tree of all modules in the current [standard software environment](standard-software-environments.md) and displays it.
+The `spider` sub-command searches the complete tree of all modules in the current [standard software environment](standard_software_environments.md) and displays it.
 ```bash
 module spider
 ```

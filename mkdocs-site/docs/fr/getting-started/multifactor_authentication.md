@@ -156,7 +156,7 @@ Vous pouvez tester la configuration en appuyant sur le bouton de la clé YubiKey
 
 ## Authentification
 ### Connexion à une grappe via SSH
-Quand vous vous connectez à une grappe via SSH, l'invite vous demande votre deuxième facteur après que vous avez entré votre mot de passe ou votre [clé SSH](ssh-keys.md).
+Quand vous vous connectez à une grappe via SSH, l'invite vous demande votre deuxième facteur après que vous avez entré votre mot de passe ou votre [clé SSH](ssh_keys.md).
 
 ```bash
 ssh cluster.computecanada.ca
@@ -210,7 +210,7 @@ Sachez que le mécanisme multiplexeur de ControlMaster ne fonctionne pas sous Wi
 
 ##### Windows
 
-Voir [Utiliser WSL comme un serveur relais pour ControlMaster](configuring-wsl-as-a-controlmaster-relay-server.md).
+Voir [Utiliser WSL comme un serveur relais pour ControlMaster](configuring_wsl_as_a_controlmaster_relay_server.md).
 
 ### Pour vous connecter à votre compte
 Si l'authentification multifacteur est activée pour votre compte, vous devez d’abord passer la première authentification avec votre nom d'utilisateur et votre mot de passe. Ce qui suit sera affiché pour la deuxième authentification :
@@ -280,10 +280,10 @@ Aussi, quand vous naviguez vers un autre répertoire via le panneau de gauche, u
 Installez la version 0.72 ou une version plus récente.
 
 ### WinSCP
-Assurez-vous que vous utilisez des [clés SSH](ssh-keys.md).
+Assurez-vous que vous utilisez des [clés SSH](ssh_keys.md).
 
 ### PyCharm
-Vous devez configurer vos [clés SSH](ssh-keys.md) avant de vous connecter à nos grappes avec PyCharm.
+Vous devez configurer vos [clés SSH](ssh_keys.md) avant de vous connecter à nos grappes avec PyCharm.
 
 Quand vous vous connectez à un hôte distant, entrez votre nom d'utilisateur et le nom de l'hôte auquel vous voulez vous connecter. Vous devez ensuite entrer un mot de passe à usage unique (*One-time password*) pour vous authentifier. Dépendant de comment votre compte est configuré, utilisez votre YubiKey ou le mot de passe généré dans Duo.
 
@@ -344,7 +344,7 @@ La plupart des clients qui utilisent une interface ligne de commande, comme sous
 *   [WinSCP](#winscp)
 
 ### J'ai besoin de connexions SSH qui se font automatiquement aux grappes à partir de mon compte; est-ce que je peux utiliser l'authentification multifacteur?
-Nous préparons actuellement des nœuds de connexion qui seront réservés aux processus automatisés. Pour plus d'information, voir [Flux de travail automatisés et authentification multifacteur](automation-in-the-context-of-multifactor-authentication.md).
+Nous préparons actuellement des nœuds de connexion qui seront réservés aux processus automatisés. Pour plus d'information, voir [Flux de travail automatisés et authentification multifacteur](automation_in_the_context_of_multifactor_authentication.md).
 
 ### Message *Access denied. Duo Security does not provide services in your current location*
 Duo bloque le processus d'authentification quand une adresse IP provient d'une région ou d'un pays soumis à des sanctions économiques et commerciales (voir [l'aide de Duo](https://help.duo.com/s/article/7544?language=en_US)).

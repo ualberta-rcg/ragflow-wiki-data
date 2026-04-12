@@ -62,7 +62,7 @@ CFOUR n’est pas un programme commercial et son développement se fait par l’
 
 L'Alliance a conclu un [accord de licence](http://slater.chemie.uni-mainz.de/cfour/index.php?n=Main.Download) avec le [professeur Jürgen Gauss](https://www.tc.uni-mainz.de/prof-dr-juergen-gauss/) qui représente les développeurs de CFOUR.
 
-Pour utiliser la version disponible sur nos grappes, vous devez faire parvenir les énoncés suivants au [soutien technique](technical-support.md) :
+Pour utiliser la version disponible sur nos grappes, vous devez faire parvenir les énoncés suivants au [soutien technique](../support/technical_support.md) :
 
 1.  J’utiliserai CFOUR pour la recherche académique uniquement.
 2.  Je ne copierai pas le logiciel CFOUR, ni le rendrai disponible à une autre personne.
@@ -74,7 +74,7 @@ Pour utiliser la version disponible sur nos grappes, vous devez faire parvenir l
 
 ## Module
 
-Pour accéder à la version MPI de CFOUR, [chargez le module](utiliser-des-modules.md) ainsi :
+Pour accéder à la version MPI de CFOUR, [chargez le module](../programming/utiliser_des_modules.md) ainsi :
 
 ```bash
 module load intel/2023.2.1 openmpi/4.1.5 cfour-mpi/2.1

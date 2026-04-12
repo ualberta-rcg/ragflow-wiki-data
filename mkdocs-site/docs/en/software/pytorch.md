@@ -170,7 +170,7 @@ status:
 *   **Tensor computation** (like NumPy) with strong GPU acceleration
 *   **Deep neural networks** built on a tape-based autograd system
 
-If you are porting a PyTorch program to one of our clusters, you should follow [our tutorial on the subject](tutoriel-apprentissage-machine.md).
+If you are porting a PyTorch program to one of our clusters, you should follow [our tutorial on the subject](ai-ml/tutoriel_apprentissage_machine.md).
 
 ## Disambiguation
 
@@ -193,7 +193,7 @@ For more information, see [Available wheels](python.md#available-wheels).
 ### Installing our wheel
 
 The preferred option is to install it using the Python [wheel](https://pythonwheels.com/) as follows:
-1.  Load a Python [module](utiliser-des-modules.md#sub-command-load), thus `module load python`
+1.  Load a Python [module](../programming/utiliser_des_modules.md#sub-command-load), thus `module load python`
 2.  Create and start a [virtual environment](python.md#creating-and-using-a-virtual-environment).
 3.  Install PyTorch in the virtual environment with `pip install`.
 
@@ -234,7 +234,7 @@ pip install torch --no-index
 python pytorch-test.py
 ```
 
-See [Ratios in bundles](allocations-and-compute-scheduling.md#ratios-in-bundles) for more information on the appropriate number of CPUs and Memory per GPU for each cluster.
+See [Ratios in bundles](../running-jobs/allocations_and_compute_scheduling.md#ratios-in-bundles) for more information on the appropriate number of CPUs and Memory per GPU for each cluster.
 
 The Python script `pytorch-test.py` has the form
 
@@ -1133,7 +1133,7 @@ Run the program:
 build/example
 ```
 
-To test an application with CUDA, request an [interactive job](running-jobs.md#interactive-jobs) with a [GPU](using-gpus-with-slurm.md).
+To test an application with CUDA, request an [interactive job](../running-jobs/running_jobs.md#interactive-jobs) with a [GPU](../running-jobs/using_gpus_with_slurm.md).
 
 ## rTorch
 

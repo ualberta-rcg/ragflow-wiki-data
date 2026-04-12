@@ -48,7 +48,7 @@ status:
   qa_generated: false
 ---
 
-*Page enfant de [Exécuter des tâches](running-jobs.md)*
+*Page enfant de [Exécuter des tâches](running_jobs.md)*
 
 Si vous avez plusieurs tâches dont un paramètre diffère, vous pouvez utiliser un vecteur de tâches (*job array*, *array job*, *task array*). La variable d’environnement `$SLURM_ARRAY_TASK_ID` différencie chacune des tâches et l’ordonnanceur leur attribue une valeur différente. Les valeurs sont définies par le paramètre `--array`.
 
@@ -79,7 +79,7 @@ Le script utilise `$SLURM_ARRAY_TASK_ID` pour indiquer le fichier pour les donn�
 
 Le fait d’utiliser un vecteur de tâches plutôt que plusieurs tâches séquentielles est avantageux pour vous-même et pour les autres utilisateurs. Un vecteur de tâches en attente ne produit qu’une seule ligne dans squeue, ce qui vous permet de consulter son résultat plus facilement. De plus, l’ordonnanceur n’est pas appelé à analyser les besoins de chacune des tâches séparément, ce qui résulte en un gain de performance.
 
-En excluant le recours à sbatch comme étape initiale, l’ordonnanceur subit la même charge avec un vecteur de tâches qu’avec un nombre équivalent de tâches soumises séparément. Il n’est pas recommandé d’utiliser un vecteur pour soumettre des tâches qui ont une durée de beaucoup moins d’une heure. Les tâches d’une durée de quelques minutes seulement devraient être groupées avec [META](meta-farm.md), [GLOST](glost.md), [GNU Parallel](gnu-parallel.md) ou dans une boucle de l’interpréteur à l'intérieur d'une tâche.
+En excluant le recours à sbatch comme étape initiale, l’ordonnanceur subit la même charge avec un vecteur de tâches qu’avec un nombre équivalent de tâches soumises séparément. Il n’est pas recommandé d’utiliser un vecteur pour soumettre des tâches qui ont une durée de beaucoup moins d’une heure. Les tâches d’une durée de quelques minutes seulement devraient être groupées avec [META](meta-farm.md), [GLOST](glost.md), [GNU Parallel](gnu_parallel.md) ou dans une boucle de l’interpréteur à l'intérieur d'une tâche.
 
 ## Exemple avec des répertoires multiples
 

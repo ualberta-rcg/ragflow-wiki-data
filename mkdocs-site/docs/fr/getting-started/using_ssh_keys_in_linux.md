@@ -106,7 +106,7 @@ The key's randomart image is:
 ```
 
 !!! tip
-    À l'invite, entrez une phrase de passe. Si vous avez déjà sauvegardé une paire de clés avec leurs noms par défaut, vous devriez donner un nom différent au fichier pour éviter d'écraser les clés existantes. Voyez plus d'information sur les [meilleures pratiques](ssh-keys.md#meilleures-pratiques).
+    À l'invite, entrez une phrase de passe. Si vous avez déjà sauvegardé une paire de clés avec leurs noms par défaut, vous devriez donner un nom différent au fichier pour éviter d'écraser les clés existantes. Voyez plus d'information sur les [meilleures pratiques](ssh_keys.md#meilleures-pratiques).
 
 ## Créer une paire de clés soutenue par une clé de sécurité matérielle
 Certains sites prennent désormais en charge l'utilisation de clés SSH soutenues par une clé de sécurité matérielle (par exemple, YubiKey). Si vous avez besoin d'une de ces clés, vous pouvez la générer avec la commande `ssh-keygen`.
@@ -146,7 +146,7 @@ Une invite vous demande d'entrer une phrase de passe et d'activer la clé matér
 ## Installer la clé publique
 
 ### Installation via la CCDB
-Nous vous encourageons à enregistrer votre clé publique SSH dans la CCDB, ce qui vous permettra de l'utiliser pour vous connecter à toutes nos grappes. Copiez le contenu de la clé publique (dans notre exemple, **id_rsa.pub**) et téléversez-la dans la CCDB tel que décrit à l'étape 3 de [cette procédure](ssh-keys.md#using-ccdb).
+Nous vous encourageons à enregistrer votre clé publique SSH dans la CCDB, ce qui vous permettra de l'utiliser pour vous connecter à toutes nos grappes. Copiez le contenu de la clé publique (dans notre exemple, **id_rsa.pub**) et téléversez-la dans la CCDB tel que décrit à l'étape 3 de [cette procédure](ssh_keys.md#using-ccdb).
 
 Le moyen le plus simple et le plus sécuritaire d'installer une clé sur un système distant est d'utiliser la commande
 ```bash

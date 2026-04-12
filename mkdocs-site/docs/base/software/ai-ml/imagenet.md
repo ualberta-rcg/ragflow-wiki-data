@@ -50,14 +50,14 @@ status:
   qa_generated: false
 ---
 
-The Digital Research Alliance of Canada makes available on the [Nibi](nibi.md) cluster a copy of the ImageNet dataset, stored in the `/datashare` space. For the time being, this dataset is available only on Nibi, and you must opt-in to access this dataset by agreeing that you have registered for an ImageNet license:
+The Digital Research Alliance of Canada makes available on the [Nibi](../../clusters/nibi.md) cluster a copy of the ImageNet dataset, stored in the `/datashare` space. For the time being, this dataset is available only on Nibi, and you must opt-in to access this dataset by agreeing that you have registered for an ImageNet license:
 
 !!! note "ImageNet License Agreement"
     By selecting this service you acknowledge that you have registered with the owner of the data (at http://image-net.org/download) and have agreed to ImageNet’s terms of use (https://image-net.org/download.php).
 
     En sélectionnant ce service, vous reconnaissez que vous êtes inscrit auprès du propriétaire des données (à l'adresse http://image-net.org/download) et que vous avez accepté les conditions d'utilisation d'ImageNet (https://image-net.org/download.php).
 
-This dataset is provided as is and will only be updated based on image-net.org releases. If data from other challenges than the ones provided are required, please contact our [Technical support](technical-support.md) with the subject `ImageNet dataset`.
+This dataset is provided as is and will only be updated based on image-net.org releases. If data from other challenges than the ones provided are required, please contact our [Technical support](../../support/technical_support.md) with the subject `ImageNet dataset`.
 
 ## Request access through the opt-in service
 Please visit [this opt-in page](https://ccdb.computecanada.ca/services/opt_in) to request access by acknowledging that you have registered with the ImageNet providers and that you will comply with their terms and conditions.

@@ -51,4 +51,4 @@ make -j6
 ```
 
 !!! tip
-    Let us know by writing to our [Technical support](technical-support.md) if these instructions do not work for you.
+    Let us know by writing to our [Technical support](../support/technical_support.md) if these instructions do not work for you.

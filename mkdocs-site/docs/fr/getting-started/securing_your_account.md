@@ -68,15 +68,15 @@ Une bonne façon de vous authentifier comme propriétaire de votre compte sans a
 
 Votre clé privée est comme un jeton de sécurité, même si elle est chiffrée avec un mot de passe. N'utilisez pas une clé privée sur un ordinateur que vous partagez avec d'autres usagers. Sur une grappe, une clé privée qui n'est pas chiffrée représente un immense risque.
 
-Pour les détails sur l'implémentation des clés SSH, consultez la page wiki [Clés SSH](ssh-keys.md).
+Pour les détails sur l'implémentation des clés SSH, consultez la page wiki [Clés SSH](ssh_keys.md).
 
 ## Authentification multifacteur
-L'authentification multifacteur vous permet de protéger votre compte avec plus qu'un mot de passe ou une clé SSH. Si votre compte est configuré pour utiliser cette fonctionnalité et que vous voulez accéder à nos services, vous devez d'abord entrer votre nom d'utilisateur et mot de passe ou votre clé SSH, et ensuite vous authentifier avec un *deuxième facteur*. C'est fortement recommandé d'activer l'authentification multifacteur pour votre compte. Pour plus d'information, voyez [notre page wiki Authentification multifacteur](multifactor-authentication.md).
+L'authentification multifacteur vous permet de protéger votre compte avec plus qu'un mot de passe ou une clé SSH. Si votre compte est configuré pour utiliser cette fonctionnalité et que vous voulez accéder à nos services, vous devez d'abord entrer votre nom d'utilisateur et mot de passe ou votre clé SSH, et ensuite vous authentifier avec un *deuxième facteur*. C'est fortement recommandé d'activer l'authentification multifacteur pour votre compte. Pour plus d'information, voyez [notre page wiki Authentification multifacteur](multifactor_authentication.md).
 
 # Meilleures pratiques
 
 ## Partage des données
-Quand plusieurs usagers doivent partager les mêmes données, la solution la plus simple, ça semble être de modifier les permissions du système de fichiers pour permettre à tous de lire et d'écrire dans les mêmes fichiers. Faut quand même respecter certains principes pour éviter de compromettre la sécurité; consultez la page wiki [Partage des données](sharing-data.md).
+Quand plusieurs usagers doivent partager les mêmes données, la solution la plus simple, ça semble être de modifier les permissions du système de fichiers pour permettre à tous de lire et d'écrire dans les mêmes fichiers. Faut quand même respecter certains principes pour éviter de compromettre la sécurité; consultez la page wiki [Partage des données](../storage-and-data/sharing_data.md).
 
 ## Ordinateur à partir duquel vous vous connectez
 

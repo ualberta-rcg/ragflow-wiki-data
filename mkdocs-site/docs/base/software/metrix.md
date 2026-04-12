@@ -262,6 +262,6 @@ Here is the list of the latest jobs performed at your group level.
 
 # Cloud Statistics
 
-The first table, 'Your Instances,' presents all virtual machines associated with an account. The 'Flavor' column refers to the [virtual machine type](virtual-machine-flavors.md). The 'UUID' column corresponds to a unique identifier assigned to each virtual machine.
+The first table, 'Your Instances,' presents all virtual machines associated with an account. The 'Flavor' column refers to the [virtual machine type](../cloud/virtual_machine_flavors.md). The 'UUID' column corresponds to a unique identifier assigned to each virtual machine.
 
 Subsequently, each virtual machine has its own usage statistics (CPU Cores, Memory, Disk Bandwidth, Disk IOPS, and Network Bandwidth) viewable for the last month, last week, last day, or last hour.

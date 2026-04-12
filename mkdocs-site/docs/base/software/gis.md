@@ -40,7 +40,7 @@ Of the titles mentioned in that overview, the following are available on our clu
 * GRASS
 * [GDAL](gdal.md)
 * SAGA
-You may find others by checking the list of [available software](available-software.md) and looking for entries with type "geo".
+You may find others by checking the list of [available software](../programming/available_software.md) and looking for entries with type "geo".
 GIS packages for R and Python will not appear there; please see [R](r.md) and [Python](python.md) for more about finding and installing packages for those languages.
 
 !!! note "ArcGIS"

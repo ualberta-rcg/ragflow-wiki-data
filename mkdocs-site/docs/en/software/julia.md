@@ -65,7 +65,7 @@ status:
   qa_generated: false
 ---
 
-[Julia](https://julialang.org) is a programming language that was designed for performance, ease of use, and portability. It is available as a [module](utiliser-des-modules.md) on the Alliance clusters.
+[Julia](https://julialang.org) is a programming language that was designed for performance, ease of use, and portability. It is available as a [module](../programming/utiliser_des_modules.md) on the Alliance clusters.
 
 ## Installing packages
 
@@ -87,7 +87,7 @@ julia> Pkg.add("JLD")
 julia> using JLD
 ```
 
-If we were to omit the `Libdl.DL_LOAD_PATH` line from the above example, it would happen to work on Graham because Graham has HDF5 installed system-wide. It would fail on Cedar because Cedar does not. The best practice on *any* of our systems, though, is that shown above: Load the appropriate [module](utiliser-des-modules.md) first, and use the environment variable defined by the module (`HDF5_DIR` in this example) to extend `Libdl.DL_LOAD_PATH`. This will work uniformly on all systems.
+If we were to omit the `Libdl.DL_LOAD_PATH` line from the above example, it would happen to work on Graham because Graham has HDF5 installed system-wide. It would fail on Cedar because Cedar does not. The best practice on *any* of our systems, though, is that shown above: Load the appropriate [module](../programming/utiliser_des_modules.md) first, and use the environment variable defined by the module (`HDF5_DIR` in this example) to extend `Libdl.DL_LOAD_PATH`. This will work uniformly on all systems.
 
 !!! note
     The example package we use here, JLD, has been superseded by [JLD2](https://juliapackages.com/p/jld2), which no longer relies on a system-installed HDF5 library, and is therefore more portable.
@@ -115,7 +115,7 @@ This will use the `/project/def-bob/alice/julia` directory preferentially. Files
 rm -rf $HOME/.julia
 ```
 
-Alternatively, one can create an [Apptainer](apptainer.md) image with a chosen version of Julia and a selection of packages, and JULIA_DEPOT_PATH redirected inside the container. This does mean that you lose the advantage of our optimized Julia modules. However, your container now contains the potentially very large set of small files inside 1 container file (`.sif`), potentially improving IO performance. Reproducibility is also improved, the container will run anywhere as-is. Another use case is if you want to test Julia nightly builds without altering your local Julia installation, or when you need to bundle your own specific dependencies, because the container creation gives you complete control at creation.
+Alternatively, one can create an [Apptainer](containers/apptainer.md) image with a chosen version of Julia and a selection of packages, and JULIA_DEPOT_PATH redirected inside the container. This does mean that you lose the advantage of our optimized Julia modules. However, your container now contains the potentially very large set of small files inside 1 container file (`.sif`), potentially improving IO performance. Reproducibility is also improved, the container will run anywhere as-is. Another use case is if you want to test Julia nightly builds without altering your local Julia installation, or when you need to bundle your own specific dependencies, because the container creation gives you complete control at creation.
 
 ## Using PyCall.jl to call Python from Julia
 
@@ -192,7 +192,7 @@ MPI.Barrier(comm)
 
 ## Configuring Julia's threading behaviour
 
-You can restrict the number of threads Julia can use by setting `JULIA_NUM_THREADS=k`, for example a single process on a 12 cpus-per-task job could use `k=12`. Setting the number of threads to the number of processors is a typical choice (although see [Scalability](scalability.md) for a discussion). In addition, one can 'pin' threads to cores, by setting `JULIA_EXCLUSIVE` to anything non-zero. As per the [documentation](https://docs.julialang.org/en/v1/manual/environment-variables/#JULIA_EXCLUSIVE), this takes control of thread scheduling away from the OS, and pins threads to cores (sometimes referred to 'green' threads with affinity). Depending on the computation that threads execute, this can improve performance when one has precise information on cache access patterns or otherwise unwelcome scheduling patterns used by the OS. Setting `JULIA_EXCLUSIVE` works only if your job has exclusive access to the compute nodes (all available CPU cores were allocated to your job). Since SLURM already pins processes and threads to CPU cores, asking Julia to re-pin threads may not lead to any performance improvement.
+You can restrict the number of threads Julia can use by setting `JULIA_NUM_THREADS=k`, for example a single process on a 12 cpus-per-task job could use `k=12`. Setting the number of threads to the number of processors is a typical choice (although see [Scalability](../running-jobs/scalability.md) for a discussion). In addition, one can 'pin' threads to cores, by setting `JULIA_EXCLUSIVE` to anything non-zero. As per the [documentation](https://docs.julialang.org/en/v1/manual/environment-variables/#JULIA_EXCLUSIVE), this takes control of thread scheduling away from the OS, and pins threads to cores (sometimes referred to 'green' threads with affinity). Depending on the computation that threads execute, this can improve performance when one has precise information on cache access patterns or otherwise unwelcome scheduling patterns used by the OS. Setting `JULIA_EXCLUSIVE` works only if your job has exclusive access to the compute nodes (all available CPU cores were allocated to your job). Since SLURM already pins processes and threads to CPU cores, asking Julia to re-pin threads may not lead to any performance improvement.
 
 Related is the variable [JULIA_THREAD_SLEEP_THRESHOLD](https://docs.julialang.org/en/v1/manual/environment-variables/#JULIA_THREAD_SLEEP_THRESHOLD), controlling the number of nanoseconds after which a spinning thread is scheduled to sleep. A value of infinite (as string) indicates no sleeping on spinning. Changing this variable can be of use if many threads are contending frequently for a shared resource, where it can be preferred to schedule out spinning threads more quickly. Under heavy contention, spinning would only increase CPU load. Conversely, in a situation where a resource is only very infrequently contended, lower latency can result from prohibiting threads to sleep, that is, setting the threshold to infinity.
 

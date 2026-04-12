@@ -55,7 +55,7 @@ status:
 [GPAW](https://wiki.fysik.dtu.dk/gpaw/) is a density-functional theory (DFT) [Python](python.md) code based on the projector-augmented wave (PAW) method and the atomic simulation environment (ASE).
 
 ## Creating a GPAW virtual environment
-We provide precompiled [Python wheels](available-python-wheels.md) for GPAW that can be installed into a [virtual Python environment](python.md#creating-and-using-a-virtual-environment).
+We provide precompiled [Python wheels](../programming/available_python_wheels.md) for GPAW that can be installed into a [virtual Python environment](python.md#creating-and-using-a-virtual-environment).
 
 1. Check which versions of gpaw are available:
 
@@ -181,6 +181,6 @@ export GPAW_SETUP_PATH=/scratch/$USER/gpaw-setups-0.9.20000
 srun --cpus-per-task=$OMP_NUM_THREADS gpaw python my_gpaw_script.py
 ```
 
-This would use a single node with 8 MPI-ranks (ntasks) and 4 OpenMP threads per MPI rank (cpus-per-task) so a total of 32 CPUs. You probably want to adjust those numbers so that the product matches the number of cores of a whole node (i.e. 32 at [Graham](graham.md), 40 at [Béluga](beluga.md) and [Niagara](niagara.md), 48 at [Cedar](cedar.md) or 64 at [Narval](narval.md)).
+This would use a single node with 8 MPI-ranks (ntasks) and 4 OpenMP threads per MPI rank (cpus-per-task) so a total of 32 CPUs. You probably want to adjust those numbers so that the product matches the number of cores of a whole node (i.e. 32 at [Graham](../clusters/graham.md), 40 at [Béluga](beluga.md) and [Niagara](niagara.md), 48 at [Cedar](../clusters/cedar.md) or 64 at [Narval](../clusters/narval.md)).
 
 Setting `OMP_NUM_THREADS` as shown above, makes sure it is always set to the same value as cpus-per-task or 1 in case cpus-per-task is not set. Loading the modules `gcc/9.3.0` and `openmpi/4.0.3` ensures that the exact MPI library is used for the job, as was used for building the wheels.

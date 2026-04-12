@@ -62,7 +62,7 @@ Edit your program such that it doesn't use a graphical display. All graphical re
 Shared storage on our clusters is not designed to handle lots of small files (they are optimized for very large files). Make sure that the data set which you need for your training is an archive format like `tar`, which you can then transfer to your job's compute node when the job starts.
 !!! warning "Important"
     **If you do not respect these rules, you risk causing enormous numbers of I/O operations on the shared filesystem, leading to performance issues on the cluster for all of its users.**
-If you want to learn more about how to handle collections of large number of files, we recommend that you spend some time reading [this page](handling-large-collections-of-files.md).
+If you want to learn more about how to handle collections of large number of files, we recommend that you spend some time reading [this page](../../storage-and-data/handling_large_collections_of_files.md).
 
 Assuming that the files which you need are in the directory `mydataset`:
 ```bash
@@ -72,16 +72,16 @@ The above command does not compress the data. If you believe that this is approp
 
 ## Step 3: Preparing Your Virtual Environment
 
-[Create a virtual environment](python.md#creating-and-using-a-virtual-environment) in your home space.
+[Create a virtual environment](../python.md#creating-and-using-a-virtual-environment) in your home space.
 
 For details on installation and usage of machine learning frameworks, refer to our documentation:
 
-* [PyTorch](pytorch.md)
-* [TensorFlow](tensorflow.md)
+* [PyTorch](../pytorch.md)
+* [TensorFlow](../tensorflow.md)
 
 ## Step 4: Interactive Job (salloc)
 
-We recommend that you try running your job in an [interactive job](running-jobs.md#interactive-jobs) before submitting it using a script (discussed in the following section). You can diagnose problems more quickly using an interactive job. An example of the command for submitting such a job is:
+We recommend that you try running your job in an [interactive job](../../running-jobs/running_jobs.md#interactive-jobs) before submitting it using a script (discussed in the following section). You can diagnose problems more quickly using an interactive job. An example of the command for submitting such a job is:
 ```bash
 salloc --account=def-someuser --gres=gpu:1 --cpus-per-task=3 --mem=32000M --time=1:00:00
 ```
@@ -89,15 +89,15 @@ Once the job has started:
 
 * Activate your virtual environment.
 * Try to run your program.
-* Install any missing modules if necessary. Since the compute nodes don't have internet access, you will have to install them from a login node. Please refer to our documentation on [virtual environments](python.md#creating-and-using-a-virtual-environment).
+* Install any missing modules if necessary. Since the compute nodes don't have internet access, you will have to install them from a login node. Please refer to our documentation on [virtual environments](../python.md#creating-and-using-a-virtual-environment).
 * Note the steps that you took to make your program work.
 
 !!! tip "Important Verification"
-    **Now is a good time to verify that your job reads and writes as much as possible on the compute node's local storage (`$SLURM_TMPDIR`) and as little as possible on the [shared filesystems (home, scratch and project)](storage-and-file-management.md).**
+    **Now is a good time to verify that your job reads and writes as much as possible on the compute node's local storage (`$SLURM_TMPDIR`) and as little as possible on the [shared filesystems (home, scratch and project)](../../storage-and-data/storage_and_file_management.md).**
 
 ## Step 5: Scripted Job (sbatch)
 
-You must [submit your jobs](running-jobs.md#use-sbatch-to-submit-jobs) using a script in conjunction with the `sbatch` command, so that they can be entirely automated as a batch process. Interactive jobs are just for preparing and debugging your jobs, so that you can execute them fully and/or at scale using `sbatch`.
+You must [submit your jobs](../../running-jobs/running_jobs.md#use-sbatch-to-submit-jobs) using a script in conjunction with the `sbatch` command, so that they can be entirely automated as a batch process. Interactive jobs are just for preparing and debugging your jobs, so that you can execute them fully and/or at scale using `sbatch`.
 
 ### Important Elements of an `sbatch` Script
 

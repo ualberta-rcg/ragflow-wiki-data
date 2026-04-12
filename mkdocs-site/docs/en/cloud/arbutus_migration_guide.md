@@ -371,11 +371,11 @@ There are several steps that need to be taken in order to make this work. The si
     *   Send an email to globus@tech.alliancecan.ca with your information and ask to be added to the Globus Plus subscription
     *   Receive Globus Plus invitation and follow the instructions within.
 2.  **On each cloud instance involved in the data transfer, enable Globus Connect Personal:**
-    *   Read the relevant guides for Globus Connect Personal: [Personal Computers](globus.md#personal-computers) and [https://www.globus.org/globus-connect-personal](https://www.globus.org/globus-connect-personal)
+    *   Read the relevant guides for Globus Connect Personal: [Personal Computers](../getting-started/globus.md#personal-computers) and [https://www.globus.org/globus-connect-personal](https://www.globus.org/globus-connect-personal)
     *   Install Globus Connect Personal on each instance, using the proper guide. The guide for Linux is [https://docs.globus.org/how-to/globus-connect-personal-linux/](https://docs.globus.org/how-to/globus-connect-personal-linux/)
     *   Adjust instances’ configuration to enable communication with the Globus Service:
         *   Ensure each VM has an external IP address.
-        *   Ensure firewall rules on your VMs permit communication on the [necessary ports](https://docs.globus.org/how-to/configure-firewall-gcp/). See also [Managing your cloud resources with OpenStack#Security Groups](managing-your-cloud-resources-with-openstack.md#security-groups).
+        *   Ensure firewall rules on your VMs permit communication on the [necessary ports](https://docs.globus.org/how-to/configure-firewall-gcp/). See also [Managing your cloud resources with OpenStack#Security Groups](managing_your_cloud_resources_with_openstack.md#security-groups).
         *   The user running Globus Connect Personal must have access to data on the instances’ storage systems.
     *   Run Globus Connect Personal as a background process in user space.
     *   As a Globus Connect Personal Plus subscriber (enabled in step 1), create a shared endpoint on one or both VMs.
@@ -385,7 +385,7 @@ There are several steps that need to be taken in order to make this work. The si
 
 For more on configuration details see: [https://computecanada.github.io/DHSI-cloud-course/globus/](https://computecanada.github.io/DHSI-cloud-course/globus/)
 
-Contact [Technical support](technical-support.md) (globus@tech.alliancecan.ca) if any issues arise during this whole process. We also recommend you submit a support ticket in advance if you have very large volumes to move.
+Contact [Technical support](../support/technical_support.md) (globus@tech.alliancecan.ca) if any issues arise during this whole process. We also recommend you submit a support ticket in advance if you have very large volumes to move.
 
 ### Small data volumes: rsync + ssh
 

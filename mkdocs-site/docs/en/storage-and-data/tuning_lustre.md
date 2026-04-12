@@ -160,4 +160,4 @@ When treating large files, it is usually best to use a stripe count as large as 
 
 ## See also
 
-*   Tools and examples for [Archiving and compressing files](archiving-and-compressing-files.md)
+*   Tools and examples for [Archiving and compressing files](archiving_and_compressing_files.md)

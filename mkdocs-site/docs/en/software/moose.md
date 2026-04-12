@@ -48,4 +48,4 @@ make -j6
 ```
 
 !!! note
-    Please let us know by writing to our [Technical support](technical-support.md) if these instructions do not work for you.
+    Please let us know by writing to our [Technical support](../support/technical_support.md) if these instructions do not work for you.

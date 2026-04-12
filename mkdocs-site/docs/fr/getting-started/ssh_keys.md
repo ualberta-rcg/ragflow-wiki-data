@@ -118,8 +118,8 @@ Vous devriez créer une paire de clés sur votre propre ordinateur ou sur un ord
 
 Quand une paire de clés est générée, vous devez entrer une phrase de passe; ceci est une chaîne de caractères qui sert à chiffrer votre clé privée. Choisissez une phrase de passe robuste, dont vous vous souviendrez facilement; nous recommandons un minimum de 15 caractères. La phrase de passe offre une protection si la clé privée est volée.
 
-La procédure pour générer une paire de clés SSH varie selon votre système d'exploitation. Pour les clients Windows PuTTY ou MobaXterm, voyez [Générer des clés sous Windows](generating-ssh-keys-in-windows.md). Pour les environnements Linux (Linux, Mac, Windows Subsystem for Linux ou Cygwin), voyez [Utiliser des clés SSH sous Linux](using-ssh-keys-in-linux.md).
-De plus, si vous utilisez un nuage, OpenStack offre une méthode pour créer des paires de clés; voyez [Paires de clés SSH](cloud-quick-start.md#paires-de-clés-ssh).
+La procédure pour générer une paire de clés SSH varie selon votre système d'exploitation. Pour les clients Windows PuTTY ou MobaXterm, voyez [Générer des clés sous Windows](generating_ssh_keys_in_windows.md). Pour les environnements Linux (Linux, Mac, Windows Subsystem for Linux ou Cygwin), voyez [Utiliser des clés SSH sous Linux](using_ssh_keys_in_linux.md).
+De plus, si vous utilisez un nuage, OpenStack offre une méthode pour créer des paires de clés; voyez [Paires de clés SSH](../cloud/cloud_quick_start.md#paires-de-clés-ssh).
 
 ## Installer une clé
 
@@ -194,7 +194,7 @@ ssh-copy-id -i alliance-key username@fir.alliancecan.ca
 
 Le mécanisme `authorized_keys` est standard et utilisé presque partout sur Internet, mais il est quelque peu fragile.
 En particulier, SSH est très sensible aux permissions pour le fichier `authorized_keys`, ainsi que pour votre répertoire `/home` et sous-répertoire `.ssh`.
-Pour plus d'information, voyez [Utiliser des clés SSH sous Linux](using-ssh-keys-in-linux.md).
+Pour plus d'information, voyez [Utiliser des clés SSH sous Linux](using_ssh_keys_in_linux.md).
 
 ## Agent d'authentification
 
@@ -204,7 +204,7 @@ Il est important que votre clé privée soit protégée par l'emploi d'une phras
 !!! warning "Attention"
     Cette opération devrait être effectuée sur votre propre ordinateur et **non sur un ordinateur partagé** comme une grappe.
 
-Quand une clé est générée, les valeurs par défaut conviennent habituellement, mais certaines options sont à considérer. Dans les exemples suivants, nous utilisons `ssh-keygen` tel que décrit dans [Utiliser des clés SSH sous Linux](using-ssh-keys-in-linux.md), mais les options s'appliquent également avec une interface graphique tel que décrit dans [Générer des clés SSH sous Windows](generating-ssh-keys-in-windows.md).
+Quand une clé est générée, les valeurs par défaut conviennent habituellement, mais certaines options sont à considérer. Dans les exemples suivants, nous utilisons `ssh-keygen` tel que décrit dans [Utiliser des clés SSH sous Linux](using_ssh_keys_in_linux.md), mais les options s'appliquent également avec une interface graphique tel que décrit dans [Générer des clés SSH sous Windows](generating_ssh_keys_in_windows.md).
 
 *   Pour ajouter un commentaire servant à différencier une clé d'une autre :
     ```bash
@@ -258,7 +258,7 @@ Il existe plusieurs de ces contraintes qui sont décrites dans la page *sshd man
     *   Si vous donnez un nom à une clé, vous devez utiliser l'option `-i` pour spécifier la clé quand vous vous connectez; la commande serait `ssh -i Portable_RSA4096 username@host`.
 *   Utilisez `ssh-agent` pour travailler avec vos clés plus facilement.
 *   Si vous utilisez `agent-forwarding`, utilisez aussi `ssh-askpass`.
-*   Définissez [des contraintes](ssh-keys.md#définir-des-contraintes) pour votre clé publique pour en limiter la portée.
+*   Définissez [des contraintes](ssh_keys.md#définir-des-contraintes) pour votre clé publique pour en limiter la portée.
 
 Voyez aussi [ces courtes vidéos](https://www.youtube.com/watch?v=mRdqM1dgf3Q&feature=youtu.be) sur comment configurer les clés SSH :
 *   [Faster and more secure SSH](https://www.youtube.com/watch?v=mRdqM1dgf3Q&feature=youtu.be)
@@ -280,5 +280,5 @@ Si vous croyez qu'une de vos clés SSH a été révoquée, il est **très import
 *   Remplacez la clé révoquée par une nouvelle clé qui vous permettra de vous connecter aux services de l'Alliance en toute sécurité.
 *   Supprimez la clé révoquée de *tous les services* (de l'Alliance et autres) pour empêcher les accès non autorisés ou les brèches de sécurité.
 
-Si vous pensez qu'une de vos clés SSH se trouve par erreur dans notre liste de révocation ou si vous avez des questions à ce sujet, écrivez au [soutien technique](technical-support.md).
+Si vous pensez qu'une de vos clés SSH se trouve par erreur dans notre liste de révocation ou si vous avez des questions à ce sujet, écrivez au [soutien technique](../support/technical_support.md).
 La sécurité de notre infrastructure est de la plus haute importance et la vigilance de tous est essentielle à l'intégrité de la recherche numérique et de la collaboration.

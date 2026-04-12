@@ -199,7 +199,7 @@ $  submit.run  -1  --mem 4G
 
 ### Multi-threaded applications
 
-For [multi-threaded](running-jobs.md#threaded-or-openmp-job) applications (such as those that use [OpenMP](https://www.openmp.org/), for example),
+For [multi-threaded](running_jobs.md#threaded-or-openmp-job) applications (such as those that use [OpenMP](https://www.openmp.org/), for example),
 add the following lines to `job_script.sh`:
 
 ```bash
@@ -223,7 +223,7 @@ add the following lines to `job_script.sh`:
 
 ...where _N_ is the number of CPU cores to use, and _M_ is the memory to reserve for each core, in megabytes.
 You may also supply `--ntasks=N` and `--mem-per-cpu=M` as arguments to `(re)submit.run`.
-See [Advanced MPI scheduling](advanced-mpi-scheduling.md) for information about more-complicated MPI scenarios.
+See [Advanced MPI scheduling](advanced_mpi_scheduling.md) for information about more-complicated MPI scenarios.
 
 Also add `srun` before the path to your code inside `single_case.sh`,_e.g._:
 
@@ -242,7 +242,7 @@ srun /path/to/mpi_code arg1 arg2
 
 ### GPU applications
 
-For applications which use GPUs, modify `job_script.sh` following the guidance at [Using GPUs with Slurm](using-gpus-with-slurm.md):
+For applications which use GPUs, modify `job_script.sh` following the guidance at [Using GPUs with Slurm](using_gpus_with_slurm.md):
 
 ```bash
 #SBATCH --gres=gpu[[:type]:number]

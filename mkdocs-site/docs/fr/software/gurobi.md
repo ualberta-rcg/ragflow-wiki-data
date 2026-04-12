@@ -105,7 +105,7 @@ status:
 
 ## Limites de la licence
 
-Nous dispensons le soutien technique pour la licence gratuite disponible sur [Nibi](nibi.md), [Fir](fir.md), [Rorqual](rorqual.md) et [Trillium](trillium.md). Cette licence permet 4096 utilisations simultanées (avec jetons) et l'optimisation distribuée sur un maximum de 100 nœuds. Plusieurs tâches peuvent être exécutées en simultané.
+Nous dispensons le soutien technique pour la licence gratuite disponible sur [Nibi](../clusters/nibi.md), [Fir](fir.md), [Rorqual](../clusters/rorqual.md) et [Trillium](../clusters/trillium.md). Cette licence permet 4096 utilisations simultanées (avec jetons) et l'optimisation distribuée sur un maximum de 100 nœuds. Plusieurs tâches peuvent être exécutées en simultané.
 Vous devez cependant accepter certaines conditions. Faites parvenir un courriel au [soutien technique](soutien-technique.md) avec l'entente (*Entente d'utilisation académique*) dûment complétée; vous pourrez ensuite utiliser les applications après un délai de quelques jours.
 
 ### Entente d'utilisation académique

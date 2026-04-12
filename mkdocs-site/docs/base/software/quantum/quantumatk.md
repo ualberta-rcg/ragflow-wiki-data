@@ -41,7 +41,7 @@ status:
 # Licensing
 We are a hosting provider for QuantumATK. This means that we have QuantumATK software installed on our clusters, but we do not provide a generic license accessible to everyone. Many institutions, faculties, and departments already have licenses that can be used on our clusters. Alternatively researchers can purchase a license from [CMC](https://account.cmc.ca/en/WhatWeOffer/Products/CMC-00200-00368.aspx) for use anywhere in Canada, or purchase a dedicated [License](https://solvnet.synopsys.com/SmartKeys) directly from Synopsys company for use on our systems.
 
-Once the legal aspects are worked out for licensing, there will be remaining technical aspects. The license server on your end will need to be reachable by our compute nodes. This will require our technical team to get in touch with the technical people managing your license software. In some cases such as CMC, this has already been done. You should then be able to load the modules, and it should find its license automatically. If this is not the case, please contact our [Technical support](technical-support.md), so that we can arrange this for you.
+Once the legal aspects are worked out for licensing, there will be remaining technical aspects. The license server on your end will need to be reachable by our compute nodes. This will require our technical team to get in touch with the technical people managing your license software. In some cases such as CMC, this has already been done. You should then be able to load the modules, and it should find its license automatically. If this is not the case, please contact our [Technical support](../../support/technical_support.md), so that we can arrange this for you.
 
 ## Configuring your own license file
 Our module for QuantumATK is designed to look for license information in a few places. One of those places is your home folder. If you have your own license server, you can write the information to access it in the following format:
@@ -54,7 +54,7 @@ USE_SERVER
 and put this file in the folder `$HOME/.licenses/` where `<server>` is your license server and `<port>` is the port number of the license server.
 
 !!! note "Firewall Configuration"
-    Note that firewall changes will need to be done on both our side and your side. To arrange this, send an email containing the service port and IP address of your floating QuantumATK license server to [Technical support](technical-support.md).
+    Note that firewall changes will need to be done on both our side and your side. To arrange this, send an email containing the service port and IP address of your floating QuantumATK license server to [Technical support](../../support/technical_support.md).
 
 ### CMC License Setup
 Researchers who purchase a QuantumATK license subscription from CMC may use the following settings in their `quantumatk.lic` file:

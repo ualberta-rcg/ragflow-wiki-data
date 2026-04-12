@@ -198,7 +198,7 @@ Si votre programme requiert des limites de mémoire et/ou de temps processeur su
 
 #### 1) Démarrez un serveur VNC
 
-Avant de démarrer votre serveur VNC, connectez-vous à une grappe (par exemple Nibi) et créez une allocation sur un nœud de connexion avec la commande `salloc` (limite de 24 heures). Par exemple, pour demander une [tâche interactive](running-jobs.md#taches-interactives) qui utilise 4 CPU et 16Go de mémoire, vous pourriez utiliser
+Avant de démarrer votre serveur VNC, connectez-vous à une grappe (par exemple Nibi) et créez une allocation sur un nœud de connexion avec la commande `salloc` (limite de 24 heures). Par exemple, pour demander une [tâche interactive](../running-jobs/running_jobs.md#taches-interactives) qui utilise 4 CPU et 16Go de mémoire, vous pourriez utiliser
 
 ```bash
 l4(login node):~ % salloc --time=1:00:00 --cpus-per-task=4 --mem=16000 --account=def-piusername
@@ -271,7 +271,7 @@ Enter a passcode or select one of the following options:
 c48(compute node):~ %
 ```
 
-Si vous quittez le nœud auquel votre tunnel est connecté, vous ne pourrez plus vous connecter au serveur VNC avec vncviewer. Cependant, comme vncserver continuera de fonctionner, vous pourrez encore y accéder avec un nouveau tunnel. Pour plus d'information, voir [Tunnels SSH](ssh-tunnelling.md).
+Si vous quittez le nœud auquel votre tunnel est connecté, vous ne pourrez plus vous connecter au serveur VNC avec vncviewer. Cependant, comme vncserver continuera de fonctionner, vous pourrez encore y accéder avec un nouveau tunnel. Pour plus d'information, voir [Tunnels SSH](../getting-started/ssh_tunnelling.md).
 
 #### 3) Connectez-vous au serveur VNC
 

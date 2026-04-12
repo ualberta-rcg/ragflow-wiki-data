@@ -102,7 +102,7 @@ cd myrepo
 git pull
 ```
 
-Then test your changes in a short [interactive job](running-jobs.md#interactive-jobs) using minimal resources.
+Then test your changes in a short [interactive job](../running-jobs/running_jobs.md#interactive-jobs) using minimal resources.
 
 ## Editing files on the systems
 While VS Code is great for local development, sometimes you need direct access to files on a remote system. In such cases, terminal-based editors like `nano` or `vim` offer a lightweight and efficient way to edit files directly from the command line.
@@ -127,7 +127,7 @@ TBD...
 If none of the above works for your case, one can configure VS Code to connect to a remote host with the Remote SSH extension.
 
 ### SSH configuration
-If not done already, [generate your SSH key](ssh-keys.md#generating-an-ssh-key) and [add your *public* SSH key on the CCDB](ssh-keys.md#installing-your-key).
+If not done already, [generate your SSH key](../getting-started/ssh_keys.md#generating-an-ssh-key) and [add your *public* SSH key on the CCDB](../getting-started/ssh_keys.md#installing-your-key).
 
 Then create (or add) an SSH configuration file to your local computer:
 
@@ -299,7 +299,7 @@ Update your ssh configuration to add the following lines:
       User your_username
     ```
 
-1.  In an external terminal, connected to the system via an ssh connection, start a new **[interactive job](running-jobs.md#interactive-jobs)** (with `salloc`) with at least 2000M of memory.
+1.  In an external terminal, connected to the system via an ssh connection, start a new **[interactive job](../running-jobs/running_jobs.md#interactive-jobs)** (with `salloc`) with at least 2000M of memory.
     *   Note the allocated compute node name.
     *   If you need to work with `SLURM_*` environment variables in VS Code, save them all in a *source* file:
         ```bash

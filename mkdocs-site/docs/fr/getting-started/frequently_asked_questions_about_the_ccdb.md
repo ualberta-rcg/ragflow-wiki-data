@@ -161,7 +161,7 @@ Les trois niveaux de permission sont :
 
 Les membres d'un RAP constituent un groupe pour LDAP. Il s'agit du groupe d'utilisatrices et utilisateurs qui peuvent soumettre des tâches dans le cadre du RAPI (l'identifiant du RAP) et qui peuvent partager des fichiers sous Unix.
 
-Pour savoir comment ajouter des membres, consultez les [caractéristiques des grappes](using-a-resource-allocation.md#caracteristiques-des-grappes).
+Pour savoir comment ajouter des membres, consultez les [caractéristiques des grappes](../running-jobs/using_a_resource_allocation.md#caracteristiques-des-grappes).
 
 ## Obtenir un compte
 
@@ -191,7 +191,7 @@ Les rôles parrainés se répartissent en deux groupes, internes ou externes, la
 
 Un collaborateur externe est une personne qui travaille avec le groupe et que la chercheuse principale ou le chercheur principal a accepté de parrainer. Cette personne est affiliée à un autre établissement que celui de la personne qui la parraine.
 
-[Voyez la liste complète des rôles.](user-roles-to-access-resources-and-services-of-the-alliance-federation.md)
+[Voyez la liste complète des rôles.](user_roles_to_access_resources_and_services_of_the_alliance_federation.md)
 
 ### Que se passera-t-il une fois que j’aurai envoyé ma demande?
 

@@ -84,9 +84,9 @@ In general, there are two main types of RAPs:
 A RAC award consists of one or more **allocations**. Each allocation consists of a resource (such as `graham-cpu`, `graham-gpu`, `graham-storage`) and an amount, and has a designation like `abc-123-aa-001`.
 
 You can find RAPIs and their corresponding group names and allocations by visiting the [CCDB portal](https://ccdb.alliancecan.ca).
-See [Running jobs: Accounts and projects](running-jobs.md#accounts-and-projects) for an illustration.
+See [Running jobs: Accounts and projects](running_jobs.md#accounts-and-projects) for an illustration.
 
-For more details about RAP and RAP memberships, visit the [CCDB FAQ page](frequently-asked-questions-about-the-ccdb.md#resource-allocation-project-rap)
+For more details about RAP and RAP memberships, visit the [CCDB FAQ page](../getting-started/frequently_asked_questions_about_the_ccdb.md#resource-allocation-project-rap)
 
 ## Sponsored users
 
@@ -94,7 +94,7 @@ Alliance accounts are *per person:* Account sharing is strictly forbidden. Each 
 
 ## Information on each resource
 
-For more information, please click on the tab below corresponding to where you have been granted resources. *General-purpose clusters* are [Béluga](béluga.md), [Cedar](cedar.md), and [Graham](graham.md). More than one tab may apply if, for example, you have been granted an allocation on both [Niagara](niagara.md) and a general-purpose cluster.
+For more information, please click on the tab below corresponding to where you have been granted resources. *General-purpose clusters* are [Béluga](../clusters/béluga.md), [Cedar](../clusters/cedar.md), and [Graham](../clusters/graham.md). More than one tab may apply if, for example, you have been granted an allocation on both [Niagara](niagara.md) and a general-purpose cluster.
 
 === "General-purpose clusters"
 
@@ -115,21 +115,21 @@ RAP membership is represented as a group in LDAP. It defines a group of users th
 
 When submitting jobs to the scheduler, users will need to specify a group name as the value of the `--account` option. Jobs pertaining to the research described in the RAC application should be submitted with the group name corresponding to the RAC award, e.g., `--account=rrg-profname-ab`. Jobs pertaining to other research should be submitted with the default group name, e.g., `--account=def-profname`.
 
-See [Running jobs: Accounts and projects](running-jobs.md#accounts-and-projects) for more details.
+See [Running jobs: Accounts and projects](running_jobs.md#accounts-and-projects) for more details.
 
 ### Using allocated storage
 
-If you have substantial amounts of data to transfer to an Alliance cluster in order to use your storage allocation, we strongly recommend the use of [Globus](globus.md).
+If you have substantial amounts of data to transfer to an Alliance cluster in order to use your storage allocation, we strongly recommend the use of [Globus](../getting-started/globus.md).
 
 #### `/project`
 
-A `/project` storage allocation on a general-purpose cluster is created as a directory of the form `/project/<group-name>`, e.g., `/project/rrg-profname-ab`, and an associated quota defining the amount of data that can be stored in the directory. Files pertaining to the research described in the RAC application should be stored there by all sponsored users. More guidance on the use of `/project` space can be found at [Project layout](project-layout.md) and [Sharing data](sharing-data.md).
+A `/project` storage allocation on a general-purpose cluster is created as a directory of the form `/project/<group-name>`, e.g., `/project/rrg-profname-ab`, and an associated quota defining the amount of data that can be stored in the directory. Files pertaining to the research described in the RAC application should be stored there by all sponsored users. More guidance on the use of `/project` space can be found at [Project layout](../storage-and-data/project_layout.md) and [Sharing data](../storage-and-data/sharing_data.md).
 
 Note that you will also have default project space of the form `/project/def-profname`. You may wish to move data from that default project space to the RRG or RPP `/project` directory, if the data pertains to the research described in the RAC application.
 
 #### `/nearline`
 
-Please see [Using nearline storage](using-nearline-storage.md).
+Please see [Using nearline storage](../storage-and-data/using_nearline_storage.md).
 
 === "Niagara"
 
@@ -150,11 +150,11 @@ RAP membership is represented as a group in LDAP. It defines a group of users th
 
 When a user submits a job to the scheduler, the job will be assigned to the current allocation of the user's PI. If the user has more than one PI, i.e. more than one group, they must specify a group name as the value of the `--account` option.
 
-See [Running jobs: Accounts and projects](running-jobs.md#accounts-and-projects) for more details.
+See [Running jobs: Accounts and projects](running_jobs.md#accounts-and-projects) for more details.
 
 ### Using allocated storage
 
-If you have substantial amounts of data to transfer to the cluster in order to use your storage allocation, we strongly recommend the use of [Globus](globus.md).
+If you have substantial amounts of data to transfer to the cluster in order to use your storage allocation, we strongly recommend the use of [Globus](../getting-started/globus.md).
 
 #### `/project`
 
@@ -162,7 +162,7 @@ The location of a `/project` storage allocation on Niagara should be found by us
 
 #### `/nearline`
 
-A `/nearline` allocation on Niagara means space in HPSS. Please see [Using nearline storage](using-nearline-storage.md#niagara).
+A `/nearline` allocation on Niagara means space in HPSS. Please see [Using nearline storage](../storage-and-data/using_nearline_storage.md#niagara).
 
 === "Cloud"
 
@@ -189,4 +189,4 @@ If desired, you can select which users may use your allocation. To do so:
     * Any new member added to a RAP for your cloud project will automatically have access to your cloud allocation. If desired, at any time you can promote members to Managers, or remove members.
     * Membership in your Cloud RAP allows full access to your OpenStack tenants. For more details, see our wiki page on [OpenStack projects](openstack.md#projects).
 
-For information about logging in and using a particular cloud see [using the cloud](cloud.md#using-the-cloud). If you are unsure about your cloud allocation or if you have difficulty logging into a cloud where you have an allocation, please contact [technical support](technical-support.md).
+For information about logging in and using a particular cloud see [using the cloud](../cloud/cloud.md#using-the-cloud). If you are unsure about your cloud allocation or if you have difficulty logging into a cloud where you have an allocation, please contact [technical support](../support/technical_support.md).

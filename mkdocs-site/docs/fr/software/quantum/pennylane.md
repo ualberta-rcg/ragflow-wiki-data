@@ -58,10 +58,10 @@ PennyLane offre plusieurs fonctionnalités pour faciliter la recherche et le dé
 ### Interface quantique unifiée
 PennyLane fournit une interface unifiée qui permet de concevoir des circuits quantiques et de les exécuter sur différents simulateurs et matériels quantiques. La plateforme prend en charge plusieurs simulateurs quantiques populaires, tels que [Qiskit](qiskit.md), [Cirq](cirq.md), Strawberry Field ou encore QuTip. PennyLane prend également en charge plusieurs matériels quantiques, notamment les dispositifs quantiques de Xanadu, IBM, Rigetti et IonQ.
 
-Calcul Québec a développé le plugiciel [PennyLane-CalculQuebec](https://github.com/calculquebec/pennylane-snowflurry) qui utilise l’interface PennyLane pour concevoir et exécuter des circuits quantiques sur [MonarQ](monarq.md).
+Calcul Québec a développé le plugiciel [PennyLane-CalculQuebec](https://github.com/calculquebec/pennylane-snowflurry) qui utilise l’interface PennyLane pour concevoir et exécuter des circuits quantiques sur [MonarQ](../../clusters/monarq.md).
 
 ### Intégration avec des bibliothèques d'apprentissage automatique
-PennyLane s'intègre de manière transparente avec des librairies d'apprentissage automatique populaires telles que [TensorFlow](tensorflow.md) et [PyTorch](pytorch.md), et vous permet d'utiliser les outils d'apprentissage automatique pour construire des modèles d'apprentissage automatique quantiques hybrides et optimiser les circuits quantiques.
+PennyLane s'intègre de manière transparente avec des librairies d'apprentissage automatique populaires telles que [TensorFlow](../tensorflow.md) et [PyTorch](../pytorch.md), et vous permet d'utiliser les outils d'apprentissage automatique pour construire des modèles d'apprentissage automatique quantiques hybrides et optimiser les circuits quantiques.
 
 ### Optimisation de circuits quantiques
 En utilisant des techniques d'optimisation différentiables et en combinant les méthodes de différenciation classiques et quantiques, PennyLane optimise les paramètres des circuits quantiques afin de résoudre des problèmes variés.
@@ -73,12 +73,12 @@ PennyLane fournit des outils de visualisation pour faciliter la compréhension d
 PennyLane est un projet à code source ouvert avec une communauté active de développeurs et d'utilisateurs. Le projet est constamment mis à jour avec de nouvelles fonctionnalités et améliorations, et tous peuvent contribuer au développement de la plateforme.
 
 ## Utiliser PennyLane avec MonarQ
-[MonarQ](monarq.md) est conçu pour être programmé avec Snowflurry, une bibliothèque logicielle programmée en Julia et développée par Anyon Systems. Par contre, grâce au plugiciel PennyLane-CalculQuebec, les circuits PennyLane peuvent être créés en utilisant Snowflurry en arrière-plan. Cela permet d’exécuter des circuits sur [MonarQ](monarq.md) tout en bénéficiant des fonctionnalités et de l'environnement de développement offerts par PennyLane. Voir la documentation [PennyLane-CalculQuebec](https://github.com/calculquebec/pennylane-snowflurry) pour les guides d’installation et d’usage.
+[MonarQ](../../clusters/monarq.md) est conçu pour être programmé avec Snowflurry, une bibliothèque logicielle programmée en Julia et développée par Anyon Systems. Par contre, grâce au plugiciel PennyLane-CalculQuebec, les circuits PennyLane peuvent être créés en utilisant Snowflurry en arrière-plan. Cela permet d’exécuter des circuits sur [MonarQ](../../clusters/monarq.md) tout en bénéficiant des fonctionnalités et de l'environnement de développement offerts par PennyLane. Voir la documentation [PennyLane-CalculQuebec](https://github.com/calculquebec/pennylane-snowflurry) pour les guides d’installation et d’usage.
 
-Un [transpileur quantique](transpileur-quantique.md) est également disponible à partir de PennyLane afin d'optimiser ses circuits pour [MonarQ](monarq.md).
+Un [transpileur quantique](transpileur_quantique.md) est également disponible à partir de PennyLane afin d'optimiser ses circuits pour [MonarQ](../../clusters/monarq.md).
 
 ## Création de l'environnement virtuel
-[Créons un environnement virtuel Python](python.md#creer-et-utiliser-un-environnement-virtuel) pour utiliser PennyLane.
+[Créons un environnement virtuel Python](../python.md#creer-et-utiliser-un-environnement-virtuel) pour utiliser PennyLane.
 
 ```bash
 module load python/3.11
@@ -117,7 +117,7 @@ pip install --no-index --requirement ~/pennylane_requirements.txt
 # Modifiez votre programme PennyLane.
 python pennylane_example.py
 ```
-Vous pouvez ensuite soumettre votre tâche à [l'ordonnanceur](running-jobs.md).
+Vous pouvez ensuite soumettre votre tâche à [l'ordonnanceur](../../running-jobs/running_jobs.md).
 
 ## Exemple d’utilisation : États de Bell
 Commençons par créer l'environnement virtuel, tel que décrit ci-dessus.

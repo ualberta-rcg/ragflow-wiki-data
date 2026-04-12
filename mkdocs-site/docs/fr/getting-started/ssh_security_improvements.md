@@ -113,7 +113,7 @@ Killed by signal 1.
 
 #### MobaXterm, PuTTY, WinSCP
 
-Sous Windows, avec un client [MobaXterm](connecting-with-mobaxterm.md), [PuTTY](connecting-with-putty.md) ou [WinSCP](https://winscp.net/eng/download.php), l'avertissement sera affiché dans une fenêtre et vous serez invité à accepter la nouvelle clé en cliquant sur **Oui**. Avant de cliquer, assurez-vous que l'empreinte se trouve dans la liste des [empreintes de clés hôtes ci-dessous](#empreintes-de-clés-hôtes). Si elle ne s'y trouve pas, contactez le [soutien technique](technical-support.md).
+Sous Windows, avec un client [MobaXterm](connecting_with_mobaxterm.md), [PuTTY](connecting_with_putty.md) ou [WinSCP](https://winscp.net/eng/download.php), l'avertissement sera affiché dans une fenêtre et vous serez invité à accepter la nouvelle clé en cliquant sur **Oui**. Avant de cliquer, assurez-vous que l'empreinte se trouve dans la liste des [empreintes de clés hôtes ci-dessous](#empreintes-de-clés-hôtes). Si elle ne s'y trouve pas, contactez le [soutien technique](../support/technical_support.md).
 
 #### macOS, Linux, GitBash, Cygwin
 
@@ -146,7 +146,7 @@ ED25519 key fingerprint is MD5:bc:93:0c:64:f7:e7:cf:d9:db:81:40:be:4d:cd:12:5c.
 Are you sure you want to continue connecting (yes/no)?
 ```
 
-Avant d'entrer **oui**, assurez-vous que l'empreinte se trouve dans la liste des [empreintes de clés hôtes ci-dessous](#empreintes-de-clés-hôtes). Si elle ne s'y trouve pas, contactez le [soutien technique](technical-support.md).
+Avant d'entrer **oui**, assurez-vous que l'empreinte se trouve dans la liste des [empreintes de clés hôtes ci-dessous](#empreintes-de-clés-hôtes). Si elle ne s'y trouve pas, contactez le [soutien technique](../support/technical_support.md).
 
 ### Dépannage
 
@@ -156,7 +156,7 @@ Voir la liste des [empreintes de clés hôtes ci-dessous](#empreintes-de-clés-h
 
 Si on vous demande un mot de passe, mais que vous avez utilisé des clés SSH par le passé, il est probable que ce soit dû à la désactivation des clés DSA et RSA 1024 bits.
 
-Il vous faudra générer une nouvelle clé plus forte. La méthode est différente selon que vous êtes sous [Windows](generating-ssh-keys-in-windows.md) ou [Linux/macOS](using-ssh-keys-in-linux.md). Dans ce dernier cas, la référence décrit aussi comment ajouter votre nouvelle clé publique au serveur hôte à distance pour que l'authentification se fasse par la clé plutôt que par mot de passe.
+Il vous faudra générer une nouvelle clé plus forte. La méthode est différente selon que vous êtes sous [Windows](generating_ssh_keys_in_windows.md) ou [Linux/macOS](using_ssh_keys_in_linux.md). Dans ce dernier cas, la référence décrit aussi comment ajouter votre nouvelle clé publique au serveur hôte à distance pour que l'authentification se fasse par la clé plutôt que par mot de passe.
 
 #### Impossibilité de se connecter
 
@@ -186,8 +186,8 @@ Pour connaître la version de votre client SSH, utilisez la commande `ssh -V`.
 
 ##### Windows
 
-*   [MobaXterm Home Edition](connecting-with-mobaxterm.md) v11.1
-*   [PuTTY](connecting-with-putty.md) 0.72
+*   [MobaXterm Home Edition](connecting_with_mobaxterm.md) v11.1
+*   [PuTTY](connecting_with_putty.md) 0.72
 *   Windows Subsystem for Linux (WSL) v1
     *   Ubuntu 18.04 (OpenSSH_7.6p1 Ubuntu-4ubuntu0.3, OpenSSL 1.0.2n)
     *   openSUSE Leap 15.1 (OpenSSH_7.9p1, OpenSSL 1.1.0i-fips)
@@ -211,4 +211,4 @@ ssh-keyscan <hostname> | ssh-keygen -E sha256 -l -f -
 Les empreintes pour les grappes de Calcul Canada sont listées ci-dessous.
 
 !!! warning "Vérification des empreintes de clés hôtes"
-    Si l'empreinte que vous recevez ne correspond à aucune de cette liste, n'acceptez pas la connexion et contactez le [soutien technique](technical-support.md).
+    Si l'empreinte que vous recevez ne correspond à aucune de cette liste, n'acceptez pas la connexion et contactez le [soutien technique](../support/technical_support.md).

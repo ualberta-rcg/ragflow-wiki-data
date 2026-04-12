@@ -54,17 +54,17 @@ Pour déverrouiller une instance, cliquez sur *Déverrouiller l'instance* dans l
 
 ## Modifier la taille d'une instance
 
-Il est possible de modifier la taille d'une instance en changeant son gabarit. Il y a toutefois certains points à considérer selon que le gabarit est "p" ou "c" (voir [Gabarits d'instances](virtual-machine-flavors.md)).
+Il est possible de modifier la taille d'une instance en changeant son gabarit. Il y a toutefois certains points à considérer selon que le gabarit est "p" ou "c" (voir [Gabarits d'instances](virtual_machine_flavors.md)).
 
 !!! warning "Important"
-    Le fait de redimensionner une instance peut causer des problèmes, car l'instance est en quelque sorte supprimée puis recréée avec un nouveau gabarit. En cas de doute, demandez l'avis du [soutien technique](technical-support.md).
+    Le fait de redimensionner une instance peut causer des problèmes, car l'instance est en quelque sorte supprimée puis recréée avec un nouveau gabarit. En cas de doute, demandez l'avis du [soutien technique](../support/technical_support.md).
 
 ### Gabarits "c"
 
 Les gabarits "c" ont des disques éphémères additionnels dont la taille peut être modifiée en sélectionnant un autre gabarit "c". La taille de ces disques éphémères ne peut pas être diminuée et donc les instances de gabarit "c" ne peuvent être modifiées que par des gabarits avec des disques de taille égale ou supérieure. Une fois la taille modifiée, vous ne verrez pas un disque éphémère plus grand dans votre instance, c'est-à-dire que la commande `df -h` ne montrera pas l'augmentation. Pour voir l'espace ajouté, il faut modifier la taille du système de fichiers (voir la commande `resize2fs`).
 
 !!! warning "Prudence"
-    La modification d'un système de fichiers peut prendre beaucoup de temps si les partitions sont larges. Faites une copie du système de fichiers avant de procéder (voir [Sauvegarder une instance](backing-up-your-vm.md)).
+    La modification d'un système de fichiers peut prendre beaucoup de temps si les partitions sont larges. Faites une copie du système de fichiers avant de procéder (voir [Sauvegarder une instance](backing_up_your_vm.md)).
 
 ### Gabarits "p"
 

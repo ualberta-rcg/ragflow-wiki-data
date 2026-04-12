@@ -106,17 +106,17 @@ Près de 80 % de nos équipements qui approchent de leur fin de vie seront rempl
 
 | **Documentation** | **Système remplacé** |
 | :---------------- | :------------------- |
-| [Arbutus](arbutus.md) | [nuage](cloud.md) (aucun changement à cette infrastructure virtuelle) |
+| [Arbutus](arbutus.md) | [nuage](../cloud/cloud.md) (aucun changement à cette infrastructure virtuelle) |
 | [Rorqual](rorqual.md) | [Béluga](beluga.md) |
-| [Fir](fir.md) | [Cedar](cedar.md) |
-| [Trillium](trillium.md) | Niagara et [Mist](mist.md) |
+| [Fir](../software/fir.md) | [Cedar](cedar.md) |
+| [Trillium](trillium.md) | Niagara et [Mist](../software/mist.md) |
 | [Nibi](nibi.md) | [Graham](graham.md) |
 
 ## Capacité des systèmes, baisses et arrêts de services
 
 Pendant l'installation et la transition vers les nouveaux systèmes, nous devrons sans doute suspendre ou diminuer les services en raison de contraintes d'alimentation électrique ou d'espace. Veuillez tenir compte de ces possibilités dans la planification de votre programme de recherche, des soutenances de thèse ou de mémoire, etc.
 
-[Cliquez ici pour la liste des travaux terminés](infrastructure-renewal-completed-events.md).
+[Cliquez ici pour la liste des travaux terminés](infrastructure_renewal_completed_events.md).
 
 | **Début** | **Fin** | **État** | **Système** | **Type** | **Description** |
 | :-------- | :------ | :------- | :---------- | :------- | :-------------- |
@@ -158,13 +158,13 @@ Le nuage Béluga (`beluga-cloud`) est une infrastructure distincte et ne sera pa
 | :-------- | :------ | :------- | :---------- | :------- | :-------------- |
 | 30 septembre 2025 | | en cours | Niagara | mise hors service | La grappe Niagara a été fermée définitivement le 30 septembre 2025. |
 
-Pour des détails sur la transition, voir [Transition de Niagara vers Trillium](transition-from-niagara-to-trillium.md).
+Pour des détails sur la transition, voir [Transition de Niagara vers Trillium](transition_from_niagara_to_trillium.md).
 
 | **Début** | **Fin** | **État** | **Système** | **Type** | **Description** |
 | :-------- | :------ | :------- | :---------- | :------- | :-------------- |
 | 16 septembre 2025 | | en cours | Mist | mise hors service | La grappe Mist a été fermée définitivement le 16 septembre 2025. |
 
-Pour vos nouveaux travaux, veuillez utiliser Trillium (voir [Trillium : Guide de démarrage](trillium-quickstart.md)).
+Pour vos nouveaux travaux, veuillez utiliser Trillium (voir [Trillium : Guide de démarrage](trillium_quickstart.md)).
 
 | **Début** | **Fin** | **État** | **Système** | **Type** | **Description** |
 | :-------- | :------ | :------- | :---------- | :------- | :-------------- |
@@ -174,7 +174,7 @@ Pour vos nouveaux travaux, veuillez utiliser Trillium (voir [Trillium : Guide de
 
 *Les fichiers stockés sur Cedar sont disponibles sur Fir puisque les deux grappes partagent les mêmes systèmes de fichiers; aucune action n'est requise de votre part.
 
-À compter du 12 septembre, veuillez soumettre vos tâches sur une autre grappe de notre [nouvelle infrastructure nationale](national-systems.md), y compris Fir.
+À compter du 12 septembre, veuillez soumettre vos tâches sur une autre grappe de notre [nouvelle infrastructure nationale](national_systems.md), y compris Fir.
 
 | **Début** | **Fin** | **État** | **Système** | **Type** | **Description** |
 | :-------- | :------ | :------- | :---------- | :------- | :-------------- |
@@ -184,11 +184,11 @@ Pour vos nouveaux travaux, veuillez utiliser Trillium (voir [Trillium : Guide de
 
 *Les fichiers stockés sur Graham sont aussi disponibles sur Nibi puisque les deux grappes partagent les mêmes systèmes de fichiers; aucune action n'est requise de votre part.
 
-À compter du 1er septembre, veuillez soumettre vos tâches sur une autre grappe de notre [nouvelle infrastructure nationale](national-systems.md), y compris Nibi.
+À compter du 1er septembre, veuillez soumettre vos tâches sur une autre grappe de notre [nouvelle infrastructure nationale](national_systems.md), y compris Nibi.
 
 ## Compétition pour l'Allocation de Ressources (RAC)
 
-La [Compétition pour l'Allocation de Ressources](resource-allocation-competition.md) sera impactée par cette transition, mais le processus de demande demeure le même.
+La [Compétition pour l'Allocation de Ressources](../running-jobs/resource_allocation_competition.md) sera impactée par cette transition, mais le processus de demande demeure le même.
 
 Les allocations 2024-2025 resteront en vigueur sur les grappes en voie de retrait tant que chaque grappe sera en service. Les allocations 2025-2026 seront mises en œuvre partout une fois que toutes les nouvelles grappes seront en service.
 
@@ -205,7 +205,7 @@ D'autres ressources de formation sont disponibles via [Explora](https://explora.
 | [Migrating to the upgraded national systems](https://youtu.be/nRX8zTIVEXk) | SHARCNET | Sergey Mashchenko | mercredi 30 juillet 2025, 12 h HAE | La plupart des systèmes nationaux de l'Alliance ont connu une mise à niveau majeure au cours du printemps et de l'été. Ils ont été reconstruits de A à Z avec du matériel moderne, ce qui a augmenté considérablement la capacité de calcul, de mémoire et de stockage. Les grappes mises à niveau ont de nouveaux noms : Graham est devenue Nibi, Béluga est devenue Rorqual, Cedar est devenue Fir, Niagara est devenue Trillium. La grappe Narval n'a pas été modifiée. Certains des systèmes mis à niveau sont déjà en ligne, mais pas encore à pleine capacité. Il est prévu de les rendre tous disponibles d'ici la fin juillet.<br><br> Ce webinaire veut répondre aux préoccupations et aux questions des utilisateurs des systèmes existants. Quel sera l'impact des mises à niveau sur mon flux de travail? Y a-t-il des changements significatifs dans la planification des tâches et des systèmes de fichiers? Comment optimiser la capacité de calcul accrue des grappes mises à niveau, notamment en raison de l'augmentation du nombre de CPU par nœud? Le changement le plus important touchera le traitement des données par GPU; le webinaire abordera ce sujet en détail. <br><br> Une période de questions sera réservée à la fin; n'hésitez pas à nous faire part de vos questions et préoccupations. | Utilisateurs potentiels des systèmes mis à niveau | webinaire; les enregistrements et le contenu des webinaires SHARCNET précédents sont disponibles sur [http://youtube.sharcnet.ca](http://youtube.sharcnet.ca). | Passé |
 | Workflow Hacks for Large Datasets in HPC | Université Simon-Fraser / Groupe de l’IRN de la C.-B. | Alex Razoumov | mardi 20 mai 2025, 10 h HP | Au fil des ans, nous avons animé des webinaires sur des outils permettant d'améliorer considérablement les flux de travail comprenant de grands ensembles de données. Dans cette session, nous traiterons de certains de ces précieux outils :<ul><li>**Visualisation in situ** : permet le rendu interactif de grands tableaux en mémoire sans avoir à les stocker sur disque.</li><li>**Compression de données 3D avec perte** : réduit la taille des ensembles de données 3D jusqu'à 100 fois sans artefacts visibles, ce qui est idéal pour le stockage et l'archivage.</li><li>**Stockage distribué** : permet de gérer de grandes quantités de données sur plusieurs emplacements.</li><li>**DAR (Disk ARchhiver)** : alternative à TAR moderne et performante qui offre indexation, archivage différentiel et extraction plus rapide.</li></ul> | Utilisateurs qui travaillent avec de grands ensembles de données | webinaire ; <br>les enregistrements et le contenu des webinaires précédents sont disponibles sur [https://training.westdri.ca](https://training.westdri.ca). | Passé |
 | [Maîtriser l'efficacité des GPU](https://training.sharcnet.ca/courses/enrol/index.php?id=210) (en anglais) | SHARCNET | Sergey Mashchenko | en tout temps | Ce cours en ligne que vous suivez à votre rythme offre une formation de base sur l'utilisation des GPU sur nos [systèmes nationaux](https://training.sharcnet.ca/courses/mod/glossary/showentry.php?eid=86&displayformat=dictionary). Les GPU modernes (tels que NVIDIA A100 et H100) sont des ressources massivement parallèles et très coûteuses. La plupart des tâches GPU ne sont pas en mesure d'utiliser ces GPU efficacement, soit en raison de la taille du problème trop petite pour saturer le GPU, soit en raison du modèle d'utilisation intermittent (en rafale) du GPU. Vous apprendrez à mesurer l'utilisation du GPU par vos tâches à utiliser les deux technologies NVIDIA - **MPS** (*Multi-Process Service*) et **MIG** (*Multi-Instance GPU*) pour améliorer l'utilisation du GPU. | Utilisatrices et utilisateurs potentiels des systèmes mis à niveau | Cours en ligne d'une heure avec certificat | [Accédez au cours ici (un compte avec l'Alliance est requis)](https://training.sharcnet.ca/courses/enrol/index.php?id=210) |
-| Introduction to the Fir cluster (en anglais) | Université Simon-Fraser / West DRI | Alex Razoumov | 16 septembre 2025 | La nouvelle grappe Fir de l'Université Simon-Fraser est entrée en fonction en août 2025. Nous présenterons un aperçu de la grappe et de son matériel; les différents systèmes de fichiers et leur usage recommandé; les politiques de soumission des tâches; et les meilleures pratiques sur l'utilisation de la grappe | Utilisatrices et utilisateurs de la grappe [Fir](fir.md) | webinaire <br>Les enregistrements et le matériel des webinaires précédents se trouvent [West DRI – Démarrage (HPC)](https://training.westdri.ca/getting-started/#high-performance-computing). | Passé |
+| Introduction to the Fir cluster (en anglais) | Université Simon-Fraser / West DRI | Alex Razoumov | 16 septembre 2025 | La nouvelle grappe Fir de l'Université Simon-Fraser est entrée en fonction en août 2025. Nous présenterons un aperçu de la grappe et de son matériel; les différents systèmes de fichiers et leur usage recommandé; les politiques de soumission des tâches; et les meilleures pratiques sur l'utilisation de la grappe | Utilisatrices et utilisateurs de la grappe [Fir](../software/fir.md) | webinaire <br>Les enregistrements et le matériel des webinaires précédents se trouvent [West DRI – Démarrage (HPC)](https://training.westdri.ca/getting-started/#high-performance-computing). | Passé |
 | [Guide de survie pour les futures mises à niveau des GPU](https://youtu.be/pxY3G3BhwyA) (en anglais) | SHARCNET | Sergey Mashchenko | EN LIGNE | Nos systèmes nationaux subiront des mises à niveau importantes dans les prochains mois. En particulier, les anciens GPU (P100, V100) seront remplacés par les nouveaux GPU H100 de NVIDIA. La puissance de calcul totale des GPU augmentera d'un facteur de 3,5, mais le nombre de GPU diminuera considérablement, passant de 3200 à 2100. Ceci posera un défi important, car la pratique habituelle consistant à utiliser un GPU entier pour chaque processus ou rang MPI ne sera plus possible dans la plupart des cas. Heureusement, NVIDIA propose deux technologies puissantes pour atténuer cette situation : **MPS** (Multi-Process Service) et **MIG** (Multi-Instance GPU). Nous discuterons de ces deux technologies et de la manière dont elles peuvent être utilisées sur nos grappes. Nous verrons comment déterminer l'approche qui fonctionnera le mieux pour un code particulier et une démonstration sera effectuée à la fin. | Utilisatrices et utilisateurs potentiels des systèmes mis à niveau, ou devant utiliser une quantité importante de ressources H100 (par exemple, plusieurs GPU à la fois et/ou pour plus de 24 heures d'exécution) | [vidéo](https://youtu.be/pxY3G3BhwyA) et [diapositives](https://helpwiki.sharcnet.ca/wiki/images/1/1d/MIG_MPS.pdf) (durée, 1 heure) | (présentation faite le 20 novembre 2024 de 12 h à 13 h) |
 
 ## Foire aux questions
@@ -218,7 +218,7 @@ La migration des données est la responsabilité de chacun des sites hôtes nati
 
 Non, vos fichiers ne seront pas supprimés. Pendant les activités de renouvellement, chaque site hôte national migrera les données /project et /home du système de stockage existant vers le nouveau système de stockage quand il sera installé. Ces migrations se produisent généralement pendant les arrêts de services, mais les détails spécifiques peuvent varier selon le site. Chaque site hôte national vous informera de toute action susceptible d'avoir un effet sur vos travaux.
 De plus, les systèmes de bandes pour les sauvegardes et les données /nearline ne sont pas remplacés, donc les sauvegardes et les données /nearline resteront inchangées.
-Pour d'autres questions techniques, écrivez à [notre soutien technique](technical-support.md).
+Pour d'autres questions techniques, écrivez à [notre soutien technique](../support/technical_support.md).
 
 ### Les arrêts de service sont-ils prévisibles?
 
@@ -226,7 +226,7 @@ Chacun des sites hôtes nationaux gère les arrêts de service qui seront requis
 
 ### Qui peut répondre à mes questions sur la transition?
 
-Le [soutien technique](technical-support.md) tentera de vous informer, mais il se peut que l'information ne leur soit pas encore connue.
+Le [soutien technique](../support/technical_support.md) tentera de vous informer, mais il se peut que l'information ne leur soit pas encore connue.
 
 ### Les nouveaux systèmes sont-ils compatibles avec mes tâches et mes applications?
 
@@ -234,7 +234,7 @@ Règle générale, oui. Il est possible que certaines applications doivent être
 
 ### Les logiciels sur les systèmes existants seront-ils toujours disponibles?
 
-Oui, notre [environnement logiciel standard](standard-software-environments.md) sera disponible sur les nouveaux systèmes.
+Oui, notre [environnement logiciel standard](../programming/standard_software_environments.md) sera disponible sur les nouveaux systèmes.
 
 ### Les logiciels commerciaux sous licence seront-ils migrés sur les nouveaux systèmes?
 

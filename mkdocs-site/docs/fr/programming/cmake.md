@@ -234,7 +234,7 @@ Comme indiqué au bas de cette liste, vous pouvez éditer une valeur en appuyant
  USE_OMP                          OFF
 ```
 
-Remarquez que `ccmake` en mode avancé affiche aussi bien les bibliothèques trouvées que celles qui n'ont pas été trouvées. Si vous voulez utiliser une certaine version de [BLAS](blas-and-lapack.md) par exemple, vous saurez immédiatement si c'est celle que CMake a trouvée et, le cas échéant, pourrez la modifier. `ccmake` affiche aussi la liste des options passées aux compilateurs et à l'éditeur de liens, et ce, en fonction du type de construction.
+Remarquez que `ccmake` en mode avancé affiche aussi bien les bibliothèques trouvées que celles qui n'ont pas été trouvées. Si vous voulez utiliser une certaine version de [BLAS](blas_and_lapack.md) par exemple, vous saurez immédiatement si c'est celle que CMake a trouvée et, le cas échéant, pourrez la modifier. `ccmake` affiche aussi la liste des options passées aux compilateurs et à l'éditeur de liens, et ce, en fonction du type de construction.
 
 ### Options en ligne de commande
 Les options affichées par `ccmake` peuvent toutes être modifiées en ligne de commande, avec la syntaxe :

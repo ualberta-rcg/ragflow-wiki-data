@@ -32,11 +32,11 @@ status:
   qa_generated: false
 ---
 
-Pour obtenir de l'information sur l'espace de stockage objet sur Arbutus, consultez [cette page wiki](arbutus-object-storage.md). Voyez aussi les pages d'information sur les clients :
-*   [Stockage objet : Accès avec s3cmd](accessing-object-storage-with-s3cmd.md)
-*   [Stockage objet : Accès avec WinSCP](accessing-object-storage-with-winscp.md)
-*   [Stockage objet : Accès avec AWS CLI](accessing-the-arbutus-object-storage-with-aws-cli.md)
-*   [Stockage objet sur Arbutus : Accès via Globus](globus.md#stockage-objet-sur-arbutus)
+Pour obtenir de l'information sur l'espace de stockage objet sur Arbutus, consultez [cette page wiki](arbutus_object_storage.md). Voyez aussi les pages d'information sur les clients :
+*   [Stockage objet : Accès avec s3cmd](accessing_object_storage_with_s3cmd.md)
+*   [Stockage objet : Accès avec WinSCP](accessing_object_storage_with_winscp.md)
+*   [Stockage objet : Accès avec AWS CLI](accessing_the_arbutus_object_storage_with_aws_cli.md)
+*   [Stockage objet sur Arbutus : Accès via Globus](../getting-started/globus.md#stockage-objet-sur-arbutus)
 
 !!! attention
     Il faut noter que la solution de stockage objet sur Arbutus n'utilise pas l’approche [S3 Virtual Hosting](https://documentation.help/s3-dg-20060301/VirtualHosting.html) d’Amazon avec des buckets DNS. La plupart des clients S3 l’offrent par défaut; pour ne pas utiliser cette approche, il est donc essentiel de configurer les clients en conséquence.

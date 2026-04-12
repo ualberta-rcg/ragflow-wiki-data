@@ -78,7 +78,7 @@ status:
 There are two ways of using MATLAB on our clusters:
 
 1.  **Running MATLAB directly**, but that requires a license. You may either
-    *   run MATLAB on [Fir](fir.md), [Narval](narval.md), [Rorqual](rorqual.md), or [Trillium](trillium.md), all of which have a license available for any student, professor, or academic researcher;
+    *   run MATLAB on [Fir](fir.md), [Narval](../clusters/narval.md), [Rorqual](../clusters/rorqual.md), or [Trillium](../clusters/trillium.md), all of which have a license available for any student, professor, or academic researcher;
     *   use an external license, i.e., one owned by your institution, faculty, department, or lab. See *[Using an external license](#using-an-external-license)* below.
 
 2.  **Compiling your MATLAB code** by using the MATLAB Compiler `mcc` and by running the generated executable file on any cluster. You can use this executable without license considerations.
@@ -109,7 +109,7 @@ If you are allowed, then some technical configuration will be required. Create a
 SERVER <ip address> ANY <port>
 USE_SERVER
 ```
-Put this file in the `$HOME/.licenses/` directory where the IP address and port number correspond to the values for your campus license server. Next, you will need to ensure that the license server on your campus is reachable by our compute nodes. This will require our technical team to get in touch with the technical people managing your license software. Please write to [technical support](technical-support.md) so that we can arrange this for you.
+Put this file in the `$HOME/.licenses/` directory where the IP address and port number correspond to the values for your campus license server. Next, you will need to ensure that the license server on your campus is reachable by our compute nodes. This will require our technical team to get in touch with the technical people managing your license software. Please write to [technical support](../support/technical_support.md) so that we can arrange this for you.
 
 For online documentation, see [http://www.mathworks.com/support](http://www.mathworks.com/support).
 For product information, visit [http://www.mathworks.com](http://www.mathworks.com).
@@ -137,7 +137,7 @@ To see a list of the MATLAB toolboxes available with the license and cluster you
 ## Running a serial MATLAB program
 
 !!! important
-    Any significant MATLAB calculation (takes more than about 5 minutes or a gigabyte of memory) must be submitted to the scheduler. Here is an example of how to do that. For more on using the scheduler, please see the [Running jobs](running-jobs.md) page.
+    Any significant MATLAB calculation (takes more than about 5 minutes or a gigabyte of memory) must be submitted to the scheduler. Here is an example of how to do that. For more on using the scheduler, please see the [Running jobs](../running-jobs/running_jobs.md) page.
 
 Consider the following example code:
 
@@ -251,7 +251,7 @@ References:
 ## Using the Compiler and Runtime libraries
 
 !!! important
-    Like any other intensive job, you must always run MCR code within a job submitted to the scheduler. For instructions on using the scheduler, please see the [Running jobs](running-jobs.md) page.
+    Like any other intensive job, you must always run MCR code within a job submitted to the scheduler. For instructions on using the scheduler, please see the [Running jobs](../running-jobs/running_jobs.md) page.
 
 You can also compile your code using MATLAB Compiler, which is included among the modules we host. See documentation for the compiler on the [MathWorks](https://www.mathworks.com/help/compiler/index.html) website. At the moment, mcc is provided for versions 2014a, 2018a, and later.
 
@@ -263,7 +263,7 @@ To compile the `cosplot.m` example given above, you would use the command
 
 This will produce a binary named `cosplot`, as well as a wrapper script. To run the binary on our servers, you will only need the binary. The wrapper script named `run_cosplot.sh` will not work as is on our servers because MATLAB assumes that some libraries can be found in specific locations. Instead, we provide a different wrapper script called `run_mcr_binary.sh`, which sets the correct paths.
 
-On one of our servers, load an MCR [module](utiliser-des-modules.md) corresponding to the MATLAB version you used to build the executable:
+On one of our servers, load an MCR [module](../programming/utiliser_des_modules.md) corresponding to the MATLAB version you used to build the executable:
 
 ```bash
 module load mcr/R2024b

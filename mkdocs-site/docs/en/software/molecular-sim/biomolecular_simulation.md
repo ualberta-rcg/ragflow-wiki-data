@@ -54,28 +54,28 @@ status:
 
 Biomolecular simulation is the application of molecular dynamics simulations to biochemical research questions. Processes that can be modelled include, but are not limited to, protein folding, drug binding, membrane transport, and the conformational changes critical to protein function.
 
-While biomolecular simulation could be considered a sub-field of computational chemistry, it is sufficiently specialized that we have a Biomolecular Simulations National Team that supports this area. There is nevertheless some overlap of software tools between the two fields. See [Computational chemistry](computational-chemistry.md) for an annotated list of available software packages in that area.
+While biomolecular simulation could be considered a sub-field of computational chemistry, it is sufficiently specialized that we have a Biomolecular Simulations National Team that supports this area. There is nevertheless some overlap of software tools between the two fields. See [Computational chemistry](../chemistry/computational_chemistry.md) for an annotated list of available software packages in that area.
 
 ## Software Packages
 
 The following software packages are available on our HPC resources:
 
-*   [AMBER](amber.md)
-*   [GROMACS](gromacs.md)
-*   [NAMD](namd.md)
+*   [AMBER](../amber.md)
+*   [GROMACS](../gromacs.md)
+*   [NAMD](../namd.md)
 *   [DL_POLY](http://www.scd.stfc.ac.uk/SCD/44516.aspx)
 *   [HOOMD-blue](http://glotzerlab.engin.umich.edu/hoomd-blue/)
-*   [LAMMPS](lammps.md)
+*   [LAMMPS](../lammps.md)
 *   [OpenKIM](https://openkim.org/), the Knowledgebase of Interatomic Models
-*   [OpenMM](openmm.md)
-*   [PLUMED](https://www.plumed.org), a library for code development related to the calculation of free energy in molecular dynamics simulations. See also [GROMACS](gromacs.md).
+*   [OpenMM](../openmm.md)
+*   [PLUMED](https://www.plumed.org), a library for code development related to the calculation of free energy in molecular dynamics simulations. See also [GROMACS](../gromacs.md).
 *   [Rosetta](https://www.rosettacommons.org)
 *   [DSSP](https://swift.cmbi.umcn.nl/gv/dssp/)
-*   [VMD](vmd.md)
+*   [VMD](../vmd.md)
 
 ### Python Packages (Python Wheels)
 
-Our [Wheelhouse](available-python-wheels.md) contains a number of Python Wheels that can be installed within a [virtual Python environment](python.md#creating-and-using-a-virtual-environment) and are useful in the domain of biomolecular simulation/molecular dynamics.
+Our [Wheelhouse](../../programming/available_python_wheels.md) contains a number of Python Wheels that can be installed within a [virtual Python environment](../python.md#creating-and-using-a-virtual-environment) and are useful in the domain of biomolecular simulation/molecular dynamics.
 
 This list contains a selection of useful wheels, but is not to be considered complete:
 
@@ -88,11 +88,11 @@ This list contains a selection of useful wheels, but is not to be considered com
 *   [mdsynthesis](https://mdsynthesis.readthedocs.io/) is a persistence engine for molecular dynamics data.
 *   [nglview](http://nglviewer.org/): NGL Viewer is a collection of tools for web-based molecular graphics.
 *   [ParmEd](http://parmed.github.io/ParmEd/) is a general tool for aiding in investigations of biomolecular systems using popular molecular simulation packages.
-*   [PyRETIS](pyretis.md) is a Python library for rare event molecular simulations with emphasis on methods based on transition interface sampling and replica exchange transition interface sampling.
+*   [PyRETIS](../pyretis.md) is a Python library for rare event molecular simulations with emphasis on methods based on transition interface sampling and replica exchange transition interface sampling.
 
-Please check the [list of available wheels](available-python-wheels.md) and use the [avail_wheels command](python.md#listing-available-wheels) on our clusters to see what is available.
+Please check the [list of available wheels](../../programming/available_python_wheels.md) and use the [avail_wheels command](../python.md#listing-available-wheels) on our clusters to see what is available.
 
-If you require additional Python packages or newer versions, please [contact Support](technical-support.md).
+If you require additional Python packages or newer versions, please [contact Support](../../support/technical_support.md).
 
 ## Workshops and Training Material
 

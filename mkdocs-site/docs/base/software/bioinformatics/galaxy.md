@@ -84,7 +84,7 @@ The site [https://starthere.usegalaxy.ca](https://starthere.usegalaxy.ca) provid
 
 ## Requesting a Galaxy instance on Cedar
 
-On Cedar, we provide one Galaxy instance for every research group. Galaxy installation requires a special setup that needs to be done by our staff. If you need Galaxy for your group write to [technical support](technical-support.md).
+On Cedar, we provide one Galaxy instance for every research group. Galaxy installation requires a special setup that needs to be done by our staff. If you need Galaxy for your group write to [technical support](../../support/technical_support.md).
 
 ### Galaxy directory structure
 
@@ -118,7 +118,7 @@ Files in the `config` directory are used to configure your Galaxy server. Config
 *   In file `galaxy.yml` (the main configuration file):
     *   `http:` contains your unique port number
     *   `database_connection` is the name of your Galaxy database and your database server.
-    *   `virtualenv` is the path to a [Python virtual environment](python.md#creating-and-using-a-virtual-environment) in the gateway machine
+    *   `virtualenv` is the path to a [Python virtual environment](../python.md#creating-and-using-a-virtual-environment) in the gateway machine
     *   `file_path`, `new_file_path`, `tool_config_file`, `shed_tool_config_file`, `tool_dependency_dir`, `tool_data_path`, `visualization_plugins_directory`, `job_working_directory`, `cluster_files_directory`, `template_cache_path`, `citation_cache_data_dir`, `citation_cache_lock_dir` are appropriate paths for tools, tool sheds and dependencies.
 
 Other variables and files in this directory can be changed by the user.
@@ -127,7 +127,7 @@ Other variables and files in this directory can be changed by the user.
 
 There are basically two ways to run tools in your Galaxy instance.
 *   Run tools on gateway (locally) where galaxy server was installed.
-*   Run tools by [submitting jobs](running-jobs.md) to the Cedar cluster.
+*   Run tools by [submitting jobs](../../running-jobs/running_jobs.md) to the Cedar cluster.
 
 ### Submitting jobs
 

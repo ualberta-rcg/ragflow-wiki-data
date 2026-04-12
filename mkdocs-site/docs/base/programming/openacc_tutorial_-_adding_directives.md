@@ -215,7 +215,7 @@ One example of this directive is the following code:
 ```
 
 The above example is very simple. However, code is often not that simple,
-and we then need to rely on [compiler feedback](openacc-tutorial-profiling.md#compiler-feedback)
+and we then need to rely on [compiler feedback](openacc_tutorial_-_profiling.md#compiler-feedback)
 in order to identify regions it failed to parallelize.
 
 !!! note "Descriptive vs prescriptive"
@@ -398,7 +398,7 @@ One graphical profiler available for OpenACC applications is the
 It's a cross-platform analyzing tool **for codes written with OpenACC and CUDA C/C++ instructions**.
 Consequently, if the executable is not using the GPU, you will get no result from this profiler.
 
-When [X11 is forwarded to an X-Server](visualization.md#remote-windows-with-x11-forwarding), or when using a [Linux desktop environment](vnc.md) (also via [JupyterHub](jupyterhub.md#desktop) with two (2) CPU cores, 5000M of memory and one (1) GPU),
+When [X11 is forwarded to an X-Server](../software/visualization.md#remote-windows-with-x11-forwarding), or when using a [Linux desktop environment](../interactive/vnc.md) (also via [JupyterHub](../interactive/jupyterhub.md#desktop) with two (2) CPU cores, 5000M of memory and one (1) GPU),
 it is possible to launch the NVVP from a terminal:
 ```bash
 module load cuda/11.7 java/1.8
@@ -423,7 +423,7 @@ This can be done with the following steps:
 3.  In the "File:" field, search for the executable (named `challenge` in our example).
 4.  Click "Next" until you can click "Finish".
 
-This will run the program and generate a timeline of the execution. The resulting timeline is illustrated on the image on the right side. As we can see, almost all of the run time is being spent transferring data between the host and the device. This is very often the case when one ports a code from CPU to GPU. We will look at how to optimize this in the [next part of the tutorial](openacc-tutorial-data-movement.md).
+This will run the program and generate a timeline of the execution. The resulting timeline is illustrated on the image on the right side. As we can see, almost all of the run time is being spent transferring data between the host and the device. This is very often the case when one ports a code from CPU to GPU. We will look at how to optimize this in the [next part of the tutorial](openacc_tutorial_-_data_movement.md).
 
 ## The `parallel loop` directive
 With the `kernels` directive, we let the compiler do all of the analysis. This is the *descriptive* approach to porting a code. OpenACC supports a *prescriptive* approach through a different directive, called the `parallel` directive. This can be combined with the `loop` directive, to form the `parallel loop` directive. An example would be the following code:
@@ -489,4 +489,4 @@ Both approaches are equally valid and can perform equally well.
     1.  Modify the functions `matvec`, `waxpby` and `dot` to use OpenACC. You may use either the `kernels` or the `parallel loop` directives. The directories step1.* from the [Github repository](https://github.com/calculquebec/cq-formation-openacc) contain solutions.
     2.  Modify the Makefile to add `-acc -gpu=managed` and `-Minfo=accel` to your compiler flags.
 
-[<- Previous unit: *Profiling*](openacc-tutorial-profiling.md) | [^- Back to the lesson plan](openacc-tutorial.md) | [Onward to the next unit: *Data movement* ->](openacc-tutorial-data-movement.md)
+[<- Previous unit: *Profiling*](openacc_tutorial_-_profiling.md) | [^- Back to the lesson plan](openacc_tutorial.md) | [Onward to the next unit: *Data movement* ->](openacc_tutorial_-_data_movement.md)

@@ -76,7 +76,7 @@ Cette section décrit la procédure de création d'un certificat SSL autosigné 
     Les étapes suivantes décrivent la procédure sous Ubuntu. On trouvera certaines différences sous d'autres systèmes d'exploitation, notamment en ce qui a trait aux commandes, aux localisations ou aux noms des fichiers de configuration.
 
 1.  **Activer le module SSL**
-    Installez Apache (voir [Installer Apache](creating-a-web-server-on-a-cloud.md#installer-apache)), puis activez le module SSL ainsi :
+    Installez Apache (voir [Installer Apache](creating_a_web_server_on_a_cloud.md#installer-apache)), puis activez le module SSL ainsi :
     ```bash
     sudo a2enmod ssl
     sudo service apache2 restart

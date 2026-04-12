@@ -52,7 +52,7 @@ Anaconda is a Python distribution.
 
 !!! warning "Before using Anaconda"
     We understand that Anaconda is widely used in several fields studied by our users (data science, AI, bioinformatics, etc.). Anaconda is an interesting solution for simplifying Python and library management on a personal computer. However, on a cluster like those maintained by the Alliance, library management must be handled by our staff to ensure maximum compatibility and performance. Furthermore, using Anaconda on a compute cluster can lead to several problems.
-    Before using Anaconda, we ask you to contact our [technical support](technical-support.md) so our experts can explore alternatives with you. If you choose to use Anaconda, please note that our team will not be able to provide support if you encounter issues.
+    Before using Anaconda, we ask you to contact our [technical support](../support/technical_support.md) so our experts can explore alternatives with you. If you choose to use Anaconda, please note that our team will not be able to provide support if you encounter issues.
 
 ## Why Anaconda is Not Recommended on a Compute Cluster
 
@@ -67,7 +67,7 @@ Anaconda can be problematic on a compute cluster for several reasons:
 
 ## What Are the Alternatives?
 
-The first step you should take is to contact our [technical support](technical-support.md) so our experts can explore the best alternative for your needs with you. If you prefer to try on your own, two main options are listed below.
+The first step you should take is to contact our [technical support](../support/technical_support.md) so our experts can explore the best alternative for your needs with you. If you prefer to try on your own, two main options are listed below.
 
 ### Transitioning from Conda to virtualenv
 
@@ -81,10 +81,10 @@ The first step you should take is to contact our [technical support](technical-s
 3.  Remove anything that is not a Python package from the dependency list (e.g., remove `cudatoolkit` and `cudnn`).
 4.  Use a [virtualenv](python.md#creating-and-using-a-virtual-environment) in which you will install these dependencies.
 
-Your application should now work. If not, do not hesitate to contact our [technical support](technical-support.md).
+Your application should now work. If not, do not hesitate to contact our [technical support](../support/technical_support.md).
 
 ### Using Apptainer
 
-In some situations, the complexity of software dependencies requires a solution where the environment can be fully controlled. For these situations, we recommend the [Apptainer](apptainer.md#working-with-conda) tool: note that a Docker image can be converted into an Apptainer image. The only drawback of Apptainer is that images consume a lot of disk space, so if your research group plans to use multiple images, it would be wise to group them together in a single directory within the group's project space to avoid duplication.
+In some situations, the complexity of software dependencies requires a solution where the environment can be fully controlled. For these situations, we recommend the [Apptainer](containers/apptainer.md#working-with-conda) tool: note that a Docker image can be converted into an Apptainer image. The only drawback of Apptainer is that images consume a lot of disk space, so if your research group plans to use multiple images, it would be wise to group them together in a single directory within the group's project space to avoid duplication.
 
-[Using Conda in Apptainer](using-conda-in-apptainer.md)
+[Using Conda in Apptainer](containers/using_conda_in_apptainer.md)

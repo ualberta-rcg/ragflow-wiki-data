@@ -50,7 +50,7 @@ status:
 
 We provide Nextcloud, a Dropbox-like cloud storage service, for all Alliance users. You can use your Alliance username and password to log in to the [Nextcloud server](https://nextcloud.computecanada.ca/). A complete [Nextcloud user manual](https://docs.nextcloud.com/server/19/Nextcloud_User_Manual.pdf) is available from the [official Nextcloud documentation](https://docs.nextcloud.com/). A manual is also available as a PDF document under your account once you connect. All data transfers between local devices and Alliance's Nextcloud are encrypted.
 
-The Nextcloud service is aimed at users with relatively small datasets (up to 100 GB). For anything larger, we recommend using the [Globus](globus.md) service.
+The Nextcloud service is aimed at users with relatively small datasets (up to 100 GB). For anything larger, we recommend using the [Globus](../getting-started/globus.md) service.
 
 If you are not familiar with the concept of Nextcloud, you may try the [demo on the Nextcloud website](https://try.nextcloud.com/).
 

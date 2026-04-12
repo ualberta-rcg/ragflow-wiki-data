@@ -54,28 +54,28 @@ status:
 
 La simulation biomoléculaire est l'application de la simulation en dynamique moléculaire à la recherche biochimique. Parmi les processus qui peuvent être modélisés, on trouve le repliement des protéines, les liaisons médicamenteuses, le transport membranaire et les modifications conformationnelles essentielles à la fonction protéinique.
 
-La simulation biomoléculaire est considérée comme un sous-domaine de la chimie computationnelle; son champ d'action est cependant assez spécialisé pour que nous disposions d'une équipe d'experts dédiés. Consultez aussi la liste des ressources disponibles en [chimie computationnelle](computational-chemistry.md).
+La simulation biomoléculaire est considérée comme un sous-domaine de la chimie computationnelle; son champ d'action est cependant assez spécialisé pour que nous disposions d'une équipe d'experts dédiés. Consultez aussi la liste des ressources disponibles en [chimie computationnelle](../chemistry/computational_chemistry.md).
 
 ## Logiciels
 
 Les paquets logiciels suivants sont disponibles avec nos ressources.
 
-*   [AMBER](amber.md)
-*   [GROMACS](gromacs.md)
-*   [NAMD](namd.md)
+*   [AMBER](../amber.md)
+*   [GROMACS](../gromacs.md)
+*   [NAMD](../namd.md)
 *   [DL_POLY](http://www.scd.stfc.ac.uk/SCD/44516.aspx)
 *   [HOOMD-blue](http://glotzerlab.engin.umich.edu/hoomd-blue/)
-*   [LAMMPS](lammps.md)
+*   [LAMMPS](../lammps.md)
 *   [OpenKIM](https://openkim.org/) (*Knowledgebase of Interatomic Models*)
-*   [OpenMM](openmm.md)
-*   [PLUMED](https://www.plumed.org), bibliothèque de code pour le développement relatif au calcul de l'énergie libre dans les simulations en dynamique moléculaire (voir aussi [GROMACS](gromacs.md))
+*   [OpenMM](../openmm.md)
+*   [PLUMED](https://www.plumed.org), bibliothèque de code pour le développement relatif au calcul de l'énergie libre dans les simulations en dynamique moléculaire (voir aussi [GROMACS](../gromacs.md))
 *   [Rosetta](https://www.rosettacommons.org)
 *   [DSSP](https://swift.cmbi.umcn.nl/gv/dssp/)
-*   [VMD](vmd.md)
+*   [VMD](../vmd.md)
 
 ### Wheels Python
 
-Calcul Canada offre des [wheels Python](available-python-wheels.md) qui peuvent être installés dans des [environnements virtuels Python](python.md#créer-et-utiliser-un-environnement-virtuel); ces wheels sont très utiles en simulation biomoléculaire et dynamique moléculaire.
+Calcul Canada offre des [wheels Python](../../programming/available_python_wheels.md) qui peuvent être installés dans des [environnements virtuels Python](../python.md#créer-et-utiliser-un-environnement-virtuel); ces wheels sont très utiles en simulation biomoléculaire et dynamique moléculaire.
 
 La liste suivante contient une sélection des wheels les plus utiles, mais ne doit pas être considérée comme complète :
 
@@ -88,11 +88,11 @@ La liste suivante contient une sélection des wheels les plus utiles, mais ne do
 *   [mdsynthesis](https://mdsynthesis.readthedocs.io/), ensemble d’outils de manipulation et d'analyse des données de dynamique moléculaire.
 *   [nglview](http://nglviewer.org/), collection d'outils en ligne pour la visualisation en moléculaire.
 *   [ParmEd](http://parmed.github.io/ParmEd/), outil général pour l'analyse des systèmes biomoléculaires avec des paquets de simulation populaires.
-*   [PyRETIS](pyretis.md), bibliothèque Python pour les simulations d'événements rares, avec une emphase sur l'échantillonnage d'interfaces de transition et d'interfaces de transition avec échange de réplication.
+*   [PyRETIS](../pyretis.md), bibliothèque Python pour les simulations d'événements rares, avec une emphase sur l'échantillonnage d'interfaces de transition et d'interfaces de transition avec échange de réplication.
 
-Voyez la [liste des wheels disponibles](available-python-wheels.md#wheels-disponibles) et la [commande `avail_wheels`](python.md#wheels-disponibles) pour savoir ce qui est disponible.
+Voyez la [liste des wheels disponibles](../../programming/available_python_wheels.md#wheels-disponibles) et la [commande `avail_wheels`](../python.md#wheels-disponibles) pour savoir ce qui est disponible.
 
-Si vous avez besoin d'autres paquets Python ou des versions plus récentes, [contactez le soutien technique](technical-support.md).
+Si vous avez besoin d'autres paquets Python ou des versions plus récentes, [contactez le soutien technique](../../support/technical_support.md).
 
 ## Formation
 

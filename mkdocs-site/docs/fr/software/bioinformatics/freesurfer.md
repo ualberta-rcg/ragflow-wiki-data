@@ -61,7 +61,7 @@ source $EBROOTFREESURFER/FreeSurferEnv.sh
 ```
 
 # FreeSurfer 6.0 et versions ultérieures
-En raison des conditions liées à la licence pour ces versions, FreeSurfer n’est plus disponible comme module central; vous devez l’installer avec EasyBuild dans vos répertoires `/home` ou `/project` comme décrit ci-dessous. Si vous avez besoin d’assistance, contactez le [soutien technique](technical-support.md).
+En raison des conditions liées à la licence pour ces versions, FreeSurfer n’est plus disponible comme module central; vous devez l’installer avec EasyBuild dans vos répertoires `/home` ou `/project` comme décrit ci-dessous. Si vous avez besoin d’assistance, contactez le [soutien technique](../../support/technical_support.md).
 
 ## Téléchargement
 Sélectionnez une version (6.0.0 ou plus) dans la [liste des versions](https://surfer.nmr.mgh.harvard.edu/pub/dist/freesurfer/) et téléchargez le fichier `[...].tar.gz` sur la grappe que vous voulez utiliser.
@@ -69,13 +69,13 @@ Sélectionnez une version (6.0.0 ou plus) dans la [liste des versions](https://s
 ## Installation avec EasyBuild dans votre répertoire /home
 
 !!! note
-    L’installation pourrait échouer par manque de mémoire, car les nœuds de connexion sont limités en termes de taille des paquets de mémoire. Pour contourner ce problème, vous devrez probablement utiliser une [tâche interactive](running-jobs.md#taches-interactives) et demander environ 8 Go.
+    L’installation pourrait échouer par manque de mémoire, car les nœuds de connexion sont limités en termes de taille des paquets de mémoire. Pour contourner ce problème, vous devrez probablement utiliser une [tâche interactive](../../running-jobs/running_jobs.md#taches-interactives) et demander environ 8 Go.
 
 La procédure suivante installe FreeSurfer 6.0.0 dans `/home/$USER/.local/easybuild/software/2020/Core/freesurfer/6.0.0/`.
 
 1.  Repérez le répertoire qui contient le fichier archive `freesurfer-Linux-centos6_x86_64-stable-pub-v6.0.0.tar.gz`.
 2.  Désactivez les modules actifs avec `module purge`.
-3.  Installez avec [EasyBuild](easybuild.md) en utilisant `eb FreeSurfer-6.0.0-centos6_x86_64.eb --disable-enforce-checksums`.
+3.  Installez avec [EasyBuild](../../programming/easybuild.md) en utilisant `eb FreeSurfer-6.0.0-centos6_x86_64.eb --disable-enforce-checksums`.
 4.  Inscrivez-vous pour obtenir la clé de licence [ici](https://surfer.nmr.mgh.harvard.edu/registration.html).
 5.  Enregistrez la licence dans le fichier `/home/$USER/.license`.
 
@@ -102,7 +102,7 @@ La procédure suivante installe FreeSurfer 6.0.0 dans `/home/$USER/.local/easybu
 En date d’août 2020, la version la plus récente disponible était la 6.0.1. Il existe cependant [des versions plus récentes](https://github.com/ComputeCanada/easybuild-easyconfigs/tree/computecanada-master/easybuild/easyconfigs/f/FreeSurfer).
 
 ## Recettes EasyBuild
-Les recettes sont disponibles sur [GitHub](https://github.com/ComputeCanada/easybuild-easyconfigs/tree/computecanada-master/easybuild/easyconfigs/f/FreeSurfer) ou par ligne de commande sur toutes nos grappes avec `eb -S FreeSurfer`. Si la version que vous cherchez n’est pas listée, vous pouvez installer l’application avec l’option `--try-software-version=<la nouvelle version>`. En cas de problème, contactez le [soutien technique](technical-support.md).
+Les recettes sont disponibles sur [GitHub](https://github.com/ComputeCanada/easybuild-easyconfigs/tree/computecanada-master/easybuild/easyconfigs/f/FreeSurfer) ou par ligne de commande sur toutes nos grappes avec `eb -S FreeSurfer`. Si la version que vous cherchez n’est pas listée, vous pouvez installer l’application avec l’option `--try-software-version=<la nouvelle version>`. En cas de problème, contactez le [soutien technique](../../support/technical_support.md).
 
 ## Installation dans un répertoire partagé
 Avec EasyBuild, FreeSurfer peut être installé dans un espace partagé (comme un répertoire `/project`) afin que tous les membres d’un groupe puissent y avoir accès. Dans l’exemple suivant, FreeSurfer est installé dans le répertoire `/home/$USER/projects/def-someuser/$USER/software` et le module est installé dans le répertoire `/home/$USER/.local/easybuild/modules/2020/Core/freesurfer` de l’utilisateur.
@@ -119,7 +119,7 @@ Si le contrôle d'intégrité (`checksums`) pose problème, ajoutez l'option `--
 
 Deux étapes supplémentaires sont requises pour que tous les membres du groupe puissent avoir accès à l’application :
 
-*   Chaque membre du groupe doit avoir accès en lecture et en exécution au répertoire d’installation `/home/$USER/projects/def-someuser/$USER` (voir [Changer les permissions de fichiers existants](sharing-data.md#changer-les-permissions-de-fichiers-existants)).
+*   Chaque membre du groupe doit avoir accès en lecture et en exécution au répertoire d’installation `/home/$USER/projects/def-someuser/$USER` (voir [Changer les permissions de fichiers existants](../../storage-and-data/sharing_data.md#changer-les-permissions-de-fichiers-existants)).
 *   Chaque membre doit copier le fichier du module dans son répertoire `/home`. Le fichier du module `6.0.1.lua` se trouve sous :
     ```bash
     /home/$USER/.local/easybuild/modules/2020/Core/freesurfer/

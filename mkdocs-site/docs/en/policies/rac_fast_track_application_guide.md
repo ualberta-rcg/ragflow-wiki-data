@@ -102,7 +102,7 @@ The Fast Track 2026 application form includes the following sections:
 
 Certain modifications to current allocations are allowed. This includes:
 
-*   Change of resource location (i.e., request to migrate current allocation from one system to another). Please visit the [Available Resources](rac-available-resources.md) page to see the list of systems available.
+*   Change of resource location (i.e., request to migrate current allocation from one system to another). Please visit the [Available Resources](rac_available_resources.md) page to see the list of systems available.
 *   A 10% increase in cloud compute and storage resources.
 *   A 10% increase of PROJECT, NEARLINE and/or dCache storage resources is allowed, up to a maximum of 50 TB of additional storage *based on the eligible amount communicated in the invitation email*. Note that the additional storage resources requested may be fully, partially or not allocated based on resource constraints and storage utilization information. For example:
     *   according to the invitation email you are allowed to request 100 TB of project storage—then you may request 10 TB more (your new storage request would then be 110 TB);

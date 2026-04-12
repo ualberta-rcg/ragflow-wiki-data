@@ -94,10 +94,10 @@ By means of these test jobs, you should gain some familiarity with how long cert
 ## Job duration
 
 * For jobs which are not tests, the duration should be **at least one hour**.
-    * If your computation requires less than an hour, you should consider using tools like [GLOST](glost.md), [META](meta-a-package-for-job-farming.md) or [GNU Parallel](gnu-parallel.md) to regroup several of your computations into a single Slurm job with a duration of at least an hour. Hundreds or thousands of very short jobs place undue stress on the scheduler.
+    * If your computation requires less than an hour, you should consider using tools like [GLOST](glost.md), [META](meta-a-package-for-job-farming.md) or [GNU Parallel](gnu_parallel.md) to regroup several of your computations into a single Slurm job with a duration of at least an hour. Hundreds or thousands of very short jobs place undue stress on the scheduler.
 * It is equally important that your estimate of the **job duration be relatively accurate**.
     * Asking for five days when the computation in reality finishes after just sixteen hours leads to your job spending much more time waiting to start than it would had you given a more accurate estimate of the duration.
-* **Use [monitoring tools](running-jobs.md#completed-jobs)** to see how long completed jobs took.
+* **Use [monitoring tools](running_jobs.md#completed-jobs)** to see how long completed jobs took.
     * For example, the `Job Wall-clock time` field in the output of the `seff` command:
 
 ```bash
@@ -146,7 +146,7 @@ Memory Efficiency: 11.68% of 128.00 GB (8.00 GB/core)
     * To choose the optimal number of CPU cores, you need to **study the [software's scalability](scalability.md)**.
 
 * A further complication with parallel execution concerns **the use of multiple nodes** - the software you are running must support *distributed memory parallelism*.
-    * Most software able to run over more than one node uses **the [MPI](mpi.md) standard**, so if the documentation doesn't mention MPI or consistently refers to threading and thread-based parallelism, this likely means you will need to restrict yourself to a single node.
+    * Most software able to run over more than one node uses **the [MPI](../software/mpi.md) standard**, so if the documentation doesn't mention MPI or consistently refers to threading and thread-based parallelism, this likely means you will need to restrict yourself to a single node.
     * Programs that have been parallelized to run across multiple nodes **should be started using** `srun` rather than `mpirun`.
 
 * A goal should also be to **avoid scattering your parallel processes across more nodes than is necessary**: a more compact distribution will usually help your job's performance.
@@ -165,14 +165,14 @@ Memory Efficiency: 11.68% of 128.00 GB (8.00 GB/core)
 
 The nodes with GPUs are relatively uncommon so that any job which asks for a GPU will wait significantly longer in most cases.
 * Be sure that this GPU you had to wait so much longer to obtain is **being used as efficiently as possible** and that it is really contributing to improved performance in your jobs.
-    * A considerable amount of software does have a GPU option, for example such widely used packages as [NAMD](namd.md) and [GROMACS](gromacs.md), but only a small part of these programs' functionality has been modified to make use of GPUs. For this reason, it is wiser to **first test a small sample calculation both with and without a GPU** to see what kind of speed-up you obtain from the use of this GPU.
+    * A considerable amount of software does have a GPU option, for example such widely used packages as [NAMD](../software/namd.md) and [GROMACS](../software/gromacs.md), but only a small part of these programs' functionality has been modified to make use of GPUs. For this reason, it is wiser to **first test a small sample calculation both with and without a GPU** to see what kind of speed-up you obtain from the use of this GPU.
     * Because of the high cost of GPU nodes, a job using **a single GPU** should run significantly faster than if it was using a full CPU node.
     * If your job **only finishes 5% or 10% more quickly with a GPU, it's probably not worth** the effort of waiting to get a node with a GPU as it will be idle during much of your job's execution.
-* **Other tools for monitoring the efficiency** of your GPU-based jobs include [nvidia-smi](https://developer.nvidia.com/nvidia-system-management-interface), `nvtop` and, if you're using software based on [TensorFlow](tensorflow.md), the [TensorBoard](tensorflow.md#tensorboard) utility.
+* **Other tools for monitoring the efficiency** of your GPU-based jobs include [nvidia-smi](https://developer.nvidia.com/nvidia-system-management-interface), `nvtop` and, if you're using software based on [TensorFlow](../software/tensorflow.md), the [TensorBoard](../software/tensorflow.md#tensorboard) utility.
 
 ## Avoid wasting resources
 
 !!! warning "Resource Conservation"
     * In general, your jobs should never contain the command `sleep`.
-    * We strongly recommend against the use of [Conda](anaconda.md) and its variants on the clusters, in favour of solutions like a [Python virtual environment](python.md#creating-and-using-a-virtual-environment) or [Apptainer](apptainer.md).
-    * Read and write operations should be optimized by **[using node-local storage](using-node-local-storage.md)**.
+    * We strongly recommend against the use of [Conda](../software/anaconda.md) and its variants on the clusters, in favour of solutions like a [Python virtual environment](../software/python.md#creating-and-using-a-virtual-environment) or [Apptainer](../software/containers/apptainer.md).
+    * Read and write operations should be optimized by **[using node-local storage](../storage-and-data/using_node-local_storage.md)**.

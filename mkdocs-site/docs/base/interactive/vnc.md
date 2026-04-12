@@ -102,7 +102,7 @@ status:
 !!! warning "Try JupyterLab first"
     This page is for advanced usage of VNC. In many cases, it is much simpler and sufficient to use VNC through your browser, and [Desktop](jupyterlab.md#desktop). Please consider using this before you try the instructions below.
 
-To remotely start the graphical user interface (GUI) of a program, X11 forwarding over [SSH](ssh.md) is commonly used. However, the performance of this approach is often too slow to perform smooth complex graphics rotations. A much better alternative is to use [VNC](https://en.wikipedia.org/wiki/Virtual_Network_Computing) to connect to a remote desktop.
+To remotely start the graphical user interface (GUI) of a program, X11 forwarding over [SSH](../getting-started/ssh.md) is commonly used. However, the performance of this approach is often too slow to perform smooth complex graphics rotations. A much better alternative is to use [VNC](https://en.wikipedia.org/wiki/Virtual_Network_Computing) to connect to a remote desktop.
 
 ## Setup
 
@@ -191,7 +191,7 @@ If your program requires memory and/or CPU time limits greater than those provid
 
 **1) Start a VNC server**
 
-Before starting your VNC server, log into a cluster (such as Nibi) and create a compute node allocation using the `salloc` command (24hr time limit applies). For example, to request an [interactive job](running-jobs.md#interactive-jobs) using 4 CPUs and 16GB of memory you could use the command:
+Before starting your VNC server, log into a cluster (such as Nibi) and create a compute node allocation using the `salloc` command (24hr time limit applies). For example, to request an [interactive job](../running-jobs/running_jobs.md#interactive-jobs) using 4 CPUs and 16GB of memory you could use the command:
 
 ```bash
 l4(login node):~ salloc --time=1:00:00 --cpus-per-task=4 --mem=16000 --account=def-piusername
@@ -248,7 +248,7 @@ Enter a passcode or select one of the following options:
 [c48(compute node):~]
 ```
 
-If you exit the node that your tunnel is connected to, you will no longer be able to connect to the VNC server with vncviewer. However, since your vncserver will continue running, you may regain access to it by simply starting a new tunnel. For more information about tunnels see [SSH tunnel](ssh-tunnelling.md).
+If you exit the node that your tunnel is connected to, you will no longer be able to connect to the VNC server with vncviewer. However, since your vncserver will continue running, you may regain access to it by simply starting a new tunnel. For more information about tunnels see [SSH tunnel](../getting-started/ssh_tunnelling.md).
 
 **3) Connect to the VNC server**
 

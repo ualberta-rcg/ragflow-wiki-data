@@ -80,17 +80,17 @@ Cedar is sold and supported by Scalar Decisions, Inc. The node manufacturer is D
 !!! note
     Globus version 4 endpoints are no longer supported. The endpoint **computecanada#cedar-dtn** has been retired. Please use version 5 endpoint **computecanada#cedar-globus**.
 
-[Getting started with Cedar](getting-started.md)
-[How to run jobs](running-jobs.md)
-[Transferring data](transferring-data.md)
+[Getting started with Cedar](../getting-started/getting_started.md)
+[How to run jobs](../running-jobs/running_jobs.md)
+[Transferring data](../getting-started/transferring_data.md)
 
 ## Storage
 
 |                           | Description                                                                                                                                                                                                                                                                                                                        |
 | :------------------------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Home space**<br/>526TB total volume | * Location of /home directories.<br/>* Each /home directory has a small fixed [quota](storage-and-file-management.md#filesystem-quotas-and-policies).<br/>* Not allocated via [RAS](https://alliancecan.ca/en/services/advanced-research-computing/accessing-resources/rapid-access-service) or [RAC](https://alliancecan.ca/en/services/advanced-research-computing/accessing-resources/resource-allocation-competition). Larger requests go to the /project space.<br/>* Has daily backup. |
-| **Scratch space**<br/>5.4PB total volume<br/>Parallel high-performance filesystem | * For active or temporary (scratch) storage.<br/>* Not allocated.<br/>* Large fixed [quota](storage-and-file-management.md#filesystem-quotas-and-policies) per user.<br/>* Inactive data will be [purged](scratch-purging-policy.md). |
-| **Project space**<br/>23PB total volume<br/>External persistent storage | * Not designed for parallel I/O workloads. Use /scratch space instead.<br/>* Large adjustable [quota](storage-and-file-management.md#filesystem-quotas-and-policies) per project.<br/>* Has daily backup. |
+| **Home space**<br/>526TB total volume | * Location of /home directories.<br/>* Each /home directory has a small fixed [quota](../storage-and-data/storage_and_file_management.md#filesystem-quotas-and-policies).<br/>* Not allocated via [RAS](https://alliancecan.ca/en/services/advanced-research-computing/accessing-resources/rapid-access-service) or [RAC](https://alliancecan.ca/en/services/advanced-research-computing/accessing-resources/resource-allocation-competition). Larger requests go to the /project space.<br/>* Has daily backup. |
+| **Scratch space**<br/>5.4PB total volume<br/>Parallel high-performance filesystem | * For active or temporary (scratch) storage.<br/>* Not allocated.<br/>* Large fixed [quota](../storage-and-data/storage_and_file_management.md#filesystem-quotas-and-policies) per user.<br/>* Inactive data will be [purged](../storage-and-data/scratch_purging_policy.md). |
+| **Project space**<br/>23PB total volume<br/>External persistent storage | * Not designed for parallel I/O workloads. Use /scratch space instead.<br/>* Large adjustable [quota](../storage-and-data/storage_and_file_management.md#filesystem-quotas-and-policies) per project.<br/>* Has daily backup. |
 
 The /scratch storage space is a Lustre filesystem based on DDN model ES14K technology. It includes 640 8TB NL-SAS disk drives, and dual redundant metadata controllers with SSD-based storage.
 
@@ -122,7 +122,7 @@ Cedar has 100,400 CPU cores for computation, and 1352 GPU devices. Turbo Boost i
 
 Note that the amount of available memory is fewer than the *round number* suggested by the hardware configuration. For instance, *base* nodes do have 128 GiB of RAM, but some of it is permanently occupied by the kernel and OS. To avoid wasting time by swapping/paging, the scheduler will never allocate jobs whose memory requirements exceed the amount of *available* memory shown above.
 
-All nodes have local (on-node) temporary storage. Compute nodes (except GPU nodes) have two 480GB SSD drives, for a total raw capacity of 960GB. GPU nodes have either an 800GB or a 480GB SSD drive. Use node-local storage through the job-specific directory created by the scheduler, `$SLURM_TMPDIR`. See [Using node-local storage](using-node-local-storage.md).
+All nodes have local (on-node) temporary storage. Compute nodes (except GPU nodes) have two 480GB SSD drives, for a total raw capacity of 960GB. GPU nodes have either an 800GB or a 480GB SSD drive. Use node-local storage through the job-specific directory created by the scheduler, `$SLURM_TMPDIR`. See [Using node-local storage](../storage-and-data/using_node-local_storage.md).
 
 ### Choosing a node type
 A number of 48-core nodes are reserved for jobs that require whole nodes. There are no 32-core nodes set aside for whole node processing.

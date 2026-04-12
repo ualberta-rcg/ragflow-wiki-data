@@ -87,8 +87,8 @@ Le système de fichiers /nearline utilise de l'espace de stockage sur ruban et s
 S'il n'est pas efficace de récupérer des petits fichiers enregistrés sur ruban, récupérer de très gros fichiers pose d'autres problèmes. Nous vous demandons d'observer les règles suivantes :
 
 !!! attention "Recommandations pour la taille des fichiers"
-    *   Les fichiers de moins de ~10 Go devraient être rassemblés dans des fichiers archive (*tarballs*) avec [tar](a-tutorial-on-tar.md) ou un autre [outil semblable](archiving-and-compressing-files.md).
-    *   Les fichiers de plus de 4 To devraient être divisés en parts de 1 To avec un outil comme [la commande `split`](a-tutorial-on-tar.md#fractionner-des-fichiers).
+    *   Les fichiers de moins de ~10 Go devraient être rassemblés dans des fichiers archive (*tarballs*) avec [tar](a_tutorial_on__tar.md) ou un autre [outil semblable](archiving_and_compressing_files.md).
+    *   Les fichiers de plus de 4 To devraient être divisés en parts de 1 To avec un outil comme [la commande `split`](a_tutorial_on__tar.md#fractionner-des-fichiers).
     *   **NE COPIEZ PAS DE PETITS FICHIERS SUR /NEARLINE**, à l'exception des index (voir *Créer un index* ci-dessous).
 
 ### Ne compressez pas vos données
@@ -98,7 +98,7 @@ S'il n'est pas efficace de récupérer des petits fichiers enregistrés sur ruba
 
 ### Choisir entre tar et dar
 
-Utilisez [tar](a-tutorial-on-tar.md) ou [dar](dar.md) pour créer un fichier archive.
+Utilisez [tar](a_tutorial_on__tar.md) ou [dar](dar.md) pour créer un fichier archive.
 
 !!! tip "Création d'archives"
     *   Gardez les fichiers sources dans leur système de fichiers d'origine. Ne copiez pas les fichiers sources sur /nearline avant de créer l'archive.
@@ -136,7 +136,7 @@ tar tvvf /nearline/def-sponsor/user/mycollection.tar > /nearline/def-sponsor/use
 ### Utiliser un multiplexeur de terminal
 
 !!! tip "Sécuriser vos sessions d'archivage"
-    L'archivage de collections volumineuses de fichiers peut prendre plusieurs heures, voire même plusieurs jours. Votre session SSH peut être interrompue avant la fin du programme d'archivage, ou vous pouvez vouloir fermer votre session, laisser le programme s'exécuter en arrière-plan et y revenir plus tard. Pour éviter ce genre de problème, exécutez `tar` ou `dar` dans [un multiplexeur de terminal](prolonging-terminal-sessions.md#multiplexeur-de-terminal) tel que `tmux`.
+    L'archivage de collections volumineuses de fichiers peut prendre plusieurs heures, voire même plusieurs jours. Votre session SSH peut être interrompue avant la fin du programme d'archivage, ou vous pouvez vouloir fermer votre session, laisser le programme s'exécuter en arrière-plan et y revenir plus tard. Pour éviter ce genre de problème, exécutez `tar` ou `dar` dans [un multiplexeur de terminal](../running-jobs/prolonging_terminal_sessions.md#multiplexeur-de-terminal) tel que `tmux`.
 
 ### Utiliser `dar` en mode non interactif
 
@@ -164,7 +164,7 @@ Quand un fichier est entièrement copié sur ruban (ou *virtualisé*), il demeur
 
 ### Transférer des données à partir de /nearline
 
-Pendant le [transfert de vos données](transferring-data.md) avec [Globus](globus.md) ou tout autrement, les données exclusivement sur ruban seront automatiquement restaurées sur disque à leur simple lecture. Cependant, puisque l'accès aux données sur ruban est relativement lent, chaque restauration de fichier ralentira le transfert de quelques minutes à quelques heures. Par conséquent, il faut s'attendre à ce que les transferts à partir de /nearline prennent plus de temps.
+Pendant le [transfert de vos données](../getting-started/transferring_data.md) avec [Globus](../getting-started/globus.md) ou tout autrement, les données exclusivement sur ruban seront automatiquement restaurées sur disque à leur simple lecture. Cependant, puisque l'accès aux données sur ruban est relativement lent, chaque restauration de fichier ralentira le transfert de quelques minutes à quelques heures. Par conséquent, il faut s'attendre à ce que les transferts à partir de /nearline prennent plus de temps.
 
 Pour avoir un aperçu de l'état des fichiers dans vos espaces /nearline, **certaines grappes** peuvent présenter un sommaire avec la commande
 
@@ -209,7 +209,7 @@ Vous pouvez forcer le rappel d'un fichier sur ruban sans le lire avec la command
     Enregistrez vos fichiers dans votre répertoire `~/nearline/PROJECT`. Ils seront copiés sur ruban après un certain temps (24 heures en date de février 2019). Si le fichier n’est pas modifié pendant un certain temps (24 heures en date de février 2019), la copie sur disque sera supprimée, virtualisant ainsi le fichier sur ruban.
 
     !!! important "Restauration de fichiers supprimés"
-        Lorsque vous supprimez un fichier de `~/nearline` volontairement ou par accident, la copie sur ruban est conservée pour 60 jours. Pour restaurer ces fichiers, vous devez contacter le [soutien technique](technical-support.md) en mentionnant le chemin complet et la version (avec la date), de la même manière que vous procéderiez pour restaurer une [copie de sauvegarde](storage-and-file-management.md#quotas-et-politiques). Il est donc important que vous conserviez une copie de la structure complète de votre espace /nearline. La commande `ls -R > ~/nearline_contents.txt` lancée du répertoire `~/nearline/PROJECT` vous permettra de voir où sont situés les fichiers dans votre espace /nearline.
+        Lorsque vous supprimez un fichier de `~/nearline` volontairement ou par accident, la copie sur ruban est conservée pour 60 jours. Pour restaurer ces fichiers, vous devez contacter le [soutien technique](../support/technical_support.md) en mentionnant le chemin complet et la version (avec la date), de la même manière que vous procéderiez pour restaurer une [copie de sauvegarde](storage_and_file_management.md#quotas-et-politiques). Il est donc important que vous conserviez une copie de la structure complète de votre espace /nearline. La commande `ls -R > ~/nearline_contents.txt` lancée du répertoire `~/nearline/PROJECT` vous permettra de voir où sont situés les fichiers dans votre espace /nearline.
 
 === "Nibi"
     Le service /nearline est semblable à celui de Béluga, sauf que :
@@ -226,4 +226,4 @@ Vous pouvez forcer le rappel d'un fichier sur ruban sans le lire avec la command
 
     1.  Dans une des partitions archive, soumettre une tâche à l’ordonnanceur Slurm avec les commandes HPSS `htar` ou `hsi`; pour des exemples, voyez la [documentation HPSS](https://docs.scinet.utoronto.ca/index.php/HPSS). Travailler avec des scripts offre l’avantage de pouvoir automatiser les transferts; il s’agit de la meilleure méthode si vous utilisez HPSS régulièrement. Vos fichiers HPSS se trouvent dans le répertoire `$ARCHIVE`, qui est semblable à `$PROJECT`, mais où */project* est remplacé par */archive*.
     2.  Utiliser le nœud VFS (*virtual file system*) par la commande `salloc --time=1:00:00 -pvfsshort` quand vous avez peu de fichiers HPSS. Vos fichiers HPSS se trouvent dans le répertoire `$ARCHIVE`, qui est semblable à `$PROJECT`, mais où */project* est remplacé par */archive*.
-    3.  Utilisez [Globus](globus.md) pour transférer vos fichiers HPSS avec le point de chute (*endpoint*) **alliancecan#hpss**. Cette méthode est utile pour un usage occasionnel ou pour les transferts entre HPSS et les autres sites.
+    3.  Utilisez [Globus](../getting-started/globus.md) pour transférer vos fichiers HPSS avec le point de chute (*endpoint*) **alliancecan#hpss**. Cette méthode est utile pour un usage occasionnel ou pour les transferts entre HPSS et les autres sites.

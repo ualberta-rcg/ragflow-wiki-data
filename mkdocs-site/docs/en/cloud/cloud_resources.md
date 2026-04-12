@@ -152,4 +152,4 @@ Images are provided by Alliance staff on the Alliance Clouds for common Linux di
 
     Older images for Linux distributions past their EOL will be removed. This does not prevent you from continuing to run a VM with an EOL Linux distribution (though you shouldn't) but does mean that those images will no longer be available when creating new VMs.
 
-For more details about using images see [working with images](working-with-images.md).
+For more details about using images see [working with images](working_with_images.md).

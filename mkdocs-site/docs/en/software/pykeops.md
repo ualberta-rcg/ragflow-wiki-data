@@ -154,7 +154,7 @@ You can run PyKeOps on CPU or GPU.
     ```
 
 2. Before submitting your job, it is important to test that your submission script will start without errors.
-You can do a quick test in an [interactive job](running-jobs.md#interactive-jobs).
+You can do a quick test in an [interactive job](../running-jobs/running_jobs.md#interactive-jobs).
 
 3. Submit your job to the scheduler.
 ```bash

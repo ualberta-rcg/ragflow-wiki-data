@@ -122,7 +122,7 @@ The RAC involves two review processes each year:
 
 The overall process is overseen by the Resource Access Program Administrative Committee, which includes representatives from each of the national system host sites.
 
-Learn [more about the competition](resource-allocation-competition.md).
+Learn [more about the competition](../running-jobs/resource_allocation_competition.md).
 
 ### Is there any funding available through the RAC?
 No. Through the RAC, we offer access to computing time, storage space and cloud resources in our systems.
@@ -136,7 +136,7 @@ Applying through the Fast Track process DOES NOT guarantee you will receive the 
 
 **Requested allocations may be scaled by a different factor than it was last year, according to resource demand and availability constraints.**
 
-To know more about eligibility for this process and other details about the Fast Track process, visit [this page](rac-fast-track-application-guide.md).
+To know more about eligibility for this process and other details about the Fast Track process, visit [this page](rac_fast_track_application_guide.md).
 
 ### What type of resources are available for researchers to access through this competition?
 We provide a broad spectrum of advanced computing services in support of research, including technical support and training. In this call for proposals, you will be able to request access to:
@@ -164,12 +164,12 @@ Yes. A PI can apply as a lead submitter for only one RRG application but can be 
 Prior to submitting a proposal, you should review each competition’s criteria to ensure your project aligns with the focus. If you still have questions or concerns after reviewing the competition guide, please contact us at allocations@tech.alliancecan.ca.
 
 ### Is the Canadian Common CV (CCV) required to apply for resources?
-Yes. PIs and **all** Co-PIs of a RAC application are required to submit a CCV. Integrating CCV into the CCDB makes it easier for applicants to upload their CVs and standardize their format. It also helps the Scientific Review Committees evaluate the quality of each project’s research team. For instructions on how to submit a CCV, read the [CCV submission guide](alliance-ccv-submission-guide.md).
+Yes. PIs and **all** Co-PIs of a RAC application are required to submit a CCV. Integrating CCV into the CCDB makes it easier for applicants to upload their CVs and standardize their format. It also helps the Scientific Review Committees evaluate the quality of each project’s research team. For instructions on how to submit a CCV, read the [CCV submission guide](../general/alliance_ccv_submission_guide.md).
 
 To update a CCV on the CCDB, Co-PIs can do so by clicking on the "Update CCV" button in the Resource Applications page, or by going to **My Account** → [View Reporting](https://ccdb.alliancecan.ca/reporting). Once Co-PIs have updated their CCV, the status of the CCV will be automatically updated in the RAC online application form.
 
 ### I don’t recognize some of the acronyms or terms used in the RAC documentation. Is there a glossary available?
-Yes. A list of key terms used in the competition and application process is available. Please consult the [Technical Glossary](technical-glossary-for-the-resource-allocation-competitions.md) when preparing your application.
+Yes. A list of key terms used in the competition and application process is available. Please consult the [Technical Glossary](../running-jobs/technical_glossary_for_the_resource_allocation_competitions.md) when preparing your application.
 
 ### Am I at a disadvantage if my project proposal doesn’t rely on, or only partly overlaps with, existing infrastructure?
 The RAC only grants access to ARC infrastructure. If you have questions about whether the infrastructure you are using is part of the national platform, please contact us at allocations@tech.alliancecan.ca.
@@ -181,7 +181,7 @@ Yes. Academic PIs can apply for an allocation, irrespective of the size of the r
 No. The submission deadline for RAC applications is final. There will be no extensions and late submissions will not be accepted. Any concerns with this policy may be directed to allocations@tech.alliancecan.ca.
 
 ### When will I know if my application is successful?
-All applicants will be notified of their competition results in March. You will be contacted by email with any additional information you may need or action items required of you to finalize your allocation. Once all recipients have been privately notified, we will publish a list of recipients, project allocation amounts and allocation values on [this page](rac-annual-reports.md).
+All applicants will be notified of their competition results in March. You will be contacted by email with any additional information you may need or action items required of you to finalize your allocation. Once all recipients have been privately notified, we will publish a list of recipients, project allocation amounts and allocation values on [this page](rac_annual_reports.md).
 
 ### How is the value of the RAC allocations calculated?
 It is possible to assign a monetary value to each allocation. This is useful for researchers to assign an in-kind value of the contribution of the Federation to their research program (please note: this in-kind valuation cannot be used as a match for a CFI award). These values represent an average across all of our facilities and include the total capital and operational costs incurred by the Federation to deliver the resources and associated services. These are not commercial or market values.
@@ -190,11 +190,11 @@ It is possible to assign a monetary value to each allocation. This is useful for
 Each year, our infrastructure is heavily oversubscribed. A scaling function is applied to compute requests to provide a means by which decisions on allocations in a context of insufficient capacity can be made.
 
 ### If I use my total allocation and it was not sufficient for my needs, can I get access to more resources?
-Any user can access modest quantities of compute, storage and cloud resources through the [Rapid Access Service](rapid-access-service.md). Unlike the RAC, the Rapid Access Service is not a guaranteed allocation of certain computational resources. It is a shared pool of unallocated resources.
+Any user can access modest quantities of compute, storage and cloud resources through the [Rapid Access Service](rapid_access_service.md). Unlike the RAC, the Rapid Access Service is not a guaranteed allocation of certain computational resources. It is a shared pool of unallocated resources.
 
 For compute allocations, generally speaking, we allocate our batch processing priority based on a fair-share algorithm. Each user is allocated a share of the total system resources, which effectively translates into priority access to the system. If you have used a large fraction of the system recently (i.e., larger than your fair-share), your priority drops. However, the scheduling system has a limited time window over which it calculates priority. After some time (e.g., weeks) of reduced usage, it gradually “ forgets” that you overused in the past. This is designed to ensure full system usage and not to penalize users who take advantage of idle compute resources. A consequence is that your total allocation is not a limit on how many compute resources you can consume. Rather, your total allocation represents what you should be able to get over the course of the year if you submit a constant workload to the system and it is fully busy. In other words, once your “total allocation” is used, just keep working.
 
-For more information, visit the [Allocation and compute scheduling page](allocations-and-compute-scheduling.md).
+For more information, visit the [Allocation and compute scheduling page](../running-jobs/allocations_and_compute_scheduling.md).
 
 ### What is the role of the Scientific Review Committees?
 All applications submitted to the RAC are peer-reviewed and scored.
@@ -228,10 +228,10 @@ No. A Notice of Intent (NOI) is not required for any RAC application process.
 ### What is the Resources for Research Groups (RRG) application process?
 The RRG is a peer-reviewed application process for projects whose **primary purpose** is to conduct research requiring compute, storage and cloud resources to meet their goals. However, projects *primarily* needing persistent instances in the cloud to provide a service through a platform or a portal should apply through the Research Platforms and Portal application process instead.
 
-Visit the [RAC application guide](rac-application-guide.md) for more details.
+Visit the [RAC application guide](rac_application_guide.md) for more details.
 
 ### What should I do if I need less than the minimum amount of resources allowed to submit an RRG application?
-If you require resources that are less than the minimum amount required to apply for the RAC, you do not need to submit an application. Instead, you should make use of the [Rapid Access Service (RAS)](rapid-access-service.md), which allows PIs and their research groups to access modest quantities of storage and cloud resources after they register for an account. Opportunistic access to compute resources is also possible through RAS, but priority is only given to those with an allocation. Many research groups can meet their needs through RAS only.
+If you require resources that are less than the minimum amount required to apply for the RAC, you do not need to submit an application. Instead, you should make use of the [Rapid Access Service (RAS)](rapid_access_service.md), which allows PIs and their research groups to access modest quantities of storage and cloud resources after they register for an account. Opportunistic access to compute resources is also possible through RAS, but priority is only given to those with an allocation. Many research groups can meet their needs through RAS only.
 
 ### Can a researcher submit more than one application through the RRG?
 No. While Principal investigators (PIs) can participate as collaborators on other projects submitting RRG proposals, they can only be the lead applicant for one RRG application.
@@ -245,7 +245,7 @@ If you need more resources than what you currently have allocated (especially co
 No. Due to the imbalance of demand versus available resources, the RAC has increasingly become a more competitive process.
 
 ### How are the RAC applications evaluated?
-The evaluation criteria for both the RRG and RPP application processes are available in the [RAC application guide](rac-application-guide.md). We strongly encourage applicants to read it carefully.
+The evaluation criteria for both the RRG and RPP application processes are available in the [RAC application guide](rac_application_guide.md). We strongly encourage applicants to read it carefully.
 
 ## Research Platforms and Portals (RPP)
 
@@ -256,7 +256,7 @@ The RRG is a peer-reviewed application process for projects whose **primary purp
 
 Projects *primarily* needing compute resources in a cluster to conduct research should apply through the RRG process instead.
 
-Visit the [application guide](rac-application-guide.md) for more details.
+Visit the [application guide](rac_application_guide.md) for more details.
 
 ### Who should apply through the RPP process?
 Projects applying through the RPP must:
@@ -275,16 +275,16 @@ Yes. An Academic PI may:
 2.  Be the lead submitter for one RPP application per competition round and be involved in other RPP applications as a participant.
 
 ### If I receive a multi-year allocation, do I have to submit a full application every year to renew it?
-No. Research groups that are awarded multi-year allocations are required to submit an annual progress report; however, they do not need to submit a new application each year to renew. This annual progress report must be uploaded directly on CCDB. For more information on what is required for the RPP Progress Report, click [here](rpp-annual-progress-report-guidelines.md).
+No. Research groups that are awarded multi-year allocations are required to submit an annual progress report; however, they do not need to submit a new application each year to renew. This annual progress report must be uploaded directly on CCDB. For more information on what is required for the RPP Progress Report, click [here](rpp_annual_progress_report_guidelines.md).
 
 ### If I have a one-year RPP allocation and want to keep it for next year, do I have to submit a new application?
 Yes.
 
 ### How are the RPP applications evaluated?
-The evaluation criteria is available in the [application guide](rac-application-guide.md). We strongly encourage applicants to read it carefully.
+The evaluation criteria is available in the [application guide](rac_application_guide.md). We strongly encourage applicants to read it carefully.
 
 ### What information do I need to provide in the RPP annual progress report?
-Please visit the [RPP Annual Progress Report page](rpp-annual-progress-report-guidelines.md) for details.
+Please visit the [RPP Annual Progress Report page](rpp_annual_progress_report_guidelines.md) for details.
 
 ## Allocations
 
@@ -293,7 +293,7 @@ A compute allocation corresponds to a target for use over a period of time, *usu
 
 Storage allocations are the most straightforward to understand: research groups will get a maximum amount of storage that they can use exclusively throughout the allocation period.
 
-Core year and GPU year allocations are more difficult to understand because these allocations are meant to capture average use throughout the allocation period – typically meant to be a year – and this use will occur across a set of resources shared with other research groups. To learn more about compute allocations, read the [Allocations and compute scheduling](allocations-and-compute-scheduling.md) documentation.
+Core year and GPU year allocations are more difficult to understand because these allocations are meant to capture average use throughout the allocation period – typically meant to be a year – and this use will occur across a set of resources shared with other research groups. To learn more about compute allocations, read the [Allocations and compute scheduling](../running-jobs/allocations_and_compute_scheduling.md) documentation.
 
 ### When will I receive my allocation(s)?
 Generally, all successful allocations are activated in April. The exact starting date will be confirmed in your notification letter.
@@ -302,9 +302,9 @@ Generally, all successful allocations are activated in April. The exact starting
 No. Use of your total allocation cannot be fully guaranteed and is contingent on the availability of our systems. You should receive the full allocation if you run in a reasonably constant manner over the year. If you expect to have an uneven workload, please contact our support team at support@tech.alliancecan.ca so that they can ensure you have access to the resources you require.
 
 ### If I use my total allocation and it was not sufficient for my needs, can I get access to more resources?
-PIs can access modest quantities of storage and cloud resources through the [Rapid Access Service](rapid-access-service.md). Compute resources are also available for opportunistic use without priority.
+PIs can access modest quantities of storage and cloud resources through the [Rapid Access Service](rapid_access_service.md). Compute resources are also available for opportunistic use without priority.
 
-For compute allocations, generally speaking, we allocate our batch processing priority based on a fair-share algorithm. Each user is allocated a share of the total system resources, which effectively translates into priority access to the system. If you have used a large fraction of the system recently (i.e., larger than your fair-share), your priority drops. However, the scheduling system has a limited time window over which it calculates priority. For more information, read the [Allocations and compute scheduling](allocations-and-compute-scheduling.md) documentation.
+For compute allocations, generally speaking, we allocate our batch processing priority based on a fair-share algorithm. Each user is allocated a share of the total system resources, which effectively translates into priority access to the system. If you have used a large fraction of the system recently (i.e., larger than your fair-share), your priority drops. However, the scheduling system has a limited time window over which it calculates priority. For more information, read the [Allocations and compute scheduling](../running-jobs/allocations_and_compute_scheduling.md) documentation.
 
 ### Do existing RAC allocations get priority when future allocations are decided?
 Each annual RAC is handled as a separate application round. The current projects may have an advantage if they can demonstrate usage and success stories, but not an advantage by policy.

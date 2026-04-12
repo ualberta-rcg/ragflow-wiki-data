@@ -39,15 +39,15 @@ status:
 
 ## OpenFOAM
 
-A suite of open source solvers and tools for CFD, multiple versions of [OpenFOAM](openfoam.md) are available as modules on our clusters.
+A suite of open source solvers and tools for CFD, multiple versions of [OpenFOAM](../software/openfoam.md) are available as modules on our clusters.
 
 ## Fluent
 
-This is a commercial CFD program that is part of the [Ansys](ansys.md) package, available on our clusters though the user is required to supply a license.
+This is a commercial CFD program that is part of the [Ansys](../software/ansys.md) package, available on our clusters though the user is required to supply a license.
 
 ## WRF
 
-A non-commercial program for atmospheric fluid dynamics, [WRF](wrf.md) is available as a module on our clusters.
+A non-commercial program for atmospheric fluid dynamics, [WRF](../software/wrf.md) is available as a module on our clusters.
 
 ## Lattice Boltzmann techniques
 (available later)

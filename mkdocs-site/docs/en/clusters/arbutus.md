@@ -57,4 +57,4 @@ Arbutus is an Infrastructure-as-a-Service cloud hosted at the University of Vict
 | 16    | 48    | 1024GB DDR4      | 1 x NVMe SSD, 3.84TB | 2 x Intel Gold 6342 2.8 GHz, 36MB cache     | 4 x NVidia H100 PCIe Gen5 (94GB)        |
 | 10    | 48    | 128GB DDR5       | 1 x NVMe SSD, 3.84TB | 2 x Intel Gold 6542Y 2.9 GHz, 60MB cache    | 1 x NVidia L40s PCIe Gen4 (48GB)        |
 
-See [Cloud resources](cloud-resources.md#arbutus-cloud) for current equipment summary.
+See [Cloud resources](../cloud/cloud_resources.md#arbutus-cloud) for current equipment summary.

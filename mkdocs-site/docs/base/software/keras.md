@@ -40,7 +40,7 @@ Keras is a high-level neural networks API, written in Python and capable of runn
 
 !!! tip
 
-    If you are porting a Keras program to one of our clusters, you should follow [our tutorial on the subject](tutoriel-apprentissage-machine.md).
+    If you are porting a Keras program to one of our clusters, you should follow [our tutorial on the subject](ai-ml/tutoriel_apprentissage_machine.md).
 
 ## Installing
 

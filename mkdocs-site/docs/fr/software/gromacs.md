@@ -280,7 +280,7 @@ Les versions suivantes sont disponibles :
 === "StdEnv/2018.3"
 
 !!! attention "Obsolète"
-    Cet [environnement logiciel](standard-software-environments.md) n'est plus supporté.
+    Cet [environnement logiciel](../programming/standard_software_environments.md) n'est plus supporté.
 
 | version        | modules pour utiliser les CPU                               | modules pour utiliser les GPU (CUDA)                                         | remarques             |
 | :------------- | :-------------------------------------------------------- | :--------------------------------------------------------------------------- | :-------------------- |
@@ -292,7 +292,7 @@ Les versions suivantes sont disponibles :
 === "StdEnv/2016.4"
 
 !!! attention "Obsolète"
-    Cet [environnement logiciel](standard-software-environments.md) n'est plus supporté.
+    Cet [environnement logiciel](../programming/standard_software_environments.md) n'est plus supporté.
 
 | version        | modules pour utiliser les CPU                               | modules pour utiliser les GPU (CUDA)                                         | remarques         |
 | :------------- | :-------------------------------------------------------- | :--------------------------------------------------------------------------- | :---------------- |
@@ -313,7 +313,7 @@ Les versions suivantes sont disponibles :
     Les versions 2020.0 jusqu'à 2021.5 inclusivement contiennent un bogue quand elles sont utilisées avec des GPU de génération Volta ou plus récentes (V100, T4, A100 et H100) avec l'option `-update gpu` de `mdrun` qui aurait pu perturber le calcul viriel et ainsi fausser le raccord de pression. Dans les notes de mise à jour de la version 2021.6 on peut lire : [GROMACS 2021.6 Release Notes](https://manual.gromacs.org/2021.6/release-notes/2021/2021.6.html#fix-missing-synchronization-in-cuda-update-kernels)
     > [traduction libre] *La mise à jour n'est pas activée par défaut sur le GPU et donc l'erreur ne peut se produire que dans les simulations où l'option `-update gpu` a été explicitement sélectionnée; même dans ce cas, l'erreur peut être rare car nous ne l'avons pas observée en pratique dans les tests que nous avons effectués.*
     Vous trouverez plus d'information dans GitLab, au sujet [#4393 du projet GROMACS](https://gitlab.com/gromacs/gromacs/-/issues/4393).
-*   Les versions depuis 2020.4 ont été compilées pour [l'environnement logiciel standard](standard-software-environments.md) `StdEnv/2020`.
+*   Les versions depuis 2020.4 ont été compilées pour [l'environnement logiciel standard](../programming/standard_software_environments.md) `StdEnv/2020`.
 *   Les versions 2018.7 et suivantes ont été compilées avec les compilateurs GCC et la bibliothèque MKL puisqu’ils améliorent légèrement la performance.
 *   Les versions antérieures ont été compilées avec soit des compilateurs GCC et FFTW, soit avec des compilateurs Intel MKL avec des bibliothèques Open MPI 2.1.1 à partir de l'environnement par défaut, comme indiqué dans le tableau ci-dessus.
 *   Les versions CPU (non GPU) sont disponibles en simple et double précisions à l'exception de 2019.3 (**&#8225;**), où la double précision n'est pas disponible pour AVX512.
@@ -458,7 +458,7 @@ srun --cpus-per-task=$OMP_NUM_THREADS gmx_mpi mdrun -deffnm md
 
 ### Tâches GPU
 
-Pour plus d'information, consultez [Ordonnancement Slurm des tâches exécutées avec GPU](using-gpus-with-slurm.md).
+Pour plus d'information, consultez [Ordonnancement Slurm des tâches exécutées avec GPU](../running-jobs/using_gpus_with_slurm.md).
 
 Cette tâche pour mdrun utilise 4 fils OpenMP et un (1) GPU.
 ```sh linenums="1"
@@ -483,7 +483,7 @@ Il faut noter que le fait d'utiliser plus qu'un GPU cause habituellement une pau
     > [traduction libre] *La mise à jour n'est pas activée par défaut sur le GPU et donc l'erreur ne peut se produire que dans les simulations où l'option `-update gpu` a été explicitement sélectionnée; même dans ce cas, l'erreur peut être rare car nous ne l'avons pas observée en pratique dans les tests que nous avons effectués.*
     Vous trouverez plus d'information dans GitLab, au sujet [#4393 du projet GROMACS](https://gitlab.com/gromacs/gromacs/-/issues/4393).
 *   Les nœuds GPU sont configurés différemment sur nos grappes.
-    Voir [GPU disponibles](using-gpus-with-slurm.md#gpu-disponibles) pour plus d'information sur les différentes configurations de nœuds (modèles de GPU et nombre de GPU et CPU par nœud).
+    Voir [GPU disponibles](../running-jobs/using_gpus_with_slurm.md#gpu-disponibles) pour plus d'information sur les différentes configurations de nœuds (modèles de GPU et nombre de GPU et CPU par nœud).
 *   GROMACS impose certaines contraintes dans le choix du nombre de GPU, de tâches (rang MPI) et de fils OpenMP.
     Pour la version 2018.2, les contraintes sont :
     *   `--tasks-per-node` doit être un multiple du nombre de GPU (`--gres=gpu:`)
@@ -530,7 +530,7 @@ La deuxième solution est d'utiliser une instance MIG (une fraction de GPU) plut
 *   des systèmes de formes ou de compositions différentes, comme une protéine membranaire et une protéine soluble.
 
 !!! attention "Hyper-Q/MPS avec GROMACS"
-    Notez que [Hyper-Q/MPS](hyper-q-mps.md) ne doit jamais être utilisé avec GROMACS. L'option intégrée `-multidir` permet d'obtenir la même fonctionnalité plus efficacement.
+    Notez que [Hyper-Q/MPS](hyper-q___mps.md) ne doit jamais être utilisé avec GROMACS. L'option intégrée `-multidir` permet d'obtenir la même fonctionnalité plus efficacement.
 
 ## Utilisation
 
@@ -546,7 +546,7 @@ Les fichiers *trp* sont portables et peuvent donc être groupés (*grompp-ed*) s
 
 ## Exécuter une simulation
 
-Les simulations MD prennent souvent plus de temps à compléter que la durée maximale permise en temps réel pour une tâche; elles doivent donc être redémarrées. Pour minimiser le temps d'attente avant le lancement d'une tâche, vous pouvez maximiser le [nombre de nœuds auxquels vous avez accès](job-scheduling-policies.md#pourcentages-des-nœuds-disponibles) en choisissant une durée d'exécution plus courte. Un bon compromis entre le temps d'attente et la durée d'exécution est souvent de demander une durée en temps réel de 24 ou 72 heures.
+Les simulations MD prennent souvent plus de temps à compléter que la durée maximale permise en temps réel pour une tâche; elles doivent donc être redémarrées. Pour minimiser le temps d'attente avant le lancement d'une tâche, vous pouvez maximiser le [nombre de nœuds auxquels vous avez accès](../running-jobs/job_scheduling_policies.md#pourcentages-des-nœuds-disponibles) en choisissant une durée d'exécution plus courte. Un bon compromis entre le temps d'attente et la durée d'exécution est souvent de demander une durée en temps réel de 24 ou 72 heures.
 
 Vous devriez utiliser le paramètre `-maxh` de `mdrun` pour indiquer au programme la durée en temps réel pour que l'étape en cours se termine bien lorsque la durée atteint 99%.
 De cette façon, `mdrun` crée à cette étape un fichier de point de contrôle (*checkpoint file*) et lui permet de bien fermer tous les fichiers de sortie
@@ -594,9 +594,9 @@ srun  gmx_mpi  mdrun  -deffnm md  -maxh 24.0  -cpi md.cpt
 
 ### Morceler les simulations
 
-La fonctionnalité de redémarrage d'une simulation peut servir à la diviser en plusieurs tâches courtes. Les tâches courtes sont moins longues à exécuter. En particulier, celles qui demandent trois heures ou moins sont éligibles à la planification de remplacement. (Voir nos [politiques de planification des tâches](job-scheduling-policies.md).) Ceci est particulièrement utile si votre groupe de recherche ne dispose que d'une allocation de ressources par défaut (par exemple, `def-sponsor`) sur la grappe, mais sera également bénéfique pour ceux qui disposent d'allocations de ressources compétitives (par exemple, `rrg-sponsor`).
+La fonctionnalité de redémarrage d'une simulation peut servir à la diviser en plusieurs tâches courtes. Les tâches courtes sont moins longues à exécuter. En particulier, celles qui demandent trois heures ou moins sont éligibles à la planification de remplacement. (Voir nos [politiques de planification des tâches](../running-jobs/job_scheduling_policies.md).) Ceci est particulièrement utile si votre groupe de recherche ne dispose que d'une allocation de ressources par défaut (par exemple, `def-sponsor`) sur la grappe, mais sera également bénéfique pour ceux qui disposent d'allocations de ressources compétitives (par exemple, `rrg-sponsor`).
 
-En utilisant un [vecteur de tâches](job-arrays.md), vous pouvez automatiser les points de contrôle. Avec le script suivant, un seul appel à `sbatch` soumet plusieurs tâches courtes, mais seule la première peut commencer. Dès que cette première tâche est terminée, la suivante peut démarrer et reprendre la simulation. Ce processus se répète jusqu'à ce que toutes les tâches soient terminées ou que la simulation elle-même soit terminée, après quoi les tâches en attente sont automatiquement annulées.
+En utilisant un [vecteur de tâches](../running-jobs/job_arrays.md), vous pouvez automatiser les points de contrôle. Avec le script suivant, un seul appel à `sbatch` soumet plusieurs tâches courtes, mais seule la première peut commencer. Dès que cette première tâche est terminée, la suivante peut démarrer et reprendre la simulation. Ce processus se répète jusqu'à ce que toutes les tâches soient terminées ou que la simulation elle-même soit terminée, après quoi les tâches en attente sont automatiquement annulées.
 
 === "Nœuds entiers (Narval)"
 ```sh linenums="1"
@@ -751,7 +751,7 @@ Il peut également être utilisé en mode ligne de commande.
 
 ## Utiliser Python
 
-[MDAnalysis](https://www.mdanalysis.org/) et [MDTraj](https://www.mdtraj.org/) sont deux paquets [Python](python.md) que nous offrons en [wheels Python précompilés](available-python-wheels.md). Ils peuvent lire et écrire des fichiers de trajectoires et de coordonnées GROMACS (*TRR* et *XTC*) et d'autres paquets de dynamique moléculaire, en plus d'offrir plusieurs fonctions d'analyse fréquemment employées. MDAnalysis peut aussi lire l'information topologique contenue dans les fichiers GROMACS *TPR*, mais pas toujours ceux produits par les récentes versions de GROMACS.
+[MDAnalysis](https://www.mdanalysis.org/) et [MDTraj](https://www.mdtraj.org/) sont deux paquets [Python](python.md) que nous offrons en [wheels Python précompilés](../programming/available_python_wheels.md). Ils peuvent lire et écrire des fichiers de trajectoires et de coordonnées GROMACS (*TRR* et *XTC*) et d'autres paquets de dynamique moléculaire, en plus d'offrir plusieurs fonctions d'analyse fréquemment employées. MDAnalysis peut aussi lire l'information topologique contenue dans les fichiers GROMACS *TPR*, mais pas toujours ceux produits par les récentes versions de GROMACS.
 
 Les deux paquets disposent d'un langage de sélection d'atomes polyvalent et exposent les coordonnées des trajectoires, ce qui facilite l'écriture d'outils d'analyse personnalisés qui peuvent être adaptés à un problème particulier et bien s'intégrer aux paquets de science des données de Python tels que NumPy, SciPy et Pandas, et aux bibliothèques de traçage comme Matplotlib/Pyplot et Seaborn.
 
@@ -876,7 +876,7 @@ et `gmx genenv`) qui ont été ajoutées aux fonctionnalités GROMACS usuelles.
 ## G_MMPBSA
 
 !!! attention "Obsolète"
-    [L'environnement logiciel StdEnv/2016.4](standard-software-environments.md) n'est plus pris en charge. La dernière mise à jour de `g_mmpbsa` date d'avril 2016. Utilisez plutôt [gmx_MMPBSA](#gmx_mmpbsa).
+    [L'environnement logiciel StdEnv/2016.4](../programming/standard_software_environments.md) n'est plus pris en charge. La dernière mise à jour de `g_mmpbsa` date d'avril 2016. Utilisez plutôt [gmx_MMPBSA](#gmx_mmpbsa).
 
 G_MMPBSA ([Site Web G_MMPBSA](http://rashmikumari.github.io/g_mmpbsa/)) est un outil de calcul des composantes de l'énergie de liaison qui utilise la méthode MM-PBSA, à l'exception de la composante entropique et la contribution énergétique de chaque résidu, par l'utilisation de principes de décomposition de l'énergie.
 
@@ -976,7 +976,7 @@ source venv_gmxMMPBSA/bin/activate
 ```
 
 ## Liens utiles
-[Simulation biomoléculaire](biomolecular-simulation.md)
+[Simulation biomoléculaire](molecular-sim/biomolecular_simulation.md)
 
 *   Ressources de projet
     *   **Site Web principal** : [http://www.gromacs.org/](http://www.gromacs.org/)

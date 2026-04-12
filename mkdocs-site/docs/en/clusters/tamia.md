@@ -54,7 +54,7 @@ status:
 | :------ | :----- |
 | Availability | **March 31, 2025** |
 | Login node | **tamia.alliancecan.ca** |
-| Automation node | [Automation node](automation-in-the-context-of-multifactor-authentication.md) : robot.tamia.ecpia.ca |
+| Automation node | [Automation node](../getting-started/automation_in_the_context_of_multifactor_authentication.md) : robot.tamia.ecpia.ca |
 | Globus collection | [TamIA's Globus v5 Server](https://app.globus.org/file-manager?origin_id=72c3bca0-9281-4742-b066-333ba0fdef72) |
 | Data transfer node (rsync, scp, sftp,...) | **tamia.alliancecan.ca** |
 | Portal | https://portail.tamia.ecpia.ca/ |
@@ -66,7 +66,7 @@ tamIA is part of [PAICE, the Pan-Canadian AI Compute Environment](https://allian
 ## Site-specific policies
 
 !!! warning "Internet Access Policy"
-    By policy, tamIA's compute nodes cannot access the internet. If you need an exception to this rule, contact [technical support](technical-support.md) explaining what you need and why.
+    By policy, tamIA's compute nodes cannot access the internet. If you need an exception to this rule, contact [technical support](../support/technical_support.md) explaining what you need and why.
 
 !!! note "Crontab"
     `crontab` is not offered on tamIA.
@@ -100,22 +100,22 @@ The cluster can only be reached from Canada.
 | HOME <br> Lustre file system |
     *   Location of home directories, each of which has a small fixed quota.
     *   You should use the `project` space for larger storage needs.
-    *   Small per user [quota](storage-and-file-management.md#filesystem-quotas-and-policies).
+    *   Small per user [quota](../storage-and-data/storage_and_file_management.md#filesystem-quotas-and-policies).
     *   !!! warning "No Home Directory Backups"
             There is currently no backup of the home directories. (ETA Spring 2026)
 | SCRATCH <br> Lustre file system |
     *   Large space for storing temporary files during computations
     *   !!! warning "No Scratch Backups"
             No backup system in place
-    *   Large [quota](storage-and-file-management.md#filesystem-quotas-and-policies) per user
-    *   There is an [automated purge](scratch-purging-policy.md) of older files in this space.
+    *   Large [quota](../storage-and-data/storage_and_file_management.md#filesystem-quotas-and-policies) per user
+    *   There is an [automated purge](../storage-and-data/scratch_purging_policy.md) of older files in this space.
 | PROJECT <br> Lustre file system |
     *   This space is designed for sharing data among the members of a research group and for storing large amounts of data.
-    *   Large and adjustable per group [quota](storage-and-file-management.md#filesystem-quotas-and-policies).
+    *   Large and adjustable per group [quota](../storage-and-data/storage_and_file_management.md#filesystem-quotas-and-policies).
     *   !!! warning "No Project Backups"
             There is currently no backup of the home directories. (ETA Summer 2025)
 
-For transferring data via [Globus](globus.md), you should use the endpoint specified at the top of this page, while for tools like [rsync](transferring-data.md#rsync) and [scp](transferring-data.md#scp) you can use a login node.
+For transferring data via [Globus](../getting-started/globus.md), you should use the endpoint specified at the top of this page, while for tools like [rsync](../getting-started/transferring_data.md#rsync) and [scp](../getting-started/transferring_data.md#scp) you can use a login node.
 
 ## High-performance interconnect
 

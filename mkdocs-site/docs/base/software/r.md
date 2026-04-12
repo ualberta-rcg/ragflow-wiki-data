@@ -110,7 +110,7 @@ You can load a particular R module using a command like
 ```bash
 module load r/4.5.0
 ```
-For more on this, see [Using modules](utiliser-des-modules.md).
+For more on this, see [Using modules](../programming/utiliser_des_modules.md).
 
 Now you can start the R interpreter and type R code inside that environment:
 ```R
@@ -159,7 +159,7 @@ module load StdEnv/2023 r/4.5.0  # Adjust version as needed
 
 Rscript computation.R
 ```
-See [Running jobs](running-jobs.md) for more information.
+See [Running jobs](../running-jobs/running_jobs.md) for more information.
 
 ## Installing R packages
 
@@ -168,7 +168,7 @@ See [Running jobs](running-jobs.md) for more information.
 To install packages from [CRAN](https://cran.r-project.org/), you can use `install.packages` in an interactive R session on a cluster login node. Since the compute nodes on most clusters do not have access to the Internet, installing R packages in a batch or interactive job is not possible.
 
 !!! tip
-    Many R packages are developed using the GNU family of compilers, so we recommend that you load a `gcc` [module](utiliser-des-modules.md) before trying to install any R packages. Use the same version of the `gcc` for all packages you install.
+    Many R packages are developed using the GNU family of compilers, so we recommend that you load a `gcc` [module](../programming/utiliser_des_modules.md) before trying to install any R packages. Use the same version of the `gcc` for all packages you install.
 ```bash
 module load gcc/12.3.0 r/4.5.0
 ```
@@ -201,12 +201,12 @@ R -e 'install.packages("sp", repos="https://cloud.r-project.org/")'
 In your submission script, you then have to load the desired R module and set the local library directory with `export R_LIBS=~/.local/R/$EBVERSIONR/`.
 
 ### Dependencies
-Some packages depend on external libraries which are already installed on our clusters. If the library you need is listed at [Available software](available-software.md), then load the appropriate [module](utiliser-des-modules.md) before installing the package that requires it.
+Some packages depend on external libraries which are already installed on our clusters. If the library you need is listed at [Available software](../programming/available_software.md), then load the appropriate [module](../programming/utiliser_des_modules.md) before installing the package that requires it.
 
 For example, the package `rgdal` requires a library called `gdal`. Running `module spider gdal/3.9.1` shows how to load this module.
 
 !!! tip
-    If any package fails to install, be sure to read the error message carefully as it might give you details concerning additional modules you need to load. See [Using modules](utiliser-des-modules.md) for more on the `module` family of commands.
+    If any package fails to install, be sure to read the error message carefully as it might give you details concerning additional modules you need to load. See [Using modules](../programming/utiliser_des_modules.md) for more on the `module` family of commands.
 
 ### Downloaded packages
 To install a package that you downloaded (i.e., not using `install.packages()`), you can install it as follows. Assuming the package is named `archive_package.tgz`, run the following command in a shell:
@@ -266,7 +266,7 @@ The following subsections contain some further notes and examples.
 
 ### doParallel and foreach
 #### Usage
-Foreach can be considered as a unified interface for all backends (i.e., doMC, doMPI, doParallel, doRedis, etc.). It works on all platforms, assuming that the backend works. doParallel acts as an interface between foreach and the parallel package and can be loaded alone. There are some [known efficiency issues](scalability.md) when using foreach to run a very large number of very small tasks.
+Foreach can be considered as a unified interface for all backends (i.e., doMC, doMPI, doParallel, doRedis, etc.). It works on all platforms, assuming that the backend works. doParallel acts as an interface between foreach and the parallel package and can be loaded alone. There are some [known efficiency issues](../running-jobs/scalability.md) when using foreach to run a very large number of very small tasks.
 
 !!! note
     Therefore, keep in mind that the following code is not the best example of an optimized use of the `foreach()` call but rather that the function chosen was kept at a minimum for demonstration purposes.
@@ -334,7 +334,7 @@ R CMD BATCH --no-save --no-restore test_foreach.R
 sbatch job_foreach.sh
 ```
 
-For more on submitting jobs, see [Running jobs](running-jobs.md).
+For more on submitting jobs, see [Running jobs](../running-jobs/running_jobs.md).
 
 ### doParallel and makeCluster
 #### Usage
@@ -391,7 +391,7 @@ In the above example the scheduler might place all four processes on just one no
 ```bash
 sbatch job_makecluster.sh
 ```
-For more information on submitting jobs, see [Running jobs](running-jobs.md).
+For more information on submitting jobs, see [Running jobs](../running-jobs/running_jobs.md).
 
 ### Rmpi
 
@@ -471,4 +471,4 @@ mpirun -np 1 R CMD BATCH test.R test.txt
 sbatch job.sh
 ```
 
-For more on submitting jobs, see [Running jobs](running-jobs.md).
+For more on submitting jobs, see [Running jobs](../running-jobs/running_jobs.md).

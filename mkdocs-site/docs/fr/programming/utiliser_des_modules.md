@@ -65,7 +65,7 @@ status:
 
 Nos serveurs peuvent exécuter la totalité des logiciels fonctionnant sous Linux. Dans le cas le plus simple, le logiciel dont vous avez besoin sera déjà installé sur l'un des serveurs de calcul. Il sera alors accessible sous la forme d'un **module**. Si ce n'est pas le cas, vous pouvez soit demander à notre équipe de l'installer pour vous, soit le faire vous-même.
 
-Les modules sont des fichiers de configuration qui contiennent des instructions pour modifier votre environnement logiciel. Cette architecture modulaire permet d'avoir plusieurs versions d'une même application installées sans que celles-ci entrent en conflit. Pour les nouveaux serveurs, les modules sont gérés par l'outil [Lmod](https://www.tacc.utexas.edu/research-development/tacc-projects/lmod) développé au [TACC](https://www.tacc.utexas.edu/). Cet outil remplace [*Environment Modules*](http://modules.sourceforge.net) qui est utilisé sur la plupart des anciens serveurs. Si vous le connaissez, vous ne devriez pas être trop dépaysé, car *Lmod* a été conçu pour être très similaire à *Environment Modules*. Référez-vous à la section [Lmod vs Environment Modules](utiliser-des-modules.md#lmod-vs-environment-modules) ci-dessous pour connaître les différences principales.
+Les modules sont des fichiers de configuration qui contiennent des instructions pour modifier votre environnement logiciel. Cette architecture modulaire permet d'avoir plusieurs versions d'une même application installées sans que celles-ci entrent en conflit. Pour les nouveaux serveurs, les modules sont gérés par l'outil [Lmod](https://www.tacc.utexas.edu/research-development/tacc-projects/lmod) développé au [TACC](https://www.tacc.utexas.edu/). Cet outil remplace [*Environment Modules*](http://modules.sourceforge.net) qui est utilisé sur la plupart des anciens serveurs. Si vous le connaissez, vous ne devriez pas être trop dépaysé, car *Lmod* a été conçu pour être très similaire à *Environment Modules*. Référez-vous à la section [Lmod vs Environment Modules](utiliser_des_modules.md#lmod-vs-environment-modules) ci-dessous pour connaître les différences principales.
 
 Un fichier module (*modulefile*) contient les informations nécessaires pour rendre disponible une application ou une bibliothèque dans la session de l'usager. Typiquement, un fichier module contient des instructions qui modifient ou initialisent les variables d'environnement comme `PATH` et `LD_LIBRARY_PATH` pour utiliser les différents logiciels installés. Notez que le simple fait de charger un module n'exécute pas le logiciel dont il est question. Pour connaître le nom du fichier binaire et la syntaxe de son usage, il faut lire la documentation du logiciel et avec la commande `module`, vous n'avez normalement pas besoin de connaître le chemin du logiciel ou de la bibliothèque. Vous pouvez voir des détails pour le module en tapant la commande `module show <nom de module>`.
 
@@ -83,7 +83,7 @@ module help
 ```
 
 ### Sous-commande spider
-La sous-commande `spider` fait afficher tous les modules qui se trouvent dans [l'environnement logiciel standard](standard-software-environments.md) courant.
+La sous-commande `spider` fait afficher tous les modules qui se trouvent dans [l'environnement logiciel standard](standard_software_environments.md) courant.
 
 ```bash
 module spider

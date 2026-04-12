@@ -35,9 +35,9 @@ status:
   qa_generated: false
 ---
 
-Installation of software packages within the Alliance software environment is always performed using scripts. We use multiple tools, including [EasyBuild](https://easybuild.io/), [Gentoo Overlays](https://overlays.gentoo.org/) (starting in 2020), and [NixOS](https://github.com/NixOS/nixpkgs) (formerly). This software environment can be [used on any computer in the world](accessing-cvmfs.md) thanks to [CVMFS](https://cvmfs.readthedocs.io/en/stable/).
+Installation of software packages within the Alliance software environment is always performed using scripts. We use multiple tools, including [EasyBuild](https://easybuild.io/), [Gentoo Overlays](https://overlays.gentoo.org/) (starting in 2020), and [NixOS](https://github.com/NixOS/nixpkgs) (formerly). This software environment can be [used on any computer in the world](../software/cvmfs/accessing_cvmfs.md) thanks to [CVMFS](https://cvmfs.readthedocs.io/en/stable/).
 
-We also track all changes and new installations made to the software environment through [Git](git.md), and you can see a list of recent changes in the links below.
+We also track all changes and new installations made to the software environment through [Git](../software/git.md), and you can see a list of recent changes in the links below.
 
 ### Changes to software installed as modules:
 *   [Changes to the core modules and modules installed for the AVX2 CPU architecture](https://github.com/ComputeCanada/easybuild-easyconfigs-installed-avx2/commits/main)

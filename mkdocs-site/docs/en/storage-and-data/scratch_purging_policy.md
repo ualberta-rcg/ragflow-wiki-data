@@ -49,9 +49,9 @@ status:
   qa_generated: false
 ---
 
-*Parent page: [Storage and file management](storage-and-file-management.md)*
+*Parent page: [Storage and file management](storage_and_file_management.md)*
 
-On our clusters, the `/scratch` filesystem is intended for temporary, fast storage for data being used during job execution. Data needed for long-term storage and reference should be kept in either `/project` or other archival storage areas; interested readers can obtain [details on the nature of /scratch and other filesystems](storage-and-file-management.md#storage-types). In order to ensure adequate space on `/scratch`, files older than 60 days are periodically deleted according to the policy outlined in this page. Note that the purging of a file is based on its age, not its location within `/scratch`; simply moving a file from one directory in `/scratch` to another directory in `/scratch` will not in general prevent it from being purged.
+On our clusters, the `/scratch` filesystem is intended for temporary, fast storage for data being used during job execution. Data needed for long-term storage and reference should be kept in either `/project` or other archival storage areas; interested readers can obtain [details on the nature of /scratch and other filesystems](storage_and_file_management.md#storage-types). In order to ensure adequate space on `/scratch`, files older than 60 days are periodically deleted according to the policy outlined in this page. Note that the purging of a file is based on its age, not its location within `/scratch`; simply moving a file from one directory in `/scratch` to another directory in `/scratch` will not in general prevent it from being purged.
 
 !!! note "Please note"
     The method for Nibi is different from that of the other clusters [(see below)](#nibi).

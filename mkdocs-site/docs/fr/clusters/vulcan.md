@@ -65,7 +65,7 @@ Vulcan fait partie de l'ECPIA, l'environnement de calcul pancanadien pour l'inte
 ## Politiques spécifiques au site
 
 !!! note "Accès à Internet"
-    L'accès à Internet n'est généralement pas disponible à partir des nœuds de calcul. Un proxy Squid, disponible mondialement, est activé par défaut avec certains domaines sur la liste blanche. Contactez le [soutien technique](technical-support.md) si vous ne parvenez pas à vous connecter à un domaine et nous évaluerons son ajout à la liste blanche.
+    L'accès à Internet n'est généralement pas disponible à partir des nœuds de calcul. Un proxy Squid, disponible mondialement, est activé par défaut avec certains domaines sur la liste blanche. Contactez le [soutien technique](../support/technical_support.md) si vous ne parvenez pas à vous connecter à un domaine et nous évaluerons son ajout à la liste blanche.
 
 La durée maximale d'une tâche est de sept jours.
 
@@ -98,16 +98,16 @@ Le système de stockage est une combinaison de flash NVMe et HDD sur la platefor
 | :--------- | :--------------- |
 | **`/home`** |
     * Emplacement des répertoires /home
-    * [Quota fixe](storage-and-file-management.md#quotas-et-politiques) pour chaque répertoire
+    * [Quota fixe](../storage-and-data/storage_and_file_management.md#quotas-et-politiques) pour chaque répertoire
     * N'est pas alloué via le [service d'accès rapide](https://alliancecan.ca/fr/services/calcul-informatique-de-pointe/acces-aux-ressources/service-dacces-rapide) ou le [concours pour l'allocation de ressources](https://alliancecan.ca/fr/services/calcul-informatique-de-pointe/acces-aux-ressources/concours-pour-lallocation-de-ressources); les demandes pour plus d'espace sont dirigées vers `/project`
     * Sauvegarde quotidienne
 | **`/scratch`** |
     * Stockage actif ou temporaire (`/scratch`)
     * N'est pas alloué
-    * Grand [quota fixe](storage-and-file-management.md#quotas-et-politiques) par utilisateur
-    * Les données inactives sont [purgées](scratch-purging-policy.md)
+    * Grand [quota fixe](../storage-and-data/storage_and_file_management.md#quotas-et-politiques) par utilisateur
+    * Les données inactives sont [purgées](../storage-and-data/scratch_purging_policy.md)
 | **`/project`** |
-    * Grand [quota ajustable](storage-and-file-management.md#quotas-et-politiques), par projet
+    * Grand [quota ajustable](../storage-and-data/storage_and_file_management.md#quotas-et-politiques), par projet
     * Sauvegarde quotidienne
 
 ## Réseautique

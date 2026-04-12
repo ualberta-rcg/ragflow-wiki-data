@@ -91,7 +91,7 @@ status:
 Il y a deux façons d'utiliser MATLAB sur nos grappes :
 
 **1. Exécuter directement MATLAB**, mais vous devez avoir accès à une licence, soit :
-* la licence fournie sur [Fir](fir.md), [Narval](narval.md) ou [Trillium](trillium.md) ou pour les étudiants, professeurs et chercheurs;
+* la licence fournie sur [Fir](fir.md), [Narval](../clusters/narval.md) ou [Trillium](../clusters/trillium.md) ou pour les étudiants, professeurs et chercheurs;
 * une licence externe détenue par votre établissement, faculté, département ou laboratoire (voir la section *Utiliser une licence externe* ci-dessous).
 
 **2. Compiler votre code MATLAB** avec le compilateur `mcc` et utiliser le fichier exécutable généré sur une de nos grappes. Vous pouvez utiliser cet exécutable sans tenir compte de la licence.
@@ -265,7 +265,7 @@ mcc -m -R -nodisplay cosplot.m
 
 Ceci produit le binaire `cosplot` et le script enveloppant `run_cosplot.sh`. Pour exécuter le binaire sur nos serveurs, vous n'avez besoin que du binaire. Le script enveloppant ne fonctionnera pas tel quel sur nos serveurs puisque MATLAB s'attend à ce que certaines bibliothèques se trouvent à des endroits spécifiques. Utilisez plutôt le script enveloppant `run_mcr_binary.sh` qui définit les bons chemins.
 
-[Chargez le module](utiliser-des-modules.md) MCR correspondant à la version de MATLAB que vous utilisez pour créer votre exécutable :
+[Chargez le module](../programming/utiliser_des_modules.md) MCR correspondant à la version de MATLAB que vous utilisez pour créer votre exécutable :
 
 ```bash
 module load mcr/R2024b

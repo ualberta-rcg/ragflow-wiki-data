@@ -39,7 +39,7 @@ status:
 
 ## Installation
 
-The installation of the R-INLA package is a bit more complicated than most [R](r.md) packages, as it downloads other pre-compiled executables that need to be made compatible with our [Standard software environment](standard-software-environments.md).
+The installation of the R-INLA package is a bit more complicated than most [R](r.md) packages, as it downloads other pre-compiled executables that need to be made compatible with our [Standard software environment](../programming/standard_software_environments.md).
 
 The scripts below have been tested with the versions mentioned therein. Because R will always install the latest versions of packages, the versions of the modules will likely have to be adjusted in the future.
 
@@ -101,4 +101,4 @@ The scripts below have been tested with the versions mentioned therein. Because 
     *   **(1)** Load required modules. The same modules have to be loaded in the job script as well.
     *   **(2)** Install the R-INLA package and its dependencies.
     *   **(3)** Install the pre-compiled executables that R-INLA needs.
-    *   **(4)** Patch the pre-compiled executables so that they are compatible with our [Standard software environment](standard-software-environments.md).
+    *   **(4)** Patch the pre-compiled executables so that they are compatible with our [Standard software environment](../programming/standard_software_environments.md).

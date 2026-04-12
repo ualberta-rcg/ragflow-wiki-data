@@ -62,10 +62,10 @@ status:
   qa_generated: false
 ---
 
-[EasyBuild](https://easybuild.io/) est un outil pour la construction, l’installation et la maintenance de logiciels sur les systèmes de calcul de haute performance. Nous l’utilisons pour construire presque tout le contenu de notre [répertoire CVMFS](accessing-cvmfs.md).
+[EasyBuild](https://easybuild.io/) est un outil pour la construction, l’installation et la maintenance de logiciels sur les systèmes de calcul de haute performance. Nous l’utilisons pour construire presque tout le contenu de notre [répertoire CVMFS](../software/cvmfs/accessing_cvmfs.md).
 
 ## Génération de modules
-Une des fonctionnalités principales d’EasyBuild est sa capacité de générer automatiquement des [modules d’environnement](utiliser-des-modules.md) qui peuvent être utilisés pour rendre un logiciel disponible dans une session. En plus de définir les variables d’environnement standards de Linux telles que PATH, CPATH et LIBRARY_PATH, EasyBuild définit aussi quelques variables d’environnement qui lui sont spécifiques dont certaines sont d’intérêt pour les utilisateurs :
+Une des fonctionnalités principales d’EasyBuild est sa capacité de générer automatiquement des [modules d’environnement](utiliser_des_modules.md) qui peuvent être utilisés pour rendre un logiciel disponible dans une session. En plus de définir les variables d’environnement standards de Linux telles que PATH, CPATH et LIBRARY_PATH, EasyBuild définit aussi quelques variables d’environnement qui lui sont spécifiques dont certaines sont d’intérêt pour les utilisateurs :
 
 *   ``EBROOT<name>`` qui contient le chemin complet du répertoire où se trouve le logiciel ``<name>``
 *   ``EBVERSION<name>`` qui contient la version complète du logiciel ``<name>`` chargé par le module
@@ -87,21 +87,21 @@ EasyBuild conserve une copie de la recette utilisée pour installer chaque paque
 *   ``$EBROOTPYTHON/easybuild/easybuild-Python-3.10.2-*.log``
 
 ## Utilisation dans votre compte
-Vous pouvez utiliser EasyBuild pour installer des paquets logiciels dans votre propre compte. Par contre, dans la plupart des cas, il est préférable de demander au [soutien technique](technical-support.md) d’installer ces logiciels pour un usage généralisé, ce qui fait en sorte que le paquet logiciel sera disponible sur toutes nos grappes. Cela évitera aussi d’affecter votre quota et ne causera pas une charge indue sur le système de fichiers parallèle.
+Vous pouvez utiliser EasyBuild pour installer des paquets logiciels dans votre propre compte. Par contre, dans la plupart des cas, il est préférable de demander au [soutien technique](../support/technical_support.md) d’installer ces logiciels pour un usage généralisé, ce qui fait en sorte que le paquet logiciel sera disponible sur toutes nos grappes. Cela évitera aussi d’affecter votre quota et ne causera pas une charge indue sur le système de fichiers parallèle.
 
 !!! warning "Quand utiliser EasyBuild pour installer un logiciel dans votre répertoire /home"
     Les cas suivants justifient l’utilisation d’EasyBuild :
 
     *   vous avez besoin d’un logiciel modifié ou personnalisé
     *   vous avez besoin d’installer un logiciel qui change chaque jour, ou qui n’a pas de numéro de version
-    *   il ne nous est pas possible d’installer le paquet pour utilisation généralisée pour des raisons de licence, en particulier dans le cas des logiciels commerciaux [VASP](vasp.md) et [Materials Studio](materials-studio.md).
+    *   il ne nous est pas possible d’installer le paquet pour utilisation généralisée pour des raisons de licence, en particulier dans le cas des logiciels commerciaux [VASP](../software/vasp.md) et [Materials Studio](../software/materials_studio.md).
 
     Au contraire, **il ne faut pas** installer des paquets logiciels dans votre propre espace :
 
     *   si vous avez besoin d’une version différente
     *   si vous avez besoin d’un paquet logiciel construit avec un compilateur différent, avec MPI ou avec une implémentation CUDA
 
-    Si vous hésitez, contactez le [soutien technique](technical-support.md).
+    Si vous hésitez, contactez le [soutien technique](../support/technical_support.md).
 
 ## Qu’est-ce qu’une recette?
 !!! note

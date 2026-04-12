@@ -174,13 +174,13 @@ HPC clusters typically use Apptainer. Many users ask about other Linux container
 ## Other items
 ### General
 * In order to use Apptainer you must have a container **image**, e.g., a `.sif` file or a "sandbox" directory created previously. If you don't already have an image or a sandbox, see the section on **[building an image](#building-an-apptainer-image)** below.
-* While Apptainer is installed and available for use, using Apptainer will require you to install and/or build all software you will need to make use of in your container. In many instances, **[we already have such software installed on our clusters](available-software.md)** so there is often no need to create a container with the same installed in it.
+* While Apptainer is installed and available for use, using Apptainer will require you to install and/or build all software you will need to make use of in your container. In many instances, **[we already have such software installed on our clusters](../../programming/available_software.md)** so there is often no need to create a container with the same installed in it.
 
 ### `sudo`
 Many users ask about `sudo` since documentation and websites often discuss using `sudo`. Know the ability to use `sudo` to obtain superuser/root permissions is not available on our clusters. Should you require using `sudo`, consider the following options:
 
 * Install Linux, Apptainer, and `sudo` in a virtual machine on a system you control so you will be able to have `sudo` access within such. Build your image(s) on that machine and upload them in order to use them on Alliance systems.
-* If appropriate, [submit a ticket](technical-support.md) asking if Alliance staff would be able to help build the image(s) required needing `sudo`. This may or may not be possible, but feel free to ask in a ticket if what you wish to achieve is beyond your means. Additionally, we may respond with other ways to achieve such which may or may not involve Apptainer.
+* If appropriate, [submit a ticket](../../support/technical_support.md) asking if Alliance staff would be able to help build the image(s) required needing `sudo`. This may or may not be possible, but feel free to ask in a ticket if what you wish to achieve is beyond your means. Additionally, we may respond with other ways to achieve such which may or may not involve Apptainer.
 * Apptainer version 1.1.x and newer has improved support for users using `--fakeroot` implicitly and explicitly so some things may be possible that were not with Apptainer version 1.0 and Singularity. This includes being able to build some images from `.def` definition files and building some images without needing to use `sudo`. That said, not all images will be able to be built without needing to use `sudo` or superuser/root.
 
 ### Building images or overlays
@@ -225,7 +225,7 @@ apptainer run -C -B /project -W /path/to/a/workdir myimage.sif myprogram
 
 where:
 * `workdir` can be removed if there are no live containers using it.
-* When using Apptainer in an `salloc`, in an `sbatch` job, or when using [JupyterHub](jupyterhub.md) on our clusters, use `${SLURM_TMPDIR}` for the working directory's location, e.g., `-W ${SLURM_TMPDIR}`.
+* When using Apptainer in an `salloc`, in an `sbatch` job, or when using [JupyterHub](../../interactive/jupyterhub.md) on our clusters, use `${SLURM_TMPDIR}` for the working directory's location, e.g., `-W ${SLURM_TMPDIR}`.
   * ASIDE: One should **not** be running programs (including Apptainer) on a login node. Use an interactive `salloc` job.
 * When using bind mounts, see the [section on bind mounts](#bind-mounts) below since not all of our clusters are the same concerning the exact bind mounts needed to access `/home`, `/project`, and `/scratch`.
 
@@ -347,7 +347,7 @@ Apptainer has been designed to be able to properly run daemons within compute jo
     Don't run daemons manually without using `apptainer instance` and related commands. Apptainer works properly with other tools such as the Slurm scheduler that run on our clusters. When a job is cancelled, killed, crashes, or is otherwise finished, daemons run using `apptainer instance` will not hang or result in defunct processes. Additionally by using the `apptainer instance` command you will be able to control the daemons and programs running in the same container.
 
 !!! note "Note 2"
-    Daemons can only run in your job while your job is running. Should the scheduler kill your job, all daemons running in that job will also be killed. Should you need to run daemons longer than the job they were started in, you may need to also have a virtual machine running in the cloud. If so please contact [technical support](technical-support.md).
+    Daemons can only run in your job while your job is running. Should the scheduler kill your job, all daemons running in that job will also be killed. Should you need to run daemons longer than the job they were started in, you may need to also have a virtual machine running in the cloud. If so please contact [technical support](../../support/technical_support.md).
 
 ### Running MPI programs
 
@@ -447,9 +447,9 @@ $ rm -rf mynewimage.dir
 
 Using an `SIF` file is recommended as disk performance (from the container image) will be faster than storing each file separately on our cluster filesystems, which are set up to handle large files and parallel I/O. Using an `SIF` file instead of a sandbox image will also only use a quota file count amount of 1 instead of thousands (some images will typically contain thousands of files and directories).
 
-Many Linux distribution package managers require root permissions in order to use them. This implies that Apptainer version 1.0.x and the older Singularity cannot be used on compute clusters to build images as a normal user. Should such occur, [submit a ticket](technical-support.md) asking for help to create that image or use a computer with Apptainer installed where you have root permissions.
+Many Linux distribution package managers require root permissions in order to use them. This implies that Apptainer version 1.0.x and the older Singularity cannot be used on compute clusters to build images as a normal user. Should such occur, [submit a ticket](../../support/technical_support.md) asking for help to create that image or use a computer with Apptainer installed where you have root permissions.
 
-Apptainer has a `--fakeroot` feature used to build and manipulate images. With versions prior to Apptainer 1.1, one wanting to use this feature on a cluster requires [submitting a ticket](technical-support.md) for a system administrator to consider adding that person so Apptainer's `--fakeroot` on a specific cluster, which may or not be possible. With Apptainer version 1.1, `--fakeroot` can be used without being formally added.
+Apptainer has a `--fakeroot` feature used to build and manipulate images. With versions prior to Apptainer 1.1, one wanting to use this feature on a cluster requires [submitting a ticket](../../support/technical_support.md) for a system administrator to consider adding that person so Apptainer's `--fakeroot` on a specific cluster, which may or not be possible. With Apptainer version 1.1, `--fakeroot` can be used without being formally added.
 
 Know that some containers will not build successfully without using a `root` account to build them. These images cannot be built on our clusters.
 
@@ -492,7 +492,7 @@ Within an account, using a "sandbox" directory will consume significant amounts 
 
 ### Using Conda in Apptainer
 
-[Using Conda in Apptainer](using-conda-in-apptainer.md)
+[Using Conda in Apptainer](using_conda_in_apptainer.md)
 
 ### Using Spack in Apptainer
 

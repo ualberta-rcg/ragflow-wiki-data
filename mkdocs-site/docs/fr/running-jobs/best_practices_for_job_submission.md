@@ -106,10 +106,10 @@ En effectuant ces tests, vous vous familiariserez avec la durée et la mémoire 
 ## Durée des tâches
 
 *   La durée des tâches autres que les tests devrait être d’**au moins une heure**.
-    *   Si vos calculs s’effectuent en moins d’une heure, nous vous suggérons d’utiliser des outils comme [GLOST](glost.md), [META](meta-farm.md) ou [GNU Parallel](gnu-parallel.md) pour grouper plusieurs calculs dans une même tâche d’une durée d’au moins une heure. L’ordonnanceur sera ainsi moins sollicité que par des centaines ou des milliers de très courtes tâches.
+    *   Si vos calculs s’effectuent en moins d’une heure, nous vous suggérons d’utiliser des outils comme [GLOST](glost.md), [META](meta-farm.md) ou [GNU Parallel](gnu_parallel.md) pour grouper plusieurs calculs dans une même tâche d’une durée d’au moins une heure. L’ordonnanceur sera ainsi moins sollicité que par des centaines ou des milliers de très courtes tâches.
 *   Il est aussi important que votre **estimation de la durée de la tâche soit relativement précise**.
     *   Si vous indiquez une durée de cinq jours quand les calculs prennent 16 heures, votre tâche sera beaucoup plus longtemps en attente que si vous demandez une durée plus précise.
-*   **Utilisez des [outils de surveillance](running-jobs.md#taches-termines) pour connaître la durée réelle d’une tâche**
+*   **Utilisez des [outils de surveillance](running_jobs.md#taches-termines) pour connaître la durée réelle d’une tâche**
     *   avec par exemple la valeur du champ `Job Wall-clock time` dans le résultat de la commande `seff`.
 
 ```bash
@@ -158,7 +158,7 @@ Memory Efficiency: 11.68% of 128.00 GB (8.00 GB/core)
     *   Le fait de connaître la [scalabilité d’un logiciel](scalability.md) permet de choisir le nombre optimal de cœurs CPU.
 
 *   Une autre difficulté survient avec l’utilisation de plusieurs nœuds; le logiciel utilisé doit supporter le *parallélisme avec mémoire distribuée*.
-    *   La plupart des logiciels capables de fonctionner avec plus d’un nœud se basent sur le standard [MPI](mpi.md); si la documentation du programme ne mentionne pas MPI ou qu’il est question de fils d’exécution et de parallélisme par fils, le programme est limité à un seul nœud.
+    *   La plupart des logiciels capables de fonctionner avec plus d’un nœud se basent sur le standard [MPI](../software/mpi.md); si la documentation du programme ne mentionne pas MPI ou qu’il est question de fils d’exécution et de parallélisme par fils, le programme est limité à un seul nœud.
     *   Les programmes qui ont été parallélisés pour travailler sur plusieurs nœuds devraient être lancés avec `srun` plutôt qu’avec `mpirun`.
 
 *   Évitez d’éparpiller les processus parallèles sur plus de nœuds que nécessaire; une distribution plus compacte de ces processus favorise généralement une meilleure performance.
@@ -177,14 +177,14 @@ Memory Efficiency: 11.68% of 128.00 GB (8.00 GB/core)
 
 Puisqu'il y a peu de nœuds GPU, les tâches qui requièrent leur utilisation attendent généralement longtemps.
 *   Assurez-vous d’utiliser le plus efficacement possible le GPU pour lequel vous avez attendu si longtemps et assurez-vous qu’il augmente la performance de vos tâches.
-    *   Plusieurs logiciels offrent une option GPU dont [NAMD](namd.md) et [GROMACS](gromacs.md), mais ce ne sont pas toutes les fonctions de ces logiciels qui sont capables de tirer parti des GPU. Il est donc sage de faire de courts tests avec et sans GPU et de vérifier l’effet sur la vitesse d’exécution.
+    *   Plusieurs logiciels offrent une option GPU dont [NAMD](../software/namd.md) et [GROMACS](../software/gromacs.md), mais ce ne sont pas toutes les fonctions de ces logiciels qui sont capables de tirer parti des GPU. Il est donc sage de faire de courts tests avec et sans GPU et de vérifier l’effet sur la vitesse d’exécution.
     *   Comme le coût d’un nœud GPU est élevé, une tâche qui utilise un seul GPU devrait s’exécuter beaucoup plus rapidement qu’avec un nœud CPU entier. Si ce n’est pas le cas de votre tâche, utilisez plutôt un nœud CPU.
     *   Si votre tâche se termine seulement 5 à 10 % plus rapidement avec un nœud GPU, utilisez plutôt un nœud CPU. L’attente significativement plus élevée pour l’obtention d’un nœud GPU n’en vaut pas la peine.
-*   Pour suivre l'efficacité des tâches avec GPU, utilisez des outils comme [nvidia-smi](https://developer.nvidia.com/nvidia-system-management-interface), `nvtop` ou encore l’utilitaire [TensorBoard](tensorflow.md#tensorboard) si vous travaillez avec [TensorFlow](tensorflow.md).
+*   Pour suivre l'efficacité des tâches avec GPU, utilisez des outils comme [nvidia-smi](https://developer.nvidia.com/nvidia-system-management-interface), `nvtop` ou encore l’utilitaire [TensorBoard](../software/tensorflow.md#tensorboard) si vous travaillez avec [TensorFlow](../software/tensorflow.md).
 
 ## Économiser les ressources
 
 *   En règle générale, la commande `sleep` ne devrait pas se trouver dans un script de tâche.
-*   Nous recommandons fortement d’éviter d’utiliser [Conda](anaconda.md) et ses variantes sur nos grappes; utilisez plutôt des solutions comme un [environnement virtuel Python](python.md#creer-et-utiliser-un-environnement-virtuel) ou [Apptainer](apptainer.md).
+*   Nous recommandons fortement d’éviter d’utiliser [Conda](../software/anaconda.md) et ses variantes sur nos grappes; utilisez plutôt des solutions comme un [environnement virtuel Python](../software/python.md#creer-et-utiliser-un-environnement-virtuel) ou [Apptainer](../software/containers/apptainer.md).
 
-*   Les opérations de lecture et d’écriture devraient être optimisées par l’[utilisation du stockage local](using-node-local-storage.md) sur les nœuds de calcul.
+*   Les opérations de lecture et d’écriture devraient être optimisées par l’[utilisation du stockage local](../storage-and-data/using_node-local_storage.md) sur les nœuds de calcul.

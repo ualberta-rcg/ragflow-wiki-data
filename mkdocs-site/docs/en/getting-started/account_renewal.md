@@ -55,4 +55,4 @@ Accounts can be reactivated at any time by logging in to [CCDB](https://ccdb.all
 
 Users that do not want to renew their CCDB account but still want to recover their files can request a temporary extension by sending an email to support@tech.alliancecan.ca.
 
-You can find more information about account renewals on our [Account Renewals FAQ page](account-renewal-faq.md) or by contacting renewals@tech.alliancecan.ca.
+You can find more information about account renewals on our [Account Renewals FAQ page](account_renewal_faq.md) or by contacting renewals@tech.alliancecan.ca.

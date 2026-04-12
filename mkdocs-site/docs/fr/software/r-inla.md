@@ -54,7 +54,7 @@ status:
 
 ## Installation
 
-L'installation est un peu plus compliquée que celle pour les autres paquets [R](r.md) parce que d'autres exécutables précompilés doivent être téléchargés pour assurer la compatibilité avec nos [environnements logiciels standards](standard-software-environments.md).
+L'installation est un peu plus compliquée que celle pour les autres paquets [R](r.md) parce que d'autres exécutables précompilés doivent être téléchargés pour assurer la compatibilité avec nos [environnements logiciels standards](../programming/standard_software_environments.md).
 
 Les scripts ci-dessous ont été testés avec les versions qu'ils utilisent. Puisque R installe toujours la dernière version des paquets, les versions des modules devront être ajustées au besoin.
 
@@ -113,4 +113,4 @@ Commentaires sur le script
 *   (1) Pour charger les modules requis. Il faut aussi charger les mêmes modules dans le script pour la tâche.
 *   (2) Pour installer le paquet R-INLA et ses dépendances.
 *   (3) Pour installer les exécutables précompilés requis par R-INLA.
-*   (4) Pour corriger les exécutables précompilés pour qu'ils soient compatibles avec nos [environnements logiciels standards](standard-software-environments.md).
+*   (4) Pour corriger les exécutables précompilés pour qu'ils soient compatibles avec nos [environnements logiciels standards](../programming/standard_software_environments.md).

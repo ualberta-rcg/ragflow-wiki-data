@@ -48,7 +48,7 @@ Nvprof also features headless profile collection with the help of the NVIDIA Vis
 
 ## Quickstart guide
 
-On [Béluga](béluga.md) and [Narval](narval.md), the [NVIDIA Data Center GPU Manager (DCGM)](https://developer.nvidia.com/dcgm) needs to be disabled, and this must be done while doing your job submission:
+On [Béluga](../clusters/béluga.md) and [Narval](../clusters/narval.md), the [NVIDIA Data Center GPU Manager (DCGM)](https://developer.nvidia.com/dcgm) needs to be disabled, and this must be done while doing your job submission:
 
 ```bash
 DISABLE_DCGM=1 salloc --gres=gpu:1 ...
@@ -61,7 +61,7 @@ while [ ! -z "$(dcgmi -v | grep 'Hostengine build info:')" ]; do sleep 5; done
 ```
 
 ## Environment modules
-Before you start profiling with NVPROF, the appropriate [module](utiliser-des-modules.md) needs to be loaded.
+Before you start profiling with NVPROF, the appropriate [module](utiliser_des_modules.md) needs to be loaded.
 
 NVPROF is part of the CUDA package, so run `module avail cuda` to see what versions are currently available with the compiler and MPI modules you have loaded. For a comprehensive list of CUDA modules, run `module -r spider '.*cuda.*'`.
 At the time this was written these were:

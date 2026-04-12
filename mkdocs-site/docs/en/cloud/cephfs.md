@@ -129,7 +129,7 @@ On `SD4H/Juno`, you need to explicitly attach the CephFS network to the VM.
 **With the Web GUI:**
 For each VM you need to attach, select *Instance* --> *Action* --> *Attach interface*, select the CephFS-Network, leave the *Fixed IP Address* box empty.
 
-**With the [OpenStack client](openstack-command-line-clients.md):**
+**With the [OpenStack client](openstack_command_line_clients.md):**
 List the servers and select the ID of the server you need to attach to the CephFS.
 
 ```bash

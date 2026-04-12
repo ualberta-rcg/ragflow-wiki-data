@@ -36,7 +36,7 @@ status:
 
 ## SSH Configuration File
 
-On Linux and macOS, you can modify your local SSH configuration file to change the default behaviour of `ssh` and simplify the login procedure. For example, if you want to log into `narval.alliancecan.ca` as `username` using an [SSH key](using-ssh-keys-in-linux.md), you may need to use the following command:
+On Linux and macOS, you can modify your local SSH configuration file to change the default behaviour of `ssh` and simplify the login procedure. For example, if you want to log into `narval.alliancecan.ca` as `username` using an [SSH key](using_ssh_keys_in_linux.md), you may need to use the following command:
 
 ```bash title="[name@yourLaptop ~]"
 ssh -i ~/.ssh/your_private_key username@narval.alliancecan.ca
@@ -57,7 +57,7 @@ You can now log into Narval by typing
 ssh narval
 ```
 
-This also changes the behaviour of `sftp`, `scp`, and `rsync` and you can now [transfer files](transferring-data.md) by typing for example
+This also changes the behaviour of `sftp`, `scp`, and `rsync` and you can now [transfer files](transferring_data.md) by typing for example
 
 ```bash title="[name@yourLaptop ~]"
 scp local_file narval:work/
@@ -72,7 +72,7 @@ Host narval beluga graham cedar
   [...]
 ```
 
-Note that you need to install your public [SSH key](ssh-keys.md) on each cluster separately or use [CCDB](ssh-keys.md#using-ccdb).
+Note that you need to install your public [SSH key](ssh_keys.md) on each cluster separately or use [CCDB](ssh_keys.md#using-ccdb).
 
 ### X11 and Agent Forwarding Options
 

@@ -96,4 +96,4 @@ Porter du code sur un accélérateur aurait ainsi les étapes suivantes :
 
 OpenACC peut être un langage plutôt *descriptif*. Le programmeur peut donc indiquer au compilateur quelles sont les portions de code à paralléliser et laisser le compilateur effectuer le travail. Pour ce faire, il suffit d'ajouter quelques directives dans le code (voir le point 3.1 ci-dessus, *décrire le parallélisme au compilateur*). La qualité du compilateur a toutefois un effet important sur la performance; même avec les meilleurs compilateurs, il est possible que certains mouvements de données doivent être éliminés, ce que le programmeur peut faire au point 3.2, *décrire le flux des données au compilateur*. Enfin, si le programmeur possède de l'information sur comment obtenir une meilleure performance en ajustant les boucles, il en informera le compilateur au point 3.3, *optimiser les boucles*.
 
-[^- Retour au début du tutoriel](openacc-tutorial.md) | [Page suivante, *Profileurs* ->](openacc-tutorial-profiling.md)
+[^- Retour au début du tutoriel](openacc_tutorial.md) | [Page suivante, *Profileurs* ->](openacc_tutorial_-_profiling.md)

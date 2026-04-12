@@ -125,11 +125,11 @@ jupyter-lab --ip $(hostname -f) --no-browser
 !!! note "Note"
     Starting with the RAPIDS v23.08 release, all packages are included in the base conda environment which is activated by default in the container shell.
 
-If there is no direct Internet connection on a compute node, you would need to set up an SSH tunnel with port forwarding between your local computer and the GPU node. See [detailed instructions for connecting to Jupyter Notebook](advanced-jupyter-configuration.md#connecting-to-jupyterlab).
+If there is no direct Internet connection on a compute node, you would need to set up an SSH tunnel with port forwarding between your local computer and the GPU node. See [detailed instructions for connecting to Jupyter Notebook](../../getting-started/advanced_jupyter_configuration.md#connecting-to-jupyterlab).
 
 ## Submitting a RAPIDS job to the Slurm scheduler
 
-Once you have your RAPIDS code ready, you can write a job submission script to submit a job execution request to the Slurm scheduler. It is a good practice to [use the local disk](using-node-local-storage.md) on a compute node when working via a container.
+Once you have your RAPIDS code ready, you can write a job submission script to submit a job execution request to the Slurm scheduler. It is a good practice to [use the local disk](../../storage-and-data/using_node-local_storage.md) on a compute node when working via a container.
 
 **Submission script**
 

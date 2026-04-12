@@ -35,7 +35,7 @@ status:
   qa_generated: false
 ---
 
-As explained on the page [Including source code within the wiki](including-source-code-within-the-wiki.md), you can include source code within the wiki using the **`<syntaxhighlight> </syntaxhighlight>`** tag. If you want to separate the code a bit more from the rest of the text, you can use the `{{File}}` template. This template takes as argument the file name (**name** parameter), the language of the file (**lang** parameter) and the content of the file (**contents** parameter). The default language for this template is *bash*.
+As explained on the page [Including source code within the wiki](including_source_code_within_the_wiki.md), you can include source code within the wiki using the **`<syntaxhighlight> </syntaxhighlight>`** tag. If you want to separate the code a bit more from the rest of the text, you can use the `{{File}}` template. This template takes as argument the file name (**name** parameter), the language of the file (**lang** parameter) and the content of the file (**contents** parameter). The default language for this template is *bash*.
 
 For example,
 

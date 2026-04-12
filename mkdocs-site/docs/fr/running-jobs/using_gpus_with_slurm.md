@@ -65,7 +65,7 @@ status:
 
 # Introduction
 
-Pour demander un ou plusieurs GPU pour une tâche [Slurm](running-jobs.md), utilisez :
+Pour demander un ou plusieurs GPU pour une tâche [Slurm](running_jobs.md), utilisez :
 `--gpus-per-node=<spécificateur_modèle>:<nombre>`
 
 Par exemple :
@@ -78,38 +78,38 @@ Vous pouvez aussi utiliser :
 `--gres=gpu:<spécificateur_modèle>:<nombre>`
 Cependant, il est possible que ce format ne soit plus pris en charge. Nous vous recommandons de le remplacer par `--gpus-per-node`.
 
-Slurm prend en charge plusieurs autres directives que vous pouvez utiliser pour demander des GPU, par exemple `--gpus`, `--gpus-per-socket`, `--gpus-per-task`, `--mem-per-gpu` et `--ntasks-per-gpu`. Voyez la documentation de Slurm sur [sbatch](https://slurm.schedmd.com/sbatch.html). Notre équipe ne teste pas toutes les combinaisons; si vous n'obtenez pas le résultat voulu, contactez le [soutien technique](technical-support.md).
+Slurm prend en charge plusieurs autres directives que vous pouvez utiliser pour demander des GPU, par exemple `--gpus`, `--gpus-per-socket`, `--gpus-per-task`, `--mem-per-gpu` et `--ntasks-per-gpu`. Voyez la documentation de Slurm sur [sbatch](https://slurm.schedmd.com/sbatch.html). Notre équipe ne teste pas toutes les combinaisons; si vous n'obtenez pas le résultat voulu, contactez le [soutien technique](../support/technical_support.md).
 
-Pour l'information générale sur l'ordonnancement des tâches, consultez [Exécuter des tâches](running-jobs.md).
+Pour l'information générale sur l'ordonnancement des tâches, consultez [Exécuter des tâches](running_jobs.md).
 
 ## GPU disponibles
 
 | Grappe | Modèle | Multi-instances (MIG) | Identifiant pour Slurm | Synonyme pour Slurm |
 | :----- | :----- | :-------------------- | :--------------------- | :------------------ |
-| [Fir](fir.md#caracteristiques-des-noeuds) | H100-80gb | | h100 | |
-| [Fir](fir.md#caracteristiques-des-noeuds) | H100-80gb | 1/8 | nvidia_h100_80gb_hbm3_1g.10gb | |
-| [Fir](fir.md#caracteristiques-des-noeuds) | H100-80gb | 2/8 | nvidia_h100_80gb_hbm3_2g.20gb | |
-| [Fir](fir.md#caracteristiques-des-noeuds) | H100-80gb | 3/8 | nvidia_h100_80gb_hbm3_3g.40gb | |
-| [Narval](narval.md#caracteristiques-des-noeuds) | A100-40gb | | a100 | |
-| [Narval](narval.md#caracteristiques-des-noeuds) | A100-40gb | 1/8 | a100_1g.5gb | |
-| [Narval](narval.md#caracteristiques-des-noeuds) | A100-40gb | 2/8 | a100_2g.10gb | |
-| [Narval](narval.md#caracteristiques-des-noeuds) | A100-40gb | 2/8 | a100_3g.20gb | |
-| [Narval](narval.md#caracteristiques-des-noeuds) | A100-40gb | 4/8 | a100_4g.20gb | |
-| [Nibi](nibi.md#caracteristiques-des-noeuds) | H100-80gb | | h100 | |
-| [Nibi](nibi.md#caracteristiques-des-noeuds) | H100-80gb | 1/8 | nvidia_h100_80gb_hbm3_1g.10gb | h100_1g.10gb h100_1.10 h100_10gb |
-| [Nibi](nibi.md#caracteristiques-des-noeuds) | H100-80gb | 2/8 | nvidia_h100_80gb_hbm3_2g.20gb | h100_2g.20gb h100_2.20 h100_20gb |
-| [Nibi](nibi.md#caracteristiques-des-noeuds) | H100-80gb | 3/8 | nvidia_h100_80gb_hbm3_3g.40gb | h100_3g.40gb h100_3.40 h100_40gb |
-| [Nibi](nibi.md#caracteristiques-des-noeuds) | MI300A-128gb | | mi300a | |
-| [Rorqual](rorqual.md#caracteristiques-des-noeuds) | H100-80gb | | h100 | |
-| [Rorqual](rorqual.md#caracteristiques-des-noeuds) | H100-80gb | 1/8 | nvidia_h100_80gb_hbm3_1g.10gb | h100_1g.10gb h100_1.10 h100_10gb |
-| [Rorqual](rorqual.md#caracteristiques-des-noeuds) | H100-80gb | 2/8 | nvidia_h100_80gb_hbm3_2g.20gb | h100_2g.20gb h100_2.20 h100_20gb |
-| [Rorqual](rorqual.md#caracteristiques-des-noeuds) | H100-80gb | 3/8 | nvidia_h100_80gb_hbm3_3g.40gb | h100_3g.40gb h100_3.40 h100_40gb |
-| [Trillium](trillium.md#node-characteristics) | H100-80gb | | h100 | |
-| [Rorqual](rorqual.md#caracteristiques-des-noeuds) | H100-80gb | | h100 | |
-| [Rorqual](rorqual.md#caracteristiques-des-noeuds) | L40S-48gb | | l40s | |
-| [tamIA](tamia.md#caracteristiques-des-noeuds) | H100-80gb | | h100 | |
-| [tamIA](tamia.md#caracteristiques-des-noeuds) | H200 | | h200 | |
-| [Vulcan](vulcan.md#materiel) | L40S-48gb | | l40s | |
+| [Fir](../software/fir.md#caracteristiques-des-noeuds) | H100-80gb | | h100 | |
+| [Fir](../software/fir.md#caracteristiques-des-noeuds) | H100-80gb | 1/8 | nvidia_h100_80gb_hbm3_1g.10gb | |
+| [Fir](../software/fir.md#caracteristiques-des-noeuds) | H100-80gb | 2/8 | nvidia_h100_80gb_hbm3_2g.20gb | |
+| [Fir](../software/fir.md#caracteristiques-des-noeuds) | H100-80gb | 3/8 | nvidia_h100_80gb_hbm3_3g.40gb | |
+| [Narval](../clusters/narval.md#caracteristiques-des-noeuds) | A100-40gb | | a100 | |
+| [Narval](../clusters/narval.md#caracteristiques-des-noeuds) | A100-40gb | 1/8 | a100_1g.5gb | |
+| [Narval](../clusters/narval.md#caracteristiques-des-noeuds) | A100-40gb | 2/8 | a100_2g.10gb | |
+| [Narval](../clusters/narval.md#caracteristiques-des-noeuds) | A100-40gb | 2/8 | a100_3g.20gb | |
+| [Narval](../clusters/narval.md#caracteristiques-des-noeuds) | A100-40gb | 4/8 | a100_4g.20gb | |
+| [Nibi](../clusters/nibi.md#caracteristiques-des-noeuds) | H100-80gb | | h100 | |
+| [Nibi](../clusters/nibi.md#caracteristiques-des-noeuds) | H100-80gb | 1/8 | nvidia_h100_80gb_hbm3_1g.10gb | h100_1g.10gb h100_1.10 h100_10gb |
+| [Nibi](../clusters/nibi.md#caracteristiques-des-noeuds) | H100-80gb | 2/8 | nvidia_h100_80gb_hbm3_2g.20gb | h100_2g.20gb h100_2.20 h100_20gb |
+| [Nibi](../clusters/nibi.md#caracteristiques-des-noeuds) | H100-80gb | 3/8 | nvidia_h100_80gb_hbm3_3g.40gb | h100_3g.40gb h100_3.40 h100_40gb |
+| [Nibi](../clusters/nibi.md#caracteristiques-des-noeuds) | MI300A-128gb | | mi300a | |
+| [Rorqual](../clusters/rorqual.md#caracteristiques-des-noeuds) | H100-80gb | | h100 | |
+| [Rorqual](../clusters/rorqual.md#caracteristiques-des-noeuds) | H100-80gb | 1/8 | nvidia_h100_80gb_hbm3_1g.10gb | h100_1g.10gb h100_1.10 h100_10gb |
+| [Rorqual](../clusters/rorqual.md#caracteristiques-des-noeuds) | H100-80gb | 2/8 | nvidia_h100_80gb_hbm3_2g.20gb | h100_2g.20gb h100_2.20 h100_20gb |
+| [Rorqual](../clusters/rorqual.md#caracteristiques-des-noeuds) | H100-80gb | 3/8 | nvidia_h100_80gb_hbm3_3g.40gb | h100_3g.40gb h100_3.40 h100_40gb |
+| [Trillium](../clusters/trillium.md#node-characteristics) | H100-80gb | | h100 | |
+| [Rorqual](../clusters/rorqual.md#caracteristiques-des-noeuds) | H100-80gb | | h100 | |
+| [Rorqual](../clusters/rorqual.md#caracteristiques-des-noeuds) | L40S-48gb | | l40s | |
+| [tamIA](../clusters/tamia.md#caracteristiques-des-noeuds) | H100-80gb | | h100 | |
+| [tamIA](../clusters/tamia.md#caracteristiques-des-noeuds) | H200 | | h200 | |
+| [Vulcan](../clusters/vulcan.md#materiel) | L40S-48gb | | l40s | |
 
 La commande ci-dessous présente les identifiants de GPU (et MIG) disponibles sur chacune des grappes. Cette commande est utile si le tableau plus haut n'a pas été mis à jour récemment.
 
@@ -121,21 +121,21 @@ Sur certaines grappes, il existe des identifiants courts pour quelques modèles 
 
 De plus, la présence d'un modèle de GPU ne garantit pas que vous pouvez utiliser un identifiant de modèle correspondant; des restrictions supplémentaires peuvent s'appliquer, dépendant notamment de votre groupe de recherche.
 
-Pour plus d'information, cliquez sur le nom de la grappe dans le tableau ci-dessus, ou contactez [le soutien technique](technical-support.md).
+Pour plus d'information, cliquez sur le nom de la grappe dans le tableau ci-dessus, ou contactez [le soutien technique](../support/technical_support.md).
 
 !!! warning
     Si vous ne spécifiez pas de modèle, votre tâche risque d'être rejetée ou acheminée vers une instance de GPU arbitraire.
     Très peu de programmes sont capables d'utiliser efficacement un modèle arbitraire, c'est pourquoi nous recommandons vivement de toujours spécifier un identifiant de modèle précis dans vos scripts de tâches.
 
 Des GPU sont disponibles sur Arbutus, mais comme c'est le cas pour les autres ressources infonuagiques, il n'est pas possible de soumettre des tâches via Slurm.
-Pour plus d'information, voir [Ressources infonuagiques](cloud-resources.md).
+Pour plus d'information, voir [Ressources infonuagiques](../cloud/cloud_resources.md).
 
 ### GPU multi-instances (MIG)
-La technologie MIG permet de partitionner un GPU en plusieurs instances. Vos tâches pourraient utiliser un MIG plutôt qu'un GPU entier. Pour plus d'information, voir [GPU multi-instances](multi-instance-gpu.md).
+La technologie MIG permet de partitionner un GPU en plusieurs instances. Vos tâches pourraient utiliser un MIG plutôt qu'un GPU entier. Pour plus d'information, voir [GPU multi-instances](../programming/multi-instance_gpu.md).
 
 ## Demander des cœurs CPU et la mémoire système
 
-Avec chaque instance GPU, une tâche doit avoir un nombre de cœurs CPU (`1` par défaut) et une certaine quantité de mémoire système. Pour le maximum de cœurs CPU et de mémoire système, voir [le tableau des ratios](allocations-and-compute-scheduling.md#ratios-dans-les-bundles).
+Avec chaque instance GPU, une tâche doit avoir un nombre de cœurs CPU (`1` par défaut) et une certaine quantité de mémoire système. Pour le maximum de cœurs CPU et de mémoire système, voir [le tableau des ratios](allocations_and_compute_scheduling.md#ratios-dans-les-bundles).
 
 ## Exemples
 
@@ -189,7 +189,7 @@ Si votre application peut utiliser efficacement un nœud entier et ses GPU assoc
 
 #### Regroupement de tâches pour un seul GPU
 
-Pour exécuter pendant plus de 24 heures quatre programmes qui utilisent un seul GPU ou deux programmes qui utilisent deux GPU, nous recommandons [GNU Parallel](gnu-parallel.md). Voici un exemple simple :
+Pour exécuter pendant plus de 24 heures quatre programmes qui utilisent un seul GPU ou deux programmes qui utilisent deux GPU, nous recommandons [GNU Parallel](gnu_parallel.md). Voici un exemple simple :
 
 ```bash
 cat params.input | parallel -j4 'CUDA_VISIBLE_DEVICES=$(({%} - 1)) python {} &> {#}.out'
@@ -211,7 +211,7 @@ Vous pouvez ainsi soumettre plusieurs tâches. Le paramètre `-j4` fait en sorte
 
 ### Profilage des tâches avec GPU
 
-Sur [Narval](narval.md) et [Rorqual](rorqual.md), le profilage est possible, mais [DCGM (NVIDIA Data Center GPU Manager)](https://developer.nvidia.com/dcgm) doit être désactivé. Ceci doit se faire lorsque vous soumettez la tâche en configurant la variable d'environnement `DISABLE_DCGM`.
+Sur [Narval](../clusters/narval.md) et [Rorqual](../clusters/rorqual.md), le profilage est possible, mais [DCGM (NVIDIA Data Center GPU Manager)](https://developer.nvidia.com/dcgm) doit être désactivé. Ceci doit se faire lorsque vous soumettez la tâche en configurant la variable d'environnement `DISABLE_DCGM`.
 
 ```bash
 DISABLE_DCGM=1 salloc --account=def-someuser --gpus-per-node=a100:1 --mem=4000M --time=03:00
@@ -223,15 +223,15 @@ Ensuite, dans votre tâche interactive, attendez que DCGM soit désactivé sur l
 while [ ! -z "$(dcgmi -v | grep 'Hostengine build info:')" ]; do  sleep 5; done
 ```
 
-Enfin, lancez le profileur (voir [débogage et profilage](debugging-and-profiling.md) pour les détails).
+Enfin, lancez le profileur (voir [débogage et profilage](../programming/debugging_and_profiling.md) pour les détails).
 
 !!! note
     Sur Fir et Nibi, le profilage de GPU décrit ci-dessus n'est pas encore disponible.
 
 ## Voir aussi
-*   [CUDA](cuda.md)
-*   [GPU multi-instances](multi-instance-gpu.md)
-*   [Exécuter des tâches](running-jobs.md)
-*   [Portail Metrix sur l'utilisation des ressources](metrix.md)
-*   [NVTOP pour le suivi de l'utilisation des GPU](nvtop.md)
-*   [Cuda Multi-Process Service (MPS)](hyper-q-mps.md)
+*   [CUDA](../programming/cuda.md)
+*   [GPU multi-instances](../programming/multi-instance_gpu.md)
+*   [Exécuter des tâches](running_jobs.md)
+*   [Portail Metrix sur l'utilisation des ressources](../software/metrix.md)
+*   [NVTOP pour le suivi de l'utilisation des GPU](../programming/nvtop.md)
+*   [Cuda Multi-Process Service (MPS)](../software/hyper-q___mps.md)

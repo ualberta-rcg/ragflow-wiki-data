@@ -93,9 +93,9 @@ On y retrouve, entre autres, les métriques suivantes :
 
 Il existe plusieurs bibliothèques logicielles spécialisées pour faire du calcul quantique et pour développer des algorithmes quantiques. Ces bibliothèques permettent de construire des circuits qui sont exécutés sur des simulateurs qui imitent la performance et les résultats obtenus sur un ordinateur quantique tel que MonarQ. Elles peuvent être utilisées sur toutes les grappes de l’Alliance.
 
-*   [PennyLane](pennylane.md), bibliothèque de commandes en Python
-*   [Snowflurry](snowflurry.md), bibliothèque de commandes en Julia
-*   [Qiskit](qiskit.md), bibliothèque de commandes en Python
+*   [PennyLane](../software/quantum/pennylane.md), bibliothèque de commandes en Python
+*   [Snowflurry](../software/quantum/snowflurry.md), bibliothèque de commandes en Julia
+*   [Qiskit](../software/quantum/qiskit.md), bibliothèque de commandes en Python
 
 Les portes logiques quantiques du processeur de MonarQ sont appelées par le biais d'une bibliothèque logicielle [Snowflurry](https://github.com/SnowflurrySDK/Snowflurry.jl), écrite en [Julia](https://julialang.org/). Bien que MonarQ soit nativement compatible avec Snowflurry, il existe un plugiciel [PennyLane-CalculQuébec](https://github.com/calculquebec/pennylane-snowflurry) développé par Calcul Québec permettant d'exécuter des circuits sur MonarQ tout en bénéficiant des fonctionnalités et de l'environnement de développement offerts par [PennyLane](https://docs.alliancecan.ca/wiki/PennyLane).
 
@@ -106,7 +106,7 @@ Les portes logiques quantiques du processeur de MonarQ sont appelées par le bia
 
 *   **Étape 1 : Connectez-vous à [Narval](narval.md)**
     *   MonarQ est uniquement accessible depuis Narval, une grappe de Calcul Québec. L’accès à Narval se fait à partir du nœud de connexion **narval.alliancecan.ca**.
-    *   Pour de l’aide concernant la connexion à Narval, consultez la page [SSH](ssh.md).
+    *   Pour de l’aide concernant la connexion à Narval, consultez la page [SSH](../getting-started/ssh.md).
 
 *   **Étape 2 : Créez l’environnement**
     *   Créez un environnement virtuel Python (3.11 ou ultérieur) pour utiliser PennyLane et le plugiciel [PennyLane-CalculQuébec](https://github.com/calculquebec/pennylane-snowflurry). Ces derniers sont déjà installés sur Narval et vous aurez uniquement à importer les bibliothèques logicielles que vous souhaitez.
@@ -173,7 +173,7 @@ Les portes logiques quantiques du processeur de MonarQ sont appelées par le bia
 
 *   Le résultat du circuit est écrit dans un fichier dont le nom commence par slurm-, suivi de l'ID de la tâche et du suffixe .out, par exemple *slurm-123456.out*.
 *   On retrouve dans ce fichier le résultat de notre circuit dans un dictionnaire `{'000': 496, '001': 0, '010': 0, '011': 0, '100': 0, '101': 0, '110': 0, '111': 504}`.
-*   Pour plus d’information sur comment soumettre des tâches sur Narval, voir [Exécuter des tâches](running_jobs.md).
+*   Pour plus d’information sur comment soumettre des tâches sur Narval, voir [Exécuter des tâches](../running-jobs/running_jobs.md).
 
 ## Questions courantes
 
@@ -181,7 +181,7 @@ Les portes logiques quantiques du processeur de MonarQ sont appelées par le bia
 
 ## Autres outils
 
-*   [Transpileur quantique](transpileur_quantique.md)
+*   [Transpileur quantique](../software/quantum/transpileur_quantique.md)
 
 ## Applications
 
