@@ -5,88 +5,88 @@ lang: "en"
 
 source_wiki_title: "PyTorch/en"
 source_hash: "f175697b200b25213ff814d7db83236b"
-last_synced: "2026-04-12T19:39:22.899801+00:00"
-last_processed: "2026-04-12T19:56:21.947600+00:00"
+last_synced: "2026-04-12T21:18:48.865179+00:00"
+last_processed: "2026-04-12T21:24:36.848323+00:00"
 
 tags:
   - software
   - ai-and-machine-learning
 
 keywords:
-  - "convolutions"
-  - "torch torchvision"
-  - "virtualenv"
-  - "LibTorch"
-  - "Benchmarks"
-  - "Distributed Training"
-  - "cmake"
-  - "torch/lib"
-  - "TensorFloat-32"
-  - "pytorch-lightning"
-  - "CPU"
-  - "DistributedDataParallel"
-  - "multiple GPUs"
-  - "TORCH_CUDA_ARCH_LIST"
-  - "Slurm"
-  - "CMake"
-  - "PyTorch Lightning"
-  - "pooling of resources"
-  - "single GPU"
-  - "ResNet-18"
-  - "Model Checkpoints"
-  - "nn.Conv2d"
-  - "batch_size"
-  - "model replicas"
-  - "R packages"
-  - "inter-op parallelism"
-  - "Job submission"
-  - "CUDA"
-  - "rTorch"
-  - "argparse"
-  - "CMAKE_PREFIX_PATH"
-  - "GPU acceleration"
-  - "nn.Module"
-  - "GPU utilization"
-  - "Multi-GPU training"
-  - "GPU performance"
-  - "matrix multiplications"
-  - "C++ extensions"
-  - "SLURM"
-  - "init_process_group"
   - "cifar10 classification"
+  - "torch/lib"
   - "intra-op parallelism"
-  - "nn.Linear"
-  - "transforms.Compose"
-  - "GPU capacity"
-  - "torchvision"
-  - "CrossEntropyLoss"
-  - "SBATCH"
-  - "Fully Sharded Data Parallelism"
+  - "inter-op parallelism"
   - "DataLoader"
-  - "forward"
-  - "TF32"
   - "Nvidia GPUs"
-  - "optim.SGD"
-  - "cpus-per-task"
-  - "parallelism"
-  - "learning rate"
-  - "batch size"
-  - "compute performance"
+  - "virtualenv"
+  - "Fully Sharded Data Parallelism"
+  - "CMAKE_PREFIX_PATH"
+  - "GPU performance"
+  - "torch torchvision"
+  - "CPU"
   - "python"
-  - "Pipeline Parallelism"
-  - "PyTorch"
-  - "NCCL"
-  - "CMAKE_SKIP_RPATH"
-  - "rank"
-  - "FSDP"
+  - "transforms.Compose"
   - "Single GPU"
-  - "Data Parallelism"
   - "Nvidia MPS"
-  - "sharded across devices"
-  - "Deep neural networks"
   - "CIFAR10"
-  - "GPU"
+  - "NCCL"
+  - "torchvision"
+  - "SLURM"
+  - "CMAKE_SKIP_RPATH"
+  - "DistributedDataParallel"
+  - "learning rate"
+  - "optim.SGD"
+  - "model replicas"
+  - "nn.Conv2d"
+  - "Multi-GPU training"
+  - "convolutions"
+  - "Job submission"
+  - "argparse"
+  - "batch size"
+  - "PyTorch Lightning"
+  - "nn.Module"
+  - "GPU acceleration"
   - "Tensor Parallelism"
+  - "sharded across devices"
+  - "cmake"
+  - "ResNet-18"
+  - "matrix multiplications"
+  - "TensorFloat-32"
+  - "parallelism"
+  - "TF32"
+  - "multiple GPUs"
+  - "single GPU"
+  - "Deep neural networks"
+  - "TORCH_CUDA_ARCH_LIST"
+  - "SBATCH"
+  - "FSDP"
+  - "init_process_group"
+  - "C++ extensions"
+  - "nn.Linear"
+  - "GPU utilization"
+  - "compute performance"
+  - "CUDA"
+  - "forward"
+  - "Model Checkpoints"
+  - "pooling of resources"
+  - "GPU"
+  - "CrossEntropyLoss"
+  - "LibTorch"
+  - "CMake"
+  - "Slurm"
+  - "Distributed Training"
+  - "Data Parallelism"
+  - "pytorch-lightning"
+  - "cpus-per-task"
+  - "rTorch"
+  - "PyTorch"
+  - "rank"
+  - "Benchmarks"
+  - "R packages"
+  - "Pipeline Parallelism"
+  - "GPU capacity"
+  - "batch_size"
 
 questions:
   - "How do you properly install PyTorch and its related packages within a virtual environment on the cluster?"
@@ -163,6 +163,7 @@ status:
 ---
 
 [PyTorch](http://pytorch.org/) is a Python package that provides two high-level features:
+
 *   Tensor computation (like NumPy) with strong GPU acceleration
 *   Deep neural networks built on a tape-based autograd system
 
@@ -189,7 +190,8 @@ For more information, see [Available wheels](python.md#available-wheels).
 ### Installing our wheel
 
 The preferred option is to install it using the Python [wheel](https://pythonwheels.com/) as follows:
-1.  Load a Python [module](../programming/utiliser_des_modules.md#sub-command_load), thus `module load python`
+
+1.  Load a Python [module](../programming/utiliser_des_modules.md#sub-command-load), thus `module load python`.
 2.  Create and start a [virtual environment](python.md#creating-and-using-a-virtual-environment).
 3.  Install PyTorch in the virtual environment with `pip install`.
 
@@ -212,9 +214,9 @@ In addition to `torch`, you can install `torchvision`, `torchtext` and `torchaud
 
 ## Job submission
 
-Here is an example of a job submission script using the Python wheel, with a virtual environment inside a job:
+Here is an example of a job submission script using the python wheel, with a virtual environment inside a job:
 
-```bash
+```bash title="pytorch-test.sh"
 #!/bin/bash
 #SBATCH --gres=gpu:1       # Request GPU "generic resources"
 #SBATCH --cpus-per-task=6  # Cores proportional to GPUs.
@@ -229,13 +231,12 @@ pip install torch --no-index
 
 python pytorch-test.py
 ```
-*pytorch-test.sh*
 
-See [Ratios in bundles](../running-jobs/allocations_and_compute_scheduling.md#ratios-in-bundles) for more information on the appropriate number of CPUs and Memory per GPU for each cluster.
+See [Ratios in bundles](../running-jobs/allocations_and_compute_scheduling.md#ratios-in-bundles) for more information on the appropriate number of CPUs and memory per GPU for each cluster.
 
 The Python script `pytorch-test.py` has the form
 
-```python
+```python title="pytorch-test.py"
 import torch
 x = torch.Tensor(5, 3)
 print(x)
@@ -247,7 +248,6 @@ if torch.cuda.is_available():
     y = y.cuda()
     print(x + y)
 ```
-*pytorch-test.py*
 
 You can then submit a PyTorch job with:
 
@@ -262,6 +262,7 @@ sbatch pytorch-test.sh
 On version 1.7.0 PyTorch has introduced support for [Nvidia's TensorFloat-32 (TF32) Mode](https://blogs.nvidia.com/blog/2020/05/14/tensorfloat-32-precision-format/), which in turn is available only on Ampere and later Nvidia GPU architectures. This mode of executing tensor operations has been shown to yield up to 20x speed-ups compared to equivalent single precision (FP32) operations and is enabled by default in PyTorch versions 1.7.x up to 1.11.x. However, such gains in performance come at the cost of potentially decreased accuracy in the results of operations, which may become problematic in cases such as when dealing with ill-conditioned matrices, or when performing long sequences of tensor operations as is common in deep learning models. Following calls from its user community, TF32 is now **disabled by default for matrix multiplications**, but still **enabled by default for convolutions** starting with PyTorch version 1.12.0.
 
 On clusters equipped with A100, H100, or newer Nvidia GPUs, users should be cognizant of the following:
+
 1.  You may notice a significant slowdown when running the exact same GPU-enabled code with `torch < 1.12.0` and `torch >= 1.12.0`.
 2.  You may get different results when running the exact same GPU-enabled code with `torch < 1.12.0` and `torch >= 1.12.0`.
 
@@ -277,14 +278,15 @@ For more information, see [PyTorch's official documentation](https://pytorch.org
 ### Running on CPU
 
 PyTorch natively supports parallelizing work across multiple CPUs in two ways: intra-op parallelism and inter-op parallelism.
-*   **intra-op** refers to PyTorch's parallel implementations of operators commonly used in Deep Learning, such as matrix multiplication and convolution, using [OpenMP](https://www.openmp.org) directly or through low-level libraries like [MKL](https://en.wikipedia.org/wiki/Math_Kernel_Library) and [OneDNN](https://www.intel.com/content/www/us/en/develop/documentation/oneapi-programming-guide/top/api-based-programming/intel-oneapi-deep-neural-network-library-onednn.html). Whenever you run PyTorch code that performs such operations, they will automatically leverage multi-threading over as many CPU cores as are available to your job.
-*   **inter-op** parallelism on the other hand refers to PyTorch's ability to execute different parts of your code concurrently. This modality of parallelism typically requires that you explicitly design your program such that different parts can run in parallel. Examples include code that leverages PyTorch's Just-In-Time compiler `torch.jit` to run asynchronous tasks in a [TorchScript](https://pytorch.org/docs/stable/jit.html#built-in-functions-and-modules) program.
+
+*   **Intra-op** refers to PyTorch's parallel implementations of operators commonly used in Deep Learning, such as matrix multiplication and convolution, using [OpenMP](https://www.openmp.org) directly or through low-level libraries like [MKL](https://en.wikipedia.org/wiki/Math_Kernel_Library) and [OneDNN](https://www.intel.com/content/www/us/en/develop/documentation/oneapi-programming-guide/top/api-based-programming/intel-oneapi-deep-neural-network-library-onednn.html). Whenever you run PyTorch code that performs such operations, they will automatically leverage multi-threading over as many CPU cores as are available to your job.
+*   **Inter-op** parallelism on the other hand refers to PyTorch's ability to execute different parts of your code concurrently. This modality of parallelism typically requires that you explicitly design your program such that different parts can run in parallel. Examples include code that leverages PyTorch's Just-In-Time compiler `torch.jit` to run asynchronous tasks in a [TorchScript](https://pytorch.org/docs/stable/jit.html#built-in-functions-and-modules) program.
 
 With small scale models, we strongly recommend using **multiple CPUs instead of using a GPU**. While training will almost certainly run faster on a GPU (except in cases where the model is very small), if your model and your dataset are not large enough, the speed up relative to CPU will likely not be very significant and your job will end up using only a small portion of the GPU's compute capabilities. This might not be an issue on your own workstation, but in a shared environment like our HPC clusters, this means you are unnecessarily blocking a resource that another user may need to run actual large scale computations! Furthermore, you would be unnecessarily using up your group's allocation and affecting the priority of your colleagues' jobs.
 
 The code example below contains many opportunities for intra-op parallelism.
 
-```python
+```python title="cifar10-cpu.py"
 import numpy as np
 import time
 
@@ -338,8 +340,8 @@ def main():
 
     transform_train = transforms.Compose([transforms.ToTensor(),transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
 
-    ### This next line will attempt to download the CIFAR10 dataset from the internet if you don't already have it stored in ./data 
-    ### Run this line on a login node with "download=True" prior to submitting your job, or manually download the data from 
+    ### This next line will attempt to download the CIFAR10 dataset from the internet if you don't already have it stored in ./data
+    ### Run this line on a login node with "download=True" prior to submitting your job, or manually download the data from
     ### https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz and place it under ./data
 
     dataset_train = CIFAR10(root='./data', train=True, download=False, transform=transform_train)
@@ -372,7 +374,6 @@ def main():
 if __name__=='__main__':
    main()
 ```
-*cifar10-cpu.py*
 
 To test the above code, you first need to download the data:
 
@@ -388,7 +389,7 @@ mkdir -p data && cd data
 
 By simply requesting more CPUs and without any code changes, we can observe the effect of PyTorch's native support for parallelism on performance:
 
-```bash
+```bash title="pytorch-multi-cpu.sh"
 #!/bin/bash
 #SBATCH --nodes 1
 #SBATCH --tasks-per-node=1
@@ -410,15 +411,15 @@ echo "starting training..."
 
 time python cifar10-cpu.py
 ```
-*pytorch-multi-cpu.sh*
 
 ### Running on GPU
 
 There is a common misconception that you should definitely use a GPU for model training if one is available. While this may *almost always* hold true (training very small models is often faster on one or more CPUs) on your own local workstation equipped with a GPU, it is not the case on our HPC clusters.
 
-Simply put, **you should not ask for a GPU** if your code is not capable of making a reasonable use of its compute capacity.
+Simply put, **you should not ask for a GPU** if your code is not capable of making reasonable use of its compute capacity.
 
 GPUs draw their performance advantage in Deep Learning tasks mainly from two sources:
+
 1.  Their ability to parallelize the execution of certain key numerical operations, such as [multiply-accumulate](https://en.wikipedia.org/wiki/Multiply–accumulate_operation), over many thousands of compute cores compared to the single-digit count of cores available in most common CPUs.
 2.  A much higher memory bandwidth than CPUs, which allows GPUs to efficiently use their massive number of cores to process much larger amounts of data per compute cycle.
 
@@ -433,7 +434,7 @@ Two takeaways emerge from this:
 
 Of course, `batch_size` is also an important parameter with respect to a model's performance on a given task (accuracy, error, etc.) and different schools of thought have different views on the impact of using large batches. This page will not go into this subject, but if you have reason to believe that a small (relative to space in GPU memory) batch size is best for your application, skip to [Single GPU Data Parallelism](#single-gpu-data-parallelism) to see how to maximize GPU utilization with small inputs.
 
-```bash
+```bash title="pytorch-single-gpu.sh"
 #!/bin/bash
 #SBATCH --nodes 1
 #SBATCH --gres=gpu:1 # request a GPU
@@ -452,9 +453,8 @@ pip install torch torchvision --no-index
 echo "starting training..."
 time python cifar10-gpu.py --batch_size=512 --num_workers=0
 ```
-*pytorch-single-gpu.sh*
 
-```python
+```python title="cifar10-gpu.py"
 import numpy as np
 import time
 
@@ -497,8 +497,8 @@ def main():
           x = self.pool(F.relu(self.conv2(x)))
           x = x.view(-1, 16 * 5 * 5)
           x = F.relu(self.fc1(x))
-          x = F.relu(F.relu(self.fc2(x)))
-          x = self.fc3(x)
+          x = F.relu(self.fc2(x))
+          x = F.relu(self.fc3(x))
           return x
 
     net = torch.compile(Net())
@@ -542,7 +542,6 @@ def main():
 if __name__=='__main__':
    main()
 ```
-*cifar10-gpu.py*
 
 ## Data Parallelism
 
@@ -560,7 +559,7 @@ There are several ways to perform Data Parallelism using PyTorch. This section f
 
 The **DistributedDataParallel** class is the way [recommended by PyTorch maintainers](https://pytorch.org/tutorials/intermediate/ddp_tutorial.html#comparison-between-dataparallel-and-distributeddataparallel) to use multiple GPUs, whether they are all on a single node, or distributed across multiple nodes.
 
-```bash
+```bash title="pytorch-ddp-test.sh"
 #!/bin/bash
 #SBATCH --nodes 1
 #SBATCH --gres=gpu:2          # Request 2 GPU "generic resources”.
@@ -588,11 +587,10 @@ source $SLURM_TMPDIR/env/bin/activate
 
 srun python pytorch-ddp-test.py --init_method tcp://$MASTER_ADDR:3456 --world_size $((SLURM_NTASKS_PER_NODE * SLURM_JOB_NUM_NODES))  --batch_size 256
 ```
-*pytorch-ddp-test.sh*
 
 The Python script `pytorch-ddp-test.py` has the form
 
-```python
+```python title="pytorch-ddp-test.py"
 import os
 import time
 import datetime
@@ -663,7 +661,7 @@ def main():
           x = x.view(-1, 16 * 5 * 5)
           x = F.relu(self.fc1(x))
           x = F.relu(self.fc2(x))
-          x = self.fc3(x)
+          x = F.relu(self.fc3(x))
           return x
 
     net = torch.compile(Net())
@@ -725,12 +723,12 @@ def train(epoch, net, criterion, optimizer, train_loader, train_rank):
 if __name__=='__main__':
    main()
 ```
-*pytorch-ddp-test.py*
 
 ### Using PyTorch Lightning
+
 **PyTorch Lightning** is a Python package that provides interfaces to PyTorch to make many common, but otherwise code-heavy tasks, more straightforward. This includes training on multiple GPUs. The following is the same tutorial from the section above, but using PyTorch Lightning instead of explicitly leveraging the DistributedDataParallel class:
 
-```bash
+```bash title="pytorch-ddp-test-pl.sh"
 #!/bin/bash
 #SBATCH --nodes 1
 #SBATCH --gres=gpu:2          # Request 2 GPU "generic resources”.
@@ -752,9 +750,8 @@ export TORCH_NCCL_ASYNC_HANDLING=1
 
 srun python pytorch-ddp-test-pl.py  --batch_size 256
 ```
-*pytorch-ddp-test-pl.sh*
 
-```python
+```python title="pytorch-ddp-test-pl.py"
 import datetime
 
 import torch
@@ -800,7 +797,7 @@ def main():
           x = x.view(-1, 16 * 5 * 5)
           x = F.relu(self.fc1(x))
           x = F.relu(self.fc2(x))
-          x = self.fc3(x)
+          x = F.relu(self.fc3(x))
           return x
 
        def training_step(self, batch, batch_idx):
@@ -834,7 +831,6 @@ def main():
 if __name__=='__main__':
    main()
 ```
-*pytorch-ddp-test-pl.py*
 
 ### Single GPU Data Parallelism
 
@@ -842,7 +838,7 @@ In cases where a model is fairly small, such that it does not take up a large po
 
 In the example that follows, we adapt the code from the previous section to run on a single GPU. This task is fairly small - with a batch size of 512 images, our model takes up about 1GB of GPU memory space, and it uses only about 6% of its compute capacity during training. This is a model that **should not** be trained on a GPU on our clusters. However, using Data Parallelism, we can fit several replicas of this model on a single GPU and increase our resource usage, while getting a nice speed-up. We use Nvidia's [Multi-Process Service (MPS)](https://docs.nvidia.com/deploy/mps/index.html), along with [MPI](mpi.md) to efficiently place multiple model replicas on one GPU:
 
-```bash
+```bash title="pytorch-gpu-mps.sh"
 #!/bin/bash
 #SBATCH --nodes 1
 #SBATCH --gres=gpu:1 # request a GPU
@@ -866,9 +862,8 @@ nvidia-cuda-mps-control -d
 echo "starting training..."
 time srun --cpus-per-task=$SLURM_CPUS_PER_TASK python cifar10-gpu-mps.py --batch_size=512 --num_workers=0
 ```
-*pytorch-gpu-mps.sh*
 
-```python
+```python title="cifar10-gpu-mps.py"
 import os
 import time
 import datetime
@@ -933,7 +928,7 @@ def main():
           x = x.view(-1, 16 * 5 * 5)
           x = F.relu(self.fc1(x))
           x = F.relu(self.fc2(x))
-          x = self.fc3(x)
+          x = F.relu(self.fc3(x))
           return x
 
     net = Net()
@@ -982,25 +977,28 @@ def main():
 if __name__=='__main__':
    main()
 ```
-*cifar10-gpu-mps.py*
 
 ## Fully Sharded Data Parallelism
+
 Similar to Deepspeed, Fully Sharded Data Parallelism ([FSDP](https://docs.pytorch.org/tutorials/intermediate/FSDP_tutorial.html)) enables distributed storage and computing of different elements of a training task - such as optimizer states, model weights, model gradients and model activations - across multiple devices, including GPU, CPU, local hard disk, and/or combinations of these devices. This "pooling" of resources, notably for storage, allows models with massive amounts of parameters to be trained efficiently, across multiple nodes.
 
 Note that, with FSDP, a model layer that gets sharded across devices may be collected inside a single device during a forward or backward pass. You should not use FSDP if your model has layers that do not fit entirely in the memory of a single GPU. See the section on [Tensor Parallelism](#tensor-parallelism) to see how to deal with this case.
 
 ## Tensor Parallelism
+
 Tensor Parallelism (TP) is a model sharding approach that differs from FSDP in that the computation of a forward or backward pass through a model layer is split along with the layers' weights across multiple devices. In other words, while FSDP shards model weights across devices, it must still collect shards together in the same device during certain computation steps. This introduces overhead from having to move model shards across devices, and it implies that individual FSDP layers, or sharded model blocks, must fit entirely in the memory of a single device. With TP on the other hand, computation steps are done locally in the device where a model shard is placed.
 
 ## Pipeline Parallelism
-Pipeline Parallelism (PP) is a model sharding approach where the shards are groups of consecutive of layers of a model. Each shard, or block of sequential layers, gets placed on a different device, thus a forward or backward pass through the model means performing computations on each device *in sequence*. This means that the farther away a block of layers is from the current block being used in a computation at any given time, the longer the device hosting it will have to wait for its turn to perform any computations. To mitigate this, in PP, every input batch is broken into *"micro-batches"*, which are fed to the model in sequence. This ensures all devices stay busy as the first micro-batch reaches the last model block.
+
+Pipeline Parallelism (PP) is a model sharding approach where the shards are groups of consecutive layers of a model. Each shard, or block of sequential layers, gets placed on a different device, thus a forward or backward pass through the model means performing computations on each device *in sequence*. This means that the farther away a block of layers is from the current block being used in a computation at any given time, the longer the device hosting it will have to wait for its turn to perform any computations. To mitigate this, in PP, every input batch is broken into *"micro-batches"*, which are fed to the model in sequence. This ensures all devices stay busy as the first micro-batch reaches the last model block.
 
 ## Creating model checkpoints
+
 Whether or not you expect your code to run for long time periods, it is a good habit to create Checkpoints during training. A checkpoint is a snapshot of your model at a given point during the training process (after a certain number of iterations or after a number of epochs) that is saved to disk and can be loaded at a later time. It is a handy way of breaking up jobs that are expected to run for a very long time, into multiple shorter jobs that may get allocated on the cluster more quickly. It is also a good way of avoiding losing progress in case of unexpected errors in your code or node failures.
 
 ### With PyTorch Lightning
 
-To create a checkpoint when training with `pytorch-lightning`, we recommend using the callbacks parameter of the `Trainer()` class. The following example shows how to instruct PyTorch to create a checkpoint at the end of every training epoch. Make sure the path where you want to create the checkpoint exists.
+To create a checkpoint when training with `pytorch-lightning`, we recommend using the `callbacks` parameter of the `Trainer()` class. The following example shows how to instruct PyTorch to create a checkpoint at the end of every training epoch. Make sure the path where you want to create the checkpoint exists.
 
 ```python
 callbacks = [pl.callbacks.ModelCheckpoint(dirpath="./ckpt",every_n_epochs=1)]
@@ -1036,7 +1034,7 @@ torch.load("./checkpoint_path", map_location=map_location))
 
 ### CUDA error: no kernel image is available for execution on the device
 
-This exception means that the current `torch` installation does not support the compute architecture or the device (GPU) used. Either update `torch` to a more recent version or request a different GPU compatible with the current version used.
+This exception means that the current torch installation does not support the compute architecture or the device (GPU) used. Either update `torch` to a more recent version or request a different GPU compatible with the current version used.
 
 ## LibTorch
 
@@ -1060,6 +1058,8 @@ Load the modules required by Libtorch, then install PyTorch in a Python virtual 
 
     ```bash
     $ ldd $VIRTUAL_ENV/lib/python3.11/site-packages/torch/lib/libtorch_cuda.so | sed -n 's&^.*/\(\(opencv\|abseil\|cusparselt\)/[^/]*\).*&\1&p' | sort -u
+    ```
+    ```text
     abseil/20230125.3
     cusparselt/0.5.0.1
     opencv/4.8.1
@@ -1077,7 +1077,7 @@ Load the modules required by Libtorch, then install PyTorch in a Python virtual 
 
 Create the following two files:
 
-```cpp
+```cpp title="example.cpp"
 #include <torch/torch.h>
 #include <iostream>
 
@@ -1094,9 +1094,8 @@ int main()
     std::cout << tensor << std::endl;
 }
 ```
-*example.cpp*
 
-```txt
+```text title="CMakeLists.txt"
 cmake_minimum_required(VERSION 3.0 FATAL_ERROR)
 project(example)
 
@@ -1106,7 +1105,6 @@ add_executable(example example.cpp)
 target_link_libraries(example "${TORCH_LIBRARIES}")
 set_property(TARGET example PROPERTY CXX_STANDARD 14)
 ```
-*CMakeLists.txt*
 
 With the python virtualenv activated, configure the project and compile the program:
 
@@ -1169,6 +1167,8 @@ In order to install `rTorch`, from a login node:
 6.  Run a quick CPU test
     ```bash
     R -e 'torch::torch_tensor(1)'
+    ```
+    ```text
     > torch::torch_tensor(1)
     torch_tensor
      1
@@ -1178,6 +1178,8 @@ In order to install `rTorch`, from a login node:
 7.  Run a quick GPU test
     ```bash
     srun --mem=3500M --gpus=h100_1g.10gb:1 -- R -e 'torch::torch_tensor(1)$cuda()'
+    ```
+    ```text
     > torch::torch_tensor(1)$cuda()
     torch_tensor
      1
@@ -1186,4 +1188,4 @@ In order to install `rTorch`, from a login node:
 
 ## Resources
 
-[https://pytorch.org/cppdocs/](https://pytorch.org/cppdocs/)
+<https://pytorch.org/cppdocs/>

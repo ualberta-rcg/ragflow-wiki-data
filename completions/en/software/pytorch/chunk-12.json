@@ -4,17 +4,17 @@
   "chunk_index": 12,
   "qa_pairs": [
     {
-      "question": "How can one configure PyTorch Lightning's `Trainer` for multi-GPU distributed data parallelism?",
-      "answer": "You can configure PyTorch Lightning's `Trainer` by setting `accelerator=\"gpu\"`, specifying `devices` (e.g., `devices=2`), `num_nodes` (e.g., `num_nodes=1`), and `strategy='ddp'`. It's also recommended to set `enable_progress_bar=False` to prevent issues from frequent log updates."
+      "question": "How does PyTorch Lightning simplify multi-GPU training compared to directly using `DistributedDataParallel`?",
+      "answer": "PyTorch Lightning streamlines multi-GPU training by abstracting away much of the boilerplate code. For instance, the provided example initializes a `pl.Trainer` with parameters like `accelerator=\"gpu\"`, `devices=2`, `num_nodes=1`, and `strategy='ddp'`, which automatically configures the distributed data parallel setup, whereas using `DistributedDataParallel` directly requires more explicit setup of process groups and environment variables."
     },
     {
-      "question": "In what specific scenario is it recommended to utilize Single GPU Data Parallelism, particularly for models that might otherwise be considered too small for a GPU?",
-      "answer": "Single GPU Data Parallelism is recommended when you have a relatively small model that doesn't fully occupy GPU memory or compute capacity, but you also have a very large dataset and prefer to train with a small batch size. This approach allows fitting multiple model replicas on a single GPU to increase resource utilization and achieve a speed-up."
+      "question": "When is it advisable to use Single GPU Data Parallelism on HPC clusters for training, especially for smaller models?",
+      "answer": "For smaller models that don't fully utilize a GPU's compute capacity or memory, it's generally not advisable to use a GPU on HPC clusters. However, Single GPU Data Parallelism becomes a viable option when you have such a model but need to train it with a very large dataset and a small batch size. This approach allows fitting multiple replicas of the model on a single GPU, thereby increasing resource utilization and achieving a speed-up."
     },
     {
-      "question": "What technologies are employed to enable multiple PyTorch model replicas to run efficiently on a single GPU for Data Parallelism?",
-      "answer": "To efficiently place multiple PyTorch model replicas on a single GPU for Data Parallelism, Nvidia's Multi-Process Service (MPS) is used in conjunction with MPI (Message Passing Interface)."
+      "question": "What technologies are employed to achieve Single GPU Data Parallelism by placing multiple model replicas on one GPU?",
+      "answer": "To efficiently place multiple model replicas on a single GPU for Single GPU Data Parallelism, the process utilizes Nvidia's Multi-Process Service (MPS) along with MPI (Message Passing Interface). MPS helps manage concurrent kernel execution on the GPU, while MPI facilitates communication and synchronization among the multiple model replicas."
     }
   ],
-  "generated_at": "2026-04-12T20:03:17.409094+00:00"
+  "generated_at": "2026-04-12T21:31:11.937193+00:00"
 }

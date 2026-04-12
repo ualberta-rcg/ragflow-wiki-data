@@ -4,17 +4,17 @@
   "chunk_index": 3,
   "qa_pairs": [
     {
-      "question": "What changes were made to the default TensorFloat-32 (TF32) settings in PyTorch version 1.12.0 and higher, and how can a user manually adjust them?",
-      "answer": "Starting with PyTorch version 1.12.0, TensorFloat-32 (TF32) is disabled by default for matrix multiplications but remains enabled by default for convolutions. Users on clusters with A100, H100, or newer Nvidia GPUs can manually enable or disable TF32 for these operations by setting `torch.backends.cuda.matmul.allow_tf32` and `torch.backends.cudnn.allow_tf32` to `True` or `False` accordingly."
+      "question": "What changes were introduced to TensorFloat-32 (TF32) mode in PyTorch versions 1.12.0 and higher, and how can users control its behaviour for GPU computations?",
+      "answer": "In PyTorch versions 1.12.0 and higher, TF32 mode is now disabled by default for matrix multiplications but remains enabled for convolutions on Ampere and newer Nvidia GPU architectures (like A100 or H100). This change may result in significant slowdowns or different results compared to earlier PyTorch versions. Users can control TF32 by setting `torch.backends.cuda.matmul.allow_tf32 = False` or `True` for matrix multiplications and `torch.backends.cudnn.allow_tf32 = False` or `True` for convolutions, as needed."
     },
     {
-      "question": "How does PyTorch support parallel processing on CPUs, and what is the difference between intra-op and inter-op parallelism?",
-      "answer": "PyTorch natively supports parallelizing work across multiple CPUs in two ways: intra-op parallelism and inter-op parallelism. Intra-op parallelism refers to PyTorch's parallel implementations of common Deep Learning operators like matrix multiplication, which automatically leverage multi-threading across available CPU cores. Inter-op parallelism, on the other hand, allows different parts of a user's code to execute concurrently, typically requiring explicit program design, such as using `torch.jit` for asynchronous TorchScript tasks."
+      "question": "How does PyTorch leverage multiple CPUs for parallel processing, distinguishing between intra-op and inter-op parallelism?",
+      "answer": "PyTorch supports parallel processing across multiple CPUs through two methods: intra-op parallelism and inter-op parallelism. Intra-op parallelism involves PyTorch's use of multi-threading for common deep learning operations like matrix multiplication and convolution, often leveraging libraries such as OpenMP, MKL, or OneDNN. Inter-op parallelism allows different parts of your code to execute concurrently, typically requiring explicit program design, such as using PyTorch's Just-In-Time compiler (`torch.jit`) for asynchronous tasks in a TorchScript program."
     },
     {
-      "question": "When is it recommended to use multiple CPUs instead of a GPU for PyTorch models on HPC clusters?",
-      "answer": "For small-scale PyTorch models where the model and dataset are not large enough, it is strongly recommended to use multiple CPUs instead of a GPU on HPC clusters. While GPUs might be faster for training, small models may not significantly benefit, leading to under-utilization of GPU compute capabilities. This approach conserves valuable GPU resources for other users who require them for larger computations and helps manage group allocation efficiently."
+      "question": "Why is it advisable to use multiple CPUs rather than a GPU for training small-scale PyTorch models on high-performance computing (HPC) clusters?",
+      "answer": "For small-scale models and datasets on HPC clusters, using multiple CPUs is strongly recommended over a GPU. While training might be faster on a GPU, if the model and dataset aren't large enough, the speedup relative to a CPU will likely be insignificant, leading to the GPU being underutilized. In a shared HPC environment, this means unnecessarily blocking a resource that another user might need for large-scale computations, consuming your group's allocation, and affecting the priority of colleagues' jobs."
     }
   ],
-  "generated_at": "2026-04-12T20:02:23.224565+00:00"
+  "generated_at": "2026-04-12T21:30:14.386433+00:00"
 }

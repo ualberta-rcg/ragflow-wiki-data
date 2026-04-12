@@ -15,6 +15,7 @@ Auto-generated index for `base/storage-and-data`.
 - [Data Management At Trillium](data_management_at_trillium.md)
 - [Data Protection  Privacy  And Confidentiality](data_protection__privacy__and_confidentiality.md)
 - [Diskusage Explorer](diskusage_explorer.md)
+- [Globus Command Line Interface](globus_command_line_interface.md)
 - [Handling Large Collections Of Files](handling_large_collections_of_files.md)
 - [Infrastructure For Research Data Management](infrastructure_for_research_data_management.md)
 - [Mpi Io](mpi-io.md)

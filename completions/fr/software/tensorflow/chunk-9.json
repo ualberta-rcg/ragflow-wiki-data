@@ -4,13 +4,13 @@
   "chunk_index": 9,
   "qa_pairs": [
     {
-      "question": "Pourquoi est-ce une bonne idée de créer des points de contrôle (checkpoints) quand on entraîne un modèle TensorFlow, pis comment on fait ça avec Keras?",
-      "answer": "Créer des points de contrôle, c'est super important pour ne pas perdre son avancement en cas d'erreurs inattendues ou de panne de matériel. Ça permet aussi de découper les longues tâches en plus petits morceaux, ce qui peut aider à l'allocation sur la grappe. Avec Keras, on utilise le paramètre `callbacks` de la méthode `model.fit()`, en spécifiant `tf.keras.callbacks.ModelCheckpoint` pour sauvegarder le modèle à des moments précis, comme à la fin de chaque époque."
+      "question": "Qu'est-ce qu'un point de contrôle lors de l'entraînement d'un modèle TensorFlow et pourquoi est-ce utile?",
+      "answer": "Un point de contrôle, c'est comme une photo de votre modèle à un moment précis de l'entraînement (par exemple, après un certain nombre d'itérations ou d'époques). C'est pratique parce que ça vous permet de ne pas perdre votre travail en cas de problèmes imprévus ou de panne de matériel, et ça peut aussi aider à diviser des tâches d'exécution longues en plus petites, ce qui peut faciliter leur allocation sur une grappe."
     },
     {
-      "question": "J'ai un message d'erreur qui dit \"Couldn't open CUDA library libcupti.so\". Qu'est-ce qui cause ça et quelle est la solution?",
-      "answer": "Cette erreur survient parce que la bibliothèque `libcupti.so`, nécessaire pour certaines fonctions de suivi de TensorFlow, n'est pas accessible. Pour la régler, il faut charger le bon module `cuda` (par exemple, `module load cuda/9.0.xxx`) et ensuite ajouter le chemin vers `CUDA_HOME/extras/CUPTI/lib64/` à la variable d'environnement `LD_LIBRARY_PATH` avant de lancer votre script."
+      "question": "Quelle est l'erreur fréquente que l'on peut rencontrer quand la bibliothèque scikit-image est utilisée avec TensorFlow, et comment peut-on la corriger?",
+      "answer": "Une erreur fréquente est 'OMP: Error #15: Initializing libiomp5.so, but found libiomp5.so already initialized.' qui survient quand TensorFlow essaie de charger une version d'OMP incompatible. Pour la contourner, il faut se placer dans le répertoire de votre environnement virtuel (ex: `cd tf_skimage_venv`) et exécuter les commandes suivantes : `export LIBIOMP_PATH=$(strace python -c 'from skimage.transform import AffineTransform' 2>&1 | grep -v ENOENT | grep -ohP -e '(?<=\")[^\"]+libiomp5.so(?=\")' | xargs realpath)` puis `find -path '*_solib_local*' -name libiomp5.so -exec ln -sf $LIBIOMP_PATH {} \\;`."
     }
   ],
-  "generated_at": "2026-04-12T20:06:51.899642+00:00"
+  "generated_at": "2026-04-12T21:35:26.242501+00:00"
 }

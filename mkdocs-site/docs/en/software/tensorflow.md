@@ -5,46 +5,46 @@ lang: "en"
 
 source_wiki_title: "TensorFlow/en"
 source_hash: "1f25547a27b0a0610ffef25bc95f70a6"
-last_synced: "2026-04-12T19:39:22.899801+00:00"
-last_processed: "2026-04-12T19:57:15.828330+00:00"
+last_synced: "2026-04-12T21:18:48.865179+00:00"
+last_processed: "2026-04-12T21:25:19.116062+00:00"
 
 tags:
   - software
   - ai-and-machine-learning
 
 keywords:
-  - "port 6006"
-  - "Slurm"
-  - "Machine Learning"
-  - "ssh"
-  - "cluster hostname"
-  - "long-running jobs"
-  - "Compute node"
-  - "tensorboard"
-  - "parallelism threads"
-  - "TensorBoard"
-  - "callbacks"
   - "tensorflow-multiworker"
-  - "Alliance cluster"
-  - "cuDNN"
-  - "ModelCheckpoint"
-  - "SLURM"
-  - "SBATCH"
-  - "multi-GPUs"
-  - "nodes"
+  - "parallelism threads"
   - "MirroredStrategy"
-  - "Keras"
-  - "TensorFlow"
-  - "Python virtual environment"
-  - "compute node"
-  - "checkpoint"
   - "libiomp5.so"
-  - "Model checkpoints"
+  - "Compute node"
+  - "compute node"
+  - "Machine Learning"
+  - "cuDNN"
+  - "port 6006"
+  - "ssh"
+  - "SLURM"
   - "Python"
+  - "checkpoint"
   - "MultiWorkerMirroredStrategy"
+  - "tensorboard"
+  - "Model checkpoints"
+  - "ModelCheckpoint"
+  - "SBATCH"
+  - "cluster hostname"
   - "CUDA"
-  - "Troubleshooting"
+  - "Python virtual environment"
+  - "callbacks"
+  - "nodes"
   - "GPU"
+  - "TensorFlow"
+  - "multi-GPUs"
+  - "Troubleshooting"
+  - "Alliance cluster"
+  - "TensorBoard"
+  - "Slurm"
+  - "long-running jobs"
+  - "Keras"
 
 questions:
   - "How do you install TensorFlow within a Python virtual environment on an Alliance cluster?"
@@ -92,33 +92,37 @@ If you are porting a TensorFlow program to an Alliance cluster, you should follo
 
 These instructions install TensorFlow in your `/home` directory using Alliance's prebuilt [Python wheels](http://pythonwheels.com/). Custom Python wheels are stored in `/cvmfs/soft.computecanada.ca/custom/python/wheelhouse/`. To install a TensorFlow wheel, we will use the `pip` command and install it into a [Python virtual environment](python.md#creating-and-using-a-virtual-environment).
 
-### TensorFlow 2.x
+=== "TF 2.x"
 
 Load modules required by TensorFlow. In some cases, other modules may be required (e.g. CUDA).
+
 ```bash
 module load python/3
 ```
 
 Create a new Python virtual environment.
+
 ```bash
 virtualenv --no-download tensorflow
 ```
 
 Activate your newly created Python virtual environment.
+
 ```bash
 source tensorflow/bin/activate
 ```
 
 Install TensorFlow in your newly created virtual environment using the following command.
+
 ```bash
 (tensorflow) [name@server ~]$ pip install --no-index tensorflow
 ```
 
-### TensorFlow 1.x
+=== "TF 1.x"
 
 Load modules required by TensorFlow. TF 1.x requires StdEnv/2018.
 
-!!! warning
+!!! note
     TF 1.x is not available on Narval, since StdEnv/2018 is not available on this cluster.
 
 ```bash
@@ -126,11 +130,13 @@ module load StdEnv/2018 python/3
 ```
 
 Create a new Python virtual environment.
+
 ```bash
 virtualenv --no-download tensorflow
 ```
 
 Activate your newly created Python virtual environment.
+
 ```bash
 source tensorflow/bin/activate
 ```
@@ -140,12 +146,14 @@ Install TensorFlow in your newly created virtual environment using one of the co
 !!! warning
     **Do not** install the `tensorflow` package (without the `_cpu` or `_gpu` suffixes) as it has compatibility issues with other libraries.
 
-#### CPU-only
+### CPU-only
+
 ```bash
 (tensorflow) [name@server ~]$ pip install --no-index tensorflow_cpu==1.15.0
 ```
 
-#### GPU
+### GPU
+
 ```bash
 (tensorflow) [name@server ~]$ pip install --no-index tensorflow_gpu==1.15.0
 ```
@@ -155,18 +163,25 @@ Install TensorFlow in your newly created virtual environment using one of the co
 To use TensorFlow in R, you will need to first follow the preceding instructions on creating a virtual environment and installing TensorFlow in it. Once this is done, follow these instructions.
 
 Load the required modules.
+
 ```bash
 module load gcc r
 ```
+
 Activate your Python virtual environment.
+
 ```bash
 source tensorflow/bin/activate
 ```
+
 Launch R.
+
 ```bash
 (tensorflow) [name@server ~]$ R
 ```
+
 In R, install package devtools, then tensorflow:
+
 ```r
 install.packages('devtools', repos='https://cloud.r-project.org')
 devtools::install_github('rstudio/tensorflow')
@@ -180,11 +195,15 @@ use_virtualenv(Sys.getenv('VIRTUAL_ENV'))
 ```
 
 ## Submitting a TensorFlow job with a GPU
+
 Once you have the above setup completed, you can submit a TensorFlow job.
+
 ```bash
 sbatch tensorflow-test.sh
 ```
+
 The job submission script contains
+
 ```bash title="tensorflow-test.sh"
 #!/bin/bash
 #SBATCH --gres=gpu:1        # request GPU "generic resource"
@@ -197,9 +216,11 @@ module load cuda cudnn
 source tensorflow/bin/activate
 python ./tensorflow-test.py
 ```
+
 while the Python script has the form
 
-### TensorFlow 2.x Example Script
+=== "TF 2.x"
+
 ```python title="tensorflow-test.py"
 import tensorflow as tf
 node1 = tf.constant(3.0)
@@ -208,7 +229,8 @@ print(node1, node2)
 print(node1 + node2)
 ```
 
-### TensorFlow 1.x Example Script
+=== "TF 1.x"
+
 ```python title="tensorflow-test.py"
 import tensorflow as tf
 node1 = tf.constant(3.0)
@@ -220,7 +242,8 @@ print(sess.run(node1 + node2))
 
 Once the job has completed (should take less than a minute), you should see an output file called something like `node_id-job_id.out` with contents similar to the following (the logged messages from TensorFlow are only examples, expect different messages and more messages):
 
-### TensorFlow 2.x Example Output
+=== "TF 2.x"
+
 ```text title="node_id-job_id.out"
 2017-07-10 12:35:19.491097: I tensorflow/core/common_runtime/gpu/gpu_device.cc:961] DMA: 0
 2017-07-10 12:35:19.491156: I tensorflow/core/common_runtime/gpu/gpu_device.cc:971] 0:   Y
@@ -229,7 +252,8 @@ tf.Tensor(3.0, shape=(), dtype=float32) tf.Tensor(4.0, shape=(), dtype=float32)
 tf.Tensor(7.0, shape=(), dtype=float32)
 ```
 
-### TensorFlow 1.x Example Output
+=== "TF 1.x"
+
 ```text title="node_id-job_id.out"
 2017-07-10 12:35:19.491097: I tensorflow/core/common_runtime/gpu/gpu_device.cc:961] DMA: 0
 2017-07-10 12:35:19.491156: I tensorflow/core/common_runtime/gpu/gpu_device.cc:971] 0:   Y
@@ -246,7 +270,7 @@ It is possible to connect to the node running a job and execute processes. This 
 
 ### TensorBoard
 
-TensorFlow comes with a suite of visualization tools called [TensorBoard](https://www.tensorflow.org/programmers_guide/summaries_and_tensorboard). TensorBoard operates by reading TensorFlow events and model files. To know how to create these files, read [TensorBoard tutorial on summaries](https://www.tensorflow.org/programmers_guide/summaries_and_tensorboard#serializing_the_data).
+TensorFlow comes with a suite of visualization tools called [TensorBoard](https://www.tensorflow.org/programmers_guide/summaries_and_tensorboard). TensorBoard operates by reading TensorFlow events and model files. To know how to create these files, read the [TensorBoard tutorial on summaries](https://www.tensorflow.org/programmers_guide/summaries_and_tensorboard#serializing_the_data).
 
 TensorBoard requires too much processing power to be run on a login node. Users are strongly encouraged to execute it in the same job as the TensorFlow process. To do so, launch TensorBoard in the background by calling it before your Python script, and appending an ampersand (`&`) to the call:
 
@@ -257,7 +281,7 @@ tensorboard --logdir=/tmp/your_log_dir --host 0.0.0.0 --load_fast false &
 python train.py  # example
 ```
 
-Once the job is running, to access TensorBoard with a web browser, you need to create a connection between your computer and the compute node running TensorFlow and TensorBoard. To do this you first need the hostname of the compute node running the TensorBoard server. Show the list of your jobs using the command `sq`; find the job, and note the value in the "NODELIST" column (this is the hostname).
+Once the job is running, to access TensorBoard with a web browser, you need to create a connection between your computer and the compute node running TensorFlow and TensorBoard. To do this, you first need the hostname of the compute node running the TensorBoard server. Show the list of your jobs using the command `sq`; find the job, and note the value in the "NODELIST" column (this is the hostname).
 
 To create the connection, use the following command on your local computer:
 
@@ -297,6 +321,7 @@ python tensorflow-singleworker.py
 ```
 
 The Python script `tensorflow-singleworker.py` has the form:
+
 ```python title="tensorflow-singleworker.py"
 import tensorflow as tf
 import numpy as np
@@ -377,6 +402,7 @@ srun launch_training.sh
 ```
 
 Where `config_env.sh` has the form:
+
 ```bash title="config_env.sh"
 #!/bin/bash
 
@@ -404,6 +430,7 @@ python tensorflow-multiworker.py
 ```
 
 And the Python script `tensorflow-multiworker.py` has the form:
+
 ```python title="tensorflow-multiworker.py"
 import tensorflow as tf
 import numpy as np
@@ -462,6 +489,7 @@ model.fit(dataset, epochs=2)
 ```
 
 ## Creating model checkpoints
+
 Whether or not you expect your code to run for long time periods, it is a good habit to create Checkpoints during training. A checkpoint is a snapshot of your model at a given point during the training process (after a certain number of iterations or after a number of epochs) that is saved to disk and can be loaded at a later time. It is a handy way of breaking jobs that are expected to run for a very long time, into multiple shorter jobs that may get allocated on the cluster more quickly. It is also a good way of avoiding losing progress in case of unexpected errors in your code or node failures.
 
 ### With Keras
@@ -488,11 +516,13 @@ If you are using the scikit-image library, you may get the following error:
 `OMP: Error #15: Initializing libiomp5.so, but found libiomp5.so already initialized.`
 
 This is because the TensorFlow library tries to load a bundled version of OMP which conflicts with the system version. The workaround is as follows:
+
 ```bash
 (tf_skimage_venv) name@server $ cd tf_skimage_venv
 (tf_skimage_venv) name@server $ export LIBIOMP_PATH=$(strace python -c 'from skimage.transform import AffineTransform' 2>&1 | grep -v ENOENT | grep -ohP -e '(?<=")[^"]+libiomp5.so(?=")' | xargs realpath)
 (tf_skimage_venv) name@server $ find -path '*_solib_local*' -name libiomp5.so -exec ln -sf $LIBIOMP_PATH {} \;
 ```
+
 This will patch the TensorFlow library installation to use the systemwide libiomp5.so.
 
 ### libcupti.so
@@ -502,10 +532,12 @@ Some tracing features of TensorFlow require libcupti.so to be available, and mig
 `I tensorflow/stream_executor/dso_loader.cc:142] Couldn't open CUDA library libcupti.so.9.0. LD_LIBRARY_PATH: /usr/local/cuda-9.0/lib64`
 
 The solution is to run the following before executing your script:
+
 ```bash
 module load cuda/9.0.xxx
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CUDA_HOME/extras/CUPTI/lib64/
 ```
+
 Where `xxx` is the appropriate CUDA version, which can be found using `module av cuda`.
 
 ### libiomp5.so invalid ELF header
@@ -514,10 +546,10 @@ Sometimes the `libiomp5.so` shared object file will be erroneously installed as 
 
 `/home/username/venv/lib/python3.6/site-packages/tensorflow/python/../../_solib_local/_U@mkl_Ulinux_S_S_Cmkl_Ulibs_Ulinux___Uexternal_Smkl_Ulinux_Slib/libiomp5.so: invalid ELF header`
 
-The workaround for such errors is to access the directory mentioned in the error (i.e. `[...]/\_U@mkl_Ulinux_S_S_Cmkl_Ulibs_Ulinux___Uexternal_Smkl_Ulinux_Slib`) and execute the following command:
+The workaround for such errors is to access the directory mentioned in the error (i.e. `[...]/_U@mkl_Ulinux_S_S_Cmkl_Ulibs_Ulinux___Uexternal_Smkl_Ulinux_Slib`) and execute the following command:
 
 ```bash
-[name@server ...Ulinux_Slib]$ ln -sf $(cat libiomp5.so) libiomp5.so
+[name@server ...Ulinux_Slib] $ ln -sf $(cat libiomp5.so) libiomp5.so
 ```
 
 This will replace the text file with the correct symbolic link.
@@ -532,4 +564,5 @@ tf.config.threading.set_intra_op_parallelism_threads(num_threads)
 ```
 
 ## Known issues
+
 A bug sneaked into the Keras implementation of TensorFlow after version 2.8.3. It affects the performance of the layers used for data augmentation with prefix *tf.keras.layers.Random* (like *tf.keras.layers.RandomRotation*, *tf.keras.layers.RandomTranslation*, etc). It significantly slows down the training process by more than 100 times. The bug is fixed in version 2.12.

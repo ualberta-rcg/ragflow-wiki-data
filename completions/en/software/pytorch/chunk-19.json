@@ -4,17 +4,17 @@
   "chunk_index": 19,
   "qa_pairs": [
     {
-      "question": "What does the error \"CUDA error: no kernel image is available for execution on the device\" signify, and how can it be resolved?",
-      "answer": "This error indicates that the current PyTorch (torch) installation does not support the compute architecture or the GPU device being used. To resolve it, you should either update your `torch` installation to a more recent version or request a different GPU that is compatible with your current PyTorch version."
+      "question": "What is LibTorch used for, and how does one set up the environment to use it on the clusters?",
+      "answer": "LibTorch is used for implementing C++ extensions to PyTorch and pure C++ machine learning applications; it includes all necessary headers, libraries, and CMake configuration files. To set up the environment, load the required modules (e.g., `StdEnv/2023`, `gcc`, `cuda/12.2`, `cmake`, `protobuf`, `cudnn`, `python/3.11`, `abseil`, `cusparselt`, `opencv/4.8.1`), create and activate a Python virtual environment, and then install `torch` and `numpy` using `pip install --no-index torch numpy`. Specific module versions for `abseil`, `cusparselt`, and `opencv` might need to be adjusted based on the PyTorch wheel version."
     },
     {
-      "question": "What is LibTorch used for in the context of PyTorch?",
-      "answer": "LibTorch is a component that allows developers to implement C++ extensions for PyTorch. It also enables the creation of pure C++ machine learning applications and includes all necessary headers, libraries, and CMake configuration files required to depend on PyTorch."
+      "question": "What causes the \"CUDA error: no kernel image is available for execution on the device\" when using PyTorch, and what are the recommended solutions?",
+      "answer": "This CUDA error indicates that your current PyTorch (`torch`) installation does not support the compute architecture or the specific GPU device you are trying to use. To resolve this issue, you should either update your `torch` package to a more recent version or request a different GPU that is compatible with your current `torch` installation."
     },
     {
-      "question": "What are the initial steps to set up the environment for using LibTorch on a system with StdEnv/2023?",
-      "answer": "To set up the environment for LibTorch using StdEnv/2023, you must first load specific modules such as `StdEnv/2023`, `gcc`, `cuda/12.2`, `cmake`, `protobuf`, `cudnn`, `python/3.11`, `abseil`, `cusparselt`, and `opencv/4.8.1`. Afterwards, create and activate a Python virtual environment, and then install `torch` and `numpy` using `pip install --no-index`."
+      "question": "What are the steps to install rTorch on a cluster?",
+      "answer": "To install rTorch, first load the necessary modules, such as `r/4.5`, `cuda/12.6`, and `cudnn`. Next, create your installation directory and set the `R_LIBS` environment variable. Then, install the latest `torch` package using `R -e 'install.packages(\"torch\", repos=\"https://cloud.r-project.org/\")'` and its dependencies with `R -e 'torch::install_torch()'`. Finally, patch the downloaded shared library (`liblantern.so`) by running `setrpaths.sh --path $R_LIBS/torch/lib/liblantern.so --add_path $EBROOTCUDACORE/lib --any_interpreter`."
     }
   ],
-  "generated_at": "2026-04-12T20:04:03.509536+00:00"
+  "generated_at": "2026-04-12T21:32:09.202920+00:00"
 }

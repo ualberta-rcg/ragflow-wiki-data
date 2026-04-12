@@ -4,17 +4,13 @@
   "chunk_index": 7,
   "qa_pairs": [
     {
-      "question": "How do `batch_size` and `num_workers` impact performance when running PyTorch on a single GPU?",
-      "answer": "When running PyTorch on a single GPU, `batch_size` affects performance by increasing the size of inputs at each iteration, which helps utilize more of the GPU's capacity. `num_workers` streamlines the movement of input data from the CPU to the GPU's memory, reducing idle time for the GPU. To optimize, users should increase `batch_size` to the maximum allowed by GPU memory and use as many `num_workers` as there are `cpus-per-task` to efficiently feed data to the GPU."
+      "question": "How is a PyTorch job submitted for single GPU training on an HPC cluster, and what are the two main parameters that influence performance in the associated Python script?",
+      "answer": "A PyTorch job for single GPU training is submitted using a SLURM script, such as `pytorch-single-gpu.sh`. This script requests one GPU, loads a Python module, creates a virtual environment, installs PyTorch, and then executes a Python training script (e.g., `cifar10-gpu.py`). The two main parameters influencing performance in the Python script are `batch_size` and `num_workers`. To optimize compute performance, `batch_size` should be increased as much as the GPU's memory allows. To streamline data feeding, `num_workers` in the `DataLoader` should match the `cpus-per-task` requested."
     },
     {
-      "question": "What is Data Parallelism in the context of PyTorch training, and what is its primary advantage?",
-      "answer": "Data Parallelism in PyTorch refers to training methods that use multiple replicas of a model in parallel. Each replica processes a different chunk of training data at each iteration, and then gradients are aggregated and parameters are updated. Its primary advantage is a significant speed-up, allowing iteration through large datasets approximately N times faster, where N is the number of model replicas."
-    },
-    {
-      "question": "What is an important consideration when applying Data Parallelism in PyTorch, especially with multiple GPUs?",
-      "answer": "An important consideration for Data Parallelism, particularly with multiple GPUs, is that the model being trained must be small enough to fit entirely within the memory of a single GPU. Additionally, users must scale either the learning rate or the desired batch size in proportion to the number of model replicas to achieve results equivalent to single-model training."
+      "question": "In PyTorch, what is Data Parallelism, and what crucial considerations are there for scaling and model size when utilizing this approach?",
+      "answer": "Data Parallelism in PyTorch involves training multiple replicas of a model concurrently, with each replica processing a distinct subset of the training data per iteration. This method can significantly accelerate training. A critical consideration is that to achieve training results equivalent to non-parallel training, the user must scale either the learning rate or the desired batch size in proportion to the number of replicas. Furthermore, when using multiple GPUs for Data Parallelism, the model must be compact enough to fit entirely within the memory of a single GPU."
     }
   ],
-  "generated_at": "2026-04-12T20:02:47.852344+00:00"
+  "generated_at": "2026-04-12T21:30:42.625801+00:00"
 }

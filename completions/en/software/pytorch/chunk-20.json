@@ -4,17 +4,13 @@
   "chunk_index": 20,
   "qa_pairs": [
     {
-      "question": "How does one compile a minimal LibTorch C++ example after configuring the project?",
-      "answer": "After configuring the project using `cmake -B build -S .` with the appropriate prefix paths and linker flags, the program can be compiled by executing `cmake --build build`."
+      "question": "How does one compile a minimal LibTorch C++ example project using `cmake` when working within the `StdEnv/2023` environment?",
+      "answer": "To compile a minimal LibTorch C++ example project with `StdEnv/2023`, you first configure it using the command: `cmake -B build -S . -DCMAKE_PREFIX_PATH=$VIRTUAL_ENV/lib/python3.11/site-packages -DCMAKE_EXE_LINKER_FLAGS=\"-Wl,-rpath=$VIRTUAL_ENV/lib/python3.11/site-packages/torch/lib,-L$EBROOTCUDA/extras/CUPTI/lib64\" -DCMAKE_SKIP_RPATH=ON -DTORCH_CUDA_ARCH_LIST=\"6.0;7.0;7.5;8.0;9.0\"`. After configuration, build the program by executing `cmake --build build`."
     },
     {
-      "question": "What is the role of `CMAKE_PREFIX_PATH` in the `cmake` command for compiling a LibTorch C++ example?",
-      "answer": "The `CMAKE_PREFIX_PATH` variable (e.g., `$VIRTUAL_ENV/lib/python3.11/site-packages`) directs `cmake` to the location of the PyTorch installation within the Python virtual environment, which is crucial for `find_package(Torch REQUIRED)` to locate LibTorch's libraries and headers."
-    },
-    {
-      "question": "For StdEnv/2023, why is `TORCH_CUDA_ARCH_LIST` used in the `cmake` configuration for a LibTorch C++ example?",
-      "answer": "In StdEnv/2023, `TORCH_CUDA_ARCH_LIST` (e.g., `\"6.0;7.0;7.5;8.0;9.0\"`) specifies the target CUDA compute architectures for which the LibTorch C++ example should be compiled. This ensures the compiled code is compatible with the GPUs available on the system."
+      "question": "What are the `cmake` commands required to compile a minimal LibTorch C++ example project in the `StdEnv/2020` environment?",
+      "answer": "For the `StdEnv/2020` environment, you configure the project with the command: `cmake -B build -S . -DCMAKE_PREFIX_PATH=$VIRTUAL_ENV/lib/python3.10/site-packages -DCMAKE_EXE_LINKER_FLAGS=\"-Wl,-rpath=$VIRTUAL_ENV/lib/python3.10/site-packages/torch/lib\" -DCMAKE_SKIP_RPATH=ON`. Following configuration, compile the program by running `cmake --build build`."
     }
   ],
-  "generated_at": "2026-04-12T20:04:11.474366+00:00"
+  "generated_at": "2026-04-12T21:32:19.801386+00:00"
 }

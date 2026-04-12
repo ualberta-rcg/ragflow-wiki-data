@@ -4,17 +4,13 @@
   "chunk_index": 5,
   "qa_pairs": [
     {
-      "question": "Comment j'fais pour accéder à TensorBoard depuis mon ordinateur local quand il roule sur une grappe distante?",
-      "answer": "Pour accéder à TensorBoard, tu dois d'abord trouver le *hostname* du nœud de calcul où il roule en utilisant la commande `sq`. Ensuite, sur ton ordinateur local, tu lances une commande SSH comme `ssh -N -f -L localhost:6006:computenode:6006 userid@cluster.computecanada.ca`, en remplaçant `computenode`, `userid` et `cluster` par les bonnes infos. Après avoir créé ce lien, tu peux y accéder via `http://localhost:6006` dans ton fureteur web."
+      "question": "Comment est-ce qu'on peut accéder à TensorBoard depuis notre ordinateur personnel quand il roule sur un nœud de calcul d'une grappe de l'Alliance?",
+      "answer": "Pour accéder à TensorBoard, faut d'abord trouver le nom d'hôte du nœud de calcul où il roule en utilisant la commande `sq`. Après ça, on ouvre une connexion SSH depuis notre ordinateur personnel en utilisant la commande `ssh -N -f -L localhost:6006:computenode:6006 userid@cluster.computecanada.ca`. Il faut remplacer `computenode` par le nom d'hôte, `userid` par notre nom d'utilisateur de l'Alliance, et `cluster` par le nom de la grappe (comme `rorqual`, `fir`, `nibi`). Une fois que c'est connecté, on peut ouvrir `http://localhost:6006` dans notre fureteur local."
     },
     {
-      "question": "Quelle API TensorFlow propose-t-il pour travailler avec plusieurs GPU?",
-      "answer": "TensorFlow offre l'API de haut niveau `tf.distribute` qui inclut différentes stratégies pour l'utilisation de plusieurs GPU."
-    },
-    {
-      "question": "Comment on fait pour utiliser la 'stratégie miroir' (`MirroredStrategy`) de TensorFlow pour un entraînement avec plusieurs GPU sur un seul nœud?",
-      "answer": "Pour utiliser la `MirroredStrategy` sur un nœud unique, ton script Python doit importer `tf.distribute.MirroredStrategy()` et ensuite envelopper la définition de ton modèle Keras dans un bloc `with strategy.scope():`. Ça permet de distribuer l'entraînement du modèle sur les GPU disponibles sur le nœud."
+      "question": "Quelle est la stratégie recommandée par TensorFlow pour utiliser plusieurs GPU sur un seul nœud de calcul, et comment la configure-t-on de base?",
+      "answer": "TensorFlow recommande d'utiliser l'API `tf.distribute`, et pour un seul nœud de calcul, la `MirroredStrategy` est suggérée. Pour la configurer, dans votre script Slurm, vous devez demander les GPU avec une ligne comme `#SBATCH --gres=gpu:4`. Dans le script Python, vous devez créer une instance de `tf.distribute.MirroredStrategy()` et exécuter votre modèle à l'intérieur de son `scope()` pour qu'il distribue la charge de travail entre les GPU disponibles sur ce nœud."
     }
   ],
-  "generated_at": "2026-04-12T20:06:19.807006+00:00"
+  "generated_at": "2026-04-12T21:34:51.376396+00:00"
 }

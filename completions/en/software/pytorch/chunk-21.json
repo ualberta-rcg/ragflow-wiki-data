@@ -4,17 +4,13 @@
   "chunk_index": 21,
   "qa_pairs": [
     {
-      "question": "How do I run a compiled LibTorch example?",
-      "answer": "After successfully compiling your LibTorch project, you can run the program by executing `./build/example` in your terminal."
+      "question": "What are the steps to install the rTorch package on a login node?",
+      "answer": "To install rTorch, first load the `r/4.5`, `cuda/12.6`, and `cudnn` modules. Then, create an R installation directory (e.g., `~/.local/R/$EBVERSIONR/`) and set the `R_LIBS` environment variable. Next, install the `torch` package by running `R -e 'install.packages(\"torch\", repos=\"https://cloud.r-project.org/\")'`, followed by installing its dependencies using `torch::install_torch()`. Finally, patch the downloaded `liblantern.so` shared library by executing `setrpaths.sh --path $R_LIBS/torch/lib/liblantern.so --add_path $EBROOTCUDACORE/lib --any_interpreter`."
     },
     {
-      "question": "What is required to test a LibTorch application with CUDA on a GPU?",
-      "answer": "To test a LibTorch application with CUDA, you need to request an interactive job that includes a GPU on the cluster."
-    },
-    {
-      "question": "What are the main steps for installing rTorch from a login node?",
-      "answer": "To install rTorch, first load the necessary modules (r/4.5, cuda/12.6, cudnn), then create and set your R installation directory using `R_LIBS`. Next, install the 'torch' package and its dependencies, and finally, patch the `liblantern.so` shared library using `setrpaths.sh`."
+      "question": "How can I test if rTorch is correctly installed for both CPU and GPU usage?",
+      "answer": "To perform a quick CPU test, run `R -e 'torch::torch_tensor(1)'` from your terminal. For a GPU test, you must request an interactive job with a GPU. An example command for a GPU test is `srun --mem=3500M --gpus=h100_1g.10gb:1 -- R -e 'torch::torch_tensor(1)$cuda()'`. If successful, the output should indicate the tensor is on the CUDA device."
     }
   ],
-  "generated_at": "2026-04-12T20:04:16.312813+00:00"
+  "generated_at": "2026-04-12T21:32:27.312353+00:00"
 }

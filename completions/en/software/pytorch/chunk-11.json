@@ -4,17 +4,13 @@
   "chunk_index": 11,
   "qa_pairs": [
     {
-      "question": "How is `DistributedDataParallel` implemented for multi-GPU training in the provided PyTorch code example?",
-      "answer": "In the PyTorch code example, the `Net` model is first compiled with `torch.compile(Net())`, moved to a CUDA device using `net.cuda()`, and then wrapped with `torch.nn.parallel.DistributedDataParallel(net, device_ids=[current_device])`. This setup enables distributed training where each GPU runs a replica of the model, processing its own portion of the data."
+      "question": "What is PyTorch Lightning, and what benefit does it offer for PyTorch users performing complex tasks like multi-GPU training?",
+      "answer": "PyTorch Lightning is a Python package designed to simplify common, code-heavy tasks in PyTorch. For multi-GPU training specifically, it provides more straightforward interfaces, making the process less complex than explicitly leveraging classes like DistributedDataParallel."
     },
     {
-      "question": "What is PyTorch Lightning and how does it simplify multi-GPU training compared to using `DistributedDataParallel` directly?",
-      "answer": "PyTorch Lightning is a Python package that offers high-level interfaces to PyTorch, making common machine learning tasks, including multi-GPU training, more straightforward. It simplifies the process by abstracting away many code-heavy tasks, meaning users don't explicitly need to leverage classes like `DistributedDataParallel` themselves; PyTorch Lightning's `Trainer` class handles these functionalities."
-    },
-    {
-      "question": "What is a key consideration when setting up a `DataLoader` for distributed training with `DistributedDataParallel`?",
-      "answer": "When setting up a `DataLoader` for distributed training with `DistributedDataParallel`, it's crucial to use `torch.utils.data.distributed.DistributedSampler` for the dataset. This ensures that each process receives a unique subset of the training data, preventing data overlap between model replicas."
+      "question": "When submitting a multi-GPU training job using PyTorch Lightning on a cluster, what are the essential setup steps required within the SLURM batch script?",
+      "answer": "When submitting a multi-GPU job with PyTorch Lightning on a cluster, the SLURM batch script must include loading the Python module, creating and activating a Python virtual environment, and installing `torchvision` and `pytorch-lightning`. Additionally, `export TORCH_NCCL_ASYNC_HANDLING=1` should be set, and the script expects one task to be requested per GPU, which should be launched using `srun`."
     }
   ],
-  "generated_at": "2026-04-12T20:03:10.130024+00:00"
+  "generated_at": "2026-04-12T21:31:06.336282+00:00"
 }

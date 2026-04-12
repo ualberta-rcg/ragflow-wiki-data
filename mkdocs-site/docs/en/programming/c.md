@@ -5,26 +5,23 @@ lang: "en"
 
 source_wiki_title: "C/en"
 source_hash: "46d8b54c83430b1e8da81990ec6837c7"
-last_synced: "2026-04-10T15:28:10.183781+00:00"
-last_processed: "2026-04-11T05:53:51.149043+00:00"
+last_synced: "2026-04-12T21:18:48.865179+00:00"
+last_processed: "2026-04-12T21:22:57.492540+00:00"
 
 tags:
   []
 
 keywords:
-  - "compiler optimizations"
+  - "volatile keyword"
   - "C programming language"
   - "ISO standards"
-  - "volatile keyword"
   - "concurrency and memory models"
+  - "compilers"
 
 questions:
-  - "What are the major ISO standard revisions of the C programming language, and what key features did the C11 standard introduce?"
-  - "How does the meaning of the `volatile` keyword in C differ from its usage in the Java programming language?"
-  - "What potential risks are associated with optimization flags in GCC and Intel compilers, and how can developers mitigate them?"
-  - "What are the major ISO standard revisions of the C programming language, and what key features did the C11 standard introduce?"
-  - "How does the meaning of the `volatile` keyword in C differ from its usage in the Java programming language?"
-  - "What potential risks are associated with optimization flags in GCC and Intel compilers, and how can developers mitigate them?"
+  - "How did the introduction of the C11 standard impact the handling of concurrency and memory models compared to previous versions of C?"
+  - "Why might a programmer familiar with Java misuse the `volatile` keyword in C, and what is the correct C equivalent for Java's implementation?"
+  - "What potential risks are associated with certain compiler optimizations in GCC and Intel compilers, and how can developers mitigate them?"
 
 status:
   downloaded: true
@@ -47,16 +44,20 @@ Should you have a need to refer to the actual ISO standard document for C, you c
 
 ## Well-Defined Concurrency and Memory Models
 
-Prior to 2011 the ISO C standard had no definitions of concurrency and memory models, thus, in pre-C11 compiled code there are no guarantees concerning the ordering of memory reads and writes under concurrency, i.e., such is likely undefined behaviour which the compiler vendor may or may not have documented. It is therefore preferable to compile concurrent C code as C11 code (or newer).
+!!! warning
+    Prior to 2011 the ISO C standard had no definitions of concurrency and memory models. Thus, in pre-C11 compiled code there are no guarantees concerning the ordering of memory reads and writes under concurrency, i.e., such is likely undefined behaviour which the compiler vendor may or may not have documented. It is therefore preferable to compile concurrent C code as C11 code (or newer).
 
 ## Pitfalls
+
 ### The `volatile` Keyword
 
-The reader should note that `volatile` in C and C++ has a very specific meaning, e.g., see [this page](http://en.cppreference.com/w/cpp/language/cv). Actually needing to use `volatile` in C/C++ code is a rare event and it is typically limited to certain kinds of low-level code.
+!!! note
+    The reader should note that `volatile` in C and C++ has a very specific meaning, e.g., see [this page](http://en.cppreference.com/w/cpp/language/cv). Actually needing to use `volatile` in C/C++ code is a rare event and it is typically limited to certain kinds of low-level code.
 
-Misuse of `volatile` might arise because the Java programming language uses the `volatile` keyword as well. Java's `volatile` has a totally different meaning from C's `volatile`. Specifically, Java's `volatile` keyword in C corresponds to using `atomic_*` (i.e., where '*' corresponds to a fundamental type name such as `int`).
+    Misuse of `volatile` might arise because the Java programming language uses the `volatile` keyword as well. Java's `volatile` has a totally different meaning from C's `volatile`. Specifically, Java's `volatile` keyword in C corresponds to using `atomic_*` (i.e., where '*' corresponds to a fundamental type name such as `int`).
 
 ### Compilers
+
 #### GCC
 
 !!! warning

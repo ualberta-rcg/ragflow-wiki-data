@@ -4,17 +4,17 @@
   "chunk_index": 16,
   "qa_pairs": [
     {
-      "question": "How does Tensor Parallelism (TP) differ from Fully Sharded Data Parallelism (FSDP)?",
-      "answer": "Tensor Parallelism (TP) is a model sharding approach where the computation of a model layer's forward or backward pass is split, along with the layers' weights, across multiple devices. Computation steps are then performed locally on the device where each model shard is placed. This differs from FSDP, which shards model weights but may still collect these shards on a single device during certain computation steps, implying that individual FSDP layers must fit entirely within a single device's memory."
+      "question": "What is Tensor Parallelism (TP) in PyTorch, and how does its approach to sharding model layers differ from Fully Sharded Data Parallelism (FSDP)?",
+      "answer": "Tensor Parallelism (TP) is a model sharding method where the computation of a forward or backward pass through a model layer is split across multiple devices, along with the layer's weights. This differs from Fully Sharded Data Parallelism (FSDP) because TP performs computation steps locally on the device where a model shard is placed, meaning individual FSDP layers or sharded model blocks must fit entirely in the memory of a single device, while TP avoids this constraint."
     },
     {
-      "question": "What is Pipeline Parallelism, and how does it keep devices busy?",
-      "answer": "Pipeline Parallelism (PP) is a model sharding approach where groups of consecutive layers of a model are placed on different devices. A forward or backward pass then involves sequential computations on each device. To mitigate devices sitting idle while waiting for their turn, PP breaks each input batch into \"micro-batches,\" which are fed to the model in sequence. This ensures all devices remain busy as the first micro-batch reaches the final model block."
+      "question": "What is Pipeline Parallelism (PP) in PyTorch, and how does the use of \"micro-batches\" help optimize its performance?",
+      "answer": "Pipeline Parallelism (PP) is a model sharding approach where groups of consecutive layers of a model are placed on different devices, meaning computations are performed in sequence across these devices. To mitigate the idle time of devices waiting for their turn, PP breaks each input batch into \"micro-batches,\" which are fed to the model sequentially, ensuring all devices remain active as the first micro-batch progresses through the model blocks."
     },
     {
-      "question": "Why are model checkpoints important during training, especially in distributed environments?",
-      "answer": "Model checkpoints are crucial as they create snapshots of your model at various points during training. This allows you to break long-running jobs into shorter ones, potentially improving job allocation speed, and prevents loss of progress due to unexpected errors or node failures. In distributed training, only one process (e.g., rank 0) should perform checkpointing, as all ranks share the same model state. When loading, it's vital to use `torch.distributed.barrier()` to ensure the checkpoint is fully saved before other processes attempt to load it, and to specify `map_location` in `torch.load` to direct tensors to the correct GPU for each rank."
+      "question": "When performing checkpointing during a distributed PyTorch training program using DistributedDataParallel or Horovod, what is the recommended procedure for saving and loading checkpoints to avoid issues?",
+      "answer": "During distributed training with DistributedDataParallel or Horovod, it's recommended that only one process (e.g., `global_rank == 0`) saves the checkpoint, as all ranks will have the same state. To avoid errors or incorrect results when loading, a `torch.distributed.barrier()` should be used to ensure the checkpoint is fully written to disk before other processes attempt to load it, and `map_location=f\"cuda:{local_rank}\"` should be passed to `torch.load` to ensure tensors are loaded onto the correct GPU for each rank."
     }
   ],
-  "generated_at": "2026-04-12T20:03:44.582867+00:00"
+  "generated_at": "2026-04-12T21:31:42.878441+00:00"
 }

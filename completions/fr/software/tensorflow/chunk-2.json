@@ -4,17 +4,17 @@
   "chunk_index": 2,
   "qa_pairs": [
     {
-      "question": "À quoi sert le script `tensorflow-test.sh` quand on veut soumettre une tâche TensorFlow avec un GPU?",
-      "answer": "Le script `tensorflow-test.sh` est utilisé pour soumettre une tâche TensorFlow avec un GPU. Il s'occupe de charger les modules requis comme `cuda` et `cudnn`, d'activer l'environnement virtuel TensorFlow, puis d'exécuter le script Python de test."
+      "question": "Comment peut-on faire le suivi des ressources utilisées par TensorFlow et visualiser l'entraînement sur les grappes de calcul de l'Alliance?",
+      "answer": "On peut se connecter à un nœud où une tâche TensorFlow est en cours pour y exécuter des processus. Ceci permet de surveiller les ressources utilisées par TensorFlow et de visualiser le déroulement de l'entraînement. Des exemples sont disponibles dans la section \"Surveillance d'une tâche en cours\" du document."
     },
     {
-      "question": "Quel genre de fichier est généré une fois qu'une tâche TensorFlow est finie, et qu'est-ce qu'il contient?",
-      "answer": "Une fois la tâche finie, un fichier de sortie nommé `node_id-job_id.out` est généré. Ce fichier contient les messages de TensorFlow, incluant des détails sur la création du périphérique GPU et le résultat du script Python, comme la somme de deux constantes dans les exemples fournis."
+      "question": "Qu'est-ce que TensorBoard et où devrait-on l'exécuter sur les grappes de calcul de l'Alliance?",
+      "answer": "TensorBoard est une suite d'outils de visualisation fournie par TensorFlow qui sert à lire les événements et à modéliser les fichiers. Il ne devrait pas être exécuté sur un nœud de connexion à cause de ses exigences en puissance de calcul. Il est plutôt recommandé de le lancer dans la même tâche que le processus TensorFlow."
     },
     {
-      "question": "C'est quoi TensorBoard et pourquoi est-ce qu'on devrait l'exécuter avec la tâche TensorFlow plutôt que sur un nœud de connexion?",
-      "answer": "TensorBoard, c'est une suite d'outils de visualisation offerte par TensorFlow qui permet de lire les événements et de modéliser les fichiers. On devrait l'exécuter dans la même tâche que le processus TensorFlow, en arrière-plan, et non sur un nœud de connexion, parce qu'il demande trop de puissance de calcul pour un nœud de connexion."
+      "question": "Quelle est la procédure pour lancer TensorBoard en arrière-plan dans une tâche TensorFlow et comment y accède-t-on à partir de son ordinateur local?",
+      "answer": "Pour lancer TensorBoard en arrière-plan, ajoutez la commande `tensorboard --logdir=/tmp/your_log_dir --host 0.0.0.0 --load_fast false &` avant votre script Python dans votre tâche. Pour y accéder depuis un ordinateur local, il faut créer un tunnel SSH en utilisant la commande `ssh -N -f -L localhost:6006:computenode:6006 userid@cluster.computecanada.ca` (remplacez `computenode`, `userid` et `cluster` par les informations pertinentes), puis naviguer vers `http://localhost:6006` dans votre fureteur."
     }
   ],
-  "generated_at": "2026-04-12T20:06:06.510070+00:00"
+  "generated_at": "2026-04-12T21:34:32.446017+00:00"
 }
