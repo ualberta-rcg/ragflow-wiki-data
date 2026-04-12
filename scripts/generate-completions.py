@@ -99,7 +99,7 @@ Requirements:
 - "question" must be a single string (natural user question).
 - "answer" must be a single string that can be answered from the chunk (with page context if needed).
 - Do not include any text outside of the JSON block.
-- Create as many questions and answers as you can with the given information.
+- Generate **2-3 high-quality Q&A pairs maximum** — focus on the most important concepts in the chunk.
 
 Document (context):
 {page_text}
@@ -162,6 +162,7 @@ Requirements:
 - "question" must be a single string (natural user question).
 - "answer" must be a concise string answerable from the document.
 - Cover the document broadly: purpose, key concepts, prerequisites, common tasks.
+- Generate **5-10 Q&A pairs** that capture the most important aspects of the page.
 - Do not include any text outside of the JSON block.
 
 Document:
